@@ -1,7 +1,15 @@
 import { useContext, useEffect, useState } from "react";
-import { Info } from "lucide-react";
+import { Database, Info, Target, Wrench } from "lucide-react";
 import { Logo } from "@/layout/header/Logo";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { ThemeContext } from "@/theme/ThemeContext";
 import { themeDark, themeLight } from "@/theme/utils";
 import { Chat } from "./app/Chat";
@@ -89,19 +97,47 @@ export const App = ({
             ref={setActionSlot}
             className="flex items-center gap-2 empty:hidden"
           />
-          <Button
-            variant={view === "tools" ? "default" : "ghost"}
-            size="icon"
-            onClick={() => navigate(view === "tools" ? "chat" : "tools")}
-            aria-label={t("Инструменти и данни", "Tools & data")}
-            aria-pressed={view === "tools"}
-            title={t(
-              "Инструменти и данни — какво може да отговори асистентът",
-              "Tools & data — what the assistant can answer",
-            )}
-          >
-            <Info />
-          </Button>
+          {/* "About the assistant" menu: one entry point to the meta pages —
+              the Tools & data reference (/tools, an in-app view) and the model
+              Accuracy benchmark (/evals, a standalone page). Replaces the old
+              chat↔tools toggle here and the "models" footer link. */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant={view === "tools" ? "default" : "ghost"}
+                size="icon"
+                aria-label={t("За асистента", "About the assistant")}
+                title={t(
+                  "За асистента — инструменти, данни и точност",
+                  "About the assistant — tools, data and accuracy",
+                )}
+              >
+                <Info />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-60">
+              <DropdownMenuLabel>
+                {t("За асистента", "About the assistant")}
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onSelect={() => navigate("tools")}>
+                <Wrench />
+                {t("Инструменти", "Tools")}
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href="/evals">
+                  <Target />
+                  {t("Точност на моделите", "Models accuracy")}
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href="https://electionsbg.com/data">
+                  <Database />
+                  {t("Данни", "Data")}
+                </a>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <Button
             variant="outline"
             size="sm"
@@ -147,7 +183,6 @@ export const App = ({
           {[
             ["https://electionsbg.com", "electionsbg.com"],
             ["https://electionsbg.com/about", t("за нас", "about")],
-            ["/evals", t("модели", "models")],
             [
               "https://github.com/atanasster/electionsbg",
               t("отворен код", "open source"),
