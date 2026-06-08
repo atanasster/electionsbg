@@ -21,8 +21,6 @@ export const CandidateTopSettlementsTile: FC<Props> = ({ data, linkSlug }) => {
     const sorted = [...data.topSettlements]
       .sort((a, b) => b.totalVotes - a.totalVotes)
       .slice(0, TOP_N);
-    const maxVotes = sorted[0]?.totalVotes ?? 1;
-    const color = data.partyColor ?? "#888";
     return sorted.map((r) => {
       const info = findSettlement(r.ekatte);
       const name =
@@ -48,8 +46,6 @@ export const CandidateTopSettlementsTile: FC<Props> = ({ data, linkSlug }) => {
         pctOfPartyPrefs,
         pctOfSettlement,
         deltaVotes,
-        barPct: (r.totalVotes / maxVotes) * 100,
-        color,
       };
     });
   }, [data, findSettlement, i18n.language]);
@@ -81,15 +77,12 @@ export const CandidateTopSettlementsTile: FC<Props> = ({ data, linkSlug }) => {
       }
       className="overflow-hidden"
     >
-      <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(80px,1.5fr)_auto_auto_auto] gap-x-3 gap-y-1.5 items-center mt-1 text-sm">
+      <div className="grid grid-cols-[minmax(64px,1fr)_auto_auto_auto_auto] gap-x-2 sm:gap-x-3 gap-y-1.5 items-center mt-1 text-sm">
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
-          {t("settlement")}
+          {t("dashboard_col_place_short")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          {t("preferences")}
-        </span>
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
-          {t("dashboard_share")}
+          {t("dashboard_col_preferences_short")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           {t("dashboard_pct_of_party")}
@@ -111,15 +104,6 @@ export const CandidateTopSettlementsTile: FC<Props> = ({ data, linkSlug }) => {
             <span className="tabular-nums text-xs text-muted-foreground text-right">
               {formatThousands(r.totalVotes)}
             </span>
-            <div className="h-2 rounded-full bg-muted overflow-hidden">
-              <div
-                className="h-full rounded-full"
-                style={{
-                  width: `${Math.max(2, r.barPct)}%`,
-                  backgroundColor: r.color,
-                }}
-              />
-            </div>
             <span className="tabular-nums text-xs font-semibold text-right">
               {r.pctOfPartyPrefs !== undefined
                 ? formatPct(r.pctOfPartyPrefs, 2)
