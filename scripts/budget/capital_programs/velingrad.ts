@@ -11,6 +11,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { BGN_PER_EUR } from "../../../src/lib/currency";
+import { restoreAcronyms } from "../../lib/normalize_name";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -149,7 +150,9 @@ const main = () => {
 
   const projects: VelingradCapitalProject[] = ocr.projects.map((p, i) => ({
     id: i + 1,
-    name: p.description.trim(),
+    // Gemini OCR title-cases acronyms it doesn't recognise (ЦНСТПЛУИ→
+    // Цнстплуи, ПСОВ→Псов) — restore them.
+    name: restoreAcronyms(p.description.trim()),
     settlement: extractSettlement(p.description),
     total: bgnToMoney(p.amount),
   }));

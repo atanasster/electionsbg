@@ -35,6 +35,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import * as XLSX from "xlsx";
 import { BGN_PER_EUR } from "../../../src/lib/currency";
+import { restoreAcronyms } from "../../lib/normalize_name";
 import { SOFIA_RAYONS, lookupRayonCode } from "./sofia_rayons";
 import type {
   SofiaCapitalProgramFile,
@@ -160,7 +161,8 @@ const parse = (
       const activityLabel = `Дейност ${colA}`;
       projects.push({
         id: projectId,
-        name: colB.replace(/\s+/g, " ").trim(),
+        // Source XLSX title-cases acronyms (УПИ→Упи, ПСОВ→Псов) — restore.
+        name: restoreAcronyms(colB.replace(/\s+/g, " ").trim()),
         paragraph: currentParagraph,
         functionLabel: currentFunction,
         activityLabel,

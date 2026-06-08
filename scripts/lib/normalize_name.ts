@@ -570,3 +570,85 @@ export const sentenceCaseLabel = (label: string): string => {
   if (!m) return normaliseOrgName(label);
   return `${m[1]} ${normaliseOrgName(m[2])}`;
 };
+
+// Bulgarian institutional / technical acronyms that an upstream OCR or
+// extraction step (Gemini Vision, some CMS XLSX exports) routinely
+// title-cases because it doesn't recognise them — "ГПЧЕ" → "Гпче",
+// "МБАЛ" → "Мбал". Unlike the all-caps inputs `normaliseOrgName` handles,
+// these arrive ALREADY title-cased (so the normaliser leaves them alone),
+// which is why a dedicated restore pass exists. The set is curated to 3+
+// letter tokens that never collide with a real Bulgarian word; the ЦНСТ* /
+// СБАЛ* families have variable suffixes (ЦНСТДБУ, ЦНСТПЛУИ, СБАЛОЗ) so they
+// are prefix-matched.
+const RESTORE_ACRONYMS = new Set<string>([
+  // 3+ letter institutional / technical acronyms (no real Bulgarian word
+  // collides with any of these as a whole token, in any case).
+  "ГПЧЕ",
+  "МБАЛ",
+  "УМБАЛ",
+  "ДКЦ",
+  "ЦСМП",
+  "ПСОВ",
+  "ПСПВ",
+  "ОВК",
+  "КПС",
+  "СОУ",
+  "ПГИ",
+  "ПГТ",
+  "ПГСС",
+  "ПМГ",
+  "ППМГ",
+  "ОДЗ",
+  "ЦДГ",
+  "ЦПЛР",
+  "ЦОП",
+  "ЦСРИ",
+  "ЦПЗ",
+  "УПИ",
+  "ПУП",
+  "РУП",
+  "ПУР",
+  "ПВЦ",
+  "СМР",
+  "ЦГЧ",
+  "ППР",
+  "СОПФ",
+  "ПУДОС",
+  "ПУДООС",
+  // СБАЛ* hospital family — listed explicitly (NOT prefix-matched) because
+  // the prefix "СБАЛ" would also swallow the real word "сбалансиран".
+  "СБАЛ",
+  "СБАЛО",
+  "СБАЛОЗ",
+  "СБАЛАГ",
+  "СБАЛК",
+  "СБАЛББ",
+  // Vetted 2-letter acronyms that appear title/lower-cased in OCR output and
+  // are never standalone Bulgarian words (тп/ип/ор).
+  "ТП",
+  "ИП",
+  "ОР",
+]);
+// Only ЦНСТ* is prefix-matched — no Bulgarian word begins "цнст", so the
+// variable-suffix ЦНСТДБУ / ЦНСТПЛУИ etc. are safe to catch by prefix.
+const RESTORE_ACRONYM_PREFIXES = ["ЦНСТ"];
+
+/**
+ * Restore ALL-CAPS casing to Bulgarian institutional acronyms an OCR /
+ * extraction step left mis-cased — "Цнстплуи" / "цнстплуи" → "ЦНСТПЛУИ",
+ * "Гпче" → "ГПЧЕ", "сопф" → "СОПФ". Matches a curated set (and the ЦНСТ*
+ * family) case-INSENSITIVELY as a whole token, so it fixes title-cased,
+ * lower-cased, and mixed-case manglings alike. Non-acronym words and
+ * already-ALL-CAPS tokens pass through unchanged, so it is idempotent and
+ * safe to apply across the whole on-disk corpus.
+ */
+export const restoreAcronyms = (text: string): string => {
+  if (!text) return text;
+  return text.replace(/[\p{L}]+/gu, (tok) => {
+    const up = tok.toUpperCase();
+    if (up === tok) return tok; // already all-caps → nothing to restore
+    if (RESTORE_ACRONYMS.has(up)) return up;
+    if (RESTORE_ACRONYM_PREFIXES.some((p) => up.startsWith(p))) return up;
+    return tok;
+  });
+};
