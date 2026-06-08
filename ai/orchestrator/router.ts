@@ -454,6 +454,29 @@ export const route = (question: string, ctx: ToolContext): Route => {
   const sectionId = q.match(/\b\d{9}\b/)?.[0];
   if (sectionId) {
     const rest = q.replace(sectionId, " ");
+    // Risk-screening lens for ONE station — its rap sheet (risk band per
+    // election) + problem-neighborhood / persistent-cluster membership.
+    // Checked before the party-share history cue so "история на риска" /
+    // "risk history" (which contain "история" / "history") don't fall to the
+    // vote-trend tool.
+    if (
+      has(
+        rest,
+        "риск",
+        "risk",
+        "проблемн",
+        "problem",
+        "клъстер",
+        "cluster",
+        "скрининг",
+        "screening",
+        "повтарящ",
+        "persistent",
+        "контролиран",
+        "controlled",
+      )
+    )
+      return { tool: "sectionRiskHistory", args: { section: sectionId } };
     if (
       has(
         rest,

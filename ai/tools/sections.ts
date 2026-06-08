@@ -447,3 +447,177 @@ export const sectionHistory = async (
     ],
   };
 };
+
+// ---- one section, risk-screening rap sheet ----------------------------------
+// Mirrors the section page's risk panel: a station's risk SCREENING band per
+// election (rap sheet) + whether it sits in a flagged problem (Roma-махала)
+// neighborhood or a persistent cross-election cluster. Reads the slim
+// per-section / membership reverse-indexes (sections/risk_history/<id>.json
+// ~3 KB, problem_membership.json + cluster_persistence_membership.json ~15 KB
+// each) — never the full national reports. A VIEW over published screening
+// data; it makes no fraud claim.
+
+type RiskHistoryEntry = {
+  election: string;
+  turnoutPct: number;
+  winnerNickName?: string;
+  winnerColor?: string;
+  winnerSharePct?: number;
+  score?: number;
+  band?: "low" | "elevated" | "high" | "critical";
+};
+type ProblemMembership = { id: string; name_bg: string; name_en: string };
+type ClusterMembership = { id: string; electionCount: number };
+
+const BAND_LABEL: Record<string, { bg: string; en: string }> = {
+  low: { bg: "Нисък", en: "Low" },
+  elevated: { bg: "Повишен", en: "Elevated" },
+  high: { bg: "Висок", en: "High" },
+  critical: { bg: "Критичен", en: "Critical" },
+};
+const ELEVATED_BANDS = new Set(["elevated", "high", "critical"]);
+
+export const sectionRiskHistory = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const section = String(args.section ?? "").trim();
+  if (!SECTION_ID.test(section))
+    return declineSection("sectionRiskHistory", section, ctx.lang, "format", [
+      "sections/risk_history/*.json",
+    ]);
+  // Problem-neighborhood membership is per-election; use the resolved (default
+  // latest) cycle for the "is it flagged now" badge. Cluster persistence and
+  // the rap sheet are cross-election (one file each).
+  const election = resolveElection(args, ctx);
+
+  const grab = <T>(p: string): Promise<T | null> =>
+    fetchData<T>(p).catch(() => null);
+  const [history, problemMap, clusterMap, canon] = await Promise.all([
+    grab<RiskHistoryEntry[]>(`/sections/risk_history/${section}.json`),
+    grab<Record<string, ProblemMembership>>(
+      `/${election}/problem_membership.json`,
+    ),
+    grab<Record<string, ClusterMembership>>(
+      "/cluster_persistence_membership.json",
+    ),
+    fetchCanonicalParties<Canonical>().catch(() => null),
+  ]);
+
+  // The pipeline drops single-election sections (no rap sheet to show), so a
+  // missing file means "nothing to report" — same as the section-page tile.
+  if (!history || history.length === 0)
+    return declineSection("sectionRiskHistory", section, ctx.lang, "missing", [
+      `sections/risk_history/${section}.json`,
+    ]);
+
+  // Canonical display for a CEC nickname (merges renames; EN spellings).
+  const idByNick = canon?.byNickName ?? {};
+  const byId = new Map((canon?.parties ?? []).map((c) => [c.id, c]));
+  const winnerName = (nick?: string): string => {
+    if (!nick) return bg ? "няма данни" : "n/a";
+    const cp = byId.get(idByNick[nick] ?? "");
+    return cp
+      ? bg
+        ? cp.displayName
+        : (cp.displayNameEn ?? cp.displayName)
+      : nick;
+  };
+  const bandLabel = (b?: string): string =>
+    b
+      ? bg
+        ? (BAND_LABEL[b]?.bg ?? b)
+        : (BAND_LABEL[b]?.en ?? b)
+      : bg
+        ? "няма сигнал"
+        : "no signal";
+
+  const chrono = [...history].sort((a, b) =>
+    a.election.localeCompare(b.election),
+  );
+  const screened = chrono.filter(
+    (e) => e.band && ELEVATED_BANDS.has(e.band),
+  ).length;
+
+  const columns: Column[] = [
+    { key: "election", label: bg ? "Избори" : "Election" },
+    { key: "winner", label: bg ? "Победител" : "Winner" },
+    {
+      key: "turnout",
+      label: bg ? "Активност" : "Turnout",
+      numeric: true,
+      format: "pct",
+    },
+    { key: "band", label: bg ? "Риск" : "Risk" },
+    { key: "score", label: bg ? "Точки" : "Score" },
+  ];
+  const rows: Row[] = chrono.map((e) => ({
+    election: electionShortLabel(e.election, ctx.lang),
+    winner: winnerName(e.winnerNickName),
+    turnout: round1(e.turnoutPct),
+    band: bandLabel(e.band),
+    score: e.score != null ? String(round1(e.score)) : "—",
+  }));
+
+  const problem = problemMap?.[section];
+  const cluster = clusterMap?.[section];
+  const latest = chrono[chrono.length - 1];
+
+  const facts: Record<string, string | number> = {
+    section,
+    elections_count: chrono.length,
+    screened_elevated: screened,
+    latest: `${bandLabel(latest.band)} (${electionShortLabel(latest.election, ctx.lang)})`,
+  };
+  if (problem)
+    facts.problem_neighborhood = bg ? problem.name_bg : problem.name_en;
+  if (cluster)
+    facts.persistent_cluster = bg
+      ? `да, ${cluster.electionCount} избора`
+      : `yes, ${cluster.electionCount} elections`;
+
+  const subtitleParts: string[] = [
+    bg
+      ? screened > 0
+        ? `повишен риск при скрининг в ${screened} от ${chrono.length} избора`
+        : `без повишен риск в нито един от ${chrono.length} избора`
+      : screened > 0
+        ? `elevated screening in ${screened} of ${chrono.length} elections`
+        : `no elevated screening in any of ${chrono.length} elections`,
+  ];
+  if (problem)
+    subtitleParts.push(
+      bg
+        ? `проблемна секция: ${problem.name_bg}`
+        : `problem section: ${problem.name_en}`,
+    );
+  if (cluster)
+    subtitleParts.push(
+      bg
+        ? `повтарящ се клъстер (${cluster.electionCount}×)`
+        : `persistent cluster (${cluster.electionCount}×)`,
+    );
+
+  const provenance = [
+    `sections/risk_history/${section}.json`,
+    "cluster_persistence_membership.json",
+  ];
+  if (problemMap) provenance.push(`${election}/problem_membership.json`);
+  if (canon) provenance.push("canonical_parties.json");
+
+  return {
+    tool: "sectionRiskHistory",
+    domain: "elections",
+    kind: "table",
+    title: bg
+      ? `Секция ${section} — история на риска`
+      : `Section ${section} — risk history`,
+    subtitle: subtitleParts.join(" · "),
+    columns,
+    rows,
+    viz: "none",
+    facts,
+    provenance,
+  };
+};

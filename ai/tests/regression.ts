@@ -598,6 +598,41 @@ const CASES: Case[] = [
     kind: "scalar",
     geo: false,
   },
+  // -- sectionRiskHistory (ONE station's risk SCREENING rap sheet + membership) --
+  // A risk cue beside a 9-digit id routes to the risk lens (band per election +
+  // problem-neighborhood / persistent-cluster membership), NOT the vote-share
+  // trend. Golden against 162202002 (Stolipinovo) — a flagged problem section
+  // AND a 13-election persistent cluster.
+  {
+    q: "историята на риска за секция 162202002",
+    tool: "sectionRiskHistory",
+    kind: "table",
+    minRows: 13,
+    facts: {
+      section: "162202002",
+      elections_count: { num: 13 },
+      problem_neighborhood: /Столипиново/,
+      persistent_cluster: /13/,
+    },
+  },
+  {
+    q: "is section 162202002 a problem section or in a cluster",
+    lang: "en",
+    tool: "sectionRiskHistory",
+    kind: "table",
+    facts: {
+      section: "162202002",
+      problem_neighborhood: /Stolipinovo/,
+      persistent_cluster: /13/,
+    },
+  },
+  {
+    // a risk cue must NOT steal a plain vote-history query: "през годините"
+    // with no risk word still resolves to the vote-share trend.
+    q: "как е гласувала секция 162202002 през годините",
+    tool: "sectionHistory",
+    kind: "series",
+  },
   // -- settlementResults / settlementHistory (ONE settlement by name) -----------
   // The reported bug: "резултатите в с. Иново" took the village for nothing and
   // fell through to national results. The "с." / "гр." marker (or "village/town

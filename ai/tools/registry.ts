@@ -125,7 +125,7 @@ import {
   voteSearch,
 } from "./parliament";
 import { schoolScores } from "./schools";
-import { sectionHistory, sectionResults } from "./sections";
+import { sectionHistory, sectionResults, sectionRiskHistory } from "./sections";
 import { settlementHistory, settlementResults } from "./settlement";
 import {
   municipalityHistory,
@@ -810,6 +810,36 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: sectionHistory,
+  },
+  {
+    name: "sectionRiskHistory",
+    domain: "elections",
+    description: {
+      bg: "Риск-профил на една секция (по номер) през годините — ниво на риск при скрининг за всеки избор + дали е проблемна секция (ромска махала) или повтарящ се клъстер.",
+      en: "Risk profile of one polling section (by its number) over time — risk-screening band per election plus whether it is a flagged problem section (Roma neighborhood) or a persistent cross-election cluster.",
+    },
+    params: [
+      {
+        name: "section",
+        type: "metric",
+        required: true,
+        description: {
+          bg: "Номер на секция (9 цифри), напр. 162202002",
+          en: "Section number (9 digits), e.g. 162202002",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Каква е историята на риска за секция 162202002?",
+        en: "What's the risk history of section 162202002?",
+      },
+      {
+        bg: "Секция 162202002 проблемна ли е или в клъстер?",
+        en: "Is section 162202002 a problem section or in a cluster?",
+      },
+    ],
+    run: sectionRiskHistory,
   },
   {
     name: "settlementResults",
