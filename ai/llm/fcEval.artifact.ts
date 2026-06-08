@@ -55,6 +55,7 @@ type ModelSpec = {
   reason?: string;
   delayMs?: number; // pacing for rate-limited APIs
   concurrency?: number; // parallel in-flight calls (high for the rate-limit-free proxy)
+  maxOutputTokens?: number; // gemini-api output budget (raise to avoid CoT truncation)
 };
 
 // Per-model result cache (keyed by id) so re-runs never redo a finished model —
@@ -90,14 +91,30 @@ const SPECS: ModelSpec[] = [
   {
     id: "google/gemma-4-31b-it",
     apiModel: "gemma-4-31b-it",
-    label: "Gemma 4 31B",
+    label: "Gemma 4 31B (640-tok budget)",
     runtime: "cloud",
     params: "31B",
     source: "gemini-api",
     via: "Gemini API (generateContent)",
     delayMs: 1500,
     concurrency: 1,
-    note: "Open model (the BgGPT base family). Gemma on the Gemini API has no system role / function-calling tools, so the ~104-tool list goes in one user turn and the JSON reply is parsed; measured sequentially with a per-call timeout to ride out the API's throughput limit on big prompts.",
+    maxOutputTokens: 640,
+    modeNote: "640-tok output",
+    note: "Open model (BgGPT base family). Gemma on the Gemini API has no system role / function-calling tools, so the ~107-tool list goes in one user turn and the JSON reply is parsed. CAVEAT (verified from raw output): no API failures (0/208 empty), but the ~49% that emit no valid JSON are NOT wrong-tool picks — they are verbose chain-of-thought TRUNCATED at the 640-token cap (88% of failures sit at the ceiling; 100% name the correct tool in their reasoning). So this row understates the model; see the 1536-tok row for the recovery.",
+  },
+  {
+    id: "google/gemma-4-31b-it-1536",
+    apiModel: "gemma-4-31b-it",
+    label: "Gemma 4 31B (1536-tok budget)",
+    runtime: "cloud",
+    params: "31B",
+    source: "gemini-api",
+    via: "Gemini API (generateContent)",
+    delayMs: 1500,
+    concurrency: 1,
+    maxOutputTokens: 1536,
+    modeNote: "1536-tok output",
+    note: "Same model + prompt as the 640-tok row, only the output budget raised to 1536 so the chain-of-thought can finish and emit the closing JSON. Result: routing jumps to EN 81% / BG 83% (from 54% / 50% at 640) — a ~28pt recovery, still 0 empty responses — confirming the 640 failures were CoT TRUNCATION, not wrong-tool picks. The BG<EN gap also REVERSES (BG was worse at 640 only because its longer CoT truncated more), so there is no real Bulgarian tool-selection penalty once the budget fits.",
   },
   // ---- FunctionGemma-270M in-browser, an ablation LADDER (untuned community
   // build) showing how far the SAME model can be pushed with infra alone — no
@@ -265,6 +282,7 @@ const main = async () => {
         spec.source === "gemini-api"
           ? makeGeminiComplete(spec.apiModel ?? spec.id, key!, {
               delayMs: spec.delayMs,
+              maxOutputTokens: spec.maxOutputTokens,
             })
           : makeCloudComplete(spec.id, { delayMs: spec.delayMs });
       const report = await runFcEval(complete, {

@@ -110,12 +110,20 @@ export const runCloudModel = (
 export const makeGeminiComplete = (
   model: string,
   apiKey: string,
-  opts: { delayMs?: number; maxRetries?: number } = {},
+  opts: {
+    delayMs?: number;
+    maxRetries?: number;
+    maxOutputTokens?: number;
+  } = {},
 ): CompleteFn => {
   const delayMs = opts.delayMs ?? 0;
   // Ride out Gemini-API 429s so no call gives up (a give-up would score as a
   // miss and taint the result), since Gemma's RPM limit is low for big prompts.
   const maxRetries = opts.maxRetries ?? 8;
+  // Output-token budget. Gemma chain-of-thoughts before the JSON, so too small a
+  // budget truncates the CoT before the tool-call object and scores as a false
+  // failure (verified: at 640, 88% of failures were CoT truncated at the cap).
+  const maxOutputTokens = opts.maxOutputTokens ?? 640;
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
   return async (query: string, tools: FcTool[]): Promise<string> => {
     const body = JSON.stringify({
@@ -129,7 +137,7 @@ export const makeGeminiComplete = (
       // the reasoning is longer in Bulgarian (it translates first). Give enough
       // budget for the CoT + the final tool-call object, else BG truncates and
       // scores as a false failure.
-      generationConfig: { temperature: 0, maxOutputTokens: 640 },
+      generationConfig: { temperature: 0, maxOutputTokens },
     });
     for (let attempt = 0; attempt <= maxRetries; attempt++) {
       if (delayMs) await sleep(delayMs);
