@@ -584,9 +584,10 @@ export const AnswerView = ({
 
           {/* Optional geographic map. The numbers stay in the table/chart below,
               so this is additive; data-export-omit keeps the tile-backed map out
-              of the PNG capture (raster tiles taint the export canvas). */}
+              of the PNG capture (raster tiles taint the export canvas), while
+              data-geo-export lets the exporter swap in a tile-free static SVG. */}
           {env.geo && (
-            <div data-export-omit="">
+            <div data-export-omit="" data-geo-export="">
               <Suspense
                 fallback={
                   <div className="h-[320px] w-full animate-pulse rounded-lg border border-border bg-muted" />

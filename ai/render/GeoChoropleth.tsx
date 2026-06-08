@@ -21,7 +21,16 @@ import {
 import { ThemeContext } from "@/theme/ThemeContext";
 import { themeDark } from "@/theme/utils";
 import { fetchData } from "../tools/dataClient";
-import type { GeoArea, GeoOverlay, Lang } from "../tools/types";
+import type { GeoOverlay, Lang } from "../tools/types";
+import {
+  fmtValue,
+  geoAreaByCode,
+  geoFocusSet,
+  geoStyleFor,
+  geoValueRange,
+  hsla,
+  readGeoTheme,
+} from "./geoStyle";
 
 // Leaflet's stylesheet, loaded dynamically so it lands in this lazy chunk rather
 // than blocking the chat's first paint (mirrors src/.../maps/LeafletMap.tsx).
@@ -40,23 +49,6 @@ const esc = (s: string): string =>
     (c) =>
       ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c] as string,
   );
-
-// "173 58% 39%" (CSS var triple) -> "hsla(173, 58%, 39%, a)".
-const readVar = (name: string): string =>
-  getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-const hsla = (triple: string, alpha: number): string =>
-  `hsla(${triple.split(/\s+/).join(", ")}, ${alpha})`;
-
-const fmtValue = (
-  v: number,
-  format: GeoOverlay["format"],
-  lang: Lang,
-): string => {
-  const locale = lang === "bg" ? "bg-BG" : "en-US";
-  if (format === "pct") return `${v.toLocaleString(locale)}%`;
-  if (format === "int") return Math.round(v).toLocaleString(locale);
-  return v.toLocaleString(locale);
-};
 
 // Bounding box over GeoJSON [lng,lat] rings, returned as Leaflet [[lat,lng],...].
 const boundsOf = (features: GeoFeature[]): LatLngBoundsExpression | null => {
@@ -131,22 +123,11 @@ const GeoChoropleth = ({ geo, lang }: { geo: GeoOverlay; lang: Lang }) => {
     };
   }, [sourceKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const areaByCode = useMemo(
-    () => new Map<string, GeoArea>(geo.areas.map((a) => [a.code, a])),
-    [geo.areas],
-  );
-  const focusSet = useMemo(
-    () => new Set(geo.focus ?? geo.areas.map((a) => a.code)),
-    [geo.focus, geo.areas],
-  );
-
+  const areaByCode = useMemo(() => geoAreaByCode(geo), [geo]);
+  const focusSet = useMemo(() => geoFocusSet(geo), [geo]);
   // value range for the sequential ramp
-  const [min, max] = useMemo(() => {
-    const vals = geo.areas
-      .map((a) => a.value)
-      .filter((v): v is number => typeof v === "number");
-    return vals.length ? [Math.min(...vals), Math.max(...vals)] : [0, 0];
-  }, [geo.areas]);
+  const range = useMemo(() => geoValueRange(geo), [geo]);
+  const [min, max] = range;
 
   // Features to fit the viewport to: scoped source for a choropleth, just the
   // focus polygons for a locator.
@@ -162,48 +143,22 @@ const GeoChoropleth = ({ geo, lang }: { geo: GeoOverlay; lang: Lang }) => {
   if (failed) return null;
   if (!data) return <MapSkeleton />;
 
-  const ramp = readVar("--chart-2"); // sequential hue (green/teal)
-  const accent = readVar("--chart-1"); // locator highlight
-  const muted = readVar("--muted-foreground");
-  const border = readVar("--border");
-  const fg = readVar("--foreground");
+  const themeVars = readGeoTheme();
 
   const styleFor = (code: string): PathOptions => {
-    const area = areaByCode.get(code);
-    const stroke: PathOptions = {
-      weight: 0.7,
-      color: hsla(border, 0.9),
+    const s = geoStyleFor(geo, code, {
+      range,
+      theme: themeVars,
+      areaByCode,
+      focusSet,
+    });
+    return {
+      weight: s.strokeWidth,
+      color: s.stroke,
       opacity: 1,
+      fillColor: s.fill,
+      fillOpacity: s.fillOpacity,
     };
-    if (geo.mode === "locator") {
-      const on = focusSet.has(code);
-      return {
-        ...stroke,
-        weight: on ? 1.6 : 0.5,
-        color: on ? hsla(accent, 0.95) : hsla(border, 0.5),
-        fillColor: on ? hsla(accent, 1) : hsla(muted, 1),
-        fillOpacity: on ? 0.55 : 0.05,
-      };
-    }
-    if (!area)
-      return {
-        ...stroke,
-        weight: 0.5,
-        color: hsla(border, 0.5),
-        fillColor: hsla(muted, 1),
-        fillOpacity: 0.04,
-      };
-    if (geo.colorMode === "explicit")
-      return {
-        ...stroke,
-        fillColor: area.color ?? hsla(ramp, 1),
-        fillOpacity: 0.72,
-      };
-    const t =
-      max > min && typeof area.value === "number"
-        ? (area.value - min) / (max - min)
-        : 0.5;
-    return { ...stroke, fillColor: hsla(ramp, 1), fillOpacity: 0.18 + 0.7 * t };
   };
 
   const onEach = (feature: GeoFeature, layer: Layer) => {
@@ -226,7 +181,8 @@ const GeoChoropleth = ({ geo, lang }: { geo: GeoOverlay; lang: Lang }) => {
       { sticky: true },
     );
     path.on({
-      mouseover: () => path.setStyle({ weight: 2, color: hsla(fg, 0.9) }),
+      mouseover: () =>
+        path.setStyle({ weight: 2, color: hsla(themeVars.fg, 0.9) }),
       mouseout: () => path.setStyle(styleFor(code)),
     });
   };
@@ -283,7 +239,7 @@ const GeoChoropleth = ({ geo, lang }: { geo: GeoOverlay; lang: Lang }) => {
             aria-hidden
             className="h-2 w-20 rounded-full"
             style={{
-              background: `linear-gradient(to right, ${hsla(ramp, 0.18)}, ${hsla(ramp, 0.88)})`,
+              background: `linear-gradient(to right, ${hsla(themeVars.ramp, 0.18)}, ${hsla(themeVars.ramp, 0.88)})`,
             }}
           />
           <span className="tabular-nums">

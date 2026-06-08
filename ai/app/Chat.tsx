@@ -153,7 +153,7 @@ const AnswerExportMenu = ({
         <DropdownMenuItem
           onSelect={() => {
             const el = cardRef.current;
-            if (el) void downloadAnswerImage(el, question, lang);
+            if (el) void downloadAnswerImage(el, question, lang, env?.geo);
           }}
         >
           <ImageDown /> {t("Изображение", "Image")} (PNG)

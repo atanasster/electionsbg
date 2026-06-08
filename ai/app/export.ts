@@ -3,7 +3,7 @@
 // deps + ~300 KB font never touch the main bundle).
 
 import type { ResponseMeta } from "../llm/provider";
-import type { Envelope, Lang, ToolArgs } from "../tools/types";
+import type { Envelope, GeoOverlay, Lang, ToolArgs } from "../tools/types";
 
 export type ChatMsg = {
   role: "user" | "assistant";
@@ -150,10 +150,13 @@ const LOGO_SVG = `<svg viewBox="0 0 64 64" width="30" height="30" fill="none" ar
 // Render one answer card as a branded PNG (for sharing on social). Clones the
 // already-rendered answer node (keeps the chart SVG + theme styles) into an
 // off-screen branded frame and rasterizes it with html2canvas (lazy-loaded).
+// When the answer carries a `geo` overlay, the live (tile-backed) Leaflet map is
+// replaced with a tile-free static SVG so the map survives the capture.
 export const downloadAnswerImage = async (
   answerEl: HTMLElement,
   question: string,
   lang: Lang,
+  geo?: GeoOverlay | null,
 ) => {
   const html2canvas = (await import("html2canvas")).default;
 
@@ -172,6 +175,23 @@ export const downloadAnswerImage = async (
   q.textContent = question;
 
   const clone = answerEl.cloneNode(true) as HTMLElement;
+  // Swap the live map for a static SVG in place (so it keeps its position above
+  // the table), then drop the live-only attributes so it isn't stripped below.
+  if (geo) {
+    const slot = clone.querySelector<HTMLElement>("[data-geo-export]");
+    if (slot) {
+      try {
+        const { buildGeoSvg } = await import("../render/staticGeoMap");
+        const svg = await buildGeoSvg(geo, lang);
+        if (svg) {
+          slot.replaceChildren(svg);
+          slot.removeAttribute("data-export-omit");
+        }
+      } catch {
+        /* leave the slot to be stripped as data-export-omit below */
+      }
+    }
+  }
   // drop the interactive controls from the shared card (export menu, plus the
   // read-aloud button) while keeping the meta line + source links
   clone
@@ -255,6 +275,26 @@ export const downloadPdf = async (msgs: ChatMsg[], lang: Lang) => {
       if (m.env) {
         y += 1;
         write(m.env.title, 10);
+        // Embed the map (tile-free static SVG, rasterized) above the table, so
+        // the geographic answer keeps its picture and not just the numbers.
+        if (m.env.geo) {
+          try {
+            const { buildGeoSvg, svgToPng } = await import(
+              "../render/staticGeoMap"
+            );
+            const svg = await buildGeoSvg(m.env.geo, lang);
+            if (svg) {
+              const { dataUrl, width, height } = await svgToPng(svg);
+              const drawW = pageW - margin * 2;
+              const drawH = (drawW * height) / width;
+              ensure(drawH + 4);
+              doc.addImage(dataUrl, "PNG", margin, y + 1, drawW, drawH);
+              y += drawH + 4;
+            }
+          } catch {
+            /* skip the map image on any render/rasterize failure */
+          }
+        }
         const { head, body } = envToGrid(m.env);
         if (body.length) {
           autoTable(doc, {
