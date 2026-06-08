@@ -908,6 +908,48 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "prices",
+    title:
+      "Цени в България — кошница от въвеждането на еврото, по вериги и градове | electionsbg.com",
+    description:
+      "Цените на голямата потребителска кошница (101 продукта) от въвеждането на еврото — дневен индекс, разбивка по категории, най-евтини търговски вериги, класация на най-евтините градове и области и карта на цените по общини. Мониторингов индекс на КЗП, не официален ИПЦ.",
+    breadcrumbName: "Цени",
+    ogImage: "/og/prices.png",
+    bodyHtml: `
+<h1>Цени в България — голямата потребителска кошница от въвеждането на еврото</h1>
+<p>Страницата /prices проследява цените на дребно на 101-те продукта от голямата потребителска кошница (хляб, мляко, месо, плодове и зеленчуци, хигиенни и лекарствени продукти) от 1 януари 2026 г., когато еврото стана официална валута. Данните идват от ежедневния отворен портал на Комисията за защита на потребителите (КЗП) „Колко струва“ и обхващат над 200 търговски вериги в около 245 населени места.</p>
+<p><strong>Това е мониторингов индекс на кошницата, а не официален индекс на потребителските цени (ИПЦ).</strong> За официалната инфлация виж <a href="${SITE_URL}/indicators">индикаторите</a> (ХИПЦ на Евростат).</p>
+<h2>Какво показва страницата</h2>
+<ul>
+<li><strong>Индекс на кошницата от еврото</strong> — дневен ред от 2 януари 2026 г. (база 100), национално и по области, с разбивка коя категория поскъпва и коя поевтинява.</li>
+<li><strong>Най-евтини вериги</strong> — класация на търговските вериги по цена на общата кошница, с покритие (брой включени продукти).</li>
+<li><strong>Най-евтини и най-поскъпнали места</strong> — кои градове и области имат най-ниска цена на кошницата и къде е поскъпнала най-много от еврото.</li>
+<li><strong>Карта на цените</strong> — две хороплет карти по общини: цена на кошницата и промяна от въвеждането на еврото.</li>
+</ul>
+<p>Цените по конкретно населено място се виждат и на неговото табло в <a href="${SITE_URL}/governance">изгледа „Управление“</a>.</p>
+<p>Източник: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">КЗП — „Колко струва“ (отворени данни)</a>.</p>`.trim(),
+    english: {
+      title:
+        "Prices in Bulgaria — the consumer basket since the euro, by chain and town | electionsbg.com",
+      description:
+        "Retail prices of the 101-product large consumer basket since the euro changeover — a daily index, category breakdown, cheapest retail chains, a ranking of the cheapest towns and oblasts, and a municipality price map. CPC monitoring index, not official CPI.",
+      breadcrumbName: "Prices",
+      bodyHtml: `
+<h1>Prices in Bulgaria — the large consumer basket since the euro changeover</h1>
+<p>The /prices page tracks retail prices of the 101 products in Bulgaria's large consumer basket (bread, milk, meat, fruit and vegetables, hygiene and medicinal products) since 1 January 2026, when the euro became the official currency. The data comes from the Consumer Protection Commission's (CPC) daily "How Much Does It Cost" open-data portal, covering 200+ retail chains across roughly 245 settlements.</p>
+<p><strong>This is a monitoring basket index, not the official Consumer Price Index (CPI).</strong> For official inflation see the <a href="${SITE_URL}/en/indicators">indicators</a> (Eurostat HICP).</p>
+<h2>What the page shows</h2>
+<ul>
+<li><strong>Basket index since the euro</strong> — a daily series from 2 January 2026 (base 100), national and per-oblast, with a breakdown of which category is rising and which is falling.</li>
+<li><strong>Cheapest chains</strong> — retail chains ranked by the cost of the shared basket, with coverage (how many products are priced).</li>
+<li><strong>Cheapest and fastest-rising places</strong> — which towns and oblasts have the lowest basket cost and where prices rose the most since the euro.</li>
+<li><strong>Price map</strong> — two municipality choropleths: basket cost and change since the euro.</li>
+</ul>
+<p>Prices for a specific settlement also appear on its dashboard in the <a href="${SITE_URL}/en/governance">Governance</a> view.</p>
+<p>Source: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">CPC — "How Much Does It Cost" (open data)</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "indicators/economy",
     title: "Икономика — БВП, инфлация, безработица, нагласи | electionsbg.com",
     description:
