@@ -1,8 +1,8 @@
 {
-  "computedAt": "2026-06-01T00:07:10.359Z",
+  "computedAt": "2026-06-08T00:07:26.362Z",
   "byNs": {
     "44": {
-      "computedAt": "2026-06-01T00:07:36.060Z",
+      "computedAt": "2026-06-08T00:07:46.343Z",
       "entries": [
         {
           "partyShort": "ВОЛЯ",
@@ -1521,7 +1521,7 @@
       ]
     },
     "45": {
-      "computedAt": "2026-06-01T00:07:36.070Z",
+      "computedAt": "2026-06-08T00:07:46.351Z",
       "entries": [
         {
           "partyShort": "ИТН",
@@ -1786,7 +1786,7 @@
       ]
     },
     "46": {
-      "computedAt": "2026-06-01T00:07:36.096Z",
+      "computedAt": "2026-06-08T00:07:46.370Z",
       "entries": [
         {
           "partyShort": "ИТН",
@@ -2735,7 +2735,7 @@
       ]
     },
     "47": {
-      "computedAt": "2026-06-01T00:07:36.182Z",
+      "computedAt": "2026-06-08T00:07:46.450Z",
       "entries": [
         {
           "partyShort": "ВЪЗРАЖДАНЕ",
@@ -6476,7 +6476,7 @@
       ]
     },
     "48": {
-      "computedAt": "2026-06-01T00:07:36.222Z",
+      "computedAt": "2026-06-08T00:07:46.487Z",
       "entries": [
         {
           "partyShort": "НЕЗ",
@@ -8747,7 +8747,7 @@
       ]
     },
     "49": {
-      "computedAt": "2026-06-01T00:07:36.322Z",
+      "computedAt": "2026-06-08T00:07:46.563Z",
       "entries": [
         {
           "partyShort": "ВЪЗРАЖДАНЕ",
@@ -14065,7 +14065,7 @@
       ]
     },
     "50": {
-      "computedAt": "2026-06-01T00:07:36.339Z",
+      "computedAt": "2026-06-08T00:07:46.576Z",
       "entries": [
         {
           "partyShort": "ВЪЗРАЖДАНЕ",
@@ -15683,7 +15683,7 @@
       ]
     },
     "51": {
-      "computedAt": "2026-06-01T00:07:36.460Z",
+      "computedAt": "2026-06-08T00:07:46.680Z",
       "entries": [
         {
           "partyShort": "НЕЧЛ ПГ",
@@ -24831,47 +24831,47 @@
       ]
     },
     "52": {
-      "computedAt": "2026-06-01T00:07:36.468Z",
+      "computedAt": "2026-06-08T00:07:46.693Z",
       "entries": [
         {
-          "partyShort": "ДПС",
-          "itemsCovered": 97,
-          "meanCohesion": 0.9968162522741055,
-          "medianCohesion": 1,
-          "membersTracked": 21
-        },
-        {
           "partyShort": "ВЪЗРАЖДАНЕ",
-          "itemsCovered": 163,
-          "meanCohesion": 0.9956931275949681,
+          "itemsCovered": 342,
+          "meanCohesion": 0.9966071534053991,
           "medianCohesion": 1,
           "membersTracked": 12
         },
         {
+          "partyShort": "ДПС",
+          "itemsCovered": 281,
+          "meanCohesion": 0.9961292893834238,
+          "medianCohesion": 1,
+          "membersTracked": 21
+        },
+        {
+          "partyShort": "ПП",
+          "itemsCovered": 351,
+          "meanCohesion": 0.973684383833957,
+          "medianCohesion": 1,
+          "membersTracked": 23
+        },
+        {
           "partyShort": "ДБ",
-          "itemsCovered": 166,
-          "meanCohesion": 0.9760765410500571,
+          "itemsCovered": 349,
+          "meanCohesion": 0.9688509269434874,
           "medianCohesion": 1,
           "membersTracked": 33
         },
         {
           "partyShort": "ПБ",
-          "itemsCovered": 166,
-          "meanCohesion": 0.9727155781024803,
+          "itemsCovered": 353,
+          "meanCohesion": 0.9550339281601369,
           "medianCohesion": 1,
           "membersTracked": 143
         },
         {
-          "partyShort": "ПП",
-          "itemsCovered": 166,
-          "meanCohesion": 0.9708117100436375,
-          "medianCohesion": 1,
-          "membersTracked": 23
-        },
-        {
           "partyShort": "ГЕРБ - СДС",
-          "itemsCovered": 162,
-          "meanCohesion": 0.9055771128352769,
+          "itemsCovered": 349,
+          "meanCohesion": 0.9050072770535725,
           "medianCohesion": 1,
           "membersTracked": 38
         }
@@ -25272,6 +25272,114 @@
           "partyShort": "ПП",
           "cohesion": 0.9606423589182213,
           "items": 87
+        },
+        {
+          "date": "2026-05-29",
+          "partyShort": "ВЪЗРАЖДАНЕ",
+          "cohesion": 0.9968701095461658,
+          "items": 71
+        },
+        {
+          "date": "2026-05-29",
+          "partyShort": "ГЕРБ - СДС",
+          "cohesion": 0.8380141553131104,
+          "items": 71
+        },
+        {
+          "date": "2026-05-29",
+          "partyShort": "ДБ",
+          "cohesion": 0.953460673313614,
+          "items": 68
+        },
+        {
+          "date": "2026-05-29",
+          "partyShort": "ДПС",
+          "cohesion": 0.9909420289855072,
+          "items": 69
+        },
+        {
+          "date": "2026-05-29",
+          "partyShort": "ПБ",
+          "cohesion": 0.9390429152499244,
+          "items": 71
+        },
+        {
+          "date": "2026-05-29",
+          "partyShort": "ПП",
+          "cohesion": 0.9841097869266884,
+          "items": 71
+        },
+        {
+          "date": "2026-06-03",
+          "partyShort": "ВЪЗРАЖДАНЕ",
+          "cohesion": 0.9972222222222222,
+          "items": 45
+        },
+        {
+          "date": "2026-06-03",
+          "partyShort": "ГЕРБ - СДС",
+          "cohesion": 0.9280825734549137,
+          "items": 47
+        },
+        {
+          "date": "2026-06-03",
+          "partyShort": "ДБ",
+          "cohesion": 0.9696980390445906,
+          "items": 47
+        },
+        {
+          "date": "2026-06-03",
+          "partyShort": "ДПС",
+          "cohesion": 0.9966555183946488,
+          "items": 46
+        },
+        {
+          "date": "2026-06-03",
+          "partyShort": "ПБ",
+          "cohesion": 0.8678167677178675,
+          "items": 47
+        },
+        {
+          "date": "2026-06-03",
+          "partyShort": "ПП",
+          "cohesion": 0.9563492063492063,
+          "items": 45
+        },
+        {
+          "date": "2026-06-04",
+          "partyShort": "ВЪЗРАЖДАНЕ",
+          "cohesion": 0.9982363315696648,
+          "items": 63
+        },
+        {
+          "date": "2026-06-04",
+          "partyShort": "ГЕРБ - СДС",
+          "cohesion": 0.9568863975763787,
+          "items": 69
+        },
+        {
+          "date": "2026-06-04",
+          "partyShort": "ДБ",
+          "cohesion": 0.9660166774786151,
+          "items": 68
+        },
+        {
+          "date": "2026-06-04",
+          "partyShort": "ДПС",
+          "cohesion": 1,
+          "items": 69
+        },
+        {
+          "date": "2026-06-04",
+          "partyShort": "ПБ",
+          "cohesion": 0.9883587769569864,
+          "items": 69
+        },
+        {
+          "date": "2026-06-04",
+          "partyShort": "ПП",
+          "cohesion": 0.9811734159560246,
+          "items": 69
         }
       ]
     }

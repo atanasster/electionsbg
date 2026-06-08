@@ -3,258 +3,528 @@
   "ns": "52",
   "partyShort": "ПБ",
   "loyalty": {
-    "votesCast": 153,
-    "withParty": 130,
-    "loyaltyPct": 0.8496732026143791,
+    "votesCast": 327,
+    "withParty": 251,
+    "loyaltyPct": 0.7675840978593272,
     "windowFrom": "2026-04-30",
-    "windowTo": "2026-05-28",
-    "totalVoteItems": 178
+    "windowTo": "2026-06-05",
+    "totalVoteItems": 369
   },
   "attendance": {
-    "totalItems": 178,
-    "presentCount": 153,
-    "absentCount": 25,
-    "presentPct": 0.8595505617977528
+    "totalItems": 369,
+    "presentCount": 327,
+    "absentCount": 42,
+    "presentPct": 0.8861788617886179
   },
   "cohort": {
     "size": 265,
-    "votesCastMedian": 136,
-    "loyaltyPctMedian": 0.9862068965517241,
-    "presentPctMedian": 0.7752808988764045
+    "votesCastMedian": 274,
+    "loyaltyPctMedian": 0.9776785714285714,
+    "presentPctMedian": 0.7344173441734417
   },
   "dissents": {
-    "totalCast": 153,
-    "dissentCount": 23,
+    "totalCast": 327,
+    "dissentCount": 76,
     "recent": [
       {
-        "date": "2026-05-28",
-        "item": 86,
-        "slug": "86-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 89 - предложение от Атанас Славов",
-        "topic": "other",
+        "date": "2026-06-04",
+        "item": 21,
+        "slug": "21-zid-na-zakona-za-nasarchavane-na-investitsiite-vtoro-glasuva",
+        "title": "ЗИД на Закона за насърчаване на инвестициите - второ гласуване - параграф 94 - предложение от Божидар Божанов",
+        "topic": "zid",
         "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 123
+      },
+      {
+        "date": "2026-06-04",
+        "item": 19,
+        "slug": "19-zid-na-zakona-za-nasarchavane-na-investitsiite-vtoro-glasuva",
+        "title": "ЗИД на Закона за насърчаване на инвестициите - второ гласуване - параграф 72 - предложение от Божидар Божанов",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 122
+      },
+      {
+        "date": "2026-06-04",
+        "item": 16,
+        "slug": "16-zid-na-zakona-za-nasarchavane-na-investitsiite-vtoro-glasuva",
+        "title": "ЗИД на Закона за насърчаване на инвестициите - второ гласуване - параграф 31",
+        "topic": "zid",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 123
+      },
+      {
+        "date": "2026-06-04",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-nasarchavane-na-investitsiite-vtoro-glasuva",
+        "title": "ЗИД на Закона за насърчаване на инвестициите - второ гласуване - Допълнителна разпоредба",
+        "topic": "zid",
+        "mpVote": "yes",
         "majorityVote": "no",
         "groupSize": 121
       },
       {
-        "date": "2026-05-28",
-        "item": 83,
-        "slug": "83-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 83 - предложение от Петър Петров",
-        "topic": "other",
-        "mpVote": "abstain",
+        "date": "2026-06-03",
+        "item": 45,
+        "slug": "45-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-7-i-8-predl",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 7 и 8 - предложение от Константин Проданов - за допустимост",
+        "topic": "zid",
+        "mpVote": "yes",
         "majorityVote": "no",
-        "groupSize": 121
+        "groupSize": 112
       },
       {
-        "date": "2026-05-28",
-        "item": 81,
-        "slug": "81-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 82 - предложение от Стою Стоев",
-        "topic": "other",
+        "date": "2026-06-03",
+        "item": 44,
+        "slug": "44-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-6-nov-predl",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 6 - нов - предложение от Богдан Богданов за допустимост",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 78
+      },
+      {
+        "date": "2026-06-03",
+        "item": 39,
+        "slug": "39-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-5-t-7-predl",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 5, т.7 - предложение от Катя Панева и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 116
+      },
+      {
+        "date": "2026-06-03",
+        "item": 38,
+        "slug": "38-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-5-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 5 - предложение от Катя Панева и група н.п",
+        "topic": "zid",
         "mpVote": "abstain",
         "majorityVote": "no",
         "groupSize": 117
       },
       {
-        "date": "2026-05-28",
-        "item": 77,
-        "slug": "77-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 80 - предложение от Атанас Славов",
-        "topic": "other",
+        "date": "2026-06-03",
+        "item": 37,
+        "slug": "37-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-5-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 5 - предложение от Петър Петров",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 115
+      },
+      {
+        "date": "2026-06-03",
+        "item": 36,
+        "slug": "36-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-5-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 5 - предложение от Богдан Богданов и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 116
+      },
+      {
+        "date": "2026-06-03",
+        "item": 28,
+        "slug": "28-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-3-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 3 - предложение от Богдан Богданов и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 122
+      },
+      {
+        "date": "2026-06-03",
+        "item": 26,
+        "slug": "26-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2 - предложение от Петър Петров",
+        "topic": "zid",
         "mpVote": "abstain",
         "majorityVote": "no",
         "groupSize": 119
       },
       {
-        "date": "2026-05-28",
-        "item": 76,
-        "slug": "76-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 80 - предложение от Стою Стоев",
-        "topic": "other",
+        "date": "2026-06-03",
+        "item": 25,
+        "slug": "25-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2 - предложение от Катя Панева и група н.п. в чл.198д",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 122
+      },
+      {
+        "date": "2026-06-03",
+        "item": 24,
+        "slug": "24-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2 - предложение от Петър Петров в чл.198в",
+        "topic": "zid",
         "mpVote": "abstain",
         "majorityVote": "no",
         "groupSize": 120
       },
       {
-        "date": "2026-05-28",
-        "item": 75,
-        "slug": "75-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 79",
-        "topic": "other",
-        "mpVote": "abstain",
-        "majorityVote": "yes",
+        "date": "2026-06-03",
+        "item": 23,
+        "slug": "23-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2 - предложение от Катя Панева и група н.п. - ОТМЕНЕНО",
+        "topic": "zid",
+        "mpVote": "yes",
+        "majorityVote": "no",
         "groupSize": 121
       },
       {
-        "date": "2026-05-28",
-        "item": 72,
-        "slug": "72-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 76 - предложение от Петър Петров",
-        "topic": "other",
+        "date": "2026-06-03",
+        "item": 22,
+        "slug": "22-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2 - предложение от Петър Петров в чл.198в - ОТМЕНЕНО",
+        "topic": "zid",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 121
+      },
+      {
+        "date": "2026-06-03",
+        "item": 20,
+        "slug": "20-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-1-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 1 - предложение от Петър Петров",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 121
+      },
+      {
+        "date": "2026-06-03",
+        "item": 19,
+        "slug": "19-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-1-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 1 - предложение от Богдан Богданов и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 122
+      },
+      {
+        "date": "2026-06-03",
+        "item": 17,
+        "slug": "17-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2b-predlozh",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2б - предложение от Богдан Богданов и група н.п.- процедура за допустимост",
+        "topic": "zid",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 114
+      },
+      {
+        "date": "2026-06-03",
+        "item": 16,
+        "slug": "16-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2a-predlozh",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2а - предложение от Богдан Богданов и група н.п.- процедура за допустимост",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 116
+      },
+      {
+        "date": "2026-06-03",
+        "item": 15,
+        "slug": "15-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-1b-predlozh",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 1б - предложение от Богдан Богданов и група н.п.- процедура за допустимост",
+        "topic": "zid",
         "mpVote": "abstain",
         "majorityVote": "no",
         "groupSize": 119
       },
       {
-        "date": "2026-05-28",
-        "item": 65,
-        "slug": "65-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 70 - предложение от Мартин Димитров за редакция",
+        "date": "2026-06-03",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-1a-predlozh",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 1а - предложение от Богдан Богданов и група н.п.- процедура за допустимост",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 116
+      },
+      {
+        "date": "2026-06-03",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-sabiraneto-na-prihodi-i-izvarshvaneto-na-ra",
+        "title": "ЗИД на Закона за събирането на приходи и извършването на разходи през 2026 г. до приемането на Закона за държавния бюджет на Република България за 2026 г., Закона за бюджета на държавното обществено осигуряване за 2026 г. и Закона за бюджета на Националната здравноосигурителна каса за 2026 г. - второ гласуване - параграф 3 - предложение от Константин Проданов за редакция - прегласуване",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 122
+      },
+      {
+        "date": "2026-05-29",
+        "item": 73,
+        "slug": "73-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - параграф 94",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 107
+      },
+      {
+        "date": "2026-05-29",
+        "item": 68,
+        "slug": "68-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - параграф 17 - предложение от Петър Петров",
         "topic": "other",
         "mpVote": "abstain",
         "majorityVote": "no",
-        "groupSize": 119
+        "groupSize": 110
       },
       {
-        "date": "2026-05-28",
+        "date": "2026-05-29",
+        "item": 66,
+        "slug": "66-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - параграф 3 - предложение от Стою Стоев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 114
+      },
+      {
+        "date": "2026-05-29",
+        "item": 64,
+        "slug": "64-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - параграф 2 - предложение от Стою Стоев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 114
+      },
+      {
+        "date": "2026-05-29",
+        "item": 62,
+        "slug": "62-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 108 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 114
+      },
+      {
+        "date": "2026-05-29",
+        "item": 60,
+        "slug": "60-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 107 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 114
+      },
+      {
+        "date": "2026-05-29",
+        "item": 58,
+        "slug": "58-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 105 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 113
+      },
+      {
+        "date": "2026-05-29",
         "item": 55,
-        "slug": "55-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 54 - предложение от Петър Петров - прегласуване",
+        "slug": "55-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 104 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 116
+      },
+      {
+        "date": "2026-05-29",
+        "item": 53,
+        "slug": "53-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 103 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 114
+      },
+      {
+        "date": "2026-05-29",
+        "item": 51,
+        "slug": "51-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 102 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 115
+      },
+      {
+        "date": "2026-05-29",
+        "item": 49,
+        "slug": "49-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 97 - предложение от Стою Стоев",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 109
+      },
+      {
+        "date": "2026-05-29",
+        "item": 47,
+        "slug": "47-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 63 - предложение от Божидар Божанов и Надежда Йорданова - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 106
+      },
+      {
+        "date": "2026-05-29",
+        "item": 45,
+        "slug": "45-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 63 - предложение от Петър Петров, т.18",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 110
+      },
+      {
+        "date": "2026-05-29",
+        "item": 44,
+        "slug": "44-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 63 - предложение от Петър Петров, т.17",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 110
+      },
+      {
+        "date": "2026-05-29",
+        "item": 41,
+        "slug": "41-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 58 - 60",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 117
+      },
+      {
+        "date": "2026-05-29",
+        "item": 40,
+        "slug": "40-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 57а - предложение от Стою Стоев",
         "topic": "other",
         "mpVote": "abstain",
         "majorityVote": "no",
         "groupSize": 117
       },
       {
-        "date": "2026-05-28",
-        "item": 53,
-        "slug": "53-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 54 - предложение от Стою Стоев",
+        "date": "2026-05-29",
+        "item": 38,
+        "slug": "38-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 57 - предложение от Стою Стоев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 117
+      },
+      {
+        "date": "2026-05-29",
+        "item": 36,
+        "slug": "36-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 56 - предложение от Стою Стоев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 119
+      },
+      {
+        "date": "2026-05-29",
+        "item": 34,
+        "slug": "34-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 55 - предложение от Стою Стоев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 119
+      },
+      {
+        "date": "2026-05-29",
+        "item": 32,
+        "slug": "32-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 53а - предложение от Стою Стоев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 119
+      },
+      {
+        "date": "2026-05-29",
+        "item": 30,
+        "slug": "30-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 53 - предложение от Петър Петров",
         "topic": "other",
         "mpVote": "abstain",
         "majorityVote": "no",
         "groupSize": 118
       },
       {
-        "date": "2026-05-28",
-        "item": 50,
-        "slug": "50-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 52 - предложение от Стою Стоев",
+        "date": "2026-05-29",
+        "item": 25,
+        "slug": "25-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 28а - предложение от Стою Стоев",
         "topic": "other",
         "mpVote": "abstain",
         "majorityVote": "no",
-        "groupSize": 117
+        "groupSize": 105
       },
       {
-        "date": "2026-05-28",
-        "item": 45,
-        "slug": "45-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 47 - предложение от Петър Петров",
-        "topic": "other",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 107
-      },
-      {
-        "date": "2026-05-28",
-        "item": 43,
-        "slug": "43-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 46 - предложение от Стою Стоев за редакция",
-        "topic": "other",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 119
-      },
-      {
-        "date": "2026-05-28",
-        "item": 42,
-        "slug": "42-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 46 - предложение от Петър Петров",
-        "topic": "other",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 121
-      },
-      {
-        "date": "2026-05-28",
-        "item": 41,
-        "slug": "41-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 46 - предложение от Стою Стоев",
-        "topic": "other",
-        "mpVote": "yes",
-        "majorityVote": "no",
-        "groupSize": 119
-      },
-      {
-        "date": "2026-05-28",
-        "item": 38,
-        "slug": "38-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 43 - предложение от Петър Петров",
-        "topic": "other",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 119
-      },
-      {
-        "date": "2026-05-28",
-        "item": 26,
-        "slug": "26-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 36 - предложение от Стою Стоев и Б. Божанов за редакция на ал.2",
-        "topic": "other",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 115
-      },
-      {
-        "date": "2026-05-28",
+        "date": "2026-05-29",
         "item": 22,
-        "slug": "22-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 29 - предложение от Стою Стоев",
+        "slug": "22-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 26 - предложение от Стою Стоев",
         "topic": "other",
         "mpVote": "abstain",
         "majorityVote": "no",
-        "groupSize": 103
+        "groupSize": 102
       },
       {
-        "date": "2026-05-28",
-        "item": 8,
-        "slug": "8-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 8 - предложение от Стою Стоев",
+        "date": "2026-05-29",
+        "item": 19,
+        "slug": "19-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 15 - предложение от Стою Стоев",
         "topic": "other",
         "mpVote": "abstain",
         "majorityVote": "no",
-        "groupSize": 122
-      },
-      {
-        "date": "2026-05-13",
-        "item": 9,
-        "slug": "9-reshenie-za-sazdavane-na-vremenna-komisiya-za-izyasnyavane-n",
-        "title": "Решение за създаване на Временна комисия за изясняване на факти и обстоятелства, свързани с публично известните данни за дейността на групата около бившия следовател Петьо Петров - Еврото, придобила обществена известност по случая \"Осемте джуджета\", дейността на групата около Мартин Божанов - Нотариуса, данните за нерегламентирано влияние върху органи на съдебната власт и правоохранителната система, както и действията и бездействията на компетентните държавни органи по събиране, проверка, анализ и институционална реакция във връзка с тези случаи - процедура от Божидар Божанов за удължаване на заседанието до приключване на точката",
-        "topic": "personnel",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 126
-      },
-      {
-        "date": "2026-05-08",
-        "item": 13,
-        "slug": "13-reshenie-za-sazdavane-na-vremenna-komisiya-po-pravni-vaprosi",
-        "title": "Решение за създаване на Временна комисия по правни въпроси - ръководство и състав",
-        "topic": "personnel",
-        "mpVote": "abstain",
-        "majorityVote": "yes",
         "groupSize": 119
       },
       {
-        "date": "2026-05-07",
-        "item": 10,
-        "slug": "10-reshenie-za-sazdavane-na-vremenna-komisiya-po-priemaneto-na-",
-        "title": "Решение за създаване на Временна комисия по приемането на Правилник за организацията и дейността на Петдесет и второто Народно събрание - предложение от Петър Петров за редакция на точка 1",
-        "topic": "personnel",
-        "mpVote": "yes",
-        "majorityVote": "no",
-        "groupSize": 129
-      },
-      {
-        "date": "2026-04-30",
-        "item": 4,
-        "slug": "4-reshenie-za-izbirane-na-predsedatel-na-petdeset-i-vtoroto-na",
-        "title": "Решение за избиране на председател на Петдесет и второто Народно събрание - избира Петър Петров",
-        "topic": "personnel",
+        "date": "2026-05-29",
+        "item": 18,
+        "slug": "18-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 15 - предложение от Петър Петров",
+        "topic": "other",
         "mpVote": "abstain",
         "majorityVote": "no",
-        "groupSize": 128
+        "groupSize": 119
+      },
+      {
+        "date": "2026-05-29",
+        "item": 16,
+        "slug": "16-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 13 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 118
+      },
+      {
+        "date": "2026-05-29",
+        "item": 14,
+        "slug": "14-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 8 - предложение от Любен Иванов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 116
       }
     ]
   },
@@ -262,205 +532,205 @@
     "topK": [
       {
         "mpId": 5251,
-        "score": 0.9377349018512774,
-        "overlap": 153
-      },
-      {
-        "mpId": 5219,
-        "score": 0.9228894742324952,
-        "overlap": 153
-      },
-      {
-        "mpId": 5174,
-        "score": 0.9194650116839627,
-        "overlap": 152
-      },
-      {
-        "mpId": 5177,
-        "score": 0.9140945261743545,
-        "overlap": 149
-      },
-      {
-        "mpId": 5162,
-        "score": 0.9041133330265411,
-        "overlap": 151
-      },
-      {
-        "mpId": 5238,
-        "score": 0.9028967174796889,
-        "overlap": 153
+        "score": 0.9153035535398509,
+        "overlap": 327
       },
       {
         "mpId": 5132,
-        "score": 0.8978128149216421,
-        "overlap": 153
+        "score": 0.8861050338278539,
+        "overlap": 326
       },
       {
-        "mpId": 5079,
-        "score": 0.890780443389545,
-        "overlap": 150
+        "mpId": 5177,
+        "score": 0.8778070848555883,
+        "overlap": 318
+      },
+      {
+        "mpId": 5219,
+        "score": 0.8723105123912659,
+        "overlap": 326
+      },
+      {
+        "mpId": 5174,
+        "score": 0.851647659100165,
+        "overlap": 312
       },
       {
         "mpId": 5097,
-        "score": 0.890780443389545,
-        "overlap": 150
+        "score": 0.846103758800112,
+        "overlap": 319
       },
       {
-        "mpId": 5144,
-        "score": 0.8855971053773407,
-        "overlap": 152
+        "mpId": 5238,
+        "score": 0.835794015543509,
+        "overlap": 317
+      },
+      {
+        "mpId": 5162,
+        "score": 0.8345715550178018,
+        "overlap": 321
       },
       {
         "mpId": 5161,
-        "score": 0.8754221598828287,
-        "overlap": 148
-      },
-      {
-        "mpId": 5076,
-        "score": 0.8738668244759944,
-        "overlap": 152
-      },
-      {
-        "mpId": 5130,
-        "score": 0.872281099726396,
-        "overlap": 153
-      },
-      {
-        "mpId": 5138,
-        "score": 0.872281099726396,
-        "overlap": 152
-      },
-      {
-        "mpId": 5214,
-        "score": 0.8710063689306001,
-        "overlap": 153
-      },
-      {
-        "mpId": 5250,
-        "score": 0.8710063689306001,
-        "overlap": 151
+        "score": 0.8249898251882335,
+        "overlap": 319
       },
       {
         "mpId": 5137,
-        "score": 0.8708813394696466,
-        "overlap": 149
+        "score": 0.8144624991779423,
+        "overlap": 313
       },
       {
-        "mpId": 5218,
-        "score": 0.8707131204130156,
-        "overlap": 153
+        "mpId": 5327,
+        "score": 0.8126423667658722,
+        "overlap": 300
       },
       {
-        "mpId": 5099,
-        "score": 0.8691638320240436,
-        "overlap": 150
+        "mpId": 5296,
+        "score": 0.7998469826885172,
+        "overlap": 321
       },
       {
-        "mpId": 5160,
-        "score": 0.8681738203921533,
-        "overlap": 153
+        "mpId": 5135,
+        "score": 0.7985600196944868,
+        "overlap": 320
+      },
+      {
+        "mpId": 5098,
+        "score": 0.7983770559323938,
+        "overlap": 312
+      },
+      {
+        "mpId": 5261,
+        "score": 0.7955767694974912,
+        "overlap": 305
+      },
+      {
+        "mpId": 5253,
+        "score": 0.7911881580525344,
+        "overlap": 317
+      },
+      {
+        "mpId": 5191,
+        "score": 0.7899313055384806,
+        "overlap": 321
+      },
+      {
+        "mpId": 5065,
+        "score": 0.7886653518419785,
+        "overlap": 308
+      },
+      {
+        "mpId": 5210,
+        "score": 0.7870838410525096,
+        "overlap": 326
+      },
+      {
+        "mpId": 5150,
+        "score": 0.7858682668274144,
+        "overlap": 325
       }
     ],
     "bottomK": [
       {
-        "mpId": 5247,
-        "score": 0.037552478116989196,
-        "overlap": 95
-      },
-      {
-        "mpId": 5060,
-        "score": 0.05579859576060136,
-        "overlap": 130
-      },
-      {
-        "mpId": 5148,
-        "score": 0.0667438374922596,
-        "overlap": 44
-      },
-      {
-        "mpId": 5273,
-        "score": 0.0679018095318889,
-        "overlap": 140
-      },
-      {
-        "mpId": 5074,
-        "score": 0.07651667097285499,
-        "overlap": 140
-      },
-      {
-        "mpId": 5101,
-        "score": 0.0821398872626069,
-        "overlap": 145
-      },
-      {
-        "mpId": 5258,
-        "score": 0.08404244281272967,
-        "overlap": 93
-      },
-      {
         "mpId": 5194,
-        "score": 0.08516886563687485,
-        "overlap": 115
-      },
-      {
-        "mpId": 5171,
-        "score": 0.09578002880632973,
-        "overlap": 148
-      },
-      {
-        "mpId": 5234,
-        "score": 0.10129699281263996,
+        "score": 0.04516675437337468,
         "overlap": 136
       },
       {
-        "mpId": 5159,
-        "score": 0.11396386550754718,
-        "overlap": 141
-      },
-      {
         "mpId": 4099,
-        "score": 0.12146644952683738,
+        "score": 0.08434823356732998,
         "overlap": 5
       },
       {
         "mpId": 4105,
-        "score": 0.12146644952683738,
+        "score": 0.08434823356732998,
         "overlap": 5
       },
       {
         "mpId": 4110,
-        "score": 0.12146644952683738,
+        "score": 0.08434823356732998,
         "overlap": 5
       },
       {
         "mpId": 5100,
-        "score": 0.1417108577813103,
+        "score": 0.09840627249521831,
         "overlap": 18
       },
       {
-        "mpId": 5185,
-        "score": 0.14518017554874818,
-        "overlap": 127
+        "mpId": 5074,
+        "score": 0.12356459869565695,
+        "overlap": 197
+      },
+      {
+        "mpId": 5169,
+        "score": 0.13269099076359303,
+        "overlap": 45
+      },
+      {
+        "mpId": 5285,
+        "score": 0.1391674851853202,
+        "overlap": 153
+      },
+      {
+        "mpId": 5171,
+        "score": 0.13992669237434588,
+        "overlap": 217
       },
       {
         "mpId": 4100,
-        "score": 0.20244408254472898,
+        "score": 0.1405803892788833,
         "overlap": 5
       },
       {
         "mpId": 4109,
-        "score": 0.20244408254472898,
+        "score": 0.1405803892788833,
         "overlap": 5
       },
       {
         "mpId": 4111,
-        "score": 0.20244408254472898,
+        "score": 0.1405803892788833,
         "overlap": 5
       },
       {
         "mpId": 4057,
-        "score": 0.22406453988256794,
+        "score": 0.15559397856603546,
         "overlap": 8
+      },
+      {
+        "mpId": 5186,
+        "score": 0.15904855449750882,
+        "overlap": 12
+      },
+      {
+        "mpId": 5184,
+        "score": 0.16503233603375703,
+        "overlap": 84
+      },
+      {
+        "mpId": 5125,
+        "score": 0.16683127576028728,
+        "overlap": 38
+      },
+      {
+        "mpId": 5258,
+        "score": 0.17789431453845955,
+        "overlap": 174
+      },
+      {
+        "mpId": 5247,
+        "score": 0.17871752261199653,
+        "overlap": 227
+      },
+      {
+        "mpId": 5060,
+        "score": 0.18200630207731602,
+        "overlap": 250
+      },
+      {
+        "mpId": 3989,
+        "score": 0.18297700923955837,
+        "overlap": 20
       }
     ]
   }

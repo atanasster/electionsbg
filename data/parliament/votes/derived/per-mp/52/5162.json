@@ -3,29 +3,329 @@
   "ns": "52",
   "partyShort": "ПБ",
   "loyalty": {
-    "votesCast": 164,
-    "withParty": 153,
-    "loyaltyPct": 0.9329268292682927,
+    "votesCast": 346,
+    "withParty": 305,
+    "loyaltyPct": 0.8815028901734104,
     "windowFrom": "2026-04-30",
-    "windowTo": "2026-05-28",
-    "totalVoteItems": 178
+    "windowTo": "2026-06-05",
+    "totalVoteItems": 369
   },
   "attendance": {
-    "totalItems": 178,
-    "presentCount": 164,
-    "absentCount": 14,
-    "presentPct": 0.9213483146067416
+    "totalItems": 369,
+    "presentCount": 346,
+    "absentCount": 23,
+    "presentPct": 0.9376693766937669
   },
   "cohort": {
     "size": 265,
-    "votesCastMedian": 136,
-    "loyaltyPctMedian": 0.9862068965517241,
-    "presentPctMedian": 0.7752808988764045
+    "votesCastMedian": 274,
+    "loyaltyPctMedian": 0.9776785714285714,
+    "presentPctMedian": 0.7344173441734417
   },
   "dissents": {
-    "totalCast": 164,
-    "dissentCount": 11,
+    "totalCast": 346,
+    "dissentCount": 41,
     "recent": [
+      {
+        "date": "2026-06-04",
+        "item": 21,
+        "slug": "21-zid-na-zakona-za-nasarchavane-na-investitsiite-vtoro-glasuva",
+        "title": "ЗИД на Закона за насърчаване на инвестициите - второ гласуване - параграф 94 - предложение от Божидар Божанов",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 123
+      },
+      {
+        "date": "2026-06-03",
+        "item": 48,
+        "slug": "48-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-nov-predloz",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф ... нов - предложение от Искра Михайлова и група н.п",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 114
+      },
+      {
+        "date": "2026-06-03",
+        "item": 45,
+        "slug": "45-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-7-i-8-predl",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 7 и 8 - предложение от Константин Проданов - за допустимост",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 112
+      },
+      {
+        "date": "2026-06-03",
+        "item": 38,
+        "slug": "38-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-5-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 5 - предложение от Катя Панева и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 117
+      },
+      {
+        "date": "2026-06-03",
+        "item": 37,
+        "slug": "37-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-5-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 5 - предложение от Петър Петров",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 115
+      },
+      {
+        "date": "2026-06-03",
+        "item": 31,
+        "slug": "31-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-4-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 4 - предложение от Катя Панева и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 113
+      },
+      {
+        "date": "2026-06-03",
+        "item": 30,
+        "slug": "30-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-4-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 4 - предложение от Богдан Богданов и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 113
+      },
+      {
+        "date": "2026-06-03",
+        "item": 24,
+        "slug": "24-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2 - предложение от Петър Петров в чл.198в",
+        "topic": "zid",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 120
+      },
+      {
+        "date": "2026-06-03",
+        "item": 19,
+        "slug": "19-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-1-predlozhe",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 1 - предложение от Богдан Богданов и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 122
+      },
+      {
+        "date": "2026-06-03",
+        "item": 17,
+        "slug": "17-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2b-predlozh",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2б - предложение от Богдан Богданов и група н.п.- процедура за допустимост",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 114
+      },
+      {
+        "date": "2026-06-03",
+        "item": 16,
+        "slug": "16-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2a-predlozh",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2а - предложение от Богдан Богданов и група н.п.- процедура за допустимост",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 116
+      },
+      {
+        "date": "2026-06-03",
+        "item": 15,
+        "slug": "15-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-1b-predlozh",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 1б - предложение от Богдан Богданов и група н.п.- процедура за допустимост",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 119
+      },
+      {
+        "date": "2026-06-03",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-1a-predlozh",
+        "title": "ЗИД на Закона за водите - второ гласуване - параграф 1а - предложение от Богдан Богданов и група н.п.- процедура за допустимост",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 116
+      },
+      {
+        "date": "2026-05-29",
+        "item": 70,
+        "slug": "70-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - параграф 85 - редакция от Божидар Божанов",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 103
+      },
+      {
+        "date": "2026-05-29",
+        "item": 60,
+        "slug": "60-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 107 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 114
+      },
+      {
+        "date": "2026-05-29",
+        "item": 55,
+        "slug": "55-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 104 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 116
+      },
+      {
+        "date": "2026-05-29",
+        "item": 53,
+        "slug": "53-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 103 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 114
+      },
+      {
+        "date": "2026-05-29",
+        "item": 51,
+        "slug": "51-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 102 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 115
+      },
+      {
+        "date": "2026-05-29",
+        "item": 49,
+        "slug": "49-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 97 - предложение от Стою Стоев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 109
+      },
+      {
+        "date": "2026-05-29",
+        "item": 44,
+        "slug": "44-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 63 - предложение от Петър Петров, т.17",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 110
+      },
+      {
+        "date": "2026-05-29",
+        "item": 43,
+        "slug": "43-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - Глава седма, Раздел І , член 61 и член 62",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 107
+      },
+      {
+        "date": "2026-05-29",
+        "item": 40,
+        "slug": "40-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 57а - предложение от Стою Стоев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 117
+      },
+      {
+        "date": "2026-05-29",
+        "item": 38,
+        "slug": "38-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 57 - предложение от Стою Стоев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 117
+      },
+      {
+        "date": "2026-05-29",
+        "item": 36,
+        "slug": "36-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 56 - предложение от Стою Стоев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 119
+      },
+      {
+        "date": "2026-05-29",
+        "item": 34,
+        "slug": "34-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 55 - предложение от Стою Стоев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 119
+      },
+      {
+        "date": "2026-05-29",
+        "item": 32,
+        "slug": "32-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 53а - предложение от Стою Стоев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 119
+      },
+      {
+        "date": "2026-05-29",
+        "item": 30,
+        "slug": "30-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 53 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 118
+      },
+      {
+        "date": "2026-05-29",
+        "item": 16,
+        "slug": "16-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 13 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 118
+      },
+      {
+        "date": "2026-05-29",
+        "item": 13,
+        "slug": "13-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 8 - предложение от Петър Петров",
+        "topic": "other",
+        "mpVote": "yes",
+        "majorityVote": "no",
+        "groupSize": 117
+      },
+      {
+        "date": "2026-05-29",
+        "item": 10,
+        "slug": "10-zakon-za-protivodeystvie-na-koruptsiyata-sred-litsa-zaemasht",
+        "title": "Закон за противодействие на корупцията сред лица, заемащи публични длъжности - второ гласуване - член 7 - предложение от Елена Нонева и Асен Бабачев",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 111
+      },
       {
         "date": "2026-05-28",
         "item": 83,
@@ -141,206 +441,206 @@
   "similarity": {
     "topK": [
       {
-        "mpId": 5119,
-        "score": 0.9602488854864253,
-        "overlap": 164
+        "mpId": 5251,
+        "score": 0.9227536271810887,
+        "overlap": 346
       },
       {
-        "mpId": 5218,
-        "score": 0.9588259300130937,
-        "overlap": 163
-      },
-      {
-        "mpId": 5178,
-        "score": 0.9571462961627468,
-        "overlap": 164
-      },
-      {
-        "mpId": 5225,
-        "score": 0.9571462961627468,
-        "overlap": 164
-      },
-      {
-        "mpId": 5265,
-        "score": 0.9571462961627468,
-        "overlap": 164
-      },
-      {
-        "mpId": 5071,
-        "score": 0.956597463690634,
-        "overlap": 163
-      },
-      {
-        "mpId": 5214,
-        "score": 0.956597463690634,
-        "overlap": 163
-      },
-      {
-        "mpId": 5243,
-        "score": 0.9540735874430286,
-        "overlap": 164
+        "mpId": 5219,
+        "score": 0.9222445012373388,
+        "overlap": 345
       },
       {
         "mpId": 5097,
-        "score": 0.953791013055411,
-        "overlap": 160
+        "score": 0.918777416646221,
+        "overlap": 337
       },
       {
-        "mpId": 5066,
-        "score": 0.9534865693914505,
-        "overlap": 163
+        "mpId": 5263,
+        "score": 0.9161341583546729,
+        "overlap": 346
+      },
+      {
+        "mpId": 5177,
+        "score": 0.9158673098446158,
+        "overlap": 337
+      },
+      {
+        "mpId": 5218,
+        "score": 0.9148205315895428,
+        "overlap": 344
+      },
+      {
+        "mpId": 5071,
+        "score": 0.914394185389309,
+        "overlap": 338
+      },
+      {
+        "mpId": 5093,
+        "score": 0.913875397189311,
+        "overlap": 345
+      },
+      {
+        "mpId": 5296,
+        "score": 0.9126772542176782,
+        "overlap": 339
+      },
+      {
+        "mpId": 5243,
+        "score": 0.9117323739321567,
+        "overlap": 329
+      },
+      {
+        "mpId": 5278,
+        "score": 0.9116106349874742,
+        "overlap": 339
       },
       {
         "mpId": 5094,
-        "score": 0.9534865693914505,
-        "overlap": 163
+        "score": 0.9115935634145061,
+        "overlap": 343
+      },
+      {
+        "mpId": 5132,
+        "score": 0.9113959647488131,
+        "overlap": 344
+      },
+      {
+        "mpId": 5250,
+        "score": 0.9111330320044051,
+        "overlap": 341
+      },
+      {
+        "mpId": 5265,
+        "score": 0.9107131985831196,
+        "overlap": 345
+      },
+      {
+        "mpId": 5253,
+        "score": 0.9101310626636722,
+        "overlap": 336
+      },
+      {
+        "mpId": 5287,
+        "score": 0.9094898439275878,
+        "overlap": 339
       },
       {
         "mpId": 5179,
-        "score": 0.9534865693914505,
-        "overlap": 163
+        "score": 0.9079472521722218,
+        "overlap": 341
       },
       {
-        "mpId": 5290,
-        "score": 0.9534865693914505,
-        "overlap": 163
+        "mpId": 5217,
+        "score": 0.9070803567347354,
+        "overlap": 341
       },
       {
-        "mpId": 5174,
-        "score": 0.9533730580383669,
-        "overlap": 163
-      },
-      {
-        "mpId": 5064,
-        "score": 0.9529323477053278,
-        "overlap": 162
-      },
-      {
-        "mpId": 5076,
-        "score": 0.9529323477053278,
-        "overlap": 162
-      },
-      {
-        "mpId": 5116,
-        "score": 0.9529323477053278,
-        "overlap": 161
-      },
-      {
-        "mpId": 5144,
-        "score": 0.9519279017396182,
-        "overlap": 163
-      },
-      {
-        "mpId": 5239,
-        "score": 0.951030282759763,
-        "overlap": 164
-      },
-      {
-        "mpId": 5135,
-        "score": 0.9504058292883613,
-        "overlap": 164
+        "mpId": 5214,
+        "score": 0.9070233293468564,
+        "overlap": 338
       }
     ],
     "bottomK": [
       {
-        "mpId": 5273,
-        "score": -0.06293860187225168,
-        "overlap": 151
-      },
-      {
-        "mpId": 5060,
-        "score": -0.04433147924903328,
-        "overlap": 136
+        "mpId": 5194,
+        "score": -0.02614256242714113,
+        "overlap": 141
       },
       {
         "mpId": 5074,
-        "score": -0.035461884772665125,
-        "overlap": 150
-      },
-      {
-        "mpId": 5101,
-        "score": -0.03460725593653638,
-        "overlap": 156
+        "score": -0.008802376962713233,
+        "overlap": 209
       },
       {
         "mpId": 5171,
-        "score": -0.03414580520988754,
-        "overlap": 159
+        "score": 0,
+        "overlap": 229
       },
       {
         "mpId": 5247,
-        "score": -0.01740381063343864,
-        "overlap": 100
+        "score": 0.06206512807742013,
+        "overlap": 239
       },
       {
-        "mpId": 5159,
-        "score": -0.007042253521126761,
-        "overlap": 151
-      },
-      {
-        "mpId": 5194,
-        "score": 0,
-        "overlap": 121
-      },
-      {
-        "mpId": 5234,
-        "score": 0.01444504633391465,
-        "overlap": 144
-      },
-      {
-        "mpId": 5258,
-        "score": 0.01731098964823036,
-        "overlap": 98
-      },
-      {
-        "mpId": 5185,
-        "score": 0.029904086934417106,
-        "overlap": 134
-      },
-      {
-        "mpId": 5148,
-        "score": 0.03711916231079624,
-        "overlap": 47
+        "mpId": 5060,
+        "score": 0.06895337168283995,
+        "overlap": 265
       },
       {
         "mpId": 4099,
-        "score": 0.11258799375612023,
+        "score": 0.07811334658849432,
         "overlap": 5
       },
       {
         "mpId": 4105,
-        "score": 0.11258799375612023,
+        "score": 0.07811334658849432,
         "overlap": 5
       },
       {
         "mpId": 4110,
-        "score": 0.11258799375612023,
+        "score": 0.07811334658849432,
         "overlap": 5
       },
       {
+        "mpId": 5273,
+        "score": 0.0997680290493391,
+        "overlap": 307
+      },
+      {
+        "mpId": 5101,
+        "score": 0.10475815686767967,
+        "overlap": 320
+      },
+      {
         "mpId": 5100,
-        "score": 0.16888199063418033,
+        "score": 0.11717001988274148,
         "overlap": 20
       },
       {
+        "mpId": 5184,
+        "score": 0.12372228331966117,
+        "overlap": 89
+      },
+      {
+        "mpId": 5258,
+        "score": 0.12708873027892081,
+        "overlap": 185
+      },
+      {
         "mpId": 4100,
-        "score": 0.18764665626020038,
+        "score": 0.13018891098082386,
         "overlap": 5
       },
       {
         "mpId": 4109,
-        "score": 0.18764665626020038,
+        "score": 0.13018891098082386,
         "overlap": 5
       },
       {
         "mpId": 4111,
-        "score": 0.18764665626020038,
+        "score": 0.13018891098082386,
         "overlap": 5
       },
       {
-        "mpId": 5153,
-        "score": 0.21667569500871975,
-        "overlap": 67
+        "mpId": 5234,
+        "score": 0.14275566072672924,
+        "overlap": 275
+      },
+      {
+        "mpId": 5159,
+        "score": 0.14387930710698185,
+        "overlap": 303
+      },
+      {
+        "mpId": 5169,
+        "score": 0.14921468799176824,
+        "overlap": 45
+      },
+      {
+        "mpId": 5185,
+        "score": 0.162798959086882,
+        "overlap": 302
       }
     ]
   }
