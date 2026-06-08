@@ -77,8 +77,24 @@ const runtimeLabel = (r: string, lang: Lang) =>
       ? "в браузъра"
       : "in-browser"
     : lang === "bg"
-      ? "облак"
+      ? "облачен"
       : "cloud";
+
+// BG labels for the model rows (the artifact's labels are English-only). Falls
+// back to the English label for any id not listed (e.g. Gemini, the baseline).
+const MODEL_LABEL_BG: Record<string, string> = {
+  "google/gemma-4-31b-it": "Gemma 4 31B (бюджет: 640 токена)",
+  "google/gemma-4-31b-it-1536": "Gemma 4 31B (бюджет: 1536 токена)",
+  "functiongemma-270m-it-q4f32_1-MLC.k3-free":
+    "FunctionGemma 270M — оптимизиран промпт (k=3, free)",
+  "functiongemma-270m-it-q4f32_1-MLC.k3-grammar":
+    "FunctionGemma 270M — с граматика (k=3)",
+  "functiongemma-270m-it-q4f32_1-MLC.k8-compact-grammar":
+    "FunctionGemma 270M — избор измежду 8 (k=8 compact + граматика)",
+};
+
+const modelLabel = (m: { id: string; label: string }, lang: Lang) =>
+  lang === "bg" ? (MODEL_LABEL_BG[m.id] ?? m.label) : m.label;
 
 export const EvalsScreen = () => {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -151,13 +167,13 @@ export const EvalsScreen = () => {
       <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-8">
         <h1 className="font-title text-2xl font-semibold text-popover-foreground sm:text-3xl">
           {t(
-            "Оценка на извикване на инструменти (EN/BG)",
+            "Оценка на извикването на функции (EN/BG)",
             "Function-calling evaluation (EN/BG)",
           )}
         </h1>
         <p className="mt-3 max-w-2xl text-muted-foreground">
           {t(
-            "Може ли малък/отворен модел да управлява инструментите на Наясно — и влошава ли се изборът на инструмент, когато въпросът е на български вместо на английски? Всеки модел получава едни и същи задачи на двата езика.",
+            "Може ли малък/отворен модел да управлява извикването на инструменти (Tool Calling) на Наясно? Влошава ли се изборът на инструмент, когато въпросът е на български вместо на английски език? Всеки модел получава едни и същи задачи на двата езика.",
             "Can a small/open model drive Наясно's tools — and does tool selection degrade when the question is in Bulgarian rather than English? Each model gets the same tasks in both languages.",
           )}
         </p>
@@ -194,7 +210,7 @@ export const EvalsScreen = () => {
                     </th>
                     <th className="px-2 py-2 text-right font-medium">JSON</th>
                     <th className="px-2 py-2 text-right font-medium">
-                      {t("Влошаване BG", "BG drop")}
+                      {t("Разлика (EN vs BG)", "BG drop")}
                     </th>
                   </tr>
                 </thead>
@@ -203,7 +219,7 @@ export const EvalsScreen = () => {
                     <tr key={m.id} className="border-b align-top">
                       <td className="py-2 pr-3">
                         <div className="font-medium text-popover-foreground">
-                          {m.label}
+                          {modelLabel(m, lang)}
                         </div>
                         <div className="text-xs text-muted-foreground">
                           {m.params !== "—" ? `${m.params} · ` : ""}
@@ -249,7 +265,7 @@ export const EvalsScreen = () => {
               </table>
               <p className="mt-2 text-xs text-muted-foreground">
                 {t(
-                  "EN/BG = дял на правилно избрания инструмент (вкл. разпознаване кога никой инструмент не е подходящ). Влошаване BG = разлика EN−BG (положително = по-зле на български).",
+                  "EN/BG = дял на правилно избрания инструмент (вкл. разпознаване кога никой инструмент не е подходящ). Разлика (EN vs BG) = разликата EN − BG (положителна стойност = по-слабо представяне на български).",
                   "EN/BG = share of correctly selected tools (incl. recognising when no tool fits). BG drop = EN−BG (positive = worse in Bulgarian).",
                 )}
               </p>
@@ -258,17 +274,17 @@ export const EvalsScreen = () => {
             {/* ---- takeaway ---- */}
             <section className="mt-8 rounded-lg border bg-muted/40 p-4 text-sm">
               <h2 className="mb-2 font-semibold text-popover-foreground">
-                {t("Какво показва това", "What this shows")}
+                {t("Какво показват резултатите?", "What this shows")}
               </h2>
               <p className="text-muted-foreground">
                 {t(
-                  "Способен облачен модел се справя с избора измежду всичките инструменти: Gemini 3.1 Flash-Lite (с JSON-режим) познава верния инструмент в ~96–97% и на двата езика, без влошаване на български. Отворен 31B модел (Gemma 4) през Gemini API дава ~55% при бюджет от 640 изходни токена — но това е отрязана верига от разсъждения, не модела: при 1536 токена скача до ~82% (EN 81% / BG 83%), валиден JSON ~87%, а изоставането на български дори се обръща. Тоест начинът на извикване (изходен бюджет / ограничено декодиране) тежи колкото размера на модела.",
+                  "Моделите в облака се справят отлично с избора измежду всички налични инструменти: Gemini 3.1 Flash-Lite (в JSON-режим) разпознава правилния инструмент в ~96–97% от случаите и на двата езика, без никакъв спад в качеството на български. Отвореният 31B модел (Gemma 4) през Gemini API постига едва ~55% при ограничение от 640 изходни токена — но това е прекъсната верига от разсъждения (chain of thought), а не самият модел: при 1536 токена точността скача до ~82% (EN 81% / BG 83%) с ~87% валиден JSON, а изоставането на български дори се обръща. Тоест начинът на извикване (изходен бюджет / ограничено декодиране) тежи колкото размера на модела.",
                   "A capable cloud model handles selection among all the tools: Gemini 3.1 Flash-Lite (with JSON mode) picks the right tool ~96–97% in both languages, with no Bulgarian degradation. An open 31B model (Gemma 4) via the Gemini API scores ~55% at a 640-token output budget — but that's chain-of-thought truncation, not the model: raise the budget to 1536 and it jumps to ~82% (EN 81% / BG 83%), valid JSON ~87%, with the Bulgarian gap reversing. So the calling method (output budget / constrained decoding) can matter as much as model size.",
                 )}
               </p>
               <p className="mt-3 text-muted-foreground">
                 {t(
-                  "Малкият FunctionGemma 270M (в браузъра, без дообучение) е показан като ЛЕСТНИЦА от варианти на ЕДИН и същ модел. Базовият ред е 0% — но не защото моделът не може да маршрутизира: при k=8 пълни декларации в ~68% от случаите wasm-средата прекъсва („KV cache is full“ — подканата надхвърля контекстовия прозорец от 512 токена), преди моделът да върне дори един токен. Свиването до k=3 маха прекъсванията; добавянето на ограничено декодиране (XGrammar — изходът ТРЯБВА да е един от кандидатите) вдига маршрутизирането до 37% при k=3 (срещу ~33% на случаен принцип) и 18% при k=8 (срещу ~12.5%). Тоест публикуваната „0%“ беше артефакт на инфраструктурата; с побираща се подкана + ограничено декодиране дообучен модел вече надхвърля случайния принцип — а доменно дообучение е пътят към използваемост.",
+                  "Малкият FunctionGemma 270M (в браузъра, без дообучение) е показан като градация от варианти на ЕДИН и същ модел. Базовият ред е 0% — но не защото моделът не може да маршрутизира: при k=8 пълните декларации на функциите водят до прекъсване в ~68% от случаите, тъй като подканата надхвърля контекстния прозорец от 512 токена („KV cache is full“), преди моделът да генерира дори един токен. Свиването до k=3 елиминира тези инфраструктурни прекъсвания; добавянето на ограничено декодиране (XGrammar — изходът ЗАДЪЛЖИТЕЛНО е един от кандидатите) вдига маршрутизирането до 37% при k=3 (срещу ~33% на случаен принцип) и 18% при k=8 (срещу ~12.5%). Тоест публикуваната „0%“ беше артефакт на инфраструктурата; с побираща се подкана и ограничено декодиране дори необученият модел вече надхвърля случайния избор — а доменното дообучение е пътят към реална използваемост.",
                   "The small FunctionGemma 270M (in-browser, untuned) is shown as a LADDER of variants of the SAME model. The baseline row is 0% — but not because it can't route: at k=8 with full declarations the wasm traps ~68% of the time ('KV cache is full' — the prompt overflows the 512-token context window) before the model emits a single token. Shrinking to k=3 removes the traps; adding constrained decoding (XGrammar — the output MUST be one of the candidates) lifts routing to 37% at k=3 (vs ~33% chance) and 18% at k=8 (vs ~12.5%). So the published '0%' was an infrastructure artifact; with a fitting prompt + constrained decoding the untuned model already beats chance — and a domain fine-tune is the path to usable.",
                 )}
               </p>
@@ -277,14 +293,14 @@ export const EvalsScreen = () => {
             {/* ---- per-model detail ---- */}
             <section className="mt-8">
               <h2 className="mb-3 font-semibold text-popover-foreground">
-                {t("Детайли по задача", "Per-case detail")}
+                {t("Детайли по задачите", "Per-case detail")}
               </h2>
               {data.models
                 .filter((m) => m.perLang)
                 .map((m) => (
                   <details key={m.id} className="mb-2 rounded-md border">
                     <summary className="cursor-pointer px-3 py-2 text-sm font-medium">
-                      {m.label}
+                      {modelLabel(m, lang)}
                     </summary>
                     <div className="overflow-x-auto px-3 pb-3">
                       {(m.note || m.reason) && (
@@ -352,13 +368,13 @@ export const EvalsScreen = () => {
               <ul className="list-inside list-disc space-y-1 text-muted-foreground">
                 <li>
                   {t(
-                    `${data.method.relevantCases} реални инструмента, всеки с двуезичен пример (EN+BG) от регистъра — оценява се изборът на инструмент измежду всичките ${data.method.toolCount}.`,
+                    `${data.method.relevantCases} реални инструмента, всеки с двуезичен пример (EN+BG) от регистъра — оценява се точността на избора на инструмент измежду всичките ${data.method.toolCount}.`,
                     `${data.method.relevantCases} real tools, each with a bilingual example (EN+BG) from the registry — tool selection is scored against all ${data.method.toolCount}.`,
                   )}
                 </li>
                 <li>
                   {t(
-                    "Задачите са първият двуезичен пример (EN+BG) на всеки инструмент от регистъра. Моделите в облака виждат ПЪЛНИЯ набор от инструменти в контекста (маршрутизират измежду всички инструменти); малките модели в браузъра виждат извлечен набор от кандидати (реалистичната двустепенна архитектура).",
+                    "Задачите са първият двуезичен пример (EN+BG) за всеки инструмент от регистъра. Облачните модели виждат ПЪЛНИЯ списък с инструменти в контекста (маршрутизация между всички опции), докато малките модели в браузъра работят с извлечен набор от кандидати (реалистичната двустъпкова архитектура).",
                     data.method.coverageNote,
                   )}
                 </li>
