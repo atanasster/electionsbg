@@ -17,6 +17,7 @@ type Props = {
     | "headline"
     | "articles"
     | "macro"
+    | "prices"
     | "governments"
     | "budget-execution"
     | "budget-composition"

@@ -503,6 +503,57 @@ export const followUps = (env: Envelope): FollowUp[] => {
         en: "Who is the mayor of Plovdiv?",
       });
       break;
+    case "priceIndex":
+      out.push({
+        bg: "Кой град е най-евтин за пазаруване?",
+        en: "Which town is cheapest to shop in?",
+      });
+      out.push({
+        bg: "Коя верига е най-евтина?",
+        en: "Which retail chain is the cheapest?",
+      });
+      out.push({
+        bg: "Къде поскъпнаха цените най-много?",
+        en: "Where did prices rise the most?",
+      });
+      break;
+    case "settlementPrices": {
+      const place = fact(env, "place");
+      if (place)
+        out.push({
+          bg: `Коя верига е най-евтина ${vIn(place)}?`,
+          en: `Which chain is cheapest in ${place}?`,
+        });
+      out.push({
+        bg: "Колко поскъпна кошницата от въвеждането на еврото?",
+        en: "How much has the basket risen since the euro?",
+      });
+      out.push({
+        bg: "Кой град е най-евтин за пазаруване?",
+        en: "Which town is cheapest to shop in?",
+      });
+      break;
+    }
+    case "cheapestChains":
+      out.push({
+        bg: "Кой град е най-евтин за пазаруване?",
+        en: "Which town is cheapest to shop in?",
+      });
+      out.push({
+        bg: "Колко поскъпна кошницата от въвеждането на еврото?",
+        en: "How much has the basket risen since the euro?",
+      });
+      break;
+    case "priceRanking":
+      out.push({
+        bg: "Колко поскъпна кошницата от въвеждането на еврото?",
+        en: "How much has the basket risen since the euro?",
+      });
+      out.push({
+        bg: "Коя верига е най-евтина?",
+        en: "Which retail chain is the cheapest?",
+      });
+      break;
   }
 
   if (out.length === 0) {

@@ -440,6 +440,15 @@ export const DataSources = () => {
             </ul>
           </DataGroup>
 
+          <DataGroup title={t("prices_section")}>
+            <ul className="space-y-2">
+              <SourceItem
+                href="https://kolkostruva.bg/opendata"
+                label={t("prices_kzp_source")}
+              />
+            </ul>
+          </DataGroup>
+
           <DataGroup title={t("sovereign_debt_section")}>
             <ul className="space-y-2">
               <SourceItem

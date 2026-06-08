@@ -11,7 +11,7 @@
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Briefcase, Landmark, Wallet } from "lucide-react";
+import { Briefcase, Landmark, ShoppingBasket, Wallet } from "lucide-react";
 import { useRegionSummary } from "@/data/dashboard/useRegionSummary";
 import { useRegionDeclarationsHasContent } from "@/data/parliament/useMpDeclarationsAvailability";
 import { isDiasporaRegion } from "@/data/diaspora/diasporaFaq";
@@ -26,6 +26,7 @@ import { RegionalIndicatorsTile } from "./RegionalIndicatorsTile";
 import { MunicipalTransfersTile } from "./MunicipalTransfersTile";
 import { CensusDemographicsTile } from "./CensusDemographicsTile";
 import { MyAreaPropertyStockTile } from "@/screens/myarea/MyAreaPropertyStockTile";
+import { GovernancePricesTile } from "@/screens/governance/GovernancePricesTile";
 
 type Props = {
   regionCode: string;
@@ -50,6 +51,16 @@ export const RegionGovernanceCards: FC<Props> = ({ regionCode }) => {
           <RegionMpsTile regionCode={regionCode} parties={data.parties} />
         ) : null}
       </DashboardSection>
+
+      {diaspora ? null : (
+        <DashboardSection
+          id="prices"
+          title={t("governance_section_prices") || "Цени / Prices"}
+          icon={ShoppingBasket}
+        >
+          <GovernancePricesTile oblast={regionCode} />
+        </DashboardSection>
+      )}
 
       {diaspora ? null : (
         <DashboardSection

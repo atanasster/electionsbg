@@ -81,6 +81,12 @@ import {
   subnationalIndicator,
   transparencyScore,
 } from "./placesGov";
+import {
+  cheapestChains,
+  priceIndex,
+  priceRanking,
+  settlementPrices,
+} from "./prices";
 import { compareElections, machineVoteShare, turnout } from "./metrics";
 import { candidateResult } from "./candidate";
 import {
@@ -2052,6 +2058,124 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: landUse,
+  },
+  // ---- prices (КЗП "Колко струва" euro-adoption monitoring) ------------------
+  {
+    name: "priceIndex",
+    domain: "indicators",
+    description: {
+      bg: "Колко поскъпна потребителската кошница от въвеждането на еврото (национално или по област) — мониторингов индекс на КЗП + по категории. НЕ е официален ИПЦ.",
+      en: "How much the consumer basket has risen since the euro (national or per oblast) — CPC monitoring index + by category. NOT official CPI.",
+    },
+    params: [
+      {
+        name: "oblast",
+        type: "oblast",
+        description: { bg: "Област (по избор)", en: "Oblast (optional)" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Колко поскъпна кошницата от въвеждането на еврото?",
+        en: "How much has the basket risen since the euro?",
+      },
+      {
+        bg: "Поскъпнаха ли цените след еврото?",
+        en: "Did prices rise after the euro?",
+      },
+    ],
+    run: priceIndex,
+  },
+  {
+    name: "settlementPrices",
+    domain: "indicators",
+    description: {
+      bg: "Цени на дребно в едно населено място: промяна на кошницата от еврото, най-ниски цени на основни продукти и най-евтина верига. Може и за един продукт (напр. мляко).",
+      en: "Retail prices in one place: basket change since the euro, lowest prices for staple products and the cheapest chain. Also a single product (e.g. milk).",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: { bg: "Населено място", en: "Settlement" },
+      },
+      {
+        name: "product",
+        type: "metric",
+        description: {
+          bg: "Конкретен продукт (по избор), напр. мляко, хляб",
+          en: "A specific product (optional), e.g. milk, bread",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Какви са цените в Пловдив?",
+        en: "What are the prices in Plovdiv?",
+      },
+      {
+        bg: "Колко струва млякото в Пловдив?",
+        en: "How much is milk in Plovdiv?",
+      },
+    ],
+    run: settlementPrices,
+  },
+  {
+    name: "cheapestChains",
+    domain: "indicators",
+    description: {
+      bg: "Класация на търговските вериги по цена на кошницата (национално или в една община) — сравнени върху общата кошница.",
+      en: "Retail chains ranked by basket cost (national or in one município) — compared on the shared basket.",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        description: { bg: "Община (по избор)", en: "Municipality (optional)" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Коя верига е най-евтина?",
+        en: "Which retail chain is the cheapest?",
+      },
+      {
+        bg: "Най-евтини магазини в Бургас",
+        en: "Cheapest supermarkets in Burgas",
+      },
+    ],
+    run: cheapestChains,
+  },
+  {
+    name: "priceRanking",
+    domain: "indicators",
+    description: {
+      bg: "Класация на местата по цени: най-евтини градове/области за кошницата или къде е поскъпнало най-много от еврото (списък + карта).",
+      en: "Places ranked by prices: cheapest towns/oblasts for the basket, or where prices rose most since the euro (list + map).",
+    },
+    params: [
+      {
+        name: "metric",
+        type: "metric",
+        description: {
+          bg: "Посока: най-евтини / най-голямо поскъпване; ниво: места / области",
+          en: "Direction: cheapest / biggest rise; level: places / oblasts",
+        },
+      },
+      { name: "n", type: "count", description: { bg: "Брой", en: "How many" } },
+    ],
+    examples: [
+      {
+        bg: "Кой град е най-евтин за пазаруване?",
+        en: "Which town is cheapest to shop in?",
+      },
+      {
+        bg: "Къде поскъпнаха цените най-много от еврото?",
+        en: "Where did prices rise the most since the euro?",
+      },
+    ],
+    run: priceRanking,
   },
   // ---- place ("about my area") ----------------------------------------------
   {

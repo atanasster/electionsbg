@@ -48,6 +48,7 @@ import { tiBgLisi } from "./ti_bg_lisi";
 import { councilMinutes } from "./council_minutes";
 import { ipiLocalTaxes } from "./ipi_local_taxes";
 import { municipalNaredba } from "./municipal_naredba";
+import { kzpPrices } from "./kzp_prices";
 
 // `cik` (news/decisions index) is still intentionally omitted — see ./cik.ts
 // header. The new `cik_results` source below uses the Playwright bypass
@@ -103,4 +104,5 @@ export const SOURCES: WatchSource[] = [
   councilMinutes,
   ipiLocalTaxes,
   municipalNaredba,
+  kzpPrices,
 ];

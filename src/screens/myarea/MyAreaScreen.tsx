@@ -30,6 +30,7 @@ import { MyAreaKmetstvoTile } from "./MyAreaKmetstvoTile";
 import { MyAreaTaxReceiptTile } from "./MyAreaTaxReceiptTile";
 import { MyAreaMunicipalBudgetTile } from "./MyAreaMunicipalBudgetTile";
 import { MyAreaLocalTaxesTile } from "./MyAreaLocalTaxesTile";
+import { MyAreaPricesTile } from "./MyAreaPricesTile";
 import { MyAreaTransparencyTile } from "./MyAreaTransparencyTile";
 import { MyAreaQualityStrip } from "./MyAreaQualityStrip";
 import { MyAreaProjectsMapTile } from "./MyAreaProjectsMapTile";
@@ -261,6 +262,13 @@ export const MyAreaScreen: FC = () => {
           <MyAreaLocalTaxesTile obshtina={area.obshtina} />
           <MyAreaPropertyStockTile oblast={area.oblast} />
         </div>
+        {/* Цени — what the consumer basket costs here, from the КЗП euro-adoption
+            price monitor. Self-hides outside the ~245 covered settlements
+            (falls back to the município row, then hides). */}
+        <MyAreaPricesTile
+          ekatte={area.kind === "settlement" ? area.ekatte : undefined}
+          obshtina={area.obshtina}
+        />
         {/* "Money in / money out" pair — Чл.53 state-budget envelope
             (always present for the 265 общини, with an adaptive
             касово-изпълнение sub-block for the 2 munis that publish a B3)

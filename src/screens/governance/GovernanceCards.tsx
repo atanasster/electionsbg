@@ -15,6 +15,7 @@ import {
   Globe2,
   Landmark,
   ScrollText,
+  ShoppingBasket,
   Vote,
   Wallet,
 } from "lucide-react";
@@ -50,6 +51,7 @@ import { GovernanceMacroTile } from "./GovernanceMacroTile";
 import { GovernmentStabilityTile } from "./GovernmentStabilityTile";
 import { GovernanceObservationsTile } from "./GovernanceObservationsTile";
 import { GovernanceDebtTile } from "./GovernanceDebtTile";
+import { GovernancePricesTile } from "./GovernancePricesTile";
 
 // Governance topics that map onto article tags. We reuse the existing
 // DashboardSectionId enum where the topic overlaps; for the macro and
@@ -175,6 +177,14 @@ export const GovernanceCards: FC = () => {
           <div className="mt-3">
             <BudgetPeerComparisonTile />
           </div>
+        </DashboardSection>
+
+        <DashboardSection
+          id="prices"
+          title={t("governance_section_prices") || "Цени / Prices"}
+          icon={ShoppingBasket}
+        >
+          <GovernancePricesTile />
         </DashboardSection>
 
         <DashboardSection

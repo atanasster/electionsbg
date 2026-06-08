@@ -27,6 +27,7 @@
     "test:desktop": "playwright test --project=desktop",
     "test:mobile": "playwright test --project=mobile",
     "data": "tsx ./scripts/main.ts",
+    "prices": "tsx ./scripts/prices/ingest.ts",
     "prod": "tsx ./scripts/main.ts --all --prod",
     "sitemap": "tsx ./scripts/sitemap/index.ts",
     "llms": "tsx ./scripts/llms/buildFull.ts",

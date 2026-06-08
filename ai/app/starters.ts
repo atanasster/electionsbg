@@ -139,4 +139,28 @@ export const STARTERS: Starter[] = [
     bg: "Коя партия печели ромските гласове последните 5 години?",
     en: "Which party wins the Roma vote over the last 5 years?",
   },
+  {
+    bg: "Колко поскъпна кошницата от въвеждането на еврото?",
+    en: "How much has the basket risen since the euro?",
+  },
+  {
+    bg: "Какви са цените в Пловдив?",
+    en: "What are the prices in Plovdiv?",
+  },
+  {
+    bg: "Колко струва млякото в Пловдив?",
+    en: "How much is milk in Plovdiv?",
+  },
+  {
+    bg: "Коя верига е най-евтина?",
+    en: "Which retail chain is the cheapest?",
+  },
+  {
+    bg: "Кой град е най-евтин за пазаруване?",
+    en: "Which town is cheapest to shop in?",
+  },
+  {
+    bg: "Къде поскъпнаха цените най-много от еврото?",
+    en: "Where did prices rise the most since the euro?",
+  },
 ];

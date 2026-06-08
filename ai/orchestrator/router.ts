@@ -11,6 +11,7 @@ import { resolveMacroKey } from "../tools/macro";
 import { SOFIA_CITY } from "../tools/areaResults";
 import { findOblastInText } from "../tools/place";
 import { resolveRegionKey, resolveSubnatKey } from "../tools/placesGov";
+import { detectPriceProduct } from "../tools/prices";
 import { TOOLS_BY_NAME } from "../tools/registry";
 import type { ToolArgs, ToolContext } from "../tools/types";
 
@@ -1499,6 +1500,157 @@ export const route = (question: string, ctx: ToolContext): Route => {
   if (has(q, "въздух", "air ", "фпч", "pm10", "pm2", "замърся", "pollut")) {
     const place = extractPlace(q);
     if (place) return { tool: "airQuality", args: { place } };
+  }
+
+  // 1e0. prices (КЗП „Колко струва“) — euro-adoption retail-price monitoring.
+  // Gated on a price cue; excludes official CPI ("инфлация"/HICP → macro), local
+  // taxes, and the budget "колко струва държавата". Runs before the macro + rank
+  // blocks so "цените"/"кошница" don't fall to an inflation/indicator read.
+  {
+    const priceProduct = detectPriceProduct(q);
+    // An explicit price/shopping/chain cue. NOTE: a product word alone does NOT
+    // trigger (e.g. "бира" hides inside "избирателна"); it only routes the
+    // product sub-case once a real price cue is present. "пазарув" (not "пазар",
+    // which is inside "Пазарджик"). Excludes official CPI, taxes, budget/state,
+    // and risk so those keep their own tools.
+    const priceWord = has(
+      q,
+      "цена",
+      "цени",
+      "цената",
+      "цените",
+      "кошниц",
+      "basket",
+      "price",
+      "prices",
+      "пазарув",
+      " shop",
+      "shopping",
+    );
+    const chainWord = has(
+      q,
+      "верига",
+      "вериги",
+      "магазин",
+      "супермаркет",
+      "supermarket",
+      "chain",
+      " store",
+    );
+    const costPhrase =
+      (has(q, "колко струва") && !has(q, "държав")) ||
+      has(q, "how much is", "how much are", "how much does", "how much do");
+    // "cheapest/priciest <place-tier>" — a cheap/expensive word ONLY counts when
+    // paired with a place tier, so a bare "евтин" can't over-trigger.
+    const cheapPlace =
+      has(
+        q,
+        "най-евтин",
+        "cheapest",
+        "по-евтин",
+        "най-скъп",
+        "most expensive",
+        "скъп",
+      ) &&
+      has(
+        q,
+        "град",
+        "област",
+        "място",
+        "община",
+        "общин",
+        "town",
+        "city",
+        "oblast",
+        "place",
+        "municipalit",
+      );
+    const priceCtx =
+      (priceWord || chainWord || costPhrase || cheapPlace) &&
+      !has(
+        q,
+        "инфлация",
+        "inflation",
+        "ипц",
+        "hicp",
+        "данък",
+        "данъц",
+        " tax",
+        "taxes",
+        "бюджет",
+        "budget",
+        "държав",
+        "state",
+        "government",
+        "риск",
+        "risk",
+      );
+    if (priceCtx) {
+      // Strip price + product filler so the place extractor sees a clean name.
+      // Cyrillic suffixes use [а-яё]* (JS \w matches only ASCII). Baseline
+      // phrases ("от еврото") are stripped as units so a bare "от" can't leak
+      // and mis-match a town (e.g. "Ботевград" contains "от").
+      const PRICE_STRIP =
+        /от въвеждането на еврото|от еврото|since the euro|въвеждането[а-яё]*|еврото|колко|струва[а-яё]*|цен[аи][а-яё]*|кошниц[а-яё]*|най-евтин[а-яё]*|евтин[а-яё]*|най-скъп[а-яё]*|скъп[а-яё]*|поскъп[а-яё]*|верига|вериги|магазин[а-яё]*|супермаркет[а-яё]*|пазарув[а-яё]*|how much|how|much|price[a-z]*|prices|basket|cheap[a-z]*|expensive|supermarket[a-z]*|chain[a-z]*|store|shop[a-z]*|мляко[а-яё]*|хляб[а-яё]*|яйца|олио|зехтин|кашкавал|сирене|масло|брашно|захар|ориз|пилешк[а-яё]*|пиле|свинск[а-яё]*|телешк[а-яё]*|кайма|банан[а-яё]*|ябълк[а-яё]*|домат[а-яё]*|картоф[а-яё]*|краставиц[а-яё]*|кафе|чай|бира|вино|ракия|цигари|тютюн|шампоан|сапун|лютеница|milk|bread|eggs|oil|cheese|butter|flour|sugar|rice|chicken|pork|beef|banana[a-z]*|apple[a-z]*|tomato[a-z]*|potato[a-z]*|onion[a-z]*|cucumber[a-z]*|coffee|tea|beer|wine|soap|shampoo|toothpaste/gi;
+      const place = extractPlace(q.replace(PRICE_STRIP, " "));
+      // chain comparison
+      if (
+        has(
+          q,
+          "верига",
+          "вериги",
+          "магазин",
+          "супермаркет",
+          "supermarket",
+          "chain",
+          "store",
+        )
+      )
+        return { tool: "cheapestChains", args: place ? { place } : {} };
+      // ranking of places by price (cheapest, or where it rose most)
+      const superl = has(
+        q,
+        "най-евтин",
+        "най-скъп",
+        "cheapest",
+        "most expensive",
+        "по-евтин",
+        "по-скъп",
+      );
+      const where = has(q, "къде", "where");
+      const rose = has(q, "поскъп", "rose", "increase", "risen", "rise");
+      const placeTier = has(
+        q,
+        "град",
+        "място",
+        "места",
+        "област",
+        "town",
+        "city",
+        "place",
+        "oblast",
+      );
+      if ((superl && (placeTier || where)) || (where && rose))
+        return {
+          tool: "priceRanking",
+          args: count ? { metric: q, n: count } : { metric: q },
+        };
+      // a named place (and/or a single product) → that place's prices
+      if (place || priceProduct)
+        return {
+          tool: "settlementPrices",
+          args: {
+            ...(place ? { place } : {}),
+            ...(priceProduct ? { product: q } : {}),
+          },
+        };
+      // national / per-oblast basket index since the euro
+      const oblHit = findOblastInText(q);
+      return {
+        tool: "priceIndex",
+        args: oblHit ? { oblast: oblHit.code } : {},
+      };
+    }
   }
 
   // 1e1. ranking across a whole tier ("which oblast/община has the highest X",

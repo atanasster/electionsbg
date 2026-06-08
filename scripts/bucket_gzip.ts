@@ -51,6 +51,10 @@ const GLOBAL_FILES = [
   "parliament/votes/index.json",
   "parliament/votes/derived/search_index.json",
   "officials/municipal/search_index.json",
+  "prices/index.json",
+  "prices/dict.json",
+  "prices/ranking.json",
+  "prices/chains.json",
 ];
 
 // Per-election files (one per ballot folder, YYYY_MM_DD[...]).
