@@ -8,5 +8,8 @@
   },
   "dependencies": {
     "firebase-functions": "^7.2.5"
+  },
+  "overrides": {
+    "uuid": "^11.1.1"
   }
 }
