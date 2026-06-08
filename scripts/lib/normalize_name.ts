@@ -22,6 +22,13 @@
 //        - If its letter core matches a known acronym / legal form → KEEP UPPER
 //        - If it's a single-letter Bulgarian function word ("и") → lowercase
 //        - If it sits inside `(…)` and is 3-9 letters → KEEP UPPER (paren-acronym)
+//        - If the surrounding name has ANY lowercase context (i.e. it is NOT
+//          a wholesale-shouted name), this all-upper token is an embedded
+//          acronym / initialism / Latin brand / Roman numeral — KEEP UPPER.
+//          This is the key signal: in "по чл.166 от ЗУТ", "ремонт … ЦГЧ, …",
+//          "монитор HP" the all-caps tokens are acronyms, not words that need
+//          de-shouting. Only when the ENTIRE name is upper ("ОБЩИНА ВИДИН")
+//          do we fall through to:
 //        - Otherwise → title-case it (first letter upper, rest lower)
 //   3. After the word pass, do a sentence-case sweep:
 //      - Lowercase the first letter of every word that *we just title-cased*
@@ -242,6 +249,22 @@ const titleCase = (s: string): string => {
   return s[0].toUpperCase() + s.slice(1).toLowerCase();
 };
 
+// A "de-shoutable" word is a 4+ letter, Cyrillic-only, all-upper token that
+// is NOT a known acronym or Roman numeral. In isolation inside an otherwise
+// lowercase name such a token is an embedded acronym we keep upper (ГПЧЕ,
+// ЦНСТПЛУИ, ПУДОС). But TWO OR MORE in a row are a SHOUTED PHRASE, not a
+// string of acronyms ("БЮДЖЕТНО САЛДО (дефицит)", "ОСНОВЕН РЕМОНТ на …",
+// "СТРОИТЕЛНА КОМПАНИЯ ЕООД (в ликвидация)") — those runs get de-shouted.
+// Latin all-upper tokens are deliberately excluded: consecutive Latin caps
+// are brands/models ("ACER VERITION", "RED HAT") and stay upper.
+const CYRILLIC_ONLY_RE = /^[Ѐ-ӿ]+$/;
+const isDeshoutableWord = (core: string): boolean =>
+  core.length >= 4 &&
+  isAllUpperLetters(core) &&
+  CYRILLIC_ONLY_RE.test(core) &&
+  !ACRONYMS.has(core) &&
+  !ROMAN_NUMERAL_RE.test(core);
+
 interface Word {
   raw: string; // original token including punctuation
   isWhitespace: boolean;
@@ -256,7 +279,7 @@ interface Word {
   titleCased: boolean;
 }
 
-const buildWord = (raw: string): Word => {
+const buildWord = (raw: string, hasLowercaseContext: boolean): Word => {
   if (/^\s+$/.test(raw)) {
     return {
       raw,
@@ -361,6 +384,28 @@ const buildWord = (raw: string): Word => {
       titleCased: false,
     };
   }
+  // 3c. Embedded-acronym signal. If the name as a whole carries any
+  // lowercase letter, then it is NOT a wholesale-shouted name and this
+  // remaining all-upper token is (provisionally) an acronym / initialism /
+  // Latin brand / Roman numeral that the source deliberately left capital —
+  // keep it upper. This is what saves mid-string and 4+-letter acronyms the
+  // explicit list can't enumerate: "ЦГЧ", "ЗУТ", "ПМС", "ГПЧЕ",
+  // "ЦНСТПЛУИ", "ІV", "HP", "LED", "ACER". A later pass in normaliseOrgName
+  // re-shouts down RUNS of 2+ consecutive Cyrillic caps words (a shouted
+  // phrase, not a string of acronyms). Only fall through to title-casing
+  // here when the ENTIRE name is upper (no lowercase context at all), e.g.
+  // "ОБЩИНА ВИДИН" → "Община Видин", "ВМ ПЕТРОЛЕУМ ООД" → "ВМ Петролеум ООД".
+  if (hasLowercaseContext) {
+    return {
+      raw,
+      isWhitespace: false,
+      prefix,
+      core: upperCore,
+      suffix,
+      out: prefix + upperCore + suffix,
+      titleCased: false,
+    };
+  }
   // 4. Default: title-case (first upper, rest lower).
   const titled = titleCase(upperCore);
   return {
@@ -395,7 +440,41 @@ const lowerFirst = (s: string): string => {
 export const normaliseOrgName = (name: string): string => {
   if (!name) return name;
   const tokens = name.split(/(\s+)/);
-  const words: Word[] = tokens.map(buildWord);
+  // Whole-name context: does ANY token already carry a lowercase letter?
+  // If so the name is mixed-case and any remaining all-upper token is an
+  // embedded acronym (see buildWord step 3c). Only fully-shouted names
+  // (no lowercase anywhere) get their regular words title-cased.
+  const hasLowercaseContext = tokens.some((t) => /\p{Ll}/u.test(t));
+  const words: Word[] = tokens.map((t) => buildWord(t, hasLowercaseContext));
+
+  // De-shout pass (mixed-case names only). buildWord left every all-upper
+  // token capital on the assumption it is an acronym. Re-scan the content
+  // words for RUNS of 2+ consecutive de-shoutable words (4+ letter Cyrillic
+  // caps, not a known acronym) — a run is a shouted phrase, so title-case
+  // each word in it. A SINGLE isolated de-shoutable word stays upper (it is
+  // an embedded acronym like ГПЧЕ / ЦНСТПЛУИ). "БЮДЖЕТНО САЛДО (дефицит)" →
+  // both title-cased; "по чл.166 от ЗУТ" → ЗУТ untouched.
+  if (hasLowercaseContext) {
+    const content = words.filter((w) => !w.isWhitespace && w.core.length > 0);
+    let i = 0;
+    while (i < content.length) {
+      if (!isDeshoutableWord(content[i].core)) {
+        i += 1;
+        continue;
+      }
+      let j = i;
+      while (j < content.length && isDeshoutableWord(content[j].core)) j += 1;
+      if (j - i >= 2) {
+        for (let k = i; k < j; k++) {
+          const w = content[k];
+          w.core = titleCase(w.core);
+          w.out = w.prefix + w.core + w.suffix;
+          w.titleCased = true;
+        }
+      }
+      i = j;
+    }
+  }
 
   // Sentence-case sweep — lowercase the first letter of title-cased words
   // that aren't at a "sentence start" position. A sentence start is:

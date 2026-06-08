@@ -73,6 +73,15 @@ const SKIP_PATHS = new Set<string>([
   path.join(REPO_ROOT, "data/funds/themes.json"),
   path.join(REPO_ROOT, "data/parliament/declarations"), // huge, raw upstream text
   path.join(REPO_ROOT, "data/parliament/index.json"), // MP roster, handled by parliament scrape
+  // Capital-programme `name` fields are free-text PROJECT DESCRIPTIONS
+  // ("Изпълнение на инженеринг … по чл.166 от ЗУТ"), not organisation
+  // names. They are never name-matched/joined, so the cross-tile-
+  // consistency rationale for org-name normalisation does not apply — and
+  // sentence-casing free text only damages embedded acronyms (ЗУТ, ПМС,
+  // ЦГЧ, ГПЧЕ, ІV) and over-capitalises the word after a leading acronym.
+  // The per-município parsers already emit faithful source casing; leave
+  // it untouched here.
+  path.join(REPO_ROOT, "data/budget/capital_programs"),
 ]);
 
 let changed = 0;
