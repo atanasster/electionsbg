@@ -157,297 +157,302 @@ export const EvalsScreen = () => {
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-8">
-        <h1 className="font-title text-2xl font-semibold text-popover-foreground sm:text-3xl">
-          {t(
-            "Оценка на извикването на функции (EN/BG)",
-            "Function-calling evaluation (EN/BG)",
-          )}
-        </h1>
-        <p className="mt-3 max-w-2xl text-muted-foreground">
-          {t(
-            "Може ли малък/отворен модел да управлява извикването на инструменти (Tool Calling) на Наясно? Влошава ли се изборът на инструмент, когато въпросът е на български вместо на английски език? Всеки модел получава едни и същи задачи на двата езика.",
-            "Can a small/open model drive Наясно's tools — and does tool selection degrade when the question is in Bulgarian rather than English? Each model gets the same tasks in both languages.",
-          )}
-        </p>
-
-        {error && (
-          <p className="mt-6 rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">
-            {t("Грешка при зареждане: ", "Failed to load: ")}
-            {error}
+      <main className="flex-1 overflow-y-auto">
+        <div className="container mx-auto flex min-h-full flex-col px-2 py-6 sm:px-4">
+          <h1 className="font-title text-2xl font-semibold text-popover-foreground sm:text-3xl">
+            {t(
+              "Оценка на извикването на функции (EN/BG)",
+              "Function-calling evaluation (EN/BG)",
+            )}
+          </h1>
+          <p className="mt-3 max-w-2xl text-muted-foreground">
+            {t(
+              "Може ли малък/отворен модел да управлява извикването на инструменти (Tool Calling) на Наясно? Влошава ли се изборът на инструмент, когато въпросът е на български вместо на английски език? Всеки модел получава едни и същи задачи на двата езика.",
+              "Can a small/open model drive Наясно's tools — and does tool selection degrade when the question is in Bulgarian rather than English? Each model gets the same tasks in both languages.",
+            )}
           </p>
-        )}
-        {!data && !error && (
-          <p className="mt-6 text-muted-foreground">
-            {t("Зареждане…", "Loading…")}
-          </p>
-        )}
 
-        {data && (
-          <>
-            {/* ---- headline table ---- */}
-            <section className="mt-8 overflow-x-auto">
-              <table className="w-full border-collapse text-sm">
-                <thead>
-                  <tr className="border-b-2 text-left text-muted-foreground">
-                    <th className="py-2 pr-3 font-medium">
-                      {t("Модел", "Model")}
-                    </th>
-                    <th className="px-2 py-2 font-medium">
-                      {t("Режим", "Mode")}
-                    </th>
-                    <th className="px-2 py-2 text-right font-medium">EN</th>
-                    <th className="px-2 py-2 text-right font-medium">BG</th>
-                    <th className="px-2 py-2 text-right font-medium">
-                      {t("Аргументи", "Args")}
-                    </th>
-                    <th className="px-2 py-2 text-right font-medium">JSON</th>
-                    <th className="px-2 py-2 text-right font-medium">
-                      {t("Разлика (EN vs BG)", "BG drop")}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.models.map((m) => (
-                    <tr key={m.id} className="border-b align-top">
-                      <td className="py-2 pr-3">
-                        <div className="font-medium text-popover-foreground">
-                          {modelLabel(m, lang)}
-                        </div>
-                        <div className="text-xs text-muted-foreground">
-                          {m.params !== "—" ? `${m.params} · ` : ""}
-                          {runtimeLabel(m.runtime, lang)}
-                          {m.via ? ` · ${m.via}` : ""}
-                        </div>
-                      </td>
-                      {m.perLang ? (
-                        <>
-                          <td className="px-2 py-2 text-xs text-muted-foreground">
-                            {m.toolMode ?? runtimeLabel(m.runtime, lang)}
-                          </td>
-                          <td className="px-2 py-2 text-right tabular-nums">
-                            {pct(m.perLang.en.toolAcc)}
-                          </td>
-                          <td className="px-2 py-2 text-right tabular-nums">
-                            {pct(m.perLang.bg.toolAcc)}
-                          </td>
-                          <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">
-                            {pct(m.perLang.bg.argAcc)}
-                          </td>
-                          <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">
-                            {pct(m.perLang.bg.jsonValidRate)}
-                          </td>
-                          <td className="px-2 py-2 text-right tabular-nums">
-                            {m.degradation
-                              ? `${Math.round(m.degradation.toolAcc * 100)} pt`
-                              : "—"}
-                          </td>
-                        </>
-                      ) : (
-                        <td
-                          className="px-2 py-2 text-xs italic text-muted-foreground"
-                          colSpan={6}
-                        >
-                          {t("не е измерено — ", "not measured — ")}
-                          {m.reason}
-                        </td>
-                      )}
+          {error && (
+            <p className="mt-6 rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">
+              {t("Грешка при зареждане: ", "Failed to load: ")}
+              {error}
+            </p>
+          )}
+          {!data && !error && (
+            <p className="mt-6 text-muted-foreground">
+              {t("Зареждане…", "Loading…")}
+            </p>
+          )}
+
+          {data && (
+            <>
+              {/* ---- headline table ---- */}
+              <section className="mt-8 overflow-x-auto">
+                <table className="w-full border-collapse text-sm">
+                  <thead>
+                    <tr className="border-b-2 text-left text-muted-foreground">
+                      <th className="py-2 pr-3 font-medium">
+                        {t("Модел", "Model")}
+                      </th>
+                      <th className="px-2 py-2 font-medium">
+                        {t("Режим", "Mode")}
+                      </th>
+                      <th className="px-2 py-2 text-right font-medium">EN</th>
+                      <th className="px-2 py-2 text-right font-medium">BG</th>
+                      <th className="px-2 py-2 text-right font-medium">
+                        {t("Аргументи", "Args")}
+                      </th>
+                      <th className="px-2 py-2 text-right font-medium">JSON</th>
+                      <th className="px-2 py-2 text-right font-medium">
+                        {t("Разлика (EN vs BG)", "BG drop")}
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-              <p className="mt-2 text-xs text-muted-foreground">
-                {t(
-                  "EN/BG = дял на правилно избрания инструмент (вкл. разпознаване кога никой инструмент не е подходящ). Разлика (EN vs BG) = разликата EN − BG (положителна стойност = по-слабо представяне на български).",
-                  "EN/BG = share of correctly selected tools (incl. recognising when no tool fits). BG drop = EN−BG (positive = worse in Bulgarian).",
-                )}
-              </p>
-            </section>
-
-            {/* ---- takeaway ---- */}
-            <section className="mt-8 rounded-lg border bg-muted/40 p-4 text-sm">
-              <h2 className="mb-2 font-semibold text-popover-foreground">
-                {t("Какво показват резултатите?", "What this shows")}
-              </h2>
-              <p className="text-muted-foreground">
-                {t(
-                  "Моделите в облака се справят отлично с избора измежду всички налични инструменти: Gemini 3.1 Flash-Lite (в JSON-режим) разпознава правилния инструмент в ~96–97% от случаите и на двата езика, без никакъв спад в качеството на български. Отвореният 31B модел (Gemma 4) през Gemini API постига едва ~55% при ограничение от 640 изходни токена — но това е прекъсната верига от разсъждения (chain of thought), а не самият модел: при 1536 токена точността скача до ~82% (EN 81% / BG 83%) с ~87% валиден JSON, а изоставането на български дори се обръща. Тоест начинът на извикване (изходен бюджет / ограничено декодиране) тежи колкото размера на модела.",
-                  "A capable cloud model handles selection among all the tools: Gemini 3.1 Flash-Lite (with JSON mode) picks the right tool ~96–97% in both languages, with no Bulgarian degradation. An open 31B model (Gemma 4) via the Gemini API scores ~55% at a 640-token output budget — but that's chain-of-thought truncation, not the model: raise the budget to 1536 and it jumps to ~82% (EN 81% / BG 83%), valid JSON ~87%, with the Bulgarian gap reversing. So the calling method (output budget / constrained decoding) can matter as much as model size.",
-                )}
-              </p>
-              <p className="mt-3 text-muted-foreground">
-                {t(
-                  "Малкият FunctionGemma 270M (в браузъра, без дообучение) е показан като градация от варианти на ЕДИН и същ модел. Базовият ред е 0% — но не защото моделът не може да маршрутизира: при k=8 пълните декларации на функциите водят до прекъсване в ~68% от случаите, тъй като подканата надхвърля контекстния прозорец от 512 токена („KV cache is full“), преди моделът да генерира дори един токен. Свиването до k=3 елиминира тези инфраструктурни прекъсвания; добавянето на ограничено декодиране (XGrammar — изходът ЗАДЪЛЖИТЕЛНО е един от кандидатите) вдига маршрутизирането до 37% при k=3 (срещу ~33% на случаен принцип) и 18% при k=8 (срещу ~12.5%). Тоест публикуваната „0%“ беше артефакт на инфраструктурата; с побираща се подкана и ограничено декодиране дори необученият модел вече надхвърля случайния избор — а доменното дообучение е пътят към реална използваемост.",
-                  "The small FunctionGemma 270M (in-browser, untuned) is shown as a LADDER of variants of the SAME model. The baseline row is 0% — but not because it can't route: at k=8 with full declarations the wasm traps ~68% of the time ('KV cache is full' — the prompt overflows the 512-token context window) before the model emits a single token. Shrinking to k=3 removes the traps; adding constrained decoding (XGrammar — the output MUST be one of the candidates) lifts routing to 37% at k=3 (vs ~33% chance) and 18% at k=8 (vs ~12.5%). So the published '0%' was an infrastructure artifact; with a fitting prompt + constrained decoding the untuned model already beats chance — and a domain fine-tune is the path to usable.",
-                )}
-              </p>
-            </section>
-
-            {/* ---- per-model detail ---- */}
-            <section className="mt-8">
-              <h2 className="mb-3 font-semibold text-popover-foreground">
-                {t("Детайли по задачите", "Per-case detail")}
-              </h2>
-              {data.models
-                .filter((m) => m.perLang)
-                .map((m) => (
-                  <details key={m.id} className="mb-2 rounded-md border">
-                    <summary className="cursor-pointer px-3 py-2 text-sm font-medium">
-                      {modelLabel(m, lang)}
-                    </summary>
-                    <div className="overflow-x-auto px-3 pb-3">
-                      {(m.note || m.reason) && (
-                        <p className="mb-2 mt-1 text-xs text-muted-foreground">
-                          {m.note ? <span>{m.note} </span> : null}
-                          {m.reason}
-                        </p>
-                      )}
-                      <table className="w-full border-collapse text-xs">
-                        <thead>
-                          <tr className="border-b text-left text-muted-foreground">
-                            <th className="py-1 pr-2 font-medium">
-                              {t("Задача", "Case")}
-                            </th>
-                            <th className="px-2 py-1 font-medium">
-                              {t("Очакван инструмент", "Expected tool")}
-                            </th>
-                            <th className="px-2 py-1 text-center font-medium">
-                              EN
-                            </th>
-                            <th className="px-2 py-1 text-center font-medium">
-                              BG
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {m.perCase.map((c) => {
-                            const mark = (r?: { toolOk: boolean }) =>
-                              !r ? "—" : r.toolOk ? "✓" : "✗";
-                            return (
-                              <tr key={c.id} className="border-b last:border-0">
-                                <td className="py-1 pr-2 font-mono text-[11px]">
-                                  {c.id}
-                                </td>
-                                <td className="px-2 py-1 font-mono text-[11px] text-muted-foreground">
-                                  {c.expectedTool ?? t("(никой)", "(none)")}
-                                </td>
-                                <td className="px-2 py-1 text-center">
-                                  {mark(c.en)}
-                                </td>
-                                <td className="px-2 py-1 text-center">
-                                  {mark(c.bg)}
-                                </td>
-                              </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
-                      <p className="mt-1 text-[11px] text-muted-foreground">
-                        {t(
-                          "✓ правилен инструмент · ✗ грешен/липсва",
-                          "✓ correct tool · ✗ wrong/missing",
+                  </thead>
+                  <tbody>
+                    {data.models.map((m) => (
+                      <tr key={m.id} className="border-b align-top">
+                        <td className="py-2 pr-3">
+                          <div className="font-medium text-popover-foreground">
+                            {modelLabel(m, lang)}
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            {m.params !== "—" ? `${m.params} · ` : ""}
+                            {runtimeLabel(m.runtime, lang)}
+                            {m.via ? ` · ${m.via}` : ""}
+                          </div>
+                        </td>
+                        {m.perLang ? (
+                          <>
+                            <td className="px-2 py-2 text-xs text-muted-foreground">
+                              {m.toolMode ?? runtimeLabel(m.runtime, lang)}
+                            </td>
+                            <td className="px-2 py-2 text-right tabular-nums">
+                              {pct(m.perLang.en.toolAcc)}
+                            </td>
+                            <td className="px-2 py-2 text-right tabular-nums">
+                              {pct(m.perLang.bg.toolAcc)}
+                            </td>
+                            <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">
+                              {pct(m.perLang.bg.argAcc)}
+                            </td>
+                            <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">
+                              {pct(m.perLang.bg.jsonValidRate)}
+                            </td>
+                            <td className="px-2 py-2 text-right tabular-nums">
+                              {m.degradation
+                                ? `${Math.round(m.degradation.toolAcc * 100)} pt`
+                                : "—"}
+                            </td>
+                          </>
+                        ) : (
+                          <td
+                            className="px-2 py-2 text-xs italic text-muted-foreground"
+                            colSpan={6}
+                          >
+                            {t("не е измерено — ", "not measured — ")}
+                            {m.reason}
+                          </td>
                         )}
-                      </p>
-                    </div>
-                  </details>
-                ))}
-            </section>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p className="mt-2 text-xs text-muted-foreground">
+                  {t(
+                    "EN/BG = дял на правилно избрания инструмент (вкл. разпознаване кога никой инструмент не е подходящ). Разлика (EN vs BG) = разликата EN − BG (положителна стойност = по-слабо представяне на български).",
+                    "EN/BG = share of correctly selected tools (incl. recognising when no tool fits). BG drop = EN−BG (positive = worse in Bulgarian).",
+                  )}
+                </p>
+              </section>
 
-            {/* ---- methodology ---- */}
-            <section className="mt-8 text-sm">
-              <h2 className="mb-2 font-semibold text-popover-foreground">
-                {t("Методология", "Methodology")}
-              </h2>
-              <ul className="list-inside list-disc space-y-1 text-muted-foreground">
-                <li>
+              {/* ---- takeaway ---- */}
+              <section className="mt-8 rounded-lg border bg-muted/40 p-4 text-sm">
+                <h2 className="mb-2 font-semibold text-popover-foreground">
+                  {t("Какво показват резултатите?", "What this shows")}
+                </h2>
+                <p className="text-muted-foreground">
                   {t(
-                    `${data.method.relevantCases} реални инструмента, всеки с двуезичен пример (EN+BG) от регистъра — оценява се точността на избора на инструмент измежду всичките ${data.method.toolCount}.`,
-                    `${data.method.relevantCases} real tools, each with a bilingual example (EN+BG) from the registry — tool selection is scored against all ${data.method.toolCount}.`,
+                    "Моделите в облака се справят отлично с избора измежду всички налични инструменти: Gemini 3.1 Flash-Lite (в JSON-режим) разпознава правилния инструмент в ~96–97% от случаите и на двата езика, без никакъв спад в качеството на български. Отвореният 31B модел (Gemma 4) през Gemini API постига едва ~55% при ограничение от 640 изходни токена — но това е прекъсната верига от разсъждения (chain of thought), а не самият модел: при 1536 токена точността скача до ~82% (EN 81% / BG 83%) с ~87% валиден JSON, а изоставането на български дори се обръща. Тоест начинът на извикване (изходен бюджет / ограничено декодиране) тежи колкото размера на модела.",
+                    "A capable cloud model handles selection among all the tools: Gemini 3.1 Flash-Lite (with JSON mode) picks the right tool ~96–97% in both languages, with no Bulgarian degradation. An open 31B model (Gemma 4) via the Gemini API scores ~55% at a 640-token output budget — but that's chain-of-thought truncation, not the model: raise the budget to 1536 and it jumps to ~82% (EN 81% / BG 83%), valid JSON ~87%, with the Bulgarian gap reversing. So the calling method (output budget / constrained decoding) can matter as much as model size.",
                   )}
-                </li>
-                <li>
+                </p>
+                <p className="mt-3 text-muted-foreground">
                   {t(
-                    "Задачите са първият двуезичен пример (EN+BG) за всеки инструмент от регистъра. Облачните модели виждат ПЪЛНИЯ списък с инструменти в контекста (маршрутизация между всички опции), докато малките модели в браузъра работят с извлечен набор от кандидати (реалистичната двустъпкова архитектура).",
-                    data.method.coverageNote,
+                    "Малкият FunctionGemma 270M (в браузъра, без дообучение) е показан като градация от варианти на ЕДИН и същ модел. Базовият ред е 0% — но не защото моделът не може да маршрутизира: при k=8 пълните декларации на функциите водят до прекъсване в ~68% от случаите, тъй като подканата надхвърля контекстния прозорец от 512 токена („KV cache is full“), преди моделът да генерира дори един токен. Свиването до k=3 елиминира тези инфраструктурни прекъсвания; добавянето на ограничено декодиране (XGrammar — изходът ЗАДЪЛЖИТЕЛНО е един от кандидатите) вдига маршрутизирането до 37% при k=3 (срещу ~33% на случаен принцип) и 18% при k=8 (срещу ~12.5%). Тоест публикуваната „0%“ беше артефакт на инфраструктурата; с побираща се подкана и ограничено декодиране дори необученият модел вече надхвърля случайния избор — а доменното дообучение е пътят към реална използваемост.",
+                    "The small FunctionGemma 270M (in-browser, untuned) is shown as a LADDER of variants of the SAME model. The baseline row is 0% — but not because it can't route: at k=8 with full declarations the wasm traps ~68% of the time ('KV cache is full' — the prompt overflows the 512-token context window) before the model emits a single token. Shrinking to k=3 removes the traps; adding constrained decoding (XGrammar — the output MUST be one of the candidates) lifts routing to 37% at k=3 (vs ~33% chance) and 18% at k=8 (vs ~12.5%). So the published '0%' was an infrastructure artifact; with a fitting prompt + constrained decoding the untuned model already beats chance — and a domain fine-tune is the path to usable.",
                   )}
-                </li>
-                <li>
-                  {t("Модели в облака: ", "Cloud models: ")}
-                  {t(
-                    "JSON-режим + системна подкана със списък на инструментите (повтаря продукционния маршрутизатор)",
-                    data.method.promptStrategy.cloud,
-                  )}
-                  {t("; в браузъра: ", "; in-browser: ")}
-                  {t(
-                    "нативни токени за декларация на функции на FunctionGemma",
-                    data.method.promptStrategy.webllm,
-                  )}
-                </li>
-                <li>
-                  {t("Оценяване: ", "Scoring: ")}
-                  {t(
-                    "точност на ИЗБОРА на инструмент — точното име на инструмента от регистъра (нормализирано); неуместност = без извикване. Примерите в регистъра нямат анотирани аргументи, затова точността на аргументите не се оценява (n/a).",
-                    data.method.scoring,
-                  )}
-                </li>
-                <li>
-                  {t("Генерирано на ", "Generated ")}
-                  {generated} ·{" "}
-                  {t(
-                    data.harness.replace(
-                      "suite derived from",
-                      "комплектът е изведен от",
-                    ),
-                    data.harness,
-                  )}
-                </li>
-              </ul>
-            </section>
+                </p>
+              </section>
 
-            {/* ---- catalogue ---- */}
-            <details className="mt-6 rounded-md border text-sm">
-              <summary className="cursor-pointer px-3 py-2 font-medium">
-                {t(
-                  `Инструменти (${data.tools.length}) и задачи (${data.cases.length})`,
-                  `Tools (${data.tools.length}) and cases (${data.cases.length})`,
-                )}
-              </summary>
-              <div className="px-3 pb-3">
-                <h3 className="mb-1 mt-2 font-medium text-popover-foreground">
-                  {t("Инструменти", "Tools")}
-                </h3>
-                <ul className="space-y-0.5 text-xs text-muted-foreground">
-                  {data.tools.map((tool) => (
-                    <li key={tool.name}>
-                      <span className="font-mono text-popover-foreground">
-                        {tool.name}
-                      </span>
-                      {tool.params.length
-                        ? `(${tool.params.join(", ")})`
-                        : "()"}{" "}
-                      — {tool.description}
-                    </li>
+              {/* ---- per-model detail ---- */}
+              <section className="mt-8">
+                <h2 className="mb-3 font-semibold text-popover-foreground">
+                  {t("Детайли по задачите", "Per-case detail")}
+                </h2>
+                {data.models
+                  .filter((m) => m.perLang)
+                  .map((m) => (
+                    <details key={m.id} className="mb-2 rounded-md border">
+                      <summary className="cursor-pointer px-3 py-2 text-sm font-medium">
+                        {modelLabel(m, lang)}
+                      </summary>
+                      <div className="overflow-x-auto px-3 pb-3">
+                        {(m.note || m.reason) && (
+                          <p className="mb-2 mt-1 text-xs text-muted-foreground">
+                            {m.note ? <span>{m.note} </span> : null}
+                            {m.reason}
+                          </p>
+                        )}
+                        <table className="w-full border-collapse text-xs">
+                          <thead>
+                            <tr className="border-b text-left text-muted-foreground">
+                              <th className="py-1 pr-2 font-medium">
+                                {t("Задача", "Case")}
+                              </th>
+                              <th className="px-2 py-1 font-medium">
+                                {t("Очакван инструмент", "Expected tool")}
+                              </th>
+                              <th className="px-2 py-1 text-center font-medium">
+                                EN
+                              </th>
+                              <th className="px-2 py-1 text-center font-medium">
+                                BG
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {m.perCase.map((c) => {
+                              const mark = (r?: { toolOk: boolean }) =>
+                                !r ? "—" : r.toolOk ? "✓" : "✗";
+                              return (
+                                <tr
+                                  key={c.id}
+                                  className="border-b last:border-0"
+                                >
+                                  <td className="py-1 pr-2 font-mono text-[11px]">
+                                    {c.id}
+                                  </td>
+                                  <td className="px-2 py-1 font-mono text-[11px] text-muted-foreground">
+                                    {c.expectedTool ?? t("(никой)", "(none)")}
+                                  </td>
+                                  <td className="px-2 py-1 text-center">
+                                    {mark(c.en)}
+                                  </td>
+                                  <td className="px-2 py-1 text-center">
+                                    {mark(c.bg)}
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                        <p className="mt-1 text-[11px] text-muted-foreground">
+                          {t(
+                            "✓ правилен инструмент · ✗ грешен/липсва",
+                            "✓ correct tool · ✗ wrong/missing",
+                          )}
+                        </p>
+                      </div>
+                    </details>
                   ))}
+              </section>
+
+              {/* ---- methodology ---- */}
+              <section className="mt-8 text-sm">
+                <h2 className="mb-2 font-semibold text-popover-foreground">
+                  {t("Методология", "Methodology")}
+                </h2>
+                <ul className="list-inside list-disc space-y-1 text-muted-foreground">
+                  <li>
+                    {t(
+                      `${data.method.relevantCases} реални инструмента, всеки с двуезичен пример (EN+BG) от регистъра — оценява се точността на избора на инструмент измежду всичките ${data.method.toolCount}.`,
+                      `${data.method.relevantCases} real tools, each with a bilingual example (EN+BG) from the registry — tool selection is scored against all ${data.method.toolCount}.`,
+                    )}
+                  </li>
+                  <li>
+                    {t(
+                      "Задачите са първият двуезичен пример (EN+BG) за всеки инструмент от регистъра. Облачните модели виждат ПЪЛНИЯ списък с инструменти в контекста (маршрутизация между всички опции), докато малките модели в браузъра работят с извлечен набор от кандидати (реалистичната двустъпкова архитектура).",
+                      data.method.coverageNote,
+                    )}
+                  </li>
+                  <li>
+                    {t("Модели в облака: ", "Cloud models: ")}
+                    {t(
+                      "JSON-режим + системна подкана със списък на инструментите (повтаря продукционния маршрутизатор)",
+                      data.method.promptStrategy.cloud,
+                    )}
+                    {t("; в браузъра: ", "; in-browser: ")}
+                    {t(
+                      "нативни токени за декларация на функции на FunctionGemma",
+                      data.method.promptStrategy.webllm,
+                    )}
+                  </li>
+                  <li>
+                    {t("Оценяване: ", "Scoring: ")}
+                    {t(
+                      "точност на ИЗБОРА на инструмент — точното име на инструмента от регистъра (нормализирано); неуместност = без извикване. Примерите в регистъра нямат анотирани аргументи, затова точността на аргументите не се оценява (n/a).",
+                      data.method.scoring,
+                    )}
+                  </li>
+                  <li>
+                    {t("Генерирано на ", "Generated ")}
+                    {generated} ·{" "}
+                    {t(
+                      data.harness.replace(
+                        "suite derived from",
+                        "комплектът е изведен от",
+                      ),
+                      data.harness,
+                    )}
+                  </li>
                 </ul>
-                <h3 className="mb-1 mt-3 font-medium text-popover-foreground">
-                  {t("Задачи", "Cases")}
-                </h3>
-                <ul className="space-y-1 text-xs text-muted-foreground">
-                  {data.cases.map((c) => (
-                    <li key={c.id}>
-                      <span className="font-mono">{c.id}</span>:{" "}
-                      {lang === "bg" ? c.bg : c.en}{" "}
-                      <span className="opacity-70">
-                        →{" "}
-                        {c.expectedTool ?? t("(никой инструмент)", "(no tool)")}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </details>
-          </>
-        )}
+              </section>
+
+              {/* ---- catalogue ---- */}
+              <details className="mt-6 rounded-md border text-sm">
+                <summary className="cursor-pointer px-3 py-2 font-medium">
+                  {t(
+                    `Инструменти (${data.tools.length}) и задачи (${data.cases.length})`,
+                    `Tools (${data.tools.length}) and cases (${data.cases.length})`,
+                  )}
+                </summary>
+                <div className="px-3 pb-3">
+                  <h3 className="mb-1 mt-2 font-medium text-popover-foreground">
+                    {t("Инструменти", "Tools")}
+                  </h3>
+                  <ul className="space-y-0.5 text-xs text-muted-foreground">
+                    {data.tools.map((tool) => (
+                      <li key={tool.name}>
+                        <span className="font-mono text-popover-foreground">
+                          {tool.name}
+                        </span>
+                        {tool.params.length
+                          ? `(${tool.params.join(", ")})`
+                          : "()"}{" "}
+                        — {tool.description}
+                      </li>
+                    ))}
+                  </ul>
+                  <h3 className="mb-1 mt-3 font-medium text-popover-foreground">
+                    {t("Задачи", "Cases")}
+                  </h3>
+                  <ul className="space-y-1 text-xs text-muted-foreground">
+                    {data.cases.map((c) => (
+                      <li key={c.id}>
+                        <span className="font-mono">{c.id}</span>:{" "}
+                        {lang === "bg" ? c.bg : c.en}{" "}
+                        <span className="opacity-70">
+                          →{" "}
+                          {c.expectedTool ??
+                            t("(никой инструмент)", "(no tool)")}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </details>
+            </>
+          )}
         </div>
       </main>
 
