@@ -258,7 +258,18 @@ export type PartyResultsRow = {
   recount?: RecountStats;
 };
 
+// Sofia's three parliamentary МИР (multi-member electoral regions). Sofia is
+// the only municipality split across more than one МИР — Столична община spans
+// all three — and each МИР's "municipalities" are actually the city's
+// administrative районы (S2xxx), not peer общини. Views that list those units
+// (the МИР dashboard tiles, the район page header) relabel them "район"
+// accordingly. See isSofiaMir / isSofiaRayonObshtina.
 export const SOFIA_REGIONS = ["S23", "S24", "S25"];
+
+// True when an oblast code is one of Sofia's three МИР — i.e. its sub-units are
+// районы of Столична община rather than self-standing общини.
+export const isSofiaMir = (oblast?: string | null): boolean =>
+  !!oblast && SOFIA_REGIONS.includes(oblast);
 
 export type SectionIndex = {
   section: string;

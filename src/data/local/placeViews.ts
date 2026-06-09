@@ -54,7 +54,7 @@ export interface PlaceRef {
 
 // A Sofia район shard — its own município in the local tree, a single
 // settlement in the parliamentary/my-area trees.
-const isSofiaRayonObshtina = (code?: string): boolean =>
+export const isSofiaRayonObshtina = (code?: string | null): boolean =>
   /^S2\d{3}$/.test(code ?? "");
 
 // Sofia city aggregate. Like the район case it carries no 1:1 mapping across

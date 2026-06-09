@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Map as MapIcon } from "lucide-react";
 import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { MunicipalitiesMap } from "@/screens/components/municipalities/MunicipalitiesMap";
+import { isSofiaMir } from "@/data/dataTypes";
 import { StatCard } from "./StatCard";
 
 type Props = {
@@ -13,6 +14,8 @@ export const RegionMunicipalitiesMapTile: FC<Props> = ({ regionCode }) => {
   const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState<MapCoordinates | undefined>();
+  // Sofia's three МИР maps render the city's районы, not peer общини.
+  const isRayon = isSofiaMir(regionCode);
 
   useLayoutEffect(() => {
     const el = ref.current;
@@ -31,11 +34,21 @@ export const RegionMunicipalitiesMapTile: FC<Props> = ({ regionCode }) => {
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center gap-2">
             <MapIcon className="h-4 w-4" />
-            <span>{t("dashboard_regional_map_municipalities")}</span>
+            <span>
+              {t(
+                isRayon
+                  ? "dashboard_regional_map_rayoni"
+                  : "dashboard_regional_map_municipalities",
+              )}
+            </span>
           </div>
         </div>
       }
-      hint={t("dashboard_regional_map_municipalities_hint")}
+      hint={t(
+        isRayon
+          ? "dashboard_regional_map_rayoni_hint"
+          : "dashboard_regional_map_municipalities_hint",
+      )}
     >
       <div ref={ref} className="w-full h-[360px] md:h-[420px]">
         {size && <MunicipalitiesMap region={regionCode} size={size} />}

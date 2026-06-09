@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useRegions } from "@/data/regions/useRegions";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useMunicipalityVotes } from "@/data/municipalities/useMunicipalityVotes";
+import { isSofiaRayonObshtina } from "@/data/local/placeViews";
 import { SEO } from "@/ux/SEO";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { MunicipalityDashboardCards } from "./dashboard/MunicipalityDashboardCards";
@@ -29,6 +30,8 @@ export const SettlementsScreen = () => {
   }
   const info = findMunicipality(muniCode);
   const region = findRegion(municipality?.oblast ?? info?.oblast);
+  // A Sofia район-as-município (S2xxx): label it "район", not "Община".
+  const isRayon = isSofiaRayonObshtina(muniCode);
   const muniName = info
     ? i18n.language === "bg"
       ? info?.name
@@ -40,12 +43,14 @@ export const SettlementsScreen = () => {
       : region.long_name_en || region.name_en
     : "";
   const titleStr = region ? `${regionName} / ${muniName}` : muniName;
+  const seoTitle = isRayon
+    ? i18n.language === "bg"
+      ? `район ${muniName}`
+      : `${muniName} (${t("rayon")})`
+    : `${t("municipalities")} ${muniName}`;
   return (
     <>
-      <SEO
-        title={`${t("municipalities")} ${muniName}`}
-        description={titleStr}
-      />
+      <SEO title={seoTitle} description={titleStr} />
       <PlaceHeader
         active="parliamentary"
         level="municipality"

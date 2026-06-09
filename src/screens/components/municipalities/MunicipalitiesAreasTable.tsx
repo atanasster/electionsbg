@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { ElectionMunicipality } from "@/data/dataTypes";
+import { ElectionMunicipality, isSofiaMir } from "@/data/dataTypes";
 import { useTranslation } from "react-i18next";
 import { AreaVotesTable } from "../AreaVotesTable";
 import { useMunicipalitiesByRegion } from "@/data/municipalities/useMunicipalitiesByRegion";
@@ -11,7 +11,7 @@ export const MunicipalitiesAreasTable: FC<{ region: string }> = ({
   const votes = useMunicipalitiesByRegion(region);
   return (
     <AreaVotesTable<ElectionMunicipality>
-      title={t("votes_by_municipality")}
+      title={t(isSofiaMir(region) ? "votes_by_rayon" : "votes_by_municipality")}
       votes={votes}
       visibleColumns={["obshtina"]}
       votesAreas={(data) => ({

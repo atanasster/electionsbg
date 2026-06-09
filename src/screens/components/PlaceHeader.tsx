@@ -27,7 +27,12 @@ import { useTranslation } from "react-i18next";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Link } from "@/ux/Link";
-import { PlaceLevel, PlaceView } from "@/data/local/placeViews";
+import {
+  PlaceLevel,
+  PlaceView,
+  isSofiaRayonObshtina,
+} from "@/data/local/placeViews";
+import { isSofiaMir } from "@/data/dataTypes";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useRegions } from "@/data/regions/useRegions";
@@ -186,6 +191,13 @@ export const PlaceHeader: FC<Props> = ({
   const isSection = level === "section";
   const isCountry = level === "country";
   const isRegion = level === "region";
+  // A Sofia район (e.g. Лозенец) arrives as a município-level place whose
+  // obshtina is an S2xxx shard. It is an административен район of Столична
+  // община — not a self-standing община — and S23/S24/S25 are МИР, not области.
+  // So its title reads "район {name}" and its breadcrumb roots it under
+  // Столична община + its МИР instead of the generic "Община {name}, област …".
+  const isSofiaRayon =
+    level === "municipality" && isSofiaRayonObshtina(obshtina);
   // Settlement + section both anchor on a settlement EKATTE — a section drills
   // one level below its settlement, which we surface in its breadcrumb.
   const usesSettlement = isSettlement || isSection;
@@ -200,6 +212,12 @@ export const PlaceHeader: FC<Props> = ({
   const muni = obshtinaForName ? findMunicipality(obshtinaForName) : undefined;
   const oblastCode = oblast ?? settlement?.oblast ?? muni?.oblast;
   const region = oblastCode ? findRegion(oblastCode) : undefined;
+  // A settlement/section whose parent obshtina is a Sofia район (e.g. с. Долни
+  // Богров in район Кремиковци, S2422): its breadcrumb labels that parent
+  // "район", threads in Столична община, and shows the МИР without an "област"
+  // prefix (S23/S24/S25 are електорални МИР, not области).
+  const parentIsSofiaRayon =
+    usesSettlement && isSofiaRayonObshtina(obshtinaForName);
 
   // GRAO only for settlements — the slice is per-obshtina, indexed by ekatte.
   const graoObshtina = isSettlement ? settlement?.obshtina : undefined;
@@ -209,6 +227,14 @@ export const PlaceHeader: FC<Props> = ({
   const Icon = meta.icon;
 
   const settlementType = usesSettlement ? settlement?.t_v_m : null;
+  // The 21 central Sofia районы are stored as settlements with a composite
+  // "68134-NNNN" EKATTE and the type marker `t_v_m="общ."` (their own
+  // município-equivalent). Displaying that verbatim reads "общ. Лозенец" — as
+  // if Лозенец were an община. They are administrative районы / квартали, so
+  // show "кв." instead. This marker is exclusive to those 21 entries, so real
+  // villages (с.) and towns (гр.) inside the outer районы are untouched.
+  const isSofiaRayonSettlement = settlementType === "общ.";
+  const displaySettlementType = isSofiaRayonSettlement ? "кв." : settlementType;
   const settlementName = settlement
     ? lang === "bg"
       ? settlement.name
@@ -269,8 +295,73 @@ export const PlaceHeader: FC<Props> = ({
   const renderNarrative = () => {
     // Country: the nation is the top of the hierarchy — no parent to link to.
     if (isCountry) return null;
-    // Region: drill up to the national dashboard.
+
+    // Shared parent chain for a place INSIDE a Sofia район (settlement or
+    // section): "в район {Кремиковци}, {Столична община}, {София 24 МИР}" —
+    // район-labelled (not "община"), Столична община threaded in, and the МИР
+    // shown without an "област" prefix. The "в район {muni}" segment is always
+    // kept: a квартал (кв. Лозенец) sits inside its район (район Лозенец) even
+    // when they share a name — a район can hold several квартали, so this is a
+    // real level, not a repetition.
+    const sofiaRayonTail = () => {
+      const muniNode =
+        muniName && muniHref ? (
+          <Link to={muniHref} underline>
+            {muniName}
+          </Link>
+        ) : null;
+      const regionNode =
+        regionName && regionHref ? (
+          <Link to={regionHref} underline>
+            {regionName}
+          </Link>
+        ) : null;
+      const sofiaNode = (
+        <Link to="/sofia" underline>
+          {lang === "bg" ? "Столична община" : "Sofia (Stolichna) municipality"}
+        </Link>
+      );
+      return (
+        <>
+          {muniNode ? (
+            lang === "bg" ? (
+              <> в район {muniNode}, </>
+            ) : (
+              <> in {muniNode} district, </>
+            )
+          ) : (
+            ", "
+          )}
+          {sofiaNode}
+          {regionNode ? <>, {regionNode}</> : null}
+        </>
+      );
+    };
+    // Region: drill up to the national dashboard. Sofia's three МИР (S23/S24/
+    // S25) are NOT области — they are електорални многомандатни изборни райони
+    // that together cover Столична община — so they get a distinct narrative
+    // that roots them under the city instead of "Област в България".
     if (isRegion) {
+      if (isSofiaMir(oblastCode)) {
+        if (lang === "bg") {
+          return (
+            <>
+              Многомандатен изборен район в{" "}
+              <Link to="/sofia" underline>
+                Столична община
+              </Link>
+            </>
+          );
+        }
+        return (
+          <>
+            Multi-member electoral district in{" "}
+            <Link to="/sofia" underline>
+              Sofia (Stolichna) municipality
+            </Link>
+          </>
+        );
+      }
       if (lang === "bg") {
         return (
           <>
@@ -293,8 +384,8 @@ export const PlaceHeader: FC<Props> = ({
     // Section: settlement (link) → município (link) → oblast (link).
     if (isSection) {
       const typedSettlement =
-        settlementType && lang === "bg"
-          ? `${settlementType} ${settlementName ?? ""}`.trim()
+        displaySettlementType && lang === "bg"
+          ? `${displaySettlementType} ${settlementName ?? ""}`.trim()
           : (settlementName ?? "");
       const settlementNode = settlementHref ? (
         <Link to={settlementHref} underline>
@@ -303,6 +394,14 @@ export const PlaceHeader: FC<Props> = ({
       ) : (
         typedSettlement
       );
+      if (parentIsSofiaRayon) {
+        return (
+          <>
+            {settlementNode}
+            {sofiaRayonTail()}
+          </>
+        );
+      }
       if (lang === "bg") {
         return (
           <>
@@ -351,6 +450,37 @@ export const PlaceHeader: FC<Props> = ({
         </>
       );
     }
+    // Sofia район: "Район на Столична община, {N} МИР" — the район belongs to
+    // Столична община (linked to the whole-city parliamentary page) and sits
+    // inside one of the three МИР (linked, and named "София N МИР" without an
+    // "област" prefix, since a МИР is not an област).
+    if (isSofiaRayon) {
+      const sofiaLink = (label: string) => (
+        <Link to="/sofia" underline>
+          {label}
+        </Link>
+      );
+      const mirLink =
+        regionHref && regionNameRaw ? (
+          <Link to={regionHref} underline>
+            {regionNameRaw}
+          </Link>
+        ) : null;
+      if (lang === "bg") {
+        return (
+          <>
+            Район на {sofiaLink("Столична община")}
+            {mirLink ? <>, {mirLink}</> : null}
+          </>
+        );
+      }
+      return (
+        <>
+          District of {sofiaLink("Sofia (Stolichna) municipality")}
+          {mirLink ? <>, {mirLink}</> : null}
+        </>
+      );
+    }
     if (!isSettlement) {
       // Município view: "Община {name}, област {region}".
       if (lang === "bg") {
@@ -384,6 +514,18 @@ export const PlaceHeader: FC<Props> = ({
       );
     }
     // Settlement view.
+    if (parentIsSofiaRayon) {
+      const typed =
+        lang === "bg" && displaySettlementType
+          ? `${displaySettlementType} ${name}`
+          : name;
+      return (
+        <>
+          {typed}
+          {sofiaRayonTail()}
+        </>
+      );
+    }
     if (lang === "bg") {
       const typed = settlementType ? `${settlementType} ${name}` : name;
       return (
@@ -435,9 +577,11 @@ export const PlaceHeader: FC<Props> = ({
   };
 
   const titleText =
-    isSettlement && settlementType && lang === "bg"
-      ? `${settlementType} ${name}`
-      : name;
+    isSofiaRayon && lang === "bg"
+      ? `район ${name}`
+      : isSettlement && displaySettlementType && lang === "bg"
+        ? `${displaySettlementType} ${name}`
+        : name;
   // A section's thumbnail shows its settlement, so label the map with that.
   const thumbName = isSection ? (settlementName ?? name) : name;
   const thumbAlt =

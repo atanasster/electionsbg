@@ -4,6 +4,7 @@ import { MapPin } from "lucide-react";
 import { formatPct, formatThousands } from "@/data/utils";
 import { useMunicipalitiesByRegion } from "@/data/municipalities/useMunicipalitiesByRegion";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
+import { isSofiaMir } from "@/data/dataTypes";
 import { NationalPartyResult } from "@/data/dashboard/dashboardTypes";
 import { Link } from "@/ux/Link";
 import { Hint } from "@/ux/Hint";
@@ -20,6 +21,9 @@ export const TopMunicipalitiesTile: FC<Props> = ({ parties, regionCode }) => {
   const { t, i18n } = useTranslation();
   const data = useMunicipalitiesByRegion(regionCode);
   const { findMunicipality } = useMunicipalities();
+  // Sofia's three МИР list the city's административни районы (S2xxx), not peer
+  // общини — so label this tile "Райони" rather than "Общини" there.
+  const isRayon = isSofiaMir(regionCode);
 
   const partyColorMap = useMemo(
     () => new Map(parties.map((p) => [p.partyNum, p.color ?? "#888"])),
@@ -88,10 +92,23 @@ export const TopMunicipalitiesTile: FC<Props> = ({ parties, regionCode }) => {
     <StatCard
       label={
         <div className="flex items-center justify-between w-full">
-          <Hint text={t("dashboard_top_municipalities_hint")} underline={false}>
+          <Hint
+            text={t(
+              isRayon
+                ? "dashboard_top_rayoni_hint"
+                : "dashboard_top_municipalities_hint",
+            )}
+            underline={false}
+          >
             <div className="flex items-center gap-2">
               <MapPin className="h-4 w-4" />
-              <span>{t("dashboard_top_municipalities")}</span>
+              <span>
+                {t(
+                  isRayon
+                    ? "dashboard_top_rayoni"
+                    : "dashboard_top_municipalities",
+                )}
+              </span>
             </div>
           </Hint>
           {totalCount > TOP_N ? (
@@ -109,7 +126,7 @@ export const TopMunicipalitiesTile: FC<Props> = ({ parties, regionCode }) => {
     >
       <div className="grid grid-cols-[minmax(0,1fr)_auto_auto_minmax(80px,1.5fr)_auto] gap-x-3 gap-y-1.5 items-center mt-1 text-sm">
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
-          {t("municipality")}
+          {t(isRayon ? "rayon" : "municipality")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           {t("voters")}
