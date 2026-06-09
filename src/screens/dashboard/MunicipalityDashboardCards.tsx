@@ -18,6 +18,9 @@ import { PartyResultsTile } from "./PartyResultsTile";
 import { MunicipalitySettlementsMapTile } from "./MunicipalitySettlementsMapTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { TopSettlementsTile } from "./TopSettlementsTile";
+import { CityRayonBreakdownTile } from "./CityRayonBreakdownTile";
+import { CityRayonMapTile } from "./CityRayonMapTile";
+import { hasCityRayons } from "@/data/rayon/useCityRayons";
 import { CensusDemographicsTile } from "./CensusDemographicsTile";
 import { IndicatorsTile } from "./IndicatorsTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
@@ -125,9 +128,17 @@ export const MunicipalityDashboardCards: FC<Props> = ({
           icon={Gauge}
         >
           <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-            <MunicipalitySettlementsMapTile
-              municipalityCode={municipalityCode}
-            />
+            {/* Plovdiv-city / Varna-city are общини с районно деление the core
+                pipeline serves as one aggregate — swap the single-blob
+                settlements map for a районы choropleth, exactly like the Sofia
+                МИР map. Self-applies only to those municípios. */}
+            {hasCityRayons(municipalityCode) ? (
+              <CityRayonMapTile municipalityCode={municipalityCode} />
+            ) : (
+              <MunicipalitySettlementsMapTile
+                municipalityCode={municipalityCode}
+              />
+            )}
             <PartyResultsTile parties={data.parties} basePath={basePath} />
           </div>
           {electionStats?.hasPreferences ? (
@@ -156,10 +167,17 @@ export const MunicipalityDashboardCards: FC<Props> = ({
           title={t("dashboard_section_geography")}
           icon={Map}
         >
-          <TopSettlementsTile
-            parties={data.parties}
-            municipalityCode={municipalityCode}
-          />
+          {/* For общини с районно деление the only "settlement" is the city
+              itself, so the settlements list is a single useless row — show the
+              ranked район breakdown (with per-party expand) instead. */}
+          {hasCityRayons(municipalityCode) ? (
+            <CityRayonBreakdownTile municipalityCode={municipalityCode} />
+          ) : (
+            <TopSettlementsTile
+              parties={data.parties}
+              municipalityCode={municipalityCode}
+            />
+          )}
           <CensusDemographicsTile
             regionCode={municipalityCode}
             isMunicipality
