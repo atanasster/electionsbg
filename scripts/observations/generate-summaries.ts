@@ -1,6 +1,6 @@
 /**
  * Generate AI summaries for OSCE/ODIHR election observation reports using
- * Claude Opus 4.7 and write them back into data/election-observations.json
+ * Claude Opus 4.8 and write them back into data/election-observations.json
  * (and public/election-observations.json for the dev server).
  *
  * Usage:
@@ -21,7 +21,7 @@ const ROOT = path.resolve(__dirname, "../..");
 const DATA_FILE = path.join(ROOT, "data/election-observations.json");
 const PUBLIC_FILE = path.join(ROOT, "public/election-observations.json");
 const ENV_FILE = path.join(ROOT, ".env.local");
-const MODEL = "claude-opus-4-7";
+const MODEL = "claude-opus-4-8";
 
 const loadEnv = () => {
   if (!fs.existsSync(ENV_FILE)) return;

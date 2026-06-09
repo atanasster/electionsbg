@@ -26,11 +26,11 @@ const __dirname = path.dirname(__filename);
 
 const POLLS_DIR = path.resolve(__dirname, "../../data/polls");
 const ENV_FILE = path.resolve(__dirname, "../../.env.local");
-// Claude Opus 4.7 (1M context) is the model used for the editorial analysis.
+// Claude Opus 4.8 (1M context) is the model used for the editorial analysis.
 // The "model" field in the generated analysis.json reflects this label so the
 // site footer attributes the analysis correctly.
-const MODEL = "claude-opus-4-7";
-const MODEL_LABEL = "Claude Opus 4.7 (1M context)";
+const MODEL = "claude-opus-4-8";
+const MODEL_LABEL = "Claude Opus 4.8 (1M context)";
 const ELECTION_CONCURRENCY = 3;
 
 const loadEnv = () => {
@@ -104,7 +104,6 @@ const callClaude = async (apiKey: string, prompt: string): Promise<string> => {
   const body = {
     model: MODEL,
     max_tokens: 4096,
-    temperature: 0.4,
     messages: [{ role: "user", content: prompt }],
   };
   const res = await fetch(url, {
