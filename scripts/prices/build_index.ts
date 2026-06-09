@@ -259,6 +259,39 @@ export const buildPriceIndex = (): void => {
     (g) => ALL_PIDS.includes(g),
   );
 
+  // ── outlier guard for basket-level comparison ──
+  // Several КЗП basket items — notably the two cheeses (сирене id 9, кашкавал
+  // id 11) — span a 200 g–1 kg pack range, so a shop selling only a 1 kg pack /
+  // by the kilo reports ~5× a small-pack shop. In a single-store village that
+  // lone reading becomes the settlement "minimum" with nothing cheaper to offset
+  // it, and a cluster of such villages then drags the oblast/muni
+  // median-of-minimums (КООП's flat 12.78 €/kg kashkaval, replicated across 7 of
+  // Ruse oblast's 11 panel settlements, doubled its basket to ~30 € — twice any
+  // other oblast). Treat any per-settlement minimum above 3× the national median
+  // of per-settlement minimums for that product as not a comparable basket
+  // observation and skip it. The 10 well-behaved staples never trip this (their
+  // national max is < 3× the median); only the pack-ambiguous cheeses are
+  // guarded. Effect: a settlement whose only cheese is sold by the kilo drops
+  // out of the basket leaderboard (nPriced < core size → unranked) instead of
+  // registering a spurious ~30 € basket, and the regional/chain rollups reflect
+  // real small-pack markets. The per-product min/avg/max shown on each place
+  // page (and the Jevons index, which uses price ratios that cancel pack size)
+  // are untouched — this guards only the absolute basket-level sum.
+  const BASKET_OUTLIER_MULT = 3;
+  const basketCap = new Map<number, number>();
+  for (const g of commonBasket) {
+    const mins: number[] = [];
+    for (const m of latest.settMin.values()) {
+      const v = m.get(g);
+      if (v != null && v > 0) mins.push(v);
+    }
+    if (mins.length) basketCap.set(g, BASKET_OUTLIER_MULT * median(mins));
+  }
+  const withinBasketCap = (g: number, v: number): boolean => {
+    const c = basketCap.get(g);
+    return c == null || v <= c;
+  };
+
   // Sample dates for the settlement sparkline: all days when the series is
   // short, else weekly (every 7th, keeping first + last). Once the full
   // contiguous backfill lands the weekly stride lines up with calendar weeks.
@@ -377,12 +410,12 @@ export const buildPriceIndex = (): void => {
     };
     settJsonByEk.set(ek, settJson);
 
-    // basket level over common basket
+    // basket level over common basket (per-kg pack outliers excluded — see note)
     let basketLevel: number | null = 0;
     let nPriced = 0;
     for (const g of commonBasket) {
       const v = nowMin.get(g);
-      if (v != null) {
+      if (v != null && withinBasketCap(g, v)) {
         basketLevel += v;
         nPriced++;
       }
@@ -424,13 +457,20 @@ export const buildPriceIndex = (): void => {
         repPrices(day30.settMed, eks),
         ALL_PIDS,
       ) ?? 100;
-    const nowRepMin = repPrices(latest.settMin, eks); // cheapest level
+    // representative cheapest level: median over panel settlements of each
+    // settlement's minimum, excluding per-kg pack outliers (see note above) so a
+    // cluster of single-store villages can't pin the regional median to one
+    // chain's by-the-kilo cheese.
     let basketLevel: number | null = 0;
     let nPriced = 0;
     for (const g of commonBasket) {
-      const v = nowRepMin.get(g);
-      if (v != null) {
-        basketLevel += v;
+      const vals: number[] = [];
+      for (const ek of eks) {
+        const v = latest.settMin.get(ek)?.get(g);
+        if (v != null && withinBasketCap(g, v)) vals.push(v);
+      }
+      if (vals.length) {
+        basketLevel += median(vals);
         nPriced++;
       }
     }
@@ -613,7 +653,7 @@ export const buildPriceIndex = (): void => {
   );
 
   // ── chains.json (national) + chains/<muni>.json ──
-  buildChains(latest, commonBasket, muniSetts, rankByCode);
+  buildChains(latest, commonBasket, muniSetts, rankByCode, basketCap);
 
   console.log(
     `[prices] built index.json (${dates.length} days ${baselineDate}…${latestDate}), ` +
@@ -629,6 +669,7 @@ function buildChains(
   commonBasket: number[],
   muniSetts: Map<string, string[]>,
   rankByCode: Map<string, Record<string, unknown>>,
+  basketCap: Map<number, number>,
 ): void {
   const chainNames = latest.grid.chainNames;
   // national: eik -> pid -> median over settlements of that chain's min
@@ -649,7 +690,8 @@ function buildChains(
     let total = 0;
     let nPriced = 0;
     for (const g of commonBasket) {
-      const arr = m.get(g);
+      const cap = basketCap.get(g);
+      const arr = m.get(g)?.filter((v) => cap == null || v <= cap);
       if (arr && arr.length) {
         const v = median(arr);
         total += v;
