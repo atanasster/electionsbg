@@ -16,6 +16,7 @@ import type {
   Column,
   Envelope,
   GeoArea,
+  GeoOverlay,
   Row,
   ToolArgs,
   ToolContext,
@@ -91,6 +92,7 @@ interface RankPlace {
   tier: "settlement" | "muni" | "oblast";
   name: string;
   oblast: string;
+  muni?: string; // obshtina code (settlement tier only) — used for the muni map
   basketLevel: number | null;
   nPriced: number;
   indexSinceEuro: number;
@@ -625,17 +627,39 @@ export const priceRanking = async (
     value: valOf(p),
   }));
 
-  // choropleth over all ranked places
-  const geoAreas: GeoArea[] = ranked.map((p) => ({
-    code: p.code,
-    label: tier === "oblast" ? (OBLASTS[p.code]?.[lang] ?? p.name) : p.name,
-    value: byChange ? p.indexSinceEuro : (p.basketLevel ?? undefined),
-    display: valOf(p),
-  }));
-  const geo =
-    tier === "oblast"
-      ? oblastChoropleth(geoAreas, { metricLabel, colorMode: "ramp" })
-      : nationMuniChoropleth(geoAreas, { metricLabel, colorMode: "ramp" });
+  // Choropleth over all ranked places. Oblast rows join the country oblast map
+  // directly on the МИР code. There is no national settlement geojson, so —
+  // exactly like rankPlaces' municipal rankings — settlement rows are painted on
+  // the obshtina each one sits in (its `muni` code), keeping the best-ranked
+  // settlement per município (`ranked` is already sorted best-first). Sofia's
+  // prices-pipeline obshtina "SOF46" maps to the synthetic "SOF00" that the muni
+  // map fans out into its 24 районни shards.
+  let geo: GeoOverlay;
+  if (tier === "oblast") {
+    const geoAreas: GeoArea[] = ranked.map((p) => ({
+      code: p.code,
+      label: OBLASTS[p.code]?.[lang] ?? p.name,
+      value: byChange ? p.indexSinceEuro : (p.basketLevel ?? undefined),
+      display: valOf(p),
+    }));
+    geo = oblastChoropleth(geoAreas, { metricLabel, colorMode: "ramp" });
+  } else {
+    const byMuni = new Map<string, GeoArea>();
+    for (const p of ranked) {
+      const code = p.muni === "SOF46" ? "SOF00" : p.muni;
+      if (!code || byMuni.has(code)) continue;
+      byMuni.set(code, {
+        code,
+        label: p.name,
+        value: byChange ? p.indexSinceEuro : (p.basketLevel ?? undefined),
+        display: valOf(p),
+      });
+    }
+    geo = nationMuniChoropleth([...byMuni.values()], {
+      metricLabel,
+      colorMode: "ramp",
+    });
+  }
 
   const dirWord = byChange
     ? lang === "bg"
@@ -674,5 +698,275 @@ export const priceRanking = async (
       note: notCpi(lang),
     },
     provenance: ["prices/ranking.json", PROV],
+  };
+};
+
+// =============================================================================
+// 5. basketAffordability — basket cost relative to regional income (GDP/capita)
+// =============================================================================
+// Joins the КЗП oblast basket cost (ranking.json) to Eurostat GDP-per-capita
+// (regional.json) so the same basket reads as a heavier burden in a poorer
+// oblast — a stand-in for the (Infostat-walled) per-oblast net-wage index.
+// GDP/capita is regional OUTPUT per person, NOT household net wage — labelled.
+
+interface RegionalData {
+  indicators?: Record<string, { sourceUrl?: string }>;
+  series: Record<string, Record<string, { year: number; value: number }[]>>;
+}
+
+const SOFIA_MIR = /^S2[345]$/;
+
+export const basketAffordability = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const lang = ctx.lang;
+  const [rank, reg] = await Promise.all([
+    fetchData<RankingFile>("/prices/ranking.json"),
+    fetchData<RegionalData>("/regional.json"),
+  ]);
+  const gdp = reg.series?.gdpPerCapita ?? {};
+  const latestGpc = (code: string): number | undefined => {
+    const g = gdp[code];
+    return g && g.length ? g[g.length - 1].value : undefined;
+  };
+
+  type Aff = {
+    code: string;
+    name: string;
+    basket: number;
+    gpc: number;
+    share: number;
+  };
+  const rows: Aff[] = []; // table — Sofia МИР collapsed into one city row
+  const raw: Aff[] = []; // geo — every oblast incl. the 3 Sofia МИР
+  const sofiaParts: number[] = [];
+  let sofiaGpc: number | undefined;
+  for (const p of rank.places) {
+    if (p.tier !== "oblast" || p.basketLevel == null) continue;
+    const gpc = latestGpc(p.code);
+    if (!gpc || gpc <= 0) continue;
+    const name = OBLASTS[p.code]?.[lang] ?? p.name;
+    // share of a week's per-capita GDP the basket costs (relative measure).
+    const share = (p.basketLevel * 52) / gpc;
+    raw.push({ code: p.code, name, basket: p.basketLevel, gpc, share });
+    if (SOFIA_MIR.test(p.code)) {
+      sofiaParts.push(p.basketLevel);
+      sofiaGpc = gpc;
+      continue;
+    }
+    rows.push({ code: p.code, name, basket: p.basketLevel, gpc, share });
+  }
+  if (sofiaParts.length && sofiaGpc) {
+    const basket = sofiaParts.reduce((a, b) => a + b, 0) / sofiaParts.length;
+    rows.push({
+      code: "SOF_CITY",
+      name: lang === "bg" ? "София (столица)" : "Sofia (capital)",
+      basket,
+      gpc: sofiaGpc,
+      share: (basket * 52) / sofiaGpc,
+    });
+  }
+  if (rows.length < 5)
+    return noData(
+      "basketAffordability",
+      lang === "bg" ? "Няма данни за достъпност" : "No affordability data",
+      {},
+      "regional.json",
+    );
+
+  const sorted = [...rows].sort((a, b) => a.share - b.share); // most affordable first
+  const N = sorted.length;
+  const gpcLabel = (n: number): string =>
+    lang === "bg"
+      ? `${Math.round(n / 100) / 10} хил. €`
+      : `€${Math.round(n / 100) / 10}k`;
+  const note =
+    lang === "bg"
+      ? "Достъпност = цена на кошницата спрямо БВП на човек в областта (Евростат). БВП на човек е приблизителен измерител на регионалния доход, не нетна работна заплата."
+      : "Affordability = basket cost relative to the oblast's GDP-per-capita (Eurostat). GDP-per-capita proxies regional income, not net household wage.";
+
+  // ---- single oblast asked ----
+  const oblastArg =
+    typeof args.oblast === "string" ? args.oblast.toUpperCase() : "";
+  if (oblastArg) {
+    const lookup = SOFIA_MIR.test(oblastArg) ? "SOF_CITY" : oblastArg;
+    const me = rows.find((r) => r.code === lookup);
+    if (me) {
+      const pos = sorted.findIndex((r) => r.code === lookup) + 1;
+      return {
+        tool: "basketAffordability",
+        domain: "indicators",
+        kind: "scalar",
+        title:
+          lang === "bg"
+            ? `Достъпност на кошницата — ${me.name}`
+            : `Basket affordability — ${me.name}`,
+        subtitle: note,
+        viz: "none",
+        geo: oblastLocator(lookup === "SOF_CITY" ? "S23" : lookup, me.name),
+        facts: {
+          place: me.name,
+          affordability_rank:
+            lang === "bg" ? `${pos}-о от ${N}` : `#${pos} of ${N}`,
+          basket_cost: eur(me.basket, lang),
+          gdp_per_capita: gpcLabel(me.gpc),
+          note,
+        },
+        provenance: ["prices/ranking.json", "regional.json", PROV],
+      };
+    }
+  }
+
+  // ---- national leaderboard (all oblasts, most→least affordable) ----
+  const columns: Column[] = [
+    { key: "rank", label: "#", numeric: true, format: "int" },
+    { key: "place", label: lang === "bg" ? "Област" : "Oblast" },
+    {
+      key: "basket",
+      label: lang === "bg" ? "Кошница" : "Basket",
+      numeric: true,
+    },
+    {
+      key: "gdp",
+      label: lang === "bg" ? "БВП/човек" : "GDP/capita",
+      numeric: true,
+    },
+  ];
+  const tableRows: Row[] = sorted.map((r, i) => ({
+    rank: i + 1,
+    place: r.name,
+    basket: eur(r.basket, lang),
+    gdp: gpcLabel(r.gpc),
+  }));
+
+  const metricLabel =
+    lang === "bg"
+      ? "Кошница спрямо седмичен БВП/човек"
+      : "Basket vs weekly GDP/capita";
+  const geoAreas: GeoArea[] = raw.map((r) => ({
+    code: r.code,
+    label: r.name,
+    value: r.share,
+    display: `${(r.share * 100).toFixed(1)}%`,
+  }));
+
+  const most = sorted[0];
+  const least = sorted[sorted.length - 1];
+  return {
+    tool: "basketAffordability",
+    domain: "indicators",
+    kind: "table",
+    title:
+      lang === "bg"
+        ? "Достъпност на кошницата по области (спрямо доходите)"
+        : "Basket affordability by oblast (vs income)",
+    subtitle: note,
+    columns,
+    rows: tableRows,
+    viz: "none",
+    geo: oblastChoropleth(geoAreas, { metricLabel, colorMode: "ramp" }),
+    facts: {
+      most_affordable: `${most.name}: ${eur(most.basket, lang)} · ${gpcLabel(most.gpc)}`,
+      least_affordable: `${least.name}: ${eur(least.basket, lang)} · ${gpcLabel(least.gpc)}`,
+      oblasts_ranked: N,
+      note,
+    },
+    provenance: ["prices/ranking.json", "regional.json", PROV],
+  };
+};
+
+// =============================================================================
+// 6. basketVsInflation — КЗП basket (since euro) vs official Eurostat HICP + HPI
+// =============================================================================
+// Puts the cumulative-since-euro monitoring basket next to the official HICP
+// (YoY food/overall/energy/core) + the national house-price index. Spells out
+// that the two cover different windows, so it's a context juxtaposition, not a
+// like-for-like comparison.
+
+interface MacroPt {
+  year: number;
+  quarter?: number;
+  period?: string;
+  value: number;
+}
+interface MacroLite {
+  indicators?: Record<string, { sourceUrl?: string }>;
+  series: Record<string, MacroPt[]>;
+}
+
+export const basketVsInflation = async (
+  _args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const lang = ctx.lang;
+  const [idx, macro] = await Promise.all([
+    fetchData<IndexFile>("/prices/index.json"),
+    fetchData<MacroLite>("/macro.json"),
+  ]);
+  const series = idx.national.index;
+  const basketChange =
+    series.length >= 2 ? series[series.length - 1].v / 100 - 1 : 0;
+  const baseLabel = fmtBaseline(idx.firstDate || idx.baseline, lang);
+  const last = (k: string): MacroPt | undefined => {
+    const s = macro.series[k];
+    return s && s.length ? s[s.length - 1] : undefined;
+  };
+  const overall = last("inflation");
+  const food = last("inflationFood");
+  const energy = last("inflationEnergy");
+  const core = last("inflationCore");
+  const house = last("housePricesYoY");
+  const period = overall?.period ?? food?.period ?? "";
+  // macro values are already percentages (e.g. 4.13 = +4.13% YoY).
+  const yoy = (v: number): string => pct(v / 100);
+
+  const rows: Row[] = [];
+  const add = (bg: string, en: string, p?: MacroPt) => {
+    if (p) rows.push({ indicator: lang === "bg" ? bg : en, yoy: yoy(p.value) });
+  };
+  add("Храни", "Food", food);
+  add("Обща", "Overall", overall);
+  add("Енергия", "Energy", energy);
+  add("Базова", "Core", core);
+  add("Цени на жилищата", "House prices", house);
+
+  const note =
+    lang === "bg"
+      ? "Кошницата на КЗП е кумулативен мониторингов индекс от въвеждането на еврото; ХИПЦ е официалният годишен темп на инфлация (Евростат). Различни прозорци и методология — не са пряко съпоставими."
+      : "The CPC basket is a cumulative monitoring index since the euro changeover; HICP is the official year-on-year inflation rate (Eurostat). Different windows and methodology — not directly comparable.";
+
+  return {
+    tool: "basketVsInflation",
+    domain: "indicators",
+    kind: "table",
+    title:
+      lang === "bg"
+        ? "Кошница на КЗП спрямо официалната инфлация (ХИПЦ)"
+        : "CPC basket vs official inflation (HICP)",
+    subtitle:
+      lang === "bg"
+        ? `Кошница ${pct(basketChange)} от ${baseLabel} · официална инфлация ${period}`
+        : `Basket ${pct(basketChange)} since ${baseLabel} · official inflation ${period}`,
+    columns: [
+      {
+        key: "indicator",
+        label: lang === "bg" ? "Официална инфлация (ХИПЦ)" : "Official (HICP)",
+      },
+      { key: "yoy", label: lang === "bg" ? "Годишно" : "YoY", numeric: true },
+    ],
+    rows,
+    viz: "none",
+    facts: {
+      basket_change_since_euro: pct(basketChange),
+      basket_baseline: baseLabel,
+      ...(overall ? { hicp_overall: yoy(overall.value) } : {}),
+      ...(food ? { hicp_food: yoy(food.value) } : {}),
+      ...(energy ? { hicp_energy: yoy(energy.value) } : {}),
+      ...(house ? { house_prices_yoy: yoy(house.value) } : {}),
+      hicp_period: period,
+      note,
+    },
+    provenance: ["prices/index.json", "macro.json", PROV],
   };
 };
