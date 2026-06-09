@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-05-21T10:04:51.558Z",
+  "lastSuccessfulIngest": "2026-06-09T06:36:27.217Z",
   "skill": "update-regional",
-  "summary": "ran ok — no data changes (Eurostat NUTS3 + АЗ ltUnemployment identical to prior; fetchedAt-only diff reverted)"
+  "summary": "re-fetched Eurostat NUTS3 + АЗ + NSI; no data delta (museum 2025 already captured 2026-06-08), only fetchedAt churned"
 }
