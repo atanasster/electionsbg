@@ -24,6 +24,7 @@ import {
   electionsMenu,
   localMenu,
   governanceMenu,
+  consumptionMenu,
 } from "./reportMenus";
 import { Search } from "../search/Search";
 import { ElectionsSelect } from "./ElectionsSelect";
@@ -58,6 +59,10 @@ const GOVERNANCE_PREFIXES = [
 
 const LOCAL_PREFIXES = ["/local", "/sverka"];
 
+// The Consumption (cost-of-living) world: the new /consumption place tiers plus
+// the standalone /prices explorer, which is the same КЗП basket data reframed.
+const CONSUMPTION_PREFIXES = ["/consumption", "/prices"];
+
 const isInSection = (pathname: string, prefixes: string[]): boolean =>
   prefixes.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 
@@ -70,7 +75,8 @@ export const Header = () => {
   const location = useLocation();
   const inGovernance = isInSection(location.pathname, GOVERNANCE_PREFIXES);
   const inLocal = isInSection(location.pathname, LOCAL_PREFIXES);
-  const inElections = !inGovernance && !inLocal;
+  const inConsumption = isInSection(location.pathname, CONSUMPTION_PREFIXES);
+  const inElections = !inGovernance && !inLocal && !inConsumption;
 
   // The nav is `position: fixed`, so the page content is offset by its
   // height via the `--header-height` CSS variable (see Layout.tsx). On
@@ -322,6 +328,13 @@ export const Header = () => {
             active={inGovernance}
           />
         ))}
+        {consumptionMenu.map((topMenu, idx) => (
+          <RenderTopMenu
+            key={`cons-${topMenu.title}-${idx}`}
+            topMenu={topMenu}
+            active={inConsumption}
+          />
+        ))}
         {/* Desktop overflow: the analysis link + language + theme toggles,
             moved off the bar to make room for the three section menus. */}
         <DropdownMenu modal={false}>
@@ -369,6 +382,13 @@ export const Header = () => {
             {governanceMenu.map((main, idx) => (
               <RenderMenuItem
                 key={`m-gov-${main.title}-${idx}`}
+                item={main}
+                isMobile
+              />
+            ))}
+            {consumptionMenu.map((main, idx) => (
+              <RenderMenuItem
+                key={`m-cons-${main.title}-${idx}`}
                 item={main}
                 isMobile
               />

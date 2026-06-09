@@ -1,11 +1,12 @@
-// Segmented switcher mounted at the top of a place's three "views" — the
+// Segmented switcher mounted at the top of a place's four "views" — the
 // Governance dashboard (how the place is run now), the parliamentary-elections
-// results, and the local-elections results. It lets a reader pivot between the
-// three angles on the SAME place (e.g. район Средец) without going back through
-// search. The Governance pill resolves at every tier (country → settlement)
-// except a polling section.
+// results, the local-elections results, and the Consumption / cost-of-living
+// view. It lets a reader pivot between the four angles on the SAME place (e.g.
+// район Средец) without going back through search. The Governance and
+// Consumption pills resolve at every tier (country → settlement) except a
+// polling section.
 //
-// All three URLs are pure rewrites of the shared geographic identifiers —
+// All four URLs are pure rewrites of the shared geographic identifiers —
 // see placeViews.ts. The local pill self-hides when the place has no data
 // in the active local cycle (the cycle index is the guard, same rule as
 // CrossElectionLink's ToLocalLink). The whole control hides when fewer than
@@ -27,14 +28,20 @@ import {
   governanceUrl,
   parliamentaryUrl,
   localUrl,
+  consumptionUrl,
   isSofiaCityObshtina,
 } from "@/data/local/placeViews";
 import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
 import { useLocalElectionIndex } from "@/data/local/useLocalElectionIndex";
 import { PLACE_VIEW_META } from "./placeViewMeta";
 
-// Stable left-to-right order of the three views.
-const ORDER: PlaceView[] = ["governance", "parliamentary", "local"];
+// Stable left-to-right order of the views.
+const ORDER: PlaceView[] = [
+  "governance",
+  "parliamentary",
+  "local",
+  "consumption",
+];
 
 type Props = {
   active: PlaceView;
@@ -82,6 +89,7 @@ export const PlaceViewNav: FC<Props> = ({
   const urlFor = (view: PlaceView): string | null => {
     if (view === "governance") return governanceUrl(place);
     if (view === "parliamentary") return parliamentaryUrl(place);
+    if (view === "consumption") return consumptionUrl(place);
     return localAvailable ? localUrl(place, cycle) : null;
   };
 
@@ -97,7 +105,10 @@ export const PlaceViewNav: FC<Props> = ({
       aria-label={t("place_view_nav_label")}
       className={`flex ${align === "center" ? "justify-center" : "justify-start"} ${className ?? ""}`}
     >
-      <div className="inline-flex items-center gap-1 rounded-full border bg-card p-1 shadow-sm">
+      {/* flex-wrap (not inline-flex) so the four pills wrap to a second row on
+          a narrow viewport instead of overflowing — they fit one row on desktop,
+          so wider screens are unchanged. */}
+      <div className="flex flex-wrap items-center justify-center gap-1 rounded-2xl border bg-card p-1 shadow-sm">
         {shown.map((it) => {
           const meta = PLACE_VIEW_META[it.view];
           const Icon = meta.icon;

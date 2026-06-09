@@ -11,7 +11,9 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { TrendingUp, TrendingDown, Tag, ArrowRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { Link } from "@/ux/Link";
 import { PriceSparkline } from "@/screens/components/prices/PriceSparkline";
+import { consumptionUrl } from "@/data/local/placeViews";
 import {
   usePriceDict,
   useSettlementPrices,
@@ -25,19 +27,32 @@ import {
 interface Props {
   ekatte?: string;
   obshtina: string;
+  // The drill-down "see full consumption view" link. On by default (the
+  // governance/my-area dashboards); the Consumption place screen passes false
+  // since that link would point at the page you're already on.
+  showConsumptionLink?: boolean;
 }
 
 // Core staples to surface as "cheapest here" rows (subset of the basket).
 const FEATURED = [1, 6, 31, 42, 9, 16];
 
-export const MyAreaPricesTile: FC<Props> = ({ ekatte, obshtina }) => {
+export const MyAreaPricesTile: FC<Props> = ({
+  ekatte,
+  obshtina,
+  showConsumptionLink = true,
+}) => {
   const { i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   // Sharded loads only — the small dictionary + the place's own shard. The
   // place's rank is embedded in its shard, so no 128 KB ranking.json here.
+  // Sofia city is keyed SOF46 in the price tree but SOF00/SOF everywhere else
+  // (governance / area resolver) — remap so the capital's chains resolve
+  // instead of 404'ing (matches the SOF46↔SOF00 convention in PriceChoropleth).
+  const priceObshtina =
+    obshtina === "SOF00" || obshtina === "SOF" ? "SOF46" : obshtina;
   const { data: dict } = usePriceDict();
   const { data: sett } = useSettlementPrices(ekatte);
-  const { data: muniChains } = useMuniChains(obshtina);
+  const { data: muniChains } = useMuniChains(priceObshtina);
 
   const prodName = useMemo(
     () =>
@@ -57,6 +72,14 @@ export const MyAreaPricesTile: FC<Props> = ({ ekatte, obshtina }) => {
   if (!hasSettlement && !hasMuni) return null; // coverage fallback → hide
 
   const T = (bg: string, en: string) => (lang === "bg" ? bg : en);
+
+  // Drill-down to this same place's dedicated Consumption view (settlement →
+  // /consumption/<ekatte>, município → /consumption/<obshtina>, Sofia → SOF00).
+  const consumptionHref = consumptionUrl({
+    level: ekatte ? "settlement" : "municipality",
+    ekatte,
+    obshtina,
+  });
 
   // headline change since euro
   const change = hasSettlement
@@ -278,15 +301,28 @@ export const MyAreaPricesTile: FC<Props> = ({ ekatte, obshtina }) => {
         </div>
       ) : null}
 
-      <a
-        href={dict.source.url}
-        target="_blank"
-        rel="noreferrer"
-        className="text-xs text-primary hover:underline inline-flex items-center gap-1 mt-auto"
-      >
-        {T("Данни: КЗП «Колко струва»", "Source: CPC «How much does it cost»")}
-        <ArrowRight className="size-3" />
-      </a>
+      <div className="mt-auto flex flex-wrap items-center justify-between gap-x-3 gap-y-1 pt-1">
+        {showConsumptionLink && consumptionHref ? (
+          <Link
+            to={consumptionHref}
+            className="text-xs font-medium text-primary hover:underline inline-flex items-center gap-1"
+          >
+            {T("Виж потреблението подробно", "See full consumption view")}
+            <ArrowRight className="size-3" />
+          </Link>
+        ) : null}
+        <a
+          href={dict.source.url}
+          target="_blank"
+          rel="noreferrer"
+          className="text-xs text-muted-foreground hover:underline inline-flex items-center gap-1"
+        >
+          {T(
+            "Данни: КЗП «Колко струва»",
+            "Source: CPC «How much does it cost»",
+          )}
+        </a>
+      </div>
     </Card>
   );
 };

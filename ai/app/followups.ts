@@ -553,6 +553,41 @@ export const followUps = (env: Envelope): FollowUp[] => {
         bg: "Коя верига е най-евтина?",
         en: "Which retail chain is the cheapest?",
       });
+      out.push({
+        bg: "Къде е най-достъпна кошницата спрямо доходите?",
+        en: "Where is the basket most affordable relative to income?",
+      });
+      break;
+    case "basketAffordability": {
+      const place = fact(env, "place");
+      if (place)
+        out.push({
+          bg: `Какви са цените ${vIn(place)}?`,
+          en: `What are the prices in ${place}?`,
+        });
+      out.push({
+        bg: "Кой град е най-евтин за пазаруване?",
+        en: "Which town is cheapest to shop in?",
+      });
+      out.push({
+        bg: "Изпреварва ли кошницата официалната инфлация?",
+        en: "Is the basket outpacing official inflation?",
+      });
+      break;
+    }
+    case "basketVsInflation":
+      out.push({
+        bg: "Каква е инфлацията?",
+        en: "What's inflation?",
+      });
+      out.push({
+        bg: "Къде е най-достъпна кошницата спрямо доходите?",
+        en: "Where is the basket most affordable relative to income?",
+      });
+      out.push({
+        bg: "Колко поскъпна кошницата от въвеждането на еврото?",
+        en: "How much has the basket risen since the euro?",
+      });
       break;
   }
 

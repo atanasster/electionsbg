@@ -738,16 +738,26 @@ export const basketAffordability = async (
     gpc: number;
     share: number;
   };
+  // NB: these ranking rules — skip PDV-00, collapse S23/S24/S25 into one
+  // Sofia-city row, and the `share` formula — are mirrored in the on-screen
+  // tile src/screens/consumption/ConsumptionAffordabilityTile.tsx. The ai/
+  // layer is separately compiled (can't import src/), so keep the two in sync.
   const rows: Aff[] = []; // table — Sofia МИР collapsed into one city row
   const raw: Aff[] = []; // geo — every oblast incl. the 3 Sofia МИР
   const sofiaParts: number[] = [];
   let sofiaGpc: number | undefined;
   for (const p of rank.places) {
     if (p.tier !== "oblast" || p.basketLevel == null) continue;
+    // PDV-00 is the Plovdiv-CITY МИР — a sub-oblast district inside the PDV
+    // oblast (already listed), not a separate oblast; skip it so Plovdiv isn't
+    // double-counted. (Sofia's 3 МИР together ARE the София-град oblast, so they
+    // are consolidated below rather than skipped.)
+    if (p.code === "PDV-00") continue;
     const gpc = latestGpc(p.code);
     if (!gpc || gpc <= 0) continue;
     const name = OBLASTS[p.code]?.[lang] ?? p.name;
-    // share of a week's per-capita GDP the basket costs (relative measure).
+    // share = annualized basket ÷ annual GDP/capita; ×52 is a constant across
+    // oblasti, so only the RANK is meaningful.
     const share = (p.basketLevel * 52) / gpc;
     raw.push({ code: p.code, name, basket: p.basketLevel, gpc, share });
     if (SOFIA_MIR.test(p.code)) {
@@ -841,9 +851,7 @@ export const basketAffordability = async (
   }));
 
   const metricLabel =
-    lang === "bg"
-      ? "Кошница спрямо седмичен БВП/човек"
-      : "Basket vs weekly GDP/capita";
+    lang === "bg" ? "Кошница спрямо БВП на човек" : "Basket vs GDP per capita";
   const geoAreas: GeoArea[] = raw.map((r) => ({
     code: r.code,
     label: r.name,
@@ -929,7 +937,16 @@ export const basketVsInflation = async (
   add("Обща", "Overall", overall);
   add("Енергия", "Energy", energy);
   add("Базова", "Core", core);
-  add("Цени на жилищата", "House prices", house);
+  // House prices is the HPI (not HICP) and often a different quarter than the
+  // HICP series — carry its own period in the row label so it isn't read under
+  // the table's HICP period.
+  if (house)
+    rows.push({
+      indicator:
+        (lang === "bg" ? "Цени на жилищата" : "House prices") +
+        (house.period ? ` · ${house.period}` : ""),
+      yoy: yoy(house.value),
+    });
 
   const note =
     lang === "bg"

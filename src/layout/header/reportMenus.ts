@@ -235,3 +235,19 @@ export const governanceMenu: MenuItem[] = [
     ],
   },
 ];
+
+// Consumption (Потребление) — the cost-of-living dashboard. Phase 1 surfaces
+// the КЗП basket views (overview + price map + the per-product/place explorer);
+// fuel, wages and property land in later phases.
+export const consumptionMenu: MenuItem[] = [
+  {
+    title: "nav_consumption",
+    link: "/consumption",
+    subMenu: [
+      { title: "menu_overview", link: "/consumption", mobileOnly: true },
+      { title: "prices_section_overview", link: "/consumption" },
+      { title: "prices_section_map", link: "/consumption#map" },
+      { title: "prices_page_title", link: "/prices" },
+    ],
+  },
+];

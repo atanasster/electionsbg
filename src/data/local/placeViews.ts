@@ -1,8 +1,9 @@
-// URL builders for the three "views" of a single place — the Governance
+// URL builders for the four "views" of a single place — the Governance
 // dashboard (how the place is run now), the parliamentary-elections results,
-// and the local-elections results. The three page trees key off identifiers
-// that are shared verbatim (EKATTE, obshtina code, oblast code), so each
-// view's URL is a pure rewrite with no lookup table.
+// the local-elections results, and the Consumption / cost-of-living view. The
+// four page trees key off identifiers that are shared verbatim (EKATTE,
+// obshtina code, oblast code), so each view's URL is a pure rewrite with no
+// lookup table.
 //
 // Governance is the renamed/expanded "My-Area" view: it now spans the full
 // place ladder — country, region (oblast), município, settlement — so the
@@ -13,17 +14,18 @@
 // funnel (/my-area), which resolves a user into /governance/:id.
 //
 // This powers PlaceViewNav, the segmented switcher mounted at the top of all
-// three screens. It is intentionally separate from crossElectionLink.ts —
+// four screens. It is intentionally separate from crossElectionLink.ts —
 // that helper bridges only parliamentary↔local and is keyed on a different
 // level vocabulary; this one adds the Governance dimension and fixes the Sofia
 // район mapping (see below).
 //
 // Route schemes (the "off by one" naming is historical, see crossElectionLink):
-//   country      gov /governance              parl /
-//   region       gov /governance/region/:oblast parl /municipality/:oblast
-//   município    gov /governance/:obshtina    parl /settlement/:obshtina
-//   settlement   gov /governance/:ekatte      parl /sections/:ekatte
+//   country      gov /governance                 parl /                      cons /consumption
+//   region       gov /governance/region/:oblast  parl /municipality/:oblast  cons /consumption/region/:oblast
+//   município    gov /governance/:obshtina       parl /settlement/:obshtina  cons /consumption/:obshtina
+//   settlement   gov /governance/:ekatte         parl /sections/:ekatte      cons /consumption/:ekatte
 //   local        /local/:cycle/:obshtina  (settlement → /local/:cycle/settlement/:ekatte)
+// Consumption drops at the polling-section tier (same as Governance).
 //
 // Sofia район special case: a район (e.g. Средец) is a single "settlement"
 // in the parliamentary/my-area trees (composite EKATTE "68134-2401") but a
@@ -37,7 +39,11 @@ export type PlaceLevel =
   | "municipality"
   | "settlement"
   | "section";
-export type PlaceView = "governance" | "parliamentary" | "local";
+export type PlaceView =
+  | "governance"
+  | "parliamentary"
+  | "local"
+  | "consumption";
 
 export interface PlaceRef {
   level: PlaceLevel;
@@ -78,6 +84,26 @@ export const governanceUrl = (p: PlaceRef): string | null => {
     return `/governance/${SOFIA_CITY_GOVERNANCE_ID}`;
   if (p.level === "municipality" && p.obshtina)
     return `/governance/${p.obshtina}`;
+  return null;
+};
+
+// Consumption (Потребление) dashboard URL — the cost-of-living view of a
+// place (КЗП basket prices now, fuel/wages/property later). Resolves at the
+// same tiers as Governance (country → settlement, Sofia city keyed SOF00) and
+// drops at the polling-section level, so the pill mirrors the Governance pill.
+//   country      → /consumption
+//   region       → /consumption/region/:oblast
+//   município    → /consumption/:obshtina   (Sofia city → /consumption/SOF00)
+//   settlement   → /consumption/:ekatte
+export const consumptionUrl = (p: PlaceRef): string | null => {
+  if (p.level === "country") return "/consumption";
+  if (p.level === "region" && p.oblast)
+    return `/consumption/region/${p.oblast}`;
+  if (p.level === "settlement" && p.ekatte) return `/consumption/${p.ekatte}`;
+  if (p.level === "municipality" && isSofiaCityObshtina(p.obshtina))
+    return `/consumption/${SOFIA_CITY_GOVERNANCE_ID}`;
+  if (p.level === "municipality" && p.obshtina)
+    return `/consumption/${p.obshtina}`;
   return null;
 };
 

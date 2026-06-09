@@ -82,6 +82,8 @@ import {
   transparencyScore,
 } from "./placesGov";
 import {
+  basketAffordability,
+  basketVsInflation,
   cheapestChains,
   priceIndex,
   priceRanking,
@@ -2176,6 +2178,52 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: priceRanking,
+  },
+  {
+    name: "basketAffordability",
+    domain: "indicators",
+    description: {
+      bg: "Достъпност на потребителската кошница спрямо доходите по области — цената на кошницата спрямо БВП на човек (Евростат). Национална класация + ранг на дадена област. БВП на човек е приблизителен измерител на дохода, не нетна заплата.",
+      en: "Affordability of the consumer basket vs income by oblast — basket cost relative to GDP-per-capita (Eurostat). National ranking + a given oblast's rank. GDP-per-capita proxies income, not net wage.",
+    },
+    params: [
+      {
+        name: "oblast",
+        type: "oblast",
+        description: { bg: "Област (по избор)", en: "Oblast (optional)" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Къде е най-достъпна кошницата спрямо доходите?",
+        en: "Where is the basket most affordable relative to income?",
+      },
+      {
+        bg: "Каква е покупателната способност по области?",
+        en: "What is purchasing power by oblast?",
+      },
+    ],
+    run: basketAffordability,
+  },
+  {
+    name: "basketVsInflation",
+    domain: "indicators",
+    description: {
+      bg: "Кошницата на КЗП (от въвеждането на еврото) спрямо официалната инфлация (ХИПЦ — храни, обща, енергия, базова) и индекса на цените на жилищата (Евростат). Различни прозорци — контекст, не пряко сравнение.",
+      en: "The CPC basket (since the euro) vs official inflation (HICP — food, overall, energy, core) and the house-price index (Eurostat). Different windows — context, not a like-for-like comparison.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Изпреварва ли кошницата официалната инфлация?",
+        en: "Is the basket outpacing official inflation?",
+      },
+      {
+        bg: "Кошницата спрямо ХИПЦ инфлацията",
+        en: "The basket vs HICP inflation",
+      },
+    ],
+    run: basketVsInflation,
   },
   // ---- place ("about my area") ----------------------------------------------
   {

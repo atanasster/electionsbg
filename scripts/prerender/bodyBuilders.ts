@@ -42,6 +42,8 @@ const NAV_HUBS: { path: string; bg: string; en: string; bgOnly?: true }[] = [
   { path: "budget", bg: "Държавен бюджет", en: "State budget" },
   { path: "funds", bg: "Европейски средства", en: "EU funds" },
   { path: "indicators", bg: "Индикатори", en: "Indicators" },
+  { path: "consumption", bg: "Потребление", en: "Consumption" },
+  { path: "prices", bg: "Цени", en: "Prices" },
   { path: "financing", bg: "Партийно финансиране", en: "Party financing" },
   {
     path: "polls",

@@ -321,6 +321,18 @@ const main = async () => {
     "about.png",
   );
 
+  renderStaticPageCard(
+    "Потребление",
+    "Издръжка на живота — цени, инфлация и достъпност по места",
+    [
+      { label: "кошница", value: "101 продукта" },
+      { label: "населени места", value: "244" },
+      { label: "инфлация", value: "ХИПЦ" },
+      { label: "достъпност", value: "по области" },
+    ],
+    "consumption.png",
+  );
+
   // /risk-analysis, /risk-score, /benford, /persistence, /wasted-vote and
   // /connections use Playwright screenshots of the live dashboards instead
   // of rendered cards — see scripts/og/capture-screens.ts. Their .png files

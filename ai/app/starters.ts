@@ -163,4 +163,12 @@ export const STARTERS: Starter[] = [
     bg: "Къде поскъпнаха цените най-много от еврото?",
     en: "Where did prices rise the most since the euro?",
   },
+  {
+    bg: "Къде е най-достъпна кошницата спрямо доходите?",
+    en: "Where is the basket most affordable relative to income?",
+  },
+  {
+    bg: "Изпреварва ли кошницата официалната инфлация?",
+    en: "Is the basket outpacing official inflation?",
+  },
 ];

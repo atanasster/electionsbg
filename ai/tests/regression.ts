@@ -2188,6 +2188,45 @@ const CASES: Case[] = [
     tool: "procurementBySettlement",
     geo: { level: "settlement", mode: "locator", joinKey: "ekatte" },
   },
+  // ---- consumption: basket affordability + basket vs official inflation -----
+  {
+    q: "Къде е най-достъпна кошницата спрямо доходите?",
+    tool: "basketAffordability",
+    kind: "table",
+    minRows: 5,
+    facts: { most_affordable: /€|€\d|\d/ },
+    geo: { level: "oblast", mode: "choropleth", joinKey: "nuts3" },
+  },
+  {
+    q: "What is purchasing power by oblast?",
+    lang: "en",
+    tool: "basketAffordability",
+    kind: "table",
+    minRows: 5,
+  },
+  {
+    q: "Каква е достъпността на кошницата във Варна?",
+    tool: "basketAffordability",
+    kind: "scalar",
+    facts: { place: "Варна", affordability_rank: /\d/ },
+    geo: { level: "oblast", mode: "locator", joinKey: "nuts3" },
+  },
+  {
+    q: "Изпреварва ли кошницата официалната инфлация?",
+    tool: "basketVsInflation",
+    kind: "table",
+    minRows: 3,
+    facts: { basket_change_since_euro: /%/ },
+  },
+  {
+    q: "The basket vs HICP inflation",
+    lang: "en",
+    tool: "basketVsInflation",
+    kind: "table",
+  },
+  // guard: a bare inflation question still routes to the macro read, not the
+  // basket-vs-inflation comparison (which needs an explicit basket cue).
+  { q: "Каква е инфлацията?", tool: "macroIndicator" },
   // negatives — these answers must carry NO map
   { q: "Колко гора има в България?", tool: "landUse", geo: false },
   { q: "Какъв е държавният бюджет?", tool: "budgetOverview", geo: false },

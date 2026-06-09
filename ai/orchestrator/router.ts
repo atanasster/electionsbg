@@ -535,6 +535,68 @@ export const route = (question: string, ctx: ToolContext): Route => {
   if (isMachine && partyRanking && !has(q, "корекци", "correction"))
     return { tool: "machineVoteByParty", args: election ? { election } : {} };
 
+  // 0a. basket vs official inflation — needs BOTH a basket cue AND an
+  // inflation/HICP cue. Placed before the compare block because "кошница спрямо
+  // инфлацията" carries "спрямо" (a compare trigger); and before the prices
+  // block (which EXCLUDES inflation words) and the macro block.
+  if (
+    has(q, "кошниц", "basket") &&
+    has(q, "инфлация", "inflation", "ипц", "hicp", "хипц") &&
+    !has(q, "данък", "данъц", " tax", "taxes", "бюджет", "budget", "държав")
+  ) {
+    return { tool: "basketVsInflation", args: {} };
+  }
+
+  // 0b. basket affordability — basket cost relative to regional income
+  // (GDP/capita). "Покупателна способност"/"издръжка на живота"/"cost of living"
+  // are sufficient on their own; "достъпн"/"affordable" needs a basket/income
+  // context so a bare "достъпна услуга" can't trigger it. Before the compare
+  // block ("спрямо доходите"), distinct from priceRanking's "най-евтини"
+  // (absolute cheap) by the relative-to-income cue.
+  {
+    const affordConcept = has(
+      q,
+      "покупателн", // покупателна / покупателната способност
+      "purchasing power",
+      "издръжка на живот",
+      "издръжката на живот",
+      "цена на живот", // цена/цената на живота
+      "цената на живот",
+      "cost of living",
+    );
+    const affordWeak = has(
+      q,
+      "достъпн",
+      "affordab",
+      "спрямо доход",
+      "relative to income",
+      "спрямо бвп",
+      "relative to gdp",
+      "тежи на джоба",
+    );
+    const affordCtx = has(
+      q,
+      "кошниц",
+      "basket",
+      "доход",
+      "income",
+      "бвп",
+      "gdp",
+      "живот",
+      "living",
+    );
+    if (
+      (affordConcept || (affordWeak && affordCtx)) &&
+      !has(q, "данък", "данъц", " tax", "taxes", "бюджет", "budget", "държав")
+    ) {
+      const oblHit = findOblastInText(q);
+      return {
+        tool: "basketAffordability",
+        args: oblHit ? { oblast: oblHit.code } : {},
+      };
+    }
+  }
+
   // 1. comparison of two elections
   if (isCompare) {
     const years = Array.from(q.matchAll(/\b(20\d{2})\b/g)).map((m) => m[1]);

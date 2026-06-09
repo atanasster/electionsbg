@@ -950,6 +950,46 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "consumption",
+    title:
+      "Потребление в България — цени и издръжка на живота по места | electionsbg.com",
+    description:
+      "Изгледът „Потребление“ показва издръжката на живота в България — цените на потребителската кошница от въвеждането на еврото по продукти, вериги, области и населени места. Мониторингов индекс на КЗП, не официален ИПЦ.",
+    breadcrumbName: "Потребление",
+    ogImage: "/og/consumption.png",
+    bodyHtml: `
+<h1>Потребление в България — цени и издръжка на живота</h1>
+<p>Изгледът „Потребление“ събира на едно място данните за издръжката на живота в България и ги показва на всяко ниво — национално, София, област, община и населено място. В основата засега е голямата потребителска кошница (101 продукта) от въвеждането на еврото на 1 януари 2026 г., с данни от ежедневния отворен портал на Комисията за защита на потребителите (КЗП) „Колко струва“.</p>
+<p><strong>Това е мониторингов индекс на кошницата, а не официален индекс на потребителските цени (ИПЦ).</strong> За официалната инфлация виж <a href="${SITE_URL}/indicators">индикаторите</a> (ХИПЦ на Евростат).</p>
+<h2>Какво показва изгледът</h2>
+<ul>
+<li><strong>Кошница на цените</strong> — дневен индекс от въвеждането на еврото, национално и по области, с разбивка по категории и най-евтини вериги.</li>
+<li><strong>Карта на цените</strong> — хороплет карти по общини: цена на кошницата и промяна от еврото.</li>
+<li><strong>По места</strong> — цените на кошницата за всяка област, община и населено място с покритие.</li>
+</ul>
+<p>Виж и пълния <a href="${SITE_URL}/prices">обзор на цените</a> по продукти и вериги.</p>
+<p>Източник: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">КЗП — „Колко струва“ (отворени данни)</a>.</p>`.trim(),
+    english: {
+      title:
+        "Consumption in Bulgaria — prices and cost of living by place | electionsbg.com",
+      description:
+        "The Consumption view shows the cost of living in Bulgaria — consumer-basket prices since the euro changeover by product, retail chain, region and settlement. CPC monitoring index, not official CPI.",
+      breadcrumbName: "Consumption",
+      bodyHtml: `
+<h1>Consumption in Bulgaria — prices and the cost of living</h1>
+<p>The Consumption view brings the cost-of-living data together and shows it at every tier — national, Sofia, oblast, municipality and settlement. The foundation for now is the 101-product large consumer basket since the euro changeover on 1 January 2026, from the Consumer Protection Commission's (CPC) daily "How Much Does It Cost" open-data portal.</p>
+<p><strong>This is a monitoring basket index, not the official Consumer Price Index (CPI).</strong> For official inflation see the <a href="${SITE_URL}/en/indicators">indicators</a> (Eurostat HICP).</p>
+<h2>What the view shows</h2>
+<ul>
+<li><strong>Price basket</strong> — a daily index since the euro, national and per-oblast, with a category breakdown and the cheapest chains.</li>
+<li><strong>Price map</strong> — municipality choropleths: basket cost and change since the euro.</li>
+<li><strong>By place</strong> — basket prices for each oblast, municipality and settlement, with coverage.</li>
+</ul>
+<p>See also the full <a href="${SITE_URL}/en/prices">price explorer</a> by product and chain.</p>
+<p>Source: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">CPC — "How Much Does It Cost" (open data)</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "indicators/economy",
     title: "Икономика — БВП, инфлация, безработица, нагласи | electionsbg.com",
     description:

@@ -1037,6 +1037,74 @@ const run = async () => {
   printEnvelope(cmpPlaces);
   assert((cmpPlaces.rows?.length ?? 0) > 0, "comparePlaces returns rows");
 
+  // 20. consumption — basket affordability + basket vs official inflation
+  console.log("\n=== [consumption] affordability + inflation ===");
+  const aff = (await runTool("basketAffordability", {}, ctxEn)) as Envelope;
+  printEnvelope(aff);
+  assert(
+    (aff.rows?.length ?? 0) >= 5,
+    "basketAffordability ranks the oblasts (table)",
+  );
+  assert(
+    !!aff.facts.most_affordable && !!aff.facts.least_affordable,
+    "basketAffordability has most/least-affordable leaders",
+  );
+  assert(
+    aff.geo?.level === "oblast",
+    "basketAffordability attaches an oblast choropleth",
+  );
+  // The ranking must reflect the GDP/income join, not a raw basket-€ sort: the
+  // most-affordable oblast (highest income) is NOT the cheapest basket. Guards
+  // against a regression where the GDP map fails to load and `share` collapses
+  // to a basket-only ordering.
+  const basketOf = (r: Record<string, unknown>): number =>
+    parseFloat(String(r.basket).replace(/[^\d.]/g, "")) || 0;
+  const cheapestBasket = [...(aff.rows ?? [])].sort(
+    (a, b) => basketOf(a) - basketOf(b),
+  )[0];
+  assert(
+    (aff.rows?.[0]?.place ?? "") !== (cheapestBasket?.place ?? "x"),
+    "basketAffordability rank reflects the income join (≠ raw-basket order)",
+  );
+
+  const affObl = (await runTool(
+    "basketAffordability",
+    { oblast: "VAR" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(affObl);
+  assert(
+    affObl.kind === "scalar" && !!affObl.facts.affordability_rank,
+    "basketAffordability per-oblast has a rank",
+  );
+
+  const bvi = (await runTool("basketVsInflation", {}, ctxEn)) as Envelope;
+  printEnvelope(bvi);
+  assert(
+    (bvi.rows?.length ?? 0) > 0 && !!bvi.facts.basket_change_since_euro,
+    "basketVsInflation has HICP rows + the basket change",
+  );
+
+  console.log("\n=== [router] consumption questions ===");
+  const cases10: [string, string | null][] = [
+    ["Къде е най-достъпна кошницата спрямо доходите?", "basketAffordability"],
+    ["Каква е покупателната способност по области?", "basketAffordability"],
+    [
+      "Where is the basket most affordable relative to income?",
+      "basketAffordability",
+    ],
+    ["Изпреварва ли кошницата официалната инфлация?", "basketVsInflation"],
+    ["Кошницата спрямо ХИПЦ инфлацията", "basketVsInflation"],
+    // guard: a bare inflation question still routes to the macro read
+    ["Каква е инфлацията?", "macroIndicator"],
+  ];
+  for (const [q, expected] of cases10) {
+    const r = route(q, ctx);
+    const got = r?.tool ?? null;
+    console.log(`  "${q}" -> ${got ?? "(none)"}`);
+    assert(got === expected, `route: "${q}" -> ${expected}`);
+  }
+
   console.log(
     `\n${failures === 0 ? "ALL PASS" : `${failures} FAILURE(S)`} — ${failures === 0 ? "tools layer verified" : "see above"}`,
   );

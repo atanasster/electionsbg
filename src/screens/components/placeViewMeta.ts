@@ -7,7 +7,13 @@
 //
 // Class strings are full literals so Tailwind's content scan keeps them.
 
-import { Scale, Landmark, Building2, LucideIcon } from "lucide-react";
+import {
+  Scale,
+  Landmark,
+  Building2,
+  ShoppingBasket,
+  LucideIcon,
+} from "lucide-react";
 import type { PlaceView } from "@/data/local/placeViews";
 
 export const PLACE_VIEW_META: Record<
@@ -40,5 +46,12 @@ export const PLACE_VIEW_META: Record<
     border: "border-l-emerald-500",
     text: "text-emerald-600 dark:text-emerald-400",
     activePill: "bg-emerald-600 text-white",
+  },
+  consumption: {
+    icon: ShoppingBasket,
+    labelKey: "cross_to_consumption",
+    border: "border-l-amber-500",
+    text: "text-amber-600 dark:text-amber-400",
+    activePill: "bg-amber-600 text-white",
   },
 };

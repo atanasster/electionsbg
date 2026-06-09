@@ -981,6 +981,21 @@ const RegionGovernanceScreen = lazy(() =>
     default: m.RegionGovernanceScreen,
   })),
 );
+const ConsumptionScreen = lazy(() =>
+  import("./screens/ConsumptionScreen").then((m) => ({
+    default: m.ConsumptionScreen,
+  })),
+);
+const RegionConsumptionScreen = lazy(() =>
+  import("./screens/RegionConsumptionScreen").then((m) => ({
+    default: m.RegionConsumptionScreen,
+  })),
+);
+const ConsumptionPlaceScreen = lazy(() =>
+  import("./screens/ConsumptionPlaceScreen").then((m) => ({
+    default: m.ConsumptionPlaceScreen,
+  })),
+);
 
 // Back-compat: the place dashboards moved from /my-area/:id to /governance/:id
 // (the possessive /my-area entry funnel stays). Redirect any stale id link.
@@ -2751,6 +2766,34 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <MyAreaScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* Consumption (Потребление) view — the cost-of-living dashboard at
+              every place tier (country / region / município / settlement),
+              mirroring the Governance route family. Built on the КЗП "Колко
+              струва" basket data already shipped. */}
+          <Route
+            path="consumption"
+            element={
+              <LayoutScreen>
+                <ConsumptionScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="consumption/region/:oblast"
+            element={
+              <LayoutScreen>
+                <RegionConsumptionScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="consumption/:id"
+            element={
+              <LayoutScreen>
+                <ConsumptionPlaceScreen />
               </LayoutScreen>
             }
           />
