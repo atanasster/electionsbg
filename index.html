@@ -18,19 +18,20 @@
     <meta name="twitter:card" content="summary_large_image" />
     <!-- SEO -->
     <title>
-      Парламентарни избори в България — данни и анализ от 2005 | electionsbg.com
+      Избори, бюджет и управление на България — отворени данни и анализ |
+      electionsbg.com
     </title>
     <meta
       name="description"
-      content="Платформа с отворен код за визуализация и анализ на резултатите от всички парламентарни избори в България от 2005 г. насам — по области, общини, населени места и секции."
+      content="Платформа с отворен код за изборите в България от 2005 г. — по области, общини, населени места и секции — и за това как се управлява страната: парламент, държавен бюджет, обществени поръчки, еврофондове, местни данъци и цената на ежедневието."
     />
     <meta
       property="og:title"
-      content="Парламентарни избори в България — данни и анализ от 2005 | electionsbg.com"
+      content="Избори, бюджет и управление на България — отворени данни и анализ | electionsbg.com"
     />
     <meta
       property="og:description"
-      content="Платформа с отворен код за визуализация и анализ на резултатите от всички парламентарни избори в България от 2005 г. насам — по области, общини, населени места и секции."
+      content="Платформа с отворен код за изборите в България от 2005 г. — по области, общини, населени места и секции — и за това как се управлява страната: парламент, държавен бюджет, обществени поръчки, еврофондове, местни данъци и цената на ежедневието."
     />
     <meta property="og:url" content="https://electionsbg.com/" />
     <meta
@@ -39,7 +40,7 @@
     />
     <meta
       property="og:image:alt"
-      content="Парламентарни избори в България — данни и анализ от 2005"
+      content="Избори, бюджет и управление на България — отворени данни и анализ"
     />
     <meta
       name="twitter:image"
@@ -51,20 +52,24 @@
          Query goes to storage.googleapis.com (post-migration); without this
          hint the browser pays ~120ms of DNS+TCP+TLS on the first JSON
          request. With it, the handshake overlaps with HTML parsing. -->
+    <link rel="preconnect" href="https://storage.googleapis.com" crossorigin />
     <link
       rel="preconnect"
-      href="https://storage.googleapis.com"
+      href="https://a.tile.openstreetmap.org"
       crossorigin
     />
-    <link rel="preconnect" href="https://a.tile.openstreetmap.org" crossorigin />
-    <link rel="preconnect" href="https://b.tile.openstreetmap.org" crossorigin />
-    <link rel="preconnect" href="https://c.tile.openstreetmap.org" crossorigin />
+    <link
+      rel="preconnect"
+      href="https://b.tile.openstreetmap.org"
+      crossorigin
+    />
+    <link
+      rel="preconnect"
+      href="https://c.tile.openstreetmap.org"
+      crossorigin
+    />
     <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <link
-      rel="preconnect"
-      href="https://www.parliament.bg"
-      crossorigin
-    />
+    <link rel="preconnect" href="https://www.parliament.bg" crossorigin />
     <!-- Self-hosted Inter + Fraunces. The .woff2 files and the @font-face CSS
          live in /public/fonts/, refreshed by `node scripts/fonts/fetch-fonts.mjs`.
          Eliminates the render-blocking round-trip to fonts.googleapis.com and

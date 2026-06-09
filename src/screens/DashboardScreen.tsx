@@ -13,7 +13,7 @@ export const DashboardScreen = () => {
     <>
       <SEO
         title={title}
-        description="Interactive country map of the elections in Bulgaria"
+        description="Interactive country map of Bulgaria's parliamentary elections — part of an open-data platform on how the country is governed: parliament, the state budget, procurement, EU funds, and the cost of living."
       />
       <PlaceHeader active="parliamentary" level="country" className="my-4" />
       <DashboardCards />

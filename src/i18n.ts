@@ -41,3 +41,15 @@ i18n
     // memory.
     react: { useSuspense: false },
   });
+
+// Keep the <html lang> attribute in sync with the active language. index.html
+// ships a static lang="bg"; without this it never updates when the user
+// switches to English, leaving crawlers and assistive tech with the wrong
+// language signal. Set it on load and on every subsequent switch.
+const syncHtmlLang = (lng: string) => {
+  if (typeof document !== "undefined") {
+    document.documentElement.lang = lng === "en" ? "en" : "bg";
+  }
+};
+syncHtmlLang(i18n.language ?? initialLang);
+i18n.on("languageChanged", syncHtmlLang);
