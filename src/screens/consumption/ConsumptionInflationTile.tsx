@@ -45,11 +45,6 @@ export const ConsumptionInflationTile: FC = () => {
     macro.indicators?.inflationFood?.sourceUrl ??
     macro.indicators?.inflation?.sourceUrl;
 
-  // National house-price index (Eurostat HPI) — a housing cost-of-living signal
-  // alongside the consumer-price picture. Per-oblast HPI lives only in NSI's
-  // Cloudflare-walled Infostat DB, so this national line is the clean stand-in.
-  const housePrices = latest(macro.series.housePricesYoY);
-
   // Food first — the КЗП basket is staple-food-heavy, so HICP food is the most
   // apt official comparison; overall / energy / core add texture.
   const rows = [
@@ -103,24 +98,10 @@ export const ConsumptionInflationTile: FC = () => {
         </div>
       </div>
 
-      {housePrices ? (
-        <div className="flex items-center justify-between gap-2 rounded-lg border p-3 text-sm">
-          <span className="text-muted-foreground">
-            {T("Цени на жилищата · YoY", "House prices · YoY")}
-            {periodLabel(housePrices) ? ` · ${periodLabel(housePrices)}` : ""}
-          </span>
-          <span
-            className={`tabular-nums font-semibold ${changeColor(housePrices.value / 100)}`}
-          >
-            {fmtPct(housePrices.value / 100)}
-          </span>
-        </div>
-      ) : null}
-
       <p className="text-xs text-muted-foreground">
         {T(
-          "Кошницата е кумулативен мониторингов индекс на КЗП от въвеждането на еврото; ХИПЦ е официалният годишен темп на инфлация (Евростат). Цените на жилищата са национален индекс (Евростат); различни прозорци и методология — не са пряко съпоставими.",
-          "The basket is a cumulative CPC monitoring index since the euro changeover; HICP is the official year-on-year inflation rate (Eurostat). House prices are a national index (Eurostat); different windows and methodology — not directly comparable.",
+          "Кошницата е кумулативен мониторингов индекс на КЗП от въвеждането на еврото; ХИПЦ е официалният годишен темп на инфлация (Евростат). Различни прозорци и методология — не са пряко съпоставими.",
+          "The basket is a cumulative CPC monitoring index since the euro changeover; HICP is the official year-on-year inflation rate (Eurostat). Different windows and methodology — not directly comparable.",
         )}
       </p>
 

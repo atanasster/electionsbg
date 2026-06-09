@@ -2209,8 +2209,8 @@ export const TOOLS: ToolDef[] = [
     name: "basketVsInflation",
     domain: "indicators",
     description: {
-      bg: "Кошницата на КЗП (от въвеждането на еврото) спрямо официалната инфлация (ХИПЦ — храни, обща, енергия, базова) и индекса на цените на жилищата (Евростат). Различни прозорци — контекст, не пряко сравнение.",
-      en: "The CPC basket (since the euro) vs official inflation (HICP — food, overall, energy, core) and the house-price index (Eurostat). Different windows — context, not a like-for-like comparison.",
+      bg: "Кошницата на КЗП (от въвеждането на еврото) спрямо официалната инфлация (ХИПЦ — храни, обща, енергия, базова, Евростат). Различни прозорци — контекст, не пряко сравнение.",
+      en: "The CPC basket (since the euro) vs official inflation (HICP — food, overall, energy, core; Eurostat). Different windows — context, not a like-for-like comparison.",
     },
     params: [],
     examples: [

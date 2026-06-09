@@ -924,7 +924,6 @@ export const basketVsInflation = async (
   const food = last("inflationFood");
   const energy = last("inflationEnergy");
   const core = last("inflationCore");
-  const house = last("housePricesYoY");
   const period = overall?.period ?? food?.period ?? "";
   // macro values are already percentages (e.g. 4.13 = +4.13% YoY).
   const yoy = (v: number): string => pct(v / 100);
@@ -937,16 +936,6 @@ export const basketVsInflation = async (
   add("Обща", "Overall", overall);
   add("Енергия", "Energy", energy);
   add("Базова", "Core", core);
-  // House prices is the HPI (not HICP) and often a different quarter than the
-  // HICP series — carry its own period in the row label so it isn't read under
-  // the table's HICP period.
-  if (house)
-    rows.push({
-      indicator:
-        (lang === "bg" ? "Цени на жилищата" : "House prices") +
-        (house.period ? ` · ${house.period}` : ""),
-      yoy: yoy(house.value),
-    });
 
   const note =
     lang === "bg"
@@ -980,7 +969,6 @@ export const basketVsInflation = async (
       ...(overall ? { hicp_overall: yoy(overall.value) } : {}),
       ...(food ? { hicp_food: yoy(food.value) } : {}),
       ...(energy ? { hicp_energy: yoy(energy.value) } : {}),
-      ...(house ? { house_prices_yoy: yoy(house.value) } : {}),
       hicp_period: period,
       note,
     },
