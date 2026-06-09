@@ -1,6 +1,8 @@
 # Consumption view — adding per-oblast wages, NSI HPI, КЕВР utilities
 
-Feasibility + implementation analysis for the three deferred cost-of-living ingests, 2026-06-09. (Restores the deferred-ingest section of the earlier research doc, which was swept off disk by an external git operation; the full competitive/licensing research lives in project memory `project_consumption_view`.)
+Feasibility + implementation analysis for the three deferred cost-of-living ingests, 2026-06-09, **revised after a deep extraction spike**.
+
+> **Spike verdict (2026-06-09):** the optimistic "tractable via press release" read below was **wrong for wages**. The exhaustive spike found: (1) **wages are genuinely walled** — the per-oblast table in the NSI press-release PDF is a **chart image** (`Фиг. 8`, not extractable text); nsi.bg **content/press pages are Cloudflare-walled from scripts** (curl → 0 bytes; only static `/sites/default/files/...` paths fetch); and the static labour XLS filename isn't discoverable (all guesses 404). So there is **no clean automated oblast-wage ingest** — only an Infostat Playwright scrape (fragile) or a hand-curated snapshot. (2) **КЕВР water tariffs DO extract as text** (verified: Берковица supply 1.829 + sewer 0.313 lv/m³, Бургас 2.992 + 0.730, …) but the multi-column / multi-row layout (wholesale "на друг ВиК" + non-potable + treatment tiers interleaved, multi-line operators) makes a **robust parser a fragile iterative effort** — a first heuristic pass extracted 0 clean rows. (3) **HPI national** is already shipped (Eurostat). Net: keep the GDP-per-capita affordability proxy; the two builds are fragile one-offs, not clean ingests. The section below is the original (pre-spike) plan, retained for the source/URL references.
 
 ## The shared constraint (and the way around it)
 
