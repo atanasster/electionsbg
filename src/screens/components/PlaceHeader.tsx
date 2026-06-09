@@ -750,8 +750,11 @@ export const PlaceHeader: FC<Props> = ({
           </div>
           {/* Static OSM thumbnail. On the Governance place dashboard it jumps
               to the projects map further down the page; elsewhere that anchor
-              doesn't exist, so we render it static. Hidden on small screens. */}
-          {loc ? (
+              doesn't exist, so we render it static. Hidden on small screens.
+              Abroad (МИР 32) continents/countries have no meaningful street-map
+              centroid — a zoom-12 ~5km tile of a continent's centre loads blank
+              (an empty box with a lone pin), so the thumbnail is dropped. */}
+          {loc && !isAbroad ? (
             active === "governance" ? (
               <a
                 href="#myarea-projects-map"
