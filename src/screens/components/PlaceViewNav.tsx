@@ -129,9 +129,16 @@ export const PlaceViewNav: FC<Props> = ({
             <Link
               key={it.view}
               to={{ pathname: it.to, search }}
-              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground"
+              className="group inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground"
             >
-              <Icon className={`h-3.5 w-3.5 ${meta.text}`} aria-hidden />
+              {/* The resting icon tint is the view↔colour cue; on hover the
+                  whole pill goes foreground-on-accent so the icon stays legible.
+                  Without this the amber consumption icon sinks into the coral
+                  (`--accent`) hover fill in light mode — both are orange. */}
+              <Icon
+                className={`h-3.5 w-3.5 ${meta.text} group-hover:text-foreground`}
+                aria-hidden
+              />
               <span>{t(meta.labelKey)}</span>
             </Link>
           );
