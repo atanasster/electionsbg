@@ -271,6 +271,29 @@ export const SOFIA_REGIONS = ["S23", "S24", "S25"];
 export const isSofiaMir = (oblast?: string | null): boolean =>
   !!oblast && SOFIA_REGIONS.includes(oblast);
 
+// The localized display name of a settlement prefixed with its type marker
+// (гр./с./кв.) — the form used in page <h1>s and SEO titles ("кв. Лозенец",
+// "гр. София", "с. Иваново"). The 21 central Sofia районы are stored with the
+// marker `t_v_m="общ."` (their own município-equivalent); rendered verbatim
+// that reads "общ. Лозенец", as if Лозенец were an община, so we show "кв." for
+// them instead. English carries no Cyrillic type abbreviation, so it returns
+// the plain localized name. `fallback` covers a code that resolves to nothing.
+export const typedSettlementName = (
+  settlement: Pick<SettlementInfo, "t_v_m" | "name" | "name_en"> | undefined,
+  lang: "bg" | "en",
+  fallback?: string,
+): string => {
+  const name = settlement
+    ? lang === "bg"
+      ? settlement.name
+      : settlement.name_en
+    : "";
+  const resolved = name || fallback || "";
+  if (lang !== "bg" || !settlement) return resolved;
+  const type = settlement.t_v_m === "общ." ? "кв." : settlement.t_v_m;
+  return type ? `${type} ${resolved}`.trim() : resolved;
+};
+
 export type SectionIndex = {
   section: string;
   settlement: string;

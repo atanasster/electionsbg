@@ -1,6 +1,8 @@
 import { useParams, Navigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { SEO } from "@/ux/SEO";
+import { placeResultsTitle } from "@/ux/seoTitle";
+import { isSofiaMir } from "@/data/dataTypes";
 import { useRegions } from "@/data/regions/useRegions";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { RegionDashboardCards } from "./dashboard/RegionDashboardCards";
@@ -11,7 +13,8 @@ export const MunicipalitiesScreen = () => {
   const { search } = useLocation();
   const { findRegion } = useRegions();
   const { municipalities } = useMunicipalities();
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language === "bg" ? "bg" : "en";
   if (!region) {
     return null;
   }
@@ -36,17 +39,46 @@ export const MunicipalitiesScreen = () => {
 
   const info = findRegion(region);
   const title =
-    (i18n.language === "bg"
+    (lang === "bg"
       ? info?.long_name || info?.name
       : info?.long_name_en || info?.name_en) || "";
+  // The /municipality/:id route is actually a REGION (oblast) dashboard — the
+  // historical "off-by-one" route naming (see placeViews.ts). Title it
+  // "Област {name}" so the browser tab is self-describing. Two kinds of region
+  // are NOT области and already carry a self-describing name, so we leave them
+  // verbatim: Sofia's three МИР (S23/24/25 → "София N МИР") and the abroad МИР
+  // (32 → "Извън страната" / "Abroad"). SFO already reads "София област".
+  const alreadyTyped =
+    lang === "bg"
+      ? /област|МИР|страна/i.test(title)
+      : /\b(region|MMR|abroad)\b/i.test(title);
+  const seoTitle =
+    isSofiaMir(region) || alreadyTyped
+      ? title
+      : lang === "bg"
+        ? `${t("region")} ${title}`
+        : `${title} (${t("region")})`;
+  // Rich document <title> matching the prerendered crawler HTML — same place
+  // label, lower-cased tier word in the language's natural position.
+  const placeLabel =
+    isSofiaMir(region) || alreadyTyped
+      ? title
+      : lang === "bg"
+        ? `${t("region").toLowerCase()} ${title}`
+        : `${title} ${t("region").toLowerCase()}`;
   // RegionDashboardCards is diaspora-aware: for МИР 32 (abroad) it swaps the
   // municipality map for the per-country tile and appends a voting-abroad FAQ,
   // while the municipality/census/local-government sections self-hide.
   return (
     <>
       <SEO
-        title={title}
-        description="Interactive map of a municipality in the elections in Bulgaria"
+        title={seoTitle}
+        fullTitle={placeResultsTitle(placeLabel, lang)}
+        description={
+          lang === "bg"
+            ? `${seoTitle} — резултати от изборите в България`
+            : `${seoTitle} — election results in Bulgaria`
+        }
       />
       <PlaceHeader
         active="parliamentary"

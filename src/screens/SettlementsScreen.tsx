@@ -5,6 +5,7 @@ import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useMunicipalityVotes } from "@/data/municipalities/useMunicipalityVotes";
 import { isSofiaRayonObshtina } from "@/data/local/placeViews";
 import { SEO } from "@/ux/SEO";
+import { placeResultsTitle } from "@/ux/seoTitle";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { MunicipalityDashboardCards } from "./dashboard/MunicipalityDashboardCards";
 import { SectionsScreen } from "./SectionsScreen";
@@ -28,29 +29,45 @@ export const SettlementsScreen = () => {
   if (/^\d/.test(muniCode)) {
     return <SectionsScreen />;
   }
+  const lang = i18n.language === "bg" ? "bg" : "en";
   const info = findMunicipality(muniCode);
   const region = findRegion(municipality?.oblast ?? info?.oblast);
-  // A Sofia район-as-município (S2xxx): label it "район", not "Община".
+  // A Sofia район-as-município (S2xxx): label it "район", not "община".
   const isRayon = isSofiaRayonObshtina(muniCode);
+  // Abroad (МИР 32): the "municipality" is a continent bucket — label it
+  // "Континент {name}", not "Община {name}".
+  const isAbroad = (municipality?.oblast ?? info?.oblast) === "32";
   const muniName = info
-    ? i18n.language === "bg"
+    ? lang === "bg"
       ? info?.name
       : info?.name_en
     : muniCode;
   const regionName = region
-    ? i18n.language === "bg"
+    ? lang === "bg"
       ? region.long_name || region.name
       : region.long_name_en || region.name_en
     : "";
   const titleStr = region ? `${regionName} / ${muniName}` : muniName;
-  const seoTitle = isRayon
-    ? i18n.language === "bg"
-      ? `район ${muniName}`
-      : `${muniName} (${t("rayon")})`
-    : `${t("municipalities")} ${muniName}`;
+  // The /settlement/:id route is actually a MUNICIPALITY (община) dashboard —
+  // the historical "off-by-one" route naming (see placeViews.ts). Title it with
+  // the real tier ("Община {name}", or "Район {name}" for a Sofia район) so the
+  // browser tab reads as one place, not the old plural "Общини {name}" that
+  // looked like a list of municipalities.
+  const typeKey = isAbroad ? "continent" : isRayon ? "rayon" : "municipality";
+  const seoTitle =
+    lang === "bg" ? `${t(typeKey)} ${muniName}` : `${muniName} (${t(typeKey)})`;
+  // Rich document <title> matching the prerendered crawler HTML — same place
+  // label, lower-cased tier word in the language's natural position.
+  const tierLower = t(typeKey).toLowerCase();
+  const placeLabel =
+    lang === "bg" ? `${tierLower} ${muniName}` : `${muniName} ${tierLower}`;
   return (
     <>
-      <SEO title={seoTitle} description={titleStr} />
+      <SEO
+        title={seoTitle}
+        fullTitle={placeResultsTitle(placeLabel, lang)}
+        description={titleStr}
+      />
       <PlaceHeader
         active="parliamentary"
         level="municipality"

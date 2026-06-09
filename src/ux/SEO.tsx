@@ -8,7 +8,19 @@ export const SEO: FC<{
   keywords?: string[];
   type?: string;
   canonical?: string;
-}> = ({ title, description, keywords = [], type = "website", canonical }) => {
+  // When set, used verbatim as the document <title> (bypassing the "Избори | "
+  // wrapper) so the tab + the title Googlebot indexes match the richer,
+  // prerendered crawler HTML. og:/twitter: keep the short `title` so social
+  // cards stay clean. See placeResultsTitle.
+  fullTitle?: string;
+}> = ({
+  title,
+  description,
+  keywords = [],
+  type = "website",
+  canonical,
+  fullTitle,
+}) => {
   const allKeywords = [
     "bulgaria",
     "elections",
@@ -47,9 +59,12 @@ export const SEO: FC<{
   }, [location.pathname, canonical]);
   return (
     <>
-      <title>{`${
-        t("elections").charAt(0).toUpperCase() + t("elections").slice(1)
-      } | ${title}`}</title>
+      <title>
+        {fullTitle ??
+          `${
+            t("elections").charAt(0).toUpperCase() + t("elections").slice(1)
+          } | ${title}`}
+      </title>
       <meta name="description" content={description} />
       <meta name="keywords" content={allKeywords.join()} />
       {/* Facebook tags */}
