@@ -44,5 +44,29 @@
     "image": null,
     "pin": true,
     "pinUntil": "2026-06-23"
+  },
+  {
+    "slug": "2026-06-09-consumption-launch",
+    "date": "2026-06-09",
+    "kind": "feature",
+    "title": "Нов раздел «Потребление» — цените на кошницата по дни",
+    "tags": [
+      "потребление",
+      "цени",
+      "данни"
+    ],
+    "entities": [
+      "КЗП",
+      "Колко струва"
+    ],
+    "keyFact": "Нов раздел «Потребление»: дневен индекс на потребителска кошница от 101 продукта от 2 януари 2026 г.; към 8 юни индексът е 99,7 спрямо база 100 — по открити данни на КЗП «Колко струва».",
+    "link": "https://electionsbg.com/consumption",
+    "sources": [
+      "data/prices/index.json",
+      "https://kolkostruva.bg/opendata"
+    ],
+    "image": "brand/posts/2026-06-09-consumption-launch.png",
+    "pin": true,
+    "pinUntil": "2026-06-23"
   }
 ]
