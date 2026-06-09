@@ -31,6 +31,7 @@ import {
   PlaceLevel,
   PlaceView,
   isSofiaRayonObshtina,
+  isSofiaCityObshtina,
 } from "@/data/local/placeViews";
 import { isSofiaMir } from "@/data/dataTypes";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
@@ -212,6 +213,13 @@ export const PlaceHeader: FC<Props> = ({
   const muni = obshtinaForName ? findMunicipality(obshtinaForName) : undefined;
   const oblastCode = oblast ?? settlement?.oblast ?? muni?.oblast;
   const region = oblastCode ? findRegion(oblastCode) : undefined;
+  // The abroad МИР (oblast "32", "Извън страната") isn't an oblast inside
+  // Bulgaria: its "municipalities" are continents and its "settlements" are
+  // countries. Breadcrumbs drop the "община"/"област" qualifiers for it and
+  // label the continent tier "Континент". It also has no Governance, local or
+  // Consumption dimension — only the parliamentary vote is meaningful abroad —
+  // so the view switcher is suppressed entirely (see the nav slot below).
+  const isAbroad = oblastCode === "32";
   // A settlement/section whose parent obshtina is a Sofia район (e.g. с. Долни
   // Богров in район Кремиковци, S2422): its breadcrumb labels that parent
   // "район", threads in Столична община, and shows the МИР without an "област"
@@ -342,6 +350,10 @@ export const PlaceHeader: FC<Props> = ({
     // that together cover Столична община — so they get a distinct narrative
     // that roots them under the city instead of "Област в България".
     if (isRegion) {
+      // The abroad МИР (32, "Извън страната") is not an oblast inside Bulgaria —
+      // its "municipalities" are world regions/continents — so the "Област в
+      // България" narrative is wrong. Show no breadcrumb, like the country page.
+      if (oblastCode === "32") return null;
       if (isSofiaMir(oblastCode)) {
         if (lang === "bg") {
           return (
@@ -399,6 +411,31 @@ export const PlaceHeader: FC<Props> = ({
           <>
             {settlementNode}
             {sofiaRayonTail()}
+          </>
+        );
+      }
+      if (isAbroad) {
+        // Abroad section: "{country} в {continent}, Извън страната" — drop the
+        // "община"/"област" qualifiers, mirroring the abroad settlement view.
+        return (
+          <>
+            {settlementNode}
+            {muniName && muniHref ? (
+              <>
+                {lang === "bg" ? " в " : " in "}
+                <Link to={muniHref} underline>
+                  {muniName}
+                </Link>
+              </>
+            ) : null}
+            {regionName && regionHref ? (
+              <>
+                ,{" "}
+                <Link to={regionHref} underline>
+                  {regionName}
+                </Link>
+              </>
+            ) : null}
           </>
         );
       }
@@ -481,6 +518,32 @@ export const PlaceHeader: FC<Props> = ({
         </>
       );
     }
+    // Sofia city aggregate (Столична община, keyed SOF00): the capital is a
+    // single município that spans all three МИР, so the generic "Община {name},
+    // област …" narrative doesn't fit. Its name ("София Град") already reads as
+    // the city, so show it on its own without the "Община" / "municipality"
+    // qualifier.
+    if (!isSettlement && isSofiaCityObshtina(obshtina)) {
+      return <>{name}</>;
+    }
+    if (!isSettlement && isAbroad) {
+      // Abroad "município" — a continent bucket. Label it "Континент {name}"
+      // and reference the diaspora district without the "област" qualifier:
+      // "Континент Северна Америка, Извън страната".
+      return (
+        <>
+          {lang === "bg" ? <>Континент {name}</> : <>{name} continent</>}
+          {regionName && regionHref ? (
+            <>
+              ,{" "}
+              <Link to={regionHref} underline>
+                {regionName}
+              </Link>
+            </>
+          ) : null}
+        </>
+      );
+    }
     if (!isSettlement) {
       // Município view: "Община {name}, област {region}".
       if (lang === "bg") {
@@ -514,6 +577,33 @@ export const PlaceHeader: FC<Props> = ({
       );
     }
     // Settlement view.
+    if (isAbroad) {
+      // A country inside a continent bucket. Reference the continent without
+      // the "община" qualifier and the diaspora district without "област":
+      // "САЩ в Северна Америка, Извън страната".
+      const typed = settlementType ? `${settlementType} ${name}` : name;
+      return (
+        <>
+          {typed}
+          {muniName && muniHref ? (
+            <>
+              {lang === "bg" ? " в " : " in "}
+              <Link to={muniHref} underline>
+                {muniName}
+              </Link>
+            </>
+          ) : null}
+          {regionName && regionHref ? (
+            <>
+              ,{" "}
+              <Link to={regionHref} underline>
+                {regionName}
+              </Link>
+            </>
+          ) : null}
+        </>
+      );
+    }
     if (parentIsSofiaRayon) {
       const typed =
         lang === "bg" && displaySettlementType
@@ -689,8 +779,10 @@ export const PlaceHeader: FC<Props> = ({
         {/* View switcher — pivot to this same place's other dashboards. A
             navSlot override (e.g. SOF city's single → parliamentary pill) is
             wrapped so it keeps its natural width rather than stretching to
-            fill the Card's flex column. */}
-        {navSlot !== undefined ? (
+            fill the Card's flex column. Abroad places (oblast 32) have only the
+            parliamentary dimension, so the switcher is dropped altogether — no
+            pills at all. */}
+        {isAbroad ? null : navSlot !== undefined ? (
           <div className="flex">{navSlot}</div>
         ) : (
           <PlaceViewNav
