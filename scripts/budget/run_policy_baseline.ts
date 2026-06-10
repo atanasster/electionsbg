@@ -109,6 +109,7 @@ interface KfpFile {
     fiscalYear: number;
     sections: {
       kind: string;
+      labelBg: string;
       executed: { amountEur: number } | null;
       lines: {
         labelBg: string;
@@ -619,7 +620,11 @@ const main = async (): Promise<void> => {
     "data/budget/revenue_breakdown/consumption.json",
   );
   const macro = readJson<{
-    series: { nominalGdp: { year: number; value: number }[] };
+    series: {
+      nominalGdp: { year: number; value: number }[];
+      inflation: { value: number }[];
+      labourIncome: { value: number }[];
+    };
   }>("data/macro.json");
 
   const revenueYears = extractRevenue(kfp);

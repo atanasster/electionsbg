@@ -1442,15 +1442,22 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "data",
-    title: "Данни — източници, обновявания и изтегляне | electionsbg.com",
+    title: "Карта на данните — източници, масиви и функции | electionsbg.com",
     description:
-      "Източниците на данни на electionsbg.com, дневникът на обновяванията и връзки за изтегляне на готовите набори от данни — на едно място.",
+      "Интерактивна карта на всички източници, които electionsbg.com обработва — кои масиви от данни се изграждат от тях и кои функции на сайта ги използват.",
     breadcrumbName: "Данни",
     ogImage: "/og/data-changes.png",
     extraJsonLd: [buildDataCatalog("bg")],
     bodyHtml: `
-<h1>Данни на electionsbg.com</h1>
-<p>На една страница: източниците на данни зад платформата, дневникът на обновяванията и връзки за изтегляне на готовите набори от данни. Обработените данни са свободни за преизползване под лиценз Creative Commons BY 4.0.</p>
+<h1>Карта на данните</h1>
+<p>Интерактивна карта на пътя на данните в платформата: от външните източници (ЦИК, Народното събрание, Сметната палата, data.egov.bg, НСИ, Евростат, КЗП и още), през изградените от тях масиви от данни, до функциите на сайта, които ги използват. Един източник често захранва няколко функции — картата показва точно кои.</p>
+<h2>Какво показва картата</h2>
+<ul>
+<li><strong>Източници</strong> — всички външни регистри и портали, които се наблюдават ежедневно за промени, с честота на проверка и дата на последното обновяване. Пълният списък с връзки е на <a href="${SITE_URL}/data/sources">страницата с източници</a>.</li>
+<li><strong>Масиви данни</strong> — изборните резултати, гласуванията, бюджетът, поръчките, еврофондовете, цените и останалите обработени набори.</li>
+<li><strong>Функции</strong> — интерактивните карти, таблата и инструментите на сайта, свързани към данните, върху които стъпват.</li>
+</ul>
+<p>Картата се генерира автоматично от регистъра на наблюдаваните източници — нов източник се появява на нея още с добавянето си. Дневникът на обновяванията е на <a href="${SITE_URL}/data/updates">страницата със скорошни промени</a>, а обработените данни са свободни за преизползване под лиценз Creative Commons BY 4.0 — вижте <a href="${SITE_URL}/data/sources">източници и изтегляне</a>.</p>
 <h2>Какво се публикува</h2>
 <ul>
 <li><a href="${SITE_URL}/">Парламентарни избори</a> — резултати по партии, области, общини, населени места и секции.</li>
@@ -1461,14 +1468,21 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/funds">Европейски фондове</a> и <a href="${SITE_URL}/procurement">обществени поръчки</a>.</li>
 </ul>`.trim(),
     english: {
-      title: "Data — sources, updates and downloads | electionsbg.com",
+      title: "Data map — sources, datasets and features | electionsbg.com",
       description:
-        "The data sources behind electionsbg.com, the refresh log, and download links for the ready-made datasets — all in one place.",
+        "An interactive map of every source electionsbg.com ingests — the datasets built from them and the site features they power.",
       breadcrumbName: "Data",
       extraJsonLd: [buildDataCatalog("en")],
       bodyHtml: `
-<h1>Data on electionsbg.com</h1>
-<p>One page for the data sources behind the platform, the public refresh log, and download links for the ready-made datasets. The processed data is free to reuse under a Creative Commons BY 4.0 licence.</p>
+<h1>Data map</h1>
+<p>An interactive map of how data travels through the platform: from external sources (the election commission, parliament, the audit office, data.egov.bg, the statistics institute, Eurostat, the consumer-protection price monitor and more), through the datasets built from them, to the site features that consume them. One source often feeds several features — the map shows exactly which.</p>
+<h2>What the map shows</h2>
+<ul>
+<li><strong>Sources</strong> — every external register and portal watched daily for changes, with check frequency and the date of the latest refresh. The full list with links lives on the <a href="${SITE_URL}/en/data/sources">sources page</a>.</li>
+<li><strong>Datasets</strong> — election results, roll-call votes, the budget, procurement, EU funds, prices and the rest of the processed collections.</li>
+<li><strong>Features</strong> — the site's interactive maps, dashboards and tools, linked to the data they stand on.</li>
+</ul>
+<p>The map is generated automatically from the watched-sources registry — a new source appears on it the moment it is added. The refresh log lives on the <a href="${SITE_URL}/en/data/updates">recent-updates page</a>, and the processed data is free to reuse under Creative Commons BY 4.0 — see <a href="${SITE_URL}/en/data/sources">sources and downloads</a>.</p>
 <h2>What is published</h2>
 <ul>
 <li><a href="${SITE_URL}/en/">Parliamentary elections</a> — results by party, region, municipality, settlement and section.</li>
@@ -1481,13 +1495,61 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "data/sources",
+    title: "Източници на данни и изтегляне | electionsbg.com",
+    description:
+      "Пълният списък с източниците на данни зад electionsbg.com — групирани по тема, с връзки към оригиналните данни и условия за изтегляне и преизползване.",
+    breadcrumbName: "Източници на данни",
+    ogImage: "/og/data-changes.png",
+    bodyHtml: `
+<h1>Източници на данни</h1>
+<p>Платформата обединява открити и държавни източници: ЦИК, Народното събрание, Сметната палата, data.egov.bg, НСИ, ГРАО, Евростат, Световната банка, КЗП и още. На тази страница те са групирани по тема, с връзки към оригиналните данни.</p>
+<h2>Изтегляне и преизползване</h2>
+<p>Обработените данни са свободни за преизползване под лиценз Creative Commons BY 4.0, а целият pipeline за обработка е с отворен код. Готовите JSON файлове се сервират публично.</p>
+<p>Как източниците се превръщат във функции на сайта показва <a href="${SITE_URL}/data">интерактивната карта на данните</a>; кога какво е обновено — <a href="${SITE_URL}/data/updates">дневникът на промените</a>.</p>`.trim(),
+    english: {
+      title: "Data sources and downloads | electionsbg.com",
+      description:
+        "The full list of data sources behind electionsbg.com — grouped by theme, with links to the original data and the terms for downloading and reuse.",
+      breadcrumbName: "Data sources",
+      bodyHtml: `
+<h1>Data sources</h1>
+<p>The platform brings together open and government sources: the election commission, parliament, the audit office, data.egov.bg, the statistics institute, the civil registry, Eurostat, the World Bank, the consumer-protection price monitor and more. This page groups them by theme, with links to the original data.</p>
+<h2>Download and reuse</h2>
+<p>The processed data is free to reuse under a Creative Commons BY 4.0 licence, and the entire processing pipeline is open source. The ready-made JSON files are served publicly.</p>
+<p>How the sources become site features is shown on the <a href="${SITE_URL}/en/data">interactive data map</a>; when something was refreshed — in the <a href="${SITE_URL}/en/data/updates">update log</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "data/updates",
+    title: "Скорошни промени в данните | electionsbg.com",
+    description:
+      "Дневник на обновяванията — кога и какво е обновено в наборите от данни на сайта: гласувания, декларации, бюджет, поръчки, еврофондове, цени и индикатори.",
+    breadcrumbName: "Скорошни промени",
+    ogImage: "/og/data-changes.png",
+    bodyHtml: `
+<h1>Скорошни промени в данните</h1>
+<p>Публичният дневник на обновяванията: коя дата кой набор от данни е бил подновен — парламентарни гласувания, имуществени декларации, бюджетно изпълнение, обществени поръчки, еврофондове, цени, социологически проучвания и индикатори — и накъде може да се отиде, за да се види промяната в действие.</p>
+<p>Откъде идват данните показва <a href="${SITE_URL}/data">картата на данните</a>, а пълният списък с източници е на <a href="${SITE_URL}/data/sources">страницата с източници</a>.</p>`.trim(),
+    english: {
+      title: "Recent data updates | electionsbg.com",
+      description:
+        "The public refresh log — when and what was updated across the site's datasets: roll-call votes, declarations, budget, procurement, EU funds, prices and indicators.",
+      breadcrumbName: "Recent updates",
+      bodyHtml: `
+<h1>Recent data updates</h1>
+<p>The public refresh log: on which date which dataset was renewed — roll-call votes, asset declarations, budget execution, public procurement, EU funds, prices, opinion polls and indicators — and where to go to see the change in action.</p>
+<p>Where the data comes from is shown on the <a href="${SITE_URL}/en/data">data map</a>, and the full source list lives on the <a href="${SITE_URL}/en/data/sources">sources page</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "data-changes",
     title: "Промени в данните на electionsbg.com | electionsbg.com",
     description:
       "Дневник на обновяванията — кога и какво е обновено в наборите от данни на сайта: парламентарни гласувания, имуществени декларации, социологически проучвания, макро и регионални индикатори.",
     breadcrumbName: "Промени в данните",
     ogImage: "/og/data-changes.png",
-    canonicalUrl: `${SITE_URL}/data`,
+    canonicalUrl: `${SITE_URL}/data/updates`,
     bodyHtml: `
 <h1>Промени в данните на electionsbg.com</h1>
 <p>Сайтът публикува редовно нови или актуализирани набори от данни — от парламентарни гласувания и имуществени декларации на народните представители до макроикономически и регионални индикатори. Тази страница е публичният дневник на тези обновявания: коя дата кое е било подменено и накъде може да се отиде, за да се види то в действие.</p>

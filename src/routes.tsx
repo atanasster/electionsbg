@@ -66,9 +66,19 @@ const SectionRecountScreen = lazy(() =>
 const AboutScreen = lazy(() =>
   import("./screens/AboutScreen").then((m) => ({ default: m.AboutScreen })),
 );
-const DataScreen = lazy(() =>
-  import("./screens/DataScreen").then((m) => ({
-    default: m.DataScreen,
+const DataMapScreen = lazy(() =>
+  import("./screens/DataMapScreen").then((m) => ({
+    default: m.DataMapScreen,
+  })),
+);
+const DataSourcesScreen = lazy(() =>
+  import("./screens/DataSourcesScreen").then((m) => ({
+    default: m.DataSourcesScreen,
+  })),
+);
+const DataUpdatesScreen = lazy(() =>
+  import("./screens/DataUpdatesScreen").then((m) => ({
+    default: m.DataUpdatesScreen,
   })),
 );
 const PricesScreen = lazy(() =>
@@ -1002,6 +1012,13 @@ const ConsumptionPlaceScreen = lazy(() =>
   })),
 );
 
+// Back-compat: the data map moved from /data/map to /data when it became the
+// data hub's landing view. Keep ?node=/?view= deep links working.
+const DataMapRedirect: FC = () => {
+  const { search } = useLocation();
+  return <Navigate to={{ pathname: "/data", search }} replace />;
+};
+
 // Back-compat: the place dashboards moved from /my-area/:id to /governance/:id
 // (the possessive /my-area entry funnel stays). Redirect any stale id link.
 const MyAreaIdRedirect: FC = () => {
@@ -1175,7 +1192,24 @@ export const AuthRoutes = () => {
             path="data"
             element={
               <LayoutScreen>
-                <DataScreen />
+                <DataMapScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route path="data/map" element={<DataMapRedirect />} />
+          <Route
+            path="data/sources"
+            element={
+              <LayoutScreen>
+                <DataSourcesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="data/updates"
+            element={
+              <LayoutScreen>
+                <DataUpdatesScreen />
               </LayoutScreen>
             }
           />
@@ -1189,7 +1223,7 @@ export const AuthRoutes = () => {
           />
           <Route
             path="data-changes"
-            element={<Navigate to="/data" replace />}
+            element={<Navigate to="/data/updates" replace />}
           />
           <Route
             path="local/:cycle"

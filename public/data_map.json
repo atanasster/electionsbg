@@ -1,0 +1,2261 @@
+{
+  "version": 1,
+  "generatedAt": "2026-06-10T16:14:31.698Z",
+  "nodes": [
+    {
+      "id": "src:cik",
+      "kind": "source",
+      "label": {
+        "bg": "ЦИК",
+        "en": "Central Election Commission"
+      },
+      "detail": {
+        "bg": "протоколи и резултати по секции",
+        "en": "section-level protocols and results"
+      },
+      "desc": {
+        "bg": "Протоколите на секционните комисии и официалните резултати от results.cik.bg — за всички парламентарни избори от 2005 г. и местните избори от 2007 г. насам.",
+        "en": "Section-commission protocols and official results from results.cik.bg — every parliamentary election since 2005 and local elections since 2007."
+      },
+      "tags": [
+        "elections",
+        "local"
+      ],
+      "url": "https://results.cik.bg/",
+      "origin": "state",
+      "cadence": "daily",
+      "freshness": "2026-06-01T06:08:53.153Z",
+      "skills": [
+        "update-local-elections"
+      ],
+      "sources": [
+        {
+          "id": "cik_results",
+          "label": "CIK local-elections results bundles",
+          "url": "https://results.cik.bg/",
+          "cadence": "daily",
+          "freshness": "2026-06-01T06:08:53.153Z"
+        }
+      ],
+      "x": 28,
+      "y": 146,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "src:parliament",
+      "kind": "source",
+      "label": {
+        "bg": "Народно събрание",
+        "en": "National Assembly"
+      },
+      "detail": {
+        "bg": "поименни гласувания и профили",
+        "en": "roll-call votes and MP profiles"
+      },
+      "desc": {
+        "bg": "Поименните гласувания от пленарните заседания, съставите и биографиите на народните представители от parliament.bg.",
+        "en": "Roll-call votes from plenary sittings plus MP rosters and biographies from parliament.bg."
+      },
+      "tags": [
+        "parliament"
+      ],
+      "url": "https://www.parliament.bg/",
+      "origin": "state",
+      "cadence": "daily",
+      "freshness": "2026-06-06T06:08:34.899Z",
+      "skills": [
+        "update-rollcall",
+        "parliament-scrape"
+      ],
+      "sources": [
+        {
+          "id": "parliament_votes",
+          "label": "Parliament roll-call votes",
+          "url": "https://www.parliament.bg/api/v1/pl-sten/{id}",
+          "cadence": "daily",
+          "freshness": "2026-06-06T06:08:34.899Z"
+        },
+        {
+          "id": "parliament_mps",
+          "label": "Parliament MPs (active roster)",
+          "url": "https://www.parliament.bg/api/v1/coll-list-ns/bg",
+          "cadence": "daily",
+          "freshness": "2026-06-03T06:09:08.630Z"
+        }
+      ],
+      "x": 28,
+      "y": 1316,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "src:dv",
+      "kind": "source",
+      "label": {
+        "bg": "Държавен вестник",
+        "en": "State Gazette"
+      },
+      "detail": {
+        "bg": "закон за бюджета и приложения",
+        "en": "budget law and annexes"
+      },
+      "desc": {
+        "bg": "Обнародваният Закон за държавния бюджет с чл. 53 (трансфери към общините) и Приложение III — инвестиционната програма по проекти.",
+        "en": "The promulgated State Budget Law with Article 53 municipal transfers and Annex III — the per-project investment programme."
+      },
+      "tags": [
+        "fiscal"
+      ],
+      "url": "https://dv.parliament.bg/",
+      "origin": "state",
+      "cadence": "weekly",
+      "freshness": "2026-06-01T06:08:53.153Z",
+      "skills": [
+        "update-budget"
+      ],
+      "sources": [
+        {
+          "id": "budget_law",
+          "label": "State Budget Law promulgation (minfin, via Wayback)",
+          "url": "https://www.minfin.bg/bg/1770",
+          "cadence": "weekly",
+          "freshness": "2026-06-01T06:08:53.153Z"
+        },
+        {
+          "id": "dv_investment_annex",
+          "label": "ДВ — Инвестиционна програма за общински проекти (Приложение III)",
+          "url": "https://dv.parliament.bg/",
+          "cadence": "weekly",
+          "freshness": "2026-05-26T13:36:52.167Z"
+        }
+      ],
+      "x": 28,
+      "y": 926,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "src:sp",
+      "kind": "source",
+      "label": {
+        "bg": "Сметна палата",
+        "en": "National Audit Office"
+      },
+      "detail": {
+        "bg": "декларации и партийно финансиране",
+        "en": "asset declarations and party financing"
+      },
+      "desc": {
+        "bg": "Имуществените декларации на депутати, магистрати, кметове и съветници от register.cacbg.bg, плюс отчетите за финансиране на партиите и предизборните кампании.",
+        "en": "Asset and interest declarations of MPs, officials, mayors and councillors from register.cacbg.bg, plus party and campaign financing reports."
+      },
+      "tags": [
+        "parliament",
+        "elections",
+        "local"
+      ],
+      "url": "https://register.cacbg.bg/",
+      "origin": "state",
+      "cadence": "weekly",
+      "freshness": "2026-06-10T06:09:43.216Z",
+      "skills": [
+        "update-connections",
+        "update-officials",
+        "update-financing"
+      ],
+      "sources": [
+        {
+          "id": "smetna_palata",
+          "label": "Сметна палата party financing",
+          "url": "https://www.bulnao.government.bg/bg/kontrol-partii/",
+          "cadence": "weekly",
+          "freshness": "2026-06-10T06:09:43.216Z"
+        },
+        {
+          "id": "financing_reports",
+          "label": "Сметна палата annual-report index",
+          "url": "https://www.bulnao.government.bg/bg/kontrol-partii/otcheti-na-partii/",
+          "cadence": "monthly",
+          "freshness": "2026-05-22T06:25:14.640Z"
+        },
+        {
+          "id": "cacbg_declarations",
+          "label": "Сметна палата declarations registry",
+          "url": "https://register.cacbg.bg/",
+          "cadence": "weekly",
+          "freshness": "2026-05-11T01:54:54.905Z"
+        },
+        {
+          "id": "cacbg_officials",
+          "label": "Сметна палата declarations — executive (officials)",
+          "url": "https://register.cacbg.bg/2025/list.xml",
+          "cadence": "weekly",
+          "freshness": "2026-05-15T16:39:00.124Z"
+        },
+        {
+          "id": "cacbg_local",
+          "label": "Сметна палата declarations — municipal (mayors & councillors)",
+          "url": "https://register.cacbg.bg/2025/list.xml",
+          "cadence": "weekly",
+          "freshness": "2026-05-22T06:25:14.640Z"
+        }
+      ],
+      "x": 28,
+      "y": 1394,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "src:egov",
+      "kind": "source",
+      "label": {
+        "bg": "data.egov.bg",
+        "en": "data.egov.bg"
+      },
+      "detail": {
+        "bg": "портал за отворени данни",
+        "en": "the national open-data portal"
+      },
+      "desc": {
+        "bg": "Националният портал за отворени данни: обществени поръчки (АОП), Търговски регистър, касово изпълнение на бюджета, общински бюджети, ДЗИ резултати, качество на въздуха (ИАОС) и пощенски кодове.",
+        "en": "The national open-data portal: public procurement (OCDS), the Commerce Registry, budget cash execution, municipal budgets, matura exam scores, air quality and postcodes."
+      },
+      "tags": [
+        "fiscal",
+        "parliament",
+        "indicators",
+        "local"
+      ],
+      "url": "https://data.egov.bg/",
+      "origin": "state",
+      "cadence": "daily",
+      "freshness": "2026-06-10T06:09:43.216Z",
+      "skills": [
+        "update-procurement",
+        "update-connections",
+        "update-budget",
+        "update-indicators",
+        "update-air-quality"
+      ],
+      "sources": [
+        {
+          "id": "egov_procurement",
+          "label": "data.egov.bg АОП (Агенция по обществени поръчки)",
+          "url": "https://data.egov.bg/data?org%5B0%5D=502&page=1",
+          "cadence": "weekly",
+          "freshness": "2026-06-10T06:09:43.216Z"
+        },
+        {
+          "id": "aop_debarred",
+          "label": "АОП debarred-suppliers register",
+          "url": "https://www2.aop.bg/stopanski-subekti/stopanski-subekti-s-narusheniya/",
+          "cadence": "monthly",
+          "freshness": "2026-05-15T16:39:00.124Z"
+        },
+        {
+          "id": "egov_commerce",
+          "label": "data.egov.bg Commerce Registry (Търговски регистър)",
+          "url": "https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=1",
+          "cadence": "weekly",
+          "freshness": "2026-06-10T06:09:43.216Z"
+        },
+        {
+          "id": "egov_budget_execution",
+          "label": "data.egov.bg бюджет (изпълнение на държавния бюджет)",
+          "url": "https://data.egov.bg/data/view/79ce7de2-0150-4ba7-a96c-dbacb76c95b6",
+          "cadence": "weekly",
+          "freshness": "2026-06-04T06:09:12.951Z"
+        },
+        {
+          "id": "egov_municipal_execution",
+          "label": "data.egov.bg общински бюджети (касово изпълнение по ЕБК)",
+          "url": "https://data.egov.bg/organisation/dataset",
+          "cadence": "weekly",
+          "freshness": "2026-05-29T00:27:36.982Z"
+        },
+        {
+          "id": "bgpost_postcodes",
+          "label": "Български пощи — пощенски кодове (data.egov.bg)",
+          "url": "https://data.egov.bg/data/view/acb135ab-00a2-4aa7-b5e5-49c992385ef5",
+          "cadence": "monthly",
+          "freshness": "2026-05-28T06:09:23.614Z"
+        },
+        {
+          "id": "indicators_mon_dzi",
+          "label": "МОН: ДЗИ резултати (data.egov.bg)",
+          "url": "https://data.egov.bg/data/view/066b4b04-d81d-444e-a61c-8ca0516079e4",
+          "cadence": "daily",
+          "freshness": "2026-05-12T11:56:37.254Z"
+        },
+        {
+          "id": "iaos_air_quality",
+          "label": "ИАОС air quality (data.egov.bg)",
+          "url": "https://data.egov.bg/data/view/e3cccc25-6127-4b46-bc12-71ce068b35fe",
+          "cadence": "weekly",
+          "freshness": "2026-05-29T00:27:36.982Z"
+        }
+      ],
+      "x": 28,
+      "y": 1160,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "src:isun",
+      "kind": "source",
+      "label": {
+        "bg": "ИСУН 2020",
+        "en": "ISUN (EU funds register)"
+      },
+      "detail": {
+        "bg": "бенефициенти и проекти по еврофондове",
+        "en": "EU-funds beneficiaries and projects"
+      },
+      "desc": {
+        "bg": "Публичният регистър на еврофондовете — всички договори, бенефициенти и проекти по оперативните програми и ПВУ от 2020.eufunds.bg.",
+        "en": "The public EU-funds register — every contract, beneficiary and project across operational programmes and the RRF, from 2020.eufunds.bg."
+      },
+      "tags": [
+        "fiscal",
+        "local"
+      ],
+      "url": "https://2020.eufunds.bg/",
+      "origin": "state",
+      "cadence": "weekly",
+      "freshness": "2026-06-10T06:09:43.216Z",
+      "skills": [
+        "update-funds"
+      ],
+      "sources": [
+        {
+          "id": "isun_eu_funds",
+          "label": "ИСУН EU funds (beneficiaries)",
+          "url": "https://2020.eufunds.bg/bg/0/0/Beneficiary/ExportToExcel",
+          "cadence": "weekly",
+          "freshness": "2026-06-10T06:09:43.216Z"
+        },
+        {
+          "id": "isun_eu_funds_projects",
+          "label": "ИСУН EU funds (projects)",
+          "url": "https://2020.eufunds.bg/bg/0/0/Project/ExportToExcel",
+          "cadence": "weekly",
+          "freshness": "2026-06-10T06:09:43.216Z"
+        }
+      ],
+      "x": 28,
+      "y": 1472,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "src:ministries",
+      "kind": "source",
+      "label": {
+        "bg": "Министерства и агенции",
+        "en": "Ministries and agencies"
+      },
+      "detail": {
+        "bg": "МФ, НАП, Митници, НОИ, МРРБ, ИИСДА",
+        "en": "MoF, NRA, Customs, NSSI, MRDPW, IISDA"
+      },
+      "desc": {
+        "bg": "Отчети за изпълнението на програмните бюджети, месечните бюлетини на МФ, годишните отчети на НАП и Агенция „Митници“, фондовете на НОИ, общинските проекти в ИПОП (МРРБ) и регистрите на администрацията (ИИСДА).",
+        "en": "Programme-budget execution reports, MoF monthly bulletins, NRA and Customs annual reports, NSSI social-security funds, MRDPW's municipal project register (IPOP) and the state-administration registers (IISDA)."
+      },
+      "tags": [
+        "fiscal",
+        "local"
+      ],
+      "url": "https://www.minfin.bg/",
+      "origin": "state",
+      "cadence": "daily",
+      "freshness": "2026-05-29T06:08:35.979Z",
+      "skills": [
+        "update-budget",
+        "update-noi",
+        "update-macro",
+        "update-municipal-contacts"
+      ],
+      "sources": [
+        {
+          "id": "minfin_mreports",
+          "label": "Minfin КФП monthly bulletins (via Wayback)",
+          "url": "https://www.minfin.bg/bg/statistics/5",
+          "cadence": "monthly",
+          "freshness": "2026-05-18T06:08:58.537Z"
+        },
+        {
+          "id": "minfin_program_otchet",
+          "label": "Minfin programme-budget execution reports (via Wayback)",
+          "url": "https://www.minfin.bg/bg/725",
+          "cadence": "monthly",
+          "freshness": "2026-05-26T06:08:44.085Z"
+        },
+        {
+          "id": "mfa_program_otchet",
+          "label": "МВнР programmatic execution reports (via Wayback)",
+          "url": "https://www.mfa.bg/bg/ministerstvo/dokumenti/otchetnost",
+          "cadence": "monthly",
+          "freshness": "2026-05-26T06:08:44.085Z"
+        },
+        {
+          "id": "ministry_execution_reports",
+          "label": "Per-ministry execution reports (програмен бюджет)",
+          "url": "various — see scripts/budget/fetch_sources.ts:EXECUTION_REPORTS",
+          "cadence": "weekly",
+          "freshness": "2026-05-28T06:09:23.614Z"
+        },
+        {
+          "id": "customs_revenue",
+          "label": "Агенция \"Митници\" — Митническа хроника annual reports",
+          "url": "https://customs.bg/wps/portal/agency/media-center/customs-chronicle",
+          "cadence": "weekly",
+          "freshness": "2026-05-26T06:08:44.085Z"
+        },
+        {
+          "id": "nap_annual",
+          "label": "НАП — Годишен отчет за дейността",
+          "url": "https://nra.bg/wps/portal/nra/za-nap/osnovni-dokumenti/Godishni-otcheti-za-deynostta-na-NAP",
+          "cadence": "weekly",
+          "freshness": "2026-05-26T06:08:44.085Z"
+        },
+        {
+          "id": "nssi_b1",
+          "label": "НОИ — месечни B1 отчети по фондове (ДОО, УчПФ, ГВРС)",
+          "url": "https://www.nssi.bg/budjet-i-finansi/otkrito-upravlenie/otcheti-i-balansi/",
+          "cadence": "weekly",
+          "freshness": "2026-05-26T13:36:52.167Z"
+        },
+        {
+          "id": "policy_baseline_local",
+          "label": "НОИ STATB пенсии + НСИ заплати (policy-baseline)",
+          "url": "https://nssi.bg/publikacii/statistika/pensii-statistika/",
+          "cadence": "weekly"
+        },
+        {
+          "id": "ipop_mrrb",
+          "label": "МРРБ — ИПОП (Инвестиционна програма за общински проекти) изпълнение",
+          "url": "https://ipop.mrrb.bg/",
+          "cadence": "daily",
+          "freshness": "2026-05-29T06:08:35.979Z"
+        },
+        {
+          "id": "iisda_doklad",
+          "label": "Доклад за състоянието на администрацията (IISDA)",
+          "url": "https://iisda.government.bg/annual_reports",
+          "cadence": "weekly",
+          "freshness": "2026-05-26T06:08:44.085Z"
+        },
+        {
+          "id": "iisda_mayors",
+          "label": "iisda.government.bg — Кметове на общини",
+          "url": "https://iisda.government.bg/ras/governing_bodies/gb_municipality_administrations",
+          "cadence": "monthly",
+          "freshness": "2026-05-29T00:27:36.982Z"
+        }
+      ],
+      "x": 28,
+      "y": 848,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "src:municipalities",
+      "kind": "source",
+      "label": {
+        "bg": "Общински администрации",
+        "en": "Municipal administrations"
+      },
+      "detail": {
+        "bg": "капиталови програми, протоколи, наредби",
+        "en": "capital programmes, minutes, ordinances"
+      },
+      "desc": {
+        "bg": "Капиталовите програми на 26 областни града, протоколите с решения на общинските съвети и наредбите за местните данъци и такси — направо от сайтовете на общините.",
+        "en": "Capital programmes of 26 oblast-centre cities, municipal-council resolution minutes and local-tax ordinances — scraped directly from municipal websites."
+      },
+      "tags": [
+        "local",
+        "fiscal"
+      ],
+      "url": "https://www.namrb.org/",
+      "origin": "state",
+      "cadence": "daily",
+      "freshness": "2026-06-09T06:08:44.556Z",
+      "skills": [
+        "update-budget",
+        "update-council-minutes",
+        "update-local-taxes"
+      ],
+      "sources": [
+        {
+          "id": "capital_programs",
+          "label": "Общински капиталови програми (per-municipality capital lists)",
+          "url": "https://www.sofia.bg/",
+          "cadence": "weekly",
+          "freshness": "2026-06-08T06:09:05.458Z"
+        },
+        {
+          "id": "council_minutes",
+          "label": "Council resolutions + vote tallies",
+          "url": "data/council/sources.json",
+          "cadence": "daily",
+          "freshness": "2026-06-09T06:08:44.556Z"
+        },
+        {
+          "id": "municipal_naredba",
+          "label": "Общински наредби за местни данъци",
+          "url": "https://www.265obshtini.bg/",
+          "cadence": "weekly",
+          "freshness": "2026-06-05T06:09:20.061Z"
+        }
+      ],
+      "x": 28,
+      "y": 1004,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "src:nsi",
+      "kind": "source",
+      "label": {
+        "bg": "НСИ",
+        "en": "National Statistical Institute"
+      },
+      "detail": {
+        "bg": "население, преброяване, територия",
+        "en": "population, census, land use"
+      },
+      "desc": {
+        "bg": "Население по общини, естествен прираст и миграция, Преброяване 2021, балансът на територията и регионалните отворени данни (болнични легла, ЧПИ, музеи).",
+        "en": "Municipal population, vital statistics and migration, Census 2021, the land-use balance and regional open data (hospital beds, FDI, museums)."
+      },
+      "tags": [
+        "indicators"
+      ],
+      "url": "https://www.nsi.bg/",
+      "origin": "state",
+      "cadence": "daily",
+      "freshness": "2026-06-10T06:09:43.216Z",
+      "skills": [
+        "update-indicators",
+        "update-landuse",
+        "update-regional",
+        "update-census"
+      ],
+      "sources": [
+        {
+          "id": "indicators_nsi_pop",
+          "label": "НСИ: население по общини (timeseries XLSX)",
+          "url": "https://www.nsi.bg/sites/default/files/files/data/timeseries/Pop_6.1.1_Pop_DR.xlsx",
+          "cadence": "daily",
+          "freshness": "2026-05-12T12:25:13.239Z"
+        },
+        {
+          "id": "indicators_nsi_vital",
+          "label": "НСИ: раждания, умирания и миграция по общини (timeseries XLSX)",
+          "url": "https://www.nsi.bg/sites/default/files/files/data/timeseries/Pop_1.2.1._birth_DR.xlsx",
+          "cadence": "daily",
+          "freshness": "2026-05-21T06:08:34.377Z"
+        },
+        {
+          "id": "nsi_landuse",
+          "label": "НСИ: Баланс на територията (LANDUSE annex)",
+          "url": "https://www.nsi.bg/bg/statistical-data/45",
+          "cadence": "daily",
+          "freshness": "2026-06-10T06:09:43.216Z"
+        },
+        {
+          "id": "nsi_regional",
+          "label": "НСИ regional open-data (BG): 3 oblast datasets",
+          "url": "https://data.egov.bg/organisation/13b6e23a-1888-4ad6-8f86-fceb71ca123c",
+          "cadence": "monthly",
+          "freshness": "2026-06-09T06:08:44.556Z"
+        },
+        {
+          "id": "static:https://census2021.bg/",
+          "label": "Преброяване 2021 · Census 2021",
+          "url": "https://census2021.bg/"
+        },
+        {
+          "id": "static:https://www.nsi.bg/nrnm/ekatte/regions",
+          "label": "ЕКАТТЕ класификатор · EKATTE classifier",
+          "url": "https://www.nsi.bg/nrnm/ekatte/regions"
+        }
+      ],
+      "x": 28,
+      "y": 458,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "src:az",
+      "kind": "source",
+      "label": {
+        "bg": "Агенция по заетостта",
+        "en": "Employment Agency"
+      },
+      "detail": {
+        "bg": "регистрирана безработица по общини",
+        "en": "registered unemployment by municipality"
+      },
+      "desc": {
+        "bg": "Годишните таблици за регистрирана и продължителна безработица по общини от az.government.bg.",
+        "en": "Annual registered and long-term unemployment tables by municipality from az.government.bg."
+      },
+      "tags": [
+        "indicators"
+      ],
+      "url": "https://www.az.government.bg/stats/4/",
+      "origin": "state",
+      "cadence": "daily",
+      "freshness": "2026-05-12T11:14:52.642Z",
+      "skills": [
+        "update-indicators",
+        "update-regional"
+      ],
+      "sources": [
+        {
+          "id": "indicators_az",
+          "label": "AZ (Агенция по заетостта): annual unemployment reviews",
+          "url": "https://www.az.government.bg/stats/4/",
+          "cadence": "daily",
+          "freshness": "2026-05-12T11:14:52.642Z"
+        }
+      ],
+      "x": 28,
+      "y": 692,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "src:grao",
+      "kind": "source",
+      "label": {
+        "bg": "ГРАО",
+        "en": "Civil Registration (GRAO)"
+      },
+      "detail": {
+        "bg": "адресна регистрация по населени места",
+        "en": "address registration by settlement"
+      },
+      "desc": {
+        "bg": "Тримесечните таблици „по постоянен и настоящ адрес“ за всяко населено място — независим от НСИ поглед върху населението.",
+        "en": "Quarterly permanent/current address tables for every settlement — a population view independent of the statistics institute."
+      },
+      "tags": [
+        "indicators"
+      ],
+      "url": "https://www.grao.bg/tables.html",
+      "origin": "state",
+      "cadence": "daily",
+      "freshness": "2026-05-21T06:08:34.377Z",
+      "skills": [
+        "update-grao"
+      ],
+      "sources": [
+        {
+          "id": "grao",
+          "label": "ГРАО: население по постоянен и настоящ адрес (по населени места)",
+          "url": "https://www.grao.bg/tables.html",
+          "cadence": "daily",
+          "freshness": "2026-05-21T06:08:34.377Z"
+        }
+      ],
+      "x": 28,
+      "y": 68,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "src:eurostat",
+      "kind": "source",
+      "label": {
+        "bg": "Евростат и ЕК",
+        "en": "Eurostat and the EC"
+      },
+      "detail": {
+        "bg": "макро, регионални и ЕС серии",
+        "en": "macro, regional and EU series"
+      },
+      "desc": {
+        "bg": "Тримесечни и годишни серии: БВП, инфлация, СИЛК неравенство, COFOG разходи, COICOP потребление, NUTS 3 регионални данни и бюджетът на ЕС по държави.",
+        "en": "Quarterly and annual series: GDP, inflation, SILC inequality, COFOG spending, COICOP consumption, NUTS 3 regional data and the EU budget per member state."
+      },
+      "tags": [
+        "indicators",
+        "fiscal",
+        "prices"
+      ],
+      "url": "https://ec.europa.eu/eurostat/",
+      "origin": "eu",
+      "cadence": "weekly",
+      "freshness": "2026-06-10T06:09:43.216Z",
+      "skills": [
+        "update-macro",
+        "update-regional",
+        "update-budget"
+      ],
+      "sources": [
+        {
+          "id": "eurostat",
+          "label": "Eurostat macro (BG): 22 datasets",
+          "url": "https://ec.europa.eu/eurostat/databrowser/",
+          "cadence": "monthly",
+          "freshness": "2026-05-13T15:35:22.539Z"
+        },
+        {
+          "id": "eurostat_policy",
+          "label": "Eurostat policy-baseline (BG): consumption + tax aggregates",
+          "url": "https://ec.europa.eu/eurostat/databrowser/view/nama_10_co3_p3/default/table",
+          "cadence": "monthly",
+          "freshness": "2026-06-10T06:09:43.216Z"
+        },
+        {
+          "id": "eurostat_regional",
+          "label": "Eurostat regional (BG): 5 NUTS3 datasets",
+          "url": "https://ec.europa.eu/eurostat/databrowser/view/nama_10r_3gdp/default/table",
+          "cadence": "monthly",
+          "freshness": "2026-05-12T06:08:45.233Z"
+        },
+        {
+          "id": "ec_budget_per_ms",
+          "label": "EC EU budget per-MS spreadsheet (BG receipts/contributions)",
+          "url": "https://commission.europa.eu/strategy-and-policy/eu-budget/long-term-eu-budget/2021-2027/spending-and-revenue_en",
+          "cadence": "weekly",
+          "freshness": "2026-05-15T10:01:27.149Z"
+        }
+      ],
+      "x": 28,
+      "y": 770,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "src:intl",
+      "kind": "source",
+      "label": {
+        "bg": "Международни индекси",
+        "en": "International indices"
+      },
+      "detail": {
+        "bg": "Световна банка WGI, Transparency CPI",
+        "en": "World Bank WGI, Transparency CPI"
+      },
+      "desc": {
+        "bg": "Индикаторите за управление на Световната банка (шест измерения) и Индексът за възприятие на корупцията на Transparency International.",
+        "en": "The World Bank's Worldwide Governance Indicators (six dimensions) and Transparency International's Corruption Perceptions Index."
+      },
+      "tags": [
+        "indicators"
+      ],
+      "url": "https://databank.worldbank.org/source/worldwide-governance-indicators",
+      "origin": "intl",
+      "cadence": "monthly",
+      "freshness": "2026-05-15T15:09:53.389Z",
+      "skills": [
+        "update-macro"
+      ],
+      "sources": [
+        {
+          "id": "worldbank_wgi",
+          "label": "World Bank WGI (Bulgaria, Rule of Law canary)",
+          "url": "https://api.worldbank.org/v2/country/BGR/indicator/GOV_WGI_RL.EST?format=json&per_page=200&date=2005:2030&source=3",
+          "cadence": "monthly",
+          "freshness": "2026-05-15T15:09:53.389Z"
+        },
+        {
+          "id": "transparency_cpi",
+          "label": "Transparency International CPI (Bulgaria)",
+          "url": "https://www.transparency.org/en/countries/bulgaria",
+          "cadence": "monthly",
+          "freshness": "2026-05-15T15:05:45.197Z"
+        }
+      ],
+      "x": 28,
+      "y": 614,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "src:bnb",
+      "kind": "source",
+      "label": {
+        "bg": "БНБ",
+        "en": "Bulgarian National Bank"
+      },
+      "detail": {
+        "bg": "аукциони на ДЦК",
+        "en": "government securities auctions"
+      },
+      "desc": {
+        "bg": "Резултатите от аукционите за държавни ценни книжа — вътрешният държавен дълг и доходността по емисиите.",
+        "en": "Government securities auction results — domestic sovereign debt issuance and yields."
+      },
+      "tags": [
+        "fiscal"
+      ],
+      "url": "https://www.bnb.bg/FiscalAgent/FAGSAuctions/FAAuctionResults/index.htm",
+      "origin": "state",
+      "cadence": "weekly",
+      "freshness": "2026-05-15T17:02:29.874Z",
+      "skills": [
+        "update-macro"
+      ],
+      "sources": [
+        {
+          "id": "bnb_auctions",
+          "label": "BNB domestic ДЦК auctions",
+          "url": "https://www.bnb.bg/FiscalAgent/FAGSAuctions/FAAuctionResults/index.htm",
+          "cadence": "weekly",
+          "freshness": "2026-05-15T17:02:29.874Z"
+        }
+      ],
+      "x": 28,
+      "y": 536,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "src:kzp",
+      "kind": "source",
+      "label": {
+        "bg": "КЗП „Колко струва“",
+        "en": "CPC price monitor"
+      },
+      "detail": {
+        "bg": "1,45 млн. цени дневно от 207 вериги",
+        "en": "1.45M daily prices from 207 chains"
+      },
+      "desc": {
+        "bg": "Дневният отворен файл на kolkostruva.bg — индивидуалните цени на 101 продукта от потребителската кошница във всички големи търговски вериги, от въвеждането на еврото насам.",
+        "en": "The daily open-data file from kolkostruva.bg — individual prices for the 101-product consumer basket across all major retail chains, since euro adoption."
+      },
+      "tags": [
+        "prices"
+      ],
+      "url": "https://kolkostruva.bg/opendata",
+      "origin": "state",
+      "cadence": "daily",
+      "freshness": "2026-06-10T06:09:43.216Z",
+      "skills": [
+        "update-prices"
+      ],
+      "sources": [
+        {
+          "id": "kzp_prices",
+          "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
+          "url": "https://kolkostruva.bg/opendata",
+          "cadence": "daily",
+          "freshness": "2026-06-10T06:09:43.216Z"
+        }
+      ],
+      "x": 28,
+      "y": 302,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "src:tibg",
+      "kind": "source",
+      "label": {
+        "bg": "Прозрачност без граници",
+        "en": "Transparency International BG"
+      },
+      "detail": {
+        "bg": "индекс на местния интегритет (LISI)",
+        "en": "Local Integrity System Index (LISI)"
+      },
+      "desc": {
+        "bg": "Годишният Индекс на местната система за почтеност — композитна оценка за прозрачност на 27-те областни центъра.",
+        "en": "The annual Local Integrity System Index — a composite transparency score for the 27 oblast-centre municipalities."
+      },
+      "tags": [
+        "local"
+      ],
+      "url": "https://lisi.transparency.bg/",
+      "origin": "intl",
+      "cadence": "monthly",
+      "freshness": "2026-05-29T00:27:36.982Z",
+      "skills": [
+        "update-transparency-lisi"
+      ],
+      "sources": [
+        {
+          "id": "ti_bg_lisi",
+          "label": "Прозрачност без граници — LISI",
+          "url": "https://lisi.transparency.bg/",
+          "cadence": "monthly",
+          "freshness": "2026-05-29T00:27:36.982Z"
+        }
+      ],
+      "x": 28,
+      "y": 1082,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "src:ipi",
+      "kind": "source",
+      "label": {
+        "bg": "ИПИ · 265 общини",
+        "en": "IME · 265 municipalities"
+      },
+      "detail": {
+        "bg": "местни данъци и такси",
+        "en": "local tax rates"
+      },
+      "desc": {
+        "bg": "Петте индикатора за местни данъци на Института за пазарна икономика — данък върху имоти на юридически лица, възмезден превоз, превозни средства и патентни данъци за всички 265 общини.",
+        "en": "The Institute for Market Economics' five local-tax indicators — property, transfer, vehicle and patent taxes across all 265 municipalities."
+      },
+      "tags": [
+        "local"
+      ],
+      "url": "https://www.265obshtini.bg/",
+      "origin": "community",
+      "cadence": "monthly",
+      "freshness": "2026-05-28T23:28:02.097Z",
+      "skills": [
+        "update-local-taxes"
+      ],
+      "sources": [
+        {
+          "id": "ipi_local_taxes",
+          "label": "ИПИ — Местни данъци (265 общини)",
+          "url": "https://www.265obshtini.bg/",
+          "cadence": "monthly",
+          "freshness": "2026-05-28T23:28:02.097Z"
+        }
+      ],
+      "x": 28,
+      "y": 1238,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "src:wiki",
+      "kind": "source",
+      "label": {
+        "bg": "Уикипедия",
+        "en": "Wikipedia"
+      },
+      "detail": {
+        "bg": "социология и хронология на кабинетите",
+        "en": "polls and cabinet chronology"
+      },
+      "desc": {
+        "bg": "Социологическите проучвания, събрани в българската Уикипедия, и хронологията на правителствата — проверени срещу сайтовете на агенциите и официални източници.",
+        "en": "Opinion polls collected on Bulgarian Wikipedia and the cabinet chronology — cross-checked against pollster websites and official sources."
+      },
+      "tags": [
+        "elections",
+        "indicators"
+      ],
+      "url": "https://bg.wikipedia.org/",
+      "origin": "community",
+      "cadence": "daily",
+      "freshness": "2026-05-23T13:26:43.573Z",
+      "skills": [
+        "update-polls"
+      ],
+      "sources": [
+        {
+          "id": "wiki_polls",
+          "label": "BG Wikipedia polls (2026 cycle)",
+          "url": "https://bg.wikipedia.org/wiki/Парламентарни_избори_в_България_(2026)",
+          "cadence": "daily",
+          "freshness": "2026-05-11T01:54:54.905Z"
+        },
+        {
+          "id": "wiki_governments",
+          "label": "BG Wikipedia governments list",
+          "url": "https://bg.wikipedia.org/wiki/Списък_на_правителствата_на_България",
+          "cadence": "weekly",
+          "freshness": "2026-05-23T13:26:43.573Z"
+        }
+      ],
+      "x": 28,
+      "y": 224,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "src:geo",
+      "kind": "source",
+      "label": {
+        "bg": "Геоданни и граници",
+        "en": "Geodata and boundaries"
+      },
+      "detail": {
+        "bg": "ГИС контури, локации, ЕКАТТЕ",
+        "en": "GIS boundaries, locations, EKATTE"
+      },
+      "desc": {
+        "bg": "Контурите на области, общини и населени места (Bulgaria-geocoding), районите на София (Sofiaplan) и координатите на населените места — основата на всички карти.",
+        "en": "Region, municipality and settlement boundaries (Bulgaria-geocoding), Sofia districts (Sofiaplan) and settlement coordinates — the base layer for every map."
+      },
+      "tags": [
+        "elections",
+        "local",
+        "indicators"
+      ],
+      "url": "https://github.com/yurukov/Bulgaria-geocoding",
+      "origin": "community",
+      "skills": [],
+      "sources": [
+        {
+          "id": "static:https://github.com/yurukov/Bulgaria-geocoding",
+          "label": "Bulgaria-geocoding (Юруков) · Bulgaria-geocoding (Yurukov)",
+          "url": "https://github.com/yurukov/Bulgaria-geocoding"
+        },
+        {
+          "id": "static:https://sofiaplan.bg/api/",
+          "label": "Sofiaplan API",
+          "url": "https://sofiaplan.bg/api/"
+        }
+      ],
+      "x": 28,
+      "y": 380,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "ds:elections",
+      "kind": "dataset",
+      "label": {
+        "bg": "Парламентарни избори",
+        "en": "Parliamentary elections"
+      },
+      "detail": {
+        "bg": "2005–2026, до ниво секция",
+        "en": "2005–2026, down to section level"
+      },
+      "desc": {
+        "bg": "Резултатите от всеки парламентарен вот от 2005 г. насам — по секция, населено място, община и област, с машинно/хартиено разделение, преференции и деривирания рисков индекс.",
+        "en": "Every parliamentary vote since 2005 — by section, settlement, municipality and region, with machine/paper splits, preferences and the derived risk index."
+      },
+      "tags": [
+        "elections"
+      ],
+      "path": "public/{election}/",
+      "x": 378,
+      "y": 296,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "ds:local",
+      "kind": "dataset",
+      "label": {
+        "bg": "Местни избори",
+        "en": "Local elections"
+      },
+      "detail": {
+        "bg": "кметове и съвети, 2007–2026",
+        "en": "mayors and councils, 2007–2026"
+      },
+      "desc": {
+        "bg": "Резултати за кметове и общински съвети от всички редовни цикли от 2007 г. насам плюс частичните и нови избори между тях.",
+        "en": "Mayor and council results from every regular cycle since 2007 plus the partial and new elections in between."
+      },
+      "tags": [
+        "local",
+        "elections"
+      ],
+      "path": "data/{cycle}_mi/",
+      "x": 378,
+      "y": 452,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "ds:parliament",
+      "kind": "dataset",
+      "label": {
+        "bg": "Гласувания и депутати",
+        "en": "Votes and MPs"
+      },
+      "detail": {
+        "bg": "поименни вотове, лоялност, присъствие",
+        "en": "roll calls, loyalty, attendance"
+      },
+      "desc": {
+        "bg": "Всички поименни гласувания с деривирани метрики — лоялност към групата, присъствие, сходство между депутати и кохезия на групите.",
+        "en": "Every roll-call vote with derived metrics — party loyalty, attendance, MP similarity and group cohesion."
+      },
+      "tags": [
+        "parliament"
+      ],
+      "path": "data/parliament/votes/",
+      "x": 378,
+      "y": 1180,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "ds:connections",
+      "kind": "dataset",
+      "label": {
+        "bg": "Граф на връзките",
+        "en": "Connections graph"
+      },
+      "detail": {
+        "bg": "депутати ↔ фирми ↔ длъжностни лица",
+        "en": "MPs ↔ companies ↔ officials"
+      },
+      "desc": {
+        "bg": "Бизнес връзките между хора във властта и фирми — от декларациите пред Сметната палата, съединени с Търговския регистър.",
+        "en": "Business ties between people in power and companies — from audit-office declarations joined with the Commerce Registry."
+      },
+      "tags": [
+        "parliament"
+      ],
+      "path": "public/parliament/connections.json",
+      "x": 378,
+      "y": 1102,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "ds:officials",
+      "kind": "dataset",
+      "label": {
+        "bg": "Декларации на длъжностни лица",
+        "en": "Officials' declarations"
+      },
+      "detail": {
+        "bg": "имущество на министри, кметове, съветници",
+        "en": "assets of ministers, mayors, councillors"
+      },
+      "desc": {
+        "bg": "Декларираното имущество на членовете на кабинета, областните управители и общинския ешелон — кметове, председатели на съвети, съветници.",
+        "en": "Declared assets of cabinet members, governors and the municipal tier — mayors, council chairs, councillors."
+      },
+      "tags": [
+        "parliament",
+        "local"
+      ],
+      "path": "data/officials/",
+      "x": 378,
+      "y": 1258,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "ds:financing",
+      "kind": "dataset",
+      "label": {
+        "bg": "Партийно финансиране",
+        "en": "Party financing"
+      },
+      "detail": {
+        "bg": "приходи, разходи, дарители",
+        "en": "income, expenses, donors"
+      },
+      "desc": {
+        "bg": "Декларираните приходи и разходи на партиите за всяка кампания и годишните им отчети — включително индивидуалните дарители.",
+        "en": "Declared party income and spending for every campaign plus annual reports — including individual donors."
+      },
+      "tags": [
+        "elections"
+      ],
+      "path": "data/financing/",
+      "x": 378,
+      "y": 1492,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "ds:procurement",
+      "kind": "dataset",
+      "label": {
+        "bg": "Обществени поръчки",
+        "en": "Public procurement"
+      },
+      "detail": {
+        "bg": "договори, изпълнители, възложители",
+        "en": "contracts, contractors, awarders"
+      },
+      "desc": {
+        "bg": "Всички договори от АОП — по месеци, изпълнители и възложители, с локализация до населено място и кръстосани проверки срещу графа на връзките.",
+        "en": "Every procurement contract — by month, contractor and awarder, localised to settlement level and cross-checked against the connections graph."
+      },
+      "tags": [
+        "fiscal"
+      ],
+      "path": "data/procurement/",
+      "x": 378,
+      "y": 1336,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "ds:funds",
+      "kind": "dataset",
+      "label": {
+        "bg": "Еврофондове",
+        "en": "EU funds"
+      },
+      "detail": {
+        "bg": "бенефициенти, проекти, интегритет",
+        "en": "beneficiaries, projects, integrity"
+      },
+      "desc": {
+        "bg": "Договорите и бенефициентите по еврофондовете с геокодирани проекти по общини и интегрити проверки срещу декларациите и черните списъци.",
+        "en": "EU-funds contracts and beneficiaries with geocoded projects per municipality and integrity checks against declarations and debarment lists."
+      },
+      "tags": [
+        "fiscal",
+        "local"
+      ],
+      "path": "data/funds/",
+      "x": 378,
+      "y": 1414,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "ds:budget",
+      "kind": "dataset",
+      "label": {
+        "bg": "Държавен бюджет",
+        "en": "State budget"
+      },
+      "detail": {
+        "bg": "план, изпълнение, капиталови проекти",
+        "en": "plan, execution, capital projects"
+      },
+      "desc": {
+        "bg": "Законът за бюджета срещу касовото изпълнение — по министерства и програми, с приходната разбивка (ДДС, акцизи, мита), общинските бюджети, инвестиционната програма и фондовете на НОИ.",
+        "en": "Budget law versus cash execution — by ministry and programme, with the revenue breakdown (VAT, excise, customs), municipal budgets, the investment programme and NSSI funds."
+      },
+      "tags": [
+        "fiscal"
+      ],
+      "path": "data/budget/",
+      "x": 378,
+      "y": 858,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "ds:macro",
+      "kind": "dataset",
+      "label": {
+        "bg": "Макро и ЕС сравнения",
+        "en": "Macro and EU comparisons"
+      },
+      "detail": {
+        "bg": "БВП, инфлация, дълг, ЕС партньори",
+        "en": "GDP, inflation, debt, EU peers"
+      },
+      "desc": {
+        "bg": "Националните макро серии и сравненията с ЕС — растеж, инфлация, дълг, фискален резерв, COFOG структура на разходите, управленски индикатори и хронологията на кабинетите.",
+        "en": "National macro series and EU comparisons — growth, inflation, debt, the fiscal reserve, COFOG spending structure, governance indicators and the cabinet timeline."
+      },
+      "tags": [
+        "indicators",
+        "fiscal"
+      ],
+      "path": "data/macro.json",
+      "x": 378,
+      "y": 686,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "ds:indicators",
+      "kind": "dataset",
+      "label": {
+        "bg": "Регионални индикатори",
+        "en": "Regional indicators"
+      },
+      "detail": {
+        "bg": "безработица, ДЗИ, регионално развитие",
+        "en": "unemployment, education, regional growth"
+      },
+      "desc": {
+        "bg": "Годишните под-национални индикатори — безработица и матури по общини, БВП на човек, миграция и инвестиции по области.",
+        "en": "Annual sub-national indicators — unemployment and matura scores by municipality, GDP per capita, migration and investment by region."
+      },
+      "tags": [
+        "indicators"
+      ],
+      "path": "data/indicators.json",
+      "x": 378,
+      "y": 764,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "ds:demographics",
+      "kind": "dataset",
+      "label": {
+        "bg": "Демография и население",
+        "en": "Demographics and population"
+      },
+      "detail": {
+        "bg": "преброяване, ГРАО, прираст",
+        "en": "census, registration, vital statistics"
+      },
+      "desc": {
+        "bg": "Преброяване 2021 по образование, възраст и етнос, адресните регистри на ГРАО и естественият прираст — основата на демографските разрези на вота.",
+        "en": "Census 2021 by education, age and ethnicity, GRAO address registers and vital statistics — the base for demographic vote analysis."
+      },
+      "tags": [
+        "indicators",
+        "elections"
+      ],
+      "path": "data/census/",
+      "x": 378,
+      "y": 374,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "ds:localgov",
+      "kind": "dataset",
+      "label": {
+        "bg": "Местна власт",
+        "en": "Local government"
+      },
+      "detail": {
+        "bg": "данъци, решения, прозрачност, въздух",
+        "en": "taxes, resolutions, transparency, air"
+      },
+      "desc": {
+        "bg": "Местните данъци по общини, решенията на общинските съвети, индексът на прозрачност LISI, контактите на кметовете и качеството на въздуха.",
+        "en": "Local tax rates per municipality, council resolutions, the LISI transparency index, mayor contacts and air quality."
+      },
+      "tags": [
+        "local"
+      ],
+      "path": "data/local_taxes/ · data/council/",
+      "x": 378,
+      "y": 1024,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "ds:prices",
+      "kind": "dataset",
+      "label": {
+        "bg": "Цени на дребно",
+        "en": "Retail prices"
+      },
+      "detail": {
+        "bg": "кошница по населени места и вериги",
+        "en": "basket by settlement and chain"
+      },
+      "desc": {
+        "bg": "Потребителската кошница от въвеждането на еврото — мин/средна/макс цена по населено място и продукт, индекси по категории и сравнение между веригите.",
+        "en": "The consumer basket since euro adoption — min/average/max prices by settlement and product, category indices and chain comparison."
+      },
+      "tags": [
+        "prices"
+      ],
+      "path": "data/prices/",
+      "x": 378,
+      "y": 530,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "ds:polls",
+      "kind": "dataset",
+      "label": {
+        "bg": "Социология",
+        "en": "Opinion polls"
+      },
+      "detail": {
+        "bg": "проучвания и точност на агенциите",
+        "en": "surveys and pollster accuracy"
+      },
+      "desc": {
+        "bg": "Предизборните проучвания за всеки вот с измерена точност на всяка агенция спрямо реалния резултат.",
+        "en": "Pre-election surveys for every vote with each agency's measured accuracy against the real result."
+      },
+      "tags": [
+        "elections"
+      ],
+      "path": "data/polls/",
+      "x": 378,
+      "y": 218,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "ds:geo",
+      "kind": "dataset",
+      "label": {
+        "bg": "Карти и граници",
+        "en": "Maps and boundaries"
+      },
+      "detail": {
+        "bg": "geojson на области, общини, секции",
+        "en": "geojson for regions, munis, sections"
+      },
+      "desc": {
+        "bg": "Геоконтурите и координатите, върху които стъпват всички карти — области, общини, населени места, столичните райони и адресите на секциите.",
+        "en": "The boundaries and coordinates under every map — regions, municipalities, settlements, Sofia districts and polling-station locations."
+      },
+      "tags": [
+        "elections",
+        "local",
+        "indicators"
+      ],
+      "path": "public/*.geojson",
+      "x": 378,
+      "y": 608,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "f:elections",
+      "kind": "feature",
+      "label": {
+        "bg": "Изборни карти и резултати",
+        "en": "Election maps and results"
+      },
+      "detail": {
+        "bg": "интерактивни карти на всеки вот",
+        "en": "interactive maps of every vote"
+      },
+      "desc": {
+        "bg": "Резултати по области, общини, населени места и секции — с преференции, машинно гласуване, демографски разрези и сравнение между изборите.",
+        "en": "Results by region, municipality, settlement and section — with preferences, machine voting, demographic breakdowns and election-to-election comparison."
+      },
+      "tags": [
+        "elections"
+      ],
+      "route": "/",
+      "x": 728,
+      "y": 374,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "f:risk",
+      "kind": "feature",
+      "label": {
+        "bg": "Рискови анализи",
+        "en": "Risk analysis"
+      },
+      "detail": {
+        "bg": "аномалии и контролиран вот",
+        "en": "anomalies and controlled voting"
+      },
+      "desc": {
+        "bg": "Композитният рисков индекс и докладите за аномалии — Бенфорд отклонения, клъстери на контролиран вот, недействителни бюлетини, повторни преброявания.",
+        "en": "The composite risk index and anomaly reports — Benford deviations, controlled-voting clusters, invalid ballots, recount shifts."
+      },
+      "tags": [
+        "elections"
+      ],
+      "route": "/risk-analysis",
+      "x": 728,
+      "y": 296,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "f:polls",
+      "kind": "feature",
+      "label": {
+        "bg": "Социологически проучвания",
+        "en": "Opinion polls"
+      },
+      "detail": {
+        "bg": "кой колко позна",
+        "en": "who called it right"
+      },
+      "desc": {
+        "bg": "Всички предизборни проучвания, сравнени с реалните резултати — точност и пристрастия на всяка агенция през годините.",
+        "en": "Every pre-election poll compared against the real results — each agency's accuracy and bias over the years."
+      },
+      "tags": [
+        "elections"
+      ],
+      "route": "/polls",
+      "x": 728,
+      "y": 218,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "f:local",
+      "kind": "feature",
+      "label": {
+        "bg": "Местни избори",
+        "en": "Local elections"
+      },
+      "detail": {
+        "bg": "кметове, съвети, балотажи",
+        "en": "mayors, councils, runoffs"
+      },
+      "desc": {
+        "bg": "Резултатите от местните избори по общини — кметски битки, разпределение на съветите, хемицикли и извънредните избори между циклите.",
+        "en": "Local-election results by municipality — mayoral races, council seat allocation, hemicycles and the extraordinary elections between cycles."
+      },
+      "tags": [
+        "local",
+        "elections"
+      ],
+      "route": "/local/2023_10_29_mi",
+      "x": 728,
+      "y": 452,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "f:parliament",
+      "kind": "feature",
+      "label": {
+        "bg": "Парламент и гласувания",
+        "en": "Parliament and votes"
+      },
+      "detail": {
+        "bg": "кой как гласува в пленарна зала",
+        "en": "who votes how in the plenary"
+      },
+      "desc": {
+        "bg": "Поименните гласувания, лоялността и присъствието на всеки депутат, сходството между депутати и кохезията на групите.",
+        "en": "Roll-call votes, every MP's loyalty and attendance, MP-to-MP similarity and party cohesion."
+      },
+      "tags": [
+        "parliament"
+      ],
+      "route": "/parliament",
+      "x": 728,
+      "y": 1190,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "f:mps",
+      "kind": "feature",
+      "label": {
+        "bg": "Депутати и връзки",
+        "en": "MPs and connections"
+      },
+      "detail": {
+        "bg": "профили, декларации, бизнес граф",
+        "en": "profiles, declarations, business graph"
+      },
+      "desc": {
+        "bg": "Профил на всеки депутат — резултати, декларирано имущество, фирмени връзки, поръчки и еврофондове на свързани фирми, дарения.",
+        "en": "Every MP's profile — results, declared assets, company ties, procurement and EU funds of connected companies, donations."
+      },
+      "tags": [
+        "parliament"
+      ],
+      "route": "/connections",
+      "x": 728,
+      "y": 1272,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "f:financing",
+      "kind": "feature",
+      "label": {
+        "bg": "Финансиране на партиите",
+        "en": "Party financing"
+      },
+      "detail": {
+        "bg": "кампании, дарители, отчети",
+        "en": "campaigns, donors, reports"
+      },
+      "desc": {
+        "bg": "Приходите и разходите на партиите по кампании, индивидуалните дарители и статусът на годишните им отчети пред Сметната палата.",
+        "en": "Party income and spending per campaign, individual donors and the filing status of annual reports before the audit office."
+      },
+      "tags": [
+        "elections"
+      ],
+      "route": "/financing",
+      "x": 728,
+      "y": 1502,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "f:procurement",
+      "kind": "feature",
+      "label": {
+        "bg": "Обществени поръчки",
+        "en": "Public procurement"
+      },
+      "detail": {
+        "bg": "кой печели договорите на държавата",
+        "en": "who wins the state's contracts"
+      },
+      "desc": {
+        "bg": "Договорите на държавата и общините — топ изпълнители и възложители, поръчки по населени места и връзки с хора във властта.",
+        "en": "State and municipal contracts — top contractors and awarders, procurement by settlement and ties to people in power."
+      },
+      "tags": [
+        "fiscal"
+      ],
+      "route": "/procurement",
+      "x": 728,
+      "y": 1112,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "f:funds",
+      "kind": "feature",
+      "label": {
+        "bg": "Еврофондове",
+        "en": "EU funds"
+      },
+      "detail": {
+        "bg": "кой получава европейските пари",
+        "en": "who receives the EU money"
+      },
+      "desc": {
+        "bg": "Програмите и бенефициентите на еврофондовете, проектите по общини и интегрити сигналите — свързани лица, черни списъци.",
+        "en": "EU-funds programmes and beneficiaries, projects per municipality and integrity flags — connected persons, debarment lists."
+      },
+      "tags": [
+        "fiscal"
+      ],
+      "route": "/funds",
+      "x": 728,
+      "y": 1424,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "f:budget",
+      "kind": "feature",
+      "label": {
+        "bg": "Бюджет и данъчен симулатор",
+        "en": "Budget and tax simulator"
+      },
+      "detail": {
+        "bg": "къде отиват парите + „какво ако“",
+        "en": "where the money goes + what-if"
+      },
+      "desc": {
+        "bg": "Държавният бюджет — план срещу изпълнение по министерства, приходната структура, инвестиционната програма и симулаторът на данъчни промени.",
+        "en": "The state budget — plan versus execution by ministry, the revenue structure, the investment programme and the tax-policy simulator."
+      },
+      "tags": [
+        "fiscal"
+      ],
+      "route": "/budget",
+      "x": 728,
+      "y": 864,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "f:governance",
+      "kind": "feature",
+      "label": {
+        "bg": "Управление по места",
+        "en": "Governance by place"
+      },
+      "detail": {
+        "bg": "таблото за твоето населено място",
+        "en": "the dashboard for your place"
+      },
+      "desc": {
+        "bg": "Всичко за едно място на един екран — кмет и съвет, избори, бюджет и капиталови проекти, еврофондове, данъци, въздух, демография. Най-големият потребител на данни в сайта.",
+        "en": "Everything about one place on one screen — mayor and council, elections, budget and capital projects, EU funds, taxes, air quality, demographics. The site's biggest data consumer."
+      },
+      "tags": [
+        "local",
+        "indicators",
+        "fiscal",
+        "elections"
+      ],
+      "route": "/governance",
+      "x": 728,
+      "y": 686,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "f:indicators",
+      "kind": "feature",
+      "label": {
+        "bg": "Индикатори и ЕС сравнение",
+        "en": "Indicators and EU compare"
+      },
+      "detail": {
+        "bg": "как се справя България",
+        "en": "how Bulgaria is doing"
+      },
+      "desc": {
+        "bg": "Икономика, фискална политика, общество и управление — националните серии и сравнението с партньорите от ЕС.",
+        "en": "Economy, fiscal policy, society and governance — national series and the comparison against EU peers."
+      },
+      "tags": [
+        "indicators"
+      ],
+      "route": "/indicators",
+      "x": 728,
+      "y": 764,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "f:prices",
+      "kind": "feature",
+      "label": {
+        "bg": "Цени и потребление",
+        "en": "Prices and consumption"
+      },
+      "detail": {
+        "bg": "къде е скъпо и къде — не",
+        "en": "where it's expensive and where not"
+      },
+      "desc": {
+        "bg": "Цените на потребителската кошница по населени места и вериги от въвеждането на еврото, плюс структурата на потреблението на домакинствата.",
+        "en": "Consumer-basket prices by settlement and chain since euro adoption, plus household consumption structure."
+      },
+      "tags": [
+        "prices"
+      ],
+      "route": "/prices",
+      "x": 728,
+      "y": 530,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "f:ai",
+      "kind": "feature",
+      "label": {
+        "bg": "AI асистент",
+        "en": "AI assistant"
+      },
+      "detail": {
+        "bg": "питай данните на човешки език",
+        "en": "ask the data in plain language"
+      },
+      "desc": {
+        "bg": "Чат асистент със 75+ инструмента върху същите данни — изборни резултати, гласувания, бюджет, цени и индикатори, с точни числа от източниците.",
+        "en": "A chat assistant with 75+ tools over the same data — election results, roll calls, budget, prices and indicators, with exact numbers from the sources."
+      },
+      "tags": [
+        "elections",
+        "parliament",
+        "fiscal",
+        "local",
+        "indicators",
+        "prices"
+      ],
+      "url": "https://ai.electionsbg.com",
+      "x": 728,
+      "y": 608,
+      "w": 240,
+      "h": 62
+    }
+  ],
+  "edges": [
+    {
+      "id": "e0",
+      "from": "src:cik",
+      "to": "ds:elections"
+    },
+    {
+      "id": "e1",
+      "from": "src:cik",
+      "to": "ds:local"
+    },
+    {
+      "id": "e2",
+      "from": "src:parliament",
+      "to": "ds:parliament"
+    },
+    {
+      "id": "e3",
+      "from": "src:parliament",
+      "to": "ds:connections"
+    },
+    {
+      "id": "e4",
+      "from": "src:sp",
+      "to": "ds:connections"
+    },
+    {
+      "id": "e5",
+      "from": "src:sp",
+      "to": "ds:officials"
+    },
+    {
+      "id": "e6",
+      "from": "src:sp",
+      "to": "ds:financing"
+    },
+    {
+      "id": "e7",
+      "from": "src:sp",
+      "to": "ds:funds"
+    },
+    {
+      "id": "e8",
+      "from": "src:egov",
+      "to": "ds:connections"
+    },
+    {
+      "id": "e9",
+      "from": "src:egov",
+      "to": "ds:procurement"
+    },
+    {
+      "id": "e10",
+      "from": "src:egov",
+      "to": "ds:budget"
+    },
+    {
+      "id": "e11",
+      "from": "src:egov",
+      "to": "ds:indicators"
+    },
+    {
+      "id": "e12",
+      "from": "src:egov",
+      "to": "ds:localgov"
+    },
+    {
+      "id": "e13",
+      "from": "src:isun",
+      "to": "ds:funds"
+    },
+    {
+      "id": "e14",
+      "from": "src:dv",
+      "to": "ds:budget"
+    },
+    {
+      "id": "e15",
+      "from": "src:ministries",
+      "to": "ds:budget"
+    },
+    {
+      "id": "e16",
+      "from": "src:ministries",
+      "to": "ds:macro"
+    },
+    {
+      "id": "e17",
+      "from": "src:ministries",
+      "to": "ds:localgov"
+    },
+    {
+      "id": "e18",
+      "from": "src:municipalities",
+      "to": "ds:budget"
+    },
+    {
+      "id": "e19",
+      "from": "src:municipalities",
+      "to": "ds:localgov"
+    },
+    {
+      "id": "e20",
+      "from": "src:nsi",
+      "to": "ds:indicators"
+    },
+    {
+      "id": "e21",
+      "from": "src:nsi",
+      "to": "ds:demographics"
+    },
+    {
+      "id": "e22",
+      "from": "src:az",
+      "to": "ds:indicators"
+    },
+    {
+      "id": "e23",
+      "from": "src:grao",
+      "to": "ds:demographics"
+    },
+    {
+      "id": "e24",
+      "from": "src:eurostat",
+      "to": "ds:macro"
+    },
+    {
+      "id": "e25",
+      "from": "src:eurostat",
+      "to": "ds:indicators"
+    },
+    {
+      "id": "e26",
+      "from": "src:eurostat",
+      "to": "ds:budget"
+    },
+    {
+      "id": "e27",
+      "from": "src:intl",
+      "to": "ds:macro"
+    },
+    {
+      "id": "e28",
+      "from": "src:bnb",
+      "to": "ds:macro"
+    },
+    {
+      "id": "e29",
+      "from": "src:kzp",
+      "to": "ds:prices"
+    },
+    {
+      "id": "e30",
+      "from": "src:tibg",
+      "to": "ds:localgov"
+    },
+    {
+      "id": "e31",
+      "from": "src:ipi",
+      "to": "ds:localgov"
+    },
+    {
+      "id": "e32",
+      "from": "src:wiki",
+      "to": "ds:polls"
+    },
+    {
+      "id": "e33",
+      "from": "src:wiki",
+      "to": "ds:macro"
+    },
+    {
+      "id": "e34",
+      "from": "src:geo",
+      "to": "ds:geo"
+    },
+    {
+      "id": "e35",
+      "from": "ds:elections",
+      "to": "f:elections"
+    },
+    {
+      "id": "e36",
+      "from": "ds:elections",
+      "to": "f:risk"
+    },
+    {
+      "id": "e37",
+      "from": "ds:elections",
+      "to": "f:polls"
+    },
+    {
+      "id": "e38",
+      "from": "ds:elections",
+      "to": "f:governance"
+    },
+    {
+      "id": "e39",
+      "from": "ds:elections",
+      "to": "f:ai"
+    },
+    {
+      "id": "e40",
+      "from": "ds:local",
+      "to": "f:local"
+    },
+    {
+      "id": "e41",
+      "from": "ds:local",
+      "to": "f:governance"
+    },
+    {
+      "id": "e42",
+      "from": "ds:local",
+      "to": "f:ai"
+    },
+    {
+      "id": "e43",
+      "from": "ds:parliament",
+      "to": "f:parliament"
+    },
+    {
+      "id": "e44",
+      "from": "ds:parliament",
+      "to": "f:mps"
+    },
+    {
+      "id": "e45",
+      "from": "ds:parliament",
+      "to": "f:ai"
+    },
+    {
+      "id": "e46",
+      "from": "ds:connections",
+      "to": "f:mps"
+    },
+    {
+      "id": "e47",
+      "from": "ds:connections",
+      "to": "f:procurement"
+    },
+    {
+      "id": "e48",
+      "from": "ds:connections",
+      "to": "f:ai"
+    },
+    {
+      "id": "e49",
+      "from": "ds:officials",
+      "to": "f:mps"
+    },
+    {
+      "id": "e50",
+      "from": "ds:officials",
+      "to": "f:governance"
+    },
+    {
+      "id": "e51",
+      "from": "ds:financing",
+      "to": "f:financing"
+    },
+    {
+      "id": "e52",
+      "from": "ds:financing",
+      "to": "f:mps"
+    },
+    {
+      "id": "e53",
+      "from": "ds:procurement",
+      "to": "f:procurement"
+    },
+    {
+      "id": "e54",
+      "from": "ds:procurement",
+      "to": "f:mps"
+    },
+    {
+      "id": "e55",
+      "from": "ds:funds",
+      "to": "f:funds"
+    },
+    {
+      "id": "e56",
+      "from": "ds:funds",
+      "to": "f:mps"
+    },
+    {
+      "id": "e57",
+      "from": "ds:funds",
+      "to": "f:governance"
+    },
+    {
+      "id": "e58",
+      "from": "ds:budget",
+      "to": "f:budget"
+    },
+    {
+      "id": "e59",
+      "from": "ds:budget",
+      "to": "f:governance"
+    },
+    {
+      "id": "e60",
+      "from": "ds:budget",
+      "to": "f:ai"
+    },
+    {
+      "id": "e61",
+      "from": "ds:macro",
+      "to": "f:budget"
+    },
+    {
+      "id": "e62",
+      "from": "ds:macro",
+      "to": "f:indicators"
+    },
+    {
+      "id": "e63",
+      "from": "ds:macro",
+      "to": "f:prices"
+    },
+    {
+      "id": "e64",
+      "from": "ds:macro",
+      "to": "f:ai"
+    },
+    {
+      "id": "e65",
+      "from": "ds:indicators",
+      "to": "f:indicators"
+    },
+    {
+      "id": "e66",
+      "from": "ds:indicators",
+      "to": "f:governance"
+    },
+    {
+      "id": "e67",
+      "from": "ds:indicators",
+      "to": "f:ai"
+    },
+    {
+      "id": "e68",
+      "from": "ds:demographics",
+      "to": "f:elections"
+    },
+    {
+      "id": "e69",
+      "from": "ds:demographics",
+      "to": "f:risk"
+    },
+    {
+      "id": "e70",
+      "from": "ds:demographics",
+      "to": "f:governance"
+    },
+    {
+      "id": "e71",
+      "from": "ds:localgov",
+      "to": "f:governance"
+    },
+    {
+      "id": "e72",
+      "from": "ds:prices",
+      "to": "f:prices"
+    },
+    {
+      "id": "e73",
+      "from": "ds:prices",
+      "to": "f:governance"
+    },
+    {
+      "id": "e74",
+      "from": "ds:prices",
+      "to": "f:ai"
+    },
+    {
+      "id": "e75",
+      "from": "ds:polls",
+      "to": "f:polls"
+    },
+    {
+      "id": "e76",
+      "from": "ds:polls",
+      "to": "f:elections"
+    },
+    {
+      "id": "e77",
+      "from": "ds:geo",
+      "to": "f:elections"
+    },
+    {
+      "id": "e78",
+      "from": "ds:geo",
+      "to": "f:local"
+    },
+    {
+      "id": "e79",
+      "from": "ds:geo",
+      "to": "f:governance"
+    },
+    {
+      "id": "e80",
+      "from": "ds:geo",
+      "to": "f:indicators"
+    }
+  ],
+  "views": [
+    {
+      "id": "all",
+      "label": {
+        "bg": "Всичко",
+        "en": "Everything"
+      },
+      "tag": null
+    },
+    {
+      "id": "elections",
+      "label": {
+        "bg": "Избори",
+        "en": "Elections"
+      },
+      "tag": "elections"
+    },
+    {
+      "id": "parliament",
+      "label": {
+        "bg": "Парламент",
+        "en": "Parliament"
+      },
+      "tag": "parliament"
+    },
+    {
+      "id": "fiscal",
+      "label": {
+        "bg": "Публични пари",
+        "en": "Public money"
+      },
+      "tag": "fiscal"
+    },
+    {
+      "id": "local",
+      "label": {
+        "bg": "Местна власт",
+        "en": "Local government"
+      },
+      "tag": "local"
+    },
+    {
+      "id": "indicators",
+      "label": {
+        "bg": "Индикатори",
+        "en": "Indicators"
+      },
+      "tag": "indicators"
+    },
+    {
+      "id": "prices",
+      "label": {
+        "bg": "Цени",
+        "en": "Prices"
+      },
+      "tag": "prices"
+    }
+  ],
+  "tiers": [
+    {
+      "kind": "source",
+      "label": {
+        "bg": "Източници",
+        "en": "Sources"
+      },
+      "x": 0,
+      "y": 0,
+      "w": 296,
+      "h": 1562
+    },
+    {
+      "kind": "dataset",
+      "label": {
+        "bg": "Данни",
+        "en": "Datasets"
+      },
+      "x": 350,
+      "y": 150,
+      "w": 296,
+      "h": 1432
+    },
+    {
+      "kind": "feature",
+      "label": {
+        "bg": "Функции",
+        "en": "Features"
+      },
+      "x": 700,
+      "y": 150,
+      "w": 296,
+      "h": 1442
+    }
+  ]
+}

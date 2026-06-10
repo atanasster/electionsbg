@@ -23,6 +23,8 @@ export const ENGLISH_STATIC_PAGES = [
   "sverka",
   "local/chmi",
   "data",
+  "data/sources",
+  "data/updates",
   "simulator",
   "compare",
   "financing",
@@ -79,7 +81,9 @@ export const routeDefs = (year: string): RouteDefs => [
   { path: "index", file: `data/${year}/region_votes.json` },
   { path: "sofia", file: `data/${year}/region_votes.json` },
   { path: "about", file: `src/screens/AboutScreen.tsx` },
-  { path: "data", file: `src/screens/DataScreen.tsx` },
+  { path: "data", file: `src/screens/DataMapScreen.tsx` },
+  { path: "data/sources", file: `src/screens/DataSourcesScreen.tsx` },
+  { path: "data/updates", file: `src/screens/DataUpdatesScreen.tsx` },
   { path: "prices", file: `src/screens/PricesScreen.tsx` },
   // Consumption (Потребление) view — country node. Region / município /
   // settlement consumption nodes are intentionally omitted from the sitemap for

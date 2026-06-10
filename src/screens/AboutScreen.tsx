@@ -115,14 +115,14 @@ export const AboutScreen = () => {
         </section>
 
         {/* Data sources — the full source registry + download links now live
-            on the dedicated Data hub (/data#sources). */}
+            on the dedicated sources page (/data/sources). */}
         <section>
           <SectionHeading>{t("the_data")}</SectionHeading>
           <p className="mt-4 text-base md:text-lg leading-relaxed text-muted-foreground">
             {t("about_data")}
           </p>
           <p className="mt-6 text-base md:text-lg leading-relaxed text-muted-foreground">
-            <Link to="/data#sources" className={linkClass}>
+            <Link to="/data/sources" className={linkClass}>
               {t("about_data_sources_link")}
             </Link>
           </p>

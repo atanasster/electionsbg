@@ -121,7 +121,7 @@ export default defineConfig(({ mode }) => {
         resolveDependencies: (_filename, deps) =>
           deps.filter(
             (d) =>
-              !/vendor-(pdf|leaflet|markdown|charts)/.test(d) &&
+              !/vendor-(pdf|leaflet|markdown|charts|flow)/.test(d) &&
               !/exportToPDF-/.test(d),
           ),
       },
@@ -189,6 +189,15 @@ export default defineConfig(({ mode }) => {
             }
             if (id.includes("/jspdf") || id.includes("/canvg")) {
               return "vendor-pdf";
+            }
+            // React Flow + its small deps — only the /data/map route needs
+            // them; keep them out of the always-loaded catch-all vendor.
+            if (
+              id.includes("/@xyflow/") ||
+              id.match(/[\\/]node_modules[\\/]zustand[\\/]/) ||
+              id.includes("/classcat")
+            ) {
+              return "vendor-flow";
             }
             if (
               id.includes("/react-markdown") ||
