@@ -3,19 +3,19 @@
   "name": "Хисаря",
   "province": "Пловдив",
   "obshtina": "Хисаря",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 161,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 165,
   "awardCount": 0,
-  "totalEur": 46493989.75476613,
+  "totalEur": 47051029.54476613,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000471671",
       "name": "Община Хисаря",
       "tier": "municipal",
-      "totalEur": 46493989.75476613,
+      "totalEur": 47051029.54476613,
       "totalOther": {},
-      "contractCount": 161,
+      "contractCount": 165,
       "awardCount": 0
     }
   ],
@@ -441,6 +441,42 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "0afd2cc7d938",
+      "ocid": "ocds-e82gsb-494553",
+      "date": "2026-05-21",
+      "amount": 169489.02,
+      "currency": "EUR",
+      "amountEur": 169489.02,
+      "partyEik": "120543111",
+      "partyName": "Венигаз ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-494553-857783%2F2026-05-21-award"
+    },
+    {
+      "key": "282cdd4db2ad",
+      "ocid": "ocds-e82gsb-494553",
+      "date": "2026-05-21",
+      "amount": 169489.02,
+      "currency": "EUR",
+      "amountEur": 169489.02,
+      "partyEik": "181209489",
+      "partyName": "ВЕК 24",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-494553-857783%2F2026-05-21-award"
+    },
+    {
+      "key": "f759bf94e31f",
+      "ocid": "ocds-e82gsb-494553",
+      "date": "2026-05-21",
+      "amount": 169489.02,
+      "currency": "EUR",
+      "amountEur": 169489.02,
+      "partyEik": "204817208",
+      "partyName": "Ентрада Груп ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-494553-857783%2F2026-05-21-award"
+    },
+    {
       "key": "90fc2e307de6",
       "ocid": "aop-legacy-2023-365447",
       "date": "2023-04-21",
@@ -583,42 +619,6 @@
       "partyName": "Хеброс Бус ООД - Пловдив",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "b4cd0aa0b275",
-      "ocid": "aop-legacy-2023-357648",
-      "date": "2023-04-07",
-      "amount": 241940,
-      "currency": "BGN",
-      "amountEur": 123701.9577366131,
-      "partyEik": "200358273",
-      "partyName": "Екосол българия АД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "17823415186c",
-      "ocid": "aop-legacy-2022-312942",
-      "date": "2022-12-20",
-      "amount": 218530.11,
-      "currency": "BGN",
-      "amountEur": 111732.67103991655,
-      "partyEik": "115015062",
-      "partyName": "Пътинженеринг ЕООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "9a4a0792fe6b",
-      "ocid": "aop-legacy-2023-426065",
-      "date": "2023-09-22",
-      "amount": 209720,
-      "currency": "BGN",
-      "amountEur": 107228.13332447094,
-      "partyEik": "007873492",
-      "partyName": "Resor doo",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -696,9 +696,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 1802325.7399999998,
+      "totalEur": 2359365.53,
       "totalOther": {},
-      "contractCount": 9
+      "contractCount": 13
     }
   ]
 }

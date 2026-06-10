@@ -3,19 +3,19 @@
   "name": "Елхово",
   "province": "Ямбол",
   "obshtina": "Елхово",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 257,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 260,
   "awardCount": 0,
-  "totalEur": 27354067.61931623,
+  "totalEur": 28089554.989316233,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000970165",
       "name": "Община Елхово",
       "tier": "municipal",
-      "totalEur": 27354067.61931623,
+      "totalEur": 28089554.989316233,
       "totalOther": {},
-      "contractCount": 257,
+      "contractCount": 260,
       "awardCount": 0
     }
   ],
@@ -151,6 +151,18 @@
       "partyName": "ДЗЗД Обединение АВС-Чертог - Ямбол",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "3794e84139cb",
+      "ocid": "ocds-e82gsb-562867",
+      "date": "2026-06-03",
+      "amount": 440664.8,
+      "currency": "EUR",
+      "amountEur": 440664.8,
+      "partyEik": "126629777",
+      "partyName": "НЕО-ТИТАН ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-562867-862117%2F2026-06-03-award"
     },
     {
       "key": "6db1a743dc26",
@@ -405,6 +417,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "a7d2e3c55275",
+      "ocid": "ocds-e82gsb-501043",
+      "date": "2026-05-26",
+      "amount": 294821.48,
+      "currency": "EUR",
+      "amountEur": 294821.48,
+      "partyEik": "838178157",
+      "partyName": "Инфрастрой - инженеринг ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-501043-859215%2F2026-05-26-contractamendment"
+    },
+    {
       "key": "181228778cf2",
       "ocid": "aop-legacy-2016-x",
       "date": "2016-05-31",
@@ -595,30 +619,6 @@
       "partyName": "Яница АД, Елхово",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "5a9620342437",
-      "ocid": "aop-legacy-2016-718631",
-      "date": "2016-03-10",
-      "amount": 380000,
-      "currency": "BGN",
-      "amountEur": 194290.91485456302,
-      "partyEik": "128003590",
-      "partyName": "Яница АД, Елхово",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "917d405329e6",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-05-24",
-      "amount": 362916.25,
-      "currency": "BGN",
-      "amountEur": 185556.13217917713,
-      "partyEik": "128523887",
-      "partyName": "Инком пв ООД-Могила",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     }
   ],
   "byYear": [
@@ -690,9 +690,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 1610826.3099999998,
+      "totalEur": 2346313.6799999997,
       "totalOther": {},
-      "contractCount": 18
+      "contractCount": 21
     }
   ]
 }

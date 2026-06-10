@@ -3,28 +3,19 @@
   "name": "Камено",
   "province": "Бургас",
   "obshtina": "Камено",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 189,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 190,
   "awardCount": 0,
-  "totalEur": 32787574.982319992,
+  "totalEur": 39555543.1037151,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000057001",
       "name": "Община Камено",
       "tier": "municipal",
-      "totalEur": 32250538.4137151,
+      "totalEur": 39555543.1037151,
       "totalOther": {},
-      "contractCount": 186,
-      "awardCount": 0
-    },
-    {
-      "eik": "000042775",
-      "name": "Средно училище \"Христо Ботев\"",
-      "tier": "school",
-      "totalEur": 537036.568604889,
-      "totalOther": {},
-      "contractCount": 3,
+      "contractCount": 190,
       "awardCount": 0
     }
   ],
@@ -40,6 +31,42 @@
       "partyName": "Премиум джи бг ЕООД",
       "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
       "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-517763-816570%2F2026-02-25-award"
+    },
+    {
+      "key": "7761a7053f1f",
+      "ocid": "ocds-e82gsb-364872",
+      "date": "2026-05-29",
+      "amount": 2432018.23,
+      "currency": "EUR",
+      "amountEur": 2432018.23,
+      "partyEik": "206354207",
+      "partyName": "Ай Строй Инженеринг ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-364872-860351%2F2026-05-29-contractamendment"
+    },
+    {
+      "key": "9f322a11da48",
+      "ocid": "ocds-e82gsb-364872",
+      "date": "2026-05-29",
+      "amount": 2432018.23,
+      "currency": "EUR",
+      "amountEur": 2432018.23,
+      "partyEik": "180773889",
+      "partyName": "„Инфра Ай Строй“",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-364872-860351%2F2026-05-29-contractamendment"
+    },
+    {
+      "key": "9fade288ee04",
+      "ocid": "ocds-e82gsb-364872",
+      "date": "2026-05-29",
+      "amount": 2432018.23,
+      "currency": "EUR",
+      "amountEur": 2432018.23,
+      "partyEik": "205415283",
+      "partyName": "ДК Инфра инвест ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-364872-860351%2F2026-05-29-contractamendment"
     },
     {
       "key": "a380a952148c",
@@ -232,18 +259,6 @@
       "partyName": "Термал инженеринг ООД",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "5a3be5acee64",
-      "ocid": "ocds-e82gsb-538413",
-      "date": "2026-02-13",
-      "amount": 425420.15,
-      "currency": "EUR",
-      "amountEur": 425420.15,
-      "partyEik": "202107790",
-      "partyName": "Смарт груп холд ЕООД",
-      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
-      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-538413-811049%2F2026-02-13-award"
     },
     {
       "key": "0c288bb82a89",
@@ -604,30 +619,6 @@
       "partyName": "Ален мак - 2002 ООД – гр. Бургас",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "8626fd80c022",
-      "ocid": "aop-legacy-2023-348579",
-      "date": "2023-03-24",
-      "amount": 186395.51,
-      "currency": "BGN",
-      "amountEur": 95302.51095442857,
-      "partyEik": "201593301",
-      "partyName": "ТехноЛогика ЕАД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "1d3f61bb8b05",
-      "ocid": "aop-legacy-2019-914951",
-      "date": "2019-06-10",
-      "amount": 180083.33,
-      "currency": "BGN",
-      "amountEur": 92075.1445677794,
-      "partyEik": "200867594",
-      "partyName": "Автотрейд - 2009 ООД",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
@@ -651,9 +642,9 @@
     },
     {
       "year": "2014",
-      "totalEur": 1717767.413323244,
+      "totalEur": 1697950.4558167122,
       "totalOther": {},
-      "contractCount": 14
+      "contractCount": 13
     },
     {
       "year": "2016",
@@ -693,15 +684,15 @@
     },
     {
       "year": "2023",
-      "totalEur": 6022687.938113229,
+      "totalEur": 5930888.477014872,
       "totalOther": {},
-      "contractCount": 24
+      "contractCount": 23
     },
     {
       "year": "2026",
-      "totalEur": 6043401.23,
+      "totalEur": 12922985.770000001,
       "totalOther": {},
-      "contractCount": 11
+      "contractCount": 14
     }
   ]
 }

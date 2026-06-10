@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-28T08:40:21.368Z",
+  "generatedAt": "2026-06-10T08:55:55.103Z",
   "total": 60,
   "entries": [
     {
@@ -78,9 +78,9 @@
           "confidence": "medium"
         }
       ],
-      "totalEur": 100487901.61251056,
+      "totalEur": 100563401.61251056,
       "totalOther": {},
-      "contractCount": 459,
+      "contractCount": 461,
       "awardCount": 0,
       "byYear": [
         {
@@ -157,8 +157,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 49,
-          "totalEur": 16231516.129109688,
+          "contractCount": 51,
+          "totalEur": 16307016.129109688,
           "totalOther": {}
         }
       ],
@@ -212,9 +212,9 @@
           "confidence": "medium"
         }
       ],
-      "totalEur": 88078275.36636695,
+      "totalEur": 88387045.44636695,
       "totalOther": {},
-      "contractCount": 809,
+      "contractCount": 816,
       "awardCount": 0,
       "byYear": [
         {
@@ -291,8 +291,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 44,
-          "totalEur": 10998647.050000004,
+          "contractCount": 51,
+          "totalEur": 11307417.130000005,
           "totalOther": {}
         }
       ],
@@ -580,9 +580,9 @@
           "confidence": "medium"
         }
       ],
-      "totalEur": 10392348.696379032,
+      "totalEur": 11040745.816379033,
       "totalOther": {},
-      "contractCount": 33,
+      "contractCount": 36,
       "awardCount": 0,
       "byYear": [
         {
@@ -617,8 +617,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 16,
-          "totalEur": 6998023.300000001,
+          "contractCount": 19,
+          "totalEur": 7646420.420000001,
           "totalOther": {}
         }
       ],
@@ -640,8 +640,8 @@
         {
           "eik": "831605795",
           "name": "Университетска многопрофилна болница за активно лечение \"Александровска\" ЕАД",
-          "contractCount": 9,
-          "totalEur": 1726821.5600000003,
+          "contractCount": 12,
+          "totalEur": 2375218.6800000006,
           "totalOther": {}
         },
         {
@@ -2055,6 +2055,11 @@
           "confidence": "high"
         },
         {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
           "kind": "stake",
           "shareSize": "1",
           "valueEur": 25.564594059810926,
@@ -2436,10 +2441,15 @@
     },
     {
       "mpId": 2946,
-      "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
+      "mpName": "Елена Стефанова Пешева",
       "contractorEik": "201498495",
       "contractorName": "ДЖИ Пи ес системи България ЕООД - Пловдив",
       "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
         {
           "kind": "stake",
           "shareSize": "80",
@@ -2578,7 +2588,7 @@
       "mpId": 3710,
       "mpName": "Пламен Николаев Николов",
       "contractorEik": "206867786",
-      "contractorName": "КП Инвест груп ЕООД",
+      "contractorName": "КП инвест груп ЕООД",
       "relations": [
         {
           "kind": "manager",
@@ -2591,9 +2601,9 @@
           "confidence": "medium"
         }
       ],
-      "totalEur": 173692.53974016148,
+      "totalEur": 224820.99974016147,
       "totalOther": {},
-      "contractCount": 4,
+      "contractCount": 5,
       "awardCount": 0,
       "byYear": [
         {
@@ -2601,14 +2611,20 @@
           "contractCount": 4,
           "totalEur": 173692.53974016148,
           "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 1,
+          "totalEur": 51128.46,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000696327",
-          "name": "Район \"Връбница",
-          "contractCount": 4,
-          "totalEur": 173692.53974016148,
+          "name": "Район \"Витоша\"",
+          "contractCount": 5,
+          "totalEur": 224820.99974016147,
           "totalOther": {}
         }
       ]
@@ -2781,6 +2797,55 @@
           "name": "Районна здравноосигурителна каса - силистра",
           "contractCount": 2,
           "totalEur": 1042.1151122541326,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 2822,
+      "mpName": "Любомир Бойков Бонев",
+      "contractorEik": "113566864",
+      "contractorName": "М контрол ЕООД",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "50",
+          "valueEur": 2556.4594059810925,
+          "fiscalYear": 2021,
+          "declarationYear": 2021
+        }
+      ],
+      "totalEur": 144769.19619803358,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2013",
+          "contractCount": 1,
+          "totalEur": 869.1961980335715,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 2,
+          "totalEur": 143900,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000261517",
+          "name": "Община Кюстендил",
+          "contractCount": 2,
+          "totalEur": 143900,
+          "totalOther": {}
+        },
+        {
+          "eik": "000386790",
+          "name": "Община Трън",
+          "contractCount": 1,
+          "totalEur": 869.1961980335715,
           "totalOther": {}
         }
       ]
@@ -3340,9 +3405,9 @@
           "confidence": "medium"
         }
       ],
-      "totalEur": 41688.802196509925,
+      "totalEur": 43222.18219650992,
       "totalOther": {},
-      "contractCount": 9,
+      "contractCount": 10,
       "awardCount": 0,
       "byYear": [
         {
@@ -3368,14 +3433,20 @@
           "contractCount": 2,
           "totalEur": 3579.0431683735296,
           "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 1,
+          "totalEur": 1533.38,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "201617654",
-          "name": "Териториално поделение \"Държавно горско стопанство кости",
-          "contractCount": 9,
-          "totalEur": 41688.802196509925,
+          "name": "Териториално поделение \"Държавно горско стопанство кости\"",
+          "contractCount": 10,
+          "totalEur": 43222.18219650992,
           "totalOther": {}
         }
       ]
@@ -3777,42 +3848,6 @@
           "name": "Община Казанлък",
           "contractCount": 2,
           "totalEur": 1022.5837623924369,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
-      "mpId": 2822,
-      "mpName": "Любомир Бойков Бонев",
-      "contractorEik": "113566864",
-      "contractorName": "М Контрол ЕООД - Перник",
-      "relations": [
-        {
-          "kind": "stake",
-          "shareSize": "50",
-          "valueEur": 2556.4594059810925,
-          "fiscalYear": 2021,
-          "declarationYear": 2021
-        }
-      ],
-      "totalEur": 869.1961980335715,
-      "totalOther": {},
-      "contractCount": 1,
-      "awardCount": 0,
-      "byYear": [
-        {
-          "year": "2013",
-          "contractCount": 1,
-          "totalEur": 869.1961980335715,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "000386790",
-          "name": "Община Трън",
-          "contractCount": 1,
-          "totalEur": 869.1961980335715,
           "totalOther": {}
         }
       ]

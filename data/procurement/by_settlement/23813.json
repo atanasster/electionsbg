@@ -3,19 +3,19 @@
   "name": "Друмево",
   "province": "Шумен",
   "obshtina": "Шумен",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 6,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 10,
   "awardCount": 0,
-  "totalEur": 34680.17,
+  "totalEur": 38812.17,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000922117",
       "name": "Обединено училище \"Христо Ботев\"",
       "tier": "school",
-      "totalEur": 34680.17,
+      "totalEur": 38812.17,
       "totalOther": {},
-      "contractCount": 6,
+      "contractCount": 10,
       "awardCount": 0
     }
   ],
@@ -69,6 +69,30 @@
       "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-536733-807139%2F2026-02-05-award"
     },
     {
+      "key": "71efc3b967ae",
+      "ocid": "ocds-e82gsb-552898",
+      "date": "2026-06-03",
+      "amount": 1198,
+      "currency": "EUR",
+      "amountEur": 1198,
+      "partyEik": "201437250",
+      "partyName": "ВТ - Трейд ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-552898-863084%2F2026-06-03-contractamendment"
+    },
+    {
+      "key": "7ba9a331bdd6",
+      "ocid": "ocds-e82gsb-552898",
+      "date": "2026-05-28",
+      "amount": 1198,
+      "currency": "EUR",
+      "amountEur": 1198,
+      "partyEik": "201437250",
+      "partyName": "ВТ - Трейд ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-552898-860378%2F2026-05-28-award"
+    },
+    {
       "key": "0ad2b760f3b8",
       "ocid": "ocds-e82gsb-552898",
       "date": "2026-05-14",
@@ -79,6 +103,30 @@
       "partyName": "ВТ - Трейд ЕООД",
       "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
       "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-552898-855097%2F2026-05-14-award"
+    },
+    {
+      "key": "7d9816c9e164",
+      "ocid": "ocds-e82gsb-552898",
+      "date": "2026-06-03",
+      "amount": 868,
+      "currency": "EUR",
+      "amountEur": 868,
+      "partyEik": "201437250",
+      "partyName": "ВТ - Трейд ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-552898-863125%2F2026-06-03-contractamendment"
+    },
+    {
+      "key": "1a3ddb8195d2",
+      "ocid": "ocds-e82gsb-552898",
+      "date": "2026-05-28",
+      "amount": 868,
+      "currency": "EUR",
+      "amountEur": 868,
+      "partyEik": "201437250",
+      "partyName": "ВТ - Трейд ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-552898-860378%2F2026-05-28-award"
     },
     {
       "key": "10d9cab2aaad",
@@ -96,9 +144,9 @@
   "byYear": [
     {
       "year": "2026",
-      "totalEur": 34680.17,
+      "totalEur": 38812.17,
       "totalOther": {},
-      "contractCount": 6
+      "contractCount": 10
     }
   ]
 }

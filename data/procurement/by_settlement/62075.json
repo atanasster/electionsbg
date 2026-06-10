@@ -3,19 +3,28 @@
   "name": "Раковски",
   "province": "Пловдив",
   "obshtina": "Раковски",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 154,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 169,
   "awardCount": 0,
-  "totalEur": 41020142.30704663,
+  "totalEur": 42703094.159649365,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000471543",
       "name": "Община Раковски",
       "tier": "municipal",
-      "totalEur": 40846436.83026864,
+      "totalEur": 42218268.89026864,
       "totalOther": {},
-      "contractCount": 140,
+      "contractCount": 143,
+      "awardCount": 0
+    },
+    {
+      "eik": "000453356",
+      "name": "Основно училище \"Христо Ботев\" - гр. Раковски",
+      "tier": "school",
+      "totalEur": 311119.7926027313,
+      "totalOther": {},
+      "contractCount": 12,
       "awardCount": 0
     },
     {
@@ -172,6 +181,18 @@
       "partyName": "Ртк ООД - Елин Пелин",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "3648c1fa854d",
+      "ocid": "ocds-e82gsb-528615",
+      "date": "2026-06-01",
+      "amount": 902031.36,
+      "currency": "EUR",
+      "amountEur": 902031.36,
+      "partyEik": "203704360",
+      "partyName": "ИРИ Транс 15 ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-528615-860594%2F2026-06-01-contractamendment"
     },
     {
       "key": "4751806da385",
@@ -474,6 +495,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
+      "key": "d5d9bd1d7e2e",
+      "ocid": "ocds-e82gsb-549242",
+      "date": "2026-06-02",
+      "amount": 299400.7,
+      "currency": "EUR",
+      "amountEur": 299400.7,
+      "partyEik": "200966838",
+      "partyName": "Екорп ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-549242-862200%2F2026-06-02-award"
+    },
+    {
       "key": "4baa1b925cf9",
       "ocid": "aop-legacy-2011-2015-548576",
       "date": "2013-07-03",
@@ -604,30 +637,6 @@
       "partyName": "Стройнорм ЕООД - гр.София - Стройнорм ООД (старо наименование)",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "c6fbd5cdf521",
-      "ocid": "aop-legacy-2016-745009",
-      "date": "2016-08-16",
-      "amount": 393500,
-      "currency": "BGN",
-      "amountEur": 201193.355250712,
-      "partyEik": "200285252",
-      "partyName": "Стройнорм ЕООД - гр.София - Стройнорм ООД (старо наименование)",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "113dac51d6f7",
-      "ocid": "aop-legacy-2022-207002",
-      "date": "2022-03-18",
-      "amount": 367000,
-      "currency": "BGN",
-      "amountEur": 187644.12039901217,
-      "partyEik": "825283119",
-      "partyName": "Масив - 4 ООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
@@ -651,9 +660,9 @@
     },
     {
       "year": "2014",
-      "totalEur": 1342386.6082430477,
+      "totalEur": 1363801.260845779,
       "totalOther": {},
-      "contractCount": 3
+      "contractCount": 10
     },
     {
       "year": "2015",
@@ -699,9 +708,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 4900957.7,
+      "totalEur": 6562494.9,
       "totalOther": {},
-      "contractCount": 16
+      "contractCount": 24
     }
   ]
 }

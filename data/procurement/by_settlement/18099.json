@@ -3,19 +3,19 @@
   "name": "Гулянци",
   "province": "Плевен",
   "obshtina": "Гулянци",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 109,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 112,
   "awardCount": 0,
-  "totalEur": 37415666.56337007,
+  "totalEur": 38920772.82337008,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000413691",
       "name": "Община Гулянци",
       "tier": "municipal",
-      "totalEur": 37199660.90522136,
+      "totalEur": 38704767.16522136,
       "totalOther": {},
-      "contractCount": 106,
+      "contractCount": 109,
       "awardCount": 0
     },
     {
@@ -100,6 +100,18 @@
       "partyName": "ЕКО Строй проект ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "75902a3dfe31",
+      "ocid": "ocds-e82gsb-565587",
+      "date": "2026-05-28",
+      "amount": 940521.46,
+      "currency": "EUR",
+      "amountEur": 940521.46,
+      "partyEik": "114684488",
+      "partyName": "Виагруп ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-565587-860257%2F2026-05-28-award"
     },
     {
       "key": "43fa6b6b3e6b",
@@ -196,6 +208,18 @@
       "partyName": "Виагруп ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "86d02e5eb8a2",
+      "ocid": "ocds-e82gsb-554753",
+      "date": "2026-05-26",
+      "amount": 524724.8,
+      "currency": "EUR",
+      "amountEur": 524724.8,
+      "partyEik": "202603814",
+      "partyName": "Инфракънстракшън ЕАД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-554753-859314%2F2026-05-26-award"
     },
     {
       "key": "8f0f13bef62c",
@@ -604,30 +628,6 @@
       "partyName": "КА-Груп ООД - Плевен",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "85c23ae4d53f",
-      "ocid": "aop-legacy-2022-206477",
-      "date": "2022-03-11",
-      "amount": 283343.45,
-      "currency": "BGN",
-      "amountEur": 144871.2055751267,
-      "partyEik": "114684488",
-      "partyName": "Виагруп ЕООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "03c09239a0e4",
-      "ocid": "aop-legacy-2011-2015-530914",
-      "date": "2013-03-21",
-      "amount": 283044.76,
-      "currency": "BGN",
-      "amountEur": 144718.4878031322,
-      "partyEik": "114660398",
-      "partyName": "Далия ЕООД, гр. Плевен",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -705,9 +705,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 5990481.67,
+      "totalEur": 7495587.93,
       "totalOther": {},
-      "contractCount": 9
+      "contractCount": 12
     }
   ]
 }

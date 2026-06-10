@@ -3,19 +3,19 @@
   "name": "Ситово",
   "province": "Силистра",
   "obshtina": "Ситово",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 193,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 194,
   "awardCount": 0,
-  "totalEur": 24164665.429093637,
+  "totalEur": 25893216.459093638,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000565544",
       "name": "Община Ситово",
       "tier": "municipal",
-      "totalEur": 24164665.429093637,
+      "totalEur": 25893216.459093638,
       "totalOther": {},
-      "contractCount": 193,
+      "contractCount": 194,
       "awardCount": 0
     }
   ],
@@ -67,6 +67,18 @@
       "partyName": "Пътперфект-Т АД",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "83e370f8553c",
+      "ocid": "ocds-e82gsb-499516",
+      "date": "2026-06-03",
+      "amount": 1728551.03,
+      "currency": "EUR",
+      "amountEur": 1728551.03,
+      "partyEik": "207914559",
+      "partyName": "ДИ ЕС - 46 ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-499516-863138%2F2026-06-03-contractamendment"
     },
     {
       "key": "97115601be96",
@@ -607,18 +619,6 @@
       "partyName": "ЕС Еф ей аутомотив",
       "bundleUuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
       "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-557339-840572%2F2026-04-14-award"
-    },
-    {
-      "key": "83848b320afd",
-      "ocid": "aop-legacy-2023-416135",
-      "date": "2023-08-23",
-      "amount": 89639.6,
-      "currency": "BGN",
-      "amountEur": 45831.99971367655,
-      "partyEik": "203269196",
-      "partyName": "Аспид - 81 ЕООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -690,9 +690,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 2957089.7399999998,
+      "totalEur": 4685640.77,
       "totalOther": {},
-      "contractCount": 12
+      "contractCount": 13
     }
   ]
 }

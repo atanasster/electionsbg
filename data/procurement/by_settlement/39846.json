@@ -3,19 +3,19 @@
   "name": "Криводол",
   "province": "Враца",
   "obshtina": "Криводол",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 3,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 4,
   "awardCount": 0,
-  "totalEur": 157706.75857477388,
+  "totalEur": 159431.03857477388,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000186314",
       "name": "Средно училище \"Свети свети кирил и Методий\"",
       "tier": "school",
-      "totalEur": 157706.75857477388,
+      "totalEur": 159431.03857477388,
       "totalOther": {},
-      "contractCount": 3,
+      "contractCount": 4,
       "awardCount": 0
     }
   ],
@@ -55,6 +55,18 @@
       "partyName": "ЕТ Георги Иванов – Челси - Криводол",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "ed00007855e3",
+      "ocid": "ocds-e82gsb-549096",
+      "date": "2026-05-21",
+      "amount": 1724.28,
+      "currency": "EUR",
+      "amountEur": 1724.28,
+      "partyEik": "104518906",
+      "partyName": "Вали компютърс ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-549096-857759%2F2026-05-21-award"
     }
   ],
   "byYear": [
@@ -72,9 +84,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 55105.51,
+      "totalEur": 56829.79,
       "totalOther": {},
-      "contractCount": 1
+      "contractCount": 2
     }
   ]
 }

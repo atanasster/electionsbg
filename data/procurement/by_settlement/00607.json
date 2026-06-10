@@ -3,19 +3,19 @@
   "name": "Ардино",
   "province": "Кърджали",
   "obshtina": "Ардино",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 499,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 514,
   "awardCount": 0,
-  "totalEur": 38065808.07239902,
+  "totalEur": 38532372.28239902,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000235750",
       "name": "Община Ардино",
       "tier": "municipal",
-      "totalEur": 38065808.07239902,
+      "totalEur": 38532372.28239902,
       "totalOther": {},
-      "contractCount": 499,
+      "contractCount": 514,
       "awardCount": 0
     }
   ],
@@ -309,6 +309,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "5aa8ca94a0fc",
+      "ocid": "ocds-e82gsb-559982",
+      "date": "2026-05-22",
+      "amount": 296255,
+      "currency": "EUR",
+      "amountEur": 296255,
+      "partyEik": "160117913",
+      "partyName": "НЕК Груп ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-559982-858400%2F2026-05-22-award"
+    },
+    {
       "key": "24ad225fbe51",
       "ocid": "aop-legacy-2016-x",
       "date": "2016-11-25",
@@ -415,6 +427,18 @@
       "partyName": "Солак М.С. ООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "b30b345e8865",
+      "ocid": "ocds-e82gsb-559982",
+      "date": "2026-05-22",
+      "amount": 170300,
+      "currency": "EUR",
+      "amountEur": 170300,
+      "partyEik": "160117913",
+      "partyName": "НЕК Груп ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-559982-858390%2F2026-05-22-award"
     },
     {
       "key": "8e585c7c8f50",
@@ -595,30 +619,6 @@
       "partyName": "Солак М.С. ЕООД - с. Бял извор",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "c87f1641f0b1",
-      "ocid": "aop-legacy-2011-2015-606137",
-      "date": "2014-05-30",
-      "amount": 208393,
-      "currency": "BGN",
-      "amountEur": 106549.64899812356,
-      "partyEik": "200931146",
-      "partyName": "Хитбилдинг ЕООД - с. Припек",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "538f5268be50",
-      "ocid": "aop-legacy-2011-2015-610620",
-      "date": "2014-06-25",
-      "amount": 207734,
-      "currency": "BGN",
-      "amountEur": 106212.70764841525,
-      "partyEik": "200931146",
-      "partyName": "Хитбилдинг ЕООД - с. Припек",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -690,9 +690,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 3488100.4699999993,
+      "totalEur": 3954664.6800000016,
       "totalOther": {},
-      "contractCount": 30
+      "contractCount": 45
     }
   ]
 }

@@ -1,0 +1,44 @@
+{
+  "ekatte": "43517",
+  "name": "Лехчево",
+  "province": "Монтана",
+  "obshtina": "Бойчиновци",
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 53936.22,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000312078",
+      "name": "Средно училище СВ.СВ.КИРИЛ Методий",
+      "tier": "school",
+      "totalEur": 53936.22,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "69e3b00f5eaa",
+      "ocid": "ocds-e82gsb-576407",
+      "date": "2026-06-03",
+      "amount": 53936.22,
+      "currency": "EUR",
+      "amountEur": 53936.22,
+      "partyEik": "205378970",
+      "partyName": "Сейфтистрой 2018 ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-576407-862764%2F2026-06-03-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 53936.22,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

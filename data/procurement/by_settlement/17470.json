@@ -1,0 +1,44 @@
+{
+  "ekatte": "17470",
+  "name": "Градина",
+  "province": "Плевен",
+  "obshtina": "Долни Дъбник",
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 35621,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000402698",
+      "name": "Основно училище \"Неофит Рилски\"",
+      "tier": "school",
+      "totalEur": 35621,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "4d453d3cb882",
+      "ocid": "ocds-e82gsb-577259",
+      "date": "2026-05-27",
+      "amount": 35621,
+      "currency": "EUR",
+      "amountEur": 35621,
+      "partyEik": "114600294",
+      "partyName": "Офис решения БГ ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-577259-859862%2F2026-05-27-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 35621,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

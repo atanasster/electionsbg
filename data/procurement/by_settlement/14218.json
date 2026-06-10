@@ -3,19 +3,19 @@
   "name": "Габрово",
   "province": "Габрово",
   "obshtina": "Габрово",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 2841,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 2884,
   "awardCount": 0,
-  "totalEur": 264063454.57742918,
+  "totalEur": 268010020.33614016,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000215630",
       "name": "Община Габрово",
       "tier": "municipal",
-      "totalEur": 168757904.38653436,
+      "totalEur": 171101231.38653436,
       "totalOther": {},
-      "contractCount": 985,
+      "contractCount": 993,
       "awardCount": 0
     },
     {
@@ -31,9 +31,9 @@
       "eik": "000210319",
       "name": "Технически УНИВЕРСИТЕТ-ГАБРОВО",
       "tier": "university",
-      "totalEur": 9864051.61006074,
+      "totalEur": 9887938.94006074,
       "totalOther": {},
-      "contractCount": 278,
+      "contractCount": 279,
       "awardCount": 0
     },
     {
@@ -49,9 +49,27 @@
       "eik": "129009799",
       "name": "Областна дирекция на МВР (ОДМВР) - Габрово",
       "tier": "regional_gov",
-      "totalEur": 1026754.987954219,
+      "totalEur": 1112580.447954219,
       "totalOther": {},
-      "contractCount": 8,
+      "contractCount": 9,
+      "awardCount": 0
+    },
+    {
+      "eik": "107507181",
+      "name": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН Център 1 - габрово ЕООД",
+      "tier": "hospital",
+      "totalEur": 765395.7126771754,
+      "totalOther": {},
+      "contractCount": 17,
+      "awardCount": 0
+    },
+    {
+      "eik": "000212569",
+      "name": "Природоматематическа гимназия \"Акад. Иван Гюзелев\"",
+      "tier": "school",
+      "totalEur": 636546.6460338067,
+      "totalOther": {},
+      "contractCount": 14,
       "awardCount": 0
     },
     {
@@ -79,6 +97,24 @@
       "totalEur": 51836.044032456804,
       "totalOther": {},
       "contractCount": 16,
+      "awardCount": 0
+    },
+    {
+      "eik": "000208720",
+      "name": "Детска Градина \"Перуника\"",
+      "tier": "school",
+      "totalEur": 51089.85,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    },
+    {
+      "eik": "000212302",
+      "name": "Детска Градина \"Радост\"",
+      "tier": "school",
+      "totalEur": 40493.76,
+      "totalOther": {},
+      "contractCount": 1,
       "awardCount": 0
     },
     {
@@ -271,6 +307,18 @@
       "partyName": "Софарма трейдинг АД",
       "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
       "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-540242-832608%2F2026-03-27-award"
+    },
+    {
+      "key": "1009575baf05",
+      "ocid": "ocds-e82gsb-349149",
+      "date": "2026-06-03",
+      "amount": 1789521.58,
+      "currency": "EUR",
+      "amountEur": 1789521.58,
+      "partyEik": "130642168",
+      "partyName": "КОТА-2001 ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-349149-862765%2F2026-06-03-contractamendment"
     },
     {
       "key": "82ef2bbbf914",
@@ -679,18 +727,6 @@
       "partyName": "Пътни строежи - велико търново ЕАД",
       "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
       "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-499210-848399%2F2026-04-24-award"
-    },
-    {
-      "key": "b4a9730b5a78",
-      "ocid": "aop-legacy-2011-2015-524394",
-      "date": "2013-02-19",
-      "amount": 1615163.79,
-      "currency": "BGN",
-      "amountEur": 825820.132629114,
-      "partyEik": "176447713",
-      "partyName": "ДЗЗД Боженци 2012",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -738,9 +774,9 @@
     },
     {
       "year": "2019",
-      "totalEur": 27789779.73034466,
+      "totalEur": 27874142.890742037,
       "totalOther": {},
-      "contractCount": 356
+      "contractCount": 357
     },
     {
       "year": "2020",
@@ -756,21 +792,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 18653073.390836634,
+      "totalEur": 19119730.96332504,
       "totalOther": {},
-      "contractCount": 319
+      "contractCount": 322
     },
     {
       "year": "2023",
-      "totalEur": 17980351.19105444,
+      "totalEur": 18678071.62687964,
       "totalOther": {},
-      "contractCount": 330
+      "contractCount": 343
     },
     {
       "year": "2026",
-      "totalEur": 28474690.768713642,
+      "totalEur": 31172515.358713638,
       "totalOther": {},
-      "contractCount": 135
+      "contractCount": 161
     }
   ]
 }

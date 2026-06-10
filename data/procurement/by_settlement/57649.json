@@ -3,19 +3,28 @@
   "name": "Попово",
   "province": "Търговище",
   "obshtina": "Попово",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 462,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 496,
   "awardCount": 0,
-  "totalEur": 52678428.75166337,
+  "totalEur": 57019338.31931164,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000875856",
       "name": "Община Попово",
       "tier": "municipal",
-      "totalEur": 52678428.75166337,
+      "totalEur": 53495826.51166338,
       "totalOther": {},
-      "contractCount": 462,
+      "contractCount": 465,
+      "awardCount": 0
+    },
+    {
+      "eik": "000874028",
+      "name": "Многопрофилна болница за активно лечение - попово ЕООД",
+      "tier": "hospital",
+      "totalEur": 3523511.8076482625,
+      "totalOther": {},
+      "contractCount": 31,
       "awardCount": 0
     }
   ],
@@ -151,6 +160,30 @@
       "partyName": "Пътни строежи - велико търново ЕАД",
       "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
       "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-385743-821503%2F2026-03-09-contractamendment"
+    },
+    {
+      "key": "f8c13c90dc2b",
+      "ocid": "ocds-e82gsb-541707",
+      "date": "2026-01-28",
+      "amount": 709059.83,
+      "currency": "EUR",
+      "amountEur": 709059.83,
+      "partyEik": "200000276",
+      "partyName": "Титаника 2008 ЕООД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-541707-801804%2F2026-01-28-award"
+    },
+    {
+      "key": "31d269c3862d",
+      "ocid": "aop-legacy-2011-2015-432472",
+      "date": "2011-03-25",
+      "amount": 1349996.47,
+      "currency": "BGN",
+      "amountEur": 690242.2347545543,
+      "partyEik": "020955078",
+      "partyName": "Енемона АД  - София /бивше Енемона АД - Козлодуй/",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
       "key": "6fa8ebb16e65",
@@ -429,6 +462,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "84db225aa2d8",
+      "ocid": "ocds-e82gsb-556527",
+      "date": "2026-05-22",
+      "amount": 408220.9,
+      "currency": "EUR",
+      "amountEur": 408220.9,
+      "partyEik": "201015110",
+      "partyName": "С-М Строй ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-556527-857332%2F2026-05-22-award"
+    },
+    {
       "key": "fdcc01c0cee2",
       "ocid": "aop-legacy-2022-299232",
       "date": "2022-11-17",
@@ -463,6 +508,30 @@
       "partyName": "Термикс ЕС ООД - Пазарджик",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "7c3d51f0323a",
+      "ocid": "ocds-e82gsb-556527",
+      "date": "2026-05-22",
+      "amount": 393260.34,
+      "currency": "EUR",
+      "amountEur": 393260.34,
+      "partyEik": "202619989",
+      "partyName": "Е - плант ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-556527-857332%2F2026-05-22-award"
+    },
+    {
+      "key": "7ec0c06b7dfc",
+      "ocid": "aop-legacy-2022-309463",
+      "date": "2022-12-16",
+      "amount": 760033.61,
+      "currency": "BGN",
+      "amountEur": 388599.01422925305,
+      "partyEik": "200000276",
+      "partyName": "Титаника 2008 ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
       "key": "1bf7d3e30a9c",
@@ -559,74 +628,14 @@
       "partyName": "Пътинженерингстрой-Т ЕАД/старо Пътинженерингстрой-Т АД  - Търговище",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "b602c2c79945",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-09-28",
-      "amount": 666500,
-      "currency": "BGN",
-      "amountEur": 340776.0388172796,
-      "partyEik": "177055054",
-      "partyName": "ДЗЗД Стройинженеринг,  Варна",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "edcef66ae3e4",
-      "ocid": "aop-legacy-2016-750839",
-      "date": "2016-09-28",
-      "amount": 666500,
-      "currency": "BGN",
-      "amountEur": 340776.0388172796,
-      "partyEik": "177055054",
-      "partyName": "ДЗЗД Стройинженеринг,  Варна",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "f5424cdbc670",
-      "ocid": "aop-legacy-2011-2015-686148",
-      "date": "2015-09-07",
-      "amount": 662993.1,
-      "currency": "BGN",
-      "amountEur": 338982.9893191126,
-      "partyEik": "176908676",
-      "partyName": "ДЗЗД Вод-строй-2015",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "93f15d796c00",
-      "ocid": "aop-legacy-2020-76073",
-      "date": "2020-12-09",
-      "amount": 656833,
-      "currency": "BGN",
-      "amountEur": 335833.3802017558,
-      "partyEik": "835009611",
-      "partyName": "ПЪТИНЖЕНЕРИНГСТРОЙ-Т ЕАД",
-      "bundleUuid": "c5404069-668a-4cd2-ab43-a1cdc26e03c6",
-      "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
-    },
-    {
-      "key": "24c5e8963911",
-      "ocid": "aop-legacy-2023-410908",
-      "date": "2023-08-14",
-      "amount": 650000,
-      "currency": "BGN",
-      "amountEur": 332339.722777542,
-      "partyEik": "206117083",
-      "partyName": "КЕР Токи пауър АД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 1862166.98281548,
+      "totalEur": 2552409.2175700343,
       "totalOther": {},
-      "contractCount": 8
+      "contractCount": 9
     },
     {
       "year": "2012",
@@ -636,21 +645,21 @@
     },
     {
       "year": "2013",
-      "totalEur": 674806.8697177158,
+      "totalEur": 724361.7901351345,
       "totalOther": {},
-      "contractCount": 13
+      "contractCount": 14
     },
     {
       "year": "2014",
-      "totalEur": 1264046.358834868,
+      "totalEur": 1315605.5434265758,
       "totalOther": {},
-      "contractCount": 17
+      "contractCount": 18
     },
     {
       "year": "2015",
-      "totalEur": 1516105.8374194074,
+      "totalEur": 1561906.7505867071,
       "totalOther": {},
-      "contractCount": 27
+      "contractCount": 28
     },
     {
       "year": "2016",
@@ -678,21 +687,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 7304812.314976249,
+      "totalEur": 8768034.481524467,
       "totalOther": {},
-      "contractCount": 70
+      "contractCount": 86
     },
     {
       "year": "2023",
-      "totalEur": 4806236.1861716,
+      "totalEur": 5002386.884340663,
       "totalOther": {},
-      "contractCount": 50
+      "contractCount": 55
     },
     {
       "year": "2026",
-      "totalEur": 4517195.260000001,
+      "totalEur": 6361574.710000001,
       "totalOther": {},
-      "contractCount": 31
+      "contractCount": 40
     }
   ]
 }

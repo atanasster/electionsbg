@@ -3,10 +3,10 @@
   "name": "Пловдив",
   "province": "Пловдив",
   "obshtina": "Пловдив",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 10249,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 10897,
   "awardCount": 0,
-  "totalEur": 3399440299.398694,
+  "totalEur": 3489201327.443662,
   "totalOther": {
     "USD": 57161.259999999995
   },
@@ -15,27 +15,27 @@
       "eik": "115552190",
       "name": "Електроразпределение Юг ЕАД",
       "tier": "utility",
-      "totalEur": 1042583160.8828428,
+      "totalEur": 1043819815.4528427,
       "totalOther": {},
-      "contractCount": 2429,
+      "contractCount": 2435,
       "awardCount": 0
     },
     {
       "eik": "115576405",
       "name": "Университетска многопрофилна болница за активно лечение \"Свети георги\" ЕАД",
       "tier": "hospital",
-      "totalEur": 997430262.036093,
+      "totalEur": 999324163.016093,
       "totalOther": {},
-      "contractCount": 2621,
+      "contractCount": 2639,
       "awardCount": 0
     },
     {
       "eik": "000471504",
       "name": "Община Пловдив",
       "tier": "municipal",
-      "totalEur": 554607031.678364,
+      "totalEur": 554652999.668364,
       "totalOther": {},
-      "contractCount": 1884,
+      "contractCount": 1886,
       "awardCount": 0
     },
     {
@@ -51,29 +51,38 @@
       "eik": "115010670",
       "name": "Водоснабдяване и канализация ЕООД",
       "tier": "utility",
-      "totalEur": 171538332.26370376,
+      "totalEur": 173358332.26370376,
       "totalOther": {},
-      "contractCount": 230,
+      "contractCount": 236,
       "awardCount": 0
     },
     {
       "eik": "000455471",
       "name": "Медицински университет - пловдив",
       "tier": "university",
-      "totalEur": 91323089.82330489,
+      "totalEur": 92799686.87330489,
       "totalOther": {
         "USD": 57161.259999999995
       },
-      "contractCount": 747,
+      "contractCount": 768,
+      "awardCount": 0
+    },
+    {
+      "eik": "115016602",
+      "name": "ЕВН България топлофикация ЕАД",
+      "tier": "utility",
+      "totalEur": 73430484.2440971,
+      "totalOther": {},
+      "contractCount": 253,
       "awardCount": 0
     },
     {
       "eik": "000472182",
       "name": "Община Марица",
       "tier": "municipal",
-      "totalEur": 65133189.71727236,
+      "totalEur": 65136669.71727236,
       "totalOther": {},
-      "contractCount": 280,
+      "contractCount": 281,
       "awardCount": 0
     },
     {
@@ -89,18 +98,18 @@
       "eik": "000472200",
       "name": "Община Родопи",
       "tier": "municipal",
-      "totalEur": 41896485.45264739,
+      "totalEur": 42623455.45264739,
       "totalOther": {},
-      "contractCount": 302,
+      "contractCount": 323,
       "awardCount": 0
     },
     {
       "eik": "000455457",
       "name": "Пловдивски университет \"Паисий Хилендарски\"",
       "tier": "university",
-      "totalEur": 21489938.77655455,
+      "totalEur": 21744733.41655455,
       "totalOther": {},
-      "contractCount": 288,
+      "contractCount": 297,
       "awardCount": 0
     },
     {
@@ -119,6 +128,15 @@
       "totalEur": 6792183.15261751,
       "totalOther": {},
       "contractCount": 224,
+      "awardCount": 0
+    },
+    {
+      "eik": "825294069",
+      "name": "Център за спешна Медицинска помощ - пловдив",
+      "tier": "hospital",
+      "totalEur": 5340682.716053389,
+      "totalOther": {},
+      "contractCount": 88,
       "awardCount": 0
     },
     {
@@ -149,12 +167,75 @@
       "awardCount": 0
     },
     {
+      "eik": "000451081",
+      "name": "Детска Градина \"Осми март\" - пловдив",
+      "tier": "school",
+      "totalEur": 1132389.2392951332,
+      "totalOther": {},
+      "contractCount": 21,
+      "awardCount": 0
+    },
+    {
       "eik": "000458204",
       "name": "Основно училище \"Димитър Талев\" - гр. Пловдив",
       "tier": "school",
       "totalEur": 497471.99946692714,
       "totalOther": {},
       "contractCount": 29,
+      "awardCount": 0
+    },
+    {
+      "eik": "000458282",
+      "name": "Математическа гимназия \"Академик кирил Попов\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 433684.0897983976,
+      "totalOther": {},
+      "contractCount": 8,
+      "awardCount": 0
+    },
+    {
+      "eik": "000454743",
+      "name": "Средно училище \"П.К. Яворов\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 373363.09264440165,
+      "totalOther": {},
+      "contractCount": 24,
+      "awardCount": 0
+    },
+    {
+      "eik": "000463272",
+      "name": "Диагностично - консултативен център ІV - пловдив ЕООД",
+      "tier": "hospital",
+      "totalEur": 352472.1857842451,
+      "totalOther": {},
+      "contractCount": 71,
+      "awardCount": 0
+    },
+    {
+      "eik": "115890886",
+      "name": "Средно училище \"Свети КОНСТАНТИН-КИРИЛ философ\"",
+      "tier": "school",
+      "totalEur": 285737.62634779094,
+      "totalOther": {},
+      "contractCount": 19,
+      "awardCount": 0
+    },
+    {
+      "eik": "000453285",
+      "name": "Основно училище \"Райна княгиня\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 211207.1330889188,
+      "totalOther": {},
+      "contractCount": 32,
+      "awardCount": 0
+    },
+    {
+      "eik": "000454750",
+      "name": "Езикова гимназия \"Пловдив\"",
+      "tier": "school",
+      "totalEur": 206205.05825455178,
+      "totalOther": {},
+      "contractCount": 5,
       "awardCount": 0
     },
     {
@@ -176,6 +257,15 @@
       "awardCount": 0
     },
     {
+      "eik": "115783717",
+      "name": "Детска Градина \"Дружба\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 170945.48389645317,
+      "totalOther": {},
+      "contractCount": 7,
+      "awardCount": 0
+    },
+    {
       "eik": "000452991",
       "name": "Основно училище \"Васил Левски\" - гр. Пловдив",
       "tier": "school",
@@ -191,6 +281,24 @@
       "totalEur": 157220.55174299405,
       "totalOther": {},
       "contractCount": 27,
+      "awardCount": 0
+    },
+    {
+      "eik": "000460372",
+      "name": "Детска Градина \"Лилия\"",
+      "tier": "school",
+      "totalEur": 147178.3656637847,
+      "totalOther": {},
+      "contractCount": 14,
+      "awardCount": 0
+    },
+    {
+      "eik": "000451156",
+      "name": "Детска Градина \"Майчина грижа\"",
+      "tier": "school",
+      "totalEur": 134576.2,
+      "totalOther": {},
+      "contractCount": 1,
       "awardCount": 0
     },
     {
@@ -230,12 +338,39 @@
       "awardCount": 0
     },
     {
+      "eik": "000453011",
+      "name": "Основно училище \"Стоян Михайловски\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 51182.840042846256,
+      "totalOther": {},
+      "contractCount": 11,
+      "awardCount": 0
+    },
+    {
       "eik": "000453260",
       "name": "Средно училище \"Христо г. Данов\"",
       "tier": "school",
       "totalEur": 51179.81726428166,
       "totalOther": {},
       "contractCount": 10,
+      "awardCount": 0
+    },
+    {
+      "eik": "000453100",
+      "name": "Средно училище \"Любен Каравелов\"",
+      "tier": "school",
+      "totalEur": 19921.510000000002,
+      "totalOther": {},
+      "contractCount": 5,
+      "awardCount": 0
+    },
+    {
+      "eik": "115777575",
+      "name": "Средно училище \"Братя миладинови\" - гр. Пловдив",
+      "tier": "school",
+      "totalEur": 12633.03,
+      "totalOther": {},
+      "contractCount": 5,
       "awardCount": 0
     }
   ],
@@ -844,57 +979,57 @@
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 152843984.06977403,
+      "totalEur": 154411540.5598575,
       "totalOther": {},
-      "contractCount": 525
+      "contractCount": 547
     },
     {
       "year": "2012",
-      "totalEur": 131574471.04809725,
+      "totalEur": 137347044.3290061,
       "totalOther": {},
-      "contractCount": 618
+      "contractCount": 645
     },
     {
       "year": "2013",
-      "totalEur": 196192765.62380165,
+      "totalEur": 205471268.78102902,
       "totalOther": {},
-      "contractCount": 679
+      "contractCount": 709
     },
     {
       "year": "2014",
-      "totalEur": 290462686.0923495,
+      "totalEur": 301021595.2920244,
       "totalOther": {},
-      "contractCount": 694
+      "contractCount": 735
     },
     {
       "year": "2015",
-      "totalEur": 219737477.27563232,
+      "totalEur": 229301867.63164485,
       "totalOther": {},
-      "contractCount": 641
+      "contractCount": 671
     },
     {
       "year": "2016",
-      "totalEur": 441141950.12347716,
+      "totalEur": 451956994.9433235,
       "totalOther": {},
-      "contractCount": 1202
+      "contractCount": 1267
     },
     {
       "year": "2017",
-      "totalEur": 250819754.3958319,
+      "totalEur": 257756246.1154599,
       "totalOther": {},
-      "contractCount": 989
+      "contractCount": 1033
     },
     {
       "year": "2019",
-      "totalEur": 366889732.70171744,
+      "totalEur": 378074656.2533553,
       "totalOther": {},
-      "contractCount": 1055
+      "contractCount": 1092
     },
     {
       "year": "2020",
-      "totalEur": 19572593.129259706,
+      "totalEur": 20083950.14904159,
       "totalOther": {},
-      "contractCount": 128
+      "contractCount": 135
     },
     {
       "year": "2021",
@@ -904,25 +1039,25 @@
     },
     {
       "year": "2022",
-      "totalEur": 293909165.8119571,
+      "totalEur": 299363168.4144328,
       "totalOther": {
         "USD": 38811.259999999995
       },
-      "contractCount": 1218
+      "contractCount": 1309
     },
     {
       "year": "2023",
-      "totalEur": 446980955.83460724,
+      "totalEur": 451802833.0222973,
       "totalOther": {
         "USD": 18350
       },
-      "contractCount": 1415
+      "contractCount": 1496
     },
     {
       "year": "2026",
-      "totalEur": 358213672.7475106,
+      "totalEur": 371509071.4075106,
       "totalOther": {},
-      "contractCount": 739
+      "contractCount": 912
     }
   ]
 }

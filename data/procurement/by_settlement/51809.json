@@ -3,19 +3,28 @@
   "name": "Нова Загора",
   "province": "Сливен",
   "obshtina": "Нова Загора",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 312,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 363,
   "awardCount": 0,
-  "totalEur": 51486715.063274994,
+  "totalEur": 56031030.41650354,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000590597",
       "name": "Община Нова загора",
       "tier": "municipal",
-      "totalEur": 51486715.063274994,
+      "totalEur": 54239646.99327499,
       "totalOther": {},
-      "contractCount": 312,
+      "contractCount": 317,
+      "awardCount": 0
+    },
+    {
+      "eik": "119502651",
+      "name": "Многопрофилна болница за активно лечение \"Света петка Българска\" ЕООД",
+      "tier": "hospital",
+      "totalEur": 1791383.4232285528,
+      "totalOther": {},
+      "contractCount": 46,
       "awardCount": 0
     }
   ],
@@ -153,6 +162,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-409502-799088%2F2026-01-19-contractamendment"
     },
     {
+      "key": "7bcda15520d2",
+      "ocid": "ocds-e82gsb-543563",
+      "date": "2026-06-02",
+      "amount": 723759.57,
+      "currency": "EUR",
+      "amountEur": 723759.57,
+      "partyEik": "175410402",
+      "partyName": "Техно строй българия ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-543563-862165%2F2026-06-02-award"
+    },
+    {
       "key": "12d8ec804762",
       "ocid": "aop-legacy-2011-2015-434518",
       "date": "2011-04-07",
@@ -163,6 +184,18 @@
       "partyName": "ДЗЗД Консорциум ремонтстрой - София",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "281ef9c06659",
+      "ocid": "ocds-e82gsb-543563",
+      "date": "2026-06-02",
+      "amount": 699769.94,
+      "currency": "EUR",
+      "amountEur": 699769.94,
+      "partyEik": "175410402",
+      "partyName": "Техно строй българия ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-543563-862191%2F2026-06-02-award"
     },
     {
       "key": "7eaa25900002",
@@ -187,6 +220,18 @@
       "partyName": "Пътно ПОДДЪРЖАНЕ-СЛИВЕН ЕООД",
       "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
       "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-534512-856124%2F2026-05-18-award"
+    },
+    {
+      "key": "1dc9b8bc92b7",
+      "ocid": "ocds-e82gsb-543563",
+      "date": "2026-06-02",
+      "amount": 628890.7,
+      "currency": "EUR",
+      "amountEur": 628890.7,
+      "partyEik": "175410402",
+      "partyName": "Техно строй българия ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-543563-862199%2F2026-06-02-award"
     },
     {
       "key": "b172f938d86e",
@@ -235,6 +280,18 @@
       "partyName": "КИМ-2002 ЕООД",
       "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
       "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-532889-797005%2F2026-01-14-award"
+    },
+    {
+      "key": "7aa6b0421821",
+      "ocid": "ocds-e82gsb-543563",
+      "date": "2026-06-02",
+      "amount": 514536.02,
+      "currency": "EUR",
+      "amountEur": 514536.02,
+      "partyEik": "175410402",
+      "partyName": "Техно строй българия ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-543563-862206%2F2026-06-02-award"
     },
     {
       "key": "d60ef19b3b26",
@@ -571,62 +628,14 @@
       "partyName": "КИМ-2002 ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "adedeecb55ea",
-      "ocid": "aop-legacy-2016-737621",
-      "date": "2016-06-23",
-      "amount": 568113,
-      "currency": "BGN",
-      "amountEur": 290471.5645020273,
-      "partyEik": "838178157",
-      "partyName": "Инфрастрой - инженеринг ООД - Ямбол",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "f51daa52cc7f",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-06-23",
-      "amount": 568113,
-      "currency": "BGN",
-      "amountEur": 290471.5645020273,
-      "partyEik": "838178157",
-      "partyName": "Инфрастрой - инженеринг ООД - Ямбол",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "116cce78d2e6",
-      "ocid": "aop-legacy-2016-739759",
-      "date": "2016-07-08",
-      "amount": 563728,
-      "currency": "BGN",
-      "amountEur": 288229.54960298183,
-      "partyEik": "102662516",
-      "partyName": "Хидрострой инвест ЕООД - с. Братя Даскалови",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "15a45e0b44f6",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-07-08",
-      "amount": 563728,
-      "currency": "BGN",
-      "amountEur": 288229.54960298183,
-      "partyEik": "102662516",
-      "partyName": "Хидрострой инвест ЕООД - с. Братя Даскалови",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 4191505.907977687,
+      "totalEur": 4336628.950368897,
       "totalOther": {},
-      "contractCount": 21
+      "contractCount": 25
     },
     {
       "year": "2012",
@@ -636,39 +645,39 @@
     },
     {
       "year": "2013",
-      "totalEur": 5098134.556684374,
-      "totalOther": {},
-      "contractCount": 10
-    },
-    {
-      "year": "2014",
-      "totalEur": 199389.0062019705,
-      "totalOther": {},
-      "contractCount": 6
-    },
-    {
-      "year": "2015",
-      "totalEur": 2904581.129239249,
+      "totalEur": 5276234.391537096,
       "totalOther": {},
       "contractCount": 12
     },
     {
-      "year": "2016",
-      "totalEur": 16720890.793167097,
+      "year": "2014",
+      "totalEur": 317782.22033612325,
       "totalOther": {},
-      "contractCount": 36
+      "contractCount": 10
+    },
+    {
+      "year": "2015",
+      "totalEur": 3031752.7136816597,
+      "totalOther": {},
+      "contractCount": 17
+    },
+    {
+      "year": "2016",
+      "totalEur": 16832781.397156198,
+      "totalOther": {},
+      "contractCount": 39
     },
     {
       "year": "2017",
-      "totalEur": 4547001.129955057,
+      "totalEur": 4688382.027067792,
       "totalOther": {},
-      "contractCount": 46
+      "contractCount": 49
     },
     {
       "year": "2019",
-      "totalEur": 1858590.8693495856,
+      "totalEur": 2056460.827372522,
       "totalOther": {},
-      "contractCount": 33
+      "contractCount": 35
     },
     {
       "year": "2020",
@@ -678,21 +687,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 2483806.6805397198,
+      "totalEur": 2819060.342667819,
       "totalOther": {},
-      "contractCount": 37
+      "contractCount": 49
     },
     {
       "year": "2023",
-      "totalEur": 1652351.201280275,
+      "totalEur": 2088550.2574354622,
       "totalOther": {},
-      "contractCount": 50
+      "contractCount": 60
     },
     {
       "year": "2026",
-      "totalEur": 9510735.970000003,
+      "totalEur": 12263669.47,
       "totalOther": {},
-      "contractCount": 45
+      "contractCount": 51
     }
   ]
 }

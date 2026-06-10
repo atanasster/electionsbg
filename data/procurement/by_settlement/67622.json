@@ -1,0 +1,44 @@
+{
+  "ekatte": "67622",
+  "name": "Смолница",
+  "province": "Добрич",
+  "obshtina": "Добрич-селска",
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 10692.65,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000842443",
+      "name": "Основно училище \"Климент Охридски\"",
+      "tier": "school",
+      "totalEur": 10692.65,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "fc4e2dd317fa",
+      "ocid": "ocds-e82gsb-526573",
+      "date": "2026-05-29",
+      "amount": 10692.65,
+      "currency": "EUR",
+      "amountEur": 10692.65,
+      "partyEik": "131468980",
+      "partyName": "А1 България ЕАД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-526573-860813%2F2026-05-29-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 10692.65,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

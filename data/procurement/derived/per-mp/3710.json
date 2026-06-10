@@ -1,13 +1,13 @@
 {
   "mpId": 3710,
   "summary": {
-    "totalEur": 173692.53974016148,
+    "totalEur": 224820.99974016147,
     "totalOther": {},
-    "contractCount": 4,
+    "contractCount": 5,
     "awardCount": 0
   },
   "scorecard": {
-    "value": 173692.53974016148,
+    "value": 224820.99974016147,
     "rank": 31,
     "cohortSize": 55,
     "cohortMedian": 505258.64
@@ -17,7 +17,7 @@
       "mpId": 3710,
       "mpName": "Пламен Николаев Николов",
       "contractorEik": "206867786",
-      "contractorName": "КП Инвест груп ЕООД",
+      "contractorName": "КП инвест груп ЕООД",
       "relations": [
         {
           "kind": "manager",
@@ -30,9 +30,9 @@
           "confidence": "medium"
         }
       ],
-      "totalEur": 173692.53974016148,
+      "totalEur": 224820.99974016147,
       "totalOther": {},
-      "contractCount": 4,
+      "contractCount": 5,
       "awardCount": 0,
       "byYear": [
         {
@@ -40,14 +40,20 @@
           "contractCount": 4,
           "totalEur": 173692.53974016148,
           "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 1,
+          "totalEur": 51128.46,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000696327",
-          "name": "Район \"Връбница",
-          "contractCount": 4,
-          "totalEur": 173692.53974016148,
+          "name": "Район \"Витоша\"",
+          "contractCount": 5,
+          "totalEur": 224820.99974016147,
           "totalOther": {}
         }
       ]

@@ -3,19 +3,19 @@
   "name": "Нови пазар",
   "province": "Шумен",
   "obshtina": "Нови пазар",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 398,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 404,
   "awardCount": 0,
-  "totalEur": 56206289.64039089,
+  "totalEur": 57339401.38039089,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000931575",
       "name": "Община Нови пазар",
       "tier": "municipal",
-      "totalEur": 56206289.64039089,
+      "totalEur": 57339401.38039089,
       "totalOther": {},
-      "contractCount": 398,
+      "contractCount": 404,
       "awardCount": 0
     }
   ],
@@ -175,6 +175,18 @@
       "partyName": "ПЪТСТРОЙ-ВАРНА ЕООД",
       "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
       "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-436062-856390%2F2026-05-18-contractamendment"
+    },
+    {
+      "key": "5468813016bf",
+      "ocid": "ocds-e82gsb-581414",
+      "date": "2026-05-27",
+      "amount": 708958.33,
+      "currency": "EUR",
+      "amountEur": 708958.33,
+      "partyEik": "200871895",
+      "partyName": "ДЖИ ТИ ЕЙ Петролиум ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-581414-859232%2F2026-05-27-award"
     },
     {
       "key": "89295394b87a",
@@ -607,18 +619,6 @@
       "partyName": "ДЗЗД Груп Консулт - Пловдив",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "bbfb8dd0670b",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-07-10",
-      "amount": 476050,
-      "currency": "BGN",
-      "amountEur": 243400.50004345982,
-      "partyEik": "177142757",
-      "partyName": "ДЗЗД Груп Консулт - Пловдив",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     }
   ],
   "byYear": [
@@ -690,9 +690,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 2948822.7900000005,
+      "totalEur": 4081934.5300000007,
       "totalOther": {},
-      "contractCount": 42
+      "contractCount": 48
     }
   ]
 }

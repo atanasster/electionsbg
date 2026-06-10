@@ -3,28 +3,28 @@
   "name": "Силистра",
   "province": "Силистра",
   "obshtina": "Силистра",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 1034,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 1098,
   "awardCount": 0,
-  "totalEur": 121481439.52607474,
+  "totalEur": 139577484.03358594,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000565537",
       "name": "Община Силистра",
       "tier": "municipal",
-      "totalEur": 104729902.43420357,
+      "totalEur": 121728903.05420357,
       "totalOther": {},
-      "contractCount": 669,
+      "contractCount": 680,
       "awardCount": 0
     },
     {
       "eik": "118501906",
       "name": "Многопрофилна болница за активно ЛЕЧЕНИЕ-СИЛИСТРА АД",
       "tier": "hospital",
-      "totalEur": 16040522.74176289,
+      "totalEur": 16333474.10176289,
       "totalOther": {},
-      "contractCount": 316,
+      "contractCount": 330,
       "awardCount": 0
     },
     {
@@ -37,12 +37,39 @@
       "awardCount": 0
     },
     {
+      "eik": "000558959",
+      "name": "Природоматематическа гимназия \"Свети климент Охридски\"",
+      "tier": "school",
+      "totalEur": 351222.6146328157,
+      "totalOther": {},
+      "contractCount": 12,
+      "awardCount": 0
+    },
+    {
+      "eik": "000559000",
+      "name": "Професионална Земеделска гимназия \"Добруджа\"",
+      "tier": "school",
+      "totalEur": 269739.2762409821,
+      "totalOther": {},
+      "contractCount": 10,
+      "awardCount": 0
+    },
+    {
       "eik": "000558231",
       "name": "Основно училище \"Отец Паисий\"",
       "tier": "school",
       "totalEur": 248126.46363554095,
       "totalOther": {},
       "contractCount": 27,
+      "awardCount": 0
+    },
+    {
+      "eik": "000558261",
+      "name": "Средно училище \"Никола Йонков Вапцаров\"",
+      "tier": "school",
+      "totalEur": 183130.6366373867,
+      "totalOther": {},
+      "contractCount": 17,
       "awardCount": 0
     }
   ],
@@ -70,6 +97,30 @@
       "partyName": "СТРОИТЕЛНО-ПРЕДПРИЕМАЧЕСКИ Холдинг ЕООД - София",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "92552fe38afe",
+      "ocid": "ocds-e82gsb-450818",
+      "date": "2026-05-29",
+      "amount": 7860806.24,
+      "currency": "EUR",
+      "amountEur": 7860806.24,
+      "partyEik": "131070485",
+      "partyName": "Каро трейдинг ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-450818-860314%2F2026-05-29-contractamendment"
+    },
+    {
+      "key": "919d77bf6f44",
+      "ocid": "ocds-e82gsb-450818",
+      "date": "2026-05-26",
+      "amount": 7860806.24,
+      "currency": "EUR",
+      "amountEur": 7860806.24,
+      "partyEik": "131070485",
+      "partyName": "Каро трейдинг ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-450818-858125%2F2026-05-26-contractamendment"
     },
     {
       "key": "fba738ceb41f",
@@ -372,6 +423,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
+      "key": "c77260bff747",
+      "ocid": "ocds-e82gsb-578349",
+      "date": "2026-05-22",
+      "amount": 762855.96,
+      "currency": "EUR",
+      "amountEur": 762855.96,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-578349-857864%2F2026-05-22-award"
+    },
+    {
       "key": "8dd382075865",
       "ocid": "aop-legacy-2023-368104",
       "date": "2023-04-27",
@@ -610,74 +673,38 @@
       "partyName": "Девня Трейд ООД - Варна",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "85cabdb20898",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-07-17",
-      "amount": 944657.87,
-      "currency": "BGN",
-      "amountEur": 482995.8994391128,
-      "partyEik": "177134237",
-      "partyName": "ДЗЗД Директ Строй - Варна",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "891f3c66e200",
-      "ocid": "aop-legacy-2017-795869",
-      "date": "2017-07-17",
-      "amount": 944657.87,
-      "currency": "BGN",
-      "amountEur": 482995.8994391128,
-      "partyEik": "177134237",
-      "partyName": "ДЗЗД Директ Строй - Варна",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "f0214f46004b",
-      "ocid": "aop-legacy-2011-2015-529212",
-      "date": "2013-03-13",
-      "amount": 924328.37,
-      "currency": "BGN",
-      "amountEur": 472601.59114033426,
-      "partyEik": "103267194",
-      "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 6690992.34084762,
+      "totalEur": 6705905.441679492,
       "totalOther": {},
-      "contractCount": 57
+      "contractCount": 61
     },
     {
       "year": "2012",
-      "totalEur": 3395717.98162417,
+      "totalEur": 3460984.3902588673,
       "totalOther": {},
-      "contractCount": 72
+      "contractCount": 74
     },
     {
       "year": "2013",
-      "totalEur": 33463816.926829018,
+      "totalEur": 33483964.127761614,
       "totalOther": {},
-      "contractCount": 67
+      "contractCount": 69
     },
     {
       "year": "2014",
-      "totalEur": 5999772.199015251,
+      "totalEur": 6073420.005828727,
       "totalOther": {},
-      "contractCount": 85
+      "contractCount": 92
     },
     {
       "year": "2015",
-      "totalEur": 6257315.640929937,
+      "totalEur": 6310360.128436521,
       "totalOther": {},
-      "contractCount": 94
+      "contractCount": 95
     },
     {
       "year": "2016",
@@ -699,27 +726,27 @@
     },
     {
       "year": "2020",
-      "totalEur": 2253768.0064218263,
+      "totalEur": 2318098.239622053,
       "totalOther": {},
-      "contractCount": 15
+      "contractCount": 18
     },
     {
       "year": "2022",
-      "totalEur": 3491517.4836258786,
+      "totalEur": 3718987.95396328,
       "totalOther": {},
-      "contractCount": 64
+      "contractCount": 68
     },
     {
       "year": "2023",
-      "totalEur": 6727257.026428677,
+      "totalEur": 6781959.505683009,
       "totalOther": {},
-      "contractCount": 77
+      "contractCount": 80
     },
     {
       "year": "2026",
-      "totalEur": 14766372.690000005,
+      "totalEur": 32288895.01000001,
       "totalOther": {},
-      "contractCount": 64
+      "contractCount": 102
     }
   ]
 }

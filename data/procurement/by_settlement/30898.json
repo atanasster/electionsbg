@@ -3,23 +3,35 @@
   "name": "Зимница",
   "province": "Ямбол",
   "obshtina": "Стралджа",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 3,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 5,
   "awardCount": 0,
-  "totalEur": 65087.955841867646,
+  "totalEur": 112280.69584186765,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000961771",
       "name": "Основно училище \"Свети свети кирил и Методий\"",
       "tier": "school",
-      "totalEur": 65087.955841867646,
+      "totalEur": 112280.69584186765,
       "totalOther": {},
-      "contractCount": 3,
+      "contractCount": 5,
       "awardCount": 0
     }
   ],
   "topContracts": [
+    {
+      "key": "7342825dd300",
+      "ocid": "ocds-e82gsb-559966",
+      "date": "2026-06-01",
+      "amount": 36134.28,
+      "currency": "EUR",
+      "amountEur": 36134.28,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-559966-861723%2F2026-06-01-contractamendment"
+    },
     {
       "key": "cef86aa5c339",
       "ocid": "ocds-e82gsb-559966",
@@ -45,6 +57,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "4a70305c202c",
+      "ocid": "ocds-e82gsb-536247",
+      "date": "2026-06-01",
+      "amount": 11058.46,
+      "currency": "EUR",
+      "amountEur": 11058.46,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-536247-861711%2F2026-06-01-contractamendment"
+    },
+    {
       "key": "6e3bafa17a84",
       "ocid": "ocds-e82gsb-536247",
       "date": "2026-03-13",
@@ -66,9 +90,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 47192.74,
+      "totalEur": 94385.48,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 4
     }
   ]
 }

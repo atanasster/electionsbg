@@ -3,19 +3,19 @@
   "name": "Павел баня",
   "province": "Стара Загора",
   "obshtina": "Павел баня",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 140,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 141,
   "awardCount": 0,
-  "totalEur": 30761210.897844844,
+  "totalEur": 31070250.897844844,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000817931",
       "name": "Община Павел баня",
       "tier": "municipal",
-      "totalEur": 30761210.897844844,
+      "totalEur": 31070250.897844844,
       "totalOther": {},
-      "contractCount": 140,
+      "contractCount": 141,
       "awardCount": 0
     }
   ],
@@ -199,6 +199,18 @@
       "partyName": "Пътприбор ООД - София",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "8d2b8595da27",
+      "ocid": "ocds-e82gsb-559582",
+      "date": "2026-05-22",
+      "amount": 309040,
+      "currency": "EUR",
+      "amountEur": 309040,
+      "partyEik": "040336507",
+      "partyName": "ТОМБОУ-БЪЛГАРИЯ ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-559582-857591%2F2026-05-22-award"
     },
     {
       "key": "f65474fbc05f",
@@ -607,18 +619,6 @@
       "partyName": "Петрол АД - Ловеч /старо наименование Петрол АД - София/",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "c15fe4bf97e2",
-      "ocid": "aop-legacy-2011-2015-664466",
-      "date": "2015-04-29",
-      "amount": 171000,
-      "currency": "BGN",
-      "amountEur": 87430.91168455336,
-      "partyEik": "831496285",
-      "partyName": "Петрол АД - Ловеч /старо наименование Петрол АД - София/",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -690,9 +690,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 3802136.878119213,
+      "totalEur": 4111176.878119213,
       "totalOther": {},
-      "contractCount": 8
+      "contractCount": 9
     }
   ]
 }

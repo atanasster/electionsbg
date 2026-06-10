@@ -3,19 +3,19 @@
   "name": "Съединение",
   "province": "Пловдив",
   "obshtina": "Съединение",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 57,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 58,
   "awardCount": 0,
-  "totalEur": 16004293.980501525,
+  "totalEur": 16019939.520501526,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000471640",
       "name": "Община Съединение",
       "tier": "municipal",
-      "totalEur": 16004293.980501525,
+      "totalEur": 16019939.520501526,
       "totalOther": {},
-      "contractCount": 57,
+      "contractCount": 58,
       "awardCount": 0
     }
   ],
@@ -609,16 +609,16 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "ed94994c1f3d",
-      "ocid": "aop-legacy-2023-370294",
-      "date": "2023-05-04",
-      "amount": 29850,
-      "currency": "BGN",
-      "amountEur": 15262.062653707122,
-      "partyEik": "206452103",
-      "partyName": "Тръст Билд Про ЕООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+      "key": "a176db4ec3ae",
+      "ocid": "ocds-e82gsb-571385",
+      "date": "2026-05-22",
+      "amount": 15645.54,
+      "currency": "EUR",
+      "amountEur": 15645.54,
+      "partyEik": "200701882",
+      "partyName": "ЕнЕкс ЕАД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-571385-857861%2F2026-05-22-award"
     }
   ],
   "byYear": [
@@ -672,9 +672,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 4833452.21,
+      "totalEur": 4849097.75,
       "totalOther": {},
-      "contractCount": 8
+      "contractCount": 9
     }
   ]
 }

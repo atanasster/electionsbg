@@ -3,19 +3,19 @@
   "name": "Чирпан",
   "province": "Стара Загора",
   "obshtina": "Чирпан",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 302,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 306,
   "awardCount": 0,
-  "totalEur": 45846299.11511607,
+  "totalEur": 46458664.56511606,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000818086",
       "name": "Община Чирпан",
       "tier": "municipal",
-      "totalEur": 45846299.11511607,
+      "totalEur": 46458664.56511606,
       "totalOther": {},
-      "contractCount": 302,
+      "contractCount": 306,
       "awardCount": 0
     }
   ],
@@ -237,6 +237,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
+      "key": "1bbc97e81959",
+      "ocid": "ocds-e82gsb-548646",
+      "date": "2026-05-21",
+      "amount": 394814.48,
+      "currency": "EUR",
+      "amountEur": 394814.48,
+      "partyEik": "201894833",
+      "partyName": "МБ Инженеринг 2001 ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-548646-857803%2F2026-05-21-award"
+    },
+    {
       "key": "e81bbb6ad002",
       "ocid": "aop-legacy-2011-2015-518818",
       "date": "2013-01-17",
@@ -367,6 +379,18 @@
       "partyName": "ВиК - Бунар ЕООД",
       "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
       "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-529563-797120%2F2026-01-14-award"
+    },
+    {
+      "key": "8a92917fa295",
+      "ocid": "ocds-e82gsb-539462",
+      "date": "2026-06-01",
+      "amount": 215999.63,
+      "currency": "EUR",
+      "amountEur": 215999.63,
+      "partyEik": "203106181",
+      "partyName": "ДИ ЕС Инженеринг 14 ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-539462-861629%2F2026-06-01-award"
     },
     {
       "key": "1bba96170e90",
@@ -595,30 +619,6 @@
       "partyName": "Миг Чирпан ООД",
       "bundleUuid": "c5404069-668a-4cd2-ab43-a1cdc26e03c6",
       "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
-    },
-    {
-      "key": "77d8a260e2be",
-      "ocid": "aop-legacy-2019-942499",
-      "date": "2019-11-01",
-      "amount": 240000,
-      "currency": "BGN",
-      "amountEur": 122710.05148709244,
-      "partyEik": "203539763",
-      "partyName": "Миг Чирпан ООД - Чирпан",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "92fa53d00024",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-11-01",
-      "amount": 240000,
-      "currency": "BGN",
-      "amountEur": 122710.05148709244,
-      "partyEik": "203539763",
-      "partyName": "Миг Чирпан ООД - Чирпан",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
@@ -690,9 +690,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 4267419.779999998,
+      "totalEur": 4879785.229999998,
       "totalOther": {},
-      "contractCount": 23
+      "contractCount": 27
     }
   ]
 }

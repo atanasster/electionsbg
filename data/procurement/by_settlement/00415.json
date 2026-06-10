@@ -3,19 +3,19 @@
   "name": "Алфатар",
   "province": "Силистра",
   "obshtina": "Алфатар",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 44,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 45,
   "awardCount": 0,
-  "totalEur": 9823720.448976547,
+  "totalEur": 10381236.748976547,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000565359",
       "name": "Община Алфатар",
       "tier": "municipal",
-      "totalEur": 9823720.448976547,
+      "totalEur": 10381236.748976547,
       "totalOther": {},
-      "contractCount": 44,
+      "contractCount": 45,
       "awardCount": 0
     }
   ],
@@ -67,6 +67,18 @@
       "partyName": "Лесимпорт ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "657c9b84749b",
+      "ocid": "ocds-e82gsb-551199",
+      "date": "2026-05-22",
+      "amount": 557516.3,
+      "currency": "EUR",
+      "amountEur": 557516.3,
+      "partyEik": "103561242",
+      "partyName": "ПЪТСТРОЙ-ВАРНА ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-551199-858523%2F2026-05-22-award"
     },
     {
       "key": "852ab960ef21",
@@ -618,9 +630,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 2224188.46,
+      "totalEur": 2781704.76,
       "totalOther": {},
-      "contractCount": 7
+      "contractCount": 8
     }
   ]
 }

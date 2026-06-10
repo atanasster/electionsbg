@@ -3,19 +3,19 @@
   "name": "Вълчедръм",
   "province": "Монтана",
   "obshtina": "Вълчедръм",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 78,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 80,
   "awardCount": 0,
-  "totalEur": 14189699.818760168,
+  "totalEur": 14373071.528760167,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000320648",
       "name": "Община Вълчедръм",
       "tier": "municipal",
-      "totalEur": 14189699.818760168,
+      "totalEur": 14373071.528760167,
       "totalOther": {},
-      "contractCount": 78,
+      "contractCount": 80,
       "awardCount": 0
     }
   ],
@@ -261,6 +261,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "cf8d9c37ae02",
+      "ocid": "ocds-e82gsb-497037",
+      "date": "2026-06-02",
+      "amount": 153106.71,
+      "currency": "EUR",
+      "amountEur": 153106.71,
+      "partyEik": "201144735",
+      "partyName": "Стефстрой 2010 ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-497037-862123%2F2026-06-02-award"
+    },
+    {
       "key": "645d88257ffe",
       "ocid": "aop-legacy-2019-949829",
       "date": "2019-12-20",
@@ -501,6 +513,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
+      "key": "f9e37cf8f569",
+      "ocid": "ocds-e82gsb-575929",
+      "date": "2026-05-28",
+      "amount": 30265,
+      "currency": "EUR",
+      "amountEur": 30265,
+      "partyEik": "160109813",
+      "partyName": "Мегаметал 1 ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-575929-860531%2F2026-05-28-award"
+    },
+    {
       "key": "d0dd99add2ec",
       "ocid": "aop-legacy-2011-2015-517732",
       "date": "2013-01-11",
@@ -595,30 +619,6 @@
       "partyName": "Пътища М ЕООД - Монтана",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "170e1c3827d4",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-07-24",
-      "amount": 47083.33,
-      "currency": "BGN",
-      "amountEur": 24073.32436868235,
-      "partyEik": "201812686",
-      "partyName": "Пътища М ЕООД - Монтана",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "2cac35092db7",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-08-08",
-      "amount": 45300,
-      "currency": "BGN",
-      "amountEur": 23161.522218188697,
-      "partyEik": "147023220",
-      "partyName": "Агропром сервиз ООД, Карнобат",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
@@ -684,9 +684,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 4024074.79,
+      "totalEur": 4207446.5,
       "totalOther": {},
-      "contractCount": 6
+      "contractCount": 8
     }
   ]
 }

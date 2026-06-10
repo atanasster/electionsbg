@@ -3,19 +3,28 @@
   "name": "Кърджали",
   "province": "Кърджали",
   "obshtina": "Кърджали",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 514,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 827,
   "awardCount": 0,
-  "totalEur": 141087395.41656187,
+  "totalEur": 172981082.47534382,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000235920",
       "name": "Община Кърджали",
       "tier": "municipal",
-      "totalEur": 140510501.7527767,
+      "totalEur": 140922095.2027767,
       "totalOther": {},
-      "contractCount": 495,
+      "contractCount": 496,
+      "awardCount": 0
+    },
+    {
+      "eik": "108501669",
+      "name": "Многопрофилна болница за активно ЛЕЧЕНИЕ-Д-Р атанас Дафовски АД",
+      "tier": "hospital",
+      "totalEur": 31482093.608781956,
+      "totalOther": {},
+      "contractCount": 312,
       "awardCount": 0
     },
     {
@@ -171,6 +180,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
+      "key": "619fd8d2ed0f",
+      "ocid": "aop-legacy-2023-398975",
+      "date": "2023-07-14",
+      "amount": 3360000,
+      "currency": "BGN",
+      "amountEur": 1717940.7208192942,
+      "partyEik": "123526430",
+      "partyName": "ЕВН България електроснабдяване ЕАД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
       "key": "eddc4f8d4520",
       "ocid": "ocds-e82gsb-370621",
       "date": "2026-02-12",
@@ -315,6 +336,42 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
+      "key": "f99d18a41b4c",
+      "ocid": "aop-legacy-2023-346095",
+      "date": "2023-03-21",
+      "amount": 1827448,
+      "currency": "BGN",
+      "amountEur": 934359.325708267,
+      "partyEik": "206117083",
+      "partyName": "КЕР Токи пауър АД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "c43f101ee8ea",
+      "ocid": "aop-legacy-2022-289774",
+      "date": "2022-10-28",
+      "amount": 1760233,
+      "currency": "BGN",
+      "amountEur": 899992.8419136633,
+      "partyEik": "832018046",
+      "partyName": "Соломед ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "5abd9130f923",
+      "ocid": "aop-legacy-2019-943359",
+      "date": "2019-11-11",
+      "amount": 1685291.26,
+      "currency": "BGN",
+      "amountEur": 861675.7386889454,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
       "key": "be52c2218229",
       "ocid": "aop-legacy-2011-2015-549947",
       "date": "2013-07-11",
@@ -411,6 +468,30 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
+      "key": "b0ff20cd8ef7",
+      "ocid": "ocds-e82gsb-548579",
+      "date": "2026-04-02",
+      "amount": 677374.82,
+      "currency": "EUR",
+      "amountEur": 677374.82,
+      "partyEik": "205606662",
+      "partyName": "Номад енерджи къмпани ЕООД",
+      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
+      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-548579-838703%2F2026-04-02-award"
+    },
+    {
+      "key": "5979f65092d6",
+      "ocid": "aop-legacy-2022-204055",
+      "date": "2022-03-09",
+      "amount": 1300000,
+      "currency": "BGN",
+      "amountEur": 664679.445555084,
+      "partyEik": "131285259",
+      "partyName": "Ситигаз българия ЕАД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
       "key": "c2906020c1bb",
       "ocid": "ocds-e82gsb-517649",
       "date": "2026-02-05",
@@ -471,6 +552,42 @@
       "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-517649-806442%2F2026-02-05-award"
     },
     {
+      "key": "bcb3cb5587fd",
+      "ocid": "aop-legacy-2019-943359",
+      "date": "2019-11-11",
+      "amount": 1057982.8,
+      "currency": "BGN",
+      "amountEur": 540938.0160852426,
+      "partyEik": "131268894",
+      "partyName": "Медекс ООД /Старо наименование Медекс Фармасютикълс ООД/",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "280922657472",
+      "ocid": "aop-legacy-2022-310104",
+      "date": "2022-12-16",
+      "amount": 1034688,
+      "currency": "BGN",
+      "amountEur": 529027.5739711529,
+      "partyEik": "115258267",
+      "partyName": "Интергаленика ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "c32e7997ce67",
+      "ocid": "aop-legacy-2022-245270",
+      "date": "2022-06-27",
+      "amount": 1032516.67,
+      "currency": "BGN",
+      "amountEur": 527917.3905707551,
+      "partyEik": "130421337",
+      "partyName": "Бикомед ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
       "key": "69141581b37b",
       "ocid": "aop-legacy-2017-x",
       "date": "2017-01-30",
@@ -507,6 +624,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "a9082e2dcd59",
+      "ocid": "aop-legacy-2019-943359",
+      "date": "2019-11-11",
+      "amount": 999974.1,
+      "currency": "BGN",
+      "amountEur": 511278.6387364955,
+      "partyEik": "103267194",
+      "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
       "key": "22b34d2c7312",
       "ocid": "aop-legacy-2011-2015-618931",
       "date": "2014-08-12",
@@ -517,126 +646,6 @@
       "partyName": "ДЗЗД Корект-Груп - Кърджали",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "716aede5c7be",
-      "ocid": "aop-legacy-2011-2015-560937",
-      "date": "2013-09-20",
-      "amount": 920000,
-      "currency": "BGN",
-      "amountEur": 470388.530700521,
-      "partyEik": "176565106",
-      "partyName": "ДЗЗД Ежис еко България- София",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "2126842fa5c9",
-      "ocid": "aop-legacy-2011-2015-582175",
-      "date": "2014-01-27",
-      "amount": 833028.77,
-      "currency": "BGN",
-      "amountEur": 425920.84690387204,
-      "partyEik": "000223245",
-      "partyName": "Устра - Холдинг АД - гр. Кърджали",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "86cd4d993497",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-08-21",
-      "amount": 819009.4,
-      "currency": "BGN",
-      "amountEur": 418752.8568433862,
-      "partyEik": "040712646",
-      "partyName": "Ардастрой ООД - Кърджали",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "fcd37306e1ea",
-      "ocid": "aop-legacy-2019-928551",
-      "date": "2019-08-21",
-      "amount": 819009.4,
-      "currency": "BGN",
-      "amountEur": 418752.8568433862,
-      "partyEik": "040712646",
-      "partyName": "Ардастрой ООД - Кърджали",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "691a03a99e9c",
-      "ocid": "ocds-e82gsb-491786",
-      "date": "2026-02-03",
-      "amount": 384150.63,
-      "currency": "EUR",
-      "amountEur": 384150.63,
-      "partyEik": "818033478",
-      "partyName": "Саварона ЕООД",
-      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
-      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-491786-805032%2F2026-02-03-award"
-    },
-    {
-      "key": "70fcd468c7ce",
-      "ocid": "aop-legacy-2011-2015-460681",
-      "date": "2011-12-16",
-      "amount": 750000,
-      "currency": "BGN",
-      "amountEur": 383468.91089716385,
-      "partyEik": "108045128",
-      "partyName": "ЕТ Ъшък - Велитин Кямил, с. Стремци, община Кърджали",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "03a2de0665ac",
-      "ocid": "aop-legacy-2011-2015-560936",
-      "date": "2013-09-20",
-      "amount": 740000,
-      "currency": "BGN",
-      "amountEur": 378355.99208520167,
-      "partyEik": "176565106",
-      "partyName": "ДЗЗД Ежис еко България- София",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "c1dae93a140a",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-08-21",
-      "amount": 736724.8,
-      "currency": "BGN",
-      "amountEur": 376681.40891590784,
-      "partyEik": "177358484",
-      "partyName": "Дружество по ззд екомед   -   Кърджали",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "d2c3a606d16c",
-      "ocid": "aop-legacy-2019-928551",
-      "date": "2019-08-21",
-      "amount": 736724.8,
-      "currency": "BGN",
-      "amountEur": 376681.40891590784,
-      "partyEik": "177358484",
-      "partyName": "Дружество по ззд екомед   -   Кърджали",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "d7179c963056",
-      "ocid": "ocds-e82gsb-517649",
-      "date": "2026-02-05",
-      "amount": 366851.04,
-      "currency": "EUR",
-      "amountEur": 366851.04,
-      "partyEik": "160117913",
-      "partyName": "НЕК Груп ЕООД",
-      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
-      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-517649-806442%2F2026-02-05-award"
     }
   ],
   "byYear": [
@@ -672,45 +681,51 @@
     },
     {
       "year": "2016",
-      "totalEur": 8434679.558039298,
+      "totalEur": 9395214.164830277,
       "totalOther": {},
-      "contractCount": 37
+      "contractCount": 44
     },
     {
       "year": "2017",
-      "totalEur": 4513903.60102872,
+      "totalEur": 6586700.014827466,
       "totalOther": {},
-      "contractCount": 33
+      "contractCount": 56
     },
     {
       "year": "2019",
-      "totalEur": 29714531.160683703,
+      "totalEur": 35285249.69961602,
       "totalOther": {},
-      "contractCount": 16
+      "contractCount": 67
+    },
+    {
+      "year": "2020",
+      "totalEur": 3129.1063129208574,
+      "totalOther": {},
+      "contractCount": 2
     },
     {
       "year": "2021",
-      "totalEur": 9476550.078483302,
+      "totalEur": 12901217.968841871,
       "totalOther": {},
-      "contractCount": 8
+      "contractCount": 53
     },
     {
       "year": "2022",
-      "totalEur": 2738872.1770297014,
+      "totalEur": 12679899.807242962,
       "totalOther": {},
-      "contractCount": 39
+      "contractCount": 104
     },
     {
       "year": "2023",
-      "totalEur": 18589516.461042117,
+      "totalEur": 24502195.083417274,
       "totalOther": {},
-      "contractCount": 164
+      "contractCount": 239
     },
     {
       "year": "2026",
-      "totalEur": 8984650.27,
+      "totalEur": 12992784.52,
       "totalOther": {},
-      "contractCount": 58
+      "contractCount": 103
     }
   ]
 }

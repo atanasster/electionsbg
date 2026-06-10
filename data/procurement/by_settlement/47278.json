@@ -3,19 +3,19 @@
   "name": "Симеоновград",
   "province": "Хасково",
   "obshtina": "Симеоновград",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 132,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 134,
   "awardCount": 0,
-  "totalEur": 30613099.6680464,
+  "totalEur": 31338247.548046403,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000903729",
       "name": "Община Симеоновград",
       "tier": "municipal",
-      "totalEur": 30613099.6680464,
+      "totalEur": 31338247.548046403,
       "totalOther": {},
-      "contractCount": 132,
+      "contractCount": 134,
       "awardCount": 0
     }
   ],
@@ -211,6 +211,18 @@
       "partyName": "Елдер - строй ООД",
       "bundleUuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
       "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-552491-845037%2F2026-04-17-award"
+    },
+    {
+      "key": "07fb336a6ee3",
+      "ocid": "ocds-e82gsb-566748",
+      "date": "2026-06-02",
+      "amount": 437427.88,
+      "currency": "EUR",
+      "amountEur": 437427.88,
+      "partyEik": "126616737",
+      "partyName": "Арис ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-566748-862048%2F2026-06-02-award"
     },
     {
       "key": "9c0d5e925d32",
@@ -501,6 +513,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
+      "key": "6004342a52d6",
+      "ocid": "ocds-e82gsb-567100",
+      "date": "2026-06-01",
+      "amount": 287720,
+      "currency": "EUR",
+      "amountEur": 287720,
+      "partyEik": "202571423",
+      "partyName": "Сетатех ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-567100-861485%2F2026-06-01-award"
+    },
+    {
       "key": "5733267caf7d",
       "ocid": "aop-legacy-2021-1017185",
       "date": "2021-07-21",
@@ -595,30 +619,6 @@
       "partyName": "Орс - Инфраструктура ООД - София",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "61697560e07d",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-10-04",
-      "amount": 276700,
-      "currency": "BGN",
-      "amountEur": 141474.46352699367,
-      "partyEik": "126690709",
-      "partyName": "Проинвест  ЕООД - гр.Хасково",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "a8e06709ad26",
-      "ocid": "aop-legacy-2016-751559",
-      "date": "2016-10-04",
-      "amount": 276700,
-      "currency": "BGN",
-      "amountEur": 141474.46352699367,
-      "partyEik": "126690709",
-      "partyName": "Проинвест  ЕООД - гр.Хасково",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     }
   ],
   "byYear": [
@@ -696,9 +696,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 6171793.4399999995,
+      "totalEur": 6896941.319999999,
       "totalOther": {},
-      "contractCount": 7
+      "contractCount": 9
     }
   ]
 }

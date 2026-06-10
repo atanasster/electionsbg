@@ -3,28 +3,19 @@
   "name": "Твърдица",
   "province": "Сливен",
   "obshtina": "Твърдица",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 75,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 74,
   "awardCount": 0,
-  "totalEur": 14937252.842079984,
+  "totalEur": 15174539.276299521,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000590704",
       "name": "Община Твърдица",
       "tier": "municipal",
-      "totalEur": 14865621.156299522,
+      "totalEur": 15174539.276299521,
       "totalOther": {},
-      "contractCount": 73,
-      "awardCount": 0
-    },
-    {
-      "eik": "000582593",
-      "name": "Средно училище \"Неофит Рилски\"",
-      "tier": "school",
-      "totalEur": 71631.68578046148,
-      "totalOther": {},
-      "contractCount": 2,
+      "contractCount": 74,
       "awardCount": 0
     }
   ],
@@ -196,6 +187,18 @@
       "partyName": "Асфа ООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "66f24a5d55a7",
+      "ocid": "ocds-e82gsb-332488",
+      "date": "2026-06-02",
+      "amount": 308918.12,
+      "currency": "EUR",
+      "amountEur": 308918.12,
+      "partyEik": "123686029",
+      "partyName": "Асфа ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-332488-862100%2F2026-06-02-contractamendment"
     },
     {
       "key": "7c40d351b9fd",
@@ -616,27 +619,9 @@
       "partyName": "Строител 2016 ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "79c9b454dabb",
-      "ocid": "aop-legacy-2011-2015-421958",
-      "date": "2011-01-10",
-      "amount": 78000,
-      "currency": "BGN",
-      "amountEur": 39880.76673330504,
-      "partyEik": "119662912",
-      "partyName": "Токо груп ЕООД - Сливен",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
-    {
-      "year": "2011",
-      "totalEur": 39880.76673330504,
-      "totalOther": {},
-      "contractCount": 1
-    },
     {
       "year": "2019",
       "totalEur": 3330397.928245297,
@@ -663,7 +648,7 @@
     },
     {
       "year": "2026",
-      "totalEur": 5374855.8290471565,
+      "totalEur": 5652023.03,
       "totalOther": {},
       "contractCount": 20
     }

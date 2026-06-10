@@ -1,0 +1,62 @@
+{
+  "ekatte": "17573",
+  "name": "Градище",
+  "province": "Шумен",
+  "obshtina": "Шумен",
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 175769.53210565337,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000921830",
+      "name": "Основно училище \"Васил Левски\"",
+      "tier": "school",
+      "totalEur": 175769.53210565337,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "ed352890c6e8",
+      "ocid": "aop-legacy-2022-282640",
+      "date": "2022-10-06",
+      "amount": 262800.95,
+      "currency": "BGN",
+      "amountEur": 134367.99210565336,
+      "partyEik": "205770804",
+      "partyName": "Инженеринг смр груп ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "ae14c9e06990",
+      "ocid": "ocds-e82gsb-513198",
+      "date": "2026-05-27",
+      "amount": 41401.54,
+      "currency": "EUR",
+      "amountEur": 41401.54,
+      "partyEik": "131468980",
+      "partyName": "А1 България ЕАД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-513198-859630%2F2026-05-27-contractamendment"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2022",
+      "totalEur": 134367.99210565336,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 41401.54,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

@@ -3,19 +3,19 @@
   "name": "Трявна",
   "province": "Габрово",
   "obshtina": "Трявна",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 313,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 315,
   "awardCount": 0,
-  "totalEur": 31699330.471689817,
+  "totalEur": 32426909.751689818,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000215946",
       "name": "Община Трявна",
       "tier": "municipal",
-      "totalEur": 31064466.989665665,
+      "totalEur": 31792046.269665666,
       "totalOther": {},
-      "contractCount": 285,
+      "contractCount": 287,
       "awardCount": 0
     },
     {
@@ -109,6 +109,18 @@
       "partyName": "Инфра билд проект ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "a9bfc3905126",
+      "ocid": "ocds-e82gsb-534948",
+      "date": "2026-05-26",
+      "amount": 679585.11,
+      "currency": "EUR",
+      "amountEur": 679585.11,
+      "partyEik": "148044897",
+      "partyName": "Евро ремонт строй ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-534948-858954%2F2026-05-26-award"
     },
     {
       "key": "46e3d15c515d",
@@ -625,18 +637,6 @@
       "partyName": "АЙ Пи ел строй ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "276107224fc1",
-      "ocid": "aop-legacy-2022-281018",
-      "date": "2022-10-03",
-      "amount": 215117.97,
-      "currency": "BGN",
-      "amountEur": 109988.0715604117,
-      "partyEik": "202639340",
-      "partyName": "Азимут Спорт ООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
@@ -708,9 +708,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 2494818.520242097,
+      "totalEur": 3222397.8002420967,
       "totalOther": {},
-      "contractCount": 23
+      "contractCount": 25
     }
   ]
 }

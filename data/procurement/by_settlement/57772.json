@@ -3,19 +3,19 @@
   "name": "Пордим",
   "province": "Плевен",
   "obshtina": "Пордим",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 79,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 80,
   "awardCount": 0,
-  "totalEur": 10712298.437723115,
+  "totalEur": 11587461.647723116,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000413999",
       "name": "Община Пордим",
       "tier": "municipal",
-      "totalEur": 10712298.437723115,
+      "totalEur": 11587461.647723116,
       "totalOther": {},
-      "contractCount": 79,
+      "contractCount": 80,
       "awardCount": 0
     }
   ],
@@ -31,6 +31,18 @@
       "partyName": "Виастрой АД",
       "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
       "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-563340-854310%2F2026-05-12-award"
+    },
+    {
+      "key": "90416799d5e3",
+      "ocid": "ocds-e82gsb-574824",
+      "date": "2026-05-27",
+      "amount": 875163.21,
+      "currency": "EUR",
+      "amountEur": 875163.21,
+      "partyEik": "123682269",
+      "partyName": "Трейс груп холд АД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-574824-859846%2F2026-05-27-award"
     },
     {
       "key": "db809909d6b7",
@@ -607,18 +619,6 @@
       "partyName": "Медиком ООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "91b460043ae8",
-      "ocid": "aop-legacy-2011-2015-571712",
-      "date": "2013-11-26",
-      "amount": 95440.95,
-      "currency": "BGN",
-      "amountEur": 48798.18286865423,
-      "partyEik": "200811624",
-      "partyName": "Николов и синове 2009 ООД - Пордим",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -696,9 +696,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 1642664.4000000001,
+      "totalEur": 2517827.6100000003,
       "totalOther": {},
-      "contractCount": 11
+      "contractCount": 12
     }
   ]
 }

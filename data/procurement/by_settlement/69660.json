@@ -3,19 +3,28 @@
   "name": "Стралджа",
   "province": "Ямбол",
   "obshtina": "Стралджа",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 143,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 153,
   "awardCount": 0,
-  "totalEur": 34650890.37943513,
+  "totalEur": 35420060.515216924,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000970432",
       "name": "Община Стралджа",
       "tier": "municipal",
-      "totalEur": 34565404.30007368,
+      "totalEur": 35103910.970073685,
       "totalOther": {},
-      "contractCount": 130,
+      "contractCount": 134,
+      "awardCount": 0
+    },
+    {
+      "eik": "000964949",
+      "name": "Основно училище \"СВ.СВ.КИРИЛ и Методий\"",
+      "tier": "school",
+      "totalEur": 230663.46578179084,
+      "totalOther": {},
+      "contractCount": 6,
       "awardCount": 0
     },
     {
@@ -258,6 +267,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "c8cc1d6958d7",
+      "ocid": "ocds-e82gsb-557535",
+      "date": "2026-06-03",
+      "amount": 309785,
+      "currency": "EUR",
+      "amountEur": 309785,
+      "partyEik": "838178157",
+      "partyName": "Инфрастрой - инженеринг ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-557535-862787%2F2026-06-03-award"
+    },
+    {
       "key": "5b80af9ac0d9",
       "ocid": "aop-legacy-2011-2015-514229",
       "date": "2012-12-17",
@@ -462,6 +483,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "cd443764f474",
+      "ocid": "ocds-e82gsb-557535",
+      "date": "2026-06-03",
+      "amount": 170250,
+      "currency": "EUR",
+      "amountEur": 170250,
+      "partyEik": "838178157",
+      "partyName": "Инфрастрой - инженеринг ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-557535-862787%2F2026-06-03-award"
+    },
+    {
       "key": "36ff1c9cf018",
       "ocid": "aop-legacy-2011-2015-636676",
       "date": "2014-12-05",
@@ -604,30 +637,6 @@
       "partyName": "Авс - Инженеринг - н ЕООД - Ямбол",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "76d83f208708",
-      "ocid": "aop-legacy-2023-362825",
-      "date": "2023-04-21",
-      "amount": 205249,
-      "currency": "BGN",
-      "amountEur": 104942.14732364265,
-      "partyEik": "126145986",
-      "partyName": "Уикенд ООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "76d83f208708",
-      "ocid": "aop-legacy-2023-362825",
-      "date": "2023-04-21",
-      "amount": 194534,
-      "currency": "BGN",
-      "amountEur": 99463.65481662517,
-      "partyEik": "126145986",
-      "partyName": "Уикенд ООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -687,9 +696,9 @@
     },
     {
       "year": "2022",
-      "totalEur": 1417418.4361626522,
+      "totalEur": 1533965.9019444431,
       "totalOther": {},
-      "contractCount": 15
+      "contractCount": 18
     },
     {
       "year": "2023",
@@ -699,9 +708,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 8884641.820000002,
+      "totalEur": 9537264.490000002,
       "totalOther": {},
-      "contractCount": 25
+      "contractCount": 32
     }
   ]
 }

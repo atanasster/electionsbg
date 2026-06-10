@@ -3,19 +3,28 @@
   "name": "Раднево",
   "province": "Стара Загора",
   "obshtina": "Раднево",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 451,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 626,
   "awardCount": 0,
-  "totalEur": 74832455.2281417,
+  "totalEur": 84642286.82032967,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000817956",
       "name": "Община Раднево",
       "tier": "municipal",
-      "totalEur": 74832455.2281417,
+      "totalEur": 76467187.6681417,
       "totalOther": {},
-      "contractCount": 451,
+      "contractCount": 454,
+      "awardCount": 0
+    },
+    {
+      "eik": "000812090",
+      "name": "Държавна психиатрична болница \"Д-Р георги Кисьов\"",
+      "tier": "hospital",
+      "totalEur": 8175099.152187972,
+      "totalOther": {},
+      "contractCount": 172,
       "awardCount": 0
     }
   ],
@@ -189,6 +198,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-535091-856603%2F2026-05-19-award"
     },
     {
+      "key": "babf62918a4b",
+      "ocid": "aop-legacy-2022-216323",
+      "date": "2022-04-04",
+      "amount": 2070144,
+      "currency": "BGN",
+      "amountEur": 1058447.8201070644,
+      "partyEik": "130078384",
+      "partyName": "ДЕЛТА-ПЕТРОЛЕУМ ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
       "key": "fb0b5f7e9ea6",
       "ocid": "ocds-e82gsb-513811",
       "date": "2026-01-12",
@@ -211,6 +232,18 @@
       "partyName": "Инфра билд проект ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "a1a154da3c31",
+      "ocid": "ocds-e82gsb-507516",
+      "date": "2026-05-21",
+      "amount": 917666.67,
+      "currency": "EUR",
+      "amountEur": 917666.67,
+      "partyEik": "202917932",
+      "partyName": "Инфра билд проект ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-507516-858082%2F2026-05-21-award"
     },
     {
       "key": "aa793c691137",
@@ -261,6 +294,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
+      "key": "99565b72ae02",
+      "ocid": "aop-legacy-2019-901983",
+      "date": "2019-03-22",
+      "amount": 1625136,
+      "currency": "BGN",
+      "amountEur": 830918.8426396977,
+      "partyEik": "130078384",
+      "partyName": "Делта Петролеум ЕООД - Нови Искър",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
       "key": "297ddd97663a",
       "ocid": "aop-legacy-2011-2015-468861",
       "date": "2012-02-15",
@@ -283,6 +328,18 @@
       "partyName": "Пътно строителна компания ЕС би ЕС АД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "1c2e2aca21cf",
+      "ocid": "ocds-e82gsb-506759",
+      "date": "2026-06-01",
+      "amount": 710644.59,
+      "currency": "EUR",
+      "amountEur": 710644.59,
+      "partyEik": "202987382",
+      "partyName": "АЙ ПИ ЕЛ Строй ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-506759-861712%2F2026-06-01-award"
     },
     {
       "key": "f5c366d17720",
@@ -571,128 +628,80 @@
       "partyName": "ДЗЗД Инженеринг",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "4531ad75563b",
-      "ocid": "aop-legacy-2011-2015-484273",
-      "date": "2012-05-28",
-      "amount": 577845.43,
-      "currency": "BGN",
-      "amountEur": 295447.6769453378,
-      "partyEik": "131425114",
-      "partyName": "Екса АД",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "54881b210277",
-      "ocid": "aop-legacy-2011-2015-564659",
-      "date": "2013-10-15",
-      "amount": 546484.13,
-      "currency": "BGN",
-      "amountEur": 279412.8988715788,
-      "partyEik": "833066574",
-      "partyName": "Строителство и монтаж ООД - Раднево",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "d2b4ce7d2696",
-      "ocid": "aop-legacy-2011-2015-592806",
-      "date": "2014-03-19",
-      "amount": 531498.74,
-      "currency": "BGN",
-      "amountEur": 271750.9906280198,
-      "partyEik": "176033783",
-      "partyName": "ДЗЗД Консорциум Хидроизомат и телекомплект - гр. София",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "0a12d702e5b5",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-10-13",
-      "amount": 525886.8,
-      "currency": "BGN",
-      "amountEur": 268881.65126825956,
-      "partyEik": "202571423",
-      "partyName": "Сетатех ЕООД - София",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 213384.4199137962,
+      "totalEur": 629269.7371448439,
       "totalOther": {},
-      "contractCount": 8
+      "contractCount": 19
     },
     {
       "year": "2012",
-      "totalEur": 7052258.667675616,
+      "totalEur": 7483960.901509846,
       "totalOther": {},
-      "contractCount": 16
+      "contractCount": 26
     },
     {
       "year": "2013",
-      "totalEur": 7257548.907624897,
+      "totalEur": 7557687.043352439,
       "totalOther": {},
-      "contractCount": 30
+      "contractCount": 39
     },
     {
       "year": "2014",
-      "totalEur": 10779466.390228188,
-      "totalOther": {},
-      "contractCount": 24
-    },
-    {
-      "year": "2015",
-      "totalEur": 5058931.9675022885,
-      "totalOther": {},
-      "contractCount": 16
-    },
-    {
-      "year": "2016",
-      "totalEur": 5500202.047212692,
-      "totalOther": {},
-      "contractCount": 49
-    },
-    {
-      "year": "2017",
-      "totalEur": 5129346.635443778,
-      "totalOther": {},
-      "contractCount": 51
-    },
-    {
-      "year": "2019",
-      "totalEur": 17126818.5783018,
-      "totalOther": {},
-      "contractCount": 75
-    },
-    {
-      "year": "2020",
-      "totalEur": 208639.70795007746,
-      "totalOther": {},
-      "contractCount": 5
-    },
-    {
-      "year": "2022",
-      "totalEur": 2609545.154742488,
+      "totalEur": 11343123.783764435,
       "totalOther": {},
       "contractCount": 37
     },
     {
-      "year": "2023",
-      "totalEur": 7355279.671546095,
+      "year": "2015",
+      "totalEur": 5498026.321306044,
       "totalOther": {},
-      "contractCount": 95
+      "contractCount": 29
+    },
+    {
+      "year": "2016",
+      "totalEur": 6744335.877862595,
+      "totalOther": {},
+      "contractCount": 65
+    },
+    {
+      "year": "2017",
+      "totalEur": 5961275.816405313,
+      "totalOther": {},
+      "contractCount": 64
+    },
+    {
+      "year": "2019",
+      "totalEur": 18451985.59690771,
+      "totalOther": {},
+      "contractCount": 93
+    },
+    {
+      "year": "2020",
+      "totalEur": 334669.4753634007,
+      "totalOther": {},
+      "contractCount": 11
+    },
+    {
+      "year": "2022",
+      "totalEur": 4094850.0636558393,
+      "totalOther": {},
+      "contractCount": 59
+    },
+    {
+      "year": "2023",
+      "totalEur": 7911928.823057218,
+      "totalOther": {},
+      "contractCount": 116
     },
     {
       "year": "2026",
-      "totalEur": 6541033.079999999,
+      "totalEur": 8631173.379999999,
       "totalOther": {},
-      "contractCount": 45
+      "contractCount": 68
     }
   ]
 }

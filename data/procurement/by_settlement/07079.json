@@ -3,28 +3,28 @@
   "name": "Бургас",
   "province": "Бургас",
   "obshtina": "Бургас",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 4763,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 4912,
   "awardCount": 0,
-  "totalEur": 2592527104.548574,
+  "totalEur": 2648196245.701691,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000056814",
       "name": "Община Бургас",
       "tier": "municipal",
-      "totalEur": 1658315886.1351092,
+      "totalEur": 1669759007.8251095,
       "totalOther": {},
-      "contractCount": 2557,
+      "contractCount": 2567,
       "awardCount": 0
     },
     {
       "eik": "812115210",
       "name": "Водоснабдяване и канализация ЕАД",
       "tier": "utility",
-      "totalEur": 714424992.1456766,
+      "totalEur": 752849955.5156767,
       "totalOther": {},
-      "contractCount": 810,
+      "contractCount": 814,
       "awardCount": 0
     },
     {
@@ -46,10 +46,37 @@
       "awardCount": 0
     },
     {
+      "eik": "102011085",
+      "name": "Топлофикация - бургас АД",
+      "tier": "utility",
+      "totalEur": 3866098.7732963488,
+      "totalOther": {},
+      "contractCount": 58,
+      "awardCount": 0
+    },
+    {
+      "eik": "000042565",
+      "name": "Основно училище \"Л.КАРАВЕЛОВ\"",
+      "tier": "school",
+      "totalEur": 1190295.43,
+      "totalOther": {},
+      "contractCount": 6,
+      "awardCount": 0
+    },
+    {
       "eik": "000048041",
       "name": "Основно училище \"Антон Страшимиров\"",
       "tier": "school",
       "totalEur": 437283.16128421185,
+      "totalOther": {},
+      "contractCount": 38,
+      "awardCount": 0
+    },
+    {
+      "eik": "000042519",
+      "name": "Основно училище \"Братя миладинови\"",
+      "tier": "school",
+      "totalEur": 412392.56152216706,
       "totalOther": {},
       "contractCount": 38,
       "awardCount": 0
@@ -61,6 +88,15 @@
       "totalEur": 218352.23251749895,
       "totalOther": {},
       "contractCount": 14,
+      "awardCount": 0
+    },
+    {
+      "eik": "000042558",
+      "name": "Средно училище \"СВ.СВ.КИРИЛ и Методий\"",
+      "tier": "school",
+      "totalEur": 139415.0064492824,
+      "totalOther": {},
+      "contractCount": 11,
       "awardCount": 0
     },
     {
@@ -100,6 +136,15 @@
       "awardCount": 0
     },
     {
+      "eik": "000044203",
+      "name": "Професионална гимназия по туризъм \"Проф. Д-Р асен Златаров\"",
+      "tier": "school",
+      "totalEur": 79541.97184913822,
+      "totalOther": {},
+      "contractCount": 9,
+      "awardCount": 0
+    },
+    {
       "eik": "000042490",
       "name": "Основно училище \"П.К.ЯВОРОВ\"",
       "tier": "school",
@@ -118,6 +163,24 @@
       "awardCount": 0
     },
     {
+      "eik": "000042637",
+      "name": "Основно училище \"Георги Бенковски\"",
+      "tier": "school",
+      "totalEur": 60449.22,
+      "totalOther": {},
+      "contractCount": 6,
+      "awardCount": 0
+    },
+    {
+      "eik": "000042985",
+      "name": "Основно училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 51128.51,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    },
+    {
       "eik": "000043578",
       "name": "Основно училище \"Христо Ботев\"",
       "tier": "school",
@@ -127,19 +190,19 @@
       "awardCount": 0
     },
     {
+      "eik": "000043998",
+      "name": "Профилирана гимназия за чужди езици \"Васил Левски\"",
+      "tier": "school",
+      "totalEur": 15680.619999999999,
+      "totalOther": {},
+      "contractCount": 6,
+      "awardCount": 0
+    },
+    {
       "eik": "000044000",
       "name": "Немска Езикова гимназия \"Гьоте\"",
       "tier": "school",
       "totalEur": 15200,
-      "totalOther": {},
-      "contractCount": 2,
-      "awardCount": 0
-    },
-    {
-      "eik": "000042985",
-      "name": "Основно училище \"Христо Ботев\"",
-      "tier": "school",
-      "totalEur": 13946,
       "totalOther": {},
       "contractCount": 2,
       "awardCount": 0
@@ -459,6 +522,42 @@
       "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-246769-796492%2F2026-01-15-contractamendment"
     },
     {
+      "key": "298933a74e8f",
+      "ocid": "ocds-e82gsb-104108",
+      "date": "2026-05-27",
+      "amount": 12566296.34,
+      "currency": "EUR",
+      "amountEur": 12566296.34,
+      "partyEik": "204257528",
+      "partyName": "ДЖИ ПИ Груп АД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-104108-858579%2F2026-05-27-contractamendment"
+    },
+    {
+      "key": "6b16d1a5fcf6",
+      "ocid": "ocds-e82gsb-104108",
+      "date": "2026-05-27",
+      "amount": 12566296.34,
+      "currency": "EUR",
+      "amountEur": 12566296.34,
+      "partyEik": "180889025",
+      "partyName": "ДЗЗД \"ВиК Груп ясна поляна\"",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-104108-858579%2F2026-05-27-contractamendment"
+    },
+    {
+      "key": "af98758cace5",
+      "ocid": "ocds-e82gsb-104108",
+      "date": "2026-05-27",
+      "amount": 12566296.34,
+      "currency": "EUR",
+      "amountEur": 12566296.34,
+      "partyEik": "200507906",
+      "partyName": "ВиК Инфраструктурно проектиране ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-104108-858579%2F2026-05-27-contractamendment"
+    },
+    {
       "key": "3ce5b45c4806",
       "ocid": "ocds-e82gsb-104108",
       "date": "2026-03-03",
@@ -709,98 +808,62 @@
       "partyName": "СЕТ Инженеринг ЕООД",
       "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
       "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-98876-809526%2F2026-02-12-contractamendment"
-    },
-    {
-      "key": "a1d8dfb83b69",
-      "ocid": "ocds-e82gsb-98876",
-      "date": "2026-02-12",
-      "amount": 10472693.23,
-      "currency": "EUR",
-      "amountEur": 10472693.23,
-      "partyEik": "202372115",
-      "partyName": "Билдинг Комфорт ЕООД",
-      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
-      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-98876-809526%2F2026-02-12-contractamendment"
-    },
-    {
-      "key": "01d3fce15e19",
-      "ocid": "ocds-e82gsb-347330",
-      "date": "2026-02-03",
-      "amount": 10402030,
-      "currency": "EUR",
-      "amountEur": 10402030,
-      "partyEik": "121877530",
-      "partyName": "Зауба ЕАД",
-      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
-      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-347330-804923%2F2026-02-03-award"
-    },
-    {
-      "key": "28f4f952beba",
-      "ocid": "ocds-e82gsb-347330",
-      "date": "2026-02-03",
-      "amount": 10402030,
-      "currency": "EUR",
-      "amountEur": 10402030,
-      "partyEik": "175324106",
-      "partyName": "Еникорп АД",
-      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
-      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-347330-804923%2F2026-02-03-award"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 20769570.243835095,
+      "totalEur": 20781849.17400796,
       "totalOther": {},
-      "contractCount": 181
+      "contractCount": 183
     },
     {
       "year": "2012",
-      "totalEur": 44084471.82526089,
+      "totalEur": 44338786.52541377,
       "totalOther": {},
-      "contractCount": 164
+      "contractCount": 172
     },
     {
       "year": "2013",
-      "totalEur": 46857989.30377385,
+      "totalEur": 46874863.331680164,
       "totalOther": {},
-      "contractCount": 227
+      "contractCount": 232
     },
     {
       "year": "2014",
-      "totalEur": 62886750.03451221,
+      "totalEur": 62928259.49596847,
       "totalOther": {},
-      "contractCount": 226
+      "contractCount": 233
     },
     {
       "year": "2015",
-      "totalEur": 92007940.6594643,
+      "totalEur": 92074563.99073544,
       "totalOther": {},
-      "contractCount": 240
+      "contractCount": 246
     },
     {
       "year": "2016",
-      "totalEur": 260627281.85987508,
+      "totalEur": 260844405.02497634,
       "totalOther": {},
-      "contractCount": 650
+      "contractCount": 654
     },
     {
       "year": "2017",
-      "totalEur": 155557118.773104,
+      "totalEur": 156003584.97926712,
       "totalOther": {},
-      "contractCount": 545
+      "contractCount": 551
     },
     {
       "year": "2019",
-      "totalEur": 223734214.21595958,
+      "totalEur": 224851413.1136143,
       "totalOther": {},
-      "contractCount": 445
+      "contractCount": 466
     },
     {
       "year": "2020",
-      "totalEur": 20627578.777296595,
+      "totalEur": 20661554.122802082,
       "totalOther": {},
-      "contractCount": 103
+      "contractCount": 104
     },
     {
       "year": "2021",
@@ -810,21 +873,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 79235875.97592838,
+      "totalEur": 79702736.21429266,
       "totalOther": {},
-      "contractCount": 674
+      "contractCount": 686
     },
     {
       "year": "2023",
-      "totalEur": 130867063.97795308,
+      "totalEur": 131574523.53732172,
       "totalOther": {},
-      "contractCount": 667
+      "contractCount": 686
     },
     {
       "year": "2026",
-      "totalEur": 1400770065.3682778,
+      "totalEur": 1453058522.658278,
       "totalOther": {},
-      "contractCount": 521
+      "contractCount": 579
     }
   ]
 }

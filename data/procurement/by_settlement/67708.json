@@ -3,32 +3,59 @@
   "name": "Смядово",
   "province": "Шумен",
   "obshtina": "Смядово",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "generatedAt": "2026-06-10T08:56:01.513Z",
   "contractCount": 171,
   "awardCount": 0,
-  "totalEur": 23239557.49067787,
+  "totalEur": 29114057.65701278,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000931657",
       "name": "Община Смядово",
       "tier": "municipal",
-      "totalEur": 23180535.827012777,
+      "totalEur": 29114057.65701278,
       "totalOther": {},
-      "contractCount": 168,
-      "awardCount": 0
-    },
-    {
-      "eik": "000924926",
-      "name": "Средно училище \"Св св кирил и Методий\"",
-      "tier": "school",
-      "totalEur": 59021.66366509359,
-      "totalOther": {},
-      "contractCount": 3,
+      "contractCount": 171,
       "awardCount": 0
     }
   ],
   "topContracts": [
+    {
+      "key": "7750219e7f56",
+      "ocid": "ocds-e82gsb-511454",
+      "date": "2026-05-27",
+      "amount": 1977840.61,
+      "currency": "EUR",
+      "amountEur": 1977840.61,
+      "partyEik": "835009611",
+      "partyName": "ПЪТИНЖЕНЕРИНГСТРОЙ-Т ЕАД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-511454-859916%2F2026-05-27-award"
+    },
+    {
+      "key": "c13ccc1bd28e",
+      "ocid": "ocds-e82gsb-511454",
+      "date": "2026-05-27",
+      "amount": 1977840.61,
+      "currency": "EUR",
+      "amountEur": 1977840.61,
+      "partyEik": "181068152",
+      "partyName": "Консорциум \"ПЪТИЩА-Т\"",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-511454-859916%2F2026-05-27-award"
+    },
+    {
+      "key": "daf3901f7518",
+      "ocid": "ocds-e82gsb-511454",
+      "date": "2026-05-27",
+      "amount": 1977840.61,
+      "currency": "EUR",
+      "amountEur": 1977840.61,
+      "partyEik": "837035366",
+      "partyName": "Пътища АД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-511454-859916%2F2026-05-27-award"
+    },
     {
       "key": "a355edde86f7",
       "ocid": "aop-legacy-2022-298978",
@@ -592,42 +619,6 @@
       "partyName": "Българска телекомуникационна компания /Бтк/ ЕАД /старо АД/",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "29ba6de04c66",
-      "ocid": "aop-legacy-2011-2015-602669",
-      "date": "2014-05-09",
-      "amount": 166900,
-      "currency": "BGN",
-      "amountEur": 85334.61497164887,
-      "partyEik": "176327297",
-      "partyName": "Обединение \"Стратегма - ивоформ\" - София",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "583c94498a00",
-      "ocid": "aop-legacy-2011-2015-550553",
-      "date": "2013-07-15",
-      "amount": 160000,
-      "currency": "BGN",
-      "amountEur": 81806.70099139496,
-      "partyEik": "201056573",
-      "partyName": "Темакс България ЕООД -Варна",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "2ae8b9c82818",
-      "ocid": "ocds-e82gsb-532573",
-      "date": "2026-02-23",
-      "amount": 75884.06,
-      "currency": "EUR",
-      "amountEur": 75884.06,
-      "partyEik": "200139525",
-      "partyName": "Анна - маркет ЕООД",
-      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
-      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-532573-814199%2F2026-02-23-award"
     }
   ],
   "byYear": [
@@ -639,15 +630,15 @@
     },
     {
       "year": "2012",
-      "totalEur": 1271866.2664955545,
+      "totalEur": 1269083.1360598826,
       "totalOther": {},
-      "contractCount": 6
+      "contractCount": 5
     },
     {
       "year": "2013",
-      "totalEur": 196767.62295291515,
+      "totalEur": 145517.75972349336,
       "totalOther": {},
-      "contractCount": 5
+      "contractCount": 4
     },
     {
       "year": "2014",
@@ -705,9 +696,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 3838964.749999999,
+      "totalEur": 9767497.91,
       "totalOther": {},
-      "contractCount": 28
+      "contractCount": 30
     }
   ]
 }

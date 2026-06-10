@@ -3,19 +3,19 @@
   "name": "Стражица",
   "province": "Велико Търново",
   "obshtina": "Стражица",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 250,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 253,
   "awardCount": 0,
-  "totalEur": 49431368.81654755,
+  "totalEur": 53127091.78654756,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000133972",
       "name": "Община Стражица",
       "tier": "municipal",
-      "totalEur": 49431368.81654755,
+      "totalEur": 53127091.78654756,
       "totalOther": {},
-      "contractCount": 250,
+      "contractCount": 253,
       "awardCount": 0
     }
   ],
@@ -45,6 +45,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
+      "key": "b715832d5d60",
+      "ocid": "ocds-e82gsb-357120",
+      "date": "2026-06-03",
+      "amount": 1997990.29,
+      "currency": "EUR",
+      "amountEur": 1997990.29,
+      "partyEik": "181145677",
+      "partyName": "ДЗЗД Кесарево",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-357120-862669%2F2026-06-03-contractamendment"
+    },
+    {
       "key": "20d68ecd5e33",
       "ocid": "aop-legacy-2011-2015-619975",
       "date": "2014-08-19",
@@ -67,6 +79,18 @@
       "partyName": "ДЗЗД Понсстройинженеринг - Геоплан - Велико Търново",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "ce835cc67978",
+      "ocid": "ocds-e82gsb-357120",
+      "date": "2026-06-03",
+      "amount": 1551971.15,
+      "currency": "EUR",
+      "amountEur": 1551971.15,
+      "partyEik": "181145677",
+      "partyName": "ДЗЗД Кесарево",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-357120-862615%2F2026-06-03-contractamendment"
     },
     {
       "key": "5593939473d4",
@@ -595,30 +619,6 @@
       "partyName": "Инфраструктурни системи ЕООД",
       "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
       "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-542986-808765%2F2026-02-10-award"
-    },
-    {
-      "key": "ec3b6873ce9c",
-      "ocid": "aop-legacy-2011-2015-460990",
-      "date": "2011-12-20",
-      "amount": 530255.6,
-      "currency": "BGN",
-      "amountEur": 271115.38323882956,
-      "partyEik": "102918086",
-      "partyName": "Бултранс Ойл ООД - Бургас",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "24169cb01062",
-      "ocid": "ocds-e82gsb-527549",
-      "date": "2026-01-05",
-      "amount": 264054.35,
-      "currency": "EUR",
-      "amountEur": 264054.35,
-      "partyEik": "202408636",
-      "partyName": "Строй контрол инвест ЕООД",
-      "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
-      "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-527549-792036%2F2026-01-05-award"
     }
   ],
   "byYear": [
@@ -690,9 +690,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 7989830.078518175,
+      "totalEur": 11685553.048518175,
       "totalOther": {},
-      "contractCount": 26
+      "contractCount": 29
     }
   ]
 }

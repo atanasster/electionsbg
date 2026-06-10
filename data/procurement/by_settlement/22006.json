@@ -3,19 +3,19 @@
   "name": "Долна баня",
   "province": "София",
   "obshtina": "Долна баня",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 32,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 34,
   "awardCount": 0,
-  "totalEur": 10185513.972882356,
+  "totalEur": 10277670.652882356,
   "totalOther": {},
   "awarders": [
     {
       "eik": "122054941",
       "name": "Община Долна баня",
       "tier": "municipal",
-      "totalEur": 10185513.972882356,
+      "totalEur": 10277670.652882356,
       "totalOther": {},
-      "contractCount": 32,
+      "contractCount": 34,
       "awardCount": 0
     }
   ],
@@ -345,6 +345,30 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "63bc5ced50e0",
+      "ocid": "ocds-e82gsb-563496",
+      "date": "2026-06-03",
+      "amount": 46078.34,
+      "currency": "EUR",
+      "amountEur": 46078.34,
+      "partyEik": "207450735",
+      "partyName": "ЕС ЕФ ЕЙ Аутомотив",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-563496-863067%2F2026-06-03-award"
+    },
+    {
+      "key": "e0f8a9e5a713",
+      "ocid": "ocds-e82gsb-563496",
+      "date": "2026-06-03",
+      "amount": 46078.34,
+      "currency": "EUR",
+      "amountEur": 46078.34,
+      "partyEik": "207450735",
+      "partyName": "ЕС ЕФ ЕЙ Аутомотив",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-563496-862931%2F2026-06-03-award"
+    },
+    {
       "key": "dc4bfaabb57f",
       "ocid": "aop-legacy-2016-746700",
       "date": "2016-08-29",
@@ -474,9 +498,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 592737.75,
+      "totalEur": 684894.4299999999,
       "totalOther": {},
-      "contractCount": 5
+      "contractCount": 7
     }
   ]
 }

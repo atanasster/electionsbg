@@ -3,46 +3,28 @@
   "name": "Панагюрище",
   "province": "Пазарджик",
   "obshtina": "Панагюрище",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 266,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 252,
   "awardCount": 0,
-  "totalEur": 47336100.238652065,
+  "totalEur": 41902934.12645316,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000351743",
       "name": "Община Панагюрище",
       "tier": "municipal",
-      "totalEur": 41605685.67371882,
+      "totalEur": 41651557.25371882,
       "totalOther": {},
-      "contractCount": 245,
-      "awardCount": 0
-    },
-    {
-      "eik": "112106795",
-      "name": "Водоснабдяване и канализация - п ЕООД",
-      "tier": "utility",
-      "totalEur": 5096771.026408225,
-      "totalOther": {},
-      "contractCount": 11,
-      "awardCount": 0
-    },
-    {
-      "eik": "175740396",
-      "name": "Професионална гимназия по индустриални технологии, Мениджмънт и туризъм \"Проф. Лъчезар Цоцорков\"",
-      "tier": "school",
-      "totalEur": 411566.6657906874,
-      "totalOther": {},
-      "contractCount": 7,
+      "contractCount": 246,
       "awardCount": 0
     },
     {
       "eik": "000342623",
-      "name": "Средно училище \"Нешо Бончев",
+      "name": "Средно училище \"Нешо Бончев\"",
       "tier": "school",
-      "totalEur": 222076.87273433784,
+      "totalEur": 251376.87273433784,
       "totalOther": {},
-      "contractCount": 3,
+      "contractCount": 6,
       "awardCount": 0
     }
   ],
@@ -58,18 +40,6 @@
       "partyName": "Ззд Русо Панагюрище",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "b84725f02b4b",
-      "ocid": "aop-legacy-2023-327817",
-      "date": "2023-02-06",
-      "amount": 4795829.66,
-      "currency": "BGN",
-      "amountEur": 2452068.768758021,
-      "partyEik": "113570147",
-      "partyName": "Електрохолд Трейд ЕАД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
       "key": "8a03d8fbbf9c",
@@ -130,30 +100,6 @@
       "partyName": "ДЗЗД Арс -Пазарджик",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "05f5f568cdf6",
-      "ocid": "aop-legacy-2023-453788",
-      "date": "2023-12-01",
-      "amount": 1932699.86,
-      "currency": "BGN",
-      "amountEur": 988173.7472070681,
-      "partyEik": "113570147",
-      "partyName": "Електрохолд Трейд ЕАД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "e665d91bca9a",
-      "ocid": "ocds-e82gsb-512099",
-      "date": "2026-02-20",
-      "amount": 950526,
-      "currency": "EUR",
-      "amountEur": 950526,
-      "partyEik": "201325372",
-      "partyName": "Мост енерджи АД",
-      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
-      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-512099-813529%2F2026-02-20-award"
     },
     {
       "key": "e8e6d8fc3d2c",
@@ -646,6 +592,42 @@
       "partyName": "Автомагистрали Хемус АД - София",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "fbc0d5f3d6fc",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-10-06",
+      "amount": 408333.33,
+      "currency": "BGN",
+      "amountEur": 208777.5164508163,
+      "partyEik": "831643461",
+      "partyName": "Автомагистрали Хемус АД - София",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "2bfd4b4c4b76",
+      "ocid": "aop-legacy-2017-x",
+      "date": "2017-05-12",
+      "amount": 406756.5,
+      "currency": "BGN",
+      "amountEur": 207971.29607378965,
+      "partyEik": "115781068",
+      "partyName": "Салина 7 ЕООД - Хисар",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "bd3a057be22a",
+      "ocid": "aop-legacy-2017-786445",
+      "date": "2017-05-12",
+      "amount": 406756.5,
+      "currency": "BGN",
+      "amountEur": 207971.29607378965,
+      "partyEik": "115781068",
+      "partyName": "Салина 7 ЕООД - Хисар",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     }
   ],
   "byYear": [
@@ -663,21 +645,21 @@
     },
     {
       "year": "2013",
-      "totalEur": 2473226.7170459605,
+      "totalEur": 2292098.500380913,
       "totalOther": {},
-      "contractCount": 18
+      "contractCount": 16
     },
     {
       "year": "2014",
-      "totalEur": 9109064.30006698,
+      "totalEur": 8966242.582433034,
       "totalOther": {},
-      "contractCount": 20
+      "contractCount": 19
     },
     {
       "year": "2015",
-      "totalEur": 1802917.3496674048,
+      "totalEur": 1632772.1939023333,
       "totalOther": {},
-      "contractCount": 10
+      "contractCount": 9
     },
     {
       "year": "2016",
@@ -687,21 +669,21 @@
     },
     {
       "year": "2017",
-      "totalEur": 13421207.241938205,
+      "totalEur": 13261944.933864396,
       "totalOther": {},
-      "contractCount": 40
+      "contractCount": 38
     },
     {
       "year": "2019",
-      "totalEur": 3198120.5830772617,
+      "totalEur": 3138659.1268157256,
       "totalOther": {},
-      "contractCount": 19
+      "contractCount": 17
     },
     {
       "year": "2020",
-      "totalEur": 75670.43147921855,
+      "totalEur": 34024.42952608356,
       "totalOther": {},
-      "contractCount": 3
+      "contractCount": 2
     },
     {
       "year": "2021",
@@ -711,21 +693,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 3669393.878813599,
+      "totalEur": 3494864.3951672697,
       "totalOther": {},
-      "contractCount": 47
+      "contractCount": 44
     },
     {
       "year": "2023",
-      "totalEur": 8135757.090340163,
+      "totalEur": 4602368.718140125,
       "totalOther": {},
-      "contractCount": 52
+      "contractCount": 48
     },
     {
       "year": "2026",
-      "totalEur": 2947473.6300000004,
+      "totalEur": 1976690.2300000004,
       "totalOther": {},
-      "contractCount": 20
+      "contractCount": 22
     }
   ]
 }

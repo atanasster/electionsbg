@@ -3,19 +3,19 @@
   "name": "Исперих",
   "province": "Разград",
   "obshtina": "Исперих",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 284,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 291,
   "awardCount": 0,
-  "totalEur": 48663624.49574419,
+  "totalEur": 49731407.02574419,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000505821",
       "name": "Община Исперих",
       "tier": "municipal",
-      "totalEur": 47114094.386820875,
+      "totalEur": 48181876.91682088,
       "totalOther": {},
-      "contractCount": 257,
+      "contractCount": 264,
       "awardCount": 0
     },
     {
@@ -217,6 +217,30 @@
       "partyName": "ДЗЗД Терм Исперих",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "38ed04904837",
+      "ocid": "ocds-e82gsb-491573",
+      "date": "2026-05-26",
+      "amount": 473781.91,
+      "currency": "EUR",
+      "amountEur": 473781.91,
+      "partyEik": "207914559",
+      "partyName": "ДИ ЕС - 46 ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-491573-859046%2F2026-05-26-contractamendment"
+    },
+    {
+      "key": "39faaf3134c4",
+      "ocid": "ocds-e82gsb-491573",
+      "date": "2026-05-26",
+      "amount": 473781.91,
+      "currency": "EUR",
+      "amountEur": 473781.91,
+      "partyEik": "207914559",
+      "partyName": "ДИ ЕС - 46 ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-491573-858694%2F2026-05-26-contractamendment"
     },
     {
       "key": "33c896004d1a",
@@ -613,30 +637,6 @@
       "partyName": "Меаца ЕООД - Кърджали",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "1f21eeadac61",
-      "ocid": "aop-legacy-2011-2015-569015",
-      "date": "2013-11-08",
-      "amount": 311913.48,
-      "currency": "BGN",
-      "amountEur": 159478.82995965905,
-      "partyEik": "116014376",
-      "partyName": "Пътно строителство АД",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "f7029a92aa72",
-      "ocid": "aop-legacy-2022-256660",
-      "date": "2022-07-25",
-      "amount": 305880.24,
-      "currency": "BGN",
-      "amountEur": 156394.08333035078,
-      "partyEik": "116044896",
-      "partyName": "ПЪТ Консулт ООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
@@ -708,9 +708,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 1882311.5799999998,
+      "totalEur": 2950094.1100000003,
       "totalOther": {},
-      "contractCount": 25
+      "contractCount": 32
     }
   ]
 }

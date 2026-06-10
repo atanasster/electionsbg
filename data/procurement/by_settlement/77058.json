@@ -3,19 +3,19 @@
   "name": "Хаджидимово",
   "province": "Благоевград",
   "obshtina": "Хаджидимово",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 106,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 108,
   "awardCount": 0,
-  "totalEur": 17296819.348210424,
+  "totalEur": 17434032.348210424,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000025014",
       "name": "Община Хаджидимово",
       "tier": "municipal",
-      "totalEur": 17296819.348210424,
+      "totalEur": 17434032.348210424,
       "totalOther": {},
-      "contractCount": 106,
+      "contractCount": 108,
       "awardCount": 0
     }
   ],
@@ -333,6 +333,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "b7eb2a630d1a",
+      "ocid": "ocds-e82gsb-564605",
+      "date": "2026-05-28",
+      "amount": 107823,
+      "currency": "EUR",
+      "amountEur": 107823,
+      "partyEik": "200726451",
+      "partyName": "\"БЕТОН-СТРОЙ 8890\" ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-564605-860275%2F2026-05-28-award"
+    },
+    {
       "key": "bcb2c6176790",
       "ocid": "aop-legacy-2019-933604",
       "date": "2019-09-17",
@@ -607,18 +619,6 @@
       "partyName": "А-Строй ЕООД - с. Абланица",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "2285232f133a",
-      "ocid": "ocds-e82gsb-548654",
-      "date": "2026-02-23",
-      "amount": 48158,
-      "currency": "EUR",
-      "amountEur": 48158,
-      "partyEik": "130935573",
-      "partyName": "Ратола лизинг ЕООД",
-      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
-      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-548654-815263%2F2026-02-23-award"
     }
   ],
   "byYear": [
@@ -678,9 +678,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 853596.88,
+      "totalEur": 990809.88,
       "totalOther": {},
-      "contractCount": 5
+      "contractCount": 7
     }
   ]
 }

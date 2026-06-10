@@ -1,0 +1,56 @@
+{
+  "ekatte": "78272",
+  "name": "Цветино",
+  "province": "Пазарджик",
+  "obshtina": "Велинград",
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 12625,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000341610",
+      "name": "Основно училище \"Д-Р петър берон\"",
+      "tier": "school",
+      "totalEur": 12625,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "703d4b21fccb",
+      "ocid": "ocds-e82gsb-580977",
+      "date": "2026-05-28",
+      "amount": 7715,
+      "currency": "EUR",
+      "amountEur": 7715,
+      "partyEik": "202395053",
+      "partyName": "ЕВРОКЛАС-КОНСУЛТ ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-580977-860156%2F2026-05-28-award"
+    },
+    {
+      "key": "f1e04247a989",
+      "ocid": "ocds-e82gsb-580977",
+      "date": "2026-05-28",
+      "amount": 4910,
+      "currency": "EUR",
+      "amountEur": 4910,
+      "partyEik": "202395053",
+      "partyName": "ЕВРОКЛАС-КОНСУЛТ ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-580977-860156%2F2026-05-28-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 12625,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

@@ -3,19 +3,19 @@
   "name": "Несебър",
   "province": "Бургас",
   "obshtina": "Несебър",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 630,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 637,
   "awardCount": 0,
-  "totalEur": 193724532.3799869,
+  "totalEur": 197130244.5099869,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000057122",
       "name": "Община Несебър",
       "tier": "municipal",
-      "totalEur": 193275768.79812378,
+      "totalEur": 196681480.92812377,
       "totalOther": {},
-      "contractCount": 606,
+      "contractCount": 613,
       "awardCount": 0
     },
     {
@@ -522,6 +522,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "34367a5e30c7",
+      "ocid": "ocds-e82gsb-554125",
+      "date": "2026-05-22",
+      "amount": 1000000,
+      "currency": "EUR",
+      "amountEur": 1000000,
+      "partyEik": "204241552",
+      "partyName": "Анунаки ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-554125-858634%2F2026-05-22-award"
+    },
+    {
       "key": "7b9086ce4c06",
       "ocid": "aop-legacy-2011-2015-689668",
       "date": "2015-09-29",
@@ -532,6 +544,18 @@
       "partyName": "Девня Трейд ООД - Варна",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "3630702366c8",
+      "ocid": "ocds-e82gsb-505966",
+      "date": "2026-05-22",
+      "amount": 937717.13,
+      "currency": "EUR",
+      "amountEur": 937717.13,
+      "partyEik": "147146949",
+      "partyName": "БРИЛЯНТ-СЛЪНЧЕВ Бряг ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-505966-858529%2F2026-05-22-contractamendment"
     },
     {
       "key": "e9702255f52c",
@@ -604,30 +628,6 @@
       "partyName": "ДЗЗД Псо Несебър",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "0e1cd01bdc5f",
-      "ocid": "aop-legacy-2011-2015-452333",
-      "date": "2011-10-04",
-      "amount": 1579608,
-      "currency": "BGN",
-      "amountEur": 807640.7458725963,
-      "partyEik": "147188777",
-      "partyName": "Метал инс ООД - Средец",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "8110b87de4c5",
-      "ocid": "aop-legacy-2023-318439",
-      "date": "2023-01-09",
-      "amount": 1556317.21,
-      "currency": "BGN",
-      "amountEur": 795732.3540389502,
-      "partyEik": "147043618",
-      "partyName": "АГРО-САМ ЕООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -705,9 +705,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 15927552.530000003,
+      "totalEur": 19333264.66,
       "totalOther": {},
-      "contractCount": 41
+      "contractCount": 48
     }
   ]
 }

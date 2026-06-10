@@ -3,28 +3,28 @@
   "name": "Тутракан",
   "province": "Силистра",
   "obshtina": "Тутракан",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 349,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 354,
   "awardCount": 0,
-  "totalEur": 72126888.25512446,
+  "totalEur": 73414598.99512447,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000565626",
       "name": "Община Тутракан",
       "tier": "municipal",
-      "totalEur": 71510192.39358886,
+      "totalEur": 72767374.59358886,
       "totalOther": {},
-      "contractCount": 340,
+      "contractCount": 344,
       "awardCount": 0
     },
     {
       "eik": "000558934",
       "name": "Средно училище \"Йордан Йовков\"",
       "tier": "school",
-      "totalEur": 616695.861535614,
+      "totalEur": 647224.401535614,
       "totalOther": {},
-      "contractCount": 9,
+      "contractCount": 10,
       "awardCount": 0
     }
   ],
@@ -172,6 +172,18 @@
       "partyName": "Мега Оил Транс Бг ЕООД",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "a71293c35f61",
+      "ocid": "ocds-e82gsb-514813",
+      "date": "2026-06-02",
+      "amount": 1032284.43,
+      "currency": "EUR",
+      "amountEur": 1032284.43,
+      "partyEik": "181455238",
+      "partyName": "Дунав ТЕХ билд",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-514813-862360%2F2026-06-02-contractamendment"
     },
     {
       "key": "20c9f7b103cd",
@@ -616,18 +628,6 @@
       "partyName": "Обединение „Аква тутракан“",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "62468a68fa4e",
-      "ocid": "aop-legacy-2011-2015-552370",
-      "date": "2013-07-26",
-      "amount": 375215,
-      "currency": "BGN",
-      "amountEur": 191844.38320303912,
-      "partyEik": "131392326",
-      "partyName": "Ай Ем комюникейшънс ООД - София",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -699,9 +699,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 7930885.115792323,
+      "totalEur": 9218595.855792321,
       "totalOther": {},
-      "contractCount": 28
+      "contractCount": 33
     }
   ]
 }

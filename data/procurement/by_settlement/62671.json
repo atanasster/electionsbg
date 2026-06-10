@@ -3,19 +3,19 @@
   "name": "Рила",
   "province": "Кюстендил",
   "obshtina": "Рила",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 54,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 56,
   "awardCount": 0,
-  "totalEur": 9822819.364778075,
+  "totalEur": 9944704.464778075,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000261598",
       "name": "Община Рила",
       "tier": "municipal",
-      "totalEur": 9822819.364778075,
+      "totalEur": 9944704.464778075,
       "totalOther": {},
-      "contractCount": 54,
+      "contractCount": 56,
       "awardCount": 0
     }
   ],
@@ -189,6 +189,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "7e7c9fe787c9",
+      "ocid": "ocds-e82gsb-583062",
+      "date": "2026-06-03",
+      "amount": 84995.1,
+      "currency": "EUR",
+      "amountEur": 84995.1,
+      "partyEik": "206724959",
+      "partyName": "Фючър енерджи кънстракшън ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-583062-863046%2F2026-06-03-award"
+    },
+    {
       "key": "0216c3661194",
       "ocid": "aop-legacy-2016-x",
       "date": "2016-06-06",
@@ -343,6 +355,18 @@
       "partyName": "ДИ Пи вю ЕООД",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "bb7486305347",
+      "ocid": "ocds-e82gsb-575023",
+      "date": "2026-05-26",
+      "amount": 36890,
+      "currency": "EUR",
+      "amountEur": 36890,
+      "partyEik": "130935573",
+      "partyName": "Ратола лизинг ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-575023-859329%2F2026-05-26-award"
     },
     {
       "key": "cec3cb9c6dc7",
@@ -595,30 +619,6 @@
       "partyName": "Смарт бизнес къмпани ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "68178c177e4f",
-      "ocid": "aop-legacy-2011-2015-627345",
-      "date": "2014-10-06",
-      "amount": 9800,
-      "currency": "BGN",
-      "amountEur": 5010.660435722941,
-      "partyEik": "109608346",
-      "partyName": "Туско ЕООД - Дупница",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "6bb9205ab6b9",
-      "ocid": "aop-legacy-2022-267692",
-      "date": "2022-08-24",
-      "amount": 6520,
-      "currency": "BGN",
-      "amountEur": 3333.6230653993443,
-      "partyEik": "200208319",
-      "partyName": "Висталис ЕООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
@@ -696,9 +696,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 120913.33,
+      "totalEur": 242798.43000000002,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 4
     }
   ]
 }

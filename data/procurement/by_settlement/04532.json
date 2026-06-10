@@ -3,19 +3,19 @@
   "name": "Бобошево",
   "province": "Кюстендил",
   "obshtina": "Бобошево",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 17,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 19,
   "awardCount": 0,
-  "totalEur": 5500913.620058697,
+  "totalEur": 6415588.940058697,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000261370",
       "name": "Община Бобошево",
       "tier": "municipal",
-      "totalEur": 5500913.620058697,
+      "totalEur": 6415588.940058697,
       "totalOther": {},
-      "contractCount": 17,
+      "contractCount": 19,
       "awardCount": 0
     }
   ],
@@ -67,6 +67,30 @@
       "partyName": "Монолитно Строителство ЕООД, гр. София",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "75b39de53434",
+      "ocid": "ocds-e82gsb-550462",
+      "date": "2026-06-01",
+      "amount": 471035.03,
+      "currency": "EUR",
+      "amountEur": 471035.03,
+      "partyEik": "109559419",
+      "partyName": "Меридиан ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-550462-861524%2F2026-06-01-award"
+    },
+    {
+      "key": "97385853e3c3",
+      "ocid": "ocds-e82gsb-550462",
+      "date": "2026-06-01",
+      "amount": 443640.29,
+      "currency": "EUR",
+      "amountEur": 443640.29,
+      "partyEik": "109559419",
+      "partyName": "Меридиан ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-550462-861524%2F2026-06-01-award"
     },
     {
       "key": "d283babd0fb4",
@@ -258,9 +282,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 36709.18,
+      "totalEur": 951384.5,
       "totalOther": {},
-      "contractCount": 5
+      "contractCount": 7
     }
   ]
 }

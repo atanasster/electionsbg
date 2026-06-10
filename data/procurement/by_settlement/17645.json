@@ -3,19 +3,19 @@
   "name": "Грамада",
   "province": "Видин",
   "obshtina": "Грамада",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 54,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 55,
   "awardCount": 0,
-  "totalEur": 6964114.644034553,
+  "totalEur": 7826493.644034553,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000159531",
       "name": "Община Грамада",
       "tier": "municipal",
-      "totalEur": 6964114.644034553,
+      "totalEur": 7826493.644034553,
       "totalOther": {},
-      "contractCount": 54,
+      "contractCount": 55,
       "awardCount": 0
     }
   ],
@@ -55,6 +55,18 @@
       "partyName": "Тони Тодоров ООД, гр. Перник",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "62330b2ffa7c",
+      "ocid": "ocds-e82gsb-555929",
+      "date": "2026-05-27",
+      "amount": 862379,
+      "currency": "EUR",
+      "amountEur": 862379,
+      "partyEik": "105050652",
+      "partyName": "БКС-БЪДИНСТРОЙ АД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-555929-859835%2F2026-05-27-award"
     },
     {
       "key": "8bb58709b0d2",
@@ -607,18 +619,6 @@
       "partyName": "Меско вд ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "b783e6fe7d32",
-      "ocid": "aop-legacy-2022-198226",
-      "date": "2022-02-15",
-      "amount": 2987.3,
-      "currency": "BGN",
-      "amountEur": 1527.3822366974637,
-      "partyEik": "203085755",
-      "partyName": "Меско вд ЕООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
@@ -672,9 +672,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 582949.87,
+      "totalEur": 1445328.87,
       "totalOther": {},
-      "contractCount": 9
+      "contractCount": 10
     }
   ]
 }

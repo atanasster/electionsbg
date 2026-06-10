@@ -3,10 +3,10 @@
   "name": "Две могили",
   "province": "Русе",
   "obshtina": "Две могили",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 188,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 191,
   "awardCount": 0,
-  "totalEur": 72399573.38247073,
+  "totalEur": 72588183.1548715,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 72399573.38247073,
       "totalOther": {},
       "contractCount": 188,
+      "awardCount": 0
+    },
+    {
+      "eik": "000521398",
+      "name": "Средно училище \"СВ. СВ. Кирил и Методий\"",
+      "tier": "school",
+      "totalEur": 188609.77240077103,
+      "totalOther": {},
+      "contractCount": 3,
       "awardCount": 0
     }
   ],
@@ -345,6 +354,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "6f411fe8ccc4",
+      "ocid": "ocds-e82gsb-417480",
+      "date": "2026-05-27",
+      "amount": 134938.62,
+      "currency": "EUR",
+      "amountEur": 134938.62,
+      "partyEik": "131468980",
+      "partyName": "А1 България ЕАД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-417480-858777%2F2026-05-27-award"
+    },
+    {
       "key": "071f1d62f4c0",
       "ocid": "aop-legacy-2019-929095",
       "date": "2019-08-21",
@@ -607,18 +628,6 @@
       "partyName": "Петрол АД - Ловеч /старо наименование Петрол АД - София/",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "497b7fd90afa",
-      "ocid": "aop-legacy-2017-808473",
-      "date": "2017-10-05",
-      "amount": 100000,
-      "currency": "BGN",
-      "amountEur": 51129.188119621846,
-      "partyEik": "831496285",
-      "partyName": "Петрол АД - Ловеч /старо наименование Петрол АД - София/",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     }
   ],
   "byYear": [
@@ -636,9 +645,9 @@
     },
     {
       "year": "2013",
-      "totalEur": 22795203.668007955,
+      "totalEur": 22848874.820408724,
       "totalOther": {},
-      "contractCount": 7
+      "contractCount": 9
     },
     {
       "year": "2014",
@@ -696,9 +705,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 6389641.1899999995,
+      "totalEur": 6524579.81,
       "totalOther": {},
-      "contractCount": 25
+      "contractCount": 26
     }
   ]
 }

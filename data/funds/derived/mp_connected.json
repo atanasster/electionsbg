@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-04T08:25:23.693Z",
-  "total": 102,
-  "mpCount": 87,
-  "beneficiaryCount": 100,
-  "contractedEur": 169944893.06,
+  "generatedAt": "2026-06-10T08:56:21.643Z",
+  "total": 104,
+  "mpCount": 88,
+  "beneficiaryCount": 102,
+  "contractedEur": 170621312.54,
   "paidEur": 62327154.18,
   "entries": [
     {
@@ -416,6 +416,23 @@
       "paidEur": 419212.16
     },
     {
+      "mpId": 2946,
+      "mpName": "Елена Стефанова Пешева",
+      "beneficiaryEik": "131336103",
+      "beneficiaryName": "Солар пропърти мениджмънт ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 600000,
+      "paidEur": 0
+    },
+    {
       "mpId": 5092,
       "mpName": "Богомил Иванов Петков",
       "beneficiaryEik": "110001952",
@@ -455,6 +472,23 @@
       "contractCount": 3,
       "contractedEur": 499532.15,
       "paidEur": 262548.37
+    },
+    {
+      "mpId": 890,
+      "mpName": "Галина Димитрова Банковска",
+      "beneficiaryEik": "107515210",
+      "beneficiaryName": "Веда груп ЕООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 2,
+      "contractedEur": 449672.57,
+      "paidEur": 160037.55
     },
     {
       "mpId": 2946,
@@ -618,23 +652,6 @@
       "contractCount": 1,
       "contractedEur": 337796.23,
       "paidEur": 51749.77
-    },
-    {
-      "mpId": 890,
-      "mpName": "Галина Димитрова Банковска",
-      "beneficiaryEik": "107515210",
-      "beneficiaryName": "Веда груп ЕООД",
-      "orgType": "Компания",
-      "relations": [
-        {
-          "kind": "manager",
-          "isCurrent": true,
-          "confidence": "medium"
-        }
-      ],
-      "contractCount": 1,
-      "contractedEur": 320152.87,
-      "paidEur": 160037.55
     },
     {
       "mpId": 3047,
@@ -1147,25 +1164,6 @@
       "contractCount": 2,
       "contractedEur": 53957.75,
       "paidEur": 16430.27
-    },
-    {
-      "mpId": 4739,
-      "mpName": "Димитър Стойков Николов",
-      "beneficiaryEik": "200137677",
-      "beneficiaryName": "Конкурент НЮЗ ЕООД",
-      "orgType": "Компания",
-      "relations": [
-        {
-          "kind": "stake",
-          "shareSize": "100%",
-          "valueEur": 2556.4594059810925,
-          "fiscalYear": 2024,
-          "declarationYear": 2025
-        }
-      ],
-      "contractCount": 1,
-      "contractedEur": 53100.22,
-      "paidEur": 0
     },
     {
       "mpId": 3351,
@@ -1890,6 +1888,23 @@
       "paidEur": 2121.86
     },
     {
+      "mpId": 108,
+      "mpName": "Венелин Димитров Узунов",
+      "beneficiaryEik": "205407678",
+      "beneficiaryName": "\"Научно-производствен център\" Държавно предприятие",
+      "orgType": "Друга",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 0,
+      "paidEur": 0
+    },
+    {
       "mpId": 607,
       "mpName": "Мирослав Петров Севлиевски",
       "beneficiaryEik": "175256096",
@@ -1929,6 +1944,25 @@
           "valueEur": 2556.4594059810925,
           "fiscalYear": 2021,
           "declarationYear": 2021
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 0,
+      "paidEur": 0
+    },
+    {
+      "mpId": 4739,
+      "mpName": "Димитър Стойков Николов",
+      "beneficiaryEik": "200137677",
+      "beneficiaryName": "Конкурент НЮЗ ЕООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "100%",
+          "valueEur": 2556.4594059810925,
+          "fiscalYear": 2024,
+          "declarationYear": 2025
         }
       ],
       "contractCount": 1,

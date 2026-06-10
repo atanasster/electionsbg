@@ -3,19 +3,19 @@
   "name": "Чепеларе",
   "province": "Смолян",
   "obshtina": "Чепеларе",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 112,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 120,
   "awardCount": 0,
-  "totalEur": 28801198.27491929,
+  "totalEur": 29059373.87491929,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000615164",
       "name": "Община Чепеларе",
       "tier": "municipal",
-      "totalEur": 28801198.27491929,
+      "totalEur": 29059373.87491929,
       "totalOther": {},
-      "contractCount": 112,
+      "contractCount": 120,
       "awardCount": 0
     }
   ],
@@ -429,6 +429,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "24f716adf27f",
+      "ocid": "ocds-e82gsb-551908",
+      "date": "2026-05-29",
+      "amount": 178220,
+      "currency": "EUR",
+      "amountEur": 178220,
+      "partyEik": "202151992",
+      "partyName": "Барин АЛП ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-551908-860004%2F2026-05-29-award"
+    },
+    {
       "key": "ac97816512c5",
       "ocid": "aop-legacy-2011-2015-664857",
       "date": "2015-05-04",
@@ -607,18 +619,6 @@
       "partyName": "Пътстрой ООД - Стара Загора",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "7a9f8ce1498c",
-      "ocid": "aop-legacy-2011-2015-490698",
-      "date": "2012-07-11",
-      "amount": 140299.23,
-      "currency": "BGN",
-      "amountEur": 71733.85723708094,
-      "partyEik": "120557933",
-      "partyName": "Щеревстрой ООД - Смолян",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -696,9 +696,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 1980854.3800000004,
+      "totalEur": 2239029.9800000004,
       "totalOther": {},
-      "contractCount": 8
+      "contractCount": 16
     }
   ]
 }

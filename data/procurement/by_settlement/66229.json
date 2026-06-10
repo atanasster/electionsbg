@@ -3,19 +3,19 @@
   "name": "Сеново",
   "province": "Русе",
   "obshtina": "Ветово",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 3,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 4,
   "awardCount": 0,
-  "totalEur": 167881.5950261526,
+  "totalEur": 221231.3250261526,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000498960",
-      "name": "Основно училище \"СВ.СВ.КИРИЛ и Методий",
+      "name": "Основно училище \"СВ.СВ.КИРИЛ и Методий\"",
       "tier": "school",
-      "totalEur": 167881.5950261526,
+      "totalEur": 221231.3250261526,
       "totalOther": {},
-      "contractCount": 3,
+      "contractCount": 4,
       "awardCount": 0
     }
   ],
@@ -31,6 +31,18 @@
       "partyName": "Медиком ООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "b3dba4254262",
+      "ocid": "ocds-e82gsb-576442",
+      "date": "2026-05-21",
+      "amount": 53349.73,
+      "currency": "EUR",
+      "amountEur": 53349.73,
+      "partyEik": "131468980",
+      "partyName": "А1 България ЕАД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-576442-858106%2F2026-05-21-award"
     },
     {
       "key": "fcaf51369008",
@@ -67,6 +79,12 @@
     {
       "year": "2022",
       "totalEur": 137613.11565933644,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2026",
+      "totalEur": 53349.73,
       "totalOther": {},
       "contractCount": 1
     }

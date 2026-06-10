@@ -1,6 +1,44 @@
 {
-  "updatedAt": "2026-06-09T06:35:28.314Z",
+  "updatedAt": "2026-06-10T08:57:23.319Z",
   "entries": [
+    {
+      "timestamp": "2026-06-10T08:57:23.319Z",
+      "date": "2026-06-10",
+      "skill": "update-prices",
+      "summary": "kolkostruva.bg: +1 day (2026-06-09); index now 159 days, 244 settlements",
+      "source": "КЗП kolkostruva.bg"
+    },
+    {
+      "timestamp": "2026-06-10T08:57:22.892Z",
+      "date": "2026-06-10",
+      "skill": "update-funds",
+      "summary": "ИСУН: 53,035 beneficiaries + 81,507 contracts (€43.59B contracted); 104 MP-tied pairs",
+      "source": "ИСУН EU funds (2020.eufunds.bg)"
+    },
+    {
+      "timestamp": "2026-06-10T08:57:22.461Z",
+      "date": "2026-06-10",
+      "skill": "update-procurement",
+      "summary": "АОП fortnight 2026-05-21…2026-06-03 ingested (2,345 rows; 249,194 contracts total)",
+      "source": "data.egov.bg АОП (procurement)"
+    },
+    {
+      "timestamp": "2026-06-10T08:57:22.031Z",
+      "date": "2026-06-10",
+      "skill": "update-connections",
+      "summary": "TR snapshot reconstructed (582,495 companies, dailies→2026-06-04); graph 9876 nodes/11732 edges; 7,068 per-EIK company-connection files",
+      "source": "data.egov.bg Commerce Registry (TR)",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_connections"
+        },
+        {
+          "to": "/mp-assets",
+          "labelKey": "data_changes_link_assets"
+        }
+      ]
+    },
     {
       "timestamp": "2026-06-09T06:35:28.314Z",
       "date": "2026-06-09",

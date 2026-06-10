@@ -3,19 +3,19 @@
   "name": "Добрич",
   "province": "Добрич",
   "obshtina": "Добрич",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 1550,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 2209,
   "awardCount": 0,
-  "totalEur": 304213343.46239525,
+  "totalEur": 327032097.44298035,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000852932",
       "name": "Община Град добрич",
       "tier": "municipal",
-      "totalEur": 266746911.83428866,
+      "totalEur": 266771036.83428866,
       "totalOther": {},
-      "contractCount": 778,
+      "contractCount": 779,
       "awardCount": 0
     },
     {
@@ -25,6 +25,15 @@
       "totalEur": 31995333.832666337,
       "totalOther": {},
       "contractCount": 724,
+      "awardCount": 0
+    },
+    {
+      "eik": "000852188",
+      "name": "Община Добричка",
+      "tier": "municipal",
+      "totalEur": 22204953.68160648,
+      "totalOther": {},
+      "contractCount": 600,
       "awardCount": 0
     },
     {
@@ -46,12 +55,48 @@
       "awardCount": 0
     },
     {
+      "eik": "000842653",
+      "name": "Средно УЧИЛИЩЕ\"СВ.СВ.КИРИЛ и Методий\"",
+      "tier": "school",
+      "totalEur": 217401.55794092538,
+      "totalOther": {},
+      "contractCount": 19,
+      "awardCount": 0
+    },
+    {
+      "eik": "000846331",
+      "name": "Средно училище \"Свети климент Охридски\"",
+      "tier": "school",
+      "totalEur": 207730.21498299955,
+      "totalOther": {},
+      "contractCount": 21,
+      "awardCount": 0
+    },
+    {
       "eik": "000846655",
       "name": "Професионална гимназия по ветеринарна Медицина \"Проф. Д-Р георги Павлов\"",
       "tier": "school",
       "totalEur": 193271.930330857,
       "totalOther": {},
       "contractCount": 9,
+      "awardCount": 0
+    },
+    {
+      "eik": "000847383",
+      "name": "Основно училище \"ХАН аспарух\"",
+      "tier": "school",
+      "totalEur": 129028.17605466733,
+      "totalOther": {},
+      "contractCount": 16,
+      "awardCount": 0
+    },
+    {
+      "eik": "000841918",
+      "name": "Основно училище \"Стефан караджа\"",
+      "tier": "school",
+      "totalEur": 35515.35,
+      "totalOther": {},
+      "contractCount": 2,
       "awardCount": 0
     }
   ],
@@ -295,6 +340,18 @@
       "partyName": "Булбус трейд ООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "f5de5c590a08",
+      "ocid": "aop-legacy-2011-2015-605392",
+      "date": "2014-05-27",
+      "amount": 4955222.47,
+      "currency": "BGN",
+      "amountEur": 2533565.0184320724,
+      "partyEik": "176538091",
+      "partyName": "ДЗЗД Път- Депо 2013 гр. Добрич",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
       "key": "ae57ade914d3",
@@ -643,98 +700,86 @@
       "partyName": "Аресгаз ЕАД /старо наим.Черноморска Технологична Компания АД - Варна/ - София",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "83970ec9a397",
-      "ocid": "aop-legacy-2019-896218",
-      "date": "2019-02-25",
-      "amount": 2107162.98,
-      "currency": "BGN",
-      "amountEur": 1077375.3240312296,
-      "partyEik": "813101815",
-      "partyName": "Аресгаз ЕАД /старо наим.Черноморска Технологична Компания АД - Варна/ - София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 2957928.705460086,
+      "totalEur": 3860187.9815730406,
       "totalOther": {},
-      "contractCount": 84
+      "contractCount": 124
     },
     {
       "year": "2012",
-      "totalEur": 7344814.6669189045,
+      "totalEur": 8476348.292029472,
       "totalOther": {},
-      "contractCount": 111
+      "contractCount": 146
     },
     {
       "year": "2013",
-      "totalEur": 19849689.64582812,
+      "totalEur": 20685184.192900203,
       "totalOther": {},
-      "contractCount": 136
+      "contractCount": 175
     },
     {
       "year": "2014",
-      "totalEur": 8919571.046563352,
+      "totalEur": 12742813.879529405,
       "totalOther": {},
-      "contractCount": 94
+      "contractCount": 153
     },
     {
       "year": "2015",
-      "totalEur": 13342723.007623361,
+      "totalEur": 14535874.339794358,
       "totalOther": {},
-      "contractCount": 145
+      "contractCount": 216
     },
     {
       "year": "2016",
-      "totalEur": 13850055.142829388,
+      "totalEur": 15578271.593134373,
       "totalOther": {},
-      "contractCount": 103
+      "contractCount": 162
     },
     {
       "year": "2017",
-      "totalEur": 88053841.52508144,
+      "totalEur": 88422020.16023889,
       "totalOther": {},
-      "contractCount": 181
+      "contractCount": 227
     },
     {
       "year": "2019",
-      "totalEur": 50548413.71182565,
+      "totalEur": 52412501.35747992,
       "totalOther": {},
-      "contractCount": 171
+      "contractCount": 207
     },
     {
       "year": "2020",
-      "totalEur": 66474.48909158772,
+      "totalEur": 294821.38018130406,
       "totalOther": {},
-      "contractCount": 1
+      "contractCount": 27
     },
     {
       "year": "2021",
-      "totalEur": 6782114.8566081915,
+      "totalEur": 7061038.08613223,
       "totalOther": {},
-      "contractCount": 20
+      "contractCount": 26
     },
     {
       "year": "2022",
-      "totalEur": 19755716.463087283,
+      "totalEur": 23722489.91988056,
       "totalOther": {},
-      "contractCount": 201
+      "contractCount": 289
     },
     {
       "year": "2023",
-      "totalEur": 33545664.771478094,
+      "totalEur": 38049718.7229974,
       "totalOther": {},
-      "contractCount": 191
+      "contractCount": 287
     },
     {
       "year": "2026",
-      "totalEur": 39196335.43,
+      "totalEur": 41190827.53710937,
       "totalOther": {},
-      "contractCount": 112
+      "contractCount": 170
     }
   ]
 }

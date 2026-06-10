@@ -3,37 +3,46 @@
   "name": "Шумен",
   "province": "Шумен",
   "obshtina": "Шумен",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 2656,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 3186,
   "awardCount": 0,
-  "totalEur": 305299393.01279044,
+  "totalEur": 396999862.0240144,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000931721",
       "name": "Община Шумен",
       "tier": "municipal",
-      "totalEur": 246418012.82792872,
+      "totalEur": 247729060.63792872,
       "totalOther": {},
-      "contractCount": 650,
+      "contractCount": 656,
+      "awardCount": 0
+    },
+    {
+      "eik": "127521758",
+      "name": "Комплексен онкологичен център - шумен ЕООД",
+      "tier": "hospital",
+      "totalEur": 87184988.2934868,
+      "totalOther": {},
+      "contractCount": 453,
       "awardCount": 0
     },
     {
       "eik": "201617412",
-      "name": "Териториално поделение \"Държавно горско стопанство шумен\"",
+      "name": "Североизточно държавно предприятие ДП",
       "tier": "forestry",
-      "totalEur": 46551382.575222716,
+      "totalEur": 46626806.975222714,
       "totalOther": {},
-      "contractCount": 1746,
+      "contractCount": 1750,
       "awardCount": 0
     },
     {
       "eik": "000934863",
       "name": "Шуменски университет \"Епископ Константин Преславски\"",
       "tier": "university",
-      "totalEur": 5466960.866829531,
+      "totalEur": 5626305.406829531,
       "totalOther": {},
-      "contractCount": 181,
+      "contractCount": 185,
       "awardCount": 0
     },
     {
@@ -43,6 +52,15 @@
       "totalEur": 4740324.944472935,
       "totalOther": {},
       "contractCount": 20,
+      "awardCount": 0
+    },
+    {
+      "eik": "000921816",
+      "name": "Средно училище \"Сава доброплодни\"",
+      "tier": "school",
+      "totalEur": 2630975.3463373603,
+      "totalOther": {},
+      "contractCount": 51,
       "awardCount": 0
     },
     {
@@ -64,12 +82,21 @@
       "awardCount": 0
     },
     {
+      "eik": "127593647",
+      "name": "Професионална гимназия по облекло, Хранене и химични технологии \"Проф. Асен Златаров\" - шумен",
+      "tier": "school",
+      "totalEur": 263530.2913998149,
+      "totalOther": {},
+      "contractCount": 9,
+      "awardCount": 0
+    },
+    {
       "eik": "000925214",
       "name": "Професионална гимназия по строителство, Архитектура и геодезия",
       "tier": "school",
-      "totalEur": 198689.59444327984,
+      "totalEur": 252069.59444327984,
       "totalOther": {},
-      "contractCount": 3,
+      "contractCount": 4,
       "awardCount": 0
     },
     {
@@ -94,9 +121,9 @@
       "eik": "000921823",
       "name": "Средно училище \"Трайко Симеонов\"",
       "tier": "school",
-      "totalEur": 6422.35,
+      "totalEur": 28200.68,
       "totalOther": {},
-      "contractCount": 3,
+      "contractCount": 5,
       "awardCount": 0
     }
   ],
@@ -198,6 +225,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "0feb6067b76f",
+      "ocid": "ocds-e82gsb-551993",
+      "date": "2026-03-10",
+      "amount": 7031119.33,
+      "currency": "EUR",
+      "amountEur": 7031119.33,
+      "partyEik": "103267194",
+      "partyName": "Софарма трейдинг АД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-551993-821034%2F2026-03-10-award"
+    },
+    {
       "key": "7cfac858e798",
       "ocid": "aop-legacy-2022-308727",
       "date": "2022-12-13",
@@ -220,6 +259,54 @@
       "partyName": "Екоинвест асетс АД",
       "bundleUuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
       "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-502733-842794%2F2026-04-10-award"
+    },
+    {
+      "key": "2d057fc48b05",
+      "ocid": "ocds-e82gsb-551993",
+      "date": "2026-03-10",
+      "amount": 5571961.73,
+      "currency": "EUR",
+      "amountEur": 5571961.73,
+      "partyEik": "175256438",
+      "partyName": "Алта фармасютикълс ООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-551993-820891%2F2026-03-10-award"
+    },
+    {
+      "key": "09a9c4ed21f0",
+      "ocid": "ocds-e82gsb-551993",
+      "date": "2026-03-10",
+      "amount": 5236476.35,
+      "currency": "EUR",
+      "amountEur": 5236476.35,
+      "partyEik": "131279951",
+      "partyName": "РОШ България ЕООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-551993-821322%2F2026-03-10-award"
+    },
+    {
+      "key": "a61d238ebb33",
+      "ocid": "ocds-e82gsb-551993",
+      "date": "2026-03-10",
+      "amount": 4875138.8,
+      "currency": "EUR",
+      "amountEur": 4875138.8,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-551993-821072%2F2026-03-10-award"
+    },
+    {
+      "key": "8034f7a2c9d1",
+      "ocid": "aop-legacy-2022-198777",
+      "date": "2022-02-21",
+      "amount": 8940839.65,
+      "currency": "BGN",
+      "amountEur": 4571378.72412224,
+      "partyEik": "131279951",
+      "partyName": "РОШ България ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
       "key": "9d1657ff2d17",
@@ -256,6 +343,18 @@
       "partyName": "ДЗЗД Шумен Спорт - София",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "a7911637a538",
+      "ocid": "aop-legacy-2022-198752",
+      "date": "2022-02-21",
+      "amount": 7330241.48,
+      "currency": "BGN",
+      "amountEur": 3747892.955931753,
+      "partyEik": "103267194",
+      "partyName": "Софарма трейдинг АД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
       "key": "3042914419e7",
@@ -354,6 +453,42 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
+      "key": "2e8688d2e728",
+      "ocid": "aop-legacy-2019-944334",
+      "date": "2019-11-18",
+      "amount": 4379202.1,
+      "currency": "BGN",
+      "amountEur": 2239050.4798474303,
+      "partyEik": "131279951",
+      "partyName": "РОШ България ЕООД",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "e8f74465b4cc",
+      "ocid": "ocds-e82gsb-425903",
+      "date": "2026-02-10",
+      "amount": 1978370.22,
+      "currency": "EUR",
+      "amountEur": 1978370.22,
+      "partyEik": "131382104",
+      "partyName": "Красбивал ООД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-425903-807291%2F2026-02-10-award"
+    },
+    {
+      "key": "4ad3346cc4ed",
+      "ocid": "aop-legacy-2022-242231",
+      "date": "2022-06-17",
+      "amount": 3793960.32,
+      "currency": "BGN",
+      "amountEur": 1939821.109196607,
+      "partyEik": "131279951",
+      "partyName": "РОШ България ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
       "key": "5471bb17f49d",
       "ocid": "aop-legacy-2022-262957",
       "date": "2022-08-16",
@@ -364,6 +499,30 @@
       "partyName": "Петрол АД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "6184529823f6",
+      "ocid": "aop-legacy-2022-187501",
+      "date": "2022-01-14",
+      "amount": 3675000,
+      "currency": "BGN",
+      "amountEur": 1878997.6633961028,
+      "partyEik": "175256438",
+      "partyName": "Алта фармасютикълс ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "7917566ad278",
+      "ocid": "aop-legacy-2023-461355",
+      "date": "2023-12-19",
+      "amount": 3394368.99,
+      "currency": "BGN",
+      "amountEur": 1735513.3063712083,
+      "partyEik": "103267194",
+      "partyName": "Софарма трейдинг АД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
       "key": "274b226a5c45",
@@ -414,6 +573,30 @@
       "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-476937-808040%2F2026-02-10-award"
     },
     {
+      "key": "b9dd43290279",
+      "ocid": "aop-legacy-2023-461164",
+      "date": "2023-12-19",
+      "amount": 2976666.67,
+      "currency": "BGN",
+      "amountEur": 1521945.5013983832,
+      "partyEik": "203947490",
+      "partyName": "Уелкеър ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "d479cf9de9a0",
+      "ocid": "aop-legacy-2011-2015-456401",
+      "date": "2011-11-09",
+      "amount": 2884674.85,
+      "currency": "BGN",
+      "amountEur": 1474910.8306959195,
+      "partyEik": "176075501",
+      "partyName": "Консорциум Дим & ал - Шумен",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
       "key": "699f3d791842",
       "ocid": "aop-legacy-2016-x",
       "date": "2016-07-15",
@@ -434,6 +617,18 @@
       "amountEur": 1474361.2686174156,
       "partyEik": "121444454",
       "partyName": "Юнион ивкони ООД",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "452b52ccaccd",
+      "ocid": "aop-legacy-2016-720792",
+      "date": "2016-03-21",
+      "amount": 2862671.42,
+      "currency": "BGN",
+      "amountEur": 1463660.65557845,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
@@ -532,230 +727,62 @@
       "partyName": "РОУ Бак българия ЕООД",
       "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
       "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-545759-794178%2F2026-01-09-award"
-    },
-    {
-      "key": "79657a7f6b28",
-      "ocid": "aop-legacy-2011-2015-559939",
-      "date": "2013-09-16",
-      "amount": 2806650,
-      "currency": "BGN",
-      "amountEur": 1435017.3583593667,
-      "partyEik": "176567805",
-      "partyName": "ДЗЗД Обединение Дейта груп - Инвестиционно проектиране - София",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "59ac406ade30",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-11-06",
-      "amount": 2722211.37,
-      "currency": "BGN",
-      "amountEur": 1391844.5723810352,
-      "partyEik": "127001597",
-      "partyName": "Автомагистрали - Черно море АД - Шумен",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "e54ac0b2721e",
-      "ocid": "aop-legacy-2017-812892",
-      "date": "2017-11-06",
-      "amount": 2722211.37,
-      "currency": "BGN",
-      "amountEur": 1391844.5723810352,
-      "partyEik": "127001597",
-      "partyName": "Автомагистрали - Черно море АД - Шумен",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "c267f8d93ad0",
-      "ocid": "aop-legacy-2023-325941",
-      "date": "2023-01-31",
-      "amount": 2469500,
-      "currency": "BGN",
-      "amountEur": 1262635.3006140615,
-      "partyEik": "201847252",
-      "partyName": "Винс Ин хок ЕООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "637e011c75a8",
-      "ocid": "aop-legacy-2022-261840",
-      "date": "2022-08-12",
-      "amount": 2345279.44,
-      "currency": "BGN",
-      "amountEur": 1199122.3368084137,
-      "partyEik": "127001597",
-      "partyName": "Автомагистрали - черно море АД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "f6a4b41ce866",
-      "ocid": "aop-legacy-2011-2015-551933",
-      "date": "2013-07-24",
-      "amount": 2284536.55,
-      "currency": "BGN",
-      "amountEur": 1168064.9903110187,
-      "partyEik": "176532633",
-      "partyName": "ДЗЗД Консорциум Псов Дивдядово 2013  - Шумен",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "874e164b15c4",
-      "ocid": "aop-legacy-2023-357054",
-      "date": "2023-04-05",
-      "amount": 2131070.17,
-      "currency": "BGN",
-      "amountEur": 1089598.876180445,
-      "partyEik": "127001597",
-      "partyName": "Автомагистрали - черно море АД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "6098076996d5",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-10-24",
-      "amount": 2116732.9,
-      "currency": "BGN",
-      "amountEur": 1082268.346430927,
-      "partyEik": "040188026",
-      "partyName": "Жсп - Стил ООД, гр. Шумен",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "7118cf7f1614",
-      "ocid": "aop-legacy-2019-939933",
-      "date": "2019-10-24",
-      "amount": 2116732.9,
-      "currency": "BGN",
-      "amountEur": 1082268.346430927,
-      "partyEik": "040188026",
-      "partyName": "Жсп - Стил ООД, гр. Шумен",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "9253755cb792",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-08-22",
-      "amount": 2100000,
-      "currency": "BGN",
-      "amountEur": 1073712.9505120588,
-      "partyEik": "127001597",
-      "partyName": "Автомагистрали - Черно море АД - Шумен",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "cbcc8067c4aa",
-      "ocid": "aop-legacy-2019-928589",
-      "date": "2019-08-22",
-      "amount": 2100000,
-      "currency": "BGN",
-      "amountEur": 1073712.9505120588,
-      "partyEik": "127001597",
-      "partyName": "Автомагистрали - Черно море АД - Шумен",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "ff74286e7b93",
-      "ocid": "aop-legacy-2017-798343",
-      "date": "2017-07-31",
-      "amount": 2078934,
-      "currency": "BGN",
-      "amountEur": 1062942.0757427793,
-      "partyEik": "131512672",
-      "partyName": "Енерго-Про Енергийни услуги ЕООД - Варна",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "b9138fc19f3d",
-      "ocid": "ocds-e82gsb-413887",
-      "date": "2026-02-25",
-      "amount": 1053772.57,
-      "currency": "EUR",
-      "amountEur": 1053772.57,
-      "partyEik": "103785856",
-      "partyName": "Панов ЕООД",
-      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
-      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-413887-816588%2F2026-02-25-award"
-    },
-    {
-      "key": "963dc30b141d",
-      "ocid": "ocds-e82gsb-413887",
-      "date": "2026-02-25",
-      "amount": 996507.88,
-      "currency": "EUR",
-      "amountEur": 996507.88,
-      "partyEik": "148105154",
-      "partyName": "КАР Строй ЕООД",
-      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
-      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-413887-816720%2F2026-02-25-award"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 5655486.22835318,
+      "totalEur": 8505497.24669322,
       "totalOther": {},
-      "contractCount": 43
+      "contractCount": 78
     },
     {
       "year": "2012",
-      "totalEur": 2611722.2355726208,
+      "totalEur": 3380749.0937351403,
       "totalOther": {},
-      "contractCount": 105
+      "contractCount": 109
     },
     {
       "year": "2013",
-      "totalEur": 12434888.569047414,
+      "totalEur": 14788945.235526606,
       "totalOther": {},
-      "contractCount": 203
+      "contractCount": 244
     },
     {
       "year": "2014",
-      "totalEur": 34069737.11416636,
+      "totalEur": 36256113.205135405,
       "totalOther": {},
-      "contractCount": 189
+      "contractCount": 247
     },
     {
       "year": "2015",
-      "totalEur": 3059041.465771565,
+      "totalEur": 6411222.411968321,
       "totalOther": {},
-      "contractCount": 172
+      "contractCount": 193
     },
     {
       "year": "2016",
-      "totalEur": 25977711.5240077,
+      "totalEur": 30663103.531493016,
       "totalOther": {},
-      "contractCount": 288
+      "contractCount": 349
     },
     {
       "year": "2017",
-      "totalEur": 26604252.225397907,
+      "totalEur": 33076752.918198407,
       "totalOther": {},
-      "contractCount": 304
+      "contractCount": 339
     },
     {
       "year": "2019",
-      "totalEur": 15151299.156879686,
+      "totalEur": 23028389.08289575,
       "totalOther": {},
-      "contractCount": 353
+      "contractCount": 401
     },
     {
       "year": "2020",
-      "totalEur": 583451.7417157931,
+      "totalEur": 715022.9212150339,
       "totalOther": {},
-      "contractCount": 27
+      "contractCount": 30
     },
     {
       "year": "2021",
@@ -765,21 +792,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 22074180.58317952,
+      "totalEur": 39101373.99978525,
       "totalOther": {},
-      "contractCount": 321
+      "contractCount": 368
     },
     {
       "year": "2023",
-      "totalEur": 25440923.33178242,
+      "totalEur": 38665365.20045199,
       "totalOther": {},
-      "contractCount": 461
+      "contractCount": 577
     },
     {
       "year": "2026",
-      "totalEur": 120123662.23353048,
+      "totalEur": 150894290.5735305,
       "totalOther": {},
-      "contractCount": 174
+      "contractCount": 235
     }
   ]
 }

@@ -3,19 +3,19 @@
   "name": "Елена",
   "province": "Велико Търново",
   "obshtina": "Елена",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 225,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 226,
   "awardCount": 0,
-  "totalEur": 27595070.39256096,
+  "totalEur": 27740114.39256096,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000133762",
       "name": "Община Елена",
       "tier": "municipal",
-      "totalEur": 27462658.05256096,
+      "totalEur": 27607702.05256096,
       "totalOther": {},
-      "contractCount": 222,
+      "contractCount": 223,
       "awardCount": 0
     },
     {
@@ -354,6 +354,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
+      "key": "743d37a3befb",
+      "ocid": "ocds-e82gsb-585691",
+      "date": "2026-06-02",
+      "amount": 145044,
+      "currency": "EUR",
+      "amountEur": 145044,
+      "partyEik": "104693344",
+      "partyName": "Пътни строежи - велико търново ЕАД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-585691-861533%2F2026-06-02-award"
+    },
+    {
       "key": "45a41d487ec5",
       "ocid": "aop-legacy-2020-70501",
       "date": "2020-11-03",
@@ -616,18 +628,6 @@
       "partyName": "Енерго-Про Енергийни услуги ЕООД - Варна",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "7d2d4213dfbc",
-      "ocid": "aop-legacy-2022-277846",
-      "date": "2022-09-23",
-      "amount": 117789,
-      "currency": "BGN",
-      "amountEur": 60224.55939422138,
-      "partyEik": "203637577",
-      "partyName": "Клийнтех българия ООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
@@ -699,9 +699,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 476547.75,
+      "totalEur": 621591.75,
       "totalOther": {},
-      "contractCount": 22
+      "contractCount": 23
     }
   ]
 }

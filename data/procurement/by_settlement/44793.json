@@ -3,19 +3,19 @@
   "name": "Лясковец",
   "province": "Велико Търново",
   "obshtina": "Лясковец",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 183,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 184,
   "awardCount": 0,
-  "totalEur": 20237174.393051803,
+  "totalEur": 20618533.783051804,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000133844",
       "name": "Община Лясковец",
       "tier": "municipal",
-      "totalEur": 20237174.393051803,
+      "totalEur": 20618533.783051804,
       "totalOther": {},
-      "contractCount": 183,
+      "contractCount": 184,
       "awardCount": 0
     }
   ],
@@ -151,6 +151,18 @@
       "partyName": "БИ Ем ЛИЗИНГ-ТРЕЙД АД",
       "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
       "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-546379-821231%2F2026-03-10-award"
+    },
+    {
+      "key": "4ec49a5eee98",
+      "ocid": "ocds-e82gsb-452089",
+      "date": "2026-06-02",
+      "amount": 381359.39,
+      "currency": "EUR",
+      "amountEur": 381359.39,
+      "partyEik": "201304428",
+      "partyName": "Емили строй ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-452089-862245%2F2026-06-02-contractamendment"
     },
     {
       "key": "bb434a28593a",
@@ -607,18 +619,6 @@
       "partyName": "ДЗЗД Геоплан - Планекс - Велико Търново",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "9b316e2bde12",
-      "ocid": "ocds-e82gsb-540990",
-      "date": "2026-01-06",
-      "amount": 83333.33,
-      "currency": "EUR",
-      "amountEur": 83333.33,
-      "partyEik": "202571551",
-      "partyName": "Транс грейн ЕООД",
-      "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
-      "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-540990-792589%2F2026-01-06-award"
     }
   ],
   "byYear": [
@@ -696,9 +696,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 1557363.7500000002,
+      "totalEur": 1938723.1400000001,
       "totalOther": {},
-      "contractCount": 17
+      "contractCount": 18
     }
   ]
 }

@@ -3,19 +3,19 @@
   "name": "Средище",
   "province": "Силистра",
   "obshtina": "Кайнарджа",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 39,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 40,
   "awardCount": 0,
-  "totalEur": 1410883.8937620854,
+  "totalEur": 1428518.8437620853,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000559025",
       "name": "Професионална гимназия по механизация на селското стопанство \"Никола й. Вапцаров\"",
       "tier": "school",
-      "totalEur": 1410883.8937620854,
+      "totalEur": 1428518.8437620853,
       "totalOther": {},
-      "contractCount": 39,
+      "contractCount": 40,
       "awardCount": 0
     }
   ],
@@ -321,6 +321,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
+      "key": "25fc6f11f222",
+      "ocid": "ocds-e82gsb-565543",
+      "date": "2026-05-26",
+      "amount": 17634.95,
+      "currency": "EUR",
+      "amountEur": 17634.95,
+      "partyEik": "205658883",
+      "partyName": "от Марс ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-565543-859101%2F2026-05-26-award"
+    },
+    {
       "key": "ed177eff9f02",
       "ocid": "aop-legacy-2023-341169",
       "date": "2023-03-07",
@@ -546,9 +558,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 350226.49000000005,
+      "totalEur": 367861.44000000006,
       "totalOther": {},
-      "contractCount": 7
+      "contractCount": 8
     }
   ]
 }

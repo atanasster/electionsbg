@@ -3,46 +3,37 @@
   "name": "Свиленград",
   "province": "Хасково",
   "obshtina": "Свиленград",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 883,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 854,
   "awardCount": 0,
-  "totalEur": 105623460.24668552,
+  "totalEur": 106000490.39297022,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000903825",
       "name": "Община Свиленград",
       "tier": "municipal",
-      "totalEur": 98804072.90218216,
+      "totalEur": 99002314.10218216,
       "totalOther": {},
-      "contractCount": 569,
+      "contractCount": 575,
       "awardCount": 0
     },
     {
       "eik": "126532456",
       "name": "Многопрофилна болница за активно лечение - свиленград ЕООД",
       "tier": "hospital",
-      "totalEur": 5702907.614669987,
+      "totalEur": 5708353.404669987,
       "totalOther": {},
-      "contractCount": 230,
+      "contractCount": 231,
       "awardCount": 0
     },
     {
       "eik": "000893200",
-      "name": "Първо основно училище \"Иван Вазов",
+      "name": "Първо основно училище \"Иван Вазов\"",
       "tier": "school",
-      "totalEur": 592012.2761180673,
+      "totalEur": 1289822.8861180674,
       "totalOther": {},
-      "contractCount": 42,
-      "awardCount": 0
-    },
-    {
-      "eik": "000898189",
-      "name": "Средно училище \"Д-Р петър берон",
-      "tier": "school",
-      "totalEur": 524467.4537153024,
-      "totalOther": {},
-      "contractCount": 42,
+      "contractCount": 48,
       "awardCount": 0
     }
   ],
@@ -334,6 +325,18 @@
       "partyName": "ДЗЗД Одеон, Пловдив",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "7d7ed9619a56",
+      "ocid": "ocds-e82gsb-578481",
+      "date": "2026-05-22",
+      "amount": 671055,
+      "currency": "EUR",
+      "amountEur": 671055,
+      "partyEik": "130878827",
+      "partyName": "Клет българия ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-578481-858483%2F2026-05-22-award"
     },
     {
       "key": "1727740b37cf",
@@ -634,18 +637,6 @@
       "partyName": "Райкомерс Конструкшън ЕАД - старо наиминование Райкомерс Конструкшън АД - София",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "d027feb3ece2",
-      "ocid": "aop-legacy-2023-327849",
-      "date": "2023-02-06",
-      "amount": 832722.76,
-      "currency": "BGN",
-      "amountEur": 425764.38647530717,
-      "partyEik": "126163482",
-      "partyName": "ЕТ Тано - николай Траилов",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -657,33 +648,33 @@
     },
     {
       "year": "2012",
-      "totalEur": 3229549.7921598502,
+      "totalEur": 3144261.556474745,
       "totalOther": {},
-      "contractCount": 45
+      "contractCount": 35
     },
     {
       "year": "2013",
-      "totalEur": 28849518.98171109,
+      "totalEur": 28820787.95703103,
       "totalOther": {},
-      "contractCount": 77
+      "contractCount": 75
     },
     {
       "year": "2014",
-      "totalEur": 9244259.010241175,
+      "totalEur": 9142860.028734602,
       "totalOther": {},
-      "contractCount": 57
+      "contractCount": 49
     },
     {
       "year": "2015",
-      "totalEur": 5716529.713727676,
+      "totalEur": 5676139.531554379,
       "totalOther": {},
-      "contractCount": 39
+      "contractCount": 37
     },
     {
       "year": "2016",
-      "totalEur": 13878719.684226135,
+      "totalEur": 13815145.140426315,
       "totalOther": {},
-      "contractCount": 84
+      "contractCount": 82
     },
     {
       "year": "2017",
@@ -699,9 +690,9 @@
     },
     {
       "year": "2020",
-      "totalEur": 686019.4188656479,
+      "totalEur": 650090.3401624886,
       "totalOther": {},
-      "contractCount": 24
+      "contractCount": 22
     },
     {
       "year": "2021",
@@ -711,21 +702,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 4612482.010195159,
+      "totalEur": 4542948.753214747,
       "totalOther": {},
-      "contractCount": 102
+      "contractCount": 97
     },
     {
       "year": "2023",
-      "totalEur": 6487453.587479484,
+      "totalEur": 6387831.437292607,
       "totalOther": {},
-      "contractCount": 152
+      "contractCount": 141
     },
     {
       "year": "2026",
-      "totalEur": 6980864.97,
+      "totalEur": 7882362.57,
       "totalOther": {},
-      "contractCount": 28
+      "contractCount": 41
     }
   ]
 }

@@ -3,19 +3,19 @@
   "name": "Никола Козлево",
   "province": "Шумен",
   "obshtina": "Никола Козлево",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 122,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 124,
   "awardCount": 0,
-  "totalEur": 15790345.685077943,
+  "totalEur": 16452787.925077943,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000931568",
       "name": "Община Никола козлево",
       "tier": "municipal",
-      "totalEur": 15790345.685077943,
+      "totalEur": 16452787.925077943,
       "totalOther": {},
-      "contractCount": 122,
+      "contractCount": 124,
       "awardCount": 0
     }
   ],
@@ -115,6 +115,18 @@
       "partyName": "Автомагистрали - черно море АД",
       "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
       "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-548923-850876%2F2026-04-30-award"
+    },
+    {
+      "key": "a818e77dbe97",
+      "ocid": "ocds-e82gsb-548273",
+      "date": "2026-05-29",
+      "amount": 394021.58,
+      "currency": "EUR",
+      "amountEur": 394021.58,
+      "partyEik": "127001597",
+      "partyName": "Автомагистрали - черно море АД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-548273-860952%2F2026-05-29-contractamendment"
     },
     {
       "key": "b736d2331f6b",
@@ -223,6 +235,18 @@
       "partyName": "Е - плант ЕООД",
       "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
       "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-443362-822048%2F2026-03-10-contractamendment"
+    },
+    {
+      "key": "1282792d99ed",
+      "ocid": "ocds-e82gsb-563521",
+      "date": "2026-05-29",
+      "amount": 268420.66,
+      "currency": "EUR",
+      "amountEur": 268420.66,
+      "partyEik": "127001597",
+      "partyName": "Автомагистрали - черно море АД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-563521-860896%2F2026-05-29-award"
     },
     {
       "key": "ac976b077dd6",
@@ -595,30 +619,6 @@
       "partyName": "ЕС-Енерджи Проект ЕООД",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "3fa76ea34c09",
-      "ocid": "aop-legacy-2023-435383",
-      "date": "2023-10-11",
-      "amount": 145000.45,
-      "currency": "BGN",
-      "amountEur": 74137.55285479822,
-      "partyEik": "127001597",
-      "partyName": "Автомагистрали - черно море АД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "697c6b3b35dd",
-      "ocid": "aop-legacy-2023-435339",
-      "date": "2023-10-11",
-      "amount": 144107.13,
-      "currency": "BGN",
-      "amountEur": 73680.80559148801,
-      "partyEik": "127001597",
-      "partyName": "Автомагистрали - черно море АД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -690,9 +690,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 2001976.2,
+      "totalEur": 2664418.44,
       "totalOther": {},
-      "contractCount": 14
+      "contractCount": 16
     }
   ]
 }

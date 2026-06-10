@@ -3,46 +3,28 @@
   "name": "Пирдоп",
   "province": "София",
   "obshtina": "Пирдоп",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 161,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 93,
   "awardCount": 0,
-  "totalEur": 44725440.36285572,
+  "totalEur": 43284971.653679825,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000777216",
       "name": "Община Пирдоп",
       "tier": "municipal",
-      "totalEur": 43175329.06367982,
+      "totalEur": 43192348.09367982,
       "totalOther": {},
-      "contractCount": 87,
-      "awardCount": 0
-    },
-    {
-      "eik": "202503899",
-      "name": "Многопрофилна болница за активно лечение - пирдоп АД",
-      "tier": "hospital",
-      "totalEur": 1350906.1417475957,
-      "totalOther": {},
-      "contractCount": 70,
-      "awardCount": 0
-    },
-    {
-      "eik": "000763152",
-      "name": "Професионална гимназия по механоелектротехника",
-      "tier": "school",
-      "totalEur": 161696.0574283041,
-      "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 89,
       "awardCount": 0
     },
     {
       "eik": "000760448",
       "name": "Професионална гимназия по туризъм и хранителни технологии \"Никола Димов\"",
       "tier": "school",
-      "totalEur": 37509.1,
+      "totalEur": 92623.56,
       "totalOther": {},
-      "contractCount": 3,
+      "contractCount": 4,
       "awardCount": 0
     }
   ],
@@ -252,18 +234,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "f07beb01d306",
-      "ocid": "aop-legacy-2011-2015-679969",
-      "date": "2015-07-30",
-      "amount": 819200.25,
-      "currency": "BGN",
-      "amountEur": 418850.4368989125,
-      "partyEik": "203283623",
-      "partyName": "Фьоникс Фарма ЕООД",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
       "key": "2a76fd9ab447",
       "ocid": "aop-legacy-2023-427910",
       "date": "2023-09-25",
@@ -418,18 +388,6 @@
       "partyName": "Алекса фууд ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "c0a57cb93a7c",
-      "ocid": "aop-legacy-2023-338242",
-      "date": "2023-03-03",
-      "amount": 316250,
-      "currency": "BGN",
-      "amountEur": 161696.0574283041,
-      "partyEik": "202416234",
-      "partyName": "Криейтив М груп ЕООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
       "key": "f2ca2dfc5f4b",
@@ -600,18 +558,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "26116937d007",
-      "ocid": "aop-legacy-2023-445112",
-      "date": "2023-11-08",
-      "amount": 158193.95,
-      "currency": "BGN",
-      "amountEur": 80883.28228936053,
-      "partyEik": "833101609",
-      "partyName": "Перфект медика ООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
       "key": "b6beafdf9579",
       "ocid": "aop-legacy-2011-2015-493173",
       "date": "2012-07-30",
@@ -646,6 +592,42 @@
       "partyName": "Алекса фууд ЕООД",
       "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
       "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-546062-823814%2F2026-03-13-award"
+    },
+    {
+      "key": "b0a791ee5553",
+      "ocid": "aop-legacy-2011-2015-635066",
+      "date": "2014-11-26",
+      "amount": 121687.25,
+      "currency": "BGN",
+      "amountEur": 62217.702970094535,
+      "partyEik": "175010041",
+      "partyName": "Дени.2005 ЕООД - Златица",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "bb6c17bfc50a",
+      "ocid": "aop-legacy-2023-318610",
+      "date": "2023-01-09",
+      "amount": 119900,
+      "currency": "BGN",
+      "amountEur": 61303.896555426596,
+      "partyEik": "200285252",
+      "partyName": "Стройнорм ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "96f5cb763b6f",
+      "ocid": "aop-legacy-2011-2015-524506",
+      "date": "2013-02-19",
+      "amount": 110000,
+      "currency": "BGN",
+      "amountEur": 56242.106931584036,
+      "partyEik": "109514858",
+      "partyName": "Национално сдружение на малкия и среден бизнес - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -663,21 +645,15 @@
     },
     {
       "year": "2013",
-      "totalEur": 352796.09168486006,
+      "totalEur": 344724.8380482966,
       "totalOther": {},
-      "contractCount": 10
+      "contractCount": 4
     },
     {
       "year": "2014",
-      "totalEur": 3038630.4280024334,
+      "totalEur": 2964175.511164058,
       "totalOther": {},
-      "contractCount": 21
-    },
-    {
-      "year": "2015",
-      "totalEur": 426507.1964332278,
-      "totalOther": {},
-      "contractCount": 3
+      "contractCount": 9
     },
     {
       "year": "2016",
@@ -693,9 +669,9 @@
     },
     {
       "year": "2019",
-      "totalEur": 1275216.6343700627,
+      "totalEur": 1212691.4200109416,
       "totalOther": {},
-      "contractCount": 5
+      "contractCount": 4
     },
     {
       "year": "2020",
@@ -705,21 +681,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 5214539.341353798,
+      "totalEur": 4924138.606116073,
       "totalOther": {},
-      "contractCount": 24
+      "contractCount": 7
     },
     {
       "year": "2023",
-      "totalEur": 2868866.0108496137,
+      "totalEur": 2369153.868178727,
       "totalOther": {},
-      "contractCount": 28
+      "contractCount": 11
     },
     {
       "year": "2026",
-      "totalEur": 6004207.2700000005,
+      "totalEur": 5925410.0200000005,
       "totalOther": {},
-      "contractCount": 32
+      "contractCount": 20
     }
   ]
 }

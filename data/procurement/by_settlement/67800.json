@@ -3,19 +3,19 @@
   "name": "Созопол",
   "province": "Бургас",
   "obshtina": "Созопол",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 210,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 213,
   "awardCount": 0,
-  "totalEur": 103345589.68469524,
+  "totalEur": 104155299.86469524,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000057236",
       "name": "Община Созопол",
       "tier": "municipal",
-      "totalEur": 103345589.68469524,
+      "totalEur": 104155299.86469524,
       "totalOther": {},
-      "contractCount": 210,
+      "contractCount": 213,
       "awardCount": 0
     }
   ],
@@ -453,6 +453,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "782a4f2cdbeb",
+      "ocid": "ocds-e82gsb-489445",
+      "date": "2026-06-01",
+      "amount": 521128.52,
+      "currency": "EUR",
+      "amountEur": 521128.52,
+      "partyEik": "204090404",
+      "partyName": "ЕМТ Строй ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-489445-860838%2F2026-06-01-contractamendment"
+    },
+    {
       "key": "f7bc860abb28",
       "ocid": "ocds-e82gsb-489445",
       "date": "2026-04-08",
@@ -607,18 +619,6 @@
       "partyName": "Пск Виастрой ЕООД - Стара Загора",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "0203a8dee6ba",
-      "ocid": "aop-legacy-2011-2015-694092",
-      "date": "2015-10-26",
-      "amount": 833330,
-      "currency": "BGN",
-      "amountEur": 426074.86335724476,
-      "partyEik": "203212590",
-      "partyName": "Пск Виастрой ЕООД - Стара Загора",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -684,9 +684,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 25882054.719999995,
+      "totalEur": 26691764.899999995,
       "totalOther": {},
-      "contractCount": 39
+      "contractCount": 42
     }
   ]
 }

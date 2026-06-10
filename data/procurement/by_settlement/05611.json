@@ -3,19 +3,19 @@
   "name": "Борово",
   "province": "Русе",
   "obshtina": "Борово",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 63,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 64,
   "awardCount": 0,
-  "totalEur": 20363951.62052341,
+  "totalEur": 20444568.11052341,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000530479",
       "name": "Община Борово",
       "tier": "municipal",
-      "totalEur": 20363951.62052341,
+      "totalEur": 20444568.11052341,
       "totalOther": {},
-      "contractCount": 63,
+      "contractCount": 64,
       "awardCount": 0
     }
   ],
@@ -393,6 +393,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
+      "key": "bc160c62c255",
+      "ocid": "ocds-e82gsb-576891",
+      "date": "2026-05-22",
+      "amount": 80616.49,
+      "currency": "EUR",
+      "amountEur": 80616.49,
+      "partyEik": "117556629",
+      "partyName": "ВИ Проект ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-576891-858664%2F2026-05-22-award"
+    },
+    {
       "key": "2ece234e22ef",
       "ocid": "aop-legacy-2019-x",
       "date": "2019-08-09",
@@ -607,18 +619,6 @@
       "partyName": "Ен Ес проект ЕООД",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "c15315b67d3f",
-      "ocid": "aop-legacy-2023-457800",
-      "date": "2023-12-06",
-      "amount": 53280,
-      "currency": "BGN",
-      "amountEur": 27241.631430134523,
-      "partyEik": "204068723",
-      "partyName": "Проект експерт контрол ЕООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -684,9 +684,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 405727.01,
+      "totalEur": 486343.5,
       "totalOther": {},
-      "contractCount": 7
+      "contractCount": 8
     }
   ]
 }

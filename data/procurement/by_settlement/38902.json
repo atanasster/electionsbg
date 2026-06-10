@@ -3,23 +3,35 @@
   "name": "Костенец",
   "province": "София",
   "obshtina": "Костенец",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 212,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 213,
   "awardCount": 0,
-  "totalEur": 30634840.42709771,
+  "totalEur": 38079761.507097706,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000776349",
       "name": "Община Костенец",
       "tier": "municipal",
-      "totalEur": 30634840.42709771,
+      "totalEur": 38079761.507097706,
       "totalOther": {},
-      "contractCount": 212,
+      "contractCount": 213,
       "awardCount": 0
     }
   ],
   "topContracts": [
+    {
+      "key": "00dd64a2f524",
+      "ocid": "ocds-e82gsb-543603",
+      "date": "2026-06-02",
+      "amount": 7444921.08,
+      "currency": "EUR",
+      "amountEur": 7444921.08,
+      "partyEik": "181560011",
+      "partyName": "ЕКО Марица",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-543603-861046%2F2026-06-02-award"
+    },
     {
       "key": "65d442efc1f7",
       "ocid": "aop-legacy-2019-907880",
@@ -607,18 +619,6 @@
       "partyName": "Версо 2011 ЕООД - Пловдив",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "c840899eb32c",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-01-09",
-      "amount": 294400,
-      "currency": "BGN",
-      "amountEur": 150524.32982416672,
-      "partyEik": "201750334",
-      "partyName": "Версо 2011 ЕООД - Пловдив",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     }
   ],
   "byYear": [
@@ -690,9 +690,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 2945353.3500000006,
+      "totalEur": 10390274.43,
       "totalOther": {},
-      "contractCount": 15
+      "contractCount": 16
     }
   ]
 }

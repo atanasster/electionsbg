@@ -3,19 +3,19 @@
   "name": "Търговище",
   "province": "Търговище",
   "obshtina": "Търговище",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 1012,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 1083,
   "awardCount": 0,
-  "totalEur": 171177130.0498964,
+  "totalEur": 188282298.31445563,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000875920",
       "name": "Община Търговище",
       "tier": "municipal",
-      "totalEur": 100635618.39083856,
+      "totalEur": 108301617.18083856,
       "totalOther": {},
-      "contractCount": 384,
+      "contractCount": 391,
       "awardCount": 0
     },
     {
@@ -31,9 +31,9 @@
       "eik": "835014989",
       "name": "Водоснабдяване и канализация ООД",
       "tier": "utility",
-      "totalEur": 21706450.74357613,
+      "totalEur": 30468310.83357613,
       "totalOther": {},
-      "contractCount": 129,
+      "contractCount": 131,
       "awardCount": 0
     },
     {
@@ -46,12 +46,30 @@
       "awardCount": 0
     },
     {
+      "eik": "000870058",
+      "name": "Второ средно училище \"Професор никола Маринов\"",
+      "tier": "school",
+      "totalEur": 643903.9187397677,
+      "totalOther": {},
+      "contractCount": 57,
+      "awardCount": 0
+    },
+    {
       "eik": "000866985",
       "name": "1-ВО Основно училище \"ХР.БОТЕВ\"",
       "tier": "school",
       "totalEur": 152974.3932513562,
       "totalOther": {},
       "contractCount": 16,
+      "awardCount": 0
+    },
+    {
+      "eik": "129004720",
+      "name": "Професионална Техническа гимназия \"ЦАР симеон велики\"",
+      "tier": "school",
+      "totalEur": 33405.46581947306,
+      "totalOther": {},
+      "contractCount": 5,
       "awardCount": 0
     }
   ],
@@ -67,6 +85,18 @@
       "partyName": "ПЪТИНЖЕНЕРИНГСТРОЙ-Т ЕАД",
       "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
       "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-553166-850369%2F2026-05-04-award"
+    },
+    {
+      "key": "490a22010454",
+      "ocid": "ocds-e82gsb-514747",
+      "date": "2026-06-01",
+      "amount": 8119512.09,
+      "currency": "EUR",
+      "amountEur": 8119512.09,
+      "partyEik": "181571666",
+      "partyName": "ДЗЗД \"Пспв Търговище\"",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-514747-860829%2F2026-06-01-award"
     },
     {
       "key": "13188c8db626",
@@ -103,6 +133,18 @@
       "partyName": "Понсстройинженеринг ЕАД - Бургас",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "7d5a18944102",
+      "ocid": "ocds-e82gsb-523324",
+      "date": "2026-06-03",
+      "amount": 4601144,
+      "currency": "EUR",
+      "amountEur": 4601144,
+      "partyEik": "148136527",
+      "partyName": "Екоинвест асетс АД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-523324-861715%2F2026-06-03-award"
     },
     {
       "key": "e62614128f3c",
@@ -417,6 +459,42 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "03422275450a",
+      "ocid": "ocds-e82gsb-393092",
+      "date": "2026-05-26",
+      "amount": 910355.2,
+      "currency": "EUR",
+      "amountEur": 910355.2,
+      "partyEik": "181185561",
+      "partyName": "Културен ДОМ с. Чомаковци",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-393092-858024%2F2026-05-26-award"
+    },
+    {
+      "key": "40eb0934f50e",
+      "ocid": "ocds-e82gsb-393092",
+      "date": "2026-05-26",
+      "amount": 910355.2,
+      "currency": "EUR",
+      "amountEur": 910355.2,
+      "partyEik": "200381913",
+      "partyName": "Петроникс груп ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-393092-858024%2F2026-05-26-award"
+    },
+    {
+      "key": "cc923de43b9f",
+      "ocid": "ocds-e82gsb-393092",
+      "date": "2026-05-26",
+      "amount": 910355.2,
+      "currency": "EUR",
+      "amountEur": 910355.2,
+      "partyEik": "206452103",
+      "partyName": "Тръст Билд Про ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-393092-858024%2F2026-05-26-award"
+    },
+    {
       "key": "5b5e9fcb21d2",
       "ocid": "ocds-e82gsb-393092",
       "date": "2026-04-17",
@@ -595,66 +673,6 @@
       "partyName": "Фьоникс Фарма ЕООД",
       "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
       "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-539427-854728%2F2026-05-15-award"
-    },
-    {
-      "key": "adb7ceff636a",
-      "ocid": "ocds-e82gsb-539427",
-      "date": "2026-05-15",
-      "amount": 737350,
-      "currency": "EUR",
-      "amountEur": 737350,
-      "partyEik": "130477290",
-      "partyName": "Хелмед българия ЕООД",
-      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
-      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-539427-854728%2F2026-05-15-award"
-    },
-    {
-      "key": "b164c288ec5a",
-      "ocid": "ocds-e82gsb-539427",
-      "date": "2026-05-15",
-      "amount": 737350,
-      "currency": "EUR",
-      "amountEur": 737350,
-      "partyEik": "010652246",
-      "partyName": "Интер бизнес 91 ЕООД",
-      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
-      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-539427-854728%2F2026-05-15-award"
-    },
-    {
-      "key": "c6f76fa5dd50",
-      "ocid": "ocds-e82gsb-539427",
-      "date": "2026-05-15",
-      "amount": 737350,
-      "currency": "EUR",
-      "amountEur": 737350,
-      "partyEik": "115573932",
-      "partyName": "Истлинк българия ООД",
-      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
-      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-539427-854728%2F2026-05-15-award"
-    },
-    {
-      "key": "cec7988a0d8a",
-      "ocid": "ocds-e82gsb-539427",
-      "date": "2026-05-15",
-      "amount": 737350,
-      "currency": "EUR",
-      "amountEur": 737350,
-      "partyEik": "131268894",
-      "partyName": "Медекс ООД",
-      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
-      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-539427-854728%2F2026-05-15-award"
-    },
-    {
-      "key": "d79bf538e141",
-      "ocid": "ocds-e82gsb-539427",
-      "date": "2026-05-15",
-      "amount": 737350,
-      "currency": "EUR",
-      "amountEur": 737350,
-      "partyEik": "831641528",
-      "partyName": "Медицинска техника инженеринг ООД",
-      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
-      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-539427-854728%2F2026-05-15-award"
     }
   ],
   "byYear": [
@@ -672,21 +690,21 @@
     },
     {
       "year": "2013",
-      "totalEur": 6295755.37751236,
+      "totalEur": 6308822.7862339765,
       "totalOther": {},
-      "contractCount": 73
+      "contractCount": 78
     },
     {
       "year": "2014",
-      "totalEur": 8116368.9891248215,
+      "totalEur": 8204907.006232649,
       "totalOther": {},
-      "contractCount": 67
+      "contractCount": 75
     },
     {
       "year": "2015",
-      "totalEur": 4788452.375717727,
+      "totalEur": 4803333.899163016,
       "totalOther": {},
-      "contractCount": 80
+      "contractCount": 85
     },
     {
       "year": "2016",
@@ -696,15 +714,15 @@
     },
     {
       "year": "2017",
-      "totalEur": 29814954.60239387,
+      "totalEur": 29842098.260073733,
       "totalOther": {},
-      "contractCount": 229
+      "contractCount": 242
     },
     {
       "year": "2019",
-      "totalEur": 27010702.561061032,
+      "totalEur": 27026249.26501792,
       "totalOther": {},
-      "contractCount": 124
+      "contractCount": 133
     },
     {
       "year": "2020",
@@ -720,21 +738,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 11317021.336210202,
+      "totalEur": 11554961.52017302,
       "totalOther": {},
-      "contractCount": 93
+      "contractCount": 98
     },
     {
       "year": "2023",
-      "totalEur": 12214953.037840713,
+      "totalEur": 12266913.177525654,
       "totalOther": {},
-      "contractCount": 60
+      "contractCount": 66
     },
     {
       "year": "2026",
-      "totalEur": 51880333.36,
+      "totalEur": 68536423.98999998,
       "totalOther": {},
-      "contractCount": 88
+      "contractCount": 108
     }
   ]
 }

@@ -3,32 +3,35 @@
   "name": "Гълъбово",
   "province": "Стара Загора",
   "obshtina": "Гълъбово",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "generatedAt": "2026-06-10T08:56:01.513Z",
   "contractCount": 174,
   "awardCount": 0,
-  "totalEur": 50614339.88575236,
+  "totalEur": 56491617.20575236,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000817696",
       "name": "Община Гълъбово",
       "tier": "municipal",
-      "totalEur": 50572908.52575236,
+      "totalEur": 56491617.20575236,
       "totalOther": {},
-      "contractCount": 172,
-      "awardCount": 0
-    },
-    {
-      "eik": "200695116",
-      "name": "Многопрофилна болница за активно лечение ЕАД",
-      "tier": "hospital",
-      "totalEur": 41431.36,
-      "totalOther": {},
-      "contractCount": 2,
+      "contractCount": 174,
       "awardCount": 0
     }
   ],
   "topContracts": [
+    {
+      "key": "d434e6184052",
+      "ocid": "ocds-e82gsb-371844",
+      "date": "2026-06-03",
+      "amount": 5060511.39,
+      "currency": "EUR",
+      "amountEur": 5060511.39,
+      "partyEik": "200075161",
+      "partyName": "Инфраструктурни системи ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-371844-862961%2F2026-06-03-contractamendment"
+    },
     {
       "key": "f51fdfa81f7b",
       "ocid": "aop-legacy-2022-302133",
@@ -160,6 +163,18 @@
       "partyName": "Благоустройство и чистота ЕООД - Гълъбово",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "b287c7fa1bfd",
+      "ocid": "ocds-e82gsb-524027",
+      "date": "2026-05-27",
+      "amount": 858197.29,
+      "currency": "EUR",
+      "amountEur": 858197.29,
+      "partyEik": "127588059",
+      "partyName": "Гарант строй ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-524027-859831%2F2026-05-27-award"
     },
     {
       "key": "26d6fdb3a05f",
@@ -604,30 +619,6 @@
       "partyName": "ДЗЗД Хайдушко Кладенче - Пловдив",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "6b02e0743576",
-      "ocid": "aop-legacy-2019-926291",
-      "date": "2019-08-06",
-      "amount": 698517.01,
-      "currency": "BGN",
-      "amountEur": 357146.0760904578,
-      "partyEik": "177375380",
-      "partyName": "ДЗЗД Хайдушко Кладенче - Пловдив",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "32ca9a6745d8",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-12-02",
-      "amount": 583333.33,
-      "currency": "BGN",
-      "amountEur": 298253.5956601545,
-      "partyEik": "177093826",
-      "partyName": "ДЗЗД  Бкфи",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     }
   ],
   "byYear": [
@@ -693,7 +684,7 @@
     },
     {
       "year": "2026",
-      "totalEur": 1752849.7000000002,
+      "totalEur": 7630127.02,
       "totalOther": {},
       "contractCount": 15
     }

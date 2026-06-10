@@ -3,19 +3,19 @@
   "name": "Тополовград",
   "province": "Хасково",
   "obshtina": "Тополовград",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 144,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 145,
   "awardCount": 0,
-  "totalEur": 40926838.11722677,
+  "totalEur": 41256436.35722677,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000970464",
       "name": "Община Тополовград",
       "tier": "municipal",
-      "totalEur": 40698959.732095085,
+      "totalEur": 41028557.97209508,
       "totalOther": {},
-      "contractCount": 140,
+      "contractCount": 141,
       "awardCount": 0
     },
     {
@@ -318,6 +318,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "f019f2689104",
+      "ocid": "ocds-e82gsb-558570",
+      "date": "2026-06-01",
+      "amount": 329598.24,
+      "currency": "EUR",
+      "amountEur": 329598.24,
+      "partyEik": "205403014",
+      "partyName": "СПН Конструкшън ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-558570-860868%2F2026-06-01-award"
+    },
+    {
       "key": "395984c8385f",
       "ocid": "aop-legacy-2011-2015-659614",
       "date": "2015-04-03",
@@ -616,18 +628,6 @@
       "partyName": "Благоустройство и комунално стопанство /Бкс/ ООД - Тополовград",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "8c1511b1ea6f",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-05-28",
-      "amount": 221940.85,
-      "currency": "BGN",
-      "amountEur": 113476.55471078775,
-      "partyEik": "108561221",
-      "partyName": "Графит Комерс ООД - Кърджали",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
@@ -699,9 +699,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 2030467.6197908819,
+      "totalEur": 2360065.859790882,
       "totalOther": {},
-      "contractCount": 14
+      "contractCount": 15
     }
   ]
 }

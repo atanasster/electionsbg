@@ -3,28 +3,19 @@
   "name": "Стрелча",
   "province": "Пазарджик",
   "obshtina": "Стрелча",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 148,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 147,
   "awardCount": 0,
-  "totalEur": 16443056.286149407,
+  "totalEur": 16252542.285463713,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000351864",
       "name": "Община Стрелча",
       "tier": "municipal",
-      "totalEur": 16214343.665463714,
+      "totalEur": 16252542.285463713,
       "totalOther": {},
-      "contractCount": 145,
-      "awardCount": 0
-    },
-    {
-      "eik": "000341375",
-      "name": "Начално училище \"Паисий Хилендарски\"",
-      "tier": "school",
-      "totalEur": 228712.62068569355,
-      "totalOther": {},
-      "contractCount": 3,
+      "contractCount": 147,
       "awardCount": 0
     }
   ],
@@ -450,18 +441,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "5273646b9d39",
-      "ocid": "aop-legacy-2023-339029",
-      "date": "2023-02-28",
-      "amount": 261473.92,
-      "currency": "BGN",
-      "amountEur": 133689.49244054954,
-      "partyEik": "204968092",
-      "partyName": "Маив билд ООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
       "key": "38ec2a146f66",
       "ocid": "aop-legacy-2011-2015-552184",
       "date": "2013-07-25",
@@ -594,30 +573,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "247ab9a3916a",
-      "ocid": "aop-legacy-2017-808916",
-      "date": "2017-10-09",
-      "amount": 93323.09,
-      "currency": "BGN",
-      "amountEur": 47715.338245144005,
-      "partyEik": "201741844",
-      "partyName": "Смарт бизнес къмпани ЕООД  - гр. Габрово",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "9aa1ec1e076c",
-      "ocid": "ocds-e82gsb-545546",
-      "date": "2026-03-11",
-      "amount": 47307.79,
-      "currency": "EUR",
-      "amountEur": 47307.79,
-      "partyEik": "208044399",
-      "partyName": "Естет-Мебел ООД",
-      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
-      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-545546-822593%2F2026-03-11-award"
-    },
-    {
       "key": "792438f67797",
       "ocid": "aop-legacy-2017-x",
       "date": "2017-07-18",
@@ -628,6 +583,42 @@
       "partyName": "Геров комерс 82 ЕООД - Стрелча",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "d72b3974de72",
+      "ocid": "aop-legacy-2017-796434",
+      "date": "2017-07-18",
+      "amount": 90000,
+      "currency": "BGN",
+      "amountEur": 46016.26930765966,
+      "partyEik": "203008563",
+      "partyName": "Геров комерс 82 ЕООД - Стрелча",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "4b3e9b9248b4",
+      "ocid": "aop-legacy-2022-206221",
+      "date": "2022-03-11",
+      "amount": 82777,
+      "currency": "BGN",
+      "amountEur": 42323.20804977938,
+      "partyEik": "201484467",
+      "partyName": "Автокам българия ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "cc6e58425331",
+      "ocid": "aop-legacy-2023-464138",
+      "date": "2023-12-20",
+      "amount": 82595,
+      "currency": "BGN",
+      "amountEur": 42230.152927401665,
+      "partyEik": "115013855",
+      "partyName": "Омникар ауто ООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -669,9 +660,9 @@
     },
     {
       "year": "2017",
-      "totalEur": 139747.87686046332,
+      "totalEur": 92032.53861531932,
       "totalOther": {},
-      "contractCount": 3
+      "contractCount": 2
     },
     {
       "year": "2019",
@@ -693,15 +684,15 @@
     },
     {
       "year": "2023",
-      "totalEur": 1612985.5866818693,
+      "totalEur": 1479296.0942413197,
       "totalOther": {},
-      "contractCount": 24
+      "contractCount": 23
     },
     {
       "year": "2026",
-      "totalEur": 1635568.1199999999,
+      "totalEur": 1626458.9499999997,
       "totalOther": {},
-      "contractCount": 7
+      "contractCount": 8
     }
   ]
 }

@@ -25,6 +25,11 @@
           "confidence": "high"
         },
         {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
           "kind": "stake",
           "shareSize": "1",
           "valueEur": 25.564594059810926,
@@ -150,10 +155,15 @@
     },
     {
       "mpId": 2946,
-      "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
+      "mpName": "Елена Стефанова Пешева",
       "contractorEik": "201498495",
       "contractorName": "ДЖИ Пи ес системи България ЕООД - Пловдив",
       "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
         {
           "kind": "stake",
           "shareSize": "80",

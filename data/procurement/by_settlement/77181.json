@@ -3,19 +3,19 @@
   "name": "Харманли",
   "province": "Хасково",
   "obshtina": "Харманли",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 333,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 336,
   "awardCount": 0,
-  "totalEur": 47760645.53019434,
+  "totalEur": 48865485.57019434,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000903939",
       "name": "Община Харманли",
       "tier": "municipal",
-      "totalEur": 47760645.53019434,
+      "totalEur": 48865485.57019434,
       "totalOther": {},
-      "contractCount": 333,
+      "contractCount": 336,
       "awardCount": 0
     }
   ],
@@ -91,6 +91,18 @@
       "partyName": "ГД  Аб- Асфалт и бетон - Хасково",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "2fec9f5e19d4",
+      "ocid": "ocds-e82gsb-440811",
+      "date": "2026-06-03",
+      "amount": 1078458.84,
+      "currency": "EUR",
+      "amountEur": 1078458.84,
+      "partyEik": "126729838",
+      "partyName": "ЕКО Традекс груп АД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-440811-862757%2F2026-06-03-contractamendment"
     },
     {
       "key": "d0784d20d579",
@@ -607,18 +619,6 @@
       "partyName": "Меаца ЕООД - Кърджали",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "977e58e898d9",
-      "ocid": "aop-legacy-2019-907910",
-      "date": "2019-04-19",
-      "amount": 539980,
-      "currency": "BGN",
-      "amountEur": 276087.39000833407,
-      "partyEik": "175251156",
-      "partyName": "Люник ЕООД",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
@@ -696,9 +696,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 10066804.000000002,
+      "totalEur": 11171644.040000001,
       "totalOther": {},
-      "contractCount": 29
+      "contractCount": 32
     }
   ]
 }

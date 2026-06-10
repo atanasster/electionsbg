@@ -3,19 +3,19 @@
   "name": "Средец",
   "province": "Бургас",
   "obshtina": "Средец",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 160,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 170,
   "awardCount": 0,
-  "totalEur": 26863443.93814176,
+  "totalEur": 28989468.98814176,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000056878",
       "name": "Община Средец",
       "tier": "municipal",
-      "totalEur": 26749450.4081322,
+      "totalEur": 28875475.4581322,
       "totalOther": {},
-      "contractCount": 148,
+      "contractCount": 158,
       "awardCount": 0
     },
     {
@@ -112,6 +112,30 @@
       "partyName": "Комплектстрой ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "982bd8f69809",
+      "ocid": "ocds-e82gsb-549324",
+      "date": "2026-06-02",
+      "amount": 942734.52,
+      "currency": "EUR",
+      "amountEur": 942734.52,
+      "partyEik": "204293638",
+      "partyName": "Констрол ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-549324-861770%2F2026-06-02-award"
+    },
+    {
+      "key": "b66f146cedb0",
+      "ocid": "ocds-e82gsb-549324",
+      "date": "2026-06-02",
+      "amount": 942734.52,
+      "currency": "EUR",
+      "amountEur": 942734.52,
+      "partyEik": "181527965",
+      "partyName": "КО-ГЕО Строй",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-549324-861770%2F2026-06-02-award"
     },
     {
       "key": "79508180a5a2",
@@ -558,6 +582,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
+      "key": "72ad61d74c5e",
+      "ocid": "ocds-e82gsb-427574",
+      "date": "2026-05-28",
+      "amount": 107665.55,
+      "currency": "EUR",
+      "amountEur": 107665.55,
+      "partyEik": "207693317",
+      "partyName": "Заго ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-427574-859687%2F2026-05-28-contractamendment"
+    },
+    {
       "key": "818472ccd054",
       "ocid": "aop-legacy-2022-287849",
       "date": "2022-10-19",
@@ -592,42 +628,6 @@
       "partyName": "Екоинженеринг ЕООД - Кърджали",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "60fbf7a691db",
-      "ocid": "aop-legacy-2011-2015-465595",
-      "date": "2012-01-23",
-      "amount": 200950,
-      "currency": "BGN",
-      "amountEur": 102744.1035263801,
-      "partyEik": "102182129",
-      "partyName": "ИВ Трейд ООД - Бургас",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "f067f4db3907",
-      "ocid": "aop-legacy-2022-270281",
-      "date": "2022-09-01",
-      "amount": 191000,
-      "currency": "BGN",
-      "amountEur": 97656.74930847774,
-      "partyEik": "812114464",
-      "partyName": "Бургасбус ЕООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "66a184571437",
-      "ocid": "aop-legacy-2011-2015-692512",
-      "date": "2015-10-15",
-      "amount": 189372.18,
-      "currency": "BGN",
-      "amountEur": 96824.4581584289,
-      "partyEik": "176865246",
-      "partyName": "ДЗЗД Енергострой",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -699,9 +699,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 493794.25999999995,
+      "totalEur": 2619819.31,
       "totalOther": {},
-      "contractCount": 22
+      "contractCount": 32
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-05-28T08:40:37.126Z",
+  "lastSuccessfulIngest": "2026-06-10T08:56:45.151Z",
   "skill": "update-procurement",
-  "summary": "1 new fortnight 2026-05-07…2026-05-20: 2497 releases → 2623 rows (c=2273 m=350); 60 MP↔contractor pairs; re-seeded canary (b555e8069 dropped self-deal rows); 250472 total rows across 23379 contractors / 3442 awarders"
+  "summary": "АОП fortnight 2026-05-21…2026-06-03 (2,345 rows; 249,194 total); cross-ref 60 MP pairs; fixed shared normalize_name org-casing regression (canary green)"
 }

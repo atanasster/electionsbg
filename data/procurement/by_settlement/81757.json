@@ -3,19 +3,19 @@
   "name": "Чупрене",
   "province": "Видин",
   "obshtina": "Чупрене",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 52,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 53,
   "awardCount": 0,
-  "totalEur": 6515440.569988188,
+  "totalEur": 6560790.569988188,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000159700",
       "name": "Община Чупрене",
       "tier": "municipal",
-      "totalEur": 6515440.569988188,
+      "totalEur": 6560790.569988188,
       "totalOther": {},
-      "contractCount": 52,
+      "contractCount": 53,
       "awardCount": 0
     }
   ],
@@ -187,6 +187,18 @@
       "partyName": "Юни Проджект ЕООД - София",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "98e727536d3a",
+      "ocid": "ocds-e82gsb-561757",
+      "date": "2026-05-21",
+      "amount": 45350,
+      "currency": "EUR",
+      "amountEur": 45350,
+      "partyEik": "130935573",
+      "partyName": "Ратола лизинг ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-561757-857688%2F2026-05-21-award"
     },
     {
       "key": "9b16fa9ab6ed",
@@ -607,18 +619,6 @@
       "partyName": "Карио ООД - Сливен",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "fd3df396eab1",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-12-28",
-      "amount": 8000,
-      "currency": "BGN",
-      "amountEur": 4090.3350495697478,
-      "partyEik": "200507646",
-      "partyName": "Карио ООД - Сливен",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     }
   ],
   "byYear": [
@@ -675,6 +675,12 @@
       "totalEur": 123164.11446802637,
       "totalOther": {},
       "contractCount": 5
+    },
+    {
+      "year": "2026",
+      "totalEur": 45350,
+      "totalOther": {},
+      "contractCount": 1
     }
   ]
 }

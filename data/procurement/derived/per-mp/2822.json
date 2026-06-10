@@ -1,14 +1,14 @@
 {
   "mpId": 2822,
   "summary": {
-    "totalEur": 869.1961980335715,
+    "totalEur": 144769.19619803358,
     "totalOther": {},
-    "contractCount": 1,
+    "contractCount": 3,
     "awardCount": 0
   },
   "scorecard": {
-    "value": 869.1961980335715,
-    "rank": 55,
+    "value": 144769.19619803358,
+    "rank": 35,
     "cohortSize": 55,
     "cohortMedian": 505258.64
   },
@@ -17,7 +17,7 @@
       "mpId": 2822,
       "mpName": "Любомир Бойков Бонев",
       "contractorEik": "113566864",
-      "contractorName": "М Контрол ЕООД - Перник",
+      "contractorName": "М контрол ЕООД",
       "relations": [
         {
           "kind": "stake",
@@ -27,9 +27,9 @@
           "declarationYear": 2021
         }
       ],
-      "totalEur": 869.1961980335715,
+      "totalEur": 144769.19619803358,
       "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 3,
       "awardCount": 0,
       "byYear": [
         {
@@ -37,9 +37,22 @@
           "contractCount": 1,
           "totalEur": 869.1961980335715,
           "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 2,
+          "totalEur": 143900,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
+        {
+          "eik": "000261517",
+          "name": "Община Кюстендил",
+          "contractCount": 2,
+          "totalEur": 143900,
+          "totalOther": {}
+        },
         {
           "eik": "000386790",
           "name": "Община Трън",

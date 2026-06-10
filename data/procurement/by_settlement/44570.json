@@ -3,28 +3,19 @@
   "name": "Любимец",
   "province": "Хасково",
   "obshtina": "Любимец",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 176,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 164,
   "awardCount": 0,
-  "totalEur": 43231393.605786994,
+  "totalEur": 42897254.13528271,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000903686",
       "name": "Община Любимец",
       "tier": "municipal",
-      "totalEur": 42893604.13528271,
+      "totalEur": 42897254.13528271,
       "totalOther": {},
-      "contractCount": 163,
-      "awardCount": 0
-    },
-    {
-      "eik": "000893295",
-      "name": "Средно училище \"Желязко Терпешев\"",
-      "tier": "school",
-      "totalEur": 337789.47050428716,
-      "totalOther": {},
-      "contractCount": 13,
+      "contractCount": 164,
       "awardCount": 0
     }
   ],
@@ -546,18 +537,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "394763cd2e38",
-      "ocid": "aop-legacy-2023-377156",
-      "date": "2023-05-22",
-      "amount": 269966.75,
-      "currency": "BGN",
-      "amountEur": 138031.8074679292,
-      "partyEik": "126658138",
-      "partyName": "Европът 2005 ООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
       "key": "d1097b0920e0",
       "ocid": "aop-legacy-2019-x",
       "date": "2019-06-11",
@@ -628,6 +607,18 @@
       "partyName": "Анастас - братя Стойкови и Сие",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "41fd8f446e11",
+      "ocid": "aop-legacy-2011-2015-576065",
+      "date": "2013-12-19",
+      "amount": 250000,
+      "currency": "BGN",
+      "amountEur": 127822.97029905462,
+      "partyEik": "200669801",
+      "partyName": "Анастас - братя Стойкови и Сие",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -687,21 +678,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 2329842.9106824216,
+      "totalEur": 2236039.3336844207,
       "totalOther": {},
-      "contractCount": 13
+      "contractCount": 11
     },
     {
       "year": "2023",
-      "totalEur": 1127175.194163092,
+      "totalEur": 917850.3806568056,
       "totalOther": {},
-      "contractCount": 12
+      "contractCount": 10
     },
     {
       "year": "2026",
-      "totalEur": 2197638.08,
+      "totalEur": 2166627,
       "totalOther": {},
-      "contractCount": 13
+      "contractCount": 5
     }
   ]
 }

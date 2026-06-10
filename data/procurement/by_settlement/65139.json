@@ -3,28 +3,19 @@
   "name": "Садово",
   "province": "Пловдив",
   "obshtina": "Садово",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
+  "generatedAt": "2026-06-10T08:56:01.513Z",
   "contractCount": 112,
   "awardCount": 0,
-  "totalEur": 21727703.3031241,
+  "totalEur": 21888918.4231241,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000471582",
       "name": "Община Садово",
       "tier": "municipal",
-      "totalEur": 21349394.1931241,
+      "totalEur": 21888918.4231241,
       "totalOther": {},
-      "contractCount": 110,
-      "awardCount": 0
-    },
-    {
-      "eik": "115567655",
-      "name": "Професионална Селскостопанска гимназия \"Димитър Наумов\" - гр. Садово",
-      "tier": "school",
-      "totalEur": 378309.11,
-      "totalOther": {},
-      "contractCount": 2,
+      "contractCount": 112,
       "awardCount": 0
     }
   ],
@@ -126,6 +117,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "2d94ae6f11fa",
+      "ocid": "ocds-e82gsb-556492",
+      "date": "2026-05-29",
+      "amount": 491132.56,
+      "currency": "EUR",
+      "amountEur": 491132.56,
+      "partyEik": "115887057",
+      "partyName": "Пътремонт ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-556492-860852%2F2026-05-29-award"
+    },
+    {
       "key": "6b1472aba8cb",
       "ocid": "aop-legacy-2019-926986",
       "date": "2019-08-12",
@@ -208,18 +211,6 @@
       "partyName": "Пътинженеринг ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "536fdce6c8bd",
-      "ocid": "ocds-e82gsb-500110",
-      "date": "2026-01-28",
-      "amount": 311698.11,
-      "currency": "EUR",
-      "amountEur": 311698.11,
-      "partyEik": "127588059",
-      "partyName": "Гарант строй ООД",
-      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
-      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-500110-803216%2F2026-01-28-contractamendment"
     },
     {
       "key": "20d3fa113195",
@@ -693,7 +684,7 @@
     },
     {
       "year": "2026",
-      "totalEur": 1965165.2399999998,
+      "totalEur": 2126380.36,
       "totalOther": {},
       "contractCount": 11
     }

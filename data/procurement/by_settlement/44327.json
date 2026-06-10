@@ -3,19 +3,19 @@
   "name": "Луковит",
   "province": "Ловеч",
   "obshtina": "Луковит",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 248,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 250,
   "awardCount": 0,
-  "totalEur": 59611469.87247486,
+  "totalEur": 60108334.68247486,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000291602",
       "name": "Община Луковит",
       "tier": "municipal",
-      "totalEur": 58341027.34197277,
+      "totalEur": 58837892.15197277,
       "totalOther": {},
-      "contractCount": 208,
+      "contractCount": 210,
       "awardCount": 0
     },
     {
@@ -351,6 +351,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
+      "key": "54fd8120aa2b",
+      "ocid": "ocds-e82gsb-528884",
+      "date": "2026-05-21",
+      "amount": 463313.81,
+      "currency": "EUR",
+      "amountEur": 463313.81,
+      "partyEik": "203634531",
+      "partyName": "Юнайтед пропърти груп ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-528884-857571%2F2026-05-21-award"
+    },
+    {
       "key": "7e6d518b5df6",
       "ocid": "aop-legacy-2023-326300",
       "date": "2023-01-27",
@@ -625,18 +637,6 @@
       "partyName": "Астон Сервиз ООД",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "6d6125c802ae",
-      "ocid": "aop-legacy-2011-2015-464005",
-      "date": "2012-01-11",
-      "amount": 477770,
-      "currency": "BGN",
-      "amountEur": 244279.9220791173,
-      "partyEik": "176222668",
-      "partyName": "Ззд Микс Инженер Консулт  - Пловдив",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -708,9 +708,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 6339495.713166534,
+      "totalEur": 6836360.523166534,
       "totalOther": {},
-      "contractCount": 32
+      "contractCount": 34
     }
   ]
 }

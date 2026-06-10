@@ -3,19 +3,19 @@
   "name": "Долни Дъбник",
   "province": "Плевен",
   "obshtina": "Долни Дъбник",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 59,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 60,
   "awardCount": 0,
-  "totalEur": 8780435.111214167,
+  "totalEur": 9094607.641214168,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000413732",
       "name": "Община Долни дъбник",
       "tier": "municipal",
-      "totalEur": 8780435.111214167,
+      "totalEur": 9094607.641214168,
       "totalOther": {},
-      "contractCount": 59,
+      "contractCount": 60,
       "awardCount": 0
     }
   ],
@@ -79,6 +79,18 @@
       "partyName": "Хидрострой груп - 2020",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "3bbf6bb20709",
+      "ocid": "ocds-e82gsb-552430",
+      "date": "2026-06-03",
+      "amount": 314172.53,
+      "currency": "EUR",
+      "amountEur": 314172.53,
+      "partyEik": "114684488",
+      "partyName": "Виагруп ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-552430-862720%2F2026-06-03-award"
     },
     {
       "key": "7d744421d084",
@@ -607,18 +619,6 @@
       "partyName": "Стройком-ДМ ООД - Плевен",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "28e92121b91e",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-09-02",
-      "amount": 17000,
-      "currency": "BGN",
-      "amountEur": 8691.961980335715,
-      "partyEik": "200218244",
-      "partyName": "Трипод ЕООД",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     }
   ],
   "byYear": [
@@ -690,9 +690,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 266280.2,
+      "totalEur": 580452.73,
       "totalOther": {},
-      "contractCount": 1
+      "contractCount": 2
     }
   ]
 }

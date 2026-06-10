@@ -3,19 +3,37 @@
   "name": "Троян",
   "province": "Ловеч",
   "obshtina": "Троян",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 780,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 901,
   "awardCount": 0,
-  "totalEur": 60151797.693930015,
+  "totalEur": 65365515.20354374,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000291709",
       "name": "Община Троян",
       "tier": "municipal",
-      "totalEur": 60151797.693930015,
+      "totalEur": 61666619.19393002,
       "totalOther": {},
-      "contractCount": 780,
+      "contractCount": 784,
+      "awardCount": 0
+    },
+    {
+      "eik": "110502461",
+      "name": "Многопрофилна болница за активно лечение - троян ЕООД",
+      "tier": "hospital",
+      "totalEur": 3612371.2367824405,
+      "totalOther": {},
+      "contractCount": 100,
+      "awardCount": 0
+    },
+    {
+      "eik": "000281162",
+      "name": "Начално училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 86524.7728312788,
+      "totalOther": {},
+      "contractCount": 17,
       "awardCount": 0
     }
   ],
@@ -103,6 +121,18 @@
       "partyName": "Пст Груп ЕАД (ново наименование) - Пътностроителна техника Холдинг АД (старо наименование)- Пътностроителна техника ЕАД (старо наименование)",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "f50c237d1aab",
+      "ocid": "ocds-e82gsb-432150",
+      "date": "2026-05-21",
+      "amount": 1114163,
+      "currency": "EUR",
+      "amountEur": 1114163,
+      "partyEik": "208789514",
+      "partyName": "ЕТ Цанко Мичев - диана Илиевска",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-432150-857343%2F2026-05-21-contractamendment"
     },
     {
       "key": "7164eedfad28",
@@ -297,6 +327,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-551532-805333%2F2026-02-06-award"
     },
     {
+      "key": "5e573f5bcfc5",
+      "ocid": "ocds-e82gsb-432150",
+      "date": "2026-05-21",
+      "amount": 358366.14,
+      "currency": "EUR",
+      "amountEur": 358366.14,
+      "partyEik": "110519158",
+      "partyName": "Нешев ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-432150-852521%2F2026-05-21-contractamendment"
+    },
+    {
       "key": "e2696a2ee1ba",
       "ocid": "ocds-e82gsb-553700",
       "date": "2026-05-20",
@@ -307,6 +349,18 @@
       "partyName": "Пътприбор ООД",
       "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
       "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-553700-852064%2F2026-05-20-award"
+    },
+    {
+      "key": "46b2476359bf",
+      "ocid": "aop-legacy-2011-2015-547607",
+      "date": "2013-06-26",
+      "amount": 672853.26,
+      "currency": "BGN",
+      "amountEur": 344024.4090744083,
+      "partyEik": "103267194",
+      "partyName": "Санита Трейдинг АД - клон София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
       "key": "08da4fb93e6e",
@@ -465,6 +519,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "58c8fb065c3b",
+      "ocid": "aop-legacy-2011-2015-615875",
+      "date": "2014-07-18",
+      "amount": 506413.17,
+      "currency": "BGN",
+      "amountEur": 258924.94235184038,
+      "partyEik": "103267194",
+      "partyName": "Санита Трейдинг АД - клон София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
       "key": "d2ec0e272f45",
       "ocid": "aop-legacy-2023-377304",
       "date": "2023-05-23",
@@ -571,54 +637,6 @@
       "partyName": "Виагруп ЕООД - Плевен",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "5baccd0bc07a",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-07-04",
-      "amount": 450000,
-      "currency": "BGN",
-      "amountEur": 230081.34653829833,
-      "partyEik": "114684488",
-      "partyName": "Виагруп ЕООД - Плевен",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "11b15594e49f",
-      "ocid": "aop-legacy-2011-2015-676104",
-      "date": "2015-07-07",
-      "amount": 448320,
-      "currency": "BGN",
-      "amountEur": 229222.37617788868,
-      "partyEik": "202303521",
-      "partyName": "Сками 12 ЕООД - Троян",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "141eb2a29faf",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-04-08",
-      "amount": 441948.25,
-      "currency": "BGN",
-      "amountEur": 225964.55213387666,
-      "partyEik": "130847116",
-      "partyName": "Държавно предприятие \"Транспортно строителство и възстановяване\" /ДП \"Тсв\"/ - София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "660176ceaa61",
-      "ocid": "aop-legacy-2019-906207",
-      "date": "2019-04-08",
-      "amount": 441948.25,
-      "currency": "BGN",
-      "amountEur": 225964.55213387666,
-      "partyEik": "130847116",
-      "partyName": "Държавно предприятие \"Транспортно строителство и възстановяване\" /ДП \"Тсв\"/ - София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
@@ -636,63 +654,63 @@
     },
     {
       "year": "2013",
-      "totalEur": 12302181.30410107,
+      "totalEur": 12807166.635137,
       "totalOther": {},
-      "contractCount": 57
+      "contractCount": 67
     },
     {
       "year": "2014",
-      "totalEur": 2197536.3554092124,
-      "totalOther": {},
-      "contractCount": 48
-    },
-    {
-      "year": "2015",
-      "totalEur": 1429152.3189643272,
-      "totalOther": {},
-      "contractCount": 30
-    },
-    {
-      "year": "2016",
-      "totalEur": 4723059.831375938,
-      "totalOther": {},
-      "contractCount": 83
-    },
-    {
-      "year": "2017",
-      "totalEur": 8979179.202691441,
-      "totalOther": {},
-      "contractCount": 139
-    },
-    {
-      "year": "2019",
-      "totalEur": 8161090.570243834,
+      "totalEur": 2697180.879728811,
       "totalOther": {},
       "contractCount": 58
     },
     {
-      "year": "2020",
-      "totalEur": 247615.5289570157,
+      "year": "2015",
+      "totalEur": 1814879.6674557605,
       "totalOther": {},
-      "contractCount": 11
+      "contractCount": 39
+    },
+    {
+      "year": "2016",
+      "totalEur": 5291662.261034957,
+      "totalOther": {},
+      "contractCount": 100
+    },
+    {
+      "year": "2017",
+      "totalEur": 9416742.830409598,
+      "totalOther": {},
+      "contractCount": 155
+    },
+    {
+      "year": "2019",
+      "totalEur": 8557416.88694825,
+      "totalOther": {},
+      "contractCount": 68
+    },
+    {
+      "year": "2020",
+      "totalEur": 459993.1844792237,
+      "totalOther": {},
+      "contractCount": 17
     },
     {
       "year": "2022",
-      "totalEur": 7346569.758107811,
+      "totalEur": 7541807.319654571,
       "totalOther": {},
-      "contractCount": 72
+      "contractCount": 88
     },
     {
       "year": "2023",
-      "totalEur": 3140911.5260528773,
+      "totalEur": 3515457.580669076,
       "totalOther": {},
-      "contractCount": 122
+      "contractCount": 137
     },
     {
       "year": "2026",
-      "totalEur": 3651931.7699999996,
+      "totalEur": 5290638.43,
       "totalOther": {},
-      "contractCount": 50
+      "contractCount": 62
     }
   ]
 }

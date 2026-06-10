@@ -3,10 +3,10 @@
   "name": "Павликени",
   "province": "Велико Търново",
   "obshtina": "Павликени",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 327,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 350,
   "awardCount": 0,
-  "totalEur": 54112464.617876045,
+  "totalEur": 55110157.79055077,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 53362151.11295578,
       "totalOther": {},
       "contractCount": 296,
+      "awardCount": 0
+    },
+    {
+      "eik": "000123704",
+      "name": "Професионална гимназия по аграрни технологии \"Цанко Церковски\"",
+      "tier": "school",
+      "totalEur": 997693.1726747211,
+      "totalOther": {},
+      "contractCount": 23,
       "awardCount": 0
     },
     {
@@ -318,6 +327,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "9d37a420e748",
+      "ocid": "ocds-e82gsb-531284",
+      "date": "2026-01-29",
+      "amount": 319823.3,
+      "currency": "EUR",
+      "amountEur": 319823.3,
+      "partyEik": "123112828",
+      "partyName": "Златекс ООД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-531284-803000%2F2026-01-29-award"
+    },
+    {
       "key": "5d830e303e57",
       "ocid": "aop-legacy-2011-2015-569532",
       "date": "2013-11-12",
@@ -616,18 +637,6 @@
       "partyName": "ДЗЗД Дига - София",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "fd55e7c307b1",
-      "ocid": "aop-legacy-2022-312463",
-      "date": "2022-12-19",
-      "amount": 372171.76,
-      "currency": "BGN",
-      "amountEur": 190288.39929850755,
-      "partyEik": "177325922",
-      "partyName": "Улици - павликени",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
@@ -651,9 +660,9 @@
     },
     {
       "year": "2014",
-      "totalEur": 10011010.967210852,
+      "totalEur": 10053371.499567958,
       "totalOther": {},
-      "contractCount": 36
+      "contractCount": 37
     },
     {
       "year": "2015",
@@ -681,27 +690,27 @@
     },
     {
       "year": "2020",
-      "totalEur": 565783.2531457233,
+      "totalEur": 591550.830082369,
       "totalOther": {},
-      "contractCount": 10
+      "contractCount": 11
     },
     {
       "year": "2022",
-      "totalEur": 4598569.226364255,
+      "totalEur": 4744720.13416299,
       "totalOther": {},
-      "contractCount": 54
+      "contractCount": 58
     },
     {
       "year": "2023",
-      "totalEur": 6497631.184714418,
+      "totalEur": 6719129.060296652,
       "totalOther": {},
-      "contractCount": 43
+      "contractCount": 47
     },
     {
       "year": "2026",
-      "totalEur": 7873288.349999999,
+      "totalEur": 8435204.629999999,
       "totalOther": {},
-      "contractCount": 46
+      "contractCount": 59
     }
   ]
 }

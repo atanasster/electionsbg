@@ -1,0 +1,44 @@
+{
+  "ekatte": "73660",
+  "name": "Търнак",
+  "province": "Враца",
+  "obshtina": "Бяла Слатина",
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 43572,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000182001",
+      "name": "Основно училище \"Георги Стойков Раковски\"",
+      "tier": "school",
+      "totalEur": 43572,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "ee2c7e86b725",
+      "ocid": "ocds-e82gsb-577271",
+      "date": "2026-05-26",
+      "amount": 43572,
+      "currency": "EUR",
+      "amountEur": 43572,
+      "partyEik": "114600294",
+      "partyName": "Офис решения БГ ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-577271-858751%2F2026-05-26-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 43572,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

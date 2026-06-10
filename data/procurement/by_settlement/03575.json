@@ -3,19 +3,19 @@
   "name": "Беловец",
   "province": "Разград",
   "obshtina": "Кубрат",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 1,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 3,
   "awardCount": 0,
-  "totalEur": 41500,
+  "totalEur": 91668.98999999999,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000498469",
       "name": "Основно училище \"Васил Левски\"",
       "tier": "school",
-      "totalEur": 41500,
+      "totalEur": 91668.98999999999,
       "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 3,
       "awardCount": 0
     }
   ],
@@ -31,14 +31,38 @@
       "partyName": "Дяков строй ООД",
       "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
       "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-546751-807738%2F2026-02-06-award"
+    },
+    {
+      "key": "b371aaa749c8",
+      "ocid": "ocds-e82gsb-583441",
+      "date": "2026-06-03",
+      "amount": 34205.43,
+      "currency": "EUR",
+      "amountEur": 34205.43,
+      "partyEik": "200544954",
+      "partyName": "Уеб Сървисис ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-583441-862687%2F2026-06-03-award"
+    },
+    {
+      "key": "80b333058af9",
+      "ocid": "ocds-e82gsb-583441",
+      "date": "2026-06-03",
+      "amount": 15963.56,
+      "currency": "EUR",
+      "amountEur": 15963.56,
+      "partyEik": "200544954",
+      "partyName": "Уеб Сървисис ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-583441-862687%2F2026-06-03-award"
     }
   ],
   "byYear": [
     {
       "year": "2026",
-      "totalEur": 41500,
+      "totalEur": 91668.98999999999,
       "totalOther": {},
-      "contractCount": 1
+      "contractCount": 3
     }
   ]
 }

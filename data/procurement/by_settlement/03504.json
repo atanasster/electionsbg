@@ -3,19 +3,19 @@
   "name": "Белица",
   "province": "Благоевград",
   "obshtina": "Белица",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 124,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 125,
   "awardCount": 0,
-  "totalEur": 33867482.89539167,
+  "totalEur": 34724729.30539168,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000024688",
       "name": "Община Белица",
       "tier": "municipal",
-      "totalEur": 33867482.89539167,
+      "totalEur": 34724729.30539168,
       "totalOther": {},
-      "contractCount": 124,
+      "contractCount": 125,
       "awardCount": 0
     }
   ],
@@ -151,6 +151,18 @@
       "partyName": "ДЗЗД Белица Пс 2014",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "3c6bfc4a6a5f",
+      "ocid": "ocds-e82gsb-150884",
+      "date": "2026-05-26",
+      "amount": 857246.41,
+      "currency": "EUR",
+      "amountEur": 857246.41,
+      "partyEik": "177537423",
+      "partyName": "ДЗЗД „Псов Родопите СК 2021“",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-150884-859217%2F2026-05-26-contractamendment"
     },
     {
       "key": "0fd13336f7f0",
@@ -607,18 +619,6 @@
       "partyName": "Автокам българия ООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "13b31f568a2b",
-      "ocid": "aop-legacy-2011-2015-585288",
-      "date": "2014-02-12",
-      "amount": 164730,
-      "currency": "BGN",
-      "amountEur": 84225.11158945307,
-      "partyEik": "121699202",
-      "partyName": "Лукойл-България ЕООД - София",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -690,9 +690,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 7054989.330000001,
+      "totalEur": 7912235.740000001,
       "totalOther": {},
-      "contractCount": 17
+      "contractCount": 18
     }
   ]
 }

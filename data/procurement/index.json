@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-05-28T08:40:27.269Z",
-  "lastIngest": "2026-05-28T08:40:27.269Z",
+  "generatedAt": "2026-06-10T08:56:01.542Z",
+  "lastIngest": "2026-06-10T08:56:01.542Z",
   "years": [
     "2011",
     "2012",
@@ -165,15 +165,16 @@
     "2026-02",
     "2026-03",
     "2026-04",
-    "2026-05"
+    "2026-05",
+    "2026-06"
   ],
   "totals": {
-    "contracts": 247366,
+    "contracts": 249194,
     "awards": 0,
-    "amendments": 3106,
-    "contractorCount": 23379,
-    "awarderCount": 3442,
-    "totalEur": 73395419170.13792,
+    "amendments": 3487,
+    "contractorCount": 23482,
+    "awarderCount": 3473,
+    "totalEur": 74474255725.35794,
     "totalOther": {
       "USD": 29346378.67000001,
       "CHF": 572061.6,
@@ -181,6 +182,11 @@
     }
   },
   "periods": [
+    {
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "periodStart": "2026-05-21",
+      "periodEnd": "2026-06-03"
+    },
     {
       "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
       "periodStart": "2026-05-07",
@@ -233,11 +239,11 @@
     }
   ],
   "crossReference": {
-    "generatedAt": "2026-05-28T08:40:26.454Z",
+    "generatedAt": "2026-06-10T08:56:00.403Z",
     "mpCount": 55,
     "contractorCount": 58,
     "pairCount": 60,
-    "totalEur": 706462918.2017113,
+    "totalEur": 707692147.2417113,
     "totalOther": {}
   }
 }

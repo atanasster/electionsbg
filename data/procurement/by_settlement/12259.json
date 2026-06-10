@@ -3,19 +3,37 @@
   "name": "Враца",
   "province": "Враца",
   "obshtina": "Враца",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 682,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 1308,
   "awardCount": 0,
-  "totalEur": 176729355.21439922,
+  "totalEur": 261458356.30563417,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000193115",
       "name": "Община Враца",
       "tier": "municipal",
-      "totalEur": 166436407.98929062,
+      "totalEur": 166613732.49929062,
       "totalOther": {},
-      "contractCount": 579,
+      "contractCount": 587,
+      "awardCount": 0
+    },
+    {
+      "eik": "000190101",
+      "name": "Комплексен онкологичен център - враца ЕООД",
+      "tier": "hospital",
+      "totalEur": 65809502.85690543,
+      "totalOther": {},
+      "contractCount": 372,
+      "awardCount": 0
+    },
+    {
+      "eik": "106518890",
+      "name": "Многопрофилна болница за активно лечение - христо Ботев АД",
+      "tier": "hospital",
+      "totalEur": 18115418.511134,
+      "totalOther": {},
+      "contractCount": 210,
       "awardCount": 0
     },
     {
@@ -43,6 +61,24 @@
       "totalEur": 363345.2363536708,
       "totalOther": {},
       "contractCount": 4,
+      "awardCount": 0
+    },
+    {
+      "eik": "176031444",
+      "name": "Регионална здравна инспекция - враца",
+      "tier": "regional_gov",
+      "totalEur": 352332.8765792528,
+      "totalOther": {},
+      "contractCount": 19,
+      "awardCount": 0
+    },
+    {
+      "eik": "000183053",
+      "name": "Средно УЧИЛИЩЕ\"ХРИСТО Ботев\" - Враца",
+      "tier": "school",
+      "totalEur": 274422.33661627036,
+      "totalOther": {},
+      "contractCount": 17,
       "awardCount": 0
     },
     {
@@ -159,6 +195,42 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "bce821dc4eb7",
+      "ocid": "aop-legacy-2022-191352",
+      "date": "2022-01-28",
+      "amount": 5483952.41,
+      "currency": "BGN",
+      "amountEur": 2803900.344099436,
+      "partyEik": "131268894",
+      "partyName": "Медекс ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "890aea94d20b",
+      "ocid": "aop-legacy-2022-191352",
+      "date": "2022-01-28",
+      "amount": 5168642.19,
+      "currency": "BGN",
+      "amountEur": 2642684.7885552426,
+      "partyEik": "103267194",
+      "partyName": "Софарма трейдинг АД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "be7934efeca2",
+      "ocid": "aop-legacy-2022-191352",
+      "date": "2022-01-28",
+      "amount": 4683369.11,
+      "currency": "BGN",
+      "amountEur": 2394568.6025881595,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
       "key": "766d8a817a33",
       "ocid": "aop-legacy-2023-319425",
       "date": "2023-01-13",
@@ -219,6 +291,30 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "8e31e9766fd3",
+      "ocid": "aop-legacy-2022-191352",
+      "date": "2022-01-28",
+      "amount": 3938066.98,
+      "currency": "BGN",
+      "amountEur": 2013501.6744809109,
+      "partyEik": "131279951",
+      "partyName": "РОШ България ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "f3e58b972168",
+      "ocid": "aop-legacy-2011-2015-489727",
+      "date": "2012-07-05",
+      "amount": 3847591.97,
+      "currency": "BGN",
+      "amountEur": 1967242.5364167644,
+      "partyEik": "103267194",
+      "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
       "key": "e34d7eb8934e",
       "ocid": "aop-legacy-2011-2015-538470",
       "date": "2013-04-24",
@@ -241,6 +337,42 @@
       "partyName": "Гарант- 90-Цонев и сие ООД - Враца",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "14c6fb086799",
+      "ocid": "aop-legacy-2022-261525",
+      "date": "2022-08-12",
+      "amount": 3315699.29,
+      "currency": "BGN",
+      "amountEur": 1695290.127465066,
+      "partyEik": "103267194",
+      "partyName": "Софарма трейдинг АД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "97a80d30bbd3",
+      "ocid": "aop-legacy-2022-231283",
+      "date": "2022-05-20",
+      "amount": 3281914.8,
+      "currency": "BGN",
+      "amountEur": 1678016.392017711,
+      "partyEik": "175256438",
+      "partyName": "Алта фармасютикълс ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "2a9a661dfb86",
+      "ocid": "aop-legacy-2011-2015-618187",
+      "date": "2014-08-06",
+      "amount": 3237601.92,
+      "currency": "BGN",
+      "amountEur": 1655359.5762412888,
+      "partyEik": "202513217",
+      "partyName": "Фармнет АД - Варна",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
       "key": "3f9a9bde7875",
@@ -303,6 +435,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
+      "key": "72b2a045b3b7",
+      "ocid": "aop-legacy-2023-408388",
+      "date": "2023-08-08",
+      "amount": 3119480,
+      "currency": "BGN",
+      "amountEur": 1594964.7975539796,
+      "partyEik": "131268894",
+      "partyName": "Медекс ООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
       "key": "8ec48791e126",
       "ocid": "aop-legacy-2023-450845",
       "date": "2023-11-24",
@@ -339,6 +483,30 @@
       "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-473795-846561%2F2026-05-07-contractamendment"
     },
     {
+      "key": "cfdeafe408f4",
+      "ocid": "aop-legacy-2011-2015-686854",
+      "date": "2015-09-10",
+      "amount": 2800913.84,
+      "currency": "BGN",
+      "amountEur": 1432084.506322124,
+      "partyEik": "103267194",
+      "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "dd52ee0054ff",
+      "ocid": "aop-legacy-2011-2015-697764",
+      "date": "2015-11-17",
+      "amount": 2750174.9,
+      "currency": "BGN",
+      "amountEur": 1406142.098239622,
+      "partyEik": "200552374",
+      "partyName": "Прохарт –Р ЕООД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
       "key": "58c86675b662",
       "ocid": "aop-legacy-2011-2015-433424",
       "date": "2011-03-31",
@@ -349,6 +517,30 @@
       "partyName": "Пст Груп ЕАД (ново наименование) - Пътностроителна техника Холдинг АД (старо наименование)- Пътностроителна техника ЕАД (старо наименование)",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "8dbdca93a93a",
+      "ocid": "aop-legacy-2022-191352",
+      "date": "2022-01-28",
+      "amount": 2613503.8,
+      "currency": "BGN",
+      "amountEur": 1336263.2744154655,
+      "partyEik": "206534575",
+      "partyName": "Дансон трейдинг ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "f51db4a2ce78",
+      "ocid": "aop-legacy-2019-927961",
+      "date": "2019-08-19",
+      "amount": 2473010.48,
+      "currency": "BGN",
+      "amountEur": 1264430.1805371633,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
       "key": "d80da2b2c5f0",
@@ -363,6 +555,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "4b5de5854f51",
+      "ocid": "aop-legacy-2016-757813",
+      "date": "2016-11-17",
+      "amount": 2422431.18,
+      "currency": "BGN",
+      "amountEur": 1238569.3950905756,
+      "partyEik": "131279951",
+      "partyName": "РОШ България ЕООД",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
       "key": "b4fe1818995a",
       "ocid": "aop-legacy-2011-2015-586228",
       "date": "2014-02-18",
@@ -373,6 +577,42 @@
       "partyName": "Екобулсорт ЕАД - София",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "d3bceff8945e",
+      "ocid": "aop-legacy-2023-420211",
+      "date": "2023-09-04",
+      "amount": 2299525.63,
+      "currency": "BGN",
+      "amountEur": 1175728.7852216195,
+      "partyEik": "203215490",
+      "partyName": "Парсек груп ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "fbeae005aa5b",
+      "ocid": "aop-legacy-2019-887520",
+      "date": "2019-01-11",
+      "amount": 2285150.32,
+      "currency": "BGN",
+      "amountEur": 1168378.8059289407,
+      "partyEik": "131279951",
+      "partyName": "РОШ България ЕООД",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "556659f48342",
+      "ocid": "aop-legacy-2016-757813",
+      "date": "2016-11-17",
+      "amount": 2228661,
+      "currency": "BGN",
+      "amountEur": 1139496.2752386455,
+      "partyEik": "131268894",
+      "partyName": "Медекс ООД /Старо наименование Медекс Фармасютикълс ООД/",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
       "key": "1bd36e8e3c10",
@@ -423,6 +663,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-387305-804656%2F2026-02-02-contractamendment"
     },
     {
+      "key": "8cd1e2e3fbf5",
+      "ocid": "aop-legacy-2019-887520",
+      "date": "2019-01-11",
+      "amount": 2116959.1,
+      "currency": "BGN",
+      "amountEur": 1082384.0006544536,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
       "key": "19dc352b49e6",
       "ocid": "aop-legacy-2011-2015-443514",
       "date": "2011-07-06",
@@ -457,272 +709,56 @@
       "partyName": "Уест Инженеринг ООД - Враца",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "36731a8fa068",
-      "ocid": "aop-legacy-2019-911929",
-      "date": "2019-05-16",
-      "amount": 2000000,
-      "currency": "BGN",
-      "amountEur": 1022583.762392437,
-      "partyEik": "201296796",
-      "partyName": "Уест Инженеринг ООД - Враца",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "aa205f6c7c3c",
-      "ocid": "ocds-e82gsb-552416",
-      "date": "2026-04-07",
-      "amount": 1021237.22,
-      "currency": "EUR",
-      "amountEur": 1021237.22,
-      "partyEik": "201144735",
-      "partyName": "Стефстрой 2010 ЕООД",
-      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
-      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-552416-841684%2F2026-04-07-award"
-    },
-    {
-      "key": "4344c7f51f96",
-      "ocid": "ocds-e82gsb-558167",
-      "date": "2026-05-11",
-      "amount": 980000,
-      "currency": "EUR",
-      "amountEur": 980000,
-      "partyEik": "811130355",
-      "partyName": "Престиж БИЗНЕС-93 ООД",
-      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
-      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-558167-853600%2F2026-05-11-award"
-    },
-    {
-      "key": "ee34ea4124bc",
-      "ocid": "ocds-e82gsb-447846",
-      "date": "2026-03-17",
-      "amount": 975067.2,
-      "currency": "EUR",
-      "amountEur": 975067.2,
-      "partyEik": "175329555",
-      "partyName": "Монтажи ко ЕООД",
-      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
-      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-447846-826176%2F2026-03-17-contractamendment"
-    },
-    {
-      "key": "76fa087b6066",
-      "ocid": "aop-legacy-2023-443377",
-      "date": "2023-10-31",
-      "amount": 1884852.24,
-      "currency": "BGN",
-      "amountEur": 963709.6475665063,
-      "partyEik": "181028948",
-      "partyName": "АРТ Про",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "ab911d463049",
-      "ocid": "aop-legacy-2023-444839",
-      "date": "2023-11-08",
-      "amount": 1742870,
-      "currency": "BGN",
-      "amountEur": 891115.2809804534,
-      "partyEik": "206437521",
-      "partyName": "ЕТ Цветан Горанов - цветогор - радка Горанова",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "8b36783d2980",
-      "ocid": "aop-legacy-2022-188993",
-      "date": "2022-01-17",
-      "amount": 1666666.67,
-      "currency": "BGN",
-      "amountEur": 852153.137031337,
-      "partyEik": "203769479",
-      "partyName": "ГАРАНТ-90-ЦОНЕВ и Сие ООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "ed0e76a95d7d",
-      "ocid": "aop-legacy-2019-915004",
-      "date": "2019-06-10",
-      "amount": 1666666.67,
-      "currency": "BGN",
-      "amountEur": 852153.137031337,
-      "partyEik": "111001688",
-      "partyName": "Пътинженеринг - М АД /ново наименование/ Пътинженеринг - м ЕАД - Монтана /старо наименование/",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "6e1299dd0e13",
-      "ocid": "aop-legacy-2011-2015-498930",
-      "date": "2012-09-11",
-      "amount": 1559914,
-      "currency": "BGN",
-      "amountEur": 797571.3635643179,
-      "partyEik": "176362145",
-      "partyName": "ДЗЗД Сдружение Враца - Леденика - гр. Враца",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "42991e4376a9",
-      "ocid": "aop-legacy-2022-257947",
-      "date": "2022-07-28",
-      "amount": 1500000,
-      "currency": "BGN",
-      "amountEur": 766937.8217943277,
-      "partyEik": "203231733",
-      "partyName": "АРТ Билдинг инвест ЕООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "c4c244c1e7c0",
-      "ocid": "aop-legacy-2011-2015-672581",
-      "date": "2015-06-19",
-      "amount": 1500000,
-      "currency": "BGN",
-      "amountEur": 766937.8217943277,
-      "partyEik": "121462751",
-      "partyName": "Бохемис ООД - София  ново/\nстаро -Бохемис ЕООД",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "23ff73a77398",
-      "ocid": "aop-legacy-2011-2015-621721",
-      "date": "2014-09-02",
-      "amount": 1500000,
-      "currency": "BGN",
-      "amountEur": 766937.8217943277,
-      "partyEik": "106002863",
-      "partyName": "Пътстройинженеринг АД - Враца",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "01fb6fb7c26c",
-      "ocid": "aop-legacy-2011-2015-486594",
-      "date": "2012-06-12",
-      "amount": 1500000,
-      "currency": "BGN",
-      "amountEur": 766937.8217943277,
-      "partyEik": "106503454",
-      "partyName": "Камба-2000 ООД - Враца",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "8d677e76e8ed",
-      "ocid": "ocds-e82gsb-387305",
-      "date": "2026-02-13",
-      "amount": 740657.42,
-      "currency": "EUR",
-      "amountEur": 740657.42,
-      "partyEik": "204510636",
-      "partyName": "ЕМ Джи строй груп ЕООД",
-      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
-      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-387305-810183%2F2026-02-13-contractamendment"
-    },
-    {
-      "key": "4627b88f407e",
-      "ocid": "aop-legacy-2023-352425",
-      "date": "2023-03-31",
-      "amount": 1438000,
-      "currency": "BGN",
-      "amountEur": 735237.7251601622,
-      "partyEik": "121690235",
-      "partyName": "Енерджи Оперейшънс\" ООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "2cd5458eb34f",
-      "ocid": "ocds-e82gsb-387305",
-      "date": "2026-02-11",
-      "amount": 732451.18,
-      "currency": "EUR",
-      "amountEur": 732451.18,
-      "partyEik": "202889550",
-      "partyName": "Инфраинжстрой ЕООД",
-      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
-      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-387305-808598%2F2026-02-11-contractamendment"
-    },
-    {
-      "key": "b21f72eb689c",
-      "ocid": "ocds-e82gsb-387305",
-      "date": "2026-02-26",
-      "amount": 725881.08,
-      "currency": "EUR",
-      "amountEur": 725881.08,
-      "partyEik": "040016239",
-      "partyName": "ЕТ МАРЧЕЛА-90-ЗЛАТКО Марчев",
-      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
-      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-387305-816472%2F2026-02-26-contractamendment"
-    },
-    {
-      "key": "48f280c1a5ae",
-      "ocid": "aop-legacy-2011-2015-507214",
-      "date": "2012-11-02",
-      "amount": 1389803.08,
-      "currency": "BGN",
-      "amountEur": 710595.0312654986,
-      "partyEik": "121801696",
-      "partyName": "Мегатурс-1 ЕООД /старо наименование Мегатурс-1 ООД/ - София",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 10032454.088545527,
+      "totalEur": 13714702.586625626,
       "totalOther": {},
-      "contractCount": 41
+      "contractCount": 77
     },
     {
       "year": "2012",
-      "totalEur": 39148481.02851475,
+      "totalEur": 44092912.001554325,
       "totalOther": {},
-      "contractCount": 31
+      "contractCount": 78
     },
     {
       "year": "2013",
-      "totalEur": 32256081.6737651,
+      "totalEur": 38835394.77357439,
       "totalOther": {},
-      "contractCount": 41
+      "contractCount": 89
     },
     {
       "year": "2014",
-      "totalEur": 6043425.916362874,
+      "totalEur": 12944859.578797748,
       "totalOther": {},
-      "contractCount": 30
+      "contractCount": 90
     },
     {
       "year": "2015",
-      "totalEur": 7818051.829657997,
+      "totalEur": 16753306.171804298,
       "totalOther": {},
-      "contractCount": 33
+      "contractCount": 119
     },
     {
       "year": "2016",
-      "totalEur": 5383573.827991185,
+      "totalEur": 13182333.873598421,
       "totalOther": {},
-      "contractCount": 81
+      "contractCount": 131
     },
     {
       "year": "2017",
-      "totalEur": 21141386.30146791,
+      "totalEur": 24171835.205513764,
       "totalOther": {},
-      "contractCount": 62
+      "contractCount": 99
     },
     {
       "year": "2019",
-      "totalEur": 14770547.98218659,
+      "totalEur": 24476915.381193664,
       "totalOther": {},
-      "contractCount": 69
+      "contractCount": 130
     },
     {
       "year": "2020",
@@ -738,21 +774,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 5977466.967988015,
+      "totalEur": 25705679.281941682,
       "totalOther": {},
-      "contractCount": 75
+      "contractCount": 143
     },
     {
       "year": "2023",
-      "totalEur": 14997336.972027218,
+      "totalEur": 24236627.355138227,
       "totalOther": {},
-      "contractCount": 112
+      "contractCount": 177
     },
     {
       "year": "2026",
-      "totalEur": 18078356.00690178,
+      "totalEur": 22261597.47690178,
       "totalOther": {},
-      "contractCount": 84
+      "contractCount": 152
     }
   ]
 }

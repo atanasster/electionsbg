@@ -3,37 +3,46 @@
   "name": "Благоевград",
   "province": "Благоевград",
   "obshtina": "Благоевград",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 1615,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 1665,
   "awardCount": 0,
-  "totalEur": 304025306.54853386,
+  "totalEur": 311215655.7881446,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000024695",
       "name": "Община Благоевград",
       "tier": "municipal",
-      "totalEur": 240526460.7540062,
+      "totalEur": 245225272.5240062,
       "totalOther": {},
-      "contractCount": 1006,
+      "contractCount": 1020,
       "awardCount": 0
     },
     {
       "eik": "000017149",
       "name": "Югозападен университет \"Неофит Рилски\"",
       "tier": "university",
-      "totalEur": 43068933.92953069,
+      "totalEur": 43100786.42953069,
       "totalOther": {},
-      "contractCount": 391,
+      "contractCount": 394,
       "awardCount": 0
     },
     {
       "eik": "101505152",
       "name": "Многопрофилна болница за активно лечение - благоевград АД",
       "tier": "hospital",
-      "totalEur": 18654569.668305017,
+      "totalEur": 18811716.318305023,
       "totalOther": {},
-      "contractCount": 180,
+      "contractCount": 195,
+      "awardCount": 0
+    },
+    {
+      "eik": "000029297",
+      "name": "Регионална дирекция по горите - благоевград",
+      "tier": "regional_gov",
+      "totalEur": 2302538.319610754,
+      "totalOther": {},
+      "contractCount": 18,
       "awardCount": 0
     },
     {
@@ -210,6 +219,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "a778e6fee8b9",
+      "ocid": "ocds-e82gsb-481267",
+      "date": "2026-06-03",
+      "amount": 1930968.87,
+      "currency": "EUR",
+      "amountEur": 1930968.87,
+      "partyEik": "101019435",
+      "partyName": "А - строй ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-481267-862081%2F2026-06-03-contractamendment"
+    },
+    {
       "key": "551f8c2e4909",
       "ocid": "ocds-e82gsb-135964",
       "date": "2026-01-05",
@@ -292,6 +313,18 @@
       "partyName": "Булбус трейд ООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "001094bde1f4",
+      "ocid": "ocds-e82gsb-525682",
+      "date": "2026-05-27",
+      "amount": 1442006.63,
+      "currency": "EUR",
+      "amountEur": 1442006.63,
+      "partyEik": "200567746",
+      "partyName": "Стил инженеринг 2010 ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-525682-859266%2F2026-05-27-award"
     },
     {
       "key": "34078ded52ca",
@@ -640,30 +673,6 @@
       "partyName": "Строителство и саниране - инженеринг - консулт  ЕООД - гр.София",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "dd67c476ae28",
-      "ocid": "aop-legacy-2023-379070",
-      "date": "2023-05-30",
-      "amount": 1675734.35,
-      "currency": "BGN",
-      "amountEur": 856789.3681966225,
-      "partyEik": "020767877",
-      "partyName": "РАСТЕР-ЮГ ООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "563ea00be665",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-05-31",
-      "amount": 1644027.98,
-      "currency": "BGN",
-      "amountEur": 840578.1586334191,
-      "partyEik": "175169976",
-      "partyName": "ДЗЗД Хидро билд",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     }
   ],
   "byYear": [
@@ -675,15 +684,15 @@
     },
     {
       "year": "2012",
-      "totalEur": 2943519.508341727,
+      "totalEur": 3081875.0913934237,
       "totalOther": {},
-      "contractCount": 57
+      "contractCount": 59
     },
     {
       "year": "2013",
-      "totalEur": 15659764.115490608,
+      "totalEur": 15802056.646027517,
       "totalOther": {},
-      "contractCount": 81
+      "contractCount": 83
     },
     {
       "year": "2014",
@@ -693,15 +702,15 @@
     },
     {
       "year": "2015",
-      "totalEur": 6029120.639319368,
+      "totalEur": 6257156.818332881,
       "totalOther": {},
-      "contractCount": 47
+      "contractCount": 48
     },
     {
       "year": "2016",
-      "totalEur": 91966796.46492794,
+      "totalEur": 92192131.62186898,
       "totalOther": {},
-      "contractCount": 297
+      "contractCount": 300
     },
     {
       "year": "2017",
@@ -711,9 +720,9 @@
     },
     {
       "year": "2019",
-      "totalEur": 26128005.37367767,
+      "totalEur": 27394054.028213084,
       "totalOther": {},
-      "contractCount": 212
+      "contractCount": 218
     },
     {
       "year": "2020",
@@ -729,21 +738,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 12592732.164860956,
+      "totalEur": 12732766.155545218,
       "totalOther": {},
-      "contractCount": 144
+      "contractCount": 145
     },
     {
       "year": "2023",
-      "totalEur": 29549940.8844327,
+      "totalEur": 29574652.899280615,
       "totalOther": {},
-      "contractCount": 173
+      "contractCount": 174
     },
     {
       "year": "2026",
-      "totalEur": 38358184.35999999,
+      "totalEur": 43383719.489999995,
       "totalOther": {},
-      "contractCount": 205
+      "contractCount": 239
     }
   ]
 }

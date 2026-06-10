@@ -3,19 +3,28 @@
   "name": "Поморие",
   "province": "Бургас",
   "obshtina": "Поморие",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 424,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 434,
   "awardCount": 0,
-  "totalEur": 137580533.073876,
+  "totalEur": 139115351.36961684,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000057179",
       "name": "Община Поморие",
       "tier": "municipal",
-      "totalEur": 137580533.073876,
+      "totalEur": 137746404.793876,
       "totalOther": {},
-      "contractCount": 424,
+      "contractCount": 430,
+      "awardCount": 0
+    },
+    {
+      "eik": "000042711",
+      "name": "Средно училище \"Иван Вазов\"",
+      "tier": "school",
+      "totalEur": 1368946.5757408363,
+      "totalOther": {},
+      "contractCount": 4,
       "awardCount": 0
     }
   ],
@@ -199,6 +208,18 @@
       "partyName": "Билдникс ЕООД",
       "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
       "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-527873-839856%2F2026-04-03-contractamendment"
+    },
+    {
+      "key": "de79338531d0",
+      "ocid": "ocds-e82gsb-489575",
+      "date": "2026-05-27",
+      "amount": 1228650.64,
+      "currency": "EUR",
+      "amountEur": 1228650.64,
+      "partyEik": "148129415",
+      "partyName": "Еврогарант ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-489575-859817%2F2026-05-27-contractamendment"
     },
     {
       "key": "cc098300d00a",
@@ -607,18 +628,6 @@
       "partyName": "Метастрой ЕООД",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "e55d22dee179",
-      "ocid": "aop-legacy-2017-766856",
-      "date": "2017-01-16",
-      "amount": 770000,
-      "currency": "BGN",
-      "amountEur": 393694.7485210882,
-      "partyEik": "203416917",
-      "partyName": "Метастрой ЕООД",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     }
   ],
   "byYear": [
@@ -660,9 +669,9 @@
     },
     {
       "year": "2017",
-      "totalEur": 14594948.446439622,
+      "totalEur": 14691950.742140168,
       "totalOther": {},
-      "contractCount": 68
+      "contractCount": 70
     },
     {
       "year": "2019",
@@ -672,9 +681,9 @@
     },
     {
       "year": "2020",
-      "totalEur": 79644.41694830327,
+      "totalEur": 122938.05698859307,
       "totalOther": {},
-      "contractCount": 6
+      "contractCount": 7
     },
     {
       "year": "2021",
@@ -696,9 +705,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 22522884.74554486,
+      "totalEur": 23917407.105544858,
       "totalOther": {},
-      "contractCount": 29
+      "contractCount": 36
     }
   ]
 }

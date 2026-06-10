@@ -1,11 +1,28 @@
 {
   "mpId": 2946,
   "summary": {
-    "contractCount": 3,
-    "contractedEur": 628483.6,
+    "contractCount": 4,
+    "contractedEur": 1228483.6,
     "paidEur": 224995.40000000002
   },
   "entries": [
+    {
+      "mpId": 2946,
+      "mpName": "Елена Стефанова Пешева",
+      "beneficiaryEik": "131336103",
+      "beneficiaryName": "Солар пропърти мениджмънт ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 600000,
+      "paidEur": 0
+    },
     {
       "mpId": 2946,
       "mpName": "Елена Стефанова Пешева",

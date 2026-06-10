@@ -3,19 +3,19 @@
   "name": "Своге",
   "province": "София",
   "obshtina": "Своге",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 377,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 390,
   "awardCount": 0,
-  "totalEur": 52282205.70154867,
+  "totalEur": 53673872.99154867,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000776502",
       "name": "Община Своге",
       "tier": "municipal",
-      "totalEur": 52282205.70154867,
+      "totalEur": 53673872.99154867,
       "totalOther": {},
-      "contractCount": 377,
+      "contractCount": 390,
       "awardCount": 0
     }
   ],
@@ -259,6 +259,18 @@
       "partyName": "Транспортно строителство и възстановяване ЕАД   -   София",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "3951b9974425",
+      "ocid": "ocds-e82gsb-458518",
+      "date": "2026-05-26",
+      "amount": 732688.01,
+      "currency": "EUR",
+      "amountEur": 732688.01,
+      "partyEik": "200998889",
+      "partyName": "Диджиталсървис ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-458518-859002%2F2026-05-26-award"
     },
     {
       "key": "0f6d29cd111a",
@@ -561,6 +573,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "6ae3ece64c92",
+      "ocid": "ocds-e82gsb-555587",
+      "date": "2026-06-02",
+      "amount": 281988.48,
+      "currency": "EUR",
+      "amountEur": 281988.48,
+      "partyEik": "109514979",
+      "partyName": "Мегаинвест-холд ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-555587-862381%2F2026-06-02-award"
+    },
+    {
       "key": "72562ebe9307",
       "ocid": "aop-legacy-2022-192651",
       "date": "2022-02-02",
@@ -595,30 +619,6 @@
       "partyName": "Геозащита своге ДЗЗД",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "ef5eb3b9ba95",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-12-15",
-      "amount": 537500,
-      "currency": "BGN",
-      "amountEur": 274819.38614296744,
-      "partyEik": "177222210",
-      "partyName": "Геозащита своге ДЗЗД",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "a380b7d4cb9d",
-      "ocid": "ocds-e82gsb-546265",
-      "date": "2026-03-12",
-      "amount": 272554.36,
-      "currency": "EUR",
-      "amountEur": 272554.36,
-      "partyEik": "200609341",
-      "partyName": "Костинброд еко АД",
-      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
-      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-546265-823027%2F2026-03-12-award"
     }
   ],
   "byYear": [
@@ -696,9 +696,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 11060549.530000001,
+      "totalEur": 12452216.820000002,
       "totalOther": {},
-      "contractCount": 34
+      "contractCount": 47
     }
   ]
 }

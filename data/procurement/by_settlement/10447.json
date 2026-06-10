@@ -3,19 +3,28 @@
   "name": "Велико Търново",
   "province": "Велико Търново",
   "obshtina": "Велико Търново",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 2192,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 2291,
   "awardCount": 0,
-  "totalEur": 353976333.48305184,
+  "totalEur": 441987552.01803476,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000133634",
       "name": "Община Велико търново",
       "tier": "municipal",
-      "totalEur": 213399158.5009132,
+      "totalEur": 222884860.61091322,
       "totalOther": {},
-      "contractCount": 954,
+      "contractCount": 962,
+      "awardCount": 0
+    },
+    {
+      "eik": "104055066",
+      "name": "Водоснабдяване и канализация йовковци ООД",
+      "tier": "utility",
+      "totalEur": 78183451.93562987,
+      "totalOther": {},
+      "contractCount": 87,
       "awardCount": 0
     },
     {
@@ -91,6 +100,15 @@
       "awardCount": 0
     },
     {
+      "eik": "000123490",
+      "name": "Профилирана Езикова гимназия \"Професор доктор асен Златаров\"",
+      "tier": "school",
+      "totalEur": 342064.48935296014,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0
+    },
+    {
       "eik": "104075713",
       "name": "Средно училище \"Вела Благоева\"",
       "tier": "school",
@@ -128,6 +146,54 @@
     }
   ],
   "topContracts": [
+    {
+      "key": "520cceaf4c74",
+      "ocid": "ocds-e82gsb-525193",
+      "date": "2026-05-22",
+      "amount": 15076653.91,
+      "currency": "EUR",
+      "amountEur": 15076653.91,
+      "partyEik": "813103524",
+      "partyName": "Инжстройинженеринг ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-525193-857944%2F2026-05-22-award"
+    },
+    {
+      "key": "59e97a5b16f7",
+      "ocid": "ocds-e82gsb-525193",
+      "date": "2026-05-22",
+      "amount": 15076653.91,
+      "currency": "EUR",
+      "amountEur": 15076653.91,
+      "partyEik": "180994880",
+      "partyName": "Екодайвинженеринг",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-525193-857944%2F2026-05-22-award"
+    },
+    {
+      "key": "9c8a30010a93",
+      "ocid": "ocds-e82gsb-525193",
+      "date": "2026-05-22",
+      "amount": 15076653.91,
+      "currency": "EUR",
+      "amountEur": 15076653.91,
+      "partyEik": "201801960",
+      "partyName": "Евробулпроджект ЕООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-525193-857944%2F2026-05-22-award"
+    },
+    {
+      "key": "ac540b186f60",
+      "ocid": "aop-legacy-2023-395526",
+      "date": "2023-07-07",
+      "amount": 26784610,
+      "currency": "BGN",
+      "amountEur": 13694753.634007046,
+      "partyEik": "202668908",
+      "partyName": "Синергон енерджи ООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
     {
       "key": "fa74039a7f9e",
       "ocid": "aop-legacy-2011-2015-444808",
@@ -199,6 +265,18 @@
       "partyName": "Пътни Строежи - Велико Търново\" АД , гр. Велико Търново /старо наименование Пътни Строежи - Велико Търново\" ЕАД /",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "ac03404d772a",
+      "ocid": "ocds-e82gsb-528461",
+      "date": "2026-05-28",
+      "amount": 4931900.78,
+      "currency": "EUR",
+      "amountEur": 4931900.78,
+      "partyEik": "205144818",
+      "partyName": "Строителна компания ВТ ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-528461-859356%2F2026-05-28-award"
     },
     {
       "key": "0b8e6e204a18",
@@ -645,6 +723,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "a58972bdad78",
+      "ocid": "aop-legacy-2019-908469",
+      "date": "2019-04-25",
+      "amount": 3057155.5,
+      "currency": "BGN",
+      "amountEur": 1563098.7867043659,
+      "partyEik": "201208860",
+      "partyName": "Гранд енерджи дистрибюшън ЕООД - София",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
       "key": "67598e955d66",
       "ocid": "aop-legacy-2011-2015-526184",
       "date": "2013-02-27",
@@ -655,98 +745,26 @@
       "partyName": "Тера ООД - гр. Велико Търново",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "6a191a7a2094",
-      "ocid": "aop-legacy-2017-794176",
-      "date": "2017-07-05",
-      "amount": 2770832.92,
-      "currency": "BGN",
-      "amountEur": 1416704.376147211,
-      "partyEik": "203283623",
-      "partyName": "Фьоникс Фарма ЕООД",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "29b5bbd541b0",
-      "ocid": "ocds-e82gsb-552333",
-      "date": "2026-03-31",
-      "amount": 1348043.3,
-      "currency": "EUR",
-      "amountEur": 1348043.3,
-      "partyEik": "104693344",
-      "partyName": "Пътни строежи - велико търново ЕАД",
-      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
-      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-552333-830526%2F2026-03-31-award"
-    },
-    {
-      "key": "595a0ad5b4ed",
-      "ocid": "aop-legacy-2023-326436",
-      "date": "2023-02-01",
-      "amount": 2626552.48,
-      "currency": "BGN",
-      "amountEur": 1342934.958559793,
-      "partyEik": "175256438",
-      "partyName": "Алта фармасютикълс ЕООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "dd1e91ef1a89",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-07-08",
-      "amount": 2608883.13,
-      "currency": "BGN",
-      "amountEur": 1333900.7633587786,
-      "partyEik": "175256438",
-      "partyName": "Алта Фармасютикълс ЕООД - София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "eb53f45ac2ff",
-      "ocid": "aop-legacy-2019-920316",
-      "date": "2019-07-08",
-      "amount": 2608883.13,
-      "currency": "BGN",
-      "amountEur": 1333900.7633587786,
-      "partyEik": "175256438",
-      "partyName": "Алта Фармасютикълс ЕООД - София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "22dbb0dc80ed",
-      "ocid": "aop-legacy-2016-738294",
-      "date": "2016-07-01",
-      "amount": 2572331.72,
-      "currency": "BGN",
-      "amountEur": 1315212.3241795045,
-      "partyEik": "103267194",
-      "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 22717277.053731665,
+      "totalEur": 22885512.53432047,
       "totalOther": {},
-      "contractCount": 50
+      "contractCount": 52
     },
     {
       "year": "2012",
-      "totalEur": 8368178.568689507,
+      "totalEur": 8433738.45886401,
       "totalOther": {},
-      "contractCount": 71
+      "contractCount": 72
     },
     {
       "year": "2013",
-      "totalEur": 10426956.182285784,
+      "totalEur": 10605652.694763862,
       "totalOther": {},
-      "contractCount": 84
+      "contractCount": 85
     },
     {
       "year": "2014",
@@ -756,33 +774,33 @@
     },
     {
       "year": "2015",
-      "totalEur": 12124978.459273051,
+      "totalEur": 12331828.185476247,
       "totalOther": {},
-      "contractCount": 143
+      "contractCount": 144
     },
     {
       "year": "2016",
-      "totalEur": 47814503.2697116,
-      "totalOther": {},
-      "contractCount": 219
-    },
-    {
-      "year": "2017",
-      "totalEur": 38886185.01096722,
+      "totalEur": 48568477.97098932,
       "totalOther": {},
       "contractCount": 223
     },
     {
-      "year": "2019",
-      "totalEur": 55152559.76235154,
+      "year": "2017",
+      "totalEur": 39920508.03495192,
       "totalOther": {},
-      "contractCount": 348
+      "contractCount": 227
+    },
+    {
+      "year": "2019",
+      "totalEur": 59877917.02755353,
+      "totalOther": {},
+      "contractCount": 357
     },
     {
       "year": "2020",
-      "totalEur": 2506435.2167621935,
+      "totalEur": 2542225.648445929,
       "totalOther": {},
-      "contractCount": 31
+      "contractCount": 32
     },
     {
       "year": "2021",
@@ -792,21 +810,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 49664257.53260763,
+      "totalEur": 50066311.888047524,
       "totalOther": {},
-      "contractCount": 364
+      "contractCount": 373
     },
     {
       "year": "2023",
-      "totalEur": 38432827.853136525,
+      "totalEur": 59691021.47425902,
       "totalOther": {},
-      "contractCount": 326
+      "contractCount": 365
     },
     {
       "year": "2026",
-      "totalEur": 42802296.42461631,
+      "totalEur": 101984479.95144404,
       "totalOther": {},
-      "contractCount": 191
+      "contractCount": 219
     }
   ]
 }

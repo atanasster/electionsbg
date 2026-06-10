@@ -3,19 +3,19 @@
   "name": "Левски",
   "province": "Плевен",
   "obshtina": "Левски",
-  "generatedAt": "2026-05-28T08:40:27.221Z",
-  "contractCount": 36,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 37,
   "awardCount": 0,
-  "totalEur": 679092.3204779557,
+  "totalEur": 725682.3204779557,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000410031",
       "name": "Многопрофилна болница за активно лечение - Левски ЕООД",
       "tier": "hospital",
-      "totalEur": 679092.3204779557,
+      "totalEur": 725682.3204779557,
       "totalOther": {},
-      "contractCount": 36,
+      "contractCount": 37,
       "awardCount": 0
     }
   ],
@@ -103,6 +103,18 @@
       "partyName": "Фаркол АД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "5b38a7d1b28f",
+      "ocid": "ocds-e82gsb-561214",
+      "date": "2026-05-22",
+      "amount": 46590,
+      "currency": "EUR",
+      "amountEur": 46590,
+      "partyEik": "103597142",
+      "partyName": "Илан Медицинска апаратура ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-561214-857995%2F2026-05-22-award"
     },
     {
       "key": "c915e4f68712",
@@ -480,9 +492,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 144141.88,
+      "totalEur": 190731.88,
       "totalOther": {},
-      "contractCount": 3
+      "contractCount": 4
     }
   ]
 }

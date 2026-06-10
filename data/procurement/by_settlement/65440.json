@@ -3,19 +3,19 @@
   "name": "Сатовча",
   "province": "Благоевград",
   "obshtina": "Сатовча",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 54,
+  "generatedAt": "2026-06-10T08:56:01.513Z",
+  "contractCount": 55,
   "awardCount": 0,
-  "totalEur": 18829596.698399603,
+  "totalEur": 18871151.748399604,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000024962",
       "name": "Община Сатовча",
       "tier": "municipal",
-      "totalEur": 18829596.698399603,
+      "totalEur": 18871151.748399604,
       "totalOther": {},
-      "contractCount": 54,
+      "contractCount": 55,
       "awardCount": 0
     }
   ],
@@ -381,6 +381,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "ca747c3267ef",
+      "ocid": "ocds-e82gsb-583122",
+      "date": "2026-06-01",
+      "amount": 41555.05,
+      "currency": "EUR",
+      "amountEur": 41555.05,
+      "partyEik": "208383339",
+      "partyName": "Солтопия Енерджи ООД",
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-583122-861470%2F2026-06-01-award"
+    },
+    {
       "key": "8a0d0571569d",
       "ocid": "aop-legacy-2017-806114",
       "date": "2017-09-20",
@@ -607,18 +619,6 @@
       "partyName": "Еспас ауто ООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "f2fb29115122",
-      "ocid": "aop-legacy-2011-2015-490964",
-      "date": "2012-07-13",
-      "amount": 23444,
-      "currency": "BGN",
-      "amountEur": 11986.726862764146,
-      "partyEik": "101698274",
-      "partyName": "Югострой – 66  ЕООД - с. Туховища",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -684,9 +684,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 1167513.23,
+      "totalEur": 1209068.28,
       "totalOther": {},
-      "contractCount": 7
+      "contractCount": 8
     }
   ]
 }
