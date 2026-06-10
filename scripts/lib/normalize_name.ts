@@ -279,7 +279,7 @@ interface Word {
   titleCased: boolean;
 }
 
-const buildWord = (raw: string, hasLowercaseContext: boolean): Word => {
+const buildWord = (raw: string, embeddedAcronymMode: boolean): Word => {
   if (/^\s+$/.test(raw)) {
     return {
       raw,
@@ -395,7 +395,9 @@ const buildWord = (raw: string, hasLowercaseContext: boolean): Word => {
   // phrase, not a string of acronyms). Only fall through to title-casing
   // here when the ENTIRE name is upper (no lowercase context at all), e.g.
   // "ОБЩИНА ВИДИН" → "Община Видин", "ВМ ПЕТРОЛЕУМ ООД" → "ВМ Петролеум ООД".
-  if (hasLowercaseContext) {
+  // Gated on embeddedAcronymMode (opt-in): org-name callers skip this so a
+  // shouted brand word ("ФЬОНИКС") falls through to title-casing below.
+  if (embeddedAcronymMode) {
     return {
       raw,
       isWhitespace: false,
@@ -437,24 +439,37 @@ const lowerFirst = (s: string): string => {
  * sensibly) are returned essentially unchanged — only individual all-upper
  * acronyms inside a mixed-case string are preserved as upper.
  */
-export const normaliseOrgName = (name: string): string => {
+export const normaliseOrgName = (
+  name: string,
+  opts?: { preserveEmbeddedAcronyms?: boolean },
+): string => {
   if (!name) return name;
   const tokens = name.split(/(\s+)/);
   // Whole-name context: does ANY token already carry a lowercase letter?
-  // If so the name is mixed-case and any remaining all-upper token is an
-  // embedded acronym (see buildWord step 3c). Only fully-shouted names
-  // (no lowercase anywhere) get their regular words title-cased.
   const hasLowercaseContext = tokens.some((t) => /\p{Ll}/u.test(t));
-  const words: Word[] = tokens.map((t) => buildWord(t, hasLowercaseContext));
+  // Embedded-acronym mode (opt-in, OFF by default). When ON, an *isolated*
+  // all-upper token inside a mixed-case name is assumed to be an embedded
+  // acronym and KEPT upper (only RUNS of 2+ get de-shouted) — correct for
+  // free-text descriptions like "ремонт на ЦГЧ … в ГПЧЕ". When OFF — the
+  // org-name callers (procurement / funds / financing / declarations) — such
+  // a token is a shouted brand word and gets de-shouted ("ФЬОНИКС Фарма" →
+  // "Фьоникс Фарма"; "(ОДМВР) - ВЕЛИКО ТЪРНОВО" → "(ОДМВР) - Велико
+  // търново"), while paren-acronyms (buildWord step 3) and 2-3-letter brand
+  // initials (step 3b) stay upper. Curated 4+-letter acronyms (ГПЧЕ, ЦНСТ*)
+  // are restored afterward by repairTitleCasedAcronym. Both modes are locked
+  // by scripts/lib/__test_normalize_name.ts.
+  const embeddedAcronymMode =
+    (opts?.preserveEmbeddedAcronyms ?? false) && hasLowercaseContext;
+  const words: Word[] = tokens.map((t) => buildWord(t, embeddedAcronymMode));
 
-  // De-shout pass (mixed-case names only). buildWord left every all-upper
-  // token capital on the assumption it is an acronym. Re-scan the content
-  // words for RUNS of 2+ consecutive de-shoutable words (4+ letter Cyrillic
-  // caps, not a known acronym) — a run is a shouted phrase, so title-case
-  // each word in it. A SINGLE isolated de-shoutable word stays upper (it is
-  // an embedded acronym like ГПЧЕ / ЦНСТПЛУИ). "БЮДЖЕТНО САЛДО (дефицит)" →
-  // both title-cased; "по чл.166 от ЗУТ" → ЗУТ untouched.
-  if (hasLowercaseContext) {
+  // De-shout pass (embedded-acronym mode only). buildWord left every isolated
+  // all-upper token capital on the assumption it is an acronym. Re-scan the
+  // content words for RUNS of 2+ consecutive de-shoutable words (4+ letter
+  // Cyrillic caps, not a known acronym) — a run is a shouted phrase, so
+  // title-case each word in it. A SINGLE isolated de-shoutable word stays
+  // upper (it is an embedded acronym like ГПЧЕ / ЦНСТПЛУИ). "БЮДЖЕТНО САЛДО
+  // (дефицит)" → both title-cased; "по чл.166 от ЗУТ" → ЗУТ untouched.
+  if (embeddedAcronymMode) {
     const content = words.filter((w) => !w.isWhitespace && w.core.length > 0);
     let i = 0;
     while (i < content.length) {

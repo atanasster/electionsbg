@@ -6,8 +6,18 @@ import {
   restoreAcronyms,
 } from "./normalize_name";
 
-// The renormalise pass applies these two in sequence to NAME fields.
-const pipe = (s: string) => repairTitleCasedAcronym(normaliseOrgName(s));
+// Free-text / renormalise pass (capital-programme descriptions): embedded
+// acronyms must be preserved, so normaliseOrgName runs in preserve mode and
+// repairTitleCasedAcronym restores any curated acronym a parser title-cased.
+const pipe = (s: string) =>
+  repairTitleCasedAcronym(
+    normaliseOrgName(s, { preserveEmbeddedAcronyms: true }),
+  );
+
+// Org-name callers (procurement / funds / financing / declarations) use the
+// DEFAULT (de-shout) mode and no repair pass — an isolated shouted brand word
+// is title-cased rather than kept upper.
+const pipeOrg = (s: string) => normaliseOrgName(s);
 
 interface Case {
   in: string;
@@ -208,6 +218,24 @@ const acrCases: AcrCase[] = [
   },
 ];
 
+// ── Org-name DE-SHOUT mode (default) — procurement/funds/financing regression
+// guards. An isolated 4+-letter Cyrillic all-caps token is a shouted brand
+// word, NOT an embedded acronym: it must be title-cased. Paren-acronyms and
+// 2-3-letter brand initials still stay upper; settlement names keep proper
+// casing. Caught by the procurement canary on 2026-06-10. ──────────────────
+const orgCases: Case[] = [
+  {
+    in: "ФЬОНИКС Фарма ЕООД",
+    want: "Фьоникс Фарма ЕООД",
+    note: "isolated shouted brand de-shouted (was ФЬОНИКС under embedded mode)",
+  },
+  {
+    in: "Областна дирекция на МВР (ОДМВР) - ВЕЛИКО ТЪРНОВО",
+    want: "Областна дирекция на МВР (ОДМВР) - Велико търново",
+    note: "paren-acronym ОДМВР kept upper; settlement de-shouted, not lowercased",
+  },
+];
+
 let failed = 0;
 for (const c of acrCases) {
   const got = restoreAcronyms(c.in);
@@ -231,7 +259,18 @@ for (const c of cases) {
     console.log(`        got:  ${got}`);
   }
 }
-const total = cases.length + acrCases.length;
+for (const c of orgCases) {
+  const got = pipeOrg(c.in);
+  const ok = got === c.want;
+  if (!ok) failed += 1;
+  console.log(`${ok ? "PASS" : "FAIL"}  [org] ${c.note}`);
+  if (!ok) {
+    console.log(`        in:   ${c.in}`);
+    console.log(`        want: ${c.want}`);
+    console.log(`        got:  ${got}`);
+  }
+}
+const total = cases.length + acrCases.length + orgCases.length;
 console.log(
   `\n${total - failed}/${total} passed${failed ? ` — ${failed} FAILED` : " — all green"}`,
 );
