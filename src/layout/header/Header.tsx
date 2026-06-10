@@ -1,5 +1,18 @@
-import { FC, useContext, useLayoutEffect, useRef } from "react";
-import { Menu, Check, ChevronDown, MoreHorizontal } from "lucide-react";
+import {
+  FC,
+  ReactNode,
+  useContext,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
+import {
+  Menu,
+  Check,
+  ChevronDown,
+  ChevronRight,
+  MoreHorizontal,
+} from "lucide-react";
 import { useLocation } from "react-router-dom";
 
 import {
@@ -65,6 +78,53 @@ const CONSUMPTION_PREFIXES = ["/consumption", "/prices"];
 
 const isInSection = (pathname: string, prefixes: string[]): boolean =>
   prefixes.some((p) => pathname === p || pathname.startsWith(`${p}/`));
+
+// Sub-menus are Radix flyouts on desktop, but a flyout anchors beside its
+// trigger and gets clipped by the viewport edge on phones — the hamburger
+// tree expands them inline (accordion) instead. Module-level so the open
+// state isn't remounted away when Header re-renders.
+const MenuSub: FC<{
+  label: string;
+  isMobile?: boolean;
+  children: ReactNode;
+}> = ({ label, isMobile, children }) => {
+  const [open, setOpen] = useState(false);
+  if (!isMobile) {
+    return (
+      <DropdownMenuSub>
+        <DropdownMenuSubTrigger>{label}</DropdownMenuSubTrigger>
+        <DropdownMenuPortal>
+          <DropdownMenuSubContent>{children}</DropdownMenuSubContent>
+        </DropdownMenuPortal>
+      </DropdownMenuSub>
+    );
+  }
+  return (
+    <>
+      <DropdownMenuItem
+        className={cn(
+          "flex justify-between",
+          open && "bg-secondary text-secondary-foreground",
+        )}
+        onSelect={(event) => {
+          event.preventDefault();
+          setOpen((o) => !o);
+        }}
+      >
+        <span>{label}</span>
+        <ChevronRight
+          className={cn(
+            "transition-transform duration-200",
+            open && "rotate-90",
+          )}
+        />
+      </DropdownMenuItem>
+      {open && (
+        <div className="ml-2 border-l border-border/70 pl-1">{children}</div>
+      )}
+    </>
+  );
+};
 
 export const Header = () => {
   const { setTheme, theme } = useContext(ThemeContext);
@@ -132,20 +192,15 @@ export const Header = () => {
     }
     if (item.subMenu) {
       return (
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger>{t(item.title)}</DropdownMenuSubTrigger>
-          <DropdownMenuPortal>
-            <DropdownMenuSubContent>
-              {item.subMenu.map((sub, idx) => (
-                <RenderMenuItem
-                  key={`${sub.title}-${idx}`}
-                  item={sub}
-                  isMobile={isMobile}
-                />
-              ))}
-            </DropdownMenuSubContent>
-          </DropdownMenuPortal>
-        </DropdownMenuSub>
+        <MenuSub label={t(item.title)} isMobile={isMobile}>
+          {item.subMenu.map((sub, idx) => (
+            <RenderMenuItem
+              key={`${sub.title}-${idx}`}
+              item={sub}
+              isMobile={isMobile}
+            />
+          ))}
+        </MenuSub>
       );
     }
     if (item.link) {
@@ -229,7 +284,7 @@ export const Header = () => {
   // The low-frequency controls (analysis link, language, theme) that used to
   // sit inline on desktop. They now live in the gear overflow on desktop and
   // the hamburger on mobile — one shared block so the two stay in sync.
-  const SettingsItems: FC = () => (
+  const SettingsItems: FC<{ isMobile?: boolean }> = ({ isMobile }) => (
     <>
       {articles && articles.length > 0 && (
         <>
@@ -239,48 +294,38 @@ export const Header = () => {
           <DropdownMenuSeparator />
         </>
       )}
-      <DropdownMenuSub>
-        <DropdownMenuSubTrigger>{t("language")}</DropdownMenuSubTrigger>
-        <DropdownMenuPortal>
-          <DropdownMenuSubContent>
-            <DropdownMenuItem
-              className="flex justify-between"
-              onSelect={() => changeLanguage("en")}
-            >
-              <span className="mr-4">{t("english")}</span>
-              {i18n.language === "en" && <Check />}
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className="flex justify-between"
-              onSelect={() => changeLanguage("bg")}
-            >
-              <span className="mr-4">{t("bulgarian")}</span>
-              {i18n.language === "bg" && <Check />}
-            </DropdownMenuItem>
-          </DropdownMenuSubContent>
-        </DropdownMenuPortal>
-      </DropdownMenuSub>
-      <DropdownMenuSub>
-        <DropdownMenuSubTrigger>{t("skin")}</DropdownMenuSubTrigger>
-        <DropdownMenuPortal>
-          <DropdownMenuSubContent>
-            <DropdownMenuItem
-              className="flex justify-between"
-              onSelect={() => setTheme(themeLight)}
-            >
-              <span className="mr-4">{t("light")}</span>
-              {theme === themeLight && <Check />}
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className="flex justify-between"
-              onSelect={() => setTheme(themeDark)}
-            >
-              <span className="mr-4">{t("dark")}</span>
-              {theme === themeDark && <Check />}
-            </DropdownMenuItem>
-          </DropdownMenuSubContent>
-        </DropdownMenuPortal>
-      </DropdownMenuSub>
+      <MenuSub label={t("language")} isMobile={isMobile}>
+        <DropdownMenuItem
+          className="flex justify-between"
+          onSelect={() => changeLanguage("en")}
+        >
+          <span className="mr-4">{t("english")}</span>
+          {i18n.language === "en" && <Check />}
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          className="flex justify-between"
+          onSelect={() => changeLanguage("bg")}
+        >
+          <span className="mr-4">{t("bulgarian")}</span>
+          {i18n.language === "bg" && <Check />}
+        </DropdownMenuItem>
+      </MenuSub>
+      <MenuSub label={t("skin")} isMobile={isMobile}>
+        <DropdownMenuItem
+          className="flex justify-between"
+          onSelect={() => setTheme(themeLight)}
+        >
+          <span className="mr-4">{t("light")}</span>
+          {theme === themeLight && <Check />}
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          className="flex justify-between"
+          onSelect={() => setTheme(themeDark)}
+        >
+          <span className="mr-4">{t("dark")}</span>
+          {theme === themeDark && <Check />}
+        </DropdownMenuItem>
+      </MenuSub>
     </>
   );
   return (
@@ -364,7 +409,11 @@ export const Header = () => {
               <Menu />
             </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56">
+          <DropdownMenuContent
+            // Inline-expanded sub-menus can run the tree tall — cap to the
+            // space Radix leaves before collision and scroll past it.
+            className="w-56 max-h-[var(--radix-dropdown-menu-content-available-height)] overflow-y-auto"
+          >
             {electionsMenu.map((main, idx) => (
               <RenderMenuItem
                 key={`m-elec-${main.title}-${idx}`}
@@ -394,7 +443,7 @@ export const Header = () => {
               />
             ))}
             <DropdownMenuSeparator />
-            <SettingsItems />
+            <SettingsItems isMobile />
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
