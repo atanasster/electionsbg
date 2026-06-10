@@ -53,6 +53,7 @@ import type {
   VatBreakdownFile,
   MunicipalExecutionFile,
   MunicipalExecutionIndexFile,
+  PolicyBaselineFile,
 } from "./types";
 
 const fetchJson = async <T,>(path: string): Promise<T | null> => {
@@ -892,6 +893,17 @@ export const useCapitalProgramsTopProjects = (
     staleTime: Infinity,
   });
 };
+
+// Policy-simulator baseline — one small derived file carrying the executed
+// revenue lines, pre-scaled VAT consumption slices + calibration, and the
+// МОД-cap identity aggregates. Assembled by run_policy_baseline.ts.
+export const usePolicyBaseline = () =>
+  useQuery({
+    queryKey: ["budget", "policy-baseline"] as const,
+    queryFn: () =>
+      fetchJson<PolicyBaselineFile>("/budget/derived/policy_baseline.json"),
+    staleTime: Infinity,
+  });
 
 // Municipal cash-execution (касово изпълнение по ЕБК) — plan-vs-actual revenue
 // and expense by economic paragraph, sourced from the MINFIN B3 report a few

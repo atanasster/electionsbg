@@ -267,6 +267,13 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Бюджет ${f(env, "year")}: приходи ${f(env, "revenue")}, разходи ${f(env, "expenditure")}, салдо ${f(env, "balance")}.`
         : `Budget ${f(env, "year")}: revenue ${f(env, "revenue")}, expenditure ${f(env, "expenditure")}, balance ${f(env, "balance")}.`;
+    case "simulateTaxChange": {
+      if (!env.facts.delta_per_year) return env.title;
+      const note = env.facts.note ? ` ${f(env, "note")}` : "";
+      return lang === "bg"
+        ? `${f(env, "change")}: ${f(env, "delta_per_year")} приходи годишно (${f(env, "share_of_gdp")} от БВП).${note} Оценката е статична — базата е фиксирана към ${f(env, "baseline_year")}, без поведенчески реакции; пълният сценарий е в симулатора (линка по-долу).`
+        : `${f(env, "change")}: ${f(env, "delta_per_year")} in revenue per year (${f(env, "share_of_gdp")} of GDP).${note} The estimate is static — the tax base is held at ${f(env, "baseline_year")} with no behavioral response; the full scenario is in the simulator (link below).`;
+    }
     case "budgetByFunction":
       return lang === "bg"
         ? `Най-голям разход по функция (${f(env, "year")}): ${f(env, "top_function")}. Общо: ${f(env, "total")}.`

@@ -1985,3 +1985,83 @@ export interface MunicipalExecutionIndexFile {
   generatedAt: string;
   municipalities: MunicipalExecutionIndexEntry[];
 }
+
+// ---------------------------------------------------------------------------
+// Policy simulator baseline — data/budget/derived/policy_baseline.json,
+// assembled by scripts/budget/run_policy_baseline.ts. Consumed by
+// src/lib/bgTaxPolicy.ts via the /budget/simulator screen.
+// ---------------------------------------------------------------------------
+
+export interface PolicyBaselineCalibrationRow {
+  year: number;
+  modeledEur: number;
+  actualEur: number;
+  factor: number;
+}
+
+export interface PolicyBaselineFile {
+  generatedAt: string;
+  country: "BG";
+  /** Latest closed КФП fiscal year — every scored Δ is per-year at this base. */
+  baselineYear: number;
+  gdpEur: number;
+  sources: Record<string, string>;
+  revenue: {
+    vatEur: number;
+    pitEur: number;
+    /** Share of the ДДФЛ line that scales with the flat rate (employment +
+     *  non-employment; окончателен данък excluded). */
+    pitRateSensitiveShare: number;
+    /** Employment-only share of the ДДФЛ line — the portion scored over the
+     *  earnings bands when a bracket schedule is set. */
+    pitEmploymentShare: number;
+    /** Non-employment share — scales with the schedule's base rate. */
+    pitNonEmploymentShare: number;
+    corporateEur: number;
+    dividendEur: number;
+    totalRevenueEur: number;
+    /** Section IV budget balance at the baseline year (negative = deficit). */
+    balanceEur: number;
+  };
+  /** Fitted earnings distribution (split log-normal body + Pareto tail) —
+   *  anchors and validation in scripts/budget/earnings_distribution.ts. */
+  earnings: {
+    identityYear: number;
+    sesWave: number;
+    sigmaLower: number;
+    sigmaUpper: number;
+    medianEur: number;
+    nEmployees: number;
+    alpha: number;
+    shareAboveCap: number;
+    wageGrowthToBaseline: number;
+    /** Grid-vs-НАП calibration at the identity year (validation stat). */
+    kappaIdentityYear: number;
+    /** Calibration the client applies at the baseline year. */
+    kappa: number;
+    /** МОД cap at the baseline year, EUR/month. */
+    capEur: number;
+    bands: { grossEur: number; workers: number }[];
+  };
+  vat: {
+    /** actual/modeled at the baseline year — bridges household-only modeled
+     *  VAT to the full base. */
+    factor: number;
+    calibration: PolicyBaselineCalibrationRow[];
+    structureYear: number;
+    slices: {
+      group: string;
+      valueEur: number;
+      regime: "standard" | "reduced" | "zero" | null;
+    }[];
+  };
+  modIdentity: {
+    /** НАП annual-report year the identity is computed against. */
+    year: number;
+    capEur: number;
+    aboveCapMassEur: number;
+    alphaLow: number;
+    alphaCentral: number;
+    alphaHigh: number;
+  };
+}

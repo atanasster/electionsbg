@@ -46,6 +46,11 @@ export type MenuItem = {
   // Rendered only inside the mobile hamburger tree. Used for the section
   // "Overview" home link, which the desktop split-button title supplies.
   mobileOnly?: boolean;
+  // Desktop only, top-level menus: lay the section groups out in this many
+  // columns instead of one tall single-column list. Set on menus with enough
+  // groups to otherwise run the full viewport height (e.g. governance's four
+  // sections). The mobile accordion tree ignores it.
+  columns?: number;
 };
 
 const buildLocationReportSubMenu = (
@@ -232,6 +237,10 @@ export const governanceMenu: MenuItem[] = [
   {
     title: "nav_governance",
     link: "/governance",
+    // Four sections (budget, parliament, declarations, indicators) run a
+    // single column the full viewport height — split into two columns on
+    // desktop to halve it while keeping every leaf one open away.
+    columns: 2,
     subMenu: [
       { title: "menu_overview", link: "/governance", mobileOnly: true },
       {

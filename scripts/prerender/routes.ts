@@ -1314,6 +1314,44 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "budget/simulator",
+    title:
+      "Симулатор на данъчни политики — какво става, ако данък се промени? | electionsbg.com",
+    description:
+      "Какво се случва с приходите в бюджета, ако се промени ДДС, плоският данък, корпоративният данък, данъкът върху дивидентите или таванът на осигурителния доход (МОД)? Преместете плъзгач и вижте статичната оценка — и ефекта върху един примерен фиш за заплата.",
+    breadcrumbName: "Симулатор на данъчни политики",
+    ogImage: "/og/budget-simulator.png",
+    bodyHtml: `
+<h1>Симулатор на данъчни политики</h1>
+<p>Интерактивен симулатор на българската данъчна политика: преместете ставка и вижте две числа едновременно — промяната в приходите на консолидирания бюджет за година и промяната по един примерен фиш за заплата на месец. Оценките са статични, спрямо изпълнението на последната приключена бюджетна година.</p>
+<h2>Какво може да се променя</h2>
+<ul>
+<li><strong>ДДС</strong> — стандартната и намалената ставка, плюс прехвърляне на категории (храни, лекарства, енергия, ресторанти, хотели, книги) между ставките. Моделът стъпва върху потреблението на домакинствата по предназначение (Евростат, COICOP), калибрирано към реалните приходи от ДДС.</li>
+<li><strong>Данък върху доходите</strong> — плоската ставка, необлагаем минимум и втора ставка над праг, оценени върху моделирано разпределение на заплатите, валидирано спрямо отчета на НАП.</li>
+<li><strong>Корпоративен данък и данък върху дивидентите</strong> — статично преоразмеряване на изпълнените бюджетни редове.</li>
+<li><strong>Таван на осигурителния доход (МОД)</strong> — вдигане, сваляне или премахване, с явен диапазон на несигурност.</li>
+</ul>
+<p>Виж и <a href="${SITE_URL}/budget">държавния бюджет</a>, <a href="${SITE_URL}/budget/tax-calculator">данъчния калкулатор</a> и <a href="${SITE_URL}/budget/methodology">методологията</a>.</p>`.trim(),
+    english: {
+      title:
+        "Tax Policy Simulator — What if a Tax Rate Changes? | electionsbg.com",
+      description:
+        "What happens to Bulgaria's budget revenue if VAT, the flat income tax, corporate tax, the dividend tax or the МОД insurance cap changes? Move a slider and see the static estimate — and the effect on a worked payslip.",
+      breadcrumbName: "Tax policy simulator",
+      bodyHtml: `
+<h1>Tax policy simulator</h1>
+<p>An interactive simulator of Bulgarian tax policy: move a rate and see two numbers at once — the change in consolidated budget revenue per year and the change on one worked payslip per month. Estimates are static, against the latest closed fiscal year's execution.</p>
+<h2>What can be changed</h2>
+<ul>
+<li><strong>VAT</strong> — the standard and reduced rates, plus re-rating categories (food, medicines, energy, restaurants, hotels, books). The model runs on household consumption by COICOP purpose (Eurostat), calibrated to actual VAT revenue.</li>
+<li><strong>Personal income tax</strong> — the flat rate, an untaxed minimum and a second rate above a threshold, scored over a fitted earnings distribution validated against the НАП annual report.</li>
+<li><strong>Corporate and dividend tax</strong> — static rescaling of the executed budget lines.</li>
+<li><strong>The МОД insurable-income cap</strong> — raising, lowering or removing it, with an explicit uncertainty range.</li>
+</ul>
+<p>See also the <a href="${SITE_URL}/en/budget">state budget</a>, the <a href="${SITE_URL}/en/budget/tax-calculator">tax calculator</a> and the <a href="${SITE_URL}/en/budget/methodology">methodology</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "budget/methodology",
     title: "Методология — Държавен бюджет на България | electionsbg.com",
     description:

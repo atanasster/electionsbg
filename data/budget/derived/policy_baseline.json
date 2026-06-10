@@ -1,0 +1,736 @@
+{
+  "generatedAt": "2026-06-10T08:27:15.368Z",
+  "country": "BG",
+  "baselineYear": 2025,
+  "gdpEur": 116018300000,
+  "sources": {
+    "kfp": "data.egov.bg КФП monthly execution (December snapshots)",
+    "pit": "НАП Годишен отчет 2024",
+    "consumption": "Eurostat nama_10_co3_p3 + nama_10_gdp (P31_S14)",
+    "contributions": "Eurostat gov_10a_taxag D613CE 2024",
+    "earnings": "split log-normal + Pareto fit — НОИ СОД 2024 + Eurostat earn_ses_hourly 2022 + the PIT/insurable-base identity"
+  },
+  "revenue": {
+    "vatEur": 11029333852,
+    "pitEur": 4183982924,
+    "pitRateSensitiveShare": 0.9016870647849876,
+    "pitEmploymentShare": 0.8271763777794953,
+    "pitNonEmploymentShare": 0.07451068700549232,
+    "corporateEur": 3328029355,
+    "dividendEur": 74936646,
+    "totalRevenueEur": 26309031158,
+    "balanceEur": -3113054197
+  },
+  "earnings": {
+    "identityYear": 2024,
+    "sesWave": 2022,
+    "sigmaLower": 0.4726313714019868,
+    "sigmaUpper": 0.7005697093867314,
+    "medianEur": 805.11,
+    "nEmployees": 2632533,
+    "alpha": 2.2728675817952686,
+    "shareAboveCap": 0.07346085913247669,
+    "wageGrowthToBaseline": 1.1602424191675613,
+    "kappaIdentityYear": 0.9999606918104796,
+    "kappa": 1.1075923906481122,
+    "capEur": 2112,
+    "bands": [
+      {
+        "grossEur": 244.14,
+        "workers": 30489
+      },
+      {
+        "grossEur": 296.81,
+        "workers": 30489
+      },
+      {
+        "grossEur": 328.55,
+        "workers": 30489
+      },
+      {
+        "grossEur": 353,
+        "workers": 30489
+      },
+      {
+        "grossEur": 373.57,
+        "workers": 30489
+      },
+      {
+        "grossEur": 391.7,
+        "workers": 30489
+      },
+      {
+        "grossEur": 408.12,
+        "workers": 30489
+      },
+      {
+        "grossEur": 423.28,
+        "workers": 30489
+      },
+      {
+        "grossEur": 437.49,
+        "workers": 30489
+      },
+      {
+        "grossEur": 450.94,
+        "workers": 30489
+      },
+      {
+        "grossEur": 463.78,
+        "workers": 30489
+      },
+      {
+        "grossEur": 476.12,
+        "workers": 30489
+      },
+      {
+        "grossEur": 488.04,
+        "workers": 30489
+      },
+      {
+        "grossEur": 499.61,
+        "workers": 30489
+      },
+      {
+        "grossEur": 510.88,
+        "workers": 30489
+      },
+      {
+        "grossEur": 521.9,
+        "workers": 30489
+      },
+      {
+        "grossEur": 532.7,
+        "workers": 30489
+      },
+      {
+        "grossEur": 543.33,
+        "workers": 30489
+      },
+      {
+        "grossEur": 553.78,
+        "workers": 30489
+      },
+      {
+        "grossEur": 564.12,
+        "workers": 30489
+      },
+      {
+        "grossEur": 574.34,
+        "workers": 30489
+      },
+      {
+        "grossEur": 584.47,
+        "workers": 30489
+      },
+      {
+        "grossEur": 594.53,
+        "workers": 30489
+      },
+      {
+        "grossEur": 604.52,
+        "workers": 30489
+      },
+      {
+        "grossEur": 614.46,
+        "workers": 30489
+      },
+      {
+        "grossEur": 624.38,
+        "workers": 30489
+      },
+      {
+        "grossEur": 634.27,
+        "workers": 30489
+      },
+      {
+        "grossEur": 644.15,
+        "workers": 30489
+      },
+      {
+        "grossEur": 654.04,
+        "workers": 30489
+      },
+      {
+        "grossEur": 663.93,
+        "workers": 30489
+      },
+      {
+        "grossEur": 673.83,
+        "workers": 30489
+      },
+      {
+        "grossEur": 683.78,
+        "workers": 30489
+      },
+      {
+        "grossEur": 693.77,
+        "workers": 30489
+      },
+      {
+        "grossEur": 703.79,
+        "workers": 30489
+      },
+      {
+        "grossEur": 713.87,
+        "workers": 30489
+      },
+      {
+        "grossEur": 724.03,
+        "workers": 30489
+      },
+      {
+        "grossEur": 734.26,
+        "workers": 30489
+      },
+      {
+        "grossEur": 744.56,
+        "workers": 30489
+      },
+      {
+        "grossEur": 754.97,
+        "workers": 30489
+      },
+      {
+        "grossEur": 765.48,
+        "workers": 30489
+      },
+      {
+        "grossEur": 776.1,
+        "workers": 30489
+      },
+      {
+        "grossEur": 786.84,
+        "workers": 30489
+      },
+      {
+        "grossEur": 797.72,
+        "workers": 30489
+      },
+      {
+        "grossEur": 810.51,
+        "workers": 30489
+      },
+      {
+        "grossEur": 827.16,
+        "workers": 30489
+      },
+      {
+        "grossEur": 844.18,
+        "workers": 30489
+      },
+      {
+        "grossEur": 861.58,
+        "workers": 30489
+      },
+      {
+        "grossEur": 879.41,
+        "workers": 30489
+      },
+      {
+        "grossEur": 897.66,
+        "workers": 30489
+      },
+      {
+        "grossEur": 916.37,
+        "workers": 30489
+      },
+      {
+        "grossEur": 935.58,
+        "workers": 30489
+      },
+      {
+        "grossEur": 955.32,
+        "workers": 30489
+      },
+      {
+        "grossEur": 975.64,
+        "workers": 30489
+      },
+      {
+        "grossEur": 996.54,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1018.1,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1040.37,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1063.37,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1087.19,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1111.87,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1137.5,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1164.16,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1191.93,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1220.91,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1251.23,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1283.01,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1316.39,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1351.57,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1388.73,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1428.12,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1470,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1514.74,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1562.71,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1614.42,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1670.47,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1731.63,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1798.86,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1873.46,
+        "workers": 30489
+      },
+      {
+        "grossEur": 1957.13,
+        "workers": 30489
+      },
+      {
+        "grossEur": 2052.24,
+        "workers": 30489
+      },
+      {
+        "grossEur": 2162.17,
+        "workers": 30489
+      },
+      {
+        "grossEur": 2236.88,
+        "workers": 4954
+      },
+      {
+        "grossEur": 2262.9,
+        "workers": 4954
+      },
+      {
+        "grossEur": 2289.95,
+        "workers": 4954
+      },
+      {
+        "grossEur": 2318.08,
+        "workers": 4954
+      },
+      {
+        "grossEur": 2347.37,
+        "workers": 4954
+      },
+      {
+        "grossEur": 2377.92,
+        "workers": 4954
+      },
+      {
+        "grossEur": 2409.8,
+        "workers": 4954
+      },
+      {
+        "grossEur": 2443.12,
+        "workers": 4954
+      },
+      {
+        "grossEur": 2478.01,
+        "workers": 4954
+      },
+      {
+        "grossEur": 2514.58,
+        "workers": 4954
+      },
+      {
+        "grossEur": 2552.99,
+        "workers": 4954
+      },
+      {
+        "grossEur": 2593.36,
+        "workers": 4954
+      },
+      {
+        "grossEur": 2635.92,
+        "workers": 4954
+      },
+      {
+        "grossEur": 2680.86,
+        "workers": 4954
+      },
+      {
+        "grossEur": 2728.39,
+        "workers": 4954
+      },
+      {
+        "grossEur": 2778.8,
+        "workers": 4954
+      },
+      {
+        "grossEur": 2832.41,
+        "workers": 4954
+      },
+      {
+        "grossEur": 2889.54,
+        "workers": 4954
+      },
+      {
+        "grossEur": 2950.64,
+        "workers": 4954
+      },
+      {
+        "grossEur": 3016.17,
+        "workers": 4954
+      },
+      {
+        "grossEur": 3086.72,
+        "workers": 4954
+      },
+      {
+        "grossEur": 3162.97,
+        "workers": 4954
+      },
+      {
+        "grossEur": 3245.77,
+        "workers": 4954
+      },
+      {
+        "grossEur": 3336.11,
+        "workers": 4954
+      },
+      {
+        "grossEur": 3435.25,
+        "workers": 4954
+      },
+      {
+        "grossEur": 3544.71,
+        "workers": 4954
+      },
+      {
+        "grossEur": 3666.52,
+        "workers": 4954
+      },
+      {
+        "grossEur": 3803.18,
+        "workers": 4954
+      },
+      {
+        "grossEur": 3958.1,
+        "workers": 4954
+      },
+      {
+        "grossEur": 4135.79,
+        "workers": 4954
+      },
+      {
+        "grossEur": 4342.6,
+        "workers": 4954
+      },
+      {
+        "grossEur": 4587.69,
+        "workers": 4954
+      },
+      {
+        "grossEur": 4884.85,
+        "workers": 4954
+      },
+      {
+        "grossEur": 5256.19,
+        "workers": 4954
+      },
+      {
+        "grossEur": 5739.85,
+        "workers": 4954
+      },
+      {
+        "grossEur": 6409.36,
+        "workers": 4954
+      },
+      {
+        "grossEur": 7432.72,
+        "workers": 4954
+      },
+      {
+        "grossEur": 9333.44,
+        "workers": 4954
+      },
+      {
+        "grossEur": 17107.87,
+        "workers": 4954
+      },
+      {
+        "grossEur": 82962.21,
+        "workers": 193
+      }
+    ]
+  },
+  "vat": {
+    "factor": 1.1701666273269857,
+    "calibration": [
+      {
+        "year": 2021,
+        "modeledEur": 5464328440,
+        "actualEur": 6635814342,
+        "factor": 1.2143879004638654
+      },
+      {
+        "year": 2022,
+        "modeledEur": 6675332578,
+        "actualEur": 7838788322,
+        "factor": 1.1742918020609332
+      },
+      {
+        "year": 2023,
+        "modeledEur": 7215023303,
+        "actualEur": 8296102745,
+        "factor": 1.1498372765960636
+      },
+      {
+        "year": 2024,
+        "modeledEur": 8011042957,
+        "actualEur": 9497866006,
+        "factor": 1.1855966890799332
+      },
+      {
+        "year": 2025,
+        "modeledEur": 9425438732,
+        "actualEur": 11029333852,
+        "factor": 1.1701666273269857
+      }
+    ],
+    "structureYear": 2022,
+    "slices": [
+      {
+        "group": "food",
+        "valueEur": 724264788,
+        "regime": "standard"
+      },
+      {
+        "group": "food",
+        "valueEur": 13761030973,
+        "regime": "standard"
+      },
+      {
+        "group": "other",
+        "valueEur": 3375960370,
+        "regime": "standard"
+      },
+      {
+        "group": "other",
+        "valueEur": 2443258426,
+        "regime": "standard"
+      },
+      {
+        "group": "exempt",
+        "valueEur": 713943220,
+        "regime": null
+      },
+      {
+        "group": "other",
+        "valueEur": 740965947,
+        "regime": "standard"
+      },
+      {
+        "group": "other",
+        "valueEur": 952272525,
+        "regime": "standard"
+      },
+      {
+        "group": "energy",
+        "valueEur": 823482768,
+        "regime": "standard"
+      },
+      {
+        "group": "energy",
+        "valueEur": 3293931072,
+        "regime": "standard"
+      },
+      {
+        "group": "other",
+        "valueEur": 4205725225,
+        "regime": "standard"
+      },
+      {
+        "group": "medicines",
+        "valueEur": 3219883229,
+        "regime": "standard"
+      },
+      {
+        "group": "exempt",
+        "valueEur": 572282845,
+        "regime": null
+      },
+      {
+        "group": "exempt",
+        "valueEur": 711435958,
+        "regime": null
+      },
+      {
+        "group": "other",
+        "valueEur": 9541320791,
+        "regime": "standard"
+      },
+      {
+        "group": "exempt",
+        "valueEur": 478608703,
+        "regime": null
+      },
+      {
+        "group": "other",
+        "valueEur": 641441525,
+        "regime": "standard"
+      },
+      {
+        "group": "other",
+        "valueEur": 2190373065,
+        "regime": "standard"
+      },
+      {
+        "group": "other",
+        "valueEur": 1365901321,
+        "regime": "standard"
+      },
+      {
+        "group": "other",
+        "valueEur": 161300605,
+        "regime": "standard"
+      },
+      {
+        "group": "other",
+        "valueEur": 816114199,
+        "regime": "standard"
+      },
+      {
+        "group": "exempt",
+        "valueEur": 645592438,
+        "regime": null
+      },
+      {
+        "group": "other",
+        "valueEur": 968388656,
+        "regime": "standard"
+      },
+      {
+        "group": "books",
+        "valueEur": 267023540,
+        "regime": "reduced"
+      },
+      {
+        "group": "other",
+        "valueEur": 178015693,
+        "regime": "standard"
+      },
+      {
+        "group": "other",
+        "valueEur": 566571856,
+        "regime": "standard"
+      },
+      {
+        "group": "exempt",
+        "valueEur": 929289279,
+        "regime": null
+      },
+      {
+        "group": "restaurants",
+        "valueEur": 2910027275,
+        "regime": "standard"
+      },
+      {
+        "group": "hotels",
+        "valueEur": 1837406112,
+        "regime": "reduced"
+      },
+      {
+        "group": "other",
+        "valueEur": 1119701996,
+        "regime": "standard"
+      },
+      {
+        "group": "other",
+        "valueEur": 461197153,
+        "regime": "standard"
+      },
+      {
+        "group": "exempt",
+        "valueEur": 87336338,
+        "regime": null
+      },
+      {
+        "group": "exempt",
+        "valueEur": 337366204,
+        "regime": null
+      },
+      {
+        "group": "exempt",
+        "valueEur": 1161837948,
+        "regime": null
+      },
+      {
+        "group": "other",
+        "valueEur": 1048941454,
+        "regime": "standard"
+      }
+    ]
+  },
+  "modIdentity": {
+    "year": 2024,
+    "capEur": 1917,
+    "aboveCapMassEur": 3495022998,
+    "alphaLow": 1.7728675817952686,
+    "alphaCentral": 2.2728675817952686,
+    "alphaHigh": 2.7728675817952686
+  }
+}

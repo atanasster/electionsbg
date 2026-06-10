@@ -41,6 +41,7 @@ export const ENGLISH_STATIC_PAGES = [
   "budget",
   "budget/methodology",
   "budget/tax-calculator",
+  "budget/simulator",
   "observations",
   "demographics",
   "prices",
@@ -127,6 +128,10 @@ export const routeDefs = (year: string): RouteDefs => [
   {
     path: "budget/tax-calculator",
     file: `src/screens/BudgetTaxCalculatorScreen.tsx`,
+  },
+  {
+    path: "budget/simulator",
+    file: `src/screens/BudgetPolicySimulatorScreen.tsx`,
   },
   { path: "budget/ministry/:id", file: `budget-ministries-list` },
   { path: "observations", file: `src/screens/ObservationsScreen.tsx` },

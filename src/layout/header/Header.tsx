@@ -281,13 +281,30 @@ export const Header = () => {
       <DropdownMenuContent
         align="end"
         sideOffset={8}
-        // Flat grouped panels can run tall (governance has four groups) — cap
-        // to the space Radix leaves before collision and scroll past it.
-        className="w-56 max-h-[var(--radix-dropdown-menu-content-available-height)] overflow-y-auto"
+        className={cn(
+          // Cap tall panels to the space Radix leaves before collision and
+          // scroll past it.
+          "max-h-[var(--radix-dropdown-menu-content-available-height)] overflow-y-auto",
+          // A `columns` menu lays its section groups out side by side so a
+          // four-group panel (governance) is half as tall; one group per grid
+          // cell keeps every leaf one open away, matching the flat layout.
+          topMenu.columns === 2 ? "grid w-[30rem] grid-cols-2 gap-x-2" : "w-56",
+        )}
       >
-        {topMenu.subMenu?.map((menu, idx) => (
-          <RenderMenuItem key={`${menu.title}-${idx}`} item={menu} />
-        ))}
+        {topMenu.columns === 2
+          ? topMenu.subMenu
+              ?.filter((menu) => menu.group)
+              .map((menu, idx) => (
+                <div key={`${menu.title}-${idx}`}>
+                  <DropdownMenuLabel>{t(menu.title)}</DropdownMenuLabel>
+                  {menu.subMenu?.map((sub, subIdx) => (
+                    <RenderMenuItem key={`${sub.title}-${subIdx}`} item={sub} />
+                  ))}
+                </div>
+              ))
+          : topMenu.subMenu?.map((menu, idx) => (
+              <RenderMenuItem key={`${menu.title}-${idx}`} item={menu} />
+            ))}
       </DropdownMenuContent>
     </DropdownMenu>
   );

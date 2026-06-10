@@ -129,6 +129,14 @@ const BASE: Suggestion[] = [
   { bg: "Какъв е държавният бюджет?", en: "What is the state budget?" },
   { bg: "За какво се харчи бюджетът?", en: "What is the budget spent on?" },
   {
+    bg: "Какво става, ако ДДС стане 22%?",
+    en: "What if VAT goes to 22%?",
+  },
+  {
+    bg: "Какво става, ако подоходният данък стане 15%?",
+    en: "What if income tax goes to 15%?",
+  },
+  {
     bg: "Кои са най-големите инвестиционни проекти?",
     en: "Biggest investment projects?",
   },

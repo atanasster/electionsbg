@@ -29,7 +29,10 @@ export const BudgetTaxCalculatorScreen: FC = () => {
           {t("budget_index_title")}
         </Link>
         <p className="text-sm text-muted-foreground">
-          {t("budget_tax_calculator_page_intro")}
+          {t("budget_tax_calculator_page_intro")}{" "}
+          <Link to="/budget/simulator" className="text-primary hover:underline">
+            {t("budget_citizen_policy_sim_link")}
+          </Link>
         </p>
         <BudgetTaxCalculator />
       </section>

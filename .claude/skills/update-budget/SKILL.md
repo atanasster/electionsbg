@@ -32,6 +32,8 @@ Plus the budget-journey document index, procurement cross-link (Phase 4), and pe
 | `data/budget/` empty (fresh clone) | Cold-start ingest of every visible monthly resource + curated reports |
 | Canary mismatch warning surfaced | Investigate the named parser in `scripts/budget/` BEFORE re-running |
 | Sanity-warning `⚠ admin-grain sanity (…)` surfaced | Investigate that ministry's report manually before committing |
+| `Eurostat policy-baseline (BG)` flips (`eurostat_policy`) | Policy-baseline sub-step — `run_consumption_coicop.ts` then `run_policy_baseline.ts` (see "Policy-baseline ingest" below) |
+| КФП ingest closes a fiscal year (new December snapshot), or `nap_annual` re-ingested | Re-run `run_policy_baseline.ts` so the /budget/simulator re-bases |
 
 ## Step 1 — Ingest
 
@@ -168,6 +170,30 @@ Adding a new year: same pattern — find the PDF URL (via `site:nra.bg "Годи
 ### System dependency
 
 The NAP parser shells out to `pdftotext -layout` (poppler-utils) because the NAP report's tables have multi-line wrapping that defeats custom pdfjs column extraction. `pdftotext` is universal on dev/CI environments. The customs parser is pdfjs-only — no extra dependency.
+
+## Policy-baseline ingest (tax-policy simulator)
+
+The `/budget/simulator` screen scores rate-change scenarios (ДДС standard + per-category, ДДФЛ flat, корпоративен, дивидент, МОД cap) against a single derived file. Two scripts, run in order:
+
+```bash
+npx tsx scripts/budget/run_consumption_coicop.ts   # Eurostat → revenue_breakdown/consumption.json
+npx tsx scripts/budget/run_policy_baseline.ts      # joins everything → derived/policy_baseline.json
+```
+
+- `run_consumption_coicop.ts` fetches household consumption by COICOP purpose (Eurostat `nama_10_co3_p3`, BG structure lags ~2 years) plus the fresher `nama_10_gdp` P31_S14 totals used to scale it. **Unit hazard**: post-changeover Eurostat re-denominates BG "national currency" series to euros dataset-by-dataset, so the script anchor-validates each fetch against `macro.json` nominal GDP instead of trusting the unit label — never remove that check.
+- `run_policy_baseline.ts` joins the КФП December snapshots (executed ДДС/ДДФЛ/корпоративен/дивиденти lines), the НАП PIT split (`revenue_breakdown/pit/<latest>.json` — rate-sensitive share + the МОД-cap identity), one live `gov_10a_taxag` fetch (D613CE contributions, same GDP-anchored unit detection), and the consumption slices, pre-scaled to the latest closed fiscal year. The COICOP→VAT-regime map lives in `src/lib/bgTaxPolicy.ts` (`VAT_SLICES`) — the single source of truth shared with the frontend engine.
+- The same run **fits the earnings distribution** behind the bracket-schedule and МОД-incidence scoring (`scripts/budget/earnings_distribution.ts`): split log-normal body (σ per half from the `earn_ses_hourly` SES decile ratios — ratios, so the unit hazard cancels), level from the curated НОИ СОД average (`NOI_SOD_EMPLOYEES_BGN` — one value per identity year from `nssi.bg/wp-content/uploads/SOD_{YYYY}.pdf`, трета-категория row), Pareto tail in closed form from the identity's above-cap mass. Emits ~120 quantile bands into the `earnings` section. **When a new НАП year lands, also curate that year's СОД value or the run fails loudly.**
+
+Self-validation (the script throws instead of writing):
+- **Drift gate** — the VAT calibration factor (actual ДДС ÷ modeled household VAT, expected ~1.17) must stay within 12% min-max across all calibration years. A breach usually means a statutory VAT-rate change took effect: add the new rate window to `VAT_SLICES` in `src/lib/bgTaxPolicy.ts` first, then re-run.
+- **Round-trip guard** — the engine at current law must reproduce the calibration row for the baseline year (catches slice-join breakage).
+- **κ gate** — the fitted band grid at the flat 10% must reproduce the НАП employment-PIT line within ±8% (it landed at κ=1.000 on the 2024 anchors). A breach means the anchors disagree — re-check the СОД curation and the SES wave before touching tolerances.
+
+Smoke checks: `npx tsx scripts/budget/__smoke_vat_model.ts` (calibration table + scored scenarios through the shared engine), `npx tsx scripts/budget/__smoke_mod_identity.ts` (МОД-cap identity backtest vs МФ's scoring of the 2025 raise), and `npx tsx scripts/budget/__smoke_earnings.ts` (fit diagnostics, fitted-α backtest, bracket + МОД scenarios over the bands).
+
+Triggers: the `eurostat_policy` watcher (any of the four datasets release — note `earn_ses_hourly` is a 4-yearly SES wave, next 2026), a КФП ingest that closes a fiscal year (new December snapshot — the simulator re-bases to it), or a `nap_annual` re-ingest. When a year's МОД cap changes by law, also update `MOD_BY_YEAR` in `src/lib/bgTax.ts`.
+
+Stamp with: `npx tsx scripts/stamp-ingest.ts update-budget --summary "policy baseline re-based to FY<year>, VAT factor <f>"`.
 
 ## Data sources — by source format
 
@@ -360,6 +386,11 @@ Pre-existing condition the slice fixed: `writeIfChanged` now ignores `generatedA
 | `data/budget/reconciliation/<YYYY>/by-{admin,economic,program}.json` | Per-year reconciliation rows — **GITIGNORED** |
 | `data/budget/ministries/<nodeId>.json` | Per-ministry rollups — **GITIGNORED** |
 | `data/budget/derived/ministry_procurement.json` | Phase 4 admin-grain procurement footprint — committed |
+| `scripts/budget/run_consumption_coicop.ts` | Eurostat `nama_10_co3_p3` + `nama_10_gdp` → COICOP consumption structure + household totals (GDP-anchored unit detection) |
+| `scripts/budget/run_policy_baseline.ts` | Joins КФП lines + НАП PIT split + `gov_10a_taxag` + consumption → the /budget/simulator baseline; drift gate + round-trip guard |
+| `scripts/watch/sources/eurostat_policy.ts` | Watcher — `updated` timestamps of the four policy-baseline Eurostat datasets |
+| `data/budget/revenue_breakdown/consumption.json` | COICOP consumption structure (61 categories) + P31_S14 totals — committed |
+| `data/budget/derived/policy_baseline.json` | Tax-policy simulator baseline (revenue lines, VAT slices + calibration, МОД identity) — committed |
 | `tests/fixtures/budget/*-canary.json` | Pinned regression baselines — committed |
 | `raw_data/budget/` | Gzip cache of downloaded resources + manual-pdf operator drops — **GITIGNORED** |
 

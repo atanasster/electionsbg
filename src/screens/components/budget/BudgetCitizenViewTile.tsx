@@ -413,13 +413,21 @@ export const BudgetCitizenViewTile: FC<{ fiscalYear: number }> = ({
             icon={Landmark}
           />
         </div>
-        <div className="mt-4 border-t pt-3">
+        <div className="mt-4 border-t pt-3 flex flex-col gap-1.5">
           <Link
             to="/budget/tax-calculator"
             className="text-primary hover:underline inline-flex items-center gap-1 text-xs"
           >
             {t("budget_citizen_tax_calc_link") ||
               "What did your taxes buy? Open the tax calculator"}
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
+          <Link
+            to="/budget/simulator"
+            className="text-primary hover:underline inline-flex items-center gap-1 text-xs"
+          >
+            {t("budget_citizen_policy_sim_link") ||
+              "What if a tax rate changes? Open the policy simulator"}
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>

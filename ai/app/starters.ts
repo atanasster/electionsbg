@@ -109,6 +109,14 @@ export const STARTERS: Starter[] = [
   { bg: "Каква беше активността през 2023?", en: "What was turnout in 2023?" },
   { bg: "Какъв е държавният бюджет?", en: "What is the state budget?" },
   { bg: "За какво се харчи бюджетът?", en: "What is the budget spent on?" },
+  {
+    bg: "Какво става, ако ДДС стане 22%?",
+    en: "What if VAT goes to 22%?",
+  },
+  {
+    bg: "Колко струва необлагаем минимум от 620 €?",
+    en: "How much would a €620 tax-free minimum cost?",
+  },
   { bg: "Кои депутати са най-богати?", en: "Which MPs are richest?" },
   {
     bg: "Кои са най-големите инвестиционни проекти?",

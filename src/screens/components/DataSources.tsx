@@ -544,6 +544,22 @@ export const DataSources = () => {
                 label={t("budget_nap_annual_source")}
               />
               <SourceItem
+                href="https://ec.europa.eu/eurostat/databrowser/view/nama_10_co3_p3/default/table"
+                label={t("budget_consumption_coicop_source")}
+              />
+              <SourceItem
+                href="https://ec.europa.eu/eurostat/databrowser/view/gov_10a_taxag/default/table"
+                label={t("budget_taxag_source")}
+              />
+              <SourceItem
+                href="https://ec.europa.eu/eurostat/databrowser/view/earn_ses_hourly/default/table"
+                label={t("budget_ses_source")}
+              />
+              <SourceItem
+                href="https://nssi.bg/publikacii/analizi/sreden-osiguritelen-dohod/"
+                label={t("budget_noi_sod_source")}
+              />
+              <SourceItem
                 href="https://commission.europa.eu/strategy-and-policy/eu-budget/long-term-eu-budget/2021-2027/spending-and-revenue_en"
                 label={t("budget_ec_eu_funds_source")}
               />

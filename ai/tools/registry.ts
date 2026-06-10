@@ -90,6 +90,7 @@ import {
   settlementPrices,
 } from "./prices";
 import { compareElections, machineVoteShare, turnout } from "./metrics";
+import { simulateTaxChange } from "./taxPolicy";
 import { candidateResult } from "./candidate";
 import {
   nationalResults,
@@ -1548,6 +1549,36 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: budgetTrend,
+  },
+  {
+    name: "simulateTaxChange",
+    domain: "fiscal",
+    description: {
+      bg: "Какво става с бюджета при данъчна промяна (ДДС, ДДФЛ, необлагаем минимум, корпоративен, дивидент, МОД) — оценен ефект върху приходите + линк към симулатора.",
+      en: "Budget effect of a tax change (VAT, income tax, untaxed minimum, corporate, dividend, МОД cap) — scored revenue impact + a simulator deep link.",
+    },
+    params: [
+      {
+        name: "change",
+        type: "metric",
+        required: true,
+        description: {
+          bg: "Описание на промяната (напр. „ДДС 22%“)",
+          en: 'The change to score (e.g. "VAT 22%")',
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Какво става, ако ДДС стане 22%?",
+        en: "What if VAT goes to 22%?",
+      },
+      {
+        bg: "Колко струва необлагаем минимум от 620 €?",
+        en: "What if income tax goes to 15%?",
+      },
+    ],
+    run: simulateTaxChange,
   },
   {
     name: "budgetByFunction",

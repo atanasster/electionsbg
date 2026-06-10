@@ -1253,6 +1253,62 @@ const CASES: Case[] = [
     kind: "table",
     minRows: 4,
   },
+  // ---- tax-policy what-if (the /budget/simulator scoring engine) --------------
+  // The golden Δs are PARITY values: the same scenario on /budget/simulator
+  // shows the same headline (the tool mirrors the component's scenario math
+  // over the same policy_baseline.json). The deep link carries the simulator's
+  // own query-string params, so the answer opens pre-set.
+  {
+    q: "Какво става, ако ДДС стане 22%?",
+    tool: "simulateTaxChange",
+    kind: "scalar",
+    facts: {
+      change: "ДДС 22%",
+      delta_per_year: /\+887/,
+      share_of_gdp: /%/,
+    },
+    links: ["/budget/simulator?dds=22", "/budget"],
+  },
+  {
+    q: "What if income tax goes to 15%?",
+    lang: "en",
+    tool: "simulateTaxChange",
+    kind: "scalar",
+    facts: { change: "income tax 15%", delta_per_year: /\+€1\.9B/ },
+    links: ["/budget/simulator?pit=15", "/budget"],
+  },
+  {
+    // cost-of-policy framing with no amount -> the МРЗ preset (€620/mo),
+    // employment-only by construction (the flat rate itself is unchanged)
+    q: "Колко струва необлагаем минимум?",
+    tool: "simulateTaxChange",
+    kind: "scalar",
+    facts: { change: /620/, delta_per_year: /−1,9/ },
+    links: ["/budget/simulator?nm=620", "/budget"],
+  },
+  {
+    // VAT category regime change (храни -> намалена ставка 9%)
+    q: "Какво става, ако ДДС върху храните стане 9%?",
+    tool: "simulateTaxChange",
+    kind: "scalar",
+    facts: { change: "Храни", delta_per_year: /−1,4/ },
+    links: ["/budget/simulator?food=reduced", "/budget"],
+  },
+  {
+    // МОД-cap removal — carries the Pareto-tail uncertainty band
+    q: "What happens if we remove the social security cap?",
+    lang: "en",
+    tool: "simulateTaxChange",
+    kind: "scalar",
+    facts: { delta_per_year: /\+€1\.1B/, range: /…/ },
+    links: ["/budget/simulator?nocap=1", "/budget"],
+  },
+  {
+    // guard: a price "колко струва" question is NOT a tax what-if (and vice
+    // versa the simulator never steals the retail-price tool)
+    q: "Колко струва млякото в Пловдив?",
+    tool: "settlementPrices",
+  },
   // ---- people ----------------------------------------------------------------
   {
     q: "Кои са правителствата от 2005?",

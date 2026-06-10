@@ -392,6 +392,11 @@ const BudgetTaxCalculatorScreen = lazy(() =>
     default: m.BudgetTaxCalculatorScreen,
   })),
 );
+const BudgetPolicySimulatorScreen = lazy(() =>
+  import("./screens/BudgetPolicySimulatorScreen").then((m) => ({
+    default: m.BudgetPolicySimulatorScreen,
+  })),
+);
 const SessionsIndexScreen = lazy(() =>
   import("./screens/SessionsIndexScreen").then((m) => ({
     default: m.SessionsIndexScreen,
@@ -1935,6 +1940,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <BudgetTaxCalculatorScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="budget/simulator"
+            element={
+              <LayoutScreen>
+                <BudgetPolicySimulatorScreen />
               </LayoutScreen>
             }
           />

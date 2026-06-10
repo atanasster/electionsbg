@@ -16,6 +16,7 @@ import { egovMunicipalExecution } from "./egov_municipal_execution";
 import { ministryExecutionReports } from "./ministry_execution_reports";
 import { iisdaDoklad } from "./iisda_doklad";
 import { eurostat } from "./eurostat";
+import { eurostatPolicy } from "./eurostat_policy";
 import { eurostatRegional } from "./eurostat_regional";
 import { nsiRegional } from "./nsi_regional";
 import { ecBudgetPerMs } from "./ec_budget_per_ms";
@@ -81,6 +82,7 @@ export const SOURCES: WatchSource[] = [
   capitalPrograms,
   ipop,
   eurostat,
+  eurostatPolicy,
   eurostatRegional,
   nsiRegional,
   ecBudgetPerMs,

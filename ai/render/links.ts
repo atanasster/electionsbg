@@ -194,6 +194,7 @@ const TOOL_SECTION: Record<string, SiteLink | undefined> = {
   partyMps: SECTION.parliament,
   financingOverview: SECTION.financing,
   budgetOverview: SECTION.budget,
+  simulateTaxChange: SECTION.budget,
   budgetByFunction: SECTION.budget,
   budgetFunction: SECTION.budget,
   budgetExecution: SECTION.budget,
@@ -416,6 +417,20 @@ export const siteLinks = (env: Envelope): SiteLink[] => {
           en: "Extraordinary local elections",
         },
         href: url("/local/chmi"),
+      });
+      break;
+    }
+    // A scored tax-policy what-if deep-links to the simulator with the exact
+    // scenario pre-set (facts.scenario_id carries the simulator's own query
+    // string, e.g. "dds=22"; empty = current law, plain page).
+    case "simulateTaxChange": {
+      const qs = fact(env, "scenario_id");
+      out.push({
+        label: {
+          bg: "Отвори в бюджетния симулатор",
+          en: "Open in the budget simulator",
+        },
+        href: url(`/budget/simulator${qs ? `?${qs}` : ""}`),
       });
       break;
     }

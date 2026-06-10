@@ -8,8 +8,10 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { route } from "../orchestrator/router";
-import { setFetcher } from "./dataClient";
+import { fetchData, setFetcher } from "./dataClient";
 import { runTool } from "./registry";
+import { detectTaxChange, scoreScenario } from "./taxPolicy";
+import type { PolicyBaselineFile } from "../../src/data/budget/types";
 import type { Envelope, ToolContext } from "./types";
 
 setFetcher(async (path: string) => {
@@ -1100,6 +1102,101 @@ const run = async () => {
   ];
   for (const [q, expected] of cases10) {
     const r = route(q, ctx);
+    const got = r?.tool ?? null;
+    console.log(`  "${q}" -> ${got ?? "(none)"}`);
+    assert(got === expected, `route: "${q}" -> ${expected}`);
+  }
+
+  // 21. tax-policy what-if — PARITY GATE against the /budget/simulator math.
+  // Each golden Δ below was read off the simulator screen for the same
+  // scenario (the tool mirrors the component's `scenario` useMemo over the
+  // same baseline file, so the two MUST stay equal). A baseline regeneration
+  // that moves these numbers must move the simulator's too — re-read them
+  // from /budget/simulator and update both sides together.
+  console.log("\n=== [taxPolicy] simulator parity + detection ===");
+  const baseline = await fetchData<PolicyBaselineFile>(
+    "/budget/derived/policy_baseline.json",
+  );
+  const parity: [string, number][] = [
+    ["какво става ако ддс стане 21%", 447e6],
+    ["ддс върху храните да стане 9%", -1425e6],
+    ["what if income tax goes to 12%", 755e6],
+    ["колко струва необлагаем минимум от 620 евро", -1937e6],
+    ["какво става ако премахнем тавана на осигурителния доход", 1145e6],
+  ];
+  // FINDING-001 guard: definitional МОД questions carrying a year must NOT
+  // parse as a cap what-if (2024-2026 overlap realistic cap amounts).
+  for (const q of [
+    "какъв е максималният осигурителен доход през 2026 г.",
+    "колко е осигурителният таван за 2025",
+  ]) {
+    assert(
+      detectTaxChange(q) == null,
+      `definitional МОД question is not a what-if: "${q}"`,
+    );
+  }
+  for (const [q, expected] of parity) {
+    const ch = detectTaxChange(q);
+    assert(!!ch, `detectTaxChange parses "${q}"`);
+    if (!ch) continue;
+    const s = scoreScenario(baseline, ch);
+    assert(
+      Math.abs(s.central - expected) < 5e6,
+      `"${q}" -> ${(s.central / 1e6).toFixed(1)}M ≈ simulator ${(expected / 1e6).toFixed(0)}M`,
+    );
+  }
+  const simVat = (await runTool(
+    "simulateTaxChange",
+    { change: "какво става ако ддс стане 22%" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(simVat);
+  assert(
+    String(simVat.facts.delta_per_year).includes("887"),
+    `ДДС 22% envelope carries +887 млн € (got ${simVat.facts.delta_per_year})`,
+  );
+  assert(
+    simVat.facts.scenario_id === "dds=22",
+    `ДДС 22% deep-link qs is "dds=22" (got ${simVat.facts.scenario_id})`,
+  );
+  const simNoCap = (await runTool(
+    "simulateTaxChange",
+    { change: "what happens if we remove the social security cap" },
+    ctxEn,
+  )) as Envelope;
+  assert(
+    simNoCap.facts.scenario_id === "nocap=1" && !!simNoCap.facts.range,
+    "no-cap envelope carries nocap=1 + an uncertainty range",
+  );
+  // graceful no-detect (the geo.harness probe also hits this path)
+  const simMiss = (await runTool(
+    "simulateTaxChange",
+    { change: "безработица" },
+    ctxBg,
+  )) as Envelope;
+  assert(
+    simMiss.kind === "scalar" && !simMiss.facts.delta_per_year,
+    "unparseable change returns a graceful scalar envelope",
+  );
+
+  console.log("\n=== [router] tax-policy what-if questions ===");
+  const cases11: [string, string | null][] = [
+    ["Какво става, ако ДДС стане 22%?", "simulateTaxChange"],
+    ["What if income tax goes to 15%?", "simulateTaxChange"],
+    ["Колко струва необлагаем минимум?", "simulateTaxChange"],
+    ["Премахване на тавана на осигурителния доход", "simulateTaxChange"],
+    ["Какво става, ако корпоративният данък стане 15%?", "simulateTaxChange"],
+    ["Zero VAT on medicines", "simulateTaxChange"],
+    // guards: the neighbours keep their own questions
+    ["Какъв е държавният бюджет?", "budgetOverview"],
+    // NB phrased WITHOUT "местните" — "местни данъци в X" is the known
+    // pre-existing localMunicipality over-match (see memory notes), not ours.
+    ["Какви са данъците в Пловдив?", "localTaxes"],
+    ["Колко струва млякото в Пловдив?", "settlementPrices"],
+    ["Колко са пенсиите?", "noiFunds"],
+  ];
+  for (const [q, expected] of cases11) {
+    const r = route(q.toLowerCase(), ctx);
     const got = r?.tool ?? null;
     console.log(`  "${q}" -> ${got ?? "(none)"}`);
     assert(got === expected, `route: "${q}" -> ${expected}`);

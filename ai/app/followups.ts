@@ -480,8 +480,26 @@ export const followUps = (env: Envelope): FollowUp[] => {
         en: "What is the budget spent on?",
       });
       out.push({
+        bg: "Какво става, ако ДДС стане 22%?",
+        en: "What if VAT goes to 22%?",
+      });
+      out.push({
         bg: "Кои са най-големите инвестиционни проекти?",
         en: "Biggest investment projects?",
+      });
+      break;
+    case "simulateTaxChange":
+      out.push({
+        bg: "Колко струва необлагаем минимум от 620 €?",
+        en: "What is the cost of a tax-free minimum of €620?",
+      });
+      out.push({
+        bg: "Какво става, ако ДДС върху храните стане 9%?",
+        en: "What if food VAT goes to 9%?",
+      });
+      out.push({
+        bg: "Какъв е държавният бюджет?",
+        en: "What is the state budget?",
       });
       break;
     case "governments":

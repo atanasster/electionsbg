@@ -12,6 +12,7 @@ import { SOFIA_CITY } from "../tools/areaResults";
 import { findOblastInText } from "../tools/place";
 import { resolveRegionKey, resolveSubnatKey } from "../tools/placesGov";
 import { detectPriceProduct } from "../tools/prices";
+import { detectTaxChange } from "../tools/taxPolicy";
 import { TOOLS_BY_NAME } from "../tools/registry";
 import type { ToolArgs, ToolContext } from "../tools/types";
 
@@ -596,6 +597,19 @@ export const route = (question: string, ctx: ToolContext): Route => {
       };
     }
   }
+
+  // 0c. tax-policy what-if ("какво става ако ДДС стане 22%", "колко струва
+  // необлагаем минимум", "what if income tax goes to 15%") -> the budget
+  // simulator's scoring engine. detectTaxChange (tools/taxPolicy.ts) demands an
+  // explicit instrument (ДДС/ДДФЛ/необлагаем минимум/корпоративен/дивидент/МОД)
+  // plus a target value or a what-if/cost cue, so the generic budget questions
+  // ("какъв е бюджетът"), local taxes ("данъци в Пловдив") and retail prices
+  // ("колко струва млякото") all keep falling through to their own tools. Runs
+  // before the budget/noiFunds/prices blocks, which would otherwise swallow
+  // "какво става с бюджета ако…", "тавана на осигурителния доход" and the
+  // "колко струва…" cost-of-policy framing.
+  if (detectTaxChange(q))
+    return { tool: "simulateTaxChange", args: { change: q } };
 
   // 1. comparison of two elections
   if (isCompare) {
