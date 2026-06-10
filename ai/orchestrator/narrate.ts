@@ -270,9 +270,12 @@ export const narrate = (env: Envelope, lang: Lang): string => {
     case "simulateTaxChange": {
       if (!env.facts.delta_per_year) return env.title;
       const note = env.facts.note ? ` ${f(env, "note")}` : "";
+      // Expenditure levers (basis_id = "balance") move the budget BALANCE;
+      // the tax levers move revenue. Same sign convention: + = improves.
+      const onBalance = env.facts.basis_id === "balance";
       return lang === "bg"
-        ? `${f(env, "change")}: ${f(env, "delta_per_year")} приходи годишно (${f(env, "share_of_gdp")} от БВП).${note} Оценката е статична — базата е фиксирана към ${f(env, "baseline_year")}, без поведенчески реакции; пълният сценарий е в симулатора (линка по-долу).`
-        : `${f(env, "change")}: ${f(env, "delta_per_year")} in revenue per year (${f(env, "share_of_gdp")} of GDP).${note} The estimate is static — the tax base is held at ${f(env, "baseline_year")} with no behavioral response; the full scenario is in the simulator (link below).`;
+        ? `${f(env, "change")}: ${f(env, "delta_per_year")} ${onBalance ? "по бюджетното салдо" : "приходи"} годишно (${f(env, "share_of_gdp")} от БВП).${note} Оценката е статична — базата е фиксирана към ${f(env, "baseline_year")}, без поведенчески реакции; пълният сценарий е в симулатора (линка по-долу).`
+        : `${f(env, "change")}: ${f(env, "delta_per_year")} ${onBalance ? "on the budget balance" : "in revenue"} per year (${f(env, "share_of_gdp")} of GDP).${note} The estimate is static — the ${onBalance ? "base" : "tax base"} is held at ${f(env, "baseline_year")} with no behavioral response; the full scenario is in the simulator (link below).`;
     }
     case "budgetByFunction":
       return lang === "bg"

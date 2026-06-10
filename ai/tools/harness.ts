@@ -1123,6 +1123,17 @@ const run = async () => {
     ["what if income tax goes to 12%", 755e6],
     ["колко струва необлагаем минимум от 620 евро", -1937e6],
     ["какво става ако премахнем тавана на осигурителния доход", 1145e6],
+    // expenditure levers (balance convention: positive = balance improves)
+    ["пенсиите да се индексират само по инфлация", 479e6],
+    ["ковид добавката да не се индексира", 57e6],
+    ["съкращаване на администрацията с 10%", 30e6],
+    ["freeze the minimum wage", -280e6],
+    // Phase-5 levers (same balance convention)
+    ["отбраната да стане 3% от бвп", -1025e6],
+    ["заплатите в публичния сектор +5%", -142e6],
+    ["капиталовите разходи -10%", 185e6],
+    ["държавните служители да си плащат осигуровките", 126e6],
+    ["здравната вноска +1 пункт", 315e6],
   ];
   // FINDING-001 guard: definitional МОД questions carrying a year must NOT
   // parse as a cap what-if (2024-2026 overlap realistic cap amounts).
@@ -1133,6 +1144,22 @@ const run = async () => {
     assert(
       detectTaxChange(q) == null,
       `definitional МОД question is not a what-if: "${q}"`,
+    );
+  }
+  // Expenditure-lever guards: definitional questions are NOT what-ifs — they
+  // keep routing to noiFunds ("колко са пенсиите") / macroIndicator ("каква е
+  // минималната заплата") / budgetFunction ("колко са разходите за отбрана"
+  // GF02, "каква е здравната вноска" GF07), asserted in the router cases
+  // below too.
+  for (const q of [
+    "каква е минималната заплата",
+    "колко са пенсиите",
+    "колко са разходите за отбрана",
+    "каква е здравната вноска",
+  ]) {
+    assert(
+      detectTaxChange(q) == null,
+      `definitional question is not a what-if: "${q}"`,
     );
   }
   for (const [q, expected] of parity) {
@@ -1168,6 +1195,44 @@ const run = async () => {
     simNoCap.facts.scenario_id === "nocap=1" && !!simNoCap.facts.range,
     "no-cap envelope carries nocap=1 + an uncertainty range",
   );
+  // Administration cut: balance basis + the vacancy honesty note + deep link.
+  const simAdm = (await runTool(
+    "simulateTaxChange",
+    { change: "съкращаване на администрацията с 10%" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(simAdm);
+  assert(
+    simAdm.facts.scenario_id === "adm=10" &&
+      simAdm.facts.basis_id === "balance" &&
+      String(simAdm.facts.note).includes("незаети"),
+    `admin-cut envelope carries adm=10 + balance basis + the vacancy note (got ${simAdm.facts.scenario_id}, note: ${simAdm.facts.note})`,
+  );
+  // Defense target: the tenths deep link + the NATO-definition clause.
+  const simDef = (await runTool(
+    "simulateTaxChange",
+    { change: "отбраната да стане 3% от БВП" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(simDef);
+  assert(
+    simDef.facts.scenario_id === "def=30" &&
+      simDef.facts.basis_id === "balance" &&
+      String(simDef.facts.note).includes("НАТО"),
+    `defense envelope carries def=30 + balance basis + the NATO note (got ${simDef.facts.scenario_id}, note: ${simDef.facts.note})`,
+  );
+  // Gross-up variant of self-paid contributions is fiscally neutral (€0).
+  const simSsp = (await runTool(
+    "simulateTaxChange",
+    { change: "държавните служители да си плащат осигуровките с компенсация" },
+    ctxBg,
+  )) as Envelope;
+  assert(
+    simSsp.facts.scenario_id === "ssp=1&sspg=1" &&
+      simSsp.value === 0 &&
+      String(simSsp.facts.note).includes("неутрална"),
+    `grossed-up self-paid SSC is neutral with ssp=1&sspg=1 (got ${simSsp.facts.scenario_id}, value ${simSsp.value})`,
+  );
   // graceful no-detect (the geo.harness probe also hits this path)
   const simMiss = (await runTool(
     "simulateTaxChange",
@@ -1187,6 +1252,21 @@ const run = async () => {
     ["Премахване на тавана на осигурителния доход", "simulateTaxChange"],
     ["Какво става, ако корпоративният данък стане 15%?", "simulateTaxChange"],
     ["Zero VAT on medicines", "simulateTaxChange"],
+    // expenditure levers
+    [
+      "Какво става, ако пенсиите се индексират само по инфлация?",
+      "simulateTaxChange",
+    ],
+    ["Без индексация на ковид добавката", "simulateTaxChange"],
+    ["Съкращаване на администрацията с 10%", "simulateTaxChange"],
+    ["Freeze the minimum wage", "simulateTaxChange"],
+    ["Отвързване на МРЗ от средната заплата", "simulateTaxChange"],
+    // Phase-5 levers
+    ["Какво става, ако отбраната стане 3% от БВП?", "simulateTaxChange"],
+    ["Заплатите в публичния сектор +5%", "simulateTaxChange"],
+    ["Капиталовите разходи -10%", "simulateTaxChange"],
+    ["Държавните служители да си плащат осигуровките", "simulateTaxChange"],
+    ["Здравната вноска +1 пункт", "simulateTaxChange"],
     // guards: the neighbours keep their own questions
     ["Какъв е държавният бюджет?", "budgetOverview"],
     // NB phrased WITHOUT "местните" — "местни данъци в X" is the known
@@ -1194,6 +1274,10 @@ const run = async () => {
     ["Какви са данъците в Пловдив?", "localTaxes"],
     ["Колко струва млякото в Пловдив?", "settlementPrices"],
     ["Колко са пенсиите?", "noiFunds"],
+    ["Каква е минималната заплата?", "macroIndicator"],
+    // definitional reads stay on the budget-function tool (GF02 / GF07)
+    ["Колко са разходите за отбрана?", "budgetFunction"],
+    ["Каква е здравната вноска?", "budgetFunction"],
   ];
   for (const [q, expected] of cases11) {
     const r = route(q.toLowerCase(), ctx);

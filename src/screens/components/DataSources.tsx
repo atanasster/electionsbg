@@ -560,6 +560,18 @@ export const DataSources = () => {
                 label={t("budget_noi_sod_source")}
               />
               <SourceItem
+                href="https://ec.europa.eu/eurostat/databrowser/view/educ_uoe_perp01/default/table"
+                label={t("budget_teachers_source")}
+              />
+              <SourceItem
+                href="https://nssi.bg/publikacii/statistika/pensii-statistika/"
+                label={t("budget_noi_statb_source")}
+              />
+              <SourceItem
+                href="https://www.nsi.bg/en/content/3953/employed-persons-and-average-annual-wages-and-salaries-economic-activities"
+                label={t("budget_nsi_wages_source")}
+              />
+              <SourceItem
                 href="https://commission.europa.eu/strategy-and-policy/eu-budget/long-term-eu-budget/2021-2027/spending-and-revenue_en"
                 label={t("budget_ec_eu_funds_source")}
               />

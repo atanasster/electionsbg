@@ -2005,6 +2005,10 @@ export interface PolicyBaselineFile {
   /** Latest closed КФП fiscal year — every scored Δ is per-year at this base. */
   baselineYear: number;
   gdpEur: number;
+  /** Trailing-average nominal GDP growth, % — projects the deficit ratio
+   *  onto baselineYear+1. */
+  gdpGrowthPct: number;
+  gdpNextEur: number;
   sources: Record<string, string>;
   revenue: {
     vatEur: number;
@@ -2022,6 +2026,86 @@ export interface PolicyBaselineFile {
     totalRevenueEur: number;
     /** Section IV budget balance at the baseline year (negative = deficit). */
     balanceEur: number;
+  };
+  /** Expenditure-side levers: pension indexation, administration headcount,
+   *  МРЗ formula. Anchors documented in run_policy_baseline.ts. */
+  expenditure: {
+    pensions: {
+      year: number;
+      massEur: number;
+      pensionerCount: number;
+      /** COVID-supplement slice of the indexation base (60 лв × pensioners). */
+      supplementMassEur: number;
+      /** Swiss-rule inputs: trailing-4-quarter averages. */
+      cpiPct: number;
+      wageGrowthPct: number;
+    };
+    administration: {
+      year: number;
+      positionsTotal: number;
+      positionsVacant: number;
+      payrollEur: number;
+      coveredHeadcount: number;
+      payrollCoverageMinistries: number;
+      payrollYear: number;
+    };
+    personnel: {
+      /** Consolidated КФП Персонал line (wages + contributions), executed. */
+      massEur: number;
+      /** Curated share in restraint-exempt sectors (военни/полицаи/лекари/учители). */
+      exemptShare: number;
+    };
+    defense: {
+      /** NATO-definition spending, % of GDP (differs from COFOG GF02). */
+      natoPctGdp: number;
+      natoYear: number;
+    };
+    capital: {
+      planEur: number;
+      executedEur: number;
+      /** Historical execution rate — cash effect of plan changes scales by it. */
+      executionRate: number;
+    };
+    sscSelfPaid: {
+      /** Държавни служители whose contributions the budget pays in full. */
+      count: number;
+      avgWageEur: number;
+    };
+    health: {
+      /** Employee insurable base at the baseline year (1pp collects on this). */
+      baseEur: number;
+    };
+    minWage: {
+      currentEur: number;
+      /** КТ чл.244 recursion: current × (1 + wage growth). */
+      formulaEur: number;
+      wageGrowthPct: number;
+    };
+    /** Pensioner distribution by basic monthly pension (НОИ quarterly
+     *  bulletin) — drives the minimum-pension lever. Optional: absent in
+     *  baseline files generated before the lever shipped. */
+    pensionFloor?: {
+      asOf: string;
+      /** Statutory minimum old-age pension (чл.68, ал.1 и 2 КСО), EUR/mo. */
+      minimumEur: number;
+      totalPensioners: number;
+      /** Bands the floor slider can reach (≤ €700). */
+      bands: { upToEur: number; count: number; midEur: number }[];
+    };
+    /** ISCED 1-3 teacher count + education-public vs economy-wide average
+     *  wage — drives the teachers' 125%-peg lever. Optional: absent in
+     *  baseline files generated before the lever shipped. */
+    teachers?: {
+      count: number;
+      countYear: number;
+      /** Education public-sector average annual wage, EUR — a proxy for
+       *  teachers proper (includes non-teaching staff). */
+      sectorWageEur: number;
+      economyWageEur: number;
+      wageYear: number;
+      /** sectorWageEur / economyWageEur at the wage year. */
+      currentRatio: number;
+    };
   };
   /** Fitted earnings distribution (split log-normal body + Pareto tail) —
    *  anchors and validation in scripts/budget/earnings_distribution.ts. */

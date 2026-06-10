@@ -11,6 +11,8 @@
 //   earn_ses_hourly  SES decile ratios (D1/median/D9) — the shape anchors of
 //                    the fitted earnings distribution behind the bracket
 //                    scoring (4-yearly waves; the next is 2026)
+//   educ_uoe_perp01  classroom teachers by ISCED level — the headcount behind
+//                    the teachers' 125%-of-average-wage spending lever
 //
 // Kept separate from the `eurostat` macro watcher so the watch report maps
 // this straight to the update-budget policy-baseline sub-step instead of
@@ -43,6 +45,10 @@ const DATASETS: { code: string; query: string }[] = [
     code: "earn_ses_hourly",
     query:
       "geo=BG&nace_r2=B-S_X_O&isco08=TOTAL&age=TOTAL&sex=T&worktime=TOTAL&indic_se=MED_E_EUR&freq=A",
+  },
+  {
+    code: "educ_uoe_perp01",
+    query: "geo=BG&sex=T&age=TOTAL&isced11=ED1",
   },
 ];
 

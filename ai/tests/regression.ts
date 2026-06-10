@@ -1303,6 +1303,103 @@ const CASES: Case[] = [
     facts: { delta_per_year: /\+€1\.1B/, range: /…/ },
     links: ["/budget/simulator?nocap=1", "/budget"],
   },
+  // expenditure levers — Δ is on the budget BALANCE (positive = improves),
+  // parity with the same scenario on /budget/simulator
+  {
+    q: "Какво става, ако пенсиите се индексират само по инфлация?",
+    tool: "simulateTaxChange",
+    kind: "scalar",
+    facts: {
+      change: "индексация на пенсиите с 100% тежест на инфлацията",
+      delta_per_year: /\+479/,
+    },
+    links: ["/budget/simulator?pw=100", "/budget"],
+  },
+  {
+    q: "Ковид добавката да не се индексира",
+    tool: "simulateTaxChange",
+    kind: "scalar",
+    facts: {
+      change: "ковид добавката не се индексира",
+      delta_per_year: /\+57/,
+    },
+    links: ["/budget/simulator?ks=0", "/budget"],
+  },
+  {
+    // the vacancy honesty note: most of a 10% cut falls on vacant positions
+    q: "Съкращаване на администрацията с 10%",
+    tool: "simulateTaxChange",
+    kind: "scalar",
+    facts: {
+      change: "администрация −10%",
+      delta_per_year: /\+30/,
+      note: /незаети/,
+    },
+    links: ["/budget/simulator?adm=10", "/budget"],
+  },
+  {
+    q: "Freeze the minimum wage",
+    lang: "en",
+    tool: "simulateTaxChange",
+    kind: "scalar",
+    facts: { change: "minimum wage frozen", delta_per_year: /−€280M/ },
+    links: ["/budget/simulator?mrz=1", "/budget"],
+  },
+  // Phase-5 levers — same balance convention, simulator parity
+  {
+    // defense %-of-GDP target (NATO definition), tenths in the deep link
+    q: "Какво става, ако отбраната стане 3% от БВП?",
+    tool: "simulateTaxChange",
+    kind: "scalar",
+    facts: {
+      change: "отбрана 3.0% от БВП",
+      delta_per_year: /−1,0/,
+      note: /НАТО/,
+    },
+    links: ["/budget/simulator?def=30", "/budget"],
+  },
+  {
+    q: "Заплатите в публичния сектор +5%",
+    tool: "simulateTaxChange",
+    kind: "scalar",
+    facts: {
+      change: "заплати в публичния сектор 5%",
+      delta_per_year: /−142/,
+    },
+    links: ["/budget/simulator?wi=5", "/budget"],
+  },
+  {
+    // cash effect scales by the historical execution rate (the note)
+    q: "Капиталовите разходи -10%",
+    tool: "simulateTaxChange",
+    kind: "scalar",
+    facts: {
+      change: "капиталов план -10%",
+      delta_per_year: /\+185/,
+      note: /изпълняемост/,
+    },
+    links: ["/budget/simulator?kap=-10", "/budget"],
+  },
+  {
+    q: "Държавните служители да си плащат осигуровките",
+    tool: "simulateTaxChange",
+    kind: "scalar",
+    facts: {
+      change: "държавните служители плащат осигуровките си",
+      delta_per_year: /\+126/,
+    },
+    links: ["/budget/simulator?ssp=1", "/budget"],
+  },
+  {
+    q: "Здравната вноска +1 пункт",
+    tool: "simulateTaxChange",
+    kind: "scalar",
+    facts: {
+      change: "здравна вноска +1 п.п.",
+      delta_per_year: /\+315/,
+    },
+    links: ["/budget/simulator?hp=1", "/budget"],
+  },
   {
     // guard: a price "колко струва" question is NOT a tax what-if (and vice
     // versa the simulator never steals the retail-price tool)

@@ -25,6 +25,8 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
+import * as XLSX from "xlsx";
+
 import { BGN_PER_EUR } from "../../src/lib/currency";
 import { MOD_BY_YEAR, PIT_RATE, SSC_EMPLOYEE_RATE } from "../../src/lib/bgTax";
 import {
@@ -66,6 +68,41 @@ const NOI_SOD_EMPLOYEES_BGN: Record<number, number> = {
 // employment-PIT line within this tolerance, or the fit is rejected.
 const KAPPA_TOLERANCE = 0.08;
 
+// --- expenditure-side curated constants -------------------------------------
+// Pensioner head count (НОИ, ~2.06M in 2024) and the 60 лв COVID supplement
+// folded into pension bases in July 2022 — the "включва ли се ковид добавката"
+// debate is whether indexation applies to that slice.
+const PENSIONER_COUNT = 2_060_000;
+const COVID_SUPPLEMENT_EUR_MONTHLY = 60 / BGN_PER_EUR; // ≈ €30.68
+// Minimum wage 2026 (МРЗ) — the КТ чл.244 formula pegs next year's МРЗ to
+// 50% of average gross wage; the un-tie debate freezes it instead.
+const MIN_WAGE_EUR = 620;
+// NATO-definition defense spending, % of GDP (NATO annual estimate for BG;
+// differs from COFOG GF02 ~0.66% by military pensions, paramilitary forces
+// and equipment-payment timing). Update when NATO publishes the new year.
+const NATO_DEFENSE_PCT_GDP = 2.2; // 2024 estimate, rounded to the slider grid
+// Държавни служители (НОИ SOD category "държавни служители и съдии", 2024) —
+// the budget currently pays BOTH contribution shares for them.
+const CIVIL_SERVANTS_COUNT = 64_178;
+const CIVIL_SERVANTS_AVG_WAGE_EUR = 2581.64 / BGN_PER_EUR; // ≈ €1,320
+// Approximate share of the consolidated Персонал line belonging to the
+// sectors exempted from wage restraint in the 2026 debate (военни, полицаи,
+// лекари, учители). Curated approximation — caption as such.
+const EXEMPT_PERSONNEL_SHARE = 0.55;
+// НОИ quarterly statistical bulletin (nssi.bg) — pensioners by basic-monthly-
+// pension band (sheet "grupiosn (2)") + the per-type minima (sheet "min").
+// Quarterly updates: the filename is STATB{Q}{YYYY}.xls with Q ∈ 1..4
+// (1 = към 31.III, 2 = 30.VI, 3 = 30.IX, 4 = 31.XII) — bump the URL when
+// НОИ publishes the next quarter's bulletin.
+const NOI_STATB_URL = "https://nssi.bg/wp-content/uploads/STATB12026.xls";
+// НОИ's own published monthly cost of topping pensions up to the minimum
+// (Yearbook 2024, table 5.8, end-2024) ≈ 131.6M лв/month. The warn-level
+// validation anchor for the band-grain floor model below.
+const NOI_MIN_TOPUP_MONTHLY_BGN = 131.6e6;
+// Slider ceiling on the pension-floor lever — bands above this are never
+// reachable, so they are not shipped.
+const PENSION_FLOOR_BAND_CEILING_EUR = 700;
+
 interface KfpFile {
   snapshots: {
     period: string;
@@ -73,7 +110,11 @@ interface KfpFile {
     sections: {
       kind: string;
       executed: { amountEur: number } | null;
-      lines: { labelBg: string; executed: { amountEur: number } | null }[];
+      lines: {
+        labelBg: string;
+        executed: { amountEur: number } | null;
+        planned?: { amountEur: number } | null;
+      }[];
     }[];
   }[];
 }
@@ -213,6 +254,243 @@ const fetchSesRatios = async (): Promise<{
   };
 };
 
+// --- НОИ pension-floor distribution (quarterly bulletin XLS) ----------------
+
+interface PensionFloorData {
+  asOf: string;
+  minimumEur: number;
+  bands: { upToEur: number; count: number; midEur: number }[];
+  totalPensioners: number;
+}
+
+const ROMAN_MONTHS: Record<string, number> = {
+  I: 1,
+  II: 2,
+  III: 3,
+  IV: 4,
+  V: 5,
+  VI: 6,
+  VII: 7,
+  VIII: 8,
+  IX: 9,
+  X: 10,
+  XI: 11,
+  XII: 12,
+};
+
+const fetchNoiStatb = async (): Promise<string> => {
+  const cacheDir = path.join(PROJECT_ROOT, "raw_data/budget");
+  fs.mkdirSync(cacheDir, { recursive: true });
+  const m = NOI_STATB_URL.match(/STATB(\d)(\d{4})\.xls$/i);
+  if (!m) throw new Error(`unrecognised NOI_STATB_URL: ${NOI_STATB_URL}`);
+  const cache = path.join(cacheDir, `noi-statb-${m[1]}-${m[2]}.xls`);
+  if (fs.existsSync(cache)) return cache;
+  const res = await fetch(NOI_STATB_URL, {
+    headers: {
+      "User-Agent":
+        "Mozilla/5.0 (compatible; electionsbg-budget/1.0; +https://electionsbg.com)",
+    },
+  });
+  if (!res.ok) throw new Error(`nssi.bg STATB ${res.status}`);
+  const bytes = new Uint8Array(await res.arrayBuffer());
+  // Legacy .xls = OLE compound document (D0 CF 11 E0).
+  if (bytes.length < 10_000 || bytes[0] !== 0xd0 || bytes[1] !== 0xcf)
+    throw new Error(`nssi.bg STATB: response is not an XLS (${bytes.length}B)`);
+  fs.writeFileSync(cache, bytes);
+  return cache;
+};
+
+const parsePensionFloor = (xlsPath: string): PensionFloorData => {
+  const wb = XLSX.read(fs.readFileSync(xlsPath), { type: "buffer" });
+  const bandSheet = wb.Sheets["grupiosn (2)"];
+  const minSheet = wb.Sheets["min"];
+  if (!bandSheet || !minSheet)
+    throw new Error(
+      `НОИ STATB: expected sheets "grupiosn (2)" + "min", got ${wb.SheetNames.join(", ")}`,
+    );
+  const rows = XLSX.utils.sheet_to_json<(string | number | null)[]>(bandSheet, {
+    header: 1,
+    raw: true,
+  });
+
+  // Title carries the snapshot date as "към 31.III.2026 г."
+  let asOf = "";
+  for (const r of rows.slice(0, 6)) {
+    const text = (r ?? []).map((c) => String(c ?? "")).join(" ");
+    const dm = text.match(/към\s+(\d{1,2})\.([IVX]+)\.(\d{4})/);
+    if (dm && ROMAN_MONTHS[dm[2]]) {
+      asOf = `${dm[3]}-${String(ROMAN_MONTHS[dm[2]]).padStart(2, "0")}-${dm[1].padStart(2, "0")}`;
+      break;
+    }
+  }
+  if (!asOf) throw new Error("НОИ STATB: no към DD.MM.YYYY date in the title");
+
+  let totalPensioners = 0;
+  const bands: PensionFloorData["bands"] = [];
+  let prevUpTo = 0;
+  for (const r of rows) {
+    if (!r) continue;
+    const label = typeof r[1] === "string" ? r[1].trim() : "";
+    const count = typeof r[2] === "number" ? r[2] : null;
+    if (label === "Общо" && count != null) {
+      totalPensioners = count;
+      continue;
+    }
+    // Band rows are numbered in col 0; memo rows ("до X евро вкл.",
+    // "на X евро") are not. Open-ended "над X евро" is beyond the slider.
+    if (typeof r[0] !== "number" || count == null) continue;
+    const um = label.match(/до\s+([\d.]+)\s*евро/);
+    if (!um || /над/.test(label)) continue;
+    const upToEur = Number(um[1]);
+    if (!Number.isFinite(upToEur) || upToEur <= prevUpTo) continue;
+    if (upToEur > PENSION_FLOOR_BAND_CEILING_EUR) break;
+    bands.push({
+      upToEur,
+      count,
+      midEur: Math.round(((prevUpTo + upToEur) / 2) * 100) / 100,
+    });
+    prevUpTo = upToEur;
+  }
+  if (bands.length < 6)
+    throw new Error(
+      `НОИ STATB: only ${bands.length} pension bands parsed — sheet layout changed`,
+    );
+  if (totalPensioners < 1.5e6 || totalPensioners > 2.5e6)
+    throw new Error(
+      `НОИ STATB: implausible pensioner total ${totalPensioners}`,
+    );
+
+  // The statutory minimum old-age pension (чл.68, ал.1 и 2 КСО) from the
+  // at-minimum sheet — first occurrence is the Фонд "Пенсии" block.
+  const minRows = XLSX.utils.sheet_to_json<(string | number | null)[]>(
+    minSheet,
+    { header: 1, raw: true },
+  );
+  let minimumEur = 0;
+  for (const r of minRows) {
+    if (!r) continue;
+    const label = typeof r[0] === "string" ? r[0] : "";
+    if (
+      /чл\.\s*68,\s*ал\.\s*1\s*и\s*2/.test(label) &&
+      typeof r[1] === "number"
+    ) {
+      minimumEur = r[1];
+      break;
+    }
+  }
+  if (minimumEur < 200 || minimumEur > 600)
+    throw new Error(`НОИ STATB: implausible minimum pension €${minimumEur}`);
+  return { asOf, minimumEur, bands, totalPensioners };
+};
+
+// --- teachers: Eurostat ISCED 1-3 classroom teachers + NSI A21 wages --------
+
+const fetchTeacherCount = async (): Promise<{
+  count: number;
+  year: number;
+}> => {
+  const params = new URLSearchParams({ format: "JSON", lang: "EN" });
+  params.append("geo", "BG");
+  params.append("sex", "T");
+  params.append("age", "TOTAL");
+  for (const lvl of ["ED1", "ED2", "ED3"]) params.append("isced11", lvl);
+  const url = `https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/educ_uoe_perp01?${params.toString()}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Eurostat educ_uoe_perp01 ${res.status}`);
+  const json = (await res.json()) as {
+    value: Record<string, number>;
+    id: string[];
+    size: number[];
+    dimension: Record<string, { category: { index: Record<string, number> } }>;
+  };
+  const dims = json.id;
+  const strides: number[] = new Array(dims.length).fill(1);
+  for (let i = dims.length - 2; i >= 0; i--)
+    strides[i] = strides[i + 1] * (json.size[i + 1] ?? 1);
+  const lab: Record<string, string[]> = {};
+  for (const dim of ["isced11", "time"]) {
+    lab[dim] = [];
+    for (const [k, v] of Object.entries(json.dimension[dim].category.index))
+      lab[dim][v] = k;
+  }
+  const lIdx = dims.indexOf("isced11");
+  const tIdx = dims.indexOf("time");
+  const byYear: Record<string, Record<string, number>> = {};
+  for (const [k, v] of Object.entries(json.value)) {
+    const key = Number(k);
+    const lvl = lab.isced11[Math.floor(key / strides[lIdx]) % json.size[lIdx]];
+    const yr = lab.time[Math.floor(key / strides[tIdx]) % json.size[tIdx]];
+    byYear[yr] = byYear[yr] ?? {};
+    byYear[yr][lvl] = v;
+  }
+  const years = Object.keys(byYear)
+    .filter((y) => byYear[y].ED1 && byYear[y].ED2 && byYear[y].ED3)
+    .sort();
+  const year = years[years.length - 1];
+  if (!year) throw new Error("educ_uoe_perp01: no complete ED1-ED3 year");
+  const o = byYear[year];
+  const count = o.ED1 + o.ED2 + o.ED3;
+  if (count < 50_000 || count > 100_000)
+    throw new Error(`educ_uoe_perp01: implausible teacher count ${count}`);
+  return { count, year: Number(year) };
+};
+
+const fetchNsiWages = async (): Promise<{
+  sectorWageEur: number;
+  economyWageEur: number;
+  year: number;
+}> => {
+  // NSI open-data id=612: average annual wage by A21 activity × ownership.
+  // CAUTION: unlike Eurostat's sparse dict, this JSON-stat `value` is a
+  // dense LIST indexed by the dimension strides.
+  const url = "https://www.nsi.bg/opendata/getopendata_json.php?l=en&id=612";
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`NSI opendata 612 ${res.status}`);
+  const json = (await res.json()) as {
+    value: (number | null)[];
+    id: string[];
+    size: number[];
+    dimension: Record<string, { category: { index?: Record<string, number> } }>;
+  };
+  if (!Array.isArray(json.value))
+    throw new Error("NSI opendata 612: value is not a list — shape changed");
+  const dims = json.id;
+  const strides: number[] = new Array(dims.length).fill(1);
+  for (let i = dims.length - 2; i >= 0; i--)
+    strides[i] = strides[i + 1] * (json.size[i + 1] ?? 1);
+  const idxOf = (dim: string, key: string): number => {
+    const i = json.dimension[dim]?.category.index?.[key];
+    if (i == null) throw new Error(`NSI opendata 612: no ${dim}=${key}`);
+    return i;
+  };
+  // The Units dimension is size-1 with no index — its stride term is 0.
+  const at = (nace: string, year: string, own: string): number | null =>
+    json.value[
+      idxOf("NACE2008A21", nace) * strides[dims.indexOf("NACE2008A21")] +
+        idxOf("periods", year) * strides[dims.indexOf("periods")] +
+        idxOf("Ownership", own) * strides[dims.indexOf("Ownership")]
+    ] ?? null;
+  const years = Object.keys(json.dimension.periods.category.index ?? {}).sort();
+  for (let i = years.length - 1; i >= 0; i--) {
+    const y = years[i];
+    const sectorBgn = at("P", y, "1"); // education, public ownership
+    const economyBgn = at("0", y, "total"); // total economy
+    if (sectorBgn == null || economyBgn == null) continue;
+    for (const [label, v] of [
+      ["education-public", sectorBgn],
+      ["economy-total", economyBgn],
+    ] as const)
+      if (v < 15_000 || v > 60_000)
+        throw new Error(`NSI opendata 612: implausible ${label} wage ${v} BGN`);
+    return {
+      sectorWageEur: sectorBgn / BGN_PER_EUR,
+      economyWageEur: economyBgn / BGN_PER_EUR,
+      year: Number(y),
+    };
+  }
+  throw new Error("NSI opendata 612: no year with both education + total");
+};
+
 // --- КФП revenue lines ------------------------------------------------------
 
 interface YearRevenue {
@@ -225,6 +503,9 @@ interface YearRevenue {
   /** Section IV budget balance (negative = deficit) — the deficit-framing
    *  anchor on the simulator. */
   balanceEur: number;
+  personnelEur: number;
+  capitalExecEur: number;
+  capitalPlanEur: number;
 }
 
 const extractRevenue = (kfp: KfpFile): YearRevenue[] => {
@@ -234,6 +515,13 @@ const extractRevenue = (kfp: KfpFile): YearRevenue[] => {
     const rev = sn.sections.find((s) => s.kind === "revenue");
     const bal = sn.sections.find((s) => s.kind === "balance");
     if (!rev) continue;
+    const expSec = sn.sections.find(
+      (s) => s.kind === "expenditure" && /Разходи и трансфери/.test(s.labelBg),
+    );
+    const expLine = (re: RegExp) =>
+      expSec?.lines.find((x) => re.test(x.labelBg));
+    const personnel = expLine(/^Персонал/i);
+    const capital = expLine(/^Капиталови разходи/i);
     const line = (re: RegExp): number | null => {
       const l = rev.lines.find((x) => re.test(x.labelBg));
       return l?.executed?.amountEur ?? null;
@@ -254,6 +542,11 @@ const extractRevenue = (kfp: KfpFile): YearRevenue[] => {
       dividendEur: dividend,
       totalRevenueEur: rev.executed?.amountEur ?? 0,
       balanceEur: bal?.executed?.amountEur ?? 0,
+      personnelEur: personnel?.executed?.amountEur ?? 0,
+      capitalExecEur: capital?.executed?.amountEur ?? 0,
+      capitalPlanEur:
+        (capital as { planned?: { amountEur?: number } | null } | undefined)
+          ?.planned?.amountEur ?? 0,
     });
   }
   return out.sort((a, b) => a.fiscalYear - b.fiscalYear);
@@ -347,6 +640,14 @@ const main = async (): Promise<void> => {
     return last.value * Math.pow(growth, y - last.year);
   };
   const gdpEurM = gdpAt(baselineYear);
+  // Nominal GDP growth (3-year trailing average) — projects the deficit
+  // ratio onto the budget year being simulated (baseline + 1).
+  const gTail = gdpSeries.slice(-4);
+  let gAcc = 0;
+  for (let i = 1; i < gTail.length; i++)
+    gAcc += gTail[i].value / gTail[i - 1].value - 1;
+  const gdpGrowthPct = (gAcc / (gTail.length - 1)) * 100;
+  const gdpNextEurM = gdpEurM * (1 + gdpGrowthPct / 100);
 
   // --- НАП PIT shares + МОД identity (latest НАП year on disk) -------------
   const pitDir = path.join(PROJECT_ROOT, "data/budget/revenue_breakdown/pit");
@@ -472,17 +773,120 @@ const main = async (): Promise<void> => {
       `engine/baseline mismatch: ${check} vs ${expect} — slice join broke`,
     );
 
+  // --- expenditure side: pensions, administration, МРЗ ----------------------
+  // Pension mass from the НОИ B1 fund execution (latest closed year there).
+  const noi = readJson<{
+    years: {
+      fiscalYear: number;
+      totals: { pensions: { amountEur: number } };
+    }[];
+  }>("data/budget/noi/funds.json");
+  const noiLatest = noi.years[noi.years.length - 1];
+  const pensionMassEur = noiLatest.totals.pensions.amountEur;
+  // Swiss-rule inputs: latest 4-quarter averages of HICP and insurable-income
+  // growth — the July indexation looks at the prior year.
+  const last4 = (series: { value: number }[]): number =>
+    series.slice(-4).reduce((a, p) => a + p.value, 0) /
+    Math.min(4, series.length);
+  const cpiPct = last4(macro.series.inflation as { value: number }[]);
+  const wageGrowthPct = last4(macro.series.labourIncome as { value: number }[]);
+
+  // Administration: national positions + vacancy from the Доклад aggregates,
+  // payroll from the per-ministry Персонал totals (coverage is the curated
+  // EXECUTION_REPORTS set — emit coverage so the UI can caption it).
+  const personnel = readJson<{
+    national: Record<
+      string,
+      { positions: { total: number; vacant: number; filled: number | null } }
+    >;
+    byMinistry: Record<
+      string,
+      {
+        totalPersonnel?: {
+          executed?: { amountEur?: number | null } | null;
+        } | null;
+        totalHeadcount?: { executed?: number | null } | null;
+      }[]
+    >;
+  }>("data/budget/personnel.json");
+  const natYears = Object.keys(personnel.national).sort();
+  const natLatest = personnel.national[natYears[natYears.length - 1]];
+  const minYears = Object.keys(personnel.byMinistry).sort();
+  const minLatest = personnel.byMinistry[minYears[minYears.length - 1]];
+  const adminPayrollEur = minLatest.reduce(
+    (a, m) => a + (m.totalPersonnel?.executed?.amountEur ?? 0),
+    0,
+  );
+  if (adminPayrollEur <= 0)
+    throw new Error(
+      "administration payroll resolved to 0 — field shape changed",
+    );
+  const adminCoveredHeadcount = minLatest.reduce(
+    (a, m) => a + (m.totalHeadcount?.executed ?? 0),
+    0,
+  );
+
+  // МРЗ: КТ чл.244 pegs next year's МРЗ to 50% of the average gross wage.
+  // Rather than re-derive that average (our band mean is insurable-income
+  // anchored and understates the NSI headline wage), use the formula's own
+  // recursion: МРЗ grows with the average wage, so next = current × (1+g).
+  const minWageFormulaEur = MIN_WAGE_EUR * (1 + wageGrowthPct / 100);
+
+  // --- pension floor (минимална пенсия) -------------------------------------
+  console.log(`Fetching НОИ STATB bulletin (${NOI_STATB_URL})…`);
+  const pensionFloor = parsePensionFloor(await fetchNoiStatb());
+  // Validation gate (warn, don't throw): the band-grain model's implied
+  // CURRENT top-up-to-minimum cost vs НОИ's own published figure. Band
+  // midpoints are coarse exactly where it matters — pensions cluster AT the
+  // per-type minima sitting on the band edges (322.37 / 274.02 / 241.78 are
+  // themselves minima), and the per-type minima differ (наследствени top up
+  // to 241.78, not 322.37) — so the midpoint model undershoots the ledger.
+  // The RAISE lever is insulated from this: everyone at/below the current
+  // minimum is scored from the minimum itself, not the band mid.
+  const impliedTopupMonthlyEur = pensionFloor.bands.reduce(
+    (a, b) => a + b.count * Math.max(0, pensionFloor.minimumEur - b.midEur),
+    0,
+  );
+  const noiTopupMonthlyEur = NOI_MIN_TOPUP_MONTHLY_BGN / BGN_PER_EUR;
+  const topupRatio = impliedTopupMonthlyEur / noiTopupMonthlyEur;
+  if (Math.abs(topupRatio - 1) > 0.25)
+    console.warn(
+      `⚠ pension-floor model: implied current top-up €${(impliedTopupMonthlyEur / 1e6).toFixed(1)}M/mo ` +
+        `vs НОИ ~€${(noiTopupMonthlyEur / 1e6).toFixed(1)}M/mo (×${topupRatio.toFixed(2)}) — ` +
+        `band-midpoint coarseness (see comment), raise scoring unaffected`,
+    );
+  else
+    console.log(
+      `  pension-floor top-up check: €${(impliedTopupMonthlyEur / 1e6).toFixed(1)}M/mo vs НОИ €${(noiTopupMonthlyEur / 1e6).toFixed(1)}M/mo`,
+    );
+
+  // --- teachers' pay peg -----------------------------------------------------
+  console.log("Fetching educ_uoe_perp01 (ISCED 1-3 teachers, BG)…");
+  const teacherCount = await fetchTeacherCount();
+  console.log("Fetching NSI open-data 612 (A21 wages by ownership)…");
+  const nsiWages = await fetchNsiWages();
+  const teacherRatio = nsiWages.sectorWageEur / nsiWages.economyWageEur;
+  console.log(
+    `  teachers ${teacherCount.count} (${teacherCount.year}), education-public wage ` +
+      `€${nsiWages.sectorWageEur.toFixed(0)} vs economy €${nsiWages.economyWageEur.toFixed(0)} ` +
+      `(${nsiWages.year}) → ratio ${(teacherRatio * 100).toFixed(1)}%`,
+  );
+
   const payload = {
     generatedAt: new Date().toISOString(),
     country: "BG",
     baselineYear,
     gdpEur: Math.round(gdpEurM * 1e6),
+    gdpGrowthPct,
+    gdpNextEur: Math.round(gdpNextEurM * 1e6),
     sources: {
       kfp: "data.egov.bg КФП monthly execution (December snapshots)",
       pit: `НАП Годишен отчет ${napYear}`,
       consumption: "Eurostat nama_10_co3_p3 + nama_10_gdp (P31_S14)",
       contributions: `Eurostat gov_10a_taxag D613CE ${napYear}`,
       earnings: `split log-normal + Pareto fit — НОИ СОД ${napYear} + Eurostat earn_ses_hourly ${ses.wave} + the PIT/insurable-base identity`,
+      pensionFloor: `НОИ quarterly bulletin ${NOI_STATB_URL} (към ${pensionFloor.asOf})`,
+      teachers: `Eurostat educ_uoe_perp01 ${teacherCount.year} + NSI open-data 612 A21 wages ${nsiWages.year}`,
     },
     revenue: {
       vatEur: Math.round(baseline.vatEur),
@@ -521,6 +925,83 @@ const main = async (): Promise<void> => {
         valueEur: Math.round(s.valueEur),
         regime: s.regime,
       })),
+    },
+    expenditure: {
+      pensions: {
+        year: noiLatest.fiscalYear,
+        massEur: Math.round(pensionMassEur),
+        pensionerCount: PENSIONER_COUNT,
+        // The COVID-supplement slice of the indexation base.
+        supplementMassEur: Math.round(
+          COVID_SUPPLEMENT_EUR_MONTHLY * 12 * PENSIONER_COUNT,
+        ),
+        cpiPct,
+        wageGrowthPct,
+      },
+      administration: {
+        year: Number(natYears[natYears.length - 1]),
+        positionsTotal: natLatest.positions.total,
+        positionsVacant: natLatest.positions.vacant,
+        payrollEur: Math.round(adminPayrollEur),
+        // Payroll covers only the curated EXECUTION_REPORTS ministries — the
+        // engine extrapolates to the national position count via cost/FTE.
+        coveredHeadcount: adminCoveredHeadcount,
+        payrollCoverageMinistries: minLatest.length,
+        payrollYear: Number(minYears[minYears.length - 1]),
+      },
+      personnel: {
+        // Consolidated КФП Персонал (wages + contributions), executed.
+        massEur: Math.round(baseline.personnelEur),
+        // Share of the line in sectors exempt from wage restraint (curated
+        // approximation: военни, полицаи, лекари, учители).
+        exemptShare: EXEMPT_PERSONNEL_SHARE,
+      },
+      defense: {
+        natoPctGdp: NATO_DEFENSE_PCT_GDP,
+        natoYear: 2024,
+      },
+      capital: {
+        planEur: Math.round(baseline.capitalPlanEur),
+        executedEur: Math.round(baseline.capitalExecEur),
+        executionRate:
+          baseline.capitalPlanEur > 0
+            ? baseline.capitalExecEur / baseline.capitalPlanEur
+            : 1,
+      },
+      sscSelfPaid: {
+        count: CIVIL_SERVANTS_COUNT,
+        avgWageEur: Math.round(CIVIL_SERVANTS_AVG_WAGE_EUR * 100) / 100,
+      },
+      health: {
+        // Employee insurable base scaled to the baseline year — a 1pp health
+        // contribution change collects on this.
+        baseEur: Math.round(insurableBase * wageGrowth),
+      },
+      minWage: {
+        currentEur: MIN_WAGE_EUR,
+        // КТ чл.244 recursion: next year's МРЗ = current × (1 + wage growth).
+        formulaEur: Math.round(minWageFormulaEur),
+        wageGrowthPct,
+      },
+      pensionFloor: {
+        asOf: pensionFloor.asOf,
+        // Statutory minimum old-age pension (чл.68, ал.1 и 2 КСО), EUR/mo.
+        minimumEur: pensionFloor.minimumEur,
+        totalPensioners: pensionFloor.totalPensioners,
+        // Bands the floor slider can reach (≤ €700), per-pensioner basic
+        // monthly pension of the first pension.
+        bands: pensionFloor.bands,
+      },
+      teachers: {
+        count: teacherCount.count,
+        countYear: teacherCount.year,
+        // Education public-sector average annual wage — a PROXY for
+        // teachers proper (includes non-teaching staff); caption as such.
+        sectorWageEur: Math.round(nsiWages.sectorWageEur * 100) / 100,
+        economyWageEur: Math.round(nsiWages.economyWageEur * 100) / 100,
+        wageYear: nsiWages.year,
+        currentRatio: teacherRatio,
+      },
     },
     modIdentity: {
       year: napYear,

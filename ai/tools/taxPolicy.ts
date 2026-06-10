@@ -15,6 +15,15 @@
 //   ресторанти/хотели/книги) → намалена/нулева/стандартна · плосък ДДФЛ X% ·
 //   необлагаем минимум €X (или "= минималната заплата") · корпоративен данък
 //   X% · данък върху дивидентите X% · МОД таван €X или "премахване на тавана".
+// Expenditure levers (Phase 4, same screen): индексация на пенсиите с X%
+//   тежест на инфлацията · ковид добавката не се индексира · съкращаване на
+//   администрацията с X% · замразяване на МРЗ. Their Δ is on the budget
+//   BALANCE (positive = the balance improves), the screen's convention.
+// Phase-5 levers (same screen, same balance convention): отбрана X% от БВП
+//   (НАТО дефиниция, спрямо прогнозния БВП) · заплати в публичния сектор ±X%
+//   (изключените сектори остават по пътя си) · капиталов план ±X% (касово,
+//   през историческата изпълняемост) · държавните служители сами си плащат
+//   осигуровките (± компенсация → неутрално) · здравна вноска +X п.п.
 
 import {
   CORP_TAX_RATE,
@@ -24,14 +33,23 @@ import {
   resolveMod,
 } from "../../src/lib/bgTax";
 import {
+  PENSION_POLICY_CURRENT,
   VAT_GROUP_DEFAULT_REGIME,
   VAT_REDUCED_RATE,
   computeVatRevenue,
+  scoreAdminCut,
+  scoreCapitalChange,
   scoreCorporate,
+  scoreDefenseTarget,
   scoreDividend,
+  scoreHealthContribution,
+  scoreMinWageFreeze,
   scoreModCap,
   scoreModCapBands,
+  scorePensionIndexation,
   scorePitSchedule,
+  scoreSscSelfPaid,
+  scoreWageIndexation,
   type PitBracket,
   type VatAdjustableGroup,
   type VatBaseSlice,
@@ -57,6 +75,24 @@ const MOD_STEPS_DOWN = 18; // slider floor ≈ €900 below the current cap
 const MOD_STEPS_UP = 78; // slider ceiling ≈ €3,900 above the current cap
 // The "необлагаем минимум = минималната заплата" preset (nm_mrz) value.
 const MIN_WAGE_EUR = 620;
+// Expenditure-lever defaults/bounds mirrored from the same component: the pw
+// slider (pension-indexation CPI weight) is 0-100 with current law at 50, the
+// adm slider (administration cut) is 0-20%, and the indexation horizon stays
+// at the screen's default (1 round = next budget year).
+const PW_DEF = Math.round(PENSION_POLICY_CURRENT.cpiWeight * 100); // 50
+const ADM_MAX = 20;
+const PENSION_HORIZON_DEF = PENSION_POLICY_CURRENT.horizonYears; // 1
+// Phase-5 lever defaults/bounds, same component: the def slider is in TENTHS
+// of % of GDP (15-35; 22 = the current ~2.2% NATO path = the no-change
+// sentinel), wi is −5..15% with the restraint-exempt sectors kept on their
+// path by default (wex=true), kap is ±30% of the capital plan, hp is 0-3 pp.
+const DEF_DEF = 22;
+const DEF_MIN = 15;
+const DEF_MAX = 35;
+const WI_MIN = -5;
+const WI_MAX = 15;
+const KAP_MAX = 30;
+const HP_MAX = 3;
 
 const clamp = (n: number, min: number, max: number): number =>
   Math.max(min, Math.min(max, Math.round(n)));
@@ -73,7 +109,18 @@ export type TaxChange =
   | { kind: "untaxedMin"; nmEur: number }
   | { kind: "corporate"; pct: number }
   | { kind: "dividend"; pct: number }
-  | { kind: "modCap"; capEur: number | null }; // null = премахване на тавана
+  | { kind: "modCap"; capEur: number | null } // null = премахване на тавана
+  // expenditure levers (balance convention: positive = the balance improves)
+  | { kind: "pensionIndexation"; cpiWeightPct: number } // 100 = само по инфлация
+  | { kind: "pensionSupplement" } // ковид добавката не се индексира
+  | { kind: "adminCut"; sharePct: number } // съкращаване на администрацията
+  | { kind: "minWageFreeze" } // МРЗ замразена (отвързана от формулата)
+  // Phase-5 levers (same balance convention)
+  | { kind: "defenseTarget"; pctGdpTenths: number } // НАТО %-от-БВП цел, в десети
+  | { kind: "wageIndexation"; pct: number } // заплати в публичния сектор ±X%
+  | { kind: "capitalChange"; pct: number } // капиталов план ±X% (касово)
+  | { kind: "sscSelfPaid"; grossUp: boolean } // служителите си плащат осигуровките
+  | { kind: "healthContribution"; pp: number }; // здравна вноска +X п.п.
 
 const has = (q: string, ...words: string[]): boolean =>
   words.some((w) => q.includes(w));
@@ -178,6 +225,142 @@ const MIN_WAGE_WORDS = [
   "мрз",
   "minimum wage",
 ];
+// Expenditure instruments. "индекс" covers индексация/индексира/индексиране;
+// "index" covers indexation/indexing/indexed.
+const INDEXATION_WORDS = ["индекс", "index"];
+const PENSION_WORDS = ["пенси", "pension"];
+const ADMIN_WORDS = [
+  "администраци",
+  "administration",
+  "civil service",
+  "държавни служители",
+  "чиновни",
+];
+// "пенсиите/индексацията само по инфлация(та)" / "CPI-only indexation" → 100.
+const CPI_ONLY_CUES = [
+  "само по инфлация",
+  "само по инфлацията",
+  "cpi-only",
+  "cpi only",
+  "only cpi",
+  "inflation only",
+  "inflation-only",
+  "only inflation",
+  "only by inflation",
+  "only on inflation",
+];
+// "само по доходите" / "income-only indexation" → 0.
+const INCOME_ONLY_CUES = [
+  "само по доходите",
+  "само по дохода",
+  "само по заплатите",
+  "income only",
+  "income-only",
+  "only income",
+  "only by income",
+  "wages only",
+  "only wages",
+];
+// Explicit weight: "70% тежест на инфлацията (в индексацията)".
+const CPI_WEIGHT_CUES = [
+  "тежест на инфлация",
+  "тежест на инфлацията",
+  "inflation weight",
+  "weight on inflation",
+  "weight of inflation",
+  "cpi weight",
+];
+// "ковид добавката да не се индексира" / "don't index the covid supplement".
+const NO_INDEX_CUES = [
+  "да не се индексира",
+  "не се индексира",
+  "без индексация",
+  "без индексиране",
+  "don't index",
+  "do not index",
+  "not index", // not indexed / not be indexed
+  "stop indexing",
+  "without indexation",
+];
+const ADMIN_CUT_CUES = [
+  "съкращ",
+  "съкрат",
+  "оряз",
+  "ореж",
+  "намал",
+  "свие",
+  "свива",
+  "cut",
+  "reduc",
+  "trim",
+  "shrink",
+  "lay off",
+  "layoff",
+  "уволн",
+];
+// "замразяване на МРЗ" / "отвързване от средната заплата" / "freeze/untie".
+const FREEZE_CUES = [
+  "замраз",
+  "freeze",
+  "frozen",
+  "freezing",
+  "отвърз",
+  "отвръз",
+  "untie",
+  "unty", // untying
+  "unlink",
+  "decoupl",
+  "de-link",
+  "delink",
+];
+// Phase-5 instruments --------------------------------------------------------
+const DEFENSE_WORDS = ["отбран", "defense", "defence"];
+// Public-sector wage indexation needs the sector context, so "минималната
+// заплата" / a private-wage question can't fire.
+const PUBLIC_SECTOR_WORDS = [
+  "публичния сектор",
+  "публичният сектор",
+  "публичен сектор",
+  "бюджетния сектор",
+  "бюджетният сектор",
+  "бюджетен сектор",
+  "бюджетната сфера",
+  "бюджетна сфера",
+  "public sector",
+  "public-sector",
+];
+const WAGE_WORDS = ["заплат", "wage", "salar"];
+const CAPEX_WORDS = [
+  "капиталов", // капиталовите разходи / капиталовата програма / капиталов план
+  "capital expenditure",
+  "capital spending",
+  "capex",
+];
+// "държавните служители да си плащат осигуровките" — the actor in any case
+// form ("държавни(те) служители", "civil servants", "чиновниците").
+const sscSelfActor = (q: string): boolean =>
+  (has(q, "служител") && has(q, "държавн")) ||
+  has(q, "чиновни", "civil servant");
+const SSC_SELF_CUES = [
+  "си плащат",
+  "си плаща",
+  "плащат сами",
+  "плащат си",
+  "pay their own",
+  "pay own",
+  "paying their own",
+  "pay for their own",
+  "themselves",
+];
+// "с компенсация" / "gross up" → the compensating salary increase variant.
+const GROSS_UP_CUES = [
+  "компенсац",
+  "компенсир",
+  "gross up",
+  "gross-up",
+  "grossed up",
+  "grossed-up",
+];
 // МОД / осигурителен таван context. "мод"/"mod" only as a whole token.
 const modContext = (q: string): boolean =>
   has(
@@ -250,6 +433,53 @@ const parseBareNumber = (q: string): number | undefined => {
   return m ? parseInt(m[1], 10) : undefined;
 };
 
+// Decimal percent for the defense %-of-GDP target ("2.5% от БВП") — the
+// generic parsePct rounds to an integer, which would turn 2.5 into 3.
+const parseDecimalPct = (q: string): number | undefined => {
+  const m = q.match(/(\d{1,2}(?:[.,]\d)?)\s*(?:%|процент|на сто|percent)/);
+  return m ? parseFloat(m[1].replace(",", ".")) : undefined;
+};
+
+// Signed percent for the ± levers (public wages, capital plan): an explicit
+// "+5%"/"-10%" sign wins; an unsigned "с 10%" takes its direction from the
+// raise/cut wording ("орязване … с 10%" → −10).
+const parseSignedPct = (q: string): number | undefined => {
+  const m = q.match(
+    /([+\-−–]?)\s*(\d{1,3}(?:[.,]\d+)?)\s*(?:%|процент|на сто|percent)/,
+  );
+  if (!m) return undefined;
+  const v = Math.round(parseFloat(m[2].replace(",", ".")));
+  if (m[1] === "+") return v;
+  if (m[1] !== "") return -v;
+  return has(
+    q,
+    "оряз",
+    "ореж",
+    "намал",
+    "свал",
+    "свие",
+    "свив",
+    "смъкн",
+    "съкра",
+    "cut",
+    "reduc",
+    "slash",
+    "lower",
+    "shrink",
+    "trim",
+  )
+    ? -v
+    : v;
+};
+
+// Percentage points for the health contribution ("+1 пункт", "+2pp", "с 1
+// процентен пункт"); a bare "%" also reads as the increment — the lever IS
+// "+X" on the screen. Single digit by construction (the slider is 0-3 pp).
+const parsePp = (q: string): number | undefined => {
+  const m = q.match(/(\d)\s*(?:пункт|п\.п|pp\b|percentage point|%|процент)/);
+  return m ? parseInt(m[1], 10) : undefined;
+};
+
 /** Parse a question into the ONE primary policy change it asks about, or
  *  undefined when it isn't a tax-policy what-if (the router's gate). */
 export const detectTaxChange = (question: string): TaxChange | undefined => {
@@ -267,6 +497,85 @@ export const detectTaxChange = (question: string): TaxChange | undefined => {
     (modContext(q) || (has(q, "таван") && !has(q, "пенси")))
   )
     return { kind: "modCap", capEur: null };
+
+  // 1b. Expenditure levers — instrument + an explicit lever cue, so the
+  // definitional questions ("колко са пенсиите" → noiFunds, "каква е
+  // минималната заплата" → macroIndicator) keep falling through.
+  const indexish = has(q, ...INDEXATION_WORDS);
+  // COVID supplement first: "ковид добавката да не се индексира" carries the
+  // indexation word too, so it must not read as a weight change.
+  if (has(q, "ковид", "covid") && has(q, "добавк", "supplement")) {
+    if (has(q, ...NO_INDEX_CUES)) return { kind: "pensionSupplement" };
+  }
+  // Pension indexation weight: "(пенсиите да се индексират) само по
+  // инфлация(та)" → 100, "само по доходите" → 0, "X% тежест на инфлацията" → X.
+  if (indexish && has(q, ...CPI_ONLY_CUES))
+    return { kind: "pensionIndexation", cpiWeightPct: 100 };
+  if (indexish && has(q, ...INCOME_ONLY_CUES))
+    return { kind: "pensionIndexation", cpiWeightPct: 0 };
+  if (
+    pct !== undefined &&
+    has(q, ...CPI_WEIGHT_CUES) &&
+    (indexish || has(q, ...PENSION_WORDS))
+  )
+    return { kind: "pensionIndexation", cpiWeightPct: pct };
+  // Administration headcount cut: "съкращаване на администрацията с X%".
+  if (has(q, ...ADMIN_WORDS) && has(q, ...ADMIN_CUT_CUES)) {
+    const share =
+      pct ??
+      (bare !== undefined && bare > 0 && bare <= ADM_MAX ? bare : undefined);
+    if (share !== undefined) return { kind: "adminCut", sharePct: share };
+  }
+  // МРЗ freeze: "замразяване на минималната заплата", "отвързване на МРЗ от
+  // средната заплата", "freeze/untie the minimum wage".
+  if (has(q, ...MIN_WAGE_WORDS) && has(q, ...FREEZE_CUES))
+    return { kind: "minWageFreeze" };
+
+  // 1c. Phase-5 expenditure levers — instrument + an explicit target, so the
+  // definitional reads ("колко са разходите за отбрана" → budgetFunction GF02,
+  // "каква е здравната вноска" → budgetFunction GF07) keep falling through.
+  // Defense %-of-GDP target: "отбраната да стане 3% от БВП", "3% за отбрана",
+  // "defense to 3% of GDP". Stored in tenths (the def slider's unit); only
+  // the NATO-plausible 1.5-3.5% window reads as a target — anything else is
+  // a share-of-spending figure, not this lever.
+  if (has(q, ...DEFENSE_WORDS)) {
+    const v = parseDecimalPct(q);
+    if (v !== undefined && v >= DEF_MIN / 10 && v <= DEF_MAX / 10)
+      return { kind: "defenseTarget", pctGdpTenths: Math.round(v * 10) };
+  }
+  // Public-sector wage indexation: "заплатите в публичния сектор +5%",
+  // "индексация на заплатите в бюджетния сектор с 5%". v1 demands an explicit
+  // ±X% — a bare "freeze public wages" is already current law (0% = no
+  // indexation) and stays out. Exempt sectors keep the screen default (ON).
+  if (has(q, ...PUBLIC_SECTOR_WORDS) && has(q, ...WAGE_WORDS)) {
+    const v = parseSignedPct(q);
+    if (v !== undefined && v !== 0) return { kind: "wageIndexation", pct: v };
+  }
+  // Capital expenditure: "капиталовите разходи -10%", "орязване на
+  // капиталовите разходи с 10%", "cut capital expenditure by 10%".
+  if (has(q, ...CAPEX_WORDS)) {
+    const v = parseSignedPct(q);
+    if (v !== undefined && v !== 0) return { kind: "capitalChange", pct: v };
+  }
+  // Self-paid contributions: "държавните служители да си плащат
+  // осигуровките" / "civil servants pay their own contributions". With a
+  // компенсация / gross-up clause the reform is scored as fiscally neutral.
+  if (
+    sscSelfActor(q) &&
+    has(q, "осигуровк", "осигурителн", "contribution") &&
+    has(q, ...SSC_SELF_CUES)
+  )
+    return { kind: "sscSelfPaid", grossUp: has(q, ...GROSS_UP_CUES) };
+  // Health contribution +X п.п.: "здравната вноска +1 пункт", "health
+  // contribution +2pp". The increment is small by construction — an
+  // out-of-range number reads as the rate itself ("здравната вноска е 8%")
+  // and is NOT a what-if. ("здравна вноска" ≠ the МОД/осигуровки cues: the
+  // МОД blocks demand таван/мод, so neither side steals the other.)
+  if (has(q, "здрав", "health") && has(q, "вноск", "contribution")) {
+    const pp = parsePp(q);
+    if (pp !== undefined && pp >= 1 && pp <= HP_MAX)
+      return { kind: "healthContribution", pp };
+  }
 
   // 2. VAT on a category — needs the VAT word + a category word, plus a
   // target: a %, a change cue, or an explicit regime word ("zero VAT on
@@ -377,6 +686,17 @@ interface ScenarioParams {
   div: number;
   mod: number;
   noCap: boolean;
+  pw: number;
+  noSupp: boolean;
+  adm: number;
+  mrzFreeze: boolean;
+  def: number; // tenths of % of GDP; DEF_DEF = no change
+  wi: number;
+  wex: boolean; // exempt sectors keep their path (screen default ON)
+  kap: number;
+  ssp: boolean;
+  sspg: boolean;
+  hp: number;
 }
 
 const paramsFor = (change: TaxChange, currentCap: number): ScenarioParams => {
@@ -389,6 +709,17 @@ const paramsFor = (change: TaxChange, currentCap: number): ScenarioParams => {
     div: DIV_DEF,
     mod: currentCap,
     noCap: false,
+    pw: PW_DEF,
+    noSupp: false,
+    adm: 0,
+    mrzFreeze: false,
+    def: DEF_DEF,
+    wi: 0,
+    wex: true,
+    kap: 0,
+    ssp: false,
+    sspg: false,
+    hp: 0,
   };
   // Clamp to the simulator's own URL-param bounds (clampIntParam calls in
   // BudgetPolicySimulator.tsx) so the chat number equals what the deep link
@@ -422,6 +753,34 @@ const paramsFor = (change: TaxChange, currentCap: number): ScenarioParams => {
           currentCap + MOD_STEPS_UP * MOD_STEP,
         );
       break;
+    case "pensionIndexation":
+      p.pw = clamp(change.cpiWeightPct, 0, 100);
+      break;
+    case "pensionSupplement":
+      p.noSupp = true;
+      break;
+    case "adminCut":
+      p.adm = clamp(change.sharePct, 0, ADM_MAX);
+      break;
+    case "minWageFreeze":
+      p.mrzFreeze = true;
+      break;
+    case "defenseTarget":
+      p.def = clamp(change.pctGdpTenths, DEF_MIN, DEF_MAX);
+      break;
+    case "wageIndexation":
+      p.wi = clamp(change.pct, WI_MIN, WI_MAX);
+      break;
+    case "capitalChange":
+      p.kap = clamp(change.pct, -KAP_MAX, KAP_MAX);
+      break;
+    case "sscSelfPaid":
+      p.ssp = true;
+      p.sspg = change.grossUp;
+      break;
+    case "healthContribution":
+      p.hp = clamp(change.pp, 0, HP_MAX);
+      break;
   }
   return p;
 };
@@ -432,6 +791,12 @@ export interface ScenarioScore {
   corpDelta: number;
   divDelta: number;
   modCentral: number;
+  /** Expenditure levers on the BALANCE (positive = the balance improves):
+   *  −(pensionΔspend + adminΔspend) + mwΔ, the screen's convention. */
+  expenditureBalance: number;
+  /** Share of an administration cut absorbed by vacant positions (the
+   *  honesty note); null when the scenario cuts nothing. */
+  vacantAbsorbedShare: number | null;
   central: number;
   low: number;
   high: number;
@@ -444,10 +809,27 @@ export const scoreScenario = (
   change: TaxChange,
 ): ScenarioScore => {
   const currentCap = resolveMod(null).mod;
-  const { vatStd, regimes, pit, nm, corp, div, mod, noCap } = paramsFor(
-    change,
-    currentCap,
-  );
+  const {
+    vatStd,
+    regimes,
+    pit,
+    nm,
+    corp,
+    div,
+    mod,
+    noCap,
+    pw,
+    noSupp,
+    adm,
+    mrzFreeze,
+    def,
+    wi,
+    wex,
+    kap,
+    ssp,
+    sspg,
+    hp,
+  } = paramsFor(change, currentCap);
 
   const slices = baseline.vat.slices as VatBaseSlice[];
   const currentPolicy: VatPolicy = {
@@ -507,19 +889,84 @@ export const scoreScenario = (
     };
   }
 
+  // Expenditure levers (balance convention: positive = the balance improves)
+  // — the same block as the component's scenario useMemo.
+  const exp = baseline.expenditure;
+  const pensionDeltaSpend = exp
+    ? scorePensionIndexation(exp.pensions, {
+        cpiWeight: pw / 100,
+        indexSupplement: !noSupp,
+        horizonYears: PENSION_HORIZON_DEF,
+      })
+    : 0;
+  const adminRes =
+    exp && adm > 0 ? scoreAdminCut(exp.administration, adm / 100) : null;
+  const adminDeltaSpend = adminRes ? adminRes.netEur : 0;
+  const mwDelta =
+    exp && mrzFreeze ? scoreMinWageFreeze(earnings.bands, exp.minWage) : 0;
+  const defDelta =
+    exp && def !== DEF_DEF
+      ? scoreDefenseTarget(
+          baseline.gdpNextEur,
+          exp.defense.natoPctGdp,
+          def / 10,
+        )
+      : 0;
+  const wiDelta =
+    exp && wi !== 0
+      ? scoreWageIndexation(
+          exp.personnel.massEur,
+          exp.personnel.exemptShare,
+          wi,
+          wex,
+        )
+      : 0;
+  const kapDelta =
+    exp && kap !== 0
+      ? scoreCapitalChange(exp.capital.planEur, exp.capital.executionRate, kap)
+      : 0;
+  const sspDelta =
+    exp && ssp
+      ? scoreSscSelfPaid(
+          exp.sscSelfPaid.count,
+          exp.sscSelfPaid.avgWageEur,
+          sspg,
+        )
+      : 0;
+  const hpDelta =
+    exp && hp !== 0 ? scoreHealthContribution(exp.health.baseEur, hp) : 0;
+  const expenditureBalance =
+    -(
+      pensionDeltaSpend +
+      adminDeltaSpend +
+      defDelta +
+      wiDelta +
+      kapDelta +
+      sspDelta
+    ) +
+    mwDelta +
+    hpDelta;
+
   const central =
-    vatDelta + pitDelta + corpDelta + divDelta + modRes.centralEur;
+    vatDelta +
+    pitDelta +
+    corpDelta +
+    divDelta +
+    modRes.centralEur +
+    expenditureBalance;
   const low =
     vatDelta +
     pitDelta +
     corpDelta +
     divDelta +
+    expenditureBalance +
     Math.min(modRes.lowEur, modRes.highEur);
   const high =
     vatDelta +
     pitDelta +
     corpDelta +
     divDelta +
+    expenditureBalance +
     Math.max(modRes.lowEur, modRes.highEur);
 
   return {
@@ -528,6 +975,8 @@ export const scoreScenario = (
     corpDelta,
     divDelta,
     modCentral: modRes.centralEur,
+    expenditureBalance,
+    vacantAbsorbedShare: adminRes ? adminRes.vacantAbsorbedShare : null,
     central,
     low,
     high,
@@ -617,6 +1066,41 @@ const changeLabel = (
       return bg
         ? `таван МОД €${p.mod} (сега €${currentCap})`
         : `МОД cap €${p.mod} (now €${currentCap})`;
+    case "pensionIndexation":
+      return bg
+        ? `индексация на пенсиите с ${p.pw}% тежест на инфлацията`
+        : `pension indexation ${p.pw}% CPI-weighted`;
+    case "pensionSupplement":
+      return bg
+        ? "ковид добавката не се индексира"
+        : "COVID supplement not indexed";
+    case "adminCut":
+      return bg ? `администрация −${p.adm}%` : `administration −${p.adm}%`;
+    case "minWageFreeze":
+      return bg ? "замразена МРЗ" : "minimum wage frozen";
+    case "defenseTarget": {
+      // budget_policy_frag_def renders the tenths slider as (def/10).toFixed(1)
+      const v = (p.def / 10).toFixed(1);
+      return bg ? `отбрана ${v}% от БВП` : `defense ${v}% of GDP`;
+    }
+    case "wageIndexation":
+      return bg
+        ? `заплати в публичния сектор ${p.wi}%`
+        : `public wages ${p.wi}%`;
+    case "capitalChange":
+      return bg ? `капиталов план ${p.kap}%` : `capital plan ${p.kap}%`;
+    case "sscSelfPaid":
+      return p.sspg
+        ? bg
+          ? "държавните служители плащат осигуровките си (с компенсация)"
+          : "civil servants pay own contributions (grossed up)"
+        : bg
+          ? "държавните служители плащат осигуровките си"
+          : "civil servants pay own contributions";
+    case "healthContribution":
+      return bg
+        ? `здравна вноска +${p.hp} п.п.`
+        : `health contribution +${p.hp} pp`;
   }
 };
 
@@ -632,6 +1116,17 @@ const scenarioQuery = (p: ScenarioParams, currentCap: number): string => {
   if (p.div !== DIV_DEF) parts.push(`div=${p.div}`);
   if (p.noCap) parts.push("nocap=1");
   else if (p.mod !== currentCap) parts.push(`mod=${p.mod}`);
+  if (p.pw !== PW_DEF) parts.push(`pw=${p.pw}`);
+  if (p.noSupp) parts.push("ks=0");
+  if (p.adm !== 0) parts.push(`adm=${p.adm}`);
+  if (p.mrzFreeze) parts.push("mrz=1");
+  if (p.def !== DEF_DEF) parts.push(`def=${p.def}`);
+  if (p.wi !== 0) parts.push(`wi=${p.wi}`);
+  if (p.wi !== 0 && !p.wex) parts.push("wex=0");
+  if (p.kap !== 0) parts.push(`kap=${p.kap}`);
+  if (p.ssp) parts.push("ssp=1");
+  if (p.ssp && p.sspg) parts.push("sspg=1");
+  if (p.hp !== 0) parts.push(`hp=${p.hp}`);
   return parts.join("&");
 };
 
@@ -693,6 +1188,49 @@ export const simulateTaxChange = async (
     facts.note = bg
       ? "Това е действащият режим — без промяна в приходите."
       : "That is already current law — no revenue change.";
+  // Expenditure levers move the BALANCE, not revenue — flag it so the
+  // narrator says "по бюджетното салдо" (hidden via the _id suffix).
+  if (
+    change.kind === "pensionIndexation" ||
+    change.kind === "pensionSupplement" ||
+    change.kind === "adminCut" ||
+    change.kind === "minWageFreeze" ||
+    change.kind === "defenseTarget" ||
+    change.kind === "wageIndexation" ||
+    change.kind === "capitalChange" ||
+    change.kind === "sscSelfPaid" ||
+    change.kind === "healthContribution"
+  )
+    facts.basis_id = "balance";
+  // Administration-cut honesty note: vacant positions absorb the cut first
+  // and save ≈ nothing in cash terms.
+  if (change.kind === "adminCut" && score.vacantAbsorbedShare != null) {
+    const vac = Math.round(score.vacantAbsorbedShare * 100);
+    facts.note = bg
+      ? `${vac}% от съкращението се поема от незаети щатни бройки, които не спестяват реални разходи.`
+      : `${vac}% of the cut is absorbed by vacant positions, which save almost nothing in cash terms.`;
+  }
+  // Defense scenarios are priced on the NATO definition (differs from the
+  // national-accounts COFOG line) against the projected-year GDP.
+  if (change.kind === "defenseTarget") {
+    const cur = baseline.expenditure.defense.natoPctGdp.toFixed(1);
+    facts.note = bg
+      ? `По дефиницията на НАТО за разходи за отбрана (сега ~${cur.replace(".", ",")}% от БВП), спрямо прогнозния БВП.`
+      : `On the NATO definition of defense spending (now ~${cur}% of GDP), priced against projected GDP.`;
+  }
+  // Capital-plan honesty note: only the historically executed share of the
+  // plan turns into cash.
+  if (change.kind === "capitalChange") {
+    const r = Math.round(baseline.expenditure.capital.executionRate * 100);
+    facts.note = bg
+      ? `Касов ефект при ${r}% историческа изпълняемост на капиталовата програма.`
+      : `Cash effect at the plan's ${r}% historical execution rate.`;
+  }
+  // Gross-up variant: the compensating salary increase undoes the saving.
+  if (change.kind === "sscSelfPaid" && change.grossUp)
+    facts.note = bg
+      ? "С компенсиращо увеличение на заплатите реформата е фискално неутрална (±0)."
+      : "With a compensating salary gross-up the reform is fiscally neutral (±0).";
 
   // hidden deep-link payload (keys ending in _id are not rendered as facts)
   const qs = scenarioQuery(p, currentCap);

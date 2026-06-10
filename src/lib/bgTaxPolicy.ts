@@ -415,3 +415,276 @@ export const scoreModCap = (
     highEur: score(identity.alphaHigh),
   };
 };
+
+// ---------------------------------------------------------------------------
+// Expenditure side — pension indexation, administration headcount, МРЗ
+// ---------------------------------------------------------------------------
+
+export interface PensionBaseline {
+  massEur: number;
+  supplementMassEur: number;
+  cpiPct: number;
+  wageGrowthPct: number;
+}
+
+export interface PensionPolicy {
+  /** Weight on CPI in the indexation blend (current law: 0.5). The income
+   *  weight is 1 − cpiWeight. */
+  cpiWeight: number;
+  /** Whether the COVID-supplement slice of the base is indexed too
+   *  (current practice: yes). */
+  indexSupplement: boolean;
+  /** Rounds of July indexation to accumulate (1 = next budget year). */
+  horizonYears: number;
+}
+
+export const PENSION_POLICY_CURRENT: PensionPolicy = {
+  cpiWeight: 0.5,
+  indexSupplement: true,
+  horizonYears: 1,
+};
+
+/** Annual indexation rate (fraction) a policy yields from the Swiss-rule
+ *  inputs. */
+export const pensionIndexationRate = (
+  b: PensionBaseline,
+  cpiWeight: number,
+): number => (cpiWeight * b.cpiPct + (1 - cpiWeight) * b.wageGrowthPct) / 100;
+
+/** Δ pension expenditure of a policy vs current law, EUR/yr at the horizon.
+ *  Static: same inputs every round (no feedback into wages/CPI), compounding
+ *  on the respective base. Negative = the budget spends less. */
+export const scorePensionIndexation = (
+  b: PensionBaseline,
+  policy: PensionPolicy,
+): number => {
+  const grow = (
+    mass: number,
+    supplement: number,
+    rate: number,
+    indexSupplement: boolean,
+    years: number,
+  ): number => {
+    // The supplement slice stays nominal when excluded from indexation.
+    let indexed = mass - supplement;
+    for (let i = 0; i < years; i++) indexed *= 1 + rate;
+    let supp = supplement;
+    if (indexSupplement) for (let i = 0; i < years; i++) supp *= 1 + rate;
+    return indexed + supp;
+  };
+  const current = grow(
+    b.massEur,
+    b.supplementMassEur,
+    pensionIndexationRate(b, PENSION_POLICY_CURRENT.cpiWeight),
+    PENSION_POLICY_CURRENT.indexSupplement,
+    policy.horizonYears,
+  );
+  const scenario = grow(
+    b.massEur,
+    b.supplementMassEur,
+    pensionIndexationRate(b, policy.cpiWeight),
+    policy.indexSupplement,
+    policy.horizonYears,
+  );
+  return scenario - current;
+};
+
+export interface AdminBaseline {
+  positionsTotal: number;
+  positionsVacant: number;
+  payrollEur: number;
+  coveredHeadcount: number;
+}
+
+export interface AdminCutResult {
+  /** Gross payroll saving, EUR/yr (national extrapolation). */
+  grossEur: number;
+  /** PIT + SSC the budget stops collecting from the cut salaries. */
+  revenueFeedbackEur: number;
+  /** Net budget effect (negative = saving) after the feedback. */
+  netEur: number;
+  /** Share of the cut absorbed by vacant positions (saves nothing). */
+  vacantAbsorbedShare: number;
+  /** Positions actually laid off. */
+  positionsCut: number;
+}
+
+/** Score cutting `cutShare` of administration positions. Vacant positions
+ *  absorb cuts first — they are budgeted but largely unspent, so eliminating
+ *  them saves ≈ nothing in cash terms. Real layoffs save the full labour
+ *  cost but return PIT + the employee/employer contributions to neither side
+ *  (the budget loses that revenue), so the net saving is materially smaller
+ *  than the headline. */
+export const scoreAdminCut = (
+  b: AdminBaseline,
+  cutShare: number,
+): AdminCutResult => {
+  const costPerFte = b.payrollEur / b.coveredHeadcount;
+  const cutPositions = b.positionsTotal * cutShare;
+  const vacantAbsorbed = Math.min(cutPositions, b.positionsVacant);
+  const realLayoffs = cutPositions - vacantAbsorbed;
+  const grossEur = realLayoffs * costPerFte;
+  // The labour cost splits ~ gross salary + employer SSC; the budget loses
+  // employee+employer SSC and PIT on those salaries. Approximate from the
+  // statutory rates: cost = salary × (1 + employer), feedback = salary ×
+  // (combined budget SSC) + PIT on the post-SSC base.
+  const employerRate = 0.1902;
+  const salary = grossEur / (1 + employerRate);
+  const revenueFeedbackEur =
+    salary * SSC_COMBINED_BUDGET_RATE +
+    salary * (1 - SSC_EMPLOYEE_RATE) * PIT_RATE;
+  return {
+    grossEur,
+    revenueFeedbackEur,
+    netEur: -(grossEur - revenueFeedbackEur),
+    vacantAbsorbedShare: cutPositions > 0 ? vacantAbsorbed / cutPositions : 0,
+    positionsCut: Math.round(cutPositions),
+  };
+};
+
+export interface MinWageBaseline {
+  currentEur: number;
+  formulaEur: number;
+}
+
+/** Δ budget revenue of freezing МРЗ instead of applying the КТ чл.244
+ *  formula: every worker the formula would lift to the new floor keeps the
+ *  lower wage, so the budget loses the SSC + PIT on the difference. Scored
+ *  over the band grid (the model's compressed lower half IS the floor).
+ *  Negative = revenue loss vs the formula path. */
+export const scoreMinWageFreeze = (
+  bands: EarningsBand[],
+  b: MinWageBaseline,
+): number => {
+  let deltaWageMass = 0;
+  for (const band of bands) {
+    if (band.grossEur >= b.formulaEur) continue;
+    // Under the formula, wages below the new floor rise to it (those already
+    // above the current floor but below the new one rise by the gap).
+    const lifted = Math.max(band.grossEur, b.currentEur);
+    deltaWageMass += band.workers * (b.formulaEur - lifted);
+  }
+  deltaWageMass *= 12;
+  // Freezing forgoes contributions + PIT on that mass.
+  return -(
+    deltaWageMass * SSC_COMBINED_BUDGET_RATE +
+    deltaWageMass * (1 - SSC_EMPLOYEE_RATE) * PIT_RATE
+  );
+};
+
+// ---------------------------------------------------------------------------
+// Phase 5 levers — wage indexation, defense target, capital, self-paid SSC,
+// health contribution
+// ---------------------------------------------------------------------------
+
+/** Δ spending of indexing the consolidated Персонал line by `pct` percent
+ *  (positive = more spending). With `onlyNonExempt`, restraint-exempt
+ *  sectors (военни/полицаи/лекари/учители — `exemptShare` of the line) keep
+ *  their path and only the rest is indexed. */
+export const scoreWageIndexation = (
+  personnelMassEur: number,
+  exemptShare: number,
+  pct: number,
+  onlyNonExempt: boolean,
+): number =>
+  personnelMassEur * (onlyNonExempt ? 1 - exemptShare : 1) * (pct / 100);
+
+/** Δ spending of moving NATO-definition defense from its current % of GDP
+ *  to `targetPct`, priced against the projected-year GDP. */
+export const scoreDefenseTarget = (
+  gdpEur: number,
+  currentPct: number,
+  targetPct: number,
+): number => ((targetPct - currentPct) / 100) * gdpEur;
+
+/** CASH Δ of changing planned capital expenditure by `pct` percent: the
+ *  historical execution rate scales it — plans that would not have been
+ *  executed cost (or save) nothing when cut on paper. */
+export const scoreCapitalChange = (
+  planEur: number,
+  executionRate: number,
+  pct: number,
+): number => planEur * (pct / 100) * executionRate;
+
+/** Budget saving if държавни служители pay their own employee contributions
+ *  (today the budget pays both shares). `grossUp` models the realistic
+ *  compensating salary increase — which makes the reform fiscally neutral.
+ *  Net saving = employee share of the wage bill, minus the PIT the budget
+ *  loses because contributions become deductible from those salaries. */
+export const scoreSscSelfPaid = (
+  count: number,
+  avgWageEur: number,
+  grossUp: boolean,
+): number => {
+  if (grossUp) return 0;
+  const wageBill = count * avgWageEur * 12;
+  return -(wageBill * SSC_EMPLOYEE_RATE * (1 - PIT_RATE));
+};
+
+/** Δ revenue of moving the health-contribution rate by `pp` percentage
+ *  points, collected on the employee insurable base. */
+export const scoreHealthContribution = (
+  insurableBaseEur: number,
+  pp: number,
+): number => insurableBaseEur * (pp / 100);
+
+// ---------------------------------------------------------------------------
+// Pension floor (минимална пенсия) + teachers' 125% pay peg
+// ---------------------------------------------------------------------------
+
+/** One band of the НОИ pensioner distribution by basic monthly pension
+ *  (quarterly statistical bulletin, sheet "grupiosn (2)"), shipped in
+ *  policy_baseline.json. Only the bands the floor slider can reach. */
+export interface PensionFloorBand {
+  /** Upper edge of the band, EUR/month. */
+  upToEur: number;
+  /** Pensioners in the band (first pension, per-pensioner). */
+  count: number;
+  /** Band midpoint — the representative basic pension, EUR/month. */
+  midEur: number;
+}
+
+/** Δ pension spending of raising the minimum pension to `newMinEur`
+ *  (EUR/yr, positive = the budget spends more). Top-up mechanics: the
+ *  effective payment is max(pension, minimum), so pensioners at or below
+ *  the CURRENT minimum already sit at it via доплащане — raising the floor
+ *  to M costs (M − max(bandMid, currentMin))₊ per head. Band-midpoint
+ *  grain; validated against НОИ's published top-up cost in
+ *  run_policy_baseline.ts (warn-level — see the gate there). */
+export const scorePensionFloorRaise = (
+  bands: PensionFloorBand[],
+  currentMinEur: number,
+  newMinEur: number,
+): number => {
+  if (newMinEur <= currentMinEur) return 0;
+  let monthlyEur = 0;
+  for (const b of bands) {
+    const effective = Math.max(b.midEur, currentMinEur);
+    if (effective < newMinEur) monthlyEur += b.count * (newMinEur - effective);
+  }
+  return monthlyEur * 12;
+};
+
+/** Δ spending of pegging teachers' pay to `targetPct`% of the economy-wide
+ *  average wage (the "125% policy"): count × economy wage × the ratio gap,
+ *  grossed up by the ~19.02% employer contributions the budget also pays.
+ *  `currentRatio` is the education-public-sector wage over the economy
+ *  average — a proxy for teachers proper (it includes non-teaching staff;
+ *  the UI captions that). Negative = a saving (targets below the current
+ *  ratio are allowed — it is a simulator). */
+export const scoreTeachersPeg = (
+  count: number,
+  economyWageEur: number,
+  currentRatio: number,
+  targetPct: number,
+): number => {
+  // Employer SSC share on top of the gross wage (same rate scoreAdminCut
+  // nets out of the labour cost).
+  const employerRate = 0.1902;
+  return (
+    count *
+    economyWageEur *
+    (targetPct / 100 - currentRatio) *
+    (1 + employerRate)
+  );
+};

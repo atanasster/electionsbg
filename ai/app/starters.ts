@@ -117,6 +117,14 @@ export const STARTERS: Starter[] = [
     bg: "Колко струва необлагаем минимум от 620 €?",
     en: "How much would a €620 tax-free minimum cost?",
   },
+  {
+    bg: "Какво става, ако пенсиите се индексират само по инфлация?",
+    en: "What if pensions are indexed by CPI only?",
+  },
+  {
+    bg: "Какво става, ако отбраната стане 3% от БВП?",
+    en: "What if defense goes to 3% of GDP?",
+  },
   { bg: "Кои депутати са най-богати?", en: "Which MPs are richest?" },
   {
     bg: "Кои са най-големите инвестиционни проекти?",

@@ -413,3 +413,18 @@ Suggested recap formats:
 - **No DV-amendment parsing.** DV amendment laws are catalogued for provenance only — the per-ministry amended figure comes from the year-end execution report's "Уточнен план" column. See the `project_budget_dv_amendments` memory for the full rationale.
 - **No automated download of WAF-blocked sources.** minfin.bg, mvr.bg, and similar sites need the manual-fetch workflow.
 - **No cross-check against the КФП consolidated total** (yet). When КФП data starts covering FY2024+ years that also have execution reports ingested, a sum-of-admin-grain-executed vs КФП-consolidated-expenditure check would catch absolute-value parser-pollution bugs the per-row sanity warnings don't.
+
+### Expenditure side of the policy baseline
+
+`run_policy_baseline.ts` also emits an `expenditure` section for the simulator's spending levers. Inputs:
+
+- **Pensions** — mass from `data/budget/noi/funds.json`; Swiss-rule inputs (trailing-4Q CPI and labour-income growth from `macro.json`); the COVID-supplement slice (curated).
+- **Administration** — positions/vacancies from `personnel.json` national aggregates + payroll cost-per-FTE from the covered ministries; МРЗ formula value (КТ чл.244 recursion).
+- **Personnel + capital** — the КФП Персонал and Капиталови lines (executed + planned) from the December snapshot; capital carries its historical execution rate.
+- **Defense** — a curated NATO-definition % of GDP (`NATO_DEFENSE_PCT_GDP` — differs from COFOG GF02; bump when NATO publishes the new estimate).
+- **SSC self-paid** — държавни служители count + average wage (curated from the НОИ SOD category).
+- **Health** — the employee insurable base (from the earnings fit), for the per-pp health-contribution lever.
+- **Pension floor** — the НОИ quarterly **STATB** bulletin (`NOI_STATB_URL`, fetched + cached under `raw_data/budget/`, parsed with SheetJS): pension-size bands + at-minimum counts for the минимална-пенсия lever. **A new quarter is a new filename — bump `NOI_STATB_URL` when the `policy_baseline_local` watcher flags it.**
+- **Teachers' 125% peg** — live `educ_uoe_perp01` headcount (Eurostat) + NSI open-data id=612 wages (note: its JSON-stat `value` is a LIST, not Eurostat's dict).
+
+Curated constants to maintain in the script: `PENSIONER_COUNT`, `COVID_SUPPLEMENT_EUR_MONTHLY`, `MIN_WAGE_EUR` (update when МРЗ changes by law), `NATO_DEFENSE_PCT_GDP`, `CIVIL_SERVANTS_COUNT`/`CIVIL_SERVANTS_AVG_WAGE_EUR`, `EXEMPT_PERSONNEL_SHARE`, and `NOI_STATB_URL`. Watched by `eurostat_policy` (the five Eurostat datasets, incl. `educ_uoe_perp01`) and `policy_baseline_local` (НОИ STATB current+next quarter, NSI id=612). Smoke: `npx tsx scripts/budget/__smoke_expenditure.ts` (CPI-only pension indexation ≈ −€480M/yr; a −5% administration cut ≈ €0, fully absorbed by vacancies; teachers at the current ratio = exactly €0; prints the НОИ pension-floor validation check). The pension-floor validation reproduces НОИ's published top-up cost only within ×0.65 — band-midpoint coarseness — so it WARNS rather than throws; the raise lever is insulated (scores from the minimum itself).

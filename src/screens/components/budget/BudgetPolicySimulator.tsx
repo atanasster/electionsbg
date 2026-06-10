@@ -51,9 +51,19 @@ import {
   pitMonthlyUnderBrackets,
   scoreCorporate,
   scoreDividend,
+  scoreAdminCut,
+  scoreCapitalChange,
+  scoreDefenseTarget,
+  scoreHealthContribution,
+  scoreMinWageFreeze,
+  scoreSscSelfPaid,
+  scoreWageIndexation,
   scoreModCap,
   scoreModCapBands,
+  scorePensionFloorRaise,
+  scorePensionIndexation,
   scorePitSchedule,
+  scoreTeachersPeg,
   type PitBracket,
   type VatAdjustableGroup,
   type VatBaseSlice,
@@ -106,6 +116,10 @@ interface PresetApply {
   b2?: { t2: number; r2: number };
   regimes?: Partial<Record<VatAdjustableGroup, VatRegime>>;
   noCap?: boolean;
+  /** Swiss-rule CPI weight, % (default 50). */
+  pw?: number;
+  adm?: number;
+  mrzFreeze?: boolean;
 }
 const PRESETS: { id: string; apply: PresetApply }[] = [
   { id: "nm_mrz", apply: { nm: 620 } },
@@ -113,6 +127,8 @@ const PRESETS: { id: string; apply: PresetApply }[] = [
   { id: "food9", apply: { regimes: { food: "reduced" } } },
   { id: "restaurants9", apply: { regimes: { restaurants: "reduced" } } },
   { id: "nocap", apply: { noCap: true } },
+  { id: "cpionly", apply: { pw: 100 } },
+  { id: "admin10", apply: { adm: 10 } },
 ];
 
 const clampIntParam = (
@@ -348,6 +364,62 @@ export const BudgetPolicySimulator: FC = () => {
   const [gross, setGross] = useState(() =>
     clampIntParam(searchParams.get("gross"), 500, 8000, GROSS_DEF),
   );
+  // Expenditure levers: Swiss-rule CPI weight (%), COVID-supplement
+  // indexation, horizon (years), administration cut (%), МРЗ freeze.
+  const [pw, setPw] = useState(() =>
+    clampIntParam(searchParams.get("pw"), 0, 100, 50),
+  );
+  const [noSupp, setNoSupp] = useState(() => searchParams.get("ks") === "0");
+  const [ph, setPh] = useState(() =>
+    clampIntParam(searchParams.get("ph"), 1, 5, 1),
+  );
+  const [adm, setAdm] = useState(() =>
+    clampIntParam(searchParams.get("adm"), 0, 20, 0),
+  );
+  const [mrzFreeze, setMrzFreeze] = useState(
+    () => searchParams.get("mrz") === "1",
+  );
+  // Phase-5 levers: defense target (tenths of % GDP), wage indexation %,
+  // exempt-sectors toggle, capital ±%, SSC-self-paid (+gross-up), health pp.
+  const [def, setDef] = useState(() =>
+    clampIntParam(searchParams.get("def"), 15, 35, 22),
+  );
+  const [wi, setWi] = useState(() =>
+    clampIntParam(searchParams.get("wi"), -5, 15, 0),
+  );
+  const [wex, setWex] = useState(() => searchParams.get("wex") !== "0");
+  const [kap, setKap] = useState(() =>
+    clampIntParam(searchParams.get("kap"), -30, 30, 0),
+  );
+  const [ssp, setSsp] = useState(() => searchParams.get("ssp") === "1");
+  const [sspg, setSspg] = useState(() => searchParams.get("sspg") === "1");
+  const [hp, setHp] = useState(() =>
+    clampIntParam(searchParams.get("hp"), 0, 3, 0),
+  );
+  // Pension floor (€/mo) and teachers' peg (% of the average wage): their
+  // defaults derive from the baseline at runtime (the МОД-grid idiom — the
+  // default must be a reachable slider value), so state holds 0 = "current
+  // law" and the effective value is resolved against the baseline below.
+  const [mp, setMp] = useState(() =>
+    clampIntParam(searchParams.get("mp"), 0, 600, 0),
+  );
+  const [tp, setTp] = useState(() =>
+    clampIntParam(searchParams.get("tp"), 0, 140, 0),
+  );
+  const [expOpen, setExpOpen] = useState(
+    () =>
+      searchParams.get("pw") != null ||
+      searchParams.get("ks") === "0" ||
+      searchParams.get("adm") != null ||
+      searchParams.get("mrz") === "1" ||
+      searchParams.get("def") != null ||
+      searchParams.get("wi") != null ||
+      searchParams.get("kap") != null ||
+      searchParams.get("ssp") === "1" ||
+      searchParams.get("hp") != null ||
+      searchParams.get("mp") != null ||
+      searchParams.get("tp") != null,
+  );
   const [shareCopied, setShareCopied] = useState(false);
   const [sentenceCopied, setSentenceCopied] = useState(false);
 
@@ -372,6 +444,15 @@ export const BudgetPolicySimulator: FC = () => {
   // keeps its own value when the standard rate climbs back up.
   const vatRedEff = Math.min(vatRed, vatStd);
 
+  // Runtime defaults for the baseline-anchored expenditure levers. Both are
+  // 0 until the baseline arrives (the component renders a loading card then).
+  const pensionFloor = baseline?.expenditure?.pensionFloor;
+  const teachers = baseline?.expenditure?.teachers;
+  const mpDef = pensionFloor ? Math.round(pensionFloor.minimumEur) : 0;
+  const mpEff = mp > 0 ? Math.min(600, Math.max(mpDef, mp)) : mpDef;
+  const tpDef = teachers ? Math.round(teachers.currentRatio * 100) : 0;
+  const tpEff = tp > 0 ? Math.min(140, Math.max(100, tp)) : tpDef;
+
   // ----- presets -------------------------------------------------------------
   const applyPreset = (p: PresetApply): void => {
     setVatStd(VAT_STD_DEF);
@@ -386,8 +467,23 @@ export const BudgetPolicySimulator: FC = () => {
     setDiv(DIV_DEF);
     setMod(currentCap);
     setNoCap(!!p.noCap);
+    setPw(p.pw ?? 50);
+    setNoSupp(false);
+    setPh(1);
+    setAdm(p.adm ?? 0);
+    setMrzFreeze(!!p.mrzFreeze);
+    setDef(22);
+    setWi(0);
+    setWex(true);
+    setKap(0);
+    setSsp(false);
+    setSspg(false);
+    setHp(0);
+    setMp(0);
+    setTp(0);
     setVatCatsOpen(!!p.regimes);
     setTaxDetailOpen(p.nm != null || !!p.b2);
+    setExpOpen(p.pw != null || p.adm != null || !!p.mrzFreeze);
   };
   const presetIsActive = (p: PresetApply): boolean => {
     const wantRegimes = p.regimes ?? {};
@@ -406,7 +502,19 @@ export const BudgetPolicySimulator: FC = () => {
       corp === CORP_DEF &&
       div === DIV_DEF &&
       noCap === !!p.noCap &&
-      (noCap || mod === currentCap)
+      (noCap || mod === currentCap) &&
+      pw === (p.pw ?? 50) &&
+      !noSupp &&
+      ph === 1 &&
+      adm === (p.adm ?? 0) &&
+      mrzFreeze === !!p.mrzFreeze &&
+      def === 22 &&
+      wi === 0 &&
+      kap === 0 &&
+      !ssp &&
+      hp === 0 &&
+      mpEff === mpDef &&
+      tpEff === tpDef
     );
   };
 
@@ -430,6 +538,20 @@ export const BudgetPolicySimulator: FC = () => {
     if (!noCap && mod !== currentCap) next.mod = String(mod);
     if (noCap) next.nocap = "1";
     if (gross !== GROSS_DEF) next.gross = String(gross);
+    if (pw !== 50) next.pw = String(pw);
+    if (noSupp) next.ks = "0";
+    if (ph !== 1) next.ph = String(ph);
+    if (adm !== 0) next.adm = String(adm);
+    if (mrzFreeze) next.mrz = "1";
+    if (def !== 22) next.def = String(def);
+    if (wi !== 0) next.wi = String(wi);
+    if (wi !== 0 && !wex) next.wex = "0";
+    if (kap !== 0) next.kap = String(kap);
+    if (ssp) next.ssp = "1";
+    if (ssp && sspg) next.sspg = "1";
+    if (hp !== 0) next.hp = String(hp);
+    if (mpEff !== mpDef) next.mp = String(mpEff);
+    if (tpEff !== tpDef) next.tp = String(tpEff);
     setSearchParams(next, { replace: true });
   }, [
     vatStd,
@@ -445,6 +567,22 @@ export const BudgetPolicySimulator: FC = () => {
     mod,
     noCap,
     gross,
+    pw,
+    noSupp,
+    ph,
+    adm,
+    mrzFreeze,
+    def,
+    wi,
+    wex,
+    kap,
+    ssp,
+    sspg,
+    hp,
+    mpEff,
+    mpDef,
+    tpEff,
+    tpDef,
     currentCap,
     setSearchParams,
   ]);
@@ -463,6 +601,20 @@ export const BudgetPolicySimulator: FC = () => {
     setMod(currentCap);
     setNoCap(false);
     setGross(GROSS_DEF);
+    setPw(50);
+    setNoSupp(false);
+    setPh(1);
+    setAdm(0);
+    setMrzFreeze(false);
+    setDef(22);
+    setWi(0);
+    setWex(true);
+    setKap(0);
+    setSsp(false);
+    setSspg(false);
+    setHp(0);
+    setMp(0);
+    setTp(0);
   };
 
   const onShare = (): void => {
@@ -547,19 +699,111 @@ export const BudgetPolicySimulator: FC = () => {
       };
     }
 
+    // Expenditure levers (balance convention: positive = budget improves).
+    const exp = baseline.expenditure;
+    const pensionDeltaSpend = exp
+      ? scorePensionIndexation(exp.pensions, {
+          cpiWeight: pw / 100,
+          indexSupplement: !noSupp,
+          horizonYears: ph,
+        })
+      : 0;
+    const adminRes =
+      exp && adm > 0 ? scoreAdminCut(exp.administration, adm / 100) : null;
+    const adminDeltaSpend = adminRes ? adminRes.netEur : 0;
+    const mwDelta =
+      exp && mrzFreeze
+        ? scoreMinWageFreeze(baseline.earnings.bands, exp.minWage)
+        : 0;
+    const defDelta =
+      exp && def !== 22
+        ? scoreDefenseTarget(
+            baseline.gdpNextEur,
+            exp.defense.natoPctGdp,
+            def / 10,
+          )
+        : 0;
+    const wiDelta =
+      exp && wi !== 0
+        ? scoreWageIndexation(
+            exp.personnel.massEur,
+            exp.personnel.exemptShare,
+            wi,
+            wex,
+          )
+        : 0;
+    const kapDelta =
+      exp && kap !== 0
+        ? scoreCapitalChange(
+            exp.capital.planEur,
+            exp.capital.executionRate,
+            kap,
+          )
+        : 0;
+    const sspDelta =
+      exp && ssp
+        ? scoreSscSelfPaid(
+            exp.sscSelfPaid.count,
+            exp.sscSelfPaid.avgWageEur,
+            sspg,
+          )
+        : 0;
+    const hpDelta =
+      exp && hp !== 0 ? scoreHealthContribution(exp.health.baseEur, hp) : 0;
+    // Pension floor: top-up to the new minimum for every pensioner below it.
+    const mpDeltaSpend =
+      exp?.pensionFloor && mpEff !== mpDef
+        ? scorePensionFloorRaise(
+            exp.pensionFloor.bands,
+            exp.pensionFloor.minimumEur,
+            mpEff,
+          )
+        : 0;
+    // Teachers' peg: move the (proxy) ratio to the target % of the economy
+    // average — negative below the current ratio (a saving).
+    const tpDeltaSpend =
+      exp?.teachers && tpEff !== tpDef
+        ? scoreTeachersPeg(
+            exp.teachers.count,
+            exp.teachers.economyWageEur,
+            exp.teachers.currentRatio,
+            tpEff,
+          )
+        : 0;
+    const expenditureBalance =
+      -(
+        pensionDeltaSpend +
+        adminDeltaSpend +
+        defDelta +
+        wiDelta +
+        kapDelta +
+        sspDelta +
+        mpDeltaSpend +
+        tpDeltaSpend
+      ) +
+      mwDelta +
+      hpDelta;
+
     const central =
-      vatDelta + pitDelta + corpDelta + divDelta + modRes.centralEur;
+      vatDelta +
+      pitDelta +
+      corpDelta +
+      divDelta +
+      modRes.centralEur +
+      expenditureBalance;
     const low =
       vatDelta +
       pitDelta +
       corpDelta +
       divDelta +
+      expenditureBalance +
       Math.min(modRes.lowEur, modRes.highEur);
     const high =
       vatDelta +
       pitDelta +
       corpDelta +
       divDelta +
+      expenditureBalance +
       Math.max(modRes.lowEur, modRes.highEur);
 
     // Household effective VAT take per euro of taxable consumption — drives
@@ -578,6 +822,17 @@ export const BudgetPolicySimulator: FC = () => {
       divDelta,
       modRes,
       brackets,
+      pensionBalance: -pensionDeltaSpend,
+      adminBalance: -adminDeltaSpend,
+      adminRes,
+      mwDelta,
+      defBalance: -defDelta,
+      wiBalance: -wiDelta,
+      kapBalance: -kapDelta,
+      sspBalance: -sspDelta,
+      hpDelta,
+      mpBalance: -mpDeltaSpend,
+      tpBalance: -tpDeltaSpend,
       central,
       low,
       high,
@@ -598,6 +853,22 @@ export const BudgetPolicySimulator: FC = () => {
     div,
     mod,
     noCap,
+    pw,
+    noSupp,
+    ph,
+    adm,
+    mrzFreeze,
+    def,
+    wi,
+    wex,
+    kap,
+    ssp,
+    sspg,
+    hp,
+    mpEff,
+    mpDef,
+    tpEff,
+    tpDef,
     currentCap,
   ]);
 
@@ -713,6 +984,22 @@ export const BudgetPolicySimulator: FC = () => {
     if (noCap) parts.push(t("budget_policy_frag_nocap"));
     else if (mod !== currentCap)
       parts.push(t("budget_policy_frag_mod", { v: mod }));
+    if (pw !== 50) parts.push(t("budget_policy_frag_swiss", { v: pw }));
+    if (noSupp) parts.push(t("budget_policy_frag_nosupp"));
+    if (ph !== 1) parts.push(t("budget_policy_frag_horizon", { v: ph }));
+    if (adm > 0) parts.push(t("budget_policy_frag_admin", { v: adm }));
+    if (mrzFreeze) parts.push(t("budget_policy_frag_mrz"));
+    if (def !== 22)
+      parts.push(t("budget_policy_frag_def", { v: (def / 10).toFixed(1) }));
+    if (wi !== 0) parts.push(t("budget_policy_frag_wi", { v: wi }));
+    if (kap !== 0) parts.push(t("budget_policy_frag_kap", { v: kap }));
+    if (ssp)
+      parts.push(
+        t(sspg ? "budget_policy_frag_ssp_gross" : "budget_policy_frag_ssp"),
+      );
+    if (hp !== 0) parts.push(t("budget_policy_frag_hp", { v: hp }));
+    if (mpEff !== mpDef) parts.push(t("budget_policy_frag_mp", { v: mpEff }));
+    if (tpEff !== tpDef) parts.push(t("budget_policy_frag_tp", { v: tpEff }));
     if (!parts.length) return null;
     return t("budget_policy_sentence", {
       changes: parts.join("; "),
@@ -736,6 +1023,21 @@ export const BudgetPolicySimulator: FC = () => {
     div,
     mod,
     noCap,
+    pw,
+    noSupp,
+    ph,
+    adm,
+    mrzFreeze,
+    def,
+    wi,
+    kap,
+    ssp,
+    sspg,
+    hp,
+    mpEff,
+    mpDef,
+    tpEff,
+    tpDef,
     currentCap,
     t,
     lang,
@@ -782,6 +1084,16 @@ export const BudgetPolicySimulator: FC = () => {
     Math.abs(scenario.corpDelta),
     Math.abs(scenario.divDelta),
     Math.abs(scenario.modRes.centralEur),
+    Math.abs(scenario.pensionBalance),
+    Math.abs(scenario.adminBalance),
+    Math.abs(scenario.mwDelta),
+    Math.abs(scenario.defBalance),
+    Math.abs(scenario.wiBalance),
+    Math.abs(scenario.kapBalance),
+    Math.abs(scenario.sspBalance),
+    Math.abs(scenario.hpDelta),
+    Math.abs(scenario.mpBalance),
+    Math.abs(scenario.tpBalance),
     1,
   );
   const pctGdp = (scenario.central / baseline.gdpEur) * 100;
@@ -1070,6 +1382,218 @@ export const BudgetPolicySimulator: FC = () => {
               </label>
             </div>
 
+            {/* Expenditure side — pensions, administration, МРЗ */}
+            <div className="border-t pt-3">
+              <button
+                type="button"
+                aria-expanded={expOpen}
+                onClick={() => setExpOpen((v) => !v)}
+                className="flex w-full items-center justify-between gap-2 text-xs font-medium text-muted-foreground hover:text-foreground"
+              >
+                <span className="inline-flex items-center gap-1">
+                  {t("budget_policy_exp_title")}
+                  <InfoTip text={t("budget_policy_tip_exp")} />
+                </span>
+                <ChevronDown
+                  className={
+                    "h-3.5 w-3.5 transition-transform " +
+                    (expOpen ? "rotate-180" : "")
+                  }
+                />
+              </button>
+              {expOpen ? (
+                <div className="mt-2 space-y-4">
+                  <RateSlider
+                    id="policy-pw"
+                    label={t("budget_policy_swiss")}
+                    tip={t("budget_policy_tip_swiss")}
+                    min={0}
+                    max={100}
+                    step={10}
+                    value={pw}
+                    defaultValue={50}
+                    onChange={setPw}
+                  />
+                  <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                    <input
+                      type="checkbox"
+                      checked={noSupp}
+                      onChange={(e) => setNoSupp(e.target.checked)}
+                      className="accent-indigo-500"
+                    />
+                    <span>{t("budget_policy_nosupp")}</span>
+                    <InfoTip text={t("budget_policy_tip_nosupp")} />
+                  </label>
+                  <RateSlider
+                    id="policy-ph"
+                    label={t("budget_policy_horizon")}
+                    min={1}
+                    max={5}
+                    value={ph}
+                    defaultValue={1}
+                    onChange={setPh}
+                    suffix={" " + t("budget_policy_horizon_unit")}
+                  />
+                  <RateSlider
+                    id="policy-adm"
+                    label={t("budget_policy_admin")}
+                    tip={t("budget_policy_tip_admin")}
+                    min={0}
+                    max={20}
+                    value={adm}
+                    defaultValue={0}
+                    onChange={setAdm}
+                  />
+                  <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                    <input
+                      type="checkbox"
+                      checked={mrzFreeze}
+                      onChange={(e) => setMrzFreeze(e.target.checked)}
+                      className="accent-indigo-500"
+                    />
+                    <span>
+                      {t("budget_policy_mrz", {
+                        cur: baseline.expenditure?.minWage.currentEur ?? 620,
+                        next: baseline.expenditure?.minWage.formulaEur ?? "",
+                      })}
+                    </span>
+                    <InfoTip text={t("budget_policy_tip_mrz")} />
+                  </label>
+                  {/* Defense target, % of GDP (NATO definition), in tenths */}
+                  <div>
+                    <label
+                      htmlFor="policy-def"
+                      className="flex items-baseline justify-between gap-2"
+                    >
+                      <span className="text-xs text-muted-foreground inline-flex items-center gap-1">
+                        {t("budget_policy_def")}
+                        <InfoTip text={t("budget_policy_tip_def")} />
+                      </span>
+                      <span
+                        className={
+                          "text-sm font-semibold tabular-nums " +
+                          (def !== 22
+                            ? "text-indigo-700 dark:text-indigo-300"
+                            : "")
+                        }
+                      >
+                        {(def / 10).toFixed(1)}%
+                      </span>
+                    </label>
+                    <input
+                      id="policy-def"
+                      type="range"
+                      min={15}
+                      max={35}
+                      step={1}
+                      value={def}
+                      onChange={(e) => setDef(Number(e.target.value))}
+                      className="mt-1.5 w-full accent-indigo-500"
+                      aria-label={t("budget_policy_def")}
+                    />
+                  </div>
+                  <RateSlider
+                    id="policy-wi"
+                    label={t("budget_policy_wi")}
+                    tip={t("budget_policy_tip_wi")}
+                    min={-5}
+                    max={15}
+                    value={wi}
+                    defaultValue={0}
+                    onChange={setWi}
+                  />
+                  {wi !== 0 ? (
+                    <label className="flex items-center gap-1.5 pl-4 text-xs text-muted-foreground">
+                      <input
+                        type="checkbox"
+                        checked={wex}
+                        onChange={(e) => setWex(e.target.checked)}
+                        className="accent-indigo-500"
+                      />
+                      <span>{t("budget_policy_wex")}</span>
+                    </label>
+                  ) : null}
+                  <RateSlider
+                    id="policy-kap"
+                    label={t("budget_policy_kap")}
+                    tip={t("budget_policy_tip_kap", {
+                      rate: Math.round(
+                        (baseline.expenditure?.capital.executionRate ?? 1) *
+                          100,
+                      ),
+                    })}
+                    min={-30}
+                    max={30}
+                    value={kap}
+                    defaultValue={0}
+                    onChange={setKap}
+                  />
+                  <div>
+                    <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <input
+                        type="checkbox"
+                        checked={ssp}
+                        onChange={(e) => setSsp(e.target.checked)}
+                        className="accent-indigo-500"
+                      />
+                      <span>{t("budget_policy_ssp")}</span>
+                      <InfoTip text={t("budget_policy_tip_ssp")} />
+                    </label>
+                    {ssp ? (
+                      <label className="mt-1.5 flex items-center gap-1.5 pl-4 text-xs text-muted-foreground">
+                        <input
+                          type="checkbox"
+                          checked={sspg}
+                          onChange={(e) => setSspg(e.target.checked)}
+                          className="accent-indigo-500"
+                        />
+                        <span>{t("budget_policy_sspg")}</span>
+                      </label>
+                    ) : null}
+                  </div>
+                  <RateSlider
+                    id="policy-hp"
+                    label={t("budget_policy_hp")}
+                    tip={t("budget_policy_tip_hp")}
+                    min={0}
+                    max={3}
+                    value={hp}
+                    defaultValue={0}
+                    onChange={setHp}
+                    suffix={lang === "bg" ? " п.п." : " pp"}
+                  />
+                  {pensionFloor ? (
+                    <RateSlider
+                      id="policy-mp"
+                      label={t("budget_policy_mp", {
+                        cur: pensionFloor.minimumEur,
+                      })}
+                      tip={t("budget_policy_tip_mp")}
+                      min={mpDef}
+                      max={600}
+                      step={10}
+                      value={mpEff}
+                      defaultValue={mpDef}
+                      onChange={(v) => setMp(v === mpDef ? 0 : v)}
+                      suffix=" €"
+                    />
+                  ) : null}
+                  {teachers ? (
+                    <RateSlider
+                      id="policy-tp"
+                      label={t("budget_policy_tp")}
+                      tip={t("budget_policy_tip_tp")}
+                      min={100}
+                      max={140}
+                      value={tpEff}
+                      defaultValue={tpDef}
+                      onChange={(v) => setTp(v === tpDef ? 0 : v)}
+                    />
+                  ) : null}
+                </div>
+              ) : null}
+            </div>
+
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 pt-1">
               <button
                 type="button"
@@ -1150,16 +1674,20 @@ export const BudgetPolicySimulator: FC = () => {
               </div>
               <div className="text-[11px] text-muted-foreground tabular-nums">
                 {t("budget_policy_hero_deficit", {
+                  year: baseline.baselineYear + 1,
+                  growth: new Intl.NumberFormat(locale, {
+                    maximumFractionDigits: 1,
+                  }).format(baseline.gdpGrowthPct),
                   before: new Intl.NumberFormat(locale, {
                     maximumFractionDigits: 1,
                   }).format(
-                    (baseline.revenue.balanceEur / baseline.gdpEur) * 100,
+                    (baseline.revenue.balanceEur / baseline.gdpNextEur) * 100,
                   ),
                   after: new Intl.NumberFormat(locale, {
                     maximumFractionDigits: 1,
                   }).format(
                     ((baseline.revenue.balanceEur + scenario.central) /
-                      baseline.gdpEur) *
+                      baseline.gdpNextEur) *
                       100,
                   ),
                 })}
@@ -1240,6 +1768,101 @@ export const BudgetPolicySimulator: FC = () => {
                         : undefined
                     }
                   />
+                  {scenario.pensionBalance !== 0 ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_pensions")}
+                      deltaEur={scenario.pensionBalance}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                    />
+                  ) : null}
+                  {scenario.adminRes ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_admin")}
+                      deltaEur={scenario.adminBalance}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                      sub={t("budget_policy_admin_note", {
+                        vac: Math.round(
+                          scenario.adminRes.vacantAbsorbedShare * 100,
+                        ),
+                      })}
+                    />
+                  ) : null}
+                  {scenario.mwDelta !== 0 ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_mrz")}
+                      deltaEur={scenario.mwDelta}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                    />
+                  ) : null}
+                  {scenario.defBalance !== 0 ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_def")}
+                      deltaEur={scenario.defBalance}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                    />
+                  ) : null}
+                  {scenario.wiBalance !== 0 ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_wi")}
+                      deltaEur={scenario.wiBalance}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                      sub={wex ? t("budget_policy_wi_note") : undefined}
+                    />
+                  ) : null}
+                  {scenario.kapBalance !== 0 ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_kap")}
+                      deltaEur={scenario.kapBalance}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                      sub={t("budget_policy_kap_note", {
+                        rate: Math.round(
+                          (baseline.expenditure?.capital.executionRate ?? 1) *
+                            100,
+                        ),
+                      })}
+                    />
+                  ) : null}
+                  {scenario.sspBalance !== 0 || (ssp && sspg) ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_ssp")}
+                      deltaEur={scenario.sspBalance}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                      sub={sspg ? t("budget_policy_ssp_note") : undefined}
+                    />
+                  ) : null}
+                  {scenario.hpDelta !== 0 ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_hp")}
+                      deltaEur={scenario.hpDelta}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                    />
+                  ) : null}
+                  {scenario.mpBalance !== 0 ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_mp")}
+                      tip={t("budget_policy_tip_mp")}
+                      deltaEur={scenario.mpBalance}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                    />
+                  ) : null}
+                  {scenario.tpBalance !== 0 ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_tp")}
+                      tip={t("budget_policy_tip_tp")}
+                      deltaEur={scenario.tpBalance}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                    />
+                  ) : null}
                 </ul>
               ) : (
                 <p className="text-sm text-muted-foreground">
@@ -1453,6 +2076,7 @@ export const BudgetPolicySimulator: FC = () => {
                       kappa: baseline.earnings.kappaIdentityYear.toFixed(2),
                     })}
                   </p>
+                  <p>{t("budget_policy_caveat_exp")}</p>
                 </div>
               </div>
             </CardContent>

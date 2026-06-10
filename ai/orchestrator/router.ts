@@ -601,13 +601,19 @@ export const route = (question: string, ctx: ToolContext): Route => {
   // 0c. tax-policy what-if ("какво става ако ДДС стане 22%", "колко струва
   // необлагаем минимум", "what if income tax goes to 15%") -> the budget
   // simulator's scoring engine. detectTaxChange (tools/taxPolicy.ts) demands an
-  // explicit instrument (ДДС/ДДФЛ/необлагаем минимум/корпоративен/дивидент/МОД)
+  // explicit instrument (ДДС/ДДФЛ/необлагаем минимум/корпоративен/дивидент/МОД,
+  // plus the expenditure levers: индексация на пенсиите/ковид добавката/
+  // администрацията/замразяване на МРЗ/отбрана % от БВП/заплати в публичния
+  // сектор/капиталов план/осигуровки на държавните служители/здравна вноска)
   // plus a target value or a what-if/cost cue, so the generic budget questions
-  // ("какъв е бюджетът"), local taxes ("данъци в Пловдив") and retail prices
-  // ("колко струва млякото") all keep falling through to their own tools. Runs
-  // before the budget/noiFunds/prices blocks, which would otherwise swallow
-  // "какво става с бюджета ако…", "тавана на осигурителния доход" and the
-  // "колко струва…" cost-of-policy framing.
+  // ("какъв е бюджетът"), local taxes ("данъци в Пловдив"), retail prices
+  // ("колко струва млякото") and the definitional reads ("колко са пенсиите"
+  // -> noiFunds, "каква е минималната заплата" -> macroIndicator, "колко са
+  // разходите за отбрана" / "каква е здравната вноска" -> budgetFunction) all
+  // keep falling through to their own tools.
+  // Runs before the budget/noiFunds/prices blocks, which would otherwise
+  // swallow "какво става с бюджета ако…", "тавана на осигурителния доход" and
+  // the "колко струва…" cost-of-policy framing.
   if (detectTaxChange(q))
     return { tool: "simulateTaxChange", args: { change: q } };
 

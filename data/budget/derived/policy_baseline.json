@@ -1,14 +1,18 @@
 {
-  "generatedAt": "2026-06-10T08:27:15.368Z",
+  "generatedAt": "2026-06-10T13:39:44.922Z",
   "country": "BG",
   "baselineYear": 2025,
   "gdpEur": 116018300000,
+  "gdpGrowthPct": 10.462506788342047,
+  "gdpNextEur": 128156722513,
   "sources": {
     "kfp": "data.egov.bg КФП monthly execution (December snapshots)",
     "pit": "НАП Годишен отчет 2024",
     "consumption": "Eurostat nama_10_co3_p3 + nama_10_gdp (P31_S14)",
     "contributions": "Eurostat gov_10a_taxag D613CE 2024",
-    "earnings": "split log-normal + Pareto fit — НОИ СОД 2024 + Eurostat earn_ses_hourly 2022 + the PIT/insurable-base identity"
+    "earnings": "split log-normal + Pareto fit — НОИ СОД 2024 + Eurostat earn_ses_hourly 2022 + the PIT/insurable-base identity",
+    "pensionFloor": "НОИ quarterly bulletin https://nssi.bg/wp-content/uploads/STATB12026.xls (към 2026-03-31)",
+    "teachers": "Eurostat educ_uoe_perp01 2024 + NSI open-data 612 A21 wages 2024"
   },
   "revenue": {
     "vatEur": 11029333852,
@@ -724,6 +728,105 @@
         "regime": "standard"
       }
     ]
+  },
+  "expenditure": {
+    "pensions": {
+      "year": 2024,
+      "massEur": 11130510081,
+      "pensionerCount": 2060000,
+      "supplementMassEur": 758348118,
+      "cpiPct": 3.1575,
+      "wageGrowthPct": 11.762500000000001
+    },
+    "administration": {
+      "year": 2025,
+      "positionsTotal": 145623,
+      "positionsVacant": 12348,
+      "payrollEur": 659108655,
+      "coveredHeadcount": 33372,
+      "payrollCoverageMinistries": 7,
+      "payrollYear": 2024
+    },
+    "personnel": {
+      "massEur": 6295471894,
+      "exemptShare": 0.55
+    },
+    "defense": {
+      "natoPctGdp": 2.2,
+      "natoYear": 2024
+    },
+    "capital": {
+      "planEur": 2735845242,
+      "executedEur": 1853948069,
+      "executionRate": 0.677650928692406
+    },
+    "sscSelfPaid": {
+      "count": 64178,
+      "avgWageEur": 1319.97
+    },
+    "health": {
+      "baseEur": 31491864833
+    },
+    "minWage": {
+      "currentEur": 620,
+      "formulaEur": 693,
+      "wageGrowthPct": 11.762500000000001
+    },
+    "pensionFloor": {
+      "asOf": "2026-03-31",
+      "minimumEur": 322.37,
+      "totalPensioners": 2068299,
+      "bands": [
+        {
+          "upToEur": 153.46,
+          "count": 2041,
+          "midEur": 76.73
+        },
+        {
+          "upToEur": 241.78,
+          "count": 126550,
+          "midEur": 197.62
+        },
+        {
+          "upToEur": 274.02,
+          "count": 274849,
+          "midEur": 257.9
+        },
+        {
+          "upToEur": 322.37,
+          "count": 410127,
+          "midEur": 298.2
+        },
+        {
+          "upToEur": 400,
+          "count": 440074,
+          "midEur": 361.19
+        },
+        {
+          "upToEur": 500,
+          "count": 244501,
+          "midEur": 450
+        },
+        {
+          "upToEur": 600,
+          "count": 160464,
+          "midEur": 550
+        },
+        {
+          "upToEur": 700,
+          "count": 111097,
+          "midEur": 650
+        }
+      ]
+    },
+    "teachers": {
+      "count": 66544,
+      "countYear": 2024,
+      "sectorWageEur": 15230.36,
+      "economyWageEur": 14264.02,
+      "wageYear": 2024,
+      "currentRatio": 1.0677467918847228
+    }
   },
   "modIdentity": {
     "year": 2024,
