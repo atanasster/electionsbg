@@ -17,6 +17,7 @@ import type { ElkNode } from "elkjs/lib/elk-api";
 import { SOURCES } from "../watch/sources/index";
 import type { Cadence } from "../watch/types";
 import {
+  AI_PATH_RULES,
   DATASETS,
   EDGES,
   FEATURES,
@@ -115,7 +116,68 @@ const CADENCE_RANK: Record<Cadence, number> = {
   monthly: 3,
 };
 
-const validate = (): void => {
+// ---------------------------------------------------------------------------
+// Derived AI edges: scan every fetchData("...") in ai/ and map the paths to
+// dataset nodes via AI_PATH_RULES. The `ds:* → f:ai` edges are therefore a
+// faithful projection of what the assistant's tools actually read — a tool
+// touching a new dataset surfaces on the map automatically (or fails the
+// build until a rule places it).
+
+const AI_DIR = path.join(ROOT, "ai");
+const AI_SKIP = /(\.harness\.ts$|\.d\.ts$|\/tests\/|\/m0\/)/;
+const FETCH_RE = /fetchData(?:<[^>(]*>)?\(\s*(`[^`]*`|"[^"]*"|'[^']*')/g;
+
+const walkTs = (dir: string, out: string[] = []): string[] => {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      if (entry.name !== "node_modules") walkTs(full, out);
+    } else if (entry.name.endsWith(".ts") && !AI_SKIP.test(full)) {
+      out.push(full);
+    }
+  }
+  return out;
+};
+
+const deriveAiEdges = (): { edges: [string, string][]; paths: number } => {
+  const datasetIds = new Set(DATASETS.map((d) => d.id));
+  const found = new Map<string, string[]>(); // normalised path -> files
+  for (const file of walkTs(AI_DIR)) {
+    const content = fs.readFileSync(file, "utf-8");
+    for (const m of content.matchAll(FETCH_RE)) {
+      const raw = m[1].slice(1, -1);
+      // `${expr}` → `{expr}` so rules can distinguish /{election}/ vs /{cycle}/.
+      const norm = raw.replace(/\$\{([^}]*)\}/g, "{$1}");
+      found.set(norm, [...(found.get(norm) ?? []), path.relative(ROOT, file)]);
+    }
+  }
+
+  const datasets = new Set<string>();
+  const unmatched: string[] = [];
+  for (const [p, files] of found) {
+    const rule = AI_PATH_RULES.find((r) => r.pattern.test(p));
+    if (!rule) {
+      unmatched.push(`${p}  (${[...new Set(files)].join(", ")})`);
+      continue;
+    }
+    if (rule.dataset === null) continue;
+    if (!datasetIds.has(rule.dataset))
+      fail(`AI_PATH_RULES maps "${p}" to unknown dataset "${rule.dataset}"`);
+    datasets.add(rule.dataset);
+  }
+  if (unmatched.length)
+    fail(
+      `AI tool data path(s) with no AI_PATH_RULES entry:\n  ${unmatched.join("\n  ")}\n` +
+        `Add a rule in scripts/data_map/model.ts so the dataset → AI edge is mapped.`,
+    );
+
+  return {
+    edges: [...datasets].sort().map((d) => [`ds:${d}`, "f:ai"]),
+    paths: found.size,
+  };
+};
+
+const validate = (edges: [string, string][]): void => {
   const registryIds = new Set(SOURCES.map((s) => s.id));
   const placed = new Map<string, string>();
   for (const g of SOURCE_GROUPS) {
@@ -147,7 +209,7 @@ const validate = (): void => {
     fail("duplicate node ids in model.ts");
 
   const connected = new Set<string>();
-  for (const [from, to] of EDGES) {
+  for (const [from, to] of edges) {
     if (!nodeIds.has(from)) fail(`edge references unknown node "${from}"`);
     if (!nodeIds.has(to)) fail(`edge references unknown node "${to}"`);
     const tierOk =
@@ -267,7 +329,10 @@ const buildNodes = (): ManifestNode[] => {
 
 const PARTITION: Record<Kind, number> = { source: 0, dataset: 1, feature: 2 };
 
-const layout = async (nodes: ManifestNode[]): Promise<void> => {
+const layout = async (
+  nodes: ManifestNode[],
+  edges: [string, string][],
+): Promise<void> => {
   const elk = new ELK();
   const graph: ElkNode = {
     id: "root",
@@ -295,7 +360,7 @@ const layout = async (nodes: ManifestNode[]): Promise<void> => {
         "elk.partitioning.partition": String(PARTITION[n.kind]),
       },
     })),
-    edges: EDGES.map(([from, to], i) => ({
+    edges: edges.map(([from, to], i) => ({
       id: `e${i}`,
       sources: [from],
       targets: [to],
@@ -339,16 +404,18 @@ const buildTiers = (nodes: ManifestNode[]): ManifestTier[] =>
   });
 
 const main = async (): Promise<void> => {
-  validate();
+  const ai = deriveAiEdges();
+  const edges: [string, string][] = [...EDGES, ...ai.edges];
+  validate(edges);
   const nodes = buildNodes();
-  await layout(nodes);
+  await layout(nodes, edges);
   const tiers = buildTiers(nodes);
 
   const manifest: DataMapManifest = {
     version: 1,
     generatedAt: new Date().toISOString(),
     nodes,
-    edges: EDGES.map(([from, to], i) => ({ id: `e${i}`, from, to })),
+    edges: edges.map(([from, to], i) => ({ id: `e${i}`, from, to })),
     views: VIEWS,
     tiers,
     tours: TOURS,
@@ -359,7 +426,8 @@ const main = async (): Promise<void> => {
   console.log(
     `data_map: wrote ${path.relative(ROOT, OUT_FILE)} — ${nodes.length} nodes ` +
       `(${SOURCE_GROUPS.length} source groups covering ${SOURCES.length} watched sources), ` +
-      `${EDGES.length} edges, freshness on ${fresh} nodes`,
+      `${edges.length} edges (${ai.edges.length} dataset→AI derived from ` +
+      `${ai.paths} fetchData paths), freshness on ${fresh} nodes`,
   );
 };
 

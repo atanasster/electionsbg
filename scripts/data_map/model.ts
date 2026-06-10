@@ -64,6 +64,53 @@ export interface TourDef {
   steps: { node: string; text: Lang }[];
 }
 
+/**
+ * Maps the data paths the AI assistant reads (every `fetchData("...")` in
+ * ai/, extracted by build_manifest.ts) to dataset nodes. First match wins;
+ * `null` ignores the path (internal artifacts). Template expressions are
+ * normalised to `{expr}` before matching, so per-election trees keep their
+ * variable name (`/{election}/…` vs `/{cycle}/…`).
+ *
+ * The build FAILS on an unmatched path — adding a tool that reads a new
+ * dataset forces a rule (and thereby an edge) here.
+ */
+export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
+  { pattern: /^\/ai\//, dataset: null }, // internal eval artifacts
+  { pattern: /^\/\{cycle\}\//, dataset: "local" },
+  { pattern: /^\/local_chmi_history/, dataset: "local" },
+  { pattern: /^\/\{e(lection|\.name)?\}\//, dataset: "elections" },
+  { pattern: /^\/transitions\//, dataset: "elections" },
+  { pattern: /^\/cluster_persistence/, dataset: "elections" },
+  { pattern: /^\/canonical_parties/, dataset: "elections" },
+  { pattern: /^\/regions\//, dataset: "elections" },
+  {
+    pattern: /^\/parliament\/(connections|companies|mp-connections)/,
+    dataset: "connections",
+  },
+  { pattern: /^\/parliament\//, dataset: "parliament" },
+  { pattern: /^\/officials\//, dataset: "officials" },
+  { pattern: /^\/budget\//, dataset: "budget" },
+  {
+    pattern: /^\/(macro|macro_peers|cofog|governments|debt-emissions)/,
+    dataset: "macro",
+  },
+  {
+    pattern: /^\/(indicators|regional|landuse|schools)/,
+    dataset: "indicators",
+  },
+  {
+    pattern: /^\/(air|municipal_transparency|local_taxes|council)\//,
+    dataset: "localgov",
+  },
+  { pattern: /^\/(census|grao_population)/, dataset: "demographics" },
+  { pattern: /^\/prices\//, dataset: "prices" },
+  { pattern: /^\/polls\//, dataset: "polls" },
+  { pattern: /^\/procurement\//, dataset: "procurement" },
+  { pattern: /^\/funds\//, dataset: "funds" },
+  { pattern: /^\/financing\//, dataset: "financing" },
+  { pattern: /^\/(municipalities|settlements|ekatte)/, dataset: "geo" },
+];
+
 export const SOURCE_GROUPS: SourceGroupDef[] = [
   {
     id: "cik",
@@ -905,7 +952,11 @@ export const FEATURES: FeatureDef[] = [
   },
 ];
 
-/** Edges as [from, to] using full node ids. Always source → dataset → feature. */
+/**
+ * Edges as [from, to] using full node ids. Always source → dataset → feature.
+ * Note: `ds:* → f:ai` edges are NOT listed here — they are derived at build
+ * time from the fetchData() calls in ai/ via AI_PATH_RULES above.
+ */
 export const EDGES: [string, string][] = [
   // sources → datasets
   ["src:cik", "ds:elections"],
@@ -949,16 +1000,12 @@ export const EDGES: [string, string][] = [
   ["ds:elections", "f:risk"],
   ["ds:elections", "f:polls"],
   ["ds:elections", "f:governance"],
-  ["ds:elections", "f:ai"],
   ["ds:local", "f:local"],
   ["ds:local", "f:governance"],
-  ["ds:local", "f:ai"],
   ["ds:parliament", "f:parliament"],
   ["ds:parliament", "f:mps"],
-  ["ds:parliament", "f:ai"],
   ["ds:connections", "f:mps"],
   ["ds:connections", "f:procurement"],
-  ["ds:connections", "f:ai"],
   ["ds:officials", "f:mps"],
   ["ds:officials", "f:governance"],
   ["ds:financing", "f:financing"],
@@ -970,21 +1017,17 @@ export const EDGES: [string, string][] = [
   ["ds:funds", "f:governance"],
   ["ds:budget", "f:budget"],
   ["ds:budget", "f:governance"],
-  ["ds:budget", "f:ai"],
   ["ds:macro", "f:budget"],
   ["ds:macro", "f:indicators"],
   ["ds:macro", "f:prices"],
-  ["ds:macro", "f:ai"],
   ["ds:indicators", "f:indicators"],
   ["ds:indicators", "f:governance"],
-  ["ds:indicators", "f:ai"],
   ["ds:demographics", "f:elections"],
   ["ds:demographics", "f:risk"],
   ["ds:demographics", "f:governance"],
   ["ds:localgov", "f:governance"],
   ["ds:prices", "f:prices"],
   ["ds:prices", "f:governance"],
-  ["ds:prices", "f:ai"],
   ["ds:polls", "f:polls"],
   ["ds:polls", "f:elections"],
   ["ds:geo", "f:elections"],
