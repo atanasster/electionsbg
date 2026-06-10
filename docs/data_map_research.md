@@ -12,7 +12,8 @@ Research + design brainstorm, 2026-06-10. Companion to the /data screen. Deep-re
 - **The map IS the `/data` landing page** (restructure same day): the old combined DataScreen was split — `/data` = map (with `DataNav` pill row), `/data/sources` = full source registry + downloads (`DataSourcesScreen`), `/data/updates` = refresh log (`DataUpdatesScreen`). Redirects: `/data/map` → `/data` (preserves `?node=&view=`), `/data-changes` → `/data/updates`.
 - **Canvas sizes to the graph's aspect ratio** (width-driven, height extends proportionally, capped ~1.15×): initial zoom lands near 1:1 on desktop instead of fit-everything-tiny in a landscape box. ELK edge-routing channels are zeroed out (React Flow draws its own beziers), shrinking the graph to 968×1564. The camera no longer jumps on selection — dimming + animated arrows carry the lineage in a page-scrolled tall figure; it only re-fits on pane resize (useStore width/height subscription — fitView alone runs just once on mount).
 - Known gotchas hit: React Flow root collapses to 0 height inside a flex item (fixed with an absolute-fill wrapper); a fresh dep needs `rm -rf node_modules/.vite` or dev serves a stale optimizer cache ("Invalid hook call").
-- Not built yet (v2+ candidates): lenses (recolor by cadence/origin), walkthrough tours, AI-tool tier with `reads:` annotations, double-click ego-focus.
+- **v2 shipped same day** (3d7b36577): lenses (recolor sources by cadence/origin/freshness, `?lens=`), three guided stories (TOURS in the model → manifest; fixed bottom narration bar, page-scroll walks the steps), and mobile closure zoom on selection (desktop camera stays still).
+- Not built yet (v3 candidates): AI-tool tier with `reads:` annotations, ego-focus hide-mode, FB announcement post.
 
 ## Concept
 
