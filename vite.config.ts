@@ -92,6 +92,9 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [react(), tsconfigPaths(), serveDataDir(), stripLazyCss()],
     server: {
+      // Honor a PORT env var when one is set (e.g. a preview/dev harness that
+      // assigns a free port), otherwise fall back to Vite's default 5173.
+      port: process.env.PORT ? Number(process.env.PORT) : undefined,
       // dist/ and dist.old-* are build artifacts. The dev server never serves
       // from them, but chokidar (Vite's file watcher) sees them by default
       // and every file event there falls through to Vite's "unknown file

@@ -191,6 +191,20 @@ export const Header = () => {
       return <DropdownMenuSeparator />;
     }
     if (item.subMenu) {
+      // A `group` is a section header: flat (label + inline links) on desktop
+      // so every leaf stays one open away, but a collapsible accordion on
+      // mobile so an expanded section doesn't dump every leaf at once.
+      // Non-group sub-menus (the reports matrix) stay nested in both layouts.
+      if (item.group && !isMobile) {
+        return (
+          <>
+            <DropdownMenuLabel>{t(item.title)}</DropdownMenuLabel>
+            {item.subMenu.map((sub, idx) => (
+              <RenderMenuItem key={`${sub.title}-${idx}`} item={sub} />
+            ))}
+          </>
+        );
+      }
       return (
         <MenuSub label={t(item.title)} isMobile={isMobile}>
           {item.subMenu.map((sub, idx) => (

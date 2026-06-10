@@ -12,20 +12,24 @@
 //                     indicators & context; the long-running pillars that
 //                     span parliament terms.
 //
-// Each top-level menu is a *flat* panel: leaf links grouped under
-// non-clickable section headers (a MenuItem with neither `link` nor
-// `subMenu` renders as a DropdownMenuLabel) and separated by "-" rules.
-// Flattening keeps every leaf one open away — no nested fly-outs to hover —
-// except the reports matrix, which stays nested because of its size.
+// Each top-level menu groups leaf links under section headers. A header is a
+// `group: true` MenuItem whose `subMenu` holds the group's links. The renderer
+// adapts the same data to two layouts:
+//
+//   Desktop — the panel stays *flat*: a group renders as a non-clickable
+//     DropdownMenuLabel followed by its links inline, so every leaf is one
+//     open away with no nested fly-out to hover. (The reports matrix is the
+//     one genuine nested fly-out — it has no `group` flag.)
+//   Mobile — a group renders as a collapsible accordion, so an expanded
+//     section shows just its handful of group headers instead of every leaf
+//     at once. This keeps the hamburger tree short however many links a
+//     section accumulates.
 //
 // Both trees share the same MenuItem shape so Header.tsx's recursive
 // RenderMenuItem walks them with identical logic — only the data differs.
-// The same shape is reused on mobile (Header.tsx renders each top-level
-// entry as a collapsible DropdownMenuSub), so any subgrouping added here
-// shortens the mobile menu automatically. `mobileOnly` items (the section
-// "Overview" home links) surface only in the mobile tree — on desktop the
-// split-button title already links to the section dashboard, so they'd be
-// redundant there.
+// `mobileOnly` items (the section "Overview" home links) surface only in the
+// mobile tree — on desktop the split-button title already links to the
+// section dashboard, so they'd be redundant there.
 
 import { LATEST_LOCAL_CYCLE } from "@/data/local/useLatestLocalCycle";
 
@@ -33,6 +37,11 @@ export type MenuItem = {
   title: string;
   link?: string;
   subMenu?: MenuItem[];
+  // A section header: its `subMenu` is rendered flat (label + inline links) on
+  // desktop and as a collapsible accordion on mobile. Without this flag a
+  // `subMenu` is a true nested menu (fly-out on desktop, e.g. the reports
+  // matrix).
+  group?: boolean;
   category?: "financials" | "recount" | "preferences" | "suemg";
   // Rendered only inside the mobile hamburger tree. Used for the section
   // "Overview" home link, which the desktop split-button title supplies.
@@ -110,16 +119,26 @@ export const electionsMenu: MenuItem[] = [
     link: "/",
     subMenu: [
       { title: "menu_overview", link: "/", mobileOnly: true },
-      { title: "menu_header_analysis" },
-      { title: "risk_analysis_title", link: "/risk-analysis" },
-      { title: "benford_title", link: "/benford" },
-      { title: "wasted_votes_title", link: "/wasted-vote" },
-      { title: "persistence_title", link: "/persistence" },
-      { title: "compare_title", link: "/compare" },
+      {
+        title: "menu_header_analysis",
+        group: true,
+        subMenu: [
+          { title: "risk_analysis_title", link: "/risk-analysis" },
+          { title: "benford_title", link: "/benford" },
+          { title: "wasted_votes_title", link: "/wasted-vote" },
+          { title: "persistence_title", link: "/persistence" },
+          { title: "compare_title", link: "/compare" },
+        ],
+      },
       { title: "-" },
-      { title: "menu_header_tools_polls" },
-      { title: "coalition_simulator", link: "/simulator" },
-      { title: "polls_title", link: "/polls" },
+      {
+        title: "menu_header_tools_polls",
+        group: true,
+        subMenu: [
+          { title: "coalition_simulator", link: "/simulator" },
+          { title: "polls_title", link: "/polls" },
+        ],
+      },
       // The financing dossier and its leading rule share the "financials"
       // gate so both disappear together on cycles with no financing data.
       { title: "-", category: "financials" },
@@ -158,40 +177,50 @@ export const localMenu: MenuItem[] = [
     link: `/local/${c}`,
     subMenu: [
       { title: "menu_overview", link: `/local/${c}`, mobileOnly: true },
-      { title: "local_menu_group_results" },
       {
-        title: "local_leaderboard_mayors_by_party",
-        link: `/local/${c}/mayors-by-party`,
+        title: "local_menu_group_results",
+        group: true,
+        subMenu: [
+          {
+            title: "local_leaderboard_mayors_by_party",
+            link: `/local/${c}/mayors-by-party`,
+          },
+          {
+            title: "local_leaderboard_council_votes",
+            link: `/local/${c}/council-votes`,
+          },
+          {
+            title: "local_leaderboard_strongest_mandates",
+            link: `/local/${c}/strongest-mandates`,
+          },
+          {
+            title: "local_leaderboard_closest_races",
+            link: `/local/${c}/closest-races`,
+          },
+          { title: "local_leaderboard_swing", link: `/local/${c}/swing` },
+        ],
       },
-      {
-        title: "local_leaderboard_council_votes",
-        link: `/local/${c}/council-votes`,
-      },
-      {
-        title: "local_leaderboard_strongest_mandates",
-        link: `/local/${c}/strongest-mandates`,
-      },
-      {
-        title: "local_leaderboard_closest_races",
-        link: `/local/${c}/closest-races`,
-      },
-      { title: "local_leaderboard_swing", link: `/local/${c}/swing` },
       { title: "-" },
-      { title: "local_menu_group_places" },
       {
-        title: "local_national_municipalities",
-        link: `/local/${c}/municipalities`,
+        title: "local_menu_group_places",
+        group: true,
+        subMenu: [
+          {
+            title: "local_national_municipalities",
+            link: `/local/${c}/municipalities`,
+          },
+          { title: "local_national_runoffs", link: `/local/${c}/runoffs` },
+          {
+            title: "local_national_split_control",
+            link: `/local/${c}/split-control`,
+          },
+          {
+            title: "local_national_independents",
+            link: `/local/${c}/independents`,
+          },
+          { title: "local_all_regions", link: `/local/${c}/regions` },
+        ],
       },
-      { title: "local_national_runoffs", link: `/local/${c}/runoffs` },
-      {
-        title: "local_national_split_control",
-        link: `/local/${c}/split-control`,
-      },
-      {
-        title: "local_national_independents",
-        link: `/local/${c}/independents`,
-      },
-      { title: "local_all_regions", link: `/local/${c}/regions` },
       { title: "-" },
       { title: "chmi_feed_title", link: "/local/chmi" },
       { title: "sverka_title", link: "/sverka" },
@@ -205,33 +234,57 @@ export const governanceMenu: MenuItem[] = [
     link: "/governance",
     subMenu: [
       { title: "menu_overview", link: "/governance", mobileOnly: true },
-      { title: "menu_header_budget_spending" },
-      { title: "budget_link_label", link: "/budget" },
       {
-        title: "budget_tax_calculator_link_label",
-        link: "/budget/tax-calculator",
+        title: "menu_header_budget_spending",
+        group: true,
+        subMenu: [
+          { title: "budget_link_label", link: "/budget" },
+          {
+            title: "budget_tax_calculator_link_label",
+            link: "/budget/tax-calculator",
+          },
+          { title: "budget_policy_page_title", link: "/budget/simulator" },
+          { title: "procurement_link_label", link: "/procurement" },
+          { title: "funds_index_title", link: "/funds" },
+        ],
       },
-      { title: "procurement_link_label", link: "/procurement" },
-      { title: "funds_index_title", link: "/funds" },
       { title: "-" },
-      { title: "menu_group_parliament" },
-      { title: "dashboard_section_parliament", link: "/parliament" },
-      { title: "sessions_index_title", link: "/votes" },
-      { title: "parliament_cohesion_title", link: "/parliament/cohesion" },
-      { title: "parliament_embedding_title", link: "/parliament/embedding" },
+      {
+        title: "menu_group_parliament",
+        group: true,
+        subMenu: [
+          { title: "dashboard_section_parliament", link: "/parliament" },
+          { title: "sessions_index_title", link: "/votes" },
+          { title: "parliament_cohesion_title", link: "/parliament/cohesion" },
+          {
+            title: "parliament_embedding_title",
+            link: "/parliament/embedding",
+          },
+        ],
+      },
       { title: "-" },
-      { title: "menu_group_declarations" },
-      { title: "connections_link_label", link: "/connections" },
-      { title: "mp_assets_link_label", link: "/mp-assets" },
-      { title: "mp_cars_link_label", link: "/mp-cars" },
-      { title: "all_companies", link: "/mp/companies" },
+      {
+        title: "menu_group_declarations",
+        group: true,
+        subMenu: [
+          { title: "connections_link_label", link: "/connections" },
+          { title: "mp_assets_link_label", link: "/mp-assets" },
+          { title: "mp_cars_link_label", link: "/mp-cars" },
+          { title: "all_companies", link: "/mp/companies" },
+        ],
+      },
       { title: "-" },
-      { title: "menu_header_indicators_context" },
-      { title: "governments_title", link: "/governments" },
-      { title: "indicators_page_title", link: "/indicators" },
-      { title: "prices_page_title", link: "/prices" },
-      { title: "eu_compare_menu_label", link: "/indicators/compare" },
-      { title: "demographics_title", link: "/demographics" },
+      {
+        title: "menu_header_indicators_context",
+        group: true,
+        subMenu: [
+          { title: "governments_title", link: "/governments" },
+          { title: "indicators_page_title", link: "/indicators" },
+          { title: "prices_page_title", link: "/prices" },
+          { title: "eu_compare_menu_label", link: "/indicators/compare" },
+          { title: "demographics_title", link: "/demographics" },
+        ],
+      },
     ],
   },
 ];
