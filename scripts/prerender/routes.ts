@@ -1446,7 +1446,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     description:
       "Интерактивна карта на всички източници, които electionsbg.com обработва — кои масиви от данни се изграждат от тях и кои функции на сайта ги използват.",
     breadcrumbName: "Данни",
-    ogImage: "/og/data-changes.png",
+    ogImage: "/og/data-map.png",
     extraJsonLd: [buildDataCatalog("bg")],
     bodyHtml: `
 <h1>Карта на данните</h1>
