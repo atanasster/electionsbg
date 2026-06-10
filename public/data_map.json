@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-06-10T16:14:31.698Z",
+  "generatedAt": "2026-06-10T16:34:28.411Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -2256,6 +2256,133 @@
       "y": 150,
       "w": 296,
       "h": 1442
+    }
+  ],
+  "tours": [
+    {
+      "id": "ballot",
+      "title": {
+        "bg": "Как протоколът става карта",
+        "en": "How a protocol becomes a map"
+      },
+      "steps": [
+        {
+          "node": "src:cik",
+          "text": {
+            "bg": "Всичко започва в ЦИК: след всеки вот протоколите на секционните комисии се публикуват на results.cik.bg.",
+            "en": "Everything starts at the election commission: after every vote the section protocols are published on results.cik.bg."
+          }
+        },
+        {
+          "node": "ds:elections",
+          "text": {
+            "bg": "Пайплайнът ги превръща в единен масив — резултати по секция, населено място, община и област, за всеки вот от 2005 г. насам.",
+            "en": "The pipeline turns them into one dataset — results by section, settlement, municipality and region, for every vote since 2005."
+          }
+        },
+        {
+          "node": "f:elections",
+          "text": {
+            "bg": "Върху него стъпват интерактивните карти — от националното ниво чак до всяка отделна секция.",
+            "en": "The interactive maps stand on top of it — from the national level all the way down to each individual section."
+          }
+        },
+        {
+          "node": "f:risk",
+          "text": {
+            "bg": "Същите числа захранват и рисковите анализи — Бенфорд отклонения, клъстери на контролиран вот, повторни преброявания.",
+            "en": "The same numbers also power the risk analysis — Benford deviations, controlled-voting clusters, recount shifts."
+          }
+        },
+        {
+          "node": "f:ai",
+          "text": {
+            "bg": "А AI асистентът отговаря на въпроси върху същите данни — с точните числа от протоколите.",
+            "en": "And the AI assistant answers questions over the same data — with the exact numbers from the protocols."
+          }
+        }
+      ]
+    },
+    {
+      "id": "money",
+      "title": {
+        "bg": "Пътят на публичните пари",
+        "en": "Following the public money"
+      },
+      "steps": [
+        {
+          "node": "src:dv",
+          "text": {
+            "bg": "Законът за бюджета се обнародва в Държавен вестник — с трансферите към общините и инвестиционната програма по проекти.",
+            "en": "The budget law is promulgated in the State Gazette — with the municipal transfers and the per-project investment programme."
+          }
+        },
+        {
+          "node": "src:egov",
+          "text": {
+            "bg": "Касовото изпълнение, обществените поръчки и общинските бюджети идват от националния портал за отворени данни.",
+            "en": "Cash execution, public procurement and municipal budgets come from the national open-data portal."
+          }
+        },
+        {
+          "node": "ds:budget",
+          "text": {
+            "bg": "Планът се сверява с изпълнението — по министерства, програми и капиталови проекти, до ниво община.",
+            "en": "The plan is reconciled against execution — by ministry, programme and capital project, down to municipality level."
+          }
+        },
+        {
+          "node": "f:budget",
+          "text": {
+            "bg": "Резултатът: бюджетът във визуален вид плюс данъчният симулатор „какво ако“.",
+            "en": "The result: the budget made visual, plus the what-if tax simulator."
+          }
+        },
+        {
+          "node": "f:governance",
+          "text": {
+            "bg": "И всичко се връзва по места — таблото на твоята община показва нейните пари, проекти и поръчки.",
+            "en": "And it all ties back to places — your municipality's dashboard shows its money, projects and contracts."
+          }
+        }
+      ]
+    },
+    {
+      "id": "prices",
+      "title": {
+        "bg": "Цените: от рафта до екрана",
+        "en": "Prices: from the shelf to the screen"
+      },
+      "steps": [
+        {
+          "node": "src:kzp",
+          "text": {
+            "bg": "КЗП публикува всеки ден 1,45 млн. цени от 207 търговски вериги — отворен файл на kolkostruva.bg.",
+            "en": "The consumer-protection commission publishes 1.45M prices from 207 retail chains every day — an open file on kolkostruva.bg."
+          }
+        },
+        {
+          "node": "ds:prices",
+          "text": {
+            "bg": "Пайплайнът ги агрегира по населено място и продукт — мин/средна/макс цена и индекси от въвеждането на еврото.",
+            "en": "The pipeline aggregates them by settlement and product — min/average/max prices and indices since euro adoption."
+          }
+        },
+        {
+          "node": "f:prices",
+          "text": {
+            "bg": "Така виждаш къде кошницата е скъпа и къде — не, и как се движат цените след еврото.",
+            "en": "So you can see where the basket is expensive and where it is not — and how prices move after the euro."
+          }
+        },
+        {
+          "node": "f:governance",
+          "text": {
+            "bg": "Цените влизат и в таблото на твоето населено място — редом с данъците и бюджета му.",
+            "en": "Prices also feed your place's dashboard — right next to its taxes and budget."
+          }
+        }
+      ]
     }
   ]
 }

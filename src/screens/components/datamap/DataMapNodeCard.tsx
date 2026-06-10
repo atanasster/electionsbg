@@ -12,6 +12,8 @@ export type CardNodeData = {
   fresh: boolean;
   freshTitle?: string;
   kindLabel: string;
+  /** Active lens colour (CSS expression) — overrides the kind dot/tint. */
+  lensColor?: string;
   onActivate: (id: string) => void;
 };
 
@@ -37,11 +39,25 @@ const KIND_TINT: Record<DataMapKind, string> = {
 const handleClass = "!h-px !w-px !min-h-0 !min-w-0 !border-0 !bg-transparent";
 
 export const DataMapNodeCard = memo(({ data }: NodeProps<CardNodeType>) => {
-  const { node, lang, status, fresh, freshTitle, kindLabel, onActivate } = data;
+  const {
+    node,
+    lang,
+    status,
+    fresh,
+    freshTitle,
+    kindLabel,
+    lensColor,
+    onActivate,
+  } = data;
   return (
     <div
       role="button"
       tabIndex={0}
+      style={
+        lensColor
+          ? { background: `color-mix(in srgb, ${lensColor} 12%, transparent)` }
+          : undefined
+      }
       aria-label={`${kindLabel}: ${node.label[lang]}`}
       aria-pressed={status === "selected"}
       onKeyDown={(e) => {
@@ -73,6 +89,7 @@ export const DataMapNodeCard = memo(({ data }: NodeProps<CardNodeType>) => {
       <div className="flex items-center gap-1.5 min-w-0">
         <span
           aria-hidden
+          style={lensColor ? { background: lensColor } : undefined}
           className={cn("h-2 w-2 rounded-full shrink-0", KIND_DOT[node.kind])}
         />
         <span className="truncate text-[13px] font-semibold leading-tight text-foreground">

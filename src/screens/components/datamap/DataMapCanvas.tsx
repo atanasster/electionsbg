@@ -15,7 +15,9 @@ import "@xyflow/react/dist/style.css";
 import "./datamap.css";
 import {
   dataMapClosure,
+  dataMapLensColor,
   type DataMapKind,
+  type DataMapLens,
   type DataMapManifest,
 } from "@/data/dataMap/useDataMap";
 import {
@@ -35,6 +37,7 @@ type Props = {
   freshness: Map<string, string>;
   freshLabel: string;
   kindLabels: Record<DataMapKind, string>;
+  lens: DataMapLens;
   onSelect: (id: string | null) => void;
 };
 
@@ -42,18 +45,34 @@ type Props = {
 // within the last 7 days.
 const FRESH_WINDOW_MS = 7 * 24 * 3600 * 1000;
 
-// The canvas is sized to the graph's aspect ratio, so the whole map is
-// visible at ~1:1 — the camera stays still during selection (dimming and
-// arrows carry the lineage) and only re-fits when the pane is resized.
-const CameraDirector: FC = () => {
+// The canvas is sized to the graph's aspect ratio, so on desktop the whole
+// map is readable at ~1:1 and the camera stays still during selection
+// (dimming and arrows carry the lineage); it re-fits only when the pane is
+// resized. On narrow panes the base zoom is too small to read, so there a
+// selection zooms the camera to the closure instead.
+const MOBILE_PANE_PX = 700;
+
+const CameraDirector: FC<{ focusIds: string[] }> = ({ focusIds }) => {
   const { fitView } = useReactFlow();
   const dims = useStore((s) => `${s.width}x${s.height}`);
+  const narrow = useStore((s) => s.width > 0 && s.width < MOBILE_PANE_PX);
+  const focusKey = narrow ? focusIds.join(",") : "";
   useEffect(() => {
     const id = window.setTimeout(() => {
-      fitView({ duration: 300, padding: 0.03, maxZoom: 1.15 });
+      if (narrow && focusIds.length) {
+        fitView({
+          nodes: focusIds.map((id) => ({ id })),
+          duration: 500,
+          padding: 0.15,
+          maxZoom: 1,
+        });
+      } else {
+        fitView({ duration: 300, padding: 0.03, maxZoom: 1.15 });
+      }
     }, 30);
     return () => window.clearTimeout(id);
-  }, [fitView, dims]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fitView, dims, narrow, focusKey]);
   return null;
 };
 
@@ -65,6 +84,7 @@ const InnerCanvas: FC<Props> = ({
   freshness,
   freshLabel,
   kindLabels,
+  lens,
   onSelect,
 }) => {
   const [hoverId, setHoverId] = useState<string | null>(null);
@@ -114,6 +134,8 @@ const InnerCanvas: FC<Props> = ({
       const freshAt = freshness.get(n.id) ?? n.freshness;
       const fresh =
         !!freshAt && now - new Date(freshAt).getTime() < FRESH_WINDOW_MS;
+      const lensColor =
+        lens === "none" ? undefined : dataMapLensColor(lens, n, freshAt, now);
       return {
         id: n.id,
         type: "card",
@@ -129,6 +151,7 @@ const InnerCanvas: FC<Props> = ({
             ? `${freshLabel}: ${freshAt!.slice(0, 10)}`
             : undefined,
           kindLabel: kindLabels[n.kind],
+          lensColor,
           onActivate: (id: string) => onSelect(id === selectedId ? null : id),
         },
         draggable: false,
@@ -149,6 +172,7 @@ const InnerCanvas: FC<Props> = ({
     freshness,
     freshLabel,
     kindLabels,
+    lens,
     onSelect,
     now,
   ]);
@@ -237,7 +261,7 @@ const InnerCanvas: FC<Props> = ({
           color="hsl(var(--border))"
         />
         <Controls showInteractive={false} position="bottom-right" />
-        <CameraDirector />
+        <CameraDirector focusIds={closure ? [...closure] : []} />
       </ReactFlow>
     </div>
   );

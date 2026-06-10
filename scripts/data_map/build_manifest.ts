@@ -22,6 +22,7 @@ import {
   FEATURES,
   SOURCE_GROUPS,
   TIERS,
+  TOURS,
   VIEWS,
   type Lang,
   type Origin,
@@ -86,6 +87,7 @@ export interface DataMapManifest {
   edges: { id: string; from: string; to: string }[];
   views: { id: string; label: Lang; tag: string | null }[];
   tiers: ManifestTier[];
+  tours: { id: string; title: Lang; steps: { node: string; text: Lang }[] }[];
 }
 
 const fail = (msg: string): never => {
@@ -164,6 +166,13 @@ const validate = (): void => {
     for (const t of n.tags)
       if (!viewTags.has(t))
         fail(`node "${n.id}" carries tag "${t}" with no matching view`);
+  }
+
+  for (const tour of TOURS) {
+    if (!tour.steps.length) fail(`tour "${tour.id}" has no steps`);
+    for (const s of tour.steps)
+      if (!nodeIds.has(s.node))
+        fail(`tour "${tour.id}" step references unknown node "${s.node}"`);
   }
 };
 
@@ -342,6 +351,7 @@ const main = async (): Promise<void> => {
     edges: EDGES.map(([from, to], i) => ({ id: `e${i}`, from, to })),
     views: VIEWS,
     tiers,
+    tours: TOURS,
   };
 
   fs.writeFileSync(OUT_FILE, `${JSON.stringify(manifest, null, 2)}\n`);

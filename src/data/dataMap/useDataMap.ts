@@ -55,6 +55,12 @@ export type DataMapTier = {
   h: number;
 };
 
+export type DataMapTour = {
+  id: string;
+  title: DataMapLang;
+  steps: { node: string; text: DataMapLang }[];
+};
+
 export type DataMapManifest = {
   version: number;
   generatedAt: string;
@@ -62,6 +68,54 @@ export type DataMapManifest = {
   edges: DataMapEdge[];
   views: DataMapView[];
   tiers: DataMapTier[];
+  tours: DataMapTour[];
+};
+
+export type DataMapLens = "none" | "cadence" | "origin" | "fresh";
+
+/** Lens value → CSS color expression, applied to source-group nodes. */
+export const dataMapLensColor = (
+  lens: DataMapLens,
+  node: DataMapNode,
+  freshAt: string | undefined,
+  now: number,
+): string | undefined => {
+  if (node.kind !== "source") return undefined;
+  if (lens === "cadence") {
+    switch (node.cadence) {
+      case "hourly":
+      case "daily":
+        return "hsl(var(--chart-1))";
+      case "weekly":
+        return "hsl(var(--chart-3))";
+      case "monthly":
+        return "hsl(var(--chart-4))";
+      default:
+        return "hsl(var(--muted-foreground))";
+    }
+  }
+  if (lens === "origin") {
+    switch (node.origin) {
+      case "state":
+        return "hsl(var(--chart-4))";
+      case "eu":
+        return "hsl(var(--chart-2))";
+      case "intl":
+        return "hsl(var(--chart-5))";
+      case "community":
+        return "hsl(var(--chart-3))";
+      default:
+        return undefined;
+    }
+  }
+  if (lens === "fresh") {
+    if (!freshAt) return "hsl(var(--muted-foreground))";
+    const age = now - new Date(freshAt).getTime();
+    if (age < 7 * 24 * 3600 * 1000) return "hsl(var(--chart-1))";
+    if (age < 30 * 24 * 3600 * 1000) return "hsl(var(--chart-3))";
+    return "hsl(var(--chart-5))";
+  }
+  return undefined;
 };
 
 const fetchDataMap = async (): Promise<DataMapManifest> => {

@@ -1,13 +1,47 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router-dom";
 import { Title } from "@/ux/Title";
 import { cn } from "@/lib/utils";
-import { useDataMap } from "@/data/dataMap/useDataMap";
+import { useDataMap, type DataMapLens } from "@/data/dataMap/useDataMap";
 import { useDataChanges } from "@/data/dataChanges/useDataChanges";
 import { DataMapCanvas } from "@/screens/components/datamap/DataMapCanvas";
 import { DataMapPanel } from "@/screens/components/datamap/DataMapPanel";
+import { DataMapTourBar } from "@/screens/components/datamap/DataMapTourBar";
 import { DataNav } from "@/screens/components/DataNav";
+
+const LENSES: DataMapLens[] = ["none", "cadence", "origin", "fresh"];
+
+// Legend entries per lens: colour expression + i18n key.
+const LENS_LEGEND: Record<
+  Exclude<DataMapLens, "none">,
+  { color: string; labelKey: string }[]
+> = {
+  cadence: [
+    { color: "hsl(var(--chart-1))", labelKey: "data_map_cadence_daily" },
+    { color: "hsl(var(--chart-3))", labelKey: "data_map_cadence_weekly" },
+    { color: "hsl(var(--chart-4))", labelKey: "data_map_cadence_monthly" },
+    {
+      color: "hsl(var(--muted-foreground))",
+      labelKey: "data_map_fresh_static",
+    },
+  ],
+  origin: [
+    { color: "hsl(var(--chart-4))", labelKey: "data_map_origin_state" },
+    { color: "hsl(var(--chart-2))", labelKey: "data_map_origin_eu" },
+    { color: "hsl(var(--chart-5))", labelKey: "data_map_origin_intl" },
+    { color: "hsl(var(--chart-3))", labelKey: "data_map_origin_community" },
+  ],
+  fresh: [
+    { color: "hsl(var(--chart-1))", labelKey: "data_map_fresh_7" },
+    { color: "hsl(var(--chart-3))", labelKey: "data_map_fresh_30" },
+    { color: "hsl(var(--chart-5))", labelKey: "data_map_fresh_old" },
+    {
+      color: "hsl(var(--muted-foreground))",
+      labelKey: "data_map_fresh_static",
+    },
+  ],
+};
 
 export const DataMapScreen = () => {
   const { t, i18n } = useTranslation();
@@ -31,18 +65,36 @@ export const DataMapScreen = () => {
     [setSearchParams],
   );
 
-  const rawNode = searchParams.get("node");
-  const selectedId = useMemo(
-    () =>
-      rawNode && manifest?.nodes.some((n) => n.id === rawNode) ? rawNode : null,
-    [rawNode, manifest],
-  );
-
   const viewId = searchParams.get("view") ?? "all";
   const viewTag = useMemo(
     () => manifest?.views.find((v) => v.id === viewId)?.tag ?? null,
     [manifest, viewId],
   );
+
+  const rawLens = searchParams.get("lens") as DataMapLens | null;
+  const lens: DataMapLens =
+    rawLens && LENSES.includes(rawLens) ? rawLens : "none";
+
+  // Guided story state — while a story runs, its current step drives the
+  // selection (closure highlight + detail panel).
+  const [story, setStory] = useState<{ id: string; step: number } | null>(null);
+  const activeTour = useMemo(
+    () =>
+      story ? (manifest?.tours.find((t) => t.id === story.id) ?? null) : null,
+    [manifest, story],
+  );
+  const storyStep =
+    activeTour && story
+      ? Math.min(Math.max(story.step, 0), activeTour.steps.length - 1)
+      : 0;
+
+  const rawNode = searchParams.get("node");
+  const selectedId = useMemo(() => {
+    if (activeTour) return activeTour.steps[storyStep].node;
+    return rawNode && manifest?.nodes.some((n) => n.id === rawNode)
+      ? rawNode
+      : null;
+  }, [rawNode, manifest, activeTour, storyStep]);
 
   // Live freshness overlay: data-changes.json (refreshed with every ingest,
   // served from the data bucket) can be newer than the build-time stamp in
@@ -66,10 +118,35 @@ export const DataMapScreen = () => {
     return map;
   }, [manifest, changes]);
 
+  // A manual node click takes over from a running story.
   const onSelect = useCallback(
-    (id: string | null) => setParam("node", id),
+    (id: string | null) => {
+      setStory(null);
+      setParam("node", id);
+    },
     [setParam],
   );
+
+  const onStartTour = useCallback(
+    (id: string) => {
+      setParam("node", null);
+      setStory({ id, step: 0 });
+    },
+    [setParam],
+  );
+
+  // Bring the story's current node into view — the camera stays still on
+  // desktop, so the page scroll is what walks the reader along the map.
+  useEffect(() => {
+    if (!activeTour) return;
+    const nodeId = activeTour.steps[storyStep].node;
+    const timer = window.setTimeout(() => {
+      document
+        .querySelector(`.react-flow__node[data-id="${CSS.escape(nodeId)}"]`)
+        ?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 80);
+    return () => window.clearTimeout(timer);
+  }, [activeTour, storyStep]);
 
   // Size the canvas to the graph's own aspect ratio (width-driven) so the
   // initial fit lands near 1:1 zoom and stays readable — a fixed landscape
@@ -83,16 +160,17 @@ export const DataMapScreen = () => {
   }, [manifest]);
 
   // On narrow screens the detail panel renders below the canvas — nudge it
-  // into view when a node is picked so the tap visibly "answers".
+  // into view when a node is picked so the tap visibly "answers". During a
+  // story the bottom bar carries the narration instead.
   useEffect(() => {
-    if (!selectedId || window.innerWidth >= 1024) return;
+    if (!selectedId || story || window.innerWidth >= 1024) return;
     const id = window.setTimeout(() => {
       document
         .getElementById("datamap-panel")
         ?.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }, 550);
     return () => window.clearTimeout(id);
-  }, [selectedId]);
+  }, [selectedId, story]);
 
   return (
     <>
@@ -138,6 +216,42 @@ export const DataMapScreen = () => {
         </div>
       ) : (
         <>
+          <div className="mb-2 flex flex-wrap items-center justify-center gap-x-2 gap-y-1.5 text-xs lg:justify-start">
+            <span className="text-muted-foreground">{t("data_map_lens")}:</span>
+            {LENSES.map((l) => (
+              <button
+                key={l}
+                type="button"
+                aria-pressed={l === lens}
+                onClick={() => setParam("lens", l === "none" ? null : l)}
+                className={cn(
+                  "rounded-full border px-2.5 py-0.5 font-medium transition-colors",
+                  l === lens
+                    ? "border-accent bg-accent text-accent-foreground"
+                    : "border-border bg-secondary/40 text-secondary-foreground hover:border-accent",
+                )}
+              >
+                {t(`data_map_lens_${l}`)}
+              </button>
+            ))}
+            {lens !== "none" ? (
+              <span className="ml-2 inline-flex flex-wrap items-center gap-x-3 gap-y-1 text-muted-foreground">
+                {LENS_LEGEND[lens].map((e) => (
+                  <span
+                    key={e.labelKey}
+                    className="inline-flex items-center gap-1"
+                  >
+                    <span
+                      aria-hidden
+                      className="h-2 w-2 rounded-full"
+                      style={{ background: e.color }}
+                    />
+                    {t(e.labelKey)}
+                  </span>
+                ))}
+              </span>
+            ) : null}
+          </div>
           <div className="flex flex-col gap-4 lg:flex-row">
             <div
               className="relative min-h-[420px] w-full flex-1 overflow-hidden rounded-xl border border-border bg-card/30"
@@ -158,6 +272,7 @@ export const DataMapScreen = () => {
                   dataset: t("data_map_kind_dataset"),
                   feature: t("data_map_kind_feature"),
                 }}
+                lens={lens}
                 onSelect={onSelect}
               />
             </div>
@@ -168,10 +283,20 @@ export const DataMapScreen = () => {
                 selectedId={selectedId}
                 freshness={freshness}
                 onSelect={onSelect}
+                onStartTour={onStartTour}
                 className="lg:sticky lg:top-20 lg:max-h-[74vh] lg:overflow-y-auto"
               />
             </div>
           </div>
+          {activeTour ? (
+            <DataMapTourBar
+              tour={activeTour}
+              step={storyStep}
+              lang={lang}
+              onStep={(step) => setStory({ id: activeTour.id, step })}
+              onExit={() => setStory(null)}
+            />
+          ) : null}
           <p className="mx-auto mt-5 max-w-3xl text-center text-xs leading-5 text-muted-foreground">
             {t("data_map_method")}{" "}
             <Link
