@@ -71,7 +71,17 @@ const loadIndex = async (): Promise<DatasetIndexFile> => {
   return fetchDatasetIndex({ rawFolder });
 };
 
-// Probe one resource: GET, check status, cancel the body without downloading.
+// Smallest body we'll treat as a real payload. Mirrors the same guard in
+// fetchDailyResource — a recovered day is MBs; the broken window serves "[]".
+const MIN_REAL_BYTES = 32;
+
+// Probe one resource: GET and decide if the day has REAL content. A status
+// check alone is not enough — data.egov.bg's broken historical window now
+// answers 200 with an empty 2-byte "[]" body instead of the old 500, so a
+// status-only probe false-positives "recovered" and triggers a pointless
+// full backfill that then fails every day on the <32-byte guard. Require a
+// non-trivial body: trust Content-Length when present (cheap — avoids
+// downloading the MBs of a genuinely recovered day), else read and measure.
 const probeOne = async (e: TrDatasetEntry): Promise<boolean> => {
   const url = `https://data.egov.bg/resource/download/${e.uuid}/json`;
   const ac = new AbortController();
@@ -81,8 +91,18 @@ const probeOne = async (e: TrDatasetEntry): Promise<boolean> => {
       headers: { "User-Agent": UA, Accept: "application/json" },
       signal: ac.signal,
     });
-    await res.body?.cancel().catch(() => {});
-    return res.status === 200;
+    if (res.status !== 200) {
+      await res.body?.cancel().catch(() => {});
+      return false;
+    }
+    const len = res.headers.get("content-length");
+    if (len !== null) {
+      await res.body?.cancel().catch(() => {});
+      return Number(len) >= MIN_REAL_BYTES;
+    }
+    // No Content-Length (chunked) — read the body and measure it directly.
+    const text = await res.text();
+    return text.length >= MIN_REAL_BYTES;
   } catch {
     return false;
   } finally {
