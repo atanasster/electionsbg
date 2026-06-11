@@ -414,6 +414,14 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
 
    **Re-seed (rarely):** if you ever need to rebuild `data/data-changes.json` from current `state/ingest/*.json` markers, run `npx tsx scripts/seed-data-changes.ts`. The seeder applies the same no-op filter, so it's safe to re-run.
 
+7. **Final post-step: refresh the data map.** After the alerts feed, unconditionally run:
+
+   ```bash
+   npm run data:map
+   ```
+
+   This rebuilds `data/data_map.json` — the `/data` map manifest — baking the latest per-source freshness from `state/watch` and reflecting the watched-sources registry. Like the alerts feed it's a derived rebuild (a function of what's now in `data/` + the registry), not an upstream ingest, so don't stamp it as a skill. The write is **churn-free**: if nothing but the `generatedAt` stamp would change, the file is left untouched, so a quiet day produces no diff. The manifest lives under `data/`, so it ships to the live SPA via the same `bucket:sync` below — no Firebase site deploy is needed to refresh the map.
+
 ## Bootstrap (first orchestrator run after this migration)
 
 When `state/ingest/<skill>.json` is missing for a queued skill, you have two paths — ASK the user which:

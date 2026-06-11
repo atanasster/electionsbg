@@ -34,6 +34,7 @@ const DRY = process.argv.includes("--dry-run") || process.argv.includes("-n");
 
 // Files present once at the data root (globals + cross-cutting indexes).
 const GLOBAL_FILES = [
+  "data_map.json",
   "settlements.json",
   "municipalities.json",
   "canonical_parties.json",

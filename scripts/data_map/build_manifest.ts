@@ -1,13 +1,21 @@
 // Build the /data/map manifest: validate the curated model against the
 // watcher registry, inject freshness from state/watch, run the ELK layered
 // layout offline (the ~1.4 MB engine never ships to the client) and write
-// the positioned graph to public/data_map.json.
+// the positioned graph to data/data_map.json.
 //
 //   npm run data:map
 //
-// Runs as part of `prebuild`, so every deploy refreshes layout + freshness
-// and a watcher source missing from the map FAILS the build — that is the
-// extensibility contract: new sources must be placed on the map.
+// The manifest lives under data/ (not public/) so it is served from the GCS
+// data bucket like every other dataset — a data refresh ships it via
+// `bucket:sync` without redeploying the whole site. It is regenerated in two
+// places: as part of `prebuild` (so a watcher source missing from the map
+// FAILS the build — the extensibility contract that new sources must be
+// placed on the map), and as a derived post-step of the /process-watch-report
+// ingestion flow (so the baked freshness tracks newly-ingested data).
+//
+// The write is churn-free: if the only difference from the existing file is
+// the `generatedAt` timestamp, the file is left untouched so a no-op rebuild
+// produces no git diff and no needless bucket re-upload.
 
 import fs from "fs";
 import path from "path";
@@ -34,7 +42,7 @@ const ROOT = path.resolve(
   "../..",
 );
 const STATE_DIR = path.join(ROOT, "state/watch");
-const OUT_FILE = path.join(ROOT, "public/data_map.json");
+const OUT_FILE = path.join(ROOT, "data/data_map.json");
 
 const NODE_W = 240;
 const NODE_H = 62;
@@ -427,7 +435,22 @@ const main = async (): Promise<void> => {
     tours: TOURS,
   };
 
-  fs.writeFileSync(OUT_FILE, `${JSON.stringify(manifest, null, 2)}\n`);
+  // Churn-free write: keep the existing file (and its `generatedAt`) when the
+  // only thing that would change is the timestamp — a no-op rebuild then leaves
+  // no git diff and triggers no bucket re-upload.
+  const next = `${JSON.stringify(manifest, null, 2)}\n`;
+  const sansStamp = (s: string): string =>
+    s.replace(/^\s*"generatedAt":\s*"[^"]*",\n/m, "");
+  const unchanged =
+    fs.existsSync(OUT_FILE) &&
+    sansStamp(fs.readFileSync(OUT_FILE, "utf-8")) === sansStamp(next);
+  if (unchanged) {
+    console.log(
+      `data_map: unchanged — kept ${path.relative(ROOT, OUT_FILE)} (no rewrite)`,
+    );
+    return;
+  }
+  fs.writeFileSync(OUT_FILE, next);
   const fresh = nodes.filter((n) => n.freshness).length;
   console.log(
     `data_map: wrote ${path.relative(ROOT, OUT_FILE)} — ${nodes.length} nodes ` +

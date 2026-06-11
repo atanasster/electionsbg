@@ -1,9 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
+import { dataUrl } from "@/data/dataUrl";
 
 // Types mirror the manifest emitted by scripts/data_map/build_manifest.ts.
-// The manifest is bundled with the site (public/data_map.json) — structure,
-// layout and labels are code-coupled; live freshness is overlaid at runtime
-// from data-changes.json (see useDataMapFreshness in DataMapScreen).
+// The manifest is served from the GCS data bucket (data/data_map.json), not
+// bundled into the site — so a data refresh re-ships it via `bucket:sync`
+// without a full Firebase deploy. Structure, layout and labels are still
+// code-coupled; live freshness is overlaid at runtime from data-changes.json
+// (see the freshness memo in DataMapScreen).
 
 export type DataMapKind = "source" | "dataset" | "feature";
 
@@ -119,15 +122,15 @@ export const dataMapLensColor = (
 };
 
 const fetchDataMap = async (): Promise<DataMapManifest> => {
-  const res = await fetch("/data_map.json");
+  const res = await fetch(dataUrl("/data_map.json"));
   if (!res.ok) throw new Error(`data_map.json: HTTP ${res.status}`);
   const m = (await res.json()) as DataMapManifest;
-  // The manifest is code-coupled but served with a long CDN cache
-  // (stale-while-revalidate up to a week), so a returning visitor can get a
-  // freshly-hashed JS bundle paired with an older cached data_map.json that
-  // predates a field (e.g. `tours`, added in v2). Coerce every array field so
-  // no consumer reads `.length`/`.map` of undefined — the page renders with
-  // whatever the cached copy carries and self-heals once SWR refreshes it.
+  // The manifest is code-coupled but cached at the CDN (and in the browser),
+  // so a returning visitor can get a freshly-hashed JS bundle paired with an
+  // older cached data_map.json that predates a field (e.g. `tours`, added in
+  // v2). Coerce every array field so no consumer reads `.length`/`.map` of
+  // undefined — the page renders with whatever the cached copy carries and
+  // self-heals once the cache refreshes.
   return {
     ...m,
     nodes: m.nodes ?? [],
