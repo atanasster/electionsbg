@@ -73,6 +73,15 @@ const SearchInternal: FC = () => {
         selectedOption.item.name,
       );
 
+      // Synthetic entries (София / Столична община) carry an explicit path
+      // since they don't map to a /<type>/<key> route.
+      if (selectedOption.item.path) {
+        navigate({ pathname: selectedOption.item.path });
+        setOpen(false);
+        inputRef?.current?.blur();
+        return;
+      }
+
       switch (selectedOption.item.type) {
         case "c":
           navigate({ pathname: `/section/${selectedOption.item.key}` });
@@ -81,6 +90,10 @@ const SearchInternal: FC = () => {
           navigate({ pathname: `/sections/${selectedOption.item.key}` });
           break;
         case "m":
+          navigate({ pathname: `/settlement/${selectedOption.item.key}` });
+          break;
+        case "d":
+          // район shard — same route family as a município (/settlement/S2xxx).
           navigate({ pathname: `/settlement/${selectedOption.item.key}` });
           break;
         case "r":

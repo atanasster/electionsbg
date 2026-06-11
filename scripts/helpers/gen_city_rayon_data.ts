@@ -6,8 +6,15 @@
 //   data/maps/city_rayons/<muni>.json        район polygons (geometry, once)
 //   data/<election>/rayon/<muni>.json         район results (per election)
 //
-// район geometry = Voronoi over deduped section coords, dissolved per район,
-// clipped to the city outline. район code -> name is OSM-hall-verified.
+// район MEMBERSHIP and vote results come straight from ЦИК's section code, NOT
+// from geography: the 9-digit "Пълен код на секция" = МИР(2) + община(2) +
+// админ. район(2) + секция(3), so digits 5-6 (id.slice(4, 6)) ARE the админ.
+// район. код -> name (NAMES below) uses the official names from the Закон за
+// териториалното деление на Столичната община и големите градове, verified
+// against per-код section-coordinate centroids (all 6 PDV + 5 VAR consistent).
+// Only the район POLYGONS are an approximation: there is no official район GIS,
+// so we Voronoi over deduped section coords, dissolve per район, and clip to the
+// city outline — good enough for map shading, but not a cadastre.
 // Mobile/ship sections (район code 00) are summed into a separate `_mobile`
 // entry with no polygon so no voter is dropped.
 //

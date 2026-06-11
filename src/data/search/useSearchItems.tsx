@@ -11,6 +11,8 @@ import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { dataUrl } from "@/data/dataUrl";
 import { transliterateName } from "@/data/candidates/transliterateName";
+import { SOFIA_CITY_GOVERNANCE_ID } from "@/data/local/placeViews";
+import { buildPlaceItems } from "./placeSearchItems";
 import { SEARCH_FUSE_OPTIONS } from "./searchConfig";
 import type { SearchVoteIndexFile } from "../parliament/votes/types";
 
@@ -116,18 +118,24 @@ const queryFn = async ({
 };
 
 export type SearchIndexType = {
-  // s=settlement, m=municipality, r=region, c=section, a=candidate/MP,
+  // s=settlement, m=municipality, d=район (admin district of a община с
+  //   районно деление — Sofia's 24 S2xxx shards; labelled "район" not "община"),
+  // r=region, c=section, a=candidate/MP,
   // b=budget unit (ministry / spending unit on /budget/ministry/:id),
   // v=roll-call vote item (key = "${date}|${slug}"),
   // o=municipal official (mayor / chair / deputy mayor / councillor /
   //   chief architect — from data/officials/municipal/. Key is the slug
   //   used at /officials/<slug>.)
-  type: "s" | "m" | "r" | "c" | "a" | "b" | "v" | "o";
+  type: "s" | "m" | "d" | "r" | "c" | "a" | "b" | "v" | "o";
   key: string;
   name: string;
   name_en?: string;
   parentName?: string;
   parentName_en?: string;
+  // Explicit navigation target. When set, the search picks this path verbatim
+  // instead of deriving one from `type` + `key` (used for the synthetic
+  // София / Столична община entries that don't map to a /<type>/<key> route).
+  path?: string;
   photoUrl?: string;
   // candidate (type "a") only: the party label + colour, so namesakes are
   // told apart in the dropdown (display-only — not a Fuse search key).
@@ -154,22 +162,15 @@ export const useSearchItems = () => {
   const { data: municipalOfficials } = useMunicipalSearchIndex();
   const fuse = useMemo(() => {
     if (settlements && municipalities && sections) {
-      const regionByCode = new Map(regions.map((r) => [r.oblast, r]));
-      const muniByCode = new Map(municipalities.map((m) => [m.obshtina, m]));
-      const searchItems: SearchIndexType[] = settlements.map((s) => {
-        const muni = muniByCode.get(s.obshtina);
-        const region = regionByCode.get(s.oblast);
-        const parts = [muni?.name, region?.name].filter(Boolean);
-        const partsEn = [muni?.name_en, region?.name_en].filter(Boolean);
-        return {
-          type: "s",
-          key: s.ekatte,
-          name: s.name,
-          name_en: s.name_en,
-          parentName: parts.length ? parts.join(", ") : undefined,
-          parentName_en: partsEn.length ? partsEn.join(", ") : undefined,
-        };
-      });
+      // Settlements + municipalities (Sofia's S2xxx shards surfaced as "район")
+      // come from the shared builder; this fat index then adds sections,
+      // regions, candidates, budget units, officials, votes and the synthetic
+      // city rows below.
+      const searchItems: SearchIndexType[] = buildPlaceItems(
+        settlements,
+        municipalities,
+        regions,
+      );
       sections.forEach((s) => {
         searchItems.push({
           type: "c",
@@ -180,17 +181,6 @@ export const useSearchItems = () => {
           parentName_en: s.settlement,
         });
       });
-      municipalities.forEach((m) => {
-        const region = regionByCode.get(m.oblast);
-        searchItems.push({
-          type: "m",
-          key: m.obshtina,
-          name: m.name,
-          name_en: m.name_en,
-          parentName: region?.name,
-          parentName_en: region?.name_en,
-        });
-      });
       regions.forEach((r) => {
         searchItems.push({
           type: "r",
@@ -198,6 +188,32 @@ export const useSearchItems = () => {
           name: r.name,
           name_en: r.name_en,
         });
+      });
+
+      // София / Столична община have no plain entry in the trees above — the
+      // city fans across МИР 23/24/25 (no single oblast/settlement row) and
+      // Столична община is split into the 24 S2xxx район shards (no unified
+      // "Столична" município). Both queries returned nothing. Two synthetic
+      // rows fix that, with explicit paths since neither maps to a
+      // /<type>/<key> route. The "(София)" on the município lets a "София"
+      // query surface Столична община too.
+      searchItems.push({
+        type: "s",
+        key: "sofia-city",
+        name: "София",
+        name_en: "Sofia",
+        parentName: "Столична община",
+        parentName_en: "Stolichna municipality",
+        path: "/sofia",
+      });
+      searchItems.push({
+        type: "m",
+        key: SOFIA_CITY_GOVERNANCE_ID,
+        name: "Столична община (София)",
+        name_en: "Stolichna (Sofia) municipality",
+        parentName: "София-град",
+        parentName_en: "Sofia-grad",
+        path: `/governance/${SOFIA_CITY_GOVERNANCE_ID}`,
       });
       // Candidates / MPs — one entry per DISTINCT PERSON (a (name, partyNum)
       // bucket), keyed by its unambiguous slug (mp-… / c-…) so picking from the

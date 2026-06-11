@@ -32,6 +32,7 @@ import {
   PlaceView,
   isSofiaRayonObshtina,
   isSofiaCityObshtina,
+  SOFIA_CITY_GOVERNANCE_ID,
 } from "@/data/local/placeViews";
 import { isSofiaMir } from "@/data/dataTypes";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
@@ -325,7 +326,7 @@ export const PlaceHeader: FC<Props> = ({
           </Link>
         ) : null;
       const sofiaNode = (
-        <Link to="/sofia" underline>
+        <Link to={`/governance/${SOFIA_CITY_GOVERNANCE_ID}`} underline>
           {lang === "bg" ? "Столична община" : "Sofia (Stolichna) municipality"}
         </Link>
       );
@@ -359,7 +360,7 @@ export const PlaceHeader: FC<Props> = ({
           return (
             <>
               Многомандатен изборен район в{" "}
-              <Link to="/sofia" underline>
+              <Link to={`/governance/${SOFIA_CITY_GOVERNANCE_ID}`} underline>
                 Столична община
               </Link>
             </>
@@ -368,7 +369,7 @@ export const PlaceHeader: FC<Props> = ({
         return (
           <>
             Multi-member electoral district in{" "}
-            <Link to="/sofia" underline>
+            <Link to={`/governance/${SOFIA_CITY_GOVERNANCE_ID}`} underline>
               Sofia (Stolichna) municipality
             </Link>
           </>
@@ -488,12 +489,13 @@ export const PlaceHeader: FC<Props> = ({
       );
     }
     // Sofia район: "Район на Столична община, {N} МИР" — the район belongs to
-    // Столична община (linked to the whole-city parliamentary page) and sits
-    // inside one of the three МИР (linked, and named "София N МИР" without an
-    // "област" prefix, since a МИР is not an област).
+    // Столична община (linked to the município governance dashboard, the
+    // canonical Столична-община page; /sofia is the oblast/МИР aggregate, not
+    // the município) and sits inside one of the three МИР (linked, and named
+    // "София N МИР" without an "област" prefix, since a МИР is not an област).
     if (isSofiaRayon) {
       const sofiaLink = (label: string) => (
-        <Link to="/sofia" underline>
+        <Link to={`/governance/${SOFIA_CITY_GOVERNANCE_ID}`} underline>
           {label}
         </Link>
       );

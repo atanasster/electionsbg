@@ -121,7 +121,7 @@ export const ProblemSectionsTile: FC<Props> = ({
           {t("dashboard_sections")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          {t("voters")}
+          {t("voted")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           {t("dashboard_turnout")}

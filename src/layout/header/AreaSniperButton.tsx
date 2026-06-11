@@ -24,15 +24,13 @@ import { CommandInput, CommandList } from "@/components/ui/command";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useAreaSearchItems } from "@/data/search/useAreaSearchItems";
+import { AREA_TYPES, areaTypeShortKey } from "@/data/search/placeSearchItems";
 import { useNearestSettlement } from "@/data/area/useNearestSettlement";
 import { useAreaAnchor, useSetAreaAnchor } from "@/data/area/areaAnchor";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import type { SettlementInfo } from "@/data/dataTypes";
 import { AmbiguitySettlementChooser } from "./AmbiguitySettlementChooser";
-
-/** Subset of search-index types that map to My-Area destinations. */
-const AREA_TYPES = new Set(["s", "m"]);
 
 /** Cap for the autocomplete list — settlement names are short and the user
  *  is looking for a specific place, so a small list is right. */
@@ -281,9 +279,7 @@ export const AreaSniperButton: FC = () => {
                         >
                           <div className="flex items-center gap-2 min-w-0">
                             <span className="inline-block text-[10px] uppercase tracking-wide text-muted-foreground shrink-0">
-                              {r.item.type === "s"
-                                ? t("settlement_short")
-                                : t("municipality_short")}
+                              {t(areaTypeShortKey(r.item.type))}
                             </span>
                             <span className="truncate font-medium text-sm">
                               {name}

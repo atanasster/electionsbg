@@ -4,7 +4,7 @@
 // canonical deep-link destination and shows up in the sitemap.
 //
 // Two affordances mirror the sniper popover:
-//   - Settlement / município autocomplete (filtered to types s + m)
+//   - Settlement / município / район autocomplete (shared AREA_TYPES: s/m/d)
 //   - "Use my location" sniper button
 //
 // When the user is already anchored (has `?area=` set) the page redirects
@@ -23,11 +23,11 @@ import { H1 } from "@/ux/H1";
 import { useAreaAnchor, useSetAreaAnchor } from "@/data/area/areaAnchor";
 import { useNearestSettlement } from "@/data/area/useNearestSettlement";
 import { useAreaSearchItems } from "@/data/search/useAreaSearchItems";
+import { AREA_TYPES, areaTypeShortKey } from "@/data/search/placeSearchItems";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import type { SettlementInfo } from "@/data/dataTypes";
 import { AmbiguitySettlementChooser } from "@/layout/header/AmbiguitySettlementChooser";
 
-const AREA_TYPES = new Set(["s", "m"]);
 const RESULT_CAP = 12;
 
 type GeoState =
@@ -164,9 +164,7 @@ export const MyAreaEntryScreen: FC = () => {
                       >
                         <div className="flex items-center gap-2 min-w-0">
                           <span className="inline-block text-[10px] uppercase tracking-wide text-muted-foreground shrink-0">
-                            {r.item.type === "s"
-                              ? t("settlement_short")
-                              : t("municipality_short")}
+                            {t(areaTypeShortKey(r.item.type))}
                           </span>
                           <span className="truncate font-medium text-sm">
                             {name}

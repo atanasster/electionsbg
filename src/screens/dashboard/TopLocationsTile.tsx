@@ -81,7 +81,7 @@ export const TopLocationsTile: FC<Props> = ({
           {t("dashboard_share")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          {t("voters")}
+          {t("voted")}
         </span>
         {rows.map((r) => (
           <Link

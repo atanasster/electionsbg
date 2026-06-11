@@ -178,7 +178,7 @@ export const TopRegionsTile: FC<Props> = ({ parties }) => {
           {t("dashboard_winner")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          {t("voters")}
+          {t("voted")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           {t("dashboard_machine_pct")}

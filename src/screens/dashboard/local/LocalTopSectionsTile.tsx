@@ -102,7 +102,7 @@ export const LocalTopSectionsTile: FC<{
           {t("address")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          {t("voters")}
+          {t("voted")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
           {t("dashboard_share")}

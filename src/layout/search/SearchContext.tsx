@@ -1,5 +1,5 @@
 import { SearchIndexType, useSearchItems } from "@/data/search/useSearchItems";
-import { searchLimitForType } from "@/data/search/searchConfig";
+import { searchLimitForType, TYPE_ORDER } from "@/data/search/searchConfig";
 import { FuseResult } from "fuse.js";
 import {
   createContext,
@@ -40,6 +40,12 @@ export const SearchContext = createContext<SearchContextType>({
 });
 
 type SearchFn = (q: string) => FuseResult<SearchIndexType>[] | undefined;
+
+// Numeric sort rank per type, derived from the single canonical TYPE_ORDER so
+// arrow-nav/sort order can't drift from SearchItems' visual group order.
+const GROUP_ORDER = Object.fromEntries(
+  TYPE_ORDER.map((t, i) => [t, i]),
+) as Record<SearchIndexType["type"], number>;
 
 // Side-effect-only child that runs the heavy useSearchItems hook chain and
 // reports the resulting search function back to the parent. Mounted only
@@ -86,16 +92,6 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
         selected >= 0 && selected < searchItems.length
           ? searchItems[selected]
           : undefined;
-      const groupOrder: Record<SearchIndexType["type"], number> = {
-        s: 0,
-        m: 1,
-        r: 2,
-        c: 3,
-        a: 4,
-        o: 4.5,
-        b: 5,
-        v: 6,
-      };
       const PER_TYPE_LIMIT = 5;
       const counts: Partial<Record<SearchIndexType["type"], number>> = {};
       const filtered =
@@ -115,7 +111,7 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
       const newItems = limited
         .map((r, i) => ({ r, i }))
         .sort((a, b) => {
-          const g = groupOrder[a.r.item.type] - groupOrder[b.r.item.type];
+          const g = GROUP_ORDER[a.r.item.type] - GROUP_ORDER[b.r.item.type];
           return g !== 0 ? g : a.i - b.i;
         })
         .map(({ r }) => r);

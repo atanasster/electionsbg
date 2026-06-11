@@ -115,7 +115,7 @@ export const TopSettlementsTile: FC<Props> = ({
           {t("settlement")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          {t("voters")}
+          {t("voted")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           {t("dashboard_machine_pct")}

@@ -1,5 +1,6 @@
 import { CommandGroup, CommandItem } from "@/components/ui/command";
 import { SearchIndexType } from "@/data/search/useSearchItems";
+import { TYPE_ORDER } from "@/data/search/searchConfig";
 import { cn, initials } from "@/lib/utils";
 import { FuseResult, FuseResultMatch } from "fuse.js";
 import { FC, ReactNode, useContext } from "react";
@@ -8,6 +9,7 @@ import { SearchContext } from "./SearchContext";
 import {
   Building2,
   MapPin,
+  MapPinned,
   Map,
   Vote,
   Landmark,
@@ -18,11 +20,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 type ItemType = SearchIndexType["type"];
 
-const TYPE_ORDER: ItemType[] = ["s", "m", "r", "c", "a", "o", "b", "v"];
-
 const TYPE_ICON: Record<Exclude<ItemType, "a">, FC<{ className?: string }>> = {
   s: MapPin,
   m: Building2,
+  d: MapPinned,
   r: Map,
   c: Vote,
   b: Landmark,
@@ -69,6 +70,8 @@ export const SearchItems: FC<{
         return t("section");
       case "m":
         return t("municipality");
+      case "d":
+        return t("rayon");
       case "s":
         return t("settlement");
       case "a":

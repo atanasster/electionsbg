@@ -53,10 +53,14 @@ export const TopSofiaAreasTile: FC<Props> = ({ parties }) => {
           }
         }
         const info = findRegion(r.key);
-        const name =
+        // The tile is already titled "(София)", so drop the redundant
+        // "София "/"Sofia " prefix — rows read "23 МИР" and no longer truncate
+        // to "Со…" in the narrow first column on mobile.
+        const name = (
           (i18n.language === "bg"
             ? info?.long_name || info?.name
-            : info?.long_name_en || info?.name_en) || r.key;
+            : info?.long_name_en || info?.name_en) || r.key
+        ).replace(/^(София|Sofia)\s+/, "");
         return {
           key: r.key,
           name,
@@ -94,12 +98,12 @@ export const TopSofiaAreasTile: FC<Props> = ({ parties }) => {
       }
       className="overflow-hidden"
     >
-      <div className="grid grid-cols-[minmax(0,1fr)_auto_auto_minmax(80px,1.5fr)_auto] gap-x-3 gap-y-1.5 items-center mt-1 text-sm">
+      <div className="grid grid-cols-[auto_auto_auto_minmax(60px,1.5fr)_auto] gap-x-3 gap-y-1.5 items-center mt-1 text-sm">
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
-          {t("region")}
+          {t("mir")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          {t("voters")}
+          {t("voted")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           {t("dashboard_machine_pct")}
@@ -126,7 +130,7 @@ export const TopSofiaAreasTile: FC<Props> = ({ parties }) => {
               underline={false}
               className="contents"
             >
-              <span className="truncate font-medium">{name}</span>
+              <span className="whitespace-nowrap font-medium">{name}</span>
               <span className="tabular-nums text-xs text-muted-foreground text-right">
                 {formatThousands(totalVotes)}
               </span>

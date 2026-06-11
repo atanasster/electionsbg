@@ -5,8 +5,28 @@
 // can't silently drift between the live search and its test.
 
 import type { IFuseOptions } from "fuse.js";
+import type { SearchIndexType } from "./useSearchItems";
 
 type Searchable = { name: string; name_en?: string };
+
+// Canonical ordering of search-result groups — the SINGLE source of truth for
+// both the visual grouping (SearchItems renders groups in this order) and the
+// arrow-nav/sort order (SearchContext derives its numeric `groupOrder` from
+// this array). Keeping one array means the two can't silently diverge.
+// "d" (Sofia район) sits right after "m" (município); the rest is
+// settlement → município → район → region → section → candidate → official →
+// ministry → vote.
+export const TYPE_ORDER: SearchIndexType["type"][] = [
+  "s",
+  "m",
+  "d",
+  "r",
+  "c",
+  "a",
+  "o",
+  "b",
+  "v",
+];
 
 // Fuse over the bilingual name fields. ignoreLocation so a match can sit anywhere
 // in the string (e.g. "образование" inside "Министерството на образованието").
