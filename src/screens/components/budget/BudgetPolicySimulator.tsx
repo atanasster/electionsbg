@@ -73,9 +73,16 @@ import {
 import { usePolicyBaseline } from "@/data/budget/useBudget";
 import { useCofog } from "@/data/macro/useCofog";
 import {
+  NOMINAL_GDP_2026_EUR,
+  PROJECTION_YEARS,
+  projectFiscalPath,
+} from "@/lib/bgFiscalProjection";
+import {
   PolicyIncidenceCurve,
   type IncidencePoint,
 } from "./PolicyIncidenceCurve";
+import { PolicyFiscalProjection } from "./PolicyFiscalProjection";
+import { fmtCompactEur, fmtDelta, fmtPct1 } from "./budgetFormat";
 
 // Slider bounds, all in integer percent (МОД in EUR/month). Defaults are
 // current law; defaults are omitted from the query string.
@@ -146,33 +153,6 @@ const clampIntParam = (
 const REGIMES: VatRegime[] = ["standard", "reduced", "zero"];
 const parseRegimeParam = (raw: string | null): VatRegime | null =>
   raw === "standard" || raw === "reduced" || raw === "zero" ? raw : null;
-
-// Signed compact money: EN "+€447M", BG "+447 млн €". Дs are 8-10 digit
-// numbers — millions/billions grain is the readable unit.
-const fmtDelta = (v: number, lang: string): string => {
-  const sign = v > 0 ? "+" : v < 0 ? "−" : "±";
-  const a = Math.abs(v);
-  const raw =
-    a >= 995e6 ? (a / 1e9).toFixed(1) : a >= 1e6 ? (a / 1e6).toFixed(0) : "0";
-  const num = lang === "bg" ? raw.replace(".", ",") : raw;
-  const unit =
-    a >= 995e6
-      ? lang === "bg"
-        ? "млрд €"
-        : "B"
-      : lang === "bg"
-        ? "млн €"
-        : "M";
-  const sgn = num === "0" ? "±" : sign;
-  return lang === "bg" ? `${sgn}${num} ${unit}` : `${sgn}€${num}${unit}`;
-};
-
-// Unsigned compact money for baseline figures: EN "€11.0B", BG "11,0 млрд €".
-const fmtCompact = (v: number, lang: string): string => {
-  const num = (v / 1e9).toFixed(1);
-  const numLoc = lang === "bg" ? num.replace(".", ",") : num;
-  return lang === "bg" ? `${numLoc} млрд €` : `€${numLoc}B`;
-};
 
 const InfoTip: FC<{ text: string }> = ({ text }) => (
   <Tooltip>
@@ -422,6 +402,7 @@ export const BudgetPolicySimulator: FC = () => {
   );
   const [shareCopied, setShareCopied] = useState(false);
   const [sentenceCopied, setSentenceCopied] = useState(false);
+  const [benchOpen, setBenchOpen] = useState(false);
 
   // Progressive disclosure: the per-category VAT chips and the progressive-
   // tax controls fold away by default; a shared link that uses them opens
@@ -715,10 +696,12 @@ export const BudgetPolicySimulator: FC = () => {
       exp && mrzFreeze
         ? scoreMinWageFreeze(baseline.earnings.bands, exp.minWage)
         : 0;
+    // Priced against the projection module's 2026 GDP so the defense lever
+    // and the projection card never quote two different GDPs.
     const defDelta =
       exp && def !== 22
         ? scoreDefenseTarget(
-            baseline.gdpNextEur,
+            NOMINAL_GDP_2026_EUR,
             exp.defense.natoPctGdp,
             def / 10,
           )
@@ -940,6 +923,87 @@ export const BudgetPolicySimulator: FC = () => {
     };
   }, [baseline, scenario, mod, noCap, currentCap]);
 
+  // ----- multi-year balance & debt projection --------------------------------
+  // ESA general-government grain (EC Spring 2026 baseline) — distinct from
+  // the КФП cash grain of the rest of the screen; the projection card says so.
+  // The pension-indexation slice COMPOUNDS (current-law rate ~7%/yr), so it
+  // is recomputed for each projection year and passed as a fixed path; the
+  // headline keeps the user's horizon slider, the projection ignores it.
+  const projection = useMemo(() => {
+    const central = scenario?.central ?? 0;
+    const pensions = baseline?.expenditure?.pensions;
+    const pensionActive = !!pensions && (pw !== 50 || noSupp);
+    if (!scenario || !pensionActive) return projectFiscalPath(central);
+    return projectFiscalPath(
+      central - scenario.pensionBalance,
+      PROJECTION_YEARS.map(
+        (_, i) =>
+          -scorePensionIndexation(pensions, {
+            cpiWeight: pw / 100,
+            indexSupplement: !noSupp,
+            horizonYears: i + 1,
+          }),
+      ),
+    );
+  }, [scenario, baseline, pw, noSupp]);
+
+  // ----- model vs published estimates ----------------------------------------
+  // Live engine runs of the canonical scenarios that official costings exist
+  // for (МФ consolidation menu 2023, Фискален съвет 2025, КНСБ/НОИ 2025) —
+  // the caveats card folds them into a comparison table so the calibration
+  // is inspectable, not asserted.
+  const benchmarks = useMemo(() => {
+    if (!baseline?.vat?.slices || !baseline.earnings?.bands) return null;
+    const exp = baseline.expenditure;
+    const slices = baseline.vat.slices as VatBaseSlice[];
+    const vatAt = (regimes: VatPolicy["regimes"]): number =>
+      computeVatRevenue(slices, {
+        standardRate: VAT_STANDARD_RATE,
+        reducedRate: VAT_REDUCED_RATE,
+        regimes,
+      }).modeledEur;
+    const vatBase = vatAt({});
+    const e = baseline.earnings;
+    const rows: { key: string; ours: number }[] = [
+      {
+        key: "restaurants",
+        ours:
+          (vatAt({ restaurants: "reduced" }) - vatBase) * baseline.vat.factor,
+      },
+      {
+        key: "corp",
+        ours: scoreCorporate(baseline.revenue.corporateEur, 0.11),
+      },
+      { key: "div", ours: scoreDividend(baseline.revenue.dividendEur, 0.1) },
+      {
+        key: "mod",
+        // €2,352 = the cap in the withdrawn Budget-2026 draft — the move
+        // the КНСБ costing scored.
+        ours: scoreModCapBands(e.bands, currentCap, 2352).totalEur,
+      },
+      {
+        key: "nm",
+        ours: scorePitSchedule(
+          e.bands,
+          e.capEur,
+          [
+            { fromEur: 0, rate: 0 },
+            { fromEur: 620, rate: PIT_RATE },
+          ],
+          e.kappa,
+        ),
+      },
+    ];
+    if (exp)
+      rows.splice(3, 0, {
+        key: "ssc",
+        // +1пп on the insurable base is fund-agnostic — the health scorer
+        // is just base × pp, reused here as the generic contribution row.
+        ours: scoreHealthContribution(exp.health.baseEur, 1),
+      });
+    return rows;
+  }, [baseline, currentCap]);
+
   // ----- "what it buys" comparator (COFOG health + education) ---------------
   const { data: cofog } = useCofog();
   const comparator = useMemo(() => {
@@ -1099,6 +1163,17 @@ export const BudgetPolicySimulator: FC = () => {
   const pctGdp = (scenario.central / baseline.gdpEur) * 100;
   const anyChange =
     scenario.central !== 0 || scenario.vatDelta !== 0 || citizen.netDelta !== 0;
+  const fyProj = projection.years[0];
+  const heroDeficitLine = anyChange
+    ? t("budget_policy_hero_deficit", {
+        year: fyProj.year,
+        before: fmtPct1(fyProj.baselineBalancePctGdp, locale),
+        after: fmtPct1(fyProj.balancePctGdp, locale),
+      })
+    : t("budget_policy_hero_deficit_nochange", {
+        year: fyProj.year,
+        before: fmtPct1(fyProj.baselineBalancePctGdp, locale),
+      });
 
   const regimeChip = (g: VatAdjustableGroup): ReactNode => {
     const active = regimes[g] ?? VAT_GROUP_DEFAULT_REGIME[g];
@@ -1218,14 +1293,18 @@ export const BudgetPolicySimulator: FC = () => {
 
             {/* Per-category VAT regime chips — folded by default */}
             <div>
-              <button
-                type="button"
-                aria-expanded={vatCatsOpen}
-                onClick={() => setVatCatsOpen((v) => !v)}
-                className="flex w-full items-center justify-between gap-2 text-xs font-medium text-muted-foreground hover:text-foreground"
-              >
+              {/* InfoTip renders its own <button>, so it must stay a sibling
+                  of the toggle — nested buttons are invalid HTML. */}
+              <div className="flex w-full items-center justify-between gap-2 text-xs font-medium text-muted-foreground">
                 <span className="inline-flex items-center gap-1">
-                  {t("budget_policy_groups_title")}
+                  <button
+                    type="button"
+                    aria-expanded={vatCatsOpen}
+                    onClick={() => setVatCatsOpen((v) => !v)}
+                    className="hover:text-foreground"
+                  >
+                    {t("budget_policy_groups_title")}
+                  </button>
                   <InfoTip text={t("budget_policy_tip_groups")} />
                   {!vatCatsOpen && Object.keys(regimes).length > 0 ? (
                     <span className="rounded-full bg-indigo-500/10 px-1.5 text-[10px] text-indigo-700 dark:text-indigo-300">
@@ -1233,13 +1312,21 @@ export const BudgetPolicySimulator: FC = () => {
                     </span>
                   ) : null}
                 </span>
-                <ChevronDown
-                  className={
-                    "h-3.5 w-3.5 transition-transform " +
-                    (vatCatsOpen ? "rotate-180" : "")
-                  }
-                />
-              </button>
+                <button
+                  type="button"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                  onClick={() => setVatCatsOpen((v) => !v)}
+                  className="hover:text-foreground"
+                >
+                  <ChevronDown
+                    className={
+                      "h-3.5 w-3.5 transition-transform " +
+                      (vatCatsOpen ? "rotate-180" : "")
+                    }
+                  />
+                </button>
+              </div>
               {vatCatsOpen ? (
                 <div className="mt-2 space-y-1.5">
                   {VAT_ADJUSTABLE_GROUPS.map((g) => regimeChip(g))}
@@ -1384,23 +1471,35 @@ export const BudgetPolicySimulator: FC = () => {
 
             {/* Expenditure side — pensions, administration, МРЗ */}
             <div className="border-t pt-3">
-              <button
-                type="button"
-                aria-expanded={expOpen}
-                onClick={() => setExpOpen((v) => !v)}
-                className="flex w-full items-center justify-between gap-2 text-xs font-medium text-muted-foreground hover:text-foreground"
-              >
+              {/* InfoTip renders its own <button>, so it must stay a sibling
+                  of the toggle — nested buttons are invalid HTML. */}
+              <div className="flex w-full items-center justify-between gap-2 text-xs font-medium text-muted-foreground">
                 <span className="inline-flex items-center gap-1">
-                  {t("budget_policy_exp_title")}
+                  <button
+                    type="button"
+                    aria-expanded={expOpen}
+                    onClick={() => setExpOpen((v) => !v)}
+                    className="hover:text-foreground"
+                  >
+                    {t("budget_policy_exp_title")}
+                  </button>
                   <InfoTip text={t("budget_policy_tip_exp")} />
                 </span>
-                <ChevronDown
-                  className={
-                    "h-3.5 w-3.5 transition-transform " +
-                    (expOpen ? "rotate-180" : "")
-                  }
-                />
-              </button>
+                <button
+                  type="button"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                  onClick={() => setExpOpen((v) => !v)}
+                  className="hover:text-foreground"
+                >
+                  <ChevronDown
+                    className={
+                      "h-3.5 w-3.5 transition-transform " +
+                      (expOpen ? "rotate-180" : "")
+                    }
+                  />
+                </button>
+              </div>
               {expOpen ? (
                 <div className="mt-2 space-y-4">
                   <RateSlider
@@ -1673,24 +1772,7 @@ export const BudgetPolicySimulator: FC = () => {
                 })}
               </div>
               <div className="text-[11px] text-muted-foreground tabular-nums">
-                {t("budget_policy_hero_deficit", {
-                  year: baseline.baselineYear + 1,
-                  growth: new Intl.NumberFormat(locale, {
-                    maximumFractionDigits: 1,
-                  }).format(baseline.gdpGrowthPct),
-                  before: new Intl.NumberFormat(locale, {
-                    maximumFractionDigits: 1,
-                  }).format(
-                    (baseline.revenue.balanceEur / baseline.gdpNextEur) * 100,
-                  ),
-                  after: new Intl.NumberFormat(locale, {
-                    maximumFractionDigits: 1,
-                  }).format(
-                    ((baseline.revenue.balanceEur + scenario.central) /
-                      baseline.gdpNextEur) *
-                      100,
-                  ),
-                })}
+                {heroDeficitLine}
               </div>
             </div>
             <div className="rounded-lg border px-3 py-2.5 bg-card border-border">
@@ -1885,12 +1967,20 @@ export const BudgetPolicySimulator: FC = () => {
               <p className="mt-3 text-[11px] text-muted-foreground/80">
                 {t("budget_policy_baseline_note", {
                   year: baseline.baselineYear,
-                  vat: fmtCompact(baseline.revenue.vatEur, lang),
-                  pit: fmtCompact(baseline.revenue.pitEur, lang),
+                  vat: fmtCompactEur(baseline.revenue.vatEur, lang),
+                  pit: fmtCompactEur(baseline.revenue.pitEur, lang),
                 })}
               </p>
             </CardContent>
           </Card>
+
+          {/* Multi-year balance & debt projection */}
+          <PolicyFiscalProjection
+            projection={projection}
+            anyChange={anyChange}
+            lang={lang}
+            locale={locale}
+          />
 
           {/* Scenario summary sentence */}
           {sentence ? (
@@ -2077,8 +2167,65 @@ export const BudgetPolicySimulator: FC = () => {
                     })}
                   </p>
                   <p>{t("budget_policy_caveat_exp")}</p>
+                  <p>{t("budget_policy_caveat_multiplier")}</p>
                 </div>
               </div>
+              {benchmarks ? (
+                <div className="mt-3 border-t pt-2">
+                  <button
+                    type="button"
+                    aria-expanded={benchOpen}
+                    onClick={() => setBenchOpen((v) => !v)}
+                    className="flex w-full items-center justify-between gap-2 text-xs font-medium text-muted-foreground hover:text-foreground"
+                  >
+                    <span>{t("budget_policy_bench_title")}</span>
+                    <ChevronDown
+                      className={
+                        "h-3.5 w-3.5 transition-transform " +
+                        (benchOpen ? "rotate-180" : "")
+                      }
+                    />
+                  </button>
+                  {benchOpen ? (
+                    <div className="mt-2 space-y-2">
+                      <p className="text-[11px] text-muted-foreground">
+                        {t("budget_policy_bench_intro")}
+                      </p>
+                      <table className="w-full text-[11px] tabular-nums">
+                        <thead>
+                          <tr className="text-left text-muted-foreground">
+                            <th className="py-1 pr-2 font-normal" />
+                            <th className="py-1 pr-2 font-normal text-right">
+                              {t("budget_policy_bench_model")}
+                            </th>
+                            <th className="py-1 font-normal text-right">
+                              {t("budget_policy_bench_published")}
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {benchmarks.map((b) => (
+                            <tr
+                              key={b.key}
+                              className="border-t border-border/60"
+                            >
+                              <td className="py-1 pr-2">
+                                {t(`budget_policy_bench_${b.key}`)}
+                              </td>
+                              <td className="py-1 pr-2 text-right font-medium">
+                                {fmtDelta(b.ours, lang)}
+                              </td>
+                              <td className="py-1 text-right text-muted-foreground">
+                                {t(`budget_policy_bench_${b.key}_pub`)}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
             </CardContent>
           </Card>
         </div>
