@@ -160,6 +160,21 @@ npm run stats              # bundle size visualizer
 2. The pipeline in `scripts/` transforms those into static JSON under `data/YYYY_MM_DD/` (per election) and a handful of cross-cutting directories (`data/parliament/`, `data/polls/`, `data/census/`, `data/governments.json`, etc.).
 3. The SPA fetches those JSON files via the `dataUrl()` helper, which prefixes the bucket origin in production. There is no backend server, no database, and no runtime API.
 
+### Budget-simulator anchors (watched upstreams → sourced constants)
+
+The tax-policy simulator (`/budget/simulator`) mixes pipeline data with sourced constants in code. Every external anchor is covered by a daily-watcher source; pipeline-fed ones re-ingest via skills, code constants are flagged for a manual edit (`.claude/skills/process-watch-report/SKILL.md` → "Simulator anchors: manual edits"). Research notes and source URLs: `docs/budget_simulator_grounding.md`.
+
+| What                                                                      | Lives in                                          | Upstream                                            | Watcher source                                    |
+| ------------------------------------------------------------------------- | ------------------------------------------------- | --------------------------------------------------- | ------------------------------------------------- |
+| Revenue/expenditure baseline (VAT model, earnings fit, МОД identity, …)    | `data/budget/derived/policy_baseline.json`        | КФП, НАП annual, Eurostat COICOP/SES, НОИ STATB      | `egov_budget_execution`, `nap_annual`, `eurostat_policy`, `policy_baseline_local` |
+| EU comparators — "Като в… (ЕС)" (VAT/PIT/CIT per country)                  | `src/lib/euPolicyPresets.ts`                       | PwC Worldwide Tax Summaries quick charts             | `eu_tax_rates` (manual edit)                       |
+| EU comparators — defence % of GDP                                          | `src/lib/euPolicyPresets.ts`                       | NATO defence-expenditure compendium (annual PDF)     | `nato_defence` (manual edit)                       |
+| 5-year projection baseline (EC balance path, growth/HICP/unemployment)     | `src/lib/bgFiscalProjection.ts`                    | EC economic forecast — Bulgaria country page         | `ec_forecast_bg` (manual edit)                     |
+| 2025 ESA anchors (deficit/debt/GDP) and interest-rate block                | `src/lib/bgFiscalProjection.ts`                    | НСИ EDP notification (Apr/Oct), debt strategy, БНБ auctions | semi-annual manual review (НСИ); `bnb_auctions` for yields |
+| June-2026 debate levers (maternity Y2 spend, MP pay mass, party subsidy)   | `src/lib/bgTaxPolicy.ts`                           | НОИ ДОО execution, NSI public-sector wage, НС decisions | annual manual review alongside `nssi_b1` / budget-law flips |
+
+Invariants for the projection engine are locked in `scripts/budget/__smoke_fiscal_projection.ts` — run it after touching any anchor.
+
 ### Architecture: Firebase shell + GCS data layer
 
 The site is split across two origins to decouple data updates from app deploys:

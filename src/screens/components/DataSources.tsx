@@ -524,6 +524,18 @@ export const DataSources = () => {
                 label={t("budget_kfp_source")}
               />
               <SourceItem
+                href="https://taxsummaries.pwc.com/quick-charts/value-added-tax-vat-rates"
+                label={t("budget_pwc_rates_source")}
+              />
+              <SourceItem
+                href="https://www.nato.int/cps/en/natohq/topics_49198.htm"
+                label={t("budget_nato_defence_source")}
+              />
+              <SourceItem
+                href="https://economy-finance.ec.europa.eu/economic-surveillance-eu-member-states/country-pages/bulgaria_en"
+                label={t("budget_ec_forecast_source")}
+              />
+              <SourceItem
                 href="https://dv.parliament.bg/"
                 label={t("budget_law_dv_source")}
               />

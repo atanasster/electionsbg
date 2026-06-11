@@ -26,6 +26,7 @@ import {
   Sparkles,
   Copy,
   ChevronDown,
+  Globe,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import {
@@ -33,6 +34,11 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { formatEur } from "@/lib/currency";
 import {
   PIT_RATE,
@@ -64,6 +70,11 @@ import {
   scorePensionIndexation,
   scorePitSchedule,
   scoreTeachersPeg,
+  scoreMaternityMonths,
+  scoreMpPayFreeze,
+  scorePartySubsidy,
+  MATERNITY_Y2_MONTHS,
+  PARTY_SUBSIDY_RATE_EUR,
   type PitBracket,
   type VatAdjustableGroup,
   type VatBaseSlice,
@@ -83,6 +94,13 @@ import {
 } from "./PolicyIncidenceCurve";
 import { PolicyFiscalProjection } from "./PolicyFiscalProjection";
 import { fmtCompactEur, fmtDelta, fmtPct1 } from "./budgetFormat";
+import { EuFlag } from "./EuFlag";
+import {
+  EU_LEVER_PRESETS,
+  type EuLeverId,
+  type EuPresetApply,
+  type EuPresetOption,
+} from "@/lib/euPolicyPresets";
 
 // Slider bounds, all in integer percent (МОД in EUR/month). Defaults are
 // current law; defaults are omitted from the query string.
@@ -107,6 +125,11 @@ const NM_MAX = 1200;
 const T2_DEF = 3000;
 const R2_DEF = 15;
 
+// Party-subsidy slider unit is euro-cents; the default derives from the
+// engine's current-law rate so a future law change flows to the baseline
+// and the slider's "no change" position in one edit.
+const PSUB_DEF = Math.round(PARTY_SUBSIDY_RATE_EUR * 100);
+
 // Exemplar payslips in the citizen pane: minimum wage, ~average, upper
 // professional, above-cap.
 const EXEMPLAR_GROSS = [620, 1250, 2500, 5000];
@@ -127,6 +150,8 @@ interface PresetApply {
   pw?: number;
   adm?: number;
   mrzFreeze?: boolean;
+  /** Months of paid second-year maternity kept (current law: 12). */
+  mat?: number;
 }
 const PRESETS: { id: string; apply: PresetApply }[] = [
   { id: "nm_mrz", apply: { nm: 620 } },
@@ -136,6 +161,7 @@ const PRESETS: { id: string; apply: PresetApply }[] = [
   { id: "nocap", apply: { noCap: true } },
   { id: "cpionly", apply: { pw: 100 } },
   { id: "admin10", apply: { adm: 10 } },
+  { id: "maternity1", apply: { mat: 0 } },
 ];
 
 const clampIntParam = (
@@ -172,10 +198,13 @@ const InfoTip: FC<{ text: string }> = ({ text }) => (
 );
 
 // One labelled rate slider with a numeric badge and a reset-to-default hint.
+// `info` replaces the plain hover tooltip with a richer node (the EU
+// comparator popover) when provided.
 const RateSlider: FC<{
   id: string;
   label: string;
   tip?: string;
+  info?: ReactNode;
   min: number;
   max: number;
   value: number;
@@ -183,10 +212,14 @@ const RateSlider: FC<{
   onChange: (v: number) => void;
   suffix?: string;
   step?: number;
+  /** Non-integer badge display (defense tenths, subsidy euro-cents);
+   *  overrides `value`+`suffix`. */
+  formatValue?: (v: number) => string;
 }> = ({
   id,
   label,
   tip,
+  info,
   min,
   max,
   value,
@@ -194,12 +227,13 @@ const RateSlider: FC<{
   onChange,
   suffix = "%",
   step = 1,
+  formatValue,
 }) => (
   <div>
     <label htmlFor={id} className="flex items-baseline justify-between gap-2">
       <span className="text-xs text-muted-foreground inline-flex items-center gap-1">
         {label}
-        {tip ? <InfoTip text={tip} /> : null}
+        {info ?? (tip ? <InfoTip text={tip} /> : null)}
       </span>
       <span
         className={
@@ -207,8 +241,7 @@ const RateSlider: FC<{
           (value !== defaultValue ? "text-indigo-700 dark:text-indigo-300" : "")
         }
       >
-        {value}
-        {suffix}
+        {formatValue ? formatValue(value) : `${value}${suffix}`}
       </span>
     </label>
     <input
@@ -282,6 +315,80 @@ const DeltaRow: FC<{
         />
       </div>
     </li>
+  );
+};
+
+// Info popover for levers that carry EU comparators: the lever's
+// description on top, then the country list — one (i) icon serves both,
+// keeping the controls column compact. The applied pick is re-derived by
+// the caller (it self-clears when the lever drifts off the country value).
+const EuInfoPopover: FC<{
+  text: string;
+  lever: EuLeverId;
+  lang: "bg" | "en";
+  appliedId: string | null;
+  onApply: (o: EuPresetOption) => void;
+}> = ({ text, lever, lang, appliedId, onApply }) => {
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const options = EU_LEVER_PRESETS[lever];
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <button
+          type="button"
+          aria-label={text}
+          className="inline-flex shrink-0 align-middle text-muted-foreground/60 hover:text-foreground focus:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded"
+        >
+          <Info className="h-3 w-3" />
+        </button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[320px] p-3" align="start">
+        <p className="text-xs font-normal leading-snug text-muted-foreground">
+          {text}
+        </p>
+        <div className="mt-2 border-t pt-2">
+          <div className="flex items-center gap-1 text-[10px] uppercase tracking-wide text-muted-foreground">
+            <Globe className="h-3 w-3" />
+            {t("budget_policy_eu_label")}
+          </div>
+          <ul className="mt-1 space-y-0.5">
+            {options.map((o) => (
+              <li key={o.id}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onApply(o);
+                    setOpen(false);
+                  }}
+                  className={
+                    "flex w-full items-start gap-1.5 rounded px-1.5 py-1 text-left transition-colors hover:bg-muted " +
+                    (o.id === appliedId ? "bg-indigo-500/10" : "")
+                  }
+                >
+                  <EuFlag cc={o.cc} className="mt-[3px]" />
+                  <span className="min-w-0">
+                    <span
+                      className={
+                        "block text-xs leading-snug " +
+                        (o.id === appliedId
+                          ? "font-medium text-indigo-700 dark:text-indigo-300"
+                          : "text-foreground")
+                      }
+                    >
+                      {o.label[lang]}
+                    </span>
+                    <span className="block text-[10px] leading-snug text-muted-foreground">
+                      {o.note[lang]}
+                    </span>
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 };
 
@@ -386,6 +493,21 @@ export const BudgetPolicySimulator: FC = () => {
   const [tp, setTp] = useState(() =>
     clampIntParam(searchParams.get("tp"), 0, 140, 0),
   );
+  // June-2026 consolidation-debate levers: paid second-year maternity months
+  // (12 = current law), MP pay freeze, party subsidy in euro-cents per vote
+  // (300 = current law since 30.04.2026).
+  const [mat, setMat] = useState(() =>
+    clampIntParam(searchParams.get("mat"), 0, MATERNITY_Y2_MONTHS, 12),
+  );
+  const [mpf, setMpf] = useState(() => searchParams.get("mpf") === "1");
+  const [psub, setPsub] = useState(() =>
+    clampIntParam(searchParams.get("psub"), 0, 450, PSUB_DEF),
+  );
+  // Last "like in <country>" pick per lever — display-only memory; the
+  // levers themselves carry the state (and the URL).
+  const [euPicks, setEuPicks] = useState<Partial<Record<EuLeverId, string>>>(
+    {},
+  );
   const [expOpen, setExpOpen] = useState(
     () =>
       searchParams.get("pw") != null ||
@@ -398,7 +520,10 @@ export const BudgetPolicySimulator: FC = () => {
       searchParams.get("ssp") === "1" ||
       searchParams.get("hp") != null ||
       searchParams.get("mp") != null ||
-      searchParams.get("tp") != null,
+      searchParams.get("tp") != null ||
+      searchParams.get("mat") != null ||
+      searchParams.get("mpf") === "1" ||
+      searchParams.get("psub") != null,
   );
   const [shareCopied, setShareCopied] = useState(false);
   const [sentenceCopied, setSentenceCopied] = useState(false);
@@ -462,9 +587,12 @@ export const BudgetPolicySimulator: FC = () => {
     setHp(0);
     setMp(0);
     setTp(0);
+    setMat(p.mat ?? MATERNITY_Y2_MONTHS);
+    setMpf(false);
+    setPsub(PSUB_DEF);
     setVatCatsOpen(!!p.regimes);
     setTaxDetailOpen(p.nm != null || !!p.b2);
-    setExpOpen(p.pw != null || p.adm != null || !!p.mrzFreeze);
+    setExpOpen(p.pw != null || p.adm != null || !!p.mrzFreeze || p.mat != null);
   };
   const presetIsActive = (p: PresetApply): boolean => {
     const wantRegimes = p.regimes ?? {};
@@ -495,7 +623,10 @@ export const BudgetPolicySimulator: FC = () => {
       !ssp &&
       hp === 0 &&
       mpEff === mpDef &&
-      tpEff === tpDef
+      tpEff === tpDef &&
+      mat === (p.mat ?? MATERNITY_Y2_MONTHS) &&
+      !mpf &&
+      psub === PSUB_DEF
     );
   };
 
@@ -533,6 +664,9 @@ export const BudgetPolicySimulator: FC = () => {
     if (hp !== 0) next.hp = String(hp);
     if (mpEff !== mpDef) next.mp = String(mpEff);
     if (tpEff !== tpDef) next.tp = String(tpEff);
+    if (mat !== MATERNITY_Y2_MONTHS) next.mat = String(mat);
+    if (mpf) next.mpf = "1";
+    if (psub !== PSUB_DEF) next.psub = String(psub);
     setSearchParams(next, { replace: true });
   }, [
     vatStd,
@@ -564,6 +698,9 @@ export const BudgetPolicySimulator: FC = () => {
     mpDef,
     tpEff,
     tpDef,
+    mat,
+    mpf,
+    psub,
     currentCap,
     setSearchParams,
   ]);
@@ -596,6 +733,74 @@ export const BudgetPolicySimulator: FC = () => {
     setHp(0);
     setMp(0);
     setTp(0);
+    setMat(MATERNITY_Y2_MONTHS);
+    setMpf(false);
+    setPsub(PSUB_DEF);
+  };
+
+  // ----- EU country comparators ----------------------------------------------
+  // euPicks remembers the last pick per lever; the applied id is re-derived
+  // by matching against current state, so it self-clears when values drift.
+  const applyEuOption = (lever: EuLeverId, o: EuPresetOption): void => {
+    const a = o.apply;
+    if (a.vatStd != null) setVatStd(a.vatStd);
+    if (a.vatRed != null) setVatRed(a.vatRed);
+    if (a.pit != null) setPit(a.pit);
+    if (a.nm != null) setNm(a.nm);
+    if (a.b2 !== undefined) {
+      if (a.b2 === null) setBracket2(false);
+      else {
+        setBracket2(true);
+        setT2(a.b2.t2);
+        setR2(a.b2.r2);
+      }
+    }
+    if (a.nm != null || a.b2 !== undefined) setTaxDetailOpen(true);
+    if (a.corp != null) setCorp(a.corp);
+    if (a.def != null) setDef(a.def);
+    if (a.mat != null) setMat(a.mat);
+    if (a.pw != null) setPw(a.pw);
+    setEuPicks((prev) => ({ ...prev, [lever]: o.id }));
+  };
+  const euMatches = (a: EuPresetApply): boolean =>
+    (a.vatStd == null || vatStd === a.vatStd) &&
+    (a.vatRed == null || vatRedEff === a.vatRed) &&
+    (a.pit == null || pit === a.pit) &&
+    (a.nm == null || nm === a.nm) &&
+    (a.b2 === undefined ||
+      (a.b2 === null
+        ? !bracket2
+        : bracket2 && t2Eff === a.b2.t2 && r2 === a.b2.r2)) &&
+    (a.corp == null || corp === a.corp) &&
+    (a.def == null || def === a.def) &&
+    (a.mat == null || mat === a.mat) &&
+    (a.pw == null || pw === a.pw);
+  const euAppliedId = (lever: EuLeverId): string | null => {
+    const id = euPicks[lever];
+    if (!id) return null;
+    const o = EU_LEVER_PRESETS[lever].find((x) => x.id === id);
+    return o && euMatches(o.apply) ? id : null;
+  };
+  const euInfo = (lever: EuLeverId, text: string): ReactNode => (
+    <EuInfoPopover
+      lever={lever}
+      text={text}
+      lang={lang}
+      appliedId={euAppliedId(lever)}
+      onApply={(o) => applyEuOption(lever, o)}
+    />
+  );
+  // The applied country's note, shown under the lever while it still
+  // matches that country's values.
+  const euNoteLine = (lever: EuLeverId): ReactNode => {
+    const id = euAppliedId(lever);
+    const o = id ? EU_LEVER_PRESETS[lever].find((x) => x.id === id) : undefined;
+    return o ? (
+      <p className="mt-1 flex items-start gap-1 text-[10px] leading-snug text-muted-foreground/80">
+        <EuFlag cc={o.cc} className="mt-[2px]" />
+        <span>{o.note[lang]}</span>
+      </p>
+    ) : null;
   };
 
   const onShare = (): void => {
@@ -753,6 +958,13 @@ export const BudgetPolicySimulator: FC = () => {
             tpEff,
           )
         : 0;
+    // June-2026 debate levers (Δ spending; negative = the budget saves).
+    const matDeltaSpend =
+      mat !== MATERNITY_Y2_MONTHS ? scoreMaternityMonths(mat) : 0;
+    const mpfDeltaSpend =
+      exp && mpf ? scoreMpPayFreeze(exp.pensions.wageGrowthPct) : 0;
+    const psubDeltaSpend =
+      psub !== PSUB_DEF ? scorePartySubsidy(psub / 100) : 0;
     const expenditureBalance =
       -(
         pensionDeltaSpend +
@@ -762,7 +974,10 @@ export const BudgetPolicySimulator: FC = () => {
         kapDelta +
         sspDelta +
         mpDeltaSpend +
-        tpDeltaSpend
+        tpDeltaSpend +
+        matDeltaSpend +
+        mpfDeltaSpend +
+        psubDeltaSpend
       ) +
       mwDelta +
       hpDelta;
@@ -816,6 +1031,9 @@ export const BudgetPolicySimulator: FC = () => {
       hpDelta,
       mpBalance: -mpDeltaSpend,
       tpBalance: -tpDeltaSpend,
+      matBalance: -matDeltaSpend,
+      mpfBalance: -mpfDeltaSpend,
+      psubBalance: -psubDeltaSpend,
       central,
       low,
       high,
@@ -852,6 +1070,9 @@ export const BudgetPolicySimulator: FC = () => {
     mpDef,
     tpEff,
     tpDef,
+    mat,
+    mpf,
+    psub,
     currentCap,
   ]);
 
@@ -1064,6 +1285,17 @@ export const BudgetPolicySimulator: FC = () => {
     if (hp !== 0) parts.push(t("budget_policy_frag_hp", { v: hp }));
     if (mpEff !== mpDef) parts.push(t("budget_policy_frag_mp", { v: mpEff }));
     if (tpEff !== tpDef) parts.push(t("budget_policy_frag_tp", { v: tpEff }));
+    if (mat !== MATERNITY_Y2_MONTHS)
+      parts.push(t("budget_policy_frag_mat", { v: mat }));
+    if (mpf) parts.push(t("budget_policy_frag_mpf"));
+    if (psub !== PSUB_DEF) {
+      const rate = (psub / 100).toFixed(2);
+      parts.push(
+        t("budget_policy_frag_psub", {
+          v: lang === "bg" ? rate.replace(".", ",") : rate,
+        }),
+      );
+    }
     if (!parts.length) return null;
     return t("budget_policy_sentence", {
       changes: parts.join("; "),
@@ -1102,6 +1334,9 @@ export const BudgetPolicySimulator: FC = () => {
     mpDef,
     tpEff,
     tpDef,
+    mat,
+    mpf,
+    psub,
     currentCap,
     t,
     lang,
@@ -1158,6 +1393,9 @@ export const BudgetPolicySimulator: FC = () => {
     Math.abs(scenario.hpDelta),
     Math.abs(scenario.mpBalance),
     Math.abs(scenario.tpBalance),
+    Math.abs(scenario.matBalance),
+    Math.abs(scenario.mpfBalance),
+    Math.abs(scenario.psubBalance),
     1,
   );
   const pctGdp = (scenario.central / baseline.gdpEur) * 100;
@@ -1270,26 +1508,32 @@ export const BudgetPolicySimulator: FC = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-0 space-y-4">
-            <RateSlider
-              id="policy-vat-std"
-              label={t("budget_policy_vat_std")}
-              tip={t("budget_policy_tip_vat_std")}
-              min={10}
-              max={27}
-              value={vatStd}
-              defaultValue={VAT_STD_DEF}
-              onChange={setVatStd}
-            />
-            <RateSlider
-              id="policy-vat-red"
-              label={t("budget_policy_vat_red")}
-              tip={t("budget_policy_tip_vat_red")}
-              min={0}
-              max={vatStd}
-              value={vatRedEff}
-              defaultValue={VAT_RED_DEF}
-              onChange={setVatRed}
-            />
+            <div>
+              <RateSlider
+                id="policy-vat-std"
+                label={t("budget_policy_vat_std")}
+                info={euInfo("vatStd", t("budget_policy_tip_vat_std"))}
+                min={10}
+                max={27}
+                value={vatStd}
+                defaultValue={VAT_STD_DEF}
+                onChange={setVatStd}
+              />
+              {euNoteLine("vatStd")}
+            </div>
+            <div>
+              <RateSlider
+                id="policy-vat-red"
+                label={t("budget_policy_vat_red")}
+                info={euInfo("vatRed", t("budget_policy_tip_vat_red"))}
+                min={0}
+                max={vatStd}
+                value={vatRedEff}
+                defaultValue={VAT_RED_DEF}
+                onChange={setVatRed}
+              />
+              {euNoteLine("vatRed")}
+            </div>
 
             {/* Per-category VAT regime chips — folded by default */}
             <div>
@@ -1335,16 +1579,19 @@ export const BudgetPolicySimulator: FC = () => {
             </div>
 
             <div className="border-t pt-3 space-y-4">
-              <RateSlider
-                id="policy-pit"
-                label={t("budget_policy_pit")}
-                tip={t("budget_policy_tip_pit")}
-                min={0}
-                max={30}
-                value={pit}
-                defaultValue={PIT_DEF}
-                onChange={setPit}
-              />
+              <div>
+                <RateSlider
+                  id="policy-pit"
+                  label={t("budget_policy_pit")}
+                  info={euInfo("pit", t("budget_policy_tip_pit"))}
+                  min={0}
+                  max={30}
+                  value={pit}
+                  defaultValue={PIT_DEF}
+                  onChange={setPit}
+                />
+                {euNoteLine("pit")}
+              </div>
               {/* Progressive-tax controls — folded by default */}
               <div>
                 <button
@@ -1420,15 +1667,19 @@ export const BudgetPolicySimulator: FC = () => {
                   </div>
                 ) : null}
               </div>
-              <RateSlider
-                id="policy-corp"
-                label={t("budget_policy_corp")}
-                min={0}
-                max={30}
-                value={corp}
-                defaultValue={CORP_DEF}
-                onChange={setCorp}
-              />
+              <div>
+                <RateSlider
+                  id="policy-corp"
+                  label={t("budget_policy_corp")}
+                  info={euInfo("corp", t("budget_policy_tip_corp"))}
+                  min={0}
+                  max={30}
+                  value={corp}
+                  defaultValue={CORP_DEF}
+                  onChange={setCorp}
+                />
+                {euNoteLine("corp")}
+              </div>
               <RateSlider
                 id="policy-div"
                 label={t("budget_policy_div")}
@@ -1502,17 +1753,20 @@ export const BudgetPolicySimulator: FC = () => {
               </div>
               {expOpen ? (
                 <div className="mt-2 space-y-4">
-                  <RateSlider
-                    id="policy-pw"
-                    label={t("budget_policy_swiss")}
-                    tip={t("budget_policy_tip_swiss")}
-                    min={0}
-                    max={100}
-                    step={10}
-                    value={pw}
-                    defaultValue={50}
-                    onChange={setPw}
-                  />
+                  <div>
+                    <RateSlider
+                      id="policy-pw"
+                      label={t("budget_policy_swiss")}
+                      info={euInfo("pw", t("budget_policy_tip_swiss"))}
+                      min={0}
+                      max={100}
+                      step={10}
+                      value={pw}
+                      defaultValue={50}
+                      onChange={setPw}
+                    />
+                    {euNoteLine("pw")}
+                  </div>
                   <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
                     <input
                       type="checkbox"
@@ -1560,36 +1814,18 @@ export const BudgetPolicySimulator: FC = () => {
                   </label>
                   {/* Defense target, % of GDP (NATO definition), in tenths */}
                   <div>
-                    <label
-                      htmlFor="policy-def"
-                      className="flex items-baseline justify-between gap-2"
-                    >
-                      <span className="text-xs text-muted-foreground inline-flex items-center gap-1">
-                        {t("budget_policy_def")}
-                        <InfoTip text={t("budget_policy_tip_def")} />
-                      </span>
-                      <span
-                        className={
-                          "text-sm font-semibold tabular-nums " +
-                          (def !== 22
-                            ? "text-indigo-700 dark:text-indigo-300"
-                            : "")
-                        }
-                      >
-                        {(def / 10).toFixed(1)}%
-                      </span>
-                    </label>
-                    <input
+                    <RateSlider
                       id="policy-def"
-                      type="range"
+                      label={t("budget_policy_def")}
+                      info={euInfo("def", t("budget_policy_tip_def"))}
                       min={15}
                       max={50}
-                      step={1}
                       value={def}
-                      onChange={(e) => setDef(Number(e.target.value))}
-                      className="mt-1.5 w-full accent-indigo-500"
-                      aria-label={t("budget_policy_def")}
+                      defaultValue={22}
+                      onChange={setDef}
+                      formatValue={(v) => `${(v / 10).toFixed(1)}%`}
                     />
+                    {euNoteLine("def")}
                   </div>
                   <RateSlider
                     id="policy-wi"
@@ -1689,6 +1925,49 @@ export const BudgetPolicySimulator: FC = () => {
                       onChange={(v) => setTp(v === tpDef ? 0 : v)}
                     />
                   ) : null}
+                  <div>
+                    <RateSlider
+                      id="policy-mat"
+                      label={t("budget_policy_mat")}
+                      info={euInfo("mat", t("budget_policy_tip_mat"))}
+                      min={0}
+                      max={MATERNITY_Y2_MONTHS}
+                      value={mat}
+                      defaultValue={MATERNITY_Y2_MONTHS}
+                      onChange={setMat}
+                      suffix={" " + t("budget_policy_mat_unit")}
+                    />
+                    {euNoteLine("mat")}
+                  </div>
+                  <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                    <input
+                      type="checkbox"
+                      checked={mpf}
+                      disabled={!baseline.expenditure}
+                      onChange={(e) => setMpf(e.target.checked)}
+                      className="accent-indigo-500"
+                    />
+                    <span>{t("budget_policy_mpf")}</span>
+                    <InfoTip text={t("budget_policy_tip_mpf")} />
+                  </label>
+                  {/* Party subsidy in euro-cents per vote (the def/10 idiom:
+                      integer state, fractional display). */}
+                  <RateSlider
+                    id="policy-psub"
+                    label={t("budget_policy_psub")}
+                    tip={t("budget_policy_tip_psub")}
+                    min={0}
+                    max={450}
+                    step={25}
+                    value={psub}
+                    defaultValue={PSUB_DEF}
+                    onChange={setPsub}
+                    formatValue={(v) =>
+                      (lang === "bg"
+                        ? (v / 100).toFixed(2).replace(".", ",")
+                        : (v / 100).toFixed(2)) + " €"
+                    }
+                  />
                 </div>
               ) : null}
             </div>
@@ -1941,6 +2220,33 @@ export const BudgetPolicySimulator: FC = () => {
                       label={t("budget_policy_row_tp")}
                       tip={t("budget_policy_tip_tp")}
                       deltaEur={scenario.tpBalance}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                    />
+                  ) : null}
+                  {scenario.matBalance !== 0 ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_mat")}
+                      tip={t("budget_policy_tip_mat")}
+                      deltaEur={scenario.matBalance}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                    />
+                  ) : null}
+                  {scenario.mpfBalance !== 0 ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_mpf")}
+                      tip={t("budget_policy_tip_mpf")}
+                      deltaEur={scenario.mpfBalance}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                    />
+                  ) : null}
+                  {scenario.psubBalance !== 0 ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_psub")}
+                      tip={t("budget_policy_tip_psub")}
+                      deltaEur={scenario.psubBalance}
                       maxAbs={maxAbs}
                       lang={lang}
                     />

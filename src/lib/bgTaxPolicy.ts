@@ -688,3 +688,49 @@ export const scoreTeachersPeg = (
     (1 + employerRate)
   );
 };
+
+// ---------------------------------------------------------------------------
+// June-2026 consolidation-debate levers. These three carry their own sourced
+// constants instead of riding policy_baseline.json — each is a single
+// published figure, not a pipeline-derived aggregate.
+// ---------------------------------------------------------------------------
+
+/** Second-year child-raising benefit (чл.53 КСО): 2025 НОИ execution
+ *  €154.2M/yr at €398.81/mo (frozen by the extension law). The 2→1-year cut
+ *  was floated by a ПБ MP on 2026-06-01 and officially denied the same day —
+ *  the lever prices the recurring debate, not a government bill. */
+export const MATERNITY_Y2_SPEND_EUR = 154_200_000;
+export const MATERNITY_Y2_MONTHS = 12;
+
+/** Δ spending of keeping only `monthsKept` of the paid second year
+ *  (negative = the budget saves). Static: ignores the contributions and
+ *  income tax of mothers returning to work earlier (a partial offset in
+ *  the budget's favour) and the 50%-benefit-if-working rule. */
+export const scoreMaternityMonths = (monthsKept: number): number =>
+  -MATERNITY_Y2_SPEND_EUR *
+  ((MATERNITY_Y2_MONTHS - monthsKept) / MATERNITY_Y2_MONTHS);
+
+/** MP pay mass: 240 MPs × €4,236/mo base (3× the NSI public-sector average
+ *  wage, March 2026 — the level the 2026-06-11 freeze decision anchors to)
+ *  × ~1.30 average committee extras × 12 × 1.1902 employer SSC ≈ €18.9M/yr.
+ *  The representation allowance is excluded (non-wage). */
+export const MP_PAY_MASS_EUR = 18_900_000;
+
+/** Δ spending of freezing MP pay instead of the quarterly re-indexation
+ *  (negative = saving): one year of foregone growth on the pay mass. The
+ *  president (2× MP base), НС chair, PM and ministers ride the same base,
+ *  so the true saving is somewhat larger — captioned in the UI, not
+ *  modeled (their count is small and their extras differ). */
+export const scoreMpPayFreeze = (wageGrowthPct: number): number =>
+  -MP_PAY_MASS_EUR * (wageGrowthPct / 100);
+
+/** Party subsidies: ~2.86M subsidized votes (€11.7M envelope ÷ €4.09/vote,
+ *  7 qualifying formations after April 2026); current law is €3.00/vote
+ *  since 30.04.2026 (adopted 2026-06-03, cut from €4.09 = 8 лв). */
+export const PARTY_SUBSIDY_VOTES = 2_861_000;
+export const PARTY_SUBSIDY_RATE_EUR = 3.0;
+
+/** Δ spending of setting the per-vote subsidy (positive = costs more than
+ *  current law). */
+export const scorePartySubsidy = (rateEur: number): number =>
+  (rateEur - PARTY_SUBSIDY_RATE_EUR) * PARTY_SUBSIDY_VOTES;

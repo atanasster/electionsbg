@@ -95,6 +95,43 @@ Takeaways encoded in the UI:
   card uses its own per-year GDP — both labeled. The horizon (ph) slider affects the
   headline only; the projection always shows the full per-year path.
 
+## June-2026 government-debate levers (added 2026-06-11, second research pass)
+
+| Measure | Status (2026-06-11) | Costing anchor | Lever |
+|---|---|---|---|
+| Maternity 2→1 year | Rumor-stage: floated by ПБ MP Владимир Николов 2026-06-01 (bTV), formally denied same day by К. Проданов; NOT a МФ proposal | Second-year benefit (чл.53 КСО) €398.81/mo frozen; 2025 НОИ execution **€154.2M** (2024: €160.5M from the НОИ statistical XLS); ~33.5k avg full-rate recipients (derived — no published count) | `mat` slider, months kept 12→0; static, ignores return-to-work SSC/PIT offset and the 50%-if-working rule |
+| MP salary freeze | Правна комисия approved **17–0 on 2026-06-11**; plenary pending; freezes base at 3× NSI public-sector avg for March 2026 | Base **€4,236/mo** (May 2026); 240 MPs × ~1.30 committee extras × 1.1902 employer SSC ≈ **€18.9M/yr** pay mass; saving = foregone growth (~11.8%/yr НОИ insurable-income proxy) ≈ €2.2M/yr; president (2×), НС chair (+55%), PM, ministers ride the same base (not modeled) | `mpf` checkbox |
+| Party subsidy cut | **ADOPTED 2026-06-03**: €4.09 → **€3.00/vote** retroactive 30.04.2026 (saving ≈ €3.1M annualized) | ~2.861M subsidized votes (€11.7M ÷ €4.09), 7 formations | `psub` slider 0–€4.50, default €3.00 = current law |
+| МОД €2,300 from 01.08.2026 | Confirmed Donev guideline (2026-05-18) | — | existing МОД slider |
+| Administration −10% payroll from 01.09.2026 | Donev guideline, no EUR figure | — | existing admin lever |
+| Capital freeze (non-priority) | Donev guideline, no EUR figure | — | existing capital lever |
+| Pensions +7.8% (01.07.2026) + min pension €347.51 + no COVID supplement for NEW pensions | Adopted 2026-06-03 (extension-law amendments) | — | Swiss rule = current law; pensionFloor baseline (€322.37, as of 2026-03-31) predates the July rise — regen note |
+| Public-sector pay cap = president's salary; end of top-office auto-indexation | Donev guideline 2026-05-18 | no published saving | not modeled (no costable base) |
+| СУПТО revival / collection measures | In Nov-2025 draft (€320M claimed), dropped Dec 2025; presence in the Donev bill UNVERIFIED | — | not modeled (ФС disputed the claimed yields) |
+
+Constants live in `bgTaxPolicy.ts` (`MATERNITY_Y2_SPEND_EUR`, `MP_PAY_MASS_EUR`, `PARTY_SUBSIDY_VOTES`) — single published figures, deliberately not piped through policy_baseline.json.
+
+## EU country comparators (added 2026-06-11, third research pass)
+
+"Като в… (ЕС)" dropdowns under 7 levers (`src/lib/euPolicyPresets.ts` — 27 options),
+all values re-verified 2026-06-11. Catches vs stale knowledge, for future refreshes:
+
+- **Estonia**: VAT 24% permanent since 07/2025; the legislated 24% PIT/CIT rise for
+  2026 was **cancelled Dec 2025** (стays 22%); the universal €700/mo exemption DID
+  take effect 01/2026 with no phase-out. (EMTA, EY, Grant Thornton)
+- **Slovakia**: PIT has **4 brackets from 2026** (19/25/30/35, 25% from €43,983/yr);
+  VAT 23% since 2025. Modeled as 19/25 two-bracket approximation, note says so.
+- **NATO defense 2025 estimates** (June 2025 compendium): PL 4.48, LT 4.00, EE 3.38,
+  GR 2.85, IT 2.01; **Germany unreported** — used national ≈2.4% with caveat.
+- **Spain**: the 2022-24 food-VAT holiday lapsed — back to 10/4%.
+- **France CIT**: 25% + exceptional surtax (≥€1.5bn turnover) extended into 2026.
+- Maternity mappings are explicit approximations (well-paid months beyond BG's
+  410-day first year): EE 605d@100% → 6 mo; SE 390 well-paid d + 90 flat → 3 mo;
+  DE Elterngeld 12-14 mo → 0 mo. Pension indexation: FR CPI-only (+0.9% 01/2026),
+  DE wage-linked (+4.24% 07/2026).
+- UI behavior: a pick self-clears (matcher) when the lever no longer equals the
+  country's values, so scenarios are never mislabeled.
+
 ## Pending data upgrade
 
 A ЗДОИ request to НАП for ДДФЛ income-tier statistics (income distribution by bracket)

@@ -383,6 +383,23 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     tags: ["indicators", "fiscal", "prices"],
   },
   {
+    id: "eu_policy_anchors",
+    label: { bg: "ЕС и НАТО — политики", en: "EU and NATO policy anchors" },
+    detail: {
+      bg: "данъчни ставки в ЕС, отбрана, прогноза на ЕК",
+      en: "EU tax rates, defence shares, EC forecast",
+    },
+    desc: {
+      bg: "Котвите на данъчния симулатор: ставките в държавите от ЕС за сравнителите „Като в…“ (PwC Worldwide Tax Summaries), дяловете за отбрана от компендиума на НАТО и прогнозата на ЕК за България, върху която стъпва 5-годишната проекция на салдото и дълга. Стойностите живеят като константи с източници в кода на симулатора и се обновяват ръчно при сигнал от наблюдателя.",
+      en: 'The tax simulator\'s anchors: EU member-state rates for the "Like in…" comparators (PwC Worldwide Tax Summaries), defence shares from the NATO expenditure compendium and the EC forecast for Bulgaria that the 5-year balance/debt projection is built on. The values live as sourced constants in the simulator code and are updated manually when the watcher flags a change.',
+    },
+    url: "https://taxsummaries.pwc.com/quick-charts/value-added-tax-vat-rates",
+    origin: "intl",
+    members: ["eu_tax_rates", "nato_defence", "ec_forecast_bg"],
+    skills: [],
+    tags: ["fiscal"],
+  },
+  {
     id: "intl",
     label: { bg: "Международни индекси", en: "International indices" },
     detail: {
@@ -989,6 +1006,7 @@ export const EDGES: [string, string][] = [
   ["src:eurostat", "ds:macro"],
   ["src:eurostat", "ds:indicators"],
   ["src:eurostat", "ds:budget"],
+  ["src:eu_policy_anchors", "ds:budget"],
   ["src:intl", "ds:macro"],
   ["src:bnb", "ds:macro"],
   ["src:kzp", "ds:prices"],
