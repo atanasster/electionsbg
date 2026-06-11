@@ -56,6 +56,7 @@ import {
   type VatPolicy,
   type VatRegime,
 } from "../../src/lib/bgTaxPolicy";
+import { NOMINAL_GDP_2026_EUR } from "../../src/lib/bgFiscalProjection";
 import type { PolicyBaselineFile } from "../../src/data/budget/types";
 import { fetchData } from "./dataClient";
 import type { Envelope, Lang, ToolArgs, ToolContext } from "./types";
@@ -907,7 +908,11 @@ export const scoreScenario = (
   const defDelta =
     exp && def !== DEF_DEF
       ? scoreDefenseTarget(
-          baseline.gdpNextEur,
+          // Mirror the simulator screen: price the defense %-of-GDP target
+          // against the projection's EC-consistent 2026 nominal GDP
+          // (€123.9B), NOT the stale pipeline `gdpNextEur` (€128.2B, a
+          // +10.5% nominal-growth vintage). Same lever, same base as the UI.
+          NOMINAL_GDP_2026_EUR,
           exp.defense.natoPctGdp,
           def / 10,
         )
