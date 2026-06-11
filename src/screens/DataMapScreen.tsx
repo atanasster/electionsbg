@@ -153,7 +153,7 @@ export const DataMapScreen = () => {
   // box would shrink the portrait graph to ~0.45×. Ultra-wide screens are
   // capped at ~1.15× so nodes don't balloon.
   const extent = useMemo(() => {
-    if (!manifest) return { w: 1, h: 1 };
+    if (!manifest || !manifest.tiers.length) return { w: 1, h: 1 };
     const w = Math.max(...manifest.tiers.map((t) => t.x + t.w)) + 16;
     const h = Math.max(...manifest.tiers.map((t) => t.y + t.h)) + 16;
     return { w, h };

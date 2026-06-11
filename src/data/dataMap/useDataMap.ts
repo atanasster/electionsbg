@@ -121,7 +121,21 @@ export const dataMapLensColor = (
 const fetchDataMap = async (): Promise<DataMapManifest> => {
   const res = await fetch("/data_map.json");
   if (!res.ok) throw new Error(`data_map.json: HTTP ${res.status}`);
-  return (await res.json()) as DataMapManifest;
+  const m = (await res.json()) as DataMapManifest;
+  // The manifest is code-coupled but served with a long CDN cache
+  // (stale-while-revalidate up to a week), so a returning visitor can get a
+  // freshly-hashed JS bundle paired with an older cached data_map.json that
+  // predates a field (e.g. `tours`, added in v2). Coerce every array field so
+  // no consumer reads `.length`/`.map` of undefined — the page renders with
+  // whatever the cached copy carries and self-heals once SWR refreshes it.
+  return {
+    ...m,
+    nodes: m.nodes ?? [],
+    edges: m.edges ?? [],
+    views: m.views ?? [],
+    tiers: m.tiers ?? [],
+    tours: m.tours ?? [],
+  };
 };
 
 export const useDataMap = () =>
