@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-06-10T22:15:07.641Z",
+  "generatedAt": "2026-06-11T06:30:37.928Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -63,7 +63,7 @@
       "url": "https://www.parliament.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-06T06:08:34.899Z",
+      "freshness": "2026-06-11T06:09:27.673Z",
       "skills": [
         "update-rollcall",
         "parliament-scrape"
@@ -74,14 +74,14 @@
           "label": "Parliament roll-call votes",
           "url": "https://www.parliament.bg/api/v1/pl-sten/{id}",
           "cadence": "daily",
-          "freshness": "2026-06-06T06:08:34.899Z"
+          "freshness": "2026-06-11T06:09:27.673Z"
         },
         {
           "id": "parliament_mps",
           "label": "Parliament MPs (active roster)",
           "url": "https://www.parliament.bg/api/v1/coll-list-ns/bg",
           "cadence": "daily",
-          "freshness": "2026-06-03T06:09:08.630Z"
+          "freshness": "2026-06-11T06:09:27.673Z"
         }
       ],
       "x": 28,
@@ -370,7 +370,7 @@
       "url": "https://www.minfin.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-05-29T06:08:35.979Z",
+      "freshness": "2026-06-11T06:09:27.673Z",
       "skills": [
         "update-budget",
         "update-noi",
@@ -431,7 +431,8 @@
           "id": "policy_baseline_local",
           "label": "НОИ STATB пенсии + НСИ заплати (policy-baseline)",
           "url": "https://nssi.bg/publikacii/statistika/pensii-statistika/",
-          "cadence": "weekly"
+          "cadence": "weekly",
+          "freshness": "2026-06-11T06:09:27.673Z"
         },
         {
           "id": "ipop_mrrb",
@@ -838,7 +839,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-10T06:09:43.216Z",
+      "freshness": "2026-06-11T06:09:27.673Z",
       "skills": [
         "update-prices"
       ],
@@ -848,7 +849,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-06-10T06:09:43.216Z"
+          "freshness": "2026-06-11T06:09:27.673Z"
         }
       ],
       "x": 28,

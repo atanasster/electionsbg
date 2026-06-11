@@ -117,15 +117,22 @@ const CADENCE_RANK: Record<Cadence, number> = {
 };
 
 // ---------------------------------------------------------------------------
-// Derived AI edges: scan every fetchData("...") in ai/ and map the paths to
-// dataset nodes via AI_PATH_RULES. The `ds:* → f:ai` edges are therefore a
-// faithful projection of what the assistant's tools actually read — a tool
-// touching a new dataset surfaces on the map automatically (or fails the
-// build until a rule places it).
+// Derived AI edges: scan ai/ for every data-path-shaped literal and map the
+// paths to dataset nodes via AI_PATH_RULES. The `ds:* → f:ai` edges are
+// therefore a faithful projection of what the assistant's tools actually
+// read — a tool touching a new dataset surfaces on the map automatically
+// (or fails the build until a rule places it).
+//
+// Deliberately literal-based rather than fetchData()-call-based: paths also
+// flow through local wrappers (`grab(p)`, `fetchData<T>(path)`) and arrays
+// (staticGeoMap sources), and call-anchored regexes silently miss nested
+// generics like fetchData<DerivedFile<X>>(…). Matching any `/…*.json` or
+// `.geojson` literal over-captures at worst a commented path — which maps to
+// a dataset the assistant already reads — while never under-reporting.
 
 const AI_DIR = path.join(ROOT, "ai");
 const AI_SKIP = /(\.harness\.ts$|\.d\.ts$|\/tests\/|\/m0\/)/;
-const FETCH_RE = /fetchData(?:<[^>(]*>)?\(\s*(`[^`]*`|"[^"]*"|'[^']*')/g;
+const PATH_RE = /(["'`])(\/[^"'`\s]+?\.(?:geo)?json)\1/g;
 
 const walkTs = (dir: string, out: string[] = []): string[] => {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -144,10 +151,9 @@ const deriveAiEdges = (): { edges: [string, string][]; paths: number } => {
   const found = new Map<string, string[]>(); // normalised path -> files
   for (const file of walkTs(AI_DIR)) {
     const content = fs.readFileSync(file, "utf-8");
-    for (const m of content.matchAll(FETCH_RE)) {
-      const raw = m[1].slice(1, -1);
+    for (const m of content.matchAll(PATH_RE)) {
       // `${expr}` → `{expr}` so rules can distinguish /{election}/ vs /{cycle}/.
-      const norm = raw.replace(/\$\{([^}]*)\}/g, "{$1}");
+      const norm = m[2].replace(/\$\{([^}]*)\}/g, "{$1}");
       found.set(norm, [...(found.get(norm) ?? []), path.relative(ROOT, file)]);
     }
   }
@@ -427,7 +433,7 @@ const main = async (): Promise<void> => {
     `data_map: wrote ${path.relative(ROOT, OUT_FILE)} — ${nodes.length} nodes ` +
       `(${SOURCE_GROUPS.length} source groups covering ${SOURCES.length} watched sources), ` +
       `${edges.length} edges (${ai.edges.length} dataset→AI derived from ` +
-      `${ai.paths} fetchData paths), freshness on ${fresh} nodes`,
+      `${ai.paths} data-path literals in ai/), freshness on ${fresh} nodes`,
   );
 };
 

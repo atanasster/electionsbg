@@ -83,6 +83,8 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   { pattern: /^\/cluster_persistence/, dataset: "elections" },
   { pattern: /^\/canonical_parties/, dataset: "elections" },
   { pattern: /^\/regions\//, dataset: "elections" },
+  { pattern: /^\/sections\//, dataset: "elections" },
+  { pattern: /^\/problem_sections_stats/, dataset: "elections" },
   {
     pattern: /^\/parliament\/(connections|companies|mp-connections)/,
     dataset: "connections",
@@ -109,6 +111,7 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   { pattern: /^\/funds\//, dataset: "funds" },
   { pattern: /^\/financing\//, dataset: "financing" },
   { pattern: /^\/(municipalities|settlements|ekatte)/, dataset: "geo" },
+  { pattern: /^\/(maps\/|regions_map)/, dataset: "geo" },
 ];
 
 export const SOURCE_GROUPS: SourceGroupDef[] = [
