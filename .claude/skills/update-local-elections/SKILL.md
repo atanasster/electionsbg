@@ -19,6 +19,7 @@ Two historical archives are also supported as one-time backfills (not watched, s
 | Trigger | Action |
 |---|---|
 | Daily watcher reports `CIK local-elections results bundles: N cycle(s) changed: …` | Run incremental ingest for the changed cycle(s) — Step 2 below |
+| Describe-line ends `<cycle> тур2 (runoff) re-check` | A mayoral partial's round-2 runoff window opened (the watcher re-flags each fresh partial ~9 and ~16 days after election day). **Re-run the same `--local-ingest <cycle>`** — idempotent on the round-1 mirror, pulls the round-2 (`tur2/`) pages now published, resolving the real winner (round-1 HTML stubs both finalists as elected). |
 | User asks to "refresh local elections" / "update мест. избори" / "ingest the new partial" | Same — Step 2 |
 | `data/2023_10_29_mi/` is empty on a fresh clone | Cold-start ingest with `--local-ingest mi2023` |
 | Adding a new regular cycle (e.g. mi2027 after Oct 2027) | First add the new slug → bundle URL to `scripts/watch/sources/cik_results.ts` `REGULAR_BUNDLE_URL`; then ingest |
@@ -58,7 +59,7 @@ Cross-cycle chmi history (`data/local_chmi_history.json`) is built by `scripts/p
 
 The fingerprint source `cik_results` in `scripts/watch/sources/cik_results.ts` tracks two kinds of cycle daily and queues this skill via `process-watch-report` when either changes:
 - **Regular cycles** (`mi2019`, `mi2023`) — HEADs the section bundle (`REGULAR_BUNDLE_URL`; mi2023's is `tur1/opendata/export.zip`, NOT a uniform `csv.zip`) for `Last-Modified` + `Content-Length`.
-- **Partial cycles** — enumerates every dated subdirectory under each `PARTIAL_UMBRELLAS` entry from CIK's root index, matching **both** `<date>_chastichen` (partial) **and** `<date>_nov` (new election, incl. full council re-elections). These are HTML-only; a newly-appeared date folder is the change signal.
+- **Partial cycles** — enumerates every dated subdirectory under each `PARTIAL_UMBRELLAS` entry from CIK's root index, matching **both** `<date>_chastichen` (partial) **and** `<date>_nov` (new election, incl. full council re-elections). These are HTML-only; a newly-appeared date folder is the round-1 change signal. **Round-2 runoffs** publish into the *same* date folder ~7 days later under `tur2/`, with no fresh folder to detect — and CIK serves a populated `tur2/` shell even for roundless `_nov` cycles, so there's no reliable server signal to probe. The source instead schedules re-ingests purely off the election date in the slug: each freshly-seen partial advances a `runoffStage` at fixed day offsets (`RUNOFF_RECHECK_DAYS = [9, 16]`), and every advance re-flags the cycle with a `тур2 (runoff) re-check` describe-line. Pre-existing partials are grandfathered (never re-flagged), so shipping the mechanism is a no-op.
 
 ## Step 1 — Prerequisites
 

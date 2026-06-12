@@ -11,6 +11,18 @@
 //     is the change signal (a council/mayor partial appearing). Both the
 //     _chastichen (partial) and _nov (new-election) variants are enumerated.
 //
+// Round-2 (балотаж) for a mayoral partial publishes into the SAME date folder
+// ~7 days after round 1, under tur2/. Round-1 HTML marks BOTH runoff finalists
+// as elected, so the round-1 ingest can't name the winner — we must re-ingest
+// once the runoff is in. There is no reliable server signal to probe (CIK
+// serves a populated tur2/ shell even for roundless `_nov` cycles that never
+// have a runoff), so we schedule re-ingests purely off the election date in the
+// slug: each partial first seen under this mechanism advances a `runoffStage`
+// at fixed day offsets (RUNOFF_RECHECK_DAYS), and every advance re-flags the
+// cycle so /update-local-elections re-ingests and resolves the real winner.
+// Pre-existing partials are grandfathered (never re-flagged) so the rollout is
+// a no-op. See resolveRunoff().
+//
 // The source fingerprint is sha256(cycle list joined). When it changes, the
 // orchestrator invokes /update-local-elections, which runs one
 // `--local-ingest <cycleSlug>` per changed cycle (and `--local-csv <slug>`
@@ -21,9 +33,11 @@
 
 import type { WatchSource, Fingerprint, WatchState } from "../types";
 import { sha256Short } from "../fingerprint";
+import { readState } from "../state";
 import { cikFetchText, cikHead } from "../../parsers_local/cik_fetch";
 
 const ROOT = "https://results.cik.bg";
+const SOURCE_ID = "cik_results";
 
 // Known regular cycles → their downloadable section bundle. Extend when CIK
 // publishes a new cycle (mi2027 etc.). Kept static so the watcher doesn't
@@ -45,6 +59,13 @@ type CycleFingerprint = {
   lastModified: string | null;
   contentLength: string | null;
   status: number; // partials are existence-based → 200 once discovered
+  // Partial only: round-2 runoff re-ingest scheduling. `runoffTracked` is true
+  // for partials first seen after this mechanism shipped (pre-existing partials
+  // are grandfathered → never re-flagged). `runoffStage` advances monotonically
+  // through RUNOFF_RECHECK_DAYS as the election ages; each advance re-flags the
+  // cycle so /update-local-elections re-ingests and picks up the runoff.
+  runoffTracked: boolean;
+  runoffStage: number;
 };
 
 const fingerprintRegular = async (cycle: string): Promise<CycleFingerprint> => {
@@ -57,7 +78,56 @@ const fingerprintRegular = async (cycle: string): Promise<CycleFingerprint> => {
     lastModified: head.lastModified,
     contentLength: head.contentLength,
     status: head.status,
+    // Regular cycles ship both rounds in one bundle (re-upload is the signal),
+    // so the partial-only runoff-recheck machinery doesn't apply.
+    runoffTracked: false,
+    runoffStage: 0,
   };
+};
+
+// Round-2 (балотаж) for a mayoral partial is held a fixed ~7 days after round 1
+// and its results publish into the SAME date folder under tur2/. There is no
+// reliable existence signal to probe — CIK serves a populated tur2/ navigation
+// shell even for roundless `_nov` cycles that never have a runoff — so instead
+// of sniffing the server we schedule re-ingests purely off the election date in
+// the slug. At each RUNOFF_RECHECK_DAYS threshold the cycle's `runoffStage`
+// advances by one, which changes its fingerprint line and re-flags it; the
+// re-ingest is idempotent (already-mirrored round-1 pages are skipped) and
+// picks up whatever tur2 pages have since appeared. Two thresholds cover both
+// the usual 7-day runoff (caught at day 9) and a 14-day schedule or a late CIK
+// upload (caught at day 16).
+const RUNOFF_RECHECK_DAYS = [9, 16] as const;
+
+const electionAgeDays = (cycle: string): number | null => {
+  const m = cycle.match(/(\d{4})-(\d{2})-(\d{2})/);
+  if (!m) return null;
+  const day = Date.parse(`${m[1]}-${m[2]}-${m[3]}T00:00:00Z`);
+  if (Number.isNaN(day)) return null;
+  return (Date.now() - day) / 86_400_000;
+};
+
+const stageForAge = (age: number): number =>
+  RUNOFF_RECHECK_DAYS.filter((d) => age >= d).length;
+
+// Decide the runoff-recheck bookkeeping for a partial. Pre-existing partials
+// (present in prior state but never tracked) are grandfathered — frozen at
+// stage 0 so they never re-flag and the fingerprint stays byte-identical on
+// rollout. A partial first seen now is tracked from birth; its stage only ever
+// advances (monotonic), so a transient clock/age quirk can't walk it backwards.
+const resolveRunoff = (
+  cycle: string,
+  kind: "regular" | "partial",
+  prev: CycleFingerprint | undefined,
+): { runoffTracked: boolean; runoffStage: number } => {
+  if (kind !== "partial") return { runoffTracked: false, runoffStage: 0 };
+  const tracked = prev ? (prev.runoffTracked ?? false) : true;
+  if (!tracked) return { runoffTracked: false, runoffStage: 0 };
+  const age = electionAgeDays(cycle);
+  const stage = Math.max(
+    prev?.runoffStage ?? 0,
+    age === null ? 0 : stageForAge(age),
+  );
+  return { runoffTracked: true, runoffStage: stage };
 };
 
 // Discover dated partial-elections subdirectories under an umbrella. CIK's
@@ -87,7 +157,7 @@ type CikResultsMeta = {
 };
 
 export const cikResults: WatchSource = {
-  id: "cik_results",
+  id: SOURCE_ID,
   label: "CIK local-elections results bundles",
   url: `${ROOT}/`,
   cadence: "daily",
@@ -100,7 +170,16 @@ export const cikResults: WatchSource = {
       fps.push(await fingerprintRegular(cycle));
     }
     // Partial cycles: existence-based (HTML-only, no bundle to HEAD). A new
-    // date folder appearing in the umbrella index is the signal.
+    // date folder appearing in the umbrella index is the round-1 signal; the
+    // runoff is then caught by the date-driven re-ingest stages (resolveRunoff).
+    // We consult the previous state to grandfather already-tracked partials and
+    // to keep each cycle's runoff stage monotonic.
+    const prevByCycle = new Map(
+      (
+        (readState(SOURCE_ID)?.meta as unknown as CikResultsMeta | undefined)
+          ?.cycles ?? []
+      ).map((c) => [c.cycle, c] as const),
+    );
     for (const umbrella of PARTIAL_UMBRELLAS) {
       for (const cycle of await discoverPartials(umbrella)) {
         fps.push({
@@ -110,6 +189,7 @@ export const cikResults: WatchSource = {
           lastModified: null,
           contentLength: null,
           status: 200,
+          ...resolveRunoff(cycle, "partial", prevByCycle.get(cycle)),
         });
       }
     }
@@ -120,7 +200,7 @@ export const cikResults: WatchSource = {
         .sort((a, b) => a.cycle.localeCompare(b.cycle))
         .map(
           (f) =>
-            `${f.cycle}\t${f.status}\t${f.lastModified ?? ""}\t${f.contentLength ?? ""}`,
+            `${f.cycle}\t${f.status}\t${f.lastModified ?? ""}\t${f.contentLength ?? ""}${f.runoffTracked && f.runoffStage > 0 ? `\tr2:${f.runoffStage}` : ""}`,
         )
         .join("\n"),
     );
@@ -160,6 +240,12 @@ export const cikResults: WatchSource = {
           c.contentLength !== p.contentLength)
       ) {
         changed.push(`${c.cycle} re-uploaded`);
+      }
+      // A partial entering a runoff-recheck stage — round 1 was ingested
+      // earlier (both finalists stubbed as elected); re-ingesting now picks up
+      // the tur2 pages published since and resolves the real winner.
+      if (c.kind === "partial" && c.runoffStage > (p.runoffStage ?? 0)) {
+        changed.push(`${c.cycle} тур2 (runoff) re-check`);
       }
     }
     if (changed.length === 0) return curr.detail;
