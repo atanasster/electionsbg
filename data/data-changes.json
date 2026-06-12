@@ -1,6 +1,33 @@
 {
-  "updatedAt": "2026-06-11T06:37:54.244Z",
+  "updatedAt": "2026-06-12T07:12:41.792Z",
   "entries": [
+    {
+      "timestamp": "2026-06-12T07:12:41.792Z",
+      "date": "2026-06-12",
+      "skill": "update-council-minutes",
+      "summary": "PER32 protocol 5 (2026-05-28): 34 new decisions; 15 munis checked",
+      "source": "Council resolutions + vote tallies"
+    },
+    {
+      "timestamp": "2026-06-12T07:04:09.781Z",
+      "date": "2026-06-12",
+      "skill": "update-prices",
+      "summary": "2026-06-11 archive: 1.46M rows, 245 settlements, 211 chains; 161 days index 2026-01-02…2026-06-11",
+      "source": "КЗП Колко струва (retail prices)"
+    },
+    {
+      "timestamp": "2026-06-12T07:03:17.217Z",
+      "date": "2026-06-12",
+      "skill": "update-rollcall",
+      "summary": "1 new session: 2026-06-11 (id 11137), 40 items, 9388 rows; 236 name-remapped IDs",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-06-11T06:37:54.244Z",
       "date": "2026-06-11",
