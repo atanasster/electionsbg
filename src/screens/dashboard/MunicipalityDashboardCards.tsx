@@ -20,7 +20,7 @@ import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { TopSettlementsTile } from "./TopSettlementsTile";
 import { CityRayonBreakdownTile } from "./CityRayonBreakdownTile";
 import { CityRayonMapTile } from "./CityRayonMapTile";
-import { hasCityRayons } from "@/data/rayon/useCityRayons";
+import { hasCityRayons, useCityRayonHistory } from "@/data/rayon/useCityRayons";
 import { findCityRayon } from "@/data/local/cityRayonCatalog";
 import { CensusDemographicsTile } from "./CensusDemographicsTile";
 import { IndicatorsTile } from "./IndicatorsTile";
@@ -77,6 +77,16 @@ export const MunicipalityDashboardCards: FC<Props> = ({
   // For a Пловдив/Варна район, the report keys sections by the parent obshtina
   // (PDV22), so match on parent + section-code digits 5-6 — same as the tile.
   const cityRayon = findCityRayon(municipalityCode);
+  // Multi-cycle trends for a Пловдив/Варна район: it has no `_stats.json`, so
+  // useMunicipalityStats 404s → undefined, which would make HistoricalTrendsTile
+  // fall back to NATIONAL trends mislabeled as район history. Feed the real
+  // per-район history (client-side join over the per-election rayon JSON)
+  // instead; for any normal município this is disabled and `stats` is used.
+  const { data: rayonHistory } = useCityRayonHistory(
+    cityRayon?.obshtina,
+    cityRayon?.code,
+  );
+  const histStats = cityRayon ? rayonHistory : stats;
   const muniHasProblemSections = problemSectionsReport?.neighborhoods?.some(
     (n) =>
       n.sections.some((s) =>
@@ -172,9 +182,9 @@ export const MunicipalityDashboardCards: FC<Props> = ({
             >
               {t("my_area_full_election_breakdown_link")}
             </a>
-          ) : (
-            <HistoricalTrendsTile stats={stats} />
-          )}
+          ) : histStats?.length ? (
+            <HistoricalTrendsTile stats={histStats} />
+          ) : null}
         </DashboardSection>
 
         <DashboardSection

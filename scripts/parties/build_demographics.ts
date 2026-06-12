@@ -258,6 +258,13 @@ const aggregateMunicipalityVotes = (
   if (!fs.existsSync(municipalitiesDir)) return aggs;
   for (const file of fs.readdirSync(municipalitiesDir)) {
     if (!file.endsWith(".json")) continue;
+    // This dir also holds the gitignored Пловдив/Варна район shards
+    // ("<muni>-<code>.json", obshtina "PDV22-06") that gen_city_rayon_data.ts
+    // writes. They are subsets of their parent city (PDV22/VAR06), so any
+    // directory-globbing rollup MUST skip them or it double-counts city votes.
+    // The census-code guard below already rejects them (PDV22-06 is not an NSI
+    // code), but skip explicitly here so the invariant doesn't depend on it.
+    if (/^[A-Z]{3}\d{2}-\d{2}\.json$/.test(file)) continue;
     const mv: MunicipalityVoteFile = JSON.parse(
       fs.readFileSync(path.join(municipalitiesDir, file), "utf-8"),
     );

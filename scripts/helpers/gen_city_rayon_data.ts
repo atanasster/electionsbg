@@ -206,104 +206,29 @@ function buildGeometry(muni: keyof typeof CITIES, election: string) {
   return codes;
 }
 
-// ---- per-election район results --------------------------------------------
-function buildResults(muni: keyof typeof CITIES, election: string) {
+// ---- shared per-район aggregation ------------------------------------------
+// Read the МИР section bundle once and bucket every section by its 6th-7th
+// digit код ("00" = mobile/ship — callers decide whether to keep it), summing
+// votes (incl. suemgVotes) by partyNum + every numeric protocol field. Both
+// writers below derive their view from this single map, so the bundle is
+// parsed once and the two aggregations can't diverge.
+type RayonAgg = {
+  votes: Map<number, SecVote>;
+  protocol: Record<string, number>;
+};
+function aggregateByRayon(
+  muni: keyof typeof CITIES,
+  election: string,
+): Map<string, RayonAgg> | null {
   const cfg = CITIES[muni];
   const f = `data/${election}/sections/by-oblast/${cfg.mir}.json`;
-  if (!fs.existsSync(f)) return 0;
+  if (!fs.existsSync(f)) return null;
   const sec = JSON.parse(fs.readFileSync(f, "utf8")) as Record<string, Sec>;
-  const agg = new Map<
-    string,
-    {
-      votes: Map<
-        number,
-        { totalVotes: number; paperVotes: number; machineVotes: number }
-      >;
-      voters: number;
-      valid: number;
-    }
-  >();
+  const agg = new Map<string, RayonAgg>();
   for (const s of Object.values(sec)) {
     const id = String(s.section);
     if (id.slice(2, 4) !== cfg.muni) continue;
-    const rayon = id.slice(4, 6); // "00" -> _mobile bucket
-    const key = rayon === "00" ? "_mobile" : rayon;
-    const e = agg.get(key) ?? { votes: new Map(), voters: 0, valid: 0 };
-    for (const v of s.results.votes) {
-      const cur = e.votes.get(v.partyNum) ?? {
-        totalVotes: 0,
-        paperVotes: 0,
-        machineVotes: 0,
-      };
-      cur.totalVotes += v.totalVotes;
-      cur.paperVotes += v.paperVotes ?? 0;
-      cur.machineVotes += v.machineVotes ?? 0;
-      e.votes.set(v.partyNum, cur);
-    }
-    e.voters += s.results.protocol?.totalActualVoters ?? 0;
-    e.valid +=
-      (s.results.protocol?.numValidVotes ?? 0) +
-      (s.results.protocol?.numValidMachineVotes ?? 0);
-    agg.set(key, e);
-  }
-  if (!agg.size) return 0;
-  const rows = [...agg.entries()]
-    .filter(([k]) => k !== "_mobile" && NAMES[muni][k])
-    .sort((a, b) => a[0].localeCompare(b[0]))
-    .map(([code, e]) => ({
-      key: code,
-      obshtina: `${muni}-${code}`,
-      oblast: cfg.nuts3,
-      name: NAMES[muni][code].bg,
-      name_en: NAMES[muni][code].en,
-      results: {
-        votes: [...e.votes.entries()].map(([partyNum, v]) => ({
-          partyNum,
-          ...v,
-        })),
-        protocol: { totalActualVoters: e.voters, numValidVotes: e.valid },
-      },
-    }));
-  const mobile = agg.get("_mobile");
-  const out = {
-    municipality: muni,
-    rayons: rows,
-    mobile: mobile
-      ? {
-          voters: mobile.voters,
-          votes: [...mobile.votes.entries()].map(([partyNum, v]) => ({
-            partyNum,
-            ...v,
-          })),
-        }
-      : undefined,
-  };
-  fs.mkdirSync(`data/${election}/rayon`, { recursive: true });
-  fs.writeFileSync(`data/${election}/rayon/${muni}.json`, JSON.stringify(out));
-  return rows.length;
-}
-
-// ---- per-район município-shaped shards -------------------------------------
-// Emits one /<election>/municipalities/<muni>-<code>.json per район, shaped
-// exactly like a real município artifact ({key, obshtina, oblast, results:
-// {votes[], protocol}}), so /settlement/<muni>-<code> can drive the standard
-// MunicipalityDashboardCards (party results, turnout, paper/machine, SUEMG
-// flash-memory, recount). These shards are NOT added to municipalities.json,
-// so national rollups (which iterate that index) never double-count them.
-function buildMunicipalityShards(muni: keyof typeof CITIES, election: string) {
-  const cfg = CITIES[muni];
-  const f = `data/${election}/sections/by-oblast/${cfg.mir}.json`;
-  if (!fs.existsSync(f)) return 0;
-  const sec = JSON.parse(fs.readFileSync(f, "utf8")) as Record<string, Sec>;
-  const agg = new Map<
-    string,
-    { votes: Map<number, SecVote>; protocol: Record<string, number> }
-  >();
-  for (const s of Object.values(sec)) {
-    const id = String(s.section);
-    if (id.slice(2, 4) !== cfg.muni) continue;
-    const code = id.slice(4, 6);
-    if (code === "00" || !NAMES[muni][code]) continue; // skip mobile/ship
+    const code = id.slice(4, 6); // "00" = mobile/ship
     const e = agg.get(code) ?? {
       votes: new Map<number, SecVote>(),
       protocol: {} as Record<string, number>,
@@ -322,15 +247,85 @@ function buildMunicipalityShards(muni: keyof typeof CITIES, election: string) {
       cur.suemgVotes = (cur.suemgVotes ?? 0) + (v.suemgVotes ?? 0);
       e.votes.set(v.partyNum, cur);
     }
-    // Sum every numeric protocol field so the shard carries the full picture.
     for (const [k, val] of Object.entries(s.results.protocol ?? {})) {
       if (typeof val === "number") e.protocol[k] = (e.protocol[k] ?? 0) + val;
     }
     agg.set(code, e);
   }
+  return agg.size ? agg : null;
+}
+
+// ---- per-election район results --------------------------------------------
+// The compact район-breakdown layer behind the city-page tile/map: votes
+// (paper/machine, no suemg) + turnout/valid only, with a separate `_mobile`
+// bucket so no voter is dropped.
+function buildResults(muni: keyof typeof CITIES, election: string) {
+  const agg = aggregateByRayon(muni, election);
+  if (!agg) return 0;
+  const cfg = CITIES[muni];
+  const trimVotes = (e: RayonAgg) =>
+    [...e.votes.values()].map(
+      ({ partyNum, totalVotes, paperVotes, machineVotes }) => ({
+        partyNum,
+        totalVotes,
+        paperVotes,
+        machineVotes,
+      }),
+    );
+  const rows = [...agg.entries()]
+    .filter(([k]) => k !== "00" && NAMES[muni][k])
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([code, e]) => ({
+      key: code,
+      obshtina: `${muni}-${code}`,
+      oblast: cfg.nuts3,
+      name: NAMES[muni][code].bg,
+      name_en: NAMES[muni][code].en,
+      results: {
+        votes: trimVotes(e),
+        protocol: {
+          totalActualVoters: e.protocol.totalActualVoters ?? 0,
+          numValidVotes:
+            (e.protocol.numValidVotes ?? 0) +
+            (e.protocol.numValidMachineVotes ?? 0),
+        },
+      },
+    }));
+  const mobile = agg.get("00");
+  const out = {
+    municipality: muni,
+    rayons: rows,
+    mobile: mobile
+      ? {
+          voters: mobile.protocol.totalActualVoters ?? 0,
+          votes: trimVotes(mobile),
+        }
+      : undefined,
+  };
+  fs.mkdirSync(`data/${election}/rayon`, { recursive: true });
+  fs.writeFileSync(`data/${election}/rayon/${muni}.json`, JSON.stringify(out));
+  return rows.length;
+}
+
+// ---- per-район município-shaped shards -------------------------------------
+// Emits one /<election>/municipalities/<muni>-<code>.json per район with the
+// SAME shape as a real município artifact ({key, obshtina, oblast, results:
+// {votes[], protocol}} — verified: real artifacts carry no name/name_en
+// either), so /settlement/<muni>-<code> can drive the standard
+// MunicipalityDashboardCards (party results, turnout, paper/machine, SUEMG
+// flash-memory). The shard carries suemgVotes + the full protocol; votes are
+// sorted by total desc (cosmetic — useMunicipalitySummary re-sorts). These
+// shards are NOT added to municipalities.json, so index-driven national
+// rollups never double-count them — and directory-globbing consumers
+// (build_demographics.ts) skip the "<muni>-<code>.json" filename explicitly.
+function buildMunicipalityShards(muni: keyof typeof CITIES, election: string) {
+  const agg = aggregateByRayon(muni, election);
+  if (!agg) return 0;
+  const cfg = CITIES[muni];
   let n = 0;
   fs.mkdirSync(`data/${election}/municipalities`, { recursive: true });
   for (const [code, e] of agg) {
+    if (code === "00" || !NAMES[muni][code]) continue; // skip mobile/ship
     const out = {
       key: `${muni}-${code}`,
       obshtina: `${muni}-${code}`,
