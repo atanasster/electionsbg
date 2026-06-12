@@ -665,7 +665,10 @@ export const buildGovernanceRayonRoutes = (
           buildWebPageLd({ title: pTitle, description: pDesc, url: pUrl }),
           buildBreadcrumbLd([
             { name: "Начало", url: `${SITE_URL}/` },
-            { name: `Община ${city.bg}`, url: `${SITE_URL}/settlement/${muni}` },
+            {
+              name: `Община ${city.bg}`,
+              url: `${SITE_URL}/settlement/${muni}`,
+            },
             { name: `Район ${name}`, url: pUrl },
           ]),
         ],
