@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { ShieldAlert } from "lucide-react";
 import { NationalPartyResult } from "@/data/dashboard/dashboardTypes";
 import { useProblemSections } from "@/data/reports/useProblemSections";
+import { findCityRayon } from "@/data/local/cityRayonCatalog";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { formatPct, formatThousands } from "@/data/utils";
 import { Link } from "@/ux/Link";
@@ -32,23 +33,37 @@ export const ProblemSectionsTile: FC<Props> = ({
   const rows = useMemo(() => {
     if (!data?.neighborhoods?.length) return [];
     const partyMap = new Map(parties.map((p) => [p.partyNum, p]));
+    // A Пловдив/Варна район ("PDV22-06") is sub-município: match its sections by
+    // the parent obshtina + section-code digits 5-6, since the report keys
+    // sections by obshtina (the parent city), not район.
+    const rayon = municipalityCode
+      ? findCityRayon(municipalityCode)
+      : undefined;
     const filtered = ekatte
       ? data.neighborhoods.filter((n) =>
           n.sections.some((s) => s.ekatte === ekatte),
         )
-      : municipalityCode
+      : rayon
         ? data.neighborhoods.filter((n) =>
-            n.sections.some((s) => s.obshtina === municipalityCode),
+            n.sections.some(
+              (s) =>
+                s.obshtina === rayon.obshtina &&
+                String(s.section).slice(4, 6) === rayon.code,
+            ),
           )
-        : regionCodes?.length
+        : municipalityCode
           ? data.neighborhoods.filter((n) =>
-              n.sections.some((s) => regionCodes.includes(s.oblast)),
+              n.sections.some((s) => s.obshtina === municipalityCode),
             )
-          : regionCode
+          : regionCodes?.length
             ? data.neighborhoods.filter((n) =>
-                n.sections.some((s) => s.oblast === regionCode),
+                n.sections.some((s) => regionCodes.includes(s.oblast)),
               )
-            : data.neighborhoods;
+            : regionCode
+              ? data.neighborhoods.filter((n) =>
+                  n.sections.some((s) => s.oblast === regionCode),
+                )
+              : data.neighborhoods;
     return filtered
       .map((n) => {
         let registered = 0;

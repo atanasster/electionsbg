@@ -651,6 +651,25 @@ export const buildGovernanceRayonRoutes = (
           buildBreadcrumbLd(breadcrumb),
         ],
       });
+      // Parliamentary results node of the same район (/settlement/<id>) — the
+      // other tab of the район place; reuses MunicipalityDashboardCards.
+      const pUrl = `${SITE_URL}/settlement/${id}`;
+      const pTitle = `Резултати в район ${name}, община ${city.bg} | electionsbg.com`;
+      const pDesc = `Резултати от парламентарни избори по партии за административен район ${name} в община ${city.bg} (${city.mir.replace(/^0+/, "")} МИР).`;
+      result.push({
+        path: `settlement/${id}`,
+        title: pTitle,
+        description: pDesc,
+        bodyHtml: `<h1>Район ${name}</h1><p>Парламентарни избори — резултати по партии за административен район ${name}, община ${city.bg}.</p>`,
+        jsonLd: [
+          buildWebPageLd({ title: pTitle, description: pDesc, url: pUrl }),
+          buildBreadcrumbLd([
+            { name: "Начало", url: `${SITE_URL}/` },
+            { name: `Община ${city.bg}`, url: `${SITE_URL}/settlement/${muni}` },
+            { name: `Район ${name}`, url: pUrl },
+          ]),
+        ],
+      });
     }
   }
   return result;

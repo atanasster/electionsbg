@@ -31,6 +31,7 @@ import {
   consumptionUrl,
   isSofiaCityObshtina,
 } from "@/data/local/placeViews";
+import { findCityRayon } from "@/data/local/cityRayonCatalog";
 import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
 import { useLocalElectionIndex } from "@/data/local/useLocalElectionIndex";
 import { PLACE_VIEW_META } from "./placeViewMeta";
@@ -76,6 +77,10 @@ export const PlaceViewNav: FC<Props> = ({
   // районs are their own município (S2xxx), so the obshtina guard covers them
   // too. The Sofia city aggregate is keyed SOF00 in the parliamentary/my-area
   // trees but lives under the synthetic SOF bundle in the local index.
+  // Пловдив/Варна районите aren't in the local index (their районен кмет is a
+  // district within the parent city bundle) — gate the Местни pill on the
+  // parent city instead, where localUrl points it.
+  const localLookupObshtina = findCityRayon(obshtina)?.obshtina ?? obshtina;
   const localAvailable =
     !!index &&
     (level === "country"
@@ -84,7 +89,9 @@ export const PlaceViewNav: FC<Props> = ({
         ? index.municipalities.some((m) => m.oblast === oblast)
         : isSofiaCityObshtina(obshtina)
           ? index.municipalities.some((m) => m.obshtinaCode === "SOF")
-          : index.municipalities.some((m) => m.obshtinaCode === obshtina));
+          : index.municipalities.some(
+              (m) => m.obshtinaCode === localLookupObshtina,
+            ));
 
   const urlFor = (view: PlaceView): string | null => {
     if (view === "governance") return governanceUrl(place);

@@ -21,6 +21,7 @@ import { TopSettlementsTile } from "./TopSettlementsTile";
 import { CityRayonBreakdownTile } from "./CityRayonBreakdownTile";
 import { CityRayonMapTile } from "./CityRayonMapTile";
 import { hasCityRayons } from "@/data/rayon/useCityRayons";
+import { findCityRayon } from "@/data/local/cityRayonCatalog";
 import { CensusDemographicsTile } from "./CensusDemographicsTile";
 import { IndicatorsTile } from "./IndicatorsTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
@@ -73,8 +74,17 @@ export const MunicipalityDashboardCards: FC<Props> = ({
   // município-specific data. Detect "no problem sections here" and hide
   // the whole section to avoid the bait-and-switch.
   const { data: problemSectionsReport } = useProblemSections();
+  // For a Пловдив/Варна район, the report keys sections by the parent obshtina
+  // (PDV22), so match on parent + section-code digits 5-6 — same as the tile.
+  const cityRayon = findCityRayon(municipalityCode);
   const muniHasProblemSections = problemSectionsReport?.neighborhoods?.some(
-    (n) => n.sections.some((s) => s.obshtina === municipalityCode),
+    (n) =>
+      n.sections.some((s) =>
+        cityRayon
+          ? s.obshtina === cityRayon.obshtina &&
+            String(s.section).slice(4, 6) === cityRayon.code
+          : s.obshtina === municipalityCode,
+      ),
   );
 
   const basePath = `/settlement/${municipalityCode}`;
@@ -134,6 +144,11 @@ export const MunicipalityDashboardCards: FC<Props> = ({
                 МИР map. Self-applies only to those municípios. */}
             {hasCityRayons(municipalityCode) ? (
               <CityRayonMapTile municipalityCode={municipalityCode} />
+            ) : cityRayon ? (
+              // A Пловдив/Варна район has no settlement map of its own (the city
+              // is a single settlement) — show the parent city's районы
+              // choropleth so the район is at least visible in context.
+              <CityRayonMapTile municipalityCode={cityRayon.obshtina} />
             ) : (
               <MunicipalitySettlementsMapTile
                 municipalityCode={municipalityCode}

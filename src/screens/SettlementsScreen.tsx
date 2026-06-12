@@ -4,6 +4,7 @@ import { useRegions } from "@/data/regions/useRegions";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useMunicipalityVotes } from "@/data/municipalities/useMunicipalityVotes";
 import { isSofiaRayonObshtina } from "@/data/local/placeViews";
+import { findCityRayon } from "@/data/local/cityRayonCatalog";
 import { SEO } from "@/ux/SEO";
 import { placeResultsTitle } from "@/ux/seoTitle";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
@@ -32,16 +33,23 @@ export const SettlementsScreen = () => {
   const lang = i18n.language === "bg" ? "bg" : "en";
   const info = findMunicipality(muniCode);
   const region = findRegion(municipality?.oblast ?? info?.oblast);
-  // A Sofia район-as-município (S2xxx): label it "район", not "община".
-  const isRayon = isSofiaRayonObshtina(muniCode);
+  // A Пловдив/Варна район ("PDV22-06") isn't in municipalities.json — resolve
+  // its name from the catalog so the page reads "район Тракия", not the code.
+  const cityRayon = findCityRayon(muniCode);
+  // A Sofia район-as-município (S2xxx) or a Пловдив/Варна район: label "район".
+  const isRayon = isSofiaRayonObshtina(muniCode) || !!cityRayon;
   // Abroad (МИР 32): the "municipality" is a continent bucket — label it
   // "Континент {name}", not "Община {name}".
   const isAbroad = (municipality?.oblast ?? info?.oblast) === "32";
-  const muniName = info
+  const muniName = cityRayon
     ? lang === "bg"
-      ? info?.name
-      : info?.name_en
-    : muniCode;
+      ? cityRayon.labelBg
+      : cityRayon.labelEn
+    : info
+      ? lang === "bg"
+        ? info?.name
+        : info?.name_en
+      : muniCode;
   const regionName = region
     ? lang === "bg"
       ? region.long_name || region.name

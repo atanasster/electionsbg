@@ -75,22 +75,23 @@ const CITIES = {
   VAR06: { mir: "03", muni: "06", nuts3: "VAR" },
 };
 
+type SecVote = {
+  partyNum: number;
+  totalVotes: number;
+  paperVotes?: number;
+  machineVotes?: number;
+  suemgVotes?: number;
+};
 type Sec = {
   section: string;
   longitude?: number;
   latitude?: number;
   results: {
-    votes: {
-      partyNum: number;
-      totalVotes: number;
-      paperVotes?: number;
-      machineVotes?: number;
-    }[];
-    protocol?: {
-      totalActualVoters?: number;
-      numValidVotes?: number;
-      numValidMachineVotes?: number;
-    };
+    votes: SecVote[];
+    // The full СИК protocol — kept as a numeric bag so the município-shard
+    // builder can sum every field a real /municipalities/<obshtina>.json
+    // carries (registered voters, invalid ballots, machine tallies, …).
+    protocol?: Record<string, number | undefined>;
   };
 };
 
@@ -283,12 +284,84 @@ function buildResults(muni: keyof typeof CITIES, election: string) {
   return rows.length;
 }
 
+// ---- per-район município-shaped shards -------------------------------------
+// Emits one /<election>/municipalities/<muni>-<code>.json per район, shaped
+// exactly like a real município artifact ({key, obshtina, oblast, results:
+// {votes[], protocol}}), so /settlement/<muni>-<code> can drive the standard
+// MunicipalityDashboardCards (party results, turnout, paper/machine, SUEMG
+// flash-memory, recount). These shards are NOT added to municipalities.json,
+// so national rollups (which iterate that index) never double-count them.
+function buildMunicipalityShards(muni: keyof typeof CITIES, election: string) {
+  const cfg = CITIES[muni];
+  const f = `data/${election}/sections/by-oblast/${cfg.mir}.json`;
+  if (!fs.existsSync(f)) return 0;
+  const sec = JSON.parse(fs.readFileSync(f, "utf8")) as Record<string, Sec>;
+  const agg = new Map<
+    string,
+    { votes: Map<number, SecVote>; protocol: Record<string, number> }
+  >();
+  for (const s of Object.values(sec)) {
+    const id = String(s.section);
+    if (id.slice(2, 4) !== cfg.muni) continue;
+    const code = id.slice(4, 6);
+    if (code === "00" || !NAMES[muni][code]) continue; // skip mobile/ship
+    const e = agg.get(code) ?? {
+      votes: new Map<number, SecVote>(),
+      protocol: {} as Record<string, number>,
+    };
+    for (const v of s.results.votes) {
+      const cur = e.votes.get(v.partyNum) ?? {
+        partyNum: v.partyNum,
+        totalVotes: 0,
+        paperVotes: 0,
+        machineVotes: 0,
+        suemgVotes: 0,
+      };
+      cur.totalVotes += v.totalVotes;
+      cur.paperVotes = (cur.paperVotes ?? 0) + (v.paperVotes ?? 0);
+      cur.machineVotes = (cur.machineVotes ?? 0) + (v.machineVotes ?? 0);
+      cur.suemgVotes = (cur.suemgVotes ?? 0) + (v.suemgVotes ?? 0);
+      e.votes.set(v.partyNum, cur);
+    }
+    // Sum every numeric protocol field so the shard carries the full picture.
+    for (const [k, val] of Object.entries(s.results.protocol ?? {})) {
+      if (typeof val === "number") e.protocol[k] = (e.protocol[k] ?? 0) + val;
+    }
+    agg.set(code, e);
+  }
+  let n = 0;
+  fs.mkdirSync(`data/${election}/municipalities`, { recursive: true });
+  for (const [code, e] of agg) {
+    const out = {
+      key: `${muni}-${code}`,
+      obshtina: `${muni}-${code}`,
+      oblast: cfg.nuts3,
+      results: {
+        votes: [...e.votes.values()].sort(
+          (a, b) => b.totalVotes - a.totalVotes,
+        ),
+        protocol: e.protocol,
+      },
+    };
+    fs.writeFileSync(
+      `data/${election}/municipalities/${muni}-${code}.json`,
+      JSON.stringify(out),
+    );
+    n++;
+  }
+  return n;
+}
+
 const newest = elections[elections.length - 1];
 for (const muni of Object.keys(CITIES) as (keyof typeof CITIES)[]) {
   const codes = buildGeometry(muni, newest);
   let nEl = 0;
-  for (const el of elections) if (buildResults(muni, el)) nEl++;
+  let nShards = 0;
+  for (const el of elections) {
+    if (buildResults(muni, el)) nEl++;
+    nShards += buildMunicipalityShards(muni, el);
+  }
   console.log(
-    `${muni}: geometry ${codes.length} районы (from ${newest}); results for ${nEl}/${elections.length} elections`,
+    `${muni}: geometry ${codes.length} районы (from ${newest}); results for ${nEl}/${elections.length} elections; ${nShards} município shards`,
   );
 }
