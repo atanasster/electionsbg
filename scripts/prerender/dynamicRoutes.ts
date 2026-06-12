@@ -598,6 +598,9 @@ export const buildGovernanceMuniRoutes = (
 // them from the район geometry files (one feature per район, keyed nuts4
 // "PDV22-01"). Each lands on the lean район dashboard (parliamentary results +
 // районен кмет). Reading the geometry avoids a forbidden scripts→src import.
+// Mirrors the PDV22/VAR06 entries in src/data/local/cityRayonCatalog.ts (city
+// + МИР). Scripts can't import from src, so they're repeated here — keep both
+// in sync if a redistricting ever changes a city's МИР assignment.
 const RAYON_CITY: Record<string, { bg: string; mir: string }> = {
   PDV22: { bg: "Пловдив", mir: "16" },
   VAR06: { bg: "Варна", mir: "03" },
@@ -630,7 +633,7 @@ export const buildGovernanceRayonRoutes = (
       if (!id || !name) continue;
       const url = `${SITE_URL}/governance/${id}`;
       const title = `Управление — район ${name}, община ${city.bg} | electionsbg.com`;
-      const description = `Резултати от парламентарни избори и районен кмет за административен район ${name} в община ${city.bg} (${city.mir} МИР).`;
+      const description = `Резултати от парламентарни избори и районен кмет за административен район ${name} в община ${city.bg} (${city.mir.replace(/^0+/, "")} МИР).`;
       const breadcrumb = [
         { name: "Начало", url: `${SITE_URL}/` },
         { name: "Управление", url: `${SITE_URL}/governance` },

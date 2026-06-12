@@ -89,6 +89,11 @@ export const cityRayonsOf = (obshtina?: string | null): CityRayon[] =>
 // catalog район within a given city. The local bundle's districtCode is empty,
 // so the join is by normalized name — labelBg matches the district name (both
 // use the official ЗТДСГГ spelling).
+// Normalize a район name for matching: lowercase (bg locale) + NFC + drop a
+// leading "район " prefix + trim. So "Тракия", "тракия", "Район Тракия" and
+// "район Тракия " all collapse to "тракия". If the CIK bundle's districtName
+// format drifts (new prefix / stray punctuation), a silent no-match here is
+// the symptom — widen this normalization to fix.
 const norm = (s: string): string =>
   s
     .toLocaleLowerCase("bg")

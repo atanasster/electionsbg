@@ -104,7 +104,10 @@ export const useCityRayonHistory = (muni?: string, code?: string) => {
     queryKey: ["city_rayon_history", muni, code],
     queryFn: async (): Promise<ElectionInfo[]> => {
       const elections = allElections as ElectionInfo[];
-      const perElection = await Promise.all(
+      // allSettled, not all: one election's rayon JSON failing with a non-404
+      // (a 500 or a network-level reject) must degrade to "fewer cycles", not
+      // blank the whole history tile.
+      const settled = await Promise.allSettled(
         elections.map(async (el): Promise<ElectionInfo | null> => {
           const r = await fetch(dataUrl(`/${el.name}/rayon/${muni}.json`));
           if (!r.ok) return null;
@@ -134,7 +137,12 @@ export const useCityRayonHistory = (muni?: string, code?: string) => {
           };
         }),
       );
-      return perElection.filter((e): e is ElectionInfo => e !== null);
+      return settled
+        .filter(
+          (r): r is PromiseFulfilledResult<ElectionInfo> =>
+            r.status === "fulfilled" && r.value !== null,
+        )
+        .map((r) => r.value);
     },
     enabled: hasCityRayons(muni) && !!code,
     staleTime: Infinity,

@@ -457,7 +457,6 @@ const KmetstvaSection: FC<{
 // === District (район) mayors — SOF only ==================================
 
 const DistrictsSection: FC<{
-  cycle: string;
   obshtinaCode: string;
   districts: LocalDistrictMayorResult[];
 }> = ({ obshtinaCode, districts }) => {
@@ -818,7 +817,6 @@ const MunicipalityResults: FC<{
         cycle={cycle}
       />
       <DistrictsSection
-        cycle={cycle}
         obshtinaCode={obshtinaCode}
         districts={municipality.districts}
       />
