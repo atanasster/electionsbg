@@ -9,6 +9,7 @@
 import type { SearchIndexType } from "./useSearchItems";
 import type { SettlementInfo, MunicipalityInfo } from "@/data/dataTypes";
 import { isSofiaRayonObshtina } from "@/data/local/placeViews";
+import { CITY_RAYONS } from "@/data/local/cityRayonCatalog";
 
 // Search-index types that map to an anchorable My-Area destination: settlement
 // ("s"), município ("m"), and Sofia район shard ("d"). районите anchor exactly
@@ -74,5 +75,22 @@ export const buildPlaceItems = (
         : region?.name_en,
     });
   });
+  // Пловдив/Варна районите aren't in municipalities.json (they're a derived
+  // sub-city layer), so add them explicitly as "район" rows that route to the
+  // район governance place. `path` is needed because their id ("PDV22-01")
+  // maps to /governance/<id>, not the /settlement/<key> that the fat index's
+  // "d" navigation otherwise assumes; the slim My-Area index anchors via key
+  // (goTo → /governance/<key>), which lands on the same place.
+  for (const r of CITY_RAYONS) {
+    items.push({
+      type: "d",
+      key: r.id,
+      name: r.labelBg,
+      name_en: r.labelEn,
+      parentName: `Община ${r.cityBg}`,
+      parentName_en: `${r.cityEn} municipality`,
+      path: `/governance/${r.id}`,
+    });
+  }
   return items;
 };

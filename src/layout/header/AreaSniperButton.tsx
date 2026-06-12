@@ -25,6 +25,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useAreaSearchItems } from "@/data/search/useAreaSearchItems";
 import { AREA_TYPES, areaTypeShortKey } from "@/data/search/placeSearchItems";
+import { findCityRayon } from "@/data/local/cityRayonCatalog";
 import { useNearestSettlement } from "@/data/area/useNearestSettlement";
 import { useAreaAnchor, useSetAreaAnchor } from "@/data/area/areaAnchor";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
@@ -142,7 +143,10 @@ export const AreaSniperButton: FC = () => {
   // Resolve the active anchor name for the "Моят район" display.
   let currentName: string | null = null;
   if (anchor) {
-    if (/^\d+$/.test(anchor.id)) {
+    const rayon = findCityRayon(anchor.id);
+    if (rayon) {
+      currentName = lang === "bg" ? rayon.labelBg : rayon.labelEn;
+    } else if (/^\d+$/.test(anchor.id)) {
       const s = findSettlement(anchor.id);
       if (s) currentName = lang === "bg" ? s.name : s.name_en;
     } else {

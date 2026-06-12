@@ -21,6 +21,11 @@ import { useMemo } from "react";
 import { useSettlementsInfo } from "../settlements/useSettlements";
 import { useMunicipalities } from "../municipalities/useMunicipalities";
 import type { MunicipalityInfo, SettlementInfo } from "../dataTypes";
+import {
+  findCityRayon,
+  isCityRayonId,
+  type CityRayon,
+} from "../local/cityRayonCatalog";
 
 export type ResolvedArea =
   | {
@@ -38,6 +43,11 @@ export type ResolvedArea =
       oblast: string;
       municipality: MunicipalityInfo;
     }
+  // A Пловдив/Варна административен район ("PDV22-01"). Not a real obshtina —
+  // only a derived layer (parliamentary results + район-кмет + polygon), so it
+  // resolves to its catalog entry + parent city município rather than a
+  // MunicipalityInfo row. MyAreaScreen renders it with a dedicated lean layout.
+  | { kind: "rayon"; id: string; obshtina: string; rayon: CityRayon }
   | { kind: "unknown"; id: string };
 
 // True when the id looks settlement-shaped: starts with a digit. Settlement
@@ -74,6 +84,13 @@ export const useAreaResolver = (id?: string | null): ResolvedArea | null => {
     // hand we return null so the screen renders its skeleton instead of an
     // "unknown" flash that would mis-classify a valid id.
     if (!settlements || !municipalities) return null;
+
+    // Пловдив/Варна административен район ("PDV22-01") — a derived sub-city
+    // place, resolved from the catalog (it has no obshtina/settlement row).
+    if (isCityRayonId(id)) {
+      const rayon = findCityRayon(id)!;
+      return { kind: "rayon", id, obshtina: rayon.obshtina, rayon };
+    }
 
     // Sofia city aggregate — synthetic município (not in municipalities.json).
     if (isSofiaCityId(id)) {

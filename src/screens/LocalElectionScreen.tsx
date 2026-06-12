@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
+import { districtRayonGovernanceId } from "@/data/local/cityRayonCatalog";
 import { useChmiHistory } from "@/data/local/useChmiHistory";
 import type { ChmiHistoryEvent } from "@/data/local/useChmiHistory";
 import { useKmetstvoEkatte } from "@/data/local/useKmetstvoEkatte";
@@ -457,12 +458,14 @@ const KmetstvaSection: FC<{
 
 const DistrictsSection: FC<{
   cycle: string;
+  obshtinaCode: string;
   districts: LocalDistrictMayorResult[];
-}> = ({ cycle, districts }) => {
+}> = ({ obshtinaCode, districts }) => {
   const { t } = useTranslation();
   if (districts.length === 0) return null;
-  // For each district, find the matching S2*** obshtinaCode by name so the
-  // row links to the district shard's full results.
+  // Each row links to the район's governance place — Sofia районите resolve to
+  // their own S2xxx município, Пловдив/Варна районите to the catalog id
+  // (PDV22-01). Names join by the official spelling (districtCode is empty).
   return (
     <Section title={t("local_election_sec_districts")}>
       <div className="rounded-xl border bg-card">
@@ -498,12 +501,22 @@ const DistrictsSection: FC<{
               return (
                 <tr key={d.districtName} className="border-b last:border-b-0">
                   <td className="py-2 px-3 font-medium align-top break-words">
-                    <Link
-                      to={`/local/${cycle}/by-name/${encodeURIComponent(d.districtName)}`}
-                      className="hover:underline"
-                    >
-                      {d.districtName}
-                    </Link>
+                    {(() => {
+                      const govId = districtRayonGovernanceId(
+                        obshtinaCode,
+                        d.districtName,
+                      );
+                      return govId ? (
+                        <Link
+                          to={`/governance/${govId}`}
+                          className="hover:underline"
+                        >
+                          {d.districtName}
+                        </Link>
+                      ) : (
+                        d.districtName
+                      );
+                    })()}
                   </td>
                   <td className="py-2 px-3 align-top">
                     {winner ? (
@@ -804,7 +817,11 @@ const MunicipalityResults: FC<{
         obshtinaCode={obshtinaCode}
         cycle={cycle}
       />
-      <DistrictsSection cycle={cycle} districts={municipality.districts} />
+      <DistrictsSection
+        cycle={cycle}
+        obshtinaCode={obshtinaCode}
+        districts={municipality.districts}
+      />
 
       {/* Council — one "Общински съвет" heading (the nested duplicate that
           Sofia район shards used to show is gone). Composition hemicycle, then

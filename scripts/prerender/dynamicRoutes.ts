@@ -593,6 +593,66 @@ export const buildGovernanceMuniRoutes = (
   return result;
 };
 
+// /governance/{muni}-{code} — Пловдив/Варна административен район place node.
+// These районите aren't municipalities (only a derived layer), so we enumerate
+// them from the район geometry files (one feature per район, keyed nuts4
+// "PDV22-01"). Each lands on the lean район dashboard (parliamentary results +
+// районен кмет). Reading the geometry avoids a forbidden scripts→src import.
+const RAYON_CITY: Record<string, { bg: string; mir: string }> = {
+  PDV22: { bg: "Пловдив", mir: "16" },
+  VAR06: { bg: "Варна", mir: "03" },
+};
+export const buildGovernanceRayonRoutes = (
+  projectRoot: string,
+): PrerenderRoute[] => {
+  const result: PrerenderRoute[] = [];
+  for (const muni of Object.keys(RAYON_CITY)) {
+    const file = path.join(
+      projectRoot,
+      "data",
+      "maps",
+      "city_rayons",
+      `${muni}.json`,
+    );
+    if (!fs.existsSync(file)) continue;
+    let geo: {
+      features?: { properties?: { nuts4?: string; name?: string } }[];
+    };
+    try {
+      geo = JSON.parse(fs.readFileSync(file, "utf-8"));
+    } catch {
+      continue;
+    }
+    const city = RAYON_CITY[muni];
+    for (const f of geo.features ?? []) {
+      const id = f.properties?.nuts4;
+      const name = f.properties?.name;
+      if (!id || !name) continue;
+      const url = `${SITE_URL}/governance/${id}`;
+      const title = `Управление — район ${name}, община ${city.bg} | electionsbg.com`;
+      const description = `Резултати от парламентарни избори и районен кмет за административен район ${name} в община ${city.bg} (${city.mir} МИР).`;
+      const breadcrumb = [
+        { name: "Начало", url: `${SITE_URL}/` },
+        { name: "Управление", url: `${SITE_URL}/governance` },
+        { name: `Община ${city.bg}`, url: `${SITE_URL}/governance/${muni}` },
+        { name: `Район ${name}`, url },
+      ];
+      const bodyHtml = `<h1>Район ${name}</h1><p>Административен район на община ${city.bg} (${city.mir} МИР). Резултати от парламентарни избори по партии и районен кмет.</p>`;
+      result.push({
+        path: `governance/${id}`,
+        title,
+        description,
+        bodyHtml,
+        jsonLd: [
+          buildWebPageLd({ title, description, url }),
+          buildBreadcrumbLd(breadcrumb),
+        ],
+      });
+    }
+  }
+  return result;
+};
+
 // /governance/region/{oblast} — region (oblast) node of the Governance view.
 // A brand-new tier with no my-area equivalent: the regional money +
 // representation picture, minus the elected-local-government block. Each page
@@ -3144,6 +3204,7 @@ export const buildDynamicRoutes = async (
     // routes.ts; these are the region + município + settlement nodes).
     ...buildGovernanceRegionRoutes(projectRoot, regions),
     ...buildGovernanceMuniRoutes(projectRoot, oblastNames),
+    ...buildGovernanceRayonRoutes(projectRoot),
     ...buildGovernancePlaceRoutes(publicFolder, latest, oblastNames),
     ...buildSectionsListRoutes(publicFolder, latest, oblastNames),
     ...buildSectionRoutes(publicFolder, latest, oblastNames),

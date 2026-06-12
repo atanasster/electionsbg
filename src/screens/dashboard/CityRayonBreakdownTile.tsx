@@ -15,6 +15,7 @@ import {
   type CityRayonResult,
 } from "@/data/rayon/useCityRayons";
 import { Hint } from "@/ux/Hint";
+import { Link } from "@/ux/Link";
 import { StatCard } from "./StatCard";
 
 type Props = { municipalityCode: string };
@@ -127,6 +128,13 @@ export const CityRayonBreakdownTile: FC<Props> = ({ municipalityCode }) => {
                       </span>
                     </div>
                   ))}
+                  <Link
+                    to={`/governance/${municipalityCode}-${r.key}`}
+                    underline
+                    className="col-span-3 text-xs text-primary mt-1"
+                  >
+                    {t("city_rayon_open_page", { name: r.name })}
+                  </Link>
                 </div>
               ) : null}
             </div>

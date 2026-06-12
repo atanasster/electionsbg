@@ -10,7 +10,7 @@
 // place lands on a useful page rather than an empty one.
 
 import { FC } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ShoppingBasket, ArrowRight } from "lucide-react";
 import { SEO } from "@/ux/SEO";
@@ -59,6 +59,12 @@ export const ConsumptionPlaceScreen: FC = () => {
         </p>
       </div>
     );
+  }
+
+  // Cost-of-living is published at município grain; a Пловдив/Варна район has
+  // none of its own, so send it up to its parent city's consumption page.
+  if (area.kind === "rayon") {
+    return <Navigate to={`/consumption/${area.rayon.obshtina}`} replace />;
   }
 
   const areaName =

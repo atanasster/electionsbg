@@ -11,6 +11,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
 import { useElectionContext } from "@/data/ElectionContext";
+import allElections from "@/data/json/elections.json";
+import type { ElectionInfo, StatsVote } from "@/data/dataTypes";
 
 export type CityRayonVote = {
   partyNum: number;
@@ -85,6 +87,56 @@ export const useCityRayonMap = (muni?: string) => {
       return r.json();
     },
     enabled: hasCityRayons(muni),
+    staleTime: Infinity,
+  });
+};
+
+// Cross-election history for ONE район (e.g. PDV22 код "06"), shaped as the
+// ElectionInfo[] that HistoricalTrendsTile/BubbleTimeline already consume for
+// municipalities. The район layer (per-election rayon JSON) only carries
+// partyNum + tallies, and ballot numbers are per-election — so we borrow each
+// election's NATIONAL StatsVote (from elections.json, which bakes nickName /
+// colour / canonical lineage) and rescale it to the район's totals. No new
+// pipeline artifact: it's a client-side join over the files gen_city_rayon_data
+// already emits for every election.
+export const useCityRayonHistory = (muni?: string, code?: string) => {
+  return useQuery({
+    queryKey: ["city_rayon_history", muni, code],
+    queryFn: async (): Promise<ElectionInfo[]> => {
+      const elections = allElections as ElectionInfo[];
+      const perElection = await Promise.all(
+        elections.map(async (el): Promise<ElectionInfo | null> => {
+          const r = await fetch(dataUrl(`/${el.name}/rayon/${muni}.json`));
+          if (!r.ok) return null;
+          const data: CityRayonData = await r.json();
+          const rayon = data.rayons.find((x) => x.key === code);
+          if (!rayon) return null;
+          // partyNum → that election's national StatsVote (carries the names).
+          const natById = new Map(
+            (el.results?.votes ?? []).map((v) => [v.partyNum, v]),
+          );
+          const votes: StatsVote[] = rayon.results.votes
+            .map((v) => {
+              const nat = natById.get(v.partyNum);
+              if (!nat) return null;
+              return {
+                ...nat,
+                totalVotes: v.totalVotes,
+                paperVotes: v.paperVotes,
+                machineVotes: v.machineVotes,
+              } as StatsVote;
+            })
+            .filter((v): v is StatsVote => v !== null);
+          if (!votes.length) return null;
+          return {
+            name: el.name,
+            results: { ...rayon.results, votes },
+          };
+        }),
+      );
+      return perElection.filter((e): e is ElectionInfo => e !== null);
+    },
+    enabled: hasCityRayons(muni) && !!code,
     staleTime: Infinity,
   });
 };
