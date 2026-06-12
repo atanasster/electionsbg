@@ -1,5 +1,5 @@
 /**
- * OG share card for /budget/simulator — "Симулатор на данъчни политики".
+ * OG share card for /budget/simulator — "Бюджетен симулатор".
  *
  * Pure @napi-rs/canvas drawing (no Gemini, no Playwright): three stylized
  * tax-rate slider tracks on the left and a diverging gains/losses bar chart
@@ -226,7 +226,7 @@ const main = () => {
   drawWordmark(ctx, 70, 80, 38);
 
   // title (auto-shrink to fit) + subtitle
-  const title = "Симулатор на данъчни политики";
+  const title = "Бюджетен симулатор";
   let titleSize = 62;
   const titleMaxW = W - 140;
   ctx.textBaseline = "alphabetic";

@@ -521,6 +521,106 @@
       }
     ]
   },
+  "incomeTiers": {
+    "source": "НАП parliamentary answer, tax year 2023 (distribution of ДДФЛ filers by годишна данъчна основа) — minfin.bg/bg/wreply/996-4/12881",
+    "taxYear": 2023,
+    "currency": {
+      "bgnPerEur": 1.95583,
+      "note": "declared ДДФЛ = 10% of taxable base (verified) → base mass = pit×10"
+    },
+    "totals": {
+      "filers": 3109552,
+      "pitEur": 3068953334,
+      "taxableBaseEur": 30689533344
+    },
+    "bins": [
+      {
+        "baseLowEur": 0,
+        "baseHighEur": 4786,
+        "count": 1445800,
+        "avgBaseEur": 2405,
+        "population": "all"
+      },
+      {
+        "baseLowEur": 4786,
+        "baseHighEur": 9203,
+        "count": 710103,
+        "avgBaseEur": 6731,
+        "population": "all"
+      },
+      {
+        "baseLowEur": 9203,
+        "baseHighEur": 15339,
+        "count": 512692,
+        "avgBaseEur": 11974,
+        "population": "all"
+      },
+      {
+        "baseLowEur": 15339,
+        "baseHighEur": 21474,
+        "count": 205988,
+        "avgBaseEur": 17902,
+        "population": "all"
+      },
+      {
+        "baseLowEur": 21474,
+        "baseHighEur": 36813,
+        "count": 137423,
+        "avgBaseEur": 27410,
+        "population": "all"
+      },
+      {
+        "baseLowEur": 36813,
+        "baseHighEur": 55220,
+        "count": 49916,
+        "avgBaseEur": 44804,
+        "population": "all"
+      },
+      {
+        "baseLowEur": 55220,
+        "baseHighEur": null,
+        "count": 47630,
+        "avgBaseEur": 138642,
+        "population": "all"
+      }
+    ],
+    "fitComparison": {
+      "napYearWageFactor": 1.11,
+      "engineCountByBin": [
+        701247,
+        1128093,
+        518313,
+        150915,
+        89172,
+        24770,
+        20009
+      ],
+      "bodyShareRatio": [
+        null,
+        1.369,
+        0.871,
+        0.631,
+        0.559,
+        0.427,
+        0.362
+      ],
+      "cumThroughBin4": {
+        "engine": 0.931,
+        "nap": 0.859
+      }
+    },
+    "tail": {
+      "engineEmployeeAlpha": 2.273,
+      "napAllFilerAlpha": 1.684,
+      "napAlphaByThreshold": {
+        "30000": 1.71,
+        "42000": 1.667,
+        "72000": 1.684
+      },
+      "orderingOk": true,
+      "note": "All-filer tail is fatter (α≈1.67) than the employee wage tail (α≈2.27) because the top НАП bins blend in dividend/business income; the МОД lever runs on the employee grid, so the employee α stays canonical."
+    }
+  },
   "vat": {
     "factor": 1.1701666273269857,
     "calibration": [

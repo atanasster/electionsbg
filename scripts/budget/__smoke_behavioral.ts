@@ -44,6 +44,8 @@ import {
   centralDraw,
   computeDynamicScenario,
   computeMacroFeedback,
+  dividendShiftRecaptureEur,
+  maternityReturnOffset,
   modBehavioralOffset,
   pitBehavioralSensitivityEur,
   sampleDraws,
@@ -374,6 +376,49 @@ const main = (): void => {
       Number.isFinite(extremes.p5Eur) &&
       Number.isFinite(extremes.p95Eur) &&
       Object.values(extremes.offsets).every(Number.isFinite),
+  );
+
+  // ---- 11. Second-order recaptures (maternity return-to-work, div↔salary) ----
+  // Maternity: cutting the paid second year sends a share of mothers back to
+  // work → PIT+SSC recapture ON TOP of the benefit saving. Positive, scales
+  // with months cut, 0 at no cut / no return (zero-draw identity component).
+  const matFull = maternityReturnOffset(12, 0.45);
+  check(
+    `maternity full cut (45% return): recapture ${M(matFull)} ∈ [€55M, €72M]`,
+    matFull >= 55e6 && matFull <= 72e6,
+  );
+  check(
+    "maternity: 0 at no cut and at 0% return; ~half at 6 months",
+    maternityReturnOffset(0, 0.45) === 0 &&
+      maternityReturnOffset(12, 0) === 0 &&
+      Math.abs(maternityReturnOffset(6, 0.45) - matFull / 2) < 1,
+  );
+  // Integration: a full maternity-cut scenario saves MORE dynamically than
+  // statically (the recapture adds to the saving), bounded by the central band.
+  const matIn: DynamicScenarioInput = {
+    ...buildInput({}),
+    maternityMonthsCut: 12,
+    staticTotalEur: 154.2e6,
+  };
+  const matDyn = computeDynamicScenario(matIn, draws);
+  check(
+    `maternity cut: dynamic saving ${M(matDyn.dynamicHeadlineEur)} > static ${M(matIn.staticTotalEur)} by €30–80M`,
+    matDyn.dynamicHeadlineEur > matIn.staticTotalEur + 30e6 &&
+      matDyn.dynamicHeadlineEur < matIn.staticTotalEur + 80e6,
+  );
+
+  // Dividend↔salary: small, sign tracks the rate move (raise gains, cut loses),
+  // and OFF the dividend line (the ФС dividend calibration in gate 2 is intact).
+  const divRev = b.revenue.dividendEur;
+  const shiftRaise = dividendShiftRecaptureEur(divRev, 0.05, 0.1, 4.5, 0.008);
+  const shiftCut = dividendShiftRecaptureEur(divRev, 0.05, 0.03, 4.5, 0.008);
+  const divLeverGate2 = divIn.staticDivDeltaEur + divDyn.offsets.dividend;
+  check(
+    `div↔salary: raise gains (${M(shiftRaise)}>0), cut loses (${M(shiftCut)}<0), |recapture| < 25% of the dividend lever`,
+    shiftRaise > 0 &&
+      shiftCut < 0 &&
+      Math.abs(shiftRaise) < 0.25 * Math.abs(divLeverGate2) &&
+      dividendShiftRecaptureEur(divRev, 0.05, 0.05, 4.5, 0.008) === 0,
   );
 
   if (failures > 0) {

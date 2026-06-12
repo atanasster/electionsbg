@@ -6,7 +6,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, BookOpen } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { BudgetPolicySimulator } from "./components/budget/BudgetPolicySimulator";
 
@@ -29,6 +29,13 @@ export const BudgetPolicySimulatorScreen: FC = () => {
         <p className="text-sm text-muted-foreground">
           {t("budget_policy_page_intro")}
         </p>
+        <Link
+          to="/articles/2026-06-12-tax-policy-simulator"
+          className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
+        >
+          <BookOpen className="h-4 w-4 shrink-0" />
+          {t("budget_policy_methodology_link")}
+        </Link>
         <BudgetPolicySimulator />
       </section>
     </>

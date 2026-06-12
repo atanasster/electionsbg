@@ -38,6 +38,7 @@ import {
   type VatRegime,
 } from "../../src/lib/bgTaxPolicy";
 import { fitEarnings } from "./earnings_distribution";
+import { buildAndGateIncomeTiers } from "./nap_income_tiers";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -738,6 +739,23 @@ const main = async (): Promise<void> => {
     employmentRevenueBaseline /
     pitRevenueOnBands(bandsBaseline, capBaselineEur, flat10);
 
+  // НАП income-tier validation: the fitted grid validates against the real
+  // published 2023 НАП taxable-base distribution (body) and the employee tail
+  // α is cross-checked to sit above the all-filer НАП α. fitEarnings is NOT
+  // re-anchored — this only validates + sources the ordering. The same gates
+  // run standalone in run_income_tiers.ts / __smoke_income_tiers.ts.
+  // Shared build + gate + hard-throw (see nap_income_tiers.ts). If the BODY
+  // gate ever fails after an NSI wage-series revision, the first knob to check
+  // is NAP_YEAR_WAGE_FACTOR in nap_income_tiers.ts (the guessed deflation to the
+  // НАП table year) — NOT the data-robust tail-ordering gate.
+  const incomeTiers = buildAndGateIncomeTiers({
+    bands: bandsBaseline,
+    capEur: capBaselineEur,
+    wageGrowthToBaseline: wageGrowth,
+    identityYear: napYear,
+    alpha: fit.alpha,
+  });
+
   // --- VAT calibration table + baseline slices ------------------------------
   const calibration: {
     year: number;
@@ -921,6 +939,7 @@ const main = async (): Promise<void> => {
       capEur: capBaselineEur,
       bands: bandsBaseline,
     },
+    incomeTiers,
     vat: {
       factor: baselineFactor,
       calibration,

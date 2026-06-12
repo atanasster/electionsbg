@@ -1136,10 +1136,19 @@ const run = async () => {
     // the projection's €123.9B 2026 GDP (commit a760b1d5d) — (3.0−2.2)% ×
     // €123.9B ≈ −€991M.
     ["отбраната да стане 3% от бвп", -991e6],
-    ["заплатите в публичния сектор +5%", -142e6],
+    // Wage indexation & health are NET of the labour-tax feedback (the budget
+    // recovers ~30.6% of indexed pay as PIT+SSC; the employee health-share is
+    // PIT-deductible) — consistent with the administration-cut lever.
+    ["заплатите в публичния сектор +5%", -98e6],
     ["капиталовите разходи -10%", 185e6],
     ["държавните служители да си плащат осигуровките", 126e6],
-    ["здравната вноска +1 пункт", 315e6],
+    ["здравната вноска +1 пункт", 302e6],
+    // June-2026 debate levers (static central; the screen's headline is dynamic)
+    ["съкращаване на майчинството до 1 година", 154e6],
+    ["учителските заплати на 125% от средната", -143e6],
+    ["минималната пенсия на 400 €", -963e6],
+    ["замразяване на депутатските заплати", 2e6],
+    ["премахване на партийните субсидии", 9e6],
   ];
   // FINDING-001 guard: definitional МОД questions carrying a year must NOT
   // parse as a cap what-if (2024-2026 overlap realistic cap amounts).
@@ -1162,6 +1171,16 @@ const run = async () => {
     "колко са пенсиите",
     "колко са разходите за отбрана",
     "каква е здравната вноска",
+    // June-2026 debate-lever definitional reads (no cut/target → fall through)
+    "колко е минималната пенсия",
+    "колко получават депутатите",
+    "каква е учителската заплата",
+    "колко е майчинството",
+    "колко са партийните субсидии",
+    // BGN-denominated bare amounts must NOT be mis-read as EUR (post-euro the
+    // UI/URLs are EUR) — they fall through instead of mis-scoring.
+    "минимална пенсия 400 лева",
+    "субсидията на 4 лева на глас",
   ]) {
     assert(
       detectTaxChange(q) == null,
@@ -1309,6 +1328,12 @@ const run = async () => {
     ["Капиталовите разходи -10%", "simulateTaxChange"],
     ["Държавните служители да си плащат осигуровките", "simulateTaxChange"],
     ["Здравната вноска +1 пункт", "simulateTaxChange"],
+    // June-2026 debate levers
+    ["Съкращаване на майчинството до 1 година", "simulateTaxChange"],
+    ["Учителските заплати на 125% от средната", "simulateTaxChange"],
+    ["Минималната пенсия на 400 €", "simulateTaxChange"],
+    ["Замразяване на депутатските заплати", "simulateTaxChange"],
+    ["Премахване на партийните субсидии", "simulateTaxChange"],
     // guards: the neighbours keep their own questions
     ["Какъв е държавният бюджет?", "budgetOverview"],
     // NB phrased WITHOUT "местните" — "местни данъци в X" is the known

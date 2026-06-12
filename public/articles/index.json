@@ -1,5 +1,23 @@
 [
   {
+    "slug": "2026-06-12-tax-policy-simulator",
+    "publishedAt": "2026-06-12",
+    "category": "feature",
+    "topics": [
+      "budget"
+    ],
+    "author": "Claude Opus 4.8",
+    "title": {
+      "bg": "Бюджетният симулатор — как работи, какво приема и какво искаме от НАП",
+      "en": "The budget simulator — how it works, what it assumes, and what we're asking НАП for"
+    },
+    "summary": {
+      "bg": "Пълно обяснение на симулатора на /budget/simulator: статичен и динамичен режим, как се оценява всеки лост (ДДС, ДДФЛ, корпоративен, дивиденти, МОД, разходи), поведенческите еластичности и фискалните мултипликатори зад динамичния режим, ограниченията и сверката с официалните разчети — и заявлението по ЗДОИ до НАП за разпределението на доходите по подоходни групи, което би заменило единственото голямо моделирано допускане в инструмента.",
+      "en": "A full walkthrough of the /budget/simulator tool: static vs dynamic mode, how every lever is scored (VAT, income tax, corporate, dividends, the social-security cap, spending), the behavioral elasticities and fiscal multipliers behind dynamic mode, the limitations and the validation against official costings — and the freedom-of-information request to НАП for income-bracket data that would replace the one large modeled assumption in the tool."
+    },
+    "ogImage": "/og/budget-simulator.png"
+  },
+  {
     "slug": "2026-06-02-local-councils-data",
     "publishedAt": "2026-06-02",
     "category": "data_analysis",

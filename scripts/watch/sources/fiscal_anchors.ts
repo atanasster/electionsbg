@@ -175,6 +175,6 @@ export const fiscalCouncilBg: WatchSource = {
 
   describe(prev: WatchState | null, curr: Fingerprint): string {
     if (!prev) return curr.detail;
-    return `new Фискален съвет publication: ${curr.meta?.latest} — if it costs a simulator lever, refresh the benchmark strings (budget_policy_bench_*), docs/budget_simulator_grounding.md and (for dividend-style costings) the calibration target in src/lib/bgBehavioral.ts`;
+    return `new Фискален съвет publication: ${curr.meta?.latest} — if it costs a simulator lever, refresh the benchmark table in the methodology article (public/articles/2026-06-12-tax-policy-simulator-*.md), docs/budget_simulator_grounding.md and (for dividend-style costings) the calibration target in src/lib/bgBehavioral.ts`;
   },
 };

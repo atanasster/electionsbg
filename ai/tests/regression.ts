@@ -1378,8 +1378,10 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "заплати в публичния сектор 5%",
-      delta_per_year: /−139/,
-      delta_static: /−142/,
+      // Net of the mechanical labour-tax feedback (~30.6% of indexed pay
+      // returns as PIT+SSC) — consistent with the administration-cut lever.
+      delta_per_year: /−96/,
+      delta_static: /−98/,
     },
     links: ["/budget/simulator?wi=5", "/budget"],
   },
@@ -1413,10 +1415,68 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "здравна вноска +1 п.п.",
-      delta_per_year: /\+259/,
-      delta_static: /\+315/,
+      // Net of the employee-share PIT deductibility offset (~4% of the gross).
+      delta_per_year: /\+249/,
+      delta_static: /\+302/,
     },
     links: ["/budget/simulator?hp=1", "/budget"],
+  },
+  // June-2026 consolidation-debate levers — simulator parity (dynamic headline)
+  {
+    // the dynamic figure credits the returning mothers' PIT+SSC (recapture)
+    q: "Съкращаване на майчинството до 1 година",
+    tool: "simulateTaxChange",
+    kind: "scalar",
+    facts: {
+      change: "майчинство: втората година отпада",
+      delta_per_year: /\+215/,
+      delta_static: /\+154/,
+      note: /върнал/,
+    },
+    links: ["/budget/simulator?mat=0", "/budget"],
+  },
+  {
+    // teachers' 125% peg — static net of the labour-tax feedback
+    q: "Учителските заплати на 125% от средната",
+    tool: "simulateTaxChange",
+    kind: "scalar",
+    facts: {
+      change: "учителски заплати → 125% от средната",
+      delta_per_year: /−140/,
+      delta_static: /−143/,
+    },
+    links: ["/budget/simulator?tp=125", "/budget"],
+  },
+  {
+    q: "Минималната пенсия на 400 €",
+    tool: "simulateTaxChange",
+    kind: "scalar",
+    facts: {
+      change: "минимална пенсия → €400/мес.",
+      delta_per_year: /−945/,
+      delta_static: /−963/,
+    },
+    links: ["/budget/simulator?mp=400", "/budget"],
+  },
+  {
+    q: "Замразяване на депутатските заплати",
+    tool: "simulateTaxChange",
+    kind: "scalar",
+    facts: {
+      change: "замразени депутатски заплати",
+      delta_per_year: /\+2 млн/,
+    },
+    links: ["/budget/simulator?mpf=1", "/budget"],
+  },
+  {
+    q: "Премахване на партийните субсидии",
+    tool: "simulateTaxChange",
+    kind: "scalar",
+    facts: {
+      change: "без партийни субсидии",
+      delta_per_year: /\+[89] млн/,
+    },
+    links: ["/budget/simulator?psub=0", "/budget"],
   },
   {
     // guard: a price "колко струва" question is NOT a tax what-if (and vice

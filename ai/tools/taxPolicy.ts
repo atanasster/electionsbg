@@ -28,6 +28,11 @@
 //   (изключените сектори остават по пътя си) · капиталов план ±X% (касово,
 //   през историческата изпълняемост) · държавните служители сами си плащат
 //   осигуровките (± компенсация → неутрално) · здравна вноска +X п.п.
+// June-2026 consolidation-debate levers (full parity with the screen): срязване
+//   на майчинството (втора година → 0/6 мес.) · учителски заплати → X% от
+//   средната · минимална пенсия → €X · замразяване на депутатските заплати ·
+//   партийна субсидия €X/глас (0 = премахване). Maternity surfaces the dynamic
+//   return-to-work recapture; parity is locked by scripts/budget/__test_ai_parity.ts.
 
 import {
   CORP_TAX_RATE,
@@ -37,6 +42,8 @@ import {
   resolveMod,
 } from "../../src/lib/bgTax";
 import {
+  MATERNITY_Y2_MONTHS,
+  PARTY_SUBSIDY_RATE_EUR,
   PENSION_POLICY_CURRENT,
   VAT_GROUP_DEFAULT_REGIME,
   VAT_REDUCED_RATE,
@@ -47,12 +54,17 @@ import {
   scoreDefenseTarget,
   scoreDividend,
   scoreHealthContribution,
+  scoreMaternityMonths,
   scoreMinWageFreeze,
   scoreModCap,
   scoreModCapBands,
+  scoreMpPayFreeze,
+  scorePartySubsidy,
+  scorePensionFloorRaise,
   scorePensionIndexation,
   scorePitSchedule,
   scoreSscSelfPaid,
+  scoreTeachersPeg,
   scoreWageIndexation,
   type ModIdentity,
   type PitBracket,
@@ -107,6 +119,18 @@ const WI_MIN = -5;
 const WI_MAX = 15;
 const KAP_MAX = 30;
 const HP_MAX = 3;
+// June-2026 debate levers, same component. mp = minimum-pension target
+// (EUR/mo, slider eff-clamped to [current minimum, 600]); tp = teachers' peg
+// (% of the economy-average wage, eff-clamped to [100, 140]); mat = months of
+// the paid second maternity year kept (0-12, 12 = current law); psub = the
+// per-vote party subsidy in CENTS (current law €3.00 → 300, slider 0-450).
+const MP_MAX = 600;
+const MP_MIN = 250; // parser floor — below this a number is not a min-pension target
+const TP_MIN = 100;
+const TP_MAX = 140;
+const MAT_MONTHS = MATERNITY_Y2_MONTHS; // 12
+const PSUB_DEF = Math.round(PARTY_SUBSIDY_RATE_EUR * 100); // 300 (€3.00/vote)
+const PSUB_MAX = 450;
 
 const clamp = (n: number, min: number, max: number): number =>
   Math.max(min, Math.min(max, Math.round(n)));
@@ -134,7 +158,13 @@ export type TaxChange =
   | { kind: "wageIndexation"; pct: number } // заплати в публичния сектор ±X%
   | { kind: "capitalChange"; pct: number } // капиталов план ±X% (касово)
   | { kind: "sscSelfPaid"; grossUp: boolean } // служителите си плащат осигуровките
-  | { kind: "healthContribution"; pp: number }; // здравна вноска +X п.п.
+  | { kind: "healthContribution"; pp: number } // здравна вноска +X п.п.
+  // June-2026 consolidation-debate levers (same balance convention)
+  | { kind: "maternity"; monthsKept: number } // 0 = full 2nd-year cut, 6 = halve
+  | { kind: "teachersPeg"; targetPct: number } // учителски заплати → X% от средната
+  | { kind: "pensionFloor"; minEur: number } // минимална пенсия → €X/мес.
+  | { kind: "mpPayFreeze" } // замразяване на депутатските заплати
+  | { kind: "partySubsidy"; rateCents: number }; // субсидия €X/глас (0 = премахване)
 
 const has = (q: string, ...words: string[]): boolean =>
   words.some((w) => q.includes(w));
@@ -145,6 +175,12 @@ const hasToken = (q: string, ...tokens: string[]): boolean => {
   const toks = q.split(/[^a-zа-яё0-9%€-]+/i).filter(Boolean);
   return tokens.some((t) => toks.includes(t));
 };
+
+// A лева/BGN-denominated amount. Post-euro (2026-01-01) the UI and deep-link
+// URLs are all EUR, so a BARE number phrased in лева must NOT be read as the
+// EUR figure — fall through to the definitional tool instead of mis-scoring.
+// An explicit € still wins (parseEur catches it).
+const hasBgn = (q: string): boolean => has(q, "лв", "лева", "bgn");
 
 // A what-if / change / fiscal-cost framing. Required when the question carries
 // no explicit % target, so bare mentions ("колко е данъкът върху доходите")
@@ -344,6 +380,87 @@ const PUBLIC_SECTOR_WORDS = [
   "public-sector",
 ];
 const WAGE_WORDS = ["заплат", "wage", "salar"];
+// June-2026 debate-lever instruments. Each needs an explicit cut/target so the
+// definitional reads ("колко е майчинството", "колко е минималната пенсия")
+// keep falling through to their existing tools.
+const MATERNITY_WORDS = [
+  "майчинств",
+  "отглеждане на дете",
+  "родителски отпуск",
+  "maternity",
+  "child-raising",
+  "child raising",
+  "parental leave",
+];
+const MATERNITY_CUT_CUES = [
+  "съкрат",
+  "намал",
+  "ореж",
+  "отрежи",
+  "1 година",
+  "една година",
+  "от 2 на 1",
+  "to 1 year",
+  "to one year",
+  "cut",
+  "shorten",
+  "scrap",
+  "премахн",
+  "наполовин",
+];
+// Halving the benefit (keep ~6 months) vs the full second-year cut (0).
+const MATERNITY_HALF_CUES = [
+  "наполовин",
+  "половин",
+  "6 месец",
+  "шест месец",
+  "halve",
+  "by half",
+  "6 month",
+  "six month",
+];
+const TEACHER_WORDS = ["учител", "teacher"];
+// "минимална пенсия" — the PENSION floor, distinct from "минимална заплата".
+const MIN_PENSION_WORDS = [
+  "минимална пенсия",
+  "минималната пенсия",
+  "минимална пенси",
+  "минималната пенси",
+  "minimum pension",
+  "min pension",
+  "minimum old-age pension",
+];
+const MP_PAY_WORDS = [
+  "депутатск",
+  "на депутатите",
+  "депутатите",
+  "lawmaker",
+  "parliamentar",
+];
+// Subsidy trigger + a party/per-vote context (Bulgarian inflection makes a
+// fixed "партийн субсиди" phrase brittle — "партийните субсидии" wouldn't match).
+const SUBSIDY_WORDS = ["субсиди", "subsid"];
+const PARTY_VOTE_CONTEXT = [
+  "парти",
+  "на глас",
+  "/глас",
+  "per vote",
+  "per-vote",
+  "/vote",
+  "party",
+];
+const SUBSIDY_ABOLISH_CUES = [
+  "премах",
+  "махне",
+  "отпадн",
+  "спре",
+  "спиране",
+  "нулев",
+  "abolish",
+  "scrap",
+  "remove",
+  "zero",
+];
 const CAPEX_WORDS = [
   "капиталов", // капиталовите разходи / капиталовата програма / капиталов план
   "capital expenditure",
@@ -591,6 +708,56 @@ export const detectTaxChange = (question: string): TaxChange | undefined => {
       return { kind: "healthContribution", pp };
   }
 
+  // 1d. June-2026 consolidation-debate levers — each demands an explicit
+  // cut/target so the definitional reads keep falling through.
+  // Maternity second year: "съкращаване на майчинството", "от 2 на 1 година",
+  // "наполовина" (→ keep 6 months); a bare "колко е майчинството" has no cut
+  // cue and falls through.
+  if (has(q, ...MATERNITY_WORDS) && has(q, ...MATERNITY_CUT_CUES)) {
+    const monthsKept = has(q, ...MATERNITY_HALF_CUES) ? 6 : 0;
+    return { kind: "maternity", monthsKept };
+  }
+  // Teachers' 125% peg: "учителските заплати на 125% от средната". Needs the
+  // teacher + wage context AND an explicit % target.
+  if (has(q, ...TEACHER_WORDS) && has(q, ...WAGE_WORDS)) {
+    if (pct !== undefined && pct >= 80 && pct <= 200)
+      return { kind: "teachersPeg", targetPct: clamp(pct, TP_MIN, TP_MAX) };
+  }
+  // Minimum pension floor: "минималната пенсия на €400". A EUR/bare target in
+  // the plausible floor range; "колко е минималната пенсия" has none → falls
+  // through. ("минимална пенсия" ≠ "минимална заплата", so no min-wage clash.)
+  if (has(q, ...MIN_PENSION_WORDS)) {
+    const amount =
+      eur ??
+      (!hasBgn(q) && bare !== undefined && bare >= MP_MIN && bare <= MP_MAX
+        ? bare
+        : undefined);
+    if (amount !== undefined && amount >= MP_MIN && amount <= MP_MAX)
+      return { kind: "pensionFloor", minEur: Math.round(amount) };
+  }
+  // MP pay freeze: "замразяване на депутатските заплати" — MP context + wage +
+  // a freeze cue (the only MP-pay move the lever models).
+  if (
+    (has(q, ...MP_PAY_WORDS) || hasToken(q, "mp", "mps", "meps")) &&
+    has(q, ...WAGE_WORDS) &&
+    has(q, ...FREEZE_CUES)
+  )
+    return { kind: "mpPayFreeze" };
+  // Party subsidy per vote: "субсидията на €4 на глас" or "премахване на
+  // партийните субсидии" (→ €0). Needs the subsidy word + a party/per-vote
+  // context (so a generic "земеделски субсидии" question can't fire).
+  if (has(q, ...SUBSIDY_WORDS) && has(q, ...PARTY_VOTE_CONTEXT)) {
+    if (has(q, ...SUBSIDY_ABOLISH_CUES))
+      return { kind: "partySubsidy", rateCents: 0 };
+    const perVote =
+      eur ??
+      (!hasBgn(q) && bare !== undefined && bare >= 0 && bare <= 10
+        ? bare
+        : undefined);
+    if (perVote !== undefined && perVote >= 0 && perVote <= PSUB_MAX / 100)
+      return { kind: "partySubsidy", rateCents: Math.round(perVote * 100) };
+  }
+
   // 2. VAT on a category — needs the VAT word + a category word, plus a
   // target: a %, a change cue, or an explicit regime word ("zero VAT on
   // medicines", "нулева ставка за храните").
@@ -711,6 +878,13 @@ interface ScenarioParams {
   ssp: boolean;
   sspg: boolean;
   hp: number;
+  // June-2026 debate levers (mp/tp are TARGETS; 0 = no change; the effective
+  // value is resolved against the baseline default in scoreScenario).
+  mp: number;
+  tp: number;
+  mat: number;
+  mpf: boolean;
+  psub: number;
 }
 
 const paramsFor = (change: TaxChange, currentCap: number): ScenarioParams => {
@@ -734,6 +908,11 @@ const paramsFor = (change: TaxChange, currentCap: number): ScenarioParams => {
     ssp: false,
     sspg: false,
     hp: 0,
+    mp: 0,
+    tp: 0,
+    mat: MAT_MONTHS,
+    mpf: false,
+    psub: PSUB_DEF,
   };
   // Clamp to the simulator's own URL-param bounds (clampIntParam calls in
   // BudgetPolicySimulator.tsx) so the chat number equals what the deep link
@@ -795,6 +974,21 @@ const paramsFor = (change: TaxChange, currentCap: number): ScenarioParams => {
     case "healthContribution":
       p.hp = clamp(change.pp, 0, HP_MAX);
       break;
+    case "maternity":
+      p.mat = clamp(change.monthsKept, 0, MAT_MONTHS);
+      break;
+    case "teachersPeg":
+      p.tp = clamp(change.targetPct, TP_MIN, TP_MAX);
+      break;
+    case "pensionFloor":
+      p.mp = clamp(change.minEur, 0, MP_MAX);
+      break;
+    case "mpPayFreeze":
+      p.mpf = true;
+      break;
+    case "partySubsidy":
+      p.psub = clamp(change.rateCents, 0, PSUB_MAX);
+      break;
   }
   return p;
 };
@@ -853,6 +1047,11 @@ export const scoreScenario = (
     ssp,
     sspg,
     hp,
+    mp,
+    tp,
+    mat,
+    mpf,
+    psub,
   } = paramsFor(change, currentCap);
 
   const slices = baseline.vat.slices as VatBaseSlice[];
@@ -963,6 +1162,34 @@ export const scoreScenario = (
       : 0;
   const hpDelta =
     exp && hp !== 0 ? scoreHealthContribution(exp.health.baseEur, hp) : 0;
+  // June-2026 debate levers (Δ spending; negative = the budget saves). mp/tp
+  // resolve their effective target against the baseline default, exactly like
+  // the simulator's mpEff/tpEff.
+  const mpDef = exp?.pensionFloor ? Math.round(exp.pensionFloor.minimumEur) : 0;
+  const mpEff = mp > 0 ? Math.min(MP_MAX, Math.max(mpDef, mp)) : mpDef;
+  const mpDeltaSpend =
+    exp?.pensionFloor && mpEff !== mpDef
+      ? scorePensionFloorRaise(
+          exp.pensionFloor.bands,
+          exp.pensionFloor.minimumEur,
+          mpEff,
+        )
+      : 0;
+  const tpDef = exp?.teachers ? Math.round(exp.teachers.currentRatio * 100) : 0;
+  const tpEff = tp > 0 ? Math.min(TP_MAX, Math.max(TP_MIN, tp)) : tpDef;
+  const tpDeltaSpend =
+    exp?.teachers && tpEff !== tpDef
+      ? scoreTeachersPeg(
+          exp.teachers.count,
+          exp.teachers.economyWageEur,
+          exp.teachers.currentRatio,
+          tpEff,
+        )
+      : 0;
+  const matDeltaSpend = mat !== MAT_MONTHS ? scoreMaternityMonths(mat) : 0;
+  const mpfDeltaSpend =
+    exp && mpf ? scoreMpPayFreeze(exp.pensions.wageGrowthPct) : 0;
+  const psubDeltaSpend = psub !== PSUB_DEF ? scorePartySubsidy(psub / 100) : 0;
   const expenditureBalance =
     -(
       pensionDeltaSpend +
@@ -970,7 +1197,12 @@ export const scoreScenario = (
       defDelta +
       wiDelta +
       kapDelta +
-      sspDelta
+      sspDelta +
+      mpDeltaSpend +
+      tpDeltaSpend +
+      matDeltaSpend +
+      mpfDeltaSpend +
+      psubDeltaSpend
     ) +
     mwDelta +
     hpDelta;
@@ -1068,6 +1300,9 @@ export const scoreDynamicScenario = (
       // expenditure balance (no per-year compounding path here).
       expenditureBalanceNonPensionEur:
         score.expenditureBalance - score.mwDelta - score.hpDelta,
+      // surfaces the maternity-cut return-to-work PIT+SSC recapture (0 when
+      // the change isn't maternity → p.mat stays at MAT_MONTHS).
+      maternityMonthsCut: MAT_MONTHS - p.mat,
       brackets: score.brackets,
     },
     {
@@ -1205,6 +1440,32 @@ const changeLabel = (
       return bg
         ? `здравна вноска +${p.hp} п.п.`
         : `health contribution +${p.hp} pp`;
+    case "maternity":
+      return p.mat === 0
+        ? bg
+          ? "майчинство: втората година отпада"
+          : "maternity: second year cut"
+        : bg
+          ? `майчинство: втората година → ${p.mat} мес.`
+          : `maternity: second year → ${p.mat} mo`;
+    case "teachersPeg":
+      return bg
+        ? `учителски заплати → ${p.tp}% от средната`
+        : `teachers' pay → ${p.tp}% of average`;
+    case "pensionFloor":
+      return bg
+        ? `минимална пенсия → €${p.mp}/мес.`
+        : `minimum pension → €${p.mp}/mo`;
+    case "mpPayFreeze":
+      return bg ? "замразени депутатски заплати" : "MP pay frozen";
+    case "partySubsidy":
+      return p.psub === 0
+        ? bg
+          ? "без партийни субсидии"
+          : "no party subsidy"
+        : bg
+          ? `партийна субсидия €${(p.psub / 100).toFixed(2)}/глас`
+          : `party subsidy €${(p.psub / 100).toFixed(2)}/vote`;
   }
 };
 
@@ -1231,6 +1492,11 @@ const scenarioQuery = (p: ScenarioParams, currentCap: number): string => {
   if (p.ssp) parts.push("ssp=1");
   if (p.ssp && p.sspg) parts.push("sspg=1");
   if (p.hp !== 0) parts.push(`hp=${p.hp}`);
+  if (p.mp > 0) parts.push(`mp=${p.mp}`);
+  if (p.tp > 0) parts.push(`tp=${p.tp}`);
+  if (p.mat !== MAT_MONTHS) parts.push(`mat=${p.mat}`);
+  if (p.mpf) parts.push("mpf=1");
+  if (p.psub !== PSUB_DEF) parts.push(`psub=${p.psub}`);
   return parts.join("&");
 };
 
@@ -1311,9 +1577,20 @@ export const simulateTaxChange = async (
     change.kind === "wageIndexation" ||
     change.kind === "capitalChange" ||
     change.kind === "sscSelfPaid" ||
-    change.kind === "healthContribution"
+    change.kind === "healthContribution" ||
+    change.kind === "maternity" ||
+    change.kind === "teachersPeg" ||
+    change.kind === "pensionFloor" ||
+    change.kind === "mpPayFreeze" ||
+    change.kind === "partySubsidy"
   )
     facts.basis_id = "balance";
+  // Maternity honesty note: the dynamic figure already credits the PIT+SSC of
+  // mothers returning to work earlier (a recapture on top of the saving).
+  if (change.kind === "maternity")
+    facts.note = bg
+      ? "Динамичната оценка добавя данъка и осигуровките на по-рано върналите се на работа майки (връщане към бюджета над спестяването)."
+      : "The dynamic figure adds the income tax + contributions of mothers returning to work earlier (a recapture on top of the saving).";
   // Administration-cut honesty note: vacant positions absorb the cut first
   // and save ≈ nothing in cash terms.
   if (change.kind === "adminCut" && score.vacantAbsorbedShare != null) {

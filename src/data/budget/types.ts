@@ -2127,6 +2127,35 @@ export interface PolicyBaselineFile {
     capEur: number;
     bands: { grossEur: number; workers: number }[];
   };
+  /** Real НАП income-tier validation (taxable-base distribution of ДДФЛ
+   *  filers, tax year 2023) — validates the fitted body + sources the tail
+   *  ordering. Optional: present once run_income_tiers.ts has run. */
+  incomeTiers?: {
+    source: string;
+    taxYear: number;
+    currency: { bgnPerEur: number; note: string };
+    totals: { filers: number; pitEur: number; taxableBaseEur: number };
+    bins: {
+      baseLowEur: number;
+      baseHighEur: number | null;
+      count: number;
+      avgBaseEur: number;
+      population: "all";
+    }[];
+    fitComparison: {
+      napYearWageFactor: number;
+      engineCountByBin: number[];
+      bodyShareRatio: (number | null)[];
+      cumThroughBin4: { engine: number; nap: number };
+    };
+    tail: {
+      engineEmployeeAlpha: number;
+      napAllFilerAlpha: number;
+      napAlphaByThreshold: Record<string, number>;
+      orderingOk: boolean;
+      note: string;
+    };
+  };
   vat: {
     /** actual/modeled at the baseline year — bridges household-only modeled
      *  VAT to the full base. */

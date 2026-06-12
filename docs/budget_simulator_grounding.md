@@ -27,28 +27,28 @@ at the locked rate 1 EUR = 1.95583 BGN.
 
 ## Published estimates vs the engine (base: 2025 execution)
 
-| Lever | This model | Published estimate | Source |
-|---|---|---|---|
-| VAT standard +1пп | ≈ +€500–550M | МФ 2023 menu: 22% "за всички стоки" = +1.63 млрд лв per H2-2023 — implies ≈ €830M/пп/yr but bundles reduced-rate abolition; naive static on 2023 base ≈ €360M | Sega 25.04.2023 |
-| Restaurants → 9% | ≈ −€170M | МФ 2025: −300…−400 млн лв (−€153…−205M); booked +465 млн лв (+€238M) in Budget 2025 when restored | Mediapool 21.03.2025; Investor 26.02.2025 |
-| Books/periodicals/baby 9% (permanent) | n/a (already baseline) | −16 млн лв/yr (−€8.2M) | Actualno 08.12.2022 (Петкова) |
-| CIT +1пп | +€333M (2025 base €3.33B) | МФ 2023: +2.31 млрд лв for +5пп → ≈ +€236M/пп on the 2023 base; КНСБ 2025: +€1.1B for 15% | Sega 25.04.2023; КНСБ становище ЗДБРБ 2026 |
-| Dividend 5→10% | +€75M (static) | Фискален съвет 12.12.2025: **max +€50M** (behavioral leakage) | ФС opinion PDF p.20 |
-| Pension contribution +1пп | +€315M (insurable base €31.5B) | КНСБ/НОИ: +€601M for +2пп → ≈ +€300M/пп | КНСБ становище ДОО 2026 |
-| МОД €2,112 → €2,352 | model: band-fit estimate (run live in UI) | КНСБ: +€231M all contributions (≈ +€180M ДОО); note this includes the 5пп second pillar the budget does not keep | КНСБ становище ЗДБРБ 2026 |
-| Необлагаем минимум = МРЗ | ≈ −€1.9B (static, full distribution) | М. Димитров 2022: −1.5 млрд лв (−€767M) at 500 лв/мес → scaled to €620 (1,213 лв) ≈ −€1.86B — consistent; КНСБ Oct-2025: −€1.5B net *with* a 15% rate offset; IMF Art. IV 2025: progressive reform could yield ~1% of GDP | News.bg 07.2022; Investor 07.10.2025; IMF PR 25-384 |
-| VAT compliance gap | (context) | EC VAT gap 2025 edition (data 2023): BG gap €781M = 8.6% of VTTL | EC VAT gap report |
+| Lever                                 | This model                                | Published estimate                                                                                                                                                                                                        | Source                                              |
+| ------------------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| VAT standard +1пп                     | ≈ +€500–550M                              | МФ 2023 menu: 22% "за всички стоки" = +1.63 млрд лв per H2-2023 — implies ≈ €830M/пп/yr but bundles reduced-rate abolition; naive static on 2023 base ≈ €360M                                                             | Sega 25.04.2023                                     |
+| Restaurants → 9%                      | ≈ −€170M                                  | МФ 2025: −300…−400 млн лв (−€153…−205M); booked +465 млн лв (+€238M) in Budget 2025 when restored                                                                                                                         | Mediapool 21.03.2025; Investor 26.02.2025           |
+| Books/periodicals/baby 9% (permanent) | n/a (already baseline)                    | −16 млн лв/yr (−€8.2M)                                                                                                                                                                                                    | Actualno 08.12.2022 (Петкова)                       |
+| CIT +1пп                              | +€333M (2025 base €3.33B)                 | МФ 2023: +2.31 млрд лв for +5пп → ≈ +€236M/пп on the 2023 base; КНСБ 2025: +€1.1B for 15%                                                                                                                                 | Sega 25.04.2023; КНСБ становище ЗДБРБ 2026          |
+| Dividend 5→10%                        | +€75M (static)                            | Фискален съвет 12.12.2025: **max +€50M** (behavioral leakage)                                                                                                                                                             | ФС opinion PDF p.20                                 |
+| Health contribution +1пп              | +€302M net, €315M gross (base €31.5B)     | КНСБ/НОИ: +€601M for +2пп → ≈ +€300M/пп                                                                                                                                                                                   | КНСБ становище ДОО 2026                             |
+| МОД €2,112 → €2,352                   | model: band-fit estimate (run live in UI) | КНСБ: +€231M all contributions (≈ +€180M ДОО); note this includes the 5пп second pillar the budget does not keep                                                                                                          | КНСБ становище ЗДБРБ 2026                           |
+| Необлагаем минимум = МРЗ              | ≈ −€1.9B (static, full distribution)      | М. Димитров 2022: −1.5 млрд лв (−€767M) at 500 лв/мес → scaled to €620 (1,213 лв) ≈ −€1.86B — consistent; КНСБ Oct-2025: −€1.5B net _with_ a 15% rate offset; IMF Art. IV 2025: progressive reform could yield ~1% of GDP | News.bg 07.2022; Investor 07.10.2025; IMF PR 25-384 |
+| VAT compliance gap                    | (context)                                 | EC VAT gap 2025 edition (data 2023): BG gap €781M = 8.6% of VTTL                                                                                                                                                          | EC VAT gap report                                   |
 
 Takeaways encoded in the UI:
 
-1. Static scoring matches official *static* numbers (МФ's own menu is static per-pp on
+1. Static scoring matches official _static_ numbers (МФ's own menu is static per-pp on
    the then-current base). Differences vs older sources are base-year growth, not method.
 2. The dividend lever is the one place static scoring overshoots a published estimate
    materially (€75M vs ФС's ≤€50M) — the ФС number embeds behavioral response.
 3. МФ's 22%-VAT menu number is NOT a clean ±1пп benchmark (it bundles reduced-rate
    abolition and carryover); do not calibrate against it.
 4. Fiscal Council on the (dead) 2026 draft: revenues overestimated by €2.6–3.2B;
-   VAT plan implied +30% y/y. Our baseline uses 2025 *execution*, which sidesteps that.
+   VAT plan implied +30% y/y. Our baseline uses 2025 _execution_, which sidesteps that.
 
 ## Projection methodology (engine defaults)
 
@@ -97,17 +97,17 @@ Takeaways encoded in the UI:
 
 ## June-2026 government-debate levers (added 2026-06-11, second research pass)
 
-| Measure | Status (2026-06-11) | Costing anchor | Lever |
-|---|---|---|---|
-| Maternity 2→1 year | Rumor-stage: floated by ПБ MP Владимир Николов 2026-06-01 (bTV), formally denied same day by К. Проданов; NOT a МФ proposal | Second-year benefit (чл.53 КСО) €398.81/mo frozen; 2025 НОИ execution **€154.2M** (2024: €160.5M from the НОИ statistical XLS); ~33.5k avg full-rate recipients (derived — no published count) | `mat` slider, months kept 12→0; static, ignores return-to-work SSC/PIT offset and the 50%-if-working rule |
-| MP salary freeze | Правна комисия approved **17–0 on 2026-06-11**; plenary pending; freezes base at 3× NSI public-sector avg for March 2026 | Base **€4,236/mo** (May 2026); 240 MPs × ~1.30 committee extras × 1.1902 employer SSC ≈ **€18.9M/yr** pay mass; saving = foregone growth (~11.8%/yr НОИ insurable-income proxy) ≈ €2.2M/yr; president (2×), НС chair (+55%), PM, ministers ride the same base (not modeled) | `mpf` checkbox |
-| Party subsidy cut | **ADOPTED 2026-06-03**: €4.09 → **€3.00/vote** retroactive 30.04.2026 (saving ≈ €3.1M annualized) | ~2.861M subsidized votes (€11.7M ÷ €4.09), 7 formations | `psub` slider 0–€4.50, default €3.00 = current law |
-| МОД €2,300 from 01.08.2026 | Confirmed Donev guideline (2026-05-18) | — | existing МОД slider |
-| Administration −10% payroll from 01.09.2026 | Donev guideline, no EUR figure | — | existing admin lever |
-| Capital freeze (non-priority) | Donev guideline, no EUR figure | — | existing capital lever |
-| Pensions +7.8% (01.07.2026) + min pension €347.51 + no COVID supplement for NEW pensions | Adopted 2026-06-03 (extension-law amendments) | — | Swiss rule = current law; pensionFloor baseline (€322.37, as of 2026-03-31) predates the July rise — regen note |
-| Public-sector pay cap = president's salary; end of top-office auto-indexation | Donev guideline 2026-05-18 | no published saving | not modeled (no costable base) |
-| СУПТО revival / collection measures | In Nov-2025 draft (€320M claimed), dropped Dec 2025; presence in the Donev bill UNVERIFIED | — | not modeled (ФС disputed the claimed yields) |
+| Measure                                                                                  | Status (2026-06-11)                                                                                                         | Costing anchor                                                                                                                                                                                                                                                              | Lever                                                                                                           |
+| ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Maternity 2→1 year                                                                       | Rumor-stage: floated by ПБ MP Владимир Николов 2026-06-01 (bTV), formally denied same day by К. Проданов; NOT a МФ proposal | Second-year benefit (чл.53 КСО) €398.81/mo frozen; 2025 НОИ execution **€154.2M** (2024: €160.5M from the НОИ statistical XLS); ~33.5k avg full-rate recipients (derived — no published count)                                                                              | `mat` slider, months kept 12→0; static, ignores return-to-work SSC/PIT offset and the 50%-if-working rule       |
+| MP salary freeze                                                                         | Правна комисия approved **17–0 on 2026-06-11**; plenary pending; freezes base at 3× NSI public-sector avg for March 2026    | Base **€4,236/mo** (May 2026); 240 MPs × ~1.30 committee extras × 1.1902 employer SSC ≈ **€18.9M/yr** pay mass; saving = foregone growth (~11.8%/yr НОИ insurable-income proxy) ≈ €2.2M/yr; president (2×), НС chair (+55%), PM, ministers ride the same base (not modeled) | `mpf` checkbox                                                                                                  |
+| Party subsidy cut                                                                        | **ADOPTED 2026-06-03**: €4.09 → **€3.00/vote** retroactive 30.04.2026 (saving ≈ €3.1M annualized)                           | ~2.861M subsidized votes (€11.7M ÷ €4.09), 7 formations                                                                                                                                                                                                                     | `psub` slider 0–€4.50, default €3.00 = current law                                                              |
+| МОД €2,300 from 01.08.2026                                                               | Confirmed Donev guideline (2026-05-18)                                                                                      | —                                                                                                                                                                                                                                                                           | existing МОД slider                                                                                             |
+| Administration −10% payroll from 01.09.2026                                              | Donev guideline, no EUR figure                                                                                              | —                                                                                                                                                                                                                                                                           | existing admin lever                                                                                            |
+| Capital freeze (non-priority)                                                            | Donev guideline, no EUR figure                                                                                              | —                                                                                                                                                                                                                                                                           | existing capital lever                                                                                          |
+| Pensions +7.8% (01.07.2026) + min pension €347.51 + no COVID supplement for NEW pensions | Adopted 2026-06-03 (extension-law amendments)                                                                               | —                                                                                                                                                                                                                                                                           | Swiss rule = current law; pensionFloor baseline (€322.37, as of 2026-03-31) predates the July rise — regen note |
+| Public-sector pay cap = president's salary; end of top-office auto-indexation            | Donev guideline 2026-05-18                                                                                                  | no published saving                                                                                                                                                                                                                                                         | not modeled (no costable base)                                                                                  |
+| СУПТО revival / collection measures                                                      | In Nov-2025 draft (€320M claimed), dropped Dec 2025; presence in the Donev bill UNVERIFIED                                  | —                                                                                                                                                                                                                                                                           | not modeled (ФС disputed the claimed yields)                                                                    |
 
 Constants live in `bgTaxPolicy.ts` (`MATERNITY_Y2_SPEND_EUR`, `MP_PAY_MASS_EUR`, `PARTY_SUBSIDY_VOTES`) — single published figures, deliberately not piped through policy_baseline.json.
 
@@ -137,12 +137,15 @@ all values re-verified 2026-06-11. Catches vs stale knowledge, for future refres
 The simulator now scores in two modes; **dynamic is the default** (static stays one tap
 away via `?mode=static`, preserving the official-costings convention and the benchmark
 column). Engine: `src/lib/bgBehavioral.ts`; gates: `scripts/budget/__smoke_behavioral.ts`
-(25 checks — zero-draw identity, calibration, sign/scale, Tier-2 magnitudes, MC
-determinism, slider-extreme finiteness). Design rules:
+(zero-draw identity, calibration, sign/scale, Tier-2 magnitudes, MC determinism,
+slider-extreme finiteness, second-order recaptures). Design rules:
 
-- **Tier 1 (per-lever base responses)** carries ONLY reporting/shifting/compliance
-  margins; aggregate demand lives ONLY in Tier 2 (anti-double-counting). Offsets are
-  EUR added to the static delta and always oppose its sign.
+- **Tier 1 (per-lever base responses)** carries supply-side margins only —
+  reporting/shifting/compliance plus (2026-06-12) labour-supply participation
+  (maternity return-to-work) and salary↔dividend relabeling; aggregate demand
+  lives ONLY in Tier 2 (anti-double-counting). Offsets are EUR added to the
+  static delta; the tax/compliance ones always oppose its sign (the maternity
+  recapture reinforces a cut's saving — a supply, not a leakage, response).
   - ДДФЛ: Feldstein decomposition over the band grid — Σ workers × τ_new ×
     base × clamp(Δlog(1−τ_marginal), ±1) × 12 × κ × ETI. ETI employment
     0.10/0.20/0.40 (Gruber–Saez 2002; Saez–Slemrod–Giertz 2012; no BG estimate —
@@ -161,8 +164,25 @@ determinism, slider-extreme finiteness). Design rules:
   - МОД raise: haircut 0.05/0.10/0.20 (×2 capped 0.40 for no-cap; 0 when
     lowering); health pp: 0.02/0.05/0.10. Judgment bands (КНСБ-vs-МФ spread,
     undeclared-work literature).
-  - Expenditure levers: no offsets (mechanical); scoreAdminCut keeps its
-    built-in revenue feedback — no second one.
+  - Дивидент↔заплата (added 2026-06-12): a rate change relabels a sliver of
+    income between the dividend and salary bases; net recapture coef
+    0.0/0.008/0.03 on `−ΔdividendBase` (reuses the same divSemiElast draw).
+    Small/bounded by design (most of the base response is retention/timing,
+    and dividend income sits above the SSC cap where the shift is ≈ neutral);
+    rides its OWN offset line so the ФС dividend calibration is untouched.
+  - Майчинство return-to-work (added 2026-06-12): cutting the paid 2nd year
+    sends a share of mothers back to work → PIT+SSC recapture ON TOP of the
+    benefit saving. Band 0.25/0.45/0.65 (НСИ maternal-employment gap + КСО
+    чл.54 50%-if-working), on freed recipient-months × labourTaxFeedbackOnSalary
+    at a ~€1,000/mo representative wage. Full-year cut: €154M static →
+    ≈ €218M dynamic. OUT of the Tier-2 impulse (the new wage income offsets the
+    tax withdrawal at the demand level).
+  - Other expenditure levers carry no Tier-1 offset, BUT the mechanical
+    labour-tax feedback (~30.6% of labour cost back as PIT+SSC) is now netted
+    in the STATIC score — `labourTaxFeedbackOnCost` shared by scoreAdminCut
+    (unchanged), scoreWageIndexation and scoreTeachersPeg (added 2026-06-12);
+    scoreHealthContribution nets the employee-share PIT deductibility. See the
+    second-order section below.
 - **Tier 2 (macro feedback)**: impulse split (VAT / other revenue / non-pension
   spending / pension path) × IMF WP/13/49 year-1 multipliers (VAT 0.10/0.25/0.40,
   tax 0.20/0.35/0.50, spending 0.00/0.05/0.20), geometric decay φ = 0.4/0.6/0.8,
@@ -171,17 +191,25 @@ determinism, slider-extreme finiteness). Design rules:
   overstated 10–15% in year 1". Rides projectFiscalPath's existing
   `fixedDeltaByYearEur` parameter (the recursion body is untouched; the new
   `PROJECTION_GDP_EUR` export is gated byte-identical to the path).
-- **Monte Carlo**: triangular draws of all 12 parameters + the Pareto α
+- **Monte Carlo**: triangular draws of all 14 parameters + the Pareto α
   (subsumes the old МОД-only band; the VAT calibration factor is an identity,
-  NOT sampled). 500 draws, mulberry32 seeded — slider moves never resample.
-  Headline = central draw + 5/95 band.
+  NOT sampled). The two 2026-06-12 second-order params (maternity return-to-work,
+  div↔salary recapture) are appended LAST in the draw so every prior draw stays
+  byte-identical (determinism). 500 draws, mulberry32 seeded — slider moves never
+  resample. Headline = central draw + 5/95 band.
 - **UI**: goal scoreboard (Маастрихт −3% / дълг ≤40% / отбрана 3% missions,
   `?goal=`), static/behavior decomposition line, per-lever static sub-lines,
   decile winners/losers strip (incidence curve folded beneath), benchmarks
   table gains a dynamic column, behavioral assumptions list rendered from the
   engine constants, share-card PNG export. The AI chat tool
-  (`ai/tools/taxPolicy.ts`) leads with the dynamic value and carries
-  `delta_static`/`behavior`/`range` facts; parity gates in `ai/tools/harness.ts`.
+  (`ai/tools/taxPolicy.ts`, `simulateTaxChange`) leads with the dynamic value
+  and carries `delta_static`/`behavior`/`range` facts; **it now mirrors EVERY
+  simulator lever** — the 17 revenue/expenditure/Phase-5 instruments plus the 5
+  June-2026 debate levers (maternity with its dynamic return-to-work recapture,
+  teachers' peg, minimum pension, MP-pay freeze, party subsidy), each with a
+  natural-language parser + definitional guard. Parity gates in
+  `ai/tools/harness.ts`; the AI↔engine equality is locked per-lever by
+  `scripts/budget/__test_ai_parity.ts`.
 - **Watched anchors** (manual-edit pattern, scripts/watch/sources/fiscal_anchors.ts):
   `nsi_edp` (ESA outturn anchors), `ec_vat_gap` (VAT_GAP_RESPONSE),
   `imf_weo_bg` (WEO vintage proxy for the IMF multiplier anchors — the Article IV
@@ -190,6 +218,64 @@ determinism, slider-extreme finiteness). Design rules:
 
 Deferred (unchanged): real microsimulation awaits the НАП ЗДОИ income-tier data
 (below); IFS-style household-type slicing is gated on the microsim.
+
+## Second-order / cross-lever refinements (added 2026-06-12)
+
+A lever rarely touches only its own line. An audit found the labour-tax feedback
+was captured for SOME levers and ignored for the symmetric others — fixed by a
+shared helper — plus two material behavioral cross-effects worth banding.
+
+- **Consistent labour-tax feedback (mechanical, STATIC).** When the budget moves
+  wage income it also collects/loses PIT + SSC on it. `scoreAdminCut` always did
+  this; the shared `labourTaxFeedbackOnSalary`/`OnCost` (`src/lib/bgTaxPolicy.ts`)
+  now applies the SAME offset to public-wage indexation and the teachers' peg.
+  Rate: salary × (SSC_COMBINED_BUDGET_RATE 0.278 + (1−SSC_emp 0.1378)×PIT 0.10)
+  ≈ 36.4% of salary ≈ 30.6% of labour cost. Under the consolidated (КФП) frame
+  the employer SSC nets out (paid as cost, received as revenue), so applying it
+  to a labour-cost change leaves the genuine net cost. Effect: wage indexation
+  +5% −€142M gross → −€98M net; teachers→125% −€207M → −€143M net. This is an
+  accounting offset (NOT a behavioral elasticity, NOT a demand multiplier), so it
+  sits in BOTH static and dynamic mode, and the Tier-2 multiplier rides the
+  resulting net impulse (no double count).
+- **Health-contribution deductibility (mechanical, STATIC).** The employee share
+  (≈40%, ЗЗО чл.40 60/40 split) of a health-pp rise is PIT-deductible, so the
+  budget gives back ~PIT×0.4 of the gross. `scoreHealthContribution` now nets it:
+  +1пп +€315M gross → +€302M net (dynamic lever +€287M). Same deduction
+  interaction the МОД lever's pitOffset already modeled.
+- **Maternity return-to-work + dividend↔salary (behavioral, DYNAMIC, banded).**
+  See the two new Tier-1 bullets above — both are EUR offsets with low/central/high
+  bands flowing through the MC, value-0 = no response (zero-draw identity intact).
+- **Deliberately left to Tier-2:** defense procurement / capital projects generate
+  wages + VAT, but that is an aggregate-demand effect — handled by the macro
+  multiplier, NOT double-counted as a direct feedback.
+
+Gates: `__smoke_behavioral.ts` gate 11 (maternity sign/scale + €218M integration,
+div↔salary sign + bounded < 25% of the dividend lever, ФС calibration untouched);
+`__smoke_expenditure.ts` prints are now net; AI parity (`harness.ts`) + regression
+(`ai/tests/regression.ts`) updated to the netted wage/health numbers. κ=1.00 and
+the €113M МОД backtest are untouched (fitEarnings not in scope).
+
+## Regression suite — `npm run budget:test` (added 2026-06-12)
+
+One command runs **10 test files** for every simulator calculation and exits
+non-zero on any broken invariant (`scripts/budget/test.ts`):
+
+- **`__test_engine.ts`** — pure-function golden math with SYNTHETIC inputs and
+  hand-derived golden values for EVERY `score*` function + behavioral adapter
+  (revenue scorers, PIT brackets, Gini, МОД band + closed form, all expenditure
+  - debate levers, the labour-tax feedback helpers, the Tier-1 adapters, the
+    second-order recaptures, Tier-2 feedback, the seeded RNG). Baseline-independent
+    — it pins the formulas, so a refactor that changes any calculation fails here.
+- **`__test_ai_parity.ts`** — asserts the chat tool's `scoreScenario` equals an
+  INDEPENDENT single-lever recomputation from the raw engine for every lever, and
+  that the dynamic recaptures surface (maternity dynamic > static; dividend
+  dynamic < static). This is the regression lock for "every lever is in chat".
+- The 8 baseline-backed `__smoke_*` scripts (earnings/κ, VAT calibration, МОД
+  identity, expenditure netting, debate levers, behavioral, projection, НАП
+  tiers).
+
+The AI layer's own broader suite (routing, narration, 773 regression cases) stays
+in `npm run ai:test` + `npm run ai:harness`.
 
 ## Public tally — "what the public chose" (added 2026-06-12)
 
@@ -217,14 +303,44 @@ rewrite; the AI chat origin ai.electionsbg.com is CORS-allowlisted from day one)
   button lives with the share actions, disabled at current law, with a
   per-scenario localStorage marker against re-submission.
 
-## Pending data upgrade
+## Income-tier validation (added 2026-06-12)
 
-A ЗДОИ request to НАП for ДДФЛ income-tier statistics (income distribution by bracket)
-is being prepared. When it lands, the fitted earnings distribution (split log-normal +
-Pareto, α≈2.27, κ≈1.108, SES 2022 anchors) in `run_policy_baseline.ts` should be
-replaced/recalibrated with the actual tier data — it directly determines the
-необлагаем-минимум, progressive-bracket and МОД-cap scores, and removes the largest
-modeled (vs sourced) component in the engine.
+The fitted earnings distribution (split log-normal + Pareto, α≈2.27, κ≈1.108, SES 2022
+anchors) is the engine's largest modeled-not-sourced component — it determines the
+необлагаем-минимум, progressive-bracket and МОД-cap scores. A real published НАП table
+now validates it: the distribution of ДДФЛ filers by годишна данъчна основа for tax year
+2023 (MoF parliamentary answer, minfin.bg/bg/wreply/996-4/12881 — hand-keyed in
+`scripts/budget/nap_income_tiers.ts` because minfin.bg is WAF-blocked; one-off-backfill,
+not a watcher).
+
+**Validate-and-anchor, NOT refit** (the option-(i) decision). The НАП table is a
+_different population_ — 3.11M ALL filers (employees + self-employed + final-tax) in
+_taxable-base_ units — than the engine grid (~2.63M insured _employees_ in _gross-wage_
+units), so a full refit would break the two employee-specific anchors (the κ=1.00 gate and
+the €113M МОД backtest: the bottom-bin part-year/self-min floor and the self-employed/
+dividend blend would pull σ and α down). Instead `fitEarnings` is untouched and the НАП
+data does two honest things:
+
+- **Body validation** — bin the fitted grid (deflated to the НАП year) into the 7 НАП
+  taxable-base brackets; renormalized over bins 2–7 (bin 1 ≤9360 лв is the sub-full-year-MW/
+  self-insured floor the employee fit correctly doesn't model), the cumulative-through-the-
+  upper-middle matches within ~7pp. Gate: cumulative ±10% (passes); bin-4 standalone is a
+  WARN (narrow, deflation-sensitive), not a hard gate.
+- **Tail ordering sourced** — the all-filer Pareto α≈1.67 (conditional-mean estimator,
+  stable across thresholds 1.66–1.71) sits _below_ the engine's employee α≈2.27, exactly
+  as it must (the top НАП bins blend in fatter dividend/business income). The employee α
+  stays canonical for МОД; НАП only asserts the ordering `fit.alpha > napAllFilerAlpha` +
+  a plausibility band. **Never let the all-filer α leak into the employee tail / МОД lever.**
+
+Emitted as `policy_baseline.json` → `incomeTiers` (raw EUR table + fitComparison + tail);
+gates in `scripts/budget/__smoke_income_tiers.ts` and as hard throws in
+`run_policy_baseline.ts`. Headline: 3,109,552 filers · €3.07B ДДФЛ · €30.7B base · top 1.5%
+pays 21.5%.
+
+**Still pending (the ЗДОИ ask):** a _machine-readable, annual, finer-grained_ open dataset
+of the same table — the current source is one parliamentary answer at a time from a
+WAF-blocked PDF page. That would make the body+tail fully source-traceable and shrink the
+tail uncertainty further.
 
 ## Key sources
 

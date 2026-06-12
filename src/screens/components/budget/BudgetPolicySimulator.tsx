@@ -15,7 +15,7 @@
 // pins the static view, the goal gauge target travels via `goal=`.
 
 import { FC, ReactNode, useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   SlidersHorizontal,
@@ -26,7 +26,6 @@ import {
   User,
   Users,
   Info,
-  TriangleAlert,
   Sparkles,
   Copy,
   ChevronDown,
@@ -34,6 +33,7 @@ import {
   Target,
   ImageDown,
   Vote,
+  BookOpen,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import {
@@ -103,18 +103,10 @@ import {
   projectFiscalPath,
 } from "@/lib/bgFiscalProjection";
 import {
-  BEHAVIORAL_PARAMS,
-  CIT_BASE_SEMI_ELAST_PCT_PP,
-  DIV_BASE_SEMI_ELAST_PCT_PP,
   MC_DRAWS,
   MC_SEED,
-  SSC_CAP_AVOIDANCE,
-  SSC_RATE_AVOIDANCE,
-  VAT_GAP_RESPONSE,
   buildDynamicInput,
   computeDynamicScenario,
-  corpBehavioralOffset,
-  dividendBehavioralOffset,
   sampleDraws,
 } from "@/lib/bgBehavioral";
 import {
@@ -710,8 +702,6 @@ export const BudgetPolicySimulator: FC = () => {
   );
   const [shareCopied, setShareCopied] = useState(false);
   const [sentenceCopied, setSentenceCopied] = useState(false);
-  const [benchOpen, setBenchOpen] = useState(false);
-  const [assumpOpen, setAssumpOpen] = useState(false);
   const [incidenceOpen, setIncidenceOpen] = useState(false);
   // Scoring mode: dynamic (behavioral + macro feedback + MC band) is the
   // default; `mode=static` in the URL pins the static view.
@@ -1425,6 +1415,7 @@ export const BudgetPolicySimulator: FC = () => {
         modCentralEur: scenario.modRes.centralEur,
         healthDeltaEur: scenario.hpDelta,
         minWageDeltaEur: scenario.mwDelta,
+        maternityMonthsCut: MATERNITY_Y2_MONTHS - mat,
         expenditureBalanceNonPensionEur: scenario.expenditureNonPensionBalance,
         brackets: scenario.brackets,
         pensionPathEur: pensionPath,
@@ -1449,6 +1440,7 @@ export const BudgetPolicySimulator: FC = () => {
     mod,
     noCap,
     currentCap,
+    mat,
   ]);
 
   // ----- multi-year balance & debt projection --------------------------------
@@ -1475,94 +1467,6 @@ export const BudgetPolicySimulator: FC = () => {
         : undefined;
     return projectFiscalPath(year1, fixed);
   }, [scenario, dynamicScenario, dyn, pensionPath]);
-
-  // ----- model vs published estimates ----------------------------------------
-  // Live engine runs of the canonical scenarios that official costings exist
-  // for (МФ consolidation menu 2023, Фискален съвет 2025, КНСБ/НОИ 2025) —
-  // the caveats card folds them into a comparison table so the calibration
-  // is inspectable, not asserted.
-  const benchmarks = useMemo(() => {
-    if (!baseline?.vat?.slices || !baseline.earnings?.bands) return null;
-    const exp = baseline.expenditure;
-    const slices = baseline.vat.slices as VatBaseSlice[];
-    const vatAt = (regimes: VatPolicy["regimes"]): number =>
-      computeVatRevenue(slices, {
-        standardRate: VAT_STANDARD_RATE,
-        reducedRate: VAT_REDUCED_RATE,
-        regimes,
-      }).modeledEur;
-    const vatBase = vatAt({});
-    const e = baseline.earnings;
-    const restaurantsStatic =
-      (vatAt({ restaurants: "reduced" }) - vatBase) * baseline.vat.factor;
-    const corpStatic = scoreCorporate(baseline.revenue.corporateEur, 0.11);
-    const divStatic = scoreDividend(baseline.revenue.dividendEur, 0.1);
-    const modStatic = scoreModCapBands(e.bands, currentCap, 2352).totalEur;
-    const nmStatic = scorePitSchedule(
-      e.bands,
-      e.capEur,
-      [
-        { fromEur: 0, rate: 0 },
-        { fromEur: 620, rate: PIT_RATE },
-      ],
-      e.kappa,
-    );
-    // Dynamic column: the same scenarios through the central-draw Tier-1
-    // offsets (the dividend row is the calibration target — it must land
-    // inside the ФС ≤€50M ceiling; the smoke test gates it).
-    const rows: { key: string; ours: number; oursDyn: number }[] = [
-      {
-        key: "restaurants",
-        ours: restaurantsStatic,
-        oursDyn: restaurantsStatic * (1 - VAT_GAP_RESPONSE.central),
-      },
-      {
-        key: "corp",
-        ours: corpStatic,
-        oursDyn:
-          corpStatic +
-          corpBehavioralOffset(
-            baseline.revenue.corporateEur,
-            CORP_TAX_RATE,
-            0.11,
-            CIT_BASE_SEMI_ELAST_PCT_PP.central,
-          ),
-      },
-      {
-        key: "div",
-        ours: divStatic,
-        oursDyn:
-          divStatic +
-          dividendBehavioralOffset(
-            baseline.revenue.dividendEur,
-            DIVIDEND_TAX_RATE,
-            0.1,
-            DIV_BASE_SEMI_ELAST_PCT_PP.central,
-          ),
-      },
-      {
-        key: "mod",
-        // €2,352 = the cap in the withdrawn Budget-2026 draft — the move
-        // the КНСБ costing scored.
-        ours: modStatic,
-        oursDyn: modStatic * (1 - SSC_CAP_AVOIDANCE.central),
-      },
-      // The untaxed minimum has NO Tier-1 response by construction (the new
-      // marginal rate below the threshold is 0), so both columns coincide.
-      { key: "nm", ours: nmStatic, oursDyn: nmStatic },
-    ];
-    if (exp) {
-      const sscStatic = scoreHealthContribution(exp.health.baseEur, 1);
-      rows.splice(3, 0, {
-        key: "ssc",
-        // +1пп on the insurable base is fund-agnostic — the health scorer
-        // is just base × pp, reused here as the generic contribution row.
-        ours: sscStatic,
-        oursDyn: sscStatic * (1 - SSC_RATE_AVOIDANCE.central),
-      });
-    }
-    return rows;
-  }, [baseline, currentCap]);
 
   // ----- public scenario tally ------------------------------------------------
   // The stats query failing (function not deployed, offline) hides the card;
@@ -1732,8 +1636,11 @@ export const BudgetPolicySimulator: FC = () => {
     Math.abs(scenario.modRes.highEur - scenario.modRes.lowEur) > 1e6;
 
   // Mode-aware per-lever values: in dynamic mode each revenue lever shows
-  // static + its central-draw behavioral offset; expenditure levers carry no
-  // offsets and read the same in both modes.
+  // static + its central-draw behavioral offset; most expenditure levers carry
+  // no offset and read the same in both modes — the exception is maternity,
+  // whose dynamic return-to-work PIT+SSC recapture surfaces on its own row.
+  // (The tiny dividend↔salary recapture stays in the aggregate behavior line —
+  // it is a cross-lever spillover, not cleanly one displayed row's effect.)
   const dynOffsets = dyn && dynamicScenario ? dynamicScenario.offsets : null;
   const effVat = scenario.vatDelta + (dynOffsets?.vat ?? 0);
   const effPit = scenario.pitDelta + (dynOffsets?.pit ?? 0);
@@ -1741,6 +1648,7 @@ export const BudgetPolicySimulator: FC = () => {
   const effDiv = scenario.divDelta + (dynOffsets?.dividend ?? 0);
   const effMod = scenario.modRes.centralEur + (dynOffsets?.mod ?? 0);
   const effHp = scenario.hpDelta + (dynOffsets?.health ?? 0);
+  const effMat = scenario.matBalance + (dynOffsets?.maternity ?? 0);
   const headline =
     dyn && dynamicScenario
       ? dynamicScenario.dynamicHeadlineEur
@@ -1775,7 +1683,7 @@ export const BudgetPolicySimulator: FC = () => {
     Math.abs(effHp),
     Math.abs(scenario.mpBalance),
     Math.abs(scenario.tpBalance),
-    Math.abs(scenario.matBalance),
+    Math.abs(effMat),
     Math.abs(scenario.mpfBalance),
     Math.abs(scenario.psubBalance),
     1,
@@ -2582,7 +2490,7 @@ export const BudgetPolicySimulator: FC = () => {
         <div className="space-y-4">
           {/* Goal scoreboard: mission chips + the deficit/debt gauge, with
               the scoring-mode toggle riding the card header. */}
-          <Card>
+          <Card data-shot="scoreboard">
             <CardContent className="pt-3 pb-3">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div className="flex flex-wrap items-center gap-1.5">
@@ -2787,7 +2695,7 @@ export const BudgetPolicySimulator: FC = () => {
           </div>
 
           {/* Per-tax breakdown */}
-          <Card>
+          <Card data-shot="breakdown">
             <CardHeader className="pb-2">
               <CardTitle className="text-base flex items-center gap-2">
                 <Landmark className="h-4 w-4" />
@@ -2939,7 +2847,8 @@ export const BudgetPolicySimulator: FC = () => {
                     <DeltaRow
                       label={t("budget_policy_row_mat")}
                       tip={t("budget_policy_tip_mat")}
-                      deltaEur={scenario.matBalance}
+                      deltaEur={effMat}
+                      sub={staticSub(scenario.matBalance, effMat)}
                       maxAbs={maxAbs}
                       lang={lang}
                     />
@@ -2992,12 +2901,14 @@ export const BudgetPolicySimulator: FC = () => {
           </Card>
 
           {/* Multi-year balance & debt projection */}
-          <PolicyFiscalProjection
-            projection={projection}
-            anyChange={anyChange}
-            lang={lang}
-            locale={locale}
-          />
+          <div data-shot="projection">
+            <PolicyFiscalProjection
+              projection={projection}
+              anyChange={anyChange}
+              lang={lang}
+              locale={locale}
+            />
+          </div>
 
           {/* What the public chose — renders only when the tally backend
               answers and at least one scenario exists. */}
@@ -3086,7 +2997,7 @@ export const BudgetPolicySimulator: FC = () => {
               primary; the full incidence curve folds away beneath it. */}
           {(deciles && deciles.anyVisible) ||
           (distribution && distribution.anyVisible) ? (
-            <Card>
+            <Card data-shot="deciles">
               <CardHeader className="pb-2">
                 <CardTitle className="text-base flex items-center gap-2">
                   <Users className="h-4 w-4" />
@@ -3156,7 +3067,7 @@ export const BudgetPolicySimulator: FC = () => {
           ) : null}
 
           {/* Citizen pane */}
-          <Card>
+          <Card data-shot="citizen">
             <CardHeader className="pb-2">
               <CardTitle className="text-base flex items-center gap-2">
                 <User className="h-4 w-4" />
@@ -3253,152 +3164,18 @@ export const BudgetPolicySimulator: FC = () => {
             </CardContent>
           </Card>
 
-          {/* Method + caveats */}
+          {/* Methodology — the full write-up (caveats, sourced behavioral
+              assumptions, and the model-vs-published benchmark table) now lives
+              in the analysis article, linked here and from the page intro. */}
           <Card>
-            <CardContent className="pt-4">
-              <div className="flex items-start gap-2 text-xs text-muted-foreground">
-                <TriangleAlert className="h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
-                <div className="space-y-1.5">
-                  <p>{t("budget_policy_caveat_static")}</p>
-                  <p>{t("budget_policy_caveat_behavioral")}</p>
-                  <p>{t("budget_policy_caveat_corp")}</p>
-                  <p>
-                    {t("budget_policy_caveat_vat", {
-                      factor: baseline.vat.factor.toFixed(2),
-                      years: `${baseline.vat.calibration[0]?.year}–${baseline.vat.calibration[baseline.vat.calibration.length - 1]?.year}`,
-                    })}
-                  </p>
-                  <p>
-                    {t("budget_policy_caveat_mod", {
-                      year: baseline.modIdentity.year,
-                    })}
-                  </p>
-                  <p>
-                    {t("budget_policy_caveat_brackets", {
-                      wave: baseline.earnings.sesWave,
-                      kappa: baseline.earnings.kappaIdentityYear.toFixed(2),
-                    })}
-                  </p>
-                  <p>{t("budget_policy_caveat_exp")}</p>
-                  <p>{t("budget_policy_caveat_multiplier")}</p>
-                </div>
-              </div>
-              {/* Behavioral assumptions: every elasticity with its band and
-                  citation, rendered straight from the engine constants so the
-                  list can never drift from the math. */}
-              <div className="mt-3 border-t pt-2">
-                <button
-                  type="button"
-                  aria-expanded={assumpOpen}
-                  onClick={() => setAssumpOpen((v) => !v)}
-                  className="flex w-full items-center justify-between gap-2 text-xs font-medium text-muted-foreground hover:text-foreground"
-                >
-                  <span>{t("budget_policy_assumptions_title")}</span>
-                  <ChevronDown
-                    className={
-                      "h-3.5 w-3.5 transition-transform " +
-                      (assumpOpen ? "rotate-180" : "")
-                    }
-                  />
-                </button>
-                {assumpOpen ? (
-                  <div className="mt-2 space-y-2">
-                    <p className="text-[11px] text-muted-foreground">
-                      {t("budget_policy_assumptions_intro")}
-                    </p>
-                    <ul className="space-y-1.5">
-                      {BEHAVIORAL_PARAMS.map((p) => (
-                        <li key={p.key} className="text-[11px]">
-                          <div className="flex items-baseline justify-between gap-2">
-                            <span>{t(`budget_policy_elast_${p.key}`)}</span>
-                            <span className="shrink-0 font-medium tabular-nums">
-                              {new Intl.NumberFormat(locale, {
-                                maximumFractionDigits: 2,
-                              }).format(p.band.central)}{" "}
-                              <span className="font-normal text-muted-foreground">
-                                (
-                                {new Intl.NumberFormat(locale, {
-                                  maximumFractionDigits: 2,
-                                }).format(p.band.low)}
-                                –
-                                {new Intl.NumberFormat(locale, {
-                                  maximumFractionDigits: 2,
-                                }).format(p.band.high)}
-                                )
-                              </span>
-                            </span>
-                          </div>
-                          <div className="text-[10px] text-muted-foreground/80">
-                            {p.band.source}
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : null}
-              </div>
-              {benchmarks ? (
-                <div className="mt-3 border-t pt-2">
-                  <button
-                    type="button"
-                    aria-expanded={benchOpen}
-                    onClick={() => setBenchOpen((v) => !v)}
-                    className="flex w-full items-center justify-between gap-2 text-xs font-medium text-muted-foreground hover:text-foreground"
-                  >
-                    <span>{t("budget_policy_bench_title")}</span>
-                    <ChevronDown
-                      className={
-                        "h-3.5 w-3.5 transition-transform " +
-                        (benchOpen ? "rotate-180" : "")
-                      }
-                    />
-                  </button>
-                  {benchOpen ? (
-                    <div className="mt-2 space-y-2">
-                      <p className="text-[11px] text-muted-foreground">
-                        {t("budget_policy_bench_intro")}
-                      </p>
-                      <table className="w-full text-[11px] tabular-nums">
-                        <thead>
-                          <tr className="text-left text-muted-foreground">
-                            <th className="py-1 pr-2 font-normal" />
-                            <th className="py-1 pr-2 font-normal text-right">
-                              {t("budget_policy_bench_model")}
-                            </th>
-                            <th className="py-1 pr-2 font-normal text-right">
-                              {t("budget_policy_bench_dyn")}
-                            </th>
-                            <th className="py-1 font-normal text-right">
-                              {t("budget_policy_bench_published")}
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {benchmarks.map((b) => (
-                            <tr
-                              key={b.key}
-                              className="border-t border-border/60"
-                            >
-                              <td className="py-1 pr-2">
-                                {t(`budget_policy_bench_${b.key}`)}
-                              </td>
-                              <td className="py-1 pr-2 text-right font-medium">
-                                {fmtDelta(b.ours, lang)}
-                              </td>
-                              <td className="py-1 pr-2 text-right font-medium text-indigo-700 dark:text-indigo-300">
-                                {fmtDelta(b.oursDyn, lang)}
-                              </td>
-                              <td className="py-1 text-right text-muted-foreground">
-                                {t(`budget_policy_bench_${b.key}_pub`)}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  ) : null}
-                </div>
-              ) : null}
+            <CardContent className="py-3">
+              <Link
+                to="/articles/2026-06-12-tax-policy-simulator"
+                className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
+              >
+                <BookOpen className="h-4 w-4 shrink-0" />
+                {t("budget_policy_methodology_link")}
+              </Link>
             </CardContent>
           </Card>
         </div>

@@ -118,6 +118,10 @@ const b2 = JSON.parse(
   };
 };
 const x = b2.expenditure;
+// Wage indexation / teachers' peg / health now report NET of the mechanical
+// labour-tax feedback (the budget collects ~30.6% of indexed pay back as
+// PIT+SSC, and the employee's health-contribution share is PIT-deductible) —
+// consistent with scoreAdminCut. Gross magnitudes are ~1.44× these.
 console.log(`\nPhase-5 levers (balance convention, negative = costs):`);
 console.log(
   `  отбрана 2.2 → 3.0% от БВП: ${M(-scoreDefenseTarget(b2.gdpNextEur, x.defense.natoPctGdp, 3.0))}/yr`,
@@ -207,3 +211,41 @@ console.log(
   `  → current ratio (${(tch.currentRatio * 100).toFixed(2)}%): €${zero} (must be exactly 0)`,
 );
 if (zero !== 0) throw new Error("teachers' peg at the current ratio must be 0");
+
+// --- labour-tax feedback netting locks (added 2026-06-12) ------------------
+// Wage indexation & the teachers' peg must net ~30.6% of the gross labour cost
+// back as PIT+SSC; the health contribution nets ~4% (employee-share PIT
+// deductibility). These lock the second-order refinement at the engine level
+// (the AI parity/regression numbers downstream assume exactly these).
+{
+  const wgGross = x.personnel.massEur * 0.05;
+  const wgRatio =
+    scoreWageIndexation(
+      x.personnel.massEur,
+      x.personnel.exemptShare,
+      5,
+      false,
+    ) / wgGross;
+  const thGross =
+    tch.count * tch.economyWageEur * (1.25 - tch.currentRatio) * 1.1902;
+  const thRatio =
+    scoreTeachersPeg(tch.count, tch.economyWageEur, tch.currentRatio, 125) /
+    thGross;
+  const hpRatio =
+    scoreHealthContribution(x.health.baseEur, 1) / (x.health.baseEur * 0.01);
+  console.log(
+    `\nFeedback netting: wage +5% net/gross ${wgRatio.toFixed(3)}, teachers→125% ${thRatio.toFixed(3)} (both ~0.694), health +1пп ${hpRatio.toFixed(3)} (~0.96)`,
+  );
+  if (!(wgRatio > 0.69 && wgRatio < 0.7))
+    throw new Error(
+      `wage indexation must net the labour-tax feedback (got ${wgRatio})`,
+    );
+  if (!(thRatio > 0.69 && thRatio < 0.7))
+    throw new Error(
+      `teachers' peg must net the labour-tax feedback (got ${thRatio})`,
+    );
+  if (!(hpRatio > 0.955 && hpRatio < 0.965))
+    throw new Error(
+      `health contribution must net the PIT deductibility (got ${hpRatio})`,
+    );
+}

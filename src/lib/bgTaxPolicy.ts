@@ -380,6 +380,36 @@ export interface ModIdentity {
  *  consolidated budget (statutory ~32.8% minus the 5pp second pillar). */
 export const SSC_COMBINED_BUDGET_RATE = 0.278;
 
+/** Statutory employer SSC rate paid on top of the gross salary (~19.02%,
+ *  2026). The budget funds this on the public wages it pays and collects it
+ *  on private ones. */
+export const EMPLOYER_SSC_RATE = 0.1902;
+
+/** Fraction of a GROSS SALARY the consolidated budget collects back as
+ *  PIT + SSC: the combined budget contribution rate plus flat PIT on the
+ *  post-SSC base (≈ 36.4%). This is the mechanical, first-round labour-tax
+ *  feedback shared by EVERY lever that moves wage income — administration
+ *  cuts, public-wage indexation, the teachers' peg, maternity return-to-work.
+ *  Under the consolidated (КФП) frame the employer SSC nets out (the budget
+ *  both pays it as cost and receives it as revenue), so applying this to a
+ *  labour-cost change leaves exactly the genuine net cost/saving. It is NOT
+ *  the Tier-2 demand multiplier — it is the certain accounting offset; the
+ *  multiplier rides on the resulting net impulse on top (no double count). */
+export const labourTaxFeedbackOnSalary = (grossSalaryEur: number): number =>
+  grossSalaryEur *
+  (SSC_COMBINED_BUDGET_RATE + (1 - SSC_EMPLOYEE_RATE) * PIT_RATE);
+
+/** The same feedback per unit of total LABOUR COST (gross salary + employer
+ *  SSC): cost = salary·(1+employer) ⇒ salary = cost/(1+employer). ≈ 30.6% of
+ *  labour cost. */
+export const labourTaxFeedbackOnCost = (labourCostEur: number): number =>
+  labourTaxFeedbackOnSalary(labourCostEur / (1 + EMPLOYER_SSC_RATE));
+
+/** Employee share of the 8% health contribution (ЗЗО чл.40 — employer 4.8% /
+ *  employee 3.2% = 60/40). Only the employee's own share is deductible from
+ *  their PIT base. */
+export const HEALTH_EMPLOYEE_SHARE = 0.4;
+
 export interface ModCapResult {
   lowEur: number;
   centralEur: number;
@@ -525,14 +555,10 @@ export const scoreAdminCut = (
   const realLayoffs = cutPositions - vacantAbsorbed;
   const grossEur = realLayoffs * costPerFte;
   // The labour cost splits ~ gross salary + employer SSC; the budget loses
-  // employee+employer SSC and PIT on those salaries. Approximate from the
-  // statutory rates: cost = salary × (1 + employer), feedback = salary ×
-  // (combined budget SSC) + PIT on the post-SSC base.
-  const employerRate = 0.1902;
-  const salary = grossEur / (1 + employerRate);
-  const revenueFeedbackEur =
-    salary * SSC_COMBINED_BUDGET_RATE +
-    salary * (1 - SSC_EMPLOYEE_RATE) * PIT_RATE;
+  // employee+employer SSC and PIT on those salaries — the shared labour-tax
+  // feedback (cost = salary × (1 + employer), feedback = salary × combined
+  // budget SSC + PIT on the post-SSC base).
+  const revenueFeedbackEur = labourTaxFeedbackOnCost(grossEur);
   return {
     grossEur,
     revenueFeedbackEur,
@@ -578,16 +604,23 @@ export const scoreMinWageFreeze = (
 // ---------------------------------------------------------------------------
 
 /** Δ spending of indexing the consolidated Персонал line by `pct` percent
- *  (positive = more spending). With `onlyNonExempt`, restraint-exempt
- *  sectors (военни/полицаи/лекари/учители — `exemptShare` of the line) keep
- *  their path and only the rest is indexed. */
+ *  (positive = more spending), NET of the labour-tax feedback. With
+ *  `onlyNonExempt`, restraint-exempt sectors (военни/полицаи/лекари/учители —
+ *  `exemptShare` of the line) keep their path and only the rest is indexed.
+ *  The budget collects ~30.6% of the indexed cost straight back as PIT + SSC
+ *  (the same mechanical offset scoreAdminCut nets on a cut), so the net cost
+ *  is materially below the gross — the Персонал line already carries the
+ *  employer SSC, hence labourTaxFeedbackOnCost (not …OnSalary). */
 export const scoreWageIndexation = (
   personnelMassEur: number,
   exemptShare: number,
   pct: number,
   onlyNonExempt: boolean,
-): number =>
-  personnelMassEur * (onlyNonExempt ? 1 - exemptShare : 1) * (pct / 100);
+): number => {
+  const grossCostEur =
+    personnelMassEur * (onlyNonExempt ? 1 - exemptShare : 1) * (pct / 100);
+  return grossCostEur - labourTaxFeedbackOnCost(grossCostEur);
+};
 
 /** Δ spending of moving NATO-definition defense from its current % of GDP
  *  to `targetPct`, priced against the projected-year GDP. */
@@ -622,11 +655,19 @@ export const scoreSscSelfPaid = (
 };
 
 /** Δ revenue of moving the health-contribution rate by `pp` percentage
- *  points, collected on the employee insurable base. */
+ *  points, collected on the insurable base, NET of the PIT the budget gives
+ *  back: the employee's share of the extra contribution (≈40%) is deductible
+ *  from their PIT base, so PIT falls a little — the same deduction interaction
+ *  the МОД lever's pitOffset models. Small (~4% of the gross), but kept for
+ *  consistency. */
 export const scoreHealthContribution = (
   insurableBaseEur: number,
   pp: number,
-): number => insurableBaseEur * (pp / 100);
+): number => {
+  const contributionEur = insurableBaseEur * (pp / 100);
+  const pitOffsetEur = contributionEur * HEALTH_EMPLOYEE_SHARE * PIT_RATE;
+  return contributionEur - pitOffsetEur;
+};
 
 // ---------------------------------------------------------------------------
 // Pension floor (минимална пенсия) + teachers' 125% pay peg
@@ -667,7 +708,9 @@ export const scorePensionFloorRaise = (
 
 /** Δ spending of pegging teachers' pay to `targetPct`% of the economy-wide
  *  average wage (the "125% policy"): count × economy wage × the ratio gap,
- *  grossed up by the ~19.02% employer contributions the budget also pays.
+ *  grossed up by the ~19.02% employer contributions the budget also pays,
+ *  then NET of the labour-tax feedback the budget collects on the higher pay
+ *  (~30.6% — the same offset scoreAdminCut/scoreWageIndexation apply).
  *  `currentRatio` is the education-public-sector wage over the economy
  *  average — a proxy for teachers proper (it includes non-teaching staff;
  *  the UI captions that). Negative = a saving (targets below the current
@@ -678,15 +721,12 @@ export const scoreTeachersPeg = (
   currentRatio: number,
   targetPct: number,
 ): number => {
-  // Employer SSC share on top of the gross wage (same rate scoreAdminCut
-  // nets out of the labour cost).
-  const employerRate = 0.1902;
-  return (
+  const grossCostEur =
     count *
     economyWageEur *
     (targetPct / 100 - currentRatio) *
-    (1 + employerRate)
-  );
+    (1 + EMPLOYER_SSC_RATE);
+  return grossCostEur - labourTaxFeedbackOnCost(grossCostEur);
 };
 
 // ---------------------------------------------------------------------------
@@ -701,6 +741,10 @@ export const scoreTeachersPeg = (
  *  the lever prices the recurring debate, not a government bill. */
 export const MATERNITY_Y2_SPEND_EUR = 154_200_000;
 export const MATERNITY_Y2_MONTHS = 12;
+/** Flat second-year benefit, EUR/mo (КСО чл.53 — frozen by the extension
+ *  law). Recipient-months/yr = spend ÷ this, the base the behavioral
+ *  return-to-work recapture scales (bgBehavioral.maternityReturnOffset). */
+export const MATERNITY_Y2_BENEFIT_EUR_MO = 398.81;
 
 /** Δ spending of keeping only `monthsKept` of the paid second year
  *  (negative = the budget saves). Static: ignores the contributions and

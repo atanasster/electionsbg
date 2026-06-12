@@ -1,8 +1,9 @@
 // Behavioral / dynamic-scoring layer for the budget policy simulator.
 // Where bgTaxPolicy.ts scores a policy STATICALLY (fixed base, no response),
 // this module adds the response: Tier 1 = per-lever base reactions
-// (reporting, shifting, compliance — applied as EUR offsets to the static
-// deltas), Tier 2 = a reduced-form macro feedback in the 5-year projection
+// (reporting, shifting, compliance, and labour-supply participation —
+// applied as EUR offsets to the static deltas), Tier 2 = a reduced-form
+// macro feedback in the 5-year projection
 // (fiscal impulse → multiplier → ΔGDP → revenue), and a seeded Monte Carlo
 // over every behavioral parameter that turns the headline into a central
 // estimate with a 90% band.
@@ -14,13 +15,16 @@
 // anchors, not pipeline aggregates. Convention throughout: every parameter is
 // defined so that VALUE 0 == "no behavioral response" (the zero-draw identity
 // gate in scripts/budget/__smoke_behavioral.ts), and offsets are EUR added to
-// the static delta with positive = revenue gain — so a well-behaved offset
-// always opposes the static delta's sign.
+// the static delta with positive = revenue gain. A tax-base offset always
+// OPPOSES the static delta's sign (behavioral leakage shrinks a static gain);
+// the maternity recapture is the one exception that REINFORCES it (a benefit
+// cut also brings returning mothers' PIT+SSC — a supply response, not leakage).
 //
 // Tier-1 vs Tier-2 separation (anti-double-counting rule): Tier 1 carries
-// ONLY reporting/shifting/compliance margins; aggregate-demand effects live
-// ONLY in Tier 2 (which is why VAT gets the low multiplier band — its
-// compliance margin is already taken upstream).
+// supply-side margins only (reporting/shifting/compliance + labour-supply
+// participation); aggregate-demand effects live ONLY in Tier 2 (which is why
+// VAT gets the low multiplier band — its compliance margin is already taken
+// upstream).
 
 import {
   CORP_TAX_RATE,
@@ -30,6 +34,10 @@ import {
 } from "./bgTax";
 import {
   SSC_COMBINED_BUDGET_RATE,
+  labourTaxFeedbackOnSalary,
+  MATERNITY_Y2_SPEND_EUR,
+  MATERNITY_Y2_MONTHS,
+  MATERNITY_Y2_BENEFIT_EUR_MO,
   type EarningsBand,
   type ModIdentity,
   type PitBracket,
@@ -122,6 +130,42 @@ export const SSC_RATE_AVOIDANCE: ElasticityBand = {
     "Judgment band, same anchors as the cap response — scaled down (no notch).",
 };
 
+/** Share of mothers on the paid second year of leave who return to work when
+ *  the benefit is cut — and so begin paying PIT + SSC, a recapture in the
+ *  budget's favour ON TOP of the benefit saving (so the true saving of a cut
+ *  is larger than the static headline). BG's paid second year is among the
+ *  EU's longest; the КСО чл.54 "50% benefit if working" rule means a slice
+ *  already works, and scarce under-3 childcare caps the return. */
+export const MATERNITY_RETURN_TO_WORK: ElasticityBand = {
+  low: 0.25,
+  central: 0.45,
+  high: 0.65,
+  source:
+    "Judgment band: НСИ maternal-employment gap for children <3 (low among EU) + the КСО чл.54 50%-benefit-if-working rule; OECD Family Database leave-length context. No BG point estimate.",
+};
+
+/** Representative GROSS monthly wage of a mother returning from the paid
+ *  second year, EUR. Set below the ~€1,230 НСИ-2025 average gross wage — the
+ *  second-year-leave cohort skews younger and lower-paid; conservative for
+ *  the recapture. */
+export const MATERNITY_RETURN_WAGE_EUR_MO = 1000;
+
+/** Net budget recapture per €1 of dividend base that a rate change relabels
+ *  between the dividend and salary bases. Deliberately small and bounded:
+ *  most of the calibrated dividend base response is profit-retention /
+ *  payout-timing (not salary relabeling), and dividend income concentrates
+ *  ABOVE the SSC cap where shifting to salary is ≈ PIT-minus-CIT-neutral, so
+ *  the recapture bites only on the below-cap sliver. Kept OFF the dividend
+ *  line itself (it rides its own offset), so the Фискален-съвет dividend
+ *  calibration is untouched. */
+export const DIV_SHIFT_TO_SALARY: ElasticityBand = {
+  low: 0.0,
+  central: 0.008,
+  high: 0.03,
+  source:
+    "Derived: (relabel share ≈0.2 of the dividend base response) × (net below-cap labour-tax take ≈0.04 = SSC+PIT net of CIT deductibility). Mechanism per Chetty & Saez (2005); Alstadsæter et al. income shifting.",
+};
+
 /** Year-1 multiplier on a non-VAT tax impulse. */
 export const MULT_TAX_Y1: ElasticityBand = {
   low: 0.2,
@@ -176,6 +220,8 @@ export const BEHAVIORAL_PARAMS: { key: string; band: ElasticityBand }[] = [
   { key: "vat_gap", band: VAT_GAP_RESPONSE },
   { key: "ssc_cap", band: SSC_CAP_AVOIDANCE },
   { key: "ssc_rate", band: SSC_RATE_AVOIDANCE },
+  { key: "maternity_return", band: MATERNITY_RETURN_TO_WORK },
+  { key: "div_shift", band: DIV_SHIFT_TO_SALARY },
   { key: "mult_tax", band: MULT_TAX_Y1 },
   { key: "mult_vat", band: MULT_VAT_Y1 },
   { key: "mult_spend", band: MULT_SPEND_Y1 },
@@ -201,6 +247,10 @@ export interface BehavioralDraw {
   multSpend: number;
   persistence: number;
   revenueFeedbackShare: number;
+  /** Share of cut-maternity mothers returning to work (PIT+SSC recapture). */
+  maternityReturnShare: number;
+  /** Net recapture coefficient on dividend↔salary relabeling. */
+  divShiftRecapture: number;
   /** Pareto tail index for the МОД closed form. */
   modAlpha: number;
   /** Model-margin factor for МОД cap LOWERING (the ±15% band). */
@@ -220,6 +270,8 @@ export const centralDraw = (modAlphaCentral: number): BehavioralDraw => ({
   multSpend: MULT_SPEND_Y1.central,
   persistence: MULT_PERSISTENCE.central,
   revenueFeedbackShare: REVENUE_GDP_FEEDBACK.central,
+  maternityReturnShare: MATERNITY_RETURN_TO_WORK.central,
+  divShiftRecapture: DIV_SHIFT_TO_SALARY.central,
   modAlpha: modAlphaCentral,
   modLowerFactor: 1,
 });
@@ -238,6 +290,8 @@ export const zeroDraw = (modAlphaCentral: number): BehavioralDraw => ({
   multSpend: 0,
   persistence: 0,
   revenueFeedbackShare: 0,
+  maternityReturnShare: 0,
+  divShiftRecapture: 0,
   modAlpha: modAlphaCentral,
   modLowerFactor: 1,
 });
@@ -297,6 +351,9 @@ export const sampleDraws = (
       revenueFeedbackShare: sampleTriangular(rnd(), REVENUE_GDP_FEEDBACK),
       modAlpha: tri(rnd(), mod.alphaLow, mod.alphaCentral, mod.alphaHigh),
       modLowerFactor: tri(rnd(), 0.85, 1, 1.15),
+      // Appended last so the draws above stay byte-identical (determinism).
+      maternityReturnShare: sampleTriangular(rnd(), MATERNITY_RETURN_TO_WORK),
+      divShiftRecapture: sampleTriangular(rnd(), DIV_SHIFT_TO_SALARY),
     });
   }
   return draws;
@@ -423,6 +480,48 @@ export const healthBehavioralOffset = (
   avoidance: number,
 ): number => -staticHealthDeltaEur * avoidance;
 
+/** Recapture from mothers returning to work when the paid second year is cut:
+ *  the freed recipient-months (spend ÷ benefit, scaled by months cut), a
+ *  `returnShare` of which re-enter employment and pay the labour-tax wedge on
+ *  a representative wage. Positive = budget gain (adds to the benefit saving);
+ *  0 at no cut or returnShare 0 (preserves the zero-draw identity). The wage
+ *  income these mothers gain roughly offsets the tax withdrawal at the demand
+ *  level, so this stays OUT of the Tier-2 impulse. */
+export const maternityReturnOffset = (
+  monthsCut: number,
+  returnShare: number,
+): number => {
+  if (monthsCut <= 0 || returnShare <= 0) return 0;
+  const recipientMonthsPerYr =
+    MATERNITY_Y2_SPEND_EUR / MATERNITY_Y2_BENEFIT_EUR_MO;
+  const freedMonths = recipientMonthsPerYr * (monthsCut / MATERNITY_Y2_MONTHS);
+  return (
+    returnShare *
+    freedMonths *
+    labourTaxFeedbackOnSalary(MATERNITY_RETURN_WAGE_EUR_MO)
+  );
+};
+
+/** Salary↔dividend relabeling recapture (see DIV_SHIFT_TO_SALARY). Reuses the
+ *  dividend base response (SAME divSemiElast draw), crediting `recaptureCoef`
+ *  of the income that leaves the dividend base to the labour-tax lines. Sign
+ *  tracks the rate move: a raise (base shrinks) gains, a cut (base grows)
+ *  loses. Pure relabeling → no net demand effect → OUT of the Tier-2 impulse. */
+export const dividendShiftRecaptureEur = (
+  dividendRevenueEur: number,
+  oldRate: number,
+  newRate: number,
+  divSemiElastPctPp: number,
+  recaptureCoef: number,
+): number => {
+  if (newRate === oldRate || recaptureCoef <= 0 || oldRate <= 0) return 0;
+  const base0 = dividendRevenueEur / oldRate;
+  const deltaPp = (newRate - oldRate) * 100;
+  const deltaBase =
+    base0 * (Math.exp((-divSemiElastPctPp / 100) * deltaPp) - 1);
+  return -deltaBase * recaptureCoef;
+};
+
 // ---------------------------------------------------------------------------
 // Tier 2 — reduced-form macro feedback over the projection horizon
 // ---------------------------------------------------------------------------
@@ -484,6 +583,10 @@ export interface DynamicScenarioInput {
    *  ≈ 0 in the reduced form. Kept in the input for documentation and so
    *  the field can join the impulse split if the treatment ever changes. */
   staticMinWageDeltaEur: number;
+  /** Months of the paid second maternity year that the scenario cut (0..12,
+   *  0 = no cut). Drives the behavioral return-to-work recapture; the static
+   *  benefit Δ already sits in the expenditure balance. */
+  maternityMonthsCut: number;
   /** Non-pension expenditure balance (positive = balance improves). */
   expenditureBalanceNonPensionEur: number;
   /** Per-projection-year pension balance path (the compounding lever). */
@@ -541,6 +644,8 @@ export interface DynamicStaticScore {
   modCentralEur: number;
   healthDeltaEur: number;
   minWageDeltaEur: number;
+  /** Months of the paid second maternity year cut (0..12; default 0). */
+  maternityMonthsCut?: number;
   expenditureBalanceNonPensionEur: number;
   brackets: PitBracket[];
   pensionPathEur?: number[];
@@ -569,6 +674,7 @@ export const buildDynamicInput = (
   staticModCentralEur: s.modCentralEur,
   staticHealthDeltaEur: s.healthDeltaEur,
   staticMinWageDeltaEur: s.minWageDeltaEur,
+  maternityMonthsCut: s.maternityMonthsCut ?? 0,
   expenditureBalanceNonPensionEur: s.expenditureBalanceNonPensionEur,
   pensionPathEur: s.pensionPathEur,
   bands: baseline.earnings.bands,
@@ -599,6 +705,11 @@ export interface DynamicScenarioResult {
     vat: number;
     mod: number;
     health: number;
+    /** Maternity return-to-work PIT+SSC recapture (rides the headline, not a
+     *  per-lever effective row). */
+    maternity: number;
+    /** Dividend↔salary relabeling recapture. */
+    divShift: number;
   };
   /** static total + Σ central Tier-1 offsets — the year-1 scalar handed to
    *  projectFiscalPath (Tier-2 feedback rides the fixed path instead). */
@@ -703,6 +814,17 @@ export const computeDynamicScenario = (
         input.staticHealthDeltaEur,
         draw.sscRateAvoidance,
       ),
+      maternity: maternityReturnOffset(
+        input.maternityMonthsCut,
+        draw.maternityReturnShare,
+      ),
+      divShift: dividendShiftRecaptureEur(
+        input.divRevenueEur,
+        input.divOldRate,
+        input.divNewRate,
+        draw.divSemiElast,
+        draw.divShiftRecapture,
+      ),
     };
   };
 
@@ -715,7 +837,9 @@ export const computeDynamicScenario = (
       o.dividend +
       o.vat +
       o.mod +
-      o.health;
+      o.health +
+      o.maternity +
+      o.divShift;
     const fb = computeMacroFeedback(
       input.staticVatDeltaEur + o.vat,
       input.staticPitEmploymentDeltaEur +
@@ -746,7 +870,9 @@ export const computeDynamicScenario = (
     offsets.dividend +
     offsets.vat +
     offsets.mod +
-    offsets.health;
+    offsets.health +
+    offsets.maternity +
+    offsets.divShift;
   const feedback = computeMacroFeedback(
     input.staticVatDeltaEur + offsets.vat,
     input.staticPitEmploymentDeltaEur +
