@@ -18,7 +18,11 @@
 // Mobile/ship sections (район code 00) are summed into a separate `_mobile`
 // entry with no polygon so no voter is dropped.
 //
-// Run: npx tsx scripts/helpers/gen_city_rayon_data.ts
+// Derived from parliamentary section data, so it runs as part of the main
+// pipeline (the `--city-rayons` step, folded into `--all`/`npm run prod`) —
+// never a manual one-off that can lag behind a re-ingest. Standalone:
+// `npm run data -- --city-rayons` (or `npx tsx scripts/helpers/gen_city_rayon_data.ts`).
+// Output is gitignored + bucket-served: publish with `npm run bucket:sync:all`.
 
 import fs from "fs";
 import { Delaunay } from "d3-delaunay";
@@ -94,11 +98,6 @@ type Sec = {
     protocol?: Record<string, number | undefined>;
   };
 };
-
-const elections = fs
-  .readdirSync("data")
-  .filter((d) => /^\d{4}_\d{2}_\d{2}$/.test(d))
-  .filter((d) => fs.existsSync(`data/${d}/sections/by-oblast`));
 
 function cityOutline(nuts3: string, muni: string): Ring[] {
   const map = JSON.parse(
@@ -352,16 +351,31 @@ function buildMunicipalityShards(muni: keyof typeof CITIES, election: string) {
   return n;
 }
 
-const newest = elections[elections.length - 1];
-for (const muni of Object.keys(CITIES) as (keyof typeof CITIES)[]) {
-  const codes = buildGeometry(muni, newest);
-  let nEl = 0;
-  let nShards = 0;
-  for (const el of elections) {
-    if (buildResults(muni, el)) nEl++;
-    nShards += buildMunicipalityShards(muni, el);
+// Rebuild every район artifact (geometry + per-election results + município
+// shards) from the current parliamentary section data. Folded into the main
+// pipeline (`npm run data -- --city-rayons`, and `--all`/`npm run prod`) so it
+// can't go stale after a parliamentary re-ingest; also runnable standalone.
+export function generateCityRayonData() {
+  const elections = fs
+    .readdirSync("data")
+    .filter((d) => /^\d{4}_\d{2}_\d{2}$/.test(d))
+    .filter((d) => fs.existsSync(`data/${d}/sections/by-oblast`));
+  const newest = elections[elections.length - 1];
+  for (const muni of Object.keys(CITIES) as (keyof typeof CITIES)[]) {
+    const codes = buildGeometry(muni, newest);
+    let nEl = 0;
+    let nShards = 0;
+    for (const el of elections) {
+      if (buildResults(muni, el)) nEl++;
+      nShards += buildMunicipalityShards(muni, el);
+    }
+    console.log(
+      `${muni}: geometry ${codes.length} районы (from ${newest}); results for ${nEl}/${elections.length} elections; ${nShards} município shards`,
+    );
   }
-  console.log(
-    `${muni}: geometry ${codes.length} районы (from ${newest}); results for ${nEl}/${elections.length} elections; ${nShards} município shards`,
-  );
+}
+
+// Direct-run entry: `npx tsx scripts/helpers/gen_city_rayon_data.ts`.
+if (process.argv[1] && process.argv[1].endsWith("gen_city_rayon_data.ts")) {
+  generateCityRayonData();
 }

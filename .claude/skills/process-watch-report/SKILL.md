@@ -80,6 +80,20 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 
 Some sources map to the same skill (`update-connections` handles declarations, Commerce Registry, AND the BG Post postcode→EKATTE refresh); dedupe so it only runs once.
 
+### Пловдив/Варна район shards (pipeline-derived — no watcher source)
+
+The Пловдив/Варна административни районите surface as obshtina-shaped places (`/settlement/PDV22-06`, `/governance/PDV22-06`, the 4-tab place switcher) backed by per-район shards under `data/<election>/municipalities/<muni>-<code>.json` plus the район geometry (`data/maps/city_rayons/<muni>.json`) and per-election results (`data/<election>/rayon/<muni>.json`). These are **derived from the parliamentary section data**, not an external feed — so there is no watcher source and no mapping-table row. They are rebuilt by the main pipeline's `--city-rayons` step (`scripts/helpers/gen_city_rayon_data.ts`, an exported function called from `scripts/main.ts`), which is **folded into `--all`** — so `npm run prod` always refreshes them in step with the section data they derive from.
+
+When the район data needs a refresh outside a full `npm run prod`:
+
+- A new parliamentary election is ingested, or section votes / coords change — note the `--local-coords` step in the `CIK local-elections results bundles` recipe above already re-runs "after a new parliamentary election lands fresh section coordinates", and the район **geometry** depends on those same coords. So after that step, also run:
+
+  ```bash
+  npm run data -- --city-rayons
+  ```
+
+Then **publish** — the shards are gitignored and bucket-served, so run `npm run bucket:sync:all` (otherwise `/settlement/PDV22-06` 404s its shard on prod). There is no `state/ingest` marker: it's a pipeline step, not a tier-2 skill, so nothing to stamp.
+
 ### Governments: manual edit first
 
 `wiki_governments` is special — `data/governments.json` is hand-maintained from the BG Wikipedia governments-list page, and no ingest script exists. The watcher detects when the page is edited (new cabinet row added, end-date filled on the incumbent, coalition footnote updated) but cannot itself update the JSON.

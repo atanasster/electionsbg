@@ -12,6 +12,7 @@ import { runPartyStats } from "./party_stats";
 import { createPreferencesFiles } from "./preferences";
 import { parseMachinesFlashMemory } from "./machines_memory";
 import { backfillSectionCoords } from "./parsers/backfill_section_coords";
+import { generateCityRayonData } from "./helpers/gen_city_rayon_data";
 import { backfillLocalSectionCoords } from "./parsers_local/backfill_local_section_coords";
 import { generateLocalProblemSections } from "./parsers_local/problem_sections_local";
 import { generateVoteFlows } from "./voteFlows";
@@ -125,6 +126,14 @@ const app = command({
       short: "g",
       defaultValue: () => false,
     }),
+    // Rebuild the Пловдив/Варна район layer (geometry + per-election results +
+    // município shards) from the parliamentary section data. Derived, so folded
+    // into `--all`; runs after the section coords backfill it depends on.
+    cityRayons: flag({
+      type: optional(boolean),
+      long: "city-rayons",
+      defaultValue: () => false,
+    }),
     declarations: flag({
       type: optional(boolean),
       long: "declarations",
@@ -235,6 +244,7 @@ const app = command({
     election,
     summary,
     coords,
+    cityRayons,
     declarations,
     flows,
     local,
@@ -261,6 +271,13 @@ const app = command({
         dataFolder: inFolder,
         stringify,
       });
+    }
+    // Пловдив/Варна район layer (geometry + per-election results + município
+    // shards). Derived from the section data + the coords backfilled just
+    // above, so it runs here and is folded into `--all` — never stale after a
+    // parliamentary re-ingest. Output is bucket-served (run bucket:sync:all).
+    if (cityRayons || all) {
+      generateCityRayonData();
     }
     // Transfer the (now backfilled) parliamentary GPS/address onto the local
     // section shards — shared 9-digit CIK section codes. Runs after the
