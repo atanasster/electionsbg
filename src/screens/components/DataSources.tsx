@@ -536,6 +536,22 @@ export const DataSources = () => {
                 label={t("budget_ec_forecast_source")}
               />
               <SourceItem
+                href="https://www.nsi.bg/bg/content/2432/"
+                label={t("budget_nsi_edp_source")}
+              />
+              <SourceItem
+                href="https://taxation-customs.ec.europa.eu/taxation/vat/fight-against-vat-fraud/vat-gap_en"
+                label={t("budget_ec_vat_gap_source")}
+              />
+              <SourceItem
+                href="https://www.imf.org/external/datamapper/profile/BGR"
+                label={t("budget_imf_weo_source")}
+              />
+              <SourceItem
+                href="https://www.fiscal-council.bg/bg/publikacii"
+                label={t("budget_fiscal_council_source")}
+              />
+              <SourceItem
                 href="https://dv.parliament.bg/"
                 label={t("budget_law_dv_source")}
               />

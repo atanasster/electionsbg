@@ -10,7 +10,11 @@ import { join } from "node:path";
 import { route } from "../orchestrator/router";
 import { fetchData, setFetcher } from "./dataClient";
 import { runTool } from "./registry";
-import { detectTaxChange, scoreScenario } from "./taxPolicy";
+import {
+  detectTaxChange,
+  scoreDynamicScenario,
+  scoreScenario,
+} from "./taxPolicy";
 import type { PolicyBaselineFile } from "../../src/data/budget/types";
 import type { Envelope, ToolContext } from "./types";
 
@@ -1128,8 +1132,10 @@ const run = async () => {
     ["ковид добавката да не се индексира", 57e6],
     ["съкращаване на администрацията с 10%", 30e6],
     ["freeze the minimum wage", -280e6],
-    // Phase-5 levers (same balance convention)
-    ["отбраната да стане 3% от бвп", -1025e6],
+    // Phase-5 levers (same balance convention). Defense is priced against
+    // the projection's €123.9B 2026 GDP (commit a760b1d5d) — (3.0−2.2)% ×
+    // €123.9B ≈ −€991M.
+    ["отбраната да стане 3% от бвп", -991e6],
     ["заплатите в публичния сектор +5%", -142e6],
     ["капиталовите разходи -10%", 185e6],
     ["държавните служители да си плащат осигуровките", 126e6],
@@ -1172,15 +1178,51 @@ const run = async () => {
       `"${q}" -> ${(s.central / 1e6).toFixed(1)}M ≈ simulator ${(expected / 1e6).toFixed(0)}M`,
     );
   }
+  // Dynamic-mode gates (the screen's DEFAULT headline): direction + the
+  // Фискален-съвет dividend reconciliation, mirroring __smoke_behavioral.ts.
+  {
+    const chVat = detectTaxChange("какво става ако ддс стане 21%");
+    const sVat = scoreScenario(baseline, chVat!);
+    const dVat = scoreDynamicScenario(baseline, chVat!, sVat);
+    assert(
+      dVat.headlineEur < sVat.central && dVat.headlineEur > 0.7 * sVat.central,
+      `VAT 21% dynamic ${(dVat.headlineEur / 1e6).toFixed(0)}M < static ${(sVat.central / 1e6).toFixed(0)}M (and not collapsed)`,
+    );
+    const chDiv = detectTaxChange(
+      "какво става ако данъкът върху дивидентите стане 10%",
+    );
+    const sDiv = scoreScenario(baseline, chDiv!);
+    const dDiv = scoreDynamicScenario(baseline, chDiv!, sDiv);
+    assert(
+      dDiv.headlineEur >= 30e6 && dDiv.headlineEur <= 55e6,
+      `dividend 5→10% dynamic ${(dDiv.headlineEur / 1e6).toFixed(1)}M lands in the ФС ≤€50M zone (static ${(sDiv.central / 1e6).toFixed(0)}M)`,
+    );
+  }
   const simVat = (await runTool(
     "simulateTaxChange",
     { change: "какво става ако ддс стане 22%" },
     ctxBg,
   )) as Envelope;
   printEnvelope(simVat);
+  // The headline is the dynamic estimate; the static +887 млн € rides as a
+  // fact, and the envelope's value matches the engine run for the same change.
   assert(
-    String(simVat.facts.delta_per_year).includes("887"),
-    `ДДС 22% envelope carries +887 млн € (got ${simVat.facts.delta_per_year})`,
+    String(simVat.facts.delta_static).includes("887"),
+    `ДДС 22% envelope carries static +887 млн € as a fact (got ${simVat.facts.delta_static})`,
+  );
+  {
+    const ch = detectTaxChange("какво става ако ддс стане 22%");
+    const s = scoreScenario(baseline, ch!);
+    const d = scoreDynamicScenario(baseline, ch!, s);
+    assert(
+      Math.abs((simVat.value as number) - d.headlineEur) < 1e6 &&
+        d.headlineEur < s.central,
+      `ДДС 22% envelope value ${((simVat.value as number) / 1e6).toFixed(0)}M = dynamic engine ${(d.headlineEur / 1e6).toFixed(0)}M < static ${(s.central / 1e6).toFixed(0)}M`,
+    );
+  }
+  assert(
+    !!simVat.facts.range,
+    `ДДС 22% envelope carries the Monte-Carlo band (got ${simVat.facts.range})`,
   );
   assert(
     simVat.facts.scenario_id === "dds=22",

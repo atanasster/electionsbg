@@ -95,6 +95,17 @@ export default defineConfig(({ mode }) => {
       // Honor a PORT env var when one is set (e.g. a preview/dev harness that
       // assigns a free port), otherwise fall back to Vite's default 5173.
       port: process.env.PORT ? Number(process.env.PORT) : undefined,
+      // The public scenario tally (functions/index.js `scenarios`) is reached
+      // same-origin via the /api/scenarios hosting rewrite in prod; in dev,
+      // proxy to the deployed function so the card works on localhost too.
+      // Point VITE_SCENARIOS_PROXY at the emulator when testing locally
+      // (http://127.0.0.1:5001 with the function's full path).
+      proxy: {
+        "/api/scenarios": {
+          target: env.VITE_SCENARIOS_PROXY || "https://electionsbg.com",
+          changeOrigin: true,
+        },
+      },
       // dist/ and dist.old-* are build artifacts. The dev server never serves
       // from them, but chokidar (Vite's file watcher) sees them by default
       // and every file event there falls through to Vite's "unknown file

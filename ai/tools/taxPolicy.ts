@@ -1,14 +1,18 @@
 // simulateTaxChange — "какво става ако ДДС стане 22%" / "what if income tax
 // goes to 15%" → the budget policy simulator's scoring engine, in chat form.
 //
-// The math is NOT re-derived here: it imports the same pure scoring module the
-// /budget/simulator screen uses (src/lib/bgTaxPolicy.ts over the offline
-// baseline data/budget/derived/policy_baseline.json) and mirrors the `scenario`
-// useMemo of src/screens/components/budget/BudgetPolicySimulator.tsx step by
-// step — so the chat's Δ ALWAYS equals the simulator's headline for the same
-// scenario. Anything that must stay in sync with that component (slider
-// defaults/bounds, the МОД grid, the minimum-wage preset) is mirrored as a
-// named constant with a pointer back to the source of truth.
+// The math is NOT re-derived here: it imports the same pure scoring modules
+// the /budget/simulator screen uses (src/lib/bgTaxPolicy.ts static +
+// src/lib/bgBehavioral.ts dynamic, over the offline baseline
+// data/budget/derived/policy_baseline.json) and mirrors the `scenario` +
+// `dynamicScenario` useMemos of
+// src/screens/components/budget/BudgetPolicySimulator.tsx step by step — so
+// the chat's Δ ALWAYS equals the simulator's headline for the same scenario.
+// The screen's DEFAULT is the dynamic (behavioral) estimate, so the chat
+// leads with it and carries the static figure as a fact. Anything that must
+// stay in sync with that component (slider defaults/bounds, the МОД grid,
+// the minimum-wage preset) is mirrored as a named constant with a pointer
+// back to the source of truth.
 //
 // v1 scope: ONE primary change per question —
 //   ДДС стандартна ставка X% · ДДС върху категория (храни/лекарства/енергия/
@@ -50,6 +54,7 @@ import {
   scorePitSchedule,
   scoreSscSelfPaid,
   scoreWageIndexation,
+  type ModIdentity,
   type PitBracket,
   type VatAdjustableGroup,
   type VatBaseSlice,
@@ -57,6 +62,14 @@ import {
   type VatRegime,
 } from "../../src/lib/bgTaxPolicy";
 import { NOMINAL_GDP_2026_EUR } from "../../src/lib/bgFiscalProjection";
+import {
+  MC_DRAWS,
+  MC_SEED,
+  buildDynamicInput,
+  computeDynamicScenario,
+  sampleDraws,
+  type BehavioralDraw,
+} from "../../src/lib/bgBehavioral";
 import type { PolicyBaselineFile } from "../../src/data/budget/types";
 import { fetchData } from "./dataClient";
 import type { Envelope, Lang, ToolArgs, ToolContext } from "./types";
@@ -789,15 +802,25 @@ const paramsFor = (change: TaxChange, currentCap: number): ScenarioParams => {
 export interface ScenarioScore {
   vatDelta: number;
   pitDelta: number;
+  /** The two ДДФЛ slices, separately — the behavioral layer treats them
+   *  with different elasticities. */
+  pitEmploymentDelta: number;
+  pitNonEmploymentDelta: number;
   corpDelta: number;
   divDelta: number;
   modCentral: number;
+  /** МРЗ-freeze and health-contribution deltas (revenue-side levers inside
+   *  the expenditure block — the Tier-2 impulse split needs them apart). */
+  mwDelta: number;
+  hpDelta: number;
   /** Expenditure levers on the BALANCE (positive = the balance improves):
    *  −(pensionΔspend + adminΔspend) + mwΔ, the screen's convention. */
   expenditureBalance: number;
   /** Share of an administration cut absorbed by vacant positions (the
    *  honesty note); null when the scenario cuts nothing. */
   vacantAbsorbedShare: number | null;
+  /** The schedule the scenario applies (for the behavioral PIT pass). */
+  brackets: PitBracket[];
   central: number;
   low: number;
   high: number;
@@ -977,14 +1000,90 @@ export const scoreScenario = (
   return {
     vatDelta,
     pitDelta,
+    pitEmploymentDelta,
+    pitNonEmploymentDelta,
     corpDelta,
     divDelta,
     modCentral: modRes.centralEur,
+    mwDelta,
+    hpDelta,
     expenditureBalance,
     vacantAbsorbedShare: adminRes ? adminRes.vacantAbsorbedShare : null,
+    brackets,
     central,
     low,
     high,
+  };
+};
+
+// ---------------------------------------------------------------------------
+// Dynamic (behavioral) pass — the screen's DEFAULT headline. Mirrors the
+// component's `dynamicScenario` useMemo over the same engine module. Single-
+// change scenarios put the pension year-1 delta straight into the spending
+// impulse (the screen routes it via the per-year fixed path, but at year 1
+// the two are identical — and the headline only reads year 1).
+// ---------------------------------------------------------------------------
+
+export interface DynamicScore {
+  headlineEur: number;
+  p5Eur: number;
+  p95Eur: number;
+  /** headline − static central (the behavioral correction, signed). */
+  behavioralEur: number;
+}
+
+// Monte-Carlo draws are pure in (n, seed, modIdentity); the baseline (hence
+// its modIdentity object) is fetched once and cached, so memoize the 500-draw
+// sample per modIdentity reference the way the screen does via useMemo.
+const drawsCache = new WeakMap<ModIdentity, BehavioralDraw[]>();
+const drawsFor = (modIdentity: ModIdentity): BehavioralDraw[] => {
+  let draws = drawsCache.get(modIdentity);
+  if (!draws) {
+    draws = sampleDraws(MC_DRAWS, MC_SEED, modIdentity);
+    drawsCache.set(modIdentity, draws);
+  }
+  return draws;
+};
+
+export const scoreDynamicScenario = (
+  baseline: PolicyBaselineFile,
+  change: TaxChange,
+  score: ScenarioScore,
+): DynamicScore => {
+  const currentCap = resolveMod(null).mod;
+  const p = paramsFor(change, currentCap);
+  const input = buildDynamicInput(
+    baseline,
+    {
+      totalEur: score.central,
+      vatDeltaEur: score.vatDelta,
+      pitEmploymentDeltaEur: score.pitEmploymentDelta,
+      pitNonEmploymentDeltaEur: score.pitNonEmploymentDelta,
+      corpDeltaEur: score.corpDelta,
+      divDeltaEur: score.divDelta,
+      modCentralEur: score.modCentral,
+      healthDeltaEur: score.hpDelta,
+      minWageDeltaEur: score.mwDelta,
+      // single-change scenarios route the pension lever through the
+      // expenditure balance (no per-year compounding path here).
+      expenditureBalanceNonPensionEur:
+        score.expenditureBalance - score.mwDelta - score.hpDelta,
+      brackets: score.brackets,
+    },
+    {
+      pitNewRate: p.pit / 100,
+      corpNewRate: p.corp / 100,
+      divNewRate: p.div / 100,
+      modTargetCapEur: p.noCap ? Infinity : p.mod,
+      modCurrentCapEur: currentCap,
+    },
+  );
+  const dyn = computeDynamicScenario(input, drawsFor(baseline.modIdentity));
+  return {
+    headlineEur: dyn.dynamicHeadlineEur,
+    p5Eur: dyn.p5Eur,
+    p95Eur: dyn.p95Eur,
+    behavioralEur: dyn.dynamicHeadlineEur - score.central,
   };
 };
 
@@ -1169,22 +1268,30 @@ export const simulateTaxChange = async (
   const currentCap = resolveMod(null).mod;
   const p = paramsFor(change, currentCap);
   const score = scoreScenario(baseline, change);
+  // The screen's default headline is the DYNAMIC (behavioral) estimate —
+  // lead with it; the static figure rides as a fact.
+  const dynScore = scoreDynamicScenario(baseline, change, score);
   const label = changeLabel(change, p, currentCap, ctx.lang);
   const locale = bg ? "bg-BG" : "en-US";
-  const pctGdp = (score.central / baseline.gdpEur) * 100;
+  const pctGdp = (dynScore.headlineEur / baseline.gdpEur) * 100;
   const pctGdpStr = `${new Intl.NumberFormat(locale, {
     maximumFractionDigits: 2,
   }).format(pctGdp)}%`;
 
   const facts: Record<string, string | number> = {
     change: label,
-    delta_per_year: fmtDelta(score.central, ctx.lang),
+    delta_per_year: fmtDelta(dynScore.headlineEur, ctx.lang),
     share_of_gdp: pctGdpStr,
     baseline_year: baseline.baselineYear,
   };
-  // МОД scenarios carry a real uncertainty band (Pareto tail α) — surface it.
-  if (Math.abs(score.high - score.low) > 1e6)
-    facts.range = `${fmtDelta(score.low, ctx.lang)} … ${fmtDelta(score.high, ctx.lang)}`;
+  // Static counterpart + the behavioral correction, when they diverge.
+  if (Math.abs(dynScore.behavioralEur) >= 5e5) {
+    facts.delta_static = fmtDelta(score.central, ctx.lang);
+    facts.behavior = fmtDelta(dynScore.behavioralEur, ctx.lang);
+  }
+  // Monte-Carlo 90% band on the headline (subsumes the old МОД-only band).
+  if (Math.abs(dynScore.p95Eur - dynScore.p5Eur) > 1e6)
+    facts.range = `${fmtDelta(dynScore.p5Eur, ctx.lang)} … ${fmtDelta(dynScore.p95Eur, ctx.lang)}`;
   // A no-op (the asked regime is already current law) — say so honestly.
   if (
     change.kind === "vatCategory" &&
@@ -1247,10 +1354,10 @@ export const simulateTaxChange = async (
     kind: "scalar",
     title: bg ? `Какво става, ако: ${label}` : `What if: ${label}`,
     subtitle: bg
-      ? `Статична оценка на база изпълнението за ${baseline.baselineYear} — без поведенчески реакции.`
-      : `Static estimate on the ${baseline.baselineYear} execution base — no behavioral response.`,
+      ? `Динамична оценка на база изпълнението за ${baseline.baselineYear} — с поведенчески реакции и макроефект (както на /budget/simulator).`
+      : `Dynamic estimate on the ${baseline.baselineYear} execution base — with behavioral response and macro feedback (as on /budget/simulator).`,
     viz: "none",
-    value: Math.round(score.central),
+    value: Math.round(dynScore.headlineEur),
     valueFormat: "int",
     facts,
     provenance: ["budget/derived/policy_baseline.json"],

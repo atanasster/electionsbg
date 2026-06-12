@@ -1,12 +1,16 @@
 {
   "name": "naiasno-functions",
-  "description": "Cloud-LLM proxy for the Наясно AI chat (keeps the OpenRouter key server-side)",
+  "description": "Наясно cloud functions: the LLM proxy for the AI chat (keeps the OpenRouter key server-side) and the public scenario tally for the budget simulator",
   "private": true,
   "main": "index.js",
+  "scripts": {
+    "test": "node --test"
+  },
   "engines": {
     "node": "22"
   },
   "dependencies": {
+    "firebase-admin": "^13.0.0",
     "firebase-functions": "^7.2.5"
   },
   "overrides": {

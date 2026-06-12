@@ -1255,16 +1255,19 @@ const CASES: Case[] = [
   },
   // ---- tax-policy what-if (the /budget/simulator scoring engine) --------------
   // The golden Δs are PARITY values: the same scenario on /budget/simulator
-  // shows the same headline (the tool mirrors the component's scenario math
-  // over the same policy_baseline.json). The deep link carries the simulator's
-  // own query-string params, so the answer opens pre-set.
+  // shows the same headline (the tool mirrors the component's scenario +
+  // dynamicScenario math over the same policy_baseline.json). The screen's
+  // default is the DYNAMIC estimate, so delta_per_year pins the dynamic
+  // headline and delta_static the static counterpart. The deep link carries
+  // the simulator's own query-string params, so the answer opens pre-set.
   {
     q: "Какво става, ако ДДС стане 22%?",
     tool: "simulateTaxChange",
     kind: "scalar",
     facts: {
       change: "ДДС 22%",
-      delta_per_year: /\+887/,
+      delta_per_year: /\+723/,
+      delta_static: /\+887/,
       share_of_gdp: /%/,
     },
     links: ["/budget/simulator?dds=22", "/budget"],
@@ -1274,7 +1277,11 @@ const CASES: Case[] = [
     lang: "en",
     tool: "simulateTaxChange",
     kind: "scalar",
-    facts: { change: "income tax 15%", delta_per_year: /\+€1\.9B/ },
+    facts: {
+      change: "income tax 15%",
+      delta_per_year: /\+€1\.6B/,
+      delta_static: /\+€1\.9B/,
+    },
     links: ["/budget/simulator?pit=15", "/budget"],
   },
   {
@@ -1283,7 +1290,7 @@ const CASES: Case[] = [
     q: "Колко струва необлагаем минимум?",
     tool: "simulateTaxChange",
     kind: "scalar",
-    facts: { change: /620/, delta_per_year: /−1,9/ },
+    facts: { change: /620/, delta_per_year: /−1,7/, delta_static: /−1,9/ },
     links: ["/budget/simulator?nm=620", "/budget"],
   },
   {
@@ -1291,7 +1298,7 @@ const CASES: Case[] = [
     q: "Какво става, ако ДДС върху храните стане 9%?",
     tool: "simulateTaxChange",
     kind: "scalar",
-    facts: { change: "Храни", delta_per_year: /−1,4/ },
+    facts: { change: "Храни", delta_per_year: /−1,2/, delta_static: /−1,4/ },
     links: ["/budget/simulator?food=reduced", "/budget"],
   },
   {
@@ -1300,7 +1307,11 @@ const CASES: Case[] = [
     lang: "en",
     tool: "simulateTaxChange",
     kind: "scalar",
-    facts: { delta_per_year: /\+€1\.1B/, range: /…/ },
+    facts: {
+      delta_per_year: /\+€794M/,
+      delta_static: /\+€1\.1B/,
+      range: /…/,
+    },
     links: ["/budget/simulator?nocap=1", "/budget"],
   },
   // expenditure levers — Δ is on the budget BALANCE (positive = improves),
@@ -1311,7 +1322,8 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "индексация на пенсиите с 100% тежест на инфлацията",
-      delta_per_year: /\+479/,
+      delta_per_year: /\+470/,
+      delta_static: /\+479/,
     },
     links: ["/budget/simulator?pw=100", "/budget"],
   },
@@ -1321,7 +1333,8 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "ковид добавката не се индексира",
-      delta_per_year: /\+57/,
+      delta_per_year: /\+55/,
+      delta_static: /\+57/,
     },
     links: ["/budget/simulator?ks=0", "/budget"],
   },
@@ -1353,7 +1366,8 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "отбрана 3.0% от БВП",
-      delta_per_year: /−1,0/,
+      delta_per_year: /−972/,
+      delta_static: /−991/,
       note: /НАТО/,
     },
     links: ["/budget/simulator?def=30", "/budget"],
@@ -1364,7 +1378,8 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "заплати в публичния сектор 5%",
-      delta_per_year: /−142/,
+      delta_per_year: /−139/,
+      delta_static: /−142/,
     },
     links: ["/budget/simulator?wi=5", "/budget"],
   },
@@ -1375,7 +1390,8 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "капиталов план -10%",
-      delta_per_year: /\+185/,
+      delta_per_year: /\+182/,
+      delta_static: /\+185/,
       note: /изпълняемост/,
     },
     links: ["/budget/simulator?kap=-10", "/budget"],
@@ -1386,7 +1402,8 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "държавните служители плащат осигуровките си",
-      delta_per_year: /\+126/,
+      delta_per_year: /\+124/,
+      delta_static: /\+126/,
     },
     links: ["/budget/simulator?ssp=1", "/budget"],
   },
@@ -1396,7 +1413,8 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "здравна вноска +1 п.п.",
-      delta_per_year: /\+315/,
+      delta_per_year: /\+259/,
+      delta_static: /\+315/,
     },
     links: ["/budget/simulator?hp=1", "/budget"],
   },

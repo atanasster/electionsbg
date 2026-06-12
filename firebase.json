@@ -11,6 +11,9 @@
     "source": "functions",
     "runtime": "nodejs22"
   },
+  "firestore": {
+    "rules": "firestore.rules"
+  },
   "hosting": [
     {
       "target": "main",
@@ -26,6 +29,14 @@
         { "source": "/en/index", "destination": "/en", "type": 301 }
       ],
       "rewrites": [
+        {
+          "source": "/api/scenarios",
+          "function": { "functionId": "scenarios", "region": "us-central1" }
+        },
+        {
+          "source": "/api/scenarios/**",
+          "function": { "functionId": "scenarios", "region": "us-central1" }
+        },
         {
           "source": "/en/**",
           "destination": "/en/index.html"

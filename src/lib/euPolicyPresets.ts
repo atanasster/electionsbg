@@ -9,6 +9,12 @@
 // Spain's food-VAT holiday lapsed). Bilingual strings live inline — this is
 // sourced DATA, like VAT_SLICES, not UI chrome.
 
+/** The NATO defence-expenditure compendium edition the `def` options below
+ *  encode (June-2025 PDF, 2025 estimates). Compared against the live PDF
+ *  probe by scripts/budget/check_policy_anchors.ts — bump it together with
+ *  the def values when a new edition lands. */
+export const NATO_COMPENDIUM_EDITION = 2025;
+
 export interface BiText {
   bg: string;
   en: string;

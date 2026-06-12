@@ -79,6 +79,12 @@ const DEBT_2025_EUR = 34_635_000_000;
 // EC Spring 2026 forecast (2026-05-21) baseline balance, % of GDP.
 const EC_BALANCE_PCT: Record<number, number> = { 2026: -4.1, 2027: -4.3 };
 
+/** The EC forecast edition the baseline above encodes ("<season> <year>",
+ *  lowercase — the watcher's token format). Compared against the live EC
+ *  Bulgaria page by scripts/budget/check_policy_anchors.ts; bump together
+ *  with EC_BALANCE_PCT/MACRO_PATH when a new edition lands. */
+export const EC_FORECAST_EDITION = "spring 2026";
+
 // Interest-rate block (sources in the header note).
 const LEGACY_RATE = 0.03;
 const NEW_DEBT_RATE = 0.036;
@@ -143,6 +149,19 @@ export const NOMINAL_GDP_2026_EUR =
  *  building per-year fixed paths (extend MACRO_PATH and these follow,
  *  keeping `fixedDeltaByYearEur` aligned element-for-element). */
 export const PROJECTION_YEARS: number[] = MACRO_PATH.map((m) => m.year);
+
+/** Nominal GDP per projection year — the same fold projectFiscalPath runs,
+ *  exported so the behavioral layer (bgBehavioral.ts) can build per-year
+ *  feedback paths against the projection's own GDP without touching the
+ *  recursion. Kept byte-identical by a gate in __smoke_behavioral.ts. */
+export const PROJECTION_GDP_EUR: number[] = MACRO_PATH.reduce<number[]>(
+  (acc, m) => {
+    const prev = acc.length ? acc[acc.length - 1] : GDP_2025_EUR;
+    acc.push(prev * (1 + m.nominalGrowthPct / 100));
+    return acc;
+  },
+  [],
+);
 
 interface PathState {
   debtEur: number;

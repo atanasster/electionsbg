@@ -52,6 +52,7 @@ import { ipiLocalTaxes } from "./ipi_local_taxes";
 import { municipalNaredba } from "./municipal_naredba";
 import { kzpPrices } from "./kzp_prices";
 import { euTaxRates, natoDefence, ecForecastBg } from "./eu_policy_anchors";
+import { nsiEdp, ecVatGap, imfWeoBg, fiscalCouncilBg } from "./fiscal_anchors";
 
 // `cik` (news/decisions index) is still intentionally omitted — see ./cik.ts
 // header. The new `cik_results` source below uses the Playwright bypass
@@ -89,6 +90,10 @@ export const SOURCES: WatchSource[] = [
   euTaxRates,
   natoDefence,
   ecForecastBg,
+  nsiEdp,
+  ecVatGap,
+  imfWeoBg,
+  fiscalCouncilBg,
   eurostatRegional,
   nsiRegional,
   ecBudgetPerMs,

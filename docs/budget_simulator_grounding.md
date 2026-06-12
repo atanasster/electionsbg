@@ -132,6 +132,91 @@ all values re-verified 2026-06-11. Catches vs stale knowledge, for future refres
 - UI behavior: a pick self-clears (matcher) when the lever no longer equals the
   country's values, so scenarios are never mislabeled.
 
+## Behavioral layer — dynamic mode (added 2026-06-12)
+
+The simulator now scores in two modes; **dynamic is the default** (static stays one tap
+away via `?mode=static`, preserving the official-costings convention and the benchmark
+column). Engine: `src/lib/bgBehavioral.ts`; gates: `scripts/budget/__smoke_behavioral.ts`
+(25 checks — zero-draw identity, calibration, sign/scale, Tier-2 magnitudes, MC
+determinism, slider-extreme finiteness). Design rules:
+
+- **Tier 1 (per-lever base responses)** carries ONLY reporting/shifting/compliance
+  margins; aggregate demand lives ONLY in Tier 2 (anti-double-counting). Offsets are
+  EUR added to the static delta and always oppose its sign.
+  - ДДФЛ: Feldstein decomposition over the band grid — Σ workers × τ_new ×
+    base × clamp(Δlog(1−τ_marginal), ±1) × 12 × κ × ETI. ETI employment
+    0.10/0.20/0.40 (Gruber–Saez 2002; Saez–Slemrod–Giertz 2012; no BG estimate —
+    set below the US central because wage income is withheld at source);
+    non-employment 0.30/0.50/0.80 (SSG 2012; Gorodnichenko et al. 2009).
+    The необлагаем минимум has NO Tier-1 response by construction (τ_new = 0
+    below the threshold, τ unchanged above) — gated in the smoke test.
+  - Корпоративен: exponential semi-elasticity exp(−s·Δпп/100)−1, s = 0.4/0.8/1.5
+    (de Mooij–Ederveen; Heckemeyer–Overesch 2017 ≈0.8; Beer–de Mooij–Liu 2020).
+  - Дивидент: same form, s = 3.0/4.5/6.5 — **calibrated, not estimated**: the
+    central reproduces ФС's ≤ +€50M for 5→10% (engine: static +€75M → dynamic
+    ≈ +€45M; headline after Tier-2 ≈ +€39M). The smoke gate pins the lever to
+    [€35M, €55M], so a recalibration is a deliberate act.
+  - ДДС: attenuation −staticΔ × g, g = 0.03/0.10/0.20 (compliance/cross-border
+    only; EC VAT gap 2025 edition — BG €781M = 8.6% of VTTL — as level anchor).
+  - МОД raise: haircut 0.05/0.10/0.20 (×2 capped 0.40 for no-cap; 0 when
+    lowering); health pp: 0.02/0.05/0.10. Judgment bands (КНСБ-vs-МФ spread,
+    undeclared-work literature).
+  - Expenditure levers: no offsets (mechanical); scoreAdminCut keeps its
+    built-in revenue feedback — no second one.
+- **Tier 2 (macro feedback)**: impulse split (VAT / other revenue / non-pension
+  spending / pension path) × IMF WP/13/49 year-1 multipliers (VAT 0.10/0.25/0.40,
+  tax 0.20/0.35/0.50, spending 0.00/0.05/0.20), geometric decay φ = 0.4/0.6/0.8,
+  revenue feedback 0.33/0.38/0.40 of ΔGDP. Central tax-consolidation feedback =
+  0.35 × 0.38 ≈ 13.3% of the impulse — reproducing this doc's "static gains
+  overstated 10–15% in year 1". Rides projectFiscalPath's existing
+  `fixedDeltaByYearEur` parameter (the recursion body is untouched; the new
+  `PROJECTION_GDP_EUR` export is gated byte-identical to the path).
+- **Monte Carlo**: triangular draws of all 12 parameters + the Pareto α
+  (subsumes the old МОД-only band; the VAT calibration factor is an identity,
+  NOT sampled). 500 draws, mulberry32 seeded — slider moves never resample.
+  Headline = central draw + 5/95 band.
+- **UI**: goal scoreboard (Маастрихт −3% / дълг ≤40% / отбрана 3% missions,
+  `?goal=`), static/behavior decomposition line, per-lever static sub-lines,
+  decile winners/losers strip (incidence curve folded beneath), benchmarks
+  table gains a dynamic column, behavioral assumptions list rendered from the
+  engine constants, share-card PNG export. The AI chat tool
+  (`ai/tools/taxPolicy.ts`) leads with the dynamic value and carries
+  `delta_static`/`behavior`/`range` facts; parity gates in `ai/tools/harness.ts`.
+- **Watched anchors** (manual-edit pattern, scripts/watch/sources/fiscal_anchors.ts):
+  `nsi_edp` (ESA outturn anchors), `ec_vat_gap` (VAT_GAP_RESPONSE),
+  `imf_weo_bg` (WEO vintage proxy for the IMF multiplier anchors — the Article IV
+  catalog is bot-blocked, the DataMapper API is open), `fiscal_council_bg`
+  (benchmark costings + the dividend calibration target).
+
+Deferred (unchanged): real microsimulation awaits the НАП ЗДОИ income-tier data
+(below); IFS-style household-type slicing is gated on the microsim.
+
+## Public tally — "what the public chose" (added 2026-06-12)
+
+The Polco/Balancing-Act pattern, un-deferred once Firebase Functions became the
+sanctioned backend. One cloud function (`scenarios` in `functions/index.js`,
+project elections-bg, reached same-origin via the `/api/scenarios` hosting
+rewrite; the AI chat origin ai.electionsbg.com is CORS-allowlisted from day one):
+
+- **Submit** is an explicit button (deliberate consent, clean data): the
+  simulator's own query string (policy levers only — mode/goal/gross stripped)
+  plus client-computed display metrics (headline, balance, debt, mission flags).
+  The server validates every key/value against a PARAM_SPEC mirroring the
+  component's `clampIntParam` bounds; unknown keys reject. Metrics are
+  range-clamped and captioned as visitor-computed, never re-trusted.
+- **Abuse/privacy**: per-IP daily limit (20) on salted-SHA-256 IP hashes (the
+  only IP-derived data stored), per-IP same-scenario dedup, deny-all
+  `firestore.rules` (Admin-SDK-only access), App Check still a TODO like `llm`.
+- **Aggregates**: atomic Firestore increments on `scenario_agg/v1` — total,
+  mission-met counts, per-lever touched counts + value histograms (every lever
+  value is a bounded integer/enum, so key sets are bounded), headline histogram
+  in €250M buckets. `GET /stats` derives percentages, top levers and the median
+  headline; cached 5 min.
+- **UI**: the "Какво избра публиката" card (after the projection) renders only
+  when the stats fetch succeeds; percentages hidden below N = 20. The submit
+  button lives with the share actions, disabled at current law, with a
+  per-scenario localStorage marker against re-submission.
+
 ## Pending data upgrade
 
 A ЗДОИ request to НАП for ДДФЛ income-tier statistics (income distribution by bracket)
