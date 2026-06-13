@@ -29,6 +29,7 @@ import {
 } from "@/data/local/cityRayonCatalog";
 import { TopMayorsTile } from "@/screens/dashboard/local/TopMayorsTile";
 import { LocalMayorRunoffBar } from "@/screens/dashboard/local/LocalMayorRunoffBar";
+import { PlaceViewNav } from "@/screens/components/PlaceViewNav";
 
 export const RayonAreaDashboard: FC<{ rayon: CityRayon }> = ({ rayon }) => {
   const { t, i18n } = useTranslation();
@@ -100,6 +101,16 @@ export const RayonAreaDashboard: FC<{ rayon: CityRayon }> = ({ rayon }) => {
             · {rayon.mir.replace(/^0+/, "")} {t("mir")}
           </p>
         </div>
+
+        {/* Same four-tab place switcher (Управление / Парламент / Местни /
+            Потребление) the Sofia районите + the район's own parliamentary page
+            carry — so the views are reachable from the governance tab too. */}
+        <PlaceViewNav
+          active="governance"
+          level="municipality"
+          obshtina={rayon.id}
+          align="start"
+        />
 
         {/* Парламент — район-level party results + turnout, from the derived
             section-code layer. The geographic район choropleth lives on the
