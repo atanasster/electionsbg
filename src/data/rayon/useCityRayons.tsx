@@ -29,7 +29,13 @@ export type CityRayonResult = {
   name_en: string;
   results: {
     votes: CityRayonVote[];
-    protocol: { totalActualVoters: number; numValidVotes: number };
+    protocol: {
+      // Optional: only rayon JSON emitted after the numRegisteredVoters
+      // generator change carries it (older cycles fall back to no turnout Δ).
+      numRegisteredVoters?: number;
+      totalActualVoters: number;
+      numValidVotes: number;
+    };
   };
 };
 

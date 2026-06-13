@@ -284,6 +284,10 @@ function buildResults(muni: keyof typeof CITIES, election: string) {
       results: {
         votes: trimVotes(e),
         protocol: {
+          // numRegisteredVoters is what lets the район dashboard compute a
+          // turnout delta vs the prior cycle (the район history layer reads
+          // this protocol); without it only the raw current turnout shows.
+          numRegisteredVoters: e.protocol.numRegisteredVoters ?? 0,
           totalActualVoters: e.protocol.totalActualVoters ?? 0,
           numValidVotes:
             (e.protocol.numValidVotes ?? 0) +

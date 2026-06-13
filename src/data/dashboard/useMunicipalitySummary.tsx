@@ -10,7 +10,7 @@ import { useMunicipalityStats } from "../municipalities/useMunicipalityStats";
 import { useElectionContext } from "../ElectionContext";
 import { usePartyInfo } from "../parties/usePartyInfo";
 import { findPrevVotes } from "../utils";
-import { StatsVote } from "../dataTypes";
+import { ElectionInfo, StatsVote } from "../dataTypes";
 
 const NATIONAL_THRESHOLD_PCT = 4;
 const MIN_PCT_FOR_GAINER_CONSIDERATION = 1;
@@ -21,10 +21,16 @@ const round = (n: number, digits = 2) => {
 
 export const useMunicipalitySummary = (
   municipalityCode?: string | null,
+  // A Пловдив/Варна район has no `_stats.json`, so useMunicipalityStats can't
+  // supply its prior-election votes. The caller passes the prior cycle from the
+  // район history layer instead; when given it wins over the (absent) stats one.
+  prevVotesOverride?: ElectionInfo,
 ): { data?: NationalSummary; isLoading: boolean } => {
   const { selected, priorElections } = useElectionContext();
   const { municipality } = useMunicipalityVotes(municipalityCode);
-  const { prevVotes } = useMunicipalityStats(municipalityCode);
+  const { prevVotes: prevVotesFromStats } =
+    useMunicipalityStats(municipalityCode);
+  const prevVotes = prevVotesOverride ?? prevVotesFromStats;
   const { parties: partyInfos } = usePartyInfo();
 
   const data = useMemo<NationalSummary | undefined>(() => {

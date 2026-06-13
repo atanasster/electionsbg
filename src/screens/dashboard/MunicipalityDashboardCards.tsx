@@ -67,20 +67,9 @@ export const MunicipalityDashboardCards: FC<Props> = ({
   compact,
 }) => {
   const { t } = useTranslation();
-  const { electionStats } = useElectionContext();
-  const { data, isLoading } = useMunicipalitySummary(municipalityCode);
-  const { municipality } = useMunicipalityVotes(municipalityCode);
-  const { stats } = useMunicipalityStats(municipalityCode);
-  const { data: problemSectionsStats } = useProblemSectionsStats();
-  // The neighborhoods/risk-votes section is misleading when the município
-  // has no problem sections of its own — the per-município ProblemSections
-  // and ProblemVotes tiles render null, but the historical-trends chart
-  // beside them shows NATIONAL problem-section trends, which looks like
-  // município-specific data. Detect "no problem sections here" and hide
-  // the whole section to avoid the bait-and-switch.
-  const { data: problemSectionsReport } = useProblemSections();
-  // For a Пловдив/Варна район, the report keys sections by the parent obshtina
-  // (PDV22), so match on parent + section-code digits 5-6 — same as the tile.
+  const { electionStats, priorElections } = useElectionContext();
+  // A Пловдив/Варна район ("PDV22-06") isn't a real município, so several hooks
+  // below must detect it and re-source its data — resolve it first.
   const cityRayon = findCityRayon(municipalityCode);
   // Multi-cycle trends for a Пловдив/Варна район: it has no `_stats.json`, so
   // useMunicipalityStats 404s → undefined, which would make HistoricalTrendsTile
@@ -91,6 +80,30 @@ export const MunicipalityDashboardCards: FC<Props> = ({
     cityRayon?.obshtina,
     cityRayon?.code,
   );
+  // The summary's biggest-gainer/loser, per-party Δ and paper/machine Δ all
+  // need the PRIOR election's votes. A real município gets them from its
+  // `_stats.json` (useMunicipalityStats); a район has none, so pull the prior
+  // cycle out of the район history above and hand it to the summary as an
+  // override (same ElectionInfo shape useMunicipalityStats.prevVotes returns).
+  const rayonPrevVotes = cityRayon
+    ? rayonHistory?.find((h) => h.name === priorElections?.name)
+    : undefined;
+  const { data, isLoading } = useMunicipalitySummary(
+    municipalityCode,
+    rayonPrevVotes,
+  );
+  const { municipality } = useMunicipalityVotes(municipalityCode);
+  const { stats } = useMunicipalityStats(municipalityCode);
+  const { data: problemSectionsStats } = useProblemSectionsStats();
+  // The neighborhoods/risk-votes section is misleading when the município
+  // has no problem sections of its own — the per-município ProblemSections
+  // and ProblemVotes tiles render null, but the historical-trends chart
+  // beside them shows NATIONAL problem-section trends, which looks like
+  // município-specific data. Detect "no problem sections here" and hide
+  // the whole section to avoid the bait-and-switch. For a Пловдив/Варна район
+  // the report keys sections by the parent obshtina (PDV22), so the gate below
+  // matches on parent + section-code digits 5-6 — same as the tile.
+  const { data: problemSectionsReport } = useProblemSections();
   const histStats = cityRayon ? rayonHistory : stats;
   // A Пловдив/Варна район's own polling sections — so its map shows just this
   // район (auto-fit to its sections), not the parent city's whole choropleth.
