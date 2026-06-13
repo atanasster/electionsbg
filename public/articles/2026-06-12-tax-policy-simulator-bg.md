@@ -214,6 +214,6 @@ updatedAt: 2026-06-12
 
 [^ses]: Евростат — структура на заплатите (Structure of Earnings Survey), серия `earn_ses_hourly`, вълна 2022 г. [ec.europa.eu/eurostat](https://ec.europa.eu/eurostat/databrowser/view/earn_ses_hourly/default/table?lang=bg).
 
-[^ecb]: Европейска централна банка — _Economic Bulletin_ 2/2019, методология на дълговата динамика.
+[^ecb]: Европейска централна банка — _Economic Bulletin_ 2/2019, „Interest rate-growth differential and government debt dynamics“ (методология на дълговата динамика). [ecb.europa.eu](https://www.ecb.europa.eu/press/economic-bulletin/focus/2019/html/ecb.ebbox201902_06~0c96ee6f7c.en.html).
 
 [^naptiers]: НАП/МФ, писмен отговор за данъчна 2023 г. — разпределение на декларираните доходи по 7 групи годишна данъчна основа (брой лица и платен ДДФЛ). Данните са въведени като източник в `scripts/budget/nap_income_tiers.ts`, а сверката е заключена със смоук-теста `scripts/budget/__smoke_income_tiers.ts`. [minfin.bg/bg/wreply/996-4/12881](https://www.minfin.bg/bg/wreply/996-4/12881).

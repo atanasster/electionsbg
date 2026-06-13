@@ -214,6 +214,6 @@ Finally — [open the simulator](/budget/simulator) and build your own scenario.
 
 [^ses]: Eurostat — Structure of Earnings Survey, series `earn_ses_hourly`, 2022 wave. [ec.europa.eu/eurostat](https://ec.europa.eu/eurostat/databrowser/view/earn_ses_hourly/default/table?lang=en).
 
-[^ecb]: European Central Bank — _Economic Bulletin_ 2/2019, debt-dynamics methodology.
+[^ecb]: European Central Bank — _Economic Bulletin_ 2/2019, "Interest rate-growth differential and government debt dynamics" (debt-dynamics methodology). [ecb.europa.eu](https://www.ecb.europa.eu/press/economic-bulletin/focus/2019/html/ecb.ebbox201902_06~0c96ee6f7c.en.html).
 
 [^naptiers]: НАП/MoF written answer for tax year 2023 — the distribution of declared income across 7 annual-taxable-base groups (filer count and PIT paid). Ingested as a source in `scripts/budget/nap_income_tiers.ts` and the validation is locked by the smoke test `scripts/budget/__smoke_income_tiers.ts`. [minfin.bg/bg/wreply/996-4/12881](https://www.minfin.bg/bg/wreply/996-4/12881).
