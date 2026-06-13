@@ -20,8 +20,10 @@ import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import {
   useCityRayonResults,
   useCityRayonHistory,
+  useCityRayonSections,
 } from "@/data/rayon/useCityRayons";
 import { HistoricalTrendsTile } from "@/screens/dashboard/HistoricalTrendsTile";
+import { SectionsMapTile } from "@/screens/dashboard/SectionsMapTile";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
 import {
   findCityRayonByName,
@@ -45,6 +47,13 @@ export const RayonAreaDashboard: FC<{ rayon: CityRayon }> = ({ rayon }) => {
   );
   // Cross-election trend for this район (ElectionInfo[] for HistoricalTrendsTile).
   const { data: history } = useCityRayonHistory(rayon.obshtina, rayon.code);
+  // This район's own polling sections (parent МИР bundle filtered by the район
+  // digits 5-6) for the "Карта на секциите" map — the same geographic view a
+  // Sofia район carries, auto-fit to just this район.
+  const { data: rayonSections } = useCityRayonSections(
+    rayon.obshtina,
+    rayon.code,
+  );
 
   // Районен кмет: latest local cycle's bundle, district matched by name.
   const { municipality: localBundle, cycle } = useLocalMunicipality(
@@ -111,6 +120,15 @@ export const RayonAreaDashboard: FC<{ rayon: CityRayon }> = ({ rayon }) => {
           obshtina={rayon.id}
           align="start"
         />
+
+        {/* Карта на секциите — just this район's own polling stations (auto-fit
+            to the район), the same map a Sofia район shows. Mounted only once
+            the async section list resolves: SectionsMapTile measures its
+            container in a mount-only layout effect, so an initially-undefined
+            list would leave the map blank. */}
+        {rayonSections && rayonSections.length ? (
+          <SectionsMapTile sections={rayonSections} />
+        ) : null}
 
         {/* Парламент — район-level party results + turnout, from the derived
             section-code layer. The geographic район choropleth lives on the
