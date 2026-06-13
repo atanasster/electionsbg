@@ -2,7 +2,7 @@
   "detail": "0/2 regular bundle(s) reachable · 13 partial cycle(s) tracked",
   "fingerprint": "ea6489b98814a57e",
   "lastChanged": "2026-06-01T06:08:53.153Z",
-  "lastChecked": "2026-06-12T06:08:54.021Z",
+  "lastChecked": "2026-06-13T07:06:17.324Z",
   "meta": {
     "cycles": [
       {
@@ -11,7 +11,9 @@
         "bundleUrl": "https://results.cik.bg/mi2019/csv.zip",
         "lastModified": null,
         "contentLength": null,
-        "status": 403
+        "status": 403,
+        "runoffTracked": false,
+        "runoffStage": 0
       },
       {
         "cycle": "mi2023",
@@ -19,7 +21,9 @@
         "bundleUrl": "https://results.cik.bg/mi2023/tur1/opendata/export.zip",
         "lastModified": null,
         "contentLength": null,
-        "status": 403
+        "status": 403,
+        "runoffTracked": false,
+        "runoffStage": 0
       },
       {
         "cycle": "chmi2024-2026/2024-03-10_chastichen",
@@ -27,7 +31,9 @@
         "bundleUrl": "",
         "lastModified": null,
         "contentLength": null,
-        "status": 200
+        "status": 200,
+        "runoffTracked": false,
+        "runoffStage": 0
       },
       {
         "cycle": "chmi2024-2026/2024-03-10_nov",
@@ -35,7 +41,9 @@
         "bundleUrl": "",
         "lastModified": null,
         "contentLength": null,
-        "status": 200
+        "status": 200,
+        "runoffTracked": false,
+        "runoffStage": 0
       },
       {
         "cycle": "chmi2024-2026/2024-06-23_chastichen",
@@ -43,7 +51,9 @@
         "bundleUrl": "",
         "lastModified": null,
         "contentLength": null,
-        "status": 200
+        "status": 200,
+        "runoffTracked": false,
+        "runoffStage": 0
       },
       {
         "cycle": "chmi2024-2026/2024-06-23_nov",
@@ -51,7 +61,9 @@
         "bundleUrl": "",
         "lastModified": null,
         "contentLength": null,
-        "status": 200
+        "status": 200,
+        "runoffTracked": false,
+        "runoffStage": 0
       },
       {
         "cycle": "chmi2024-2026/2024-10-20_chastichen",
@@ -59,7 +71,9 @@
         "bundleUrl": "",
         "lastModified": null,
         "contentLength": null,
-        "status": 200
+        "status": 200,
+        "runoffTracked": false,
+        "runoffStage": 0
       },
       {
         "cycle": "chmi2024-2026/2024-10-20_nov",
@@ -67,7 +81,9 @@
         "bundleUrl": "",
         "lastModified": null,
         "contentLength": null,
-        "status": 200
+        "status": 200,
+        "runoffTracked": false,
+        "runoffStage": 0
       },
       {
         "cycle": "chmi2024-2026/2025-02-16_chastichen",
@@ -75,7 +91,9 @@
         "bundleUrl": "",
         "lastModified": null,
         "contentLength": null,
-        "status": 200
+        "status": 200,
+        "runoffTracked": false,
+        "runoffStage": 0
       },
       {
         "cycle": "chmi2024-2026/2025-02-23_nov",
@@ -83,7 +101,9 @@
         "bundleUrl": "",
         "lastModified": null,
         "contentLength": null,
-        "status": 200
+        "status": 200,
+        "runoffTracked": false,
+        "runoffStage": 0
       },
       {
         "cycle": "chmi2024-2026/2025-03-16_chastichen",
@@ -91,7 +111,9 @@
         "bundleUrl": "",
         "lastModified": null,
         "contentLength": null,
-        "status": 200
+        "status": 200,
+        "runoffTracked": false,
+        "runoffStage": 0
       },
       {
         "cycle": "chmi2024-2026/2025-06-15_chastichen",
@@ -99,7 +121,9 @@
         "bundleUrl": "",
         "lastModified": null,
         "contentLength": null,
-        "status": 200
+        "status": 200,
+        "runoffTracked": false,
+        "runoffStage": 0
       },
       {
         "cycle": "chmi2024-2026/2025-10-12_chastichen",
@@ -107,7 +131,9 @@
         "bundleUrl": "",
         "lastModified": null,
         "contentLength": null,
-        "status": 200
+        "status": 200,
+        "runoffTracked": false,
+        "runoffStage": 0
       },
       {
         "cycle": "chmi2024-2026/2025-10-12_nov",
@@ -115,7 +141,9 @@
         "bundleUrl": "",
         "lastModified": null,
         "contentLength": null,
-        "status": 200
+        "status": 200,
+        "runoffTracked": false,
+        "runoffStage": 0
       },
       {
         "cycle": "chmi2024-2026/2026-02-22_chastichen",
@@ -123,9 +151,11 @@
         "bundleUrl": "",
         "lastModified": null,
         "contentLength": null,
-        "status": 200
+        "status": 200,
+        "runoffTracked": false,
+        "runoffStage": 0
       }
     ],
-    "discoveredAt": "2026-06-12T06:11:12.507Z"
+    "discoveredAt": "2026-06-13T07:10:29.380Z"
   }
 }
