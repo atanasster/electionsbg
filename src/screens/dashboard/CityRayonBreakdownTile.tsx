@@ -145,9 +145,6 @@ export const CityRayonBreakdownTile: FC<Props> = ({ municipalityCode }) => {
             {t("city_rayon_mobile_note", { count: data.mobile.voters })}
           </p>
         ) : null}
-        <p className="mt-1 text-[10px] text-muted-foreground">
-          {t("city_rayon_provenance")}
-        </p>
       </div>
     </StatCard>
   );
