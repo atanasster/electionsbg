@@ -12,7 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
 import { useElectionContext } from "@/data/ElectionContext";
 import allElections from "@/data/json/elections.json";
-import type { ElectionInfo, StatsVote } from "@/data/dataTypes";
+import type { ElectionInfo, SectionInfo, StatsVote } from "@/data/dataTypes";
 
 export type CityRayonVote = {
   partyNum: number;
@@ -64,6 +64,11 @@ const CITY_RAYON_MUNIS = new Set(["PDV22", "VAR06"]);
 export const hasCityRayons = (muni?: string | null): boolean =>
   !!muni && CITY_RAYON_MUNIS.has(muni);
 
+// МИР (the leading two digits of every 9-digit ЦИК section id) of each split
+// município — the by-oblast section bundle is keyed by it. PDV22 = 16 МИР
+// Пловдив-град, VAR06 = 03 МИР Варна; both are single-община МИРs.
+const CITY_RAYON_MIR: Record<string, string> = { PDV22: "16", VAR06: "03" };
+
 export const useCityRayonResults = (muni?: string) => {
   const { selected } = useElectionContext();
   return useQuery({
@@ -74,6 +79,36 @@ export const useCityRayonResults = (muni?: string) => {
       return r.json();
     },
     enabled: hasCityRayons(muni),
+    staleTime: Infinity,
+  });
+};
+
+// The polling sections of ONE район (e.g. PDV22 код "04"), as the SectionInfo[]
+// that SectionsMapTile / SectionsMap render as located markers — so a sub-city
+// район shows just its own sections (like a Sofia район's "Карта на секциите"),
+// not the parent city's whole choropleth. Filtered out of the município's МИР
+// section bundle (the one useSectionsVotes already caches) by the section id's
+// община digits (3–4) and район digits (5–6). Mobile/ship sections (район код
+// "00") carry no location and are dropped by SectionsMap's coord filter anyway.
+export const useCityRayonSections = (muni?: string, code?: string) => {
+  const { selected } = useElectionContext();
+  return useQuery({
+    queryKey: ["city_rayon_sections", selected, muni, code],
+    queryFn: async (): Promise<SectionInfo[]> => {
+      const mir = muni ? CITY_RAYON_MIR[muni] : undefined;
+      if (!mir || !code) return [];
+      const muniDigits = muni!.replace(/^[A-Z]+/, "");
+      const r = await fetch(
+        dataUrl(`/${selected}/sections/by-oblast/${mir}.json`),
+      );
+      if (!r.ok) return [];
+      const data = (await r.json()) as Record<string, SectionInfo>;
+      return Object.values(data).filter((s) => {
+        const id = String(s.section);
+        return id.slice(2, 4) === muniDigits && id.slice(4, 6) === code;
+      });
+    },
+    enabled: hasCityRayons(muni) && !!code,
     staleTime: Infinity,
   });
 };

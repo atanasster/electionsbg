@@ -35,6 +35,7 @@ import {
   SOFIA_CITY_GOVERNANCE_ID,
 } from "@/data/local/placeViews";
 import { isSofiaMir } from "@/data/dataTypes";
+import { findCityRayon } from "@/data/local/cityRayonCatalog";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useRegions } from "@/data/regions/useRegions";
@@ -200,6 +201,14 @@ export const PlaceHeader: FC<Props> = ({
   // Столична община + its МИР instead of the generic "Община {name}, област …".
   const isSofiaRayon =
     level === "municipality" && isSofiaRayonObshtina(obshtina);
+  // A Пловдив/Варна sub-city район ("PDV22-04") also arrives as a município-
+  // level place, but it isn't in municipalities.json — it's an административен
+  // район of Община Пловдив/Варна. Like a Sofia район it titles "район {name}"
+  // and roots its breadcrumb under the parent Община + its МИР, instead of the
+  // generic "Община {name}, област …".
+  const cityRayon =
+    level === "municipality" ? findCityRayon(obshtina) : undefined;
+  const isCityRayon = !!cityRayon;
   // Settlement + section both anchor on a settlement EKATTE — a section drills
   // one level below its settlement, which we surface in its breadcrumb.
   const usesSettlement = isSettlement || isSection;
@@ -520,6 +529,32 @@ export const PlaceHeader: FC<Props> = ({
         </>
       );
     }
+    // Пловдив/Варна sub-city район: "Район на Община Пловдив, 16 МИР" — the
+    // район belongs to its parent Община (linked to the Община's governance
+    // dashboard, where the obshtina-grain data lives) and sits in one МИР
+    // (Пловдив-град = 16 МИР, Варна = 3 МИР). No "област" prefix: a град-level
+    // МИР is an изборен район, not an oblast — mirrors the Sofia район tail.
+    if (isCityRayon && cityRayon) {
+      const city = lang === "bg" ? cityRayon.cityBg : cityRayon.cityEn;
+      const muniNode = (
+        <Link to={`/governance/${cityRayon.obshtina}`} underline>
+          {lang === "bg" ? `Община ${city}` : `${city} municipality`}
+        </Link>
+      );
+      const mir = cityRayon.mir.replace(/^0+/, "");
+      if (lang === "bg") {
+        return (
+          <>
+            Район на {muniNode}, {mir} МИР
+          </>
+        );
+      }
+      return (
+        <>
+          District of {muniNode}, MIR {mir}
+        </>
+      );
+    }
     // Sofia city aggregate (Столична община, keyed SOF00): the capital is a
     // single município that spans all three МИР, so the generic "Община {name},
     // област …" narrative doesn't fit. Its name ("София Град") already reads as
@@ -669,7 +704,7 @@ export const PlaceHeader: FC<Props> = ({
   };
 
   const titleText =
-    isSofiaRayon && lang === "bg"
+    (isSofiaRayon || isCityRayon) && lang === "bg"
       ? `район ${name}`
       : isSettlement && displaySettlementType && lang === "bg"
         ? `${displaySettlementType} ${name}`

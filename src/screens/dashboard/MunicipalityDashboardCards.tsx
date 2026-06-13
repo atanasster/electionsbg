@@ -20,7 +20,12 @@ import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { TopSettlementsTile } from "./TopSettlementsTile";
 import { CityRayonBreakdownTile } from "./CityRayonBreakdownTile";
 import { CityRayonMapTile } from "./CityRayonMapTile";
-import { hasCityRayons, useCityRayonHistory } from "@/data/rayon/useCityRayons";
+import { SectionsMapTile } from "./SectionsMapTile";
+import {
+  hasCityRayons,
+  useCityRayonHistory,
+  useCityRayonSections,
+} from "@/data/rayon/useCityRayons";
 import { findCityRayon } from "@/data/local/cityRayonCatalog";
 import { CensusDemographicsTile } from "./CensusDemographicsTile";
 import { IndicatorsTile } from "./IndicatorsTile";
@@ -87,6 +92,12 @@ export const MunicipalityDashboardCards: FC<Props> = ({
     cityRayon?.code,
   );
   const histStats = cityRayon ? rayonHistory : stats;
+  // A Пловдив/Варна район's own polling sections — so its map shows just this
+  // район (auto-fit to its sections), not the parent city's whole choropleth.
+  const { data: rayonSections } = useCityRayonSections(
+    cityRayon?.obshtina,
+    cityRayon?.code,
+  );
   const muniHasProblemSections = problemSectionsReport?.neighborhoods?.some(
     (n) =>
       n.sections.some((s) =>
@@ -156,9 +167,18 @@ export const MunicipalityDashboardCards: FC<Props> = ({
               <CityRayonMapTile municipalityCode={municipalityCode} />
             ) : cityRayon ? (
               // A Пловдив/Варна район has no settlement map of its own (the city
-              // is a single settlement) — show the parent city's районы
-              // choropleth so the район is at least visible in context.
-              <CityRayonMapTile municipalityCode={cityRayon.obshtina} />
+              // is a single settlement) — show its own polling sections as
+              // located markers (auto-fit to the район), mirroring a Sofia
+              // район's "Карта на секциите", instead of the whole-city choropleth.
+              // Mount the tile only once its sections have loaded: SectionsMapTile
+              // measures its container in a mount-only layout effect, so handing
+              // it an initially-undefined async list would leave the map blank
+              // (the effect bails on the first null render and never re-fires).
+              rayonSections && rayonSections.length ? (
+                <SectionsMapTile sections={rayonSections} />
+              ) : (
+                <SkeletonCard className="h-[440px]" />
+              )
             ) : (
               <MunicipalitySettlementsMapTile
                 municipalityCode={municipalityCode}
