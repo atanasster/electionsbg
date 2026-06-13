@@ -1480,6 +1480,56 @@ const CASES: Case[] = [
     },
     links: ["/budget/simulator?psub=0", "/budget"],
   },
+  // excise levers (commit 5790a3372) — revenue side; the dynamic headline leads
+  // and the static central rides as a fact. Fuel/tobacco/alcohol = % change to
+  // the existing rate; wine = introduced at €X/hl from €0.
+  {
+    // flagship: tobacco bends into the Laffer turn — the dynamic figure
+    // (≈+498M) is well below the static +861M as illicit-market substitution
+    // erodes the gain (the note explains it)
+    q: "Вдигане на акциза върху цигарите с 40%",
+    tool: "simulateTaxChange",
+    kind: "scalar",
+    facts: {
+      change: "акциз върху тютюна +40%",
+      delta_per_year: /\+498/,
+      delta_static: /\+861/,
+      note: /Лафер/,
+    },
+    links: ["/budget/simulator?exct=40", "/budget"],
+  },
+  {
+    // fuel is inelastic -> only a small behavioral haircut (≈+€111M vs +€144M)
+    q: "Raise the fuel excise by 10%",
+    lang: "en",
+    tool: "simulateTaxChange",
+    kind: "scalar",
+    facts: {
+      change: "fuel excise +10%",
+      delta_per_year: /\+€111M/,
+      delta_static: /\+€144M/,
+    },
+    links: ["/budget/simulator?excf=10", "/budget"],
+  },
+  {
+    // wine is INTRODUCED from €0 in €/hl -> the home-production leakage note
+    q: "Акциз върху виното 48 €/хл",
+    tool: "simulateTaxChange",
+    kind: "scalar",
+    facts: {
+      change: /вино/,
+      delta_per_year: /\+33/,
+      delta_static: /\+45/,
+      note: /домашно/,
+    },
+    links: ["/budget/simulator?winex=48", "/budget"],
+  },
+  {
+    // guard: a bare definitional "колко са акцизите" is NOT a what-if — it
+    // routes to the budget overview (excise is a revenue line), not the simulator
+    q: "Колко са акцизите?",
+    tool: "budgetOverview",
+  },
   {
     // guard: a price "колко струва" question is NOT a tax what-if (and vice
     // versa the simulator never steals the retail-price tool)

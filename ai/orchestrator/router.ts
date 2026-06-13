@@ -604,13 +604,15 @@ export const route = (question: string, ctx: ToolContext): Route => {
   // explicit instrument (ДДС/ДДФЛ/необлагаем минимум/корпоративен/дивидент/МОД,
   // plus the expenditure levers: индексация на пенсиите/ковид добавката/
   // администрацията/замразяване на МРЗ/отбрана % от БВП/заплати в публичния
-  // сектор/капиталов план/осигуровки на държавните служители/здравна вноска)
-  // plus a target value or a what-if/cost cue, so the generic budget questions
-  // ("какъв е бюджетът"), local taxes ("данъци в Пловдив"), retail prices
-  // ("колко струва млякото") and the definitional reads ("колко са пенсиите"
-  // -> noiFunds, "каква е минималната заплата" -> macroIndicator, "колко са
-  // разходите за отбрана" / "каква е здравната вноска" -> budgetFunction) all
-  // keep falling through to their own tools.
+  // сектор/капиталов план/осигуровки на държавните служители/здравна вноска,
+  // plus the excise levers: акциз върху горивата/тютюна/алкохола (% промяна) и
+  // нов акциз върху виното €/хл) plus a target value or a what-if/cost cue, so
+  // the generic budget questions ("какъв е бюджетът"), local taxes ("данъци в
+  // Пловдив"), retail prices ("колко струва млякото") and the definitional
+  // reads ("колко са пенсиите" -> noiFunds, "каква е минималната заплата" ->
+  // macroIndicator, "колко са разходите за отбрана" / "каква е здравната вноска"
+  // -> budgetFunction, "колко са акцизите" -> budgetOverview) all keep falling
+  // through to their own tools.
   // Runs before the budget/noiFunds/prices blocks, which would otherwise
   // swallow "какво става с бюджета ако…", "тавана на осигурителния доход" and
   // the "колко струва…" cost-of-policy framing.
@@ -1279,6 +1281,16 @@ export const route = (question: string, ctx: ToolContext): Route => {
     has(q, "пенси", "pension", "нои", " nssi", "осигурителн", "social security")
   )
     return { tool: "noiFunds", args: {} };
+  // excise (акцизи) is a REVENUE line, not a COFOG spending function — a bare
+  // definitional "колко са акцизите" / "how much is excise" goes to the budget
+  // overview. The what-if ("вдигане на акциза върху цигарите с 40%") was already
+  // caught upstream by detectTaxChange -> simulateTaxChange, so anything
+  // reaching here is a fact lookup, not a simulation.
+  if (has(q, "акциз", "excise"))
+    return {
+      tool: "budgetOverview",
+      args: promptYear ? { year: promptYear } : {},
+    };
   // a specific budget FUNCTION (health/defence/education/social/…) -> its share
   // + trend, with or without the word "бюджет"
   const gf = resolveBudgetFunction(q);

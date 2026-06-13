@@ -53,6 +53,7 @@ import {
   scoreCorporate,
   scoreDefenseTarget,
   scoreDividend,
+  scoreExcise,
   scoreHealthContribution,
   scoreMaternityMonths,
   scoreMinWageFreeze,
@@ -66,6 +67,7 @@ import {
   scoreSscSelfPaid,
   scoreTeachersPeg,
   scoreWageIndexation,
+  scoreWineExcise,
   type ModIdentity,
   type PitBracket,
   type VatAdjustableGroup,
@@ -131,6 +133,15 @@ const TP_MAX = 140;
 const MAT_MONTHS = MATERNITY_Y2_MONTHS; // 12
 const PSUB_DEF = Math.round(PARTY_SUBSIDY_RATE_EUR * 100); // 300 (€3.00/vote)
 const PSUB_MAX = 450;
+// Excise levers (commit 5790a3372), bounds mirrored from the same component:
+// fuel/tobacco/alcohol are a % CHANGE to the existing category rate (fuel
+// −20..+50%, tobacco & alcohol −20..+100%); wine is an INTRODUCE-from-€0
+// lever in €/hl (0..100, step 5). Change them THERE first.
+const EXCISE_FUEL_MIN = -20;
+const EXCISE_FUEL_MAX = 50;
+const EXCISE_SIN_MIN = -20; // tobacco & alcohol
+const EXCISE_SIN_MAX = 100;
+const WINE_MAX = 100; // €/hl
 
 const clamp = (n: number, min: number, max: number): number =>
   Math.max(min, Math.min(max, Math.round(n)));
@@ -164,7 +175,12 @@ export type TaxChange =
   | { kind: "teachersPeg"; targetPct: number } // учителски заплати → X% от средната
   | { kind: "pensionFloor"; minEur: number } // минимална пенсия → €X/мес.
   | { kind: "mpPayFreeze" } // замразяване на депутатските заплати
-  | { kind: "partySubsidy"; rateCents: number }; // субсидия €X/глас (0 = премахване)
+  | { kind: "partySubsidy"; rateCents: number } // субсидия €X/глас (0 = премахване)
+  // Excise levers (revenue side; positive = more revenue, like ДДС/ДДФЛ).
+  | { kind: "exciseFuel"; pct: number } // % change to the fuel excise rate
+  | { kind: "exciseTobacco"; pct: number } // % change to the tobacco excise rate
+  | { kind: "exciseAlcohol"; pct: number } // % change to the alcohol excise rate
+  | { kind: "wineExcise"; rateEurPerHl: number }; // introduce a wine excise, €/hl
 
 const has = (q: string, ...words: string[]): boolean =>
   words.some((w) => q.includes(w));
@@ -528,6 +544,31 @@ const NO_CAP_CUES = [
   "uncap",
 ];
 
+// Excise instruments. "акциз"/"excise" is the anchor word; a category word
+// (fuel/tobacco/alcohol/wine) picks the lever. The bare "колко са акцизите"
+// (anchor, no category, no target) carries no lever and falls through to the
+// budget overview (the router handles that — excise is a revenue line).
+const EXCISE_WORDS = ["акциз", "excise"];
+const FUEL_WORDS = [
+  "горив", // гориво / горива / горивата
+  "бензин",
+  "дизел",
+  "fuel",
+  "petrol",
+  "diesel",
+  "gasoline",
+];
+const TOBACCO_WORDS = ["тютюн", "цигар", "tobacco", "cigarette"];
+const ALCOHOL_WORDS = [
+  "алкохол",
+  "спиртн",
+  "ракия",
+  "alcohol",
+  "spirits",
+  "liquor",
+];
+const WINE_WORDS = ["вино", "винот", "вина", "wine"];
+
 const VAT_CATEGORY_TOKENS: [VatAdjustableGroup, string[]][] = [
   ["food", ["храни", "хранит", "хляб", "food", "groceries"]],
   ["medicines", ["лекарств", "медикамент", "medicine", "drug"]],
@@ -758,6 +799,35 @@ export const detectTaxChange = (question: string): TaxChange | undefined => {
       return { kind: "partySubsidy", rateCents: Math.round(perVote * 100) };
   }
 
+  // 1e. Excise levers — anchored on the акциз/excise word + a category, with
+  // an explicit target. Fuel/tobacco/alcohol = a signed % CHANGE to the
+  // existing rate (direction from the +/− sign or the raise/cut wording, like
+  // the public-wage lever); wine = INTRODUCE at €X/hl from €0. A bare "колко са
+  // акцизите" (anchor, no category, no target) carries no lever and falls
+  // through to the budget overview.
+  if (has(q, ...EXCISE_WORDS)) {
+    // Wine first — its €/hl unit is distinct, and the wine word must not also
+    // trip the %-change branches. A bare лева amount is not read as EUR.
+    if (has(q, ...WINE_WORDS)) {
+      const rate =
+        eur ??
+        (!hasBgn(q) && cue && bare !== undefined && bare > 0 && bare <= WINE_MAX
+          ? bare
+          : undefined);
+      if (rate !== undefined && rate > 0)
+        return { kind: "wineExcise", rateEurPerHl: clamp(rate, 0, WINE_MAX) };
+    }
+    // Fuel / tobacco / alcohol — a signed % change to the rate (0 = no change).
+    const exPct = parseSignedPct(q);
+    if (exPct !== undefined && exPct !== 0) {
+      if (has(q, ...FUEL_WORDS)) return { kind: "exciseFuel", pct: exPct };
+      if (has(q, ...TOBACCO_WORDS))
+        return { kind: "exciseTobacco", pct: exPct };
+      if (has(q, ...ALCOHOL_WORDS))
+        return { kind: "exciseAlcohol", pct: exPct };
+    }
+  }
+
   // 2. VAT on a category — needs the VAT word + a category word, plus a
   // target: a %, a change cue, or an explicit regime word ("zero VAT on
   // medicines", "нулева ставка за храните").
@@ -885,6 +955,12 @@ interface ScenarioParams {
   mat: number;
   mpf: boolean;
   psub: number;
+  // Excise (revenue side). exFuel/exTobacco/exAlcohol = integer % rate change
+  // (0 = current law); wine = introduced excise in €/hl (0 = current €0).
+  exFuel: number;
+  exTobacco: number;
+  exAlcohol: number;
+  wine: number;
 }
 
 const paramsFor = (change: TaxChange, currentCap: number): ScenarioParams => {
@@ -913,6 +989,10 @@ const paramsFor = (change: TaxChange, currentCap: number): ScenarioParams => {
     mat: MAT_MONTHS,
     mpf: false,
     psub: PSUB_DEF,
+    exFuel: 0,
+    exTobacco: 0,
+    exAlcohol: 0,
+    wine: 0,
   };
   // Clamp to the simulator's own URL-param bounds (clampIntParam calls in
   // BudgetPolicySimulator.tsx) so the chat number equals what the deep link
@@ -989,6 +1069,18 @@ const paramsFor = (change: TaxChange, currentCap: number): ScenarioParams => {
     case "partySubsidy":
       p.psub = clamp(change.rateCents, 0, PSUB_MAX);
       break;
+    case "exciseFuel":
+      p.exFuel = clamp(change.pct, EXCISE_FUEL_MIN, EXCISE_FUEL_MAX);
+      break;
+    case "exciseTobacco":
+      p.exTobacco = clamp(change.pct, EXCISE_SIN_MIN, EXCISE_SIN_MAX);
+      break;
+    case "exciseAlcohol":
+      p.exAlcohol = clamp(change.pct, EXCISE_SIN_MIN, EXCISE_SIN_MAX);
+      break;
+    case "wineExcise":
+      p.wine = clamp(change.rateEurPerHl, 0, WINE_MAX);
+      break;
   }
   return p;
 };
@@ -1002,6 +1094,13 @@ export interface ScenarioScore {
   pitNonEmploymentDelta: number;
   corpDelta: number;
   divDelta: number;
+  /** Excise deltas (revenue side; fuel/tobacco/alcohol % rate changes + the
+   *  introduced wine excise) — kept apart so the behavioral pass can run the
+   *  per-category demand/illicit-substitution response on each. */
+  exciseFuelDelta: number;
+  exciseTobaccoDelta: number;
+  exciseAlcoholDelta: number;
+  wineDelta: number;
   modCentral: number;
   /** МРЗ-freeze and health-contribution deltas (revenue-side levers inside
    *  the expenditure block — the Tier-2 impulse split needs them apart). */
@@ -1052,6 +1151,10 @@ export const scoreScenario = (
     mat,
     mpf,
     psub,
+    exFuel,
+    exTobacco,
+    exAlcohol,
+    wine,
   } = paramsFor(change, currentCap);
 
   const slices = baseline.vat.slices as VatBaseSlice[];
@@ -1088,6 +1191,24 @@ export const scoreScenario = (
 
   const corpDelta = scoreCorporate(baseline.revenue.corporateEur, corp / 100);
   const divDelta = scoreDividend(baseline.revenue.dividendEur, div / 100);
+
+  // Excise (fixed-base static deltas; demand/cross-border/illicit response is
+  // layered on in the behavioral pass) — mirrors the screen's scenario useMemo.
+  const exciseFuelDelta = scoreExcise(
+    baseline.revenue.exciseFuelEur ?? 0,
+    exFuel / 100,
+  );
+  const exciseTobaccoDelta = scoreExcise(
+    baseline.revenue.exciseTobaccoEur ?? 0,
+    exTobacco / 100,
+  );
+  const exciseAlcoholDelta = scoreExcise(
+    baseline.revenue.exciseAlcoholEur ?? 0,
+    exAlcohol / 100,
+  );
+  const wineDelta = wine > 0 ? scoreWineExcise(wine) : 0;
+  const exciseDelta =
+    exciseFuelDelta + exciseTobaccoDelta + exciseAlcoholDelta + wineDelta;
 
   const targetCap = noCap ? Infinity : mod;
   const modBands = scoreModCapBands(
@@ -1212,6 +1333,7 @@ export const scoreScenario = (
     pitDelta +
     corpDelta +
     divDelta +
+    exciseDelta +
     modRes.centralEur +
     expenditureBalance;
   const low =
@@ -1219,6 +1341,7 @@ export const scoreScenario = (
     pitDelta +
     corpDelta +
     divDelta +
+    exciseDelta +
     expenditureBalance +
     Math.min(modRes.lowEur, modRes.highEur);
   const high =
@@ -1226,6 +1349,7 @@ export const scoreScenario = (
     pitDelta +
     corpDelta +
     divDelta +
+    exciseDelta +
     expenditureBalance +
     Math.max(modRes.lowEur, modRes.highEur);
 
@@ -1236,6 +1360,10 @@ export const scoreScenario = (
     pitNonEmploymentDelta,
     corpDelta,
     divDelta,
+    exciseFuelDelta,
+    exciseTobaccoDelta,
+    exciseAlcoholDelta,
+    wineDelta,
     modCentral: modRes.centralEur,
     mwDelta,
     hpDelta,
@@ -1296,6 +1424,13 @@ export const scoreDynamicScenario = (
       modCentralEur: score.modCentral,
       healthDeltaEur: score.hpDelta,
       minWageDeltaEur: score.mwDelta,
+      // Excise static deltas — the behavioral pass runs the per-category
+      // demand/illicit-substitution response (tobacco bends into the Laffer
+      // turn on big hikes); wine carries a flat home-production leakage.
+      exciseFuelDeltaEur: score.exciseFuelDelta,
+      exciseTobaccoDeltaEur: score.exciseTobaccoDelta,
+      exciseAlcoholDeltaEur: score.exciseAlcoholDelta,
+      wineDeltaEur: score.wineDelta,
       // single-change scenarios route the pension lever through the
       // expenditure balance (no per-year compounding path here).
       expenditureBalanceNonPensionEur:
@@ -1311,6 +1446,9 @@ export const scoreDynamicScenario = (
       divNewRate: p.div / 100,
       modTargetCapEur: p.noCap ? Infinity : p.mod,
       modCurrentCapEur: currentCap,
+      exciseFuelRateChange: p.exFuel / 100,
+      exciseTobaccoRateChange: p.exTobacco / 100,
+      exciseAlcoholRateChange: p.exAlcohol / 100,
     },
   );
   const dyn = computeDynamicScenario(input, drawsFor(baseline.modIdentity));
@@ -1466,6 +1604,22 @@ const changeLabel = (
         : bg
           ? `партийна субсидия €${(p.psub / 100).toFixed(2)}/глас`
           : `party subsidy €${(p.psub / 100).toFixed(2)}/vote`;
+    case "exciseFuel": {
+      const v = `${p.exFuel > 0 ? "+" : ""}${p.exFuel}%`;
+      return bg ? `акциз върху горивата ${v}` : `fuel excise ${v}`;
+    }
+    case "exciseTobacco": {
+      const v = `${p.exTobacco > 0 ? "+" : ""}${p.exTobacco}%`;
+      return bg ? `акциз върху тютюна ${v}` : `tobacco excise ${v}`;
+    }
+    case "exciseAlcohol": {
+      const v = `${p.exAlcohol > 0 ? "+" : ""}${p.exAlcohol}%`;
+      return bg ? `акциз върху алкохола ${v}` : `alcohol excise ${v}`;
+    }
+    case "wineExcise":
+      return bg
+        ? `нов акциз върху виното €${p.wine}/хл`
+        : `new wine excise €${p.wine}/hl`;
   }
 };
 
@@ -1497,6 +1651,10 @@ const scenarioQuery = (p: ScenarioParams, currentCap: number): string => {
   if (p.mat !== MAT_MONTHS) parts.push(`mat=${p.mat}`);
   if (p.mpf) parts.push("mpf=1");
   if (p.psub !== PSUB_DEF) parts.push(`psub=${p.psub}`);
+  if (p.exFuel !== 0) parts.push(`excf=${p.exFuel}`);
+  if (p.exTobacco !== 0) parts.push(`exct=${p.exTobacco}`);
+  if (p.exAlcohol !== 0) parts.push(`exca=${p.exAlcohol}`);
+  if (p.wine !== 0) parts.push(`winex=${p.wine}`);
   return parts.join("&");
 };
 
@@ -1620,6 +1778,18 @@ export const simulateTaxChange = async (
     facts.note = bg
       ? "С компенсиращо увеличение на заплатите реформата е фискално неутрална (±0)."
       : "With a compensating salary gross-up the reform is fiscally neutral (±0).";
+  // Tobacco excise: the dynamic figure already nets the demand contraction and
+  // the shift to the illicit market — on a big hike the gain shrinks (Laffer).
+  if (change.kind === "exciseTobacco")
+    facts.note = bg
+      ? "Динамичната оценка включва свиване на търсенето и преминаване към нелегален пазар — при голямо вдигане ефектът се изяжда (кривата на Лафер)."
+      : "The dynamic figure nets the demand contraction and the shift to the illicit market — on a big hike the gain is eaten away (the Laffer turn).";
+  // Wine excise: introduced from €0; the dynamic figure accounts for leakage to
+  // untaxed home production (the taxable commercial base is the smaller share).
+  if (change.kind === "wineExcise")
+    facts.note = bg
+      ? "Нов акциз от €0 — динамичната оценка отчита изтичане към необложеното домашно производство (облага се само търговската част)."
+      : "A new excise from €0 — the dynamic figure accounts for leakage to untaxed home production (only the commercial base is taxed).";
 
   // hidden deep-link payload (keys ending in _id are not rendered as facts)
   const qs = scenarioQuery(p, currentCap);

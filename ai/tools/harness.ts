@@ -1151,6 +1151,13 @@ const run = async () => {
     ["минималната пенсия на 400 €", -963e6],
     ["замразяване на депутатските заплати", 2e6],
     ["премахване на партийните субсидии", 9e6],
+    // Excise levers (revenue side; static central — the screen's headline is
+    // the dynamic estimate). Fuel/tobacco/alcohol = % change to the existing
+    // rate; wine introduced at €X/hl from €0.
+    ["вдигане на акциза върху горивата с 10%", 144e6],
+    ["вдигане на акциза върху цигарите с 40%", 861e6],
+    ["вдигане на акциза върху алкохола с 20%", 35e6],
+    ["акциз върху виното 48 €/хл", 45e6],
   ];
   // FINDING-001 guard: definitional МОД questions carrying a year must NOT
   // parse as a cap what-if (2024-2026 overlap realistic cap amounts).
@@ -1183,6 +1190,9 @@ const run = async () => {
     // UI/URLs are EUR) — they fall through instead of mis-scoring.
     "минимална пенсия 400 лева",
     "субсидията на 4 лева на глас",
+    // bare excise reads (anchor, no category + no target) -> budgetOverview
+    "колко са акцизите",
+    "how much is excise",
   ]) {
     assert(
       detectTaxChange(q) == null,
@@ -1217,6 +1227,24 @@ const run = async () => {
     assert(
       dDiv.headlineEur >= 30e6 && dDiv.headlineEur <= 55e6,
       `dividend 5→10% dynamic ${(dDiv.headlineEur / 1e6).toFixed(1)}M lands in the ФС ≤€50M zone (static ${(sDiv.central / 1e6).toFixed(0)}M)`,
+    );
+    // Excise: tobacco bends into the Laffer turn — the dynamic figure is well
+    // below the static gain as demand contracts and the illicit market grows,
+    // but it must not collapse. Fuel is inelastic (a small haircut only).
+    const chTob = detectTaxChange("вдигане на акциза върху цигарите с 40%");
+    const sTob = scoreScenario(baseline, chTob!);
+    const dTob = scoreDynamicScenario(baseline, chTob!, sTob);
+    assert(
+      dTob.headlineEur < sTob.central && dTob.headlineEur > 0.45 * sTob.central,
+      `tobacco +40% dynamic ${(dTob.headlineEur / 1e6).toFixed(0)}M < static ${(sTob.central / 1e6).toFixed(0)}M (illicit-substitution erosion, not collapsed)`,
+    );
+    const chFuel = detectTaxChange("вдигане на акциза върху горивата с 10%");
+    const sFuel = scoreScenario(baseline, chFuel!);
+    const dFuel = scoreDynamicScenario(baseline, chFuel!, sFuel);
+    assert(
+      dFuel.headlineEur > 0.7 * sFuel.central &&
+        dFuel.headlineEur < sFuel.central,
+      `fuel +10% dynamic ${(dFuel.headlineEur / 1e6).toFixed(0)}M ≈ static ${(sFuel.central / 1e6).toFixed(0)}M (inelastic — small haircut)`,
     );
   }
   const simVat = (await runTool(
@@ -1296,6 +1324,33 @@ const run = async () => {
       String(simSsp.facts.note).includes("неутрална"),
     `grossed-up self-paid SSC is neutral with ssp=1&sspg=1 (got ${simSsp.facts.scenario_id}, value ${simSsp.value})`,
   );
+  // Excise — tobacco: the exct deep link + the static +861 fact + the MC band +
+  // the Laffer note. (Revenue lever — NO balance basis.)
+  const simTob = (await runTool(
+    "simulateTaxChange",
+    { change: "вдигане на акциза върху цигарите с 40%" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(simTob);
+  assert(
+    simTob.facts.scenario_id === "exct=40" &&
+      simTob.facts.basis_id == null &&
+      String(simTob.facts.delta_static).includes("861") &&
+      !!simTob.facts.range &&
+      String(simTob.facts.note).includes("Лафер"),
+    `tobacco-excise envelope: exct=40 + static +861 + band + Laffer note (got ${simTob.facts.scenario_id}, static ${simTob.facts.delta_static}, note ${simTob.facts.note})`,
+  );
+  // Excise — wine: the winex deep link + the introduced-from-€0 leakage note.
+  const simWine = (await runTool(
+    "simulateTaxChange",
+    { change: "акциз върху виното 48 €/хл" },
+    ctxBg,
+  )) as Envelope;
+  assert(
+    simWine.facts.scenario_id === "winex=48" &&
+      String(simWine.facts.note).includes("домашно"),
+    `wine-excise envelope: winex=48 + home-production note (got ${simWine.facts.scenario_id}, note ${simWine.facts.note})`,
+  );
   // graceful no-detect (the geo.harness probe also hits this path)
   const simMiss = (await runTool(
     "simulateTaxChange",
@@ -1336,7 +1391,15 @@ const run = async () => {
     ["Минималната пенсия на 400 €", "simulateTaxChange"],
     ["Замразяване на депутатските заплати", "simulateTaxChange"],
     ["Премахване на партийните субсидии", "simulateTaxChange"],
+    // excise levers (revenue side)
+    ["Вдигане на акциза върху цигарите с 40%", "simulateTaxChange"],
+    ["Намаление на акциза върху горивата с 10%", "simulateTaxChange"],
+    ["Акциз върху виното 48 €/хл", "simulateTaxChange"],
+    ["Raise the tobacco excise by 40%", "simulateTaxChange"],
     // guards: the neighbours keep their own questions
+    // bare definitional excise -> the budget overview, not the simulator
+    ["Колко са акцизите?", "budgetOverview"],
+    ["How much is excise?", "budgetOverview"],
     ["Какъв е държавният бюджет?", "budgetOverview"],
     // NB phrased WITHOUT "местните" — "местни данъци в X" is the known
     // pre-existing localMunicipality over-match (see memory notes), not ours.
