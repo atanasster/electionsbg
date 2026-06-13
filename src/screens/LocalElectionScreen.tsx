@@ -26,7 +26,12 @@ import {
 } from "lucide-react";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
-import { districtRayonGovernanceId } from "@/data/local/cityRayonCatalog";
+import {
+  districtRayonGovernanceId,
+  findCityRayon,
+  findCityRayonByName,
+  type CityRayon,
+} from "@/data/local/cityRayonCatalog";
 import { useChmiHistory } from "@/data/local/useChmiHistory";
 import type { ChmiHistoryEvent } from "@/data/local/useChmiHistory";
 import { useKmetstvoEkatte } from "@/data/local/useKmetstvoEkatte";
@@ -1060,6 +1065,119 @@ const CountryDashboard: FC<{ cycle: string }> = ({ cycle }) => {
 
 // === Top-level screen ===================================================
 
+// === Per-район (Пловдив/Варна) local screen =============================
+// A sub-city район has a directly-elected районен кмет but no council of its
+// own (the общински съвет is city-wide). So its local view is the районен-кмет
+// race + район station map, with the council deferred to the parent city page —
+// a lean counterpart to a Sofia район's /local/<cycle>/S2xxx page. The районен
+// кмет data lives in the parent city bundle's districts[], matched by name.
+
+const RayonLocalResults: FC<{ cycle: string; rayon: CityRayon }> = ({
+  cycle,
+  rayon,
+}) => {
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language === "bg" ? "bg" : "en";
+  const { municipality } = useLocalMunicipality(rayon.obshtina, cycle);
+  const cycleDate = friendlyCycleDate(cycle);
+  const { shard, hasCoords } = useLocalSectionShard(cycle, rayon.id);
+  const district = useMemo(
+    () =>
+      municipality?.districts.find(
+        (d) =>
+          findCityRayonByName(rayon.obshtina, d.districtName)?.id === rayon.id,
+      ),
+    [municipality, rayon],
+  );
+  const cityName = lang === "bg" ? rayon.cityBg : rayon.cityEn;
+  const rayonName = lang === "bg" ? rayon.labelBg : rayon.labelEn;
+
+  if (!municipality) {
+    return (
+      <section className="my-4 space-y-4">
+        <div className="text-xs text-muted-foreground">
+          <Link to={`/local/${cycle}`} className="hover:underline">
+            {t("local_election_screen_back")}
+          </Link>
+        </div>
+        <h1 className="text-2xl font-semibold">{rayonName}</h1>
+        <p className="text-sm text-muted-foreground">
+          {t("local_election_no_data")}
+        </p>
+      </section>
+    );
+  }
+
+  const mayorTile = district ? (
+    <TopMayorsTile
+      candidates={district.candidates}
+      electedName={district.elected?.candidateName ?? null}
+      to={`/local/${cycle}/${rayon.obshtina}`}
+    />
+  ) : null;
+
+  return (
+    <section className="my-4">
+      <PlaceHeader
+        active="local"
+        level="municipality"
+        obshtina={rayon.id}
+        fallbackName={rayonName}
+        eyebrowTo={`/local/${cycle}`}
+        eyebrowSuffix={cycleDate}
+        className="mb-4"
+      />
+
+      {district ? (
+        <Section title={t("local_district_mayor")}>
+          {district.round2 && district.round2.length > 0 ? (
+            <div className="mb-3">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
+                {t("local_election_sec_round_2")}
+              </div>
+              <LocalMayorRunoffBar round2={district.round2} />
+            </div>
+          ) : null}
+          {hasCoords && shard ? (
+            <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+              <LocalSectionsMapTile
+                shard={shard}
+                cycle={cycle}
+                obshtinaCode={rayon.obshtina}
+              />
+              {mayorTile}
+            </div>
+          ) : (
+            mayorTile
+          )}
+        </Section>
+      ) : (
+        <p className="text-sm text-muted-foreground">
+          {t("local_election_no_data")}
+        </p>
+      )}
+
+      {/* Council is elected city-wide — районите don't have one of their own,
+          so link to the parent Община's council instead of duplicating it. */}
+      <Section title={t("local_election_sec_council")}>
+        <p className="text-sm text-muted-foreground">
+          {lang === "bg"
+            ? "Общинският съвет е общоградски — районите нямат собствен съвет. "
+            : "The municipal council is elected city-wide — districts have none of their own. "}
+          <Link
+            to={`/local/${cycle}/${rayon.obshtina}/council`}
+            className="text-primary hover:underline"
+          >
+            {lang === "bg"
+              ? `Виж съвета на Община ${cityName} →`
+              : `See the ${cityName} municipality council →`}
+          </Link>
+        </p>
+      </Section>
+    </section>
+  );
+};
+
 export const LocalElectionScreen: FC = () => {
   const { cycle, obshtinaCode } = useParams<{
     cycle: string;
@@ -1067,6 +1185,12 @@ export const LocalElectionScreen: FC = () => {
   }>();
   if (!cycle) return null;
   if (obshtinaCode) {
+    // Пловдив/Варна район ids ("VAR06-02") get their own lean район view; every
+    // other code is a real local município bundle.
+    const cityRayon = findCityRayon(obshtinaCode);
+    if (cityRayon) {
+      return <RayonLocalResults cycle={cycle} rayon={cityRayon} />;
+    }
     return <MunicipalityResults cycle={cycle} obshtinaCode={obshtinaCode} />;
   }
   return <CountryDashboard cycle={cycle} />;

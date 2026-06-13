@@ -130,10 +130,10 @@ export const parliamentaryUrl = (p: PlaceRef): string | null => {
 // (PlaceViewNav guards via the cycle index before rendering the pill).
 export const localUrl = (p: PlaceRef, cycle: string): string | null => {
   if (p.level === "country") return `/local/${cycle}`;
-  // Пловдив/Варна район → the parent city's local page; the районен-кмет table
-  // lives there (its rows deep-link back to each район's governance page).
+  // Пловдив/Варна район → its own район-scoped local page (the районен-кмет
+  // race + район station map), mirroring a Sofia район's /local/<cycle>/S2xxx.
   const cityRayon = findCityRayon(p.obshtina);
-  if (cityRayon) return `/local/${cycle}/${cityRayon.obshtina}`;
+  if (cityRayon) return `/local/${cycle}/${cityRayon.id}`;
   // Sofia city aggregate: the synthetic SOF bundle, never SOF00.
   if (p.level === "municipality" && isSofiaCityObshtina(p.obshtina))
     return `/local/${cycle}/SOF`;

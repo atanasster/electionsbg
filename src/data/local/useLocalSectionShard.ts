@@ -9,6 +9,7 @@
 
 import { useMemo } from "react";
 import { useLocalSections } from "./useLocalSections";
+import { findCityRayon } from "./cityRayonCatalog";
 import type { LocalSectionShard } from "./types";
 
 export const useLocalSectionShard = (
@@ -16,8 +17,17 @@ export const useLocalSectionShard = (
   obshtinaCode: string,
 ): { shard: LocalSectionShard | undefined; hasCoords: boolean } => {
   const isSofiaRayon = /^S2\d{3}$/.test(obshtinaCode);
-  const sectionBundle = isSofiaRayon ? "SOF" : obshtinaCode;
-  const rayonDigit = isSofiaRayon ? obshtinaCode.slice(-2) : null;
+  // A Пловдив/Варна район ("VAR06-02") has no shard of its own — its stations
+  // sit in the parent city bundle, tagged by район in the section code's digits
+  // 5-6, exactly like the Sofia районите, only keyed off the catalog instead of
+  // the S2 code. So load the parent bundle once and narrow to the район here.
+  const cityRayon = findCityRayon(obshtinaCode);
+  const sectionBundle = isSofiaRayon
+    ? "SOF"
+    : (cityRayon?.obshtina ?? obshtinaCode);
+  const rayonDigit = isSofiaRayon
+    ? obshtinaCode.slice(-2)
+    : (cityRayon?.code ?? null);
   const { shard: rawShard } = useLocalSections(sectionBundle, cycle);
   const shard = useMemo(() => {
     if (!rawShard || !rayonDigit) return rawShard;
