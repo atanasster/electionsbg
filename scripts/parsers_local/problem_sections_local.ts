@@ -56,6 +56,12 @@ export type LocalProblemNeighborhood = {
   source_url: string;
   obshtinaCode: string;
   obshtinaName: string;
+  // The административен район the neighborhood sits in, as the 2-digit section-
+  // code field (digits 5-6) shared by its flagged sections — the join key for
+  // the район drill-down pages: Sofia районите (S2xxx, where S2511 → "11") and
+  // Пловдив/Варна (<muni>-<code>, where VAR06-03 → "03"). "00" for общини без
+  // районно деление (their município page ignores it).
+  rayonCode: string;
   sectionCount: number;
   numRegisteredVoters: number;
   totalActualVoters: number;
@@ -81,6 +87,18 @@ const matchesLocal = (
   section: LocalSectionResult,
   n: ProblemNeighborhood,
 ): boolean => {
+  // Suffix pin — for махала stations the CIK local feed ships with a blank
+  // address (Филиповци), so neither the prefix nor the keyword path can reach
+  // them. The suffix (code minus its 2-digit МИР/NSI prefix) is shared across
+  // systems and cycles. EKATTE-gated so a same-suffix section in another oblast
+  // can't be dragged in (Sofia is "68134"; the suffix excludes the prefix).
+  if (
+    n.sectionSuffixes?.length &&
+    normEkatte(section.ekatte) === normEkatte(n.ekatte) &&
+    n.sectionSuffixes.includes(section.sectionCode.slice(2))
+  ) {
+    return true;
+  }
   // Section-prefix path — only used by Stolipinovo ("162202"), and only valid
   // for local where МИР=NSI (Plovdiv city). Safe because it's the sole prefix
   // rule and it belongs to Plovdiv.
@@ -132,6 +150,9 @@ type Acc = {
   obshtinaName: string;
   legend: Map<number, LocalSectionShard["parties"][number]>;
   votes: Map<number, number>;
+  // Tally of the 2-digit административен район code (section digits 5-6) across
+  // the neighborhood's matched sections; the modal one is emitted as rayonCode.
+  rayonCounts: Map<string, number>;
   sectionCount: number;
   numRegisteredVoters: number;
   totalActualVoters: number;
@@ -176,6 +197,7 @@ const generateForCycle = ({
             obshtinaName: shard.obshtinaName,
             legend,
             votes: new Map(),
+            rayonCounts: new Map(),
             sectionCount: 0,
             numRegisteredVoters: 0,
             totalActualVoters: 0,
@@ -184,6 +206,8 @@ const generateForCycle = ({
           acc.set(n.id, a);
         }
         a.sectionCount += 1;
+        const rc = section.sectionCode.slice(4, 6);
+        a.rayonCounts.set(rc, (a.rayonCounts.get(rc) ?? 0) + 1);
         a.numRegisteredVoters += section.numRegisteredVoters;
         a.totalActualVoters += section.totalActualVoters;
         a.numValidVotes += section.numValidVotes;
@@ -222,6 +246,13 @@ const generateForCycle = ({
         })
         .filter((p) => p.votes > 0)
         .sort((x, y) => y.votes - x.votes);
+      // Modal район code — sections of one neighborhood share a район in
+      // practice, so this is just "the" район; the tally only guards against a
+      // stray mis-geocoded section dragging the key off.
+      const rayonCode =
+        Array.from(a.rayonCounts.entries()).sort(
+          (x, y) => y[1] - x[1],
+        )[0]?.[0] ?? "00";
       return {
         id: n.id,
         name_bg: n.name_bg,
@@ -231,6 +262,7 @@ const generateForCycle = ({
         source_url: n.source_url,
         obshtinaCode: a.obshtinaCode,
         obshtinaName: a.obshtinaName,
+        rayonCode,
         sectionCount: a.sectionCount,
         numRegisteredVoters: a.numRegisteredVoters,
         totalActualVoters: a.totalActualVoters,

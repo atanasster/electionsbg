@@ -14,6 +14,10 @@ import { StatCard } from "../StatCard";
 type Props = {
   obshtinaCode: string;
   cycle: string;
+  // When set (a район drill-down page), restrict the aggregate to the
+  // neighborhoods sitting in this 2-digit административен район; unset folds in
+  // every flagged neighborhood of the município.
+  rayonCode?: string;
 };
 
 type Bucket = {
@@ -31,12 +35,14 @@ type Bucket = {
 const aggregate = (
   report: LocalProblemSectionsReport | undefined,
   obshtinaCode: string,
+  rayonCode?: string,
 ): { totals: Map<string, Bucket>; total: number } => {
   const totals = new Map<string, Bucket>();
   let total = 0;
   if (!report) return { totals, total };
   for (const n of report.neighborhoods) {
     if (n.obshtinaCode !== obshtinaCode) continue;
+    if (rayonCode && n.rayonCode !== rayonCode) continue;
     for (const p of n.parties) {
       const canonicalId = p.primaryCanonicalId ?? null;
       const key = canonicalId ?? `local:${p.localPartyNum}`;
@@ -60,6 +66,7 @@ const aggregate = (
 export const LocalProblemVotesByPartyTile: FC<Props> = ({
   obshtinaCode,
   cycle,
+  rayonCode,
 }) => {
   const { t } = useTranslation();
   const { displayNameForId } = useCanonicalParties();
@@ -70,11 +77,12 @@ export const LocalProblemVotesByPartyTile: FC<Props> = ({
   const { data: prior } = useLocalProblemSections(priorCycle ?? null);
 
   const rows = useMemo(() => {
-    const { totals, total } = aggregate(current, obshtinaCode);
+    const { totals, total } = aggregate(current, obshtinaCode, rayonCode);
     if (!total) return [];
     const { totals: priorTotals, total: priorTotal } = aggregate(
       prior,
       obshtinaCode,
+      rayonCode,
     );
 
     const built = Array.from(totals.entries()).map(([key, b]) => {
@@ -101,7 +109,7 @@ export const LocalProblemVotesByPartyTile: FC<Props> = ({
 
     built.sort((a, b) => b.votes - a.votes);
     return built.filter((r) => r.votes > 0).slice(0, 8);
-  }, [current, prior, obshtinaCode]);
+  }, [current, prior, obshtinaCode, rayonCode]);
 
   if (!rows.length) return null;
 

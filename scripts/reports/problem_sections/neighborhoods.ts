@@ -8,6 +8,13 @@ export type ProblemNeighborhood = {
   sectionPrefix?: string;
   addressIncludes?: string[];
   sectionCodes?: string[];
+  // МИР-agnostic section-code suffixes (the 9-digit code minus its leading
+  // 2-digit МИР/NSI-oblast prefix, i.e. община+район+секция = digits 3-9). Used
+  // by the LOCAL matcher to pin махала stations the CIK local feed ships with a
+  // BLANK address, so neither the prefix nor the keyword path can reach them
+  // (Филиповци). Parliamentary "254619069" and local "224619069" share the
+  // suffix "4619069", so one curated list holds across systems and cycles.
+  sectionSuffixes?: string[];
   source_url: string;
 };
 
@@ -42,6 +49,12 @@ export const PROBLEM_NEIGHBORHOODS: ProblemNeighborhood[] = [
     city_en: "Sofia",
     ekatte: "68134-2519",
     addressIncludes: ["ФИЛИПОВЦИ"],
+    // The CIK local feed ships every Филиповци махала station (77 ОУ + 103 ОУ
+    // Васил Левски, район Люлин) with a BLANK address, so the keyword above can
+    // only reach them in the parliamentary data. Pin them by МИР-agnostic suffix
+    // for the local matcher — verified stable against the parliamentary
+    // problem_sections set across 2009-2026 (132 appears from 2017).
+    sectionSuffixes: ["4619069", "4619070", "4619071", "4619072", "4619132"],
     source_url:
       "https://www.svobodnaevropa.bg/a/mvr-riskovi-sekcii-kupuvane-glasove-peevski-borisov/33190193.html",
   },

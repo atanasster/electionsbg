@@ -678,12 +678,20 @@ const MunicipalityResults: FC<{
   // and council tiles (Sofia район shards read from the city-wide SOF bundle).
   const { shard, hasCoords } = useLocalSectionShard(cycle, obshtinaCode);
   // Risk-votes block — present only when this município owns ≥1 flagged
-  // "problem section" (most don't). Sofia район shards never match: their
-  // neighborhoods are keyed to the SOF city bundle.
+  // "problem section" (most don't). A Sofia район shard's neighborhoods are
+  // keyed to the SOF city bundle + the район's 2-digit код (S2511 → "11"), so
+  // re-anchor the lookup there to surface them on the район page too.
   const { data: problemReport } = useLocalProblemSections(cycle);
+  const problemRayonCode = /^S2\d{3}$/.test(obshtinaCode)
+    ? obshtinaCode.slice(-2)
+    : undefined;
+  const problemParent = problemRayonCode ? "SOF" : obshtinaCode;
   const hasProblemSections =
-    problemReport?.neighborhoods.some((n) => n.obshtinaCode === obshtinaCode) ??
-    false;
+    problemReport?.neighborhoods.some(
+      (n) =>
+        n.obshtinaCode === problemParent &&
+        (!problemRayonCode || n.rayonCode === problemRayonCode),
+    ) ?? false;
 
   if (!municipality) {
     return (
@@ -884,7 +892,8 @@ const MunicipalityResults: FC<{
           icon={ShieldAlert}
         >
           <LocalProblemVotesByPartyTile
-            obshtinaCode={obshtinaCode}
+            obshtinaCode={problemParent}
+            rayonCode={problemRayonCode}
             cycle={cycle}
           />
         </DashboardSection>
@@ -1089,6 +1098,15 @@ const RayonLocalResults: FC<{ cycle: string; rayon: CityRayon }> = ({
       ),
     [municipality, rayon],
   );
+  // Risk-votes block — the Roma-neighborhood council-ballot distribution for the
+  // flagged sections that fall inside this район (Максуда → район Младост,
+  // Столипиново → Източен). Keyed by the parent city bundle + this район's
+  // 2-digit код, so a район with no flagged sections renders nothing.
+  const { data: problemReport } = useLocalProblemSections(cycle);
+  const hasProblemSections =
+    problemReport?.neighborhoods.some(
+      (n) => n.obshtinaCode === rayon.obshtina && n.rayonCode === rayon.code,
+    ) ?? false;
   const cityName = lang === "bg" ? rayon.cityBg : rayon.cityEn;
   const rayonName = lang === "bg" ? rayon.labelBg : rayon.labelEn;
 
@@ -1174,6 +1192,23 @@ const RayonLocalResults: FC<{ cycle: string; rayon: CityRayon }> = ({
           </Link>
         </p>
       </Section>
+
+      {/* Risk votes — council-ballot distribution inside the curated Roma-
+          neighborhood "problem sections" that sit in this район (e.g. Максуда
+          in район Младост). Gated on a real match so no empty heading renders. */}
+      {hasProblemSections ? (
+        <DashboardSection
+          id="local-risk-votes"
+          title={t("dashboard_section_neighborhoods")}
+          icon={ShieldAlert}
+        >
+          <LocalProblemVotesByPartyTile
+            obshtinaCode={rayon.obshtina}
+            rayonCode={rayon.code}
+            cycle={cycle}
+          />
+        </DashboardSection>
+      ) : null}
     </section>
   );
 };

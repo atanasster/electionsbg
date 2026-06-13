@@ -32,6 +32,10 @@ export type LocalProblemNeighborhood = {
   source_url: string;
   obshtinaCode: string;
   obshtinaName: string;
+  // 2-digit административен район code (section digits 5-6) the neighborhood
+  // sits in — the join key for the район drill-down pages (Sofia S2xxx,
+  // Пловдив/Варна <muni>-<code>). "00" for общини без районно деление.
+  rayonCode: string;
   sectionCount: number;
   numRegisteredVoters: number;
   totalActualVoters: number;

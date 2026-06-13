@@ -16,13 +16,13 @@ Two historical archives are also supported as one-time backfills (not watched, s
 
 ## When to run
 
-| Trigger | Action |
-|---|---|
-| Daily watcher reports `CIK local-elections results bundles: N cycle(s) changed: …` | Run incremental ingest for the changed cycle(s) — Step 2 below |
-| Describe-line ends `<cycle> тур2 (runoff) re-check` | A mayoral partial's round-2 runoff window opened (the watcher re-flags each fresh partial ~9 and ~16 days after election day). **Re-run the same `--local-ingest <cycle>`** — idempotent on the round-1 mirror, pulls the round-2 (`tur2/`) pages now published, resolving the real winner (round-1 HTML stubs both finalists as elected). |
-| User asks to "refresh local elections" / "update мест. избори" / "ingest the new partial" | Same — Step 2 |
-| `data/2023_10_29_mi/` is empty on a fresh clone | Cold-start ingest with `--local-ingest mi2023` |
-| Adding a new regular cycle (e.g. mi2027 after Oct 2027) | First add the new slug → bundle URL to `scripts/watch/sources/cik_results.ts` `REGULAR_BUNDLE_URL`; then ingest |
+| Trigger                                                                                   | Action                                                                                                                                                                                                                                                                                                                                     |
+| ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Daily watcher reports `CIK local-elections results bundles: N cycle(s) changed: …`        | Run incremental ingest for the changed cycle(s) — Step 2 below                                                                                                                                                                                                                                                                             |
+| Describe-line ends `<cycle> тур2 (runoff) re-check`                                       | A mayoral partial's round-2 runoff window opened (the watcher re-flags each fresh partial ~9 and ~16 days after election day). **Re-run the same `--local-ingest <cycle>`** — idempotent on the round-1 mirror, pulls the round-2 (`tur2/`) pages now published, resolving the real winner (round-1 HTML stubs both finalists as elected). |
+| User asks to "refresh local elections" / "update мест. избори" / "ingest the new partial" | Same — Step 2                                                                                                                                                                                                                                                                                                                              |
+| `data/2023_10_29_mi/` is empty on a fresh clone                                           | Cold-start ingest with `--local-ingest mi2023`                                                                                                                                                                                                                                                                                             |
+| Adding a new regular cycle (e.g. mi2027 after Oct 2027)                                   | First add the new slug → bundle URL to `scripts/watch/sources/cik_results.ts` `REGULAR_BUNDLE_URL`; then ingest                                                                                                                                                                                                                            |
 
 ## Architecture (read once)
 
@@ -58,8 +58,9 @@ data/<cycle>/
 Cross-cycle chmi history (`data/local_chmi_history.json`) is built by `scripts/parsers_local/build_chmi_history.ts` (`buildChmiHistory`) at the tail of `parseLocalElection` and `resolveCanonicalsForCycle`. The same builder additionally writes per-município shards to `data/chmi_history/<obshtinaCode>.json` (rewritten from scratch each run) so the município page + settlement dashboard fetch their own ≤ 1 KB file instead of pulling the 61 KB global. The global file is kept for the national `/local/chmi` feed which needs every event.
 
 The fingerprint source `cik_results` in `scripts/watch/sources/cik_results.ts` tracks two kinds of cycle daily and queues this skill via `process-watch-report` when either changes:
+
 - **Regular cycles** (`mi2019`, `mi2023`) — HEADs the section bundle (`REGULAR_BUNDLE_URL`; mi2023's is `tur1/opendata/export.zip`, NOT a uniform `csv.zip`) for `Last-Modified` + `Content-Length`.
-- **Partial cycles** — enumerates every dated subdirectory under each `PARTIAL_UMBRELLAS` entry from CIK's root index, matching **both** `<date>_chastichen` (partial) **and** `<date>_nov` (new election, incl. full council re-elections). These are HTML-only; a newly-appeared date folder is the round-1 change signal. **Round-2 runoffs** publish into the *same* date folder ~7 days later under `tur2/`, with no fresh folder to detect — and CIK serves a populated `tur2/` shell even for roundless `_nov` cycles, so there's no reliable server signal to probe. The source instead schedules re-ingests purely off the election date in the slug: each freshly-seen partial advances a `runoffStage` at fixed day offsets (`RUNOFF_RECHECK_DAYS = [9, 16]`), and every advance re-flags the cycle with a `тур2 (runoff) re-check` describe-line. Pre-existing partials are grandfathered (never re-flagged), so shipping the mechanism is a no-op.
+- **Partial cycles** — enumerates every dated subdirectory under each `PARTIAL_UMBRELLAS` entry from CIK's root index, matching **both** `<date>_chastichen` (partial) **and** `<date>_nov` (new election, incl. full council re-elections). These are HTML-only; a newly-appeared date folder is the round-1 change signal. **Round-2 runoffs** publish into the _same_ date folder ~7 days later under `tur2/`, with no fresh folder to detect — and CIK serves a populated `tur2/` shell even for roundless `_nov` cycles, so there's no reliable server signal to probe. The source instead schedules re-ingests purely off the election date in the slug: each freshly-seen partial advances a `runoffStage` at fixed day offsets (`RUNOFF_RECHECK_DAYS = [9, 16]`), and every advance re-flags the cycle with a `тур2 (runoff) re-check` describe-line. Pre-existing partials are grandfathered (never re-flagged), so shipping the mechanism is a no-op.
 
 ## Step 1 — Prerequisites
 
@@ -104,6 +105,7 @@ Expected output:
 ```
 
 **chmi structural variants are auto-handled** (no per-cycle flags):
+
 - Both `_chastichen` and `_nov` use the same id'd `obl-select`/`obs-select` dropdowns as mi2019/mi2023 (discovery is keyed off `usesIdSelects` in `ingest_cycle.ts`, which now includes any `chmi*` slug).
 - The single-round "нови избори за общински съветници" partials publish at `<cycle>/rezultati/...` with **no `tur1/` segment** — `ingestCycle` probes the tur1 index, detects the 404, and switches to the roundless layout. A full council re-election surfaces in `/local/chmi` as a `council`-kind event (leading party + seats; see `build_chmi_history.ts`).
 
@@ -171,6 +173,7 @@ idx.mayorsByCanonical.slice(0, 5).forEach(p =>
 ```
 
 For mi2023 expect roughly:
+
 - 265 municipalities
 - Top council vote share dominated by ГЕРБ, БСП, ДПС
 - Mayors-won dominated by ГЕРБ + independents (Blagoevgrad's Илко Стоянов won as an independent)
@@ -231,15 +234,28 @@ reads it; self-hides for municípios with no flagged neighborhood):
 npm run data -- --local-problem-sections
 ```
 
-**Run this AFTER `--local-coords`** — the match keys on EKATTE + the building
-`address` that the coords step stamps onto the shards. Reuses the watchlist in
-`scripts/reports/problem_sections/neighborhoods.ts` (same source as
+**Run this AFTER `--local-coords`** — most neighborhoods key on EKATTE + the
+building `address` that the coords step stamps onto the shards. Reuses the
+watchlist in `scripts/reports/problem_sections/neighborhoods.ts` (same source as
 parliamentary); matching is local-specific (`problem_sections_local.ts`) because
 local section codes are NSI-oblast-prefixed while parliamentary are
-МИР-prefixed, so the codes can't be joined — it matches by section prefix
-(Plovdiv only, where МИР=NSI), else address keyword + normalized EKATTE. Reads
+МИР-prefixed, so the codes can't be joined. Three match paths, first hit wins:
+(1) **section prefix** — Plovdiv only, where МИР=NSI (Stolipinovo); (2)
+**МИР-agnostic section suffix** — the 9-digit code minus its 2-digit prefix,
+EKATTE-gated, for махала stations the CIK local feed ships with a BLANK
+`address` (Филиповци: parliamentary `254619069` ↔ local `224619069` share suffix
+`4619069`) — this path is **address-independent**, so Филиповци does not need
+`--local-coords`; (3) **address keyword + normalized EKATTE** (the rest). Reads
 the per-station detail files for full party votes. Idempotent; also folded into
 `--all`.
+
+Each emitted neighborhood carries a `rayonCode` (section-code digits 5-6 = the
+административен район it sits in). The município dashboard ignores it (shows all
+its neighborhoods), but the **район drill-down pages** join on it so a
+neighborhood surfaces on the right район too: Sofia районите (S2xxx → код =
+last 2 digits), Пловдив/Варна (`<muni>-<code>`). E.g. Максуда → район Младост
+(VAR06-03), Столипиново → Източен (PDV22-02), Филиповци → Люлин (S2519). общини
+без районно деление get `00`. No new step — it falls out of this same run.
 
 ## Step 6 — Stamp the ingest marker
 
@@ -266,7 +282,7 @@ When CIK publishes mi2027 (~Oct 2027):
    const REGULAR_DATES: Record<string, string> = {
      mi2019: "2019_10_27",
      mi2023: "2023_10_29",
-     mi2027: "2027_10_xx",  // ← actual election day
+     mi2027: "2027_10_xx", // ← actual election day
    };
    ```
 3. Add a single-entry catalogue update to `src/data/json/local_elections.json`.
@@ -314,6 +330,7 @@ or council race (reusing `parseMayorTable` / `parseCouncilTable`), resolves the
 obshtina from the heading's "община X, област Y" or the 9-digit section code's
 OIK, and emits bundles so `buildChmiHistory` surfaces them on `/local/chmi`
 (spanning 2012-2026). Notes:
+
 - Within an umbrella later dates migrated to the modern OIK structure; when the
   legacy ingest finds no numbered pages it delegates to `ingestCycle`.
 - These are a **one-time historical backfill, not watched** (`PARTIAL_UMBRELLAS`
