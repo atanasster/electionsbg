@@ -17,6 +17,11 @@ public/regions/
 public/maps
 public/*.json
 
+# Generated budget artifacts — written by scripts/budget/* with
+# JSON.stringify(…, 2) (arrays one-per-line), which Prettier would re-collapse.
+# Keep the committed files byte-identical to the generator's output.
+data/budget/derived/
+
 # Lockfiles & logs
 package-lock.json
 *.log

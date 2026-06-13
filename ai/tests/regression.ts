@@ -1404,8 +1404,10 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "държавните служители плащат осигуровките си",
-      delta_per_year: /\+124/,
-      delta_static: /\+126/,
+      // Full КСО чл. 6, ал. 5 scope: administration + judiciary + defense &
+      // security (132,862 people across the two НОИ SOD-2024 categories).
+      delta_per_year: /\+249/,
+      delta_static: /\+254/,
     },
     links: ["/budget/simulator?ssp=1", "/budget"],
   },

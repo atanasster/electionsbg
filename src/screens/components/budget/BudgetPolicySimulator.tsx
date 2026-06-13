@@ -47,6 +47,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { formatEur } from "@/lib/currency";
+import { GROUP_URL } from "@/lib/community";
 import {
   PIT_RATE,
   CORP_TAX_RATE,
@@ -81,6 +82,8 @@ import {
   scoreMpPayFreeze,
   scorePartySubsidy,
   MATERNITY_Y2_MONTHS,
+  MATERNITY_Y2_BENEFIT_EUR_MO,
+  MATERNITY_Y2_SPEND_EUR,
   PARTY_SUBSIDY_RATE_EUR,
   type PitBracket,
   type VatAdjustableGroup,
@@ -186,6 +189,339 @@ const PRESETS: { id: string; apply: PresetApply }[] = [
   { id: "admin10", apply: { adm: 10 } },
   { id: "maternity1", apply: { mat: 0 } },
 ];
+
+type Baseline = NonNullable<ReturnType<typeof usePolicyBaseline>["data"]>;
+
+// Every lever position the static scorer reads. The live scenario builds this
+// from component state; the preset myth-buster weights build it from
+// NEUTRAL_LEVERS + the preset's overrides. Both then go through the SAME
+// computeStaticScenario, so a chip can never promise a number the breakdown
+// below it then contradicts.
+interface LeverState {
+  vatStd: number;
+  vatRedEff: number;
+  regimes: Partial<Record<VatAdjustableGroup, VatRegime>>;
+  pit: number;
+  nm: number;
+  bracket2: boolean;
+  t2Eff: number;
+  r2: number;
+  corp: number;
+  div: number;
+  mod: number;
+  noCap: boolean;
+  currentCap: number;
+  pw: number;
+  noSupp: boolean;
+  ph: number;
+  adm: number;
+  mrzFreeze: boolean;
+  def: number;
+  wi: number;
+  wex: boolean;
+  kap: number;
+  ssp: boolean;
+  sspg: boolean;
+  hp: number;
+  mpEff: number;
+  mpDef: number;
+  tpEff: number;
+  tpDef: number;
+  mat: number;
+  mpf: boolean;
+  psub: number;
+}
+
+// THE single static-scoring path. Returns each lever's static EUR delta
+// (balance convention: positive = the budget improves) plus the `central`
+// total and the MC band edges. Pure — depends only on the baseline and the
+// lever state. Returns null until the baseline's VAT slices + earnings bands
+// are loaded.
+const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
+  const vat = baseline.vat;
+  const earnings = baseline.earnings;
+  if (!vat?.slices || !earnings?.bands) return null;
+  const slices = vat.slices as VatBaseSlice[];
+  const currentPolicy: VatPolicy = {
+    standardRate: VAT_STANDARD_RATE,
+    reducedRate: VAT_REDUCED_RATE,
+    regimes: {},
+  };
+  const policy: VatPolicy = {
+    standardRate: s.vatStd / 100,
+    reducedRate: s.vatRedEff / 100,
+    regimes: s.regimes,
+  };
+  const vatBaseRun = computeVatRevenue(slices, currentPolicy);
+  const vatRun = computeVatRevenue(slices, policy);
+  const vatDelta = (vatRun.modeledEur - vatBaseRun.modeledEur) * vat.factor;
+
+  // ДДФЛ: the employment portion is scored over the fitted earnings bands
+  // (so untaxed-minimum / second-bracket schedules work), non-employment
+  // income scales with the schedule's base rate.
+  const brackets: PitBracket[] = [];
+  if (s.nm > 0) brackets.push({ fromEur: 0, rate: 0 });
+  brackets.push({ fromEur: s.nm, rate: s.pit / 100 });
+  if (s.bracket2) brackets.push({ fromEur: s.t2Eff, rate: s.r2 / 100 });
+  const pitEmploymentDelta = scorePitSchedule(
+    earnings.bands,
+    earnings.capEur,
+    brackets,
+    earnings.kappa,
+  );
+  const pitNonEmploymentDelta =
+    baseline.revenue.pitEur *
+    baseline.revenue.pitNonEmploymentShare *
+    (s.pit / 100 / PIT_RATE - 1);
+  const pitDelta = pitEmploymentDelta + pitNonEmploymentDelta;
+
+  const corpDelta = scoreCorporate(baseline.revenue.corporateEur, s.corp / 100);
+  const divDelta = scoreDividend(baseline.revenue.dividendEur, s.div / 100);
+
+  // МОД: central from the band model (works in both directions and knows
+  // the schedule's base rate for the deduction interaction); the range
+  // comes from the closed-form Pareto α band when raising, and a flat
+  // ±15% model margin when lowering (the body is far better anchored
+  // than the tail, but it is still a fitted shape).
+  const targetCap = s.noCap ? Infinity : s.mod;
+  const modBands = scoreModCapBands(
+    earnings.bands,
+    s.currentCap,
+    targetCap,
+    s.pit / 100,
+  );
+  let modRes: { centralEur: number; lowEur: number; highEur: number };
+  if (targetCap >= s.currentCap) {
+    const cf = scoreModCap(baseline.modIdentity, targetCap, s.currentCap);
+    modRes = {
+      centralEur: modBands.totalEur,
+      lowEur: Math.min(cf.lowEur, cf.highEur, modBands.totalEur),
+      highEur: Math.max(cf.lowEur, cf.highEur, modBands.totalEur),
+    };
+  } else {
+    modRes = {
+      centralEur: modBands.totalEur,
+      lowEur: modBands.totalEur * 1.15,
+      highEur: modBands.totalEur * 0.85,
+    };
+  }
+
+  // Expenditure levers (balance convention: positive = budget improves).
+  const exp = baseline.expenditure;
+  const pensionDeltaSpend = exp
+    ? scorePensionIndexation(exp.pensions, {
+        cpiWeight: s.pw / 100,
+        indexSupplement: !s.noSupp,
+        horizonYears: s.ph,
+      })
+    : 0;
+  const adminRes =
+    exp && s.adm > 0 ? scoreAdminCut(exp.administration, s.adm / 100) : null;
+  const adminDeltaSpend = adminRes ? adminRes.netEur : 0;
+  const mwDelta =
+    exp && s.mrzFreeze ? scoreMinWageFreeze(earnings.bands, exp.minWage) : 0;
+  // Priced against the projection module's 2026 GDP so the defense lever
+  // and the projection card never quote two different GDPs.
+  const defDelta =
+    exp && s.def !== 22
+      ? scoreDefenseTarget(
+          NOMINAL_GDP_2026_EUR,
+          exp.defense.natoPctGdp,
+          s.def / 10,
+        )
+      : 0;
+  const wiDelta =
+    exp && s.wi !== 0
+      ? scoreWageIndexation(
+          exp.personnel.massEur,
+          exp.personnel.exemptShare,
+          s.wi,
+          s.wex,
+        )
+      : 0;
+  const kapDelta =
+    exp && s.kap !== 0
+      ? scoreCapitalChange(
+          exp.capital.planEur,
+          exp.capital.executionRate,
+          s.kap,
+        )
+      : 0;
+  const sspDelta =
+    exp && s.ssp
+      ? scoreSscSelfPaid(
+          exp.sscSelfPaid.count,
+          exp.sscSelfPaid.avgWageEur,
+          s.sspg,
+        )
+      : 0;
+  const hpDelta =
+    exp && s.hp !== 0 ? scoreHealthContribution(exp.health.baseEur, s.hp) : 0;
+  // Pension floor: top-up to the new minimum for every pensioner below it.
+  const mpDeltaSpend =
+    exp?.pensionFloor && s.mpEff !== s.mpDef
+      ? scorePensionFloorRaise(
+          exp.pensionFloor.bands,
+          exp.pensionFloor.minimumEur,
+          s.mpEff,
+        )
+      : 0;
+  // Teachers' peg: move the (proxy) ratio to the target % of the economy
+  // average — negative below the current ratio (a saving).
+  const tpDeltaSpend =
+    exp?.teachers && s.tpEff !== s.tpDef
+      ? scoreTeachersPeg(
+          exp.teachers.count,
+          exp.teachers.economyWageEur,
+          exp.teachers.currentRatio,
+          s.tpEff,
+        )
+      : 0;
+  // June-2026 debate levers (Δ spending; negative = the budget saves).
+  const matDeltaSpend =
+    s.mat !== MATERNITY_Y2_MONTHS ? scoreMaternityMonths(s.mat) : 0;
+  const mpfDeltaSpend =
+    exp && s.mpf ? scoreMpPayFreeze(exp.pensions.wageGrowthPct) : 0;
+  const psubDeltaSpend =
+    s.psub !== PSUB_DEF ? scorePartySubsidy(s.psub / 100) : 0;
+  // The non-pension expenditure slice (the Tier-2 spending impulse):
+  // pensions ride the projection's fixed path, МРЗ/health are revenue-side.
+  const expenditureNonPensionBalance = -(
+    adminDeltaSpend +
+    defDelta +
+    wiDelta +
+    kapDelta +
+    sspDelta +
+    mpDeltaSpend +
+    tpDeltaSpend +
+    matDeltaSpend +
+    mpfDeltaSpend +
+    psubDeltaSpend
+  );
+  const expenditureBalance =
+    expenditureNonPensionBalance - pensionDeltaSpend + mwDelta + hpDelta;
+
+  const central =
+    vatDelta +
+    pitDelta +
+    corpDelta +
+    divDelta +
+    modRes.centralEur +
+    expenditureBalance;
+  const low =
+    vatDelta +
+    pitDelta +
+    corpDelta +
+    divDelta +
+    expenditureBalance +
+    Math.min(modRes.lowEur, modRes.highEur);
+  const high =
+    vatDelta +
+    pitDelta +
+    corpDelta +
+    divDelta +
+    expenditureBalance +
+    Math.max(modRes.lowEur, modRes.highEur);
+
+  // Household effective VAT take per euro of taxable consumption — drives
+  // the citizen pane's VAT line.
+  const taxableBase = slices.reduce(
+    (acc, sl) => (sl.regime !== null ? acc + sl.valueEur : acc),
+    0,
+  );
+  const vatFractionBase = vatBaseRun.modeledEur / taxableBase;
+  const vatFractionNew = vatRun.modeledEur / taxableBase;
+
+  return {
+    vatDelta,
+    pitDelta,
+    pitEmploymentDelta,
+    pitNonEmploymentDelta,
+    corpDelta,
+    divDelta,
+    modRes,
+    brackets,
+    expenditureNonPensionBalance,
+    pensionBalance: -pensionDeltaSpend,
+    adminBalance: -adminDeltaSpend,
+    adminRes,
+    mwDelta,
+    defBalance: -defDelta,
+    wiBalance: -wiDelta,
+    kapBalance: -kapDelta,
+    sspBalance: -sspDelta,
+    hpDelta,
+    mpBalance: -mpDeltaSpend,
+    tpBalance: -tpDeltaSpend,
+    matBalance: -matDeltaSpend,
+    mpfBalance: -mpfDeltaSpend,
+    psubBalance: -psubDeltaSpend,
+    central,
+    low,
+    high,
+    vatFractionBase,
+    vatFractionNew,
+  };
+};
+
+// Lever positions at which every score* call returns 0 — the baseline the
+// preset weights perturb. A preset overrides only the fields it touches, so
+// the result is exactly the sum of just those levers.
+const NEUTRAL_LEVERS = (currentCap: number): LeverState => ({
+  vatStd: VAT_STANDARD_RATE * 100,
+  vatRedEff: VAT_REDUCED_RATE * 100,
+  regimes: {},
+  pit: PIT_DEF,
+  nm: 0,
+  bracket2: false,
+  t2Eff: T2_DEF,
+  r2: R2_DEF,
+  corp: CORP_DEF,
+  div: DIV_DEF,
+  mod: currentCap,
+  noCap: false,
+  currentCap,
+  pw: 50,
+  noSupp: false,
+  ph: 1,
+  adm: 0,
+  mrzFreeze: false,
+  def: 22,
+  wi: 0,
+  wex: false,
+  kap: 0,
+  ssp: false,
+  sspg: false,
+  hp: 0,
+  mpEff: 0,
+  mpDef: 0,
+  tpEff: 0,
+  tpDef: 0,
+  mat: MATERNITY_Y2_MONTHS,
+  mpf: false,
+  psub: PSUB_DEF,
+});
+
+// Static central effect of one preset in isolation — the myth-buster weight
+// in its chip tooltip ("covers X% of the 2026 deficit"). Routes through the
+// same computeStaticScenario the live breakdown uses, so the chip's number
+// is the number the breakdown then shows.
+const presetStaticEur = (baseline: Baseline, p: PresetApply): number => {
+  const s = NEUTRAL_LEVERS(resolveMod(null).mod);
+  if (p.nm != null) s.nm = p.nm;
+  if (p.b2) {
+    s.bracket2 = true;
+    s.t2Eff = p.b2.t2;
+    s.r2 = p.b2.r2;
+  }
+  if (p.regimes) s.regimes = p.regimes;
+  if (p.noCap) s.noCap = true;
+  if (p.pw != null) s.pw = p.pw;
+  if (p.adm != null) s.adm = p.adm;
+  if (p.mrzFreeze) s.mrzFreeze = true;
+  if (p.mat != null) s.mat = p.mat;
+  return computeStaticScenario(baseline, s)?.central ?? 0;
+};
 
 // Goal missions for the scoreboard hero (the CRFB/Fiscal-Ship pattern: a
 // number moving toward a target, not floating in space). `edp` tracks the
@@ -1003,232 +1339,41 @@ export const BudgetPolicySimulator: FC = () => {
 
   // ----- scoring -----------------------------------------------------------
   const scenario = useMemo(() => {
-    if (!baseline?.earnings?.bands || !baseline.vat?.slices) return null;
-    const slices = baseline.vat.slices as VatBaseSlice[];
-    const currentPolicy: VatPolicy = {
-      standardRate: VAT_STANDARD_RATE,
-      reducedRate: VAT_REDUCED_RATE,
-      regimes: {},
-    };
-    const policy: VatPolicy = {
-      standardRate: vatStd / 100,
-      reducedRate: vatRedEff / 100,
+    if (!baseline) return null;
+    return computeStaticScenario(baseline, {
+      vatStd,
+      vatRedEff,
       regimes,
-    };
-    const vatBaseRun = computeVatRevenue(slices, currentPolicy);
-    const vatRun = computeVatRevenue(slices, policy);
-    const vatDelta =
-      (vatRun.modeledEur - vatBaseRun.modeledEur) * baseline.vat.factor;
-
-    // ДДФЛ: the employment portion is scored over the fitted earnings bands
-    // (so untaxed-minimum / second-bracket schedules work), non-employment
-    // income scales with the schedule's base rate.
-    const brackets: PitBracket[] = [];
-    if (nm > 0) brackets.push({ fromEur: 0, rate: 0 });
-    brackets.push({ fromEur: nm, rate: pit / 100 });
-    if (bracket2) brackets.push({ fromEur: t2Eff, rate: r2 / 100 });
-    const earnings = baseline.earnings;
-    const pitEmploymentDelta = scorePitSchedule(
-      earnings.bands,
-      earnings.capEur,
-      brackets,
-      earnings.kappa,
-    );
-    const pitNonEmploymentDelta =
-      baseline.revenue.pitEur *
-      baseline.revenue.pitNonEmploymentShare *
-      (pit / 100 / PIT_RATE - 1);
-    const pitDelta = pitEmploymentDelta + pitNonEmploymentDelta;
-
-    const corpDelta = scoreCorporate(baseline.revenue.corporateEur, corp / 100);
-    const divDelta = scoreDividend(baseline.revenue.dividendEur, div / 100);
-
-    // МОД: central from the band model (works in both directions and knows
-    // the schedule's base rate for the deduction interaction); the range
-    // comes from the closed-form Pareto α band when raising, and a flat
-    // ±15% model margin when lowering (the body is far better anchored
-    // than the tail, but it is still a fitted shape).
-    const targetCap = noCap ? Infinity : mod;
-    const modBands = scoreModCapBands(
-      earnings.bands,
+      pit,
+      nm,
+      bracket2,
+      t2Eff,
+      r2,
+      corp,
+      div,
+      mod,
+      noCap,
       currentCap,
-      targetCap,
-      pit / 100,
-    );
-    let modRes: { centralEur: number; lowEur: number; highEur: number };
-    if (targetCap >= currentCap) {
-      const cf = scoreModCap(baseline.modIdentity, targetCap, currentCap);
-      modRes = {
-        centralEur: modBands.totalEur,
-        lowEur: Math.min(cf.lowEur, cf.highEur, modBands.totalEur),
-        highEur: Math.max(cf.lowEur, cf.highEur, modBands.totalEur),
-      };
-    } else {
-      modRes = {
-        centralEur: modBands.totalEur,
-        lowEur: modBands.totalEur * 1.15,
-        highEur: modBands.totalEur * 0.85,
-      };
-    }
-
-    // Expenditure levers (balance convention: positive = budget improves).
-    const exp = baseline.expenditure;
-    const pensionDeltaSpend = exp
-      ? scorePensionIndexation(exp.pensions, {
-          cpiWeight: pw / 100,
-          indexSupplement: !noSupp,
-          horizonYears: ph,
-        })
-      : 0;
-    const adminRes =
-      exp && adm > 0 ? scoreAdminCut(exp.administration, adm / 100) : null;
-    const adminDeltaSpend = adminRes ? adminRes.netEur : 0;
-    const mwDelta =
-      exp && mrzFreeze
-        ? scoreMinWageFreeze(baseline.earnings.bands, exp.minWage)
-        : 0;
-    // Priced against the projection module's 2026 GDP so the defense lever
-    // and the projection card never quote two different GDPs.
-    const defDelta =
-      exp && def !== 22
-        ? scoreDefenseTarget(
-            NOMINAL_GDP_2026_EUR,
-            exp.defense.natoPctGdp,
-            def / 10,
-          )
-        : 0;
-    const wiDelta =
-      exp && wi !== 0
-        ? scoreWageIndexation(
-            exp.personnel.massEur,
-            exp.personnel.exemptShare,
-            wi,
-            wex,
-          )
-        : 0;
-    const kapDelta =
-      exp && kap !== 0
-        ? scoreCapitalChange(
-            exp.capital.planEur,
-            exp.capital.executionRate,
-            kap,
-          )
-        : 0;
-    const sspDelta =
-      exp && ssp
-        ? scoreSscSelfPaid(
-            exp.sscSelfPaid.count,
-            exp.sscSelfPaid.avgWageEur,
-            sspg,
-          )
-        : 0;
-    const hpDelta =
-      exp && hp !== 0 ? scoreHealthContribution(exp.health.baseEur, hp) : 0;
-    // Pension floor: top-up to the new minimum for every pensioner below it.
-    const mpDeltaSpend =
-      exp?.pensionFloor && mpEff !== mpDef
-        ? scorePensionFloorRaise(
-            exp.pensionFloor.bands,
-            exp.pensionFloor.minimumEur,
-            mpEff,
-          )
-        : 0;
-    // Teachers' peg: move the (proxy) ratio to the target % of the economy
-    // average — negative below the current ratio (a saving).
-    const tpDeltaSpend =
-      exp?.teachers && tpEff !== tpDef
-        ? scoreTeachersPeg(
-            exp.teachers.count,
-            exp.teachers.economyWageEur,
-            exp.teachers.currentRatio,
-            tpEff,
-          )
-        : 0;
-    // June-2026 debate levers (Δ spending; negative = the budget saves).
-    const matDeltaSpend =
-      mat !== MATERNITY_Y2_MONTHS ? scoreMaternityMonths(mat) : 0;
-    const mpfDeltaSpend =
-      exp && mpf ? scoreMpPayFreeze(exp.pensions.wageGrowthPct) : 0;
-    const psubDeltaSpend =
-      psub !== PSUB_DEF ? scorePartySubsidy(psub / 100) : 0;
-    // The non-pension expenditure slice (the Tier-2 spending impulse):
-    // pensions ride the projection's fixed path, МРЗ/health are revenue-side.
-    const expenditureNonPensionBalance = -(
-      adminDeltaSpend +
-      defDelta +
-      wiDelta +
-      kapDelta +
-      sspDelta +
-      mpDeltaSpend +
-      tpDeltaSpend +
-      matDeltaSpend +
-      mpfDeltaSpend +
-      psubDeltaSpend
-    );
-    const expenditureBalance =
-      expenditureNonPensionBalance - pensionDeltaSpend + mwDelta + hpDelta;
-
-    const central =
-      vatDelta +
-      pitDelta +
-      corpDelta +
-      divDelta +
-      modRes.centralEur +
-      expenditureBalance;
-    const low =
-      vatDelta +
-      pitDelta +
-      corpDelta +
-      divDelta +
-      expenditureBalance +
-      Math.min(modRes.lowEur, modRes.highEur);
-    const high =
-      vatDelta +
-      pitDelta +
-      corpDelta +
-      divDelta +
-      expenditureBalance +
-      Math.max(modRes.lowEur, modRes.highEur);
-
-    // Household effective VAT take per euro of taxable consumption — drives
-    // the citizen pane's VAT line.
-    const taxableBase = slices.reduce(
-      (acc, s) => (s.regime !== null ? acc + s.valueEur : acc),
-      0,
-    );
-    const vatFractionBase = vatBaseRun.modeledEur / taxableBase;
-    const vatFractionNew = vatRun.modeledEur / taxableBase;
-
-    return {
-      vatDelta,
-      pitDelta,
-      pitEmploymentDelta,
-      pitNonEmploymentDelta,
-      corpDelta,
-      divDelta,
-      modRes,
-      brackets,
-      expenditureNonPensionBalance,
-      pensionBalance: -pensionDeltaSpend,
-      adminBalance: -adminDeltaSpend,
-      adminRes,
-      mwDelta,
-      defBalance: -defDelta,
-      wiBalance: -wiDelta,
-      kapBalance: -kapDelta,
-      sspBalance: -sspDelta,
-      hpDelta,
-      mpBalance: -mpDeltaSpend,
-      tpBalance: -tpDeltaSpend,
-      matBalance: -matDeltaSpend,
-      mpfBalance: -mpfDeltaSpend,
-      psubBalance: -psubDeltaSpend,
-      central,
-      low,
-      high,
-      vatFractionBase,
-      vatFractionNew,
-    };
+      pw,
+      noSupp,
+      ph,
+      adm,
+      mrzFreeze,
+      def,
+      wi,
+      wex,
+      kap,
+      ssp,
+      sspg,
+      hp,
+      mpEff,
+      mpDef,
+      tpEff,
+      tpDef,
+      mat,
+      mpf,
+      psub,
+    });
   }, [
     baseline,
     vatStd,
@@ -1373,6 +1518,47 @@ export const BudgetPolicySimulator: FC = () => {
       anyVisible: means.some((m) => Math.abs(m) >= 0.5),
     };
   }, [baseline, scenario, mod, noCap, currentCap]);
+
+  // ----- preset myth-buster weights ------------------------------------------
+  // Each recurring proposal's standalone static effect, sized against the
+  // baseline 2026 deficit in the chip tooltip — so symbolic micro-cuts read
+  // as exactly that. Baseline-keyed: presets are constants.
+  const presetWeights = useMemo(() => {
+    if (!baseline?.earnings?.bands || !baseline.vat?.slices) return null;
+    return Object.fromEntries(
+      PRESETS.map((p) => [p.id, presetStaticEur(baseline, p.apply)]),
+    );
+  }, [baseline]);
+
+  // ----- who-is-affected shares ------------------------------------------------
+  // Consequence lines under the levers (the Delib pattern: a moved lever says
+  // in one sentence whom it touches). Shares come from the same fitted band
+  // grid the scoring runs on.
+  const affected = useMemo(() => {
+    const bands = baseline?.earnings?.bands;
+    if (!bands?.length) return null;
+    const total = bands.reduce((s, b) => s + b.workers, 0);
+    if (total <= 0) return null;
+    // PIT taxable base under the SCENARIO's SSC deduction cap (Infinity when
+    // the cap is removed, else the moved cap) — mirrors the scoring memo's
+    // `min(gross, cap)·SSC` exactly so the shares match the engine.
+    const insurableCap = noCap ? Infinity : mod;
+    const taxBase = (g: number): number =>
+      g - Math.min(g, insurableCap) * SSC_EMPLOYEE_RATE;
+    const share = (pred: (g: number) => boolean): number =>
+      (100 *
+        bands.reduce((s, b) => (pred(b.grossEur) ? s + b.workers : s), 0)) /
+      total;
+    // Who the cap CHANGE newly touches: above currentCap if removing it,
+    // else above the lowered cap.
+    const capThreshold = noCap ? currentCap : Math.min(currentCap, mod);
+    return {
+      pctBelowNm: nm > 0 ? share((g) => taxBase(g) < nm) : null,
+      pctAboveT2: bracket2 ? share((g) => taxBase(g) > t2Eff) : null,
+      pctAboveCap:
+        noCap || mod !== currentCap ? share((g) => g > capThreshold) : null,
+    };
+  }, [baseline, nm, bracket2, t2Eff, mod, noCap, currentCap]);
 
   // ----- behavioral (dynamic) layer -------------------------------------------
   // The pension-indexation slice COMPOUNDS (current-law rate ~7%/yr), so it
@@ -1631,7 +1817,10 @@ export const BudgetPolicySimulator: FC = () => {
     );
   }
 
-  const eur = (v: number): string => formatEur(v, locale);
+  // BG convention puts the euro sign after the amount ("1 234 €"); formatEur
+  // is €-prefixed site-wide, so flip it here for the simulator's BG strings.
+  const eur = (v: number): string =>
+    lang === "bg" ? `${formatEur(v, locale).slice(1)} €` : formatEur(v, locale);
   const modUncertain =
     Math.abs(scenario.modRes.highEur - scenario.modRes.lowEur) > 1e6;
 
@@ -1703,6 +1892,38 @@ export const BudgetPolicySimulator: FC = () => {
         year: fyProj.year,
         before: fmtPct1(fyProj.baselineBalancePctGdp, locale),
       });
+
+  // Myth-buster line for a preset chip's tooltip, and the consequence-line
+  // renderer + share/count formatters for the levers panel.
+  const fmtShare = (pct: number): string =>
+    pct < 1 ? t("budget_policy_weight_under1") : `${Math.round(pct)}%`;
+  const fmtCount = (n: number): string => {
+    if (n >= 950_000) {
+      const v = (n / 1_000_000).toFixed(1);
+      return lang === "bg" ? `${v.replace(".", ",")} млн` : `${v}M`;
+    }
+    return lang === "bg"
+      ? `${Math.round(n / 1000)} хил.`
+      : `${Math.round(n / 1000)} thousand`;
+  };
+  const affectLine = (text: string): ReactNode => (
+    <p className="mt-1 text-[10px] leading-snug text-muted-foreground/80">
+      {text}
+    </p>
+  );
+  const presetWeightLine = (id: string): string => {
+    const eff = presetWeights?.[id];
+    const deficitEur =
+      (Math.abs(fyProj.baselineBalancePctGdp) / 100) * NOMINAL_GDP_2026_EUR;
+    if (eff == null || deficitEur <= 0 || Math.abs(eff) < 5e5) return "";
+    const share = (Math.abs(eff) / deficitEur) * 100;
+    return t(
+      eff > 0
+        ? "budget_policy_preset_weight_cover"
+        : "budget_policy_preset_weight_widen",
+      { eff: fmtDelta(eff, lang), share: fmtShare(share), year: fyProj.year },
+    );
+  };
 
   // ----- goal scoreboard -------------------------------------------------------
   // Each mission resolves to gauge values + a met predicate over the
@@ -1930,13 +2151,17 @@ export const BudgetPolicySimulator: FC = () => {
         </span>
         {PRESETS.map((p) => {
           const active = presetIsActive(p.apply);
+          const weight = presetWeightLine(p.id);
           return (
             <button
               key={p.id}
               type="button"
               aria-pressed={active}
               onClick={() => applyPreset(p.apply)}
-              title={t(`budget_policy_preset_${p.id}_tip`)}
+              title={
+                t(`budget_policy_preset_${p.id}_tip`) +
+                (weight ? `\n${weight}` : "")
+              }
               className={
                 "rounded-full border px-2.5 py-1 text-xs transition-colors " +
                 (active
@@ -2069,18 +2294,27 @@ export const BudgetPolicySimulator: FC = () => {
                 </button>
                 {taxDetailOpen ? (
                   <div className="mt-2 space-y-4">
-                    <RateSlider
-                      id="policy-nm"
-                      label={t("budget_policy_nm")}
-                      tip={t("budget_policy_tip_nm")}
-                      min={0}
-                      max={NM_MAX}
-                      step={20}
-                      value={nm}
-                      defaultValue={0}
-                      onChange={setNm}
-                      suffix=" €"
-                    />
+                    <div>
+                      <RateSlider
+                        id="policy-nm"
+                        label={t("budget_policy_nm")}
+                        tip={t("budget_policy_tip_nm")}
+                        min={0}
+                        max={NM_MAX}
+                        step={20}
+                        value={nm}
+                        defaultValue={0}
+                        onChange={setNm}
+                        suffix=" €"
+                      />
+                      {affected?.pctBelowNm != null
+                        ? affectLine(
+                            t("budget_policy_affect_nm", {
+                              pct: fmtShare(affected.pctBelowNm),
+                            }),
+                          )
+                        : null}
+                    </div>
                     <div>
                       <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
                         <input
@@ -2113,6 +2347,13 @@ export const BudgetPolicySimulator: FC = () => {
                             defaultValue={R2_DEF}
                             onChange={setR2}
                           />
+                          {affected?.pctAboveT2 != null
+                            ? affectLine(
+                                t("budget_policy_affect_b2", {
+                                  pct: fmtShare(affected.pctAboveT2),
+                                }),
+                              )
+                            : null}
                         </div>
                       ) : null}
                     </div>
@@ -2170,6 +2411,13 @@ export const BudgetPolicySimulator: FC = () => {
                 />
                 <span>{t("budget_policy_mod_nocap")}</span>
               </label>
+              {affected?.pctAboveCap != null
+                ? affectLine(
+                    t("budget_policy_affect_mod", {
+                      pct: fmtShare(affected.pctAboveCap),
+                    }),
+                  )
+                : null}
             </div>
 
             {/* Expenditure side — pensions, administration, МРЗ */}
@@ -2337,6 +2585,13 @@ export const BudgetPolicySimulator: FC = () => {
                         <span>{t("budget_policy_sspg")}</span>
                       </label>
                     ) : null}
+                    {ssp && baseline.expenditure
+                      ? affectLine(
+                          t("budget_policy_affect_ssp", {
+                            n: fmtCount(baseline.expenditure.sscSelfPaid.count),
+                          }),
+                        )
+                      : null}
                   </div>
                   <RateSlider
                     id="policy-hp"
@@ -2350,20 +2605,35 @@ export const BudgetPolicySimulator: FC = () => {
                     suffix={lang === "bg" ? " п.п." : " pp"}
                   />
                   {pensionFloor ? (
-                    <RateSlider
-                      id="policy-mp"
-                      label={t("budget_policy_mp", {
-                        cur: pensionFloor.minimumEur,
-                      })}
-                      tip={t("budget_policy_tip_mp")}
-                      min={mpDef}
-                      max={600}
-                      step={10}
-                      value={mpEff}
-                      defaultValue={mpDef}
-                      onChange={(v) => setMp(v === mpDef ? 0 : v)}
-                      suffix=" €"
-                    />
+                    <div>
+                      <RateSlider
+                        id="policy-mp"
+                        label={t("budget_policy_mp", {
+                          cur: pensionFloor.minimumEur,
+                        })}
+                        tip={t("budget_policy_tip_mp")}
+                        min={mpDef}
+                        max={600}
+                        step={10}
+                        value={mpEff}
+                        defaultValue={mpDef}
+                        onChange={(v) => setMp(v === mpDef ? 0 : v)}
+                        suffix=" €"
+                      />
+                      {mpEff !== mpDef
+                        ? affectLine(
+                            t("budget_policy_affect_mp", {
+                              n: fmtCount(
+                                pensionFloor.bands.reduce(
+                                  (s, b) =>
+                                    b.midEur < mpEff ? s + b.count : s,
+                                  0,
+                                ),
+                              ),
+                            }),
+                          )
+                        : null}
+                    </div>
                   ) : null}
                   {teachers ? (
                     <RateSlider
@@ -2390,6 +2660,17 @@ export const BudgetPolicySimulator: FC = () => {
                       suffix={" " + t("budget_policy_mat_unit")}
                     />
                     {euNoteLine("mat")}
+                    {mat !== MATERNITY_Y2_MONTHS
+                      ? affectLine(
+                          t("budget_policy_affect_mat", {
+                            n: fmtCount(
+                              MATERNITY_Y2_SPEND_EUR /
+                                MATERNITY_Y2_BENEFIT_EUR_MO /
+                                12,
+                            ),
+                          }),
+                        )
+                      : null}
                   </div>
                   <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
                     <input
@@ -2482,6 +2763,15 @@ export const BudgetPolicySimulator: FC = () => {
                     ? t("budget_policy_public_busy")
                     : t("budget_policy_public_submit")}
               </button>
+              <a
+                href={GROUP_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+              >
+                <Users className="h-3.5 w-3.5" />
+                {t("budget_policy_discuss")}
+              </a>
             </div>
           </CardContent>
         </Card>

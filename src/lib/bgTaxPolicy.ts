@@ -639,11 +639,16 @@ export const scoreCapitalChange = (
   pct: number,
 ): number => planEur * (pct / 100) * executionRate;
 
-/** Budget saving if държавни служители pay their own employee contributions
- *  (today the budget pays both shares). `grossUp` models the realistic
+/** Budget saving if the budget-paid categories (КСО чл. 6, ал. 5: държавни
+ *  служители, съдебна власт, военни, МВР и специалните служби — today the
+ *  budget pays both contribution shares for all of them) take over the
+ *  STANDARD employee share (13.78%; the elevated special-category pension
+ *  rates stay budget-paid either way). `grossUp` models the realistic
  *  compensating salary increase — which makes the reform fiscally neutral.
  *  Net saving = employee share of the wage bill, minus the PIT the budget
- *  loses because contributions become deductible from those salaries. */
+ *  loses because contributions become deductible from those salaries
+ *  (today their ЗДДФЛ base is the FULL gross — nothing is withheld for
+ *  their account, so nothing is deductible; ЗДДФЛ чл. 25, ал. 1). */
 export const scoreSscSelfPaid = (
   count: number,
   avgWageEur: number,

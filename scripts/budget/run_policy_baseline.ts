@@ -82,10 +82,27 @@ const MIN_WAGE_EUR = 620;
 // differs from COFOG GF02 ~0.66% by military pensions, paramilitary forces
 // and equipment-payment timing). Update when NATO publishes the new year.
 const NATO_DEFENSE_PCT_GDP = 2.2; // 2024 estimate, rounded to the slider grid
-// Държавни служители (НОИ SOD category "държавни служители и съдии", 2024) —
-// the budget currently pays BOTH contribution shares for them.
-const CIVIL_SERVANTS_COUNT = 64_178;
-const CIVIL_SERVANTS_AVG_WAGE_EUR = 2581.64 / BGN_PER_EUR; // ≈ €1,320
+// Budget-paid personal contributions (КСО чл. 6, ал. 5, referencing чл. 4,
+// ал. 1, т. 2, 3, 4 и 10; health side via ЗЗО чл. 40, ал. 1, т. 1, б. "а" +
+// the special statutes). Two НОИ SOD categories cover the population —
+// "Държавни служители, следователи, съдии и прокурори; членове на
+// избирателни комисии" and "Отбрана и сигурност" (военнослужещи, МВР,
+// ДАНС/ДАР/ДАТО/НСО, ГДИН — НОИ does not split them further). Headcounts
+// are from the SOD 2024 edition (the 2025 one publishes averages only).
+// The lever shifts the STANDARD employee share (13.78%) onto the employees;
+// the elevated special-category pension rates stay budget-paid either way.
+const BUDGET_PAID_SSC_GROUPS = [
+  { count: 64_178, avgWageBgn: 2581.64 }, // administration + judiciary + EC members
+  { count: 68_684, avgWageBgn: 2438.86 }, // defense & security
+];
+const BUDGET_PAID_SSC_COUNT = BUDGET_PAID_SSC_GROUPS.reduce(
+  (s, g) => s + g.count,
+  0,
+);
+const BUDGET_PAID_SSC_AVG_WAGE_EUR =
+  BUDGET_PAID_SSC_GROUPS.reduce((s, g) => s + g.count * g.avgWageBgn, 0) /
+  BUDGET_PAID_SSC_COUNT /
+  BGN_PER_EUR; // ≈ €1,282 weighted
 // Approximate share of the consolidated Персонал line belonging to the
 // sectors exempted from wage restraint in the 2026 debate (военни, полицаи,
 // лекари, учители). Curated approximation — caption as such.
@@ -993,8 +1010,8 @@ const main = async (): Promise<void> => {
             : 1,
       },
       sscSelfPaid: {
-        count: CIVIL_SERVANTS_COUNT,
-        avgWageEur: Math.round(CIVIL_SERVANTS_AVG_WAGE_EUR * 100) / 100,
+        count: BUDGET_PAID_SSC_COUNT,
+        avgWageEur: Math.round(BUDGET_PAID_SSC_AVG_WAGE_EUR * 100) / 100,
       },
       health: {
         // Employee insurable base scaled to the baseline year — a 1pp health

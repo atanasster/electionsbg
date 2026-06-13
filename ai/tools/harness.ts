@@ -1141,7 +1141,9 @@ const run = async () => {
     // PIT-deductible) — consistent with the administration-cut lever.
     ["заплатите в публичния сектор +5%", -98e6],
     ["капиталовите разходи -10%", 185e6],
-    ["държавните служители да си плащат осигуровките", 126e6],
+    // Full КСО чл. 6, ал. 5 scope: administration + judiciary + defense &
+    // security (132,862 across the two НОИ SOD-2024 categories).
+    ["държавните служители да си плащат осигуровките", 254e6],
     ["здравната вноска +1 пункт", 302e6],
     // June-2026 debate levers (static central; the screen's headline is dynamic)
     ["съкращаване на майчинството до 1 година", 154e6],

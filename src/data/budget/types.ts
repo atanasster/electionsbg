@@ -2067,8 +2067,11 @@ export interface PolicyBaselineFile {
       executionRate: number;
     };
     sscSelfPaid: {
-      /** Държавни служители whose contributions the budget pays in full. */
+      /** Everyone whose contributions the budget pays in full (КСО чл. 6,
+       *  ал. 5): държавни служители + съдебна власт + отбрана и сигурност
+       *  (the two НОИ SOD categories, summed). */
       count: number;
+      /** Count-weighted average monthly insurable income across the groups. */
       avgWageEur: number;
     };
     health: {

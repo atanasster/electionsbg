@@ -825,7 +825,7 @@ Website: https://www.marketlinks.bg/
 
 > Each article is published in Bulgarian and English. Links point to the on-site pages; the full Markdown sources are inlined below.
 
-### The tax-policy simulator — how it works, what it assumes, and what we're asking НАП for
+### Inside the budget simulator: how it scores, what it assumes, and the data we're asking НАП for
 
 URL (BG): https://electionsbg.com/articles/2026-06-12-tax-policy-simulator  |  URL (EN): https://electionsbg.com/en/articles/2026-06-12-tax-policy-simulator
 Markdown (BG): https://electionsbg.com/articles/2026-06-12-tax-policy-simulator-bg.md
@@ -833,7 +833,7 @@ Markdown (EN): https://electionsbg.com/articles/2026-06-12-tax-policy-simulator-
 Published: 2026-06-12
 Category: feature
 
-**Summary:** A full walkthrough of the /budget/simulator tool: static vs dynamic mode, how every lever is scored (VAT, income tax, corporate, dividends, the social-security cap, spending), the behavioral elasticities and fiscal multipliers behind dynamic mode, the limitations and the validation against official costings — and the freedom-of-information request to НАП for income-bracket data that would replace the one large modeled assumption in the tool.
+**Summary:** A full walkthrough of the /budget/simulator tool: static vs dynamic mode, how every lever is scored (VAT, income tax, corporate, dividends, the social-security cap, spending), the behavioral elasticities and fiscal multipliers behind dynamic mode, the limitations and the validation against official costings — and the freedom-of-information request to НАП for annual, machine-readable income-bracket data that would fully anchor the most statistical part of the model.
 
 ---
 keywords:
@@ -855,13 +855,13 @@ schemaType: TechArticle
 updatedAt: 2026-06-12
 ---
 
-# The tax-policy simulator — how it works, what it assumes, and what we're asking НАП for
+# Inside the budget simulator: how it scores, what it assumes, and the data we're asking НАП for
 
-Every tax debate in Bulgaria circles the same two questions: _how much will this change bring (or cost) the budget_, and _how will it hit my payslip_. The answers usually arrive piecemeal — a ministry press release, a union opinion, an expert comment — and almost never in one place, with a shared methodology and checkable sources.
+What would 9% VAT on food cost? How much does removing the social-security cap raise? And what is left of those numbers once people change their behavior? Every Bulgarian tax debate eventually lands on these questions — and the answers arrive piecemeal: a ministry press release, a union opinion, a back-of-the-envelope expert estimate. Rarely in one place. Even more rarely with a shared methodology and sources anyone can check.
 
-The [tax-policy simulator](/budget/simulator) on electionsbg.com does exactly that: move a rate and see, side by side, the change in consolidated budget revenue per year **and** the effect on one worked payslip per month. You can test real proposals — a progressive tax, higher VAT, removing the social-security cap, higher defense — and compare them against the published official costings, all with fully open source and documented assumptions.
+The [budget simulator](/budget/simulator) puts all of it on one screen: move a rate and see, side by side, what happens to consolidated budget revenue per year **and** to one worked payslip per month. You can cost real proposals — a progressive tax, higher VAT, contributions without a cap, defense at 3% of GDP — and compare them against the published official estimates. The code is open and the assumptions are spelled out one by one.
 
-This piece explains how the tool works under the hood: where the numbers come from, how each lever is scored, what is certain and what is modeled, and — at the end — what data we are asking the National Revenue Agency (НАП) for, so we can replace the one large assumption in the model with real data.
+This piece shows the machine from the inside: where the numbers come from, how each lever is scored, what is hard fact and what is a statistical model. And at the end — why we are asking НАП for data that already exists, and how it would make the whole tool sharper still.
 
 ## Two modes: static and dynamic
 
@@ -883,25 +883,29 @@ Above the numbers sits a scoreboard with three missions that turn the abstract r
 - **Debt under 40% by 2030** — keep government debt below 40% of GDP at the end of the projection (the baseline drifts to ~43%).
 - **Defense 3%** — reach 3% of GDP on defense without a first-year deficit worse than the baseline.
 
-The gauge shows where the deficit is "today", where your scenario takes it, and where the finish line is — like the budget-balancing games of the US Committee for a Responsible Federal Budget. The number no longer floats; it moves toward a goal.
+The gauge shows where the deficit is "today", where your scenario takes it, and where the finish line is — like the [budget-balancing games of the US Committee for a Responsible Federal Budget](https://www.crfb.org/debtfixer). The number no longer floats; it moves toward a goal.
+
+> Built a scenario that brings the deficit under 3%? Share it in the [Наясно Facebook group](https://www.facebook.com/groups/1982841819785121) — we're curious which lever you pull first.
 
 ## How each lever is scored
 
-This is the heart of the tool. Every lever has its own methodology, and every number traces to КФП execution, the НАП annual report, Eurostat national accounts or the НОИ aggregates.
+This is the heart of the simulator. Every lever has its own methodology, and every number traces to КФП execution, the НАП annual report, Eurostat national accounts or the НОИ aggregates.
 
 ![Per-tax revenue breakdown: VAT +799M (static +887M), income tax +1.8B (static +1.9B), and under the administration lever, a note that 85% of the cut falls on vacant positions.](/articles/images/budget_simulator/en/02-breakdown.png)
 
-**VAT.** The model rides on Eurostat household final consumption by COICOP purpose[^coicop]: each consumption slice carries its statutory VAT regime (standard 20%, reduced 9%, zero or exempt), and the gap between modeled and actual VAT revenue (households are only part of the base) is bridged by a calibration factor that is stable around **1.17** across 2021–2025. A +1pp move in the standard rate yields ≈ +€447M. For context: Bulgaria's VAT compliance gap is estimated at **€781M — 8.6% of the theoretical liability** in the EC's 2025 edition.[^vatgap]
+**VAT.** The model rides on Eurostat household final consumption by COICOP purpose[^coicop]: each consumption slice carries its statutory VAT regime (standard 20%, reduced 9% or zero), and the gap between modeled and actual VAT revenue (households are only part of the base) is bridged by a calibration factor that is stable around **1.17** across 2021–2025. A +1pp move in the standard rate yields ≈ +€447M. For context: Bulgaria's VAT compliance gap is estimated at **€781M — 8.6% of the theoretical liability** in the EC's 2025 edition.[^vatgap]
 
-**Income tax — flat rate, tax-free minimum, progression.** This is the one large modeled assumption in the whole tool. Because no Bulgarian institution publishes the exact number of insured persons by income bracket, the wage distribution is recovered with a **statistical model** — a split log-normal body (derived from the decile ratios in Eurostat's Structure of Earnings Survey, SES 2022[^ses]), a level from the НОИ average insurable income, and a Pareto tail for the top incomes. The model is validated by reproducing the НАП employment-PIT line at the current flat 10% (calibration coefficient κ = 1.00), and the fitted tail backtests the legislated 2025 cap raise at **€113M** against the Ministry of Finance's own **€128M** estimate. The tax-free minimum, the progressive brackets and cap moves in both directions are scored over this distribution. **This is the component we want to replace with real НАП data** (see below).
+**Income tax — flat rate, tax-free minimum, progression.** This is where the model does the most statistical work. The wage distribution is assembled from real anchors — the decile ratios in Eurostat's Structure of Earnings Survey, SES 2022[^ses], the НОИ average insurable income, and the real НАП table of declared incomes by bracket for 2023[^naptiers] — with statistics filling in only what no institution publishes regularly in machine-readable form: the scale between the anchors and the Pareto tail for the top incomes. The resulting distribution passes three checks. First: at the current flat 10% it reproduces the real НАП employment-PIT line exactly (calibration coefficient κ = 1.00). Second: applied retroactively to the legislated 2025 cap raise, it gives **€113M** against the Ministry of Finance's own **€128M** estimate. Third: the cumulative mass across the НАП brackets matches to within 8 percentage points, and the tail ordering comes out right. The tax-free minimum, the progressive brackets and cap moves in both directions are scored over this distribution.
 
-**Corporate and dividend tax.** Both are flat (10% and 5%) and in static mode scale linearly off the executed budget line. Here the model is most cautious: at a higher corporate rate the real revenue is almost certainly overstated, because Bulgaria's 10% attracts accounting profit from abroad and a higher rate would push part of that base out. Dynamic mode applies a behavioral correction precisely for this — and for dividends it is calibrated to the only published Bulgarian behavioral estimate: a 5%→10% rise yields **+€75M static** but **≈ +€45M dynamic**, within the Fiscal Council's ≤€50M ceiling.[^fs]
+**Corporate and dividend tax.** Both are flat (10% and 5%) and in static mode scale linearly off the executed budget line. Here the model is most cautious: at a higher corporate rate the real revenue is almost certainly overstated, because the low 10% rate leads multinational groups to book in Bulgaria profits earned elsewhere, and a higher rate would push part of that base back out. Dynamic mode applies a behavioral correction precisely for this — and for dividends it is calibrated to the only published Bulgarian behavioral estimate: a 5%→10% rise yields **+€75M static** but **≈ +€45M dynamic**, within the Fiscal Council's ≤€50M ceiling.[^fs]
 
 **Maximum insurable income (МОД).** The social-security cap (now **€2,111.64**) is a special case: the wage mass above the cap is recovered from the accounting gap between the uncapped PIT base and the capped insurable base, plus a Pareto tail for the distribution above the cap. Because the tail is uncertain, this lever alone carries an explicit uncertainty band on the result.
 
 **Expenditure levers.** The simulator also scores the spending side: pension indexation under the Swiss rule (CPI weight vs insurable-income growth), administration cuts (where vacant positions absorb the cut first and save almost nothing in cash), a minimum-wage freeze, a NATO-definition defense target, capital spending (through the historical execution rate), the health contribution, the minimum pension, public-sector wages, and several levers from the live budget debate (maternity, MP pay, party subsidies).
 
-**Every wage lever pays itself partly back.** When the budget raises (or cuts) pay, it also collects (or loses) the PIT and social contributions on that pay — roughly **30.6%** of the change comes straight back. The administration-cut lever always modelled this; as of June 2026 the **same mechanical feedback is applied consistently** to public-sector wage indexation and the teachers' 125% peg, so a wage rise costs the budget materially less than its gross price tag (a +5% public-wage indexation nets ≈ €98M, not ≈ €142M). Under the consolidated-budget frame the employer contribution nets out — the budget both pays and receives it — leaving exactly the genuine cost. This is an accounting offset, not a behavioral guess: it sits in **both** static and dynamic mode.
+**Public-sector employees' contributions** are a lever with a legal quirk. Under art. 6(5) of the Social Security Code the budget pays both contribution shares — the employer's and the employee's — for about 133 thousand people: civil servants, the judiciary, the military, МВР and the special services (the sum of the two НОИ categories in the 2024 statistics).[^kso] The lever shifts the standard 13.78% employee share onto them, as every other employee pays; the elevated special-category rates stay budget-paid either way. There is a tax wrinkle too: because nothing is withheld from them today, their income-tax base is the full gross — after the shift the personal contributions become deductible and the budget gives a little income tax back. The Fiscal Council prices this step for the civil-service-law employees alone at around 200 million лв a year, with a "much larger effect" from the police and the military; at full scope the model gives about €254M without compensation — and zero if salaries are grossed up, the realistic scenario.
+
+**Every wage lever pays itself partly back.** When the budget raises (or cuts) pay, it also collects (or loses) the PIT and social contributions on that pay — roughly **30.6%** of the change comes straight back. This mechanical feedback applies to every lever that moves wages — administration cuts, public-sector wage indexation, the teachers' 125% peg — so a wage rise costs the budget materially less than its gross price tag (a +5% public-wage indexation nets ≈ €98M, not ≈ €142M). Under the consolidated-budget frame the employer contribution nets out — the budget both pays and receives it — leaving exactly the genuine cost. This is an accounting offset, not a behavioral guess: it sits in **both** static and dynamic mode.
 
 ## The dynamic layer: behavior and macro feedback
 
@@ -917,7 +921,7 @@ Dynamic mode rests on two tiers, each sourced.
 | Dividend base semi-elasticity, %/pp           | 4.5 (3.0–6.5)    | calibrated to the Fiscal Council (2025)[^fs]         |
 | VAT — share lost to compliance                | 0.10 (0.03–0.20) | EC VAT gap (2025)[^vatgap]                           |
 | Maternity — share returning to work if cut    | 0.45 (0.25–0.65) | НСИ maternal-employment gap + КСО чл.54[^matwork]    |
-| Dividend↔salary relabeling — net recapture   | 0.008 (0.0–0.03) | derived; Chetty–Saez (2005)[^fs]                     |
+| Dividend↔salary relabeling — net recapture   | 0.008 (0.0–0.03) | derived; Chetty–Saez (2005)[^chetty]                 |
 
 **Tier 2 — macroeconomic feedback.** The fiscal impulse passes through a multiplier onto GDP, and the GDP change comes back as revenue. The multipliers come from the IMF study specific to Bulgaria — _Fiscal Multipliers in Bulgaria: Low But Still Relevant_ (Muir & Weber, 2013)[^imf]: a year-1 tax multiplier of 0.3–0.4 (VAT at the low end), spending ≈ 0. Exactly as the paper concludes — direct taxes and capital spending have the largest effect on output, indirect taxes and non-targeted transfers the smallest — which is why VAT gets the low band. The result: a tax consolidation yields about **13% less** in the first year than the static estimate, reproducing the empirical rule that "static revenue gains from tax hikes are overstated by 10–15%".
 
@@ -925,13 +929,13 @@ Dynamic mode rests on two tiers, each sourced.
 
 ## Second-order effects: when one lever moves another
 
-A policy rarely changes just the line it targets. Cutting a benefit, for instance, sends some recipients back to work — and the taxes they then pay partly offset the saving. The model now captures the most material of these knock-on effects, each banded the same way as the elasticities above so it flows through the uncertainty band rather than masquerading as a precise number.
+A policy rarely changes just the line it targets. Cutting a benefit, for instance, sends some recipients back to work — and the taxes they then pay partly offset the saving. The model captures the most material of these knock-on effects, each banded the same way as the elasticities above so it flows through the uncertainty band rather than masquerading as a precise number.
 
 **Maternity: a cut also brings in PIT and contributions.** Bulgaria's paid second year of leave is among the EU's longest. Cutting it saves the benefit (€154M for the full year), but a share of the affected mothers return to work earlier — and once working they pay income tax and social contributions. So the _true_ saving is larger than the benefit line alone: with a central assumption that **45%** return (the band spans 25–65%, reflecting scarce under-3 childcare and the rule that lets a mother keep half the benefit while working), the full-year cut saves about **€218M dynamically, not €154M**. The direction matters as much as the number: the static figure _understates_ the saving here, the opposite of a tax hike.
 
 **Dividends and salary are substitutes.** Raising the dividend tax pushes some owner-managers to take income as salary instead, where it is taxed differently. We credit the net budget recapture on that relabeled sliver — but deliberately keep it **small and bounded**: most of the dividend-base response is profit-retention and payout-timing rather than salary relabeling, and dividend income concentrates above the contributions cap, where shifting to salary is roughly neutral (the 10% income tax on the salary is offset by the corporate tax the company saves by deducting it). For the 5%→10% scenario this adds only a few million euro, and it rides its **own** line — so the Fiscal Council dividend calibration is untouched.
 
-**Health-contribution deductibility.** Raising the health contribution collects more, but the employee's share of it is deductible from the income-tax base — so the budget gives a little income tax back (about 4% of the gross). Small, but it is the same deduction interaction the МОД lever already models, now applied consistently.
+**Health-contribution deductibility.** Raising the health contribution collects more, but the employee's share of it is deductible from the income-tax base — so the budget gives a little income tax back (about 4% of the gross). Small, but it is the same deduction interaction the МОД lever models, applied consistently throughout.
 
 These are the cases where the offset is large enough to matter and defensible enough to source. Others — defense procurement and capital projects generating wages and VAT — are left to the Tier-2 macro multiplier rather than double-counted as a direct feedback.
 
@@ -957,25 +961,31 @@ The projection is at the general-government (ESA 2010) grain, not the cash КФ�
 
 ## Validation against official estimates
 
-Calibration is shown, not asserted. The same scenarios, run live through the model, against the published official costings:
+We compared some of the scenarios computed through our simulator against the official estimates published in the media:
 
-| Scenario                 | Model (static) | Dynamic | Published estimate                                                                |
-| ------------------------ | -------------- | ------- | --------------------------------------------------------------------------------- |
-| Restaurants VAT → 9%     | −€286M         | −€258M  | МФ (2024–25): −€150…−240M/yr; Budget 2025 booked +€238M when restored to 20%[^mf] |
-| Corporate tax +1pp       | +€333M         | +€304M  | МФ (2023): ≈ +€230M/pp (2023 base)[^mf]                                           |
-| Dividend tax 5% → 10%    | +€75M          | +€45M   | Fiscal Council (2025): up to +€50M (with behavioral response)[^fs]                |
-| Health contribution +1pp | +€302M         | +€287M  | КНСБ/НОИ (2025): ≈ +€300M/pp[^knsb]                                               |
-| МОД cap €2,112 → €2,352  | +€147M         | +€133M  | КНСБ (2025): ≈ +€180M for ДОО (≈ +€230M all contributions)[^knsb]                 |
-| Tax-free minimum €620/mo | −€1.9B         | −€1.9B  | ≈ −€1.9B (scaled from a 2022 estimate for 500 лв)                                 |
+| Scenario                      | Model (static) | Dynamic | Published estimate                                                                                                                                       |
+| ----------------------------- | -------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Restaurants VAT → 9%          | −€286M         | −€258M  | МФ (2024–25): −€150…−240M/yr; Budget 2025 booked +€238M when restored to 20%[^mf]                                                                        |
+| Food & medicines VAT → 9%     | −€1.7B         | −€1.4B  | МФ (2020): −1.5 млрд лв on the 2020 base — scaled to today's base ≈ −€1.2…−1.3B[^mf2020]                                                                 |
+| Corporate tax +1pp            | +€333M         | +€304M  | МФ (2023): ≈ +€230M/pp (2023 base)[^mf]                                                                                                                  |
+| Corporate tax 10% → 15%       | +€1.7B         | +€1.3B  | КНСБ (2025): ≈ +€1.1B[^knsb]                                                                                                                             |
+| Dividend tax 5% → 10%         | +€75M          | +€45M   | Fiscal Council (2025): up to +€50M (with behavioral response)[^fs]                                                                                       |
+| Health contribution +1pp      | +€302M         | +€287M  | КНСБ/НОИ (2025): ≈ +€300M/pp[^knsb]                                                                                                                      |
+| МОД cap €2,112 → €2,352       | +€147M         | +€133M  | КНСБ (2025): ≈ +€180M for ДОО (≈ +€230M all contributions)[^knsb]                                                                                        |
+| Tax-free minimum €620/mo      | −€1.9B         | −€1.9B  | ≈ −€1.9B (scaled from a 2022 estimate for 500 лв)                                                                                                        |
+| Pensions: CPI-only indexation | +€479M         | +€470M  | НОИ (06.2026): the July Swiss-rule indexation (7.8%) costs ≈ €513M through end-2026 — ≈ €1.0–1.1B annualized; CPI-only would save roughly half[^noi2026] |
+| Party subsidy €4.09 → €3.00   | +€3M/yr        | +€3M    | Sponsors (06.2026): ≈ +€2.2M for 2026 — in force since 30 April, i.e. ≈ €3.3M annualized[^psub2026]                                                      |
 
-The takeaway: static scoring matches the official _static_ numbers (МФ's own menu is static per-pp on the then-current base), and the one place static materially overstates a published estimate is the dividend (€75M vs the Fiscal Council's ≤€50M) — precisely because the Council's number embeds a behavioral response that dynamic mode reproduces.
+The takeaway: static scoring matches the official _static_ numbers (МФ's own menu is static per-pp on the then-current base). And for the bigger moves — corporate tax at 15%, food and medicines at the reduced rate — it is the dynamic estimate that lands near the published figures: which is why it is the default mode. The clearest case is the dividend: +€75M static vs the Fiscal Council's ≤€50M — precisely because the Council's number embeds a behavioral response, the same one dynamic mode reproduces.
+
+> Spotted a discrepancy, or know a better source? Post it in the [Наясно group](https://www.facebook.com/groups/1982841819785121) — the methodology improves through exactly this kind of scrutiny.
 
 ## Limitations and assumptions
 
 No model is reality. Here is where this one's edges are:
 
-- **The static base is fixed** at the latest closed year. For large moves the real base will have changed — hence dynamic mode, but even that is a reduced form, not general equilibrium.
-- **The fitted wage distribution is the largest modeled assumption.** It determines the tax-free minimum, the progressive brackets and МОД. The backtests validate it, and since 2026 its body is also validated against the real 2023 НАП table (see below); finer, annual data would shrink the tail uncertainty further.
+- **The static base is fixed** to the data of the latest closed year. For larger moves the real base shifts — hence dynamic mode. But that too is a simplified model, not a general-equilibrium simulation.
+- **The wage distribution is the most statistical part of the model.** It determines the tax-free minimum, the progressive brackets and МОД. The three checks — κ = 1.00, the МОД backtest and the comparison against the 2023 НАП table — keep it anchored to real data; finer, annual data would shrink the tail uncertainty further.
 - **Corporate estimates overstate** at higher rates (profit shifting), which static mode does not see and dynamic mode captures only partially.
 - **No general equilibrium, no employment effects** beyond the reduced-form multiplier. Second-round effects (wages, prices, investment) are not modeled.
 - **The behavioral elasticities are from the literature**, not Bulgarian estimates — the low/central/high ranges reflect exactly that uncertainty and feed the Monte-Carlo band.
@@ -984,7 +994,7 @@ Transparency here is the point, not a claim of euro-level precision. Every assum
 
 ## What we're asking НАП for, and why
 
-You saw that the one large modeled assumption in the entire tool is the **wage distribution** — it determines the estimates for the tax-free minimum, progressive taxation and the social-security cap. It is recovered statistically, because there is no public **machine-readable** source for the exact number of taxpayers by income bracket.
+The most statistical part of the model is the **wage distribution** — it drives the estimates for the tax-free minimum, progressive taxation and the social-security cap. Statistics are needed for one reason only: there is no public, **machine-readable** source for the number of taxpayers by income bracket, refreshed annually.
 
 But a version of this data **exists** — and has been released. НАП routinely derives it from employers' monthly Form №1 declarations and the annual чл.50 declarations under the Personal Income Tax Act, distributed by annual tax base. The Ministry of Finance has already answered parliamentary questions with exactly this distribution — the number of people and the tax paid, by income group:
 
@@ -992,15 +1002,15 @@ But a version of this data **exists** — and has been released. НАП routinel
 - for **2012–2016** — [written answer by income group](https://www.minfin.bg/bg/wreply/10320);
 - for **2019** — [written answer by group and category](https://www.minfin.bg/bg/wreply/11134).
 
-**We now use the 2023 table.** It covers **3,109,552 filers**, **€3.07B of declared ДДФЛ** on **€30.7B of taxable base** — with the top **1.5%** (47,630 people above 108,000 лв of base) paying **21.5%** of all ДДФЛ. We folded it in conservatively: we use it to **validate the body** of the fitted distribution where the two populations coincide (and they coincide well — the cumulative mass through the upper-middle incomes is within 8 percentage points), and to **source the tail ordering**. There is a subtlety we make explicit: the НАП table is _all_ filers (employees + self-employed + final-tax), while the model scores _wage employees_. So the all-filer tail is fatter (Pareto α ≈ 1.67) than the employee-only tail (α ≈ 2.27) — the top НАП groups blend in dividend and business income. **That ordering is the correct one**, and the real data confirms it; so we do not overwrite the employee parameters (which drive the МОД lever) — we validate them.
+**The 2023 table is built into the model.** It covers **3,109,552 filers**, **€3.07B of declared ДДФЛ** on **€30.7B of taxable base** — with the top **1.5%** (47,630 people above 108,000 лв of base) paying **21.5%** of all ДДФЛ. We use it conservatively: to **validate the body** of the fitted distribution where the two populations coincide (and they coincide well — the cumulative mass through the upper-middle incomes is within 8 percentage points), and to **source the tail ordering**. There is a subtlety we make explicit: the НАП table is _all_ filers (employees + self-employed + final-tax), while the model scores _wage employees_. So the all-filer tail is fatter (Pareto α ≈ 1.67) than the employee-only tail (α ≈ 2.27) — the top НАП groups blend in dividend and business income. **That ordering is the correct one**, and the real data confirms it; so we do not overwrite the employee parameters (which drive the МОД lever) — we validate them.
 
-What we still **request**, under the [Access to Public Information Act](https://www.aip-bg.org/) (ЗДОИ), is for the same data to be published as a **machine-readable, reusable open dataset**, refreshed **annually** and at **finer income brackets** — rather than extracted one parliamentary answer at a time from locked PDFs (the MoF site blocks automated access). With such a dataset both the body and the tail become fully source-traceable, the tax-free-minimum / progression / МОД uncertainty shrinks further, and — most importantly — any citizen, journalist or analyst could transparently cost a tax proposal. Better data makes for a better public debate.
+What we **request**, under the [Access to Public Information Act](https://www.aip-bg.org/) (ЗДОИ), is for the same data to be published as a **machine-readable, reusable open dataset**, refreshed **annually** and at **finer income brackets** — rather than extracted one parliamentary answer at a time from locked PDFs (the MoF site blocks automated access). With such a dataset both the body and the tail become fully source-traceable, the tax-free-minimum / progression / МОД uncertainty shrinks further, and — most importantly — any citizen, journalist or analyst could transparently cost a tax proposal. Better data makes for a better public debate.
 
 ## Open source and reproducibility
 
 The whole tool is open source at [github.com/atanasster/electionsbg](https://github.com/atanasster/electionsbg). The static scoring engine lives in `src/lib/bgTaxPolicy.ts`, the dynamic layer in `src/lib/bgBehavioral.ts`, the five-year projection in `src/lib/bgFiscalProjection.ts`, and the offline baseline is assembled by `scripts/budget/run_policy_baseline.ts`. Each part is locked by smoke tests that assert the identities (for example, that at zero elasticity dynamic equals static, and that the dividend lever stays within the Fiscal Council's ceiling). The research notes and full source list are in `docs/budget_simulator_grounding.md`.
 
-You can also add your own scenario to the [simulator's public tally](/budget/simulator) ("what the public chose") — voluntarily, with no personal data. Start here: [open the simulator](/budget/simulator).
+Finally — [open the simulator](/budget/simulator) and build your own scenario. You can add it to the public tally ("what the public chose") — voluntarily, with no personal data — and then defend it in the [Наясно Facebook group](https://www.facebook.com/groups/1982841819785121), where we discuss what the data shows and the most interesting scenarios become the next analyses.
 
 ---
 
@@ -1018,9 +1028,19 @@ You can also add your own scenario to the [simulator's public tally](/budget/sim
 
 [^fs]: Fiscal Council of the Republic of Bulgaria — opinion on the draft 2026 State Budget Act / 2026–2028 medium-term plan (12 December 2025): estimate of up to +€50M for raising the dividend tax, with behavioral response. [fiscal-council.bg](https://www.fiscal-council.bg/bg/publikacii).
 
+[^chetty]: R. Chetty, E. Saez, _Dividend Taxes and Corporate Behavior: Evidence from the 2003 Dividend Tax Cut_, Quarterly Journal of Economics 120(3), 2005 — the canonical study of dividend-payout responses to the tax rate. The dividend→salary relabeling share here is derived conservatively, not a direct estimate from the paper.
+
+[^kso]: КСО art. 6(5), referencing art. 4(1) items 2, 3, 4 and 10: contributions for civil servants, magistrates and court staff, the military and the special-law state employees (МВР, ДАНС, ДАР, НСО, prison service) are paid by the state budget, respectively the judiciary's budget; the health contribution via ЗЗО art. 40(1)(1)(а) and the special statutes (ЗДСл art. 38, defense act art. 220, МВР act art. 183, judiciary act art. 224). Headcounts and average insurable income: НОИ, "Среден осигурителен доход" 2024 — the categories "Държавни служители, следователи, съдии и прокурори; членове на избирателни комисии" (64,178 people at 2,581.64 лв) and "Отбрана и сигурност" (68,684 at 2,438.86 лв; НОИ does not split military from МВР). The Fiscal Council estimate is from its October 2025 opinion. [nssi.bg (PDF)](https://nssi.bg/wp-content/uploads/SOD_2024.pdf).
+
 [^matwork]: Return-to-work share if the paid second year is cut — a judgment band (central 45%, range 25–65%) anchored to the НСИ employment gap for mothers of children under 3 (low among EU member states) and the КСО чл.54 rule that lets a mother keep half the benefit while working; OECD Family Database for leave-length context. No Bulgarian point estimate exists, hence the wide band. The representative return wage (≈€1,000/mo gross) is held FIXED — deliberately conservative — so the recapture's uncertainty band derives from the return share alone, not the wage. The recapture mechanism (returning mothers pay PIT + contributions) is in `src/lib/bgBehavioral.ts` and locked by `scripts/budget/__smoke_behavioral.ts`.
 
-[^knsb]: КНСБ — opinions on the draft State Budget and the ДОО (social-security) budget for 2026 (November 2025).
+[^knsb]: КНСБ — opinions on the draft State Budget and the ДОО (social-security) budget for 2026 (November 2025); its 7 October 2025 package isolates an estimate of ≈ +€1.1B for a 15% corporate rate.
+
+[^mf2020]: Ministry of Finance — official position on the six reduced-VAT bills, 20 May 2020: −1.5 млрд лв per year for food and medicines (2020 base; all six bills combined −1.8 млрд лв). The VAT base has grown substantially since, so the comparison is scaled. See [Mediapool](https://www.mediapool.bg/mf-ima-risk-dds-da-se-vdigne-na-24-ili-danak-pechalba-na-18-news307589.html).
+
+[^noi2026]: НОИ — Supervisory Board decision of 9 June 2026: pensions indexed from 1 July 2026 by 7.8% under the Swiss rule, ≈ €513.1M through end-2026. See [nssi.bg](https://www.nssi.bg/news-reshenie-ns-09062026/). The "CPI-only costs roughly half" estimate is derived from the rule's weights (50% CPI + 50% insurable-income growth), not published by НОИ.
+
+[^psub2026]: The sponsors' estimate at adoption of the cut (3 June 2026); the subsidy is €3.00 per valid vote since 30 April 2026. See e.g. [eurocom.bg](https://eurocom.bg/2026/06/03/oficialno-deputatite-namaliha-partiynite-subsidii). The model prices a full year; the 8 months of 2026 come to ≈ €2.1M — matching the sponsors' figure.
 
 [^mf]: Ministry of Finance — consolidation menu (April 2023, via Sega); МФ/Mediapool on restaurant-services VAT (2024–25). See e.g. [Mediapool](https://www.mediapool.bg/).
 

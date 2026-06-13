@@ -47,6 +47,16 @@ export const ArticleScreen: FC = () => {
             remarkPlugins={[remarkGfm]}
             components={{
               a: ({ href, children, ...rest }) => {
+                // In-page anchors (GFM footnote refs and backrefs): keep the
+                // browser's same-page hash jump — the external branch below
+                // would open a new tab instead of scrolling to the footnote.
+                if (href && href.startsWith("#")) {
+                  return (
+                    <a href={href} className={proseClasses.a} {...rest}>
+                      {children}
+                    </a>
+                  );
+                }
                 if (href && href.startsWith("/") && !href.startsWith("//")) {
                   const hashIdx = href.indexOf("#");
                   const hash = hashIdx !== -1 ? href.slice(hashIdx) : "";
@@ -95,8 +105,20 @@ export const ArticleScreen: FC = () => {
               ol: ({ children }) => (
                 <ol className={proseClasses.ol}>{children}</ol>
               ),
-              li: ({ children }) => (
-                <li className={proseClasses.li}>{children}</li>
+              // Spread the rest so GFM footnote items keep their `id` anchor
+              // targets; scroll-mt (only on those id-carrying items) clears the
+              // sticky header on the hash jump.
+              li: ({ children, ...rest }) => (
+                <li
+                  className={
+                    rest.id
+                      ? `${proseClasses.li} scroll-mt-24`
+                      : proseClasses.li
+                  }
+                  {...rest}
+                >
+                  {children}
+                </li>
               ),
               strong: ({ children }) => (
                 <strong className={proseClasses.strong}>{children}</strong>

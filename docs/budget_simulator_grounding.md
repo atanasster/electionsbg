@@ -27,17 +27,17 @@ at the locked rate 1 EUR = 1.95583 BGN.
 
 ## Published estimates vs the engine (base: 2025 execution)
 
-| Lever                                 | This model                                | Published estimate                                                                                                                                                                                                        | Source                                              |
-| ------------------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
-| VAT standard +1пп                     | ≈ +€500–550M                              | МФ 2023 menu: 22% "за всички стоки" = +1.63 млрд лв per H2-2023 — implies ≈ €830M/пп/yr but bundles reduced-rate abolition; naive static on 2023 base ≈ €360M                                                             | Sega 25.04.2023                                     |
-| Restaurants → 9%                      | ≈ −€170M                                  | МФ 2025: −300…−400 млн лв (−€153…−205M); booked +465 млн лв (+€238M) in Budget 2025 when restored                                                                                                                         | Mediapool 21.03.2025; Investor 26.02.2025           |
-| Books/periodicals/baby 9% (permanent) | n/a (already baseline)                    | −16 млн лв/yr (−€8.2M)                                                                                                                                                                                                    | Actualno 08.12.2022 (Петкова)                       |
-| CIT +1пп                              | +€333M (2025 base €3.33B)                 | МФ 2023: +2.31 млрд лв for +5пп → ≈ +€236M/пп on the 2023 base; КНСБ 2025: +€1.1B for 15%                                                                                                                                 | Sega 25.04.2023; КНСБ становище ЗДБРБ 2026          |
-| Dividend 5→10%                        | +€75M (static)                            | Фискален съвет 12.12.2025: **max +€50M** (behavioral leakage)                                                                                                                                                             | ФС opinion PDF p.20                                 |
-| Health contribution +1пп              | +€302M net, €315M gross (base €31.5B)     | КНСБ/НОИ: +€601M for +2пп → ≈ +€300M/пп                                                                                                                                                                                   | КНСБ становище ДОО 2026                             |
-| МОД €2,112 → €2,352                   | model: band-fit estimate (run live in UI) | КНСБ: +€231M all contributions (≈ +€180M ДОО); note this includes the 5пп second pillar the budget does not keep                                                                                                          | КНСБ становище ЗДБРБ 2026                           |
-| Необлагаем минимум = МРЗ              | ≈ −€1.9B (static, full distribution)      | М. Димитров 2022: −1.5 млрд лв (−€767M) at 500 лв/мес → scaled to €620 (1,213 лв) ≈ −€1.86B — consistent; КНСБ Oct-2025: −€1.5B net _with_ a 15% rate offset; IMF Art. IV 2025: progressive reform could yield ~1% of GDP | News.bg 07.2022; Investor 07.10.2025; IMF PR 25-384 |
-| VAT compliance gap                    | (context)                                 | EC VAT gap 2025 edition (data 2023): BG gap €781M = 8.6% of VTTL                                                                                                                                                          | EC VAT gap report                                   |
+| Lever                                 | This model                                | Published estimate                                                                                                                                                                                                                                                                                                                                                             | Source                                              |
+| ------------------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------- |
+| VAT standard +1пп                     | ≈ +€500–550M                              | МФ 2023 menu: 22% "за всички стоки" = +1.63 млрд лв per H2-2023 — implies ≈ €830M/пп/yr but bundles reduced-rate abolition; naive static on 2023 base ≈ €360M                                                                                                                                                                                                                  | Sega 25.04.2023                                     |
+| Restaurants → 9%                      | ≈ −€170M                                  | МФ 2025: −300…−400 млн лв (−€153…−205M); booked +465 млн лв (+€238M) in Budget 2025 when restored                                                                                                                                                                                                                                                                              | Mediapool 21.03.2025; Investor 26.02.2025           |
+| Books/periodicals/baby 9% (permanent) | n/a (already baseline)                    | −16 млн лв/yr (−€8.2M)                                                                                                                                                                                                                                                                                                                                                         | Actualno 08.12.2022 (Петкова)                       |
+| CIT +1пп                              | +€333M (2025 base €3.33B)                 | МФ 2023: +2.31 млрд лв for +5пп → ≈ +€236M/пп on the 2023 base; КНСБ 2025: +€1.1B for 15%                                                                                                                                                                                                                                                                                      | Sega 25.04.2023; КНСБ становище ЗДБРБ 2026          |
+| Dividend 5→10%                        | +€75M (static)                            | Фискален съвет 12.12.2025: **max +€50M** (behavioral leakage)                                                                                                                                                                                                                                                                                                                  | ФС opinion PDF p.20                                 |
+| Health contribution +1пп              | +€302M net, €315M gross (base €31.5B)     | КНСБ/НОИ: +€601M for +2пп → ≈ +€300M/пп                                                                                                                                                                                                                                                                                                                                        | КНСБ становище ДОО 2026                             |
+| МОД €2,112 → €2,352                   | model: band-fit estimate (run live in UI) | КНСБ: +€231M all contributions (≈ +€180M ДОО); note this includes the 5пп second pillar the budget does not keep                                                                                                                                                                                                                                                               | КНСБ становище ЗДБРБ 2026                           |
+| Необлагаем минимум = МРЗ              | ≈ −€1.9B (static, full distribution)      | М. Димитров 2022: −1.5 млрд лв (−€767M) at 500 лв/мес → scaled to €620 (1,213 лв) ≈ −€1.86B — consistent; КНСБ Oct-2025: −€1.5B net _with_ a 15% rate offset; IMF Art. IV 2025 (CR 25/306) recommends progressive PIT but publishes NO per-measure yield — the widely-quoted "~1% of GDP" is the overall adjustment needed for a neutral stance, NOT the progressive-PIT yield | News.bg 07.2022; Investor 07.10.2025; IMF CR 25/306 |
+| VAT compliance gap                    | (context)                                 | EC VAT gap 2025 edition (data 2023): BG gap €781M = 8.6% of VTTL                                                                                                                                                                                                                                                                                                               | EC VAT gap report                                   |
 
 Takeaways encoded in the UI:
 
@@ -341,6 +341,105 @@ pays 21.5%.
 of the same table — the current source is one parliamentary answer at a time from a
 WAF-blocked PDF page. That would make the body+tail fully source-traceable and shrink the
 tail uncertainty further.
+
+## Budget-paid contributions lever (`ssp`) — full legal scope (added 2026-06-12)
+
+**Legal basis (verified against lex.bg consolidations, through ДВ 52/2026):**
+
+- **КСО чл. 6, ал. 5**: contributions for the persons under чл. 4, ал. 1, т. 2, 3, 4
+  и 10 are "за сметка на държавния бюджет, съответно бюджета на съдебната власт".
+  The referenced categories: т. 2 държавни служители по ЗДСл; т. 3 magistrates +
+  държавни съдебни изпълнители + съдии по вписванията + **съдебни служители** + ВСС
+  members/inspectors; т. 4 военнослужещи (ЗОВСРБ) + държавни служители по ЗМВР,
+  ЗИНЗС, ЗДАНС, ЗДАР, ЗСРС (ДАТО), ЗНСО + fire service (чл. 69, ал. 6); т. 10
+  junior-magistrate candidates.
+- **Health**: ЗЗО чл. 40, ал. 1, т. 1, б. "а" ("изцяло за сметка на ... ведомството,
+  когато това е предвидено в закон") + the special statutes: ЗДСл чл. 38, ал. 2;
+  ЗОВСРБ чл. 220; ЗМВР чл. 183, ал. 1; ЗСВ чл. 224/277/292/351.
+- **ДЗПО**: no explicit КСО clause; flows through the special statutes ("задължителното
+  социално ... осигуряване" budget-paid) and НАП's contribution tables (category 05:
+  24.3% pension-side + 8% health, zero employee column). Exception: ДАР/ДАНС/Военно
+  разузнаване staff are NOT in УПФ (КСО чл. 127, ал. 5) — their фонд "Пенсии" rate is
+  +5 пп instead, also budget-paid.
+- **PIT base**: ЗДДФЛ чл. 25, ал. 1 / чл. 42, ал. 2 deduct only contributions
+  "удържани ... които са за сметка на физическото лице" — nothing is withheld for
+  these categories, so their taxable base is the FULL gross (effective PIT on gross
+  10.0% vs 8.62% for a private employee). This is why `scoreSscSelfPaid` nets
+  ×(1−PIT_RATE): after the shift the personal share becomes deductible.
+
+**Population & wages (НОИ "Среден осигурителен доход", SOD_2024.pdf — the last
+edition with headcounts; SOD_2025 publishes averages only):**
+
+| НОИ category                                                            | 2024 count | avg 2024 (BGN) | avg 2025 (BGN)  |
+| ----------------------------------------------------------------------- | ---------: | -------------: | --------------- |
+| Държавни служители, следователи, съдии и прокурори; членове на ИК       |     64,178 |       2,581.64 | 2,905.09        |
+| Отбрана и сигурност (военни + МВР + ДАНС/ДАР/ДАТО/НСО/ГДИН — not split) |     68,684 |       2,438.86 | 3,274.37 (+34%) |
+
+Baseline emits the sum (132,862) + count-weighted avg (€1,282.23/mo at 2024 levels).
+**Modeling choice:** the lever shifts the STANDARD employee share (13.78%) — what any
+third-category worker pays; the elevated чл. 69 pension rates (55.8/60.8%, total
+budget-paid wedge ≈73.3% of gross for police/military) stay budget-paid either way.
+The ПП-ДБ Feb-2025 bill instead phased toward 60:40 of the TOTAL (≈29.3% of gross for
+the uniformed services) — far more aggressive; not modeled.
+
+**Cross-checks:** Фискален съвет (29.10.2025): ~200 млн лв/yr for ЗДСл servants alone
+(48,280 @ 2,432 лв, gross — no PIT netting), "много по-голям ефект" from police/military.
+24chasa/НОИ (2022): 1.26 млрд лв paid for ~129k people in 2021 — consistent with the
+two-category scope. Engine at full scope: ≈€282M gross, **≈€254M net of PIT** (static,
+no gross-up); €0 with the compensating gross-up (`sspg`).
+
+## Additional published benchmarks (research pass 2026-06-13)
+
+Four new rows added to the article's validation table, all run live through the engine:
+
+| Scenario                       | Engine static / dynamic | Published                                                                                                                     |
+| ------------------------------ | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Food + medicines VAT → 9%      | −€1.7B / −€1.4B         | МФ 20.05.2020 letter on the six VAT bills: −1.5 млрд лв/yr (2020 base; all six −1.8 млрд лв) → scaled to 2026 ≈ −€1.2…−1.3B   |
+| Corporate 10→15%               | +€1.7B / +€1.3B         | КНСБ 07.10.2025 package: ≈ +€1.1B isolated                                                                                    |
+| Pensions CPI-only (`pw=100`)   | +€479M / +€470M         | НОИ НС decision 09.06.2026: July-2026 Swiss indexation 7.8% = €513.1M for H2-2026 (≈ €1.0–1.1B/yr); CPI-only ≈ half — derived |
+| Party subsidy 4.09→3.00 €/vote | +€3M/yr (reverse lever) | Sponsors at adoption 03.06.2026: ≈ €2.2M for 2026 (8 months → ≈ €3.3M/yr); single-source (eurocom.bg)                         |
+
+Benchmarks found but NOT table-worthy (kept here for reference):
+
+- **Bread/flour 0% VAT** (in force 07.2022–12.2024): МФ (Петкова, budget committee
+  07.01.2025) — **−94 млн лв/yr** forgone, with explicitly no visible price pass-through.
+  Corroborates the engine's historical-window calibration; no UI lever (bread is not a
+  separate group).
+- **МРЗ formula caveat**: МФ's Budget-2025 number (+283.3 млн лв for МРЗ 933→1,077 лв)
+  is the EXPENDITURE side (public wage bill, лични асистенти); the engine's `mrz` lever
+  scores the REVENUE side (PIT+SSC on ~600k workers' raises, −€280M if frozen). The two
+  are different objects — do not compare them.
+- **Defense 2.25→3.0%**: no official incremental costing exists; Budget 2026 puts
+  defense at 2.25% of GDP (>5 млрд лв). Derived: +0.75пп × GDP ≈ +€870M — the engine
+  prices from the NATO-definition 2.2%, hence its −€991M for the 3.0% target. National
+  plan: 3.5% by 2032, 5% (3.5 core + 1.5 related) by 2035.
+- **+2пп ДОО contribution** (legislated for 2026, then dropped): КНСБ 13.11.2025 —
+  **+€601.2M all funds** → ≈ €300M/пп on the same insurable base as the health lever
+  (engine: +€315M gross, +€302M net) — internally consistent cross-check. A ДОО-rate
+  lever would be trivially scoreable on the same base (future candidate).
+- **КНСБ Budget-2026 package ≈ +6.2 млрд лв** is a BUNDLE (ДДФЛ 15% + НМ, corporate 15%,
+  dividend 15%, windfall 33%, FTT, child reliefs ×2) — only the corporate slice is
+  isolated; never benchmark the bundle against single levers.
+- **ИПИ Алтернативен бюджет 2026** ("златно правило 20/10"): ~100k public employees
+  released over 3 years, savings ~1.5–2.0% of GDP/yr at full effect (≈ €1.7–2.3B) —
+  program estimate, not an МФ costing; severance fund included by design.
+- **EC "Mind the Gap" country fiche BG** (SWD(2025) 421, 11.12.2025): VAT compliance gap
+  BGN 1.5B ≈ €800M / 9% of VTTL (2023 — vs the €781M/8.6% in the VAT-gap edition we cite;
+  same vintage, different rounding/method note); PIT compliance gap 13.8%; SSC gap 16.5%;
+  undeclared labour income 6.37% of GDP; VAT **rate** gap (cost of all reduced rates)
+  BGN 1B ≈ €500M (4% of notional — lowest in EU); total tax expenditures BGN 1,742M =
+  0.80% of GDP (МФ forecast 2025). Useful anchors for compliance-margin levers.
+- **Dividend status**: the 5→10% hike was in the Nov-2025 draft but dropped from the
+  December redraft — rate remains 5% as of 06.2026. The ФС ≤€50M estimate remains valid
+  as a benchmark of the _proposal_.
+- **IMF CR 25/306** (Nov 2025): recommends progressive PIT, removing the SSC cap,
+  reversing reduced VAT rates — all unquantified per measure. The "~1% of GDP" figure is
+  the overall adjustment for a neutral fiscal stance, NOT a per-measure yield (fixed in
+  the table above). imf.org PDFs 403-wall non-browser fetchers; download CR 25/306
+  manually if the staff-report tables are needed.
+- **No published numbers exist** for: full МОД-cap removal (engine: +€1.1B static),
+  cutting second-year maternity (only the benefit freeze through 2028 is on record),
+  the MP-pay freeze saving.
 
 ## Key sources
 
