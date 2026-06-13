@@ -200,7 +200,7 @@ Finally — [open the simulator](/budget/simulator) and build your own scenario.
 
 [^matwork]: Return-to-work share if the paid second year is cut — a judgment band (central 45%, range 25–65%) anchored to the НСИ employment gap for mothers of children under 3 (low among EU member states) and the КСО чл.54 rule that lets a mother keep half the benefit while working; OECD Family Database for leave-length context. No Bulgarian point estimate exists, hence the wide band. The representative return wage (≈€1,000/mo gross) is held FIXED — deliberately conservative — so the recapture's uncertainty band derives from the return share alone, not the wage. The recapture mechanism (returning mothers pay PIT + contributions) is in `src/lib/bgBehavioral.ts` and locked by `scripts/budget/__smoke_behavioral.ts`.
 
-[^knsb]: КНСБ — opinions on the draft State Budget and the ДОО (social-security) budget for 2026 (November 2025); its 7 October 2025 package isolates an estimate of ≈ +€1.1B for a 15% corporate rate.
+[^knsb]: КНСБ — its 7 October 2025 package of tax-system changes for the 2026 budget, including raising the corporate tax from 10% to 15%: [knsb-bg.org](https://knsb-bg.org/index.php/2025/10/07/knsb-nastoyava-za-promeni-v-danachnata-sistema-s-byudzheta-za-2026-g/); and its [opinion on the draft 2026 State Budget Act](https://knsb-bg.org/index.php/2025/11/13/stanovisthe-po-proekt-na-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2026-g/) (November 2025). The ≈ +€1.1B estimate for a 15% corporate rate is derived from the package.
 
 [^mf2020]: Ministry of Finance — official position on the six reduced-VAT bills, 20 May 2020: −1.5 млрд лв per year for food and medicines (2020 base; all six bills combined −1.8 млрд лв). The VAT base has grown substantially since, so the comparison is scaled. See [Mediapool](https://www.mediapool.bg/mf-ima-risk-dds-da-se-vdigne-na-24-ili-danak-pechalba-na-18-news307589.html).
 
@@ -208,11 +208,11 @@ Finally — [open the simulator](/budget/simulator) and build your own scenario.
 
 [^psub2026]: The sponsors' estimate at adoption of the cut (3 June 2026); the subsidy is €3.00 per valid vote since 30 April 2026. See e.g. [eurocom.bg](https://eurocom.bg/2026/06/03/oficialno-deputatite-namaliha-partiynite-subsidii). The model prices a full year; the 8 months of 2026 come to ≈ €2.1M — matching the sponsors' figure.
 
-[^mf]: Ministry of Finance — consolidation menu (April 2023, via Sega); МФ/Mediapool on restaurant-services VAT (2024–25). See e.g. [Mediapool](https://www.mediapool.bg/).
+[^mf]: Ministry of Finance — 2023 consolidation menu to bring the deficit under 3% (excess-profit tax, removal of the reduced VAT rates, excise hikes), as reported by Sega: [segabg.com](https://www.segabg.com/hot/category-economy/mf-predlaga-nov-ednokraten-danuk-za-vsichki-firmi-svruhpechalba). On restaurant-services VAT (2024–25), the Ministry's position that the reduced 9% rate could stay only if a lightening package raised more than returning to 20%: [minfin.bg](https://www.minfin.bg/bg/news/12340).
 
-[^coicop]: Eurostat — household final consumption expenditure by purpose (COICOP), series `nama_10_co3_p3`.
+[^coicop]: Eurostat — household final consumption expenditure by purpose (COICOP), series `nama_10_co3_p3`. [ec.europa.eu/eurostat](https://ec.europa.eu/eurostat/databrowser/view/nama_10_co3_p3/default/table?lang=en).
 
-[^ses]: Eurostat — Structure of Earnings Survey, series `earn_ses_hourly`, 2022 wave.
+[^ses]: Eurostat — Structure of Earnings Survey, series `earn_ses_hourly`, 2022 wave. [ec.europa.eu/eurostat](https://ec.europa.eu/eurostat/databrowser/view/earn_ses_hourly/default/table?lang=en).
 
 [^ecb]: European Central Bank — _Economic Bulletin_ 2/2019, debt-dynamics methodology.
 
