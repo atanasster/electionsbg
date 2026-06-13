@@ -571,6 +571,57 @@ const extractRevenue = (kfp: KfpFile): YearRevenue[] => {
   return out.sort((a, b) => a.fiscalYear - b.fiscalYear);
 };
 
+// --- excise category anchors (Агенция "Митници" chronicle) ------------------
+
+interface CustomsFile {
+  fiscalYear: number;
+  source?: { document?: string };
+  lines: { id: string; amountEur: number }[];
+}
+
+interface ExciseAnchors {
+  year: number;
+  fuelEur: number;
+  tobaccoEur: number;
+  alcoholEur: number;
+  source: string;
+}
+
+/** Excise split (fuel / tobacco / alcohol) for the policy levers. Reads the
+ *  Митници chronicle breakdown for the baseline year, walking back up to two
+ *  prior years if that file is not yet on disk. */
+const loadExcise = (baselineYear: number): ExciseAnchors => {
+  const dir = "data/budget/revenue_breakdown/customs";
+  for (let y = baselineYear; y >= baselineYear - 2; y--) {
+    const rel = `${dir}/${y}.json`;
+    if (!fs.existsSync(path.join(PROJECT_ROOT, rel))) continue;
+    const f = readJson<CustomsFile>(rel);
+    const amt = (id: string): number =>
+      f.lines.find((l) => l.id === id)?.amountEur ?? 0;
+    const fuelEur = amt("excise_fuels");
+    const tobaccoEur = amt("excise_tobacco");
+    const alcoholEur = amt("excise_alcohol");
+    if (fuelEur && tobaccoEur && alcoholEur) {
+      return {
+        year: y,
+        fuelEur,
+        tobaccoEur,
+        alcoholEur,
+        source: f.source?.document ?? `Агенция "Митници" ${y}`,
+      };
+    }
+    console.warn(`⚠ customs ${y}: incomplete excise split, trying older`);
+  }
+  console.warn("⚠ no customs excise split found — excise anchors = 0");
+  return {
+    year: baselineYear,
+    fuelEur: 0,
+    tobaccoEur: 0,
+    alcoholEur: 0,
+    source: "—",
+  };
+};
+
 // --- consumption slices ------------------------------------------------------
 
 const sliceValues = (
@@ -649,6 +700,7 @@ const main = async (): Promise<void> => {
   if (!revenueYears.length) throw new Error("no closed КФП years");
   const baseline = revenueYears[revenueYears.length - 1];
   const baselineYear = baseline.fiscalYear;
+  const excise = loadExcise(baselineYear);
 
   // GDP: macro.json runs a year or two behind the КФП close — extrapolate
   // the last value by its own trailing growth when the baseline year is
@@ -921,6 +973,7 @@ const main = async (): Promise<void> => {
     gdpNextEur: Math.round(gdpNextEurM * 1e6),
     sources: {
       kfp: "data.egov.bg КФП monthly execution (December snapshots)",
+      excise: `${excise.source} (split fuel/tobacco/alcohol, ${excise.year})`,
       pit: `НАП Годишен отчет ${napYear}`,
       consumption: "Eurostat nama_10_co3_p3 + nama_10_gdp (P31_S14)",
       contributions: `Eurostat gov_10a_taxag D613CE ${napYear}`,
@@ -936,6 +989,9 @@ const main = async (): Promise<void> => {
       pitNonEmploymentShare: nonEmploymentShare,
       corporateEur: Math.round(baseline.corporateEur),
       dividendEur: Math.round(baseline.dividendEur),
+      exciseFuelEur: Math.round(excise.fuelEur),
+      exciseTobaccoEur: Math.round(excise.tobaccoEur),
+      exciseAlcoholEur: Math.round(excise.alcoholEur),
       totalRevenueEur: Math.round(baseline.totalRevenueEur),
       balanceEur: Math.round(baseline.balanceEur),
     },

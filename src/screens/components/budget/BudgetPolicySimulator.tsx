@@ -65,6 +65,8 @@ import {
   pitMonthlyUnderBrackets,
   scoreCorporate,
   scoreDividend,
+  scoreExcise,
+  scoreWineExcise,
   scoreAdminCut,
   scoreCapitalChange,
   scoreDefenseTarget,
@@ -156,6 +158,17 @@ const R2_DEF = 15;
 // and the slider's "no change" position in one edit.
 const PSUB_DEF = Math.round(PARTY_SUBSIDY_RATE_EUR * 100);
 
+// Excise levers. Fuel/tobacco/alcohol move the existing rate by a percentage
+// (default 0 = current law); the grids let you cut a little (BG fuel is at the
+// EU floor) and raise a lot (tobacco runs into its Laffer turn on the
+// pessimistic band). Wine is an INTRODUCE-from-€0 lever in €/hl.
+const EXCISE_FUEL_MIN = -20;
+const EXCISE_FUEL_MAX = 50;
+const EXCISE_SIN_MIN = -20; // tobacco & alcohol
+const EXCISE_SIN_MAX = 100;
+const WINE_MAX = 100; // €/hl (NL ≈ €48, FR ≈ €4)
+const WINE_STEP = 5;
+
 // Exemplar payslips in the citizen pane: minimum wage, ~average, upper
 // professional, above-cap.
 const EXEMPLAR_GROSS = [620, 1250, 2500, 5000];
@@ -233,6 +246,12 @@ interface LeverState {
   mat: number;
   mpf: boolean;
   psub: number;
+  /** Excise rate changes, integer % (0 = current law). */
+  exFuel: number;
+  exTobacco: number;
+  exAlcohol: number;
+  /** Introduced still-wine excise, €/hl (0 = current €0). */
+  wine: number;
 }
 
 // THE single static-scoring path. Returns each lever's static EUR delta
@@ -280,6 +299,24 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
 
   const corpDelta = scoreCorporate(baseline.revenue.corporateEur, s.corp / 100);
   const divDelta = scoreDividend(baseline.revenue.dividendEur, s.div / 100);
+
+  // Excise (fixed-base static deltas; demand/cross-border response is Tier-1
+  // behavioral). Fuel/tobacco/alcohol scale the existing category line; wine
+  // is introduced from €0.
+  const exFuelDelta = scoreExcise(
+    baseline.revenue.exciseFuelEur ?? 0,
+    s.exFuel / 100,
+  );
+  const exTobaccoDelta = scoreExcise(
+    baseline.revenue.exciseTobaccoEur ?? 0,
+    s.exTobacco / 100,
+  );
+  const exAlcoholDelta = scoreExcise(
+    baseline.revenue.exciseAlcoholEur ?? 0,
+    s.exAlcohol / 100,
+  );
+  const wineDelta = s.wine > 0 ? scoreWineExcise(s.wine) : 0;
+  const exciseDelta = exFuelDelta + exTobaccoDelta + exAlcoholDelta + wineDelta;
 
   // МОД: central from the band model (works in both directions and knows
   // the schedule's base rate for the deduction interaction); the range
@@ -409,6 +446,7 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     pitDelta +
     corpDelta +
     divDelta +
+    exciseDelta +
     modRes.centralEur +
     expenditureBalance;
   const low =
@@ -416,6 +454,7 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     pitDelta +
     corpDelta +
     divDelta +
+    exciseDelta +
     expenditureBalance +
     Math.min(modRes.lowEur, modRes.highEur);
   const high =
@@ -423,6 +462,7 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     pitDelta +
     corpDelta +
     divDelta +
+    exciseDelta +
     expenditureBalance +
     Math.max(modRes.lowEur, modRes.highEur);
 
@@ -442,6 +482,10 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     pitNonEmploymentDelta,
     corpDelta,
     divDelta,
+    exFuelDelta,
+    exTobaccoDelta,
+    exAlcoholDelta,
+    wineDelta,
     modRes,
     brackets,
     expenditureNonPensionBalance,
@@ -503,6 +547,10 @@ const NEUTRAL_LEVERS = (currentCap: number): LeverState => ({
   mat: MATERNITY_Y2_MONTHS,
   mpf: false,
   psub: PSUB_DEF,
+  exFuel: 0,
+  exTobacco: 0,
+  exAlcohol: 0,
+  wine: 0,
 });
 
 // Static central effect of one preset in isolation — the myth-buster weight
@@ -560,6 +608,10 @@ const PARAM_ROW_KEY: Record<string, string> = {
   r2: "pit",
   corp: "corp",
   div: "div",
+  excf: "excise",
+  exct: "excise",
+  exca: "excise",
+  winex: "excise",
   mod: "mod",
   nocap: "mod",
   pw: "pensions",
@@ -947,6 +999,30 @@ export const BudgetPolicySimulator: FC = () => {
   const [div, setDiv] = useState(() =>
     clampIntParam(searchParams.get("div"), 0, 20, DIV_DEF),
   );
+  const [exFuel, setExFuel] = useState(() =>
+    clampIntParam(
+      searchParams.get("excf"),
+      EXCISE_FUEL_MIN,
+      EXCISE_FUEL_MAX,
+      0,
+    ),
+  );
+  const [exTobacco, setExTobacco] = useState(() =>
+    clampIntParam(searchParams.get("exct"), EXCISE_SIN_MIN, EXCISE_SIN_MAX, 0),
+  );
+  const [exAlcohol, setExAlcohol] = useState(() =>
+    clampIntParam(searchParams.get("exca"), EXCISE_SIN_MIN, EXCISE_SIN_MAX, 0),
+  );
+  const [wine, setWine] = useState(() =>
+    clampIntParam(searchParams.get("winex"), 0, WINE_MAX, 0),
+  );
+  const [exciseOpen, setExciseOpen] = useState(
+    () =>
+      searchParams.get("excf") != null ||
+      searchParams.get("exct") != null ||
+      searchParams.get("exca") != null ||
+      searchParams.get("winex") != null,
+  );
   const [mod, setMod] = useState(() =>
     clampIntParam(searchParams.get("mod"), modMin, modMax, currentCap),
   );
@@ -1112,6 +1188,11 @@ export const BudgetPolicySimulator: FC = () => {
     setMat(p.mat ?? MATERNITY_Y2_MONTHS);
     setMpf(false);
     setPsub(PSUB_DEF);
+    setExFuel(0);
+    setExTobacco(0);
+    setExAlcohol(0);
+    setWine(0);
+    setExciseOpen(false);
     setVatCatsOpen(!!p.regimes);
     setTaxDetailOpen(p.nm != null || !!p.b2);
     setExpOpen(
@@ -1155,7 +1236,11 @@ export const BudgetPolicySimulator: FC = () => {
       tpEff === tpDef &&
       mat === (p.mat ?? MATERNITY_Y2_MONTHS) &&
       !mpf &&
-      psub === PSUB_DEF
+      psub === PSUB_DEF &&
+      exFuel === 0 &&
+      exTobacco === 0 &&
+      exAlcohol === 0 &&
+      wine === 0
     );
   };
 
@@ -1176,6 +1261,10 @@ export const BudgetPolicySimulator: FC = () => {
     }
     if (corp !== CORP_DEF) next.corp = String(corp);
     if (div !== DIV_DEF) next.div = String(div);
+    if (exFuel !== 0) next.excf = String(exFuel);
+    if (exTobacco !== 0) next.exct = String(exTobacco);
+    if (exAlcohol !== 0) next.exca = String(exAlcohol);
+    if (wine !== 0) next.winex = String(wine);
     if (!noCap && mod !== currentCap) next.mod = String(mod);
     if (noCap) next.nocap = "1";
     if (gross !== GROSS_DEF) next.gross = String(gross);
@@ -1210,6 +1299,10 @@ export const BudgetPolicySimulator: FC = () => {
     r2,
     corp,
     div,
+    exFuel,
+    exTobacco,
+    exAlcohol,
+    wine,
     mod,
     noCap,
     gross,
@@ -1269,6 +1362,10 @@ export const BudgetPolicySimulator: FC = () => {
     setMat(MATERNITY_Y2_MONTHS);
     setMpf(false);
     setPsub(PSUB_DEF);
+    setExFuel(0);
+    setExTobacco(0);
+    setExAlcohol(0);
+    setWine(0);
   };
 
   // ----- EU country comparators ----------------------------------------------
@@ -1384,6 +1481,10 @@ export const BudgetPolicySimulator: FC = () => {
       mat,
       mpf,
       psub,
+      exFuel,
+      exTobacco,
+      exAlcohol,
+      wine,
     });
   }, [
     baseline,
@@ -1418,6 +1519,10 @@ export const BudgetPolicySimulator: FC = () => {
     mat,
     mpf,
     psub,
+    exFuel,
+    exTobacco,
+    exAlcohol,
+    wine,
     currentCap,
   ]);
 
@@ -1612,6 +1717,10 @@ export const BudgetPolicySimulator: FC = () => {
         modCentralEur: scenario.modRes.centralEur,
         healthDeltaEur: scenario.hpDelta,
         minWageDeltaEur: scenario.mwDelta,
+        exciseFuelDeltaEur: scenario.exFuelDelta,
+        exciseTobaccoDeltaEur: scenario.exTobaccoDelta,
+        exciseAlcoholDeltaEur: scenario.exAlcoholDelta,
+        wineDeltaEur: scenario.wineDelta,
         maternityMonthsCut: MATERNITY_Y2_MONTHS - mat,
         expenditureBalanceNonPensionEur: scenario.expenditureNonPensionBalance,
         brackets: scenario.brackets,
@@ -1623,6 +1732,9 @@ export const BudgetPolicySimulator: FC = () => {
         divNewRate: div / 100,
         modTargetCapEur: noCap ? Infinity : mod,
         modCurrentCapEur: currentCap,
+        exciseFuelRateChange: exFuel / 100,
+        exciseTobaccoRateChange: exTobacco / 100,
+        exciseAlcoholRateChange: exAlcohol / 100,
       },
     );
     return computeDynamicScenario(input, mcDraws);
@@ -1638,6 +1750,9 @@ export const BudgetPolicySimulator: FC = () => {
     noCap,
     currentCap,
     mat,
+    exFuel,
+    exTobacco,
+    exAlcohol,
   ]);
 
   // ----- multi-year balance & debt projection --------------------------------
@@ -1846,6 +1961,12 @@ export const BudgetPolicySimulator: FC = () => {
   const effPit = scenario.pitDelta + (dynOffsets?.pit ?? 0);
   const effCorp = scenario.corpDelta + (dynOffsets?.corp ?? 0);
   const effDiv = scenario.divDelta + (dynOffsets?.dividend ?? 0);
+  const effExFuel = scenario.exFuelDelta + (dynOffsets?.exciseFuel ?? 0);
+  const effExTobacco =
+    scenario.exTobaccoDelta + (dynOffsets?.exciseTobacco ?? 0);
+  const effExAlcohol =
+    scenario.exAlcoholDelta + (dynOffsets?.exciseAlcohol ?? 0);
+  const effWine = scenario.wineDelta + (dynOffsets?.wine ?? 0);
   const effMod = scenario.modRes.centralEur + (dynOffsets?.mod ?? 0);
   const effHp = scenario.hpDelta + (dynOffsets?.health ?? 0);
   const effMat = scenario.matBalance + (dynOffsets?.maternity ?? 0);
@@ -1872,6 +1993,10 @@ export const BudgetPolicySimulator: FC = () => {
     Math.abs(effPit),
     Math.abs(effCorp),
     Math.abs(effDiv),
+    Math.abs(effExFuel),
+    Math.abs(effExTobacco),
+    Math.abs(effExAlcohol),
+    Math.abs(effWine),
     Math.abs(effMod),
     Math.abs(scenario.pensionBalance),
     Math.abs(scenario.adminBalance),
@@ -2429,6 +2554,101 @@ export const BudgetPolicySimulator: FC = () => {
                     }),
                   )
                 : null}
+            </div>
+
+            {/* Excise — fuel, tobacco, alcohol, wine */}
+            <div className="border-t pt-3">
+              <div className="flex w-full items-center justify-between gap-2 text-xs font-medium text-muted-foreground">
+                <span className="inline-flex items-center gap-1">
+                  <button
+                    type="button"
+                    aria-expanded={exciseOpen}
+                    onClick={() => setExciseOpen((v) => !v)}
+                    className="hover:text-foreground"
+                  >
+                    {t("budget_policy_excise_title")}
+                  </button>
+                  <InfoTip text={t("budget_policy_tip_excise")} />
+                  {!exciseOpen &&
+                  (exFuel !== 0 ||
+                    exTobacco !== 0 ||
+                    exAlcohol !== 0 ||
+                    wine !== 0) ? (
+                    <span className="rounded-full bg-indigo-500/10 px-1.5 text-[10px] text-indigo-700 dark:text-indigo-300">
+                      {
+                        [exFuel, exTobacco, exAlcohol, wine].filter(
+                          (v) => v !== 0,
+                        ).length
+                      }
+                    </span>
+                  ) : null}
+                </span>
+                <button
+                  type="button"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                  onClick={() => setExciseOpen((v) => !v)}
+                  className="hover:text-foreground"
+                >
+                  <ChevronDown
+                    className={
+                      "h-3.5 w-3.5 transition-transform " +
+                      (exciseOpen ? "rotate-180" : "")
+                    }
+                  />
+                </button>
+              </div>
+              {exciseOpen ? (
+                <div className="mt-2 space-y-4">
+                  <RateSlider
+                    id="policy-excise-fuel"
+                    label={t("budget_policy_excise_fuel")}
+                    tip={t("budget_policy_tip_excise_fuel")}
+                    min={EXCISE_FUEL_MIN}
+                    max={EXCISE_FUEL_MAX}
+                    value={exFuel}
+                    defaultValue={0}
+                    onChange={setExFuel}
+                    formatValue={(v) => `${v > 0 ? "+" : ""}${v}%`}
+                  />
+                  <RateSlider
+                    id="policy-excise-tobacco"
+                    label={t("budget_policy_excise_tobacco")}
+                    tip={t("budget_policy_tip_excise_tobacco")}
+                    min={EXCISE_SIN_MIN}
+                    max={EXCISE_SIN_MAX}
+                    value={exTobacco}
+                    defaultValue={0}
+                    onChange={setExTobacco}
+                    formatValue={(v) => `${v > 0 ? "+" : ""}${v}%`}
+                  />
+                  <RateSlider
+                    id="policy-excise-alcohol"
+                    label={t("budget_policy_excise_alcohol")}
+                    tip={t("budget_policy_tip_excise_alcohol")}
+                    min={EXCISE_SIN_MIN}
+                    max={EXCISE_SIN_MAX}
+                    value={exAlcohol}
+                    defaultValue={0}
+                    onChange={setExAlcohol}
+                    formatValue={(v) => `${v > 0 ? "+" : ""}${v}%`}
+                  />
+                  <RateSlider
+                    id="policy-excise-wine"
+                    label={t("budget_policy_excise_wine")}
+                    tip={t("budget_policy_tip_excise_wine")}
+                    min={0}
+                    max={WINE_MAX}
+                    step={WINE_STEP}
+                    value={wine}
+                    defaultValue={0}
+                    onChange={setWine}
+                    formatValue={(v) =>
+                      lang === "bg" ? `${v} €/хл` : `€${v}/hl`
+                    }
+                  />
+                </div>
+              ) : null}
             </div>
 
             {/* Expenditure side — pensions, administration, МРЗ */}
@@ -3034,6 +3254,43 @@ export const BudgetPolicySimulator: FC = () => {
                     lang={lang}
                     sub={staticSub(scenario.divDelta, effDiv)}
                   />
+                  {exFuel !== 0 ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_excise_fuel")}
+                      deltaEur={effExFuel}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                      sub={staticSub(scenario.exFuelDelta, effExFuel)}
+                    />
+                  ) : null}
+                  {exTobacco !== 0 ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_excise_tobacco")}
+                      tip={t("budget_policy_tip_excise_tobacco_row")}
+                      deltaEur={effExTobacco}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                      sub={staticSub(scenario.exTobaccoDelta, effExTobacco)}
+                    />
+                  ) : null}
+                  {exAlcohol !== 0 ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_excise_alcohol")}
+                      deltaEur={effExAlcohol}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                      sub={staticSub(scenario.exAlcoholDelta, effExAlcohol)}
+                    />
+                  ) : null}
+                  {wine !== 0 ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_excise_wine")}
+                      deltaEur={effWine}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                      sub={staticSub(scenario.wineDelta, effWine)}
+                    />
+                  ) : null}
                   <DeltaRow
                     label={t("budget_policy_row_mod")}
                     tip={t("budget_policy_tip_mod_row")}

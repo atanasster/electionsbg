@@ -210,6 +210,58 @@ export const REVENUE_GDP_FEEDBACK: ElasticityBand = {
     "Consolidated revenue ≈ 38% of GDP; long-run buoyancy ≈ 1.0 (EC Economic Papers 536, BG rows).",
 };
 
+// --- Excise response semi-elasticities -------------------------------------
+// Each is the % erosion of the consumption base per +1pp of the rate INDEX
+// (a +10% rate move = +10pp), so at the margin a fraction ≈ s of the static
+// gain is lost to behaviour. They fold (excise-share-of-retail-price ×
+// pass-through × demand elasticity) together with the cross-border / illicit
+// substitution channel, which dominates for tobacco.
+
+/** Fuel/energy excise. Demand is inelastic (−0.1…−0.3 SR) and BG petrol/diesel
+ *  already sit at the EU floor; the residual response is pump-price pass-
+ *  through plus RO/RS cross-border arbitrage on a hike. */
+export const EXCISE_FUEL_RESPONSE: ElasticityBand = {
+  low: 0.04,
+  central: 0.1,
+  high: 0.25,
+  source:
+    "Fuel demand elasticity −0.1…−0.3 SR (Parry & Small 2005; Istiee 2023 review −0.09…−0.76 SR); excise ≈⅓ of pump price, ~90% pass-through; cross-border arbitrage RO/RS as the high band.",
+};
+
+/** Tobacco excise — the Laffer-prone lever. Legal-cigarette demand elasticity
+ *  ≈−0.4 (EU panel) but the dominant BG channel is illicit/cross-border
+ *  substitution: the 2009→2010 hike coincided with illicit share rising
+ *  ~17.5%→39.7%. The high band drives a revenue turn on large hikes. */
+export const EXCISE_TOBACCO_RESPONSE: ElasticityBand = {
+  low: 0.12,
+  central: 0.25,
+  high: 0.6,
+  source:
+    "Cigarette price elasticity ≈−0.4 (EU panel, PMC10277038); BG illicit-trade response (Univ. of Bath / CSD: illicit share 17.5%→39.7% after the 2009–2010 excise rise) sets the high band — a Laffer turn on large hikes. BG-specific −1.49 treated as an outlier.",
+};
+
+/** Alcohol excise. Spirits are price-elastic (−0.5…−0.8); BG adds a home-still
+ *  (ракия казан) and unrecorded-consumption substitution margin. */
+export const EXCISE_ALCOHOL_RESPONSE: ElasticityBand = {
+  low: 0.12,
+  central: 0.25,
+  high: 0.5,
+  source:
+    "Spirits elasticity −0.5…−0.8 (NCBI NBK566208); beer/heavy-user demand inelastic; BG home-production (ракия) + Eastern-EU unrecorded consumption as the high band.",
+};
+
+/** Share of an INTRODUCED wine excise lost to demand response + the untaxed
+ *  home-produced / off-survey channel (the ~18 vs ~4.7 L/capita gap between
+ *  the ИАЛВ total and the NSI household survey) + collection ramp. Wine demand
+ *  is fairly inelastic, so the leakage is modest. */
+export const EXCISE_WINE_LEAKAGE: ElasticityBand = {
+  low: 0.05,
+  central: 0.15,
+  high: 0.35,
+  source:
+    "Judgment band: wine demand inelastic, but a large home-produced/off-survey slice (ИАЛВ ~18 L/capita vs NSI ~4.7 L/capita) escapes any introduced excise; collection ramp on a brand-new base.",
+};
+
 /** Ordered list for the UI's "behavioral assumptions" fold-out — the i18n
  *  label key is budget_policy_elast_<key>. */
 export const BEHAVIORAL_PARAMS: { key: string; band: ElasticityBand }[] = [
@@ -218,6 +270,10 @@ export const BEHAVIORAL_PARAMS: { key: string; band: ElasticityBand }[] = [
   { key: "cit", band: CIT_BASE_SEMI_ELAST_PCT_PP },
   { key: "div", band: DIV_BASE_SEMI_ELAST_PCT_PP },
   { key: "vat_gap", band: VAT_GAP_RESPONSE },
+  { key: "excise_fuel", band: EXCISE_FUEL_RESPONSE },
+  { key: "excise_tobacco", band: EXCISE_TOBACCO_RESPONSE },
+  { key: "excise_alcohol", band: EXCISE_ALCOHOL_RESPONSE },
+  { key: "excise_wine", band: EXCISE_WINE_LEAKAGE },
   { key: "ssc_cap", band: SSC_CAP_AVOIDANCE },
   { key: "ssc_rate", band: SSC_RATE_AVOIDANCE },
   { key: "maternity_return", band: MATERNITY_RETURN_TO_WORK },
@@ -255,6 +311,12 @@ export interface BehavioralDraw {
   modAlpha: number;
   /** Model-margin factor for МОД cap LOWERING (the ±15% band). */
   modLowerFactor: number;
+  /** Excise base-erosion semi-elasticities (% base per +1pp of rate index). */
+  exciseFuelResponse: number;
+  exciseTobaccoResponse: number;
+  exciseAlcoholResponse: number;
+  /** Share of an introduced wine excise lost to demand + home-production. */
+  exciseWineLeakage: number;
 }
 
 export const centralDraw = (modAlphaCentral: number): BehavioralDraw => ({
@@ -274,6 +336,10 @@ export const centralDraw = (modAlphaCentral: number): BehavioralDraw => ({
   divShiftRecapture: DIV_SHIFT_TO_SALARY.central,
   modAlpha: modAlphaCentral,
   modLowerFactor: 1,
+  exciseFuelResponse: EXCISE_FUEL_RESPONSE.central,
+  exciseTobaccoResponse: EXCISE_TOBACCO_RESPONSE.central,
+  exciseAlcoholResponse: EXCISE_ALCOHOL_RESPONSE.central,
+  exciseWineLeakage: EXCISE_WINE_LEAKAGE.central,
 });
 
 /** Every parameter at 0 → the layer reproduces static scoring exactly. */
@@ -294,6 +360,10 @@ export const zeroDraw = (modAlphaCentral: number): BehavioralDraw => ({
   divShiftRecapture: 0,
   modAlpha: modAlphaCentral,
   modLowerFactor: 1,
+  exciseFuelResponse: 0,
+  exciseTobaccoResponse: 0,
+  exciseAlcoholResponse: 0,
+  exciseWineLeakage: 0,
 });
 
 export const MC_DRAWS = 500;
@@ -354,6 +424,10 @@ export const sampleDraws = (
       // Appended last so the draws above stay byte-identical (determinism).
       maternityReturnShare: sampleTriangular(rnd(), MATERNITY_RETURN_TO_WORK),
       divShiftRecapture: sampleTriangular(rnd(), DIV_SHIFT_TO_SALARY),
+      exciseFuelResponse: sampleTriangular(rnd(), EXCISE_FUEL_RESPONSE),
+      exciseTobaccoResponse: sampleTriangular(rnd(), EXCISE_TOBACCO_RESPONSE),
+      exciseAlcoholResponse: sampleTriangular(rnd(), EXCISE_ALCOHOL_RESPONSE),
+      exciseWineLeakage: sampleTriangular(rnd(), EXCISE_WINE_LEAKAGE),
     });
   }
   return draws;
@@ -460,6 +534,26 @@ export const vatBehavioralOffset = (
   staticVatDeltaEur: number,
   gapResponse: number,
 ): number => -staticVatDeltaEur * gapResponse;
+
+/** Behavioural offset on an excise rate change of `rateChangeFraction`
+ *  (+0.10 = +10%): the consumption base erodes per the semi-elasticity, so on
+ *  a large enough hike the offset can exceed the static gain (the Laffer turn).
+ *  Reuses the exponential semi-elasticity with a unit rate index. */
+export const exciseBehavioralOffset = (
+  exciseRevenueEur: number,
+  rateChangeFraction: number,
+  semiElastPctPp: number,
+): number =>
+  semiElastOffset(exciseRevenueEur, 1, 1 + rateChangeFraction, semiElastPctPp);
+
+/** Behavioural offset on an INTRODUCED wine excise: a flat leakage share of the
+ *  static revenue (demand response + untaxed home production + collection
+ *  ramp). The static delta is from a €0 base, so there is no rate index to run
+ *  the exponential form against. */
+export const wineExciseBehavioralOffset = (
+  staticWineDeltaEur: number,
+  leakageShare: number,
+): number => -staticWineDeltaEur * leakageShare;
 
 /** Haircut on the incremental base of a cap RAISE (doubled, capped at 0.40,
  *  for no-cap — the increment is then the whole Pareto tail). Lowering has no
@@ -577,6 +671,18 @@ export interface DynamicScenarioInput {
   staticDivDeltaEur: number;
   staticModCentralEur: number;
   staticHealthDeltaEur: number;
+  /** Excise static deltas (fuel/tobacco/alcohol % changes; wine introduced). */
+  staticExciseFuelDeltaEur: number;
+  staticExciseTobaccoDeltaEur: number;
+  staticExciseAlcoholDeltaEur: number;
+  staticWineDeltaEur: number;
+  /** Anchors + rate moves the excise offsets need. */
+  exciseFuelRevenueEur: number;
+  exciseFuelRateChange: number;
+  exciseTobaccoRevenueEur: number;
+  exciseTobaccoRateChange: number;
+  exciseAlcoholRevenueEur: number;
+  exciseAlcoholRateChange: number;
   /** МРЗ-freeze delta. Deliberately EXCLUDED from the Tier-2 impulse: the
    *  budget's foregone SSC/PIT reads as fiscal loosening, but the frozen
    *  private wages are an opposing household-income hit — net demand effect
@@ -628,6 +734,11 @@ export interface DynamicBaselineLike {
     pitNonEmploymentShare: number;
     corporateEur: number;
     dividendEur: number;
+    /** Excise category anchors (Митници chronicle). Optional so existing
+     *  baselines without them resolve excise offsets to 0. */
+    exciseFuelEur?: number;
+    exciseTobaccoEur?: number;
+    exciseAlcoholEur?: number;
   };
   modIdentity: ModIdentity;
 }
@@ -644,6 +755,11 @@ export interface DynamicStaticScore {
   modCentralEur: number;
   healthDeltaEur: number;
   minWageDeltaEur: number;
+  /** Excise static deltas (optional; default 0 for callers without them). */
+  exciseFuelDeltaEur?: number;
+  exciseTobaccoDeltaEur?: number;
+  exciseAlcoholDeltaEur?: number;
+  wineDeltaEur?: number;
   /** Months of the paid second maternity year cut (0..12; default 0). */
   maternityMonthsCut?: number;
   expenditureBalanceNonPensionEur: number;
@@ -658,6 +774,10 @@ export interface DynamicRateParams {
   divNewRate: number;
   modTargetCapEur: number;
   modCurrentCapEur: number;
+  /** Excise rate changes as fractions (+0.10 = +10%); optional, default 0. */
+  exciseFuelRateChange?: number;
+  exciseTobaccoRateChange?: number;
+  exciseAlcoholRateChange?: number;
 }
 
 export const buildDynamicInput = (
@@ -674,6 +794,16 @@ export const buildDynamicInput = (
   staticModCentralEur: s.modCentralEur,
   staticHealthDeltaEur: s.healthDeltaEur,
   staticMinWageDeltaEur: s.minWageDeltaEur,
+  staticExciseFuelDeltaEur: s.exciseFuelDeltaEur ?? 0,
+  staticExciseTobaccoDeltaEur: s.exciseTobaccoDeltaEur ?? 0,
+  staticExciseAlcoholDeltaEur: s.exciseAlcoholDeltaEur ?? 0,
+  staticWineDeltaEur: s.wineDeltaEur ?? 0,
+  exciseFuelRevenueEur: baseline.revenue.exciseFuelEur ?? 0,
+  exciseFuelRateChange: r.exciseFuelRateChange ?? 0,
+  exciseTobaccoRevenueEur: baseline.revenue.exciseTobaccoEur ?? 0,
+  exciseTobaccoRateChange: r.exciseTobaccoRateChange ?? 0,
+  exciseAlcoholRevenueEur: baseline.revenue.exciseAlcoholEur ?? 0,
+  exciseAlcoholRateChange: r.exciseAlcoholRateChange ?? 0,
   maternityMonthsCut: s.maternityMonthsCut ?? 0,
   expenditureBalanceNonPensionEur: s.expenditureBalanceNonPensionEur,
   pensionPathEur: s.pensionPathEur,
@@ -710,6 +840,12 @@ export interface DynamicScenarioResult {
     maternity: number;
     /** Dividend↔salary relabeling recapture. */
     divShift: number;
+    /** Excise demand/cross-border/illicit response per category. */
+    exciseFuel: number;
+    exciseTobacco: number;
+    exciseAlcohol: number;
+    /** Introduced-wine-excise leakage. */
+    wine: number;
   };
   /** static total + Σ central Tier-1 offsets — the year-1 scalar handed to
    *  projectFiscalPath (Tier-2 feedback rides the fixed path instead). */
@@ -825,6 +961,25 @@ export const computeDynamicScenario = (
         draw.divSemiElast,
         draw.divShiftRecapture,
       ),
+      exciseFuel: exciseBehavioralOffset(
+        input.exciseFuelRevenueEur,
+        input.exciseFuelRateChange,
+        draw.exciseFuelResponse,
+      ),
+      exciseTobacco: exciseBehavioralOffset(
+        input.exciseTobaccoRevenueEur,
+        input.exciseTobaccoRateChange,
+        draw.exciseTobaccoResponse,
+      ),
+      exciseAlcohol: exciseBehavioralOffset(
+        input.exciseAlcoholRevenueEur,
+        input.exciseAlcoholRateChange,
+        draw.exciseAlcoholResponse,
+      ),
+      wine: wineExciseBehavioralOffset(
+        input.staticWineDeltaEur,
+        draw.exciseWineLeakage,
+      ),
     };
   };
 
@@ -839,7 +994,11 @@ export const computeDynamicScenario = (
       o.mod +
       o.health +
       o.maternity +
-      o.divShift;
+      o.divShift +
+      o.exciseFuel +
+      o.exciseTobacco +
+      o.exciseAlcohol +
+      o.wine;
     const fb = computeMacroFeedback(
       input.staticVatDeltaEur + o.vat,
       input.staticPitEmploymentDeltaEur +
@@ -848,11 +1007,19 @@ export const computeDynamicScenario = (
         input.staticDivDeltaEur +
         input.staticModCentralEur +
         input.staticHealthDeltaEur +
+        input.staticExciseFuelDeltaEur +
+        input.staticExciseTobaccoDeltaEur +
+        input.staticExciseAlcoholDeltaEur +
+        input.staticWineDeltaEur +
         o.pit +
         o.corp +
         o.dividend +
         o.mod +
-        o.health,
+        o.health +
+        o.exciseFuel +
+        o.exciseTobacco +
+        o.exciseAlcohol +
+        o.wine,
       input.expenditureBalanceNonPensionEur,
       input.pensionPathEur,
       draw,
@@ -872,7 +1039,11 @@ export const computeDynamicScenario = (
     offsets.mod +
     offsets.health +
     offsets.maternity +
-    offsets.divShift;
+    offsets.divShift +
+    offsets.exciseFuel +
+    offsets.exciseTobacco +
+    offsets.exciseAlcohol +
+    offsets.wine;
   const feedback = computeMacroFeedback(
     input.staticVatDeltaEur + offsets.vat,
     input.staticPitEmploymentDeltaEur +
@@ -881,11 +1052,19 @@ export const computeDynamicScenario = (
       input.staticDivDeltaEur +
       input.staticModCentralEur +
       input.staticHealthDeltaEur +
+      input.staticExciseFuelDeltaEur +
+      input.staticExciseTobaccoDeltaEur +
+      input.staticExciseAlcoholDeltaEur +
+      input.staticWineDeltaEur +
       offsets.pit +
       offsets.corp +
       offsets.dividend +
       offsets.mod +
-      offsets.health,
+      offsets.health +
+      offsets.exciseFuel +
+      offsets.exciseTobacco +
+      offsets.exciseAlcohol +
+      offsets.wine,
     input.expenditureBalanceNonPensionEur,
     input.pensionPathEur,
     central,

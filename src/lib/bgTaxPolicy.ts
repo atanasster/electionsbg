@@ -783,3 +783,43 @@ export const PARTY_SUBSIDY_RATE_EUR = 3.0;
  *  current law). */
 export const scorePartySubsidy = (rateEur: number): number =>
   (rateEur - PARTY_SUBSIDY_RATE_EUR) * PARTY_SUBSIDY_VOTES;
+
+// ---------------------------------------------------------------------------
+// Excise duties (акцизи) — fuel / energy, tobacco, alcohol, and the currently
+// zero-rated wine base. The fuel/tobacco/alcohol levers move the EXISTING rate
+// by a percentage (the categories carry many sub-rates — petrol/diesel/LPG,
+// specific+ad-valorem on tobacco — so a single €/unit slider would be
+// meaningless; a uniform "% change to the rate" is the honest, legible unit).
+// Revenue anchors are the Агенция "Митници" annual chronicle category lines
+// (data/budget/revenue_breakdown/customs/<year>.json), threaded through the
+// policy baseline's revenue block. The demand/cross-border/illicit response is
+// applied as a separate behavioral offset (see bgBehavioral.ts), so these are
+// the FIXED-base static deltas: a +g change to a category raising R today
+// raises R·g before any behavioural leakage.
+// ---------------------------------------------------------------------------
+
+/** Δ revenue of changing an excise category's rate by `rateChangeFraction`
+ *  (+0.10 = +10%), holding the consumption base fixed: R·g. Behaviour
+ *  (demand elasticity + cross-border/illicit substitution) is layered on top
+ *  in the dynamic engine. */
+export const scoreExcise = (
+  exciseRevenueEur: number,
+  rateChangeFraction: number,
+): number => exciseRevenueEur * rateChangeFraction;
+
+/** Commercial wine volume that an introduced excise would realistically reach,
+ *  hectolitres/year. Total BG wine consumption is ≈1.15M hl (ИАЛВ: 110–120M L,
+ *  ~90% domestic; cross-checked vs OIV 114,000 t for 2023). A large home-
+ *  produced / off-survey slice escapes any excise (the NSI household survey
+ *  reports only ~4.7 L/capita vs the ~18 L/capita implied total), so the
+ *  taxable commercial base is set to the lower commercial-market figure
+ *  (~0.94M hl, USDA-FAS). The residual demand/home-shift response rides the
+ *  behavioral leakage term. */
+export const WINE_TAXABLE_HL = 940_000;
+
+/** Δ revenue of INTRODUCING a still-wine excise at `rateEurPerHl` (BG taxes
+ *  wine at €0 today — the EU minimum is also €0, so this is a genuine, EU-legal
+ *  policy choice rather than a rate tweak). Reference points: France €4.05/hl
+ *  (token), Netherlands ≈€48/hl. Static = rate × commercial base. */
+export const scoreWineExcise = (rateEurPerHl: number): number =>
+  rateEurPerHl * WINE_TAXABLE_HL;

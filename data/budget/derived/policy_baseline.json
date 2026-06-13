@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-10T13:39:44.922Z",
+  "generatedAt": "2026-06-13T18:40:19.811Z",
   "country": "BG",
   "baselineYear": 2025,
   "gdpEur": 116018300000,
@@ -7,6 +7,7 @@
   "gdpNextEur": 128156722513,
   "sources": {
     "kfp": "data.egov.bg КФП monthly execution (December snapshots)",
+    "excise": "Митническа хроника — Българските митници през 2025 г. (split fuel/tobacco/alcohol, 2025)",
     "pit": "НАП Годишен отчет 2024",
     "consumption": "Eurostat nama_10_co3_p3 + nama_10_gdp (P31_S14)",
     "contributions": "Eurostat gov_10a_taxag D613CE 2024",
@@ -22,6 +23,9 @@
     "pitNonEmploymentShare": 0.07451068700549232,
     "corporateEur": 3328029355,
     "dividendEur": 74936646,
+    "exciseFuelEur": 1442405526,
+    "exciseTobaccoEur": 2152692207,
+    "exciseAlcoholEur": 176549087,
     "totalRevenueEur": 26309031158,
     "balanceEur": -3113054197
   },

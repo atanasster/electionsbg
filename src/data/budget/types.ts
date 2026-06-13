@@ -2023,6 +2023,10 @@ export interface PolicyBaselineFile {
     pitNonEmploymentShare: number;
     corporateEur: number;
     dividendEur: number;
+    /** Excise category anchors — Агенция "Митници" annual chronicle split. */
+    exciseFuelEur: number;
+    exciseTobaccoEur: number;
+    exciseAlcoholEur: number;
     totalRevenueEur: number;
     /** Section IV budget balance at the baseline year (negative = deficit). */
     balanceEur: number;
