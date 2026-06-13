@@ -606,13 +606,14 @@ export const route = (question: string, ctx: ToolContext): Route => {
   // администрацията/замразяване на МРЗ/отбрана % от БВП/заплати в публичния
   // сектор/капиталов план/осигуровки на държавните служители/здравна вноска,
   // plus the excise levers: акциз върху горивата/тютюна/алкохола (% промяна) и
-  // нов акциз върху виното €/хл) plus a target value or a what-if/cost cue, so
-  // the generic budget questions ("какъв е бюджетът"), local taxes ("данъци в
+  // нов акциз върху виното €/хл, plus the gambling ЗХ GGR fee: данъкът върху
+  // хазарта да стане X%) plus a target value or a what-if/cost cue, so the
+  // generic budget questions ("какъв е бюджетът"), local taxes ("данъци в
   // Пловдив"), retail prices ("колко струва млякото") and the definitional
   // reads ("колко са пенсиите" -> noiFunds, "каква е минималната заплата" ->
   // macroIndicator, "колко са разходите за отбрана" / "каква е здравната вноска"
-  // -> budgetFunction, "колко са акцизите" -> budgetOverview) all keep falling
-  // through to their own tools.
+  // -> budgetFunction, "колко са акцизите" / "колко са приходите от хазарт" ->
+  // budgetOverview) all keep falling through to their own tools.
   // Runs before the budget/noiFunds/prices blocks, which would otherwise
   // swallow "какво става с бюджета ако…", "тавана на осигурителния доход" and
   // the "колко струва…" cost-of-policy framing.
@@ -1287,6 +1288,16 @@ export const route = (question: string, ctx: ToolContext): Route => {
   // caught upstream by detectTaxChange -> simulateTaxChange, so anything
   // reaching here is a fact lookup, not a simulation.
   if (has(q, "акциз", "excise"))
+    return {
+      tool: "budgetOverview",
+      args: promptYear ? { year: promptYear } : {},
+    };
+  // gambling (хазарт) is likewise NOT a COFOG function — it's an alternative
+  // tax folded into corporate/other taxes + ЗХ fees. A bare definitional
+  // "колко са приходите от хазарт" / "how much is gambling revenue" goes to the
+  // budget overview; the rate what-if ("данъкът върху хазарта да стане 40%")
+  // was already caught upstream by detectTaxChange -> simulateTaxChange.
+  if (has(q, "хазарт", "казино", "gambling", "casino"))
     return {
       tool: "budgetOverview",
       args: promptYear ? { year: promptYear } : {},

@@ -1158,6 +1158,9 @@ const run = async () => {
     ["вдигане на акциза върху цигарите с 40%", 861e6],
     ["вдигане на акциза върху алкохола с 20%", 35e6],
     ["акциз върху виното 48 €/хл", 45e6],
+    // Gambling ЗХ GGR fee (commit ebc14cb16). Level lever; 40% = +€716M×15pp =
+    // +€107M static. The screen's headline is the dynamic estimate.
+    ["данъкът върху хазарта да стане 40%", 107e6],
   ];
   // FINDING-001 guard: definitional МОД questions carrying a year must NOT
   // parse as a cap what-if (2024-2026 overlap realistic cap amounts).
@@ -1193,6 +1196,10 @@ const run = async () => {
     // bare excise reads (anchor, no category + no target) -> budgetOverview
     "колко са акцизите",
     "how much is excise",
+    // bare gambling reads (anchor, no rate target) -> budgetOverview
+    "колко са приходите от хазарт",
+    "how much is gambling revenue",
+    "какъв е данъкът върху хазарта",
   ]) {
     assert(
       detectTaxChange(q) == null,
@@ -1245,6 +1252,20 @@ const run = async () => {
       dFuel.headlineEur > 0.7 * sFuel.central &&
         dFuel.headlineEur < sFuel.central,
       `fuel +10% dynamic ${(dFuel.headlineEur / 1e6).toFixed(0)}M ≈ static ${(sFuel.central / 1e6).toFixed(0)}M (inelastic — small haircut)`,
+    );
+    // Gambling: a big GGR-fee hike bends into the Laffer turn as licensed play
+    // migrates offshore — +107M static at 40% lands ≈ +€68M dynamic (well below
+    // static but not collapsed).
+    const chGam = detectTaxChange("данъкът върху хазарта да стане 40%");
+    const sGam = scoreScenario(baseline, chGam!);
+    const dGam = scoreDynamicScenario(baseline, chGam!, sGam);
+    assert(
+      Math.abs(sGam.central - 107e6) < 5e6,
+      `gambling 40% static ${(sGam.central / 1e6).toFixed(0)}M ≈ +€107M`,
+    );
+    assert(
+      dGam.headlineEur < sGam.central && dGam.headlineEur > 0.4 * sGam.central,
+      `gambling 40% dynamic ${(dGam.headlineEur / 1e6).toFixed(0)}M < static ${(sGam.central / 1e6).toFixed(0)}M (offshore migration, not collapsed)`,
     );
   }
   const simVat = (await runTool(
@@ -1351,6 +1372,22 @@ const run = async () => {
       String(simWine.facts.note).includes("домашно"),
     `wine-excise envelope: winex=48 + home-production note (got ${simWine.facts.scenario_id}, note ${simWine.facts.note})`,
   );
+  // Gambling — the haz deep link + the static +107 fact + the MC band + the
+  // offshore-migration (Laffer) note. (Revenue lever — NO balance basis.)
+  const simGam = (await runTool(
+    "simulateTaxChange",
+    { change: "данъкът върху хазарта да стане 40%" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(simGam);
+  assert(
+    simGam.facts.scenario_id === "haz=40" &&
+      simGam.facts.basis_id == null &&
+      String(simGam.facts.delta_static).includes("107") &&
+      !!simGam.facts.range &&
+      String(simGam.facts.note).includes("Лафер"),
+    `gambling envelope: haz=40 + static +107 + band + Laffer note (got ${simGam.facts.scenario_id}, static ${simGam.facts.delta_static}, note ${simGam.facts.note})`,
+  );
   // graceful no-detect (the geo.harness probe also hits this path)
   const simMiss = (await runTool(
     "simulateTaxChange",
@@ -1396,10 +1433,16 @@ const run = async () => {
     ["Намаление на акциза върху горивата с 10%", "simulateTaxChange"],
     ["Акциз върху виното 48 €/хл", "simulateTaxChange"],
     ["Raise the tobacco excise by 40%", "simulateTaxChange"],
+    // gambling ЗХ GGR fee (revenue side)
+    ["Данъкът върху хазарта да стане 40%", "simulateTaxChange"],
+    ["What if the gambling tax goes to 40%?", "simulateTaxChange"],
     // guards: the neighbours keep their own questions
     // bare definitional excise -> the budget overview, not the simulator
     ["Колко са акцизите?", "budgetOverview"],
     ["How much is excise?", "budgetOverview"],
+    // bare definitional gambling -> the budget overview, not the simulator
+    ["Колко са приходите от хазарт?", "budgetOverview"],
+    ["How much is gambling revenue?", "budgetOverview"],
     ["Какъв е държавният бюджет?", "budgetOverview"],
     // NB phrased WITHOUT "местните" — "местни данъци в X" is the known
     // pre-existing localMunicipality over-match (see memory notes), not ours.

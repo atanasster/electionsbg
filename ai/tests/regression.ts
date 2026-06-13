@@ -1524,10 +1524,31 @@ const CASES: Case[] = [
     },
     links: ["/budget/simulator?winex=48", "/budget"],
   },
+  // gambling ЗХ GGR fee (commit ebc14cb16) — revenue side; a level lever, not a
+  // % change. 40% = +€107M static; the dynamic headline (+€59M after Tier-2)
+  // leads as licensed play migrates offshore (a strong Laffer case).
+  {
+    q: "Данъкът върху хазарта да стане 40%",
+    tool: "simulateTaxChange",
+    kind: "scalar",
+    facts: {
+      change: /хазарт/,
+      delta_per_year: /\+59/,
+      delta_static: /\+107/,
+      note: /Лафер/,
+    },
+    links: ["/budget/simulator?haz=40", "/budget"],
+  },
   {
     // guard: a bare definitional "колко са акцизите" is NOT a what-if — it
     // routes to the budget overview (excise is a revenue line), not the simulator
     q: "Колко са акцизите?",
+    tool: "budgetOverview",
+  },
+  {
+    // guard: a bare definitional gambling read is NOT a what-if either — it
+    // routes to the budget overview (gambling is a revenue line)
+    q: "Колко са приходите от хазарт?",
     tool: "budgetOverview",
   },
   {

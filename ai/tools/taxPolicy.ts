@@ -42,6 +42,7 @@ import {
   resolveMod,
 } from "../../src/lib/bgTax";
 import {
+  GAMBLING_GGR_FEE_RATE,
   MATERNITY_Y2_MONTHS,
   PARTY_SUBSIDY_RATE_EUR,
   PENSION_POLICY_CURRENT,
@@ -54,6 +55,7 @@ import {
   scoreDefenseTarget,
   scoreDividend,
   scoreExcise,
+  scoreGamblingGgr,
   scoreHealthContribution,
   scoreMaternityMonths,
   scoreMinWageFreeze,
@@ -142,6 +144,12 @@ const EXCISE_FUEL_MAX = 50;
 const EXCISE_SIN_MIN = -20; // tobacco & alcohol
 const EXCISE_SIN_MAX = 100;
 const WINE_MAX = 100; // €/hl
+// Gambling ЗХ GGR-fee lever (commit ebc14cb16), bounds mirrored from the same
+// component: a single rate on gross gaming revenue (GGR), 0..40%, current 2026
+// law 25% (raised from 20% in Budget 2026 → 25% is the "no change" position).
+// Change them THERE first.
+const GAMBLING_DEF = Math.round(GAMBLING_GGR_FEE_RATE * 100); // 25
+const GAMBLING_MAX = 40;
 
 const clamp = (n: number, min: number, max: number): number =>
   Math.max(min, Math.min(max, Math.round(n)));
@@ -180,7 +188,8 @@ export type TaxChange =
   | { kind: "exciseFuel"; pct: number } // % change to the fuel excise rate
   | { kind: "exciseTobacco"; pct: number } // % change to the tobacco excise rate
   | { kind: "exciseAlcohol"; pct: number } // % change to the alcohol excise rate
-  | { kind: "wineExcise"; rateEurPerHl: number }; // introduce a wine excise, €/hl
+  | { kind: "wineExcise"; rateEurPerHl: number } // introduce a wine excise, €/hl
+  | { kind: "gamblingGgr"; ratePct: number }; // ЗХ GGR fee → X% (current 25%)
 
 const has = (q: string, ...words: string[]): boolean =>
   words.some((w) => q.includes(w));
@@ -569,6 +578,23 @@ const ALCOHOL_WORDS = [
 ];
 const WINE_WORDS = ["вино", "винот", "вина", "wine"];
 
+// Gambling instruments. "хазарт"/"gambling" is the anchor; "казино"/"casino",
+// "залаган"/"betting", "тотализатор"/"лотари"/"lottery" widen the catch. The
+// bare "колко са приходите от хазарт" (anchor, no rate target) carries no lever
+// and falls through to the budget overview (the router handles that — gambling
+// is a revenue line).
+const GAMBLING_WORDS = [
+  "хазарт",
+  "казино",
+  "залаган", // залагания / залагане
+  "тотализатор",
+  "лотари", // лотария / лотарии
+  "gambling",
+  "casino",
+  "betting",
+  "lottery",
+];
+
 const VAT_CATEGORY_TOKENS: [VatAdjustableGroup, string[]][] = [
   ["food", ["храни", "хранит", "хляб", "food", "groceries"]],
   ["medicines", ["лекарств", "медикамент", "medicine", "drug"]],
@@ -828,6 +854,27 @@ export const detectTaxChange = (question: string): TaxChange | undefined => {
     }
   }
 
+  // 1f. Gambling ЗХ GGR fee — a single rate on gross gaming revenue (the lever
+  // is a LEVEL, current law 25%, not a % change like excise). "данъкът върху
+  // хазарта да стане 30%", "gambling tax to 40%". Needs the gambling word + an
+  // explicit rate target: a % wins (and is clamped to the 0..40 grid, so "50%"
+  // reads as the 40% ceiling — same as VAT→27); a bare number is accepted only
+  // inside the grid alongside a change cue. The current 25% is the no-op
+  // sentinel, so a bare "колко са приходите от хазарт" / "какъв е данъкът върху
+  // хазарта" (no rate) — and a request for the current 25% — fall through to
+  // the budget overview.
+  if (has(q, ...GAMBLING_WORDS)) {
+    const rate =
+      pct ??
+      (cue && bare !== undefined && bare >= 0 && bare <= GAMBLING_MAX
+        ? bare
+        : undefined);
+    if (rate !== undefined) {
+      const ratePct = clamp(rate, 0, GAMBLING_MAX);
+      if (ratePct !== GAMBLING_DEF) return { kind: "gamblingGgr", ratePct };
+    }
+  }
+
   // 2. VAT on a category — needs the VAT word + a category word, plus a
   // target: a %, a change cue, or an explicit regime word ("zero VAT on
   // medicines", "нулева ставка за храните").
@@ -961,6 +1008,8 @@ interface ScenarioParams {
   exTobacco: number;
   exAlcohol: number;
   wine: number;
+  // Gambling ЗХ GGR fee, integer % LEVEL (GAMBLING_DEF = 25 = current law).
+  gambling: number;
 }
 
 const paramsFor = (change: TaxChange, currentCap: number): ScenarioParams => {
@@ -993,6 +1042,7 @@ const paramsFor = (change: TaxChange, currentCap: number): ScenarioParams => {
     exTobacco: 0,
     exAlcohol: 0,
     wine: 0,
+    gambling: GAMBLING_DEF,
   };
   // Clamp to the simulator's own URL-param bounds (clampIntParam calls in
   // BudgetPolicySimulator.tsx) so the chat number equals what the deep link
@@ -1081,6 +1131,9 @@ const paramsFor = (change: TaxChange, currentCap: number): ScenarioParams => {
     case "wineExcise":
       p.wine = clamp(change.rateEurPerHl, 0, WINE_MAX);
       break;
+    case "gamblingGgr":
+      p.gambling = clamp(change.ratePct, 0, GAMBLING_MAX);
+      break;
   }
   return p;
 };
@@ -1101,6 +1154,9 @@ export interface ScenarioScore {
   exciseTobaccoDelta: number;
   exciseAlcoholDelta: number;
   wineDelta: number;
+  /** Gambling ЗХ GGR-fee static delta — the behavioral pass runs the
+   *  offshore/illicit-migration response on top (a Laffer turn on big hikes). */
+  gamblingDelta: number;
   modCentral: number;
   /** МРЗ-freeze and health-contribution deltas (revenue-side levers inside
    *  the expenditure block — the Tier-2 impulse split needs them apart). */
@@ -1155,6 +1211,7 @@ export const scoreScenario = (
     exTobacco,
     exAlcohol,
     wine,
+    gambling,
   } = paramsFor(change, currentCap);
 
   const slices = baseline.vat.slices as VatBaseSlice[];
@@ -1209,6 +1266,11 @@ export const scoreScenario = (
   const wineDelta = wine > 0 ? scoreWineExcise(wine) : 0;
   const exciseDelta =
     exciseFuelDelta + exciseTobaccoDelta + exciseAlcoholDelta + wineDelta;
+
+  // Gambling ЗХ GGR fee (level lever; offshore/illicit migration is the Tier-1
+  // behavioral response) — mirrors the screen's scenario useMemo.
+  const gamblingDelta =
+    gambling !== GAMBLING_DEF ? scoreGamblingGgr(gambling / 100) : 0;
 
   const targetCap = noCap ? Infinity : mod;
   const modBands = scoreModCapBands(
@@ -1334,6 +1396,7 @@ export const scoreScenario = (
     corpDelta +
     divDelta +
     exciseDelta +
+    gamblingDelta +
     modRes.centralEur +
     expenditureBalance;
   const low =
@@ -1342,6 +1405,7 @@ export const scoreScenario = (
     corpDelta +
     divDelta +
     exciseDelta +
+    gamblingDelta +
     expenditureBalance +
     Math.min(modRes.lowEur, modRes.highEur);
   const high =
@@ -1350,6 +1414,7 @@ export const scoreScenario = (
     corpDelta +
     divDelta +
     exciseDelta +
+    gamblingDelta +
     expenditureBalance +
     Math.max(modRes.lowEur, modRes.highEur);
 
@@ -1364,6 +1429,7 @@ export const scoreScenario = (
     exciseTobaccoDelta,
     exciseAlcoholDelta,
     wineDelta,
+    gamblingDelta,
     modCentral: modRes.centralEur,
     mwDelta,
     hpDelta,
@@ -1431,6 +1497,9 @@ export const scoreDynamicScenario = (
       exciseTobaccoDeltaEur: score.exciseTobaccoDelta,
       exciseAlcoholDeltaEur: score.exciseAlcoholDelta,
       wineDeltaEur: score.wineDelta,
+      // Gambling static delta — the behavioral pass runs the offshore/illicit
+      // migration response (a Laffer turn on big hikes).
+      gamblingDeltaEur: score.gamblingDelta,
       // single-change scenarios route the pension lever through the
       // expenditure balance (no per-year compounding path here).
       expenditureBalanceNonPensionEur:
@@ -1449,6 +1518,7 @@ export const scoreDynamicScenario = (
       exciseFuelRateChange: p.exFuel / 100,
       exciseTobaccoRateChange: p.exTobacco / 100,
       exciseAlcoholRateChange: p.exAlcohol / 100,
+      gamblingNewRate: p.gambling / 100,
     },
   );
   const dyn = computeDynamicScenario(input, drawsFor(baseline.modIdentity));
@@ -1620,6 +1690,10 @@ const changeLabel = (
       return bg
         ? `нов акциз върху виното €${p.wine}/хл`
         : `new wine excise €${p.wine}/hl`;
+    case "gamblingGgr":
+      return bg
+        ? `данък върху хазарта (такса върху GGR) ${p.gambling}% (сега ${GAMBLING_DEF}%)`
+        : `gambling tax (GGR fee) ${p.gambling}% (now ${GAMBLING_DEF}%)`;
   }
 };
 
@@ -1655,6 +1729,7 @@ const scenarioQuery = (p: ScenarioParams, currentCap: number): string => {
   if (p.exTobacco !== 0) parts.push(`exct=${p.exTobacco}`);
   if (p.exAlcohol !== 0) parts.push(`exca=${p.exAlcohol}`);
   if (p.wine !== 0) parts.push(`winex=${p.wine}`);
+  if (p.gambling !== GAMBLING_DEF) parts.push(`haz=${p.gambling}`);
   return parts.join("&");
 };
 
@@ -1790,6 +1865,14 @@ export const simulateTaxChange = async (
     facts.note = bg
       ? "Нов акциз от €0 — динамичната оценка отчита изтичане към необложеното домашно производство (облага се само търговската част)."
       : "A new excise from €0 — the dynamic figure accounts for leakage to untaxed home production (only the commercial base is taxed).";
+  // Gambling GGR fee: the base (GGR ~€716M) is НАП/industry-reported, not a
+  // published budget line; the dynamic figure already nets the migration of
+  // licensed play to unlicensed/offshore operators — on a big hike the gain
+  // shrinks (a strong Laffer case).
+  if (change.kind === "gamblingGgr")
+    facts.note = bg
+      ? "Базата (БГП ~716 млн €) е по данни на НАП/бранша, не е отделен бюджетен ред. Динамичната оценка отчита изместване към нелицензирани/офшорни оператори — при високи ставки приходът може да е доста под статичния (кривата на Лафер)."
+      : "The base (GGR ~€716M) is НАП/industry-reported, not a standalone budget line. The dynamic figure nets the migration to unlicensed/offshore operators — at high rates the gain lands well below the static figure (the Laffer turn).";
 
   // hidden deep-link payload (keys ending in _id are not rendered as facts)
   const qs = scenarioQuery(p, currentCap);
