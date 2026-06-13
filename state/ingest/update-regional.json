@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-06-09T06:36:27.217Z",
+  "lastSuccessfulIngest": "2026-06-13T07:23:42.417Z",
   "skill": "update-regional",
-  "summary": "re-fetched Eurostat NUTS3 + АЗ + NSI; no data delta (museum 2025 already captured 2026-06-08), only fetchedAt churned"
+  "summary": "regional: re-fetched 9 indicators (latest GDP/pop/migration/theft 2024, museums 2025, ltUnemp 2025); no data changes — only fetchedAt diff"
 }

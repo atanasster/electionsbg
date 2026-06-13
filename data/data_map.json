@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-06-12T06:41:19.324Z",
+  "generatedAt": "2026-06-13T07:25:11.968Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -692,7 +692,7 @@
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
       "cadence": "weekly",
-      "freshness": "2026-06-10T06:09:43.216Z",
+      "freshness": "2026-06-13T07:06:17.324Z",
       "skills": [
         "update-macro",
         "update-regional",
@@ -718,7 +718,7 @@
           "label": "Eurostat regional (BG): 5 NUTS3 datasets",
           "url": "https://ec.europa.eu/eurostat/databrowser/view/nama_10r_3gdp/default/table",
           "cadence": "monthly",
-          "freshness": "2026-05-12T06:08:45.233Z"
+          "freshness": "2026-06-13T07:06:17.324Z"
         },
         {
           "id": "ec_budget_per_ms",
@@ -948,7 +948,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-12T06:08:54.021Z",
+      "freshness": "2026-06-13T07:06:17.324Z",
       "skills": [
         "update-prices"
       ],
@@ -958,7 +958,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-06-12T06:08:54.021Z"
+          "freshness": "2026-06-13T07:06:17.324Z"
         }
       ],
       "x": 28,
