@@ -67,6 +67,8 @@ import {
   scoreDividend,
   scoreExcise,
   scoreWineExcise,
+  scoreGamblingGgr,
+  GAMBLING_GGR_FEE_RATE,
   scoreAdminCut,
   scoreCapitalChange,
   scoreDefenseTarget,
@@ -169,6 +171,12 @@ const EXCISE_SIN_MAX = 100;
 const WINE_MAX = 100; // €/hl (NL ≈ €48, FR ≈ €4)
 const WINE_STEP = 5;
 
+// Gambling: the ЗХ variable fee on GGR. Default = current 2026 law (25%, raised
+// from 20%); the grid lets you revert down or push up into the offshore-flight
+// (Laffer) zone.
+const GAMBLING_DEF = Math.round(GAMBLING_GGR_FEE_RATE * 100); // 25
+const GAMBLING_MAX = 40;
+
 // Exemplar payslips in the citizen pane: minimum wage, ~average, upper
 // professional, above-cap.
 const EXEMPLAR_GROSS = [620, 1250, 2500, 5000];
@@ -252,6 +260,8 @@ interface LeverState {
   exAlcohol: number;
   /** Introduced still-wine excise, €/hl (0 = current €0). */
   wine: number;
+  /** Gambling GGR fee, integer % (25 = current law). */
+  gambling: number;
 }
 
 // THE single static-scoring path. Returns each lever's static EUR delta
@@ -317,6 +327,11 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
   );
   const wineDelta = s.wine > 0 ? scoreWineExcise(s.wine) : 0;
   const exciseDelta = exFuelDelta + exTobaccoDelta + exAlcoholDelta + wineDelta;
+
+  // Gambling ЗХ GGR fee (level lever; offshore/illicit migration is Tier-1
+  // behavioral). Industry-reported base — not a КФП line.
+  const gamblingDelta =
+    s.gambling !== GAMBLING_DEF ? scoreGamblingGgr(s.gambling / 100) : 0;
 
   // МОД: central from the band model (works in both directions and knows
   // the schedule's base rate for the deduction interaction); the range
@@ -447,6 +462,7 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     corpDelta +
     divDelta +
     exciseDelta +
+    gamblingDelta +
     modRes.centralEur +
     expenditureBalance;
   const low =
@@ -455,6 +471,7 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     corpDelta +
     divDelta +
     exciseDelta +
+    gamblingDelta +
     expenditureBalance +
     Math.min(modRes.lowEur, modRes.highEur);
   const high =
@@ -463,6 +480,7 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     corpDelta +
     divDelta +
     exciseDelta +
+    gamblingDelta +
     expenditureBalance +
     Math.max(modRes.lowEur, modRes.highEur);
 
@@ -486,6 +504,7 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     exTobaccoDelta,
     exAlcoholDelta,
     wineDelta,
+    gamblingDelta,
     modRes,
     brackets,
     expenditureNonPensionBalance,
@@ -551,6 +570,7 @@ const NEUTRAL_LEVERS = (currentCap: number): LeverState => ({
   exTobacco: 0,
   exAlcohol: 0,
   wine: 0,
+  gambling: GAMBLING_DEF,
 });
 
 // Static central effect of one preset in isolation — the myth-buster weight
@@ -612,6 +632,7 @@ const PARAM_ROW_KEY: Record<string, string> = {
   exct: "excise",
   exca: "excise",
   winex: "excise",
+  haz: "gambling",
   mod: "mod",
   nocap: "mod",
   pw: "pensions",
@@ -1016,6 +1037,9 @@ export const BudgetPolicySimulator: FC = () => {
   const [wine, setWine] = useState(() =>
     clampIntParam(searchParams.get("winex"), 0, WINE_MAX, 0),
   );
+  const [gambling, setGambling] = useState(() =>
+    clampIntParam(searchParams.get("haz"), 0, GAMBLING_MAX, GAMBLING_DEF),
+  );
   const [exciseOpen, setExciseOpen] = useState(
     () =>
       searchParams.get("excf") != null ||
@@ -1192,6 +1216,7 @@ export const BudgetPolicySimulator: FC = () => {
     setExTobacco(0);
     setExAlcohol(0);
     setWine(0);
+    setGambling(GAMBLING_DEF);
     setExciseOpen(false);
     setVatCatsOpen(!!p.regimes);
     setTaxDetailOpen(p.nm != null || !!p.b2);
@@ -1240,7 +1265,8 @@ export const BudgetPolicySimulator: FC = () => {
       exFuel === 0 &&
       exTobacco === 0 &&
       exAlcohol === 0 &&
-      wine === 0
+      wine === 0 &&
+      gambling === GAMBLING_DEF
     );
   };
 
@@ -1265,6 +1291,7 @@ export const BudgetPolicySimulator: FC = () => {
     if (exTobacco !== 0) next.exct = String(exTobacco);
     if (exAlcohol !== 0) next.exca = String(exAlcohol);
     if (wine !== 0) next.winex = String(wine);
+    if (gambling !== GAMBLING_DEF) next.haz = String(gambling);
     if (!noCap && mod !== currentCap) next.mod = String(mod);
     if (noCap) next.nocap = "1";
     if (gross !== GROSS_DEF) next.gross = String(gross);
@@ -1303,6 +1330,7 @@ export const BudgetPolicySimulator: FC = () => {
     exTobacco,
     exAlcohol,
     wine,
+    gambling,
     mod,
     noCap,
     gross,
@@ -1366,6 +1394,7 @@ export const BudgetPolicySimulator: FC = () => {
     setExTobacco(0);
     setExAlcohol(0);
     setWine(0);
+    setGambling(GAMBLING_DEF);
   };
 
   // ----- EU country comparators ----------------------------------------------
@@ -1485,6 +1514,7 @@ export const BudgetPolicySimulator: FC = () => {
       exTobacco,
       exAlcohol,
       wine,
+      gambling,
     });
   }, [
     baseline,
@@ -1523,6 +1553,7 @@ export const BudgetPolicySimulator: FC = () => {
     exTobacco,
     exAlcohol,
     wine,
+    gambling,
     currentCap,
   ]);
 
@@ -1721,6 +1752,7 @@ export const BudgetPolicySimulator: FC = () => {
         exciseTobaccoDeltaEur: scenario.exTobaccoDelta,
         exciseAlcoholDeltaEur: scenario.exAlcoholDelta,
         wineDeltaEur: scenario.wineDelta,
+        gamblingDeltaEur: scenario.gamblingDelta,
         maternityMonthsCut: MATERNITY_Y2_MONTHS - mat,
         expenditureBalanceNonPensionEur: scenario.expenditureNonPensionBalance,
         brackets: scenario.brackets,
@@ -1735,6 +1767,7 @@ export const BudgetPolicySimulator: FC = () => {
         exciseFuelRateChange: exFuel / 100,
         exciseTobaccoRateChange: exTobacco / 100,
         exciseAlcoholRateChange: exAlcohol / 100,
+        gamblingNewRate: gambling / 100,
       },
     );
     return computeDynamicScenario(input, mcDraws);
@@ -1753,6 +1786,7 @@ export const BudgetPolicySimulator: FC = () => {
     exFuel,
     exTobacco,
     exAlcohol,
+    gambling,
   ]);
 
   // ----- multi-year balance & debt projection --------------------------------
@@ -1967,6 +2001,7 @@ export const BudgetPolicySimulator: FC = () => {
   const effExAlcohol =
     scenario.exAlcoholDelta + (dynOffsets?.exciseAlcohol ?? 0);
   const effWine = scenario.wineDelta + (dynOffsets?.wine ?? 0);
+  const effGambling = scenario.gamblingDelta + (dynOffsets?.gambling ?? 0);
   const effMod = scenario.modRes.centralEur + (dynOffsets?.mod ?? 0);
   const effHp = scenario.hpDelta + (dynOffsets?.health ?? 0);
   const effMat = scenario.matBalance + (dynOffsets?.maternity ?? 0);
@@ -1997,6 +2032,7 @@ export const BudgetPolicySimulator: FC = () => {
     Math.abs(effExTobacco),
     Math.abs(effExAlcohol),
     Math.abs(effWine),
+    Math.abs(effGambling),
     Math.abs(effMod),
     Math.abs(scenario.pensionBalance),
     Math.abs(scenario.adminBalance),
@@ -2651,6 +2687,20 @@ export const BudgetPolicySimulator: FC = () => {
               ) : null}
             </div>
 
+            {/* Gambling — ЗХ variable fee on GGR (single lever) */}
+            <div className="border-t pt-3">
+              <RateSlider
+                id="policy-gambling"
+                label={t("budget_policy_gambling")}
+                tip={t("budget_policy_tip_gambling")}
+                min={0}
+                max={GAMBLING_MAX}
+                value={gambling}
+                defaultValue={GAMBLING_DEF}
+                onChange={setGambling}
+              />
+            </div>
+
             {/* Expenditure side — pensions, administration, МРЗ */}
             <div className="border-t pt-3">
               {/* InfoTip renders its own <button>, so it must stay a sibling
@@ -3289,6 +3339,16 @@ export const BudgetPolicySimulator: FC = () => {
                       maxAbs={maxAbs}
                       lang={lang}
                       sub={staticSub(scenario.wineDelta, effWine)}
+                    />
+                  ) : null}
+                  {gambling !== GAMBLING_DEF ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_gambling")}
+                      tip={t("budget_policy_tip_gambling_row")}
+                      deltaEur={effGambling}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                      sub={staticSub(scenario.gamblingDelta, effGambling)}
                     />
                   ) : null}
                   <DeltaRow

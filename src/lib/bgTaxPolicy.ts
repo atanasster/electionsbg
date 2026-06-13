@@ -823,3 +823,31 @@ export const WINE_TAXABLE_HL = 940_000;
  *  (token), Netherlands ≈€48/hl. Static = rate × commercial base. */
 export const scoreWineExcise = (rateEurPerHl: number): number =>
   rateEurPerHl * WINE_TAXABLE_HL;
+
+// ---------------------------------------------------------------------------
+// Gambling — the ЗХ "two-component fee" variable rate on gross gaming revenue
+// (GGR = stakes minus payouts) for betting / lottery / toto / online. Modeled
+// as a single rate lever on the GGR base. Unlike the excise anchors this is
+// NOT a standalone КФП line — gambling is an alternative tax folded into
+// "Корпоративен данък"/"Други данъци" + ЗХ fees — so the base is industry/НАП-
+// reported, not a published budget line (caveat surfaced in the UI). The fixed
+// per-machine/per-table ЗКПО tax is deliberately NOT modeled (a count×fee lever
+// with a rough device-count anchor). Behaviour = migration of licensed GGR to
+// unlicensed/offshore operators (the 2013 turnover-tax episode is the cautionary
+// tale), applied as a separate offset in bgBehavioral.ts.
+// ---------------------------------------------------------------------------
+
+/** Bulgarian gross gaming revenue (GGR, stakes − payouts), €/yr. ~1.4B BGN in
+ *  2025 (online GGR alone > 1B BGN); НАП/industry-reported, NOT a budget line —
+ *  medium confidence. The base the ЗХ variable fee is levied on. */
+export const GAMBLING_GGR_EUR = 716_000_000;
+
+/** Current-law ЗХ variable-component rate on GGR. Raised 20% → 25% effective
+ *  2026-01-01 (Budget 2026); 25% is the "no change" lever position. */
+export const GAMBLING_GGR_FEE_RATE = 0.25;
+
+/** Δ revenue of setting the ЗХ GGR fee to `newRate` (fraction, e.g. 0.30),
+ *  holding GGR fixed: GGR × (newRate − current). Offshore/illicit migration of
+ *  the base is layered on as a behavioral offset. */
+export const scoreGamblingGgr = (newRate: number): number =>
+  GAMBLING_GGR_EUR * (newRate - GAMBLING_GGR_FEE_RATE);

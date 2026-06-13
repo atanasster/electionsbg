@@ -38,6 +38,8 @@ import {
   MATERNITY_Y2_SPEND_EUR,
   MATERNITY_Y2_MONTHS,
   MATERNITY_Y2_BENEFIT_EUR_MO,
+  GAMBLING_GGR_EUR,
+  GAMBLING_GGR_FEE_RATE,
   type EarningsBand,
   type ModIdentity,
   type PitBracket,
@@ -262,6 +264,20 @@ export const EXCISE_WINE_LEAKAGE: ElasticityBand = {
     "Judgment band: wine demand inelastic, but a large home-produced/off-survey slice (ИАЛВ ~18 L/capita vs NSI ~4.7 L/capita) escapes any introduced excise; collection ramp on a brand-new base.",
 };
 
+/** Semi-elasticity of the licensed gambling GGR base, % per +1pp of the ЗХ
+ *  fee rate. The dominant channel is migration of players/operators to
+ *  unlicensed/offshore sites — so the base erodes faster than ordinary demand
+ *  would imply, and a large hike runs into a Laffer turn. No clean BG estimate;
+ *  the high band reflects the documented 2013 turnover-tax episode (foreign
+ *  operators uncapturable, the stated motive for the GGR rebase). */
+export const GAMBLING_GGR_RESPONSE: ElasticityBand = {
+  low: 0.5,
+  central: 1.0,
+  high: 2.5,
+  source:
+    "Judgment band: licensed GGR migrates to unlicensed/offshore operators as the rate rises (51 licensed online operators compete with offshore). High band anchored to the 2013 turnover-base episode and the >½B BGN 2015–19 under-collection; central tuned so the legislated +5pp (20→25%, 2026) lands near the МФ ≈€32M projection.",
+};
+
 /** Ordered list for the UI's "behavioral assumptions" fold-out — the i18n
  *  label key is budget_policy_elast_<key>. */
 export const BEHAVIORAL_PARAMS: { key: string; band: ElasticityBand }[] = [
@@ -274,6 +290,7 @@ export const BEHAVIORAL_PARAMS: { key: string; band: ElasticityBand }[] = [
   { key: "excise_tobacco", band: EXCISE_TOBACCO_RESPONSE },
   { key: "excise_alcohol", band: EXCISE_ALCOHOL_RESPONSE },
   { key: "excise_wine", band: EXCISE_WINE_LEAKAGE },
+  { key: "gambling", band: GAMBLING_GGR_RESPONSE },
   { key: "ssc_cap", band: SSC_CAP_AVOIDANCE },
   { key: "ssc_rate", band: SSC_RATE_AVOIDANCE },
   { key: "maternity_return", band: MATERNITY_RETURN_TO_WORK },
@@ -317,6 +334,8 @@ export interface BehavioralDraw {
   exciseAlcoholResponse: number;
   /** Share of an introduced wine excise lost to demand + home-production. */
   exciseWineLeakage: number;
+  /** Gambling GGR base erosion (offshore/illicit migration), % per +1pp. */
+  gamblingResponse: number;
 }
 
 export const centralDraw = (modAlphaCentral: number): BehavioralDraw => ({
@@ -340,6 +359,7 @@ export const centralDraw = (modAlphaCentral: number): BehavioralDraw => ({
   exciseTobaccoResponse: EXCISE_TOBACCO_RESPONSE.central,
   exciseAlcoholResponse: EXCISE_ALCOHOL_RESPONSE.central,
   exciseWineLeakage: EXCISE_WINE_LEAKAGE.central,
+  gamblingResponse: GAMBLING_GGR_RESPONSE.central,
 });
 
 /** Every parameter at 0 → the layer reproduces static scoring exactly. */
@@ -364,6 +384,7 @@ export const zeroDraw = (modAlphaCentral: number): BehavioralDraw => ({
   exciseTobaccoResponse: 0,
   exciseAlcoholResponse: 0,
   exciseWineLeakage: 0,
+  gamblingResponse: 0,
 });
 
 export const MC_DRAWS = 500;
@@ -428,6 +449,7 @@ export const sampleDraws = (
       exciseTobaccoResponse: sampleTriangular(rnd(), EXCISE_TOBACCO_RESPONSE),
       exciseAlcoholResponse: sampleTriangular(rnd(), EXCISE_ALCOHOL_RESPONSE),
       exciseWineLeakage: sampleTriangular(rnd(), EXCISE_WINE_LEAKAGE),
+      gamblingResponse: sampleTriangular(rnd(), GAMBLING_GGR_RESPONSE),
     });
   }
   return draws;
@@ -554,6 +576,17 @@ export const wineExciseBehavioralOffset = (
   staticWineDeltaEur: number,
   leakageShare: number,
 ): number => -staticWineDeltaEur * leakageShare;
+
+/** Behavioural offset on a gambling GGR-fee rate change: the licensed GGR base
+ *  migrates offshore as the rate rises (same exponential semi-elasticity as
+ *  CIT, here driven by operator/player flight to unlicensed sites). */
+export const gamblingBehavioralOffset = (
+  ggrFeeRevenueEur: number,
+  oldRate: number,
+  newRate: number,
+  semiElastPctPp: number,
+): number =>
+  semiElastOffset(ggrFeeRevenueEur, oldRate, newRate, semiElastPctPp);
 
 /** Haircut on the incremental base of a cap RAISE (doubled, capped at 0.40,
  *  for no-cap — the increment is then the whole Pareto tail). Lowering has no
@@ -683,6 +716,11 @@ export interface DynamicScenarioInput {
   exciseTobaccoRateChange: number;
   exciseAlcoholRevenueEur: number;
   exciseAlcoholRateChange: number;
+  /** Gambling GGR-fee: current revenue (GGR × current rate) + old/new rate. */
+  staticGamblingDeltaEur: number;
+  gamblingFeeRevenueEur: number;
+  gamblingOldRate: number;
+  gamblingNewRate: number;
   /** МРЗ-freeze delta. Deliberately EXCLUDED from the Tier-2 impulse: the
    *  budget's foregone SSC/PIT reads as fiscal loosening, but the frozen
    *  private wages are an opposing household-income hit — net demand effect
@@ -760,6 +798,8 @@ export interface DynamicStaticScore {
   exciseTobaccoDeltaEur?: number;
   exciseAlcoholDeltaEur?: number;
   wineDeltaEur?: number;
+  /** Gambling GGR-fee static delta (optional; default 0). */
+  gamblingDeltaEur?: number;
   /** Months of the paid second maternity year cut (0..12; default 0). */
   maternityMonthsCut?: number;
   expenditureBalanceNonPensionEur: number;
@@ -778,6 +818,8 @@ export interface DynamicRateParams {
   exciseFuelRateChange?: number;
   exciseTobaccoRateChange?: number;
   exciseAlcoholRateChange?: number;
+  /** Gambling GGR-fee new rate as a fraction (e.g. 0.30); default = current. */
+  gamblingNewRate?: number;
 }
 
 export const buildDynamicInput = (
@@ -804,6 +846,10 @@ export const buildDynamicInput = (
   exciseTobaccoRateChange: r.exciseTobaccoRateChange ?? 0,
   exciseAlcoholRevenueEur: baseline.revenue.exciseAlcoholEur ?? 0,
   exciseAlcoholRateChange: r.exciseAlcoholRateChange ?? 0,
+  staticGamblingDeltaEur: s.gamblingDeltaEur ?? 0,
+  gamblingFeeRevenueEur: GAMBLING_GGR_EUR * GAMBLING_GGR_FEE_RATE,
+  gamblingOldRate: GAMBLING_GGR_FEE_RATE,
+  gamblingNewRate: r.gamblingNewRate ?? GAMBLING_GGR_FEE_RATE,
   maternityMonthsCut: s.maternityMonthsCut ?? 0,
   expenditureBalanceNonPensionEur: s.expenditureBalanceNonPensionEur,
   pensionPathEur: s.pensionPathEur,
@@ -846,6 +892,8 @@ export interface DynamicScenarioResult {
     exciseAlcohol: number;
     /** Introduced-wine-excise leakage. */
     wine: number;
+    /** Gambling GGR-fee offshore/illicit migration. */
+    gambling: number;
   };
   /** static total + Σ central Tier-1 offsets — the year-1 scalar handed to
    *  projectFiscalPath (Tier-2 feedback rides the fixed path instead). */
@@ -980,6 +1028,12 @@ export const computeDynamicScenario = (
         input.staticWineDeltaEur,
         draw.exciseWineLeakage,
       ),
+      gambling: gamblingBehavioralOffset(
+        input.gamblingFeeRevenueEur,
+        input.gamblingOldRate,
+        input.gamblingNewRate,
+        draw.gamblingResponse,
+      ),
     };
   };
 
@@ -998,7 +1052,8 @@ export const computeDynamicScenario = (
       o.exciseFuel +
       o.exciseTobacco +
       o.exciseAlcohol +
-      o.wine;
+      o.wine +
+      o.gambling;
     const fb = computeMacroFeedback(
       input.staticVatDeltaEur + o.vat,
       input.staticPitEmploymentDeltaEur +
@@ -1011,6 +1066,7 @@ export const computeDynamicScenario = (
         input.staticExciseTobaccoDeltaEur +
         input.staticExciseAlcoholDeltaEur +
         input.staticWineDeltaEur +
+        input.staticGamblingDeltaEur +
         o.pit +
         o.corp +
         o.dividend +
@@ -1019,7 +1075,8 @@ export const computeDynamicScenario = (
         o.exciseFuel +
         o.exciseTobacco +
         o.exciseAlcohol +
-        o.wine,
+        o.wine +
+        o.gambling,
       input.expenditureBalanceNonPensionEur,
       input.pensionPathEur,
       draw,
@@ -1043,7 +1100,8 @@ export const computeDynamicScenario = (
     offsets.exciseFuel +
     offsets.exciseTobacco +
     offsets.exciseAlcohol +
-    offsets.wine;
+    offsets.wine +
+    offsets.gambling;
   const feedback = computeMacroFeedback(
     input.staticVatDeltaEur + offsets.vat,
     input.staticPitEmploymentDeltaEur +
@@ -1056,6 +1114,7 @@ export const computeDynamicScenario = (
       input.staticExciseTobaccoDeltaEur +
       input.staticExciseAlcoholDeltaEur +
       input.staticWineDeltaEur +
+      input.staticGamblingDeltaEur +
       offsets.pit +
       offsets.corp +
       offsets.dividend +
@@ -1064,7 +1123,8 @@ export const computeDynamicScenario = (
       offsets.exciseFuel +
       offsets.exciseTobacco +
       offsets.exciseAlcohol +
-      offsets.wine,
+      offsets.wine +
+      offsets.gambling,
     input.expenditureBalanceNonPensionEur,
     input.pensionPathEur,
     central,
