@@ -3,7 +3,8 @@
 // additive район layer (useCityRayons) instead of the municipality data tree.
 // Each район polygon is winner-coloured (MapElement reads the район's votes),
 // hover shows the per-party tally, and the marker is a vote-sized dot at the
-// район centroid. Click stays on the município page (районы have no own page).
+// район centroid. Click drills into the район's own parliamentary page (the
+// map lives on the parent city's parliamentary view, so it stays in that view).
 
 import { FC } from "react";
 import { MapCoordinates } from "@/layout/dataview/MapLayout";
@@ -50,7 +51,7 @@ export const CityRayonMap: FC<{
       mapGeo: (geo as unknown as MunicipalityGeoJSON) ?? undefined,
       size,
       votes: rayons as unknown as ElectionResults[],
-      onClick: () => ({ pathname: `/settlement/${municipalityCode}` }),
+      onClick: (props) => ({ pathname: `/settlement/${props.nuts4}` }),
       ...tooltipEvents,
     });
 

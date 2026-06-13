@@ -129,7 +129,7 @@ export const CityRayonBreakdownTile: FC<Props> = ({ municipalityCode }) => {
                     </div>
                   ))}
                   <Link
-                    to={`/governance/${municipalityCode}-${r.key}`}
+                    to={`/settlement/${municipalityCode}-${r.key}`}
                     underline
                     className="col-span-3 text-xs text-primary mt-1"
                   >

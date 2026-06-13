@@ -11,7 +11,6 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Landmark, Vote } from "lucide-react";
 import { SEO } from "@/ux/SEO";
-import { H1 } from "@/ux/H1";
 import { Link } from "@/ux/Link";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatPct, formatThousands } from "@/data/utils";
@@ -31,7 +30,7 @@ import {
 } from "@/data/local/cityRayonCatalog";
 import { TopMayorsTile } from "@/screens/dashboard/local/TopMayorsTile";
 import { LocalMayorRunoffBar } from "@/screens/dashboard/local/LocalMayorRunoffBar";
-import { PlaceViewNav } from "@/screens/components/PlaceViewNav";
+import { PlaceHeader } from "@/screens/components/PlaceHeader";
 
 export const RayonAreaDashboard: FC<{ rayon: CityRayon }> = ({ rayon }) => {
   const { t, i18n } = useTranslation();
@@ -97,30 +96,17 @@ export const RayonAreaDashboard: FC<{ rayon: CityRayon }> = ({ rayon }) => {
   return (
     <>
       <SEO title={seoTitle} description={seoTitle} />
-      <section className="my-4 flex flex-col gap-3">
-        <div>
-          <H1>
-            {t("rayon")} {name}
-          </H1>
-          <p className="text-sm text-muted-foreground mt-1">
-            {t("admin_rayon")} ·{" "}
-            <Link to={`/governance/${rayon.obshtina}`} underline>
-              {muniLabel}
-            </Link>{" "}
-            · {rayon.mir.replace(/^0+/, "")} {t("mir")}
-          </p>
-        </div>
-
-        {/* Same four-tab place switcher (Управление / Парламент / Местни /
-            Потребление) the Sofia районите + the район's own parliamentary page
-            carry — so the views are reachable from the governance tab too. */}
-        <PlaceViewNav
-          active="governance"
-          level="municipality"
-          obshtina={rayon.id}
-          align="start"
-        />
-
+      {/* The shared place hero (eyebrow + район title + "Район на Община … N
+          МИР" breadcrumb + the four-tab switcher), identical to the район's
+          parliamentary/local views — not a bespoke header. */}
+      <PlaceHeader
+        active="governance"
+        level="municipality"
+        obshtina={rayon.id}
+        fallbackName={name}
+        className="my-4"
+      />
+      <section className="mb-4 flex flex-col gap-3">
         {/* Карта на секциите — just this район's own polling stations (auto-fit
             to the район), the same map a Sofia район shows. Mounted only once
             the async section list resolves: SectionsMapTile measures its
