@@ -178,6 +178,8 @@ interface PresetApply {
   mrzFreeze?: boolean;
   /** Months of paid second-year maternity kept (current law: 12). */
   mat?: number;
+  /** Civil servants pay their own contribution share (КСО art. 6(5)). */
+  ssp?: boolean;
 }
 const PRESETS: { id: string; apply: PresetApply }[] = [
   { id: "nm_mrz", apply: { nm: 620 } },
@@ -187,6 +189,7 @@ const PRESETS: { id: string; apply: PresetApply }[] = [
   { id: "nocap", apply: { noCap: true } },
   { id: "cpionly", apply: { pw: 100 } },
   { id: "admin10", apply: { adm: 10 } },
+  { id: "ssp", apply: { ssp: true } },
   { id: "maternity1", apply: { mat: 0 } },
 ];
 
@@ -520,6 +523,7 @@ const presetStaticEur = (baseline: Baseline, p: PresetApply): number => {
   if (p.adm != null) s.adm = p.adm;
   if (p.mrzFreeze) s.mrzFreeze = true;
   if (p.mat != null) s.mat = p.mat;
+  if (p.ssp) s.ssp = true;
   return computeStaticScenario(baseline, s)?.central ?? 0;
 };
 
@@ -1100,7 +1104,7 @@ export const BudgetPolicySimulator: FC = () => {
     setWi(0);
     setWex(true);
     setKap(0);
-    setSsp(false);
+    setSsp(!!p.ssp);
     setSspg(false);
     setHp(0);
     setMp(0);
@@ -1110,7 +1114,13 @@ export const BudgetPolicySimulator: FC = () => {
     setPsub(PSUB_DEF);
     setVatCatsOpen(!!p.regimes);
     setTaxDetailOpen(p.nm != null || !!p.b2);
-    setExpOpen(p.pw != null || p.adm != null || !!p.mrzFreeze || p.mat != null);
+    setExpOpen(
+      p.pw != null ||
+        p.adm != null ||
+        !!p.mrzFreeze ||
+        p.mat != null ||
+        !!p.ssp,
+    );
   };
   const presetIsActive = (p: PresetApply): boolean => {
     const wantRegimes = p.regimes ?? {};
@@ -1138,7 +1148,8 @@ export const BudgetPolicySimulator: FC = () => {
       def === 22 &&
       wi === 0 &&
       kap === 0 &&
-      !ssp &&
+      ssp === !!p.ssp &&
+      !sspg &&
       hp === 0 &&
       mpEff === mpDef &&
       tpEff === tpDef &&
@@ -2887,7 +2898,7 @@ export const BudgetPolicySimulator: FC = () => {
 
           {/* Hero figures */}
           {/* default grid stretch keeps same-row tiles equal height */}
-          <div className="grid gap-3 sm:grid-cols-3">
+          <div data-shot="headline" className="grid gap-3 sm:grid-cols-3">
             <div className="rounded-lg border px-3 py-2.5 bg-indigo-500/10 border-indigo-500/30">
               <div className="text-[11px] uppercase tracking-wide text-muted-foreground flex items-center gap-1">
                 {t("budget_policy_hero_total")}

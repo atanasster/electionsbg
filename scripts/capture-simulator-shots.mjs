@@ -20,10 +20,11 @@ const VIEWPORT = { width: 1380, height: 1000 };
 
 const SHOTS = [
   { name: "01-scoreboard", selector: '[data-shot="scoreboard"]' },
-  { name: "02-breakdown", selector: '[data-shot="breakdown"]' },
-  { name: "03-deciles", selector: '[data-shot="deciles"]' },
-  { name: "04-citizen", selector: '[data-shot="citizen"]' },
-  { name: "05-projection", selector: '[data-shot="projection"]' },
+  { name: "02-headline", selector: '[data-shot="headline"]' },
+  { name: "03-breakdown", selector: '[data-shot="breakdown"]' },
+  { name: "04-deciles", selector: '[data-shot="deciles"]' },
+  { name: "05-citizen", selector: '[data-shot="citizen"]' },
+  { name: "06-projection", selector: '[data-shot="projection"]' },
 ];
 
 async function captureClipped(page, shot, outDir) {
