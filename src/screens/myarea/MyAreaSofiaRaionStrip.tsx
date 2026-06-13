@@ -18,6 +18,7 @@ import { Link } from "@/ux/Link";
 import { Card } from "@/components/ui/card";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useSetAreaAnchor } from "@/data/area/areaAnchor";
+import { findCityRayon, cityRayonsOf } from "@/data/local/cityRayonCatalog";
 
 type Props = {
   activeObshtina: string;
@@ -28,45 +29,67 @@ type Props = {
 // /^S2\d/ today is a Sofia район.
 const isSofiaRaion = (obshtina: string): boolean => /^S2\d/.test(obshtina);
 
+// Flex-wrapped jump chips for the sibling районите of the град the active place
+// belongs to. Two families: Sofia's 24 районите are real obshtini (S2xxx, in
+// municipalities.json); Пловдив/Варна районите are catalog entries ("PDV22-01")
+// whose siblings come from the shared catalog. Renders nothing when the active
+// place isn't a район.
 export const MyAreaSofiaRaionStrip: FC<Props> = ({ activeObshtina }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
   const { municipalities } = useMunicipalities();
   const setAnchor = useSetAreaAnchor();
 
-  const raioni = useMemo(() => {
-    if (!municipalities) return [];
-    return municipalities
-      .filter((m) => isSofiaRaion(m.obshtina))
-      .slice()
-      .sort((a, b) =>
-        (lang === "bg" ? a.name : a.name_en).localeCompare(
-          lang === "bg" ? b.name : b.name_en,
-          lang === "bg" ? "bg" : "en",
-        ),
-      );
-  }, [municipalities, lang]);
+  // A Пловдив/Варна район resolves in the catalog; Sofia районите do not (they
+  // live in municipalities.json instead).
+  const cityRayon = findCityRayon(activeObshtina);
 
-  if (!isSofiaRaion(activeObshtina) || raioni.length === 0) return null;
+  const items = useMemo<{ id: string; label: string }[]>(() => {
+    const collator = lang === "bg" ? "bg" : "en";
+    if (cityRayon) {
+      return cityRayonsOf(cityRayon.obshtina)
+        .map((r) => ({
+          id: r.id,
+          label: lang === "bg" ? r.labelBg : r.labelEn,
+        }))
+        .sort((a, b) => a.label.localeCompare(b.label, collator));
+    }
+    if (isSofiaRaion(activeObshtina) && municipalities) {
+      return municipalities
+        .filter((m) => isSofiaRaion(m.obshtina))
+        .map((m) => ({
+          id: m.obshtina,
+          label: lang === "bg" ? m.name : m.name_en,
+        }))
+        .sort((a, b) => a.label.localeCompare(b.label, collator));
+    }
+    return [];
+  }, [cityRayon, activeObshtina, municipalities, lang]);
+
+  if (items.length === 0) return null;
+
+  const heading = cityRayon
+    ? lang === "bg"
+      ? `Други райони в Община ${cityRayon.cityBg}`
+      : `Other districts in ${cityRayon.cityEn} municipality`
+    : lang === "bg"
+      ? "Други столични райони"
+      : "Other Sofia districts";
 
   return (
     <Card className="p-3">
       <div className="text-[10px] uppercase tracking-wide text-muted-foreground mb-2">
-        {lang === "bg" ? "Други столични райони" : "Other Sofia districts"}
+        {heading}
       </div>
-      <nav
-        aria-label={lang === "bg" ? "Столични райони" : "Sofia districts"}
-        className="flex flex-wrap gap-1.5"
-      >
-        {raioni.map((r) => {
-          const active = r.obshtina === activeObshtina;
-          const display = lang === "bg" ? r.name : r.name_en;
+      <nav aria-label={heading} className="flex flex-wrap gap-1.5">
+        {items.map((r) => {
+          const active = r.id === activeObshtina;
           return (
             <Link
-              key={r.obshtina}
-              to={`/governance/${r.obshtina}`}
+              key={r.id}
+              to={`/governance/${r.id}`}
               underline={false}
-              onClick={() => setAnchor(r.obshtina)}
+              onClick={() => setAnchor(r.id)}
               className={`shrink-0 px-2.5 py-1 rounded-md text-xs whitespace-nowrap transition-colors ${
                 active
                   ? "bg-primary/15 text-primary font-semibold border border-primary/40"
@@ -74,7 +97,7 @@ export const MyAreaSofiaRaionStrip: FC<Props> = ({ activeObshtina }) => {
               }`}
               aria-current={active ? "page" : undefined}
             >
-              {display}
+              {r.label}
             </Link>
           );
         })}

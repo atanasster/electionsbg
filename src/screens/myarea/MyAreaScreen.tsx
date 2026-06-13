@@ -42,7 +42,6 @@ import { MyAreaCouncilTile } from "./MyAreaCouncilTile";
 import { MyAreaActionBand } from "./MyAreaActionBand";
 import { MyAreaGovernmentCard } from "./MyAreaGovernmentCard";
 import { MyAreaHistoryStrip } from "./MyAreaHistoryStrip";
-import { RayonAreaDashboard } from "./RayonAreaDashboard";
 import { MunicipalCapitalProjectsTiles } from "@/screens/dashboard/MunicipalCapitalProjectsTiles";
 import { IpopExecutionTile } from "@/screens/dashboard/IpopExecutionTile";
 import { CompaniesHqTile } from "@/screens/dashboard/CompaniesHqTile";
@@ -81,13 +80,6 @@ export const MyAreaScreen: FC = () => {
         <div className="h-20 rounded-xl border bg-card animate-pulse" />
       </section>
     );
-  }
-
-  // Пловдив/Варна административен район — a sub-city place with only
-  // parliamentary + район-кмет grain, so it gets its own lean dashboard rather
-  // than the obshtina-heavy layout below (which assumes census/budget/council).
-  if (area.kind === "rayon") {
-    return <RayonAreaDashboard rayon={area.rayon} />;
   }
 
   if (area.kind === "unknown") {

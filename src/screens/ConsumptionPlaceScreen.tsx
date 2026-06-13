@@ -22,6 +22,7 @@ import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { MyAreaPricesTile } from "@/screens/myarea/MyAreaPricesTile";
 import { isSofiaCityObshtina } from "@/data/local/placeViews";
+import { findCityRayon } from "@/data/local/cityRayonCatalog";
 
 export const ConsumptionPlaceScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -62,9 +63,11 @@ export const ConsumptionPlaceScreen: FC = () => {
   }
 
   // Cost-of-living is published at município grain; a Пловдив/Варна район has
-  // none of its own, so send it up to its parent city's consumption page.
-  if (area.kind === "rayon") {
-    return <Navigate to={`/consumption/${area.rayon.obshtina}`} replace />;
+  // none of its own (it resolves to a synthetic município keyed by the район
+  // id), so send it up to its parent city's consumption page.
+  const cityRayon = findCityRayon(area.obshtina);
+  if (cityRayon) {
+    return <Navigate to={`/consumption/${cityRayon.obshtina}`} replace />;
   }
 
   const areaName =

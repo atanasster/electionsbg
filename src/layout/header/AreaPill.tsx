@@ -34,9 +34,9 @@ export const AreaPill: FC = () => {
   if (area?.kind === "settlement") {
     name = lang === "bg" ? area.settlement.name : area.settlement.name_en;
   } else if (area?.kind === "municipality") {
+    // Covers Пловдив/Варна районите too — they resolve to a synthetic
+    // município whose name is the район label (e.g. "Приморски").
     name = lang === "bg" ? area.municipality.name : area.municipality.name_en;
-  } else if (area?.kind === "rayon") {
-    name = lang === "bg" ? area.rayon.labelBg : area.rayon.labelEn;
   }
   const display = name ?? anchor.id;
   const labelPrefix = t("area_pill_label");
