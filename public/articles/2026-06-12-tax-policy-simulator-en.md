@@ -48,6 +48,8 @@ Above the numbers sits a scoreboard with three missions that turn the abstract r
 
 The gauge shows where the deficit is "today", where your scenario takes it, and where the finish line is — like the [budget-balancing games of the US Committee for a Responsible Federal Budget](https://www.crfb.org/debtfixer). The number no longer floats; it moves toward a goal.
 
+Couldn't the deficit just be covered from the BNB's currency reserve instead of taxes and cuts? It's a common expectation — but the reserve is not a state piggy bank, and the euro does not "free it up". [We explain why in a separate analysis](/articles/2026-06-13-bnb-reserve-after-euro) — which is why, in the simulator, the deficit moves only through the revenue and spending levers.
+
 > Built a scenario that brings the deficit under 3%? Share it in the [Наясно Facebook group](https://www.facebook.com/groups/1982841819785121) — we're curious which lever you pull first.
 
 ## How each lever is scored
