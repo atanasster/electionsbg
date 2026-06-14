@@ -32,9 +32,15 @@ cd functions && npm install && cd ..
 firebase functions:secrets:set OPENROUTER_API_KEY -P ai
 
 # 2. deploy the function (+ the /api/llm hosting rewrite)
-npm run deploy:ai:functions                  # = firebase deploy --only functions -P ai
+npm run deploy:ai:functions                  # = firebase deploy --only functions:llm -P ai
 npm run deploy:ai                            # = firebase deploy --only hosting:ai -P ai
 ```
+
+> The sibling `scenarios` function lives in the **same codebase** but deploys to
+> the **`elections-bg`** project (the project gate in `index.js` exports exactly
+> one function per target). Deploy it with `npm run deploy:functions`
+> (= `firebase deploy --only functions:scenarios -P default`, gated behind the
+> `functions/` unit tests).
 
 Then in the chat, open the model picker and choose **Gemini 3.1 Flash-Lite** or
 **Gemma 4 31B (free)**.
@@ -59,6 +65,36 @@ Routing is ~1.5K input + ~30 output tokens; narration ~200. On Flash-Lite
 fall back to rules. To exercise the live cloud path locally, set
 `VITE_LLM_PROXY_URL` to the deployed function URL (its CORS allowlist includes
 `localhost`), or run the Firebase emulator.
+
+**Emulator scripts** (the project gate means each one loads exactly one
+function — run them in separate terminals if you need both):
+
+```bash
+npm run emulator        # scenarios + Firestore, elections-bg project
+                        #   → http://127.0.0.1:5001/elections-bg/us-central1/scenarios
+                        #   emulator UI on http://127.0.0.1:4000
+npm run emulator:ai     # llm only, electionsbg-ai project
+                        #   → http://127.0.0.1:5001/electionsbg-ai/us-central1/llm
+```
+
+Ports (in `firebase.json` → `emulators`): functions `5001`, Firestore `8080`,
+UI `4000`, hosting `5002`.
+
+For `emulator:ai`, the `llm` function needs the OpenRouter key at call time.
+The emulator reads it from **`functions/.secret.local`** (git-ignored), one
+`KEY=value` per line:
+
+```
+OPENROUTER_API_KEY=sk-or-...
+```
+
+Without it the function still loads, but a request fails when it reads the
+secret. To point the AI SPA at the emulator instead of prod, set
+`VITE_LLM_PROXY_URL=http://127.0.0.1:5001/electionsbg-ai/us-central1/llm`.
+
+The `scenarios` emulator writes to the **local** Firestore emulator (no prod
+data touched); state resets on each restart. Unit-test the pure helpers with
+`npm run functions:test`.
 
 ### Adding a cloud model
 

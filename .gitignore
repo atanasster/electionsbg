@@ -27,6 +27,11 @@ dist.old-*
 .env.*
 *.cache
 
+# Firebase functions: local secret values for the emulator (defineSecret reads
+# functions/.secret.local) and emulator state exports — never commit either.
+functions/.secret.local
+.emulator-data/
+
 # Playwright
 /test-results/
 /playwright-report/
