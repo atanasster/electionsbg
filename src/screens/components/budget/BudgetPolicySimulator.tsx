@@ -161,12 +161,15 @@ const R2_DEF = 15;
 const PSUB_DEF = Math.round(PARTY_SUBSIDY_RATE_EUR * 100);
 
 // Excise levers. Fuel/tobacco/alcohol move the existing rate by a percentage
-// (default 0 = current law); the grids let you cut a little (BG fuel is at the
-// EU floor) and raise a lot (tobacco runs into its Laffer turn on the
-// pessimistic band). Wine is an INTRODUCE-from-€0 lever in €/hl.
-const EXCISE_FUEL_MIN = -20;
+// (default 0 = current law). Raise-only (min 0): a "0%" thumb then sits at the
+// left like every other rate slider, instead of partway along a bipolar track
+// where "0%" reads as misplaced. BG fuel is already at the EU floor, so a cut
+// isn't legally available anyway (the tooltip says so); tobacco/alcohol raise
+// far enough to reach the Laffer turn on the pessimistic band. Wine is an
+// INTRODUCE-from-€0 lever in €/hl.
+const EXCISE_FUEL_MIN = 0;
 const EXCISE_FUEL_MAX = 50;
-const EXCISE_SIN_MIN = -20; // tobacco & alcohol
+const EXCISE_SIN_MIN = 0; // tobacco & alcohol
 const EXCISE_SIN_MAX = 100;
 const WINE_MAX = 100; // €/hl (NL ≈ €48, FR ≈ €4)
 const WINE_STEP = 5;
