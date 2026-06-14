@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-06-13T07:25:11.968Z",
+  "generatedAt": "2026-06-14T10:12:08.453Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -483,7 +483,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-12T06:08:54.021Z",
+      "freshness": "2026-06-14T07:09:34.489Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -495,14 +495,14 @@
           "label": "Общински капиталови програми (per-municipality capital lists)",
           "url": "https://www.sofia.bg/",
           "cadence": "weekly",
-          "freshness": "2026-06-08T06:09:05.458Z"
+          "freshness": "2026-06-14T07:09:34.489Z"
         },
         {
           "id": "council_minutes",
           "label": "Council resolutions + vote tallies",
           "url": "data/council/sources.json",
           "cadence": "daily",
-          "freshness": "2026-06-12T06:08:54.021Z"
+          "freshness": "2026-06-14T07:09:34.489Z"
         },
         {
           "id": "municipal_naredba",
@@ -745,8 +745,8 @@
         "en": "EU tax rates, defence shares, EC forecast, VAT gap, IMF"
       },
       "desc": {
-        "bg": "Котвите на данъчния симулатор: ставките в държавите от ЕС за сравнителите „Като в…“ (PwC Worldwide Tax Summaries), дяловете за отбрана от компендиума на НАТО, прогнозата на ЕК за България, върху която стъпва 5-годишната проекция на салдото и дълга, плюс котвите на динамичния (поведенчески) режим — докладът на ЕК за несъбраното ДДС и МВФ изданията зад фискалните мултипликатори. Стойностите живеят като константи с източници в кода на симулатора и се обновяват ръчно при сигнал от наблюдателя.",
-        "en": "The tax simulator's anchors: EU member-state rates for the \"Like in…\" comparators (PwC Worldwide Tax Summaries), defence shares from the NATO expenditure compendium, the EC forecast for Bulgaria that the 5-year balance/debt projection is built on, plus the dynamic (behavioral) mode's anchors — the EC VAT gap report and the IMF vintages behind the fiscal multipliers. The values live as sourced constants in the simulator code and are updated manually when the watcher flags a change."
+        "bg": "Котвите на данъчния симулатор: ставките в държавите от ЕС за сравнителите „Като в…“ (PwC Worldwide Tax Summaries за ДДС/ДДФЛ/корпоративен; Tax Foundation и таблиците на ЕК DG TAXUD за акцизите — дизел/бензин/цигари/спиртни напитки/вино), дяловете за отбрана от компендиума на НАТО, прогнозата на ЕК за България, върху която стъпва 5-годишната проекция на салдото и дълга, плюс котвите на динамичния (поведенчески) режим — докладът на ЕК за несъбраното ДДС и МВФ изданията зад фискалните мултипликатори. Котвите за хазарта (GGR) и виното са по данни на бранша и НАП. Стойностите живеят като константи с източници в кода на симулатора и се обновяват ръчно при сигнал от наблюдателя.",
+        "en": "The tax simulator's anchors: EU member-state rates for the \"Like in…\" comparators (PwC Worldwide Tax Summaries for VAT/PIT/corporate; Tax Foundation and the EC DG TAXUD tables for the excise rates — diesel/petrol/cigarettes/spirits/wine), defence shares from the NATO expenditure compendium, the EC forecast for Bulgaria that the 5-year balance/debt projection is built on, plus the dynamic (behavioral) mode's anchors — the EC VAT gap report and the IMF vintages behind the fiscal multipliers. The gambling (GGR) and wine bases are industry/НАП-reported. The values live as sourced constants in the simulator code and are updated manually when the watcher flags a change."
       },
       "tags": [
         "fiscal"
@@ -948,7 +948,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-13T07:06:17.324Z",
+      "freshness": "2026-06-14T07:09:34.489Z",
       "skills": [
         "update-prices"
       ],
@@ -958,7 +958,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-06-13T07:06:17.324Z"
+          "freshness": "2026-06-14T07:09:34.489Z"
         }
       ],
       "x": 28,
