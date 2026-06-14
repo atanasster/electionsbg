@@ -15,7 +15,7 @@ keywords:
   - freedom of information request
   - Bulgaria budget deficit
 schemaType: TechArticle
-updatedAt: 2026-06-12
+updatedAt: 2026-06-14
 ---
 
 # How the budget simulator works: data and model
