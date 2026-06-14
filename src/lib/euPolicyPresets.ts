@@ -13,8 +13,11 @@
 // 2026-06-14 from Tax Foundation EU energy/cigarette tables (1 Jan 2026) and
 // the EC DG TAXUD Excise Duty Tables (alcohol); BG anchors confirmed against
 // PwC (diesel €330.29, petrol €363.02, spirits €562.43, wine €0, cigarettes
-// min total €113.51). Nordic spirits/wine are conservative lower bounds (the
-// EC alcohol table extract is a 2019 edition; those rates have since indexed up).
+// min total €113.51). PL and FR spirits were refreshed 2026-06-14 to the
+// current statutory 2026 rates (PL 8,391 PLN/hl ≈ €1,965 per prawoalkoholowe.pl;
+// FR €1,932/hlAP per UGVC/Eurotax); SE/IE spirits & wine remain conservative
+// DG-TAXUD lower bounds (a 2019 edition, since indexed up). The DE `def` note
+// reflects the NATO 2025 estimate (2.40%), which that edition does report.
 
 /** The NATO defence-expenditure compendium edition the `def` options below
  *  encode (June-2025 PDF, 2025 estimates). Compared against the live PDF
@@ -305,10 +308,10 @@ export const EU_LEVER_PRESETS: Record<EuLeverId, EuPresetOption[]> = {
     {
       id: "def_de",
       cc: "DE",
-      label: { bg: "Германия — ≈2,4%", en: "Germany — ≈2.4%" },
+      label: { bg: "Германия — 2,4%", en: "Germany — 2.4%" },
       note: {
-        bg: "≈2,4% за 2025 г. по националния бюджет (НАТО не публикува оценка за Германия в изданието от юни 2025 г.).",
-        en: "≈2.4% for 2025 per the federal budget (NATO's June 2025 edition reports no estimate for Germany).",
+        bg: "2,40% по оценката на НАТО за 2025 г.",
+        en: "2.40% per the NATO 2025 estimate.",
       },
       apply: { def: 24 },
     },
@@ -537,18 +540,24 @@ export const EU_LEVER_PRESETS: Record<EuLeverId, EuPresetOption[]> = {
       apply: { exSpirits: 4257 },
     },
     {
-      id: "spir_fr",
-      cc: "FR",
-      label: { bg: "Франция — 1758 €/хл", en: "France — €1758/hl" },
-      note: { bg: "Над три пъти българския.", en: "Over triple Bulgaria's." },
-      apply: { exSpirits: 1758 },
-    },
-    {
       id: "spir_pl",
       cc: "PL",
-      label: { bg: "Полша — 1333 €/хл", en: "Poland — €1333/hl" },
-      note: { bg: "Над двойно над българския.", en: "Over double Bulgaria's." },
-      apply: { exSpirits: 1333 },
+      label: { bg: "Полша — 1965 €/хл", en: "Poland — €1965/hl" },
+      note: {
+        bg: "Над три пъти над българския (8391 PLN/хл за 2026 г., +5% годишно).",
+        en: "Over triple Bulgaria's (PLN 8,391/hl in 2026, +5% a year).",
+      },
+      apply: { exSpirits: 1965 },
+    },
+    {
+      id: "spir_fr",
+      cc: "FR",
+      label: { bg: "Франция — 1932 €/хл", en: "France — €1932/hl" },
+      note: {
+        bg: "Над три пъти над българския (ставка за 2026 г.).",
+        en: "Over triple Bulgaria's (2026 rate).",
+      },
+      apply: { exSpirits: 1932 },
     },
     {
       id: "spir_de",
@@ -605,3 +614,242 @@ export const EU_LEVER_PRESETS: Record<EuLeverId, EuPresetOption[]> = {
     },
   ],
 };
+
+// Whole-country quick-select profiles for the simulator. The inverse of the
+// per-lever comparators above: pick one country and EVERY comparable lever
+// snaps to that country's policy at once (like the domestic preset chips, but
+// cross-border). Each profile sets VAT std/reduced, the PIT schedule, the
+// corporate rate, defence %GDP, maternity, pension indexation and the five
+// excises; spending levers with no clean cross-country analogue (МОД cap,
+// pension floor, admin cut, gambling) stay at BG current law.
+//
+// Sourcing & methodology (verified 2026-06-14, same sources as the per-lever
+// blocks — PwC Worldwide Tax Summaries, Tax Foundation 2026 EU VAT/energy/
+// cigarette tables, EC DG TAXUD Excise Duty Tables, NATO June-2025 compendium,
+// national social-security agencies):
+//   • Where a country already appears in EU_LEVER_PRESETS for a lever, the
+//     profile reuses that exact value, so the chip and the per-lever popover
+//     can never disagree.
+//   • Credit-based PIT reliefs (PL, IE, GR) are modelled as the equivalent
+//     0%-band: refundable credit ÷ entry rate (e.g. IE €4,000 ÷ 20% ≈
+//     €1,667/mo). Headline-allowance systems (EE €700) use the allowance.
+//   • Cigarette figures are Tax-Foundation total-at-weighted-average-price per
+//     1000 (the cross-EU comparable basis), like the per-lever block.
+//   • Spirits/wine reuse the per-lever block values (PL/FR refreshed to the
+//     current 2026 statutory rates; SE/IE still conservative approximations)
+//     and the current national rate for EE/HU/GR.
+//   • IE omits defence (≈0.2% GDP is below the slider floor and is not part of
+//     Ireland's tax identity); HU/GR/IE omit pension indexation where their
+//     rule already coincides with BG's 50/50 Swiss default.
+// Bilingual name/note strings live inline — sourced DATA, like the blocks above.
+
+export interface CountryProfile {
+  id: string;
+  /** ISO country code for the flag chip. */
+  cc: string;
+  name: BiText;
+  /** One-line summary of what makes this country's fiscal model distinct. */
+  note: BiText;
+  /** The full lever bundle the chip applies (same units as EuPresetApply). */
+  apply: EuPresetApply;
+}
+
+export const COUNTRY_PROFILES: CountryProfile[] = [
+  {
+    id: "country_ee",
+    cc: "EE",
+    name: { bg: "Естония", en: "Estonia" },
+    note: {
+      bg: "Нисък плосък данък (22%) с необлагаем минимум €700 и корпоративен данък само при разпределена печалба, но високо ДДС без намалена ставка за храни.",
+      en: "Low 22% flat tax with a €700 tax-free minimum and corporate tax only on distributed profit, but high VAT with no reduced food rate.",
+    },
+    apply: {
+      vatStd: 24,
+      vatRed: 24,
+      pit: 22,
+      nm: 700,
+      b2: null,
+      corp: 22,
+      def: 34,
+      mat: 6,
+      pw: 20,
+      exDiesel: 428,
+      exPetrol: 591,
+      exCigarettes: 204,
+      exSpirits: 2281,
+      exWine: 179,
+    },
+  },
+  {
+    id: "country_pl",
+    cc: "PL",
+    name: { bg: "Полша", en: "Poland" },
+    note: {
+      bg: "Прогресивен данък 12/32% с голям необлагаем минимум, стандартно ДДС 23% и най-високите отбранителни разходи в НАТО (~4,5% от БВП).",
+      en: "Progressive 12/32% income tax with a large tax-free amount, 23% VAT and NATO's highest defence spend (~4.5% of GDP).",
+    },
+    apply: {
+      vatStd: 23,
+      vatRed: 5,
+      pit: 12,
+      nm: 580,
+      b2: { t2: 2326, r2: 32 },
+      corp: 19,
+      def: 45,
+      mat: 2,
+      pw: 80,
+      exDiesel: 391,
+      exPetrol: 423,
+      exCigarettes: 147,
+      exSpirits: 1965,
+      exWine: 52,
+    },
+  },
+  {
+    id: "country_hu",
+    cc: "HU",
+    name: { bg: "Унгария", en: "Hungary" },
+    note: {
+      bg: "Най-високото ДДС в ЕС (27%) и най-ниският корпоративен данък (9%), с плосък данък 15% и пенсии, индексирани изцяло по инфлацията.",
+      en: "The EU's highest VAT (27%) and lowest corporate tax (9%), a flat 15% income tax and pensions indexed purely to inflation.",
+    },
+    apply: {
+      vatStd: 27,
+      vatRed: 5,
+      pit: 15,
+      nm: 0,
+      b2: null,
+      corp: 9,
+      def: 21,
+      mat: 8,
+      pw: 100,
+      exDiesel: 383,
+      exPetrol: 409,
+      exCigarettes: 154,
+      exSpirits: 1555,
+      exWine: 0,
+    },
+  },
+  {
+    id: "country_de",
+    cc: "DE",
+    name: { bg: "Германия", en: "Germany" },
+    note: {
+      bg: "Рязко прогресивен данък (14–42%) с висок необлагаем минимум, корпоративен данък ~30% и пенсии, обвързани със заплатите.",
+      en: "Steeply progressive income tax (14–42%) with a high tax-free allowance, a ~30% corporate rate and pensions tied to wages.",
+    },
+    apply: {
+      vatStd: 19,
+      vatRed: 7,
+      pit: 14,
+      nm: 1029,
+      b2: { t2: 5707, r2: 42 },
+      corp: 30,
+      def: 24,
+      mat: 0,
+      pw: 0,
+      exDiesel: 470,
+      exPetrol: 655,
+      exCigarettes: 195,
+      exSpirits: 1303,
+      exWine: 0,
+    },
+  },
+  {
+    id: "country_fr",
+    cc: "FR",
+    name: { bg: "Франция", en: "France" },
+    note: {
+      bg: "Високи данъци и акцизи: прогресивен данък до 45%, корпоративен 25% и пенсии, индексирани само по инфлацията.",
+      en: "High taxes and excises: a progressive income tax up to 45%, a 25% corporate rate and CPI-only pension indexation.",
+    },
+    apply: {
+      vatStd: 20,
+      vatRed: 6,
+      pit: 11,
+      nm: 967,
+      b2: { t2: 7048, r2: 41 },
+      corp: 25,
+      def: 20,
+      mat: 2,
+      pw: 100,
+      exDiesel: 594,
+      exPetrol: 683,
+      exCigarettes: 404,
+      exSpirits: 1932,
+      exWine: 4,
+    },
+  },
+  {
+    id: "country_se",
+    cc: "SE",
+    name: { bg: "Швеция", en: "Sweden" },
+    note: {
+      bg: "Скандинавски модел: 25% ДДС, предимно общински данък ~32% с държавна добавка за високите доходи и пенсии по ръста на заплатите.",
+      en: "Nordic model: 25% VAT, a mainly municipal ~32% income tax with a national top-up on high earners and wage-indexed pensions.",
+    },
+    apply: {
+      vatStd: 25,
+      vatRed: 12,
+      pit: 32,
+      nm: 300,
+      b2: { t2: 4743, r2: 52 },
+      corp: 21,
+      def: 25,
+      mat: 3,
+      pw: 0,
+      exDiesel: 359,
+      exPetrol: 434,
+      exCigarettes: 192,
+      exSpirits: 5000,
+      exWine: 253,
+    },
+  },
+  {
+    id: "country_ie",
+    cc: "IE",
+    name: { bg: "Ирландия", en: "Ireland" },
+    note: {
+      bg: "Нисък корпоративен данък 12,5%, нулево ДДС върху основните храни и едни от най-високите акцизи в ЕС върху алкохол и цигари.",
+      en: "A 12.5% corporate tax, zero VAT on basic food and some of the EU's highest alcohol and tobacco excises.",
+    },
+    apply: {
+      vatStd: 23,
+      vatRed: 0,
+      pit: 20,
+      nm: 1667,
+      b2: { t2: 3667, r2: 40 },
+      corp: 13,
+      mat: 2,
+      exDiesel: 616,
+      exPetrol: 706,
+      exCigarettes: 535,
+      exSpirits: 4257,
+      exWine: 425,
+    },
+  },
+  {
+    id: "country_gr",
+    cc: "GR",
+    name: { bg: "Гърция", en: "Greece" },
+    note: {
+      bg: "Високо ДДС 24% след дълговата криза, прогресивен данък 9–44% и трайно високи отбранителни разходи (~2,9% от БВП).",
+      en: "A high 24% VAT after the debt crisis, a progressive 9–44% income tax and persistently high defence spending (~2.9% of GDP).",
+    },
+    apply: {
+      vatStd: 24,
+      vatRed: 13,
+      pit: 9,
+      nm: 720,
+      b2: { t2: 5000, r2: 44 },
+      corp: 22,
+      def: 29,
+      mat: 2,
+      exDiesel: 410,
+      exPetrol: 700,
+      exCigarettes: 137,
+      exSpirits: 2450,
+      exWine: 0,
+    },
+  },
+];

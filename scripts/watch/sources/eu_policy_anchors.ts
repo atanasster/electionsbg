@@ -1,7 +1,8 @@
 // External anchors of the budget policy simulator that live as sourced
 // constants in code, not in pipeline-built JSON:
-//  - src/lib/euPolicyPresets.ts — the "like in <country>" EU comparators
-//    (VAT/CIT/PIT rates per country, NATO defence shares);
+//  - src/lib/euPolicyPresets.ts — the "like in <country>" per-lever EU
+//    comparators AND the whole-country quick-select profiles (COUNTRY_PROFILES:
+//    VAT/CIT/PIT rates, NATO defence shares and excise duties per country);
 //  - src/lib/bgFiscalProjection.ts — the EC forecast baseline of the
 //    5-year balance/debt projection.
 // Three probes watch their upstreams; all three map to MANUAL edits in
@@ -15,9 +16,14 @@ import { fetchText, sha256Short } from "../fingerprint";
 // 1) PwC Worldwide Tax Summaries quick charts — the EU tax-rate comparators.
 // The pages embed a per-country JSON blob ("HU": {name, description<table>});
 // we extract only the tracked countries so churn elsewhere doesn't flip us.
-// IE (CIT) and RO (PIT) are over-tracked deliberately: early-warning
-// candidates not yet surfaced as UI comparators (IE's 12.5% is not
-// representable on the integer slider; RO mirrors BG's flat 10%).
+// The tracked set covers every country that drives a per-lever option OR a
+// whole-country profile (COUNTRY_PROFILES): EE/PL/HU/DE/FR/SE/IE/GR plus the
+// extra per-lever picks (DK/LU/ES/BE for VAT, SK/CZ for PIT). RO (PIT) is
+// over-tracked deliberately — an early-warning candidate that mirrors BG's
+// flat 10%. The PIT chart now tracks the progressive profile countries too;
+// their cells carry inflation-indexed thresholds that churn yearly, but
+// check_policy_anchors.ts only pins the RATES, so a threshold-only revision
+// self-stamps on PASS rather than nagging a human.
 // ---------------------------------------------------------------------------
 
 const PWC_CHARTS: { key: string; url: string; countries: string[] }[] = [
@@ -26,17 +32,42 @@ const PWC_CHARTS: { key: string; url: string; countries: string[] }[] = [
     url: "https://taxsummaries.pwc.com/quick-charts/value-added-tax-vat-rates",
     // Standard-rate options + the reduced-rate option countries (their
     // standard rate moving is the cue to re-verify the reduced rates too).
-    countries: ["HU", "DK", "GR", "EE", "IE", "DE", "LU", "FR", "ES", "BE"],
+    countries: [
+      "HU",
+      "DK",
+      "GR",
+      "EE",
+      "IE",
+      "DE",
+      "LU",
+      "FR",
+      "ES",
+      "BE",
+      "PL",
+      "SE",
+    ],
   },
   {
     key: "cit",
     url: "https://taxsummaries.pwc.com/quick-charts/corporate-income-tax-cit-rates",
-    countries: ["HU", "EE", "FR", "DE", "IE"],
+    countries: ["HU", "EE", "FR", "DE", "IE", "PL", "SE", "GR"],
   },
   {
     key: "pit",
     url: "https://taxsummaries.pwc.com/quick-charts/personal-income-tax-pit-rates",
-    countries: ["EE", "SK", "CZ", "RO"],
+    countries: [
+      "EE",
+      "SK",
+      "CZ",
+      "RO",
+      "HU",
+      "PL",
+      "DE",
+      "FR",
+      "IE",
+      "GR",
+      "SE",
+    ],
   },
 ];
 

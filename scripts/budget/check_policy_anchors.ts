@@ -30,6 +30,7 @@ import {
   ecForecastBg,
 } from "../watch/sources/eu_policy_anchors";
 import {
+  COUNTRY_PROFILES,
   EU_LEVER_PRESETS,
   NATO_COMPENDIUM_EDITION,
 } from "../../src/lib/euPolicyPresets";
@@ -60,6 +61,17 @@ const applyOf = (
   if (!o) throw new Error(`preset option missing: ${lever}/${id}`);
   return o.apply as Record<string, unknown>;
 };
+
+// Same accessor for a whole-country quick-select profile (COUNTRY_PROFILES) —
+// the checks below pin the profile values that aren't already a per-lever
+// option (PL/SE are profile-only comparators; GR corp / HU flat PIT are new).
+const countryOf = (cc: string): Record<string, unknown> => {
+  const c = COUNTRY_PROFILES.find((x) => x.cc === cc);
+  if (!c) throw new Error(`country profile missing: ${cc}`);
+  return c.apply as Record<string, unknown>;
+};
+const countryTopRate = (cc: string): number =>
+  (countryOf(cc).b2 as { r2: number }).r2;
 
 // ---------------------------------------------------------------------------
 // eu_tax_rates — the PwC charts carry "27" / "19/25/30/35" token cells per
@@ -199,6 +211,95 @@ const RATE_CHECKS: RateCheck[] = [
     expect: (applyOf("pit", "pit_cz").b2 as { r2: number }).r2,
     what: "pit pit_cz (top rate)",
   },
+  // ---- Whole-country profile pins (COUNTRY_PROFILES) ----------------------
+  // VAT standard rate of the profile-only comparators (PL/SE are not per-lever
+  // vatStd options). Clean single rates the quick chart always carries → HARD.
+  {
+    chart: "vat",
+    cc: "PL",
+    expect: countryOf("PL").vatStd as number,
+    what: "vatStd country_pl",
+  },
+  {
+    chart: "vat",
+    cc: "SE",
+    expect: countryOf("SE").vatStd as number,
+    what: "vatStd country_se",
+  },
+  // CIT headline of the profile comparators. PL 19 and GR 22 are the quick
+  // chart's headline → HARD; SE's profile rounds 20.6→21 for the integer
+  // slider, so the chart shows 20.6, not 21 → warn-only (like Germany).
+  {
+    chart: "cit",
+    cc: "PL",
+    expect: countryOf("PL").corp as number,
+    what: "corp country_pl",
+  },
+  {
+    chart: "cit",
+    cc: "GR",
+    expect: countryOf("GR").corp as number,
+    what: "corp country_gr",
+  },
+  {
+    chart: "cit",
+    cc: "SE",
+    expect: countryOf("SE").corp as number,
+    what: "corp country_se (20.6 rounded to 21)",
+    soft: true,
+  },
+  // PIT: Hungary's flat 15% is a clean single rate → HARD. The progressive
+  // profiles pin their TOP bracket rate among the chart tokens; the chart's
+  // representation of the top marginal varies (national vs combined, brackets
+  // vs headline), so these are warn-only early-warnings, not failures.
+  {
+    chart: "pit",
+    cc: "HU",
+    expect: countryOf("HU").pit as number,
+    what: "pit country_hu (flat)",
+  },
+  {
+    chart: "pit",
+    cc: "PL",
+    expect: countryTopRate("PL"),
+    what: "pit country_pl (top rate)",
+    soft: true,
+  },
+  {
+    chart: "pit",
+    cc: "DE",
+    expect: countryTopRate("DE"),
+    what: "pit country_de (top band)",
+    soft: true,
+  },
+  {
+    chart: "pit",
+    cc: "FR",
+    expect: countryTopRate("FR"),
+    what: "pit country_fr (top band)",
+    soft: true,
+  },
+  {
+    chart: "pit",
+    cc: "IE",
+    expect: countryTopRate("IE"),
+    what: "pit country_ie (higher rate)",
+    soft: true,
+  },
+  {
+    chart: "pit",
+    cc: "GR",
+    expect: countryTopRate("GR"),
+    what: "pit country_gr (top rate)",
+    soft: true,
+  },
+  {
+    chart: "pit",
+    cc: "SE",
+    expect: countryTopRate("SE"),
+    what: "pit country_se (combined top)",
+    soft: true,
+  },
 ];
 
 const checkEuTaxRates = async (): Promise<CheckResult> => {
@@ -227,7 +328,7 @@ const checkEuTaxRates = async (): Promise<CheckResult> => {
   }
   return {
     ok: hardFailures === 0,
-    summary: `auto-check PASS — PwC quick-chart rates match euPolicyPresets (VAT HU27/DK25/GR24/EE24/IE23/DE19/LU17; CIT HU9/EE22/FR25; PIT EE22 flat, SK top 35, CZ top 23)`,
+    summary: `auto-check PASS — PwC quick-chart rates match euPolicyPresets (per-lever: VAT HU27/DK25/GR24/EE24/IE23/DE19/LU17; CIT HU9/EE22/FR25; PIT EE22 flat, SK top 35, CZ top 23 · country profiles: PL/SE VAT 23/25, PL/GR CIT 19/22, HU PIT 15 flat)`,
     lines,
   };
 };
@@ -276,6 +377,113 @@ const checkNatoDefence = async (): Promise<CheckResult> => {
 };
 
 // ---------------------------------------------------------------------------
+// COUNTRY_PROFILES offline invariants (no network). Run on EVERY invocation
+// before the upstream probes, because they catch DATA-edit mistakes, not drift:
+//   (1) a profile field disagrees with the same-cc per-lever option — the chip
+//       and the per-lever popover would then contradict each other;
+//   (2) a profile value sits outside the simulator's slider bounds — it would
+//       be silently clamped, so the scenario no longer reproduces the country.
+// ---------------------------------------------------------------------------
+
+// Lever families a per-lever option AND a profile can both carry (the EuLeverId
+// is the apply-field name for every one of these).
+const PROFILE_SHARED_LEVERS: (keyof typeof EU_LEVER_PRESETS)[] = [
+  "vatStd",
+  "vatRed",
+  "pit",
+  "corp",
+  "def",
+  "mat",
+  "pw",
+  "exDiesel",
+  "exPetrol",
+  "exCigarettes",
+  "exSpirits",
+  "exWine",
+];
+
+// Slider bounds — KEEP IN SYNC with src/screens/components/budget/
+// BudgetPolicySimulator.tsx (those consts aren't exported from the component).
+const PROFILE_BOUNDS: Record<string, [number, number]> = {
+  vatStd: [10, 27],
+  vatRed: [0, 27],
+  pit: [0, 35],
+  nm: [0, 1700], // NM_MAX
+  corp: [0, 30],
+  def: [15, 50],
+  mat: [0, 12], // MATERNITY_Y2_MONTHS
+  pw: [0, 100],
+  exDiesel: [330, 700],
+  exPetrol: [359, 900],
+  exCigarettes: [90, 550],
+  exSpirits: [550, 5100],
+  exWine: [0, 450],
+};
+const T2_BOUNDS: [number, number] = [1000, 8000];
+const R2_BOUNDS: [number, number] = [0, 55];
+
+const checkProfileInvariants = (): CheckResult => {
+  const lines: string[] = [];
+  let failures = 0;
+  const inBounds = (v: number, [lo, hi]: [number, number]): boolean =>
+    v >= lo && v <= hi;
+
+  for (const p of COUNTRY_PROFILES) {
+    const apply = p.apply as Record<string, unknown>;
+
+    // (1) consistency vs the same-cc per-lever option
+    for (const lever of PROFILE_SHARED_LEVERS) {
+      const opt = EU_LEVER_PRESETS[lever].find((o) => o.cc === p.cc);
+      if (!opt) continue;
+      const pv = apply[lever];
+      const ov = (opt.apply as Record<string, unknown>)[lever];
+      if (pv != null && ov != null && pv !== ov) {
+        failures++;
+        lines.push(
+          `  DRIFT ${p.id} ${lever}=${String(pv)} disagrees with per-lever ${opt.id}=${String(ov)} — make them equal (chip and per-lever popover must never contradict)`,
+        );
+      }
+    }
+
+    // (2) within slider bounds
+    for (const [field, range] of Object.entries(PROFILE_BOUNDS)) {
+      const v = apply[field];
+      if (typeof v === "number" && !inBounds(v, range)) {
+        failures++;
+        lines.push(
+          `  OOB   ${p.id} ${field}=${v} outside slider bounds [${range[0]}, ${range[1]}] — would be silently clamped (raise the bound in BudgetPolicySimulator.tsx + here, or fix the profile)`,
+        );
+      }
+    }
+    const b2 = apply.b2 as { t2: number; r2: number } | null | undefined;
+    if (b2) {
+      if (!inBounds(b2.t2, T2_BOUNDS)) {
+        failures++;
+        lines.push(
+          `  OOB   ${p.id} b2.t2=${b2.t2} outside [${T2_BOUNDS[0]}, ${T2_BOUNDS[1]}]`,
+        );
+      }
+      if (!inBounds(b2.r2, R2_BOUNDS)) {
+        failures++;
+        lines.push(
+          `  OOB   ${p.id} b2.r2=${b2.r2} outside [${R2_BOUNDS[0]}, ${R2_BOUNDS[1]}]`,
+        );
+      }
+    }
+  }
+
+  if (failures === 0)
+    lines.push(
+      `  PASS  ${COUNTRY_PROFILES.length} country profiles consistent with per-lever options and within slider bounds`,
+    );
+  return {
+    ok: failures === 0,
+    summary: `country-profile invariants OK (${COUNTRY_PROFILES.length} profiles)`,
+    lines,
+  };
+};
+
+// ---------------------------------------------------------------------------
 
 const CHECKS: Record<SourceId, () => Promise<CheckResult>> = {
   eu_tax_rates: checkEuTaxRates,
@@ -299,6 +507,14 @@ const main = async (): Promise<void> => {
   }
 
   let failures = 0;
+
+  // Offline data invariants first — pure, network-free, a hard gate on every
+  // run regardless of --source (they guard the code/data, not the upstream).
+  console.log(`\n=== country_profiles (offline invariants) ===`);
+  const inv = checkProfileInvariants();
+  for (const line of inv.lines) console.log(line);
+  if (!inv.ok) failures++;
+
   for (const id of sources) {
     console.log(`\n=== ${id} ===`);
     let result: CheckResult;

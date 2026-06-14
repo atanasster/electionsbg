@@ -126,7 +126,9 @@ import { downloadShareCard } from "./policyShareCard";
 import { fmtCompactEur, fmtDelta, fmtPct1 } from "./budgetFormat";
 import { EuFlag } from "./EuFlag";
 import {
+  COUNTRY_PROFILES,
   EU_LEVER_PRESETS,
+  type CountryProfile,
   type EuLeverId,
   type EuPresetApply,
   type EuPresetOption,
@@ -150,8 +152,11 @@ const MOD_STEPS_DOWN = 18; // ≈ €900 below the cap
 const MOD_STEPS_UP = 78; // ≈ €3,900 above the cap
 const GROSS_DEF = 1100;
 
-// Bracket-control bounds (monthly, on the post-SSC taxable base).
-const NM_MAX = 1200;
+// Bracket-control bounds (monthly, on the post-SSC taxable base). NM_MAX
+// reaches €1,700 so Ireland's credit-equivalent allowance (~€1,667) fits; the
+// second-bracket grid reaches €8,000 / 55% so the steeply progressive country
+// profiles (FR €7,048 threshold, SE 52% top rate) land on the slider.
+const NM_MAX = 1700;
 const T2_DEF = 3000;
 const R2_DEF = 15;
 
@@ -1021,6 +1026,47 @@ const EuInfoPopover: FC<{
   );
 };
 
+// Override shape for applyLevers — one field per policy-lever STATE setter
+// (raw values, unlike the scoring-shaped LeverState's vatRedEff/t2Eff/mpEff).
+// Every field optional: an omitted field falls back to current law.
+interface LeverWrite {
+  vatStd: number;
+  vatRed: number;
+  regimes: Partial<Record<VatAdjustableGroup, VatRegime>>;
+  pit: number;
+  nm: number;
+  bracket2: boolean;
+  t2: number;
+  r2: number;
+  corp: number;
+  div: number;
+  mod: number;
+  noCap: boolean;
+  pw: number;
+  noSupp: boolean;
+  ph: number;
+  adm: number;
+  mrzFreeze: boolean;
+  def: number;
+  wi: number;
+  wex: boolean;
+  kap: number;
+  ssp: boolean;
+  sspg: boolean;
+  hp: number;
+  mp: number;
+  tp: number;
+  mat: number;
+  mpf: boolean;
+  psub: number;
+  diesel: number;
+  petrol: number;
+  cigarettes: number;
+  spirits: number;
+  wine: number;
+  gambling: number;
+}
+
 export const BudgetPolicySimulator: FC = () => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "en" ? "en" : "bg";
@@ -1053,7 +1099,7 @@ export const BudgetPolicySimulator: FC = () => {
     return out;
   });
   const [pit, setPit] = useState(() =>
-    clampIntParam(searchParams.get("pit"), 0, 30, PIT_DEF),
+    clampIntParam(searchParams.get("pit"), 0, 35, PIT_DEF),
   );
   const [corp, setCorp] = useState(() =>
     clampIntParam(searchParams.get("corp"), 0, 30, CORP_DEF),
@@ -1103,10 +1149,10 @@ export const BudgetPolicySimulator: FC = () => {
     () => searchParams.get("b2") === "1",
   );
   const [t2, setT2] = useState(() =>
-    clampIntParam(searchParams.get("t2"), 1000, 6000, T2_DEF),
+    clampIntParam(searchParams.get("t2"), 1000, 8000, T2_DEF),
   );
   const [r2, setR2] = useState(() =>
-    clampIntParam(searchParams.get("r2"), 0, 30, R2_DEF),
+    clampIntParam(searchParams.get("r2"), 0, 55, R2_DEF),
   );
   const [gross, setGross] = useState(() =>
     clampIntParam(searchParams.get("gross"), 500, 8000, GROSS_DEF),
@@ -1226,43 +1272,66 @@ export const BudgetPolicySimulator: FC = () => {
   const tpDef = teachers ? Math.round(teachers.currentRatio * 100) : 0;
   const tpEff = tp > 0 ? Math.min(140, Math.max(100, tp)) : tpDef;
 
+  // ----- lever writers -------------------------------------------------------
+  // Single source of truth for "set every policy lever". resetAll, applyPreset
+  // and applyCountryProfile all route through this, so a newly added lever
+  // can't silently desync one of them — add its setter+default here once. Each
+  // flow layers its own NON-lever extras on top: `gross` (a wage assumption,
+  // not a policy lever — preserved here, reset only by resetAll), the
+  // progressive-disclosure sections, and the per-lever EU picks.
+  const applyLevers = (o: Partial<LeverWrite> = {}): void => {
+    setVatStd(o.vatStd ?? VAT_STD_DEF);
+    setVatRed(o.vatRed ?? VAT_RED_DEF);
+    setRegimes(o.regimes ?? {});
+    setPit(o.pit ?? PIT_DEF);
+    setNm(o.nm ?? 0);
+    setBracket2(o.bracket2 ?? false);
+    setT2(o.t2 ?? T2_DEF);
+    setR2(o.r2 ?? R2_DEF);
+    setCorp(o.corp ?? CORP_DEF);
+    setDiv(o.div ?? DIV_DEF);
+    setMod(o.mod ?? currentCap);
+    setNoCap(o.noCap ?? false);
+    setPw(o.pw ?? 50);
+    setNoSupp(o.noSupp ?? false);
+    setPh(o.ph ?? 1);
+    setAdm(o.adm ?? 0);
+    setMrzFreeze(o.mrzFreeze ?? false);
+    setDef(o.def ?? 22);
+    setWi(o.wi ?? 0);
+    setWex(o.wex ?? true);
+    setKap(o.kap ?? 0);
+    setSsp(o.ssp ?? false);
+    setSspg(o.sspg ?? false);
+    setHp(o.hp ?? 0);
+    setMp(o.mp ?? 0);
+    setTp(o.tp ?? 0);
+    setMat(o.mat ?? MATERNITY_Y2_MONTHS);
+    setMpf(o.mpf ?? false);
+    setPsub(o.psub ?? PSUB_DEF);
+    setDiesel(o.diesel ?? DIESEL_DEF);
+    setPetrol(o.petrol ?? PETROL_DEF);
+    setCigarettes(o.cigarettes ?? CIG_DEF);
+    setSpirits(o.spirits ?? SPIRITS_DEF);
+    setWine(o.wine ?? 0);
+    setGambling(o.gambling ?? GAMBLING_DEF);
+  };
+
   // ----- presets -------------------------------------------------------------
   const applyPreset = (p: PresetApply): void => {
-    setVatStd(VAT_STD_DEF);
-    setVatRed(VAT_RED_DEF);
-    setRegimes(p.regimes ?? {});
-    setPit(PIT_DEF);
-    setNm(p.nm ?? 0);
-    setBracket2(!!p.b2);
-    setT2(p.b2?.t2 ?? T2_DEF);
-    setR2(p.b2?.r2 ?? R2_DEF);
-    setCorp(CORP_DEF);
-    setDiv(DIV_DEF);
-    setMod(currentCap);
-    setNoCap(!!p.noCap);
-    setPw(p.pw ?? 50);
-    setNoSupp(false);
-    setPh(1);
-    setAdm(p.adm ?? 0);
-    setMrzFreeze(!!p.mrzFreeze);
-    setDef(22);
-    setWi(0);
-    setWex(true);
-    setKap(0);
-    setSsp(!!p.ssp);
-    setSspg(false);
-    setHp(0);
-    setMp(0);
-    setTp(0);
-    setMat(p.mat ?? MATERNITY_Y2_MONTHS);
-    setMpf(false);
-    setPsub(PSUB_DEF);
-    setDiesel(DIESEL_DEF);
-    setPetrol(PETROL_DEF);
-    setCigarettes(CIG_DEF);
-    setSpirits(SPIRITS_DEF);
-    setWine(0);
-    setGambling(GAMBLING_DEF);
+    applyLevers({
+      regimes: p.regimes ?? {},
+      nm: p.nm ?? 0,
+      bracket2: !!p.b2,
+      t2: p.b2?.t2 ?? T2_DEF,
+      r2: p.b2?.r2 ?? R2_DEF,
+      noCap: !!p.noCap,
+      pw: p.pw ?? 50,
+      adm: p.adm ?? 0,
+      mrzFreeze: !!p.mrzFreeze,
+      ssp: !!p.ssp,
+      mat: p.mat ?? MATERNITY_Y2_MONTHS,
+    });
     setExciseOpen(false);
     setVatCatsOpen(!!p.regimes);
     setTaxDetailOpen(p.nm != null || !!p.b2);
@@ -1409,42 +1478,52 @@ export const BudgetPolicySimulator: FC = () => {
   ]);
 
   const resetAll = (): void => {
-    setVatStd(VAT_STD_DEF);
-    setVatRed(VAT_RED_DEF);
-    setRegimes({});
-    setPit(PIT_DEF);
-    setNm(0);
-    setBracket2(false);
-    setT2(T2_DEF);
-    setR2(R2_DEF);
-    setCorp(CORP_DEF);
-    setDiv(DIV_DEF);
-    setMod(currentCap);
-    setNoCap(false);
+    applyLevers();
     setGross(GROSS_DEF);
-    setPw(50);
-    setNoSupp(false);
-    setPh(1);
-    setAdm(0);
-    setMrzFreeze(false);
-    setDef(22);
-    setWi(0);
-    setWex(true);
-    setKap(0);
-    setSsp(false);
-    setSspg(false);
-    setHp(0);
-    setMp(0);
-    setTp(0);
-    setMat(MATERNITY_Y2_MONTHS);
-    setMpf(false);
-    setPsub(PSUB_DEF);
-    setDiesel(DIESEL_DEF);
-    setPetrol(PETROL_DEF);
-    setCigarettes(CIG_DEF);
-    setSpirits(SPIRITS_DEF);
-    setWine(0);
-    setGambling(GAMBLING_DEF);
+  };
+
+  // Apply a whole-country profile: route the profile's overrides through
+  // applyLevers (which resets every policy lever to current law first), so the
+  // breakdown shows exactly the country's bundle and nothing stale. Then clear
+  // the per-lever EU picks and open the sections the profile touches so the
+  // applied values aren't hidden behind a collapsed disclosure. `gross` (a
+  // representative-wage assumption, not a policy lever) is preserved — same as
+  // applyPreset.
+  const applyCountryProfile = (p: CountryProfile): void => {
+    const a = p.apply;
+    applyLevers({
+      vatStd: a.vatStd ?? VAT_STD_DEF,
+      vatRed: a.vatRed ?? VAT_RED_DEF,
+      pit: a.pit ?? PIT_DEF,
+      nm: a.nm ?? 0,
+      bracket2: !!a.b2,
+      t2: a.b2?.t2 ?? T2_DEF,
+      r2: a.b2?.r2 ?? R2_DEF,
+      corp: a.corp ?? CORP_DEF,
+      pw: a.pw ?? 50,
+      def: a.def ?? 22,
+      mat: a.mat ?? MATERNITY_Y2_MONTHS,
+      diesel: a.exDiesel ?? DIESEL_DEF,
+      petrol: a.exPetrol ?? PETROL_DEF,
+      cigarettes: a.exCigarettes ?? CIG_DEF,
+      spirits: a.exSpirits ?? SPIRITS_DEF,
+      wine: a.exWine ?? 0,
+    });
+    setEuPicks({});
+    setVatCatsOpen(false);
+    setExciseOpen(
+      a.exDiesel != null ||
+        a.exPetrol != null ||
+        a.exCigarettes != null ||
+        a.exSpirits != null ||
+        a.exWine != null,
+    );
+    setTaxDetailOpen((a.nm ?? 0) > 0 || a.b2 != null);
+    setExpOpen(
+      (a.pw ?? 50) !== 50 ||
+        (a.def ?? 22) !== 22 ||
+        (a.mat ?? MATERNITY_Y2_MONTHS) !== MATERNITY_Y2_MONTHS,
+    );
   };
 
   // ----- EU country comparators ----------------------------------------------
@@ -1529,6 +1608,11 @@ export const BudgetPolicySimulator: FC = () => {
       </p>
     ) : null;
   };
+  // The country whose full profile the current scenario exactly reproduces
+  // (same loose match as the per-lever picks — every lever the profile sets
+  // must coincide). Drives the chip highlight and the applied-profile note.
+  const activeCountry =
+    COUNTRY_PROFILES.find((c) => euMatches(c.apply)) ?? null;
 
   const onShare = (): void => {
     if (typeof navigator !== "undefined" && navigator.clipboard) {
@@ -2421,6 +2505,45 @@ export const BudgetPolicySimulator: FC = () => {
         })}
       </div>
 
+      {/* ===================== COUNTRY QUICK-SELECTS ==================== */}
+      {/* The inverse of the per-lever "like in <country>" picker: one chip
+          snaps every comparable lever to that country's full policy. */}
+      <div className="space-y-1.5">
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="inline-flex items-center gap-1 text-xs text-muted-foreground mr-1">
+            <Globe className="h-3.5 w-3.5" />
+            {t("budget_policy_countries_title")}
+          </span>
+          {COUNTRY_PROFILES.map((c) => {
+            const active = activeCountry?.id === c.id;
+            return (
+              <button
+                key={c.id}
+                type="button"
+                aria-pressed={active}
+                onClick={() => applyCountryProfile(c)}
+                title={c.note[lang]}
+                className={
+                  "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs transition-colors " +
+                  (active
+                    ? "border-indigo-500 bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 font-medium"
+                    : "border-input text-muted-foreground hover:text-foreground hover:border-ring")
+                }
+              >
+                <EuFlag cc={c.cc} />
+                {c.name[lang]}
+              </button>
+            );
+          })}
+        </div>
+        {activeCountry ? (
+          <p className="flex items-start gap-1.5 text-[11px] leading-snug text-muted-foreground">
+            <EuFlag cc={activeCountry.cc} className="mt-[2px]" />
+            <span>{activeCountry.note[lang]}</span>
+          </p>
+        ) : null}
+      </div>
+
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,360px)_1fr]">
         {/* ============================ INPUTS ============================ */}
         <Card className="lg:sticky lg:top-20 lg:self-start">
@@ -2508,7 +2631,7 @@ export const BudgetPolicySimulator: FC = () => {
                   label={t("budget_policy_pit")}
                   info={euInfo("pit", t("budget_policy_tip_pit"))}
                   min={0}
-                  max={30}
+                  max={35}
                   value={pit}
                   defaultValue={PIT_DEF}
                   onChange={setPit}
@@ -2577,7 +2700,7 @@ export const BudgetPolicySimulator: FC = () => {
                             id="policy-t2"
                             label={t("budget_policy_b2_threshold")}
                             min={Math.max(1000, nm + 100)}
-                            max={6000}
+                            max={8000}
                             step={100}
                             value={t2Eff}
                             defaultValue={T2_DEF}
@@ -2588,7 +2711,7 @@ export const BudgetPolicySimulator: FC = () => {
                             id="policy-r2"
                             label={t("budget_policy_b2_rate")}
                             min={0}
-                            max={30}
+                            max={55}
                             value={r2}
                             defaultValue={R2_DEF}
                             onChange={setR2}

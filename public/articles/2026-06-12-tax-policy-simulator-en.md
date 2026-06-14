@@ -24,6 +24,8 @@ What would 9% VAT on food cost? How much does removing the social-security cap r
 
 The [budget simulator](/budget/simulator) puts all of it on one screen: move a rate and see, side by side, what happens to consolidated budget revenue per year **and** to one worked payslip per month. You can cost real proposals — a progressive tax, higher VAT, contributions without a cap, higher tobacco excise, a gambling levy, defense at 3% of GDP — and compare them against the published official estimates. The code is open and the assumptions are spelled out one by one.
 
+There's also a faster way in: pick a whole country. A row of flag chips — Estonia, Poland, Hungary, Germany, France, Sweden, Ireland, Greece — snaps every comparable lever at once to that country's real policy (VAT, the income-tax schedule, corporate and defense levels, pension indexation and excise duties), so you can see what Bulgaria's budget and your own payslip would look like under, say, Estonia's flat tax or Poland's defense spend. It's the mirror image of the per-lever "like in…" buttons — every value sourced the same way (PwC, the Tax Foundation excise tables, the NATO compendium) — and levers with no clean cross-country analogue stay at Bulgarian law.
+
 ## Two modes: static and dynamic
 
 The simulator scores every scenario two ways, toggled with one button.
