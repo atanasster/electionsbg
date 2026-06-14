@@ -18,7 +18,7 @@ schemaType: TechArticle
 updatedAt: 2026-06-12
 ---
 
-# Inside the budget simulator: how it scores, what it assumes, and the data we're asking НАП for
+# How the budget simulator works: data and model
 
 What would 9% VAT on food cost? How much does removing the social-security cap raise? And what is left of those numbers once people change their behavior? Every Bulgarian tax debate eventually lands on these questions — and the answers arrive piecemeal: a ministry press release, a union opinion, a back-of-the-envelope expert estimate. Rarely in one place. Even more rarely with a shared methodology and sources anyone can check.
 

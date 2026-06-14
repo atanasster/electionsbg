@@ -22,12 +22,12 @@
     "topics": ["budget"],
     "author": "Claude Opus 4.8",
     "title": {
-      "bg": "Бюджетният симулатор отвътре: как смята, какво допуска и какви данни искаме от НАП",
-      "en": "Inside the budget simulator: how it scores, what it assumes, and the data we're asking НАП for"
+      "bg": "Как работи бюджетният симулатор: данни и модел",
+      "en": "How the budget simulator works: data and model"
     },
     "summary": {
-      "bg": "Машината зад /budget/simulator, показана отвътре: статичен и динамичен режим, как се оценява всеки лост (ДДС, ДДФЛ, корпоративен, дивиденти, МОД, разходите), поведенческите еластичности и фискалните мултипликатори зад динамичната оценка, ограниченията и сверката с официалните разчети — и защо искаме от НАП ежегодни, машинночетими данни за доходите по подоходни групи, които биха закотвили докрай и най-статистическата част на модела.",
-      "en": "A full walkthrough of the /budget/simulator tool: static vs dynamic mode, how every lever is scored (VAT, income tax, corporate, dividends, the social-security cap, spending), the behavioral elasticities and fiscal multipliers behind dynamic mode, the limitations and the validation against official costings — and the freedom-of-information request to НАП for annual, machine-readable income-bracket data that would fully anchor the most statistical part of the model."
+      "bg": "Машината зад /budget/simulator: откъде идват данните и как е изграден моделът. Статичен и динамичен режим, как се оценява всеки лост (ДДС, ДДФЛ, корпоративен, дивиденти, МОД, разходите), поведенческите еластичности и фискалните мултипликатори зад динамичната оценка, ограниченията и сверката с официалните разчети.",
+      "en": "The machine behind /budget/simulator: where the data comes from and how the model is built. Static and dynamic mode, how every lever is scored (VAT, income tax, corporate, dividends, the social-security cap, spending), the behavioral elasticities and fiscal multipliers behind dynamic mode, the limitations and the validation against official costings."
     },
     "ogImage": "/og/budget-simulator.png"
   },
