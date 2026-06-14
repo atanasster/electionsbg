@@ -582,14 +582,17 @@ interface CustomsFile {
 interface ExciseAnchors {
   year: number;
   fuelEur: number;
+  dieselEur: number;
+  petrolEur: number;
   tobaccoEur: number;
   alcoholEur: number;
   source: string;
 }
 
-/** Excise split (fuel / tobacco / alcohol) for the policy levers. Reads the
- *  Митници chronicle breakdown for the baseline year, walking back up to two
- *  prior years if that file is not yet on disk. */
+/** Excise split for the per-product policy levers. Reads the Митници chronicle
+ *  breakdown for the baseline year (diesel + petrol itemised; tobacco + alcohol
+ *  as category lines), walking back up to two prior years if that file is not
+ *  yet on disk. */
 const loadExcise = (baselineYear: number): ExciseAnchors => {
   const dir = "data/budget/revenue_breakdown/customs";
   for (let y = baselineYear; y >= baselineYear - 2; y--) {
@@ -599,12 +602,16 @@ const loadExcise = (baselineYear: number): ExciseAnchors => {
     const amt = (id: string): number =>
       f.lines.find((l) => l.id === id)?.amountEur ?? 0;
     const fuelEur = amt("excise_fuels");
+    const dieselEur = amt("excise_diesel");
+    const petrolEur = amt("excise_petrol");
     const tobaccoEur = amt("excise_tobacco");
     const alcoholEur = amt("excise_alcohol");
-    if (fuelEur && tobaccoEur && alcoholEur) {
+    if (dieselEur && petrolEur && tobaccoEur && alcoholEur) {
       return {
         year: y,
         fuelEur,
+        dieselEur,
+        petrolEur,
         tobaccoEur,
         alcoholEur,
         source: f.source?.document ?? `Агенция "Митници" ${y}`,
@@ -616,6 +623,8 @@ const loadExcise = (baselineYear: number): ExciseAnchors => {
   return {
     year: baselineYear,
     fuelEur: 0,
+    dieselEur: 0,
+    petrolEur: 0,
     tobaccoEur: 0,
     alcoholEur: 0,
     source: "—",
@@ -990,6 +999,8 @@ const main = async (): Promise<void> => {
       corporateEur: Math.round(baseline.corporateEur),
       dividendEur: Math.round(baseline.dividendEur),
       exciseFuelEur: Math.round(excise.fuelEur),
+      exciseDieselEur: Math.round(excise.dieselEur),
+      excisePetrolEur: Math.round(excise.petrolEur),
       exciseTobaccoEur: Math.round(excise.tobaccoEur),
       exciseAlcoholEur: Math.round(excise.alcoholEur),
       totalRevenueEur: Math.round(baseline.totalRevenueEur),

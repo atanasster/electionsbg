@@ -37,11 +37,6 @@ import {
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import {
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -65,10 +60,15 @@ import {
   pitMonthlyUnderBrackets,
   scoreCorporate,
   scoreDividend,
-  scoreExcise,
+  scoreExciseRate,
   scoreWineExcise,
   scoreGamblingGgr,
   GAMBLING_GGR_FEE_RATE,
+  EXCISE_DIESEL_RATE,
+  EXCISE_PETROL_RATE,
+  EXCISE_CIGARETTE_RATE,
+  EXCISE_SPIRITS_RATE,
+  SPIRITS_SHARE_OF_ALCOHOL,
   scoreAdminCut,
   scoreCapitalChange,
   scoreDefenseTarget,
@@ -160,19 +160,29 @@ const R2_DEF = 15;
 // and the slider's "no change" position in one edit.
 const PSUB_DEF = Math.round(PARTY_SUBSIDY_RATE_EUR * 100);
 
-// Excise levers. Fuel/tobacco/alcohol move the existing rate by a percentage
-// (default 0 = current law). Raise-only (min 0): a "0%" thumb then sits at the
-// left like every other rate slider, instead of partway along a bipolar track
-// where "0%" reads as misplaced. BG fuel is already at the EU floor, so a cut
-// isn't legally available anyway (the tooltip says so); tobacco/alcohol raise
-// far enough to reach the Laffer turn on the pessimistic band. Wine is an
-// INTRODUCE-from-€0 lever in €/hl.
-const EXCISE_FUEL_MIN = 0;
-const EXCISE_FUEL_MAX = 50;
-const EXCISE_SIN_MIN = 0; // tobacco & alcohol
-const EXCISE_SIN_MAX = 100;
-const WINE_MAX = 100; // €/hl (NL ≈ €48, FR ≈ €4)
-const WINE_STEP = 5;
+// Excise levers — ABSOLUTE rates in the product's real unit (like VAT/PIT), each
+// with an EU-country comparator. Defaults are the current BG rate, so the lever
+// Δ is 0 at the default. Floors are the EU minimum (you can't legally go below);
+// maxima reach the highest EU rate so the "like in <country>" picks are in range.
+// Diesel/petrol: €/1000 L; cigarettes: €/1000; spirits: €/hl; wine: €/hl.
+const DIESEL_DEF = EXCISE_DIESEL_RATE; // 330 (= EU floor; BG sits on it)
+const DIESEL_MAX = 700;
+const PETROL_DEF = EXCISE_PETROL_RATE; // 363
+const PETROL_MIN = 359; // EU floor
+const PETROL_MAX = 900;
+const CIG_DEF = EXCISE_CIGARETTE_RATE; // 114
+const CIG_MIN = 90; // EU floor
+const CIG_MAX = 550;
+const SPIRITS_DEF = EXCISE_SPIRITS_RATE; // 562
+const SPIRITS_MIN = 550; // EU floor
+const SPIRITS_MAX = 5100;
+// Step 1 (€) so the current-law default AND every EU "like in…" country value
+// land exactly on the grid — a coarser step would snap 363→364, 562→550 etc.,
+// leaving the thumb off the shown value (and off the picked country's rate).
+const EXCISE_STEP = 1; // €/1000 L, €/1000, €/hl
+const SPIRITS_STEP = 1;
+const WINE_MAX = 450; // €/hl (IE ≈ €425 highest; FR ≈ €4, NL ≈ €88)
+const WINE_STEP = 1;
 
 // Gambling: the ЗХ variable fee on GGR. Default = current 2026 law (25%, raised
 // from 20%); the grid lets you revert down or push up into the offshore-flight
@@ -257,10 +267,12 @@ interface LeverState {
   mat: number;
   mpf: boolean;
   psub: number;
-  /** Excise rate changes, integer % (0 = current law). */
-  exFuel: number;
-  exTobacco: number;
-  exAlcohol: number;
+  /** Excise rates, absolute (diesel/petrol €/1000 L, cigarettes €/1000,
+   *  spirits €/hl); defaults = current BG rate. */
+  diesel: number;
+  petrol: number;
+  cigarettes: number;
+  spirits: number;
   /** Introduced still-wine excise, €/hl (0 = current €0). */
   wine: number;
   /** Gambling GGR fee, integer % (25 = current law). */
@@ -314,22 +326,32 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
   const divDelta = scoreDividend(baseline.revenue.dividendEur, s.div / 100);
 
   // Excise (fixed-base static deltas; demand/cross-border response is Tier-1
-  // behavioral). Fuel/tobacco/alcohol scale the existing category line; wine
-  // is introduced from €0.
-  const exFuelDelta = scoreExcise(
-    baseline.revenue.exciseFuelEur ?? 0,
-    s.exFuel / 100,
+  // behavioral). Per-product absolute rates scale their revenue line; the
+  // cigarette rate scales the whole tobacco line, the spirits rate scales the
+  // spirits share of the alcohol line; wine is introduced from €0.
+  const dieselDelta = scoreExciseRate(
+    baseline.revenue.exciseDieselEur ?? 0,
+    DIESEL_DEF,
+    s.diesel,
   );
-  const exTobaccoDelta = scoreExcise(
+  const petrolDelta = scoreExciseRate(
+    baseline.revenue.excisePetrolEur ?? 0,
+    PETROL_DEF,
+    s.petrol,
+  );
+  const cigarettesDelta = scoreExciseRate(
     baseline.revenue.exciseTobaccoEur ?? 0,
-    s.exTobacco / 100,
+    CIG_DEF,
+    s.cigarettes,
   );
-  const exAlcoholDelta = scoreExcise(
-    baseline.revenue.exciseAlcoholEur ?? 0,
-    s.exAlcohol / 100,
+  const spiritsDelta = scoreExciseRate(
+    (baseline.revenue.exciseAlcoholEur ?? 0) * SPIRITS_SHARE_OF_ALCOHOL,
+    SPIRITS_DEF,
+    s.spirits,
   );
   const wineDelta = s.wine > 0 ? scoreWineExcise(s.wine) : 0;
-  const exciseDelta = exFuelDelta + exTobaccoDelta + exAlcoholDelta + wineDelta;
+  const exciseDelta =
+    dieselDelta + petrolDelta + cigarettesDelta + spiritsDelta + wineDelta;
 
   // Gambling ЗХ GGR fee (level lever; offshore/illicit migration is Tier-1
   // behavioral). Industry-reported base — not a КФП line.
@@ -503,9 +525,10 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     pitNonEmploymentDelta,
     corpDelta,
     divDelta,
-    exFuelDelta,
-    exTobaccoDelta,
-    exAlcoholDelta,
+    dieselDelta,
+    petrolDelta,
+    cigarettesDelta,
+    spiritsDelta,
     wineDelta,
     gamblingDelta,
     modRes,
@@ -569,9 +592,10 @@ const NEUTRAL_LEVERS = (currentCap: number): LeverState => ({
   mat: MATERNITY_Y2_MONTHS,
   mpf: false,
   psub: PSUB_DEF,
-  exFuel: 0,
-  exTobacco: 0,
-  exAlcohol: 0,
+  diesel: DIESEL_DEF,
+  petrol: PETROL_DEF,
+  cigarettes: CIG_DEF,
+  spirits: SPIRITS_DEF,
   wine: 0,
   gambling: GAMBLING_DEF,
 });
@@ -631,9 +655,10 @@ const PARAM_ROW_KEY: Record<string, string> = {
   r2: "pit",
   corp: "corp",
   div: "div",
-  excf: "excise",
-  exct: "excise",
-  exca: "excise",
+  dies: "excise",
+  petr: "excise",
+  cig: "excise",
+  spir: "excise",
   winex: "excise",
   haz: "gambling",
   mod: "mod",
@@ -771,22 +796,35 @@ const REGIMES: VatRegime[] = ["standard", "reduced", "zero"];
 const parseRegimeParam = (raw: string | null): VatRegime | null =>
   raw === "standard" || raw === "reduced" || raw === "zero" ? raw : null;
 
-const InfoTip: FC<{ text: string }> = ({ text }) => (
-  <Tooltip>
-    <TooltipTrigger asChild>
-      <button
-        type="button"
-        aria-label={text}
-        className="inline-flex shrink-0 align-middle text-muted-foreground/60 hover:text-foreground focus:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded"
+// Info tip that opens on BOTH hover (desktop) and click/tap (works on touch,
+// where the old hover-only Tooltip was dead). A controlled Popover: hover-enter
+// opens, hover-leave closes, and the trigger's click toggles it for touch.
+const InfoTip: FC<{ text: string }> = ({ text }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <button
+          type="button"
+          aria-label={text}
+          onMouseEnter={() => setOpen(true)}
+          onMouseLeave={() => setOpen(false)}
+          className="inline-flex shrink-0 align-middle text-muted-foreground/60 hover:text-foreground focus:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded"
+        >
+          <Info className="h-3 w-3" />
+        </button>
+      </PopoverTrigger>
+      <PopoverContent
+        side="top"
+        align="start"
+        onOpenAutoFocus={(e) => e.preventDefault()}
+        className="max-w-[280px] text-xs font-normal leading-snug"
       >
-        <Info className="h-3 w-3" />
-      </button>
-    </TooltipTrigger>
-    <TooltipContent className="max-w-[280px] text-xs font-normal leading-snug">
-      {text}
-    </TooltipContent>
-  </Tooltip>
-);
+        {text}
+      </PopoverContent>
+    </Popover>
+  );
+};
 
 // One labelled rate slider with a numeric badge and a reset-to-default hint.
 // `info` replaces the plain hover tooltip with a richer node (the EU
@@ -1023,19 +1061,22 @@ export const BudgetPolicySimulator: FC = () => {
   const [div, setDiv] = useState(() =>
     clampIntParam(searchParams.get("div"), 0, 20, DIV_DEF),
   );
-  const [exFuel, setExFuel] = useState(() =>
+  const [diesel, setDiesel] = useState(() =>
+    clampIntParam(searchParams.get("dies"), DIESEL_DEF, DIESEL_MAX, DIESEL_DEF),
+  );
+  const [petrol, setPetrol] = useState(() =>
+    clampIntParam(searchParams.get("petr"), PETROL_MIN, PETROL_MAX, PETROL_DEF),
+  );
+  const [cigarettes, setCigarettes] = useState(() =>
+    clampIntParam(searchParams.get("cig"), CIG_MIN, CIG_MAX, CIG_DEF),
+  );
+  const [spirits, setSpirits] = useState(() =>
     clampIntParam(
-      searchParams.get("excf"),
-      EXCISE_FUEL_MIN,
-      EXCISE_FUEL_MAX,
-      0,
+      searchParams.get("spir"),
+      SPIRITS_MIN,
+      SPIRITS_MAX,
+      SPIRITS_DEF,
     ),
-  );
-  const [exTobacco, setExTobacco] = useState(() =>
-    clampIntParam(searchParams.get("exct"), EXCISE_SIN_MIN, EXCISE_SIN_MAX, 0),
-  );
-  const [exAlcohol, setExAlcohol] = useState(() =>
-    clampIntParam(searchParams.get("exca"), EXCISE_SIN_MIN, EXCISE_SIN_MAX, 0),
   );
   const [wine, setWine] = useState(() =>
     clampIntParam(searchParams.get("winex"), 0, WINE_MAX, 0),
@@ -1045,9 +1086,10 @@ export const BudgetPolicySimulator: FC = () => {
   );
   const [exciseOpen, setExciseOpen] = useState(
     () =>
-      searchParams.get("excf") != null ||
-      searchParams.get("exct") != null ||
-      searchParams.get("exca") != null ||
+      searchParams.get("dies") != null ||
+      searchParams.get("petr") != null ||
+      searchParams.get("cig") != null ||
+      searchParams.get("spir") != null ||
       searchParams.get("winex") != null,
   );
   const [mod, setMod] = useState(() =>
@@ -1215,9 +1257,10 @@ export const BudgetPolicySimulator: FC = () => {
     setMat(p.mat ?? MATERNITY_Y2_MONTHS);
     setMpf(false);
     setPsub(PSUB_DEF);
-    setExFuel(0);
-    setExTobacco(0);
-    setExAlcohol(0);
+    setDiesel(DIESEL_DEF);
+    setPetrol(PETROL_DEF);
+    setCigarettes(CIG_DEF);
+    setSpirits(SPIRITS_DEF);
     setWine(0);
     setGambling(GAMBLING_DEF);
     setExciseOpen(false);
@@ -1265,9 +1308,10 @@ export const BudgetPolicySimulator: FC = () => {
       mat === (p.mat ?? MATERNITY_Y2_MONTHS) &&
       !mpf &&
       psub === PSUB_DEF &&
-      exFuel === 0 &&
-      exTobacco === 0 &&
-      exAlcohol === 0 &&
+      diesel === DIESEL_DEF &&
+      petrol === PETROL_DEF &&
+      cigarettes === CIG_DEF &&
+      spirits === SPIRITS_DEF &&
       wine === 0 &&
       gambling === GAMBLING_DEF
     );
@@ -1290,9 +1334,10 @@ export const BudgetPolicySimulator: FC = () => {
     }
     if (corp !== CORP_DEF) next.corp = String(corp);
     if (div !== DIV_DEF) next.div = String(div);
-    if (exFuel !== 0) next.excf = String(exFuel);
-    if (exTobacco !== 0) next.exct = String(exTobacco);
-    if (exAlcohol !== 0) next.exca = String(exAlcohol);
+    if (diesel !== DIESEL_DEF) next.dies = String(diesel);
+    if (petrol !== PETROL_DEF) next.petr = String(petrol);
+    if (cigarettes !== CIG_DEF) next.cig = String(cigarettes);
+    if (spirits !== SPIRITS_DEF) next.spir = String(spirits);
     if (wine !== 0) next.winex = String(wine);
     if (gambling !== GAMBLING_DEF) next.haz = String(gambling);
     if (!noCap && mod !== currentCap) next.mod = String(mod);
@@ -1329,9 +1374,10 @@ export const BudgetPolicySimulator: FC = () => {
     r2,
     corp,
     div,
-    exFuel,
-    exTobacco,
-    exAlcohol,
+    diesel,
+    petrol,
+    cigarettes,
+    spirits,
     wine,
     gambling,
     mod,
@@ -1393,9 +1439,10 @@ export const BudgetPolicySimulator: FC = () => {
     setMat(MATERNITY_Y2_MONTHS);
     setMpf(false);
     setPsub(PSUB_DEF);
-    setExFuel(0);
-    setExTobacco(0);
-    setExAlcohol(0);
+    setDiesel(DIESEL_DEF);
+    setPetrol(PETROL_DEF);
+    setCigarettes(CIG_DEF);
+    setSpirits(SPIRITS_DEF);
     setWine(0);
     setGambling(GAMBLING_DEF);
   };
@@ -1422,6 +1469,19 @@ export const BudgetPolicySimulator: FC = () => {
     if (a.def != null) setDef(a.def);
     if (a.mat != null) setMat(a.mat);
     if (a.pw != null) setPw(a.pw);
+    if (a.exDiesel != null) setDiesel(a.exDiesel);
+    if (a.exPetrol != null) setPetrol(a.exPetrol);
+    if (a.exCigarettes != null) setCigarettes(a.exCigarettes);
+    if (a.exSpirits != null) setSpirits(a.exSpirits);
+    if (a.exWine != null) setWine(a.exWine);
+    if (
+      a.exDiesel != null ||
+      a.exPetrol != null ||
+      a.exCigarettes != null ||
+      a.exSpirits != null ||
+      a.exWine != null
+    )
+      setExciseOpen(true);
     setEuPicks((prev) => ({ ...prev, [lever]: o.id }));
   };
   const euMatches = (a: EuPresetApply): boolean =>
@@ -1436,7 +1496,12 @@ export const BudgetPolicySimulator: FC = () => {
     (a.corp == null || corp === a.corp) &&
     (a.def == null || def === a.def) &&
     (a.mat == null || mat === a.mat) &&
-    (a.pw == null || pw === a.pw);
+    (a.pw == null || pw === a.pw) &&
+    (a.exDiesel == null || diesel === a.exDiesel) &&
+    (a.exPetrol == null || petrol === a.exPetrol) &&
+    (a.exCigarettes == null || cigarettes === a.exCigarettes) &&
+    (a.exSpirits == null || spirits === a.exSpirits) &&
+    (a.exWine == null || wine === a.exWine);
   const euAppliedId = (lever: EuLeverId): string | null => {
     const id = euPicks[lever];
     if (!id) return null;
@@ -1513,9 +1578,10 @@ export const BudgetPolicySimulator: FC = () => {
       mat,
       mpf,
       psub,
-      exFuel,
-      exTobacco,
-      exAlcohol,
+      diesel,
+      petrol,
+      cigarettes,
+      spirits,
       wine,
       gambling,
     });
@@ -1552,9 +1618,10 @@ export const BudgetPolicySimulator: FC = () => {
     mat,
     mpf,
     psub,
-    exFuel,
-    exTobacco,
-    exAlcohol,
+    diesel,
+    petrol,
+    cigarettes,
+    spirits,
     wine,
     gambling,
     currentCap,
@@ -1751,9 +1818,10 @@ export const BudgetPolicySimulator: FC = () => {
         modCentralEur: scenario.modRes.centralEur,
         healthDeltaEur: scenario.hpDelta,
         minWageDeltaEur: scenario.mwDelta,
-        exciseFuelDeltaEur: scenario.exFuelDelta,
-        exciseTobaccoDeltaEur: scenario.exTobaccoDelta,
-        exciseAlcoholDeltaEur: scenario.exAlcoholDelta,
+        exciseDieselDeltaEur: scenario.dieselDelta,
+        excisePetrolDeltaEur: scenario.petrolDelta,
+        exciseTobaccoDeltaEur: scenario.cigarettesDelta,
+        exciseAlcoholDeltaEur: scenario.spiritsDelta,
         wineDeltaEur: scenario.wineDelta,
         gamblingDeltaEur: scenario.gamblingDelta,
         maternityMonthsCut: MATERNITY_Y2_MONTHS - mat,
@@ -1767,9 +1835,10 @@ export const BudgetPolicySimulator: FC = () => {
         divNewRate: div / 100,
         modTargetCapEur: noCap ? Infinity : mod,
         modCurrentCapEur: currentCap,
-        exciseFuelRateChange: exFuel / 100,
-        exciseTobaccoRateChange: exTobacco / 100,
-        exciseAlcoholRateChange: exAlcohol / 100,
+        exciseDieselRateChange: diesel / DIESEL_DEF - 1,
+        excisePetrolRateChange: petrol / PETROL_DEF - 1,
+        exciseTobaccoRateChange: cigarettes / CIG_DEF - 1,
+        exciseAlcoholRateChange: spirits / SPIRITS_DEF - 1,
         gamblingNewRate: gambling / 100,
       },
     );
@@ -1786,9 +1855,10 @@ export const BudgetPolicySimulator: FC = () => {
     noCap,
     currentCap,
     mat,
-    exFuel,
-    exTobacco,
-    exAlcohol,
+    diesel,
+    petrol,
+    cigarettes,
+    spirits,
     gambling,
   ]);
 
@@ -1998,11 +2068,11 @@ export const BudgetPolicySimulator: FC = () => {
   const effPit = scenario.pitDelta + (dynOffsets?.pit ?? 0);
   const effCorp = scenario.corpDelta + (dynOffsets?.corp ?? 0);
   const effDiv = scenario.divDelta + (dynOffsets?.dividend ?? 0);
-  const effExFuel = scenario.exFuelDelta + (dynOffsets?.exciseFuel ?? 0);
-  const effExTobacco =
-    scenario.exTobaccoDelta + (dynOffsets?.exciseTobacco ?? 0);
-  const effExAlcohol =
-    scenario.exAlcoholDelta + (dynOffsets?.exciseAlcohol ?? 0);
+  const effDiesel = scenario.dieselDelta + (dynOffsets?.exciseDiesel ?? 0);
+  const effPetrol = scenario.petrolDelta + (dynOffsets?.excisePetrol ?? 0);
+  const effCigarettes =
+    scenario.cigarettesDelta + (dynOffsets?.exciseTobacco ?? 0);
+  const effSpirits = scenario.spiritsDelta + (dynOffsets?.exciseAlcohol ?? 0);
   const effWine = scenario.wineDelta + (dynOffsets?.wine ?? 0);
   const effGambling = scenario.gamblingDelta + (dynOffsets?.gambling ?? 0);
   const effMod = scenario.modRes.centralEur + (dynOffsets?.mod ?? 0);
@@ -2031,9 +2101,10 @@ export const BudgetPolicySimulator: FC = () => {
     Math.abs(effPit),
     Math.abs(effCorp),
     Math.abs(effDiv),
-    Math.abs(effExFuel),
-    Math.abs(effExTobacco),
-    Math.abs(effExAlcohol),
+    Math.abs(effDiesel),
+    Math.abs(effPetrol),
+    Math.abs(effCigarettes),
+    Math.abs(effSpirits),
     Math.abs(effWine),
     Math.abs(effGambling),
     Math.abs(effMod),
@@ -2595,7 +2666,7 @@ export const BudgetPolicySimulator: FC = () => {
                 : null}
             </div>
 
-            {/* Excise — fuel, tobacco, alcohol, wine */}
+            {/* Excise — diesel, petrol, cigarettes, spirits, wine */}
             <div className="border-t pt-3">
               <div className="flex w-full items-center justify-between gap-2 text-xs font-medium text-muted-foreground">
                 <span className="inline-flex items-center gap-1">
@@ -2608,19 +2679,20 @@ export const BudgetPolicySimulator: FC = () => {
                     {t("budget_policy_excise_title")}
                   </button>
                   <InfoTip text={t("budget_policy_tip_excise")} />
-                  {!exciseOpen &&
-                  (exFuel !== 0 ||
-                    exTobacco !== 0 ||
-                    exAlcohol !== 0 ||
-                    wine !== 0) ? (
-                    <span className="rounded-full bg-indigo-500/10 px-1.5 text-[10px] text-indigo-700 dark:text-indigo-300">
-                      {
-                        [exFuel, exTobacco, exAlcohol, wine].filter(
-                          (v) => v !== 0,
-                        ).length
-                      }
-                    </span>
-                  ) : null}
+                  {(() => {
+                    const n = [
+                      diesel !== DIESEL_DEF,
+                      petrol !== PETROL_DEF,
+                      cigarettes !== CIG_DEF,
+                      spirits !== SPIRITS_DEF,
+                      wine !== 0,
+                    ].filter(Boolean).length;
+                    return !exciseOpen && n > 0 ? (
+                      <span className="rounded-full bg-indigo-500/10 px-1.5 text-[10px] text-indigo-700 dark:text-indigo-300">
+                        {n}
+                      </span>
+                    ) : null;
+                  })()}
                 </span>
                 <button
                   type="button"
@@ -2639,53 +2711,106 @@ export const BudgetPolicySimulator: FC = () => {
               </div>
               {exciseOpen ? (
                 <div className="mt-2 space-y-4">
-                  <RateSlider
-                    id="policy-excise-fuel"
-                    label={t("budget_policy_excise_fuel")}
-                    tip={t("budget_policy_tip_excise_fuel")}
-                    min={EXCISE_FUEL_MIN}
-                    max={EXCISE_FUEL_MAX}
-                    value={exFuel}
-                    defaultValue={0}
-                    onChange={setExFuel}
-                    formatValue={(v) => `${v > 0 ? "+" : ""}${v}%`}
-                  />
-                  <RateSlider
-                    id="policy-excise-tobacco"
-                    label={t("budget_policy_excise_tobacco")}
-                    tip={t("budget_policy_tip_excise_tobacco")}
-                    min={EXCISE_SIN_MIN}
-                    max={EXCISE_SIN_MAX}
-                    value={exTobacco}
-                    defaultValue={0}
-                    onChange={setExTobacco}
-                    formatValue={(v) => `${v > 0 ? "+" : ""}${v}%`}
-                  />
-                  <RateSlider
-                    id="policy-excise-alcohol"
-                    label={t("budget_policy_excise_alcohol")}
-                    tip={t("budget_policy_tip_excise_alcohol")}
-                    min={EXCISE_SIN_MIN}
-                    max={EXCISE_SIN_MAX}
-                    value={exAlcohol}
-                    defaultValue={0}
-                    onChange={setExAlcohol}
-                    formatValue={(v) => `${v > 0 ? "+" : ""}${v}%`}
-                  />
-                  <RateSlider
-                    id="policy-excise-wine"
-                    label={t("budget_policy_excise_wine")}
-                    tip={t("budget_policy_tip_excise_wine")}
-                    min={0}
-                    max={WINE_MAX}
-                    step={WINE_STEP}
-                    value={wine}
-                    defaultValue={0}
-                    onChange={setWine}
-                    formatValue={(v) =>
-                      lang === "bg" ? `${v} €/хл` : `€${v}/hl`
-                    }
-                  />
+                  <div>
+                    <RateSlider
+                      id="policy-excise-diesel"
+                      label={t("budget_policy_excise_diesel")}
+                      info={euInfo(
+                        "exDiesel",
+                        t("budget_policy_tip_excise_diesel"),
+                      )}
+                      min={DIESEL_DEF}
+                      max={DIESEL_MAX}
+                      step={EXCISE_STEP}
+                      value={diesel}
+                      defaultValue={DIESEL_DEF}
+                      onChange={setDiesel}
+                      formatValue={(v) =>
+                        lang === "bg" ? `${v} €/1000 л` : `€${v}/1000 L`
+                      }
+                    />
+                    {euNoteLine("exDiesel")}
+                  </div>
+                  <div>
+                    <RateSlider
+                      id="policy-excise-petrol"
+                      label={t("budget_policy_excise_petrol")}
+                      info={euInfo(
+                        "exPetrol",
+                        t("budget_policy_tip_excise_petrol"),
+                      )}
+                      min={PETROL_MIN}
+                      max={PETROL_MAX}
+                      step={EXCISE_STEP}
+                      value={petrol}
+                      defaultValue={PETROL_DEF}
+                      onChange={setPetrol}
+                      formatValue={(v) =>
+                        lang === "bg" ? `${v} €/1000 л` : `€${v}/1000 L`
+                      }
+                    />
+                    {euNoteLine("exPetrol")}
+                  </div>
+                  <div>
+                    <RateSlider
+                      id="policy-excise-cigarettes"
+                      label={t("budget_policy_excise_cigarettes")}
+                      info={euInfo(
+                        "exCigarettes",
+                        t("budget_policy_tip_excise_cigarettes"),
+                      )}
+                      min={CIG_MIN}
+                      max={CIG_MAX}
+                      step={EXCISE_STEP}
+                      value={cigarettes}
+                      defaultValue={CIG_DEF}
+                      onChange={setCigarettes}
+                      formatValue={(v) =>
+                        lang === "bg" ? `${v} €/1000` : `€${v}/1000`
+                      }
+                    />
+                    {euNoteLine("exCigarettes")}
+                  </div>
+                  <div>
+                    <RateSlider
+                      id="policy-excise-spirits"
+                      label={t("budget_policy_excise_spirits")}
+                      info={euInfo(
+                        "exSpirits",
+                        t("budget_policy_tip_excise_spirits"),
+                      )}
+                      min={SPIRITS_MIN}
+                      max={SPIRITS_MAX}
+                      step={SPIRITS_STEP}
+                      value={spirits}
+                      defaultValue={SPIRITS_DEF}
+                      onChange={setSpirits}
+                      formatValue={(v) =>
+                        lang === "bg" ? `${v} €/хл` : `€${v}/hl`
+                      }
+                    />
+                    {euNoteLine("exSpirits")}
+                  </div>
+                  <div>
+                    <RateSlider
+                      id="policy-excise-wine"
+                      label={t("budget_policy_excise_wine")}
+                      info={euInfo(
+                        "exWine",
+                        t("budget_policy_tip_excise_wine"),
+                      )}
+                      min={0}
+                      max={WINE_MAX}
+                      step={WINE_STEP}
+                      value={wine}
+                      defaultValue={0}
+                      onChange={setWine}
+                      formatValue={(v) =>
+                        lang === "bg" ? `${v} €/хл` : `€${v}/hl`
+                      }
+                    />
+                    {euNoteLine("exWine")}
+                  </div>
                 </div>
               ) : null}
             </div>
@@ -3307,32 +3432,41 @@ export const BudgetPolicySimulator: FC = () => {
                     lang={lang}
                     sub={staticSub(scenario.divDelta, effDiv)}
                   />
-                  {exFuel !== 0 ? (
+                  {diesel !== DIESEL_DEF ? (
                     <DeltaRow
-                      label={t("budget_policy_row_excise_fuel")}
-                      deltaEur={effExFuel}
+                      label={t("budget_policy_row_excise_diesel")}
+                      deltaEur={effDiesel}
                       maxAbs={maxAbs}
                       lang={lang}
-                      sub={staticSub(scenario.exFuelDelta, effExFuel)}
+                      sub={staticSub(scenario.dieselDelta, effDiesel)}
                     />
                   ) : null}
-                  {exTobacco !== 0 ? (
+                  {petrol !== PETROL_DEF ? (
                     <DeltaRow
-                      label={t("budget_policy_row_excise_tobacco")}
+                      label={t("budget_policy_row_excise_petrol")}
+                      deltaEur={effPetrol}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                      sub={staticSub(scenario.petrolDelta, effPetrol)}
+                    />
+                  ) : null}
+                  {cigarettes !== CIG_DEF ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_excise_cigarettes")}
                       tip={t("budget_policy_tip_excise_tobacco_row")}
-                      deltaEur={effExTobacco}
+                      deltaEur={effCigarettes}
                       maxAbs={maxAbs}
                       lang={lang}
-                      sub={staticSub(scenario.exTobaccoDelta, effExTobacco)}
+                      sub={staticSub(scenario.cigarettesDelta, effCigarettes)}
                     />
                   ) : null}
-                  {exAlcohol !== 0 ? (
+                  {spirits !== SPIRITS_DEF ? (
                     <DeltaRow
-                      label={t("budget_policy_row_excise_alcohol")}
-                      deltaEur={effExAlcohol}
+                      label={t("budget_policy_row_excise_spirits")}
+                      deltaEur={effSpirits}
                       maxAbs={maxAbs}
                       lang={lang}
-                      sub={staticSub(scenario.exAlcoholDelta, effExAlcohol)}
+                      sub={staticSub(scenario.spiritsDelta, effSpirits)}
                     />
                   ) : null}
                   {wine !== 0 ? (

@@ -8,6 +8,13 @@
 // 24% PIT/CIT rise cancelled Dec 2025, Slovakia's 4-bracket PIT from 2026,
 // Spain's food-VAT holiday lapsed). Bilingual strings live inline — this is
 // sourced DATA, like VAT_SLICES, not UI chrome.
+//
+// Excise blocks (exDiesel/exPetrol/exCigarettes/exSpirits/exWine) added
+// 2026-06-14 from Tax Foundation EU energy/cigarette tables (1 Jan 2026) and
+// the EC DG TAXUD Excise Duty Tables (alcohol); BG anchors confirmed against
+// PwC (diesel €330.29, petrol €363.02, spirits €562.43, wine €0, cigarettes
+// min total €113.51). Nordic spirits/wine are conservative lower bounds (the
+// EC alcohol table extract is a 2019 edition; those rates have since indexed up).
 
 /** The NATO defence-expenditure compendium edition the `def` options below
  *  encode (June-2025 PDF, 2025 estimates). Compared against the live PDF
@@ -33,6 +40,13 @@ export interface EuPresetApply {
   def?: number;
   mat?: number;
   pw?: number;
+  /** Excise levers — absolute rates in the simulator's slider units:
+   *  diesel/petrol €/1000 L, cigarettes €/1000, spirits €/hl PA, wine €/hl. */
+  exDiesel?: number;
+  exPetrol?: number;
+  exCigarettes?: number;
+  exSpirits?: number;
+  exWine?: number;
 }
 
 export interface EuPresetOption {
@@ -51,7 +65,12 @@ export type EuLeverId =
   | "corp"
   | "def"
   | "mat"
-  | "pw";
+  | "pw"
+  | "exDiesel"
+  | "exPetrol"
+  | "exCigarettes"
+  | "exSpirits"
+  | "exWine";
 
 export const EU_LEVER_PRESETS: Record<EuLeverId, EuPresetOption[]> = {
   vatStd: [
@@ -359,6 +378,230 @@ export const EU_LEVER_PRESETS: Record<EuLeverId, EuPresetOption[]> = {
         en: "Pensions track wage growth (Rentenanpassung): +4.24% from July 2026.",
       },
       apply: { pw: 0 },
+    },
+  ],
+  exDiesel: [
+    {
+      id: "dies_it",
+      cc: "IT",
+      label: { bg: "Италия — 632 €/1000 л", en: "Italy — €632/1000 L" },
+      note: {
+        bg: "Сред най-високите акцизи на дизел в ЕС.",
+        en: "Among the EU's highest diesel excise.",
+      },
+      apply: { exDiesel: 632 },
+    },
+    {
+      id: "dies_be",
+      cc: "BE",
+      label: { bg: "Белгия — 600 €/1000 л", en: "Belgium — €600/1000 L" },
+      note: { bg: "Високо облагане.", en: "Heavily taxed." },
+      apply: { exDiesel: 600 },
+    },
+    {
+      id: "dies_fr",
+      cc: "FR",
+      label: { bg: "Франция — 594 €/1000 л", en: "France — €594/1000 L" },
+      note: {
+        bg: "Чувствително над средното за ЕС.",
+        en: "Well above the EU average.",
+      },
+      apply: { exDiesel: 594 },
+    },
+    {
+      id: "dies_de",
+      cc: "DE",
+      label: { bg: "Германия — 470 €/1000 л", en: "Germany — €470/1000 L" },
+      note: { bg: "Над средното за ЕС.", en: "Above the EU average." },
+      apply: { exDiesel: 470 },
+    },
+    {
+      id: "dies_pl",
+      cc: "PL",
+      label: { bg: "Полша — 391 €/1000 л", en: "Poland — €391/1000 L" },
+      note: {
+        bg: "Малко над минимума на ЕС (330 €); България е на самия минимум.",
+        en: "Just above the EU floor (€330); Bulgaria sits at the floor.",
+      },
+      apply: { exDiesel: 391 },
+    },
+  ],
+  exPetrol: [
+    {
+      id: "petr_nl",
+      cc: "NL",
+      label: {
+        bg: "Нидерландия — 845 €/1000 л",
+        en: "Netherlands — €845/1000 L",
+      },
+      note: {
+        bg: "Най-високият акциз на бензин в ЕС.",
+        en: "The EU's highest petrol excise.",
+      },
+      apply: { exPetrol: 845 },
+    },
+    {
+      id: "petr_it",
+      cc: "IT",
+      label: { bg: "Италия — 713 €/1000 л", en: "Italy — €713/1000 L" },
+      note: { bg: "Сред най-високите в ЕС.", en: "Among the EU's highest." },
+      apply: { exPetrol: 713 },
+    },
+    {
+      id: "petr_gr",
+      cc: "GR",
+      label: { bg: "Гърция — 700 €/1000 л", en: "Greece — €700/1000 L" },
+      note: { bg: "Високо.", en: "High." },
+      apply: { exPetrol: 700 },
+    },
+    {
+      id: "petr_fr",
+      cc: "FR",
+      label: { bg: "Франция — 683 €/1000 л", en: "France — €683/1000 L" },
+      note: { bg: "Високо.", en: "High." },
+      apply: { exPetrol: 683 },
+    },
+    {
+      id: "petr_de",
+      cc: "DE",
+      label: { bg: "Германия — 655 €/1000 л", en: "Germany — €655/1000 L" },
+      note: {
+        bg: "Около двойно над българския (363 €, малко над минимума на ЕС).",
+        en: "Roughly double Bulgaria's (€363, just above the EU floor).",
+      },
+      apply: { exPetrol: 655 },
+    },
+  ],
+  exCigarettes: [
+    {
+      id: "cig_ie",
+      cc: "IE",
+      label: { bg: "Ирландия — 535 €/1000", en: "Ireland — €535/1000" },
+      note: {
+        bg: "Най-високият акциз на цигари в ЕС.",
+        en: "The EU's highest cigarette excise.",
+      },
+      apply: { exCigarettes: 535 },
+    },
+    {
+      id: "cig_fr",
+      cc: "FR",
+      label: { bg: "Франция — 404 €/1000", en: "France — €404/1000" },
+      note: { bg: "Сред най-високите в ЕС.", en: "Among the EU's highest." },
+      apply: { exCigarettes: 404 },
+    },
+    {
+      id: "cig_nl",
+      cc: "NL",
+      label: { bg: "Нидерландия — 388 €/1000", en: "Netherlands — €388/1000" },
+      note: { bg: "Високо.", en: "High." },
+      apply: { exCigarettes: 388 },
+    },
+    {
+      id: "cig_de",
+      cc: "DE",
+      label: { bg: "Германия — 195 €/1000", en: "Germany — €195/1000" },
+      note: {
+        bg: "Близо двойно над българския.",
+        en: "Nearly double Bulgaria's.",
+      },
+      apply: { exCigarettes: 195 },
+    },
+    {
+      id: "cig_gr",
+      cc: "GR",
+      label: { bg: "Гърция — 137 €/1000", en: "Greece — €137/1000" },
+      note: {
+        bg: "Над българския (~114 €); минимумът на ЕС е 90 €/1000 и поне 60% от цената.",
+        en: "Above Bulgaria's (~€114); the EU floor is €90/1000 and ≥60% of price.",
+      },
+      apply: { exCigarettes: 137 },
+    },
+  ],
+  exSpirits: [
+    {
+      id: "spir_se",
+      cc: "SE",
+      label: { bg: "Швеция — ~5000 €/хл", en: "Sweden — ~€5000/hl" },
+      note: {
+        bg: "Сред най-високите в ЕС (расте всяка година).",
+        en: "Among the EU's highest (indexed yearly).",
+      },
+      apply: { exSpirits: 5000 },
+    },
+    {
+      id: "spir_ie",
+      cc: "IE",
+      label: { bg: "Ирландия — ~4257 €/хл", en: "Ireland — ~€4257/hl" },
+      note: { bg: "Много високо.", en: "Very high." },
+      apply: { exSpirits: 4257 },
+    },
+    {
+      id: "spir_fr",
+      cc: "FR",
+      label: { bg: "Франция — 1758 €/хл", en: "France — €1758/hl" },
+      note: { bg: "Над три пъти българския.", en: "Over triple Bulgaria's." },
+      apply: { exSpirits: 1758 },
+    },
+    {
+      id: "spir_pl",
+      cc: "PL",
+      label: { bg: "Полша — 1333 €/хл", en: "Poland — €1333/hl" },
+      note: { bg: "Над двойно над българския.", en: "Over double Bulgaria's." },
+      apply: { exSpirits: 1333 },
+    },
+    {
+      id: "spir_de",
+      cc: "DE",
+      label: { bg: "Германия — 1303 €/хл", en: "Germany — €1303/hl" },
+      note: {
+        bg: "Над двойно над българския (562 €, малко над минимума от 550 €).",
+        en: "Over double Bulgaria's (€562, just above the €550 floor).",
+      },
+      apply: { exSpirits: 1303 },
+    },
+  ],
+  exWine: [
+    {
+      id: "wine_ie",
+      cc: "IE",
+      label: { bg: "Ирландия — 425 €/хл", en: "Ireland — €425/hl" },
+      note: {
+        bg: "Най-високият в ЕС (~3,19 € на бутилка).",
+        en: "The EU's highest (~€3.19 per bottle).",
+      },
+      apply: { exWine: 425 },
+    },
+    {
+      id: "wine_se",
+      cc: "SE",
+      label: { bg: "Швеция — 253 €/хл", en: "Sweden — €253/hl" },
+      note: { bg: "Високо.", en: "High." },
+      apply: { exWine: 253 },
+    },
+    {
+      id: "wine_dk",
+      cc: "DK",
+      label: { bg: "Дания — 156 €/хл", en: "Denmark — €156/hl" },
+      note: { bg: "Високо.", en: "High." },
+      apply: { exWine: 156 },
+    },
+    {
+      id: "wine_nl",
+      cc: "NL",
+      label: { bg: "Нидерландия — 88 €/хл", en: "Netherlands — €88/hl" },
+      note: { bg: "Средно ниво.", en: "Mid-level." },
+      apply: { exWine: 88 },
+    },
+    {
+      id: "wine_fr",
+      cc: "FR",
+      label: { bg: "Франция — 4 €/хл", en: "France — €4/hl" },
+      note: {
+        bg: "Символична ставка; повечето членки (вкл. България) облагат виното с 0.",
+        en: "Token rate; most members (incl. Bulgaria) zero-rate wine.",
+      },
+      apply: { exWine: 4 },
     },
   ],
 };

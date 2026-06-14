@@ -704,14 +704,20 @@ export interface DynamicScenarioInput {
   staticDivDeltaEur: number;
   staticModCentralEur: number;
   staticHealthDeltaEur: number;
-  /** Excise static deltas (fuel/tobacco/alcohol % changes; wine introduced). */
-  staticExciseFuelDeltaEur: number;
+  /** Excise static deltas (diesel/petrol/cigarettes/spirits absolute-rate
+   *  moves; wine introduced). The tobacco/alcohol fields carry the cigarettes /
+   *  spirits levers (the cigarette rate scales the tobacco line, the spirits
+   *  rate scales the spirits share of the alcohol line). */
+  staticExciseDieselDeltaEur: number;
+  staticExcisePetrolDeltaEur: number;
   staticExciseTobaccoDeltaEur: number;
   staticExciseAlcoholDeltaEur: number;
   staticWineDeltaEur: number;
-  /** Anchors + rate moves the excise offsets need. */
-  exciseFuelRevenueEur: number;
-  exciseFuelRateChange: number;
+  /** Anchors + rate moves (fraction newRate/current−1) the excise offsets need. */
+  exciseDieselRevenueEur: number;
+  exciseDieselRateChange: number;
+  excisePetrolRevenueEur: number;
+  excisePetrolRateChange: number;
   exciseTobaccoRevenueEur: number;
   exciseTobaccoRateChange: number;
   exciseAlcoholRevenueEur: number;
@@ -774,6 +780,9 @@ export interface DynamicBaselineLike {
     dividendEur: number;
     /** Excise category anchors (Митници chronicle). Optional so existing
      *  baselines without them resolve excise offsets to 0. */
+    exciseDieselEur?: number;
+    excisePetrolEur?: number;
+    /** Legacy combined fuel line (AI chat tool's whole-fuel path). */
     exciseFuelEur?: number;
     exciseTobaccoEur?: number;
     exciseAlcoholEur?: number;
@@ -794,6 +803,10 @@ export interface DynamicStaticScore {
   healthDeltaEur: number;
   minWageDeltaEur: number;
   /** Excise static deltas (optional; default 0 for callers without them). */
+  exciseDieselDeltaEur?: number;
+  excisePetrolDeltaEur?: number;
+  /** Legacy whole-fuel delta (AI chat tool); routed through the diesel slot on
+   *  the full fuel base. The simulator passes diesel/petrol separately. */
   exciseFuelDeltaEur?: number;
   exciseTobaccoDeltaEur?: number;
   exciseAlcoholDeltaEur?: number;
@@ -814,7 +827,10 @@ export interface DynamicRateParams {
   divNewRate: number;
   modTargetCapEur: number;
   modCurrentCapEur: number;
-  /** Excise rate changes as fractions (+0.10 = +10%); optional, default 0. */
+  /** Excise rate changes as fractions (newRate/current − 1); optional, default 0. */
+  exciseDieselRateChange?: number;
+  excisePetrolRateChange?: number;
+  /** Legacy whole-fuel rate change (AI chat tool); see DynamicStaticScore. */
   exciseFuelRateChange?: number;
   exciseTobaccoRateChange?: number;
   exciseAlcoholRateChange?: number;
@@ -826,51 +842,70 @@ export const buildDynamicInput = (
   baseline: DynamicBaselineLike,
   s: DynamicStaticScore,
   r: DynamicRateParams,
-): DynamicScenarioInput => ({
-  staticTotalEur: s.totalEur,
-  staticVatDeltaEur: s.vatDeltaEur,
-  staticPitEmploymentDeltaEur: s.pitEmploymentDeltaEur,
-  staticPitNonEmploymentDeltaEur: s.pitNonEmploymentDeltaEur,
-  staticCorpDeltaEur: s.corpDeltaEur,
-  staticDivDeltaEur: s.divDeltaEur,
-  staticModCentralEur: s.modCentralEur,
-  staticHealthDeltaEur: s.healthDeltaEur,
-  staticMinWageDeltaEur: s.minWageDeltaEur,
-  staticExciseFuelDeltaEur: s.exciseFuelDeltaEur ?? 0,
-  staticExciseTobaccoDeltaEur: s.exciseTobaccoDeltaEur ?? 0,
-  staticExciseAlcoholDeltaEur: s.exciseAlcoholDeltaEur ?? 0,
-  staticWineDeltaEur: s.wineDeltaEur ?? 0,
-  exciseFuelRevenueEur: baseline.revenue.exciseFuelEur ?? 0,
-  exciseFuelRateChange: r.exciseFuelRateChange ?? 0,
-  exciseTobaccoRevenueEur: baseline.revenue.exciseTobaccoEur ?? 0,
-  exciseTobaccoRateChange: r.exciseTobaccoRateChange ?? 0,
-  exciseAlcoholRevenueEur: baseline.revenue.exciseAlcoholEur ?? 0,
-  exciseAlcoholRateChange: r.exciseAlcoholRateChange ?? 0,
-  staticGamblingDeltaEur: s.gamblingDeltaEur ?? 0,
-  gamblingFeeRevenueEur: GAMBLING_GGR_EUR * GAMBLING_GGR_FEE_RATE,
-  gamblingOldRate: GAMBLING_GGR_FEE_RATE,
-  gamblingNewRate: r.gamblingNewRate ?? GAMBLING_GGR_FEE_RATE,
-  maternityMonthsCut: s.maternityMonthsCut ?? 0,
-  expenditureBalanceNonPensionEur: s.expenditureBalanceNonPensionEur,
-  pensionPathEur: s.pensionPathEur,
-  bands: baseline.earnings.bands,
-  capEur: baseline.earnings.capEur,
-  kappa: baseline.earnings.kappa,
-  newBrackets: s.brackets,
-  pitNonEmploymentRevenueEur:
-    baseline.revenue.pitEur * baseline.revenue.pitNonEmploymentShare,
-  pitOldRate: PIT_RATE,
-  pitNewRate: r.pitNewRate,
-  corpRevenueEur: baseline.revenue.corporateEur,
-  corpOldRate: CORP_TAX_RATE,
-  corpNewRate: r.corpNewRate,
-  divRevenueEur: baseline.revenue.dividendEur,
-  divOldRate: DIVIDEND_TAX_RATE,
-  divNewRate: r.divNewRate,
-  modIdentity: baseline.modIdentity,
-  modTargetCapEur: r.modTargetCapEur,
-  modCurrentCapEur: r.modCurrentCapEur,
-});
+): DynamicScenarioInput => {
+  // Legacy whole-fuel path (AI chat tool): a caller that knows only "fuel"
+  // passes exciseFuel*; route it through the diesel slot on the FULL fuel base
+  // (so its numbers are unchanged) and leave petrol at 0. The simulator passes
+  // diesel/petrol separately, so legacyFuel is false there.
+  const legacyFuel =
+    s.exciseFuelDeltaEur !== undefined || r.exciseFuelRateChange !== undefined;
+  return {
+    staticTotalEur: s.totalEur,
+    staticVatDeltaEur: s.vatDeltaEur,
+    staticPitEmploymentDeltaEur: s.pitEmploymentDeltaEur,
+    staticPitNonEmploymentDeltaEur: s.pitNonEmploymentDeltaEur,
+    staticCorpDeltaEur: s.corpDeltaEur,
+    staticDivDeltaEur: s.divDeltaEur,
+    staticModCentralEur: s.modCentralEur,
+    staticHealthDeltaEur: s.healthDeltaEur,
+    staticMinWageDeltaEur: s.minWageDeltaEur,
+    staticExciseDieselDeltaEur: legacyFuel
+      ? (s.exciseFuelDeltaEur ?? 0)
+      : (s.exciseDieselDeltaEur ?? 0),
+    staticExcisePetrolDeltaEur: legacyFuel ? 0 : (s.excisePetrolDeltaEur ?? 0),
+    staticExciseTobaccoDeltaEur: s.exciseTobaccoDeltaEur ?? 0,
+    staticExciseAlcoholDeltaEur: s.exciseAlcoholDeltaEur ?? 0,
+    staticWineDeltaEur: s.wineDeltaEur ?? 0,
+    exciseDieselRevenueEur: legacyFuel
+      ? (baseline.revenue.exciseFuelEur ?? 0)
+      : (baseline.revenue.exciseDieselEur ?? 0),
+    exciseDieselRateChange: legacyFuel
+      ? (r.exciseFuelRateChange ?? 0)
+      : (r.exciseDieselRateChange ?? 0),
+    excisePetrolRevenueEur: legacyFuel
+      ? 0
+      : (baseline.revenue.excisePetrolEur ?? 0),
+    excisePetrolRateChange: legacyFuel ? 0 : (r.excisePetrolRateChange ?? 0),
+    exciseTobaccoRevenueEur: baseline.revenue.exciseTobaccoEur ?? 0,
+    exciseTobaccoRateChange: r.exciseTobaccoRateChange ?? 0,
+    exciseAlcoholRevenueEur: baseline.revenue.exciseAlcoholEur ?? 0,
+    exciseAlcoholRateChange: r.exciseAlcoholRateChange ?? 0,
+    staticGamblingDeltaEur: s.gamblingDeltaEur ?? 0,
+    gamblingFeeRevenueEur: GAMBLING_GGR_EUR * GAMBLING_GGR_FEE_RATE,
+    gamblingOldRate: GAMBLING_GGR_FEE_RATE,
+    gamblingNewRate: r.gamblingNewRate ?? GAMBLING_GGR_FEE_RATE,
+    maternityMonthsCut: s.maternityMonthsCut ?? 0,
+    expenditureBalanceNonPensionEur: s.expenditureBalanceNonPensionEur,
+    pensionPathEur: s.pensionPathEur,
+    bands: baseline.earnings.bands,
+    capEur: baseline.earnings.capEur,
+    kappa: baseline.earnings.kappa,
+    newBrackets: s.brackets,
+    pitNonEmploymentRevenueEur:
+      baseline.revenue.pitEur * baseline.revenue.pitNonEmploymentShare,
+    pitOldRate: PIT_RATE,
+    pitNewRate: r.pitNewRate,
+    corpRevenueEur: baseline.revenue.corporateEur,
+    corpOldRate: CORP_TAX_RATE,
+    corpNewRate: r.corpNewRate,
+    divRevenueEur: baseline.revenue.dividendEur,
+    divOldRate: DIVIDEND_TAX_RATE,
+    divNewRate: r.divNewRate,
+    modIdentity: baseline.modIdentity,
+    modTargetCapEur: r.modTargetCapEur,
+    modCurrentCapEur: r.modCurrentCapEur,
+  };
+};
 
 export interface DynamicScenarioResult {
   /** Central-draw Tier-1 offsets per lever (UI breakdown rows). */
@@ -887,7 +922,8 @@ export interface DynamicScenarioResult {
     /** Dividend↔salary relabeling recapture. */
     divShift: number;
     /** Excise demand/cross-border/illicit response per category. */
-    exciseFuel: number;
+    exciseDiesel: number;
+    excisePetrol: number;
     exciseTobacco: number;
     exciseAlcohol: number;
     /** Introduced-wine-excise leakage. */
@@ -1009,9 +1045,14 @@ export const computeDynamicScenario = (
         draw.divSemiElast,
         draw.divShiftRecapture,
       ),
-      exciseFuel: exciseBehavioralOffset(
-        input.exciseFuelRevenueEur,
-        input.exciseFuelRateChange,
+      exciseDiesel: exciseBehavioralOffset(
+        input.exciseDieselRevenueEur,
+        input.exciseDieselRateChange,
+        draw.exciseFuelResponse,
+      ),
+      excisePetrol: exciseBehavioralOffset(
+        input.excisePetrolRevenueEur,
+        input.excisePetrolRateChange,
         draw.exciseFuelResponse,
       ),
       exciseTobacco: exciseBehavioralOffset(
@@ -1049,7 +1090,8 @@ export const computeDynamicScenario = (
       o.health +
       o.maternity +
       o.divShift +
-      o.exciseFuel +
+      o.exciseDiesel +
+      o.excisePetrol +
       o.exciseTobacco +
       o.exciseAlcohol +
       o.wine +
@@ -1062,7 +1104,8 @@ export const computeDynamicScenario = (
         input.staticDivDeltaEur +
         input.staticModCentralEur +
         input.staticHealthDeltaEur +
-        input.staticExciseFuelDeltaEur +
+        input.staticExciseDieselDeltaEur +
+        input.staticExcisePetrolDeltaEur +
         input.staticExciseTobaccoDeltaEur +
         input.staticExciseAlcoholDeltaEur +
         input.staticWineDeltaEur +
@@ -1072,7 +1115,8 @@ export const computeDynamicScenario = (
         o.dividend +
         o.mod +
         o.health +
-        o.exciseFuel +
+        o.exciseDiesel +
+        o.excisePetrol +
         o.exciseTobacco +
         o.exciseAlcohol +
         o.wine +
@@ -1097,7 +1141,8 @@ export const computeDynamicScenario = (
     offsets.health +
     offsets.maternity +
     offsets.divShift +
-    offsets.exciseFuel +
+    offsets.exciseDiesel +
+    offsets.excisePetrol +
     offsets.exciseTobacco +
     offsets.exciseAlcohol +
     offsets.wine +
@@ -1110,7 +1155,8 @@ export const computeDynamicScenario = (
       input.staticDivDeltaEur +
       input.staticModCentralEur +
       input.staticHealthDeltaEur +
-      input.staticExciseFuelDeltaEur +
+      input.staticExciseDieselDeltaEur +
+      input.staticExcisePetrolDeltaEur +
       input.staticExciseTobaccoDeltaEur +
       input.staticExciseAlcoholDeltaEur +
       input.staticWineDeltaEur +
@@ -1120,7 +1166,8 @@ export const computeDynamicScenario = (
       offsets.dividend +
       offsets.mod +
       offsets.health +
-      offsets.exciseFuel +
+      offsets.exciseDiesel +
+      offsets.excisePetrol +
       offsets.exciseTobacco +
       offsets.exciseAlcohol +
       offsets.wine +

@@ -2023,8 +2023,12 @@ export interface PolicyBaselineFile {
     pitNonEmploymentShare: number;
     corporateEur: number;
     dividendEur: number;
-    /** Excise category anchors — Агенция "Митници" annual chronicle split. */
+    /** Excise anchors — Агенция "Митници" annual chronicle. Fuel is the
+     *  combined line; diesel/petrol are itemised; tobacco/alcohol are the
+     *  category lines (alcohol = spirits + beer combined). */
     exciseFuelEur: number;
+    exciseDieselEur: number;
+    excisePetrolEur: number;
     exciseTobaccoEur: number;
     exciseAlcoholEur: number;
     totalRevenueEur: number;

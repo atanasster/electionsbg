@@ -785,23 +785,49 @@ export const scorePartySubsidy = (rateEur: number): number =>
   (rateEur - PARTY_SUBSIDY_RATE_EUR) * PARTY_SUBSIDY_VOTES;
 
 // ---------------------------------------------------------------------------
-// Excise duties (акцизи) — fuel / energy, tobacco, alcohol, and the currently
-// zero-rated wine base. The fuel/tobacco/alcohol levers move the EXISTING rate
-// by a percentage (the categories carry many sub-rates — petrol/diesel/LPG,
-// specific+ad-valorem on tobacco — so a single €/unit slider would be
-// meaningless; a uniform "% change to the rate" is the honest, legible unit).
-// Revenue anchors are the Агенция "Митници" annual chronicle category lines
-// (data/budget/revenue_breakdown/customs/<year>.json), threaded through the
-// policy baseline's revenue block. The demand/cross-border/illicit response is
-// applied as a separate behavioral offset (see bgBehavioral.ts), so these are
-// the FIXED-base static deltas: a +g change to a category raising R today
-// raises R·g before any behavioural leakage.
+// Excise duties (акцизи) — per-product ABSOLUTE rates so each lever shows the
+// real rate (in its real unit) and carries an EU-country comparator, like the
+// VAT/PIT/corp levers. Modeled per dominant product: diesel & petrol (€/1000 L),
+// cigarettes (€/1000), spirits (€/hl pure alcohol), and the currently zero-rated
+// wine (€/hl, introduced from 0). Revenue anchors are the Агенция "Митници"
+// annual chronicle lines (data/budget/revenue_breakdown/customs/<year>.json):
+// diesel/petrol are itemised; the cigarette rate scales the whole tobacco line
+// (cigarettes dominate it) and the spirits rate scales the spirits share of the
+// combined alcohol line (the chronicle does not split spirits from beer). The
+// demand/cross-border/illicit response is a separate behavioral offset (see
+// bgBehavioral.ts), so these are FIXED-base static deltas.
 // ---------------------------------------------------------------------------
 
-/** Δ revenue of changing an excise category's rate by `rateChangeFraction`
- *  (+0.10 = +10%), holding the consumption base fixed: R·g. Behaviour
- *  (demand elasticity + cross-border/illicit substitution) is layered on top
- *  in the dynamic engine. */
+/** Current-law BG rates (the slider defaults — at these the lever Δ is 0).
+ *  PwC, 30 Jan 2026: diesel €330.29/1000 L, petrol €363.02/1000 L, spirits
+ *  €562.43/hl PA (EU floors €330 / €359 / €550); cigarettes min total
+ *  €113.51/1000 (EU floor €90 + ≥60% WAP). Rounded to the integer slider grid. */
+export const EXCISE_DIESEL_RATE = 330;
+export const EXCISE_PETROL_RATE = 363;
+export const EXCISE_CIGARETTE_RATE = 114;
+export const EXCISE_SPIRITS_RATE = 562;
+
+/** Spirits share of the combined alcohol excise line (~€141M of €177M; beer is
+ *  the rest, wine is €0). The chronicle reports alcohol as one line, so the
+ *  spirits base is estimated as this share. Research: beer ≈ €36M (≈0.9% of all
+ *  excise), spirits ≈ €141M. */
+export const SPIRITS_SHARE_OF_ALCOHOL = 0.8;
+
+/** Δ revenue of moving an excise rate from its current level to `newRate`,
+ *  holding the physical base fixed: R × (newRate / currentRate − 1) — the same
+ *  scaling form as corporate tax. Behaviour (demand + cross-border/illicit
+ *  substitution) is layered on top in the dynamic engine. */
+export const scoreExciseRate = (
+  exciseRevenueEur: number,
+  currentRate: number,
+  newRate: number,
+): number =>
+  currentRate <= 0 ? 0 : exciseRevenueEur * (newRate / currentRate - 1);
+
+/** Δ revenue of a category-level excise rate change by `rateChangeFraction`
+ *  (+0.10 = +10%): R·g. Retained for the AI chat tool, which models excise as
+ *  a whole-category percentage move (the simulator UI uses per-product absolute
+ *  rates via scoreExciseRate). */
 export const scoreExcise = (
   exciseRevenueEur: number,
   rateChangeFraction: number,
@@ -819,8 +845,9 @@ export const WINE_TAXABLE_HL = 940_000;
 
 /** Δ revenue of INTRODUCING a still-wine excise at `rateEurPerHl` (BG taxes
  *  wine at €0 today — the EU minimum is also €0, so this is a genuine, EU-legal
- *  policy choice rather than a rate tweak). Reference points: France €4.05/hl
- *  (token), Netherlands ≈€48/hl. Static = rate × commercial base. */
+ *  policy choice rather than a rate tweak). Reference points: France €4/hl
+ *  (token), Netherlands €88/hl, Ireland €425/hl (EU's highest). Static = rate ×
+ *  commercial base. */
 export const scoreWineExcise = (rateEurPerHl: number): number =>
   rateEurPerHl * WINE_TAXABLE_HL;
 
