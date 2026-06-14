@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { useParams, Link as RouterLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Markdown from "react-markdown";
@@ -11,6 +11,25 @@ import { Anchor } from "@/ux/Anchor";
 import { ShareButton } from "@/ux/ShareButton";
 import { GROUP_URL } from "@/lib/community";
 
+// Turn bare internal paths in the lede (e.g. "/budget/simulator") into
+// in-app links, leaving the surrounding prose untouched. The plain string is
+// still what feeds the SEO meta description.
+const INTERNAL_PATH = /(\/[a-z][a-z0-9/_-]+)/g;
+
+const linkifyDescription = (
+  text: string,
+  linkTo: (path: string) => string,
+): ReactNode =>
+  text.split(INTERNAL_PATH).map((part, i) =>
+    /^\/[a-z]/.test(part) ? (
+      <RouterLink key={i} to={linkTo(part)} className={proseClasses.a}>
+        {part}
+      </RouterLink>
+    ) : (
+      part
+    ),
+  );
+
 export const ArticleScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
@@ -22,6 +41,13 @@ export const ArticleScreen: FC = () => {
   const meta = index?.find((a) => a.slug === slug);
   const title = meta ? meta.title[lang] : (slug ?? "");
   const description = meta ? meta.summary[lang] : "";
+  const linkTo = (path: string) => {
+    const merged = searchParams().toString();
+    return merged ? `${path}?${merged}` : path;
+  };
+  const descriptionNode = description
+    ? linkifyDescription(description, linkTo)
+    : undefined;
 
   // Strip the leading H1 from the markdown — ArticleLayout renders its own
   // header block so we'd otherwise duplicate the top-of-page heading.
@@ -31,6 +57,7 @@ export const ArticleScreen: FC = () => {
     <ArticleLayout
       title={title}
       description={description}
+      descriptionNode={descriptionNode}
       date={meta?.publishedAt}
       author={meta?.author}
       breadcrumb={{ to: "/articles", label: t("articles_title") }}

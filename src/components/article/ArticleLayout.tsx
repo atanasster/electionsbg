@@ -18,6 +18,10 @@ type Breadcrumb = { to: string; label: string };
 type Props = {
   title: string;
   description?: string;
+  /** When set, rendered in place of the plain `description` string in the
+   * visible lede (e.g. with inline links). `description` is still used for the
+   * SEO meta description, so keep it as clean prose. */
+  descriptionNode?: ReactNode;
   /** ISO 8601 string. When set, formatted into the locale-aware long form
    * shown above the title. Optional — documentation pages usually omit it. */
   date?: string;
@@ -37,6 +41,7 @@ type Props = {
 export const ArticleLayout: FC<Props> = ({
   title,
   description,
+  descriptionNode,
   date,
   author,
   breadcrumb,
@@ -79,9 +84,9 @@ export const ArticleLayout: FC<Props> = ({
           <h1 className="mt-2 text-2xl md:text-3xl font-extrabold leading-tight tracking-tight text-foreground">
             {title}
           </h1>
-          {description ? (
+          {(descriptionNode ?? description) ? (
             <p className="mt-3 text-base md:text-lg leading-relaxed text-muted-foreground">
-              {description}
+              {descriptionNode ?? description}
             </p>
           ) : null}
         </header>
