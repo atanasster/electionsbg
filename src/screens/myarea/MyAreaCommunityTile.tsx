@@ -1,6 +1,10 @@
 // Community CTA tile — invites the user into the Наясно Facebook group for
 // discussion and alerts about their area. The funnel's last tile: once the
 // dashboard has shown what's happening, this is the "talk about it" hook.
+//
+// Hidden on `lg`+ because the desktop-only CommunityCtaStrip (rendered under
+// the header on every page) already carries the group CTA there; this tile
+// keeps the funnel alive on phones/tablets where the strip is hidden.
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
@@ -16,7 +20,7 @@ type Props = {
 export const MyAreaCommunityTile: FC<Props> = ({ area }) => {
   const { t } = useTranslation();
   return (
-    <Card className="p-4">
+    <Card className="p-4 lg:hidden">
       <div className="flex items-center gap-2 mb-2">
         <Users className="size-4 text-primary" />
         <h2 className="text-sm font-semibold flex-1">

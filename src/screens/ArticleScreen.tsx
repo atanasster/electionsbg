@@ -191,7 +191,10 @@ export const ArticleScreen: FC = () => {
           </Markdown>
           <div className="mt-8 flex flex-wrap items-center gap-3 border-t pt-6 text-sm text-muted-foreground">
             <ShareButton />
-            <Anchor href={GROUP_URL} className="font-medium">
+            {/* Group CTA hidden on desktop — the CommunityCtaStrip under the
+                header carries it there; kept on mobile where the strip is
+                hidden. */}
+            <Anchor href={GROUP_URL} className="font-medium lg:hidden">
               {t("discuss_in_group")}
             </Anchor>
           </div>

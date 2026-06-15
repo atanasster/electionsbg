@@ -3316,11 +3316,14 @@ export const BudgetPolicySimulator: FC = () => {
                     ? t("budget_policy_public_busy")
                     : t("budget_policy_public_submit")}
               </button>
+              {/* Hidden on desktop — the CommunityCtaStrip under the header
+                  carries the group CTA there; kept on mobile where the strip
+                  is hidden. */}
               <a
                 href={GROUP_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                className="inline-flex items-center gap-1 text-xs text-primary hover:underline lg:hidden"
               >
                 <Users className="h-3.5 w-3.5" />
                 {t("budget_policy_discuss")}

@@ -71,7 +71,10 @@ const NAV_HUBS: { path: string; bg: string; en: string; bgOnly?: true }[] = [
 // Builds the shared section-navigation block. Language-aware: the EN variant
 // points at the /en/* prerendered mirrors. Appended once per page by the
 // prerender renderer (index.ts), so it must NOT be added to per-page bodies.
-export const buildSiteNav = (lang: "bg" | "en"): string => {
+export const buildSiteNav = (
+  lang: "bg" | "en",
+  publicAssetsFolder: string,
+): string => {
   const base = lang === "en" ? `${SITE_URL}/en` : SITE_URL;
   const heading = lang === "en" ? "Explore the data" : "Разгледайте данните";
   const homeLabel = lang === "en" ? "Home" : "Начало";
@@ -84,9 +87,36 @@ export const buildSiteNav = (lang: "bg" | "en"): string => {
       return `<li><a href="${hrefBase}/${h.path}">${label}</a></li>`;
     }),
   ].join("");
-  return `<nav aria-label="${escapeHtml(
+  const hubNav = `<nav aria-label="${escapeHtml(
     heading,
   )}"><h2>${escapeHtml(heading)}</h2><ul>${items}</ul></nav>`;
+  return hubNav + buildLatestAnalysisNav(lang, publicAssetsFolder);
+};
+
+// Compact "latest analysis" link block appended to the site nav on EVERY
+// prerendered page, mirroring the desktop CommunityCtaStrip's article links.
+// Gives the newest long-form pieces a fresh internal link from all ~84k pages
+// (the homepage additionally carries the latest 6 via buildArticlesSection).
+// Title-only — summaries would bloat a block repeated across the whole site.
+const buildLatestAnalysisNav = (
+  lang: "bg" | "en",
+  publicAssetsFolder: string,
+): string => {
+  const latest = latestArticles(publicAssetsFolder, lang, NAV_ARTICLE_LIMIT);
+  if (!latest.length) return "";
+  const heading = lang === "en" ? "Recent analysis" : "Последни анализи";
+  const prefix = lang === "en" ? "/en" : "";
+  const items = latest
+    .map(
+      (a) =>
+        `<li><a href="${SITE_URL}${prefix}/articles/${a.slug}">${escapeHtml(
+          a.title[lang],
+        )}</a></li>`,
+    )
+    .join("");
+  return `<nav aria-label="${escapeHtml(heading)}"><h2>${escapeHtml(
+    heading,
+  )}</h2><ul>${items}</ul></nav>`;
 };
 
 const escapeHtml = (s: string): string =>
@@ -254,24 +284,48 @@ type ArticleIndexEntry = {
 };
 
 const HOME_ARTICLE_LIMIT = 6;
+const NAV_ARTICLE_LIMIT = 3;
+
+// Parsed article index, cached per public folder. buildSiteNav appends the
+// latest analysis to EVERY prerendered variant (~168k calls), so re-reading
+// and re-parsing index.json on each call would dominate prerender time.
+let articleIndexCache: { folder: string; list: ArticleIndexEntry[] } | null =
+  null;
+
+const readArticleIndex = (publicAssetsFolder: string): ArticleIndexEntry[] => {
+  if (articleIndexCache?.folder === publicAssetsFolder) {
+    return articleIndexCache.list;
+  }
+  const file = path.join(publicAssetsFolder, "articles", "index.json");
+  let list: ArticleIndexEntry[] = [];
+  if (fs.existsSync(file)) {
+    try {
+      const parsed = JSON.parse(fs.readFileSync(file, "utf-8"));
+      if (Array.isArray(parsed)) list = parsed;
+    } catch {
+      list = [];
+    }
+  }
+  articleIndexCache = { folder: publicAssetsFolder, list };
+  return list;
+};
+
+// Newest-first articles that have a usable slug + title in the given language.
+const latestArticles = (
+  publicAssetsFolder: string,
+  lang: "bg" | "en",
+  limit: number,
+): ArticleIndexEntry[] =>
+  readArticleIndex(publicAssetsFolder)
+    .filter((a) => a?.slug && a?.title?.[lang])
+    .sort((a, b) => (b.publishedAt || "").localeCompare(a.publishedAt || ""))
+    .slice(0, limit);
 
 export const buildArticlesSection = (
   publicAssetsFolder: string,
   lang: "bg" | "en",
 ): string => {
-  const file = path.join(publicAssetsFolder, "articles", "index.json");
-  if (!fs.existsSync(file)) return "";
-  let list: ArticleIndexEntry[];
-  try {
-    list = JSON.parse(fs.readFileSync(file, "utf-8"));
-  } catch {
-    return "";
-  }
-  if (!Array.isArray(list) || !list.length) return "";
-  const sorted = [...list]
-    .filter((a) => a?.slug && a?.title?.[lang])
-    .sort((a, b) => (b.publishedAt || "").localeCompare(a.publishedAt || ""))
-    .slice(0, HOME_ARTICLE_LIMIT);
+  const sorted = latestArticles(publicAssetsFolder, lang, HOME_ARTICLE_LIMIT);
   if (!sorted.length) return "";
   const heading = lang === "en" ? "Recent analysis" : "Последни анализи";
   const prefix = lang === "en" ? "/en" : "";

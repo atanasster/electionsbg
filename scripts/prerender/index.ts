@@ -14,6 +14,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PROJECT_ROOT = path.resolve(__dirname, "../..");
 const DIST = path.join(PROJECT_ROOT, "dist");
+const PUBLIC_ASSETS = path.join(PROJECT_ROOT, "public");
 
 const SEO_BLOCK_RE = /<!-- SEO -->([\s\S]*?)<!-- \/SEO -->/;
 const BODY_BLOCK_RE = /<!-- BODY -->([\s\S]*?)<!-- \/BODY -->/;
@@ -115,7 +116,8 @@ const renderBodyBlock = (variant: RenderVariant): string => {
   // Per-page body (may be empty for thin routes) followed by the shared
   // section navigation, so every prerendered page carries a crawlable
   // internal link to each data hub. See bodyBuilders.buildSiteNav.
-  const inner = (variant.bodyHtml ?? "") + buildSiteNav(variant.lang);
+  const inner =
+    (variant.bodyHtml ?? "") + buildSiteNav(variant.lang, PUBLIC_ASSETS);
   return `<!-- BODY -->\n    <div id="ssg-content" hidden>${inner}</div>\n    <!-- /BODY -->`;
 };
 

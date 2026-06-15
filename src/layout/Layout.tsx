@@ -1,5 +1,6 @@
 import React from "react";
 import { Footer } from "@/layout/Footer";
+import { CommunityCtaStrip } from "@/screens/components/CommunityCtaStrip";
 import { Header } from "./header/Header";
 
 export const Layout = (props: React.PropsWithChildren) => {
@@ -18,6 +19,7 @@ export const Layout = (props: React.PropsWithChildren) => {
           dropping items-center doesn't widen them visually.
         */}
         <div className="container flex flex-col justify-center items-stretch p-2 pt-[var(--header-height,70px)]">
+          <CommunityCtaStrip />
           {props.children}
         </div>
       </main>
