@@ -10,14 +10,15 @@
 // sourced DATA, like VAT_SLICES, not UI chrome.
 //
 // Excise blocks (exDiesel/exPetrol/exCigarettes/exSpirits/exWine) added
-// 2026-06-14 from Tax Foundation EU energy/cigarette tables (1 Jan 2026) and
-// the EC DG TAXUD Excise Duty Tables (alcohol); BG anchors confirmed against
-// PwC (diesel €330.29, petrol €363.02, spirits €562.43, wine €0, cigarettes
-// min total €113.51). PL and FR spirits were refreshed 2026-06-14 to the
-// current statutory 2026 rates (PL 8,391 PLN/hl ≈ €1,965 per prawoalkoholowe.pl;
-// FR €1,932/hlAP per UGVC/Eurotax); SE/IE spirits & wine remain conservative
-// DG-TAXUD lower bounds (a 2019 edition, since indexed up). The DE `def` note
-// reflects the NATO 2025 estimate (2.40%), which that edition does report.
+// 2026-06-14. Fuel + cigarettes from the Tax Foundation EU energy/cigarette
+// tables (1 Jan 2026) — VALUE-checked by the eu_excise_rates watcher. Spirits +
+// wine from the EC DG TAXUD "Taxes in Europe Database" (TEDB) v3 REST API, the
+// authoritative per-state €/hl source — VALUE-checked by eu_alcohol_excise and
+// refreshed against it 2026-06-15 (SE spirits 5000→4775, SE wine 253→268, HU
+// spirits 1555→1581; PL/FR/EE/IE/DE/GR/BG already exact). BG anchors confirmed
+// against PwC (diesel €330.29, petrol €363.02, spirits €562.43, wine €0,
+// cigarettes min total €113.51). The DE `def` note reflects the NATO 2025
+// estimate (2.40%), which that edition does report.
 
 /** The NATO defence-expenditure compendium edition the `def` options below
  *  encode (June-2025 PDF, 2025 estimates). Compared against the live PDF
@@ -525,12 +526,12 @@ export const EU_LEVER_PRESETS: Record<EuLeverId, EuPresetOption[]> = {
     {
       id: "spir_se",
       cc: "SE",
-      label: { bg: "Швеция — ~5000 €/хл", en: "Sweden — ~€5000/hl" },
+      label: { bg: "Швеция — 4775 €/хл", en: "Sweden — €4775/hl" },
       note: {
         bg: "Сред най-високите в ЕС (расте всяка година).",
         en: "Among the EU's highest (indexed yearly).",
       },
-      apply: { exSpirits: 5000 },
+      apply: { exSpirits: 4775 },
     },
     {
       id: "spir_ie",
@@ -584,23 +585,23 @@ export const EU_LEVER_PRESETS: Record<EuLeverId, EuPresetOption[]> = {
     {
       id: "wine_se",
       cc: "SE",
-      label: { bg: "Швеция — 253 €/хл", en: "Sweden — €253/hl" },
+      label: { bg: "Швеция — 268 €/хл", en: "Sweden — €268/hl" },
       note: { bg: "Високо.", en: "High." },
-      apply: { exWine: 253 },
+      apply: { exWine: 268 },
     },
     {
       id: "wine_dk",
       cc: "DK",
-      label: { bg: "Дания — 156 €/хл", en: "Denmark — €156/hl" },
+      label: { bg: "Дания — 202 €/хл", en: "Denmark — €202/hl" },
       note: { bg: "Високо.", en: "High." },
-      apply: { exWine: 156 },
+      apply: { exWine: 202 },
     },
     {
       id: "wine_nl",
       cc: "NL",
-      label: { bg: "Нидерландия — 88 €/хл", en: "Netherlands — €88/hl" },
+      label: { bg: "Нидерландия — 96 €/хл", en: "Netherlands — €96/hl" },
       note: { bg: "Средно ниво.", en: "Mid-level." },
-      apply: { exWine: 88 },
+      apply: { exWine: 96 },
     },
     {
       id: "wine_fr",
@@ -630,9 +631,12 @@ export const EU_LEVER_PRESETS: Record<EuLeverId, EuPresetOption[]> = {
 //   • Where a country already appears in EU_LEVER_PRESETS for a lever, the
 //     profile reuses that exact value, so the chip and the per-lever popover
 //     can never disagree.
-//   • Credit-based PIT reliefs (PL, IE, GR) are modelled as the equivalent
+//   • Credit-based PIT reliefs (PL, IE, GR, SE) are modelled as the equivalent
 //     0%-band: refundable credit ÷ entry rate (e.g. IE €4,000 ÷ 20% ≈
-//     €1,667/mo). Headline-allowance systems (EE €700) use the allowance.
+//     €1,667/mo; SE's grundavdrag + jobbskatteavdrag earned-income credit ÷
+//     the ~32% municipal rate ≈ €1,100/mo — far above the ~€300 grundavdrag
+//     alone, which is what makes Sweden's effective low-wage tax modest).
+//     Headline-allowance systems (EE €700) use the allowance directly.
 //   • Cigarette figures are Tax-Foundation total-at-weighted-average-price per
 //     1000 (the cross-EU comparable basis), like the per-lever block.
 //   • Spirits/wine reuse the per-lever block values (PL/FR refreshed to the
@@ -702,7 +706,9 @@ export const COUNTRY_PROFILES: CountryProfile[] = [
       exPetrol: 423,
       exCigarettes: 147,
       exSpirits: 1965,
-      exWine: 52,
+      // 2026 statutory rate PLN 233/hl (the +5%/yr indexation moved it off the
+      // 2025 PLN 222/hl ≈ €52); €54 at ~4.30 PLN/EUR.
+      exWine: 54,
     },
   },
   {
@@ -715,18 +721,23 @@ export const COUNTRY_PROFILES: CountryProfile[] = [
     },
     apply: {
       vatStd: 27,
-      vatRed: 5,
+      // Basic foodstuffs / bakery / dairy / hotels sit in Hungary's 18% reduced
+      // band (the bulk of a food basket); the 5% band is the narrower set (meat,
+      // eggs, fresh milk, books, medicines).
+      vatRed: 18,
       pit: 15,
       nm: 0,
       b2: null,
       corp: 9,
       def: 21,
-      mat: 8,
+      // GYED pays ~70% of prior earnings continuously through the child's 2nd
+      // birthday, so the well-paid second year is effectively full (not 8 mo).
+      mat: 12,
       pw: 100,
       exDiesel: 383,
       exPetrol: 409,
       exCigarettes: 154,
-      exSpirits: 1555,
+      exSpirits: 1581,
       exWine: 0,
     },
   },
@@ -743,7 +754,9 @@ export const COUNTRY_PROFILES: CountryProfile[] = [
       vatRed: 7,
       pit: 14,
       nm: 1029,
-      b2: { t2: 5707, r2: 42 },
+      // 2026 Spitzensteuersatz threshold €69 879/yr (the nm above is already on
+      // the 2026 Grundfreibetrag €12 348; 5707 was the 2025 €68 481 threshold).
+      b2: { t2: 5823, r2: 42 },
       corp: 30,
       def: 24,
       mat: 0,
@@ -765,10 +778,16 @@ export const COUNTRY_PROFILES: CountryProfile[] = [
     },
     apply: {
       vatStd: 20,
-      vatRed: 6,
+      // France taxes most groceries at 5,5% (10% only for immediate-consumption
+      // / restaurant food); 6 matched no French rate.
+      vatRed: 5,
       pit: 11,
       nm: 967,
-      b2: { t2: 7048, r2: 41 },
+      // The modal upper-middle band (30% from ~€29 315/yr ≈ €2 443/mo), not the
+      // 41% top rate (€84k/yr) — that threshold sits above the modeled BG wage
+      // range, so a top-rate bracket would never fire and France would collapse
+      // to a flat 11%. 30% is the rate most French upper-middle earners pay.
+      b2: { t2: 2443, r2: 30 },
       corp: 25,
       def: 20,
       mat: 2,
@@ -792,17 +811,23 @@ export const COUNTRY_PROFILES: CountryProfile[] = [
       vatStd: 25,
       vatRed: 12,
       pit: 32,
-      nm: 300,
+      // grundavdrag (~€300/mo at most) + the jobbskatteavdrag earned-income
+      // credit converted to a 0%-band (credit ÷ ~32% municipal rate), the same
+      // way IE/GR/PL credits are — see the header note. The old €300 (basic
+      // deduction only) overstated a mid earner's tax (~28% vs Sweden's ~18%).
+      nm: 1100,
       b2: { t2: 4743, r2: 52 },
-      corp: 21,
+      // bolagsskatt 20,6% (the corp lever carries one decimal); the proposed
+      // 2026 cut to 20% was dropped from the final budget.
+      corp: 20.6,
       def: 25,
       mat: 3,
       pw: 0,
       exDiesel: 359,
       exPetrol: 434,
       exCigarettes: 192,
-      exSpirits: 5000,
-      exWine: 253,
+      exSpirits: 4775,
+      exWine: 268,
     },
   },
   {
@@ -819,7 +844,9 @@ export const COUNTRY_PROFILES: CountryProfile[] = [
       pit: 20,
       nm: 1667,
       b2: { t2: 3667, r2: 40 },
-      corp: 13,
+      // 12,5% trading rate (the 15% Pillar-Two top-up applies only to €750M+
+      // groups); the corp lever now carries one decimal, so keep the exact rate.
+      corp: 12.5,
       mat: 2,
       exDiesel: 616,
       exPetrol: 706,
@@ -841,7 +868,11 @@ export const COUNTRY_PROFILES: CountryProfile[] = [
       vatRed: 13,
       pit: 9,
       nm: 720,
-      b2: { t2: 5000, r2: 44 },
+      // The 2026 second band (20% above €10k/yr; €1 000/mo is the slider floor
+      // and lands just inside it), not the 44% top rate (€60k/yr after the 2026
+      // reform) — that top threshold is above the modeled BG wage range, so a
+      // top-rate bracket would never fire and Greece would collapse to a flat 9%.
+      b2: { t2: 1000, r2: 20 },
       corp: 22,
       def: 29,
       mat: 2,

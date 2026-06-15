@@ -29,7 +29,7 @@ at the locked rate 1 EUR = 1.95583 BGN.
 
 | Lever                                 | This model                                | Published estimate                                                                                                                                                                                                                                                                                                                                                             | Source                                              |
 | ------------------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------- |
-| VAT standard +1пп                     | ≈ +€500–550M                              | МФ 2023 menu: 22% "за всички стоки" = +1.63 млрд лв per H2-2023 — implies ≈ €830M/пп/yr but bundles reduced-rate abolition; naive static on 2023 base ≈ €360M                                                                                                                                                                                                                  | Sega 25.04.2023                                     |
+| VAT standard +1пп                     | ≈ +€447M                                  | МФ 2023 menu: 22% "за всички стоки" = +1.63 млрд лв per H2-2023 — implies ≈ €830M/пп/yr but bundles reduced-rate abolition; naive static on 2023 base ≈ €360M                                                                                                                                                                                                                  | Sega 25.04.2023                                     |
 | Restaurants → 9%                      | ≈ −€170M                                  | МФ 2025: −300…−400 млн лв (−€153…−205M); booked +465 млн лв (+€238M) in Budget 2025 when restored                                                                                                                                                                                                                                                                              | Mediapool 21.03.2025; Investor 26.02.2025           |
 | Books/periodicals/baby 9% (permanent) | n/a (already baseline)                    | −16 млн лв/yr (−€8.2M)                                                                                                                                                                                                                                                                                                                                                         | Actualno 08.12.2022 (Петкова)                       |
 | CIT +1пп                              | +€333M (2025 base €3.33B)                 | МФ 2023: +2.31 млрд лв for +5пп → ≈ +€236M/пп on the 2023 base; КНСБ 2025: +€1.1B for 15%                                                                                                                                                                                                                                                                                      | Sega 25.04.2023; КНСБ становище ЗДБРБ 2026          |
@@ -409,10 +409,12 @@ Benchmarks found but NOT table-worthy (kept here for reference):
   is the EXPENDITURE side (public wage bill, лични асистенти); the engine's `mrz` lever
   scores the REVENUE side (PIT+SSC on ~600k workers' raises, −€280M if frozen). The two
   are different objects — do not compare them.
-- **Defense 2.25→3.0%**: no official incremental costing exists; Budget 2026 puts
-  defense at 2.25% of GDP (>5 млрд лв). Derived: +0.75пп × GDP ≈ +€870M — the engine
-  prices from the NATO-definition 2.2%, hence its −€991M for the 3.0% target. National
-  plan: 3.5% by 2032, 5% (3.5 core + 1.5 related) by 2035.
+- **Defense 2.06→3.0%**: no official incremental costing exists; Budget 2026 puts
+  defense at ~2.25% of GDP (>5 млрд лв, budget basis). The engine prices from the NATO
+  2025 estimate **2.06%** (def-exp-2025 Table 3, BG: 2024e 1.95%, 2025e 2.06%) — the same
+  basis as the peer "like in…" chips, so the comparison stays apples-to-apples — hence
+  ≈ −€1,205M for the 3.0% target. National plan: 3.5% by 2032, 5% (3.5 core + 1.5
+  related) by 2035.
 - **+2пп ДОО contribution** (legislated for 2026, then dropped): КНСБ 13.11.2025 —
   **+€601.2M all funds** → ≈ €300M/пп on the same insurable base as the health lever
   (engine: +€315M gross, +€302M net) — internally consistent cross-check. A ДОО-rate

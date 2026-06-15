@@ -2,6 +2,15 @@
 // All amounts in EUR — pre-2026 BGN figures were converted at the locked
 // 1.95583 parity at ingest, 2026-onward is euro-native. These are
 // illustrative defaults; see the caveats rendered by BudgetTaxCalculator.
+//
+// Provenance & watcher: these statutory constants (rates, МОД cap, min/max
+// pension, contributions, child relief) track the State Budget + Social-Security
+// Budget laws (ЗДБРБ / ЗБДОО). As of 2026-06 there is NO adopted 2026 budget —
+// Bulgaria runs on transitional extension laws that FREEZE the 2025 amounts, so
+// these values are the in-force law. They are re-verified when the `budget_law`
+// watcher flips (the 2026 package, expected after end-June 2026) against the
+// ЗБДОО in ДВ + the НАП "осигурителни вноски" table — see the budget_law row in
+// the process-watch-report skill.
 
 export type TaxpayerProfile = "employee" | "self" | "company";
 

@@ -51,7 +51,15 @@ import { councilMinutes } from "./council_minutes";
 import { ipiLocalTaxes } from "./ipi_local_taxes";
 import { municipalNaredba } from "./municipal_naredba";
 import { kzpPrices } from "./kzp_prices";
-import { euTaxRates, natoDefence, ecForecastBg } from "./eu_policy_anchors";
+import {
+  euTaxRates,
+  euExciseRates,
+  euAlcoholExcise,
+  oecdPitParams,
+  oecdFamilyLeave,
+  natoDefence,
+  ecForecastBg,
+} from "./eu_policy_anchors";
 import { nsiEdp, ecVatGap, imfWeoBg, fiscalCouncilBg } from "./fiscal_anchors";
 
 // `cik` (news/decisions index) is still intentionally omitted — see ./cik.ts
@@ -88,6 +96,10 @@ export const SOURCES: WatchSource[] = [
   eurostatPolicy,
   policyBaselineLocal,
   euTaxRates,
+  euExciseRates,
+  euAlcoholExcise,
+  oecdPitParams,
+  oecdFamilyLeave,
   natoDefence,
   ecForecastBg,
   nsiEdp,

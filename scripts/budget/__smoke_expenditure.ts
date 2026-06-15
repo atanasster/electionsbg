@@ -124,7 +124,7 @@ const x = b2.expenditure;
 // consistent with scoreAdminCut. Gross magnitudes are ~1.44× these.
 console.log(`\nPhase-5 levers (balance convention, negative = costs):`);
 console.log(
-  `  отбрана 2.2 → 3.0% от БВП: ${M(-scoreDefenseTarget(b2.gdpNextEur, x.defense.natoPctGdp, 3.0))}/yr`,
+  `  отбрана 2.06 → 3.0% от БВП: ${M(-scoreDefenseTarget(b2.gdpNextEur, x.defense.natoPctGdp, 3.0))}/yr`,
 );
 console.log(
   `  заплати +5% (без изключени сектори): ${M(-scoreWageIndexation(x.personnel.massEur, x.personnel.exemptShare, 5, true))}/yr · всички: ${M(-scoreWageIndexation(x.personnel.massEur, x.personnel.exemptShare, 5, false))}/yr`,

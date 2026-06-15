@@ -20,10 +20,12 @@
 //    interest bill.
 //  - Interest: two-bucket model. The debt inherited from 2025 pays the
 //    implicit stock rate (~3.0% — Eurostat D41PAY interest ÷ debt) and rolls
-//    over at ~12%/yr (average residual maturity 8y3m per the Government
-//    Debt Management Strategy 2026-2028); rolled-over and newly issued debt
-//    pays the marginal rate (~3.6% — the 2025 Eurobond coupons 3.375-4.125%
-//    and the May-2026 10y reopening at 4.34% bracket it).
+//    over at ~22%/yr (≈ 1/4.4y, the Eurostat residual maturity of the BG debt
+//    stock at end-2025 — the pace at which the legacy stock matures and re-prices
+//    to the marginal rate; the ~8y figure in the Government Debt Management
+//    Strategy 2026-2028 is the maturity AT ISSUANCE, not residual); rolled-over
+//    and newly issued debt pays the marginal rate (~3.6% — the 2025 Eurobond
+//    coupons 3.375-4.125% and the May-2026 10y reopening at 4.34% bracket it).
 //
 // The policy delta from the simulator (year-1 EUR) is assumed to keep a
 // constant share of GDP — a rate change's yield grows with its base. That
@@ -88,7 +90,7 @@ export const EC_FORECAST_EDITION = "spring 2026";
 // Interest-rate block (sources in the header note).
 const LEGACY_RATE = 0.03;
 const NEW_DEBT_RATE = 0.036;
-const LEGACY_ROLLOVER = 0.12;
+const LEGACY_ROLLOVER = 0.22; // ≈ 1/4.4y Eurostat residual maturity of the stock
 
 // Per-year macro assumptions. Nominal growth proxies the deflator with HICP
 // for 2026-2027 (EC Spring 2026: real 2.5/2.2, HICP 4.2/2.6, unemployment

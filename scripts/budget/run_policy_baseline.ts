@@ -63,6 +63,7 @@ const CHILD_RELIEF_REVENUE_EUR = 60e6;
 // identity year, same pattern as NAP_ANNUAL_REPORTS.
 const NOI_SOD_EMPLOYEES_BGN: Record<number, number> = {
   2024: 1680.45,
+  2025: 1867.86, // НОИ SOD_2025 (published 12.02.2026); applies once a 2025 НАП PIT file is on disk
 };
 
 // κ gate: the fitted band grid at the flat 10% must reproduce the НАП
@@ -73,15 +74,18 @@ const KAPPA_TOLERANCE = 0.08;
 // Pensioner head count (НОИ, ~2.06M in 2024) and the 60 лв COVID supplement
 // folded into pension bases in July 2022 — the "включва ли се ковид добавката"
 // debate is whether indexation applies to that slice.
-const PENSIONER_COUNT = 2_060_000;
+const PENSIONER_COUNT = 2_050_000; // НОИ: 2024 avg ~2.045M, Apr-2025 ~2.053M
 const COVID_SUPPLEMENT_EUR_MONTHLY = 60 / BGN_PER_EUR; // ≈ €30.68
 // Minimum wage 2026 (МРЗ) — the КТ чл.244 formula pegs next year's МРЗ to
 // 50% of average gross wage; the un-tie debate freezes it instead.
-const MIN_WAGE_EUR = 620;
+const MIN_WAGE_EUR = 620.2; // 2026 МРЗ = 1213 BGN ÷ 1.95583 (РМС 243/13.11.2025)
 // NATO-definition defense spending, % of GDP (NATO annual estimate for BG;
 // differs from COFOG GF02 ~0.66% by military pensions, paramilitary forces
 // and equipment-payment timing). Update when NATO publishes the new year.
-const NATO_DEFENSE_PCT_GDP = 2.2; // 2024 estimate, rounded to the slider grid
+// NATO-definition defence spending, % of GDP — NATO compendium (def-exp-2025,
+// Table 3, BG row): 2024e 1.95%, 2025e 2.06%. Use the latest (2025) estimate.
+// Keep in step with NATO_COMPENDIUM_EDITION in euPolicyPresets.ts.
+const NATO_DEFENSE_PCT_GDP = 2.06; // NATO 2025 estimate
 // Budget-paid personal contributions (КСО чл. 6, ал. 5, referencing чл. 4,
 // ал. 1, т. 2, 3, 4 и 10; health side via ЗЗО чл. 40, ал. 1, т. 1, б. "а" +
 // the special statutes). Two НОИ SOD categories cover the population —
@@ -1066,7 +1070,7 @@ const main = async (): Promise<void> => {
       },
       defense: {
         natoPctGdp: NATO_DEFENSE_PCT_GDP,
-        natoYear: 2024,
+        natoYear: 2025,
       },
       capital: {
         planEur: Math.round(baseline.capitalPlanEur),

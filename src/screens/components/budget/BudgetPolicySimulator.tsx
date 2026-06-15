@@ -159,6 +159,10 @@ const GROSS_DEF = 1100;
 const NM_MAX = 1700;
 const T2_DEF = 3000;
 const R2_DEF = 15;
+// Defence lever default (tenths of % GDP) = current-law BG share. NATO 2025
+// estimate is 2.06% → 21 on the tenths grid; keep in step with the baseline's
+// defense.natoPctGdp (run_policy_baseline.ts) and NATO_COMPENDIUM_EDITION.
+const DEF_DEF = 21;
 
 // Party-subsidy slider unit is euro-cents; the default derives from the
 // engine's current-law rate so a future law change flows to the baseline
@@ -408,7 +412,7 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
   // Priced against the projection module's 2026 GDP so the defense lever
   // and the projection card never quote two different GDPs.
   const defDelta =
-    exp && s.def !== 22
+    exp && s.def !== DEF_DEF
       ? scoreDefenseTarget(
           NOMINAL_GDP_2026_EUR,
           exp.defense.natoPctGdp,
@@ -583,7 +587,7 @@ const NEUTRAL_LEVERS = (currentCap: number): LeverState => ({
   ph: 1,
   adm: 0,
   mrzFreeze: false,
-  def: 22,
+  def: DEF_DEF,
   wi: 0,
   wex: false,
   kap: 0,
@@ -793,6 +797,21 @@ const clampIntParam = (
 ): number => {
   if (raw == null) return fallback;
   const n = Math.round(Number(raw));
+  if (!Number.isFinite(n)) return fallback;
+  return Math.max(min, Math.min(max, n));
+};
+
+// Like clampIntParam but keeps one decimal place — for levers whose real-world
+// values are fractional (corporate-tax rates: IE 12.5, SE 20.6) and would lose
+// precision under integer rounding.
+const clampDecimalParam = (
+  raw: string | null,
+  min: number,
+  max: number,
+  fallback: number,
+): number => {
+  if (raw == null) return fallback;
+  const n = Math.round(Number(raw) * 10) / 10;
   if (!Number.isFinite(n)) return fallback;
   return Math.max(min, Math.min(max, n));
 };
@@ -1102,7 +1121,7 @@ export const BudgetPolicySimulator: FC = () => {
     clampIntParam(searchParams.get("pit"), 0, 35, PIT_DEF),
   );
   const [corp, setCorp] = useState(() =>
-    clampIntParam(searchParams.get("corp"), 0, 30, CORP_DEF),
+    clampDecimalParam(searchParams.get("corp"), 0, 30, CORP_DEF),
   );
   const [div, setDiv] = useState(() =>
     clampIntParam(searchParams.get("div"), 0, 20, DIV_DEF),
@@ -1175,7 +1194,7 @@ export const BudgetPolicySimulator: FC = () => {
   // Phase-5 levers: defense target (tenths of % GDP), wage indexation %,
   // exempt-sectors toggle, capital ±%, SSC-self-paid (+gross-up), health pp.
   const [def, setDef] = useState(() =>
-    clampIntParam(searchParams.get("def"), 15, 50, 22),
+    clampIntParam(searchParams.get("def"), 15, 50, DEF_DEF),
   );
   const [wi, setWi] = useState(() =>
     clampIntParam(searchParams.get("wi"), -5, 15, 0),
@@ -1297,7 +1316,7 @@ export const BudgetPolicySimulator: FC = () => {
     setPh(o.ph ?? 1);
     setAdm(o.adm ?? 0);
     setMrzFreeze(o.mrzFreeze ?? false);
-    setDef(o.def ?? 22);
+    setDef(o.def ?? DEF_DEF);
     setWi(o.wi ?? 0);
     setWex(o.wex ?? true);
     setKap(o.kap ?? 0);
@@ -1366,7 +1385,7 @@ export const BudgetPolicySimulator: FC = () => {
       ph === 1 &&
       adm === (p.adm ?? 0) &&
       mrzFreeze === !!p.mrzFreeze &&
-      def === 22 &&
+      def === DEF_DEF &&
       wi === 0 &&
       kap === 0 &&
       ssp === !!p.ssp &&
@@ -1417,7 +1436,7 @@ export const BudgetPolicySimulator: FC = () => {
     if (ph !== 1) next.ph = String(ph);
     if (adm !== 0) next.adm = String(adm);
     if (mrzFreeze) next.mrz = "1";
-    if (def !== 22) next.def = String(def);
+    if (def !== DEF_DEF) next.def = String(def);
     if (wi !== 0) next.wi = String(wi);
     if (wi !== 0 && !wex) next.wex = "0";
     if (kap !== 0) next.kap = String(kap);
@@ -1501,7 +1520,7 @@ export const BudgetPolicySimulator: FC = () => {
       r2: a.b2?.r2 ?? R2_DEF,
       corp: a.corp ?? CORP_DEF,
       pw: a.pw ?? 50,
-      def: a.def ?? 22,
+      def: a.def ?? DEF_DEF,
       mat: a.mat ?? MATERNITY_Y2_MONTHS,
       diesel: a.exDiesel ?? DIESEL_DEF,
       petrol: a.exPetrol ?? PETROL_DEF,
@@ -1521,7 +1540,7 @@ export const BudgetPolicySimulator: FC = () => {
     setTaxDetailOpen((a.nm ?? 0) > 0 || a.b2 != null);
     setExpOpen(
       (a.pw ?? 50) !== 50 ||
-        (a.def ?? 22) !== 22 ||
+        (a.def ?? DEF_DEF) !== DEF_DEF ||
         (a.mat ?? MATERNITY_Y2_MONTHS) !== MATERNITY_Y2_MONTHS,
     );
   };
@@ -2026,7 +2045,7 @@ export const BudgetPolicySimulator: FC = () => {
     if (ph !== 1) parts.push(t("budget_policy_frag_horizon", { v: ph }));
     if (adm > 0) parts.push(t("budget_policy_frag_admin", { v: adm }));
     if (mrzFreeze) parts.push(t("budget_policy_frag_mrz"));
-    if (def !== 22)
+    if (def !== DEF_DEF)
       parts.push(t("budget_policy_frag_def", { v: (def / 10).toFixed(1) }));
     if (wi !== 0) parts.push(t("budget_policy_frag_wi", { v: wi }));
     if (kap !== 0) parts.push(t("budget_policy_frag_kap", { v: kap }));
@@ -2736,9 +2755,11 @@ export const BudgetPolicySimulator: FC = () => {
                   info={euInfo("corp", t("budget_policy_tip_corp"))}
                   min={0}
                   max={30}
+                  step={0.1}
                   value={corp}
                   defaultValue={CORP_DEF}
                   onChange={setCorp}
+                  formatValue={(v) => `${Number(v.toFixed(1))}%`}
                 />
                 {euNoteLine("corp")}
               </div>
@@ -3053,7 +3074,7 @@ export const BudgetPolicySimulator: FC = () => {
                       min={15}
                       max={50}
                       value={def}
-                      defaultValue={22}
+                      defaultValue={DEF_DEF}
                       onChange={setDef}
                       formatValue={(v) => `${(v / 10).toFixed(1)}%`}
                     />

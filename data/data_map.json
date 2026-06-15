@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-06-14T15:17:49.083Z",
+  "generatedAt": "2026-06-15T05:10:22.904Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -745,8 +745,8 @@
         "en": "EU tax rates, defence shares, EC forecast, VAT gap, IMF"
       },
       "desc": {
-        "bg": "Котвите на данъчния симулатор: ставките в държавите от ЕС зад сравнителите „Като в…“ по отделните лостове и зад бутоните за избор на цяла държава (PwC Worldwide Tax Summaries за ДДС/ДДФЛ/корпоративен; Tax Foundation и таблиците на ЕК DG TAXUD за акцизите — дизел/бензин/цигари/спиртни напитки/вино), дяловете за отбрана от компендиума на НАТО, прогнозата на ЕК за България, върху която стъпва 5-годишната проекция на салдото и дълга, плюс котвите на динамичния (поведенчески) режим — докладът на ЕК за несъбраното ДДС и МВФ изданията зад фискалните мултипликатори. Котвите за хазарта (GGR) и виното са по данни на бранша и НАП. Стойностите живеят като константи с източници в кода на симулатора и се обновяват ръчно при сигнал от наблюдателя.",
-        "en": "The tax simulator's anchors: EU member-state rates behind both the per-lever \"Like in…\" comparators and the whole-country quick-select profiles (PwC Worldwide Tax Summaries for VAT/PIT/corporate; Tax Foundation and the EC DG TAXUD tables for the excise rates — diesel/petrol/cigarettes/spirits/wine), defence shares from the NATO expenditure compendium, the EC forecast for Bulgaria that the 5-year balance/debt projection is built on, plus the dynamic (behavioral) mode's anchors — the EC VAT gap report and the IMF vintages behind the fiscal multipliers. The gambling (GGR) and wine bases are industry/НАП-reported. The values live as sourced constants in the simulator code and are updated manually when the watcher flags a change."
+        "bg": "Котвите на данъчния симулатор: ставките в държавите от ЕС зад сравнителите „Като в…“ по отделните лостове и зад бутоните за избор на цяла държава (PwC Worldwide Tax Summaries за ДДС/ДДФЛ/корпоративен; Tax Foundation за акцизите на горива и цигари и ЕК TEDB за спиртните напитки и виното; базите на ОИСР за данъците и за семейството за праговете, необлагаемите минимуми и платения отпуск зад лостовете за необлагаем минимум/скоби/майчинство), дяловете за отбрана от компендиума на НАТО, прогнозата на ЕК за България, върху която стъпва 5-годишната проекция на салдото и дълга, плюс котвите на динамичния (поведенчески) режим — докладът на ЕК за несъбраното ДДС и МВФ изданията зад фискалните мултипликатори. Котвите за хазарта (GGR) и виното са по данни на бранша и НАП. Стойностите живеят като константи с източници в кода на симулатора и се обновяват ръчно при сигнал от наблюдателя.",
+        "en": "The tax simulator's anchors: EU member-state rates behind both the per-lever \"Like in…\" comparators and the whole-country quick-select profiles (PwC Worldwide Tax Summaries for VAT/PIT/corporate; Tax Foundation for fuel & cigarette excises and the EC TEDB for spirits/wine; the OECD Tax & Family databases for the income-threshold, allowance and paid-leave inputs behind the tax-free-minimum/bracket/maternity levers), defence shares from the NATO expenditure compendium, the EC forecast for Bulgaria that the 5-year balance/debt projection is built on, plus the dynamic (behavioral) mode's anchors — the EC VAT gap report and the IMF vintages behind the fiscal multipliers. The gambling (GGR) and wine bases are industry/НАП-reported. The values live as sourced constants in the simulator code and are updated manually when the watcher flags a change."
       },
       "tags": [
         "fiscal"
@@ -763,6 +763,30 @@
           "url": "https://taxsummaries.pwc.com/quick-charts/value-added-tax-vat-rates",
           "cadence": "monthly",
           "freshness": "2026-06-12T00:36:58.900Z"
+        },
+        {
+          "id": "eu_excise_rates",
+          "label": "Tax Foundation — EU excise rates (fuel + cigarettes)",
+          "url": "https://taxfoundation.org/data/all/eu/diesel-gas-taxes-europe/",
+          "cadence": "monthly"
+        },
+        {
+          "id": "eu_alcohol_excise",
+          "label": "EC TEDB — EU alcohol excise (spirits + wine)",
+          "url": "https://ec.europa.eu/taxation_customs/tedb/",
+          "cadence": "monthly"
+        },
+        {
+          "id": "oecd_pit_params",
+          "label": "OECD Tax DB — PIT thresholds/allowances/credits",
+          "url": "https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_TAX_PIT@DF_PIT_CENT/all",
+          "cadence": "monthly"
+        },
+        {
+          "id": "oecd_family_leave",
+          "label": "OECD Family DB — paid parental leave (PF2.5)",
+          "url": "https://webfs.oecd.org/els-com/Family_Database/PF2_5_Trends_in_leave_entitlements_around_childbirth.xlsx",
+          "cadence": "monthly"
         },
         {
           "id": "nato_defence",
