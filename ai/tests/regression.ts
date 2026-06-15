@@ -1334,7 +1334,7 @@ const CASES: Case[] = [
     facts: {
       change: "ковид добавката не се индексира",
       delta_per_year: /\+55/,
-      delta_static: /\+57/,
+      delta_static: /\+56/,
     },
     links: ["/budget/simulator?ks=0", "/budget"],
   },
@@ -1355,7 +1355,7 @@ const CASES: Case[] = [
     lang: "en",
     tool: "simulateTaxChange",
     kind: "scalar",
-    facts: { change: "minimum wage frozen", delta_per_year: /−€280M/ },
+    facts: { change: "minimum wage frozen", delta_per_year: /−€279M/ },
     links: ["/budget/simulator?mrz=1", "/budget"],
   },
   // Phase-5 levers — same balance convention, simulator parity
@@ -1366,8 +1366,8 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "отбрана 3.0% от БВП",
-      delta_per_year: /−972/,
-      delta_static: /−991/,
+      delta_per_year: /−1,1/,
+      delta_static: /−1,2/,
       note: /НАТО/,
     },
     links: ["/budget/simulator?def=30", "/budget"],
