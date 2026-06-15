@@ -3,29 +3,109 @@
   "ns": "52",
   "partyShort": "ПБ",
   "loyalty": {
-    "votesCast": 323,
-    "withParty": 280,
-    "loyaltyPct": 0.8668730650154799,
+    "votesCast": 366,
+    "withParty": 315,
+    "loyaltyPct": 0.860655737704918,
     "windowFrom": "2026-04-30",
-    "windowTo": "2026-06-05",
-    "totalVoteItems": 369
+    "windowTo": "2026-06-11",
+    "totalVoteItems": 414
   },
   "attendance": {
-    "totalItems": 337,
-    "presentCount": 323,
-    "absentCount": 14,
-    "presentPct": 0.9584569732937686
+    "totalItems": 382,
+    "presentCount": 366,
+    "absentCount": 16,
+    "presentPct": 0.9581151832460733
   },
   "cohort": {
-    "size": 265,
-    "votesCastMedian": 274,
-    "loyaltyPctMedian": 0.9776785714285714,
-    "presentPctMedian": 0.7344173441734417
+    "size": 266,
+    "votesCastMedian": 298,
+    "loyaltyPctMedian": 0.975256050031723,
+    "presentPctMedian": 0.718695652173913
   },
   "dissents": {
-    "totalCast": 323,
-    "dissentCount": 43,
+    "totalCast": 366,
+    "dissentCount": 51,
     "recent": [
+      {
+        "date": "2026-06-11",
+        "item": 37,
+        "slug": "37-zid-na-zakona-za-zashtita-na-konkurentsiyata-vtoro-glasuvane",
+        "title": "ЗИД на Закона за защита на конкуренцията – второ гласуване - параграф 16 (става параграф 17) - предложение от Владислав Горанов и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 106
+      },
+      {
+        "date": "2026-06-11",
+        "item": 26,
+        "slug": "26-zid-na-zakona-za-zashtita-na-konkurentsiyata-vtoro-glasuvane",
+        "title": "ЗИД на Закона за защита на конкуренцията – второ гласуване - параграф 5 - предложение от Владислав Панев и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 109
+      },
+      {
+        "date": "2026-06-11",
+        "item": 18,
+        "slug": "18-zid-na-zakona-za-zashtita-na-konkurentsiyata-vtoro-glasuvane",
+        "title": "ЗИД на Закона за защита на конкуренцията – второ гласуване - параграф 1 - предложение от Мартин Димитров и група н.п., буква \"б\"",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 103
+      },
+      {
+        "date": "2026-06-11",
+        "item": 14,
+        "slug": "14-zd-na-zakona-za-zashtita-na-potrebitelite-vtoro-glasuvane-pa",
+        "title": "ЗД на Закона за защита на потребителите – второ гласуване - параграф 6 - предложение от Мартин Димитров и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 113
+      },
+      {
+        "date": "2026-06-11",
+        "item": 12,
+        "slug": "12-zd-na-zakona-za-zashtita-na-potrebitelite-vtoro-glasuvane-pa",
+        "title": "ЗД на Закона за защита на потребителите – второ гласуване - параграф 5 - предложение от Мартин Димитров и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 115
+      },
+      {
+        "date": "2026-06-11",
+        "item": 9,
+        "slug": "9-zd-na-zakona-za-zashtita-na-potrebitelite-vtoro-glasuvane-pa",
+        "title": "ЗД на Закона за защита на потребителите – второ гласуване - параграф 4 - предложение от Мартин Димитров и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 115
+      },
+      {
+        "date": "2026-06-11",
+        "item": 7,
+        "slug": "7-zd-na-zakona-za-zashtita-na-potrebitelite-vtoro-glasuvane-pa",
+        "title": "ЗД на Закона за защита на потребителите – второ гласуване - параграф 3 - предложение от Мартин Димитров и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 114
+      },
+      {
+        "date": "2026-06-11",
+        "item": 3,
+        "slug": "3-zd-na-zakona-za-zashtita-na-potrebitelite-vtoro-glasuvane-pa",
+        "title": "ЗД на Закона за защита на потребителите – второ гласуване - параграф 1 - предложение от Мартин Димитров и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 115
+      },
       {
         "date": "2026-06-03",
         "item": 44,
@@ -445,222 +525,212 @@
         "mpVote": "abstain",
         "majorityVote": "no",
         "groupSize": 117
-      },
-      {
-        "date": "2026-05-28",
-        "item": 43,
-        "slug": "43-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 46 - предложение от Стою Стоев за редакция",
-        "topic": "other",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 119
       }
     ]
   },
   "similarity": {
     "topK": [
       {
-        "mpId": 5325,
-        "score": 0.949104583872059,
-        "overlap": 320
-      },
-      {
         "mpId": 5328,
-        "score": 0.949104583872059,
-        "overlap": 320
+        "score": 0.9488896441031893,
+        "overlap": 363
       },
       {
-        "mpId": 5322,
-        "score": 0.9208493529261276,
-        "overlap": 311
+        "mpId": 5325,
+        "score": 0.9369404588389112,
+        "overlap": 363
       },
       {
         "mpId": 4162,
-        "score": 0.9185662591547176,
-        "overlap": 315
+        "score": 0.9163741427455236,
+        "overlap": 358
       },
       {
         "mpId": 5329,
-        "score": 0.9176749715447666,
-        "overlap": 321
-      },
-      {
-        "mpId": 5323,
-        "score": 0.9161959328016753,
-        "overlap": 318
+        "score": 0.9140355026581938,
+        "overlap": 363
       },
       {
         "mpId": 5326,
-        "score": 0.9151882186511818,
-        "overlap": 320
+        "score": 0.9135776158325989,
+        "overlap": 363
       },
       {
-        "mpId": 5296,
-        "score": 0.9072861982819956,
-        "overlap": 316
+        "mpId": 5323,
+        "score": 0.9126765033442116,
+        "overlap": 361
       },
       {
         "mpId": 5253,
-        "score": 0.904929579897877,
-        "overlap": 313
+        "score": 0.9045766316351359,
+        "overlap": 356
       },
       {
-        "mpId": 5135,
-        "score": 0.9023690118187339,
-        "overlap": 315
+        "mpId": 5296,
+        "score": 0.9030913154972512,
+        "overlap": 358
       },
       {
         "mpId": 5132,
-        "score": 0.8995733256209917,
-        "overlap": 321
+        "score": 0.9019800501876036,
+        "overlap": 364
+      },
+      {
+        "mpId": 5135,
+        "score": 0.8987506280318026,
+        "overlap": 358
       },
       {
         "mpId": 5331,
-        "score": 0.8988398592604071,
-        "overlap": 298
-      },
-      {
-        "mpId": 5263,
-        "score": 0.8960943447131365,
-        "overlap": 323
-      },
-      {
-        "mpId": 5261,
-        "score": 0.8937455771539843,
-        "overlap": 300
-      },
-      {
-        "mpId": 5251,
-        "score": 0.8914107765091681,
-        "overlap": 323
-      },
-      {
-        "mpId": 5265,
-        "score": 0.8907919647615686,
-        "overlap": 322
-      },
-      {
-        "mpId": 5097,
-        "score": 0.8895398123767502,
-        "overlap": 314
-      },
-      {
-        "mpId": 5200,
-        "score": 0.8894835649388098,
-        "overlap": 315
-      },
-      {
-        "mpId": 5162,
-        "score": 0.8874683234928449,
-        "overlap": 317
+        "score": 0.8985449576597002,
+        "overlap": 341
       },
       {
         "mpId": 5219,
-        "score": 0.8859090376323553,
-        "overlap": 322
+        "score": 0.893715800117174,
+        "overlap": 364
+      },
+      {
+        "mpId": 5251,
+        "score": 0.8921759192073035,
+        "overlap": 366
+      },
+      {
+        "mpId": 5097,
+        "score": 0.8919017444789032,
+        "overlap": 355
+      },
+      {
+        "mpId": 5263,
+        "score": 0.891485061027434,
+        "overlap": 364
+      },
+      {
+        "mpId": 5200,
+        "score": 0.8909545764000755,
+        "overlap": 358
+      },
+      {
+        "mpId": 5322,
+        "score": 0.8894420474273719,
+        "overlap": 332
+      },
+      {
+        "mpId": 5271,
+        "score": 0.8873450224242593,
+        "overlap": 360
+      },
+      {
+        "mpId": 5178,
+        "score": 0.8873409830255643,
+        "overlap": 360
+      },
+      {
+        "mpId": 5162,
+        "score": 0.8868031767605747,
+        "overlap": 360
       }
     ],
     "bottomK": [
       {
         "mpId": 5194,
-        "score": -0.06022900694326105,
-        "overlap": 114
+        "score": -0.1314925703324396,
+        "overlap": 152
       },
       {
         "mpId": 5171,
-        "score": -0.021887340757453258,
-        "overlap": 203
-      },
-      {
-        "mpId": 5125,
-        "score": -0.012445668789715408,
-        "overlap": 17
+        "score": -0.09037128496931668,
+        "overlap": 244
       },
       {
         "mpId": 5074,
-        "score": -0.004608980128252178,
-        "overlap": 183
+        "score": -0.0864561888876986,
+        "overlap": 223
+      },
+      {
+        "mpId": 5125,
+        "score": -0.011707322644771175,
+        "overlap": 18
+      },
+      {
+        "mpId": 5334,
+        "score": 0,
+        "overlap": 14
       },
       {
         "mpId": 4023,
-        "score": 0.02155653067796134,
+        "score": 0.020277677641345315,
         "overlap": 6
       },
       {
+        "mpId": 5258,
+        "score": 0.02125678199535737,
+        "overlap": 192
+      },
+      {
         "mpId": 5248,
-        "score": 0.03733700636914622,
+        "score": 0.035121967934313526,
         "overlap": 15
       },
       {
+        "mpId": 5060,
+        "score": 0.03598705850177871,
+        "overlap": 268
+      },
+      {
         "mpId": 4007,
-        "score": 0.043802914140553484,
+        "score": 0.04120428217151646,
         "overlap": 6
       },
       {
         "mpId": 4017,
-        "score": 0.04452697830280189,
+        "score": 0.04188539082916955,
         "overlap": 6
       },
       {
-        "mpId": 5172,
-        "score": 0.059344887662253355,
-        "overlap": 26
-      },
-      {
-        "mpId": 5169,
-        "score": 0.08272562008829491,
-        "overlap": 28
-      },
-      {
         "mpId": 5247,
-        "score": 0.08666051398858579,
-        "overlap": 214
-      },
-      {
-        "mpId": 5060,
-        "score": 0.0882552502779784,
-        "overlap": 240
-      },
-      {
-        "mpId": 5258,
-        "score": 0.09858438698270551,
-        "overlap": 163
-      },
-      {
-        "mpId": 5184,
-        "score": 0.099077998638075,
-        "overlap": 71
-      },
-      {
-        "mpId": 5223,
-        "score": 0.10643983670944125,
-        "overlap": 15
+        "score": 0.0509682443113842,
+        "overlap": 231
       },
       {
         "mpId": 5273,
-        "score": 0.11194107778366161,
-        "overlap": 285
+        "score": 0.05648121071247013,
+        "overlap": 320
       },
       {
         "mpId": 5101,
-        "score": 0.12433127264680373,
-        "overlap": 298
+        "score": 0.06656025531923931,
+        "overlap": 320
       },
       {
-        "mpId": 5285,
-        "score": 0.14460560386494353,
-        "overlap": 139
+        "mpId": 5172,
+        "score": 0.07254762501100116,
+        "overlap": 43
       },
       {
-        "mpId": 5159,
-        "score": 0.1506722264069835,
-        "overlap": 281
+        "mpId": 5234,
+        "score": 0.08786993644582972,
+        "overlap": 289
       },
       {
-        "mpId": 5063,
-        "score": 0.17139748173454925,
-        "overlap": 40
+        "mpId": 5169,
+        "score": 0.10039117221153819,
+        "overlap": 32
+      },
+      {
+        "mpId": 5148,
+        "score": 0.107471476556392,
+        "overlap": 167
+      },
+      {
+        "mpId": 5223,
+        "score": 0.11005109731001664,
+        "overlap": 17
+      },
+      {
+        "mpId": 5185,
+        "score": 0.11076070779284254,
+        "overlap": 315
       }
     ]
   }
