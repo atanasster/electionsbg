@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-06-15T05:10:22.904Z",
+  "generatedAt": "2026-06-15T06:50:09.269Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -483,7 +483,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-14T07:09:34.489Z",
+      "freshness": "2026-06-15T06:39:34.039Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -502,7 +502,7 @@
           "label": "Council resolutions + vote tallies",
           "url": "data/council/sources.json",
           "cadence": "daily",
-          "freshness": "2026-06-14T07:09:34.489Z"
+          "freshness": "2026-06-15T06:39:34.039Z"
         },
         {
           "id": "municipal_naredba",
@@ -754,7 +754,7 @@
       "url": "https://taxsummaries.pwc.com/quick-charts/value-added-tax-vat-rates",
       "origin": "intl",
       "cadence": "weekly",
-      "freshness": "2026-06-12T06:08:54.021Z",
+      "freshness": "2026-06-15T06:39:34.039Z",
       "skills": [],
       "sources": [
         {
@@ -768,25 +768,29 @@
           "id": "eu_excise_rates",
           "label": "Tax Foundation — EU excise rates (fuel + cigarettes)",
           "url": "https://taxfoundation.org/data/all/eu/diesel-gas-taxes-europe/",
-          "cadence": "monthly"
+          "cadence": "monthly",
+          "freshness": "2026-06-15T06:39:34.039Z"
         },
         {
           "id": "eu_alcohol_excise",
           "label": "EC TEDB — EU alcohol excise (spirits + wine)",
           "url": "https://ec.europa.eu/taxation_customs/tedb/",
-          "cadence": "monthly"
+          "cadence": "monthly",
+          "freshness": "2026-06-15T06:39:34.039Z"
         },
         {
           "id": "oecd_pit_params",
           "label": "OECD Tax DB — PIT thresholds/allowances/credits",
           "url": "https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_TAX_PIT@DF_PIT_CENT/all",
-          "cadence": "monthly"
+          "cadence": "monthly",
+          "freshness": "2026-06-15T06:39:34.039Z"
         },
         {
           "id": "oecd_family_leave",
           "label": "OECD Family DB — paid parental leave (PF2.5)",
           "url": "https://webfs.oecd.org/els-com/Family_Database/PF2_5_Trends_in_leave_entitlements_around_childbirth.xlsx",
-          "cadence": "monthly"
+          "cadence": "monthly",
+          "freshness": "2026-06-15T06:39:34.039Z"
         },
         {
           "id": "nato_defence",
@@ -972,7 +976,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-14T07:09:34.489Z",
+      "freshness": "2026-06-15T06:39:34.039Z",
       "skills": [
         "update-prices"
       ],
@@ -982,7 +986,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-06-14T07:09:34.489Z"
+          "freshness": "2026-06-15T06:39:34.039Z"
         }
       ],
       "x": 28,
