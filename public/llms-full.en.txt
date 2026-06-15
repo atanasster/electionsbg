@@ -825,15 +825,15 @@ Website: https://www.marketlinks.bg/
 
 > Each article is published in Bulgarian and English. Links point to the on-site pages; the full Markdown sources are inlined below.
 
-### Inside the budget simulator: how it scores, what it assumes, and the data we're asking НАП for
+### How the budget simulator works: data and model
 
 URL (BG): https://electionsbg.com/articles/2026-06-12-tax-policy-simulator  |  URL (EN): https://electionsbg.com/en/articles/2026-06-12-tax-policy-simulator
 Markdown (BG): https://electionsbg.com/articles/2026-06-12-tax-policy-simulator-bg.md
 Markdown (EN): https://electionsbg.com/articles/2026-06-12-tax-policy-simulator-en.md
-Published: 2026-06-12
+Published: 2026-06-14
 Category: feature
 
-**Summary:** A full walkthrough of the /budget/simulator tool: static vs dynamic mode, how every lever is scored (VAT, income tax, corporate, dividends, the social-security cap, spending), the behavioral elasticities and fiscal multipliers behind dynamic mode, the limitations and the validation against official costings — and the freedom-of-information request to НАП for annual, machine-readable income-bracket data that would fully anchor the most statistical part of the model.
+**Summary:** How /budget/simulator works: where the data comes from and how the model is built. Static and dynamic mode, how every lever is scored (VAT, income tax, corporate, dividends, the social-security cap, excise, spending), the behavioral elasticities and fiscal multipliers behind dynamic mode, the limitations and the validation against official costings.
 
 ---
 keywords:
@@ -852,16 +852,16 @@ keywords:
   - freedom of information request
   - Bulgaria budget deficit
 schemaType: TechArticle
-updatedAt: 2026-06-12
+updatedAt: 2026-06-14
 ---
 
-# Inside the budget simulator: how it scores, what it assumes, and the data we're asking НАП for
+# How the budget simulator works: data and model
 
 What would 9% VAT on food cost? How much does removing the social-security cap raise? And what is left of those numbers once people change their behavior? Every Bulgarian tax debate eventually lands on these questions — and the answers arrive piecemeal: a ministry press release, a union opinion, a back-of-the-envelope expert estimate. Rarely in one place. Even more rarely with a shared methodology and sources anyone can check.
 
-The [budget simulator](/budget/simulator) puts all of it on one screen: move a rate and see, side by side, what happens to consolidated budget revenue per year **and** to one worked payslip per month. You can cost real proposals — a progressive tax, higher VAT, contributions without a cap, defense at 3% of GDP — and compare them against the published official estimates. The code is open and the assumptions are spelled out one by one.
+The [budget simulator](/budget/simulator) puts all of it on one screen: move a rate and see, side by side, what happens to consolidated budget revenue per year **and** to one worked payslip per month. You can cost real proposals — a progressive tax, higher VAT, contributions without a cap, higher tobacco excise, a gambling levy, defense at 3% of GDP — and compare them against the published official estimates. The code is open and the assumptions are spelled out one by one.
 
-This piece shows the machine from the inside: where the numbers come from, how each lever is scored, what is hard fact and what is a statistical model. And at the end — why we are asking НАП for data that already exists, and how it would make the whole tool sharper still.
+There's also a faster way in: pick a whole country. A row of flag chips — Estonia, Poland, Hungary, Germany, France, Sweden, Ireland, Greece — snaps every comparable lever at once to that country's real policy (VAT, the income-tax schedule, corporate and defense levels, pension indexation and excise duties), so you can see what Bulgaria's budget and your own payslip would look like under, say, Estonia's flat tax or Poland's defense spend. It's the mirror image of the per-lever "like in…" buttons — every value sourced the same way (PwC, the Tax Foundation excise tables, the NATO compendium) — and levers with no clean cross-country analogue stay at Bulgarian law.
 
 ## Two modes: static and dynamic
 
@@ -873,7 +873,9 @@ The simulator scores every scenario two ways, toggled with one button.
 
 **Dynamic mode** (the default) adds what static omits: people respond to taxes. It layers three things — behavioral responses of the tax base (reporting, profit shifting, compliance), a reduced-form macroeconomic feedback on GDP, and a Monte-Carlo uncertainty band. The result is a more conservative but more honest estimate: a tax hike almost always yields less than the static figure.
 
-The headline shows both: the dynamic central estimate, the uncertainty band (5th to 95th percentile), and a "static X · behavior −Y" decomposition, so you can see exactly how much the behavioral response eats.
+The big **"Budget balance effect"** figure combines both modes: it shows the dynamic central estimate, the uncertainty band (5th to 95th percentile), and a "static X · behavior −Y" decomposition — so you see both the static figure and how much the behavioral response eats.
+
+![The simulator's headline figures: "Budget balance effect" +€2.3B/yr — with an uncertainty band +€2.2B…+€2.4B and a "static +€2.8B · behavior −€479M" decomposition — plus share of GDP and the effect on one sample payslip.](/articles/images/budget_simulator/en/02-headline.png)
 
 ## The goal: what you're actually trying to achieve
 
@@ -885,13 +887,15 @@ Above the numbers sits a scoreboard with three missions that turn the abstract r
 
 The gauge shows where the deficit is "today", where your scenario takes it, and where the finish line is — like the [budget-balancing games of the US Committee for a Responsible Federal Budget](https://www.crfb.org/debtfixer). The number no longer floats; it moves toward a goal.
 
+Couldn't the deficit just be covered from the BNB's currency reserve instead of taxes and cuts? It's a common expectation — but the reserve is not a state piggy bank, and the euro does not "free it up". [We explain why in a separate analysis](/articles/2026-06-13-bnb-reserve-after-euro) — which is why, in the simulator, the deficit moves only through the revenue and spending levers.
+
 > Built a scenario that brings the deficit under 3%? Share it in the [Наясно Facebook group](https://www.facebook.com/groups/1982841819785121) — we're curious which lever you pull first.
 
 ## How each lever is scored
 
 This is the heart of the simulator. Every lever has its own methodology, and every number traces to КФП execution, the НАП annual report, Eurostat national accounts or the НОИ aggregates.
 
-![Per-tax revenue breakdown: VAT +799M (static +887M), income tax +1.8B (static +1.9B), and under the administration lever, a note that 85% of the cut falls on vacant positions.](/articles/images/budget_simulator/en/02-breakdown.png)
+![Per-tax revenue breakdown: VAT +799M (static +887M), income tax +1.8B (static +1.9B), and under the administration lever, a note that 85% of the cut falls on vacant positions.](/articles/images/budget_simulator/en/03-breakdown.png)
 
 **VAT.** The model rides on Eurostat household final consumption by COICOP purpose[^coicop]: each consumption slice carries its statutory VAT regime (standard 20%, reduced 9% or zero), and the gap between modeled and actual VAT revenue (households are only part of the base) is bridged by a calibration factor that is stable around **1.17** across 2021–2025. A +1pp move in the standard rate yields ≈ +€447M. For context: Bulgaria's VAT compliance gap is estimated at **€781M — 8.6% of the theoretical liability** in the EC's 2025 edition.[^vatgap]
 
@@ -901,9 +905,13 @@ This is the heart of the simulator. Every lever has its own methodology, and eve
 
 **Maximum insurable income (МОД).** The social-security cap (now **€2,111.64**) is a special case: the wage mass above the cap is recovered from the accounting gap between the uncapped PIT base and the capped insurable base, plus a Pareto tail for the distribution above the cap. Because the tail is uncertain, this lever alone carries an explicit uncertainty band on the result.
 
+**Excise duties.** This is one of the biggest tax lines — over **€3.8B** in 2025, more than corporate tax. Here you change the rate of each product, with the values in force in Bulgaria as the defaults: diesel and petrol in €/1000 L, cigarettes in €/1000, spirits in €/hl of pure alcohol, wine in €/hl. Next to every slider there's a "like in…" button you can use to set it to a chosen EU country's rate. The bases come straight from the Customs Agency annual chronicle: fuel ≈ €1.44B, tobacco ≈ €2.15B, alcohol ≈ €177M in 2025.[^excise] Where Bulgaria sits: diesel (€330/1000L) is exactly at the EU floor, and petrol (€363/1000L) a step above its €359 floor, so neither has legal room to fall; cigarettes are at ~€114/1000, just above the EU floor (€90/1000 and ≥60% of the weighted-average retail price), with a legislated climb toward 2029; spirits at €562/hl, just above the €550 floor; wine at €0 (the EU floor is also 0, so introducing one is a legal choice). For scale, the "like in…" buttons show how much higher the rest of the EU taxes: cigarettes — €535/1000 in Ireland vs €195 in Germany; spirits — ~€4,775/hl in Sweden vs €1,303 in Germany; wine — €425/hl in Ireland, while France levies a token €4. The behavioral correction matters most for tobacco: a steep hike pushes the market to illicit and cross-border trade — as in 2009–2010, when the illicit share jumped from 17.5% to nearly 40% — so a big increase can even shrink revenue.
+
+**Gambling.** The lever moves the Gambling Act variable fee on **gross gaming revenue** (GGR — stakes minus payouts) for betting, lotteries and online play. The default is 25% — the rate in force from 2026, raised from 20%. Gambling is an alternative tax buried in the "Corporate tax"/"Other taxes" line plus fees, so there is **no standalone budget line** — the base (GGR ≈ €716M in 2025) is НАП/industry-reported, not a published government figure.[^gambling] We deliberately leave the fixed per-machine and per-table casino tax out of the model (it's device count × fixed fee, and for the count we only have a rough anchor). The behavioral correction is the same as for corporate tax: raise the rate and the licensed base starts drifting to unlicensed and offshore operators (51 licensed online operators compete with the offshore market), with a Laffer turn on a large hike.
+
 **Expenditure levers.** The simulator also scores the spending side: pension indexation under the Swiss rule (CPI weight vs insurable-income growth), administration cuts (where vacant positions absorb the cut first and save almost nothing in cash), a minimum-wage freeze, a NATO-definition defense target, capital spending (through the historical execution rate), the health contribution, the minimum pension, public-sector wages, and several levers from the live budget debate (maternity, MP pay, party subsidies).
 
-**Public-sector employees' contributions** are a lever with a legal quirk. Under art. 6(5) of the Social Security Code the budget pays both contribution shares — the employer's and the employee's — for about 133 thousand people: civil servants, the judiciary, the military, МВР and the special services (the sum of the two НОИ categories in the 2024 statistics).[^kso] The lever shifts the standard 13.78% employee share onto them, as every other employee pays; the elevated special-category rates stay budget-paid either way. There is a tax wrinkle too: because nothing is withheld from them today, their income-tax base is the full gross — after the shift the personal contributions become deductible and the budget gives a little income tax back. The Fiscal Council prices this step for the civil-service-law employees alone at around 200 million лв a year, with a "much larger effect" from the police and the military; at full scope the model gives about €254M without compensation — and zero if salaries are grossed up, the realistic scenario.
+**Public-sector employees' contributions** are a lever with a legal quirk. Under art. 6(5) of the Social Security Code the budget pays both contribution shares — the employer's and the employee's — for about 133 thousand people: civil servants, the judiciary, the military, МВР and the special services (the sum of the two НОИ categories in the 2024 statistics).[^kso] The lever shifts the standard 13.78% employee share onto them, as every other employee pays; the elevated special-category rates stay budget-paid either way. There is a tax wrinkle too: because nothing is withheld from them today, their income-tax base is the full gross — after the shift the personal contributions become deductible and the budget gives a little income tax back. The Fiscal Council prices shifting the employee share for civil servants and the judiciary (excl. МВР) at around 200 млн лв (≈ €102M) a year, with a "much larger effect" from the police and the military[^fspers]; at full scope the model gives about €254M without compensation — and zero if salaries are grossed up, the realistic scenario.
 
 **Every wage lever pays itself partly back.** When the budget raises (or cuts) pay, it also collects (or loses) the PIT and social contributions on that pay — roughly **30.6%** of the change comes straight back. This mechanical feedback applies to every lever that moves wages — administration cuts, public-sector wage indexation, the teachers' 125% peg — so a wage rise costs the budget materially less than its gross price tag (a +5% public-wage indexation nets ≈ €98M, not ≈ €142M). Under the consolidated-budget frame the employer contribution nets out — the budget both pays and receives it — leaving exactly the genuine cost. This is an accounting offset, not a behavioral guess: it sits in **both** static and dynamic mode.
 
@@ -920,6 +928,11 @@ Dynamic mode rests on two tiers, each sourced.
 | Corporate base semi-elasticity, %/pp          | 0.8 (0.4–1.5)    | de Mooij–Ederveen; Heckemeyer–Overesch (2017)[^cit]  |
 | Dividend base semi-elasticity, %/pp           | 4.5 (3.0–6.5)    | calibrated to the Fiscal Council (2025)[^fs]         |
 | VAT — share lost to compliance                | 0.10 (0.03–0.20) | EC VAT gap (2025)[^vatgap]                           |
+| Diesel & petrol excise — base leakage, %/pp   | 0.10 (0.04–0.25) | demand −0.1…−0.3 + cross-border trade[^excise]       |
+| Cigarette excise — base leakage, %/pp         | 0.25 (0.12–0.60) | EU panel ≈ −0.4 + illicit market 2009–10[^excise]    |
+| Spirits excise — base leakage, %/pp           | 0.25 (0.12–0.50) | spirits −0.5…−0.8 + home production[^excise]         |
+| Wine excise — leakage on an introduced duty   | 0.15 (0.05–0.35) | home/unrecorded wine[^excise]                        |
+| Gambling — GGR base leakage, %/pp             | 1.0 (0.5–2.5)    | offshore migration; the 2013 episode[^gambling]      |
 | Maternity — share returning to work if cut    | 0.45 (0.25–0.65) | НСИ maternal-employment gap + КСО чл.54[^matwork]    |
 | Dividend↔salary relabeling — net recapture   | 0.008 (0.0–0.03) | derived; Chetty–Saez (2005)[^chetty]                 |
 
@@ -943,11 +956,11 @@ These are the cases where the offset is large enough to matter and defensible en
 
 A single average hides the distribution. The simulator reveals it two ways.
 
-![Who gains, who loses by employee decile: a diverging-bar chart for each tenth of wage earners by gross salary, plus the Gini coefficient before and after the scenario.](/articles/images/budget_simulator/en/03-deciles.png)
+![Who gains, who loses by employee decile: a diverging-bar chart for each tenth of wage earners by gross salary, plus the Gini coefficient before and after the scenario.](/articles/images/budget_simulator/en/04-deciles.png)
 
 The **winners-and-losers** strip shows the mean monthly change (net pay + VAT on spending) for each tenth of wage earners, ordered by gross salary — you instantly see whether a measure is progressive or regressive. Below it the tool reports the Gini coefficient before and after.
 
-![One payslip: a gross-salary slider and a net / VAT / total breakdown, plus the effect at several exemplar salaries — €620, €1,250, €2,500, €5,000.](/articles/images/budget_simulator/en/04-citizen.png)
+![One payslip: a gross-salary slider and a net / VAT / total breakdown, plus the effect at several exemplar salaries — €620, €1,250, €2,500, €5,000.](/articles/images/budget_simulator/en/05-citizen.png)
 
 The **one-payslip** panel translates the scenario to a personal level: at a chosen gross salary it shows the net effect, the VAT-on-spending effect and the total, plus ready exemplars for a minimum, average, high and above-cap salary.
 
@@ -955,7 +968,7 @@ The **one-payslip** panel translates the scenario to a personal level: at a chos
 
 The headline is the one-year effect. But deficits and debt accumulate — so the simulator rolls the scenario forward to 2030.
 
-![Balance and debt to 2030: bars for the balance as % of GDP and lines for debt (scenario vs baseline path), with the −3% (Maastricht) and 60%-debt reference lines, plus a per-year table with the figures and the scenario's interest effect.](/articles/images/budget_simulator/en/05-projection.png)
+![Balance and debt to 2030: bars for the balance as % of GDP and lines for debt (scenario vs baseline path), with the −3% (Maastricht) and 60%-debt reference lines, plus a per-year table with the figures and the scenario's interest effect.](/articles/images/budget_simulator/en/06-projection.png)
 
 The projection is at the general-government (ESA 2010) grain, not the cash КФП grain of the rest of the screen, because the −3%/60% reference values and the EC forecast are defined there. The 2025 bar is the НСИ outturn (deficit −3.5%, debt 29.9%, GDP €116.0bn)[^nsi]. The baseline rides the EC Spring 2026 forecast (balance −4.1% in 2026 and −4.3% in 2027[^edp]), then holds policy unchanged. Debt follows the standard debt-dynamics recursion with no stock-flow adjustments[^ecb]; interest is modeled in two buckets (inherited debt at ~3.0%, new at ~3.6%). "Scenario interest" is the accumulated difference in interest cost — the compounding cost of servicing the extra debt a loosening scenario issues.
 
@@ -963,18 +976,20 @@ The projection is at the general-government (ESA 2010) grain, not the cash КФ�
 
 We compared some of the scenarios computed through our simulator against the official estimates published in the media:
 
-| Scenario                      | Model (static) | Dynamic | Published estimate                                                                                                                                       |
-| ----------------------------- | -------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Restaurants VAT → 9%          | −€286M         | −€258M  | МФ (2024–25): −€150…−240M/yr; Budget 2025 booked +€238M when restored to 20%[^mf]                                                                        |
-| Food & medicines VAT → 9%     | −€1.7B         | −€1.4B  | МФ (2020): −1.5 млрд лв on the 2020 base — scaled to today's base ≈ −€1.2…−1.3B[^mf2020]                                                                 |
-| Corporate tax +1pp            | +€333M         | +€304M  | МФ (2023): ≈ +€230M/pp (2023 base)[^mf]                                                                                                                  |
-| Corporate tax 10% → 15%       | +€1.7B         | +€1.3B  | КНСБ (2025): ≈ +€1.1B[^knsb]                                                                                                                             |
-| Dividend tax 5% → 10%         | +€75M          | +€45M   | Fiscal Council (2025): up to +€50M (with behavioral response)[^fs]                                                                                       |
-| Health contribution +1pp      | +€302M         | +€287M  | КНСБ/НОИ (2025): ≈ +€300M/pp[^knsb]                                                                                                                      |
-| МОД cap €2,112 → €2,352       | +€147M         | +€133M  | КНСБ (2025): ≈ +€180M for ДОО (≈ +€230M all contributions)[^knsb]                                                                                        |
-| Tax-free minimum €620/mo      | −€1.9B         | −€1.9B  | ≈ −€1.9B (scaled from a 2022 estimate for 500 лв)                                                                                                        |
-| Pensions: CPI-only indexation | +€479M         | +€470M  | НОИ (06.2026): the July Swiss-rule indexation (7.8%) costs ≈ €513M through end-2026 — ≈ €1.0–1.1B annualized; CPI-only would save roughly half[^noi2026] |
-| Party subsidy €4.09 → €3.00   | +€3M/yr        | +€3M    | Sponsors (06.2026): ≈ +€2.2M for 2026 — in force since 30 April, i.e. ≈ €3.3M annualized[^psub2026]                                                      |
+| Scenario                             | Model (static)      | Dynamic | Published estimate                                                                                                                                                                                                |
+| ------------------------------------ | ------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Restaurants VAT → 9%                 | −€286M              | −€258M  | МФ (2024–25): −€150…−240M/yr; Budget 2025 booked +€238M when restored to 20%[^mf]                                                                                                                                 |
+| Food & medicines VAT → 9%            | −€1.7B              | −€1.4B  | МФ (2020): −1.5 млрд лв on the 2020 base — scaled to today's base ≈ −€1.2…−1.3B[^mf2020]                                                                                                                          |
+| Corporate tax +1pp                   | +€333M              | +€304M  | МФ (2023): ≈ +€230M/pp (2023 base)[^mf]                                                                                                                                                                           |
+| Corporate tax 10% → 15%              | +€1.7B              | +€1.3B  | КНСБ (2025): ≈ +€1.1B[^knsb]                                                                                                                                                                                      |
+| Dividend tax 5% → 10%                | +€75M               | +€45M   | Fiscal Council (2025): up to +€50M (with behavioral response)[^fs]                                                                                                                                                |
+| Health contribution +1pp             | +€302M              | +€287M  | КНСБ/НОИ (2025): ≈ +€300M/pp[^knsb]                                                                                                                                                                               |
+| МОД cap €2,112 → €2,352              | +€147M              | +€133M  | КНСБ (2025): ≈ +€180M for ДОО (≈ +€230M all contributions)[^knsb]                                                                                                                                                 |
+| Tax-free minimum €620/mo             | −€1.9B              | −€1.9B  | ≈ −€1.9B (scaled from a 2022 estimate for 500 лв)                                                                                                                                                                 |
+| Pensions: CPI-only indexation        | +€479M              | +€470M  | НОИ (06.2026): the July Swiss-rule indexation (7.8%) costs ≈ €513M through end-2026 — ≈ €1.0–1.1B annualized; CPI-only would save roughly half[^noi2026]                                                          |
+| Civil servants pay own contributions | +€254M (full scope) | +€249M  | Fiscal Council (2026): ≈ 200 млн лв (≈ €102M) for civil servants + judiciary only (excl. МВР); "much larger effect" with police and military (state covers 73.3%) — the model's full scope includes them[^fspers] |
+| Party subsidy €4.09 → €3.00          | +€3M/yr             | +€3M    | Sponsors (06.2026): ≈ +€2.2M for 2026 — in force since 30 April, i.e. ≈ €3.3M annualized[^psub2026]                                                                                                               |
+| Gambling — GGR fee 20% → 25%         | +€36M               | +€28M   | Budget 2026 (МФ): ≈ +€32M from the 5 percentage points — between our static and dynamic estimate[^gambling]                                                                                                       |
 
 The takeaway: static scoring matches the official _static_ numbers (МФ's own menu is static per-pp on the then-current base). And for the bigger moves — corporate tax at 15%, food and medicines at the reduced rate — it is the dynamic estimate that lands near the published figures: which is why it is the default mode. The clearest case is the dividend: +€75M static vs the Fiscal Council's ≤€50M — precisely because the Council's number embeds a behavioral response, the same one dynamic mode reproduces.
 
@@ -1004,7 +1019,7 @@ But a version of this data **exists** — and has been released. НАП routinel
 
 **The 2023 table is built into the model.** It covers **3,109,552 filers**, **€3.07B of declared ДДФЛ** on **€30.7B of taxable base** — with the top **1.5%** (47,630 people above 108,000 лв of base) paying **21.5%** of all ДДФЛ. We use it conservatively: to **validate the body** of the fitted distribution where the two populations coincide (and they coincide well — the cumulative mass through the upper-middle incomes is within 8 percentage points), and to **source the tail ordering**. There is a subtlety we make explicit: the НАП table is _all_ filers (employees + self-employed + final-tax), while the model scores _wage employees_. So the all-filer tail is fatter (Pareto α ≈ 1.67) than the employee-only tail (α ≈ 2.27) — the top НАП groups blend in dividend and business income. **That ordering is the correct one**, and the real data confirms it; so we do not overwrite the employee parameters (which drive the МОД lever) — we validate them.
 
-What we **request**, under the [Access to Public Information Act](https://www.aip-bg.org/) (ЗДОИ), is for the same data to be published as a **machine-readable, reusable open dataset**, refreshed **annually** and at **finer income brackets** — rather than extracted one parliamentary answer at a time from locked PDFs (the MoF site blocks automated access). With such a dataset both the body and the tail become fully source-traceable, the tax-free-minimum / progression / МОД uncertainty shrinks further, and — most importantly — any citizen, journalist or analyst could transparently cost a tax proposal. Better data makes for a better public debate.
+We have filed a request under the [Access to Public Information Act](https://www.aip-bg.org/) (ЗДОИ) for these data to be published as a **machine-readable, reusable open dataset**, refreshed **annually** and at **finer income brackets** — rather than extracted one parliamentary answer at a time from locked PDFs (the MoF site blocks automated access). With such a dataset both the body and the tail become fully source-traceable, the tax-free-minimum / progression / МОД uncertainty shrinks further, and — most importantly — any citizen, journalist or analyst could transparently cost a tax proposal. Better data makes for a better public debate.
 
 ## Open source and reproducibility
 
@@ -1020,6 +1035,10 @@ Finally — [open the simulator](/budget/simulator) and build your own scenario.
 
 [^vatgap]: European Commission — _VAT Gap Report 2025_: Bulgaria's VAT gap ≈ €781M, 8.6% of the theoretical liability (VTTL). [taxation-customs.ec.europa.eu](https://taxation-customs.ec.europa.eu/taxation/vat/fight-against-vat-fraud/vat-gap_en).
 
+[^excise]: Revenue by group (fuel ≈ €1.44B, tobacco ≈ €2.15B, alcohol ≈ €177M, total ≈ €3.8B in 2025): Customs Agency — annual chronicle "Bulgarian Customs in 2025". [customs.bg (PDF)](https://customs.bg/wps/wcm/connect/customs.bg28892/2beb244f-3618-4fe8-b3dc-7b46bdc288d8/Mitnicheska_hronika-02-03-04-2025_sait.pdf?MOD=AJPERES). Bulgarian rates and floors: [PwC — Bulgaria, Other taxes](https://taxsummaries.pwc.com/bulgaria/corporate/other-taxes) (petrol €363.02/1000L, diesel €330.29/1000L, spirits €562.43/hl, wine — zero rate; cigarettes — minimum total ≈ €113.51/1000); tobacco — [Directive 2011/64/EU](https://eur-lex.europa.eu/eli/dir/2011/64/oj/eng) (minimum €90/1000 cigarettes and ≥60% of the weighted-average retail price; [EC — tobacco excise](https://taxation-customs.ec.europa.eu/taxation/excise-duties/excise-duties-tobacco_en)); energy products — Directive 2003/96/EC. The per-country comparator rates behind the "like in…" buttons: [Tax Foundation — energy excise in Europe](https://taxfoundation.org/data/all/eu/gas-taxes-europe/) and [cigarette excise in Europe](https://taxfoundation.org/data/all/eu/cigarette-taxes-europe/) (as of 1 January 2026); for alcohol, the [EC Taxes in Europe Database (TEDB)](https://ec.europa.eu/taxation_customs/tedb/) — the authoritative per-state €/hl source (Tax Foundation's alcohol tables lag). The 2009–2010 illicit-market episode (share 17.5% → ≈40%) — University of Bath / Center for the Study of Democracy research.
+
+[^gambling]: Gambling Act art. 30 (the two-component fee on gross gaming revenue) and the Corporate Income Tax Act, Part Five (the alternative tax for gaming machines and casinos); the State Gambling Commission was abolished in July 2020 and its functions absorbed by НАП. The variable fee's rise from 20% to 25% effective 1 January 2026 and the ≈ +€32M estimate from the 5 percentage points: [economic.bg](https://www.economic.bg/bg/a/view/budjet-2026-skacha-danykyt-za-hazartnite-operatori). Gross gaming revenue ≈ 1.4 млрд лв (≈ €716M) in 2025; budget contribution ≈ 392 млн лв in 2024, over 490 млн лв with the alternative tax; 21 casinos, 1,082 halls, 51 online operators: [Focus News](https://www.focus-news.net/novini/Bylgaria/Hazartut-v-Bulgariya-s-prihodi-za-nad-1-miliard-leva-za-2025-godina-2658108). The 2024 changes (land-based betting moved from 15% of turnover to 20% of GGR, equalized with online): [НАП/AGIB](https://agib.bg/bg/nap-s-informacziya-za-promenite-v-zh/). The base is industry/НАП-reported, not a standalone КФП line — hence a lower confidence class than the tax lines above.
+
 [^imf]: Dirk Muir, Anke Weber, _Fiscal Multipliers in Bulgaria: Low But Still Relevant_, IMF Working Paper 13/49, February 2013. [imf.org (PDF)](https://www.imf.org/external/pubs/ft/wp/2013/wp1349.pdf).
 
 [^eti]: J. Gruber, E. Saez, _The elasticity of taxable income: evidence and implications_ (2002); E. Saez, J. Slemrod, S. Giertz, _The Elasticity of Taxable Income with Respect to Marginal Tax Rates: A Critical Review_, Journal of Economic Literature (2012). [PDF](https://eml.berkeley.edu/~saez/saez-slemrod-giertzJEL10final.pdf).
@@ -1030,11 +1049,13 @@ Finally — [open the simulator](/budget/simulator) and build your own scenario.
 
 [^chetty]: R. Chetty, E. Saez, _Dividend Taxes and Corporate Behavior: Evidence from the 2003 Dividend Tax Cut_, Quarterly Journal of Economics 120(3), 2005 — the canonical study of dividend-payout responses to the tax rate. The dividend→salary relabeling share here is derived conservatively, not a direct estimate from the paper.
 
-[^kso]: КСО art. 6(5), referencing art. 4(1) items 2, 3, 4 and 10: contributions for civil servants, magistrates and court staff, the military and the special-law state employees (МВР, ДАНС, ДАР, НСО, prison service) are paid by the state budget, respectively the judiciary's budget; the health contribution via ЗЗО art. 40(1)(1)(а) and the special statutes (ЗДСл art. 38, defense act art. 220, МВР act art. 183, judiciary act art. 224). Headcounts and average insurable income: НОИ, "Среден осигурителен доход" 2024 — the categories "Държавни служители, следователи, съдии и прокурори; членове на избирателни комисии" (64,178 people at 2,581.64 лв) and "Отбрана и сигурност" (68,684 at 2,438.86 лв; НОИ does not split military from МВР). The Fiscal Council estimate is from its October 2025 opinion. [nssi.bg (PDF)](https://nssi.bg/wp-content/uploads/SOD_2024.pdf).
+[^kso]: КСО art. 6(5), referencing art. 4(1) items 2, 3, 4 and 10: contributions for civil servants, magistrates and court staff, the military and the special-law state employees (МВР, ДАНС, ДАР, НСО, prison service) are paid by the state budget, respectively the judiciary's budget; the health contribution via ЗЗО art. 40(1)(1)(а) and the special statutes (ЗДСл art. 38, defense act art. 220, МВР act art. 183, judiciary act art. 224). Headcounts and average insurable income: НОИ, "Среден осигурителен доход" 2024 — the categories "Държавни служители, следователи, съдии и прокурори; членове на избирателни комисии" (64,178 people at 2,581.64 лв) and "Отбрана и сигурност" (68,684 at 2,438.86 лв; НОИ does not split military from МВР). [nssi.bg (PDF)](https://nssi.bg/wp-content/uploads/SOD_2024.pdf).
+
+[^fspers]: Fiscal Council of the Republic of Bulgaria — "Proposals of the Fiscal Council for optimizing personnel costs in the budget sphere" (2026): contributions paid for civil servants including the judiciary, excluding the МВР-act employees, total 385 млн лв; shifting the standard 13.78% employee share onto them yields a fiscal effect of ≈ 200 млн лв (≈ €102M); for police and the military the state covers 73.3% of contributions, hence the "much larger effect" once they are included. [fiscal-council.bg](https://www.fiscal-council.bg/bg/publikacii); coverage: [actualno.com (05.2026)](https://www.actualno.com/finance/namaljavane-na-policaite-i-dyrjavnite-slujiteli-da-plashtat-osigurovki-predlojenija-za-budjeta-ot-fiskalnija-syvet-news_2513248.html). The bill actually tabled (ПП-ДБ, February 2025) is the compensated variant — an employee share phased in over six years and offset by salary indexation (no cut to real income); this matches the simulator's "with compensating salary increase" option, which is fiscally neutral. [offnews.bg](https://offnews.bg/politika/ofitcialno-vneseno-darzhavnite-sluzhiteli-da-zapochnat-da-plashtat-os-868076.html).
 
 [^matwork]: Return-to-work share if the paid second year is cut — a judgment band (central 45%, range 25–65%) anchored to the НСИ employment gap for mothers of children under 3 (low among EU member states) and the КСО чл.54 rule that lets a mother keep half the benefit while working; OECD Family Database for leave-length context. No Bulgarian point estimate exists, hence the wide band. The representative return wage (≈€1,000/mo gross) is held FIXED — deliberately conservative — so the recapture's uncertainty band derives from the return share alone, not the wage. The recapture mechanism (returning mothers pay PIT + contributions) is in `src/lib/bgBehavioral.ts` and locked by `scripts/budget/__smoke_behavioral.ts`.
 
-[^knsb]: КНСБ — opinions on the draft State Budget and the ДОО (social-security) budget for 2026 (November 2025); its 7 October 2025 package isolates an estimate of ≈ +€1.1B for a 15% corporate rate.
+[^knsb]: КНСБ — its 7 October 2025 package of tax-system changes for the 2026 budget, including raising the corporate tax from 10% to 15%: [knsb-bg.org](https://knsb-bg.org/index.php/2025/10/07/knsb-nastoyava-za-promeni-v-danachnata-sistema-s-byudzheta-za-2026-g/); and its [opinion on the draft 2026 State Budget Act](https://knsb-bg.org/index.php/2025/11/13/stanovisthe-po-proekt-na-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2026-g/) (November 2025). The ≈ +€1.1B estimate for a 15% corporate rate is derived from the package.
 
 [^mf2020]: Ministry of Finance — official position on the six reduced-VAT bills, 20 May 2020: −1.5 млрд лв per year for food and medicines (2020 base; all six bills combined −1.8 млрд лв). The VAT base has grown substantially since, so the comparison is scaled. See [Mediapool](https://www.mediapool.bg/mf-ima-risk-dds-da-se-vdigne-na-24-ili-danak-pechalba-na-18-news307589.html).
 
@@ -1042,15 +1063,140 @@ Finally — [open the simulator](/budget/simulator) and build your own scenario.
 
 [^psub2026]: The sponsors' estimate at adoption of the cut (3 June 2026); the subsidy is €3.00 per valid vote since 30 April 2026. See e.g. [eurocom.bg](https://eurocom.bg/2026/06/03/oficialno-deputatite-namaliha-partiynite-subsidii). The model prices a full year; the 8 months of 2026 come to ≈ €2.1M — matching the sponsors' figure.
 
-[^mf]: Ministry of Finance — consolidation menu (April 2023, via Sega); МФ/Mediapool on restaurant-services VAT (2024–25). See e.g. [Mediapool](https://www.mediapool.bg/).
+[^mf]: Ministry of Finance — 2023 consolidation menu to bring the deficit under 3% (excess-profit tax, removal of the reduced VAT rates, excise hikes), as reported by Sega: [segabg.com](https://www.segabg.com/hot/category-economy/mf-predlaga-nov-ednokraten-danuk-za-vsichki-firmi-svruhpechalba). On restaurant-services VAT (2024–25), the Ministry's position that the reduced 9% rate could stay only if a lightening package raised more than returning to 20%: [minfin.bg](https://www.minfin.bg/bg/news/12340).
 
-[^coicop]: Eurostat — household final consumption expenditure by purpose (COICOP), series `nama_10_co3_p3`.
+[^coicop]: Eurostat — household final consumption expenditure by purpose (COICOP), series `nama_10_co3_p3`. [ec.europa.eu/eurostat](https://ec.europa.eu/eurostat/databrowser/view/nama_10_co3_p3/default/table?lang=en).
 
-[^ses]: Eurostat — Structure of Earnings Survey, series `earn_ses_hourly`, 2022 wave.
+[^ses]: Eurostat — Structure of Earnings Survey, series `earn_ses_hourly`, 2022 wave. [ec.europa.eu/eurostat](https://ec.europa.eu/eurostat/databrowser/view/earn_ses_hourly/default/table?lang=en).
 
-[^ecb]: European Central Bank — _Economic Bulletin_ 2/2019, debt-dynamics methodology.
+[^ecb]: European Central Bank — _Economic Bulletin_ 2/2019, "Interest rate-growth differential and government debt dynamics" (debt-dynamics methodology). [ecb.europa.eu](https://www.ecb.europa.eu/press/economic-bulletin/focus/2019/html/ecb.ebbox201902_06~0c96ee6f7c.en.html).
 
 [^naptiers]: НАП/MoF written answer for tax year 2023 — the distribution of declared income across 7 annual-taxable-base groups (filer count and PIT paid). Ingested as a source in `scripts/budget/nap_income_tiers.ts` and the validation is locked by the smoke test `scripts/budget/__smoke_income_tiers.ts`. [minfin.bg/bg/wreply/996-4/12881](https://www.minfin.bg/bg/wreply/996-4/12881).
+
+### The BNB reserve after the euro: can it be spent?
+
+URL (BG): https://electionsbg.com/articles/2026-06-13-bnb-reserve-after-euro  |  URL (EN): https://electionsbg.com/en/articles/2026-06-13-bnb-reserve-after-euro
+Markdown (BG): https://electionsbg.com/articles/2026-06-13-bnb-reserve-after-euro-bg.md
+Markdown (EN): https://electionsbg.com/articles/2026-06-13-bnb-reserve-after-euro-en.md
+Published: 2026-06-13
+Category: data_analysis
+
+**Summary:** A recurring promise: with the euro, Bulgaria "frees up" 20–40 billion leva of reserves it can finally spend. We trace the claim to source — how big the BNB reserve actually is (≈€42bn), what happened to it on 1 January 2026 (a ≈€1.48bn transfer to the ECB in exchange for a non-redeemable claim — an accounting swap, not a release), and why EU law (Art 123 TFEU) and basic accounting mean neither the state nor anyone else gets cash to spend.
+
+---
+keywords:
+  - BNB reserve
+  - Bulgaria currency board
+  - fiscal reserve
+  - euro area accession
+  - Article 30 ESCB Statute
+  - Article 123 TFEU
+  - monetary financing
+  - official reserve assets
+  - Issue Department
+  - excess reserves
+  - can the reserve be spent
+  - Bulgaria gold reserve
+schemaType: NewsArticle
+updatedAt: 2026-06-13
+---
+
+# The BNB reserve after the euro: can it be spent?
+
+For years the same promise has come around, only the wrapping changes: by joining the euro area, Bulgaria "frees up" tens of billions of reserves it can finally spend — on pensions, on defense, on motorways, on whatever is needed. The figure swings between 20 and 40 billion leva depending on who is talking. It sounds logical: if the lev no longer needs foreign-currency backing, why should that reserve stay locked away?
+
+The short answer is: no, nothing is freed up to spend. The BNB reserve is not the state's savings account, and the euro does not turn it into one. What happened on 1 January 2026 is almost entirely an accounting swap of one asset for another — not a release of cash. Below is why, with verified figures and sources anyone can open.
+
+## How big the reserve is — and what it actually is
+
+At 31 December 2024 the balance sheet of the BNB's Issue Department — the accounting expression of the currency board — totaled **BGN 82.25bn, or about €42.06bn**, on both sides.[^ar2024] On the asset side sit the currency and gold that back the lev; on the liability side, the money in circulation and the accounts the board owes.
+
+| Assets                             |       €bn | Liabilities (monetary)          |       €bn |
+| ---------------------------------- | --------: | ------------------------------- | --------: |
+| Cash and foreign-currency deposits |     21.39 | Notes and coins in circulation  |     15.89 |
+| Monetary gold                      |      3.30 | Liabilities to banks            |     13.84 |
+| Investments in securities          |     17.37 | Liabilities to government       |      4.65 |
+|                                    |           | Liabilities to other depositors |      0.77 |
+|                                    |           | **Banking Department deposit**  |  **6.90** |
+| **Total**                          | **42.06** | **Total**                       | **42.06** |
+
+The same sum shows up in the official-reserve-assets statistics: **€42,057.9m** at end-2024 — foreign-currency reserves €36,763.3m, gold €3,296.0m (1.3m fine troy ounces at market price), special drawing rights €1,875.4m and an IMF reserve position €123.2m.[^ar2024] By end-June 2025 gross international reserves had eased to **€40.75bn**.[^h12025]
+
+Here is the first thing the myth skips over. The reserve covers the monetary base with a **surplus** — cover is above 100%. But that surplus is not "spare cash": by the accounting identity it is exactly the **"Banking Department deposit"** line on the balance sheet — BGN 13.49bn / **€6.90bn** at end-2024. That is the BNB's own liability (the net value the bank holds over its Article-28 monetary liabilities — about BGN 68.8bn), not an account parliament can open and spend. Assets = liabilities; the surplus is the bank's, not the treasury's.
+
+## How the currency board worked
+
+The currency board ran from **1 July 1997** and split the BNB structurally into three departments.[^lawbnb] The Issue Department held all foreign-currency assets and was required to maintain **full foreign-exchange cover** of the entire monetary base — that is the point of Article 20 of the Law on the BNB. The Banking Department held the reserve surplus as a crisis "safety valve". The third was Banking Supervision.
+
+The heart of the regime was **Article 28** of the Law on the BNB: the aggregate amount of BNB monetary liabilities may not exceed the lev equivalent of gross foreign-exchange reserves, valued at the fixed rate (Article 29 — originally to the Deutschemark, then **1 EUR = 1.95583 BGN**). That is why the reserve was, by construction, ≥100% of the monetary base, and why the BNB published the Issue Department balance sheet every week as the operational expression of the rule.
+
+Worth noting for anyone writing on this today: **that description is in the past tense.** The Article-28 cover rule applied through 31 December 2025. The euro amendments to the Law on the BNB (passed in 2023) repeal it from 1 January 2026 — Article 28 now governs euro banknotes, and reserves move under new provisions plus the Article 30 mechanism of the ESCB Statute. The currency board has ended; the euro replaced it with membership of the Eurosystem.
+
+## What happened on 1 January 2026
+
+On 1 January 2026 the BNB became part of the **Eurosystem** (Bulgaria is the 21st euro-area member), and its Governor gained a seat on the ECB Governing Council.[^ecbpr] With that came two distinct, legally fixed transfers — both small, both keyed to Bulgaria's share in the capital, **not to the size of the reserve**:
+
+**First, the ECB capital subscription (Art 28–29 ESCB Statute).** The BNB's capital key is **0.9783% = €105.9m**. On joining, the BNB paid up the remaining 96.25% of its subscribed capital — **€101.9m** (it had previously paid just under €4m as a non-euro-area central bank).[^ecbblog]
+
+**Second, the transfer of foreign reserve assets to the ECB (Art 30 ESCB Statute).** The BNB transferred to the ECB reserve assets of exactly **€1,482,514,654.83** — about **€1.48bn**: US-dollar cash worth €1.26bn plus gold worth €0.22bn.[^dec2026115] That is **about 3.6%** of the entire reserve. In exchange, the ECB credited the BNB with a euro-denominated claim of **€485,296,405.74 (≈€485.3m)** — **non-redeemable** and interest-bearing (at 85% of the reference rate).[^dec2026115]
+
+In other words: even the transferred slice does not vanish and does not become spendable — it is **replaced** by a claim on the ECB. The remaining **~96% of the reserve stays on the BNB's own balance sheet** as Eurosystem reserves, which the bank continues to own and manage. The size of the transfer is a statutory formula on the capital share, not a function of how large Bulgaria's reserve is. So the change is, in substance, an **accounting** one — one asset (currency/gold) is swapped for another (a claim on the ECB).
+
+## Why it cannot be spent
+
+Two independent reasons meet here — one accounting, one legal — and either alone is enough.
+
+**The accounting one.** A balance sheet balances: assets = liabilities. The "surplus" the politicians point to is, by definition, a BNB liability (the Banking Department deposit / the net value of the Issue Department), not state money. The state can dispose without limit only of **its own receivables from the BNB** — the balance on the government accounts at the bank, which is already part of the budget anyway. The reserve is not among them.
+
+**The legal one.** EU law independently bars the reserve from becoming a fiscal resource. **Article 123 TFEU** prohibits monetary financing — the central bank cannot fund the government; the BNB confirms this prohibition binds it regardless of euro status. **Article 130 TFEU** guarantees central-bank independence — the National Assembly has no power to order the use of the foreign reserves.[^art123][^bnbqa]
+
+The only lawful channel by which any BNB money reaches the budget at all is the **distribution of the bank's profit** under the Law on the BNB — that is, a share of the annual financial result, **never the principal of the reserve**. That is a real but modest flow, and it is not a "release" of anything.
+
+## The myth vs the reality
+
+The claims that the euro would "free up" 20–40bn leva to spend were made publicly by politicians (among them [Kiril Petkov](/candidate/mp-4837)[^petkov] and [Kostadin Kostadinov](/candidate/mp-5258)[^kostadinov]) and explicitly rebutted by the BNB: all financial and other assets on the BNB's balance sheet, outside the Eurosystem's monetary assets, are its own, and the government cannot dispose of them; the National Assembly "has no power to mandate the use of the foreign reserves".[^mediapool][^bnbqa] The Institute for Market Economics reaches the same conclusion: "purely technically there is nowhere for changes to come from, still less a 'release' of reserves… The change in the BNB's assets will be purely an accounting one."[^ime]
+
+In short: the sources — the BNB, the IME, EU law — are unanimous. The myth collapses.
+
+## One real (but non-fiscal) change
+
+For honesty: one thing does genuinely change beyond pure accounting. With the end of the currency board, the BNB can sharply cut commercial banks' **minimum reserve requirements** (from around 12% toward around 1%), freeing roughly **15–16bn leva of liquidity**.[^mrr] But that money belongs to the **banks** and is deployed at their discretion (into lending, for example) — it is not a fiscal resource and the state cannot spend it. So this effect does not contradict the core answer; it is simply a different pocket.
+
+## What this means for the budget — and the simulator
+
+The takeaway is simple and matters for any budget debate: **the deficit cannot be covered by "spending the reserve"**, because there is nothing to spend. A budget hole is closed only with revenue and spending — higher taxes, a broader base, or cut outlays. That is precisely why, in the [budget simulator](/budget/simulator), the deficit moves only through the tax and spending levers: a "reserve to spend" is simply absent from the equation, because in legal and accounting terms no such thing exists.
+
+The euro brings Bulgaria a great deal — lower currency risk, cheaper financing, a seat at the monetary-policy table. But a "piggy bank with tens of billions to hand out" is not among them. Anyone who promises otherwise has either not read the Issue Department balance sheet, or is counting on you not to.
+
+---
+
+[^ar2024]: BNB — Annual Report 2024: Issue Department balance sheet (section 1.1) and Table 5.14.1 "Official Reserve Assets". The three assets (currency, gold, securities) and the five liability lines (four monetary plus the Banking Department deposit BGN 13,488,631 thousand) sum exactly to BGN 82,254,641 thousand ÷ 1.95583 = €42.06bn. [bnb.bg (PDF)](https://www.bnb.bg/bnbweb/groups/public/documents/bnb_publication/anual_report_2024_a1_pdf_en.pdf).
+
+[^idbalance]: BNB — weekly and monthly Issue Department balance sheet (statistics). [bnb.bg](https://www.bnb.bg/Statistics/StBNBBalances/StBalancesIssueDepartment/StBIDWeekly/index.htm).
+
+[^h12025]: BNB — first-half 2025 report: gross international reserves were €40.75bn at end-June 2025 (down €1.30bn / 3.1% on end-2024), and "consist of the assets recorded on the Issue Department's balance sheet". Reproduced by [BTA](https://www.bta.bg/en/news/economy/1020904-bulgarian-national-bank-s-international-currency-reserves-total-eur-40-7-bln-at-).
+
+[^lawbnb]: Law on the BNB — Art 19 (three departments), Art 20(1) (Issue Department function: maintain full foreign-exchange cover of monetary liabilities), Art 28(1) (monetary liabilities may not exceed the lev equivalent of gross foreign-exchange reserves) and Art 29 (fixed rate). The Article-28 cover text governed the board through 31 December 2025; the euro amendments to the law (2023) repeal it from 1 January 2026. [lex.bg](https://lex.bg/laws/ldoc/2134412800).
+
+[^ecbpr]: ECB — press release of 1 January 2026: the BNB "becomes part of the Eurosystem", the Governor "gains a seat on the Governing Council", bringing euro-area members to 21. [ecb.europa.eu](https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.pr260101~c830245e42.en.html).
+
+[^ecbblog]: ECB — blog, 6 February 2026: BNB capital key 0.9783% = €105.9m; remaining 96.25% paid = €101.9m; ~€4m paid previously. [ecb.europa.eu](https://www.ecb.europa.eu/press/blog/date/2026/html/ecb.blog20260206~9124ac61e7.en.html).
+
+[^dec2026115]: Decision (EU) 2026/115 of the ECB of 31 December 2025 (ECB/2025/44): Art 3 — transferred reserve assets: US-dollar cash €1,260,137,456.61 + gold €222,377,198.22 = €1,482,514,654.83; Art 4 — claim on the ECB €485,296,405.74, non-redeemable (Art 4(4)), remunerated at 85% of the reference rate (Art 4(2)). [EUR-Lex](https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L_202600115).
+
+[^art123]: Treaty on the Functioning of the European Union — Art 123 (prohibition on monetary financing of governments by the central bank) and Art 130 (independence of central banks from instructions by governments and institutions). [EUR-Lex](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:12012E/TXT).
+
+[^bnbqa]: BNB — questions and answers on euro-area accession: the BNB's assets outside the Eurosystem's monetary assets are its own and the government cannot dispose of them; Art 123 TFEU binds the BNB regardless of the euro. [bnb.bg](https://www.bnb.bg/AboutUs/AUEurosystem/AUAccessionToTheEuroArea/AUAEFIQuestionsAndAnswers/POAEFI_QUESTIONSANDANSWERS6_BG).
+
+[^ime]: Institute for Market Economics (IME) — "Joining the euro area will not free up Bulgaria's reserves": the transfer of part of the foreign reserves to the ECB creates a new receivable on the bank's asset side, and "the change in the BNB's assets will be purely an accounting one". [ime.bg](https://ime.bg/articles/vlizane-v-evrozonata-nyama-da-osvobodi-rezervite-na-bylgariya/).
+
+[^mediapool]: Mediapool, 17 May 2025 — "The BNB's BGN 80bn reserve will not be spendable after euro-area accession": BNB officials rebut politicians' claims that 20–40bn leva would become available to spend. [mediapool.bg](https://www.mediapool.bg/rezervat-na-bnb-ot-80-mlrd-lv-nyama-da-mozhe-da-se-harchi-sled-vlizaneto-v-evrozonata-news371301.html). See also [BNR](https://www.bnr.bg/post/101728134/valutnite-rezervi-ne-mogat-da-se-polzvat-za-pravitelstveni-politiki-sled-vlizaneto-v-evrozonata) and [economic.bg](https://www.economic.bg/bg/a/view/kakvo-shte-stane-s-rezervite-na-bnb-sled-vlizaneto-v-evrozonata).
+
+[^mrr]: investor.bg — banks' minimum reserve requirements fall by about 15bn leva after euro-area accession. This is banks' liquidity, not the state's. [investor.bg](https://www.investor.bg/a/539-banki-i-zastrahovateli/409284-zadalzhitelnite-minimalni-rezervi-na-bankite-shte-spadnat-s-15-mlrd-leva-sled-vlizane-v-evrozonata).
+
+[^petkov]: Kiril Petkov (then co-leader of ПП–ДБ): "20 billion is freed up for us, which can either remain as BNB capital or be used to repay the state's external loan" (Bulgarian: „Освобождават ни се 20 милиарда…"). Quoted in [Mediapool, 17 May 2025](https://www.mediapool.bg/rezervat-na-bnb-ot-80-mlrd-lv-nyama-da-mozhe-da-se-harchi-sled-vlizaneto-v-evrozonata-news371301.html) (Stefan Antonov's review).
+
+[^kostadinov]: Kostadin Kostadinov (Vazrazhdane / „Възраждане“) — that "the fall of the currency board frees 74bn leva for the government to spend" without a parliamentary vote, which he called "a colossal theft". See [BTA, 8 February 2025](https://www.bta.bg/bg/news/bulgaria/oficial-messages/829963-kostadinov-padaneto-na-valutniya-bord-osvobozhdava-74-mlrd-lv-za-harchene-ot-p); an earlier ≈40bn framing in [Mediapool, 17 May 2025](https://www.mediapool.bg/rezervat-na-bnb-ot-80-mlrd-lv-nyama-da-mozhe-da-se-harchi-sled-vlizaneto-v-evrozonata-news371301.html).
 
 ### Local councils and capital programmes — what we ingest and what's missing
 
