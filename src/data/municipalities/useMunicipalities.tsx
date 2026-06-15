@@ -9,10 +9,13 @@ const queryFn = async (): Promise<MunicipalityInfo[]> => {
   return data;
 };
 
-export const useMunicipalities = () => {
+// `enabled` mirrors useSettlementsInfo: defer the municipalities.json fetch
+// until needed. Defaults true so existing always-need-it callers are unchanged.
+export const useMunicipalities = (enabled = true) => {
   const { data: municipalities } = useQuery({
     queryKey: ["municipalities"],
     queryFn: queryFn,
+    enabled,
   });
   const findMunicipality = useCallback(
     (m?: string | null) => {

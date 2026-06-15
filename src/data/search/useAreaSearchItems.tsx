@@ -21,9 +21,13 @@ import type { SearchIndexType } from "./useSearchItems";
 // from settlements + municipalities (both already loaded app-wide for
 // breadcrumbs) + regions (bundled JSON) — zero extra network for the pages
 // that already use them.
-export const useAreaSearchItems = () => {
-  const { settlements } = useSettlementsInfo();
-  const { municipalities } = useMunicipalities();
+// `enabled` defers the settlements/municipalities fetch until the search is
+// actually usable (the header crosshair passes its popover-open flag so the
+// index — and its ~980 KB of source data — only loads when the user opens it).
+// Defaults true so the MyAreaEntryScreen autocomplete loads immediately.
+export const useAreaSearchItems = (enabled = true) => {
+  const { settlements } = useSettlementsInfo(enabled);
+  const { municipalities } = useMunicipalities(enabled);
   const { regions } = useRegions();
 
   const fuse = useMemo(() => {

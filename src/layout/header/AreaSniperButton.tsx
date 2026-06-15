@@ -51,12 +51,19 @@ export const AreaSniperButton: FC = () => {
   const navigate = useNavigate();
   const anchor = useAreaAnchor();
   const setAnchor = useSetAreaAnchor();
-  const { search } = useAreaSearchItems();
-  const nearest = useNearestSettlement();
-  const { findSettlement } = useSettlementsInfo();
-  const { findMunicipality } = useMunicipalities();
-
   const [open, setOpen] = useState(false);
+  // The crosshair lives in the header on every page, but its settlements +
+  // municipalities data (~980 KB) is only needed once the popover is open
+  // (search, "use my location", and the anchored-name view all live inside
+  // PopoverContent, which Radix only mounts when open). Gate every data hook
+  // on `open` so non-place pages — e.g. /budget/simulator — never pull this
+  // payload just to render an idle icon. The anchored pill (AreaPill) handles
+  // showing the active area name in the header on its own.
+  const { search } = useAreaSearchItems(open);
+  const nearest = useNearestSettlement(open);
+  const { findSettlement } = useSettlementsInfo(open);
+  const { findMunicipality } = useMunicipalities(open);
+
   const [query, setQuery] = useState("");
   const [geo, setGeo] = useState<GeoState>({ kind: "idle" });
   const [ambiguous, setAmbiguous] = useState<{

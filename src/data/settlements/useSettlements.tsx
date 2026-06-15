@@ -9,10 +9,15 @@ const queryFn = async (): Promise<SettlementInfo[]> => {
   return data;
 };
 
-export const useSettlementsInfo = () => {
+// `enabled` lets callers defer the ~940 KB settlements.json fetch until the
+// data is actually needed (e.g. the global header only needs it once the
+// area popover opens or an anchor is set). Defaults true so the dozens of
+// place-detail callers that always need it are unchanged.
+export const useSettlementsInfo = (enabled = true) => {
   const { data: settlements } = useQuery({
     queryKey: ["settlements"],
     queryFn: queryFn,
+    enabled,
   });
 
   const findSettlement = useCallback(

@@ -91,8 +91,11 @@ type Options = {
 const isDiasporaEntry = (oblast: string | undefined): boolean =>
   oblast === "32";
 
-export const useNearestSettlement = () => {
-  const { settlements } = useSettlementsInfo();
+// `enabled` defers the settlements.json fetch this hook relies on until the
+// "use my location" affordance is actually reachable (the header passes the
+// popover-open flag). Defaults true to preserve other callers.
+export const useNearestSettlement = (enabled = true) => {
+  const { settlements } = useSettlementsInfo(enabled);
 
   return useCallback(
     (lat: number, lon: number, opts: Options = {}): NearestResult => {

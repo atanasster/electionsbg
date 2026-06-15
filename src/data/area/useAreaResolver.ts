@@ -66,8 +66,12 @@ const SOFIA_CITY_MUNICIPALITY: MunicipalityInfo = {
 const isSofiaCityId = (id: string): boolean => id === "SOF00" || id === "SOF";
 
 export const useAreaResolver = (id?: string | null): ResolvedArea | null => {
-  const { findSettlement, settlements } = useSettlementsInfo();
-  const { findMunicipality, municipalities } = useMunicipalities();
+  // No id (e.g. AreaPill with no active anchor) → nothing to resolve, so skip
+  // the settlements/municipalities fetches entirely. This keeps the always-
+  // mounted pill from pulling ~980 KB on pages with no area anchor.
+  const enabled = !!id;
+  const { findSettlement, settlements } = useSettlementsInfo(enabled);
+  const { findMunicipality, municipalities } = useMunicipalities(enabled);
 
   return useMemo(() => {
     if (!id) return null;
