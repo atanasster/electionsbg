@@ -60,8 +60,13 @@ const DATASETS: { code: string; query: string }[] = [
   { code: "ilc_di12", query: "geo=BG&statinfo=GINI_HND&age=TOTAL" },
   // Phase 4 addendum.
   {
+    // At-risk-of-poverty rate (60% of median). Eurostat restructured this
+    // dataset on 2026-06-10: the old `indic_il=LI_R_MD60` dimension was
+    // dropped in favour of `rskpovth` (threshold band: B_60 = below 60% of
+    // median) + `statinfo` (MED_EI = median equivalised-income basis).
     code: "ilc_li02",
-    query: "geo=BG&indic_il=LI_R_MD60&sex=T&age=TOTAL&unit=PC",
+    query:
+      "geo=BG&rskpovth=B_60&statinfo=MED_EI&sex=T&age=TOTAL&unit=PC&freq=A",
   },
   // EU peer-comparison dashboard (/indicators/compare) — three SILC tables
   // and demographic life expectancy. All pulled per-peer by

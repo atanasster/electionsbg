@@ -616,11 +616,15 @@ const EUROSTAT_INDICATORS: EurostatIndicator[] = [
     source: "eurostat",
     key: "povertyRate",
     dataset: "ilc_li02",
-    // LI_R_MD60 is the standard at-risk-of-poverty rate: % of population
-    // with disposable income below 60% of the national median.
+    // Standard at-risk-of-poverty rate: % of population with disposable
+    // income below 60% of the national median. Eurostat restructured this
+    // dataset on 2026-06-10, dropping `indic_il=LI_R_MD60` in favour of
+    // `rskpovth=B_60` (below 60% threshold band) + `statinfo=MED_EI`
+    // (median equivalised-income basis).
     query: {
       geo: "BG",
-      indic_il: "LI_R_MD60",
+      rskpovth: "B_60",
+      statinfo: "MED_EI",
       sex: "T",
       age: "TOTAL",
       unit: "PC",
