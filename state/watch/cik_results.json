@@ -1,8 +1,8 @@
 {
-  "detail": "0/2 regular bundle(s) reachable · 13 partial cycle(s) tracked",
-  "fingerprint": "ea6489b98814a57e",
-  "lastChanged": "2026-06-01T06:08:53.153Z",
-  "lastChecked": "2026-06-15T06:39:34.039Z",
+  "detail": "0/2 regular bundle(s) reachable · 14 partial cycle(s) tracked",
+  "fingerprint": "6a47971e411ba466",
+  "lastChanged": "2026-06-16T07:08:32.388Z",
+  "lastChecked": "2026-06-16T07:08:32.388Z",
   "meta": {
     "cycles": [
       {
@@ -154,8 +154,18 @@
         "status": 200,
         "runoffTracked": false,
         "runoffStage": 0
+      },
+      {
+        "cycle": "chmi2024-2026/2026-06-14_chastichen",
+        "kind": "partial",
+        "bundleUrl": "",
+        "lastModified": null,
+        "contentLength": null,
+        "status": 200,
+        "runoffTracked": true,
+        "runoffStage": 0
       }
     ],
-    "discoveredAt": "2026-06-15T06:41:58.217Z"
+    "discoveredAt": "2026-06-16T07:13:21.876Z"
   }
 }
