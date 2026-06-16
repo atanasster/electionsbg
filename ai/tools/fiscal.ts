@@ -479,3 +479,493 @@ export const fundsOverview = async (
     provenance: ["funds/index.json"],
   };
 };
+
+// ---- top procurement contractors --------------------------------------------
+// The per-contractor drill-down behind procurementTotals' headline: who wins the
+// most public money, with the MP-tied flag carried through from the cross-ref.
+
+type ContractorEntry = {
+  eik: string;
+  name: string;
+  totalEur: number;
+  contractCount: number;
+  mpTied?: boolean;
+};
+
+export const topContractors = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const d = await fetchData<{ entries: ContractorEntry[] }>(
+    "/procurement/derived/top_contractors.json",
+  );
+  const n = Math.min(Math.max(Number(args.count) || 12, 1), 25);
+  const top = [...d.entries]
+    .sort((a, b) => b.totalEur - a.totalEur)
+    .slice(0, n);
+  const mpTied = top.filter((e) => e.mpTied).length;
+  const rows: Row[] = top.map((e) => ({
+    contractor: e.name,
+    amount: fmtEurCompact(e.totalEur, ctx.lang),
+    contracts: e.contractCount,
+    mp: e.mpTied ? (bg ? "да" : "yes") : "—",
+  }));
+  return {
+    tool: "topContractors",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? "Най-големи изпълнители по обществени поръчки (АОП)"
+      : "Largest public-procurement contractors (AOP)",
+    subtitle: bg
+      ? "По обща стойност на договорите; „Депутат“ = свързан със заседаващ депутат"
+      : "By total contract value; “MP-tied” = linked to a sitting MP",
+    columns: [
+      { key: "contractor", label: bg ? "Изпълнител" : "Contractor" },
+      { key: "amount", label: bg ? "Стойност" : "Value", numeric: true },
+      {
+        key: "contracts",
+        label: bg ? "Договори" : "Contracts",
+        numeric: true,
+        format: "int",
+      },
+      { key: "mp", label: bg ? "Депутат" : "MP-tied" },
+    ],
+    rows,
+    viz: "none",
+    facts: {
+      top_contractor: top[0]?.name ?? "—",
+      top_value: top[0] ? fmtEurCompact(top[0].totalEur, ctx.lang) : "—",
+      mp_tied_in_top: mpTied,
+    },
+    provenance: ["procurement/derived/top_contractors.json"],
+  };
+};
+
+// ---- procurement to MP-connected companies (+ per-MP trend) -----------------
+// The journalism payload: contracts going to firms a sitting MP owns or manages.
+// A named MP returns a per-year value trend; otherwise the biggest MP↔contractor
+// relationships across the chamber.
+
+type MpProcYear = { year: string; totalEur: number };
+type MpProcEntry = {
+  mpId: number;
+  mpName: string;
+  contractorName: string;
+  totalEur: number;
+  contractCount: number;
+  byYear?: MpProcYear[];
+};
+
+export const mpProcurement = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const d = await fetchData<{ entries: MpProcEntry[] }>(
+    "/procurement/derived/mp_connected.json",
+  );
+  const who = String(args.person ?? "")
+    .trim()
+    .toLowerCase();
+  if (who) {
+    const mine = d.entries.filter((e) => e.mpName.toLowerCase().includes(who));
+    const byYear = new Map<string, number>();
+    for (const e of mine)
+      for (const y of e.byYear ?? [])
+        byYear.set(y.year, (byYear.get(y.year) ?? 0) + y.totalEur);
+    const years = [...byYear.keys()].sort();
+    if (mine.length && years.length > 1) {
+      const total = mine.reduce((s, e) => s + e.totalEur, 0);
+      return {
+        tool: "mpProcurement",
+        domain: "fiscal",
+        kind: "series",
+        title: bg
+          ? `Поръчки към фирми, свързани с ${mine[0].mpName}`
+          : `Procurement to firms tied to ${mine[0].mpName}`,
+        subtitle: bg
+          ? "По година (стойност на договорите)"
+          : "By year (contract value)",
+        categories: years,
+        series: [
+          {
+            key: "value",
+            label: bg ? "Стойност (€)" : "Value (€)",
+            points: years.map((y) => ({
+              x: y,
+              y: Math.round(byYear.get(y) ?? 0),
+            })),
+          },
+        ],
+        viz: "line",
+        facts: {
+          mp: mine[0].mpName,
+          companies: mine.length,
+          total_value: fmtEurCompact(total, ctx.lang),
+          years: years.length,
+        },
+        provenance: ["procurement/derived/mp_connected.json"],
+      };
+    }
+    // named MP not found / single year -> fall through to the chamber ranking
+  }
+  const top = [...d.entries]
+    .sort((a, b) => b.totalEur - a.totalEur)
+    .slice(0, 12);
+  const rows: Row[] = top.map((e) => ({
+    mp: e.mpName,
+    contractor: e.contractorName,
+    amount: fmtEurCompact(e.totalEur, ctx.lang),
+    contracts: e.contractCount,
+  }));
+  return {
+    tool: "mpProcurement",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? "Поръчки към фирми, свързани с депутати (АОП)"
+      : "Procurement to MP-connected companies (AOP)",
+    subtitle: bg
+      ? "Договори към фирми, в които заседаващ депутат има дял или ръководна роля"
+      : "Contracts to firms where a sitting MP holds a stake or management role",
+    columns: [
+      { key: "mp", label: bg ? "Депутат" : "MP" },
+      { key: "contractor", label: bg ? "Изпълнител" : "Contractor" },
+      { key: "amount", label: bg ? "Стойност" : "Value", numeric: true },
+      {
+        key: "contracts",
+        label: bg ? "Договори" : "Contracts",
+        numeric: true,
+        format: "int",
+      },
+    ],
+    rows,
+    viz: "none",
+    facts: {
+      top_mp: top[0]?.mpName ?? "—",
+      top_contractor: top[0]?.contractorName ?? "—",
+      top_value: top[0] ? fmtEurCompact(top[0].totalEur, ctx.lang) : "—",
+    },
+    provenance: ["procurement/derived/mp_connected.json"],
+  };
+};
+
+// ---- revenue breakdown (where the tax money comes from) ---------------------
+// Itemises the revenue side from the non-KFP sources: customs-collected (excise
+// by product + import VAT + duties; Митническа хроника), domestic VAT by sector
+// (НАП), or PIT by income type (НАП). category arg picks the slice.
+
+type RevLine = {
+  id: string;
+  labelBg: string;
+  labelEn: string;
+  amountEur: number;
+  parent: string | null;
+  share?: number;
+};
+type VatSector = { labelBg: string; labelEn: string; declaredNetEur: number };
+
+const fetchFirstYear = async <T>(paths: string[]): Promise<T | null> => {
+  for (const p of paths) {
+    try {
+      return await fetchData<T>(p);
+    } catch {
+      /* try the next year */
+    }
+  }
+  return null;
+};
+
+export const revenueBreakdown = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const lbl = (l: { labelBg: string; labelEn: string }) =>
+    bg ? l.labelBg : l.labelEn;
+  const q = `${args.category ?? ""} ${args.metric ?? ""}`.toLowerCase();
+  const yr = args.year ? String(args.year) : "";
+  const cand = (base: string): string[] =>
+    (yr ? [yr] : [])
+      .concat(["2026", "2025", "2024", "2023", "2022"])
+      .map((y) => `/budget/revenue_breakdown/${base}/${y}.json`);
+
+  // domestic VAT by economic sector (НАП)
+  if (/ддс|vat/.test(q) && !/внос|import/.test(q)) {
+    const d = await fetchFirstYear<{
+      fiscalYear: number;
+      sectors: VatSector[];
+      declaredNetEur: number;
+    }>(cand("vat"));
+    if (d) {
+      const top = [...d.sectors]
+        .sort((a, b) => b.declaredNetEur - a.declaredNetEur)
+        .slice(0, 10);
+      return {
+        tool: "revenueBreakdown",
+        domain: "fiscal",
+        kind: "table",
+        title: bg
+          ? `Деклариран нетен ДДС по сектор (${d.fiscalYear})`
+          : `Declared net VAT by sector (${d.fiscalYear})`,
+        subtitle: bg ? "Източник: НАП" : "Source: NRA",
+        columns: [
+          { key: "sector", label: bg ? "Сектор" : "Sector" },
+          { key: "net", label: bg ? "Нетен ДДС" : "Net VAT", numeric: true },
+        ],
+        rows: top.map((s) => ({
+          sector: lbl(s),
+          net: fmtEurCompact(s.declaredNetEur, ctx.lang),
+        })),
+        viz: "none",
+        facts: {
+          year: d.fiscalYear,
+          total_net: fmtEurCompact(d.declaredNetEur, ctx.lang),
+          top_sector: top[0] ? lbl(top[0]) : "—",
+        },
+        provenance: [`budget/revenue_breakdown/vat/${d.fiscalYear}.json`],
+      };
+    }
+  }
+
+  // personal income tax by income type (НАП)
+  if (/ддфл|подоходен|данък.*доход|income tax|\bpit\b/.test(q)) {
+    const d = await fetchFirstYear<{
+      fiscalYear: number;
+      lines: RevLine[];
+      totalEur: number;
+    }>(cand("pit"));
+    if (d) {
+      const top = d.lines
+        .filter((l) => l.parent === null)
+        .sort((a, b) => b.amountEur - a.amountEur);
+      return {
+        tool: "revenueBreakdown",
+        domain: "fiscal",
+        kind: "table",
+        title: bg
+          ? `ДДФЛ по вид доход (${d.fiscalYear})`
+          : `Personal income tax by income type (${d.fiscalYear})`,
+        subtitle: bg ? "Източник: НАП" : "Source: NRA",
+        columns: [
+          { key: "type", label: bg ? "Вид доход" : "Income type" },
+          { key: "amount", label: bg ? "Сума" : "Amount", numeric: true },
+        ],
+        rows: top.map((l) => ({
+          type: lbl(l),
+          amount: fmtEurCompact(l.amountEur, ctx.lang),
+        })),
+        viz: "none",
+        facts: {
+          year: d.fiscalYear,
+          total: fmtEurCompact(d.totalEur, ctx.lang),
+          top_type: top[0] ? lbl(top[0]) : "—",
+        },
+        provenance: [`budget/revenue_breakdown/pit/${d.fiscalYear}.json`],
+      };
+    }
+  }
+
+  // default: customs-collected revenue (excise + import VAT + duties)
+  const d = await fetchFirstYear<{ fiscalYear: number; lines: RevLine[] }>(
+    cand("customs"),
+  );
+  if (!d) {
+    return {
+      tool: "revenueBreakdown",
+      domain: "fiscal",
+      kind: "scalar",
+      title: bg ? "Няма данни за приходите" : "No revenue-breakdown data",
+      viz: "none",
+      facts: {},
+      provenance: ["budget/revenue_breakdown/"],
+    };
+  }
+  const want = new Set([
+    "excise_total",
+    "excise_fuels",
+    "excise_tobacco",
+    "excise_alcohol",
+    "import_vat_total",
+    "customs_duties_total",
+  ]);
+  const lines = d.lines.filter((l) => want.has(l.id));
+  const excise = d.lines.find((l) => l.id === "excise_total");
+  return {
+    tool: "revenueBreakdown",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? `Митнически приходи — структура (${d.fiscalYear})`
+      : `Customs-collected revenue — breakdown (${d.fiscalYear})`,
+    subtitle: bg
+      ? "Акциз, ДДС при внос и мита (Митническа хроника)"
+      : "Excise, import VAT and customs duties (Customs Chronicle)",
+    columns: [
+      { key: "line", label: bg ? "Перо" : "Item" },
+      { key: "amount", label: bg ? "Сума" : "Amount", numeric: true },
+      { key: "share", label: "%", numeric: true, format: "pct" },
+    ],
+    rows: lines.map((l) => ({
+      line: lbl(l),
+      amount: fmtEurCompact(l.amountEur, ctx.lang),
+      share: l.share != null ? round2(l.share * 100) : 0,
+    })),
+    viz: "none",
+    facts: {
+      year: d.fiscalYear,
+      excise: excise ? fmtEurCompact(excise.amountEur, ctx.lang) : "—",
+      import_vat: (() => {
+        const v = d.lines.find((l) => l.id === "import_vat_total");
+        return v ? fmtEurCompact(v.amountEur, ctx.lang) : "—";
+      })(),
+    },
+    provenance: [`budget/revenue_breakdown/customs/${d.fiscalYear}.json`],
+  };
+};
+
+// ---- EU-funds project register (contract grain) -----------------------------
+// fundsOverview reads the beneficiary rollup; this reads funds/projects/ — the
+// ~81k-contract register with absorption (paid/contracted) + top programmes.
+
+type FundsProgram = {
+  programName: string;
+  rollup: { totalEur: number; paidEur: number; contractCount: number };
+};
+type FundsProjIndex = {
+  totals: {
+    contractCount: number;
+    beneficiaryCount: number;
+    totalEur: number;
+    paidEur: number;
+  };
+  byProgram: FundsProgram[];
+};
+
+export const fundsProjects = async (
+  _args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const d = await fetchData<FundsProjIndex>("/funds/projects/index.json");
+  const top = [...d.byProgram]
+    .sort((a, b) => b.rollup.totalEur - a.rollup.totalEur)
+    .slice(0, 8);
+  const pct = (paid: number, tot: number) =>
+    tot > 0 ? Math.round((100 * paid) / tot) : 0;
+  return {
+    tool: "fundsProjects",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? "Европейски средства — проекти по програма (ИСУН)"
+      : "EU funds — projects by programme (ISUN)",
+    subtitle: bg
+      ? "Договорено и реално изплатено (усвояване)"
+      : "Contracted vs actually paid (absorption)",
+    columns: [
+      { key: "program", label: bg ? "Програма" : "Programme" },
+      {
+        key: "contracted",
+        label: bg ? "Договорено" : "Contracted",
+        numeric: true,
+      },
+      { key: "absorbed", label: bg ? "Усвоено" : "Absorbed", numeric: true },
+    ],
+    rows: top.map((p) => ({
+      program: p.programName,
+      contracted: fmtEurCompact(p.rollup.totalEur, ctx.lang),
+      absorbed: `${pct(p.rollup.paidEur, p.rollup.totalEur)}%`,
+    })),
+    viz: "none",
+    facts: {
+      contracts: fmtInt(d.totals.contractCount, ctx.lang),
+      beneficiaries: fmtInt(d.totals.beneficiaryCount, ctx.lang),
+      contracted: fmtEurCompact(d.totals.totalEur, ctx.lang),
+      paid: fmtEurCompact(d.totals.paidEur, ctx.lang),
+      absorbed: `${pct(d.totals.paidEur, d.totals.totalEur)}%`,
+      top_programme: top[0]?.programName ?? "—",
+    },
+    provenance: ["funds/projects/index.json"],
+  };
+};
+
+// ---- state -> municipality transfers (Art. 53 of the State Budget Law) ------
+
+type TransferCat = { amountEur: number };
+type TransferTotals = {
+  fiscalYear: number;
+  totals: Record<string, TransferCat>;
+};
+type TransfersIndex = {
+  years: {
+    fiscalYear: number;
+    grandTotalEur: number;
+    municipalityCount: number;
+  }[];
+};
+const TRANSFER_LABEL: Record<string, { bg: string; en: string }> = {
+  delegated: {
+    bg: "Делегирани държавни дейности",
+    en: "Delegated state activities",
+  },
+  equalization: { bg: "Изравнителна субсидия", en: "Equalization subsidy" },
+  capital: { bg: "Целева капиталова субсидия", en: "Capital subsidy" },
+  winter: { bg: "Зимно поддържане на пътища", en: "Winter road maintenance" },
+  otherTargeted: {
+    bg: "Други целеви трансфери",
+    en: "Other targeted transfers",
+  },
+};
+
+export const municipalTransfers = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const idx = await fetchData<TransfersIndex>(
+    "/budget/municipal_transfers/index.json",
+  );
+  const years = idx.years.map((y) => y.fiscalYear).sort((a, b) => a - b);
+  const reqd = args.year ? Number(args.year) : NaN;
+  const year = years.includes(reqd) ? reqd : years[years.length - 1];
+  const meta = idx.years.find((y) => y.fiscalYear === year);
+  const t = await fetchData<TransferTotals>(
+    `/budget/municipal_transfers/${year}/totals.json`,
+  );
+  const rows0 = Object.entries(t.totals)
+    .map(([k, v]) => ({
+      label: (TRANSFER_LABEL[k] ?? { bg: k, en: k })[ctx.lang],
+      v: v.amountEur,
+    }))
+    .sort((a, b) => b.v - a.v);
+  return {
+    tool: "municipalTransfers",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? `Трансфери държава → общини (${year})`
+      : `State → municipality transfers (${year})`,
+    subtitle: bg
+      ? "По вид трансфер (Чл. 53 ЗДБРБ)"
+      : "By transfer type (Art. 53 of the State Budget Law)",
+    columns: [
+      { key: "category", label: bg ? "Вид" : "Type" },
+      { key: "amount", label: bg ? "Сума" : "Amount", numeric: true },
+    ],
+    rows: rows0.map((r) => ({
+      category: r.label,
+      amount: fmtEurCompact(r.v, ctx.lang),
+    })),
+    viz: "none",
+    facts: {
+      year,
+      total: meta ? fmtEurCompact(meta.grandTotalEur, ctx.lang) : "—",
+      municipalities: meta?.municipalityCount ?? 265,
+      biggest: rows0[0]?.label ?? "—",
+    },
+    provenance: [`budget/municipal_transfers/${year}/totals.json`],
+  };
+};

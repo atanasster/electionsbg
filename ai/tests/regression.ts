@@ -2540,6 +2540,58 @@ const CASES: Case[] = [
     tool: "localMunicipality",
     geo: false,
   },
+  // ---- people/fiscal drill-downs (donors, connections, contractors) ---------
+  {
+    q: "Колко дарения получи ГЕРБ?",
+    tool: "partyFinance",
+    facts: { total_income: /€/ },
+  },
+  {
+    q: "Какви политически връзки има фирмата с ЕИК 831646048?",
+    tool: "companyConnections",
+    facts: { eik: /831646048/ },
+  },
+  {
+    q: "Кои са най-големите изпълнители по обществени поръчки?",
+    tool: "topContractors",
+    kind: "table",
+    minRows: 5,
+  },
+  {
+    q: "Поръчки към фирми, свързани с депутати",
+    tool: "mpProcurement",
+    kind: "table",
+    minRows: 5,
+  },
+  // ---- gap-fill: EU peers, revenue breakdown, EU-funds projects, transfers,
+  // local vote flows ---------------------------------------------------------
+  {
+    q: "Как е инфлацията в България спрямо ЕС?",
+    tool: "euComparison",
+    facts: { indicator: /Инфлация|Inflation/ },
+  },
+  {
+    q: "Откъде идват приходите от акцизи — структура?",
+    tool: "revenueBreakdown",
+    kind: "table",
+    minRows: 3,
+  },
+  {
+    q: "Колко европейски средства са усвоени по програма?",
+    tool: "fundsProjects",
+    facts: { absorbed: /%/ },
+  },
+  {
+    q: "Държавни трансфери към общините по вид",
+    tool: "municipalTransfers",
+    facts: { total: /€/ },
+  },
+  {
+    q: "Накъде се преляха гласовете на местните избори?",
+    tool: "localVoteFlows",
+    kind: "table",
+    minRows: 3,
+  },
 ];
 
 // Raw-arg cases: the LLM router emits {tool, args} directly and can't know the

@@ -7,6 +7,7 @@ import {
   localCycleYear,
   resolveLocalCycle,
 } from "./localDataset";
+import { fetchData } from "./dataClient";
 import { fmtInt, fmtPct } from "./format";
 import { findOblastInText, resolveMunicipality, resolveOblast } from "./place";
 import { muniChoropleth, muniLocator } from "./geo";
@@ -589,5 +590,106 @@ export const localMunicipality = async (
       turnout: fmtPct(turnout, ctx.lang),
     },
     provenance: [`${cycle}/municipalities/${place.obshtina}.json`],
+  };
+};
+
+// ---- local-council vote transitions between cycles --------------------------
+// The local analogue of voteTransitions — reads transitions_local/{pair}/
+// national.json (Goodman ecological-regression estimate of where each party's
+// council votes moved between consecutive local cycles).
+
+type FlowNode = { id: string; label: string; labelEn?: string };
+type FlowEdge = { from: string; to: string; votes: number };
+type LocalTransition = {
+  matrix: { fromNodes: FlowNode[]; toNodes: FlowNode[]; flows: FlowEdge[] };
+};
+
+export const localVoteFlows = async (
+  _args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const idx = await fetchData<{ pairs: { from: string; to: string }[] }>(
+    "/transitions_local/index.json",
+  );
+  const pair = (idx.pairs ?? [])[0]; // index lists newest-first
+  if (!pair) {
+    return {
+      tool: "localVoteFlows",
+      domain: "local",
+      kind: "scalar",
+      title: bg
+        ? "Няма данни за преливане при местни избори"
+        : "No local-election transition data",
+      viz: "none",
+      facts: {},
+      provenance: ["transitions_local/"],
+    };
+  }
+  const slug = `${pair.from}_${pair.to}`;
+  let t: LocalTransition;
+  try {
+    t = await fetchData<LocalTransition>(
+      `/transitions_local/${slug}/national.json`,
+    );
+  } catch {
+    return {
+      tool: "localVoteFlows",
+      domain: "local",
+      kind: "scalar",
+      title: bg
+        ? "Няма данни за преливане при местни избори"
+        : "No local-election transition data",
+      viz: "none",
+      facts: {},
+      provenance: [`transitions_local/${slug}/national.json`],
+    };
+  }
+  const label = (id: string): string => {
+    const n = [...t.matrix.fromNodes, ...t.matrix.toNodes].find(
+      (x) => x.id === id,
+    );
+    return n ? (bg ? n.label : (n.labelEn ?? n.label)) : id;
+  };
+  const switches = t.matrix.flows
+    .filter((f) => f.from !== f.to && f.votes > 0)
+    .sort((a, b) => b.votes - a.votes)
+    .slice(0, 12);
+  const fy = String(localCycleYear(pair.from) ?? pair.from);
+  const ty = String(localCycleYear(pair.to) ?? pair.to);
+  const biggest = switches[0];
+  return {
+    tool: "localVoteFlows",
+    domain: "local",
+    kind: "table",
+    title: bg
+      ? `Преливане на гласове (местни избори) ${fy} → ${ty}`
+      : `Local-council vote transitions ${fy} → ${ty}`,
+    subtitle: bg
+      ? "Оценка по екологична регресия (общински съвети)"
+      : "Ecological-regression estimate (municipal councils)",
+    columns: [
+      { key: "from", label: bg ? "От" : "From" },
+      { key: "to", label: bg ? "Към" : "To" },
+      {
+        key: "votes",
+        label: bg ? "Гласове" : "Votes",
+        numeric: true,
+        format: "int",
+      },
+    ],
+    rows: switches.map((f) => ({
+      from: label(f.from),
+      to: label(f.to),
+      votes: f.votes,
+    })),
+    viz: "none",
+    facts: {
+      pair: `${fy} → ${ty}`,
+      biggest: biggest
+        ? `${label(biggest.from)} → ${label(biggest.to)} (${fmtInt(biggest.votes, ctx.lang)})`
+        : "—",
+    },
+    provenance: [`transitions_local/${slug}/national.json`],
   };
 };

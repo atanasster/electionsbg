@@ -329,3 +329,211 @@ export const macroByCategory = async (
     provenance: ["macro.json"],
   };
 };
+
+// ---- EU peer comparison (BG vs EU27 + CEE peers) ----------------------------
+// Reads macro_peers.json — the data behind /indicators/compare. One indicator
+// plotted over time for BG + EU27 + RO/GR/HU/HR, with BG-vs-EU27 latest in facts.
+
+type PeerPoint = { period: string; value: number | null };
+type PeerIndicator = {
+  direction?: "higher" | "lower";
+  series: Record<string, PeerPoint[]>;
+};
+type MacroPeers = {
+  geos: string[];
+  indicators: Record<string, PeerIndicator>;
+  indicatorsAnnual: Record<string, PeerIndicator>;
+};
+
+const PEER_GEOS: { code: string; bg: string; en: string }[] = [
+  { code: "BG", bg: "България", en: "Bulgaria" },
+  { code: "EU27_2020", bg: "ЕС-27", en: "EU-27" },
+  { code: "RO", bg: "Румъния", en: "Romania" },
+  { code: "GR", bg: "Гърция", en: "Greece" },
+  { code: "HU", bg: "Унгария", en: "Hungary" },
+  { code: "HR", bg: "Хърватия", en: "Croatia" },
+];
+
+const PEER_INDICATORS: {
+  key: string;
+  bg: string;
+  en: string;
+  aliases: string[];
+}[] = [
+  {
+    key: "inflation",
+    bg: "Инфлация (ХИПЦ)",
+    en: "Inflation (HICP)",
+    aliases: ["инфлац", "hicp", "inflation"],
+  },
+  {
+    key: "gdpGrowth",
+    bg: "Ръст на БВП",
+    en: "GDP growth",
+    aliases: ["растеж", "ръст на бвп", "gdp growth", "икономически растеж"],
+  },
+  {
+    key: "unemployment",
+    bg: "Безработица",
+    en: "Unemployment",
+    aliases: ["безработиц", "unemployment"],
+  },
+  {
+    key: "youthUnemployment",
+    bg: "Младежка безработица",
+    en: "Youth unemployment",
+    aliases: ["младежк", "youth unemploy"],
+  },
+  {
+    key: "govDebt",
+    bg: "Държавен дълг (% БВП)",
+    en: "Government debt (% GDP)",
+    aliases: ["дълг", " debt"],
+  },
+  {
+    key: "budgetBalance",
+    bg: "Бюджетно салдо (% БВП)",
+    en: "Budget balance (% GDP)",
+    aliases: ["салдо", "дефицит", "balance", "deficit"],
+  },
+  {
+    key: "currentAccount",
+    bg: "Текуща сметка (% БВП)",
+    en: "Current account (% GDP)",
+    aliases: ["текуща сметка", "current account"],
+  },
+  {
+    key: "housePricesYoY",
+    bg: "Цени на жилищата (год.)",
+    en: "House prices (YoY)",
+    aliases: ["жилищ", "имотн", "house price", "property price"],
+  },
+  {
+    key: "gini",
+    bg: "Коефициент на Джини",
+    en: "Gini coefficient",
+    aliases: ["джини", "gini", "неравенств", "inequality"],
+  },
+  {
+    key: "incomeQuintileRatio",
+    bg: "Съотношение S80/S20",
+    en: "Income quintile ratio S80/S20",
+    aliases: ["квинтил", "quintile", "s80"],
+  },
+  {
+    key: "arope",
+    bg: "Риск от бедност (AROPE)",
+    en: "At-risk-of-poverty (AROPE)",
+    aliases: ["бедност", "poverty", "arope"],
+  },
+  {
+    key: "lifeExpectancy",
+    bg: "Продължителност на живота",
+    en: "Life expectancy",
+    aliases: ["продължителност на живот", "life expectancy"],
+  },
+  {
+    key: "intentionalHomicideRate",
+    bg: "Убийства (на 100 хил.)",
+    en: "Intentional homicide rate (per 100k)",
+    aliases: ["убийств", "homicide"],
+  },
+  {
+    key: "prisonPopulationRate",
+    bg: "Затворници (на 100 хил.)",
+    en: "Prisoners (per 100k)",
+    aliases: ["затворниц", "prison"],
+  },
+];
+
+const resolvePeerIndicator = (raw: string) => {
+  const q = raw.toLowerCase();
+  return (
+    PEER_INDICATORS.find((i) => i.aliases.some((a) => q.includes(a))) ??
+    PEER_INDICATORS.find((i) => q.includes(i.key.toLowerCase()))
+  );
+};
+
+export const euComparison = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const r2 = (n: number): number => Math.round(n * 100) / 100;
+  const ind = resolvePeerIndicator(String(args.indicator ?? args.metric ?? ""));
+  if (!ind) {
+    return {
+      tool: "euComparison",
+      domain: "indicators",
+      kind: "scalar",
+      title: bg
+        ? "Посочете показател за сравнение с ЕС"
+        : "Name an indicator to compare with the EU",
+      subtitle: PEER_INDICATORS.slice(0, 8)
+        .map((i) => (bg ? i.bg : i.en))
+        .join(", "),
+      viz: "none",
+      facts: { query: String(args.indicator ?? args.metric ?? "") },
+      provenance: ["macro_peers.json"],
+    };
+  }
+  const d = await fetchData<MacroPeers>("/macro_peers.json");
+  const meta = d.indicators[ind.key] ?? d.indicatorsAnnual[ind.key];
+  if (!meta) {
+    return {
+      tool: "euComparison",
+      domain: "indicators",
+      kind: "scalar",
+      title: bg
+        ? `Няма съпоставими данни за „${ind.bg}“`
+        : `No comparable data for "${ind.en}"`,
+      viz: "none",
+      facts: { indicator: bg ? ind.bg : ind.en },
+      provenance: ["macro_peers.json"],
+    };
+  }
+  const lastOf = (geo: string): PeerPoint | undefined => {
+    const s = meta.series[geo] ?? [];
+    for (let i = s.length - 1; i >= 0; i--) if (s[i].value != null) return s[i];
+    return undefined;
+  };
+  const present = PEER_GEOS.filter((g) => (meta.series[g.code] ?? []).length);
+  const series = present.map((g) => ({
+    key: g.code,
+    label: bg ? g.bg : g.en,
+    points: (meta.series[g.code] ?? []).map((p) => ({
+      x: p.period,
+      y: p.value,
+    })),
+  }));
+  const categories = (meta.series.BG ?? []).map((p) => p.period);
+  const bgLast = lastOf("BG");
+  const euLast = lastOf("EU27_2020");
+  const gap =
+    bgLast && euLast && bgLast.value != null && euLast.value != null
+      ? r2(bgLast.value - euLast.value)
+      : null;
+  return {
+    tool: "euComparison",
+    domain: "indicators",
+    kind: "series",
+    title: bg
+      ? `${ind.bg}: България спрямо ЕС`
+      : `${ind.en}: Bulgaria vs the EU`,
+    subtitle: bg
+      ? "България, ЕС-27, Румъния, Гърция, Унгария, Хърватия"
+      : "Bulgaria, EU-27, Romania, Greece, Hungary, Croatia",
+    categories,
+    series,
+    viz: "line",
+    facts: {
+      indicator: bg ? ind.bg : ind.en,
+      bg: bgLast?.value != null ? r2(bgLast.value) : "—",
+      eu27: euLast?.value != null ? r2(euLast.value) : "—",
+      gap_vs_eu27: gap != null ? gap : "—",
+      period: bgLast?.period ?? "—",
+      direction: meta.direction ?? "—",
+    },
+    provenance: ["macro_peers.json"],
+  };
+};

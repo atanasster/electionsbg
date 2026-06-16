@@ -3,6 +3,9 @@
 
 import { fetchData } from "./dataClient";
 import { fmtEurCompact, fmtInt } from "./format";
+import { ALL_ELECTIONS } from "./dataset";
+import { matchParty } from "./matchParty";
+import type { CompanyConnections } from "../../src/data/parliament/useCompanyConnections";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
 
 // ---- MP declared assets -----------------------------------------------------
@@ -463,5 +466,274 @@ export const pollAccuracy = async (
       best_mae: best ? `${best.overallMAE} pp` : "—",
     },
     provenance: ["polls/accuracy.json"],
+  };
+};
+
+// ---- party campaign finance (income / expenses for one party) ---------------
+// Reads the per-election filing at {election}/parties/financing.json (Court of
+// Audit). financingOverview above is the cross-party *filing-compliance*
+// catalogue; this is the actual money for ONE named party in one election.
+
+type CikParty = { number: number; name: string; nickName?: string };
+type FinBlock = { monetary: number; nonMonetary: number };
+type FinIncome = {
+  party: FinBlock;
+  donors: FinBlock;
+  candidates: FinBlock;
+  mediaPackage: number;
+};
+type FinEntry = {
+  party: number;
+  filing: { income: FinIncome; expenses: unknown };
+};
+
+// recursive sum of every finite number under a value (expenses are deeply nested)
+const sumNumbers = (v: unknown): number => {
+  if (typeof v === "number") return Number.isFinite(v) ? v : 0;
+  if (Array.isArray(v)) return v.reduce<number>((s, x) => s + sumNumbers(x), 0);
+  if (v && typeof v === "object")
+    return Object.values(v as Record<string, unknown>).reduce<number>(
+      (s, x) => s + sumNumbers(x),
+      0,
+    );
+  return 0;
+};
+
+const blockSum = (b: FinBlock): number => b.monetary + b.nonMonetary;
+
+// "2024_10_27" -> "27.10.2024"
+const electionDate = (name: string): string => {
+  const m = name.match(/^(\d{4})_(\d{2})_(\d{2})$/);
+  return m ? `${m[3]}.${m[2]}.${m[1]}` : name;
+};
+
+export const partyFinance = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  // campaign-finance filings exist only for elections flagged hasFinancials;
+  // honour a requested election if it has one, else the latest that does.
+  const withFin = ALL_ELECTIONS.filter(
+    (e) => (e as { hasFinancials?: boolean }).hasFinancials,
+  ).map((e) => e.name);
+  const reqEl = args.election ? String(args.election) : "";
+  const election = withFin.includes(reqEl)
+    ? reqEl
+    : withFin.includes(ctx.election)
+      ? ctx.election
+      : withFin[0];
+  const prov = [`${election ?? "—"}/parties/financing.json`];
+  if (!election) {
+    return {
+      tool: "partyFinance",
+      domain: "people",
+      kind: "scalar",
+      title: bg
+        ? "Няма данни за партийно финансиране"
+        : "No campaign-finance data",
+      viz: "none",
+      facts: {},
+      provenance: prov,
+    };
+  }
+  const parties = await fetchData<CikParty[]>(`/${election}/cik_parties.json`);
+  const matched = matchParty(String(args.party ?? ""), parties);
+  if (!matched) {
+    return {
+      tool: "partyFinance",
+      domain: "people",
+      kind: "scalar",
+      title: bg
+        ? `Не разпознах партия „${args.party ?? ""}“`
+        : `No party matched "${args.party ?? ""}"`,
+      viz: "none",
+      facts: { query: String(args.party ?? "") },
+      provenance: prov,
+    };
+  }
+  const label = matched.nickName || matched.name;
+  const fin = await fetchData<FinEntry[]>(
+    `/${election}/parties/financing.json`,
+  );
+  const entry = fin.find((f) => f.party === matched.number);
+  if (!entry) {
+    return {
+      tool: "partyFinance",
+      domain: "people",
+      kind: "scalar",
+      title: bg
+        ? `Няма финансов отчет за ${label} (${electionDate(election)})`
+        : `No campaign-finance filing for ${label} (${electionDate(election)})`,
+      viz: "none",
+      facts: { party: label, election: electionDate(election) },
+      provenance: prov,
+    };
+  }
+  const inc = entry.filing.income;
+  const fromParty = blockSum(inc.party);
+  const fromDonors = blockSum(inc.donors);
+  const fromCandidates = blockSum(inc.candidates);
+  const media = inc.mediaPackage || 0;
+  const totalIncome = fromParty + fromDonors + fromCandidates + media;
+  const totalExpenses = sumNumbers(entry.filing.expenses);
+  const rows: Row[] = [
+    {
+      item: bg ? "Собствени средства" : "Party's own funds",
+      amount: fmtEurCompact(fromParty, ctx.lang),
+    },
+    {
+      item: bg ? "Дарения" : "Donations",
+      amount: fmtEurCompact(fromDonors, ctx.lang),
+    },
+    {
+      item: bg ? "От кандидати" : "From candidates",
+      amount: fmtEurCompact(fromCandidates, ctx.lang),
+    },
+    {
+      item: bg ? "Медиен пакет" : "Media package",
+      amount: fmtEurCompact(media, ctx.lang),
+    },
+    {
+      item: bg ? "Общо приходи" : "Total income",
+      amount: fmtEurCompact(totalIncome, ctx.lang),
+    },
+    {
+      item: bg ? "Общо разходи" : "Total expenses",
+      amount: fmtEurCompact(totalExpenses, ctx.lang),
+    },
+  ];
+  return {
+    tool: "partyFinance",
+    domain: "people",
+    kind: "table",
+    title: bg
+      ? `Кампанийни финанси — ${label} (${electionDate(election)})`
+      : `Campaign finance — ${label} (${electionDate(election)})`,
+    subtitle: bg ? "Източник: Сметна палата" : "Source: Court of Audit",
+    columns: [
+      { key: "item", label: bg ? "Перо" : "Item" },
+      { key: "amount", label: bg ? "Сума" : "Amount", numeric: true },
+    ],
+    rows,
+    viz: "none",
+    facts: {
+      party: label,
+      election: electionDate(election),
+      total_income: fmtEurCompact(totalIncome, ctx.lang),
+      from_donors: fmtEurCompact(fromDonors, ctx.lang),
+      total_expenses: fmtEurCompact(totalExpenses, ctx.lang),
+    },
+    provenance: prov,
+  };
+};
+
+// ---- company -> people-in-power connections (by EIK) ------------------------
+// Reads parliament/company-connections/{eik}.json (Commerce Registry, GCS-only).
+// Surfaces officers who hold public office (direct) + officers one company-hop
+// from a politician (bridged). Name-match only — identity is never asserted.
+
+const CONF_LABEL: Record<string, { bg: string; en: string }> = {
+  medium: { bg: "средна", en: "medium" },
+  low: { bg: "ниска", en: "low" },
+};
+
+export const companyConnections = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const raw = String(args.company ?? args.eik ?? "");
+  const eik = raw.match(/\d{9,13}/)?.[0];
+  if (!eik) {
+    return {
+      tool: "companyConnections",
+      domain: "people",
+      kind: "scalar",
+      title: bg
+        ? "Посочете ЕИК на фирмата (9 или 13 цифри)"
+        : "Provide the company's EIK (9 or 13 digits)",
+      viz: "none",
+      facts: { query: raw },
+      provenance: ["parliament/company-connections/{eik}.json"],
+    };
+  }
+  let data: CompanyConnections | null = null;
+  try {
+    data = await fetchData<CompanyConnections>(
+      `/parliament/company-connections/${eik}.json`,
+    );
+  } catch {
+    data = null;
+  }
+  const coLabel = data?.name || eik;
+  if (
+    !data ||
+    (data.directLinks.length === 0 && data.bridgedLinks.length === 0)
+  ) {
+    return {
+      tool: "companyConnections",
+      domain: "people",
+      kind: "scalar",
+      title: bg
+        ? `Няма открити политически връзки за ЕИК ${eik}`
+        : `No political connections on record for EIK ${eik}`,
+      subtitle: bg
+        ? "Никой служител не заема публична длъжност, нито е на една фирмена стъпка от такъв (по търговския регистър)."
+        : "No officer holds public office, nor is one company-hop from someone who does (per the Commerce Registry).",
+      viz: "none",
+      facts: { eik, company: coLabel },
+      provenance: [`parliament/company-connections/${eik}.json`],
+    };
+  }
+  const roleWord = (kind: string): string =>
+    kind === "mp" ? (bg ? "депутат" : "MP") : bg ? "служител" : "official";
+  const conf = (c: string): string => CONF_LABEL[c]?.[ctx.lang] ?? c;
+  const rows: Row[] = [];
+  for (const d of data.directLinks)
+    rows.push({
+      person: d.power.name,
+      office: d.power.roleLabel || roleWord(d.power.kind),
+      link: bg ? "пряко (служител)" : "direct (officer)",
+      confidence: conf(d.confidence),
+    });
+  for (const b of data.bridgedLinks)
+    rows.push({
+      person: b.power.name,
+      office: b.power.roleLabel || roleWord(b.power.kind),
+      link: bg
+        ? `чрез ${b.bridgeName} → ${b.viaCompany ?? b.viaEik}`
+        : `via ${b.bridgeName} → ${b.viaCompany ?? b.viaEik}`,
+      confidence: conf(b.confidence),
+    });
+  const first =
+    data.directLinks[0]?.power.name ?? data.bridgedLinks[0]?.power.name ?? "—";
+  return {
+    tool: "companyConnections",
+    domain: "people",
+    kind: "table",
+    title: bg
+      ? `Политически връзки — ${coLabel}`
+      : `Political connections — ${coLabel}`,
+    subtitle: bg
+      ? "Съвпадение по име — самоличността не е потвърдена"
+      : "Name match — identity not verified",
+    columns: [
+      { key: "person", label: bg ? "Лице" : "Person" },
+      { key: "office", label: bg ? "Длъжност" : "Office" },
+      { key: "link", label: bg ? "Връзка" : "Link" },
+      { key: "confidence", label: bg ? "Сигурност" : "Confidence" },
+    ],
+    rows: rows.slice(0, 15),
+    viz: "none",
+    facts: {
+      eik,
+      company: coLabel,
+      officers: data.officers.length,
+      direct_links: data.directLinks.length,
+      bridged_links: data.bridgedLinks.length,
+      first_connection: first,
+    },
+    provenance: [`parliament/company-connections/${eik}.json`],
   };
 };

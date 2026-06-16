@@ -16,7 +16,12 @@ import {
   budgetOverview,
   budgetTrend,
   fundsOverview,
+  fundsProjects,
+  mpProcurement,
+  municipalTransfers,
   procurementTotals,
+  revenueBreakdown,
+  topContractors,
 } from "./fiscal";
 import { governments } from "./govpeople";
 import {
@@ -26,6 +31,7 @@ import {
   localMayorsWon,
   localMunicipality,
   localOblastMayors,
+  localVoteFlows,
 } from "./local";
 import {
   budgetExecution,
@@ -53,7 +59,12 @@ import {
   localMayorRace,
   localSubMayors,
 } from "./localDetail";
-import { macroByCategory, macroIndicator, macroOverview } from "./macro";
+import {
+  euComparison,
+  macroByCategory,
+  macroIndicator,
+  macroOverview,
+} from "./macro";
 import {
   airQuality,
   councilResolutions,
@@ -61,12 +72,14 @@ import {
   landUse,
 } from "./placeData";
 import {
+  companyConnections,
   financingOverview,
   mpAssetsByParty,
   mpAssetsTop,
   mpConnectionsByParty,
   mpConnectionsTop,
   officialsAssetsTop,
+  partyFinance,
   pollAccuracy,
 } from "./people";
 import {
@@ -1310,6 +1323,26 @@ export const TOOLS: ToolDef[] = [
     run: localCouncilTrend,
   },
   {
+    name: "localVoteFlows",
+    domain: "local",
+    description: {
+      bg: "Преливане на гласове между местни избори (общински съвети) — къде отиват гласовете на партиите между два цикъла.",
+      en: "Vote transitions between local elections (municipal councils) — where party votes moved between two cycles.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Накъде се преляха гласовете на местните избори?",
+        en: "Where did local-election council votes flow?",
+      },
+      {
+        bg: "Преливане на гласове между местните избори",
+        en: "Vote transitions between local elections",
+      },
+    ],
+    run: localVoteFlows,
+  },
+  {
     name: "localMayorsTrend",
     domain: "local",
     description: {
@@ -1637,6 +1670,58 @@ export const TOOLS: ToolDef[] = [
     run: procurementTotals,
   },
   {
+    name: "topContractors",
+    domain: "fiscal",
+    description: {
+      bg: "Най-големи изпълнители по обществени поръчки по обща стойност, с маркер за свързаните с депутати (АОП).",
+      en: "Largest public-procurement contractors by total value, flagging the MP-tied ones (AOP).",
+    },
+    params: [
+      {
+        name: "count",
+        type: "count",
+        description: { bg: "Брой", en: "How many" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кои са най-големите изпълнители по обществени поръчки?",
+        en: "Who are the biggest public-procurement contractors?",
+      },
+      {
+        bg: "Топ фирми по държавни договори",
+        en: "Top firms by state contracts",
+      },
+    ],
+    run: topContractors,
+  },
+  {
+    name: "mpProcurement",
+    domain: "fiscal",
+    description: {
+      bg: "Обществени поръчки към фирми, свързани със заседаващи депутати; за конкретен депутат — по години.",
+      en: "Public procurement going to companies tied to sitting MPs; for a named MP, broken down by year.",
+    },
+    params: [
+      {
+        name: "person",
+        type: "person",
+        description: { bg: "Депутат (по избор)", en: "MP (optional)" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кои фирми на депутати печелят обществени поръчки?",
+        en: "Which MP-linked firms win public contracts?",
+      },
+      {
+        bg: "Поръчки към фирми, свързани с депутати",
+        en: "Procurement to companies connected to MPs",
+      },
+    ],
+    run: mpProcurement,
+  },
+  {
     name: "fundsOverview",
     domain: "fiscal",
     description: {
@@ -1651,6 +1736,75 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: fundsOverview,
+  },
+  {
+    name: "revenueBreakdown",
+    domain: "fiscal",
+    description: {
+      bg: "Структура на данъчните приходи — акциз по продукт + ДДС при внос + мита (Митница), деклариран ДДС по сектор и ДДФЛ по вид доход (НАП).",
+      en: "Tax-revenue breakdown — excise by product + import VAT + customs duties (Customs), domestic VAT by sector and PIT by income type (NRA).",
+    },
+    params: [
+      {
+        name: "category",
+        type: "metric",
+        description: {
+          bg: "Вид (акциз / ДДС / ДДФЛ)",
+          en: "Kind (excise / VAT / PIT)",
+        },
+      },
+      { name: "year", type: "year", description: { bg: "Година", en: "Year" } },
+    ],
+    examples: [
+      {
+        bg: "Откъде идват приходите от акцизи?",
+        en: "Where does excise revenue come from?",
+      },
+      { bg: "Деклариран ДДС по сектор", en: "Declared VAT by sector" },
+    ],
+    run: revenueBreakdown,
+  },
+  {
+    name: "fundsProjects",
+    domain: "fiscal",
+    description: {
+      bg: "Европейски средства на ниво проекти (ИСУН) — общо договорено, реално изплатено (усвояване) и топ програми.",
+      en: "EU funds at project grain (ISUN) — total contracted, actually paid (absorption) and top programmes.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Колко европейски средства са усвоени?",
+        en: "How much EU funding has actually been absorbed?",
+      },
+      {
+        bg: "Кои програми усвояват най-много евросредства?",
+        en: "Which programmes absorb the most EU money?",
+      },
+    ],
+    run: fundsProjects,
+  },
+  {
+    name: "municipalTransfers",
+    domain: "fiscal",
+    description: {
+      bg: "Трансфери от държавата към общините по вид (Чл. 53 ЗДБРБ) — делегирани дейности, изравнителна и капиталова субсидия и др.",
+      en: "State transfers to municipalities by type (Art. 53 of the State Budget Law) — delegated activities, equalization and capital subsidies, etc.",
+    },
+    params: [
+      { name: "year", type: "year", description: { bg: "Година", en: "Year" } },
+    ],
+    examples: [
+      {
+        bg: "Колко превежда държавата на общините?",
+        en: "How much does the state transfer to municipalities?",
+      },
+      {
+        bg: "Държавни трансфери към общините по вид",
+        en: "State transfers to municipalities by type",
+      },
+    ],
+    run: municipalTransfers,
   },
   {
     name: "govDebt",
@@ -1865,6 +2019,65 @@ export const TOOLS: ToolDef[] = [
     ],
     run: financingOverview,
   },
+  {
+    name: "partyFinance",
+    domain: "people",
+    description: {
+      bg: "Кампанийни приходи и разходи на конкретна партия за избори (дарения, собствени средства, медиен пакет; Сметна палата).",
+      en: "Campaign income and expenses for a specific party in an election (donations, own funds, media package; Court of Audit).",
+    },
+    params: [
+      {
+        name: "party",
+        type: "party",
+        required: true,
+        description: { bg: "Партия", en: "Party" },
+      },
+      {
+        name: "election",
+        type: "election",
+        description: { bg: "Избори", en: "Election" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Колко дарения получи ГЕРБ?",
+        en: "How much did GERB raise from donations?",
+      },
+      {
+        bg: "Колко похарчи ПП-ДБ за кампанията?",
+        en: "How much did PP-DB spend on the campaign?",
+      },
+    ],
+    run: partyFinance,
+  },
+  {
+    name: "companyConnections",
+    domain: "people",
+    description: {
+      bg: "Връзки на фирма (по ЕИК) с хора във властта — служители, които заемат публична длъжност или са на една фирмена стъпка от депутат/служител (търговски регистър).",
+      en: "A company's connections (by EIK) to people in power — officers who hold public office or are one company-hop from an MP/official (Commerce Registry).",
+    },
+    params: [
+      {
+        name: "company",
+        type: "person",
+        required: true,
+        description: { bg: "ЕИК на фирмата", en: "Company EIK" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Какви политически връзки има ЕИК 831646048?",
+        en: "What political connections does EIK 831646048 have?",
+      },
+      {
+        bg: "Свързана ли е тази фирма с депутати?",
+        en: "Is this company connected to any MPs?",
+      },
+    ],
+    run: companyConnections,
+  },
   // ---- indicators -----------------------------------------------------------
   {
     name: "macroIndicator",
@@ -1928,6 +2141,33 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: macroByCategory,
+  },
+  {
+    name: "euComparison",
+    domain: "indicators",
+    description: {
+      bg: "Сравнение на показател между България, ЕС-27 и съседи (Румъния, Гърция, Унгария, Хърватия) във времето.",
+      en: "Compare an indicator across Bulgaria, the EU-27 and CEE peers (Romania, Greece, Hungary, Croatia) over time.",
+    },
+    params: [
+      {
+        name: "indicator",
+        type: "indicator",
+        required: true,
+        description: { bg: "Показател", en: "Indicator" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Как е инфлацията в България спрямо ЕС?",
+        en: "How does Bulgaria's inflation compare with the EU?",
+      },
+      {
+        bg: "Сравни безработицата с останалите страни в ЕС",
+        en: "Compare unemployment with the rest of the EU",
+      },
+    ],
+    run: euComparison,
   },
   {
     name: "subnationalIndicator",

@@ -453,6 +453,20 @@ export const route = (question: string, ctx: ToolContext): Route => {
   // digits are the МИР bundle, so the tool needs nothing but the number. An
   // explicit cross-election cue ("през годините"/"trend") asks for the history;
   // otherwise it's that section's results (year resolved from the rest of the q).
+  // company → political connections (Commerce Registry). MUST precede the 9-digit
+  // section-id route below, since EIKs are often 9 digits too — gate on an
+  // explicit ЕИК / фирма cue so a plain polling-station id still hits sections.
+  {
+    const eik = q.match(/\b\d{9,13}\b/)?.[0];
+    if (
+      eik &&
+      (has(q, "еик", "eik") ||
+        (has(q, "връзк", "connection", "свързан", "connected") &&
+          has(q, "фирм", "компани", "company")))
+    )
+      return { tool: "companyConnections", args: { company: eik } };
+  }
+
   const sectionId = q.match(/\b\d{9}\b/)?.[0];
   if (sectionId) {
     const rest = q.replace(sectionId, " ");
@@ -622,6 +636,30 @@ export const route = (question: string, ctx: ToolContext): Route => {
 
   // 1. comparison of two elections
   if (isCompare) {
+    // an indicator framed against the EU / peers -> the peer comparison (before
+    // the election-vs-election default below swallows "сравни безработицата…").
+    if (
+      has(
+        q,
+        "спрямо ес",
+        "спрямо европ",
+        "сравнение с ес",
+        "сравнение с европ",
+        " vs eu",
+        "vs the eu",
+        "ес-27",
+        "eu-27",
+        "eu27",
+        "средното за ес",
+        "european average",
+        "останалите страни в ес",
+        "страни в ес",
+        "other eu",
+        "rest of the eu",
+        "спрямо други",
+      )
+    )
+      return { tool: "euComparison", args: { indicator: q } };
     const years = Array.from(q.matchAll(/\b(20\d{2})\b/g)).map((m) => m[1]);
     // two named places (no years, no party) -> compare their governance profiles
     if (years.length === 0 && !detectParty(q)) {
@@ -1177,17 +1215,22 @@ export const route = (question: string, ctx: ToolContext): Route => {
 
   // 1b. local elections (municipal) — before party/turnout so a local question
   // mentioning a party isn't routed to the parliamentary tools.
-  const isLocal = has(
-    q,
-    "местни",
-    "местн",
-    "общинск",
-    "кмет",
-    "mayor",
-    "municipal",
-    "local election",
-    "council",
-  );
+  const isLocal =
+    has(
+      q,
+      "местни",
+      "местн",
+      "общинск",
+      "кмет",
+      "mayor",
+      "municipal",
+      "local election",
+      "council",
+    ) &&
+    // a state→municipality transfer/subsidy question is a BUDGET query, not a
+    // local-election one ("municipal" also matches "municipalities") — let it
+    // fall through to municipalTransfers in the public-finance block below.
+    !has(q, "трансфер", "transfer", "субсид", "subsidy");
   // extraordinary (partial/new) local elections feed
   if (has(q, "частичн", "извънредн", "partial elec", "chmi")) {
     const place = extractPlace(q);
@@ -1209,6 +1252,21 @@ export const route = (question: string, ctx: ToolContext): Route => {
     // unscoped; every per-cycle snapshot tool gets the cycle.
     const cyc = q.match(/\b(20\d{2})\b/)?.[0];
     const withCyc = (a: ToolArgs): ToolArgs => (cyc ? { ...a, cycle: cyc } : a);
+    // local-council vote flows (transitions between consecutive local cycles)
+    if (
+      has(
+        q,
+        "прелив",
+        "преляха",
+        "преминаха",
+        "vote flow",
+        "vote transition",
+        "миграция на глас",
+        "къде отидоха",
+        "къде отиват",
+      )
+    )
+      return { tool: "localVoteFlows", args: {} };
     // Cross-cycle NATIONAL trends ("вотът за съветите през годините", "mayors
     // per party across cycles") — gated on an explicit over-time cue, no pinned
     // cycle, and no município named (filler words are stripped by PLACE_STOP, so
@@ -1282,6 +1340,56 @@ export const route = (question: string, ctx: ToolContext): Route => {
     has(q, "пенси", "pension", "нои", " nssi", "осигурителн", "social security")
   )
     return { tool: "noiFunds", args: {} };
+  // itemised revenue breakdown (excise by product / domestic VAT by sector /
+  // PIT by income type) — only on a breakdown cue; a bare "колко са акцизите"
+  // stays the budget overview below.
+  if (
+    (has(q, "акциз", "excise") &&
+      has(
+        q,
+        "по продукт",
+        "по гориво",
+        "структура",
+        "откъде",
+        "разбивка",
+        "by product",
+        "breakdown",
+        "split",
+      )) ||
+    has(
+      q,
+      "ддс по сектор",
+      "vat by sector",
+      "ддфл по вид",
+      "pit by",
+      "данък по сектор",
+    ) ||
+    (has(q, "приход", "revenue") &&
+      has(
+        q,
+        "структура",
+        "откъде идват",
+        "по сектор",
+        "по вид",
+        "breakdown",
+        "разбивка",
+        "by sector",
+        "by type",
+      ))
+  )
+    return {
+      tool: "revenueBreakdown",
+      args: { category: q, ...(promptYear ? { year: promptYear } : {}) },
+    };
+  // state -> municipality transfers (Art. 53 of the State Budget Law)
+  if (
+    has(q, "трансфер", "субсиди", "subsidy", "transfer") &&
+    has(q, "общин", "municipalit")
+  )
+    return {
+      tool: "municipalTransfers",
+      args: promptYear ? { year: promptYear } : {},
+    };
   // excise (акцизи) is a REVENUE line, not a COFOG spending function — a bare
   // definitional "колко са акцизите" / "how much is excise" goes to the budget
   // overview. The what-if ("вдигане на акциза върху цигарите с 40%") was already
@@ -1362,13 +1470,53 @@ export const route = (question: string, ctx: ToolContext): Route => {
     return { tool: "investmentProjects", args: obl ? { oblast: obl } : {} };
   }
   if (has(q, "поръчк", "procurement", "аоп", " aop")) {
+    // contracts to MP-tied firms (the journalism payload) — MP/connected framing
+    if (has(q, "депутат", " mp", " mps", "свързан", "connected", "tied"))
+      return {
+        tool: "mpProcurement",
+        args: personName ? { person: personName } : {},
+      };
+    // biggest-contractors drill-down
+    if (
+      has(
+        q,
+        "изпълнител",
+        "contractor",
+        "фирм",
+        "компани",
+        "company",
+        "най-голем",
+        "largest",
+        "biggest",
+        "топ ",
+        "top ",
+      )
+    )
+      return { tool: "topContractors", args: {} };
     const place = extractPlace(q);
     if (place && has(q, " в ", " във ", " in "))
       return { tool: "procurementBySettlement", args: { place } };
     return { tool: "procurementTotals", args: {} };
   }
-  if (has(q, "европейск", "еврофонд", "eu funds", "isun", "исун", "фондове"))
+  if (has(q, "европейск", "еврофонд", "eu funds", "isun", "исун", "фондове")) {
+    // project register / absorption / programmes -> fundsProjects; otherwise the
+    // beneficiary rollup (fundsOverview).
+    if (
+      has(
+        q,
+        "проект",
+        "усвоен",
+        "усвояване",
+        "изплатен",
+        "absorb",
+        "програм",
+        "programme",
+        "project",
+      )
+    )
+      return { tool: "fundsProjects", args: {} };
     return { tool: "fundsOverview", args: {} };
+  }
   // debt emissions vs the macro debt level: only route emissions on explicit terms
   if (has(q, "емиси", "облигаци", " bond", "дцк", "issuance"))
     return { tool: "govDebt", args: {} };
@@ -1442,6 +1590,26 @@ export const route = (question: string, ctx: ToolContext): Route => {
     wantsAssets
   )
     return { tool: "officialsAssetsTop", args: { category: q } };
+  // a NAMED party + a money cue (donations / income / spend) -> that party's
+  // own campaign filing, before the cross-party filing-compliance overview.
+  if (
+    party &&
+    has(
+      q,
+      "дарител",
+      "дарени",
+      "donor",
+      "donation",
+      "приход",
+      "разход",
+      "похарчи",
+      "income",
+      "expense",
+      "spent",
+      "финансиран",
+    )
+  )
+    return { tool: "partyFinance", args: { party } };
   if (
     has(
       q,
@@ -1885,6 +2053,26 @@ export const route = (question: string, ctx: ToolContext): Route => {
     )
   )
     return { tool: "macroByCategory", args: { category: q } };
+  // an indicator framed against the EU / peers -> the peer comparison
+  if (
+    has(
+      q,
+      "спрямо ес",
+      "спрямо европ",
+      "сравнение с ес",
+      "сравнение с европ",
+      " vs eu",
+      "vs the eu",
+      "ес-27",
+      "eu-27",
+      "eu27",
+      "средното за ес",
+      "european average",
+      "спрямо другите страни",
+      "в сравнение с други",
+    )
+  )
+    return { tool: "euComparison", args: { indicator: q } };
   const macroKey = resolveMacroKey(q);
   if (macroKey)
     return {

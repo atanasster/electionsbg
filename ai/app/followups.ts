@@ -607,6 +607,92 @@ export const followUps = (env: Envelope): FollowUp[] => {
         en: "How much has the basket risen since the euro?",
       });
       break;
+    case "partyFinance":
+      if (party) {
+        out.push({
+          bg: `Как се представя ${party} през годините?`,
+          en: `How has ${party} done over the years?`,
+        });
+        out.push({
+          bg: `Къде е силна ${party}?`,
+          en: `Where is ${party} strongest?`,
+        });
+      }
+      break;
+    case "companyConnections":
+      out.push({
+        bg: "Поръчки към фирми, свързани с депутати",
+        en: "Procurement to MP-connected companies",
+      });
+      out.push({
+        bg: "Кои са най-големите изпълнители по обществени поръчки?",
+        en: "Who are the biggest public-procurement contractors?",
+      });
+      break;
+    case "topContractors":
+      out.push({
+        bg: "Поръчки към фирми, свързани с депутати",
+        en: "Procurement to MP-connected companies",
+      });
+      out.push({
+        bg: "Колко са обществените поръчки?",
+        en: "How much public procurement is there?",
+      });
+      break;
+    case "mpProcurement":
+      out.push({
+        bg: "Кои са най-големите изпълнители по обществени поръчки?",
+        en: "Who are the biggest public-procurement contractors?",
+      });
+      out.push({
+        bg: "Свързана ли е фирма с ЕИК 831646048 с депутати?",
+        en: "Is the company with EIK 831646048 connected to MPs?",
+      });
+      break;
+    case "euComparison":
+      out.push({ bg: "Макроикономически преглед", en: "Macro snapshot" });
+      out.push({
+        bg: "Държавният дълг спрямо ЕС",
+        en: "Government debt vs the EU",
+      });
+      break;
+    case "revenueBreakdown":
+      out.push({
+        bg: "Държавен бюджет — изпълнение",
+        en: "State budget execution",
+      });
+      out.push({
+        bg: "Деклариран ДДС по сектор",
+        en: "Declared VAT by sector",
+      });
+      break;
+    case "fundsProjects":
+      out.push({
+        bg: "Топ бенефициенти на европейски средства",
+        en: "Top EU funds beneficiaries",
+      });
+      out.push({
+        bg: "Колко са обществените поръчки?",
+        en: "How much public procurement is there?",
+      });
+      break;
+    case "municipalTransfers":
+      out.push({
+        bg: "Държавен бюджет — изпълнение",
+        en: "State budget execution",
+      });
+      out.push({ bg: "Бюджет по функция", en: "Budget by function" });
+      break;
+    case "localVoteFlows":
+      out.push({
+        bg: "Вот за общинските съвети",
+        en: "Council results at the local elections",
+      });
+      out.push({
+        bg: "Преливане на гласове на парламентарните избори",
+        en: "Vote flow between the last two elections",
+      });
+      break;
   }
 
   if (out.length === 0) {

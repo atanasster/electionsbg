@@ -187,4 +187,37 @@ export const STARTERS: Starter[] = [
     bg: "Изпреварва ли кошницата официалната инфлация?",
     en: "Is the basket outpacing official inflation?",
   },
+  // money & influence + EU comparison drill-downs (added 2026-06-16)
+  {
+    bg: "Как е инфлацията в България спрямо ЕС?",
+    en: "Inflation in Bulgaria vs the EU",
+  },
+  {
+    bg: "Структура на приходите от акцизи",
+    en: "Breakdown of excise revenue",
+  },
+  {
+    bg: "Колко европейски средства са усвоени?",
+    en: "How much of the EU funds have been absorbed?",
+  },
+  {
+    bg: "Колко дарения получи ГЕРБ?",
+    en: "How much did GERB raise in donations?",
+  },
+  {
+    bg: "Кои са най-големите изпълнители по обществени поръчки?",
+    en: "Who are the biggest public-procurement contractors?",
+  },
+  {
+    bg: "Поръчки към фирми, свързани с депутати",
+    en: "Procurement to MP-connected companies",
+  },
+  {
+    bg: "Държавни трансфери към общините",
+    en: "State transfers to municipalities",
+  },
+  {
+    bg: "Накъде се преляха гласовете на местните избори?",
+    en: "Local-council vote transitions",
+  },
 ];
