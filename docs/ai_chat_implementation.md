@@ -5,19 +5,20 @@ grounded in the site's own pre-processed JSON. Free to run (no backend, no
 per-query cost): a small open model runs in the visitor's browser; all numbers
 come from deterministic TypeScript, never from the model.
 
-Status: **M3 wired — WebLLM model provider lives alongside the rules provider.**
-The chat answers BG/EN questions across 6 domains via the deterministic provider
-(router → tools → template narrator) by default; a `WebLLMProvider` can be
-selected from the header to let an in-browser model drive tool selection +
-narration behind the same `LLMProvider` interface. Verified end to end in a real
-browser: Qwen2.5-1.5B loaded over WebGPU (~1.1 GB), picked a tool via
-grammar-constrained JSON, ran it, and narrated from facts only (no hallucinated
-numbers). Caveat: small generic models route Bulgarian poorly (Qwen-1.5B
-mis-routed a simple party-votes query) — confirming BgGPT (Bulgarian-native) is
-the right default; it + EuroLLM are wired as drop-in options pending the **M0**
-MLC compile (shown disabled, "requires MLC build"). The heuristic router remains
-the default and the always-on fallback (every model step degrades to it on
-failure). See "Milestones".
+> **Status (updated 2026-06-15): historical implementation plan.** The chat shipped
+> and has since diverged from this doc in two big ways:
+>
+> 1. The **tool registry has grown to ~100+ typed tools** (not the 49 listed below) —
+>    see `ai/tools/registry.ts` and the live `/data/map` diagram for the current set.
+> 2. The **live LLM is now a cloud model** — OpenRouter via the Firebase `llm` proxy at
+>    `ai.electionsbg.com/api/llm` (`functions/index.js`), **not** an in-browser
+>    WebLLM/BgGPT-MLC build. The in-browser path (Qwen / EuroLLM / FunctionGemma over
+>    WebGPU) was explored and parked.
+>
+> The deterministic heuristic router (router → tools → template narrator) remains the
+> always-on default and fallback. Everything below is the original plan, kept for
+> milestone/design history — treat tool counts, the "in-browser only" locked decision,
+> and bundle sizes as point-in-time, not current.
 
 M3 layers: `ai/orchestrator/toolSchema.ts` (JSON-schema for the 49-tool enum +
 validate/coerce model output → Route, falling back to the heuristic router on any
@@ -28,6 +29,7 @@ when a model is picked — the main bundle stays ~242 KB gzip). Plumbing unit-te
 `npx tsx ai/orchestrator/toolSchema.harness.ts`.
 
 Tools (49) grouped by `domain`:
+
 - **elections** (15): nationalResults, partyResult, machineVoteShare, turnout,
   compareElections, machineVoteSeries, turnoutSeries, partyTimeline, pollAccuracy
   (now with grade + threshold-call rate), agencyProfile, latestPolls,
@@ -73,11 +75,11 @@ main motivation to land the M3 grammar-constrained LLM router next.
 
 ## Locked decisions
 
-| Decision | Choice |
-| --- | --- |
-| Repo structure | Second Vite entry in this repo (`ai/` + `vite.config.ai.ts` → `dist-ai`), importing `@/theme`, `@/i18n`, `@/components/ui/*` directly. No workspace refactor. |
-| Inference | In-browser only (WebLLM + WebGPU). BgGPT-2.6B default, EuroLLM-1.7B switch, both MLC-compiled and hosted free on HuggingFace. WebGPU feature-detected; no-WebGPU → graceful unsupported state. |
-| Question → data | Grammar-constrained tool-calling (XGrammar JSON). Model emits `{tool, args}`; deterministic tools compute; model narrates. |
+| Decision        | Choice                                                                                                                                                                                         |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Repo structure  | Second Vite entry in this repo (`ai/` + `vite.config.ai.ts` → `dist-ai`), importing `@/theme`, `@/i18n`, `@/components/ui/*` directly. No workspace refactor.                                  |
+| Inference       | In-browser only (WebLLM + WebGPU). BgGPT-2.6B default, EuroLLM-1.7B switch, both MLC-compiled and hosted free on HuggingFace. WebGPU feature-detected; no-WebGPU → graceful unsupported state. |
+| Question → data | Grammar-constrained tool-calling (XGrammar JSON). Model emits `{tool, args}`; deterministic tools compute; model narrates.                                                                     |
 
 ## Core thesis — the two-brain split
 
@@ -118,7 +120,7 @@ hallucinate vote totals. So it never touches numbers:
   - `/{election}/region_votes.json` — per-oblast, per-party machine/paper/suemg.
 - **Cross-election lineage:** `/canonical_parties.json` — `parties[]` with `id`,
   `displayName`, `displayNameEn`, `color`, `history[]` of `{election, partyNum,
-  nickName, name}`. Threads party identity across renames/merges (ГЕРБ's partyNum
+nickName, name}`. Threads party identity across renames/merges (ГЕРБ's partyNum
   changes each cycle; БСП → БСП-ОЛ).
 
 ---
@@ -187,15 +189,15 @@ vite.config.ai.ts · ai/tsconfig.json
 
 ## Tools (Brain 1) — initial set
 
-| Tool | Source | Net? | Answers |
-| --- | --- | --- | --- |
-| `nationalResults(election=latest)` | national_summary | 1 | party votes/%/seats, threshold |
-| `partyResult(party, election=latest)` | national_summary / elections.json | 0–1 | one party's result |
-| `turnout(election)` / `turnoutSeries(n)` | elections.json | 0 | turnout + cross-election trend |
-| `machineVoteShare(election)` / `machineVoteSeries(n)` | elections.json | 0 | machine % (the showcase) |
-| `partyTimeline(party)` | canonical_parties + elections.json | 1 | one party across all elections |
-| `compareElections(a, b, metric)` | elections.json | 0 | side-by-side |
-| `regionBreakdown(election, metric)` | region_votes | 1 | per-oblast table/bar |
+| Tool                                                  | Source                             | Net? | Answers                        |
+| ----------------------------------------------------- | ---------------------------------- | ---- | ------------------------------ |
+| `nationalResults(election=latest)`                    | national_summary                   | 1    | party votes/%/seats, threshold |
+| `partyResult(party, election=latest)`                 | national_summary / elections.json  | 0–1  | one party's result             |
+| `turnout(election)` / `turnoutSeries(n)`              | elections.json                     | 0    | turnout + cross-election trend |
+| `machineVoteShare(election)` / `machineVoteSeries(n)` | elections.json                     | 0    | machine % (the showcase)       |
+| `partyTimeline(party)`                                | canonical_parties + elections.json | 1    | one party across all elections |
+| `compareElections(a, b, metric)`                      | elections.json                     | 0    | side-by-side                   |
+| `regionBreakdown(election, metric)`                   | region_votes                       | 1    | per-oblast table/bar           |
 
 Cross-election series tools need **no fetches** (bundled `elections.json`).
 
@@ -204,11 +206,12 @@ Cross-election series tools need **no fetches** (bundled `elections.json`).
 ## Testing
 
 Run `npm run ai:test:all` (or individually):
+
 - `ai/tools/harness.ts` — every tool against real data, with golden assertions
 - `ai/tools/place.harness.ts` — the place resolver
 - `ai/orchestrator/toolSchema.harness.ts` — the model tool-call parse/validate
 - `ai/tests/regression.ts` (`npm run ai:test`) — **53 prompt → expected-response
-  cases across all 49 tools**: asserts the router picks the right tool *and* the
+  cases across all 49 tools**: asserts the router picks the right tool _and_ the
   tool returns the expected envelope (golden values for stable election/census
   data, structural checks for volatile assets/polls). A data refresh or routing
   change that breaks an expectation fails loudly — update the golden value or fix
@@ -234,6 +237,7 @@ copy), well under the file ceiling.
 -P ai`.
 
 **Operator go-live steps:**
+
 1. `npm run deploy:ai` (predeploy runs `build:ai`; deploys `dist-ai` → the
    `electionsbg-ai` project).
 2. In that project's Hosting → **Add custom domain** `ai.electionsbg.com`, add the
@@ -244,15 +248,15 @@ copy), well under the file ceiling.
 
 ## Milestones
 
-| # | Deliverable | Proves |
-| --- | --- | --- |
-| **M0** | Convert/compile BgGPT to MLC, host on HF, load in-browser. **Two variants shipped:** `bggpt` = BgGPT 2.6B (Gemma 2), light default, **no compile** (reuses prebuilt Gemma-2 wasm, ~1.6 GB); `bggpt3` = BgGPT 4B (Gemma 3), current line, **compiles** a gemma3-4b WebGPU wasm (Emscripten, ~2.7 GB) since no prebuilt exists. Recipe: `ai/m0/build-model.sh` + `ai/m0/colab.md` (Parts A/B). macOS wheels out-of-sync → Colab path. | model path works in-browser |
-| **M1** ✅ | Deterministic tools library (8 tools) + dropdown harness rendering charts/tables; node correctness harness | numbers 100% correct; charts reuse site components |
-| **M2** ◑ | Standalone Vite app: reused theme + bilingual chat UI, election-context picker (=latest), provider pill, Chat/Tools toggle. **Built & browser-verified.** Remaining: Firebase multi-site wiring + deploy to ai.electionsbg.com | look + bilingual shell (deploy pending) |
-| **M2.5** ✅ | Orchestrator (heuristic router + template narrator) behind `LLMProvider`; `HeuristicProvider` answers today with no model | demoable end-to-end at $0 |
-| **M3** | WebLLM wired as a second `LLMProvider`; grammar-constrained tool selection + narration; model switcher (BgGPT/EuroLLM) | end-to-end NL → answer via on-device model |
-| **M4** | Static embeddings index for explanatory questions + citations | "what is X" questions |
-| **M5** (optional) | LoRA on synthetic (question→tool-call) pairs from elections.json (free Colab); recompile to MLC | small-model routing reliability |
+| #                 | Deliverable                                                                                                                                                                                                                                                                                                                                                                                                                         | Proves                                             |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| **M0**            | Convert/compile BgGPT to MLC, host on HF, load in-browser. **Two variants shipped:** `bggpt` = BgGPT 2.6B (Gemma 2), light default, **no compile** (reuses prebuilt Gemma-2 wasm, ~1.6 GB); `bggpt3` = BgGPT 4B (Gemma 3), current line, **compiles** a gemma3-4b WebGPU wasm (Emscripten, ~2.7 GB) since no prebuilt exists. Recipe: `ai/m0/build-model.sh` + `ai/m0/colab.md` (Parts A/B). macOS wheels out-of-sync → Colab path. | model path works in-browser                        |
+| **M1** ✅         | Deterministic tools library (8 tools) + dropdown harness rendering charts/tables; node correctness harness                                                                                                                                                                                                                                                                                                                          | numbers 100% correct; charts reuse site components |
+| **M2** ◑          | Standalone Vite app: reused theme + bilingual chat UI, election-context picker (=latest), provider pill, Chat/Tools toggle. **Built & browser-verified.** Remaining: Firebase multi-site wiring + deploy to ai.electionsbg.com                                                                                                                                                                                                      | look + bilingual shell (deploy pending)            |
+| **M2.5** ✅       | Orchestrator (heuristic router + template narrator) behind `LLMProvider`; `HeuristicProvider` answers today with no model                                                                                                                                                                                                                                                                                                           | demoable end-to-end at $0                          |
+| **M3**            | WebLLM wired as a second `LLMProvider`; grammar-constrained tool selection + narration; model switcher (BgGPT/EuroLLM)                                                                                                                                                                                                                                                                                                              | end-to-end NL → answer via on-device model         |
+| **M4**            | Static embeddings index for explanatory questions + citations                                                                                                                                                                                                                                                                                                                                                                       | "what is X" questions                              |
+| **M5** (optional) | LoRA on synthetic (question→tool-call) pairs from elections.json (free Colab); recompile to MLC                                                                                                                                                                                                                                                                                                                                     | small-model routing reliability                    |
 
 ## Risks
 

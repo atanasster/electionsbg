@@ -1,6 +1,11 @@
 # PRD: Commerce-Registry connections & arbitrary-person search
 
-Status: **design approved, verification gates passed — implementation not started.**
+Status: **Stages 1–3 SHIPPED, Stage 4 paused.** The company → officers →
+people-in-power feature ships as precomputed static JSON in production
+(`src/screens/components/connections/CompanyConnectionsSection.tsx`,
+`data/parliament/company-connections-stats.json`). The Stage-4 DB migration (Turso +
+Firebase Function + arbitrary lookup) is staging-gated and paused on the empty TR data
+window — current shipped state, the gate, and the Stage-4 resume runbook are in the next section.
 
 This PRD covers the full roadmap. It ships in four steps (see Phasing): fix
 the stale TR data, build the **company → officers → people-in-power** feature
@@ -8,9 +13,76 @@ as **precomputed static JSON**, ship that to production, then migrate to a
 queryable database. Steps 1–3 need no new infrastructure; the DB migration
 (step 4) is staging-gated.
 
+## Current state, the Stage-4 gate, and key files
+
+_(Consolidated from the former `tr-db-migration-continuation.md` resume doc.)_
+
+**Shipped — Stages 1–3 (production-bound static JSON).** The company → officers →
+people-in-power feature is complete and committed. Builder
+`scripts/declarations/tr/build_company_connections.ts`
+(`npm run tr:build-company-connections`) reads the reconstructed `state.sqlite` +
+`connections-search.json` + `officials/index.json` + `officials/municipal/index.json`,
+computes **direct** links (officer personally holds office) + **one-hop bridge** links
+(officer → other company → politician there) with a namesake cap (25) and bridge cap (200),
+and writes one `data/parliament/company-connections/{eik}.json` per connected company
+(gitignored, GCS-only) + the committed `company-connections-stats.json`. Chained as
+**phase 7** of `parseFinancialDeclarations` (`scripts/declarations/index.ts`), so any
+`--declarations` run regenerates it (skips gracefully when `state.sqlite` is absent).
+Frontend: `src/data/parliament/useCompanyConnections.ts` +
+`CompanyConnectionsSection.tsx` on `CompanyByEikScreen.tsx` (officer roster, direct links with
+`MpAvatar`, bridged paths, confidence chips, "name match — identity not verified" disclaimer).
+Skill wiring: `update-connections` phase 7; the `egov_commerce` watcher →
+`process-watch-report` keeps it fresh, and `tr:daily-refresh` covers the daily/backfill path.
+Key commits: `5871b79c0`, `d49367e98`, `daa0cb442` + `6e368f81d`, `a096efa82`, `d89deac9b`
+(PRD `3a9379621`). Current counts (`company-connections-stats.json`, 2026-06-14):
+~133k companies with officers, **7,068 connected** (2,624 direct-only, 4,444 with bridges),
+4,400 direct + 12,058 bridged links; power people = 522 MP + 437 executive + 6,278 municipal.
+The feature runs on **partial** TR data today and can ship to prod now; only Stage 4 is gated.
+
+**The Stage-4 gate — the empty TR data window.** `raw_data/tr/state.sqlite` is rebuilt by
+replaying daily filing events from data.egov.bg, whose per-resource download endpoint is
+partially broken:
+
+- **Working:** days on/after ~**2026-04-22** download (200).
+- **Broken:** ~**1,087 historical days (2022-09-03 → 2026-04-14)** return **HTTP 500**
+  (confirmed across many re-checks).
+- **Never had:** no clean pre-2022-09 source — data.egov.bg prunes old resources and the bulk
+  ZIP only carries a stale 2021–2022 bundle, so the `daily/` 2021–2022 files are the only
+  surviving copy of that era (**do not delete `daily/`** — `reconstruct_state.ts` merges it
+  with the fresh bulk).
+
+So `state.sqlite` currently covers 2021–2022 + ~2026-04-22→present, with a ~3.5-year hole
+(~338k officer rows vs the ~0.6–1M+ a full window would yield). **The gate is met when** the
+500s clear and the window backfills (`state.sqlite` jumps to ~0.6–1M+ person rows with
+2023–2025 `added_at` rows present).
+
+**Auto-backfill — no manual detection needed.** `npm run tr:daily-refresh`
+(`scripts/declarations/tr/daily_refresh.ts`, committed `d89deac9b`) runs daily after the
+watcher-driven TR refresh and probes 3 historical days; while they 500 it fetches nothing.
+**The first morning they return 200 it backfills all ~1,087 days in that run**, reconstructs
+`state.sqlite`, and rebuilds the per-EIK files. Watch for the `historical window RECOVERED`
+log line / a jump in the `company-connections-stats.json` counts. Force a check anytime with
+`npm run tr:daily-refresh`. The detailed Stage-4 runbook (build Turso DB → staging-gated
+Function → dual-path frontend) is in **Phasing → Step 4** below.
+
+**Key files (for the Stage-4 session):**
+
+| Path                                                               | Role                                                                                 |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `scripts/declarations/tr/daily_refresh.ts`                         | Daily historical-probe + auto-backfill + rebuild (the recovery detector)             |
+| `scripts/declarations/tr/build_company_connections.ts`             | Stage-2 per-EIK builder (phase 7)                                                    |
+| `scripts/declarations/tr/reconstruct_state.ts`                     | Replays `daily/` + bulk → `state.sqlite` (two-source merge — do NOT delete `daily/`) |
+| `scripts/declarations/tr/cli.ts`                                   | `--index --incremental --bulk --reconstruct`                                         |
+| `src/screens/components/connections/CompanyConnectionsSection.tsx` | Stage-2 UI on `/company/:eik`                                                        |
+| `src/data/parliament/useCompanyConnections.ts`                     | Hook (becomes dual-path in Stage 4)                                                  |
+| `data/parliament/company-connections-stats.json`                   | Committed run summary — watch its counts for the backfill jump                       |
+| _(to create)_ `scripts/declarations/tr/build_search_db.ts`         | Stage-4 Turso DB builder                                                             |
+| `functions/` _(already exists for `llm` + `scenarios`)_            | Stage-4 adds the EIK + `/api/search` handlers here (own `package.json`/`tsconfig`)   |
+| _(to create)_ `src/lib/featureFlags.ts`                            | `registryDbEnabled()` staging gate                                                   |
+
 ## Context
 
-The connections feature today covers a *curated, bounded* set of entities —
+The connections feature today covers a _curated, bounded_ set of entities —
 MPs and non-MP officials (cabinet, governors, mayors, councillors) —
 pre-computed offline into static JSON (`data/parliament/connections*.json`)
 and cross-referenced against a partial Commerce Registry.
@@ -31,7 +103,7 @@ queryable backend.
 - **The data.egov.bg TR feed is a rolling window, not a full archive.**
   `dataset-index.json` lists **1,113 daily filing resources spanning
   2022-09-03 → 2026-05-19**; data.egov.bg prunes older resources from the
-  listing. The feed publishes daily *change events* (officer add/erase,
+  listing. The feed publishes daily _change events_ (officer add/erase,
   company meta) — there is no full-snapshot resource.
 - **Today's `state.sqlite` is built from a stale, broken folder.** The 517
   cached `daily/` files are 2021 (290) + 2022 (206) + 21 stray 2026 days —
@@ -44,7 +116,7 @@ queryable backend.
   limit of this source. True 100% coverage would need the Registry Agency /
   brra.bg bulk export, which this pipeline does not use.
 - **Maximum achievable window ≈ 5.4 years (2021-01 → 2026-05).** The stale
-  `daily/` folder is now the *only surviving copy* of pre-2022-09 filings —
+  `daily/` folder is now the _only surviving copy_ of pre-2022-09 filings —
   it must be merged with a fresh bulk ZIP, not discarded.
 - **No ЕГН** anywhere — TR identifies people by name only. Entity
   resolution is therefore the central, permanent problem.
@@ -69,7 +141,7 @@ queryable backend.
   shared normalizer (see Schema) should be the hyphen-aware variant.
 - **Gate C — join feasibility: strong pass.** Of the 1,643 curated power
   people, **1,273 (77.5%) already match a TR officer by exact name** against
-  the *partial* DB — full bulk will raise this. Only 8 of those are
+  the _partial_ DB — full bulk will raise this. Only 8 of those are
   namesake-prone (>25 companies); 99.9% of power people have discriminating
   3-part names. The feature will yield real, mostly-clean results; namesake
   risk is concentrated on bridge intermediaries and handled by the
@@ -90,7 +162,7 @@ Surveyed before locking the design (research May 2026):
   A cautionary tale against a multi-service backend.
 - **OpenSanctions / yente** — open-source matching API on the
   **FollowTheMoney (FtM)** schema (Person, Company, Ownership, Directorship).
-  FtM is the de-facto journalist ontology — we borrow its *vocabulary* for
+  FtM is the de-facto journalist ontology — we borrow its _vocabulary_ for
   role/column names without adopting its stack.
 - **LittleSis** — Rails + Postgres, manually curated "who-knows-who";
   `Oligrapher` (React/Redux) for network viz.
@@ -149,14 +221,14 @@ Turso  (hosted SQLite / libSQL, Frankfurt region)
 
 ### Turso free-tier fit
 
-| Concern | Finding | Verdict |
-|---|---|---|
-| FTS5 (fuzzy name search) | Enabled by default on Turso | Available — **not needed for v1** (entry point is an EIK) |
-| Import a ~1 GB DB | `turso db create --from-file` ≤ 2 GB; newer upload path 20 GB | Fine — projected DB ~0.7–1 GB |
-| Storage | Free: 5 GB | ~5× headroom |
-| Row reads | Free: **500 M/month** | v1 query reads ≤~3k rows; 200 searches/day ≈ 3.6% of limit |
-| Writes | Free: 10 M/month | Only monthly bulk reloads |
-| Recursive CTEs | libSQL is SQLite | Supported (not needed at depth 2 — see Query design) |
+| Concern                  | Finding                                                       | Verdict                                                    |
+| ------------------------ | ------------------------------------------------------------- | ---------------------------------------------------------- |
+| FTS5 (fuzzy name search) | Enabled by default on Turso                                   | Available — **not needed for v1** (entry point is an EIK)  |
+| Import a ~1 GB DB        | `turso db create --from-file` ≤ 2 GB; newer upload path 20 GB | Fine — projected DB ~0.7–1 GB                              |
+| Storage                  | Free: 5 GB                                                    | ~5× headroom                                               |
+| Row reads                | Free: **500 M/month**                                         | v1 query reads ≤~3k rows; 200 searches/day ≈ 3.6% of limit |
+| Writes                   | Free: 10 M/month                                              | Only monthly bulk reloads                                  |
+| Recursive CTEs           | libSQL is SQLite                                              | Supported (not needed at depth 2 — see Query design)       |
 
 Turso free tier covers this **~1000× over**. Net new spend: **$0/month**.
 At ~150 visitors/day skewed to elections (procurement/companies are a
@@ -228,6 +300,7 @@ CREATE INDEX idx_power_name ON power_people(name_norm);
 ```
 
 **`power_people` source — all officials, deduped by slug:**
+
 - MPs from `data/parliament/connections-search.json` (491)
 - officials from `connections-search.json` (1,152)
 - the full municipal roster from `data/officials/municipal/index.json`
@@ -236,7 +309,7 @@ CREATE INDEX idx_power_name ON power_people(name_norm);
 
 **Critical — single normalizer.** `company_persons.name_norm`,
 `person_names.name_norm`, and `power_people.name_norm` MUST be produced by
-the *same* function. Gate B verified that the TR `normalizePersonName` and
+the _same_ function. Gate B verified that the TR `normalizePersonName` and
 the connections-graph `normalizeName` are already byte-identical; the
 officials `normalize` differs only by collapsing spaces around hyphens.
 `build_search_db.ts` must re-normalize every name through **one shared
@@ -332,12 +405,13 @@ The feature ships in four steps. Steps 1–3 require no new infrastructure;
 step 4 is the DB migration.
 
 ### Step 1 — Fix the stale TR data
+
 - `cli.ts --index` to refresh `dataset-index.json`, then `--bulk` to fetch
   the current ~1,113-resource ZIP (2022-09 → present).
 - **Code change** — `reconstruct_state.ts` must merge two sources: the stale
   `daily/` folder (2021-01 → 2022, the only surviving copy of pre-2022-09
   filings) and the fresh bulk ZIP, replayed in one chronological stream.
-  Today it reads zip *or* folder. Do **not** delete `daily/`.
+  Today it reads zip _or_ folder. Do **not** delete `daily/`.
 - Run `--reconstruct`. **Verify** `company_persons` rises from 243k to
   ~0.6–1M+ and that 2023–2025 `added_at` rows now exist (the current DB has
   none).
@@ -346,6 +420,7 @@ step 4 is the DB migration.
   the TR fix.
 
 ### Step 2 — Company → people-in-power feature (static JSON)
+
 - **New `scripts/declarations/tr/build_company_connections.ts`** — reads the
   reconstructed `state.sqlite` + `connections-search.json` +
   `officials/municipal/index.json`. Builds the `power_people` map (~7,500,
@@ -365,14 +440,17 @@ step 4 is the DB migration.
   static, prod-bound.
 
 ### Step 3 — Ship steps 1 + 2
+
 - Regenerate data (step 1 → step 2 builder), then `npm run bucket:sync` to
   push the new files to the GCS bucket (shared by staging and prod).
 - `npx eslint . --fix` (predeploy lint hook), then `npm run staging` →
   verify on `electionsbg-staging.web.app` → `npm run deploy` → prod.
 
 ### Step 4 — DB migration (Turso + Firebase Function)
+
 Staging-gated (see Staging gating). For the company→politician feature this
 is a delivery swap; its real payoff is the unbounded features below.
+
 - New `scripts/declarations/tr/build_search_db.ts` — emits
   `raw_data/tr/registry.sqlite` (the Stage-4 4-table schema; one shared
   normalizer). Add `npm run tr:build-search-db`. **Gitignore the artifact.**
@@ -385,7 +463,7 @@ is a delivery swap; its real payoff is the unbounded features below.
   runs the 2 queries, dedupes, returns JSON; unknown EIK → empty, never 500.
   libSQL client at module scope; secrets via `defineSecret`
   (`TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN`); response `Cache-Control:
-  public, max-age=86400, stale-while-revalidate=604800`.
+public, max-age=86400, stale-while-revalidate=604800`.
 - `firebase.json`: add a `functions` block + a `/api/**` rewrite **before**
   the `**` catch-all; `npm run deploy` (prod) → `--only hosting` so the
   Function lands on the staging project only.
@@ -395,6 +473,7 @@ is a delivery swap; its real payoff is the unbounded features below.
   separate change.
 
 ### Later phases (after step 4)
+
 - **Arbitrary-person search** — add `companies_fts` / `persons_fts` (FTS5
   trigram) + a `/api/search?q=` route and a person-search surface. This is
   the feature the DB chiefly exists for.
