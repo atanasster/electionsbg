@@ -5,11 +5,14 @@ import { Title } from "@/ux/Title";
 import { Caption } from "@/ux/Caption";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import type { CandidatesInfo } from "@/data/dataTypes";
-import { MpAvatar } from "./MpAvatar";
+import { MpAvatar, MpAvatarView } from "./MpAvatar";
 import { PartyLink } from "../party/PartyLink";
 import { RegionLink } from "../regions/RegionLink";
 
 type CikBadge = Pick<CandidatesInfo, "partyNum" | "oblast" | "pref">;
+
+/** Minimal MP fields the header needs for the avatar. */
+type HeaderMp = { photoUrl?: string | null } | null;
 
 type Props = {
   /** Display name in the active locale (used for the H1 and SEO). */
@@ -32,6 +35,11 @@ type Props = {
    * same array on every screen so the candidate's party/region affiliation
    * stays consistent across the dashboard and sub-pages. */
   cikRows?: CikBadge[];
+  /** The resolved MP record (or null for a non-MP). When provided — even as
+   * null — the avatar renders straight from it without touching the parliament
+   * index. Omit it entirely to fall back to the legacy name-keyed lookup
+   * (kept for callers that don't have a resolved record on hand). */
+  mpEntry?: HeaderMp | undefined;
 };
 
 export const CandidateHeader: FC<Props> = ({
@@ -43,6 +51,7 @@ export const CandidateHeader: FC<Props> = ({
   seoTitle,
   seoDescription,
   cikRows = [],
+  mpEntry,
 }) => {
   const { findParty } = usePartyInfo();
   const subtitleText = typeof subtitle === "string" ? subtitle : undefined;
@@ -68,13 +77,20 @@ export const CandidateHeader: FC<Props> = ({
         className="pt-4 pb-1 md:pt-10 md:pb-1 sm:pb-1"
       >
         <span className="inline-flex items-center justify-center gap-3">
-          {lookupName && (
-            <MpAvatar
-              name={lookupName}
-              className="h-12 w-12 md:h-14 md:w-14"
-              showPartyRing={false}
-            />
-          )}
+          {lookupName &&
+            (mpEntry !== undefined ? (
+              <MpAvatarView
+                photoUrl={mpEntry?.photoUrl}
+                displayName={displayName}
+                className="h-12 w-12 md:h-14 md:w-14"
+              />
+            ) : (
+              <MpAvatar
+                name={lookupName}
+                className="h-12 w-12 md:h-14 md:w-14"
+                showPartyRing={false}
+              />
+            ))}
           <span>{displayName}</span>
         </span>
       </Title>

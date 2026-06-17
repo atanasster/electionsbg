@@ -14,24 +14,31 @@ type Props = {
   showPartyRing?: boolean;
 };
 
-export const MpAvatar: FC<Props> = ({
-  name,
-  mpId,
+type ViewProps = {
+  /** Absolute (already dataUrl-resolved) photo URL, or empty/null for initials. */
+  photoUrl?: string | null;
+  /** Name to derive the fallback initials from and label the image. */
+  displayName: string;
+  /** Party-colour ring colour; omit/null for no ring. */
+  ringColor?: string | null;
+  className?: string;
+};
+
+/** Presentational avatar — no data hooks. Use this when the caller already
+ * holds the photo URL + party colour (e.g. from a resolved-candidate shard),
+ * so the page doesn't download parliament/index.json just to render a face. */
+export const MpAvatarView: FC<ViewProps> = ({
+  photoUrl,
+  displayName,
+  ringColor,
   className,
-  showPartyRing = true,
 }) => {
-  const { findMpByName, findMpById } = useMps();
-  const { lookup } = useParliamentGroups();
-  const mp = findMpById(mpId) ?? findMpByName(name);
-  const photoUrl = mp?.photoUrl;
-  const displayName = mp?.name ?? name ?? "";
-  const group = showPartyRing ? lookup(mp?.currentPartyGroupShort) : undefined;
-  const ringStyle: CSSProperties | undefined = group
-    ? { ["--tw-ring-color" as string]: group.color }
+  const ringStyle: CSSProperties | undefined = ringColor
+    ? { ["--tw-ring-color" as string]: ringColor }
     : undefined;
   return (
     <Avatar
-      className={cn("h-5 w-5 shrink-0", group && "ring-2", className)}
+      className={cn("h-5 w-5 shrink-0", ringColor && "ring-2", className)}
       style={ringStyle}
     >
       {photoUrl && (
@@ -45,5 +52,27 @@ export const MpAvatar: FC<Props> = ({
         {initials(displayName)}
       </AvatarFallback>
     </Avatar>
+  );
+};
+
+/** Connected avatar — resolves the MP by id/name through the parliament index.
+ * Prefer `MpAvatarView` on hot paths where the photo is already known. */
+export const MpAvatar: FC<Props> = ({
+  name,
+  mpId,
+  className,
+  showPartyRing = true,
+}) => {
+  const { findMpByName, findMpById } = useMps();
+  const { lookup } = useParliamentGroups();
+  const mp = findMpById(mpId) ?? findMpByName(name);
+  const group = showPartyRing ? lookup(mp?.currentPartyGroupShort) : undefined;
+  return (
+    <MpAvatarView
+      photoUrl={mp?.photoUrl}
+      displayName={mp?.name ?? name ?? ""}
+      ringColor={group?.color}
+      className={className}
+    />
   );
 };

@@ -78,14 +78,32 @@ When parliament.bg's `coll-list-ns/bg` starts returning a NEW current NS (e.g. 5
    re-run — it's a no-op when nothing changed and prevents stale `mpId`
    stamps after parliament.bg renumbers an MP.
 
-6. **Commit**:
+6. **Re-build parliamentary candidate resolution shards** (the parliamentary
+   analogue of step 5). Every `/candidate/*` page resolves its person from a
+   precomputed shard whose `mpId` match + embedded MP `photoUrl` / party group
+   / `isCurrent` come from the parliament index — so a roster refresh leaves
+   those shards stale until they are re-matched:
+   ```bash
+   npx tsx scripts/preferences/rebuild_resolved.ts
+   ```
+   Walks every parliamentary election's `data/<election>/candidates/`,
+   re-matches against the refreshed index, and rewrites only the shards that
+   actually changed (`resolved.json` + `by-slug/*.json`). ~15 s, network-free,
+   idempotent — same skip rule as step 5. These shards are gitignored
+   (`/data/2*/*`) and served from GCS, so **ship them with `bucket:sync`, not a
+   commit**. (The full preferences pipeline, `npm run data -- --candidates`,
+   regenerates them inline; this step is the cheap re-match for when only the
+   parliament index moved.)
+
+7. **Commit**:
    ```bash
    git add public/parliament/ data/
    git commit -m "Update parliament data for 52nd NS"
    ```
    The diff will mostly be in `index.json` plus 240-ish profile files (the
    sitting MPs' updated `oldnsList`), and the `mpId` stamps the decorator
-   wrote across local-election bundles.
+   wrote across local-election bundles. (Candidate resolution shards from
+   step 6 are gitignored — they don't appear here; bucket-sync them instead.)
 
 ## Data-integrity contract
 

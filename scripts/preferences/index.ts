@@ -8,6 +8,7 @@ import { savePreferences } from "./save_preferences";
 import { parseCandidates } from "./parse_candidates";
 import { addPreferences, assignPrevYearPreference } from "./pref_utils";
 import { saveCandidateStats } from "./save_candidate_stats";
+import { saveCandidateResolved } from "./save_candidate_resolved";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -154,6 +155,11 @@ export const createPreferencesFiles = async (
         saveCandidateStats({
           stringify,
           prevYears: folders.slice(0, index).map((e) => e.name),
+          year: e.name,
+          publicFolder: dataFolder,
+        });
+        saveCandidateResolved({
+          stringify,
           year: e.name,
           publicFolder: dataFolder,
         });

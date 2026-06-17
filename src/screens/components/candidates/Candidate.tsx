@@ -1,38 +1,19 @@
 import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  ArrowRight,
-  Briefcase,
-  Euro,
-  Landmark,
-  Vote,
-  Wallet,
-} from "lucide-react";
-import { Link } from "@/ux/Link";
 import { useResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
 import { useCandidateElectionFallback } from "@/data/candidates/useCandidateElectionFallback";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { useElectionContext } from "@/data/ElectionContext";
-import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { CandidateHeader } from "./CandidateHeader";
 import { MpProfileHeader } from "./MpProfileHeader";
 import { MpFinancialDeclarations } from "./MpFinancialDeclarations";
 import { MpAssetsSummary } from "./MpAssetsSummary";
 import { MpManagementRoles } from "./MpManagementRoles";
 import { MpConnectionsMini } from "./MpConnectionsMini";
-import { MpConnectedContractsTile } from "./MpConnectedContractsTile";
-import { MpConnectedFundsTile } from "./MpConnectedFundsTile";
-import { MpVotingTile } from "./MpVotingTile";
-import { MpTwinsTile } from "./MpTwinsTile";
+import { MpProfileSections } from "./MpProfileSections";
 import { MpScorecardTile } from "./MpScorecardTile";
 import { CandidateNamesakeChooser } from "./CandidateNamesakeChooser";
 import { CandidateDashboardCards } from "@/screens/dashboard/CandidateDashboardCards";
-import { useMpManagement } from "@/data/parliament/useMpManagement";
-import { useMpConnections } from "@/data/parliament/useMpConnections";
-import { useMpConnectedContracts } from "@/data/parliament/useMpConnectedContracts";
-import { useMpConnectedFunds } from "@/data/funds/useMpConnectedFunds";
-import { useMpAssets } from "@/data/parliament/useMpAssets";
-import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
 
 /** Render the dashboard for a single candidate.
  *
@@ -74,25 +55,6 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
     }
   }, [fallbackElection, selected, setSelected]);
 
-  // Hoist tile data hooks so the parent can omit the section wrapper
-  // entirely when every tile inside it would return null. DashboardSection's
-  // internal isRenderable check sees React elements as renderable even when
-  // they ultimately render nothing.
-  const canonicalMpName =
-    canonical && canonical.mpId != null ? canonical.name : null;
-  const { management, isLoading: mgmtLoading } =
-    useMpManagement(canonicalMpName);
-  const { subgraph, isLoading: connectionsLoading } =
-    useMpConnections(canonicalMpName);
-  const { entries: connectedContracts, isLoading: contractsLoading } =
-    useMpConnectedContracts(canonicalMpName);
-  const { entries: connectedFunds, isLoading: fundsLoading } =
-    useMpConnectedFunds(canonicalMpName);
-  const { rollup: assetsRollup, isLoading: assetsLoading } =
-    useMpAssets(canonicalMpName);
-  const { declarations, isLoading: declsLoading } =
-    useMpDeclarations(canonicalMpName);
-
   if (
     isLoading ||
     (needsElectionFallback && (isProbing || !!fallbackElection))
@@ -122,6 +84,7 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
         <CandidateHeader
           displayName={headerName}
           lookupName={name}
+          mpEntry={null}
           seoDescription={`Results for party candidate ${headerName}`}
         />
         <MpProfileHeader name={name} />
@@ -144,28 +107,12 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
   const headerName = isEn ? canonical.name_en : canonical.name;
   const linkSlug = canonical.slug;
 
-  const hasManagementRoles = (management?.roles?.length ?? 0) > 0;
-  const hasConnections = subgraph != null && subgraph.nodes.length > 1;
-  const hasContracts = connectedContracts.length > 0;
-  const hasFunds = connectedFunds.length > 0;
-  const hasAssets = assetsRollup != null;
-  const hasFinancialDecls = declarations.some(
-    (d) => d.ownershipStakes.length > 0,
-  );
-  // Keep the section visible while data is in flight so the tile's loading
-  // skeleton can reserve space; hide it once we know there's nothing to show.
-  const showBusiness =
-    mgmtLoading || connectionsLoading || hasManagementRoles || hasConnections;
-  const showProcurement = contractsLoading || hasContracts;
-  const showFunds = fundsLoading || hasFunds;
-  const showDeclarations =
-    assetsLoading || declsLoading || hasAssets || hasFinancialDecls;
-
   return (
     <div className="w-full">
       <CandidateHeader
         displayName={headerName}
         lookupName={lookupName}
+        mpEntry={canonical.mpEntry}
         cikRows={canonical.cikRows}
         seoDescription={`Results for party candidate ${headerName}`}
       />
@@ -177,86 +124,7 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
       <CandidateDashboardCards name={lookupName} linkSlug={linkSlug} />
 
       {canonical.mpId != null && (
-        <>
-          <DashboardSection
-            id="parliament"
-            title={t("mp_section_voting") || "Voting & similarity"}
-            icon={Vote}
-          >
-            <MpVotingTile name={lookupName} linkSlug={linkSlug} />
-            <MpTwinsTile name={lookupName} />
-          </DashboardSection>
-
-          {showDeclarations && (
-            <DashboardSection
-              id="declarations"
-              title={t("mp_section_assets") || "Assets & declarations"}
-              icon={Wallet}
-            >
-              <MpAssetsSummary name={lookupName} linkSlug={linkSlug} />
-              <MpFinancialDeclarations name={lookupName} />
-            </DashboardSection>
-          )}
-
-          {showBusiness && (
-            <DashboardSection
-              id="declarations"
-              title={t("mp_section_business") || "Business & management"}
-              icon={Briefcase}
-            >
-              <MpManagementRoles name={lookupName} />
-              <MpConnectionsMini name={lookupName} linkSlug={linkSlug} />
-            </DashboardSection>
-          )}
-
-          {showProcurement && (
-            <DashboardSection
-              id="procurement"
-              title={t("mp_section_procurement") || "Public procurement"}
-              icon={Landmark}
-            >
-              <MpConnectedContractsTile name={lookupName} linkSlug={linkSlug} />
-            </DashboardSection>
-          )}
-
-          {showFunds && (
-            <DashboardSection
-              id="funds"
-              title={t("mp_section_funds") || "EU funds"}
-              icon={Euro}
-            >
-              <MpConnectedFundsTile name={lookupName} linkSlug={linkSlug} />
-            </DashboardSection>
-          )}
-
-          <div className="mt-6 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-            <span>{t("mp_section_explore_more") || "Explore further"}:</span>
-            <Link
-              to="/governance"
-              underline={false}
-              className="inline-flex items-center gap-1 rounded-full border bg-card px-3 py-1 text-primary hover:underline"
-            >
-              {t("nav_governance") || "Governance"}
-              <ArrowRight className="h-3 w-3" />
-            </Link>
-            <Link
-              to="/parliament"
-              underline={false}
-              className="inline-flex items-center gap-1 rounded-full border bg-card px-3 py-1 text-primary hover:underline"
-            >
-              {t("dashboard_section_parliament")}
-              <ArrowRight className="h-3 w-3" />
-            </Link>
-            <Link
-              to="/connections"
-              underline={false}
-              className="inline-flex items-center gap-1 rounded-full border bg-card px-3 py-1 text-primary hover:underline"
-            >
-              {t("connections_link_label")}
-              <ArrowRight className="h-3 w-3" />
-            </Link>
-          </div>
-        </>
+        <MpProfileSections name={lookupName} linkSlug={linkSlug} />
       )}
     </div>
   );
