@@ -1066,7 +1066,7 @@ const CASES: Case[] = [
     q: "Има ли частични местни избори?",
     tool: "chmiEvents",
     kind: "table",
-    facts: { total: { num: 379 } },
+    facts: { total: { num: 392 } },
     // the extraordinary-elections feed -> its dedicated page, not the cycle landing
     links: ["/local/chmi"],
   },
@@ -1715,7 +1715,7 @@ const CASES: Case[] = [
   {
     q: "Какво е регистрираното население на Габрово?",
     tool: "graoPopulation",
-    facts: { permanent: { num: 57970 } },
+    facts: { permanent: { num: 57742 } },
   },
   {
     q: "Какъв е въздухът в Перник?",
