@@ -15,8 +15,11 @@
 //      ("2014-2020" / "2021-2027" / "2021-RRP") instead of a fake "1 Jan
 //      YYYY" date, since the programCode prefix only identifies the
 //      programming frame, not a per-contract date
-//   4. Local-election cycle — fixed event for municípios with a 2023
-//      bundle (and any future cycle when the parsers add it)
+//   4. Local elections — the fixed 2023 regular-cycle mayor event, plus
+//      the freshest extraordinary (частични / нови) elections from
+//      data/chmi_history/<obshtina>.json (mayor by-elections + council
+//      re-elections), dated by the actual election day
+
 //   5. Capital programmes — one event per município that has a current-
 //      year capital programme line
 //   6. Plenary roll-call mentions — when the MPs from this município's
@@ -77,6 +80,25 @@ type LocalMunicipalityBundle = {
   mayor?: {
     elected?: { candidateName?: string; localPartyName?: string } | null;
   };
+};
+
+// Per-município extraordinary-elections history (data/chmi_history/<code>.json),
+// written by scripts/parsers_local/build_chmi_history.ts. Covers partial
+// (частични) + new (нови) mayor by-elections and council re-elections.
+type ChmiHistoryEvent = {
+  date: string;
+  kind: "obshtina_mayor" | "kmetstvo_mayor" | "rayon_mayor" | "council";
+  obshtinaName: string;
+  kmetstvoName: string | null;
+  candidateName: string;
+  localPartyName: string;
+  councilSeatsWon?: number;
+  councilTotalSeats?: number;
+};
+
+type ChmiHistoryShard = {
+  obshtinaCode: string;
+  events: ChmiHistoryEvent[];
 };
 
 type CouncilTag =
@@ -150,6 +172,7 @@ const LOCAL_CYCLE_DIR = path.join(
   PROJECT_ROOT,
   "data/2023_10_29_mi/municipalities",
 );
+const CHMI_HISTORY_DIR = path.join(PROJECT_ROOT, "data/chmi_history");
 const CAPITAL_PROGRAMS = path.join(
   PROJECT_ROOT,
   "data/budget/capital_programs",
@@ -175,6 +198,10 @@ const PLENARY_TOP_N = 5;
 // Keep the top 3 freshest tagged rows from the last 60 days.
 const COUNCIL_TOP_N = 3;
 const COUNCIL_LOOKBACK_DAYS = 60;
+// Extraordinary (partial / new) elections per município. Capped so a long
+// by-election history (e.g. a Столична район) can't flood the digest; the
+// freshest events sort to the top of the feed anyway.
+const CHMI_TOP_N = 6;
 
 // Bridge between frontend obshtina codes (BGS04, S2401, SFO_CITY) and the
 // council ingest's keys (BGS01, SOF). Mirrors STATIC_MAP +
@@ -335,6 +362,58 @@ const buildLocalElectionEvent = (obshtina: string): AlertEvent | null => {
     headline_bg: `Местни избори 2023: избран кмет — ${elected.candidateName} (${elected.localPartyName ?? "?"})`,
     headline_en: `2023 local elections: mayor elected — ${elected.candidateName} (${elected.localPartyName ?? "?"})`,
   };
+};
+
+// Extraordinary (частични / нови) elections held between regular cycles — the
+// freshest local-democracy activity in a място (e.g. the June 2026 частични
+// избори). Dated by the actual election day so they sort to the top of the
+// feed, unlike the fixed 2023 cycle event above.
+const buildChmiElectionEvents = (obshtina: string): AlertEvent[] => {
+  const shard = readJson<ChmiHistoryShard>(
+    path.join(CHMI_HISTORY_DIR, `${obshtina}.json`),
+  );
+  if (!shard?.events?.length) return [];
+  const recent = [...shard.events]
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .slice(0, CHMI_TOP_N);
+  return recent.map((e) => {
+    const party = e.localPartyName || "?";
+    if (e.kind === "council") {
+      const seatsBg =
+        e.councilSeatsWon != null && e.councilTotalSeats != null
+          ? ` (${e.councilSeatsWon}/${e.councilTotalSeats} места)`
+          : "";
+      const seatsEn =
+        e.councilSeatsWon != null && e.councilTotalSeats != null
+          ? ` (${e.councilSeatsWon}/${e.councilTotalSeats} seats)`
+          : "";
+      return {
+        date: e.date,
+        kind: "local_election" as const,
+        headline_bg: `Нов избор за общински съвет: водеща партия ${party}${seatsBg}`,
+        headline_en: `New municipal council election: leading party ${party}${seatsEn}`,
+      };
+    }
+    const placeName = e.kmetstvoName ?? e.obshtinaName;
+    const roleBg =
+      e.kind === "kmetstvo_mayor"
+        ? `кмет на кметство ${placeName}`
+        : e.kind === "rayon_mayor"
+          ? `кмет на район ${placeName}`
+          : "кмет на община";
+    const roleEn =
+      e.kind === "kmetstvo_mayor"
+        ? `kmetstvo mayor (${placeName})`
+        : e.kind === "rayon_mayor"
+          ? `district mayor (${placeName})`
+          : "municipal mayor";
+    return {
+      date: e.date,
+      kind: "local_election" as const,
+      headline_bg: `Извънредни местни избори: избран ${roleBg} — ${e.candidateName} (${party})`,
+      headline_en: `By-election: ${roleEn} elected — ${e.candidateName} (${party})`,
+    };
+  });
 };
 
 const buildCapitalProgramEvents = (obshtina: string): AlertEvent[] => {
@@ -500,6 +579,7 @@ const main = () => {
     ];
     const local = buildLocalElectionEvent(m.obshtina);
     if (local) allEvents.push(local);
+    allEvents.push(...buildChmiElectionEvents(m.obshtina));
     if (allEvents.length === 0) continue;
     allEvents.sort((a, b) => b.date.localeCompare(a.date));
     const trimmed = allEvents.slice(0, EVENT_CAP);

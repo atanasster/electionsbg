@@ -834,6 +834,13 @@ const MunicipalityResults: FC<{
         districts={municipality.districts}
       />
 
+      {/* Extraordinary (частични / нови) elections held since this regular
+          cycle — predominantly fresh mayor by-elections, so the summary sits
+          with the mayor tier, above the council block, instead of buried at
+          the very bottom of the page. Self-hides when there are no chmi
+          events for this município. */}
+      <ChmiHistorySection events={chmiEvents} />
+
       {/* Council — one "Общински съвет" heading (the nested duplicate that
           Sofia район shards used to show is gone). Composition hemicycle, then
           the section-vote map beside the compact parties tile; the full
@@ -898,8 +905,6 @@ const MunicipalityResults: FC<{
           />
         </DashboardSection>
       ) : null}
-
-      <ChmiHistorySection events={chmiEvents} />
 
       {/* Supplementary place data — the same geography / finances / current-
           officials tiles the parliamentary município page carries, keyed by the

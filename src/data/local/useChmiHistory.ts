@@ -1,8 +1,12 @@
 // Fetch chmi (partial + new election) history.
 //
 // Two access patterns, two file shapes — both anchored to the currently
-// selected parliamentary election via ElectionContext (events with a `date`
-// after that election are dropped):
+// selected parliamentary election via ElectionContext: when a *historical*
+// election is selected, events dated after it are dropped so the as-of view
+// stays consistent. When the latest election is selected (the default), no
+// cutoff applies — there is no "future" to be anachronistic about, so every
+// chmi event through today shows, including partials held after that election
+// (e.g. the June 2026 частични избори held after the April 2026 vote).
 //
 //   useChmiHistoryAll()        → /local_chmi_history.json (global, ~61KB)
 //     For the national /local/chmi feed which needs every event.
@@ -65,8 +69,10 @@ export const useChmiHistoryAll = () => {
     queryKey: ["local_chmi_history"],
     queryFn,
   });
-  const { selected } = useElectionContext();
-  const asOfDate = selected ? selected.replace(/_/g, "-") : undefined;
+  const { selected, elections } = useElectionContext();
+  const isLatestElection = !selected || selected === elections[0];
+  const asOfDate =
+    selected && !isLatestElection ? selected.replace(/_/g, "-") : undefined;
   const data = useMemo<ChmiHistory | undefined>(() => {
     if (!query.data) return query.data;
     if (!asOfDate) return query.data;
@@ -110,8 +116,10 @@ export const useChmiHistory = (
     queryFn: shardQueryFn,
     enabled: !!obshtinaCode,
   });
-  const { selected } = useElectionContext();
-  const asOfDate = selected ? selected.replace(/_/g, "-") : undefined;
+  const { selected, elections } = useElectionContext();
+  const isLatestElection = !selected || selected === elections[0];
+  const asOfDate =
+    selected && !isLatestElection ? selected.replace(/_/g, "-") : undefined;
   return useMemo(() => {
     if (!data) return [];
     if (!asOfDate) return data.events;
