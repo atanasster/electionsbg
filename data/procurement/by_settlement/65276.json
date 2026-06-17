@@ -3,10 +3,10 @@
   "name": "Самуил",
   "province": "Разград",
   "obshtina": "Самуил",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 185,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 189,
   "awardCount": 0,
-  "totalEur": 15383080.597575866,
+  "totalEur": 15640021.108765488,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 15383080.597575866,
       "totalOther": {},
       "contractCount": 185,
+      "awardCount": 0
+    },
+    {
+      "eik": "000498889",
+      "name": "Средно училище \"Св. Св. Кирил и Методий\"",
+      "tier": "school",
+      "totalEur": 256940.51118962283,
+      "totalOther": {},
+      "contractCount": 4,
       "awardCount": 0
     }
   ],
@@ -453,6 +462,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "b282fec07d79",
+      "ocid": "aop-legacy-2022-285676",
+      "date": "2022-10-13",
+      "amount": 186064.3,
+      "currency": "BGN",
+      "amountEur": 95133.16597045754,
+      "partyEik": "175222941",
+      "partyName": "КОЗИРОГ-95 ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
       "key": "e40f80fe1bd3",
       "ocid": "aop-legacy-2011-2015-563144",
       "date": "2013-10-04",
@@ -585,40 +606,28 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
-      "key": "b784fad9c442",
-      "ocid": "aop-legacy-2016-737638",
-      "date": "2016-06-23",
-      "amount": 127010,
+      "key": "1f6b79069ae7",
+      "ocid": "aop-legacy-2022-310151",
+      "date": "2022-12-12",
+      "amount": 129632.76,
       "currency": "BGN",
-      "amountEur": 64939.18183073171,
-      "partyEik": "201495727",
-      "partyName": "Инвестиционно проектиране ЕООД - Шумен",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+      "amountEur": 66280.1777250579,
+      "partyEik": "175222941",
+      "partyName": "КОЗИРОГ-95 ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
-      "key": "ecbe57ddff8f",
-      "ocid": "ocds-e82gsb-554772",
-      "date": "2026-05-19",
-      "amount": 64300,
-      "currency": "EUR",
-      "amountEur": 64300,
-      "partyEik": "206619292",
-      "partyName": "ТРАНС-СТРОЙ Билд ЕООД",
-      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
-      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-554772-856973%2F2026-05-19-award"
-    },
-    {
-      "key": "eb27c1688e64",
-      "ocid": "aop-legacy-2011-2015-529856",
-      "date": "2013-03-15",
-      "amount": 124070.41,
+      "key": "2863955266fd",
+      "ocid": "aop-legacy-2017-775676",
+      "date": "2017-03-13",
+      "amount": 128160,
       "currency": "BGN",
-      "amountEur": 63436.19332968612,
-      "partyEik": "117015431",
-      "partyName": "ПГС-96 - ООД - Русе",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+      "amountEur": 65527.167494107365,
+      "partyEik": "117679603",
+      "partyName": "Дмв ЕООД - Русе",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     }
   ],
   "byYear": [
@@ -660,9 +669,9 @@
     },
     {
       "year": "2017",
-      "totalEur": 800644.4987550043,
+      "totalEur": 866171.6662491116,
       "totalOther": {},
-      "contractCount": 15
+      "contractCount": 16
     },
     {
       "year": "2019",
@@ -678,9 +687,9 @@
     },
     {
       "year": "2022",
-      "totalEur": 2049759.743945026,
+      "totalEur": 2211173.0876405416,
       "totalOther": {},
-      "contractCount": 38
+      "contractCount": 40
     },
     {
       "year": "2023",
@@ -690,9 +699,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 1838732.9600000007,
+      "totalEur": 1868732.9600000007,
       "totalOther": {},
-      "contractCount": 26
+      "contractCount": 27
     }
   ]
 }

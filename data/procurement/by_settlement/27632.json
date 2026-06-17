@@ -3,10 +3,10 @@
   "name": "Етрополе",
   "province": "София",
   "obshtina": "Етрополе",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 221,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 341,
   "awardCount": 0,
-  "totalEur": 48347546.036664635,
+  "totalEur": 50367469.2201724,
   "totalOther": {},
   "awarders": [
     {
@@ -19,21 +19,21 @@
       "awardCount": 0
     },
     {
+      "eik": "000770054",
+      "name": "Многопрофилна болница за активно лечение \"Проф. д-р Александър Герчев\" Етрополе ЕООД",
+      "tier": "hospital",
+      "totalEur": 2050007.5568940032,
+      "totalOther": {},
+      "contractCount": 121,
+      "awardCount": 0
+    },
+    {
       "eik": "000760195",
       "name": "Средно училище \"Христо Ясенов\"",
       "tier": "school",
       "totalEur": 1530960.2599237664,
       "totalOther": {},
       "contractCount": 13,
-      "awardCount": 0
-    },
-    {
-      "eik": "000759712",
-      "name": "Основно училище \"Христо Ботев\"",
-      "tier": "school",
-      "totalEur": 30084.373386234998,
-      "totalOther": {},
-      "contractCount": 1,
       "awardCount": 0
     }
   ],
@@ -642,69 +642,75 @@
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 2954902.757397115,
+      "totalEur": 3051339.0529851774,
       "totalOther": {},
-      "contractCount": 6
+      "contractCount": 8
     },
     {
       "year": "2012",
-      "totalEur": 1351065.3277636606,
-      "totalOther": {},
-      "contractCount": 20
-    },
-    {
-      "year": "2013",
-      "totalEur": 9446764.601217898,
-      "totalOther": {},
-      "contractCount": 25
-    },
-    {
-      "year": "2014",
-      "totalEur": 8398220.888318514,
-      "totalOther": {},
-      "contractCount": 19
-    },
-    {
-      "year": "2015",
-      "totalEur": 1896421.0948804345,
-      "totalOther": {},
-      "contractCount": 11
-    },
-    {
-      "year": "2016",
-      "totalEur": 6279661.402064596,
+      "totalEur": 1547081.8527172608,
       "totalOther": {},
       "contractCount": 30
     },
     {
-      "year": "2017",
-      "totalEur": 1185813.6954643298,
+      "year": "2013",
+      "totalEur": 9664308.886764187,
       "totalOther": {},
-      "contractCount": 7
+      "contractCount": 36
+    },
+    {
+      "year": "2014",
+      "totalEur": 8594907.51752453,
+      "totalOther": {},
+      "contractCount": 31
+    },
+    {
+      "year": "2015",
+      "totalEur": 2081564.1901392248,
+      "totalOther": {},
+      "contractCount": 23
+    },
+    {
+      "year": "2016",
+      "totalEur": 6628520.433780032,
+      "totalOther": {},
+      "contractCount": 45
+    },
+    {
+      "year": "2017",
+      "totalEur": 1413422.3015292739,
+      "totalOther": {},
+      "contractCount": 26
     },
     {
       "year": "2019",
-      "totalEur": 3224682.5644355593,
+      "totalEur": 3521027.5126161273,
       "totalOther": {},
-      "contractCount": 18
+      "contractCount": 39
+    },
+    {
+      "year": "2020",
+      "totalEur": 76729.36809436404,
+      "totalOther": {},
+      "contractCount": 1
     },
     {
       "year": "2022",
-      "totalEur": 2831802.5135108884,
+      "totalEur": 2887783.1457744287,
       "totalOther": {},
-      "contractCount": 27
+      "contractCount": 32
     },
     {
       "year": "2023",
-      "totalEur": 5108888.758225408,
+      "totalEur": 5261546.898247803,
       "totalOther": {},
-      "contractCount": 38
+      "contractCount": 51
     },
     {
       "year": "2026",
-      "totalEur": 5669322.433386237,
+      "totalEur": 5639238.060000002,
       "totalOther": {},
-      "contractCount": 20
+      "contractCount": 19
     }
   ]
 }

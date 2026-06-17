@@ -3,10 +3,10 @@
   "name": "Козлодуй",
   "province": "Враца",
   "obshtina": "Козлодуй",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 389,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 420,
   "awardCount": 0,
-  "totalEur": 53204562.84872274,
+  "totalEur": 54108553.51567897,
   "totalOther": {},
   "awarders": [
     {
@@ -25,6 +25,42 @@
       "totalEur": 1029562.639908121,
       "totalOther": {},
       "contractCount": 82,
+      "awardCount": 0
+    },
+    {
+      "eik": "000183142",
+      "name": "Средно училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 400997.5416181877,
+      "totalOther": {},
+      "contractCount": 13,
+      "awardCount": 0
+    },
+    {
+      "eik": "000185872",
+      "name": "Професионална гимназия по ядрена енергетика \"Игор В.КУРЧАТОВ\"",
+      "tier": "school",
+      "totalEur": 245352.30055781946,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    },
+    {
+      "eik": "000186836",
+      "name": "Средно училище \"СВ.СВ.КИРИЛ и Методий\"",
+      "tier": "school",
+      "totalEur": 179980.3532668483,
+      "totalOther": {},
+      "contractCount": 14,
+      "awardCount": 0
+    },
+    {
+      "eik": "000185691",
+      "name": "Детска Градина \"Радост\"- ГР.КОЗЛОДУЙ",
+      "tier": "school",
+      "totalEur": 77660.47151337283,
+      "totalOther": {},
+      "contractCount": 1,
       "awardCount": 0
     }
   ],
@@ -618,16 +654,16 @@
       "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-539145-816150%2F2026-02-26-award"
     },
     {
-      "key": "0b04e0c7be1d",
-      "ocid": "aop-legacy-2023-465648",
-      "date": "2023-12-27",
-      "amount": 260275,
+      "key": "7ec6d20a1671",
+      "ocid": "aop-legacy-2022-228384",
+      "date": "2022-05-05",
+      "amount": 262770.26,
       "currency": "BGN",
-      "amountEur": 133076.49437834576,
-      "partyEik": "205561733",
-      "partyName": "Колела а2 ЕООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+      "amountEur": 134352.30055781946,
+      "partyEik": "206687350",
+      "partyName": "Унистрой 77 ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
@@ -693,21 +729,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 6440448.95517504,
+      "totalEur": 6701813.506286333,
       "totalOther": {},
-      "contractCount": 51
+      "contractCount": 53
     },
     {
       "year": "2023",
-      "totalEur": 2941670.850738561,
+      "totalEur": 3052666.4229508694,
       "totalOther": {},
-      "contractCount": 38
+      "contractCount": 50
     },
     {
       "year": "2026",
-      "totalEur": 5357704.241379568,
+      "totalEur": 5889334.785012195,
       "totalOther": {},
-      "contractCount": 64
+      "contractCount": 81
     }
   ]
 }

@@ -3,10 +3,10 @@
   "name": "Карлово",
   "province": "Пловдив",
   "obshtina": "Карлово",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 391,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 522,
   "awardCount": 0,
-  "totalEur": 124455657.80989708,
+  "totalEur": 130340597.25712875,
   "totalOther": {},
   "awarders": [
     {
@@ -19,12 +19,30 @@
       "awardCount": 0
     },
     {
+      "eik": "115518099",
+      "name": "Многопрофилна болница за активно лечение \"Д-Р киро Попов\" - карлово ЕООД",
+      "tier": "hospital",
+      "totalEur": 5733971.679542702,
+      "totalOther": {},
+      "contractCount": 118,
+      "awardCount": 0
+    },
+    {
       "eik": "000454686",
       "name": "Средно училище \"Васил Левски\" - гр. Карлово",
       "tier": "school",
       "totalEur": 598402.2725464893,
       "totalOther": {},
       "contractCount": 43,
+      "awardCount": 0
+    },
+    {
+      "eik": "000452913",
+      "name": "Основно училище \"СВ.СВ. кирил и Методий\"",
+      "tier": "school",
+      "totalEur": 150967.76768896068,
+      "totalOther": {},
+      "contractCount": 13,
       "awardCount": 0
     },
     {
@@ -543,6 +561,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
+      "key": "e132feed2a19",
+      "ocid": "aop-legacy-2011-2015-638540",
+      "date": "2014-12-17",
+      "amount": 1546221,
+      "currency": "BGN",
+      "amountEur": 790570.2438350981,
+      "partyEik": "825272311",
+      "partyName": "Капитал фарм ЕООД - Пловдив",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
       "key": "81806838402b",
       "ocid": "ocds-e82gsb-489424",
       "date": "2026-01-28",
@@ -697,68 +727,56 @@
       "partyName": "Рото инженеринг ЕООД",
       "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
       "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-514816-794500%2F2026-01-12-award"
-    },
-    {
-      "key": "7cb4640bc704",
-      "ocid": "aop-legacy-2019-923916",
-      "date": "2019-07-26",
-      "amount": 1046174.6,
-      "currency": "BGN",
-      "amountEur": 534900.5792937013,
-      "partyEik": "177363474",
-      "partyName": "ДЗЗД   Водопроводи  Карлово 2019",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 1018090.6367117796,
+      "totalEur": 1730609.0150984493,
       "totalOther": {},
-      "contractCount": 11
+      "contractCount": 30
     },
     {
       "year": "2012",
-      "totalEur": 2134348.7419663263,
+      "totalEur": 2560063.0576277077,
       "totalOther": {},
-      "contractCount": 20
+      "contractCount": 36
     },
     {
       "year": "2013",
-      "totalEur": 5089945.4758337885,
+      "totalEur": 5740888.553708656,
       "totalOther": {},
-      "contractCount": 22
+      "contractCount": 32
     },
     {
       "year": "2014",
-      "totalEur": 8949163.945741707,
+      "totalEur": 10912810.070404895,
       "totalOther": {},
-      "contractCount": 11
+      "contractCount": 38
     },
     {
       "year": "2015",
-      "totalEur": 1362467.8013937816,
+      "totalEur": 1508645.127644018,
       "totalOther": {},
-      "contractCount": 17
+      "contractCount": 23
     },
     {
       "year": "2016",
-      "totalEur": 14395061.958350163,
+      "totalEur": 14411363.477398342,
       "totalOther": {},
-      "contractCount": 65
+      "contractCount": 66
     },
     {
       "year": "2017",
-      "totalEur": 12884152.661529891,
+      "totalEur": 13212752.284196483,
       "totalOther": {},
-      "contractCount": 46
+      "contractCount": 56
     },
     {
       "year": "2019",
-      "totalEur": 22360239.2846004,
+      "totalEur": 22446170.93510172,
       "totalOther": {},
-      "contractCount": 29
+      "contractCount": 32
     },
     {
       "year": "2020",
@@ -774,21 +792,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 5402815.479872995,
+      "totalEur": 6601633.526431234,
       "totalOther": {},
-      "contractCount": 53
+      "contractCount": 75
     },
     {
       "year": "2023",
-      "totalEur": 21462728.938609183,
+      "totalEur": 21740694.554230172,
       "totalOther": {},
-      "contractCount": 74
+      "contractCount": 84
     },
     {
       "year": "2026",
-      "totalEur": 5986675.699999999,
+      "totalEur": 6064999.47,
       "totalOther": {},
-      "contractCount": 23
+      "contractCount": 30
     }
   ]
 }

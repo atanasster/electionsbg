@@ -3,10 +3,10 @@
   "name": "Ябланица",
   "province": "Ловеч",
   "obshtina": "Ябланица",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 52,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 53,
   "awardCount": 0,
-  "totalEur": 11044496.103758557,
+  "totalEur": 11092242.073758557,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 11044496.103758557,
       "totalOther": {},
       "contractCount": 52,
+      "awardCount": 0
+    },
+    {
+      "eik": "000282400",
+      "name": "Средно училище васил Левски",
+      "tier": "school",
+      "totalEur": 47745.97,
+      "totalOther": {},
+      "contractCount": 1,
       "awardCount": 0
     }
   ],
@@ -417,6 +426,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-560002-847616%2F2026-04-23-award"
     },
     {
+      "key": "d10be359ca0e",
+      "ocid": "ocds-e82gsb-541164",
+      "date": "2026-01-08",
+      "amount": 47745.97,
+      "currency": "EUR",
+      "amountEur": 47745.97,
+      "partyEik": "128049011",
+      "partyName": "КАН-УЧТЕХСПОРТ-БЪЛГАРИЯ ООД",
+      "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
+      "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-541164-793849%2F2026-01-07-award"
+    },
+    {
       "key": "9c58101fb54e",
       "ocid": "aop-legacy-2011-2015-478680",
       "date": "2012-04-05",
@@ -607,18 +628,6 @@
       "partyName": "Икар консулт АД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "09bcb3ca0c49",
-      "ocid": "aop-legacy-2011-2015-581025",
-      "date": "2014-01-20",
-      "amount": 16500,
-      "currency": "BGN",
-      "amountEur": 8436.316039737605,
-      "partyEik": "103937876",
-      "partyName": "Кейбъл тех ООД - Варна",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -684,9 +693,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 212538.27,
+      "totalEur": 260284.24,
       "totalOther": {},
-      "contractCount": 3
+      "contractCount": 4
     }
   ]
 }

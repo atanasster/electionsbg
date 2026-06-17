@@ -3,10 +3,10 @@
   "name": "Берковица",
   "province": "Монтана",
   "obshtina": "Берковица",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 401,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 412,
   "awardCount": 0,
-  "totalEur": 48071709.866227016,
+  "totalEur": 48447095.65147804,
   "totalOther": {},
   "awarders": [
     {
@@ -25,6 +25,24 @@
       "totalEur": 3456812.789964822,
       "totalOther": {},
       "contractCount": 30,
+      "awardCount": 0
+    },
+    {
+      "eik": "000311528",
+      "name": "Трето основно училище \"Иван Вазов\"",
+      "tier": "school",
+      "totalEur": 208310.59,
+      "totalOther": {},
+      "contractCount": 5,
+      "awardCount": 0
+    },
+    {
+      "eik": "000312523",
+      "name": "Лесотехническа професионална гимназия",
+      "tier": "school",
+      "totalEur": 167075.19525101874,
+      "totalOther": {},
+      "contractCount": 6,
       "awardCount": 0
     },
     {
@@ -642,21 +660,21 @@
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 3859712.0404125103,
+      "totalEur": 3893795.9843135653,
+      "totalOther": {},
+      "contractCount": 14
+    },
+    {
+      "year": "2012",
+      "totalEur": 1199938.9057331157,
       "totalOther": {},
       "contractCount": 13
     },
     {
-      "year": "2012",
-      "totalEur": 1178202.9931026723,
-      "totalOther": {},
-      "contractCount": 12
-    },
-    {
       "year": "2013",
-      "totalEur": 3479509.456343343,
+      "totalEur": 3499002.4593139486,
       "totalOther": {},
-      "contractCount": 14
+      "contractCount": 15
     },
     {
       "year": "2014",
@@ -666,9 +684,9 @@
     },
     {
       "year": "2015",
-      "totalEur": 9922501.229656974,
+      "totalEur": 9941613.32017609,
       "totalOther": {},
-      "contractCount": 28
+      "contractCount": 29
     },
     {
       "year": "2016",
@@ -702,9 +720,9 @@
     },
     {
       "year": "2022",
-      "totalEur": 1761886.840880854,
+      "totalEur": 1822020.4261106541,
       "totalOther": {},
-      "contractCount": 43
+      "contractCount": 44
     },
     {
       "year": "2023",
@@ -714,9 +732,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 4582831.16,
+      "totalEur": 4803658.41,
       "totalOther": {},
-      "contractCount": 48
+      "contractCount": 54
     }
   ]
 }

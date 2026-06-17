@@ -3,10 +3,10 @@
   "name": "Велинград",
   "province": "Пазарджик",
   "obshtina": "Велинград",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 416,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 470,
   "awardCount": 0,
-  "totalEur": 77246065.62138572,
+  "totalEur": 80466527.17636836,
   "totalOther": {},
   "awarders": [
     {
@@ -28,6 +28,24 @@
       "awardCount": 0
     },
     {
+      "eik": "112059210",
+      "name": "Специализирана болница за продължително лечение и рехабилитация на пневмофтизиатрични заболявания „Света Петка Българска” ЕООД",
+      "tier": "hospital",
+      "totalEur": 2877262.389517954,
+      "totalOther": {},
+      "contractCount": 45,
+      "awardCount": 0
+    },
+    {
+      "eik": "000334231",
+      "name": "Професионална гимназия по икономика и туризъм \"Алеко Константинов\"",
+      "tier": "school",
+      "totalEur": 248199.16546468763,
+      "totalOther": {},
+      "contractCount": 8,
+      "awardCount": 0
+    },
+    {
       "eik": "000341674",
       "name": "Средно училище \"СВ. СВ. Кирил и Методий\"",
       "tier": "school",
@@ -43,6 +61,15 @@
       "totalEur": 158730.56451736603,
       "totalOther": {},
       "contractCount": 3,
+      "awardCount": 0
+    },
+    {
+      "eik": "000341707",
+      "name": "Основно училище \"Георги Бенковски\"",
+      "tier": "school",
+      "totalEur": 95000,
+      "totalOther": {},
+      "contractCount": 1,
       "awardCount": 0
     }
   ],
@@ -651,57 +678,57 @@
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 1367889.335985234,
+      "totalEur": 1517257.527494721,
       "totalOther": {},
-      "contractCount": 9
+      "contractCount": 11
     },
     {
       "year": "2012",
-      "totalEur": 1866634.6257087784,
+      "totalEur": 2028634.5899183466,
       "totalOther": {},
-      "contractCount": 8
+      "contractCount": 12
     },
     {
       "year": "2013",
-      "totalEur": 5053392.677277678,
+      "totalEur": 5272865.310379737,
       "totalOther": {},
-      "contractCount": 19
+      "contractCount": 23
     },
     {
       "year": "2014",
-      "totalEur": 1561563.6328310743,
+      "totalEur": 1623496.075834812,
+      "totalOther": {},
+      "contractCount": 18
+    },
+    {
+      "year": "2015",
+      "totalEur": 4497313.340116472,
       "totalOther": {},
       "contractCount": 15
     },
     {
-      "year": "2015",
-      "totalEur": 4458483.6616679365,
-      "totalOther": {},
-      "contractCount": 14
-    },
-    {
       "year": "2016",
-      "totalEur": 15259816.814344805,
+      "totalEur": 15834099.855304398,
       "totalOther": {},
-      "contractCount": 33
+      "contractCount": 35
     },
     {
       "year": "2017",
-      "totalEur": 4612923.423814953,
+      "totalEur": 4873412.413144291,
       "totalOther": {},
-      "contractCount": 63
+      "contractCount": 71
     },
     {
       "year": "2019",
-      "totalEur": 14141139.367940975,
+      "totalEur": 14573719.397902679,
       "totalOther": {},
-      "contractCount": 67
+      "contractCount": 73
     },
     {
       "year": "2020",
-      "totalEur": 248230.75625182147,
+      "totalEur": 330015.32853059826,
       "totalOther": {},
-      "contractCount": 8
+      "contractCount": 10
     },
     {
       "year": "2021",
@@ -711,21 +738,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 7231253.8257415015,
+      "totalEur": 7489018.585459882,
       "totalOther": {},
-      "contractCount": 52
+      "contractCount": 60
     },
     {
       "year": "2023",
-      "totalEur": 7075202.895957215,
+      "totalEur": 7779844.2911705,
       "totalOther": {},
-      "contractCount": 66
+      "contractCount": 72
     },
     {
       "year": "2026",
-      "totalEur": 13418320.030000001,
+      "totalEur": 13695635.887248177,
       "totalOther": {},
-      "contractCount": 52
+      "contractCount": 60
     }
   ]
 }

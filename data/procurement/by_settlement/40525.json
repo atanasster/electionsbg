@@ -3,12 +3,21 @@
   "name": "Кула",
   "province": "Видин",
   "obshtina": "Кула",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 7,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 69,
   "awardCount": 0,
-  "totalEur": 542268.8014807012,
+  "totalEur": 7630596.402243549,
   "totalOther": {},
   "awarders": [
+    {
+      "eik": "000159629",
+      "name": "Община Кула",
+      "tier": "municipal",
+      "totalEur": 7088327.600762848,
+      "totalOther": {},
+      "contractCount": 62,
+      "awardCount": 0
+    },
     {
       "eik": "000152086",
       "name": "Средно училище /СУ/ \"Васил Левски\" - гр. Кула",
@@ -20,6 +29,234 @@
     }
   ],
   "topContracts": [
+    {
+      "key": "141a9c6594b6",
+      "ocid": "aop-legacy-2011-2015-613860",
+      "date": "2014-07-02",
+      "amount": 1393929.33,
+      "currency": "BGN",
+      "amountEur": 712704.7493902845,
+      "partyEik": "201082059",
+      "partyName": "Пст Видин ЕООД - Видин",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "4675cbafda78",
+      "ocid": "aop-legacy-2011-2015-423047",
+      "date": "2011-01-17",
+      "amount": 935814.27,
+      "currency": "BGN",
+      "amountEur": 478474.23855856596,
+      "partyEik": "106596191",
+      "partyName": "Абс - Асфалт Бетон София ЕООД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "267d6311c226",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-05-04",
+      "amount": 797538.12,
+      "currency": "BGN",
+      "amountEur": 407774.76570049545,
+      "partyEik": "105552780",
+      "partyName": "Перфетострой ЕООД",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "b9ff3beababc",
+      "ocid": "aop-legacy-2016-732336",
+      "date": "2016-05-04",
+      "amount": 797538.12,
+      "currency": "BGN",
+      "amountEur": 407774.76570049545,
+      "partyEik": "105552780",
+      "partyName": "Перфетострой ЕООД",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "f9de58afe63a",
+      "ocid": "aop-legacy-2022-269343",
+      "date": "2022-08-30",
+      "amount": 701494.17,
+      "currency": "BGN",
+      "amountEur": 358668.2738274799,
+      "partyEik": "201082059",
+      "partyName": "Пст Видин ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "ed38e22a5673",
+      "ocid": "aop-legacy-2011-2015-613858",
+      "date": "2014-07-02",
+      "amount": 637216.6,
+      "currency": "BGN",
+      "amountEur": 325803.67414345825,
+      "partyEik": "831928535",
+      "partyName": "Пст Груп ЕАД (ново наименование) - Пътностроителна техника Холдинг АД (старо наименование)- Пътностроителна техника ЕАД (старо наименование)",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "6868034114ad",
+      "ocid": "aop-legacy-2019-918861",
+      "date": "2019-06-27",
+      "amount": 621126,
+      "currency": "BGN",
+      "amountEur": 317576.6809998824,
+      "partyEik": "177278764",
+      "partyName": "ДЗЗД Обединение Билд Плюс   -  Видин",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "8c16f69317b3",
+      "ocid": "aop-legacy-2019-x",
+      "date": "2019-06-27",
+      "amount": 621126,
+      "currency": "BGN",
+      "amountEur": 317576.6809998824,
+      "partyEik": "177278764",
+      "partyName": "ДЗЗД Обединение Билд Плюс   -  Видин",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "6d3bbbc145f1",
+      "ocid": "aop-legacy-2017-x",
+      "date": "2017-07-27",
+      "amount": 590175,
+      "currency": "BGN",
+      "amountEur": 301751.6859849782,
+      "partyEik": "201082059",
+      "partyName": "Пст Видин ЕООД - Видин",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "710a8c4b53be",
+      "ocid": "aop-legacy-2017-797954",
+      "date": "2017-07-27",
+      "amount": 590175,
+      "currency": "BGN",
+      "amountEur": 301751.6859849782,
+      "partyEik": "201082059",
+      "partyName": "Пст Видин ЕООД - Видин",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "6fe57bc1ffe3",
+      "ocid": "aop-legacy-2023-402714",
+      "date": "2023-07-20",
+      "amount": 560390.67,
+      "currency": "BGN",
+      "amountEur": 286523.1998691093,
+      "partyEik": "201082059",
+      "partyName": "Пст Видин ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "6ed40e826ad6",
+      "ocid": "aop-legacy-2019-914029",
+      "date": "2019-05-30",
+      "amount": 486587,
+      "currency": "BGN",
+      "amountEur": 248787.98259562437,
+      "partyEik": "105552780",
+      "partyName": "Перфетострой ЕООД",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "dc982a4039ff",
+      "ocid": "aop-legacy-2019-x",
+      "date": "2019-05-30",
+      "amount": 486587,
+      "currency": "BGN",
+      "amountEur": 248787.98259562437,
+      "partyEik": "105552780",
+      "partyName": "Перфетострой ЕООД",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "95231619a03c",
+      "ocid": "aop-legacy-2011-2015-555627",
+      "date": "2013-08-16",
+      "amount": 419063.87,
+      "currency": "BGN",
+      "amountEur": 214263.95443366756,
+      "partyEik": "176548000",
+      "partyName": "Консорциум за град Кула, гр. Видин",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "9222c61c9666",
+      "ocid": "aop-legacy-2019-928151",
+      "date": "2019-08-15",
+      "amount": 369900,
+      "currency": "BGN",
+      "amountEur": 189126.86685448122,
+      "partyEik": "201082059",
+      "partyName": "Пст Видин ЕООД - Видин",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "93d5bf68ec7a",
+      "ocid": "aop-legacy-2019-x",
+      "date": "2019-08-15",
+      "amount": 369900,
+      "currency": "BGN",
+      "amountEur": 189126.86685448122,
+      "partyEik": "201082059",
+      "partyName": "Пст Видин ЕООД - Видин",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "31220f9137d4",
+      "ocid": "aop-legacy-2011-2015-562488",
+      "date": "2013-10-01",
+      "amount": 299985.36,
+      "currency": "BGN",
+      "amountEur": 153380.07904572482,
+      "partyEik": "105547526",
+      "partyName": "Еко - Титан ЕООД - Видин",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "697cda2f3289",
+      "ocid": "aop-legacy-2011-2015-543638",
+      "date": "2013-05-31",
+      "amount": 299224.48,
+      "currency": "BGN",
+      "amountEur": 152991.04727916024,
+      "partyEik": "105552780",
+      "partyName": "Перфетострой ЕООД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "f9b916681b35",
+      "ocid": "aop-legacy-2011-2015-536656",
+      "date": "2013-04-12",
+      "amount": 273323.09,
+      "currency": "BGN",
+      "amountEur": 139747.87686046335,
+      "partyEik": "105014389",
+      "partyName": "Тодор Ванков ЕООД - Видин",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
     {
       "key": "34c2ed67bcd5",
       "ocid": "aop-legacy-2019-x",
@@ -69,6 +306,174 @@
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
+      "key": "aba0859b4ad4",
+      "ocid": "aop-legacy-2023-412280",
+      "date": "2023-08-14",
+      "amount": 142052.59,
+      "currency": "BGN",
+      "amountEur": 72630.33596989514,
+      "partyEik": "105552780",
+      "partyName": "Перфетострой ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "96d1a81006e4",
+      "ocid": "aop-legacy-2011-2015-433554",
+      "date": "2011-04-01",
+      "amount": 135000,
+      "currency": "BGN",
+      "amountEur": 69024.4039614895,
+      "partyEik": "2106007186",
+      "partyName": "Акуариус3консулт ООД -София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "bee84af46527",
+      "ocid": "aop-legacy-2011-2015-510424",
+      "date": "2012-11-23",
+      "amount": 130800,
+      "currency": "BGN",
+      "amountEur": 66876.97806046538,
+      "partyEik": "175129426",
+      "partyName": "Екорис саут Ийст Юроп - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "ed455e2e8763",
+      "ocid": "aop-legacy-2023-454591",
+      "date": "2023-12-04",
+      "amount": 129507.06,
+      "currency": "BGN",
+      "amountEur": 66215.90833559154,
+      "partyEik": "121513154",
+      "partyName": "ФРУКТ-Н ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "3df2f0b560d8",
+      "ocid": "aop-legacy-2017-x",
+      "date": "2017-01-16",
+      "amount": 119900,
+      "currency": "BGN",
+      "amountEur": 61303.896555426596,
+      "partyEik": "177112917",
+      "partyName": "ДЗЗД План Кула 2016",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "593f85db8ba7",
+      "ocid": "aop-legacy-2017-766510",
+      "date": "2017-01-16",
+      "amount": 119900,
+      "currency": "BGN",
+      "amountEur": 61303.896555426596,
+      "partyEik": "177112917",
+      "partyName": "ДЗЗД План Кула 2016",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "31762bf7033e",
+      "ocid": "aop-legacy-2011-2015-587950",
+      "date": "2014-02-26",
+      "amount": 117750,
+      "currency": "BGN",
+      "amountEur": 60204.61901085473,
+      "partyEik": "105587314",
+      "partyName": "Юбп ЕООД - Видин",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "d6e3719934e5",
+      "ocid": "aop-legacy-2011-2015-502939",
+      "date": "2012-10-05",
+      "amount": 117024.85,
+      "currency": "BGN",
+      "amountEur": 59833.85570320529,
+      "partyEik": "105581375",
+      "partyName": "Обществено ХРАНЕНЕ-ВИДИН ЕООД - гр. Видин",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "c7a99f9075d4",
+      "ocid": "aop-legacy-2022-296327",
+      "date": "2022-11-08",
+      "amount": 97702.03,
+      "currency": "BGN",
+      "amountEur": 49954.254715389376,
+      "partyEik": "202678749",
+      "partyName": "АВ Билд ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "c6f8b0fa638b",
+      "ocid": "ocds-e82gsb-558657",
+      "date": "2026-04-06",
+      "amount": 47600,
+      "currency": "EUR",
+      "amountEur": 47600,
+      "partyEik": "205075635",
+      "partyName": "Ай Тръкс ЕАД",
+      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
+      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-558657-840998%2F2026-04-06-award"
+    },
+    {
+      "key": "46e565982a64",
+      "ocid": "aop-legacy-2023-456450",
+      "date": "2023-12-08",
+      "amount": 91300.5,
+      "currency": "BGN",
+      "amountEur": 46681.204399155344,
+      "partyEik": "121513154",
+      "partyName": "ФРУКТ-Н ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "a270e09c3a67",
+      "ocid": "aop-legacy-2011-2015-643897",
+      "date": "2015-01-21",
+      "amount": 90356.33,
+      "currency": "BGN",
+      "amountEur": 46198.45794368631,
+      "partyEik": "105587314",
+      "partyName": "Юбп ЕООД - Видин",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "0bb40d1960f6",
+      "ocid": "aop-legacy-2011-2015-565031",
+      "date": "2013-10-16",
+      "amount": 88500,
+      "currency": "BGN",
+      "amountEur": 45249.33148586534,
+      "partyEik": "831924394",
+      "partyName": "Топливо АД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "e99d3c7facc1",
+      "ocid": "aop-legacy-2011-2015-506802",
+      "date": "2012-11-01",
+      "amount": 88000,
+      "currency": "BGN",
+      "amountEur": 44993.685545267224,
+      "partyEik": "831924394",
+      "partyName": "Топливо АД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
       "key": "854bb3bc9e4b",
       "ocid": "aop-legacy-2011-2015-629555",
       "date": "2014-10-21",
@@ -93,6 +498,54 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "2bdf24525612",
+      "ocid": "aop-legacy-2011-2015-629135",
+      "date": "2014-10-17",
+      "amount": 80500,
+      "currency": "BGN",
+      "amountEur": 41158.99643629559,
+      "partyEik": "831924394",
+      "partyName": "Топливо АД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "38a57d06fbf3",
+      "ocid": "aop-legacy-2023-454591",
+      "date": "2023-12-04",
+      "amount": 78029.54,
+      "currency": "BGN",
+      "amountEur": 39895.87029547557,
+      "partyEik": "815158882",
+      "partyName": "ЕТ Ивил - иван Кръстев",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "f1ed5dba2a0a",
+      "ocid": "aop-legacy-2017-814239",
+      "date": "2017-11-13",
+      "amount": 74613,
+      "currency": "BGN",
+      "amountEur": 38149.02113169345,
+      "partyEik": "815158882",
+      "partyName": "Ивил - Иван Кръстев ЕТ - Видин",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "d7aec41b91fd",
+      "ocid": "aop-legacy-2023-454591",
+      "date": "2023-12-04",
+      "amount": 66346.55,
+      "currency": "BGN",
+      "amountEur": 33922.45236037897,
+      "partyEik": "105556660",
+      "partyName": "Джордан ООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
       "key": "151faecf9c08",
       "ocid": "aop-legacy-2011-2015-511551",
       "date": "2012-11-30",
@@ -103,32 +556,146 @@
       "partyName": "Екометан Враца ЕООД /старо Екометан Враца ООД /",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "d7aec41b91fd",
+      "ocid": "aop-legacy-2023-454591",
+      "date": "2023-12-04",
+      "amount": 61343.65,
+      "currency": "BGN",
+      "amountEur": 31364.51020794241,
+      "partyEik": "105556660",
+      "partyName": "Джордан ООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "5660767cae33",
+      "ocid": "ocds-e82gsb-534829",
+      "date": "2026-01-23",
+      "amount": 30327,
+      "currency": "EUR",
+      "amountEur": 30327,
+      "partyEik": "201082059",
+      "partyName": "Пст Видин ЕООД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-534829-801246%2F2026-01-23-award"
+    },
+    {
+      "key": "0a9013c12f09",
+      "ocid": "aop-legacy-2022-310440",
+      "date": "2022-12-13",
+      "amount": 55000,
+      "currency": "BGN",
+      "amountEur": 28121.053465792018,
+      "partyEik": "131433890",
+      "partyName": "Евромаркет кънстракшън ЕАД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "141546dac54b",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-07-18",
+      "amount": 41823,
+      "currency": "BGN",
+      "amountEur": 21383.760347269446,
+      "partyEik": "105587314",
+      "partyName": "Юбп ЕООД - Видин",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "321dc1a5dc9c",
+      "ocid": "aop-legacy-2016-740901",
+      "date": "2016-07-18",
+      "amount": 41823,
+      "currency": "BGN",
+      "amountEur": 21383.760347269446,
+      "partyEik": "105587314",
+      "partyName": "Юбп ЕООД - Видин",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "7012cfce3861",
+      "ocid": "ocds-e82gsb-534829",
+      "date": "2026-01-23",
+      "amount": 20326,
+      "currency": "EUR",
+      "amountEur": 20326,
+      "partyEik": "201082059",
+      "partyName": "Пст Видин ЕООД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-534829-801259%2F2026-01-23-award"
     }
   ],
   "byYear": [
     {
-      "year": "2012",
-      "totalEur": 74702.6019643834,
+      "year": "2011",
+      "totalEur": 547498.6425200554,
       "totalOther": {},
       "contractCount": 2
+    },
+    {
+      "year": "2012",
+      "totalEur": 280519.29359913693,
+      "totalOther": {},
+      "contractCount": 7
+    },
+    {
+      "year": "2013",
+      "totalEur": 730524.5343409192,
+      "totalOther": {},
+      "contractCount": 7
     },
     {
       "year": "2014",
-      "totalEur": 44635.78122842987,
+      "totalEur": 1206619.8289217365,
       "totalOther": {},
-      "contractCount": 1
+      "contractCount": 7
+    },
+    {
+      "year": "2015",
+      "totalEur": 78259.5675493269,
+      "totalOther": {},
+      "contractCount": 4
+    },
+    {
+      "year": "2016",
+      "totalEur": 935505.7648159605,
+      "totalOther": {},
+      "contractCount": 10
     },
     {
       "year": "2017",
-      "totalEur": 190691.42001094166,
+      "totalEur": 954951.6062234448,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 7
     },
     {
       "year": "2019",
-      "totalEur": 232238.99827694637,
+      "totalEur": 1743222.0591769223,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 8
+    },
+    {
+      "year": "2022",
+      "totalEur": 448799.8854706186,
+      "totalOther": {},
+      "contractCount": 5
+    },
+    {
+      "year": "2023",
+      "totalEur": 587115.2196254276,
+      "totalOther": {},
+      "contractCount": 8
+    },
+    {
+      "year": "2026",
+      "totalEur": 117580,
+      "totalOther": {},
+      "contractCount": 4
     }
   ]
 }

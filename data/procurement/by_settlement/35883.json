@@ -3,10 +3,10 @@
   "name": "Камено",
   "province": "Бургас",
   "obshtina": "Камено",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 190,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 193,
   "awardCount": 0,
-  "totalEur": 39555543.1037151,
+  "totalEur": 40092579.672319986,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 39555543.1037151,
       "totalOther": {},
       "contractCount": 190,
+      "awardCount": 0
+    },
+    {
+      "eik": "000042775",
+      "name": "Средно училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 537036.568604889,
+      "totalOther": {},
+      "contractCount": 3,
       "awardCount": 0
     }
   ],
@@ -259,6 +268,18 @@
       "partyName": "Термал инженеринг ООД",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "5a3be5acee64",
+      "ocid": "ocds-e82gsb-538413",
+      "date": "2026-02-13",
+      "amount": 425420.15,
+      "currency": "EUR",
+      "amountEur": 425420.15,
+      "partyEik": "202107790",
+      "partyName": "Смарт груп холд ЕООД",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-538413-811049%2F2026-02-13-award"
     },
     {
       "key": "0c288bb82a89",
@@ -607,18 +628,6 @@
       "partyName": "Ален мак - 2002 ООД – гр. Бургас",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "d86e8dd55d38",
-      "ocid": "aop-legacy-2017-789210",
-      "date": "2017-05-31",
-      "amount": 201312.17,
-      "currency": "BGN",
-      "amountEur": 102929.27810699295,
-      "partyEik": "102812364",
-      "partyName": "Ален мак - 2002 ООД – гр. Бургас",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     }
   ],
   "byYear": [
@@ -642,9 +651,9 @@
     },
     {
       "year": "2014",
-      "totalEur": 1697950.4558167122,
+      "totalEur": 1717767.413323244,
       "totalOther": {},
-      "contractCount": 13
+      "contractCount": 14
     },
     {
       "year": "2016",
@@ -684,15 +693,15 @@
     },
     {
       "year": "2023",
-      "totalEur": 5930888.477014872,
+      "totalEur": 6022687.938113229,
       "totalOther": {},
-      "contractCount": 23
+      "contractCount": 24
     },
     {
       "year": "2026",
-      "totalEur": 12922985.770000001,
+      "totalEur": 13348405.920000002,
       "totalOther": {},
-      "contractCount": 14
+      "contractCount": 15
     }
   ]
 }

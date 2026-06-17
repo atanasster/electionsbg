@@ -3,10 +3,10 @@
   "name": "Монтана",
   "province": "Монтана",
   "obshtina": "Монтана",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 738,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 1465,
   "awardCount": 0,
-  "totalEur": 110955332.78159197,
+  "totalEur": 137981680.5854656,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 86512327.92323029,
       "totalOther": {},
       "contractCount": 503,
+      "awardCount": 0
+    },
+    {
+      "eik": "111047073",
+      "name": "Многопрофилна болница за активно лечение - Д-Р стамен Илиев АД",
+      "tier": "hospital",
+      "totalEur": 25824799.743715364,
+      "totalOther": {},
+      "contractCount": 692,
       "awardCount": 0
     },
     {
@@ -37,12 +46,30 @@
       "awardCount": 0
     },
     {
+      "eik": "129009831",
+      "name": "Областна дирекция на МВР (ОДМВР) - Монтана",
+      "tier": "regional_gov",
+      "totalEur": 842883.7875920198,
+      "totalOther": {},
+      "contractCount": 13,
+      "awardCount": 0
+    },
+    {
       "eik": "000314556",
       "name": "Профилирана гимназия с преподаване на чужди езици \"Петър богдан\"",
       "tier": "school",
       "totalEur": 246260.99600819088,
       "totalOther": {},
       "contractCount": 7,
+      "awardCount": 0
+    },
+    {
+      "eik": "000312498",
+      "name": "ФИНАНСОВО-СТОПАНСКА Професионална гимназия \"Васил Левски\"",
+      "tier": "school",
+      "totalEur": 125254.19599402811,
+      "totalOther": {},
+      "contractCount": 8,
       "awardCount": 0
     },
     {
@@ -55,12 +82,48 @@
       "awardCount": 0
     },
     {
+      "eik": "176538885",
+      "name": "Професионална гимназия по техника и електротехника \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 118412.5465722481,
+      "totalOther": {},
+      "contractCount": 5,
+      "awardCount": 0
+    },
+    {
       "eik": "177061173",
       "name": "VI Средно училище \"Отец Паисий\"",
       "tier": "school",
       "totalEur": 109427.00343894919,
       "totalOther": {},
       "contractCount": 10,
+      "awardCount": 0
+    },
+    {
+      "eik": "000311019",
+      "name": "Начално училище \"Георги Бенковски\"",
+      "tier": "school",
+      "totalEur": 70184.82,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    },
+    {
+      "eik": "000311624",
+      "name": "Първо основно училище \"Св. Св. Кирил и Методий\"",
+      "tier": "school",
+      "totalEur": 25833.559999999998,
+      "totalOther": {},
+      "contractCount": 7,
+      "awardCount": 0
+    },
+    {
+      "eik": "000312402",
+      "name": "Природоматематическа профилирана гимназия \"Св. Климент Охридски\"",
+      "tier": "school",
+      "totalEur": 18979.15,
+      "totalOther": {},
+      "contractCount": 1,
       "awardCount": 0
     }
   ],
@@ -318,6 +381,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "f03a5ccd4d60",
+      "ocid": "aop-legacy-2011-2015-439193",
+      "date": "2011-05-27",
+      "amount": 1388464.83,
+      "currency": "BGN",
+      "amountEur": 709910.7949054878,
+      "partyEik": "131223059",
+      "partyName": "Стреза ЕООД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
       "key": "ac7c9c15e1ac",
       "ocid": "aop-legacy-2011-2015-632109",
       "date": "2014-11-05",
@@ -510,6 +585,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
+      "key": "088940e41227",
+      "ocid": "aop-legacy-2011-2015-427880",
+      "date": "2011-02-23",
+      "amount": 1158530,
+      "currency": "BGN",
+      "amountEur": 592346.983122255,
+      "partyEik": "131330278",
+      "partyName": "Фонд Енергийна ефективност - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
       "key": "75d338b7ff77",
       "ocid": "aop-legacy-2023-405933",
       "date": "2023-08-02",
@@ -640,86 +727,62 @@
       "partyName": "Трейс-София  АД - /старо Трейс-София ЕАД",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "83f18efd13f5",
-      "ocid": "aop-legacy-2019-938979",
-      "date": "2019-10-18",
-      "amount": 870000,
-      "currency": "BGN",
-      "amountEur": 444823.9366407101,
-      "partyEik": "131468980",
-      "partyName": "А1 България ЕАД  /старо Мобилтел ЕАД/ - София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "cb14f62c7fd1",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-10-18",
-      "amount": 870000,
-      "currency": "BGN",
-      "amountEur": 444823.9366407101,
-      "partyEik": "131468980",
-      "partyName": "А1 България ЕАД  /старо Мобилтел ЕАД/ - София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 2420233.241130364,
+      "totalEur": 5623064.571051676,
       "totalOther": {},
-      "contractCount": 18
+      "contractCount": 67
     },
     {
       "year": "2012",
-      "totalEur": 3524557.681393577,
+      "totalEur": 5657616.853202987,
       "totalOther": {},
-      "contractCount": 35
+      "contractCount": 83
     },
     {
       "year": "2013",
-      "totalEur": 25787200.86612845,
+      "totalEur": 28056648.94188145,
       "totalOther": {},
-      "contractCount": 45
+      "contractCount": 95
     },
     {
       "year": "2014",
-      "totalEur": 4654501.418834969,
+      "totalEur": 6956921.194582351,
       "totalOther": {},
-      "contractCount": 38
+      "contractCount": 108
     },
     {
       "year": "2015",
-      "totalEur": 6172738.607138657,
+      "totalEur": 8281286.589325247,
       "totalOther": {},
-      "contractCount": 42
+      "contractCount": 112
     },
     {
       "year": "2016",
-      "totalEur": 16931574.835236188,
+      "totalEur": 20108838.7743311,
       "totalOther": {},
-      "contractCount": 109
+      "contractCount": 211
     },
     {
       "year": "2017",
-      "totalEur": 8299093.469268801,
+      "totalEur": 10716735.053660084,
       "totalOther": {},
-      "contractCount": 57
+      "contractCount": 141
     },
     {
       "year": "2019",
-      "totalEur": 12827711.380845983,
+      "totalEur": 14390058.563372072,
       "totalOther": {},
-      "contractCount": 73
+      "contractCount": 124
     },
     {
       "year": "2020",
-      "totalEur": 1266393.0556336697,
+      "totalEur": 1300529.033709474,
       "totalOther": {},
-      "contractCount": 14
+      "contractCount": 15
     },
     {
       "year": "2021",
@@ -729,21 +792,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 6131291.91698665,
+      "totalEur": 9110945.20484909,
       "totalOther": {},
-      "contractCount": 102
+      "contractCount": 184
     },
     {
       "year": "2023",
-      "totalEur": 14949148.50472689,
+      "totalEur": 18612928.061232314,
       "totalOther": {},
-      "contractCount": 136
+      "contractCount": 223
     },
     {
       "year": "2026",
-      "totalEur": 7840670.249572305,
+      "totalEur": 9015890.189572304,
       "totalOther": {},
-      "contractCount": 65
+      "contractCount": 98
     }
   ]
 }

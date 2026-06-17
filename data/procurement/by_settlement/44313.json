@@ -1,0 +1,44 @@
+{
+  "ekatte": "44313",
+  "name": "Лопян",
+  "province": "София",
+  "obshtina": "Етрополе",
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 30084.373386234998,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000759712",
+      "name": "Основно училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 30084.373386234998,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "b8bebba58a43",
+      "ocid": "ocds-e82gsb-535774",
+      "date": "2026-01-21",
+      "amount": 58839.92,
+      "currency": "BGN",
+      "amountEur": 30084.373386234998,
+      "partyEik": "205642092",
+      "partyName": "Лийд вижън ЕООД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-535774-800467%2F2026-01-21-award"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2026",
+      "totalEur": 30084.373386234998,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

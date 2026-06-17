@@ -3,10 +3,10 @@
   "name": "Главиница",
   "province": "Силистра",
   "obshtina": "Главиница",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 148,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 163,
   "awardCount": 0,
-  "totalEur": 23594273.12092993,
+  "totalEur": 24600811.800313313,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 23594273.12092993,
       "totalOther": {},
       "contractCount": 148,
+      "awardCount": 0
+    },
+    {
+      "eik": "000558350",
+      "name": "Средно училище \"Васил Левски\"",
+      "tier": "school",
+      "totalEur": 1006538.679383382,
+      "totalOther": {},
+      "contractCount": 15,
       "awardCount": 0
     }
   ],
@@ -225,6 +234,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
+      "key": "5c25c2a53efe",
+      "ocid": "aop-legacy-2022-224595",
+      "date": "2022-04-25",
+      "amount": 520400,
+      "currency": "BGN",
+      "amountEur": 266076.29497451213,
+      "partyEik": "200542686",
+      "partyName": "Лего трейд ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
       "key": "33f1cf401407",
       "ocid": "aop-legacy-2011-2015-530925",
       "date": "2013-03-21",
@@ -429,6 +450,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
+      "key": "35ac0051083f",
+      "ocid": "aop-legacy-2011-2015-537042",
+      "date": "2013-04-16",
+      "amount": 239328,
+      "currency": "BGN",
+      "amountEur": 122366.46334292858,
+      "partyEik": "201103076",
+      "partyName": "Мега Оил Транс Бг ЕООД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
       "key": "4fd7c530fbcc",
       "ocid": "aop-legacy-2023-338604",
       "date": "2023-02-28",
@@ -501,6 +534,30 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "64f2055bbde3",
+      "ocid": "aop-legacy-2019-886772",
+      "date": "2019-01-10",
+      "amount": 201600,
+      "currency": "BGN",
+      "amountEur": 103076.44324915764,
+      "partyEik": "200542686",
+      "partyName": "Лего Трейд ЕООД - София",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "9bf17ffcfdf5",
+      "ocid": "aop-legacy-2019-x",
+      "date": "2019-01-10",
+      "amount": 201600,
+      "currency": "BGN",
+      "amountEur": 103076.44324915764,
+      "partyEik": "200542686",
+      "partyName": "Лего Трейд ЕООД - София",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
       "key": "07671f91e88b",
       "ocid": "aop-legacy-2023-441282",
       "date": "2023-10-30",
@@ -571,74 +628,26 @@
       "partyName": "Автотранс ООД - Главиница",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "37bd7663d6c9",
-      "ocid": "ocds-e82gsb-545011",
-      "date": "2026-03-02",
-      "amount": 79281.66,
-      "currency": "EUR",
-      "amountEur": 79281.66,
-      "partyEik": "200575729",
-      "partyName": "Булкрис 83 ООД",
-      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
-      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-545011-818134%2F2026-03-02-award"
-    },
-    {
-      "key": "3f3b2610cc3b",
-      "ocid": "ocds-e82gsb-568558",
-      "date": "2026-05-11",
-      "amount": 79175.82,
-      "currency": "EUR",
-      "amountEur": 79175.82,
-      "partyEik": "200575729",
-      "partyName": "Булкрис 83 ООД",
-      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
-      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-568558-853463%2F2026-05-11-award"
-    },
-    {
-      "key": "7332ab7f9f0b",
-      "ocid": "aop-legacy-2011-2015-661622",
-      "date": "2015-04-16",
-      "amount": 148000,
-      "currency": "BGN",
-      "amountEur": 75671.19841704033,
-      "partyEik": "176850696",
-      "partyName": "ДЗЗД План консулт Главиница",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "e6febcc19002",
-      "ocid": "aop-legacy-2011-2015-472273",
-      "date": "2012-02-29",
-      "amount": 138213,
-      "currency": "BGN",
-      "amountEur": 70667.18477577294,
-      "partyEik": "826020530",
-      "partyName": "Теодоро Бабаров - Клио комерс, гр. Разград",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 753001.9889254178,
+      "totalEur": 799276.9719249627,
       "totalOther": {},
-      "contractCount": 8
+      "contractCount": 9
     },
     {
       "year": "2012",
-      "totalEur": 361238.87045397604,
+      "totalEur": 410440.99947336933,
       "totalOther": {},
-      "contractCount": 6
+      "contractCount": 7
     },
     {
       "year": "2013",
-      "totalEur": 785215.540205437,
+      "totalEur": 944364.3414816215,
       "totalOther": {},
-      "contractCount": 6
+      "contractCount": 8
     },
     {
       "year": "2014",
@@ -654,9 +663,9 @@
     },
     {
       "year": "2016",
-      "totalEur": 401798.055045684,
+      "totalEur": 531089.1999815935,
       "totalOther": {},
-      "contractCount": 11
+      "contractCount": 14
     },
     {
       "year": "2017",
@@ -666,9 +675,9 @@
     },
     {
       "year": "2019",
-      "totalEur": 1584378.545170081,
+      "totalEur": 1790531.4316683963,
       "totalOther": {},
-      "contractCount": 32
+      "contractCount": 34
     },
     {
       "year": "2020",
@@ -678,21 +687,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 902832.5672476647,
+      "totalEur": 1211492.7064213147,
       "totalOther": {},
-      "contractCount": 12
+      "contractCount": 15
     },
     {
       "year": "2023",
-      "totalEur": 3501978.341675912,
+      "totalEur": 3551236.4571562964,
       "totalOther": {},
-      "contractCount": 30
+      "contractCount": 32
     },
     {
       "year": "2026",
-      "totalEur": 171957.48,
+      "totalEur": 230507.96000000002,
       "totalOther": {},
-      "contractCount": 4
+      "contractCount": 5
     }
   ]
 }

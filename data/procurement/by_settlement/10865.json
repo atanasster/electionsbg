@@ -3,10 +3,10 @@
   "name": "Ветрино",
   "province": "Варна",
   "obshtina": "Ветрино",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 149,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 171,
   "awardCount": 0,
-  "totalEur": 23560112.539983176,
+  "totalEur": 24320045.93442257,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 23560112.539983176,
       "totalOther": {},
       "contractCount": 149,
+      "awardCount": 0
+    },
+    {
+      "eik": "000082442",
+      "name": "Средно училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 759933.3944393939,
+      "totalOther": {},
+      "contractCount": 22,
       "awardCount": 0
     }
   ],
@@ -549,6 +558,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
+      "key": "5337d7699b48",
+      "ocid": "aop-legacy-2011-2015-506608",
+      "date": "2012-10-31",
+      "amount": 173671,
+      "currency": "BGN",
+      "amountEur": 88796.57229922846,
+      "partyEik": "103279225",
+      "partyName": "Хепи Лейди ООД - гр. Варна",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
       "key": "3b2d48b4ed9a",
       "ocid": "aop-legacy-2020-64822",
       "date": "2020-10-06",
@@ -607,18 +628,6 @@
       "partyName": "Кинг лонг България ООД - гр. Своге",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "74a48ebe1dbc",
-      "ocid": "aop-legacy-2022-300307",
-      "date": "2022-11-22",
-      "amount": 156788.21,
-      "currency": "BGN",
-      "amountEur": 80164.53884028776,
-      "partyEik": "103275063",
-      "partyName": "Варна оборот ЕООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
@@ -630,27 +639,27 @@
     },
     {
       "year": "2012",
-      "totalEur": 443917.339441567,
-      "totalOther": {},
-      "contractCount": 1
-    },
-    {
-      "year": "2013",
-      "totalEur": 247117.34148673454,
-      "totalOther": {},
-      "contractCount": 4
-    },
-    {
-      "year": "2014",
-      "totalEur": 211859.05728002943,
+      "totalEur": 561857.54896898,
       "totalOther": {},
       "contractCount": 3
     },
     {
-      "year": "2015",
-      "totalEur": 859374.1582857406,
+      "year": "2013",
+      "totalEur": 295057.09085145436,
       "totalOther": {},
       "contractCount": 6
+    },
+    {
+      "year": "2014",
+      "totalEur": 260307.3733402187,
+      "totalOther": {},
+      "contractCount": 5
+    },
+    {
+      "year": "2015",
+      "totalEur": 925836.9899224371,
+      "totalOther": {},
+      "contractCount": 8
     },
     {
       "year": "2016",
@@ -660,15 +669,15 @@
     },
     {
       "year": "2017",
-      "totalEur": 372542.53181513736,
+      "totalEur": 537720.4869543877,
       "totalOther": {},
-      "contractCount": 12
+      "contractCount": 16
     },
     {
       "year": "2019",
-      "totalEur": 2803072.3631399455,
+      "totalEur": 2963636.6555375466,
       "totalOther": {},
-      "contractCount": 25
+      "contractCount": 29
     },
     {
       "year": "2020",
@@ -678,21 +687,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 1868673.4634400741,
+      "totalEur": 1916499.7060071684,
       "totalOther": {},
-      "contractCount": 34
+      "contractCount": 35
     },
     {
       "year": "2023",
-      "totalEur": 7025797.64089926,
+      "totalEur": 7118185.35864569,
       "totalOther": {},
-      "contractCount": 27
+      "contractCount": 29
     },
     {
       "year": "2026",
-      "totalEur": 7615969.909999999,
+      "totalEur": 7629155.989999999,
       "totalOther": {},
-      "contractCount": 15
+      "contractCount": 18
     }
   ]
 }

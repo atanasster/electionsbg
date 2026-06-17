@@ -1,12 +1,18 @@
-// ЦАИС ЕОП open-data feed (storage.eop.bg) — the daily flat "договори" buckets
-// that the procurement gap-fill ingests (scripts/procurement/ingest_eop.ts).
+// ЦАИС ЕОП open-data feed (storage.eop.bg) — the daily buckets that drive the
+// procurement gap-fill AND the buyer geo-enrichment in /update-procurement.
 //
 // This is a DIFFERENT upstream than `egov_procurement` (data.egov.bg АОП OCDS
-// "обявления"). The OCDS export АОП publishes is a strict subset; the flat
-// договори file ЦАИС ЕОП publishes here is the superset that also carries the
-// ~900 small contracting authorities (mostly schools & kindergartens) the OCDS
-// export omits. We watch it so the daily report flags when fresh publication
-// days land, triggering an incremental gap-fill in /update-procurement.
+// "обявления"). Each `open-data-YYYY-MM-DD/` bucket carries three files we use,
+// all published together:
+//   - flat "договори" — the contracts superset (gap-fills ~900 small buyers the
+//     OCDS export omits; scripts/procurement/ingest_eop.ts);
+//   - flat "поръчки" — tenders incl. `executionPlaceNuts` (buyer→oblast geo,
+//     scripts/procurement/build_tender_oblast_map.ts);
+//   - OCDS "обявления" — party addresses (buyer→settlement geo,
+//     scripts/procurement/build_ocds_party_geo.ts).
+// One fingerprint (the договори HEAD) is a valid freshness proxy for all three —
+// they share the bucket + publication cadence. We watch it so the daily report
+// flags fresh publication days, triggering the incremental ingest + geo refresh.
 //
 // There is no top-level bucket listing (the root ListBucket is 403), so we
 // fingerprint by probing the most recent days directly: each day is its own
@@ -70,7 +76,8 @@ const probeDay = async (day: string): Promise<DayProbe | null> => {
 
 export const eopProcurement: WatchSource = {
   id: "eop_procurement",
-  label: "ЦАИС ЕОП open data (storage.eop.bg — flat договори feed)",
+  label:
+    "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
   url: EOP_BASE,
   cadence: "daily",
 
@@ -112,7 +119,7 @@ export const eopProcurement: WatchSource = {
     if (parts.length === 0) return `${curr.detail} (no new days)`;
     return (
       parts.join("; ") +
-      " — run the incremental EOP gap-fill in /update-procurement"
+      " — run the incremental EOP gap-fill + geo refresh in /update-procurement"
     );
   },
 };

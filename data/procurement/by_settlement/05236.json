@@ -3,10 +3,10 @@
   "name": "Бойчиновци",
   "province": "Монтана",
   "obshtina": "Бойчиновци",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 86,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 90,
   "awardCount": 0,
-  "totalEur": 15441127.35280495,
+  "totalEur": 15622367.542391978,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 15441127.35280495,
       "totalOther": {},
       "contractCount": 86,
+      "awardCount": 0
+    },
+    {
+      "eik": "000311706",
+      "name": "Средно училище \"Васил Левски",
+      "tier": "school",
+      "totalEur": 181240.18958702954,
+      "totalOther": {},
+      "contractCount": 4,
       "awardCount": 0
     }
   ],
@@ -235,6 +244,18 @@
       "partyName": "Крид ООД /старо - Крид ЕООД, гр. Монтана/",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "1006a000143e",
+      "ocid": "aop-legacy-2022-299824",
+      "date": "2022-11-16",
+      "amount": 268675,
+      "currency": "BGN",
+      "amountEur": 137371.346180394,
+      "partyEik": "202988228",
+      "partyName": "Йорданов инжинеринг ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
       "key": "61bdb7b99972",
@@ -607,18 +628,6 @@
       "partyName": "СТРОИТЕЛ-КРИВОДОЛ ЕООД",
       "bundleUuid": "c5404069-668a-4cd2-ab43-a1cdc26e03c6",
       "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
-    },
-    {
-      "key": "7e9420ad128a",
-      "ocid": "aop-legacy-2023-433618",
-      "date": "2023-10-06",
-      "amount": 96010.03,
-      "currency": "BGN",
-      "amountEur": 49089.14885240537,
-      "partyEik": "205632778",
-      "partyName": "Хидролукс груп ЕООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -636,15 +645,15 @@
     },
     {
       "year": "2013",
-      "totalEur": 841622.968253887,
+      "totalEur": 854814.2987887495,
       "totalOther": {},
-      "contractCount": 4
+      "contractCount": 5
     },
     {
       "year": "2014",
-      "totalEur": 2083032.114243058,
+      "totalEur": 2113709.627114831,
       "totalOther": {},
-      "contractCount": 11
+      "contractCount": 13
     },
     {
       "year": "2015",
@@ -684,9 +693,9 @@
     },
     {
       "year": "2022",
-      "totalEur": 807607.9413854986,
+      "totalEur": 944979.2875658926,
       "totalOther": {},
-      "contractCount": 9
+      "contractCount": 10
     },
     {
       "year": "2023",

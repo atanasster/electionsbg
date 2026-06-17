@@ -3,10 +3,10 @@
   "name": "Димитровград",
   "province": "Хасково",
   "obshtina": "Димитровград",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 294,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 348,
   "awardCount": 0,
-  "totalEur": 88573816.46069175,
+  "totalEur": 90276485.66546358,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 88186035.1772002,
       "totalOther": {},
       "contractCount": 279,
+      "awardCount": 0
+    },
+    {
+      "eik": "126531685",
+      "name": "Многопрофилна болница за активно лечение \"Света Екатерина\" - димитровград ЕООД",
+      "tier": "hospital",
+      "totalEur": 1353436.1099891094,
+      "totalOther": {},
+      "contractCount": 36,
       "awardCount": 0
     },
     {
@@ -34,6 +43,42 @@
       "totalEur": 157679.81411472367,
       "totalOther": {},
       "contractCount": 2,
+      "awardCount": 0
+    },
+    {
+      "eik": "000892108",
+      "name": "Основно училище \"Алеко Константинов\"",
+      "tier": "school",
+      "totalEur": 144459.67514559036,
+      "totalOther": {},
+      "contractCount": 6,
+      "awardCount": 0
+    },
+    {
+      "eik": "000892154",
+      "name": "Средно училище \"Любен Каравелов\"",
+      "tier": "school",
+      "totalEur": 129438.19963713613,
+      "totalOther": {},
+      "contractCount": 10,
+      "awardCount": 0
+    },
+    {
+      "eik": "000892147",
+      "name": "Основно училище \"Васил Левски\"",
+      "tier": "school",
+      "totalEur": 43803.5,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    },
+    {
+      "eik": "000892097",
+      "name": "Обединено училище \"СВ.СВ. кирил и Методий\"",
+      "tier": "school",
+      "totalEur": 31531.72,
+      "totalOther": {},
+      "contractCount": 1,
       "awardCount": 0
     }
   ],
@@ -642,39 +687,39 @@
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 3633104.998900722,
-      "totalOther": {},
-      "contractCount": 9
-    },
-    {
-      "year": "2012",
-      "totalEur": 1659430.8503295276,
-      "totalOther": {},
-      "contractCount": 12
-    },
-    {
-      "year": "2013",
-      "totalEur": 8745313.52929447,
+      "totalEur": 3995654.4024787424,
       "totalOther": {},
       "contractCount": 19
     },
     {
-      "year": "2014",
-      "totalEur": 3243730.9479862773,
-      "totalOther": {},
-      "contractCount": 8
-    },
-    {
-      "year": "2015",
-      "totalEur": 3693232.31057914,
+      "year": "2012",
+      "totalEur": 1861063.6047100208,
       "totalOther": {},
       "contractCount": 18
     },
     {
-      "year": "2016",
-      "totalEur": 27603990.904117435,
+      "year": "2013",
+      "totalEur": 8857797.743157638,
       "totalOther": {},
-      "contractCount": 63
+      "contractCount": 21
+    },
+    {
+      "year": "2014",
+      "totalEur": 3393126.3964659506,
+      "totalOther": {},
+      "contractCount": 15
+    },
+    {
+      "year": "2015",
+      "totalEur": 3800504.7217805227,
+      "totalOther": {},
+      "contractCount": 19
+    },
+    {
+      "year": "2016",
+      "totalEur": 27688910.196693987,
+      "totalOther": {},
+      "contractCount": 65
     },
     {
       "year": "2017",
@@ -690,27 +735,27 @@
     },
     {
       "year": "2020",
-      "totalEur": 259948.0783094645,
+      "totalEur": 302362.6848959265,
       "totalOther": {},
-      "contractCount": 8
+      "contractCount": 10
     },
     {
       "year": "2022",
-      "totalEur": 3782915.964066407,
+      "totalEur": 4043872.575837369,
       "totalOther": {},
-      "contractCount": 21
+      "contractCount": 30
     },
     {
       "year": "2023",
-      "totalEur": 7862260.15553499,
+      "totalEur": 8016782.787870112,
       "totalOther": {},
-      "contractCount": 40
+      "contractCount": 42
     },
     {
       "year": "2026",
-      "totalEur": 2310335.56,
+      "totalEur": 2536857.39,
       "totalOther": {},
-      "contractCount": 19
+      "contractCount": 32
     }
   ]
 }

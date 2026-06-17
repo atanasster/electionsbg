@@ -3,10 +3,10 @@
   "name": "Попово",
   "province": "Търговище",
   "obshtina": "Попово",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 496,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 506,
   "awardCount": 0,
-  "totalEur": 57019338.31931164,
+  "totalEur": 57913237.80501889,
   "totalOther": {},
   "awarders": [
     {
@@ -25,6 +25,15 @@
       "totalEur": 3523511.8076482625,
       "totalOther": {},
       "contractCount": 31,
+      "awardCount": 0
+    },
+    {
+      "eik": "000877832",
+      "name": "Професионална гимназия по селско стопанство \"Никола Пушкаров\"",
+      "tier": "school",
+      "totalEur": 893899.4857072445,
+      "totalOther": {},
+      "contractCount": 10,
       "awardCount": 0
     }
   ],
@@ -184,6 +193,18 @@
       "partyName": "Енемона АД  - София /бивше Енемона АД - Козлодуй/",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "4be5692571d4",
+      "ocid": "aop-legacy-2023-465547",
+      "date": "2023-12-22",
+      "amount": 1341015,
+      "currency": "BGN",
+      "amountEur": 685650.082062347,
+      "partyEik": "180832138",
+      "partyName": "Атрим груп",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
       "key": "6fa8ebb16e65",
@@ -616,18 +637,6 @@
       "partyName": "ДЗЗД Е-СКАЛИБУР, Варна",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "136a1105d5c1",
-      "ocid": "aop-legacy-2011-2015-685550",
-      "date": "2015-09-02",
-      "amount": 666690.58,
-      "currency": "BGN",
-      "amountEur": 340873.480823998,
-      "partyEik": "835009611",
-      "partyName": "Пътинженерингстрой-Т ЕАД/старо Пътинженерингстрой-Т АД  - Търговище",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -645,9 +654,9 @@
     },
     {
       "year": "2013",
-      "totalEur": 724361.7901351345,
+      "totalEur": 757595.7624128887,
       "totalOther": {},
-      "contractCount": 14
+      "contractCount": 15
     },
     {
       "year": "2014",
@@ -669,9 +678,9 @@
     },
     {
       "year": "2017",
-      "totalEur": 7490104.436479653,
+      "totalEur": 7541029.1078467965,
       "totalOther": {},
-      "contractCount": 77
+      "contractCount": 79
     },
     {
       "year": "2019",
@@ -693,15 +702,15 @@
     },
     {
       "year": "2023",
-      "totalEur": 5002386.884340663,
+      "totalEur": 5688036.96640301,
       "totalOther": {},
-      "contractCount": 55
+      "contractCount": 56
     },
     {
       "year": "2026",
-      "totalEur": 6361574.710000001,
+      "totalEur": 6485665.470000001,
       "totalOther": {},
-      "contractCount": 40
+      "contractCount": 46
     }
   ]
 }

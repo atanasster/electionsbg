@@ -3,10 +3,10 @@
   "name": "Бяла Слатина",
   "province": "Враца",
   "obshtina": "Бяла Слатина",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 283,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 371,
   "awardCount": 0,
-  "totalEur": 61545010.92598106,
+  "totalEur": 63593714.63488158,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,24 @@
       "totalEur": 61545010.92598106,
       "totalOther": {},
       "contractCount": 283,
+      "awardCount": 0
+    },
+    {
+      "eik": "106513498",
+      "name": "Многопрофилна болница за активно лечение - бяла Слатина ЕООД",
+      "tier": "hospital",
+      "totalEur": 1994194.8789005177,
+      "totalOther": {},
+      "contractCount": 87,
+      "awardCount": 0
+    },
+    {
+      "eik": "000183046",
+      "name": "Средно училище \"Васил Левски\"",
+      "tier": "school",
+      "totalEur": 54508.83,
+      "totalOther": {},
+      "contractCount": 1,
       "awardCount": 0
     }
   ],
@@ -441,6 +459,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
+      "key": "e418b60f44b7",
+      "ocid": "aop-legacy-2011-2015-484005",
+      "date": "2012-05-22",
+      "amount": 821854.09,
+      "currency": "BGN",
+      "amountEur": 420207.3237449062,
+      "partyEik": "102227154",
+      "partyName": "Фаркол АД - Бургас",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
       "key": "469d5cb5a26d",
       "ocid": "aop-legacy-2023-410049",
       "date": "2023-08-08",
@@ -607,68 +637,56 @@
       "partyName": "Обединение Стройкомерс Роан",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "d64dee71dfe2",
-      "ocid": "aop-legacy-2016-741106",
-      "date": "2016-07-20",
-      "amount": 510210.13,
-      "currency": "BGN",
-      "amountEur": 260866.2971730672,
-      "partyEik": "177030473",
-      "partyName": "Обединение Стройкомерс Роан",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 167761.00172305363,
-      "totalOther": {},
-      "contractCount": 1
-    },
-    {
-      "year": "2012",
-      "totalEur": 793092.9579769203,
+      "totalEur": 216856.3116426274,
       "totalOther": {},
       "contractCount": 4
     },
     {
-      "year": "2013",
-      "totalEur": 12572333.541258698,
+      "year": "2012",
+      "totalEur": 1324937.8166814088,
       "totalOther": {},
-      "contractCount": 8
+      "contractCount": 11
+    },
+    {
+      "year": "2013",
+      "totalEur": 12610456.997796332,
+      "totalOther": {},
+      "contractCount": 11
     },
     {
       "year": "2014",
-      "totalEur": 4039431.3769601653,
+      "totalEur": 4128475.7775471285,
       "totalOther": {},
-      "contractCount": 10
+      "contractCount": 15
     },
     {
       "year": "2015",
-      "totalEur": 6181274.860289494,
+      "totalEur": 6424279.124463783,
       "totalOther": {},
-      "contractCount": 25
+      "contractCount": 30
     },
     {
       "year": "2016",
-      "totalEur": 5894079.843340168,
+      "totalEur": 6125936.211224902,
       "totalOther": {},
-      "contractCount": 32
+      "contractCount": 40
     },
     {
       "year": "2017",
-      "totalEur": 5738581.303078488,
+      "totalEur": 5921167.1924451515,
       "totalOther": {},
-      "contractCount": 64
+      "contractCount": 69
     },
     {
       "year": "2019",
-      "totalEur": 4993685.274282529,
+      "totalEur": 5088779.39289202,
       "totalOther": {},
-      "contractCount": 38
+      "contractCount": 50
     },
     {
       "year": "2020",
@@ -684,21 +702,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 3296978.0297878655,
+      "totalEur": 3581864.7275069924,
       "totalOther": {},
-      "contractCount": 21
+      "contractCount": 45
     },
     {
       "year": "2023",
-      "totalEur": 6482479.85765634,
+      "totalEur": 6731139.373053895,
       "totalOther": {},
-      "contractCount": 52
+      "contractCount": 67
     },
     {
       "year": "2026",
-      "totalEur": 9754779.05,
+      "totalEur": 9809287.88,
       "totalOther": {},
-      "contractCount": 25
+      "contractCount": 26
     }
   ]
 }

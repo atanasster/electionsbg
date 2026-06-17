@@ -54,12 +54,68 @@ already have geo; schools wouldn't appear in alerts regardless).
 | A    | **Name-suffix parse** — `"- гр.X" / "- с.X"` in the awarder name → `ekatte_index`                                                                                                                                                                                       | ~413 (12%)                                        | low   | free, local                                                                                 | no           |
 | B    | **МОН school register** — data.egov.bg open data ([resource `cac4d569-529c-4209-b797-1cf5f69901f5`](https://data.egov.bg/data/resourceView/cac4d569-529c-4209-b797-1cf5f69901f5); live UI [reg.mon.bg/Schools](https://reg.mon.bg/Schools/) searches by населено място) | schools + kindergartens ≈ **2,052 (58%)**         | high  | egov `getResourceData` POST API (same path `update-indicators`/`update-budget` already use) | yes (small)  |
 | C    | **БУЛСТАT seat** — registryagency.bg / bulstat.bg, per-EIK current-status                                                                                                                                                                                               | the rest (other/hospital/agency/ministry ≈ 1,400) | high  | per-EIK query, registered/subscription for bulk → **access-gated**                          | yes (harder) |
+| D    | **`поръчки` (tenders) feed `executionPlaceNuts`** — the doc itself: same storage.eop.bg buckets carry buyer EIK + place-of-performance NUTS3 (100% populated), so a buyer's oblast falls out directly (no contract join, no external register)                            | **oblast** for ~all buyers (NUTS3, not settlement) | med   | **storage.eop.bg — reachable now, no external dep** (only data.egov.bg is blocked)          | yes (crawl)  |
+| E    | **OCDS `обявления` party addresses** — the doc itself: `parties[].address.locality` + `.region` (NUTS), 100% populated, harvested by EIK across ALL parties (same field family as our address-derived geo, harvested more thoroughly)                                    | **settlement** for OCDS-present buyers (recovers what `buildRollups` misses; only ~19% carry an OCDS address today) | high | **storage.eop.bg — reachable now**; OCDS file exists 2026-01-01+ only (small crawl)        | yes (crawl)  |
 
 **Rejected:** the TR/connections ingest (`companies-index.json`) — only **4/3,533**
 EIKs overlap (it covers commercial companies, not budget entities). Dead end.
 
 Tiers A+B alone pin **~60–65%** of the no-geo set (and ~all the schools — the EOP
 gap-fill's main content). Tier C is optional polish for the long tail.
+
+### Tier D — doc-internal oblast (the "from the procurement doc itself" path)
+
+The contracts (`договори`) feed has no buyer location (only `supplierNutsCode` = the
+**supplier's** NUTS), but the sibling **`поръчки` (tenders)** file in the same daily
+bucket carries `buyerRegistryNumber` + **`executionPlaceNuts`** (place of performance,
+100% populated, NUTS3 = **oblast**). So a buyer→oblast map falls out with no contract
+join. `scripts/procurement/build_tender_oblast_map.ts` crawls the tenders history (mirrors
+`ingest_eop`: incremental default + `--backfill`; cache `raw_data/procurement/eop_tenders/`)
+and writes `data/procurement/derived/buyer_oblast_map.json` = `{ eik: { nuts, n, distinct } }`
+(modal oblast per buyer).
+
+Two uses:
+
+1. **Disambiguates Tier A (implemented):** `awarder_geo_map.ts` feeds the buyer's modal
+   oblast as the resolver's `region` hint on the name-parse path. For a settlement name
+   that's unique it's a no-op; for one that exists in several oblasti it picks the EKATTE in
+   the buyer's oblast and the resolver returns a higher confidence (`source: "name+oblast"`).
+   Recovers the name-tokened-but-ambiguous buyers Tier A previously skipped and lifts
+   confidence on the rest. **Settlement-level** — feeds `by_settlement` like A/B.
+2. **Oblast-level pinning (future):** the same map could pin *every* no-geo buyer to its
+   oblast for a region-tier procurement view (`governance/region/:oblast`) — but that needs
+   a new `by_oblast` rollup + consumer, deferred.
+
+Caveats: NUTS3 = oblast, **never settlement** (can't feed `by_settlement` alone); ~8% of
+tenders are bare `BG` (national, skipped); place-of-performance ≈ buyer oblast for *local*
+buyers but diverges for central/multi-region ones (use the modal oblast; `distinct` flags
+spread). Requires the full tenders-history crawl (contracts post-date their procedures, so
+a day's tenders ≠ that day's contracts' procedures — verified: 0 same-day join matches).
+
+### Tier E — OCDS party addresses (settlement-level)
+
+The OCDS `обявления` file carries **`parties[].address.locality`** (and `.region`/NUTS),
+100% populated, for every party. Harvesting it by EIK across ALL parties (any
+role/release) is the most complete way to geocode buyers from the procurement document
+itself — far broader than `buildRollups`, which only reads the buyer party on the
+awarder's own contract rows (so only ~19% of awarders currently carry an OCDS address).
+Same field family as our existing address-derived geo, just harvested more thoroughly.
+The flat-feed gap-fill schools are absent from OCDS entirely, so this does not help them
+(Tier B МОН remains their only path).
+
+`scripts/procurement/build_ocds_party_geo.ts` crawls the OCDS `обявления` file from
+storage.eop.bg (exists **2026-01-01+** only → a small ~165-day crawl; caches the slim
+parties slice to `raw_data/procurement/eop_ocds/`) and writes
+`data/procurement/derived/ocds_party_geo_map.json` = `{ eik: { locality, nuts, n } }`
+(modal address per EIK across all party roles). `awarder_geo_map.ts` consumes it as a
+**high-confidence settlement tier** (resolves `locality`+`nuts`→EKATTE), ordered after
+МОН (B) and before name-parse (A). It recovers OCDS-present buyers whose address
+`buildRollups` missed (it only reads the buyer party on the awarder's own rows; Tier E
+matches the EIK across the whole feed).
+
+Limits: 2026+ only (pre-2026-only buyers absent); does NOT help the flat-only gap-fill
+schools (not in OCDS — Tier B МОН remains their only path); settlement-level, feeds
+`by_settlement` directly.
 
 ## Architecture (additive, mirrors `enrich_awarders_geo.ts`)
 

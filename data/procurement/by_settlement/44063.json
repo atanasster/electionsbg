@@ -1,0 +1,62 @@
+{
+  "ekatte": "44063",
+  "name": "Лозен",
+  "province": "София (столица)",
+  "obshtina": "Столична",
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 54299.14665385028,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000674209",
+      "name": "Детска Градина № 97 \"Изгрев",
+      "tier": "school",
+      "totalEur": 54299.14665385028,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "adbd06639dba",
+      "ocid": "aop-legacy-2022-260326",
+      "date": "2022-08-04",
+      "amount": 53440.3,
+      "currency": "BGN",
+      "amountEur": 27323.591518690275,
+      "partyEik": "121115423",
+      "partyName": "БЕТИ-М ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "233ffd4450af",
+      "ocid": "aop-legacy-2023-403873",
+      "date": "2023-07-24",
+      "amount": 52759.6,
+      "currency": "BGN",
+      "amountEur": 26975.555135160008,
+      "partyEik": "201875359",
+      "partyName": "Старкристалс ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2022",
+      "totalEur": 27323.591518690275,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2023",
+      "totalEur": 26975.555135160008,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

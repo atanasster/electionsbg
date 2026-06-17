@@ -3,10 +3,10 @@
   "name": "Гоце Делчев",
   "province": "Благоевград",
   "obshtina": "Гоце Делчев",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 616,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 629,
   "awardCount": 0,
-  "totalEur": 94208752.02625076,
+  "totalEur": 95834844.40893777,
   "totalOther": {},
   "awarders": [
     {
@@ -28,12 +28,48 @@
       "awardCount": 0
     },
     {
+      "eik": "000014249",
+      "name": "Неврокопска професионална гимназия \"Димитър Талев\"",
+      "tier": "school",
+      "totalEur": 835261.0403358166,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0
+    },
+    {
+      "eik": "000010902",
+      "name": "Трето основно училище \"Братя миладинови\"",
+      "tier": "school",
+      "totalEur": 541367.6252888544,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0
+    },
+    {
       "eik": "000014313",
       "name": "Професионална гимназия по механизация на селското стопанство \"Пейо к. Яворов\"",
       "tier": "school",
       "totalEur": 496670.46210626693,
       "totalOther": {},
       "contractCount": 8,
+      "awardCount": 0
+    },
+    {
+      "eik": "000012522",
+      "name": "Първо основно училище \"Свети свети кирил и Методий",
+      "tier": "school",
+      "totalEur": 137036.31706232135,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0
+    },
+    {
+      "eik": "000016951",
+      "name": "Детска Градина \"Брезичка\"",
+      "tier": "school",
+      "totalEur": 112427.4,
+      "totalOther": {},
+      "contractCount": 1,
       "awardCount": 0
     }
   ],
@@ -483,6 +519,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
+      "key": "0a98840500e6",
+      "ocid": "ocds-e82gsb-551656",
+      "date": "2026-04-07",
+      "amount": 636844,
+      "currency": "EUR",
+      "amountEur": 636844,
+      "partyEik": "204983703",
+      "partyName": "БУЛ Билд 2018 ООД",
+      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
+      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-551656-841544%2F2026-04-07-award"
+    },
+    {
       "key": "df55980381c6",
       "ocid": "aop-legacy-2022-221269",
       "date": "2022-04-11",
@@ -625,18 +673,6 @@
       "partyName": "Астон Сервиз ООД",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "ca12d23fd87e",
-      "ocid": "aop-legacy-2022-244116",
-      "date": "2022-06-22",
-      "amount": 950000,
-      "currency": "BGN",
-      "amountEur": 485727.28713640757,
-      "partyEik": "205606662",
-      "partyName": "Номад енерджи къмпани ЕООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
@@ -684,9 +720,9 @@
     },
     {
       "year": "2019",
-      "totalEur": 11825798.7657414,
+      "totalEur": 11838676.92999903,
       "totalOther": {},
-      "contractCount": 23
+      "contractCount": 25
     },
     {
       "year": "2020",
@@ -702,21 +738,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 12413537.193927895,
+      "totalEur": 12869635.157452332,
       "totalOther": {},
-      "contractCount": 141
+      "contractCount": 143
     },
     {
       "year": "2023",
-      "totalEur": 4416019.940383365,
+      "totalEur": 4717427.90528829,
       "totalOther": {},
-      "contractCount": 79
+      "contractCount": 85
     },
     {
       "year": "2026",
-      "totalEur": 20828071.869999997,
+      "totalEur": 21683780.16,
       "totalOther": {},
-      "contractCount": 132
+      "contractCount": 135
     }
   ]
 }

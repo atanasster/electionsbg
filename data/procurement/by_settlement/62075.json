@@ -3,10 +3,10 @@
   "name": "Раковски",
   "province": "Пловдив",
   "obshtina": "Раковски",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 169,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 205,
   "awardCount": 0,
-  "totalEur": 42703094.159649365,
+  "totalEur": 44079110.78873241,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 42218268.89026864,
       "totalOther": {},
       "contractCount": 143,
+      "awardCount": 0
+    },
+    {
+      "eik": "115532871",
+      "name": "Многопрофилна болница за активно лечение - Раковски ЕООД",
+      "tier": "hospital",
+      "totalEur": 1110383.0468976854,
+      "totalOther": {},
+      "contractCount": 6,
       "awardCount": 0
     },
     {
@@ -34,6 +43,42 @@
       "totalEur": 173705.47677799198,
       "totalOther": {},
       "contractCount": 14,
+      "awardCount": 0
+    },
+    {
+      "eik": "000461200",
+      "name": "Детска Градина \"Детелина\" - гр. Раковски",
+      "tier": "school",
+      "totalEur": 112616.11398204343,
+      "totalOther": {},
+      "contractCount": 13,
+      "awardCount": 0
+    },
+    {
+      "eik": "000451409",
+      "name": "Детска Градина \"Иглика\" - гр. Раковски",
+      "tier": "school",
+      "totalEur": 84620.52159875858,
+      "totalOther": {},
+      "contractCount": 10,
+      "awardCount": 0
+    },
+    {
+      "eik": "181045844",
+      "name": "Детска Градина \"Феникс\" - гр. Раковски",
+      "tier": "school",
+      "totalEur": 55436.72,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    },
+    {
+      "eik": "000453342",
+      "name": "Основно училище /ОУ/ \"Хр. Смирненски\" гр. Раковски",
+      "tier": "school",
+      "totalEur": 12960.226604561745,
+      "totalOther": {},
+      "contractCount": 6,
       "awardCount": 0
     }
   ],
@@ -263,6 +308,18 @@
       "amountEur": 664242.7000301663,
       "partyEik": "831040520",
       "partyName": "Иса-2000 ЕООД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "2e96728fa9b6",
+      "ocid": "aop-legacy-2011-2015-443645",
+      "date": "2011-07-07",
+      "amount": 1250000,
+      "currency": "BGN",
+      "amountEur": 639114.8514952731,
+      "partyEik": "115509050",
+      "partyName": "Йолито-Тодор Кочев  ЕТ - гр.Пловдив",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
@@ -591,6 +648,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
+      "key": "5bf426677db8",
+      "ocid": "aop-legacy-2016-709816",
+      "date": "2016-01-26",
+      "amount": 417719.41,
+      "currency": "BGN",
+      "amountEur": 213576.54295107446,
+      "partyEik": "120564924",
+      "partyName": "Артстрой ООД - Смолян",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
       "key": "9b7cf0239fb4",
       "ocid": "aop-legacy-2023-364452",
       "date": "2023-04-24",
@@ -613,38 +682,14 @@
       "partyName": "Евросистем Eоод - Кричим",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "a2f0142175cb",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-10-03",
-      "amount": 398610.3,
-      "currency": "BGN",
-      "amountEur": 203806.210151189,
-      "partyEik": "160086706",
-      "partyName": "Евросистем Eоод - Кричим",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "4686c3ee34b2",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-08-16",
-      "amount": 393500,
-      "currency": "BGN",
-      "amountEur": 201193.355250712,
-      "partyEik": "200285252",
-      "partyName": "Стройнорм ЕООД - гр.София - Стройнорм ООД (старо наименование)",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 1211019.5160111052,
+      "totalEur": 1850134.3675063783,
       "totalOther": {},
-      "contractCount": 1
+      "contractCount": 2
     },
     {
       "year": "2012",
@@ -660,21 +705,21 @@
     },
     {
       "year": "2014",
-      "totalEur": 1363801.260845779,
+      "totalEur": 1376761.4874503408,
       "totalOther": {},
-      "contractCount": 10
+      "contractCount": 16
     },
     {
       "year": "2015",
-      "totalEur": 730485.6761579483,
+      "totalEur": 837338.066191847,
       "totalOther": {},
-      "contractCount": 3
+      "contractCount": 4
     },
     {
       "year": "2016",
-      "totalEur": 4847569.8910437,
+      "totalEur": 5061146.433994775,
       "totalOther": {},
-      "contractCount": 16
+      "contractCount": 17
     },
     {
       "year": "2017",
@@ -696,21 +741,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 3000974.1132920547,
+      "totalEur": 3075389.6811072533,
       "totalOther": {},
-      "contractCount": 32
+      "contractCount": 42
     },
     {
       "year": "2023",
-      "totalEur": 8075550.799404855,
+      "totalEur": 8204108.199587897,
       "totalOther": {},
-      "contractCount": 32
+      "contractCount": 42
     },
     {
       "year": "2026",
-      "totalEur": 6562494.9,
+      "totalEur": 6763034.550000001,
       "totalOther": {},
-      "contractCount": 24
+      "contractCount": 31
     }
   ]
 }

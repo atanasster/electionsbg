@@ -3,10 +3,10 @@
   "name": "Бяла",
   "province": "Русе",
   "obshtina": "Бяла",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 216,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 297,
   "awardCount": 0,
-  "totalEur": 73503032.19222222,
+  "totalEur": 75385066.50976087,
   "totalOther": {},
   "awarders": [
     {
@@ -25,6 +25,24 @@
       "totalEur": 2643695.4388027587,
       "totalOther": {},
       "contractCount": 85,
+      "awardCount": 0
+    },
+    {
+      "eik": "117500566",
+      "name": "Многопрофилна болница за активно лечение юлия ВРЕВСКА-БЯЛА ЕООД",
+      "tier": "hospital",
+      "totalEur": 1808763.917538641,
+      "totalOther": {},
+      "contractCount": 80,
+      "awardCount": 0
+    },
+    {
+      "eik": "117027088",
+      "name": "Начално училище \"П. Р. Славейков\"",
+      "tier": "school",
+      "totalEur": 73270.4,
+      "totalOther": {},
+      "contractCount": 1,
       "awardCount": 0
     }
   ],
@@ -582,6 +600,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "8fcd864d56db",
+      "ocid": "aop-legacy-2022-292095",
+      "date": "2022-11-04",
+      "amount": 300000,
+      "currency": "BGN",
+      "amountEur": 153387.56435886555,
+      "partyEik": "206117083",
+      "partyName": "КЕР Токи пауър АД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
       "key": "46f2711a80fb",
       "ocid": "aop-legacy-2016-x",
       "date": "2016-02-22",
@@ -616,32 +646,20 @@
       "partyName": "Бороимпекс АД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "0845ed2b4c78",
-      "ocid": "aop-legacy-2011-2015-598040",
-      "date": "2014-04-07",
-      "amount": 273328.57,
-      "currency": "BGN",
-      "amountEur": 139750.6787399723,
-      "partyEik": "200031631",
-      "partyName": "Нитов Инженеринг ЕООД - Плевен",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 341432.8699324584,
+      "totalEur": 416018.41162064194,
       "totalOther": {},
-      "contractCount": 7
+      "contractCount": 10
     },
     {
       "year": "2012",
-      "totalEur": 2443889.576292418,
+      "totalEur": 2685962.0723682526,
       "totalOther": {},
-      "contractCount": 13
+      "contractCount": 24
     },
     {
       "year": "2013",
@@ -651,21 +669,21 @@
     },
     {
       "year": "2014",
-      "totalEur": 13216604.679343302,
+      "totalEur": 13280439.98711545,
       "totalOther": {},
-      "contractCount": 18
+      "contractCount": 30
     },
     {
       "year": "2015",
-      "totalEur": 11107831.657148115,
+      "totalEur": 11282268.939529508,
       "totalOther": {},
-      "contractCount": 11
+      "contractCount": 23
     },
     {
       "year": "2016",
-      "totalEur": 1736154.532858173,
+      "totalEur": 1807735.3962256436,
       "totalOther": {},
-      "contractCount": 29
+      "contractCount": 31
     },
     {
       "year": "2017",
@@ -693,21 +711,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 2738782.8185476246,
+      "totalEur": 3380472.5206178455,
       "totalOther": {},
-      "contractCount": 34
+      "contractCount": 47
     },
     {
       "year": "2023",
-      "totalEur": 2311120.480818885,
+      "totalEur": 2823625.085002275,
       "totalOther": {},
-      "contractCount": 18
+      "contractCount": 41
     },
     {
       "year": "2026",
-      "totalEur": 9161895.8,
+      "totalEur": 9263224.32,
       "totalOther": {},
-      "contractCount": 20
+      "contractCount": 25
     }
   ]
 }

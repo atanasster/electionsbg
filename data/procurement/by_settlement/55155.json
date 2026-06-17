@@ -3,10 +3,10 @@
   "name": "Пазарджик",
   "province": "Пазарджик",
   "obshtina": "Пазарджик",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 1166,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 1288,
   "awardCount": 0,
-  "totalEur": 183541414.88635194,
+  "totalEur": 197245753.02897698,
   "totalOther": {},
   "awarders": [
     {
@@ -28,6 +28,15 @@
       "awardCount": 0
     },
     {
+      "eik": "205323041",
+      "name": "Водоснабдяване и канализационни услуги ЕООД",
+      "tier": "utility",
+      "totalEur": 7438149.164198013,
+      "totalOther": {},
+      "contractCount": 39,
+      "awardCount": 0
+    },
+    {
       "eik": "822106665",
       "name": "Водоснабдяване и канализация/ВИК/ - в ликвидация ЕООД - гр. Пазарджик",
       "tier": "utility",
@@ -37,12 +46,102 @@
       "awardCount": 0
     },
     {
+      "eik": "000356256",
+      "name": "Регионална дирекция по горите - пазарджик",
+      "tier": "regional_gov",
+      "totalEur": 3056443.5610456946,
+      "totalOther": {},
+      "contractCount": 27,
+      "awardCount": 0
+    },
+    {
+      "eik": "000349062",
+      "name": "Държавна психиатрична болница",
+      "tier": "hospital",
+      "totalEur": 1642791.2650895019,
+      "totalOther": {},
+      "contractCount": 26,
+      "awardCount": 0
+    },
+    {
       "eik": "822114434",
       "name": "Център за спешна Медицинска помощ -пазарджик",
       "tier": "hospital",
       "totalEur": 987699.4682503082,
       "totalOther": {},
       "contractCount": 53,
+      "awardCount": 0
+    },
+    {
+      "eik": "000344332",
+      "name": "Професионална гимназия по строителство и архитектура",
+      "tier": "school",
+      "totalEur": 746230.900675212,
+      "totalOther": {},
+      "contractCount": 5,
+      "awardCount": 0
+    },
+    {
+      "eik": "000343052",
+      "name": "Регионален Исторически музей - пазарджик",
+      "tier": "regional_gov",
+      "totalEur": 207525.6438443014,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    },
+    {
+      "eik": "112059018",
+      "name": "Профилирана Математическа гимназия \"Константин Величков\" пазарджик",
+      "tier": "school",
+      "totalEur": 149605.49741030662,
+      "totalOther": {},
+      "contractCount": 5,
+      "awardCount": 0
+    },
+    {
+      "eik": "000349201",
+      "name": "Специализирана болница за активно лечение на ПНЕВМО-ФТИЗИАТРИЧНИ заболявания \"Д-Р никола ПЕНЧЕВ\"-ПАЗАРДЖИК ЕООД",
+      "tier": "hospital",
+      "totalEur": 106442.32182756171,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    },
+    {
+      "eik": "000342961",
+      "name": "Професионална гимназия по химични и хранителни технологии",
+      "tier": "school",
+      "totalEur": 100850.12999999999,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    },
+    {
+      "eik": "000345644",
+      "name": "Средно училище \"Димитър Гачев\"",
+      "tier": "school",
+      "totalEur": 94336.18886610799,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0
+    },
+    {
+      "eik": "000344948",
+      "name": "Средно училище \"Георги Бенковски\"",
+      "tier": "school",
+      "totalEur": 87497.88966832496,
+      "totalOther": {},
+      "contractCount": 7,
+      "awardCount": 0
+    },
+    {
+      "eik": "000341247",
+      "name": "Начално училище \"Васил Друмев\"",
+      "tier": "school",
+      "totalEur": 74465.58,
+      "totalOther": {},
+      "contractCount": 2,
       "awardCount": 0
     },
     {
@@ -246,6 +345,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "698ac7e8d123",
+      "ocid": "aop-legacy-2022-273387",
+      "date": "2022-09-16",
+      "amount": 3195905.63,
+      "currency": "BGN",
+      "amountEur": 1634040.6016882858,
+      "partyEik": "206117083",
+      "partyName": "КЕР Токи пауър АД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
       "key": "155eae698f46",
       "ocid": "aop-legacy-2017-x",
       "date": "2017-12-18",
@@ -414,6 +525,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
+      "key": "0c9869970ab4",
+      "ocid": "aop-legacy-2020-80164",
+      "date": "2020-12-24",
+      "amount": 1630000,
+      "currency": "BGN",
+      "amountEur": 833405.7663498361,
+      "partyEik": "115552190",
+      "partyName": "Електроразпределение Юг ЕАД",
+      "bundleUuid": "c5404069-668a-4cd2-ab43-a1cdc26e03c6",
+      "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
+    },
+    {
       "key": "0e8f07e93165",
       "ocid": "aop-legacy-2016-x",
       "date": "2016-05-25",
@@ -460,6 +583,18 @@
       "partyName": "Инерком ЕООД / старо Грийн Билд Бг ЕООД/",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "4566cd1c5212",
+      "ocid": "aop-legacy-2022-234678",
+      "date": "2022-05-26",
+      "amount": 1578078.96,
+      "currency": "BGN",
+      "amountEur": 806858.960134572,
+      "partyEik": "105011165",
+      "partyName": "П и м консултинг АД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
       "key": "83e66bccf8f5",
@@ -628,116 +763,92 @@
       "partyName": "Сигма - строй ООД - Пазарджик",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "c7389621e9c3",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-11-10",
-      "amount": 1406418.5,
-      "currency": "BGN",
-      "amountEur": 719090.3606141638,
-      "partyEik": "112032875",
-      "partyName": "Сигма - строй ООД - Пазарджик",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "7ff7cae27c0f",
-      "ocid": "aop-legacy-2011-2015-649738",
-      "date": "2015-02-23",
-      "amount": 1400000,
-      "currency": "BGN",
-      "amountEur": 715808.6336747059,
-      "partyEik": "201309208",
-      "partyName": "Хебърбус АД",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "00ae49ef43fe",
-      "ocid": "aop-legacy-2011-2015-499358",
-      "date": "2012-09-12",
-      "amount": 1385974.2,
-      "currency": "BGN",
-      "amountEur": 708637.356007424,
-      "partyEik": "103267194",
-      "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 8627949.423007112,
+      "totalEur": 8778780.527959995,
       "totalOther": {},
-      "contractCount": 55
+      "contractCount": 58
     },
     {
       "year": "2012",
-      "totalEur": 7536291.697131141,
-      "totalOther": {},
-      "contractCount": 80
-    },
-    {
-      "year": "2013",
-      "totalEur": 10926986.271812988,
-      "totalOther": {},
-      "contractCount": 86
-    },
-    {
-      "year": "2014",
-      "totalEur": 10573679.143892877,
-      "totalOther": {},
-      "contractCount": 85
-    },
-    {
-      "year": "2015",
-      "totalEur": 15456192.98200764,
-      "totalOther": {},
-      "contractCount": 89
-    },
-    {
-      "year": "2016",
-      "totalEur": 32801159.906535845,
-      "totalOther": {},
-      "contractCount": 171
-    },
-    {
-      "year": "2017",
-      "totalEur": 26513292.70437614,
-      "totalOther": {},
-      "contractCount": 192
-    },
-    {
-      "year": "2019",
-      "totalEur": 18122921.445115373,
+      "totalEur": 8219794.905487696,
       "totalOther": {},
       "contractCount": 87
     },
     {
-      "year": "2021",
-      "totalEur": 3662214.7783805346,
+      "year": "2013",
+      "totalEur": 11036521.931865241,
       "totalOther": {},
-      "contractCount": 26
+      "contractCount": 88
+    },
+    {
+      "year": "2014",
+      "totalEur": 11044215.085155666,
+      "totalOther": {},
+      "contractCount": 91
+    },
+    {
+      "year": "2015",
+      "totalEur": 15782347.22342944,
+      "totalOther": {},
+      "contractCount": 99
+    },
+    {
+      "year": "2016",
+      "totalEur": 33235720.6812453,
+      "totalOther": {},
+      "contractCount": 176
+    },
+    {
+      "year": "2017",
+      "totalEur": 27925790.25273157,
+      "totalOther": {},
+      "contractCount": 204
+    },
+    {
+      "year": "2019",
+      "totalEur": 19225441.00458629,
+      "totalOther": {},
+      "contractCount": 96
+    },
+    {
+      "year": "2020",
+      "totalEur": 869196.2849531912,
+      "totalOther": {},
+      "contractCount": 4
+    },
+    {
+      "year": "2021",
+      "totalEur": 3838365.0061610676,
+      "totalOther": {},
+      "contractCount": 29
     },
     {
       "year": "2022",
-      "totalEur": 17445742.948006727,
+      "totalEur": 21049044.242086478,
       "totalOther": {},
-      "contractCount": 115
+      "contractCount": 130
     },
     {
       "year": "2023",
-      "totalEur": 18946303.19608555,
+      "totalEur": 20813878.200048063,
       "totalOther": {},
-      "contractCount": 124
+      "contractCount": 147
+    },
+    {
+      "year": "2024",
+      "totalEur": 70256.8832669506,
+      "totalOther": {},
+      "contractCount": 4
     },
     {
       "year": "2026",
-      "totalEur": 12928680.39,
+      "totalEur": 15356400.8,
       "totalOther": {},
-      "contractCount": 56
+      "contractCount": 75
     }
   ]
 }

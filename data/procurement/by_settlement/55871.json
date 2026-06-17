@@ -3,10 +3,10 @@
   "name": "Перник",
   "province": "Перник",
   "obshtina": "Перник",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 1117,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 1334,
   "awardCount": 0,
-  "totalEur": 204295407.10173863,
+  "totalEur": 240042004.70469135,
   "totalOther": {},
   "awarders": [
     {
@@ -28,12 +28,75 @@
       "awardCount": 0
     },
     {
+      "eik": "823073638",
+      "name": "Водоснабдяване и канализация ООД",
+      "tier": "utility",
+      "totalEur": 29247738.254347257,
+      "totalOther": {},
+      "contractCount": 127,
+      "awardCount": 0
+    },
+    {
+      "eik": "113012360",
+      "name": "ТОПЛОФИКАЦИЯ-ПЕРНИК АД",
+      "tier": "utility",
+      "totalEur": 4623535.29218746,
+      "totalOther": {},
+      "contractCount": 24,
+      "awardCount": 0
+    },
+    {
+      "eik": "113010839",
+      "name": "Център за спешна Медицинска помощ - перник",
+      "tier": "hospital",
+      "totalEur": 810703.3863116937,
+      "totalOther": {},
+      "contractCount": 29,
+      "awardCount": 0
+    },
+    {
       "eik": "000381868",
       "name": "Основно училище \"СВ.ИВАН Рилски\"",
       "tier": "school",
       "totalEur": 638120.9650323392,
       "totalOther": {},
       "contractCount": 20,
+      "awardCount": 0
+    },
+    {
+      "eik": "113509685",
+      "name": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН Център 1 - перник ЕООД",
+      "tier": "hospital",
+      "totalEur": 361957.3104444661,
+      "totalOther": {},
+      "contractCount": 7,
+      "awardCount": 0
+    },
+    {
+      "eik": "000378459",
+      "name": "7-МО Основно училище \"Г.С.РАКОВСКИ",
+      "tier": "school",
+      "totalEur": 335888.34407898434,
+      "totalOther": {},
+      "contractCount": 7,
+      "awardCount": 0
+    },
+    {
+      "eik": "113055670",
+      "name": "Областна администрация - област перник",
+      "tier": "regional_gov",
+      "totalEur": 202209.6303918541,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0
+    },
+    {
+      "eik": "000378480",
+      "name": "Х-ТО Основно училище \"Алеко Константинов\"",
+      "tier": "school",
+      "totalEur": 164565.38519099308,
+      "totalOther": {},
+      "contractCount": 19,
       "awardCount": 0
     },
     {
@@ -88,6 +151,42 @@
       "partyName": "ДЗЗД Партньори Ез",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "ecbd4609447f",
+      "ocid": "aop-legacy-2023-332351",
+      "date": "2023-02-17",
+      "amount": 11752869.27,
+      "currency": "BGN",
+      "amountEur": 6009146.638511527,
+      "partyEik": "113580690",
+      "partyName": "Нивел строй ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "1a8acbee672c",
+      "ocid": "aop-legacy-2021-1015164",
+      "date": "2021-06-28",
+      "amount": 9123134.1,
+      "currency": "BGN",
+      "amountEur": 4664584.396394369,
+      "partyEik": "177482037",
+      "partyName": "ДЗЗД Радомир 2020",
+      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
+      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
+    },
+    {
+      "key": "6ecd9c25c58f",
+      "ocid": "aop-legacy-2021-x",
+      "date": "2021-06-28",
+      "amount": 9123134.1,
+      "currency": "BGN",
+      "amountEur": 4664584.396394369,
+      "partyEik": "177482037",
+      "partyName": "ДЗЗД Радомир 2020",
+      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
+      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
     },
     {
       "key": "fbf424a2d046",
@@ -318,6 +417,42 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "278ab172d8bd",
+      "ocid": "aop-legacy-2021-x",
+      "date": "2021-05-31",
+      "amount": 2840495,
+      "currency": "BGN",
+      "amountEur": 1452322.0320784526,
+      "partyEik": "177480431",
+      "partyName": "Кв Радомир ДЗЗД",
+      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
+      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
+    },
+    {
+      "key": "e938f38347a6",
+      "ocid": "aop-legacy-2021-1013651",
+      "date": "2021-05-31",
+      "amount": 2840495,
+      "currency": "BGN",
+      "amountEur": 1452322.0320784526,
+      "partyEik": "177480431",
+      "partyName": "Кв Радомир ДЗЗД",
+      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
+      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
+    },
+    {
+      "key": "0e48c6592bd7",
+      "ocid": "aop-legacy-2022-RL-1033430",
+      "date": "2022-04-29",
+      "amount": 2750000,
+      "currency": "BGN",
+      "amountEur": 1406052.6732896008,
+      "partyEik": "177467658",
+      "partyName": "Проджект управление 2020",
+      "bundleUuid": "db3e39ba-37f9-44bf-847f-75f36acee513",
+      "sourceUrl": "https://data.egov.bg/data/view/db3e39ba-37f9-44bf-847f-75f36acee513"
+    },
+    {
       "key": "62770bbb2f44",
       "ocid": "aop-legacy-2011-2015-536031",
       "date": "2013-04-09",
@@ -400,6 +535,18 @@
       "partyName": "ДЗЗД Обединение Люкос Перник",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "0ef0d49a9d6a",
+      "ocid": "aop-legacy-2022-258134",
+      "date": "2022-07-28",
+      "amount": 2207126.03,
+      "currency": "BGN",
+      "amountEur": 1128485.6199158411,
+      "partyEik": "109513731",
+      "partyName": "Тец - Бобов дол АД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
       "key": "73c63322a611",
@@ -580,164 +727,86 @@
       "partyName": "ЕТ Светлозар Райков - Перник",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "1988df4cc8f7",
-      "ocid": "aop-legacy-2016-749834",
-      "date": "2016-09-20",
-      "amount": 1615711.72,
-      "currency": "BGN",
-      "amountEur": 826100.2847895778,
-      "partyEik": "202296660",
-      "partyName": "ЕС Джи- 81 ЕООД",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "a537e1cfab35",
-      "ocid": "aop-legacy-2019-919833",
-      "date": "2019-07-05",
-      "amount": 1579302.57,
-      "currency": "BGN",
-      "amountEur": 807484.5819933226,
-      "partyEik": "113553048",
-      "partyName": "Длв ЕООД - Перник",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "451c78b855c7",
-      "ocid": "aop-legacy-2016-761570",
-      "date": "2016-12-07",
-      "amount": 1577487,
-      "currency": "BGN",
-      "amountEur": 806556.2957925791,
-      "partyEik": "177102499",
-      "partyName": "ДЗЗД Статус билд",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "525de7d8900b",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-12-07",
-      "amount": 1577487,
-      "currency": "BGN",
-      "amountEur": 806556.2957925791,
-      "partyEik": "177102499",
-      "partyName": "ДЗЗД Статус билд",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "e1e79fa9b0b4",
-      "ocid": "aop-legacy-2016-761570",
-      "date": "2016-12-07",
-      "amount": 1568386,
-      "currency": "BGN",
-      "amountEur": 801903.0283818124,
-      "partyEik": "200010904",
-      "partyName": "Булплан Инвест ООД - Кюстендил",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "e793035df2d9",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-12-07",
-      "amount": 1568386,
-      "currency": "BGN",
-      "amountEur": 801903.0283818124,
-      "partyEik": "200010904",
-      "partyName": "Булплан Инвест ООД - Кюстендил",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "87053b326b84",
-      "ocid": "aop-legacy-2022-185528",
-      "date": "2022-01-04",
-      "amount": 1546500,
-      "currency": "BGN",
-      "amountEur": 790712.8942699519,
-      "partyEik": "205558139",
-      "partyName": "Хидрострой груп ЕООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 1962675.8869635912,
+      "totalEur": 2721216.659934657,
       "totalOther": {},
-      "contractCount": 20
+      "contractCount": 34
     },
     {
       "year": "2012",
-      "totalEur": 3428855.5242531304,
+      "totalEur": 4228983.746031096,
       "totalOther": {},
-      "contractCount": 43
+      "contractCount": 57
     },
     {
       "year": "2013",
-      "totalEur": 13666141.67386736,
+      "totalEur": 14153387.211567467,
       "totalOther": {},
-      "contractCount": 50
+      "contractCount": 62
     },
     {
       "year": "2014",
-      "totalEur": 14309315.5488974,
+      "totalEur": 15414909.429756168,
       "totalOther": {},
-      "contractCount": 51
+      "contractCount": 61
     },
     {
       "year": "2015",
-      "totalEur": 19257788.575694207,
+      "totalEur": 19695237.852983132,
       "totalOther": {},
-      "contractCount": 55
+      "contractCount": 63
     },
     {
       "year": "2016",
-      "totalEur": 66622687.36546634,
+      "totalEur": 68448157.58527072,
       "totalOther": {},
-      "contractCount": 173
+      "contractCount": 194
     },
     {
       "year": "2017",
-      "totalEur": 13153776.979594339,
+      "totalEur": 14246569.246815927,
       "totalOther": {},
-      "contractCount": 123
+      "contractCount": 143
     },
     {
       "year": "2019",
-      "totalEur": 13480400.341542978,
+      "totalEur": 16063942.20356575,
       "totalOther": {},
-      "contractCount": 127
+      "contractCount": 149
     },
     {
       "year": "2020",
-      "totalEur": 787454.686757029,
+      "totalEur": 988583.5629886033,
       "totalOther": {},
-      "contractCount": 6
+      "contractCount": 15
+    },
+    {
+      "year": "2021",
+      "totalEur": 14263864.037262954,
+      "totalOther": {},
+      "contractCount": 12
     },
     {
       "year": "2022",
-      "totalEur": 23501269.05712664,
+      "totalEur": 26679979.563663505,
       "totalOther": {},
-      "contractCount": 170
+      "contractCount": 194
     },
     {
       "year": "2023",
-      "totalEur": 16142854.557911474,
+      "totalEur": 24074246.60118722,
       "totalOther": {},
-      "contractCount": 175
+      "contractCount": 213
     },
     {
       "year": "2026",
-      "totalEur": 17982186.903664067,
+      "totalEur": 19062927.00366407,
       "totalOther": {},
-      "contractCount": 124
+      "contractCount": 137
     }
   ]
 }

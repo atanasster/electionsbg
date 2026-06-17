@@ -3,10 +3,10 @@
   "name": "Любимец",
   "province": "Хасково",
   "obshtina": "Любимец",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 164,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 177,
   "awardCount": 0,
-  "totalEur": 42897254.13528271,
+  "totalEur": 43235043.605786994,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 42897254.13528271,
       "totalOther": {},
       "contractCount": 164,
+      "awardCount": 0
+    },
+    {
+      "eik": "000893295",
+      "name": "Средно училище \"Желязко Терпешев\"",
+      "tier": "school",
+      "totalEur": 337789.47050428716,
+      "totalOther": {},
+      "contractCount": 13,
       "awardCount": 0
     }
   ],
@@ -537,6 +546,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "394763cd2e38",
+      "ocid": "aop-legacy-2023-377156",
+      "date": "2023-05-22",
+      "amount": 269966.75,
+      "currency": "BGN",
+      "amountEur": 138031.8074679292,
+      "partyEik": "126658138",
+      "partyName": "Европът 2005 ООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
       "key": "d1097b0920e0",
       "ocid": "aop-legacy-2019-x",
       "date": "2019-06-11",
@@ -607,18 +628,6 @@
       "partyName": "Анастас - братя Стойкови и Сие",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "41fd8f446e11",
-      "ocid": "aop-legacy-2011-2015-576065",
-      "date": "2013-12-19",
-      "amount": 250000,
-      "currency": "BGN",
-      "amountEur": 127822.97029905462,
-      "partyEik": "200669801",
-      "partyName": "Анастас - братя Стойкови и Сие",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -678,21 +687,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 2236039.3336844207,
+      "totalEur": 2329842.9106824216,
       "totalOther": {},
-      "contractCount": 11
+      "contractCount": 13
     },
     {
       "year": "2023",
-      "totalEur": 917850.3806568056,
+      "totalEur": 1127175.194163092,
       "totalOther": {},
-      "contractCount": 10
+      "contractCount": 12
     },
     {
       "year": "2026",
-      "totalEur": 2166627,
+      "totalEur": 2201288.08,
       "totalOther": {},
-      "contractCount": 5
+      "contractCount": 14
     }
   ]
 }

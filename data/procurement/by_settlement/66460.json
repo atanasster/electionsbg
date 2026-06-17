@@ -3,10 +3,10 @@
   "name": "Симитли",
   "province": "Благоевград",
   "obshtina": "Симитли",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 102,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 110,
   "awardCount": 0,
-  "totalEur": 27469313.537704907,
+  "totalEur": 27963750.938025642,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,24 @@
       "totalEur": 27469313.537704907,
       "totalOther": {},
       "contractCount": 102,
+      "awardCount": 0
+    },
+    {
+      "eik": "000013962",
+      "name": "Средно училище \"Св. Св. Кирил и Методий",
+      "tier": "school",
+      "totalEur": 359295.6903207334,
+      "totalOther": {},
+      "contractCount": 7,
+      "awardCount": 0
+    },
+    {
+      "eik": "101761970",
+      "name": "Детска Градина \"Радост\" - симитли",
+      "tier": "school",
+      "totalEur": 135141.71,
+      "totalOther": {},
+      "contractCount": 1,
       "awardCount": 0
     }
   ],
@@ -333,6 +351,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
+      "key": "3637b2c0df5a",
+      "ocid": "aop-legacy-2023-379758",
+      "date": "2023-05-26",
+      "amount": 503132.95,
+      "currency": "BGN",
+      "amountEur": 257247.79249730293,
+      "partyEik": "175222941",
+      "partyName": "КОЗИРОГ-95 ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
       "key": "22a33afa77eb",
       "ocid": "ocds-e82gsb-553825",
       "date": "2026-05-14",
@@ -513,6 +543,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "b18767175455",
+      "ocid": "ocds-e82gsb-555343",
+      "date": "2026-03-22",
+      "amount": 135141.71,
+      "currency": "EUR",
+      "amountEur": 135141.71,
+      "partyEik": "201807963",
+      "partyName": "МГП-Р ЕООД",
+      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
+      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-555343-829610%2F2026-03-22-award"
+    },
+    {
       "key": "7a18c3d8b227",
       "ocid": "aop-legacy-2022-223486",
       "date": "2022-04-18",
@@ -595,30 +637,6 @@
       "partyName": "ДЗЗД Трейнинг симитли -  гр.София",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "0619d22232ce",
-      "ocid": "aop-legacy-2011-2015-597671",
-      "date": "2014-04-04",
-      "amount": 210778,
-      "currency": "BGN",
-      "amountEur": 107769.08013477654,
-      "partyEik": "176474799",
-      "partyName": "ДЗЗД Хидро Пирин  Благоевград",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "525456a25f2d",
-      "ocid": "aop-legacy-2016-764720",
-      "date": "2016-12-28",
-      "amount": 200000,
-      "currency": "BGN",
-      "amountEur": 102258.37623924369,
-      "partyEik": "101161250",
-      "partyName": "ЕТ Иван Трендафилов - Кресна",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     }
   ],
   "byYear": [
@@ -672,21 +690,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 590131.9951120495,
+      "totalEur": 674711.8410086764,
       "totalOther": {},
-      "contractCount": 6
+      "contractCount": 9
     },
     {
       "year": "2023",
-      "totalEur": 3073741.224953089,
+      "totalEur": 3348457.069377195,
       "totalOther": {},
-      "contractCount": 17
+      "contractCount": 21
     },
     {
       "year": "2026",
-      "totalEur": 2461680.1799999997,
+      "totalEur": 2596821.8899999997,
       "totalOther": {},
-      "contractCount": 13
+      "contractCount": 14
     }
   ]
 }

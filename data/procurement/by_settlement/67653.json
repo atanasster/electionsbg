@@ -3,10 +3,10 @@
   "name": "Смолян",
   "province": "Смолян",
   "obshtina": "Смолян",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 5235,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 5479,
   "awardCount": 0,
-  "totalEur": 308713908.0053412,
+  "totalEur": 335152899.9601991,
   "totalOther": {},
   "awarders": [
     {
@@ -37,6 +37,24 @@
       "awardCount": 0
     },
     {
+      "eik": "120068166",
+      "name": "Областна администрация - област смолян",
+      "tier": "regional_gov",
+      "totalEur": 16197164.40022098,
+      "totalOther": {},
+      "contractCount": 28,
+      "awardCount": 0
+    },
+    {
+      "eik": "830166530",
+      "name": "Водоснабдяване и канализация ЕООД",
+      "tier": "utility",
+      "totalEur": 7311093.300592894,
+      "totalOther": {},
+      "contractCount": 72,
+      "awardCount": 0
+    },
+    {
       "eik": "830176065",
       "name": "Център за спешна Медицинска помощ - смолян",
       "tier": "hospital",
@@ -46,12 +64,111 @@
       "awardCount": 0
     },
     {
+      "eik": "201004249",
+      "name": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН Център - смолян ЕООД",
+      "tier": "hospital",
+      "totalEur": 919468.1863255496,
+      "totalOther": {},
+      "contractCount": 67,
+      "awardCount": 0
+    },
+    {
+      "eik": "000615424",
+      "name": "Регионална дирекция по горите - смолян",
+      "tier": "regional_gov",
+      "totalEur": 855246.9236461245,
+      "totalOther": {},
+      "contractCount": 20,
+      "awardCount": 0
+    },
+    {
+      "eik": "000607559",
+      "name": "Средно училище \"СВ.СВ.КИРИЛ и Методий\"",
+      "tier": "school",
+      "totalEur": 363999.06771549676,
+      "totalOther": {},
+      "contractCount": 11,
+      "awardCount": 0
+    },
+    {
+      "eik": "830190507",
+      "name": "Основно училище \"Иван Вазов\"",
+      "tier": "school",
+      "totalEur": 183588.17568771314,
+      "totalOther": {},
+      "contractCount": 22,
+      "awardCount": 0
+    },
+    {
       "eik": "176032028",
       "name": "Регионална здравна инспекция /РЗИ/ гр. Смолян",
       "tier": "regional_gov",
       "totalEur": 137065.08234355747,
       "totalOther": {},
       "contractCount": 3,
+      "awardCount": 0
+    },
+    {
+      "eik": "000607566",
+      "name": "Второ основно училище \"ПРОФ.Д-Р асен Златаров\"",
+      "tier": "school",
+      "totalEur": 134278.07102360635,
+      "totalOther": {},
+      "contractCount": 9,
+      "awardCount": 0
+    },
+    {
+      "eik": "000608440",
+      "name": "Професионална гимназия по икономика \"Карл маркс\"",
+      "tier": "school",
+      "totalEur": 129563.01267390314,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    },
+    {
+      "eik": "000610982",
+      "name": "Езикова гимназия \"Иван Вазов\"",
+      "tier": "school",
+      "totalEur": 106957.38118226023,
+      "totalOther": {},
+      "contractCount": 5,
+      "awardCount": 0
+    },
+    {
+      "eik": "000614404",
+      "name": "Център за психично здраве - смолян ЕООД",
+      "tier": "hospital",
+      "totalEur": 92032.53861531932,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0
+    },
+    {
+      "eik": "120565499",
+      "name": "Професионална гимназия по техника и технологии христо БОТЕВ-СМОЛЯН",
+      "tier": "school",
+      "totalEur": 78677.5946784741,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    },
+    {
+      "eik": "000605483",
+      "name": "Детска Градина \"Синчец",
+      "tier": "school",
+      "totalEur": 35739.30249561567,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    },
+    {
+      "eik": "000607580",
+      "name": "Четвърто основно училище \"Стою Шишков\"",
+      "tier": "school",
+      "totalEur": 31184,
+      "totalOther": {},
+      "contractCount": 1,
       "awardCount": 0
     }
   ],
@@ -91,6 +208,30 @@
       "partyName": "Дружество по Ззд \"Гп\" ДЗЗД - София",
       "bundleUuid": "eedbb4b3-e120-4ce6-a7fb-252f59c8c491",
       "sourceUrl": "https://data.egov.bg/data/view/eedbb4b3-e120-4ce6-a7fb-252f59c8c491"
+    },
+    {
+      "key": "8cd6447d9cdd",
+      "ocid": "aop-legacy-2019-928667",
+      "date": "2019-08-22",
+      "amount": 14234563.56,
+      "currency": "BGN",
+      "amountEur": 7278016.780599541,
+      "partyEik": "177361498",
+      "partyName": "ДЗЗД Обединение Партньори-Ксанти",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "bbde5dbb95b3",
+      "ocid": "aop-legacy-2019-x",
+      "date": "2019-08-22",
+      "amount": 14234563.56,
+      "currency": "BGN",
+      "amountEur": 7278016.780599541,
+      "partyEik": "177361498",
+      "partyName": "ДЗЗД Обединение Партньори-Ксанти",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
       "key": "4435b875503a",
@@ -631,80 +772,56 @@
       "partyName": "ЛУКОЙЛ-БЪЛГАРИЯ ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "2b1a8156cf0e",
-      "ocid": "aop-legacy-2016-718408",
-      "date": "2016-03-09",
-      "amount": 1499000,
-      "currency": "BGN",
-      "amountEur": 766426.5299131315,
-      "partyEik": "202096909",
-      "partyName": "Си Ем Ел България АД",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "7af1213c36fd",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-04-30",
-      "amount": 1475000,
-      "currency": "BGN",
-      "amountEur": 754155.5247644223,
-      "partyEik": "104637700",
-      "partyName": "Благоустройство и комунално стопанство /Бкс/ - Горна Оряховица АД",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 6467628.7560779825,
+      "totalEur": 6744991.348941371,
       "totalOther": {},
-      "contractCount": 87
+      "contractCount": 92
     },
     {
       "year": "2012",
-      "totalEur": 10546092.518265903,
+      "totalEur": 11538901.499619089,
       "totalOther": {},
-      "contractCount": 496
+      "contractCount": 514
     },
     {
       "year": "2013",
-      "totalEur": 14170446.056150073,
+      "totalEur": 14741413.49708308,
       "totalOther": {},
-      "contractCount": 442
+      "contractCount": 464
     },
     {
       "year": "2014",
-      "totalEur": 17029550.364806764,
+      "totalEur": 17656196.898503453,
       "totalOther": {},
-      "contractCount": 411
+      "contractCount": 430
     },
     {
       "year": "2015",
-      "totalEur": 13282248.830419825,
+      "totalEur": 14539461.548294079,
       "totalOther": {},
-      "contractCount": 312
+      "contractCount": 328
     },
     {
       "year": "2016",
-      "totalEur": 44736706.53379893,
+      "totalEur": 45234784.07121272,
       "totalOther": {},
-      "contractCount": 640
+      "contractCount": 651
     },
     {
       "year": "2017",
-      "totalEur": 80919935.91467564,
+      "totalEur": 81191130.16468714,
       "totalOther": {},
-      "contractCount": 722
+      "contractCount": 733
     },
     {
       "year": "2019",
-      "totalEur": 26710566.992018737,
+      "totalEur": 43414629.1651115,
       "totalOther": {},
-      "contractCount": 610
+      "contractCount": 620
     },
     {
       "year": "2020",
@@ -714,27 +831,33 @@
     },
     {
       "year": "2021",
-      "totalEur": 25011896.085038066,
+      "totalEur": 25366500.31955742,
       "totalOther": {},
-      "contractCount": 65
+      "contractCount": 69
     },
     {
       "year": "2022",
-      "totalEur": 26436851.40324057,
+      "totalEur": 27129937.7860039,
       "totalOther": {},
-      "contractCount": 531
+      "contractCount": 556
     },
     {
       "year": "2023",
-      "totalEur": 34300758.46060241,
+      "totalEur": 35749003.23647761,
       "totalOther": {},
-      "contractCount": 669
+      "contractCount": 735
+    },
+    {
+      "year": "2025",
+      "totalEur": 58798.56633756513,
+      "totalOther": {},
+      "contractCount": 2
     },
     {
       "year": "2026",
-      "totalEur": 8716685.122984512,
+      "totalEur": 11402610.891108427,
       "totalOther": {},
-      "contractCount": 208
+      "contractCount": 243
     }
   ]
 }

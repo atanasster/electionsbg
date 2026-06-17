@@ -3,10 +3,10 @@
   "name": "Якоруда",
   "province": "Благоевград",
   "obshtina": "Якоруда",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 85,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 101,
   "awardCount": 0,
-  "totalEur": 20168955.004489344,
+  "totalEur": 20343101.060128126,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 20168955.004489344,
       "totalOther": {},
       "contractCount": 85,
+      "awardCount": 0
+    },
+    {
+      "eik": "000012611",
+      "name": "Средно училище \"СВ.СВ. кирил и Методий\"",
+      "tier": "school",
+      "totalEur": 174146.0556387825,
+      "totalOther": {},
+      "contractCount": 16,
       "awardCount": 0
     }
   ],
@@ -513,6 +522,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "1ed67991eeff",
+      "ocid": "eop-02924-2024-0002",
+      "date": "2024-08-27",
+      "amount": 106680,
+      "currency": "BGN",
+      "amountEur": 54544.61788601259,
+      "partyEik": "131468980",
+      "partyName": "А1 България ЕАД",
+      "bundleUuid": "eop-flat:2024-08-27",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-08-27/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2027.08.2024.json"
+    },
+    {
       "key": "a74e565458de",
       "ocid": "aop-legacy-2011-2015-444458",
       "date": "2011-07-15",
@@ -607,18 +628,6 @@
       "partyName": "Строител-2001 ЕООД - Якоруда",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "58455263a010",
-      "ocid": "aop-legacy-2019-887319",
-      "date": "2019-01-09",
-      "amount": 93500,
-      "currency": "BGN",
-      "amountEur": 47805.79089184643,
-      "partyEik": "101551993",
-      "partyName": "Строител-2001 ЕООД - Якоруда",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
@@ -671,6 +680,12 @@
       "contractCount": 6
     },
     {
+      "year": "2021",
+      "totalEur": 65021.50493652312,
+      "totalOther": {},
+      "contractCount": 2
+    },
+    {
       "year": "2022",
       "totalEur": 954974.7728585819,
       "totalOther": {},
@@ -681,6 +696,18 @@
       "totalEur": 543514.9322793904,
       "totalOther": {},
       "contractCount": 6
+    },
+    {
+      "year": "2024",
+      "totalEur": 88055.12237771177,
+      "totalOther": {},
+      "contractCount": 9
+    },
+    {
+      "year": "2025",
+      "totalEur": 21069.428324547636,
+      "totalOther": {},
+      "contractCount": 5
     },
     {
       "year": "2026",

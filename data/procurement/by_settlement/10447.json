@@ -3,10 +3,10 @@
   "name": "Велико Търново",
   "province": "Велико Търново",
   "obshtina": "Велико Търново",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 2291,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 2528,
   "awardCount": 0,
-  "totalEur": 441987552.01803476,
+  "totalEur": 452613890.1596488,
   "totalOther": {},
   "awarders": [
     {
@@ -55,12 +55,30 @@
       "awardCount": 0
     },
     {
+      "eik": "104025653",
+      "name": "Великотърновски университет \"СВ.СВ. кирил и Методий\"",
+      "tier": "university",
+      "totalEur": 7027632.766514422,
+      "totalOther": {},
+      "contractCount": 82,
+      "awardCount": 0
+    },
+    {
       "eik": "000138396",
       "name": "Регионална дирекция по горите - велико търново",
       "tier": "regional_gov",
       "totalEur": 2294516.8818532797,
       "totalOther": {},
       "contractCount": 19,
+      "awardCount": 0
+    },
+    {
+      "eik": "129009767",
+      "name": "Областна дирекция на МВР (ОДМВР) - Велико търново",
+      "tier": "regional_gov",
+      "totalEur": 1228951.207436587,
+      "totalOther": {},
+      "contractCount": 22,
       "awardCount": 0
     },
     {
@@ -79,6 +97,24 @@
       "totalEur": 721575.486903463,
       "totalOther": {},
       "contractCount": 16,
+      "awardCount": 0
+    },
+    {
+      "eik": "129010812",
+      "name": "Регионална дирекция Пбзн - Велико Търново",
+      "tier": "regional_gov",
+      "totalEur": 701698.2350204261,
+      "totalOther": {},
+      "contractCount": 17,
+      "awardCount": 0
+    },
+    {
+      "eik": "814221002",
+      "name": "Център за спешна Медицинска помощ - велико търново",
+      "tier": "hospital",
+      "totalEur": 557974.9661980846,
+      "totalOther": {},
+      "contractCount": 77,
       "awardCount": 0
     },
     {
@@ -109,6 +145,15 @@
       "awardCount": 0
     },
     {
+      "eik": "000130104",
+      "name": "Специализирана болница за активно лечение на ПНЕВМО-ФТИЗИАТРИЧНИ заболявания „Д-Р трейман\" ЕООД",
+      "tier": "hospital",
+      "totalEur": 323517.94890148944,
+      "totalOther": {},
+      "contractCount": 15,
+      "awardCount": 0
+    },
+    {
       "eik": "104075713",
       "name": "Средно училище \"Вела Благоева\"",
       "tier": "school",
@@ -118,12 +163,57 @@
       "awardCount": 0
     },
     {
+      "eik": "104003977",
+      "name": "Топлофикация - вт АД",
+      "tier": "utility",
+      "totalEur": 284976.6083964352,
+      "totalOther": {},
+      "contractCount": 9,
+      "awardCount": 0
+    },
+    {
+      "eik": "104103739",
+      "name": "Областна администрация - област велико търново",
+      "tier": "regional_gov",
+      "totalEur": 228649.73386316808,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    },
+    {
       "eik": "000123825",
       "name": "Професионална гимназия по моден дизайн",
       "tier": "school",
       "totalEur": 146785.68426928722,
       "totalOther": {},
       "contractCount": 2,
+      "awardCount": 0
+    },
+    {
+      "eik": "000122335",
+      "name": "Основно училище \"Петко Рачев Славейков\"",
+      "tier": "school",
+      "totalEur": 88300.62428738695,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    },
+    {
+      "eik": "176031063",
+      "name": "Регионална здравна инспекция - велико търново",
+      "tier": "regional_gov",
+      "totalEur": 79784.59784337084,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0
+    },
+    {
+      "eik": "000123896",
+      "name": "Професионална гимназия по туризъм \"Д-Р васил берон\"",
+      "tier": "school",
+      "totalEur": 70036.45315277913,
+      "totalOther": {},
+      "contractCount": 4,
       "awardCount": 0
     },
     {
@@ -142,6 +232,15 @@
       "totalEur": 48514.7129351733,
       "totalOther": {},
       "contractCount": 3,
+      "awardCount": 0
+    },
+    {
+      "eik": "000122310",
+      "name": "Основно училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 34815,
+      "totalOther": {},
+      "contractCount": 2,
       "awardCount": 0
     }
   ],
@@ -750,9 +849,9 @@
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 22885512.53432047,
+      "totalEur": 23932169.45235527,
       "totalOther": {},
-      "contractCount": 52
+      "contractCount": 53
     },
     {
       "year": "2012",
@@ -762,15 +861,15 @@
     },
     {
       "year": "2013",
-      "totalEur": 10605652.694763862,
+      "totalEur": 10850305.859916253,
       "totalOther": {},
-      "contractCount": 85
+      "contractCount": 88
     },
     {
       "year": "2014",
-      "totalEur": 21637956.775384367,
+      "totalEur": 23181975.166553333,
       "totalOther": {},
-      "contractCount": 134
+      "contractCount": 137
     },
     {
       "year": "2015",
@@ -780,27 +879,27 @@
     },
     {
       "year": "2016",
-      "totalEur": 48568477.97098932,
+      "totalEur": 49045063.58425836,
       "totalOther": {},
-      "contractCount": 223
+      "contractCount": 231
     },
     {
       "year": "2017",
-      "totalEur": 39920508.03495192,
+      "totalEur": 40027119.177024595,
       "totalOther": {},
-      "contractCount": 227
+      "contractCount": 233
     },
     {
       "year": "2019",
-      "totalEur": 59877917.02755353,
+      "totalEur": 60900869.20131097,
       "totalOther": {},
-      "contractCount": 357
+      "contractCount": 380
     },
     {
       "year": "2020",
-      "totalEur": 2542225.648445929,
+      "totalEur": 2952153.658549056,
       "totalOther": {},
-      "contractCount": 32
+      "contractCount": 38
     },
     {
       "year": "2021",
@@ -810,21 +909,27 @@
     },
     {
       "year": "2022",
-      "totalEur": 50066311.888047524,
+      "totalEur": 52558914.08251228,
       "totalOther": {},
-      "contractCount": 373
+      "contractCount": 430
     },
     {
       "year": "2023",
-      "totalEur": 59691021.47425902,
+      "totalEur": 62339835.343562596,
       "totalOther": {},
-      "contractCount": 365
+      "contractCount": 476
+    },
+    {
+      "year": "2025",
+      "totalEur": 88300.62428738695,
+      "totalOther": {},
+      "contractCount": 2
     },
     {
       "year": "2026",
-      "totalEur": 101984479.95144404,
+      "totalEur": 102529695.99144404,
       "totalOther": {},
-      "contractCount": 219
+      "contractCount": 236
     }
   ]
 }

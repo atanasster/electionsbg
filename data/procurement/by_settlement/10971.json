@@ -3,10 +3,10 @@
   "name": "Видин",
   "province": "Видин",
   "obshtina": "Видин",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 1996,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 2257,
   "awardCount": 0,
-  "totalEur": 244051125.7535882,
+  "totalEur": 265658611.21534273,
   "totalOther": {},
   "awarders": [
     {
@@ -28,6 +28,15 @@
       "awardCount": 0
     },
     {
+      "eik": "815123415",
+      "name": "Водоснабдяване и канализация - Видин ЕООД",
+      "tier": "utility",
+      "totalEur": 18983912.81618444,
+      "totalOther": {},
+      "contractCount": 79,
+      "awardCount": 0
+    },
+    {
       "eik": "105515902",
       "name": "Многопрофилна болница за активно лечение ''света петка'' АД",
       "tier": "hospital",
@@ -43,6 +52,33 @@
       "totalEur": 724556.0203434858,
       "totalOther": {},
       "contractCount": 25,
+      "awardCount": 0
+    },
+    {
+      "eik": "000150808",
+      "name": "Основно училище \"Любен Каравелов",
+      "tier": "school",
+      "totalEur": 686385.6828047427,
+      "totalOther": {},
+      "contractCount": 9,
+      "awardCount": 0
+    },
+    {
+      "eik": "000154339",
+      "name": "Детска Градина \"Синчец\"",
+      "tier": "school",
+      "totalEur": 410930.2509113778,
+      "totalOther": {},
+      "contractCount": 27,
+      "awardCount": 0
+    },
+    {
+      "eik": "000152061",
+      "name": "Профилирана ПРИРОДО-МАТЕМАТИЧЕСКА гимназия \"Екзарх антим 1\"",
+      "tier": "school",
+      "totalEur": 408580.5021306556,
+      "totalOther": {},
+      "contractCount": 8,
       "awardCount": 0
     },
     {
@@ -64,6 +100,24 @@
       "awardCount": 0
     },
     {
+      "eik": "000151461",
+      "name": "Средно училище \"Свети свети кирил и Методий",
+      "tier": "school",
+      "totalEur": 247761.57948287934,
+      "totalOther": {},
+      "contractCount": 11,
+      "awardCount": 0
+    },
+    {
+      "eik": "000153964",
+      "name": "Детска Градина славейче",
+      "tier": "school",
+      "totalEur": 229945.78466661216,
+      "totalOther": {},
+      "contractCount": 27,
+      "awardCount": 0
+    },
+    {
       "eik": "105045160",
       "name": "Медицински център  - Биомед - 99 ЕООД, гр. Видин",
       "tier": "hospital",
@@ -73,12 +127,57 @@
       "awardCount": 0
     },
     {
+      "eik": "000153761",
+      "name": "Детска Градина арабела",
+      "tier": "school",
+      "totalEur": 216493.76145958493,
+      "totalOther": {},
+      "contractCount": 26,
+      "awardCount": 0
+    },
+    {
       "eik": "000154030",
       "name": "Гимназия с преподаване на чужди езици /Гпче/ - Йордан Радичков, гр. Видин",
       "tier": "school",
       "totalEur": 170642.13147359435,
       "totalOther": {},
       "contractCount": 3,
+      "awardCount": 0
+    },
+    {
+      "eik": "000153940",
+      "name": "Детска Градина зорница",
+      "tier": "school",
+      "totalEur": 137283.30166226102,
+      "totalOther": {},
+      "contractCount": 25,
+      "awardCount": 0
+    },
+    {
+      "eik": "000154322",
+      "name": "Детска Градина русалка",
+      "tier": "school",
+      "totalEur": 114932.2491729854,
+      "totalOther": {},
+      "contractCount": 24,
+      "awardCount": 0
+    },
+    {
+      "eik": "000150530",
+      "name": "Детска Градина Детелина",
+      "tier": "school",
+      "totalEur": 89503.96327901709,
+      "totalOther": {},
+      "contractCount": 24,
+      "awardCount": 0
+    },
+    {
+      "eik": "105551542",
+      "name": "Медицински център \"Света петка\" ЕООД",
+      "tier": "hospital",
+      "totalEur": 81755.57,
+      "totalOther": {},
+      "contractCount": 1,
       "awardCount": 0
     }
   ],
@@ -120,6 +219,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
+      "key": "eff2f38b2536",
+      "ocid": "aop-legacy-2022-RL-1039533",
+      "date": "2022-11-21",
+      "amount": 12061495.71,
+      "currency": "BGN",
+      "amountEur": 6166944.831606019,
+      "partyEik": "113580690",
+      "partyName": "Нивел Строй ЕООД - Брезник",
+      "bundleUuid": "db3e39ba-37f9-44bf-847f-75f36acee513",
+      "sourceUrl": "https://data.egov.bg/data/view/db3e39ba-37f9-44bf-847f-75f36acee513"
+    },
+    {
       "key": "2d362d91d984",
       "ocid": "aop-legacy-2011-2015-519660",
       "date": "2013-01-22",
@@ -142,6 +253,18 @@
       "partyName": "Търговска банка Д АД - София",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "df500e842e8d",
+      "ocid": "aop-legacy-2023-354673",
+      "date": "2023-04-04",
+      "amount": 8406532.44,
+      "currency": "BGN",
+      "amountEur": 4298191.785584636,
+      "partyEik": "180905127",
+      "partyName": "Дунав 2022",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
       "key": "433a797f2dcf",
@@ -226,6 +349,30 @@
       "partyName": "Инфракънстракшън ЕАД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "06314f4778d0",
+      "ocid": "aop-legacy-2021-x",
+      "date": "2021-07-29",
+      "amount": 5781964.65,
+      "currency": "BGN",
+      "amountEur": 2956271.5829085354,
+      "partyEik": "119081953",
+      "partyName": "Вдх АД - София - /Предишно име - Водстрой 98 АД - София/",
+      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
+      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
+    },
+    {
+      "key": "536e189b4592",
+      "ocid": "aop-legacy-2021-1017480",
+      "date": "2021-07-29",
+      "amount": 5781964.65,
+      "currency": "BGN",
+      "amountEur": 2956271.5829085354,
+      "partyEik": "119081953",
+      "partyName": "Вдх АД - София - /Предишно име - Водстрой 98 АД - София/",
+      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
+      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
     },
     {
       "key": "ed10b1a9881a",
@@ -634,134 +781,86 @@
       "partyName": "Ронос ООД - София",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "5546fbe94d4c",
-      "ocid": "aop-legacy-2016-760322",
-      "date": "2016-12-05",
-      "amount": 1664021.87,
-      "currency": "BGN",
-      "amountEur": 850800.8722639494,
-      "partyEik": "107544354",
-      "partyName": "Стелит 1 ЕООД / старо наименование Стелит ЕООД - Севлиево/ старо наименование Ера ЕООД/",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "5fac59cbdbd3",
-      "ocid": "aop-legacy-2019-946354",
-      "date": "2019-11-29",
-      "amount": 1640341.78,
-      "currency": "BGN",
-      "amountEur": 838693.4345009535,
-      "partyEik": "122047217",
-      "partyName": "Ваклинов ЕООД - с. Горна Малина",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "b77ec4c438f5",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-11-29",
-      "amount": 1640341.78,
-      "currency": "BGN",
-      "amountEur": 838693.4345009535,
-      "partyEik": "122047217",
-      "partyName": "Ваклинов ЕООД - с. Горна Малина",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "7cd00b951829",
-      "ocid": "ocds-e82gsb-391386",
-      "date": "2026-02-09",
-      "amount": 837236.81,
-      "currency": "EUR",
-      "amountEur": 837236.81,
-      "partyEik": "122047217",
-      "partyName": "Ваклинов ЕООД",
-      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
-      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-391386-807913%2F2026-02-09-award"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 11016326.792205866,
+      "totalEur": 11147057.479433283,
       "totalOther": {},
-      "contractCount": 57
+      "contractCount": 60
     },
     {
       "year": "2012",
-      "totalEur": 5349864.850217043,
+      "totalEur": 5479492.680856721,
       "totalOther": {},
-      "contractCount": 64
+      "contractCount": 67
     },
     {
       "year": "2013",
-      "totalEur": 44792592.66398408,
+      "totalEur": 44883582.16716176,
       "totalOther": {},
-      "contractCount": 133
+      "contractCount": 134
     },
     {
       "year": "2014",
-      "totalEur": 10165156.13831468,
+      "totalEur": 10267302.45471232,
       "totalOther": {},
-      "contractCount": 51
+      "contractCount": 56
     },
     {
       "year": "2015",
-      "totalEur": 9516010.389451025,
+      "totalEur": 9575647.474473752,
       "totalOther": {},
-      "contractCount": 101
+      "contractCount": 102
     },
     {
       "year": "2016",
-      "totalEur": 20382959.82268398,
+      "totalEur": 20454540.68605145,
       "totalOther": {},
-      "contractCount": 157
+      "contractCount": 159
     },
     {
       "year": "2017",
-      "totalEur": 25317655.854547683,
+      "totalEur": 26378088.847190194,
       "totalOther": {},
-      "contractCount": 169
+      "contractCount": 190
     },
     {
       "year": "2019",
-      "totalEur": 23899344.539147064,
+      "totalEur": 24502215.877658084,
       "totalOther": {},
-      "contractCount": 357
+      "contractCount": 369
     },
     {
       "year": "2020",
-      "totalEur": 2695752.135921834,
+      "totalEur": 2863379.4450437925,
       "totalOther": {},
-      "contractCount": 78
+      "contractCount": 114
     },
     {
       "year": "2021",
-      "totalEur": 15284587.300532253,
+      "totalEur": 21600143.509405214,
       "totalOther": {},
-      "contractCount": 39
+      "contractCount": 46
     },
     {
       "year": "2022",
-      "totalEur": 10107814.002239458,
+      "totalEur": 17002744.737528317,
       "totalOther": {},
-      "contractCount": 280
+      "contractCount": 339
     },
     {
       "year": "2023",
-      "totalEur": 26388539.694145195,
+      "totalEur": 31355328.305629835,
       "totalOther": {},
-      "contractCount": 323
+      "contractCount": 389
     },
     {
       "year": "2026",
-      "totalEur": 39134521.57019807,
+      "totalEur": 40149087.55019806,
       "totalOther": {},
-      "contractCount": 187
+      "contractCount": 232
     }
   ]
 }

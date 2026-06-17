@@ -3,10 +3,10 @@
   "name": "Габрово",
   "province": "Габрово",
   "obshtina": "Габрово",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 2884,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 3182,
   "awardCount": 0,
-  "totalEur": 268010020.33614016,
+  "totalEur": 294449862.9787518,
   "totalOther": {},
   "awarders": [
     {
@@ -28,12 +28,39 @@
       "awardCount": 0
     },
     {
+      "eik": "817040128",
+      "name": "в и К ООД",
+      "tier": "utility",
+      "totalEur": 15185646.952593222,
+      "totalOther": {},
+      "contractCount": 183,
+      "awardCount": 0
+    },
+    {
       "eik": "000210319",
       "name": "Технически УНИВЕРСИТЕТ-ГАБРОВО",
       "tier": "university",
       "totalEur": 9887938.94006074,
       "totalOther": {},
       "contractCount": 279,
+      "awardCount": 0
+    },
+    {
+      "eik": "107027467",
+      "name": "Общински Пътнически транспорт ЕООД",
+      "tier": "utility",
+      "totalEur": 7923436.609567549,
+      "totalOther": {},
+      "contractCount": 27,
+      "awardCount": 0
+    },
+    {
+      "eik": "000214050",
+      "name": "Специализирана болница за активно лечение на белодробни болести - габрово ЕООД",
+      "tier": "hospital",
+      "totalEur": 1873384.0722353167,
+      "totalOther": {},
+      "contractCount": 52,
       "awardCount": 0
     },
     {
@@ -52,6 +79,15 @@
       "totalEur": 1112580.447954219,
       "totalOther": {},
       "contractCount": 9,
+      "awardCount": 0
+    },
+    {
+      "eik": "000209975",
+      "name": "Национална Априловска гимназия",
+      "tier": "school",
+      "totalEur": 953736.2022824071,
+      "totalOther": {},
+      "contractCount": 6,
       "awardCount": 0
     },
     {
@@ -91,6 +127,24 @@
       "awardCount": 0
     },
     {
+      "eik": "000212633",
+      "name": "Средно училище \"Райчо Каролев\"",
+      "tier": "school",
+      "totalEur": 174572.86975529572,
+      "totalOther": {},
+      "contractCount": 10,
+      "awardCount": 0
+    },
+    {
+      "eik": "000213048",
+      "name": "Средно училище \"Отец Паисий\"",
+      "tier": "school",
+      "totalEur": 96271.83,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    },
+    {
       "eik": "000209419",
       "name": "2-РО Основно училище \"Неофит Рилски\"",
       "tier": "school",
@@ -109,10 +163,55 @@
       "awardCount": 0
     },
     {
+      "eik": "000208752",
+      "name": "Детска Градина \"РАН босилек\"",
+      "tier": "school",
+      "totalEur": 44496.56601488882,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    },
+    {
+      "eik": "000215049",
+      "name": "Детска Градина \"Дъга\"",
+      "tier": "school",
+      "totalEur": 43504.9,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    },
+    {
+      "eik": "000212754",
+      "name": "Детска Градина \"Мики маус\"",
+      "tier": "school",
+      "totalEur": 43438.91,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    },
+    {
       "eik": "000212302",
       "name": "Детска Градина \"Радост\"",
       "tier": "school",
       "totalEur": 40493.76,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    },
+    {
+      "eik": "107590914",
+      "name": "Детска Градина \"Мечо пух\"",
+      "tier": "school",
+      "totalEur": 40215.61,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    },
+    {
+      "eik": "000208784",
+      "name": "Детска Градина \"Явор\"",
+      "tier": "school",
+      "totalEur": 32931.159661115744,
       "totalOther": {},
       "contractCount": 1,
       "awardCount": 0
@@ -124,6 +223,15 @@
       "totalEur": 32745,
       "totalOther": {},
       "contractCount": 1,
+      "awardCount": 0
+    },
+    {
+      "eik": "817073167",
+      "name": "Център за спешна Медицинска помощ - габрово",
+      "tier": "hospital",
+      "totalEur": 28206.96050183298,
+      "totalOther": {},
+      "contractCount": 6,
       "awardCount": 0
     }
   ],
@@ -211,6 +319,18 @@
       "partyName": "Фьоникс Фарма ЕООД",
       "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
       "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-556323-855702%2F2026-05-18-award"
+    },
+    {
+      "key": "ab09062b42c5",
+      "ocid": "aop-legacy-2022-210521",
+      "date": "2022-04-01",
+      "amount": 5000000,
+      "currency": "BGN",
+      "amountEur": 2556459.4059810922,
+      "partyEik": "103533691",
+      "partyName": "ЕНЕРГО-ПРО Продажби АД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
       "key": "b2b346a85c03",
@@ -429,6 +549,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "8bc608e17d2b",
+      "ocid": "aop-legacy-2011-2015-464405",
+      "date": "2012-01-12",
+      "amount": 2986000,
+      "currency": "BGN",
+      "amountEur": 1526717.5572519084,
+      "partyEik": "817047610",
+      "partyName": "Херос ЕООД - Габрово",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
       "key": "dd364a478234",
       "ocid": "ocds-e82gsb-540242",
       "date": "2026-03-27",
@@ -501,6 +633,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "1edc9c1e7d0f",
+      "ocid": "aop-legacy-2022-226472",
+      "date": "2022-05-03",
+      "amount": 2500000,
+      "currency": "BGN",
+      "amountEur": 1278229.7029905461,
+      "partyEik": "201325372",
+      "partyName": "Мост енерджи АД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
       "key": "6e2d754c05b3",
       "ocid": "ocds-e82gsb-556323",
       "date": "2026-05-18",
@@ -511,6 +655,18 @@
       "partyName": "РОШ България ЕООД",
       "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
       "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-556323-855702%2F2026-05-18-award"
+    },
+    {
+      "key": "04b223bcb38c",
+      "ocid": "aop-legacy-2011-2015-458598",
+      "date": "2011-11-30",
+      "amount": 2216160,
+      "currency": "BGN",
+      "amountEur": 1133104.6154318117,
+      "partyEik": "117693631",
+      "partyName": "Полисан АД - Русе",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
       "key": "b6dbe1ea854e",
@@ -679,110 +835,62 @@
       "partyName": "Инфра билд проект ЕООД",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "4b40593b7488",
-      "ocid": "ocds-e82gsb-498457",
-      "date": "2026-03-23",
-      "amount": 926070.26,
-      "currency": "EUR",
-      "amountEur": 926070.26,
-      "partyEik": "107051800",
-      "partyName": "ПЪТСТРОЙ-ГАБРОВО АД",
-      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
-      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-498457-830324%2F2026-03-23-award"
-    },
-    {
-      "key": "7407c9230afc",
-      "ocid": "aop-legacy-2016-756099",
-      "date": "2016-11-02",
-      "amount": 1730205.86,
-      "currency": "BGN",
-      "amountEur": 884640.2090161211,
-      "partyEik": "131268894",
-      "partyName": "Медекс ООД /Старо наименование Медекс Фармасютикълс ООД/",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "0a171274f885",
-      "ocid": "aop-legacy-2011-2015-497073",
-      "date": "2012-08-27",
-      "amount": 1711762.4,
-      "currency": "BGN",
-      "amountEur": 875210.2176569538,
-      "partyEik": "103267194",
-      "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "e2ed0f91fa31",
-      "ocid": "ocds-e82gsb-499210",
-      "date": "2026-04-24",
-      "amount": 869578.13,
-      "currency": "EUR",
-      "amountEur": 869578.13,
-      "partyEik": "104693344",
-      "partyName": "Пътни строежи - велико търново ЕАД",
-      "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
-      "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-499210-848399%2F2026-04-24-award"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 12951381.219226621,
+      "totalEur": 14420995.521083124,
       "totalOther": {},
-      "contractCount": 134
+      "contractCount": 142
     },
     {
       "year": "2012",
-      "totalEur": 41068949.67354014,
+      "totalEur": 43265980.52489225,
       "totalOther": {},
-      "contractCount": 177
+      "contractCount": 194
     },
     {
       "year": "2013",
-      "totalEur": 21668841.27966132,
+      "totalEur": 22960354.857017227,
       "totalOther": {},
-      "contractCount": 242
+      "contractCount": 258
     },
     {
       "year": "2014",
-      "totalEur": 10428278.13767045,
+      "totalEur": 11394732.788637048,
       "totalOther": {},
-      "contractCount": 177
+      "contractCount": 192
     },
     {
       "year": "2015",
-      "totalEur": 12403828.093443703,
+      "totalEur": 13165395.816609828,
       "totalOther": {},
-      "contractCount": 214
+      "contractCount": 231
     },
     {
       "year": "2016",
-      "totalEur": 48263385.23798081,
+      "totalEur": 51521983.88919284,
       "totalOther": {},
-      "contractCount": 414
+      "contractCount": 457
     },
     {
       "year": "2017",
-      "totalEur": 23352199.194204,
+      "totalEur": 25395544.986016173,
       "totalOther": {},
-      "contractCount": 311
+      "contractCount": 338
     },
     {
       "year": "2019",
-      "totalEur": 27874142.890742037,
+      "totalEur": 30364584.800314955,
       "totalOther": {},
-      "contractCount": 357
+      "contractCount": 379
     },
     {
       "year": "2020",
-      "totalEur": 860994.3553376315,
+      "totalEur": 927052.3971919849,
       "totalOther": {},
-      "contractCount": 26
+      "contractCount": 31
     },
     {
       "year": "2021",
@@ -792,21 +900,27 @@
     },
     {
       "year": "2022",
-      "totalEur": 19119730.96332504,
+      "totalEur": 26038325.16629769,
       "totalOther": {},
-      "contractCount": 322
+      "contractCount": 369
     },
     {
       "year": "2023",
-      "totalEur": 18678071.62687964,
+      "totalEur": 20446068.901693914,
       "totalOther": {},
-      "contractCount": 343
+      "contractCount": 388
+    },
+    {
+      "year": "2025",
+      "totalEur": 54787.89567600456,
+      "totalOther": {},
+      "contractCount": 2
     },
     {
       "year": "2026",
-      "totalEur": 31172515.358713638,
+      "totalEur": 34326353.12871364,
       "totalOther": {},
-      "contractCount": 161
+      "contractCount": 195
     }
   ]
 }

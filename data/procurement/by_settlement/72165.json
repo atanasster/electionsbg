@@ -3,10 +3,10 @@
   "name": "Твърдица",
   "province": "Сливен",
   "obshtina": "Твърдица",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 74,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 76,
   "awardCount": 0,
-  "totalEur": 15174539.276299521,
+  "totalEur": 15246170.962079983,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 15174539.276299521,
       "totalOther": {},
       "contractCount": 74,
+      "awardCount": 0
+    },
+    {
+      "eik": "000582593",
+      "name": "Средно училище \"Неофит Рилски\"",
+      "tier": "school",
+      "totalEur": 71631.68578046148,
+      "totalOther": {},
+      "contractCount": 2,
       "awardCount": 0
     }
   ],
@@ -623,6 +632,12 @@
   ],
   "byYear": [
     {
+      "year": "2011",
+      "totalEur": 39880.76673330504,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
       "year": "2019",
       "totalEur": 3330397.928245297,
       "totalOther": {},
@@ -648,9 +663,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 5652023.03,
+      "totalEur": 5683773.949047157,
       "totalOther": {},
-      "contractCount": 20
+      "contractCount": 21
     }
   ]
 }

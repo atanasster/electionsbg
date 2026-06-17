@@ -3,10 +3,10 @@
   "name": "Дулово",
   "province": "Силистра",
   "obshtina": "Дулово",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 79,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 84,
   "awardCount": 0,
-  "totalEur": 17635100.58096629,
+  "totalEur": 18022634.37503362,
   "totalOther": {},
   "awarders": [
     {
@@ -19,12 +19,30 @@
       "awardCount": 0
     },
     {
+      "eik": "118502097",
+      "name": "Многопрофилна болница за активно ЛЕЧЕНИЕ-ДУЛОВО ЕООД",
+      "tier": "hospital",
+      "totalEur": 285176.62,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    },
+    {
       "eik": "000550179",
       "name": "Държавно ловно стопанство/ДЛС/ - Каракуз - гр.Дулово - Старо наименование - Държавна дивечовъдна станция \"Каракуз\", гр. Дулово",
       "tier": "forestry",
       "totalEur": 256219.52828211046,
       "totalOther": {},
       "contractCount": 21,
+      "awardCount": 0
+    },
+    {
+      "eik": "000558927",
+      "name": "Средно училище \"Васил Левски\"",
+      "tier": "school",
+      "totalEur": 102357.17406732691,
+      "totalOther": {},
+      "contractCount": 2,
       "awardCount": 0
     }
   ],
@@ -198,6 +216,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "08d65755d76f",
+      "ocid": "ocds-e82gsb-518643",
+      "date": "2026-02-19",
+      "amount": 236714.34,
+      "currency": "EUR",
+      "amountEur": 236714.34,
+      "partyEik": "102227154",
+      "partyName": "Фаркол АД",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-518643-812469%2F2026-02-19-award"
+    },
+    {
       "key": "74ca06dd67a7",
       "ocid": "aop-legacy-2011-2015-536491",
       "date": "2013-04-11",
@@ -304,6 +334,18 @@
       "partyName": "Петрол АД - Ловеч /старо наименование Петрол АД - София/",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "224c66d64fa8",
+      "ocid": "eop-04071-2025-0001",
+      "date": "2026-06-05",
+      "amount": 72345.67,
+      "currency": "EUR",
+      "amountEur": 72345.67,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "eop-flat:2026-06-05",
+      "sourceUrl": "https://storage.eop.bg/open-data-2026-06-05/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2005.06.2026.json"
     },
     {
       "key": "082c0e164f0c",
@@ -462,6 +504,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
+      "key": "6cbf04ffda3c",
+      "ocid": "ocds-e82gsb-518643",
+      "date": "2026-02-19",
+      "amount": 47746.48,
+      "currency": "EUR",
+      "amountEur": 47746.48,
+      "partyEik": "102227154",
+      "partyName": "Фаркол АД",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-518643-812469%2F2026-02-19-award"
+    },
+    {
       "key": "982b54d9072e",
       "ocid": "ocds-e82gsb-497765",
       "date": "2026-02-25",
@@ -508,6 +562,18 @@
       "partyName": "ДЗЗД Обединение административен капацитет Дулово",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "a90b6eebdb00",
+      "ocid": "eop-04071-2025-0002",
+      "date": "2026-06-08",
+      "amount": 58697.4,
+      "currency": "BGN",
+      "amountEur": 30011.504067326918,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "eop-flat:2026-06-08",
+      "sourceUrl": "https://storage.eop.bg/open-data-2026-06-08/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2008.06.2026.json"
     },
     {
       "key": "6f3b5db33617",
@@ -580,54 +646,6 @@
       "partyName": "ЕТ Лес-2000 - Георги Змеев - Тутракан",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "dc2709d6dab7",
-      "ocid": "aop-legacy-2011-2015-427197",
-      "date": "2011-02-17",
-      "amount": 36655.99,
-      "currency": "BGN",
-      "amountEur": 18741.910084209772,
-      "partyEik": "118584987",
-      "partyName": "Дръстърлес ЕООД - Силистра",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "b5cffb74d36f",
-      "ocid": "aop-legacy-2011-2015-427197",
-      "date": "2011-02-17",
-      "amount": 34442,
-      "currency": "BGN",
-      "amountEur": 17609.914972160157,
-      "partyEik": "200207937",
-      "partyName": "Денев Лес ЕООД - Тутракан",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "35d8bd61a85a",
-      "ocid": "aop-legacy-2011-2015-427197",
-      "date": "2011-02-17",
-      "amount": 34018.28,
-      "currency": "BGN",
-      "amountEur": 17393.270376259694,
-      "partyEik": "118511686",
-      "partyName": "Иво-2000 - Ивелин Златаров - Тутракан",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "612bfb21125e",
-      "ocid": "aop-legacy-2011-2015-678473",
-      "date": "2015-07-22",
-      "amount": 33900,
-      "currency": "BGN",
-      "amountEur": 17332.794772551806,
-      "partyEik": "202940984",
-      "partyName": "Цпо Логос ЕООД",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -681,9 +699,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 4283011.109999999,
+      "totalEur": 4670544.904067326,
       "totalOther": {},
-      "contractCount": 15
+      "contractCount": 20
     }
   ]
 }

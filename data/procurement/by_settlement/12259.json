@@ -3,10 +3,10 @@
   "name": "Враца",
   "province": "Враца",
   "obshtina": "Враца",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 1309,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 1683,
   "awardCount": 0,
-  "totalEur": 261480239.59814936,
+  "totalEur": 321537699.9985477,
   "totalOther": {},
   "awarders": [
     {
@@ -25,6 +25,15 @@
       "totalEur": 65809502.85690543,
       "totalOther": {},
       "contractCount": 372,
+      "awardCount": 0
+    },
+    {
+      "eik": "816090199",
+      "name": "Водоснабдяване и канализация ООД",
+      "tier": "utility",
+      "totalEur": 55044238.18814555,
+      "totalOther": {},
+      "contractCount": 193,
       "awardCount": 0
     },
     {
@@ -52,6 +61,51 @@
       "totalEur": 2935266.029305819,
       "totalOther": {},
       "contractCount": 20,
+      "awardCount": 0
+    },
+    {
+      "eik": "000190119",
+      "name": "Център за психично здраве - враца ЕООД",
+      "tier": "hospital",
+      "totalEur": 1511895.5674032506,
+      "totalOther": {},
+      "contractCount": 51,
+      "awardCount": 0
+    },
+    {
+      "eik": "106063115",
+      "name": "Областна администрация - област враца",
+      "tier": "regional_gov",
+      "totalEur": 1331940.066365686,
+      "totalOther": {},
+      "contractCount": 11,
+      "awardCount": 0
+    },
+    {
+      "eik": "000190083",
+      "name": "Специализирана болница за активно лечение на ПНЕВМО-ФТИЗИАТРИЧНИ заболявания - враца /сбалпфз - Враца/ ЕООД",
+      "tier": "hospital",
+      "totalEur": 884682.4772186743,
+      "totalOther": {},
+      "contractCount": 84,
+      "awardCount": 0
+    },
+    {
+      "eik": "106003602",
+      "name": "Център за спешна Медицинска помощ - враца",
+      "tier": "hospital",
+      "totalEur": 598882.3279003799,
+      "totalOther": {},
+      "contractCount": 20,
+      "awardCount": 0
+    },
+    {
+      "eik": "129009781",
+      "name": "Областна дирекция на МВР (ОДМВР) - Враца",
+      "tier": "regional_gov",
+      "totalEur": 414212.4571153935,
+      "totalOther": {},
+      "contractCount": 6,
       "awardCount": 0
     },
     {
@@ -100,12 +154,48 @@
       "awardCount": 0
     },
     {
+      "eik": "000184956",
+      "name": "Регионална библиотека \"Христо Ботев\"",
+      "tier": "regional_gov",
+      "totalEur": 122231.99306688209,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0
+    },
+    {
+      "eik": "000186291",
+      "name": "Основно училище \"СВ.СВ.КИРИЛ и Методий\"",
+      "tier": "school",
+      "totalEur": 66534.45851633322,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    },
+    {
+      "eik": "000182916",
+      "name": "Начално училище \"Иванчо Младенов\"",
+      "tier": "school",
+      "totalEur": 53019.209235976545,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    },
+    {
       "eik": "000182058",
       "name": "Средно училище \"Васил Кънчов\"",
       "tier": "school",
       "totalEur": 35000,
       "totalOther": {},
       "contractCount": 6,
+      "awardCount": 0
+    },
+    {
+      "eik": "106514657",
+      "name": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН Център 1 - враца ЕООД",
+      "tier": "hospital",
+      "totalEur": 29823.655430175426,
+      "totalOther": {},
+      "contractCount": 1,
       "awardCount": 0
     },
     {
@@ -166,6 +256,54 @@
       "partyName": "ДЗЗД Вмв - гр. София",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "1991de6e41e1",
+      "ocid": "aop-legacy-2021-x",
+      "date": "2021-06-21",
+      "amount": 13779921.3,
+      "currency": "BGN",
+      "amountEur": 7045561.884212841,
+      "partyEik": "177474446",
+      "partyName": "ДЗЗД Рогозен 2020",
+      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
+      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
+    },
+    {
+      "key": "5909530b5dc9",
+      "ocid": "aop-legacy-2021-1014850",
+      "date": "2021-06-21",
+      "amount": 13779921.3,
+      "currency": "BGN",
+      "amountEur": 7045561.884212841,
+      "partyEik": "177474446",
+      "partyName": "ДЗЗД Рогозен 2020",
+      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
+      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
+    },
+    {
+      "key": "8f1d3b165b19",
+      "ocid": "aop-legacy-2021-1009078",
+      "date": "2021-03-15",
+      "amount": 8924016.3,
+      "currency": "BGN",
+      "amountEur": 4562777.081852717,
+      "partyEik": "177475085",
+      "partyName": "Обединение Рогозен 2020",
+      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
+      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
+    },
+    {
+      "key": "936ba6c6dbaf",
+      "ocid": "aop-legacy-2021-x",
+      "date": "2021-03-15",
+      "amount": 8924016.3,
+      "currency": "BGN",
+      "amountEur": 4562777.081852717,
+      "partyEik": "177475085",
+      "partyName": "Обединение Рогозен 2020",
+      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
+      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
     },
     {
       "key": "99fe6230b122",
@@ -250,6 +388,30 @@
       "partyName": "Електрохолд Трейд ЕАД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "1c385866b4c0",
+      "ocid": "aop-legacy-2021-1009078",
+      "date": "2021-03-15",
+      "amount": 4273617,
+      "currency": "BGN",
+      "amountEur": 2185065.6754421396,
+      "partyEik": "177475288",
+      "partyName": "ДЗЗД Мездра 2020",
+      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
+      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
+    },
+    {
+      "key": "3809eefc2ffa",
+      "ocid": "aop-legacy-2021-x",
+      "date": "2021-03-15",
+      "amount": 4273617,
+      "currency": "BGN",
+      "amountEur": 2185065.6754421396,
+      "partyEik": "177475288",
+      "partyName": "ДЗЗД Мездра 2020",
+      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
+      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
     },
     {
       "key": "6d2f83c4b754",
@@ -456,6 +618,30 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
+      "key": "0a78972acfb1",
+      "ocid": "aop-legacy-2017-x",
+      "date": "2017-11-06",
+      "amount": 3000000,
+      "currency": "BGN",
+      "amountEur": 1533875.6435886554,
+      "partyEik": "115105620",
+      "partyName": "Бластбор ООД - Асеновград",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "301c28151b96",
+      "ocid": "aop-legacy-2017-813013",
+      "date": "2017-11-06",
+      "amount": 3000000,
+      "currency": "BGN",
+      "amountEur": 1533875.6435886554,
+      "partyEik": "115105620",
+      "partyName": "Бластбор ООД - Асеновград",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
       "key": "8ec48791e126",
       "ocid": "aop-legacy-2023-450845",
       "date": "2023-11-24",
@@ -622,182 +808,92 @@
       "partyName": "Медекс ООД /Старо наименование Медекс Фармасютикълс ООД/",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "1bd36e8e3c10",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-11-01",
-      "amount": 2210338.48,
-      "currency": "BGN",
-      "amountEur": 1130128.1195195902,
-      "partyEik": "177018528",
-      "partyName": "ДЗЗД Церб ЕАД-Артис ЕООД - София",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "5fa851989edb",
-      "ocid": "aop-legacy-2017-812621",
-      "date": "2017-11-01",
-      "amount": 2210338.48,
-      "currency": "BGN",
-      "amountEur": 1130128.1195195902,
-      "partyEik": "177018528",
-      "partyName": "ДЗЗД Церб ЕАД-Артис ЕООД - София",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "2f250ed4adf5",
-      "ocid": "aop-legacy-2023-341216",
-      "date": "2023-03-07",
-      "amount": 2157000,
-      "currency": "BGN",
-      "amountEur": 1102856.5877402432,
-      "partyEik": "121034658",
-      "partyName": "Кмс ЕООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "37eb87a7c3ec",
-      "ocid": "ocds-e82gsb-387305",
-      "date": "2026-02-02",
-      "amount": 1084600.4,
-      "currency": "EUR",
-      "amountEur": 1084600.4,
-      "partyEik": "204608735",
-      "partyName": "Булстрой - монтажи ЕООД",
-      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
-      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-387305-804656%2F2026-02-02-contractamendment"
-    },
-    {
-      "key": "8cd1e2e3fbf5",
-      "ocid": "aop-legacy-2019-887520",
-      "date": "2019-01-11",
-      "amount": 2116959.1,
-      "currency": "BGN",
-      "amountEur": 1082384.0006544536,
-      "partyEik": "203283623",
-      "partyName": "Фьоникс Фарма ЕООД",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "19dc352b49e6",
-      "ocid": "aop-legacy-2011-2015-443514",
-      "date": "2011-07-06",
-      "amount": 2070000,
-      "currency": "BGN",
-      "amountEur": 1058374.1940761723,
-      "partyEik": "201620248",
-      "partyName": "Сдружение ПРОДЖЕКТ-КОНСУЛТИНГ-ВРАЦА  ООД",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "efa33c313dbc",
-      "ocid": "aop-legacy-2011-2015-514658",
-      "date": "2012-12-19",
-      "amount": 2060000,
-      "currency": "BGN",
-      "amountEur": 1053261.27526421,
-      "partyEik": "816088547",
-      "partyName": "Благоустройство и комунално стопанство /Бкс/ - Враца ЕООД",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "19531dbcefdb",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-05-16",
-      "amount": 2000000,
-      "currency": "BGN",
-      "amountEur": 1022583.762392437,
-      "partyEik": "201296796",
-      "partyName": "Уест Инженеринг ООД - Враца",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 13714702.586625626,
+      "totalEur": 15493003.870479543,
       "totalOther": {},
-      "contractCount": 77
+      "contractCount": 96
     },
     {
       "year": "2012",
-      "totalEur": 44092912.001554325,
+      "totalEur": 45115217.109871514,
       "totalOther": {},
-      "contractCount": 78
+      "contractCount": 93
     },
     {
       "year": "2013",
-      "totalEur": 38835394.77357439,
+      "totalEur": 41099057.74019214,
       "totalOther": {},
-      "contractCount": 89
+      "contractCount": 115
     },
     {
       "year": "2014",
-      "totalEur": 12944859.578797748,
+      "totalEur": 17605029.624251597,
       "totalOther": {},
-      "contractCount": 90
+      "contractCount": 112
     },
     {
       "year": "2015",
-      "totalEur": 16775189.464319494,
+      "totalEur": 18571282.708619867,
       "totalOther": {},
-      "contractCount": 120
+      "contractCount": 148
     },
     {
       "year": "2016",
-      "totalEur": 13182333.873598421,
+      "totalEur": 15565800.289391205,
+      "totalOther": {},
+      "contractCount": 161
+    },
+    {
+      "year": "2017",
+      "totalEur": 30408244.24413164,
       "totalOther": {},
       "contractCount": 131
     },
     {
-      "year": "2017",
-      "totalEur": 24171835.205513764,
-      "totalOther": {},
-      "contractCount": 99
-    },
-    {
       "year": "2019",
-      "totalEur": 24476915.381193664,
+      "totalEur": 27190252.50149553,
       "totalOther": {},
-      "contractCount": 130
+      "contractCount": 150
     },
     {
       "year": "2020",
-      "totalEur": 921522.2130757787,
+      "totalEur": 941521.8705102182,
       "totalOther": {},
-      "contractCount": 21
+      "contractCount": 26
     },
     {
       "year": "2021",
-      "totalEur": 160670.40591462448,
+      "totalEur": 33315338.80756508,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 33
     },
     {
       "year": "2022",
-      "totalEur": 25705679.281941682,
+      "totalEur": 27384610.17573102,
       "totalOther": {},
-      "contractCount": 143
+      "contractCount": 204
     },
     {
       "year": "2023",
-      "totalEur": 24236627.355138227,
+      "totalEur": 26033592.720226202,
       "totalOther": {},
-      "contractCount": 177
+      "contractCount": 223
+    },
+    {
+      "year": "2024",
+      "totalEur": 96358.11394650865,
+      "totalOther": {},
+      "contractCount": 3
     },
     {
       "year": "2026",
-      "totalEur": 22261597.47690178,
+      "totalEur": 22718390.22213577,
       "totalOther": {},
-      "contractCount": 152
+      "contractCount": 188
     }
   ]
 }

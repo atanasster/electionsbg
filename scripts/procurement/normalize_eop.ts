@@ -6,8 +6,8 @@
 // camelCase base files (договори / поръчки / анекси) PLUS the OCDS package, and
 // the flat договори file is the superset — it lists ~900 small contracting
 // authorities (overwhelmingly schools & kindergartens) whose contracts never
-// surface in the OCDS обявления export. See the SIGMA platform's ETL docs,
-// which use the flat файл as the base and OCDS only for enrichment.
+// surface in the OCDS обявления export. In the daily bucket the flat файл is the
+// base layer; the OCDS package only enriches it.
 //
 // This module maps ONE flat договори record to Contract[] (one row per supplier
 // — multi-supplier consortia are semicolon-concatenated in the source). It is
@@ -72,9 +72,9 @@ const CATEGORY_MAP: Record<string, string> = {
 };
 
 // Parse a Bulgarian-formatted decimal: "1 234 567,89" / "5112918,81" /
-// "10000000,00" → number. Mirrors SIGMA's base.ts toReal: strip spaces, then if
-// a comma is present treat dots as thousands separators and the comma as the
-// decimal point. Returns undefined for blank / non-numeric.
+// "10000000,00" → number. Strip spaces, then if a comma is present treat dots as
+// thousands separators and the comma as the decimal point. Returns undefined for
+// blank / non-numeric.
 const parseBgNumber = (v: string | number | undefined): number | undefined => {
   if (v == null) return undefined;
   if (typeof v === "number") return Number.isFinite(v) ? v : undefined;

@@ -3,10 +3,10 @@
   "name": "Брацигово",
   "province": "Пазарджик",
   "obshtina": "Брацигово",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 119,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 120,
   "awardCount": 0,
-  "totalEur": 17680670.74694416,
+  "totalEur": 17739418.62891754,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 17680670.74694416,
       "totalOther": {},
       "contractCount": 119,
+      "awardCount": 0
+    },
+    {
+      "eik": "000341172",
+      "name": "Начално училище \"Васил Петлешков\"",
+      "tier": "school",
+      "totalEur": 58747.881973382144,
+      "totalOther": {},
+      "contractCount": 1,
       "awardCount": 0
     }
   ],
@@ -501,6 +510,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "e1f664638b65",
+      "ocid": "eop-05150-2024-0001",
+      "date": "2025-02-14",
+      "amount": 114900.87,
+      "currency": "BGN",
+      "amountEur": 58747.881973382144,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "eop-flat:2025-02-14",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-02-14/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2014.02.2025.json"
+    },
+    {
       "key": "0b4651a055b3",
       "ocid": "aop-legacy-2011-2015-653217",
       "date": "2015-03-10",
@@ -607,18 +628,6 @@
       "partyName": "Братя пашкулеви ООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "5f44db877043",
-      "ocid": "aop-legacy-2023-372552",
-      "date": "2023-05-15",
-      "amount": 80280.65,
-      "currency": "BGN",
-      "amountEur": 41046.844562155195,
-      "partyEik": "203022445",
-      "partyName": "Килтекс ЕООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -687,6 +696,12 @@
       "totalEur": 487456.915989631,
       "totalOther": {},
       "contractCount": 25
+    },
+    {
+      "year": "2025",
+      "totalEur": 58747.881973382144,
+      "totalOther": {},
+      "contractCount": 1
     },
     {
       "year": "2026",

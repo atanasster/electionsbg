@@ -3,10 +3,10 @@
   "name": "Дупница",
   "province": "Кюстендил",
   "obshtina": "Дупница",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 415,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 428,
   "awardCount": 0,
-  "totalEur": 78518783.58784145,
+  "totalEur": 79259209.20415162,
   "totalOther": {},
   "awarders": [
     {
@@ -28,12 +28,39 @@
       "awardCount": 0
     },
     {
+      "eik": "000252720",
+      "name": "Професионална гимназия \"АКАД.СЕРГЕЙ п. Корольов\"",
+      "tier": "school",
+      "totalEur": 514934.64620856615,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    },
+    {
       "eik": "000250655",
       "name": "Целодневна детска градина 7 - Калина , гр. Дупница",
       "tier": "school",
       "totalEur": 348052.6119345751,
       "totalOther": {},
       "contractCount": 5,
+      "awardCount": 0
+    },
+    {
+      "eik": "000251860",
+      "name": "Средно училище /СУ/ \"Паисий Хилендарски\" гр. Дупница",
+      "tier": "school",
+      "totalEur": 163102.1101015937,
+      "totalOther": {},
+      "contractCount": 9,
+      "awardCount": 0
+    },
+    {
+      "eik": "000251846",
+      "name": "Основно училище \"Неофит Рилски\"",
+      "tier": "school",
+      "totalEur": 62388.86,
+      "totalOther": {},
+      "contractCount": 1,
       "awardCount": 0
     }
   ],
@@ -423,6 +450,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
+      "key": "b00dab824c5d",
+      "ocid": "ocds-e82gsb-556713",
+      "date": "2026-03-05",
+      "amount": 466461.72,
+      "currency": "EUR",
+      "amountEur": 466461.72,
+      "partyEik": "115147847",
+      "partyName": "КЕЙ Си ем комерс ЕООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-556713-818842%2F2026-03-05-award"
+    },
+    {
       "key": "a588b644063b",
       "ocid": "aop-legacy-2017-774956",
       "date": "2017-03-02",
@@ -625,18 +664,6 @@
       "partyName": "ДЗЗД Дупнишка вода - Дупница",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "180d3a793c87",
-      "ocid": "aop-legacy-2016-742473",
-      "date": "2016-07-29",
-      "amount": 661925.35,
-      "currency": "BGN",
-      "amountEur": 338437.05741296534,
-      "partyEik": "113580690",
-      "partyName": "Нивел Строй ЕООД - Брезник",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     }
   ],
   "byYear": [
@@ -666,9 +693,9 @@
     },
     {
       "year": "2015",
-      "totalEur": 3362452.667154098,
+      "totalEur": 3420228.649729271,
       "totalOther": {},
-      "contractCount": 40
+      "contractCount": 43
     },
     {
       "year": "2016",
@@ -678,9 +705,9 @@
     },
     {
       "year": "2017",
-      "totalEur": 6148336.164186048,
+      "totalEur": 6253662.291712469,
       "totalOther": {},
-      "contractCount": 21
+      "contractCount": 27
     },
     {
       "year": "2019",
@@ -708,15 +735,15 @@
     },
     {
       "year": "2023",
-      "totalEur": 4717593.747922877,
+      "totalEur": 4737334.124131443,
       "totalOther": {},
-      "contractCount": 25
+      "contractCount": 26
     },
     {
       "year": "2026",
-      "totalEur": 6819417.6,
+      "totalEur": 7377000.7299999995,
       "totalOther": {},
-      "contractCount": 41
+      "contractCount": 44
     }
   ]
 }

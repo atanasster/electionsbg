@@ -3,10 +3,10 @@
   "name": "Свищов",
   "province": "Велико Търново",
   "obshtina": "Свищов",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 529,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 697,
   "awardCount": 0,
-  "totalEur": 89863005.05398147,
+  "totalEur": 96330835.14257777,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,24 @@
       "totalEur": 88561221.02138907,
       "totalOther": {},
       "contractCount": 483,
+      "awardCount": 0
+    },
+    {
+      "eik": "104509202",
+      "name": "Многопрофилна болница за активно лечение Д-Р димитър павлович ЕООД",
+      "tier": "hospital",
+      "totalEur": 3257149.0353516922,
+      "totalOther": {},
+      "contractCount": 117,
+      "awardCount": 0
+    },
+    {
+      "eik": "000124026",
+      "name": "Стопанска академия \"Димитър а. Ценов\"",
+      "tier": "university",
+      "totalEur": 2943240.954648921,
+      "totalOther": {},
+      "contractCount": 46,
       "awardCount": 0
     },
     {
@@ -34,6 +52,15 @@
       "totalEur": 389825.9541212171,
       "totalOther": {},
       "contractCount": 16,
+      "awardCount": 0
+    },
+    {
+      "eik": "104525135",
+      "name": "Свищовска професионална гимназия \"Алеко Константинов\"",
+      "tier": "school",
+      "totalEur": 267440.09859568573,
+      "totalOther": {},
+      "contractCount": 5,
       "awardCount": 0
     },
     {
@@ -223,6 +250,18 @@
       "partyName": "Профи Дръстър",
       "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
       "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-414047-836523%2F2026-04-01-contractamendment"
+    },
+    {
+      "key": "3ac6eadd68b8",
+      "ocid": "aop-legacy-2023-358716",
+      "date": "2023-04-05",
+      "amount": 1838000,
+      "currency": "BGN",
+      "amountEur": 939754.4776386496,
+      "partyEik": "180901004",
+      "partyName": "Консорциум \"Гарант проект Свищов",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
       "key": "44307573f6e3",
@@ -441,6 +480,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
+      "key": "6486fa71e9da",
+      "ocid": "aop-legacy-2017-810008",
+      "date": "2017-10-18",
+      "amount": 951600,
+      "currency": "BGN",
+      "amountEur": 486545.35414632154,
+      "partyEik": "131245283",
+      "partyName": "Сакса ООД - Долна баня",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
       "key": "1911456c3896",
       "ocid": "aop-legacy-2016-x",
       "date": "2016-06-08",
@@ -631,30 +682,6 @@
       "partyName": "Бор - 97 Eоод - Свищов",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "c715d8bd1b34",
-      "ocid": "aop-legacy-2019-925978",
-      "date": "2019-08-05",
-      "amount": 714020.66,
-      "currency": "BGN",
-      "amountEur": 365072.96646436554,
-      "partyEik": "104061343",
-      "partyName": "Бор - 97 Eоод - Свищов",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "b435b267358f",
-      "ocid": "ocds-e82gsb-414047",
-      "date": "2026-04-01",
-      "amount": 353839.55,
-      "currency": "EUR",
-      "amountEur": 353839.55,
-      "partyEik": "104061343",
-      "partyName": "Бор - 97 ЕООД",
-      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
-      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-414047-837101%2F2026-04-01-contractamendment"
     }
   ],
   "byYear": [
@@ -672,63 +699,63 @@
     },
     {
       "year": "2013",
-      "totalEur": 18165594.985249225,
+      "totalEur": 18845682.134950373,
       "totalOther": {},
-      "contractCount": 37
+      "contractCount": 45
     },
     {
       "year": "2014",
-      "totalEur": 3933632.9998005964,
+      "totalEur": 4070825.9460178036,
       "totalOther": {},
-      "contractCount": 47
+      "contractCount": 60
     },
     {
       "year": "2015",
-      "totalEur": 2808146.71520531,
+      "totalEur": 3020978.4950634777,
       "totalOther": {},
-      "contractCount": 21
+      "contractCount": 35
     },
     {
       "year": "2016",
-      "totalEur": 6545303.528425273,
+      "totalEur": 6811294.084864227,
       "totalOther": {},
-      "contractCount": 46
+      "contractCount": 66
     },
     {
       "year": "2017",
-      "totalEur": 10951143.514518129,
+      "totalEur": 12406397.248227092,
       "totalOther": {},
-      "contractCount": 92
+      "contractCount": 124
     },
     {
       "year": "2019",
-      "totalEur": 10006830.455612196,
+      "totalEur": 10432766.089077273,
       "totalOther": {},
-      "contractCount": 55
+      "contractCount": 65
     },
     {
       "year": "2020",
-      "totalEur": 72715.34335806282,
+      "totalEur": 94283.3375088837,
       "totalOther": {},
-      "contractCount": 5
+      "contractCount": 6
     },
     {
       "year": "2022",
-      "totalEur": 4151015.5688377824,
+      "totalEur": 5396240.465684645,
       "totalOther": {},
-      "contractCount": 30
+      "contractCount": 60
     },
     {
       "year": "2023",
-      "totalEur": 4719975.933491151,
+      "totalEur": 6352282.621700249,
       "totalOther": {},
-      "contractCount": 67
+      "contractCount": 97
     },
     {
       "year": "2026",
-      "totalEur": 23935016.419999994,
+      "totalEur": 24326455.12999999,
       "totalOther": {},
-      "contractCount": 70
+      "contractCount": 80
     }
   ]
 }

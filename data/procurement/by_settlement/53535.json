@@ -3,10 +3,10 @@
   "name": "Омуртаг",
   "province": "Търговище",
   "obshtina": "Омуртаг",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 145,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 206,
   "awardCount": 0,
-  "totalEur": 23158314.198349856,
+  "totalEur": 26342957.611105002,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,24 @@
       "totalEur": 23158314.198349856,
       "totalOther": {},
       "contractCount": 145,
+      "awardCount": 0
+    },
+    {
+      "eik": "125550070",
+      "name": "Многопрофилна болница за активно лечение - омуртаг ЕАД",
+      "tier": "hospital",
+      "totalEur": 2580343.751572938,
+      "totalOther": {},
+      "contractCount": 50,
+      "awardCount": 0
+    },
+    {
+      "eik": "000867731",
+      "name": "Профилирана гимназия \"Симеон Велчев\"",
+      "tier": "school",
+      "totalEur": 604299.6611822092,
+      "totalOther": {},
+      "contractCount": 11,
       "awardCount": 0
     }
   ],
@@ -261,6 +279,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
+      "key": "82d705613d98",
+      "ocid": "aop-legacy-2011-2015-487688",
+      "date": "2012-06-20",
+      "amount": 585635,
+      "currency": "BGN",
+      "amountEur": 299430.4208443474,
+      "partyEik": "103267194",
+      "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
       "key": "5eb2bbfbd52c",
       "ocid": "aop-legacy-2023-419639",
       "date": "2023-09-06",
@@ -283,6 +313,18 @@
       "partyName": "ЕТ Аптула Хасанов - шанс",
       "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
       "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-537098-818999%2F2026-03-05-award"
+    },
+    {
+      "key": "e26583966de9",
+      "ocid": "aop-legacy-2023-419719",
+      "date": "2023-09-06",
+      "amount": 510000,
+      "currency": "BGN",
+      "amountEur": 260758.85941007143,
+      "partyEik": "831924394",
+      "partyName": "Топливо АД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
       "key": "7efa669ed2db",
@@ -331,6 +373,18 @@
       "partyName": "Радита ООД - Търговище",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "b122892e6320",
+      "ocid": "ocds-e82gsb-557419",
+      "date": "2026-03-12",
+      "amount": 234000,
+      "currency": "EUR",
+      "amountEur": 234000,
+      "partyEik": "831924394",
+      "partyName": "Топливо АД",
+      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
+      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-557419-822604%2F2026-03-12-award"
     },
     {
       "key": "8cc5193e890f",
@@ -489,6 +543,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "e8204fd1a221",
+      "ocid": "aop-legacy-2011-2015-422585",
+      "date": "2011-01-13",
+      "amount": 256394,
+      "currency": "BGN",
+      "amountEur": 131092.17058742326,
+      "partyEik": "103267194",
+      "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
       "key": "5ba2c70f7a5d",
       "ocid": "aop-legacy-2022-296639",
       "date": "2022-11-08",
@@ -561,114 +627,66 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
-      "key": "d110ef4e634b",
-      "ocid": "aop-legacy-2020-81549",
-      "date": "2020-12-30",
-      "amount": 221270,
+      "key": "f7aa7b52f1ce",
+      "ocid": "aop-legacy-2022-247485",
+      "date": "2022-06-28",
+      "amount": 226657.81,
       "currency": "BGN",
-      "amountEur": 113133.55455228727,
-      "partyEik": "202668908",
-      "partyName": "Синергон енерджи ЕООД",
-      "bundleUuid": "c5404069-668a-4cd2-ab43-a1cdc26e03c6",
-      "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
-    },
-    {
-      "key": "b1a0c900469e",
-      "ocid": "aop-legacy-2017-817932",
-      "date": "2017-12-04",
-      "amount": 178750,
-      "currency": "BGN",
-      "amountEur": 91393.42376382406,
-      "partyEik": "835009611",
-      "partyName": "Пътинженерингстрой-Т ЕАД/старо Пътинженерингстрой-Т АД  - Търговище",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "223cb254e9fe",
-      "ocid": "aop-legacy-2022-262896",
-      "date": "2022-08-11",
-      "amount": 177606.27,
-      "currency": "BGN",
-      "amountEur": 90808.6439005435,
-      "partyEik": "125015185",
-      "partyName": "Радита ООД",
+      "amountEur": 115888.29806271507,
+      "partyEik": "205975093",
+      "partyName": "Строй - мал ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "c69f4a7d52de",
-      "ocid": "aop-legacy-2023-375626",
-      "date": "2023-05-23",
-      "amount": 161370,
-      "currency": "BGN",
-      "amountEur": 82507.17086863378,
-      "partyEik": "125548347",
-      "partyName": "ЕТ АЙЛА-98 - Нихат Мехмедов",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "6bf4c0facbce",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-01-05",
-      "amount": 161250,
-      "currency": "BGN",
-      "amountEur": 82445.81584289022,
-      "partyEik": "835009611",
-      "partyName": "Пътинженерингстрой-Т ЕАД/старо Пътинженерингстрой-Т АД  - Търговище",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 10123.06795580393,
+      "totalEur": 215658.82515351538,
       "totalOther": {},
-      "contractCount": 1
+      "contractCount": 4
     },
     {
       "year": "2012",
-      "totalEur": 506315.4773165357,
+      "totalEur": 918169.2682901889,
       "totalOther": {},
-      "contractCount": 1
+      "contractCount": 7
     },
     {
       "year": "2013",
-      "totalEur": 1554625.9132951228,
+      "totalEur": 1769668.1204399157,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 6
     },
     {
       "year": "2014",
-      "totalEur": 3258309.704831197,
+      "totalEur": 3433501.020027303,
       "totalOther": {},
-      "contractCount": 8
+      "contractCount": 17
     },
     {
       "year": "2015",
-      "totalEur": 117979.68126064127,
+      "totalEur": 289681.41402882664,
       "totalOther": {},
-      "contractCount": 1
+      "contractCount": 7
     },
     {
       "year": "2016",
-      "totalEur": 1598636.4663595508,
+      "totalEur": 1846926.9312772583,
       "totalOther": {},
-      "contractCount": 16
+      "contractCount": 24
     },
     {
       "year": "2017",
-      "totalEur": 2380799.7065184605,
+      "totalEur": 2595542.2966208723,
       "totalOther": {},
-      "contractCount": 20
+      "contractCount": 22
     },
     {
       "year": "2019",
-      "totalEur": 3449895.2465193802,
+      "totalEur": 3610114.6929947897,
       "totalOther": {},
-      "contractCount": 16
+      "contractCount": 18
     },
     {
       "year": "2020",
@@ -678,21 +696,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 1645375.0274819382,
+      "totalEur": 2231340.009100995,
       "totalOther": {},
-      "contractCount": 24
+      "contractCount": 36
     },
     {
       "year": "2023",
-      "totalEur": 4661502.932258938,
+      "totalEur": 5082642.228619051,
       "totalOther": {},
-      "contractCount": 12
+      "contractCount": 18
     },
     {
       "year": "2026",
-      "totalEur": 3861617.42,
+      "totalEur": 4236579.25,
       "totalOther": {},
-      "contractCount": 43
+      "contractCount": 46
     }
   ]
 }

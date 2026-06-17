@@ -3,10 +3,10 @@
   "name": "Сандански",
   "province": "Благоевград",
   "obshtina": "Сандански",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 3331,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 3416,
   "awardCount": 0,
-  "totalEur": 253682475.03057688,
+  "totalEur": 260365674.0119989,
   "totalOther": {},
   "awarders": [
     {
@@ -37,12 +37,66 @@
       "awardCount": 0
     },
     {
+      "eik": "000013955",
+      "name": "Профилирана гимназия \"Яне Сандански\"",
+      "tier": "school",
+      "totalEur": 3608516.603074705,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0
+    },
+    {
+      "eik": "000017163",
+      "name": "Професионална Техническа гимназия",
+      "tier": "school",
+      "totalEur": 1085120.0610897164,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    },
+    {
+      "eik": "000010756",
+      "name": "Детска Градина \"Здравец\"",
+      "tier": "school",
+      "totalEur": 938484.7735219318,
+      "totalOther": {},
+      "contractCount": 35,
+      "awardCount": 0
+    },
+    {
+      "eik": "000014128",
+      "name": "Земеделска професионална гимназия \"Климент аркадиевич Тимирязев\"",
+      "tier": "school",
+      "totalEur": 529354.9358322554,
+      "totalOther": {},
+      "contractCount": 7,
+      "awardCount": 0
+    },
+    {
+      "eik": "101005656",
+      "name": "Детска Градина \"Пролет\"",
+      "tier": "school",
+      "totalEur": 460143.61875009583,
+      "totalOther": {},
+      "contractCount": 28,
+      "awardCount": 0
+    },
+    {
       "eik": "000012604",
       "name": "II-РО Основно училище \"Христо Смирненски\"",
       "tier": "school",
       "totalEur": 174677.51,
       "totalOther": {},
       "contractCount": 7,
+      "awardCount": 0
+    },
+    {
+      "eik": "101005631",
+      "name": "Детска Градина \"Радост\"",
+      "tier": "school",
+      "totalEur": 61578.98915330064,
+      "totalOther": {},
+      "contractCount": 9,
       "awardCount": 0
     }
   ],
@@ -516,6 +570,42 @@
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
+      "key": "3ee827d9363c",
+      "ocid": "ocds-e82gsb-428373",
+      "date": "2026-03-26",
+      "amount": 1174590.84,
+      "currency": "EUR",
+      "amountEur": 1174590.84,
+      "partyEik": "204317110",
+      "partyName": "АСО Конструкшън ЕООД",
+      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
+      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-428373-833882%2F2026-03-26-award"
+    },
+    {
+      "key": "84e87093183c",
+      "ocid": "ocds-e82gsb-428373",
+      "date": "2026-03-26",
+      "amount": 1174590.84,
+      "currency": "EUR",
+      "amountEur": 1174590.84,
+      "partyEik": "181311622",
+      "partyName": "АСО - Хидро",
+      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
+      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-428373-833882%2F2026-03-26-award"
+    },
+    {
+      "key": "dcc941dc4443",
+      "ocid": "ocds-e82gsb-428373",
+      "date": "2026-03-26",
+      "amount": 1174590.84,
+      "currency": "EUR",
+      "amountEur": 1174590.84,
+      "partyEik": "823073008",
+      "partyName": "Хидрострой ООД",
+      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
+      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-428373-833882%2F2026-03-26-award"
+    },
+    {
       "key": "2813078855bb",
       "ocid": "ocds-e82gsb-552168",
       "date": "2026-01-19",
@@ -550,6 +640,18 @@
       "partyName": "Аделина Стил-99",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "f7ba45704def",
+      "ocid": "ocds-e82gsb-468092",
+      "date": "2026-01-08",
+      "amount": 1046773.17,
+      "currency": "EUR",
+      "amountEur": 1046773.17,
+      "partyEik": "203928910",
+      "partyName": "Перун груп ЕООД",
+      "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
+      "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-468092-794394%2F2026-01-08-award"
     },
     {
       "key": "c1232043b201",
@@ -598,86 +700,38 @@
       "partyName": "ДЗЗД Северна Дъга - 2015 - Сандански",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "3e91c7734199",
-      "ocid": "aop-legacy-2016-762676",
-      "date": "2016-12-14",
-      "amount": 1805403.93,
-      "currency": "BGN",
-      "amountEur": 923088.3716887459,
-      "partyEik": "176507078",
-      "partyName": "Обединение \"Партньори Юдп\" - Бургас",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "6601f0d09944",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-12-14",
-      "amount": 1805403.93,
-      "currency": "BGN",
-      "amountEur": 923088.3716887459,
-      "partyEik": "176507078",
-      "partyName": "Обединение \"Партньори Юдп\" - Бургас",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "bf416935b931",
-      "ocid": "aop-legacy-2011-2015-581153",
-      "date": "2014-01-21",
-      "amount": 1757295.97,
-      "currency": "BGN",
-      "amountEur": 898491.1623198335,
-      "partyEik": "176505846",
-      "partyName": "ДЗЗД Обединение Форест - София",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "fdffb5f5f4b4",
-      "ocid": "aop-legacy-2017-805072",
-      "date": "2017-09-13",
-      "amount": 1666557.13,
-      "currency": "BGN",
-      "amountEur": 852097.1301186708,
-      "partyEik": "020767877",
-      "partyName": "Растер- юг ООД - Благоевград",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 3588009.965078765,
+      "totalEur": 3615693.240210039,
       "totalOther": {},
-      "contractCount": 51
+      "contractCount": 54
     },
     {
       "year": "2012",
-      "totalEur": 8305770.890108036,
+      "totalEur": 8447012.772071194,
       "totalOther": {},
-      "contractCount": 213
+      "contractCount": 223
     },
     {
       "year": "2013",
-      "totalEur": 13135019.132542197,
+      "totalEur": 13207999.775031574,
       "totalOther": {},
-      "contractCount": 249
+      "contractCount": 256
     },
     {
       "year": "2014",
-      "totalEur": 13263719.551290238,
+      "totalEur": 13345854.220458826,
       "totalOther": {},
-      "contractCount": 374
+      "contractCount": 383
     },
     {
       "year": "2015",
-      "totalEur": 22779997.310604714,
+      "totalEur": 22943243.870888583,
       "totalOther": {},
-      "contractCount": 444
+      "contractCount": 456
     },
     {
       "year": "2016",
@@ -687,15 +741,15 @@
     },
     {
       "year": "2017",
-      "totalEur": 43802436.541008174,
+      "totalEur": 44113682.96835615,
       "totalOther": {},
-      "contractCount": 473
+      "contractCount": 485
     },
     {
       "year": "2019",
-      "totalEur": 49690030.278705224,
+      "totalEur": 50233689.3901822,
       "totalOther": {},
-      "contractCount": 377
+      "contractCount": 385
     },
     {
       "year": "2020",
@@ -711,21 +765,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 23588511.087364443,
+      "totalEur": 23694559.16925295,
       "totalOther": {},
-      "contractCount": 261
+      "contractCount": 263
     },
     {
       "year": "2023",
-      "totalEur": 17933830.148837067,
+      "totalEur": 18408653.86050935,
       "totalOther": {},
-      "contractCount": 287
+      "contractCount": 291
     },
     {
       "year": "2026",
-      "totalEur": 26343345.663504962,
+      "totalEur": 31103480.28350496,
       "totalOther": {},
-      "contractCount": 125
+      "contractCount": 143
     }
   ]
 }

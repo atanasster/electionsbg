@@ -3,10 +3,10 @@
   "name": "Тутракан",
   "province": "Силистра",
   "obshtina": "Тутракан",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 354,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 443,
   "awardCount": 0,
-  "totalEur": 73414598.99512447,
+  "totalEur": 76340777.48828737,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 72767374.59358886,
       "totalOther": {},
       "contractCount": 344,
+      "awardCount": 0
+    },
+    {
+      "eik": "118506069",
+      "name": "Многопрофилна болница за активно ЛЕЧЕНИЕ-ТУТРАКАН ЕООД",
+      "tier": "hospital",
+      "totalEur": 2926178.4931629035,
+      "totalOther": {},
+      "contractCount": 89,
       "awardCount": 0
     },
     {
@@ -354,6 +363,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "19843db73ebc",
+      "ocid": "aop-legacy-2017-782578",
+      "date": "2017-04-13",
+      "amount": 834110,
+      "currency": "BGN",
+      "amountEur": 426473.6710245778,
+      "partyEik": "121706547",
+      "partyName": "Рср ЕООД - София",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
       "key": "f642c0d790ca",
       "ocid": "aop-legacy-2011-2015-465602",
       "date": "2012-01-23",
@@ -522,6 +543,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "a8decc33e045",
+      "ocid": "aop-legacy-2011-2015-565757",
+      "date": "2013-10-21",
+      "amount": 489022.79,
+      "currency": "BGN",
+      "amountEur": 250033.38224692328,
+      "partyEik": "102227154",
+      "partyName": "Фаркол АД - Бургас",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
       "key": "5eb755d60976",
       "ocid": "aop-legacy-2011-2015-558547",
       "date": "2013-09-04",
@@ -604,38 +637,14 @@
       "partyName": "Монимекс ЕООД - София",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "768d03b59c50",
-      "ocid": "aop-legacy-2011-2015-502348",
-      "date": "2012-10-03",
-      "amount": 397723.32,
-      "currency": "BGN",
-      "amountEur": 203352.7044784056,
-      "partyEik": "176387102",
-      "partyName": "ДЗЗД Белица-12 - гр.Силистра",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "7cafd18de537",
-      "ocid": "aop-legacy-2022-267947",
-      "date": "2022-08-25",
-      "amount": 390800,
-      "currency": "BGN",
-      "amountEur": 199812.86717148218,
-      "partyEik": "177493852",
-      "partyName": "Обединение „Аква тутракан“",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 652373.9946723386,
+      "totalEur": 885893.9324992459,
       "totalOther": {},
-      "contractCount": 5
+      "contractCount": 13
     },
     {
       "year": "2012",
@@ -645,15 +654,15 @@
     },
     {
       "year": "2013",
-      "totalEur": 3496455.5457273894,
+      "totalEur": 3933900.9218592616,
       "totalOther": {},
-      "contractCount": 37
+      "contractCount": 43
     },
     {
       "year": "2014",
-      "totalEur": 2148540.24122751,
+      "totalEur": 2427282.739297383,
       "totalOther": {},
-      "contractCount": 22
+      "contractCount": 32
     },
     {
       "year": "2015",
@@ -663,15 +672,15 @@
     },
     {
       "year": "2016",
-      "totalEur": 2628035.6523828763,
+      "totalEur": 3030141.2443821807,
       "totalOther": {},
-      "contractCount": 42
+      "contractCount": 46
     },
     {
       "year": "2017",
-      "totalEur": 5958524.646825133,
+      "totalEur": 6522009.3259639125,
       "totalOther": {},
-      "contractCount": 37
+      "contractCount": 49
     },
     {
       "year": "2019",
@@ -681,27 +690,33 @@
     },
     {
       "year": "2020",
-      "totalEur": 306589.10027967667,
+      "totalEur": 347019.5057852676,
       "totalOther": {},
-      "contractCount": 11
+      "contractCount": 12
+    },
+    {
+      "year": "2021",
+      "totalEur": 66060.63921710987,
+      "totalOther": {},
+      "contractCount": 8
     },
     {
       "year": "2022",
-      "totalEur": 4553270.01324246,
+      "totalEur": 4632061.62601044,
       "totalOther": {},
-      "contractCount": 21
+      "contractCount": 23
     },
     {
       "year": "2023",
-      "totalEur": 3151834.1522524967,
+      "totalEur": 3747486.74475798,
       "totalOther": {},
-      "contractCount": 52
+      "contractCount": 74
     },
     {
       "year": "2026",
-      "totalEur": 9218595.855792321,
+      "totalEur": 9448541.015792321,
       "totalOther": {},
-      "contractCount": 33
+      "contractCount": 49
     }
   ]
 }

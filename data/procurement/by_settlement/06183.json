@@ -3,10 +3,10 @@
   "name": "Братя Даскалови",
   "province": "Стара Загора",
   "obshtina": "Братя Даскалови",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 141,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 144,
   "awardCount": 0,
-  "totalEur": 16167772.853409607,
+  "totalEur": 16435758.493409608,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 16167772.853409607,
       "totalOther": {},
       "contractCount": 141,
+      "awardCount": 0
+    },
+    {
+      "eik": "000802566",
+      "name": "Средно училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 267985.64,
+      "totalOther": {},
+      "contractCount": 3,
       "awardCount": 0
     }
   ],
@@ -223,6 +232,18 @@
       "partyName": "Петра ойл ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "d56e50b45f5c",
+      "ocid": "ocds-e82gsb-542147",
+      "date": "2026-02-05",
+      "amount": 154166.67,
+      "currency": "EUR",
+      "amountEur": 154166.67,
+      "partyEik": "200231710",
+      "partyName": "Устои инженеринг ООД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-542147-806907%2F2026-02-05-award"
     },
     {
       "key": "8fd23e27df52",
@@ -549,6 +570,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "7b2f295ae030",
+      "ocid": "ocds-e82gsb-543175",
+      "date": "2026-03-23",
+      "amount": 60010.7,
+      "currency": "EUR",
+      "amountEur": 60010.7,
+      "partyEik": "204148169",
+      "partyName": "Инженеринг бг ЕООД",
+      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
+      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-543175-829719%2F2026-03-23-award"
+    },
+    {
       "key": "592b9bdbbbbb",
       "ocid": "aop-legacy-2023-460563",
       "date": "2023-12-13",
@@ -573,6 +606,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
+      "key": "62e0dfa03cd9",
+      "ocid": "ocds-e82gsb-545628",
+      "date": "2026-03-23",
+      "amount": 53808.27,
+      "currency": "EUR",
+      "amountEur": 53808.27,
+      "partyEik": "204148169",
+      "partyName": "Инженеринг бг ЕООД",
+      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
+      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-545628-830048%2F2026-03-23-award"
+    },
+    {
       "key": "16b9e422bca5",
       "ocid": "ocds-e82gsb-544184",
       "date": "2026-02-27",
@@ -583,42 +628,6 @@
       "partyName": "АзУкЕн ООД",
       "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
       "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-544184-817512%2F2026-02-27-award"
-    },
-    {
-      "key": "760461150b15",
-      "ocid": "aop-legacy-2023-327062",
-      "date": "2023-01-31",
-      "amount": 95781.8,
-      "currency": "BGN",
-      "amountEur": 48972.45670635996,
-      "partyEik": "123739389",
-      "partyName": "Апк ООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "04e81dbc5097",
-      "ocid": "aop-legacy-2011-2015-660391",
-      "date": "2015-04-07",
-      "amount": 90348.17,
-      "currency": "BGN",
-      "amountEur": 46194.28580193575,
-      "partyEik": "123735394",
-      "partyName": "Брадърс Комерс ООД - Стара Загора",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "b72c4f5ce012",
-      "ocid": "aop-legacy-2023-327047",
-      "date": "2023-01-31",
-      "amount": 88061.92,
-      "currency": "BGN",
-      "amountEur": 45025.3447385509,
-      "partyEik": "123739389",
-      "partyName": "Апк ООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -684,9 +693,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 4761707.270000001,
+      "totalEur": 5029692.910000001,
       "totalOther": {},
-      "contractCount": 25
+      "contractCount": 28
     }
   ]
 }

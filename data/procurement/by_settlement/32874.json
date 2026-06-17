@@ -3,10 +3,10 @@
   "name": "Исперих",
   "province": "Разград",
   "obshtina": "Исперих",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 291,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 323,
   "awardCount": 0,
-  "totalEur": 49731407.02574419,
+  "totalEur": 50704246.36583383,
   "totalOther": {},
   "awarders": [
     {
@@ -28,12 +28,30 @@
       "awardCount": 0
     },
     {
+      "eik": "000498405",
+      "name": "Основно училище \"Васил Априлов\"",
+      "tier": "school",
+      "totalEur": 834324.7509686425,
+      "totalOther": {},
+      "contractCount": 22,
+      "awardCount": 0
+    },
+    {
       "eik": "000500920",
       "name": "Професионална гимназия по селско стопанство \"ХАН аспарух\"",
       "tier": "school",
       "totalEur": 451928.6863814852,
       "totalOther": {},
       "contractCount": 18,
+      "awardCount": 0
+    },
+    {
+      "eik": "000498412",
+      "name": "Основно училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 138514.589120987,
+      "totalOther": {},
+      "contractCount": 10,
       "awardCount": 0
     }
   ],
@@ -648,9 +666,9 @@
     },
     {
       "year": "2012",
-      "totalEur": 537775.2105244321,
+      "totalEur": 626308.2220847415,
       "totalOther": {},
-      "contractCount": 6
+      "contractCount": 7
     },
     {
       "year": "2013",
@@ -660,15 +678,15 @@
     },
     {
       "year": "2014",
-      "totalEur": 21134195.39530532,
+      "totalEur": 21280845.543835614,
       "totalOther": {},
-      "contractCount": 17
+      "contractCount": 25
     },
     {
       "year": "2015",
-      "totalEur": 1144591.1658988767,
+      "totalEur": 1269141.8681582755,
       "totalOther": {},
-      "contractCount": 13
+      "contractCount": 15
     },
     {
       "year": "2016",
@@ -678,9 +696,9 @@
     },
     {
       "year": "2017",
-      "totalEur": 2931215.6373508945,
+      "totalEur": 3102498.417551628,
       "totalOther": {},
-      "contractCount": 19
+      "contractCount": 23
     },
     {
       "year": "2019",
@@ -696,21 +714,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 2616185.1132255876,
+      "totalEur": 2616186.749359607,
       "totalOther": {},
-      "contractCount": 53
+      "contractCount": 54
     },
     {
       "year": "2023",
-      "totalEur": 6707067.797303447,
+      "totalEur": 6890909.608708324,
       "totalOther": {},
-      "contractCount": 78
+      "contractCount": 87
     },
     {
       "year": "2026",
-      "totalEur": 2950094.1100000003,
+      "totalEur": 3208073.3600000003,
       "totalOther": {},
-      "contractCount": 32
+      "contractCount": 39
     }
   ]
 }

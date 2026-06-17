@@ -1,0 +1,74 @@
+{
+  "ekatte": "24582",
+  "name": "Дълго поле",
+  "province": "Пловдив",
+  "obshtina": "Калояново",
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 3,
+  "awardCount": 0,
+  "totalEur": 80369.97080523358,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000453890",
+      "name": "Основно училище /ОУ/ \"Христо Ботев\" с. Дълго поле",
+      "tier": "school",
+      "totalEur": 80369.97080523358,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "a69e264f8ca6",
+      "ocid": "aop-legacy-2011-2015-542070",
+      "date": "2013-05-20",
+      "amount": 89450,
+      "currency": "BGN",
+      "amountEur": 45735.05877300174,
+      "partyEik": "121206606",
+      "partyName": "Вигор - 7 ЕООД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "63dd2f645b99",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-01-05",
+      "amount": 33870,
+      "currency": "BGN",
+      "amountEur": 17317.45601611592,
+      "partyEik": "121206606",
+      "partyName": "Вигор - 7 ЕООД - София",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "927ef709962b",
+      "ocid": "aop-legacy-2016-705576",
+      "date": "2016-01-05",
+      "amount": 33870,
+      "currency": "BGN",
+      "amountEur": 17317.45601611592,
+      "partyEik": "121206606",
+      "partyName": "Вигор - 7 ЕООД - София",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2013",
+      "totalEur": 45735.05877300174,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2016",
+      "totalEur": 34634.91203223184,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

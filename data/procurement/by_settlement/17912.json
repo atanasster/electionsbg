@@ -1,0 +1,62 @@
+{
+  "ekatte": "17912",
+  "name": "Гроздьово",
+  "province": "Варна",
+  "obshtina": "Долни чифлик",
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 972377.9674102555,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000082531",
+      "name": "Основно училище \"Христо Смирненски\"",
+      "tier": "school",
+      "totalEur": 972377.9674102555,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "28e76df5753c",
+      "ocid": "eop-04044-2024-0001",
+      "date": "2025-02-04",
+      "amount": 1809910.28,
+      "currency": "BGN",
+      "amountEur": 925392.4318575745,
+      "partyEik": "131382104",
+      "partyName": "Красбивал ООД",
+      "bundleUuid": "eop-flat:2025-02-04",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-02-04/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2004.02.2025.json"
+    },
+    {
+      "key": "65f6df359468",
+      "ocid": "eop-04044-2024-0002",
+      "date": "2024-12-05",
+      "amount": 91895.72,
+      "currency": "BGN",
+      "amountEur": 46985.53555268096,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "eop-flat:2024-12-05",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-12-05/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2005.12.2024.json"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2024",
+      "totalEur": 46985.53555268096,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2025",
+      "totalEur": 925392.4318575745,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

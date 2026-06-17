@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-06-16T19:22:07.435Z",
+  "generatedAt": "2026-06-17T17:35:21.331Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -63,7 +63,7 @@
       "url": "https://www.parliament.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-12T06:08:54.021Z",
+      "freshness": "2026-06-17T07:08:54.542Z",
       "skills": [
         "update-rollcall",
         "parliament-scrape"
@@ -74,7 +74,7 @@
           "label": "Parliament roll-call votes",
           "url": "https://www.parliament.bg/api/v1/pl-sten/{id}",
           "cadence": "daily",
-          "freshness": "2026-06-12T06:08:54.021Z"
+          "freshness": "2026-06-17T07:08:54.542Z"
         },
         {
           "id": "parliament_mps",
@@ -313,8 +313,8 @@
         "en": "the full procurement open-data feed"
       },
       "desc": {
-        "bg": "Дневната емисия отворени данни на ЦАИС ЕОП (storage.eop.bg) — пълният списък с договори, който допълва OCDS емисията на АОП с ~900 малки възложители (предимно училища и детски градини), които тя пропуска.",
-        "en": "ЦАИС ЕОП's daily open-data feed (storage.eop.bg) — the full contracts list that supplements АОП's OCDS export with ~900 small contracting authorities (mostly schools and kindergartens) the OCDS feed omits."
+        "bg": "Дневната емисия отворени данни на ЦАИС ЕОП (storage.eop.bg): договори (допълват OCDS емисията на АОП с ~900 малки възложители — предимно училища и детски градини), поръчки (място на изпълнение по NUTS) и OCDS обявления (адреси на страните) — последните две захранват локализирането на възложителите до населено място/област.",
+        "en": "ЦАИС ЕОП's daily open-data feed (storage.eop.bg): contracts (supplement АОП's OCDS export with ~900 small buyers — mostly schools and kindergartens), tenders (place-of-performance NUTS) and OCDS announcements (party addresses) — the latter two drive buyer geo-location to settlement/oblast."
       },
       "tags": [
         "fiscal"
@@ -322,15 +322,17 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
+      "freshness": "2026-06-17T07:08:54.542Z",
       "skills": [
         "update-procurement"
       ],
       "sources": [
         {
           "id": "eop_procurement",
-          "label": "ЦАИС ЕОП open data (storage.eop.bg — flat договори feed)",
+          "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
-          "cadence": "daily"
+          "cadence": "daily",
+          "freshness": "2026-06-17T07:08:54.542Z"
         }
       ],
       "x": 28,
@@ -1013,7 +1015,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-16T07:08:32.388Z",
+      "freshness": "2026-06-17T07:08:54.542Z",
       "skills": [
         "update-prices"
       ],
@@ -1023,7 +1025,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-06-16T07:08:32.388Z"
+          "freshness": "2026-06-17T07:08:54.542Z"
         }
       ],
       "x": 28,

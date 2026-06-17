@@ -80,16 +80,22 @@ Caveats: the gap-fill adds buyers we *lack*; it does not (yet) fill missing cont
 
 ## Step 1c — Awarder geo-enrichment (place-view coverage)
 
-The flat ЦАИС ЕОП feed carries no buyer address, so the gap-fill schools (and legacy-only buyers) have no `geo` → they're dropped from `by_settlement` and the my-area place tiles. `scripts/procurement/awarder_geo_map.ts` builds an EKATTE override map for these address-less buyers; `buildRollups` applies it **fill-missing** (an OCDS address always wins). Run it after new buyers land, then rebuild:
+The flat ЦАИС ЕОП feed carries no buyer address, so the gap-fill schools (and legacy-only buyers) have no `geo` → they're dropped from `by_settlement` and the my-area place tiles. Two map-builders harvest geo from the same storage.eop.bg buckets, then `scripts/procurement/awarder_geo_map.ts` combines all tiers into an EKATTE override map; `buildRollups` applies it **fill-missing** (an address-derived geo always wins). Run after new buyers land, then rebuild:
 
 ```bash
-npx tsx scripts/procurement/awarder_geo_map.ts   # → data/procurement/awarder_geo_overrides.json
-npm run procurement:ingest                        # rebuild applies the overrides
+npx tsx scripts/procurement/build_ocds_party_geo.ts      # Tier E: OCDS обявления party addresses → settlement (storage.eop.bg, 2026+)
+npx tsx scripts/procurement/build_tender_oblast_map.ts   # Tier D: поръчки executionPlaceNuts → buyer oblast (--backfill for full history)
+npx tsx scripts/procurement/awarder_geo_map.ts           # combines tiers → data/procurement/awarder_geo_overrides.json
+npm run procurement:ingest                                # rebuild applies the overrides to by_settlement
 ```
 
-Two tiers (see `docs/plans/procurement-awarder-geo-v2.md`):
-- **Tier A — name-suffix parse** ("- гр.X" / "- с.X" in the awarder name → resolver). Fully local; resolves ~327 buyers (`name_only` confidence; unique-match only, so quality is high).
-- **Tier B — МОН school register** (data.egov.bg open-data resource `cac4d569-…`, via the egov `getResourceData` POST). Covers schools+kindergartens (~58% of the no-geo set). The fetch degrades gracefully — when data.egov.bg blocks the host (e.g. a non-pipeline IP) the script logs `Tier B skipped` and writes Tier A only; re-run from a reachable environment to land Tier B.
+Tiers, in resolution order (see `docs/plans/procurement-awarder-geo-v2.md`):
+- **Tier B — МОН school register** (data.egov.bg open-data resource `cac4d569-…`, via the egov `getResourceData` POST). Authoritative school/kindergarten EIK→settlement (~58% of the no-geo set). Degrades gracefully — when data.egov.bg blocks the host the script logs `Tier B skipped`; re-run from a reachable environment to land it.
+- **Tier E — OCDS party addresses** (`build_ocds_party_geo.ts` → `derived/ocds_party_geo_map.json`). Harvests `parties[].address.locality`+NUTS from the OCDS обявления file by EIK across ALL parties → settlement. **High confidence; the biggest reachable lever — recovered ~1,232 buyers.** 2026+ only.
+- **Tier D — tenders oblast** (`build_tender_oblast_map.ts` → `derived/buyer_oblast_map.json`). `executionPlaceNuts` modal oblast per buyer; not a settlement on its own — used to **disambiguate** the Tier-A name parse (`name+oblast`).
+- **Tier A — name-suffix parse** ("- гр.X" / "- с.X" in the awarder name → resolver). Fully local; unique-match only.
+
+Reachable tiers (A+D+E) resolve ~1,490 of the 3,533 no-geo buyers → `by_settlement` local-tier pinned 712 → 1,836. Tier B (МОН) adds the schools on top once reachable. The storage.eop.bg crawls cache to `raw_data/procurement/eop_ocds/` + `eop_tenders/`.
 
 ## Step 2 — Verify
 
@@ -321,11 +327,13 @@ The `crossReference` field on `data/procurement/index.json` is the at-a-glance s
 | `scripts/procurement/types.ts` | Shared Contract / rollup type definitions |
 | `scripts/procurement/ingest_eop.ts` | ЦАИС ЕОП flat-`договори` gap-fill CLI (incremental default + `--backfill` one-off) |
 | `scripts/procurement/normalize_eop.ts` | Flat `договори` record → `Contract[]` mapper (splits multi-supplier consortia) |
-| `scripts/procurement/awarder_geo_map.ts` | EKATTE override builder for address-less buyers (Tier A name-parse + Tier B МОН register) |
+| `scripts/procurement/awarder_geo_map.ts` | EKATTE override builder for address-less buyers — combines Tier B (МОН) + E (OCDS party-geo) + D (tenders oblast) + A (name-parse) |
+| `scripts/procurement/build_ocds_party_geo.ts` | Tier E — harvests OCDS обявления party addresses (storage.eop.bg, 2026+) → `derived/ocds_party_geo_map.json` (eik→locality+NUTS) |
+| `scripts/procurement/build_tender_oblast_map.ts` | Tier D — harvests поръчки `executionPlaceNuts` → `derived/buyer_oblast_map.json` (eik→modal oblast) |
 | `data/procurement/awarder_geo_overrides.json` | `eik → {ekatte,source,confidence}` fill-missing geo map consumed by `buildRollups` |
 | `scripts/watch/sources/egov_procurement.ts` | Watcher source — fingerprints page 1 of АОП's data.egov.bg listing |
-| `scripts/watch/sources/eop_procurement.ts` | Watcher source — fingerprints the latest storage.eop.bg publication day (HEAD-probes recent days) |
-| `raw_data/procurement/eop/<YYYY-MM-DD>.json.gz` | Local cache of fetched flat `договори` days — gitignored |
+| `scripts/watch/sources/eop_procurement.ts` | Watcher source — fingerprints the latest storage.eop.bg publication day; freshness proxy for ALL three EOP files (договори + поръчки + OCDS) |
+| `raw_data/procurement/eop/<YYYY-MM-DD>.json.gz` | Cache of flat `договори` days — gitignored (siblings: `eop_tenders/`, `eop_ocds/`) |
 | `data/procurement/index.json` | Year/month/totals summary + crossReference summary — committed |
 | `data/procurement/bundles.json` | Known fortnight bundles + their periods — committed |
 | `data/procurement/contracts/<YYYY>/<YYYY-MM>.json` | One file per month, Contract[] — committed |

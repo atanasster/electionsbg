@@ -3,10 +3,10 @@
   "name": "Мадан",
   "province": "Смолян",
   "obshtina": "Мадан",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 257,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 295,
   "awardCount": 0,
-  "totalEur": 41534837.83395661,
+  "totalEur": 43260848.48914688,
   "totalOther": {},
   "awarders": [
     {
@@ -19,12 +19,30 @@
       "awardCount": 0
     },
     {
+      "eik": "120505630",
+      "name": "Многопрофилна болница за активно лечение \"Проф. Д-Р Константин Чилов\" ЕООД",
+      "tier": "hospital",
+      "totalEur": 1475752.8951902771,
+      "totalOther": {},
+      "contractCount": 29,
+      "awardCount": 0
+    },
+    {
       "eik": "000608383",
       "name": "Средно училище \"Отец Паисий\"",
       "tier": "school",
       "totalEur": 312980.31186371006,
       "totalOther": {},
       "contractCount": 23,
+      "awardCount": 0
+    },
+    {
+      "eik": "000608465",
+      "name": "Професионална гимназия \"Васил Димитров\"",
+      "tier": "school",
+      "totalEur": 250257.75999999995,
+      "totalOther": {},
+      "contractCount": 9,
       "awardCount": 0
     }
   ],
@@ -633,9 +651,9 @@
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 372653.14470071526,
+      "totalEur": 459572.7645040724,
       "totalOther": {},
-      "contractCount": 3
+      "contractCount": 5
     },
     {
       "year": "2012",
@@ -645,45 +663,45 @@
     },
     {
       "year": "2013",
-      "totalEur": 5478629.942275146,
+      "totalEur": 5591114.156138314,
       "totalOther": {},
-      "contractCount": 9
+      "contractCount": 11
     },
     {
       "year": "2014",
-      "totalEur": 7006680.5857359795,
-      "totalOther": {},
-      "contractCount": 15
-    },
-    {
-      "year": "2015",
-      "totalEur": 531449.164804712,
-      "totalOther": {},
-      "contractCount": 5
-    },
-    {
-      "year": "2016",
-      "totalEur": 8528552.369070932,
-      "totalOther": {},
-      "contractCount": 52
-    },
-    {
-      "year": "2017",
-      "totalEur": 1290625.146357301,
+      "totalEur": 7119164.799599147,
       "totalOther": {},
       "contractCount": 17
     },
     {
-      "year": "2019",
-      "totalEur": 7297242.694917249,
+      "year": "2015",
+      "totalEur": 654159.2162918044,
       "totalOther": {},
-      "contractCount": 52
+      "contractCount": 7
+    },
+    {
+      "year": "2016",
+      "totalEur": 8752498.213034876,
+      "totalOther": {},
+      "contractCount": 55
+    },
+    {
+      "year": "2017",
+      "totalEur": 1433786.873092242,
+      "totalOther": {},
+      "contractCount": 19
+    },
+    {
+      "year": "2019",
+      "totalEur": 7481307.772147887,
+      "totalOther": {},
+      "contractCount": 54
     },
     {
       "year": "2020",
-      "totalEur": 47144.69048945972,
+      "totalEur": 105943.25682702484,
       "totalOther": {},
-      "contractCount": 9
+      "contractCount": 11
     },
     {
       "year": "2021",
@@ -693,21 +711,21 @@
     },
     {
       "year": "2022",
-      "totalEur": 3145646.7535522007,
+      "totalEur": 3321416.7335606883,
       "totalOther": {},
-      "contractCount": 45
+      "contractCount": 50
     },
     {
       "year": "2023",
-      "totalEur": 1259990.5922293854,
+      "totalEur": 1480904.1941273008,
       "totalOther": {},
-      "contractCount": 20
+      "contractCount": 26
     },
     {
       "year": "2026",
-      "totalEur": 3722428.7800000003,
+      "totalEur": 4007186.5400000005,
       "totalOther": {},
-      "contractCount": 20
+      "contractCount": 30
     }
   ]
 }

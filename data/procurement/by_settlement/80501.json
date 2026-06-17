@@ -3,10 +3,10 @@
   "name": "Червен бряг",
   "province": "Плевен",
   "obshtina": "Червен бряг",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 173,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 327,
   "awardCount": 0,
-  "totalEur": 47642443.203291655,
+  "totalEur": 51101800.040788874,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,69 @@
       "totalEur": 47642443.203291655,
       "totalOther": {},
       "contractCount": 173,
+      "awardCount": 0
+    },
+    {
+      "eik": "000410056",
+      "name": "Многопрофилна болница за активно лечение - Червен бряг ЕООД",
+      "tier": "hospital",
+      "totalEur": 2296213.944974767,
+      "totalOther": {},
+      "contractCount": 134,
+      "awardCount": 0
+    },
+    {
+      "eik": "000402141",
+      "name": "Средно училище \"Д-Р петър берон\"",
+      "tier": "school",
+      "totalEur": 747644.01780937,
+      "totalOther": {},
+      "contractCount": 11,
+      "awardCount": 0
+    },
+    {
+      "eik": "000400966",
+      "name": "Детска Градина \"Бодра смяна\"",
+      "tier": "school",
+      "totalEur": 184579.0104486586,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0
+    },
+    {
+      "eik": "824103874",
+      "name": "Детска Градина \"Зора\"",
+      "tier": "school",
+      "totalEur": 92139.65426442993,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    },
+    {
+      "eik": "000402159",
+      "name": "Основно училище \"Христо Смирненски\"",
+      "tier": "school",
+      "totalEur": 54473.55,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    },
+    {
+      "eik": "824106525",
+      "name": "Професионална гимназия по хранителни технологии \"Юрий Гагарин\"",
+      "tier": "school",
+      "totalEur": 44696.369999999995,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    },
+    {
+      "eik": "000403396",
+      "name": "Търговска гимназия \"Васил Евстатиев Априлов\"",
+      "tier": "school",
+      "totalEur": 39610.29,
+      "totalOther": {},
+      "contractCount": 1,
       "awardCount": 0
     }
   ],
@@ -441,6 +504,30 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
+      "key": "19edf2556fcc",
+      "ocid": "ocds-e82gsb-384402",
+      "date": "2026-03-02",
+      "amount": 242703.09,
+      "currency": "EUR",
+      "amountEur": 242703.09,
+      "partyEik": "117613724",
+      "partyName": "ВЕГАК-ЕООД ЕООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-384402-818309%2F2026-03-02-award"
+    },
+    {
+      "key": "d5a43bd810dd",
+      "ocid": "ocds-e82gsb-384402",
+      "date": "2026-03-02",
+      "amount": 242703.09,
+      "currency": "EUR",
+      "amountEur": 242703.09,
+      "partyEik": "117613724",
+      "partyName": "ВЕГАК-ЕООД ЕООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-384402-818336%2F2026-03-02-contractamendment"
+    },
+    {
       "key": "759a184b11ed",
       "ocid": "aop-legacy-2017-820040",
       "date": "2017-12-15",
@@ -561,6 +648,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
     },
     {
+      "key": "3fcf2dba2be0",
+      "ocid": "aop-legacy-2011-2015-468183",
+      "date": "2012-02-10",
+      "amount": 369778.6,
+      "currency": "BGN",
+      "amountEur": 189064.796020104,
+      "partyEik": "103267194",
+      "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
       "key": "1e2121402c7c",
       "ocid": "aop-legacy-2017-x",
       "date": "2017-08-03",
@@ -583,80 +682,44 @@
       "partyName": "Атлас - Балкан ООД - София",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "da2038f246ec",
-      "ocid": "aop-legacy-2011-2015-555006",
-      "date": "2013-08-12",
-      "amount": 313850,
-      "currency": "BGN",
-      "amountEur": 160468.95691343318,
-      "partyEik": "831553680",
-      "partyName": "Дегри Консултинг ЕООД - София",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "eaca8fb53b44",
-      "ocid": "aop-legacy-2011-2015-461051",
-      "date": "2011-12-20",
-      "amount": 310111.2,
-      "currency": "BGN",
-      "amountEur": 158557.33882801677,
-      "partyEik": "102692534",
-      "partyName": "Елфрида АД - Бургас",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "fe297d0b3ff0",
-      "ocid": "aop-legacy-2022-282499",
-      "date": "2022-10-06",
-      "amount": 309613.23,
-      "currency": "BGN",
-      "amountEur": 158302.73080993746,
-      "partyEik": "114688636",
-      "partyName": "Пътно поддържане ЕООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 158557.33882801677,
+      "totalEur": 530593.5587448808,
       "totalOther": {},
-      "contractCount": 1
+      "contractCount": 23
     },
     {
       "year": "2012",
-      "totalEur": 1599593.3133247776,
+      "totalEur": 1987478.0527959997,
       "totalOther": {},
-      "contractCount": 10
+      "contractCount": 28
     },
     {
       "year": "2013",
-      "totalEur": 10051264.41970928,
+      "totalEur": 10312240.654862642,
       "totalOther": {},
-      "contractCount": 6
+      "contractCount": 23
     },
     {
       "year": "2014",
-      "totalEur": 414012.45507022593,
+      "totalEur": 762924.952577678,
       "totalOther": {},
-      "contractCount": 6
+      "contractCount": 25
     },
     {
       "year": "2015",
-      "totalEur": 2180772.03540185,
+      "totalEur": 2472499.7571363566,
       "totalOther": {},
-      "contractCount": 8
+      "contractCount": 21
     },
     {
       "year": "2016",
-      "totalEur": 1453777.9663876714,
+      "totalEur": 1598099.6047713754,
       "totalOther": {},
-      "contractCount": 22
+      "contractCount": 37
     },
     {
       "year": "2017",
@@ -666,33 +729,39 @@
     },
     {
       "year": "2019",
-      "totalEur": 10902517.059253614,
+      "totalEur": 11286247.910094434,
       "totalOther": {},
-      "contractCount": 14
+      "contractCount": 36
     },
     {
       "year": "2020",
-      "totalEur": 250574.64094527645,
+      "totalEur": 286109.42668841366,
       "totalOther": {},
-      "contractCount": 5
+      "contractCount": 6
     },
     {
       "year": "2022",
-      "totalEur": 3120845.2779638316,
+      "totalEur": 3138780.5790891848,
       "totalOther": {},
-      "contractCount": 25
+      "contractCount": 27
     },
     {
       "year": "2023",
-      "totalEur": 2473017.542424444,
+      "totalEur": 2717224.3957808195,
       "totalOther": {},
-      "contractCount": 21
+      "contractCount": 36
+    },
+    {
+      "year": "2024",
+      "totalEur": 92139.65426442993,
+      "totalOther": {},
+      "contractCount": 1
     },
     {
       "year": "2026",
-      "totalEur": 10292289.33,
+      "totalEur": 11172239.67,
       "totalOther": {},
-      "contractCount": 27
+      "contractCount": 36
     }
   ]
 }

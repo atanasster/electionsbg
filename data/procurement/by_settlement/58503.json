@@ -3,10 +3,10 @@
   "name": "Провадия",
   "province": "Варна",
   "obshtina": "Провадия",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 475,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 517,
   "awardCount": 0,
-  "totalEur": 38122126.86443401,
+  "totalEur": 39294818.18263022,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,42 @@
       "totalEur": 38122126.86443401,
       "totalOther": {},
       "contractCount": 475,
+      "awardCount": 0
+    },
+    {
+      "eik": "000090033",
+      "name": "Многопрофилна болница за активно лечение царица йоанна провадия ЕООД",
+      "tier": "hospital",
+      "totalEur": 681051.7785288087,
+      "totalOther": {},
+      "contractCount": 12,
+      "awardCount": 0
+    },
+    {
+      "eik": "000087578",
+      "name": "Професионална гимназия по селско стопанство \"Земя\"",
+      "tier": "school",
+      "totalEur": 422860.189343808,
+      "totalOther": {},
+      "contractCount": 21,
+      "awardCount": 0
+    },
+    {
+      "eik": "103098602",
+      "name": "Професионална гимназия по хотелиерство, Ресторантьорство и туризъм \"Цар симеон велики\"",
+      "tier": "school",
+      "totalEur": 54741.98,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    },
+    {
+      "eik": "000082232",
+      "name": "Второ основно училище \"Иван Вазов\" гр. Провадия",
+      "tier": "school",
+      "totalEur": 14037.370323596631,
+      "totalOther": {},
+      "contractCount": 8,
       "awardCount": 0
     }
   ],
@@ -597,6 +633,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "6ba7a614b272",
+      "ocid": "aop-legacy-2023-437016",
+      "date": "2023-10-20",
+      "amount": 300000,
+      "currency": "BGN",
+      "amountEur": 153387.56435886555,
+      "partyEik": "103267194",
+      "partyName": "Софарма трейдинг АД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
       "key": "53f8e2485716",
       "ocid": "aop-legacy-2011-2015-461012",
       "date": "2011-12-20",
@@ -607,26 +655,14 @@
       "partyName": "ДЗЗД Консорциум Хил Консулт - Бск",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "1dad4a80e477",
-      "ocid": "ocds-e82gsb-531845",
-      "date": "2026-01-29",
-      "amount": 147138.04,
-      "currency": "EUR",
-      "amountEur": 147138.04,
-      "partyEik": "130696746",
-      "partyName": "БИ Ем ЛИЗИНГ-ТРЕЙД АД",
-      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
-      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-531845-803083%2F2026-01-29-award"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 2021259.8998890498,
+      "totalEur": 2117103.9712040415,
       "totalOther": {},
-      "contractCount": 5
+      "contractCount": 15
     },
     {
       "year": "2012",
@@ -636,63 +672,63 @@
     },
     {
       "year": "2013",
-      "totalEur": 482446.15840845066,
+      "totalEur": 551585.6030432093,
       "totalOther": {},
-      "contractCount": 16
+      "contractCount": 19
     },
     {
       "year": "2014",
-      "totalEur": 2748174.130675979,
+      "totalEur": 2861376.2852599663,
       "totalOther": {},
-      "contractCount": 14
+      "contractCount": 17
     },
     {
       "year": "2015",
-      "totalEur": 632184.6632887317,
+      "totalEur": 704270.171742943,
       "totalOther": {},
-      "contractCount": 18
+      "contractCount": 20
     },
     {
       "year": "2016",
-      "totalEur": 2210791.7201392753,
+      "totalEur": 2333501.7716263677,
       "totalOther": {},
-      "contractCount": 57
+      "contractCount": 59
     },
     {
       "year": "2017",
-      "totalEur": 5684488.483150375,
+      "totalEur": 5785001.135067975,
       "totalOther": {},
-      "contractCount": 106
+      "contractCount": 111
     },
     {
       "year": "2019",
-      "totalEur": 2139246.4426867366,
+      "totalEur": 2354930.832434312,
       "totalOther": {},
-      "contractCount": 51
+      "contractCount": 56
     },
     {
       "year": "2020",
-      "totalEur": 578280.448709755,
+      "totalEur": 613524.4934375688,
       "totalOther": {},
-      "contractCount": 4
+      "contractCount": 6
     },
     {
       "year": "2022",
-      "totalEur": 2779915.437435769,
+      "totalEur": 2779938.956862304,
       "totalOther": {},
-      "contractCount": 103
+      "contractCount": 105
     },
     {
       "year": "2023",
-      "totalEur": 4077609.086679313,
+      "totalEur": 4358132.37858096,
       "totalOther": {},
-      "contractCount": 64
+      "contractCount": 70
     },
     {
       "year": "2026",
-      "totalEur": 12563270.2,
+      "totalEur": 12630992.39,
       "totalOther": {},
-      "contractCount": 24
+      "contractCount": 26
     }
   ]
 }

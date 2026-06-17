@@ -3,10 +3,10 @@
   "name": "Кубрат",
   "province": "Разград",
   "obshtina": "Кубрат",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 263,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 280,
   "awardCount": 0,
-  "totalEur": 55097796.22073079,
+  "totalEur": 56018942.72833253,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 55069395.955881596,
       "totalOther": {},
       "contractCount": 256,
+      "awardCount": 0
+    },
+    {
+      "eik": "000498437",
+      "name": "Средно училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 921146.5076017344,
+      "totalOther": {},
+      "contractCount": 17,
       "awardCount": 0
     },
     {
@@ -342,6 +351,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "cd3e4e819816",
+      "ocid": "ocds-e82gsb-524509",
+      "date": "2026-04-30",
+      "amount": 423176.54,
+      "currency": "EUR",
+      "amountEur": 423176.54,
+      "partyEik": "205770804",
+      "partyName": "Инженеринг смр груп ЕООД",
+      "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
+      "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-524509-850731%2F2026-04-30-contractamendment"
+    },
+    {
       "key": "e30f28b1f227",
       "ocid": "aop-legacy-2023-382873",
       "date": "2023-06-16",
@@ -616,18 +637,6 @@
       "partyName": "Кооперация Потребителна кооперация \"Наркооп",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "815726f3d871",
-      "ocid": "aop-legacy-2022-306763",
-      "date": "2022-12-09",
-      "amount": 484170.83,
-      "currency": "BGN",
-      "amountEur": 247552.6144910345,
-      "partyEik": "000492377",
-      "partyName": "Кооперация Потребителна кооперация \"Наркооп",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
@@ -639,9 +648,9 @@
     },
     {
       "year": "2012",
-      "totalEur": 60804.00137026224,
+      "totalEur": 235876.988286303,
       "totalOther": {},
-      "contractCount": 3
+      "contractCount": 4
     },
     {
       "year": "2013",
@@ -651,15 +660,15 @@
     },
     {
       "year": "2014",
-      "totalEur": 2729607.7419816647,
+      "totalEur": 2745567.4930847767,
       "totalOther": {},
-      "contractCount": 17
+      "contractCount": 23
     },
     {
       "year": "2015",
-      "totalEur": 3370558.039297894,
+      "totalEur": 3377623.6124816574,
       "totalOther": {},
-      "contractCount": 10
+      "contractCount": 13
     },
     {
       "year": "2016",
@@ -669,9 +678,9 @@
     },
     {
       "year": "2017",
-      "totalEur": 619273.975754539,
+      "totalEur": 793113.2153612534,
       "totalOther": {},
-      "contractCount": 4
+      "contractCount": 6
     },
     {
       "year": "2019",
@@ -686,6 +695,12 @@
       "contractCount": 12
     },
     {
+      "year": "2021",
+      "totalEur": 76693.78217943278,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
       "year": "2022",
       "totalEur": 3579195.262369429,
       "totalOther": {},
@@ -693,15 +708,15 @@
     },
     {
       "year": "2023",
-      "totalEur": 1331049.40613448,
+      "totalEur": 1339895.8907471506,
       "totalOther": {},
-      "contractCount": 56
+      "contractCount": 58
     },
     {
       "year": "2026",
-      "totalEur": 16597709.930000003,
+      "totalEur": 17061378.620000005,
       "totalOther": {},
-      "contractCount": 45
+      "contractCount": 47
     }
   ]
 }

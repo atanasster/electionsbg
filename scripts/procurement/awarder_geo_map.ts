@@ -31,6 +31,20 @@ const __dirname = path.dirname(__filename);
 const PROCUREMENT_DIR = path.resolve(__dirname, "../../data/procurement");
 const AWARDERS_DIR = path.join(PROCUREMENT_DIR, "awarders");
 const OUT_FILE = path.join(PROCUREMENT_DIR, "awarder_geo_overrides.json");
+// Tier D — buyer-EIK → modal oblast (NUTS3) from the tenders feed, built by
+// build_tender_oblast_map.ts. Optional: present only after that crawl has run.
+const OBLAST_MAP_FILE = path.join(
+  PROCUREMENT_DIR,
+  "derived",
+  "buyer_oblast_map.json",
+);
+// Tier E — EIK → {locality, nuts} from the OCDS обявления party addresses, built
+// by build_ocds_party_geo.ts. Optional.
+const OCDS_PARTY_MAP_FILE = path.join(
+  PROCUREMENT_DIR,
+  "derived",
+  "ocds_party_geo_map.json",
+);
 
 // МОН "Регистър на училищата, детските градини и обслужващите звена" — open data.
 const MON_SCHOOL_RESOURCE = "cac4d569-529c-4209-b797-1cf5f69901f5";
@@ -158,11 +172,33 @@ const main = async (): Promise<void> => {
   const resolver = getResolver();
   const monMap = await fetchMonSchoolMap();
 
+  // Tier D — optional buyer→oblast map (disambiguates the Tier-A name parse).
+  const oblastMap: Record<string, { nuts: string }> = fs.existsSync(
+    OBLAST_MAP_FILE,
+  )
+    ? (JSON.parse(fs.readFileSync(OBLAST_MAP_FILE, "utf8")).awarders ?? {})
+    : {};
+  if (Object.keys(oblastMap).length)
+    console.log(
+      `  Tier D: ${Object.keys(oblastMap).length} buyer→oblast hint(s) loaded (tenders feed)`,
+    );
+
+  // Tier E — optional EIK → {locality, nuts} from OCDS party addresses.
+  const ocdsMap: Record<string, { locality: string; nuts: string }> =
+    fs.existsSync(OCDS_PARTY_MAP_FILE)
+      ? (JSON.parse(fs.readFileSync(OCDS_PARTY_MAP_FILE, "utf8")).awarders ??
+        {})
+      : {};
+  if (Object.keys(ocdsMap).length)
+    console.log(
+      `  Tier E: ${Object.keys(ocdsMap).length} EIK→locality address(es) loaded (OCDS parties)`,
+    );
+
   const awarders: Record<
     string,
     { ekatte: string; source: string; confidence: string }
   > = {};
-  const counts = { mon: 0, name: 0, unresolved: 0 };
+  const counts = { mon: 0, ocds: 0, name: 0, nameOblast: 0, unresolved: 0 };
 
   for (const a of candidates) {
     // Tier B — МОН register (higher confidence), then Tier A — name parse.
@@ -182,23 +218,56 @@ const main = async (): Promise<void> => {
         continue;
       }
     }
-    const settlement = parseSettlement(a.name);
-    if (settlement) {
-      const res = resolver.resolve({ locality: settlement });
+    // Tier E — OCDS party address (locality + NUTS). A real declared address, so
+    // high quality; resolved to EKATTE via the shared resolver.
+    const ocds = ocdsMap[a.eik];
+    if (ocds && ocds.locality) {
+      const res = resolver.resolve({
+        locality: ocds.locality,
+        region: ocds.nuts || undefined,
+      });
       if (res.ekatte && res.confidence !== "unresolved") {
         awarders[a.eik] = {
           ekatte: res.ekatte,
-          source: "name",
+          source: "ocds",
           confidence: res.confidence,
         };
-        counts.name++;
+        counts.ocds++;
+        continue;
+      }
+    }
+    const settlement = parseSettlement(a.name);
+    if (settlement) {
+      // Tier D disambiguation: feed the buyer's modal oblast (from the tenders
+      // feed) as the resolver's `region` hint. For a settlement name that's
+      // unique it's a no-op; for one that exists in several oblasti it picks the
+      // EKATTE in the buyer's oblast and the resolver returns a higher
+      // confidence. Re-resolve without the hint when the hint yields nothing
+      // (e.g. a wrong/edge oblast) so the bare-name path still applies.
+      const oblastNuts = oblastMap[a.eik]?.nuts;
+      const hinted = oblastNuts
+        ? resolver.resolve({ locality: settlement, region: oblastNuts })
+        : undefined;
+      const res =
+        hinted && hinted.ekatte && hinted.confidence !== "unresolved"
+          ? hinted
+          : resolver.resolve({ locality: settlement });
+      if (res.ekatte && res.confidence !== "unresolved") {
+        const oblastConfirmed = !!(hinted && hinted.ekatte === res.ekatte);
+        awarders[a.eik] = {
+          ekatte: res.ekatte,
+          source: oblastConfirmed ? "name+oblast" : "name",
+          confidence: res.confidence,
+        };
+        if (oblastConfirmed) counts.nameOblast++;
+        else counts.name++;
         continue;
       }
     }
     counts.unresolved++;
   }
 
-  const resolved = counts.mon + counts.name;
+  const resolved = counts.mon + counts.ocds + counts.name + counts.nameOblast;
   fs.writeFileSync(
     OUT_FILE,
     canonicalJson({
@@ -211,7 +280,7 @@ const main = async (): Promise<void> => {
   console.log(
     `✓ wrote ${OUT_FILE}\n` +
       `  resolved ${resolved}/${candidates.length} ` +
-      `(МОН ${counts.mon}, name ${counts.name}); ${counts.unresolved} unresolved`,
+      `(МОН ${counts.mon}, OCDS ${counts.ocds}, name ${counts.name}, name+oblast ${counts.nameOblast}); ${counts.unresolved} unresolved`,
   );
   console.log(`→ now rebuild: npm run procurement:ingest (applies overrides)`);
 };

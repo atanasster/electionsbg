@@ -3,10 +3,10 @@
   "name": "Садово",
   "province": "Пловдив",
   "obshtina": "Садово",
-  "generatedAt": "2026-06-17T05:44:53.152Z",
-  "contractCount": 112,
+  "generatedAt": "2026-06-17T16:16:39.935Z",
+  "contractCount": 114,
   "awardCount": 0,
-  "totalEur": 21888918.4231241,
+  "totalEur": 22267227.5331241,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 21888918.4231241,
       "totalOther": {},
       "contractCount": 112,
+      "awardCount": 0
+    },
+    {
+      "eik": "115567655",
+      "name": "Професионална Селскостопанска гимназия \"Димитър Наумов\" - гр. Садово",
+      "tier": "school",
+      "totalEur": 378309.11,
+      "totalOther": {},
+      "contractCount": 2,
       "awardCount": 0
     }
   ],
@@ -211,6 +220,18 @@
       "partyName": "Пътинженеринг ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "536fdce6c8bd",
+      "ocid": "ocds-e82gsb-500110",
+      "date": "2026-01-28",
+      "amount": 311698.11,
+      "currency": "EUR",
+      "amountEur": 311698.11,
+      "partyEik": "127588059",
+      "partyName": "Гарант строй ООД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-500110-803216%2F2026-01-28-contractamendment"
     },
     {
       "key": "20d3fa113195",
@@ -607,18 +628,6 @@
       "partyName": "Интерстейт ЕООД - Пловдив",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "f0ac927099a9",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-06-14",
-      "amount": 167015.92,
-      "currency": "BGN",
-      "amountEur": 85393.88392651714,
-      "partyEik": "203293654",
-      "partyName": "Интерстейт ЕООД - Пловдив",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     }
   ],
   "byYear": [
@@ -684,9 +693,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 2126380.36,
+      "totalEur": 2504689.4699999997,
       "totalOther": {},
-      "contractCount": 11
+      "contractCount": 13
     }
   ]
 }
