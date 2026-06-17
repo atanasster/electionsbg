@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-05-28T23:03:31.595Z",
+  "fetchedAt": "2026-06-17T07:49:31.940Z",
   "source": {
     "name": "Eurostat",
     "dataset": "gov_10a_main",
@@ -4857,7 +4857,7 @@
             "year": 2026,
             "quarter": 1,
             "period": "2026-Q1",
-            "value": 2.9
+            "value": 3.1
           }
         ],
         "EU27_2020": [
@@ -4973,7 +4973,7 @@
             "year": 2009,
             "quarter": 3,
             "period": "2009-Q3",
-            "value": -4.3
+            "value": -4.2
           },
           {
             "year": 2009,
@@ -5003,7 +5003,7 @@
             "year": 2010,
             "quarter": 4,
             "period": "2010-Q4",
-            "value": 2.5
+            "value": 2.4
           },
           {
             "year": 2011,
@@ -5237,7 +5237,7 @@
             "year": 2020,
             "quarter": 3,
             "period": "2020-Q3",
-            "value": -3.9
+            "value": -4
           },
           {
             "year": 2020,
@@ -5273,7 +5273,7 @@
             "year": 2022,
             "quarter": 1,
             "period": "2022-Q1",
-            "value": 5.6
+            "value": 5.5
           },
           {
             "year": 2022,
@@ -5309,7 +5309,7 @@
             "year": 2023,
             "quarter": 3,
             "period": "2023-Q3",
-            "value": 0.1
+            "value": 0.2
           },
           {
             "year": 2023,
@@ -5321,25 +5321,25 @@
             "year": 2024,
             "quarter": 1,
             "period": "2024-Q1",
-            "value": 0.7
+            "value": 0.8
           },
           {
             "year": 2024,
             "quarter": 2,
             "period": "2024-Q2",
-            "value": 0.8
+            "value": 0.9
           },
           {
             "year": 2024,
             "quarter": 3,
             "period": "2024-Q3",
-            "value": 1.1
+            "value": 1.2
           },
           {
             "year": 2024,
             "quarter": 4,
             "period": "2024-Q4",
-            "value": 1.5
+            "value": 1.6
           },
           {
             "year": 2025,
@@ -5357,7 +5357,7 @@
             "year": 2025,
             "quarter": 3,
             "period": "2025-Q3",
-            "value": 1.7
+            "value": 1.6
           },
           {
             "year": 2025,
@@ -5369,7 +5369,7 @@
             "year": 2026,
             "quarter": 1,
             "period": "2026-Q1",
-            "value": 1
+            "value": 0.7
           }
         ],
         "RO": [
@@ -5827,7 +5827,7 @@
             "year": 2023,
             "quarter": 4,
             "period": "2023-Q4",
-            "value": 2.1
+            "value": 2.2
           },
           {
             "year": 2024,
@@ -5851,7 +5851,7 @@
             "year": 2024,
             "quarter": 4,
             "period": "2024-Q4",
-            "value": 0.7
+            "value": 0.8
           },
           {
             "year": 2025,
@@ -5875,13 +5875,13 @@
             "year": 2025,
             "quarter": 4,
             "period": "2025-Q4",
-            "value": -1.5
+            "value": -1.4
           },
           {
             "year": 2026,
             "quarter": 1,
             "period": "2026-Q1",
-            "value": -1.5
+            "value": -1.1
           }
         ],
         "GR": [
@@ -6369,7 +6369,7 @@
             "year": 2025,
             "quarter": 1,
             "period": "2025-Q1",
-            "value": 2.4
+            "value": 2.5
           },
           {
             "year": 2025,
@@ -6387,7 +6387,13 @@
             "year": 2025,
             "quarter": 4,
             "period": "2025-Q4",
-            "value": 2.4
+            "value": 2.3
+          },
+          {
+            "year": 2026,
+            "quarter": 1,
+            "period": "2026-Q1",
+            "value": 2
           }
         ],
         "HU": [
@@ -7419,10 +7425,10 @@
         "period": "2026-Q1",
         "year": 2026,
         "quarter": 1,
-        "bgValue": 2.9,
-        "euAverage": 1,
+        "bgValue": 3.1,
+        "euAverage": 0.7,
         "rank": 4,
-        "total": 22,
+        "total": 27,
         "direction": "higher"
       }
     },
@@ -7840,6 +7846,12 @@
             "quarter": 4,
             "period": "2025-Q4",
             "value": 3.2
+          },
+          {
+            "year": 2026,
+            "quarter": 1,
+            "period": "2026-Q1",
+            "value": 3.2
           }
         ],
         "EU27_2020": [
@@ -8207,7 +8219,7 @@
             "year": 2024,
             "quarter": 1,
             "period": "2024-Q1",
-            "value": 6.3
+            "value": 6.4
           },
           {
             "year": 2024,
@@ -8219,13 +8231,13 @@
             "year": 2024,
             "quarter": 3,
             "period": "2024-Q3",
-            "value": 5.8
+            "value": 5.9
           },
           {
             "year": 2024,
             "quarter": 4,
             "period": "2024-Q4",
-            "value": 5.7
+            "value": 5.8
           },
           {
             "year": 2025,
@@ -8250,6 +8262,12 @@
             "quarter": 4,
             "period": "2025-Q4",
             "value": 5.9
+          },
+          {
+            "year": 2026,
+            "quarter": 1,
+            "period": "2026-Q1",
+            "value": 6.2
           }
         ],
         "RO": [
@@ -8660,6 +8678,12 @@
             "quarter": 4,
             "period": "2025-Q4",
             "value": 6.3
+          },
+          {
+            "year": 2026,
+            "quarter": 1,
+            "period": "2026-Q1",
+            "value": 6.5
           }
         ],
         "GR": [
@@ -9070,6 +9094,12 @@
             "quarter": 4,
             "period": "2025-Q4",
             "value": 8.3
+          },
+          {
+            "year": 2026,
+            "quarter": 1,
+            "period": "2026-Q1",
+            "value": 10.7
           }
         ],
         "HU": [
@@ -9480,6 +9510,12 @@
             "quarter": 4,
             "period": "2025-Q4",
             "value": 4.4
+          },
+          {
+            "year": 2026,
+            "quarter": 1,
+            "period": "2026-Q1",
+            "value": 4.7
           }
         ],
         "HR": [
@@ -9890,15 +9926,21 @@
             "quarter": 4,
             "period": "2025-Q4",
             "value": 5
+          },
+          {
+            "year": 2026,
+            "quarter": 1,
+            "period": "2026-Q1",
+            "value": 5.5
           }
         ]
       },
       "latestDistribution": {
-        "period": "2025-Q4",
-        "year": 2025,
-        "quarter": 4,
+        "period": "2026-Q1",
+        "year": 2026,
+        "quarter": 1,
         "bgValue": 3.2,
-        "euAverage": 5.9,
+        "euAverage": 6.2,
         "rank": 2,
         "total": 27,
         "direction": "lower"
@@ -21170,6 +21212,12 @@
             "quarter": 4,
             "period": "2025-Q4",
             "value": 12.7
+          },
+          {
+            "year": 2026,
+            "quarter": 1,
+            "period": "2026-Q1",
+            "value": 11.1
           }
         ],
         "EU27_2020": [
@@ -21555,7 +21603,7 @@
             "year": 2024,
             "quarter": 4,
             "period": "2024-Q4",
-            "value": 14.4
+            "value": 14.5
           },
           {
             "year": 2025,
@@ -21580,6 +21628,12 @@
             "quarter": 4,
             "period": "2025-Q4",
             "value": 15
+          },
+          {
+            "year": 2026,
+            "quarter": 1,
+            "period": "2026-Q1",
+            "value": 15.5
           }
         ],
         "RO": [
@@ -21990,6 +22044,12 @@
             "quarter": 4,
             "period": "2025-Q4",
             "value": 29.4
+          },
+          {
+            "year": 2026,
+            "quarter": 1,
+            "period": "2026-Q1",
+            "value": 27.4
           }
         ],
         "GR": [
@@ -22400,6 +22460,12 @@
             "quarter": 4,
             "period": "2025-Q4",
             "value": 17.7
+          },
+          {
+            "year": 2026,
+            "quarter": 1,
+            "period": "2026-Q1",
+            "value": 25.5
           }
         ],
         "HU": [
@@ -22810,6 +22876,12 @@
             "quarter": 4,
             "period": "2025-Q4",
             "value": 13.8
+          },
+          {
+            "year": 2026,
+            "quarter": 1,
+            "period": "2026-Q1",
+            "value": 12.1
           }
         ],
         "HR": [
@@ -23220,16 +23292,22 @@
             "quarter": 4,
             "period": "2025-Q4",
             "value": 19.8
+          },
+          {
+            "year": 2026,
+            "quarter": 1,
+            "period": "2026-Q1",
+            "value": 16.6
           }
         ]
       },
       "latestDistribution": {
-        "period": "2025-Q4",
-        "year": 2025,
-        "quarter": 4,
-        "bgValue": 12.7,
-        "euAverage": 15,
-        "rank": 9,
+        "period": "2026-Q1",
+        "year": 2026,
+        "quarter": 1,
+        "bgValue": 11.1,
+        "euAverage": 15.5,
+        "rank": 7,
         "total": 27,
         "direction": "lower"
       }
@@ -24528,7 +24606,7 @@
           {
             "year": 2015,
             "period": "2015",
-            "value": 74.7
+            "value": 74.5
           },
           {
             "year": 2016,
@@ -24759,7 +24837,7 @@
           {
             "year": 2015,
             "period": "2015",
-            "value": 81.1
+            "value": 80.8
           },
           {
             "year": 2016,
@@ -24836,7 +24914,7 @@
           {
             "year": 2015,
             "period": "2015",
-            "value": 75.7
+            "value": 75.6
           },
           {
             "year": 2016,
@@ -24913,7 +24991,7 @@
           {
             "year": 2015,
             "period": "2015",
-            "value": 77.5
+            "value": 77.4
           },
           {
             "year": 2016,
@@ -25924,7 +26002,7 @@
     }
   },
   "wgi": {
-    "fetchedAt": "2026-05-28T23:03:31.594Z",
+    "fetchedAt": "2026-06-17T07:49:31.938Z",
     "latestYear": 2024,
     "source": {
       "name": "World Bank — Worldwide Governance Indicators",
