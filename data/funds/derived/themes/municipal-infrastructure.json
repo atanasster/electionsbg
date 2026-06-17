@@ -6,10 +6,10 @@
   "summaryEn": "Town squares, parks, swimming pools, sports venues and water-supply reconstructions, mostly via the Regions OP and the Recovery Plan.",
   "icon": "Building",
   "totals": {
-    "contractCount": 697,
-    "beneficiaryCount": 423,
-    "totalEur": 2008662250.37,
-    "paidEur": 775175441.98
+    "contractCount": 699,
+    "beneficiaryCount": 424,
+    "totalEur": 2033908929.75,
+    "paidEur": 778565460.56
   },
   "topBeneficiaries": [
     {
@@ -248,13 +248,18 @@
     },
     {
       "muni": "BGS04",
-      "contractCount": 10,
-      "totalEur": 57415404.52
+      "contractCount": 11,
+      "totalEur": 59456862.19
     },
     {
       "muni": "PER32",
       "contractCount": 7,
       "totalEur": 45659394.26
+    },
+    {
+      "muni": "SZR31",
+      "contractCount": 7,
+      "totalEur": 35923925.26
     },
     {
       "muni": "VID09",
@@ -310,11 +315,6 @@
       "muni": "LOV18",
       "contractCount": 6,
       "totalEur": 17963773.64
-    },
-    {
-      "muni": "RSE27",
-      "contractCount": 7,
-      "totalEur": 17495802.23
     }
   ],
   "programmes": [
@@ -323,7 +323,7 @@
       "programName": "Програма \"Околна среда\" 2021-2027",
       "contractCount": 41,
       "totalEur": 783876074.86,
-      "paidEur": 61968907.71
+      "paidEur": 62302628.03
     },
     {
       "programCode": "2014BG16M1OP002",
@@ -336,14 +336,14 @@
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "contractCount": 83,
-      "totalEur": 374783478.33,
-      "paidEur": 57088564.79
+      "totalEur": 374783478.34,
+      "paidEur": 60144863.05
     },
     {
       "programCode": "2021BG16FFPR003",
       "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "contractCount": 15,
-      "totalEur": 107134924.68,
+      "contractCount": 16,
+      "totalEur": 130340146.38,
       "paidEur": 15751630.57
     },
     {
@@ -399,7 +399,7 @@
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
       "contractCount": 23,
-      "totalEur": 7857575.38,
+      "totalEur": 7853882.42,
       "paidEur": 3111098.63
     },
     {
@@ -422,6 +422,13 @@
       "contractCount": 12,
       "totalEur": 2265833.67,
       "paidEur": 683163.88
+    },
+    {
+      "programCode": "2021BG14MFPR001",
+      "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
+      "contractCount": 1,
+      "totalEur": 2045150.63,
+      "paidEur": 0
     },
     {
       "programCode": "2021BG05SFPR001",
