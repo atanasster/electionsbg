@@ -1,6 +1,73 @@
 {
-  "updatedAt": "2026-06-15T06:50:03.810Z",
+  "updatedAt": "2026-06-17T15:22:26.434Z",
   "entries": [
+    {
+      "timestamp": "2026-06-17T15:22:26.434Z",
+      "date": "2026-06-17",
+      "skill": "update-rollcall",
+      "summary": "ingested plenary session 2026-06-17 (id 11139, 51 votes); loyalty/similarity/cohesion metrics refreshed",
+      "source": "Parliament roll-call votes (parliament.bg)",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-17T08:21:42.325Z",
+      "date": "2026-06-17",
+      "skill": "cik_local",
+      "summary": "new partial local election ingested: 2026-06-14 (14 município bundles incl. Sofia район Средец); round-2 runoff pending (~06-23)",
+      "source": "ЦИК local-elections results (chmi 2026-06-14)"
+    },
+    {
+      "timestamp": "2026-06-17T08:15:57.298Z",
+      "date": "2026-06-17",
+      "skill": "update-prices",
+      "summary": "retail prices through 2026-06-16 (166 days since euro, 244 settlements)",
+      "source": "КЗП kolkostruva.bg euro price monitoring"
+    },
+    {
+      "timestamp": "2026-06-17T08:12:03.318Z",
+      "date": "2026-06-17",
+      "skill": "update-rollcall",
+      "summary": "ingested 1 plenary session: 2026-06-12 (id 11138), 12 roll-call votes",
+      "source": "Parliament roll-call votes (parliament.bg)",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-17T08:06:11.157Z",
+      "date": "2026-06-17",
+      "skill": "update-grao",
+      "summary": "refresh settlement population through 2026-06-15 (5,105 settlements)",
+      "source": "ГРАО population by permanent & current address"
+    },
+    {
+      "timestamp": "2026-06-17T08:00:34.627Z",
+      "date": "2026-06-17",
+      "skill": "update-funds",
+      "summary": "ИСУН refresh: 53,040 beneficiaries · 81,536 contracts · €43.63B contracted · €17.08B paid; 104 MP pairs, 291 flagged EIKs",
+      "source": "ИСУН 2020 EU funds (beneficiaries + projects)"
+    },
+    {
+      "timestamp": "2026-06-17T07:50:29.119Z",
+      "date": "2026-06-17",
+      "skill": "update-macro",
+      "summary": "refresh through 2026 Q1: BG GDP/inflation/unemployment + fiscal reserve €5,856M, EU peer ranks re-snapshotted",
+      "source": "Eurostat macro (BG) + Minfin fiscal reserve",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
     {
       "timestamp": "2026-06-15T06:50:03.810Z",
       "date": "2026-06-15",
