@@ -3,29 +3,39 @@
   "ns": "52",
   "partyShort": "ПБ",
   "loyalty": {
-    "votesCast": 359,
-    "withParty": 343,
-    "loyaltyPct": 0.9554317548746518,
+    "votesCast": 420,
+    "withParty": 403,
+    "loyaltyPct": 0.9595238095238096,
     "windowFrom": "2026-04-30",
-    "windowTo": "2026-06-11",
-    "totalVoteItems": 414
+    "windowTo": "2026-06-17",
+    "totalVoteItems": 477
   },
   "attendance": {
-    "totalItems": 382,
-    "presentCount": 359,
-    "absentCount": 23,
-    "presentPct": 0.9397905759162304
+    "totalItems": 445,
+    "presentCount": 420,
+    "absentCount": 25,
+    "presentPct": 0.9438202247191011
   },
   "cohort": {
     "size": 266,
-    "votesCastMedian": 298,
-    "loyaltyPctMedian": 0.975256050031723,
-    "presentPctMedian": 0.718695652173913
+    "votesCastMedian": 336.5,
+    "loyaltyPctMedian": 0.9763977576477576,
+    "presentPctMedian": 0.709643605870021
   },
   "dissents": {
-    "totalCast": 359,
-    "dissentCount": 16,
+    "totalCast": 420,
+    "dissentCount": 17,
     "recent": [
+      {
+        "date": "2026-06-17",
+        "item": 34,
+        "slug": "34-zid-na-nakazatelno-protsesualniya-kodeks-vtoro-glasuvane-par",
+        "title": "ЗИД на Наказателно-процесуалния кодекс – второ гласуване - параграф 2 - предложение от Мария Тодорова и група н.п. т.4",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 119
+      },
       {
         "date": "2026-06-04",
         "item": 52,
@@ -192,205 +202,205 @@
     "topK": [
       {
         "mpId": 5325,
-        "score": 0.9536632477626296,
-        "overlap": 356
+        "score": 0.9593939530633941,
+        "overlap": 417
       },
       {
         "mpId": 5329,
-        "score": 0.950764669475532,
-        "overlap": 355
+        "score": 0.9567882787591043,
+        "overlap": 416
       },
       {
         "mpId": 5326,
-        "score": 0.9447029396272092,
-        "overlap": 356
+        "score": 0.9516454146483605,
+        "overlap": 417
       },
       {
         "mpId": 5328,
-        "score": 0.9443705120446069,
-        "overlap": 356
-      },
-      {
-        "mpId": 5323,
-        "score": 0.9324981511566817,
-        "overlap": 354
-      },
-      {
-        "mpId": 5200,
-        "score": 0.9241614900958057,
-        "overlap": 351
-      },
-      {
-        "mpId": 5331,
-        "score": 0.924118884277962,
-        "overlap": 334
+        "score": 0.948861518013679,
+        "overlap": 417
       },
       {
         "mpId": 5263,
-        "score": 0.9239721591575167,
-        "overlap": 357
+        "score": 0.933568954577733,
+        "overlap": 418
+      },
+      {
+        "mpId": 5323,
+        "score": 0.9332015537648388,
+        "overlap": 409
       },
       {
         "mpId": 5071,
-        "score": 0.9216603718694905,
-        "overlap": 352
-      },
-      {
-        "mpId": 5327,
-        "score": 0.9163741427455236,
-        "overlap": 358
-      },
-      {
-        "mpId": 5214,
-        "score": 0.9159711103147405,
-        "overlap": 350
-      },
-      {
-        "mpId": 5279,
-        "score": 0.9159711103147405,
-        "overlap": 346
-      },
-      {
-        "mpId": 5278,
-        "score": 0.9156044392615853,
-        "overlap": 349
+        "score": 0.9289809664430225,
+        "overlap": 411
       },
       {
         "mpId": 5084,
-        "score": 0.9150663144886033,
-        "overlap": 358
+        "score": 0.9258446387841722,
+        "overlap": 419
+      },
+      {
+        "mpId": 5200,
+        "score": 0.9257396165535,
+        "overlap": 406
+      },
+      {
+        "mpId": 5279,
+        "score": 0.9254621795585289,
+        "overlap": 406
       },
       {
         "mpId": 5271,
-        "score": 0.9147358149309491,
-        "overlap": 353
+        "score": 0.9243854343660561,
+        "overlap": 413
       },
       {
         "mpId": 5094,
-        "score": 0.91466956327064,
-        "overlap": 357
+        "score": 0.9241910965257686,
+        "overlap": 418
       },
       {
-        "mpId": 5114,
-        "score": 0.9142771257991676,
-        "overlap": 351
+        "mpId": 5327,
+        "score": 0.9239093619065829,
+        "overlap": 419
       },
       {
         "mpId": 5178,
-        "score": 0.9142771257991676,
-        "overlap": 353
-      },
-      {
-        "mpId": 5099,
-        "score": 0.9139947744997348,
-        "overlap": 350
+        "score": 0.9225370900512018,
+        "overlap": 412
       },
       {
         "mpId": 5213,
-        "score": 0.9131264795373656,
-        "overlap": 353
+        "score": 0.9216661556836286,
+        "overlap": 412
+      },
+      {
+        "mpId": 5214,
+        "score": 0.9213831706527924,
+        "overlap": 407
+      },
+      {
+        "mpId": 5331,
+        "score": 0.9210563010304336,
+        "overlap": 389
+      },
+      {
+        "mpId": 5179,
+        "score": 0.9201157328594664,
+        "overlap": 413
+      },
+      {
+        "mpId": 5210,
+        "score": 0.9200196531874523,
+        "overlap": 417
+      },
+      {
+        "mpId": 5239,
+        "score": 0.9196759457522224,
+        "overlap": 415
       }
     ],
     "bottomK": [
       {
         "mpId": 5194,
-        "score": -0.11679669115975957,
-        "overlap": 152
+        "score": -0.049936346250449515,
+        "overlap": 196
       },
       {
         "mpId": 5074,
-        "score": -0.11247557436337645,
-        "overlap": 222
+        "score": -0.01848789977771206,
+        "overlap": 283
       },
       {
         "mpId": 5171,
-        "score": -0.10417914096964734,
-        "overlap": 242
-      },
-      {
-        "mpId": 5334,
-        "score": -0.024470439211619816,
-        "overlap": 14
-      },
-      {
-        "mpId": 5247,
-        "score": -0.022442494648860528,
-        "overlap": 229
-      },
-      {
-        "mpId": 5125,
-        "score": -0.011169176290219258,
-        "overlap": 18
+        "score": -0.014887877297508014,
+        "overlap": 303
       },
       {
         "mpId": 5060,
-        "score": -0.0034332854126329264,
-        "overlap": 266
-      },
-      {
-        "mpId": 5273,
-        "score": 0.0031697034646559646,
-        "overlap": 314
-      },
-      {
-        "mpId": 5101,
-        "score": 0.009525105544707379,
-        "overlap": 313
+        "score": 0.012441875232071502,
+        "overlap": 277
       },
       {
         "mpId": 5258,
-        "score": 0.020279679024216866,
-        "overlap": 191
+        "score": 0.01491551218661246,
+        "overlap": 192
+      },
+      {
+        "mpId": 5101,
+        "score": 0.023069224666444794,
+        "overlap": 324
+      },
+      {
+        "mpId": 5247,
+        "score": 0.025172546404844197,
+        "overlap": 278
       },
       {
         "mpId": 4023,
-        "score": 0.029018371220030127,
+        "score": 0.026751614062740812,
         "overlap": 7
       },
       {
-        "mpId": 5234,
-        "score": 0.029018371220030134,
-        "overlap": 284
-      },
-      {
         "mpId": 5248,
-        "score": 0.04467670516087703,
+        "score": 0.0411868042143477,
         "overlap": 16
       },
       {
         "mpId": 4007,
-        "score": 0.04913782440376666,
+        "score": 0.04529944511237554,
         "overlap": 7
       },
       {
         "mpId": 4017,
-        "score": 0.04995007487521835,
+        "score": 0.04604824699962814,
         "overlap": 7
       },
       {
-        "mpId": 5185,
-        "score": 0.05123365311860569,
-        "overlap": 310
+        "mpId": 5125,
+        "score": 0.06146739314028043,
+        "overlap": 27
       },
       {
         "mpId": 5159,
-        "score": 0.07098971222738146,
+        "score": 0.06544438244077193,
         "overlap": 277
       },
       {
+        "mpId": 5185,
+        "score": 0.06984493756228845,
+        "overlap": 347
+      },
+      {
+        "mpId": 5273,
+        "score": 0.0701040406654991,
+        "overlap": 372
+      },
+      {
         "mpId": 5172,
-        "score": 0.07786446077317305,
+        "score": 0.07178211306255333,
         "overlap": 44
       },
       {
-        "mpId": 5148,
-        "score": 0.08612635352851461,
-        "overlap": 164
+        "mpId": 5234,
+        "score": 0.08394277053908834,
+        "overlap": 323
+      },
+      {
+        "mpId": 5184,
+        "score": 0.12306911681010686,
+        "overlap": 123
+      },
+      {
+        "mpId": 5223,
+        "score": 0.13115265079938276,
+        "overlap": 23
       },
       {
         "mpId": 5169,
-        "score": 0.0957765267461241,
-        "overlap": 31
+        "score": 0.14699040205269118,
+        "overlap": 41
       }
     ]
   }

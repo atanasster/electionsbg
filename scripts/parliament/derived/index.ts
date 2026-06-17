@@ -73,7 +73,9 @@ const groupByNs = (sessions: SessionFile[]): Map<string, SessionFile[]> => {
   return m;
 };
 
-const main = async (args: { upload: boolean }): Promise<void> => {
+export const rebuildDerived = async (args: {
+  upload: boolean;
+}): Promise<void> => {
   const rawSessions = readAllSessions();
   if (rawSessions.length === 0) {
     console.log("✓ no sessions yet; nothing to derive");
@@ -361,7 +363,12 @@ const cli = command({
       defaultValue: () => false,
     }),
   },
-  handler: (args) => main({ upload: !!args.upload }),
+  handler: (args) => rebuildDerived({ upload: !!args.upload }),
 });
 
-run(cli, process.argv.slice(2));
+// Only run the CLI when this module is the entry point. When the roll-call
+// ingest imports rebuildDerived() to refresh metrics in-process, the CLI must
+// stay dormant (otherwise cmd-ts would try to parse the ingest's argv).
+const invokedDirectly =
+  !!process.argv[1] && path.resolve(process.argv[1]) === __filename;
+if (invokedDirectly) run(cli, process.argv.slice(2));

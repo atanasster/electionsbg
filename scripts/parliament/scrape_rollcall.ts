@@ -62,6 +62,7 @@ import { uploadText, uploadTextTree } from "../lib/upload";
 import { slugify } from "../lib/slug";
 import { normalizeTitle } from "./derived/dedupe";
 import { classifyItemTitles, type VoteTopic } from "./derived/topics";
+import { rebuildDerived } from "./derived/index";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -743,6 +744,20 @@ const main = async (args: {
   };
   writeIndex(idx);
   console.log(`✓ wrote ${INDEX_FILE} (${sessions.length} session(s))`);
+
+  // The derived loyalty / similarity / cohesion / … metrics are a pure
+  // function of the session files on disk, so any newly-ingested or
+  // re-ingested session invalidates them. Rebuild in-process right after the
+  // index write (sub-second over a year of plenary days) so the metrics never
+  // lag the votes — there is no separate weekly recompute. The --upload tree
+  // push below then ships the refreshed derived/ files; in the orchestrator
+  // path the subsequent bucket sync does. Skipped when nothing was ingested.
+  if (ingested.length > 0) {
+    console.log(
+      `→ rebuilding derived metrics (${ingested.length} session(s) ingested)`,
+    );
+    await rebuildDerived({ upload: false });
+  }
 
   if (args.upload) {
     console.log(`→ uploading data/parliament/votes/ to bucket`);
