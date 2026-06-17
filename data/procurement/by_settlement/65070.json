@@ -1,0 +1,80 @@
+{
+  "ekatte": "65070",
+  "name": "Садовец",
+  "province": "Плевен",
+  "obshtina": "Долни Дъбник",
+  "generatedAt": "2026-06-17T05:44:53.152Z",
+  "contractCount": 3,
+  "awardCount": 0,
+  "totalEur": 75787.77296595307,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000402789",
+      "name": "Основно училище - Христо Ботев, с. Садовец, общ.Долни Дъбник",
+      "tier": "school",
+      "totalEur": 75787.77296595307,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "cf83c4b1d060",
+      "ocid": "aop-legacy-2011-2015-511942",
+      "date": "2012-12-04",
+      "amount": 56232,
+      "currency": "BGN",
+      "amountEur": 28750.96506342576,
+      "partyEik": "117679603",
+      "partyName": "Дмв ЕООД - Русе",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "b71fb562db1c",
+      "ocid": "aop-legacy-2011-2015-583735",
+      "date": "2014-02-03",
+      "amount": 50076,
+      "currency": "BGN",
+      "amountEur": 25603.452242781837,
+      "partyEik": "117679603",
+      "partyName": "Дмв ЕООД - Русе",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "9474e70f3272",
+      "ocid": "aop-legacy-2011-2015-688248",
+      "date": "2015-09-17",
+      "amount": 41920,
+      "currency": "BGN",
+      "amountEur": 21433.35565974548,
+      "partyEik": "117679603",
+      "partyName": "Дмв ЕООД - Русе",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2012",
+      "totalEur": 28750.96506342576,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2014",
+      "totalEur": 25603.452242781837,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2015",
+      "totalEur": 21433.35565974548,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

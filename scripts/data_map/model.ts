@@ -223,6 +223,23 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     tags: ["fiscal", "parliament", "indicators", "local"],
   },
   {
+    id: "eop",
+    label: { bg: "ЦАИС ЕОП", en: "CAIS EOP (e-procurement)" },
+    detail: {
+      bg: "пълна емисия отворени данни за поръчките",
+      en: "the full procurement open-data feed",
+    },
+    desc: {
+      bg: "Дневната емисия отворени данни на ЦАИС ЕОП (storage.eop.bg) — пълният списък с договори, който допълва OCDS емисията на АОП с ~900 малки възложители (предимно училища и детски градини), които тя пропуска.",
+      en: "ЦАИС ЕОП's daily open-data feed (storage.eop.bg) — the full contracts list that supplements АОП's OCDS export with ~900 small contracting authorities (mostly schools and kindergartens) the OCDS feed omits.",
+    },
+    url: "https://storage.eop.bg/",
+    origin: "state",
+    members: ["eop_procurement"],
+    skills: ["update-procurement"],
+    tags: ["fiscal"],
+  },
+  {
     id: "isun",
     label: { bg: "ИСУН 2020", en: "ISUN (EU funds register)" },
     detail: {
@@ -663,8 +680,8 @@ export const DATASETS: DatasetDef[] = [
       en: "contracts, contractors, awarders",
     },
     desc: {
-      bg: "Всички договори от АОП — по месеци, изпълнители и възложители, с локализация до населено място и кръстосани проверки срещу графа на връзките.",
-      en: "Every procurement contract — by month, contractor and awarder, localised to settlement level and cross-checked against the connections graph.",
+      bg: "Всички договори от АОП (OCDS емисията) плюс попълване от ЦАИС ЕОП за малките възложители, които АОП пропуска — по месеци, изпълнители и възложители, с локализация до населено място и кръстосани проверки срещу графа на връзките.",
+      en: "Every procurement contract from АОП (the OCDS feed) plus a ЦАИС ЕОП gap-fill for the small contracting authorities АОП omits — by month, contractor and awarder, localised to settlement level and cross-checked against the connections graph.",
     },
     path: "data/procurement/",
     tags: ["fiscal"],
@@ -1023,6 +1040,7 @@ export const EDGES: [string, string][] = [
   ["src:egov", "ds:budget"],
   ["src:egov", "ds:indicators"],
   ["src:egov", "ds:localgov"],
+  ["src:eop", "ds:procurement"],
   ["src:isun", "ds:funds"],
   ["src:dv", "ds:budget"],
   ["src:ministries", "ds:budget"],

@@ -1,0 +1,44 @@
+{
+  "ekatte": "27365",
+  "name": "Елховец",
+  "province": "Смолян",
+  "obshtina": "Рудозем",
+  "generatedAt": "2026-06-17T05:44:53.152Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 14490.011913100832,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000608102",
+      "name": "Основно училище \"Христо Ботев\" - с. Елховец",
+      "tier": "school",
+      "totalEur": 14490.011913100832,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "9df0b19bcce9",
+      "ocid": "aop-legacy-2011-2015-564039",
+      "date": "2013-10-10",
+      "amount": 28340,
+      "currency": "BGN",
+      "amountEur": 14490.011913100832,
+      "partyEik": "117679603",
+      "partyName": "Дмв ЕООД - Русе",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2013",
+      "totalEur": 14490.011913100832,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

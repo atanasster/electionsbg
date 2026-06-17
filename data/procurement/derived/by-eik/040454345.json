@@ -1,0 +1,46 @@
+{
+  "eik": "040454345",
+  "entries": [
+    {
+      "mpId": 2946,
+      "mpName": "Елена Стефанова Пешева",
+      "contractorEik": "040454345",
+      "contractorName": "Даикс ООД",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "stake",
+          "shareSize": "1",
+          "valueEur": 25.564594059810926,
+          "fiscalYear": 2021,
+          "declarationYear": 2021
+        }
+      ],
+      "totalEur": 129827.2344733438,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2025",
+          "contractCount": 1,
+          "totalEur": 129827.2344733438,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000455578",
+          "name": "Регионален Археологически музей - пловдив",
+          "contractCount": 1,
+          "totalEur": 129827.2344733438,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

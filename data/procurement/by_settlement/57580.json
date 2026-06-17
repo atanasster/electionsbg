@@ -1,0 +1,44 @@
+{
+  "ekatte": "57580",
+  "name": "Попинци",
+  "province": "Пазарджик",
+  "obshtina": "Панагюрище",
+  "generatedAt": "2026-06-17T05:44:53.152Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 33285.10146587382,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000342301",
+      "name": "Основно училище - Отец Паисий, с. Попинци, обш. Панагюрище",
+      "tier": "school",
+      "totalEur": 33285.10146587382,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "084077fbd106",
+      "ocid": "aop-legacy-2011-2015-505832",
+      "date": "2012-10-25",
+      "amount": 65100,
+      "currency": "BGN",
+      "amountEur": 33285.10146587382,
+      "partyEik": "176332369",
+      "partyName": "ДЗЗД Консорциум Корект Кетеринг -гр.Пловдив",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2012",
+      "totalEur": 33285.10146587382,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

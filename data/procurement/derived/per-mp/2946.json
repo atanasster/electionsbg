@@ -1,14 +1,14 @@
 {
   "mpId": 2946,
   "summary": {
-    "totalEur": 1243815.829604669,
+    "totalEur": 1373643.0640780127,
     "totalOther": {},
-    "contractCount": 73,
+    "contractCount": 74,
     "awardCount": 0
   },
   "scorecard": {
-    "value": 1243815.829604669,
-    "rank": 20,
+    "value": 1373643.0640780127,
+    "rank": 19,
     "cohortSize": 55,
     "cohortMedian": 505258.64
   },
@@ -209,6 +209,47 @@
           "name": "Териториално поделение държавно горско стопанство /Тпдгс/ - Казанлък към Държавно предприятие - Югоизточно държавно предприятие /дпюидп/ - Сливен",
           "contractCount": 2,
           "totalEur": 4172.1417505611425,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 2946,
+      "mpName": "Елена Стефанова Пешева",
+      "contractorEik": "040454345",
+      "contractorName": "Даикс ООД",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "stake",
+          "shareSize": "1",
+          "valueEur": 25.564594059810926,
+          "fiscalYear": 2021,
+          "declarationYear": 2021
+        }
+      ],
+      "totalEur": 129827.2344733438,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2025",
+          "contractCount": 1,
+          "totalEur": 129827.2344733438,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000455578",
+          "name": "Регионален Археологически музей - пловдив",
+          "contractCount": 1,
+          "totalEur": 129827.2344733438,
           "totalOther": {}
         }
       ]

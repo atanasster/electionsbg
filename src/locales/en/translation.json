@@ -1830,6 +1830,7 @@
   "procurement_section": "Public procurement",
   "procurement_aop_source": "Агенция за обществени поръчки (АОП) via data.egov.bg — fortnightly OCDS-standard contract bundles (since 2026) and annual CSV dumps for prior years (2011-2023)",
   "procurement_aop_debarred_source": "АОП \"Стопански субекти с нарушения\" register (www2.aop.bg) — debarred-suppliers list, refreshed when КЗК rulings become final. Drives the \"debarred\" red-flag chip on contract rows.",
+  "procurement_eop_source": "ЦАИС ЕОП open data (storage.eop.bg) — the e-procurement platform's own daily flat \"договори\" feed, used to gap-fill ~900 small contracting authorities (mostly schools and kindergartens) that АОП's OCDS export omits.",
   "eu_funds_section": "EU funds",
   "eu_funds_isun_source": "ИСУН 2020 public module (2020.eufunds.bg) — Beneficiary register. The EU-funds Management & Monitoring Information System lists every organisation that has signed an EU-funds contract (2014-2020, 2021-2027 and the Recovery Plan), with contracts signed, funds contracted and funds actually paid.",
   "eu_funds_isun_projects_source": "ИСУН 2020 public module (2020.eufunds.bg) — Project register. One row per signed contract with the programme, beneficiary, total / grant / paid amount, status and implementation location (Местонахождение, mostly settlement-level), used to attribute EU-funds spending to specific settlements and municipalities.",

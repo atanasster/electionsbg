@@ -306,6 +306,17 @@ const run = async () => {
     "procurementBySettlement runs",
   );
 
+  const awP = (await runTool(
+    "awarderProcurement",
+    { org: "Министерство на отбраната" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(awP);
+  assert(
+    awP.facts.eik === "000695324" && !!awP.facts.total_value,
+    "awarderProcurement resolves a named institution to its procurement",
+  );
+
   const profile = (await runTool(
     "governanceProfile",
     { place: "Габрово" },
@@ -322,6 +333,8 @@ const run = async () => {
     ["Разкажи ми за Габрово", "governanceProfile"],
     ["Колко жители има Видин?", "census"],
     ["Колко поръчки има в Русе?", "procurementBySettlement"],
+    ["Обществени поръчки на Министерство на отбраната", "awarderProcurement"],
+    ["Колко похарчи СУ Добри Чинтулов за поръчки?", "awarderProcurement"],
   ];
   for (const [q, expected] of cases4) {
     const r = route(q, ctx);

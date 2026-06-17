@@ -1,0 +1,44 @@
+{
+  "ekatte": "78519",
+  "name": "Цонево",
+  "province": "Варна",
+  "obshtina": "Дългопол",
+  "generatedAt": "2026-06-17T05:44:53.152Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 36456.64500493397,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "103004186",
+      "name": "Държавно горско стопанство - Цонево /Старо наименование - Държавно лесничейство /Дл/ - с. Цонево/",
+      "tier": "forestry",
+      "totalEur": 36456.64500493397,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "65111e6abbff",
+      "ocid": "aop-legacy-2011-2015-438063",
+      "date": "2011-05-13",
+      "amount": 71303,
+      "currency": "BGN",
+      "amountEur": 36456.64500493397,
+      "partyEik": "831496285",
+      "partyName": "Петрол АД - Ловеч /старо наименование Петрол АД - София/",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2011",
+      "totalEur": 36456.64500493397,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

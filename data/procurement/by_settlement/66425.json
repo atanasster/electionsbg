@@ -3,10 +3,10 @@
   "name": "Силистра",
   "province": "Силистра",
   "obshtina": "Силистра",
-  "generatedAt": "2026-06-10T08:56:01.513Z",
-  "contractCount": 1098,
+  "generatedAt": "2026-06-17T05:44:53.152Z",
+  "contractCount": 1103,
   "awardCount": 0,
-  "totalEur": 139577484.03358594,
+  "totalEur": 141155869.0414854,
   "totalOther": {},
   "awarders": [
     {
@@ -25,6 +25,15 @@
       "totalEur": 16333474.10176289,
       "totalOther": {},
       "contractCount": 330,
+      "awardCount": 0
+    },
+    {
+      "eik": "176986568",
+      "name": "Областна дирекция по безопасност на храните - гр. Силистра",
+      "tier": "regional_gov",
+      "totalEur": 1334471.8099221303,
+      "totalOther": {},
+      "contractCount": 4,
       "awardCount": 0
     },
     {
@@ -61,6 +70,15 @@
       "totalEur": 248126.46363554095,
       "totalOther": {},
       "contractCount": 27,
+      "awardCount": 0
+    },
+    {
+      "eik": "175810250",
+      "name": "Областна дирекция - Земеделие, гр.Силистра",
+      "tier": "regional_gov",
+      "totalEur": 243913.1979773293,
+      "totalOther": {},
+      "contractCount": 1,
       "awardCount": 0
     },
     {
@@ -591,6 +609,30 @@
       "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-546759-806982%2F2026-02-06-award"
     },
     {
+      "key": "229043d50379",
+      "ocid": "aop-legacy-2019-x",
+      "date": "2019-08-26",
+      "amount": 1145000,
+      "currency": "BGN",
+      "amountEur": 585429.2039696702,
+      "partyEik": "118550472",
+      "partyName": "Екопродукт ЕООД - с. Попина",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "49955ff27858",
+      "ocid": "aop-legacy-2019-929643",
+      "date": "2019-08-26",
+      "amount": 1145000,
+      "currency": "BGN",
+      "amountEur": 585429.2039696702,
+      "partyEik": "118550472",
+      "partyName": "Екопродукт ЕООД - с. Попина",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
       "key": "dc4d30c2fa34",
       "ocid": "aop-legacy-2019-922980",
       "date": "2019-07-22",
@@ -649,30 +691,6 @@
       "partyName": "Гбс - Варна АД",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "d63a43ac3345",
-      "ocid": "aop-legacy-2023-317446",
-      "date": "2023-01-10",
-      "amount": 994122,
-      "currency": "BGN",
-      "amountEur": 508286.5075185471,
-      "partyEik": "200852966",
-      "partyName": "Бент ойл АД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "1173a1bb0b45",
-      "ocid": "aop-legacy-2016-745955",
-      "date": "2016-08-23",
-      "amount": 977251.34,
-      "currency": "BGN",
-      "amountEur": 499660.6760301253,
-      "partyEik": "103290570",
-      "partyName": "Девня Трейд ООД - Варна",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     }
   ],
   "byYear": [
@@ -714,15 +732,15 @@
     },
     {
       "year": "2017",
-      "totalEur": 11807065.55784501,
+      "totalEur": 12050978.755822338,
       "totalOther": {},
-      "contractCount": 142
+      "contractCount": 143
     },
     {
       "year": "2019",
-      "totalEur": 14436800.555262983,
+      "totalEur": 15771272.365185114,
       "totalOther": {},
-      "contractCount": 162
+      "contractCount": 166
     },
     {
       "year": "2020",

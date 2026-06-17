@@ -1,6 +1,6 @@
 ---
 name: update-procurement
-description: Ingest new public-procurement (АОП) data from data.egov.bg into data/procurement/. Use when the daily watch report flags "data.egov.bg АОП" or "АОП debarred-suppliers register" as changed, when the user asks to refresh procurement data, backfill prior periods, or investigate flagged contracts (huge amounts, canary mismatch). Also use after a fresh clone if data/procurement/ is empty.
+description: Ingest new public-procurement (АОП) data from data.egov.bg into data/procurement/. Use when the daily watch report flags "data.egov.bg АОП", "АОП debarred-suppliers register", or "ЦАИС ЕОП open data" (the storage.eop.bg flat-договори gap-fill) as changed, when the user asks to refresh procurement data, backfill prior periods, or investigate flagged contracts (huge amounts, canary mismatch). Also use after a fresh clone if data/procurement/ is empty.
 allowed-tools:
   - Read
   - Bash
@@ -19,6 +19,7 @@ Pulls АОП (Агенция за обществени поръчки) fortnight
 | Daily watcher reports `data.egov.bg АОП: N new fortnight bundle(s) on top` | Incremental ingest (`npm run procurement:ingest`) |
 | Daily watcher reports `data.egov.bg АОП: N new annual contracts dataset(s)` | Legacy discovery (`npm run procurement:ingest-legacy -- --discover`) — picks up a newly-published year; see "Pre-OCDS backfill" |
 | Daily watcher reports `АОП debarred-suppliers register: N entries` changed | Re-scrape the debarred list (`npx tsx scripts/procurement/debarred.ts`) — see Step 5 below |
+| Daily watcher reports `ЦАИС ЕОП open data: N new publication day(s)` | Incremental EOP gap-fill — see Step 1b |
 | User asks to "refresh procurement" / "ingest new contracts" | Same — incremental |
 | `data/procurement/` empty (fresh clone) | Cold-start ingest of every visible bundle (~24 fortnights ≈ 1 year) |
 | Canary mismatch warning surfaced | Investigate `scripts/procurement/normalize.ts` BEFORE re-running |
@@ -61,6 +62,34 @@ The per-settlement step (added 2026) reads each awarder rollup's `geo` block (se
 **Curating the awarder_tier "other" bucket:** the enrichment writes `data/procurement/awarder_tier_unclassified.json` with every awarder whose name didn't match a tier heuristic. Skim it for entities that should be classified (e.g. new ministry sub-units), add an `OVERRIDES` entry in `scripts/procurement/awarder_tier.ts`, and re-run the enrichment (cheap — re-reads the same cached bundles).
 
 If the canary line is missing it's because the canary bundle's `datasetUuid` matched the only-new-bundles filter and the run intentionally re-ran the canary as part of normal ingest. Either is fine.
+
+## Step 1b — ЦАИС ЕОП gap-fill (storage.eop.bg)
+
+АОП's OCDS "обявления" export (the data.egov.bg feed Step 1 ingests) is a strict **subset** of what ЦАИС ЕОП itself publishes. ЦАИС ЕОП's own daily open-data buckets (`storage.eop.bg/open-data-<YYYY-MM-DD>/`) carry a flat **`договори`** file that lists ~900 small contracting authorities — overwhelmingly schools & kindergartens — whose signed contracts never appear in the OCDS обявления export. The `eop_procurement` watcher source tracks that feed.
+
+Run the incremental gap-fill, then rebuild (the rebuild is single-sourced in Step 1's `procurement:ingest`, which re-reads every month-shard including the new EOP rows):
+
+```bash
+npx tsx scripts/procurement/ingest_eop.ts --apply   # incremental: last ~30 days
+npm run procurement:ingest                           # rebuild rollups/derived/by-settlement/index
+```
+
+`ingest_eop` fetches the flat `договори` feed and gap-fills **only buyers entirely absent from our corpus** — an absent buyer has zero OCDS rows, so an EOP row can never double-count an existing contract. New buyers get well-formed `Contract` rows (synthetic `eop-<УНП>` ids, namespaced away from OCDS) in the same month-shards, so the existing rollup machinery picks them up with no special handling. The flat feed carries no buyer address, so these awarders won't resolve to an EKATTE (absent from the by-settlement map, present everywhere else).
+
+Caveats: the gap-fill adds buyers we *lack*; it does not (yet) fill missing contracts of buyers we already have (that would need cross-feed УНП-level dedup). It's the gap-fill, not a re-platform — the OCDS feed stays the base.
+
+## Step 1c — Awarder geo-enrichment (place-view coverage)
+
+The flat ЦАИС ЕОП feed carries no buyer address, so the gap-fill schools (and legacy-only buyers) have no `geo` → they're dropped from `by_settlement` and the my-area place tiles. `scripts/procurement/awarder_geo_map.ts` builds an EKATTE override map for these address-less buyers; `buildRollups` applies it **fill-missing** (an OCDS address always wins). Run it after new buyers land, then rebuild:
+
+```bash
+npx tsx scripts/procurement/awarder_geo_map.ts   # → data/procurement/awarder_geo_overrides.json
+npm run procurement:ingest                        # rebuild applies the overrides
+```
+
+Two tiers (see `docs/plans/procurement-awarder-geo-v2.md`):
+- **Tier A — name-suffix parse** ("- гр.X" / "- с.X" in the awarder name → resolver). Fully local; resolves ~327 buyers (`name_only` confidence; unique-match only, so quality is high).
+- **Tier B — МОН school register** (data.egov.bg open-data resource `cac4d569-…`, via the egov `getResourceData` POST). Covers schools+kindergartens (~58% of the no-geo set). The fetch degrades gracefully — when data.egov.bg blocks the host (e.g. a non-pipeline IP) the script logs `Tier B skipped` and writes Tier A only; re-run from a reachable environment to land Tier B.
 
 ## Step 2 — Verify
 
@@ -181,6 +210,15 @@ The legacy ingester:
 
 2018 contracts are not published by АОП (only the out-of-scope file `excl2018.csv` exists). As of this writing 2024 and 2025 are not published in any form — the annual CSV series ends at 2023, the OCDS fortnight bundles start 2026-01-01. When АОП does post a 2024/2025 annual CSV, `--discover` (wired into Step 1) ingests it automatically.
 
+### ЦАИС ЕОП full-history gap-fill (one-off)
+
+To capture the ~900 small authorities the OCDS feed omits across the full 2020→ history (not just the rolling incremental window of Step 1b), run the backfill once. It crawls ~1,600 daily flat-`договори` buckets (network-heavy, ~30-60 min; raw days cache to `raw_data/procurement/eop/` so re-runs are fast) and is **flag-gated and operator-run — never in the watcher or CI**:
+
+```bash
+npx tsx scripts/procurement/ingest_eop.ts --from 2020-01-01 --to <today> --backfill --apply
+npm run procurement:ingest      # rebuild rollups/derived/by-settlement/index from the new shards
+```
+
 ## Single bundle (debugging)
 
 ```bash
@@ -281,7 +319,13 @@ The `crossReference` field on `data/procurement/index.json` is the at-a-glance s
 | `scripts/procurement/validate.ts` | Schema + canary + diff-cap checks |
 | `scripts/procurement/eik.ts` | EIK canonicalization helpers (9-digit canonical) |
 | `scripts/procurement/types.ts` | Shared Contract / rollup type definitions |
+| `scripts/procurement/ingest_eop.ts` | ЦАИС ЕОП flat-`договори` gap-fill CLI (incremental default + `--backfill` one-off) |
+| `scripts/procurement/normalize_eop.ts` | Flat `договори` record → `Contract[]` mapper (splits multi-supplier consortia) |
+| `scripts/procurement/awarder_geo_map.ts` | EKATTE override builder for address-less buyers (Tier A name-parse + Tier B МОН register) |
+| `data/procurement/awarder_geo_overrides.json` | `eik → {ekatte,source,confidence}` fill-missing geo map consumed by `buildRollups` |
 | `scripts/watch/sources/egov_procurement.ts` | Watcher source — fingerprints page 1 of АОП's data.egov.bg listing |
+| `scripts/watch/sources/eop_procurement.ts` | Watcher source — fingerprints the latest storage.eop.bg publication day (HEAD-probes recent days) |
+| `raw_data/procurement/eop/<YYYY-MM-DD>.json.gz` | Local cache of fetched flat `договори` days — gitignored |
 | `data/procurement/index.json` | Year/month/totals summary + crossReference summary — committed |
 | `data/procurement/bundles.json` | Known fortnight bundles + their periods — committed |
 | `data/procurement/contracts/<YYYY>/<YYYY-MM>.json` | One file per month, Contract[] — committed |

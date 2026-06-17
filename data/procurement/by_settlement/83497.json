@@ -1,0 +1,44 @@
+{
+  "ekatte": "83497",
+  "name": "Шумата",
+  "province": "Габрово",
+  "obshtina": "Севлиево",
+  "generatedAt": "2026-06-17T05:44:53.152Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 34874.19663263167,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000209594",
+      "name": "Основно училище - Васил Левски, с. Шумата",
+      "tier": "school",
+      "totalEur": 34874.19663263167,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "3a9c79c850a3",
+      "ocid": "aop-legacy-2011-2015-541254",
+      "date": "2013-05-16",
+      "amount": 68208,
+      "currency": "BGN",
+      "amountEur": 34874.19663263167,
+      "partyEik": "817047610",
+      "partyName": "Херос ЕООД - Габрово",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2013",
+      "totalEur": 34874.19663263167,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

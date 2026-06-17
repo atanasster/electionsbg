@@ -1,0 +1,68 @@
+{
+  "ekatte": "37174",
+  "name": "Кладница",
+  "province": "Перник",
+  "obshtina": "Перник",
+  "generatedAt": "2026-06-17T05:44:53.152Z",
+  "contractCount": 3,
+  "awardCount": 0,
+  "totalEur": 33454.03230342105,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000371817",
+      "name": "Държавно ловно стопанство /Длс/ - Витошко студена - с.Кладница - Старо наименование - /Държавна дивечовъдна станция /ддс/ \"Витошко - Студена\" - с. Кладница",
+      "tier": "forestry",
+      "totalEur": 33454.03230342105,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "66223a3de6ba",
+      "ocid": "aop-legacy-2011-2015-435580",
+      "date": "2011-04-18",
+      "amount": 41600,
+      "currency": "BGN",
+      "amountEur": 21269.74225776269,
+      "partyEik": "115762445",
+      "partyName": "Буллес Холдинг ЕООД - Пловдив",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "df81ac46bf61",
+      "ocid": "aop-legacy-2011-2015-435580",
+      "date": "2011-04-18",
+      "amount": 21510,
+      "currency": "BGN",
+      "amountEur": 10997.88836453066,
+      "partyEik": "200892206",
+      "partyName": "Брезниклес ЕООД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "da54e2c5db8c",
+      "ocid": "aop-legacy-2011-2015-444465",
+      "date": "2011-07-15",
+      "amount": 2320.4,
+      "currency": "BGN",
+      "amountEur": 1186.4016811277054,
+      "partyEik": "200892206",
+      "partyName": "Брезниклес ЕООД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2011",
+      "totalEur": 33454.03230342105,
+      "totalOther": {},
+      "contractCount": 3
+    }
+  ]
+}

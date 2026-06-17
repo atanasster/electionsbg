@@ -1,0 +1,116 @@
+{
+  "ekatte": "75085",
+  "name": "Узунджово",
+  "province": "Хасково",
+  "obshtina": "Хасково",
+  "generatedAt": "2026-06-17T05:44:53.152Z",
+  "contractCount": 5,
+  "awardCount": 0,
+  "totalEur": 31325.289007735842,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000893103",
+      "name": "Основно училище \"Любен Каравелов\" - с. Узунджово",
+      "tier": "school",
+      "totalEur": 31325.289007735842,
+      "totalOther": {},
+      "contractCount": 5,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "1cb1efdd265f",
+      "ocid": "aop-legacy-2011-2015-502820",
+      "date": "2012-10-05",
+      "amount": 15583.68,
+      "currency": "BGN",
+      "amountEur": 7967.809063159886,
+      "partyEik": "201322885",
+      "partyName": "Зе-Жак ООД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "b417bc255c72",
+      "ocid": "aop-legacy-2011-2015-454729",
+      "date": "2011-10-25",
+      "amount": 12816.72,
+      "currency": "BGN",
+      "amountEur": 6553.084879565197,
+      "partyEik": "201322885",
+      "partyName": "Зе-Жак ООД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "1594eeed6158",
+      "ocid": "aop-legacy-2011-2015-572514",
+      "date": "2013-11-29",
+      "amount": 12047.52,
+      "currency": "BGN",
+      "amountEur": 6159.7991645490665,
+      "partyEik": "201322885",
+      "partyName": "Зе-Жак ООД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "c2ace8100048",
+      "ocid": "aop-legacy-2011-2015-628243",
+      "date": "2014-10-13",
+      "amount": 10488.38,
+      "currency": "BGN",
+      "amountEur": 5362.623540900794,
+      "partyEik": "201322885",
+      "partyName": "Зе-Жак ООД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "8c1dd89af897",
+      "ocid": "aop-legacy-2011-2015-670970",
+      "date": "2015-06-10",
+      "amount": 10330.64,
+      "currency": "BGN",
+      "amountEur": 5281.972359560902,
+      "partyEik": "201322885",
+      "partyName": "Зе-Жак ООД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2011",
+      "totalEur": 6553.084879565197,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2012",
+      "totalEur": 7967.809063159886,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2013",
+      "totalEur": 6159.7991645490665,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2014",
+      "totalEur": 5362.623540900794,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2015",
+      "totalEur": 5281.972359560902,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

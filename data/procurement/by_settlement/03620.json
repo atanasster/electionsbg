@@ -3,10 +3,10 @@
   "name": "Белозем",
   "province": "Пловдив",
   "obshtina": "Раковски",
-  "generatedAt": "2026-06-10T08:56:01.513Z",
-  "contractCount": 6,
+  "generatedAt": "2026-06-17T05:44:53.152Z",
+  "contractCount": 23,
   "awardCount": 0,
-  "totalEur": 299605.03008799336,
+  "totalEur": 736371.3053094595,
   "totalOther": {},
   "awarders": [
     {
@@ -17,9 +17,39 @@
       "totalOther": {},
       "contractCount": 6,
       "awardCount": 0
+    },
+    {
+      "eik": "000451512",
+      "name": "Детска Градина \"Синчец\" - с. Белозем",
+      "tier": "school",
+      "totalEur": 224650.39602951176,
+      "totalOther": {},
+      "contractCount": 15,
+      "awardCount": 0
+    },
+    {
+      "eik": "000453470",
+      "name": "Основно училище \"Гео Милев\" - с. Белозем",
+      "tier": "school",
+      "totalEur": 212115.8791919543,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
     }
   ],
   "topContracts": [
+    {
+      "key": "58c0626c3b0e",
+      "ocid": "aop-legacy-2023-332853",
+      "date": "2023-02-14",
+      "amount": 274862.6,
+      "currency": "BGN",
+      "amountEur": 140535.0158244837,
+      "partyEik": "160086706",
+      "partyName": "Евросистем ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
     {
       "key": "d842b6570d84",
       "ocid": "aop-legacy-2023-323442",
@@ -31,6 +61,30 @@
       "partyName": "Нирам ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "6b7372c904b8",
+      "ocid": "ocds-e82gsb-551988",
+      "date": "2026-03-06",
+      "amount": 123256.54,
+      "currency": "EUR",
+      "amountEur": 123256.54,
+      "partyEik": "200935522",
+      "partyName": "Нели Минчева 99 ЕООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-551988-819992%2F2026-03-06-award"
+    },
+    {
+      "key": "878fec81b6a5",
+      "ocid": "aop-legacy-2011-2015-503862",
+      "date": "2012-10-11",
+      "amount": 140000,
+      "currency": "BGN",
+      "amountEur": 71580.86336747059,
+      "partyEik": "200329389",
+      "partyName": "Леон -69  ЕООД - гр.Раковски",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
       "key": "820a7a4fe454",
@@ -81,6 +135,102 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "cd2a9f0cfbe2",
+      "ocid": "aop-legacy-2023-436742",
+      "date": "2023-10-16",
+      "amount": 25054.5,
+      "currency": "BGN",
+      "amountEur": 12810.162437430656,
+      "partyEik": "202604179",
+      "partyName": "Мира фууд ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "61e16b27e0e2",
+      "ocid": "ocds-e82gsb-522185",
+      "date": "2026-02-04",
+      "amount": 11968.83,
+      "currency": "EUR",
+      "amountEur": 11968.83,
+      "partyEik": "126145986",
+      "partyName": "Уикенд ООД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-522185-806204%2F2026-02-04-award"
+    },
+    {
+      "key": "240621279ee2",
+      "ocid": "ocds-e82gsb-522185",
+      "date": "2026-02-04",
+      "amount": 11828.49,
+      "currency": "EUR",
+      "amountEur": 11828.49,
+      "partyEik": "205560752",
+      "partyName": "ЕТ Ела 2019 - любен Ангелов",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-522185-806204%2F2026-02-04-award"
+    },
+    {
+      "key": "5edd7d154ef5",
+      "ocid": "aop-legacy-2022-274780",
+      "date": "2022-09-14",
+      "amount": 21666.5,
+      "currency": "BGN",
+      "amountEur": 11077.905543937868,
+      "partyEik": "115842311",
+      "partyName": "БОР Чвор ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "1778e369c835",
+      "ocid": "ocds-e82gsb-522185",
+      "date": "2026-02-04",
+      "amount": 9780.4,
+      "currency": "EUR",
+      "amountEur": 9780.4,
+      "partyEik": "126145986",
+      "partyName": "Уикенд ООД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-522185-806204%2F2026-02-04-award"
+    },
+    {
+      "key": "db6725cd0063",
+      "ocid": "aop-legacy-2023-434471",
+      "date": "2023-10-10",
+      "amount": 14298.6,
+      "currency": "BGN",
+      "amountEur": 7310.75809247225,
+      "partyEik": "205560752",
+      "partyName": "ЕТ Ела 2019 - любен Ангелов",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "1b4d8540c859",
+      "ocid": "aop-legacy-2023-436723",
+      "date": "2023-10-16",
+      "amount": 13472.8,
+      "currency": "BGN",
+      "amountEur": 6888.533256980412,
+      "partyEik": "202604179",
+      "partyName": "Мира фууд ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "67f1e9cd73fe",
+      "ocid": "aop-legacy-2022-274735",
+      "date": "2022-09-14",
+      "amount": 12136.9,
+      "currency": "BGN",
+      "amountEur": 6205.498432890384,
+      "partyEik": "202604179",
+      "partyName": "Мира фууд ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
       "key": "bfdedef4e690",
       "ocid": "ocds-e82gsb-569006",
       "date": "2026-06-01",
@@ -91,26 +241,104 @@
       "partyName": "Контракс АД",
       "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
       "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-569006-861849%2F2026-06-01-award"
+    },
+    {
+      "key": "d5130a544202",
+      "ocid": "aop-legacy-2022-274797",
+      "date": "2022-09-14",
+      "amount": 9060.1,
+      "currency": "BGN",
+      "amountEur": 4632.355572825859,
+      "partyEik": "202604179",
+      "partyName": "Мира фууд ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "cebca576b33d",
+      "ocid": "aop-legacy-2023-436774",
+      "date": "2023-10-16",
+      "amount": 7818.22,
+      "currency": "BGN",
+      "amountEur": 3997.3924114058996,
+      "partyEik": "202604179",
+      "partyName": "Мира фууд ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "e2c47851dd5d",
+      "ocid": "ocds-e82gsb-522185",
+      "date": "2026-02-04",
+      "amount": 3885.82,
+      "currency": "EUR",
+      "amountEur": 3885.82,
+      "partyEik": "126145986",
+      "partyName": "Уикенд ООД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-522185-806204%2F2026-02-04-award"
+    },
+    {
+      "key": "5811baf40263",
+      "ocid": "aop-legacy-2022-274767",
+      "date": "2022-09-14",
+      "amount": 7562.21,
+      "currency": "BGN",
+      "amountEur": 3866.4965769008554,
+      "partyEik": "202604179",
+      "partyName": "Мира фууд ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "e8e7b1122b92",
+      "ocid": "aop-legacy-2023-434328",
+      "date": "2023-10-10",
+      "amount": 7141,
+      "currency": "BGN",
+      "amountEur": 3651.135323622196,
+      "partyEik": "204666012",
+      "partyName": "Миг 6 ООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "a898ea2e5827",
+      "ocid": "aop-legacy-2022-267995",
+      "date": "2022-08-25",
+      "amount": 6826,
+      "currency": "BGN",
+      "amountEur": 3490.0783810453872,
+      "partyEik": "204666012",
+      "partyName": "Миг 6 ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
     {
-      "year": "2022",
-      "totalEur": 57897.05649263995,
+      "year": "2012",
+      "totalEur": 71580.86336747059,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 1
+    },
+    {
+      "year": "2022",
+      "totalEur": 87169.39100024031,
+      "totalOther": {},
+      "contractCount": 7
     },
     {
       "year": "2023",
-      "totalEur": 172170.7919399948,
+      "totalEur": 347363.7892863899,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 8
     },
     {
       "year": "2026",
-      "totalEur": 69537.1816553586,
+      "totalEur": 230257.2616553586,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 7
     }
   ]
 }

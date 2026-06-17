@@ -18,6 +18,30 @@ import { splitBag } from "@/lib/currency";
 import { getResolver } from "./resolve_ekatte";
 import { classifyAwarder, LOCAL_TIERS } from "./awarder_tier";
 
+// Override map: awarder EIK → resolved EKATTE for buyers the OCDS feed never
+// gave an address for. Written by scripts/procurement/awarder_geo_map.ts.
+interface GeoOverride {
+  ekatte: string;
+  source: string;
+  confidence: string;
+}
+const loadGeoOverrides = (procurementDir: string): Map<string, GeoOverride> => {
+  const file = path.join(procurementDir, "awarder_geo_overrides.json");
+  const out = new Map<string, GeoOverride>();
+  if (!fs.existsSync(file)) return out;
+  try {
+    const json = JSON.parse(fs.readFileSync(file, "utf8")) as {
+      awarders?: Record<string, GeoOverride>;
+    };
+    for (const [eik, o] of Object.entries(json.awarders ?? {})) {
+      if (o?.ekatte) out.set(eik, o);
+    }
+  } catch {
+    /* malformed/missing → no overrides */
+  }
+  return out;
+};
+
 // How many contracts to embed per-entity for the dashboard "top contracts"
 // tile. 20 keeps the rollup small (~5 KB extra) while giving the tile
 // headroom over the 10 rows it actually renders.
@@ -368,6 +392,13 @@ export const buildRollups = (contractsDir: string): RollupResult => {
   // before the per-awarder loop. Memoised inside getResolver().
   const resolver = getResolver();
 
+  // Out-of-band EKATTE overrides for awarders the OCDS feed never gave an
+  // address for (the ЦАИС ЕОП flat-feed gap-fill schools + legacy-only buyers).
+  // Built by scripts/procurement/awarder_geo_map.ts from name-parse + the МОН
+  // school register. Applied fill-missing only — an address-derived geo always
+  // wins. See docs/plans/procurement-awarder-geo-v2.md.
+  const overrides = loadGeoOverrides(path.dirname(contractsDir));
+
   const awarderOut: AwarderRollup[] = [...awarders.values()].map((a) => {
     let geo: AwarderGeo | undefined;
     const tier = classifyAwarder(a.eik, a.name);
@@ -382,6 +413,18 @@ export const buildRollups = (contractsDir: string): RollupResult => {
         geo = {
           ekatte: res.ekatte,
           confidence: res.confidence,
+          tier,
+          isLocalHQ: LOCAL_TIERS.has(tier),
+        };
+      }
+    }
+    // Fill-missing from the override map (no address-derived geo).
+    if (!geo) {
+      const o = overrides.get(a.eik);
+      if (o) {
+        geo = {
+          ekatte: o.ekatte,
+          confidence: o.confidence as AwarderGeo["confidence"],
           tier,
           isLocalHQ: LOCAL_TIERS.has(tier),
         };
@@ -427,6 +470,33 @@ export const writeRollups = (
   for (const a of rollups.awarders) {
     fs.writeFileSync(path.join(awarderDir, `${a.eik}.json`), canonicalJson(a));
   }
+
+  // Slim awarders index — the full (eik, name, total, count) roster, sorted by
+  // spend. Drives the AI assistant's awarderProcurement name→EIK resolution
+  // (the per-awarder rollups above have no name index; this is the only way to
+  // find a specific institution — esp. the small schools the ЦАИС ЕОП gap-fill
+  // adds — by name). Small (~4.4k rows). Lives under derived/ so the existing
+  // /procurement/ AI_PATH_RULES entry maps it without a new rule.
+  const derivedDir = path.join(outDir, "derived");
+  fs.mkdirSync(derivedDir, { recursive: true });
+  const index = {
+    generatedAt: new Date().toISOString(),
+    count: rollups.awarders.length,
+    awarders: [...rollups.awarders]
+      .map((a) => ({
+        eik: a.eik,
+        name: a.name,
+        totalEur: a.totalEur,
+        contractCount: a.contractCount,
+        ...(a.geo?.tier ? { tier: a.geo.tier } : {}),
+      }))
+      .sort((x, y) => y.totalEur - x.totalEur),
+  };
+  fs.writeFileSync(
+    path.join(derivedDir, "awarders_index.json"),
+    canonicalJson(index),
+  );
+
   return {
     contractorFiles: rollups.contractors.length,
     awarderFiles: rollups.awarders.length,

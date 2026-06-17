@@ -1,0 +1,56 @@
+{
+  "ekatte": "77219",
+  "name": "Хвойна",
+  "province": "Смолян",
+  "obshtina": "Чепеларе",
+  "generatedAt": "2026-06-17T05:44:53.152Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 49340.17782731628,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000600155",
+      "name": "Държавно горско стопанство/ДГС/ - с.Хвойна - Старо наименование Държавно лесничейство /Дл/ - с. Хвойна",
+      "tier": "forestry",
+      "totalEur": 49340.17782731628,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "ad919b875c7e",
+      "ocid": "aop-legacy-2011-2015-437427",
+      "date": "2011-05-09",
+      "amount": 67130,
+      "currency": "BGN",
+      "amountEur": 34323.023984702144,
+      "partyEik": "160087128",
+      "partyName": "Стефанов - 64 ЕООД- с. Новаково",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "e8ec5934f31b",
+      "ocid": "aop-legacy-2011-2015-437427",
+      "date": "2011-05-09",
+      "amount": 29371,
+      "currency": "BGN",
+      "amountEur": 15017.153842614132,
+      "partyEik": "200001047",
+      "partyName": "Кон  ЕООД - с.Хвойна",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2011",
+      "totalEur": 49340.17782731628,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

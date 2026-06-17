@@ -3,10 +3,10 @@
   "name": "Севлиево",
   "province": "Габрово",
   "obshtina": "Севлиево",
-  "generatedAt": "2026-06-10T08:56:01.513Z",
-  "contractCount": 50,
+  "generatedAt": "2026-06-17T05:44:53.152Z",
+  "contractCount": 51,
   "awardCount": 0,
-  "totalEur": 744001.3971600293,
+  "totalEur": 758573.2157741215,
   "totalOther": {},
   "awarders": [
     {
@@ -25,6 +25,15 @@
       "totalEur": 55858.88715046809,
       "totalOther": {},
       "contractCount": 11,
+      "awardCount": 0
+    },
+    {
+      "eik": "000209053",
+      "name": "Начално училище /Ну/ \"Св. Св. Кирил и Методий\"  гр. Севлиево",
+      "tier": "school",
+      "totalEur": 14571.818614092226,
+      "totalOther": {},
+      "contractCount": 1,
       "awardCount": 0
     }
   ],
@@ -184,6 +193,18 @@
       "partyName": "ПРОСВЕТА-СОФИЯ АД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "168d5945920f",
+      "ocid": "aop-legacy-2011-2015-516845",
+      "date": "2013-01-08",
+      "amount": 28500,
+      "currency": "BGN",
+      "amountEur": 14571.818614092226,
+      "partyEik": "107588151",
+      "partyName": "Ботев ЕООД - Севлиево",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
       "key": "226fcf9cfcae",
@@ -616,26 +637,14 @@
       "partyName": "Юнивърс ЕООД - Първомай",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "9f22c3e2a9a4",
-      "ocid": "aop-legacy-2011-2015-665966",
-      "date": "2015-05-11",
-      "amount": 132,
-      "currency": "BGN",
-      "amountEur": 67.49052831790084,
-      "partyEik": "831408470",
-      "partyName": "СД Педагог 6 - Делев, Луизова и с-ие - София",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
     {
       "year": "2013",
-      "totalEur": 20091.7257634866,
+      "totalEur": 34663.54437757883,
       "totalOther": {},
-      "contractCount": 1
+      "contractCount": 2
     },
     {
       "year": "2015",

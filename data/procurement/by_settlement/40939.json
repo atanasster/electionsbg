@@ -1,0 +1,44 @@
+{
+  "ekatte": "40939",
+  "name": "Кърнаре",
+  "province": "Пловдив",
+  "obshtina": "Карлово",
+  "generatedAt": "2026-06-17T05:44:53.152Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 103690.0292970248,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000454444",
+      "name": "Основно училище \"Васил Левски\" - с. Кърнаре",
+      "tier": "school",
+      "totalEur": 103690.0292970248,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "931d63f2319d",
+      "ocid": "aop-legacy-2022-304737",
+      "date": "2022-11-29",
+      "amount": 202800.07,
+      "currency": "BGN",
+      "amountEur": 103690.0292970248,
+      "partyEik": "205783036",
+      "partyName": "ГЛАВ-Проектинвест София ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2022",
+      "totalEur": 103690.0292970248,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

@@ -2,14 +2,14 @@
   "electionDate": "2021_07_11",
   "start": "2021-07-11",
   "end": "2021-11-14",
-  "generatedAt": "2026-06-10T08:55:59.382Z",
+  "generatedAt": "2026-06-17T05:44:51.206Z",
   "totals": {
-    "contracts": 2705,
+    "contracts": 2761,
     "amendments": 0,
     "awards": 0,
-    "contractorCount": 347,
-    "awarderCount": 107,
-    "totalEur": 451068388.4079905,
+    "contractorCount": 384,
+    "awarderCount": 145,
+    "totalEur": 458805256.85258955,
     "mpCount": 2,
     "mpConnectedContractorCount": 2,
     "mpConnectedTotalEur": 2401560.237852983
@@ -336,6 +336,14 @@
       "mpIds": []
     },
     {
+      "eik": "131163929",
+      "name": "Авто Инженеринг Холдинг Груп ООД - София",
+      "totalEur": 2609144.9665870755,
+      "contractCount": 3,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "201996987",
       "name": "Скейл Фокус АД",
       "totalEur": 2556387.825117725,
@@ -356,6 +364,14 @@
       "name": "Юсс Медика ООД /ЕООД/",
       "totalEur": 2481072.8233026387,
       "contractCount": 2,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "177492362",
+      "name": "Джи.Ди.Ей.",
+      "totalEur": 2448474.5606724513,
+      "contractCount": 1,
       "mpTied": false,
       "mpIds": []
     },
@@ -398,24 +414,6 @@
       "contractCount": 40,
       "mpTied": false,
       "mpIds": []
-    },
-    {
-      "eik": "835013079",
-      "name": "Ему АД - с. Разбойна",
-      "totalEur": 2021308.4930694387,
-      "contractCount": 17,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "175415627",
-      "name": "Контракс АД  - старо - Контракс ЕАД - София",
-      "totalEur": 2012169.871614609,
-      "contractCount": 9,
-      "mpTied": true,
-      "mpIds": [
-        805
-      ]
     }
   ],
   "topAwarders": [
@@ -508,6 +506,12 @@
       "name": "Водоснабдяване и канализация ЕООД - Стара Загора",
       "totalEur": 4976700.428973889,
       "contractCount": 6
+    },
+    {
+      "eik": "836144261",
+      "name": "Тролейбусен транспорт ЕООД",
+      "totalEur": 4896949.121344903,
+      "contractCount": 2
     },
     {
       "eik": "000614952",
@@ -696,6 +700,12 @@
       "contractCount": 2
     },
     {
+      "eik": "000803757",
+      "name": "Професионална гимназия по облекло и хранене \"Райна княгиня\"",
+      "totalEur": 966555.8560815613,
+      "contractCount": 2
+    },
+    {
       "eik": "816090199",
       "name": "Водоснабдяване и канализация /в и К/ ООД - Враца",
       "totalEur": 914105.8067418947,
@@ -705,18 +715,6 @@
       "eik": "000320580",
       "name": "Община Брусарци",
       "totalEur": 847321.4236411139,
-      "contractCount": 2
-    },
-    {
-      "eik": "000530536",
-      "name": "Община Иваново",
-      "totalEur": 808495.2986711524,
-      "contractCount": 7
-    },
-    {
-      "eik": "000875557",
-      "name": "Община Антоново, област Търговище",
-      "totalEur": 806365.093080687,
       "contractCount": 2
     }
   ],

@@ -1,0 +1,44 @@
+{
+  "ekatte": "63327",
+  "name": "Румянцево",
+  "province": "Ловеч",
+  "obshtina": "Луковит",
+  "generatedAt": "2026-06-17T05:44:53.152Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 20103.996768635312,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000282197",
+      "name": "Основно училище - Христо Ботев, с. Румянцево,  общ. Луковит",
+      "tier": "school",
+      "totalEur": 20103.996768635312,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "abf0b07226a2",
+      "ocid": "aop-legacy-2011-2015-648864",
+      "date": "2015-02-17",
+      "amount": 39320,
+      "currency": "BGN",
+      "amountEur": 20103.996768635312,
+      "partyEik": "117679603",
+      "partyName": "Дмв ЕООД - Русе",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2015",
+      "totalEur": 20103.996768635312,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

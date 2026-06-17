@@ -1,0 +1,56 @@
+{
+  "ekatte": "53822",
+  "name": "Оризаре",
+  "province": "Бургас",
+  "obshtina": "Несебър",
+  "generatedAt": "2026-06-17T05:44:53.152Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 457794.7981164007,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000041221",
+      "name": "Детска градина - Радост , с.Оризаре, общ.Несебър - /Старо наименование - Целодневна детска градина, с.Оризаре, общ.Несебър/",
+      "tier": "school",
+      "totalEur": 457794.7981164007,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "290f8c49802d",
+      "ocid": "aop-legacy-2016-742944",
+      "date": "2016-08-02",
+      "amount": 447684.4,
+      "currency": "BGN",
+      "amountEur": 228897.39905820036,
+      "partyEik": "202199955",
+      "partyName": "Тодис строй ЕООД",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "dce9c9d88d31",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-08-02",
+      "amount": 447684.4,
+      "currency": "BGN",
+      "amountEur": 228897.39905820036,
+      "partyEik": "202199955",
+      "partyName": "Тодис строй ЕООД",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2016",
+      "totalEur": 457794.7981164007,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

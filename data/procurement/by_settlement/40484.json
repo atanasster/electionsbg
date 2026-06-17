@@ -1,0 +1,56 @@
+{
+  "ekatte": "40484",
+  "name": "Кукорево",
+  "province": "Ямбол",
+  "obshtina": "Тунджа",
+  "generatedAt": "2026-06-17T05:44:53.152Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 38331.5523332805,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000961878",
+      "name": "Основно училище /ОУ/ \"Христо Ботев\", с. Кукорево",
+      "tier": "school",
+      "totalEur": 38331.5523332805,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "97ddc33b8b3c",
+      "ocid": "aop-legacy-2011-2015-519280",
+      "date": "2013-01-21",
+      "amount": 57834,
+      "currency": "BGN",
+      "amountEur": 29570.0546571021,
+      "partyEik": "128045194",
+      "partyName": "ЕТ Емил Иванов - Ямбол",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "b7b7f990cb33",
+      "ocid": "aop-legacy-2011-2015-519280",
+      "date": "2013-01-21",
+      "amount": 17136,
+      "currency": "BGN",
+      "amountEur": 8761.4976761784,
+      "partyEik": "128526587",
+      "partyName": "Галина 2001 ЕООД - гр. Ямбол",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2013",
+      "totalEur": 38331.5523332805,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

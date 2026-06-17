@@ -3,10 +3,10 @@
   "name": "Дулово",
   "province": "Силистра",
   "obshtina": "Дулово",
-  "generatedAt": "2026-06-10T08:56:01.513Z",
-  "contractCount": 58,
+  "generatedAt": "2026-06-17T05:44:53.152Z",
+  "contractCount": 79,
   "awardCount": 0,
-  "totalEur": 17378881.05268418,
+  "totalEur": 17635100.58096629,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 17378881.05268418,
       "totalOther": {},
       "contractCount": 58,
+      "awardCount": 0
+    },
+    {
+      "eik": "000550179",
+      "name": "Държавно ловно стопанство/ДЛС/ - Каракуз - гр.Дулово - Старо наименование - Държавна дивечовъдна станция \"Каракуз\", гр. Дулово",
+      "tier": "forestry",
+      "totalEur": 256219.52828211046,
+      "totalOther": {},
+      "contractCount": 21,
       "awardCount": 0
     }
   ],
@@ -525,6 +534,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-522925-802917%2F2026-02-03-award"
     },
     {
+      "key": "e3f5ce56af14",
+      "ocid": "aop-legacy-2011-2015-427197",
+      "date": "2011-02-17",
+      "amount": 47857.7,
+      "currency": "BGN",
+      "amountEur": 24469.253462724264,
+      "partyEik": "118511875",
+      "partyName": "Еко - Форест ООД - Дулово",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
       "key": "eaca483698bf",
       "ocid": "ocds-e82gsb-522925",
       "date": "2026-02-03",
@@ -537,6 +558,66 @@
       "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-522925-802917%2F2026-02-03-award"
     },
     {
+      "key": "db3484f9adbb",
+      "ocid": "aop-legacy-2011-2015-427197",
+      "date": "2011-02-17",
+      "amount": 41932.8,
+      "currency": "BGN",
+      "amountEur": 21439.900195824794,
+      "partyEik": "116045279",
+      "partyName": "Лудогориелес ЕАД - Разград",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "06b487314783",
+      "ocid": "aop-legacy-2011-2015-427197",
+      "date": "2011-02-17",
+      "amount": 40712,
+      "currency": "BGN",
+      "amountEur": 20815.715067260448,
+      "partyEik": "118505477",
+      "partyName": "ЕТ Лес-2000 - Георги Змеев - Тутракан",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "dc2709d6dab7",
+      "ocid": "aop-legacy-2011-2015-427197",
+      "date": "2011-02-17",
+      "amount": 36655.99,
+      "currency": "BGN",
+      "amountEur": 18741.910084209772,
+      "partyEik": "118584987",
+      "partyName": "Дръстърлес ЕООД - Силистра",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "b5cffb74d36f",
+      "ocid": "aop-legacy-2011-2015-427197",
+      "date": "2011-02-17",
+      "amount": 34442,
+      "currency": "BGN",
+      "amountEur": 17609.914972160157,
+      "partyEik": "200207937",
+      "partyName": "Денев Лес ЕООД - Тутракан",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "35d8bd61a85a",
+      "ocid": "aop-legacy-2011-2015-427197",
+      "date": "2011-02-17",
+      "amount": 34018.28,
+      "currency": "BGN",
+      "amountEur": 17393.270376259694,
+      "partyEik": "118511686",
+      "partyName": "Иво-2000 - Ивелин Златаров - Тутракан",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
       "key": "612bfb21125e",
       "ocid": "aop-legacy-2011-2015-678473",
       "date": "2015-07-22",
@@ -547,86 +628,14 @@
       "partyName": "Цпо Логос ЕООД",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "e434a6c00f9e",
-      "ocid": "ocds-e82gsb-514124",
-      "date": "2026-05-12",
-      "amount": 14483.27,
-      "currency": "EUR",
-      "amountEur": 14483.27,
-      "partyEik": "205714257",
-      "partyName": "Мултифууд груп ЕООД",
-      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
-      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-514124-853264%2F2026-05-12-award"
-    },
-    {
-      "key": "46145246e241",
-      "ocid": "aop-legacy-2011-2015-648264",
-      "date": "2015-02-13",
-      "amount": 26986,
-      "currency": "BGN",
-      "amountEur": 13797.722705961152,
-      "partyEik": "124052241",
-      "partyName": "Триада - Гт ООД - Добрич",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "7c537097947a",
-      "ocid": "ocds-e82gsb-514124",
-      "date": "2026-05-12",
-      "amount": 12557.03,
-      "currency": "EUR",
-      "amountEur": 12557.03,
-      "partyEik": "107544354",
-      "partyName": "Стелит 1 ЕООД",
-      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
-      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-514124-853264%2F2026-05-12-award"
-    },
-    {
-      "key": "bb0b757da747",
-      "ocid": "aop-legacy-2011-2015-634087",
-      "date": "2014-11-19",
-      "amount": 14000,
-      "currency": "BGN",
-      "amountEur": 7158.086336747059,
-      "partyEik": "202681033",
-      "partyName": "ЕТ Клас - 1958 - исмаил реджеб - с. Златоклас, Община Дулово",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "3cae220f6164",
-      "ocid": "aop-legacy-2016-718446",
-      "date": "2016-03-09",
-      "amount": 12000,
-      "currency": "BGN",
-      "amountEur": 6135.502574354622,
-      "partyEik": "124052241",
-      "partyName": "Триада - Гт ООД - Добрич",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "8682586cd28d",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-03-09",
-      "amount": 12000,
-      "currency": "BGN",
-      "amountEur": 6135.502574354622,
-      "partyEik": "124052241",
-      "partyName": "Триада - Гт ООД - Добрич",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 1550092.0325386154,
+      "totalEur": 1806311.5608207257,
       "totalOther": {},
-      "contractCount": 4
+      "contractCount": 25
     },
     {
       "year": "2012",

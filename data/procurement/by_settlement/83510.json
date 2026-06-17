@@ -3,10 +3,10 @@
   "name": "Шумен",
   "province": "Шумен",
   "obshtina": "Шумен",
-  "generatedAt": "2026-06-10T08:56:01.513Z",
-  "contractCount": 3186,
+  "generatedAt": "2026-06-17T05:44:53.152Z",
+  "contractCount": 3190,
   "awardCount": 0,
-  "totalEur": 396999862.0240144,
+  "totalEur": 407720785.9795729,
   "totalOther": {},
   "awarders": [
     {
@@ -34,6 +34,15 @@
       "totalEur": 46626806.975222714,
       "totalOther": {},
       "contractCount": 1750,
+      "awardCount": 0
+    },
+    {
+      "eik": "201612434",
+      "name": "Специализирана болница за активно лечение по кардиология - Мадара,  гр. Шумен",
+      "tier": "hospital",
+      "totalEur": 10720923.955558509,
+      "totalOther": {},
+      "contractCount": 4,
       "awardCount": 0
     },
     {
@@ -221,6 +230,18 @@
       "amountEur": 12273430.523102725,
       "partyEik": "130917415",
       "partyName": "СТРОИТЕЛНО-ПРЕДПРИЕМАЧЕСКИ Холдинг ЕООД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "971a587c5962",
+      "ocid": "aop-legacy-2011-2015-613933",
+      "date": "2014-07-03",
+      "amount": 15405151.35,
+      "currency": "BGN",
+      "amountEur": 7876528.813853965,
+      "partyEik": "030276307",
+      "partyName": "Търговска лига - Национален аптечен център /Нац/ АД - София",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
@@ -513,6 +534,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "2765a6225054",
+      "ocid": "aop-legacy-2011-2015-591086",
+      "date": "2014-03-11",
+      "amount": 3467500,
+      "currency": "BGN",
+      "amountEur": 1772904.5980478877,
+      "partyEik": "030276307",
+      "partyName": "Търговска лига - Национален аптечен център /Нац/ АД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
       "key": "7917566ad278",
       "ocid": "aop-legacy-2023-461355",
       "date": "2023-12-19",
@@ -703,30 +736,6 @@
       "partyName": "Салина 7 ЕООД",
       "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
       "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-545759-794178%2F2026-01-09-award"
-    },
-    {
-      "key": "ace709ad13c9",
-      "ocid": "ocds-e82gsb-545759",
-      "date": "2026-01-09",
-      "amount": 1435427.98,
-      "currency": "EUR",
-      "amountEur": 1435427.98,
-      "partyEik": "205581771",
-      "partyName": "ДЖИ Ел оил ЕАД",
-      "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
-      "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-545759-794178%2F2026-01-09-award"
-    },
-    {
-      "key": "cf32aa5557c3",
-      "ocid": "ocds-e82gsb-545759",
-      "date": "2026-01-09",
-      "amount": 1435427.98,
-      "currency": "EUR",
-      "amountEur": 1435427.98,
-      "partyEik": "201819093",
-      "partyName": "РОУ Бак българия ЕООД",
-      "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
-      "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-545759-794178%2F2026-01-09-award"
     }
   ],
   "byYear": [
@@ -750,9 +759,9 @@
     },
     {
       "year": "2014",
-      "totalEur": 36256113.205135405,
+      "totalEur": 46977037.16069391,
       "totalOther": {},
-      "contractCount": 247
+      "contractCount": 251
     },
     {
       "year": "2015",

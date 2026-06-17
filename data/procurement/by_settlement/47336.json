@@ -1,0 +1,56 @@
+{
+  "ekatte": "47336",
+  "name": "Мартен",
+  "province": "Русе",
+  "obshtina": "Русе",
+  "generatedAt": "2026-06-17T05:44:53.152Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 69136.68365860019,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000522087",
+      "name": "Основно училище /ОУ/ \"Отец Паисий\"- с. Мартен",
+      "tier": "school",
+      "totalEur": 69136.68365860019,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "73b6cb9dd663",
+      "ocid": "aop-legacy-2011-2015-499366",
+      "date": "2012-09-12",
+      "amount": 117504,
+      "currency": "BGN",
+      "amountEur": 60078.841208080456,
+      "partyEik": "831578978",
+      "partyName": "Внп Фасилити ЕООД / старо наименование - п. Дусман ЕООД - София  - предишно п. Дусман ООД/",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "e8f4d430ec49",
+      "ocid": "aop-legacy-2011-2015-500496",
+      "date": "2012-09-20",
+      "amount": 17715.6,
+      "currency": "BGN",
+      "amountEur": 9057.842450519727,
+      "partyEik": "117687518",
+      "partyName": "ЕТ Шогун - ЕООД - Русе",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2012",
+      "totalEur": 69136.68365860019,
+      "totalOther": {},
+      "contractCount": 2
+    }
+  ]
+}

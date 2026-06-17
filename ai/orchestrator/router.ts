@@ -103,6 +103,45 @@ const AGENCY_TOKENS = [
   "барометър",
 ];
 
+// Institution-buyer type markers, for routing "procurement of <institution>" to
+// the per-awarder tool (awarderProcurement). Deliberately EXCLUDES settlement /
+// "община" words so place-aggregate questions ("поръчки в Русе") still reach
+// procurementBySettlement — these target the institutional buyers that aren't
+// places: schools (incl. the ЦАИС ЕОП gap-fill), ministries, agencies,
+// hospitals, universities, directorates.
+const AWARDER_TOKENS = [
+  "училищ",
+  "гимназ",
+  "детска градина",
+  "детската градина",
+  // common edu abbreviations (trailing space so they match "СУ <name>" without
+  // firing inside ordinary words: "сухиндол"/"ресурси" have no "су " boundary)
+  "су ",
+  "оу ",
+  "пг ",
+  "дг ",
+  "пгти",
+  "пмг",
+  "ппмг",
+  "министерств",
+  "агенция",
+  "болниц",
+  "мбал",
+  "умбал",
+  "диспансер",
+  "университет",
+  "академи",
+  "дирекция",
+  "институт",
+  "school",
+  "kindergarten",
+  "ministry",
+  "agency",
+  "hospital",
+  "university",
+  "directorate",
+];
+
 // Bulgarian + English month-name stems -> month number, used to disambiguate a
 // multi-election year ("юли 2021" -> the July ballot). Matched per whole token
 // (JS \b doesn't work around Cyrillic), so "май" can't hit inside another word.
@@ -1412,8 +1451,12 @@ export const route = (question: string, ctx: ToolContext): Route => {
     };
   // a specific budget FUNCTION (health/defence/education/social/…) -> its share
   // + trend, with or without the word "бюджет"
+  // A COFOG function word (отбрана / здраве / образование / социал…) is also a
+  // component of many institution names ("Министерство на отбраната"). When the
+  // question is procurement-framed, it's a buyer query, not a spending-function
+  // one — let it fall through to the procurement block below.
   const gf = resolveBudgetFunction(q);
-  if (gf)
+  if (gf && !has(q, "поръчк", "procurement", "аоп", " aop"))
     return {
       tool: "budgetFunction",
       args: promptYear ? { category: gf, year: promptYear } : { category: gf },
@@ -1493,6 +1536,14 @@ export const route = (question: string, ctx: ToolContext): Route => {
       )
     )
       return { tool: "topContractors", args: {} };
+    // one named buyer institution (school / ministry / agency / hospital /
+    // university / directorate) -> its own procurement, resolved by name against
+    // the awarders index. Before procurementBySettlement (a place aggregate) so
+    // "поръчки на СУ Добри Чинтулов" / "поръчки на Министерство на отбраната"
+    // hits the per-awarder tool, while "поръчки в Русе" (no institution token)
+    // still reaches the settlement aggregate.
+    if (has(q, ...AWARDER_TOKENS))
+      return { tool: "awarderProcurement", args: { org: question } };
     const place = extractPlace(q);
     if (place && has(q, " в ", " във ", " in "))
       return { tool: "procurementBySettlement", args: { place } };

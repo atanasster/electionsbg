@@ -1,0 +1,80 @@
+{
+  "ekatte": "69417",
+  "name": "Стоките",
+  "province": "Габрово",
+  "obshtina": "Севлиево",
+  "generatedAt": "2026-06-17T05:44:53.152Z",
+  "contractCount": 4,
+  "awardCount": 0,
+  "totalEur": 39617.45141448899,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000200353",
+      "name": "Държавно ловно стопанство/ДЛС/ - Росица - /Старо наименование - Държавна дивечовъдна станция /Ддс/ \"Росица\" - с. Стоките, обл. Габровска/",
+      "tier": "forestry",
+      "totalEur": 39617.45141448899,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "532857b10d8f",
+      "ocid": "aop-legacy-2011-2015-439365",
+      "date": "2011-05-28",
+      "amount": 55952,
+      "currency": "BGN",
+      "amountEur": 28607.803336690817,
+      "partyEik": "175318402",
+      "partyName": "ЕТ Васкони груп-Васил Христов - с. Трудовец",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "f4348a63a7d5",
+      "ocid": "aop-legacy-2011-2015-439365",
+      "date": "2011-05-28",
+      "amount": 9526,
+      "currency": "BGN",
+      "amountEur": 4870.566460275178,
+      "partyEik": "107588105",
+      "partyName": "Роллес ЕООД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "e53254d05f5b",
+      "ocid": "aop-legacy-2011-2015-441278",
+      "date": "2011-06-14",
+      "amount": 8904,
+      "currency": "BGN",
+      "amountEur": 4552.54291017113,
+      "partyEik": "107579654",
+      "partyName": "ДИМ Инвест ЕООД - Габрово",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "a4af4c991bcb",
+      "ocid": "aop-legacy-2011-2015-441278",
+      "date": "2011-06-14",
+      "amount": 3103,
+      "currency": "BGN",
+      "amountEur": 1586.538707351866,
+      "partyEik": "175318402",
+      "partyName": "ЕТ Васкони груп-Васил Христов - с. Трудовец",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2011",
+      "totalEur": 39617.45141448899,
+      "totalOther": {},
+      "contractCount": 4
+    }
+  ]
+}

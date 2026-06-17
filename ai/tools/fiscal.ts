@@ -4,6 +4,7 @@
 import { fetchData } from "./dataClient";
 import { fmtEurCompact, fmtInt } from "./format";
 import { round2 } from "./dataset";
+import { fuzzyBestMatch } from "./resolve";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
 
 // ---- budget overview --------------------------------------------------------
@@ -649,6 +650,173 @@ export const mpProcurement = async (
       top_value: top[0] ? fmtEurCompact(top[0].totalEur, ctx.lang) : "—",
     },
     provenance: ["procurement/derived/mp_connected.json"],
+  };
+};
+
+// ---- procurement for one buyer (awarder / contracting authority) ------------
+// The buyer-side drill-down: how much a single institution spent on public
+// procurement, its biggest suppliers and its by-year trend. Resolves the named
+// institution against the full awarders index (derived/awarders_index.json) —
+// the only place a buyer can be found BY NAME, and the surface for the ~900
+// small schools the ЦАИС ЕОП gap-fill adds. Accepts an EIK directly too.
+
+type AwarderIndexRow = {
+  eik: string;
+  name: string;
+  totalEur: number;
+  contractCount: number;
+  tier?: string;
+};
+type AwarderRollup = {
+  eik: string;
+  name: string;
+  totalEur: number;
+  totalOther?: Record<string, number>;
+  contractCount: number;
+  byContractor?: { eik: string; name: string; totalEur: number }[];
+  byYear?: { year: string; totalEur: number; contractCount: number }[];
+};
+
+// Question/procurement filler stripped before fuzzy-matching the institution
+// name, so "колко похарчи СУ Добри Чинтулов за обществени поръчки" reduces to
+// the distinctive "су добри чинтулов".
+const AWARDER_QUERY_STOP = new Set([
+  "поръчки",
+  "поръчка",
+  "поръчките",
+  "обществени",
+  "обществената",
+  "договори",
+  "договор",
+  "колко",
+  "похарчи",
+  "похарчиха",
+  "харчи",
+  "изхарчи",
+  "плати",
+  "за",
+  "на",
+  "в",
+  "във",
+  "от",
+  "е",
+  "са",
+  "колко",
+  "какви",
+  "кои",
+  "show",
+  "procurement",
+  "contracts",
+  "contract",
+  "spent",
+  "spend",
+  "how",
+  "much",
+  "did",
+  "the",
+  "of",
+  "for",
+  "by",
+  "on",
+  "in",
+  "what",
+  "аоп",
+  "aop",
+]);
+
+const cleanAwarderQuery = (raw: string): string =>
+  raw
+    .replace(/[?.,!„“”"'`]/g, " ")
+    .split(/\s+/)
+    .filter(
+      (w) => w && !AWARDER_QUERY_STOP.has(w.toLowerCase()) && !/^\d+$/.test(w),
+    )
+    .join(" ")
+    .trim();
+
+export const awarderProcurement = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const raw = String(args.org ?? args.place ?? "").trim();
+  const idx = await fetchData<{ awarders: AwarderIndexRow[] }>(
+    "/procurement/derived/awarders_index.json",
+  );
+
+  // Direct EIK (9–13 digits) wins over name resolution.
+  const eikInRaw = raw.match(/\b\d{9,13}\b/)?.[0];
+  let hit: AwarderIndexRow | undefined = eikInRaw
+    ? idx.awarders.find((a) => a.eik === eikInRaw)
+    : undefined;
+  if (!hit) {
+    const q = cleanAwarderQuery(raw);
+    const m = fuzzyBestMatch<AwarderIndexRow>(
+      q,
+      () => idx.awarders.map((a) => ({ item: a, keys: [a.name] })),
+      { cacheKey: "procAwarders", threshold: 0.45, minLen: 3 },
+    );
+    hit = m?.item;
+  }
+
+  if (!hit) {
+    return {
+      tool: "awarderProcurement",
+      domain: "fiscal",
+      kind: "scalar",
+      title: bg
+        ? "Не открих такъв възложител в данните за поръчки"
+        : "No such procurement buyer found",
+      viz: "none",
+      facts: { query: raw },
+      provenance: ["procurement/derived/awarders_index.json"],
+    };
+  }
+
+  const a = await fetchData<AwarderRollup>(
+    `/procurement/awarders/${hit.eik}.json`,
+  );
+  const suppliers = [...(a.byContractor ?? [])]
+    .sort((x, y) => y.totalEur - x.totalEur)
+    .slice(0, 8);
+  const years = [...(a.byYear ?? [])].sort((x, y) =>
+    x.year.localeCompare(y.year),
+  );
+  const span =
+    years.length > 0 ? `${years[0].year}–${years[years.length - 1].year}` : "—";
+  const rows: Row[] = suppliers.map((s) => ({
+    supplier: s.name,
+    amount: fmtEurCompact(s.totalEur, ctx.lang),
+  }));
+  return {
+    tool: "awarderProcurement",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? `Обществени поръчки — ${a.name}`
+      : `Public procurement — ${a.name}`,
+    subtitle: bg
+      ? "Като възложител: най-големи изпълнители (АОП / ЦАИС ЕОП)"
+      : "As a buyer: largest suppliers (AOP / CAIS EOP)",
+    columns: [
+      { key: "supplier", label: bg ? "Изпълнител" : "Supplier" },
+      { key: "amount", label: bg ? "Стойност" : "Value", numeric: true },
+    ],
+    rows,
+    viz: "none",
+    facts: {
+      buyer: a.name,
+      eik: a.eik,
+      total_value: fmtEurCompact(a.totalEur, ctx.lang),
+      contracts: fmtInt(a.contractCount, ctx.lang),
+      suppliers: (a.byContractor ?? []).length,
+      years: span,
+      top_supplier: suppliers[0]?.name ?? "—",
+    },
+    provenance: [
+      "procurement/derived/awarders_index.json",
+      `procurement/awarders/${hit.eik}.json`,
+    ],
   };
 };
 

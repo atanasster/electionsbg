@@ -16,6 +16,7 @@ import {
   budgetOverview,
   budgetTrend,
   fundsOverview,
+  awarderProcurement,
   fundsProjects,
   mpProcurement,
   municipalTransfers,
@@ -1720,6 +1721,35 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: mpProcurement,
+  },
+  {
+    name: "awarderProcurement",
+    domain: "fiscal",
+    description: {
+      bg: "Обществени поръчки на един възложител (институция) — колко е похарчил, най-големи изпълнители и по години. Включва малките възложители (училища, детски градини) от ЦАИС ЕОП.",
+      en: "Public procurement for one contracting authority (institution) — how much it spent, its largest suppliers and by-year trend. Covers the small buyers (schools, kindergartens) from the ЦАИС ЕОП feed.",
+    },
+    params: [
+      {
+        name: "org",
+        type: "metric",
+        description: {
+          bg: "Институция (име или ЕИК)",
+          en: "Institution (name or EIK)",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Колко похарчи СУ „Добри Чинтулов“ за обществени поръчки?",
+        en: "How much did the Ministry of Defence spend on procurement?",
+      },
+      {
+        bg: "Обществени поръчки на Община Пловдив",
+        en: "Procurement by the National Revenue Agency",
+      },
+    ],
+    run: awarderProcurement,
   },
   {
     name: "fundsOverview",

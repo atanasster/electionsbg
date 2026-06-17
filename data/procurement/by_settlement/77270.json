@@ -3,10 +3,10 @@
   "name": "Хисаря",
   "province": "Пловдив",
   "obshtina": "Хисаря",
-  "generatedAt": "2026-06-10T08:56:01.513Z",
-  "contractCount": 165,
+  "generatedAt": "2026-06-17T05:44:53.152Z",
+  "contractCount": 188,
   "awardCount": 0,
-  "totalEur": 47051029.54476613,
+  "totalEur": 47574546.55800348,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,24 @@
       "totalEur": 47051029.54476613,
       "totalOther": {},
       "contractCount": 165,
+      "awardCount": 0
+    },
+    {
+      "eik": "000454825",
+      "name": "Средно училище \"Христо Смирненски\" - гр. Хисаря",
+      "tier": "school",
+      "totalEur": 324252.9769969782,
+      "totalOther": {},
+      "contractCount": 19,
+      "awardCount": 0
+    },
+    {
+      "eik": "000453381",
+      "name": "Основно училище \"Васил Левски\" - гр. Хисаря",
+      "tier": "school",
+      "totalEur": 199264.03624036856,
+      "totalOther": {},
+      "contractCount": 4,
       "awardCount": 0
     }
   ],
@@ -513,6 +531,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
+      "key": "55b1dcea2e28",
+      "ocid": "eop-04156-2025-0001",
+      "date": "2025-05-20",
+      "amount": 296130.58,
+      "currency": "BGN",
+      "amountEur": 151409.1613279273,
+      "partyEik": "200625356",
+      "partyName": "Булстрой 2009 ЕООД",
+      "bundleUuid": "eop-flat:2025-05-20",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-05-20/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2020.05.2025.json"
+    },
+    {
       "key": "0072f18d2699",
       "ocid": "aop-legacy-2011-2015-695796",
       "date": "2015-11-04",
@@ -607,18 +637,6 @@
       "partyName": "Чез Трейд България ЕАД - София",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "99c68d662c9e",
-      "ocid": "aop-legacy-2011-2015-669067",
-      "date": "2015-05-28",
-      "amount": 250000,
-      "currency": "BGN",
-      "amountEur": 127822.97029905462,
-      "partyEik": "115008465",
-      "partyName": "Хеброс Бус ООД - Пловдив",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -678,9 +696,9 @@
     },
     {
       "year": "2021",
-      "totalEur": 1026133.1506317011,
+      "totalEur": 1094041.4044165392,
       "totalOther": {},
-      "contractCount": 6
+      "contractCount": 9
     },
     {
       "year": "2022",
@@ -693,6 +711,18 @@
       "totalEur": 1942461.5891974252,
       "totalOther": {},
       "contractCount": 30
+    },
+    {
+      "year": "2024",
+      "totalEur": 82353.78841719372,
+      "totalOther": {},
+      "contractCount": 16
+    },
+    {
+      "year": "2025",
+      "totalEur": 373254.97103531496,
+      "totalOther": {},
+      "contractCount": 4
     },
     {
       "year": "2026",

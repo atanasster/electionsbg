@@ -476,6 +476,10 @@ export const DataSources = () => {
                 href="https://www2.aop.bg/stopanski-subekti/stopanski-subekti-s-narusheniya/"
                 label={t("procurement_aop_debarred_source")}
               />
+              <SourceItem
+                href="https://storage.eop.bg/"
+                label={t("procurement_eop_source")}
+              />
             </ul>
             <p className="mt-3 text-xs text-muted-foreground">
               {t("about_procurement_by_settlement_note") ||

@@ -3,12 +3,30 @@
   "name": "Стряма",
   "province": "Пловдив",
   "obshtina": "Раковски",
-  "generatedAt": "2026-05-27T17:14:40.153Z",
-  "contractCount": 12,
+  "generatedAt": "2026-06-17T05:44:53.152Z",
+  "contractCount": 20,
   "awardCount": 0,
-  "totalEur": 78151.18957843985,
+  "totalEur": 349703.0678091654,
   "totalOther": {},
   "awarders": [
+    {
+      "eik": "000454437",
+      "name": "Основно училище \"Отец Паисий\" - с. Стряма",
+      "tier": "school",
+      "totalEur": 163352.2903319818,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    },
+    {
+      "eik": "115010930",
+      "name": "Държавно ловно стопанство/ДЛС/ - Чекерица, с. Стряма - /Старо наименование - Държавна дивечовъдна станция /Ддс/ Чекерица - с. Стряма/",
+      "tier": "forestry",
+      "totalEur": 108199.58789874376,
+      "totalOther": {},
+      "contractCount": 6,
+      "awardCount": 0
+    },
     {
       "eik": "000460066",
       "name": "Детска Градина \"Радост\" - с. Стряма",
@@ -21,6 +39,66 @@
   ],
   "topContracts": [
     {
+      "key": "b99bab93afe3",
+      "ocid": "eop-03586-2023-0001",
+      "date": "2024-04-02",
+      "amount": 229889.31,
+      "currency": "BGN",
+      "amountEur": 117540.53777680064,
+      "partyEik": "160086706",
+      "partyName": "Евросистем ЕООД",
+      "bundleUuid": "eop-flat:2024-04-02",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-04-02/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2002.04.2024.json"
+    },
+    {
+      "key": "cbd35c264652",
+      "ocid": "eop-03586-2024-0001",
+      "date": "2024-09-18",
+      "amount": 89600,
+      "currency": "BGN",
+      "amountEur": 45811.75255518118,
+      "partyEik": "206368790",
+      "partyName": "Аксес Саунд ЕООД",
+      "bundleUuid": "eop-flat:2024-09-18",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-09-18/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2018.09.2024.json"
+    },
+    {
+      "key": "f82212381453",
+      "ocid": "aop-legacy-2011-2015-439472",
+      "date": "2011-05-30",
+      "amount": 80000,
+      "currency": "BGN",
+      "amountEur": 40903.35049569748,
+      "partyEik": "831681736",
+      "partyName": "Владини Трейдинг клон Чирпан ЕАД - гр.Чирпан",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "a13ae637a4df",
+      "ocid": "aop-legacy-2011-2015-439467",
+      "date": "2011-05-30",
+      "amount": 50200,
+      "currency": "BGN",
+      "amountEur": 25666.85243605017,
+      "partyEik": "200753587",
+      "partyName": "Минчо Хаджиев 08 ЕООД - Смолян",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "db572d7a1d67",
+      "ocid": "aop-legacy-2011-2015-437951",
+      "date": "2011-05-12",
+      "amount": 24600,
+      "currency": "BGN",
+      "amountEur": 12577.780277426975,
+      "partyEik": "115034707",
+      "partyName": "Нетком ООД - Пловдив",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
       "key": "b550d19075d1",
       "ocid": "ocds-e82gsb-543756",
       "date": "2026-02-21",
@@ -31,6 +109,18 @@
       "partyName": "Уикенд ООД",
       "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
       "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-543756-814767%2F2026-02-21-award"
+    },
+    {
+      "key": "9715dce99df5",
+      "ocid": "aop-legacy-2011-2015-437951",
+      "date": "2011-05-12",
+      "amount": 20100,
+      "currency": "BGN",
+      "amountEur": 10276.966812043991,
+      "partyEik": "115602654",
+      "partyName": "Транс Ванков ЕООД - с. Първенец",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
       "key": "36eb7e8d055e",
@@ -45,6 +135,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-543756-814767%2F2026-02-21-award"
     },
     {
+      "key": "a3a7b1be2324",
+      "ocid": "aop-legacy-2011-2015-437951",
+      "date": "2011-05-12",
+      "amount": 19919,
+      "currency": "BGN",
+      "amountEur": 10184.422981547476,
+      "partyEik": "115763305",
+      "partyName": "Модър 2002 ООД - с. Марково",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
       "key": "e633f5eb8963",
       "ocid": "aop-legacy-2022-268705",
       "date": "2022-08-27",
@@ -55,6 +157,18 @@
       "partyName": "Мира фууд ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "62de4444aacd",
+      "ocid": "aop-legacy-2011-2015-439465",
+      "date": "2011-05-30",
+      "amount": 16801,
+      "currency": "BGN",
+      "amountEur": 8590.214895977666,
+      "partyEik": "115602654",
+      "partyName": "Транс Ванков ЕООД - с. Първенец",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
       "key": "23b8457af855",
@@ -167,6 +281,12 @@
   ],
   "byYear": [
     {
+      "year": "2011",
+      "totalEur": 108199.58789874376,
+      "totalOther": {},
+      "contractCount": 6
+    },
+    {
       "year": "2022",
       "totalEur": 29527.694124744998,
       "totalOther": {},
@@ -177,6 +297,12 @@
       "totalEur": 24487.455453694853,
       "totalOther": {},
       "contractCount": 4
+    },
+    {
+      "year": "2024",
+      "totalEur": 163352.2903319818,
+      "totalOther": {},
+      "contractCount": 2
     },
     {
       "year": "2026",

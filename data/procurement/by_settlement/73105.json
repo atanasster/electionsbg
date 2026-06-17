@@ -1,0 +1,86 @@
+{
+  "ekatte": "73105",
+  "name": "Триград",
+  "province": "Смолян",
+  "obshtina": "Девин",
+  "generatedAt": "2026-06-17T05:44:53.152Z",
+  "contractCount": 4,
+  "awardCount": 0,
+  "totalEur": 79635.7096475665,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000600205",
+      "name": "Държавно горско стопанство /Дгс/ - с.Триград - /Старо наименование - Държавно лесничейство /дл/ - с. Триград/",
+      "tier": "forestry",
+      "totalEur": 79635.7096475665,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "239c17e2a19a",
+      "ocid": "aop-legacy-2011-2015-426720",
+      "date": "2011-02-15",
+      "amount": 55233.91,
+      "currency": "BGN",
+      "amountEur": 28240.649749722626,
+      "partyEik": "120604190",
+      "partyName": "Боран ООД - Девин",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "55c7f34582c6",
+      "ocid": "aop-legacy-2011-2015-463304",
+      "date": "2012-01-06",
+      "amount": 45860,
+      "currency": "BGN",
+      "amountEur": 23447.84567165858,
+      "partyEik": "120604190",
+      "partyName": "Боран ООД - Девин",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "19e26bbd6a89",
+      "ocid": "aop-legacy-2011-2015-424186",
+      "date": "2011-01-26",
+      "amount": 39830,
+      "currency": "BGN",
+      "amountEur": 20364.755628045383,
+      "partyEik": "120067096",
+      "partyName": "Доспатлес ЕАД - Доспат",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "629448074ee5",
+      "ocid": "aop-legacy-2011-2015-425063",
+      "date": "2011-02-01",
+      "amount": 14830,
+      "currency": "BGN",
+      "amountEur": 7582.4585981399205,
+      "partyEik": "120604190",
+      "partyName": "Боран ООД - Девин",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2011",
+      "totalEur": 56187.86397590793,
+      "totalOther": {},
+      "contractCount": 3
+    },
+    {
+      "year": "2012",
+      "totalEur": 23447.84567165858,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

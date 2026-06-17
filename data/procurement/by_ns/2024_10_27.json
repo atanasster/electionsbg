@@ -2,17 +2,17 @@
   "electionDate": "2024_10_27",
   "start": "2024-10-27",
   "end": "2026-04-19",
-  "generatedAt": "2026-06-10T08:55:59.376Z",
+  "generatedAt": "2026-06-17T05:44:51.200Z",
   "totals": {
-    "contracts": 11081,
+    "contracts": 12453,
     "amendments": 2385,
     "awards": 0,
-    "contractorCount": 3710,
-    "awarderCount": 1385,
-    "totalEur": 17296529586.729706,
+    "contractorCount": 3856,
+    "awarderCount": 2109,
+    "totalEur": 17434277421.67464,
     "mpCount": 14,
-    "mpConnectedContractorCount": 14,
-    "mpConnectedTotalEur": 265991431.05910963
+    "mpConnectedContractorCount": 15,
+    "mpConnectedTotalEur": 267530767.81128135
   },
   "topContractors": [
     {
@@ -92,8 +92,8 @@
     {
       "eik": "201432883",
       "name": "Геоплан кънстракшън ЕООД",
-      "totalEur": 139614915.56,
-      "contractCount": 5,
+      "totalEur": 140456966.2494771,
+      "contractCount": 6,
       "mpTied": false,
       "mpIds": []
     },
@@ -210,6 +210,14 @@
       "mpIds": []
     },
     {
+      "eik": "130131711",
+      "name": "ГБС - Инфраструктурно строителство АД",
+      "totalEur": 104287806.64315727,
+      "contractCount": 6,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "200487072",
       "name": "Билд инженеринг 77 ЕООД",
       "totalEur": 103807599.14,
@@ -274,10 +282,10 @@
       "mpIds": []
     },
     {
-      "eik": "130131711",
-      "name": "ГБС - Инфраструктурно строителство АД",
-      "totalEur": 91092601.61,
-      "contractCount": 5,
+      "eik": "103029862",
+      "name": "Хидрострой АД",
+      "totalEur": 90642983.04183523,
+      "contractCount": 13,
       "mpTied": false,
       "mpIds": []
     },
@@ -390,14 +398,6 @@
       "name": "СТАРТ-ИНЖЕНЕРИНГ АД",
       "totalEur": 82343315.99000001,
       "contractCount": 3,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "103029862",
-      "name": "Хидрострой АД",
-      "totalEur": 81951021.22,
-      "contractCount": 12,
       "mpTied": false,
       "mpIds": []
     },
@@ -746,8 +746,8 @@
     {
       "mpId": 805,
       "mpName": "Йордан Петков Йорданов",
-      "totalEur": 12533764.860000001,
-      "contractCount": 35,
+      "totalEur": 13943274.377698371,
+      "contractCount": 55,
       "contractorCount": 2,
       "topContractorNames": [
         "Контракс АД",
@@ -811,6 +811,18 @@
       "confidence": "high"
     },
     {
+      "mpId": 2946,
+      "mpName": "Елена Стефанова Пешева",
+      "totalEur": 135523.0244733438,
+      "contractCount": 3,
+      "contractorCount": 2,
+      "topContractorNames": [
+        "Даикс ООД",
+        "Радио сот ООД"
+      ],
+      "confidence": "high"
+    },
+    {
       "mpId": 4716,
       "mpName": "Венцислав Иванов Петков",
       "totalEur": 101235.79000000001,
@@ -864,17 +876,6 @@
         "Булгаргаз ЕАД"
       ],
       "confidence": "medium"
-    },
-    {
-      "mpId": 2946,
-      "mpName": "Елена Стефанова Пешева",
-      "totalEur": 5695.79,
-      "contractCount": 2,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Радио сот ООД"
-      ],
-      "confidence": "high"
     }
   ]
 }

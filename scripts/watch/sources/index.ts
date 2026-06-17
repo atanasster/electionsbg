@@ -8,6 +8,7 @@ import { cacbgOfficials } from "./cacbg_officials";
 import { cacbgLocal } from "./cacbg_local";
 import { egovCommerce } from "./egov_commerce";
 import { egovProcurement } from "./egov_procurement";
+import { eopProcurement } from "./eop_procurement";
 import { aopDebarred } from "./aop_debarred";
 import { isunEuFunds } from "./isun_eu_funds";
 import { isunEuFundsProjects } from "./isun_eu_funds_projects";
@@ -79,6 +80,7 @@ export const SOURCES: WatchSource[] = [
   egovCommerce,
   bgpostPostcodes,
   egovProcurement,
+  eopProcurement,
   aopDebarred,
   isunEuFunds,
   isunEuFundsProjects,

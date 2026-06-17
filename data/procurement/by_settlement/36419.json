@@ -1,0 +1,44 @@
+{
+  "ekatte": "36419",
+  "name": "Карапелит",
+  "province": "Добрич",
+  "obshtina": "Добрич-селска",
+  "generatedAt": "2026-06-17T05:44:53.152Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 48287.42784393327,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000842176",
+      "name": "Основно училище - Никола Вапцаров, с. Карапелит,  общ. Добричка",
+      "tier": "school",
+      "totalEur": 48287.42784393327,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "eb2d00fb40e5",
+      "ocid": "aop-legacy-2011-2015-516989",
+      "date": "2013-01-09",
+      "amount": 94442,
+      "currency": "BGN",
+      "amountEur": 48287.42784393327,
+      "partyEik": "124596702",
+      "partyName": "Международен колеж ООД - Добрич",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2013",
+      "totalEur": 48287.42784393327,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}
