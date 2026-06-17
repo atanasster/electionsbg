@@ -76,6 +76,7 @@
     "staging:fast": "SKIP_PREDEPLOY=1 firebase deploy --only hosting:main -P staging"
   },
   "dependencies": {
+    "@huggingface/transformers": "^4.2.0",
     "@mlc-ai/web-llm": "^0.2.84",
     "@radix-ui/react-accordion": "^1.2.3",
     "@radix-ui/react-avatar": "^1.1.10",

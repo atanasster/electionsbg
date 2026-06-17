@@ -1,0 +1,5006 @@
+{
+  "docs": [
+    {
+      "name": "nationalResults",
+      "text": "nationalResults · National results for one election: votes, %, seats per party. · Национални резултати за един избор: брой гласове, % и разпределение на мандатите по партии. · What were the results of the latest parliamentary election? · Какви са резултатите от последните парламентарни избори? · How many seats did each party win in the latest vote? · Колко мандата спечелиха партиите на последния вот?"
+    },
+    {
+      "name": "regionWinners",
+      "text": "regionWinners · Results by region: the leading party in each oblast (list + map). · Резултати по области: водещата партия във всяка област (списък + карта). · Show the results by region. · Покажи резултатите по области. · Which party won in each region? · Коя партия спечели във всяка област?"
+    },
+    {
+      "name": "parliamentSeats",
+      "text": "parliamentSeats · Seat composition of parliament per party (National Assembly hemicycle). · Разпределение на местата в парламента по партия (полукръг на Народното събрание). · How many seats does each party hold in parliament? · Колко места има всяка партия в парламента? · Seat breakdown in the National Assembly · Разпределение на мандатите в Народното събрание"
+    },
+    {
+      "name": "seatsHistory",
+      "text": "seatsHistory · Trend of each party's seats (MPs) across recent elections (multi-line chart, tracks renames). · Тренд на местата (мандатите) на всяка партия през последните избори (многолинейна графика, с проследяване на преименувания). · How many seats has each party held in parliament over the last 5 years? · Колко места има всяка партия в парламента последните 5 години? · How have seats per party changed over time? · Как се променят мандатите по партии през годините?"
+    },
+    {
+      "name": "partyResult",
+      "text": "partyResult · One party's result in one election. · Резултатът на една партия за един избор. · How many votes did GERB get? · Колко гласа взе ГЕРБ?"
+    },
+    {
+      "name": "candidateResult",
+      "text": "candidateResult · A candidate's preferential-vote results by name. · Преференциални резултати на кандидат по име. · Results for Bozhidar Bozhanov · Резултатите за Божидар Божанов · Preferential votes for Delyan Peevski · Преференции на Делян Пеевски"
+    },
+    {
+      "name": "machineVoteShare",
+      "text": "machineVoteShare · Machine-voting share for one election. · Дял на машинното гласуване за един избор. · Machine voting in 2023? · Машинно гласуване през 2023?"
+    },
+    {
+      "name": "turnout",
+      "text": "turnout · Voter turnout for one election. · Избирателна активност за един избор. · Turnout in the latest election? · Каква беше активността на последните избори?"
+    },
+    {
+      "name": "compareElections",
+      "text": "compareElections · Compare two elections. · Сравнение на два избора. · Compare 2022 and 2024 · Сравни 2022 и 2024"
+    },
+    {
+      "name": "machineVoteSeries",
+      "text": "machineVoteSeries · Machine-voting share across the last N elections. · Дял на машинното гласуване през последните N избора (тренд). · Machine voting in the last 7 elections? · Машинно гласуване в последните 7 избора? · What's the machine-voting % over the last 7 years? · Какъв е процентът машинно гласуване в последните 7 години?"
+    },
+    {
+      "name": "turnoutSeries",
+      "text": "turnoutSeries · Voter turnout across the last N elections. · Избирателна активност през последните N избора (тренд). · How has turnout changed over the years? · Как се променя активността през годините? · What's the turnout over the last 7 years? · Каква е активността през последните 7 години?"
+    },
+    {
+      "name": "partyTimeline",
+      "text": "partyTimeline · One party's vote share across all elections. · Дял на една партия през всички избори (с проследяване на преименувания). · How has GERB performed over the years? · Как се представя ГЕРБ през годините?"
+    },
+    {
+      "name": "pollAccuracy",
+      "text": "pollAccuracy · Polling-agency accuracy (mean error vs the election result). · Точност на социологическите агенции (средна грешка спрямо изборния резултат). · Which pollster is most accurate? · Коя социологическа агенция е най-точна?"
+    },
+    {
+      "name": "agencyProfile",
+      "text": "agencyProfile · A pollster's profile: grade, error, threshold-call rate, house effect. · Профил на социологическа агенция: оценка, грешка, точност на прага, house effect. · How accurate is Alpha Research? · Колко е точна Алфа Рисърч?"
+    },
+    {
+      "name": "latestPolls",
+      "text": "latestPolls · The latest poll by party (incl. \"if elections were now\"). · Последното социологическо проучване по партии (вкл. „ако изборите бяха сега“). · What do the latest polls show? · Какво показват последните проучвания?"
+    },
+    {
+      "name": "agencyPolls",
+      "text": "agencyPolls · One agency's poll history: party support across all its polls over time (trend). · История на проучванията на една агенция: подкрепата по партии през всичките ѝ проучвания (тренд). · Market Links poll history · История на проучванията на Маркет Линкс"
+    },
+    {
+      "name": "agencyAccuracyHistory",
+      "text": "agencyAccuracyHistory · One agency's accuracy over time: mean error vs the result by election (trend). · Точност на една агенция през годините: средна грешка спрямо резултата по избори (тренд). · How has Alpha Research's accuracy changed over time? · Как се променя точността на Алфа Рисърч през годините?"
+    },
+    {
+      "name": "accuracyTrend",
+      "text": "accuracyTrend · Pollster accuracy compared across elections over time (trend, one line per agency). · Сравнение на точността на социологическите агенции през изборите (тренд, по една линия на агенция). · How has pollster accuracy changed over the years? · Как се променя точността на агенциите през годините?"
+    },
+    {
+      "name": "regionBreakdown",
+      "text": "regionBreakdown · A party's result by oblast in one election (where it's strong/weak). · Резултат на партия по области за един избор (къде е силна/слаба). · Where is GERB strongest? · Къде е силна ГЕРБ?"
+    },
+    {
+      "name": "municipalityBreakdown",
+      "text": "municipalityBreakdown · A party's result by municipality within one oblast (map + ranking). · Резултат на партия по общини в една област (карта + класация). · GERB by municipality in Varna · ГЕРБ по общини във Варна"
+    },
+    {
+      "name": "municipalityWinners",
+      "text": "municipalityWinners · Results by municipality in one oblast: the leading party in each (list + map). · Резултати по общини в една област: водещата партия във всяка община (списък + карта). · Show the results by municipality in Blagoevgrad · Покажи резултатите по общини в Благоевград · Which party won in each municipality of Burgas? · Коя партия спечели във всяка община в Бургас?"
+    },
+    {
+      "name": "settlementWinners",
+      "text": "settlementWinners · Results by settlement in one municipality: the leading party in each (list + map). · Резултати по населени места в една община: водещата партия във всяко (списък + карта). · Show the results by settlement in Bansko · Покажи резултатите по населени места в община Банско · Which party won in each village of Samokov? · Кой спечели по села в община Самоков?"
+    },
+    {
+      "name": "sectionWinners",
+      "text": "sectionWinners · Results by polling section in a settlement: the leading party in each section. · Резултати по избирателни секции в населено място: водещата партия във всяка секция. · Show the results by polling station in Bansko · Покажи резултатите по секции в Банско"
+    },
+    {
+      "name": "sectionResults",
+      "text": "sectionResults · Results in one polling section (by its number): votes and % per party + turnout. · Резултати в една избирателна секция (по номер): гласове и % по партия + активност. · Results in section 050900092 · Резултатите в секция 050900092 · How did section 234600045 vote? · Как гласува секция 234600045?"
+    },
+    {
+      "name": "sectionHistory",
+      "text": "sectionHistory · How one polling section (by its number) voted over time — vote share per party across elections (multi-line trend). · Как гласува една секция (по номер) през годините — дял по партия през изборите (многолиниен тренд). · How has section 050900092 voted over the years? · Как е гласувала секция 050900092 през годините? · Trend for section 234600045 · Тренд на секция 234600045"
+    },
+    {
+      "name": "sectionRiskHistory",
+      "text": "sectionRiskHistory · Risk profile of one polling section (by its number) over time — risk-screening band per election plus whether it is a flagged problem section (Roma neighborhood) or a persistent cross-election cluster. · Риск-профил на една секция (по номер) през годините — ниво на риск при скрининг за всеки избор + дали е проблемна секция (ромска махала) или повтарящ се клъстер. · What's the risk history of section 162202002? · Каква е историята на риска за секция 162202002? · Is section 162202002 a problem section or in a cluster? · Секция 162202002 проблемна ли е или в клъстер?"
+    },
+    {
+      "name": "settlementResults",
+      "text": "settlementResults · Results in one settlement (village/town): votes and % per party + turnout. · Резултати в едно населено място (село/град): гласове и % по партия + активност. · Results in the village of Inovo · Резултатите в с. Иново · How did the town of Bansko vote? · Как гласува гр. Банско?"
+    },
+    {
+      "name": "settlementHistory",
+      "text": "settlementHistory · How one settlement voted over time — vote share per party across elections (multi-line trend). · Как гласува едно населено място през годините — дял по партия през изборите (многолиниен тренд). · Results in the village of Inovo over the last 5 years · Резултатите в с. Иново за последните 5 години · How has the village of Inovo voted over the years? · Как гласува с. Иново през годините?"
+    },
+    {
+      "name": "municipalityResults",
+      "text": "municipalityResults · Results in one municipality: votes and % per party + turnout. · Резултати в една община: гласове и % по партия + активност. · Results in Plovdiv municipality · Резултатите в община Пловдив · How did Varna municipality vote? · Как гласува община Варна?"
+    },
+    {
+      "name": "municipalityHistory",
+      "text": "municipalityHistory · How one municipality voted over time — vote share per party across elections (multi-line trend). · Как гласува една община през годините — дял по партия през изборите (многолиниен тренд). · Results in Plovdiv municipality over the last 5 years · Резултатите в община Пловдив за последните 5 години"
+    },
+    {
+      "name": "regionResults",
+      "text": "regionResults · Results in one region/oblast: votes and % per party + turnout (incl. Sofia city = its three MIR combined). · Резултати в една област/МИР: гласове и % по партия + активност (вкл. София-град = трите столични МИР сборно). · Results in Varna region · Резултатите в област Варна · Results in Sofia · Резултатите в София"
+    },
+    {
+      "name": "regionResultsTrend",
+      "text": "regionResultsTrend · How one region/oblast voted over time — vote share per party across elections (multi-line trend). · Как гласува една област/МИР през годините — дял по партия през изборите (многолиниен тренд). · Results in Varna region over the last 5 years · Резултатите в област Варна за последните 5 години"
+    },
+    {
+      "name": "settlementBreakdown",
+      "text": "settlementBreakdown · A party's result by settlement within one municipality (map + ranking). · Резултат на партия по населени места в една община (карта + класация). · GERB by settlement in Varna municipality · ГЕРБ по населени места в община Варна"
+    },
+    {
+      "name": "electionAnomalies",
+      "text": "electionAnomalies · Anomaly signals for one election (recounts, machine corrections, problem sections). · Сигнали и нередности за един избор (преброявания, машинни корекции, проблемни секции). · Were there anomalies in the latest election? · Имаше ли нередности на последните избори?"
+    },
+    {
+      "name": "flashMemoryByParty",
+      "text": "flashMemoryByParty · Machine count vs flash-memory (СУЕМГ) difference by party — which parties gained/lost votes. · Разлика машинно преброяване срещу флаш памет (СУЕМГ) по партия — кои партии печелят/губят гласове. · Which parties lost the most from missing flash memory? · Кои партии загубиха най-много от липсваща флаш памет?"
+    },
+    {
+      "name": "machineVoteByParty",
+      "text": "machineVoteByParty · Machine vs paper voting share by party — which parties vote on machines. · Дял на машинното спрямо хартиеното гласуване по партия — кои партии гласуват машинно. · Which parties vote on machines the most? · Кои партии гласуват най-много машинно?"
+    },
+    {
+      "name": "wastedVotesByParty",
+      "text": "wastedVotesByParty · Wasted votes (below the 4% threshold) by party — which parties lost the most votes. · Прахосани гласове (под 4% прага) по партия — кои партии загубиха най-много гласове. · Which party wasted the most votes? · Коя партия прахоса най-много гласове?"
+    },
+    {
+      "name": "recountByParty",
+      "text": "recountByParty · Per-party vote change after a manual recount (only elections with a recount, e.g. Oct 2024). · Промяна в гласовете по партия след ръчно преброяване наново (само избори с преброяване, напр. окт 2024). · Which parties lost from the 2024 recount? · Кои партии загубиха от преброяването наново през 2024?"
+    },
+    {
+      "name": "regionHistory",
+      "text": "regionHistory · Voter turnout in one oblast across all elections. · Избирателна активност в една област през всички избори. · How has turnout changed in Haskovo? · Как се променя активността в Хасково?"
+    },
+    {
+      "name": "voteTransitions",
+      "text": "voteTransitions · Vote transitions between two consecutive elections (where votes moved). · Преливане на гласове между два последователни избора (откъде накъде отиват гласовете). · Where did votes move in the latest election? · Къде отидоха гласовете на последните избори?"
+    },
+    {
+      "name": "localCouncilVoteShare",
+      "text": "localCouncilVoteShare · Municipal council vote share by party (national). · Общински съвети — гласове по партия (национално). · Who won the municipal councils? · Кой спечели общинските съвети?"
+    },
+    {
+      "name": "localMayorsWon",
+      "text": "localMayorsWon · Mayors won by party (national). · Спечелени кметски места по партия (национално). · How many mayors did GERB win locally? · Колко кмета спечели ГЕРБ на местните избори?"
+    },
+    {
+      "name": "localCouncilTrend",
+      "text": "localCouncilTrend · Council vote-share trend by party across the local-election cycles 2007–2023. · Тренд на гласовете за общинските съвети по партия през местните цикли 2007–2023. · How has the council vote changed across cycles? · Как се променя вотът за общинските съвети през годините?"
+    },
+    {
+      "name": "localVoteFlows",
+      "text": "localVoteFlows · Vote transitions between local elections (municipal councils) — where party votes moved between two cycles. · Преливане на гласове между местни избори (общински съвети) — къде отиват гласовете на партиите между два цикъла. · Where did local-election council votes flow? · Накъде се преляха гласовете на местните избори? · Vote transitions between local elections · Преливане на гласове между местните избори"
+    },
+    {
+      "name": "localMayorsTrend",
+      "text": "localMayorsTrend · Mayors-won trend by party across the local-election cycles 2007–2023. · Тренд на спечелените кметски места по партия през местните цикли 2007–2023. · How have mayoralties per party changed across cycles? · Как се променят кметовете по партии през годините?"
+    },
+    {
+      "name": "localOblastMayors",
+      "text": "localOblastMayors · Mayors won by party within a single province (oblast). · Спечелени кметски места по партия в една област/провинция. · How many mayors did each party win in Plovdiv province? · Колко кмета спечели всяка партия в област Пловдив? · Mayors by party in Varna province · Кметове по партия в област Варна"
+    },
+    {
+      "name": "localMunicipality",
+      "text": "localMunicipality · One município: elected mayor, council, turnout. · Резултати за една община: кмет, общински съвет, активност. · Who is the mayor of Plovdiv? · Кой е кметът на Пловдив?"
+    },
+    {
+      "name": "localMayorRace",
+      "text": "localMayorRace · Full mayoral candidate ranking in a município. · Пълно класиране на кандидатите за кмет в община. · Who ran for mayor of Varna? · Кои бяха кандидатите за кмет на Варна?"
+    },
+    {
+      "name": "localMayorHistory",
+      "text": "localMayorHistory · A município's elected mayors across local cycles (the last mayors). · Избраните кметове на община през местните цикли (последните кметове). · Who are the last mayors of Sofia? · Кои са последните кметове на София?"
+    },
+    {
+      "name": "localSubMayors",
+      "text": "localSubMayors · District mayors (Sofia) or settlement (kmetstvo) mayors of a município. · Кметове на районите (София) или на кметствата в община. · Who are Sofia's district mayors? · Кои са районните кметове на София? · Settlement mayors in Asenovgrad · Кметове на кметствата в Асеновград"
+    },
+    {
+      "name": "localCouncil",
+      "text": "localCouncil · Municipal council seats by party. · Състав на общинския съвет по партии (места). · What's the Burgas council? · Какъв е общинският съвет на Бургас?"
+    },
+    {
+      "name": "chmiEvents",
+      "text": "chmiEvents · Extraordinary (partial/new) local elections feed. · Извънредни (частични/нови) местни избори — хронология. · Any partial local elections? · Има ли частични местни избори?"
+    },
+    {
+      "name": "budgetOverview",
+      "text": "budgetOverview · State budget — revenue, expenditure, balance for a year. · Държавен бюджет — приходи, разходи, салдо за година. · What's the state budget? · Какъв е държавният бюджет?"
+    },
+    {
+      "name": "budgetTrend",
+      "text": "budgetTrend · State-budget trend — revenue and spending by year (completed fiscal years). · Тренд на държавния бюджет — приходи и разходи по години (завършени фискални години). · How has the budget changed over the years? · Как се променя бюджетът през годините? · State budget revenue and spending over time · Бюджет — приходи и разходи по години"
+    },
+    {
+      "name": "simulateTaxChange",
+      "text": "simulateTaxChange · Budget effect of a tax change (VAT, income tax, untaxed minimum, corporate, dividend, МОД cap) — scored revenue impact + a simulator deep link. · Какво става с бюджета при данъчна промяна (ДДС, ДДФЛ, необлагаем минимум, корпоративен, дивидент, МОД) — оценен ефект върху приходите + линк към симулатора. · What if VAT goes to 22%? · Какво става, ако ДДС стане 22%? · What if income tax goes to 15%? · Колко струва необлагаем минимум от 620 €?"
+    },
+    {
+      "name": "budgetByFunction",
+      "text": "budgetByFunction · Budget spending by function (COFOG). · Бюджетни разходи по функция (COFOG). · What is the budget spent on? · За какво се харчи бюджетът?"
+    },
+    {
+      "name": "budgetFunction",
+      "text": "budgetFunction · Spending on one budget function (e.g. health, defence, education): share + trend. · Разходите за една бюджетна функция (напр. здравеопазване, отбрана, образование): дял + тенденция. · How much goes to health? · Колко пари отиват за здравеопазване? · Defence spending · Разходи за отбрана"
+    },
+    {
+      "name": "procurementTotals",
+      "text": "procurementTotals · Public procurement totals (AOP). · Обществени поръчки — общи суми и брой (АОП). · How much public procurement is there? · Колко са обществените поръчки?"
+    },
+    {
+      "name": "topContractors",
+      "text": "topContractors · Largest public-procurement contractors by total value, flagging the MP-tied ones (AOP). · Най-големи изпълнители по обществени поръчки по обща стойност, с маркер за свързаните с депутати (АОП). · Who are the biggest public-procurement contractors? · Кои са най-големите изпълнители по обществени поръчки? · Top firms by state contracts · Топ фирми по държавни договори"
+    },
+    {
+      "name": "mpProcurement",
+      "text": "mpProcurement · Public procurement going to companies tied to sitting MPs; for a named MP, broken down by year. · Обществени поръчки към фирми, свързани със заседаващи депутати; за конкретен депутат — по години. · Which MP-linked firms win public contracts? · Кои фирми на депутати печелят обществени поръчки? · Procurement to companies connected to MPs · Поръчки към фирми, свързани с депутати"
+    },
+    {
+      "name": "awarderProcurement",
+      "text": "awarderProcurement · Public procurement for one contracting authority (institution) — how much it spent, its largest suppliers and by-year trend. Covers the small buyers (schools, kindergartens) from the ЦАИС ЕОП feed. · Обществени поръчки на един възложител (институция) — колко е похарчил, най-големи изпълнители и по години. Включва малките възложители (училища, детски градини) от ЦАИС ЕОП. · How much did the Ministry of Defence spend on procurement? · Колко похарчи СУ „Добри Чинтулов“ за обществени поръчки? · Procurement by the National Revenue Agency · Обществени поръчки на Община Пловдив"
+    },
+    {
+      "name": "fundsOverview",
+      "text": "fundsOverview · EU funds — top beneficiaries (ISUN). · Европейски средства — топ бенефициенти (ИСУН). · Who gets the most EU funds? · Кой получава най-много европейски средства?"
+    },
+    {
+      "name": "revenueBreakdown",
+      "text": "revenueBreakdown · Tax-revenue breakdown — excise by product + import VAT + customs duties (Customs), domestic VAT by sector and PIT by income type (NRA). · Структура на данъчните приходи — акциз по продукт + ДДС при внос + мита (Митница), деклариран ДДС по сектор и ДДФЛ по вид доход (НАП). · Where does excise revenue come from? · Откъде идват приходите от акцизи? · Declared VAT by sector · Деклариран ДДС по сектор"
+    },
+    {
+      "name": "fundsProjects",
+      "text": "fundsProjects · EU funds at project grain (ISUN) — total contracted, actually paid (absorption) and top programmes. · Европейски средства на ниво проекти (ИСУН) — общо договорено, реално изплатено (усвояване) и топ програми. · How much EU funding has actually been absorbed? · Колко европейски средства са усвоени? · Which programmes absorb the most EU money? · Кои програми усвояват най-много евросредства?"
+    },
+    {
+      "name": "municipalTransfers",
+      "text": "municipalTransfers · State transfers to municipalities by type (Art. 53 of the State Budget Law) — delegated activities, equalization and capital subsidies, etc. · Трансфери от държавата към общините по вид (Чл. 53 ЗДБРБ) — делегирани дейности, изравнителна и капиталова субсидия и др. · How much does the state transfer to municipalities? · Колко превежда държавата на общините? · State transfers to municipalities by type · Държавни трансфери към общините по вид"
+    },
+    {
+      "name": "govDebt",
+      "text": "govDebt · Government debt — recent issuances (bonds, T-bills). · Държавен дълг — последни емисии (облигации, ДЦК). · What's the government debt? · Какъв е държавният дълг?"
+    },
+    {
+      "name": "noiFunds",
+      "text": "noiFunds · Social-security funds (NSSI) — revenue, expenditure, balance. · Социалноосигурителни фондове (НОИ) — приходи, разходи, салдо. · How much does NSSI spend? · Колко харчи НОИ?"
+    },
+    {
+      "name": "budgetExecution",
+      "text": "budgetExecution · Monthly state-budget execution (revenue/expenditure/balance) over time. · Месечно изпълнение на държавния бюджет (приходи/разходи/салдо) във времето. · Show monthly budget execution · Покажи изпълнението на бюджета по месеци"
+    },
+    {
+      "name": "ministryBudget",
+      "text": "ministryBudget · A specific ministry's budget by programme. · Бюджет на конкретно министерство/ведомство по програми. · What's the transport ministry's budget? · Какъв е бюджетът на Министерството на транспорта?"
+    },
+    {
+      "name": "investmentProjects",
+      "text": "investmentProjects · Investment programme (Appendix III) — largest capital projects. · Инвестиционна програма (Приложение III) — най-големи капиталови проекти. · What are the biggest investment projects? · Кои са най-големите инвестиционни проекти?"
+    },
+    {
+      "name": "governments",
+      "text": "governments · Governments since 2005 — PMs, periods, parties. · Правителства от 2005 — премиери, периоди, партии. · What governments since 2005? · Кои са правителствата от 2005?"
+    },
+    {
+      "name": "mpAssetsTop",
+      "text": "mpAssetsTop · MPs ranked by declared assets. · Депутати с най-големи декларирани активи. · Which MPs are richest? · Кои депутати са най-богати?"
+    },
+    {
+      "name": "mpConnectionsTop",
+      "text": "mpConnectionsTop · MPs with the most business connections (Commerce Registry). · Депутати с най-много бизнес връзки (Търговски регистър). · Which MPs have the most company links? · Кои депутати имат най-много фирмени връзки?"
+    },
+    {
+      "name": "mpAssetsByParty",
+      "text": "mpAssetsByParty · MP declared assets aggregated by party (average per MP). · Декларирани активи на депутатите, обобщени по партия (средно на депутат). · Which party has the richest MPs? · Коя партия има най-богати депутати?"
+    },
+    {
+      "name": "mpConnectionsByParty",
+      "text": "mpConnectionsByParty · MP business connections aggregated by party. · Бизнес връзки на депутатите, обобщени по партия. · Which parties have the most business connections? · Кои партии имат най-много бизнес връзки?"
+    },
+    {
+      "name": "officialsAssetsTop",
+      "text": "officialsAssetsTop · Senior officials (cabinet, deputy ministers, governors) by declared assets. · Висши служители (кабинет, зам.-министри, управители) по декларирани активи. · Which cabinet officials are richest? · Кои министри са най-богати?"
+    },
+    {
+      "name": "financingOverview",
+      "text": "financingOverview · Party financial reports — filing compliance (Court of Audit). · Партийни финансови отчети — подаване и спазване на сроковете (Сметна палата). · Do parties file financial reports on time? · Партиите подават ли финансови отчети навреме?"
+    },
+    {
+      "name": "partyFinance",
+      "text": "partyFinance · Campaign income and expenses for a specific party in an election (donations, own funds, media package; Court of Audit). · Кампанийни приходи и разходи на конкретна партия за избори (дарения, собствени средства, медиен пакет; Сметна палата). · How much did GERB raise from donations? · Колко дарения получи ГЕРБ? · How much did PP-DB spend on the campaign? · Колко похарчи ПП-ДБ за кампанията?"
+    },
+    {
+      "name": "companyConnections",
+      "text": "companyConnections · A company's connections (by EIK) to people in power — officers who hold public office or are one company-hop from an MP/official (Commerce Registry). · Връзки на фирма (по ЕИК) с хора във властта — служители, които заемат публична длъжност или са на една фирмена стъпка от депутат/служител (търговски регистър). · What political connections does EIK 831646048 have? · Какви политически връзки има ЕИК 831646048? · Is this company connected to any MPs? · Свързана ли е тази фирма с депутати?"
+    },
+    {
+      "name": "macroIndicator",
+      "text": "macroIndicator · A macro indicator over time (inflation, GDP, debt…). · Макроикономически показател през времето (инфлация, БВП, дълг…). · What's inflation? · Каква е инфлацията?"
+    },
+    {
+      "name": "macroOverview",
+      "text": "macroOverview · Snapshot of key macro indicators. · Преглед на ключови макроикономически показатели. · How is the economy doing? · Как е икономиката?"
+    },
+    {
+      "name": "macroByCategory",
+      "text": "macroByCategory · Indicators by theme: economy, fiscal, governance, society. · Показатели по тема: икономика, фискални, управление, общество. · Show the governance indicators · Покажи показателите за управление"
+    },
+    {
+      "name": "euComparison",
+      "text": "euComparison · Compare an indicator across Bulgaria, the EU-27 and CEE peers (Romania, Greece, Hungary, Croatia) over time. · Сравнение на показател между България, ЕС-27 и съседи (Румъния, Гърция, Унгария, Хърватия) във времето. · How does Bulgaria's inflation compare with the EU? · Как е инфлацията в България спрямо ЕС? · Compare unemployment with the rest of the EU · Сравни безработицата с останалите страни в ЕС"
+    },
+    {
+      "name": "subnationalIndicator",
+      "text": "subnationalIndicator · A per-município indicator over time (unemployment, DZI, migration). · Показател по община през времето (безработица, ДЗИ, миграция). · Unemployment in Sliven? · Каква е безработицата в Сливен?"
+    },
+    {
+      "name": "rankPlaces",
+      "text": "rankPlaces · Rank oblasts/municipalities by an indicator (highest/lowest, top N). · Класация на области/общини по показател (най-високи/най-ниски, топ N). · Which municipalities have the highest unemployment? · Кои общини са с най-висока безработица? · Which oblast has the highest GDP per capita? · Коя област е с най-висок БВП на човек? · Which municipality is the most transparent? · Коя е най-прозрачната община?"
+    },
+    {
+      "name": "regionIndicator",
+      "text": "regionIndicator · A per-oblast (NUTS3) indicator: GDP/capita, population, migration. · Показател по област (NUTS3): БВП на човек, население, миграция. · GDP per capita in Varna oblast? · БВП на човек във Варна?"
+    },
+    {
+      "name": "transparencyScore",
+      "text": "transparencyScore · Local transparency index (LISI) for an oblast centre. · Индекс на местна прозрачност (LISI) за областен център. · How transparent is Ruse? · Колко прозрачна е община Русе?"
+    },
+    {
+      "name": "localTaxes",
+      "text": "localTaxes · Local tax rates for a município vs the national average. · Местни данъци и такси за община спрямо средното. · What are the taxes in Plovdiv? · Какви са данъците в Пловдив?"
+    },
+    {
+      "name": "landUse",
+      "text": "landUse · Land use by category (national or per oblast). · Земеползване по тип територия (национално или по област). · How much forest is in Bulgaria? · Колко гора има в България?"
+    },
+    {
+      "name": "priceIndex",
+      "text": "priceIndex · How much the consumer basket has risen since the euro (national or per oblast) — CPC monitoring index + by category. NOT official CPI. · Колко поскъпна потребителската кошница от въвеждането на еврото (национално или по област) — мониторингов индекс на КЗП + по категории. НЕ е официален ИПЦ. · How much has the basket risen since the euro? · Колко поскъпна кошницата от въвеждането на еврото? · Did prices rise after the euro? · Поскъпнаха ли цените след еврото?"
+    },
+    {
+      "name": "settlementPrices",
+      "text": "settlementPrices · Retail prices in one place: basket change since the euro, lowest prices for staple products and the cheapest chain. Also a single product (e.g. milk). · Цени на дребно в едно населено място: промяна на кошницата от еврото, най-ниски цени на основни продукти и най-евтина верига. Може и за един продукт (напр. мляко). · What are the prices in Plovdiv? · Какви са цените в Пловдив? · How much is milk in Plovdiv? · Колко струва млякото в Пловдив?"
+    },
+    {
+      "name": "cheapestChains",
+      "text": "cheapestChains · Retail chains ranked by basket cost (national or in one município) — compared on the shared basket. · Класация на търговските вериги по цена на кошницата (национално или в една община) — сравнени върху общата кошница. · Which retail chain is the cheapest? · Коя верига е най-евтина? · Cheapest supermarkets in Burgas · Най-евтини магазини в Бургас"
+    },
+    {
+      "name": "priceRanking",
+      "text": "priceRanking · Places ranked by prices: cheapest towns/oblasts for the basket, or where prices rose most since the euro (list + map). · Класация на местата по цени: най-евтини градове/области за кошницата или къде е поскъпнало най-много от еврото (списък + карта). · Which town is cheapest to shop in? · Кой град е най-евтин за пазаруване? · Where did prices rise the most since the euro? · Къде поскъпнаха цените най-много от еврото?"
+    },
+    {
+      "name": "basketAffordability",
+      "text": "basketAffordability · Affordability of the consumer basket vs income by oblast — basket cost relative to GDP-per-capita (Eurostat). National ranking + a given oblast's rank. GDP-per-capita proxies income, not net wage. · Достъпност на потребителската кошница спрямо доходите по области — цената на кошницата спрямо БВП на човек (Евростат). Национална класация + ранг на дадена област. БВП на човек е приблизителен измерител на дохода, не нетна заплата. · Where is the basket most affordable relative to income? · Къде е най-достъпна кошницата спрямо доходите? · What is purchasing power by oblast? · Каква е покупателната способност по области?"
+    },
+    {
+      "name": "basketVsInflation",
+      "text": "basketVsInflation · The CPC basket (since the euro) vs official inflation (HICP — food, overall, energy, core; Eurostat). Different windows — context, not a like-for-like comparison. · Кошницата на КЗП (от въвеждането на еврото) спрямо официалната инфлация (ХИПЦ — храни, обща, енергия, базова, Евростат). Различни прозорци — контекст, не пряко сравнение. · Is the basket outpacing official inflation? · Изпреварва ли кошницата официалната инфлация? · The basket vs HICP inflation · Кошницата спрямо ХИПЦ инфлацията"
+    },
+    {
+      "name": "governanceProfile",
+      "text": "governanceProfile · Composite place profile: population, mayor, council, turnout, unemployment, transparency, procurement. · Обобщен профил на населено място: население, кмет, съвет, активност, безработица, прозрачност, поръчки. · Tell me about Gabrovo · Разкажи ми за Габрово"
+    },
+    {
+      "name": "comparePlaces",
+      "text": "comparePlaces · Compares two places across governance indicators (population, mayor, council, unemployment, transparency…). · Сравнява две населени места по управленски показатели (население, кмет, съвет, безработица, прозрачност…). · Compare Varna and Burgas · Сравни Варна и Бургас"
+    },
+    {
+      "name": "census",
+      "text": "census · Demographics (Census 2021): population, gender, ethnicity. · Демография (Преброяване 2021): население, пол, етнически състав. · What's the population of Vidin? · Колко жители има Видин?"
+    },
+    {
+      "name": "procurementBySettlement",
+      "text": "procurementBySettlement · Public procurement awarded in one settlement. · Обществени поръчки, договорени в едно населено място. · How much procurement in Ruse? · Колко поръчки има в Русе?"
+    },
+    {
+      "name": "airQuality",
+      "text": "airQuality · Air quality (PM10/PM2.5) from stations near a place. · Качество на въздуха (ФПЧ10/ФПЧ2.5) от станции близо до населено място. · How's the air in Pernik? · Какъв е въздухът в Перник?"
+    },
+    {
+      "name": "graoPopulation",
+      "text": "graoPopulation · Registered population (GRAO) by permanent and current address. · Регистрирано население (ГРАО) по постоянен и настоящ адрес. · How many people live in Gabrovo? · Колко души живеят в Габрово?"
+    },
+    {
+      "name": "councilResolutions",
+      "text": "councilResolutions · Municipal council resolutions (where indexed). · Решения на общинския съвет (където е индексирано). · What did Ruse council decide? · Какво реши общинският съвет на Русе?"
+    },
+    {
+      "name": "problemSections",
+      "text": "problemSections · Tracked Roma neighbourhoods (\"controlled voting\") — sections and leading party. · Наблюдавани ромски квартали („контролиран вот“) — секции и водеща партия. · How do the Roma neighbourhoods vote? · Как гласуват ромските квартали? · Is there controlled voting? · Има ли контролиран вот?"
+    },
+    {
+      "name": "romaVoteTrend",
+      "text": "romaVoteTrend · Who wins the Roma vote over time — leading party in the watched neighbourhoods, by election. · Кой печели ромския вот през годините — водеща партия в наблюдаваните квартали по избори. · Which party won the Roma vote over the last 5 years? · Коя партия спечели ромските гласове последните 5 години? · How does the Roma vote change over time? · Как се променя ромският вот през годините?"
+    },
+    {
+      "name": "riskIndex",
+      "text": "riskIndex · Election risk index — the 0–100 headline score and its 10 components (process integrity + context). · Индекс на изборния риск — главната оценка 0–100 и 10-те компонента (изборен интегритет + контекст). · What is the election risk index? · Какъв е индексът на изборния риск? · What's the election risk score? · Каква е оценката за изборния риск?"
+    },
+    {
+      "name": "riskScore",
+      "text": "riskScore · Section risk screening — sections by band (low/elevated/high/critical). · Секционен скрининг на риска — секциите по нива (нисък/повишен/висок/критичен). · How many critical sections? · Колко критични секции има? · Show the sections by risk band · Покажи секциите по ниво на риск"
+    },
+    {
+      "name": "riskClusters",
+      "text": "riskClusters · Risk clusters — adjacent flagged sections sharing a leading party. · Клъстери на риска — съседни флагнати секции с обща водеща партия. · Are there election-risk clusters? · Има ли клъстери на изборния риск?"
+    },
+    {
+      "name": "clusterPersistence",
+      "text": "clusterPersistence · Persistent risk loci — places whose risk clusters recur across elections. · Устойчиви рискови огнища — места, чиито рискови клъстери се повтарят през изборите. · Which places have persistent election risk? · Кои места са с устойчив изборен риск?"
+    },
+    {
+      "name": "benfordAnomalies",
+      "text": "benfordAnomalies · Benford's-law (first-digit) test per party — deviation in digit distribution. · Тест на Бенфорд (първа цифра) по партия — отклонение в разпределението на цифрите. · What does the Benford test show? · Какво показва тестът на Бенфорд?"
+    },
+    {
+      "name": "wastedVotes",
+      "text": "wastedVotes · Wasted votes — share of votes for below-threshold parties, by oblast. · Прахосани гласове — дял на гласовете за партии под прага, по области. · How many votes were wasted below the threshold? · Колко гласове са прахосани под прага?"
+    },
+    {
+      "name": "wastedVotesTrend",
+      "text": "wastedVotesTrend · Wasted-votes trend — national share of below-threshold votes across elections. · Тренд на прахосаните гласове — национален дял на гласовете под прага през изборите. · How have wasted votes changed over time? · Как се променят прахосаните гласове през годините? · Trend of votes below the threshold · Тренд на гласовете под прага"
+    },
+    {
+      "name": "suspiciousSettlements",
+      "text": "suspiciousSettlements · Suspicious settlements — concentrated vote, invalid ballots, additional voters. · Съмнителни населени места — концентриран вот, невалидни бюлетини, дописани избиратели. · Which settlements are suspicious? · Кои населени места са съмнителни?"
+    },
+    {
+      "name": "diasporaVote",
+      "text": "diasporaVote · Out-of-country vote (MIR 32) — results by party. · Гласове в чужбина (МИР 32) — резултати по партия. · How did the diaspora vote? · Как гласува диаспората? · Out-of-country results · Резултати в чужбина"
+    },
+    {
+      "name": "diasporaVoteTrend",
+      "text": "diasporaVoteTrend · Diaspora vote (MIR 32) trend — leading parties across elections (multi-line chart). · Тренд на гласа в чужбина (МИР 32) — водещи партии през изборите (многолинейна графика). · Who wins the diaspora vote over recent years? · Кой печели гласа в чужбина последните години? · How has the out-of-country vote changed over time? · Как се променя гласът в чужбина през годините?"
+    },
+    {
+      "name": "voterPersistence",
+      "text": "voterPersistence · Voter persistence — share of voters who stayed with the same party between two elections. · Устойчивост на вота — дял на избирателите, останали при същата партия между два избора. · How many voters kept their vote? · Колко избиратели запазиха своя вот?"
+    },
+    {
+      "name": "partyDemographics",
+      "text": "partyDemographics · A party's demographic correlations (Census 2021): ethnicity, religion, education, age. · Демографски корелации на една партия (Преброяване 2021): етнос, религия, образование, възраст. · Who votes for Vazrazhdane? · Кой гласува за Възраждане? · DPS demographic profile · Демографски профил на ДПС"
+    },
+    {
+      "name": "demographicCleavages",
+      "text": "demographicCleavages · Demographic cleavages — which metrics most divide the parties. · Демографски разделения — кои показатели най-силно разделят партиите. · What divides the electorate? · Какво разделя гласоподавателите?"
+    },
+    {
+      "name": "mpLoyalty",
+      "text": "mpLoyalty · MP party loyalty — share of votes cast with the MP's group. · Партийна лоялност на депутатите — дял на гласовете, съвпадащи с групата. · Which MPs are most loyal? · Кои депутати са най-лоялни? · Which MPs vote against their group? · Кои депутати гласуват против групата си?"
+    },
+    {
+      "name": "mpAttendance",
+      "text": "mpAttendance · MP attendance at roll-call votes. · Присъствие на депутатите при гласуванията. · Which MPs are most absent? · Кои депутати отсъстват най-много?"
+    },
+    {
+      "name": "factionCohesion",
+      "text": "factionCohesion · Faction cohesion — how uniformly the groups vote. · Сплотеност на парламентарните групи — колко единно гласуват. · Which group votes most cohesively? · Коя група гласува най-единно?"
+    },
+    {
+      "name": "mpVotingProfile",
+      "text": "mpVotingProfile · An MP's roll-call profile by name: loyalty and attendance. · Парламентарен профил на депутат по име: лоялност и присъствие. · How does Boyko Borisov vote in parliament? · Как гласува Бойко Борисов в парламента?"
+    },
+    {
+      "name": "mpSimilarity",
+      "text": "mpSimilarity · Which MPs vote most similarly to a given MP. · Кои депутати гласуват най-подобно на даден депутат. · Who votes like Asen Vasilev? · Кой гласува като Асен Василев?"
+    },
+    {
+      "name": "voteSearch",
+      "text": "voteSearch · Search parliamentary votes by topic/keyword — outcome and tally. · Търсене на парламентарни гласувания по тема/дума — резултат и брой гласове. · How did parliament vote on the budget? · Как гласува парламентът за бюджета? · What were the most contested votes? · Кои са най-оспорваните гласувания?"
+    },
+    {
+      "name": "partyMps",
+      "text": "partyMps · The MPs (members) of one party in the sitting National Assembly — by name. · Депутатите (народните представители) от една партия в действащото Народно събрание — поименно. · Who are the MPs from PP? · Кои са депутатите от ПП? · GERB's MPs · Депутатите на ГЕРБ"
+    },
+    {
+      "name": "schoolScores",
+      "text": "schoolScores · Schools in a município by average matura (DZI) / NVO exam score. · Училища в община по среден успех на матурата (ДЗИ) / НВО. · What are the best schools in Plovdiv? · Кои са най-добрите училища в Пловдив? · Matura scores by school in Varna · Среден успех на матурите по училища във Варна"
+    }
+  ],
+  "queries": [
+    {
+      "tool": "nationalResults",
+      "lang": "en",
+      "query": "Bulgaria election 2023 final percentages",
+      "declined": false
+    },
+    {
+      "tool": "nationalResults",
+      "lang": "en",
+      "query": "How many MPs does each party have now?",
+      "declined": true
+    },
+    {
+      "tool": "nationalResults",
+      "lang": "en",
+      "query": "National vote count by party last election",
+      "declined": false
+    },
+    {
+      "tool": "nationalResults",
+      "lang": "bg",
+      "query": "крайни резултати избори октомври 2022",
+      "declined": false
+    },
+    {
+      "tool": "nationalResults",
+      "lang": "bg",
+      "query": "Коя партия колко процента събра на предния вот?",
+      "declined": false
+    },
+    {
+      "tool": "nationalResults",
+      "lang": "bg",
+      "query": "Как се разпределят депутатските места в 49-ото НС?",
+      "declined": false
+    },
+    {
+      "tool": "regionWinners",
+      "lang": "en",
+      "query": "electoral map of Bulgaria winners",
+      "declined": false
+    },
+    {
+      "tool": "regionWinners",
+      "lang": "en",
+      "query": "which party came first in each province",
+      "declined": true
+    },
+    {
+      "tool": "regionWinners",
+      "lang": "en",
+      "query": "oblast-by-oblast election victors list",
+      "declined": false
+    },
+    {
+      "tool": "regionWinners",
+      "lang": "bg",
+      "query": "карта на България с победителите по области",
+      "declined": false
+    },
+    {
+      "tool": "regionWinners",
+      "lang": "bg",
+      "query": "кой печели вота във всеки избирателен район",
+      "declined": false
+    },
+    {
+      "tool": "regionWinners",
+      "lang": "bg",
+      "query": "първите партии по региони списък",
+      "declined": true
+    },
+    {
+      "tool": "parliamentSeats",
+      "lang": "en",
+      "query": "Show the current party breakdown in the plenary hall",
+      "declined": true
+    },
+    {
+      "tool": "parliamentSeats",
+      "lang": "en",
+      "query": "Number of MPs per political party",
+      "declined": true
+    },
+    {
+      "tool": "parliamentSeats",
+      "lang": "en",
+      "query": "Bulgarian assembly seating chart by group",
+      "declined": false
+    },
+    {
+      "tool": "parliamentSeats",
+      "lang": "bg",
+      "query": "Брой народни представители по партии",
+      "declined": true
+    },
+    {
+      "tool": "parliamentSeats",
+      "lang": "bg",
+      "query": "Как са разпределени депутатите в пленарната зала?",
+      "declined": true
+    },
+    {
+      "tool": "parliamentSeats",
+      "lang": "bg",
+      "query": "Графика на парламентарните групи в НС",
+      "declined": true
+    },
+    {
+      "tool": "seatsHistory",
+      "lang": "en",
+      "query": "parliamentary seat trends by party",
+      "declined": false
+    },
+    {
+      "tool": "seatsHistory",
+      "lang": "en",
+      "query": "track party size changes over past elections",
+      "declined": false
+    },
+    {
+      "tool": "seatsHistory",
+      "lang": "en",
+      "query": "how many MPs did GERB and BSP have in previous parliaments?",
+      "declined": false
+    },
+    {
+      "tool": "seatsHistory",
+      "lang": "bg",
+      "query": "динамика на спечелените мандати по избори",
+      "declined": false
+    },
+    {
+      "tool": "seatsHistory",
+      "lang": "bg",
+      "query": "кой колко депутата е имал в миналите парламенти",
+      "declined": false
+    },
+    {
+      "tool": "seatsHistory",
+      "lang": "bg",
+      "query": "история на броя депутати за партиите",
+      "declined": true
+    },
+    {
+      "tool": "partyResult",
+      "lang": "en",
+      "query": "What percentage did PP-DB get in the last vote?",
+      "declined": false
+    },
+    {
+      "tool": "partyResult",
+      "lang": "en",
+      "query": "DPS total votes October 2022",
+      "declined": false
+    },
+    {
+      "tool": "partyResult",
+      "lang": "en",
+      "query": "How did BSP perform in the 2023 elections?",
+      "declined": false
+    },
+    {
+      "tool": "partyResult",
+      "lang": "bg",
+      "query": "какъв процент изкараха пп-дб на последния вот",
+      "declined": false
+    },
+    {
+      "tool": "partyResult",
+      "lang": "bg",
+      "query": "резултати за възраждане април 2023",
+      "declined": false
+    },
+    {
+      "tool": "partyResult",
+      "lang": "bg",
+      "query": "колко гласоподаватели подкрепиха дпс юни 2024",
+      "declined": false
+    },
+    {
+      "tool": "candidateResult",
+      "lang": "en",
+      "query": "how many preferences did Hristo Ivanov get",
+      "declined": false
+    },
+    {
+      "tool": "candidateResult",
+      "lang": "en",
+      "query": "Kiril Petkov preference votes count",
+      "declined": false
+    },
+    {
+      "tool": "candidateResult",
+      "lang": "en",
+      "query": "Where can I see the personal votes for Boyko Borisov?",
+      "declined": false
+    },
+    {
+      "tool": "candidateResult",
+      "lang": "bg",
+      "query": "Колко лични гласа има Асен Василев?",
+      "declined": false
+    },
+    {
+      "tool": "candidateResult",
+      "lang": "bg",
+      "query": "преференциален вот за Томислав Дончев",
+      "declined": false
+    },
+    {
+      "tool": "candidateResult",
+      "lang": "bg",
+      "query": "Къде да видя преференциите на Костадин Костадинов?",
+      "declined": false
+    },
+    {
+      "tool": "machineVoteShare",
+      "lang": "en",
+      "query": "percentage of votes cast on machines in 2022",
+      "declined": false
+    },
+    {
+      "tool": "machineVoteShare",
+      "lang": "en",
+      "query": "machine ballot ratio july 2021",
+      "declined": false
+    },
+    {
+      "tool": "machineVoteShare",
+      "lang": "en",
+      "query": "what share of voters used devices in 2024",
+      "declined": false
+    },
+    {
+      "tool": "machineVoteShare",
+      "lang": "bg",
+      "query": "какъв процент от хората гласуваха с машини през 2022",
+      "declined": false
+    },
+    {
+      "tool": "machineVoteShare",
+      "lang": "bg",
+      "query": "делът на електронния вот през юли 2021",
+      "declined": false
+    },
+    {
+      "tool": "machineVoteShare",
+      "lang": "bg",
+      "query": "колко гласове бяха от устройства на последните избори",
+      "declined": false
+    },
+    {
+      "tool": "turnout",
+      "lang": "en",
+      "query": "What percentage of people voted in the last elections?",
+      "declined": false
+    },
+    {
+      "tool": "turnout",
+      "lang": "en",
+      "query": "Voter participation rate July 2021",
+      "declined": true
+    },
+    {
+      "tool": "turnout",
+      "lang": "en",
+      "query": "How many Bulgarians went to the ballot box in November?",
+      "declined": true
+    },
+    {
+      "tool": "turnout",
+      "lang": "bg",
+      "query": "Колко процента от българите гласуваха миналия път?",
+      "declined": true
+    },
+    {
+      "tool": "turnout",
+      "lang": "bg",
+      "query": "Процент гласували на вота през октомври 2022",
+      "declined": false
+    },
+    {
+      "tool": "turnout",
+      "lang": "bg",
+      "query": "Каква избирателна активност отчете ЦИК за юни?",
+      "declined": false
+    },
+    {
+      "tool": "compareElections",
+      "lang": "en",
+      "query": "April 2021 vs July 2021 election results",
+      "declined": false
+    },
+    {
+      "tool": "compareElections",
+      "lang": "en",
+      "query": "How did voter turnout change between the last two presidential elections?",
+      "declined": false
+    },
+    {
+      "tool": "compareElections",
+      "lang": "en",
+      "query": "Compare the map of the 2019 and 2023 local votes",
+      "declined": false
+    },
+    {
+      "tool": "compareElections",
+      "lang": "bg",
+      "query": "Резултати април 2021 срещу юли 2021",
+      "declined": false
+    },
+    {
+      "tool": "compareElections",
+      "lang": "bg",
+      "query": "Как се промени избирателната активност от 2021 г. до днес?",
+      "declined": false
+    },
+    {
+      "tool": "compareElections",
+      "lang": "bg",
+      "query": "Сравнение на вота за парламент от миналата и тази година",
+      "declined": false
+    },
+    {
+      "tool": "machineVoteSeries",
+      "lang": "en",
+      "query": "Has machine voting increased over the last few elections?",
+      "declined": false
+    },
+    {
+      "tool": "machineVoteSeries",
+      "lang": "en",
+      "query": "machine vote percentage history",
+      "declined": false
+    },
+    {
+      "tool": "machineVoteSeries",
+      "lang": "en",
+      "query": "machine vs paper ballot ratio over the last 5 elections",
+      "declined": false
+    },
+    {
+      "tool": "machineVoteSeries",
+      "lang": "bg",
+      "query": "динамика на машинния вот по избори",
+      "declined": false
+    },
+    {
+      "tool": "machineVoteSeries",
+      "lang": "bg",
+      "query": "Гласуването с машини расте ли през последните няколко вота?",
+      "declined": false
+    },
+    {
+      "tool": "machineVoteSeries",
+      "lang": "bg",
+      "query": "Процент гласували с машини на последните няколко избори",
+      "declined": false
+    },
+    {
+      "tool": "turnoutSeries",
+      "lang": "en",
+      "query": "Voting rate trend for the last 5 elections",
+      "declined": false
+    },
+    {
+      "tool": "turnoutSeries",
+      "lang": "en",
+      "query": "Are people voting less now? Historical participation rates",
+      "declined": true
+    },
+    {
+      "tool": "turnoutSeries",
+      "lang": "en",
+      "query": "Voter turnout history comparison",
+      "declined": false
+    },
+    {
+      "tool": "turnoutSeries",
+      "lang": "bg",
+      "query": "Спада ли избирателната активност в последно време?",
+      "declined": false
+    },
+    {
+      "tool": "turnoutSeries",
+      "lang": "bg",
+      "query": "Динамика на гласуването за последните 5 вота",
+      "declined": false
+    },
+    {
+      "tool": "turnoutSeries",
+      "lang": "bg",
+      "query": "Сравнение на процента гласували назад във времето",
+      "declined": false
+    },
+    {
+      "tool": "partyTimeline",
+      "lang": "en",
+      "query": "BSP historical election results",
+      "declined": false
+    },
+    {
+      "tool": "partyTimeline",
+      "lang": "en",
+      "query": "How did DPS do in past elections?",
+      "declined": false
+    },
+    {
+      "tool": "partyTimeline",
+      "lang": "en",
+      "query": "Electoral trend of ITN since inception",
+      "declined": false
+    },
+    {
+      "tool": "partyTimeline",
+      "lang": "bg",
+      "query": "Резултати на БСП от всички избори досега",
+      "declined": false
+    },
+    {
+      "tool": "partyTimeline",
+      "lang": "bg",
+      "query": "Как се движеше вотът за ИТН във времето?",
+      "declined": false
+    },
+    {
+      "tool": "partyTimeline",
+      "lang": "bg",
+      "query": "Статистика за СДС от началото до днес",
+      "declined": true
+    },
+    {
+      "tool": "pollAccuracy",
+      "lang": "en",
+      "query": "Who predicted the last election most closely?",
+      "declined": false
+    },
+    {
+      "tool": "pollAccuracy",
+      "lang": "en",
+      "query": "polling agency historical deviation ranking",
+      "declined": true
+    },
+    {
+      "tool": "pollAccuracy",
+      "lang": "en",
+      "query": "Which pollsters usually get it wrong?",
+      "declined": true
+    },
+    {
+      "tool": "pollAccuracy",
+      "lang": "bg",
+      "query": "Кои социолози сбъркаха най-малко на предните избори?",
+      "declined": false
+    },
+    {
+      "tool": "pollAccuracy",
+      "lang": "bg",
+      "query": "класация на социологическите агенции по отклонение",
+      "declined": false
+    },
+    {
+      "tool": "pollAccuracy",
+      "lang": "bg",
+      "query": "Коя агенция даде най-близки прогнози до вота?",
+      "declined": false
+    },
+    {
+      "tool": "agencyProfile",
+      "lang": "en",
+      "query": "Market Links historical reliability rating",
+      "declined": false
+    },
+    {
+      "tool": "agencyProfile",
+      "lang": "en",
+      "query": "Does Gallup International Balkan have a house effect?",
+      "declined": false
+    },
+    {
+      "tool": "agencyProfile",
+      "lang": "en",
+      "query": "Trend polling agency track record",
+      "declined": false
+    },
+    {
+      "tool": "agencyProfile",
+      "lang": "bg",
+      "query": "Достоверност на проучванията на Маркет линкс",
+      "declined": true
+    },
+    {
+      "tool": "agencyProfile",
+      "lang": "bg",
+      "query": "Галъп интернешънъл отклонение в резултатите",
+      "declined": false
+    },
+    {
+      "tool": "agencyProfile",
+      "lang": "bg",
+      "query": "Какъв е рейтингът на социологическа агенция Тренд",
+      "declined": false
+    },
+    {
+      "tool": "latestPolls",
+      "lang": "en",
+      "query": "Who is leading the electoral race right now?",
+      "declined": true
+    },
+    {
+      "tool": "latestPolls",
+      "lang": "en",
+      "query": "current party ratings Bulgaria",
+      "declined": true
+    },
+    {
+      "tool": "latestPolls",
+      "lang": "en",
+      "query": "If the vote was this Sunday, who wins?",
+      "declined": false
+    },
+    {
+      "tool": "latestPolls",
+      "lang": "bg",
+      "query": "Коя партия води в момента?",
+      "declined": true
+    },
+    {
+      "tool": "latestPolls",
+      "lang": "bg",
+      "query": "електорални нагласи днес",
+      "declined": true
+    },
+    {
+      "tool": "latestPolls",
+      "lang": "bg",
+      "query": "Ако изборите бяха тази неделя, какви са процентите?",
+      "declined": false
+    },
+    {
+      "tool": "agencyPolls",
+      "lang": "en",
+      "query": "Gallup International tracking data over time",
+      "declined": false
+    },
+    {
+      "tool": "agencyPolls",
+      "lang": "en",
+      "query": "How have Mediana's election forecasts changed?",
+      "declined": false
+    },
+    {
+      "tool": "agencyPolls",
+      "lang": "en",
+      "query": "Alpha Research party ratings trend",
+      "declined": false
+    },
+    {
+      "tool": "agencyPolls",
+      "lang": "bg",
+      "query": "Как се движат рейтингите на партиите според Алфа Рисърч?",
+      "declined": false
+    },
+    {
+      "tool": "agencyPolls",
+      "lang": "bg",
+      "query": "резултати на агенция Тренд по месеци",
+      "declined": false
+    },
+    {
+      "tool": "agencyPolls",
+      "lang": "bg",
+      "query": "архив на Галъп Интернешънъл анкети",
+      "declined": false
+    },
+    {
+      "tool": "agencyAccuracyHistory",
+      "lang": "en",
+      "query": "Gallup historical polling error rates",
+      "declined": true
+    },
+    {
+      "tool": "agencyAccuracyHistory",
+      "lang": "en",
+      "query": "Has Trend become more reliable over the last few elections?",
+      "declined": false
+    },
+    {
+      "tool": "agencyAccuracyHistory",
+      "lang": "en",
+      "query": "Market Links track record and deviations since 2017",
+      "declined": false
+    },
+    {
+      "tool": "agencyAccuracyHistory",
+      "lang": "bg",
+      "query": "История на отклоненията при проучванията на Галъп",
+      "declined": false
+    },
+    {
+      "tool": "agencyAccuracyHistory",
+      "lang": "bg",
+      "query": "Колко бъркат Тренд по избори назад във времето?",
+      "declined": false
+    },
+    {
+      "tool": "agencyAccuracyHistory",
+      "lang": "bg",
+      "query": "Маркет линкс хронологична точност и средна грешка",
+      "declined": false
+    },
+    {
+      "tool": "accuracyTrend",
+      "lang": "en",
+      "query": "Which polling agencies are getting more reliable over time?",
+      "declined": false
+    },
+    {
+      "tool": "accuracyTrend",
+      "lang": "en",
+      "query": "Historical accuracy graph of Bulgarian pollsters",
+      "declined": false
+    },
+    {
+      "tool": "accuracyTrend",
+      "lang": "en",
+      "query": "Pollster error rate trends from 2015 to now",
+      "declined": false
+    },
+    {
+      "tool": "accuracyTrend",
+      "lang": "bg",
+      "query": "Кои социолози подобряват прогнозите си с времето?",
+      "declined": true
+    },
+    {
+      "tool": "accuracyTrend",
+      "lang": "bg",
+      "query": "Графика на грешките на агенциите по избори",
+      "declined": false
+    },
+    {
+      "tool": "accuracyTrend",
+      "lang": "bg",
+      "query": "Сравнение на надеждността на социологическите проучвания през годините",
+      "declined": false
+    },
+    {
+      "tool": "regionBreakdown",
+      "lang": "en",
+      "query": "DPS vote share by province last election",
+      "declined": false
+    },
+    {
+      "tool": "regionBreakdown",
+      "lang": "en",
+      "query": "Which districts voted most for PP-DB?",
+      "declined": false
+    },
+    {
+      "tool": "regionBreakdown",
+      "lang": "en",
+      "query": "Vazrazhdane support breakdown by oblast",
+      "declined": false
+    },
+    {
+      "tool": "regionBreakdown",
+      "lang": "bg",
+      "query": "резултати на възраждане по области",
+      "declined": false
+    },
+    {
+      "tool": "regionBreakdown",
+      "lang": "bg",
+      "query": "В кои избирателни райони БСП има най-нисък вот?",
+      "declined": false
+    },
+    {
+      "tool": "regionBreakdown",
+      "lang": "bg",
+      "query": "Карта на подкрепата за ДПС по региони",
+      "declined": false
+    },
+    {
+      "tool": "municipalityBreakdown",
+      "lang": "en",
+      "query": "How did DPS perform in different municipalities of Kardzhali?",
+      "declined": false
+    },
+    {
+      "tool": "municipalityBreakdown",
+      "lang": "en",
+      "query": "PP-DB vote share map for Sofia region",
+      "declined": false
+    },
+    {
+      "tool": "municipalityBreakdown",
+      "lang": "en",
+      "query": "Vazrazhdane results by municipality in Burgas district",
+      "declined": false
+    },
+    {
+      "tool": "municipalityBreakdown",
+      "lang": "bg",
+      "query": "резултати на бсп по общини в област стара загора",
+      "declined": false
+    },
+    {
+      "tool": "municipalityBreakdown",
+      "lang": "bg",
+      "query": "къде в благоевградско имат най-много гласове герб",
+      "declined": false
+    },
+    {
+      "tool": "municipalityBreakdown",
+      "lang": "bg",
+      "query": "карта на вота за дпс в област кърджали",
+      "declined": false
+    },
+    {
+      "tool": "municipalityWinners",
+      "lang": "en",
+      "query": "Varna province municipality winners map",
+      "declined": false
+    },
+    {
+      "tool": "municipalityWinners",
+      "lang": "en",
+      "query": "Who took the lead in the different municipalities around Ruse?",
+      "declined": false
+    },
+    {
+      "tool": "municipalityWinners",
+      "lang": "en",
+      "query": "Which parties came first in Sofia region's municipalities?",
+      "declined": false
+    },
+    {
+      "tool": "municipalityWinners",
+      "lang": "bg",
+      "query": "карта победители по общини Пловдив област",
+      "declined": false
+    },
+    {
+      "tool": "municipalityWinners",
+      "lang": "bg",
+      "query": "Кой води в отделните общини на област Стара Загора?",
+      "declined": false
+    },
+    {
+      "tool": "municipalityWinners",
+      "lang": "bg",
+      "query": "Първи сили по общини в Кърджалийско",
+      "declined": true
+    },
+    {
+      "tool": "settlementWinners",
+      "lang": "en",
+      "query": "Which party got the most votes in each village of Dupnitsa?",
+      "declined": false
+    },
+    {
+      "tool": "settlementWinners",
+      "lang": "en",
+      "query": "winning party map for settlements in Lovech municipality",
+      "declined": false
+    },
+    {
+      "tool": "settlementWinners",
+      "lang": "en",
+      "query": "who won where in Pomorie municipality",
+      "declined": false
+    },
+    {
+      "tool": "settlementWinners",
+      "lang": "bg",
+      "query": "Къде кой печели в община Сливен по села",
+      "declined": false
+    },
+    {
+      "tool": "settlementWinners",
+      "lang": "bg",
+      "query": "карта с победителите по населени места в община Радомир",
+      "declined": false
+    },
+    {
+      "tool": "settlementWinners",
+      "lang": "bg",
+      "query": "кои партии водят в селата на община Карлово",
+      "declined": true
+    },
+    {
+      "tool": "sectionWinners",
+      "lang": "en",
+      "query": "Which party won each voting station in Burgas?",
+      "declined": false
+    },
+    {
+      "tool": "sectionWinners",
+      "lang": "en",
+      "query": "station-by-station winners in Ruse",
+      "declined": false
+    },
+    {
+      "tool": "sectionWinners",
+      "lang": "en",
+      "query": "Who took the lead in the individual polling booths in Sofia?",
+      "declined": true
+    },
+    {
+      "tool": "sectionWinners",
+      "lang": "bg",
+      "query": "Кой спечели във всяка от секциите в Перник?",
+      "declined": false
+    },
+    {
+      "tool": "sectionWinners",
+      "lang": "bg",
+      "query": "победители по избирателни секции в Плевен",
+      "declined": false
+    },
+    {
+      "tool": "sectionWinners",
+      "lang": "bg",
+      "query": "Коя партия води в отделните секции в Добрич?",
+      "declined": true
+    },
+    {
+      "tool": "sectionResults",
+      "lang": "en",
+      "query": "section 224600088 election data",
+      "declined": false
+    },
+    {
+      "tool": "sectionResults",
+      "lang": "en",
+      "query": "Which party won in section 030600012?",
+      "declined": false
+    },
+    {
+      "tool": "sectionResults",
+      "lang": "en",
+      "query": "turnout and breakdown for section 162200015",
+      "declined": false
+    },
+    {
+      "tool": "sectionResults",
+      "lang": "bg",
+      "query": "разпределение на гласовете секция 020400055",
+      "declined": false
+    },
+    {
+      "tool": "sectionResults",
+      "lang": "bg",
+      "query": "Коя партия спечели в секция 254600012?",
+      "declined": false
+    },
+    {
+      "tool": "sectionResults",
+      "lang": "bg",
+      "query": "активност и гласове в секция 091500004",
+      "declined": false
+    },
+    {
+      "tool": "sectionHistory",
+      "lang": "en",
+      "query": "Voting history for polling station 224600012",
+      "declined": false
+    },
+    {
+      "tool": "sectionHistory",
+      "lang": "en",
+      "query": "How did 150300045 vote in past elections?",
+      "declined": false
+    },
+    {
+      "tool": "sectionHistory",
+      "lang": "en",
+      "query": "Section 320600081 historical results breakdown",
+      "declined": false
+    },
+    {
+      "tool": "sectionHistory",
+      "lang": "bg",
+      "query": "История на вота в секция 130900002",
+      "declined": false
+    },
+    {
+      "tool": "sectionHistory",
+      "lang": "bg",
+      "query": "Как се промениха гласовете в секция 081200044 досега?",
+      "declined": false
+    },
+    {
+      "tool": "sectionHistory",
+      "lang": "bg",
+      "query": "Динамика на партиите в секция 254600011 през годините",
+      "declined": false
+    },
+    {
+      "tool": "sectionRiskHistory",
+      "lang": "en",
+      "query": "020400015 risk profile over the years",
+      "declined": false
+    },
+    {
+      "tool": "sectionRiskHistory",
+      "lang": "en",
+      "query": "Has station 254600012 been flagged as a persistent risk cluster?",
+      "declined": false
+    },
+    {
+      "tool": "sectionRiskHistory",
+      "lang": "en",
+      "query": "Risk tier history for section 150200003",
+      "declined": false
+    },
+    {
+      "tool": "sectionRiskHistory",
+      "lang": "bg",
+      "query": "История на рисковия статус за секция 030600010",
+      "declined": false
+    },
+    {
+      "tool": "sectionRiskHistory",
+      "lang": "bg",
+      "query": "Секция 234600025 води ли се в ромска махала и има ли траен риск?",
+      "declined": false
+    },
+    {
+      "tool": "sectionRiskHistory",
+      "lang": "bg",
+      "query": "Как се е променял рискът при секция 010200045 на предишни избори?",
+      "declined": false
+    },
+    {
+      "tool": "settlementResults",
+      "lang": "en",
+      "query": "Who won the most votes in Kozloduy?",
+      "declined": false
+    },
+    {
+      "tool": "settlementResults",
+      "lang": "en",
+      "query": "voter turnout and party percentages in Oreshak",
+      "declined": false
+    },
+    {
+      "tool": "settlementResults",
+      "lang": "en",
+      "query": "Kran election statistics",
+      "declined": false
+    },
+    {
+      "tool": "settlementResults",
+      "lang": "bg",
+      "query": "Коя партия събра най-много гласове в Лозен?",
+      "declined": true
+    },
+    {
+      "tool": "settlementResults",
+      "lang": "bg",
+      "query": "активност и проценти за Копривщица",
+      "declined": false
+    },
+    {
+      "tool": "settlementResults",
+      "lang": "bg",
+      "query": "Резултати избори село Марково",
+      "declined": false
+    },
+    {
+      "tool": "settlementHistory",
+      "lang": "en",
+      "query": "historical vote distribution in Koprivshtitsa",
+      "declined": false
+    },
+    {
+      "tool": "settlementHistory",
+      "lang": "en",
+      "query": "political leanings of Sandanski over time",
+      "declined": true
+    },
+    {
+      "tool": "settlementHistory",
+      "lang": "en",
+      "query": "how did Varna vote in all parliamentary elections since 2013?",
+      "declined": false
+    },
+    {
+      "tool": "settlementHistory",
+      "lang": "bg",
+      "query": "изборна статистика по години за Благоевград",
+      "declined": false
+    },
+    {
+      "tool": "settlementHistory",
+      "lang": "bg",
+      "query": "промяна в политическите нагласи на град Сливен",
+      "declined": true
+    },
+    {
+      "tool": "settlementHistory",
+      "lang": "bg",
+      "query": "как са се променяли гласовете за партиите в село Марково?",
+      "declined": false
+    },
+    {
+      "tool": "municipalityResults",
+      "lang": "en",
+      "query": "Burgas voter turnout and election statistics",
+      "declined": false
+    },
+    {
+      "tool": "municipalityResults",
+      "lang": "en",
+      "query": "Who won the vote in Dupnitsa?",
+      "declined": false
+    },
+    {
+      "tool": "municipalityResults",
+      "lang": "en",
+      "query": "party percentages Samokov elections",
+      "declined": false
+    },
+    {
+      "tool": "municipalityResults",
+      "lang": "bg",
+      "query": "Избирателна активност и резултати Благоевград",
+      "declined": false
+    },
+    {
+      "tool": "municipalityResults",
+      "lang": "bg",
+      "query": "Коя партия спечели изборите в община Русе?",
+      "declined": false
+    },
+    {
+      "tool": "municipalityResults",
+      "lang": "bg",
+      "query": "проценти по партии за Кърджали",
+      "declined": true
+    },
+    {
+      "tool": "municipalityHistory",
+      "lang": "en",
+      "query": "Kardzhali voting history by party",
+      "declined": true
+    },
+    {
+      "tool": "municipalityHistory",
+      "lang": "en",
+      "query": "How has the political lean in Varna changed since 2013?",
+      "declined": true
+    },
+    {
+      "tool": "municipalityHistory",
+      "lang": "en",
+      "query": "Show me the shift in party support in Bansko over time",
+      "declined": false
+    },
+    {
+      "tool": "municipalityHistory",
+      "lang": "bg",
+      "query": "Динамика на вота в община Бургас през годините",
+      "declined": false
+    },
+    {
+      "tool": "municipalityHistory",
+      "lang": "bg",
+      "query": "Как се променяха изборните нагласи в Благоевград от 2015 насам?",
+      "declined": false
+    },
+    {
+      "tool": "municipalityHistory",
+      "lang": "bg",
+      "query": "Исторически вот по партии за община Русе",
+      "declined": false
+    },
+    {
+      "tool": "regionResults",
+      "lang": "en",
+      "query": "How did people vote in Burgas district?",
+      "declined": false
+    },
+    {
+      "tool": "regionResults",
+      "lang": "en",
+      "query": "Plovdiv constituency final percentage and voter turnout",
+      "declined": false
+    },
+    {
+      "tool": "regionResults",
+      "lang": "en",
+      "query": "Ruse oblast election stats",
+      "declined": false
+    },
+    {
+      "tool": "regionResults",
+      "lang": "bg",
+      "query": "Как гласува област Благоевград вчера?",
+      "declined": false
+    },
+    {
+      "tool": "regionResults",
+      "lang": "bg",
+      "query": "активност и резултати по партии в Бургас",
+      "declined": false
+    },
+    {
+      "tool": "regionResults",
+      "lang": "bg",
+      "query": "Русе избирателен район проценти",
+      "declined": false
+    },
+    {
+      "tool": "regionResultsTrend",
+      "lang": "en",
+      "query": "Plovdiv election trends by party",
+      "declined": false
+    },
+    {
+      "tool": "regionResultsTrend",
+      "lang": "en",
+      "query": "How has Kardzhali voted in recent elections?",
+      "declined": false
+    },
+    {
+      "tool": "regionResultsTrend",
+      "lang": "en",
+      "query": "historical party vote share in Burgas",
+      "declined": false
+    },
+    {
+      "tool": "regionResultsTrend",
+      "lang": "bg",
+      "query": "динамика на гласовете по партии в Благоевград",
+      "declined": true
+    },
+    {
+      "tool": "regionResultsTrend",
+      "lang": "bg",
+      "query": "Как се променя вотът в Кърджали през годините?",
+      "declined": false
+    },
+    {
+      "tool": "regionResultsTrend",
+      "lang": "bg",
+      "query": "история на изборите в Пловдив-област по партии",
+      "declined": false
+    },
+    {
+      "tool": "settlementBreakdown",
+      "lang": "en",
+      "query": "How did Vazrazhdane do in the different villages of Karlovo?",
+      "declined": false
+    },
+    {
+      "tool": "settlementBreakdown",
+      "lang": "en",
+      "query": "Which towns in Ruse municipality voted for PP-DB?",
+      "declined": false
+    },
+    {
+      "tool": "settlementBreakdown",
+      "lang": "en",
+      "query": "BSP support map by village in Samokov muni",
+      "declined": false
+    },
+    {
+      "tool": "settlementBreakdown",
+      "lang": "bg",
+      "query": "Къде в община Марица имат най-много гласове Продължаваме промяната?",
+      "declined": false
+    },
+    {
+      "tool": "settlementBreakdown",
+      "lang": "bg",
+      "query": "Гласове за Възраждане по села в община Добрич",
+      "declined": false
+    },
+    {
+      "tool": "settlementBreakdown",
+      "lang": "bg",
+      "query": "Карта на вота за ДПС в община Кърджали по населени места",
+      "declined": false
+    },
+    {
+      "tool": "electionAnomalies",
+      "lang": "en",
+      "query": "Which polling stations had their protocols corrected?",
+      "declined": true
+    },
+    {
+      "tool": "electionAnomalies",
+      "lang": "en",
+      "query": "faulty voting machine reports oct 2023",
+      "declined": false
+    },
+    {
+      "tool": "electionAnomalies",
+      "lang": "en",
+      "query": "Suspicious voting patterns flagged last Sunday",
+      "declined": true
+    },
+    {
+      "tool": "electionAnomalies",
+      "lang": "bg",
+      "query": "Къде имаше най-много поправки в протоколите?",
+      "declined": true
+    },
+    {
+      "tool": "electionAnomalies",
+      "lang": "bg",
+      "query": "сгрешени машинни отчети от вота през юни",
+      "declined": false
+    },
+    {
+      "tool": "electionAnomalies",
+      "lang": "bg",
+      "query": "Секции с разминавания между хартия и машини",
+      "declined": false
+    },
+    {
+      "tool": "flashMemoryByParty",
+      "lang": "en",
+      "query": "Vote differences between flash drive and protocol by party",
+      "declined": false
+    },
+    {
+      "tool": "flashMemoryByParty",
+      "lang": "en",
+      "query": "Who lost votes from machine memory card discrepancies?",
+      "declined": false
+    },
+    {
+      "tool": "flashMemoryByParty",
+      "lang": "en",
+      "query": "party-by-party machine memory mismatch stats",
+      "declined": false
+    },
+    {
+      "tool": "flashMemoryByParty",
+      "lang": "bg",
+      "query": "Разминавания по партии между хартиения протокол и флашката",
+      "declined": false
+    },
+    {
+      "tool": "flashMemoryByParty",
+      "lang": "bg",
+      "query": "Кои партии са ощетени от разликата във флаш паметта?",
+      "declined": false
+    },
+    {
+      "tool": "flashMemoryByParty",
+      "lang": "bg",
+      "query": "несъответствие гласове машини флаш карти по партийна принадлежност",
+      "declined": false
+    },
+    {
+      "tool": "machineVoteByParty",
+      "lang": "en",
+      "query": "Which political parties prefer paper ballots over screens?",
+      "declined": true
+    },
+    {
+      "tool": "machineVoteByParty",
+      "lang": "en",
+      "query": "Machine voting share among different party electorates",
+      "declined": false
+    },
+    {
+      "tool": "machineVoteByParty",
+      "lang": "en",
+      "query": "Do PP-DB supporters vote more on machines?",
+      "declined": false
+    },
+    {
+      "tool": "machineVoteByParty",
+      "lang": "bg",
+      "query": "Кои електорати предпочитат хартиени бюлетини пред машини?",
+      "declined": false
+    },
+    {
+      "tool": "machineVoteByParty",
+      "lang": "bg",
+      "query": "Процентно съотношение на машинния вот по партии",
+      "declined": false
+    },
+    {
+      "tool": "machineVoteByParty",
+      "lang": "bg",
+      "query": "Гласоподавателите на ПП-ДБ с машини ли гласуват най-вече?",
+      "declined": false
+    },
+    {
+      "tool": "wastedVotesByParty",
+      "lang": "en",
+      "query": "Votes for parties that didn't pass 4%",
+      "declined": true
+    },
+    {
+      "tool": "wastedVotesByParty",
+      "lang": "en",
+      "query": "Which small parties lost the most ballots?",
+      "declined": true
+    },
+    {
+      "tool": "wastedVotesByParty",
+      "lang": "en",
+      "query": "Unrepresented votes by party list",
+      "declined": false
+    },
+    {
+      "tool": "wastedVotesByParty",
+      "lang": "bg",
+      "query": "Колко гласа изгоряха за всяка малка партия?",
+      "declined": true
+    },
+    {
+      "tool": "wastedVotesByParty",
+      "lang": "bg",
+      "query": "Загубени гласове под 4% по партии",
+      "declined": false
+    },
+    {
+      "tool": "wastedVotesByParty",
+      "lang": "bg",
+      "query": "Кои невлязли партии събраха най-много вот?",
+      "declined": false
+    },
+    {
+      "tool": "recountByParty",
+      "lang": "en",
+      "query": "vote difference by party after the october manual recount",
+      "declined": false
+    },
+    {
+      "tool": "recountByParty",
+      "lang": "en",
+      "query": "which parties gained the most from the 2024 recount?",
+      "declined": false
+    },
+    {
+      "tool": "recountByParty",
+      "lang": "en",
+      "query": "how did the recount change the results for each coalition",
+      "declined": false
+    },
+    {
+      "tool": "recountByParty",
+      "lang": "bg",
+      "query": "промени ли се вотът за партиите след повторното броене",
+      "declined": false
+    },
+    {
+      "tool": "recountByParty",
+      "lang": "bg",
+      "query": "разлики в гласовете по партии от чувалите през октомври 2024",
+      "declined": true
+    },
+    {
+      "tool": "recountByParty",
+      "lang": "bg",
+      "query": "кои политически сили спечелиха допълнителни гласове при ревизията",
+      "declined": false
+    },
+    {
+      "tool": "regionHistory",
+      "lang": "en",
+      "query": "Varna historical voter turnout",
+      "declined": false
+    },
+    {
+      "tool": "regionHistory",
+      "lang": "en",
+      "query": "Are people in Burgas voting less over the years?",
+      "declined": true
+    },
+    {
+      "tool": "regionHistory",
+      "lang": "en",
+      "query": "Plovdiv voting activity trend",
+      "declined": true
+    },
+    {
+      "tool": "regionHistory",
+      "lang": "bg",
+      "query": "Бургас избирателна активност хронология",
+      "declined": false
+    },
+    {
+      "tool": "regionHistory",
+      "lang": "bg",
+      "query": "Гласуват ли все по-малко хора във Варна?",
+      "declined": true
+    },
+    {
+      "tool": "regionHistory",
+      "lang": "bg",
+      "query": "История на гласуването в Пловдив-област",
+      "declined": false
+    },
+    {
+      "tool": "voteTransitions",
+      "lang": "en",
+      "query": "where did GERB's lost votes go",
+      "declined": false
+    },
+    {
+      "tool": "voteTransitions",
+      "lang": "en",
+      "query": "voter flow from BSP to other parties",
+      "declined": false
+    },
+    {
+      "tool": "voteTransitions",
+      "lang": "en",
+      "query": "Who did former ITN supporters vote for this time?",
+      "declined": false
+    },
+    {
+      "tool": "voteTransitions",
+      "lang": "bg",
+      "query": "накъде се преляха гласовете на ДПС",
+      "declined": false
+    },
+    {
+      "tool": "voteTransitions",
+      "lang": "bg",
+      "query": "миграция на гласове от БСП към ПП",
+      "declined": false
+    },
+    {
+      "tool": "voteTransitions",
+      "lang": "bg",
+      "query": "за кого гласуваха бившите избиратели на ИТН",
+      "declined": false
+    },
+    {
+      "tool": "localCouncilVoteShare",
+      "lang": "en",
+      "query": "national breakdown of municipal council votes",
+      "declined": false
+    },
+    {
+      "tool": "localCouncilVoteShare",
+      "lang": "en",
+      "query": "local elections overall party results",
+      "declined": false
+    },
+    {
+      "tool": "localCouncilVoteShare",
+      "lang": "en",
+      "query": "how did the main parties rank in the council votes countrywide",
+      "declined": false
+    },
+    {
+      "tool": "localCouncilVoteShare",
+      "lang": "bg",
+      "query": "резултати за общински съветници по партии в цялата страна",
+      "declined": false
+    },
+    {
+      "tool": "localCouncilVoteShare",
+      "lang": "bg",
+      "query": "национален дял на гласовете за съветници по партийни листи",
+      "declined": true
+    },
+    {
+      "tool": "localCouncilVoteShare",
+      "lang": "bg",
+      "query": "колко процента общо имат партиите в общинските съвети",
+      "declined": false
+    },
+    {
+      "tool": "localMayorsWon",
+      "lang": "en",
+      "query": "Number of mayors per party nationwide",
+      "declined": false
+    },
+    {
+      "tool": "localMayorsWon",
+      "lang": "en",
+      "query": "BSP mayoral seats count",
+      "declined": false
+    },
+    {
+      "tool": "localMayorsWon",
+      "lang": "en",
+      "query": "Which party won the most mayor elections?",
+      "declined": false
+    },
+    {
+      "tool": "localMayorsWon",
+      "lang": "bg",
+      "query": "брой кметове по партии",
+      "declined": false
+    },
+    {
+      "tool": "localMayorsWon",
+      "lang": "bg",
+      "query": "Коя партия има най-много кметове в България?",
+      "declined": false
+    },
+    {
+      "tool": "localMayorsWon",
+      "lang": "bg",
+      "query": "Разпределение на кметските места по политически сили",
+      "declined": false
+    },
+    {
+      "tool": "localCouncilTrend",
+      "lang": "en",
+      "query": "Party performance in municipal councils over the last 15 years",
+      "declined": false
+    },
+    {
+      "tool": "localCouncilTrend",
+      "lang": "en",
+      "query": "Compare local council vote shares from 2007 to 2023",
+      "declined": false
+    },
+    {
+      "tool": "localCouncilTrend",
+      "lang": "en",
+      "query": "How did party strength in local councils evolve since 2007?",
+      "declined": false
+    },
+    {
+      "tool": "localCouncilTrend",
+      "lang": "bg",
+      "query": "Динамика на партийния вот за общински съветници от 2007",
+      "declined": false
+    },
+    {
+      "tool": "localCouncilTrend",
+      "lang": "bg",
+      "query": "Кои партии печелят и губят в местните съвети през годините?",
+      "declined": false
+    },
+    {
+      "tool": "localCouncilTrend",
+      "lang": "bg",
+      "query": "Резултати на партиите за общински съвет по години",
+      "declined": false
+    },
+    {
+      "tool": "localVoteFlows",
+      "lang": "en",
+      "query": "municipal council voter migration 2019 to 2023",
+      "declined": false
+    },
+    {
+      "tool": "localVoteFlows",
+      "lang": "en",
+      "query": "Who did BSP local council supporters vote for in the next election?",
+      "declined": false
+    },
+    {
+      "tool": "localVoteFlows",
+      "lang": "en",
+      "query": "tracking party switcher patterns in local elections",
+      "declined": false
+    },
+    {
+      "tool": "localVoteFlows",
+      "lang": "bg",
+      "query": "миграция на избиратели между местните избори 2019 и 2023",
+      "declined": false
+    },
+    {
+      "tool": "localVoteFlows",
+      "lang": "bg",
+      "query": "накъде се насочиха гласоподавателите за общински съвет на ГЕРБ",
+      "declined": false
+    },
+    {
+      "tool": "localVoteFlows",
+      "lang": "bg",
+      "query": "как се разпределиха бившите гласове на патриотите в общините",
+      "declined": true
+    },
+    {
+      "tool": "localMayorsTrend",
+      "lang": "en",
+      "query": "party comparison of elected mayors over time",
+      "declined": false
+    },
+    {
+      "tool": "localMayorsTrend",
+      "lang": "en",
+      "query": "which parties gained or lost mayoralties since 2007?",
+      "declined": false
+    },
+    {
+      "tool": "localMayorsTrend",
+      "lang": "en",
+      "query": "mayoral seats by party historical chart",
+      "declined": false
+    },
+    {
+      "tool": "localMayorsTrend",
+      "lang": "bg",
+      "query": "динамика на кметовете по партии от 2007 насам",
+      "declined": false
+    },
+    {
+      "tool": "localMayorsTrend",
+      "lang": "bg",
+      "query": "възход и спад на партийните кметове през годините",
+      "declined": false
+    },
+    {
+      "tool": "localMayorsTrend",
+      "lang": "bg",
+      "query": "партийно разпределение на кметовете от 2007 до 2023",
+      "declined": false
+    },
+    {
+      "tool": "localOblastMayors",
+      "lang": "en",
+      "query": "Burgas region mayor seats by political party",
+      "declined": false
+    },
+    {
+      "tool": "localOblastMayors",
+      "lang": "en",
+      "query": "Which parties got the most mayors in Sofia province?",
+      "declined": false
+    },
+    {
+      "tool": "localOblastMayors",
+      "lang": "en",
+      "query": "party distribution of municipal mayors in Stara Zagora oblast",
+      "declined": false
+    },
+    {
+      "tool": "localOblastMayors",
+      "lang": "bg",
+      "query": "Кои партии управляват общините в област Благоевград?",
+      "declined": true
+    },
+    {
+      "tool": "localOblastMayors",
+      "lang": "bg",
+      "query": "разпределение на кметовете по партии област Русе",
+      "declined": false
+    },
+    {
+      "tool": "localOblastMayors",
+      "lang": "bg",
+      "query": "Коя политическа сила има най-много кметове в област Велико Търново?",
+      "declined": false
+    },
+    {
+      "tool": "localMunicipality",
+      "lang": "en",
+      "query": "Who won the mayoral race in Bansko?",
+      "declined": false
+    },
+    {
+      "tool": "localMunicipality",
+      "lang": "en",
+      "query": "What was the voter turnout in Ruse?",
+      "declined": false
+    },
+    {
+      "tool": "localMunicipality",
+      "lang": "en",
+      "query": "municipal council seats distribution Sofia",
+      "declined": false
+    },
+    {
+      "tool": "localMunicipality",
+      "lang": "bg",
+      "query": "кой спечели изборите за кмет в Благоевград",
+      "declined": false
+    },
+    {
+      "tool": "localMunicipality",
+      "lang": "bg",
+      "query": "избирателна активност във Варна на местния вот",
+      "declined": false
+    },
+    {
+      "tool": "localMunicipality",
+      "lang": "bg",
+      "query": "кои партии влизат в общинския съвет в Русе",
+      "declined": false
+    },
+    {
+      "tool": "localMayorRace",
+      "lang": "en",
+      "query": "Plovdiv mayor election final standings",
+      "declined": false
+    },
+    {
+      "tool": "localMayorRace",
+      "lang": "en",
+      "query": "How did the mayoral candidates in Pleven rank?",
+      "declined": false
+    },
+    {
+      "tool": "localMayorRace",
+      "lang": "en",
+      "query": "full vote breakdown mayor of Bansko",
+      "declined": false
+    },
+    {
+      "tool": "localMayorRace",
+      "lang": "bg",
+      "query": "Как се подредиха кандидатите за кмет в Благоевград?",
+      "declined": false
+    },
+    {
+      "tool": "localMayorRace",
+      "lang": "bg",
+      "query": "резултати кметски избори Русе класиране",
+      "declined": false
+    },
+    {
+      "tool": "localMayorRace",
+      "lang": "bg",
+      "query": "Кой колко гласа получи за кмет на Стара Загора?",
+      "declined": false
+    },
+    {
+      "tool": "localMayorHistory",
+      "lang": "en",
+      "query": "Burgas past mayors list",
+      "declined": false
+    },
+    {
+      "tool": "localMayorHistory",
+      "lang": "en",
+      "query": "Who governed Varna municipality over the last few terms?",
+      "declined": false
+    },
+    {
+      "tool": "localMayorHistory",
+      "lang": "en",
+      "query": "History of elected mayors in Ruse",
+      "declined": false
+    },
+    {
+      "tool": "localMayorHistory",
+      "lang": "bg",
+      "query": "Минали кметове на община Пловдив",
+      "declined": false
+    },
+    {
+      "tool": "localMayorHistory",
+      "lang": "bg",
+      "query": "Кои бяха кметовете на Варна през предишните мандати?",
+      "declined": false
+    },
+    {
+      "tool": "localMayorHistory",
+      "lang": "bg",
+      "query": "Хронология на кметовете на Бургас",
+      "declined": false
+    },
+    {
+      "tool": "localSubMayors",
+      "lang": "en",
+      "query": "Varna rayon mayors list",
+      "declined": false
+    },
+    {
+      "tool": "localSubMayors",
+      "lang": "en",
+      "query": "who are the village mayors in Karlovo municipality",
+      "declined": false
+    },
+    {
+      "tool": "localSubMayors",
+      "lang": "en",
+      "query": "mayors of individual settlements in Bansko",
+      "declined": false
+    },
+    {
+      "tool": "localSubMayors",
+      "lang": "bg",
+      "query": "списък на районните кметове във Варна",
+      "declined": false
+    },
+    {
+      "tool": "localSubMayors",
+      "lang": "bg",
+      "query": "кои са кметовете на селата в община Самоков",
+      "declined": false
+    },
+    {
+      "tool": "localSubMayors",
+      "lang": "bg",
+      "query": "селски кметове община Русе",
+      "declined": false
+    },
+    {
+      "tool": "localCouncil",
+      "lang": "en",
+      "query": "Sofia city council party breakdown",
+      "declined": false
+    },
+    {
+      "tool": "localCouncil",
+      "lang": "en",
+      "query": "How many councilors does GERB have in Plovdiv?",
+      "declined": false
+    },
+    {
+      "tool": "localCouncil",
+      "lang": "en",
+      "query": "Who has a majority in the Varna municipal council?",
+      "declined": false
+    },
+    {
+      "tool": "localCouncil",
+      "lang": "bg",
+      "query": "Разпределение на мандатите в общински съвет Пловдив",
+      "declined": false
+    },
+    {
+      "tool": "localCouncil",
+      "lang": "bg",
+      "query": "Колко съветника имат ГЕРБ в София?",
+      "declined": false
+    },
+    {
+      "tool": "localCouncil",
+      "lang": "bg",
+      "query": "кои партии са в общинския съвет на Русе",
+      "declined": false
+    },
+    {
+      "tool": "chmiEvents",
+      "lang": "en",
+      "query": "Schedule for partial mayoral elections",
+      "declined": false
+    },
+    {
+      "tool": "chmiEvents",
+      "lang": "en",
+      "query": "When is the next snap local vote?",
+      "declined": false
+    },
+    {
+      "tool": "chmiEvents",
+      "lang": "en",
+      "query": "extraordinary mayoral election calendar",
+      "declined": false
+    },
+    {
+      "tool": "chmiEvents",
+      "lang": "bg",
+      "query": "Кога са следващите предсрочни кметски избори?",
+      "declined": false
+    },
+    {
+      "tool": "chmiEvents",
+      "lang": "bg",
+      "query": "График за частичен вот по общини",
+      "declined": false
+    },
+    {
+      "tool": "chmiEvents",
+      "lang": "bg",
+      "query": "Къде ще има извънредни местни избори тази година?",
+      "declined": false
+    },
+    {
+      "tool": "budgetOverview",
+      "lang": "en",
+      "query": "Bulgaria budget deficit 2023",
+      "declined": false
+    },
+    {
+      "tool": "budgetOverview",
+      "lang": "en",
+      "query": "How much did the government spend last year",
+      "declined": false
+    },
+    {
+      "tool": "budgetOverview",
+      "lang": "en",
+      "query": "State revenues and expenses breakdown",
+      "declined": false
+    },
+    {
+      "tool": "budgetOverview",
+      "lang": "bg",
+      "query": "Приходи и разходи на държавата за 2022",
+      "declined": false
+    },
+    {
+      "tool": "budgetOverview",
+      "lang": "bg",
+      "query": "Колко пари събра и похарчи държавата миналата година",
+      "declined": true
+    },
+    {
+      "tool": "budgetOverview",
+      "lang": "bg",
+      "query": "Бюджетен излишък или дефицит имаме за годината",
+      "declined": false
+    },
+    {
+      "tool": "budgetTrend",
+      "lang": "en",
+      "query": "yearly treasury income and expenditures",
+      "declined": false
+    },
+    {
+      "tool": "budgetTrend",
+      "lang": "en",
+      "query": "How much did the state collect and spend since 2015?",
+      "declined": true
+    },
+    {
+      "tool": "budgetTrend",
+      "lang": "en",
+      "query": "Bulgaria fiscal surplus and deficit history",
+      "declined": false
+    },
+    {
+      "tool": "budgetTrend",
+      "lang": "bg",
+      "query": "финансов баланс на държавата за минали години",
+      "declined": false
+    },
+    {
+      "tool": "budgetTrend",
+      "lang": "bg",
+      "query": "Какви са били постъпленията и харчовете на кабинета по години?",
+      "declined": false
+    },
+    {
+      "tool": "budgetTrend",
+      "lang": "bg",
+      "query": "хронология на държавните приходи и разходи",
+      "declined": false
+    },
+    {
+      "tool": "simulateTaxChange",
+      "lang": "en",
+      "query": "budget impact of raising corporate tax to 12%",
+      "declined": false
+    },
+    {
+      "tool": "simulateTaxChange",
+      "lang": "en",
+      "query": "cost of removing dividend tax altogether",
+      "declined": false
+    },
+    {
+      "tool": "simulateTaxChange",
+      "lang": "en",
+      "query": "lifting the cap on social security contributions budget effect",
+      "declined": false
+    },
+    {
+      "tool": "simulateTaxChange",
+      "lang": "bg",
+      "query": "намаляване на ДДС на 18% ефект върху бюджета",
+      "declined": false
+    },
+    {
+      "tool": "simulateTaxChange",
+      "lang": "bg",
+      "query": "приходи от вдигане на максималния осигурителен доход на 4500 лв",
+      "declined": false
+    },
+    {
+      "tool": "simulateTaxChange",
+      "lang": "bg",
+      "query": "колко ще загуби хазната от необлагаем минимум колкото МРЗ",
+      "declined": false
+    },
+    {
+      "tool": "budgetByFunction",
+      "lang": "en",
+      "query": "government spending breakdown by sector",
+      "declined": false
+    },
+    {
+      "tool": "budgetByFunction",
+      "lang": "en",
+      "query": "how much money goes to education vs defense",
+      "declined": false
+    },
+    {
+      "tool": "budgetByFunction",
+      "lang": "en",
+      "query": "state budget distribution by category",
+      "declined": false
+    },
+    {
+      "tool": "budgetByFunction",
+      "lang": "bg",
+      "query": "разпределение на държавните разходи по сектори",
+      "declined": false
+    },
+    {
+      "tool": "budgetByFunction",
+      "lang": "bg",
+      "query": "колко пари отиват за здравеопазване и отбрана",
+      "declined": false
+    },
+    {
+      "tool": "budgetByFunction",
+      "lang": "bg",
+      "query": "бюджетни средства по пера",
+      "declined": false
+    },
+    {
+      "tool": "budgetFunction",
+      "lang": "en",
+      "query": "What percentage of the budget goes to education?",
+      "declined": false
+    },
+    {
+      "tool": "budgetFunction",
+      "lang": "en",
+      "query": "National security funding trend",
+      "declined": true
+    },
+    {
+      "tool": "budgetFunction",
+      "lang": "en",
+      "query": "How much do we spend on environmental protection?",
+      "declined": false
+    },
+    {
+      "tool": "budgetFunction",
+      "lang": "bg",
+      "query": "Какъв процент от държавния бюджет е за образование?",
+      "declined": false
+    },
+    {
+      "tool": "budgetFunction",
+      "lang": "bg",
+      "query": "Тенденция при разходите за култура",
+      "declined": false
+    },
+    {
+      "tool": "budgetFunction",
+      "lang": "bg",
+      "query": "Колко се заделя за вътрешна сигурност и полиция?",
+      "declined": false
+    },
+    {
+      "tool": "procurementTotals",
+      "lang": "en",
+      "query": "What is the total value of all public tenders?",
+      "declined": true
+    },
+    {
+      "tool": "procurementTotals",
+      "lang": "en",
+      "query": "Total government contract spending statistics",
+      "declined": false
+    },
+    {
+      "tool": "procurementTotals",
+      "lang": "en",
+      "query": "How many state tenders have been awarded in total?",
+      "declined": true
+    },
+    {
+      "tool": "procurementTotals",
+      "lang": "bg",
+      "query": "Колко пари общо са отишли за държавни поръчки?",
+      "declined": false
+    },
+    {
+      "tool": "procurementTotals",
+      "lang": "bg",
+      "query": "Общ брой и стойност на договорите в АОП",
+      "declined": false
+    },
+    {
+      "tool": "procurementTotals",
+      "lang": "bg",
+      "query": "Каква е общата сума на публичните търгове в България?",
+      "declined": true
+    },
+    {
+      "tool": "topContractors",
+      "lang": "en",
+      "query": "Which private companies get the most public funding?",
+      "declined": true
+    },
+    {
+      "tool": "topContractors",
+      "lang": "en",
+      "query": "Rank of government suppliers linked to politicians",
+      "declined": false
+    },
+    {
+      "tool": "topContractors",
+      "lang": "en",
+      "query": "Highest paid state vendors",
+      "declined": true
+    },
+    {
+      "tool": "topContractors",
+      "lang": "bg",
+      "query": "Кои частни компании усвояват най-много държавни пари?",
+      "declined": true
+    },
+    {
+      "tool": "topContractors",
+      "lang": "bg",
+      "query": "Фирми с най-скъпи договори от АОП и връзки с депутати",
+      "declined": false
+    },
+    {
+      "tool": "topContractors",
+      "lang": "bg",
+      "query": "Най-добре платените държавни доставчици",
+      "declined": true
+    },
+    {
+      "tool": "mpProcurement",
+      "lang": "en",
+      "query": "Yearly state contracts won by Peevski's firms",
+      "declined": false
+    },
+    {
+      "tool": "mpProcurement",
+      "lang": "en",
+      "query": "Which sitting politicians have businesses winning public tenders?",
+      "declined": true
+    },
+    {
+      "tool": "mpProcurement",
+      "lang": "en",
+      "query": "List of government procurements given to companies of current MPs",
+      "declined": false
+    },
+    {
+      "tool": "mpProcurement",
+      "lang": "bg",
+      "query": "държавни поръчки към фирми на Пеевски по години",
+      "declined": false
+    },
+    {
+      "tool": "mpProcurement",
+      "lang": "bg",
+      "query": "Колко държавни пари са взели фирмите на сегашните депутати?",
+      "declined": false
+    },
+    {
+      "tool": "mpProcurement",
+      "lang": "bg",
+      "query": "кои народни представители печелят търгове с фирмите си",
+      "declined": false
+    },
+    {
+      "tool": "awarderProcurement",
+      "lang": "en",
+      "query": "Contracts awarded by Sofia High School of Mathematics",
+      "declined": false
+    },
+    {
+      "tool": "awarderProcurement",
+      "lang": "en",
+      "query": "Which companies won the most tenders from Varna Municipality?",
+      "declined": false
+    },
+    {
+      "tool": "awarderProcurement",
+      "lang": "en",
+      "query": "Pirogov hospital public procurement spend",
+      "declined": false
+    },
+    {
+      "tool": "awarderProcurement",
+      "lang": "bg",
+      "query": "Детска градина Слънце Бургас обществени поръчки",
+      "declined": false
+    },
+    {
+      "tool": "awarderProcurement",
+      "lang": "bg",
+      "query": "Кои са основните доставчици на МВР по договори?",
+      "declined": true
+    },
+    {
+      "tool": "awarderProcurement",
+      "lang": "bg",
+      "query": "Бюджет за поръчки на община Благоевград по години",
+      "declined": false
+    },
+    {
+      "tool": "fundsOverview",
+      "lang": "en",
+      "query": "Which companies received the highest European subsidies?",
+      "declined": true
+    },
+    {
+      "tool": "fundsOverview",
+      "lang": "en",
+      "query": "top list of ISUN grant winners",
+      "declined": false
+    },
+    {
+      "tool": "fundsOverview",
+      "lang": "en",
+      "query": "where does most of the EU funding go in Bulgaria",
+      "declined": true
+    },
+    {
+      "tool": "fundsOverview",
+      "lang": "bg",
+      "query": "Кои фирми са взели най-крупните суми от Брюксел?",
+      "declined": true
+    },
+    {
+      "tool": "fundsOverview",
+      "lang": "bg",
+      "query": "списък на топ бенефициентите в ИСУН",
+      "declined": false
+    },
+    {
+      "tool": "fundsOverview",
+      "lang": "bg",
+      "query": "кой води класацията по усвоени еврофондове",
+      "declined": false
+    },
+    {
+      "tool": "revenueBreakdown",
+      "lang": "en",
+      "query": "VAT revenue breakdown by industry",
+      "declined": false
+    },
+    {
+      "tool": "revenueBreakdown",
+      "lang": "en",
+      "query": "Which products generate the most excise duties?",
+      "declined": false
+    },
+    {
+      "tool": "revenueBreakdown",
+      "lang": "en",
+      "query": "Income tax collected by type of earnings",
+      "declined": false
+    },
+    {
+      "tool": "revenueBreakdown",
+      "lang": "bg",
+      "query": "Кои икономически сектори плащат най-много ДДС?",
+      "declined": true
+    },
+    {
+      "tool": "revenueBreakdown",
+      "lang": "bg",
+      "query": "Приходи от акциз по групи стоки",
+      "declined": false
+    },
+    {
+      "tool": "revenueBreakdown",
+      "lang": "bg",
+      "query": "Разпределение на данъка върху доходите по източник",
+      "declined": false
+    },
+    {
+      "tool": "fundsProjects",
+      "lang": "en",
+      "query": "ISUN payout tracker by project",
+      "declined": false
+    },
+    {
+      "tool": "fundsProjects",
+      "lang": "en",
+      "query": "Which operational program has the highest payout rate?",
+      "declined": true
+    },
+    {
+      "tool": "fundsProjects",
+      "lang": "en",
+      "query": "Total contracted vs paid EU subsidies",
+      "declined": false
+    },
+    {
+      "tool": "fundsProjects",
+      "lang": "bg",
+      "query": "справка за изплатени проекти в ИСУН",
+      "declined": false
+    },
+    {
+      "tool": "fundsProjects",
+      "lang": "bg",
+      "query": "Кои са програмите с най-високи бюджети?",
+      "declined": false
+    },
+    {
+      "tool": "fundsProjects",
+      "lang": "bg",
+      "query": "Колко пари от ЕС реално са преведени по договорите?",
+      "declined": true
+    },
+    {
+      "tool": "municipalTransfers",
+      "lang": "en",
+      "query": "national budget funding for municipal delegated activities",
+      "declined": false
+    },
+    {
+      "tool": "municipalTransfers",
+      "lang": "en",
+      "query": "how much is the equalization subsidy for cities",
+      "declined": false
+    },
+    {
+      "tool": "municipalTransfers",
+      "lang": "en",
+      "query": "government subsidies for local municipalities breakdown",
+      "declined": false
+    },
+    {
+      "tool": "municipalTransfers",
+      "lang": "bg",
+      "query": "държавно финансиране на общините по пера",
+      "declined": true
+    },
+    {
+      "tool": "municipalTransfers",
+      "lang": "bg",
+      "query": "колко пари вземат кметствата за делегирани дейности",
+      "declined": false
+    },
+    {
+      "tool": "municipalTransfers",
+      "lang": "bg",
+      "query": "разпределение на целевите субсидии за общините",
+      "declined": false
+    },
+    {
+      "tool": "govDebt",
+      "lang": "en",
+      "query": "latest government bond auctions",
+      "declined": false
+    },
+    {
+      "tool": "govDebt",
+      "lang": "en",
+      "query": "How much new debt did the state issue recently?",
+      "declined": false
+    },
+    {
+      "tool": "govDebt",
+      "lang": "en",
+      "query": "results from the last treasury bill sale",
+      "declined": false
+    },
+    {
+      "tool": "govDebt",
+      "lang": "bg",
+      "query": "резултати от последните аукциони за ДЦК",
+      "declined": false
+    },
+    {
+      "tool": "govDebt",
+      "lang": "bg",
+      "query": "Колко нов дълг пое държавата наскоро?",
+      "declined": false
+    },
+    {
+      "tool": "govDebt",
+      "lang": "bg",
+      "query": "последна емисия държавни облигации",
+      "declined": false
+    },
+    {
+      "tool": "noiFunds",
+      "lang": "en",
+      "query": "Social security fund surplus or deficit",
+      "declined": false
+    },
+    {
+      "tool": "noiFunds",
+      "lang": "en",
+      "query": "Total revenue of the National Social Security Institute",
+      "declined": false
+    },
+    {
+      "tool": "noiFunds",
+      "lang": "en",
+      "query": "How much is the state spending on social security benefits?",
+      "declined": false
+    },
+    {
+      "tool": "noiFunds",
+      "lang": "bg",
+      "query": "Финансов отчет на НОИ",
+      "declined": false
+    },
+    {
+      "tool": "noiFunds",
+      "lang": "bg",
+      "query": "Колко са приходите от осигуровки в ДОО",
+      "declined": false
+    },
+    {
+      "tool": "noiFunds",
+      "lang": "bg",
+      "query": "Бюджетен баланс на Държавното обществено осигуряване",
+      "declined": false
+    },
+    {
+      "tool": "budgetExecution",
+      "lang": "en",
+      "query": "Are we in a deficit or surplus month-to-month?",
+      "declined": false
+    },
+    {
+      "tool": "budgetExecution",
+      "lang": "en",
+      "query": "government spending vs revenue by month",
+      "declined": false
+    },
+    {
+      "tool": "budgetExecution",
+      "lang": "en",
+      "query": "monthly treasury balance trend",
+      "declined": true
+    },
+    {
+      "tool": "budgetExecution",
+      "lang": "bg",
+      "query": "Харчове и приходи на държавата по месеци",
+      "declined": false
+    },
+    {
+      "tool": "budgetExecution",
+      "lang": "bg",
+      "query": "Как се движи бюджетният дефицит месец за месец?",
+      "declined": false
+    },
+    {
+      "tool": "budgetExecution",
+      "lang": "bg",
+      "query": "месечно салдо на държавния бюджет",
+      "declined": false
+    },
+    {
+      "tool": "ministryBudget",
+      "lang": "en",
+      "query": "How is the defense ministry's budget split up by programs?",
+      "declined": false
+    },
+    {
+      "tool": "ministryBudget",
+      "lang": "en",
+      "query": "education ministry spending breakdown",
+      "declined": false
+    },
+    {
+      "tool": "ministryBudget",
+      "lang": "en",
+      "query": "Where does the ministry of tourism spend its money?",
+      "declined": false
+    },
+    {
+      "tool": "ministryBudget",
+      "lang": "bg",
+      "query": "Как са разпределени средствата по програми на МОН?",
+      "declined": true
+    },
+    {
+      "tool": "ministryBudget",
+      "lang": "bg",
+      "query": "разбивка на разходите на здравното министерство",
+      "declined": false
+    },
+    {
+      "tool": "ministryBudget",
+      "lang": "bg",
+      "query": "Колко пари отиват за отделните пера в МВР?",
+      "declined": true
+    },
+    {
+      "tool": "investmentProjects",
+      "lang": "en",
+      "query": "capital projects in Appendix 3",
+      "declined": false
+    },
+    {
+      "tool": "investmentProjects",
+      "lang": "en",
+      "query": "Which infrastructure projects get the most state funding?",
+      "declined": true
+    },
+    {
+      "tool": "investmentProjects",
+      "lang": "en",
+      "query": "top state funded construction projects",
+      "declined": true
+    },
+    {
+      "tool": "investmentProjects",
+      "lang": "bg",
+      "query": "Приложение 3 капиталови разходи списък",
+      "declined": false
+    },
+    {
+      "tool": "investmentProjects",
+      "lang": "bg",
+      "query": "Къде отиват най-много пари за държавно строителство?",
+      "declined": false
+    },
+    {
+      "tool": "investmentProjects",
+      "lang": "bg",
+      "query": "топ инфраструктурни проекти от бюджета",
+      "declined": false
+    },
+    {
+      "tool": "governments",
+      "lang": "en",
+      "query": "Bulgarian PMs and cabinets since 2005",
+      "declined": false
+    },
+    {
+      "tool": "governments",
+      "lang": "en",
+      "query": "Who led the coalition governments in Bulgaria recently?",
+      "declined": false
+    },
+    {
+      "tool": "governments",
+      "lang": "en",
+      "query": "past ruling parties and prime ministers Bulgaria",
+      "declined": false
+    },
+    {
+      "tool": "governments",
+      "lang": "bg",
+      "query": "списък на българските кабинети през последните години",
+      "declined": false
+    },
+    {
+      "tool": "governments",
+      "lang": "bg",
+      "query": "Кои партии управляваха България след 2005 година?",
+      "declined": true
+    },
+    {
+      "tool": "governments",
+      "lang": "bg",
+      "query": "премиери и коалиции в България от 2005 насам",
+      "declined": false
+    },
+    {
+      "tool": "mpAssetsTop",
+      "lang": "en",
+      "query": "Who declared the most wealth in parliament?",
+      "declined": true
+    },
+    {
+      "tool": "mpAssetsTop",
+      "lang": "en",
+      "query": "mps ranked by net worth",
+      "declined": true
+    },
+    {
+      "tool": "mpAssetsTop",
+      "lang": "en",
+      "query": "top 10 wealthiest mps",
+      "declined": false
+    },
+    {
+      "tool": "mpAssetsTop",
+      "lang": "bg",
+      "query": "Кои народни представители са декларирали най-много имущество?",
+      "declined": true
+    },
+    {
+      "tool": "mpAssetsTop",
+      "lang": "bg",
+      "query": "депутати по богатство класация",
+      "declined": false
+    },
+    {
+      "tool": "mpAssetsTop",
+      "lang": "bg",
+      "query": "Топ милионери в парламента",
+      "declined": true
+    },
+    {
+      "tool": "mpConnectionsTop",
+      "lang": "en",
+      "query": "Which politicians in parliament are connected to the most companies?",
+      "declined": true
+    },
+    {
+      "tool": "mpConnectionsTop",
+      "lang": "en",
+      "query": "deputies with the highest number of business participations",
+      "declined": true
+    },
+    {
+      "tool": "mpConnectionsTop",
+      "lang": "en",
+      "query": "top MPs by commercial register entries",
+      "declined": true
+    },
+    {
+      "tool": "mpConnectionsTop",
+      "lang": "bg",
+      "query": "Кои народни представители имат най-голям брой фирмени участия?",
+      "declined": false
+    },
+    {
+      "tool": "mpConnectionsTop",
+      "lang": "bg",
+      "query": "депутати с най-много участия в дружества търговски регистър",
+      "declined": true
+    },
+    {
+      "tool": "mpConnectionsTop",
+      "lang": "bg",
+      "query": "топ 10 народни представители в Търговския регистър",
+      "declined": true
+    },
+    {
+      "tool": "mpAssetsByParty",
+      "lang": "en",
+      "query": "average declared wealth of MPs by party",
+      "declined": false
+    },
+    {
+      "tool": "mpAssetsByParty",
+      "lang": "en",
+      "query": "which political faction has the highest net worth per deputy",
+      "declined": true
+    },
+    {
+      "tool": "mpAssetsByParty",
+      "lang": "en",
+      "query": "party breakdown of average MP assets",
+      "declined": false
+    },
+    {
+      "tool": "mpAssetsByParty",
+      "lang": "bg",
+      "query": "средно декларирани активи на депутат по партии",
+      "declined": false
+    },
+    {
+      "tool": "mpAssetsByParty",
+      "lang": "bg",
+      "query": "коя парламентарна група има най-високо средно богатство на член",
+      "declined": true
+    },
+    {
+      "tool": "mpAssetsByParty",
+      "lang": "bg",
+      "query": "имоти и спестявания на народните представители средно по коалиции",
+      "declined": false
+    },
+    {
+      "tool": "mpConnectionsByParty",
+      "lang": "en",
+      "query": "Corporate interests by political party",
+      "declined": true
+    },
+    {
+      "tool": "mpConnectionsByParty",
+      "lang": "en",
+      "query": "Which parties have the highest number of MPs owning businesses?",
+      "declined": true
+    },
+    {
+      "tool": "mpConnectionsByParty",
+      "lang": "en",
+      "query": "party affiliation of politicians with private companies",
+      "declined": true
+    },
+    {
+      "tool": "mpConnectionsByParty",
+      "lang": "bg",
+      "query": "бизнес интереси по партийна линия в парламента",
+      "declined": true
+    },
+    {
+      "tool": "mpConnectionsByParty",
+      "lang": "bg",
+      "query": "Кои парламентарни групи са най-обвързани с бизнеса?",
+      "declined": true
+    },
+    {
+      "tool": "mpConnectionsByParty",
+      "lang": "bg",
+      "query": "фирми на депутати разпределени по партии",
+      "declined": false
+    },
+    {
+      "tool": "officialsAssetsTop",
+      "lang": "en",
+      "query": "ranking of regional governors by declared wealth",
+      "declined": true
+    },
+    {
+      "tool": "officialsAssetsTop",
+      "lang": "en",
+      "query": "who are the wealthiest deputy ministers",
+      "declined": true
+    },
+    {
+      "tool": "officialsAssetsTop",
+      "lang": "en",
+      "query": "government officials with highest declared net worth",
+      "declined": false
+    },
+    {
+      "tool": "officialsAssetsTop",
+      "lang": "bg",
+      "query": "кои областни управители са декларирали най-много имущество",
+      "declined": true
+    },
+    {
+      "tool": "officialsAssetsTop",
+      "lang": "bg",
+      "query": "класация по богатство на зам-министрите",
+      "declined": false
+    },
+    {
+      "tool": "officialsAssetsTop",
+      "lang": "bg",
+      "query": "висши държавници с най-големи спестявания",
+      "declined": true
+    },
+    {
+      "tool": "financingOverview",
+      "lang": "en",
+      "query": "Which parties missed the deadline for submitting their annual accounts?",
+      "declined": true
+    },
+    {
+      "tool": "financingOverview",
+      "lang": "en",
+      "query": "Court of Audit compliance list for political parties",
+      "declined": true
+    },
+    {
+      "tool": "financingOverview",
+      "lang": "en",
+      "query": "Who failed to file their financial reports this year?",
+      "declined": true
+    },
+    {
+      "tool": "financingOverview",
+      "lang": "bg",
+      "query": "Кои партии закъсняха с финансовите си отчети към Сметната палата?",
+      "declined": true
+    },
+    {
+      "tool": "financingOverview",
+      "lang": "bg",
+      "query": "глобени партии за неподадени годишни отчети",
+      "declined": true
+    },
+    {
+      "tool": "financingOverview",
+      "lang": "bg",
+      "query": "нередовни партии Сметна палата списък",
+      "declined": false
+    },
+    {
+      "tool": "partyFinance",
+      "lang": "en",
+      "query": "BSP media package funding last election",
+      "declined": false
+    },
+    {
+      "tool": "partyFinance",
+      "lang": "en",
+      "query": "What did DPS declare to the Audit Chamber?",
+      "declined": false
+    },
+    {
+      "tool": "partyFinance",
+      "lang": "en",
+      "query": "How much of their own money did Vazrazhdane use",
+      "declined": false
+    },
+    {
+      "tool": "partyFinance",
+      "lang": "bg",
+      "query": "Медиен пакет на Възраждане за изборите",
+      "declined": false
+    },
+    {
+      "tool": "partyFinance",
+      "lang": "bg",
+      "query": "Финансов отчет на ДПС в Сметната палата",
+      "declined": false
+    },
+    {
+      "tool": "partyFinance",
+      "lang": "bg",
+      "query": "С какви собствени средства участва БСП",
+      "declined": false
+    },
+    {
+      "tool": "companyConnections",
+      "lang": "en",
+      "query": "Does EIK 131452678 have board members close to MPs?",
+      "declined": false
+    },
+    {
+      "tool": "companyConnections",
+      "lang": "en",
+      "query": "Check EIK 201456789 for links to government officials",
+      "declined": false
+    },
+    {
+      "tool": "companyConnections",
+      "lang": "en",
+      "query": "EIK 102938475 political exposure and connections",
+      "declined": false
+    },
+    {
+      "tool": "companyConnections",
+      "lang": "bg",
+      "query": "Има ли хора от властта в ЕИК 203456789?",
+      "declined": false
+    },
+    {
+      "tool": "companyConnections",
+      "lang": "bg",
+      "query": "ЕИК 121345678 връзки с политически лица",
+      "declined": false
+    },
+    {
+      "tool": "companyConnections",
+      "lang": "bg",
+      "query": "Проверка за конфликт на интереси с депутати за ЕИК 987654321",
+      "declined": false
+    },
+    {
+      "tool": "macroIndicator",
+      "lang": "en",
+      "query": "Bulgarian GDP trends last 10 years",
+      "declined": false
+    },
+    {
+      "tool": "macroIndicator",
+      "lang": "en",
+      "query": "How did the national debt change since 2010?",
+      "declined": false
+    },
+    {
+      "tool": "macroIndicator",
+      "lang": "en",
+      "query": "unemployment rate history",
+      "declined": false
+    },
+    {
+      "tool": "macroIndicator",
+      "lang": "bg",
+      "query": "история на държавния дълг на България",
+      "declined": false
+    },
+    {
+      "tool": "macroIndicator",
+      "lang": "bg",
+      "query": "Как се движи БВП през годините?",
+      "declined": false
+    },
+    {
+      "tool": "macroIndicator",
+      "lang": "bg",
+      "query": "ръст на средната работна заплата графики",
+      "declined": false
+    },
+    {
+      "tool": "macroOverview",
+      "lang": "en",
+      "query": "latest economic metrics bulgaria",
+      "declined": true
+    },
+    {
+      "tool": "macroOverview",
+      "lang": "en",
+      "query": "How are the main economic figures looking?",
+      "declined": true
+    },
+    {
+      "tool": "macroOverview",
+      "lang": "en",
+      "query": "macro stats summary",
+      "declined": false
+    },
+    {
+      "tool": "macroOverview",
+      "lang": "bg",
+      "query": "макроикономически данни накратко",
+      "declined": false
+    },
+    {
+      "tool": "macroOverview",
+      "lang": "bg",
+      "query": "Какви са последните цифри за развитието на страната?",
+      "declined": true
+    },
+    {
+      "tool": "macroOverview",
+      "lang": "bg",
+      "query": "актуални икономически показатели за България",
+      "declined": false
+    },
+    {
+      "tool": "macroByCategory",
+      "lang": "en",
+      "query": "bulgarian economic and fiscal performance metrics",
+      "declined": true
+    },
+    {
+      "tool": "macroByCategory",
+      "lang": "en",
+      "query": "where can I see data on society and quality of life?",
+      "declined": true
+    },
+    {
+      "tool": "macroByCategory",
+      "lang": "en",
+      "query": "government efficiency and state administration statistics",
+      "declined": false
+    },
+    {
+      "tool": "macroByCategory",
+      "lang": "bg",
+      "query": "икономически и финансови данни за България",
+      "declined": true
+    },
+    {
+      "tool": "macroByCategory",
+      "lang": "bg",
+      "query": "статистика за социалната сфера и населението",
+      "declined": false
+    },
+    {
+      "tool": "macroByCategory",
+      "lang": "bg",
+      "query": "данни за прозрачност на управлението и институциите",
+      "declined": false
+    },
+    {
+      "tool": "euComparison",
+      "lang": "en",
+      "query": "Bulgarian GDP per capita vs Greece and Romania over time",
+      "declined": false
+    },
+    {
+      "tool": "euComparison",
+      "lang": "en",
+      "query": "How does our minimum wage compare to Hungary and Croatia?",
+      "declined": false
+    },
+    {
+      "tool": "euComparison",
+      "lang": "en",
+      "query": "BG vs EU-27 youth employment trends",
+      "declined": false
+    },
+    {
+      "tool": "euComparison",
+      "lang": "bg",
+      "query": "Как се движи нашият държавен дълг спрямо този на Гърция и Хърватия?",
+      "declined": false
+    },
+    {
+      "tool": "euComparison",
+      "lang": "bg",
+      "query": "БВП на глава от населението България срещу Румъния и ЕС последните години",
+      "declined": false
+    },
+    {
+      "tool": "euComparison",
+      "lang": "bg",
+      "query": "Сравнение на разходите за здравеопазване BG и средното за ЕС",
+      "declined": false
+    },
+    {
+      "tool": "subnationalIndicator",
+      "lang": "en",
+      "query": "DZI exam results trend for Dupnitsa",
+      "declined": false
+    },
+    {
+      "tool": "subnationalIndicator",
+      "lang": "en",
+      "query": "Net migration rate in Burgas municipality since 2015",
+      "declined": false
+    },
+    {
+      "tool": "subnationalIndicator",
+      "lang": "en",
+      "query": "How has unemployment changed in Lovech?",
+      "declined": false
+    },
+    {
+      "tool": "subnationalIndicator",
+      "lang": "bg",
+      "query": "Резултати от матурите в община Самоков по години",
+      "declined": false
+    },
+    {
+      "tool": "subnationalIndicator",
+      "lang": "bg",
+      "query": "Как се движи миграцията в Казанлък?",
+      "declined": false
+    },
+    {
+      "tool": "subnationalIndicator",
+      "lang": "bg",
+      "query": "Динамика на безработицата в Карлово",
+      "declined": false
+    },
+    {
+      "tool": "rankPlaces",
+      "lang": "en",
+      "query": "Which regions had the lowest voter turnout?",
+      "declined": false
+    },
+    {
+      "tool": "rankPlaces",
+      "lang": "en",
+      "query": "Top 10 municipalities by average salary",
+      "declined": false
+    },
+    {
+      "tool": "rankPlaces",
+      "lang": "en",
+      "query": "Where in Bulgaria is the population aging the fastest?",
+      "declined": false
+    },
+    {
+      "tool": "rankPlaces",
+      "lang": "bg",
+      "query": "Кои области са с най-ниска избирателна активност?",
+      "declined": false
+    },
+    {
+      "tool": "rankPlaces",
+      "lang": "bg",
+      "query": "Топ 5 общини по средна работна заплата",
+      "declined": false
+    },
+    {
+      "tool": "rankPlaces",
+      "lang": "bg",
+      "query": "Кои общини са с най-застаряващо население?",
+      "declined": false
+    },
+    {
+      "tool": "regionIndicator",
+      "lang": "en",
+      "query": "How many people live in Burgas region?",
+      "declined": false
+    },
+    {
+      "tool": "regionIndicator",
+      "lang": "en",
+      "query": "Plovdiv oblast net migration rates",
+      "declined": false
+    },
+    {
+      "tool": "regionIndicator",
+      "lang": "en",
+      "query": "wealth per capita in Pleven district",
+      "declined": false
+    },
+    {
+      "tool": "regionIndicator",
+      "lang": "bg",
+      "query": "Колко души живеят в Кюстендилско?",
+      "declined": false
+    },
+    {
+      "tool": "regionIndicator",
+      "lang": "bg",
+      "query": "заселване и изселване област Стара Загора",
+      "declined": true
+    },
+    {
+      "tool": "regionIndicator",
+      "lang": "bg",
+      "query": "БВП на глава в област Ловеч",
+      "declined": false
+    },
+    {
+      "tool": "transparencyScore",
+      "lang": "en",
+      "query": "Plovdiv transparency index",
+      "declined": false
+    },
+    {
+      "tool": "transparencyScore",
+      "lang": "en",
+      "query": "LISI rating for Burgas",
+      "declined": false
+    },
+    {
+      "tool": "transparencyScore",
+      "lang": "en",
+      "query": "Does Veliko Tarnovo municipality have a good openness score?",
+      "declined": false
+    },
+    {
+      "tool": "transparencyScore",
+      "lang": "bg",
+      "query": "ЛИСИ индекс за Пловдив",
+      "declined": true
+    },
+    {
+      "tool": "transparencyScore",
+      "lang": "bg",
+      "query": "Какъв е рейтингът за откритост на Варна?",
+      "declined": true
+    },
+    {
+      "tool": "transparencyScore",
+      "lang": "bg",
+      "query": "оценка за прозрачност община Стара Загора",
+      "declined": false
+    },
+    {
+      "tool": "localTaxes",
+      "lang": "en",
+      "query": "Are local taxes in Burgas higher than average?",
+      "declined": false
+    },
+    {
+      "tool": "localTaxes",
+      "lang": "en",
+      "query": "property tax Varna vs national average",
+      "declined": false
+    },
+    {
+      "tool": "localTaxes",
+      "lang": "en",
+      "query": "Is garbage fee in Ruse above the country average?",
+      "declined": true
+    },
+    {
+      "tool": "localTaxes",
+      "lang": "bg",
+      "query": "По-високи ли са местните данъци в Благоевград от средните за страната?",
+      "declined": false
+    },
+    {
+      "tool": "localTaxes",
+      "lang": "bg",
+      "query": "данък МПС Стара Загора спрямо средния за България",
+      "declined": false
+    },
+    {
+      "tool": "localTaxes",
+      "lang": "bg",
+      "query": "Такса смет в Плевен сравнена с другите общини",
+      "declined": false
+    },
+    {
+      "tool": "landUse",
+      "lang": "en",
+      "query": "agricultural land percentage by oblast",
+      "declined": false
+    },
+    {
+      "tool": "landUse",
+      "lang": "en",
+      "query": "What percentage of Bulgaria is urbanized?",
+      "declined": true
+    },
+    {
+      "tool": "landUse",
+      "lang": "en",
+      "query": "Burgas region farmland acreage",
+      "declined": true
+    },
+    {
+      "tool": "landUse",
+      "lang": "bg",
+      "query": "процент земеделска земя по области",
+      "declined": false
+    },
+    {
+      "tool": "landUse",
+      "lang": "bg",
+      "query": "каква част от България е застроена площ",
+      "declined": true
+    },
+    {
+      "tool": "landUse",
+      "lang": "bg",
+      "query": "статистика за пасища и ливади в област Варна",
+      "declined": true
+    },
+    {
+      "tool": "priceIndex",
+      "lang": "en",
+      "query": "How much more expensive are groceries in Burgas since the euro?",
+      "declined": true
+    },
+    {
+      "tool": "priceIndex",
+      "lang": "en",
+      "query": "KZP monitoring index post euro transition",
+      "declined": true
+    },
+    {
+      "tool": "priceIndex",
+      "lang": "en",
+      "query": "CPC consumer basket change by category after currency switch",
+      "declined": false
+    },
+    {
+      "tool": "priceIndex",
+      "lang": "bg",
+      "query": "с колко поскъпнаха хранителните стоки в София след въвеждане на еврото",
+      "declined": true
+    },
+    {
+      "tool": "priceIndex",
+      "lang": "bg",
+      "query": "мониторингов индекс на КЗП за цените по области след еврото",
+      "declined": false
+    },
+    {
+      "tool": "priceIndex",
+      "lang": "bg",
+      "query": "промяна в потребителската кошница по категории след еврото",
+      "declined": false
+    },
+    {
+      "tool": "settlementPrices",
+      "lang": "en",
+      "query": "Which supermarket is the cheapest in Sofia right now?",
+      "declined": false
+    },
+    {
+      "tool": "settlementPrices",
+      "lang": "en",
+      "query": "Grocery basket cost change in Varna after euro",
+      "declined": false
+    },
+    {
+      "tool": "settlementPrices",
+      "lang": "en",
+      "query": "egg prices Ruse stores",
+      "declined": false
+    },
+    {
+      "tool": "settlementPrices",
+      "lang": "bg",
+      "query": "Къде в Бургас е най-евтино да се пазарува?",
+      "declined": false
+    },
+    {
+      "tool": "settlementPrices",
+      "lang": "bg",
+      "query": "Поскъпнаха ли храните в Русе след еврото?",
+      "declined": true
+    },
+    {
+      "tool": "settlementPrices",
+      "lang": "bg",
+      "query": "цена на хляба в Стара Загора вериги",
+      "declined": false
+    },
+    {
+      "tool": "cheapestChains",
+      "lang": "en",
+      "query": "Which grocery store has the lowest average bill?",
+      "declined": false
+    },
+    {
+      "tool": "cheapestChains",
+      "lang": "en",
+      "query": "supermarket chain rating by food basket cost",
+      "declined": false
+    },
+    {
+      "tool": "cheapestChains",
+      "lang": "en",
+      "query": "Where can I get the cheapest grocery basket in Sofia?",
+      "declined": false
+    },
+    {
+      "tool": "cheapestChains",
+      "lang": "bg",
+      "query": "Къде пазаруването на хранителни стоки излиза най-изгодно?",
+      "declined": false
+    },
+    {
+      "tool": "cheapestChains",
+      "lang": "bg",
+      "query": "сравнение на вериги по потребителска кошница Пловдив",
+      "declined": false
+    },
+    {
+      "tool": "cheapestChains",
+      "lang": "bg",
+      "query": "кои супермаркети имат най-ниски цени на общата кошница",
+      "declined": false
+    },
+    {
+      "tool": "priceRanking",
+      "lang": "en",
+      "query": "Rank Bulgarian cities by grocery basket cost",
+      "declined": false
+    },
+    {
+      "tool": "priceRanking",
+      "lang": "en",
+      "query": "post-euro price increases by region map",
+      "declined": false
+    },
+    {
+      "tool": "priceRanking",
+      "lang": "en",
+      "query": "where is it most expensive to live in bulgaria list",
+      "declined": false
+    },
+    {
+      "tool": "priceRanking",
+      "lang": "bg",
+      "query": "сравнение на цените на потребителската кошница по градове",
+      "declined": false
+    },
+    {
+      "tool": "priceRanking",
+      "lang": "bg",
+      "query": "карта на поскъпването по области след еврото",
+      "declined": false
+    },
+    {
+      "tool": "priceRanking",
+      "lang": "bg",
+      "query": "кои са най-изгодните региони за живеене у нас",
+      "declined": true
+    },
+    {
+      "tool": "basketAffordability",
+      "lang": "en",
+      "query": "how expensive is the basic grocery cart relative to regional GDP",
+      "declined": false
+    },
+    {
+      "tool": "basketAffordability",
+      "lang": "en",
+      "query": "Bulgarian districts ranked by grocery cost to income ratio",
+      "declined": true
+    },
+    {
+      "tool": "basketAffordability",
+      "lang": "en",
+      "query": "Varna basket cost vs GDP per capita ranking",
+      "declined": false
+    },
+    {
+      "tool": "basketAffordability",
+      "lang": "bg",
+      "query": "Кои области си купуват най-лесно храна спрямо БВП",
+      "declined": false
+    },
+    {
+      "tool": "basketAffordability",
+      "lang": "bg",
+      "query": "съотношение потребителска кошница и БВП по региони",
+      "declined": false
+    },
+    {
+      "tool": "basketAffordability",
+      "lang": "bg",
+      "query": "Пловдив сравнение на кошницата с БВП на човек",
+      "declined": false
+    },
+    {
+      "tool": "basketVsInflation",
+      "lang": "en",
+      "query": "Compare CPC food prices with official Eurostat inflation data",
+      "declined": false
+    },
+    {
+      "tool": "basketVsInflation",
+      "lang": "en",
+      "query": "Does the consumer protection basket match the HICP index",
+      "declined": false
+    },
+    {
+      "tool": "basketVsInflation",
+      "lang": "en",
+      "query": "Post-euro state basket price trend vs core inflation",
+      "declined": false
+    },
+    {
+      "tool": "basketVsInflation",
+      "lang": "bg",
+      "query": "Различават ли се цените на КЗП от официалната инфлация на Евростат",
+      "declined": false
+    },
+    {
+      "tool": "basketVsInflation",
+      "lang": "bg",
+      "query": "Сравнение на потребителската кошница с индекса ХИПЦ",
+      "declined": false
+    },
+    {
+      "tool": "basketVsInflation",
+      "lang": "bg",
+      "query": "Базова инфлация срещу цените на дребно от КЗП",
+      "declined": false
+    },
+    {
+      "tool": "governanceProfile",
+      "lang": "en",
+      "query": "Who is currently running Burgas and what does their local economy look like?",
+      "declined": false
+    },
+    {
+      "tool": "governanceProfile",
+      "lang": "en",
+      "query": "Ruse municipality governance profile and public contracts",
+      "declined": false
+    },
+    {
+      "tool": "governanceProfile",
+      "lang": "en",
+      "query": "Stats for Veliko Tarnovo: mayor, voter turnout, and unemployment rate",
+      "declined": false
+    },
+    {
+      "tool": "governanceProfile",
+      "lang": "bg",
+      "query": "Какво е състоянието на община Плевен - кмет, бюджет, безработица",
+      "declined": false
+    },
+    {
+      "tool": "governanceProfile",
+      "lang": "bg",
+      "query": "Профил на Пловдив: местна власт, обществени поръчки и избирателна активност",
+      "declined": false
+    },
+    {
+      "tool": "governanceProfile",
+      "lang": "bg",
+      "query": "Статистика за управлението и прозрачността на Хасково",
+      "declined": false
+    },
+    {
+      "tool": "comparePlaces",
+      "lang": "en",
+      "query": "Plovdiv vs Sofia population and jobs",
+      "declined": false
+    },
+    {
+      "tool": "comparePlaces",
+      "lang": "en",
+      "query": "Which town is more transparent, Troyan or Lovech?",
+      "declined": true
+    },
+    {
+      "tool": "comparePlaces",
+      "lang": "en",
+      "query": "Ruse and Pleven mayor and council differences",
+      "declined": false
+    },
+    {
+      "tool": "comparePlaces",
+      "lang": "bg",
+      "query": "Пловдив или София е с по-ниска безработица?",
+      "declined": false
+    },
+    {
+      "tool": "comparePlaces",
+      "lang": "bg",
+      "query": "Разлики в бюджетите и населението на Перник и Кюстендил",
+      "declined": false
+    },
+    {
+      "tool": "comparePlaces",
+      "lang": "bg",
+      "query": "Кой град има по-прозрачно управление - Стара Загора или Хасково?",
+      "declined": false
+    },
+    {
+      "tool": "census",
+      "lang": "en",
+      "query": "How many Turkish people live in Kardzhali?",
+      "declined": false
+    },
+    {
+      "tool": "census",
+      "lang": "en",
+      "query": "Plovdiv gender ratio census",
+      "declined": false
+    },
+    {
+      "tool": "census",
+      "lang": "en",
+      "query": "Latest demographic stats for Lom",
+      "declined": true
+    },
+    {
+      "tool": "census",
+      "lang": "bg",
+      "query": "какъв е етническият състав на Разград",
+      "declined": false
+    },
+    {
+      "tool": "census",
+      "lang": "bg",
+      "query": "мъже жени съотношение София преброяване",
+      "declined": true
+    },
+    {
+      "tool": "census",
+      "lang": "bg",
+      "query": "данни от преброяването за населението на град Банско",
+      "declined": false
+    },
+    {
+      "tool": "procurementBySettlement",
+      "lang": "en",
+      "query": "Government contracts in Burgas",
+      "declined": false
+    },
+    {
+      "tool": "procurementBySettlement",
+      "lang": "en",
+      "query": "What tenders were won in Pernik?",
+      "declined": false
+    },
+    {
+      "tool": "procurementBySettlement",
+      "lang": "en",
+      "query": "Plovdiv public projects list",
+      "declined": true
+    },
+    {
+      "tool": "procurementBySettlement",
+      "lang": "bg",
+      "query": "Държавни поръчки в Пловдив",
+      "declined": false
+    },
+    {
+      "tool": "procurementBySettlement",
+      "lang": "bg",
+      "query": "Спечелени тендери в Бургас",
+      "declined": true
+    },
+    {
+      "tool": "procurementBySettlement",
+      "lang": "bg",
+      "query": "Какви договори са сключени в Самоков?",
+      "declined": true
+    },
+    {
+      "tool": "airQuality",
+      "lang": "en",
+      "query": "Sofiya PM10 levels today",
+      "declined": false
+    },
+    {
+      "tool": "airQuality",
+      "lang": "en",
+      "query": "Is the smog bad in Ruse right now?",
+      "declined": true
+    },
+    {
+      "tool": "airQuality",
+      "lang": "en",
+      "query": "Plovdiv air pollution index",
+      "declined": false
+    },
+    {
+      "tool": "airQuality",
+      "lang": "bg",
+      "query": "ФПЧ стойности в София",
+      "declined": false
+    },
+    {
+      "tool": "airQuality",
+      "lang": "bg",
+      "query": "Има ли смог в Димитровград днес?",
+      "declined": true
+    },
+    {
+      "tool": "airQuality",
+      "lang": "bg",
+      "query": "Запрашеност на въздуха в Пловдив",
+      "declined": false
+    },
+    {
+      "tool": "graoPopulation",
+      "lang": "en",
+      "query": "Burgas population by permanent address",
+      "declined": false
+    },
+    {
+      "tool": "graoPopulation",
+      "lang": "en",
+      "query": "What is the official GRAO count for Varna?",
+      "declined": true
+    },
+    {
+      "tool": "graoPopulation",
+      "lang": "en",
+      "query": "how many people have current address registration in Sofia",
+      "declined": true
+    },
+    {
+      "tool": "graoPopulation",
+      "lang": "bg",
+      "query": "население на Пловдив по настоящ адрес",
+      "declined": false
+    },
+    {
+      "tool": "graoPopulation",
+      "lang": "bg",
+      "query": "колко души са регистрирани с постоянен адрес в Русе",
+      "declined": false
+    },
+    {
+      "tool": "graoPopulation",
+      "lang": "bg",
+      "query": "ГРАО статистика за жителите на Стара Загора",
+      "declined": false
+    },
+    {
+      "tool": "councilResolutions",
+      "lang": "en",
+      "query": "Latest local resolutions in Sofia",
+      "declined": true
+    },
+    {
+      "tool": "councilResolutions",
+      "lang": "en",
+      "query": "Burgas city council official rulings",
+      "declined": false
+    },
+    {
+      "tool": "councilResolutions",
+      "lang": "en",
+      "query": "Plovdiv council votes on local taxes",
+      "declined": false
+    },
+    {
+      "tool": "councilResolutions",
+      "lang": "bg",
+      "query": "решения на община Бургас последна сесия",
+      "declined": true
+    },
+    {
+      "tool": "councilResolutions",
+      "lang": "bg",
+      "query": "Какво гласуваха общинските съветници във Варна?",
+      "declined": false
+    },
+    {
+      "tool": "councilResolutions",
+      "lang": "bg",
+      "query": "Протоколи от заседанията на ОС Пловдив",
+      "declined": true
+    },
+    {
+      "tool": "problemSections",
+      "lang": "en",
+      "query": "Which party won in the high-risk Roma precincts?",
+      "declined": false
+    },
+    {
+      "tool": "problemSections",
+      "lang": "en",
+      "query": "ghetto voting results by section",
+      "declined": false
+    },
+    {
+      "tool": "problemSections",
+      "lang": "en",
+      "query": "Who took the vote-buying hotspot sections?",
+      "declined": false
+    },
+    {
+      "tool": "problemSections",
+      "lang": "bg",
+      "query": "Кой побеждава в рисковите ромски секции?",
+      "declined": false
+    },
+    {
+      "tool": "problemSections",
+      "lang": "bg",
+      "query": "резултати от изборите в гетата по секции",
+      "declined": false
+    },
+    {
+      "tool": "problemSections",
+      "lang": "bg",
+      "query": "Партия победител в секциите под наблюдение за купен вот",
+      "declined": false
+    },
+    {
+      "tool": "romaVoteTrend",
+      "lang": "en",
+      "query": "Historical winners in Roma neighborhoods",
+      "declined": false
+    },
+    {
+      "tool": "romaVoteTrend",
+      "lang": "en",
+      "query": "Which parties dominate the Roma electorates in past elections",
+      "declined": false
+    },
+    {
+      "tool": "romaVoteTrend",
+      "lang": "en",
+      "query": "Roma ghetto voting trends",
+      "declined": true
+    },
+    {
+      "tool": "romaVoteTrend",
+      "lang": "bg",
+      "query": "Партии победители в ромските секции по години",
+      "declined": false
+    },
+    {
+      "tool": "romaVoteTrend",
+      "lang": "bg",
+      "query": "Накъде се прелива ромският вот през годините",
+      "declined": false
+    },
+    {
+      "tool": "romaVoteTrend",
+      "lang": "bg",
+      "query": "Исторически вот в махалите по избори",
+      "declined": false
+    },
+    {
+      "tool": "riskIndex",
+      "lang": "en",
+      "query": "Show the vulnerability rating for this election",
+      "declined": false
+    },
+    {
+      "tool": "riskIndex",
+      "lang": "en",
+      "query": "Is our vote secure? Give me the breakdown",
+      "declined": false
+    },
+    {
+      "tool": "riskIndex",
+      "lang": "en",
+      "query": "Voting process safety ranking",
+      "declined": true
+    },
+    {
+      "tool": "riskIndex",
+      "lang": "bg",
+      "query": "Има ли опасност от манипулации на вота?",
+      "declined": false
+    },
+    {
+      "tool": "riskIndex",
+      "lang": "bg",
+      "query": "Рейтинг на сигурността на изборите",
+      "declined": false
+    },
+    {
+      "tool": "riskIndex",
+      "lang": "bg",
+      "query": "Колко е голям рискът от измами при гласуването?",
+      "declined": false
+    },
+    {
+      "tool": "riskScore",
+      "lang": "en",
+      "query": "Where are the most vulnerable voting places?",
+      "declined": true
+    },
+    {
+      "tool": "riskScore",
+      "lang": "en",
+      "query": "voter manipulation risk map by section",
+      "declined": false
+    },
+    {
+      "tool": "riskScore",
+      "lang": "en",
+      "query": "Which polling stations have alarming threat levels?",
+      "declined": true
+    },
+    {
+      "tool": "riskScore",
+      "lang": "bg",
+      "query": "Кои избирателни секции са най-застрашени от измами?",
+      "declined": false
+    },
+    {
+      "tool": "riskScore",
+      "lang": "bg",
+      "query": "списък на съмнителните изборни бюра по опасност",
+      "declined": false
+    },
+    {
+      "tool": "riskScore",
+      "lang": "bg",
+      "query": "Разпределение на секциите според заплахата",
+      "declined": false
+    },
+    {
+      "tool": "riskClusters",
+      "lang": "en",
+      "query": "Show groups of adjacent flagged stations with the same winner",
+      "declined": false
+    },
+    {
+      "tool": "riskClusters",
+      "lang": "en",
+      "query": "Are there neighboring problematic precincts won by one party?",
+      "declined": false
+    },
+    {
+      "tool": "riskClusters",
+      "lang": "en",
+      "query": "Map of adjacent high-risk voting locations sharing a top party",
+      "declined": true
+    },
+    {
+      "tool": "riskClusters",
+      "lang": "bg",
+      "query": "Покажи съседни рискови секции с еднакъв победител",
+      "declined": false
+    },
+    {
+      "tool": "riskClusters",
+      "lang": "bg",
+      "query": "Има ли струпване на съмнителни съседни бюра с обща водеща партия?",
+      "declined": true
+    },
+    {
+      "tool": "riskClusters",
+      "lang": "bg",
+      "query": "Карта на съседни секции под риск, гласували за един списък",
+      "declined": false
+    },
+    {
+      "tool": "clusterPersistence",
+      "lang": "en",
+      "query": "Where do we always see election anomalies?",
+      "declined": false
+    },
+    {
+      "tool": "clusterPersistence",
+      "lang": "en",
+      "query": "chronic vote-buying hot spots",
+      "declined": false
+    },
+    {
+      "tool": "clusterPersistence",
+      "lang": "en",
+      "query": "polling stations with recurring risk indicators",
+      "declined": false
+    },
+    {
+      "tool": "clusterPersistence",
+      "lang": "bg",
+      "query": "хронични огнища на купен вот",
+      "declined": false
+    },
+    {
+      "tool": "clusterPersistence",
+      "lang": "bg",
+      "query": "Къде редовно се повтарят изборните аномалии?",
+      "declined": false
+    },
+    {
+      "tool": "clusterPersistence",
+      "lang": "bg",
+      "query": "секции с постоянни проблеми при гласуването",
+      "declined": true
+    },
+    {
+      "tool": "benfordAnomalies",
+      "lang": "en",
+      "query": "Is there a Benford's law violation in the party results?",
+      "declined": false
+    },
+    {
+      "tool": "benfordAnomalies",
+      "lang": "en",
+      "query": "Digit distribution analysis of election votes",
+      "declined": false
+    },
+    {
+      "tool": "benfordAnomalies",
+      "lang": "en",
+      "query": "Which parties have unnatural vote number distributions?",
+      "declined": false
+    },
+    {
+      "tool": "benfordAnomalies",
+      "lang": "bg",
+      "query": "Кои партии нарушават закона на Бенфорд?",
+      "declined": false
+    },
+    {
+      "tool": "benfordAnomalies",
+      "lang": "bg",
+      "query": "Анализ на първата цифра за изборни манипулации по партии",
+      "declined": false
+    },
+    {
+      "tool": "benfordAnomalies",
+      "lang": "bg",
+      "query": "Разпределение на цифрите в гласовете за партиите",
+      "declined": false
+    },
+    {
+      "tool": "wastedVotes",
+      "lang": "en",
+      "query": "Which region has the highest percentage of unrepresented votes?",
+      "declined": false
+    },
+    {
+      "tool": "wastedVotes",
+      "lang": "en",
+      "query": "Percent of votes for parties that didn't enter parliament by district",
+      "declined": false
+    },
+    {
+      "tool": "wastedVotes",
+      "lang": "en",
+      "query": "lost votes by oblast bulgaria election",
+      "declined": false
+    },
+    {
+      "tool": "wastedVotes",
+      "lang": "bg",
+      "query": "В кой регион има най-много гласове на вятъра?",
+      "declined": false
+    },
+    {
+      "tool": "wastedVotes",
+      "lang": "bg",
+      "query": "Дял на гласувалите за партии извън парламента по избирателни райони",
+      "declined": false
+    },
+    {
+      "tool": "wastedVotes",
+      "lang": "bg",
+      "query": "Изгубени гласове по области за партии под 4 процента",
+      "declined": false
+    },
+    {
+      "tool": "wastedVotesTrend",
+      "lang": "en",
+      "query": "Are more people voting for losing parties now than before?",
+      "declined": true
+    },
+    {
+      "tool": "wastedVotesTrend",
+      "lang": "en",
+      "query": "unrepresented votes percentage trend Bulgaria",
+      "declined": false
+    },
+    {
+      "tool": "wastedVotesTrend",
+      "lang": "en",
+      "query": "History of votes that didn't make the 4% barrier",
+      "declined": false
+    },
+    {
+      "tool": "wastedVotesTrend",
+      "lang": "bg",
+      "query": "Увеличават ли се гласовете на вятъра през годините?",
+      "declined": true
+    },
+    {
+      "tool": "wastedVotesTrend",
+      "lang": "bg",
+      "query": "история на изгубените гласове за малки партии",
+      "declined": true
+    },
+    {
+      "tool": "wastedVotesTrend",
+      "lang": "bg",
+      "query": "процент гласували за партии под бариерата по избори",
+      "declined": false
+    },
+    {
+      "tool": "suspiciousSettlements",
+      "lang": "en",
+      "query": "election fraud hot spots",
+      "declined": false
+    },
+    {
+      "tool": "suspiciousSettlements",
+      "lang": "en",
+      "query": "where did we see unusually high numbers of invalid ballots?",
+      "declined": true
+    },
+    {
+      "tool": "suspiciousSettlements",
+      "lang": "en",
+      "query": "villages with suspicious voter list additions",
+      "declined": false
+    },
+    {
+      "tool": "suspiciousSettlements",
+      "lang": "bg",
+      "query": "села с аномално висока избирателна активност и недействителни гласове",
+      "declined": false
+    },
+    {
+      "tool": "suspiciousSettlements",
+      "lang": "bg",
+      "query": "къде има най-много дописани хора в списъците",
+      "declined": true
+    },
+    {
+      "tool": "suspiciousSettlements",
+      "lang": "bg",
+      "query": "изборни аномалии по населени места",
+      "declined": false
+    },
+    {
+      "tool": "diasporaVote",
+      "lang": "en",
+      "query": "Which party won the vote from Bulgarians abroad?",
+      "declined": false
+    },
+    {
+      "tool": "diasporaVote",
+      "lang": "en",
+      "query": "MIR 32 election results by party",
+      "declined": false
+    },
+    {
+      "tool": "diasporaVote",
+      "lang": "en",
+      "query": "breakdown of foreign ballots by political group",
+      "declined": true
+    },
+    {
+      "tool": "diasporaVote",
+      "lang": "bg",
+      "query": "Коя партия води при гласуването зад граница?",
+      "declined": true
+    },
+    {
+      "tool": "diasporaVote",
+      "lang": "bg",
+      "query": "избори МИР 32 по партии",
+      "declined": false
+    },
+    {
+      "tool": "diasporaVote",
+      "lang": "bg",
+      "query": "резултати от българските секции извън страната",
+      "declined": false
+    },
+    {
+      "tool": "diasporaVoteTrend",
+      "lang": "en",
+      "query": "Historical support for parties from Bulgarians abroad",
+      "declined": false
+    },
+    {
+      "tool": "diasporaVoteTrend",
+      "lang": "en",
+      "query": "Expat vote evolution chart",
+      "declined": false
+    },
+    {
+      "tool": "diasporaVoteTrend",
+      "lang": "en",
+      "query": "Which party has dominated overseas voting since 2021?",
+      "declined": true
+    },
+    {
+      "tool": "diasporaVoteTrend",
+      "lang": "bg",
+      "query": "Динамика на изборните резултати в чужбина",
+      "declined": false
+    },
+    {
+      "tool": "diasporaVoteTrend",
+      "lang": "bg",
+      "query": "За кого гласуват българите зад граница през годините?",
+      "declined": true
+    },
+    {
+      "tool": "diasporaVoteTrend",
+      "lang": "bg",
+      "query": "Графика на вота от емигрантите по години",
+      "declined": false
+    },
+    {
+      "tool": "voterPersistence",
+      "lang": "en",
+      "query": "Party loyalty retention rate between elections",
+      "declined": false
+    },
+    {
+      "tool": "voterPersistence",
+      "lang": "en",
+      "query": "Did people stick to their previous choice in the last election?",
+      "declined": false
+    },
+    {
+      "tool": "voterPersistence",
+      "lang": "en",
+      "query": "Voter loyalty stats",
+      "declined": false
+    },
+    {
+      "tool": "voterPersistence",
+      "lang": "bg",
+      "query": "Колко хора гласуваха за същата партия като предния път?",
+      "declined": true
+    },
+    {
+      "tool": "voterPersistence",
+      "lang": "bg",
+      "query": "Лоялност на гласоподавателите по партии",
+      "declined": true
+    },
+    {
+      "tool": "voterPersistence",
+      "lang": "bg",
+      "query": "Процент повторен вот",
+      "declined": false
+    },
+    {
+      "tool": "partyDemographics",
+      "lang": "en",
+      "query": "GERB voter age distribution",
+      "declined": false
+    },
+    {
+      "tool": "partyDemographics",
+      "lang": "en",
+      "query": "do college graduates vote for DB",
+      "declined": false
+    },
+    {
+      "tool": "partyDemographics",
+      "lang": "en",
+      "query": "BSP support by religion and ethnicity",
+      "declined": false
+    },
+    {
+      "tool": "partyDemographics",
+      "lang": "bg",
+      "query": "възрастова структура на вота за БСП",
+      "declined": false
+    },
+    {
+      "tool": "partyDemographics",
+      "lang": "bg",
+      "query": "какви хора по образование гласуват за ПП",
+      "declined": false
+    },
+    {
+      "tool": "partyDemographics",
+      "lang": "bg",
+      "query": "етнически състав на подкрепата за ДПС Ново начало",
+      "declined": false
+    },
+    {
+      "tool": "demographicCleavages",
+      "lang": "en",
+      "query": "Which demographic factors split party supporters the most?",
+      "declined": false
+    },
+    {
+      "tool": "demographicCleavages",
+      "lang": "en",
+      "query": "Are party voters divided more by age or education?",
+      "declined": false
+    },
+    {
+      "tool": "demographicCleavages",
+      "lang": "en",
+      "query": "biggest demographic gaps between parties",
+      "declined": true
+    },
+    {
+      "tool": "demographicCleavages",
+      "lang": "bg",
+      "query": "По кои признаци се различават най-много електоратите на партиите?",
+      "declined": true
+    },
+    {
+      "tool": "demographicCleavages",
+      "lang": "bg",
+      "query": "образование или възраст разцепва вота най-силно",
+      "declined": false
+    },
+    {
+      "tool": "demographicCleavages",
+      "lang": "bg",
+      "query": "най-големите демографски разминавания между партийните профили",
+      "declined": false
+    },
+    {
+      "tool": "mpLoyalty",
+      "lang": "en",
+      "query": "parliamentary party discipline statistics",
+      "declined": true
+    },
+    {
+      "tool": "mpLoyalty",
+      "lang": "en",
+      "query": "which politicians always support their group decisions",
+      "declined": false
+    },
+    {
+      "tool": "mpLoyalty",
+      "lang": "en",
+      "query": "rebel MPs who go against the party line",
+      "declined": false
+    },
+    {
+      "tool": "mpLoyalty",
+      "lang": "bg",
+      "query": "статистика за партийна дисциплина на депутатите",
+      "declined": false
+    },
+    {
+      "tool": "mpLoyalty",
+      "lang": "bg",
+      "query": "кои народни представители винаги подкрепят решенията на групата си",
+      "declined": true
+    },
+    {
+      "tool": "mpLoyalty",
+      "lang": "bg",
+      "query": "отцепници от партийната линия при гласуване",
+      "declined": true
+    },
+    {
+      "tool": "mpAttendance",
+      "lang": "en",
+      "query": "Who has the best attendance record in parliament?",
+      "declined": true
+    },
+    {
+      "tool": "mpAttendance",
+      "lang": "en",
+      "query": "MP voting participation rates",
+      "declined": true
+    },
+    {
+      "tool": "mpAttendance",
+      "lang": "en",
+      "query": "How many votes did Boyko Borisov miss?",
+      "declined": false
+    },
+    {
+      "tool": "mpAttendance",
+      "lang": "bg",
+      "query": "Кои народни представители имат най-висока активност при гласуване?",
+      "declined": false
+    },
+    {
+      "tool": "mpAttendance",
+      "lang": "bg",
+      "query": "Пропуснати гласувания на депутатите",
+      "declined": true
+    },
+    {
+      "tool": "mpAttendance",
+      "lang": "bg",
+      "query": "Колко вота е пропуснал Кирил Петков?",
+      "declined": false
+    },
+    {
+      "tool": "factionCohesion",
+      "lang": "en",
+      "query": "Which political faction is the most divided when voting?",
+      "declined": true
+    },
+    {
+      "tool": "factionCohesion",
+      "lang": "en",
+      "query": "Party voting discipline ranking",
+      "declined": true
+    },
+    {
+      "tool": "factionCohesion",
+      "lang": "en",
+      "query": "Which parties always vote as a single block?",
+      "declined": false
+    },
+    {
+      "tool": "factionCohesion",
+      "lang": "bg",
+      "query": "Кои парламентарни групи гласуват най-често под строй?",
+      "declined": false
+    },
+    {
+      "tool": "factionCohesion",
+      "lang": "bg",
+      "query": "Разцепление при гласуване по партии",
+      "declined": true
+    },
+    {
+      "tool": "factionCohesion",
+      "lang": "bg",
+      "query": "Коя партия има най-слаба вътрешна дисциплина при вота?",
+      "declined": false
+    },
+    {
+      "tool": "mpVotingProfile",
+      "lang": "en",
+      "query": "Kiril Petkov voting attendance record",
+      "declined": false
+    },
+    {
+      "tool": "mpVotingProfile",
+      "lang": "en",
+      "query": "Does Asen Vasilev always vote with his party?",
+      "declined": false
+    },
+    {
+      "tool": "mpVotingProfile",
+      "lang": "en",
+      "query": "Delyan Peevski parliament attendance percentage",
+      "declined": false
+    },
+    {
+      "tool": "mpVotingProfile",
+      "lang": "bg",
+      "query": "Асен Василев статистика на присъствието в парламента",
+      "declined": false
+    },
+    {
+      "tool": "mpVotingProfile",
+      "lang": "bg",
+      "query": "Гласува ли Корнелия Нинова по партийна линия?",
+      "declined": false
+    },
+    {
+      "tool": "mpVotingProfile",
+      "lang": "bg",
+      "query": "Колко гласувания е пропуснал Тошко Йорданов?",
+      "declined": false
+    },
+    {
+      "tool": "mpSimilarity",
+      "lang": "en",
+      "query": "Which politicians vote in tandem with Kiril Petkov?",
+      "declined": false
+    },
+    {
+      "tool": "mpSimilarity",
+      "lang": "en",
+      "query": "Delyan Peevski voting match",
+      "declined": false
+    },
+    {
+      "tool": "mpSimilarity",
+      "lang": "en",
+      "query": "Who has the most similar voting record to Kostadin Kostadinov?",
+      "declined": false
+    },
+    {
+      "tool": "mpSimilarity",
+      "lang": "bg",
+      "query": "С кого гласува най-често в синхрон Христо Иванов?",
+      "declined": false
+    },
+    {
+      "tool": "mpSimilarity",
+      "lang": "bg",
+      "query": "Депутати с еднакъв вот като Бойко Борисов",
+      "declined": false
+    },
+    {
+      "tool": "mpSimilarity",
+      "lang": "bg",
+      "query": "Кой подкрепя същите законопроекти като Тошко Йорданов?",
+      "declined": false
+    },
+    {
+      "tool": "voteSearch",
+      "lang": "en",
+      "query": "green energy vote results",
+      "declined": false
+    },
+    {
+      "tool": "voteSearch",
+      "lang": "en",
+      "query": "Did they pass the judiciary reform bill?",
+      "declined": true
+    },
+    {
+      "tool": "voteSearch",
+      "lang": "en",
+      "query": "split of votes for the military aid package",
+      "declined": false
+    },
+    {
+      "tool": "voteSearch",
+      "lang": "bg",
+      "query": "резултати от вота за Истанбулската конвенция",
+      "declined": false
+    },
+    {
+      "tool": "voteSearch",
+      "lang": "bg",
+      "query": "Прие ли се законът за личната помощ?",
+      "declined": true
+    },
+    {
+      "tool": "voteSearch",
+      "lang": "bg",
+      "query": "как мина гласуването за еврото",
+      "declined": true
+    },
+    {
+      "tool": "partyMps",
+      "lang": "en",
+      "query": "DPS parliamentary group members",
+      "declined": false
+    },
+    {
+      "tool": "partyMps",
+      "lang": "en",
+      "query": "Who represents BSP in parliament?",
+      "declined": false
+    },
+    {
+      "tool": "partyMps",
+      "lang": "en",
+      "query": "List of ITN delegates",
+      "declined": false
+    },
+    {
+      "tool": "partyMps",
+      "lang": "bg",
+      "query": "кои хора влизат в парламента от възраждане",
+      "declined": false
+    },
+    {
+      "tool": "partyMps",
+      "lang": "bg",
+      "query": "членове на парламентарната група на дпс",
+      "declined": false
+    },
+    {
+      "tool": "partyMps",
+      "lang": "bg",
+      "query": "списък с народните представители на герб сдс",
+      "declined": false
+    },
+    {
+      "tool": "schoolScores",
+      "lang": "en",
+      "query": "Sofia 7th grade exam results by school",
+      "declined": false
+    },
+    {
+      "tool": "schoolScores",
+      "lang": "en",
+      "query": "Which high schools in Burgas have highest DZI results?",
+      "declined": false
+    },
+    {
+      "tool": "schoolScores",
+      "lang": "en",
+      "query": "Ruse schools ranked by 10th grade test scores",
+      "declined": false
+    },
+    {
+      "tool": "schoolScores",
+      "lang": "bg",
+      "query": "НВО 7 клас резултати по училища София",
+      "declined": false
+    },
+    {
+      "tool": "schoolScores",
+      "lang": "bg",
+      "query": "Къде в Бургас имат най-високи оценки на матурите?",
+      "declined": false
+    },
+    {
+      "tool": "schoolScores",
+      "lang": "bg",
+      "query": "Класация на училищата в Плевен според ДЗИ",
+      "declined": false
+    }
+  ]
+}

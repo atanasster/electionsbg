@@ -4,6 +4,89 @@
 > works on the UNTUNED community build — this doc is the path from ~37% to usable.
 > Training itself needs a GPU (Colab/Unsloth); everything else here runs locally.
 
+## MEASURED 2026-06-17 — the retriever, not the model, is the bottleneck (re-prioritize)
+
+Two zero-GPU measurements (`ai/m0/finetune/measure_recall.ts` +
+`measure_recall_semantic.ts`) over **750 NOVEL Gemini-generated queries** (EN+BG,
+forbidden from reusing the indexed `examples`, so leakage-free; cached in
+`recall_queries.json`). Verdict: **do NOT fine-tune first.** Fix retrieval first.
+
+1. **The lexical fuse.js retriever is the binding ceiling, and it's low.** True
+   recall (not the example-leaked ~100%): all-queries **@5 48.7% / @8 56.4%**; on
+   the rules-DECLINED residual the model actually sees, **@5 44% / @8 49%**. A
+   *perfect* fine-tune is capped there. `constrainedRoute` uses k=5 → ~44% ceiling.
+2. **Swapping to a SEMANTIC retriever lifts the ceiling ~2×.** Cosine over
+   `gemini-embedding-001` (asymmetric doc/query taskType): declined-residual
+   **@5 92% / @8 95%** (all-queries @5 90% / @8 95%). It rescues the exact tools
+   lexical missed 100% — `municipalityResults` 100%→0% miss@8, `settlementResults`
+   100%→33%, `agencyPolls`/`macroIndicator` 100%→17% — because the embedding
+   generalizes over the place-name slot ("who won in Dupnitsa") even though the
+   entity isn't in the doc. The earlier "entity names need NER not embeddings"
+   worry was REFUTED for these.
+3. **Don't blindly hybridize.** RRF(lexical, semantic) = **78% @8**, WORSE than
+   pure semantic (95%) — lexical is so weak it drags fusion down. Pure semantic
+   (or a heavily semantic-weighted blend) wins.
+4. **A surprise side-finding: the deterministic rules router returns a WRONG tool
+   50.4% of the time on these novel phrasings** (correct 27.9%, declined 21.7%),
+   and it wins unconditionally (`webllm.ts:158` returns any non-null rule before
+   the model is consulted). So on the dominant failure mode the model is never even
+   asked. Caveats: queries are synonym-forced (pessimistic vs easy real traffic),
+   and "wrong" is single-label (some sibling tools are acceptable alternates) — so
+   50% is an upper bound on true error, but the brittleness + "rules win when
+   wrong" structural liability is real.
+
+**Re-ordered roadmap (supersedes the stage list below):**
+- **P1 — semantic retriever. ✅ SHIPPED behind the flag 2026-06-17.**
+  `ai/llm/semanticRetrieve.ts` (e5-base q8 via transformers.js, dynamic-imported
+  lazy chunk) + offline precompute `ai/llm/buildToolVectors.ts` →
+  `ai/llm/tool_vectors.json` (125×768, ~790 KB lazy chunk). Wired into
+  `webllm.ts:constrainedRoute` (semantic top-k=8, lexical fallback on load
+  failure). VERIFIED through the production module: declined-residual recall@8
+  **84.7%** (vs lexical 49%); `verify_semantic.ts`. Still gated by
+  `model.constrainedRouter` + `localStorage["naiasno:fg-router"]="1"`, so default
+  users download none of transformers.js/ORT/vectors. Remaining P1 polish:
+  optional UI warm-up (`warmSemanticRetriever`), and live in-browser e2e with the
+  FunctionGemma selector (needs WebGPU + both model downloads).
+- **P1b — EMBEDDER fine-tune. ✅ PROVEN 2026-06-17 (the headline win).**
+  Contrastively fine-tuned `intfloat/multilingual-e5-small` (MNR loss, 2495
+  HELD-OUT training queries from `gen_train_data.ts`, 4 epochs on MPS ~5.5 min) →
+  `ai/m0/finetune/finetune_embedder.py`, model saved to `ai/m0/finetune/e5-small-naiasno/`.
+  Held-out recall (declined residual) jumped **76% → 100% @8** and **68% → 96.9%
+  @5** (+23.9pt @8) — so the ~45 MB tuned SMALL model now BEATS generic e5-base
+  (87%) AND cloud gemini-embedding-001 (95%) on our 125-tool domain. The retriever
+  is no longer the ceiling. CAVEAT: train + eval queries share a Gemini generator
+  (different, deduped queries, same STYLE), so the absolute 100% is best-case; a
+  truly independent set (real logged / human-written queries) is the honest final
+  gate. DEPLOY: ONNX export (optimum) → q8 → host on a public HF repo → point
+  `EMBED_MODEL` in `semanticRetrieve.ts` at it (drops e5-base ~110 MB → ~45 MB).
+  Retrain when the registry changes (gen_train_data + buildToolVectors + finetune).
+  ORIGINAL P1 plan was: Precompute tool-doc vectors offline (ship a static
+  JSON); embed only the query at runtime. IN-BROWSER needs a SMALL multilingual
+  embedding model (query+docs must share one model). MEASURED 2026-06-17 via
+  transformers.js (`/tmp/embtest`, harness in `_export_for_embed.ts`):
+  **multilingual-e5-small lands in the MIDDLE** — declined-residual @5 69% / @8 77%
+  (vs lexical 44/49, vs gemini-embedding-001 92/95). Two facts: **q8 ≈ fp32**
+  (the ~45MB shippable artifact loses ~nothing vs full precision), and a small
+  generic embedder leaves an ~18pt gap to cloud. MiniLM-L12 slightly worse (68/72).
+  → So the in-browser path is VIABLE (~77%@8 recall, big lift over today) but
+  caps end-to-end at ~60–73% (× selector acc), NOT the ~90% cloud delivers. To
+  close the gap, the highest-leverage move is **fine-tuning the EMBEDDER**
+  (contrastive on the same synthetic query→tool pairs — a 118M encoder is trivial
+  to tune and can rival a large generic model), and/or stepping to a bigger generic
+  model — MEASURED declined-residual: **e5-base** (~110MB q8) @5 79% / @8 **87%**,
+  **bge-m3** (~250–570MB q8) @5 83% / @8 88%. e5-base is the sweet spot (most of the
+  gain at ~⅓ the size; bge-m3's +1–4pt isn't worth its download next to the 157MB
+  selector). Also free: enrich tool-doc text with the synthetic paraphrases.
+  The CLOUD path needs no new model (Gemini already routes well end-to-end).
+  NOTE: there are now TWO fine-tune targets — the embedder (lifts recall, the
+  binding ceiling) and the FunctionGemma selector (lifts pick-given-recall). Recall
+  is the constraint, so the embedder tune is likely higher-leverage than P3.
+- **P2 — rules-router confidence gate.** Let low-confidence rule matches yield to
+  retrieval+model instead of winning. Bigger end-to-end win than the tune.
+- **P3 — the FunctionGemma fine-tune** below — now worth it, because P1 lifts its
+  ceiling from ~44% to ~92%. Train candidates from the P1 retriever (not the
+  modular-arithmetic distractors in `gen_seed_data.ts`) so train==inference.
+
 ## Why (what the eval ladder established)
 
 The `/evals` page now publishes four runs of the **same** untuned

@@ -1,0 +1,1247 @@
+{
+  "model": "gemini-3.5-flash",
+  "queriesPerLangPerTool": 3,
+  "totalQueries": 750,
+  "toolsMeasured": 125,
+  "toolsTotal": 125,
+  "recallAll": {
+    "1": 0.243,
+    "3": 0.393,
+    "5": 0.487,
+    "8": 0.564
+  },
+  "recallEn": {
+    "1": 0.224,
+    "3": 0.387,
+    "5": 0.475,
+    "8": 0.563
+  },
+  "recallBg": {
+    "1": 0.261,
+    "3": 0.4,
+    "5": 0.499,
+    "8": 0.565
+  },
+  "meanRankAll": 5.43,
+  "rulesRouter": {
+    "correct": 209,
+    "wrong": 378,
+    "declined": 163,
+    "correctPct": 0.279,
+    "wrongPct": 0.504,
+    "declinedPct": 0.217
+  },
+  "recallOnDeclined": {
+    "1": 0.227,
+    "3": 0.344,
+    "5": 0.442,
+    "8": 0.491
+  },
+  "declinedQueries": 163,
+  "worstTools": [
+    {
+      "name": "agencyPolls",
+      "n": 6,
+      "missAt8": 6,
+      "worstRank": 999,
+      "confusedWith": {
+        "subnationalIndicator": 1,
+        "financingOverview": 1,
+        "landUse": 1,
+        "compareElections": 1,
+        "chmiEvents": 1,
+        "electionAnomalies": 1,
+        "agencyProfile": 2,
+        "mpAssetsByParty": 1,
+        "machineVoteShare": 1,
+        "partyResult": 1,
+        "localMayorsTrend": 1,
+        "candidateResult": 1,
+        "regionBreakdown": 1,
+        "municipalityBreakdown": 1
+      },
+      "missRate": 1
+    },
+    {
+      "name": "settlementResults",
+      "n": 6,
+      "missAt8": 6,
+      "worstRank": 999,
+      "confusedWith": {
+        "fundsOverview": 2,
+        "localTaxes": 1,
+        "factionCohesion": 1,
+        "partyResult": 1,
+        "graoPopulation": 1,
+        "regionBreakdown": 1,
+        "compareElections": 1,
+        "electionAnomalies": 1,
+        "riskClusters": 1,
+        "wastedVotesByParty": 1,
+        "mpConnectionsByParty": 1,
+        "turnout": 1,
+        "turnoutSeries": 1,
+        "regionHistory": 1,
+        "chmiEvents": 1,
+        "localMunicipality": 1,
+        "voteSearch": 1
+      },
+      "missRate": 1
+    },
+    {
+      "name": "settlementHistory",
+      "n": 6,
+      "missAt8": 6,
+      "worstRank": 999,
+      "confusedWith": {
+        "benfordAnomalies": 1,
+        "sectionWinners": 1,
+        "localSubMayors": 1,
+        "macroIndicator": 1,
+        "budgetExecution": 1,
+        "subnationalIndicator": 1,
+        "voteTransitions": 1,
+        "nationalResults": 1,
+        "voteSearch": 1,
+        "municipalityWinners": 1,
+        "municipalityBreakdown": 1,
+        "budgetTrend": 1,
+        "pollAccuracy": 1,
+        "macroByCategory": 1,
+        "accuracyTrend": 1,
+        "localMayorsTrend": 1,
+        "localVoteFlows": 1,
+        "wastedVotes": 1
+      },
+      "missRate": 1
+    },
+    {
+      "name": "municipalityResults",
+      "n": 6,
+      "missAt8": 6,
+      "worstRank": 999,
+      "confusedWith": {
+        "turnout": 2,
+        "regionHistory": 2,
+        "compareElections": 2,
+        "localCouncilVoteShare": 2,
+        "fundsOverview": 1,
+        "airQuality": 1,
+        "chmiEvents": 1,
+        "partyResult": 1,
+        "turnoutSeries": 1,
+        "regionWinners": 1,
+        "municipalityHistory": 1,
+        "latestPolls": 2,
+        "localCouncil": 1
+      },
+      "missRate": 1
+    },
+    {
+      "name": "regionResults",
+      "n": 6,
+      "missAt8": 6,
+      "worstRank": 999,
+      "confusedWith": {
+        "graoPopulation": 1,
+        "landUse": 1,
+        "mpVotingProfile": 2,
+        "municipalityResults": 1,
+        "turnout": 3,
+        "regionHistory": 2,
+        "compareElections": 1,
+        "problemSections": 1,
+        "mpSimilarity": 1,
+        "diasporaVote": 2,
+        "regionBreakdown": 1,
+        "localMayorsWon": 1,
+        "turnoutSeries": 1
+      },
+      "missRate": 1
+    },
+    {
+      "name": "macroIndicator",
+      "n": 6,
+      "missAt8": 6,
+      "worstRank": 999,
+      "confusedWith": {
+        "regionResultsTrend": 1,
+        "municipalityHistory": 2,
+        "turnoutSeries": 1,
+        "localTaxes": 1,
+        "regionHistory": 1,
+        "wastedVotesTrend": 1,
+        "settlementHistory": 1,
+        "agencyAccuracyHistory": 2,
+        "sectionRiskHistory": 1,
+        "budgetExecution": 1,
+        "govDebt": 1,
+        "agencyPolls": 1,
+        "partyTimeline": 1,
+        "localCouncilTrend": 1,
+        "accuracyTrend": 1,
+        "settlementBreakdown": 1
+      },
+      "missRate": 1
+    },
+    {
+      "name": "voteSearch",
+      "n": 6,
+      "missAt8": 6,
+      "worstRank": 999,
+      "confusedWith": {
+        "settlementResults": 1,
+        "regionResults": 1,
+        "regionResultsTrend": 1,
+        "localCouncilVoteShare": 1,
+        "localMunicipality": 2,
+        "mpAssetsByParty": 1,
+        "candidateResult": 1,
+        "wastedVotes": 2,
+        "mpSimilarity": 2,
+        "budgetFunction": 1,
+        "euComparison": 1,
+        "electionAnomalies": 1,
+        "problemSections": 1,
+        "parliamentSeats": 1,
+        "machineVoteShare": 1
+      },
+      "missRate": 1
+    },
+    {
+      "name": "diasporaVoteTrend",
+      "n": 6,
+      "missAt8": 6,
+      "worstRank": 45,
+      "confusedWith": {
+        "partyResult": 2,
+        "financingOverview": 1,
+        "sectionHistory": 1,
+        "budgetExecution": 1,
+        "machineVoteShare": 1,
+        "machineVoteByParty": 1,
+        "subnationalIndicator": 1,
+        "municipalityHistory": 2,
+        "pollAccuracy": 1,
+        "diasporaVote": 1,
+        "candidateResult": 1,
+        "localCouncilTrend": 1,
+        "wastedVotesTrend": 1,
+        "procurementTotals": 1,
+        "suspiciousSettlements": 1,
+        "machineVoteSeries": 1
+      },
+      "missRate": 1
+    },
+    {
+      "name": "partyTimeline",
+      "n": 6,
+      "missAt8": 5,
+      "worstRank": 999,
+      "confusedWith": {
+        "sectionResults": 1,
+        "settlementResults": 2,
+        "pollAccuracy": 1,
+        "turnout": 1,
+        "chmiEvents": 1,
+        "compareElections": 1,
+        "electionAnomalies": 1,
+        "wastedVotesTrend": 1,
+        "budgetTrend": 1,
+        "budgetExecution": 1,
+        "localCouncilTrend": 1,
+        "macroIndicator": 1,
+        "mpSimilarity": 1,
+        "euComparison": 1
+      },
+      "missRate": 0.83
+    },
+    {
+      "name": "procurementTotals",
+      "n": 6,
+      "missAt8": 5,
+      "worstRank": 999,
+      "confusedWith": {
+        "topContractors": 2,
+        "census": 1,
+        "budgetByFunction": 1,
+        "budgetTrend": 1,
+        "fundsProjects": 1,
+        "localMayorsWon": 1,
+        "voterPersistence": 1,
+        "rankPlaces": 1,
+        "procurementBySettlement": 1,
+        "turnout": 2,
+        "pollAccuracy": 1,
+        "latestPolls": 1,
+        "diasporaVoteTrend": 1
+      },
+      "missRate": 0.83
+    },
+    {
+      "name": "riskIndex",
+      "n": 6,
+      "missAt8": 5,
+      "worstRank": 999,
+      "confusedWith": {
+        "settlementBreakdown": 1,
+        "revenueBreakdown": 1,
+        "regionBreakdown": 1,
+        "machineVoteShare": 2,
+        "localMayorRace": 1,
+        "mpVotingProfile": 1,
+        "chmiEvents": 2,
+        "factionCohesion": 1,
+        "riskClusters": 1,
+        "turnout": 1,
+        "accuracyTrend": 1,
+        "mpAttendance": 1,
+        "procurementBySettlement": 1
+      },
+      "missRate": 0.83
+    },
+    {
+      "name": "partyDemographics",
+      "n": 6,
+      "missAt8": 5,
+      "worstRank": 999,
+      "confusedWith": {
+        "voteTransitions": 1,
+        "benfordAnomalies": 1,
+        "macroIndicator": 1,
+        "suspiciousSettlements": 1,
+        "candidateResult": 1,
+        "localTaxes": 1,
+        "regionWinners": 1,
+        "agencyPolls": 2,
+        "agencyAccuracyHistory": 2,
+        "voterPersistence": 1,
+        "revenueBreakdown": 1,
+        "mpLoyalty": 1,
+        "census": 1
+      },
+      "missRate": 0.83
+    },
+    {
+      "name": "factionCohesion",
+      "n": 6,
+      "missAt8": 5,
+      "worstRank": 999,
+      "confusedWith": {
+        "demographicCleavages": 1,
+        "mpConnectionsByParty": 2,
+        "mpConnectionsTop": 1,
+        "localMayorRace": 1,
+        "partyTimeline": 1,
+        "mpVotingProfile": 1,
+        "mpSimilarity": 1,
+        "recountByParty": 1,
+        "wastedVotes": 1,
+        "localCouncilVoteShare": 1,
+        "machineVoteByParty": 1,
+        "mpAttendance": 1,
+        "settlementBreakdown": 1,
+        "mpAssetsByParty": 1
+      },
+      "missRate": 0.83
+    },
+    {
+      "name": "partyMps",
+      "n": 6,
+      "missAt8": 5,
+      "worstRank": 999,
+      "confusedWith": {
+        "voteSearch": 2,
+        "nationalResults": 1,
+        "mpVotingProfile": 4,
+        "parliamentSeats": 2,
+        "landUse": 2,
+        "turnout": 1,
+        "regionBreakdown": 1,
+        "factionCohesion": 2
+      },
+      "missRate": 0.83
+    },
+    {
+      "name": "wastedVotes",
+      "n": 6,
+      "missAt8": 5,
+      "worstRank": 43,
+      "confusedWith": {
+        "wastedVotesByParty": 2,
+        "diasporaVoteTrend": 1,
+        "nationalResults": 1,
+        "mpVotingProfile": 1,
+        "voteSearch": 1,
+        "parliamentSeats": 1,
+        "regionBreakdown": 1,
+        "regionHistory": 1,
+        "turnout": 2,
+        "mpConnectionsByParty": 1,
+        "fundsOverview": 1,
+        "factionCohesion": 1,
+        "sectionWinners": 1
+      },
+      "missRate": 0.83
+    },
+    {
+      "name": "regionResultsTrend",
+      "n": 6,
+      "missAt8": 5,
+      "worstRank": 40,
+      "confusedWith": {
+        "mpConnectionsByParty": 1,
+        "wastedVotesByParty": 1,
+        "compareElections": 1,
+        "partyResult": 1,
+        "regionHistory": 1,
+        "wastedVotesTrend": 1,
+        "localCouncilVoteShare": 2,
+        "partyTimeline": 1,
+        "mpAssetsByParty": 1,
+        "wastedVotes": 1,
+        "localCouncil": 1,
+        "localCouncilTrend": 1,
+        "localMayorsTrend": 1,
+        "turnoutSeries": 1
+      },
+      "missRate": 0.83
+    },
+    {
+      "name": "priceRanking",
+      "n": 6,
+      "missAt8": 5,
+      "worstRank": 32,
+      "confusedWith": {
+        "regionWinners": 1,
+        "demographicCleavages": 1,
+        "officialsAssetsTop": 1,
+        "voteTransitions": 1,
+        "landUse": 1,
+        "mpAttendance": 1,
+        "priceIndex": 1,
+        "basketAffordability": 1,
+        "candidateResult": 1,
+        "regionBreakdown": 1,
+        "regionIndicator": 1,
+        "wastedVotes": 1,
+        "localSubMayors": 1,
+        "cheapestChains": 1,
+        "partyFinance": 1
+      },
+      "missRate": 0.83
+    },
+    {
+      "name": "nationalResults",
+      "n": 6,
+      "missAt8": 5,
+      "worstRank": 29,
+      "confusedWith": {
+        "compareElections": 2,
+        "chmiEvents": 2,
+        "latestPolls": 1,
+        "recountByParty": 1,
+        "machineVoteByParty": 1,
+        "candidateResult": 1,
+        "mpAttendance": 2,
+        "transparencyScore": 1,
+        "partyResult": 1,
+        "regionBreakdown": 1,
+        "mpConnectionsByParty": 1,
+        "mpSimilarity": 1
+      },
+      "missRate": 0.83
+    },
+    {
+      "name": "regionWinners",
+      "n": 6,
+      "missAt8": 4,
+      "worstRank": 999,
+      "confusedWith": {
+        "landUse": 1,
+        "electionAnomalies": 1,
+        "euComparison": 1,
+        "regionBreakdown": 2,
+        "budgetExecution": 1,
+        "regionIndicator": 1,
+        "govDebt": 1,
+        "municipalityBreakdown": 1,
+        "officialsAssetsTop": 1,
+        "partyResult": 1,
+        "agencyPolls": 1
+      },
+      "missRate": 0.67
+    },
+    {
+      "name": "partyResult",
+      "n": 6,
+      "missAt8": 4,
+      "worstRank": 999,
+      "confusedWith": {
+        "voteTransitions": 2,
+        "partyFinance": 2,
+        "nationalResults": 1,
+        "candidateResult": 1,
+        "wastedVotes": 1,
+        "diasporaVoteTrend": 2,
+        "partyTimeline": 1,
+        "recountByParty": 1,
+        "machineVoteSeries": 1
+      },
+      "missRate": 0.67
+    },
+    {
+      "name": "turnout",
+      "n": 6,
+      "missAt8": 4,
+      "worstRank": 999,
+      "confusedWith": {
+        "parliamentSeats": 2,
+        "partyDemographics": 1,
+        "partyResult": 1,
+        "settlementHistory": 1,
+        "romaVoteTrend": 1,
+        "factionCohesion": 1,
+        "voteSearch": 1,
+        "wastedVotesTrend": 1,
+        "machineVoteShare": 1,
+        "municipalityHistory": 1,
+        "recountByParty": 1
+      },
+      "missRate": 0.67
+    },
+    {
+      "name": "agencyProfile",
+      "n": 6,
+      "missAt8": 4,
+      "worstRank": 999,
+      "confusedWith": {
+        "agencyPolls": 2,
+        "chmiEvents": 1,
+        "noiFunds": 1,
+        "pollAccuracy": 1,
+        "accuracyTrend": 2,
+        "agencyAccuracyHistory": 1,
+        "latestPolls": 1,
+        "benfordAnomalies": 1,
+        "mpAttendance": 1,
+        "candidateResult": 1
+      },
+      "missRate": 0.67
+    },
+    {
+      "name": "latestPolls",
+      "n": 6,
+      "missAt8": 4,
+      "worstRank": 999,
+      "confusedWith": {
+        "demographicCleavages": 1,
+        "pollAccuracy": 1,
+        "localTaxes": 1,
+        "landUse": 1,
+        "mpAssetsByParty": 2,
+        "comparePlaces": 1,
+        "localCouncil": 1,
+        "parliamentSeats": 1,
+        "suspiciousSettlements": 1,
+        "partyResult": 1,
+        "localMayorsWon": 1
+      },
+      "missRate": 0.67
+    },
+    {
+      "name": "municipalityHistory",
+      "n": 6,
+      "missAt8": 4,
+      "worstRank": 999,
+      "confusedWith": {
+        "machineVoteByParty": 1,
+        "localCouncilVoteShare": 1,
+        "localCouncil": 2,
+        "regionHistory": 2,
+        "localCouncilTrend": 1,
+        "localMayorsTrend": 2,
+        "wastedVotesTrend": 1,
+        "localTaxes": 1,
+        "municipalityBreakdown": 1
+      },
+      "missRate": 0.67
+    },
+    {
+      "name": "settlementBreakdown",
+      "n": 6,
+      "missAt8": 4,
+      "worstRank": 999,
+      "confusedWith": {
+        "settlementResults": 2,
+        "voteSearch": 1,
+        "councilResolutions": 1,
+        "settlementWinners": 2,
+        "regionBreakdown": 1,
+        "wastedVotesByParty": 1,
+        "municipalityResults": 2,
+        "localCouncilVoteShare": 1,
+        "municipalityHistory": 1
+      },
+      "missRate": 0.67
+    }
+  ],
+  "missesSample": [
+    {
+      "tool": "nationalResults",
+      "lang": "en",
+      "query": "Bulgaria election 2023 final percentages",
+      "rank": 13,
+      "got": [
+        "compareElections",
+        "chmiEvents",
+        "latestPolls"
+      ]
+    },
+    {
+      "tool": "nationalResults",
+      "lang": "en",
+      "query": "National vote count by party last election",
+      "rank": 27,
+      "got": [
+        "recountByParty",
+        "machineVoteByParty",
+        "compareElections"
+      ]
+    },
+    {
+      "tool": "nationalResults",
+      "lang": "bg",
+      "query": "крайни резултати избори октомври 2022",
+      "rank": 10,
+      "got": [
+        "candidateResult",
+        "mpAttendance",
+        "chmiEvents"
+      ]
+    },
+    {
+      "tool": "nationalResults",
+      "lang": "bg",
+      "query": "Коя партия колко процента събра на предния вот?",
+      "rank": 29,
+      "got": [
+        "transparencyScore",
+        "partyResult",
+        "regionBreakdown"
+      ]
+    },
+    {
+      "tool": "nationalResults",
+      "lang": "bg",
+      "query": "Как се разпределят депутатските места в 49-ото НС?",
+      "rank": 10,
+      "got": [
+        "mpAttendance",
+        "mpConnectionsByParty",
+        "mpSimilarity"
+      ]
+    },
+    {
+      "tool": "regionWinners",
+      "lang": "en",
+      "query": "electoral map of Bulgaria winners",
+      "rank": -1,
+      "got": [
+        "landUse",
+        "electionAnomalies",
+        "euComparison"
+      ]
+    },
+    {
+      "tool": "regionWinners",
+      "lang": "en",
+      "query": "oblast-by-oblast election victors list",
+      "rank": -1,
+      "got": [
+        "regionBreakdown",
+        "budgetExecution",
+        "regionIndicator"
+      ]
+    },
+    {
+      "tool": "regionWinners",
+      "lang": "bg",
+      "query": "карта на България с победителите по области",
+      "rank": 12,
+      "got": [
+        "regionBreakdown",
+        "govDebt",
+        "municipalityBreakdown"
+      ]
+    },
+    {
+      "tool": "regionWinners",
+      "lang": "bg",
+      "query": "първите партии по региони списък",
+      "rank": -1,
+      "got": [
+        "officialsAssetsTop",
+        "partyResult",
+        "agencyPolls"
+      ]
+    },
+    {
+      "tool": "parliamentSeats",
+      "lang": "en",
+      "query": "Number of MPs per political party",
+      "rank": -1,
+      "got": [
+        "mpVotingProfile",
+        "machineVoteByParty",
+        "sectionResults"
+      ]
+    },
+    {
+      "tool": "parliamentSeats",
+      "lang": "bg",
+      "query": "Брой народни представители по партии",
+      "rank": 23,
+      "got": [
+        "partyMps",
+        "localCouncil",
+        "localMayorsTrend"
+      ]
+    },
+    {
+      "tool": "parliamentSeats",
+      "lang": "bg",
+      "query": "Как са разпределени депутатите в пленарната зала?",
+      "rank": 8,
+      "got": [
+        "mpAttendance",
+        "mpSimilarity",
+        "mpConnectionsByParty"
+      ]
+    },
+    {
+      "tool": "seatsHistory",
+      "lang": "en",
+      "query": "parliamentary seat trends by party",
+      "rank": 22,
+      "got": [
+        "parliamentSeats",
+        "mpAssetsByParty",
+        "wastedVotesByParty"
+      ]
+    },
+    {
+      "tool": "seatsHistory",
+      "lang": "en",
+      "query": "track party size changes over past elections",
+      "rank": 13,
+      "got": [
+        "compareElections",
+        "partyResult",
+        "partyTimeline"
+      ]
+    },
+    {
+      "tool": "seatsHistory",
+      "lang": "bg",
+      "query": "динамика на спечелените мандати по избори",
+      "rank": 14,
+      "got": [
+        "localMayorsTrend",
+        "turnout",
+        "graoPopulation"
+      ]
+    },
+    {
+      "tool": "seatsHistory",
+      "lang": "bg",
+      "query": "история на броя депутати за партиите",
+      "rank": 31,
+      "got": [
+        "mpAttendance",
+        "mpAssetsTop",
+        "agencyPolls"
+      ]
+    },
+    {
+      "tool": "partyResult",
+      "lang": "en",
+      "query": "What percentage did PP-DB get in the last vote?",
+      "rank": -1,
+      "got": [
+        "voteTransitions",
+        "partyFinance",
+        "nationalResults"
+      ]
+    },
+    {
+      "tool": "partyResult",
+      "lang": "en",
+      "query": "DPS total votes October 2022",
+      "rank": -1,
+      "got": [
+        "candidateResult",
+        "wastedVotes",
+        "diasporaVoteTrend"
+      ]
+    },
+    {
+      "tool": "partyResult",
+      "lang": "en",
+      "query": "How did BSP perform in the 2023 elections?",
+      "rank": 12,
+      "got": [
+        "voteTransitions",
+        "partyTimeline",
+        "recountByParty"
+      ]
+    },
+    {
+      "tool": "partyResult",
+      "lang": "bg",
+      "query": "какъв процент изкараха пп-дб на последния вот",
+      "rank": -1,
+      "got": [
+        "diasporaVoteTrend",
+        "partyFinance",
+        "machineVoteSeries"
+      ]
+    },
+    {
+      "tool": "candidateResult",
+      "lang": "en",
+      "query": "how many preferences did Hristo Ivanov get",
+      "rank": -1,
+      "got": [
+        "partyResult",
+        "localMayorsWon",
+        "procurementBySettlement"
+      ]
+    },
+    {
+      "tool": "candidateResult",
+      "lang": "bg",
+      "query": "Колко лични гласа има Асен Василев?",
+      "rank": -1,
+      "got": [
+        "mpSimilarity",
+        "census",
+        "landUse"
+      ]
+    },
+    {
+      "tool": "machineVoteShare",
+      "lang": "bg",
+      "query": "колко гласове бяха от устройства на последните избори",
+      "rank": 16,
+      "got": [
+        "voteTransitions",
+        "partyResult",
+        "procurementTotals"
+      ]
+    },
+    {
+      "tool": "turnout",
+      "lang": "en",
+      "query": "Voter participation rate July 2021",
+      "rank": -1,
+      "got": [
+        "parliamentSeats",
+        "partyDemographics",
+        "partyResult"
+      ]
+    },
+    {
+      "tool": "turnout",
+      "lang": "en",
+      "query": "How many Bulgarians went to the ballot box in November?",
+      "rank": -1,
+      "got": [
+        "parliamentSeats",
+        "settlementHistory",
+        "romaVoteTrend"
+      ]
+    },
+    {
+      "tool": "turnout",
+      "lang": "bg",
+      "query": "Колко процента от българите гласуваха миналия път?",
+      "rank": -1,
+      "got": [
+        "factionCohesion",
+        "voteSearch",
+        "wastedVotesTrend"
+      ]
+    },
+    {
+      "tool": "turnout",
+      "lang": "bg",
+      "query": "Процент гласували на вота през октомври 2022",
+      "rank": -1,
+      "got": [
+        "machineVoteShare",
+        "municipalityHistory",
+        "recountByParty"
+      ]
+    },
+    {
+      "tool": "compareElections",
+      "lang": "en",
+      "query": "April 2021 vs July 2021 election results",
+      "rank": -1,
+      "got": [
+        "sectionResults",
+        "pollAccuracy",
+        "electionAnomalies"
+      ]
+    },
+    {
+      "tool": "compareElections",
+      "lang": "en",
+      "query": "How did voter turnout change between the last two presidential elections?",
+      "rank": 22,
+      "got": [
+        "turnout",
+        "voteTransitions",
+        "turnoutSeries"
+      ]
+    },
+    {
+      "tool": "compareElections",
+      "lang": "bg",
+      "query": "Как се промени избирателната активност от 2021 г. до днес?",
+      "rank": -1,
+      "got": [
+        "turnout",
+        "regionHistory",
+        "turnoutSeries"
+      ]
+    },
+    {
+      "tool": "machineVoteSeries",
+      "lang": "bg",
+      "query": "динамика на машинния вот по избори",
+      "rank": 12,
+      "got": [
+        "machineVoteShare",
+        "chmiEvents",
+        "turnout"
+      ]
+    },
+    {
+      "tool": "turnoutSeries",
+      "lang": "en",
+      "query": "Are people voting less now? Historical participation rates",
+      "rank": -1,
+      "got": [
+        "agencyPolls",
+        "companyConnections",
+        "sectionRiskHistory"
+      ]
+    },
+    {
+      "tool": "turnoutSeries",
+      "lang": "bg",
+      "query": "Динамика на гласуването за последните 5 вота",
+      "rank": 32,
+      "got": [
+        "voteTransitions",
+        "machineVoteShare",
+        "machineVoteSeries"
+      ]
+    },
+    {
+      "tool": "turnoutSeries",
+      "lang": "bg",
+      "query": "Сравнение на процента гласували назад във времето",
+      "rank": -1,
+      "got": [
+        "machineVoteShare",
+        "voteSearch",
+        "factionCohesion"
+      ]
+    },
+    {
+      "tool": "partyTimeline",
+      "lang": "en",
+      "query": "BSP historical election results",
+      "rank": 13,
+      "got": [
+        "sectionResults",
+        "settlementResults",
+        "pollAccuracy"
+      ]
+    },
+    {
+      "tool": "partyTimeline",
+      "lang": "en",
+      "query": "How did DPS do in past elections?",
+      "rank": 10,
+      "got": [
+        "turnout",
+        "chmiEvents",
+        "compareElections"
+      ]
+    },
+    {
+      "tool": "partyTimeline",
+      "lang": "en",
+      "query": "Electoral trend of ITN since inception",
+      "rank": -1,
+      "got": [
+        "electionAnomalies",
+        "wastedVotesTrend",
+        "budgetTrend"
+      ]
+    },
+    {
+      "tool": "partyTimeline",
+      "lang": "bg",
+      "query": "Как се движеше вотът за ИТН във времето?",
+      "rank": -1,
+      "got": [
+        "budgetExecution",
+        "localCouncilTrend",
+        "macroIndicator"
+      ]
+    },
+    {
+      "tool": "partyTimeline",
+      "lang": "bg",
+      "query": "Статистика за СДС от началото до днес",
+      "rank": -1,
+      "got": [
+        "mpSimilarity",
+        "settlementResults",
+        "euComparison"
+      ]
+    },
+    {
+      "tool": "pollAccuracy",
+      "lang": "bg",
+      "query": "Кои социолози сбъркаха най-малко на предните избори?",
+      "rank": 14,
+      "got": [
+        "mpConnectionsTop",
+        "demographicCleavages",
+        "flashMemoryByParty"
+      ]
+    },
+    {
+      "tool": "agencyProfile",
+      "lang": "en",
+      "query": "Market Links historical reliability rating",
+      "rank": -1,
+      "got": [
+        "agencyPolls",
+        "chmiEvents",
+        "noiFunds"
+      ]
+    },
+    {
+      "tool": "agencyProfile",
+      "lang": "en",
+      "query": "Trend polling agency track record",
+      "rank": -1,
+      "got": [
+        "pollAccuracy",
+        "accuracyTrend",
+        "agencyAccuracyHistory"
+      ]
+    },
+    {
+      "tool": "agencyProfile",
+      "lang": "bg",
+      "query": "Достоверност на проучванията на Маркет линкс",
+      "rank": 13,
+      "got": [
+        "agencyPolls",
+        "latestPolls",
+        "accuracyTrend"
+      ]
+    },
+    {
+      "tool": "agencyProfile",
+      "lang": "bg",
+      "query": "Галъп интернешънъл отклонение в резултатите",
+      "rank": -1,
+      "got": [
+        "benfordAnomalies",
+        "mpAttendance",
+        "candidateResult"
+      ]
+    },
+    {
+      "tool": "latestPolls",
+      "lang": "en",
+      "query": "Who is leading the electoral race right now?",
+      "rank": 12,
+      "got": [
+        "demographicCleavages",
+        "pollAccuracy",
+        "localTaxes"
+      ]
+    },
+    {
+      "tool": "latestPolls",
+      "lang": "en",
+      "query": "current party ratings Bulgaria",
+      "rank": -1,
+      "got": [
+        "landUse",
+        "mpAssetsByParty",
+        "comparePlaces"
+      ]
+    },
+    {
+      "tool": "latestPolls",
+      "lang": "bg",
+      "query": "Коя партия води в момента?",
+      "rank": -1,
+      "got": [
+        "mpAssetsByParty",
+        "localCouncil",
+        "parliamentSeats"
+      ]
+    },
+    {
+      "tool": "latestPolls",
+      "lang": "bg",
+      "query": "електорални нагласи днес",
+      "rank": -1,
+      "got": [
+        "suspiciousSettlements",
+        "partyResult",
+        "localMayorsWon"
+      ]
+    },
+    {
+      "tool": "agencyPolls",
+      "lang": "en",
+      "query": "Gallup International tracking data over time",
+      "rank": 22,
+      "got": [
+        "subnationalIndicator",
+        "financingOverview",
+        "landUse"
+      ]
+    },
+    {
+      "tool": "agencyPolls",
+      "lang": "en",
+      "query": "How have Mediana's election forecasts changed?",
+      "rank": -1,
+      "got": [
+        "compareElections",
+        "chmiEvents",
+        "electionAnomalies"
+      ]
+    },
+    {
+      "tool": "agencyPolls",
+      "lang": "en",
+      "query": "Alpha Research party ratings trend",
+      "rank": -1,
+      "got": [
+        "agencyProfile",
+        "mpAssetsByParty",
+        "machineVoteShare"
+      ]
+    },
+    {
+      "tool": "agencyPolls",
+      "lang": "bg",
+      "query": "Как се движат рейтингите на партиите според Алфа Рисърч?",
+      "rank": 23,
+      "got": [
+        "agencyProfile",
+        "partyResult",
+        "localMayorsTrend"
+      ]
+    },
+    {
+      "tool": "agencyPolls",
+      "lang": "bg",
+      "query": "резултати на агенция Тренд по месеци",
+      "rank": 12,
+      "got": [
+        "candidateResult",
+        "regionBreakdown",
+        "municipalityBreakdown"
+      ]
+    },
+    {
+      "tool": "agencyPolls",
+      "lang": "bg",
+      "query": "архив на Галъп Интернешънъл анкети",
+      "rank": -1,
+      "got": []
+    },
+    {
+      "tool": "agencyAccuracyHistory",
+      "lang": "en",
+      "query": "Has Trend become more reliable over the last few elections?",
+      "rank": 26,
+      "got": [
+        "machineVoteShare",
+        "regionResultsTrend",
+        "partyTimeline"
+      ]
+    },
+    {
+      "tool": "agencyAccuracyHistory",
+      "lang": "en",
+      "query": "Market Links track record and deviations since 2017",
+      "rank": -1,
+      "got": [
+        "riskIndex",
+        "revenueBreakdown",
+        "governments"
+      ]
+    },
+    {
+      "tool": "agencyAccuracyHistory",
+      "lang": "bg",
+      "query": "История на отклоненията при проучванията на Галъп",
+      "rank": 18,
+      "got": [
+        "agencyPolls",
+        "mpAttendance",
+        "benfordAnomalies"
+      ]
+    },
+    {
+      "tool": "accuracyTrend",
+      "lang": "en",
+      "query": "Which polling agencies are getting more reliable over time?",
+      "rank": 25,
+      "got": [
+        "agencyPolls",
+        "sectionHistory",
+        "machineVoteSeries"
+      ]
+    },
+    {
+      "tool": "accuracyTrend",
+      "lang": "bg",
+      "query": "Кои социолози подобряват прогнозите си с времето?",
+      "rank": -1,
+      "got": [
+        "topContractors",
+        "macroIndicator",
+        "subnationalIndicator"
+      ]
+    },
+    {
+      "tool": "regionBreakdown",
+      "lang": "en",
+      "query": "Which districts voted most for PP-DB?",
+      "rank": -1,
+      "got": [
+        "factionCohesion",
+        "mpSimilarity",
+        "demographicCleavages"
+      ]
+    }
+  ]
+}

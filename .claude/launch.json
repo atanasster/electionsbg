@@ -27,6 +27,12 @@
       "port": 4180
     },
     {
+      "name": "ai-dev-5181",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev:ai", "--", "--port", "5181"],
+      "port": 5181
+    },
+    {
       "name": "firebase-emulator",
       "runtimeExecutable": "firebase",
       "runtimeArgs": ["emulators:start", "--only", "hosting"],

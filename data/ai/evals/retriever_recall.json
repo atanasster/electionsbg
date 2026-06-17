@@ -1,0 +1,219 @@
+{
+  "generatedAt": "2026-06-17T15:38:27.947Z",
+  "queries": {
+    "total": 750,
+    "declined": 163,
+    "langs": [
+      "en",
+      "bg"
+    ]
+  },
+  "method": {
+    "en": "Each ranker scores the same 750 novel Gemini-generated EN+BG queries (held out from the registry's own examples, so no leakage). recall@k = share of queries whose CORRECT tool is in the ranker's top-k. The 'rules-declined residual' (163 queries) is the model's real input — the queries the deterministic rules router doesn't already answer.",
+    "bg": "Всеки модел оценява едни и същи 750 нови въпроса (EN+BG), генерирани от Gemini и изключени от примерите в регистъра (без изтичане). recall@k = делът на въпросите, чийто ПРАВИЛЕН инструмент е сред първите k. „Остатъкът след правилата“ (163 въпроса) е реалният вход за модела — въпросите, на които детерминистичните правила още не отговарят."
+  },
+  "caveat": {
+    "en": "The fine-tuned row's training and eval queries share a Gemini generator (different, deduped queries but a similar STYLE), so its absolute numbers are best-case; a truly independent test set (real logged or human-written queries) is the honest final gate.",
+    "bg": "При дообучения модел тренировъчните и тестовите въпроси идват от един и същ генератор (Gemini) — различни, дедуплицирани въпроси, но сходен СТИЛ — затова абсолютните стойности са в най-добрия случай; независим тестов набор (реални или човешки въпроси) е финалната честна проверка."
+  },
+  "rows": [
+    {
+      "id": "lexical",
+      "label": {
+        "bg": "Лексикален (fuse.js) — текущ",
+        "en": "Lexical (fuse.js) — current"
+      },
+      "runtime": "webllm",
+      "size": {
+        "bg": "0 — без модел",
+        "en": "0 — no model"
+      },
+      "method": {
+        "bg": "съвпадение по думи в името + описанието",
+        "en": "keyword match over name + description"
+      },
+      "all": {
+        "1": 0.243,
+        "3": 0.39299999999999996,
+        "5": 0.48700000000000004,
+        "8": 0.564
+      },
+      "declined": {
+        "1": 0.22699999999999998,
+        "3": 0.344,
+        "5": 0.442,
+        "8": 0.491
+      }
+    },
+    {
+      "id": "minilm",
+      "label": {
+        "bg": "MiniLM-L12 (универсален)",
+        "en": "MiniLM-L12 (generic)"
+      },
+      "runtime": "webllm",
+      "size": {
+        "bg": "~45 MB (q8)",
+        "en": "~45 MB (q8)"
+      },
+      "method": {
+        "bg": "семантичен (вграждания)",
+        "en": "semantic (embeddings)"
+      },
+      "all": {
+        "1": 0.355,
+        "3": 0.5770000000000001,
+        "5": 0.679,
+        "8": 0.753
+      },
+      "declined": {
+        "1": 0.35,
+        "3": 0.564,
+        "5": 0.675,
+        "8": 0.7240000000000001
+      }
+    },
+    {
+      "id": "e5-small",
+      "label": {
+        "bg": "e5-small (универсален)",
+        "en": "e5-small (generic)"
+      },
+      "runtime": "webllm",
+      "size": {
+        "bg": "~45 MB (q8)",
+        "en": "~45 MB (q8)"
+      },
+      "method": {
+        "bg": "семантичен (вграждания)",
+        "en": "semantic (embeddings)"
+      },
+      "all": {
+        "1": 0.401,
+        "3": 0.624,
+        "5": 0.708,
+        "8": 0.772
+      },
+      "declined": {
+        "1": 0.331,
+        "3": 0.613,
+        "5": 0.693,
+        "8": 0.767
+      }
+    },
+    {
+      "id": "e5-base",
+      "label": {
+        "bg": "e5-base (универсален)",
+        "en": "e5-base (generic)"
+      },
+      "runtime": "webllm",
+      "size": {
+        "bg": "~110 MB (q8)",
+        "en": "~110 MB (q8)"
+      },
+      "method": {
+        "bg": "семантичен (вграждания)",
+        "en": "semantic (embeddings)"
+      },
+      "shipped": true,
+      "all": {
+        "1": 0.46,
+        "3": 0.677,
+        "5": 0.7759999999999999,
+        "8": 0.843
+      },
+      "declined": {
+        "1": 0.405,
+        "3": 0.669,
+        "5": 0.7909999999999999,
+        "8": 0.865
+      }
+    },
+    {
+      "id": "bge-m3",
+      "label": {
+        "bg": "bge-m3 (универсален)",
+        "en": "bge-m3 (generic)"
+      },
+      "runtime": "webllm",
+      "size": {
+        "bg": "~250–570 MB (q8)",
+        "en": "~250–570 MB (q8)"
+      },
+      "method": {
+        "bg": "семантичен (вграждания)",
+        "en": "semantic (embeddings)"
+      },
+      "all": {
+        "1": 0.508,
+        "3": 0.725,
+        "5": 0.8109999999999999,
+        "8": 0.867
+      },
+      "declined": {
+        "1": 0.49700000000000005,
+        "3": 0.748,
+        "5": 0.8340000000000001,
+        "8": 0.883
+      }
+    },
+    {
+      "id": "gemini-embedding-001",
+      "label": {
+        "bg": "gemini-embedding-001 (облак)",
+        "en": "gemini-embedding-001 (cloud)"
+      },
+      "runtime": "cloud",
+      "size": {
+        "bg": "облак",
+        "en": "cloud"
+      },
+      "method": {
+        "bg": "семантичен (вграждания)",
+        "en": "semantic (embeddings)"
+      },
+      "all": {
+        "1": 0.6509999999999999,
+        "3": 0.847,
+        "5": 0.9,
+        "8": 0.9470000000000001
+      },
+      "declined": {
+        "1": 0.644,
+        "3": 0.883,
+        "5": 0.92,
+        "8": 0.951
+      }
+    },
+    {
+      "id": "e5-small-naiasno",
+      "label": {
+        "bg": "e5-small, дообучен за Наясно",
+        "en": "e5-small, fine-tuned for Наясно"
+      },
+      "runtime": "webllm",
+      "size": {
+        "bg": "~45 MB (q8)",
+        "en": "~45 MB (q8)"
+      },
+      "method": {
+        "bg": "семантичен + контрастно дообучение",
+        "en": "semantic + contrastive fine-tune"
+      },
+      "ours": true,
+      "all": {
+        "1": 0.816,
+        "3": 0.951,
+        "5": 0.983,
+        "8": 0.997
+      },
+      "declined": {
+        "1": 0.773,
+        "3": 0.951,
+        "5": 0.9690000000000001,
+        "8": 1
+      }
+    }
+  ]
+}

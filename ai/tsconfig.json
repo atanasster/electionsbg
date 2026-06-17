@@ -8,6 +8,8 @@
     "**/*.harness.ts",
     "tools/harness.ts",
     "llm/context_eval.ts",
+    "llm/buildToolVectors.ts",
+    "llm/retrieverEval.artifact.ts",
     "llm/fcEval.cloud.ts",
     "llm/fcEval.artifact.ts",
     "llm/fcEval.gemmaBudget.ts",

@@ -1,0 +1,187 @@
+{
+  "embeddingModel": "gemini-embedding-001",
+  "totalQueries": 750,
+  "declinedQueries": 163,
+  "recallAll": {
+    "lexical": {
+      "1": 0.243,
+      "3": 0.393,
+      "5": 0.487,
+      "8": 0.564
+    },
+    "semantic": {
+      "1": 0.651,
+      "3": 0.847,
+      "5": 0.9,
+      "8": 0.947
+    },
+    "hybrid": {
+      "1": 0.439,
+      "3": 0.625,
+      "5": 0.704,
+      "8": 0.781
+    }
+  },
+  "recallOnDeclined": {
+    "lexical": {
+      "1": 0.227,
+      "3": 0.344,
+      "5": 0.442,
+      "8": 0.491
+    },
+    "semantic": {
+      "1": 0.644,
+      "3": 0.883,
+      "5": 0.92,
+      "8": 0.951
+    },
+    "hybrid": {
+      "1": 0.387,
+      "3": 0.509,
+      "5": 0.613,
+      "8": 0.675
+    }
+  },
+  "worst": [
+    {
+      "name": "agencyPolls",
+      "n": 6,
+      "lexMiss": 1,
+      "semMiss": 0.17,
+      "hybMiss": 0.5
+    },
+    {
+      "name": "settlementResults",
+      "n": 6,
+      "lexMiss": 1,
+      "semMiss": 0.33,
+      "hybMiss": 0.67
+    },
+    {
+      "name": "settlementHistory",
+      "n": 6,
+      "lexMiss": 1,
+      "semMiss": 0.67,
+      "hybMiss": 1
+    },
+    {
+      "name": "municipalityResults",
+      "n": 6,
+      "lexMiss": 1,
+      "semMiss": 0,
+      "hybMiss": 0.5
+    },
+    {
+      "name": "regionResults",
+      "n": 6,
+      "lexMiss": 1,
+      "semMiss": 0.17,
+      "hybMiss": 0.83
+    },
+    {
+      "name": "macroIndicator",
+      "n": 6,
+      "lexMiss": 1,
+      "semMiss": 0.17,
+      "hybMiss": 1
+    },
+    {
+      "name": "diasporaVoteTrend",
+      "n": 6,
+      "lexMiss": 1,
+      "semMiss": 0,
+      "hybMiss": 0.17
+    },
+    {
+      "name": "voteSearch",
+      "n": 6,
+      "lexMiss": 1,
+      "semMiss": 0,
+      "hybMiss": 0.5
+    },
+    {
+      "name": "nationalResults",
+      "n": 6,
+      "lexMiss": 0.83,
+      "semMiss": 0,
+      "hybMiss": 0
+    },
+    {
+      "name": "partyTimeline",
+      "n": 6,
+      "lexMiss": 0.83,
+      "semMiss": 0.17,
+      "hybMiss": 0.5
+    },
+    {
+      "name": "regionResultsTrend",
+      "n": 6,
+      "lexMiss": 0.83,
+      "semMiss": 0.33,
+      "hybMiss": 0.5
+    },
+    {
+      "name": "procurementTotals",
+      "n": 6,
+      "lexMiss": 0.83,
+      "semMiss": 0,
+      "hybMiss": 0.5
+    },
+    {
+      "name": "priceRanking",
+      "n": 6,
+      "lexMiss": 0.83,
+      "semMiss": 0,
+      "hybMiss": 0
+    },
+    {
+      "name": "riskIndex",
+      "n": 6,
+      "lexMiss": 0.83,
+      "semMiss": 0.17,
+      "hybMiss": 0.5
+    },
+    {
+      "name": "wastedVotes",
+      "n": 6,
+      "lexMiss": 0.83,
+      "semMiss": 0,
+      "hybMiss": 0
+    },
+    {
+      "name": "partyDemographics",
+      "n": 6,
+      "lexMiss": 0.83,
+      "semMiss": 0,
+      "hybMiss": 0.67
+    },
+    {
+      "name": "factionCohesion",
+      "n": 6,
+      "lexMiss": 0.83,
+      "semMiss": 0,
+      "hybMiss": 0.5
+    },
+    {
+      "name": "partyMps",
+      "n": 6,
+      "lexMiss": 0.83,
+      "semMiss": 0,
+      "hybMiss": 0.5
+    },
+    {
+      "name": "regionWinners",
+      "n": 6,
+      "lexMiss": 0.67,
+      "semMiss": 0,
+      "hybMiss": 0.33
+    },
+    {
+      "name": "seatsHistory",
+      "n": 6,
+      "lexMiss": 0.67,
+      "semMiss": 0,
+      "hybMiss": 0.17
+    }
+  ]
+}

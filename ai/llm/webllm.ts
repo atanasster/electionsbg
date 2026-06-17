@@ -25,6 +25,7 @@ import { parseToolCall, toolSelectionSchema } from "../orchestrator/toolSchema";
 import { runTool } from "../tools/registry";
 import type { Lang, ToolArgs, ToolContext } from "../tools/types";
 import { retrieveTools } from "./retrieve";
+import { retrieveToolsSemantic } from "./semanticRetrieve";
 import { buildAppConfig } from "./cache";
 import { clarify, matchesLang, stripControl } from "./lang";
 import type {
@@ -206,13 +207,21 @@ export class WebLLMProvider implements LLMProvider {
   // the output to {"name": <one of the k>}. Returns the selected tool (args left
   // empty — the rules path fills args for matched intents; a future fine-tune can
   // emit args too). Any failure → null so the caller falls back to the rules.
+  //
+  // Candidates come from the SEMANTIC retriever (e5-base; recall@8 87% vs the
+  // lexical retriever's 49% on the model's real input — see semanticRetrieve.ts).
+  // If the embedder/vectors fail to load we fall back to the lexical retriever so
+  // a model-load failure never breaks routing. k=8 fits the 512-token window with
+  // compact declarations (verified on the /evals ladder).
   private async constrainedRoute(
     question: string,
     ctx: ToolContext,
     usage: Usage,
   ): Promise<Route> {
     if (!this.engine) return null;
-    const picked = retrieveTools(question, 5);
+    const K = 8;
+    let picked = await retrieveToolsSemantic(question, K).catch(() => null);
+    if (!picked || !picked.length) picked = retrieveTools(question, K);
     if (!picked.length) return null;
     const names = picked.map((t) => t.name);
     const decls = picked

@@ -67,6 +67,28 @@ type Artifact = {
   models: ModelResult[];
 };
 
+// Companion artifact: the retriever-recall comparison (data/ai/evals/retriever_recall.json,
+// built by ai/llm/retrieverEval.artifact.ts). The constrained in-browser router
+// routes among the tools the RETRIEVER supplies, so retriever recall is the ceiling.
+type RecallRow = {
+  id: string;
+  label: Record<Lang, string>;
+  runtime: "cloud" | "webllm";
+  size: Record<Lang, string>;
+  method: Record<Lang, string>;
+  ours?: boolean;
+  shipped?: boolean;
+  all: Record<string, number>;
+  declined: Record<string, number>;
+};
+type RetrieverArtifact = {
+  generatedAt: string;
+  queries: { total: number; declined: number; langs: string[] };
+  method: Record<Lang, string>;
+  caveat: Record<Lang, string>;
+  rows: RecallRow[];
+};
+
 const pct = (x: number | null | undefined) =>
   x == null ? "—" : `${Math.round(x * 100)}%`;
 
@@ -99,6 +121,7 @@ export const EvalsScreen = () => {
   const { theme, setTheme } = useContext(ThemeContext);
   const [lang, setLang] = useState<Lang>("bg");
   const [data, setData] = useState<Artifact | null>(null);
+  const [retr, setRetr] = useState<RetrieverArtifact | null>(null);
   const [error, setError] = useState<string | null>(null);
   const isDark = theme === themeDark;
   const t = (bg: string, en: string) => (lang === "bg" ? bg : en);
@@ -107,6 +130,9 @@ export const EvalsScreen = () => {
     fetchData<Artifact>("/ai/evals/fc_eval.json")
       .then(setData)
       .catch((e) => setError(String(e)));
+    fetchData<RetrieverArtifact>("/ai/evals/retriever_recall.json")
+      .then(setRetr)
+      .catch(() => {});
   }, []);
 
   const generated = useMemo(() => {
@@ -171,6 +197,91 @@ export const EvalsScreen = () => {
               "Can a small/open model drive Наясно's tools — and does tool selection degrade when the question is in Bulgarian rather than English? Each model gets the same tasks in both languages.",
             )}
           </p>
+
+          {/* ---- retriever-recall comparison (the binding ceiling) ---- */}
+          {retr && (
+            <section className="mt-8">
+              <h2 className="font-title text-xl font-semibold text-popover-foreground">
+                {t(
+                  "Извличане на инструменти (recall)",
+                  "Tool retrieval recall",
+                )}
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+                {t(
+                  "В браузъра малкият модел избира измежду няколкото инструмента, които РЕТРИВЪРЪТ му подава. Ако правилният не е сред тях, никой модел не може да го намери — затова recall на ретривъра е таванът на цялата система. По-долу: дял от въпросите, чийто правилен инструмент е сред първите k, върху реалния вход за модела.",
+                  "In-browser, the small model picks among the few tools the RETRIEVER hands it. If the right one isn't there, no model can recover it — so retriever recall is the ceiling on the whole system. Below: share of queries whose correct tool is in the top-k, over the model's real input.",
+                )}
+              </p>
+              <div className="mt-4 overflow-x-auto">
+                <table className="w-full border-collapse text-sm">
+                  <thead>
+                    <tr className="border-b-2 text-left text-muted-foreground">
+                      <th className="py-2 pr-3 font-medium">
+                        {t("Ретривър", "Retriever")}
+                      </th>
+                      <th className="px-2 py-2 font-medium">
+                        {t("Режим", "Mode")}
+                      </th>
+                      <th className="px-2 py-2 text-right font-medium">@1</th>
+                      <th className="px-2 py-2 text-right font-medium">@3</th>
+                      <th className="px-2 py-2 text-right font-medium">@5</th>
+                      <th className="px-2 py-2 text-right font-medium">@8</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {retr.rows.map((row) => (
+                      <tr
+                        key={row.id}
+                        className={`border-b align-top ${row.ours ? "bg-primary/5" : ""}`}
+                      >
+                        <td className="py-2 pr-3">
+                          <div className="font-medium text-popover-foreground">
+                            {row.label[lang]}
+                            {row.ours && (
+                              <span className="ml-1.5 rounded bg-primary/15 px-1 text-[10px] font-semibold uppercase text-primary">
+                                {t("наш", "ours")}
+                              </span>
+                            )}
+                            {row.shipped && (
+                              <span className="ml-1.5 rounded bg-muted px-1 text-[10px] font-semibold uppercase text-muted-foreground">
+                                {t("активен", "live")}
+                              </span>
+                            )}
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            {row.size[lang]} · {row.method[lang]}
+                          </div>
+                        </td>
+                        <td className="px-2 py-2 text-xs text-muted-foreground">
+                          {runtimeLabel(row.runtime, lang)}
+                        </td>
+                        <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">
+                          {pct(row.declined["1"])}
+                        </td>
+                        <td className="px-2 py-2 text-right tabular-nums text-muted-foreground">
+                          {pct(row.declined["3"])}
+                        </td>
+                        <td className="px-2 py-2 text-right tabular-nums">
+                          {pct(row.declined["5"])}
+                        </td>
+                        <td className="px-2 py-2 text-right font-medium tabular-nums text-popover-foreground">
+                          {pct(row.declined["8"])}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="mt-2 text-xs text-muted-foreground">
+                {retr.method[lang]}
+              </p>
+              <p className="mt-1 text-xs italic text-muted-foreground">
+                {t("Уговорка: ", "Caveat: ")}
+                {retr.caveat[lang]}
+              </p>
+            </section>
+          )}
 
           {error && (
             <p className="mt-6 rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">
