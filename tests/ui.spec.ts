@@ -83,7 +83,16 @@ const filterErrors = (errs: string[]) =>
 // The prerendered HTML ships a hidden <div id="ssg-content"> with an <h1>
 // inside for crawlers. We scope all "is the live UI rendered" assertions to
 // #root so we don't accidentally match the hidden prerender shell.
-const liveHeading = (page: Page) => page.locator("#root :is(h1, h2)").first();
+//
+// We also filter to *visible* headings: some chrome that renders before the
+// page content carries its own heading but is hidden at small viewports — e.g.
+// the desktop-only CommunityCtaStrip (`hidden lg:flex`, with an <h2>). Under
+// the mobile project that <h2> is the first `#root :is(h1, h2)` in the DOM but
+// is display:none, so a plain `.first()` resolves to a hidden element and
+// toBeVisible() times out. Filtering to visible picks the first heading that's
+// actually on screen, which is what "the live UI rendered" really means.
+const liveHeading = (page: Page) =>
+  page.locator("#root :is(h1, h2)").filter({ visible: true }).first();
 
 test.describe("UI rendering", () => {
   test("home page boots and shows the dashboard heading", async ({ page }) => {
