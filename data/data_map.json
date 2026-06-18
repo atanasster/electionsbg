@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-06-17T17:35:21.331Z",
+  "generatedAt": "2026-06-18T15:59:06.624Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -63,7 +63,7 @@
       "url": "https://www.parliament.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-17T07:08:54.542Z",
+      "freshness": "2026-06-18T07:26:01.586Z",
       "skills": [
         "update-rollcall",
         "parliament-scrape"
@@ -74,7 +74,7 @@
           "label": "Parliament roll-call votes",
           "url": "https://www.parliament.bg/api/v1/pl-sten/{id}",
           "cadence": "daily",
-          "freshness": "2026-06-17T07:08:54.542Z"
+          "freshness": "2026-06-18T07:26:01.586Z"
         },
         {
           "id": "parliament_mps",
@@ -322,7 +322,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-17T07:08:54.542Z",
+      "freshness": "2026-06-18T07:26:01.586Z",
       "skills": [
         "update-procurement"
       ],
@@ -332,7 +332,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-06-17T07:08:54.542Z"
+          "freshness": "2026-06-18T07:26:01.586Z"
         }
       ],
       "x": 28,
@@ -522,7 +522,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-15T06:39:34.039Z",
+      "freshness": "2026-06-18T07:26:01.586Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -541,7 +541,7 @@
           "label": "Council resolutions + vote tallies",
           "url": "data/council/sources.json",
           "cadence": "daily",
-          "freshness": "2026-06-15T06:39:34.039Z"
+          "freshness": "2026-06-18T07:26:01.586Z"
         },
         {
           "id": "municipal_naredba",
@@ -886,7 +886,7 @@
       "url": "https://www.nsi.bg/bg/content/2432/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-06-12T00:36:58.900Z",
+      "freshness": "2026-06-18T07:26:01.586Z",
       "skills": [],
       "sources": [
         {
@@ -901,7 +901,7 @@
           "label": "Фискален съвет — publications",
           "url": "https://www.fiscal-council.bg/bg/publikacii",
           "cadence": "weekly",
-          "freshness": "2026-06-12T00:36:58.900Z"
+          "freshness": "2026-06-18T07:26:01.586Z"
         }
       ],
       "x": 28,
@@ -1015,7 +1015,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-17T07:08:54.542Z",
+      "freshness": "2026-06-18T07:26:01.586Z",
       "skills": [
         "update-prices"
       ],
@@ -1025,7 +1025,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-06-17T07:08:54.542Z"
+          "freshness": "2026-06-18T07:26:01.586Z"
         }
       ],
       "x": 28,
