@@ -1,0 +1,74 @@
+{
+  "ekatte": "02720",
+  "name": "Баня",
+  "province": "Пловдив",
+  "obshtina": "Карлово",
+  "generatedAt": "2026-06-19T08:18:09.815Z",
+  "contractCount": 3,
+  "awardCount": 0,
+  "totalEur": 194805.2744870464,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000453926",
+      "name": "Основно училище \"Неофит Рилски\" - гр. Баня",
+      "tier": "school",
+      "totalEur": 194805.2744870464,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "c364d8a7779f",
+      "ocid": "aop-legacy-2022-288512",
+      "date": "2022-10-20",
+      "amount": 203742,
+      "currency": "BGN",
+      "amountEur": 104171.63045867995,
+      "partyEik": "203040678",
+      "partyName": "Ремонт п строй ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "1f9961a4037f",
+      "ocid": "aop-legacy-2016-713813",
+      "date": "2016-02-16",
+      "amount": 88632,
+      "currency": "BGN",
+      "amountEur": 45316.822014183235,
+      "partyEik": "115781068",
+      "partyName": "Салина 7 ЕООД - Хисар",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "ce60d2946357",
+      "ocid": "aop-legacy-2016-x",
+      "date": "2016-02-16",
+      "amount": 88632,
+      "currency": "BGN",
+      "amountEur": 45316.822014183235,
+      "partyEik": "115781068",
+      "partyName": "Салина 7 ЕООД - Хисар",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2016",
+      "totalEur": 90633.64402836647,
+      "totalOther": {},
+      "contractCount": 2
+    },
+    {
+      "year": "2022",
+      "totalEur": 104171.63045867995,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

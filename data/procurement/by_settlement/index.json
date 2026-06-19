@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-06-17T16:16:39.935Z",
-  "totalContracts": 175532,
-  "totalEur": 37487568644.73924,
-  "settlementCount": 486,
+  "generatedAt": "2026-06-19T08:18:09.815Z",
+  "totalContracts": 175616,
+  "totalEur": 37490377456.225914,
+  "settlementCount": 488,
   "national": {
-    "contractCount": 67208,
+    "contractCount": 67258,
     "awardCount": 0,
-    "totalEur": 35629229755.9955,
+    "totalEur": 35638111583.73104,
     "totalOther": {
       "USD": 27791804.88,
       "CHF": 485061.6
     },
-    "awarderCount": 508
+    "awarderCount": 514
   },
   "settlements": [
     {
@@ -19,9 +19,9 @@
       "name": "София",
       "province": "София (столица)",
       "obshtina": "Столична",
-      "contractCount": 35765,
-      "totalEur": 9769117588.611887,
-      "awarderCount": 227
+      "contractCount": 35771,
+      "totalEur": 9769646784.963308,
+      "awarderCount": 228
     },
     {
       "ekatte": "56784",
@@ -136,9 +136,9 @@
       "name": "Добрич",
       "province": "Добрич",
       "obshtina": "Добрич",
-      "contractCount": 2552,
-      "totalEur": 352396768.65091956,
-      "awarderCount": 25
+      "contractCount": 2567,
+      "totalEur": 352439043.54188657,
+      "awarderCount": 26
     },
     {
       "ekatte": "67653",
@@ -253,9 +253,9 @@
       "name": "Търговище",
       "province": "Търговище",
       "obshtina": "Търговище",
-      "contractCount": 1110,
-      "totalEur": 189514890.35215774,
-      "awarderCount": 12
+      "contractCount": 1112,
+      "totalEur": 189592197.6845946,
+      "awarderCount": 13
     },
     {
       "ekatte": "66425",
@@ -352,9 +352,9 @@
       "name": "Петрич",
       "province": "Благоевград",
       "obshtina": "Петрич",
-      "contractCount": 464,
-      "totalEur": 104967075.13392669,
-      "awarderCount": 5
+      "contractCount": 485,
+      "totalEur": 105532754.61527221,
+      "awarderCount": 6
     },
     {
       "ekatte": "00182",
@@ -541,9 +541,9 @@
       "name": "Първомай",
       "province": "Пловдив",
       "obshtina": "Първомай",
-      "contractCount": 317,
-      "totalEur": 64837280.44330407,
-      "awarderCount": 5
+      "contractCount": 325,
+      "totalEur": 65392118.80860167,
+      "awarderCount": 6
     },
     {
       "ekatte": "61813",
@@ -901,9 +901,9 @@
       "name": "Раковски",
       "province": "Пловдив",
       "obshtina": "Раковски",
-      "contractCount": 205,
-      "totalEur": 44079110.78873241,
-      "awarderCount": 8
+      "contractCount": 214,
+      "totalEur": 44139900.064896494,
+      "awarderCount": 9
     },
     {
       "ekatte": "36525",
@@ -1225,9 +1225,9 @@
       "name": "Сопот",
       "province": "Пловдив",
       "obshtina": "Сопот",
-      "contractCount": 104,
-      "totalEur": 29343881.551134035,
-      "awarderCount": 5
+      "contractCount": 106,
+      "totalEur": 29399509.17214404,
+      "awarderCount": 7
     },
     {
       "ekatte": "03592",
@@ -1392,6 +1392,15 @@
       "awarderCount": 2
     },
     {
+      "ekatte": "20482",
+      "name": "Девня",
+      "province": "Варна",
+      "obshtina": "Девня",
+      "contractCount": 192,
+      "totalEur": 24930429.97767855,
+      "awarderCount": 5
+    },
+    {
       "ekatte": "36079",
       "name": "Каолиново",
       "province": "Шумен",
@@ -1426,15 +1435,6 @@
       "contractCount": 171,
       "totalEur": 24320045.93442257,
       "awarderCount": 2
-    },
-    {
-      "ekatte": "20482",
-      "name": "Девня",
-      "province": "Варна",
-      "obshtina": "Девня",
-      "contractCount": 175,
-      "totalEur": 24311705.27767906,
-      "awarderCount": 4
     },
     {
       "ekatte": "44166",
@@ -2661,6 +2661,15 @@
       "awarderCount": 1
     },
     {
+      "ekatte": "02720",
+      "name": "Баня",
+      "province": "Пловдив",
+      "obshtina": "Карлово",
+      "contractCount": 3,
+      "totalEur": 194805.2744870464,
+      "awarderCount": 1
+    },
+    {
       "ekatte": "54417",
       "name": "Острово",
       "province": "Разград",
@@ -2919,6 +2928,15 @@
       "obshtina": "Стралджа",
       "contractCount": 5,
       "totalEur": 112280.69584186765,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "03839",
+      "name": "Бенковски",
+      "province": "Пловдив",
+      "obshtina": "Марица",
+      "contractCount": 1,
+      "totalEur": 109568.19355465456,
       "awarderCount": 1
     },
     {

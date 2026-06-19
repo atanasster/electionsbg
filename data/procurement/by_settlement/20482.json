@@ -3,10 +3,10 @@
   "name": "Девня",
   "province": "Варна",
   "obshtina": "Девня",
-  "generatedAt": "2026-06-17T16:16:39.935Z",
-  "contractCount": 175,
+  "generatedAt": "2026-06-19T08:18:09.815Z",
+  "contractCount": 192,
   "awardCount": 0,
-  "totalEur": 24311705.27767906,
+  "totalEur": 24930429.97767855,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 23654212.026803114,
       "totalOther": {},
       "contractCount": 158,
+      "awardCount": 0
+    },
+    {
+      "eik": "000080997",
+      "name": "Детска Градина \"НЕЗАБРАВКА\",филиал \"ДЕТЕЛИНА\",филиал \"Здравец",
+      "tier": "school",
+      "totalEur": 618724.6999994888,
+      "totalOther": {},
+      "contractCount": 17,
       "awardCount": 0
     },
     {
@@ -492,6 +501,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "a40f79bc8b51",
+      "ocid": "aop-legacy-2019-927656",
+      "date": "2019-08-15",
+      "amount": 305209.35,
+      "currency": "BGN",
+      "amountEur": 156051.06272017505,
+      "partyEik": "115781068",
+      "partyName": "Салина 7 ЕООД - Хисар",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
       "key": "754a5c978f96",
       "ocid": "aop-legacy-2023-322205",
       "date": "2023-01-20",
@@ -634,18 +655,6 @@
       "partyName": "Хидрострой АД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "25119ce5c89d",
-      "ocid": "aop-legacy-2011-2015-438648",
-      "date": "2011-05-19",
-      "amount": 237350,
-      "currency": "BGN",
-      "amountEur": 121355.12800192247,
-      "partyEik": "121699202",
-      "partyName": "Лукойл-България ЕООД - София",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -675,9 +684,9 @@
     },
     {
       "year": "2015",
-      "totalEur": 299435.02247127815,
+      "totalEur": 342204.38381658937,
       "totalOther": {},
-      "contractCount": 5
+      "contractCount": 6
     },
     {
       "year": "2016",
@@ -687,15 +696,15 @@
     },
     {
       "year": "2017",
-      "totalEur": 741545.7120506383,
+      "totalEur": 809125.2051558673,
       "totalOther": {},
-      "contractCount": 8
+      "contractCount": 11
     },
     {
       "year": "2019",
-      "totalEur": 6808321.121978904,
+      "totalEur": 7155030.948497569,
       "totalOther": {},
-      "contractCount": 26
+      "contractCount": 31
     },
     {
       "year": "2021",
@@ -705,15 +714,15 @@
     },
     {
       "year": "2022",
-      "totalEur": 1910424.7148269531,
+      "totalEur": 2013704.243211322,
       "totalOther": {},
-      "contractCount": 31
+      "contractCount": 35
     },
     {
       "year": "2023",
-      "totalEur": 2457324.4453761317,
+      "totalEur": 2515710.936022047,
       "totalOther": {},
-      "contractCount": 37
+      "contractCount": 41
     },
     {
       "year": "2026",

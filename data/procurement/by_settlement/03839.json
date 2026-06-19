@@ -1,0 +1,44 @@
+{
+  "ekatte": "03839",
+  "name": "Бенковски",
+  "province": "Пловдив",
+  "obshtina": "Марица",
+  "generatedAt": "2026-06-19T08:18:09.815Z",
+  "contractCount": 1,
+  "awardCount": 0,
+  "totalEur": 109568.19355465456,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000454615",
+      "name": "Основно училище \"Георги Бенковски\" - с. Бенковски",
+      "tier": "school",
+      "totalEur": 109568.19355465456,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "a21875ec470b",
+      "ocid": "aop-legacy-2022-295503",
+      "date": "2022-11-04",
+      "amount": 214296.76,
+      "currency": "BGN",
+      "amountEur": 109568.19355465456,
+      "partyEik": "205654867",
+      "partyName": "Инж Строй Билд ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2022",
+      "totalEur": 109568.19355465456,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}

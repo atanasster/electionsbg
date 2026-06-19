@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-06-17T08:02:28.179Z",
+  "lastSuccessfulIngest": "2026-06-19T08:19:28.652Z",
   "skill": "update-procurement",
-  "summary": "no data changes — ЦАИС ЕОП incremental added 0 new buyers (all 4,137 records in last 31d belong to existing authorities); no new OCDS bundles"
+  "summary": "ЦАИС ЕОП gap-fill: +1 buyer through 2026-06-18; geo overrides 1507/3533 (МОН/Tier B blocked); rollups+by_settlement rebuilt (1847 local-tier pinned)"
 }

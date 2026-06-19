@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-06-18T11:40:24.394Z",
-  "count": 1506,
+  "generatedAt": "2026-06-19T08:14:48.934Z",
+  "count": 1507,
   "sources": {
     "mon": 0,
-    "ocds": 1236,
+    "ocds": 1237,
     "name": 235,
     "nameOblast": 35,
-    "unresolved": 2027
+    "unresolved": 2026
   },
   "awarders": {
     "101004999": {
@@ -3156,6 +3156,11 @@
     },
     "000080936": {
       "ekatte": "10135",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
+    "000080997": {
+      "ekatte": "20482",
       "source": "ocds",
       "confidence": "name+province"
     },
