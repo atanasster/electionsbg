@@ -13,9 +13,10 @@
 // equals the protocol "действителни гласове" (verified). That sum is the
 // pctOfValid denominator.
 
+import fs from "fs";
 import path from "path";
 import { CanonicalPartiesIndex } from "@/data/parties/canonicalPartyTypes";
-import { parseLocalVotes } from "./parse_local_votes";
+import { parseLocalVotes, parseVotesFile } from "./parse_local_votes";
 import { parseLocalSections } from "./parse_local_sections";
 import {
   parseLocalProtocolRows,
@@ -47,6 +48,13 @@ export type SectionAggregation = {
   partyLegendByOik: Map<string, Map<number, PartyLegendEntry>>;
   /** oikCode → per-section council results. */
   sectionsByOik: Map<string, LocalSectionResult[]>;
+  /** sectionCode → КО (município/city mayor) votes, descending. */
+  mayorVotesBySection: Map<string, { localPartyNum: number; votes: number }[]>;
+  /** sectionCode → КР (район mayor) votes, descending. */
+  rayonMayorVotesBySection: Map<
+    string,
+    { localPartyNum: number; votes: number }[]
+  >;
 };
 
 const emptyAggregation = (): SectionAggregation => ({
@@ -55,22 +63,88 @@ const emptyAggregation = (): SectionAggregation => ({
   protocolByOik: new Map(),
   partyLegendByOik: new Map(),
   sectionsByOik: new Map(),
+  mayorVotesBySection: new Map(),
+  rayonMayorVotesBySection: new Map(),
 });
+
+// Per-section vote map for a mayor race folder (КО município mayor / КР район
+// mayor), keyed by 9-digit section code, each candidate-list's votes summed and
+// sorted descending. Reuses the same row decoding as the council ballot.
+//
+// A race folder can carry MULTIPLE dated votes files — an original tabulation
+// (`votes_29.10.2023.txt`, full coverage) plus a later partial re-count
+// (`votes_16.03.2024.txt`, one re-tabulated município). We merge all of them in
+// date order, a later file OVERRIDING a section it re-counts, so coverage stays
+// complete and the official correction wins. (resolveRaceFile picks only one
+// file — and sorts the 1-município re-count first — which is why a naive read
+// dropped every other place's mayor votes.)
+//
+// Empty when the folder/votes files are absent (HTML-only cycles, older bundles
+// without that race) — callers treat that as "no data".
+const dateKey = (file: string): string => {
+  const m = file.match(/(\d{2})\.(\d{2})\.(\d{4})/);
+  return m ? `${m[3]}${m[2]}${m[1]}` : "00000000";
+};
+
+const aggregateMayorVotesBySection = async (
+  folder: string,
+): Promise<Map<string, { localPartyNum: number; votes: number }[]>> => {
+  if (!fs.existsSync(folder)) return new Map();
+  const files = fs
+    .readdirSync(folder)
+    .filter((f) => /^votes(_.*)?\.txt$/i.test(f))
+    .sort((a, b) => dateKey(a).localeCompare(dateKey(b)));
+  const bySection = new Map<string, Map<number, number>>();
+  for (const file of files) {
+    const rows = await parseVotesFile(path.join(folder, file));
+    // Group this file's rows by section, then overwrite the merged map per
+    // section (a re-count replaces, never adds to, the earlier tabulation).
+    const fileSections = new Map<string, Map<number, number>>();
+    for (const v of rows) {
+      let m = fileSections.get(v.sectionCode);
+      if (!m) {
+        m = new Map();
+        fileSections.set(v.sectionCode, m);
+      }
+      m.set(v.localPartyNum, (m.get(v.localPartyNum) ?? 0) + v.validVotes);
+    }
+    for (const [sectionCode, perParty] of fileSections.entries()) {
+      bySection.set(sectionCode, perParty);
+    }
+  }
+  const out = new Map<string, { localPartyNum: number; votes: number }[]>();
+  for (const [sectionCode, perParty] of bySection.entries()) {
+    out.set(
+      sectionCode,
+      Array.from(perParty.entries())
+        .map(([localPartyNum, votes]) => ({ localPartyNum, votes }))
+        .sort((a, b) => b.votes - a.votes),
+    );
+  }
+  return out;
+};
 
 export const aggregateSections = async (opts: {
   rawFolder: string;
   canonical: CanonicalPartiesIndex | undefined;
 }): Promise<SectionAggregation | null> => {
   const osFolder = path.join(opts.rawFolder, "ТУР1", "ОС");
-  const [votes, sections, protocolRows, partiesResult] = await Promise.all([
-    parseLocalVotes(osFolder),
-    parseLocalSections(osFolder),
-    parseLocalProtocolRows(osFolder),
-    parseLocalParties(osFolder, opts.canonical),
-  ]);
+  const koFolder = path.join(opts.rawFolder, "ТУР1", "КО");
+  const krFolder = path.join(opts.rawFolder, "ТУР1", "КР");
+  const [votes, sections, protocolRows, partiesResult, mayorBySec, rayonBySec] =
+    await Promise.all([
+      parseLocalVotes(osFolder),
+      parseLocalSections(osFolder),
+      parseLocalProtocolRows(osFolder),
+      parseLocalParties(osFolder, opts.canonical),
+      aggregateMayorVotesBySection(koFolder),
+      aggregateMayorVotesBySection(krFolder),
+    ]);
   if (votes.length === 0) return null;
 
   const agg = emptyAggregation();
+  agg.mayorVotesBySection = mayorBySec;
+  agg.rayonMayorVotesBySection = rayonBySec;
 
   // 1. Per-section party votes + per-OIK rollups.
   const sectionPartyVotes = new Map<string, Map<number, number>>();
@@ -163,6 +237,8 @@ export const aggregateSections = async (opts: {
       (a, b) => a + b,
       0,
     );
+    const mayorVotes = agg.mayorVotesBySection.get(sectionCode);
+    const rayonMayorVotes = agg.rayonMayorVotesBySection.get(sectionCode);
     const row: LocalSectionResult = {
       sectionCode,
       settlement: meta?.settlement ?? "",
@@ -174,6 +250,18 @@ export const aggregateSections = async (opts: {
       partyVotes: Array.from(partyVotes.entries())
         .map(([localPartyNum, votes]) => ({ localPartyNum, votes }))
         .sort((a, b) => b.votes - a.votes),
+      ...(mayorVotes && mayorVotes.length > 0
+        ? {
+            mayorVotes,
+            mayorValid: mayorVotes.reduce((a, v) => a + v.votes, 0),
+          }
+        : {}),
+      ...(rayonMayorVotes && rayonMayorVotes.length > 0
+        ? {
+            rayonMayorVotes,
+            rayonMayorValid: rayonMayorVotes.reduce((a, v) => a + v.votes, 0),
+          }
+        : {}),
     };
     let list = agg.sectionsByOik.get(oikCode);
     if (!list) {

@@ -457,7 +457,36 @@ export const parseLocalElection = async (opts: {
     fs.mkdirSync(sectionsDir, { recursive: true });
     let shardCount = 0;
     let sectionTotal = 0;
+    // Sofia районs (S2***) carry oikCode === their own code, so buildSectionShard
+    // finds no sections for them — historically they narrowed the full ~2MB SOF
+    // index client-side. Emit each район its own light-index shard instead (the
+    // heavy per-station detail files stay shared under sections/SOF/), keyed off
+    // the city OIK + the район's 2-digit код.
+    const sofiaOik = bundles.find((b) => b.obshtinaCode === "SOF")?.oikCode;
+    let rayonShards = 0;
     for (const b of bundles) {
+      const isSofiaRayon = /^S2\d{3}$/.test(b.obshtinaCode);
+      if (isSofiaRayon) {
+        if (!sofiaOik) continue;
+        const full = buildSectionShard(
+          { ...b, oikCode: sofiaOik },
+          sectionAgg,
+          canonical,
+        );
+        if (!full) continue;
+        const rayonDigit = b.obshtinaCode.slice(-2);
+        const shard = {
+          ...full,
+          sections: full.sections.filter(
+            (s) => s.sectionCode.slice(4, 6) === rayonDigit,
+          ),
+        };
+        if (shard.sections.length === 0) continue;
+        sectionTotal += emitSectionFiles(shard, sectionsDir, stringify, true);
+        shardCount++;
+        rayonShards++;
+        continue;
+      }
       const shard = buildSectionShard(b, sectionAgg, canonical);
       if (!shard) continue;
       // Two tiers: light index + per-station detail files (see emitSectionFiles).
@@ -465,7 +494,7 @@ export const parseLocalElection = async (opts: {
       shardCount++;
     }
     console.log(
-      `[parsers_local] ${cycle}: wrote ${shardCount} section shard(s) covering ${sectionTotal} polling section(s)`,
+      `[parsers_local] ${cycle}: wrote ${shardCount} section shard(s) (${rayonShards} Sofia район) covering ${sectionTotal} polling section(s)`,
     );
   }
 

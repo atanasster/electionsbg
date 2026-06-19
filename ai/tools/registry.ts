@@ -58,6 +58,7 @@ import {
   localCouncil,
   localMayorHistory,
   localMayorRace,
+  localMayorSections,
   localSubMayors,
 } from "./localDetail";
 import {
@@ -1443,6 +1444,38 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: localMayorRace,
+  },
+  {
+    name: "localMayorSections",
+    domain: "local",
+    description: {
+      bg: "Къде избраният кмет е най-силен и най-слаб по избирателни секции.",
+      en: "Where the elected mayor ran strongest and weakest, by polling station.",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: { bg: "Община или район", en: "Municipality or district" },
+      },
+      {
+        name: "cycle",
+        type: "cycle",
+        description: { bg: "Местен цикъл", en: "Local cycle" },
+      },
+    ],
+    examples: [
+      {
+        bg: "В кои секции кметът на Айтос спечели най-много?",
+        en: "Which polling stations did the mayor of Aytos win biggest?",
+      },
+      {
+        bg: "Къде беше най-силен кметът на район Средец?",
+        en: "Where was the mayor of Sredets district strongest?",
+      },
+    ],
+    run: localMayorSections,
   },
   {
     name: "localMayorHistory",

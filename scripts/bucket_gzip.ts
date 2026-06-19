@@ -68,6 +68,11 @@ const PER_ELECTION_FILES = [
 
 const isElectionDir = (n: string): boolean => /^\d{4}_\d{2}_\d{2}/.test(n);
 
+// Big local-election section shards: the multi-район city indexes (SOF ~2MB,
+// Plovdiv ~0.8MB, Varna ~0.7MB) are fetched whole by their dashboards; gzip cuts
+// them ~6× on the wire. Threshold skips the ~1,000 tiny per-município shards.
+const SECTION_SHARD_GZIP_MIN = 120_000;
+
 const collect = (): string[] => {
   const out: string[] = [];
   for (const rel of GLOBAL_FILES) {
@@ -78,6 +83,19 @@ const collect = (): string[] => {
     for (const f of PER_ELECTION_FILES) {
       const rel = `${entry.name}/${f}`;
       if (existsSync(join(DATA, rel))) out.push(rel);
+    }
+    // Local cycles (YYYY_MM_DD_mi) carry per-município section shards under
+    // sections/; gzip only the large ones.
+    if (/_mi$/.test(entry.name)) {
+      const secDir = join(DATA, entry.name, "sections");
+      if (existsSync(secDir)) {
+        for (const f of readdirSync(secDir)) {
+          if (!f.endsWith(".json")) continue;
+          const rel = `${entry.name}/sections/${f}`;
+          if (statSync(join(DATA, rel)).size > SECTION_SHARD_GZIP_MIN)
+            out.push(rel);
+        }
+      }
     }
   }
   return out;

@@ -142,36 +142,57 @@ export const emitSectionFiles = (
   shard: LocalSectionShard,
   sectionsDir: string,
   stringify: (o: object) => string,
+  // Sofia район shards share the per-station detail files under sections/SOF/
+  // (the detail hook maps S2*** → SOF), so they emit the LIGHT INDEX ONLY — no
+  // duplicate detail dir.
+  indexOnly = false,
 ): number => {
   // Per-station full detail files under sections/<obshtina>/.
-  const detailDir = path.join(sectionsDir, shard.obshtinaCode);
-  fs.mkdirSync(detailDir, { recursive: true });
-  for (const s of shard.sections) {
-    const present = new Set(s.partyVotes.map((pv) => pv.localPartyNum));
-    const detail: LocalSectionDetail = {
-      cycle: shard.cycle,
-      obshtinaCode: shard.obshtinaCode,
-      obshtinaName: shard.obshtinaName,
-      section: s,
-      parties: shard.parties.filter((p) => present.has(p.localPartyNum)),
-    };
-    fs.writeFileSync(
-      path.join(detailDir, `${s.sectionCode}.json`),
-      stringify(detail),
-      "utf-8",
-    );
+  if (!indexOnly) {
+    const detailDir = path.join(sectionsDir, shard.obshtinaCode);
+    fs.mkdirSync(detailDir, { recursive: true });
+    for (const s of shard.sections) {
+      const present = new Set(s.partyVotes.map((pv) => pv.localPartyNum));
+      const detail: LocalSectionDetail = {
+        cycle: shard.cycle,
+        obshtinaCode: shard.obshtinaCode,
+        obshtinaName: shard.obshtinaName,
+        section: s,
+        parties: shard.parties.filter((p) => present.has(p.localPartyNum)),
+      };
+      fs.writeFileSync(
+        path.join(detailDir, `${s.sectionCode}.json`),
+        stringify(detail),
+        "utf-8",
+      );
+    }
   }
 
-  // Light index — same shape, partyVotes trimmed to the top few (sort defensively
-  // by votes desc so [0] is the winner regardless of source ordering).
+  // Light index — every per-ballot vote array trimmed to the top few (sort
+  // defensively by votes desc so [0] is the winner). The %-of-valid denominator
+  // survives the trim via the stored *Valid totals. The Sofia city shard drops
+  // mayorVotes (КО) entirely: the city page renders район choropleths instead
+  // of this station map, and each район page reads its own КР rayonMayorVotes —
+  // so the city-mayor-by-station array (36k rows) is never displayed there.
+  const top = (arr: { localPartyNum: number; votes: number }[]) =>
+    [...arr].sort((a, b) => b.votes - a.votes).slice(0, INDEX_TOP_VOTES);
+  // КО (city mayor) is never displayed on Sofia surfaces — the city page shows
+  // район choropleths, each район map reads its own КР — so drop it from the SOF
+  // shard AND the per-район shards.
+  const dropKO =
+    shard.obshtinaCode === "SOF" || /^S2\d{3}$/.test(shard.obshtinaCode);
   const index: LocalSectionShard = {
     ...shard,
-    sections: shard.sections.map((s) => ({
-      ...s,
-      partyVotes: [...s.partyVotes]
-        .sort((a, b) => b.votes - a.votes)
-        .slice(0, INDEX_TOP_VOTES),
-    })),
+    sections: shard.sections.map((s) => {
+      const out = { ...s, partyVotes: top(s.partyVotes) };
+      if (out.mayorVotes && !dropKO) out.mayorVotes = top(out.mayorVotes);
+      else if (dropKO) {
+        delete out.mayorVotes;
+        delete out.mayorValid;
+      }
+      if (out.rayonMayorVotes) out.rayonMayorVotes = top(out.rayonMayorVotes);
+      return out;
+    }),
   };
   fs.writeFileSync(
     path.join(sectionsDir, `${shard.obshtinaCode}.json`),

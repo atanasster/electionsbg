@@ -265,6 +265,138 @@ export const localMayorRace = async (
   };
 };
 
+// Where the elected mayor ran strongest / weakest, by polling station — reads
+// the per-section mayor votes added to the section shard (mayorVotes for a
+// община, rayonMayorVotes for a Sofia район). Answers "where in <town> did the
+// mayor do best?". Self-handles places without per-section mayor data (older
+// cycles, the Sofia city aggregate) with a graceful scalar.
+type SectionVote = { localPartyNum: number; votes: number };
+type LocalSectionLite = {
+  sectionCode: string;
+  settlement: string;
+  address?: string;
+  mayorVotes?: SectionVote[];
+  mayorValid?: number;
+  rayonMayorVotes?: SectionVote[];
+  rayonMayorValid?: number;
+};
+
+export const localMayorSections = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const cycle = resolveLocalCycle(args.cycle as string | undefined);
+  const place = await resolveMunicipality(String(args.place ?? ""));
+  if (!place)
+    return noMuni("localMayorSections", String(args.place ?? ""), ctx);
+  const b = await fetchLocalMuni(cycle, place.obshtina);
+  const winner = b.mayor.elected;
+  const noData = (msg: string): Envelope => ({
+    tool: "localMayorSections",
+    domain: "local",
+    kind: "scalar",
+    title: msg,
+    viz: "none",
+    facts: { municipality: b.obshtinaName, cycle_id: cycle },
+    provenance: [`${cycle}/sections/${place.obshtina}.json`],
+  });
+  if (!winner)
+    return noData(
+      ctx.lang === "bg"
+        ? `Няма избран кмет в ${b.obshtinaName}`
+        : `No elected mayor in ${place.nameEn}`,
+    );
+
+  const isRayon = /^S2\d{3}$/.test(place.obshtina);
+  let shard: { sections: LocalSectionLite[] } | undefined;
+  try {
+    shard = await fetchData<{ sections: LocalSectionLite[] }>(
+      `/${cycle}/sections/${place.obshtina}.json`,
+    );
+  } catch {
+    shard = undefined;
+  }
+  const ranked = (shard?.sections ?? [])
+    .map((s) => {
+      const votes = isRayon ? s.rayonMayorVotes : s.mayorVotes;
+      const valid = (isRayon ? s.rayonMayorValid : s.mayorValid) ?? 0;
+      const w = votes?.find((v) => v.localPartyNum === winner.localPartyNum);
+      if (!w || valid <= 0) return null;
+      return {
+        where: s.address || s.settlement || s.sectionCode,
+        section: s.sectionCode,
+        votes: w.votes,
+        share: round2((100 * w.votes) / valid),
+      };
+    })
+    .filter((r): r is NonNullable<typeof r> => r !== null)
+    .sort((a, c) => c.share - a.share);
+
+  if (ranked.length === 0)
+    return noData(
+      ctx.lang === "bg"
+        ? `Няма данни по секции за кмета на ${b.obshtinaName}`
+        : `No per-station mayor data for ${place.nameEn}`,
+    );
+
+  // Top + bottom few, tagged so the geographic spread reads at a glance.
+  const N = Math.min(5, Math.floor(ranked.length / 2) || ranked.length);
+  const strong = ranked.slice(0, N);
+  const weak = ranked.length > N ? ranked.slice(-N).reverse() : [];
+  const grpLabel = (s: boolean) =>
+    s
+      ? ctx.lang === "bg"
+        ? "най-силни"
+        : "strongest"
+      : ctx.lang === "bg"
+        ? "най-слаби"
+        : "weakest";
+  const columns: Column[] = [
+    { key: "grp", label: ctx.lang === "bg" ? "Секции" : "Stations" },
+    { key: "where", label: ctx.lang === "bg" ? "Място" : "Where" },
+    {
+      key: "votes",
+      label: ctx.lang === "bg" ? "Гласове" : "Votes",
+      numeric: true,
+      format: "int",
+    },
+    { key: "share", label: "%", numeric: true, format: "pct" },
+  ];
+  const rows: Row[] = [
+    ...strong.map((r) => ({ grp: grpLabel(true), ...r })),
+    ...weak.map((r) => ({ grp: grpLabel(false), ...r })),
+  ];
+  const shares = ranked.map((r) => r.share);
+  return {
+    tool: "localMayorSections",
+    domain: "local",
+    kind: "table",
+    title:
+      ctx.lang === "bg"
+        ? `${winner.candidateName} по секции — ${b.obshtinaName}, ${localCycleYear(cycle)}`
+        : `${winner.candidateName} by polling station — ${place.nameEn}, ${localCycleYear(cycle)}`,
+    columns,
+    rows,
+    viz: "none",
+    geo: muniLocator(
+      place.obshtina,
+      place.oblast,
+      ctx.lang === "bg" ? place.name : place.nameEn,
+    ),
+    facts: {
+      obshtina_id: place.obshtina,
+      cycle_id: cycle,
+      municipality: b.obshtinaName,
+      mayor: winner.candidateName,
+      stations: ranked.length,
+      best: `${strong[0].share}% (${strong[0].where})`,
+      worst: `${ranked[ranked.length - 1].share}% (${ranked[ranked.length - 1].where})`,
+      spread: `${round2(Math.max(...shares) - Math.min(...shares))} pp`,
+    },
+    provenance: [`${cycle}/sections/${place.obshtina}.json`],
+  };
+};
+
 // id -> brand colour from the canonical-party registry. The local-council bundle
 // stores only `primaryCanonicalId`, so the hemicycle resolves each party's colour
 // here (mirrors the site's LocalCouncilHemicycleTile, which uses `colorFor`).

@@ -3,22 +3,37 @@ import { useTranslation } from "react-i18next";
 import { Map as MapIcon } from "lucide-react";
 import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { StatCard } from "@/screens/dashboard/StatCard";
-import type { LocalSectionShard } from "@/data/local/types";
+import type { LocalSectionShard, LocalSectionResult } from "@/data/local/types";
 import { LocalSectionsMap } from "./LocalSectionsMap";
 
-// Council section map for a local município, wrapped in a StatCard. Mirrors the
-// parliamentary SectionsMapTile. Self-hides when no section in the shard has a
-// backfilled coordinate (e.g. a cycle/município whose stations didn't match the
-// parliamentary archive), so the surrounding grid simply collapses to the
-// top-sections tile.
+// Per-station section map for a local município, wrapped in a StatCard. Mirrors
+// the parliamentary SectionsMapTile. Plots either ballot:
+//   - metric 'council' (default): coloured by the leading council party.
+//   - metric 'mayor': coloured by the leading mayoral candidate — the caller
+//     passes the candidate legend (from the bundle's mayor.round1) and which
+//     per-section field to read (mayorVotes / rayonMayorVotes).
+// Self-hides when no station has a backfilled coordinate, or (for the mayor
+// metric) when no station carries the requested mayor-vote field — so the
+// surrounding grid collapses to the tile alone.
 export const LocalSectionsMapTile: FC<{
   shard: LocalSectionShard;
   cycle: string;
   obshtinaCode: string;
-}> = ({ shard, cycle, obshtinaCode }) => {
+  metric?: "council" | "mayor";
+  mayorLegend?: Map<number, { name: string; color: string }>;
+  mayorVoteField?: "mayorVotes" | "rayonMayorVotes";
+}> = ({
+  shard,
+  cycle,
+  obshtinaCode,
+  metric = "council",
+  mayorLegend,
+  mayorVoteField = "mayorVotes",
+}) => {
   const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState<MapCoordinates | undefined>();
+  const isMayor = metric === "mayor";
 
   const partyById = useMemo(() => {
     const m = new Map<number, { name: string; color: string }>();
@@ -26,6 +41,16 @@ export const LocalSectionsMapTile: FC<{
       m.set(p.localPartyNum, { name: p.localPartyName, color: p.color });
     return m;
   }, [shard]);
+
+  const legend = isMayor ? (mayorLegend ?? new Map()) : partyById;
+  const validField =
+    mayorVoteField === "rayonMayorVotes" ? "rayonMayorValid" : "mayorValid";
+  const selectVotes = (s: LocalSectionResult) =>
+    (isMayor ? s[mayorVoteField] : s.partyVotes) ?? [];
+  const total = (s: LocalSectionResult) =>
+    isMayor
+      ? (s[validField] ?? selectVotes(s).reduce((a, v) => a + v.votes, 0))
+      : s.numValidVotes;
 
   useLayoutEffect(() => {
     const el = ref.current;
@@ -41,23 +66,38 @@ export const LocalSectionsMapTile: FC<{
   const hasCoords = shard.sections.some(
     (s) => typeof s.longitude === "number" && typeof s.latitude === "number",
   );
-  if (!hasCoords) return null;
+  // Mayor metric also needs the mayor-vote field on at least one station —
+  // absent for cycles whose mayor CSV wasn't ingested (older / by-elections).
+  const hasMayorData =
+    !isMayor ||
+    shard.sections.some((s) => (s[mayorVoteField]?.length ?? 0) > 0);
+  if (!hasCoords || !hasMayorData) return null;
 
   return (
     <StatCard
       label={
         <div className="flex items-center gap-2">
           <MapIcon className="h-4 w-4" />
-          <span>{t("dashboard_settlement_map_sections")}</span>
+          <span>
+            {isMayor
+              ? t("local_sections_map_mayor")
+              : t("dashboard_settlement_map_sections")}
+          </span>
         </div>
       }
-      hint={t("local_sections_map_hint")}
+      hint={
+        isMayor
+          ? t("local_sections_map_mayor_hint")
+          : t("local_sections_map_hint")
+      }
     >
       <div ref={ref} className="w-full h-[360px] md:h-[420px]">
         {size && (
           <LocalSectionsMap
             sections={shard.sections}
-            partyById={partyById}
+            legend={legend}
+            selectVotes={selectVotes}
+            total={total}
             size={size}
             cycle={cycle}
             obshtinaCode={obshtinaCode}

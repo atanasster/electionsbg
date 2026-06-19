@@ -13,19 +13,26 @@ import type { LocalSectionResult } from "@/data/local/types";
 
 type Legend = Map<number, { name: string; color: string }>;
 
-// Council-ballot section map for a local município — the local-elections
+// Per-station section map for a local município — the local-elections
 // counterpart of SectionsMap. One dot per polling station, coloured by the
-// leading council party (partyVotes[0]); click drills into the local section
-// page. Coordinates are backfilled from the parliamentary section archive
-// (see scripts/parsers_local/backfill_local_section_coords.ts), so sections
-// without a match are silently skipped.
+// leading ballot list (`selectVotes(s)[0]`); click drills into the local
+// section page. The same component plots either ballot: the caller supplies the
+// vote selector (council `partyVotes` / mayor `mayorVotes` / район
+// `rayonMayorVotes`), the matching legend, and the %-of-valid denominator.
+// Coordinates are backfilled from the parliamentary section archive (see
+// scripts/parsers_local/backfill_local_section_coords.ts), so sections without
+// a match are silently skipped.
 export const LocalSectionsMap: FC<{
   sections: LocalSectionResult[];
-  partyById: Legend;
+  legend: Legend;
+  selectVotes: (
+    s: LocalSectionResult,
+  ) => { localPartyNum: number; votes: number }[];
+  total: (s: LocalSectionResult) => number;
   size: MapCoordinates;
   cycle: string;
   obshtinaCode: string;
-}> = ({ sections, partyById, size, cycle, obshtinaCode }) => {
+}> = ({ sections, legend, selectVotes, total, size, cycle, obshtinaCode }) => {
   const { t } = useTranslation();
   const navigate = useNavigateParams();
 
@@ -88,11 +95,11 @@ export const LocalSectionsMap: FC<{
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {points.map((s) => {
-          const lead = s.partyVotes[0];
-          const leadParty = lead
-            ? partyById.get(lead.localPartyNum)
-            : undefined;
+          const votes = selectVotes(s);
+          const lead = votes[0];
+          const leadParty = lead ? legend.get(lead.localPartyNum) : undefined;
           const fillColor = leadParty?.color || "lightslategrey";
+          const denom = total(s);
           return (
             <CircleMarker
               key={s.sectionCode}
@@ -112,21 +119,24 @@ export const LocalSectionsMap: FC<{
               }}
             >
               <Tooltip direction="auto" offset={[0, -4]}>
-                <div className="text-left">
+                {/* Cap the width + allow wrapping: a long unconstrained address
+                    used to blow the tooltip wide enough to clip at the map's
+                    edge (Leaflet tooltips don't auto-pan back into view). */}
+                <div
+                  className="text-left"
+                  style={{ maxWidth: 230, whiteSpace: "normal" }}
+                >
                   <div className="text-sm text-center font-semibold pb-1">
                     {s.sectionCode}
                   </div>
-                  <div className="text-xs text-center pb-1 opacity-90">
+                  <div className="text-xs text-center pb-1 opacity-90 break-words">
                     {s.address || s.settlement}
                   </div>
                   <table className="w-full border-collapse text-[11px] leading-tight">
                     <tbody>
-                      {s.partyVotes.slice(0, 4).map((pv) => {
-                        const p = partyById.get(pv.localPartyNum);
-                        const pct =
-                          s.numValidVotes > 0
-                            ? (100 * pv.votes) / s.numValidVotes
-                            : 0;
+                      {votes.slice(0, 4).map((pv) => {
+                        const p = legend.get(pv.localPartyNum);
+                        const pct = denom > 0 ? (100 * pv.votes) / denom : 0;
                         return (
                           <tr key={pv.localPartyNum} className="font-medium">
                             <td className="py-0.5 pr-2">

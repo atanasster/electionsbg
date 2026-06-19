@@ -36,6 +36,13 @@ const isFullSection = (s: string | undefined): boolean =>
 export const parseLocalVotes = (inFolder: string): Promise<LocalVoteRow[]> => {
   const file = resolveRaceFile(inFolder, "votes");
   if (!file) return Promise.resolve([]);
+  return parseVotesFile(file);
+};
+
+// Parse one explicit votes.txt path (same row decoding as parseLocalVotes).
+// Exposed so callers that need to merge a race folder's multiple dated files
+// (e.g. an original tabulation + a later partial re-count) can read each.
+export const parseVotesFile = (file: string): Promise<LocalVoteRow[]> => {
   const rows: string[][] = [];
   return new Promise((resolve, reject) =>
     fs

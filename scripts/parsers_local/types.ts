@@ -178,6 +178,17 @@ export type LocalSectionResult = {
   numValidVotes: number; // Σ partyVotes (= действителни гласове)
   // Council votes at this section, by ballot number, descending.
   partyVotes: { localPartyNum: number; votes: number }[];
+  // Mayor-ballot votes at this section (КО = município/city mayor), by ballot
+  // number, descending. Present only for regular cycles whose КО CSV was
+  // ingested; absent for by-elections and not-yet-regenerated cycles.
+  mayorVotes?: { localPartyNum: number; votes: number }[];
+  // Full mayor-ballot valid total (Σ before the light index trims mayorVotes to
+  // the top few) — the %-of-valid denominator for the mayor map.
+  mayorValid?: number;
+  // Район-mayor-ballot votes (КР), descending — only for Sofia/Plovdiv/Varna
+  // район sections (a район voter also casts a separate район-mayor ballot).
+  rayonMayorVotes?: { localPartyNum: number; votes: number }[];
+  rayonMayorValid?: number;
   // Stamped post-ingest by backfill_local_section_coords.ts from the latest
   // parliamentary section bundle (same 9-digit CIK section code). Absent when
   // the section has no parliamentary match (renumbered / new station).

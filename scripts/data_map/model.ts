@@ -607,8 +607,8 @@ export const DATASETS: DatasetDef[] = [
       en: "mayors and councils, 2007–2026",
     },
     desc: {
-      bg: "Резултати за кметове и общински съвети от всички редовни цикли от 2007 г. насам плюс частичните и нови избори между тях.",
-      en: "Mayor and council results from every regular cycle since 2007 plus the partial and new elections in between.",
+      bg: "Резултати за кметове и общински съвети от всички редовни цикли от 2007 г. насам плюс частичните и нови избори между тях. Данни по избирателни секции (за кмет и за съвет) захранват картите на секциите.",
+      en: "Mayor and council results from every regular cycle since 2007 plus the partial and new elections in between. Per-polling-station data (both the mayor and council ballots) powers the section maps.",
     },
     path: "data/{cycle}_mi/",
     tags: ["local", "elections"],

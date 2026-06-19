@@ -49,6 +49,17 @@ seatless parties appended), the council-ballot `protocol` gets real
 registered/actual/valid turnout, and per-município section shards are written
 to `data/<cycle>/sections/<obshtinaCode>.json` (consumed by `LocalSectionsTile`).
 
+The section shards also carry **per-station mayor votes** so the section map can
+colour by leading mayoral candidate (not just council party): `augment_sections`
+reads the `КО` (община mayor) + `КР` (район mayor) race folders and attaches
+`mayorVotes`/`mayorValid` + `rayonMayorVotes`/`rayonMayorValid` to each section.
+Two sharp edges: `КО` may ship several dated `votes_*.txt` (original + a later
+1-município re-count) — they are **merged later-date-wins**, because the single
+file `resolveRaceFile` picks is the tiny re-count (would drop everyone else's
+mayor votes). And Sofia районs (`S2***`) get their own per-район light index
+(`sections/S2***.json`, ~50KB) rather than narrowing the ~2MB `SOF.json` on the
+client; the heavy per-station detail files stay shared under `sections/SOF/`.
+
 ### Section coordinates (map + top-sections tiles)
 
 The section shards ship turnout + per-party council votes but **no GPS**. A

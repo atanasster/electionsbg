@@ -1,11 +1,13 @@
-// Resolves the per-município section shard for a given cycle, transparently
-// handling Sofia район shards (S2***): their stations live in the synthetic
-// SOF bundle, tagged by район in chars 4-5 of the 9-digit section code, so the
-// city bundle is loaded once (cached across all 24 районы) and narrowed here.
+// Resolves the per-município section shard for a given cycle.
 //
-// Centralises the logic that LocalSectionsTile used to carry inline so the same
-// shard can drive the council map at the top of the município page AND the
-// full section table at the bottom — React Query dedupes the single fetch.
+// Sofia районs (S2***) now have their OWN per-район light-index shard
+// (data/<cycle>/sections/S2***.json — ~46 stations, ~50KB) emitted by the
+// pipeline, so they fetch it directly rather than pulling the full ~2MB SOF
+// index and narrowing it client-side. (The heavy per-station detail files stay
+// shared under sections/SOF/ — the detail hook maps S2*** → SOF.)
+//
+// Пловдив/Варна районs still have no per-район shard, so they load the parent
+// city bundle once and narrow to the район by the section code's digits 5-6.
 
 import { useMemo } from "react";
 import { useLocalSections } from "./useLocalSections";
@@ -17,17 +19,13 @@ export const useLocalSectionShard = (
   obshtinaCode: string,
 ): { shard: LocalSectionShard | undefined; hasCoords: boolean } => {
   const isSofiaRayon = /^S2\d{3}$/.test(obshtinaCode);
-  // A Пловдив/Варна район ("VAR06-02") has no shard of its own — its stations
-  // sit in the parent city bundle, tagged by район in the section code's digits
-  // 5-6, exactly like the Sofia районите, only keyed off the catalog instead of
-  // the S2 code. So load the parent bundle once and narrow to the район here.
   const cityRayon = findCityRayon(obshtinaCode);
+  // Sofia район → its own shard (no narrowing). Пловдив/Варна район → parent
+  // city bundle narrowed by район код. Everything else → its own shard.
   const sectionBundle = isSofiaRayon
-    ? "SOF"
+    ? obshtinaCode
     : (cityRayon?.obshtina ?? obshtinaCode);
-  const rayonDigit = isSofiaRayon
-    ? obshtinaCode.slice(-2)
-    : (cityRayon?.code ?? null);
+  const rayonDigit = isSofiaRayon ? null : (cityRayon?.code ?? null);
   const { shard: rawShard } = useLocalSections(sectionBundle, cycle);
   const shard = useMemo(() => {
     if (!rawShard || !rayonDigit) return rawShard;

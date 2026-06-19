@@ -21,7 +21,7 @@ import {
   ChevronDown,
   ChevronRight,
   Landmark,
-  Map,
+  Map as MapIcon,
   ShieldAlert,
 } from "lucide-react";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
@@ -48,6 +48,7 @@ import { useLocalProblemSections } from "@/data/local/useLocalProblemSections";
 import { TopMayorsTile } from "./dashboard/local/TopMayorsTile";
 import { TopCouncilPartiesTile } from "./dashboard/local/TopCouncilPartiesTile";
 import { LocalMayorTimelineTile } from "./dashboard/local/LocalMayorTimelineTile";
+import { LocalMidtermComparisonTile } from "./dashboard/local/LocalMidtermComparisonTile";
 import { LocalCouncilTrendsTile } from "./dashboard/local/LocalCouncilTrendsTile";
 import { useLocalSectionShard } from "@/data/local/useLocalSectionShard";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
@@ -72,55 +73,86 @@ import {
 
 // === Stats grid ===========================================================
 
-const StatItem: FC<{ label: string; value: React.ReactNode }> = ({
-  label,
-  value,
-}) => (
+const StatItem: FC<{
+  label: string;
+  value: React.ReactNode;
+  sub?: React.ReactNode;
+}> = ({ label, value, sub }) => (
   <div className="rounded-xl border bg-card p-4 shadow-sm">
     <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
       {label}
     </div>
     <div className="mt-1 text-base font-semibold leading-tight">{value}</div>
+    {sub ? (
+      <div className="mt-1 text-[11px] font-normal leading-tight text-muted-foreground">
+        {sub}
+      </div>
+    ) : null}
   </div>
 );
 
-const StatsGrid: FC<{ bundle: LocalMunicipalityBundle }> = ({ bundle }) => {
+// Per-ballot snapshot: valid votes + the turnout of the election that produced
+// them + which election that was. Turnout belongs to the vote (one number per
+// election), so a mayoral by-election — ingested HTML-only, with no
+// registration totals — reports none ("—").
+type BallotStat = {
+  votes: number;
+  turnout: string | null;
+  source: string;
+};
+
+const BallotCard: FC<{ label: string; stat: BallotStat }> = ({
+  label,
+  stat,
+}) => {
+  const { t } = useTranslation();
+  return (
+    <div className="rounded-xl border bg-card p-4 shadow-sm">
+      <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+        {label}
+      </div>
+      <div className="mt-1 text-base font-semibold leading-tight tabular-nums">
+        {t("local_election_ballot_votes", {
+          votes: formatThousands(stat.votes),
+        })}
+      </div>
+      <div className="mt-0.5 text-[12px] font-normal leading-tight text-muted-foreground tabular-nums">
+        {t("local_election_ballot_activity", { value: stat.turnout ?? "—" })}
+      </div>
+      <div className="mt-0.5 text-[11px] font-normal leading-tight text-muted-foreground">
+        {stat.source}
+      </div>
+    </div>
+  );
+};
+
+const StatsGrid: FC<{
+  bundle: LocalMunicipalityBundle;
+  // Sofia / Пловдив / Варна район — its seats are elected city-wide, so the
+  // seats card carries a "city-wide vote" note.
+  isRayon: boolean;
+  // Current officeholder when a later partial mayoral by-election has been held
+  // (overrides the regular-cycle winner on the Кмет card).
+  currentMayor?: { name: string; date: string } | null;
+  // The mayor and council are two separate ballots (and, after a by-election,
+  // two separate elections) — each gets its own card.
+  mayorBallot: BallotStat;
+  councilBallot: BallotStat;
+}> = ({ bundle, isRayon, currentMayor, mayorBallot, councilBallot }) => {
   const { t } = useTranslation();
   const totalSeats = bundle.council.reduce((a, p) => a + p.mandatesWon, 0);
   const partiesWithSeats = bundle.council.filter(
     (p) => p.mandatesWon > 0,
   ).length;
-  // Turnout comes from the council-ballot protocol totals, populated for
-  // cycles whose section CSV bundle was ingested (2015, 2019). The HTML-only
-  // rezultati page carries no registration totals, so cycles without the CSV
-  // (2011, 2023) leave numRegisteredVoters at 0 — hide the tile then rather
-  // than show "—".
-  const turnoutPct =
-    bundle.protocol.numRegisteredVoters > 0
-      ? `${((bundle.protocol.totalActualVoters / bundle.protocol.numRegisteredVoters) * 100).toFixed(1)}%`
-      : null;
-  // Valid votes: prefer the ingested protocol total; otherwise derive from
-  // the dominant ballot on this page. Sofia район shards replicate the
-  // city-wide council, so their район-specific denominator is the round-1
-  // mayor sum; everywhere else the council ballot is the canonical total.
-  const isSofiaRayon = /^S2\d{3}$/.test(bundle.obshtinaCode);
-  const derivedValidVotes = isSofiaRayon
-    ? bundle.mayor.round1.reduce((a, m) => a + m.votes, 0)
-    : bundle.council.reduce((a, p) => a + p.totalVotes, 0);
-  const validVotes =
-    bundle.protocol.numValidVotes > 0
-      ? bundle.protocol.numValidVotes
-      : derivedValidVotes;
-  const mayor = bundle.mayor.elected;
-  const cols = turnoutPct ? "md:grid-cols-4" : "md:grid-cols-3";
+  const mayorName = currentMayor?.name ?? bundle.mayor.elected?.candidateName;
   return (
-    <div className={`grid grid-cols-2 ${cols} gap-3`}>
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
       <StatItem
         label={t("local_election_stat_mayor")}
         value={
-          mayor ? (
+          mayorName ? (
             <span className="flex items-center gap-1.5">
-              <span className="truncate">{mayor.candidateName}</span>
+              <span className="truncate">{mayorName}</span>
             </span>
           ) : (
             <span className="text-sm text-muted-foreground">
@@ -128,7 +160,15 @@ const StatsGrid: FC<{ bundle: LocalMunicipalityBundle }> = ({ bundle }) => {
             </span>
           )
         }
+        sub={
+          currentMayor
+            ? t("local_election_stat_mayor_current_sub", {
+                date: currentMayor.date,
+              })
+            : undefined
+        }
       />
+      <BallotCard label={t("local_election_ballot_mayor")} stat={mayorBallot} />
       <StatItem
         label={t("local_election_stat_council_seats")}
         value={
@@ -139,21 +179,14 @@ const StatsGrid: FC<{ bundle: LocalMunicipalityBundle }> = ({ bundle }) => {
             </span>
           </span>
         }
+        sub={
+          isRayon ? t("local_election_stat_council_citywide_sub") : undefined
+        }
       />
-      {turnoutPct ? (
-        <StatItem
-          label={t("local_election_stat_turnout")}
-          value={<span className="tabular-nums">{turnoutPct}</span>}
-        />
-      ) : null}
-      {validVotes > 0 ? (
-        <StatItem
-          label={t("local_election_stat_valid_votes")}
-          value={
-            <span className="tabular-nums">{formatThousands(validVotes)}</span>
-          }
-        />
-      ) : null}
+      <BallotCard
+        label={t("local_election_ballot_council")}
+        stat={councilBallot}
+      />
     </div>
   );
 };
@@ -670,6 +703,7 @@ const MunicipalityResults: FC<{
   obshtinaCode: string;
 }> = ({ cycle, obshtinaCode }) => {
   const { t } = useTranslation();
+  const { colorFor } = useCanonicalParties();
   const { municipality } = useLocalMunicipality(obshtinaCode, cycle);
   const chmiEvents = useChmiHistory(obshtinaCode);
   const { settlements } = useSettlementsInfo();
@@ -677,6 +711,38 @@ const MunicipalityResults: FC<{
   // Council polling-station shard drives the map shown beside both the mayor
   // and council tiles (Sofia район shards read from the city-wide SOF bundle).
   const { shard, hasCoords } = useLocalSectionShard(cycle, obshtinaCode);
+  // Current-aware mayor: a later partial (частичен / нов) mayoral by-election
+  // for this place supersedes the regular-cycle winner. Read the newest
+  // mayoral event dated after this cycle from the already-as-of-filtered chmi
+  // shard, then load that cycle's bundle for the candidates tile + comparison.
+  const cycleIso = cycle.replace(/^(\d{4})_(\d{2})_(\d{2}).*/, "$1-$2-$3");
+  const latestMayorEvent = useMemo(() => {
+    const mayorKinds = new Set(["obshtina_mayor", "rayon_mayor"]);
+    return (
+      chmiEvents
+        .filter((e) => mayorKinds.has(e.kind) && e.date > cycleIso)
+        .sort((a, b) => b.date.localeCompare(a.date))[0] ?? null
+    );
+  }, [chmiEvents, cycleIso]);
+  const partialCycle = latestMayorEvent?.cycle ?? null;
+  const { municipality: partialBundle } = useLocalMunicipality(
+    partialCycle ? obshtinaCode : null,
+    partialCycle ?? undefined,
+  );
+  // Район turnout: a район has no protocol of its own (the bundle carries the
+  // city-wide council total), so sum the район-narrowed section shard instead.
+  const isRayonPage =
+    /^S2\d{3}$/.test(obshtinaCode) || !!findCityRayon(obshtinaCode);
+  const rayonTurnout = useMemo(() => {
+    if (!isRayonPage || !shard) return null;
+    let registered = 0;
+    let actual = 0;
+    for (const s of shard.sections) {
+      registered += s.numRegisteredVoters || 0;
+      actual += s.totalActualVoters || 0;
+    }
+    return registered > 0 ? { registered, actual } : null;
+  }, [isRayonPage, shard]);
   // Risk-votes block — present only when this município owns ≥1 flagged
   // "problem section" (most don't). A Sofia район shard's neighborhoods are
   // keyed to the SOF city bundle + the район's 2-digit код (S2511 → "11"), so
@@ -722,22 +788,121 @@ const MunicipalityResults: FC<{
     ? t("local_election_sec_mayor_rayon")
     : t("local_election_sec_mayor_obshtina");
 
-  // A race row: the council polling-station map (when stations carry
-  // coordinates) beside the compact tile, mirroring the parliamentary
-  // map + top-parties layout. Collapses to the tile alone when there's no
-  // mappable section data (e.g. cycles whose stations didn't geocode).
-  //
-  // Sofia city already renders the two район choropleths above as its
-  // geographic view, so it skips the duplicate ~1,640-marker station map here
-  // (it would otherwise mount the same heavy Leaflet layer twice for one page).
-  const raceRow = (tile: React.ReactNode) =>
+  // A newer mayoral by-election supersedes the regular-cycle winner: lead the
+  // mayor section + Кмет card with it and relegate the regular results below
+  // the timeline. Only when the partial bundle actually carries a mayor race.
+  const showPartial =
+    !!latestMayorEvent &&
+    !!partialBundle &&
+    partialBundle.mayor.round1.length > 0;
+  const partialDate = partialCycle ? friendlyCycleDate(partialCycle) : "";
+  const currentMayor =
+    showPartial && partialBundle?.mayor.elected
+      ? { name: partialBundle.mayor.elected.candidateName, date: partialDate }
+      : null;
+
+  // Per-ballot stats for the two office cards. A район has no protocol of its
+  // own (the bundle's protocol is the parent city's city-wide council total),
+  // so its turnout and council valid-votes come from the район-narrowed section
+  // shard; the council is always the regular cycle being viewed, while the
+  // mayor comes from the superseding by-election when one exists.
+  const isRayon = isSofiaRayon || !!findCityRayon(obshtinaCode);
+  const electionTurnout =
+    isRayon && rayonTurnout
+      ? `${((rayonTurnout.actual / rayonTurnout.registered) * 100).toFixed(1)}%`
+      : !isRayon && municipality.protocol.numRegisteredVoters > 0
+        ? `${((municipality.protocol.totalActualVoters / municipality.protocol.numRegisteredVoters) * 100).toFixed(1)}%`
+        : null;
+  const councilVotes =
+    isRayon && shard
+      ? shard.sections.reduce((a, s) => a + (s.numValidVotes || 0), 0)
+      : municipality.protocol.numValidVotes > 0
+        ? municipality.protocol.numValidVotes
+        : municipality.council.reduce((a, p) => a + p.totalVotes, 0);
+  const regularSource = t("local_election_ballot_source_regular", {
+    date: cycleDate,
+  });
+  const mayorBallotBundle =
+    showPartial && partialBundle ? partialBundle.mayor : municipality.mayor;
+  const mayorBallot: BallotStat = {
+    votes: mayorBallotBundle.round1.reduce((a, m) => a + m.votes, 0),
+    // The by-election reports no turnout; a regular-cycle mayor shares the
+    // council's turnout (cast on the same day).
+    turnout: showPartial ? null : electionTurnout,
+    source: showPartial
+      ? t("local_election_ballot_source_partial", { date: partialDate })
+      : regularSource,
+  };
+  const councilBallot: BallotStat = {
+    votes: councilVotes,
+    turnout: electionTurnout,
+    source: regularSource,
+  };
+
+  // Runoff head-to-head bar for a mayor race that went to round 2.
+  const mayorRunoff = (round2?: LocalMayorResult[]) =>
+    round2 && round2.length > 0 ? (
+      <div className="mb-3">
+        <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
+          {t("local_election_sec_round_2")}
+        </div>
+        <LocalMayorRunoffBar round2={round2} />
+      </div>
+    ) : null;
+
+  // Mayor-candidate legend (ballot list № → name + party colour) for the mayor
+  // map, built from the regular-cycle mayor candidates — their list numbers
+  // match the КО/КР per-section vote rows.
+  const NEUTRAL = "#9ca3af";
+  const mayorLegend = new Map<number, { name: string; color: string }>();
+  for (const c of municipality.mayor.round1) {
+    mayorLegend.set(c.localPartyNum, {
+      name: c.candidateName,
+      color: c.primaryCanonicalId
+        ? (colorFor(c.primaryCanonicalId) ?? NEUTRAL)
+        : NEUTRAL,
+    });
+  }
+  // A район reads its own район-mayor ballot (КР); everywhere else the
+  // município-mayor ballot (КО).
+  const mayorVoteField = isRayon ? "rayonMayorVotes" : "mayorVotes";
+  const hasMayorMapData = !!shard?.sections.some(
+    (s) => (s[mayorVoteField]?.length ?? 0) > 0,
+  );
+
+  // The two station maps. Each self-hides (null) when its data is absent — the
+  // council map when stations lack coordinates, the mayor map additionally when
+  // the cycle carries no per-section mayor votes (older cycles / by-elections).
+  // Sofia city skips both: it shows район choropleths above instead, and would
+  // otherwise mount the same heavy ~1,640-marker Leaflet layer twice.
+  const councilMap =
     hasCoords && shard && !isSofiaCity ? (
+      <LocalSectionsMapTile
+        shard={shard}
+        cycle={cycle}
+        obshtinaCode={obshtinaCode}
+        metric="council"
+      />
+    ) : null;
+  const mayorMap =
+    hasCoords && shard && !isSofiaCity && hasMayorMapData ? (
+      <LocalSectionsMapTile
+        shard={shard}
+        cycle={cycle}
+        obshtinaCode={obshtinaCode}
+        metric="mayor"
+        mayorLegend={mayorLegend}
+        mayorVoteField={mayorVoteField}
+      />
+    ) : null;
+
+  // A race row: a station map (when present) beside the compact tile, mirroring
+  // the parliamentary map + top-parties layout; collapses to the tile alone
+  // when the map self-hid.
+  const raceRow = (tile: React.ReactNode, map: React.ReactNode) =>
+    map ? (
       <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-        <LocalSectionsMapTile
-          shard={shard}
-          cycle={cycle}
-          obshtinaCode={obshtinaCode}
-        />
+        {map}
         {tile}
       </div>
     ) : (
@@ -774,7 +939,13 @@ const MunicipalityResults: FC<{
         className="mb-4"
       />
 
-      <StatsGrid bundle={municipality} />
+      <StatsGrid
+        bundle={municipality}
+        isRayon={isRayon}
+        currentMayor={currentMayor}
+        mayorBallot={mayorBallot}
+        councilBallot={councilBallot}
+      />
 
       {/* Sofia city: both район choropleths at the top of the page so the
           24-район map reads as the primary geographic view, alongside the
@@ -801,24 +972,71 @@ const MunicipalityResults: FC<{
           ranking lives on the dedicated /mayor page the tile links to. For
           runoff races the head-to-head bar leads. */}
       <Section title={mayorSectionTitle}>
-        {municipality.mayor.round2 && municipality.mayor.round2.length > 0 ? (
-          <div className="mb-3">
+        {showPartial && partialBundle && partialCycle ? (
+          <>
+            {/* Current officeholder — lead with the most recent (partial) vote.
+                No station map here: the by-election is HTML-only (no per-section
+                results), and the regular-cycle shard's mayor map is a different
+                election — that map sits with the regular results below. */}
             <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
-              {t("local_election_sec_round_2")}
+              {t("local_election_partial_eyebrow", { date: partialDate })}
             </div>
-            <LocalMayorRunoffBar round2={municipality.mayor.round2} />
-          </div>
-        ) : null}
-        {raceRow(
-          <TopMayorsTile
-            candidates={municipality.mayor.round1}
-            electedName={municipality.mayor.elected?.candidateName ?? null}
-            to={`/local/${cycle}/${obshtinaCode}/mayor`}
-          />,
+            {mayorRunoff(partialBundle.mayor.round2)}
+            <TopMayorsTile
+              candidates={partialBundle.mayor.round1}
+              electedName={partialBundle.mayor.elected?.candidateName ?? null}
+              to={`/local/${partialCycle}/${obshtinaCode}/mayor`}
+            />
+            {/* How the by-election compared to the last full local vote. */}
+            <LocalMidtermComparisonTile
+              regular={municipality.mayor}
+              partial={partialBundle.mayor}
+              regularDate={cycleDate}
+              partialDate={partialDate}
+              className="mt-4"
+            />
+            {/* Who governed before — newest first; self-hides under two cycles. */}
+            <LocalMayorTimelineTile
+              obshtinaCode={obshtinaCode}
+              className="mt-4"
+            />
+            {/* Original regular-cycle results, relegated below the timeline. */}
+            <div className="mt-6">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
+                {t("local_election_regular_results_title", { date: cycleDate })}
+              </div>
+              {mayorRunoff(municipality.mayor.round2)}
+              {raceRow(
+                <TopMayorsTile
+                  candidates={municipality.mayor.round1}
+                  electedName={
+                    municipality.mayor.elected?.candidateName ?? null
+                  }
+                  to={`/local/${cycle}/${obshtinaCode}/mayor`}
+                />,
+                mayorMap,
+              )}
+            </div>
+          </>
+        ) : (
+          <>
+            {mayorRunoff(municipality.mayor.round2)}
+            {raceRow(
+              <TopMayorsTile
+                candidates={municipality.mayor.round1}
+                electedName={municipality.mayor.elected?.candidateName ?? null}
+                to={`/local/${cycle}/${obshtinaCode}/mayor`}
+              />,
+              mayorMap,
+            )}
+            {/* Who governed before — elected mayor in each prior cycle, newest
+                first. Self-hides for municípios with under two cycles of data. */}
+            <LocalMayorTimelineTile
+              obshtinaCode={obshtinaCode}
+              className="mt-4"
+            />
+          </>
         )}
-        {/* Who governed before — elected mayor in each prior cycle, newest
-            first. Self-hides for municípios with under two cycles of data. */}
-        <LocalMayorTimelineTile obshtinaCode={obshtinaCode} className="mt-4" />
       </Section>
 
       {/* Kmetstvo + район mayors — sub-municipal mayor tier, grouped with the
@@ -860,6 +1078,7 @@ const MunicipalityResults: FC<{
             council={municipality.council}
             to={`/local/${cycle}/${obshtinaCode}/council`}
           />,
+          councilMap,
         )}
         {/* Top councillors by preference — only when at least one slate
             recorded preferential votes (some pre-2019 cycles do not). */}
@@ -920,7 +1139,7 @@ const MunicipalityResults: FC<{
           <DashboardSection
             id="geography"
             title={t("dashboard_section_geography")}
-            icon={Map}
+            icon={MapIcon}
           >
             <CensusDemographicsTile regionCode={obshtinaCode} isMunicipality />
             <IndicatorsTile obshtinaCode={obshtinaCode} />
@@ -1091,6 +1310,7 @@ const RayonLocalResults: FC<{ cycle: string; rayon: CityRayon }> = ({
   rayon,
 }) => {
   const { t, i18n } = useTranslation();
+  const { colorFor } = useCanonicalParties();
   const lang = i18n.language === "bg" ? "bg" : "en";
   const { municipality } = useLocalMunicipality(rayon.obshtina, cycle);
   const cycleDate = friendlyCycleDate(cycle);
@@ -1102,6 +1322,24 @@ const RayonLocalResults: FC<{ cycle: string; rayon: CityRayon }> = ({
           findCityRayonByName(rayon.obshtina, d.districtName)?.id === rayon.id,
       ),
     [municipality, rayon],
+  );
+  // Mayor-candidate legend for the район-mayor section map — the районен-кмет
+  // candidates' ballot numbers match the КР `rayonMayorVotes` rows. So the map
+  // colours by leading candidate (not council party). Self-hides when the
+  // narrowed shard carries no КР votes (older cycles).
+  const mayorLegend = useMemo(() => {
+    const m = new Map<number, { name: string; color: string }>();
+    for (const c of district?.candidates ?? [])
+      m.set(c.localPartyNum, {
+        name: c.candidateName,
+        color: c.primaryCanonicalId
+          ? (colorFor(c.primaryCanonicalId) ?? "#9ca3af")
+          : "#9ca3af",
+      });
+    return m;
+  }, [district, colorFor]);
+  const hasRayonMayorMap = !!shard?.sections.some(
+    (s) => (s.rayonMayorVotes?.length ?? 0) > 0,
   );
   // Risk-votes block — the Roma-neighborhood council-ballot distribution for the
   // flagged sections that fall inside this район (Максуда → район Младост,
@@ -1139,6 +1377,32 @@ const RayonLocalResults: FC<{ cycle: string; rayon: CityRayon }> = ({
     />
   ) : null;
 
+  // Район-specific stat tiles, mirroring the Sofia район page: separate
+  // mayor / council ballots (район turnout summed from the район-narrowed
+  // shard; the council is elected city-wide so its seats come from the parent
+  // city bundle, flagged "общоградски вот").
+  const rayonReg =
+    shard?.sections.reduce((a, s) => a + (s.numRegisteredVoters || 0), 0) ?? 0;
+  const rayonAct =
+    shard?.sections.reduce((a, s) => a + (s.totalActualVoters || 0), 0) ?? 0;
+  const rayonTurnout =
+    rayonReg > 0 ? `${((rayonAct / rayonReg) * 100).toFixed(1)}%` : null;
+  const rayonCouncilValid =
+    shard?.sections.reduce((a, s) => a + (s.numValidVotes || 0), 0) ?? 0;
+  const rayonMayorValid = district
+    ? district.candidates.reduce((a, c) => a + c.votes, 0)
+    : 0;
+  const cityCouncilSeats = municipality.council.reduce(
+    (a, p) => a + p.mandatesWon,
+    0,
+  );
+  const cityCouncilParties = municipality.council.filter(
+    (p) => p.mandatesWon > 0,
+  ).length;
+  const regularSource = t("local_election_ballot_source_regular", {
+    date: cycleDate,
+  });
+
   return (
     <section className="my-4">
       <PlaceHeader
@@ -1152,6 +1416,54 @@ const RayonLocalResults: FC<{ cycle: string; rayon: CityRayon }> = ({
       />
 
       {district ? (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+          <StatItem
+            label={t("local_election_stat_mayor")}
+            value={
+              district.elected ? (
+                <span className="truncate">
+                  {district.elected.candidateName}
+                </span>
+              ) : (
+                <span className="text-sm text-muted-foreground">
+                  {t("local_election_no_winner")}
+                </span>
+              )
+            }
+          />
+          <BallotCard
+            label={t("local_election_ballot_mayor")}
+            stat={{
+              votes: rayonMayorValid,
+              turnout: rayonTurnout,
+              source: regularSource,
+            }}
+          />
+          <StatItem
+            label={t("local_election_stat_council_seats")}
+            value={
+              <span className="tabular-nums">
+                {cityCouncilSeats}{" "}
+                <span className="text-xs text-muted-foreground font-normal">
+                  · {cityCouncilParties}{" "}
+                  {t("local_election_stat_council_parties")}
+                </span>
+              </span>
+            }
+            sub={t("local_election_stat_council_citywide_sub")}
+          />
+          <BallotCard
+            label={t("local_election_ballot_council")}
+            stat={{
+              votes: rayonCouncilValid,
+              turnout: rayonTurnout,
+              source: regularSource,
+            }}
+          />
+        </div>
+      ) : null}
+
+      {district ? (
         <Section title={t("local_district_mayor")}>
           {district.round2 && district.round2.length > 0 ? (
             <div className="mb-3">
@@ -1161,12 +1473,15 @@ const RayonLocalResults: FC<{ cycle: string; rayon: CityRayon }> = ({
               <LocalMayorRunoffBar round2={district.round2} />
             </div>
           ) : null}
-          {hasCoords && shard ? (
+          {hasCoords && shard && hasRayonMayorMap ? (
             <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
               <LocalSectionsMapTile
                 shard={shard}
                 cycle={cycle}
                 obshtinaCode={rayon.obshtina}
+                metric="mayor"
+                mayorLegend={mayorLegend}
+                mayorVoteField="rayonMayorVotes"
               />
               {mayorTile}
             </div>
