@@ -75,6 +75,7 @@ export type LocalIndex = {
 
 export type LocalCandidate = {
   candidateName: string;
+  localPartyNum?: number;
   localPartyName: string;
   primaryCanonicalId: string;
   isIndependent: boolean;

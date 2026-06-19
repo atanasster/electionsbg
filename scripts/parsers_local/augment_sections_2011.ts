@@ -60,6 +60,9 @@ export const aggregate2011Sections = (opts: {
     protocolByOik: new Map(),
     partyLegendByOik: new Map(),
     sectionsByOik: new Map(),
+    // 2011 is a council-only ballot — no mayor race files in this bundle.
+    mayorVotesBySection: new Map(),
+    rayonMayorVotesBySection: new Map(),
   };
 
   // 1. Votes — pairs (party; votes) from column 2; section in column 1.
