@@ -3,10 +3,10 @@
   "name": "Дулово",
   "province": "Силистра",
   "obshtina": "Дулово",
-  "generatedAt": "2026-06-19T08:18:09.815Z",
-  "contractCount": 84,
+  "generatedAt": "2026-06-20T15:54:55.059Z",
+  "contractCount": 85,
   "awardCount": 0,
-  "totalEur": 18022634.37503362,
+  "totalEur": 18322626.82503362,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 17378881.05268418,
       "totalOther": {},
       "contractCount": 58,
+      "awardCount": 0
+    },
+    {
+      "eik": "000558222",
+      "name": "Основно училище \"СВ.СВ.КИРИЛ и Методий\"",
+      "tier": "school",
+      "totalEur": 299992.45,
+      "totalOther": {},
+      "contractCount": 1,
       "awardCount": 0
     },
     {
@@ -79,7 +88,7 @@
       "currency": "EUR",
       "amountEur": 1505205.27,
       "partyEik": "205975093",
-      "partyName": "Строй - мал ЕООД",
+      "partyName": "Строй - МАЛ ЕООД",
       "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
       "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-528190-851592%2F2026-05-04-contractamendment"
     },
@@ -91,7 +100,7 @@
       "currency": "EUR",
       "amountEur": 1505205.27,
       "partyEik": "205975093",
-      "partyName": "Строй - мал ЕООД",
+      "partyName": "Строй - МАЛ ЕООД",
       "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
       "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-528190-792819%2F2026-01-06-award"
     },
@@ -202,6 +211,18 @@
       "partyName": "Строителство, Озеленяване и чистота ЕООД - Дулово",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "28481a17134b",
+      "ocid": "ocds-e82gsb-541620",
+      "date": "2026-02-17",
+      "amount": 299992.45,
+      "currency": "EUR",
+      "amountEur": 299992.45,
+      "partyEik": "205975093",
+      "partyName": "Строй - МАЛ ЕООД",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-541620-812354%2F2026-02-17-award"
     },
     {
       "key": "1bee24dac827",
@@ -319,7 +340,7 @@
       "currency": "EUR",
       "amountEur": 75000,
       "partyEik": "204270917",
-      "partyName": "А енд джи груп вт ЕООД",
+      "partyName": "А ЕНД ДЖИ груп ВТ ЕООД",
       "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
       "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-537319-816287%2F2026-02-25-award"
     },
@@ -523,7 +544,7 @@
       "currency": "EUR",
       "amountEur": 46271.92,
       "partyEik": "202260493",
-      "partyName": "ПИ Ар ем консултинг ЕООД",
+      "partyName": "ПИ АР ЕМ Консултинг ЕООД",
       "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
       "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-497765-816237%2F2026-02-25-award"
     },
@@ -634,18 +655,6 @@
       "partyName": "Лудогориелес ЕАД - Разград",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "06b487314783",
-      "ocid": "aop-legacy-2011-2015-427197",
-      "date": "2011-02-17",
-      "amount": 40712,
-      "currency": "BGN",
-      "amountEur": 20815.715067260448,
-      "partyEik": "118505477",
-      "partyName": "ЕТ Лес-2000 - Георги Змеев - Тутракан",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -699,9 +708,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 4670544.904067326,
+      "totalEur": 4970537.3540673265,
       "totalOther": {},
-      "contractCount": 20
+      "contractCount": 21
     }
   ]
 }

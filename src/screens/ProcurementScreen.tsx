@@ -12,6 +12,7 @@ import { useProcurementIndex } from "@/data/procurement/useProcurementIndex";
 import { useProcurementByNs } from "@/data/procurement/useProcurementByNs";
 import { useElectionContext } from "@/data/ElectionContext";
 import { ProcurementFlowTile } from "./components/procurement/ProcurementFlowTile";
+import { ProcurementNav } from "./components/procurement/ProcurementNav";
 import { TopContractorsTile } from "./components/procurement/TopContractorsTile";
 import { TopAwardersTile } from "./components/procurement/TopAwardersTile";
 import { TopMpsTile } from "./components/procurement/TopMpsTile";
@@ -101,6 +102,8 @@ export const ProcurementScreen: FC = () => {
           end={byNs.end}
           onShowAll={() => setShowAllYears(true)}
         />
+
+        <ProcurementNav />
 
         <div
           className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mt-4"
@@ -226,6 +229,8 @@ function renderGlobalView(
       </Title>
       <section aria-label={title} className="my-4">
         <ScopeToggle scope="all" onScopeToNs={onScopeToNs} />
+
+        <ProcurementNav />
 
         <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mt-4">
           <StatCard

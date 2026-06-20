@@ -1,22 +1,37 @@
-// Inline red-flag chips for a single procurement contract row. Each chip
-// represents one signal in computeRiskFlags() and carries a tooltip with the
-// supporting detail (which MP, what concentration share, debarment dates).
+// Inline red-flag chips for a single procurement contract row. Each chip is one
+// check in computeProcurementRisk() and carries a tooltip with the supporting
+// detail (which MP, what concentration share, bid count, debarment dates).
 //
-// The chip strip is meant to live in a compact table cell — labels are short
-// localised abbreviations and the cell falls back to a dash when no flag
-// fires.
+// Two layouts:
+//   - variant="chips" (default): compact strip for a table cell — short
+//     localised abbreviations, falls back to a dash when no flag fires.
+//   - variant="full": an explainable Corruption Risk Index meter ("N of M risk
+//     checks failed" + a colour bar) above the chips, for the contract detail
+//     header. When nothing fired it reads as "no red flags · N checks passed"
+//     rather than a bare dash.
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { AlertTriangle, Ban, Link as LinkIcon, Repeat } from "lucide-react";
+import {
+  AlertTriangle,
+  Ban,
+  Gavel,
+  Landmark,
+  Link as LinkIcon,
+  Repeat,
+  ShieldCheck,
+  Timer,
+  Users,
+} from "lucide-react";
 import { Tooltip } from "@/ux/Tooltip";
 import type { ContractRiskResult } from "@/data/procurement/useContractRiskFlags";
 
 type Props = {
   result: ContractRiskResult;
-  /** When true, render the score number alongside the chips. Used in tables;
-   *  detail-page header uses the chips without the bare score. */
+  /** When true, render the severity score alongside the chips (tables). */
   showScore?: boolean;
+  /** "full" adds the explainable CRI meter; used on the detail header. */
+  variant?: "chips" | "full";
 };
 
 const chipBase =
@@ -28,16 +43,25 @@ const formatPct = (frac: number, lang: string): string =>
     maximumFractionDigits: 0,
   }).format(frac);
 
-export const RiskBadges: FC<Props> = ({ result, showScore }) => {
+// CRI band colour — green (low) → amber (mid) → red (high). Inline style so the
+// width-bound meter bar can use the same scale the badge ring implies.
+const criColor = (cri: number): string =>
+  cri >= 67 ? "#dc2626" : cri >= 34 ? "#d97706" : "#16a34a";
+
+export const RiskBadges: FC<Props> = ({
+  result,
+  showScore,
+  variant = "chips",
+}) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
-  const { flags, score, hasFlag } = result;
+  const { flags, score, cri, firedCount, availableCount, hasFlag } = result;
 
-  if (!hasFlag) {
+  if (!hasFlag && variant !== "full") {
     return <span className="text-xs text-muted-foreground">—</span>;
   }
 
-  return (
+  const chips = (
     <div className="flex flex-wrap items-center gap-1">
       {showScore ? (
         <span className="text-xs font-semibold tabular-nums text-muted-foreground">
@@ -108,6 +132,105 @@ export const RiskBadges: FC<Props> = ({ result, showScore }) => {
         </Tooltip>
       ) : null}
 
+      {flags.pepConnected ? (
+        <Tooltip
+          content={
+            <div className="space-y-1">
+              <div className="font-medium">
+                {t("risk_flag_pep_connected_long") ||
+                  "Contractor tied to a public official"}
+              </div>
+              <div className="text-xs text-muted-foreground">
+                {t("risk_flag_pep_connected_hint") ||
+                  "A mayor, councillor, minister, governor or agency head appears as a declared officer or owner."}
+              </div>
+            </div>
+          }
+        >
+          <span
+            className={`${chipBase} border-teal-300 bg-teal-100 text-teal-900 dark:border-teal-900 dark:bg-teal-900/40 dark:text-teal-100`}
+          >
+            <Landmark className="h-3 w-3" />
+            {t("risk_flag_pep_connected") || "Official-tied"}
+          </span>
+        </Tooltip>
+      ) : null}
+
+      {flags.singleBidder ? (
+        <Tooltip
+          content={
+            <div className="space-y-1">
+              <div className="font-medium">
+                {t("risk_flag_single_bidder_long") ||
+                  "Single bidder in a competitive market"}
+              </div>
+              <div className="text-xs text-muted-foreground">
+                {t("risk_flag_single_bidder_hint") ||
+                  "Only one operator bid — the headline procurement-corruption red flag (Fazekas/GTI)."}
+              </div>
+            </div>
+          }
+        >
+          <span
+            className={`${chipBase} border-rose-300 bg-rose-100 text-rose-900 dark:border-rose-900 dark:bg-rose-900/40 dark:text-rose-100`}
+          >
+            <Users className="h-3 w-3" />
+            {t("risk_flag_single_bidder") || "1 bid"}
+          </span>
+        </Tooltip>
+      ) : null}
+
+      {flags.nonOpenProcedure ? (
+        <Tooltip
+          content={
+            <div className="space-y-1">
+              <div className="font-medium">
+                {t("risk_flag_non_open_long") || "Non-open procedure"}
+              </div>
+              <div className="text-xs text-muted-foreground">
+                {t("risk_flag_non_open_hint") ||
+                  "Awarded without an open competition (e.g. negotiated / single-source)."}
+              </div>
+            </div>
+          }
+        >
+          <span
+            className={`${chipBase} border-violet-300 bg-violet-100 text-violet-900 dark:border-violet-900 dark:bg-violet-900/40 dark:text-violet-100`}
+          >
+            <Gavel className="h-3 w-3" />
+            {t("risk_flag_non_open") || "Negotiated"}
+          </span>
+        </Tooltip>
+      ) : null}
+
+      {flags.shortTenderPeriod ? (
+        <Tooltip
+          content={
+            <div className="space-y-1">
+              <div className="font-medium">
+                {t("risk_flag_short_period_long") || "Short tender window"}
+              </div>
+              <div className="text-xs text-muted-foreground">
+                {flags.tenderPeriodDays != null
+                  ? `${flags.tenderPeriodDays} ${t("risk_flag_short_period_days") || "days"} — `
+                  : ""}
+                {t("risk_flag_short_period_hint") ||
+                  "Below the 14-day EU reference open-procedure window."}
+              </div>
+            </div>
+          }
+        >
+          <span
+            className={`${chipBase} border-yellow-300 bg-yellow-100 text-yellow-900 dark:border-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-100`}
+          >
+            <Timer className="h-3 w-3" />
+            {flags.tenderPeriodDays != null
+              ? `${flags.tenderPeriodDays}${t("risk_flag_short_period_days_abbr") || "d"}`
+              : t("risk_flag_short_period") || "Rushed"}
+          </span>
+        </Tooltip>
+      ) : null}
+
       {flags.awarderConcentration ? (
         <Tooltip
           content={
@@ -158,6 +281,52 @@ export const RiskBadges: FC<Props> = ({ result, showScore }) => {
           </span>
         </Tooltip>
       ) : null}
+    </div>
+  );
+
+  if (variant !== "full") return chips;
+
+  // Explainable CRI meter for the detail header.
+  if (!hasFlag) {
+    return (
+      <div className="inline-flex items-center gap-1.5 text-sm text-emerald-700 dark:text-emerald-300">
+        <ShieldCheck className="h-4 w-4" />
+        <span>
+          {t("risk_cri_clear") || "No red flags"}
+          {availableCount > 0 ? (
+            <span className="text-muted-foreground">
+              {" · "}
+              {availableCount} {t("risk_cri_checks_passed") || "checks passed"}
+            </span>
+          ) : null}
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center gap-2 flex-wrap">
+        <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+          {t("risk_cri_label") || "Risk index"}
+        </span>
+        <span
+          className="text-base font-bold tabular-nums"
+          style={{ color: criColor(cri) }}
+        >
+          {cri}
+        </span>
+        <span className="text-xs text-muted-foreground tabular-nums">
+          {firedCount}/{availableCount} {t("risk_cri_checks") || "risk checks"}
+        </span>
+      </div>
+      <div className="h-1.5 w-full max-w-[240px] overflow-hidden rounded-full bg-muted">
+        <div
+          className="h-full rounded-full"
+          style={{ width: `${cri}%`, backgroundColor: criColor(cri) }}
+        />
+      </div>
+      {chips}
     </div>
   );
 };

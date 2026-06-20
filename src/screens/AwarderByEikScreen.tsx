@@ -25,6 +25,9 @@ import { MpAvatar } from "./components/candidates/MpAvatar";
 import { AwarderTopContractsTile } from "./components/procurement/AwarderTopContractsTile";
 import { AwarderTopContractorsTile } from "./components/procurement/AwarderTopContractorsTile";
 import { CompanyByYearChart } from "./components/procurement/CompanyByYearChart";
+import { EntityFlowTile } from "./components/procurement/EntityFlowTile";
+import { CompanyPortfolioTreemap } from "./components/procurement/CompanyPortfolioTreemap";
+import { FollowButton } from "./components/procurement/FollowButton";
 import { ErrorSection } from "./components/ErrorSection";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
@@ -132,6 +135,9 @@ export const AwarderByEikScreen: FC = () => {
               {t("awarder_has_mp_tied") || "Paid MP-tied"}
             </span>
           ) : null}
+          <span className="ml-auto">
+            <FollowButton kind="awarder" id={a.eik} label={a.name} />
+          </span>
         </div>
 
         <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
@@ -286,6 +292,34 @@ export const AwarderByEikScreen: FC = () => {
             />
           ) : null}
         </div>
+
+        <EntityFlowTile
+          role="awarder"
+          centerEik={a.eik}
+          centerName={a.name}
+          counterparties={a.byContractor.map((c) => ({
+            eik: c.eik,
+            name: c.name,
+            totalEur: c.totalEur,
+          }))}
+          mpEdges={mpTiedContractors.flatMap(({ contractor, mps }) =>
+            mps.map((m) => ({
+              contractorEik: contractor.eik,
+              mpId: m.mpId,
+              mpName: m.mpName,
+              valueEur: contractor.totalEur,
+            })),
+          )}
+        />
+
+        <CompanyPortfolioTreemap
+          role="awarder"
+          items={a.byContractor.map((c) => ({
+            eik: c.eik,
+            name: c.name,
+            totalEur: c.totalEur,
+          }))}
+        />
 
         {a.byYear.length > 0 ? <CompanyByYearChart rows={a.byYear} /> : null}
 

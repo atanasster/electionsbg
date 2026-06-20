@@ -31,6 +31,7 @@ import { MyAreaTaxReceiptTile } from "./MyAreaTaxReceiptTile";
 import { MyAreaMunicipalBudgetTile } from "./MyAreaMunicipalBudgetTile";
 import { MyAreaLocalTaxesTile } from "./MyAreaLocalTaxesTile";
 import { MyAreaPricesTile } from "./MyAreaPricesTile";
+import { MyAreaProcurementTile } from "./MyAreaProcurementTile";
 import { MyAreaTransparencyTile } from "./MyAreaTransparencyTile";
 import { MyAreaQualityStrip } from "./MyAreaQualityStrip";
 import { MyAreaCommunityTile } from "./MyAreaCommunityTile";
@@ -290,6 +291,13 @@ export const MyAreaScreen: FC = () => {
           />
           <MyAreaProjectsMapTile obshtina={area.obshtina} />
         </div>
+        {/* Public procurement pinned to this place — local-tier buyers
+            (município, schools, hospitals) and what they spent. Self-hides
+            when the place has no local-tier procurement on record. */}
+        <MyAreaProcurementTile
+          obshtina={area.obshtina}
+          ekatte={area.kind === "settlement" ? area.ekatte : undefined}
+        />
         {/* Personal-tax receipt calculator — content-rich (COFOG breakdown
             + municipal-return line + local-tax estimate + capital-program
             top items). Renders full-width on its own row so the calculator

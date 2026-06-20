@@ -1513,6 +1513,23 @@ export const route = (question: string, ctx: ToolContext): Route => {
     return { tool: "investmentProjects", args: obl ? { oblast: obl } : {} };
   }
   if (has(q, "поръчк", "procurement", "аоп", " aop")) {
+    // red-flag / risk feed — concentration on one supplier + debarred suppliers
+    if (
+      has(
+        q,
+        "риск",
+        "risk",
+        "сигнал",
+        "red flag",
+        "червен флаг",
+        "концентрац",
+        "concentrat",
+        "черен списък",
+        "debarred",
+        "нарушени",
+      )
+    )
+      return { tool: "procurementRedFlags", args: {} };
     // contracts to MP-tied firms (the journalism payload) — MP/connected framing
     if (has(q, "депутат", " mp", " mps", "свързан", "connected", "tied"))
       return {

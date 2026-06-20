@@ -502,6 +502,30 @@ export interface SettlementProcurementIndex {
   }>;
 }
 
+// Per-CPV-division competition baseline. Used to gate the single-bidder red
+// flag to markets that are *normally* competitive — a single bid in a division
+// that is structurally single-bid (e.g. utility monopolies) is not anomalous
+// and would be a false positive. division is the 2-digit CPV prefix.
+export interface CpvCompetitionDivision {
+  division: string;
+  /** Contracts in this division (any bid-data availability). */
+  contractCount: number;
+  /** Contracts where the realised bid count is known. */
+  withBidData: number;
+  /** Of withBidData, how many had exactly one bidder. */
+  singleBid: number;
+  /** singleBid / withBidData (0..1); 0 when withBidData === 0. */
+  singleBidShare: number;
+}
+
+export interface CpvCompetitionFile {
+  generatedAt: string;
+  /** Single-bid share at/above which a division is treated as structurally
+   *  single-bid, so the per-contract single-bidder flag is suppressed. */
+  structuralSingleBidShare: number;
+  divisions: CpvCompetitionDivision[];
+}
+
 // Sankey-shaped MP-tied flow. Only includes nodes/edges that participate in
 // an MP-connected contract; the full procurement graph would be unreadable.
 export interface FlowFile {

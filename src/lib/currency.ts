@@ -90,6 +90,19 @@ export const formatEur = (
   return `€${numberFormatter(locale, opts.decimals ?? 0).format(value)}`;
 };
 
+/** Compact euro figure for tight layouts: "€3,5 млн" / "€3.5M". Uses the
+ * locale's compact notation so a billion-euro total fits a narrow KPI cell. */
+export const formatEurCompact = (
+  value: number | null | undefined,
+  locale: string = "bg-BG",
+): string => {
+  if (value == null || !Number.isFinite(value)) return "";
+  return `€${new Intl.NumberFormat(resolveLocale(locale), {
+    notation: "compact",
+    maximumFractionDigits: 1,
+  }).format(value)}`;
+};
+
 /** Format an amount in its native currency, for the "originally …" footnote
  * on legacy rows: "5 000 лв", "€1 234", "1 200 USD". */
 export const formatNative = (

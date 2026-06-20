@@ -89,6 +89,18 @@ interface OcdsRelease {
     dateSigned?: string;
     period?: { startDate?: string; endDate?: string };
   }>;
+  // АОП publishes the realised bid count HERE — at release.bids.statistics[],
+  // entries with measure === "bids" (one per lot) — NOT at
+  // tender.numberOfTenderers / numberOfBids, which are ~0% populated in the
+  // OCDS export. ~88% coverage on 2026 bundles.
+  bids?: {
+    statistics?: Array<{
+      id?: string;
+      measure?: string;
+      value?: number;
+      relatedLot?: string;
+    }>;
+  };
   parties?: OcdsParty[];
   buyer?: { id: string; name?: string };
 }
@@ -112,6 +124,21 @@ const firstCpv = (release: OcdsRelease): string | undefined => {
     }
   }
   return undefined;
+};
+
+// Realised number of bidders. АОП emits this at release.bids.statistics[]
+// (entries with measure === "bids"), one per lot — the tender.numberOfTenderers
+// / numberOfBids fields are present in the schema but ~0% populated, so the
+// single-bidder red flag never fired before we read this. When a procedure has
+// multiple lots we take the minimum bid count: a single-bidder lot inside an
+// otherwise-contested procedure is exactly the signal we want to surface. Falls
+// back to the legacy tender fields when no bids.statistics is published.
+const bidCount = (release: OcdsRelease): number | undefined => {
+  const values = (release.bids?.statistics ?? [])
+    .filter((s) => s.measure === "bids" && Number.isFinite(s.value))
+    .map((s) => s.value as number);
+  if (values.length > 0) return Math.min(...values);
+  return release.tender?.numberOfTenderers ?? release.tender?.numberOfBids;
 };
 
 const resolveParty = (
@@ -244,11 +271,9 @@ export const normalizeBundle = (
     const procurementMethod = release.tender?.procurementMethod;
     const procurementMethodRationale =
       release.tender?.procurementMethodRationale;
-    // Prefer numberOfTenderers (publishers most often set this); fall back to
-    // numberOfBids when the publisher used that field instead. Both refer to
-    // the bid count in OCDS spec.
-    const numberOfTenderers =
-      release.tender?.numberOfTenderers ?? release.tender?.numberOfBids;
+    // Realised bid count from release.bids.statistics[] (see bidCount), with a
+    // fallback to the legacy tender.numberOfTenderers / numberOfBids fields.
+    const numberOfTenderers = bidCount(release);
     const tenderPeriodStartDate = release.tender?.tenderPeriod?.startDate
       ? truncateDate(release.tender.tenderPeriod.startDate)
       : undefined;

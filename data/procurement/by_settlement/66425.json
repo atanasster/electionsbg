@@ -3,10 +3,10 @@
   "name": "Силистра",
   "province": "Силистра",
   "obshtina": "Силистра",
-  "generatedAt": "2026-06-19T08:18:09.815Z",
-  "contractCount": 1288,
+  "generatedAt": "2026-06-20T15:54:55.059Z",
+  "contractCount": 1293,
   "awardCount": 0,
-  "totalEur": 164869838.53066316,
+  "totalEur": 164927369.6306632,
   "totalOther": {},
   "awarders": [
     {
@@ -128,7 +128,7 @@
     },
     {
       "eik": "000557540",
-      "name": "Детска Градина \"Ян бибиян\"",
+      "name": "Детска Градина \"ЯН бибиян\"",
       "tier": "school",
       "totalEur": 100275.9010588855,
       "totalOther": {},
@@ -142,6 +142,15 @@
       "totalEur": 79395.3952134388,
       "totalOther": {},
       "contractCount": 9,
+      "awardCount": 0
+    },
+    {
+      "eik": "000560839",
+      "name": "Детска Градина \"МИР \"",
+      "tier": "school",
+      "totalEur": 57531.1,
+      "totalOther": {},
+      "contractCount": 5,
       "awardCount": 0
     },
     {
@@ -427,7 +436,7 @@
       "currency": "EUR",
       "amountEur": 1067859.43,
       "partyEik": "207669992",
-      "partyName": "Дема ел 16 ЕООД",
+      "partyName": "Дема ЕЛ 16 ЕООД",
       "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
       "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-511667-800554%2F2026-01-23-award"
     },
@@ -727,7 +736,7 @@
       "currency": "EUR",
       "amountEur": 602915.63,
       "partyEik": "200852966",
-      "partyName": "Бент ойл АД",
+      "partyName": "Бент ОЙЛ АД",
       "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
       "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-546759-806982%2F2026-02-06-award"
     },
@@ -831,9 +840,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 33622774.430000015,
+      "totalEur": 33680305.530000016,
       "totalOther": {},
-      "contractCount": 129
+      "contractCount": 134
     }
   ]
 }

@@ -3,10 +3,10 @@
   "name": "Нови Искър",
   "province": "София (столица)",
   "obshtina": "Столична",
-  "generatedAt": "2026-06-19T08:18:09.815Z",
-  "contractCount": 3,
+  "generatedAt": "2026-06-20T15:54:55.059Z",
+  "contractCount": 4,
   "awardCount": 0,
-  "totalEur": 109545.8516333219,
+  "totalEur": 191352.5516333219,
   "totalOther": {},
   "awarders": [
     {
@@ -17,9 +17,30 @@
       "totalOther": {},
       "contractCount": 3,
       "awardCount": 0
+    },
+    {
+      "eik": "000675211",
+      "name": "Детска Градина № 157 \"Детска стряха\"",
+      "tier": "school",
+      "totalEur": 81806.7,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
     }
   ],
   "topContracts": [
+    {
+      "key": "6d45f93cf12e",
+      "ocid": "ocds-e82gsb-535544",
+      "date": "2026-02-17",
+      "amount": 81806.7,
+      "currency": "EUR",
+      "amountEur": 81806.7,
+      "partyEik": "121462751",
+      "partyName": "Бохемис ООД",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-535544-812700%2F2026-02-17-award"
+    },
     {
       "key": "09a0660b4173",
       "ocid": "ocds-e82gsb-575252",
@@ -72,9 +93,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 51100,
+      "totalEur": 132906.7,
       "totalOther": {},
-      "contractCount": 1
+      "contractCount": 2
     }
   ]
 }

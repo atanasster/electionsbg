@@ -82,9 +82,9 @@ export const ContractDetailScreen: FC = () => {
               );
             })()
           : null}
-        {riskResult && riskResult.hasFlag ? (
+        {riskResult ? (
           <div className="pt-2">
-            <RiskBadges result={riskResult} />
+            <RiskBadges result={riskResult} variant="full" />
           </div>
         ) : null}
       </header>

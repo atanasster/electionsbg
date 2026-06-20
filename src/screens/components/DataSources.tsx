@@ -485,6 +485,10 @@ export const DataSources = () => {
               {t("about_procurement_by_settlement_note") ||
                 'Procurement by settlement (/procurement/by-settlement) pins each contract to the buyer\'s headquarters. The classifier excludes central ministries, state agencies and nationally-operating state companies (Sofia HQ, national footprint) — they roll up into a separate "national procurement" card. The buyer-HQ → EKATTE resolver is postal-primary against the canonical NSI settlement catalog (5,267 entries with postal codes); 99.9% of buyers in the 2026 sample resolve to a single settlement. The tier classifier uses name heuristics plus a curated EIK override table for the long tail.'}
             </p>
+            <p className="mt-2 text-xs text-muted-foreground">
+              {t("about_procurement_risk_note") ||
+                "Each contract carries an explainable Corruption Risk Index — the share of the applicable red-flag checks that fired (debarred supplier, MP- or official-connected contractor, single bidder gated against the per-CPV competition baseline, non-open procedure, short tender window, post-award amendment, single-supplier concentration). The same signals drive the money-flow diagrams (/procurement/flows + per-entity), the public money scanner (/procurement/people), the red-flag feed (/procurement/flags) and a per-oblast choropleth (total / per-capita / average contract). All derived from the same АОП / ЦАИС ЕОП open data — no new source."}
+            </p>
           </DataGroup>
 
           <DataGroup title={t("eu_funds_section")}>

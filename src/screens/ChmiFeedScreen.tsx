@@ -174,6 +174,9 @@ export const ChmiFeedScreen: FC = () => {
                 {t("chmi_feed_th_party")}
               </th>
               <th className="py-2 px-3 text-right w-16">%</th>
+              <th className="py-2 px-3 text-right w-20">
+                {t("chmi_feed_th_turnout")}
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -269,6 +272,9 @@ export const ChmiFeedScreen: FC = () => {
                   </td>
                   <td className="py-2 px-3 text-right tabular-nums">
                     {e.pctOfValid.toFixed(1)}%
+                  </td>
+                  <td className="py-2 px-3 text-right tabular-nums text-muted-foreground">
+                    {e.turnoutPct != null ? `${e.turnoutPct.toFixed(1)}%` : "—"}
                   </td>
                 </tr>
               );

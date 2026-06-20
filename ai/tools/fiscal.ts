@@ -544,6 +544,71 @@ export const topContractors = async (
   };
 };
 
+// ---- procurement red-flag feed ----------------------------------------------
+// The accountability digest: buyers whose spend is concentrated on a single
+// supplier, plus how many suppliers are on the active debarment register.
+// Mirrors the /procurement/flags page; all from committed derived files.
+
+type ConcentrationEntry = {
+  awarderName: string;
+  contractorName: string;
+  sharePct: number;
+  pairTotalEur: number;
+};
+type DebarredRow = { debarredUntil: string };
+
+export const procurementRedFlags = async (
+  _args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  // Slim pre-selected feed (~28 KB) — not the full awarder_concentration.json.
+  const feed = await fetchData<{ topConcentration: ConcentrationEntry[] }>(
+    "/procurement/derived/risk_feed.json",
+  );
+  const deb = await fetchData<{ entries: DebarredRow[] }>(
+    "/procurement/debarred.json",
+  );
+  const today = new Date().toISOString().slice(0, 10);
+  const activeDebarred = deb.entries.filter(
+    (d) => !d.debarredUntil || d.debarredUntil >= today,
+  ).length;
+  const top = feed.topConcentration.slice(0, 10);
+  const rows: Row[] = top.map((e) => ({
+    awarder: e.awarderName,
+    contractor: e.contractorName,
+    share: `${Math.round(e.sharePct * 100)}%`,
+    amount: fmtEurCompact(e.pairTotalEur, ctx.lang),
+  }));
+  return {
+    tool: "procurementRedFlags",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? "Сигнали за риск в обществените поръчки"
+      : "Public-procurement red flags",
+    subtitle: bg
+      ? "Възложители с концентрация на разхода върху един изпълнител"
+      : "Buyers whose spending is concentrated on a single supplier",
+    columns: [
+      { key: "awarder", label: bg ? "Възложител" : "Buyer" },
+      { key: "contractor", label: bg ? "Изпълнител" : "Supplier" },
+      { key: "share", label: bg ? "Дял" : "Share", numeric: true },
+      { key: "amount", label: bg ? "Стойност" : "Value", numeric: true },
+    ],
+    rows,
+    viz: "none",
+    facts: {
+      active_debarred: activeDebarred,
+      top_share: top[0] ? `${Math.round(top[0].sharePct * 100)}%` : "—",
+    },
+    provenance: [
+      "procurement/derived/risk_feed.json",
+      "procurement/debarred.json",
+    ],
+  };
+};
+
 // ---- procurement to MP-connected companies (+ per-MP trend) -----------------
 // The journalism payload: contracts going to firms a sitting MP owns or manages.
 // A named MP returns a per-year value trend; otherwise the biggest MP↔contractor

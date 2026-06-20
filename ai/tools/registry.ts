@@ -20,6 +20,7 @@ import {
   fundsProjects,
   mpProcurement,
   municipalTransfers,
+  procurementRedFlags,
   procurementTotals,
   revenueBreakdown,
   topContractors,
@@ -1732,6 +1733,26 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: topContractors,
+  },
+  {
+    name: "procurementRedFlags",
+    domain: "fiscal",
+    description: {
+      bg: "Сигнали за риск в обществените поръчки: концентрация на разход върху един изпълнител и изпълнители в черен списък (АОП).",
+      en: "Public-procurement red flags: single-supplier spend concentration and debarred suppliers (AOP).",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Покажи сигналите за риск в обществените поръчки",
+        en: "Show the procurement red flags",
+      },
+      {
+        bg: "Кои възложители са концентрирани върху един изпълнител?",
+        en: "Which buyers are concentrated on a single supplier?",
+      },
+    ],
+    run: procurementRedFlags,
   },
   {
     name: "mpProcurement",

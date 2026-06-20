@@ -9,7 +9,8 @@
 
 import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { GitFork } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { ArrowRight, GitFork } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useProcurementFlow } from "@/data/procurement/useProcurementFlow";
 import { ProcurementFlowSankey } from "./ProcurementFlowSankey";
@@ -40,7 +41,9 @@ const pickDefaultThreshold = (
 
 export const ProcurementFlowTile: FC = () => {
   const { t } = useTranslation();
+  const { pathname } = useLocation();
   const { data, isLoading } = useProcurementFlow();
+  const showExploreLink = pathname !== "/procurement/flows";
   // null = not yet initialised (data still loading). Once data arrives, the
   // effect below computes a sensible default that filters out the long tail
   // of small links. Operators can drag the slider down to 0 to see everything.
@@ -111,6 +114,15 @@ export const ProcurementFlowTile: FC = () => {
               {filtered.links.length}/{data.links.length}{" "}
               {t("procurement_flow_links") || "link(s)"}
             </span>
+          ) : null}
+          {showExploreLink ? (
+            <Link
+              to="/procurement/flows"
+              className="ml-auto inline-flex items-center gap-1 text-xs text-primary hover:underline font-normal"
+            >
+              {t("procurement_flows_explore") || "Explore"}
+              <ArrowRight className="h-3 w-3" />
+            </Link>
           ) : null}
         </CardTitle>
       </CardHeader>

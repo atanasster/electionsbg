@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-06-19T09:31:21.252Z",
+  "generatedAt": "2026-06-20T15:25:44.853Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -63,7 +63,7 @@
       "url": "https://www.parliament.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-19T07:09:25.392Z",
+      "freshness": "2026-06-20T15:15:28.307Z",
       "skills": [
         "update-rollcall",
         "parliament-scrape"
@@ -74,7 +74,7 @@
           "label": "Parliament roll-call votes",
           "url": "https://www.parliament.bg/api/v1/pl-sten/{id}",
           "cadence": "daily",
-          "freshness": "2026-06-19T07:09:25.392Z"
+          "freshness": "2026-06-20T15:15:28.307Z"
         },
         {
           "id": "parliament_mps",
@@ -322,7 +322,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-19T07:09:25.392Z",
+      "freshness": "2026-06-20T15:15:28.307Z",
       "skills": [
         "update-procurement"
       ],
@@ -332,7 +332,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-06-19T07:09:25.392Z"
+          "freshness": "2026-06-20T15:15:28.307Z"
         }
       ],
       "x": 28,
@@ -409,7 +409,7 @@
       "url": "https://www.minfin.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-16T07:08:32.388Z",
+      "freshness": "2026-06-20T15:15:28.307Z",
       "skills": [
         "update-budget",
         "update-noi",
@@ -457,7 +457,7 @@
           "label": "НАП — Годишен отчет за дейността",
           "url": "https://nra.bg/wps/portal/nra/za-nap/osnovni-dokumenti/Godishni-otcheti-za-deynostta-na-NAP",
           "cadence": "weekly",
-          "freshness": "2026-05-26T06:08:44.085Z"
+          "freshness": "2026-06-20T15:15:28.307Z"
         },
         {
           "id": "nssi_b1",
@@ -522,7 +522,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-18T07:26:01.586Z",
+      "freshness": "2026-06-20T15:15:28.307Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -534,7 +534,7 @@
           "label": "Общински капиталови програми (per-municipality capital lists)",
           "url": "https://www.sofia.bg/",
           "cadence": "weekly",
-          "freshness": "2026-06-14T07:09:34.489Z"
+          "freshness": "2026-06-20T15:15:28.307Z"
         },
         {
           "id": "council_minutes",
@@ -1015,7 +1015,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-19T07:09:25.392Z",
+      "freshness": "2026-06-20T15:15:28.307Z",
       "skills": [
         "update-prices"
       ],
@@ -1025,7 +1025,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-06-19T07:09:25.392Z"
+          "freshness": "2026-06-20T15:15:28.307Z"
         }
       ],
       "x": 28,

@@ -292,6 +292,26 @@ const ProcurementScreen = lazy(() =>
     default: m.ProcurementScreen,
   })),
 );
+const ProcurementFlowsScreen = lazy(() =>
+  import("./screens/ProcurementFlowsScreen").then((m) => ({
+    default: m.ProcurementFlowsScreen,
+  })),
+);
+const ProcurementPeopleScreen = lazy(() =>
+  import("./screens/ProcurementPeopleScreen").then((m) => ({
+    default: m.ProcurementPeopleScreen,
+  })),
+);
+const ProcurementFlagsScreen = lazy(() =>
+  import("./screens/ProcurementFlagsScreen").then((m) => ({
+    default: m.ProcurementFlagsScreen,
+  })),
+);
+const ProcurementWatchlistScreen = lazy(() =>
+  import("./screens/ProcurementWatchlistScreen").then((m) => ({
+    default: m.ProcurementWatchlistScreen,
+  })),
+);
 const CandidateFundsScreen = lazy(() =>
   import("./screens/CandidateFundsScreen").then((m) => ({
     default: m.CandidateFundsScreen,
@@ -1790,6 +1810,38 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <ProcurementScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="procurement/flows"
+            element={
+              <LayoutScreen>
+                <ProcurementFlowsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="procurement/people"
+            element={
+              <LayoutScreen>
+                <ProcurementPeopleScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="procurement/flags"
+            element={
+              <LayoutScreen>
+                <ProcurementFlagsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="procurement/watchlist"
+            element={
+              <LayoutScreen>
+                <ProcurementWatchlistScreen />
               </LayoutScreen>
             }
           />

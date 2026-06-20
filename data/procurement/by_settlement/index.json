@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-06-19T08:18:09.815Z",
-  "totalContracts": 175616,
-  "totalEur": 37490377456.225914,
-  "settlementCount": 488,
+  "generatedAt": "2026-06-20T15:54:55.059Z",
+  "totalContracts": 175638,
+  "totalEur": 37491915124.48847,
+  "settlementCount": 493,
   "national": {
     "contractCount": 67258,
     "awardCount": 0,
@@ -19,9 +19,9 @@
       "name": "София",
       "province": "София (столица)",
       "obshtina": "Столична",
-      "contractCount": 35771,
-      "totalEur": 9769646784.963308,
-      "awarderCount": 228
+      "contractCount": 35737,
+      "totalEur": 9765317403.196932,
+      "awarderCount": 223
     },
     {
       "ekatte": "56784",
@@ -262,9 +262,9 @@
       "name": "Силистра",
       "province": "Силистра",
       "obshtina": "Силистра",
-      "contractCount": 1288,
-      "totalEur": 164869838.53066316,
-      "awarderCount": 16
+      "contractCount": 1293,
+      "totalEur": 164927369.6306632,
+      "awarderCount": 17
     },
     {
       "ekatte": "57491",
@@ -748,9 +748,9 @@
       "name": "Етрополе",
       "province": "София",
       "obshtina": "Етрополе",
-      "contractCount": 341,
-      "totalEur": 50367469.2201724,
-      "awarderCount": 3
+      "contractCount": 342,
+      "totalEur": 50397553.59355863,
+      "awarderCount": 4
     },
     {
       "ekatte": "48297",
@@ -1752,6 +1752,15 @@
       "awarderCount": 1
     },
     {
+      "ekatte": "24030",
+      "name": "Дулово",
+      "province": "Силистра",
+      "obshtina": "Дулово",
+      "contractCount": 85,
+      "totalEur": 18322626.82503362,
+      "awarderCount": 5
+    },
+    {
       "ekatte": "00518",
       "name": "Антоново",
       "province": "Търговище",
@@ -1768,15 +1777,6 @@
       "contractCount": 58,
       "totalEur": 18056008.613657217,
       "awarderCount": 1
-    },
-    {
-      "ekatte": "24030",
-      "name": "Дулово",
-      "province": "Силистра",
-      "obshtina": "Дулово",
-      "contractCount": 84,
-      "totalEur": 18022634.37503362,
-      "awarderCount": 4
     },
     {
       "ekatte": "15309",
@@ -2211,6 +2211,15 @@
       "awarderCount": 2
     },
     {
+      "ekatte": "36587",
+      "name": "Каспичан",
+      "province": "Шумен",
+      "obshtina": "Каспичан",
+      "contractCount": 120,
+      "totalEur": 9383175.820451213,
+      "awarderCount": 3
+    },
+    {
       "ekatte": "37513",
       "name": "Ковачевци",
       "province": "Перник",
@@ -2226,15 +2235,6 @@
       "obshtina": "Долни Дъбник",
       "contractCount": 60,
       "totalEur": 9094607.641214168,
-      "awarderCount": 1
-    },
-    {
-      "ekatte": "36587",
-      "name": "Каспичан",
-      "province": "Шумен",
-      "obshtina": "Каспичан",
-      "contractCount": 117,
-      "totalEur": 8978787.320451213,
       "awarderCount": 1
     },
     {
@@ -2373,6 +2373,15 @@
       "awarderCount": 2
     },
     {
+      "ekatte": "55419",
+      "name": "Панчарево",
+      "province": "София (столица)",
+      "obshtina": "Столична",
+      "contractCount": 5,
+      "totalEur": 2691536.3033674704,
+      "awarderCount": 2
+    },
+    {
       "ekatte": "51127",
       "name": "Нареченски бани",
       "province": "Пловдив",
@@ -2380,6 +2389,15 @@
       "contractCount": 15,
       "totalEur": 1567510.7141213708,
       "awarderCount": 1
+    },
+    {
+      "ekatte": "46721",
+      "name": "Мало Бучино",
+      "province": "София (столица)",
+      "obshtina": "Столична",
+      "contractCount": 28,
+      "totalEur": 1556038.7630087486,
+      "awarderCount": 2
     },
     {
       "ekatte": "47189",
@@ -2544,15 +2562,6 @@
       "awarderCount": 3
     },
     {
-      "ekatte": "81966",
-      "name": "Черник",
-      "province": "Силистра",
-      "obshtina": "Дулово",
-      "contractCount": 1,
-      "totalEur": 299992.45,
-      "awarderCount": 1
-    },
-    {
       "ekatte": "36227",
       "name": "Карагеоргиево",
       "province": "Бургас",
@@ -2568,6 +2577,15 @@
       "obshtina": "Сандански",
       "contractCount": 1,
       "totalEur": 279907.12,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "18490",
+      "name": "Елин Пелин",
+      "province": "София",
+      "obshtina": "Елин Пелин",
+      "contractCount": 2,
+      "totalEur": 276784.1215837777,
       "awarderCount": 1
     },
     {
@@ -2595,6 +2613,33 @@
       "obshtina": "Столична",
       "contractCount": 18,
       "totalEur": 266830.96353496984,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "04234",
+      "name": "Бистрица",
+      "province": "София (столица)",
+      "obshtina": "Столична",
+      "contractCount": 4,
+      "totalEur": 264333.0245555084,
+      "awarderCount": 2
+    },
+    {
+      "ekatte": "17436",
+      "name": "Градец",
+      "province": "Сливен",
+      "obshtina": "Котел",
+      "contractCount": 6,
+      "totalEur": 259355.46001651476,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "38916",
+      "name": "Костенец",
+      "province": "София",
+      "obshtina": "Костенец",
+      "contractCount": 2,
+      "totalEur": 257478.41,
       "awarderCount": 1
     },
     {
@@ -2677,6 +2722,15 @@
       "contractCount": 2,
       "totalEur": 192276.42484264993,
       "awarderCount": 1
+    },
+    {
+      "ekatte": "00357",
+      "name": "Нови Искър",
+      "province": "София (столица)",
+      "obshtina": "Столична",
+      "contractCount": 4,
+      "totalEur": 191352.5516333219,
+      "awarderCount": 2
     },
     {
       "ekatte": "15299",
@@ -2940,15 +2994,6 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "00357",
-      "name": "Нови Искър",
-      "province": "София (столица)",
-      "obshtina": "Столична",
-      "contractCount": 3,
-      "totalEur": 109545.8516333219,
-      "awarderCount": 1
-    },
-    {
       "ekatte": "11418",
       "name": "Владимирово",
       "province": "Монтана",
@@ -3000,15 +3045,6 @@
       "obshtina": "Павел баня",
       "contractCount": 3,
       "totalEur": 97967.80355460342,
-      "awarderCount": 1
-    },
-    {
-      "ekatte": "04234",
-      "name": "Бистрица",
-      "province": "София (столица)",
-      "obshtina": "Столична",
-      "contractCount": 1,
-      "totalEur": 97865.08,
       "awarderCount": 1
     },
     {
@@ -3117,6 +3153,15 @@
       "obshtina": "Севлиево",
       "contractCount": 3,
       "totalEur": 82124.72111430953,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "55470",
+      "name": "Партизани",
+      "province": "Варна",
+      "obshtina": "Дългопол",
+      "contractCount": 3,
+      "totalEur": 81072.8335284764,
       "awarderCount": 1
     },
     {
@@ -3318,15 +3363,6 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "00895",
-      "name": "Айдемир",
-      "province": "Силистра",
-      "obshtina": "Силистра",
-      "contractCount": 5,
-      "totalEur": 57531.1,
-      "awarderCount": 1
-    },
-    {
       "ekatte": "61056",
       "name": "Равда",
       "province": "Бургас",
@@ -3351,6 +3387,15 @@
       "obshtina": "Столична",
       "contractCount": 2,
       "totalEur": 54299.14665385028,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "17419",
+      "name": "Градежница",
+      "province": "Ловеч",
+      "obshtina": "Тетевен",
+      "contractCount": 2,
+      "totalEur": 54177.70287177311,
       "awarderCount": 1
     },
     {
@@ -3696,10 +3741,10 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "27293",
+      "ekatte": "34120",
       "name": "Елешница",
-      "province": "Благоевград",
-      "obshtina": "Разлог",
+      "province": "София",
+      "obshtina": "Елин Пелин",
       "contractCount": 2,
       "totalEur": 44371.69,
       "awarderCount": 1
@@ -3909,6 +3954,15 @@
       "obshtina": "Никола Козлево",
       "contractCount": 1,
       "totalEur": 38160,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "17587",
+      "name": "Градница",
+      "province": "Габрово",
+      "obshtina": "Севлиево",
+      "contractCount": 1,
+      "totalEur": 37943.29,
       "awarderCount": 1
     },
     {
@@ -4233,15 +4287,6 @@
       "obshtina": "Лесичово",
       "contractCount": 2,
       "totalEur": 31167.85,
-      "awarderCount": 1
-    },
-    {
-      "ekatte": "44313",
-      "name": "Лопян",
-      "province": "София",
-      "obshtina": "Етрополе",
-      "contractCount": 1,
-      "totalEur": 30084.373386234998,
       "awarderCount": 1
     },
     {

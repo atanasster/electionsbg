@@ -134,6 +134,8 @@ const run = async () => {
     ["Сравни изборите от 2022 и 2024", "compareElections"],
     ["Каква беше активността през 2023?", "turnout"],
     ["Какви са резултатите от последните избори?", "nationalResults"],
+    ["Покажи сигналите за риск в обществените поръчки", "procurementRedFlags"],
+    ["procurement red flags", "procurementRedFlags"],
     ["времето е хубаво днес", null],
   ];
   for (const [q, expected] of cases) {

@@ -38,6 +38,14 @@ import {
   buildTopContractors,
   writeDerived,
 } from "./derived";
+import { buildCpvCompetition, writeCpvCompetition } from "./cpv_competition";
+import { buildPepConnected, writePepConnected } from "./pep_connected";
+import {
+  buildRiskFeed,
+  writeRiskFeed,
+  buildPersonIndex,
+  writePersonIndex,
+} from "./risk_feed";
 import { writeByIdContracts } from "./by_id";
 import { writeContractorContracts } from "./contractor_contracts";
 import { writeAwarderContracts } from "./awarder_contracts";
@@ -70,6 +78,10 @@ const BUNDLES_FILE = path.join(PROCUREMENT_DIR, "bundles.json");
 const COMPANIES_INDEX = path.resolve(
   __dirname,
   "../../data/parliament/companies-index.json",
+);
+const OFFICIALS_COMPANY_LINKS = path.resolve(
+  __dirname,
+  "../../data/officials/derived/company_links.json",
 );
 const ELECTIONS_INDEX = path.resolve(
   __dirname,
@@ -187,6 +199,7 @@ const main = async (args: {
   upload: boolean;
   dryRun: boolean;
   skipCanary: boolean;
+  renormalize: boolean;
   maxBundles?: string;
 }): Promise<void> => {
   fs.mkdirSync(PROCUREMENT_DIR, { recursive: true });
@@ -200,7 +213,17 @@ const main = async (args: {
   const existingIndex = readBundlesIndex();
   previousBundles = existingIndex?.entries ?? [];
 
-  if (args.bundle) {
+  if (args.renormalize) {
+    // Re-normalize every already-ingested bundle from cache, applying the
+    // current parser to existing rows (e.g. the bids.statistics fix). No
+    // network walk; the cached bundles in raw_data/procurement/ are reused.
+    // writeMonthShards merges by row key, so this overwrites rows in place
+    // with the enriched fields without duplicating or dropping anything.
+    bundles = previousBundles;
+    console.log(
+      `→ re-normalizing ${bundles.length} known bundle(s) from cache`,
+    );
+  } else if (args.bundle) {
     // Single-bundle path: caller passed a dataset UUID directly. Look it up
     // in the known index first, or re-resolve it from data.egov.bg if new.
     const known = previousBundles.find((b) => b.datasetUuid === args.bundle);
@@ -331,8 +354,11 @@ const main = async (args: {
     `→ wrote ${newFiles} new + ${modifiedFiles} modified month-shard(s)`,
   );
 
-  // 5. Diff cap.
-  checkDiffSize(baselineFileCount, newFiles, modifiedFiles);
+  // 5. Diff cap. Skipped on --renormalize: re-processing every bundle
+  // intentionally rewrites a large share of the month-shards.
+  if (!args.renormalize) {
+    checkDiffSize(baselineFileCount, newFiles, modifiedFiles);
+  }
 
   // 6. Rebuild rollups.
   console.log(`→ rebuilding contractor/awarder rollups`);
@@ -359,6 +385,30 @@ const main = async (args: {
   const ac = writeAwarderContracts(CONTRACTS_DIR, AWARDER_CONTRACTS_DIR);
   console.log(
     `  awarder_contracts/: ${ac.filesWritten} file(s) covering ${ac.totalRows} row(s), ${ac.pruned} stale file(s) pruned`,
+  );
+
+  // 6d. Per-CPV-division competition baseline (single-bid share). Derives from
+  // the contract corpus only — not gated on the MP cross-reference — so the
+  // single-bidder risk flag is conditioned on whether a CPV market is normally
+  // competitive. See scripts/procurement/cpv_competition.ts.
+  console.log(`→ building CPV competition baseline`);
+  const cpvCompetition = buildCpvCompetition(CONTRACTS_DIR);
+  writeCpvCompetition(DERIVED_DIR, cpvCompetition);
+  console.log(
+    `  cpv_competition.json: ${cpvCompetition.divisions.length} division(s)`,
+  );
+
+  // 6e. Officials (non-MP political class) → procurement cross-reference. Joins
+  // the officials' high-confidence company links against the contractor set.
+  // Not gated on companies-index (uses the officials declarations tree).
+  console.log(`→ building officials→procurement cross-reference`);
+  const pepConnected = buildPepConnected(
+    OFFICIALS_COMPANY_LINKS,
+    CONTRACTORS_DIR,
+  );
+  writePepConnected(DERIVED_DIR, pepConnected);
+  console.log(
+    `  pep_connected.json: ${pepConnected.total} pair(s), ${pepConnected.officialCount} official(s)`,
   );
 
   // 7. Cross-reference against MP-companies graph + top-contractors + flow.
@@ -450,6 +500,19 @@ const main = async (args: {
         `Run /update-connections to enable the journalism payload.`,
     );
   }
+
+  // 7a. Slim feeds for the heavy SPA pages — top-N pre-selected from the
+  // derived files so the /procurement/flags page (~1 MB otherwise) and the
+  // /procurement/people scanner load a few KB. Read from disk; emit empty when
+  // the underlying derived files are absent.
+  const riskFeed = buildRiskFeed(DERIVED_DIR);
+  writeRiskFeed(DERIVED_DIR, riskFeed);
+  const personIndex = buildPersonIndex(DERIVED_DIR);
+  writePersonIndex(DERIVED_DIR, personIndex);
+  console.log(
+    `  risk_feed.json: ${riskFeed.topConcentration.length} conc + ${riskFeed.topMpTied.length} mp-tied; ` +
+      `person_procurement_index.json: ${personIndex.total} person(s)`,
+  );
 
   // 7b. Per-settlement procurement rollup. Reads awarders/*.json (already
   // enriched with geo from buildRollups) + awarder_contracts/*.json and
@@ -571,6 +634,13 @@ const cli = command({
         "Skip the canary regression check (only when intentionally updating the fixture)",
       defaultValue: () => false,
     }),
+    renormalize: flag({
+      type: optional(boolean),
+      long: "renormalize",
+      description:
+        "Re-process every already-ingested bundle from cache (apply parser changes to existing rows) + rebuild",
+      defaultValue: () => false,
+    }),
   },
   handler: (args) =>
     main({
@@ -581,6 +651,7 @@ const cli = command({
       upload: !!args.upload,
       dryRun: !!args.dryRun,
       skipCanary: !!args.skipCanary,
+      renormalize: !!args.renormalize,
     }),
 });
 

@@ -1356,6 +1356,28 @@ export type ProcurementMpConnectedFile = {
   entries: ProcurementMpConnectedContractor[];
 };
 
+/** Officials (non-MP political class) → procurement contractor link. Mirrors
+ *  scripts/procurement/pep_connected.PepConnectedEntry. High-confidence links
+ *  only (declared stake / unique-name TR officer-owner). */
+export type ProcurementPepConnectedEntry = {
+  slug: string;
+  name: string;
+  tier: string;
+  role: string;
+  contractorEik: string;
+  contractorName: string;
+  totalEur: number;
+  totalOther: Record<string, number>;
+  contractCount: number;
+  awardCount: number;
+  relations: Array<{
+    role: string;
+    confidence: "high" | "medium" | "low";
+    shareSize?: string;
+    valueEur?: number;
+  }>;
+};
+
 /** Snapshot of the АОП debarred-suppliers register. Mirrors
  *  scripts/procurement/types.DebarredFile. */
 export type DebarredEntry = {
@@ -1392,6 +1414,22 @@ export type AwarderConcentrationFile = {
   minAwarderTotalEur: number;
   total: number;
   entries: AwarderConcentrationEntry[];
+};
+
+/** Per-CPV-division competition baseline. Mirrors
+ *  scripts/procurement/types.CpvCompetitionFile. Used by the per-contract
+ *  scorer to gate the single-bidder flag to normally-competitive markets. */
+export type CpvCompetitionDivision = {
+  division: string;
+  contractCount: number;
+  withBidData: number;
+  singleBid: number;
+  singleBidShare: number;
+};
+export type CpvCompetitionFile = {
+  generatedAt: string;
+  structuralSingleBidShare: number;
+  divisions: CpvCompetitionDivision[];
 };
 
 export type ProcurementContractTag = "award" | "contract" | "contractAmendment";

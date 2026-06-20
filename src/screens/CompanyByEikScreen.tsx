@@ -48,6 +48,10 @@ import { MpAvatar } from "./components/candidates/MpAvatar";
 import { CompanyTopContractsTile } from "./components/procurement/CompanyTopContractsTile";
 import { CompanyTopAwardersTile } from "./components/procurement/CompanyTopAwardersTile";
 import { CompanyByYearChart } from "./components/procurement/CompanyByYearChart";
+import { EntityFlowTile } from "./components/procurement/EntityFlowTile";
+import { CompanyPortfolioTreemap } from "./components/procurement/CompanyPortfolioTreemap";
+import { CompanyOfficialsTile } from "./components/procurement/CompanyOfficialsTile";
+import { FollowButton } from "./components/procurement/FollowButton";
 import { ErrorSection } from "./components/ErrorSection";
 import { CompanyConnectionsSection } from "./components/connections/CompanyConnectionsSection";
 import { PoliticalLinksCard } from "./components/funds/PoliticalLinksCard";
@@ -292,6 +296,9 @@ export const CompanyByEikScreen: FC = () => {
               {t("company_mp_tag") || "MP-tied"}
             </span>
           ) : null}
+          <span className="ml-auto">
+            <FollowButton kind="company" id={eik ?? ""} label={displayName} />
+          </span>
         </div>
 
         {c ? (
@@ -394,6 +401,8 @@ export const CompanyByEikScreen: FC = () => {
               </Card>
             ) : null}
 
+            <CompanyOfficialsTile eik={c.eik} />
+
             {/* 2-col grid on xl: top contracts + top awarders side-by-side. */}
             <div className="grid gap-4 xl:grid-cols-2 my-4">
               <CompanyTopContractsTile eik={c.eik} />
@@ -401,6 +410,32 @@ export const CompanyByEikScreen: FC = () => {
                 <CompanyTopAwardersTile eik={c.eik} rollup={c} />
               ) : null}
             </div>
+
+            <EntityFlowTile
+              role="contractor"
+              centerEik={c.eik}
+              centerName={c.name}
+              counterparties={c.byAwarder.map((aw) => ({
+                eik: aw.eik,
+                name: aw.name,
+                totalEur: aw.totalEur,
+              }))}
+              mpEdges={mpLinks.map((m) => ({
+                contractorEik: c.eik,
+                mpId: m.mpId,
+                mpName: m.mpName,
+                valueEur: c.totalEur,
+              }))}
+            />
+
+            <CompanyPortfolioTreemap
+              role="contractor"
+              items={c.byAwarder.map((aw) => ({
+                eik: aw.eik,
+                name: aw.name,
+                totalEur: aw.totalEur,
+              }))}
+            />
 
             {c.byYear.length > 0 ? (
               <CompanyByYearChart rows={c.byYear} />

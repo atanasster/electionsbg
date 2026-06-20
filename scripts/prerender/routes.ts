@@ -2169,7 +2169,9 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/procurement/contractors">Топ изпълнители</a> — фирми с най-голям обем спечелени поръчки.</li>
 <li><a href="${SITE_URL}/procurement/awarders">Топ възложители</a> — държавни органи с най-голям обем възложени поръчки.</li>
 <li><a href="${SITE_URL}/procurement/mps">Депутати с връзки</a> — народни представители, чиито свързани фирми са спечелили поръчки.</li>
-<li>Sankey графика на паричния поток: възложител → фирма → депутат.</li>
+<li><a href="${SITE_URL}/procurement/flows">Парично движение</a> — Sankey диаграма на паричния поток: възложител → фирма → депутат.</li>
+<li><a href="${SITE_URL}/procurement/people">Скенер на публичните пари</a> — търсене на политик по връзки с поръчки.</li>
+<li><a href="${SITE_URL}/procurement/flags">Сигнали за риск</a> — концентрация върху един изпълнител и фирми в черен списък.</li>
 </ul>
 <p>Източник: <a href="https://data.egov.bg/organisation/about/aop" rel="nofollow noopener">data.egov.bg</a> (АОП OCDS, двуседмични пакети).</p>`.trim(),
     english: {
@@ -2186,9 +2188,74 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/en/procurement/contractors">Top contractors</a> — companies with the highest total procurement.</li>
 <li><a href="${SITE_URL}/en/procurement/awarders">Top awarders</a> — state bodies with the highest total awarded.</li>
 <li><a href="${SITE_URL}/en/procurement/mps">MP-connected</a> — MPs whose declared business interests received procurement.</li>
-<li>Sankey diagram of the money flow: awarder → company → MP.</li>
+<li><a href="${SITE_URL}/en/procurement/flows">Money flow</a> — Sankey diagram of the money flow: awarder → company → MP.</li>
+<li><a href="${SITE_URL}/en/procurement/people">Public money scanner</a> — search a politician by procurement ties.</li>
+<li><a href="${SITE_URL}/en/procurement/flags">Red flags</a> — single-supplier concentration and debarred suppliers.</li>
 </ul>
 <p>Source: <a href="https://data.egov.bg/organisation/about/aop" rel="nofollow noopener">data.egov.bg</a> (АОП OCDS, fortnightly bundles).</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "procurement/flows",
+    title: "Парично движение в обществените поръчки | electionsbg.com",
+    description:
+      "Sankey диаграма на паричния поток от възложители към фирми, свързани с народни представители — обществени поръчки от АОП (data.egov.bg).",
+    breadcrumbName: "Парично движение",
+    bodyHtml: `
+<h1>Парично движение в обществените поръчки</h1>
+<p>Интерактивна Sankey диаграма на това как публичните средства се движат от възложителите към изпълнителите и към фирмите, свързани с народни представители. Дебелината на връзката отговаря на сумата на договорите.</p>
+<p>Виж и <a href="${SITE_URL}/procurement">общия преглед</a> и <a href="${SITE_URL}/procurement/people">скенера на публичните пари</a>.</p>`.trim(),
+    english: {
+      title: "Public-Procurement Money Flow | electionsbg.com",
+      description:
+        "Sankey diagram of how public money flows from contracting authorities to companies tied to MPs — public procurement from AOP (data.egov.bg).",
+      breadcrumbName: "Money flow",
+      bodyHtml: `
+<h1>Public-procurement money flow</h1>
+<p>An interactive Sankey diagram of how public money flows from contracting authorities to contractors and on to companies tied to members of parliament. Ribbon width is the total contract value.</p>
+<p>See also the <a href="${SITE_URL}/en/procurement">overview</a> and the <a href="${SITE_URL}/en/procurement/people">public money scanner</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "procurement/people",
+    title: "Скенер на публичните пари | electionsbg.com",
+    description:
+      "Търсене на политик и обществените поръчки, достъпни през свързаните с него фирми — народни представители с бизнес-интереси (АОП, Търговски регистър).",
+    breadcrumbName: "Скенер на публичните пари",
+    bodyHtml: `
+<h1>Скенер на публичните пари</h1>
+<p>Потърсете народен представител и вижте обществените поръчки, достъпни през фирмите, свързани с него чрез Търговския регистър или декларациите за имущество. Връзката е декларирана зависимост, а не доказателство за нарушение.</p>
+<p>Виж и <a href="${SITE_URL}/procurement/flags">сигналите за риск</a>.</p>`.trim(),
+    english: {
+      title: "Public Money Scanner | electionsbg.com",
+      description:
+        "Search a politician and see the public procurement reachable through their connected companies — MPs with business interests (AOP, Commerce Registry).",
+      breadcrumbName: "Public money scanner",
+      bodyHtml: `
+<h1>Public money scanner</h1>
+<p>Search a member of parliament and see the public procurement reachable through the companies tied to them via the Commerce Registry or asset declarations. A link is a declared tie, not proof of wrongdoing.</p>
+<p>See also the <a href="${SITE_URL}/en/procurement/flags">red-flag feed</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "procurement/flags",
+    title: "Сигнали за риск в обществените поръчки | electionsbg.com",
+    description:
+      "Концентрация на разход върху един изпълнител, фирми в черен списък и изпълнители, свързани с депутати — сигнали за риск от данните на АОП.",
+    breadcrumbName: "Сигнали за риск",
+    bodyHtml: `
+<h1>Сигнали за риск в обществените поръчки</h1>
+<p>Сигнали, които заслужават повторен поглед: възложители, чийто разход е концентриран върху един изпълнител, фирми в черния списък на АОП и най-големите изпълнители, свързани с народни представители. Всеки е факт от публичен регистър, а не обвинение.</p>
+<p>Виж и <a href="${SITE_URL}/procurement">общия преглед</a>.</p>`.trim(),
+    english: {
+      title: "Public-Procurement Red Flags | electionsbg.com",
+      description:
+        "Single-supplier spend concentration, debarred suppliers, and MP-tied contractors — procurement red flags from AOP data.",
+      breadcrumbName: "Red flags",
+      bodyHtml: `
+<h1>Public-procurement red flags</h1>
+<p>Signals worth a second look: buyers whose spending is concentrated on a single supplier, suppliers on the AOP debarment register, and the largest MP-tied contractors. Each is a public-record fact, not an accusation.</p>
+<p>See also the <a href="${SITE_URL}/en/procurement">overview</a>.</p>`.trim(),
     },
   }),
   staticPage({

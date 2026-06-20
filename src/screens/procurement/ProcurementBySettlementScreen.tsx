@@ -14,6 +14,7 @@ import { Building2, MapPin, Banknote, ArrowRight } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { Card, CardContent } from "@/ux/Card";
 import { useProcurementBySettlementIndex } from "@/data/procurement/useSettlementProcurement";
+import { ProcurementChoroplethTile } from "@/screens/components/procurement/ProcurementChoroplethTile";
 
 const eurFmt = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 });
 const countFmt = new Intl.NumberFormat("bg-BG");
@@ -130,6 +131,8 @@ export const ProcurementBySettlementScreen: FC = () => {
           </CardContent>
         </Card>
       </div>
+
+      <ProcurementChoroplethTile />
 
       {/* Search + sort controls */}
       <div className="mb-3 flex flex-wrap items-center gap-2 text-sm">
