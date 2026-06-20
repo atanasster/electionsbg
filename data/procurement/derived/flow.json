@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-20T15:54:51.534Z",
+  "generatedAt": "2026-06-20T18:46:56.193Z",
   "nodes": [
     {
       "id": "awarder:000017149",
@@ -1250,6 +1250,11 @@
       "id": "awarder:121817309",
       "type": "awarder",
       "label": "Окръжна прокуратура гр.БЛАГОЕВГРАД"
+    },
+    {
+      "id": "awarder:121847103",
+      "type": "awarder",
+      "label": "Пето вечерно средно училище \"Пеньо Пенев\""
     },
     {
       "id": "awarder:121858220",
@@ -3649,6 +3654,11 @@
       "valueEur": 365889.9239708973
     },
     {
+      "source": "awarder:121847103",
+      "target": "contractor:175415627",
+      "valueEur": 39940
+    },
+    {
       "source": "awarder:121858220",
       "target": "contractor:175415627",
       "valueEur": 757337.7082875301
@@ -4476,7 +4486,7 @@
     {
       "source": "contractor:175415627",
       "target": "mp:805",
-      "valueEur": 91299400.99362823
+      "valueEur": 91339340.99362823
     },
     {
       "source": "contractor:833017552",

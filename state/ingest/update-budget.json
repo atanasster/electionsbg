@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-06-14T10:27:17.135Z",
+  "lastSuccessfulIngest": "2026-06-20T18:50:27.940Z",
   "skill": "update-budget",
-  "summary": "capital_programs no-op: 12 flagged munis (asenovgrad/burgas/vidin/samokov × yrs) all behind 403/502/unreachable upstreams — fingerprint oscillation, no new content"
+  "summary": "no new data — transient signature flips: capital_programs (vidin shared landing-page chrome 281045→281126; samokov 502→200 recovery of byte-identical PDF) + nap_annual (2024 sig→err:fetch-failed); underlying reports unchanged & already ingested"
 }

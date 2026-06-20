@@ -1,6 +1,33 @@
 {
-  "updatedAt": "2026-06-19T08:19:29.057Z",
+  "updatedAt": "2026-06-20T18:50:15.169Z",
   "entries": [
+    {
+      "timestamp": "2026-06-20T18:50:15.169Z",
+      "date": "2026-06-20",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices through 2026-06-19 (2 new daily archives, 244 settlements)",
+      "source": "КЗП Колко струва (kolkostruva.bg)"
+    },
+    {
+      "timestamp": "2026-06-20T18:48:32.825Z",
+      "date": "2026-06-20",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП gap-fill: +1 new contracting authority through 2026-06-19; procurement rollups rebuilt",
+      "source": "ЦАИС ЕОП open data (storage.eop.bg)"
+    },
+    {
+      "timestamp": "2026-06-20T18:43:25.527Z",
+      "date": "2026-06-20",
+      "skill": "update-rollcall",
+      "summary": "ingest sessions 2026-06-18 (id 11140) + 2026-06-19 (id 11141); derived metrics rebuilt",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-06-19T08:19:29.057Z",
       "date": "2026-06-19",
