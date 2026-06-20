@@ -117,6 +117,30 @@ npm run data -- --local-ingest "chmi2008-2010/2009-11-15_chastichen"
 partials, but it predates the parliamentary-coverage floor of 2005 and is not
 ingested.)
 
+**By-election turnout (числови данни).** A chmi rezultati page carries vote
+tallies only, so a partial bundle ships with a zeroed `protocol`. But ЦИК serves
+the per-протокол "Числови данни" as clean HTML at
+`<cycle>/tur{1,2}/protokoli/<el>/<oik>/<aggId>.html` (one aggregate page per ОИК
+— район/kmetstvo/община; `<aggId>` = район/kmetstvo код or literal `ik`, found
+via the `ik-*` sentinel in `pdf/data.js`'s `HAS_PDF`). `ingest_byelection_turnout.ts`
+fetches the aggregate page for each район/община-mayor bundle and writes the
+exact registered + гласували totals (`parse_protocol_chislovi.ts`) into
+`protocol`, so the dashboard shows the official активност instead of an estimate.
+Verified район Средец 2026-06-14: aggregate == Σ per-section == 26 800 registered
+/ 3 520 voted → 13.13%. **Exact + deterministic — no OCR** (the числови-данни is
+HTML; the scanned PDFs at `pdf/<el>/<oik>/<id>.pdf` are only a fallback). Runs
+automatically at the tail of every current-style `chmi*` `--local-ingest` (so it
+survives the protocol-zeroing re-parse); re-run standalone with:
+
+```bash
+npm run data -- --local-byelection-turnout "chmi2024-2026/2026-06-14_chastichen"
+```
+
+Kmetstvo by-elections are skipped (mayor.round1 empty; turnout never surfaces on
+the mayor card). The bundle stores the synthetic obshtinaCode as `oikCode`, so
+the real 4-digit ОИК is recovered from the raw HTML's `data-ik` keyed by place
+name.
+
 **Cycle coverage:** 2007 + 2011 + 2015 + 2019 + 2023 ingested. The `votes.txt` shape
 varies by era: 2015/2019 are **triplets** (`party ; valid ; invalid`); 2023
 added machine voting → a leading `№ формуляр` field + **quadruplets**

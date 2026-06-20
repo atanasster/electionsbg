@@ -111,6 +111,14 @@ Expected output:
 
 The HTML mirror is sequential with a 250ms delay between requests — full mi2023 takes ~3 min. Partial ingests typically finish in under 30 s.
 
+**By-election turnout is backfilled automatically** at the tail of every current-style `chmi*` `--local-ingest`. The rezultati summary carries vote tallies only (zeroed `protocol`), but ЦИК serves the "Числови данни от протокол" as clean HTML at `<cycle>/tur{1,2}/protokoli/<el>/<oik>/<aggId>.html`; `ingestByElectionTurnout` fetches the aggregate-ОИК page for each район/община-mayor bundle and writes the exact registered/voted totals into `protocol`, so the dashboard's `ВОТ ЗА КМЕТ → активност` shows the official number (e.g. район Средец 2026-06-14 → 13.1%) instead of the estimate it falls back to when absent. Kmetstvo by-elections are skipped (their turnout never surfaces on the mayor card). It runs after `ingestCycles` re-parses (which re-zeroes `protocol`), so turnout survives re-ingest. To re-run standalone without re-mirroring HTML:
+
+```bash
+npm run data -- --local-byelection-turnout "chmi2024-2026/2026-06-14_chastichen"
+```
+
+This is exact and deterministic — no OCR (the числови-данни HTML is the source; the scanned PDFs at `pdf/<el>/<oik>/<id>.pdf` are only a fallback). Pops a browser window (CF-clearing Playwright session). Data lands under `data/<cycle>/municipalities/` (gitignored) → `bucket:sync` for prod.
+
 ### Section-level CSV (votes + turnout per polling station)
 
 For **regular cycles only** (2015/2019/2023), `--local-csv <slug>` additionally downloads the section bundle and re-parses, layering per-station data on top of the HTML bundles:

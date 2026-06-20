@@ -26,6 +26,7 @@ import { ingestLegacyChmiCycle } from "./parsers_local/ingest_legacy_chmi";
 import { ingestMi2007 } from "./parsers_local/ingest_mi2007";
 import { ingestChmi2009, CHMI2009_SLUG } from "./parsers_local/ingest_chmi2009";
 import { downloadCsvBundle } from "./parsers_local/download_csv_bundle";
+import { ingestByElectionTurnout } from "./parsers_local/ingest_byelection_turnout";
 import { shutdownCikFetch } from "./parsers_local/cik_fetch";
 import { resolveCanonicalsForAllLocalCycles } from "./parsers_local/resolve_canonicals";
 import { buildLocalRollups } from "./parsers_local/build_region_json";
@@ -178,6 +179,15 @@ const app = command({
       type: optional(string),
       long: "local-csv",
     }),
+    // `--local-byelection-turnout <cycleSlug>` backfills exact turnout onto a
+    // chmi cycle's район/община-mayor bundles from ЦИК's "Числови данни от
+    // протокол" HTML (the rezultati summary carries vote tallies only). Without
+    // it the dashboard can only estimate by-election активност. Flag-gated
+    // operator step (pops a browser window via the CF-clearing session).
+    localByElectionTurnout: option({
+      type: optional(string),
+      long: "local-byelection-turnout",
+    }),
     // Re-resolve `primaryCanonicalId` on every already-ingested local-cycle
     // bundle against the current canonical_parties.json, without re-fetching
     // CIK HTML. Fast, idempotent — use after editing manualCanonicals,
@@ -251,6 +261,7 @@ const app = command({
     localDate,
     localIngest,
     localCsv,
+    localByElectionTurnout,
     resolveLocalCanonicals,
     localRollups,
     localFlows,
@@ -373,6 +384,22 @@ const app = command({
             publicFolder,
             stringify,
           });
+          // A current-style chmi partial (e.g. chmi2024-2026/<date>_chastichen)
+          // re-parses bundles with a zeroed protocol; immediately backfill the
+          // exact by-election turnout from ЦИК's числови-данни HTML so it
+          // survives the re-ingest. Regular mi cycles already carry turnout
+          // from the CSV bundle, so skip them.
+          const isCurrentChmi =
+            /^chmi/.test(localIngest) &&
+            !/^chmi20(12-2015|16-2018|19-2023)\//.test(localIngest);
+          if (isCurrentChmi) {
+            await ingestByElectionTurnout({
+              cycleSlug: localIngest,
+              publicFolder,
+              rawDataRoot: inFolder,
+              stringify,
+            });
+          }
         }
       } finally {
         // Keep the headless Chromium from blocking process exit.
@@ -394,6 +421,14 @@ const app = command({
       } finally {
         await shutdownCikFetch();
       }
+    }
+    if (localByElectionTurnout) {
+      await ingestByElectionTurnout({
+        cycleSlug: localByElectionTurnout,
+        publicFolder,
+        rawDataRoot: inFolder,
+        stringify,
+      });
     }
     if (resolveLocalCanonicals) {
       resolveCanonicalsForAllLocalCycles({ publicFolder, stringify });

@@ -93,11 +93,14 @@ const StatItem: FC<{
 
 // Per-ballot snapshot: valid votes + the turnout of the election that produced
 // them + which election that was. Turnout belongs to the vote (one number per
-// election), so a mayoral by-election — ingested HTML-only, with no
-// registration totals — reports none ("—").
+// election). A mayoral by-election uses its own protocol turnout once the
+// `--local-byelection-turnout` ingest has backfilled it; until then it falls
+// back to an estimate against the regular cycle's voter list and carries an
+// explanatory note (rendered as a tooltip on the activity line).
 type BallotStat = {
   votes: number;
   turnout: string | null;
+  turnoutNote?: string;
   source: string;
 };
 
@@ -116,7 +119,12 @@ const BallotCard: FC<{ label: string; stat: BallotStat }> = ({
           votes: formatThousands(stat.votes),
         })}
       </div>
-      <div className="mt-0.5 text-[12px] font-normal leading-tight text-muted-foreground tabular-nums">
+      <div
+        className={`mt-0.5 text-[12px] font-normal leading-tight text-muted-foreground tabular-nums${
+          stat.turnoutNote ? " cursor-help underline decoration-dotted" : ""
+        }`}
+        title={stat.turnoutNote}
+      >
         {t("local_election_ballot_activity", { value: stat.turnout ?? "—" })}
       </div>
       <div className="mt-0.5 text-[11px] font-normal leading-tight text-muted-foreground">
@@ -824,11 +832,40 @@ const MunicipalityResults: FC<{
   });
   const mayorBallotBundle =
     showPartial && partialBundle ? partialBundle.mayor : municipality.mayor;
+  const mayorVotesCast = mayorBallotBundle.round1.reduce(
+    (a, m) => a + m.votes,
+    0,
+  );
+  // By-election turnout. The `--local-byelection-turnout` ingest backfills the
+  // exact voter-list / гласували totals from ЦИК's "числови данни" protocol
+  // onto the partial bundle; use those when present (official, no caveat). When
+  // they're absent (protocol not yet ingested), fall back to an estimate
+  // against the registered-voter count from the regular cycle being viewed —
+  // район = section-roll sum, elsewhere the município protocol — flagged with
+  // "≈" + a note (prior-cycle voter list + votes-cast numerator).
+  const partialProto =
+    showPartial && partialBundle ? partialBundle.protocol : null;
+  const hasRealPartialTurnout =
+    !!partialProto &&
+    partialProto.numRegisteredVoters > 0 &&
+    partialProto.totalActualVoters > 0;
+  const regularRegistered = isRayon
+    ? (rayonTurnout?.registered ?? 0)
+    : municipality.protocol.numRegisteredVoters;
+  const partialTurnout = hasRealPartialTurnout
+    ? `${((partialProto!.totalActualVoters / partialProto!.numRegisteredVoters) * 100).toFixed(1)}%`
+    : regularRegistered > 0
+      ? `≈${((mayorVotesCast / regularRegistered) * 100).toFixed(1)}%`
+      : null;
   const mayorBallot: BallotStat = {
-    votes: mayorBallotBundle.round1.reduce((a, m) => a + m.votes, 0),
-    // The by-election reports no turnout; a regular-cycle mayor shares the
-    // council's turnout (cast on the same day).
-    turnout: showPartial ? null : electionTurnout,
+    votes: mayorVotesCast,
+    // Regular-cycle mayor shares the council's turnout (cast the same day); a
+    // by-election uses its own protocol (or the estimate above).
+    turnout: showPartial ? partialTurnout : electionTurnout,
+    turnoutNote:
+      showPartial && partialTurnout && !hasRealPartialTurnout
+        ? t("local_election_ballot_activity_estimate_note")
+        : undefined,
     source: showPartial
       ? t("local_election_ballot_source_partial", { date: partialDate })
       : regularSource,
