@@ -123,23 +123,28 @@ the per-протокол "Числови данни" as clean HTML at
 `<cycle>/tur{1,2}/protokoli/<el>/<oik>/<aggId>.html` (one aggregate page per ОИК
 — район/kmetstvo/община; `<aggId>` = район/kmetstvo код or literal `ik`, found
 via the `ik-*` sentinel in `pdf/data.js`'s `HAS_PDF`). `ingest_byelection_turnout.ts`
-fetches the aggregate page for each район/община-mayor bundle and writes the
-exact registered + гласували totals (`parse_protocol_chislovi.ts`) into
-`protocol`, so the dashboard shows the official активност instead of an estimate.
-Verified район Средец 2026-06-14: aggregate == Σ per-section == 26 800 registered
-/ 3 520 voted → 13.13%. **Exact + deterministic — no OCR** (the числови-данни is
-HTML; the scanned PDFs at `pdf/<el>/<oik>/<id>.pdf` are only a fallback). Runs
-automatically at the tail of every current-style `chmi*` `--local-ingest` (so it
-survives the protocol-zeroing re-parse); re-run standalone with:
+fetches the aggregate page for **every race** and writes the exact registered +
+гласували totals (`parse_protocol_chislovi.ts`): **район/община mayor →
+`bundle.protocol`** (+ a section-map shard), **kmetstvo mayor → the matching
+`bundle.kmetstva[]` entry**. So the dashboard + `/local/chmi` feed show the
+official активност for all races instead of an estimate. Verified район Средец
+2026-06-14: aggregate == Σ per-section == 26 800 / 3 520 voted → 13.13%; all 12
+kmetstvo races backfilled too (Бата 54.7%, …). **Exact + deterministic — no OCR**
+(the числови-данни is HTML; the scanned PDFs at `pdf/<el>/<oik>/<id>.pdf` are only
+a fallback). Runs automatically at the tail of every current-style `chmi*`
+`--local-ingest` (so it survives the protocol-zeroing re-parse); re-run standalone:
 
 ```bash
 npm run data -- --local-byelection-turnout "chmi2024-2026/2026-06-14_chastichen"
 ```
 
-Kmetstvo by-elections are skipped (mayor.round1 empty; turnout never surfaces on
-the mayor card). The bundle stores the synthetic obshtinaCode as `oikCode`, so
-the real 4-digit ОИК is recovered from the raw HTML's `data-ik` keyed by place
-name.
+**Round-aware**: each race is fetched for the round that elected its winner
+(`mayor.round2`/`kmetstva[].candidates[].round === 2` → tur2, else tur1), so a
+re-run after a **2nd-round runoff** backfills the runoff turnout; a round whose
+pages aren't published yet 404s and is skipped (picked up next run). The bundle
+stores the synthetic obshtinaCode as `oikCode`, so the real 4-digit ОИК is
+recovered from the raw HTML's `data-ik` keyed by place name (район/община by
+obshtinaName, kmetstvo by kmetstvoName — separate maps to avoid collisions).
 
 The same step also writes a **by-election section shard** (`data/<cycle>/sections/<obshtinaCode>.json`): the числови-данни is served per-section too (`protokoli/<el>/<oik>/<9digit>.0.html`, `.1` = paper-only fallback), each carrying per-candidate votes (combined paper+machine = last table per ballot №). `buildSectionShard` parses every station and joins lat/lon + address from the latest regular `_mi` shard (the protocol HTML has no coords) — so the partial gets its own per-section **mayor map** (`rayonMayorVotes`/`mayorVotes`) on the dashboard, exactly like a regular cycle. Finally it rebuilds `local_chmi_history.json` so the turnout reaches the `/local/chmi` feed + the `chmiEvents` AI tool. Known gap: Пловдив/Варна city-районs read their *parent-city* shard, so a город-район by-election there (none exist yet) would need a per-parent-city write; Sofia районs (`S2xxx`) and full-município mayor by-elections both work.
 

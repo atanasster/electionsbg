@@ -186,6 +186,9 @@ export const buildChmiHistory = (opts: {
       for (const k of b.kmetstva) {
         const elected = k.candidates.find((c) => c.isElected);
         if (!elected) continue;
+        const reg = k.numRegisteredVoters ?? 0;
+        const voted = k.totalActualVoters ?? 0;
+        const hasTurnout = reg > 0 && voted > 0;
         events.push({
           ...base,
           kind: "kmetstvo_mayor",
@@ -198,6 +201,13 @@ export const buildChmiHistory = (opts: {
           pctOfValid: elected.pctOfValid,
           votes: elected.votes,
           mpId: elected.mpId,
+          ...(hasTurnout
+            ? {
+                registeredVoters: reg,
+                actualVoters: voted,
+                turnoutPct: Math.round((voted / reg) * 1000) / 10,
+              }
+            : {}),
         });
       }
       // SOF.districts[] duplicates the per-район shards created by the

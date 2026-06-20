@@ -48,6 +48,11 @@ export type LocalKmetstvoResult = {
   kmetstvoName: string;
   ekatte: string;
   candidates: LocalMayorResult[];
+  // Exact by-election turnout from the kmetstvo's aggregate protocol —
+  // backfilled by ingest_byelection_turnout for chmi cycles; absent otherwise.
+  numRegisteredVoters?: number;
+  totalActualVoters?: number;
+  numValidVotes?: number;
 };
 
 export type LocalDistrictMayorResult = {

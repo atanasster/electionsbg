@@ -124,6 +124,12 @@ export type LocalKmetstvoResult = {
   kmetstvoName: string;
   ekatte: string;
   candidates: LocalMayorResult[];
+  // Exact by-election turnout from the kmetstvo's aggregate "числови данни"
+  // protocol — backfilled by ingest_byelection_turnout for chmi cycles; absent
+  // for regular cycles and before the protocol is published.
+  numRegisteredVoters?: number;
+  totalActualVoters?: number;
+  numValidVotes?: number;
 };
 
 // District mayor result (Sofia/Plovdiv/Varna).

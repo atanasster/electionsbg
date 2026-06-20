@@ -1,18 +1,22 @@
-// Backfill exact turnout onto by-election (chmi) mayor bundles.
+// Backfill exact turnout onto EVERY by-election (chmi) race.
 //
 // The chmi rezultati summary pages publish candidate vote tallies only — no
 // voter-list / turnout protocol — so a by-election bundle ships with a zeroed
 // `protocol` and the dashboard can only *estimate* turnout. But ЦИК DOES serve
 // the "Числови данни от протокол" as clean HTML at
 //   <cycle>/tur{1,2}/protokoli/<el>/<oik>/<aggId>.html
-// (one aggregate page per ОИК — район / kmetstvo / община). This step fetches
-// that page for every район/община-mayor bundle and writes the real
-// registered-voter + actual-voter totals into the bundle's `protocol`, so the
-// дашборд shows the exact official активност instead of the estimate.
+// (one aggregate page per race — район=el 8, kmetstvo=el 4, община=el 5/6).
+// This step fetches that page for EVERY race in the cycle and writes the real
+// registered + voted totals:
+//   - район/община mayor → bundle.protocol (+ a per-section mayor map shard)
+//   - kmetstvo (village) mayor → the matching bundle.kmetstva[] entry
+// then rebuilds local_chmi_history.json so the turnout reaches the dashboard,
+// the /local/chmi feed, and the chmiEvents AI tool.
 //
-// Kmetstvo by-elections are skipped: their turnout never surfaces on the
-// `ВОТ ЗА КМЕТ` card (only район/община mayor by-elections do), and the
-// aggregate page is per-kmetstvo, not per-bundle.
+// Round-aware: each race is fetched for the round that elected its winner
+// (tur2 when a runoff was held, else tur1), so re-running after a 2nd-round
+// re-ingest backfills the runoff turnout. A round whose pages aren't published
+// yet 404s and is skipped — picked up on the next re-run.
 //
 // Network: headed Playwright via cik_fetch (pops a window). Idempotent.
 
@@ -41,13 +45,18 @@ const normName = (s: string): string =>
 
 /**
  * The bundle stores the synthetic obshtinaCode (e.g. "S2401") as its oikCode,
- * not the 4-digit CIK ОИК needed for the protocol URL. Recover that from the
- * already-downloaded raw rezultati HTML, which carries `data-ik="<oik>"` and
- * the place name ("избор на кмет на район/община <NAME>"). Key by name so the
- * bundle (matched on obshtinaName) can look the OIK up.
+ * not the 4-digit CIK ОИК needed for the protocol URL. Each chmi raw page is one
+ * race and carries `data-ik="<oik>"` plus the place name
+ * ("избор на кмет на район/община/кметство <NAME>"). Index those by name so a
+ * bundle (район/община by obshtinaName, kmetstvo by kmetstvoName) can resolve
+ * its OIK. Mayor (район/община) and kmetstvo go in separate maps to avoid a
+ * район and a same-named village colliding.
  */
-const buildOikByName = (rawCycleDir: string): Map<string, string> => {
-  const map = new Map<string, string>();
+const buildOikMaps = (
+  rawCycleDir: string,
+): { mayorOik: Map<string, string>; kmetstvoOik: Map<string, string> } => {
+  const mayorOik = new Map<string, string>();
+  const kmetstvoOik = new Map<string, string>();
   for (const round of ["tur1", "tur2"]) {
     const dir = path.join(rawCycleDir, "html", round);
     if (!fs.existsSync(dir)) continue;
@@ -60,12 +69,14 @@ const buildOikByName = (rawCycleDir: string): Map<string, string> => {
         .replace(/&quot;/g, '"')
         .replace(/\s+/g, " ");
       const m = text.match(
-        /избор на кмет на (?:район|община)\s+(.+?)\s+(?:Обобщени|Числови|изборен|№)/,
+        /избор на кмет на (район|община|кметство)\s+(.+?)\s+(?:Обобщени|Числови|изборен|№|в )/,
       );
-      if (m && !map.has(normName(m[1]))) map.set(normName(m[1]), ik); // tur1 wins
+      if (!m) continue;
+      const map = m[1] === "кметство" ? kmetstvoOik : mayorOik;
+      if (!map.has(normName(m[2]))) map.set(normName(m[2]), ik); // tur1 wins
     }
   }
-  return map;
+  return { mayorOik, kmetstvoOik };
 };
 
 /** Fetch + parse `HAS_PDF` from a round's pdf/data.js manifest. */
@@ -87,20 +98,20 @@ const fetchHasPdf = async (base: string): Promise<HasPdf> => {
 };
 
 /**
- * Locate the aggregate-protocol (el, file) for a bundle's OIK.
- * Each `HAS_PDF[el][oik]` array ends with an "ik" / "ik-<dst>" sentinel marking
- * the aggregate; the file stem drops the "ik-" prefix ("ik-2201" → "2201",
- * bare "ik" → "ik"). Kmetstvo (el 4) is excluded — a район/община bundle's
- * aggregate is the whole OIK.
+ * Locate the aggregate-protocol (el, file) for an OIK in `HAS_PDF`. Each
+ * `HAS_PDF[el][oik]` array carries an "ik" / "ik-<код>" sentinel marking the
+ * aggregate; the file stem drops the "ik-" prefix ("ik-2201" → "2201",
+ * "ik-2810" → "2810", bare "ik" → "ik"). A chmi page is one race, so an OIK
+ * sits under exactly one election type — `kind` picks it: район=8, kmetstvo=4,
+ * община=any other (5/6).
  */
 const findAggregate = (
   hasPdf: HasPdf,
   oik: string,
-  isRayon: boolean,
+  kind: "rayon" | "obshtina" | "kmetstvo",
 ): { el: string; file: string } | null => {
   const hits: { el: string; file: string }[] = [];
   for (const [el, byOik] of Object.entries(hasPdf)) {
-    if (el === "4") continue; // kmetstvo
     const entries = byOik[oik];
     if (!entries) continue;
     const ik = entries.find((e) => /^ik(-\d+)?$/.test(e));
@@ -108,8 +119,10 @@ const findAggregate = (
     hits.push({ el, file: ik === "ik" ? "ik" : ik.replace(/^ik-/, "") });
   }
   if (hits.length === 0) return null;
-  // район mayor is election type 8; otherwise take the first non-kmetstvo type.
-  return hits.find((h) => h.el === "8") ?? (isRayon ? null : hits[0]);
+  if (kind === "rayon") return hits.find((h) => h.el === "8") ?? null;
+  if (kind === "kmetstvo") return hits.find((h) => h.el === "4") ?? null;
+  // обshtina mayor: the non-kmetstvo, non-район type.
+  return hits.find((h) => h.el !== "4" && h.el !== "8") ?? hits[0];
 };
 
 /**
@@ -256,7 +269,9 @@ export const ingestByElectionTurnout = async (opts: {
     console.log(`[byelection-turnout] no bundles at ${muniDir}`);
     return;
   }
-  const oikByName = buildOikByName(path.join(rawDataRoot, rawFolder));
+  const { mayorOik, kmetstvoOik } = buildOikMaps(
+    path.join(rawDataRoot, rawFolder),
+  );
 
   const hasPdfByRound: Record<1 | 2, HasPdf | undefined> = {
     1: undefined,
@@ -274,82 +289,119 @@ export const ingestByElectionTurnout = async (opts: {
   let written = 0;
   let skipped = 0;
   try {
-    for (const file of files) {
-      const full = path.join(muniDir, file);
-      const bundle = JSON.parse(
-        fs.readFileSync(full, "utf8"),
-      ) as LocalMunicipalityBundle;
-      // Only район / община mayor by-elections carry a mayor ballot here;
-      // kmetstvo races live in `kmetstva` (mayor.round1 is empty).
-      if (!bundle.mayor?.round1?.length) continue;
-
-      const round: 1 | 2 = bundle.mayor.round2?.length ? 2 : 1;
-      const oik = oikByName.get(normName(bundle.obshtinaName));
+    // Fetch + parse one race's aggregate "числови данни" protocol. Returns the
+    // parsed turnout (+ candidate votes) or null on miss (logs the reason).
+    const fetchRace = async (
+      label: string,
+      round: 1 | 2,
+      oik: string | undefined,
+      kind: "rayon" | "obshtina" | "kmetstvo",
+    ) => {
       if (!oik) {
-        console.log(
-          `[byelection-turnout] ${bundle.obshtinaCode} (${bundle.obshtinaName}): no OIK in raw HTML — skip`,
-        );
+        console.log(`[byelection-turnout] ${label}: no OIK in raw HTML — skip`);
         skipped++;
-        continue;
+        return null;
       }
-      const isRayon = /^S2\d{3}$/.test(bundle.obshtinaCode);
       const hasPdf = await getHasPdf(round);
-      const agg = findAggregate(hasPdf, oik, isRayon);
+      const agg = findAggregate(hasPdf, oik, kind);
       if (!agg) {
         console.log(
-          `[byelection-turnout] ${bundle.obshtinaCode} (oik ${oik}): no aggregate protocol — skip`,
+          `[byelection-turnout] ${label} (oik ${oik}): no aggregate protocol — skip`,
         );
         skipped++;
-        continue;
+        return null;
       }
-
       const url = `${ROOT}/${cycleSlug}/tur${round}/protokoli/${agg.el}/${oik}/${agg.file}.html`;
       const html = await cikFetchText(url, { allow404: true });
       const parsed = html ? parseChisloviHtml(html) : null;
       if (!parsed || parsed.numRegisteredVoters <= 0) {
         console.log(
-          `[byelection-turnout] ${bundle.obshtinaCode}: protocol unreadable at ${url} — skip`,
+          `[byelection-turnout] ${label}: protocol unreadable at ${url} — skip`,
         );
         skipped++;
-        continue;
+        return null;
+      }
+      const pct = (
+        (parsed.totalActualVoters / parsed.numRegisteredVoters) *
+        100
+      ).toFixed(2);
+      console.log(
+        `[byelection-turnout] ${label} tur${round}: registered=${parsed.numRegisteredVoters} voted=${parsed.totalActualVoters} → ${pct}% (el ${agg.el}, oik ${oik})`,
+      );
+      return { parsed, agg, round };
+    };
+
+    for (const file of files) {
+      const full = path.join(muniDir, file);
+      const bundle = JSON.parse(
+        fs.readFileSync(full, "utf8"),
+      ) as LocalMunicipalityBundle;
+      let dirty = false;
+
+      // --- район / община mayor race (mayor.round1 populated) ---
+      if (bundle.mayor?.round1?.length) {
+        const round: 1 | 2 = bundle.mayor.round2?.length ? 2 : 1;
+        const isRayon = /^S2\d{3}$/.test(bundle.obshtinaCode);
+        const oik = mayorOik.get(normName(bundle.obshtinaName));
+        const r = await fetchRace(
+          bundle.obshtinaCode,
+          round,
+          oik,
+          isRayon ? "rayon" : "obshtina",
+        );
+        if (r) {
+          bundle.protocol = {
+            numRegisteredVoters: r.parsed.numRegisteredVoters,
+            totalActualVoters: r.parsed.totalActualVoters,
+            numValidVotes: bundle.mayor.round1.reduce(
+              (a, m) => a + (m.votes || 0),
+              0,
+            ),
+          };
+          dirty = true;
+          written++;
+          // Per-section shard → the by-election mayor map (район/община only).
+          const nSections = await buildSectionShard({
+            cycleSlug,
+            round: r.round,
+            el: r.agg.el,
+            oik: oik!,
+            rawFolder,
+            bundle,
+            publicFolder,
+            stringify,
+          });
+          if (nSections > 0)
+            console.log(
+              `[byelection-turnout]   ${bundle.obshtinaCode}: wrote section shard (${nSections} stations)`,
+            );
+        }
       }
 
-      const numValidVotes = bundle.mayor.round1.reduce(
-        (a, m) => a + (m.votes || 0),
-        0,
-      );
-      bundle.protocol = {
-        numRegisteredVoters: parsed.numRegisteredVoters,
-        totalActualVoters: parsed.totalActualVoters,
-        numValidVotes,
-      };
-      fs.writeFileSync(full, stringify(bundle), "utf8");
-      const pct = parsed.numRegisteredVoters
-        ? (
-            (parsed.totalActualVoters / parsed.numRegisteredVoters) *
-            100
-          ).toFixed(2)
-        : "?";
-      console.log(
-        `[byelection-turnout] ${bundle.obshtinaCode} tur${round}: registered=${parsed.numRegisteredVoters} voted=${parsed.totalActualVoters} → ${pct}%`,
-      );
-      written++;
-
-      // Per-section shard → the by-election mayor map.
-      const nSections = await buildSectionShard({
-        cycleSlug,
-        round,
-        el: agg.el,
-        oik,
-        rawFolder,
-        bundle,
-        publicFolder,
-        stringify,
-      });
-      if (nSections > 0)
-        console.log(
-          `[byelection-turnout]   ${bundle.obshtinaCode}: wrote section shard (${nSections} stations)`,
+      // --- kmetstvo (village-mayor) races — turnout onto each kmetstvo entry ---
+      for (const k of bundle.kmetstva ?? []) {
+        if (!k.candidates.some((c) => c.isElected)) continue;
+        const round: 1 | 2 = k.candidates.some((c) => c.round === 2) ? 2 : 1;
+        const oik = kmetstvoOik.get(normName(k.kmetstvoName));
+        const r = await fetchRace(
+          `${bundle.obshtinaCode}/${k.kmetstvoName}`,
+          round,
+          oik,
+          "kmetstvo",
         );
+        if (r) {
+          k.numRegisteredVoters = r.parsed.numRegisteredVoters;
+          k.totalActualVoters = r.parsed.totalActualVoters;
+          k.numValidVotes = r.parsed.candidateVotes.reduce(
+            (a, c) => a + c.votes,
+            0,
+          );
+          dirty = true;
+          written++;
+        }
+      }
+
+      if (dirty) fs.writeFileSync(full, stringify(bundle), "utf8");
     }
   } finally {
     await shutdownCikFetch();
