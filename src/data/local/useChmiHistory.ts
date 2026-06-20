@@ -41,6 +41,11 @@ export type ChmiHistoryEvent = {
   // Council re-election events only: leading party's seats + council size.
   councilSeatsWon?: number;
   councilTotalSeats?: number;
+  // Exact by-election turnout (obshtina/rayon mayor events only, once the
+  // числови-данни backfill has run). turnoutPct is a percentage (e.g. 13.1).
+  registeredVoters?: number;
+  actualVoters?: number;
+  turnoutPct?: number;
 };
 
 type ChmiHistory = {

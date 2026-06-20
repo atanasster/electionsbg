@@ -141,6 +141,8 @@ the mayor card). The bundle stores the synthetic obshtinaCode as `oikCode`, so
 the real 4-digit ОИК is recovered from the raw HTML's `data-ik` keyed by place
 name.
 
+The same step also writes a **by-election section shard** (`data/<cycle>/sections/<obshtinaCode>.json`): the числови-данни is served per-section too (`protokoli/<el>/<oik>/<9digit>.0.html`, `.1` = paper-only fallback), each carrying per-candidate votes (combined paper+machine = last table per ballot №). `buildSectionShard` parses every station and joins lat/lon + address from the latest regular `_mi` shard (the protocol HTML has no coords) — so the partial gets its own per-section **mayor map** (`rayonMayorVotes`/`mayorVotes`) on the dashboard, exactly like a regular cycle. Finally it rebuilds `local_chmi_history.json` so the turnout reaches the `/local/chmi` feed + the `chmiEvents` AI tool. Known gap: Пловдив/Варна city-районs read their *parent-city* shard, so a город-район by-election there (none exist yet) would need a per-parent-city write; Sofia районs (`S2xxx`) and full-município mayor by-elections both work.
+
 **Cycle coverage:** 2007 + 2011 + 2015 + 2019 + 2023 ingested. The `votes.txt` shape
 varies by era: 2015/2019 are **triplets** (`party ; valid ; invalid`); 2023
 added machine voting → a leading `№ формуляр` field + **quadruplets**

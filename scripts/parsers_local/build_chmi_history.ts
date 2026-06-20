@@ -53,6 +53,13 @@ export type ChmiHistoryEvent = {
    * so `candidateName` is empty and `localPartyName` holds that party. */
   councilSeatsWon?: number;
   councilTotalSeats?: number;
+  /** Exact by-election turnout from the município bundle's protocol — present on
+   * obshtina/rayon mayor events once the числови-данни backfill
+   * (ingest_byelection_turnout) has run; absent for kmetstvo/council events and
+   * before the protocol is published. turnoutPct is a percentage (e.g. 13.1). */
+  registeredVoters?: number;
+  actualVoters?: number;
+  turnoutPct?: number;
 };
 
 export type ChmiHistory = {
@@ -116,6 +123,11 @@ export const buildChmiHistory = (opts: {
       const isSofiaRayon = /^S2\d{3}$/.test(b.obshtinaCode);
       if (b.mayor.elected) {
         const m = b.mayor.elected;
+        // Exact turnout — only present once the числови-данни backfill wrote a
+        // real protocol (registered + voted) onto this by-election bundle.
+        const p = b.protocol;
+        const hasTurnout =
+          !!p && p.numRegisteredVoters > 0 && p.totalActualVoters > 0;
         events.push({
           ...base,
           kind: isSofiaRayon ? "rayon_mayor" : "obshtina_mayor",
@@ -128,6 +140,16 @@ export const buildChmiHistory = (opts: {
           pctOfValid: m.pctOfValid,
           votes: m.votes,
           mpId: m.mpId,
+          ...(hasTurnout
+            ? {
+                registeredVoters: p.numRegisteredVoters,
+                actualVoters: p.totalActualVoters,
+                turnoutPct:
+                  Math.round(
+                    (p.totalActualVoters / p.numRegisteredVoters) * 1000,
+                  ) / 10,
+              }
+            : {}),
         });
       }
       // Full council re-election ("нови избори за общински съветници"): the

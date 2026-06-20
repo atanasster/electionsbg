@@ -21,7 +21,12 @@ import path from "path";
 import { cikFetchText, shutdownCikFetch } from "./cik_fetch.js";
 import { cycleSlugToRawFolder } from "./ingest_cycle.js";
 import { parseChisloviHtml } from "./parse_protocol_chislovi.js";
-import type { LocalMunicipalityBundle } from "./types.js";
+import { buildChmiHistory } from "./build_chmi_history.js";
+import type {
+  LocalMunicipalityBundle,
+  LocalSectionResult,
+  LocalSectionShard,
+} from "./types.js";
 
 const ROOT = "https://results.cik.bg";
 
@@ -105,6 +110,137 @@ const findAggregate = (
   if (hits.length === 0) return null;
   // район mayor is election type 8; otherwise take the first non-kmetstvo type.
   return hits.find((h) => h.el === "8") ?? (isRayon ? null : hits[0]);
+};
+
+/**
+ * Find the most recent regular `_mi` cycle that has a section shard for this
+ * obshtinaCode. Its sections give us the 9-digit code list AND the lat/lon +
+ * address + ekatte (a by-election reuses the same physical stations), which the
+ * по-протокол HTML doesn't carry — so the by-election section map can render
+ * without re-running the coords backfill.
+ */
+const findRegularShard = (
+  publicFolder: string,
+  obshtinaCode: string,
+): LocalSectionShard | null => {
+  const cycles = fs
+    .readdirSync(publicFolder)
+    .filter((d) => /^\d{4}_\d{2}_\d{2}_mi$/.test(d))
+    .sort()
+    .reverse();
+  for (const c of cycles) {
+    const p = path.join(publicFolder, c, "sections", `${obshtinaCode}.json`);
+    if (fs.existsSync(p))
+      return JSON.parse(fs.readFileSync(p, "utf8")) as LocalSectionShard;
+  }
+  return null;
+};
+
+/**
+ * Build + write a by-election section shard (data/<cycle>/sections/<code>.json)
+ * from the per-section "Числови данни" HTML. Per section: registered/voted from
+ * the protocol, per-candidate votes as the mayor-vote field, coords joined from
+ * the latest regular shard. Enables the per-section mayor map on the partial.
+ */
+const buildSectionShard = async (opts: {
+  cycleSlug: string;
+  round: 1 | 2;
+  el: string;
+  oik: string;
+  rawFolder: string;
+  bundle: LocalMunicipalityBundle;
+  publicFolder: string;
+  stringify: (o: object) => string;
+}): Promise<number> => {
+  const {
+    cycleSlug,
+    round,
+    el,
+    oik,
+    rawFolder,
+    bundle,
+    publicFolder,
+    stringify,
+  } = opts;
+  const regular = findRegularShard(publicFolder, bundle.obshtinaCode);
+  if (!regular) {
+    console.log(
+      `[byelection-turnout]   ${bundle.obshtinaCode}: no regular shard for coords — section map skipped`,
+    );
+    return 0;
+  }
+  const isRayon = /^S2\d{3}$/.test(bundle.obshtinaCode);
+  const base = `${ROOT}/${cycleSlug}/tur${round}/protokoli/${el}/${oik}`;
+  const sections: LocalSectionResult[] = [];
+  for (const rs of regular.sections) {
+    const code = rs.sectionCode;
+    let parsed = null;
+    // Form-index suffix is ".0" for the common case; ".1" covers paper-only
+    // sections. A station present in the regular cycle but not this by-election
+    // 404s on both — skipped (no marker).
+    for (const k of ["0", "1"]) {
+      const h = await cikFetchText(`${base}/${code}.${k}.html`, {
+        allow404: true,
+      });
+      if (!h) continue;
+      const p = parseChisloviHtml(h);
+      if (p && (p.candidateVotes.length > 0 || p.totalActualVoters > 0)) {
+        parsed = p;
+        break;
+      }
+    }
+    if (!parsed) continue;
+    const votes = parsed.candidateVotes.map((c) => ({
+      localPartyNum: c.num,
+      votes: c.votes,
+    }));
+    const valid = votes.reduce((a, v) => a + v.votes, 0);
+    const result: LocalSectionResult = {
+      sectionCode: code,
+      settlement: rs.settlement,
+      ekatte: rs.ekatte,
+      isMobile: rs.isMobile,
+      numRegisteredVoters: parsed.numRegisteredVoters,
+      totalActualVoters: parsed.totalActualVoters,
+      numValidVotes: valid,
+      partyVotes: [],
+      address: rs.address,
+      longitude: rs.longitude,
+      latitude: rs.latitude,
+    };
+    if (isRayon) {
+      result.rayonMayorVotes = votes;
+      result.rayonMayorValid = valid;
+    } else {
+      result.mayorVotes = votes;
+      result.mayorValid = valid;
+    }
+    sections.push(result);
+  }
+  if (sections.length === 0) return 0;
+  const shard: LocalSectionShard = {
+    cycle: rawFolder,
+    obshtinaCode: bundle.obshtinaCode,
+    oikCode: regular.oikCode || oik,
+    obshtinaName: bundle.obshtinaName,
+    // Legend = the mayor candidates (their № == localPartyNum); colours are
+    // resolved screen-side from the canonical id, so leave blank here.
+    parties: bundle.mayor.round1.map((m) => ({
+      localPartyNum: m.localPartyNum,
+      localPartyName: m.localPartyName,
+      primaryCanonicalId: m.primaryCanonicalId ?? null,
+      color: "",
+    })),
+    sections,
+  };
+  const dir = path.join(publicFolder, rawFolder, "sections");
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(
+    path.join(dir, `${bundle.obshtinaCode}.json`),
+    stringify(shard),
+    "utf8",
+  );
+  return sections.length;
 };
 
 export const ingestByElectionTurnout = async (opts: {
@@ -198,10 +334,30 @@ export const ingestByElectionTurnout = async (opts: {
         `[byelection-turnout] ${bundle.obshtinaCode} tur${round}: registered=${parsed.numRegisteredVoters} voted=${parsed.totalActualVoters} → ${pct}%`,
       );
       written++;
+
+      // Per-section shard → the by-election mayor map.
+      const nSections = await buildSectionShard({
+        cycleSlug,
+        round,
+        el: agg.el,
+        oik,
+        rawFolder,
+        bundle,
+        publicFolder,
+        stringify,
+      });
+      if (nSections > 0)
+        console.log(
+          `[byelection-turnout]   ${bundle.obshtinaCode}: wrote section shard (${nSections} stations)`,
+        );
     }
   } finally {
     await shutdownCikFetch();
   }
+  // Regenerate the chmi history feed so the now-backfilled turnout flows into
+  // local_chmi_history.json (+ per-município shards) — the in-ingest build ran
+  // before this backfill, against the zeroed protocol. Idempotent, no network.
+  if (written > 0) buildChmiHistory({ stringify });
   console.log(
     `[byelection-turnout] done: ${written} written, ${skipped} skipped`,
   );

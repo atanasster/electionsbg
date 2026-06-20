@@ -1559,8 +1559,8 @@ export const TOOLS: ToolDef[] = [
     name: "chmiEvents",
     domain: "local",
     description: {
-      bg: "Извънредни (частични/нови) местни избори — хронология.",
-      en: "Extraordinary (partial/new) local elections feed.",
+      bg: "Извънредни (частични/нови) местни избори — хронология с активност.",
+      en: "Extraordinary (partial/new) local elections feed, with turnout.",
     },
     params: [
       {
@@ -1573,6 +1573,10 @@ export const TOOLS: ToolDef[] = [
       {
         bg: "Има ли частични местни избори?",
         en: "Any partial local elections?",
+      },
+      {
+        bg: "Каква беше активността на частичния избор?",
+        en: "What was the turnout in the by-election?",
       },
     ],
     run: chmiEvents,

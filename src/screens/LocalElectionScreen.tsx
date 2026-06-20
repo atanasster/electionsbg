@@ -737,6 +737,12 @@ const MunicipalityResults: FC<{
     partialCycle ? obshtinaCode : null,
     partialCycle ?? undefined,
   );
+  // By-election section shard → the per-section mayor map on the partial (built
+  // by ingest_byelection_turnout from the числови-данни HTML). When there's no
+  // partial it reads the regular cycle (same shard already loaded above — no
+  // extra fetch); only consumed when showPartial.
+  const { shard: partialShard, hasCoords: partialHasCoords } =
+    useLocalSectionShard(partialCycle ?? cycle, obshtinaCode);
   // Район turnout: a район has no protocol of its own (the bundle carries the
   // city-wide council total), so sum the район-narrowed section shard instead.
   const isRayonPage =
@@ -933,6 +939,40 @@ const MunicipalityResults: FC<{
       />
     ) : null;
 
+  // Partial (by-election) mayor map — same КО/КР field, but its own legend (the
+  // by-election candidates; their № == localPartyNum) and its own per-section
+  // shard. Self-hides until the shard is ingested.
+  const partialMayorLegend = new Map<number, { name: string; color: string }>();
+  if (showPartial && partialBundle) {
+    for (const c of partialBundle.mayor.round1) {
+      partialMayorLegend.set(c.localPartyNum, {
+        name: c.candidateName,
+        color: c.primaryCanonicalId
+          ? (colorFor(c.primaryCanonicalId) ?? NEUTRAL)
+          : NEUTRAL,
+      });
+    }
+  }
+  const partialHasMayorMapData = !!partialShard?.sections.some(
+    (s) => (s[mayorVoteField]?.length ?? 0) > 0,
+  );
+  const partialMayorMap =
+    showPartial &&
+    partialCycle &&
+    partialHasCoords &&
+    partialShard &&
+    !isSofiaCity &&
+    partialHasMayorMapData ? (
+      <LocalSectionsMapTile
+        shard={partialShard}
+        cycle={partialCycle}
+        obshtinaCode={obshtinaCode}
+        metric="mayor"
+        mayorLegend={partialMayorLegend}
+        mayorVoteField={mayorVoteField}
+      />
+    ) : null;
+
   // A race row: a station map (when present) beside the compact tile, mirroring
   // the parliamentary map + top-parties layout; collapses to the tile alone
   // when the map self-hid.
@@ -1011,19 +1051,22 @@ const MunicipalityResults: FC<{
       <Section title={mayorSectionTitle}>
         {showPartial && partialBundle && partialCycle ? (
           <>
-            {/* Current officeholder — lead with the most recent (partial) vote.
-                No station map here: the by-election is HTML-only (no per-section
-                results), and the regular-cycle shard's mayor map is a different
+            {/* Current officeholder — lead with the most recent (partial) vote,
+                with its own per-section map (the by-election section shard) when
+                ingested. The regular-cycle shard's mayor map is a different
                 election — that map sits with the regular results below. */}
             <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
               {t("local_election_partial_eyebrow", { date: partialDate })}
             </div>
             {mayorRunoff(partialBundle.mayor.round2)}
-            <TopMayorsTile
-              candidates={partialBundle.mayor.round1}
-              electedName={partialBundle.mayor.elected?.candidateName ?? null}
-              to={`/local/${partialCycle}/${obshtinaCode}/mayor`}
-            />
+            {raceRow(
+              <TopMayorsTile
+                candidates={partialBundle.mayor.round1}
+                electedName={partialBundle.mayor.elected?.candidateName ?? null}
+                to={`/local/${partialCycle}/${obshtinaCode}/mayor`}
+              />,
+              partialMayorMap,
+            )}
             {/* How the by-election compared to the last full local vote. */}
             <LocalMidtermComparisonTile
               regular={municipality.mayor}

@@ -499,6 +499,9 @@ type ChmiEvent = {
   kmetstvoName?: string;
   candidateName?: string;
   localPartyName?: string;
+  // Exact by-election turnout (obshtina/rayon mayor events only, once the
+  // числови-данни backfill has run).
+  turnoutPct?: number;
 };
 type ChmiHistory = {
   byObshtina: Record<string, ChmiEvent[]>;
@@ -534,6 +537,7 @@ export const chmiEvents = async (
     { key: "place", label: ctx.lang === "bg" ? "Място" : "Place" },
     { key: "kind", label: ctx.lang === "bg" ? "Вид" : "Type" },
     { key: "winner", label: ctx.lang === "bg" ? "Избран" : "Elected" },
+    { key: "turnout", label: ctx.lang === "bg" ? "Активност" : "Turnout" },
   ];
   const rows: Row[] = recent.map((e) => ({
     date: e.date,
@@ -542,6 +546,8 @@ export const chmiEvents = async (
       : e.obshtinaName,
     kind: (KIND_LABEL[e.kind] ?? { bg: e.kind, en: e.kind })[ctx.lang],
     winner: e.candidateName ?? "—",
+    // Mayor by-elections carry exact turnout; kmetstvo/council rows show "—".
+    turnout: e.turnoutPct != null ? `${e.turnoutPct}%` : "—",
   }));
   return {
     tool: "chmiEvents",
