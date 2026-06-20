@@ -81,6 +81,8 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   { pattern: /^\/\{e(lection|\.name)?\}\//, dataset: "elections" },
   { pattern: /^\/transitions\//, dataset: "elections" },
   { pattern: /^\/transitions_local\//, dataset: "local" },
+  { pattern: /^\/transitions_prevote\//, dataset: "local" },
+  { pattern: /^\/local_place_trends\//, dataset: "local" },
   { pattern: /^\/cluster_persistence/, dataset: "elections" },
   { pattern: /^\/canonical_parties/, dataset: "elections" },
   { pattern: /^\/regions\//, dataset: "elections" },

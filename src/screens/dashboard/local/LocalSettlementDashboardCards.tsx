@@ -1,18 +1,21 @@
 // Settlement (EKATTE) local-elections dashboard.
 //
 // Sub-municipal villages elect their own кмет на кметство; this surfaces that
-// race plus the parent município's mayor + council context. Settlement-level
-// council vote breakdowns aren't available (the HTML source is município-grain
-// only — see the README data note), so this is the village-mayor view. For
-// settlements without their own kметство (towns governed by the município
-// mayor) we show a context card linking up to the município dashboard.
+// race plus the parent município's mayor + council context. The município
+// bundle's council is município-grain, but the per-section ballots carry an
+// EKATTE — so the cross-cycle place-trends artifact CAN show how this
+// settlement itself voted for the council + município mayor (LocalPlaceTrendsTile).
+// For settlements without their own kметство (towns governed by the município
+// mayor) we still show a context card linking up to the município dashboard.
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { ArrowRight, Crown, Landmark } from "lucide-react";
+import { ArrowRight, Crown, Landmark, TrendingUp } from "lucide-react";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { useLocalSettlement } from "@/data/local/useLocalSettlement";
+import { useLocalPlaceTrend } from "@/data/local/useLocalPlaceTrends";
+import { LocalPlaceTrendsTile } from "./LocalPlaceTrendsTile";
 import { useChmiHistory } from "@/data/local/useChmiHistory";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { formatThousands } from "@/data/utils";
@@ -196,6 +199,7 @@ export const LocalSettlementDashboardCards: FC<{
   const { name, obshtina, municipality, kmetstvo, isLoading } =
     useLocalSettlement(ekatte, cycle);
   const chmiEvents = useChmiHistory(obshtina);
+  const { data: trendsFile } = useLocalPlaceTrend("s", ekatte);
   const { colorFor } = useCanonicalParties();
 
   const kmetstvoEvents = useMemo(() => {
@@ -246,6 +250,23 @@ export const LocalSettlementDashboardCards: FC<{
       <DashboardSection id="local-overview" title={t("local_sec_councils")}>
         <ParentMunicipalityCard bundle={municipality} cycle={cycle} />
       </DashboardSection>
+
+      {trendsFile ? (
+        <DashboardSection
+          id="local-trends"
+          title={t("local_sec_trends")}
+          icon={TrendingUp}
+        >
+          <LocalPlaceTrendsTile
+            trend={trendsFile.trend}
+            cyclesAsc={trendsFile.cyclesAsc}
+            councilTitle={t("local_place_council_settlement_title")}
+            councilHint={t("local_place_council_settlement_hint")}
+            mayorTitle={t("local_place_mayor_settlement_title")}
+            mayorHint={t("local_place_mayor_settlement_hint")}
+          />
+        </DashboardSection>
+      ) : null}
 
       {kmetstvoEvents.length > 0 ? (
         <DashboardSection

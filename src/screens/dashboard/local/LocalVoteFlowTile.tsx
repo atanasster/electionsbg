@@ -1,20 +1,24 @@
-// Local-elections council vote-flow tile. Renders the estimated transition
-// Sankey between the selected local cycle and its predecessor, reusing the
-// parliamentary presentational components (VoteFlowSankey / Mobile / Tooltip /
-// Overlay) — only the data source differs (useLocalVoteFlow → /transitions_local).
+// Local-elections "pre-vote" flow tile. Renders the estimated transition Sankey
+// from the most recent PARLIAMENTARY vote before the selected local cycle into
+// that cycle's council ballot — the "where did the national-election voters go
+// in the local council vote" view. Reuses the parliamentary presentational
+// components (VoteFlowSankey / Mobile / Tooltip / Overlay); only the data source
+// differs (usePrevoteFlow → /transitions_prevote, whose `from` is auto-picked as
+// the preceding parliamentary election).
 //
 // Wiring mirrors VoteFlowTile.tsx (hover/pin highlight, pinned overlay,
 // outside-click dismissal). `oblast` omitted → national scope; provided
 // (3-letter code) → that oblast. Self-hides for the earliest cycle (no
-// predecessor) and for any scope with no estimate file. Council ballot only;
-// national + oblast scope only.
+// preceding parliamentary vote) and for any scope with no estimate file.
+// Council ballot only; national + oblast scope only.
 
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { GitFork } from "lucide-react";
 import { Link } from "@/ux/Link";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
-import { useLocalVoteFlow } from "@/data/local/useLocalVoteFlow";
+import { usePrevoteFlow } from "@/data/local/usePrevoteFlow";
+import { friendlyCycleDate } from "@/data/local/cycleDate";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import {
   VoteFlowSankey,
@@ -31,8 +35,9 @@ const SANKEY_HEIGHT = 460;
 
 type Pinned = { id: string; side: "from" | "to"; yFrac: number };
 
-/** Local cycle folder ("2019_10_27_mi") → display year ("2019"). */
-const cycleYear = (cycle?: string): string => cycle?.slice(0, 4) ?? "";
+/** Parliamentary "from" date folder ("2023_04_02") → "02.04.2023". */
+const parlDateLabel = (date?: string): string =>
+  date ? date.split("_").reverse().join(".") : "";
 
 export const LocalVoteFlowTile: FC<{ cycle: string; oblast?: string }> = ({
   cycle,
@@ -41,7 +46,7 @@ export const LocalVoteFlowTile: FC<{ cycle: string; oblast?: string }> = ({
   const { t } = useTranslation();
   const isMd = useMediaQueryMatch("md");
   const scope = oblast ?? "national";
-  const { matrix, from, to, isLoading, hasFile, hasPair } = useLocalVoteFlow(
+  const { matrix, from, to, isLoading, hasFile, hasPair } = usePrevoteFlow(
     cycle,
     scope,
   );
@@ -117,7 +122,7 @@ export const LocalVoteFlowTile: FC<{ cycle: string; oblast?: string }> = ({
           </Link>
         </div>
       }
-      hint={t("local_flow_hint")}
+      hint={t("local_prevote_flow_hint")}
     >
       <div ref={containerRef} className="relative w-full">
         {isLoading && !matrix ? (
@@ -166,9 +171,9 @@ export const LocalVoteFlowTile: FC<{ cycle: string; oblast?: string }> = ({
         )}
       </div>
       <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-        {t("local_flow_caption", {
-          from: cycleYear(from),
-          to: cycleYear(to),
+        {t("local_prevote_flow_caption", {
+          from: parlDateLabel(from),
+          to: friendlyCycleDate(to ?? cycle),
         })}
       </p>
     </StatCard>

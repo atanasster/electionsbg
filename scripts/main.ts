@@ -17,6 +17,8 @@ import { backfillLocalSectionCoords } from "./parsers_local/backfill_local_secti
 import { generateLocalProblemSections } from "./parsers_local/problem_sections_local";
 import { generateVoteFlows } from "./voteFlows";
 import { generateLocalVoteFlows } from "./voteFlows/local_index";
+import { generatePrevoteFlows } from "./voteFlows/parl_local_index";
+import { generateLocalPlaceTrends } from "./reports/local/build_local_place_trends";
 import { parseLocalElections } from "./parsers_local/parse_local_elections";
 import {
   ingestCycles,
@@ -239,6 +241,23 @@ const app = command({
       long: "local-problem-sections",
       defaultValue: () => false,
     }),
+    // Per-place cross-cycle trends (council party share + mayoral winner per
+    // cycle) for the settlement and район dashboards. Reads the per-município
+    // section detail files; writes data/local_place_trends/<obshtina>.json.
+    // Flag-gated — local cycles land every ~4 years, so not part of `--all`.
+    localPlaceTrends: flag({
+      type: optional(boolean),
+      long: "local-place-trends",
+      defaultValue: () => false,
+    }),
+    // Estimated pre-vote flow: the most recent parliamentary vote before each
+    // local cycle → that cycle's council ballot. Writes data/transitions_prevote/.
+    // Flag-gated — local cycles land every ~4 years, so not part of `--all`.
+    prevoteFlows: flag({
+      type: optional(boolean),
+      long: "prevote-flows",
+      defaultValue: () => false,
+    }),
   },
   handler: async ({
     all,
@@ -267,6 +286,8 @@ const app = command({
     localFlows,
     localCoords,
     localProblemSections,
+    localPlaceTrends,
+    prevoteFlows,
   }) => {
     production = prod;
     if (machines) {
@@ -438,6 +459,12 @@ const app = command({
     }
     if (localFlows) {
       generateLocalVoteFlows({ publicFolder, stringify });
+    }
+    if (localPlaceTrends) {
+      generateLocalPlaceTrends({ publicFolder, stringify });
+    }
+    if (prevoteFlows) {
+      generatePrevoteFlows({ publicFolder, stringify });
     }
   },
 });

@@ -1476,6 +1476,54 @@ const run = async () => {
     assert(got === expected, `route: "${q}" -> ${expected}`);
   }
 
+  // 22. local pre-vote flow + per-place cross-cycle trend
+  console.log("\n=== [local trends] pre-vote flow + place trend ===");
+  const prevote = (await runTool("localPrevoteFlow", {}, ctxBg)) as Envelope;
+  printEnvelope(prevote);
+  assert(
+    (prevote.rows?.length ?? 0) > 0 || prevote.kind === "scalar",
+    "localPrevoteFlow runs (parliament → council)",
+  );
+
+  // A settlement (EKATTE → s/ shard; zero-padded "02676" → canonical "2676").
+  const placeTrend = (await runTool(
+    "localPlaceTrend",
+    { place: "Банско" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(placeTrend);
+  assert(
+    placeTrend.kind === "series" &&
+      (placeTrend.series?.[0].points.length ?? 0) > 1,
+    "localPlaceTrend returns a council series for a settlement (EKATTE pad-normalised)",
+  );
+  // A whole município (no place shard) must decline cleanly, not crash.
+  const placeMiss = (await runTool(
+    "localPlaceTrend",
+    { place: "Несъществуевоград" },
+    ctxBg,
+  )) as Envelope;
+  assert(
+    placeMiss.kind === "scalar",
+    "localPlaceTrend declines gracefully on an unknown place",
+  );
+
+  console.log("\n=== [router] local-trend questions ===");
+  const cases12: [string, string | null][] = [
+    [
+      "Накъде отидоха парламентарните гласове на местните избори?",
+      "localPrevoteFlow",
+    ],
+    // a local→local flow (no parliament cue) must still hit localVoteFlows
+    ["Преливане на гласове между местните избори", "localVoteFlows"],
+  ];
+  for (const [q, expected] of cases12) {
+    const r = route(q, ctx);
+    const got = r?.tool ?? null;
+    console.log(`  "${q}" -> ${got ?? "(none)"}`);
+    assert(got === expected, `route: "${q}" -> ${expected}`);
+  }
+
   console.log(
     `\n${failures === 0 ? "ALL PASS" : `${failures} FAILURE(S)`} — ${failures === 0 ? "tools layer verified" : "see above"}`,
   );

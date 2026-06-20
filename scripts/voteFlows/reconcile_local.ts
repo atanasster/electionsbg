@@ -57,8 +57,9 @@ type LocalSection = {
 
 /** Load every município section shard for a cycle and flatten to a single
  * map keyed by 9-digit section code, resolving each ballot line to a
- * destination id via that shard's own legend. */
-const loadCycleSections = (
+ * destination id via that shard's own legend. Exported so the cross-type
+ * parliamentary→local reconcile can reuse the council (to-side) loader. */
+export const loadLocalCycleSections = (
   publicFolder: string,
   cycle: string,
 ): {
@@ -129,8 +130,8 @@ export const reconcileLocalCycles = ({
   toCycle: string;
   canonical: CanonicalPartiesIndex;
 }): ReconcileResult => {
-  const from = loadCycleSections(publicFolder, fromCycle);
-  const to = loadCycleSections(publicFolder, toCycle);
+  const from = loadLocalCycleSections(publicFolder, fromCycle);
+  const to = loadLocalCycleSections(publicFolder, toCycle);
 
   // Decide which canonical ids clear the national threshold in either cycle
   // and so earn their own Sankey lane. Everything else collapses into

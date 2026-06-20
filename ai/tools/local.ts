@@ -9,7 +9,12 @@ import {
 } from "./localDataset";
 import { fetchData } from "./dataClient";
 import { fmtInt, fmtPct } from "./format";
-import { findOblastInText, resolveMunicipality, resolveOblast } from "./place";
+import {
+  findOblastInText,
+  resolveMunicipality,
+  resolveOblast,
+  resolveSettlement,
+} from "./place";
 import { muniChoropleth, muniLocator } from "./geo";
 import { round2 } from "./dataset";
 import type {
@@ -691,5 +696,221 @@ export const localVoteFlows = async (
         : "—",
     },
     provenance: [`transitions_local/${slug}/national.json`],
+  };
+};
+
+// Pre-vote flow: the most recent PARLIAMENTARY vote before a local cycle → that
+// cycle's council ballot ("where did the national-election voters go in the
+// municipal-council vote"). Mirrors localVoteFlows but reads /transitions_prevote/,
+// whose `from` is a parliamentary election date.
+const parlDateLabel = (date: string): string =>
+  /^\d{4}_\d{2}_\d{2}$/.test(date) ? date.split("_").reverse().join(".") : date;
+
+export const localPrevoteFlow = async (
+  _args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const none = (slug: string): Envelope => ({
+    tool: "localPrevoteFlow",
+    domain: "local",
+    kind: "scalar",
+    title: bg
+      ? "Няма данни за преливане парламент → съвет"
+      : "No parliament → council transition data",
+    viz: "none",
+    facts: {},
+    provenance: [`transitions_prevote/${slug}`],
+  });
+  const idx = await fetchData<{ pairs: { from: string; to: string }[] }>(
+    "/transitions_prevote/index.json",
+  );
+  const pair = (idx.pairs ?? [])[0]; // newest-first
+  if (!pair) return none("index.json");
+  const slug = `${pair.from}_${pair.to}`;
+  let t: LocalTransition;
+  try {
+    t = await fetchData<LocalTransition>(
+      `/transitions_prevote/${slug}/national.json`,
+    );
+  } catch {
+    return none(`${slug}/national.json`);
+  }
+  const label = (id: string): string => {
+    const n = [...t.matrix.fromNodes, ...t.matrix.toNodes].find(
+      (x) => x.id === id,
+    );
+    return n ? (bg ? n.label : (n.labelEn ?? n.label)) : id;
+  };
+  const switches = t.matrix.flows
+    .filter((f) => f.from !== f.to && f.votes > 0)
+    .sort((a, b) => b.votes - a.votes)
+    .slice(0, 12);
+  const fromLabel = parlDateLabel(pair.from);
+  const ty = String(localCycleYear(pair.to) ?? pair.to);
+  const biggest = switches[0];
+  return {
+    tool: "localPrevoteFlow",
+    domain: "local",
+    kind: "table",
+    title: bg
+      ? `Преливане парламент (${fromLabel}) → общински съвет (${ty})`
+      : `Parliament (${fromLabel}) → municipal council (${ty}) vote flow`,
+    subtitle: bg
+      ? "Оценка по екологична регресия спрямо последния парламентарен вот преди местните избори"
+      : "Ecological-regression estimate vs. the last parliamentary vote before the local election",
+    columns: [
+      { key: "from", label: bg ? "От (парламент)" : "From (parliament)" },
+      { key: "to", label: bg ? "Към (съвет)" : "To (council)" },
+      {
+        key: "votes",
+        label: bg ? "Гласове" : "Votes",
+        numeric: true,
+        format: "int",
+      },
+    ],
+    rows: switches.map((f) => ({
+      from: label(f.from),
+      to: label(f.to),
+      votes: f.votes,
+    })),
+    viz: "none",
+    facts: {
+      pair: `${fromLabel} → ${ty}`,
+      biggest: biggest
+        ? `${label(biggest.from)} → ${label(biggest.to)} (${fmtInt(biggest.votes, ctx.lang)})`
+        : "—",
+    },
+    provenance: [`transitions_prevote/${slug}/national.json`],
+  };
+};
+
+// Per-place cross-cycle council trend (+ mayoral winner per cycle) for one
+// settlement or Sofia район — what localCouncilTrend (national) can't show.
+// Reads the per-place shard. Resolves a settlement (EKATTE → s/) first, else a
+// Sofia район município (S2xxx → p/); ordinary municípios have no place shard
+// (their cross-cycle council trend is the município dashboard's own tile).
+const PLACE_TREND_PALETTE = [
+  "#2563eb",
+  "#dc2626",
+  "#16a34a",
+  "#9333ea",
+  "#ea580c",
+  "#0891b2",
+];
+
+type PlaceTrendShard = {
+  cyclesAsc: { cycle: string; year: string }[];
+  trend: {
+    council: {
+      bucketId: string;
+      canonicalId: string | null;
+      localPartyName: string;
+      pctByCycle: Record<string, number>;
+    }[];
+    mayor: { year: string; candidateName: string; pct: number }[];
+  };
+};
+
+export const localPlaceTrend = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const query = String(args.place ?? "");
+
+  // Settlement (EKATTE) wins; else a Sofia район (its own município, S2xxx).
+  let kind: "s" | "p" | null = null;
+  let key = "";
+  let placeName = query;
+  const settlement = await resolveSettlement(query, { exact: false });
+  if (settlement?.ekatte) {
+    kind = "s";
+    // Settlement shards use the canonical (unpadded) EKATTE; resolveSettlement
+    // returns the zero-padded settlements.json form.
+    key = settlement.ekatte.replace(/^0+/, "") || "0";
+    placeName = bg ? settlement.name : (settlement.nameEn ?? settlement.name);
+  } else {
+    const muni = await resolveMunicipality(query);
+    if (muni && /^S2\d{3}$/.test(muni.obshtina)) {
+      kind = "p";
+      key = muni.obshtina;
+      placeName = bg ? muni.name : (muni.nameEn ?? muni.name);
+    }
+  }
+
+  const noData = (): Envelope => ({
+    tool: "localPlaceTrend",
+    domain: "local",
+    kind: "scalar",
+    title: bg
+      ? `Няма тренд по цикли за „${query}“`
+      : `No cross-cycle trend for "${query}"`,
+    subtitle: bg
+      ? "Налично е за населено място или столичен район; за община виж резултатите за избрания цикъл."
+      : "Available for a settlement or a Sofia район; for a whole municipality see its results for the selected cycle.",
+    viz: "none",
+    facts: { query },
+    provenance: ["local_place_trends/"],
+  });
+
+  if (!kind) return noData();
+  let shard: PlaceTrendShard;
+  try {
+    shard = await fetchData<PlaceTrendShard>(
+      `/local_place_trends/${kind}/${key}.json`,
+    );
+  } catch {
+    return noData();
+  }
+
+  const cyclesAsc = shard.cyclesAsc;
+  const latest = cyclesAsc[cyclesAsc.length - 1]?.cycle;
+  const ranked = [...shard.trend.council]
+    .sort(
+      (a, b) =>
+        (b.pctByCycle[latest] ?? 0) - (a.pctByCycle[latest] ?? 0) ||
+        Math.max(0, ...Object.values(b.pctByCycle)) -
+          Math.max(0, ...Object.values(a.pctByCycle)),
+    )
+    .slice(0, 6);
+
+  const categories = cyclesAsc.map((c) => c.year);
+  const series = ranked.map((p, i) => ({
+    key: `p${i}`,
+    label: p.localPartyName,
+    color: PLACE_TREND_PALETTE[i % PLACE_TREND_PALETTE.length],
+    points: cyclesAsc.map((c) => ({
+      x: c.year,
+      y: p.pctByCycle[c.cycle] ?? null,
+    })),
+  }));
+
+  const facts: Record<string, string | number> = { cycles: cyclesAsc.length };
+  const leader = ranked[0];
+  if (leader)
+    facts.leader = `${leader.localPartyName} (${fmtPct(round2(leader.pctByCycle[latest] ?? 0), ctx.lang)})`;
+  // Latest mayoral winner in this place, if recorded.
+  const lastMayor = shard.trend.mayor[shard.trend.mayor.length - 1];
+  if (lastMayor)
+    facts[bg ? "кмет (последен цикъл)" : "mayor (latest)"] =
+      `${lastMayor.candidateName} (${fmtPct(round2(lastMayor.pct), ctx.lang)})`;
+
+  const span = `${categories[0]}–${categories[categories.length - 1]}`;
+  return {
+    tool: "localPlaceTrend",
+    domain: "local",
+    kind: "series",
+    title: bg
+      ? `${placeName} — съвет по партия във времето (${span})`
+      : `${placeName} — council vote share over time (${span})`,
+    subtitle: bg
+      ? "Дял от действителните гласове за общинския съвет в това място, по цикли"
+      : "Share of valid council votes in this place, across local-election cycles",
+    categories,
+    series,
+    viz: "line",
+    facts,
+    provenance: [`local_place_trends/${kind}/${key}.json`],
   };
 };

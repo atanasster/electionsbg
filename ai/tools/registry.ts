@@ -33,6 +33,8 @@ import {
   localMayorsWon,
   localMunicipality,
   localOblastMayors,
+  localPlaceTrend,
+  localPrevoteFlow,
   localVoteFlows,
 } from "./local";
 import {
@@ -1344,6 +1346,56 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: localVoteFlows,
+  },
+  {
+    name: "localPrevoteFlow",
+    domain: "local",
+    description: {
+      bg: "Преливане на гласове от последния парламентарен вот преди местните избори към вота за общински съвет — къде отиват националните гласове на местните избори.",
+      en: "Vote flow from the last parliamentary vote before the local election into the council ballot — where the national-election votes went locally.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Накъде отидоха парламентарните гласове на местните избори?",
+        en: "Where did the parliamentary votes go in the local council vote?",
+      },
+      {
+        bg: "Преливане парламент към общински съвет",
+        en: "Parliament to municipal council vote flow",
+      },
+    ],
+    run: localPrevoteFlow,
+  },
+  {
+    name: "localPlaceTrend",
+    domain: "local",
+    description: {
+      bg: "Тренд на гласовете за общинския съвет по партия в едно населено място или столичен район през местните цикли (+ кмет победител по цикъл).",
+      en: "Council vote-share trend by party for one settlement or Sofia район across the local cycles (+ the winning mayor per cycle).",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: {
+          bg: "Населено място или район",
+          en: "Settlement or район",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Как гласува район Средец за общинския съвет през годините?",
+        en: "How has район Sredets voted for the council over the cycles?",
+      },
+      {
+        bg: "Тренд на вота за съвет в Банско",
+        en: "Council vote trend in Bansko over time",
+      },
+    ],
+    run: localPlaceTrend,
   },
   {
     name: "localMayorsTrend",

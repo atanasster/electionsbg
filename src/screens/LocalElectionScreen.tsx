@@ -23,6 +23,7 @@ import {
   Landmark,
   Map as MapIcon,
   ShieldAlert,
+  TrendingUp,
 } from "lucide-react";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
@@ -50,6 +51,8 @@ import { TopCouncilPartiesTile } from "./dashboard/local/TopCouncilPartiesTile";
 import { LocalMayorTimelineTile } from "./dashboard/local/LocalMayorTimelineTile";
 import { LocalMidtermComparisonTile } from "./dashboard/local/LocalMidtermComparisonTile";
 import { LocalCouncilTrendsTile } from "./dashboard/local/LocalCouncilTrendsTile";
+import { LocalPlaceTrendsTile } from "./dashboard/local/LocalPlaceTrendsTile";
+import { useLocalPlaceTrend } from "@/data/local/useLocalPlaceTrends";
 import { useLocalSectionShard } from "@/data/local/useLocalSectionShard";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
@@ -715,6 +718,15 @@ const MunicipalityResults: FC<{
   const { municipality } = useLocalMunicipality(obshtinaCode, cycle);
   const chmiEvents = useChmiHistory(obshtinaCode);
   const { settlements } = useSettlementsInfo();
+  // Cross-cycle place trends. Only a Sofia район (its own município) has a `p/`
+  // shard — the район's OWN council vote share + city-mayor-in-район winners,
+  // what the bundle's city-wide council can't show. Gate the fetch on the S2xxx
+  // pattern so ordinary municípios don't fire a wasted 404 (they're covered by
+  // LocalCouncilTrendsTile instead).
+  const { data: placeTrendsFile } = useLocalPlaceTrend(
+    "p",
+    /^S2\d{3}$/.test(obshtinaCode) ? obshtinaCode : null,
+  );
   const cycleDate = friendlyCycleDate(cycle);
   // Council polling-station shard drives the map shown beside both the mayor
   // and council tiles (Sofia район shards read from the city-wide SOF bundle).
@@ -1182,6 +1194,26 @@ const MunicipalityResults: FC<{
         ) : null}
       </Section>
 
+      {/* Sofia район: how the район itself voted (its own council share + how
+          it voted in the city-mayor race), aggregated from its sections — the
+          one trend the city-wide bundle can't surface. Self-hides elsewhere. */}
+      {placeTrendsFile ? (
+        <DashboardSection
+          id="local-trends"
+          title={t("local_sec_trends")}
+          icon={TrendingUp}
+        >
+          <LocalPlaceTrendsTile
+            trend={placeTrendsFile.trend}
+            cyclesAsc={placeTrendsFile.cyclesAsc}
+            councilTitle={t("local_place_council_rayon_title")}
+            councilHint={t("local_place_council_rayon_hint")}
+            mayorTitle={t("local_place_mayor_rayon_title")}
+            mayorHint={t("local_place_mayor_rayon_hint")}
+          />
+        </DashboardSection>
+      ) : null}
+
       {/* Per-polling-station council results + turnout — self-hides for cycles
           / municípios without an ingested section shard (e.g. Sofia район
           shards, whose sections live under the SOF bundle). */}
@@ -1395,6 +1427,9 @@ const RayonLocalResults: FC<{ cycle: string; rayon: CityRayon }> = ({
   const { municipality } = useLocalMunicipality(rayon.obshtina, cycle);
   const cycleDate = friendlyCycleDate(cycle);
   const { shard, hasCoords } = useLocalSectionShard(cycle, rayon.id);
+  // Cross-cycle район trends (council share + both mayoral ballots), one shard
+  // keyed by this район's id ("PDV22-02").
+  const { data: rayonTrendsFile } = useLocalPlaceTrend("r", rayon.id);
   const district = useMemo(
     () =>
       municipality?.districts.find(
@@ -1592,6 +1627,28 @@ const RayonLocalResults: FC<{ cycle: string; rayon: CityRayon }> = ({
           </Link>
         </p>
       </Section>
+
+      {/* Cross-cycle район trends: how this район voted for the council + both
+          mayoral ballots (city mayor in the район, and its own районен кмет),
+          aggregated from the район's sections. Self-hides under two cycles. */}
+      {rayonTrendsFile ? (
+        <DashboardSection
+          id="local-trends"
+          title={t("local_sec_trends")}
+          icon={TrendingUp}
+        >
+          <LocalPlaceTrendsTile
+            trend={rayonTrendsFile.trend}
+            cyclesAsc={rayonTrendsFile.cyclesAsc}
+            councilTitle={t("local_place_council_rayon_title")}
+            councilHint={t("local_place_council_rayon_hint")}
+            mayorTitle={t("local_place_mayor_rayon_title")}
+            mayorHint={t("local_place_mayor_rayon_hint")}
+            rayonMayorTitle={t("local_place_rayon_mayor_title")}
+            rayonMayorHint={t("local_place_rayon_mayor_hint")}
+          />
+        </DashboardSection>
+      ) : null}
 
       {/* Risk votes — council-ballot distribution inside the curated Roma-
           neighborhood "problem sections" that sit in this район (e.g. Максуда

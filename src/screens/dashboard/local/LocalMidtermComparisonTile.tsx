@@ -26,6 +26,12 @@ const winnerShare = (m: MayorBundle): number =>
   m.elected?.pctOfValid ??
   (m.round1.length ? Math.max(...m.round1.map((c) => c.pctOfValid)) : 0);
 
+// Raw vote count for the elected mayor. Falls back to the strongest round-1
+// candidate when no winner is recorded (so the row still has a number to show).
+const winnerVotes = (m: MayorBundle): number =>
+  m.elected?.votes ??
+  (m.round1.length ? Math.max(...m.round1.map((c) => c.votes)) : 0);
+
 const Delta: FC<{ value: number; suffix?: string; digits?: number }> = ({
   value,
   suffix,
@@ -59,6 +65,8 @@ export const LocalMidtermComparisonTile: FC<{
     const parVotes = partial.round1.reduce((a, c) => a + c.votes, 0);
     const regWin = winnerShare(regular);
     const parWin = winnerShare(partial);
+    const regWinVotes = winnerVotes(regular);
+    const parWinVotes = winnerVotes(partial);
     const sameWinner =
       regular.elected && partial.elected
         ? regular.elected.mpId && partial.elected.mpId
@@ -74,6 +82,10 @@ export const LocalMidtermComparisonTile: FC<{
       parCand: partial.round1.length,
       regWin,
       parWin,
+      regWinVotes,
+      parWinVotes,
+      winnerVotesDeltaPct:
+        regWinVotes > 0 ? ((parWinVotes - regWinVotes) / regWinVotes) * 100 : 0,
       sameWinner,
     };
   }, [regular, partial]);
@@ -107,6 +119,12 @@ export const LocalMidtermComparisonTile: FC<{
           digits={1}
         />
       ),
+    },
+    {
+      label: t("local_election_compare_winner_votes"),
+      reg: formatThousands(m.regWinVotes),
+      par: formatThousands(m.parWinVotes),
+      delta: <Delta value={m.winnerVotesDeltaPct} suffix="%" />,
     },
   ];
 

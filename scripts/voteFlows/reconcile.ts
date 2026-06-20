@@ -70,7 +70,7 @@ export type ReconcileResult = {
   };
 };
 
-const buildPartyNumToCanonical = (
+export const buildPartyNumToCanonical = (
   canonical: CanonicalPartiesIndex,
   cikParties: PartyInfo[],
   election: string,

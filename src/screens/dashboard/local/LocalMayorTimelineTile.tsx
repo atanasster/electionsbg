@@ -16,6 +16,7 @@ import {
   UNRESOLVED_PARTY_COLOR,
 } from "@/data/local/cycleDate";
 import { LocalMayorResult } from "@/data/local/types";
+import { formatThousands } from "@/data/utils";
 import { StatCard } from "../StatCard";
 
 type Props = {
@@ -135,6 +136,10 @@ export const LocalMayorTimelineTile: FC<Props> = ({
                         m.round === 2
                           ? t("local_election_round_2")
                           : t("local_election_round_1"),
+                    })}{" "}
+                    ·{" "}
+                    {t("local_election_ballot_votes", {
+                      votes: formatThousands(m.votes),
                     })}{" "}
                     · {m.pctOfValid.toFixed(1)}%
                   </span>

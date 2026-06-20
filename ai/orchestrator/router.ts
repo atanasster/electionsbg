@@ -1291,6 +1291,25 @@ export const route = (question: string, ctx: ToolContext): Route => {
     // unscoped; every per-cycle snapshot tool gets the cycle.
     const cyc = q.match(/\b(20\d{2})\b/)?.[0];
     const withCyc = (a: ToolArgs): ToolArgs => (cyc ? { ...a, cycle: cyc } : a);
+    // Pre-vote flow: parliamentary → local council ("накъде отидоха
+    // парламентарните гласове на местните избори"). Must precede the
+    // local→local localVoteFlows rule — both share the flow cues, so this is
+    // gated on an explicit parliament reference as the flow source.
+    if (
+      has(
+        q,
+        "прелив",
+        "преляха",
+        "преминаха",
+        "vote flow",
+        "vote transition",
+        "миграция на глас",
+        "къде отидоха",
+        "къде отиват",
+      ) &&
+      has(q, "парламент", "parliament", "национал", "national")
+    )
+      return { tool: "localPrevoteFlow", args: {} };
     // local-council vote flows (transitions between consecutive local cycles)
     if (
       has(
