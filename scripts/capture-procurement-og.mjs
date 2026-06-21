@@ -16,7 +16,7 @@ const OUT = resolve("public/og/procurement-tools.png");
 const IMG = (n) => `${BASE}/articles/images/procurement-tools/${n}`;
 
 const tiles = [
-  { src: IMG("05-choropleth.png"), caption: "Карта по области" },
+  { src: IMG("05-choropleth.png"), caption: "Карти по области" },
   { src: IMG("02-entity-flow.png"), caption: "Парични потоци" },
   { src: IMG("01-risk-index.png"), caption: "Индекс на риска", pos: "top" },
   { src: IMG("06-flags.png"), caption: "Сигнали за риск", pos: "top" },

@@ -44,6 +44,24 @@ export const featureToCanon = (code: string): string => {
   return code;
 };
 
+// Province name (as it appears in the by_settlement index) → oblast code.
+// Built once from the static regions.json import.
+const NAME_TO_CODE = new Map<string, string>(
+  (regions as Array<{ name: string; oblast: string }>).map((r) => [
+    r.name,
+    r.oblast,
+  ]),
+);
+
+// Resolve a settlement's `province` string to its canonical oblast bucket
+// code — the same key the choropleth buckets use. Lets the table filter
+// itself when a region is clicked on the map. Returns undefined for
+// provinces we can't place (kept out of the map anyway).
+export const provinceToCanon = (province: string): string | undefined => {
+  const raw = PROVINCE_OVERRIDES[province] ?? NAME_TO_CODE.get(province);
+  return raw ? featureToCanon(raw) : undefined;
+};
+
 type PopSeries = Record<string, Array<{ year: number; value: number }>>;
 
 const fetchPopulation = async (): Promise<Record<string, number>> => {
@@ -73,14 +91,6 @@ export const useProcurementByOblast = (): {
     staleTime: Infinity,
   });
 
-  const nameToCode = useMemo(() => {
-    const m = new Map<string, string>();
-    for (const r of regions as Array<{ name: string; oblast: string }>) {
-      m.set(r.name, r.oblast);
-    }
-    return m;
-  }, []);
-
   const codeToName = useMemo(() => {
     const m = new Map<string, string>();
     for (const r of regions as Array<{ name: string; oblast: string }>) {
@@ -97,10 +107,9 @@ export const useProcurementByOblast = (): {
       // Normalise to the canonical bucket: regions.json keys Plovdiv as
       // "обл. Пловдив"→PDV AND "Пловдив"→PDV-00, and the index uses "Пловдив",
       // so the raw lookup yields "PDV-00" — a bucket no feature code resolves
-      // to (featureToCanon folds PDV-00→PDV). Fold here too so the Plovdiv
-      // oblast isn't stranded as no-data.
-      const raw = PROVINCE_OVERRIDES[s.province] ?? nameToCode.get(s.province);
-      const code = raw ? featureToCanon(raw) : undefined;
+      // to (featureToCanon folds PDV-00→PDV). provinceToCanon folds it here
+      // too so the Plovdiv oblast isn't stranded as no-data.
+      const code = provinceToCanon(s.province);
       if (!code) continue;
       const b = out.get(code) ?? {
         code,
@@ -125,7 +134,7 @@ export const useProcurementByOblast = (): {
       for (const [code, b] of out) b.population = popByCanon.get(code) ?? 0;
     }
     return out;
-  }, [idx, population, nameToCode, codeToName]);
+  }, [idx, population, codeToName]);
 
   const valueFor = useMemo(() => {
     return (featureCode: string, metric: OblastMetric): number | undefined => {

@@ -19,7 +19,7 @@ schemaType: Article
 
 Bulgaria signs tens of thousands of public-procurement contracts a year. The records are public — and almost unusable. They live as thousands of files on [data.egov.bg](https://data.egov.bg/) and inside the [ЦАИС ЕОП](https://app.eop.bg/) system, with no way to ask the questions that matter: *Who keeps winning without competition? Which companies are tied to the people who run the state? Where does my município's money go?*
 
-The [Public Procurement](/procurement) module answers those questions. It holds **255,197 contracts and amendments** worth **€74.7 billion**, from **4,388 contracting authorities** to **23,598 companies**, covering **2011 through 2026** — and it layers an explainable risk score, money-flow diagrams, a person scanner, a geographic view and a red-flag feed on top. This piece sets it against what exists in Bulgaria and abroad, walks through each tool, and ends with what you can actually find with it.
+The [Public Procurement](/procurement) module answers those questions. It holds **255,198 contracts and amendments** worth **€74.7 billion**, from **4,389 contracting authorities** to **23,598 companies**, covering **2011 through 2026** — and it layers an explainable risk score, money-flow diagrams, a person scanner, a geographic view and a red-flag feed on top. This piece sets it against what exists in Bulgaria and abroad, walks through each tool, and ends with what you can actually find with it.
 
 ## 1. The landscape: Bulgaria and abroad
 
@@ -117,11 +117,11 @@ Local procurement surfaces on every place dashboard: what the município, its sc
 
 *[See it live: the Plovdiv dashboard →](/governance/PDV22)*
 
-And the [map](/procurement/by-settlement) colours every oblast by procurement — switchable between total, **per capita** (so it doesn't just redraw the population map) and average contract size.
+And the [maps](/procurement/by-settlement) show every oblast three ways at once — total, **per capita** (so they don't just redraw the population map) and average contract value. Click any oblast on any of the maps to filter the settlement table beneath them.
 
-![A choropleth map of procurement by oblast](/articles/images/procurement-tools/05-choropleth.png)
+![Choropleth maps of procurement by oblast — total, per capita and average contract value](/articles/images/procurement-tools/05-choropleth.png)
 
-*[See it live: the oblast map →](/procurement/by-settlement)*
+*[See it live: the oblast maps →](/procurement/by-settlement)*
 
 ### The red-flag feed
 
