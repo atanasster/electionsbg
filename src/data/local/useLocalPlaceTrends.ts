@@ -76,6 +76,7 @@ export const placeCouncilToCrossCycle = (
       year: c.year,
       councilPct: s.pctByCycle[c.cycle] ?? null,
       mayors: null,
+      votes: s.votesByCycle[c.cycle] ?? null,
     })),
   }));
   parties.sort((a, b) => {

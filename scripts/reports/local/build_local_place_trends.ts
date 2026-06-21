@@ -183,12 +183,14 @@ const buildCouncilSeries = (
           canonicalId: b.canonicalId,
           localPartyName: b.localPartyName,
           pctByCycle: {},
+          votesByCycle: {},
         };
         byId.set(id, s);
       }
       s.pctByCycle[cycle] = round2(
         (s.pctByCycle[cycle] ?? 0) + (b.votes / agg.valid) * 100,
       );
+      s.votesByCycle[cycle] = (s.votesByCycle[cycle] ?? 0) + b.votes;
     }
   }
   const arr = [...byId.values()];

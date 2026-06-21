@@ -40,6 +40,7 @@ export const useLocalMunicipalityCrossCycle = (
       displayName: string;
       color: string;
       council: Map<string, number>;
+      votes: Map<string, number>;
     };
     const byId = new Map<string, Acc>();
 
@@ -63,11 +64,13 @@ export const useLocalMunicipalityCrossCycle = (
             displayName: canonName ?? p.localPartyName,
             color: colorFor(id) ?? UNRESOLVED_PARTY_COLOR,
             council: new Map(),
+            votes: new Map(),
           };
           byId.set(id, a);
         }
         // Sum in case two local rows fold into the same canonical bucket.
         a.council.set(r.cycle, (a.council.get(r.cycle) ?? 0) + p.pctOfValid);
+        a.votes.set(r.cycle, (a.votes.get(r.cycle) ?? 0) + p.totalVotes);
       }
     }
 
@@ -90,6 +93,7 @@ export const useLocalMunicipalityCrossCycle = (
             ? (a.council.get(c.cycle) ?? null)
             : null,
           mayors: null,
+          votes: a.votes.get(c.cycle) ?? null,
         })),
       }),
     );

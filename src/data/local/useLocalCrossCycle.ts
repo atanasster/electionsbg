@@ -80,13 +80,20 @@ export const useLocalCrossCycle = (
       displayName: string;
       color: string;
       council: Map<string, number>;
+      votes: Map<string, number>;
       mayors: Map<string, number>;
     };
     const byId = new Map<string, Acc>();
     const ensure = (id: string, displayName: string, color: string): Acc => {
       let a = byId.get(id);
       if (!a) {
-        a = { displayName, color, council: new Map(), mayors: new Map() };
+        a = {
+          displayName,
+          color,
+          council: new Map(),
+          votes: new Map(),
+          mayors: new Map(),
+        };
         byId.set(id, a);
       }
       return a;
@@ -116,6 +123,7 @@ export const useLocalCrossCycle = (
           );
           // Sum in case two local-only rows alias to the same canonical id.
           a.council.set(cycle, (a.council.get(cycle) ?? 0) + r.pctOfValid);
+          a.votes.set(cycle, (a.votes.get(cycle) ?? 0) + r.totalVotes);
           if (!isAlias && !a.displayName) a.displayName = r.displayName;
           if (!isAlias && !a.color) a.color = r.color;
         }
@@ -157,6 +165,7 @@ export const useLocalCrossCycle = (
           mayors: a.mayors.has(c.cycle)
             ? (a.mayors.get(c.cycle) ?? null)
             : null,
+          votes: a.votes.get(c.cycle) ?? null,
         })),
       }),
     );

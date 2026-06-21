@@ -9,6 +9,8 @@ export type CrossCyclePoint = {
   year: string;
   councilPct: number | null;
   mayors: number | null;
+  /** Raw council votes this cycle — drives the bubble area (∝ votes). */
+  votes?: number | null;
 };
 
 export type CrossCycleParty = {

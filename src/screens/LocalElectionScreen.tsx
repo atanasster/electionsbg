@@ -1151,6 +1151,27 @@ const MunicipalityResults: FC<{
           events for this município. */}
       <ChmiHistorySection events={chmiEvents} />
 
+      {/* Sofia район: how the район itself voted over the cycles (its own
+          council share + how it voted in the city-mayor race), aggregated from
+          its sections — the one trend the city-wide bundle can't surface. Sits
+          high, right under the mayor tier. Self-hides for ordinary municípios. */}
+      {placeTrendsFile ? (
+        <DashboardSection
+          id="local-trends"
+          title={t("local_sec_trends")}
+          icon={TrendingUp}
+        >
+          <LocalPlaceTrendsTile
+            trend={placeTrendsFile.trend}
+            cyclesAsc={placeTrendsFile.cyclesAsc}
+            councilTitle={t("local_place_council_rayon_title")}
+            councilHint={t("local_place_council_rayon_hint")}
+            mayorTitle={t("local_place_mayor_rayon_title")}
+            mayorHint={t("local_place_mayor_rayon_hint")}
+          />
+        </DashboardSection>
+      ) : null}
+
       {/* Council — one "Общински съвет" heading (the nested duplicate that
           Sofia район shards used to show is gone). Composition hemicycle, then
           the section-vote map beside the compact parties tile; the full
@@ -1193,26 +1214,6 @@ const MunicipalityResults: FC<{
           />
         ) : null}
       </Section>
-
-      {/* Sofia район: how the район itself voted (its own council share + how
-          it voted in the city-mayor race), aggregated from its sections — the
-          one trend the city-wide bundle can't surface. Self-hides elsewhere. */}
-      {placeTrendsFile ? (
-        <DashboardSection
-          id="local-trends"
-          title={t("local_sec_trends")}
-          icon={TrendingUp}
-        >
-          <LocalPlaceTrendsTile
-            trend={placeTrendsFile.trend}
-            cyclesAsc={placeTrendsFile.cyclesAsc}
-            councilTitle={t("local_place_council_rayon_title")}
-            councilHint={t("local_place_council_rayon_hint")}
-            mayorTitle={t("local_place_mayor_rayon_title")}
-            mayorHint={t("local_place_mayor_rayon_hint")}
-          />
-        </DashboardSection>
-      ) : null}
 
       {/* Per-polling-station council results + turnout — self-hides for cycles
           / municípios without an ingested section shard (e.g. Sofia район
@@ -1610,27 +1611,10 @@ const RayonLocalResults: FC<{ cycle: string; rayon: CityRayon }> = ({
         </p>
       )}
 
-      {/* Council is elected city-wide — районите don't have one of their own,
-          so link to the parent Община's council instead of duplicating it. */}
-      <Section title={t("local_election_sec_council")}>
-        <p className="text-sm text-muted-foreground">
-          {lang === "bg"
-            ? "Общинският съвет е общоградски — районите нямат собствен съвет. "
-            : "The municipal council is elected city-wide — districts have none of their own. "}
-          <Link
-            to={`/local/${cycle}/${rayon.obshtina}/council`}
-            className="text-primary hover:underline"
-          >
-            {lang === "bg"
-              ? `Виж съвета на Община ${cityName} →`
-              : `See the ${cityName} municipality council →`}
-          </Link>
-        </p>
-      </Section>
-
       {/* Cross-cycle район trends: how this район voted for the council + both
           mayoral ballots (city mayor in the район, and its own районен кмет),
-          aggregated from the район's sections. Self-hides under two cycles. */}
+          aggregated from the район's sections. Sits high, right under the mayor
+          tier. Self-hides under two cycles. */}
       {rayonTrendsFile ? (
         <DashboardSection
           id="local-trends"
@@ -1649,6 +1633,24 @@ const RayonLocalResults: FC<{ cycle: string; rayon: CityRayon }> = ({
           />
         </DashboardSection>
       ) : null}
+
+      {/* Council is elected city-wide — районите don't have one of their own,
+          so link to the parent Община's council instead of duplicating it. */}
+      <Section title={t("local_election_sec_council")}>
+        <p className="text-sm text-muted-foreground">
+          {lang === "bg"
+            ? "Общинският съвет е общоградски — районите нямат собствен съвет. "
+            : "The municipal council is elected city-wide — districts have none of their own. "}
+          <Link
+            to={`/local/${cycle}/${rayon.obshtina}/council`}
+            className="text-primary hover:underline"
+          >
+            {lang === "bg"
+              ? `Виж съвета на Община ${cityName} →`
+              : `See the ${cityName} municipality council →`}
+          </Link>
+        </p>
+      </Section>
 
       {/* Risk votes — council-ballot distribution inside the curated Roma-
           neighborhood "problem sections" that sit in this район (e.g. Максуда

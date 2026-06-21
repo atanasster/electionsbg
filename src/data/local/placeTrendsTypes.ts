@@ -24,6 +24,8 @@ export type PlaceCouncilSeries = {
   localPartyName: string;
   /** cycle id → % of the place's valid council vote. Missing cycle = no data. */
   pctByCycle: Record<string, number>;
+  /** cycle id → raw council votes for this bucket (drives the bubble area). */
+  votesByCycle: Record<string, number>;
 };
 
 /** The winning mayoral candidate at a place for one cycle (majoritarian race). */

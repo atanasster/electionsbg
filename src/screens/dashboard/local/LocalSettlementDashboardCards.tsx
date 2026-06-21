@@ -247,10 +247,8 @@ export const LocalSettlementDashboardCards: FC<{
         )}
       </DashboardSection>
 
-      <DashboardSection id="local-overview" title={t("local_sec_councils")}>
-        <ParentMunicipalityCard bundle={municipality} cycle={cycle} />
-      </DashboardSection>
-
+      {/* How this settlement itself voted over the cycles — sits high, right
+          under the village-mayor tier, above the parent-município context. */}
       {trendsFile ? (
         <DashboardSection
           id="local-trends"
@@ -267,6 +265,10 @@ export const LocalSettlementDashboardCards: FC<{
           />
         </DashboardSection>
       ) : null}
+
+      <DashboardSection id="local-overview" title={t("local_sec_councils")}>
+        <ParentMunicipalityCard bundle={municipality} cycle={cycle} />
+      </DashboardSection>
 
       {kmetstvoEvents.length > 0 ? (
         <DashboardSection
