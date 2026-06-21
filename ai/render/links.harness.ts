@@ -456,6 +456,53 @@ expect(
   [`/local/${CYCLE}/SOF`],
 );
 
+// ---- procurement (fiscal domain MUST land on /procurement/*, NOT /budget) ---
+expect(
+  "procurementRedFlags -> /procurement/flags",
+  mk({ tool: "procurementRedFlags", domain: "fiscal" }),
+  ["/procurement/flags"],
+);
+expect(
+  "procurementSingleBidSectors -> /procurement/flags",
+  mk({ tool: "procurementSingleBidSectors", domain: "fiscal" }),
+  ["/procurement/flags"],
+);
+expect(
+  "procurementDebarred -> /procurement/flags",
+  mk({ tool: "procurementDebarred", domain: "fiscal" }),
+  ["/procurement/flags"],
+);
+expect(
+  "topContractors -> /procurement/contractors",
+  mk({ tool: "topContractors", domain: "fiscal" }),
+  ["/procurement/contractors"],
+);
+expect(
+  "mpProcurement -> /procurement/mps",
+  mk({ tool: "mpProcurement", domain: "fiscal", kind: "scalar" }),
+  ["/procurement/mps"],
+);
+expect(
+  "procurementTotals -> /procurement",
+  mk({ tool: "procurementTotals", domain: "fiscal", kind: "scalar" }),
+  ["/procurement"],
+);
+// place-domain procurement: deep link to the place page + the map category link
+expect(
+  "procurementBySettlement -> settlement page + map",
+  mk({
+    tool: "procurementBySettlement",
+    domain: "place",
+    geo: settlementLocator("32754", "VID09", "Иново"),
+  }),
+  ["/procurement/settlement/32754", "/procurement/by-settlement"],
+);
+expect(
+  "procurementByOblast -> /procurement/by-settlement",
+  mk({ tool: "procurementByOblast", domain: "place" }),
+  ["/procurement/by-settlement"],
+);
+
 console.log(
   `\n${failures === 0 ? "ALL PASS" : `${failures} FAILURE(S)`} — siteLinks deep-link coverage`,
 );

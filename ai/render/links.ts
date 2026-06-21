@@ -112,6 +112,28 @@ const SECTION: Record<string, SiteLink> = {
     label: { bg: "Обществени поръчки", en: "Public procurement" },
     href: url("/procurement"),
   },
+  procurementFlags: {
+    label: {
+      bg: "Сигнали за риск в поръчките",
+      en: "Procurement red flags",
+    },
+    href: url("/procurement/flags"),
+  },
+  procurementContractors: {
+    label: { bg: "Топ изпълнители", en: "Top contractors" },
+    href: url("/procurement/contractors"),
+  },
+  procurementMps: {
+    label: {
+      bg: "Топ депутати по свързани поръчки",
+      en: "Top MPs by connected procurement",
+    },
+    href: url("/procurement/mps"),
+  },
+  procurementMap: {
+    label: { bg: "Поръчки по място", en: "Procurement by place" },
+    href: url("/procurement/by-settlement"),
+  },
   funds: {
     label: { bg: "Европейски средства", en: "EU funds" },
     href: url("/funds"),
@@ -201,6 +223,12 @@ const TOOL_SECTION: Record<string, SiteLink | undefined> = {
   ministryBudget: SECTION.budget,
   investmentProjects: SECTION.budget,
   procurementTotals: SECTION.procurement,
+  procurementRedFlags: SECTION.procurementFlags,
+  procurementSingleBidSectors: SECTION.procurementFlags,
+  procurementDebarred: SECTION.procurementFlags,
+  topContractors: SECTION.procurementContractors,
+  mpProcurement: SECTION.procurementMps,
+  procurementByOblast: SECTION.procurementMap,
   fundsOverview: SECTION.funds,
   govDebt: SECTION.fiscal,
   noiFunds: SECTION.fiscal,
@@ -217,7 +245,7 @@ const TOOL_SECTION: Record<string, SiteLink | undefined> = {
   governanceProfile: SECTION.governance,
   comparePlaces: SECTION.governance,
   census: SECTION.governance,
-  procurementBySettlement: SECTION.governance,
+  procurementBySettlement: SECTION.procurementMap,
   airQuality: SECTION.governance,
   graoPopulation: SECTION.governance,
 };
@@ -432,6 +460,21 @@ export const siteLinks = (env: Envelope): SiteLink[] => {
         },
         href: url(`/budget/simulator${qs ? `?${qs}` : ""}`),
       });
+      break;
+    }
+    // Single-settlement procurement -> that place's own procurement page
+    // (/procurement/settlement/:ekatte), read from the locator overlay the tool
+    // attaches (focus = ekatte). The procurement-map page is the category link.
+    case "procurementBySettlement": {
+      const ekatte = env.geo?.focus?.[0] ?? env.geo?.areas?.[0]?.code;
+      if (ekatte)
+        out.push({
+          label: {
+            bg: "Поръчки в населеното място",
+            en: "Procurement in this place",
+          },
+          href: url(`/procurement/settlement/${encodeURIComponent(ekatte)}`),
+        });
       break;
     }
     // Single-município council resolutions -> that município's governance page
