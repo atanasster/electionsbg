@@ -1,4 +1,4 @@
-# Watch report — 2026-06-21 (21.06.2026 г., 10:18 Europe/Sofia)
+# Watch report — 2026-06-21 (21.06.2026 г., 14:29 Europe/Sofia)
 
 ## Changed
 _(no changes — all upstreams stable)_
@@ -75,4 +75,4 @@ _(none)_
 - **ИАОС air quality (data.egov.bg)**: HTTP 403 Forbidden
 
 ---
-_Watcher run at 2026-06-21T07:18:15.138Z UTC._
+_Watcher run at 2026-06-21T11:29:13.215Z UTC._
