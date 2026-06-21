@@ -33,11 +33,47 @@ export interface RiskFeedFile {
   generatedAt: string;
   topConcentration: RiskFeedConcentration[];
   topMpTied: RiskFeedMpTied[];
+  /** Full count of flagged single-supplier pairs (page shows only the top N) —
+   *  so the UI can say "top 20 of 2,378" instead of implying these are all. */
+  concentrationTotal: number;
+  /** Of concentrationTotal, how many are at 100% share (one supplier took the
+   *  buyer's entire lifetime spend). Headline severity number. */
+  concentration100Total: number;
+  /** Full count of MP↔contractor pairs behind the top-N list. */
+  mpTiedTotal: number;
+  /** Distinct political-class people (MPs + non-MP officials) with at least one
+   *  procurement-connected company — the universe the /procurement/people
+   *  scanner lets the reader search. */
+  connectedPeopleTotal: number;
+  /** Concentration flags per buyer oblast (NUTS3), sorted desc — drives the
+   *  flags-by-region tile-map. Keyed on the buyer's resolved seat. */
+  concentrationByOblast: Array<{ nuts: string; count: number }>;
+  /** Concentration flags whose buyer has no single resolved oblast (central
+   *  ministries/agencies, or unresolved geo) — shown as a separate bucket so
+   *  the map doesn't silently drop ~half the universe. */
+  concentrationNationalCount: number;
 }
+
+// Buyer EIK → NUTS3 of its seat, from the standalone buyer_oblast_map.json
+// (built by scripts/procurement/build_tender_oblast_map.ts). Absent or
+// nuts-less buyers (central tier, unresolved) resolve to null upstream.
+const loadOblastByEik = (derivedDir: string): Map<string, string> => {
+  const p = path.join(derivedDir, "buyer_oblast_map.json");
+  const out = new Map<string, string>();
+  if (!fs.existsSync(p)) return out;
+  const m = JSON.parse(fs.readFileSync(p, "utf8")) as {
+    awarders?: Record<string, { nuts?: string }>;
+  };
+  for (const [eik, v] of Object.entries(m.awarders ?? {})) {
+    if (v?.nuts) out.set(eik, v.nuts);
+  }
+  return out;
+};
 
 export const buildRiskFeed = (derivedDir: string): RiskFeedFile => {
   const concPath = path.join(derivedDir, "awarder_concentration.json");
   const mpPath = path.join(derivedDir, "mp_connected.json");
+  const pepPath = path.join(derivedDir, "pep_connected.json");
 
   const conc: AwarderConcentrationFile = fs.existsSync(concPath)
     ? JSON.parse(fs.readFileSync(concPath, "utf8"))
@@ -45,6 +81,9 @@ export const buildRiskFeed = (derivedDir: string): RiskFeedFile => {
   const mp: MpConnectedFile = fs.existsSync(mpPath)
     ? JSON.parse(fs.readFileSync(mpPath, "utf8"))
     : { entries: [] as MpConnectedFile["entries"] };
+  const pep: PepConnectedFile | null = fs.existsSync(pepPath)
+    ? JSON.parse(fs.readFileSync(pepPath, "utf8"))
+    : null;
 
   const topConcentration: RiskFeedConcentration[] = [...conc.entries]
     .sort((a, b) => b.sharePct - a.sharePct)
@@ -70,10 +109,37 @@ export const buildRiskFeed = (derivedDir: string): RiskFeedFile => {
       totalEur: e.totalEur,
     }));
 
+  // Distinct people behind the connected-contractor universe: MP ids from
+  // mp_connected + official slugs from pep_connected (HIGH-confidence only).
+  const peopleKeys = new Set<string>();
+  for (const e of mp.entries) peopleKeys.add(`mp:${e.mpId}`);
+  for (const e of pep?.entries ?? []) peopleKeys.add(`of:${e.slug}`);
+
+  // Per-oblast concentration tally for the flags-by-region tile-map.
+  const oblastByEik = loadOblastByEik(derivedDir);
+  const byOblast = new Map<string, number>();
+  let nationalCount = 0;
+  let at100 = 0;
+  for (const e of conc.entries) {
+    if (e.sharePct >= 0.9999) at100 += 1;
+    const nuts = oblastByEik.get(e.awarderEik);
+    if (nuts) byOblast.set(nuts, (byOblast.get(nuts) ?? 0) + 1);
+    else nationalCount += 1;
+  }
+  const concentrationByOblast = [...byOblast.entries()]
+    .map(([nuts, count]) => ({ nuts, count }))
+    .sort((a, b) => b.count - a.count);
+
   return {
     generatedAt: new Date().toISOString(),
     topConcentration,
     topMpTied,
+    concentrationTotal: conc.total ?? conc.entries.length,
+    concentration100Total: at100,
+    mpTiedTotal: mp.total ?? mp.entries.length,
+    connectedPeopleTotal: peopleKeys.size,
+    concentrationByOblast,
+    concentrationNationalCount: nationalCount,
   };
 };
 
@@ -81,6 +147,78 @@ export const writeRiskFeed = (derivedDir: string, data: RiskFeedFile): void => {
   fs.mkdirSync(derivedDir, { recursive: true });
   fs.writeFileSync(
     path.join(derivedDir, "risk_feed.json"),
+    canonicalJson(data),
+  );
+};
+
+// Full single-supplier concentration list for the /procurement/concentration
+// explorer — every flagged pair (not just the top-N feed), each tagged with the
+// buyer's oblast (NUTS3) so the page can filter by region. Slimmed from
+// awarder_concentration.json (drops nothing the table needs).
+export interface ConcentrationFullRow {
+  awarderEik: string;
+  awarderName: string;
+  contractorEik: string;
+  contractorName: string;
+  sharePct: number;
+  pairTotalEur: number;
+  awarderTotalEur: number;
+  contractCount: number;
+  /** Buyer seat NUTS3, or null for central/unresolved buyers. */
+  oblast: string | null;
+}
+
+export interface ConcentrationFullFile {
+  generatedAt: string;
+  thresholdPct: number;
+  minAwarderTotalEur: number;
+  total: number;
+  rows: ConcentrationFullRow[];
+}
+
+export const buildConcentrationFull = (
+  derivedDir: string,
+): ConcentrationFullFile => {
+  const concPath = path.join(derivedDir, "awarder_concentration.json");
+  const conc: AwarderConcentrationFile = fs.existsSync(concPath)
+    ? JSON.parse(fs.readFileSync(concPath, "utf8"))
+    : {
+        generatedAt: new Date().toISOString(),
+        thresholdPct: 0,
+        minAwarderTotalEur: 0,
+        total: 0,
+        entries: [] as AwarderConcentrationFile["entries"],
+      };
+  const oblastByEik = loadOblastByEik(derivedDir);
+  const rows: ConcentrationFullRow[] = [...conc.entries]
+    .sort((a, b) => b.sharePct - a.sharePct || b.pairTotalEur - a.pairTotalEur)
+    .map((e) => ({
+      awarderEik: e.awarderEik,
+      awarderName: e.awarderName,
+      contractorEik: e.contractorEik,
+      contractorName: e.contractorName,
+      sharePct: e.sharePct,
+      pairTotalEur: e.pairTotalEur,
+      awarderTotalEur: e.awarderTotalEur,
+      contractCount: e.contractCount,
+      oblast: oblastByEik.get(e.awarderEik) ?? null,
+    }));
+  return {
+    generatedAt: new Date().toISOString(),
+    thresholdPct: conc.thresholdPct,
+    minAwarderTotalEur: conc.minAwarderTotalEur,
+    total: rows.length,
+    rows,
+  };
+};
+
+export const writeConcentrationFull = (
+  derivedDir: string,
+  data: ConcentrationFullFile,
+): void => {
+  fs.mkdirSync(derivedDir, { recursive: true });
+  fs.writeFileSync(
+    path.join(derivedDir, "concentration_full.json"),
     canonicalJson(data),
   );
 };

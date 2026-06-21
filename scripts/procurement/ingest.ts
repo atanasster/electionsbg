@@ -45,6 +45,8 @@ import {
   writeRiskFeed,
   buildPersonIndex,
   writePersonIndex,
+  buildConcentrationFull,
+  writeConcentrationFull,
 } from "./risk_feed";
 import { writeByIdContracts } from "./by_id";
 import { writeContractorContracts } from "./contractor_contracts";
@@ -507,10 +509,13 @@ const main = async (args: {
   // the underlying derived files are absent.
   const riskFeed = buildRiskFeed(DERIVED_DIR);
   writeRiskFeed(DERIVED_DIR, riskFeed);
+  const concFull = buildConcentrationFull(DERIVED_DIR);
+  writeConcentrationFull(DERIVED_DIR, concFull);
   const personIndex = buildPersonIndex(DERIVED_DIR);
   writePersonIndex(DERIVED_DIR, personIndex);
   console.log(
     `  risk_feed.json: ${riskFeed.topConcentration.length} conc + ${riskFeed.topMpTied.length} mp-tied; ` +
+      `concentration_full.json: ${concFull.total} pair(s); ` +
       `person_procurement_index.json: ${personIndex.total} person(s)`,
   );
 

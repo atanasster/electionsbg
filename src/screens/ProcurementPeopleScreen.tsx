@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Search, ArrowRight, Landmark } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { ProcurementNav } from "@/screens/components/procurement/ProcurementNav";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { MpAvatarView } from "./components/candidates/MpAvatar";
 import {
@@ -58,6 +59,7 @@ export const ProcurementPeopleScreen: FC = () => {
       >
         {t("procurement_people_title") || "Public money scanner"}
       </Title>
+      <ProcurementNav />
       <section aria-label="procurement people" className="my-4 space-y-4">
         <Card>
           <CardContent className="p-3 md:p-4">

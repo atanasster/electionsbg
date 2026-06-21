@@ -312,6 +312,11 @@ const ProcurementWatchlistScreen = lazy(() =>
     default: m.ProcurementWatchlistScreen,
   })),
 );
+const ProcurementConcentrationScreen = lazy(() =>
+  import("./screens/procurement/ProcurementConcentrationScreen").then((m) => ({
+    default: m.ProcurementConcentrationScreen,
+  })),
+);
 const CandidateFundsScreen = lazy(() =>
   import("./screens/CandidateFundsScreen").then((m) => ({
     default: m.CandidateFundsScreen,
@@ -1834,6 +1839,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <ProcurementFlagsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="procurement/concentration"
+            element={
+              <LayoutScreen>
+                <ProcurementConcentrationScreen />
               </LayoutScreen>
             }
           />

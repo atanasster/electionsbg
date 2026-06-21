@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { ProcurementNav } from "@/screens/components/procurement/ProcurementNav";
 import { ProcurementFlowTile } from "./components/procurement/ProcurementFlowTile";
 
 export const ProcurementFlowsScreen: FC = () => {
@@ -23,6 +24,7 @@ export const ProcurementFlowsScreen: FC = () => {
       >
         {t("procurement_flows_title") || "Procurement money flow"}
       </Title>
+      <ProcurementNav />
       <section aria-label="procurement flows" className="my-4">
         <Link
           to="/procurement"

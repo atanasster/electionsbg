@@ -9,12 +9,20 @@ import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
-import { Ban, AlertTriangle, Link as LinkIcon } from "lucide-react";
+import {
+  Ban,
+  AlertTriangle,
+  Link as LinkIcon,
+  Search,
+  ArrowRight,
+} from "lucide-react";
 import { Title } from "@/ux/Title";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useDebarred } from "@/data/procurement/useDebarred";
 import { dataUrl } from "@/data/dataUrl";
 import { formatEur } from "@/lib/currency";
+import { ProcurementNav } from "@/screens/components/procurement/ProcurementNav";
+import { ConcentrationOblastTiles } from "@/screens/components/procurement/ConcentrationOblastTiles";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
 const pctFmt = (frac: number, lang: string) =>
@@ -39,6 +47,42 @@ type RiskFeedFile = {
     contractorName: string;
     totalEur: number;
   }>;
+  concentrationTotal?: number;
+  concentration100Total?: number;
+  mpTiedTotal?: number;
+  connectedPeopleTotal?: number;
+  concentrationByOblast?: Array<{ nuts: string; count: number }>;
+  concentrationNationalCount?: number;
+};
+
+// Summary metric tile — gives the reader the scale of each signal before the
+// ranked excerpts below.
+const StatTile: FC<{ label: string; value: string; sub?: string }> = ({
+  label,
+  value,
+  sub,
+}) => (
+  <div className="rounded-md bg-muted/50 p-3">
+    <div className="text-xs text-muted-foreground">{label}</div>
+    <div className="mt-0.5 text-2xl font-semibold tabular-nums">{value}</div>
+    {sub ? (
+      <div className="text-xs text-muted-foreground tabular-nums">{sub}</div>
+    ) : null}
+  </div>
+);
+
+// "top N of TOTAL" — set the reader's expectation that the list is a ranked
+// excerpt, not the whole flagged universe.
+const ShownOf: FC<{ shown: number; total?: number }> = ({ shown, total }) => {
+  const { t } = useTranslation();
+  if (!total || total <= shown) return null;
+  return (
+    <span className="text-xs text-muted-foreground font-normal tabular-nums">
+      {(t("flags_shown_of") || "top {{shown}} of {{total}}")
+        .replace("{{shown}}", numFmt.format(shown))
+        .replace("{{total}}", numFmt.format(total))}
+    </span>
+  );
 };
 
 // One slim file (~28 KB) instead of awarder_concentration.json (≈1 MB) +
@@ -81,17 +125,61 @@ export const ProcurementFlagsScreen: FC = () => {
       >
         {t("flags_title") || "Procurement red flags"}
       </Title>
+      <ProcurementNav />
       <section aria-label="procurement flags" className="my-4 space-y-4">
         <p className="text-xs text-muted-foreground">
           {t("flags_intro") ||
             "Signals worth a second look — each is a public-record fact, not an accusation."}
         </p>
 
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <StatTile
+            label={t("flags_concentration") || "Single-supplier concentration"}
+            value={numFmt.format(feed?.concentrationTotal ?? 0)}
+            sub={
+              feed?.concentration100Total
+                ? `${numFmt.format(feed.concentration100Total)} ${
+                    t("flags_at_full_share") || "at 100%"
+                  }`
+                : undefined
+            }
+          />
+          <StatTile
+            label={t("flags_mp_tied") || "Largest MP-tied contractors"}
+            value={numFmt.format(feed?.mpTiedTotal ?? 0)}
+          />
+          <StatTile
+            label={t("flags_connected_people") || "Connected people"}
+            value={numFmt.format(feed?.connectedPeopleTotal ?? 0)}
+            sub={t("flags_connected_people_sub") || "MPs + officials"}
+          />
+          <StatTile
+            label={t("flags_debarred") || "Debarred suppliers (active ban)"}
+            value={numFmt.format(activeDebarred.length)}
+          />
+        </div>
+
+        {feed?.concentrationByOblast &&
+        feed.concentrationByOblast.length > 0 ? (
+          <Card>
+            <CardContent className="p-3 md:p-4">
+              <ConcentrationOblastTiles
+                byOblast={feed.concentrationByOblast}
+                nationalCount={feed.concentrationNationalCount ?? 0}
+              />
+            </CardContent>
+          </Card>
+        ) : null}
+
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base flex items-center gap-2">
+            <CardTitle className="text-base flex items-center gap-2 flex-wrap">
               <AlertTriangle className="h-4 w-4 text-orange-600" />
               {t("flags_concentration") || "Single-supplier concentration"}
+              <ShownOf
+                shown={topConcentration.length}
+                total={feed?.concentrationTotal}
+              />
             </CardTitle>
           </CardHeader>
           <CardContent className="p-3 md:p-4">
@@ -125,14 +213,29 @@ export const ProcurementFlagsScreen: FC = () => {
                 </li>
               ))}
             </ul>
+            <Link
+              to="/procurement/concentration"
+              className="mt-3 flex items-center justify-center gap-1.5 rounded-md border border-border bg-accent/30 px-3 py-2 text-xs font-medium text-foreground hover:bg-accent/60 transition-colors"
+            >
+              <Search className="h-3.5 w-3.5" />
+              {(
+                t("flags_concentration_see_all") ||
+                "See all {{count}} flagged pairs"
+              ).replace(
+                "{{count}}",
+                numFmt.format(feed?.concentrationTotal ?? 0),
+              )}
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base flex items-center gap-2">
+            <CardTitle className="text-base flex items-center gap-2 flex-wrap">
               <LinkIcon className="h-4 w-4 text-amber-600" />
               {t("flags_mp_tied") || "Largest MP-tied contractors"}
+              <ShownOf shown={topMp.length} total={feed?.mpTiedTotal} />
             </CardTitle>
           </CardHeader>
           <CardContent className="p-3 md:p-4">
@@ -160,6 +263,20 @@ export const ProcurementFlagsScreen: FC = () => {
                 </li>
               ))}
             </ul>
+            <Link
+              to="/procurement/people"
+              className="mt-3 flex items-center justify-center gap-1.5 rounded-md border border-border bg-accent/30 px-3 py-2 text-xs font-medium text-foreground hover:bg-accent/60 transition-colors"
+            >
+              <Search className="h-3.5 w-3.5" />
+              {(
+                t("flags_mp_tied_search_all") ||
+                "Search all {{count}} connected politicians & officials"
+              ).replace(
+                "{{count}}",
+                numFmt.format(feed?.connectedPeopleTotal ?? 0),
+              )}
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
           </CardContent>
         </Card>
 

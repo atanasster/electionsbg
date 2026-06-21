@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Star, X, Building2, Receipt, User, MapPin } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { ProcurementNav } from "@/screens/components/procurement/ProcurementNav";
 import { Card, CardContent } from "@/ux/Card";
 import {
   useWatchlist,
@@ -50,6 +51,7 @@ export const ProcurementWatchlistScreen: FC = () => {
       >
         {t("watchlist_title") || "My watchlist"}
       </Title>
+      <ProcurementNav />
       <section aria-label="watchlist" className="my-4">
         {sorted.length === 0 ? (
           <Card>
