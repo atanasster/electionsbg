@@ -609,6 +609,291 @@ export const procurementRedFlags = async (
   };
 };
 
+// ---- structurally single-bid CPV sectors ------------------------------------
+// Makes the single-bidder suppression methodology queryable: which 2-digit CPV
+// divisions sit at/above the structural single-bid threshold, so a lone bid is
+// the market norm there and the "single bidder" red flag is suppressed (not an
+// anomaly). Reads the per-CPV competition baseline derived in the ingest
+// (scripts/procurement/cpv_competition.ts).
+
+type CpvDivisionRow = {
+  division: string;
+  contractCount: number;
+  withBidData: number;
+  singleBid: number;
+  singleBidShare: number;
+};
+type CpvCompetitionFile = {
+  generatedAt: string;
+  structuralSingleBidShare: number;
+  divisions: CpvDivisionRow[];
+};
+
+// CPV 2008 two-digit division titles (abbreviated for table readability). Covers
+// every division the baseline file currently carries; unknown codes fall back to
+// a "CPV <code>" label so a future division never renders blank.
+const CPV_DIVISION_LABELS: Record<string, { bg: string; en: string }> = {
+  "03": {
+    bg: "Селско и горско стопанство, риболов",
+    en: "Agriculture, forestry, fishing",
+  },
+  "09": {
+    bg: "Горива, енергия, нефтопродукти",
+    en: "Fuel, energy, petroleum products",
+  },
+  "14": {
+    bg: "Добив, метали и свързани продукти",
+    en: "Mining, metals & related products",
+  },
+  "15": { bg: "Храни, напитки, тютюн", en: "Food, beverages & tobacco" },
+  "16": { bg: "Селскостопански машини", en: "Agricultural machinery" },
+  "18": {
+    bg: "Облекло, обувки, аксесоари",
+    en: "Clothing, footwear & accessories",
+  },
+  "19": {
+    bg: "Кожи, текстил, пластмаси, каучук",
+    en: "Leather, textiles, plastics & rubber",
+  },
+  "22": { bg: "Печатни материали", en: "Printed matter & related products" },
+  "24": { bg: "Химически продукти", en: "Chemical products" },
+  "30": { bg: "Офис и компютърна техника", en: "Office & computing machinery" },
+  "31": {
+    bg: "Електрически машини и осветление",
+    en: "Electrical machinery & lighting",
+  },
+  "32": {
+    bg: "Радио-, ТВ и далекосъобщителна техника",
+    en: "Radio, TV & telecom equipment",
+  },
+  "33": {
+    bg: "Медицинско оборудване и лекарства",
+    en: "Medical equipment & pharmaceuticals",
+  },
+  "34": { bg: "Транспортно оборудване", en: "Transport equipment" },
+  "35": {
+    bg: "Оборудване за сигурност, пожарна и отбрана",
+    en: "Security, fire & defence equipment",
+  },
+  "37": {
+    bg: "Музикални инструменти, спортни стоки, играчки",
+    en: "Musical instruments, sports goods & toys",
+  },
+  "38": {
+    bg: "Лабораторна, оптична и измервателна техника",
+    en: "Laboratory, optical & precision equipment",
+  },
+  "39": {
+    bg: "Мебели, обзавеждане, домакински уреди",
+    en: "Furniture, furnishings & appliances",
+  },
+  "41": { bg: "Събрана и пречистена вода", en: "Collected & purified water" },
+  "42": { bg: "Промишлени машини", en: "Industrial machinery" },
+  "43": {
+    bg: "Минна и строителна техника",
+    en: "Mining & construction machinery",
+  },
+  "44": {
+    bg: "Строителни конструкции и материали",
+    en: "Construction structures & materials",
+  },
+  "45": { bg: "Строителни работи", en: "Construction work" },
+  "48": {
+    bg: "Софтуер и информационни системи",
+    en: "Software & information systems",
+  },
+  "50": {
+    bg: "Услуги по ремонт и поддръжка",
+    en: "Repair & maintenance services",
+  },
+  "51": { bg: "Услуги по монтаж", en: "Installation services" },
+  "55": {
+    bg: "Хотелиерство, ресторантьорство, търговия",
+    en: "Hotel, restaurant & retail services",
+  },
+  "60": { bg: "Транспортни услуги", en: "Transport services" },
+  "63": {
+    bg: "Спомагателни транспортни и туристически услуги",
+    en: "Supporting transport & travel services",
+  },
+  "64": {
+    bg: "Пощенски и далекосъобщителни услуги",
+    en: "Postal & telecommunications services",
+  },
+  "65": {
+    bg: "Комунални услуги (ток, газ, вода, парно)",
+    en: "Public utilities (electricity, gas, water, heating)",
+  },
+  "66": {
+    bg: "Финансови и застрахователни услуги",
+    en: "Financial & insurance services",
+  },
+  "70": { bg: "Услуги с недвижими имоти", en: "Real estate services" },
+  "71": {
+    bg: "Архитектурни, инженерни и инспекционни услуги",
+    en: "Architectural, engineering & inspection services",
+  },
+  "72": {
+    bg: "ИТ услуги: консултации, разработка на софтуер",
+    en: "IT services: consulting & software development",
+  },
+  "73": {
+    bg: "Научноизследователски и развойни услуги",
+    en: "Research & development services",
+  },
+  "75": {
+    bg: "Държавно управление, отбрана, соц. осигуряване",
+    en: "Public administration, defence & social security",
+  },
+  "76": {
+    bg: "Услуги за нефтената и газовата промишленост",
+    en: "Services for the oil & gas industry",
+  },
+  "77": {
+    bg: "Селскостопански, горски и градинарски услуги",
+    en: "Agricultural, forestry & horticultural services",
+  },
+  "79": {
+    bg: "Бизнес услуги: право, маркетинг, консултации",
+    en: "Business services: law, marketing & consulting",
+  },
+  "80": {
+    bg: "Образователни и обучителни услуги",
+    en: "Education & training services",
+  },
+  "85": {
+    bg: "Здравни и социални услуги",
+    en: "Health & social work services",
+  },
+  "90": {
+    bg: "Канализация, отпадъци, почистване, околна среда",
+    en: "Sewage, refuse, cleaning & environmental services",
+  },
+  "92": {
+    bg: "Услуги в областта на отдиха, културата и спорта",
+    en: "Recreational, cultural & sporting services",
+  },
+  "98": {
+    bg: "Други обществени, социални и лични услуги",
+    en: "Other community, social & personal services",
+  },
+};
+
+const cpvLabel = (division: string, lang: ToolContext["lang"]): string => {
+  const l = CPV_DIVISION_LABELS[division];
+  if (l) return lang === "bg" ? l.bg : l.en;
+  return lang === "bg" ? `CPV раздел ${division}` : `CPV division ${division}`;
+};
+
+export const procurementSingleBidSectors = async (
+  _args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const f = await fetchData<CpvCompetitionFile>(
+    "/procurement/derived/cpv_competition.json",
+  );
+  const threshold = f.structuralSingleBidShare;
+  const thresholdPct = Math.round(threshold * 100);
+  const suppressed = f.divisions
+    .filter((d) => d.withBidData > 0 && d.singleBidShare >= threshold)
+    .sort((a, b) => b.singleBidShare - a.singleBidShare);
+  const rows: Row[] = suppressed.map((d) => ({
+    sector: `${cpvLabel(d.division, ctx.lang)} (CPV ${d.division})`,
+    share: `${Math.round(d.singleBidShare * 100)}%`,
+    contracts: fmtInt(d.contractCount, ctx.lang),
+  }));
+  return {
+    tool: "procurementSingleBidSectors",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? "Сектори, в които един участник е нормално"
+      : "Sectors where a single bidder is the norm",
+    subtitle: bg
+      ? `Раздели по CPV с дял на едноучастниковите поръчки ≥ ${thresholdPct}% — там сигналът „един участник“ се потиска, за да няма фалшив сигнал`
+      : `CPV divisions with a single-bid share ≥ ${thresholdPct}% — the single-bidder red flag is suppressed there so it doesn't cry wolf`,
+    columns: [
+      { key: "sector", label: bg ? "Сектор (CPV)" : "Sector (CPV)" },
+      {
+        key: "share",
+        label: bg ? "Дял с един участник" : "Single-bid share",
+        numeric: true,
+      },
+      { key: "contracts", label: bg ? "Договори" : "Contracts", numeric: true },
+    ],
+    rows,
+    viz: "none",
+    facts: {
+      threshold: `${thresholdPct}%`,
+      suppressed_divisions: suppressed.length,
+      total_divisions: f.divisions.length,
+    },
+    provenance: ["procurement/derived/cpv_competition.json"],
+  };
+};
+
+// ---- debarred suppliers (черен списък) --------------------------------------
+// The list behind procurementRedFlags' active_debarred count: the companies on
+// the АОП "Стопански субекти с нарушения" register. Reads the merged snapshot
+// (data/procurement/debarred.json), which retains historical entries the live
+// page has dropped, so we filter to the still-active debarments.
+
+type DebarredFull = {
+  name: string;
+  publishedAt: string;
+  debarredUntil: string;
+  detailsUrl: string | null;
+};
+type DebarredFileFull = {
+  generatedAt: string;
+  source: string;
+  total: number;
+  entries: DebarredFull[];
+};
+
+export const procurementDebarred = async (
+  _args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const f = await fetchData<DebarredFileFull>("/procurement/debarred.json");
+  const today = new Date().toISOString().slice(0, 10);
+  const active = f.entries
+    .filter((e) => !e.debarredUntil || e.debarredUntil >= today)
+    .sort((a, b) =>
+      (b.debarredUntil || "").localeCompare(a.debarredUntil || ""),
+    );
+  const rows: Row[] = active.map((e) => ({
+    company: e.name,
+    until: e.debarredUntil || (bg ? "безсрочно" : "open-ended"),
+    since: e.publishedAt,
+  }));
+  return {
+    tool: "procurementDebarred",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? "Изпълнители в черния списък (АОП)"
+      : "Debarred suppliers (AOP)",
+    subtitle: bg
+      ? "Стопански субекти с влязла в сила забрана да участват в обществени поръчки"
+      : "Economic operators currently barred from public procurement",
+    columns: [
+      { key: "company", label: bg ? "Фирма" : "Company" },
+      { key: "until", label: bg ? "Забрана до" : "Debarred until" },
+      { key: "since", label: bg ? "В сила от" : "Since" },
+    ],
+    rows,
+    viz: "none",
+    facts: {
+      active_debarred: active.length,
+      total_incl_historical: f.total,
+    },
+    provenance: ["procurement/debarred.json"],
+  };
+};
+
 // ---- procurement to MP-connected companies (+ per-MP trend) -----------------
 // The journalism payload: contracts going to firms a sitting MP owns or manages.
 // A named MP returns a per-year value trend; otherwise the biggest MP↔contractor
@@ -622,6 +907,20 @@ type MpProcEntry = {
   totalEur: number;
   contractCount: number;
   byYear?: MpProcYear[];
+};
+
+// Non-MP officials (mayors / councillors / ministers / governors / agency
+// heads) → procurement, from pep_connected.json. Same person→firm shape as the
+// MP join; used as the fallback when a named person isn't a sitting MP so the
+// tool covers the whole political class the /procurement/people scanner does.
+type PepProcEntry = {
+  name: string;
+  role: string;
+  tier: string;
+  contractorName: string;
+  totalEur: number;
+  contractCount: number;
+  byYear?: { year: string; totalEur: number }[];
 };
 
 export const mpProcurement = async (
@@ -675,7 +974,96 @@ export const mpProcurement = async (
         provenance: ["procurement/derived/mp_connected.json"],
       };
     }
-    // named MP not found / single year -> fall through to the chamber ranking
+    // Not a sitting MP — try the broader political class (mayors, councillors,
+    // ministers, governors, agency heads) via pep_connected. Fetched only on an
+    // MP miss to keep the common path lean.
+    if (!mine.length) {
+      const pep = await fetchData<{ entries: PepProcEntry[] }>(
+        "/procurement/derived/pep_connected.json",
+      );
+      const off = pep.entries.filter((e) => e.name.toLowerCase().includes(who));
+      if (off.length) {
+        const oByYear = new Map<string, number>();
+        for (const e of off)
+          for (const y of e.byYear ?? [])
+            oByYear.set(y.year, (oByYear.get(y.year) ?? 0) + y.totalEur);
+        const oYears = [...oByYear.keys()].sort();
+        const total = off.reduce((s, e) => s + e.totalEur, 0);
+        const name = off[0].name;
+        if (oYears.length > 1) {
+          return {
+            tool: "mpProcurement",
+            domain: "fiscal",
+            kind: "series",
+            title: bg
+              ? `Поръчки към фирми, свързани с ${name}`
+              : `Procurement to firms tied to ${name}`,
+            subtitle: bg
+              ? "По година (стойност на договорите)"
+              : "By year (contract value)",
+            categories: oYears,
+            series: [
+              {
+                key: "value",
+                label: bg ? "Стойност (€)" : "Value (€)",
+                points: oYears.map((y) => ({
+                  x: y,
+                  y: Math.round(oByYear.get(y) ?? 0),
+                })),
+              },
+            ],
+            viz: "line",
+            facts: {
+              official: name,
+              role: off[0].role,
+              companies: off.length,
+              total_value: fmtEurCompact(total, ctx.lang),
+              years: oYears.length,
+            },
+            provenance: ["procurement/derived/pep_connected.json"],
+          };
+        }
+        // single-year official -> a small table of their connected firms
+        return {
+          tool: "mpProcurement",
+          domain: "fiscal",
+          kind: "table",
+          title: bg
+            ? `Поръчки към фирми, свързани с ${name}`
+            : `Procurement to firms tied to ${name}`,
+          columns: [
+            { key: "contractor", label: bg ? "Изпълнител" : "Contractor" },
+            {
+              key: "amount",
+              label: bg ? "Стойност" : "Value",
+              numeric: true,
+            },
+            {
+              key: "contracts",
+              label: bg ? "Договори" : "Contracts",
+              numeric: true,
+              format: "int",
+            },
+          ],
+          rows: off
+            .sort((a, b) => b.totalEur - a.totalEur)
+            .map((e) => ({
+              contractor: e.contractorName,
+              amount: fmtEurCompact(e.totalEur, ctx.lang),
+              contracts: e.contractCount,
+            })),
+          viz: "none",
+          facts: {
+            official: name,
+            role: off[0].role,
+            companies: off.length,
+            total_value: fmtEurCompact(total, ctx.lang),
+          },
+          provenance: ["procurement/derived/pep_connected.json"],
+        };
+      }
+    }
+    // named person not found / single year -> fall through to the chamber ranking
   }
   const top = [...d.entries]
     .sort((a, b) => b.totalEur - a.totalEur)

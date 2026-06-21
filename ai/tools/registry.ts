@@ -20,7 +20,9 @@ import {
   fundsProjects,
   mpProcurement,
   municipalTransfers,
+  procurementDebarred,
   procurementRedFlags,
+  procurementSingleBidSectors,
   procurementTotals,
   revenueBreakdown,
   topContractors,
@@ -1807,17 +1809,60 @@ export const TOOLS: ToolDef[] = [
     run: procurementRedFlags,
   },
   {
+    name: "procurementDebarred",
+    domain: "fiscal",
+    description: {
+      bg: "Изпълнители в черния списък — стопански субекти с влязла в сила забрана да участват в обществени поръчки (регистър на АОП „Стопански субекти с нарушения“).",
+      en: 'Debarred suppliers — companies currently barred from public procurement (АОП "Стопански субекти с нарушения" register).',
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Кои фирми са в черния списък на АОП?",
+        en: "Which companies are on the АОП debarment register?",
+      },
+      {
+        bg: "Покажи отстранените изпълнители от обществени поръчки",
+        en: "Show the debarred public-procurement suppliers",
+      },
+    ],
+    run: procurementDebarred,
+  },
+  {
+    name: "procurementSingleBidSectors",
+    domain: "fiscal",
+    description: {
+      bg: "Сектори (раздели по CPV), в които един участник е обичайното положение и затова сигналът „един участник“ се потиска.",
+      en: "Sectors (CPV divisions) where a single bidder is the market norm, so the single-bidder red flag is suppressed.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "В кои сектори един участник е нормално?",
+        en: "In which sectors is a single bidder normal?",
+      },
+      {
+        bg: "Кои раздели по CPV са структурно с един участник?",
+        en: "Which CPV divisions are structurally single-bid?",
+      },
+    ],
+    run: procurementSingleBidSectors,
+  },
+  {
     name: "mpProcurement",
     domain: "fiscal",
     description: {
-      bg: "Обществени поръчки към фирми, свързани със заседаващи депутати; за конкретен депутат — по години.",
-      en: "Public procurement going to companies tied to sitting MPs; for a named MP, broken down by year.",
+      bg: "Обществени поръчки към фирми, свързани с политическата класа — депутати, както и кметове, общински съветници, министри, областни управители; за конкретно лице — по години.",
+      en: "Public procurement going to companies tied to the political class — MPs plus mayors, councillors, ministers and regional governors; for a named person, broken down by year.",
     },
     params: [
       {
         name: "person",
         type: "person",
-        description: { bg: "Депутат (по избор)", en: "MP (optional)" },
+        description: {
+          bg: "Депутат или служител (по избор)",
+          en: "MP or official (optional)",
+        },
       },
     ],
     examples: [

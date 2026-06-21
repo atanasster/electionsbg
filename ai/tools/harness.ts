@@ -136,6 +136,10 @@ const run = async () => {
     ["Какви са резултатите от последните избори?", "nationalResults"],
     ["Покажи сигналите за риск в обществените поръчки", "procurementRedFlags"],
     ["procurement red flags", "procurementRedFlags"],
+    ["Кои фирми са в черния списък на АОП?", "procurementDebarred"],
+    ["debarred suppliers", "procurementDebarred"],
+    ["В кои сектори един участник е нормално?", "procurementSingleBidSectors"],
+    ["structurally single-bid CPV sectors", "procurementSingleBidSectors"],
     ["времето е хубаво днес", null],
   ];
   for (const [q, expected] of cases) {
@@ -170,6 +174,27 @@ const run = async () => {
   const proc = (await runTool("procurementTotals", {}, ctxEn)) as Envelope;
   printEnvelope(proc);
   assert(!!proc.facts.contracts, "procurementTotals has contract count");
+
+  const sbs = (await runTool(
+    "procurementSingleBidSectors",
+    {},
+    ctxEn,
+  )) as Envelope;
+  printEnvelope(sbs);
+  assert(
+    (sbs.rows?.length ?? 0) > 0 &&
+      Number(sbs.facts.suppressed_divisions) > 0 &&
+      Number(sbs.facts.total_divisions) >=
+        Number(sbs.facts.suppressed_divisions),
+    "procurementSingleBidSectors returns suppressed CPV divisions",
+  );
+
+  const deb = (await runTool("procurementDebarred", {}, ctxEn)) as Envelope;
+  printEnvelope(deb);
+  assert(
+    (deb.rows?.length ?? 0) === Number(deb.facts.active_debarred),
+    "procurementDebarred rows match active_debarred count",
+  );
 
   const funds = (await runTool("fundsOverview", {}, ctxEn)) as Envelope;
   printEnvelope(funds);

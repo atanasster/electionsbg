@@ -1531,8 +1531,54 @@ export const route = (question: string, ctx: ToolContext): Route => {
     const obl = extractPlace(q);
     return { tool: "investmentProjects", args: obl ? { oblast: obl } : {} };
   }
+  // Procurement methodology questions whose phrasing often omits "поръчки":
+  // the structurally single-bid sectors, and the АОП debarment register. Strong
+  // signals only here so non-procurement queries aren't pulled in.
+  if (
+    has(q, "cpv") ||
+    (has(q, "сектор", "sector", "раздел") &&
+      has(q, "един участник", "single bid", "single-bid", "едноучастн"))
+  )
+    return { tool: "procurementSingleBidSectors", args: {} };
+  if (has(q, "черен списък", "черния списък", "debarred", "субекти с нарушени"))
+    return { tool: "procurementDebarred", args: {} };
   if (has(q, "поръчк", "procurement", "аоп", " aop")) {
-    // red-flag / risk feed — concentration on one supplier + debarred suppliers
+    // structurally single-bid CPV sectors — accept the "where one bidder is
+    // normal" framing now that we're inside the procurement gate.
+    if (
+      has(q, "cpv") ||
+      (has(q, "сектор", "sector", "раздел") &&
+        has(
+          q,
+          "един участник",
+          "single bid",
+          "single-bid",
+          "едноучастн",
+          "структурно",
+          "structural",
+          "нормал",
+          "normal",
+          "обичайн",
+          "потиск",
+          "suppress",
+        ))
+    )
+      return { tool: "procurementSingleBidSectors", args: {} };
+    // debarred suppliers — the black-list register itself
+    if (
+      has(
+        q,
+        "черен списък",
+        "черния списък",
+        "debarred",
+        "отстранен",
+        "забранен",
+        "нарушени",
+      )
+    )
+      return { tool: "procurementDebarred", args: {} };
+    // red-flag / risk feed — concentration on one supplier (carries the
+    // active-debarred count too)
     if (
       has(
         q,
@@ -1543,14 +1589,30 @@ export const route = (question: string, ctx: ToolContext): Route => {
         "червен флаг",
         "концентрац",
         "concentrat",
-        "черен списък",
-        "debarred",
-        "нарушени",
       )
     )
       return { tool: "procurementRedFlags", args: {} };
-    // contracts to MP-tied firms (the journalism payload) — MP/connected framing
-    if (has(q, "депутат", " mp", " mps", "свързан", "connected", "tied"))
+    // contracts to politically-connected firms (the journalism payload) — MP or
+    // official framing (mayors / councillors / ministers / governors).
+    if (
+      has(
+        q,
+        "депутат",
+        " mp",
+        " mps",
+        "свързан",
+        "connected",
+        "tied",
+        "кмет",
+        "съветник",
+        "министър",
+        "управител",
+        "официал",
+        "official",
+        "mayor",
+        "councillor",
+      )
+    )
       return {
         tool: "mpProcurement",
         args: personName ? { person: personName } : {},

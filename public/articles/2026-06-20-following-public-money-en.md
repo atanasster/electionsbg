@@ -23,7 +23,7 @@ The [Public Procurement](/procurement) module answers those questions. It holds 
 
 ## 1. The landscape: Bulgaria and abroad
 
-**In Bulgaria,** the primary source is the Public Procurement Agency (АОП) and the ЦАИС ЕОП platform, republished as open data on data.egov.bg. It is comprehensive and authoritative — and raw: no analytics, no risk scoring, and crucially no link between a contract and the *people* behind the winning company. In June 2026 the Ministry of Innovation launched [СИГМА](https://sigma.midt.bg) (sigma.midt.bg), a government analytics layer over the *same* АОП data. It has a clean interface and ships a working directory of authorities, companies and authority→company flows, plus search, from day one — a solid base to build on. The more ambitious features it announced (an AI assistant, a green/yellow/red risk index and a beneficial-owner layer) are, for now, slated for a later stage.
+**In Bulgaria,** the primary source is the Public Procurement Agency (АОП) and the ЦАИС ЕОП platform, republished as open data on [data.egov.bg](https://data.egov.bg/organisation/about/aop). It is comprehensive and authoritative — and raw: no analytics, no risk scoring, and crucially no link between a contract and the *people* behind the winning company. In June 2026 the Ministry of Innovation launched [СИГМА](https://sigma.midt.bg) (sigma.midt.bg), a government analytics layer over the *same* АОП data. It has a clean interface and ships a working directory of authorities, companies and authority→company flows, plus search, from day one — a solid base to build on. The more ambitious features it announced (an AI assistant, a green/yellow/red risk index and a beneficial-owner layer) are, for now, slated for a later stage.
 
 Beyond the official registers, Bulgaria has accumulated civic and commercial efforts around procurement — from investigative journalism to business services:
 
@@ -77,7 +77,7 @@ Every contract carries a **Corruption Risk Index** from 0 to 100 — the share o
 
 *[See it live: an example contract →](/procurement/contract/09e1dcda9dd5)*
 
-The checks: a **single bidder** (read from the bid count the OCDS feed actually publishes, and suppressed in markets that are structurally single-bid so it doesn't cry wolf), a **non-open procedure**, a **short tender window**, an **amendment** that revises the original deal, a contractor on the АОП **debarment register**, a buyer whose spending is **concentrated** on one supplier, and a contractor **tied to an MP or a public official**.
+The checks: a **single bidder** (read from the bid count the OCDS feed actually publishes, and suppressed in markets that are structurally single-bid so it doesn't cry wolf[^cpv]), a **non-open procedure**, a **short tender window**, an **amendment** that revises the original deal, a contractor on the АОП **debarment register**, a buyer whose spending is **concentrated** on one supplier, and a contractor **tied to an MP or a public official**.
 
 ### Where the money flows
 
@@ -170,3 +170,5 @@ Open the [Public Procurement](/procurement) module, or ask the [assistant](https
 - Tussell: [tussell.com](https://www.tussell.com/)
 - GovSpend: [govspend.com](https://govspend.com/)
 - USAspending.gov: [usaspending.gov](https://www.usaspending.gov/)
+
+[^cpv]: We decide this per sector, from the data — no hand-picked list. For each two-digit CPV division (the EU's Common Procurement Vocabulary) we measure the share of contracts with a published bid count that had only one bidder; if that share is 80% or more, we treat the division as structurally single-bid and suppress the flag there. The thresholds are recomputed from the corpus on every update. Currently 7 of 45 divisions qualify — among them water supply, electricity/gas/water distribution, postal and telecom services, real estate, R&D services, and printed matter.
