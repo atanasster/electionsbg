@@ -30,6 +30,7 @@ import {
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { ErrorSection } from "./components/ErrorSection";
 import { OfficialConnectionsSection } from "./components/OfficialConnectionsSection";
+import { OfficialProcurementSection } from "./components/OfficialProcurementSection";
 import { CouncilActivitySection } from "./components/CouncilActivitySection";
 import { LocalContestsTable } from "./components/LocalContestsTable";
 import { useCouncillorProfile } from "@/data/council/useCouncillorProfile";
@@ -199,9 +200,9 @@ export const OfficialProfileScreen: FC = () => {
 
   if (officialLoading || declsLoading) {
     return (
-      <div className="w-full max-w-3xl mx-auto px-4 py-8" aria-hidden>
+      <section className="my-4" aria-hidden>
         <div className="min-h-[400px]" />
-      </div>
+      </section>
     );
   }
 
@@ -264,7 +265,7 @@ export const OfficialProfileScreen: FC = () => {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto px-4 pb-12 space-y-6">
+    <section className="my-4 pb-8 space-y-6">
       <Title description={positionTitle ?? institution}>
         {nameForBg(displayName)}
       </Title>
@@ -554,6 +555,8 @@ export const OfficialProfileScreen: FC = () => {
         />
       ) : null}
 
+      {slug ? <OfficialProcurementSection slug={slug} /> : null}
+
       {slug ? <OfficialConnectionsSection slug={slug} /> : null}
 
       {/* Council voting record — appears only when the official is a
@@ -627,6 +630,6 @@ export const OfficialProfileScreen: FC = () => {
           </Link>
         )}
       </div>
-    </div>
+    </section>
   );
 };

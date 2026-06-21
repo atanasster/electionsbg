@@ -267,16 +267,18 @@ const FlowEndpoint: FC<{
   type: ProcurementFlowNodeType;
   label: string;
 }> = ({ id, type, label }) => (
-  <div className="flex items-center gap-1.5">
+  <div className="flex items-start gap-1.5">
     {type === "mp" ? (
       <MpAvatar mpId={Number(id.slice(3))} name={label} className="h-5 w-5" />
     ) : (
       <span
-        className="h-2.5 w-2.5 shrink-0 rounded-sm"
+        className="mt-0.5 h-2.5 w-2.5 shrink-0 rounded-sm"
         style={{ backgroundColor: TYPE_COLOR[type] }}
       />
     )}
-    <span className="min-w-0 truncate font-medium">{label}</span>
+    <span className="min-w-0 whitespace-normal break-words font-medium">
+      {label}
+    </span>
   </div>
 );
 

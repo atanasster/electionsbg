@@ -104,9 +104,9 @@ Reachable tiers (A+D+E) resolve ~1,490 of the 3,533 no-geo buyers → `by_settle
 | File | Builder | Feeds |
 |---|---|---|
 | `derived/cpv_competition.json` | `cpv_competition.ts` | Per-2-digit-CPV single-bid baseline; gates the single-bidder risk flag (a division ≥80% single-bid is "structural" → flag suppressed) |
-| `derived/pep_connected.json` + `derived/pep-by-eik/` | `pep_connected.ts` | Officials (non-MP: mayors / councillors / ministers / governors / agency heads) → contractor links, HIGH-confidence only. Surfaces on `/company/:eik` + adds the `pepConnected` risk component |
+| `derived/pep_connected.json` + `derived/pep-by-eik/` (reverse, contractor→officials) + `derived/pep-by-slug/` (forward, official→contractors) | `pep_connected.ts` | Officials (non-MP: mayors / councillors / ministers / governors / agency heads) → contractor links, HIGH-confidence only. `pep-by-eik` surfaces on `/company/:eik` + adds the `pepConnected` risk component; `pep-by-slug` powers the procurement section on `/officials/:slug` + the official rows in the `/procurement/people` scanner. Each entry carries `byYear` + `topAwarders` (from the contractor rollup) so the official profile renders the same per-company history card as the MP procurement page |
 | `derived/risk_feed.json` | `risk_feed.ts` | Slim top-50 concentration + top-50 MP-tied for `/procurement/flags` + the `procurementRedFlags` AI tool (so neither loads the ~1 MB `awarder_concentration.json`) |
-| `derived/person_procurement_index.json` | `risk_feed.ts` | Slim per-MP roster for the `/procurement/people` scanner |
+| `derived/person_procurement_index.json` | `risk_feed.ts` | Slim per-person roster (MPs from `mp_connected.json` + officials from `pep_connected.json`, each row tagged `kind`) for the `/procurement/people` scanner |
 
 Two dependencies to remember:
 - **Single-bidder reads `release.bids.statistics[]`** (the OCDS field that's actually populated — `tender.numberOfTenderers` is ~0%). New fortnights pick it up automatically. To back-fill bid counts onto **already-ingested** rows after the parser changed, run the manual re-normalize (skips the diff-cap; cache-only, no network; never in CI per [[feedback_one_off_backfills]]):

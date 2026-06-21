@@ -118,7 +118,7 @@ export const CompanyPortfolioTreemap: FC<{
                   const p = payload[0].payload as Cell;
                   return (
                     <div className="rounded-md border bg-popover px-2 py-1 text-xs shadow-sm">
-                      <div className="font-medium max-w-[220px] truncate">
+                      <div className="font-medium max-w-[260px] whitespace-normal break-words">
                         {p.name}
                       </div>
                       <div className="tabular-nums">{formatEur(p.size)}</div>

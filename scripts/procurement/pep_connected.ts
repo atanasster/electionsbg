@@ -48,6 +48,21 @@ export type PepRelation = {
   valueEur?: number;
 };
 
+export type PepAwarder = {
+  eik: string;
+  name: string;
+  totalEur: number;
+  totalOther: Record<string, number>;
+  contractCount: number;
+};
+
+export type PepByYear = {
+  year: string;
+  totalEur: number;
+  totalOther: Record<string, number>;
+  contractCount: number;
+};
+
 export type PepConnectedEntry = {
   slug: string;
   name: string;
@@ -60,6 +75,11 @@ export type PepConnectedEntry = {
   contractCount: number;
   awardCount: number;
   relations: PepRelation[];
+  // Per-year totals + top awarders from the contractor rollup, so the
+  // /officials/:slug procurement section can render the same per-company
+  // history (chart + top buyers) as the MP procurement page.
+  byYear: PepByYear[];
+  topAwarders: PepAwarder[];
 };
 
 export type PepConnectedFile = {
@@ -126,6 +146,8 @@ export const buildPepConnected = (
         contractCount: c.contractCount,
         awardCount: c.awardCount,
         relations,
+        byYear: c.byYear,
+        topAwarders: c.byAwarder.slice(0, 5),
       });
     }
   }
@@ -149,6 +171,60 @@ export const writePepConnected = (
     canonicalJson(data),
   );
   writePepByEikShards(derivedDir, data);
+  writePepBySlugShards(derivedDir, data);
+};
+
+// Forward-lookup shards: official slug → the contractors they're tied to. The
+// /officials/{slug} profile reads the small manifest first; if the slug isn't
+// listed, no shard fetch fires. Sibling of writePepByEikShards (reverse) — this
+// powers the per-official procurement section + the people-scanner drill-down.
+const writePepBySlugShards = (
+  derivedDir: string,
+  data: PepConnectedFile,
+): void => {
+  const shardDir = path.join(derivedDir, "pep-by-slug");
+  fs.mkdirSync(shardDir, { recursive: true });
+
+  const bySlug = new Map<string, PepConnectedEntry[]>();
+  for (const e of data.entries) {
+    const arr = bySlug.get(e.slug) ?? [];
+    arr.push(e);
+    bySlug.set(e.slug, arr);
+  }
+
+  const wanted = new Set<string>();
+  for (const [slug, list] of bySlug) {
+    const f = `${slug}.json`;
+    wanted.add(f);
+    const content = canonicalJson({ slug, entries: list });
+    const full = path.join(shardDir, f);
+    if (fs.existsSync(full)) {
+      try {
+        if (fs.readFileSync(full, "utf8") === content) continue;
+      } catch {
+        // overwrite
+      }
+    }
+    fs.writeFileSync(full, content);
+  }
+
+  const slugs = [...bySlug.keys()].sort();
+  const manifest = JSON.stringify({ slugs }, null, 2) + "\n";
+  const manifestPath = path.join(shardDir, "index.json");
+  let existing = "";
+  if (fs.existsSync(manifestPath)) {
+    try {
+      existing = fs.readFileSync(manifestPath, "utf8");
+    } catch {
+      // overwrite
+    }
+  }
+  if (existing !== manifest) fs.writeFileSync(manifestPath, manifest);
+
+  for (const f of fs.readdirSync(shardDir)) {
+    if (!f.endsWith(".json") || f === "index.json") continue;
+    if (!wanted.has(f)) fs.unlinkSync(path.join(shardDir, f));
+  }
 };
 
 // Reverse-lookup shards: contractorEik → officials connected to it. /company/

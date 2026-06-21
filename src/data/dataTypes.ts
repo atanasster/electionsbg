@@ -1376,6 +1376,17 @@ export type ProcurementPepConnectedEntry = {
     shareSize?: string;
     valueEur?: number;
   }>;
+  // Per-year totals + top awarders (mirrors ProcurementMpConnectedContractor)
+  // so the official profile renders the same per-company history as the MP
+  // procurement page. Optional for back-compat with shards built before this.
+  byYear?: ProcurementByYear[];
+  topAwarders?: Array<{
+    eik: string;
+    name: string;
+    totalEur: number;
+    totalOther: Record<string, number>;
+    contractCount: number;
+  }>;
 };
 
 /** Snapshot of the АОП debarred-suppliers register. Mirrors

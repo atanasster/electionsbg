@@ -17,6 +17,56 @@
           "role": "manager",
           "confidence": "high"
         }
+      ],
+      "byYear": [
+        {
+          "year": "2022",
+          "contractCount": 1,
+          "totalEur": 383468.91089716385,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 3,
+          "totalEur": 70879.37090646938,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 3,
+          "totalEur": 80582.4,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000931721",
+          "name": "Община Шумен",
+          "contractCount": 1,
+          "totalEur": 383468.91089716385,
+          "totalOther": {}
+        },
+        {
+          "eik": "000931575",
+          "name": "Община Нови пазар",
+          "contractCount": 4,
+          "totalEur": 85671.33922273408,
+          "totalOther": {}
+        },
+        {
+          "eik": "000852932",
+          "name": "Община Град добрич",
+          "contractCount": 1,
+          "totalEur": 35790.431683735296,
+          "totalOther": {}
+        },
+        {
+          "eik": "000931511",
+          "name": "Община Каспичан",
+          "contractCount": 1,
+          "totalEur": 30000,
+          "totalOther": {}
+        }
       ]
     }
   ]

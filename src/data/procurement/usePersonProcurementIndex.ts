@@ -1,18 +1,29 @@
 // Person → procurement index for the "public money scanner" (/procurement/
 // people). Loads the slim, pre-aggregated derived/person_procurement_index.json
-// (one row per MP, ~12 KB) instead of the full mp_connected.json (~108 KB),
-// keeping the scanner's payload minimal. Scoped to the political class we
-// resolve with confidence (MPs today; officials are a follow-up).
+// (one row per person, ~20 KB) instead of the two full cross-reference files
+// (mp_connected.json ≈108 KB + pep_connected.json ≈72 KB), keeping the
+// scanner's payload minimal. Scoped to the political class we resolve with
+// confidence: MPs (from mp_connected.json) + non-MP officials — cabinet,
+// agency heads, governors, mayors, deputy-mayors, councillors (from
+// pep_connected.json, HIGH-confidence links only). Each row carries a `kind`
+// discriminator; MPs drill into /candidate/mp-<id>/procurement, officials
+// into /officials/<slug>.
 
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
 
 export type PersonProcurementRow = {
-  mpId: number;
-  mpName: string;
+  kind: "mp" | "official";
+  name: string;
   totalEur: number;
   contractorCount: number;
   contractCount: number;
+  /** present when kind === "mp" */
+  mpId?: number;
+  /** present when kind === "official" */
+  slug?: string;
+  tier?: string;
+  role?: string;
 };
 
 type PersonIndexFile = {

@@ -21,6 +21,56 @@
           "role": "manager",
           "confidence": "high"
         }
+      ],
+      "byYear": [
+        {
+          "year": "2019",
+          "contractCount": 2,
+          "totalEur": 117786.31067117285,
+          "totalOther": {}
+        },
+        {
+          "year": "2020",
+          "contractCount": 1,
+          "totalEur": 7105.551095954147,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 2,
+          "totalEur": 24388.622733059623,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000291591",
+          "name": "Община Ловеч",
+          "contractCount": 2,
+          "totalEur": 117786.31067117285,
+          "totalOther": {}
+        },
+        {
+          "eik": "000291709",
+          "name": "Община Троян",
+          "contractCount": 1,
+          "totalEur": 19531.349861695548,
+          "totalOther": {}
+        },
+        {
+          "eik": "000291584",
+          "name": "Община Летница",
+          "contractCount": 1,
+          "totalEur": 7105.551095954147,
+          "totalOther": {}
+        },
+        {
+          "eik": "000284853",
+          "name": "Детска Градина здравец",
+          "contractCount": 1,
+          "totalEur": 4857.272871364075,
+          "totalOther": {}
+        }
       ]
     }
   ]

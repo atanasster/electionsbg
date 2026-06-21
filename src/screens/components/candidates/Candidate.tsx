@@ -4,6 +4,7 @@ import { useResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
 import { useCandidateElectionFallback } from "@/data/candidates/useCandidateElectionFallback";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { useElectionContext } from "@/data/ElectionContext";
+import { useMps } from "@/data/parliament/useMps";
 import { CandidateHeader } from "./CandidateHeader";
 import { MpProfileHeader } from "./MpProfileHeader";
 import { MpFinancialDeclarations } from "./MpFinancialDeclarations";
@@ -33,6 +34,22 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
   const { isEn, nameForBg } = useCandidateName();
   const { selected, setSelected } = useElectionContext();
 
+  // An `mp-<id>` URL points at a parliament.bg record that may not be a
+  // candidate on the *selected* ballot (the election-scoped resolver above then
+  // matches no one and the page would render blank). Fall back to the global,
+  // election-independent parliament roster so deep links from the procurement
+  // scanner, search, etc. resolve to the MP's full dashboard. See the same
+  // pattern in CandidateProcurementScreen.
+  //
+  // The roster is ~949 KB, so gate the fetch on `needRoster` — only the rare
+  // mp-id-not-on-this-ballot case loads it, preserving the candidate-page data
+  // diet for the common (resolved / CIK) cases.
+  const mpIdParam = parsed?.kind === "mp" ? parsed.mpId : null;
+  const needRoster = mpIdParam != null && !isLoading && matches.length === 0;
+  const { findMpById, isLoading: rosterLoading } = useMps(needRoster);
+  const rosterMp = needRoster ? findMpById(mpIdParam) : undefined;
+  const awaitingRoster = needRoster && !rosterMp && rosterLoading;
+
   // A bare-name /candidate/:id URL (search-engine results, old shared links)
   // resolves against whatever election is currently selected. When the person
   // ran in an earlier cycle they match no one in the latest election and the
@@ -57,7 +74,8 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
 
   if (
     isLoading ||
-    (needsElectionFallback && (isProbing || !!fallbackElection))
+    (needsElectionFallback && (isProbing || !!fallbackElection)) ||
+    awaitingRoster
   ) {
     // Reserve roughly the height of a typical candidate page so the layout
     // doesn't jump from a one-line "Loading…" to a multi-card screen once
@@ -71,6 +89,30 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
           {t("loading") || "Loading…"}
         </div>
         <div aria-hidden className="min-h-[1200px]" />
+      </div>
+    );
+  }
+
+  if (matches.length === 0 && rosterMp) {
+    // The selected election has no candidacy for this MP, but the global
+    // roster does — render the full MP dashboard keyed by the roster name
+    // (sub-components query BG-name-keyed parliament data, which is
+    // election-independent). cikRows is absent (no candidacy this cycle).
+    const lookupName = rosterMp.name;
+    const headerName = isEn ? rosterMp.name_en : rosterMp.name;
+    const linkSlug = `mp-${rosterMp.id}`;
+    return (
+      <div className="w-full">
+        <CandidateHeader
+          displayName={headerName}
+          lookupName={lookupName}
+          mpEntry={rosterMp}
+          seoDescription={`Results for party candidate ${headerName}`}
+        />
+        <MpProfileHeader name={lookupName} />
+        <MpScorecardTile name={lookupName} />
+        <CandidateDashboardCards name={lookupName} linkSlug={linkSlug} />
+        <MpProfileSections name={lookupName} linkSlug={linkSlug} />
       </div>
     );
   }

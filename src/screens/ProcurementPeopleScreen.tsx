@@ -1,21 +1,41 @@
 // /procurement/people — the "public money scanner". Type a politician's name
 // and see the public-procurement reachable through the companies they're tied
-// to. Scoped to the political class we resolve with confidence (MPs today via
-// mp_connected.json; officials follow once pep_connected ships). Each result
-// drills into the existing per-MP procurement page.
+// to. Scoped to the political class we resolve with confidence: MPs (via
+// mp_connected.json) AND non-MP officials — cabinet, agency heads, governors,
+// mayors, deputy-mayors, councillors (via pep_connected.json, HIGH-confidence
+// links only). MP rows drill into the MP's candidate dashboard
+// (/candidate/mp-<id>); official rows into /officials/<slug>. Both land on the
+// person's full page (which carries a procurement section), not a
+// procurement-only view.
 
 import { FC, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Search, ArrowRight } from "lucide-react";
+import { Search, ArrowRight, Landmark } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { MpAvatar } from "./components/candidates/MpAvatar";
-import { usePersonProcurementIndex } from "@/data/procurement/usePersonProcurementIndex";
+import { MpAvatarView } from "./components/candidates/MpAvatar";
+import {
+  usePersonProcurementIndex,
+  type PersonProcurementRow,
+} from "@/data/procurement/usePersonProcurementIndex";
+import { dataUrl } from "@/data/dataUrl";
 import { normalizeMpName } from "@/lib/utils";
 import { formatEur } from "@/lib/currency";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
+
+// Human label for an official's role, falling back to a de-underscored form
+// when no translation exists. MPs have no role chip (their kind is implicit).
+const roleLabel = (
+  role: string | undefined,
+  t: (k: string) => string,
+): string | null => {
+  if (!role) return null;
+  const key = `official_role_${role}`;
+  const translated = t(key);
+  return translated === key ? role.replace(/_/g, " ") : translated;
+};
 
 export const ProcurementPeopleScreen: FC = () => {
   const { t } = useTranslation();
@@ -25,7 +45,7 @@ export const ProcurementPeopleScreen: FC = () => {
   const filtered = useMemo(() => {
     const needle = normalizeMpName(q.trim());
     if (!needle) return rows;
-    return rows.filter((r) => normalizeMpName(r.mpName).includes(needle));
+    return rows.filter((r) => normalizeMpName(r.name).includes(needle));
   }, [rows, q]);
 
   return (
@@ -81,27 +101,11 @@ export const ProcurementPeopleScreen: FC = () => {
             ) : (
               <div className="flex flex-col">
                 {filtered.slice(0, 100).map((r, idx) => (
-                  <Link
-                    key={r.mpId}
-                    to={`/candidate/mp-${r.mpId}/procurement`}
-                    className="group flex items-center gap-3 py-2 border-b border-border/40 last:border-b-0 hover:bg-accent/30 rounded-sm -mx-1 px-1"
-                  >
-                    <span className="text-muted-foreground w-6 shrink-0 text-right tabular-nums text-xs">
-                      {idx + 1}
-                    </span>
-                    <MpAvatar mpId={r.mpId} name={r.mpName} />
-                    <span className="min-w-0 flex-1 font-medium truncate">
-                      {r.mpName}
-                    </span>
-                    <span className="hidden sm:inline text-xs text-muted-foreground tabular-nums shrink-0">
-                      {numFmt.format(r.contractorCount)}{" "}
-                      {t("procurement_people_companies") || "cos"}
-                    </span>
-                    <span className="tabular-nums font-medium shrink-0 min-w-[96px] text-right">
-                      {formatEur(r.totalEur)}
-                    </span>
-                    <ArrowRight className="h-3.5 w-3.5 shrink-0 text-muted-foreground opacity-50 group-hover:opacity-100" />
-                  </Link>
+                  <PersonScannerRow
+                    key={r.kind === "mp" ? `mp-${r.mpId}` : `off-${r.slug}`}
+                    row={r}
+                    rank={idx + 1}
+                  />
                 ))}
               </div>
             )}
@@ -109,5 +113,63 @@ export const ProcurementPeopleScreen: FC = () => {
         </Card>
       </section>
     </>
+  );
+};
+
+// One ranked row. MPs link to their candidate dashboard with a photo avatar;
+// officials link to their profile with an institution icon + a role chip
+// (mayor / councillor / agency head …) so the reader knows which tier of the
+// political class the tie sits in.
+const PersonScannerRow: FC<{ row: PersonProcurementRow; rank: number }> = ({
+  row,
+  rank,
+}) => {
+  const { t } = useTranslation();
+  // MPs → their full candidate dashboard (election results, connections AND a
+  // procurement tile); officials → their profile (which carries the procurement
+  // section). Both land on the person's complete page rather than a
+  // procurement-only view.
+  const to =
+    row.kind === "mp" ? `/candidate/mp-${row.mpId}` : `/officials/${row.slug}`;
+  const role = row.kind === "official" ? roleLabel(row.role, t) : null;
+  return (
+    <Link
+      to={to}
+      className="group flex items-center gap-3 py-2 border-b border-border/40 last:border-b-0 hover:bg-accent/30 rounded-sm -mx-1 px-1"
+    >
+      <span className="text-muted-foreground w-6 shrink-0 text-right tabular-nums text-xs">
+        {rank}
+      </span>
+      {row.kind === "mp" ? (
+        // MpAvatarView (presentational) + the photo-path convention avoids
+        // pulling the ~949 KB parliament/index.json roster just to show faces
+        // on this list. Photo 404s degrade to initials.
+        <MpAvatarView
+          photoUrl={dataUrl(`/parliament/photos/${row.mpId}.webp`)}
+          displayName={row.name}
+          className="h-8 w-8"
+        />
+      ) : (
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-200">
+          <Landmark className="h-4 w-4" />
+        </span>
+      )}
+      <span className="min-w-0 flex-1">
+        <span className="font-medium block truncate">{row.name}</span>
+        {role ? (
+          <span className="text-[11px] text-muted-foreground block truncate">
+            {role}
+          </span>
+        ) : null}
+      </span>
+      <span className="hidden sm:inline text-xs text-muted-foreground tabular-nums shrink-0">
+        {numFmt.format(row.contractorCount)}{" "}
+        {t("procurement_people_companies") || "cos"}
+      </span>
+      <span className="tabular-nums font-medium shrink-0 min-w-[96px] text-right">
+        {formatEur(row.totalEur)}
+      </span>
+      <ArrowRight className="h-3.5 w-3.5 shrink-0 text-muted-foreground opacity-50 group-hover:opacity-100" />
+    </Link>
   );
 };

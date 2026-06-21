@@ -63,11 +63,17 @@ const queryFn = async (): Promise<IndexFile | undefined> => {
   return file;
 };
 
-export const useMps = () => {
+// `enabled` lets a caller defer the ~949 KB parliament/index.json fetch until
+// it actually needs the roster (e.g. the candidate page only needs it for the
+// rare mp-<id>-not-on-this-ballot fallback). Defaults true so existing callers
+// are unchanged. The query key is shared, so once any enabled caller loads it,
+// every other useMps() instance reads it from cache.
+export const useMps = (enabled = true) => {
   const { data, isLoading } = useQuery({
     queryKey: ["parliament_index"] as [string],
     queryFn,
     staleTime: Infinity,
+    enabled,
   });
 
   const byName = useMemo(() => {
