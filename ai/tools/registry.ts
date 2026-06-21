@@ -92,6 +92,7 @@ import {
 import {
   comparePlaces,
   governanceProfile,
+  procurementByOblast,
   procurementBySettlement,
 } from "./profile";
 import {
@@ -2771,6 +2772,30 @@ export const TOOLS: ToolDef[] = [
       { bg: "Колко поръчки има в Русе?", en: "How much procurement in Ruse?" },
     ],
     run: procurementBySettlement,
+  },
+  {
+    name: "procurementByOblast",
+    domain: "place",
+    description: {
+      bg: "Местни обществени поръчки, обобщени за една област — обща сума, на жител, среден договор, брой възложители и водещи населени места (АОП; без националните министерства).",
+      en: "Local public procurement rolled up to one oblast — total, per resident, average contract, buyer count and top settlements (AOP; national ministries excluded).",
+    },
+    params: [
+      {
+        name: "oblast",
+        type: "oblast",
+        required: true,
+        description: { bg: "Област", en: "Oblast" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Колко обществени поръчки има в област Пловдив?",
+        en: "How much public procurement in Plovdiv province?",
+      },
+      { bg: "Поръчки по области — Варна", en: "Procurement in Varna oblast" },
+    ],
+    run: procurementByOblast,
   },
   {
     name: "airQuality",

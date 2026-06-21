@@ -8,10 +8,22 @@ import {
   localCycleYear,
   resolveLocalCycle,
 } from "./localDataset";
-import { resolveMunicipality, resolvePlaceForData } from "./place";
+import {
+  oblastName,
+  resolveMunicipality,
+  resolveOblast,
+  resolvePlaceForData,
+} from "./place";
 import { muniLocator, settlementLocator } from "./geo";
 import { round2 } from "./dataset";
-import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
+import type {
+  Column,
+  Envelope,
+  GeoOverlay,
+  Row,
+  ToolArgs,
+  ToolContext,
+} from "./types";
 
 // LISI / taxes / census / indicators key Sofia as SOF00, not the synthetic SOF.
 const govCode = (obshtina: string): string =>
@@ -94,9 +106,164 @@ export const procurementBySettlement = async (
       place: place.name,
       total: fmtEurCompact(data.totalEur, ctx.lang),
       contracts: fmtInt(data.contractCount, ctx.lang),
+      buyers: fmtInt(data.awarders.length, ctx.lang),
+      // Average contract value — the metric the by-settlement table now
+      // surfaces as a column (total ÷ contracts). Guarded against div-by-zero.
+      avg_contract:
+        data.contractCount > 0
+          ? fmtEurCompact(data.totalEur / data.contractCount, ctx.lang)
+          : "—",
       top_buyer: top[0]?.name ?? "—",
     },
     provenance: [`procurement/by_settlement/${place.ekatte}.json`],
+  };
+};
+
+// ---- procurement by oblast (aggregated from the by_settlement index) ---------
+// Local-tier procurement rolled up to one oblast — the data behind the three
+// per-oblast choropleths on /procurement/by-settlement (total / per-resident /
+// average contract value). Sofia city and Plovdiv fold the same way the on-site
+// map does (see useProcurementByOblast).
+
+type BySettlementRow = {
+  ekatte: string;
+  name: string;
+  province: string;
+  totalEur: number;
+  contractCount: number;
+  awarderCount: number;
+};
+type BySettlementIndex = { settlements: BySettlementRow[] };
+type RegionalPop = {
+  series?: { population?: Record<string, { year: number; value: number }[]> };
+};
+
+// "Пловдив (област)" → "Пловдив" — the bare form the by_settlement index uses.
+const bareOblast = (s: string): string =>
+  s.replace(/\s*\([^)]*\)\s*/g, " ").trim();
+
+// Oblast code → the province string the by_settlement index keys settlements on.
+const oblastToProvince = (code: string, bgName: string): string => {
+  if (code === "S23" || code === "S24" || code === "S25")
+    return "София (столица)";
+  if (code === "SFO") return "София";
+  if (code === "PDV" || code === "PDV-00") return "Пловдив";
+  return bareOblast(bgName);
+};
+
+// Map polygon code(s) for the highlight: Sofia city = its 3 МИР, Plovdiv =
+// province + city feature, everything else = the single oblast polygon.
+const oblastMapCodes = (code: string): string[] => {
+  if (code === "S23" || code === "S24" || code === "S25")
+    return ["S23", "S24", "S25"];
+  if (code === "PDV" || code === "PDV-00") return ["PDV", "PDV-00"];
+  return [code];
+};
+
+// One representative population code. The regional series stores the SAME oblast
+// figure under each of Sofia's three МИР and under both Plovdiv codes, so we
+// read just one (never sum) — otherwise per-resident comes out 2–3× too low.
+const oblastPopCode = (code: string): string => {
+  if (code === "S23" || code === "S24" || code === "S25") return "S23";
+  if (code === "PDV-00") return "PDV";
+  return code;
+};
+
+export const procurementByOblast = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const q = String(args.oblast ?? args.place ?? "");
+  const ob = resolveOblast(q);
+  if (!ob) return noPlace("procurementByOblast", q, ctx);
+
+  const sofiaCity = ob.code === "S23" || ob.code === "S24" || ob.code === "S25";
+  const label = sofiaCity
+    ? bg
+      ? "София (столица)"
+      : "Sofia (capital)"
+    : oblastName(ob.code)[ctx.lang];
+  const province = oblastToProvince(ob.code, ob.name.bg);
+
+  const idx = await tryFetch<BySettlementIndex>(
+    "/procurement/by_settlement/index.json",
+  );
+  const rows = (idx?.settlements ?? []).filter((s) => s.province === province);
+  if (rows.length === 0) {
+    return {
+      tool: "procurementByOblast",
+      domain: "place",
+      kind: "scalar",
+      title: bg
+        ? `Няма местни поръчки в ${label}`
+        : `No local procurement in ${label}`,
+      viz: "none",
+      facts: { oblast: label },
+      provenance: ["procurement/by_settlement/index.json"],
+    };
+  }
+
+  const total = rows.reduce((a, r) => a + r.totalEur, 0);
+  const contracts = rows.reduce((a, r) => a + r.contractCount, 0);
+  // A buyer is HQ'd in exactly one settlement, so summing per-settlement buyer
+  // counts gives the oblast's distinct buyers — no double-count.
+  const buyers = rows.reduce((a, r) => a + r.awarderCount, 0);
+  const top = [...rows].sort((a, b) => b.totalEur - a.totalEur).slice(0, 8);
+
+  // Per-resident: total ÷ latest registered population (regional.json, ×1000).
+  const popJson = await tryFetch<RegionalPop>("/regional.json");
+  const series = popJson?.series?.population?.[oblastPopCode(ob.code)];
+  const population = series?.length
+    ? series[series.length - 1].value * 1000
+    : 0;
+  const perResident = population > 0 ? total / population : undefined;
+
+  const columns: Column[] = [
+    { key: "settlement", label: bg ? "Населено място" : "Settlement" },
+    { key: "amount", label: bg ? "Сума" : "Amount", numeric: true },
+  ];
+  const tableRows: Row[] = top.map((s) => ({
+    settlement: s.name,
+    amount: fmtEurCompact(s.totalEur, ctx.lang),
+  }));
+
+  const geo: GeoOverlay = {
+    level: "oblast",
+    mode: "locator",
+    source: "/regions_map.json",
+    joinKey: "nuts3",
+    metricLabel: label,
+    areas: oblastMapCodes(ob.code).map((c) => ({ code: c, label })),
+    focus: oblastMapCodes(ob.code),
+  };
+
+  return {
+    tool: "procurementByOblast",
+    domain: "place",
+    kind: "table",
+    title: bg
+      ? `Обществени поръчки — ${label}`
+      : `Public procurement — ${label}`,
+    columns,
+    rows: tableRows,
+    viz: "none",
+    geo,
+    facts: {
+      oblast: label,
+      total: fmtEurCompact(total, ctx.lang),
+      contracts: fmtInt(contracts, ctx.lang),
+      buyers: fmtInt(buyers, ctx.lang),
+      avg_contract:
+        contracts > 0 ? fmtEurCompact(total / contracts, ctx.lang) : "—",
+      per_resident:
+        perResident != null
+          ? `${fmtEurCompact(perResident, ctx.lang)}${bg ? "/жит." : "/cap"}`
+          : "—",
+      settlements: fmtInt(rows.length, ctx.lang),
+      top_settlement: top[0]?.name ?? "—",
+    },
+    provenance: ["procurement/by_settlement/index.json", "regional.json"],
   };
 };
 

@@ -124,12 +124,17 @@ export const useProcurementByOblast = (): {
       b.awarderCount += s.awarderCount;
       out.set(code, b);
     }
-    // Attach population: sum of member feature codes' population per bucket.
+    // Attach population per bucket. NOTE: the regional series stores Sofia's
+    // three МИР (S23/S24/S25) each holding the FULL Sofia-city population, and
+    // PDV/PDV-00 each holding the FULL Plovdiv-oblast population — they're
+    // duplicates, not parts. So take the MAX across a bucket's member feature
+    // codes (= the single oblast figure), never the sum, or Sofia's per-capita
+    // comes out 3× too low and Plovdiv's 2× too low.
     if (population) {
       const popByCanon = new Map<string, number>();
       for (const [featCode, pop] of Object.entries(population)) {
         const canon = featureToCanon(featCode);
-        popByCanon.set(canon, (popByCanon.get(canon) ?? 0) + pop);
+        popByCanon.set(canon, Math.max(popByCanon.get(canon) ?? 0, pop));
       }
       for (const [code, b] of out) b.population = popByCanon.get(code) ?? 0;
     }
