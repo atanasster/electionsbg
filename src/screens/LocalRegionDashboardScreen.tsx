@@ -42,6 +42,7 @@ export const LocalRegionDashboardScreen: FC = () => {
         active="local"
         level="region"
         oblast={oblast}
+        cycle={cycle}
         eyebrowTo={`/local/${cycle}`}
         eyebrowSuffix={friendlyCycleDate(cycle)}
         fallbackName={name}

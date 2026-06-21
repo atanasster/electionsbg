@@ -42,6 +42,7 @@ export const LocalSettlementDashboardScreen: FC = () => {
         obshtina={settlement?.obshtina}
         oblast={settlement?.oblast}
         fallbackName={name}
+        cycle={cycle}
         eyebrowTo={`/local/${cycle}`}
         eyebrowSuffix={friendlyCycleDate(cycle)}
         extra={

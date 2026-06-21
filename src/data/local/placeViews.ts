@@ -125,6 +125,29 @@ export const parliamentaryUrl = (p: PlaceRef): string | null => {
   return null;
 };
 
+// One place + one view → its URL. The dispatcher PlaceViewNav and PlaceHeader
+// both use to keep the active view sticky when pivoting or drilling up the
+// hierarchy: a reader on the local-elections page for a settlement who clicks
+// its parent município/oblast should land on THAT place's local page, not its
+// parliamentary default. `cycle` is only consulted for the local view (null
+// without it, since a local URL has no meaning outside a cycle).
+export const placeViewUrl = (
+  view: PlaceView,
+  p: PlaceRef,
+  cycle?: string,
+): string | null => {
+  switch (view) {
+    case "governance":
+      return governanceUrl(p);
+    case "parliamentary":
+      return parliamentaryUrl(p);
+    case "consumption":
+      return consumptionUrl(p);
+    case "local":
+      return cycle ? localUrl(p, cycle) : null;
+  }
+};
+
 // Local-elections results URL, anchored to the given cycle. The caller is
 // responsible for confirming the place actually has local data in that cycle
 // (PlaceViewNav guards via the cycle index before rendering the pill).

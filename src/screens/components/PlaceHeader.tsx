@@ -29,7 +29,9 @@ import { cn } from "@/lib/utils";
 import { Link } from "@/ux/Link";
 import {
   PlaceLevel,
+  PlaceRef,
   PlaceView,
+  placeViewUrl,
   isSofiaRayonObshtina,
   isSofiaCityObshtina,
   SOFIA_CITY_GOVERNANCE_ID,
@@ -40,6 +42,7 @@ import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useRegions } from "@/data/regions/useRegions";
 import { useGraoMunicipalitySlice } from "@/data/grao/useGraoPopulation";
+import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
 import { PlaceViewNav } from "./PlaceViewNav";
 import { PLACE_VIEW_META } from "./placeViewMeta";
 
@@ -62,6 +65,11 @@ type Props = {
   // Per-view cross-link rendered under the breadcrumb (e.g. район → all of
   // Sofia).
   extra?: ReactNode;
+  // The local-elections cycle this page is anchored to (only the /local/:cycle/…
+  // screens pass it). It keeps the breadcrumb's parent links on the SAME cycle
+  // when active="local"; for the other views the cycle is irrelevant. Defaults
+  // to the cycle in effect as of the selected election when omitted.
+  cycle?: string;
   // Replaces the default PlaceViewNav switcher (e.g. SOF city keeps a single
   // → parliamentary pill instead of the three-way control).
   navSlot?: ReactNode;
@@ -182,6 +190,7 @@ export const PlaceHeader: FC<Props> = ({
   sectionCode,
   extra,
   navSlot,
+  cycle,
   className,
 }) => {
   const { t, i18n } = useTranslation();
@@ -189,6 +198,12 @@ export const PlaceHeader: FC<Props> = ({
   const { findSettlement } = useSettlementsInfo();
   const { findMunicipality } = useMunicipalities();
   const { findRegion } = useRegions();
+  // Cycle the breadcrumb's local-view parent links anchor to: the page's own
+  // cycle when given (the /local/:cycle/… screens pass it), else the cycle in
+  // effect as of the selected election — same source PlaceViewNav uses to point
+  // its Местни pill.
+  const fallbackCycle = useLatestLocalCycle();
+  const activeCycle = cycle ?? fallbackCycle;
 
   const isSettlement = level === "settlement";
   const isSection = level === "section";
@@ -304,9 +319,34 @@ export const PlaceHeader: FC<Props> = ({
       ? null
       : parseLoc(muni?.loc);
 
-  const muniHref = settlement ? `/settlement/${settlement.obshtina}` : null;
-  const regionHref = oblastCode ? `/municipality/${oblastCode}` : null;
-  const settlementHref = settlement ? `/sections/${settlement.ekatte}` : null;
+  // Drilling up the hierarchy keeps the active view: a reader on the local page
+  // for гр. Айтос who clicks "община Айтос" should land on the município's local
+  // page, not its parliamentary default. Each parent link is a pure rewrite of
+  // the shared codes into the active view's URL (placeViewUrl), so the
+  // parliamentary view's links are byte-for-byte what they were before.
+  const linkFor = (p: PlaceRef): string | null =>
+    placeViewUrl(active, p, activeCycle);
+  const muniHref = settlement
+    ? linkFor({
+        level: "municipality",
+        obshtina: settlement.obshtina,
+        oblast: settlement.oblast,
+      })
+    : null;
+  const regionHref = oblastCode
+    ? linkFor({ level: "region", oblast: oblastCode })
+    : null;
+  const settlementHref = settlement
+    ? linkFor({ level: "settlement", ekatte: settlement.ekatte })
+    : null;
+  // Столична община / България / a Пловдив-Варна район's parent city — the
+  // breadcrumb's other up-links. They used to be hardcoded to governance / the
+  // national parliamentary page regardless of view; route them through the
+  // active view too, falling back to the old target if a view can't resolve.
+  const sofiaCityHref =
+    linkFor({ level: "municipality", obshtina: SOFIA_CITY_GOVERNANCE_ID }) ??
+    `/governance/${SOFIA_CITY_GOVERNANCE_ID}`;
+  const countryHref = linkFor({ level: "country" }) ?? "/";
 
   // Composed breadcrumb narrative — município and oblast are links so the
   // reader can drill up the hierarchy.
@@ -335,7 +375,7 @@ export const PlaceHeader: FC<Props> = ({
           </Link>
         ) : null;
       const sofiaNode = (
-        <Link to={`/governance/${SOFIA_CITY_GOVERNANCE_ID}`} underline>
+        <Link to={sofiaCityHref} underline>
           {lang === "bg" ? "Столична община" : "Sofia (Stolichna) municipality"}
         </Link>
       );
@@ -369,7 +409,7 @@ export const PlaceHeader: FC<Props> = ({
           return (
             <>
               Многомандатен изборен район в{" "}
-              <Link to={`/governance/${SOFIA_CITY_GOVERNANCE_ID}`} underline>
+              <Link to={sofiaCityHref} underline>
                 Столична община
               </Link>
             </>
@@ -378,7 +418,7 @@ export const PlaceHeader: FC<Props> = ({
         return (
           <>
             Multi-member electoral district in{" "}
-            <Link to={`/governance/${SOFIA_CITY_GOVERNANCE_ID}`} underline>
+            <Link to={sofiaCityHref} underline>
               Sofia (Stolichna) municipality
             </Link>
           </>
@@ -388,7 +428,7 @@ export const PlaceHeader: FC<Props> = ({
         return (
           <>
             Област в{" "}
-            <Link to="/" underline>
+            <Link to={countryHref} underline>
               България
             </Link>
           </>
@@ -397,7 +437,7 @@ export const PlaceHeader: FC<Props> = ({
       return (
         <>
           Oblast in{" "}
-          <Link to="/" underline>
+          <Link to={countryHref} underline>
             Bulgaria
           </Link>
         </>
@@ -504,7 +544,7 @@ export const PlaceHeader: FC<Props> = ({
     // "София N МИР" without an "област" prefix, since a МИР is not an област).
     if (isSofiaRayon) {
       const sofiaLink = (label: string) => (
-        <Link to={`/governance/${SOFIA_CITY_GOVERNANCE_ID}`} underline>
+        <Link to={sofiaCityHref} underline>
           {label}
         </Link>
       );
@@ -536,8 +576,11 @@ export const PlaceHeader: FC<Props> = ({
     // МИР is an изборен район, not an oblast — mirrors the Sofia район tail.
     if (isCityRayon && cityRayon) {
       const city = lang === "bg" ? cityRayon.cityBg : cityRayon.cityEn;
+      const cityRayonParentHref =
+        linkFor({ level: "municipality", obshtina: cityRayon.obshtina }) ??
+        `/governance/${cityRayon.obshtina}`;
       const muniNode = (
-        <Link to={`/governance/${cityRayon.obshtina}`} underline>
+        <Link to={cityRayonParentHref} underline>
           {lang === "bg" ? `Община ${city}` : `${city} municipality`}
         </Link>
       );

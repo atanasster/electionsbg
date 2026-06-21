@@ -39,6 +39,15 @@ export const LocalSectionScreen: FC = () => {
   }, [detail]);
 
   const section = detail?.section;
+  // The local section bundle stores EKATTE with leading zeros stripped
+  // ("151"), but settlements.json — and every other view's URL — keys on the
+  // 5-digit padded form ("00151"). Pad it so the breadcrumb resolves the parent
+  // settlement (and its município) and the up-links land on real pages.
+  const ekatte = section?.ekatte
+    ? section.ekatte.includes("-")
+      ? section.ekatte
+      : section.ekatte.padStart(5, "0")
+    : undefined;
 
   const bars = useMemo(() => {
     if (!section) return [];
@@ -61,8 +70,9 @@ export const LocalSectionScreen: FC = () => {
       active="local"
       level="section"
       sectionCode={sectionCode}
-      ekatte={section?.ekatte}
+      ekatte={ekatte}
       obshtina={obshtinaCode}
+      cycle={cycle}
       eyebrowTo={`/local/${cycle}`}
       eyebrowSuffix={friendlyCycleDate(cycle)}
       extra={

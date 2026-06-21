@@ -1012,6 +1012,7 @@ const MunicipalityResults: FC<{
         ekatte={rayonEkatte}
         obshtina={municipality.obshtinaCode}
         fallbackName={municipality.obshtinaName}
+        cycle={cycle}
         eyebrowTo={`/local/${cycle}`}
         eyebrowSuffix={cycleDate}
         extra={
@@ -1402,6 +1403,7 @@ const CountryDashboard: FC<{ cycle: string }> = ({ cycle }) => {
       <PlaceHeader
         active="local"
         level="country"
+        cycle={cycle}
         eyebrowSuffix={friendlyCycleDate(cycle)}
       />
       <LocalCountryDashboardCards cycle={cycle} />
@@ -1526,6 +1528,7 @@ const RayonLocalResults: FC<{ cycle: string; rayon: CityRayon }> = ({
         level="municipality"
         obshtina={rayon.id}
         fallbackName={rayonName}
+        cycle={cycle}
         eyebrowTo={`/local/${cycle}`}
         eyebrowSuffix={cycleDate}
         className="mb-4"
