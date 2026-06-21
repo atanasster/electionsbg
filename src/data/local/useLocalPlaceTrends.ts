@@ -18,9 +18,9 @@ import {
   type PlaceTrendFile,
 } from "./placeTrendsTypes";
 
-/** Which shard subdir to read: settlement (EKATTE), район (PDV22-01), or a
- *  Sofia район's own place trend (S2xxx). */
-export type PlaceTrendKind = "s" | "r" | "p";
+/** Which shard subdir to read: settlement (EKATTE), район (PDV22-01), a Sofia
+ *  район's own place trend (S2xxx), or a município council trend (m/). */
+export type PlaceTrendKind = "s" | "r" | "p" | "m";
 
 const fetchFile = async (
   kind: PlaceTrendKind,

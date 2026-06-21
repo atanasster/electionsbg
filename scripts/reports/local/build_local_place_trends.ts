@@ -34,6 +34,7 @@ import path from "path";
 import { bucketId, yearOf } from "@/data/local/crossCycleShape";
 import { findCityRayonByName } from "@/data/local/cityRayonCatalog";
 import type {
+  MuniMayorTimelineEntry,
   PlaceCouncilSeries,
   PlaceMayorWinner,
   PlaceTrend,
@@ -258,6 +259,17 @@ export const generateLocalPlaceTrends = ({
 
   // container obshtinaCode → cross-cycle accumulator
   const containers = new Map<string, ContainerAcc>();
+  // município-level history, precomputed from each cycle's bundle so the
+  // município page reads ONE small `m/` shard instead of fanning out the full
+  // per-cycle bundles (council trend + mayor timeline both used to fan out).
+  //   council     — matches LocalCouncilTrendsTile (skipped for S2xxx райони,
+  //                 which show the section-derived `p/` trend instead).
+  //   mayors      — elected mayor per cycle for LocalMayorTimelineTile (ALL
+  //                 municipalities incl. S2xxx райони).
+  const muniHistory = new Map<
+    string,
+    { council: Map<string, CouncilAgg>; mayors: MuniMayorTimelineEntry[] }
+  >();
   const cyclesAsc: { cycle: string; year: string }[] = [];
 
   for (const cycle of cycles) {
@@ -277,6 +289,62 @@ export const generateLocalPlaceTrends = ({
       bundleCache.set(code, b);
       return b;
     };
+
+    // município-level council trend from the bundle's own council[] totals.
+    // S2xxx райони are skipped — their dashboard shows the section-derived `p/`
+    // trend instead (LocalCouncilTrendsTile is gated off for them).
+    try {
+      const idx = JSON.parse(
+        fs.readFileSync(path.join(publicFolder, cycle, "index.json"), "utf-8"),
+      ) as { municipalities?: { obshtinaCode: string }[] };
+      for (const m of idx.municipalities ?? []) {
+        const code = m.obshtinaCode;
+        const b = bundle(code);
+        if (!b) continue;
+        let hist = muniHistory.get(code);
+        if (!hist) {
+          hist = { council: new Map(), mayors: [] };
+          muniHistory.set(code, hist);
+        }
+        // Elected mayor this cycle (timeline) — all municipalities.
+        const el = b.mayor.elected;
+        if (el) {
+          hist.mayors.push({
+            cycle,
+            year,
+            candidateName: el.candidateName,
+            mpId: el.mpId,
+            primaryCanonicalId: el.primaryCanonicalId,
+            localPartyName: el.localPartyName,
+            isIndependent: el.isIndependent,
+            round: el.round,
+            pctOfValid: el.pctOfValid,
+            votes: el.votes,
+          });
+        }
+        // Council trend — skip S2xxx райони (their council is the city-wide
+        // bundle; they use the section-derived `p/` trend instead).
+        if (SOFIA_RAYON_RE.test(code)) continue;
+        const agg = newCouncil();
+        for (const p of b.council) {
+          const id = bucketId(p.primaryCanonicalId, p.localPartyName);
+          let bk = agg.buckets.get(id);
+          if (!bk) {
+            bk = {
+              canonicalId: p.primaryCanonicalId,
+              localPartyName: p.localPartyName,
+              votes: 0,
+            };
+            agg.buckets.set(id, bk);
+          }
+          bk.votes += p.totalVotes;
+          agg.valid += p.totalVotes;
+        }
+        hist.council.set(cycle, agg);
+      }
+    } catch {
+      /* no index for this cycle — skip município trends */
+    }
 
     // Each top-level *.json under sections/ is one container's light shard
     // (per-obshtina, plus the Sofia per-район S2xxx shards). Skip the pooled
@@ -430,7 +498,10 @@ export const generateLocalPlaceTrends = ({
 
   // Serialize ONE FILE PER PLACE so each dashboard fetches only its own trend:
   //   s/<ekatte>.json (settlement) · r/<rayonId>.json (Plovdiv/Varna район) ·
-  //   p/<obshtinaCode>.json (Sofia район's own trend).
+  //   p/<obshtinaCode>.json (Sofia район's own trend) ·
+  //   m/<obshtinaCode>.json (município council trend — replaces the per-cycle
+  //   bundle fan-out in useLocalMunicipalityCrossCycle; ~4KB vs ~800KB-1.5MB
+  //   for big cities).
   const outDir = path.join(publicFolder, "local_place_trends");
   // Drop any stale layout (the old per-município top-level files + the subdirs).
   if (fs.existsSync(outDir)) {
@@ -440,12 +511,19 @@ export const generateLocalPlaceTrends = ({
       else if (e.name.endsWith(".json")) fs.unlinkSync(p);
     }
   }
-  for (const sub of ["s", "r", "p"])
+  for (const sub of ["s", "r", "p", "m"])
     fs.mkdirSync(path.join(outDir, sub), { recursive: true });
 
   let written = 0;
-  const writeOne = (sub: string, key: string, trend: PlaceTrend): void => {
+  const writeOne = (
+    sub: string,
+    key: string,
+    trend: PlaceTrend,
+    mayorTimeline?: MuniMayorTimelineEntry[],
+  ): void => {
     const file: PlaceTrendFile = { cyclesAsc, trend };
+    if (mayorTimeline && mayorTimeline.length >= 2)
+      file.mayorTimeline = mayorTimeline;
     fs.writeFileSync(path.join(outDir, sub, `${key}.json`), stringify(file));
     written += 1;
   };
@@ -468,7 +546,17 @@ export const generateLocalPlaceTrends = ({
       if (t) writeOne("r", rayonId, t);
     }
   }
+  // município history: council trend (LocalCouncilTrendsTile) + elected-mayor
+  // timeline (LocalMayorTimelineTile), so the município page reads this one
+  // small shard instead of fanning out per-cycle bundles. Emit when either the
+  // council (≥2 usable cycles) or the timeline (≥2 mayors) is showable.
+  for (const [code, hist] of muniHistory) {
+    const { series, usableCycles } = buildCouncilSeries(hist.council);
+    const council = usableCycles >= 2 && series.length ? series : [];
+    if (council.length === 0 && hist.mayors.length < 2) continue;
+    writeOne("m", code, { council, mayor: [] }, hist.mayors);
+  }
   console.log(
-    `[placeTrends] wrote ${written} per-place trend files → ${path.relative(publicFolder, outDir)}/{s,r,p}/`,
+    `[placeTrends] wrote ${written} per-place trend files → ${path.relative(publicFolder, outDir)}/{s,r,p,m}/`,
   );
 };

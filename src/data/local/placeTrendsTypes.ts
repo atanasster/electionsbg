@@ -49,10 +49,29 @@ export type PlaceTrend = {
   rayonMayor?: PlaceMayorWinner[];
 };
 
+/** The elected mayor of a município in one cycle — the flat record the mayor
+ *  timeline (LocalMayorTimelineTile) needs, precomputed so the timeline reads
+ *  one small `m/` shard instead of fanning out the full per-cycle bundles.
+ *  Only the `m/` (município) shard carries this. */
+export type MuniMayorTimelineEntry = {
+  cycle: string;
+  year: string;
+  candidateName: string;
+  mpId?: number;
+  primaryCanonicalId: string | null;
+  localPartyName: string;
+  isIndependent: boolean;
+  round: number;
+  pctOfValid: number;
+  votes: number;
+};
+
 /** One place's cross-cycle trend (one file). */
 export type PlaceTrendFile = {
   cyclesAsc: { cycle: string; year: string }[];
   trend: PlaceTrend;
+  /** Elected mayor per cycle — `m/` shards only (drives the mayor timeline). */
+  mayorTimeline?: MuniMayorTimelineEntry[];
 };
 
 /** Canonicalise an EKATTE for the `s/` shard key. The section data stores
