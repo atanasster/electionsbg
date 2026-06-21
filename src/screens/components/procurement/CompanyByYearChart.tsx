@@ -1,14 +1,18 @@
 // By-year breakdown rendered as a Recharts bar chart. Replaces the inline
 // year/total/count table on the company page so the operator can eyeball
 // the trend instead of reading 12 rows. Hover surfaces the exact figures.
+//
+// Bars encode the euro total; the contract count lives in the hover tooltip
+// (a second-axis line drew a count dot floating against the bars on an
+// unrelated scale — same x, different y meaning — which read as noise). A
+// single year is not a trend, so it renders as a one-line stat strip instead.
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Bar,
+  BarChart,
   CartesianGrid,
-  ComposedChart,
-  Line,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -33,11 +37,23 @@ interface TooltipPayload {
   payload: ChartDatum;
 }
 
+// `N договор/договора` — the count form (бройна форма) after a numeral, not the
+// bare plural `договори`. The number keeps its locale grouping; the noun comes
+// from the i18next plural key.
+const ContractCount: FC<{ count: number }> = ({ count }) => {
+  const { t } = useTranslation();
+  return (
+    <>
+      {count.toLocaleString("bg-BG")}{" "}
+      {t("company_contracts_noun", { count }) || "contracts"}
+    </>
+  );
+};
+
 const ChartTooltip: FC<{ active?: boolean; payload?: TooltipPayload[] }> = ({
   active,
   payload,
 }) => {
-  const { t } = useTranslation();
   if (!active || !payload?.[0]) return null;
   const d = payload[0].payload;
   return (
@@ -45,8 +61,7 @@ const ChartTooltip: FC<{ active?: boolean; payload?: TooltipPayload[] }> = ({
       <div className="font-semibold">{d.year}</div>
       <div className="tabular-nums">{formatEur(d.eur)}</div>
       <div className="text-muted-foreground tabular-nums">
-        {d.contractCount.toLocaleString("bg-BG")}{" "}
-        {t("company_col_contracts") || "contracts"}
+        <ContractCount count={d.contractCount} />
       </div>
     </div>
   );
@@ -68,22 +83,46 @@ export const CompanyByYearChart: FC<{
     contractCount: r.contractCount,
   }));
 
+  const heading = (
+    <CardHeader className="pb-2">
+      <CardTitle className="text-base flex items-center gap-2">
+        <TrendingUp className="h-4 w-4" />
+        {title ?? t("company_by_year") ?? "By year"}
+      </CardTitle>
+    </CardHeader>
+  );
+
+  // A single year is not a trend — one bar reads as a floating, contextless
+  // block. Show the figures as a compact strip instead.
+  if (data.length === 1) {
+    const d = data[0];
+    return (
+      <Card className="my-4">
+        {heading}
+        <CardContent className="p-3 md:p-4">
+          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <span className="text-sm font-semibold tabular-nums">{d.year}</span>
+            <span className="text-muted-foreground">·</span>
+            <span className="text-base font-bold tabular-nums">
+              {formatEur(d.eur)}
+            </span>
+            <span className="text-muted-foreground">·</span>
+            <span className="text-sm text-muted-foreground tabular-nums">
+              <ContractCount count={d.contractCount} />
+            </span>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card className="my-4">
-      <CardHeader className="pb-2">
-        <CardTitle className="text-base flex items-center gap-2">
-          <TrendingUp className="h-4 w-4" />
-          {title ?? t("company_by_year") ?? "By year"}
-        </CardTitle>
-      </CardHeader>
+      {heading}
       <CardContent className="p-3 md:p-4">
         <div style={{ height: 260, width: "100%" }}>
           <ResponsiveContainer width="100%" height="100%">
-            {/* ComposedChart: bars on the left axis show EUR amounts, line
-                on the right axis shows the contract count. The two axes let
-                the operator read volume (count) against value (EUR) at a
-                glance — same data, two angles. */}
-            <ComposedChart
+            <BarChart
               data={data}
               margin={{ top: 8, right: 16, bottom: 0, left: 0 }}
             >
@@ -100,7 +139,6 @@ export const CompanyByYearChart: FC<{
                 className="fill-muted-foreground"
               />
               <YAxis
-                yAxisId="eur"
                 tickFormatter={(v: number) =>
                   v >= 1_000_000_000
                     ? `€${(v / 1_000_000_000).toFixed(1)}B`
@@ -116,35 +154,12 @@ export const CompanyByYearChart: FC<{
                 className="fill-muted-foreground"
                 width={56}
               />
-              <YAxis
-                yAxisId="count"
-                orientation="right"
-                tickLine={false}
-                axisLine={false}
-                fontSize={11}
-                className="fill-muted-foreground"
-                width={36}
-              />
               <Tooltip
                 content={<ChartTooltip />}
                 cursor={{ fill: "var(--muted)", opacity: 0.3 }}
               />
-              <Bar
-                yAxisId="eur"
-                dataKey="eur"
-                fill="#d97706"
-                radius={[2, 2, 0, 0]}
-              />
-              <Line
-                yAxisId="count"
-                type="monotone"
-                dataKey="contractCount"
-                stroke="#2563eb"
-                strokeWidth={2}
-                dot={{ r: 3, fill: "#2563eb" }}
-                activeDot={{ r: 5 }}
-              />
-            </ComposedChart>
+              <Bar dataKey="eur" fill="#d97706" radius={[2, 2, 0, 0]} />
+            </BarChart>
           </ResponsiveContainer>
         </div>
       </CardContent>
