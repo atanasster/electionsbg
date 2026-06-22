@@ -251,7 +251,8 @@ Surfaces that are **intentionally non-fatal**:
 | `data/funds/index.json` | Totals, by-org-type / by-org-form breakdowns, top beneficiaries, `crossReference` summary — committed |
 | `data/funds/beneficiaries/<0-9>.json`, `_x.json` | Beneficiary rows sharded by EIK last digit — committed |
 | `data/funds/beneficiaries-by-eik/<EIK>.json` | One small file per beneficiary for O(1) `/company/{EIK}` lookup — bulky (~46k files), uploaded to the bucket, gitignored |
-| `data/funds/derived/mp_connected.json` | One entry per (MP, beneficiary) pair — the MP-tied journalism payload — committed |
+| `data/funds/derived/mp_connected.json` | One entry per (MP, beneficiary) pair — the MP-tied journalism payload — committed. The **aggregate fallback** only; the candidate page reads the per-MP shard below and pulls this (~56 KB) only when the shard is absent. |
+| `data/funds/derived/per-mp/<mpId>.json` + `per-mp/index.json`; `by-eik/<EIK>.json` + `index.json` | **Data-diet shards + manifest** the `/candidate/:id` EU-funds tile and `/company/:eik` read. Regenerated **every** ingest by `cross_reference.ts` (write-if-changed), so a normal `bucket:sync` keeps them in step with `mp_connected.json` — see "Per-MP shard invariant" in process-watch-report. Committed. |
 | `data/funds/derived/political_links.json` | Slim leaderboard of politically-tied beneficiaries (MP + non-MP officials + АОП overlap + debarred) — committed |
 | `data/funds/derived/political-by-eik/{EIK}.json` | Per-EIK political-economy shard for the `/company` panel — committed |
 | `data/funds/taxonomy.json` | Per-programme period + fund-family lookup (~10 KB) — committed |

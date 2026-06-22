@@ -37,13 +37,32 @@ const pickSlice = (
 export const useMpSimilarity = (mpId?: number | null, name?: string | null) => {
   const { selected } = useElectionContext();
 
-  // Fast-path: shard hit avoids the ~1.5 MB similarity aggregate fetch.
+  // Fast-path: shard hit avoids the ~12 MB similarity aggregate fetch.
   const { shard, isLoading: shardLoading } = useMpShard(
     mpId ?? undefined,
     name ?? undefined,
   );
 
-  const aggregateEnabled = !mpId && !name ? true : !shard && !shardLoading;
+  const { mpNames } = useMpProfile();
+
+  // Only fall back to the aggregate when the MP is actually a member of the
+  // selected NS. A former MP (or any MP viewed under an election they didn't
+  // serve in) has no shard AND no slice entry — loading the multi-MB aggregate
+  // would just produce an empty `entry`. The two consumers (twins tile +
+  // similarity browser) read only `entry`, so skipping it here is invisible.
+  const browseMode = !mpId && !name;
+  const profileReady = Object.keys(mpNames).length > 0;
+  const mpInSelectedNs =
+    profileReady &&
+    ((mpId != null && mpNames[String(mpId)] != null) ||
+      (!!name &&
+        Object.values(mpNames).some(
+          (n) => n.toLocaleLowerCase("bg") === name.toLocaleLowerCase("bg"),
+        )));
+
+  const aggregateEnabled = browseMode
+    ? true
+    : mpInSelectedNs && !shard && !shardLoading;
   const { data, isLoading: aggregateLoading } = useQuery({
     queryKey: ["rollcall_similarity"] as [string],
     queryFn,
@@ -53,8 +72,6 @@ export const useMpSimilarity = (mpId?: number | null, name?: string | null) => {
 
   const ns = electionToNsFolder(selected);
   const slice = pickSlice(data, ns);
-
-  const { mpNames } = useMpProfile();
 
   const byMpId = useMemo(() => {
     const m = new Map<number, SimilarityEntry>();

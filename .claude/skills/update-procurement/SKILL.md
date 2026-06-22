@@ -361,7 +361,9 @@ The `crossReference` field on `data/procurement/index.json` is the at-a-glance s
 | `data/procurement/contracts/<YYYY>/<YYYY-MM>.json` | One file per month, Contract[] — committed |
 | `data/procurement/contractors/<EIK>.json` | Per-contractor rollup — committed |
 | `data/procurement/awarders/<EIK>.json` | Per-awarding-body rollup — committed |
-| `data/procurement/derived/mp_connected.json` | One entry per (mpId, contractor) — committed |
+| `data/procurement/derived/mp_connected.json` | One entry per (mpId, contractor) — committed. The **aggregate fallback** only; the candidate page reads the per-MP shard below and pulls this (~70 KB) only when the shard is absent. |
+| `data/procurement/derived/per-mp/<mpId>.json` + `per-mp/index.json` | **Data-diet shard + manifest** the `/candidate/:id` procurement tile reads (carries the scorecard rank/cohort). Regenerated **every** ingest by `cross_reference.ts` (write-if-changed), so a normal `bucket:sync` keeps them in step with `mp_connected.json` — see "Per-MP shard invariant" in process-watch-report. Committed. |
+| `data/procurement/derived/per-eik/<EIK>.json` + `index.json`, `pep-by-eik/<EIK>.json`, `pep-by-slug/<slug>.json` (+ their `index.json`) | Reverse/forward shards for `/company/:eik` and `/officials/:slug` — also regenerated every ingest by `cross_reference.ts` / `pep_connected.ts`. Committed. |
 | `data/procurement/derived/top_contractors.json` | Top-N corpus-wide w/ MP-tied flag — committed |
 | `data/procurement/derived/flow.json` | Sankey-shaped MP-tied flow — committed |
 | `tests/fixtures/procurement/canary.json` | Pinned regression baseline — committed |

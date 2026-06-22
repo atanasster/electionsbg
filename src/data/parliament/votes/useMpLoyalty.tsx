@@ -51,12 +51,34 @@ export const useMpLoyalty = (mpId?: number | null, name?: string | null) => {
     name ?? undefined,
   );
 
+  const { mpNames } = useMpProfile();
+
   // Aggregate is still fetched when the shard misses (older NSes, fresh
   // ingests, or chamber-browsing screens that call this hook without an
   // mp). React Query dedupes the request across hooks. We hold off on the
   // aggregate until the shard request resolves — otherwise both fire in
-  // parallel and we waste the 1.5 MB download.
-  const aggregateEnabled = !mpId && !name ? true : !shard && !shardLoading;
+  // parallel and we waste the download.
+  //
+  // ...but only when the MP is actually a member of the selected NS. A former
+  // MP (or any MP viewed under an election they didn't serve in) has no shard
+  // AND no slice entry, so the aggregate would only yield an empty entry and a
+  // cohort median against a chamber they're not in. Skip it. MpVotingTile
+  // hides itself when `entry` is empty, and the scorecard's loyalty/attendance
+  // metrics fall back to the shard cohort (absent here → no median, which is
+  // the correct "not in this chamber" state).
+  const browseMode = !mpId && !name;
+  const profileReady = Object.keys(mpNames).length > 0;
+  const mpInSelectedNs =
+    profileReady &&
+    ((mpId != null && mpNames[String(mpId)] != null) ||
+      (!!name &&
+        Object.values(mpNames).some(
+          (n) => n.toLocaleLowerCase("bg") === name.toLocaleLowerCase("bg"),
+        )));
+
+  const aggregateEnabled = browseMode
+    ? true
+    : mpInSelectedNs && !shard && !shardLoading;
   const { data, isLoading: aggregateLoading } = useQuery({
     queryKey: ["rollcall_loyalty"] as [string],
     queryFn,
@@ -66,8 +88,6 @@ export const useMpLoyalty = (mpId?: number | null, name?: string | null) => {
 
   const ns = electionToNsFolder(selected);
   const slice = pickSlice(data, ns);
-
-  const { mpNames } = useMpProfile();
 
   const byMpId = useMemo(() => {
     const m = new Map<number, LoyaltyEntry>();
