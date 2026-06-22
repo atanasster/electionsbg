@@ -10,59 +10,10 @@ import { PieChart } from "lucide-react";
 import { ResponsiveContainer, Treemap, Tooltip } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur } from "@/lib/currency";
+import { TreemapCell } from "./treemapCell";
+import { treemapCellColor } from "./treemapPalette";
 
-type Cell = { eik: string; name: string; size: number };
-
-// Terracotta → slate ramp, matching the procurement palette. Index by rank so
-// the largest cells are the most saturated.
-const RAMP = [
-  "#b45309",
-  "#c2710c",
-  "#d97706",
-  "#e08a1e",
-  "#e8a23d",
-  "#efb968",
-  "#a8a29e",
-  "#94a3b8",
-];
-
-const CellContent: FC<{
-  x?: number;
-  y?: number;
-  width?: number;
-  height?: number;
-  index?: number;
-  name?: string;
-}> = ({ x = 0, y = 0, width = 0, height = 0, index = 0, name = "" }) => {
-  const fill = RAMP[Math.min(index, RAMP.length - 1)];
-  const showLabel = width > 56 && height > 24;
-  return (
-    <g>
-      <rect
-        x={x}
-        y={y}
-        width={width}
-        height={height}
-        fill={fill}
-        stroke="var(--background)"
-        strokeWidth={2}
-      />
-      {showLabel ? (
-        <text
-          x={x + 6}
-          y={y + 16}
-          fontSize={11}
-          className="fill-white"
-          style={{ pointerEvents: "none" }}
-        >
-          {name.length > Math.floor(width / 7)
-            ? `${name.slice(0, Math.max(0, Math.floor(width / 7) - 1))}…`
-            : name}
-        </text>
-      ) : null}
-    </g>
-  );
-};
+type Cell = { eik: string; name: string; size: number; color: string };
 
 export const CompanyPortfolioTreemap: FC<{
   role: "awarder" | "contractor";
@@ -71,15 +22,18 @@ export const CompanyPortfolioTreemap: FC<{
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const data = useMemo<Cell[]>(
-    () =>
-      [...items]
-        .filter((i) => i.totalEur > 0)
-        .sort((a, b) => b.totalEur - a.totalEur)
-        .slice(0, 24)
-        .map((i) => ({ eik: i.eik, name: i.name, size: i.totalEur })),
-    [items],
-  );
+  const data = useMemo<Cell[]>(() => {
+    const ranked = [...items]
+      .filter((i) => i.totalEur > 0)
+      .sort((a, b) => b.totalEur - a.totalEur)
+      .slice(0, 24);
+    return ranked.map((i, idx) => ({
+      eik: i.eik,
+      name: i.name,
+      size: i.totalEur,
+      color: treemapCellColor(idx, ranked.length),
+    }));
+  }, [items]);
 
   if (data.length < 2) return null;
 
@@ -106,7 +60,7 @@ export const CompanyPortfolioTreemap: FC<{
               nameKey="name"
               stroke="var(--background)"
               isAnimationActive={false}
-              content={<CellContent />}
+              content={<TreemapCell />}
               onClick={(node: unknown) => {
                 const eik = (node as { eik?: string })?.eik;
                 if (eik) navigate(`${linkBase}/${eik}`);

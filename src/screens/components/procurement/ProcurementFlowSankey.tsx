@@ -8,6 +8,7 @@
 
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import {
   sankey,
   sankeyJustify,
@@ -37,18 +38,47 @@ const NODE_WIDTH = 14;
 const NODE_PADDING = 8;
 
 // Stable colors per node type. Same families used elsewhere in the codebase
-// (amber = MP, slate = awarder, terracotta = contractor) so the visual
-// language stays consistent with /connections.
+// (slate = awarder, terracotta = contractor, blue = MP) so the visual
+// language stays consistent with /connections. Officials reuse the teal of
+// the /company "Connected officials" tile.
 const TYPE_COLOR: Record<ProcurementFlowNodeType, string> = {
   awarder: "#475569",
   contractor: "#d97706",
   mp: "#2563eb",
+  official: "#0d9488",
 };
 
 const TYPE_I18N: Record<ProcurementFlowNodeType, string> = {
   awarder: "procurement_flow_legend_awarder",
   contractor: "procurement_flow_legend_contractor",
   mp: "procurement_flow_legend_mp",
+  official: "procurement_flow_legend_official",
+};
+
+// Each leaf node carries an `id` of the form "<type>:<key>". Map it to the
+// profile route for that entity:
+//   awarder:<eik>      → /awarder/:eik
+//   contractor:<eik>   → /company/:eik
+//   mp:<mpId>          → /candidate/mp-<mpId>  (the candidate route resolves
+//                        parliament MPs via the "mp-" id prefix — same shape
+//                        used by every other procurement→MP link)
+//   official:<slug>    → /officials/:slug
+const nodeHref = (node: ProcurementFlowNode): string | null => {
+  const sep = node.id.indexOf(":");
+  const key = sep >= 0 ? node.id.slice(sep + 1) : "";
+  if (!key) return null;
+  switch (node.type) {
+    case "awarder":
+      return `/awarder/${encodeURIComponent(key)}`;
+    case "contractor":
+      return `/company/${encodeURIComponent(key)}`;
+    case "mp":
+      return `/candidate/mp-${encodeURIComponent(key)}`;
+    case "official":
+      return `/officials/${encodeURIComponent(key)}`;
+    default:
+      return null;
+  }
 };
 
 export const ProcurementFlowSankey: FC<{
@@ -58,6 +88,7 @@ export const ProcurementFlowSankey: FC<{
   height: number;
 }> = ({ nodes, links, width, height }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { tooltip, onMouseEnter, onMouseMove, onMouseLeave } = useTooltip();
   // Which node the cursor is over — dims every link/node that doesn't touch
   // it. Kept local: nothing outside the diagram needs the focus state.
@@ -121,7 +152,7 @@ export const ProcurementFlowSankey: FC<{
         width={width}
         height={height}
         role="img"
-        aria-label="MP-tied procurement money flow"
+        aria-label="Procurement money flow to connected MPs and officials"
         // block: an inline svg sits on the text baseline, adding a descender
         // gap that overflows the fixed-height scroll container vertically.
         className="block"
@@ -204,6 +235,7 @@ export const ProcurementFlowSankey: FC<{
             // and the focused node always shows its label even when small.
             const minHeightForLabel = 11;
             const showLabel = nodeHeight >= minHeightForLabel || isFocus;
+            const href = nodeHref(node);
             const tipContent = (
               <div className="flex flex-col gap-1 max-w-[260px]">
                 <FlowEndpoint
@@ -214,11 +246,27 @@ export const ProcurementFlowSankey: FC<{
                 <div className="text-muted-foreground">
                   {typeLabel(node.type)}
                 </div>
+                {href ? (
+                  <div className="text-primary">
+                    {t("procurement_flow_click_hint") ||
+                      "Click to open profile →"}
+                  </div>
+                ) : null}
               </div>
             );
+            const go = (e: { metaKey: boolean; ctrlKey: boolean }) => {
+              if (!href) return;
+              // Cmd/Ctrl-click opens the profile in a new tab, matching how a
+              // real link behaves — these SVG rects aren't <a> elements.
+              if (e.metaKey || e.ctrlKey) window.open(href, "_blank");
+              else navigate(href);
+            };
             return (
               <g
                 key={`node-${node.id}`}
+                role={href ? "link" : undefined}
+                aria-label={href ? node.label : undefined}
+                tabIndex={href ? 0 : undefined}
                 onMouseEnter={(e) => {
                   setFocusId(node.id);
                   onMouseEnter({ pageX: e.pageX, pageY: e.pageY }, tipContent);
@@ -226,7 +274,14 @@ export const ProcurementFlowSankey: FC<{
                 onMouseMove={(e) =>
                   onMouseMove({ pageX: e.pageX, pageY: e.pageY })
                 }
-                style={{ cursor: "pointer" }}
+                onClick={go}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    go(e);
+                  }
+                }}
+                style={{ cursor: href ? "pointer" : "default" }}
               >
                 <rect
                   x={node.x0}
