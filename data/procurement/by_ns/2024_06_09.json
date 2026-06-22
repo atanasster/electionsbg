@@ -2,7 +2,7 @@
   "electionDate": "2024_06_09",
   "start": "2024-06-09",
   "end": "2024-10-27",
-  "generatedAt": "2026-06-20T18:46:57.231Z",
+  "generatedAt": "2026-06-21T23:45:58.509Z",
   "totals": {
     "contracts": 765,
     "amendments": 0,
@@ -10,9 +10,9 @@
     "contractorCount": 153,
     "awarderCount": 254,
     "totalEur": 34543871.49189857,
-    "mpCount": 1,
-    "mpConnectedContractorCount": 1,
-    "mpConnectedTotalEur": 1403943.082987785
+    "mpCount": 0,
+    "mpConnectedContractorCount": 0,
+    "mpConnectedTotalEur": 0
   },
   "topContractors": [
     {
@@ -52,10 +52,8 @@
       "name": "Контракс АД",
       "totalEur": 1403943.082987785,
       "contractCount": 3,
-      "mpTied": true,
-      "mpIds": [
-        805
-      ]
+      "mpTied": false,
+      "mpIds": []
     },
     {
       "eik": "203577735",
@@ -720,17 +718,5 @@
       "contractCount": 1
     }
   ],
-  "topMps": [
-    {
-      "mpId": 805,
-      "mpName": "Йордан Петков Йорданов",
-      "totalEur": 1403943.082987785,
-      "contractCount": 3,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Контракс АД"
-      ],
-      "confidence": "medium"
-    }
-  ]
+  "topMps": []
 }

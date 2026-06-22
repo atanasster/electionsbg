@@ -2,7 +2,7 @@
   "electionDate": "2026_04_19",
   "start": "2026-04-19",
   "end": null,
-  "generatedAt": "2026-06-20T18:46:57.229Z",
+  "generatedAt": "2026-06-21T23:45:58.505Z",
   "totals": {
     "contracts": 5975,
     "amendments": 1093,
@@ -10,9 +10,9 @@
     "contractorCount": 2122,
     "awarderCount": 1082,
     "totalEur": 2973382760.0456724,
-    "mpCount": 11,
-    "mpConnectedContractorCount": 10,
-    "mpConnectedTotalEur": 3724078.8999999994
+    "mpCount": 6,
+    "mpConnectedContractorCount": 6,
+    "mpConnectedTotalEur": 1431385.29
   },
   "topContractors": [
     {
@@ -720,28 +720,6 @@
   ],
   "topMps": [
     {
-      "mpId": 805,
-      "mpName": "Йордан Петков Йорданов",
-      "totalEur": 1591634.6499999997,
-      "contractCount": 19,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Контракс АД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 4745,
-      "mpName": "Ваня Иванова Василева",
-      "totalEur": 648397.12,
-      "contractCount": 3,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Фармапро ООД"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 938,
       "mpName": "Дарин Величков Матов",
       "totalEur": 522555.73,
@@ -775,17 +753,6 @@
       "confidence": "medium"
     },
     {
-      "mpId": 5197,
-      "mpName": "Йордан Йовчев Йовчев",
-      "totalEur": 153387.56,
-      "contractCount": 2,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Национална спортна база ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 2822,
       "mpName": "Любомир Бойков Бонев",
       "totalEur": 143900,
@@ -798,7 +765,7 @@
     },
     {
       "mpId": 2946,
-      "mpName": "Елена Стефанова Пешева",
+      "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
       "totalEur": 93382,
       "contractCount": 1,
       "contractorCount": 1,
@@ -815,28 +782,6 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Напоителни системи ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 3710,
-      "mpName": "Пламен Николаев Николов",
-      "totalEur": 51128.46,
-      "contractCount": 1,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "КП инвест груп ЕООД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 2734,
-      "mpName": "Тома Николов Томов",
-      "totalEur": 1533.38,
-      "contractCount": 1,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Ватом томови 1991 ООД"
       ],
       "confidence": "medium"
     }

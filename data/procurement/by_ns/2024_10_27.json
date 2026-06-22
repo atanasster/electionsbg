@@ -2,7 +2,7 @@
   "electionDate": "2024_10_27",
   "start": "2024-10-27",
   "end": "2026-04-19",
-  "generatedAt": "2026-06-20T18:46:57.231Z",
+  "generatedAt": "2026-06-21T23:45:58.509Z",
   "totals": {
     "contracts": 12453,
     "amendments": 2385,
@@ -10,9 +10,9 @@
     "contractorCount": 3856,
     "awarderCount": 2109,
     "totalEur": 17434277421.67464,
-    "mpCount": 14,
-    "mpConnectedContractorCount": 15,
-    "mpConnectedTotalEur": 267530767.81128135
+    "mpCount": 8,
+    "mpConnectedContractorCount": 9,
+    "mpConnectedTotalEur": 245882130.24358296
   },
   "topContractors": [
     {
@@ -744,29 +744,6 @@
       "confidence": "medium"
     },
     {
-      "mpId": 805,
-      "mpName": "Йордан Петков Йорданов",
-      "totalEur": 13943274.377698371,
-      "contractCount": 55,
-      "contractorCount": 2,
-      "topContractorNames": [
-        "Контракс АД",
-        "Дайрект сървисиз ООД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 4745,
-      "mpName": "Ваня Иванова Василева",
-      "totalEur": 6998023.300000001,
-      "contractCount": 16,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Фармапро ООД"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 4649,
       "mpName": "Генади Събков Събков",
       "totalEur": 1195725.3900000001,
@@ -774,17 +751,6 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Напоителни системи ЕАД-клон Шумен"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 5005,
-      "mpName": "Стилиана Иванова Бобчева",
-      "totalEur": 667773.24,
-      "contractCount": 3,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Национален перилен комбинат ООД"
       ],
       "confidence": "medium"
     },
@@ -812,7 +778,7 @@
     },
     {
       "mpId": 2946,
-      "mpName": "Елена Стефанова Пешева",
+      "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
       "totalEur": 135523.0244733438,
       "contractCount": 3,
       "contractorCount": 2,
@@ -834,17 +800,6 @@
       "confidence": "medium"
     },
     {
-      "mpId": 5197,
-      "mpName": "Йордан Йовчев Йовчев",
-      "totalEur": 101235.79000000001,
-      "contractCount": 2,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Национална спортна база ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 5094,
       "mpName": "Николай Иванов Косев",
       "totalEur": 50566.77,
@@ -852,28 +807,6 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ЕВРОХИМ-ГРУП ООД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 2853,
-      "mpName": "Дора Стоянова Христова",
-      "totalEur": 20922.06,
-      "contractCount": 1,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Медицински център младост варна ООД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 3026,
-      "mpName": "Антон Йорданов Адамов",
-      "totalEur": 18644.59,
-      "contractCount": 1,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Булгаргаз ЕАД"
       ],
       "confidence": "medium"
     }

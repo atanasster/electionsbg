@@ -2,7 +2,7 @@
   "electionDate": "2021_11_14",
   "start": "2021-11-14",
   "end": "2022-10-02",
-  "generatedAt": "2026-06-20T18:46:57.238Z",
+  "generatedAt": "2026-06-21T23:45:58.514Z",
   "totals": {
     "contracts": 22174,
     "amendments": 0,
@@ -10,9 +10,9 @@
     "contractorCount": 4536,
     "awarderCount": 1489,
     "totalEur": 4029740670.6578274,
-    "mpCount": 19,
-    "mpConnectedContractorCount": 19,
-    "mpConnectedTotalEur": 21790879.283986837
+    "mpCount": 12,
+    "mpConnectedContractorCount": 12,
+    "mpConnectedTotalEur": 6581889.923970899
   },
   "topContractors": [
     {
@@ -364,10 +364,8 @@
       "name": "Контракс АД",
       "totalEur": 13961268.607189782,
       "contractCount": 84,
-      "mpTied": true,
-      "mpIds": [
-        805
-      ]
+      "mpTied": false,
+      "mpIds": []
     },
     {
       "eik": "200678992",
@@ -722,18 +720,6 @@
   ],
   "topMps": [
     {
-      "mpId": 805,
-      "mpName": "Йордан Петков Йорданов",
-      "totalEur": 13979163.823031649,
-      "contractCount": 85,
-      "contractorCount": 2,
-      "topContractorNames": [
-        "Контракс АД",
-        "Дайрект сървисиз ООД"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 938,
       "mpName": "Дарин Величков Матов",
       "totalEur": 4275031.255272698,
@@ -756,30 +742,8 @@
       "confidence": "medium"
     },
     {
-      "mpId": 4745,
-      "mpName": "Ваня Иванова Василева",
-      "totalEur": 681807.7235751573,
-      "contractCount": 1,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Фармапро ООД"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 4716,
       "mpName": "Венцислав Иванов Петков",
-      "totalEur": 460162.69307659665,
-      "contractCount": 2,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Национална спортна база ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 5197,
-      "mpName": "Йордан Йовчев Йовчев",
       "totalEur": 460162.69307659665,
       "contractCount": 2,
       "contractorCount": 1,
@@ -800,17 +764,6 @@
       "confidence": "medium"
     },
     {
-      "mpId": 5005,
-      "mpName": "Стилиана Иванова Бобчева",
-      "totalEur": 254927.8158122127,
-      "contractCount": 6,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Национален перилен комбинат ООД"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 1689,
       "mpName": "Андон Петров Андонов",
       "totalEur": 178984.88109907304,
@@ -818,17 +771,6 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Мини марица - изток ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 3160,
-      "mpName": "Рушен Мехмед Риза",
-      "totalEur": 178797.74827055522,
-      "contractCount": 6,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Хигиямед ООД"
       ],
       "confidence": "medium"
     },
@@ -866,17 +808,6 @@
       "confidence": "high"
     },
     {
-      "mpId": 2853,
-      "mpName": "Дора Стоянова Христова",
-      "totalEur": 106860.00317000966,
-      "contractCount": 3,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Медицински център младост варна ООД"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 4649,
       "mpName": "Генади Събков Събков",
       "totalEur": 66187.75660461288,
@@ -889,7 +820,7 @@
     },
     {
       "mpId": 2946,
-      "mpName": "Елена Стефанова Пешева",
+      "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
       "totalEur": 39307.09724260289,
       "contractCount": 4,
       "contractorCount": 1,
@@ -906,17 +837,6 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Холдинг Български държавни железници ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 2734,
-      "mpName": "Тома Николов Томов",
-      "totalEur": 7432.246156363283,
-      "contractCount": 3,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Ватом томови 1991 ООД"
       ],
       "confidence": "medium"
     },

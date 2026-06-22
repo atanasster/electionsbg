@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-05-21T16:45:04.000Z",
-  "total": 157,
-  "officialMpEdges": 36,
-  "officialPeerEdges": 278,
+  "generatedAt": "2026-06-22T00:15:38.284Z",
+  "total": 167,
+  "officialMpEdges": 38,
+  "officialPeerEdges": 294,
   "byOfficial": {
     "angel-borisov-zaburtov-fd5ef9": {
       "slug": "angel-borisov-zaburtov-fd5ef9",
@@ -46,7 +46,7 @@
               "companyName": "АТАНАСОВ АГРО 56"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -92,7 +92,7 @@
               "companyName": "ГН моторс"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -112,7 +112,7 @@
               "companyName": "МОУШЪНСПОРТС"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ],
       "peerConnections": [
@@ -127,7 +127,7 @@
               "companyName": "МОУШЪНСПОРТС"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -215,7 +215,7 @@
               "companyName": "СЕТ - 5"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -281,7 +281,7 @@
               "companyName": "ПИРИН ВАТ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ],
       "peerConnections": []
@@ -326,7 +326,7 @@
               "companyName": "УСТРЕМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "ivan-hristov-ivanov-e944f6",
@@ -339,7 +339,7 @@
               "companyName": "УСТРЕМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -362,7 +362,7 @@
               "companyName": "НГ РИК"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "georgi-ivanov-ivanov-736d9d",
@@ -375,7 +375,7 @@
               "companyName": "НГ РИК"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "georgi-ivanov-ivanov-5070c4",
@@ -388,7 +388,7 @@
               "companyName": "НГ РИК"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -411,7 +411,7 @@
               "companyName": "БАЙКС УЪРЛД"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -457,7 +457,7 @@
               "companyName": "К и Д 2022"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -478,6 +478,29 @@
             {
               "uic": "119048540",
               "companyName": "ПАЗАР ЗА ПЛОДОВЕ, ЗЕЛЕНЧУЦИ И ЦВЕТЯ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "bogomil-emilov-brankov-cd5156": {
+      "slug": "bogomil-emilov-brankov-cd5156",
+      "name": "Богомил Емилов Бранков",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Елин Пелин",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "todor-savov-savov-6e1935",
+          "name": "Тодор Савов Савов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "207429253",
+              "companyName": "Елин Пелин Смарт Резиденс ООД"
             }
           ],
           "confidence": "high"
@@ -549,7 +572,7 @@
               "companyName": "Бранко Метал Груп"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -598,6 +621,27 @@
           "confidence": "high"
         }
       ]
+    },
+    "vladimir-hristov-petrov-e6e658": {
+      "slug": "vladimir-hristov-petrov-e6e658",
+      "name": "Владимир Христов Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Неделино",
+      "mpConnections": [
+        {
+          "mpId": 2657,
+          "mpName": "Петър Христов Петров",
+          "sharedCompanies": [
+            {
+              "uic": "208101103",
+              "companyName": "ВИПТЕХ ТРЕЙД"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": []
     },
     "vladislav-zlatkov-bakalov-47a692": {
       "slug": "vladislav-zlatkov-bakalov-47a692",
@@ -654,7 +698,7 @@
               "companyName": "АТАНАСОВ АГРО 56"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "dimitr-georgiev-dimitrov-402467",
@@ -667,7 +711,7 @@
               "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "nikolai-dimitrov-nikolov-6f0767",
@@ -680,7 +724,7 @@
               "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "nikolai-dimitrov-nikolov-2cb7ac",
@@ -693,7 +737,7 @@
               "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "nikolai-dimitrov-nikolov-fadf74",
@@ -706,7 +750,7 @@
               "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "petr-dimitrov-petrov-9c5512",
@@ -719,7 +763,7 @@
               "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -742,7 +786,7 @@
               "companyName": "Бранко Метал Груп"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -909,7 +953,7 @@
               "companyName": "СЕНЧЪРИБРЕЙК ФЪНДС"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "georgi-iordanov-georgiev-5270a7",
@@ -922,7 +966,7 @@
               "companyName": "СЕНЧЪРИБРЕЙК ФЪНДС"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "ivan-zhelyazkov-ivanov-02f38d",
@@ -935,7 +979,7 @@
               "companyName": "СЕНЧЪРИБРЕЙК ФЪНДС"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -1144,7 +1188,7 @@
               "companyName": "ДЖЙ ИЙ АЙ ВЙ ГРУП"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "ivan-petrov-ivanov-168e1c",
@@ -1157,7 +1201,7 @@
               "companyName": "АВТОТРАНС ВИДИН"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "ivan-petrov-ivanov-37340d",
@@ -1170,7 +1214,7 @@
               "companyName": "АВТОТРАНС ВИДИН"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "ivan-petrov-ivanov-ef8494",
@@ -1183,7 +1227,7 @@
               "companyName": "АВТОТРАНС ВИДИН"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "ivan-todorov-ivanov-aecae9",
@@ -1196,7 +1240,7 @@
               "companyName": "АВТОТРАНС ВИДИН"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -1445,7 +1489,7 @@
               "companyName": "ХЕЛИОДОРО"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -1466,6 +1510,19 @@
             {
               "uic": "202886084",
               "companyName": "СЕНЧЪРИБРЕЙК ФЪНДС"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "dimitr-hristov-petrov-13b8e2",
+          "name": "Димитър Христов Петров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "207909035",
+              "companyName": "Ракамакафон"
             }
           ],
           "confidence": "low"
@@ -1502,6 +1559,19 @@
             {
               "uic": "202886084",
               "companyName": "СЕНЧЪРИБРЕЙК ФЪНДС"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "dimitr-hristov-petrov-13b8e2",
+          "name": "Димитър Христов Петров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "207909035",
+              "companyName": "Ракамакафон"
             }
           ],
           "confidence": "low"
@@ -1648,7 +1718,7 @@
               "companyName": "ТРАКИЙСКА ЗОРА 2015"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -1671,7 +1741,7 @@
               "companyName": "ТРАВЕЛ ЕКСПРЕС"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "stoyan-georgiev-stoyanov-36b0e5",
@@ -1684,7 +1754,7 @@
               "companyName": "ТРАВЕЛ ЕКСПРЕС"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -1711,7 +1781,7 @@
               "companyName": "ПАЗАРИ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "petr-evgeniev-nikolov-3b09db",
@@ -1724,7 +1794,7 @@
               "companyName": "ГЛОБЪЛ ЕС ЕНЕРДЖИ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -1813,7 +1883,7 @@
               "companyName": "АПИС МЕЛИФЕРА БЪЛГАРИЯ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "mpId": 5333,
@@ -1824,7 +1894,7 @@
               "companyName": "АПИС МЕЛИФЕРА БЪЛГАРИЯ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ],
       "peerConnections": [
@@ -1839,7 +1909,7 @@
               "companyName": "УСТРЕМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "georgi-atanasov-georgiev-3d1e0b",
@@ -1852,7 +1922,7 @@
               "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "georgi-ivanov-georgiev-c46138",
@@ -1865,7 +1935,7 @@
               "companyName": "КРУМКООП - 1"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "georgi-ivanov-georgiev-2e9e4c",
@@ -1878,7 +1948,7 @@
               "companyName": "КРУМКООП - 1"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "georgi-ivanov-georgiev-44d140",
@@ -1891,7 +1961,7 @@
               "companyName": "КРУМКООП - 1"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "ivan-hristov-ivanov-e944f6",
@@ -1904,7 +1974,7 @@
               "companyName": "УСТРЕМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "nikolai-dimitrov-nikolov-6f0767",
@@ -1917,7 +1987,7 @@
               "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "nikolai-dimitrov-nikolov-2cb7ac",
@@ -1930,7 +2000,7 @@
               "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "nikolai-dimitrov-nikolov-fadf74",
@@ -1943,7 +2013,7 @@
               "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "petr-dimitrov-petrov-9c5512",
@@ -1956,7 +2026,7 @@
               "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -1979,7 +2049,7 @@
               "companyName": "ЛИГЪЛ КОНСУЛТИНГ СОЛЮШЪНС"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -1989,8 +2059,33 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Ямбол",
-      "mpConnections": [],
+      "mpConnections": [
+        {
+          "mpId": 1117,
+          "mpName": "Петко Валентинов Петков",
+          "sharedCompanies": [
+            {
+              "uic": "204332614",
+              "companyName": "БЛИТЦ ЕР"
+            }
+          ],
+          "confidence": "low"
+        }
+      ],
       "peerConnections": [
+        {
+          "slug": "petko-valentinov-petkov-238a7b",
+          "name": "Петко Валентинов Петков",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "204332614",
+              "companyName": "БЛИТЦ ЕР"
+            }
+          ],
+          "confidence": "low"
+        },
         {
           "slug": "petr-georgiev-petrov-c24538",
           "name": "Петър Георгиев Петров",
@@ -2002,7 +2097,7 @@
               "companyName": "АВТО-СТОП"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "hristo-dimitrov-hristov-a59ac1",
@@ -2015,7 +2110,7 @@
               "companyName": "БЛИТЦ ЕР"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -2136,7 +2231,7 @@
               "companyName": "СМАРТ КОНСУЛТ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -2159,7 +2254,7 @@
               "companyName": "К и Д 2022"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -2182,7 +2277,7 @@
               "companyName": "Ф И Ф 22"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "georgi-ivanov-ivanov-736d9d",
@@ -2195,7 +2290,7 @@
               "companyName": "Ф И Ф 22"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "georgi-ivanov-ivanov-5070c4",
@@ -2208,7 +2303,7 @@
               "companyName": "Ф И Ф 22"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -2218,19 +2313,7 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Земен",
-      "mpConnections": [
-        {
-          "mpId": 1586,
-          "mpName": "Йордан Георгиев Стойков",
-          "sharedCompanies": [
-            {
-              "uic": "126180065",
-              "companyName": "ЕВРО ФЕРТ"
-            }
-          ],
-          "confidence": "high"
-        }
-      ],
+      "mpConnections": [],
       "peerConnections": [
         {
           "slug": "daniel-rumenov-gargov-c309b6",
@@ -2247,7 +2330,7 @@
               "companyName": "ПАЗАРИ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -2270,7 +2353,7 @@
               "companyName": "ДЖИ ЕМ АГРОС"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "nikolai-ivanov-nikolov-8872c2",
@@ -2283,7 +2366,7 @@
               "companyName": "ДЖИ ЕМ АГРОС"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "nikolai-ivanov-nikolov-669110",
@@ -2296,7 +2379,7 @@
               "companyName": "ДЖИ ЕМ АГРОС"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "petr-rangelov-karadamyanov-210cdb",
@@ -2307,6 +2390,42 @@
             {
               "uic": "206761352",
               "companyName": "ТРИМА КОМЕРС"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "dimitr-hristov-petrov-13b8e2": {
+      "slug": "dimitr-hristov-petrov-13b8e2",
+      "name": "Димитър Христов Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-iordanov-georgiev-445c79",
+          "name": "Георги Йорданов Георгиев",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "sharedCompanies": [
+            {
+              "uic": "207909035",
+              "companyName": "Ракамакафон ООД"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "georgi-iordanov-georgiev-5270a7",
+          "name": "Георги Йорданов Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "207909035",
+              "companyName": "Ракамакафон ООД"
             }
           ],
           "confidence": "high"
@@ -2332,7 +2451,7 @@
               "companyName": "ПРОВАДСТРОЙ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "nikolai-georgiev-nikolaev-05d6cf",
@@ -2345,7 +2464,7 @@
               "companyName": "ПРОВАДСТРОЙ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -2414,7 +2533,7 @@
               "companyName": "ТЕРИ 2013"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -2477,7 +2596,7 @@
               "companyName": "Санпарк"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -2497,7 +2616,7 @@
               "companyName": "Търговски център Сандански"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ],
       "peerConnections": [
@@ -2535,7 +2654,7 @@
               "companyName": "АЕТОС ИНВЕСТ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -2558,7 +2677,7 @@
               "companyName": "Даскалов Иванов"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -2604,7 +2723,7 @@
               "companyName": "ДЖЙ ИЙ АЙ ВЙ ГРУП"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -2875,7 +2994,7 @@
               "companyName": "ПРОВАДСТРОЙ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "nikolai-georgiev-nikolaev-05d6cf",
@@ -2888,7 +3007,7 @@
               "companyName": "ПРОВАДСТРОЙ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -2956,7 +3075,7 @@
               "companyName": "КОМНЕТ БЪЛГАРИЯ ХОЛДИНГ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ],
       "peerConnections": [
@@ -2971,7 +3090,7 @@
               "companyName": "СЕНЧЪРИБРЕЙК ФЪНДС"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "georgi-iordanov-georgiev-445c79",
@@ -2984,7 +3103,7 @@
               "companyName": "СЕНЧЪРИБРЕЙК ФЪНДС"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "georgi-iordanov-georgiev-5270a7",
@@ -2997,7 +3116,7 @@
               "companyName": "СЕНЧЪРИБРЕЙК ФЪНДС"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "ivan-dochev-ivanov-ba8abb",
@@ -3010,7 +3129,7 @@
               "companyName": "КОМНЕТ БЪЛГАРИЯ ХОЛДИНГ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "petr-valentinov-haralambov-2efba0",
@@ -3023,7 +3142,7 @@
               "companyName": "КОМНЕТ БЪЛГАРИЯ ХОЛДИНГ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -3046,7 +3165,7 @@
               "companyName": "ПРОСЛАВ 1"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "georgi-dimitrov-georgiev-42dfbc",
@@ -3059,7 +3178,7 @@
               "companyName": "ПРОСЛАВ 1"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "georgi-dimitrov-georgiev-dfb15b",
@@ -3072,7 +3191,7 @@
               "companyName": "ПРОСЛАВ 1"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "dimitr-ivanov-ivanov-478d76",
@@ -3085,7 +3204,7 @@
               "companyName": "ПРОМАР"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "dimitr-ivanov-ivanov-e50fad",
@@ -3098,7 +3217,7 @@
               "companyName": "ПРОМАР"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "simeon-ivanov-ivanov-ca5e36",
@@ -3111,7 +3230,7 @@
               "companyName": "КЛАСМАН ЕНТЪРПРАЙСИЗ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -3136,6 +3255,10 @@
             {
               "uic": "202787296",
               "companyName": "ДЖЕЙ ЕЛ КЕПИТЪЛ"
+            },
+            {
+              "uic": "117623024",
+              "companyName": "ИРИМ"
             }
           ],
           "confidence": "low"
@@ -3163,6 +3286,10 @@
             {
               "uic": "202787296",
               "companyName": "ДЖЕЙ ЕЛ КЕПИТЪЛ"
+            },
+            {
+              "uic": "117623024",
+              "companyName": "ИРИМ"
             }
           ],
           "confidence": "low"
@@ -3190,6 +3317,10 @@
             {
               "uic": "202787296",
               "companyName": "ДЖЕЙ ЕЛ КЕПИТЪЛ"
+            },
+            {
+              "uic": "117623024",
+              "companyName": "ИРИМ"
             }
           ],
           "confidence": "low"
@@ -3304,6 +3435,42 @@
         }
       ]
     },
+    "ivan-petrov-petrov-3098f3": {
+      "slug": "ivan-petrov-petrov-3098f3",
+      "name": "Иван Петров Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Монтана",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "petr-ivanov-petrov-6ee18a",
+          "name": "Петър Иванов Петров",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "sharedCompanies": [
+            {
+              "uic": "206942089",
+              "companyName": "АЛ БИ СТРОЙ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "petr-ivanov-petrov-4af21c",
+          "name": "Петър Иванов Петров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206942089",
+              "companyName": "АЛ БИ СТРОЙ"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
     "ivan-romanov-tsvetkov-dcb299": {
       "slug": "ivan-romanov-tsvetkov-dcb299",
       "name": "Иван Романов Цветков",
@@ -3323,7 +3490,7 @@
               "companyName": "ЛИГЪЛ КОНСУЛТИНГ СОЛЮШЪНС"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -3343,7 +3510,7 @@
               "companyName": "АВТОМАГИСТРАЛИ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ],
       "peerConnections": []
@@ -3375,7 +3542,7 @@
               "companyName": "СЛЪНЦЕ БУТОВО"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "vladislav-zlatkov-bakalov-47a692",
@@ -3388,7 +3555,7 @@
               "companyName": "СЛЪНЦЕ БУТОВО"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "georgi-ivanov-dimitrov-9b37b3",
@@ -3401,7 +3568,7 @@
               "companyName": "АВТОТРАНС ВИДИН"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "emil-ivanov-ivanov-4b0fc9",
@@ -3414,7 +3581,7 @@
               "companyName": "ТЕРИ 2013"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "ivan-petrov-ivanov-168e1c",
@@ -3427,7 +3594,7 @@
               "companyName": "АВТОТРАНС ВИДИН"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "ivan-petrov-ivanov-37340d",
@@ -3440,7 +3607,7 @@
               "companyName": "АВТОТРАНС ВИДИН"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "ivan-petrov-ivanov-ef8494",
@@ -3453,7 +3620,7 @@
               "companyName": "АВТОТРАНС ВИДИН"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -3484,7 +3651,7 @@
               "companyName": "СЛЪНЦЕ БУТОВО"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "angel-petrov-angelov-181b82",
@@ -3497,7 +3664,7 @@
               "companyName": "УСТРЕМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "vladislav-zlatkov-bakalov-47a692",
@@ -3510,7 +3677,7 @@
               "companyName": "СЛЪНЦЕ БУТОВО"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "dimitr-georgiev-dimitrov-402467",
@@ -3523,7 +3690,7 @@
               "companyName": "УСТРЕМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "hristo-ivanov-ivanov-9b4a29",
@@ -3536,7 +3703,7 @@
               "companyName": "БИЗНЕС АДВАЙЗЪРИ ГРУП"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "hristo-ivanov-ivanov-25b7f0",
@@ -3549,7 +3716,7 @@
               "companyName": "БИЗНЕС АДВАЙЗЪРИ ГРУП"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "hristo-ivanov-hristov-4ca62b",
@@ -3562,7 +3729,7 @@
               "companyName": "ДАЛИЯ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -3608,7 +3775,7 @@
               "companyName": "БАЙКС УЪРЛД"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -3635,7 +3802,7 @@
               "companyName": "ВИДА ЕНЕРДЖИ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "martin-nikolov-donchev-6a4df5",
@@ -3648,7 +3815,7 @@
               "companyName": "ВИДА НЕТУЪРК"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -3671,7 +3838,7 @@
               "companyName": "ТОМЕКО БУРГАС"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "georgi-dimitrov-georgiev-42dfbc",
@@ -3684,7 +3851,7 @@
               "companyName": "ТОМЕКО БУРГАС"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "georgi-dimitrov-georgiev-dfb15b",
@@ -3697,7 +3864,7 @@
               "companyName": "ТОМЕКО БУРГАС"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -3743,7 +3910,7 @@
               "companyName": "ТРАКИЙСКА ЗОРА 2015"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -3770,7 +3937,7 @@
               "companyName": "ХЕЛИОДОРО"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -4216,9 +4383,13 @@
             {
               "uic": "202787296",
               "companyName": "ДЖЕЙ ЕЛ КЕПИТЪЛ"
+            },
+            {
+              "uic": "117623024",
+              "companyName": "ИРИМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "ivan-nikolov-ivanov-d1391d",
@@ -4233,9 +4404,13 @@
             {
               "uic": "202787296",
               "companyName": "ДЖЕЙ ЕЛ КЕПИТЪЛ"
+            },
+            {
+              "uic": "117623024",
+              "companyName": "ИРИМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "ivan-nikolov-ivanov-22c7d3",
@@ -4250,9 +4425,13 @@
             {
               "uic": "202787296",
               "companyName": "ДЖЕЙ ЕЛ КЕПИТЪЛ"
+            },
+            {
+              "uic": "117623024",
+              "companyName": "ИРИМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "georgi-valentinov-georgiev-f8a190",
@@ -4265,7 +4444,7 @@
               "companyName": "ГН моторс"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -4374,6 +4553,42 @@
         }
       ]
     },
+    "petko-valentinov-petkov-238a7b": {
+      "slug": "petko-valentinov-petkov-238a7b",
+      "name": "Петко Валентинов Петков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Брацигово",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "dimitr-ivanov-dimitrov-dcea9d",
+          "name": "Димитър Иванов Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "204332614",
+              "companyName": "БЛИТЦ ЕР"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "hristo-dimitrov-hristov-a59ac1",
+          "name": "Христо Димитров Христов",
+          "tier": "municipal",
+          "role": "mayor",
+          "sharedCompanies": [
+            {
+              "uic": "204332614",
+              "companyName": "БЛИТЦ ЕР"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
     "petko-kolev-petkov-ed57fe": {
       "slug": "petko-kolev-petkov-ed57fe",
       "name": "Петко Колев Петков",
@@ -4393,7 +4608,7 @@
               "companyName": "ПЛУТОН АГРО"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "georgi-ivanov-georgiev-2e9e4c",
@@ -4406,7 +4621,7 @@
               "companyName": "ПЛУТОН АГРО"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "georgi-ivanov-georgiev-44d140",
@@ -4419,7 +4634,7 @@
               "companyName": "ПЛУТОН АГРО"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -4439,7 +4654,7 @@
               "companyName": "КОМНЕТ БЪЛГАРИЯ ХОЛДИНГ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ],
       "peerConnections": [
@@ -4454,7 +4669,7 @@
               "companyName": "АЕТОС ИНВЕСТ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "ivan-dochev-ivanov-ba8abb",
@@ -4467,7 +4682,7 @@
               "companyName": "КОМНЕТ БЪЛГАРИЯ ХОЛДИНГ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "ivan-zhelyazkov-ivanov-02f38d",
@@ -4480,7 +4695,7 @@
               "companyName": "КОМНЕТ БЪЛГАРИЯ ХОЛДИНГ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -4503,7 +4718,7 @@
               "companyName": "АВТО-СТОП"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -4526,7 +4741,7 @@
               "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "dimitr-georgiev-dimitrov-402467",
@@ -4539,7 +4754,7 @@
               "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "nikolai-dimitrov-nikolov-6f0767",
@@ -4552,7 +4767,7 @@
               "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "nikolai-dimitrov-nikolov-2cb7ac",
@@ -4565,7 +4780,7 @@
               "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "nikolai-dimitrov-nikolov-fadf74",
@@ -4578,7 +4793,7 @@
               "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -4601,7 +4816,7 @@
               "companyName": "ГЛОБЪЛ ЕС ЕНЕРДЖИ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "tsveti-iliev-lalov-e06712",
@@ -4614,7 +4829,53 @@
               "companyName": "ИНТ СТОУН ГРУП"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
+        }
+      ]
+    },
+    "petr-ivanov-petrov-6ee18a": {
+      "slug": "petr-ivanov-petrov-6ee18a",
+      "name": "Петър Иванов Петров",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Земен",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "ivan-petrov-petrov-3098f3",
+          "name": "Иван Петров Петров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206942089",
+              "companyName": "АЛ БИ СТРОЙ"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "petr-ivanov-petrov-4af21c": {
+      "slug": "petr-ivanov-petrov-4af21c",
+      "name": "Петър Иванов Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Павликени",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "ivan-petrov-petrov-3098f3",
+          "name": "Иван Петров Петров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206942089",
+              "companyName": "АЛ БИ СТРОЙ"
+            }
+          ],
+          "confidence": "low"
         }
       ]
     },
@@ -4637,7 +4898,7 @@
               "companyName": "ТРИМА КОМЕРС"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "todor-dimitrov-dimitrov-771c78",
@@ -4650,7 +4911,7 @@
               "companyName": "РИВЪР МИЛК"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -4677,7 +4938,7 @@
               "companyName": "ВИДА ЕНЕРДЖИ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "martin-nikolov-donchev-6a4df5",
@@ -4690,7 +4951,7 @@
               "companyName": "ВИДА НЕТУЪРК"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -4761,6 +5022,29 @@
         }
       ]
     },
+    "rumen-ivanov-ivanov-91fba6": {
+      "slug": "rumen-ivanov-ivanov-91fba6",
+      "name": "Румен Иванов Иванов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Сливен",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "rumyana-ivanova-ivanova-9abb0b",
+          "name": "Румяна Иванова Иванова",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "131515202",
+              "companyName": "АГРОМЕНИДЖЪР"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
     "rumen-hristov-hristov-6a588e": {
       "slug": "rumen-hristov-hristov-6a588e",
       "name": "Румен Христов Христов",
@@ -4781,6 +5065,29 @@
             }
           ],
           "confidence": "high"
+        }
+      ]
+    },
+    "rumyana-ivanova-ivanova-9abb0b": {
+      "slug": "rumyana-ivanova-ivanova-9abb0b",
+      "name": "Румяна Иванова Иванова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Родопи",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "rumen-ivanov-ivanov-91fba6",
+          "name": "Румен Иванов Иванов",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "sharedCompanies": [
+            {
+              "uic": "131515202",
+              "companyName": "АГРОМЕНИДЖЪР"
+            }
+          ],
+          "confidence": "low"
         }
       ]
     },
@@ -4847,7 +5154,7 @@
               "companyName": "В2М България"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         },
         {
           "slug": "ivan-vasilev-ivanov-3c81a7",
@@ -4860,7 +5167,7 @@
               "companyName": "В2М България"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -4904,7 +5211,7 @@
               "companyName": "КЛАСМАН ЕНТЪРПРАЙСИЗ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -5176,7 +5483,7 @@
               "companyName": "РИВЪР МИЛК"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -5220,7 +5527,7 @@
               "companyName": "СЕТ - 5"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -5243,7 +5550,30 @@
               "companyName": "РЕКА ДУНАВ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
+        }
+      ]
+    },
+    "todor-savov-savov-6e1935": {
+      "slug": "todor-savov-savov-6e1935",
+      "name": "Тодор Савов Савов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хасково",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "bogomil-emilov-brankov-cd5156",
+          "name": "Богомил Емилов Бранков",
+          "tier": "municipal",
+          "role": "council_chair",
+          "sharedCompanies": [
+            {
+              "uic": "207429253",
+              "companyName": "ЕЛИН ПЕЛИН СМАРТ РЕЗИДЕНС"
+            }
+          ],
+          "confidence": "low"
         }
       ]
     },
@@ -5310,7 +5640,19 @@
       "tier": "municipal",
       "role": "mayor",
       "municipality": "Болярово",
-      "mpConnections": [],
+      "mpConnections": [
+        {
+          "mpId": 1117,
+          "mpName": "Петко Валентинов Петков",
+          "sharedCompanies": [
+            {
+              "uic": "204332614",
+              "companyName": "БЛИТЦ ЕР"
+            }
+          ],
+          "confidence": "low"
+        }
+      ],
       "peerConnections": [
         {
           "slug": "dimitr-ivanov-dimitrov-dcea9d",
@@ -5323,7 +5665,20 @@
               "companyName": "БЛИТЦ ЕР"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
+        },
+        {
+          "slug": "petko-valentinov-petkov-238a7b",
+          "name": "Петко Валентинов Петков",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "204332614",
+              "companyName": "БЛИТЦ ЕР"
+            }
+          ],
+          "confidence": "low"
         }
       ]
     },
@@ -5519,7 +5874,7 @@
               "companyName": "ДАЛИЯ"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     },
@@ -5682,7 +6037,7 @@
               "companyName": "Санпарк"
             }
           ],
-          "confidence": "high"
+          "confidence": "low"
         }
       ]
     }

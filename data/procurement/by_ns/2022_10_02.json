@@ -2,7 +2,7 @@
   "electionDate": "2022_10_02",
   "start": "2022-10-02",
   "end": "2023-04-02",
-  "generatedAt": "2026-06-20T18:46:57.235Z",
+  "generatedAt": "2026-06-21T23:45:58.512Z",
   "totals": {
     "contracts": 16538,
     "amendments": 0,
@@ -10,9 +10,9 @@
     "contractorCount": 4189,
     "awarderCount": 1454,
     "totalEur": 3627438944.98454,
-    "mpCount": 18,
-    "mpConnectedContractorCount": 19,
-    "mpConnectedTotalEur": 68472457.03869967
+    "mpCount": 11,
+    "mpConnectedContractorCount": 11,
+    "mpConnectedTotalEur": 43308285.54628981
   },
   "topContractors": [
     {
@@ -746,40 +746,6 @@
       "confidence": "medium"
     },
     {
-      "mpId": 3026,
-      "mpName": "Антон Йорданов Адамов",
-      "totalEur": 13795107.11053619,
-      "contractCount": 3,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Булгаргаз ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 805,
-      "mpName": "Йордан Петков Йорданов",
-      "totalEur": 6518726.7144895,
-      "contractCount": 91,
-      "contractorCount": 2,
-      "topContractorNames": [
-        "Контракс АД",
-        "Дайрект сървисиз ООД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 237,
-      "mpName": "Светослав Иванов Спасов",
-      "totalEur": 4105713.518046047,
-      "contractCount": 1,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Национална Електрическа компания ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 938,
       "mpName": "Дарин Величков Матов",
       "totalEur": 3377289.5701569146,
@@ -824,28 +790,6 @@
       "confidence": "medium"
     },
     {
-      "mpId": 5005,
-      "mpName": "Стилиана Иванова Бобчева",
-      "totalEur": 443887.2499143586,
-      "contractCount": 3,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Национален перилен комбинат ООД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 3160,
-      "mpName": "Рушен Мехмед Риза",
-      "totalEur": 219369.78162723756,
-      "contractCount": 7,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Хигиямед ООД"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 5094,
       "mpName": "Николай Иванов Косев",
       "totalEur": 205195.74809671598,
@@ -868,17 +812,6 @@
       "confidence": "high"
     },
     {
-      "mpId": 4590,
-      "mpName": "Петър Николаев Николов",
-      "totalEur": 65138.815745744774,
-      "contractCount": 1,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Никел Проект ООД"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 4456,
       "mpName": "Христо Симеонов Борисов",
       "totalEur": 35534.78574313718,
@@ -899,17 +832,6 @@
         "Екотехпродукт ООД"
       ],
       "confidence": "high"
-    },
-    {
-      "mpId": 2853,
-      "mpName": "Дора Стоянова Христова",
-      "totalEur": 16228.302050791735,
-      "contractCount": 2,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Медицински център младост варна ООД"
-      ],
-      "confidence": "medium"
     },
     {
       "mpId": 4649,

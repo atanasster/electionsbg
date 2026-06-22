@@ -2,7 +2,7 @@
   "electionDate": "2023_04_02",
   "start": "2023-04-02",
   "end": "2024-06-09",
-  "generatedAt": "2026-06-20T18:46:57.233Z",
+  "generatedAt": "2026-06-21T23:45:58.511Z",
   "totals": {
     "contracts": 27026,
     "amendments": 0,
@@ -10,9 +10,9 @@
     "contractorCount": 5342,
     "awarderCount": 1809,
     "totalEur": 5026191260.909449,
-    "mpCount": 26,
-    "mpConnectedContractorCount": 27,
-    "mpConnectedTotalEur": 32027508.714970108
+    "mpCount": 16,
+    "mpConnectedContractorCount": 16,
+    "mpConnectedTotalEur": 13488735.85127542
   },
   "topContractors": [
     {
@@ -720,19 +720,6 @@
   ],
   "topMps": [
     {
-      "mpId": 805,
-      "mpName": "Йордан Петков Йорданов",
-      "totalEur": 13656504.926297272,
-      "contractCount": 132,
-      "contractorCount": 3,
-      "topContractorNames": [
-        "Контракс АД",
-        "Комнет българия холдинг ООД",
-        "Дайрект сървисиз ООД"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 938,
       "mpName": "Дарин Величков Матов",
       "totalEur": 11604191.437906157,
@@ -740,28 +727,6 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Български пощи ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 237,
-      "mpName": "Светослав Иванов Спасов",
-      "totalEur": 2758996.436295588,
-      "contractCount": 2,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Национална Електрическа компания ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 722,
-      "mpName": "Веселин Борисов Черкезов",
-      "totalEur": 1619742.0021167484,
-      "contractCount": 2,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "ЕСП Златни пясъци ООД"
       ],
       "confidence": "medium"
     },
@@ -788,17 +753,6 @@
       "confidence": "medium"
     },
     {
-      "mpId": 3710,
-      "mpName": "Пламен Николаев Николов",
-      "totalEur": 173692.53974016148,
-      "contractCount": 4,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "КП Инвест груп ЕООД"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 3016,
       "mpName": "Борис Цветков Цветков",
       "totalEur": 171487.29695321168,
@@ -806,28 +760,6 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Ученически отдих и спорт ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 5005,
-      "mpName": "Стилиана Иванова Бобчева",
-      "totalEur": 167953.24747038342,
-      "contractCount": 2,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Национален перилен комбинат ООД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 3160,
-      "mpName": "Рушен Мехмед Риза",
-      "totalEur": 131917.39568367394,
-      "contractCount": 4,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Хигиямед ООД"
       ],
       "confidence": "medium"
     },
@@ -877,7 +809,7 @@
     },
     {
       "mpId": 2946,
-      "mpName": "Елена Стефанова Пешева",
+      "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
       "totalEur": 86880.76162038624,
       "contractCount": 8,
       "contractorCount": 1,
@@ -910,7 +842,7 @@
     },
     {
       "mpId": 2642,
-      "mpName": "Никола Илиев Динков",
+      "mpName": "НИКОЛА ИЛИЕВ ДИНКОВ",
       "totalEur": 74451.9615713022,
       "contractCount": 1,
       "contractorCount": 1,
@@ -922,17 +854,6 @@
     {
       "mpId": 4716,
       "mpName": "Венцислав Иванов Петков",
-      "totalEur": 51129.188119621846,
-      "contractCount": 2,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Национална спортна база ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 5197,
-      "mpName": "Йордан Йовчев Йовчев",
       "totalEur": 51129.188119621846,
       "contractCount": 2,
       "contractorCount": 1,
@@ -973,39 +894,6 @@
         "Авто лукс ООД"
       ],
       "confidence": "high"
-    },
-    {
-      "mpId": 3026,
-      "mpName": "Антон Йорданов Адамов",
-      "totalEur": 25365.507227110742,
-      "contractCount": 1,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Булгаргаз ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 2734,
-      "mpName": "Тома Николов Томов",
-      "totalEur": 3579.0431683735296,
-      "contractCount": 2,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Ватом томови 1991 ООД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 2853,
-      "mpName": "Дора Стоянова Христова",
-      "totalEur": 1021.7656953825231,
-      "contractCount": 1,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Медицински център младост варна ООД"
-      ],
-      "confidence": "medium"
     }
   ]
 }
