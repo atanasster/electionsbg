@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T15:38:27.947Z",
+  "generatedAt": "2026-06-22T00:38:51.143Z",
   "queries": {
     "total": 750,
     "declined": 163,
@@ -10,11 +10,11 @@
   },
   "method": {
     "en": "Each ranker scores the same 750 novel Gemini-generated EN+BG queries (held out from the registry's own examples, so no leakage). recall@k = share of queries whose CORRECT tool is in the ranker's top-k. The 'rules-declined residual' (163 queries) is the model's real input — the queries the deterministic rules router doesn't already answer.",
-    "bg": "Всеки модел оценява едни и същи 750 нови въпроса (EN+BG), генерирани от Gemini и изключени от примерите в регистъра (без изтичане). recall@k = делът на въпросите, чийто ПРАВИЛЕН инструмент е сред първите k. „Остатъкът след правилата“ (163 въпроса) е реалният вход за модела — въпросите, на които детерминистичните правила още не отговарят."
+    "bg": "Всеки ретривър класира едни и същи 750 нови въпроса (EN+BG), генерирани от Gemini и държани настрана от примерите в самия регистър (за да няма изтичане). recall@k = делът на въпросите, чийто ПРАВИЛЕН инструмент е сред първите k. „Остатъкът след правилата“ (163 въпроса) е това, което реално стига до модела — въпросите, на които детерминистичните правила още не отговарят."
   },
   "caveat": {
     "en": "The fine-tuned row's training and eval queries share a Gemini generator (different, deduped queries but a similar STYLE), so its absolute numbers are best-case; a truly independent test set (real logged or human-written queries) is the honest final gate.",
-    "bg": "При дообучения модел тренировъчните и тестовите въпроси идват от един и същ генератор (Gemini) — различни, дедуплицирани въпроси, но сходен СТИЛ — затова абсолютните стойности са в най-добрия случай; независим тестов набор (реални или човешки въпроси) е финалната честна проверка."
+    "bg": "При дообучения модел въпросите за обучение и за тест идват от един и същ генератор (Gemini) — различни въпроси без повторения, но с близък СТИЛ — затова абсолютните му числа са оптимистични; истинската проверка е независим тестов набор (реални или писани от хора въпроси)."
   },
   "rows": [
     {
