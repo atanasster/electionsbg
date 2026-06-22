@@ -15,6 +15,17 @@ import type { ProcurementAwarderTier } from "@/data/dataTypes";
 const eurFmt = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 });
 const countFmt = new Intl.NumberFormat("bg-BG");
 
+// KPI cards sit in a 1/3-width column at sm: and up, so a long euro total
+// (e.g. "€3 937 163 034") overflows a fixed text-2xl. Step the size down by
+// the rendered string length so big numbers always stay inside their card.
+const kpiSizeClass = (formatted: string): string => {
+  const n = formatted.length;
+  if (n <= 9) return "text-2xl";
+  if (n <= 12) return "text-xl";
+  if (n <= 15) return "text-lg";
+  return "text-base";
+};
+
 const TIER_LABEL_BG: Record<ProcurementAwarderTier, string> = {
   municipal: "Община",
   school: "Училище",
@@ -79,6 +90,10 @@ export const ProcurementSettlementDetailScreen: FC = () => {
 
   const tierLabel = i18n.language === "bg" ? TIER_LABEL_BG : TIER_LABEL_EN;
 
+  const totalStr = `€${eurFmt.format(Math.round(data.totalEur))}`;
+  const contractsStr = countFmt.format(data.contractCount);
+  const buyersStr = countFmt.format(data.awarders.length);
+
   // BG euphony: "в" becomes "във" before words starting with в/ф (във Варна,
   // във Видин, във Враца, във Велико Търново, във Филаретово). Everywhere
   // else "в" stays "в" (в София, в Пловдив, в Стара Загора).
@@ -124,8 +139,10 @@ export const ProcurementSettlementDetailScreen: FC = () => {
               <Banknote className="h-3.5 w-3.5" />
               {t("procurement_settlement_kpi_local_eur") || "Total"}
             </div>
-            <div className="mt-1 text-2xl font-semibold tabular-nums">
-              €{eurFmt.format(Math.round(data.totalEur))}
+            <div
+              className={`mt-1 ${kpiSizeClass(totalStr)} font-semibold tabular-nums whitespace-nowrap`}
+            >
+              {totalStr}
             </div>
           </CardContent>
         </Card>
@@ -135,8 +152,10 @@ export const ProcurementSettlementDetailScreen: FC = () => {
               <Building2 className="h-3.5 w-3.5" />
               {t("procurement_settlement_kpi_contracts") || "Contracts"}
             </div>
-            <div className="mt-1 text-2xl font-semibold tabular-nums">
-              {countFmt.format(data.contractCount)}
+            <div
+              className={`mt-1 ${kpiSizeClass(contractsStr)} font-semibold tabular-nums whitespace-nowrap`}
+            >
+              {contractsStr}
             </div>
           </CardContent>
         </Card>
@@ -146,8 +165,10 @@ export const ProcurementSettlementDetailScreen: FC = () => {
               <MapPin className="h-3.5 w-3.5" />
               {t("procurement_settlement_kpi_buyers") || "Buyers"}
             </div>
-            <div className="mt-1 text-2xl font-semibold tabular-nums">
-              {countFmt.format(data.awarders.length)}
+            <div
+              className={`mt-1 ${kpiSizeClass(buyersStr)} font-semibold tabular-nums whitespace-nowrap`}
+            >
+              {buyersStr}
             </div>
           </CardContent>
         </Card>
