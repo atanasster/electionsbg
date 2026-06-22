@@ -41,7 +41,16 @@ const pickSlice = (
 // supplied name. Without this two-step path, the candidate-votes page would
 // silently render "no roll-call record" for any MP whose roster id is from a
 // different NS than the one selected.
-export const useMpLoyalty = (mpId?: number | null, name?: string | null) => {
+export const useMpLoyalty = (
+  mpId?: number | null,
+  name?: string | null,
+  // When false, skip every roll-call fetch (shard, votes/index profile, and
+  // aggregate). Callers pass false for MPs who didn't serve in the selected
+  // NS — there's no loyalty record to show, so loading the ~300 KB votes
+  // index would be pure waste. Defaults true to keep chamber-browsing callers
+  // unchanged.
+  enabled = true,
+) => {
   const { selected } = useElectionContext();
 
   // Phase B fast-path: try the per-MP shard first. When present we avoid the
@@ -49,9 +58,10 @@ export const useMpLoyalty = (mpId?: number | null, name?: string | null) => {
   const { shard, isLoading: shardLoading } = useMpShard(
     mpId ?? undefined,
     name ?? undefined,
+    enabled,
   );
 
-  const { mpNames } = useMpProfile();
+  const { mpNames } = useMpProfile(enabled);
 
   // Aggregate is still fetched when the shard misses (older NSes, fresh
   // ingests, or chamber-browsing screens that call this hook without an
@@ -76,9 +86,8 @@ export const useMpLoyalty = (mpId?: number | null, name?: string | null) => {
           (n) => n.toLocaleLowerCase("bg") === name.toLocaleLowerCase("bg"),
         )));
 
-  const aggregateEnabled = browseMode
-    ? true
-    : mpInSelectedNs && !shard && !shardLoading;
+  const aggregateEnabled =
+    enabled && (browseMode ? true : mpInSelectedNs && !shard && !shardLoading);
   const { data, isLoading: aggregateLoading } = useQuery({
     queryKey: ["rollcall_loyalty"] as [string],
     queryFn,

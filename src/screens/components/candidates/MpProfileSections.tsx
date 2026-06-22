@@ -1,15 +1,11 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  ArrowRight,
-  Briefcase,
-  Euro,
-  Landmark,
-  Vote,
-  Wallet,
-} from "lucide-react";
+import { ArrowRight, Briefcase, Euro, Landmark, Wallet } from "lucide-react";
 import { Link } from "@/ux/Link";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
+import { useElectionContext } from "@/data/ElectionContext";
+import { electionToNsFolder } from "@/data/parliament/nsFolders";
+import type { MpIndexEntry } from "@/data/parliament/useMps";
 import { useMpManagement } from "@/data/parliament/useMpManagement";
 import { useMpConnections } from "@/data/parliament/useMpConnections";
 import { useMpConnectedContracts } from "@/data/parliament/useMpConnectedContracts";
@@ -22,19 +18,24 @@ import { MpManagementRoles } from "./MpManagementRoles";
 import { MpConnectionsMini } from "./MpConnectionsMini";
 import { MpConnectedContractsTile } from "./MpConnectedContractsTile";
 import { MpConnectedFundsTile } from "./MpConnectedFundsTile";
-import { MpVotingTile } from "./MpVotingTile";
-import { MpTwinsTile } from "./MpTwinsTile";
+import { MpVotingSection } from "./MpVotingSection";
 
 /** The parliament-member sections of a candidate page (voting, assets,
  * business, procurement, EU funds). Split out of `Candidate` so its MP-only
  * data hooks — every one of which reads the parliament index — mount *only*
  * for candidates that actually matched an MP. A non-MP candidate page never
  * renders this, so it never downloads parliament/index.json. */
-export const MpProfileSections: FC<{ name: string; linkSlug: string }> = ({
-  name,
-  linkSlug,
-}) => {
+export const MpProfileSections: FC<{
+  name: string;
+  linkSlug: string;
+  /** The resolved roster entry, when available. Used to decide whether the MP
+   * served in the selected parliament — if not, the voting block is skipped
+   * entirely so we don't fetch the roll-call index for a section that would
+   * render nothing. */
+  mpEntry?: MpIndexEntry | null;
+}> = ({ name, linkSlug, mpEntry }) => {
   const { t } = useTranslation();
+  const { selected } = useElectionContext();
 
   const { management, isLoading: mgmtLoading } = useMpManagement(name);
   const { subgraph, isLoading: connectionsLoading } = useMpConnections(name);
@@ -62,16 +63,24 @@ export const MpProfileSections: FC<{ name: string; linkSlug: string }> = ({
   const showDeclarations =
     assetsLoading || declsLoading || hasAssets || hasFinancialDecls;
 
+  // Roll-call data only exists for the parliament the MP actually sat in.
+  // When the roster entry tells us the MP didn't serve in the selected NS,
+  // skip the voting block (and its ~300 KB roll-call index fetch) entirely.
+  // When we can't tell (no roster entry), render it and let MpVotingSection
+  // self-hide once the data resolves empty.
+  const ns = electionToNsFolder(selected);
+  const maybeServedInSelectedNs =
+    ns != null && (mpEntry?.nsFolders ? mpEntry.nsFolders.includes(ns) : true);
+
   return (
     <>
-      <DashboardSection
-        id="parliament"
-        title={t("mp_section_voting") || "Voting & similarity"}
-        icon={Vote}
-      >
-        <MpVotingTile name={name} linkSlug={linkSlug} />
-        <MpTwinsTile name={name} />
-      </DashboardSection>
+      {maybeServedInSelectedNs && (
+        <MpVotingSection
+          name={name}
+          linkSlug={linkSlug}
+          mpId={mpEntry?.id ?? null}
+        />
+      )}
 
       {showDeclarations && (
         <DashboardSection

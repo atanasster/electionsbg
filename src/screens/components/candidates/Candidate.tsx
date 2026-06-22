@@ -5,6 +5,8 @@ import { useCandidateElectionFallback } from "@/data/candidates/useCandidateElec
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useMps } from "@/data/parliament/useMps";
+import { useMpEntry } from "@/data/parliament/useMpEntry";
+import { CandidateMpProvider } from "@/data/candidates/CandidateMpContext";
 import { CandidateHeader } from "./CandidateHeader";
 import { MpProfileHeader } from "./MpProfileHeader";
 import { MpFinancialDeclarations } from "./MpFinancialDeclarations";
@@ -36,19 +38,27 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
 
   // An `mp-<id>` URL points at a parliament.bg record that may not be a
   // candidate on the *selected* ballot (the election-scoped resolver above then
-  // matches no one and the page would render blank). Fall back to the global,
-  // election-independent parliament roster so deep links from the procurement
-  // scanner, search, etc. resolve to the MP's full dashboard. See the same
-  // pattern in CandidateProcurementScreen.
+  // matches no one and the page would render blank). Resolve the MP's roster
+  // entry so deep links from the procurement scanner, search, etc. still render
+  // the full dashboard. See the same pattern in CandidateProcurementScreen.
   //
-  // The roster is ~949 KB, so gate the fetch on `needRoster` — only the rare
-  // mp-id-not-on-this-ballot case loads it, preserving the candidate-page data
-  // diet for the common (resolved / CIK) cases.
+  // Prefer the per-MP shard (~0.4 KB) over the whole ~950 KB index.json — this
+  // is the procurement→MP deep-link path, so paying for the full roster just to
+  // read one entry was the page's biggest single download. Fall back to the
+  // roster only when the shard is genuinely missing (legacy deploy).
   const mpIdParam = parsed?.kind === "mp" ? parsed.mpId : null;
-  const needRoster = mpIdParam != null && !isLoading && matches.length === 0;
-  const { findMpById, isLoading: rosterLoading } = useMps(needRoster);
-  const rosterMp = needRoster ? findMpById(mpIdParam) : undefined;
-  const awaitingRoster = needRoster && !rosterMp && rosterLoading;
+  const needEntry = mpIdParam != null && !isLoading && matches.length === 0;
+  const {
+    entry: shardMp,
+    isLoading: entryLoading,
+    isFetched: entryFetched,
+  } = useMpEntry(needEntry ? mpIdParam : null);
+  const needRosterFallback = needEntry && entryFetched && !shardMp;
+  const { findMpById, isLoading: rosterLoading } = useMps(needRosterFallback);
+  const rosterMp =
+    shardMp ?? (needRosterFallback ? findMpById(mpIdParam) : undefined);
+  const awaitingRoster =
+    needEntry && !rosterMp && (entryLoading || rosterLoading);
 
   // A bare-name /candidate/:id URL (search-engine results, old shared links)
   // resolves against whatever election is currently selected. When the person
@@ -102,18 +112,26 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
     const headerName = isEn ? rosterMp.name_en : rosterMp.name;
     const linkSlug = `mp-${rosterMp.id}`;
     return (
-      <div className="w-full">
-        <CandidateHeader
-          displayName={headerName}
-          lookupName={lookupName}
-          mpEntry={rosterMp}
-          seoDescription={`Results for party candidate ${headerName}`}
-        />
-        <MpProfileHeader name={lookupName} />
-        <MpScorecardTile name={lookupName} />
-        <CandidateDashboardCards name={lookupName} linkSlug={linkSlug} />
-        <MpProfileSections name={lookupName} linkSlug={linkSlug} />
-      </div>
+      <CandidateMpProvider
+        value={{ id: rosterMp.id, name: lookupName, entry: rosterMp }}
+      >
+        <div className="w-full">
+          <CandidateHeader
+            displayName={headerName}
+            lookupName={lookupName}
+            mpEntry={rosterMp}
+            seoDescription={`Results for party candidate ${headerName}`}
+          />
+          <MpProfileHeader name={lookupName} />
+          <MpScorecardTile name={lookupName} />
+          <CandidateDashboardCards name={lookupName} linkSlug={linkSlug} />
+          <MpProfileSections
+            name={lookupName}
+            linkSlug={linkSlug}
+            mpEntry={rosterMp}
+          />
+        </div>
+      </CandidateMpProvider>
     );
   }
 
@@ -149,25 +167,39 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
   const headerName = isEn ? canonical.name_en : canonical.name;
   const linkSlug = canonical.slug;
 
+  // For MP candidates, share the already-resolved entry so the per-MP hooks
+  // resolve name→id (and read the roster entry) from context instead of each
+  // fetching the full roster. CIK-only candidates have no mpId, so no provider.
+  const mpContext =
+    canonical.mpId != null
+      ? { id: canonical.mpId, name: lookupName, entry: canonical.mpEntry }
+      : null;
+
   return (
-    <div className="w-full">
-      <CandidateHeader
-        displayName={headerName}
-        lookupName={lookupName}
-        mpEntry={canonical.mpEntry}
-        cikRows={canonical.cikRows}
-        seoDescription={`Results for party candidate ${headerName}`}
-      />
+    <CandidateMpProvider value={mpContext}>
+      <div className="w-full">
+        <CandidateHeader
+          displayName={headerName}
+          lookupName={lookupName}
+          mpEntry={canonical.mpEntry}
+          cikRows={canonical.cikRows}
+          seoDescription={`Results for party candidate ${headerName}`}
+        />
 
-      {canonical.mpId != null && <MpProfileHeader name={lookupName} />}
+        {canonical.mpId != null && <MpProfileHeader name={lookupName} />}
 
-      {canonical.mpId != null && <MpScorecardTile name={lookupName} />}
+        {canonical.mpId != null && <MpScorecardTile name={lookupName} />}
 
-      <CandidateDashboardCards name={lookupName} linkSlug={linkSlug} />
+        <CandidateDashboardCards name={lookupName} linkSlug={linkSlug} />
 
-      {canonical.mpId != null && (
-        <MpProfileSections name={lookupName} linkSlug={linkSlug} />
-      )}
-    </div>
+        {canonical.mpId != null && (
+          <MpProfileSections
+            name={lookupName}
+            linkSlug={linkSlug}
+            mpEntry={canonical.mpEntry}
+          />
+        )}
+      </div>
+    </CandidateMpProvider>
   );
 };

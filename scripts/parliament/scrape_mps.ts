@@ -40,6 +40,7 @@ import sharp from "sharp";
 import { titleCaseBgName } from "./name_case";
 import { transliterateName } from "../../src/data/candidates/transliterateName";
 import { buildAvatars } from "./build_avatars";
+import { writeMpByIdShards } from "./lib/writeMpById";
 
 const API = "https://www.parliament.bg/api/v1";
 const PHOTO_BASE = "https://www.parliament.bg/images/Assembly/";

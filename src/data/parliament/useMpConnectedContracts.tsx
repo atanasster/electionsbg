@@ -14,7 +14,7 @@ import type {
   ProcurementMpConnectedContractor,
   ProcurementMpConnectedFile,
 } from "@/data/dataTypes";
-import { useMps } from "./useMps";
+import { useMpIdForName } from "@/data/candidates/CandidateMpContext";
 import { dataUrl } from "@/data/dataUrl";
 
 const fetchMpConnected =
@@ -104,8 +104,7 @@ export const useMpConnectedContracts = (
   summary: MpConnectedSummary;
   isLoading: boolean;
 } => {
-  const { findMpByName } = useMps();
-  const mpId = findMpByName(name)?.id ?? null;
+  const mpId = useMpIdForName(name);
 
   // Phase 1: check the tiny manifest (~600 B) to learn whether this MP has
   // a shard at all. Avoids both the shard-404 round-trip and the aggregate

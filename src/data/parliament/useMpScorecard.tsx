@@ -9,7 +9,7 @@ import type { ProcurementMpConnectedFile } from "@/data/dataTypes";
 import { dataUrl } from "@/data/dataUrl";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder } from "./nsFolders";
-import { useMps } from "./useMps";
+import { useMpEntryForName } from "@/data/candidates/CandidateMpContext";
 import { useMpLoyalty } from "./votes/useMpLoyalty";
 import { useMpAssets } from "./useMpAssets";
 import { useAssetsRankings } from "./useAssetsRankings";
@@ -121,9 +121,18 @@ export const useMpScorecard = (
 ): { scorecard: MpScorecard; isLoading: boolean } => {
   const { selected } = useElectionContext();
   const ns = electionToNsFolder(selected);
-  const { findMpByName, isLoading: mpsLoading } = useMps();
-  const mp = findMpByName(name);
-  const mpId = mp?.id ?? null;
+  // Resolve via CandidateMpContext on the candidate page (no roster fetch for
+  // former MPs); falls back to the roster elsewhere.
+  const {
+    entry: mp,
+    id: mpId,
+    isLoading: mpsLoading,
+  } = useMpEntryForName(name);
+
+  // Loyalty + attendance only exist for the parliament the MP sat in. When the
+  // roster says they didn't serve in the selected NS, skip the roll-call fetch
+  // (~300 KB votes index) entirely — those two metrics would render blank.
+  const servedInSelectedNs = !!(ns && mp?.nsFolders?.includes(ns));
 
   const {
     entry: loyaltyEntry,
@@ -131,11 +140,16 @@ export const useMpScorecard = (
     file: loyaltySlice,
     shard: loyaltyShard,
     isLoading: loyaltyLoading,
-  } = useMpLoyalty(mpId, name);
+  } = useMpLoyalty(mpId, name, servedInSelectedNs);
 
   const { rollup: assetsRollup, isLoading: assetsLoading } = useMpAssets(name);
+  // The net-worth metric ranks the MP within the selected NS's assets slice,
+  // so the chamber-wide assets-rankings.json (~850 KB) is only worth loading
+  // when this MP both has a declared net worth and actually served in that NS.
+  // A former / off-ballot MP has no rank to show, so we skip the fetch.
+  const hasNetWorth = assetsRollup?.netWorthEur != null;
   const { rankings: assetsRankings, isLoading: assetsRankingsLoading } =
-    useAssetsRankings();
+    useAssetsRankings({ enabled: hasNetWorth && servedInSelectedNs });
 
   // Fast-path: pre-computed scorecard stats embedded in the per-MP shard
   // (manifest + shard). When the manifest exists, the chamber-wide

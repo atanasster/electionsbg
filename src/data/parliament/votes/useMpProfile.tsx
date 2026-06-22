@@ -24,7 +24,9 @@ const queryFn = async (): Promise<RollcallIndexFile | undefined> => {
 // previously fetched the full session JSON (~100 KB) just for these two
 // maps; this hook reads them straight out of the already-loaded index, saving
 // the per-session fetch on every consuming surface.
-export const useMpProfile = (): {
+export const useMpProfile = (
+  enabled = true,
+): {
   profile: MpProfileSlice | undefined;
   mpNames: Record<string, string>;
   mpParty: Record<string, string>;
@@ -35,6 +37,7 @@ export const useMpProfile = (): {
     queryKey: ["rollcall_index"] as [string],
     queryFn,
     staleTime: Infinity,
+    enabled,
   });
   const ns = electionToNsFolder(selected);
   const profile = ns ? data?.mpProfileByNs?.[ns] : undefined;

@@ -1,5 +1,5 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
-import { useMps } from "./useMps";
+import { useMpIdForName } from "@/data/candidates/CandidateMpContext";
 import type { MpManagementFile } from "@/data/dataTypes";
 import { dataUrl } from "@/data/dataUrl";
 
@@ -19,8 +19,7 @@ const queryFn = async ({
 };
 
 export const useMpManagement = (name?: string | null) => {
-  const { findMpByName } = useMps();
-  const id = findMpByName(name)?.id;
+  const id = useMpIdForName(name) ?? undefined;
 
   const { data, isLoading } = useQuery({
     queryKey: ["mp_management", id] as [string, number | undefined],

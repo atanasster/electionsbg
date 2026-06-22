@@ -32,6 +32,7 @@ The scraper at `scripts/parliament/scrape_mps.ts` has three operational modes. P
 - `index.json` (~930 KB) — flat lookup table: every MP's `id`, `normalizedName`, `photoUrl`, `currentRegion`, `currentPartyGroup`, `nsFolders[]`, `isCurrent`. Loaded once by the frontend.
 - `avatars.json` (~37 KB) — slim id→{photo, party-group} projection of `index.json`, auto-regenerated at the end of the `--all` run by `scripts/parliament/build_avatars.ts`. Lets `<MpAvatar>` draw a face + party ring without pulling the full ~930 KB index on connection-only pages (`/company`, `/awarder`, `/officials`). Read by `src/data/parliament/useMpAvatars.tsx`. Regenerate standalone with `npx tsx scripts/parliament/build_avatars.ts`.
 - `profiles/{id}.json` × ~4000 (~5 MB total raw, ~1 MB gzipped) — trimmed bio per MP, lazily fetched on candidate pages.
+- `by-id/{id}.json` × ~2100 (~0.4 KB each) — one `index.json` roster entry per MP, auto-written at the end of every run by `scripts/parliament/lib/writeMpById.ts`. Lets the candidate page resolve one MP by id (`src/data/parliament/useMpEntry.tsx`) without pulling the full ~930 KB index — the procurement→MP deep-link for a former / off-ballot MP loads this shard instead of the roster. Backfill standalone from an existing index with `npx tsx scripts/parliament/build_mp_by_id.ts`. The frontend falls back to the full roster if a shard 404s.
 
 **Both outputs are committed to git** so new contributors can skip the scrape. They are NOT under `/public/2*/` (that path is gitignored), so they survive `npm run prod`.
 
@@ -157,10 +158,14 @@ Out of 5200 walked, ~1170 IDs return `[]` — these are gaps in parliament.bg's 
 |---|---|
 | `scripts/parliament/scrape_mps.ts` | The scraper. CLI entry. |
 | `scripts/parliament/build_avatars.ts` | Emits `avatars.json` from `index.json`; auto-run by the scraper. |
+| `scripts/parliament/lib/writeMpById.ts` | Emits `by-id/{id}.json` per-MP roster shards; auto-run by the scraper. |
+| `scripts/parliament/build_mp_by_id.ts` | Standalone backfill of `by-id/` from an existing `index.json` (no re-scrape). |
 | `public/parliament/index.json` | Lookup table — committed to git. |
 | `public/parliament/avatars.json` | Slim id→{photo, party} avatar projection — committed to git. |
 | `public/parliament/profiles/{id}.json` | Per-MP bio — committed to git. |
+| `public/parliament/by-id/{id}.json` | Per-MP roster shard — committed to git. |
 | `src/data/parliament/useMps.tsx` | React Query hook for the index. |
+| `src/data/parliament/useMpEntry.tsx` | React Query hook for one `by-id/{id}.json` shard. |
 | `src/data/parliament/useMpAvatars.tsx` | React Query hook for the slim avatar projection. |
 | `src/data/parliament/useMpProfile.tsx` | React Query hook for one profile (lazy). |
 | `src/screens/components/candidates/MpProfileHeader.tsx` | Photo + bio card on the candidate page. |

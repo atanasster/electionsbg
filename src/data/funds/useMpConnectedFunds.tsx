@@ -7,7 +7,7 @@
 
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useMps } from "@/data/parliament/useMps";
+import { useMpIdForName } from "@/data/candidates/CandidateMpContext";
 import { dataUrl } from "@/data/dataUrl";
 import type { FundsMpConnected, FundsMpConnectedFile } from "./types";
 
@@ -98,8 +98,7 @@ export const useMpConnectedFunds = (
   summary: FundsMpConnectedSummary;
   isLoading: boolean;
 } => {
-  const { findMpByName } = useMps();
-  const mpId = findMpByName(name)?.id ?? null;
+  const mpId = useMpIdForName(name);
 
   // Phase 1: manifest tells us whether this MP has a shard.
   const manifestQuery = useShardManifest();

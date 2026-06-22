@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
-import { useMps } from "./useMps";
+import { useMpEntryForName } from "@/data/candidates/CandidateMpContext";
 import { dataUrl } from "@/data/dataUrl";
 
 // Raw shape returned by parliament.bg's /api/v1/mp-profile/bg/{id} (we cache to disk)
@@ -139,8 +139,14 @@ const queryFn = async ({
 };
 
 export const useMpProfile = (name?: string | null) => {
-  const { findMpByName, currentNs, isLoading: mpsLoading } = useMps();
-  const indexEntry = findMpByName(name);
+  // On the candidate page the MP is already resolved (CandidateMpContext), so
+  // this reads the entry from context and skips the ~950 KB roster for former
+  // MPs. Elsewhere it falls back to a roster lookup, unchanged.
+  const {
+    entry: indexEntry,
+    currentNs,
+    isLoading: mpsLoading,
+  } = useMpEntryForName(name);
   const id = indexEntry?.id;
 
   const { data: raw, isLoading: profileLoading } = useQuery({

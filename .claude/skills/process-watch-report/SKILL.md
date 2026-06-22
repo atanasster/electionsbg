@@ -94,6 +94,7 @@ The candidate / company / official pages stay lean by reading **per-entity shard
 | `procurement/derived/per-mp/<mpId>.json` + `per-mp/index.json`; also `per-eik/`, `pep-by-eik/`, `pep-by-slug/` | `update-procurement`, every `procurement:ingest` (and the offline `rebuild_derived.ts`) | `scripts/procurement/cross_reference.ts` + `pep_connected.ts` | `procurement/derived/mp_connected.json` (~70 KB) |
 | `funds/derived/per-mp/<mpId>.json` + `per-mp/index.json`; also `by-eik/` | `update-funds`, every `funds:ingest` | `scripts/funds/cross_reference.ts` | `funds/derived/mp_connected.json` (~56 KB) |
 | `<election>/candidates/by-slug/*.json` + `resolved.json` | `parliament-scrape` Step 6 (`rebuild_resolved.ts`) — **not** auto-run by any ingest; the one manual link | `scripts/preferences/save_candidate_resolved.ts` | `candidates.json` (~1 MB) + `parliament/index.json` (~950 KB) |
+| `parliament/by-id/<id>.json` (one roster entry per MP) | `parliament-scrape` (auto-written every run by `lib/writeMpById.ts`; standalone backfill `build_mp_by_id.ts`) | `scripts/parliament/lib/writeMpById.ts` | `parliament/index.json` (~950 KB) |
 
 **Why the orchestrator must care:** the frontend falls back to the aggregate whenever a shard is missing. The candidate page additionally **gates** the votes fallback on NS membership — an MP *in the selected parliament* whose vote shard is missing pulls the **12 MB** `similarity.json`; an off-NS / former MP skips it entirely (see [[project_candidate_page_data_diet]]). So:
 

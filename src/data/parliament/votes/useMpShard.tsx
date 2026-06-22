@@ -57,10 +57,11 @@ const queryFn = async ({
 export const useMpShard = (
   mpId?: number | null,
   name?: string | null,
+  enabled = true,
 ): { shard: MpShard | null; isLoading: boolean } => {
   const { selected } = useElectionContext();
   const ns = electionToNsFolder(selected);
-  const { mpNames, isLoading: profileLoading } = useMpProfile();
+  const { mpNames, isLoading: profileLoading } = useMpProfile(enabled);
 
   // Wait until mpNames has actually loaded before resolving the CSV id.
   // Otherwise we fire a request with the roster id (wrong key), get a
@@ -72,19 +73,19 @@ export const useMpShard = (
     [mpId, name, mpNames, profileReady],
   );
 
-  const enabled = !!ns && csvId != null;
+  const queryEnabled = enabled && !!ns && csvId != null;
   const { data, isLoading } = useQuery({
     queryKey: ["mp_shard", ns ?? "", csvId ?? 0] as [string, string, number],
     queryFn,
-    enabled,
+    enabled: queryEnabled,
     staleTime: Infinity,
     // 404 / non-JSON fallback is normal flow; don't retry.
     retry: false,
   });
 
-  const stillResolving = !profileReady && profileLoading;
+  const stillResolving = enabled && !profileReady && profileLoading;
   return {
     shard: data ?? null,
-    isLoading: stillResolving || (enabled && isLoading),
+    isLoading: stillResolving || (queryEnabled && isLoading),
   };
 };

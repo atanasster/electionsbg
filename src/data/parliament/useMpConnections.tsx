@@ -4,7 +4,7 @@ import type {
   ConnectionsNode,
   ConnectionsPath,
 } from "@/data/dataTypes";
-import { useMps } from "./useMps";
+import { useMpIdForName } from "@/data/candidates/CandidateMpContext";
 import { dataUrl } from "@/data/dataUrl";
 
 export type MpConnectionsSubgraph = {
@@ -46,8 +46,7 @@ const fetchSubgraph = async (
 export const useMpConnections = (
   name?: string | null,
 ): { subgraph: MpConnectionsSubgraph | null; isLoading: boolean } => {
-  const { findMpByName } = useMps();
-  const mpId = findMpByName(name)?.id ?? null;
+  const mpId = useMpIdForName(name);
 
   const q = useQuery({
     queryKey: ["mp_connections", mpId] as const,

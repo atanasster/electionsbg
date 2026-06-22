@@ -81,7 +81,16 @@ export const ConnectionsCanvas: FC<Props> = ({
   style,
 }) => {
   const { t } = useTranslation();
-  const { findMpById, findMpByName } = useMps();
+  // The roster (~950 KB) only enriches *other* MP nodes (their photo + party
+  // ring); company nodes carry their own label/colour, and the pinned seed is
+  // already resolved by the page. Many candidate-page graphs are company-only
+  // (no co-officer MP links), so skip the roster fetch unless the graph has an
+  // MP node beyond the seed — the seed then falls back to initials + its
+  // embedded colour, which is fine (its photo is shown in the page header).
+  const hasOtherMpNodes = simNodes.some(
+    (n) => n.type === "mp" && n.id !== pinNodeId,
+  );
+  const { findMpById, findMpByName } = useMps(hasOtherMpNodes);
   const { lookup: lookupGroup } = useParliamentGroups();
 
   const wrapRef = useRef<HTMLDivElement | null>(null);
