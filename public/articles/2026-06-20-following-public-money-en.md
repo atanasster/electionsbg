@@ -45,7 +45,7 @@ Beyond the official registers, Bulgaria has accumulated civic and commercial eff
 | Coverage | all PPA contracts | 2020– | EU, incl. BG | Ukraine | BG, 2011–2026 |
 | Open standard (OCDS) | yes | no | yes | yes | yes |
 | Explainable risk index | no | announced | yes | yes | yes |
-| Single-bidder flag | no | no | yes | yes | yes |
+| Single-bidder flag | no | partial | yes | yes | yes |
 | Other red flags | no | announced | yes | yes | yes |
 | Money-flow diagrams | no | yes | no | partial | yes |
 | Filter by sector / value / procedure | no | yes | yes | yes | partial |
