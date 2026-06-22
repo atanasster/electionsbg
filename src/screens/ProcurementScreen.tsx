@@ -16,6 +16,7 @@ import { ProcurementNav } from "./components/procurement/ProcurementNav";
 import { TopContractorsTile } from "./components/procurement/TopContractorsTile";
 import { TopAwardersTile } from "./components/procurement/TopAwardersTile";
 import { TopMpsTile } from "./components/procurement/TopMpsTile";
+import { TopOfficialsTile } from "./components/procurement/TopOfficialsTile";
 import { ProcurementTreemapTile } from "./components/procurement/ProcurementTreemapTile";
 import { formatEur, formatEurWithOther } from "@/lib/currency";
 
@@ -138,7 +139,7 @@ export const ProcurementScreen: FC = () => {
           >
             <div className="flex items-baseline gap-2">
               <Coins className="h-5 w-5 text-muted-foreground shrink-0" />
-              <span className="text-base md:text-lg font-bold tabular-nums break-words">
+              <span className="text-2xl lg:text-xl xl:text-2xl font-bold tabular-nums break-words">
                 {formatEur(byNs.totals.totalEur)}
               </span>
             </div>
@@ -165,28 +166,34 @@ export const ProcurementScreen: FC = () => {
           </StatCard>
 
           <StatCard
-            label={t("procurement_index_mp_tied") || "MP-connected"}
+            label={t("procurement_index_connected") || "Connected people"}
             hint={
-              t("procurement_index_mp_hint") ||
-              "MPs whose declared business interests intersect with contract winners during this period."
+              t("procurement_index_connected_hint") ||
+              "MPs and public officials (cabinet, regional governors, mayors, councillors…) whose declared business interests intersect with contract winners during this period."
             }
             className="ring-1 ring-amber-200/60 dark:ring-amber-800/40"
           >
             <div className="flex items-baseline gap-2">
               <Users className="h-5 w-5 text-amber-600 shrink-0" />
               <span className="text-2xl font-bold tabular-nums">
-                {numFmt.format(byNs.totals.mpCount)}
+                {numFmt.format(byNs.totals.mpCount + byNs.totals.officialCount)}
               </span>
               <span className="text-sm text-muted-foreground">
-                {t("procurement_index_mp_count") || "MPs"}
+                {t("procurement_index_connected_people") || "people"}
               </span>
             </div>
             <div className="text-xs text-muted-foreground tabular-nums">
-              {numFmt.format(byNs.totals.mpConnectedContractorCount)}{" "}
+              {numFmt.format(byNs.totals.mpCount)}{" "}
+              {t("procurement_index_mp_count_short") || "MPs"} ·{" "}
+              {numFmt.format(byNs.totals.officialCount)}{" "}
+              {t("procurement_index_officials_count") || "officials"}
+            </div>
+            <div className="text-xs text-muted-foreground tabular-nums">
+              {numFmt.format(byNs.totals.connectedContractorCount)}{" "}
               {t("procurement_index_mp_companies") || "companies"}
             </div>
             <div className="text-xs font-medium tabular-nums">
-              {formatEur(byNs.totals.mpConnectedTotalEur)}
+              {formatEur(byNs.totals.connectedTotalEur)}
             </div>
           </StatCard>
         </div>
@@ -210,6 +217,9 @@ export const ProcurementScreen: FC = () => {
           <div className="xl:col-span-2">
             <TopMpsTile data={byNs} />
           </div>
+          <div className="xl:col-span-2">
+            <TopOfficialsTile data={byNs} />
+          </div>
         </div>
 
         <SourceFooter t={t} />
@@ -228,6 +238,15 @@ function renderGlobalView(
 ) {
   const totalContracts = index.totals.contracts + index.totals.amendments;
   const cr = index.crossReference;
+  const ocr = index.officialsCrossReference;
+  // Combined headline across the full corpus. Persons are disjoint (MPs vs the
+  // non-MP official class); company/euro sums ignore the rare overlap of a
+  // single firm tied to both — negligible vs. the figures involved.
+  const connectedPersons = (cr?.mpCount ?? 0) + (ocr?.officialCount ?? 0);
+  const connectedCompanies =
+    (cr?.contractorCount ?? 0) + (ocr?.contractorCount ?? 0);
+  const connectedTotalEur = (cr?.totalEur ?? 0) + (ocr?.totalEur ?? 0);
+  const hasConnected = !!(cr || ocr);
   const yearSpan =
     index.years.length > 0
       ? `${index.years[0]}–${index.years[index.years.length - 1]}`
@@ -295,26 +314,32 @@ function renderGlobalView(
             </div>
           </StatCard>
           <StatCard
-            label={t("procurement_index_mp_tied") || "MP-connected"}
+            label={t("procurement_index_connected") || "Connected people"}
             className="ring-1 ring-amber-200/60 dark:ring-amber-800/40"
           >
             <div className="flex items-baseline gap-2">
               <Users className="h-5 w-5 text-amber-600 shrink-0" />
               <span className="text-2xl font-bold tabular-nums">
-                {cr ? numFmt.format(cr.mpCount) : "—"}
+                {hasConnected ? numFmt.format(connectedPersons) : "—"}
               </span>
               <span className="text-sm text-muted-foreground">
-                {t("procurement_index_mp_count") || "MPs"}
+                {t("procurement_index_connected_people") || "people"}
               </span>
             </div>
-            {cr ? (
+            {hasConnected ? (
               <>
                 <div className="text-xs text-muted-foreground tabular-nums">
-                  {numFmt.format(cr.contractorCount)}{" "}
+                  {numFmt.format(cr?.mpCount ?? 0)}{" "}
+                  {t("procurement_index_mp_count_short") || "MPs"} ·{" "}
+                  {numFmt.format(ocr?.officialCount ?? 0)}{" "}
+                  {t("procurement_index_officials_count") || "officials"}
+                </div>
+                <div className="text-xs text-muted-foreground tabular-nums">
+                  {numFmt.format(connectedCompanies)}{" "}
                   {t("procurement_index_mp_companies") || "companies"}
                 </div>
                 <div className="text-xs font-medium tabular-nums">
-                  {formatEurWithOther(cr.totalEur, cr.totalOther) || "—"}
+                  {formatEur(connectedTotalEur)}
                 </div>
               </>
             ) : null}
