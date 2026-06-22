@@ -55,7 +55,7 @@ export const CompanyTopContractsTile: FC<{ eik: string }> = ({ eik }) => {
           <table className="w-full text-sm">
             <thead className="bg-muted/40 text-xs uppercase tracking-wide text-muted-foreground">
               <tr>
-                <th className="text-left px-3 py-2">
+                <th className="text-left px-3 py-2 whitespace-nowrap">
                   {t("company_contract_date") || "Date"}
                 </th>
                 <th className="text-left px-3 py-2">
@@ -72,7 +72,9 @@ export const CompanyTopContractsTile: FC<{ eik: string }> = ({ eik }) => {
                 const src = resolveContractSource(c);
                 return (
                   <tr key={c.key}>
-                    <td className="px-3 py-2 tabular-nums">{c.date}</td>
+                    <td className="px-3 py-2 tabular-nums whitespace-nowrap">
+                      {c.date}
+                    </td>
                     <td className="px-3 py-2">
                       <Link
                         to={`/awarder/${c.partyEik}`}
