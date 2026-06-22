@@ -2222,6 +2222,27 @@ export const route = (question: string, ctx: ToolContext): Route => {
     )
   )
     return { tool: "euComparison", args: { indicator: q } };
+  // foreign direct investment -> the dedicated БНБ monthly FDI tool, which is
+  // richer than the annual fdiInward series (monthly flow + equity/reinvested/
+  // debt split + year-to-date vs. prior year). Specific FDI phrasing only, so
+  // generic "инвестиционна програма" / capital-investment questions don't get
+  // captured here.
+  if (
+    has(
+      q,
+      "преки инвестиции",
+      "преки чуждестранни инвестиции",
+      "чужди инвестиции",
+      "чуждестранни инвестиции",
+      "пчи",
+      "реинвестирана печалба",
+      "foreign direct investment",
+      "foreign investment",
+      "fdi",
+      "reinvested earnings",
+    )
+  )
+    return { tool: "fdiFlows", args: {} };
   const macroKey = resolveMacroKey(q);
   if (macroKey)
     return {

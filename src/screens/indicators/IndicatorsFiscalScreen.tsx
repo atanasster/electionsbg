@@ -23,6 +23,7 @@ import type { MacroIndicatorKey } from "@/data/macro/useMacro";
 import { DebtEmissionsTable } from "@/screens/components/governments/DebtEmissionsTable";
 import { xDomainFor } from "@/screens/components/governments/governmentTimelineUtils";
 import { PeerSnapshotTable } from "@/screens/components/macro/PeerSnapshotTable";
+import { FdiMonthlyTile } from "@/screens/components/macro/FdiMonthlyTile";
 import { CompareToggleButton } from "@/screens/components/macro/CompareToggleButton";
 import { IndicatorsNav } from "./indicatorsNav";
 import { ChartSources } from "./indicatorsShared";
@@ -330,6 +331,26 @@ export const IndicatorsFiscalScreen = () => {
             />
           </div>
         </div>
+      </section>
+
+      <section id="fdi-monthly" className="mb-10 scroll-mt-20">
+        <h2 className="text-lg font-semibold mb-3">
+          {t("fdi_monthly_heading")}
+        </h2>
+        <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
+          {t("fdi_monthly_explainer")}
+        </p>
+        <ChartSources
+          prefix={t("governments_chart_sources_prefix")}
+          sources={[
+            {
+              href: "https://www.bnb.bg/Statistics/StExternalSector/StDirectInvestments/StDIBulgaria/index.htm",
+              label:
+                "БНБ — Преки чуждестранни инвестиции в България (РПБ6/BPM6, monthly net flow by investment type, EUR million)",
+            },
+          ]}
+        />
+        <FdiMonthlyTile />
       </section>
 
       <section id="debt-emissions" className="mb-10 scroll-mt-20">

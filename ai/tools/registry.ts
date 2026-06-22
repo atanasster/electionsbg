@@ -72,6 +72,7 @@ import {
   macroIndicator,
   macroOverview,
 } from "./macro";
+import { fdiFlows } from "./fdiFlows";
 import {
   airQuality,
   councilResolutions,
@@ -2294,6 +2295,26 @@ export const TOOLS: ToolDef[] = [
     ],
     examples: [{ bg: "Каква е инфлацията?", en: "What's inflation?" }],
     run: macroIndicator,
+  },
+  {
+    name: "fdiFlows",
+    domain: "indicators",
+    description: {
+      bg: "Преки чуждестранни инвестиции в България (БНБ, месечни потоци по платежния баланс — общо, дялов капитал, реинвестирана печалба, дълг + натрупано от началото на годината).",
+      en: "Foreign direct investment in Bulgaria (BNB monthly balance-of-payments flows — total, equity, reinvested earnings, debt + year-to-date).",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Колко чужди инвестиции привлече България тази година?",
+        en: "How much FDI did Bulgaria attract this year?",
+      },
+      {
+        bg: "Колко са преките чуждестранни инвестиции?",
+        en: "What are Bulgaria's foreign direct investment flows?",
+      },
+    ],
+    run: fdiFlows,
   },
   {
     name: "macroOverview",

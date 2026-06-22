@@ -437,6 +437,10 @@ export const DataSources = () => {
                 href="https://ec.europa.eu/eurostat/databrowser/view/demo_mlexpec/default/table"
                 label={t("eurostat_life_expectancy_source")}
               />
+              <SourceItem
+                href="https://www.bnb.bg/Statistics/StExternalSector/StDirectInvestments/StDIBulgaria/index.htm"
+                label={t("bnb_fdi_source")}
+              />
             </ul>
           </DataGroup>
 

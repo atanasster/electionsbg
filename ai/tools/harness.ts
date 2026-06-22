@@ -538,7 +538,9 @@ const run = async () => {
     ["Какъв е бюджетът на Министерството на транспорта?", "ministryBudget"],
     ["Кои са най-големите инвестиционни проекти?", "investmentProjects"],
     ["Какъв е държавният бюджет?", "budgetOverview"],
-    ["Колко чужди инвестиции има?", "macroIndicator"],
+    // FDI questions route to the dedicated БНБ monthly FDI tool (richer than
+    // the annual fdiInward series in macroIndicator).
+    ["Колко чужди инвестиции има?", "fdiFlows"],
   ];
   for (const [q, expected] of cases7) {
     const r = route(q, ctx);

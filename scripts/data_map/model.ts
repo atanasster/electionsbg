@@ -95,6 +95,9 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   { pattern: /^\/parliament\//, dataset: "parliament" },
   { pattern: /^\/officials\//, dataset: "officials" },
   { pattern: /^\/budget\//, dataset: "budget" },
+  // macro_fdi must precede the generic `macro` rule below (first match wins),
+  // otherwise /macro_fdi.json would be attributed to ds:macro.
+  { pattern: /^\/macro_fdi/, dataset: "macro_fdi" },
   {
     pattern: /^\/(macro|macro_peers|cofog|governments|debt-emissions)/,
     dataset: "macro",
@@ -486,18 +489,18 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     id: "bnb",
     label: { bg: "БНБ", en: "Bulgarian National Bank" },
     detail: {
-      bg: "аукциони на ДЦК",
-      en: "government securities auctions",
+      bg: "аукциони на ДЦК, месечни ПЧИ",
+      en: "ДЦК auctions, monthly FDI",
     },
     desc: {
-      bg: "Резултатите от аукционите за държавни ценни книжа — вътрешният държавен дълг и доходността по емисиите.",
-      en: "Government securities auction results — domestic sovereign debt issuance and yields.",
+      bg: "Резултатите от аукционите за държавни ценни книжа (вътрешният държавен дълг и доходността по емисиите) и месечните потоци на преките чуждестранни инвестиции по платежния баланс (РПБ6) — общо, дялов капитал, реинвестирана печалба и дългови инструменти.",
+      en: "Government securities auction results (domestic sovereign debt issuance and yields) and monthly foreign-direct-investment flows from the balance of payments (BPM6) — total, equity, reinvested earnings and debt instruments.",
     },
-    url: "https://www.bnb.bg/FiscalAgent/FAGSAuctions/FAAuctionResults/index.htm",
+    url: "https://www.bnb.bg/Statistics/StExternalSector/index.htm",
     origin: "state",
-    members: ["bnb_auctions"],
+    members: ["bnb_auctions", "bnb_fdi"],
     skills: ["update-macro"],
-    tags: ["fiscal"],
+    tags: ["fiscal", "indicators"],
   },
   {
     id: "kzp",
@@ -744,6 +747,23 @@ export const DATASETS: DatasetDef[] = [
       en: "National macro series and EU comparisons — growth, inflation, debt, the fiscal reserve, COFOG spending structure, governance indicators and the cabinet timeline.",
     },
     path: "data/macro.json",
+    tags: ["indicators", "fiscal"],
+  },
+  {
+    id: "macro_fdi",
+    label: {
+      bg: "Месечни ПЧИ (БНБ)",
+      en: "Monthly FDI (BNB)",
+    },
+    detail: {
+      bg: "поток на инвестициите по компоненти",
+      en: "investment flow by component",
+    },
+    desc: {
+      bg: "Месечните потоци на преките чуждестранни инвестиции в България по платежния баланс (РПБ6) от 2010 г. насам — общо, дялов капитал, реинвестирана печалба и дългови инструменти, плюс натрупването от началото на годината спрямо същия период на предходната.",
+      en: "Monthly foreign-direct-investment flows into Bulgaria from the balance of payments (BPM6) since 2010 — total, equity, reinvested earnings and debt instruments, plus the year-to-date cumulative versus the same period a year earlier.",
+    },
+    path: "data/macro_fdi.json",
     tags: ["indicators", "fiscal"],
   },
   {
@@ -1078,6 +1098,7 @@ export const EDGES: [string, string][] = [
   ["src:bg_fiscal_anchors", "ds:budget"],
   ["src:intl", "ds:macro"],
   ["src:bnb", "ds:macro"],
+  ["src:bnb", "ds:macro_fdi"],
   ["src:kzp", "ds:prices"],
   ["src:tibg", "ds:localgov"],
   ["src:ipi", "ds:localgov"],
@@ -1110,6 +1131,7 @@ export const EDGES: [string, string][] = [
   ["ds:macro", "f:budget"],
   ["ds:macro", "f:indicators"],
   ["ds:macro", "f:prices"],
+  ["ds:macro_fdi", "f:indicators"],
   ["ds:indicators", "f:indicators"],
   ["ds:indicators", "f:governance"],
   ["ds:demographics", "f:elections"],
