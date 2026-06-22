@@ -1175,9 +1175,11 @@ const run = async () => {
     ["съкращаване на администрацията с 10%", 30e6],
     ["freeze the minimum wage", -280e6],
     // Phase-5 levers (same balance convention). Defense is priced against
-    // the projection's €123.9B 2026 GDP (commit a760b1d5d) — (3.0−2.2)% ×
-    // €123.9B ≈ −€991M.
-    ["отбраната да стане 3% от бвп", -991e6],
+    // the projection's €123.9B 2026 GDP (commit a760b1d5d) — (3.0−2.06)% ×
+    // €123.9B ≈ −€1165M. Current NATO-definition defense = 2.06% of GDP
+    // (NATO 2025 estimate; commit a640026dc moved it off the old 2.2% rounded
+    // grid, which is where the −€991M figure came from).
+    ["отбраната да стане 3% от бвп", -1165e6],
     // Wage indexation & health are NET of the labour-tax feedback (the budget
     // recovers ~30.6% of indexed pay as PIT+SSC; the employee health-share is
     // PIT-deductible) — consistent with the administration-cut lever.
