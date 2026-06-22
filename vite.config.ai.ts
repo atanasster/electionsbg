@@ -265,6 +265,11 @@ export default defineConfig(({ mode }) => {
     plugins: [react(), serveDataDir(), pruneDistAi(), writeSeoFiles()],
     resolve: {
       alias: { "@": path.resolve(__dirname, "./src") },
+      // Force a single React instance, same as the main app (vite.config.ts).
+      // Without this the dev dep-optimizer can pull React in via two module
+      // paths → "Invalid hook call — more than one copy of React", which blanks
+      // the chat app and throws in ThemeContextProvider's useState.
+      dedupe: ["react", "react-dom"],
     },
     server: {
       port: 5180,
