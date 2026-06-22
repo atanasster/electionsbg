@@ -104,11 +104,11 @@ export const CompanyTopContractsTile: FC<{ eik: string }> = ({ eik }) => {
                           rel="noreferrer"
                           className="text-muted-foreground hover:text-primary"
                           title={
-                            src.label === "eop"
-                              ? t("company_contract_open_eop") ||
-                                "Open in CAIS ЕОП"
-                              : t("company_contract_open_source") ||
+                            src.label === "egov"
+                              ? t("company_contract_open_source") ||
                                 "Open in data.egov.bg"
+                              : t("company_contract_open_eop") ||
+                                "Open in CAIS ЕОП"
                           }
                         >
                           <ExternalLink className="h-3 w-3" />

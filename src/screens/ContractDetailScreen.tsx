@@ -221,6 +221,23 @@ export const ContractDetailScreen: FC = () => {
                   </p>
                 );
               }
+              if (src.label === "eop-data") {
+                return (
+                  <p>
+                    {t("contract_source_hint_eop_data") ||
+                      "From the ЦАИС ЕОП open-data feed (the daily contract file this record was published in):"}{" "}
+                    <a
+                      href={src.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-primary hover:underline inline-flex items-center gap-0.5"
+                    >
+                      {t("contract_view_eop_data") || "ЦАИС ЕОП open data"}{" "}
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  </p>
+                );
+              }
               return (
                 <p>
                   {t("contract_source_hint_legacy") ||
