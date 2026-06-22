@@ -32,6 +32,7 @@ import { fileURLToPath } from "url";
 import { command, run, flag, optional, boolean } from "cmd-ts";
 import { canonicalEik } from "./eik";
 import { canonicalJson } from "./validate";
+import { toEur } from "@/lib/currency";
 import type { Contract } from "./types";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -73,7 +74,23 @@ const isoDate = (v: unknown): string | undefined => {
   return undefined;
 };
 
+// "1 234 567,89" / "5112918,81" → number; undefined when blank/non-numeric.
+const parseBgNumber = (v: unknown): number | undefined => {
+  if (v == null) return undefined;
+  let s = String(v).trim().replace(/\s/g, "");
+  if (!s) return undefined;
+  if (s.includes(",")) s = s.replace(/\./g, "").replace(",", ".");
+  const n = Number(s);
+  return Number.isFinite(n) ? n : undefined;
+};
+
 const norm = (e: string | undefined): string => canonicalEik(e) || "";
+
+// €-value bucket (nearest €1000) for the value-date fallback that catches
+// consortium contracts — the supplier EIK differs across feeds (we hold the
+// ДЗЗД's EIK, EOP lists member EIKs), but the buyer + value + date agree.
+const eurBucket = (eur: number | undefined): number | undefined =>
+  eur != null && Number.isFinite(eur) ? Math.round(eur / 1000) : undefined;
 
 const dayDiff = (a?: string, b?: string): number => {
   if (!a || !b) return Number.POSITIVE_INFINITY;
@@ -85,12 +102,15 @@ interface EopIndex {
   exact: Map<string, EopFields>;
   // (buyer|supplier) → [{ date, fields }] for the nearest-date fallback.
   pair: Map<string, Array<{ date: string; fields: EopFields }>>;
+  // (buyer|date|€-bucket) → fields, for the consortium value-date fallback.
+  byVal: Map<string, EopFields>;
 }
 
 const buildEopIndex = (): EopIndex => {
   const exact = new Map<string, EopFields>();
   const pair = new Map<string, Array<{ date: string; fields: EopFields }>>();
-  if (!fs.existsSync(EOP_CACHE_DIR)) return { exact, pair };
+  const byVal = new Map<string, EopFields>();
+  if (!fs.existsSync(EOP_CACHE_DIR)) return { exact, pair, byVal };
   const files = fs.readdirSync(EOP_CACHE_DIR).filter((f) => f.endsWith(".gz"));
   for (const f of files) {
     let rows: Record<string, unknown>[];
@@ -133,9 +153,20 @@ const buildEopIndex = (): EopIndex => {
         list.push({ date: cd ?? pd ?? "", fields });
         pair.set(base, list);
       }
+      // Value-date key (supplier-agnostic) for consortium matching.
+      const k = eurBucket(
+        toEur(
+          parseBgNumber(r.contractValue),
+          String(r.contractCurrency ?? "").trim() || undefined,
+        ) ?? undefined,
+      );
+      if (k != null && k > 0) {
+        if (cd) byVal.set(`${buyer}|${cd}|${k}`, fields);
+        if (pd && pd !== cd) byVal.set(`${buyer}|${pd}|${k}`, fields);
+      }
     }
   }
-  return { exact, pair };
+  return { exact, pair, byVal };
 };
 
 // Resolve the best EOP enrichment for one contract.
@@ -151,7 +182,18 @@ const lookup = (idx: EopIndex, c: Contract): EopFields | undefined => {
       if (hit) return hit;
     }
   }
-  // 2. nearest EOP row for this (buyer, supplier) pair. A unique pair wins
+  // 2. value-date fallback (buyer|date|€-bucket) — catches consortium contracts
+  //    whose supplier EIK differs between the OCDS and EOP feeds.
+  const k = eurBucket(c.amountEur);
+  if (k != null && k > 0) {
+    for (const d of [isoDate(c.dateSigned), isoDate(c.date)]) {
+      if (d) {
+        const hit = idx.byVal.get(`${b}|${d}|${k}`);
+        if (hit) return hit;
+      }
+    }
+  }
+  // 3. nearest EOP row for this (buyer, supplier) pair. A unique pair wins
   //    outright; otherwise pick the row whose date is closest to the
   //    contract's release date (real even when dateSigned is a placeholder).
   const list = idx.pair.get(base);
@@ -218,9 +260,11 @@ const main = (apply: boolean): void => {
           setBids++;
           changed = true;
         }
-        // EU flag/programme are EOP-only — always (re)set from the match.
-        if (f.euFunded && c.euFunded !== true) {
-          c.euFunded = true;
+        // EU flag is EOP-only and tri-state: a matched contract has a KNOWN
+        // status (true/false); an unmatched one is left undefined ("unknown",
+        // not "no") so the entity EU-share denominator is the known set.
+        if (c.euFunded !== f.euFunded) {
+          c.euFunded = !!f.euFunded;
           changed = true;
         }
         if (f.euFunded) setEu++;
