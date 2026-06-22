@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-06-22T09:30:53.758Z",
-  "totalContracts": 11903,
-  "totalEur": 2244521476.1441464,
+  "generatedAt": "2026-06-22T15:20:37.376Z",
+  "totalContracts": 11906,
+  "totalEur": 2244444493.4564896,
   "settlementCount": 287,
   "national": {
-    "contractCount": 4007,
+    "contractCount": 4006,
     "awardCount": 0,
-    "totalEur": 1351845704.1286597,
+    "totalEur": 1351368829.2724605,
     "totalOther": {},
-    "awarderCount": 260
+    "awarderCount": 259
   },
   "settlements": [
     {
@@ -480,15 +480,6 @@
       "awarderCount": 2
     },
     {
-      "ekatte": "56126",
-      "name": "Петрич",
-      "province": "Благоевград",
-      "obshtina": "Петрич",
-      "contractCount": 33,
-      "totalEur": 4434370.533226304,
-      "awarderCount": 3
-    },
-    {
       "ekatte": "23947",
       "name": "Дряново",
       "province": "Габрово",
@@ -532,6 +523,15 @@
       "contractCount": 27,
       "totalEur": 4259272.559476027,
       "awarderCount": 1
+    },
+    {
+      "ekatte": "56126",
+      "name": "Петрич",
+      "province": "Благоевград",
+      "obshtina": "Петрич",
+      "contractCount": 31,
+      "totalEur": 4259202.701666301,
+      "awarderCount": 2
     },
     {
       "ekatte": "51980",
@@ -1191,6 +1191,15 @@
       "awarderCount": 1
     },
     {
+      "ekatte": "32874",
+      "name": "Исперих",
+      "province": "Разград",
+      "obshtina": "Исперих",
+      "contractCount": 35,
+      "totalEur": 1581175.0663401212,
+      "awarderCount": 2
+    },
+    {
       "ekatte": "83017",
       "name": "Шабла",
       "province": "Добрич",
@@ -1254,15 +1263,6 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "32874",
-      "name": "Исперих",
-      "province": "Разград",
-      "obshtina": "Исперих",
-      "contractCount": 33,
-      "totalEur": 1426610.3495702588,
-      "awarderCount": 1
-    },
-    {
       "ekatte": "43476",
       "name": "Летница",
       "province": "Ловеч",
@@ -1308,15 +1308,6 @@
       "awarderCount": 5
     },
     {
-      "ekatte": "03366",
-      "name": "Белене",
-      "province": "Плевен",
-      "obshtina": "Белене",
-      "contractCount": 17,
-      "totalEur": 1375279.2164963214,
-      "awarderCount": 3
-    },
-    {
       "ekatte": "70247",
       "name": "Сунгурларе",
       "province": "Бургас",
@@ -1360,6 +1351,15 @@
       "contractCount": 23,
       "totalEur": 1294832.6234897715,
       "awarderCount": 1
+    },
+    {
+      "ekatte": "03366",
+      "name": "Белене",
+      "province": "Плевен",
+      "obshtina": "Белене",
+      "contractCount": 16,
+      "totalEur": 1281090.708292643,
+      "awarderCount": 2
     },
     {
       "ekatte": "00518",
@@ -1465,9 +1465,9 @@
       "name": "Раковски",
       "province": "Пловдив",
       "obshtina": "Раковски",
-      "contractCount": 18,
-      "totalEur": 997125.6090764535,
-      "awarderCount": 4
+      "contractCount": 22,
+      "totalEur": 1034934.5444133693,
+      "awarderCount": 5
     },
     {
       "ekatte": "67444",

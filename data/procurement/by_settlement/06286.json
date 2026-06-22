@@ -3,10 +3,10 @@
   "name": "Брезник",
   "province": "Перник",
   "obshtina": "Брезник",
-  "generatedAt": "2026-06-22T09:33:16.673Z",
-  "contractCount": 101,
+  "generatedAt": "2026-06-22T15:20:31.136Z",
+  "contractCount": 99,
   "awardCount": 0,
-  "totalEur": 16722244.617374718,
+  "totalEur": 16610160.745054526,
   "totalOther": {},
   "awarders": [
     {
@@ -16,15 +16,6 @@
       "totalEur": 16610160.745054526,
       "totalOther": {},
       "contractCount": 99,
-      "awardCount": 0
-    },
-    {
-      "eik": "000379027",
-      "name": "Средно училище \"Васил Левски\"",
-      "tier": "school",
-      "totalEur": 112083.87232019143,
-      "totalOther": {},
-      "contractCount": 2,
       "awardCount": 0
     }
   ],
@@ -606,18 +597,6 @@
       "sourceUrl": "https://storage.eop.bg/open-data-2025-06-16/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2016.06.2025.json"
     },
     {
-      "key": "ad98830f0ae4",
-      "ocid": "eop-01691-2024-0001",
-      "date": "2024-09-10",
-      "amount": 133237,
-      "currency": "BGN",
-      "amountEur": 68122.99637494056,
-      "partyEik": "201055457",
-      "partyName": "Балистик СЕЛ ЕООД",
-      "bundleUuid": "eop-flat:2024-09-10",
-      "sourceUrl": "https://storage.eop.bg/open-data-2024-09-10/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2010.09.2024.json"
-    },
-    {
       "key": "86618ffac3a8",
       "ocid": "aop-legacy-2017-769449",
       "date": "2017-01-30",
@@ -628,14 +607,26 @@
       "partyName": "Консултантска къща Решения ЕООД - София",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "161412b0738e",
+      "ocid": "aop-legacy-2011-2015-529077",
+      "date": "2013-03-12",
+      "amount": 110240,
+      "currency": "BGN",
+      "amountEur": 56364.81698307113,
+      "partyEik": "200256507",
+      "partyName": "Каса гранде прим ЕООД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 69543.57485057495,
+      "totalEur": 25582.698905324083,
       "totalOther": {},
-      "contractCount": 3
+      "contractCount": 2
     },
     {
       "year": "2012",
@@ -687,9 +678,9 @@
     },
     {
       "year": "2024",
-      "totalEur": 2772957.0259173852,
+      "totalEur": 2704834.0295424447,
       "totalOther": {},
-      "contractCount": 18
+      "contractCount": 17
     },
     {
       "year": "2025",

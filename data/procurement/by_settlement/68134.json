@@ -3,10 +3,10 @@
   "name": "София",
   "province": "София (столица)",
   "obshtina": "Столична",
-  "generatedAt": "2026-06-22T09:33:16.673Z",
-  "contractCount": 42660,
+  "generatedAt": "2026-06-22T15:20:31.136Z",
+  "contractCount": 42652,
   "awardCount": 0,
-  "totalEur": 11192217965.551977,
+  "totalEur": 11192035719.482637,
   "totalOther": {
     "USD": 16685
   },
@@ -1501,15 +1501,6 @@
       "awardCount": 0
     },
     {
-      "eik": "000668754",
-      "name": "136-ТО Основно училище \"Любен Каравелов\"",
-      "tier": "school",
-      "totalEur": 222186.06934140492,
-      "totalOther": {},
-      "contractCount": 9,
-      "awardCount": 0
-    },
-    {
       "eik": "000675503",
       "name": "Детска Градина 178 \"Сребърно копитце\"",
       "tier": "school",
@@ -2009,6 +2000,15 @@
       "name": "Целодневна детска градина  N:166 - Веселушка, гр. София, район - Лозенец",
       "tier": "school",
       "totalEur": 41000.49595312476,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0
+    },
+    {
+      "eik": "121847103",
+      "name": "Пето вечерно средно училище \"Пеньо Пенев\"",
+      "tier": "school",
+      "totalEur": 39940,
       "totalOther": {},
       "contractCount": 1,
       "awardCount": 0
@@ -2646,9 +2646,9 @@
     },
     {
       "year": "2014",
-      "totalEur": 281187478.5180716,
+      "totalEur": 281109704.6675836,
       "totalOther": {},
-      "contractCount": 2356
+      "contractCount": 2351
     },
     {
       "year": "2015",
@@ -2710,15 +2710,15 @@
     },
     {
       "year": "2025",
-      "totalEur": 1763772520.5578964,
+      "totalEur": 1763628108.3390431,
       "totalOther": {},
-      "contractCount": 6305
+      "contractCount": 6301
     },
     {
       "year": "2026",
-      "totalEur": 1507022148.7693827,
+      "totalEur": 1507062088.7693827,
       "totalOther": {},
-      "contractCount": 3250
+      "contractCount": 3251
     }
   ]
 }

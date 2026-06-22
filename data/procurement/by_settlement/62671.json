@@ -3,10 +3,10 @@
   "name": "Рила",
   "province": "Кюстендил",
   "obshtina": "Рила",
-  "generatedAt": "2026-06-22T09:33:16.673Z",
-  "contractCount": 71,
+  "generatedAt": "2026-06-22T15:20:31.136Z",
+  "contractCount": 67,
   "awardCount": 0,
-  "totalEur": 9581878.733502861,
+  "totalEur": 9484502.535162514,
   "totalOther": {},
   "awarders": [
     {
@@ -16,15 +16,6 @@
       "totalEur": 9484502.535162514,
       "totalOther": {},
       "contractCount": 67,
-      "awardCount": 0
-    },
-    {
-      "eik": "000252631",
-      "name": "Основно училище \"Аверкий Попстоянов\"",
-      "tier": "school",
-      "totalEur": 97376.19834034654,
-      "totalOther": {},
-      "contractCount": 4,
       "awardCount": 0
     }
   ],
@@ -294,18 +285,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "f626591a6454",
-      "ocid": "eop-01996-2025-0001",
-      "date": "2025-05-28",
-      "amount": 116061.37,
-      "currency": "BGN",
-      "amountEur": 59341.23620151036,
-      "partyEik": "000885099",
-      "partyName": "Кооперация Панда",
-      "bundleUuid": "eop-flat:2025-05-28",
-      "sourceUrl": "https://storage.eop.bg/open-data-2025-05-28/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2028.05.2025.json"
-    },
-    {
       "key": "7763fec0c092",
       "ocid": "aop-legacy-2011-2015-427814",
       "date": "2011-02-22",
@@ -534,18 +513,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
-      "key": "12c8b051de42",
-      "ocid": "aop-legacy-2011-2015-438661",
-      "date": "2011-05-19",
-      "amount": 34092,
-      "currency": "BGN",
-      "amountEur": 17430.96281374148,
-      "partyEik": "131317715",
-      "partyName": "Ф - Консулт ЕООД",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
       "key": "a4392d802a59",
       "ocid": "aop-legacy-2011-2015-627310",
       "date": "2014-10-06",
@@ -628,20 +595,44 @@
       "partyName": "ЕТ „АРХИТЕКТУРНО-КОНСУЛТАНТСКО Бюро - Юлий Фърков“",
       "bundleUuid": "c5404069-668a-4cd2-ab43-a1cdc26e03c6",
       "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
+    },
+    {
+      "key": "5311e2d8bf41",
+      "ocid": "aop-legacy-2011-2015-537078",
+      "date": "2013-04-16",
+      "amount": 20700,
+      "currency": "BGN",
+      "amountEur": 10583.741940761724,
+      "partyEik": "175114606",
+      "partyName": "Толос-Китов ЕООД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "bccd9c6256cd",
+      "ocid": "aop-legacy-2011-2015-670417",
+      "date": "2015-06-05",
+      "amount": 20021,
+      "currency": "BGN",
+      "amountEur": 10236.57475342949,
+      "partyEik": "824124548",
+      "partyName": "Кимтекс - Лс ООД - Плевен",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 163660.44083585995,
+      "totalEur": 146229.47802211848,
       "totalOther": {},
-      "contractCount": 4
+      "contractCount": 3
     },
     {
       "year": "2012",
-      "totalEur": 74954.36719960325,
+      "totalEur": 67081.49481294387,
       "totalOther": {},
-      "contractCount": 3
+      "contractCount": 2
     },
     {
       "year": "2013",
@@ -711,9 +702,9 @@
     },
     {
       "year": "2025",
-      "totalEur": 1610399.0939907867,
+      "totalEur": 1538326.730850841,
       "totalOther": {},
-      "contractCount": 14
+      "contractCount": 12
     },
     {
       "year": "2026",

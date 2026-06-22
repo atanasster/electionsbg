@@ -3,10 +3,10 @@
   "name": "Рудозем",
   "province": "Смолян",
   "obshtina": "Рудозем",
-  "generatedAt": "2026-06-22T09:33:16.673Z",
-  "contractCount": 286,
+  "generatedAt": "2026-06-22T15:20:31.136Z",
+  "contractCount": 258,
   "awardCount": 0,
-  "totalEur": 37694972.298609294,
+  "totalEur": 36804301.85690424,
   "totalOther": {},
   "awarders": [
     {
@@ -16,15 +16,6 @@
       "totalEur": 36804301.85690424,
       "totalOther": {},
       "contractCount": 258,
-      "awardCount": 0
-    },
-    {
-      "eik": "000608390",
-      "name": "Средно училище \"СВ.СВ.КИРИЛ и Методий\"",
-      "tier": "school",
-      "totalEur": 890670.4417050561,
-      "totalOther": {},
-      "contractCount": 28,
       "awardCount": 0
     }
   ],
@@ -136,18 +127,6 @@
       "partyName": "Артстрой ООД - Смолян",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "9407d0b4f901",
-      "ocid": "eop-01753-2024-0002",
-      "date": "2024-08-19",
-      "amount": 965180.45,
-      "currency": "BGN",
-      "amountEur": 493488.9279743127,
-      "partyEik": "181163262",
-      "partyName": "ДЗЗД „Рудозем строй“",
-      "bundleUuid": "eop-flat:2024-08-19",
-      "sourceUrl": "https://storage.eop.bg/open-data-2024-08-19/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2019.08.2024.json"
     },
     {
       "key": "3b3505419b8a",
@@ -628,6 +607,18 @@
       "partyName": "Теос 20 ЕООД",
       "bundleUuid": "eop-flat:2025-06-05",
       "sourceUrl": "https://storage.eop.bg/open-data-2025-06-05/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2005.06.2025.json"
+    },
+    {
+      "key": "48dcdea13471",
+      "ocid": "aop-legacy-2016-744906",
+      "date": "2016-08-16",
+      "amount": 219037.43,
+      "currency": "BGN",
+      "amountEur": 111992.05963708503,
+      "partyEik": "120597696",
+      "partyName": "Сепал ЕООД - Рудозем",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     }
   ],
   "byYear": [
@@ -639,21 +630,21 @@
     },
     {
       "year": "2012",
-      "totalEur": 104717.6901877975,
+      "totalEur": 42330.36613611613,
       "totalOther": {},
-      "contractCount": 5
+      "contractCount": 3
     },
     {
       "year": "2013",
-      "totalEur": 5010746.332758982,
+      "totalEur": 4967357.5924287895,
       "totalOther": {},
-      "contractCount": 9
+      "contractCount": 8
     },
     {
       "year": "2014",
-      "totalEur": 3646850.186365891,
+      "totalEur": 3584738.9599300553,
       "totalOther": {},
-      "contractCount": 17
+      "contractCount": 15
     },
     {
       "year": "2015",
@@ -669,9 +660,9 @@
     },
     {
       "year": "2017",
-      "totalEur": 467665.3236733254,
+      "totalEur": 444657.18901949556,
       "totalOther": {},
-      "contractCount": 17
+      "contractCount": 16
     },
     {
       "year": "2019",
@@ -699,15 +690,15 @@
     },
     {
       "year": "2024",
-      "totalEur": 7879056.870995944,
+      "totalEur": 7339159.246969316,
       "totalOther": {},
-      "contractCount": 56
+      "contractCount": 45
     },
     {
       "year": "2025",
-      "totalEur": 4056695.3416196704,
+      "totalEur": 3896817.9494127813,
       "totalOther": {},
-      "contractCount": 67
+      "contractCount": 56
     },
     {
       "year": "2026",
