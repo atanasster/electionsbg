@@ -23,7 +23,7 @@ The [Public Procurement](/procurement) module answers those questions. It holds 
 
 ## 1. The landscape: Bulgaria and abroad
 
-**In Bulgaria,** the primary source is the Public Procurement Agency (АОП) and the ЦАИС ЕОП platform, republished as open data on [data.egov.bg](https://data.egov.bg/organisation/about/aop). It is comprehensive and authoritative — and raw: no analytics, no risk scoring, and crucially no link between a contract and the *people* behind the winning company. In June 2026 the Ministry of Innovation and Digital Transformation launched [СИГМА](https://sigma.midt.bg) (sigma.midt.bg), a government analytics layer over the *same* АОП data. It has a clean interface and ships a working directory of authorities, companies and authority→company flows, plus search, from day one — a solid base to build on. The more ambitious features it announced (an AI assistant, a green/yellow/red risk index and a beneficial-owner layer) are, for now, slated for a later stage.
+**In Bulgaria,** the primary source is the Public Procurement Agency (АОП) and the ЦАИС ЕОП platform, republished as open data on [data.egov.bg](https://data.egov.bg/organisation/about/aop). It is comprehensive and authoritative — and raw: no analytics, no risk scoring, and crucially no link between a contract and the *people* behind the winning company. In June 2026 the Ministry of Innovation and Digital Transformation launched [СИГМА](https://sigma.midt.bg) (sigma.midt.bg), a government analytics layer over the *same* АОП data. It has a clean interface and ships a working browser of authorities, companies and contracts — with filters by sector (CPV), procedure type, year, value and EU funding, search by name, EIK or contract number, sector-level money-flow diagrams, and CSV download of any list (and JSON for a single contract) — from day one, a solid base to build on. The more ambitious features it announced (an AI assistant, a green/yellow/red risk index, red-flag signals and a beneficial-owner layer) are, for now, slated for a later stage.
 
 Beyond the official registers, Bulgaria has accumulated civic and commercial efforts around procurement — from investigative journalism to business services:
 
@@ -48,6 +48,7 @@ Beyond the official registers, Bulgaria has accumulated civic and commercial eff
 | Single-bidder flag | no | no | yes | yes | yes |
 | Other red flags | no | announced | yes | yes | yes |
 | Money-flow diagrams | no | yes | no | partial | yes |
+| Filter by sector / value / procedure | no | yes | yes | yes | partial |
 | Links to politicians / owners | no | announced | no | partial | yes |
 | Map by region / municipality | no | no | partial | yes | yes |
 | Search by person / company | partial | yes | yes | yes | yes |
