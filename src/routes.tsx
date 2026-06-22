@@ -280,6 +280,11 @@ const ProcurementBySettlementScreen = lazy(() =>
     default: m.ProcurementBySettlementScreen,
   })),
 );
+const ContractsBrowserScreen = lazy(() =>
+  import("./screens/procurement/ContractsBrowserScreen").then((m) => ({
+    default: m.ContractsBrowserScreen,
+  })),
+);
 const ProcurementSettlementDetailScreen = lazy(() =>
   import("./screens/procurement/ProcurementSettlementDetailScreen").then(
     (m) => ({
@@ -1863,6 +1868,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <ProcurementBySettlementScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="procurement/contracts"
+            element={
+              <LayoutScreen>
+                <ContractsBrowserScreen />
               </LayoutScreen>
             }
           />

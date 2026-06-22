@@ -124,6 +124,12 @@ functions/.secret.local
 /data/procurement/awarder_contracts/
 /data/procurement/contractors/
 /data/procurement/awarders/
+# Per-entity sector/procedure/EU breakdown shards + the faceted-browser per-year
+# contract index — bulky derived data, uploaded to the bucket, not committed
+# (same convention as the per-contractor files above). sector_totals.json stays
+# committed (it's directly under derived/, not in these subdirs).
+/data/procurement/derived/breakdowns/
+/data/procurement/derived/contract_index/
 
 # Cached budget source artifacts (egov КФП resources, minfin Excel, bulnao
 # PDFs). Re-fetched on demand by `/update-budget`. The normalized JSON outputs
