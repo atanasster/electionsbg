@@ -11,6 +11,7 @@ import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Scale } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
+import { NativeSelect } from "@/components/ui/native-select";
 import {
   useMunicipalExecutionIndex,
   useMunicipalExecution,
@@ -90,10 +91,11 @@ export const MunicipalBudgetExecutionTile: FC<{ obshtinaCode: string }> = ({
         <CardTitle className="text-base flex items-center gap-2 flex-wrap">
           <Scale className="h-4 w-4" />
           {t("muni_exec_tile_title")}
-          <select
+          <NativeSelect
             value={activeYear}
             onChange={(e) => setYear(Number(e.target.value))}
-            className="ml-auto text-xs font-normal bg-transparent border rounded px-1.5 py-0.5 tabular-nums cursor-pointer hover:bg-muted/40"
+            wrapperClassName="ml-auto"
+            className="text-xs font-normal bg-transparent border rounded px-1.5 py-0.5 tabular-nums cursor-pointer hover:bg-muted/40"
             aria-label={t("muni_exec_year_picker_label")}
           >
             {[...years].reverse().map((y) => (
@@ -102,7 +104,7 @@ export const MunicipalBudgetExecutionTile: FC<{ obshtinaCode: string }> = ({
                 {lang === "bg" ? " г." : ""}
               </option>
             ))}
-          </select>
+          </NativeSelect>
         </CardTitle>
         <p className="text-xs text-muted-foreground">
           {data.period.isFullYear

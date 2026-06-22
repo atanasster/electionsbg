@@ -9,6 +9,7 @@ import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { HardHat } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
+import { NativeSelect } from "@/components/ui/native-select";
 import { useSamokovCapitalProgram } from "@/data/budget/useBudget";
 
 const SAM_CAPITAL_YEARS = [2025] as const;
@@ -48,10 +49,11 @@ export const SamokovCapitalProjectsTile: FC<{ obshtinaCode: string }> = ({
         <CardTitle className="text-base flex items-center gap-2 flex-wrap">
           <HardHat className="h-4 w-4" />
           {t("samokov_capital_tile_title")}
-          <select
+          <NativeSelect
             value={year}
             onChange={(e) => setYear(Number(e.target.value))}
-            className="ml-auto text-xs font-normal bg-transparent border rounded px-1.5 py-0.5 tabular-nums cursor-pointer hover:bg-muted/40"
+            wrapperClassName="ml-auto"
+            className="text-xs font-normal bg-transparent border rounded px-1.5 py-0.5 tabular-nums cursor-pointer hover:bg-muted/40"
             aria-label={t("sofia_capital_year_picker_label")}
           >
             {SAM_CAPITAL_YEARS.map((y) => (
@@ -60,7 +62,7 @@ export const SamokovCapitalProjectsTile: FC<{ obshtinaCode: string }> = ({
                 {lang === "bg" ? " г." : ""}
               </option>
             ))}
-          </select>
+          </NativeSelect>
         </CardTitle>
         <p className="text-xs text-muted-foreground">
           {t("samokov_capital_tile_intro")}

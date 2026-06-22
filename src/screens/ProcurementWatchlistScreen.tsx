@@ -20,6 +20,7 @@ import {
   ArrowRight,
   Bell,
 } from "lucide-react";
+import { NativeSelect } from "@/components/ui/native-select";
 import { Title } from "@/ux/Title";
 import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
 import { FollowStar } from "@/screens/components/procurement/FollowStar";
@@ -148,7 +149,7 @@ export const ProcurementWatchlistScreen: FC = () => {
             </span>
             <label className="ml-auto inline-flex items-center gap-1.5 text-xs text-muted-foreground">
               {t("watchlist_sort") || "Sort"}
-              <select
+              <NativeSelect
                 value={sort}
                 onChange={(e) => setSort(e.target.value as SortKey)}
                 className="rounded-md border border-border bg-background px-2 py-1 text-xs"
@@ -165,7 +166,7 @@ export const ProcurementWatchlistScreen: FC = () => {
                 <option value="name">
                   {t("watchlist_sort_name") || "Name"}
                 </option>
-              </select>
+              </NativeSelect>
             </label>
           </div>
 

@@ -29,6 +29,7 @@ import {
   TrendingDown,
   Info,
 } from "lucide-react";
+import { NativeSelect } from "@/components/ui/native-select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import {
   Tooltip,
@@ -767,7 +768,7 @@ export const BudgetTaxCalculator: FC<{ fiscalYear?: number | null }> = ({
                 >
                   {t("budget_tax_bill_children_label")}
                 </label>
-                <select
+                <NativeSelect
                   id="budget-tax-calculator-children"
                   value={children}
                   onChange={(e) => setChildren(Number(e.target.value))}
@@ -777,7 +778,7 @@ export const BudgetTaxCalculator: FC<{ fiscalYear?: number | null }> = ({
                   <option value={1}>1</option>
                   <option value={2}>2</option>
                   <option value={3}>3+</option>
-                </select>
+                </NativeSelect>
               </div>
               <div className="basis-full text-[11px] text-muted-foreground -mt-1">
                 {isModCustom ? (

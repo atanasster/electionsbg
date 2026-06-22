@@ -17,6 +17,7 @@ import {
   Download,
   X,
 } from "lucide-react";
+import { NativeSelect } from "@/components/ui/native-select";
 import { Title } from "@/ux/Title";
 import { Card, CardContent } from "@/ux/Card";
 import { Button } from "@/components/ui/button";
@@ -258,7 +259,7 @@ export const ProcurementConcentrationScreen: FC = () => {
               }
               className="min-w-[220px] flex-1 rounded-md border bg-background px-3 py-1.5 text-sm shadow-sm"
             />
-            <select
+            <NativeSelect
               value={oblast ?? ""}
               onChange={(e) => setOblast(e.target.value || null)}
               className="rounded-md border bg-background px-2 py-1.5 text-sm"
@@ -272,7 +273,7 @@ export const ProcurementConcentrationScreen: FC = () => {
                   {oblastLabel(o.value)} ({countFmt.format(o.count)})
                 </option>
               ))}
-            </select>
+            </NativeSelect>
             <Button
               variant="outline"
               size="sm"

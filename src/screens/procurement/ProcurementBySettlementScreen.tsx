@@ -22,6 +22,7 @@ import {
   Download,
   X,
 } from "lucide-react";
+import { NativeSelect } from "@/components/ui/native-select";
 import { Title } from "@/ux/Title";
 import { Card, CardContent } from "@/ux/Card";
 import { Button } from "@/components/ui/button";
@@ -310,7 +311,7 @@ export const ProcurementBySettlementScreen: FC = () => {
         />
         <label className="text-xs text-muted-foreground sm:hidden">
           {t("procurement_settlement_sort") || "Sort by"}:{" "}
-          <select
+          <NativeSelect
             value={sortKey}
             onChange={(e) => setSortKey(e.target.value as SortKey)}
             className="rounded-md border bg-background px-2 py-1 text-xs"
@@ -330,7 +331,7 @@ export const ProcurementBySettlementScreen: FC = () => {
             <option value="name">
               {t("procurement_settlement_sort_name") || "Name (A→Z)"}
             </option>
-          </select>
+          </NativeSelect>
         </label>
         <Button
           variant="outline"

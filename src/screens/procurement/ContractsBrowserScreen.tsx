@@ -7,6 +7,7 @@ import { FC, useMemo, type ReactNode } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { ColumnDef } from "@tanstack/react-table";
+import { NativeSelect } from "@/components/ui/native-select";
 import { Title } from "@/ux/Title";
 import { DataTable } from "@/ux/data_table/DataTable";
 import { ProcurementNav } from "../components/procurement/ProcurementNav";
@@ -44,13 +45,13 @@ const Select: FC<{
   onChange: (v: string) => void;
   children: ReactNode;
 }> = ({ value, onChange, children }) => (
-  <select
+  <NativeSelect
     value={value}
     onChange={(e) => onChange(e.target.value)}
     className="h-8 rounded-md border bg-card px-2 text-xs"
   >
     {children}
-  </select>
+  </NativeSelect>
 );
 
 export const ContractsBrowserScreen: FC = () => {
