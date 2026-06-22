@@ -32,6 +32,23 @@ import { ErrorSection } from "./components/ErrorSection";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
 
+// Institution-type labels for the awarder's `geo.tier` (from
+// scripts/procurement/awarder_tier.ts). Mirrors SIGMA's institution-type
+// dimension. "other" is the unclassified fallback — no badge. Only set when the
+// awarder was geo-resolved (legacy-only / no-address buyers carry no tier).
+const TIER_LABELS: Record<string, { bg: string; en: string }> = {
+  central_ministry: { bg: "министерство", en: "ministry" },
+  central_agency: { bg: "агенция", en: "agency" },
+  national_state_co: { bg: "държавна компания", en: "state company" },
+  municipal: { bg: "община", en: "municipality" },
+  hospital: { bg: "болница", en: "hospital" },
+  school: { bg: "училище", en: "school" },
+  university: { bg: "университет", en: "university" },
+  utility: { bg: "комунална услуга", en: "utility" },
+  forestry: { bg: "горско стопанство", en: "forestry" },
+  regional_gov: { bg: "областна структура", en: "regional authority" },
+};
+
 const SkeletonCard: FC = () => (
   <div className="rounded-xl border bg-card p-4 shadow-sm animate-pulse h-[140px]">
     <div className="h-3 w-24 bg-muted rounded mb-3" />
@@ -130,6 +147,13 @@ export const AwarderByEikScreen: FC = () => {
           {a.region ? (
             <span className="text-xs text-muted-foreground">· {a.region}</span>
           ) : null}
+          {a.geo?.tier && TIER_LABELS[a.geo.tier] ? (
+            <span className="inline-block rounded bg-muted px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-muted-foreground">
+              {i18n.language === "bg"
+                ? TIER_LABELS[a.geo.tier].bg
+                : TIER_LABELS[a.geo.tier].en}
+            </span>
+          ) : null}
           {mpTiedContractors.length > 0 ? (
             <span className="inline-block rounded bg-amber-200/60 dark:bg-amber-800/40 px-1.5 py-0.5 text-[10px] uppercase tracking-wide">
               {t("awarder_has_mp_tied") || "Paid MP-tied"}
@@ -149,6 +173,17 @@ export const AwarderByEikScreen: FC = () => {
                   "—"}
               </span>
             </div>
+            {a.contractCount > 0 ? (
+              <div className="text-xs text-muted-foreground tabular-nums">
+                {i18n.language === "bg" ? "средно " : "avg "}
+                {formatEurWithOther(
+                  a.totalEur / a.contractCount,
+                  {},
+                  i18n.language,
+                )}
+                {i18n.language === "bg" ? " / договор" : " / contract"}
+              </div>
+            ) : null}
           </StatCard>
           <StatCard label={t("awarder_contracts") || "Contracts"}>
             <div className="flex items-baseline gap-2">

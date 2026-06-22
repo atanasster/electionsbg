@@ -56,6 +56,9 @@ export const CompanyTopAwardersTile: FC<{
                 <th className="text-right px-3 py-2 hidden md:table-cell">
                   {t("company_col_contracts") || "Contracts"}
                 </th>
+                <th className="text-right px-3 py-2 hidden sm:table-cell">
+                  {i18n.language === "bg" ? "Дял" : "Share"}
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
@@ -81,6 +84,14 @@ export const CompanyTopAwardersTile: FC<{
                   </td>
                   <td className="px-3 py-2 text-right tabular-nums hidden md:table-cell">
                     {a.contractCount.toLocaleString("bg-BG")}
+                  </td>
+                  <td className="px-3 py-2 text-right tabular-nums hidden sm:table-cell text-muted-foreground">
+                    {rollup.totalEur > 0
+                      ? ((a.totalEur / rollup.totalEur) * 100).toLocaleString(
+                          i18n.language,
+                          { maximumFractionDigits: 1 },
+                        ) + "%"
+                      : "—"}
                   </td>
                 </tr>
               ))}

@@ -315,6 +315,17 @@ export const CompanyByEikScreen: FC = () => {
                     ) || "—"}
                   </span>
                 </div>
+                {c.contractCount > 0 ? (
+                  <div className="text-xs text-muted-foreground tabular-nums">
+                    {i18n.language === "bg" ? "средно " : "avg "}
+                    {formatEurWithOther(
+                      c.totalEur / c.contractCount,
+                      {},
+                      i18n.language,
+                    )}
+                    {i18n.language === "bg" ? " / договор" : " / contract"}
+                  </div>
+                ) : null}
               </StatCard>
               <StatCard label={t("company_contracts") || "Contracts"}>
                 <div className="flex items-baseline gap-2">
