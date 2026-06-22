@@ -7,7 +7,7 @@
 import { FC } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Receipt, ExternalLink, Users, Landmark } from "lucide-react";
+import { Receipt, ExternalLink, Users, Landmark, Download } from "lucide-react";
 import { useContract } from "@/data/procurement/useContract";
 import { useContractRiskFlags } from "@/data/procurement/useContractRiskFlags";
 import { useProcurementMpConnectedByEik } from "@/data/procurement/useMpConnectedByEik";
@@ -229,6 +229,30 @@ export const ContractDetailScreen: FC = () => {
                 {t("contract_view_source") || "View source"}{" "}
                 <ExternalLink className="h-3 w-3" />
               </a>
+            </p>
+            <p>
+              {/* This record as clean JSON — mirrors SIGMA's per-contract JSON
+                  download. Serialises the on-disk by-id row exactly. */}
+              <button
+                type="button"
+                onClick={() => {
+                  const blob = new Blob([JSON.stringify(c, null, 2)], {
+                    type: "application/json",
+                  });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement("a");
+                  a.href = url;
+                  a.download = `contract-${c.key}.json`;
+                  a.click();
+                  URL.revokeObjectURL(url);
+                }}
+                className="text-primary hover:underline inline-flex items-center gap-0.5"
+              >
+                {i18n.language === "bg"
+                  ? "Свали записа (JSON)"
+                  : "Download this record (JSON)"}{" "}
+                <Download className="h-3 w-3" />
+              </button>
             </p>
           </div>
         </div>
