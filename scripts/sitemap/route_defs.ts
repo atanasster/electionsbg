@@ -64,6 +64,11 @@ export const ENGLISH_STATIC_PAGES = [
   "mp-cars",
   "officials/assets",
   "procurement",
+  "procurement/contracts",
+  "procurement/flows",
+  "procurement/people",
+  "procurement/concentration",
+  "procurement/flags",
   "procurement/contractors",
   "procurement/awarders",
   "procurement/mps",
@@ -185,8 +190,31 @@ export const routeDefs = (year: string): RouteDefs => [
     file: `officials-list`,
   },
 
-  // Public procurement.
+  // Public procurement. Every sub-page in the ProcurementNav pills is a
+  // prerendered static page (scripts/prerender/routes.ts), so each gets a
+  // sitemap entry. The personal /procurement/watchlist is intentionally
+  // omitted — it has no canonical indexable content (localStorage follows).
   { path: "procurement", file: `src/screens/ProcurementScreen.tsx` },
+  {
+    path: "procurement/contracts",
+    file: `src/screens/procurement/ContractsBrowserScreen.tsx`,
+  },
+  {
+    path: "procurement/flows",
+    file: `src/screens/ProcurementFlowsScreen.tsx`,
+  },
+  {
+    path: "procurement/people",
+    file: `src/screens/ProcurementPeopleScreen.tsx`,
+  },
+  {
+    path: "procurement/concentration",
+    file: `src/screens/procurement/ProcurementConcentrationScreen.tsx`,
+  },
+  {
+    path: "procurement/flags",
+    file: `src/screens/ProcurementFlagsScreen.tsx`,
+  },
   {
     path: "procurement/contractors",
     file: `src/screens/TopContractorsScreen.tsx`,

@@ -2166,11 +2166,14 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <h2>Какво ще намерите тук</h2>
 <ul>
 <li>Обобщени статистики — брой договори, обща сума, брой изпълнители и възложители.</li>
+<li><a href="${SITE_URL}/procurement/contracts">Договори</a> — пълна сортируема и филтрируема таблица с всички договори.</li>
 <li><a href="${SITE_URL}/procurement/contractors">Топ изпълнители</a> — фирми с най-голям обем спечелени поръчки.</li>
 <li><a href="${SITE_URL}/procurement/awarders">Топ възложители</a> — държавни органи с най-голям обем възложени поръчки.</li>
 <li><a href="${SITE_URL}/procurement/mps">Депутати с връзки</a> — народни представители, чиито свързани фирми са спечелили поръчки.</li>
 <li><a href="${SITE_URL}/procurement/flows">Парично движение</a> — Sankey диаграма на паричния поток: възложител → фирма → депутат.</li>
 <li><a href="${SITE_URL}/procurement/people">Скенер на публичните пари</a> — търсене на политик по връзки с поръчки.</li>
+<li><a href="${SITE_URL}/procurement/by-settlement">Поръчки по населено място</a> — сумите, разпределени по адреса на възложителя.</li>
+<li><a href="${SITE_URL}/procurement/concentration">Концентрация</a> — възложители с разход, съсредоточен върху един изпълнител.</li>
 <li><a href="${SITE_URL}/procurement/flags">Сигнали за риск</a> — концентрация върху един изпълнител и фирми в черен списък.</li>
 </ul>
 <p>Източник: <a href="https://data.egov.bg/organisation/about/aop" rel="nofollow noopener">data.egov.bg</a> (АОП OCDS, двуседмични пакети).</p>`.trim(),
@@ -2185,14 +2188,41 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <h2>What you'll find</h2>
 <ul>
 <li>Summary statistics — contract count, total value, contractor and awarder counts.</li>
+<li><a href="${SITE_URL}/en/procurement/contracts">Contracts</a> — full sortable, filterable table of every contract.</li>
 <li><a href="${SITE_URL}/en/procurement/contractors">Top contractors</a> — companies with the highest total procurement.</li>
 <li><a href="${SITE_URL}/en/procurement/awarders">Top awarders</a> — state bodies with the highest total awarded.</li>
 <li><a href="${SITE_URL}/en/procurement/mps">MP-connected</a> — MPs whose declared business interests received procurement.</li>
 <li><a href="${SITE_URL}/en/procurement/flows">Money flow</a> — Sankey diagram of the money flow: awarder → company → MP.</li>
 <li><a href="${SITE_URL}/en/procurement/people">Public money scanner</a> — search a politician by procurement ties.</li>
+<li><a href="${SITE_URL}/en/procurement/by-settlement">By settlement</a> — totals pinned to the buyer's HQ address.</li>
+<li><a href="${SITE_URL}/en/procurement/concentration">Concentration</a> — buyers whose spend is concentrated on one supplier.</li>
 <li><a href="${SITE_URL}/en/procurement/flags">Red flags</a> — single-supplier concentration and debarred suppliers.</li>
 </ul>
 <p>Source: <a href="https://data.egov.bg/organisation/about/aop" rel="nofollow noopener">data.egov.bg</a> (АОП OCDS, fortnightly bundles).</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "procurement/contracts",
+    title: "Договори за обществени поръчки — търсене | electionsbg.com",
+    description:
+      "Пълна сортируема и филтрируема таблица на договорите за обществени поръчки — възложител, изпълнител, сума, дата и сигнали за риск, с връзка към всеки отделен договор.",
+    breadcrumbName: "Договори",
+    ogImage: "/og/procurement-contracts.png",
+    bodyHtml: `
+<h1>Договори за обществени поръчки</h1>
+<p>Пълната таблица с договорите от централния регистър на АОП (data.egov.bg) — търсене и филтриране по възложител, изпълнител и сума, с подреждане по стойност, дата или ниво на риск. Всеки ред води към страницата на отделния договор с пълните детайли.</p>
+<p>Маркирани са договорите със сигнали за риск (концентрация върху един изпълнител, единствен участник, фирма в черен списък). Може да филтрирате само маркираните.</p>
+<p>Виж и <a href="${SITE_URL}/procurement">общия преглед на обществените поръчки</a>, <a href="${SITE_URL}/procurement/contractors">топ изпълнителите</a> и <a href="${SITE_URL}/procurement/flags">сигналите за риск</a>.</p>`.trim(),
+    english: {
+      title: "Public Procurement Contracts — Search | electionsbg.com",
+      description:
+        "Full sortable, filterable table of public-procurement contracts — awarder, contractor, amount, date and risk flags, with a link to every individual contract.",
+      breadcrumbName: "Contracts",
+      bodyHtml: `
+<h1>Public procurement contracts</h1>
+<p>The full contract table from the central АОП register (data.egov.bg) — search and filter by awarder, contractor and amount, sorted by value, date or risk level. Every row links to that contract's full detail page.</p>
+<p>Contracts carrying risk flags (single-supplier concentration, single bidder, debarred company) are highlighted, and you can filter to the flagged ones only.</p>
+<p>See also the <a href="${SITE_URL}/en/procurement">procurement overview</a>, <a href="${SITE_URL}/en/procurement/contractors">top contractors</a> and <a href="${SITE_URL}/en/procurement/flags">red flags</a>.</p>`.trim(),
     },
   }),
   staticPage({
@@ -2201,6 +2231,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     description:
       "Sankey диаграма на паричния поток от възложители към фирми, свързани с народни представители — обществени поръчки от АОП (data.egov.bg).",
     breadcrumbName: "Парично движение",
+    ogImage: "/og/procurement-flows.png",
     bodyHtml: `
 <h1>Парично движение в обществените поръчки</h1>
 <p>Интерактивна Sankey диаграма на това как публичните средства се движат от възложителите към изпълнителите и към фирмите, свързани с народни представители. Дебелината на връзката отговаря на сумата на договорите.</p>
@@ -2222,6 +2253,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     description:
       "Търсене на политик и обществените поръчки, достъпни през свързаните с него фирми — народни представители с бизнес-интереси (АОП, Търговски регистър).",
     breadcrumbName: "Скенер на публичните пари",
+    ogImage: "/og/procurement-people.png",
     bodyHtml: `
 <h1>Скенер на публичните пари</h1>
 <p>Потърсете народен представител и вижте обществените поръчки, достъпни през фирмите, свързани с него чрез Търговския регистър или декларациите за имущество. Връзката е декларирана зависимост, а не доказателство за нарушение.</p>
@@ -2243,6 +2275,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     description:
       "Концентрация на разход върху един изпълнител, фирми в черен списък и изпълнители, свързани с депутати — сигнали за риск от данните на АОП.",
     breadcrumbName: "Сигнали за риск",
+    ogImage: "/og/procurement-flags.png",
     bodyHtml: `
 <h1>Сигнали за риск в обществените поръчки</h1>
 <p>Сигнали, които заслужават повторен поглед: възложители, чийто разход е концентриран върху един изпълнител, фирми в черния списък на АОП и най-големите изпълнители, свързани с народни представители. Всеки е факт от публичен регистър, а не обвинение.</p>
@@ -2324,6 +2357,32 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Every signed contract from the central АОП register (data.egov.bg) is pinned to the buyer's HQ address. Central ministries, state agencies and nationally-operating state companies are excluded from per-settlement pins — their Sofia HQ tells you nothing about where the money was spent — and roll up into a separate "National procurement" card.</p>
 <p>Covers ~€36 B in local-tier contracts (~388 settlements) plus ~€34.7 B in national procurement. <a href="${SITE_URL}/en/about">Read the methodology</a>.</p>
 <p>See also the <a href="${SITE_URL}/en/procurement">procurement overview</a>, <a href="${SITE_URL}/en/procurement/contractors">top contractors</a> and <a href="${SITE_URL}/en/procurement/awarders">top awarders</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "procurement/concentration",
+    title:
+      "Концентрация при обществените поръчки — възложител → изпълнител | electionsbg.com",
+    description:
+      "Възложители, чийто разход е силно концентриран върху един изпълнител (≥30% от поръчките им към една фирма) — пълен сортируем списък по области, с дял, обща сума и брой договори.",
+    breadcrumbName: "Концентрация",
+    ogImage: "/og/procurement-concentration.png",
+    bodyHtml: `
+<h1>Концентрация при обществените поръчки</h1>
+<p>Пълният списък на двойките възложител → изпълнител, при които една фирма получава поне 30% от всички поръчки на даден възложител (при общ разход над €100 хил.). Висока концентрация не е доказателство за нарушение, но е публичен факт, който заслужава втори поглед.</p>
+<p>Списъкът е търсим и сортируем, с филтър по област и износ в CSV. Всеки ред показва дела, общата сума и броя договори между двойката.</p>
+<p>Виж и <a href="${SITE_URL}/procurement/flags">сигналите за риск</a> и <a href="${SITE_URL}/procurement">общия преглед</a>.</p>`.trim(),
+    english: {
+      title:
+        "Public-Procurement Concentration — Buyer → Supplier | electionsbg.com",
+      description:
+        "Buyers whose spending is heavily concentrated on one supplier (one company taking ≥30% of their procurement) — a full sortable list by region with share, total value and contract count.",
+      breadcrumbName: "Concentration",
+      bodyHtml: `
+<h1>Public-procurement concentration</h1>
+<p>The full list of buyer → supplier pairs where a single company takes at least 30% of a buyer's procurement (buyers spending over €100k). High concentration is not proof of wrongdoing, but it is a public-record fact worth a second look.</p>
+<p>The list is searchable and sortable, with a per-region filter and CSV export. Each row shows the share, total value and contract count between the pair.</p>
+<p>See also the <a href="${SITE_URL}/en/procurement/flags">red flags</a> and the <a href="${SITE_URL}/en/procurement">overview</a>.</p>`.trim(),
     },
   }),
   staticPage({

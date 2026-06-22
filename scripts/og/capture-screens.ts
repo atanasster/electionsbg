@@ -156,6 +156,57 @@ const captures: Capture[] = [
     anchor: 'section[aria-label="top-mps"]',
     settleMs: 2000,
   },
+  // The remaining ProcurementNav sub-pages. All capture with ?pscope=all so the
+  // frame shows the full corpus — the default `ns` scope is the *current*
+  // parliament's contract window (only weeks old for NS 52), which would render
+  // a near-empty table/diagram.
+  {
+    slug: "procurement-contracts",
+    routePath: "procurement/contracts?pscope=all",
+    // DataTable renders tbody rows once the corpus shard is fetched. Anchor on
+    // the section so the clip leads with the summary strip (count / total /
+    // EU% / flagged%) above the table.
+    waitFor: 'section[aria-label="Договори"] tbody tr',
+    anchor: 'section[aria-label="Договори"]',
+    settleMs: 1800,
+  },
+  {
+    slug: "procurement-flows",
+    routePath: "procurement/flows?pscope=all",
+    // The awarder → company → MP sankey is the hero. Wait for its SVG, then
+    // center the clip on the flow card.
+    waitFor: '[data-og="procurement-flow"] svg',
+    anchor: '[data-og="procurement-flow"]',
+    centerOnAnchor: true,
+    settleMs: 3000,
+  },
+  {
+    slug: "procurement-people",
+    routePath: "procurement/people?pscope=all",
+    // The "public money scanner" — a search box above a ranked leaderboard of
+    // politicians (with avatars) by reachable procurement. Avatars decode a
+    // touch slower, so give extra settle time.
+    waitFor: 'section[aria-label="procurement people"] a',
+    anchor: 'section[aria-label="procurement people"]',
+    settleMs: 2200,
+  },
+  {
+    slug: "procurement-concentration",
+    routePath: "procurement/concentration?pscope=all",
+    // Buyer → supplier concentration table (share %, total, contract count).
+    waitFor: "table tbody tr",
+    anchor: "table",
+    settleMs: 1800,
+  },
+  {
+    slug: "procurement-flags",
+    routePath: "procurement/flags?pscope=all",
+    // Red-flag dashboard — 4 stat tiles + the per-oblast concentration heatmap.
+    // Anchor on the section so the clip leads with the tiles and heatmap.
+    waitFor: 'section[aria-label="procurement flags"] .grid',
+    anchor: 'section[aria-label="procurement flags"]',
+    settleMs: 2500,
+  },
   {
     slug: "votes",
     // Representative recent session in NS 52 with a dozen items, so the
