@@ -1481,6 +1481,10 @@ export type ProcurementContract = {
   /** Number of operators who submitted a bid (`numberOfTenderers` / fallback
    *  `numberOfBids`). 1 = single-bidder red flag. */
   numberOfTenderers?: number;
+  /** EU co-financing flag + programme. Backfilled from the ЦАИС ЕОП flat feed
+   *  by eop_field_map.ts. Absent ⇒ unknown, not "not EU-funded". */
+  euFunded?: boolean;
+  euProgram?: string;
   /** Tender open window (both ISO YYYY-MM-DD). Used to derive a short-deadline
    *  signal. */
   tenderPeriodStartDate?: string;

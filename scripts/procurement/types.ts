@@ -76,6 +76,11 @@ export interface Contract {
    *  (some publishers populate `numberOfBids` instead; we prefer tenderers
    *  when both are present). 1 = single-bidder red flag. */
   numberOfTenderers?: number;
+  /** EU co-financing flag + programme name. Only the ЦАИС ЕОП flat feed carries
+   *  these uniformly; backfilled onto OCDS/legacy rows by eop_field_map.ts via
+   *  the (buyer, supplier, date) content-join. Absent ⇒ unknown, not "no". */
+  euFunded?: boolean;
+  euProgram?: string;
   /** Tender open window. Both ISO YYYY-MM-DD when present. Used to derive a
    *  "short deadline" signal: if `tenderPeriodEndDate - tenderPeriodStartDate`
    *  is below a configurable threshold (default 14 days for open procedures
