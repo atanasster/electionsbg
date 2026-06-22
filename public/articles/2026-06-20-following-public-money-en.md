@@ -23,7 +23,7 @@ The [Public Procurement](/procurement) module answers those questions. It holds 
 
 ## 1. The landscape: Bulgaria and abroad
 
-**In Bulgaria,** the primary source is the Public Procurement Agency (АОП) and the ЦАИС ЕОП platform, republished as open data on [data.egov.bg](https://data.egov.bg/organisation/about/aop). It is comprehensive and authoritative — and raw: no analytics, no risk scoring, and crucially no link between a contract and the *people* behind the winning company. In June 2026 the Ministry of Innovation launched [СИГМА](https://sigma.midt.bg) (sigma.midt.bg), a government analytics layer over the *same* АОП data. It has a clean interface and ships a working directory of authorities, companies and authority→company flows, plus search, from day one — a solid base to build on. The more ambitious features it announced (an AI assistant, a green/yellow/red risk index and a beneficial-owner layer) are, for now, slated for a later stage.
+**In Bulgaria,** the primary source is the Public Procurement Agency (АОП) and the ЦАИС ЕОП platform, republished as open data on [data.egov.bg](https://data.egov.bg/organisation/about/aop). It is comprehensive and authoritative — and raw: no analytics, no risk scoring, and crucially no link between a contract and the *people* behind the winning company. In June 2026 the Ministry of Innovation and Digital Transformation launched [СИГМА](https://sigma.midt.bg) (sigma.midt.bg), a government analytics layer over the *same* АОП data. It has a clean interface and ships a working directory of authorities, companies and authority→company flows, plus search, from day one — a solid base to build on. The more ambitious features it announced (an AI assistant, a green/yellow/red risk index and a beneficial-owner layer) are, for now, slated for a later stage.
 
 Beyond the official registers, Bulgaria has accumulated civic and commercial efforts around procurement — from investigative journalism to business services:
 
@@ -33,7 +33,7 @@ Beyond the official registers, Bulgaria has accumulated civic and commercial eff
 | [IME — Open Public Procurement](https://ime.bg/) | open-data analysis + a dedicated site (oop.ime.bg) | spending efficiency, indicators | the dedicated site is no longer maintained |
 | [Anti-Corruption Fund](https://acf.bg/) | investigative NGO | specific procurement schemes — reports, not a database | active |
 | [BILI](http://www.bili-bg.org/) | legal-initiatives NGO | integrity, declarations, judicial transparency (not a procurement tool) | active |
-| [aop-baza.bg](https://www.aop-baza.bg/), [targove.info](https://www.targove.info/) | commercial alert services | subscription: filtered BG+EU notices, daily email (free tier) | active · paid |
+| [aop-baza.bg](https://www.aop-baza.bg/), [targove.info](https://www.targove.info/) | commercial alert services | subscription: filtered BG+EU notices, daily email (free trial) | active · paid |
 | [ZOP Plus](https://zopplus.com/) | specialist magazine + "ZOP+ Assistant" | expert consulting, training, documentation | active · paid |
 
 **Abroad,** the reference standard is the [Open Contracting Data Standard](https://standard.open-contracting.org/) (OCDS), which makes procurement comparable across countries. The EU-wide [opentender.eu](https://opentender.eu/) project (DIGIWHIST) pioneered a quantitative **Corruption Risk Index** — the work of Mihály Fazekas and the [Government Transparency Institute](https://www.govtransparency.eu/) — built on objective red flags: single bidding, short tender windows, non-open procedures, supplier concentration. Ukraine pairs its [ProZorro](https://prozorro.gov.ua/) procurement system with the civil-society [DOZORRO](https://dozorro.org/) layer, which monitors risk and lets anyone *follow* a buyer or supplier. Commercial platforms (Spend Network and Tussell in the UK, GovSpend in the US) sell buyer/supplier dashboards and alerts; the US [USAspending.gov](https://www.usaspending.gov/) offers a drill-down explorer with geographic maps.
@@ -75,7 +75,7 @@ Every contract carries a **Corruption Risk Index** from 0 to 100 — the share o
 
 ![A contract page with the explainable Corruption Risk Index meter and red-flag chips](/articles/images/procurement-tools/01-risk-index.png)
 
-*[See it live: an example contract →](/procurement/contract/09e1dcda9dd5)*
+*[See it live: an example contract →](/procurement/contract/701291266900)*
 
 The checks: a **single bidder** (read from the bid count the OCDS feed actually publishes, and suppressed in markets that are structurally single-bid so it doesn't cry wolf[^cpv]), a **non-open procedure**, a **short tender window**, an **amendment** that revises the original deal, a contractor on the АОП **debarment register**, a buyer whose spending is **concentrated** on one supplier, and a contractor **tied to an MP or a public official**.
 
@@ -151,7 +151,7 @@ Open the [Public Procurement](/procurement) module, or ask the [assistant](https
 
 - Public Procurement Agency (АОП) — open data: [data.egov.bg](https://data.egov.bg/organisation/about/aop)
 - ЦАИС ЕОП (Central Automated Information System for e-Procurement): [app.eop.bg](https://app.eop.bg/)
-- СИГМА (Ministry of Innovation and Growth): [sigma.midt.bg](https://sigma.midt.bg)
+- СИГМА (Ministry of Innovation and Digital Transformation): [sigma.midt.bg](https://sigma.midt.bg)
 - Audit Office — asset & interest declarations: [register.cacbg.bg](https://register.cacbg.bg/)
 - Commerce Registry (Registry Agency): [portal.registryagency.bg/CR](https://portal.registryagency.bg/CR/)
 
