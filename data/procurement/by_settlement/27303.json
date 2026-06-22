@@ -3,19 +3,19 @@
   "name": "Елин Пелин",
   "province": "София",
   "obshtina": "Елин Пелин",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 87,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 86,
   "awardCount": 0,
-  "totalEur": 16252839.758724734,
+  "totalEur": 14718964.11513608,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000776242",
       "name": "Община Елин Пелин",
       "tier": "municipal",
-      "totalEur": 15392301.576940428,
+      "totalEur": 13858425.933351774,
       "totalOther": {},
-      "contractCount": 38,
+      "contractCount": 37,
       "awardCount": 0
     },
     {
@@ -65,18 +65,6 @@
     {
       "key": "777da00c6979",
       "ocid": "aop-legacy-2021-1006388",
-      "date": "2021-02-01",
-      "amount": 3000000,
-      "currency": "BGN",
-      "amountEur": 1533875.6435886554,
-      "partyEik": "205415283",
-      "partyName": "Дк Инфра Инвест ООД",
-      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
-      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
-    },
-    {
-      "key": "96a88e2c58cb",
-      "ocid": "aop-legacy-2021-x",
       "date": "2021-02-01",
       "amount": 3000000,
       "currency": "BGN",
@@ -637,6 +625,18 @@
       "partyName": "Соломед ЕООД",
       "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
       "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-556020-858563%2F2026-05-22-award"
+    },
+    {
+      "key": "634f03b2ae6d",
+      "ocid": "aop-legacy-2023-376471",
+      "date": "2023-05-18",
+      "amount": 19652.37,
+      "currency": "BGN",
+      "amountEur": 10048.097227264128,
+      "partyEik": "130878827",
+      "partyName": "Клет българия ООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -690,9 +690,9 @@
     },
     {
       "year": "2021",
-      "totalEur": 3067751.287177311,
+      "totalEur": 1533875.6435886554,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 1
     },
     {
       "year": "2022",

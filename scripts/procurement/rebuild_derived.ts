@@ -36,7 +36,14 @@ import {
 } from "./risk_feed";
 import { writeByIdContracts } from "./by_id";
 import { buildByNs } from "./by_ns";
-import type { ProcurementIndex } from "./types";
+import type { MpConnectedFile, ProcurementIndex } from "./types";
+
+// --reuse-mp: load the existing mp_connected.json instead of recomputing it
+// from companies-index + the TR-namesake filter. Use this when ONLY the
+// officials side changed (e.g. wiring pep_connected into flow/by_ns) so the
+// published MP figures stay byte-stable and the namesake filter — which is
+// sensitive to the exact TR snapshot on disk — can't silently shift them.
+const REUSE_MP = process.argv.includes("--reuse-mp");
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROCUREMENT_DIR = path.resolve(__dirname, "../../data/procurement");
@@ -55,6 +62,7 @@ const OFFICIALS_COMPANY_LINKS = path.resolve(
   "../../data/officials/derived/company_links.json",
 );
 const TR_SQLITE = path.resolve(__dirname, "../../raw_data/tr/state.sqlite");
+const MP_CONNECTED_FILE = path.join(DERIVED_DIR, "mp_connected.json");
 const ELECTIONS_INDEX = path.resolve(
   __dirname,
   "../../src/data/json/elections.json",
@@ -70,21 +78,34 @@ console.log(
   `pep_connected.json: ${pepConnected.total} pair(s), ${pepConnected.officialCount} official(s)`,
 );
 
-// MPs → procurement (with the TR-namesake filter applied to name-only matches).
-if (fs.existsSync(COMPANIES_INDEX)) {
+// MPs → procurement. Either reuse the on-disk mp_connected.json (--reuse-mp)
+// or recompute it from companies-index + the TR-namesake filter.
+let mpConnected: MpConnectedFile | null = null;
+let recomputedMp = false;
+if (REUSE_MP && fs.existsSync(MP_CONNECTED_FILE)) {
+  mpConnected = JSON.parse(
+    fs.readFileSync(MP_CONNECTED_FILE, "utf8"),
+  ) as MpConnectedFile;
+  console.log(
+    `mp_connected.json: reused ${mpConnected.entries.length} pair(s) from disk (--reuse-mp)`,
+  );
+} else if (fs.existsSync(COMPANIES_INDEX)) {
   const trNamesake = buildTrNamesakeCounts(TR_SQLITE);
   if (trNamesake.size === 0) {
     console.log("  WARNING: TR SQLite absent — MP namesake filter skipped");
   }
   const linkageMap = buildEikLinkageMap(COMPANIES_INDEX, trNamesake);
-  const mpConnected = buildMpConnected(CONTRACTORS_DIR, linkageMap);
+  mpConnected = buildMpConnected(CONTRACTORS_DIR, linkageMap);
   writeMpConnected(DERIVED_DIR, mpConnected);
+  recomputedMp = true;
   console.log(
     `mp_connected.json: ${mpConnected.entries.length} MP↔contractor pair(s)`,
   );
+}
 
+if (mpConnected) {
   const top = buildTopContractors(CONTRACTORS_DIR, mpConnected);
-  const flow = buildFlow(AWARDERS_DIR, mpConnected);
+  const flow = buildFlow(AWARDERS_DIR, mpConnected, pepConnected);
   const concentration = buildAwarderConcentration(AWARDERS_DIR);
   writeDerived(DERIVED_DIR, top, flow, concentration);
   console.log(
@@ -98,6 +119,7 @@ if (fs.existsSync(COMPANIES_INDEX)) {
     const byNs = buildByNs({
       contractsDir: CONTRACTS_DIR,
       mpConnected,
+      pepConnected,
       outDir: BY_NS_DIR,
       elections,
     });
@@ -121,25 +143,52 @@ if (fs.existsSync(COMPANIES_INDEX)) {
     for (const [cur, amt] of Object.entries(e.totalOther))
       totalOther[cur] = (totalOther[cur] ?? 0) + amt;
   }
+  // Officials cross-reference summary for the full-corpus (all-years) view.
+  // De-dup by contractor EIK so a company tied to several officials counts its
+  // euro total once — sidesteps the per-pair double-count of pep_connected.
+  const offSlugs = new Set<string>();
+  const offByEik = new Map<string, number>();
+  for (const e of pepConnected.entries) {
+    offSlugs.add(e.slug);
+    if (!offByEik.has(e.contractorEik))
+      offByEik.set(e.contractorEik, e.totalEur);
+  }
+  let officialsTotalEur = 0;
+  for (const v of offByEik.values()) officialsTotalEur += v;
+
   if (fs.existsSync(INDEX_FILE)) {
     const idx = JSON.parse(
       fs.readFileSync(INDEX_FILE, "utf8"),
     ) as ProcurementIndex;
-    idx.crossReference = {
+    // Only overwrite the MP crossReference when we actually recomputed it;
+    // when reusing, leave the committed summary untouched.
+    if (recomputedMp) {
+      idx.crossReference = {
+        generatedAt: new Date().toISOString(),
+        mpCount: mpSet.size,
+        contractorCount: contractorSet.size,
+        pairCount: mpConnected.entries.length,
+        totalEur,
+        totalOther,
+      };
+    }
+    idx.officialsCrossReference = {
       generatedAt: new Date().toISOString(),
-      mpCount: mpSet.size,
-      contractorCount: contractorSet.size,
-      pairCount: mpConnected.entries.length,
-      totalEur,
-      totalOther,
+      officialCount: offSlugs.size,
+      contractorCount: offByEik.size,
+      pairCount: pepConnected.entries.length,
+      totalEur: officialsTotalEur,
     };
     fs.writeFileSync(INDEX_FILE, JSON.stringify(idx, null, 2) + "\n");
     console.log(
-      `index.json crossReference: ${mpSet.size} MP(s), ${contractorSet.size} firm(s), €${(totalEur / 1e6).toFixed(0)}M`,
+      `index.json crossReference: ${recomputedMp ? `${mpSet.size} MP(s), ${contractorSet.size} firm(s), €${(totalEur / 1e6).toFixed(0)}M` : "kept (reused)"}; ` +
+        `officials: ${offSlugs.size} official(s), ${offByEik.size} firm(s), €${(officialsTotalEur / 1e6).toFixed(0)}M`,
     );
   }
 } else {
-  console.log("companies-index.json missing — MP cross-reference skipped");
+  console.log(
+    "no mp_connected.json (reuse) and companies-index.json missing — MP cross-reference skipped",
+  );
 }
 
 // Slim feeds (read the just-written derived files).

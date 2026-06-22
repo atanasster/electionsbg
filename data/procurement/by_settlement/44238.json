@@ -3,37 +3,28 @@
   "name": "Лом",
   "province": "Монтана",
   "obshtina": "Лом",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 918,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 780,
   "awardCount": 0,
-  "totalEur": 78547176.34847736,
+  "totalEur": 63804177.84656257,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000320840",
       "name": "Община ЛОМ",
       "tier": "municipal",
-      "totalEur": 61377531.35335596,
+      "totalEur": 48160103.26400259,
       "totalOther": {},
-      "contractCount": 461,
+      "contractCount": 370,
       "awardCount": 0
     },
     {
       "eik": "130128163",
       "name": "Многопрофилна болница за активно лечение - свети николай чудотворец ЕООД",
       "tier": "hospital",
-      "totalEur": 16899789.81303416,
+      "totalEur": 15406277.40142374,
       "totalOther": {},
-      "contractCount": 448,
-      "awardCount": 0
-    },
-    {
-      "eik": "000311600",
-      "name": "Четвърто основно училище/ОУ/ - Христо Ботев, гр. Лом",
-      "tier": "school",
-      "totalEur": 100131.40201346744,
-      "totalOther": {},
-      "contractCount": 3,
+      "contractCount": 402,
       "awardCount": 0
     },
     {
@@ -50,6 +41,15 @@
       "name": "Професионална гимназия по производствени технологии",
       "tier": "school",
       "totalEur": 71218.20908161752,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    },
+    {
+      "eik": "000311600",
+      "name": "Четвърто основно училище/ОУ/ - Христо Ботев, гр. Лом",
+      "tier": "school",
+      "totalEur": 68073.40106246453,
       "totalOther": {},
       "contractCount": 2,
       "awardCount": 0
@@ -71,18 +71,6 @@
     {
       "key": "99ba482abd7c",
       "ocid": "aop-legacy-2019-917765",
-      "date": "2019-06-24",
-      "amount": 6744603.5,
-      "currency": "BGN",
-      "amountEur": 3448461.0114375995,
-      "partyEik": "131070485",
-      "partyName": "Каро трейдинг ООД - София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "ea6931438534",
-      "ocid": "aop-legacy-2019-x",
       "date": "2019-06-24",
       "amount": 6744603.5,
       "currency": "BGN",
@@ -201,32 +189,8 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
-      "key": "f79bb8c409c0",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-08-19",
-      "amount": 2365000,
-      "currency": "BGN",
-      "amountEur": 1209205.2990290567,
-      "partyEik": "203215490",
-      "partyName": "Парсек Груп ЕООД",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "438cd258d806",
       "ocid": "aop-legacy-2019-888180",
-      "date": "2019-01-15",
-      "amount": 2210217.09,
-      "currency": "BGN",
-      "amountEur": 1130066.0537981316,
-      "partyEik": "131070485",
-      "partyName": "Каро трейдинг ООД - София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "ea6931438534",
-      "ocid": "aop-legacy-2019-x",
       "date": "2019-01-15",
       "amount": 2210217.09,
       "currency": "BGN",
@@ -247,30 +211,6 @@
       "partyName": "ДЗЗД Улици Лом",
       "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
       "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
-    },
-    {
-      "key": "ae4ec4cc3298",
-      "ocid": "aop-legacy-2021-x",
-      "date": "2021-02-04",
-      "amount": 1833333.33,
-      "currency": "BGN",
-      "amountEur": 937368.4471554277,
-      "partyEik": "177363093",
-      "partyName": "ДЗЗД Улици Лом",
-      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
-      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
-    },
-    {
-      "key": "4388d72df323",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-10-18",
-      "amount": 1706732.49,
-      "currency": "BGN",
-      "amountEur": 872638.4655108062,
-      "partyEik": "111560974",
-      "partyName": "Дикистрой ЕООД - София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
       "key": "7414b027d10a",
@@ -357,18 +297,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
-      "key": "938913bc56a2",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-08-30",
-      "amount": 1343258.04,
-      "currency": "BGN",
-      "amountEur": 686796.9302035454,
-      "partyEik": "200833802",
-      "partyName": "КИД Плюс ЕООД - Видин",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "160e976568a5",
       "ocid": "aop-legacy-2022-221539",
       "date": "2022-04-15",
@@ -407,18 +335,6 @@
     {
       "key": "d8b2da40a97d",
       "ocid": "aop-legacy-2017-768961",
-      "date": "2017-01-24",
-      "amount": 981782.88,
-      "currency": "BGN",
-      "amountEur": 501977.61564144125,
-      "partyEik": "131070485",
-      "partyName": "Каро трейдинг ООД - София",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "df98d9187737",
-      "ocid": "aop-legacy-2017-x",
       "date": "2017-01-24",
       "amount": 981782.88,
       "currency": "BGN",
@@ -477,18 +393,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
-      "key": "938198572203",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-11-07",
-      "amount": 817807.18,
-      "currency": "BGN",
-      "amountEur": 418138.1715179745,
-      "partyEik": "177404704",
-      "partyName": "ДЗЗД ДИ-СИ-2019 - София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "e441c9f8b988",
       "ocid": "aop-legacy-2019-942900",
       "date": "2019-11-07",
@@ -513,18 +417,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
-      "key": "4388d72df323",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-01-03",
-      "amount": 782012.81,
-      "currency": "BGN",
-      "amountEur": 399836.800744441,
-      "partyEik": "111560974",
-      "partyName": "Дикистрой ЕООД - София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "b1248e71f5f8",
       "ocid": "aop-legacy-2011-2015-421759",
       "date": "2011-01-07",
@@ -539,18 +431,6 @@
     {
       "key": "994e16aaa2ee",
       "ocid": "aop-legacy-2016-727734",
-      "date": "2016-04-12",
-      "amount": 721000,
-      "currency": "BGN",
-      "amountEur": 368641.44634247356,
-      "partyEik": "201527388",
-      "partyName": "Кристал Ойл ЕООД, Лом",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "b5ed6b5ea45f",
-      "ocid": "aop-legacy-2016-x",
       "date": "2016-04-12",
       "amount": 721000,
       "currency": "BGN",
@@ -587,18 +467,6 @@
     {
       "key": "1d47835b7d5f",
       "ocid": "aop-legacy-2016-733280",
-      "date": "2016-05-13",
-      "amount": 633650,
-      "currency": "BGN",
-      "amountEur": 323980.10051998385,
-      "partyEik": "201527388",
-      "partyName": "Кристал Ойл ЕООД, Лом",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "b5ed6b5ea45f",
-      "ocid": "aop-legacy-2016-x",
       "date": "2016-05-13",
       "amount": 633650,
       "currency": "BGN",
@@ -655,6 +523,138 @@
       "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "668cf2576844",
+      "ocid": "aop-legacy-2011-2015-618519",
+      "date": "2014-08-08",
+      "amount": 532008.58,
+      "currency": "BGN",
+      "amountEur": 272011.6676807289,
+      "partyEik": "103267194",
+      "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "b8dbec4e811d",
+      "ocid": "aop-legacy-2023-366740",
+      "date": "2023-04-28",
+      "amount": 524567.7,
+      "currency": "BGN",
+      "amountEur": 268207.20614777354,
+      "partyEik": "201527388",
+      "partyName": "Кристал ойл ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "1743453a73be",
+      "ocid": "aop-legacy-2016-746397",
+      "date": "2016-08-29",
+      "amount": 514983.83,
+      "currency": "BGN",
+      "amountEur": 263307.0512263336,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "8b54f47faec0",
+      "ocid": "aop-legacy-2011-2015-550528",
+      "date": "2013-07-15",
+      "amount": 498012.44,
+      "currency": "BGN",
+      "amountEur": 254629.7173067189,
+      "partyEik": "103267194",
+      "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "af7e897773ff",
+      "ocid": "aop-legacy-2011-2015-515705",
+      "date": "2012-12-28",
+      "amount": 497633.66,
+      "currency": "BGN",
+      "amountEur": 254436.05016795936,
+      "partyEik": "176440747",
+      "partyName": "ДЗЗД Консорциум  стенли 03 ЕООД – ЛОБУТ-АК Лобутов Конярски и сие СД  - гр. Лом",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "525e2834449e",
+      "ocid": "aop-legacy-2011-2015-684921",
+      "date": "2015-08-28",
+      "amount": 457763.32,
+      "currency": "BGN",
+      "amountEur": 234050.66902542656,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "9644303844aa",
+      "ocid": "aop-legacy-2019-913457",
+      "date": "2019-05-29",
+      "amount": 437384.32,
+      "currency": "BGN",
+      "amountEur": 223631.0517785288,
+      "partyEik": "831752845",
+      "partyName": "Тидекс ЕООД",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "8e2cb9b2d3e2",
+      "ocid": "aop-legacy-2017-785032",
+      "date": "2017-04-28",
+      "amount": 425219.72,
+      "currency": "BGN",
+      "amountEur": 217411.39056052928,
+      "partyEik": "131070485",
+      "partyName": "Каро трейдинг ООД - София",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "3ccb1600b457",
+      "ocid": "aop-legacy-2016-742465",
+      "date": "2016-08-01",
+      "amount": 415482.76,
+      "currency": "BGN",
+      "amountEur": 212432.96196499697,
+      "partyEik": "111553117",
+      "partyName": "Стенли - 03 ЕООД - Лом",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "c6a823be4a4a",
+      "ocid": "aop-legacy-2011-2015-513894",
+      "date": "2012-12-14",
+      "amount": 413722.72,
+      "currency": "BGN",
+      "amountEur": 211533.06780241636,
+      "partyEik": "121034658",
+      "partyName": "Комос ООД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "181512b0b761",
+      "ocid": "aop-legacy-2016-746397",
+      "date": "2016-08-29",
+      "amount": 410894.13,
+      "currency": "BGN",
+      "amountEur": 210086.83270018356,
+      "partyEik": "103267194",
+      "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     }
   ],
   "byYear": [
@@ -690,21 +690,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 4781894.90906674,
+      "totalEur": 2902225.229186586,
       "totalOther": {},
-      "contractCount": 99
+      "contractCount": 63
     },
     {
       "year": "2017",
-      "totalEur": 7050878.7471303735,
+      "totalEur": 4031236.845738127,
       "totalOther": {},
-      "contractCount": 133
+      "contractCount": 86
     },
     {
       "year": "2019",
-      "totalEur": 21511302.633664478,
+      "totalEur": 12689347.320574898,
       "totalOther": {},
-      "contractCount": 144
+      "contractCount": 92
     },
     {
       "year": "2020",
@@ -714,9 +714,9 @@
     },
     {
       "year": "2021",
-      "totalEur": 2043463.2151056074,
+      "totalEur": 1021731.6075528037,
       "totalOther": {},
-      "contractCount": 6
+      "contractCount": 3
     },
     {
       "year": "2022",

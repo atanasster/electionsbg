@@ -3,19 +3,19 @@
   "name": "Гърмен",
   "province": "Благоевград",
   "obshtina": "Гърмен",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 125,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 116,
   "awardCount": 0,
-  "totalEur": 20538593.347741928,
+  "totalEur": 19536197.433986645,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000024752",
       "name": "Община Гърмен",
       "tier": "municipal",
-      "totalEur": 20481839.948929146,
+      "totalEur": 19479444.035173863,
       "totalOther": {},
-      "contractCount": 123,
+      "contractCount": 114,
       "awardCount": 0
     },
     {
@@ -318,18 +318,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
-      "key": "df3ec2c8a62c",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-09-26",
-      "amount": 422155,
-      "currency": "BGN",
-      "amountEur": 215844.4241063896,
-      "partyEik": "101019435",
-      "partyName": "А-Строй ЕООД - с. Абланица",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "c0869cb9954f",
       "ocid": "aop-legacy-2011-2015-558292",
       "date": "2013-09-03",
@@ -390,32 +378,8 @@
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
-      "key": "eaa6cd973695",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-07-25",
-      "amount": 333461,
-      "currency": "BGN",
-      "amountEur": 170495.9019955722,
-      "partyEik": "177036280",
-      "partyName": "ДЗЗД Обновяване за Гърмен",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
       "key": "afbe166421c6",
       "ocid": "aop-legacy-2019-923309",
-      "date": "2019-07-19",
-      "amount": 324950,
-      "currency": "BGN",
-      "amountEur": 166144.2967947112,
-      "partyEik": "101019435",
-      "partyName": "А-Строй ЕООД - с. Абланица",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "dce809916a17",
-      "ocid": "aop-legacy-2019-x",
       "date": "2019-07-19",
       "amount": 324950,
       "currency": "BGN",
@@ -558,18 +522,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
-      "key": "dce809916a17",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-10-01",
-      "amount": 237950,
-      "currency": "BGN",
-      "amountEur": 121661.90313064019,
-      "partyEik": "101019435",
-      "partyName": "А-Строй ЕООД - с. Абланица",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "0ea38b305b6a",
       "ocid": "aop-legacy-2011-2015-693751",
       "date": "2015-10-22",
@@ -628,6 +580,54 @@
       "partyName": "Билдинг компани ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "fee9e20f2eef",
+      "ocid": "aop-legacy-2019-896622",
+      "date": "2019-02-25",
+      "amount": 162000,
+      "currency": "BGN",
+      "amountEur": 82829.28475378739,
+      "partyEik": "101611166",
+      "partyName": "ЕТ Руска Петрова - Екогруптранс - Гоце Делчев",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "d99e14613bf4",
+      "ocid": "aop-legacy-2022-310279",
+      "date": "2022-12-16",
+      "amount": 159990,
+      "currency": "BGN",
+      "amountEur": 81801.58807258299,
+      "partyEik": "813027681",
+      "partyName": "Булавто АД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "ef78fa970d9f",
+      "ocid": "aop-legacy-2023-382018",
+      "date": "2023-06-01",
+      "amount": 149500,
+      "currency": "BGN",
+      "amountEur": 76438.13623883466,
+      "partyEik": "202096909",
+      "partyName": "СИ Ем ел българия АД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "b7520e4dc7b1",
+      "ocid": "aop-legacy-2023-373696",
+      "date": "2023-05-12",
+      "amount": 146000,
+      "currency": "BGN",
+      "amountEur": 74648.6146546479,
+      "partyEik": "205921149",
+      "partyName": "Д-Ф Строй ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -663,21 +663,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 586411.9069653293,
+      "totalEur": 293205.95348266466,
       "totalOther": {},
-      "contractCount": 6
+      "contractCount": 3
     },
     {
       "year": "2017",
-      "totalEur": 554398.8996998717,
+      "totalEur": 277199.44984993583,
       "totalOther": {},
-      "contractCount": 4
+      "contractCount": 2
     },
     {
       "year": "2019",
-      "totalEur": 1193572.447503106,
+      "totalEur": 761581.9370804211,
       "totalOther": {},
-      "contractCount": 10
+      "contractCount": 6
     },
     {
       "year": "2020",

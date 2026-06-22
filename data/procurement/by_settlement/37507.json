@@ -3,25 +3,25 @@
   "name": "Ковачево",
   "province": "Стара Загора",
   "obshtina": "Раднево",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 3295,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 2716,
   "awardCount": 0,
-  "totalEur": 1583056262.5175207,
+  "totalEur": 1366283687.4504151,
   "totalOther": {
-    "GBP": 1.9,
-    "USD": 165
+    "GBP": 0.95,
+    "USD": 82.5
   },
   "awarders": [
     {
       "eik": "123531939",
       "name": "ТЕЦ Марица изток 2 ЕАД",
       "tier": "utility",
-      "totalEur": 1583056262.5175207,
+      "totalEur": 1366283687.4504151,
       "totalOther": {
-        "GBP": 1.9,
-        "USD": 165
+        "GBP": 0.95,
+        "USD": 82.5
       },
-      "contractCount": 3295,
+      "contractCount": 2716,
       "awardCount": 0
     }
   ],
@@ -29,18 +29,6 @@
     {
       "key": "6ebb1a31d48b",
       "ocid": "aop-legacy-2019-934246",
-      "date": "2019-09-24",
-      "amount": 58275000,
-      "currency": "BGN",
-      "amountEur": 29795534.376709633,
-      "partyEik": "177377449",
-      "partyName": "ДЗЗД Марица 2019",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "aee2900ba2b4",
-      "ocid": "aop-legacy-2019-x",
       "date": "2019-09-24",
       "amount": 58275000,
       "currency": "BGN",
@@ -267,18 +255,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
-      "key": "77049f47607d",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-02-24",
-      "amount": 29280900,
-      "currency": "BGN",
-      "amountEur": 14971086.444118354,
-      "partyEik": "176783482",
-      "partyName": "ДЗЗД Тагатис - София",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
       "key": "fddde35f1154",
       "ocid": "aop-legacy-2016-715660",
       "date": "2016-02-24",
@@ -399,30 +375,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
-      "key": "4f5051868885",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-10-04",
-      "amount": 25200000,
-      "currency": "BGN",
-      "amountEur": 12884555.406144707,
-      "partyEik": "160110107",
-      "partyName": "Персенк Инвест ООД",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "af39df2f4e22",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-10-04",
-      "amount": 25200000,
-      "currency": "BGN",
-      "amountEur": 12884555.406144707,
-      "partyEik": "115758379",
-      "partyName": "Инвестор ЕООД - Пловдив",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "cb0d0b9a9ca7",
       "ocid": "aop-legacy-2017-807662",
       "date": "2017-10-04",
@@ -473,18 +425,6 @@
     {
       "key": "3d7068901865",
       "ocid": "aop-legacy-2016-711346",
-      "date": "2016-02-02",
-      "amount": 22749937.17,
-      "currency": "BGN",
-      "amountEur": 11631858.172745075,
-      "partyEik": "123121115",
-      "partyName": "Пещострой ЕООД - Стара Загора",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "432f2ebaadb2",
-      "ocid": "aop-legacy-2016-x",
       "date": "2016-02-02",
       "amount": 22749937.17,
       "currency": "BGN",
@@ -625,6 +565,66 @@
       "partyName": "ЕТ Георги Стефанов - Златаров",
       "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
       "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-551664-815883%2F2026-02-26-award"
+    },
+    {
+      "key": "df5c9cbaa34f",
+      "ocid": "ocds-e82gsb-551664",
+      "date": "2026-02-26",
+      "amount": 9795000,
+      "currency": "EUR",
+      "amountEur": 9795000,
+      "partyEik": "123527660",
+      "partyName": "Ди Ел Ес ЕООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-551664-815883%2F2026-02-26-award"
+    },
+    {
+      "key": "3bf37314b413",
+      "ocid": "aop-legacy-2023-383370",
+      "date": "2023-06-09",
+      "amount": 18700000,
+      "currency": "BGN",
+      "amountEur": 9561158.178369286,
+      "partyEik": "123121115",
+      "partyName": "Пещострой ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "bdfb531b1ee3",
+      "ocid": "aop-legacy-2019-941258",
+      "date": "2019-10-28",
+      "amount": 18370200,
+      "currency": "BGN",
+      "amountEur": 9392534.115950773,
+      "partyEik": "833017552",
+      "partyName": "Мини Марица - Изток ЕАД - Раднево",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "19c6e86b61c4",
+      "ocid": "aop-legacy-2022-246169",
+      "date": "2022-06-29",
+      "amount": 16866884.76,
+      "currency": "BGN",
+      "amountEur": 8623901.238860229,
+      "partyEik": "131285259",
+      "partyName": "Ситигаз българия ЕАД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "6f11a3639fe7",
+      "ocid": "aop-legacy-2017-765014",
+      "date": "2017-01-03",
+      "amount": 15560640,
+      "currency": "BGN",
+      "amountEur": 7956028.898217125,
+      "partyEik": "833017552",
+      "partyName": "Мини Марица - Изток ЕАД - Раднево",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     }
   ],
   "byYear": [
@@ -660,25 +660,25 @@
     },
     {
       "year": "2016",
-      "totalEur": 126579698.73148482,
+      "totalEur": 74487654.5865438,
       "totalOther": {
-        "GBP": 1.9
+        "GBP": 0.95
       },
-      "contractCount": 436
+      "contractCount": 239
     },
     {
       "year": "2017",
-      "totalEur": 128812283.36307347,
+      "totalEur": 66134778.043081455,
       "totalOther": {
-        "USD": 165
+        "USD": 82.5
       },
-      "contractCount": 372
+      "contractCount": 206
     },
     {
       "year": "2019",
-      "totalEur": 213105177.12019956,
+      "totalEur": 112957240.97876602,
       "totalOther": {},
-      "contractCount": 460
+      "contractCount": 251
     },
     {
       "year": "2020",
@@ -688,9 +688,9 @@
     },
     {
       "year": "2021",
-      "totalEur": 3710178.9214809057,
+      "totalEur": 1855089.4607404529,
       "totalOther": {},
-      "contractCount": 14
+      "contractCount": 7
     },
     {
       "year": "2022",

@@ -3,19 +3,19 @@
   "name": "Карвуна",
   "province": "Добрич",
   "obshtina": "Балчик",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 61,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 60,
   "awardCount": 0,
-  "totalEur": 1353315.7721453295,
+  "totalEur": 1317525.3404615943,
   "totalOther": {},
   "awarders": [
     {
       "eik": "834056394",
       "name": "Държавна психиатрична болница - карвуна",
       "tier": "hospital",
-      "totalEur": 1353315.7721453295,
+      "totalEur": 1317525.3404615943,
       "totalOther": {},
-      "contractCount": 61,
+      "contractCount": 60,
       "awardCount": 0
     }
   ],
@@ -119,18 +119,6 @@
     {
       "key": "c02e32839426",
       "ocid": "aop-legacy-2016-752864",
-      "date": "2016-10-12",
-      "amount": 70000,
-      "currency": "BGN",
-      "amountEur": 35790.431683735296,
-      "partyEik": "117679603",
-      "partyName": "Дмв ЕООД - Русе",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "f6e4a6115f40",
-      "ocid": "aop-legacy-2016-x",
       "date": "2016-10-12",
       "amount": 70000,
       "currency": "BGN",
@@ -619,6 +607,18 @@
       "partyName": "Еделвайс - Господинов ООД",
       "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
       "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-549389-829542%2F2026-03-21-award"
+    },
+    {
+      "key": "be508a38883c",
+      "ocid": "aop-legacy-2022-230983",
+      "date": "2022-05-13",
+      "amount": 8342.13,
+      "currency": "BGN",
+      "amountEur": 4265.26334088341,
+      "partyEik": "124052241",
+      "partyName": "Триада - гт ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
@@ -654,9 +654,9 @@
     },
     {
       "year": "2016",
-      "totalEur": 71580.86336747059,
+      "totalEur": 35790.431683735296,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 1
     },
     {
       "year": "2019",

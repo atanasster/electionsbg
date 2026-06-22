@@ -3,19 +3,19 @@
   "name": "Бяла",
   "province": "Варна",
   "obshtina": "Бяла",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 180,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 170,
   "awardCount": 0,
-  "totalEur": 65901940.15423727,
+  "totalEur": 65027696.76396306,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000093435",
       "name": "Община Бяла",
       "tier": "municipal",
-      "totalEur": 65901940.15423727,
+      "totalEur": 65027696.76396306,
       "totalOther": {},
-      "contractCount": 180,
+      "contractCount": 170,
       "awardCount": 0
     }
   ],
@@ -227,18 +227,6 @@
     {
       "key": "044ab149b58d",
       "ocid": "aop-legacy-2016-739898",
-      "date": "2016-07-11",
-      "amount": 815993.11,
-      "currency": "BGN",
-      "amountEur": 417210.6522550528,
-      "partyEik": "130197330",
-      "partyName": "Абак Дс ООД - София",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "1c5b3b94c730",
-      "ocid": "aop-legacy-2016-x",
       "date": "2016-07-11",
       "amount": 815993.11,
       "currency": "BGN",
@@ -585,18 +573,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
-      "key": "0c1de566346c",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-05-19",
-      "amount": 242400,
-      "currency": "BGN",
-      "amountEur": 123937.15200196336,
-      "partyEik": "103093128",
-      "partyName": "Технокар ЕООД - Варна",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
       "key": "83e201b02d2e",
       "ocid": "aop-legacy-2016-734043",
       "date": "2016-05-19",
@@ -615,6 +591,30 @@
       "amount": 240000,
       "currency": "BGN",
       "amountEur": 122710.05148709244,
+      "partyEik": "831496285",
+      "partyName": "Петрол АД - Ловеч /старо наименование Петрол АД - София/",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "74555217dbef",
+      "ocid": "aop-legacy-2011-2015-558034",
+      "date": "2013-09-02",
+      "amount": 240000,
+      "currency": "BGN",
+      "amountEur": 122710.05148709244,
+      "partyEik": "831496285",
+      "partyName": "Петрол АД - Ловеч /старо наименование Петрол АД - София/",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "ac491e3deedc",
+      "ocid": "aop-legacy-2011-2015-680411",
+      "date": "2015-08-03",
+      "amount": 226700,
+      "currency": "BGN",
+      "amountEur": 115909.86946718273,
       "partyEik": "831496285",
       "partyName": "Петрол АД - Ловеч /старо наименование Петрол АД - София/",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
@@ -654,21 +654,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 1756110.0555774274,
+      "totalEur": 994778.257824044,
       "totalOther": {},
-      "contractCount": 17
+      "contractCount": 11
     },
     {
       "year": "2017",
-      "totalEur": 267328.32608151017,
+      "totalEur": 169454.59472449037,
       "totalOther": {},
-      "contractCount": 7
+      "contractCount": 4
     },
     {
       "year": "2019",
-      "totalEur": 435399.5030242914,
+      "totalEur": 420361.64186048886,
       "totalOther": {},
-      "contractCount": 5
+      "contractCount": 4
     },
     {
       "year": "2022",

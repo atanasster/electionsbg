@@ -3,19 +3,19 @@
   "name": "Брацигово",
   "province": "Пазарджик",
   "obshtina": "Брацигово",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 120,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 111,
   "awardCount": 0,
-  "totalEur": 17739418.62891754,
+  "totalEur": 16474814.123413485,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000351565",
       "name": "Община Брацигово",
       "tier": "municipal",
-      "totalEur": 17680670.74694416,
+      "totalEur": 16416066.241440102,
       "totalOther": {},
-      "contractCount": 119,
+      "contractCount": 110,
       "awardCount": 0
     },
     {
@@ -64,18 +64,6 @@
       "partyName": "Тракия - Рм  ЕООД - Пловдив",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "c9102bc9bfff",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-11-05",
-      "amount": 2111947.25,
-      "currency": "BGN",
-      "amountEur": 1079821.4824396803,
-      "partyEik": "201332388",
-      "partyName": "Делчев Инженеринг ЕООД - /Предишно наименование - Стандарт Енерджи ЕООД/",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
       "key": "f71d66c7c3e1",
@@ -462,18 +450,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
-      "key": "38336d555a09",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-04-15",
-      "amount": 119013.75,
-      "currency": "BGN",
-      "amountEur": 60850.76412571645,
-      "partyEik": "825326392",
-      "partyName": "Петров Комерс ЕООД - Пловдив",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
       "key": "c77c9b49b778",
       "ocid": "aop-legacy-2011-2015-452023",
       "date": "2011-10-03",
@@ -582,18 +558,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
-      "key": "03deff057c8a",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-09-27",
-      "amount": 91200,
-      "currency": "BGN",
-      "amountEur": 46629.819565095124,
-      "partyEik": "130227663",
-      "partyName": "Пътпроект 2000 ООД - София",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
       "key": "dada5e59b69e",
       "ocid": "aop-legacy-2016-750513",
       "date": "2016-09-27",
@@ -626,6 +590,42 @@
       "amountEur": 41689.88613529806,
       "partyEik": "112069083",
       "partyName": "Братя пашкулеви ООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "5f44db877043",
+      "ocid": "aop-legacy-2023-372552",
+      "date": "2023-05-15",
+      "amount": 80280.65,
+      "currency": "BGN",
+      "amountEur": 41046.844562155195,
+      "partyEik": "203022445",
+      "partyName": "Килтекс ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "ffa5cb6fe6ae",
+      "ocid": "aop-legacy-2011-2015-442027",
+      "date": "2011-06-22",
+      "amount": 80000,
+      "currency": "BGN",
+      "amountEur": 40903.35049569748,
+      "partyEik": "201052799",
+      "partyName": "Дмг Мебел   ЕООД - Айтос",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "084e8e73d9d1",
+      "ocid": "aop-legacy-2023-419021",
+      "date": "2023-08-31",
+      "amount": 76799.99,
+      "currency": "BGN",
+      "amountEur": 39267.21136295077,
+      "partyEik": "201332388",
+      "partyName": "Делчев Инженеринг ООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
@@ -663,21 +663,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 438972.62543268077,
+      "totalEur": 311159.99345546396,
       "totalOther": {},
-      "contractCount": 7
+      "contractCount": 4
     },
     {
       "year": "2017",
-      "totalEur": 55702.84738448638,
+      "totalEur": 27851.42369224319,
       "totalOther": {},
-      "contractCount": 6
+      "contractCount": 3
     },
     {
       "year": "2019",
-      "totalEur": 3051860.724091562,
+      "totalEur": 1942920.274256965,
       "totalOther": {},
-      "contractCount": 9
+      "contractCount": 6
     },
     {
       "year": "2020",

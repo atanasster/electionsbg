@@ -3,19 +3,19 @@
   "name": "Пирдоп",
   "province": "София",
   "obshtina": "Пирдоп",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 166,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 155,
   "awardCount": 0,
-  "totalEur": 44872702.83645859,
+  "totalEur": 43809463.531406514,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000777216",
       "name": "Община Пирдоп",
       "tier": "municipal",
-      "totalEur": 43192348.09367982,
+      "totalEur": 42166673.280429184,
       "totalOther": {},
-      "contractCount": 89,
+      "contractCount": 79,
       "awardCount": 0
     },
     {
@@ -49,9 +49,9 @@
       "eik": "000758850",
       "name": "Начално училище /Ну/ \"Тодор Влайков\" гр. Пирдоп",
       "tier": "school",
-      "totalEur": 75128.98360286937,
+      "totalEur": 37564.491801434684,
       "totalOther": {},
-      "contractCount": 2,
+      "contractCount": 1,
       "awardCount": 0
     }
   ],
@@ -227,18 +227,6 @@
     {
       "key": "7837feb691c1",
       "ocid": "aop-legacy-2019-949424",
-      "date": "2019-12-16",
-      "amount": 1005909.13,
-      "currency": "BGN",
-      "amountEur": 514313.1713901515,
-      "partyEik": "203820557",
-      "partyName": "Вейл Конструкции ЕООД",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "8ac933ad0586",
-      "ocid": "aop-legacy-2019-x",
       "date": "2019-12-16",
       "amount": 1005909.13,
       "currency": "BGN",
@@ -501,18 +489,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
-      "key": "715294efe1e5",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-05-11",
-      "amount": 210346.44,
-      "currency": "BGN",
-      "amountEur": 107548.4270105275,
-      "partyEik": "040107832",
-      "partyName": "ЕТ Алаген 51- Генка Тодорова Семкова",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
       "key": "9d230a70799d",
       "ocid": "ocds-e82gsb-546062",
       "date": "2026-03-13",
@@ -559,30 +535,6 @@
       "partyName": "ЕТ Алаген 51- Генка Тодорова Семкова",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "d269f03240d2",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-08-13",
-      "amount": 180000,
-      "currency": "BGN",
-      "amountEur": 92032.53861531932,
-      "partyEik": "040107832",
-      "partyName": "ЕТ Алаген 51- Генка Тодорова Семкова",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "316b3b5dd3f5",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-05-04",
-      "amount": 178000,
-      "currency": "BGN",
-      "amountEur": 91009.9548529269,
-      "partyEik": "177014031",
-      "partyName": "ДЗЗД Бурда-Пирдоп 2016",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
       "key": "d0a9f2d6a12b",
@@ -655,6 +607,54 @@
       "partyName": "Алекса фууд ЕООД",
       "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
       "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-546062-823814%2F2026-03-13-award"
+    },
+    {
+      "key": "1aa9dd78c8b9",
+      "ocid": "ocds-e82gsb-536224",
+      "date": "2026-04-27",
+      "amount": 63202.77,
+      "currency": "EUR",
+      "amountEur": 63202.77,
+      "partyEik": "833101609",
+      "partyName": "Перфект медика ООД",
+      "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
+      "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-536224-846301%2F2026-04-27-award"
+    },
+    {
+      "key": "72437c4c3ac0",
+      "ocid": "aop-legacy-2023-397406",
+      "date": "2023-07-12",
+      "amount": 123255.6,
+      "currency": "BGN",
+      "amountEur": 63019.58759196863,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "1737f4989af0",
+      "ocid": "aop-legacy-2019-896050",
+      "date": "2019-02-21",
+      "amount": 122288.69,
+      "currency": "BGN",
+      "amountEur": 62525.21435912119,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "b0a791ee5553",
+      "ocid": "aop-legacy-2011-2015-635066",
+      "date": "2014-11-26",
+      "amount": 121687.25,
+      "currency": "BGN",
+      "amountEur": 62217.702970094535,
+      "partyEik": "175010041",
+      "partyName": "Дени.2005 ЕООД - Златица",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -690,21 +690,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 847595.588573649,
+      "totalEur": 504806.87994355336,
       "totalOther": {},
-      "contractCount": 14
+      "contractCount": 8
     },
     {
       "year": "2017",
-      "totalEur": 248589.01847297564,
+      "totalEur": 134484.13205646706,
       "totalOther": {},
-      "contractCount": 7
+      "contractCount": 4
     },
     {
       "year": "2019",
-      "totalEur": 1275216.6343700627,
+      "totalEur": 668870.924364592,
       "totalOther": {},
-      "contractCount": 5
+      "contractCount": 3
     },
     {
       "year": "2020",

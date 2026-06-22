@@ -22,6 +22,7 @@ import {
   canonicalJson,
   checkDiffSize,
   countDomainFiles,
+  dropSyntheticLegacyTwins,
   findHugeContracts,
   runCanary,
   validateContract,
@@ -139,7 +140,13 @@ const writeMonthShards = (
     const byKey = new Map<string, Contract>();
     for (const r of existing) byKey.set(rowKey(r), r);
     for (const r of freshRows) byKey.set(rowKey(r), r);
-    const merged = [...byKey.values()].sort(rowSort);
+    // Drop synthetic legacy `-x` twins that duplicate a real row in the same
+    // shard (see dropSyntheticLegacyTwins). Self-heals shards polluted by an
+    // earlier ingest and prevents a re-introduced blank-document-id row from
+    // double-counting against its real twin.
+    const merged = dropSyntheticLegacyTwins([...byKey.values()]).rows.sort(
+      rowSort,
+    );
     const prev = fs.existsSync(file) ? fs.readFileSync(file, "utf8") : null;
     const next = canonicalJson(merged);
     if (next === prev) continue;
@@ -166,6 +173,7 @@ const writeIndexJson = (
   contractsDir: string,
   totals: ProcurementIndex["totals"],
   crossReference?: ProcurementIndex["crossReference"],
+  officialsCrossReference?: ProcurementIndex["officialsCrossReference"],
 ): void => {
   const years = new Set<string>();
   const months = new Set<string>();
@@ -192,6 +200,7 @@ const writeIndexJson = (
       periodEnd: b.periodEnd,
     })),
     ...(crossReference ? { crossReference } : {}),
+    ...(officialsCrossReference ? { officialsCrossReference } : {}),
   };
   fs.writeFileSync(INDEX_FILE, canonicalJson(idx));
 };
@@ -414,6 +423,28 @@ const main = async (args: {
   console.log(
     `  pep_connected.json: ${pepConnected.total} pair(s), ${pepConnected.officialCount} official(s)`,
   );
+  // Officials cross-reference summary for the index (full-corpus view). De-dup
+  // by contractor EIK so a company tied to several officials counts its euro
+  // total once. Independent of companies-index (officials use their own tree).
+  const offSlugs = new Set<string>();
+  const offByEik = new Map<string, number>();
+  for (const e of pepConnected.entries) {
+    offSlugs.add(e.slug);
+    if (!offByEik.has(e.contractorEik))
+      offByEik.set(e.contractorEik, e.totalEur);
+  }
+  let officialsTotalEur = 0;
+  for (const v of offByEik.values()) officialsTotalEur += v;
+  const officialsCrossRefSummary: ProcurementIndex["officialsCrossReference"] =
+    pepConnected.entries.length > 0
+      ? {
+          generatedAt: new Date().toISOString(),
+          officialCount: offSlugs.size,
+          contractorCount: offByEik.size,
+          pairCount: pepConnected.entries.length,
+          totalEur: officialsTotalEur,
+        }
+      : undefined;
 
   // 7. Cross-reference against MP-companies graph + top-contractors + flow.
   // companies-index.json is optional — if it's missing, the procurement data
@@ -443,7 +474,7 @@ const main = async (args: {
     );
 
     const top = buildTopContractors(CONTRACTORS_DIR, mpConnected);
-    const flow = buildFlow(AWARDERS_DIR, mpConnected);
+    const flow = buildFlow(AWARDERS_DIR, mpConnected, pepConnected);
     const concentration = buildAwarderConcentration(AWARDERS_DIR);
     writeDerived(DERIVED_DIR, top, flow, concentration);
     console.log(
@@ -462,6 +493,7 @@ const main = async (args: {
       const byNs = buildByNs({
         contractsDir: CONTRACTS_DIR,
         mpConnected,
+        pepConnected,
         outDir: BY_NS_DIR,
         elections,
       });
@@ -549,6 +581,7 @@ const main = async (args: {
     CONTRACTS_DIR,
     rollups.totals,
     crossRefSummary,
+    officialsCrossRefSummary,
   );
   writeBundlesIndex({
     fetchedAt: new Date().toISOString(),

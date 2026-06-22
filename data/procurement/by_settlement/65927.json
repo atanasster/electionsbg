@@ -3,37 +3,37 @@
   "name": "Севлиево",
   "province": "Габрово",
   "obshtina": "Севлиево",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 420,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 388,
   "awardCount": 0,
-  "totalEur": 14313713.33525685,
+  "totalEur": 12795181.407635326,
   "totalOther": {},
   "awarders": [
     {
       "eik": "107507982",
       "name": "Многопрофилна болница за активно лечение \"Д-Р стойчо Христов\" ЕООД",
       "tier": "hospital",
-      "totalEur": 12742877.259827238,
+      "totalEur": 11428048.021089716,
       "totalOther": {},
-      "contractCount": 322,
+      "contractCount": 294,
       "awardCount": 0
     },
     {
       "eik": "817072962",
       "name": "Държавна психиатрична болница",
       "tier": "hospital",
-      "totalEur": 778517.5954965408,
+      "totalEur": 705705.6281987696,
       "totalOther": {},
-      "contractCount": 46,
+      "contractCount": 44,
       "awardCount": 0
     },
     {
       "eik": "000209982",
       "name": "Средно училище \"Васил Левски\"",
       "tier": "school",
-      "totalEur": 688142.5100095612,
+      "totalEur": 557251.7884233292,
       "totalOther": {},
-      "contractCount": 39,
+      "contractCount": 37,
       "awardCount": 0
     },
     {
@@ -80,18 +80,6 @@
     {
       "key": "c8669449175e",
       "ocid": "aop-legacy-2019-935163",
-      "date": "2019-09-27",
-      "amount": 1854666.67,
-      "currency": "BGN",
-      "amountEur": 948276.0106962261,
-      "partyEik": "203863366",
-      "partyName": "Асклепий Орто ООД - Плевен",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "c9e138473ca7",
-      "ocid": "aop-legacy-2019-x",
       "date": "2019-09-27",
       "amount": 1854666.67,
       "currency": "BGN",
@@ -486,18 +474,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-537325-818293%2F2026-03-03-award"
     },
     {
-      "key": "6d9a93569d1d",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-12-29",
-      "amount": 152000,
-      "currency": "BGN",
-      "amountEur": 77716.3659418252,
-      "partyEik": "107063552",
-      "partyName": "Севлиевогаз-2000 АД - Севлиево",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
       "key": "b7e67f8d4113",
       "ocid": "aop-legacy-2016-764680",
       "date": "2016-12-29",
@@ -664,6 +640,30 @@
       "partyName": "СЕВЛИЕВОГАЗ-2000 АД",
       "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
       "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-561790-833072%2F2026-03-27-award"
+    },
+    {
+      "key": "6e98cbac5196",
+      "ocid": "aop-legacy-2020-76513",
+      "date": "2020-12-08",
+      "amount": 120000,
+      "currency": "BGN",
+      "amountEur": 61355.02574354622,
+      "partyEik": "107063552",
+      "partyName": "Севлиевогаз -2000\" АД",
+      "bundleUuid": "c5404069-668a-4cd2-ab43-a1cdc26e03c6",
+      "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
+    },
+    {
+      "key": "bf9ecd9198de",
+      "ocid": "aop-legacy-2017-792750",
+      "date": "2017-06-23",
+      "amount": 120000,
+      "currency": "BGN",
+      "amountEur": 61355.02574354622,
+      "partyEik": "107063552",
+      "partyName": "Севлиевогаз-2000 АД - Севлиево",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     }
   ],
   "byYear": [
@@ -699,21 +699,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 464708.5482889617,
+      "totalEur": 328270.30979175086,
       "totalOther": {},
-      "contractCount": 11
+      "contractCount": 9
     },
     {
       "year": "2017",
-      "totalEur": 850240.7724597742,
+      "totalEur": 662514.4976812914,
       "totalOther": {},
-      "contractCount": 57
+      "contractCount": 46
     },
     {
       "year": "2019",
-      "totalEur": 4613428.273418446,
+      "totalEur": 3444105.024465317,
       "totalOther": {},
-      "contractCount": 59
+      "contractCount": 44
     },
     {
       "year": "2020",
@@ -723,9 +723,9 @@
     },
     {
       "year": "2021",
-      "totalEur": 147734.4043193938,
+      "totalEur": 122690.23892669608,
       "totalOther": {},
-      "contractCount": 18
+      "contractCount": 14
     },
     {
       "year": "2022",

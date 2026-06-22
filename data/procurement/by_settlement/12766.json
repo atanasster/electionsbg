@@ -3,19 +3,19 @@
   "name": "Върбица",
   "province": "Шумен",
   "obshtina": "Върбица",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 205,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 170,
   "awardCount": 0,
-  "totalEur": 33022561.88756292,
+  "totalEur": 26239106.47988434,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000931415",
       "name": "Община Върбица",
       "tier": "municipal",
-      "totalEur": 32885825.553435925,
+      "totalEur": 26102370.145757347,
       "totalOther": {},
-      "contractCount": 200,
+      "contractCount": 165,
       "awardCount": 0
     },
     {
@@ -29,18 +29,6 @@
     }
   ],
   "topContracts": [
-    {
-      "key": "299082d006f9",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-01-16",
-      "amount": 6000000,
-      "currency": "BGN",
-      "amountEur": 3067751.287177311,
-      "partyEik": "127564930",
-      "partyName": "Строителство и строителни машини ЕООД - Върбица /Смядово/",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
     {
       "key": "c341da2fa6b6",
       "ocid": "aop-legacy-2019-888385",
@@ -136,30 +124,6 @@
       "partyName": "Билдстрой - Ко ООД - Нови пазар",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "f8c7e6bfcd34",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-10-14",
-      "amount": 1117888.14,
-      "currency": "BGN",
-      "amountEur": 571567.1300675416,
-      "partyEik": "202600768",
-      "partyName": "Билдстрой - Ко ООД - Нови пазар",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "454f6f4ff296",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-09-28",
-      "amount": 1058750,
-      "currency": "BGN",
-      "amountEur": 541330.2792164963,
-      "partyEik": "200139525",
-      "partyName": "Анна – Маркет ЕООД - гр.Смядово",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
       "key": "fa49acf6b74b",
@@ -270,18 +234,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
-      "key": "299082d006f9",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-02-21",
-      "amount": 624996.46,
-      "currency": "BGN",
-      "amountEur": 319555.6157743771,
-      "partyEik": "127564930",
-      "partyName": "Строителство и строителни машини ЕООД - Върбица /Смядово/",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "ca51cad86ffc",
       "ocid": "aop-legacy-2019-895215",
       "date": "2019-02-21",
@@ -342,18 +294,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
     },
     {
-      "key": "38fdf9eac22f",
-      "ocid": "aop-legacy-2021-x",
-      "date": "2021-07-30",
-      "amount": 559118.61,
-      "currency": "BGN",
-      "amountEur": 285872.8059187148,
-      "partyEik": "127564930",
-      "partyName": "Строителство и строителни машини ЕООД - Върбица /Смядово/",
-      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
-      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
-    },
-    {
       "key": "01d819c3d891",
       "ocid": "aop-legacy-2023-432581",
       "date": "2023-10-05",
@@ -378,36 +318,12 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
-      "key": "299082d006f9",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-07-15",
-      "amount": 499999.83,
-      "currency": "BGN",
-      "amountEur": 255645.85367848945,
-      "partyEik": "127564930",
-      "partyName": "Строителство и строителни машини ЕООД - Върбица /Смядово/",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "cc197f475034",
       "ocid": "aop-legacy-2019-921562",
       "date": "2019-07-15",
       "amount": 499999.83,
       "currency": "BGN",
       "amountEur": 255645.85367848945,
-      "partyEik": "127564930",
-      "partyName": "Строителство и строителни машини ЕООД - Върбица /Смядово/",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "299082d006f9",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-05-03",
-      "amount": 495732.96,
-      "currency": "BGN",
-      "amountEur": 253464.23768936974,
       "partyEik": "127564930",
       "partyName": "Строителство и строителни машини ЕООД - Върбица /Смядово/",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
@@ -472,18 +388,6 @@
       "partyName": "Синергон енерджи ООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "5c396acc4690",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-12-07",
-      "amount": 325121.68,
-      "currency": "BGN",
-      "amountEur": 166232.07538487497,
-      "partyEik": "127564930",
-      "partyName": "Строителство и строителни машини ЕООД - Върбица /Смядово/",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
       "key": "6768333a22ad",
@@ -570,18 +474,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
-      "key": "8a00127f9648",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-12-01",
-      "amount": 279339.53,
-      "currency": "BGN",
-      "amountEur": 142824.03378616754,
-      "partyEik": "813029821",
-      "partyName": "Пътища и мостове ЕООД - Варна",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
       "key": "c1060b6645ac",
       "ocid": "aop-legacy-2016-760596",
       "date": "2016-12-01",
@@ -618,8 +510,8 @@
       "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-556724-851719%2F2026-05-05-award"
     },
     {
-      "key": "299082d006f9",
-      "ocid": "aop-legacy-2019-x",
+      "key": "74e74fcffb05",
+      "ocid": "aop-legacy-2019-938090",
       "date": "2019-10-14",
       "amount": 249077.24,
       "currency": "BGN",
@@ -628,6 +520,114 @@
       "partyName": "Строителство и строителни машини ЕООД - Върбица /Смядово/",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "1dbbc66eeee0",
+      "ocid": "aop-legacy-2011-2015-624254",
+      "date": "2014-09-18",
+      "amount": 248640.69,
+      "currency": "BGN",
+      "amountEur": 127127.96613202579,
+      "partyEik": "127564930",
+      "partyName": "Строителство и строителни машини ЕООД - Върбица /Смядово/",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "f78012e457e7",
+      "ocid": "ocds-e82gsb-538595",
+      "date": "2026-03-09",
+      "amount": 120785.47,
+      "currency": "EUR",
+      "amountEur": 120785.47,
+      "partyEik": "127564930",
+      "partyName": "Строителство и строителни машини ЕООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-538595-820487%2F2026-03-09-award"
+    },
+    {
+      "key": "01485cadb874",
+      "ocid": "aop-legacy-2011-2015-614401",
+      "date": "2014-07-08",
+      "amount": 224414.1,
+      "currency": "BGN",
+      "amountEur": 114741.1073559563,
+      "partyEik": "176686396",
+      "partyName": "ДЗЗД Инконсулт  Рб, София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "79484cb3a558",
+      "ocid": "aop-legacy-2023-315768",
+      "date": "2023-01-03",
+      "amount": 216707.92,
+      "currency": "BGN",
+      "amountEur": 110801.00008691962,
+      "partyEik": "127564930",
+      "partyName": "Строителство и строителни машини ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "487a3206e59e",
+      "ocid": "aop-legacy-2022-189707",
+      "date": "2022-01-24",
+      "amount": 209200,
+      "currency": "BGN",
+      "amountEur": 106962.2615462489,
+      "partyEik": "200358273",
+      "partyName": "Екосол българия АД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "2d15885a4a44",
+      "ocid": "aop-legacy-2017-805899",
+      "date": "2017-09-20",
+      "amount": 202317.95,
+      "currency": "BGN",
+      "amountEur": 103443.52525526247,
+      "partyEik": "200523611",
+      "partyName": "Класико проект  ЕООД",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "3713ed495e69",
+      "ocid": "aop-legacy-2023-398192",
+      "date": "2023-07-10",
+      "amount": 200227.08,
+      "currency": "BGN",
+      "amountEur": 102374.48039962573,
+      "partyEik": "200777759",
+      "partyName": "Раев строй ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "e871bfacaea6",
+      "ocid": "aop-legacy-2023-320025",
+      "date": "2023-01-11",
+      "amount": 198000,
+      "currency": "BGN",
+      "amountEur": 101235.79247685126,
+      "partyEik": "201819093",
+      "partyName": "РОУ Бак българия ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "21ff450985e7",
+      "ocid": "aop-legacy-2022-248350",
+      "date": "2022-06-30",
+      "amount": 185088.26,
+      "currency": "BGN",
+      "amountEur": 94634.12464273481,
+      "partyEik": "205006906",
+      "partyName": "Диман 2018 ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
@@ -657,27 +657,27 @@
     },
     {
       "year": "2016",
-      "totalEur": 1408559.6140768877,
+      "totalEur": 1043111.9269057127,
       "totalOther": {},
-      "contractCount": 24
+      "contractCount": 16
     },
     {
       "year": "2017",
-      "totalEur": 2167324.62432829,
+      "totalEur": 1083662.3121641453,
       "totalOther": {},
-      "contractCount": 18
+      "contractCount": 9
     },
     {
       "year": "2019",
-      "totalEur": 10033533.972789045,
+      "totalEur": 5038223.245374086,
       "totalOther": {},
-      "contractCount": 36
+      "contractCount": 20
     },
     {
       "year": "2021",
-      "totalEur": 678069.3618566032,
+      "totalEur": 339034.68092830153,
       "totalOther": {},
-      "contractCount": 4
+      "contractCount": 2
     },
     {
       "year": "2022",

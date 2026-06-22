@@ -3,35 +3,23 @@
   "name": "Церова кория",
   "province": "Велико Търново",
   "obshtina": "Велико Търново",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 53,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 48,
   "awardCount": 0,
-  "totalEur": 1454778.7374669577,
+  "totalEur": 1168590.4440058693,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000130079",
       "name": "Държавна психиатрична болница",
       "tier": "hospital",
-      "totalEur": 1454778.7374669577,
+      "totalEur": 1168590.4440058693,
       "totalOther": {},
-      "contractCount": 53,
+      "contractCount": 48,
       "awardCount": 0
     }
   ],
   "topContracts": [
-    {
-      "key": "4cda2b274cc4",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-01-24",
-      "amount": 300950.17,
-      "currency": "BGN",
-      "amountEur": 153873.37856562174,
-      "partyEik": "104027005",
-      "partyName": "ЕТ Идеал - Хасан Юсеинов - Велико Търново",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
     {
       "key": "984645d93ce5",
       "ocid": "aop-legacy-2017-768857",
@@ -83,18 +71,6 @@
     {
       "key": "20464f4c69b9",
       "ocid": "aop-legacy-2016-711653",
-      "date": "2016-02-04",
-      "amount": 142852.68,
-      "currency": "BGN",
-      "amountEur": 73039.41549112141,
-      "partyEik": "030180287",
-      "partyName": "ЕТ Интер Петрол - Хасан Чърак - Омуртаг",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "7a80e0d9baae",
-      "ocid": "aop-legacy-2016-x",
       "date": "2016-02-04",
       "amount": 142852.68,
       "currency": "BGN",
@@ -177,18 +153,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "4d2fa63b4399",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-06-03",
-      "amount": 56880,
-      "currency": "BGN",
-      "amountEur": 29082.282202440907,
-      "partyEik": "104020987",
-      "partyName": "ЕТ Ник-96 Николай Робов - Велико Търново",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "e72f1ec28398",
       "ocid": "aop-legacy-2019-914488",
       "date": "2019-06-03",
@@ -239,18 +203,6 @@
     {
       "key": "960c970108ee",
       "ocid": "aop-legacy-2019-931443",
-      "date": "2019-09-03",
-      "amount": 40960,
-      "currency": "BGN",
-      "amountEur": 20942.51545379711,
-      "partyEik": "814231256",
-      "partyName": "ЕТ Амиго-Велико Вълчев - Лясковец",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "ee5ebc7758fa",
-      "ocid": "aop-legacy-2019-x",
       "date": "2019-09-03",
       "amount": 40960,
       "currency": "BGN",
@@ -407,18 +359,6 @@
     {
       "key": "024b227a2bfc",
       "ocid": "aop-legacy-2019-914488",
-      "date": "2019-06-03",
-      "amount": 18092.8,
-      "currency": "BGN",
-      "amountEur": 9250.701748106942,
-      "partyEik": "201624677",
-      "partyName": "Стели 777 ЕООД",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "955e4243d8cf",
-      "ocid": "aop-legacy-2019-x",
       "date": "2019-06-03",
       "amount": 18092.8,
       "currency": "BGN",
@@ -619,6 +559,42 @@
       "partyName": "ЕЙ Енд Ди Фарма България ЕАД / друго наименование Аришоп Фарма АД/ - София",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "2e067a16dae4",
+      "ocid": "aop-legacy-2017-772542",
+      "date": "2017-02-16",
+      "amount": 413.96,
+      "currency": "BGN",
+      "amountEur": 211.6543871399866,
+      "partyEik": "121096923",
+      "partyName": "Агарта - Цм ЕООД -    с. Долни Богров",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "dc34916de55a",
+      "ocid": "aop-legacy-2023-330113",
+      "date": "2023-02-07",
+      "amount": 310,
+      "currency": "BGN",
+      "amountEur": 158.50048317082772,
+      "partyEik": "030276307",
+      "partyName": "Търговска Лига - Глобален Аптечен Център АД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "486ffa1497ef",
+      "ocid": "aop-legacy-2017-772542",
+      "date": "2017-02-16",
+      "amount": 304,
+      "currency": "BGN",
+      "amountEur": 155.43273188365043,
+      "partyEik": "130477290",
+      "partyName": "Хелмед България ЕООД - София",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     }
   ],
   "byYear": [
@@ -648,21 +624,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 146078.83098224283,
+      "totalEur": 73039.41549112141,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 1
     },
     {
       "year": "2017",
-      "totalEur": 345748.84320211876,
+      "totalEur": 191875.46463649705,
       "totalOther": {},
-      "contractCount": 9
+      "contractCount": 8
     },
     {
       "year": "2019",
-      "totalEur": 196731.38258437594,
+      "totalEur": 137455.88318003097,
       "totalOther": {},
-      "contractCount": 10
+      "contractCount": 7
     },
     {
       "year": "2022",

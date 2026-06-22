@@ -3,19 +3,19 @@
   "name": "Кочериново",
   "province": "Кюстендил",
   "obshtina": "Кочериново",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 58,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 55,
   "awardCount": 0,
-  "totalEur": 18056008.613657217,
+  "totalEur": 17246576.812324792,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000261491",
       "name": "Община Кочериново",
       "tier": "municipal",
-      "totalEur": 18056008.613657217,
+      "totalEur": 17246576.812324792,
       "totalOther": {},
-      "contractCount": 58,
+      "contractCount": 55,
       "awardCount": 0
     }
   ],
@@ -119,18 +119,6 @@
     {
       "key": "1b92b6ac15cf",
       "ocid": "aop-legacy-2016-743265",
-      "date": "2016-08-03",
-      "amount": 1095561,
-      "currency": "BGN",
-      "amountEur": 560151.4446552104,
-      "partyEik": "200377284",
-      "partyName": "Милица - 72 ЕООД",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "aef8206832e1",
-      "ocid": "aop-legacy-2016-x",
       "date": "2016-08-03",
       "amount": 1095561,
       "currency": "BGN",
@@ -249,18 +237,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
-      "key": "e5e035c37ee7",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-11-10",
-      "amount": 368750,
-      "currency": "BGN",
-      "amountEur": 188538.88119110558,
-      "partyEik": "177213777",
-      "partyName": "ДЗЗД Билд Кочериново - София",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "196471d8877c",
       "ocid": "aop-legacy-2011-2015-556548",
       "date": "2013-08-21",
@@ -359,18 +335,6 @@
     {
       "key": "1190a27292bb",
       "ocid": "aop-legacy-2016-735813",
-      "date": "2016-06-07",
-      "amount": 118800,
-      "currency": "BGN",
-      "amountEur": 60741.47548611076,
-      "partyEik": "201408010",
-      "partyName": "Ди Ей Би Консултинг ЕООД - София",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "89a10a759c2f",
-      "ocid": "aop-legacy-2016-x",
       "date": "2016-06-07",
       "amount": 118800,
       "currency": "BGN",
@@ -619,6 +583,42 @@
       "partyName": "Аллур ООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "e387c7a866c7",
+      "ocid": "aop-legacy-2022-249958",
+      "date": "2022-07-05",
+      "amount": 15225,
+      "currency": "BGN",
+      "amountEur": 7784.418891212426,
+      "partyEik": "101535576",
+      "partyName": "ЕТ Чавдар Трайков - невен 2000",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "a3e5409d1d85",
+      "ocid": "aop-legacy-2023-411543",
+      "date": "2023-08-11",
+      "amount": 8798,
+      "currency": "BGN",
+      "amountEur": 4498.345970764331,
+      "partyEik": "202896153",
+      "partyName": "Аллур ООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "d01da7e4b636",
+      "ocid": "aop-legacy-2023-321734",
+      "date": "2023-01-16",
+      "amount": 8200,
+      "currency": "BGN",
+      "amountEur": 4192.593425808992,
+      "partyEik": "205378536",
+      "partyName": "Котек ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -648,15 +648,15 @@
     },
     {
       "year": "2016",
-      "totalEur": 1241785.840282642,
+      "totalEur": 620892.920141321,
       "totalOther": {},
-      "contractCount": 4
+      "contractCount": 2
     },
     {
       "year": "2017",
-      "totalEur": 377077.76238221116,
+      "totalEur": 188538.88119110558,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 1
     },
     {
       "year": "2022",

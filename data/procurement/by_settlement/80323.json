@@ -3,19 +3,19 @@
   "name": "Челопеч",
   "province": "София",
   "obshtina": "Челопеч",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 127,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 113,
   "awardCount": 0,
-  "totalEur": 14572382.843499389,
+  "totalEur": 13774124.497937657,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000777223",
       "name": "Община Челопеч",
       "tier": "municipal",
-      "totalEur": 13581546.430296656,
+      "totalEur": 12783288.084734924,
       "totalOther": {},
-      "contractCount": 121,
+      "contractCount": 107,
       "awardCount": 0
     },
     {
@@ -195,18 +195,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-549272-841556%2F2026-04-07-award"
     },
     {
-      "key": "15f827d9d671",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-08-16",
-      "amount": 599920.12,
-      "currency": "BGN",
-      "amountEur": 306734.2867222611,
-      "partyEik": "131223059",
-      "partyName": "Стреза ЕООД - София",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
       "key": "f3c6386633ac",
       "ocid": "aop-legacy-2016-744962",
       "date": "2016-08-16",
@@ -327,18 +315,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
-      "key": "a0eb3a23ef7c",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-11-20",
-      "amount": 398000,
-      "currency": "BGN",
-      "amountEur": 203494.16871609495,
-      "partyEik": "175412759",
-      "partyName": "Фараон-56 ООД - с. Челопеч",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "561feed40040",
       "ocid": "aop-legacy-2023-409956",
       "date": "2023-08-11",
@@ -425,18 +401,6 @@
     {
       "key": "8a7e34abaa99",
       "ocid": "aop-legacy-2019-903933",
-      "date": "2019-03-27",
-      "amount": 248000,
-      "currency": "BGN",
-      "amountEur": 126800.38653666219,
-      "partyEik": "175412759",
-      "partyName": "Фараон-56 ООД - с. Челопеч",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "a0eb3a23ef7c",
-      "ocid": "aop-legacy-2019-x",
       "date": "2019-03-27",
       "amount": 248000,
       "currency": "BGN",
@@ -637,6 +601,42 @@
       "partyName": "ДЖИ Ел оил ЕАД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "5138a3f76786",
+      "ocid": "aop-legacy-2011-2015-522408",
+      "date": "2013-02-06",
+      "amount": 133980,
+      "currency": "BGN",
+      "amountEur": 68502.88624266935,
+      "partyEik": "113507403",
+      "partyName": "Петрол-Драгичево ЕООД - с. Драгичево",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "b02a5cd9d7fb",
+      "ocid": "aop-legacy-2023-410039",
+      "date": "2023-08-08",
+      "amount": 133175,
+      "currency": "BGN",
+      "amountEur": 68091.2962783064,
+      "partyEik": "202084981",
+      "partyName": "Мусала- 88 ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "68c551c407d2",
+      "ocid": "aop-legacy-2011-2015-424394",
+      "date": "2011-01-27",
+      "amount": 123312,
+      "currency": "BGN",
+      "amountEur": 63048.424454068096,
+      "partyEik": "113507403",
+      "partyName": "Петрол-Драгичево ЕООД - с. Драгичево",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -672,21 +672,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 833978.9705649263,
-      "totalOther": {},
-      "contractCount": 17
-    },
-    {
-      "year": "2017",
-      "totalEur": 152406.7378044104,
+      "totalEur": 417486.933935976,
       "totalOther": {},
       "contractCount": 9
     },
     {
-      "year": "2019",
-      "totalEur": 742319.1177147299,
+      "year": "2017",
+      "totalEur": 100934.98412438708,
       "totalOther": {},
       "contractCount": 5
+    },
+    {
+      "year": "2019",
+      "totalEur": 412024.56246197264,
+      "totalOther": {},
+      "contractCount": 3
     },
     {
       "year": "2020",

@@ -3,37 +3,37 @@
   "name": "Разград",
   "province": "Разград",
   "obshtina": "Разград",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 1122,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 991,
   "awardCount": 0,
-  "totalEur": 127392296.08382082,
+  "totalEur": 111876742.08884174,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000505910",
       "name": "Община Разград",
       "tier": "municipal",
-      "totalEur": 80674938.99165666,
+      "totalEur": 68399733.92270897,
       "totalOther": {},
-      "contractCount": 438,
-      "awardCount": 0
-    },
-    {
-      "eik": "116503980",
-      "name": "Многопрофилна болница за активно лечение \"СВ.ИВАН Рилски\" - разград АД",
-      "tier": "hospital",
-      "totalEur": 21450400.148148824,
-      "totalOther": {},
-      "contractCount": 423,
+      "contractCount": 359,
       "awardCount": 0
     },
     {
       "eik": "826043778",
       "name": "ВОДОСНАБДЯВАНЕ-ДУНАВ ЕООД",
       "tier": "utility",
-      "totalEur": 21187602.716292936,
+      "totalEur": 20438997.525657758,
       "totalOther": {},
-      "contractCount": 140,
+      "contractCount": 130,
+      "awardCount": 0
+    },
+    {
+      "eik": "116503980",
+      "name": "Многопрофилна болница за активно лечение \"СВ.ИВАН Рилски\" - разград АД",
+      "tier": "hospital",
+      "totalEur": 19115101.267366756,
+      "totalOther": {},
+      "contractCount": 387,
       "awardCount": 0
     },
     {
@@ -49,9 +49,9 @@
       "eik": "116019472",
       "name": "ТОПЛОФИКАЦИЯ-РАЗГРАД АД",
       "tier": "utility",
-      "totalEur": 1004878.8187112377,
+      "totalEur": 924150.6674915509,
       "totalOther": {},
-      "contractCount": 8,
+      "contractCount": 6,
       "awardCount": 0
     },
     {
@@ -67,18 +67,18 @@
       "eik": "000498362",
       "name": "Основно училище \"Васил Левски\"",
       "tier": "school",
-      "totalEur": 390492.0483817101,
+      "totalEur": 389976.1548735831,
       "totalOther": {},
-      "contractCount": 30,
+      "contractCount": 29,
       "awardCount": 0
     },
     {
       "eik": "000501958",
       "name": "Основно училище \"Иван с. Тургенев\"",
       "tier": "school",
-      "totalEur": 350418.64900942316,
+      "totalEur": 305384.0601136602,
       "totalOther": {},
-      "contractCount": 25,
+      "contractCount": 23,
       "awardCount": 0
     },
     {
@@ -127,15 +127,6 @@
       "awardCount": 0
     },
     {
-      "eik": "000505312",
-      "name": "Профилирана гимназия с преподаване на чужди езици \"Екзарх йосиф\"",
-      "tier": "school",
-      "totalEur": 60335.62198115378,
-      "totalOther": {},
-      "contractCount": 5,
-      "awardCount": 0
-    },
-    {
       "eik": "116587753",
       "name": "Спортно училище",
       "tier": "school",
@@ -151,6 +142,15 @@
       "totalEur": 34437.535940189075,
       "totalOther": {},
       "contractCount": 3,
+      "awardCount": 0
+    },
+    {
+      "eik": "000505312",
+      "name": "Профилирана гимназия с преподаване на чужди езици \"Екзарх йосиф\"",
+      "tier": "school",
+      "totalEur": 30169.40099057689,
+      "totalOther": {},
+      "contractCount": 4,
       "awardCount": 0
     }
   ],
@@ -324,18 +324,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
-      "key": "6c034f3bf0ff",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-03-23",
-      "amount": 2483769.23,
-      "currency": "BGN",
-      "amountEur": 1269931.0420639832,
-      "partyEik": "177126991",
-      "partyName": "ДЗЗД Пътстрой - урбанекс",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "12d8aad577c0",
       "ocid": "aop-legacy-2022-RL-1030155",
       "date": "2022-02-16",
@@ -350,18 +338,6 @@
     {
       "key": "277887da7a84",
       "ocid": "aop-legacy-2016-757913",
-      "date": "2016-11-15",
-      "amount": 2188368.91,
-      "currency": "BGN",
-      "amountEur": 1118895.2567452183,
-      "partyEik": "177018318",
-      "partyName": "ДЗЗД Водопроводи север 2016, гр. Благоевград",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "ad02b9bb3c89",
-      "ocid": "aop-legacy-2016-x",
       "date": "2016-11-15",
       "amount": 2188368.91,
       "currency": "BGN",
@@ -394,18 +370,6 @@
       "partyName": "ЕНЕРГО-ПРО Продажби АД",
       "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
       "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-559340-831940%2F2026-03-26-award"
-    },
-    {
-      "key": "13188c8db626",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-05-07",
-      "amount": 1964378.08,
-      "currency": "BGN",
-      "amountEur": 1004370.5639038158,
-      "partyEik": "835009611",
-      "partyName": "Пътинженерингстрой-Т ЕАД/старо Пътинженерингстрой-Т АД  - Търговище",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
       "key": "96871bd55492",
@@ -502,18 +466,6 @@
       "partyName": "Пътно строителство АД",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "3bc190684214",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-01-15",
-      "amount": 1379166.66,
-      "currency": "BGN",
-      "amountEur": 705156.7160745055,
-      "partyEik": "177332977",
-      "partyName": "ДЗЗД  Пътстрой разград 2018, Разград",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
       "key": "acc4b941d646",
@@ -708,18 +660,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "1a7e71cd3759",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-01-22",
-      "amount": 1011490.8,
-      "currency": "BGN",
-      "amountEur": 517167.033944668,
-      "partyEik": "831838874",
-      "partyName": "Нск София ЕООД",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "e330ef9ff139",
       "ocid": "aop-legacy-2019-889817",
       "date": "2019-01-22",
@@ -754,6 +694,66 @@
       "partyName": "Енерго-Про Енергийни услуги ЕООД - Варна",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "a82cc1bb0eac",
+      "ocid": "aop-legacy-2011-2015-619709",
+      "date": "2014-08-18",
+      "amount": 977990,
+      "currency": "BGN",
+      "amountEur": 500038.3468910897,
+      "partyEik": "106609315",
+      "partyName": "Енемона Ютилитис АД - София - старо наименование Енемона Ютилитис ЕАД - Козлодуй",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "f49526b247f0",
+      "ocid": "ocds-e82gsb-418695",
+      "date": "2026-04-30",
+      "amount": 499416.13,
+      "currency": "EUR",
+      "amountEur": 499416.13,
+      "partyEik": "203022445",
+      "partyName": "Килтекс ЕООД",
+      "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
+      "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-418695-849555%2F2026-04-30-award"
+    },
+    {
+      "key": "8c7351ab1b5a",
+      "ocid": "aop-legacy-2019-897947",
+      "date": "2019-03-04",
+      "amount": 947058.04,
+      "currency": "BGN",
+      "amountEur": 484223.0868736036,
+      "partyEik": "177261213",
+      "partyName": "ДЗЗД Детски градини 18, Русе",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "57ae5aff7365",
+      "ocid": "ocds-e82gsb-418695",
+      "date": "2026-04-30",
+      "amount": 446613.87,
+      "currency": "EUR",
+      "amountEur": 446613.87,
+      "partyEik": "826046443",
+      "partyName": "Кооперация Всестранна кооперация \"Правда\"",
+      "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
+      "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-418695-849555%2F2026-04-30-award"
+    },
+    {
+      "key": "d37aadda7aae",
+      "ocid": "aop-legacy-2022-RL-1030155",
+      "date": "2022-02-16",
+      "amount": 840566.94,
+      "currency": "BGN",
+      "amountEur": 429775.05202394887,
+      "partyEik": "177236740",
+      "partyName": "„Хая Инвестстрой 2017” ДЗЗД  - гр. Варна",
+      "bundleUuid": "db3e39ba-37f9-44bf-847f-75f36acee513",
+      "sourceUrl": "https://data.egov.bg/data/view/db3e39ba-37f9-44bf-847f-75f36acee513"
     }
   ],
   "byYear": [
@@ -789,21 +789,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 7085479.458848672,
+      "totalEur": 5063287.044375023,
       "totalOther": {},
-      "contractCount": 69
+      "contractCount": 46
     },
     {
       "year": "2017",
-      "totalEur": 13887132.133160856,
+      "totalEur": 7683296.672001146,
       "totalOther": {},
-      "contractCount": 106
+      "contractCount": 59
     },
     {
       "year": "2019",
-      "totalEur": 17868785.773814693,
+      "totalEur": 10963930.101286922,
       "totalOther": {},
-      "contractCount": 145
+      "contractCount": 89
     },
     {
       "year": "2020",
@@ -813,9 +813,9 @@
     },
     {
       "year": "2021",
-      "totalEur": 769340.8936359499,
+      "totalEur": 384670.44681797497,
       "totalOther": {},
-      "contractCount": 10
+      "contractCount": 5
     },
     {
       "year": "2022",

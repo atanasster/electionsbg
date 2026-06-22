@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-06-22T04:31:19.591Z",
+  "nodes": [
+    {
+      "id": "awarder:000695406",
+      "type": "awarder",
+      "label": "Централен орган за покупки /предишно - Дирекция \"Централно звено за финансиране и договаряне\" /Цзфд/ към Министерство на финансите /МФ//"
+    },
+    {
+      "id": "contractor:121396123",
+      "type": "contractor",
+      "label": "Български пощи /Бп/ ЕАД - София"
+    },
+    {
+      "id": "awarder:102274111",
+      "type": "awarder",
+      "label": "Многопрофилна болница за aктивно лечение /МБАЛ/ - Бургас АД"
+    },
+    {
+      "id": "contractor:122055819",
+      "type": "contractor",
+      "label": "Етропал Трейд ООД - Етрополе"
+    },
+    {
+      "id": "awarder:000846274",
+      "type": "awarder",
+      "label": "Професионална гимназия по техника и ОБЛЕКЛО\"ДОЧО Михайлов\""
+    },
+    {
+      "id": "contractor:030264696",
+      "type": "contractor",
+      "label": "Оптиком ООД"
+    },
+    {
+      "id": "mp:938",
+      "type": "mp",
+      "label": "Дарин Величков Матов"
+    },
+    {
+      "id": "official:plamen-peev-patev-f5c4ee",
+      "type": "official",
+      "label": "Пламен Пеев Патев"
+    },
+    {
+      "id": "official:dimitr-hristov-petrov-13b8e2",
+      "type": "official",
+      "label": "Димитър Христов Петров"
+    }
+  ],
+  "links": [
+    {
+      "source": "awarder:000695406",
+      "target": "contractor:121396123",
+      "valueEur": 215229.789910166
+    },
+    {
+      "source": "awarder:102274111",
+      "target": "contractor:122055819",
+      "valueEur": 1363605.2213126908
+    },
+    {
+      "source": "awarder:000846274",
+      "target": "contractor:030264696",
+      "valueEur": 35789.920391854095
+    },
+    {
+      "source": "contractor:121396123",
+      "target": "mp:938",
+      "valueEur": 215229.789910166
+    },
+    {
+      "source": "contractor:122055819",
+      "target": "official:plamen-peev-patev-f5c4ee",
+      "valueEur": 1363605.2213126908
+    },
+    {
+      "source": "contractor:030264696",
+      "target": "official:dimitr-hristov-petrov-13b8e2",
+      "valueEur": 35789.920391854095
+    }
+  ]
+}

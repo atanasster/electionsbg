@@ -3,28 +3,28 @@
   "name": "Ветрино",
   "province": "Варна",
   "obshtina": "Ветрино",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 171,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 145,
   "awardCount": 0,
-  "totalEur": 24320045.93442257,
+  "totalEur": 22082518.0971361,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000093458",
       "name": "Община Ветрино",
       "tier": "municipal",
-      "totalEur": 23560112.539983176,
+      "totalEur": 21485455.82646513,
       "totalOther": {},
-      "contractCount": 149,
+      "contractCount": 127,
       "awardCount": 0
     },
     {
       "eik": "000082442",
       "name": "Средно училище \"Христо Ботев\"",
       "tier": "school",
-      "totalEur": 759933.3944393939,
+      "totalEur": 597062.2706709682,
       "totalOther": {},
-      "contractCount": 22,
+      "contractCount": 18,
       "awardCount": 0
     }
   ],
@@ -138,30 +138,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
-      "key": "faf4d2484933",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-09-24",
-      "amount": 1131700.36,
-      "currency": "BGN",
-      "amountEur": 578629.2060148377,
-      "partyEik": "177288025",
-      "partyName": "Обединение Хая Строй 2018",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "0c1de566346c",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-08-04",
-      "amount": 1120000,
-      "currency": "BGN",
-      "amountEur": 572646.9069397647,
-      "partyEik": "103093128",
-      "partyName": "Технокар ЕООД - Варна",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
       "key": "f03bca0c1ae2",
       "ocid": "aop-legacy-2016-742978",
       "date": "2016-08-04",
@@ -212,18 +188,6 @@
     {
       "key": "14aceb5632eb",
       "ocid": "aop-legacy-2019-924212",
-      "date": "2019-07-24",
-      "amount": 901589.59,
-      "currency": "BGN",
-      "amountEur": 460975.4375380273,
-      "partyEik": "127001597",
-      "partyName": "Автомагистрали - Черно море АД - Шумен",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "9253755cb792",
-      "ocid": "aop-legacy-2019-x",
       "date": "2019-07-24",
       "amount": 901589.59,
       "currency": "BGN",
@@ -376,18 +340,6 @@
       "partyName": "Барс АД - Шумен",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "65510663a847",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-12-23",
-      "amount": 287523.76,
-      "currency": "BGN",
-      "amountEur": 147008.56413901004,
-      "partyEik": "103029862",
-      "partyName": "Хидрострой АД - София пререгистриран от Хидрострой АД - Варна",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
       "key": "8c997ed8aeea",
@@ -628,6 +580,54 @@
       "partyName": "Кинг лонг България ООД - гр. Своге",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "74a48ebe1dbc",
+      "ocid": "aop-legacy-2022-300307",
+      "date": "2022-11-22",
+      "amount": 156788.21,
+      "currency": "BGN",
+      "amountEur": 80164.53884028776,
+      "partyEik": "103275063",
+      "partyName": "Варна оборот ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "2a54e276779a",
+      "ocid": "aop-legacy-2022-218143",
+      "date": "2022-04-01",
+      "amount": 151775.4,
+      "currency": "BGN",
+      "amountEur": 77601.52978530854,
+      "partyEik": "117684931",
+      "partyName": "ДЕКРА-СТРОЙ ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "a7faa385b513",
+      "ocid": "aop-legacy-2011-2015-688453",
+      "date": "2015-09-18",
+      "amount": 142580,
+      "currency": "BGN",
+      "amountEur": 72899.99642095683,
+      "partyEik": "103090000",
+      "partyName": "СТАНДАРТ-ОЙЛ ООД - Варна",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "cb55ad7d25a5",
+      "ocid": "aop-legacy-2017-772632",
+      "date": "2017-02-16",
+      "amount": 139403,
+      "currency": "BGN",
+      "amountEur": 71275.62211439645,
+      "partyEik": "148136527",
+      "partyName": "Екоинвест Асетс АД - Варна",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     }
   ],
   "byYear": [
@@ -663,21 +663,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 1307201.5461466487,
+      "totalEur": 653600.7730733244,
       "totalOther": {},
-      "contractCount": 10
+      "contractCount": 5
     },
     {
       "year": "2017",
-      "totalEur": 537720.4869543877,
+      "totalEur": 360573.2757959537,
       "totalOther": {},
-      "contractCount": 16
+      "contractCount": 9
     },
     {
       "year": "2019",
-      "totalEur": 2963636.6555375466,
+      "totalEur": 1556856.8024828334,
       "totalOther": {},
-      "contractCount": 29
+      "contractCount": 15
     },
     {
       "year": "2020",

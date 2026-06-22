@@ -3,19 +3,19 @@
   "name": "Батак",
   "province": "Пазарджик",
   "obshtina": "Батак",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 34,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 32,
   "awardCount": 0,
-  "totalEur": 5362994.219832654,
+  "totalEur": 4925328.369528691,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000351540",
       "name": "Община Батак",
       "tier": "municipal",
-      "totalEur": 5362994.219832654,
+      "totalEur": 4925328.369528691,
       "totalOther": {},
-      "contractCount": 34,
+      "contractCount": 32,
       "awardCount": 0
     }
   ],
@@ -47,18 +47,6 @@
     {
       "key": "1b3acb3a2a97",
       "ocid": "aop-legacy-2019-906539",
-      "date": "2019-04-11",
-      "amount": 749000,
-      "currency": "BGN",
-      "amountEur": 382957.61901596765,
-      "partyEik": "112580619",
-      "partyName": "Еко-Хидро-90 ООД - Пазарджик",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "3b91cba7f698",
-      "ocid": "aop-legacy-2019-x",
       "date": "2019-04-11",
       "amount": 749000,
       "currency": "BGN",
@@ -187,18 +175,6 @@
       "partyName": "Стед - 88 ООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "6ae96cb4d06e",
-      "ocid": "aop-legacy-2021-x",
-      "date": "2021-06-22",
-      "amount": 107000,
-      "currency": "BGN",
-      "amountEur": 54708.231287995375,
-      "partyEik": "130175896",
-      "partyName": "Национален център за териториално развитие /Нцтр/ ЕАД - София",
-      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
-      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
     },
     {
       "key": "cfb11b808909",
@@ -432,9 +408,9 @@
   "byYear": [
     {
       "year": "2019",
-      "totalEur": 765915.2380319353,
+      "totalEur": 382957.61901596765,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 1
     },
     {
       "year": "2020",
@@ -444,9 +420,9 @@
     },
     {
       "year": "2021",
-      "totalEur": 109416.46257599075,
+      "totalEur": 54708.231287995375,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 1
     },
     {
       "year": "2022",

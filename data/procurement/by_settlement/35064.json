@@ -3,19 +3,19 @@
   "name": "Каварна",
   "province": "Добрич",
   "obshtina": "Каварна",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 115,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 103,
   "awardCount": 0,
-  "totalEur": 24732050.301386163,
+  "totalEur": 24258982.652357366,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000852697",
       "name": "Община Каварна",
       "tier": "municipal",
-      "totalEur": 24615600.202154275,
+      "totalEur": 24142532.55312548,
       "totalOther": {},
-      "contractCount": 111,
+      "contractCount": 99,
       "awardCount": 0
     },
     {
@@ -447,30 +447,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
-      "key": "0c8b2f47e270",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-04-12",
-      "amount": 245667.17,
-      "currency": "BGN",
-      "amountEur": 125607.62949745121,
-      "partyEik": "124645626",
-      "partyName": "Еделвайс - Господинов ООД - Каварна",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "1339b1b73846",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-04-12",
-      "amount": 245667.17,
-      "currency": "BGN",
-      "amountEur": 125607.62949745121,
-      "partyEik": "124052241",
-      "partyName": "Триада - Гт ООД - Добрич",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "c04ec521aa48",
       "ocid": "aop-legacy-2017-782943",
       "date": "2017-04-12",
@@ -493,18 +469,6 @@
       "partyName": "Панов ЕООД - Варна /стар Белослав/",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "986e7769ff25",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-01-18",
-      "amount": 180431.67,
-      "currency": "BGN",
-      "amountEur": 92253.2479816753,
-      "partyEik": "123728086",
-      "partyName": "Ей Би Си Уинд Фарм ООД",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
       "key": "ecaa810e349f",
@@ -637,6 +601,42 @@
       "partyName": "Автокам българия ООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "541cd1d8ee1a",
+      "ocid": "aop-legacy-2022-262304",
+      "date": "2022-08-12",
+      "amount": 134777,
+      "currency": "BGN",
+      "amountEur": 68910.38587198274,
+      "partyEik": "130696746",
+      "partyName": "БИ Ем ЛИЗИНГ-ТРЕЙД АД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "1c7c5e193785",
+      "ocid": "ocds-e82gsb-533660",
+      "date": "2026-01-06",
+      "amount": 68001.82,
+      "currency": "EUR",
+      "amountEur": 68001.82,
+      "partyEik": "208121365",
+      "partyName": "Фючър тръкс АД",
+      "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
+      "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-533660-792154%2F2026-01-06-award"
+    },
+    {
+      "key": "c8db9f92c0b4",
+      "ocid": "eop-06530-2025-0001",
+      "date": "2025-07-16",
+      "amount": 131602.02,
+      "currency": "BGN",
+      "amountEur": 67287.04437502236,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "eop-flat:2025-07-16",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-07-16/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2016.07.2025.json"
     }
   ],
   "byYear": [
@@ -672,21 +672,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 24042.733775430377,
+      "totalEur": 21487.813358011685,
       "totalOther": {},
-      "contractCount": 5
+      "contractCount": 3
     },
     {
       "year": "2017",
-      "totalEur": 667029.2970247926,
+      "totalEur": 347734.0157375641,
       "totalOther": {},
-      "contractCount": 11
+      "contractCount": 6
     },
     {
       "year": "2019",
-      "totalEur": 317273.459349739,
+      "totalEur": 194866.31251182363,
       "totalOther": {},
-      "contractCount": 11
+      "contractCount": 7
     },
     {
       "year": "2020",
@@ -696,9 +696,9 @@
     },
     {
       "year": "2021",
-      "totalEur": 57620.600972477165,
+      "totalEur": 28810.300486238582,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 1
     },
     {
       "year": "2022",

@@ -3,19 +3,19 @@
   "name": "Радомир",
   "province": "Перник",
   "obshtina": "Радомир",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 257,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 204,
   "awardCount": 0,
-  "totalEur": 46709247.66428074,
+  "totalEur": 31729204.598165594,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000386776",
       "name": "Община Радомир",
       "tier": "municipal",
-      "totalEur": 46620132.16344478,
+      "totalEur": 31640089.09732963,
       "totalOther": {},
-      "contractCount": 255,
+      "contractCount": 202,
       "awardCount": 0
     },
     {
@@ -29,18 +29,6 @@
     }
   ],
   "topContracts": [
-    {
-      "key": "1cbb91d516cc",
-      "ocid": "aop-legacy-2021-x",
-      "date": "2021-06-28",
-      "amount": 4209354.55,
-      "currency": "BGN",
-      "amountEur": 2152208.8064913615,
-      "partyEik": "177481800",
-      "partyName": "ДЗЗД Радомир есе 2019",
-      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
-      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
-    },
     {
       "key": "33e6503da0a7",
       "ocid": "aop-legacy-2021-1015674",
@@ -90,18 +78,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-510200-800897%2F2026-02-05-award"
     },
     {
-      "key": "7d5d8131ad7a",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-09-30",
-      "amount": 3800000,
-      "currency": "BGN",
-      "amountEur": 1942909.1485456303,
-      "partyEik": "177383772",
-      "partyName": "ДЗЗД Обединение чистота Радомир 2019 - София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "e897b6d4b840",
       "ocid": "aop-legacy-2019-935332",
       "date": "2019-09-30",
@@ -114,18 +90,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
-      "key": "79a19aace8e8",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-08-24",
-      "amount": 1900000,
-      "currency": "BGN",
-      "amountEur": 971454.5742728151,
-      "partyEik": "177182755",
-      "partyName": "Консорциум Чистота Радомир, София",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "d98c215cd913",
       "ocid": "aop-legacy-2017-801765",
       "date": "2017-08-24",
@@ -136,18 +100,6 @@
       "partyName": "Консорциум Чистота Радомир, София",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "11bc8444d783",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-06-14",
-      "amount": 1748989.7,
-      "currency": "BGN",
-      "amountEur": 894244.2339058098,
-      "partyEik": "177352410",
-      "partyName": "ДЗЗД Радомир 2018 - София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
       "key": "21105d393695",
@@ -164,18 +116,6 @@
     {
       "key": "ae33dfcddca8",
       "ocid": "aop-legacy-2019-891309",
-      "date": "2019-01-29",
-      "amount": 1546429.27,
-      "currency": "BGN",
-      "amountEur": 790676.7305951949,
-      "partyEik": "177326967",
-      "partyName": "ДЗЗД Радомир 7.2",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "ba3e4d3ac079",
-      "ocid": "aop-legacy-2019-x",
       "date": "2019-01-29",
       "amount": 1546429.27,
       "currency": "BGN",
@@ -210,18 +150,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "e7f107531c5f",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-08-23",
-      "amount": 1354968,
-      "currency": "BGN",
-      "amountEur": 692784.1376806778,
-      "partyEik": "131264522",
-      "partyName": "Планекс Билд ООД",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "ffd952dda904",
       "ocid": "aop-legacy-2017-801705",
       "date": "2017-08-23",
@@ -246,18 +174,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
-      "key": "f1ebade43b5f",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-08-23",
-      "amount": 1084000,
-      "currency": "BGN",
-      "amountEur": 554240.3992167008,
-      "partyEik": "203484487",
-      "partyName": "Алфа билд инженеринг ЕООД",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "dd0c1caee599",
       "ocid": "aop-legacy-2011-2015-614429",
       "date": "2014-07-08",
@@ -268,18 +184,6 @@
       "partyName": "ДЗЗД Еколандшафт",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "0304a03a22a5",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-06-10",
-      "amount": 914226,
-      "currency": "BGN",
-      "amountEur": 467436.33137849404,
-      "partyEik": "175450795",
-      "partyName": "ЕС-Енерджи Проект ЕООД",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
       "key": "168dbaf19f30",
@@ -294,18 +198,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
-      "key": "2ca97b9e22ac",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-08-24",
-      "amount": 823650,
-      "currency": "BGN",
-      "amountEur": 421125.55794726533,
-      "partyEik": "177183750",
-      "partyName": "ДЗЗД Обединение Нпеемжс Тракия",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "85b0935757f5",
       "ocid": "aop-legacy-2017-801755",
       "date": "2017-08-24",
@@ -314,18 +206,6 @@
       "amountEur": 421125.55794726533,
       "partyEik": "177183750",
       "partyName": "ДЗЗД Обединение Нпеемжс Тракия",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "8de772ca6a58",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-08-24",
-      "amount": 822970.3,
-      "currency": "BGN",
-      "amountEur": 420778.0328556163,
-      "partyEik": "177183736",
-      "partyName": "ДЗЗД Тракия блок 3 - София",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
@@ -354,18 +234,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
-      "key": "11fe5937c7f9",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-08-23",
-      "amount": 784000,
-      "currency": "BGN",
-      "amountEur": 400852.8348578353,
-      "partyEik": "200054203",
-      "partyName": "Сенстрой ЕООД - Джебел",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "19548ad1a06e",
       "ocid": "aop-legacy-2017-801756",
       "date": "2017-08-24",
@@ -378,32 +246,8 @@
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
-      "key": "f245ae6e816c",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-08-24",
-      "amount": 782900,
-      "currency": "BGN",
-      "amountEur": 400290.41378851945,
-      "partyEik": "131453327",
-      "partyName": "ПРО Арм ЕООД - София",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "549fd66a55be",
       "ocid": "aop-legacy-2017-801762",
-      "date": "2017-08-24",
-      "amount": 780531.72,
-      "currency": "BGN",
-      "amountEur": 399079.53145212005,
-      "partyEik": "177180430",
-      "partyName": "ДЗЗД Обединение Тим и партньори",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "a5bd866509bf",
-      "ocid": "aop-legacy-2017-x",
       "date": "2017-08-24",
       "amount": 780531.72,
       "currency": "BGN",
@@ -450,18 +294,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "14aebdcd253d",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-08-23",
-      "amount": 710000,
-      "currency": "BGN",
-      "amountEur": 363017.2356493151,
-      "partyEik": "177174662",
-      "partyName": "Обединение Инженеринг Радомир лот 14",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "ac6355111be0",
       "ocid": "aop-legacy-2017-801708",
       "date": "2017-08-23",
@@ -470,18 +302,6 @@
       "amountEur": 363017.2356493151,
       "partyEik": "177174662",
       "partyName": "Обединение Инженеринг Радомир лот 14",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "5a060b6acb08",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-08-24",
-      "amount": 697243,
-      "currency": "BGN",
-      "amountEur": 356494.685120895,
-      "partyEik": "177177834",
-      "partyName": "ДЗЗД Обединение Булгард 2, Добринище",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
@@ -500,18 +320,6 @@
     {
       "key": "156bc3ed924c",
       "ocid": "aop-legacy-2017-801702",
-      "date": "2017-08-23",
-      "amount": 692000,
-      "currency": "BGN",
-      "amountEur": 353813.9817877832,
-      "partyEik": "201415001",
-      "partyName": "Евиданс инженеринг ООД",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "25815f58f470",
-      "ocid": "aop-legacy-2017-x",
       "date": "2017-08-23",
       "amount": 692000,
       "currency": "BGN",
@@ -546,18 +354,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
-      "key": "e723f91a2c88",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-09-26",
-      "amount": 652333.34,
-      "currency": "BGN",
-      "amountEur": 333532.7405756124,
-      "partyEik": "113580102",
-      "partyName": "Инфракорект строй - Перник",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "1b5228387b4e",
       "ocid": "aop-legacy-2017-801760",
       "date": "2017-08-24",
@@ -570,32 +366,8 @@
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
-      "key": "39d3f06de6ee",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-08-24",
-      "amount": 627232.97,
-      "currency": "BGN",
-      "amountEur": 320699.12517959124,
-      "partyEik": "177180640",
-      "partyName": "Обединение Еврор ДЗЗД",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "0f64ad87968e",
       "ocid": "aop-legacy-2017-801759",
-      "date": "2017-08-24",
-      "amount": 550246,
-      "currency": "BGN",
-      "amountEur": 281336.31246069446,
-      "partyEik": "201894833",
-      "partyName": "Мб Инженеринг 2001 ЕООД",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "4da58b0e334c",
-      "ocid": "aop-legacy-2017-x",
       "date": "2017-08-24",
       "amount": 550246,
       "currency": "BGN",
@@ -628,6 +400,234 @@
       "partyName": "Инфракорект строй",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "13ad5330a594",
+      "ocid": "aop-legacy-2017-801757",
+      "date": "2017-08-24",
+      "amount": 511930.2,
+      "currency": "BGN",
+      "amountEur": 261745.75499915637,
+      "partyEik": "177183768",
+      "partyName": "ДЗЗД Инженеринг груп 32 - с. Мрамор",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "0788b8ec3ce0",
+      "ocid": "ocds-e82gsb-562856",
+      "date": "2026-04-30",
+      "amount": 255645,
+      "currency": "EUR",
+      "amountEur": 255645,
+      "partyEik": "813101815",
+      "partyName": "Аресгаз ЕАД",
+      "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
+      "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-562856-850164%2F2026-04-30-award"
+    },
+    {
+      "key": "d6e4bb121a70",
+      "ocid": "aop-legacy-2022-278050",
+      "date": "2022-09-26",
+      "amount": 490416.67,
+      "currency": "BGN",
+      "amountEur": 250746.06177428507,
+      "partyEik": "101526851",
+      "partyName": "БУЛ Строй инвест ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "fcf4ae0f41a3",
+      "ocid": "aop-legacy-2017-801763",
+      "date": "2017-08-24",
+      "amount": 487000,
+      "currency": "BGN",
+      "amountEur": 248999.1461425584,
+      "partyEik": "203972216",
+      "partyName": "Супервижън корект ЕООД, Перник",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "10dded5feb33",
+      "ocid": "aop-legacy-2016-731718",
+      "date": "2016-04-27",
+      "amount": 462720,
+      "currency": "BGN",
+      "amountEur": 236584.97926711422,
+      "partyEik": "175089163",
+      "partyName": "Рила Газ ЕАД",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "fd29d2e15945",
+      "ocid": "aop-legacy-2011-2015-566024",
+      "date": "2013-10-23",
+      "amount": 446400,
+      "currency": "BGN",
+      "amountEur": 228240.69576599193,
+      "partyEik": "113507403",
+      "partyName": "Петрол-Драгичево ЕООД - с. Драгичево",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "89e8be0fbb35",
+      "ocid": "ocds-e82gsb-531975",
+      "date": "2026-01-19",
+      "amount": 191666.67,
+      "currency": "EUR",
+      "amountEur": 191666.67,
+      "partyEik": "205558139",
+      "partyName": "Хидрострой груп ЕООД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-531975-799087%2F2026-01-19-award"
+    },
+    {
+      "key": "1a45714e047d",
+      "ocid": "aop-legacy-2017-803732",
+      "date": "2017-09-04",
+      "amount": 344750,
+      "currency": "BGN",
+      "amountEur": 176267.87604239632,
+      "partyEik": "113580102",
+      "partyName": "Инфракорект строй",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "f7ade9fb5a7e",
+      "ocid": "aop-legacy-2011-2015-694494",
+      "date": "2015-10-28",
+      "amount": 342470.83,
+      "currency": "BGN",
+      "amountEur": 175102.55492553033,
+      "partyEik": "113592994",
+      "partyName": "Тони Тодоров ООД, гр. Перник",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "bb4509989167",
+      "ocid": "aop-legacy-2022-247127",
+      "date": "2022-07-01",
+      "amount": 323768.6,
+      "currency": "BGN",
+      "amountEur": 165540.25656626598,
+      "partyEik": "206503932",
+      "partyName": "Артис стил ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "d55e3e020e82",
+      "ocid": "aop-legacy-2011-2015-554847",
+      "date": "2013-08-09",
+      "amount": 323083.34,
+      "currency": "BGN",
+      "amountEur": 165189.8886917575,
+      "partyEik": "113580690",
+      "partyName": "Нивел Строй ЕООД - Брезник",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "a68d076f4fc0",
+      "ocid": "aop-legacy-2011-2015-510188",
+      "date": "2012-11-22",
+      "amount": 310000,
+      "currency": "BGN",
+      "amountEur": 158500.48317082773,
+      "partyEik": "176417848",
+      "partyName": "ДЗЗД Обединение Управление Радомир 2012, с.Мировяне, р-н Нови искър",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "fee59840a1b2",
+      "ocid": "aop-legacy-2011-2015-620151",
+      "date": "2014-08-20",
+      "amount": 296195.83,
+      "currency": "BGN",
+      "amountEur": 151442.52312317534,
+      "partyEik": "113580102",
+      "partyName": "Инфракорект строй",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "283cb76320d1",
+      "ocid": "aop-legacy-2022-196983",
+      "date": "2022-02-16",
+      "amount": 275000,
+      "currency": "BGN",
+      "amountEur": 140605.2673289601,
+      "partyEik": "113507403",
+      "partyName": "Петрол - Драгичево ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "9785859255d0",
+      "ocid": "aop-legacy-2019-891279",
+      "date": "2019-01-31",
+      "amount": 275000,
+      "currency": "BGN",
+      "amountEur": 140605.2673289601,
+      "partyEik": "113507403",
+      "partyName": "Петрол-Драгичево ЕООД - с. Драгичево",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "edbffaedd32e",
+      "ocid": "aop-legacy-2011-2015-701580",
+      "date": "2015-12-09",
+      "amount": 268890,
+      "currency": "BGN",
+      "amountEur": 137481.2739348512,
+      "partyEik": "203529078",
+      "partyName": "ЕнЕф Консултанти ЕООД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "4cf821cf848b",
+      "ocid": "aop-legacy-2023-425555",
+      "date": "2023-09-19",
+      "amount": 256943.22,
+      "currency": "BGN",
+      "amountEur": 131372.98231441382,
+      "partyEik": "206923861",
+      "partyName": "Темел Бг ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "62979342eb13",
+      "ocid": "aop-legacy-2019-908838",
+      "date": "2019-04-30",
+      "amount": 250252.54,
+      "currency": "BGN",
+      "amountEur": 127952.09195073192,
+      "partyEik": "109030003",
+      "partyName": "ЕТ Румяна Николова - Даци-Р - Бобов дол",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "084fbd9f2849",
+      "ocid": "aop-legacy-2023-424450",
+      "date": "2023-09-15",
+      "amount": 245833.33,
+      "currency": "BGN",
+      "amountEur": 125692.58575643077,
+      "partyEik": "113580102",
+      "partyName": "Инфракорект строй ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -663,21 +663,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 2581648.180056549,
+      "totalEur": 1290824.0900282743,
       "totalOther": {},
-      "contractCount": 20
+      "contractCount": 10
     },
     {
       "year": "2017",
-      "totalEur": 14127147.635530697,
+      "totalEur": 7196665.676464722,
       "totalOther": {},
-      "contractCount": 75
+      "contractCount": 48
     },
     {
       "year": "2019",
-      "totalEur": 9765258.73925648,
+      "totalEur": 5158730.528726933,
       "totalOther": {},
-      "contractCount": 47
+      "contractCount": 32
     },
     {
       "year": "2020",
@@ -687,9 +687,9 @@
     },
     {
       "year": "2021",
-      "totalEur": 4304417.612982723,
+      "totalEur": 2152208.8064913615,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 1
     },
     {
       "year": "2022",

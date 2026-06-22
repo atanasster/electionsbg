@@ -3,35 +3,23 @@
   "name": "Кирково",
   "province": "Кърджали",
   "obshtina": "Кирково",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 549,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 442,
   "awardCount": 0,
-  "totalEur": 35074587.72919843,
+  "totalEur": 28232071.73343192,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000235888",
       "name": "Община Кирково",
       "tier": "municipal",
-      "totalEur": 35074587.72919843,
+      "totalEur": 28232071.73343192,
       "totalOther": {},
-      "contractCount": 549,
+      "contractCount": 442,
       "awardCount": 0
     }
   ],
   "topContracts": [
-    {
-      "key": "629ec7856a79",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-06-21",
-      "amount": 5189460.72,
-      "currency": "BGN",
-      "amountEur": 2653329.133922682,
-      "partyEik": "200133700",
-      "partyName": "Кристална вода АД",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
     {
       "key": "f7c8781fcdfd",
       "ocid": "aop-legacy-2019-917227",
@@ -165,18 +153,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
-      "key": "3aacd60b0c6f",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-05-09",
-      "amount": 681470.4,
-      "currency": "BGN",
-      "amountEur": 348430.28279553953,
-      "partyEik": "115808565",
-      "partyName": "Лайт газ ООД  - Пловдив",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
       "key": "5cdc6a043758",
       "ocid": "aop-legacy-2016-732600",
       "date": "2016-05-09",
@@ -215,18 +191,6 @@
     {
       "key": "5a5b831113af",
       "ocid": "aop-legacy-2021-1024692",
-      "date": "2021-12-06",
-      "amount": 612600.11,
-      "currency": "BGN",
-      "amountEur": 313217.46266291034,
-      "partyEik": "108692651",
-      "partyName": "Бори ЕООД - с. Кирково",
-      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
-      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
-    },
-    {
-      "key": "b884a43a778a",
-      "ocid": "aop-legacy-2021-x",
       "date": "2021-12-06",
       "amount": 612600.11,
       "currency": "BGN",
@@ -405,18 +369,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
-      "key": "e03d9b246622",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-01-13",
-      "amount": 466438.96,
-      "currency": "BGN",
-      "amountEur": 238486.45332160773,
-      "partyEik": "108692651",
-      "partyName": "Бори ЕООД - с. Кирково",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "a46f3024218e",
       "ocid": "aop-legacy-2023-401418",
       "date": "2023-07-18",
@@ -427,18 +379,6 @@
       "partyName": "Караман ООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "99052714ed8f",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-05-05",
-      "amount": 423000,
-      "currency": "BGN",
-      "amountEur": 216276.4657460004,
-      "partyEik": "108553566",
-      "partyName": "Караман ООД - Кърджали",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
       "key": "c1c6fdfcc64f",
@@ -549,18 +489,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "60ea36f56ed0",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-12-08",
-      "amount": 388000,
-      "currency": "BGN",
-      "amountEur": 198381.24990413277,
-      "partyEik": "200831776",
-      "partyName": "Диамант - 88 ЕООД - с.Кирково",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
       "key": "a905d2965dac",
       "ocid": "aop-legacy-2016-761189",
       "date": "2016-12-08",
@@ -585,18 +513,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
-      "key": "473877e9dd9b",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-07-12",
-      "amount": 373592.78,
-      "currency": "BGN",
-      "amountEur": 191014.955287525,
-      "partyEik": "108553566",
-      "partyName": "Караман ООД - Кърджали",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
       "key": "6dbb7bbec04c",
       "ocid": "aop-legacy-2016-740064",
       "date": "2016-07-12",
@@ -617,6 +533,90 @@
       "amountEur": 174333.14756394984,
       "partyEik": "115825867",
       "partyName": "Проинвест строй  ЕООД - старо наименование Проинвестстрой - Пловдив",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "451d73f9a1c2",
+      "ocid": "aop-legacy-2023-419952",
+      "date": "2023-09-04",
+      "amount": 336670.62,
+      "currency": "BGN",
+      "amountEur": 172136.9546432972,
+      "partyEik": "108553566",
+      "partyName": "Караман ООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "bf957dc13db0",
+      "ocid": "aop-legacy-2022-264336",
+      "date": "2022-09-19",
+      "amount": 335142.73,
+      "currency": "BGN",
+      "amountEur": 171355.75689093632,
+      "partyEik": "108553566",
+      "partyName": "Караман ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "c5a9d1e03cb2",
+      "ocid": "aop-legacy-2022-301150",
+      "date": "2022-11-23",
+      "amount": 314931.5,
+      "currency": "BGN",
+      "amountEur": 161021.91908294687,
+      "partyEik": "200831776",
+      "partyName": "Диамант - 88 ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "6d515e87a70a",
+      "ocid": "aop-legacy-2019-946443",
+      "date": "2019-12-02",
+      "amount": 313000,
+      "currency": "BGN",
+      "amountEur": 160034.3588144164,
+      "partyEik": "813027681",
+      "partyName": "Булавто АД - Варна",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "a10ca02c9fad",
+      "ocid": "aop-legacy-2011-2015-551256",
+      "date": "2013-07-19",
+      "amount": 310105,
+      "currency": "BGN",
+      "amountEur": 158554.16881835333,
+      "partyEik": "108553566",
+      "partyName": "Караман ООД - Кърджали",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "afad1d39a494",
+      "ocid": "aop-legacy-2011-2015-604896",
+      "date": "2014-05-22",
+      "amount": 304523,
+      "currency": "BGN",
+      "amountEur": 155700.13753751604,
+      "partyEik": "108553566",
+      "partyName": "Караман ООД - Кърджали",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "0cdc70206dba",
+      "ocid": "aop-legacy-2011-2015-462140",
+      "date": "2011-12-29",
+      "amount": 300846,
+      "currency": "BGN",
+      "amountEur": 153820.11729035754,
+      "partyEik": "115872945",
+      "partyName": "Герт Груп ООД - Пловдив",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
@@ -654,21 +654,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 2745521.3080891506,
+      "totalEur": 1464955.4204608786,
       "totalOther": {},
-      "contractCount": 68
+      "contractCount": 37
     },
     {
       "year": "2017",
-      "totalEur": 2801256.9088315447,
+      "totalEur": 1559286.7631644877,
       "totalOther": {},
-      "contractCount": 73
+      "contractCount": 39
     },
     {
       "year": "2019",
-      "totalEur": 9113979.768180264,
+      "totalEur": 5107217.268371996,
       "totalOther": {},
-      "contractCount": 90
+      "contractCount": 49
     },
     {
       "year": "2020",
@@ -678,9 +678,9 @@
     },
     {
       "year": "2021",
-      "totalEur": 626434.9253258207,
+      "totalEur": 313217.46266291034,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 1
     },
     {
       "year": "2022",

@@ -286,6 +286,15 @@ export interface ProcurementIndex {
     totalEur: number;
     totalOther: Record<string, number>;
   };
+  // Officials (non-MP political class) cross-reference summary. De-duplicated
+  // by contractor EIK. Populated from data/officials/derived/company_links.json.
+  officialsCrossReference?: {
+    generatedAt: string;
+    officialCount: number;
+    contractorCount: number;
+    pairCount: number;
+    totalEur: number;
+  };
 }
 
 // Relationship kind on the MP↔company edge. "stake" comes from MP property
@@ -526,13 +535,15 @@ export interface CpvCompetitionFile {
   divisions: CpvCompetitionDivision[];
 }
 
-// Sankey-shaped MP-tied flow. Only includes nodes/edges that participate in
-// an MP-connected contract; the full procurement graph would be unreadable.
+// Sankey-shaped flow to politically-connected people. Only includes
+// nodes/edges that participate in a contract won by a company tied to an MP
+// or a public official; the full procurement graph would be unreadable.
+// Terminal nodes are either `mp:<id>` or `official:<slug>`.
 export interface FlowFile {
   generatedAt: string;
   nodes: Array<{
     id: string;
-    type: "awarder" | "contractor" | "mp";
+    type: "awarder" | "contractor" | "mp" | "official";
     label: string;
   }>;
   links: Array<{

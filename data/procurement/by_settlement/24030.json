@@ -3,19 +3,19 @@
   "name": "Дулово",
   "province": "Силистра",
   "obshtina": "Дулово",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 85,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 82,
   "awardCount": 0,
-  "totalEur": 18322626.82503362,
+  "totalEur": 18218353.958782464,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000565416",
       "name": "Община Дулово",
       "tier": "municipal",
-      "totalEur": 17378881.05268418,
+      "totalEur": 17274608.186433025,
       "totalOther": {},
-      "contractCount": 58,
+      "contractCount": 55,
       "awardCount": 0
     },
     {
@@ -477,18 +477,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-536786-792784%2F2026-01-06-award"
     },
     {
-      "key": "0b38d0a1d983",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-08-15",
-      "amount": 96000,
-      "currency": "BGN",
-      "amountEur": 49084.02059483698,
-      "partyEik": "201039346",
-      "partyName": "Албена инженеринг ООД",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "b6415201327a",
       "ocid": "aop-legacy-2017-800761",
       "date": "2017-08-15",
@@ -497,18 +485,6 @@
       "amountEur": 49084.02059483698,
       "partyEik": "201039346",
       "partyName": "Албена инженеринг ООД",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "b0d0151a63b3",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-08-15",
-      "amount": 95940,
-      "currency": "BGN",
-      "amountEur": 49053.3430819652,
-      "partyEik": "130838416",
-      "partyName": "Вамос ООД - София",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
@@ -655,6 +631,30 @@
       "partyName": "Лудогориелес ЕАД - Разград",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "06b487314783",
+      "ocid": "aop-legacy-2011-2015-427197",
+      "date": "2011-02-17",
+      "amount": 40712,
+      "currency": "BGN",
+      "amountEur": 20815.715067260448,
+      "partyEik": "118505477",
+      "partyName": "ЕТ Лес-2000 - Георги Змеев - Тутракан",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "dc2709d6dab7",
+      "ocid": "aop-legacy-2011-2015-427197",
+      "date": "2011-02-17",
+      "amount": 36655.99,
+      "currency": "BGN",
+      "amountEur": 18741.910084209772,
+      "partyEik": "118584987",
+      "partyName": "Дръстърлес ЕООД - Силистра",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -690,15 +690,15 @@
     },
     {
       "year": "2016",
-      "totalEur": 12271.005148709244,
+      "totalEur": 6135.502574354622,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 1
     },
     {
       "year": "2017",
-      "totalEur": 196274.72735360436,
+      "totalEur": 98137.36367680218,
       "totalOther": {},
-      "contractCount": 4
+      "contractCount": 2
     },
     {
       "year": "2022",

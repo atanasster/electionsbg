@@ -14,9 +14,17 @@ import type {
   TopContractorEntry,
   TopContractorsFile,
 } from "./types";
+import type { PepConnectedFile } from "./pep_connected";
 import { canonicalJson } from "./validate";
 
 const TOP_LIMIT = 1000;
+
+// The /procurement landing tile is a PREVIEW: it defaults to ~30 visible links
+// and links out to the full /procurement/flows explorer. So we ship a trimmed
+// flow.json (top-N links by euro value + their nodes) for the eager landing
+// load and the complete graph as flow_full.json for the explorer. Keeps the
+// largest single payload on the landing page small without losing any data.
+const FLOW_PREVIEW_LIMIT = 150;
 
 // Thresholds for the awarder→contractor concentration flag. Tuned so the
 // emitted file stays small (only "interesting" pairs) without dropping
@@ -71,9 +79,11 @@ export const buildTopContractors = (
   };
 };
 
-// Sankey-shaped MP-tied flow: awarder → contractor → mp. Only nodes/edges
-// that touch an MP-connected contract are included; the full procurement
-// graph would be unreadable.
+// Sankey-shaped flow to connected people: awarder → contractor → {mp |
+// official}. Terminal nodes are MPs (`mp:<id>`) and the broader political
+// class (`official:<slug>` — cabinet, governors, mayors, councillors, …).
+// Only nodes/edges that touch a contract won by a connected company are
+// included; the full procurement graph would be unreadable.
 //
 // Edge values are euro totals (EUR + BGN folded via the locked peg). Edges
 // whose contracts are entirely USD/GBP/CHF collapse to 0 and are dropped —
@@ -81,15 +91,24 @@ export const buildTopContractors = (
 export const buildFlow = (
   awardersDir: string,
   mpConnected: MpConnectedFile,
+  pepConnected: PepConnectedFile,
 ): FlowFile => {
-  const tiedEiks = new Set(mpConnected.entries.map((e) => e.contractorEik));
+  // Union of every contractor EIK reachable from an MP or an official — these
+  // are the only contractors whose awarder edges we keep.
+  const tiedEiks = new Set<string>();
+  for (const e of mpConnected.entries) tiedEiks.add(e.contractorEik);
+  for (const e of pepConnected.entries) tiedEiks.add(e.contractorEik);
   if (tiedEiks.size === 0 || !fs.existsSync(awardersDir)) {
     return { generatedAt: new Date().toISOString(), nodes: [], links: [] };
   }
 
   const nodes = new Map<
     string,
-    { id: string; type: "awarder" | "contractor" | "mp"; label: string }
+    {
+      id: string;
+      type: "awarder" | "contractor" | "mp" | "official";
+      label: string;
+    }
   >();
   const links: FlowFile["links"] = [];
 
@@ -150,6 +169,32 @@ export const buildFlow = (
     });
   }
 
+  // Contractor → official links. Same shape as the MP edges but keyed on the
+  // official's slug. pep_connected has one entry per (official, contractor)
+  // pair (high-confidence links only — see pep_connected.ts), so each pair
+  // yields one edge weighted by the contractor's euro total.
+  for (const entry of pepConnected.entries) {
+    const valueEur = entry.totalEur;
+    if (valueEur <= 0) continue;
+    const contractorNode = `contractor:${entry.contractorEik}`;
+    const officialNode = `official:${entry.slug}`;
+    nodes.set(contractorNode, {
+      id: contractorNode,
+      type: "contractor",
+      label: entry.contractorName,
+    });
+    nodes.set(officialNode, {
+      id: officialNode,
+      type: "official",
+      label: entry.name,
+    });
+    links.push({
+      source: contractorNode,
+      target: officialNode,
+      valueEur,
+    });
+  }
+
   return {
     generatedAt: new Date().toISOString(),
     nodes: [...nodes.values()],
@@ -203,6 +248,26 @@ export const buildAwarderConcentration = (
   };
 };
 
+// Trim the flow to its top-N links by euro value, dropping nodes left with no
+// surviving link. Mirrors the client's threshold-slider filter, so the preview
+// renders identically to the default landing view.
+const trimFlow = (flow: FlowFile): FlowFile => {
+  if (flow.links.length <= FLOW_PREVIEW_LIMIT) return flow;
+  const links = [...flow.links]
+    .sort((a, b) => b.valueEur - a.valueEur)
+    .slice(0, FLOW_PREVIEW_LIMIT);
+  const keep = new Set<string>();
+  for (const l of links) {
+    keep.add(l.source);
+    keep.add(l.target);
+  }
+  return {
+    generatedAt: flow.generatedAt,
+    nodes: flow.nodes.filter((n) => keep.has(n.id)),
+    links,
+  };
+};
+
 export const writeDerived = (
   outDir: string,
   top: TopContractorsFile,
@@ -214,7 +279,13 @@ export const writeDerived = (
     path.join(outDir, "top_contractors.json"),
     canonicalJson(top),
   );
-  fs.writeFileSync(path.join(outDir, "flow.json"), canonicalJson(flow));
+  // flow.json = trimmed preview (eager landing load); flow_full.json = complete
+  // graph (lazy-loaded by the /procurement/flows explorer).
+  fs.writeFileSync(path.join(outDir, "flow_full.json"), canonicalJson(flow));
+  fs.writeFileSync(
+    path.join(outDir, "flow.json"),
+    canonicalJson(trimFlow(flow)),
+  );
   fs.writeFileSync(
     path.join(outDir, "awarder_concentration.json"),
     canonicalJson(awarderConcentration),

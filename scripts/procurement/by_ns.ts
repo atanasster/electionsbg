@@ -18,7 +18,13 @@
 
 import fs from "fs";
 import path from "path";
-import type { Contract, MpCompanyRelation, MpConnectedFile } from "./types";
+import type {
+  Contract,
+  FlowFile,
+  MpCompanyRelation,
+  MpConnectedFile,
+} from "./types";
+import type { PepConnectedFile } from "./pep_connected";
 import { canonicalJson } from "./validate";
 import { toEur } from "@/lib/currency";
 
@@ -81,6 +87,19 @@ export interface NsTopMp {
   // whether the row needs verification.
   confidence: "high" | "medium";
 }
+export interface NsTopOfficial {
+  slug: string;
+  name: string;
+  // Tier + canonical role from the officials declarations tree (e.g.
+  // tier "municipal", role "mayor"). The UI maps role → a localized label.
+  tier: string;
+  role: string;
+  totalEur: number;
+  contractCount: number;
+  contractorCount: number;
+  // Top 3 contractor names for the preview label (same as NsTopMp).
+  topContractorNames: string[];
+}
 
 // A stake relation is self-declared by the MP (sourced from register.cacbg.bg
 // declarations), so it's the strongest possible signal — implicitly "high".
@@ -108,19 +127,29 @@ export interface ProcurementByNs {
     contractorCount: number;
     awarderCount: number;
     totalEur: number;
-    // MP-connected slice
+    // MP-connected slice.
     mpCount: number;
     mpConnectedContractorCount: number;
     mpConnectedTotalEur: number;
+    // Officials-connected slice (cabinet, governors, mayors, councillors, …).
+    officialCount: number;
+    officialConnectedContractorCount: number;
+    officialConnectedTotalEur: number;
+    // Combined (MPs ∪ officials), de-duplicated by contractor EIK so a company
+    // tied to both an MP and an official is counted once in the headline.
+    connectedContractorCount: number;
+    connectedTotalEur: number;
   };
   topContractors: NsTopContractor[];
   topAwarders: NsTopAwarder[];
   topMps: NsTopMp[];
+  topOfficials: NsTopOfficial[];
 }
 
 interface BuildOpts {
   contractsDir: string; // data/procurement/contracts
   mpConnected: MpConnectedFile;
+  pepConnected: PepConnectedFile;
   outDir: string; // data/procurement/by_ns
   elections: ElectionEntry[];
 }
@@ -151,6 +180,27 @@ interface Accum {
       byContractor: Map<string, { name: string; eur: number }>;
     }
   >;
+  // Per-official totals (slug → in-range euros + contributing contractors).
+  // Mirrors byMp so the headline count and the topOfficials ranking are both
+  // date-correct. name/tier/role are joined from officialMeta at materialise
+  // time, so the accumulator stays keyed on slug only.
+  byOfficial: Map<
+    string,
+    {
+      eur: number;
+      count: number;
+      contractorEiks: Set<string>;
+      byContractor: Map<string, { name: string; eur: number }>;
+    }
+  >;
+  // awarder→contractor edges, kept ONLY for connected (MP- or official-tied)
+  // contractors. Feeds the per-NS sankey's first column; restricting to
+  // connected contractors keeps this tiny (a few hundred edges) vs. the full
+  // awarder×contractor matrix. Keyed `${awarderEik}|${contractorEik}`.
+  byConnectedEdge: Map<
+    string,
+    { awarderName: string; contractorName: string; eur: number }
+  >;
 }
 
 const newAccum = (): Accum => ({
@@ -160,6 +210,8 @@ const newAccum = (): Accum => ({
   byContractor: new Map(),
   byAwarder: new Map(),
   byMp: new Map(),
+  byOfficial: new Map(),
+  byConnectedEdge: new Map(),
 });
 
 interface MpLink {
@@ -174,6 +226,7 @@ const accumulate = (
   contractsDir: string,
   ranges: NsRange[],
   eikToMps: Map<string, MpLink[]>,
+  eikToOfficials: Map<string, string[]>,
 ): Map<string, Accum> => {
   const out = new Map<string, Accum>();
   for (const r of ranges) out.set(r.electionDate, newAccum());
@@ -217,6 +270,24 @@ const accumulate = (
           ae.eur += eur;
           ae.count += 1;
           acc.byAwarder.set(r.awarderEik, ae);
+          // awarder→contractor edge for the per-NS sankey — only when the
+          // contractor is connected to an MP or an official (the only edges
+          // the flow page renders).
+          if (
+            eikToMps.has(r.contractorEik) ||
+            eikToOfficials.has(r.contractorEik)
+          ) {
+            const ekey = `${r.awarderEik}|${r.contractorEik}`;
+            const ed = acc.byConnectedEdge.get(ekey) ?? {
+              awarderName: r.awarderName,
+              contractorName: r.contractorName,
+              eur: 0,
+            };
+            ed.awarderName = r.awarderName || ed.awarderName;
+            ed.contractorName = r.contractorName || ed.contractorName;
+            ed.eur += eur;
+            acc.byConnectedEdge.set(ekey, ed);
+          }
           // Per-MP attribution: this contract row contributes to every MP
           // who has a linkage to this contractor.
           const mps = eikToMps.get(r.contractorEik);
@@ -241,6 +312,30 @@ const accumulate = (
               bc.eur += eur;
               mpAcc.byContractor.set(r.contractorEik, bc);
               acc.byMp.set(mp.mpId, mpAcc);
+            }
+          }
+          // Per-official attribution: this contract row contributes to every
+          // official tied to this contractor (same shape as the MP branch).
+          const offs = eikToOfficials.get(r.contractorEik);
+          if (offs && offs.length > 0) {
+            for (const slug of offs) {
+              const offAcc = acc.byOfficial.get(slug) ?? {
+                eur: 0,
+                count: 0,
+                contractorEiks: new Set<string>(),
+                byContractor: new Map<string, { name: string; eur: number }>(),
+              };
+              offAcc.eur += eur;
+              offAcc.count += 1;
+              offAcc.contractorEiks.add(r.contractorEik);
+              const bc = offAcc.byContractor.get(r.contractorEik) ?? {
+                name: r.contractorName,
+                eur: 0,
+              };
+              bc.name = r.contractorName || bc.name;
+              bc.eur += eur;
+              offAcc.byContractor.set(r.contractorEik, bc);
+              acc.byOfficial.set(slug, offAcc);
             }
           }
         }
@@ -280,6 +375,139 @@ const materialiseTopMps = (
     .sort((a, b) => b.totalEur - a.totalEur)
     .slice(0, TOP_N);
 
+// Materialise the per-official totals. Sibling of materialiseTopMps; name/
+// tier/role are joined from officialMeta (officials carry no party/confidence
+// dimension — every pep_connected link is already high-confidence-only).
+const materialiseTopOfficials = (
+  acc: Accum,
+  officialMeta: Map<string, { name: string; tier: string; role: string }>,
+): NsTopOfficial[] =>
+  [...acc.byOfficial.entries()]
+    .map(([slug, v]) => {
+      const meta = officialMeta.get(slug);
+      const topContractorNames = [...v.byContractor.values()]
+        .sort((a, b) => b.eur - a.eur)
+        .slice(0, 3)
+        .map((c) => c.name);
+      return {
+        slug,
+        name: meta?.name ?? slug,
+        tier: meta?.tier ?? "",
+        role: meta?.role ?? "",
+        totalEur: v.eur,
+        contractCount: v.count,
+        contractorCount: v.contractorEiks.size,
+        topContractorNames,
+      };
+    })
+    .sort((a, b) => b.totalEur - a.totalEur)
+    .slice(0, TOP_N);
+
+// One row of the per-NS "public money scanner" index — the date-scoped sibling
+// of risk_feed.ts's buildPersonIndex. Same shape the SPA's
+// usePersonProcurementIndex hook expects, so it's a drop-in when scope === ns.
+interface NsPersonRow {
+  kind: "mp" | "official";
+  name: string;
+  totalEur: number;
+  contractorCount: number;
+  contractCount: number;
+  mpId?: number;
+  slug?: string;
+  tier?: string;
+  role?: string;
+}
+
+interface NsPeopleFile {
+  generatedAt: string;
+  total: number;
+  rows: NsPersonRow[];
+}
+
+// Per-NS person index: every connected MP + official with their in-range
+// totals (uncapped — the scanner is searchable). Mirrors buildPersonIndex but
+// from the date-filtered accumulator.
+const buildNsPeople = (
+  acc: Accum,
+  officialMeta: Map<string, { name: string; tier: string; role: string }>,
+): NsPeopleFile => {
+  const rows: NsPersonRow[] = [];
+  for (const [mpId, v] of acc.byMp) {
+    rows.push({
+      kind: "mp",
+      mpId,
+      name: v.mpName,
+      totalEur: v.eur,
+      contractorCount: v.contractorEiks.size,
+      contractCount: v.count,
+    });
+  }
+  for (const [slug, v] of acc.byOfficial) {
+    const meta = officialMeta.get(slug);
+    rows.push({
+      kind: "official",
+      slug,
+      name: meta?.name ?? slug,
+      tier: meta?.tier ?? "",
+      role: meta?.role ?? "",
+      totalEur: v.eur,
+      contractorCount: v.contractorEiks.size,
+      contractCount: v.count,
+    });
+  }
+  rows.sort((a, b) => b.totalEur - a.totalEur);
+  return { generatedAt: new Date().toISOString(), total: rows.length, rows };
+};
+
+// Per-NS sankey: awarder → contractor → {mp | official}, date-scoped. Mirrors
+// derived.ts's buildFlow shape (same node ids/types) so the SPA's flow tile
+// renders it unchanged. Edge values are in-range euros: awarder→contractor
+// from byConnectedEdge, contractor→person from the per-person byContractor
+// breakdown (each person edge carries the contractor's full in-range total,
+// matching the corpus flow's "not split per MP" semantics).
+const buildNsFlow = (
+  acc: Accum,
+  officialMeta: Map<string, { name: string; tier: string; role: string }>,
+): FlowFile => {
+  const nodes = new Map<string, FlowFile["nodes"][number]>();
+  const links: FlowFile["links"] = [];
+  for (const [key, v] of acc.byConnectedEdge) {
+    if (v.eur <= 0) continue;
+    const [awarderEik, contractorEik] = key.split("|");
+    const an = `awarder:${awarderEik}`;
+    const cn = `contractor:${contractorEik}`;
+    nodes.set(an, { id: an, type: "awarder", label: v.awarderName });
+    nodes.set(cn, { id: cn, type: "contractor", label: v.contractorName });
+    links.push({ source: an, target: cn, valueEur: v.eur });
+  }
+  for (const [mpId, v] of acc.byMp) {
+    const mn = `mp:${mpId}`;
+    nodes.set(mn, { id: mn, type: "mp", label: v.mpName });
+    for (const [eik, bc] of v.byContractor) {
+      if (bc.eur <= 0) continue;
+      const cn = `contractor:${eik}`;
+      nodes.set(cn, { id: cn, type: "contractor", label: bc.name });
+      links.push({ source: cn, target: mn, valueEur: bc.eur });
+    }
+  }
+  for (const [slug, v] of acc.byOfficial) {
+    const on = `official:${slug}`;
+    const meta = officialMeta.get(slug);
+    nodes.set(on, { id: on, type: "official", label: meta?.name ?? slug });
+    for (const [eik, bc] of v.byContractor) {
+      if (bc.eur <= 0) continue;
+      const cn = `contractor:${eik}`;
+      nodes.set(cn, { id: cn, type: "contractor", label: bc.name });
+      links.push({ source: cn, target: on, valueEur: bc.eur });
+    }
+  }
+  return {
+    generatedAt: new Date().toISOString(),
+    nodes: [...nodes.values()],
+    links,
+  };
+};
+
 export const buildByNs = (
   opts: BuildOpts,
 ): { files: number; ranges: NsRange[] } => {
@@ -306,7 +534,36 @@ export const buildByNs = (
       computeLinkConfidence(e.relations),
     );
   }
-  const accums = accumulate(opts.contractsDir, ranges, eikToMps);
+  // EIK → official slugs (high-confidence officials, non-MP political class).
+  // officialTiedEiks is the de-dup set used for the per-range total walk;
+  // officialMeta carries name/tier/role for the topOfficials materialiser.
+  const eikToOfficials = new Map<string, string[]>();
+  const officialTiedEiks = new Set<string>();
+  const officialMeta = new Map<
+    string,
+    { name: string; tier: string; role: string }
+  >();
+  for (const e of opts.pepConnected.entries) {
+    officialTiedEiks.add(e.contractorEik);
+    const arr = eikToOfficials.get(e.contractorEik) ?? [];
+    if (!arr.includes(e.slug)) arr.push(e.slug);
+    eikToOfficials.set(e.contractorEik, arr);
+    if (!officialMeta.has(e.slug))
+      officialMeta.set(e.slug, { name: e.name, tier: e.tier, role: e.role });
+  }
+  const accums = accumulate(
+    opts.contractsDir,
+    ranges,
+    eikToMps,
+    eikToOfficials,
+  );
+  // Per-NS flow + people shards live in their own subdirs so the lean landing
+  // summary (by_ns/<date>.json) stays small; only the flow / scanner pages
+  // fetch them, and only for the selected election.
+  const flowDir = path.join(opts.outDir, "flow");
+  const peopleDir = path.join(opts.outDir, "people");
+  fs.mkdirSync(flowDir, { recursive: true });
+  fs.mkdirSync(peopleDir, { recursive: true });
   let filesWritten = 0;
   for (const range of ranges) {
     const acc = accums.get(range.electionDate);
@@ -332,6 +589,7 @@ export const buildByNs = (
       .sort((a, b) => b.totalEur - a.totalEur)
       .slice(0, TOP_N);
     const topMps = materialiseTopMps(acc, linkConfidence);
+    const topOfficials = materialiseTopOfficials(acc, officialMeta);
     const totalEur = [...acc.byContractor.values()].reduce(
       (s, v) => s + v.eur,
       0,
@@ -341,10 +599,26 @@ export const buildByNs = (
     // top-50). Walk byContractor for every EIK that has an MP linkage.
     let mpConnectedTotalEur = 0;
     let mpConnectedContractorCount = 0;
+    let officialConnectedTotalEur = 0;
+    let officialConnectedContractorCount = 0;
+    let connectedTotalEur = 0;
+    let connectedContractorCount = 0;
     for (const [eik, v] of acc.byContractor) {
-      if (!mpTiedEiks.has(eik)) continue;
-      mpConnectedTotalEur += v.eur;
-      mpConnectedContractorCount += 1;
+      const mp = mpTiedEiks.has(eik);
+      const off = officialTiedEiks.has(eik);
+      if (mp) {
+        mpConnectedTotalEur += v.eur;
+        mpConnectedContractorCount += 1;
+      }
+      if (off) {
+        officialConnectedTotalEur += v.eur;
+        officialConnectedContractorCount += 1;
+      }
+      // De-dup: a company tied to both an MP and an official counts once.
+      if (mp || off) {
+        connectedTotalEur += v.eur;
+        connectedContractorCount += 1;
+      }
     }
     const file: ProcurementByNs = {
       electionDate: range.electionDate,
@@ -361,14 +635,29 @@ export const buildByNs = (
         mpCount: acc.byMp.size,
         mpConnectedContractorCount,
         mpConnectedTotalEur,
+        officialCount: acc.byOfficial.size,
+        officialConnectedContractorCount,
+        officialConnectedTotalEur,
+        connectedContractorCount,
+        connectedTotalEur,
       },
       topContractors,
       topAwarders,
       topMps,
+      topOfficials,
     };
     fs.writeFileSync(
       path.join(opts.outDir, `${range.electionDate}.json`),
       canonicalJson(file),
+    );
+    // Per-NS flow + people sidecars (date-scoped sankey + scanner index).
+    fs.writeFileSync(
+      path.join(flowDir, `${range.electionDate}.json`),
+      canonicalJson(buildNsFlow(acc, officialMeta)),
+    );
+    fs.writeFileSync(
+      path.join(peopleDir, `${range.electionDate}.json`),
+      canonicalJson(buildNsPeople(acc, officialMeta)),
     );
     filesWritten++;
   }

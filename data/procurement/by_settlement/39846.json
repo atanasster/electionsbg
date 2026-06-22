@@ -3,19 +3,19 @@
   "name": "Криводол",
   "province": "Враца",
   "obshtina": "Криводол",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 63,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 57,
   "awardCount": 0,
-  "totalEur": 14319575.633201964,
+  "totalEur": 11926948.646193892,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000193282",
       "name": "Община Криводол",
       "tier": "municipal",
-      "totalEur": 14160144.59462719,
+      "totalEur": 11767517.607619118,
       "totalOther": {},
-      "contractCount": 59,
+      "contractCount": 53,
       "awardCount": 0
     },
     {
@@ -29,18 +29,6 @@
     }
   ],
   "topContracts": [
-    {
-      "key": "41751021359e",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-02-13",
-      "amount": 3804846.61,
-      "currency": "BGN",
-      "amountEur": 1945387.1808899546,
-      "partyEik": "106003890",
-      "partyName": "СТРОИТЕЛ-КРИВОДОЛ ЕООД - гр. Криводол",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
     {
       "key": "7cb042cbfa4c",
       "ocid": "aop-legacy-2019-894060",
@@ -140,18 +128,6 @@
     {
       "key": "6fbd84e5a27c",
       "ocid": "aop-legacy-2019-951215",
-      "date": "2019-12-23",
-      "amount": 675810.03,
-      "currency": "BGN",
-      "amountEur": 345536.1815699729,
-      "partyEik": "175219757",
-      "partyName": "Копекс и ко ЕООД",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "b2f79228da18",
-      "ocid": "aop-legacy-2019-x",
       "date": "2019-12-23",
       "amount": 675810.03,
       "currency": "BGN",
@@ -546,18 +522,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "880b877f9276",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-02-13",
-      "amount": 68800,
-      "currency": "BGN",
-      "amountEur": 35176.881426299835,
-      "partyEik": "200285252",
-      "partyName": "Стройнорм ЕООД - гр.София - Стройнорм ООД (старо наименование)",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "bf59632b65bc",
       "ocid": "aop-legacy-2019-894101",
       "date": "2019-02-13",
@@ -594,18 +558,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "1afdb633baf9",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-08-26",
-      "amount": 62700,
-      "currency": "BGN",
-      "amountEur": 32058.000951002898,
-      "partyEik": "816011440",
-      "partyName": "Цветан Горанов - Цветогор ЕТ - с. Големо Бабино",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
       "key": "903551674f77",
       "ocid": "aop-legacy-2016-746576",
       "date": "2016-08-26",
@@ -628,6 +580,54 @@
       "partyName": "Инфраконструкт ООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "7613f16ebd0a",
+      "ocid": "aop-legacy-2023-382401",
+      "date": "2023-06-02",
+      "amount": 46763.28,
+      "currency": "BGN",
+      "amountEur": 23909.6854021055,
+      "partyEik": "204725667",
+      "partyName": "Бизнес офис корект ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "db23e617928c",
+      "ocid": "aop-legacy-2023-339306",
+      "date": "2023-03-06",
+      "amount": 42607.65,
+      "currency": "BGN",
+      "amountEur": 21784.94552185006,
+      "partyEik": "200378735",
+      "partyName": "Лъки - враца ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "253091fcdf7d",
+      "ocid": "aop-legacy-2016-749670",
+      "date": "2016-09-19",
+      "amount": 39315,
+      "currency": "BGN",
+      "amountEur": 20101.44030922933,
+      "partyEik": "130838416",
+      "partyName": "Вамос ООД",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "e3ff715e566c",
+      "ocid": "aop-legacy-2011-2015-615374",
+      "date": "2014-07-15",
+      "amount": 37900,
+      "currency": "BGN",
+      "amountEur": 19377.962297336682,
+      "partyEik": "106035361",
+      "partyName": "ЕТ Апостолов-К - Георги Апостолов, гр. Криводол",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -663,15 +663,15 @@
     },
     {
       "year": "2016",
-      "totalEur": 202538.05289825803,
+      "totalEur": 136011.30977641206,
       "totalOther": {},
-      "contractCount": 8
+      "contractCount": 5
     },
     {
       "year": "2019",
-      "totalEur": 4839343.4449824365,
+      "totalEur": 2513243.2010962097,
       "totalOther": {},
-      "contractCount": 9
+      "contractCount": 6
     },
     {
       "year": "2022",

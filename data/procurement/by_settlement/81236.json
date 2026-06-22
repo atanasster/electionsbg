@@ -3,28 +3,28 @@
   "name": "Черноочене",
   "province": "Кърджали",
   "obshtina": "Черноочене",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 282,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 255,
   "awardCount": 0,
-  "totalEur": 21269303.65283567,
+  "totalEur": 20785655.60060209,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000236164",
       "name": "Община Черноочене",
       "tier": "municipal",
-      "totalEur": 20841045.012550164,
+      "totalEur": 20464738.0891468,
       "totalOther": {},
-      "contractCount": 271,
+      "contractCount": 247,
       "awardCount": 0
     },
     {
       "eik": "108501982",
       "name": "Средно училище \"Христо Смирненски\"",
       "tier": "school",
-      "totalEur": 428258.6402855054,
+      "totalEur": 320917.5114552901,
       "totalOther": {},
-      "contractCount": 11,
+      "contractCount": 8,
       "awardCount": 0
     }
   ],
@@ -220,18 +220,6 @@
       "partyName": "Аб АД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "4e349da9bf8e",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-05-31",
-      "amount": 452237.97,
-      "currency": "BGN",
-      "amountEur": 231225.60242965902,
-      "partyEik": "126608270",
-      "partyName": "ВиК-БУНАР ЕООД - Хасково /старо наименование - Бунар ООД - Хасково/",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
       "key": "75a21de0e4c7",
@@ -628,6 +616,18 @@
       "partyName": "Даш - 2008 ЕООД - с. Ночево",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "7229eac2daa2",
+      "ocid": "ocds-e82gsb-541362",
+      "date": "2026-01-16",
+      "amount": 60162.32,
+      "currency": "EUR",
+      "amountEur": 60162.32,
+      "partyEik": "104518906",
+      "partyName": "Вали компютърс ООД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-541362-798475%2F2026-01-16-award"
     }
   ],
   "byYear": [
@@ -663,21 +663,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 322827.5463613914,
+      "totalEur": 224917.503054969,
       "totalOther": {},
-      "contractCount": 15
+      "contractCount": 8
     },
     {
       "year": "2017",
-      "totalEur": 97329.52250451216,
+      "totalEur": 48664.76125225608,
       "totalOther": {},
-      "contractCount": 20
+      "contractCount": 10
     },
     {
       "year": "2019",
-      "totalEur": 892343.6801767026,
+      "totalEur": 555270.4325018022,
       "totalOther": {},
-      "contractCount": 22
+      "contractCount": 12
     },
     {
       "year": "2020",

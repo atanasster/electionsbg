@@ -25,6 +25,7 @@ import {
   buildTopContractors,
   writeDerived,
 } from "./derived";
+import { buildPepConnected, writePepConnected } from "./pep_connected";
 import { writeByIdContracts } from "./by_id";
 import { writeContractorContracts } from "./contractor_contracts";
 import { writeAwarderContracts } from "./awarder_contracts";
@@ -50,6 +51,10 @@ const BUNDLES_FILE = path.join(PROCUREMENT_DIR, "bundles.json");
 const COMPANIES_INDEX = path.resolve(
   __dirname,
   "../../data/parliament/companies-index.json",
+);
+const OFFICIALS_COMPANY_LINKS = path.resolve(
+  __dirname,
+  "../../data/officials/derived/company_links.json",
 );
 const ELECTIONS_INDEX = path.resolve(
   __dirname,
@@ -105,6 +110,36 @@ const main = (): void => {
   const ac = writeAwarderContracts(CONTRACTS_DIR, AWARDER_CONTRACTS_DIR);
   console.log(`  awarder_contracts/: ${ac.filesWritten} file(s)`);
 
+  // Officials (non-MP political class) → procurement. Independent of the
+  // companies-index gate below (uses the officials declarations tree).
+  const pepConnected = buildPepConnected(
+    OFFICIALS_COMPANY_LINKS,
+    CONTRACTORS_DIR,
+  );
+  writePepConnected(DERIVED_DIR, pepConnected);
+  console.log(
+    `  pep_connected.json: ${pepConnected.total} pair(s), ${pepConnected.officialCount} official(s)`,
+  );
+  const offSlugs = new Set<string>();
+  const offByEik = new Map<string, number>();
+  for (const e of pepConnected.entries) {
+    offSlugs.add(e.slug);
+    if (!offByEik.has(e.contractorEik))
+      offByEik.set(e.contractorEik, e.totalEur);
+  }
+  let officialsTotalEur = 0;
+  for (const v of offByEik.values()) officialsTotalEur += v;
+  const officialsCrossRefSummary: ProcurementIndex["officialsCrossReference"] =
+    pepConnected.entries.length > 0
+      ? {
+          generatedAt: new Date().toISOString(),
+          officialCount: offSlugs.size,
+          contractorCount: offByEik.size,
+          pairCount: pepConnected.entries.length,
+          totalEur: officialsTotalEur,
+        }
+      : undefined;
+
   let crossRefSummary: ProcurementIndex["crossReference"] | undefined;
   if (fs.existsSync(COMPANIES_INDEX)) {
     console.log("→ cross-referencing contractors against MP-companies graph");
@@ -114,7 +149,7 @@ const main = (): void => {
     console.log(`  ${mpConnected.entries.length} MP↔contractor pair(s)`);
 
     const top = buildTopContractors(CONTRACTORS_DIR, mpConnected);
-    const flow = buildFlow(AWARDERS_DIR, mpConnected);
+    const flow = buildFlow(AWARDERS_DIR, mpConnected, pepConnected);
     const concentration = buildAwarderConcentration(AWARDERS_DIR);
     writeDerived(DERIVED_DIR, top, flow, concentration);
     console.log(
@@ -128,6 +163,7 @@ const main = (): void => {
       const byNs = buildByNs({
         contractsDir: CONTRACTS_DIR,
         mpConnected,
+        pepConnected,
         outDir: BY_NS_DIR,
         elections,
       });
@@ -191,6 +227,9 @@ const main = (): void => {
       periodEnd: b.periodEnd,
     })),
     ...(crossRefSummary ? { crossReference: crossRefSummary } : {}),
+    ...(officialsCrossRefSummary
+      ? { officialsCrossReference: officialsCrossRefSummary }
+      : {}),
   };
   fs.writeFileSync(INDEX_FILE, canonicalJson(idx));
   console.log("✓ index.json rewritten — procurement rebuild complete");

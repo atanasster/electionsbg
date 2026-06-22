@@ -3,19 +3,19 @@
   "name": "Ветово",
   "province": "Русе",
   "obshtina": "Ветово",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 120,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 107,
   "awardCount": 0,
-  "totalEur": 20566574.433616776,
+  "totalEur": 19122015.264363825,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000530504",
       "name": "Община Ветово",
       "tier": "municipal",
-      "totalEur": 20566574.433616776,
+      "totalEur": 19122015.264363825,
       "totalOther": {},
-      "contractCount": 120,
+      "contractCount": 107,
       "awardCount": 0
     }
   ],
@@ -105,18 +105,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-550466-804391%2F2026-01-30-award"
     },
     {
-      "key": "63108ee47564",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-06-07",
-      "amount": 1075680,
-      "currency": "BGN",
-      "amountEur": 549986.4507651483,
-      "partyEik": "831578348",
-      "partyName": "Еф Си Си България ЕООД             / старо А.С.А. - България /старо наименование А.С.А. Шеле - България/ ЕООД - София",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
       "key": "80d3f5569263",
       "ocid": "aop-legacy-2016-735848",
       "date": "2016-06-07",
@@ -179,18 +167,6 @@
     {
       "key": "c92e796ddc20",
       "ocid": "aop-legacy-2019-893911",
-      "date": "2019-02-15",
-      "amount": 925000,
-      "currency": "BGN",
-      "amountEur": 472944.9901065021,
-      "partyEik": "831578348",
-      "partyName": "Еф Си Си България ЕООД             / старо А.С.А. - България /старо наименование А.С.А. Шеле - България/ ЕООД - София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "ee225dc9f8cb",
-      "ocid": "aop-legacy-2019-x",
       "date": "2019-02-15",
       "amount": 925000,
       "currency": "BGN",
@@ -355,18 +331,6 @@
       "partyName": "ЕЛ АР Кепитъл ЕООД",
       "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
       "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-546709-838176%2F2026-03-31-award"
-    },
-    {
-      "key": "1e5e49a751a1",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-10-11",
-      "amount": 387579.13,
-      "currency": "BGN",
-      "amountEur": 198166.06249009373,
-      "partyEik": "200720669",
-      "partyName": "Медия интер груп  ЕООД",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
       "key": "7d79d048a2e9",
@@ -573,18 +537,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
     },
     {
-      "key": "3b8c4bd2917c",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-01-11",
-      "amount": 106866.61,
-      "currency": "BGN",
-      "amountEur": 54640.030063962615,
-      "partyEik": "117620882",
-      "partyName": "Бороимпекс АД - Борово",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "a1a35cd564b1",
       "ocid": "aop-legacy-2017-766411",
       "date": "2017-01-11",
@@ -619,6 +571,54 @@
       "partyName": "Пътинженеринг АД",
       "bundleUuid": "c5404069-668a-4cd2-ab43-a1cdc26e03c6",
       "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
+    },
+    {
+      "key": "7df43bf8fe47",
+      "ocid": "aop-legacy-2020-74994",
+      "date": "2020-11-25",
+      "amount": 99923.83,
+      "currency": "BGN",
+      "amountEur": 51090.243017031135,
+      "partyEik": "117620882",
+      "partyName": "Бороимпекс АД",
+      "bundleUuid": "c5404069-668a-4cd2-ab43-a1cdc26e03c6",
+      "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
+    },
+    {
+      "key": "200a90c4e984",
+      "ocid": "aop-legacy-2022-208979",
+      "date": "2022-03-17",
+      "amount": 99777.77,
+      "currency": "BGN",
+      "amountEur": 51015.56372486361,
+      "partyEik": "201484467",
+      "partyName": "Автокам българия ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "684a80dfc487",
+      "ocid": "aop-legacy-2022-241701",
+      "date": "2022-06-10",
+      "amount": 98281.51,
+      "currency": "BGN",
+      "amountEur": 50250.538134704955,
+      "partyEik": "117606174",
+      "partyName": "Медиком ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "8401b1fafc53",
+      "ocid": "ocds-e82gsb-555019",
+      "date": "2026-02-02",
+      "amount": 49445,
+      "currency": "EUR",
+      "amountEur": 49445,
+      "partyEik": "203330254",
+      "partyName": "Бизнес парк ветово ЕООД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-555019-804327%2F2026-02-02-award"
     }
   ],
   "byYear": [
@@ -654,21 +654,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 1555205.8512242883,
+      "totalEur": 807053.3379690463,
       "totalOther": {},
-      "contractCount": 5
+      "contractCount": 3
     },
     {
       "year": "2017",
-      "totalEur": 329534.3255804441,
+      "totalEur": 206006.4064872714,
       "totalOther": {},
-      "contractCount": 11
+      "contractCount": 6
     },
     {
       "year": "2019",
-      "totalEur": 1535234.0643102927,
+      "totalEur": 962355.3274057561,
       "totalOther": {},
-      "contractCount": 14
+      "contractCount": 8
     },
     {
       "year": "2020",

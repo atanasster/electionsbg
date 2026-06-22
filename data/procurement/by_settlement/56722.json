@@ -3,64 +3,64 @@
   "name": "Плевен",
   "province": "Плевен",
   "obshtina": "Плевен",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 3785,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 3231,
   "awardCount": 0,
-  "totalEur": 1100292587.9540305,
+  "totalEur": 997212308.6659532,
   "totalOther": {},
   "awarders": [
     {
       "eik": "114532352",
       "name": "Университетска многопрофилна болница за активно лечение - Д-Р георги Странски ЕАД",
       "tier": "hospital",
-      "totalEur": 595501643.949367,
+      "totalEur": 543572181.3529245,
       "totalOther": {},
-      "contractCount": 1985,
+      "contractCount": 1695,
       "awardCount": 0
     },
     {
       "eik": "000413974",
       "name": "Община Плевен",
       "tier": "municipal",
-      "totalEur": 376092214.6905458,
+      "totalEur": 342872298.501511,
       "totalOther": {},
-      "contractCount": 862,
+      "contractCount": 702,
       "awardCount": 0
     },
     {
       "eik": "824106518",
       "name": "Водоснабдяване и канализация ЕООД",
       "tier": "utility",
-      "totalEur": 50946559.51789761,
+      "totalEur": 46223012.48160101,
       "totalOther": {},
-      "contractCount": 208,
+      "contractCount": 178,
       "awardCount": 0
     },
     {
       "eik": "000405689",
       "name": "Медицински университет",
       "tier": "university",
-      "totalEur": 28939078.400283866,
+      "totalEur": 25080688.356159385,
       "totalOther": {},
-      "contractCount": 173,
+      "contractCount": 151,
       "awardCount": 0
     },
     {
       "eik": "824104727",
       "name": "Тролейбусен транспорт ЕООД",
       "tier": "utility",
-      "totalEur": 28274140.247130267,
+      "totalEur": 20903575.034407284,
       "totalOther": {},
-      "contractCount": 136,
+      "contractCount": 115,
       "awardCount": 0
     },
     {
       "eik": "114005624",
       "name": "Топлофикация - плевен АД",
       "tier": "utility",
-      "totalEur": 6843694.183653949,
+      "totalEur": 5974889.369329595,
       "totalOther": {},
-      "contractCount": 103,
+      "contractCount": 83,
       "awardCount": 0
     },
     {
@@ -76,18 +76,18 @@
       "eik": "129009863",
       "name": "Областна дирекция на МВР (ОДМВР) - Плевен",
       "tier": "regional_gov",
-      "totalEur": 3242563.3925238894,
+      "totalEur": 2377048.8539392482,
       "totalOther": {},
-      "contractCount": 42,
+      "contractCount": 35,
       "awardCount": 0
     },
     {
       "eik": "000411973",
       "name": "Център за спешна Медицинска помощ - плевен",
       "tier": "hospital",
-      "totalEur": 1816163.9610804624,
+      "totalEur": 1668998.8189157546,
       "totalOther": {},
-      "contractCount": 50,
+      "contractCount": 47,
       "awardCount": 0
     },
     {
@@ -109,15 +109,6 @@
       "awardCount": 0
     },
     {
-      "eik": "000403154",
-      "name": "Спортно училище \"Георги Бенковски",
-      "tier": "school",
-      "totalEur": 382038.909312159,
-      "totalOther": {},
-      "contractCount": 9,
-      "awardCount": 0
-    },
-    {
       "eik": "114583635",
       "name": "Диагностично консултативен център - плевен ЕООД",
       "tier": "hospital",
@@ -133,6 +124,15 @@
       "totalEur": 314935.87269440596,
       "totalOther": {},
       "contractCount": 15,
+      "awardCount": 0
+    },
+    {
+      "eik": "000403154",
+      "name": "Спортно училище \"Георги Бенковски",
+      "tier": "school",
+      "totalEur": 285125.19493002974,
+      "totalOther": {},
+      "contractCount": 8,
       "awardCount": 0
     },
     {
@@ -765,18 +765,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
     },
     {
-      "key": "94f2b7729d36",
-      "ocid": "aop-legacy-2021-x",
-      "date": "2021-05-21",
-      "amount": 11181102,
-      "currency": "BGN",
-      "amountEur": 5716806.675426801,
-      "partyEik": "201955499",
-      "partyName": "Българска автомобилна индустрия ЕАД - София",
-      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
-      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
-    },
-    {
       "key": "efc38ff722fb",
       "ocid": "ocds-e82gsb-543372",
       "date": "2026-05-20",
@@ -825,30 +813,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
-      "key": "46ae8faf9bfc",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-10-28",
-      "amount": 10075808.99,
-      "currency": "BGN",
-      "amountEur": 5151679.3330708705,
-      "partyEik": "131279951",
-      "partyName": "РОШ България ЕООД",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "092e921d16ee",
-      "ocid": "aop-legacy-2021-x",
-      "date": "2021-02-01",
-      "amount": 9642814.38,
-      "currency": "BGN",
-      "amountEur": 4930292.704376148,
-      "partyEik": "177472356",
-      "partyName": "ДЗЗД Плевен 2020",
-      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
-      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
-    },
-    {
       "key": "8c32f2ee794a",
       "ocid": "aop-legacy-2021-1006454",
       "date": "2021-02-01",
@@ -885,18 +849,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
-      "key": "3e383e243ff3",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-10-07",
-      "amount": 8916830.68,
-      "currency": "BGN",
-      "amountEur": 4559103.132685356,
-      "partyEik": "131279951",
-      "partyName": "РОШ България ЕООД",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
       "key": "590f70ce004b",
       "ocid": "aop-legacy-2016-752171",
       "date": "2016-10-07",
@@ -907,6 +859,54 @@
       "partyName": "РОШ България ЕООД",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "27ad00a92d6d",
+      "ocid": "aop-legacy-2023-338456",
+      "date": "2023-03-03",
+      "amount": 8511749.46,
+      "currency": "BGN",
+      "amountEur": 4351988.393674297,
+      "partyEik": "131279951",
+      "partyName": "РОШ България ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "0cbbb14c237a",
+      "ocid": "aop-legacy-2023-420683",
+      "date": "2023-09-08",
+      "amount": 8368000,
+      "currency": "BGN",
+      "amountEur": 4278490.461849957,
+      "partyEik": "200907117",
+      "partyName": "Кумер ООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "595437a38b9a",
+      "ocid": "aop-legacy-2022-262194",
+      "date": "2022-08-12",
+      "amount": 8368000,
+      "currency": "BGN",
+      "amountEur": 4278490.461849957,
+      "partyEik": "113570147",
+      "partyName": "Електрохолд Трейд ЕАД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "7e7ce4df30c5",
+      "ocid": "aop-legacy-2023-379642",
+      "date": "2023-05-30",
+      "amount": 8047079.29,
+      "currency": "BGN",
+      "amountEur": 4114406.30831923,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -942,21 +942,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 68050198.12560391,
+      "totalEur": 40724746.99232549,
       "totalOther": {},
-      "contractCount": 415
+      "contractCount": 248
     },
     {
       "year": "2017",
-      "totalEur": 66695148.714356564,
+      "totalEur": 38519493.928408906,
       "totalOther": {},
-      "contractCount": 464
+      "contractCount": 260
     },
     {
       "year": "2019",
-      "totalEur": 101170365.80888933,
+      "totalEur": 64291013.17087886,
       "totalOther": {},
-      "contractCount": 408
+      "contractCount": 228
     },
     {
       "year": "2020",
@@ -966,9 +966,9 @@
     },
     {
       "year": "2021",
-      "totalEur": 21425206.055741042,
+      "totalEur": 10725385.324900426,
       "totalOther": {},
-      "contractCount": 7
+      "contractCount": 4
     },
     {
       "year": "2022",

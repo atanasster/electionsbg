@@ -3,64 +3,55 @@
   "name": "Сливен",
   "province": "Сливен",
   "obshtina": "Сливен",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 1645,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 1496,
   "awardCount": 0,
-  "totalEur": 282514012.0528414,
+  "totalEur": 250535232.78777227,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000590654",
       "name": "Община Сливен",
       "tier": "municipal",
-      "totalEur": 201116724.96623132,
+      "totalEur": 177802959.83838263,
       "totalOther": {},
-      "contractCount": 557,
+      "contractCount": 464,
       "awardCount": 0
     },
     {
       "eik": "829053806",
       "name": "Водоснабдяване и канализация - сливен ООД",
       "tier": "utility",
-      "totalEur": 34728007.38286713,
+      "totalEur": 31501792.44598611,
       "totalOther": {},
-      "contractCount": 76,
+      "contractCount": 62,
       "awardCount": 0
     },
     {
       "eik": "119502733",
       "name": "\"Многопрофилна болница за активно лечение д - р Иван Селимински - Сливен\" АД",
       "tier": "hospital",
-      "totalEur": 22530456.1646958,
+      "totalEur": 21106806.15932724,
       "totalOther": {},
-      "contractCount": 555,
+      "contractCount": 534,
       "awardCount": 0
     },
     {
       "eik": "119004654",
       "name": "Топлофикация-Сливен-инж.Ангел Ангелов ЕАД",
       "tier": "utility",
-      "totalEur": 14182859.814078014,
+      "totalEur": 10355114.866920028,
       "totalOther": {},
-      "contractCount": 93,
+      "contractCount": 75,
       "awardCount": 0
     },
     {
       "eik": "000591101",
       "name": "Регионална дирекция по горите - сливен",
       "tier": "regional_gov",
-      "totalEur": 1225784.6336338026,
+      "totalEur": 1196880.8689916814,
       "totalOther": {},
-      "contractCount": 18,
-      "awardCount": 0
-    },
-    {
-      "eik": "129009913",
-      "name": "Областна дирекция на МВР (ОДМВР) - Сливен",
-      "tier": "regional_gov",
-      "totalEur": 1198051.7631900522,
-      "totalOther": {},
-      "contractCount": 9,
+      "contractCount": 17,
       "awardCount": 0
     },
     {
@@ -70,6 +61,15 @@
       "totalEur": 1158583.4014936371,
       "totalOther": {},
       "contractCount": 14,
+      "awardCount": 0
+    },
+    {
+      "eik": "129009913",
+      "name": "Областна дирекция на МВР (ОДМВР) - Сливен",
+      "tier": "regional_gov",
+      "totalEur": 1070228.7928909978,
+      "totalOther": {},
+      "contractCount": 8,
       "awardCount": 0
     },
     {
@@ -208,15 +208,6 @@
       "awardCount": 0
     },
     {
-      "eik": "129010890",
-      "name": "Регионална дирекция \"Пожарна безопасност и защита на населението\"- гр.  Сливен",
-      "tier": "regional_gov",
-      "totalEur": 138048.807922979,
-      "totalOther": {},
-      "contractCount": 3,
-      "awardCount": 0
-    },
-    {
       "eik": "000585696",
       "name": "Детска Градина \"Зорница\"",
       "tier": "school",
@@ -259,6 +250,15 @@
       "totalEur": 112993.84915866921,
       "totalOther": {},
       "contractCount": 13,
+      "awardCount": 0
+    },
+    {
+      "eik": "129010890",
+      "name": "Регионална дирекция \"Пожарна безопасност и защита на населението\"- гр.  Сливен",
+      "tier": "regional_gov",
+      "totalEur": 107371.29505120589,
+      "totalOther": {},
+      "contractCount": 2,
       "awardCount": 0
     },
     {
@@ -660,18 +660,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "4095d70a9e1b",
-      "ocid": "aop-legacy-2021-x",
-      "date": "2021-01-18",
-      "amount": 3294644.76,
-      "currency": "BGN",
-      "amountEur": 1684525.1172136636,
-      "partyEik": "177471813",
-      "partyName": "ДЗЗД Аква Пура",
-      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
-      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
-    },
-    {
       "key": "45fd1ebd4854",
       "ocid": "aop-legacy-2021-1004916",
       "date": "2021-01-18",
@@ -686,18 +674,6 @@
     {
       "key": "8744af6c8e5d",
       "ocid": "aop-legacy-2017-801344",
-      "date": "2017-08-21",
-      "amount": 3156825,
-      "currency": "BGN",
-      "amountEur": 1614058.9928572525,
-      "partyEik": "000065763",
-      "partyName": "СМА Минерал бургас вар  /старо наименование Бургас - Вар ЕООД - Бургас/",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "930e989580e5",
-      "ocid": "aop-legacy-2017-x",
       "date": "2017-08-21",
       "amount": 3156825,
       "currency": "BGN",
@@ -792,18 +768,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
-      "key": "d011586fe125",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-11-09",
-      "amount": 2322089.59,
-      "currency": "BGN",
-      "amountEur": 1187265.5547772555,
-      "partyEik": "177211192",
-      "partyName": "Обединение „Сливен Партнерс” ДЗЗД",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "58bbce7a3b63",
       "ocid": "aop-legacy-2011-2015-688837",
       "date": "2015-09-23",
@@ -838,18 +802,6 @@
       "partyName": "ДЗЗД Про Груп партнърс, Сливен",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "48e90d9577e9",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-05-16",
-      "amount": 1900800,
-      "currency": "BGN",
-      "amountEur": 971863.6077777721,
-      "partyEik": "000065763",
-      "partyName": "СМА Минерал бургас вар  /старо наименование Бургас - Вар ЕООД - Бургас/",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
       "key": "5ebb40407722",
@@ -890,18 +842,6 @@
     {
       "key": "5749cad86325",
       "ocid": "aop-legacy-2016-731897",
-      "date": "2016-04-28",
-      "amount": 1760000,
-      "currency": "BGN",
-      "amountEur": 899873.7109053446,
-      "partyEik": "119004654",
-      "partyName": "Топлофикация - Сливен ЕАД",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "b06dde4a9401",
-      "ocid": "aop-legacy-2016-x",
       "date": "2016-04-28",
       "amount": 1760000,
       "currency": "BGN",
@@ -960,14 +900,74 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
-      "key": "727f2c7f81bc",
-      "ocid": "aop-legacy-2019-x",
+      "key": "cce5c89f102f",
+      "ocid": "aop-legacy-2019-893252",
       "date": "2019-02-07",
       "amount": 1585211.2,
       "currency": "BGN",
       "amountEur": 810505.6165413149,
       "partyEik": "177336114",
       "partyName": "ДЗЗД «Чавдар 2018» - Сливен",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "6046a09a226b",
+      "ocid": "aop-legacy-2022-249139",
+      "date": "2022-07-04",
+      "amount": 1499700,
+      "currency": "BGN",
+      "amountEur": 766784.4342299688,
+      "partyEik": "119628493",
+      "partyName": "ЕКО Глобъл ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "f5531940a392",
+      "ocid": "ocds-e82gsb-524201",
+      "date": "2026-03-02",
+      "amount": 738533.28,
+      "currency": "EUR",
+      "amountEur": 738533.28,
+      "partyEik": "203022445",
+      "partyName": "Килтекс ЕООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-524201-817506%2F2026-03-02-award"
+    },
+    {
+      "key": "1d16175ceb3d",
+      "ocid": "aop-legacy-2022-243916",
+      "date": "2022-06-22",
+      "amount": 1391661,
+      "currency": "BGN",
+      "amountEur": 711544.9706774106,
+      "partyEik": "119677914",
+      "partyName": "КЕЙ Енд ви ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "cc683bcf7884",
+      "ocid": "aop-legacy-2022-231059",
+      "date": "2022-05-16",
+      "amount": 1373223.24,
+      "currency": "BGN",
+      "amountEur": 702117.8936819662,
+      "partyEik": "205888432",
+      "partyName": "Спейс секюрити ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "1719a7989820",
+      "ocid": "aop-legacy-2019-897450",
+      "date": "2019-03-01",
+      "amount": 1367506.8,
+      "currency": "BGN",
+      "amountEur": 699195.1243206209,
+      "partyEik": "113570147",
+      "partyName": "Чез Трейд България ЕАД - София",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
@@ -1005,21 +1005,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 18885622.564333297,
+      "totalEur": 10406792.650690498,
       "totalOther": {},
-      "contractCount": 90
+      "contractCount": 60
     },
     {
       "year": "2017",
-      "totalEur": 20172109.626092248,
+      "totalEur": 11561126.171497524,
       "totalOther": {},
-      "contractCount": 114
+      "contractCount": 72
     },
     {
       "year": "2019",
-      "totalEur": 31337754.114621416,
+      "totalEur": 18219927.06421315,
       "totalOther": {},
-      "contractCount": 182
+      "contractCount": 110
     },
     {
       "year": "2020",
@@ -1029,9 +1029,9 @@
     },
     {
       "year": "2021",
-      "totalEur": 4443759.171298118,
+      "totalEur": 2672620.324874861,
       "totalOther": {},
-      "contractCount": 18
+      "contractCount": 13
     },
     {
       "year": "2022",

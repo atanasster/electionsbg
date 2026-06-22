@@ -3,19 +3,19 @@
   "name": "Искър",
   "province": "Плевен",
   "obshtina": "Искър",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 261,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 225,
   "awardCount": 0,
-  "totalEur": 23796368.163331434,
+  "totalEur": 23168267.454169586,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000413942",
       "name": "Община Искър",
       "tier": "municipal",
-      "totalEur": 23796368.163331434,
+      "totalEur": 23168267.454169586,
       "totalOther": {},
-      "contractCount": 261,
+      "contractCount": 225,
       "awardCount": 0
     }
   ],
@@ -345,18 +345,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
-      "key": "c3ba4681acfd",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-07-17",
-      "amount": 330851.56,
-      "currency": "BGN",
-      "amountEur": 169161.71650910354,
-      "partyEik": "111560974",
-      "partyName": "Дикистрой ЕООД - София",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "a2c8b523421c",
       "ocid": "aop-legacy-2023-404321",
       "date": "2023-07-25",
@@ -619,6 +607,18 @@
       "partyName": "АРТ-СТРОЙ ООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "2cfabdf25713",
+      "ocid": "aop-legacy-2022-289994",
+      "date": "2022-10-25",
+      "amount": 104960,
+      "currency": "BGN",
+      "amountEur": 53665.19585035509,
+      "partyEik": "202279878",
+      "partyName": "Спарк 2012 ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
@@ -654,21 +654,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 561460.8529371163,
+      "totalEur": 424778.6770833866,
       "totalOther": {},
-      "contractCount": 36
+      "contractCount": 25
     },
     {
       "year": "2017",
-      "totalEur": 719985.45374598,
+      "totalEur": 437229.81547476,
       "totalOther": {},
-      "contractCount": 28
+      "contractCount": 19
     },
     {
       "year": "2019",
-      "totalEur": 1985751.5530490892,
+      "totalEur": 1777088.6580121994,
       "totalOther": {},
-      "contractCount": 42
+      "contractCount": 26
     },
     {
       "year": "2020",

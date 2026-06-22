@@ -3,19 +3,19 @@
   "name": "Съединение",
   "province": "Пловдив",
   "obshtina": "Съединение",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 58,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 56,
   "awardCount": 0,
-  "totalEur": 16019939.520501526,
+  "totalEur": 15991618.587700618,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000471640",
       "name": "Община Съединение",
       "tier": "municipal",
-      "totalEur": 16019939.520501526,
+      "totalEur": 15991618.587700618,
       "totalOther": {},
-      "contractCount": 58,
+      "contractCount": 56,
       "awardCount": 0
     }
   ],
@@ -573,18 +573,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
-      "key": "2fba0d6b2314",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-12-16",
-      "amount": 42427.81,
-      "currency": "BGN",
-      "amountEur": 21692.99478993573,
-      "partyEik": "160109101",
-      "partyName": "Алтрам ЕООД /старо Роуз Валей Ггруп - Инженеринг” ЕООД/ -  Карлово",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "f1b0147977b8",
       "ocid": "aop-legacy-2019-949450",
       "date": "2019-12-16",
@@ -619,6 +607,18 @@
       "partyName": "ЕнЕкс ЕАД",
       "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
       "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-571385-857861%2F2026-05-22-award"
+    },
+    {
+      "key": "ed94994c1f3d",
+      "ocid": "aop-legacy-2023-370294",
+      "date": "2023-05-04",
+      "amount": 29850,
+      "currency": "BGN",
+      "amountEur": 15262.062653707122,
+      "partyEik": "206452103",
+      "partyName": "Тръст Билд Про ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -654,9 +654,9 @@
     },
     {
       "year": "2019",
-      "totalEur": 56641.865601816105,
+      "totalEur": 28320.932800908056,
       "totalOther": {},
-      "contractCount": 4
+      "contractCount": 2
     },
     {
       "year": "2022",

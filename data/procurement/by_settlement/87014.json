@@ -3,19 +3,19 @@
   "name": "Ябланица",
   "province": "Ловеч",
   "obshtina": "Ябланица",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 53,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 50,
   "awardCount": 0,
-  "totalEur": 11092242.073758557,
+  "totalEur": 10694775.269383945,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000291723",
       "name": "Община Ябланица",
       "tier": "municipal",
-      "totalEur": 11044496.103758557,
+      "totalEur": 10647029.299383944,
       "totalOther": {},
-      "contractCount": 52,
+      "contractCount": 49,
       "awardCount": 0
     },
     {
@@ -126,18 +126,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "2c17709ecb6f",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-06-27",
-      "amount": 373123.73,
-      "currency": "BGN",
-      "amountEur": 190775.1338306499,
-      "partyEik": "117591612",
-      "partyName": "Астон Сервиз ООД",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "523bf7f4682c",
       "ocid": "aop-legacy-2019-918118",
       "date": "2019-06-27",
@@ -234,18 +222,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "281978d16aad",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-11-27",
-      "amount": 224058,
-      "currency": "BGN",
-      "amountEur": 114559.03631706232,
-      "partyEik": "117591612",
-      "partyName": "Астон Сервиз ООД",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "6c0826408283",
       "ocid": "aop-legacy-2017-816785",
       "date": "2017-11-27",
@@ -280,18 +256,6 @@
       "partyName": "Маридел 2012 ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "0a18bd049202",
-      "ocid": "aop-legacy-2021-x",
-      "date": "2021-09-01",
-      "amount": 180195.77,
-      "currency": "BGN",
-      "amountEur": 92132.63422690111,
-      "partyEik": "202221469",
-      "partyName": "Алди комерс груп ЕООД - София",
-      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
-      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
     },
     {
       "key": "5f706cd695d3",
@@ -628,6 +592,42 @@
       "partyName": "Икар консулт АД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "09bcb3ca0c49",
+      "ocid": "aop-legacy-2011-2015-581025",
+      "date": "2014-01-20",
+      "amount": 16500,
+      "currency": "BGN",
+      "amountEur": 8436.316039737605,
+      "partyEik": "103937876",
+      "partyName": "Кейбъл тех ООД - Варна",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "ca7ab839ebbc",
+      "ocid": "aop-legacy-2011-2015-624384",
+      "date": "2014-09-18",
+      "amount": 14933,
+      "currency": "BGN",
+      "amountEur": 7635.121661903131,
+      "partyEik": "130669343",
+      "partyName": "А.И.Компютърс  ЕООД - /старо А. и. Компютърс ООД - Свищов/",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "949046cb3f40",
+      "ocid": "aop-legacy-2011-2015-492335",
+      "date": "2012-07-24",
+      "amount": 9455,
+      "currency": "BGN",
+      "amountEur": 4834.264736710245,
+      "partyEik": "200629529",
+      "partyName": "Школснаб 2000 ЕООД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -663,21 +663,21 @@
     },
     {
       "year": "2017",
-      "totalEur": 229118.07263412463,
+      "totalEur": 114559.03631706232,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 1
     },
     {
       "year": "2019",
-      "totalEur": 381550.2676612998,
+      "totalEur": 190775.1338306499,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 1
     },
     {
       "year": "2021",
-      "totalEur": 184265.26845380221,
+      "totalEur": 92132.63422690111,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 1
     },
     {
       "year": "2022",

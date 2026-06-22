@@ -20,7 +20,11 @@ import {
   discoverLegacyDatasets,
   type LegacyDataset,
 } from "./legacy_csv";
-import { canonicalJson, validateContract } from "./validate";
+import {
+  canonicalJson,
+  dropSyntheticLegacyTwins,
+  validateContract,
+} from "./validate";
 import type { Contract } from "./types";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -88,7 +92,12 @@ const writeMonthShards = (
     const byKey = new Map<string, Contract>();
     for (const r of existing) byKey.set(rowKey(r), r);
     for (const r of freshRows) byKey.set(rowKey(r), r);
-    const merged = [...byKey.values()].sort(rowSort);
+    // Drop synthetic legacy `-x` twins that duplicate a real row in the same
+    // shard (see dropSyntheticLegacyTwins) — a blank-document-id row gets the
+    // "-x" ocid fallback and would otherwise double-count its real twin.
+    const merged = dropSyntheticLegacyTwins([...byKey.values()]).rows.sort(
+      rowSort,
+    );
     const prev = fs.existsSync(file) ? fs.readFileSync(file, "utf8") : null;
     const next = canonicalJson(merged);
     if (next === prev) continue;

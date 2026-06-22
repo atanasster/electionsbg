@@ -3,19 +3,19 @@
   "name": "Приморско",
   "province": "Бургас",
   "obshtina": "Приморско",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 192,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 155,
   "awardCount": 0,
-  "totalEur": 35330635.464181595,
+  "totalEur": 32740911.18344144,
   "totalOther": {},
   "awarders": [
     {
       "eik": "102164063",
       "name": "Община Приморско",
       "tier": "municipal",
-      "totalEur": 35292254.15418159,
+      "totalEur": 32702529.873441443,
       "totalOther": {},
-      "contractCount": 190,
+      "contractCount": 153,
       "awardCount": 0
     },
     {
@@ -170,18 +170,6 @@
       "amountEur": 683110.4543850948,
       "partyEik": "812080574",
       "partyName": "Комплектстрой ЕООД - Бургас",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "1f14a2a22762",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-01-30",
-      "amount": 1298922.84,
-      "currency": "BGN",
-      "amountEur": 664128.7023923348,
-      "partyEik": "177331302",
-      "partyName": "ДЗЗД Пътстрой – Трейс Приморско - Варна",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
@@ -354,18 +342,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
-      "key": "2f7b40553ee7",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-07-19",
-      "amount": 666667,
-      "currency": "BGN",
-      "amountEur": 340861.4245614394,
-      "partyEik": "201934149",
-      "partyName": "Екоджен  ООД - Бургас",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "6140a14e651b",
       "ocid": "aop-legacy-2019-925342",
       "date": "2019-08-05",
@@ -486,30 +462,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
-      "key": "f16f74e29239",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-06-23",
-      "amount": 440000,
-      "currency": "BGN",
-      "amountEur": 224968.42772633614,
-      "partyEik": "130463628",
-      "partyName": "Щрабаг ЕАД / старо наименование - Инжстрой София АД / - София",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "0c4b1dc791f6",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-08-10",
-      "amount": 436000,
-      "currency": "BGN",
-      "amountEur": 222923.26020155125,
-      "partyEik": "130463628",
-      "partyName": "Щрабаг ЕАД / старо наименование - Инжстрой София АД / - София",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "47e7f79f99e2",
       "ocid": "aop-legacy-2017-799764",
       "date": "2017-08-10",
@@ -628,6 +580,54 @@
       "partyName": "Консорциум Енергийна ефективност Приморско",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "a761a14083df",
+      "ocid": "aop-legacy-2011-2015-614155",
+      "date": "2014-07-04",
+      "amount": 263820.02,
+      "currency": "BGN",
+      "amountEur": 134889.03432302398,
+      "partyEik": "103561242",
+      "partyName": "ПЪТСТРОЙ-ВАРНА ЕООД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "7deacb57611e",
+      "ocid": "aop-legacy-2016-763950",
+      "date": "2016-12-22",
+      "amount": 243000,
+      "currency": "BGN",
+      "amountEur": 124243.9271306811,
+      "partyEik": "102044103",
+      "partyName": "ЕТ Кемб – тарпанови – Костадин Стоянов - с.Веселие",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "0ca3de360909",
+      "ocid": "aop-legacy-2011-2015-683673",
+      "date": "2015-08-20",
+      "amount": 239882.24,
+      "currency": "BGN",
+      "amountEur": 122649.84175516276,
+      "partyEik": "147154604",
+      "partyName": "СИ-Строй ООД - Бургас",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "023601b08e8f",
+      "ocid": "aop-legacy-2011-2015-670467",
+      "date": "2015-06-08",
+      "amount": 234893.88,
+      "currency": "BGN",
+      "amountEur": 120099.3337866788,
+      "partyEik": "130463628",
+      "partyName": "Щрабаг ЕАД / старо наименование - Инжстрой София АД / - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -663,21 +663,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 1553700.8328944745,
+      "totalEur": 849095.7036143224,
       "totalOther": {},
-      "contractCount": 26
+      "contractCount": 15
     },
     {
       "year": "2017",
-      "totalEur": 1846763.1593747924,
+      "totalEur": 1361471.7894704551,
       "totalOther": {},
-      "contractCount": 36
+      "contractCount": 21
     },
     {
       "year": "2019",
-      "totalEur": 3820218.659085912,
+      "totalEur": 2420390.877530256,
       "totalOther": {},
-      "contractCount": 24
+      "contractCount": 13
     },
     {
       "year": "2022",

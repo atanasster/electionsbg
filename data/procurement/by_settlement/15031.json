@@ -3,44 +3,32 @@
   "name": "Главиница",
   "province": "Силистра",
   "obshtina": "Главиница",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 163,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 140,
   "awardCount": 0,
-  "totalEur": 24600811.800313313,
+  "totalEur": 19934363.330865566,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000565380",
       "name": "Община Главиница",
       "tier": "municipal",
-      "totalEur": 23594273.12092993,
+      "totalEur": 19059715.332165066,
       "totalOther": {},
-      "contractCount": 148,
+      "contractCount": 127,
       "awardCount": 0
     },
     {
       "eik": "000558350",
       "name": "Средно училище \"Васил Левски\"",
       "tier": "school",
-      "totalEur": 1006538.679383382,
+      "totalEur": 874647.9987005006,
       "totalOther": {},
-      "contractCount": 15,
+      "contractCount": 13,
       "awardCount": 0
     }
   ],
   "topContracts": [
-    {
-      "key": "66816ee7e552",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-01-05",
-      "amount": 6000000,
-      "currency": "BGN",
-      "amountEur": 3067751.287177311,
-      "partyEik": "200081794",
-      "partyName": "Пътперфект-Т АД",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
     {
       "key": "cfeb2a4e2917",
       "ocid": "aop-legacy-2017-765448",
@@ -102,18 +90,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
-      "key": "4edb54b46fbf",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-10-10",
-      "amount": 1418179.08,
-      "currency": "BGN",
-      "amountEur": 725103.4496863225,
-      "partyEik": "175112256",
-      "partyName": "Енерго ремонт групс  ЕООД - София",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "f0f1336ae9a8",
       "ocid": "aop-legacy-2023-394953",
       "date": "2023-07-07",
@@ -162,18 +138,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "0fafc5cbf117",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-12-02",
-      "amount": 620418.63,
-      "currency": "BGN",
-      "amountEur": 317215.0084618806,
-      "partyEik": "812233671",
-      "partyName": "Техно-Енерджи ООД - София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "b5359170e329",
       "ocid": "aop-legacy-2019-947093",
       "date": "2019-12-02",
@@ -212,18 +176,6 @@
     {
       "key": "2b8628bd3915",
       "ocid": "aop-legacy-2019-930794",
-      "date": "2019-08-29",
-      "amount": 556199.67,
-      "currency": "BGN",
-      "amountEur": 284380.37559501594,
-      "partyEik": "200033408",
-      "partyName": "РР-Инвест 1 ООД - Кърджали",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "87aeb99eb273",
-      "ocid": "aop-legacy-2019-x",
       "date": "2019-08-29",
       "amount": 556199.67,
       "currency": "BGN",
@@ -546,18 +498,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
-      "key": "9bf17ffcfdf5",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-01-10",
-      "amount": 201600,
-      "currency": "BGN",
-      "amountEur": 103076.44324915764,
-      "partyEik": "200542686",
-      "partyName": "Лего Трейд ЕООД - София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "07671f91e88b",
       "ocid": "aop-legacy-2023-441282",
       "date": "2023-10-30",
@@ -628,6 +568,66 @@
       "partyName": "Автотранс ООД - Главиница",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "37bd7663d6c9",
+      "ocid": "ocds-e82gsb-545011",
+      "date": "2026-03-02",
+      "amount": 79281.66,
+      "currency": "EUR",
+      "amountEur": 79281.66,
+      "partyEik": "200575729",
+      "partyName": "Булкрис 83 ООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-545011-818134%2F2026-03-02-award"
+    },
+    {
+      "key": "3f3b2610cc3b",
+      "ocid": "ocds-e82gsb-568558",
+      "date": "2026-05-11",
+      "amount": 79175.82,
+      "currency": "EUR",
+      "amountEur": 79175.82,
+      "partyEik": "200575729",
+      "partyName": "Булкрис 83 ООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-568558-853463%2F2026-05-11-award"
+    },
+    {
+      "key": "7332ab7f9f0b",
+      "ocid": "aop-legacy-2011-2015-661622",
+      "date": "2015-04-16",
+      "amount": 148000,
+      "currency": "BGN",
+      "amountEur": 75671.19841704033,
+      "partyEik": "176850696",
+      "partyName": "ДЗЗД План консулт Главиница",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "8a18f929296d",
+      "ocid": "aop-legacy-2016-706974",
+      "date": "2016-01-12",
+      "amount": 140160,
+      "currency": "BGN",
+      "amountEur": 71662.67006846199,
+      "partyEik": "200542686",
+      "partyName": "Лего Трейд ЕООД - София",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "e6febcc19002",
+      "ocid": "aop-legacy-2011-2015-472273",
+      "date": "2012-02-29",
+      "amount": 138213,
+      "currency": "BGN",
+      "amountEur": 70667.18477577294,
+      "partyEik": "826020530",
+      "partyName": "Теодоро Бабаров - Клио комерс, гр. Разград",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -663,21 +663,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 531089.1999815935,
+      "totalEur": 446135.00150831114,
       "totalOther": {},
-      "contractCount": 14
+      "contractCount": 9
     },
     {
       "year": "2017",
-      "totalEur": 7585709.473727267,
+      "totalEur": 3792854.7368636336,
       "totalOther": {},
-      "contractCount": 4
+      "contractCount": 2
     },
     {
       "year": "2019",
-      "totalEur": 1790531.4316683963,
+      "totalEur": 1001891.8975575586,
       "totalOther": {},
-      "contractCount": 34
+      "contractCount": 18
     },
     {
       "year": "2020",

@@ -3,46 +3,37 @@
   "name": "Кюстендил",
   "province": "Кюстендил",
   "obshtina": "Кюстендил",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 1014,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 887,
   "awardCount": 0,
-  "totalEur": 123486770.06216078,
+  "totalEur": 104991007.43452954,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000261517",
       "name": "Община Кюстендил",
       "tier": "municipal",
-      "totalEur": 105540477.85703841,
+      "totalEur": 89173466.24559979,
       "totalOther": {},
-      "contractCount": 696,
+      "contractCount": 596,
       "awardCount": 0
     },
     {
       "eik": "109080582",
       "name": "Многопрофилна болница за активно лечение - Д-Р никола Василиев АД",
       "tier": "hospital",
-      "totalEur": 13075511.844336977,
+      "totalEur": 11864957.655066952,
       "totalOther": {},
-      "contractCount": 219,
+      "contractCount": 199,
       "awardCount": 0
     },
     {
       "eik": "000261961",
       "name": "Регионална дирекция по горите - кюстендил",
       "tier": "regional_gov",
-      "totalEur": 2008624.384532398,
+      "totalEur": 1392634.2933690555,
       "totalOther": {},
-      "contractCount": 21,
-      "awardCount": 0
-    },
-    {
-      "eik": "129009817",
-      "name": "Областна дирекция на МВР (ОДМВР) - Кюстендил",
-      "tier": "regional_gov",
-      "totalEur": 849619.9575121048,
-      "totalOther": {},
-      "contractCount": 10,
+      "contractCount": 16,
       "awardCount": 0
     },
     {
@@ -52,6 +43,15 @@
       "totalEur": 612602.2148632037,
       "totalOther": {},
       "contractCount": 16,
+      "awardCount": 0
+    },
+    {
+      "eik": "129009817",
+      "name": "Областна дирекция на МВР (ОДМВР) - Кюстендил",
+      "tier": "regional_gov",
+      "totalEur": 587480.6100228037,
+      "totalOther": {},
+      "contractCount": 9,
       "awardCount": 0
     },
     {
@@ -67,9 +67,9 @@
       "eik": "000251807",
       "name": "Основно училище \"СВ.ПАИСИЙ Хилендарски\"",
       "tier": "school",
-      "totalEur": 273417.2094020953,
+      "totalEur": 233349.8211321536,
       "totalOther": {},
-      "contractCount": 18,
+      "contractCount": 17,
       "awardCount": 0
     },
     {
@@ -405,18 +405,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-506363-849483%2F2026-04-29-award"
     },
     {
-      "key": "4112c06c28b8",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-07-13",
-      "amount": 1932253.73,
-      "currency": "BGN",
-      "amountEur": 987945.64456011,
-      "partyEik": "109050379",
-      "partyName": "Руен холдинг АД - Кюстендил",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "adb9d36ea186",
       "ocid": "aop-legacy-2017-795225",
       "date": "2017-07-13",
@@ -465,32 +453,8 @@
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
-      "key": "e793035df2d9",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-07-28",
-      "amount": 1702000,
-      "currency": "BGN",
-      "amountEur": 870218.7817959639,
-      "partyEik": "200010904",
-      "partyName": "Булплан Инвест ООД - Кюстендил",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
       "key": "2860d932f575",
       "ocid": "aop-legacy-2019-926865",
-      "date": "2019-08-08",
-      "amount": 1679146.14,
-      "currency": "BGN",
-      "amountEur": 858533.7887239688,
-      "partyEik": "177377132",
-      "partyName": "ДЗЗД Радловци 2019 -Кюстендил",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "85bf0ed0eff3",
-      "ocid": "aop-legacy-2019-x",
       "date": "2019-08-08",
       "amount": 1679146.14,
       "currency": "BGN",
@@ -545,30 +509,6 @@
       "amountEur": 779643.4250420538,
       "partyEik": "101688586",
       "partyName": "Браво - Строй ООД - Благоевград",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "5ce96f30faf7",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-07-28",
-      "amount": 1524850,
-      "currency": "BGN",
-      "amountEur": 779643.4250420538,
-      "partyEik": "101688586",
-      "partyName": "Браво - Строй ООД - Благоевград",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "58cd27e8df9b",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-07-28",
-      "amount": 1497300,
-      "currency": "BGN",
-      "amountEur": 765557.333715098,
-      "partyEik": "819363781",
-      "partyName": "Строителна фирма Рила ЕООД - Кюстендил",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
@@ -645,18 +585,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "203b427efe9f",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-07-23",
-      "amount": 1322640,
-      "currency": "BGN",
-      "amountEur": 676255.0937453664,
-      "partyEik": "819363781",
-      "partyName": "Строителна фирма Рила ЕООД - Кюстендил",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "ef20f3a6dd60",
       "ocid": "aop-legacy-2019-923914",
       "date": "2019-07-23",
@@ -727,6 +655,78 @@
       "partyName": "Бул Строй Инвест ЕООД - София",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "1aeb8be272e7",
+      "ocid": "aop-legacy-2017-819912",
+      "date": "2017-12-18",
+      "amount": 1188000,
+      "currency": "BGN",
+      "amountEur": 607414.7548611076,
+      "partyEik": "200010904",
+      "partyName": "Булплан Инвест ООД - Кюстендил",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "813a44db2fd5",
+      "ocid": "ocds-e82gsb-535811",
+      "date": "2026-03-16",
+      "amount": 575203.37,
+      "currency": "EUR",
+      "amountEur": 575203.37,
+      "partyEik": "203215490",
+      "partyName": "Парсек груп ЕООД",
+      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
+      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-535811-824846%2F2026-03-16-award"
+    },
+    {
+      "key": "bacbe6169569",
+      "ocid": "aop-legacy-2016-747086",
+      "date": "2016-08-30",
+      "amount": 1122118.05,
+      "currency": "BGN",
+      "amountEur": 573729.8487087324,
+      "partyEik": "177006643",
+      "partyName": "ДЗЗД Обединение ГДС-Руен, Кюстендил",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "84afea02f1bb",
+      "ocid": "aop-legacy-2016-752636",
+      "date": "2016-10-11",
+      "amount": 1114167.25,
+      "currency": "BGN",
+      "amountEur": 569664.6692197175,
+      "partyEik": "101526851",
+      "partyName": "Бул Строй Инвест ЕООД - София",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "4c4ec9c5141e",
+      "ocid": "aop-legacy-2016-747087",
+      "date": "2016-08-30",
+      "amount": 1062000,
+      "currency": "BGN",
+      "amountEur": 542991.977830384,
+      "partyEik": "201171807",
+      "partyName": "Терабилд инженеринг ООД",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "c80cb4ebf880",
+      "ocid": "aop-legacy-2022-289738",
+      "date": "2022-10-28",
+      "amount": 1000000,
+      "currency": "BGN",
+      "amountEur": 511291.8811962185,
+      "partyEik": "200010904",
+      "partyName": "Булплан инвест ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     }
   ],
   "byYear": [
@@ -762,21 +762,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 25427421.529478535,
+      "totalEur": 15971233.64505095,
       "totalOther": {},
-      "contractCount": 116
+      "contractCount": 76
     },
     {
       "year": "2017",
-      "totalEur": 12994822.602168905,
+      "totalEur": 7653748.168296837,
       "totalOther": {},
-      "contractCount": 141
+      "contractCount": 94
     },
     {
       "year": "2019",
-      "totalEur": 8776903.033494733,
+      "totalEur": 5078402.724163143,
       "totalOther": {},
-      "contractCount": 111
+      "contractCount": 71
     },
     {
       "year": "2020",

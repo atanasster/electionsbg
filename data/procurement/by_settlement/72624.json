@@ -3,46 +3,46 @@
   "name": "Добрич",
   "province": "Добрич",
   "obshtina": "Добрич",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 2567,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 2336,
   "awardCount": 0,
-  "totalEur": 352439043.54188657,
+  "totalEur": 275767076.5099872,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000852932",
       "name": "Община Град добрич",
       "tier": "municipal",
-      "totalEur": 266771036.83428866,
+      "totalEur": 193103176.00793898,
       "totalOther": {},
-      "contractCount": 779,
+      "contractCount": 661,
       "awardCount": 0
     },
     {
       "eik": "124141302",
       "name": "Многопрофилна болница за активно лечение - добрич АД",
       "tier": "hospital",
-      "totalEur": 31995333.832666337,
+      "totalEur": 30928842.440265156,
       "totalOther": {},
-      "contractCount": 724,
-      "awardCount": 0
-    },
-    {
-      "eik": "000852188",
-      "name": "Община Добричка",
-      "tier": "municipal",
-      "totalEur": 22204953.68160648,
-      "totalOther": {},
-      "contractCount": 600,
+      "contractCount": 685,
       "awardCount": 0
     },
     {
       "eik": "204219357",
       "name": "Водоснабдяване и канализация добрич АД",
       "tier": "utility",
-      "totalEur": 21814240.293212958,
+      "totalEur": 21351056.887702253,
       "totalOther": {},
-      "contractCount": 38,
+      "contractCount": 36,
+      "awardCount": 0
+    },
+    {
+      "eik": "000852188",
+      "name": "Община Добричка",
+      "tier": "municipal",
+      "totalEur": 20857355.17866911,
+      "totalOther": {},
+      "contractCount": 538,
       "awardCount": 0
     },
     {
@@ -58,18 +58,18 @@
       "eik": "124140855",
       "name": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН Център і - добрич ЕООД",
       "tier": "hospital",
-      "totalEur": 1322149.4893956017,
+      "totalEur": 1298630.7786692092,
       "totalOther": {},
-      "contractCount": 198,
+      "contractCount": 193,
       "awardCount": 0
     },
     {
       "eik": "000851111",
       "name": "Център за психично здраве Д-Р П.СТАНЧЕВ - добрич ЕООД",
       "tier": "hospital",
-      "totalEur": 501439.05656422087,
+      "totalEur": 422802.3652362424,
       "totalOther": {},
-      "contractCount": 24,
+      "contractCount": 20,
       "awardCount": 0
     },
     {
@@ -103,9 +103,9 @@
       "eik": "129010779",
       "name": "Регионална дирекция \"Пожарна безопасност и защита на населението\" (РДПБЗН) - Добрич",
       "tier": "regional_gov",
-      "totalEur": 260472.53595660155,
+      "totalEur": 235795.03331066607,
       "totalOther": {},
-      "contractCount": 5,
+      "contractCount": 4,
       "awardCount": 0
     },
     {
@@ -246,18 +246,6 @@
   ],
   "topContracts": [
     {
-      "key": "065bcf00b51b",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-05-18",
-      "amount": 27830213.68,
-      "currency": "BGN",
-      "amountEur": 14229362.306539934,
-      "partyEik": "103029862",
-      "partyName": "Хидрострой АД - София пререгистриран от Хидрострой АД - Варна",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "5ec7c7278169",
       "ocid": "aop-legacy-2017-787330",
       "date": "2017-05-18",
@@ -266,18 +254,6 @@
       "amountEur": 14229362.306539934,
       "partyEik": "103029862",
       "partyName": "Хидрострой АД - София пререгистриран от Хидрострой АД - Варна",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "8c87e30c3e95",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-06-30",
-      "amount": 26594736.18,
-      "currency": "BGN",
-      "amountEur": 13597672.691389333,
-      "partyEik": "177129390",
-      "partyName": "ДЗЗД Гис Аква бг - София",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
@@ -318,18 +294,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
-      "key": "ee225dc9f8cb",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-09-09",
-      "amount": 14720333.33,
-      "currency": "BGN",
-      "amountEur": 7526386.920131096,
-      "partyEik": "831578348",
-      "partyName": "Еф Си Си България ЕООД             / старо А.С.А. - България /старо наименование А.С.А. Шеле - България/ ЕООД - София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "89f78f6967ba",
       "ocid": "ocds-e82gsb-290015",
       "date": "2026-04-28",
@@ -352,18 +316,6 @@
       "partyName": "Уейст солюшънс българия ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "29f542a98ad1",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-08-07",
-      "amount": 13598438.27,
-      "currency": "BGN",
-      "amountEur": 6952771.08439895,
-      "partyEik": "177127926",
-      "partyName": "ДЗЗД Добротица 2016 - Варна",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
       "key": "879522a708b5",
@@ -570,18 +522,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
-      "key": "ee225dc9f8cb",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-04-22",
-      "amount": 4050000,
-      "currency": "BGN",
-      "amountEur": 2070732.118844685,
-      "partyEik": "831578348",
-      "partyName": "Еф Си Си България ЕООД             / старо А.С.А. - България /старо наименование А.С.А. Шеле - България/ ЕООД - София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "34cbd84664e7",
       "ocid": "aop-legacy-2011-2015-566299",
       "date": "2013-10-24",
@@ -690,32 +630,8 @@
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
-      "key": "7300a3f33cf7",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-01-11",
-      "amount": 3000000,
-      "currency": "BGN",
-      "amountEur": 1533875.6435886554,
-      "partyEik": "813101815",
-      "partyName": "Аресгаз АД /старо наим.Черноморска Технологична Компания АД - Варна/",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
       "key": "12b8b971e19c",
       "ocid": "aop-legacy-2019-942633",
-      "date": "2019-11-04",
-      "amount": 2800000,
-      "currency": "BGN",
-      "amountEur": 1431617.2673494117,
-      "partyEik": "831578348",
-      "partyName": "Еф Си Си България ЕООД             / старо А.С.А. - България /старо наименование А.С.А. Шеле - България/ ЕООД - София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "ee225dc9f8cb",
-      "ocid": "aop-legacy-2019-x",
       "date": "2019-11-04",
       "amount": 2800000,
       "currency": "BGN",
@@ -736,30 +652,6 @@
       "partyName": "Еф Си Си България ЕООД             / старо А.С.А. - България /старо наименование А.С.А. Шеле - България/ ЕООД - София",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "c89b3052a691",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-12-28",
-      "amount": 2700000,
-      "currency": "BGN",
-      "amountEur": 1380488.07922979,
-      "partyEik": "831578348",
-      "partyName": "Еф Си Си България ЕООД             / старо А.С.А. - България /старо наименование А.С.А. Шеле - България/ ЕООД - София",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "1a7e71cd3759",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-12-02",
-      "amount": 2563435.96,
-      "currency": "BGN",
-      "amountEur": 1310663.9943144342,
-      "partyEik": "831838874",
-      "partyName": "Нск София ЕООД",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
       "key": "1d7422d93e6a",
@@ -784,18 +676,6 @@
       "partyName": "Черноморска Технологична Компания АД - Варна",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "23f7be582a75",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-12-09",
-      "amount": 2401062.38,
-      "currency": "BGN",
-      "amountEur": 1227643.7011396696,
-      "partyEik": "177279275",
-      "partyName": "ДЗЗД Развитие 2018",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
       "key": "659671b5c4c3",
@@ -844,6 +724,126 @@
       "partyName": "Аресгаз ЕАД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "8dc7696eee21",
+      "ocid": "aop-legacy-2019-910932",
+      "date": "2019-05-13",
+      "amount": 2188893.59,
+      "currency": "BGN",
+      "amountEur": 1119163.5213694442,
+      "partyEik": "124000579",
+      "partyName": "Пътно строителство АД - Добрич",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "83970ec9a397",
+      "ocid": "aop-legacy-2019-896218",
+      "date": "2019-02-25",
+      "amount": 2107162.98,
+      "currency": "BGN",
+      "amountEur": 1077375.3240312296,
+      "partyEik": "813101815",
+      "partyName": "Аресгаз ЕАД /старо наим.Черноморска Технологична Компания АД - Варна/ - София",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "1e6e0ee5eca1",
+      "ocid": "ocds-e82gsb-486028",
+      "date": "2026-03-03",
+      "amount": 1033111.26,
+      "currency": "EUR",
+      "amountEur": 1033111.26,
+      "partyEik": "204794962",
+      "partyName": "Детайл проект ЕООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-486028-817825%2F2026-03-03-award"
+    },
+    {
+      "key": "8847cf9d48da",
+      "ocid": "aop-legacy-2011-2015-573696",
+      "date": "2013-12-06",
+      "amount": 2000000,
+      "currency": "BGN",
+      "amountEur": 1022583.762392437,
+      "partyEik": "831578348",
+      "partyName": "А.С.А. - България /старо наименование А.С.А. Шеле - България/ ЕООД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "9a2a182b8d42",
+      "ocid": "ocds-e82gsb-486028",
+      "date": "2026-03-30",
+      "amount": 1009735,
+      "currency": "EUR",
+      "amountEur": 1009735,
+      "partyEik": "117111115",
+      "partyName": "Алфа 2000 ЕООД",
+      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
+      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-486028-834093%2F2026-03-30-award"
+    },
+    {
+      "key": "f0570e808027",
+      "ocid": "ocds-e82gsb-486028",
+      "date": "2026-03-03",
+      "amount": 974087.73,
+      "currency": "EUR",
+      "amountEur": 974087.73,
+      "partyEik": "204794962",
+      "partyName": "Детайл проект ЕООД",
+      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-486028-817825%2F2026-03-03-award"
+    },
+    {
+      "key": "f1327cda89d9",
+      "ocid": "aop-legacy-2011-2015-655534",
+      "date": "2015-03-20",
+      "amount": 1896000,
+      "currency": "BGN",
+      "amountEur": 969409.4067480302,
+      "partyEik": "831578348",
+      "partyName": "А.С.А. - България /старо наименование А.С.А. Шеле - България/ ЕООД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "d5fc3ca4b374",
+      "ocid": "aop-legacy-2011-2015-552701",
+      "date": "2013-07-29",
+      "amount": 1866468.62,
+      "currency": "BGN",
+      "amountEur": 954310.2519135099,
+      "partyEik": "124693172",
+      "partyName": "Добруджа Билдинг ЕООД - Добрич",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "5abed69cea36",
+      "ocid": "ocds-e82gsb-486028",
+      "date": "2026-03-30",
+      "amount": 953978.62,
+      "currency": "EUR",
+      "amountEur": 953978.62,
+      "partyEik": "117111115",
+      "partyName": "Алфа 2000 ЕООД",
+      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
+      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-486028-834093%2F2026-03-30-award"
+    },
+    {
+      "key": "aba9a8effa38",
+      "ocid": "aop-legacy-2019-892070",
+      "date": "2019-02-04",
+      "amount": 1793605.3,
+      "currency": "BGN",
+      "amountEur": 917055.8279605078,
+      "partyEik": "103290570",
+      "partyName": "Девня Трейд ООД - Варна",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
@@ -879,21 +879,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 15668402.125951642,
+      "totalEur": 10520440.748940347,
       "totalOther": {},
-      "contractCount": 172
+      "contractCount": 116
     },
     {
       "year": "2017",
-      "totalEur": 89159421.33007471,
+      "totalEur": 46246424.990924574,
       "totalOther": {},
-      "contractCount": 248
+      "contractCount": 168
     },
     {
       "year": "2019",
-      "totalEur": 58601124.89838071,
+      "totalEur": 33520634.625708777,
       "totalOther": {},
-      "contractCount": 243
+      "contractCount": 161
     },
     {
       "year": "2020",
@@ -903,9 +903,9 @@
     },
     {
       "year": "2021",
-      "totalEur": 7061038.08613223,
+      "totalEur": 3530519.043066115,
       "totalOther": {},
-      "contractCount": 26
+      "contractCount": 13
     },
     {
       "year": "2022",

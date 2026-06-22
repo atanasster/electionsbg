@@ -3,73 +3,64 @@
   "name": "Стара Загора",
   "province": "Стара Загора",
   "obshtina": "Стара Загора",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 3971,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 3451,
   "awardCount": 0,
-  "totalEur": 925342515.159539,
+  "totalEur": 783837557.6048635,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000818022",
       "name": "Община - стара загора",
       "tier": "municipal",
-      "totalEur": 415145301.36750126,
+      "totalEur": 309709558.6904795,
       "totalOther": {},
-      "contractCount": 1284,
+      "contractCount": 1042,
       "awardCount": 0
     },
     {
       "eik": "000812197",
       "name": "Комплексен онкологичен център - стара загора ЕООД",
       "tier": "hospital",
-      "totalEur": 269584630.2509232,
+      "totalEur": 267695497.6422609,
       "totalOther": {},
-      "contractCount": 581,
+      "contractCount": 527,
       "awardCount": 0
     },
     {
       "eik": "833066300",
       "name": "Водоснабдяване и канализация ЕООД",
       "tier": "utility",
-      "totalEur": 124581971.2326428,
+      "totalEur": 95696715.98338214,
       "totalOther": {},
-      "contractCount": 203,
+      "contractCount": 160,
       "awardCount": 0
     },
     {
       "eik": "123535874",
       "name": "Университетска многопрофилна болница за активно лечение - проф. Д-Р стоян киркович АД",
       "tier": "hospital",
-      "totalEur": 83180105.26917703,
+      "totalEur": 82208198.88160759,
       "totalOther": {},
-      "contractCount": 870,
+      "contractCount": 845,
       "awardCount": 0
     },
     {
       "eik": "123024538",
       "name": "Тракийски университет",
       "tier": "university",
-      "totalEur": 22637785.42211148,
+      "totalEur": 19240987.45909833,
       "totalOther": {},
-      "contractCount": 745,
+      "contractCount": 603,
       "awardCount": 0
     },
     {
       "eik": "123004119",
       "name": "Център за спешна Медицинска помощ - стара загора",
       "tier": "hospital",
-      "totalEur": 3076401.2922797995,
+      "totalEur": 2550335.4174338263,
       "totalOther": {},
-      "contractCount": 87,
-      "awardCount": 0
-    },
-    {
-      "eik": "000818620",
-      "name": "Регионална дирекция по горите - стара загора",
-      "tier": "regional_gov",
-      "totalEur": 1370587.2494030667,
-      "totalOther": {},
-      "contractCount": 9,
+      "contractCount": 75,
       "awardCount": 0
     },
     {
@@ -88,6 +79,15 @@
       "totalEur": 1211901.56,
       "totalOther": {},
       "contractCount": 1,
+      "awardCount": 0
+    },
+    {
+      "eik": "000818620",
+      "name": "Регионална дирекция по горите - стара загора",
+      "tier": "regional_gov",
+      "totalEur": 970530.4551009035,
+      "totalOther": {},
+      "contractCount": 7,
       "awardCount": 0
     },
     {
@@ -288,18 +288,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
-      "key": "7a3fd63f915e",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-09-26",
-      "amount": 33000000,
-      "currency": "BGN",
-      "amountEur": 16872632.07947521,
-      "partyEik": "175819840",
-      "partyName": "ДЗЗД Грийн партнърс - бкс, София",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
       "key": "d6b74dc7a13d",
       "ocid": "aop-legacy-2016-750443",
       "date": "2016-09-26",
@@ -432,32 +420,8 @@
       "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
     },
     {
-      "key": "e404458e18d9",
-      "ocid": "aop-legacy-2021-x",
-      "date": "2021-03-12",
-      "amount": 17044995.5,
-      "currency": "BGN",
-      "amountEur": 8714967.814176079,
-      "partyEik": "177475402",
-      "partyName": "ДЗЗД КОБЕКА-САХРАНЕ",
-      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
-      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
-    },
-    {
       "key": "6df7344cc489",
       "ocid": "aop-legacy-2017-769523",
-      "date": "2017-01-27",
-      "amount": 16323182,
-      "currency": "BGN",
-      "amountEur": 8345910.4318882525,
-      "partyEik": "177098766",
-      "partyName": "ДЗЗД Рсуо - Стара Загора",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "77d678219be5",
-      "ocid": "aop-legacy-2017-x",
       "date": "2017-01-27",
       "amount": 16323182,
       "currency": "BGN",
@@ -478,18 +442,6 @@
       "partyName": "Трейс груп холд АД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "43d8049550d6",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-04-08",
-      "amount": 15000000,
-      "currency": "BGN",
-      "amountEur": 7669378.217943277,
-      "partyEik": "123682269",
-      "partyName": "Трейс груп холд АД - Стара Загора / София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
       "key": "471d732df9ce",
@@ -720,18 +672,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
-      "key": "1abeb11f4f45",
-      "ocid": "aop-legacy-2021-x",
-      "date": "2021-03-12",
-      "amount": 10119329,
-      "currency": "BGN",
-      "amountEur": 5173930.760853449,
-      "partyEik": "177475306",
-      "partyName": "ДЗЗД Дунавци 2020",
-      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
-      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
-    },
-    {
       "key": "f23665f542c1",
       "ocid": "aop-legacy-2021-1008993",
       "date": "2021-03-12",
@@ -746,18 +686,6 @@
     {
       "key": "786b6aae0a8a",
       "ocid": "aop-legacy-2016-759566",
-      "date": "2016-11-24",
-      "amount": 9770000,
-      "currency": "BGN",
-      "amountEur": 4995321.679287055,
-      "partyEik": "177087378",
-      "partyName": "ДЗЗД Улици Стара Загора",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "ffbc1e98035d",
-      "ocid": "aop-legacy-2016-x",
       "date": "2016-11-24",
       "amount": 9770000,
       "currency": "BGN",
@@ -828,18 +756,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "714a0a3b7ae2",
-      "ocid": "aop-legacy-2021-x",
-      "date": "2021-03-11",
-      "amount": 7954756.2,
-      "currency": "BGN",
-      "amountEur": 4067202.2619552827,
-      "partyEik": "177475391",
-      "partyName": "ДЗЗД Вик казанлък 2020",
-      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
-      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
-    },
-    {
       "key": "8d2baf48a8f9",
       "ocid": "aop-legacy-2021-1008838",
       "date": "2021-03-11",
@@ -862,6 +778,90 @@
       "partyName": "Медекс ООД",
       "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
       "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-565291-826495%2F2026-03-20-award"
+    },
+    {
+      "key": "dbf94b493542",
+      "ocid": "aop-legacy-2016-737620",
+      "date": "2016-06-23",
+      "amount": 7693427.88,
+      "currency": "BGN",
+      "amountEur": 3933587.213612635,
+      "partyEik": "175256438",
+      "partyName": "Алта Фармасютикълс ЕООД - София",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "11bd338d6551",
+      "ocid": "aop-legacy-2023-374117",
+      "date": "2023-05-19",
+      "amount": 7228000,
+      "currency": "BGN",
+      "amountEur": 3695617.7172862673,
+      "partyEik": "205606662",
+      "partyName": "Номад енерджи къмпани ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "d61616de66ae",
+      "ocid": "ocds-e82gsb-524524",
+      "date": "2026-01-16",
+      "amount": 3645837.02,
+      "currency": "EUR",
+      "amountEur": 3645837.02,
+      "partyEik": "123054669",
+      "partyName": "Пътно строителна компания ЕС БИ ЕС АД",
+      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
+      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-524524-797974%2F2026-01-16-award"
+    },
+    {
+      "key": "c24d878e6c82",
+      "ocid": "aop-legacy-2017-799120",
+      "date": "2017-08-07",
+      "amount": 6893247.12,
+      "currency": "BGN",
+      "amountEur": 3524461.2875352153,
+      "partyEik": "177176097",
+      "partyName": "ДЗЗД Красива Стара Загора",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "8dec158c7f11",
+      "ocid": "ocds-e82gsb-509892",
+      "date": "2026-01-30",
+      "amount": 3232426.83,
+      "currency": "EUR",
+      "amountEur": 3232426.83,
+      "partyEik": "203093410",
+      "partyName": "Инмат софия ЕООД",
+      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
+      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-509892-804688%2F2026-01-30-award"
+    },
+    {
+      "key": "69e0744b0fc2",
+      "ocid": "aop-legacy-2019-919169",
+      "date": "2019-07-01",
+      "amount": 6264000,
+      "currency": "BGN",
+      "amountEur": 3202732.3438131125,
+      "partyEik": "177352143",
+      "partyName": "ДЗЗД Консорциум Еко Център - Пловдив",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "5b1dc9cce987",
+      "ocid": "aop-legacy-2021-1008435",
+      "date": "2021-03-01",
+      "amount": 6050479.6,
+      "currency": "BGN",
+      "amountEur": 3093561.0968233435,
+      "partyEik": "103029862",
+      "partyName": "Хидрострой АД - София пререгистриран от Хидрострой АД - Варна",
+      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
+      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
     }
   ],
   "byYear": [
@@ -897,21 +897,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 115300064.86362568,
+      "totalEur": 67065559.23373326,
       "totalOther": {},
-      "contractCount": 412
+      "contractCount": 254
     },
     {
       "year": "2017",
-      "totalEur": 102771375.12263235,
+      "totalEur": 63342328.37110026,
       "totalOther": {},
-      "contractCount": 436
+      "contractCount": 274
     },
     {
       "year": "2019",
-      "totalEur": 80500407.20308003,
+      "totalEur": 51328374.29633455,
       "totalOther": {},
-      "contractCount": 426
+      "contractCount": 269
     },
     {
       "year": "2020",
@@ -921,9 +921,9 @@
     },
     {
       "year": "2021",
-      "totalEur": 52250297.65368156,
+      "totalEur": 27580925.387175772,
       "totalOther": {},
-      "contractCount": 108
+      "contractCount": 65
     },
     {
       "year": "2022",

@@ -1,0 +1,42 @@
+{
+  "generatedAt": "2026-06-22T04:31:19.582Z",
+  "nodes": [
+    {
+      "id": "awarder:181092349",
+      "type": "awarder",
+      "label": "Съдийската колегия на Висшия съдебен съвет, изпълняваща функциите на Висш съдебен съвет, съгласно пар. 23, ал. 2 от ПЗР на ЗИД на КРБ"
+    },
+    {
+      "id": "contractor:831641791",
+      "type": "contractor",
+      "label": "Информационно обслужване АД"
+    },
+    {
+      "id": "official:valeri-petrov-borisov-4cdc5f",
+      "type": "official",
+      "label": "Валери Петров Борисов"
+    },
+    {
+      "id": "official:valentina-stefanova-nedyalkova-f07289",
+      "type": "official",
+      "label": "Валентина Стефанова Недялкова"
+    }
+  ],
+  "links": [
+    {
+      "source": "awarder:181092349",
+      "target": "contractor:831641791",
+      "valueEur": 849767.1065481151
+    },
+    {
+      "source": "contractor:831641791",
+      "target": "official:valeri-petrov-borisov-4cdc5f",
+      "valueEur": 849767.1065481151
+    },
+    {
+      "source": "contractor:831641791",
+      "target": "official:valentina-stefanova-nedyalkova-f07289",
+      "valueEur": 849767.1065481151
+    }
+  ]
+}

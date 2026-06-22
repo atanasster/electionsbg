@@ -3,19 +3,19 @@
   "name": "Кресна",
   "province": "Благоевград",
   "obshtina": "Кресна",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 63,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 56,
   "awardCount": 0,
-  "totalEur": 30201526.21875045,
+  "totalEur": 28095505.281347916,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000024720",
       "name": "Община Кресна",
       "tier": "municipal",
-      "totalEur": 30201526.21875045,
+      "totalEur": 28095505.281347916,
       "totalOther": {},
-      "contractCount": 63,
+      "contractCount": 56,
       "awardCount": 0
     }
   ],
@@ -105,18 +105,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-566694-862873%2F2026-06-03-award"
     },
     {
-      "key": "acd5850c324e",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-07-10",
-      "amount": 1797697.83,
-      "currency": "BGN",
-      "amountEur": 919148.3053230598,
-      "partyEik": "200189784",
-      "partyName": "Вантроник ЕООД - Симитли",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "d43209092278",
       "ocid": "aop-legacy-2019-921376",
       "date": "2019-07-10",
@@ -131,18 +119,6 @@
     {
       "key": "38a0932a7aba",
       "ocid": "aop-legacy-2019-935302",
-      "date": "2019-09-30",
-      "amount": 1646937.07,
-      "currency": "BGN",
-      "amountEur": 842065.5527320883,
-      "partyEik": "101526851",
-      "partyName": "Бул Строй Инвест ЕООД - София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "8ebedcd0ab01",
-      "ocid": "aop-legacy-2019-x",
       "date": "2019-09-30",
       "amount": 1646937.07,
       "currency": "BGN",
@@ -203,18 +179,6 @@
     {
       "key": "a7be7d56acf7",
       "ocid": "aop-legacy-2016-750160",
-      "date": "2016-09-21",
-      "amount": 413964.27,
-      "currency": "BGN",
-      "amountEur": 211656.5703563193,
-      "partyEik": "101685540",
-      "partyName": "Елитстрой АД - Разлог",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "d329e2fef4b2",
-      "ocid": "aop-legacy-2016-x",
       "date": "2016-09-21",
       "amount": 413964.27,
       "currency": "BGN",
@@ -357,18 +321,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "0fff129bffe8",
-      "ocid": "aop-legacy-2017-x",
-      "date": "2017-01-09",
-      "amount": 160000,
-      "currency": "BGN",
-      "amountEur": 81806.70099139496,
-      "partyEik": "203645855",
-      "partyName": "Ен Ти Три Консулт ЕООД",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
       "key": "6a92f891c8af",
       "ocid": "aop-legacy-2017-765668",
       "date": "2017-01-09",
@@ -501,18 +453,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "67230ed7b770",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-12-11",
-      "amount": 80000,
-      "currency": "BGN",
-      "amountEur": 40903.35049569748,
-      "partyEik": "101161250",
-      "partyName": "ЕТ Иван Трендафилов - Кресна",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "e2085ea82401",
       "ocid": "aop-legacy-2019-948657",
       "date": "2019-12-11",
@@ -619,6 +559,66 @@
       "partyName": "Мега - строй - инженеринг ЕООД",
       "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
       "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-558591-858384%2F2026-05-22-award"
+    },
+    {
+      "key": "fe8bc600a256",
+      "ocid": "ocds-e82gsb-408919",
+      "date": "2026-03-23",
+      "amount": 12288.73,
+      "currency": "EUR",
+      "amountEur": 12288.73,
+      "partyEik": "040571277",
+      "partyName": "ЕТ Венанг - Илия Ангелов",
+      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
+      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-408919-828734%2F2026-03-23-award"
+    },
+    {
+      "key": "9df5e3e35b75",
+      "ocid": "aop-legacy-2011-2015-568702",
+      "date": "2013-11-07",
+      "amount": 19872,
+      "currency": "BGN",
+      "amountEur": 10160.392263131254,
+      "partyEik": "811047781",
+      "partyName": "Свети врач - 2003 ЕООД-Сандански",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "ebe19e296441",
+      "ocid": "aop-legacy-2011-2015-501088",
+      "date": "2012-09-25",
+      "amount": 16014,
+      "currency": "BGN",
+      "amountEur": 8187.828185476243,
+      "partyEik": "101534481",
+      "partyName": "ЕТ Крис Р.Р. - Радка Бойчева  - гр.Кресна",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "65fd0805e8bc",
+      "ocid": "aop-legacy-2011-2015-599196",
+      "date": "2014-04-14",
+      "amount": 15370,
+      "currency": "BGN",
+      "amountEur": 7858.5562139858785,
+      "partyEik": "101020067",
+      "partyName": "ЕТ Николай - 72 - Николай Георгиев - гр. Кресна",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "1dde4595ad1e",
+      "ocid": "aop-legacy-2019-925336",
+      "date": "2019-08-02",
+      "amount": 13419.76,
+      "currency": "BGN",
+      "amountEur": 6861.414335601765,
+      "partyEik": "101656204",
+      "partyName": "Архитектурно бюро - Алви ООД - Благоевград",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
@@ -654,21 +654,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 430471.2270493857,
+      "totalEur": 215235.61352469286,
       "totalOther": {},
-      "contractCount": 4
+      "contractCount": 2
     },
     {
       "year": "2017",
-      "totalEur": 191320.83565545065,
+      "totalEur": 109514.13466405567,
       "totalOther": {},
-      "contractCount": 3
+      "contractCount": 2
     },
     {
       "year": "2019",
-      "totalEur": 3617957.2457728945,
+      "totalEur": 1808978.6228864472,
       "totalOther": {},
-      "contractCount": 8
+      "contractCount": 4
     },
     {
       "year": "2022",

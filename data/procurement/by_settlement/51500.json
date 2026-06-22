@@ -3,28 +3,19 @@
   "name": "Несебър",
   "province": "Бургас",
   "obshtina": "Несебър",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 672,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 574,
   "awardCount": 0,
-  "totalEur": 197763223.85890785,
+  "totalEur": 164668459.33949673,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000057122",
       "name": "Община Несебър",
       "tier": "municipal",
-      "totalEur": 196681480.92812377,
+      "totalEur": 163699200.62257582,
       "totalOther": {},
-      "contractCount": 613,
-      "awardCount": 0
-    },
-    {
-      "eik": "000047886",
-      "name": "Детска Градина \"Яна Лъскова",
-      "tier": "school",
-      "totalEur": 485727.28713640757,
-      "totalOther": {},
-      "contractCount": 24,
+      "contractCount": 520,
       "awardCount": 0
     },
     {
@@ -34,6 +25,15 @@
       "totalEur": 448763.5818631476,
       "totalOther": {},
       "contractCount": 24,
+      "awardCount": 0
+    },
+    {
+      "eik": "000047886",
+      "name": "Детска Градина \"Яна Лъскова",
+      "tier": "school",
+      "totalEur": 373243.0732732395,
+      "totalOther": {},
+      "contractCount": 19,
       "awardCount": 0
     },
     {
@@ -81,18 +81,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "8996c081853d",
-      "ocid": "aop-legacy-2021-x",
-      "date": "2021-04-12",
-      "amount": 7338039.59,
-      "currency": "BGN",
-      "amountEur": 3751880.066263428,
-      "partyEik": "177397811",
-      "partyName": "ДЗЗД Северна буна",
-      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
-      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
-    },
-    {
       "key": "b8865e50db51",
       "ocid": "aop-legacy-2021-1010990",
       "date": "2021-04-12",
@@ -131,18 +119,6 @@
     {
       "key": "53b0614b48d6",
       "ocid": "aop-legacy-2017-788535",
-      "date": "2017-05-25",
-      "amount": 6786000,
-      "currency": "BGN",
-      "amountEur": 3469626.7057975386,
-      "partyEik": "177158462",
-      "partyName": "ДЗЗД Екосорт Несебър - София",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "8c80458ff9df",
-      "ocid": "aop-legacy-2017-x",
       "date": "2017-05-25",
       "amount": 6786000,
       "currency": "BGN",
@@ -237,18 +213,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
-      "key": "75f9d32b816e",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-04-08",
-      "amount": 3489550,
-      "currency": "BGN",
-      "amountEur": 1784178.5840282643,
-      "partyEik": "176059792",
-      "partyName": "ДЗЗД Техноком - София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "b436d7326391",
       "ocid": "aop-legacy-2019-906249",
       "date": "2019-04-08",
@@ -263,18 +227,6 @@
     {
       "key": "9a98d121b627",
       "ocid": "aop-legacy-2019-934540",
-      "date": "2019-09-20",
-      "amount": 3089475.61,
-      "currency": "BGN",
-      "amountEur": 1579623.7965467346,
-      "partyEik": "202333411",
-      "partyName": "Терра Гроуп ЕАД - Пловдив",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "be49d2d5a354",
-      "ocid": "aop-legacy-2019-x",
       "date": "2019-09-20",
       "amount": 3089475.61,
       "currency": "BGN",
@@ -321,18 +273,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
-      "key": "10dccb1b4dcc",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-03-14",
-      "amount": 2689436,
-      "currency": "BGN",
-      "amountEur": 1375086.791796833,
-      "partyEik": "201637945",
-      "partyName": "Хоум Сървис ООД - София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "72b024085ab7",
       "ocid": "aop-legacy-2019-900896",
       "date": "2019-03-14",
@@ -355,30 +295,6 @@
       "partyName": "Метал инс ООД - Средец",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "8aa22065dd63",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-03-25",
-      "amount": 2635272,
-      "currency": "BGN",
-      "amountEur": 1347393.1783437212,
-      "partyEik": "147188777",
-      "partyName": "Метал инс ООД - Средец",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "0b05cbefcd55",
-      "ocid": "aop-legacy-2021-x",
-      "date": "2021-02-08",
-      "amount": 2500000,
-      "currency": "BGN",
-      "amountEur": 1278229.7029905461,
-      "partyEik": "200970046",
-      "partyName": "Еив ЕООД - Бургас",
-      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
-      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
     },
     {
       "key": "da9e19149880",
@@ -441,18 +357,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-530449-821071%2F2026-03-10-award"
     },
     {
-      "key": "246b072dd690",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-04-25",
-      "amount": 2285058.32,
-      "currency": "BGN",
-      "amountEur": 1168331.7670758704,
-      "partyEik": "102701517",
-      "partyName": "Среги ООД - Бургас",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "3699771dccb2",
       "ocid": "aop-legacy-2019-909395",
       "date": "2019-04-25",
@@ -463,18 +367,6 @@
       "partyName": "Среги ООД - Бургас",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "8ad307df35d4",
-      "ocid": "aop-legacy-2016-x",
-      "date": "2016-04-18",
-      "amount": 2235461,
-      "currency": "BGN",
-      "amountEur": 1142973.0600307798,
-      "partyEik": "147188777",
-      "partyName": "Метал инс ООД - Средец",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
       "key": "b0cbe3407396",
@@ -511,18 +403,6 @@
       "partyName": "ЕР Билд - инженеринг ЕООД",
       "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
       "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-528004-848153%2F2026-04-27-award"
-    },
-    {
-      "key": "2ba391bb5244",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-05-07",
-      "amount": 1992929.5,
-      "currency": "BGN",
-      "amountEur": 1018968.6731464391,
-      "partyEik": "177301832",
-      "partyName": "ДЗЗД Спортекс",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
       "key": "e7b4e09311a8",
@@ -655,6 +535,126 @@
       "partyName": "ДЗЗД Псо Несебър",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "0e1cd01bdc5f",
+      "ocid": "aop-legacy-2011-2015-452333",
+      "date": "2011-10-04",
+      "amount": 1579608,
+      "currency": "BGN",
+      "amountEur": 807640.7458725963,
+      "partyEik": "147188777",
+      "partyName": "Метал инс ООД - Средец",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "8110b87de4c5",
+      "ocid": "aop-legacy-2023-318439",
+      "date": "2023-01-09",
+      "amount": 1556317.21,
+      "currency": "BGN",
+      "amountEur": 795732.3540389502,
+      "partyEik": "147043618",
+      "partyName": "АГРО-САМ ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "4baba2b3e7ae",
+      "ocid": "aop-legacy-2011-2015-529859",
+      "date": "2013-03-15",
+      "amount": 1550000,
+      "currency": "BGN",
+      "amountEur": 792502.4158541387,
+      "partyEik": "176465953",
+      "partyName": "Обединение Дейта Груп - Пирг, София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "ffbeec866bc1",
+      "ocid": "aop-legacy-2016-738258",
+      "date": "2016-06-29",
+      "amount": 1541729,
+      "currency": "BGN",
+      "amountEur": 788273.5207047648,
+      "partyEik": "102697378",
+      "partyName": "Булсервиз ООД - Бургас",
+      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
+      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "efb49a8ae03c",
+      "ocid": "aop-legacy-2011-2015-621176",
+      "date": "2014-08-28",
+      "amount": 1500000,
+      "currency": "BGN",
+      "amountEur": 766937.8217943277,
+      "partyEik": "102878485",
+      "partyName": "Път 2004 ООД - Бургас",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "62b057102639",
+      "ocid": "aop-legacy-2019-919682",
+      "date": "2019-07-02",
+      "amount": 1471626.93,
+      "currency": "BGN",
+      "amountEur": 752430.9014587157,
+      "partyEik": "202397111",
+      "partyName": "Атлант 2013 ЕООД",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "8198c99d037b",
+      "ocid": "aop-legacy-2011-2015-534083",
+      "date": "2013-04-02",
+      "amount": 1449683.58,
+      "currency": "BGN",
+      "amountEur": 741211.4447574688,
+      "partyEik": "176059792",
+      "partyName": "ДЗЗД Техноком",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "15746d40d536",
+      "ocid": "aop-legacy-2019-902527",
+      "date": "2019-03-25",
+      "amount": 1411936.25,
+      "currency": "BGN",
+      "amountEur": 721911.5413916343,
+      "partyEik": "121699202",
+      "partyName": "Лукойл-България ЕООД - София",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "f4e8c3a6fa76",
+      "ocid": "aop-legacy-2011-2015-430732",
+      "date": "2011-03-10",
+      "amount": 1344271.95,
+      "currency": "BGN",
+      "amountEur": 687315.3341548089,
+      "partyEik": "113575856",
+      "partyName": "Еспи систем ООД - Перник",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "088ea0bcc113",
+      "ocid": "aop-legacy-2011-2015-650692",
+      "date": "2015-02-25",
+      "amount": 1343394.71,
+      "currency": "BGN",
+      "amountEur": 686866.8084649483,
+      "partyEik": "115254450",
+      "partyName": "Водстрой - Пловдив АД",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
@@ -690,21 +690,21 @@
     },
     {
       "year": "2016",
-      "totalEur": 10430662.21501869,
+      "totalEur": 6599965.5082496945,
       "totalOther": {},
-      "contractCount": 53
+      "contractCount": 30
     },
     {
       "year": "2017",
-      "totalEur": 13011251.156797882,
+      "totalEur": 6872979.64035729,
       "totalOther": {},
-      "contractCount": 53
+      "contractCount": 30
     },
     {
       "year": "2019",
-      "totalEur": 36147247.531738445,
+      "totalEur": 18975652.163020305,
       "totalOther": {},
-      "contractCount": 96
+      "contractCount": 50
     },
     {
       "year": "2020",
@@ -714,9 +714,9 @@
     },
     {
       "year": "2021",
-      "totalEur": 11908401.854966946,
+      "totalEur": 5954200.927483473,
       "totalOther": {},
-      "contractCount": 12
+      "contractCount": 6
     },
     {
       "year": "2022",

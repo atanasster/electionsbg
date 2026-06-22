@@ -3,19 +3,19 @@
   "name": "Сапарева баня",
   "province": "Кюстендил",
   "obshtina": "Сапарева баня",
-  "generatedAt": "2026-06-20T18:46:59.481Z",
-  "contractCount": 82,
+  "generatedAt": "2026-06-22T04:31:21.588Z",
+  "contractCount": 74,
   "awardCount": 0,
-  "totalEur": 15856224.480302224,
+  "totalEur": 15440444.458521191,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000261616",
       "name": "Община Сапарева баня",
       "tier": "municipal",
-      "totalEur": 15856224.480302224,
+      "totalEur": 15440444.458521191,
       "totalOther": {},
-      "contractCount": 82,
+      "contractCount": 74,
       "awardCount": 0
     }
   ],
@@ -167,18 +167,6 @@
     {
       "key": "3f08eca0c099",
       "ocid": "aop-legacy-2019-926177",
-      "date": "2019-08-05",
-      "amount": 500000,
-      "currency": "BGN",
-      "amountEur": 255645.94059810924,
-      "partyEik": "177350612",
-      "partyName": "ДЗЗД Водопада 2019 - Сапарева баня",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "f6ae0c3177a0",
-      "ocid": "aop-legacy-2019-x",
       "date": "2019-08-05",
       "amount": 500000,
       "currency": "BGN",
@@ -417,18 +405,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
-      "key": "be0fb34b2886",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-08-05",
-      "amount": 148071.83,
-      "currency": "BGN",
-      "amountEur": 75707.92451286665,
-      "partyEik": "020767877",
-      "partyName": "Растер- юг ООД - Благоевград",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "c8a2f0ebe9ae",
       "ocid": "ocds-e82gsb-544990",
       "date": "2026-03-02",
@@ -561,18 +537,6 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
-      "key": "b72bcca5e35d",
-      "ocid": "aop-legacy-2019-x",
-      "date": "2019-08-05",
-      "amount": 100000,
-      "currency": "BGN",
-      "amountEur": 51129.188119621846,
-      "partyEik": "101743470",
-      "partyName": "Брежан ЕООД - с.Брежани",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
       "key": "43ce41db15d5",
       "ocid": "ocds-e82gsb-525433",
       "date": "2026-01-13",
@@ -619,6 +583,42 @@
       "partyName": "Аллур ООД",
       "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
       "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-236407-806118%2F2026-02-05-contractamendment"
+    },
+    {
+      "key": "e5ff1e5a54d3",
+      "ocid": "aop-legacy-2011-2015-663147",
+      "date": "2015-04-24",
+      "amount": 75590,
+      "currency": "BGN",
+      "amountEur": 38648.55329962216,
+      "partyEik": "030272497",
+      "partyName": "Теза ЕООД -София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "46af6e77601a",
+      "ocid": "aop-legacy-2022-185424",
+      "date": "2022-01-04",
+      "amount": 69999,
+      "currency": "BGN",
+      "amountEur": 35789.920391854095,
+      "partyEik": "131472555",
+      "partyName": "ДИЛ Транс ООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "add58397dea5",
+      "ocid": "aop-legacy-2020-68658",
+      "date": "2020-11-26",
+      "amount": 69999,
+      "currency": "BGN",
+      "amountEur": 35789.920391854095,
+      "partyEik": "204298343",
+      "partyName": "Боби къмпани ЕООД",
+      "bundleUuid": "c5404069-668a-4cd2-ab43-a1cdc26e03c6",
+      "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
     }
   ],
   "byYear": [
@@ -654,15 +654,15 @@
     },
     {
       "year": "2017",
-      "totalEur": 13488.708118803783,
+      "totalEur": 6744.354059401891,
       "totalOther": {},
-      "contractCount": 4
+      "contractCount": 2
     },
     {
       "year": "2019",
-      "totalEur": 818071.3354432645,
+      "totalEur": 409035.6677216322,
       "totalOther": {},
-      "contractCount": 12
+      "contractCount": 6
     },
     {
       "year": "2020",
