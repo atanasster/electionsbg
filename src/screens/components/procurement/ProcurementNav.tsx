@@ -34,8 +34,8 @@ const items = [
     icon: Table2,
     key: "procurement_index_contracts",
   },
-  { to: "/procurement/flows", icon: GitFork, key: "procurement_flows_title" },
-  { to: "/procurement/people", icon: Search, key: "procurement_people_title" },
+  { to: "/procurement/flows", icon: GitFork, key: "procurement_flows_nav" },
+  { to: "/procurement/people", icon: Search, key: "procurement_people_nav" },
   {
     to: "/procurement/by-settlement",
     icon: MapPin,
@@ -46,8 +46,8 @@ const items = [
     icon: PieChart,
     key: "procurement_concentration_nav",
   },
-  { to: "/procurement/flags", icon: Flag, key: "flags_title" },
-  { to: "/procurement/watchlist", icon: Star, key: "watchlist_title" },
+  { to: "/procurement/flags", icon: Flag, key: "flags_nav" },
+  { to: "/procurement/watchlist", icon: Star, key: "watchlist_nav" },
 ] as const;
 
 export const ProcurementNav: FC = () => {
