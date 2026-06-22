@@ -7,12 +7,15 @@
 //
 // Embedded as a stacked section on /procurement.
 
-import { FC, useCallback, useEffect, useMemo, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowRight, GitFork } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { useProcurementFlow } from "@/data/procurement/useProcurementFlow";
+import {
+  useProcurementFlow,
+  type ProcurementFlowFile,
+} from "@/data/procurement/useProcurementFlow";
 import { ProcurementFlowSankey } from "./ProcurementFlowSankey";
 import { formatEur } from "@/lib/currency";
 
@@ -42,12 +45,22 @@ const pickDefaultThreshold = (
 export const ProcurementFlowTile: FC = () => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
-  const { data, isLoading } = useProcurementFlow();
-  const showExploreLink = pathname !== "/procurement/flows";
+  // The dedicated explorer page loads the complete graph; the embedded landing
+  // tile loads the trimmed preview (smaller eager payload).
+  const isFullPage = pathname === "/procurement/flows";
+  const { data, isLoading } = useProcurementFlow(isFullPage);
+  const showExploreLink = !isFullPage;
   // null = not yet initialised (data still loading). Once data arrives, the
   // effect below computes a sensible default that filters out the long tail
   // of small links. Operators can drag the slider down to 0 to see everything.
   const [threshold, setThreshold] = useState<number | null>(null);
+  // Tracks the corpus the current threshold was tuned for. Toggling scope
+  // (this-parliament ↔ all-years) swaps in a much larger graph under a new
+  // React Query cache key, so `data` arrives as a fresh object reference; we
+  // recompute the default then so a threshold sized for the ~70-link NS graph
+  // doesn't leave an unreadable hairball on the ~800-link full corpus. A
+  // manual slider drag doesn't touch `data`, so it survives within a scope.
+  const lastCorpusRef = useRef<ProcurementFlowFile | null>(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
   // Measures the scroll box's usable content area. Width drives the layout;
   // height keeps the SVG flush with the box so it never overflows — a fixed
@@ -71,18 +84,21 @@ export const ProcurementFlowTile: FC = () => {
     () => data?.links.reduce((m, l) => Math.max(m, l.valueEur), 0) ?? 0,
     [data],
   );
-  // Initialise the threshold to the value that keeps DEFAULT_VISIBLE_LINKS
-  // visible. Effect (not useMemo) so the operator's manual slider drag
-  // persists across re-renders of the same data.
+  // Initialise (and re-initialise on scope change) the threshold to the value
+  // that keeps DEFAULT_VISIBLE_LINKS visible. Keyed off the `data` object
+  // identity, not a one-shot null guard, so swapping corpora recomputes a
+  // readable default while a manual drag persists across re-renders of the
+  // same data.
   useEffect(() => {
-    if (!data || threshold !== null) return;
+    if (!data || lastCorpusRef.current === data) return;
+    lastCorpusRef.current = data;
     setThreshold(
       pickDefaultThreshold(
         data.links.map((l) => l.valueEur),
         DEFAULT_VISIBLE_LINKS,
       ),
     );
-  }, [data, threshold]);
+  }, [data]);
 
   const effectiveThreshold = threshold ?? 0;
   const filtered = useMemo(() => {
@@ -108,7 +124,7 @@ export const ProcurementFlowTile: FC = () => {
         <CardTitle className="text-base flex items-center gap-2 flex-wrap">
           <GitFork className="h-4 w-4" />
           {t("procurement_flow_title") ||
-            "MP-tied money flow (awarder → company → MP)"}
+            "Money flow to connected people (awarder → company → person)"}
           {data ? (
             <span className="text-xs text-muted-foreground font-normal ml-1">
               {filtered.links.length}/{data.links.length}{" "}
@@ -206,7 +222,7 @@ export const ProcurementFlowTile: FC = () => {
 const Legend: FC = () => {
   const { t } = useTranslation();
   return (
-    <div className="flex items-center gap-3 text-xs text-muted-foreground ml-auto">
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground sm:ml-auto">
       <LegendDot
         color="#475569"
         label={t("procurement_flow_legend_awarder") || "Awarder"}
@@ -218,6 +234,10 @@ const Legend: FC = () => {
       <LegendDot
         color="#2563eb"
         label={t("procurement_flow_legend_mp") || "MP"}
+      />
+      <LegendDot
+        color="#0d9488"
+        label={t("procurement_flow_legend_official") || "Official"}
       />
     </div>
   );
