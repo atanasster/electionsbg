@@ -22,6 +22,7 @@ import {
 } from "@/data/procurement/usePersonProcurementIndex";
 import { dataUrl } from "@/data/dataUrl";
 import { normalizeMpName } from "@/lib/utils";
+import { transliterateName } from "@/data/candidates/transliterateName";
 import { formatEur } from "@/lib/currency";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
@@ -43,11 +44,32 @@ export const ProcurementPeopleScreen: FC = () => {
   const { rows, isLoading } = usePersonProcurementIndex();
   const [q, setQ] = useState("");
 
+  // Precompute a bilingual search blob per row: the normalized Cyrillic name
+  // plus its Latin transliteration. This lets a Latin-script query
+  // ("georgi popov") match a Cyrillic name, mirroring the global header
+  // search (which transliterates officials into a `name_en` field).
+  const searchRows = useMemo(
+    () =>
+      rows.map((row) => ({
+        row,
+        haystack: `${normalizeMpName(row.name)} ${normalizeMpName(
+          transliterateName(row.name),
+        )}`,
+      })),
+    [rows],
+  );
+
   const filtered = useMemo(() => {
-    const needle = normalizeMpName(q.trim());
-    if (!needle) return rows;
-    return rows.filter((r) => normalizeMpName(r.name).includes(needle));
-  }, [rows, q]);
+    const tokens = normalizeMpName(q.trim()).split(" ").filter(Boolean);
+    if (tokens.length === 0) return rows;
+    // Token-AND match (order-independent): every query token must appear
+    // somewhere in the blob, so "Георги Попов" matches "Георги Захаринин
+    // Попов" even though the patronymic is skipped — and "popov georgi"
+    // (last-first) works too.
+    return searchRows
+      .filter(({ haystack }) => tokens.every((tok) => haystack.includes(tok)))
+      .map(({ row }) => row);
+  }, [searchRows, rows, q]);
 
   return (
     <>
