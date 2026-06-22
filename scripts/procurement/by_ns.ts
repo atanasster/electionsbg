@@ -31,7 +31,7 @@ import type {
   RiskFeedFile,
   RiskFeedMpTied,
 } from "./risk_feed";
-import { canonicalJson } from "./validate";
+import { assertFlowIntegrity, canonicalJson } from "./validate";
 import { ekatteToNuts3 } from "./resolve_ekatte";
 import { toEur } from "@/lib/currency";
 
@@ -970,9 +970,11 @@ export const buildByNs = (
       canonicalJson(file),
     );
     // Per-NS flow + people sidecars (date-scoped sankey + scanner index).
+    const nsFlow = buildNsFlow(acc, officialMeta);
+    assertFlowIntegrity(nsFlow, `by_ns/flow/${range.electionDate}.json`);
     fs.writeFileSync(
       path.join(flowDir, `${range.electionDate}.json`),
-      canonicalJson(buildNsFlow(acc, officialMeta)),
+      canonicalJson(nsFlow),
     );
     fs.writeFileSync(
       path.join(peopleDir, `${range.electionDate}.json`),

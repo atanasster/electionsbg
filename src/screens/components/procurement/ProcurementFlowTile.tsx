@@ -105,14 +105,39 @@ export const ProcurementFlowTile: FC = () => {
   const filtered = useMemo(() => {
     if (!data) return { nodes: [], links: [] };
     const links = data.links.filter((l) => l.valueEur >= effectiveThreshold);
+    // Each contractor→person edge carries the contractor's full euro total,
+    // while each awarder→contractor edge is just one buyer's slice — so raising
+    // the threshold drops a contractor's awarder edges while its (larger)
+    // person edge survives, leaving the contractor shown with no Възложител
+    // feeding it. For every contractor that still has an outgoing person edge
+    // but lost all its incoming awarder edges, restore its single largest
+    // awarder edge so the awarder → company → person chain is never broken.
+    // Node ids are prefixed, so the edge direction is read off the prefix.
+    const hasAwarder = new Set<string>();
+    const personLinked = new Set<string>();
+    for (const l of links) {
+      if (l.source.startsWith("awarder:")) hasAwarder.add(l.target);
+      else if (l.source.startsWith("contractor:")) personLinked.add(l.source);
+    }
+    const restored = new Set(links);
+    for (const cid of personLinked) {
+      if (hasAwarder.has(cid)) continue;
+      let best: ProcurementFlowFile["links"][number] | null = null;
+      for (const l of data.links) {
+        if (l.target !== cid || !l.source.startsWith("awarder:")) continue;
+        if (!best || l.valueEur > best.valueEur) best = l;
+      }
+      if (best) restored.add(best);
+    }
+    const finalLinks = [...restored];
     // Drop nodes with no surviving links.
     const keep = new Set<string>();
-    for (const l of links) {
+    for (const l of finalLinks) {
       keep.add(l.source);
       keep.add(l.target);
     }
     const nodes = data.nodes.filter((n) => keep.has(n.id));
-    return { nodes, links };
+    return { nodes, links: finalLinks };
   }, [data, effectiveThreshold]);
 
   // Hide tile entirely when there's nothing to show (procurement data exists

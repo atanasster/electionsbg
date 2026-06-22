@@ -15,7 +15,7 @@ import type {
   TopContractorsFile,
 } from "./types";
 import type { PepConnectedFile } from "./pep_connected";
-import { canonicalJson } from "./validate";
+import { assertFlowIntegrity, canonicalJson } from "./validate";
 
 const TOP_LIMIT = 1000;
 
@@ -111,6 +111,23 @@ export const buildFlow = (
     }
   >();
   const links: FlowFile["links"] = [];
+  // Contractors that received at least one awarder→contractor edge from the
+  // rollup walk below. The awarder rollups cap byContractor at their top ~50
+  // clients, so a connected contractor that isn't among a buyer's largest gets
+  // no edge here — we backfill those from topAwarders afterwards so they never
+  // render orphaned (contractor → person with no Възложител feeding in).
+  const awarderLinkedContractors = new Set<string>();
+  // Per connected-contractor top awarders, captured from the person loops below
+  // (each mp-/pep-connected entry carries topAwarders sourced from the
+  // contractor's own rollup). Keyed per contractor, so it covers every tied
+  // contractor regardless of how small a client it is of any single buyer.
+  const topAwardersByEik = new Map<
+    string,
+    {
+      name: string;
+      awarders: Array<{ eik: string; name: string; totalEur: number }>;
+    }
+  >();
 
   // Walk awarders/<EIK>.json and for each contractor they paid that's MP-
   // tied, emit an awarder→contractor link.
@@ -142,6 +159,7 @@ export const buildFlow = (
         target: contractorNode,
         valueEur,
       });
+      awarderLinkedContractors.add(bc.eik);
     }
     if (!touched) continue;
   }
@@ -167,6 +185,11 @@ export const buildFlow = (
       target: mpNode,
       valueEur,
     });
+    if (!topAwardersByEik.has(entry.contractorEik))
+      topAwardersByEik.set(entry.contractorEik, {
+        name: entry.contractorName,
+        awarders: entry.topAwarders,
+      });
   }
 
   // Contractor → official links. Same shape as the MP edges but keyed on the
@@ -193,6 +216,38 @@ export const buildFlow = (
       target: officialNode,
       valueEur,
     });
+    if (!topAwardersByEik.has(entry.contractorEik))
+      topAwardersByEik.set(entry.contractorEik, {
+        name: entry.contractorName,
+        awarders: entry.topAwarders,
+      });
+  }
+
+  // Backfill awarder provenance for connected contractors the rollup walk
+  // missed (they fell outside every buyer's top-50). Without this they render
+  // as orphans — a contractor → person ribbon with no awarder column feeding
+  // it. topAwarders names the buyers that actually paid the contractor, so one
+  // edge per top awarder restores the awarder → company → person chain.
+  for (const [eik, c] of topAwardersByEik) {
+    if (awarderLinkedContractors.has(eik)) continue;
+    const contractorNode = `contractor:${eik}`;
+    for (const ta of c.awarders ?? []) {
+      const valueEur = ta.totalEur;
+      if (valueEur <= 0) continue;
+      const awarderNode = `awarder:${ta.eik}`;
+      nodes.set(awarderNode, {
+        id: awarderNode,
+        type: "awarder",
+        label: ta.name,
+      });
+      // Contractor node already exists from the person loop; set is idempotent.
+      nodes.set(contractorNode, {
+        id: contractorNode,
+        type: "contractor",
+        label: c.name,
+      });
+      links.push({ source: awarderNode, target: contractorNode, valueEur });
+    }
   }
 
   return {
@@ -248,14 +303,49 @@ export const buildAwarderConcentration = (
   };
 };
 
+// Each contractor→person edge carries the contractor's full euro total, while
+// each awarder→contractor edge is just one buyer's slice. So any value-ranked
+// or threshold cut keeps the (larger) person edge while dropping the smaller
+// awarder edge, leaving the contractor shown with no Възложител feeding it. For
+// every contractor with a surviving person edge but no surviving awarder edge,
+// restore its single largest awarder edge from the full pool so the
+// awarder → company → person chain is never rendered broken. Node ids are
+// prefixed (`awarder:` / `contractor:` / `mp:` / `official:`), so we classify
+// edges by their source/target prefix. The client threshold filter applies the
+// identical rule (see ProcurementFlowTile).
+const restoreAwarderProvenance = (
+  kept: FlowFile["links"],
+  pool: FlowFile["links"],
+): FlowFile["links"] => {
+  const out = [...kept];
+  const keptSet = new Set(kept);
+  const hasAwarder = new Set<string>(); // contractor ids with a kept awarder edge
+  const personLinked = new Set<string>(); // contractor ids with a kept person edge
+  for (const l of kept) {
+    if (l.source.startsWith("awarder:")) hasAwarder.add(l.target);
+    else if (l.source.startsWith("contractor:")) personLinked.add(l.source);
+  }
+  for (const cid of personLinked) {
+    if (hasAwarder.has(cid)) continue;
+    let best: FlowFile["links"][number] | null = null;
+    for (const l of pool) {
+      if (l.target !== cid || !l.source.startsWith("awarder:")) continue;
+      if (!best || l.valueEur > best.valueEur) best = l;
+    }
+    if (best && !keptSet.has(best)) out.push(best);
+  }
+  return out;
+};
+
 // Trim the flow to its top-N links by euro value, dropping nodes left with no
 // surviving link. Mirrors the client's threshold-slider filter, so the preview
 // renders identically to the default landing view.
-const trimFlow = (flow: FlowFile): FlowFile => {
+export const trimFlow = (flow: FlowFile): FlowFile => {
   if (flow.links.length <= FLOW_PREVIEW_LIMIT) return flow;
-  const links = [...flow.links]
+  const ranked = [...flow.links]
     .sort((a, b) => b.valueEur - a.valueEur)
     .slice(0, FLOW_PREVIEW_LIMIT);
+  const links = restoreAwarderProvenance(ranked, flow.links);
   const keep = new Set<string>();
   for (const l of links) {
     keep.add(l.source);
@@ -280,12 +370,14 @@ export const writeDerived = (
     canonicalJson(top),
   );
   // flow.json = trimmed preview (eager landing load); flow_full.json = complete
-  // graph (lazy-loaded by the /procurement/flows explorer).
+  // graph (lazy-loaded by the /procurement/flows explorer). Assert both are
+  // free of orphaned contractors before writing — a regression here ships a
+  // broken sankey, so fail the ingest loudly instead.
+  const preview = trimFlow(flow);
+  assertFlowIntegrity(flow, "flow_full.json");
+  assertFlowIntegrity(preview, "flow.json (preview)");
   fs.writeFileSync(path.join(outDir, "flow_full.json"), canonicalJson(flow));
-  fs.writeFileSync(
-    path.join(outDir, "flow.json"),
-    canonicalJson(trimFlow(flow)),
-  );
+  fs.writeFileSync(path.join(outDir, "flow.json"), canonicalJson(preview));
   fs.writeFileSync(
     path.join(outDir, "awarder_concentration.json"),
     canonicalJson(awarderConcentration),
