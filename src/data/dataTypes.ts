@@ -1562,6 +1562,23 @@ export type ProcurementAwarderGeo = {
   isLocalHQ: boolean;
 };
 
+/** Per-entity sector / procedure / EU-funding breakdown
+ *  (data/procurement/derived/breakdowns/{c,a}/<eik>.json). Built offline by
+ *  scripts/procurement/eop_breakdowns.ts from the EOP-enriched shards. `cpv.d`
+ *  is the 2-digit CPV division; `proc.b` is a ProcedureBucket key. EU-share is
+ *  euEur/euKnownEur; value-coverage is euKnownEur/totalEur (gate the % when
+ *  low). */
+export type ProcurementBreakdown = {
+  eik: string;
+  totalEur: number;
+  cpvKnownEur: number;
+  procKnownEur: number;
+  euEur: number;
+  euKnownEur: number;
+  cpv: { d: string; eur: number; n: number }[];
+  proc: { b: string; eur: number; n: number }[];
+};
+
 export type ProcurementAwarderRollup = {
   eik: string;
   name: string;

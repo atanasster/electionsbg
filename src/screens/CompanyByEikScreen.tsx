@@ -51,6 +51,7 @@ import { CompanyByYearChart } from "./components/procurement/CompanyByYearChart"
 import { EntityFlowTile } from "./components/procurement/EntityFlowTile";
 import { CompanyPortfolioTreemap } from "./components/procurement/CompanyPortfolioTreemap";
 import { CompanyOfficialsTile } from "./components/procurement/CompanyOfficialsTile";
+import { ProcurementBreakdownTile } from "./components/procurement/ProcurementBreakdownTile";
 import { FollowButton } from "./components/procurement/FollowButton";
 import { ErrorSection } from "./components/ErrorSection";
 import { CompanyConnectionsSection } from "./components/connections/CompanyConnectionsSection";
@@ -420,6 +421,10 @@ export const CompanyByEikScreen: FC = () => {
               {c.byAwarder.length > 0 ? (
                 <CompanyTopAwardersTile eik={c.eik} rollup={c} />
               ) : null}
+            </div>
+
+            <div className="my-4">
+              <ProcurementBreakdownTile kind="c" eik={c.eik} />
             </div>
 
             <EntityFlowTile

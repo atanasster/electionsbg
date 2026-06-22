@@ -26,6 +26,7 @@ import { AwarderTopContractsTile } from "./components/procurement/AwarderTopCont
 import { AwarderTopContractorsTile } from "./components/procurement/AwarderTopContractorsTile";
 import { CompanyByYearChart } from "./components/procurement/CompanyByYearChart";
 import { EntityFlowTile } from "./components/procurement/EntityFlowTile";
+import { ProcurementBreakdownTile } from "./components/procurement/ProcurementBreakdownTile";
 import { CompanyPortfolioTreemap } from "./components/procurement/CompanyPortfolioTreemap";
 import { FollowButton } from "./components/procurement/FollowButton";
 import { ErrorSection } from "./components/ErrorSection";
@@ -326,6 +327,10 @@ export const AwarderByEikScreen: FC = () => {
               }
             />
           ) : null}
+        </div>
+
+        <div className="my-4">
+          <ProcurementBreakdownTile kind="a" eik={a.eik} />
         </div>
 
         <EntityFlowTile
