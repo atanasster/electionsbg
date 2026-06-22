@@ -17,6 +17,7 @@ import {
   PieChart,
   Flag,
   Star,
+  Table2,
 } from "lucide-react";
 import { useProcurementHref } from "@/data/procurement/useProcurementScope";
 import { useCachedNewCount } from "@/data/procurement/useWatchlist";
@@ -27,6 +28,11 @@ const items = [
     icon: LayoutGrid,
     key: "procurement_overview_nav",
     end: true,
+  },
+  {
+    to: "/procurement/contracts",
+    icon: Table2,
+    key: "procurement_index_contracts",
   },
   { to: "/procurement/flows", icon: GitFork, key: "procurement_flows_title" },
   { to: "/procurement/people", icon: Search, key: "procurement_people_title" },
