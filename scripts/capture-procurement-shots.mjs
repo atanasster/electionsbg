@@ -23,7 +23,9 @@ const VIEWPORT = { width: 1440, height: 900 };
 // fold; `scrollTo` scrolls a heading into view first (for viewport shots).
 const PAGES = [
   {
-    url: "/procurement/contract/09e1dcda9dd5",
+    // Same contract the article links to ("see it live"): the €33M MTSP
+    // financing deal — single bidder + limited procedure, a clean risk example.
+    url: "/procurement/contract/701291266900",
     shots: [{ name: "01-risk-index", viewport: true }],
   },
   {
@@ -49,14 +51,13 @@ const PAGES = [
     ],
   },
   {
-    url: "/procurement/flags",
-    shots: [
-      {
-        name: "06-flags",
-        heading: "Концентрация върху един изпълнител",
-        padding: 10,
-      },
-    ],
+    // Viewport (not a card clip): the fold shows the summary tiles
+    // (concentration / MP-tied / connected people / debarments) + the oblast
+    // heat-map — the dashboard the article text describes. A heading clip would
+    // grab only the 100%-pair list further down ("Концентрация…" also titles
+    // that section), which is less representative.
+    url: "/procurement/flags?pscope=all",
+    shots: [{ name: "06-flags", viewport: true }],
   },
   {
     url: "/procurement/people",
