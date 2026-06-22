@@ -48,7 +48,7 @@ import { MpAvatar } from "./components/candidates/MpAvatar";
 import { CompanyTopContractsTile } from "./components/procurement/CompanyTopContractsTile";
 import { CompanyTopAwardersTile } from "./components/procurement/CompanyTopAwardersTile";
 import { CompanyByYearChart } from "./components/procurement/CompanyByYearChart";
-import { EntityFlowTile } from "./components/procurement/EntityFlowTile";
+import { CompanyBuyerConcentrationTile } from "./components/procurement/CompanyBuyerConcentrationTile";
 import { CompanyPortfolioTreemap } from "./components/procurement/CompanyPortfolioTreemap";
 import { CompanyOfficialsTile } from "./components/procurement/CompanyOfficialsTile";
 import { ProcurementBreakdownTile } from "./components/procurement/ProcurementBreakdownTile";
@@ -427,22 +427,7 @@ export const CompanyByEikScreen: FC = () => {
               <ProcurementBreakdownTile kind="c" eik={c.eik} />
             </div>
 
-            <EntityFlowTile
-              role="contractor"
-              centerEik={c.eik}
-              centerName={c.name}
-              counterparties={c.byAwarder.map((aw) => ({
-                eik: aw.eik,
-                name: aw.name,
-                totalEur: aw.totalEur,
-              }))}
-              mpEdges={mpLinks.map((m) => ({
-                contractorEik: c.eik,
-                mpId: m.mpId,
-                mpName: m.mpName,
-                valueEur: c.totalEur,
-              }))}
-            />
+            <CompanyBuyerConcentrationTile rollup={c} />
 
             <CompanyPortfolioTreemap
               role="contractor"
