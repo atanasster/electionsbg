@@ -237,21 +237,11 @@ export const ContractDetailScreen: FC = () => {
               );
             })()}
             <p>
-              {t("contract_source_hint_release") ||
-                "Raw OCDS release JSON (data.egov.bg bundle):"}{" "}
-              <a
-                href={c.sourceUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="text-primary hover:underline inline-flex items-center gap-0.5"
-              >
-                {t("contract_view_source") || "View source"}{" "}
-                <ExternalLink className="h-3 w-3" />
-              </a>
-            </p>
-            <p>
               {/* This record as clean JSON — mirrors SIGMA's per-contract JSON
-                  download. Serialises the on-disk by-id row exactly. */}
+                  download. Serialises the on-disk by-id row exactly. The raw
+                  data.egov.bg bundle isn't linked: the host serves a site-wide
+                  403, so any link there is dead — ЦАИС ЕОП above is the
+                  authoritative public source. */}
               <button
                 type="button"
                 onClick={() => {
