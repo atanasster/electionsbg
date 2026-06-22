@@ -3,19 +3,19 @@
   "name": "Дълго поле",
   "province": "Пловдив",
   "obshtina": "Калояново",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 2,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 3,
   "awardCount": 0,
-  "totalEur": 63052.51478911767,
+  "totalEur": 91988.84872407111,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000453890",
-      "name": "Основно училище /ОУ/ \"Христо Ботев\" с. Дълго поле",
+      "name": "Обединено училище \"Христо Ботев\" - с. Дълго поле",
       "tier": "school",
-      "totalEur": 63052.51478911767,
+      "totalEur": 91988.84872407111,
       "totalOther": {},
-      "contractCount": 2,
+      "contractCount": 3,
       "awardCount": 0
     }
   ],
@@ -31,6 +31,18 @@
       "partyName": "Вигор - 7 ЕООД - София",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "3c2b504ccea6",
+      "ocid": "eop-03976-2025-0001",
+      "date": "2025-10-07",
+      "amount": 56594.55,
+      "currency": "BGN",
+      "amountEur": 28936.333934953447,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "eop-flat:2025-10-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-10-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.10.2025.json"
     },
     {
       "key": "927ef709962b",
@@ -55,6 +67,12 @@
     {
       "year": "2016",
       "totalEur": 17317.45601611592,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2025",
+      "totalEur": 28936.333934953447,
       "totalOther": {},
       "contractCount": 1
     }

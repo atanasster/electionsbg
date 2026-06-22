@@ -1,16 +1,16 @@
 {
   "mpId": 5094,
   "summary": {
-    "totalEur": 2806698.0237388215,
+    "totalEur": 4236638.25371791,
     "totalOther": {},
-    "contractCount": 41,
+    "contractCount": 54,
     "awardCount": 0
   },
   "scorecard": {
-    "value": 2806698.0237388215,
-    "rank": 9,
-    "cohortSize": 38,
-    "cohortMedian": 345827.6041044467
+    "value": 4236638.25371791,
+    "rank": 19,
+    "cohortSize": 61,
+    "cohortMedian": 731556.67926149
   },
   "entries": [
     {
@@ -35,9 +35,9 @@
           "confidence": "medium"
         }
       ],
-      "totalEur": 2806698.0237388215,
+      "totalEur": 4236638.25371791,
       "totalOther": {},
-      "contractCount": 41,
+      "contractCount": 54,
       "awardCount": 0,
       "byYear": [
         {
@@ -95,6 +95,18 @@
           "totalOther": {}
         },
         {
+          "year": "2024",
+          "contractCount": 6,
+          "totalEur": 166240.1640224355,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 7,
+          "totalEur": 1263700.0659566526,
+          "totalOther": {}
+        },
+        {
           "year": "2026",
           "contractCount": 1,
           "totalEur": 50566.77,
@@ -105,36 +117,36 @@
         {
           "eik": "117505556",
           "name": "Университетска многопрофилна болница за активно лечение \"Канев\" АД",
-          "contractCount": 2,
-          "totalEur": 834428.3501122285,
+          "contractCount": 3,
+          "totalEur": 1411165.592101563,
           "totalOther": {}
         },
         {
           "eik": "104510514",
           "name": "Многопрофилна областна болница за активно лечение \"Д-Р стефан Черкезов\" АД",
+          "contractCount": 4,
+          "totalEur": 633858.770956576,
+          "totalOther": {}
+        },
+        {
+          "eik": "118501906",
+          "name": "Многопрофилна болница за активно ЛЕЧЕНИЕ-СИЛИСТРА АД",
           "contractCount": 3,
-          "totalEur": 439567.856102013,
+          "totalEur": 476319.51652239717,
           "totalOther": {}
         },
         {
           "eik": "107507217",
           "name": "Многопрофилна болница за активно лечение \"Д-Р тота Венкова\" АД",
-          "contractCount": 5,
-          "totalEur": 326438.13623883465,
+          "contractCount": 7,
+          "totalEur": 444391.89500109927,
           "totalOther": {}
         },
         {
           "eik": "116503980",
           "name": "Многопрофилна болница за активно лечение \"СВ.ИВАН Рилски\" - разград АД",
-          "contractCount": 5,
-          "totalEur": 280162.3892511619,
-          "totalOther": {}
-        },
-        {
-          "eik": "175405647",
-          "name": "БДЖ - Пътнически превози ЕООД",
           "contractCount": 6,
-          "totalEur": 179171.29300603838,
+          "totalEur": 323673.32834096014,
           "totalOther": {}
         }
       ]

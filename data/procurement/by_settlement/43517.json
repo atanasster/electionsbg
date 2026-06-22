@@ -3,19 +3,19 @@
   "name": "Лехчево",
   "province": "Монтана",
   "obshtina": "Бойчиновци",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 1,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 2,
   "awardCount": 0,
-  "totalEur": 53936.22,
+  "totalEur": 100970.34362015103,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000312078",
       "name": "Средно училище СВ.СВ.КИРИЛ Методий",
       "tier": "school",
-      "totalEur": 53936.22,
+      "totalEur": 100970.34362015103,
       "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 2,
       "awardCount": 0
     }
   ],
@@ -31,9 +31,27 @@
       "partyName": "Сейфтистрой 2018 ООД",
       "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
       "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-576407-862764%2F2026-06-03-award"
+    },
+    {
+      "key": "edd5f848b6a0",
+      "ocid": "eop-03726-2024-0001",
+      "date": "2025-01-28",
+      "amount": 91990.75,
+      "currency": "BGN",
+      "amountEur": 47034.12362015103,
+      "partyEik": "206876162",
+      "partyName": "Офис 1 запад ЕООД",
+      "bundleUuid": "eop-flat:2025-01-28",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-01-28/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2028.01.2025.json"
     }
   ],
   "byYear": [
+    {
+      "year": "2025",
+      "totalEur": 47034.12362015103,
+      "totalOther": {},
+      "contractCount": 1
+    },
     {
       "year": "2026",
       "totalEur": 53936.22,

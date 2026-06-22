@@ -3,23 +3,71 @@
   "name": "Трънак",
   "province": "Бургас",
   "obshtina": "Руен",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 10,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 26,
   "awardCount": 0,
-  "totalEur": 135319.27621521297,
+  "totalEur": 486784.3012940798,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000043749",
-      "name": "Средно училище \"Димитър Полянов",
+      "name": "Средно училище \"Димитър Полянов\"",
       "tier": "school",
-      "totalEur": 135319.27621521297,
+      "totalEur": 486784.3012940798,
       "totalOther": {},
-      "contractCount": 10,
+      "contractCount": 26,
       "awardCount": 0
     }
   ],
   "topContracts": [
+    {
+      "key": "bda0056b2298",
+      "ocid": "eop-01725-2025-0002",
+      "date": "2025-02-27",
+      "amount": 141592.2,
+      "currency": "BGN",
+      "amountEur": 72394.94230071122,
+      "partyEik": "147043618",
+      "partyName": "АГРО-САМ ЕООД",
+      "bundleUuid": "eop-flat:2025-02-27",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-02-27/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2027.02.2025.json"
+    },
+    {
+      "key": "4c7ca69d688b",
+      "ocid": "eop-01725-2025-0003",
+      "date": "2025-07-02",
+      "amount": 126822,
+      "currency": "BGN",
+      "amountEur": 64843.05895706682,
+      "partyEik": "102663899",
+      "partyName": "Комплекс 2000 ООД",
+      "bundleUuid": "eop-flat:2025-07-02",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-07-02/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2002.07.2025.json"
+    },
+    {
+      "key": "3860152d6e1b",
+      "ocid": "eop-01725-2025-0006",
+      "date": "2025-10-23",
+      "amount": 114444,
+      "currency": "BGN",
+      "amountEur": 58514.28805162003,
+      "partyEik": "102637662",
+      "partyName": "Хитекс ЕООД",
+      "bundleUuid": "eop-flat:2025-10-23",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-10-23/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2023.10.2025.json"
+    },
+    {
+      "key": "b3a278879237",
+      "ocid": "eop-01725-2024-0004",
+      "date": "2024-09-11",
+      "amount": 86477.6,
+      "currency": "BGN",
+      "amountEur": 44215.29478533411,
+      "partyEik": "102637662",
+      "partyName": "Хитекс ЕООД",
+      "bundleUuid": "eop-flat:2024-09-11",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-09-11/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2011.09.2024.json"
+    },
     {
       "key": "07aae1ac33db",
       "ocid": "aop-legacy-2022-286060",
@@ -45,6 +93,42 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
+      "key": "7480a46b2860",
+      "ocid": "eop-01725-2025-0005",
+      "date": "2025-09-17",
+      "amount": 55080,
+      "currency": "BGN",
+      "amountEur": 28161.956816287715,
+      "partyEik": "102852387",
+      "partyName": "ХЕМ - 69 ЕООД",
+      "bundleUuid": "eop-flat:2025-09-17",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-09-17/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2017.09.2025.json"
+    },
+    {
+      "key": "570cdec22572",
+      "ocid": "eop-01725-2024-0005",
+      "date": "2024-12-12",
+      "amount": 41310,
+      "currency": "BGN",
+      "amountEur": 21121.467612215787,
+      "partyEik": "102852387",
+      "partyName": "ХЕМ - 69 ЕООД",
+      "bundleUuid": "eop-flat:2024-12-12",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-12-12/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2012.12.2024.json"
+    },
+    {
+      "key": "6ef2b6a7f147",
+      "ocid": "eop-01725-2025-0005",
+      "date": "2025-09-17",
+      "amount": 25542,
+      "currency": "BGN",
+      "amountEur": 13059.417229513812,
+      "partyEik": "203136559",
+      "partyName": "Ерди травел 80 ЕООД",
+      "bundleUuid": "eop-flat:2025-09-17",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-09-17/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2017.09.2025.json"
+    },
+    {
       "key": "58d1c6849a7b",
       "ocid": "aop-legacy-2023-426783",
       "date": "2023-09-21",
@@ -55,6 +139,18 @@
       "partyName": "Хем - 69 ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "c2b2d329f624",
+      "ocid": "eop-01725-2024-0005",
+      "date": "2024-12-12",
+      "amount": 22599,
+      "currency": "BGN",
+      "amountEur": 11554.685223153341,
+      "partyEik": "203136559",
+      "partyName": "Ерди травел 80 ЕООД",
+      "bundleUuid": "eop-flat:2024-12-12",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-12-12/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2012.12.2024.json"
     },
     {
       "key": "ae587eafbd58",
@@ -79,6 +175,42 @@
       "partyName": "„Ерди травел 80“ ЕООД",
       "bundleUuid": "c5404069-668a-4cd2-ab43-a1cdc26e03c6",
       "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
+    },
+    {
+      "key": "0b1391e30712",
+      "ocid": "eop-01725-2025-0006",
+      "date": "2025-10-16",
+      "amount": 16236,
+      "currency": "BGN",
+      "amountEur": 8301.334983101804,
+      "partyEik": "102851100",
+      "partyName": "ЕТ ЕБАЗИР-68 - Ебазир хамид",
+      "bundleUuid": "eop-flat:2025-10-16",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-10-16/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2016.10.2025.json"
+    },
+    {
+      "key": "ec838c5ff732",
+      "ocid": "eop-01725-2024-0002",
+      "date": "2024-06-26",
+      "amount": 13751.41,
+      "currency": "BGN",
+      "amountEur": 7030.984288000491,
+      "partyEik": "130878827",
+      "partyName": "Клет българия ООД",
+      "bundleUuid": "eop-flat:2024-06-26",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-06-26/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2026.06.2024.json"
+    },
+    {
+      "key": "79670993efdd",
+      "ocid": "eop-01725-2024-0004",
+      "date": "2024-09-11",
+      "amount": 13185,
+      "currency": "BGN",
+      "amountEur": 6741.383453572141,
+      "partyEik": "102851100",
+      "partyName": "ЕТ ЕБАЗИР-68 - Ебазир хамид",
+      "bundleUuid": "eop-flat:2024-09-11",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-09-11/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2011.09.2024.json"
     },
     {
       "key": "67d5a3b13107",
@@ -129,6 +261,54 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
+      "key": "292bf46f54cb",
+      "ocid": "eop-01725-2024-0002",
+      "date": "2024-06-26",
+      "amount": 10056.9,
+      "currency": "BGN",
+      "amountEur": 5142.01132000225,
+      "partyEik": "131106522",
+      "partyName": "ПРОСВЕТА-СОФИЯ АД",
+      "bundleUuid": "eop-flat:2024-06-26",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-06-26/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2026.06.2024.json"
+    },
+    {
+      "key": "5b644f80ebb1",
+      "ocid": "eop-01725-2024-0001",
+      "date": "2024-03-26",
+      "amount": 6731.89,
+      "currency": "BGN",
+      "amountEur": 3441.9607021060115,
+      "partyEik": "131106522",
+      "partyName": "ПРОСВЕТА-СОФИЯ АД",
+      "bundleUuid": "eop-flat:2024-03-26",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-03-26/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2026.03.2024.json"
+    },
+    {
+      "key": "ca104ab5d1bc",
+      "ocid": "eop-01725-2024-0002",
+      "date": "2024-06-26",
+      "amount": 6518.35,
+      "currency": "BGN",
+      "amountEur": 3332.779433795371,
+      "partyEik": "115749729",
+      "partyName": "Юнивърс ЕООД",
+      "bundleUuid": "eop-flat:2024-06-26",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-06-26/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2026.06.2024.json"
+    },
+    {
+      "key": "98f890e8682f",
+      "ocid": "eop-01725-2024-0002",
+      "date": "2024-06-26",
+      "amount": 6383.25,
+      "currency": "BGN",
+      "amountEur": 3263.7039006457617,
+      "partyEik": "201264752",
+      "partyName": "БГ Учебник ЕООД",
+      "bundleUuid": "eop-flat:2024-06-26",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-06-26/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2026.06.2024.json"
+    },
+    {
       "key": "cb88d9484e51",
       "ocid": "aop-legacy-2023-426767",
       "date": "2023-09-21",
@@ -139,6 +319,18 @@
       "partyName": "Хем - 69 ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "caf9514397b5",
+      "ocid": "eop-01725-2024-0002",
+      "date": "2024-06-26",
+      "amount": 676.24,
+      "currency": "BGN",
+      "amountEur": 345.7560217401308,
+      "partyEik": "202097555",
+      "partyName": "Архимед 2 ЕООД",
+      "bundleUuid": "eop-flat:2024-06-26",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-06-26/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2026.06.2024.json"
     }
   ],
   "byYear": [
@@ -165,6 +357,18 @@
       "totalEur": 76423.56442022057,
       "totalOther": {},
       "contractCount": 7
+    },
+    {
+      "year": "2024",
+      "totalEur": 106190.0267405654,
+      "totalOther": {},
+      "contractCount": 10
+    },
+    {
+      "year": "2025",
+      "totalEur": 245274.9983383014,
+      "totalOther": {},
+      "contractCount": 6
     }
   ]
 }

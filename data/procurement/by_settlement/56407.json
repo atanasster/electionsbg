@@ -3,55 +3,55 @@
   "name": "Пирдоп",
   "province": "София",
   "obshtina": "Пирдоп",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 155,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 206,
   "awardCount": 0,
-  "totalEur": 43809463.531406514,
+  "totalEur": 53016998.69550566,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000777216",
       "name": "Община Пирдоп",
       "tier": "municipal",
-      "totalEur": 42166673.280429184,
+      "totalEur": 49654053.640685454,
       "totalOther": {},
-      "contractCount": 79,
+      "contractCount": 109,
       "awardCount": 0
     },
     {
       "eik": "202503899",
       "name": "Многопрофилна болница за активно лечение - пирдоп АД",
       "tier": "hospital",
-      "totalEur": 1350906.1417475957,
+      "totalEur": 1542586.175288343,
       "totalOther": {},
-      "contractCount": 70,
-      "awardCount": 0
-    },
-    {
-      "eik": "000763152",
-      "name": "Професионална гимназия по механоелектротехника",
-      "tier": "school",
-      "totalEur": 161696.0574283041,
-      "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 82,
       "awardCount": 0
     },
     {
       "eik": "000760448",
       "name": "Професионална гимназия по туризъм и хранителни технологии \"Никола Димов\"",
       "tier": "school",
-      "totalEur": 92623.56,
+      "totalEur": 1227078.926775231,
       "totalOther": {},
-      "contractCount": 4,
+      "contractCount": 6,
+      "awardCount": 0
+    },
+    {
+      "eik": "000763152",
+      "name": "Професионална гимназия по механоелектротехника",
+      "tier": "school",
+      "totalEur": 423490.15507482755,
+      "totalOther": {},
+      "contractCount": 3,
       "awardCount": 0
     },
     {
       "eik": "000758850",
-      "name": "Начално училище /Ну/ \"Тодор Влайков\" гр. Пирдоп",
+      "name": "Начално училище \"Тодор Влайков\"",
       "tier": "school",
-      "totalEur": 37564.491801434684,
+      "totalEur": 169789.7976818026,
       "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 6,
       "awardCount": 0
     }
   ],
@@ -79,6 +79,18 @@
       "partyName": "Консорциум Витковице Интерпром Аква Инженеринг",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "a8df196d8dcc",
+      "ocid": "eop-00851-2024-0001",
+      "date": "2024-07-29",
+      "amount": 6959004.39,
+      "currency": "BGN",
+      "amountEur": 3558082.4458158426,
+      "partyEik": "204352937",
+      "partyName": "ЕКО Строй проект ЕООД",
+      "bundleUuid": "eop-flat:2024-07-29",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-07-29/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2029.07.2024.json"
     },
     {
       "key": "77c008fc1c25",
@@ -129,6 +141,30 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "48a6f74e0634",
+      "ocid": "eop-00851-2025-0012",
+      "date": "2025-08-20",
+      "amount": 2277877.19,
+      "currency": "BGN",
+      "amountEur": 1164660.113609056,
+      "partyEik": "206016515",
+      "partyName": "Ерст БАУ ЕООД",
+      "bundleUuid": "eop-flat:2025-08-20",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-08-20/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2020.08.2025.json"
+    },
+    {
+      "key": "ff6a5d809d52",
+      "ocid": "eop-01375-2024-0001",
+      "date": "2024-12-03",
+      "amount": 2163388,
+      "currency": "BGN",
+      "amountEur": 1106122.7202773248,
+      "partyEik": "112062174",
+      "partyName": "Партрейд ООД",
+      "bundleUuid": "eop-flat:2024-12-03",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-12-03/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2003.12.2024.json"
+    },
+    {
       "key": "0ff91ca8140d",
       "ocid": "aop-legacy-2023-429104",
       "date": "2023-09-27",
@@ -163,6 +199,18 @@
       "partyName": "АБМ Консултинг ЕООД",
       "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
       "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-551187-825595%2F2026-03-16-award"
+    },
+    {
+      "key": "521b8ef10eb0",
+      "ocid": "eop-00851-2025-0008",
+      "date": "2025-06-24",
+      "amount": 1701942.67,
+      "currency": "BGN",
+      "amountEur": 870189.4694324149,
+      "partyEik": "204352937",
+      "partyName": "ЕКО Строй проект ЕООД",
+      "bundleUuid": "eop-flat:2025-06-24",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-06-24/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2024.06.2025.json"
     },
     {
       "key": "4a0dd4ae6792",
@@ -211,6 +259,18 @@
       "partyName": "Алди комерс груп ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "3e363715e3aa",
+      "ocid": "eop-00851-2025-0012",
+      "date": "2025-08-20",
+      "amount": 1410036.74,
+      "currency": "BGN",
+      "amountEur": 720940.3373503832,
+      "partyEik": "206016515",
+      "partyName": "Ерст БАУ ЕООД",
+      "bundleUuid": "eop-flat:2025-08-20",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-08-20/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2020.08.2025.json"
     },
     {
       "key": "72fb71614695",
@@ -369,6 +429,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
+      "key": "8065eae7b264",
+      "ocid": "eop-00851-2024-0006",
+      "date": "2024-11-05",
+      "amount": 390000,
+      "currency": "BGN",
+      "amountEur": 199403.8336665252,
+      "partyEik": "205606662",
+      "partyName": "Номад енерджи къмпани ЕООД",
+      "bundleUuid": "eop-flat:2024-11-05",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-11-05/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2005.11.2024.json"
+    },
+    {
       "key": "275042f80179",
       "ocid": "aop-legacy-2023-398375",
       "date": "2023-07-14",
@@ -391,6 +463,18 @@
       "partyName": "ДЗЗД Мениджмънт Пирдоп 2012",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "8e04cd7e037b",
+      "ocid": "eop-04296-2025-0002",
+      "date": "2025-10-14",
+      "amount": 372943.25,
+      "currency": "BGN",
+      "amountEur": 190682.85587193162,
+      "partyEik": "204105730",
+      "partyName": "АБМ Консултинг ЕООД",
+      "bundleUuid": "eop-flat:2025-10-14",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-10-14/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2014.10.2025.json"
     },
     {
       "key": "c241c4a069a1",
@@ -463,6 +547,18 @@
       "partyName": "Алве Консулт ЕООД - София",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "326613082b56",
+      "ocid": "eop-00851-2025-0009",
+      "date": "2025-06-19",
+      "amount": 264449.01,
+      "currency": "BGN",
+      "amountEur": 135210.6318033776,
+      "partyEik": "200952660",
+      "partyName": "Електродивелъпмънт ЕООД",
+      "bundleUuid": "eop-flat:2025-06-19",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-06-19/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2019.06.2025.json"
     },
     {
       "key": "471ab3191b74",
@@ -549,112 +645,16 @@
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
-      "key": "e165d6efc30e",
-      "ocid": "aop-legacy-2011-2015-458783",
-      "date": "2011-12-01",
-      "amount": 168600,
+      "key": "fadd4aa5e119",
+      "ocid": "eop-00851-2025-0009",
+      "date": "2025-06-19",
+      "amount": 172926.54,
       "currency": "BGN",
-      "amountEur": 86203.81116968243,
-      "partyEik": "130921214",
-      "partyName": "М-Форма ЕООД - София /Гоце Делчев/",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "26116937d007",
-      "ocid": "aop-legacy-2023-445112",
-      "date": "2023-11-08",
-      "amount": 158193.95,
-      "currency": "BGN",
-      "amountEur": 80883.28228936053,
-      "partyEik": "833101609",
-      "partyName": "Перфект медика ООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "b6beafdf9579",
-      "ocid": "aop-legacy-2011-2015-493173",
-      "date": "2012-07-30",
-      "amount": 156260.76,
-      "currency": "BGN",
-      "amountEur": 79894.85793755081,
-      "partyEik": "131456729",
-      "partyName": "Мегахидрострой  ЕООД - гр. Божурище",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "7dc95610c93d",
-      "ocid": "aop-legacy-2011-2015-562948",
-      "date": "2013-10-04",
-      "amount": 145000,
-      "currency": "BGN",
-      "amountEur": 74137.32277345168,
-      "partyEik": "175010041",
-      "partyName": "Дени.2005 ЕООД - Златица",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "2d8103731d81",
-      "ocid": "ocds-e82gsb-546062",
-      "date": "2026-03-13",
-      "amount": 67714.49,
-      "currency": "EUR",
-      "amountEur": 67714.49,
-      "partyEik": "204727440",
-      "partyName": "Алекса фууд ЕООД",
-      "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
-      "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-546062-823814%2F2026-03-13-award"
-    },
-    {
-      "key": "1aa9dd78c8b9",
-      "ocid": "ocds-e82gsb-536224",
-      "date": "2026-04-27",
-      "amount": 63202.77,
-      "currency": "EUR",
-      "amountEur": 63202.77,
-      "partyEik": "833101609",
-      "partyName": "Перфект медика ООД",
-      "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
-      "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-536224-846301%2F2026-04-27-award"
-    },
-    {
-      "key": "72437c4c3ac0",
-      "ocid": "aop-legacy-2023-397406",
-      "date": "2023-07-12",
-      "amount": 123255.6,
-      "currency": "BGN",
-      "amountEur": 63019.58759196863,
-      "partyEik": "203283623",
-      "partyName": "Фьоникс Фарма ЕООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "1737f4989af0",
-      "ocid": "aop-legacy-2019-896050",
-      "date": "2019-02-21",
-      "amount": 122288.69,
-      "currency": "BGN",
-      "amountEur": 62525.21435912119,
-      "partyEik": "203283623",
-      "partyName": "Фьоникс Фарма ЕООД",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "b0a791ee5553",
-      "ocid": "aop-legacy-2011-2015-635066",
-      "date": "2014-11-26",
-      "amount": 121687.25,
-      "currency": "BGN",
-      "amountEur": 62217.702970094535,
-      "partyEik": "175010041",
-      "partyName": "Дени.2005 ЕООД - Златица",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+      "amountEur": 88415.93594535312,
+      "partyEik": "200952660",
+      "partyName": "Електродивелъпмънт ЕООД",
+      "bundleUuid": "eop-flat:2025-06-19",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-06-19/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2019.06.2025.json"
     }
   ],
   "byYear": [
@@ -723,6 +723,18 @@
       "totalEur": 2868866.0108496137,
       "totalOther": {},
       "contractCount": 28
+    },
+    {
+      "year": "2024",
+      "totalEur": 5254181.922764248,
+      "totalOther": {},
+      "contractCount": 14
+    },
+    {
+      "year": "2025",
+      "totalEur": 3953353.2413348802,
+      "totalOther": {},
+      "contractCount": 37
     },
     {
       "year": "2026",

@@ -1,16 +1,16 @@
 {
   "mpId": 3016,
   "summary": {
-    "totalEur": 3088984.932228261,
+    "totalEur": 11388771.723513803,
     "totalOther": {},
-    "contractCount": 9,
+    "contractCount": 12,
     "awardCount": 0
   },
   "scorecard": {
-    "value": 3088984.932228261,
-    "rank": 8,
-    "cohortSize": 38,
-    "cohortMedian": 345827.6041044467
+    "value": 11388771.723513803,
+    "rank": 13,
+    "cohortSize": 61,
+    "cohortMedian": 731556.67926149
   },
   "entries": [
     {
@@ -25,9 +25,9 @@
           "confidence": "medium"
         }
       ],
-      "totalEur": 3088984.932228261,
+      "totalEur": 11388771.723513803,
       "totalOther": {},
-      "contractCount": 9,
+      "contractCount": 12,
       "awardCount": 0,
       "byYear": [
         {
@@ -77,21 +77,33 @@
           "contractCount": 1,
           "totalEur": 171487.29695321168,
           "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 1,
+          "totalEur": 178945.00033233972,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 2,
+          "totalEur": 8120841.790953201,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000695114",
-          "name": "Министерство на образованието, младежта  и науката /Момн/ - /Старо наименование-Министерство на образованието и науката /МОН/",
-          "contractCount": 1,
-          "totalEur": 1784408.6653748024,
+          "name": "Министерство на образованието и науката",
+          "contractCount": 2,
+          "totalEur": 9726305.455995664,
           "totalOther": {}
         },
         {
           "eik": "000672382",
           "name": "Национален дворец на децата",
-          "contractCount": 8,
-          "totalEur": 1304576.2668534585,
+          "contractCount": 10,
+          "totalEur": 1662466.267518138,
           "totalOther": {}
         }
       ]

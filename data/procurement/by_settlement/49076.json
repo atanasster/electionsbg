@@ -3,19 +3,19 @@
   "name": "Горно Черковище",
   "province": "Стара Загора",
   "obshtina": "Казанлък",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 3,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 4,
   "awardCount": 0,
-  "totalEur": 99230.8459465291,
+  "totalEur": 131953.52634308708,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000802623",
       "name": "Основно училище \"Свети климент Охридски\"",
       "tier": "school",
-      "totalEur": 99230.8459465291,
+      "totalEur": 131953.52634308708,
       "totalOther": {},
-      "contractCount": 3,
+      "contractCount": 4,
       "awardCount": 0
     }
   ],
@@ -45,6 +45,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-551076-813647%2F2026-02-19-award"
     },
     {
+      "key": "fd1071a60b46",
+      "ocid": "eop-03180-2025-0001",
+      "date": "2025-11-05",
+      "amount": 64000,
+      "currency": "BGN",
+      "amountEur": 32722.680396557982,
+      "partyEik": "206782115",
+      "partyName": "Старс термо груп ООД",
+      "bundleUuid": "eop-flat:2025-11-05",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-11-05/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2005.11.2025.json"
+    },
+    {
       "key": "3143458c72a2",
       "ocid": "ocds-e82gsb-551076",
       "date": "2026-02-19",
@@ -61,6 +73,12 @@
     {
       "year": "2023",
       "totalEur": 51649.1259465291,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2025",
+      "totalEur": 32722.680396557982,
       "totalOther": {},
       "contractCount": 1
     },

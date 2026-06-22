@@ -3,19 +3,19 @@
   "name": "Карапелит",
   "province": "Добрич",
   "obshtina": "Добрич-селска",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 1,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 3,
   "awardCount": 0,
-  "totalEur": 48287.42784393327,
+  "totalEur": 113949.06510279524,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000842176",
-      "name": "Основно училище - Никола Вапцаров, с. Карапелит,  общ. Добричка",
+      "name": "Средно училище \"Никола Вапцаров\"",
       "tier": "school",
-      "totalEur": 48287.42784393327,
+      "totalEur": 113949.06510279524,
       "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 3,
       "awardCount": 0
     }
   ],
@@ -31,6 +31,30 @@
       "partyName": "Международен колеж ООД - Добрич",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "2a939be0fce2",
+      "ocid": "eop-03626-2025-0007",
+      "date": "2025-10-17",
+      "amount": 89816,
+      "currency": "BGN",
+      "amountEur": 45922.19160151956,
+      "partyEik": "201437250",
+      "partyName": "ВТ - Трейд ЕООД",
+      "bundleUuid": "eop-flat:2025-10-17",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-10-17/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2017.10.2025.json"
+    },
+    {
+      "key": "ec2c0164d67d",
+      "ocid": "eop-03626-2025-0004",
+      "date": "2025-05-29",
+      "amount": 38607,
+      "currency": "BGN",
+      "amountEur": 19739.445657342407,
+      "partyEik": "128049011",
+      "partyName": "КАН-УЧТЕХСПОРТ-БЪЛГАРИЯ ООД",
+      "bundleUuid": "eop-flat:2025-05-29",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-05-29/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2029.05.2025.json"
     }
   ],
   "byYear": [
@@ -39,6 +63,12 @@
       "totalEur": 48287.42784393327,
       "totalOther": {},
       "contractCount": 1
+    },
+    {
+      "year": "2025",
+      "totalEur": 65661.63725886197,
+      "totalOther": {},
+      "contractCount": 2
     }
   ]
 }

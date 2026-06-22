@@ -3,19 +3,19 @@
   "name": "Сухиндол",
   "province": "Велико Търново",
   "obshtina": "Сухиндол",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 60,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 77,
   "awardCount": 0,
-  "totalEur": 8250182.956626958,
+  "totalEur": 14708988.629921671,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000133997",
       "name": "Община Сухиндол",
       "tier": "municipal",
-      "totalEur": 8019504.983592492,
+      "totalEur": 14478310.656887205,
       "totalOther": {},
-      "contractCount": 58,
+      "contractCount": 75,
       "awardCount": 0
     },
     {
@@ -30,6 +30,18 @@
   ],
   "topContracts": [
     {
+      "key": "215da5f02cb0",
+      "ocid": "eop-00543-2025-0010",
+      "date": "2025-12-15",
+      "amount": 4977454.42,
+      "currency": "BGN",
+      "amountEur": 2544932.0339702326,
+      "partyEik": "117644424",
+      "partyName": "Булстрой ООД",
+      "bundleUuid": "eop-flat:2025-12-15",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-12-15/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2015.12.2025.json"
+    },
+    {
       "key": "84b941b43620",
       "ocid": "aop-legacy-2023-325952",
       "date": "2023-01-26",
@@ -40,6 +52,30 @@
       "partyName": "Пътно строителство АД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "69528b99e8dd",
+      "ocid": "eop-00543-2025-0005",
+      "date": "2025-11-12",
+      "amount": 2478502.41,
+      "currency": "BGN",
+      "amountEur": 1267238.1597582612,
+      "partyEik": "124000579",
+      "partyName": "Пътно строителство АД",
+      "bundleUuid": "eop-flat:2025-11-12",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-11-12/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2012.11.2025.json"
+    },
+    {
+      "key": "a6a7ba2fba6f",
+      "ocid": "eop-00543-2025-0005",
+      "date": "2025-11-12",
+      "amount": 2478502.41,
+      "currency": "BGN",
+      "amountEur": 1267238.1597582612,
+      "partyEik": "148105552",
+      "partyName": "Тракия строй инвест ЕООД",
+      "bundleUuid": "eop-flat:2025-11-12",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-11-12/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2012.11.2025.json"
     },
     {
       "key": "02246803d81d",
@@ -64,6 +100,18 @@
       "partyName": "Само строй ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "d4b2185125bc",
+      "ocid": "eop-00543-2023-0011",
+      "date": "2024-03-28",
+      "amount": 962128.93,
+      "currency": "BGN",
+      "amountEur": 491928.71057300485,
+      "partyEik": "175299165",
+      "partyName": "Евроканал ЕООД",
+      "bundleUuid": "eop-flat:2024-03-28",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-03-28/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2028.03.2024.json"
     },
     {
       "key": "42d7737bc842",
@@ -112,6 +160,18 @@
       "partyName": "Алди комерс груп ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "fd06e05efc39",
+      "ocid": "eop-00543-2023-0011",
+      "date": "2024-03-28",
+      "amount": 732041.39,
+      "currency": "BGN",
+      "amountEur": 374286.8194065947,
+      "partyEik": "175299165",
+      "partyName": "Евроканал ЕООД",
+      "bundleUuid": "eop-flat:2024-03-28",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-03-28/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2028.03.2024.json"
     },
     {
       "key": "795ae702ea14",
@@ -186,6 +246,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "478c31e8a026",
+      "ocid": "eop-00543-2024-0001",
+      "date": "2024-07-02",
+      "amount": 410513.24,
+      "currency": "BGN",
+      "amountEur": 209892.0867355547,
+      "partyEik": "830162763",
+      "partyName": "ЕТ АНРИ-64 - Андрей Кехайов",
+      "bundleUuid": "eop-flat:2024-07-02",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-07-02/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2002.07.2024.json"
+    },
+    {
       "key": "23781c3a70bc",
       "ocid": "aop-legacy-2011-2015-603067",
       "date": "2014-05-12",
@@ -220,6 +292,18 @@
       "partyName": "Калистратов груп ООД",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "1cd9228af70b",
+      "ocid": "eop-00543-2024-0003",
+      "date": "2024-11-13",
+      "amount": 255100,
+      "currency": "BGN",
+      "amountEur": 130430.55889315534,
+      "partyEik": "148105552",
+      "partyName": "Тракия строй инвест ЕООД",
+      "bundleUuid": "eop-flat:2024-11-13",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-11-13/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2013.11.2024.json"
     },
     {
       "key": "c144fdf10b40",
@@ -306,6 +390,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "feaa86656ee4",
+      "ocid": "eop-00543-2025-0007",
+      "date": "2025-11-05",
+      "amount": 135777,
+      "currency": "BGN",
+      "amountEur": 69421.67775317896,
+      "partyEik": "201484467",
+      "partyName": "Автокам българия ООД",
+      "bundleUuid": "eop-flat:2025-11-05",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-11-05/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2005.11.2025.json"
+    },
+    {
       "key": "b824e2c02a08",
       "ocid": "aop-legacy-2022-277446",
       "date": "2022-09-21",
@@ -364,6 +460,18 @@
       "partyName": "Виа - План ЕООД - София",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "c4aca54a8927",
+      "ocid": "eop-00543-2024-0005",
+      "date": "2024-10-15",
+      "amount": 96000,
+      "currency": "BGN",
+      "amountEur": 49084.02059483698,
+      "partyEik": "104696232",
+      "partyName": "Проект плюс ООД",
+      "bundleUuid": "eop-flat:2024-10-15",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-10-15/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2015.10.2024.json"
     },
     {
       "key": "1887fecdb729",
@@ -520,114 +628,6 @@
       "partyName": "Драгстер ЕООД",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "cd6e039b2395",
-      "ocid": "aop-legacy-2011-2015-476323",
-      "date": "2012-03-23",
-      "amount": 27800,
-      "currency": "BGN",
-      "amountEur": 14213.914297254874,
-      "partyEik": "130968178",
-      "partyName": "Карил консулт ООД, град София",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "14198cec5204",
-      "ocid": "aop-legacy-2017-806415",
-      "date": "2017-09-21",
-      "amount": 27691.86,
-      "currency": "BGN",
-      "amountEur": 14158.623193222315,
-      "partyEik": "202702239",
-      "partyName": "Милица - Ив - 2 ЕООД",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "03abce21e73b",
-      "ocid": "aop-legacy-2011-2015-670807",
-      "date": "2015-06-09",
-      "amount": 27113,
-      "currency": "BGN",
-      "amountEur": 13862.656774873072,
-      "partyEik": "104528843",
-      "partyName": "Цветмари-ИГ ООД",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "67cc3b3119d4",
-      "ocid": "aop-legacy-2019-912607",
-      "date": "2019-05-21",
-      "amount": 19549.65,
-      "currency": "BGN",
-      "amountEur": 9995.577325227654,
-      "partyEik": "202702239",
-      "partyName": "Милица - Ив - 2 ЕООД",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "6468fb41a441",
-      "ocid": "aop-legacy-2011-2015-667917",
-      "date": "2015-05-21",
-      "amount": 18300,
-      "currency": "BGN",
-      "amountEur": 9356.641425890799,
-      "partyEik": "126690709",
-      "partyName": "Проинвест  ЕООД - гр.Хасково",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "8b0a5f106830",
-      "ocid": "aop-legacy-2011-2015-428934",
-      "date": "2011-02-28",
-      "amount": 12237,
-      "currency": "BGN",
-      "amountEur": 6256.678750198125,
-      "partyEik": "104617046",
-      "partyName": "Фамилия Драгиев ООД - Сухиндол",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "88e01e4c43a8",
-      "ocid": "aop-legacy-2011-2015-479269",
-      "date": "2012-04-09",
-      "amount": 9753,
-      "currency": "BGN",
-      "amountEur": 4986.629717306719,
-      "partyEik": "104617046",
-      "partyName": "Фамилия Драгиев ООД - Сухиндол",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "d2bec8a55514",
-      "ocid": "aop-legacy-2022-194428",
-      "date": "2022-02-03",
-      "amount": 7670,
-      "currency": "BGN",
-      "amountEur": 3921.6087287749956,
-      "partyEik": "200232698",
-      "partyName": "ДММ - Дизайн ЕООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "27927e9dc688",
-      "ocid": "aop-legacy-2019-899671",
-      "date": "2019-03-08",
-      "amount": 7405.69,
-      "currency": "BGN",
-      "amountEur": 3786.4691716560233,
-      "partyEik": "202702239",
-      "partyName": "Милица - Ив - 2 ЕООД",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
@@ -690,6 +690,18 @@
       "totalEur": 2058710.3582622213,
       "totalOther": {},
       "contractCount": 6
+    },
+    {
+      "year": "2024",
+      "totalEur": 1277652.2806174362,
+      "totalOther": {},
+      "contractCount": 9
+    },
+    {
+      "year": "2025",
+      "totalEur": 5181153.392677278,
+      "totalOther": {},
+      "contractCount": 8
     },
     {
       "year": "2026",

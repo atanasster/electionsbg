@@ -1,16 +1,16 @@
 {
   "mpId": 938,
   "summary": {
-    "totalEur": 96277280.86581996,
+    "totalEur": 181831580.56466907,
     "totalOther": {},
-    "contractCount": 421,
+    "contractCount": 559,
     "awardCount": 0
   },
   "scorecard": {
-    "value": 96277280.86581996,
+    "value": 181831580.56466907,
     "rank": 2,
-    "cohortSize": 38,
-    "cohortMedian": 345827.6041044467
+    "cohortSize": 61,
+    "cohortMedian": 731556.67926149
   },
   "entries": [
     {
@@ -25,9 +25,9 @@
           "confidence": "medium"
         }
       ],
-      "totalEur": 96277280.86581996,
+      "totalEur": 181831580.56466907,
       "totalOther": {},
-      "contractCount": 421,
+      "contractCount": 559,
       "awardCount": 0,
       "byYear": [
         {
@@ -103,6 +103,18 @@
           "totalOther": {}
         },
         {
+          "year": "2024",
+          "contractCount": 52,
+          "totalEur": 64891031.955742575,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 86,
+          "totalEur": 20663267.74310651,
+          "totalOther": {}
+        },
+        {
           "year": "2026",
           "contractCount": 51,
           "totalEur": 16307016.129109688,
@@ -111,38 +123,38 @@
       ],
       "topAwarders": [
         {
+          "eik": "130823243",
+          "name": "Национална компания \"Железопътна инфраструктура\" ДП",
+          "contractCount": 4,
+          "totalEur": 49013479.100944355,
+          "totalOther": {}
+        },
+        {
           "eik": "123526430",
           "name": "ЕВН България електроснабдяване ЕАД",
-          "contractCount": 12,
-          "totalEur": 18332565.902634434,
+          "contractCount": 13,
+          "totalEur": 18978582.591201436,
           "totalOther": {}
         },
         {
           "eik": "115552190",
-          "name": "Евн България Електроразпределение ЕАД /старо наименование-ЕВН България Електроразпределение АД - Пловдив /Старо наименование: Електроразпределение Пловдив АД/",
-          "contractCount": 4,
-          "totalEur": 18063226.354028724,
-          "totalOther": {}
-        },
-        {
-          "eik": "130823243",
-          "name": "ДП Национална компания \"Железопътна инфраструктура\" /Нкжи/ - София",
-          "contractCount": 3,
-          "totalEur": 8518952.725952664,
-          "totalOther": {}
-        },
-        {
-          "eik": "831609046",
-          "name": "Топлофикация софия ЕАД",
-          "contractCount": 4,
-          "totalEur": 7142390.822391874,
-          "totalOther": {}
-        },
-        {
-          "eik": "121082521",
-          "name": "Национален осигурителен институт",
+          "name": "Електроразпределение Юг ЕАД",
           "contractCount": 5,
-          "totalEur": 5551599.576650322,
+          "totalEur": 18902717.51634856,
+          "totalOther": {}
+        },
+        {
+          "eik": "130277958",
+          "name": "Електроразпределителни мрежи Запад ЕАД",
+          "contractCount": 1,
+          "totalEur": 12794568.035054171,
+          "totalOther": {}
+        },
+        {
+          "eik": "000695406",
+          "name": "Министерство на финансите - централен орган за покупки",
+          "contractCount": 30,
+          "totalEur": 10512068.630709214,
           "totalOther": {}
         }
       ]

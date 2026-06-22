@@ -1,23 +1,23 @@
 {
   "mpId": 2647,
   "summary": {
-    "totalEur": 7211064.044421039,
+    "totalEur": 8163885.864313361,
     "totalOther": {},
-    "contractCount": 105,
+    "contractCount": 111,
     "awardCount": 0
   },
   "scorecard": {
-    "value": 7211064.044421039,
-    "rank": 4,
-    "cohortSize": 38,
-    "cohortMedian": 345827.6041044467
+    "value": 8163885.864313361,
+    "rank": 14,
+    "cohortSize": 61,
+    "cohortMedian": 731556.67926149
   },
   "entries": [
     {
       "mpId": 2647,
       "mpName": "ДИМИТЪР КРУМОВ АЛЕКСАНДРОВ",
       "contractorEik": "127003032",
-      "contractorName": "АЛ И ко АД",
+      "contractorName": "АЛ и КО АД",
       "relations": [
         {
           "kind": "stake",
@@ -27,9 +27,9 @@
           "declarationYear": 2021
         }
       ],
-      "totalEur": 7211064.044421039,
+      "totalEur": 8163885.864313361,
       "totalOther": {},
-      "contractCount": 105,
+      "contractCount": 111,
       "awardCount": 0,
       "byYear": [
         {
@@ -97,6 +97,18 @@
           "contractCount": 6,
           "totalEur": 267388.2290383111,
           "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 3,
+          "totalEur": 180457.91300879934,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 3,
+          "totalEur": 772363.9068835226,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
@@ -108,6 +120,13 @@
           "totalOther": {}
         },
         {
+          "eik": "837068284",
+          "name": "Водоснабдяване и КАНАЛИЗАЦИЯ-ШУМЕН ООД",
+          "contractCount": 5,
+          "totalEur": 1450527.9088673352,
+          "totalOther": {}
+        },
+        {
           "eik": "000852544",
           "name": "Община Балчик",
           "contractCount": 4,
@@ -115,10 +134,10 @@
           "totalOther": {}
         },
         {
-          "eik": "837068284",
-          "name": "Водоснабдяване и канализация ООД - Шумен",
-          "contractCount": 3,
-          "totalEur": 772351.6358783739,
+          "eik": "127526189",
+          "name": "Земеделски институт - шумен",
+          "contractCount": 5,
+          "totalEur": 452831.14074331615,
           "totalOther": {}
         },
         {
@@ -126,13 +145,6 @@
           "name": "ДОМ За медико-социални грижи за деца /ДМСГД/ - Шумен",
           "contractCount": 5,
           "totalEur": 355789.1227765194,
-          "totalOther": {}
-        },
-        {
-          "eik": "000850187",
-          "name": "ДОМ За МЕДИКО-СОЦИАЛНИ грижи за деца - добрич",
-          "contractCount": 7,
-          "totalEur": 326586.66653032217,
           "totalOther": {}
         }
       ]

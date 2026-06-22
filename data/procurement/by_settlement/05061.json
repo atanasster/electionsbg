@@ -3,23 +3,35 @@
   "name": "Божурово",
   "province": "Добрич",
   "obshtina": "Добрич-селска",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 2,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 3,
   "awardCount": 0,
-  "totalEur": 26961.12,
+  "totalEur": 58270.77370200887,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000842386",
       "name": "Основно училище \"Васил Левски\"",
       "tier": "school",
-      "totalEur": 26961.12,
+      "totalEur": 58270.77370200887,
       "totalOther": {},
-      "contractCount": 2,
+      "contractCount": 3,
       "awardCount": 0
     }
   ],
   "topContracts": [
+    {
+      "key": "f9d4d1519aeb",
+      "ocid": "eop-04782-2025-0001",
+      "date": "2025-10-20",
+      "amount": 61236.36,
+      "currency": "BGN",
+      "amountEur": 31309.653702008865,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "eop-flat:2025-10-20",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-10-20/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2020.10.2025.json"
+    },
     {
       "key": "62f28487ab5a",
       "ocid": "ocds-e82gsb-519002",
@@ -46,6 +58,12 @@
     }
   ],
   "byYear": [
+    {
+      "year": "2025",
+      "totalEur": 31309.653702008865,
+      "totalOther": {},
+      "contractCount": 1
+    },
     {
       "year": "2026",
       "totalEur": 26961.12,

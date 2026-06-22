@@ -168,6 +168,7 @@ const main = async (args: {
   backfill: boolean;
   apply: boolean;
   refreshCache: boolean;
+  includeExistingBuyers: boolean;
   delayMs: number;
 }): Promise<void> => {
   const days = enumerateDays(args.from, args.to);
@@ -185,6 +186,12 @@ const main = async (args: {
     `→ ${days.length} day(s) ${args.from}…${args.to}; ` +
       `${existing.size} existing awarder(s) form the gap-fill exclusion set`,
   );
+  if (args.includeExistingBuyers) {
+    console.log(
+      `⚠ --include-existing-buyers: keeping rows for buyers already in corpus. ` +
+        `Use ONLY for windows with no OCDS (2024–2025); otherwise this double-counts.`,
+    );
+  }
 
   const kept: Contract[] = [];
   const newBuyers = new Set<string>();
@@ -211,7 +218,7 @@ const main = async (args: {
     const { rows } = normalizeEopDay(records, day, dayUrl(day));
     rowsBeforeGapfill += rows.length;
     for (const r of rows) {
-      if (existing.has(r.awarderEik)) {
+      if (!args.includeExistingBuyers && existing.has(r.awarderEik)) {
         droppedExisting++;
         continue;
       }
@@ -283,6 +290,16 @@ const cli = command({
       description: "Re-download days even when a cached copy exists.",
       defaultValue: () => false,
     }),
+    includeExistingBuyers: flag({
+      type: optional(boolean),
+      long: "include-existing-buyers",
+      description:
+        "Keep EOP rows for buyers ALREADY in our corpus. Use ONLY for date " +
+        "windows with no OCDS coverage (e.g. 2024–2025), where the absent-buyer " +
+        "guard would otherwise drop real contracts. NEVER use for 2020–2023 or " +
+        "2026, where it would double-count the OCDS feed.",
+      defaultValue: () => false,
+    }),
     delayMs: option({
       type: optional(string),
       long: "delay-ms",
@@ -301,6 +318,7 @@ const cli = command({
       backfill: !!args.backfill,
       apply: !!args.apply,
       refreshCache: !!args.refreshCache,
+      includeExistingBuyers: !!args.includeExistingBuyers,
       delayMs: args.delayMs ? parseInt(args.delayMs, 10) : 150,
     }),
 });

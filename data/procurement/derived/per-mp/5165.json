@@ -1,16 +1,16 @@
 {
   "mpId": 5165,
   "summary": {
-    "totalEur": 623903.9557441599,
+    "totalEur": 933133.2854916328,
     "totalOther": {},
-    "contractCount": 3,
+    "contractCount": 5,
     "awardCount": 0
   },
   "scorecard": {
-    "value": 623903.9557441599,
-    "rank": 17,
-    "cohortSize": 38,
-    "cohortMedian": 345827.6041044467
+    "value": 933133.2854916328,
+    "rank": 28,
+    "cohortSize": 61,
+    "cohortMedian": 731556.67926149
   },
   "entries": [
     {
@@ -27,11 +27,23 @@
           "declarationYear": 2025
         }
       ],
-      "totalEur": 623818.5700000001,
+      "totalEur": 933047.899747473,
       "totalOther": {},
-      "contractCount": 2,
+      "contractCount": 4,
       "awardCount": 0,
       "byYear": [
+        {
+          "year": "2024",
+          "contractCount": 1,
+          "totalEur": 143570.76023989814,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 1,
+          "totalEur": 165658.56950757478,
+          "totalOther": {}
+        },
         {
           "year": "2026",
           "contractCount": 2,
@@ -43,8 +55,8 @@
         {
           "eik": "824106518",
           "name": "Водоснабдяване и канализация ЕООД",
-          "contractCount": 2,
-          "totalEur": 623818.5700000001,
+          "contractCount": 4,
+          "totalEur": 933047.899747473,
           "totalOther": {}
         }
       ]

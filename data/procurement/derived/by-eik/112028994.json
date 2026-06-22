@@ -3,10 +3,20 @@
   "entries": [
     {
       "mpId": 2946,
-      "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
+      "mpName": "Елена Стефанова Пешева",
       "contractorEik": "112028994",
       "contractorName": "Радио СОТ ООД",
       "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
         {
           "kind": "stake",
           "shareSize": "1",
@@ -15,9 +25,9 @@
           "declarationYear": 2021
         }
       ],
-      "totalEur": 687016.9258144625,
+      "totalEur": 888772.2419717972,
       "totalOther": {},
-      "contractCount": 55,
+      "contractCount": 65,
       "awardCount": 0,
       "byYear": [
         {
@@ -87,6 +97,18 @@
           "totalOther": {}
         },
         {
+          "year": "2024",
+          "contractCount": 4,
+          "totalEur": 24653.471927519262,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 6,
+          "totalEur": 177101.84422981547,
+          "totalOther": {}
+        },
+        {
           "year": "2026",
           "contractCount": 3,
           "totalEur": 99077.79,
@@ -104,15 +126,22 @@
         {
           "eik": "121082521",
           "name": "Териториално поделение на НОИ - гр. Пазарджик",
-          "contractCount": 8,
-          "totalEur": 109600.52765322139,
+          "contractCount": 10,
+          "totalEur": 139442.3850743674,
+          "totalOther": {}
+        },
+        {
+          "eik": "205323041",
+          "name": "Водоснабдяване и канализационни услуги ЕООД",
+          "contractCount": 1,
+          "totalEur": 132913.39226824418,
           "totalOther": {}
         },
         {
           "eik": "201619580",
           "name": "Териториално поделение \"Държавно горско стопанство ракитово\"",
-          "contractCount": 24,
-          "totalEur": 61505.34400009203,
+          "contractCount": 29,
+          "totalEur": 82814.20008676623,
           "totalOther": {}
         },
         {
@@ -120,13 +149,6 @@
           "name": "Общинско предприятие \"Чистота\" гр. Панагюрище",
           "contractCount": 1,
           "totalEur": 59526.64597638854,
-          "totalOther": {}
-        },
-        {
-          "eik": "201627506",
-          "name": "Териториално поделение \"Държавно горско стопанство белово",
-          "contractCount": 11,
-          "totalEur": 24186.15114810592,
           "totalOther": {}
         }
       ]

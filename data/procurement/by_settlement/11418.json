@@ -3,19 +3,19 @@
   "name": "Владимирово",
   "province": "Монтана",
   "obshtina": "Бойчиновци",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 3,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 9,
   "awardCount": 0,
-  "totalEur": 108568.92888354305,
+  "totalEur": 351265.8912984769,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000312669",
       "name": "Професионална гимназия по транспорт \"Владимир Петков Минчев\"",
       "tier": "school",
-      "totalEur": 58952.822166701604,
+      "totalEur": 301649.78458163544,
       "totalOther": {},
-      "contractCount": 2,
+      "contractCount": 8,
       "awardCount": 0
     },
     {
@@ -30,6 +30,30 @@
   ],
   "topContracts": [
     {
+      "key": "1e92ca92d37a",
+      "ocid": "eop-04021-2024-0002",
+      "date": "2024-11-19",
+      "amount": 134800,
+      "currency": "BGN",
+      "amountEur": 68922.14558525025,
+      "partyEik": "130083729",
+      "partyName": "Инжконсулт ЕООД",
+      "bundleUuid": "eop-flat:2024-11-19",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-11-19/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2019.11.2024.json"
+    },
+    {
+      "key": "c942dbe99247",
+      "ocid": "eop-04021-2024-0002",
+      "date": "2024-11-19",
+      "amount": 108900,
+      "currency": "BGN",
+      "amountEur": 55679.68586226819,
+      "partyEik": "130083729",
+      "partyName": "Инжконсулт ЕООД",
+      "bundleUuid": "eop-flat:2024-11-19",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-11-19/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2019.11.2024.json"
+    },
+    {
       "key": "4ae09e57cb4a",
       "ocid": "eop-06404-2024-0001",
       "date": "2024-10-30",
@@ -40,6 +64,18 @@
       "partyName": "Офис 1 запад ЕООД",
       "bundleUuid": "eop-flat:2024-10-30",
       "sourceUrl": "https://storage.eop.bg/open-data-2024-10-30/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2030.10.2024.json"
+    },
+    {
+      "key": "493a59dd14c9",
+      "ocid": "eop-04021-2024-0001",
+      "date": "2024-08-23",
+      "amount": 87146,
+      "currency": "BGN",
+      "amountEur": 44557.042278725654,
+      "partyEik": "101786495",
+      "partyName": "Крев 21 ООД",
+      "bundleUuid": "eop-flat:2024-08-23",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-08-23/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2023.08.2024.json"
     },
     {
       "key": "24f0bced6ea7",
@@ -54,6 +90,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-546926-817372%2F2026-02-26-award"
     },
     {
+      "key": "4ea86fbc799c",
+      "ocid": "eop-04021-2024-0003",
+      "date": "2024-10-09",
+      "amount": 67630,
+      "currency": "BGN",
+      "amountEur": 34578.66992530026,
+      "partyEik": "121072032",
+      "partyName": "ИНТЕР-МАШИНЕКС ООД",
+      "bundleUuid": "eop-flat:2024-10-09",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-10-09/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2009.10.2024.json"
+    },
+    {
       "key": "ea63e17973b7",
       "ocid": "aop-legacy-2023-420468",
       "date": "2023-09-04",
@@ -64,6 +112,30 @@
       "partyName": "Тера корп ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "483986b1e437",
+      "ocid": "eop-04021-2023-0001",
+      "date": "2024-02-21",
+      "amount": 38360,
+      "currency": "BGN",
+      "amountEur": 19613.15656268694,
+      "partyEik": "131565689",
+      "partyName": "Тера корп ЕООД",
+      "bundleUuid": "eop-flat:2024-02-21",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-02-21/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2021.02.2024.json"
+    },
+    {
+      "key": "bb64fd9edb71",
+      "ocid": "eop-04021-2024-0004",
+      "date": "2025-02-04",
+      "amount": 37838,
+      "currency": "BGN",
+      "amountEur": 19346.262200702517,
+      "partyEik": "175222941",
+      "partyName": "КОЗИРОГ-95 ЕООД",
+      "bundleUuid": "eop-flat:2025-02-04",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-02-04/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2004.02.2025.json"
     }
   ],
   "byYear": [
@@ -75,7 +147,13 @@
     },
     {
       "year": "2024",
-      "totalEur": 49616.106716841445,
+      "totalEur": 272966.80693107273,
+      "totalOther": {},
+      "contractCount": 6
+    },
+    {
+      "year": "2025",
+      "totalEur": 19346.262200702517,
       "totalOther": {},
       "contractCount": 1
     },

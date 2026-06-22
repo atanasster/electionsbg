@@ -3,23 +3,35 @@
   "name": "Първомай",
   "province": "Благоевград",
   "obshtina": "Петрич",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 3,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 5,
   "awardCount": 0,
-  "totalEur": 50010.729999999996,
+  "totalEur": 146536.2460213311,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000013211",
       "name": "Средно училище \"СВ. Паисий Хилендарски\"",
       "tier": "school",
-      "totalEur": 50010.729999999996,
+      "totalEur": 146536.2460213311,
       "totalOther": {},
-      "contractCount": 3,
+      "contractCount": 5,
       "awardCount": 0
     }
   ],
   "topContracts": [
+    {
+      "key": "7c9c05b8aa42",
+      "ocid": "eop-03392-2024-0001",
+      "date": "2024-04-10",
+      "amount": 147349.36,
+      "currency": "BGN",
+      "amountEur": 75338.53146745882,
+      "partyEik": "207500145",
+      "partyName": "Ноел инженеринг ЕООД",
+      "bundleUuid": "eop-flat:2024-04-10",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-04-10/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2010.04.2024.json"
+    },
     {
       "key": "85f764d102f4",
       "ocid": "ocds-e82gsb-518107",
@@ -31,6 +43,18 @@
       "partyName": "Билдинг пропъртис холд ЕООД",
       "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
       "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-518107-793840%2F2026-01-07-award"
+    },
+    {
+      "key": "7a3088e5dfd2",
+      "ocid": "eop-03392-2025-0001",
+      "date": "2025-08-01",
+      "amount": 41438.14,
+      "currency": "BGN",
+      "amountEur": 21186.98455387227,
+      "partyEik": "206853231",
+      "partyName": "ТС Кънстракшън ЕООД",
+      "bundleUuid": "eop-flat:2025-08-01",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-08-01/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2001.08.2025.json"
     },
     {
       "key": "8e331c9df10e",
@@ -58,6 +82,18 @@
     }
   ],
   "byYear": [
+    {
+      "year": "2024",
+      "totalEur": 75338.53146745882,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2025",
+      "totalEur": 21186.98455387227,
+      "totalOther": {},
+      "contractCount": 1
+    },
     {
       "year": "2026",
       "totalEur": 50010.729999999996,

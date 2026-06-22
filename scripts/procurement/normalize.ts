@@ -301,6 +301,27 @@ export const normalizeBundle = (
           stats.rowsDroppedNoSupplierEik++;
           continue;
         }
+        // A multi-supplier contract (consortium members / parallel framework
+        // winners) carries ONE total value. Crediting each supplier the full
+        // amount multiplies one award's money by the supplier count, so split
+        // it across the suppliers that actually emit a row (the rows then sum
+        // back to the contract total — the way SIGMA reports it).
+        const emittedSupplierCount =
+          suppliers.filter((ref) => {
+            const s = contractorFields(release, ref);
+            if (!s) return false;
+            if (
+              s.eik === buyer.eik &&
+              normaliseOrgName(s.name).toLocaleLowerCase("bg") !==
+                normaliseOrgName(buyer.name).toLocaleLowerCase("bg")
+            )
+              return false;
+            return true;
+          }).length || 1;
+        const perAmount =
+          contract.value?.amount != null
+            ? contract.value.amount / emittedSupplierCount
+            : contract.value?.amount;
         for (const supplierRef of suppliers) {
           const supplier = contractorFields(release, supplierRef);
           if (!supplier) {
@@ -342,11 +363,9 @@ export const normalizeBundle = (
             contractorEik: supplier.eik,
             contractorEikFull: supplier.eikFull,
             contractorName: supplier.name,
-            amount: contract.value?.amount,
+            amount: perAmount,
             currency: contract.value?.currency,
-            amountEur:
-              toEur(contract.value?.amount, contract.value?.currency) ??
-              undefined,
+            amountEur: toEur(perAmount, contract.value?.currency) ?? undefined,
             title: contract.title ?? release.tender?.title ?? "",
             cpv,
             procurementMethod,
@@ -366,6 +385,24 @@ export const normalizeBundle = (
       // Awards without a paired contract release — emit so we have visibility
       // into "winner selected, not signed yet" cases.
       for (const award of release.awards ?? []) {
+        // Split a multi-supplier award's value across its suppliers (see the
+        // contract path above for why).
+        const emittedSupplierCount =
+          (award.suppliers ?? []).filter((ref) => {
+            const s = contractorFields(release, ref);
+            if (!s) return false;
+            if (
+              s.eik === buyer.eik &&
+              normaliseOrgName(s.name).toLocaleLowerCase("bg") !==
+                normaliseOrgName(buyer.name).toLocaleLowerCase("bg")
+            )
+              return false;
+            return true;
+          }).length || 1;
+        const perAwardAmount =
+          award.value?.amount != null
+            ? award.value.amount / emittedSupplierCount
+            : award.value?.amount;
         for (const supplierRef of award.suppliers ?? []) {
           const supplier = contractorFields(release, supplierRef);
           if (!supplier) {
@@ -396,10 +433,10 @@ export const normalizeBundle = (
             contractorEik: supplier.eik,
             contractorEikFull: supplier.eikFull,
             contractorName: supplier.name,
-            amount: award.value?.amount,
+            amount: perAwardAmount,
             currency: award.value?.currency,
             amountEur:
-              toEur(award.value?.amount, award.value?.currency) ?? undefined,
+              toEur(perAwardAmount, award.value?.currency) ?? undefined,
             title: award.title ?? release.tender?.title ?? "",
             cpv,
             procurementMethod,

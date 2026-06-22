@@ -1,16 +1,16 @@
 {
   "mpId": 5268,
   "summary": {
-    "totalEur": 6943692.882305721,
+    "totalEur": 24596825.33204147,
     "totalOther": {},
-    "contractCount": 26,
+    "contractCount": 41,
     "awardCount": 0
   },
   "scorecard": {
-    "value": 6943692.882305721,
-    "rank": 5,
-    "cohortSize": 38,
-    "cohortMedian": 345827.6041044467
+    "value": 24596825.33204147,
+    "rank": 11,
+    "cohortSize": 61,
+    "cohortMedian": 731556.67926149
   },
   "entries": [
     {
@@ -25,9 +25,9 @@
           "confidence": "medium"
         }
       ],
-      "totalEur": 6943692.882305721,
+      "totalEur": 24596825.33204147,
       "totalOther": {},
-      "contractCount": 26,
+      "contractCount": 41,
       "awardCount": 0,
       "byYear": [
         {
@@ -89,42 +89,54 @@
           "contractCount": 5,
           "totalEur": 493561.7001477633,
           "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 7,
+          "totalEur": 4586158.6756006405,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 8,
+          "totalEur": 13066973.774135107,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000695089",
-          "name": "Агенция \"Пътна инфраструктура\" /АПИ/ - /Старо наименование - /Национална агенция \"Пътна инфраструктура\" /Напи/ - /Старо наименование - Фонд \"Републиканска пътна инфраструктура\"/ /фрпи/",
-          "contractCount": 4,
-          "totalEur": 4451591.784562053,
+          "name": "Агенция \"Пътна инфраструктура\"",
+          "contractCount": 5,
+          "totalEur": 14212470.218100073,
           "totalOther": {}
         },
         {
           "eik": "000776089",
           "name": "Община Ботевград",
-          "contractCount": 8,
-          "totalEur": 713878.6039686475,
+          "contractCount": 12,
+          "totalEur": 4332289.498576052,
           "totalOther": {}
         },
         {
-          "eik": "000193371",
-          "name": "Община Мездра",
-          "contractCount": 7,
-          "totalEur": 582328.847599229,
-          "totalOther": {}
-        },
-        {
-          "eik": "000291723",
-          "name": "Община Ябланица",
+          "eik": "000696327",
+          "name": "Столична Община",
           "contractCount": 1,
-          "totalEur": 564988.7771432077,
+          "totalEur": 1796677.1460198483,
           "totalOther": {}
         },
         {
-          "eik": "000777248",
-          "name": "Община Мирково",
-          "contractCount": 4,
-          "totalEur": 458244.21345413453,
+          "eik": "000776491",
+          "name": "Община Самоков",
+          "contractCount": 6,
+          "totalEur": 1337549.5927560166,
+          "totalOther": {}
+        },
+        {
+          "eik": "000777255",
+          "name": "Община Антон",
+          "contractCount": 1,
+          "totalEur": 924883.5328223823,
           "totalOther": {}
         }
       ]

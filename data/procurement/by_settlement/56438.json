@@ -3,19 +3,19 @@
   "name": "Пирне",
   "province": "Бургас",
   "obshtina": "Айтос",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 6,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 11,
   "awardCount": 0,
-  "totalEur": 139453.82950665447,
+  "totalEur": 234077.61582755152,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000043514",
       "name": "Основно училище \"Христо Ботев\"",
       "tier": "school",
-      "totalEur": 139453.82950665447,
+      "totalEur": 234077.61582755152,
       "totalOther": {},
-      "contractCount": 6,
+      "contractCount": 11,
       "awardCount": 0
     }
   ],
@@ -33,6 +33,30 @@
       "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-546267-796239%2F2026-01-13-award"
     },
     {
+      "key": "3197a06b4df5",
+      "ocid": "eop-02467-2023-0001",
+      "date": "2024-01-04",
+      "amount": 63220.36,
+      "currency": "BGN",
+      "amountEur": 32324.056794302163,
+      "partyEik": "102637662",
+      "partyName": "Хитекс ЕООД",
+      "bundleUuid": "eop-flat:2024-01-04",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-01-04/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2004.01.2024.json"
+    },
+    {
+      "key": "65c59b2354bb",
+      "ocid": "eop-02467-2024-0001",
+      "date": "2024-12-23",
+      "amount": 61504.8,
+      "currency": "BGN",
+      "amountEur": 31446.90489459718,
+      "partyEik": "205586124",
+      "partyName": "Кидара ЕООД",
+      "bundleUuid": "eop-flat:2024-12-23",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-12-23/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2023.12.2024.json"
+    },
+    {
       "key": "f582a70bc5d9",
       "ocid": "aop-legacy-2022-312408",
       "date": "2022-12-19",
@@ -43,6 +67,18 @@
       "partyName": "Хитекс ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "8cd0c6855533",
+      "ocid": "eop-02467-2024-0002",
+      "date": "2025-05-28",
+      "amount": 48100,
+      "currency": "BGN",
+      "amountEur": 24593.139485538108,
+      "partyEik": "206368790",
+      "partyName": "Аксес Саунд ЕООД",
+      "bundleUuid": "eop-flat:2025-05-28",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-05-28/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2028.05.2025.json"
     },
     {
       "key": "527dde7b413f",
@@ -69,6 +105,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-541806-795513%2F2026-01-12-award"
     },
     {
+      "key": "bc78ace4bbb3",
+      "ocid": "eop-02467-2023-0001",
+      "date": "2024-01-04",
+      "amount": 6572,
+      "currency": "BGN",
+      "amountEur": 3360.210243221548,
+      "partyEik": "102637662",
+      "partyName": "Хитекс ЕООД",
+      "bundleUuid": "eop-flat:2024-01-04",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-01-04/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2004.01.2024.json"
+    },
+    {
       "key": "72b6cbb4a1f1",
       "ocid": "aop-legacy-2022-315406",
       "date": "2022-12-23",
@@ -79,6 +127,18 @@
       "partyName": "Десий ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "07cc0b4788e9",
+      "ocid": "eop-02467-2024-0001",
+      "date": "2024-12-23",
+      "amount": 5670.88,
+      "currency": "BGN",
+      "amountEur": 2899.4749032380114,
+      "partyEik": "200377455",
+      "partyName": "Десий ЕООД",
+      "bundleUuid": "eop-flat:2024-12-23",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-12-23/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2023.12.2024.json"
     },
     {
       "key": "4da6a304c98b",
@@ -105,6 +165,18 @@
       "totalEur": 31067.966029767416,
       "totalOther": {},
       "contractCount": 2
+    },
+    {
+      "year": "2024",
+      "totalEur": 70030.6468353589,
+      "totalOther": {},
+      "contractCount": 4
+    },
+    {
+      "year": "2025",
+      "totalEur": 24593.139485538108,
+      "totalOther": {},
+      "contractCount": 1
     },
     {
       "year": "2026",

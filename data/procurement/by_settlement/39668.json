@@ -3,23 +3,35 @@
   "name": "Крепост",
   "province": "Хасково",
   "obshtina": "Димитровград",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 1,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 2,
   "awardCount": 0,
-  "totalEur": 12768.226277334941,
+  "totalEur": 45853.66826360164,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000892407",
       "name": "Основно училище \"Христо Ботев\"",
       "tier": "school",
-      "totalEur": 12768.226277334941,
+      "totalEur": 45853.66826360164,
       "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 2,
       "awardCount": 0
     }
   ],
   "topContracts": [
+    {
+      "key": "41e8c8e99cff",
+      "ocid": "eop-04256-2025-0002",
+      "date": "2025-10-17",
+      "amount": 64709.5,
+      "currency": "BGN",
+      "amountEur": 33085.4419862667,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "eop-flat:2025-10-17",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-10-17/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2017.10.2025.json"
+    },
     {
       "key": "5989dd085852",
       "ocid": "ocds-e82gsb-516167",
@@ -34,6 +46,12 @@
     }
   ],
   "byYear": [
+    {
+      "year": "2025",
+      "totalEur": 33085.4419862667,
+      "totalOther": {},
+      "contractCount": 1
+    },
     {
       "year": "2026",
       "totalEur": 12768.226277334941,

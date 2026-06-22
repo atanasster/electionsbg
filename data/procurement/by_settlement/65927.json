@@ -3,55 +3,55 @@
   "name": "Севлиево",
   "province": "Габрово",
   "obshtina": "Севлиево",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 388,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 515,
   "awardCount": 0,
-  "totalEur": 12795181.407635326,
+  "totalEur": 15397050.051638128,
   "totalOther": {},
   "awarders": [
     {
       "eik": "107507982",
       "name": "Многопрофилна болница за активно лечение \"Д-Р стойчо Христов\" ЕООД",
       "tier": "hospital",
-      "totalEur": 11428048.021089716,
+      "totalEur": 13374289.836584928,
       "totalOther": {},
-      "contractCount": 294,
+      "contractCount": 379,
       "awardCount": 0
     },
     {
       "eik": "817072962",
       "name": "Държавна психиатрична болница",
       "tier": "hospital",
-      "totalEur": 705705.6281987696,
+      "totalEur": 914085.5743086053,
       "totalOther": {},
-      "contractCount": 44,
+      "contractCount": 57,
       "awardCount": 0
     },
     {
       "eik": "000209982",
       "name": "Средно училище \"Васил Левски\"",
       "tier": "school",
-      "totalEur": 557251.7884233292,
+      "totalEur": 813260.7462570878,
       "totalOther": {},
-      "contractCount": 37,
+      "contractCount": 59,
       "awardCount": 0
     },
     {
       "eik": "000209498",
       "name": "Основно училище \"Стефан Пешев\"",
       "tier": "school",
-      "totalEur": 55858.88715046809,
+      "totalEur": 206602.49472372344,
       "totalOther": {},
-      "contractCount": 11,
+      "contractCount": 17,
       "awardCount": 0
     },
     {
       "eik": "107504281",
       "name": "ДКЦ -1-СЕВЛИЕВО ЕООД",
       "tier": "hospital",
-      "totalEur": 33745.26415895042,
+      "totalEur": 74239.58114969093,
       "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 2,
       "awardCount": 0
     },
     {
@@ -124,6 +124,30 @@
       "partyName": "Медицинска техника инженеринг /Мти/ ООД /пререгистрация на 18.10.10г.от ЕООД/ - София",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "a55cb5183206",
+      "ocid": "eop-01007-2025-0003",
+      "date": "2025-12-10",
+      "amount": 482000,
+      "currency": "BGN",
+      "amountEur": 246442.6867365773,
+      "partyEik": "121396123",
+      "partyName": "Български пощи ЕАД",
+      "bundleUuid": "eop-flat:2025-12-10",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-12-10/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2010.12.2025.json"
+    },
+    {
+      "key": "367af8fcc1c8",
+      "ocid": "eop-01007-2024-0010",
+      "date": "2024-07-17",
+      "amount": 482000,
+      "currency": "BGN",
+      "amountEur": 246442.6867365773,
+      "partyEik": "040336507",
+      "partyName": "ТОМБОУ-БЪЛГАРИЯ ЕООД",
+      "bundleUuid": "eop-flat:2024-07-17",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-07-17/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2017.07.2024.json"
     },
     {
       "key": "e4aa25189757",
@@ -258,6 +282,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "98720fea6467",
+      "ocid": "eop-01632-2024-0003",
+      "date": "2024-04-24",
+      "amount": 300000,
+      "currency": "BGN",
+      "amountEur": 153387.56435886555,
+      "partyEik": "107063552",
+      "partyName": "СЕВЛИЕВОГАЗ-2000 АД",
+      "bundleUuid": "eop-flat:2024-04-24",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-04-24/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2024.04.2024.json"
+    },
+    {
       "key": "a47908b5e0a6",
       "ocid": "aop-legacy-2022-225533",
       "date": "2022-05-02",
@@ -318,6 +354,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "a409a9521b5c",
+      "ocid": "eop-01007-2025-0002",
+      "date": "2025-11-06",
+      "amount": 226582.5,
+      "currency": "BGN",
+      "amountEur": 115849.79267114218,
+      "partyEik": "131268894",
+      "partyName": "Медекс ООД",
+      "bundleUuid": "eop-flat:2025-11-06",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-11-06/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2006.11.2025.json"
+    },
+    {
       "key": "aa4836f46ace",
       "ocid": "aop-legacy-2023-451999",
       "date": "2023-11-27",
@@ -352,6 +400,18 @@
       "partyName": "Градив 77 ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "049c7357f37d",
+      "ocid": "eop-01007-2025-0002",
+      "date": "2025-11-06",
+      "amount": 200794.81,
+      "currency": "BGN",
+      "amountEur": 102664.75613933726,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "eop-flat:2025-11-06",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-11-06/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2006.11.2025.json"
     },
     {
       "key": "444ec33e5685",
@@ -414,6 +474,30 @@
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     },
     {
+      "key": "50f6aafbeeb8",
+      "ocid": "eop-01007-2024-0003",
+      "date": "2024-08-07",
+      "amount": 182838.9,
+      "currency": "BGN",
+      "amountEur": 93484.04513684727,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "eop-flat:2024-08-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-08-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.08.2024.json"
+    },
+    {
+      "key": "6ac19457d200",
+      "ocid": "eop-01007-2024-0003",
+      "date": "2024-08-07",
+      "amount": 169928,
+      "currency": "BGN",
+      "amountEur": 86882.80678791102,
+      "partyEik": "131268894",
+      "partyName": "Медекс ООД",
+      "bundleUuid": "eop-flat:2024-08-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-08-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.08.2024.json"
+    },
+    {
       "key": "ac57f8c0013d",
       "ocid": "aop-legacy-2022-232995",
       "date": "2022-05-24",
@@ -436,6 +520,30 @@
       "partyName": "Фьоникс Фарма ЕАД /старо Либра ЕАД /- София",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "d0826ab215a5",
+      "ocid": "eop-01007-2024-0011",
+      "date": "2024-08-27",
+      "amount": 159110.32,
+      "currency": "BGN",
+      "amountEur": 81351.81483053231,
+      "partyEik": "131443308",
+      "partyName": "Медилаб ЕООД",
+      "bundleUuid": "eop-flat:2024-08-27",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-08-27/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2027.08.2024.json"
+    },
+    {
+      "key": "de9d6abf9ecd",
+      "ocid": "eop-01457-2024-0001",
+      "date": "2024-03-22",
+      "amount": 155000,
+      "currency": "BGN",
+      "amountEur": 79250.24158541387,
+      "partyEik": "107063552",
+      "partyName": "СЕВЛИЕВОГАЗ-2000 АД",
+      "bundleUuid": "eop-flat:2024-03-22",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-03-22/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2022.03.2024.json"
     },
     {
       "key": "c5aaa1a42191",
@@ -556,114 +664,6 @@
       "partyName": "Хелмед България ЕООД - София",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "fff93099490b",
-      "ocid": "ocds-e82gsb-532410",
-      "date": "2026-02-09",
-      "amount": 68172.26,
-      "currency": "EUR",
-      "amountEur": 68172.26,
-      "partyEik": "207439589",
-      "partyName": "ТриБиоМед ЕООД",
-      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
-      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-532410-807896%2F2026-02-09-award"
-    },
-    {
-      "key": "bf03fa25967f",
-      "ocid": "aop-legacy-2022-225533",
-      "date": "2022-05-02",
-      "amount": 131874.18,
-      "currency": "BGN",
-      "amountEur": 67426.19757340873,
-      "partyEik": "206534575",
-      "partyName": "Дансон трейдинг ООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "c8bfe28c67ec",
-      "ocid": "ocds-e82gsb-537325",
-      "date": "2026-03-03",
-      "amount": 65803.27,
-      "currency": "EUR",
-      "amountEur": 65803.27,
-      "partyEik": "203273675",
-      "partyName": "Капамед ЕООД",
-      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
-      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-537325-818293%2F2026-03-03-award"
-    },
-    {
-      "key": "7c1feb32e9e5",
-      "ocid": "ocds-e82gsb-537325",
-      "date": "2026-03-03",
-      "amount": 64959.63,
-      "currency": "EUR",
-      "amountEur": 64959.63,
-      "partyEik": "115258267",
-      "partyName": "Интергаленика ООД",
-      "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
-      "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-537325-818293%2F2026-03-03-award"
-    },
-    {
-      "key": "d66d5dbf92e4",
-      "ocid": "aop-legacy-2022-225533",
-      "date": "2022-05-02",
-      "amount": 125165,
-      "currency": "BGN",
-      "amountEur": 63995.84830992469,
-      "partyEik": "121578346",
-      "partyName": "Медофарма ЕООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "f71a652213f8",
-      "ocid": "aop-legacy-2020-74781",
-      "date": "2020-12-02",
-      "amount": 125000,
-      "currency": "BGN",
-      "amountEur": 63911.48514952731,
-      "partyEik": "107063552",
-      "partyName": "Севлиевогаз- 2000\" АД",
-      "bundleUuid": "c5404069-668a-4cd2-ab43-a1cdc26e03c6",
-      "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
-    },
-    {
-      "key": "a4bd90d71797",
-      "ocid": "ocds-e82gsb-561790",
-      "date": "2026-03-27",
-      "amount": 61360,
-      "currency": "EUR",
-      "amountEur": 61360,
-      "partyEik": "107063552",
-      "partyName": "СЕВЛИЕВОГАЗ-2000 АД",
-      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
-      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-561790-833072%2F2026-03-27-award"
-    },
-    {
-      "key": "6e98cbac5196",
-      "ocid": "aop-legacy-2020-76513",
-      "date": "2020-12-08",
-      "amount": 120000,
-      "currency": "BGN",
-      "amountEur": 61355.02574354622,
-      "partyEik": "107063552",
-      "partyName": "Севлиевогаз -2000\" АД",
-      "bundleUuid": "c5404069-668a-4cd2-ab43-a1cdc26e03c6",
-      "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
-    },
-    {
-      "key": "bf9ecd9198de",
-      "ocid": "aop-legacy-2017-792750",
-      "date": "2017-06-23",
-      "amount": 120000,
-      "currency": "BGN",
-      "amountEur": 61355.02574354622,
-      "partyEik": "107063552",
-      "partyName": "Севлиевогаз-2000 АД - Севлиево",
-      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
-      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
     }
   ],
   "byYear": [
@@ -738,6 +738,18 @@
       "totalEur": 3418524.340050005,
       "totalOther": {},
       "contractCount": 71
+    },
+    {
+      "year": "2024",
+      "totalEur": 1484331.2148806388,
+      "totalOther": {},
+      "contractCount": 83
+    },
+    {
+      "year": "2025",
+      "totalEur": 1117537.429122163,
+      "totalOther": {},
+      "contractCount": 44
     },
     {
       "year": "2026",

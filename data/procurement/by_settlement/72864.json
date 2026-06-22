@@ -3,23 +3,47 @@
   "name": "Топчийско",
   "province": "Бургас",
   "obshtina": "Руен",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 2,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 4,
   "awardCount": 0,
-  "totalEur": 18582.392130195363,
+  "totalEur": 118610.19618269482,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000043044",
-      "name": "Основно училище \"Реджеб кюпчю",
+      "name": "Основно училище \"Реджеб кюпчю\"",
       "tier": "school",
-      "totalEur": 18582.392130195363,
+      "totalEur": 118610.19618269482,
       "totalOther": {},
-      "contractCount": 2,
+      "contractCount": 4,
       "awardCount": 0
     }
   ],
   "topContracts": [
+    {
+      "key": "9becd924503d",
+      "ocid": "eop-01736-2025-0002",
+      "date": "2025-02-25",
+      "amount": 102226.46,
+      "currency": "BGN",
+      "amountEur": 52267.55904142999,
+      "partyEik": "147043618",
+      "partyName": "АГРО-САМ ЕООД",
+      "bundleUuid": "eop-flat:2025-02-25",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-02-25/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2025.02.2025.json"
+    },
+    {
+      "key": "efe31b58acbf",
+      "ocid": "eop-01736-2025-0003",
+      "date": "2025-05-16",
+      "amount": 93410.92,
+      "currency": "BGN",
+      "amountEur": 47760.24501106947,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "eop-flat:2025-05-16",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-05-16/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2016.05.2025.json"
+    },
     {
       "key": "2a7f71d3874f",
       "ocid": "aop-legacy-2022-282245",
@@ -49,6 +73,12 @@
     {
       "year": "2022",
       "totalEur": 18582.392130195363,
+      "totalOther": {},
+      "contractCount": 2
+    },
+    {
+      "year": "2025",
+      "totalEur": 100027.80405249946,
       "totalOther": {},
       "contractCount": 2
     }

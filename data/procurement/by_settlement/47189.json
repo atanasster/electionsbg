@@ -3,28 +3,28 @@
   "name": "Марикостиново",
   "province": "Благоевград",
   "obshtina": "Петрич",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 6,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 9,
   "awardCount": 0,
-  "totalEur": 1482327.3084039001,
+  "totalEur": 2189323.8367320267,
   "totalOther": {},
   "awarders": [
     {
       "eik": "101510103",
       "name": "Специализирана болница за рехабилитация - марикостиново ЕООД",
       "tier": "hospital",
-      "totalEur": 1313600.9884039,
+      "totalEur": 1683776.3103899623,
       "totalOther": {},
-      "contractCount": 5,
+      "contractCount": 6,
       "awardCount": 0
     },
     {
       "eik": "000013670",
       "name": "Основно училище \"СВ.СВ. кирил и Методий\"",
       "tier": "school",
-      "totalEur": 168726.32,
+      "totalEur": 505547.5263420645,
       "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 3,
       "awardCount": 0
     }
   ],
@@ -40,6 +40,30 @@
       "partyName": "МВ-ХЕЛТИ Фуудс ЕООД",
       "bundleUuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
       "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-552832-843301%2F2026-04-15-award"
+    },
+    {
+      "key": "7449ac7a970a",
+      "ocid": "eop-01581-2024-0001",
+      "date": "2024-04-03",
+      "amount": 724000,
+      "currency": "BGN",
+      "amountEur": 370175.32198606216,
+      "partyEik": "201799071",
+      "partyName": "МВ-ХЕЛТИ Фуудс ЕООД",
+      "bundleUuid": "eop-flat:2024-04-03",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-04-03/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2003.04.2024.json"
+    },
+    {
+      "key": "bb348be7582a",
+      "ocid": "eop-06492-2024-0001",
+      "date": "2024-11-22",
+      "amount": 582919.74,
+      "currency": "BGN",
+      "amountEur": 298042.13045101054,
+      "partyEik": "205811076",
+      "partyName": "ФАГ Строй ООД",
+      "bundleUuid": "eop-flat:2024-11-22",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-11-22/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2022.11.2024.json"
     },
     {
       "key": "4330f1447fa3",
@@ -100,6 +124,18 @@
       "partyName": "Алекс строй 99 ЕООД",
       "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
       "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-513258-821394%2F2026-03-11-award"
+    },
+    {
+      "key": "0149c4b761fe",
+      "ocid": "eop-06492-2024-0002",
+      "date": "2025-01-29",
+      "amount": 75845.28,
+      "currency": "BGN",
+      "amountEur": 38779.07589105392,
+      "partyEik": "817080126",
+      "partyName": "Стемо ЕООД",
+      "bundleUuid": "eop-flat:2025-01-29",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-01-29/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2029.01.2025.json"
     }
   ],
   "byYear": [
@@ -124,6 +160,18 @@
     {
       "year": "2023",
       "totalEur": 226841.76027568858,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2024",
+      "totalEur": 668217.4524370728,
+      "totalOther": {},
+      "contractCount": 2
+    },
+    {
+      "year": "2025",
+      "totalEur": 38779.07589105392,
       "totalOther": {},
       "contractCount": 1
     },

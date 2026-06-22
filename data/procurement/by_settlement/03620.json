@@ -3,37 +3,37 @@
   "name": "Белозем",
   "province": "Пловдив",
   "obshtina": "Раковски",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 23,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 40,
   "awardCount": 0,
-  "totalEur": 736371.3053094595,
+  "totalEur": 1129182.3471689257,
   "totalOther": {},
   "awarders": [
     {
       "eik": "115009942",
       "name": "Професионална гимназия по селско стопанство - с. Белозем",
       "tier": "school",
-      "totalEur": 299605.03008799336,
+      "totalEur": 539775.0704289228,
       "totalOther": {},
-      "contractCount": 6,
+      "contractCount": 13,
+      "awardCount": 0
+    },
+    {
+      "eik": "000453470",
+      "name": "Основно училище \"ГЕО Милев\" - с. Белозем",
+      "tier": "school",
+      "totalEur": 328471.59517954016,
+      "totalOther": {},
+      "contractCount": 7,
       "awardCount": 0
     },
     {
       "eik": "000451512",
       "name": "Детска Градина \"Синчец\" - с. Белозем",
       "tier": "school",
-      "totalEur": 224650.39602951176,
+      "totalEur": 260935.6815604628,
       "totalOther": {},
-      "contractCount": 15,
-      "awardCount": 0
-    },
-    {
-      "eik": "000453470",
-      "name": "Основно училище \"Гео Милев\" - с. Белозем",
-      "tier": "school",
-      "totalEur": 212115.8791919543,
-      "totalOther": {},
-      "contractCount": 2,
+      "contractCount": 20,
       "awardCount": 0
     }
   ],
@@ -99,6 +99,54 @@
       "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-548616-810307%2F2026-02-12-award"
     },
     {
+      "key": "c27b8c297fcb",
+      "ocid": "eop-01911-2024-0003",
+      "date": "2025-01-10",
+      "amount": 91660,
+      "currency": "BGN",
+      "amountEur": 46865.01383044539,
+      "partyEik": "200338930",
+      "partyName": "РАН Транс РК ЕООД",
+      "bundleUuid": "eop-flat:2025-01-10",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-01-10/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2010.01.2025.json"
+    },
+    {
+      "key": "8bb4787d6f3e",
+      "ocid": "eop-01911-2025-0001",
+      "date": "2025-09-02",
+      "amount": 90127.95,
+      "currency": "BGN",
+      "amountEur": 46081.68910385872,
+      "partyEik": "175415627",
+      "partyName": "Контракс АД",
+      "bundleUuid": "eop-flat:2025-09-02",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-09-02/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2002.09.2025.json"
+    },
+    {
+      "key": "cfa001c4e00b",
+      "ocid": "eop-01911-2024-0001",
+      "date": "2024-09-18",
+      "amount": 73410.5,
+      "currency": "BGN",
+      "amountEur": 37534.192644555,
+      "partyEik": "115259629",
+      "partyName": "ЕТ Иван Колев - Бровкин",
+      "bundleUuid": "eop-flat:2024-09-18",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-09-18/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2018.09.2024.json"
+    },
+    {
+      "key": "fede0bf3abcc",
+      "ocid": "eop-03654-2024-0001",
+      "date": "2025-02-19",
+      "amount": 71642,
+      "currency": "BGN",
+      "amountEur": 36629.97295265948,
+      "partyEik": "175342714",
+      "partyName": "Център за творческо обучение ООД",
+      "bundleUuid": "eop-flat:2025-02-19",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-02-19/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2019.02.2025.json"
+    },
+    {
       "key": "392fe0aa4628",
       "ocid": "aop-legacy-2023-424906",
       "date": "2023-09-18",
@@ -123,6 +171,54 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "db74c73c5e9f",
+      "ocid": "eop-01911-2024-0002",
+      "date": "2025-01-10",
+      "amount": 66645,
+      "currency": "BGN",
+      "amountEur": 34075.04742232198,
+      "partyEik": "175415627",
+      "partyName": "Контракс АД",
+      "bundleUuid": "eop-flat:2025-01-10",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-01-10/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2010.01.2025.json"
+    },
+    {
+      "key": "4a5a566d7ae1",
+      "ocid": "eop-01911-2025-0002",
+      "date": "2025-11-21",
+      "amount": 65999.27,
+      "currency": "BGN",
+      "amountEur": 33744.89091587715,
+      "partyEik": "207212883",
+      "partyName": "Баков транс ЕООД",
+      "bundleUuid": "eop-flat:2025-11-21",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-11-21/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2021.11.2025.json"
+    },
+    {
+      "key": "9bec5fa0b0dd",
+      "ocid": "eop-01911-2024-0004",
+      "date": "2025-02-07",
+      "amount": 56563.75,
+      "currency": "BGN",
+      "amountEur": 28920.586145012603,
+      "partyEik": "200553832",
+      "partyName": "Енерго БР ЕООД",
+      "bundleUuid": "eop-flat:2025-02-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-02-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.02.2025.json"
+    },
+    {
+      "key": "275c82f7c0d0",
+      "ocid": "eop-03654-2025-0002",
+      "date": "2025-07-28",
+      "amount": 52810,
+      "currency": "BGN",
+      "amountEur": 27001.324245972297,
+      "partyEik": "205658883",
+      "partyName": "от Марс ООД",
+      "bundleUuid": "eop-flat:2025-07-28",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-07-28/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2028.07.2025.json"
+    },
+    {
       "key": "60351976e216",
       "ocid": "aop-legacy-2022-235701",
       "date": "2022-05-30",
@@ -133,6 +229,42 @@
       "partyName": "РАН Транс рк ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "3bf380d46d79",
+      "ocid": "eop-03654-2024-0001",
+      "date": "2025-02-19",
+      "amount": 41482,
+      "currency": "BGN",
+      "amountEur": 21209.409815781535,
+      "partyEik": "175342714",
+      "partyName": "Център за творческо обучение ООД",
+      "bundleUuid": "eop-flat:2025-02-19",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-02-19/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2019.02.2025.json"
+    },
+    {
+      "key": "5c7f9c7bc81a",
+      "ocid": "eop-03654-2025-0002",
+      "date": "2025-07-28",
+      "amount": 40660,
+      "currency": "BGN",
+      "amountEur": 20789.127889438245,
+      "partyEik": "205658883",
+      "partyName": "от Марс ООД",
+      "bundleUuid": "eop-flat:2025-07-28",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-07-28/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2028.07.2025.json"
+    },
+    {
+      "key": "327b5cc86e30",
+      "ocid": "eop-01911-2025-0002",
+      "date": "2025-11-21",
+      "amount": 25325.3,
+      "currency": "BGN",
+      "amountEur": 12948.620278858592,
+      "partyEik": "207212883",
+      "partyName": "Баков транс ЕООД",
+      "bundleUuid": "eop-flat:2025-11-21",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-11-21/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2021.11.2025.json"
     },
     {
       "key": "cd2a9f0cfbe2",
@@ -183,6 +315,30 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "75374ecf0506",
+      "ocid": "eop-03992-2024-0001",
+      "date": "2024-12-06",
+      "amount": 21097,
+      "currency": "BGN",
+      "amountEur": 10786.724817596622,
+      "partyEik": "126145986",
+      "partyName": "Уикенд ООД",
+      "bundleUuid": "eop-flat:2024-12-06",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-12-06/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2006.12.2024.json"
+    },
+    {
+      "key": "dee905434397",
+      "ocid": "eop-03654-2024-0001",
+      "date": "2025-02-19",
+      "amount": 20978,
+      "currency": "BGN",
+      "amountEur": 10725.881083734272,
+      "partyEik": "175342714",
+      "partyName": "Център за творческо обучение ООД",
+      "bundleUuid": "eop-flat:2025-02-19",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-02-19/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2019.02.2025.json"
+    },
+    {
       "key": "1778e369c835",
       "ocid": "ocds-e82gsb-522185",
       "date": "2026-02-04",
@@ -193,6 +349,30 @@
       "partyName": "Уикенд ООД",
       "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
       "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-522185-806204%2F2026-02-04-award"
+    },
+    {
+      "key": "cad8ba0c8f7b",
+      "ocid": "eop-03992-2024-0001",
+      "date": "2024-12-06",
+      "amount": 16362,
+      "currency": "BGN",
+      "amountEur": 8365.757760132527,
+      "partyEik": "126145986",
+      "partyName": "Уикенд ООД",
+      "bundleUuid": "eop-flat:2024-12-06",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-12-06/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2006.12.2024.json"
+    },
+    {
+      "key": "a32d1e8e0796",
+      "ocid": "eop-03992-2024-0001",
+      "date": "2024-10-18",
+      "amount": 16119.7,
+      "currency": "BGN",
+      "amountEur": 8241.871737318683,
+      "partyEik": "205560752",
+      "partyName": "ЕТ ЕЛА 2019 - Любен Ангелов",
+      "bundleUuid": "eop-flat:2024-10-18",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-10-18/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2018.10.2024.json"
     },
     {
       "key": "db6725cd0063",
@@ -243,6 +423,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-569006-861849%2F2026-06-01-award"
     },
     {
+      "key": "9c1e342954cc",
+      "ocid": "eop-03992-2024-0001",
+      "date": "2024-12-06",
+      "amount": 10080.15,
+      "currency": "BGN",
+      "amountEur": 5153.898856240062,
+      "partyEik": "126145986",
+      "partyName": "Уикенд ООД",
+      "bundleUuid": "eop-flat:2024-12-06",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-12-06/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2006.12.2024.json"
+    },
+    {
       "key": "d5130a544202",
       "ocid": "aop-legacy-2022-274797",
       "date": "2022-09-14",
@@ -291,6 +483,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "cd9a2609d1e6",
+      "ocid": "eop-03992-2024-0001",
+      "date": "2024-10-18",
+      "amount": 7309,
+      "currency": "BGN",
+      "amountEur": 3737.032359663161,
+      "partyEik": "204666012",
+      "partyName": "МИГ 6 ООД",
+      "bundleUuid": "eop-flat:2024-10-18",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-10-18/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2018.10.2024.json"
+    },
+    {
       "key": "e8e7b1122b92",
       "ocid": "aop-legacy-2023-434328",
       "date": "2023-10-10",
@@ -333,6 +537,18 @@
       "totalEur": 347363.7892863899,
       "totalOther": {},
       "contractCount": 8
+    },
+    {
+      "year": "2024",
+      "totalEur": 73819.47817550605,
+      "totalOther": {},
+      "contractCount": 6
+    },
+    {
+      "year": "2025",
+      "totalEur": 318991.56368396024,
+      "totalOther": {},
+      "contractCount": 11
     },
     {
       "year": "2026",

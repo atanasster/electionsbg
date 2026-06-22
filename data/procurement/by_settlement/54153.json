@@ -3,19 +3,19 @@
   "name": "Осетеново",
   "province": "Стара Загора",
   "obshtina": "Павел баня",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 1,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 3,
   "awardCount": 0,
-  "totalEur": 49775,
+  "totalEur": 94670.56863326568,
   "totalOther": {},
   "awarders": [
     {
       "eik": "123522081",
       "name": "Основно училище \"Христо Ботев\"",
       "tier": "school",
-      "totalEur": 49775,
+      "totalEur": 94670.56863326568,
       "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 3,
       "awardCount": 0
     }
   ],
@@ -31,9 +31,39 @@
       "partyName": "СИ Систем ЕООД",
       "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
       "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-574917-853013%2F2026-05-08-award"
+    },
+    {
+      "key": "e1a9f518a7f4",
+      "ocid": "eop-03298-2025-0003",
+      "date": "2025-05-05",
+      "amount": 59976.09,
+      "currency": "BGN",
+      "amountEur": 30665.287882893706,
+      "partyEik": "130199580",
+      "partyName": "Сиела норма АД",
+      "bundleUuid": "eop-flat:2025-05-05",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-05-05/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2005.05.2025.json"
+    },
+    {
+      "key": "f92bd1f62ed3",
+      "ocid": "eop-03298-2025-0003",
+      "date": "2025-05-05",
+      "amount": 27832.01,
+      "currency": "BGN",
+      "amountEur": 14230.280750371965,
+      "partyEik": "130199580",
+      "partyName": "Сиела норма АД",
+      "bundleUuid": "eop-flat:2025-05-05",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-05-05/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2005.05.2025.json"
     }
   ],
   "byYear": [
+    {
+      "year": "2025",
+      "totalEur": 44895.56863326567,
+      "totalOther": {},
+      "contractCount": 2
+    },
     {
       "year": "2026",
       "totalEur": 49775,

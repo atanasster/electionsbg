@@ -1,0 +1,51 @@
+{
+  "mpId": 80,
+  "summary": {
+    "totalEur": 40257.43546218229,
+    "totalOther": {},
+    "contractCount": 2,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 40257.43546218229,
+    "rank": 52,
+    "cohortSize": 61,
+    "cohortMedian": 731556.67926149
+  },
+  "entries": [
+    {
+      "mpId": 80,
+      "mpName": "Ненко Викторов Темелков",
+      "contractorEik": "113015334",
+      "contractorName": "Аматица АД",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 40257.43546218229,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2024",
+          "contractCount": 2,
+          "totalEur": 40257.43546218229,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "833017552",
+          "name": "Мини марица - изток ЕАД",
+          "contractCount": 2,
+          "totalEur": 40257.43546218229,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

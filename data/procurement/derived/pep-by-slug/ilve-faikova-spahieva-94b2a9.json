@@ -8,9 +8,9 @@
       "role": "chief_architect",
       "contractorEik": "205281254",
       "contractorName": "ХБ Дизайн ЕООД",
-      "totalEur": 112427.4,
+      "totalEur": 826423.130712792,
       "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 7,
       "awardCount": 0,
       "relations": [
         {
@@ -22,6 +22,18 @@
       ],
       "byYear": [
         {
+          "year": "2024",
+          "contractCount": 3,
+          "totalEur": 450665.41570586397,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 3,
+          "totalEur": 263330.315006928,
+          "totalOther": {}
+        },
+        {
           "year": "2026",
           "contractCount": 1,
           "totalEur": 112427.4,
@@ -30,10 +42,74 @@
       ],
       "topAwarders": [
         {
+          "eik": "000024962",
+          "name": "Община Сатовча",
+          "contractCount": 5,
+          "totalEur": 709930.9602572821,
+          "totalOther": {}
+        },
+        {
           "eik": "000016951",
           "name": "Детска Градина \"Брезичка\"",
           "contractCount": 1,
           "totalEur": 112427.4,
+          "totalOther": {}
+        },
+        {
+          "eik": "000614906",
+          "name": "Община Доспат",
+          "contractCount": 1,
+          "totalEur": 4064.770455509937,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "ilve-faikova-spahieva-94b2a9",
+      "name": "Илве Фаикова Спахиева",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "contractorEik": "204684302",
+      "contractorName": "ПРОЕКТИ-ИС ЕООД",
+      "totalEur": 24282.27402177081,
+      "totalOther": {},
+      "contractCount": 11,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "100%",
+          "valueEur": 5.112918811962185
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2024",
+          "contractCount": 9,
+          "totalEur": 10229.92795897394,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 2,
+          "totalEur": 14052.346062796869,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000024962",
+          "name": "Община Сатовча",
+          "contractCount": 2,
+          "totalEur": 14052.346062796869,
+          "totalOther": {}
+        },
+        {
+          "eik": "000024752",
+          "name": "Община Гърмен",
+          "contractCount": 9,
+          "totalEur": 10229.92795897394,
           "totalOther": {}
         }
       ]

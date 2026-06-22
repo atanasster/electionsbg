@@ -1,0 +1,51 @@
+{
+  "mpId": 1475,
+  "summary": {
+    "totalEur": 44738.03960466912,
+    "totalOther": {},
+    "contractCount": 1,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 44738.03960466912,
+    "rank": 51,
+    "cohortSize": 61,
+    "cohortMedian": 731556.67926149
+  },
+  "entries": [
+    {
+      "mpId": 1475,
+      "mpName": "Тодор Борисов Радулов",
+      "contractorEik": "101004974",
+      "contractorName": "Сградостроител - АД, гр. Гоце Делчев",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 44738.03960466912,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2011",
+          "contractCount": 1,
+          "totalEur": 44738.03960466912,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000697179",
+          "name": "Държавно предприятие \"Ръководство на въздушното движение\" /ДП \"Рвд\"/",
+          "contractCount": 1,
+          "totalEur": 44738.03960466912,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

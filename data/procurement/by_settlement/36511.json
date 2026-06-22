@@ -3,19 +3,19 @@
   "name": "Карлуково",
   "province": "Ловеч",
   "obshtina": "Луковит",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 44,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 66,
   "awardCount": 0,
-  "totalEur": 4318685.796823446,
+  "totalEur": 4765123.1661244575,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000289067",
       "name": "Държавна психиатрична болница - карлуково",
       "tier": "hospital",
-      "totalEur": 4318685.796823446,
+      "totalEur": 4765123.1661244575,
       "totalOther": {},
-      "contractCount": 44,
+      "contractCount": 66,
       "awardCount": 0
     }
   ],
@@ -201,6 +201,30 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "064f9f682738",
+      "ocid": "eop-00912-2024-0001",
+      "date": "2024-10-04",
+      "amount": 136859,
+      "currency": "BGN",
+      "amountEur": 69974.89556863326,
+      "partyEik": "201128179",
+      "partyName": "Лета ЗАР ЕООД",
+      "bundleUuid": "eop-flat:2024-10-04",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-10-04/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2004.10.2024.json"
+    },
+    {
+      "key": "273b7b490b65",
+      "ocid": "eop-00912-2024-0005",
+      "date": "2025-01-15",
+      "amount": 112459.83,
+      "currency": "BGN",
+      "amountEur": 57499.798039706926,
+      "partyEik": "000646811",
+      "partyName": "МОТО-ПФОЕ ЕООД",
+      "bundleUuid": "eop-flat:2025-01-15",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-01-15/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2015.01.2025.json"
+    },
+    {
       "key": "2128ebd5718a",
       "ocid": "aop-legacy-2016-738877",
       "date": "2016-07-04",
@@ -211,6 +235,18 @@
       "partyName": "Химера-83, гр. Луковит",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "978396b9dd7a",
+      "ocid": "eop-00912-2024-0006",
+      "date": "2025-03-07",
+      "amount": 106077.81,
+      "currency": "BGN",
+      "amountEur": 54236.72302807504,
+      "partyEik": "103267194",
+      "partyName": "Софарма трейдинг АД",
+      "bundleUuid": "eop-flat:2025-03-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-03-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.03.2025.json"
     },
     {
       "key": "d7d07c6568c6",
@@ -235,6 +271,30 @@
       "partyName": "Лета Зар ЕООД",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "4cccffe8a80d",
+      "ocid": "eop-00912-2024-0006",
+      "date": "2025-03-07",
+      "amount": 90686.38,
+      "currency": "BGN",
+      "amountEur": 46367.209829075124,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "eop-flat:2025-03-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-03-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.03.2025.json"
+    },
+    {
+      "key": "8672164c7d8a",
+      "ocid": "eop-00912-2024-0003",
+      "date": "2024-10-15",
+      "amount": 89959.98,
+      "currency": "BGN",
+      "amountEur": 45995.80740657419,
+      "partyEik": "114034519",
+      "partyName": "АС - ДС ООД",
+      "bundleUuid": "eop-flat:2024-10-15",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-10-15/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2015.10.2024.json"
     },
     {
       "key": "cae66a1d77cc",
@@ -309,6 +369,30 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "db6f8aba8374",
+      "ocid": "eop-00912-2024-0006",
+      "date": "2025-03-07",
+      "amount": 57537.67,
+      "currency": "BGN",
+      "amountEur": 29418.543533947224,
+      "partyEik": "103267194",
+      "partyName": "Софарма трейдинг АД",
+      "bundleUuid": "eop-flat:2025-03-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-03-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.03.2025.json"
+    },
+    {
+      "key": "b9388f7cd340",
+      "ocid": "eop-00912-2024-0001",
+      "date": "2024-10-04",
+      "amount": 55510,
+      "currency": "BGN",
+      "amountEur": 28381.81232520209,
+      "partyEik": "201128179",
+      "partyName": "Лета ЗАР ЕООД",
+      "bundleUuid": "eop-flat:2024-10-04",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-10-04/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2004.10.2024.json"
+    },
+    {
       "key": "9e5c2490e17d",
       "ocid": "aop-legacy-2011-2015-660531",
       "date": "2015-04-08",
@@ -319,6 +403,30 @@
       "partyName": "Търговска лига - Национален аптечен център /Нац/ АД - София",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "cf27d6dfd300",
+      "ocid": "eop-00912-2024-0006",
+      "date": "2025-03-07",
+      "amount": 41110.37,
+      "currency": "BGN",
+      "amountEur": 21019.398413972587,
+      "partyEik": "203283623",
+      "partyName": "Фьоникс Фарма ЕООД",
+      "bundleUuid": "eop-flat:2025-03-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-03-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.03.2025.json"
+    },
+    {
+      "key": "937dddaecd53",
+      "ocid": "eop-00912-2024-0001",
+      "date": "2024-10-04",
+      "amount": 37700,
+      "currency": "BGN",
+      "amountEur": 19275.703921097436,
+      "partyEik": "201128179",
+      "partyName": "Лета ЗАР ЕООД",
+      "bundleUuid": "eop-flat:2024-10-04",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-10-04/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2004.10.2024.json"
     },
     {
       "key": "114e25ea5994",
@@ -345,6 +453,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "bda22ac2aa29",
+      "ocid": "eop-00912-2024-0006",
+      "date": "2025-03-07",
+      "amount": 34971.92,
+      "currency": "BGN",
+      "amountEur": 17880.858765843655,
+      "partyEik": "206534575",
+      "partyName": "Дансон трейдинг ООД",
+      "bundleUuid": "eop-flat:2025-03-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-03-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.03.2025.json"
+    },
+    {
       "key": "b2464c77d3d1",
       "ocid": "aop-legacy-2019-947485",
       "date": "2019-12-04",
@@ -357,6 +477,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
+      "key": "7bb31f6f71db",
+      "ocid": "eop-00912-2024-0001",
+      "date": "2024-10-04",
+      "amount": 31000,
+      "currency": "BGN",
+      "amountEur": 15850.048317082774,
+      "partyEik": "201128179",
+      "partyName": "Лета ЗАР ЕООД",
+      "bundleUuid": "eop-flat:2024-10-04",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-10-04/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2004.10.2024.json"
+    },
+    {
       "key": "21930d335c02",
       "ocid": "aop-legacy-2022-303687",
       "date": "2022-12-02",
@@ -367,6 +499,18 @@
       "partyName": "Дансон трейдинг ООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "06cc16b733dc",
+      "ocid": "eop-00912-2024-0006",
+      "date": "2025-03-07",
+      "amount": 19100,
+      "currency": "BGN",
+      "amountEur": 9765.674930847774,
+      "partyEik": "030276307",
+      "partyName": "Търговска Лига - Глобален Аптечен Център АД",
+      "bundleUuid": "eop-flat:2025-03-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-03-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.03.2025.json"
     },
     {
       "key": "176623e6dece",
@@ -405,6 +549,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "31a6896b82e8",
+      "ocid": "eop-00912-2024-0006",
+      "date": "2025-03-07",
+      "amount": 11791.68,
+      "currency": "BGN",
+      "amountEur": 6028.990249663826,
+      "partyEik": "206534575",
+      "partyName": "Дансон трейдинг ООД",
+      "bundleUuid": "eop-flat:2025-03-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-03-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.03.2025.json"
+    },
+    {
       "key": "2df7f6c27d5e",
       "ocid": "aop-legacy-2022-266106",
       "date": "2022-08-24",
@@ -429,124 +585,40 @@
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
-      "key": "b222caa0a6c6",
-      "ocid": "aop-legacy-2022-303734",
-      "date": "2022-12-02",
-      "amount": 7270.18,
+      "key": "b85e54c64d6a",
+      "ocid": "eop-00912-2024-0006",
+      "date": "2025-04-01",
+      "amount": 9613.33,
       "currency": "BGN",
-      "amountEur": 3717.1840088351237,
-      "partyEik": "206534575",
-      "partyName": "Дансон трейдинг ООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "d8ca5ebeb3d2",
-      "ocid": "aop-legacy-2022-303709",
-      "date": "2022-12-02",
-      "amount": 5658.93,
-      "currency": "BGN",
-      "amountEur": 2893.364965257717,
-      "partyEik": "203283623",
-      "partyName": "Фьоникс Фарма ЕООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "890d144b55d5",
-      "ocid": "aop-legacy-2011-2015-660531",
-      "date": "2015-04-08",
-      "amount": 4581,
-      "currency": "BGN",
-      "amountEur": 2342.228107759877,
-      "partyEik": "130861077",
-      "partyName": "Мс Фарма АД - София",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "ca5186b4c64e",
-      "ocid": "aop-legacy-2022-303709",
-      "date": "2022-12-02",
-      "amount": 3285.34,
-      "currency": "BGN",
-      "amountEur": 1679.7676689691846,
-      "partyEik": "030276307",
-      "partyName": "Търговска Лига - Глобален Аптечен Център АД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "45fdfc7925cd",
-      "ocid": "aop-legacy-2022-303709",
-      "date": "2022-12-02",
-      "amount": 2927.46,
-      "currency": "BGN",
-      "amountEur": 1496.7865305266819,
+      "amountEur": 4915.217580260043,
       "partyEik": "103267194",
       "partyName": "Софарма трейдинг АД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+      "bundleUuid": "eop-flat:2025-04-01",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-04-01/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2001.04.2025.json"
     },
     {
-      "key": "2f3d794f50f4",
-      "ocid": "aop-legacy-2022-303734",
-      "date": "2022-12-02",
-      "amount": 2408.34,
+      "key": "69697a63b1ca",
+      "ocid": "eop-00912-2024-0006",
+      "date": "2025-03-07",
+      "amount": 8477.32,
       "currency": "BGN",
-      "amountEur": 1231.3646891601009,
-      "partyEik": "030276307",
-      "partyName": "Търговска Лига - Глобален Аптечен Център АД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+      "amountEur": 4334.384890302327,
+      "partyEik": "103267194",
+      "partyName": "Софарма трейдинг АД",
+      "bundleUuid": "eop-flat:2025-03-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-03-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.03.2025.json"
     },
     {
-      "key": "2f5ca630d7d9",
-      "ocid": "aop-legacy-2016-742338",
-      "date": "2016-07-28",
-      "amount": 1480.83,
+      "key": "59f348139347",
+      "ocid": "eop-00912-2024-0001",
+      "date": "2024-10-04",
+      "amount": 8150,
       "currency": "BGN",
-      "amountEur": 757.1363564317962,
-      "partyEik": "130861077",
-      "partyName": "Мс Фарма АД - София",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "79f7d4ce1021",
-      "ocid": "aop-legacy-2022-303709",
-      "date": "2022-12-02",
-      "amount": 1134,
-      "currency": "BGN",
-      "amountEur": 579.8049932765118,
-      "partyEik": "206534575",
-      "partyName": "Дансон трейдинг ООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "5234b813d7b9",
-      "ocid": "aop-legacy-2011-2015-588671",
-      "date": "2014-02-27",
-      "amount": 793,
-      "currency": "BGN",
-      "amountEur": 405.45446178860124,
-      "partyEik": "131107072",
-      "partyName": "ЕЙ Енд Ди Фарма България ЕАД / друго наименование Аришоп Фарма АД/ - София",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "c4f0e460e906",
-      "ocid": "aop-legacy-2011-2015-615982",
-      "date": "2014-07-21",
-      "amount": 96.5,
-      "currency": "BGN",
-      "amountEur": 49.339666535435086,
-      "partyEik": "030276307",
-      "partyName": "Търговска лига - Национален аптечен център /Нац/ АД - София",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+      "amountEur": 4167.02883174918,
+      "partyEik": "121108770",
+      "partyName": "Далас ЕООД",
+      "bundleUuid": "eop-flat:2024-10-04",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-10-04/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2004.10.2024.json"
     }
   ],
   "byYear": [
@@ -603,6 +675,18 @@
       "totalEur": 1102089.6499184489,
       "totalOther": {},
       "contractCount": 2
+    },
+    {
+      "year": "2024",
+      "totalEur": 183645.29637033894,
+      "totalOther": {},
+      "contractCount": 6
+    },
+    {
+      "year": "2025",
+      "totalEur": 262792.07293067395,
+      "totalOther": {},
+      "contractCount": 16
     },
     {
       "year": "2026",

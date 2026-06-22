@@ -1,0 +1,83 @@
+{
+  "eik": "110001952",
+  "entries": [
+    {
+      "mpId": 5092,
+      "mpName": "Богомил Иванов Петков",
+      "contractorEik": "110001952",
+      "contractorName": "Осъм инженеринг АД",
+      "relations": [
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 4474958.324598764,
+      "totalOther": {},
+      "contractCount": 13,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2012",
+          "contractCount": 1,
+          "totalEur": 14025.631062004366,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 1,
+          "totalEur": 48454.68675702899,
+          "totalOther": {}
+        },
+        {
+          "year": "2015",
+          "contractCount": 1,
+          "totalEur": 35250.134214118814,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 1,
+          "totalEur": 7872.872386659373,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 2,
+          "totalEur": 804296.1760480206,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 7,
+          "totalEur": 3565058.824130932,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000133965",
+          "name": "Община Свищов",
+          "contractCount": 8,
+          "totalEur": 3728374.444609194,
+          "totalOther": {}
+        },
+        {
+          "eik": "000291591",
+          "name": "Община Ловеч",
+          "contractCount": 1,
+          "totalEur": 640980.555569758,
+          "totalOther": {}
+        },
+        {
+          "eik": "000291709",
+          "name": "Община Троян",
+          "contractCount": 4,
+          "totalEur": 105603.32441981156,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

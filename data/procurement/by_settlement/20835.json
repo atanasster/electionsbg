@@ -3,23 +3,35 @@
   "name": "Джулюница",
   "province": "Велико Търново",
   "obshtina": "Лясковец",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 1,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 2,
   "awardCount": 0,
-  "totalEur": 31577.89787455965,
+  "totalEur": 78958.63137389242,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000122730",
-      "name": "Основно училище - П.Р.Славейков, с. Джулюница, общ. Лясковец",
+      "name": "Обединено училище \"П.Р.СЛАВЕЙКОВ\"",
       "tier": "school",
-      "totalEur": 31577.89787455965,
+      "totalEur": 78958.63137389242,
       "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 2,
       "awardCount": 0
     }
   ],
   "topContracts": [
+    {
+      "key": "5e1e65ad1ba4",
+      "ocid": "eop-02860-2024-0001",
+      "date": "2025-03-10",
+      "amount": 92668.66,
+      "currency": "BGN",
+      "amountEur": 47380.73349933277,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "eop-flat:2025-03-10",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-03-10/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2010.03.2025.json"
+    },
     {
       "key": "ebf052499352",
       "ocid": "aop-legacy-2011-2015-485127",
@@ -37,6 +49,12 @@
     {
       "year": "2012",
       "totalEur": 31577.89787455965,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2025",
+      "totalEur": 47380.73349933277,
       "totalOther": {},
       "contractCount": 1
     }

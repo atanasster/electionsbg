@@ -8,9 +8,9 @@
       "role": "councillor",
       "contractorEik": "131543760",
       "contractorName": "Пожарна техника ООД",
-      "totalEur": 109441.00458628818,
+      "totalEur": 435254.751179806,
       "totalOther": {},
-      "contractCount": 4,
+      "contractCount": 7,
       "awardCount": 0,
       "relations": [
         {
@@ -38,14 +38,34 @@
           "contractCount": 2,
           "totalEur": 16426.27426719091,
           "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 3,
+          "totalEur": 325813.7465935179,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
+        {
+          "eik": "831913661",
+          "name": "Държавна агенция \"Държавен резерв и военновременни запаси\"",
+          "contractCount": 1,
+          "totalEur": 275586.32396476174,
+          "totalOther": {}
+        },
         {
           "eik": "175201304",
           "name": "Електроенергиен системен оператор /Есо/ ЕАД",
           "contractCount": 1,
           "totalEur": 84067.12239816344,
+          "totalOther": {}
+        },
+        {
+          "eik": "000632256",
+          "name": "Метрополитен ЕАД",
+          "contractCount": 1,
+          "totalEur": 41647.68921634294,
           "totalOther": {}
         },
         {
@@ -60,13 +80,6 @@
           "name": "Аец Козлодуй\" ЕАД",
           "contractCount": 1,
           "totalEur": 8947.607920933824,
-          "totalOther": {}
-        },
-        {
-          "eik": "000695228",
-          "name": "Министерство на външните работи",
-          "contractCount": 1,
-          "totalEur": 1133.5341006120163,
           "totalOther": {}
         }
       ]

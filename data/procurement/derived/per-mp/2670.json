@@ -1,0 +1,63 @@
+{
+  "mpId": 2670,
+  "summary": {
+    "totalEur": 124195923.31133074,
+    "totalOther": {},
+    "contractCount": 3,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 124195923.31133074,
+    "rank": 4,
+    "cohortSize": 61,
+    "cohortMedian": 731556.67926149
+  },
+  "entries": [
+    {
+      "mpId": 2670,
+      "mpName": "Валентин Алексиев Николов",
+      "contractorEik": "831373560",
+      "contractorName": "Български енергиен холдинг ЕАД",
+      "relations": [
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 124195923.31133074,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2024",
+          "contractCount": 3,
+          "totalEur": 124195923.31133074,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "123531939",
+          "name": "ТЕЦ Марица изток 2 ЕАД",
+          "contractCount": 1,
+          "totalEur": 71521879.55497155,
+          "totalOther": {}
+        },
+        {
+          "eik": "175203478",
+          "name": "Булгартрансгаз ЕАД",
+          "contractCount": 2,
+          "totalEur": 52674043.75635919,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

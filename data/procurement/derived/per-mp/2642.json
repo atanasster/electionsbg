@@ -8,17 +8,27 @@
   },
   "scorecard": {
     "value": 74451.9615713022,
-    "rank": 28,
-    "cohortSize": 38,
-    "cohortMedian": 345827.6041044467
+    "rank": 44,
+    "cohortSize": 61,
+    "cohortMedian": 731556.67926149
   },
   "entries": [
     {
       "mpId": 2642,
-      "mpName": "НИКОЛА ИЛИЕВ ДИНКОВ",
+      "mpName": "Никола Илиев Динков",
       "contractorEik": "126736213",
       "contractorName": "Нилстрой ЕООД",
       "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "sole_owner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
         {
           "kind": "stake",
           "shareSize": "100",

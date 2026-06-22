@@ -1,16 +1,16 @@
 {
   "mpId": 1689,
   "summary": {
-    "totalEur": 43044458.87423754,
+    "totalEur": 48851516.13381531,
     "totalOther": {},
-    "contractCount": 14,
+    "contractCount": 18,
     "awardCount": 0
   },
   "scorecard": {
-    "value": 43044458.87423754,
-    "rank": 3,
-    "cohortSize": 38,
-    "cohortMedian": 345827.6041044467
+    "value": 48851516.13381531,
+    "rank": 6,
+    "cohortSize": 61,
+    "cohortMedian": 731556.67926149
   },
   "entries": [
     {
@@ -25,9 +25,9 @@
           "confidence": "medium"
         }
       ],
-      "totalEur": 43044458.87423754,
+      "totalEur": 48851516.13381531,
       "totalOther": {},
-      "contractCount": 14,
+      "contractCount": 18,
       "awardCount": 0,
       "byYear": [
         {
@@ -83,14 +83,33 @@
           "contractCount": 3,
           "totalEur": 16575931.445984568,
           "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 1,
+          "totalEur": 153387.56435886555,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 3,
+          "totalEur": 5653669.69521891,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "123531939",
           "name": "ТЕЦ Марица изток 2 ЕАД",
-          "contractCount": 14,
-          "totalEur": 43044458.87423754,
+          "contractCount": 17,
+          "totalEur": 48833620.917973444,
+          "totalOther": {}
+        },
+        {
+          "eik": "130273618",
+          "name": "Национална агенция за професионално образование и обучение",
+          "contractCount": 1,
+          "totalEur": 17895.215841867648,
           "totalOther": {}
         }
       ]

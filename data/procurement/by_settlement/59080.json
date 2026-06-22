@@ -3,46 +3,55 @@
   "name": "Първомай",
   "province": "Пловдив",
   "obshtina": "Първомай",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 303,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 399,
   "awardCount": 0,
-  "totalEur": 60618411.07837972,
+  "totalEur": 63285456.165638834,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000471536",
       "name": "Община Първомай",
       "tier": "municipal",
-      "totalEur": 55759798.07590814,
+      "totalEur": 56853963.42924354,
       "totalOther": {},
-      "contractCount": 167,
+      "contractCount": 213,
       "awardCount": 0
     },
     {
       "eik": "115516059",
       "name": "Многопрофилна болница за активно лечение - първомай ЕООД",
       "tier": "hospital",
-      "totalEur": 4075086.9529317482,
+      "totalEur": 4991009.563792611,
       "totalOther": {},
-      "contractCount": 115,
+      "contractCount": 135,
       "awardCount": 0
     },
     {
       "eik": "000458599",
       "name": "Професионална гимназия по селско стопанство \"Васил Левски\" - гр. Първомай",
       "tier": "school",
-      "totalEur": 352486.7498708988,
+      "totalEur": 865073.170981118,
       "totalOther": {},
-      "contractCount": 5,
+      "contractCount": 17,
       "awardCount": 0
     },
     {
       "eik": "000454768",
       "name": "Средно училище \"Професор Д-Р асен Златаров\" - гр. Първомай",
       "tier": "school",
-      "totalEur": 350511.16966893856,
+      "totalEur": 442822.8992159851,
       "totalOther": {},
-      "contractCount": 13,
+      "contractCount": 30,
+      "awardCount": 0
+    },
+    {
+      "eik": "000460408",
+      "name": "Основно училище \"Георги Караславов\" - кв. Дебър, гр. Първомай",
+      "tier": "school",
+      "totalEur": 90771.27240557718,
+      "totalOther": {},
+      "contractCount": 2,
       "awardCount": 0
     },
     {
@@ -52,15 +61,6 @@
       "totalEur": 41815.83,
       "totalOther": {},
       "contractCount": 2,
-      "awardCount": 0
-    },
-    {
-      "eik": "000460408",
-      "name": "Основно училище \"Георги Караславов\" - кв. Дебър, гр. Първомай",
-      "tier": "school",
-      "totalEur": 38712.3,
-      "totalOther": {},
-      "contractCount": 1,
       "awardCount": 0
     }
   ],
@@ -162,6 +162,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "c3e8afda120b",
+      "ocid": "eop-00646-2023-0031",
+      "date": "2024-06-10",
+      "amount": 2766671.71,
+      "currency": "BGN",
+      "amountEur": 1414576.7832582586,
+      "partyEik": "201802770",
+      "partyName": "ДИ ЕС ВИ Груп ЕООД",
+      "bundleUuid": "eop-flat:2024-06-10",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-06-10/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2010.06.2024.json"
+    },
+    {
       "key": "e7ce40eaa7f0",
       "ocid": "aop-legacy-2023-339585",
       "date": "2023-03-01",
@@ -186,6 +198,30 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "5784ef5c5881",
+      "ocid": "eop-00646-2024-0016",
+      "date": "2024-09-05",
+      "amount": 2271188.46,
+      "currency": "BGN",
+      "amountEur": 1161240.2202645424,
+      "partyEik": "126658138",
+      "partyName": "Европът 2005 ООД",
+      "bundleUuid": "eop-flat:2024-09-05",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-09-05/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2005.09.2024.json"
+    },
+    {
+      "key": "9379871bd51b",
+      "ocid": "eop-00646-2024-0004",
+      "date": "2024-09-05",
+      "amount": 2184502.13,
+      "currency": "BGN",
+      "amountEur": 1116918.2035248461,
+      "partyEik": "115816551",
+      "partyName": "Запрянови - 03 ООД",
+      "bundleUuid": "eop-flat:2024-09-05",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-09-05/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2005.09.2024.json"
+    },
+    {
       "key": "6c592426b0ce",
       "ocid": "ocds-e82gsb-527736",
       "date": "2026-01-14",
@@ -198,148 +234,16 @@
       "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-527736-795698%2F2026-01-14-award"
     },
     {
-      "key": "66bf9e16cd14",
-      "ocid": "ocds-e82gsb-522041",
-      "date": "2026-02-23",
-      "amount": 942001.08,
-      "currency": "EUR",
-      "amountEur": 942001.08,
-      "partyEik": "204960708",
-      "partyName": "Дръстър инженеринг ЕООД",
-      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
-      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-522041-814880%2F2026-02-23-award"
-    },
-    {
-      "key": "6fc877ee3aff",
-      "ocid": "ocds-e82gsb-522041",
-      "date": "2026-02-23",
-      "amount": 942001.08,
-      "currency": "EUR",
-      "amountEur": 942001.08,
-      "partyEik": "208283723",
-      "partyName": "Е-МОНСЕЛ ЕООД",
-      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
-      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-522041-814880%2F2026-02-23-award"
-    },
-    {
-      "key": "97461abb8260",
-      "ocid": "ocds-e82gsb-522041",
-      "date": "2026-02-23",
-      "amount": 942001.08,
-      "currency": "EUR",
-      "amountEur": 942001.08,
-      "partyEik": "202082418",
-      "partyName": "Маридел 2012 ЕООД",
-      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
-      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-522041-814880%2F2026-02-23-award"
-    },
-    {
-      "key": "2ff2661f6668",
-      "ocid": "ocds-e82gsb-522427",
-      "date": "2026-02-23",
-      "amount": 921388,
-      "currency": "EUR",
-      "amountEur": 921388,
-      "partyEik": "202082418",
-      "partyName": "Маридел 2012 ЕООД",
-      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
-      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-522427-814899%2F2026-02-23-award"
-    },
-    {
-      "key": "454764af714b",
-      "ocid": "ocds-e82gsb-522427",
-      "date": "2026-02-23",
-      "amount": 921388,
-      "currency": "EUR",
-      "amountEur": 921388,
-      "partyEik": "208283723",
-      "partyName": "Е-МОНСЕЛ ЕООД",
-      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
-      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-522427-814899%2F2026-02-23-award"
-    },
-    {
-      "key": "cf153cdafe0f",
-      "ocid": "ocds-e82gsb-522427",
-      "date": "2026-02-23",
-      "amount": 921388,
-      "currency": "EUR",
-      "amountEur": 921388,
-      "partyEik": "204960708",
-      "partyName": "Дръстър инженеринг ЕООД",
-      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
-      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-522427-814899%2F2026-02-23-award"
-    },
-    {
-      "key": "9608cb294d59",
-      "ocid": "ocds-e82gsb-555007",
-      "date": "2026-05-07",
-      "amount": 770034.22,
-      "currency": "EUR",
-      "amountEur": 770034.22,
-      "partyEik": "202082418",
-      "partyName": "Маридел 2012 ЕООД",
-      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
-      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-555007-852443%2F2026-05-07-award"
-    },
-    {
-      "key": "d0b5e68ece5a",
-      "ocid": "ocds-e82gsb-555007",
-      "date": "2026-05-07",
-      "amount": 770034.22,
-      "currency": "EUR",
-      "amountEur": 770034.22,
-      "partyEik": "208283723",
-      "partyName": "Е-МОНСЕЛ ЕООД",
-      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
-      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-555007-852443%2F2026-05-07-award"
-    },
-    {
-      "key": "e2eacc0de3a5",
-      "ocid": "ocds-e82gsb-555007",
-      "date": "2026-05-07",
-      "amount": 770034.22,
-      "currency": "EUR",
-      "amountEur": 770034.22,
-      "partyEik": "204960708",
-      "partyName": "Дръстър инженеринг ЕООД",
-      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
-      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-555007-852443%2F2026-05-07-award"
-    },
-    {
-      "key": "a03f921db1dc",
-      "ocid": "ocds-e82gsb-522427",
-      "date": "2026-02-23",
-      "amount": 687453.8,
-      "currency": "EUR",
-      "amountEur": 687453.8,
-      "partyEik": "202082418",
-      "partyName": "Маридел 2012 ЕООД",
-      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
-      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-522427-814899%2F2026-02-23-award"
-    },
-    {
-      "key": "d559e999171a",
-      "ocid": "ocds-e82gsb-522427",
-      "date": "2026-02-23",
-      "amount": 687453.8,
-      "currency": "EUR",
-      "amountEur": 687453.8,
-      "partyEik": "208283723",
-      "partyName": "Е-МОНСЕЛ ЕООД",
-      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
-      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-522427-814899%2F2026-02-23-award"
-    },
-    {
-      "key": "f1400271f21d",
-      "ocid": "ocds-e82gsb-522427",
-      "date": "2026-02-23",
-      "amount": 687453.8,
-      "currency": "EUR",
-      "amountEur": 687453.8,
-      "partyEik": "204960708",
-      "partyName": "Дръстър инженеринг ЕООД",
-      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
-      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-522427-814899%2F2026-02-23-award"
+      "key": "741c6e512016",
+      "ocid": "eop-00646-2024-0008",
+      "date": "2024-09-05",
+      "amount": 1523916.74,
+      "currency": "BGN",
+      "amountEur": 779166.2567810086,
+      "partyEik": "201812266",
+      "partyName": "Бабачев консулт ЕООД",
+      "bundleUuid": "eop-flat:2024-09-05",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-09-05/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2005.09.2024.json"
     },
     {
       "key": "5cd2262163f1",
@@ -364,6 +268,18 @@
       "partyName": "АБ АД",
       "bundleUuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
       "sourceUrl": "https://data.egov.bg/data/view/76d32733-5ad2-4cfb-8f91-69b0a7cd5564#ocds-e82gsb-532064-848310%2F2026-04-24-award"
+    },
+    {
+      "key": "a90dd17b5a75",
+      "ocid": "eop-T404117",
+      "date": "2024-06-24",
+      "amount": 1000000,
+      "currency": "BGN",
+      "amountEur": 511291.8811962185,
+      "partyEik": "121884560",
+      "partyName": "Търговска банка д АД",
+      "bundleUuid": "eop-flat:2024-06-24",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-06-24/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2024.06.2024.json"
     },
     {
       "key": "6596ccb66d9b",
@@ -412,6 +328,18 @@
       "partyName": "ЕКО Строй проект ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "3277083b833f",
+      "ocid": "eop-00646-2025-0007",
+      "date": "2025-09-25",
+      "amount": 752036.54,
+      "currency": "BGN",
+      "amountEur": 384510.17726489523,
+      "partyEik": "203924207",
+      "partyName": "ЕЙ ВИ Строй ЕООД",
+      "bundleUuid": "eop-flat:2025-09-25",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-09-25/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2025.09.2025.json"
     },
     {
       "key": "851e5773c6b5",
@@ -498,6 +426,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
+      "key": "3ec211003f82",
+      "ocid": "eop-00646-2025-0002",
+      "date": "2025-07-23",
+      "amount": 644684,
+      "currency": "BGN",
+      "amountEur": 329621.6951371029,
+      "partyEik": "115812097",
+      "partyName": "Електролукс Табаков и синове ООД",
+      "bundleUuid": "eop-flat:2025-07-23",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-07-23/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2023.07.2025.json"
+    },
+    {
       "key": "7ffbe495f3e1",
       "ocid": "aop-legacy-2022-281062",
       "date": "2022-10-03",
@@ -508,6 +448,78 @@
       "partyName": "Парсек груп ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "66bf9e16cd14",
+      "ocid": "ocds-e82gsb-522041",
+      "date": "2026-02-23",
+      "amount": 314000.36,
+      "currency": "EUR",
+      "amountEur": 314000.36,
+      "partyEik": "204960708",
+      "partyName": "Дръстър инженеринг ЕООД",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-522041-814880%2F2026-02-23-award"
+    },
+    {
+      "key": "6fc877ee3aff",
+      "ocid": "ocds-e82gsb-522041",
+      "date": "2026-02-23",
+      "amount": 314000.36,
+      "currency": "EUR",
+      "amountEur": 314000.36,
+      "partyEik": "208283723",
+      "partyName": "Е-МОНСЕЛ ЕООД",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-522041-814880%2F2026-02-23-award"
+    },
+    {
+      "key": "97461abb8260",
+      "ocid": "ocds-e82gsb-522041",
+      "date": "2026-02-23",
+      "amount": 314000.36,
+      "currency": "EUR",
+      "amountEur": 314000.36,
+      "partyEik": "202082418",
+      "partyName": "Маридел 2012 ЕООД",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-522041-814880%2F2026-02-23-award"
+    },
+    {
+      "key": "2ff2661f6668",
+      "ocid": "ocds-e82gsb-522427",
+      "date": "2026-02-23",
+      "amount": 307129.3333333333,
+      "currency": "EUR",
+      "amountEur": 307129.3333333333,
+      "partyEik": "202082418",
+      "partyName": "Маридел 2012 ЕООД",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-522427-814899%2F2026-02-23-award"
+    },
+    {
+      "key": "454764af714b",
+      "ocid": "ocds-e82gsb-522427",
+      "date": "2026-02-23",
+      "amount": 307129.3333333333,
+      "currency": "EUR",
+      "amountEur": 307129.3333333333,
+      "partyEik": "208283723",
+      "partyName": "Е-МОНСЕЛ ЕООД",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-522427-814899%2F2026-02-23-award"
+    },
+    {
+      "key": "cf153cdafe0f",
+      "ocid": "ocds-e82gsb-522427",
+      "date": "2026-02-23",
+      "amount": 307129.3333333333,
+      "currency": "EUR",
+      "amountEur": 307129.3333333333,
+      "partyEik": "204960708",
+      "partyName": "Дръстър инженеринг ЕООД",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-522427-814899%2F2026-02-23-award"
     },
     {
       "key": "ba2875d6b497",
@@ -532,6 +544,42 @@
       "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "9608cb294d59",
+      "ocid": "ocds-e82gsb-555007",
+      "date": "2026-05-07",
+      "amount": 256678.07333333333,
+      "currency": "EUR",
+      "amountEur": 256678.07333333333,
+      "partyEik": "202082418",
+      "partyName": "Маридел 2012 ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-555007-852443%2F2026-05-07-award"
+    },
+    {
+      "key": "d0b5e68ece5a",
+      "ocid": "ocds-e82gsb-555007",
+      "date": "2026-05-07",
+      "amount": 256678.07333333333,
+      "currency": "EUR",
+      "amountEur": 256678.07333333333,
+      "partyEik": "208283723",
+      "partyName": "Е-МОНСЕЛ ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-555007-852443%2F2026-05-07-award"
+    },
+    {
+      "key": "e2eacc0de3a5",
+      "ocid": "ocds-e82gsb-555007",
+      "date": "2026-05-07",
+      "amount": 256678.07333333333,
+      "currency": "EUR",
+      "amountEur": 256678.07333333333,
+      "partyEik": "204960708",
+      "partyName": "Дръстър инженеринг ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-555007-852443%2F2026-05-07-award"
     },
     {
       "key": "f2e52de174ad",
@@ -570,6 +618,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "1c9c29171c63",
+      "ocid": "eop-00646-2024-0003",
+      "date": "2024-04-26",
+      "amount": 459980,
+      "currency": "BGN",
+      "amountEur": 235184.03951263658,
+      "partyEik": "203215490",
+      "partyName": "Парсек груп ЕООД",
+      "bundleUuid": "eop-flat:2024-04-26",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-04-26/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2026.04.2024.json"
+    },
+    {
       "key": "ecc33c9af7a3",
       "ocid": "ocds-e82gsb-531550",
       "date": "2026-02-24",
@@ -582,88 +642,28 @@
       "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-531550-815235%2F2026-02-24-award"
     },
     {
-      "key": "5b3787f73940",
-      "ocid": "aop-legacy-2023-398000",
-      "date": "2023-07-10",
-      "amount": 418714.43,
-      "currency": "BGN",
-      "amountEur": 214085.28859870235,
-      "partyEik": "204352937",
-      "partyName": "ЕКО Строй проект ЕООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "dd16741f5500",
-      "ocid": "aop-legacy-2022-236436",
-      "date": "2022-05-31",
-      "amount": 417067.57,
-      "currency": "BGN",
-      "amountEur": 213243.26245123555,
-      "partyEik": "201672138",
-      "partyName": "Ева 73 ЕООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "901fb06ee720",
-      "ocid": "ocds-e82gsb-543780",
-      "date": "2026-02-05",
-      "amount": 204516.75,
+      "key": "a03f921db1dc",
+      "ocid": "ocds-e82gsb-522427",
+      "date": "2026-02-23",
+      "amount": 229151.2666666667,
       "currency": "EUR",
-      "amountEur": 204516.75,
-      "partyEik": "131085380",
-      "partyName": "Плъкси българия ЕООД",
-      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
-      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-543780-806940%2F2026-02-05-award"
-    },
-    {
-      "key": "daab3876a51b",
-      "ocid": "aop-legacy-2023-316795",
-      "date": "2023-01-10",
-      "amount": 392741.94,
-      "currency": "BGN",
-      "amountEur": 200805.76532725236,
-      "partyEik": "203022445",
-      "partyName": "Килтекс ЕООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "b1c07406c2dc",
-      "ocid": "ocds-e82gsb-531550",
-      "date": "2026-02-24",
-      "amount": 197648.16,
-      "currency": "EUR",
-      "amountEur": 197648.16,
-      "partyEik": "203022445",
-      "partyName": "Килтекс ЕООД",
+      "amountEur": 229151.2666666667,
+      "partyEik": "202082418",
+      "partyName": "Маридел 2012 ЕООД",
       "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
-      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-531550-815235%2F2026-02-24-award"
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-522427-814899%2F2026-02-23-award"
     },
     {
-      "key": "be44aea0a8da",
-      "ocid": "aop-legacy-2022-272398",
-      "date": "2022-09-08",
-      "amount": 381796.37,
-      "currency": "BGN",
-      "amountEur": 195209.38425118747,
-      "partyEik": "126658138",
-      "partyName": "Европът 2005 ООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "644392d25b2c",
-      "ocid": "aop-legacy-2011-2015-505361",
-      "date": "2012-10-23",
-      "amount": 379308.8,
-      "currency": "BGN",
-      "amountEur": 193937.5099062802,
-      "partyEik": "103267194",
-      "partyName": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+      "key": "d559e999171a",
+      "ocid": "ocds-e82gsb-522427",
+      "date": "2026-02-23",
+      "amount": 229151.2666666667,
+      "currency": "EUR",
+      "amountEur": 229151.2666666667,
+      "partyEik": "208283723",
+      "partyName": "Е-МОНСЕЛ ЕООД",
+      "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+      "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-522427-814899%2F2026-02-23-award"
     }
   ],
   "byYear": [
@@ -734,8 +734,20 @@
       "contractCount": 87
     },
     {
+      "year": "2024",
+      "totalEur": 6763382.6815214,
+      "totalOther": {},
+      "contractCount": 50
+    },
+    {
+      "year": "2025",
+      "totalEur": 2545416.605737718,
+      "totalOther": {},
+      "contractCount": 46
+    },
+    {
       "year": "2026",
-      "totalEur": 18997836.78,
+      "totalEur": 12356082.580000008,
       "totalOther": {},
       "contractCount": 46
     }

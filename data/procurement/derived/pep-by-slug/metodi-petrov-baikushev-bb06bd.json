@@ -7,10 +7,10 @@
       "tier": "municipal",
       "role": "mayor",
       "contractorEik": "101055748",
-      "contractorName": "Монолитстрой - Чорбаджийски, Байкушев ООД - Благоевград",
-      "totalEur": 2975134.183441301,
+      "contractorName": "Монолитстрой - Чорбаджийски, Байкушев ООД",
+      "totalEur": 4076252.378785477,
       "totalOther": {},
-      "contractCount": 14,
+      "contractCount": 23,
       "awardCount": 0,
       "relations": [
         {
@@ -60,9 +60,28 @@
           "contractCount": 1,
           "totalEur": 177285.31620846392,
           "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 3,
+          "totalEur": 180895.0675672221,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 6,
+          "totalEur": 920223.1277769541,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
+        {
+          "eik": "000261517",
+          "name": "Община Кюстендил",
+          "contractCount": 9,
+          "totalEur": 1101118.1953441761,
+          "totalOther": {}
+        },
         {
           "eik": "000024695",
           "name": "Община Благоевград",
@@ -89,13 +108,6 @@
           "name": "Община Казанлък",
           "contractCount": 1,
           "totalEur": 440273.53604352113,
-          "totalOther": {}
-        },
-        {
-          "eik": "000471059",
-          "name": "Община Асеновград",
-          "contractCount": 2,
-          "totalEur": 227797.63067342254,
           "totalOther": {}
         }
       ]

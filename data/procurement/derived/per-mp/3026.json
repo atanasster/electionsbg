@@ -1,0 +1,102 @@
+{
+  "mpId": 3026,
+  "summary": {
+    "totalEur": 44462300.20424051,
+    "totalOther": {},
+    "contractCount": 12,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 44462300.20424051,
+    "rank": 7,
+    "cohortSize": 61,
+    "cohortMedian": 731556.67926149
+  },
+  "entries": [
+    {
+      "mpId": 3026,
+      "mpName": "Антон Йорданов Адамов",
+      "contractorEik": "175203485",
+      "contractorName": "Булгаргаз ЕАД",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 44462300.20424051,
+      "totalOther": {},
+      "contractCount": 12,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2017",
+          "contractCount": 1,
+          "totalEur": 86919.61980335714,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 2,
+          "totalEur": 3812031.2092564283,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 1,
+          "totalEur": 2464999.514272713,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 3,
+          "totalEur": 11355473.103490591,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 4,
+          "totalEur": 26724232.167417414,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 1,
+          "totalEur": 18644.59,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "121683408",
+          "name": "Столичен автотранспорт ЕАД",
+          "contractCount": 4,
+          "totalEur": 28612867.682774067,
+          "totalOther": {}
+        },
+        {
+          "eik": "103195446",
+          "name": "Веолия енерджи варна ЕАД",
+          "contractCount": 3,
+          "totalEur": 15522951.892546898,
+          "totalOther": {}
+        },
+        {
+          "eik": "117001983",
+          "name": "Свободна ЗОНА-РУСЕ ЕАД",
+          "contractCount": 3,
+          "totalEur": 172837.41862007434,
+          "totalOther": {}
+        },
+        {
+          "eik": "121023551",
+          "name": "Летище София ЕАД",
+          "contractCount": 2,
+          "totalEur": 153643.21029946365,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

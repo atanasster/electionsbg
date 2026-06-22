@@ -3,23 +3,35 @@
   "name": "Хаджидимитрово",
   "province": "Стара Загора",
   "obshtina": "Казанлък",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 1,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 2,
   "awardCount": 0,
-  "totalEur": 47933.66,
+  "totalEur": 689492.4202194465,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000802826",
       "name": "Основно училище \"Свети Паисий Хилендарски\"",
       "tier": "school",
-      "totalEur": 47933.66,
+      "totalEur": 689492.4202194465,
       "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 2,
       "awardCount": 0
     }
   ],
   "topContracts": [
+    {
+      "key": "b062a7b0e496",
+      "ocid": "eop-03156-2024-0002",
+      "date": "2025-03-20",
+      "amount": 1254779.87,
+      "currency": "BGN",
+      "amountEur": 641558.7602194465,
+      "partyEik": "131137959",
+      "partyName": "ПСГ АД",
+      "bundleUuid": "eop-flat:2025-03-20",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-03-20/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2020.03.2025.json"
+    },
     {
       "key": "2bba31c1566c",
       "ocid": "ocds-e82gsb-540288",
@@ -34,6 +46,12 @@
     }
   ],
   "byYear": [
+    {
+      "year": "2025",
+      "totalEur": 641558.7602194465,
+      "totalOther": {},
+      "contractCount": 1
+    },
     {
       "year": "2026",
       "totalEur": 47933.66,

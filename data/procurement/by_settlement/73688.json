@@ -3,19 +3,19 @@
   "name": "Търничени",
   "province": "Стара Загора",
   "obshtina": "Павел баня",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 3,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 4,
   "awardCount": 0,
-  "totalEur": 97967.80355460342,
+  "totalEur": 146454.2006341042,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000802712",
       "name": "Основно училище \"СВ. Паисий Хилендарски\"",
       "tier": "school",
-      "totalEur": 97967.80355460342,
+      "totalEur": 146454.2006341042,
       "totalOther": {},
-      "contractCount": 3,
+      "contractCount": 4,
       "awardCount": 0
     }
   ],
@@ -31,6 +31,18 @@
       "partyName": "Маджестик строй ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "d2aec649fe16",
+      "ocid": "eop-03244-2024-0001",
+      "date": "2024-08-08",
+      "amount": 94831.15,
+      "currency": "BGN",
+      "amountEur": 48486.39707950077,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "eop-flat:2024-08-08",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-08-08/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2008.08.2024.json"
     },
     {
       "key": "06d705729627",
@@ -61,6 +73,12 @@
     {
       "year": "2022",
       "totalEur": 63340.66355460342,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2024",
+      "totalEur": 48486.39707950077,
       "totalOther": {},
       "contractCount": 1
     },

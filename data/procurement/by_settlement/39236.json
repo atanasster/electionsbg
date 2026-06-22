@@ -3,23 +3,35 @@
   "name": "Краводер",
   "province": "Враца",
   "obshtina": "Криводол",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 2,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 3,
   "awardCount": 0,
-  "totalEur": 72100.84856684886,
+  "totalEur": 158362.69136504707,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000182446",
       "name": "Обединено училище \"СВ.СВ.КИРИЛ и Методий\"",
       "tier": "school",
-      "totalEur": 72100.84856684886,
+      "totalEur": 158362.69136504707,
       "totalOther": {},
-      "contractCount": 2,
+      "contractCount": 3,
       "awardCount": 0
     }
   ],
   "topContracts": [
+    {
+      "key": "e6915f2041bd",
+      "ocid": "eop-03860-2024-0001",
+      "date": "2025-01-13",
+      "amount": 168713.5,
+      "currency": "BGN",
+      "amountEur": 86261.84279819821,
+      "partyEik": "117682791",
+      "partyName": "Инфострой ООД",
+      "bundleUuid": "eop-flat:2025-01-13",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-01-13/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2013.01.2025.json"
+    },
     {
       "key": "0b5f796d4f09",
       "ocid": "ocds-e82gsb-549344",
@@ -49,6 +61,12 @@
     {
       "year": "2013",
       "totalEur": 32334.098566848857,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2025",
+      "totalEur": 86261.84279819821,
       "totalOther": {},
       "contractCount": 1
     },

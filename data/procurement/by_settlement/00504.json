@@ -3,23 +3,47 @@
   "name": "Антон",
   "province": "София",
   "obshtina": "Антон",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 39,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 50,
   "awardCount": 0,
-  "totalEur": 5296511.704938569,
+  "totalEur": 10332794.127234984,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000777255",
       "name": "Община Антон",
       "tier": "municipal",
-      "totalEur": 5296511.704938569,
+      "totalEur": 10332794.127234984,
       "totalOther": {},
-      "contractCount": 39,
+      "contractCount": 50,
       "awardCount": 0
     }
   ],
   "topContracts": [
+    {
+      "key": "a26919ae7200",
+      "ocid": "eop-01958-2025-0007",
+      "date": "2025-12-01",
+      "amount": 2998959.79,
+      "currency": "BGN",
+      "amountEur": 1533343.7926609165,
+      "partyEik": "204352937",
+      "partyName": "ЕКО Строй проект ЕООД",
+      "bundleUuid": "eop-flat:2025-12-01",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-12-01/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2001.12.2025.json"
+    },
+    {
+      "key": "69d89ff3ad77",
+      "ocid": "eop-01958-2024-0002",
+      "date": "2024-09-02",
+      "amount": 2777145.51,
+      "currency": "BGN",
+      "amountEur": 1419931.9521635314,
+      "partyEik": "204352937",
+      "partyName": "ЕКО Строй проект ЕООД",
+      "bundleUuid": "eop-flat:2024-09-02",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-09-02/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2002.09.2024.json"
+    },
     {
       "key": "5d0987d6f323",
       "ocid": "aop-legacy-2011-2015-494311",
@@ -31,6 +55,30 @@
       "partyName": "ДЗЗД Консорциум Транс магистрали- София",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "6979b2b44adb",
+      "ocid": "eop-01958-2025-0001",
+      "date": "2025-07-16",
+      "amount": 1983272.73,
+      "currency": "BGN",
+      "amountEur": 1014031.24504686,
+      "partyEik": "204510636",
+      "partyName": "ЕМ ДЖИ Строй груп ЕООД",
+      "bundleUuid": "eop-flat:2025-07-16",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-07-16/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2016.07.2025.json"
+    },
+    {
+      "key": "711550620956",
+      "ocid": "eop-01958-2025-0003",
+      "date": "2025-07-18",
+      "amount": 1808914.96,
+      "currency": "BGN",
+      "amountEur": 924883.5328223823,
+      "partyEik": "121015330",
+      "partyName": "ПЪТСТРОЙ-92 АД",
+      "bundleUuid": "eop-flat:2025-07-18",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-07-18/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2018.07.2025.json"
     },
     {
       "key": "ea634fe97bd8",
@@ -213,6 +261,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
+      "key": "918e2475705e",
+      "ocid": "eop-01958-2025-0008",
+      "date": "2025-12-22",
+      "amount": 75349.83,
+      "currency": "BGN",
+      "amountEur": 38525.75632851526,
+      "partyEik": "040107832",
+      "partyName": "ЕТ Алаген - 51 - генка Тодорова Семкова",
+      "bundleUuid": "eop-flat:2025-12-22",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-12-22/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2022.12.2025.json"
+    },
+    {
       "key": "c66550d121be",
       "ocid": "aop-legacy-2023-381094",
       "date": "2023-05-30",
@@ -223,6 +283,18 @@
       "partyName": "ЕТ Алаген - 51 - генка Тодорова Семкова",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "85d61b2e9eda",
+      "ocid": "eop-01958-2024-0001",
+      "date": "2024-03-19",
+      "amount": 67700,
+      "currency": "BGN",
+      "amountEur": 34614.46035698399,
+      "partyEik": "207450735",
+      "partyName": "ЕС ЕФ ЕЙ Аутомотив",
+      "bundleUuid": "eop-flat:2024-03-19",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-03-19/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2019.03.2024.json"
     },
     {
       "key": "fdc01dceb7cf",
@@ -247,6 +319,18 @@
       "partyName": "ЕТ Алаген - 51 - генка Тодорова Семкова",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "9baee7c7c862",
+      "ocid": "eop-01958-2025-0008",
+      "date": "2025-12-22",
+      "amount": 60050.21,
+      "currency": "BGN",
+      "amountEur": 30703.18483712797,
+      "partyEik": "040107832",
+      "partyName": "ЕТ Алаген - 51 - генка Тодорова Семкова",
+      "bundleUuid": "eop-flat:2025-12-22",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-12-22/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2022.12.2025.json"
     },
     {
       "key": "e6d47779ac23",
@@ -333,6 +417,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "7ffc75555000",
+      "ocid": "eop-01958-2025-0002",
+      "date": "2025-07-07",
+      "amount": 38658.12,
+      "currency": "BGN",
+      "amountEur": 19765.58289830916,
+      "partyEik": "206558220",
+      "partyName": "Мах Консулт ЕООД",
+      "bundleUuid": "eop-flat:2025-07-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-07-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.07.2025.json"
+    },
+    {
       "key": "698df6bf38b6",
       "ocid": "aop-legacy-2022-258799",
       "date": "2022-08-01",
@@ -379,6 +475,18 @@
       "partyName": "АБМ Консултинг ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "7657d265fe66",
+      "ocid": "eop-01958-2025-0006",
+      "date": "2025-08-05",
+      "amount": 25000,
+      "currency": "BGN",
+      "amountEur": 12782.297029905461,
+      "partyEik": "206558220",
+      "partyName": "Мах Консулт ЕООД",
+      "bundleUuid": "eop-flat:2025-08-05",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-08-05/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2005.08.2025.json"
     },
     {
       "key": "700c0a17c16e",
@@ -429,6 +537,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "40bc7ee23f16",
+      "ocid": "eop-01958-2025-0005",
+      "date": "2025-07-25",
+      "amount": 15000,
+      "currency": "BGN",
+      "amountEur": 7669.378217943277,
+      "partyEik": "200580377",
+      "partyName": "Инфраконструкт ООД",
+      "bundleUuid": "eop-flat:2025-07-25",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-07-25/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2025.07.2025.json"
+    },
+    {
       "key": "0e48bbe7d756",
       "ocid": "aop-legacy-2022-244246",
       "date": "2022-06-20",
@@ -463,6 +583,18 @@
       "partyName": "Енергоефект консулт ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "c9180946c2b4",
+      "ocid": "eop-01958-2024-0007",
+      "date": "2024-11-15",
+      "amount": 61.1,
+      "currency": "BGN",
+      "amountEur": 31.23993394108895,
+      "partyEik": "206986858",
+      "partyName": "Ив-строй-66 ЕООД",
+      "bundleUuid": "eop-flat:2024-11-15",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-11-15/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2015.11.2024.json"
     },
     {
       "key": "39b5ee83b5ad",
@@ -541,6 +673,18 @@
     {
       "year": "2023",
       "totalEur": 790361.1101169324,
+      "totalOther": {},
+      "contractCount": 8
+    },
+    {
+      "year": "2024",
+      "totalEur": 1454577.6524544565,
+      "totalOther": {},
+      "contractCount": 3
+    },
+    {
+      "year": "2025",
+      "totalEur": 3581704.7698419597,
       "totalOther": {},
       "contractCount": 8
     },

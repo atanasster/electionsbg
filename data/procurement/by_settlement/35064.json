@@ -3,19 +3,28 @@
   "name": "Каварна",
   "province": "Добрич",
   "obshtina": "Каварна",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 103,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 151,
   "awardCount": 0,
-  "totalEur": 24258982.652357366,
+  "totalEur": 35707116.9278312,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000852697",
       "name": "Община Каварна",
       "tier": "municipal",
-      "totalEur": 24142532.55312548,
+      "totalEur": 35345780.89270509,
       "totalOther": {},
-      "contractCount": 99,
+      "contractCount": 141,
+      "awardCount": 0
+    },
+    {
+      "eik": "000842767",
+      "name": "Професионална Земеделска ГИМНАЗИЯ\"КЛ. АРК. Тимирязев\"",
+      "tier": "school",
+      "totalEur": 272519.22589422396,
+      "totalOther": {},
+      "contractCount": 8,
       "awardCount": 0
     },
     {
@@ -23,15 +32,6 @@
       "name": "Основно УЧИЛИЩЕ\"ЙОРДАН Йовков\"",
       "tier": "school",
       "totalEur": 88816.8092318862,
-      "totalOther": {},
-      "contractCount": 2,
-      "awardCount": 0
-    },
-    {
-      "eik": "000842767",
-      "name": "Професионална Земеделска ГИМНАЗИЯ\"КЛ. АРК. Тимирязев\"",
-      "tier": "school",
-      "totalEur": 27633.29,
       "totalOther": {},
       "contractCount": 2,
       "awardCount": 0
@@ -49,6 +49,30 @@
       "partyName": "Люник ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "b3dd5e48e2fc",
+      "ocid": "eop-00060-2025-0003",
+      "date": "2025-09-11",
+      "amount": 5088838.49,
+      "currency": "BGN",
+      "amountEur": 2601881.804655824,
+      "partyEik": "117111115",
+      "partyName": "Алфа 2000 ЕООД",
+      "bundleUuid": "eop-flat:2025-09-11",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-09-11/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2011.09.2025.json"
+    },
+    {
+      "key": "fba28448e784",
+      "ocid": "eop-00060-2024-0029",
+      "date": "2025-01-06",
+      "amount": 3763772.15,
+      "currency": "BGN",
+      "amountEur": 1924386.1429674358,
+      "partyEik": "117111115",
+      "partyName": "Алфа 2000 ЕООД",
+      "bundleUuid": "eop-flat:2025-01-06",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-01-06/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2006.01.2025.json"
     },
     {
       "key": "ecd56242dac7",
@@ -85,6 +109,18 @@
       "partyName": "Люник ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "68d322b7288d",
+      "ocid": "eop-00060-2024-0024",
+      "date": "2024-11-21",
+      "amount": 2720666.58,
+      "currency": "BGN",
+      "amountEur": 1391054.7337958822,
+      "partyEik": "175251156",
+      "partyName": "Люник ЕООД",
+      "bundleUuid": "eop-flat:2024-11-21",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-11-21/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2021.11.2024.json"
     },
     {
       "key": "64429551e728",
@@ -159,6 +195,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
+      "key": "3bf87f5dec9c",
+      "ocid": "eop-00060-2024-0002",
+      "date": "2024-06-10",
+      "amount": 1134591.13,
+      "currency": "BGN",
+      "amountEur": 580107.2332462432,
+      "partyEik": "117111115",
+      "partyName": "Алфа 2000 ЕООД",
+      "bundleUuid": "eop-flat:2024-06-10",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-06-10/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2010.06.2024.json"
+    },
+    {
       "key": "193a210fb087",
       "ocid": "ocds-e82gsb-536175",
       "date": "2026-02-18",
@@ -181,6 +229,18 @@
       "partyName": "ПЪТСТРОЙ-ВАРНА ЕООД",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "4a9380ac2b25",
+      "ocid": "eop-00060-2024-0002",
+      "date": "2024-06-10",
+      "amount": 1057686.65,
+      "currency": "BGN",
+      "amountEur": 540786.5969946263,
+      "partyEik": "117111115",
+      "partyName": "Алфа 2000 ЕООД",
+      "bundleUuid": "eop-flat:2024-06-10",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-06-10/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2010.06.2024.json"
     },
     {
       "key": "2a736f1b2d36",
@@ -231,6 +291,30 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "5df96baa3631",
+      "ocid": "eop-00060-2024-0013",
+      "date": "2024-09-10",
+      "amount": 833334,
+      "currency": "BGN",
+      "amountEur": 426076.90852476953,
+      "partyEik": "124539263",
+      "partyName": "Бурлаков ООД",
+      "bundleUuid": "eop-flat:2024-09-10",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-09-10/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2010.09.2024.json"
+    },
+    {
+      "key": "fa5ec15d2da7",
+      "ocid": "eop-00060-2024-0021",
+      "date": "2024-10-22",
+      "amount": 811123.25,
+      "currency": "BGN",
+      "amountEur": 414720.73237449065,
+      "partyEik": "112122397",
+      "partyName": "ЕЛШИЦА-99 ЕАД",
+      "bundleUuid": "eop-flat:2024-10-22",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-10-22/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2022.10.2024.json"
+    },
+    {
       "key": "35b057723fa1",
       "ocid": "aop-legacy-2022-303824",
       "date": "2022-11-25",
@@ -241,6 +325,30 @@
       "partyName": "ЕЛШИЦА-99 ЕАД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "258cae8a4eb9",
+      "ocid": "eop-00060-2024-0022",
+      "date": "2024-10-24",
+      "amount": 755000,
+      "currency": "BGN",
+      "amountEur": 386025.37030314497,
+      "partyEik": "207188432",
+      "partyName": "Омега строй проект ЕООД",
+      "bundleUuid": "eop-flat:2024-10-24",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-10-24/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2024.10.2024.json"
+    },
+    {
+      "key": "7f5d776e864e",
+      "ocid": "eop-00060-2024-0008",
+      "date": "2024-08-13",
+      "amount": 755000,
+      "currency": "BGN",
+      "amountEur": 386025.37030314497,
+      "partyEik": "207188432",
+      "partyName": "Омега строй проект ЕООД",
+      "bundleUuid": "eop-flat:2024-08-13",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-08-13/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2013.08.2024.json"
     },
     {
       "key": "ca5b3a0ec9d2",
@@ -291,6 +399,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "28cb4c68abfa",
+      "ocid": "eop-00060-2024-0010",
+      "date": "2024-08-13",
+      "amount": 610000,
+      "currency": "BGN",
+      "amountEur": 311888.0475296933,
+      "partyEik": "207188432",
+      "partyName": "Омега строй проект ЕООД",
+      "bundleUuid": "eop-flat:2024-08-13",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-08-13/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2013.08.2024.json"
+    },
+    {
       "key": "7a5fabd1d351",
       "ocid": "aop-legacy-2022-278219",
       "date": "2022-09-30",
@@ -303,6 +423,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "f38702d84191",
+      "ocid": "eop-00060-2025-0009",
+      "date": "2025-10-21",
+      "amount": 588085,
+      "currency": "BGN",
+      "amountEur": 300683.0859532782,
+      "partyEik": "175251156",
+      "partyName": "Люник ЕООД",
+      "bundleUuid": "eop-flat:2025-10-21",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-10-21/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2021.10.2025.json"
+    },
+    {
       "key": "f8bbc0ad5b2d",
       "ocid": "ocds-e82gsb-529866",
       "date": "2026-01-12",
@@ -313,6 +445,18 @@
       "partyName": "Алфа 2000 ЕООД",
       "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
       "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-529866-795587%2F2026-01-12-award"
+    },
+    {
+      "key": "64fa65a9944a",
+      "ocid": "eop-00060-2023-0018",
+      "date": "2024-01-02",
+      "amount": 494000,
+      "currency": "BGN",
+      "amountEur": 252578.18931093192,
+      "partyEik": "831496285",
+      "partyName": "Петрол АД",
+      "bundleUuid": "eop-flat:2024-01-02",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-01-02/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2002.01.2024.json"
     },
     {
       "key": "c00c09069d59",
@@ -337,6 +481,18 @@
       "partyName": "Люник ЕООД",
       "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
       "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-536162-812951%2F2026-02-18-award"
+    },
+    {
+      "key": "3f82be0c9c2d",
+      "ocid": "eop-00060-2024-0012",
+      "date": "2024-11-13",
+      "amount": 400457.13,
+      "currency": "BGN",
+      "amountEur": 204750.47933613864,
+      "partyEik": "175251156",
+      "partyName": "Люник ЕООД",
+      "bundleUuid": "eop-flat:2024-11-13",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-11-13/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2013.11.2024.json"
     },
     {
       "key": "18842da9b729",
@@ -423,6 +579,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "cb60fe993758",
+      "ocid": "eop-00060-2022-0016",
+      "date": "2024-07-16",
+      "amount": 249757.04,
+      "currency": "BGN",
+      "amountEur": 127698.7468235992,
+      "partyEik": "117111115",
+      "partyName": "Алфа 2000 ЕООД",
+      "bundleUuid": "eop-flat:2024-07-16",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-07-16/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2016.07.2024.json"
+    },
+    {
       "key": "15b3479aec3b",
       "ocid": "aop-legacy-2011-2015-519059",
       "date": "2013-01-18",
@@ -433,6 +601,18 @@
       "partyName": "Петрол АД - Ловеч /старо наименование Петрол АД - София/",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "588ffc547436",
+      "ocid": "eop-00060-2024-0015",
+      "date": "2024-09-10",
+      "amount": 247777,
+      "currency": "BGN",
+      "amountEur": 126686.36844715543,
+      "partyEik": "130696746",
+      "partyName": "БИ ЕМ ЛИЗИНГ-ТРЕЙД АД",
+      "bundleUuid": "eop-flat:2024-09-10",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-09-10/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2010.09.2024.json"
     },
     {
       "key": "0592a9645743",
@@ -457,186 +637,6 @@
       "partyName": "Еделвайс - Господинов ООД - Каварна",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "a2f4e11206e4",
-      "ocid": "aop-legacy-2011-2015-640771",
-      "date": "2015-01-05",
-      "amount": 229953.36,
-      "currency": "BGN",
-      "amountEur": 117573.28602179125,
-      "partyEik": "103785856",
-      "partyName": "Панов ЕООД - Варна /стар Белослав/",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "ecaa810e349f",
-      "ocid": "aop-legacy-2019-889327",
-      "date": "2019-01-18",
-      "amount": 180431.67,
-      "currency": "BGN",
-      "amountEur": 92253.2479816753,
-      "partyEik": "123728086",
-      "partyName": "Ей Би Си Уинд Фарм ООД",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "b07f21258426",
-      "ocid": "aop-legacy-2023-398213",
-      "date": "2023-07-14",
-      "amount": 178777,
-      "currency": "BGN",
-      "amountEur": 91407.22864461635,
-      "partyEik": "130696746",
-      "partyName": "БИ Ем ЛИЗИНГ-ТРЕЙД АД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "91db8bbaf7cd",
-      "ocid": "aop-legacy-2023-346319",
-      "date": "2023-03-16",
-      "amount": 178540,
-      "currency": "BGN",
-      "amountEur": 91286.05246877285,
-      "partyEik": "205561733",
-      "partyName": "Колела а2 ЕООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "2818e45aaeb2",
-      "ocid": "aop-legacy-2020-81636",
-      "date": "2020-12-30",
-      "amount": 176112.97,
-      "currency": "BGN",
-      "amountEur": 90045.13173435318,
-      "partyEik": "131481248",
-      "partyName": "Енерджи Маркет Глобал ООД",
-      "bundleUuid": "c5404069-668a-4cd2-ab43-a1cdc26e03c6",
-      "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
-    },
-    {
-      "key": "b07f21258426",
-      "ocid": "aop-legacy-2023-398213",
-      "date": "2023-07-14",
-      "amount": 174777,
-      "currency": "BGN",
-      "amountEur": 89362.06111983147,
-      "partyEik": "130696746",
-      "partyName": "БИ Ем ЛИЗИНГ-ТРЕЙД АД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "99390e056b77",
-      "ocid": "aop-legacy-2011-2015-422288",
-      "date": "2011-01-11",
-      "amount": 170401,
-      "currency": "BGN",
-      "amountEur": 87124.64784771683,
-      "partyEik": "000831404",
-      "partyName": "Бизоне ЕООД - Каварна",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "da0b7f9b2d1b",
-      "ocid": "aop-legacy-2011-2015-519072",
-      "date": "2013-01-18",
-      "amount": 166668,
-      "currency": "BGN",
-      "amountEur": 85215.99525521134,
-      "partyEik": "117693631",
-      "partyName": "Полисан АД - Русе",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "a750a5d5e465",
-      "ocid": "ocds-e82gsb-533660",
-      "date": "2026-02-02",
-      "amount": 84260.9,
-      "currency": "EUR",
-      "amountEur": 84260.9,
-      "partyEik": "130083729",
-      "partyName": "Инжконсулт ЕООД",
-      "bundleUuid": "a2fa22b0-db7e-40a5-9624-f06a4f0baab3",
-      "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-533660-804264%2F2026-02-02-award"
-    },
-    {
-      "key": "da50cc559564",
-      "ocid": "aop-legacy-2011-2015-506325",
-      "date": "2012-10-29",
-      "amount": 156197,
-      "currency": "BGN",
-      "amountEur": 79862.25796720573,
-      "partyEik": "117693631",
-      "partyName": "Полисан АД - Русе",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "41c896242b62",
-      "ocid": "aop-legacy-2023-429362",
-      "date": "2023-10-03",
-      "amount": 148000,
-      "currency": "BGN",
-      "amountEur": 75671.19841704033,
-      "partyEik": "202096909",
-      "partyName": "СИ Ем ел българия АД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "df236f6b99e6",
-      "ocid": "aop-legacy-2023-398213",
-      "date": "2023-07-14",
-      "amount": 145777,
-      "currency": "BGN",
-      "amountEur": 74534.59656514114,
-      "partyEik": "201484467",
-      "partyName": "Автокам българия ООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "541cd1d8ee1a",
-      "ocid": "aop-legacy-2022-262304",
-      "date": "2022-08-12",
-      "amount": 134777,
-      "currency": "BGN",
-      "amountEur": 68910.38587198274,
-      "partyEik": "130696746",
-      "partyName": "БИ Ем ЛИЗИНГ-ТРЕЙД АД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "1c7c5e193785",
-      "ocid": "ocds-e82gsb-533660",
-      "date": "2026-01-06",
-      "amount": 68001.82,
-      "currency": "EUR",
-      "amountEur": 68001.82,
-      "partyEik": "208121365",
-      "partyName": "Фючър тръкс АД",
-      "bundleUuid": "4ec5458c-096b-425f-a75a-c74d0d3edeb7",
-      "sourceUrl": "https://data.egov.bg/data/view/4ec5458c-096b-425f-a75a-c74d0d3edeb7#ocds-e82gsb-533660-792154%2F2026-01-06-award"
-    },
-    {
-      "key": "c8db9f92c0b4",
-      "ocid": "eop-06530-2025-0001",
-      "date": "2025-07-16",
-      "amount": 131602.02,
-      "currency": "BGN",
-      "amountEur": 67287.04437502236,
-      "partyEik": "000885099",
-      "partyName": "Кооперация Панда",
-      "bundleUuid": "eop-flat:2025-07-16",
-      "sourceUrl": "https://storage.eop.bg/open-data-2025-07-16/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2016.07.2025.json"
     }
   ],
   "byYear": [
@@ -713,10 +713,16 @@
       "contractCount": 24
     },
     {
-      "year": "2025",
-      "totalEur": 88816.8092318862,
+      "year": "2024",
+      "totalEur": 6163439.276419729,
       "totalOther": {},
-      "contractCount": 2
+      "contractCount": 34
+    },
+    {
+      "year": "2025",
+      "totalEur": 5373511.808285995,
+      "totalOther": {},
+      "contractCount": 16
     },
     {
       "year": "2026",

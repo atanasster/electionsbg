@@ -3,19 +3,19 @@
   "name": "Книжовник",
   "province": "Хасково",
   "obshtina": "Хасково",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 1,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 3,
   "awardCount": 0,
-  "totalEur": 51182.85331547221,
+  "totalEur": 91684.83968443066,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000892617",
-      "name": "Основно училище/ОУ/  \"Васил Левски\" - с. Книжовник, общ. Хасково",
+      "name": "Основно училище \"Васил Левски\"",
       "tier": "school",
-      "totalEur": 51182.85331547221,
+      "totalEur": 91684.83968443066,
       "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 3,
       "awardCount": 0
     }
   ],
@@ -31,6 +31,30 @@
       "partyName": "ЕТ Тано - Николай Траилов , гр. Хасково",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "1ad797cc7ddf",
+      "ocid": "eop-01884-2025-0001",
+      "date": "2025-08-17",
+      "amount": 74395,
+      "currency": "BGN",
+      "amountEur": 38037.559501592674,
+      "partyEik": "202395053",
+      "partyName": "ЕВРОКЛАС-КОНСУЛТ ЕООД",
+      "bundleUuid": "eop-flat:2025-08-17",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-08-17/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2017.08.2025.json"
+    },
+    {
+      "key": "5fc68e89f417",
+      "ocid": "eop-01884-2025-0001",
+      "date": "2025-08-17",
+      "amount": 4820,
+      "currency": "BGN",
+      "amountEur": 2464.426867365773,
+      "partyEik": "202395053",
+      "partyName": "ЕВРОКЛАС-КОНСУЛТ ЕООД",
+      "bundleUuid": "eop-flat:2025-08-17",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-08-17/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2017.08.2025.json"
     }
   ],
   "byYear": [
@@ -39,6 +63,12 @@
       "totalEur": 51182.85331547221,
       "totalOther": {},
       "contractCount": 1
+    },
+    {
+      "year": "2025",
+      "totalEur": 40501.986368958445,
+      "totalOther": {},
+      "contractCount": 2
     }
   ]
 }

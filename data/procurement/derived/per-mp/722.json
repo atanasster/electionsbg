@@ -1,0 +1,142 @@
+{
+  "mpId": 722,
+  "summary": {
+    "totalEur": 4272566.122822535,
+    "totalOther": {},
+    "contractCount": 9,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 4272566.122822535,
+    "rank": 18,
+    "cohortSize": 61,
+    "cohortMedian": 731556.67926149
+  },
+  "entries": [
+    {
+      "mpId": 722,
+      "mpName": "Веселин Борисов Черкезов",
+      "contractorEik": "148075985",
+      "contractorName": "ЕСП Златни пясъци ООД",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 4251191.054437246,
+      "totalOther": {},
+      "contractCount": 6,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2014",
+          "contractCount": 1,
+          "totalEur": 153387.56435886555,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 1,
+          "totalEur": 673201.1473389814,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 1,
+          "totalEur": 194290.91485456302,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 2,
+          "totalEur": 1619742.0021167484,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 1,
+          "totalEur": 1610569.4257680883,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "103002253",
+          "name": "Водоснабдяване и канализация - варна ООД",
+          "contractCount": 4,
+          "totalEur": 3568817.330749605,
+          "totalOther": {}
+        },
+        {
+          "eik": "129009750",
+          "name": "Областна дирекция /Од/ на МВР - Варна - /Правоприемник на Областна дирекция - Полиция - Варна/",
+          "contractCount": 1,
+          "totalEur": 673201.1473389814,
+          "totalOther": {}
+        },
+        {
+          "eik": "121396123",
+          "name": "Български пощи ЕАД",
+          "contractCount": 1,
+          "totalEur": 9172.576348660159,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 722,
+      "mpName": "Веселин Борисов Черкезов",
+      "contractorEik": "103783378",
+      "contractorName": "ВИК-ЗЛАТНИ Пясъци ООД",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 21375.06838528911,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2017",
+          "contractCount": 1,
+          "totalEur": 5112.918811962185,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 1,
+          "totalEur": 923.3931374403705,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 1,
+          "totalEur": 15338.756435886555,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "129009750",
+          "name": "Областна дирекция на МВР (ОДМВР) - Варна",
+          "contractCount": 2,
+          "totalEur": 20451.67524784874,
+          "totalOther": {}
+        },
+        {
+          "eik": "121396123",
+          "name": "Български пощи ЕАД",
+          "contractCount": 1,
+          "totalEur": 923.3931374403705,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

@@ -3,23 +3,35 @@
   "name": "Нареченски бани",
   "province": "Пловдив",
   "obshtina": "Асеновград",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 11,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 25,
   "awardCount": 0,
-  "totalEur": 1257099.410480461,
+  "totalEur": 2819237.5615467606,
   "totalOther": {},
   "awarders": [
     {
       "eik": "115610409",
       "name": "Специализирана болница за рехабилитация \"Света богородица\" ЕООД",
       "tier": "hospital",
-      "totalEur": 1257099.410480461,
+      "totalEur": 2819237.5615467606,
       "totalOther": {},
-      "contractCount": 11,
+      "contractCount": 25,
       "awardCount": 0
     }
   ],
   "topContracts": [
+    {
+      "key": "b515b8fcdcaf",
+      "ocid": "eop-01811-2024-0001",
+      "date": "2024-03-19",
+      "amount": 1734639.12,
+      "currency": "BGN",
+      "amountEur": 886906.898861353,
+      "partyEik": "130921214",
+      "partyName": "М-ФОРМА ЕООД",
+      "bundleUuid": "eop-flat:2024-03-19",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-03-19/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2019.03.2024.json"
+    },
     {
       "key": "27ad930f1348",
       "ocid": "aop-legacy-2023-368976",
@@ -57,6 +69,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "e41a01284526",
+      "ocid": "eop-01811-2024-0002",
+      "date": "2024-10-17",
+      "amount": 400000,
+      "currency": "BGN",
+      "amountEur": 204516.75247848738,
+      "partyEik": "113570147",
+      "partyName": "Електрохолд Трейд ЕАД",
+      "bundleUuid": "eop-flat:2024-10-17",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-10-17/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2017.10.2024.json"
+    },
+    {
       "key": "c558491a5029",
       "ocid": "aop-legacy-2011-2015-431511",
       "date": "2011-03-17",
@@ -81,6 +105,42 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "1cd68134a748",
+      "ocid": "eop-01811-2025-0001",
+      "date": "2025-07-23",
+      "amount": 285099.85,
+      "currency": "BGN",
+      "amountEur": 145769.2386352597,
+      "partyEik": "204186853",
+      "partyName": "ТЕХ Инвест ЕООД",
+      "bundleUuid": "eop-flat:2025-07-23",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-07-23/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2023.07.2025.json"
+    },
+    {
+      "key": "aacbdcf47dbc",
+      "ocid": "eop-01811-2023-0004",
+      "date": "2024-02-07",
+      "amount": 282569.26,
+      "currency": "BGN",
+      "amountEur": 144475.36851362337,
+      "partyEik": "202362078",
+      "partyName": "Калканов АиД ООД",
+      "bundleUuid": "eop-flat:2024-02-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-02-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.02.2024.json"
+    },
+    {
+      "key": "9d38566ef939",
+      "ocid": "eop-01811-2023-0004",
+      "date": "2024-02-07",
+      "amount": 118466.45,
+      "currency": "BGN",
+      "amountEur": 60570.934079137754,
+      "partyEik": "202604179",
+      "partyName": "Мира фууд ЕООД",
+      "bundleUuid": "eop-flat:2024-02-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-02-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.02.2024.json"
+    },
+    {
       "key": "004c9521a4a6",
       "ocid": "aop-legacy-2019-922268",
       "date": "2019-07-18",
@@ -91,6 +151,18 @@
       "partyName": "Калканов АиД ООД",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "151470f92c62",
+      "ocid": "eop-01811-2023-0004",
+      "date": "2024-02-07",
+      "amount": 91333.38,
+      "currency": "BGN",
+      "amountEur": 46698.01567620908,
+      "partyEik": "202604179",
+      "partyName": "Мира фууд ЕООД",
+      "bundleUuid": "eop-flat:2024-02-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-02-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.02.2024.json"
     },
     {
       "key": "705bc81e57e8",
@@ -117,6 +189,42 @@
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
+      "key": "90303579fcee",
+      "ocid": "eop-01811-2023-0004",
+      "date": "2024-02-07",
+      "amount": 46297.37,
+      "currency": "BGN",
+      "amountEur": 23671.469401737373,
+      "partyEik": "202604179",
+      "partyName": "Мира фууд ЕООД",
+      "bundleUuid": "eop-flat:2024-02-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-02-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.02.2024.json"
+    },
+    {
+      "key": "3e55d1a328d2",
+      "ocid": "eop-01811-2023-0004",
+      "date": "2024-02-07",
+      "amount": 37850.74,
+      "currency": "BGN",
+      "amountEur": 19352.776059268956,
+      "partyEik": "202604179",
+      "partyName": "Мира фууд ЕООД",
+      "bundleUuid": "eop-flat:2024-02-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-02-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.02.2024.json"
+    },
+    {
+      "key": "a4eb5546dac4",
+      "ocid": "eop-01811-2023-0004",
+      "date": "2024-02-07",
+      "amount": 20920.43,
+      "currency": "BGN",
+      "amountEur": 10696.446010133805,
+      "partyEik": "202604179",
+      "partyName": "Мира фууд ЕООД",
+      "bundleUuid": "eop-flat:2024-02-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-02-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.02.2024.json"
+    },
+    {
       "key": "de1c98bc1da4",
       "ocid": "aop-legacy-2019-906478",
       "date": "2019-04-11",
@@ -127,6 +235,66 @@
       "partyName": "Калканов АиД ООД",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "3c84ff0cc15c",
+      "ocid": "eop-01811-2023-0004",
+      "date": "2024-02-07",
+      "amount": 13698.61,
+      "currency": "BGN",
+      "amountEur": 7003.988076673331,
+      "partyEik": "202604179",
+      "partyName": "Мира фууд ЕООД",
+      "bundleUuid": "eop-flat:2024-02-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-02-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.02.2024.json"
+    },
+    {
+      "key": "23af22158f39",
+      "ocid": "eop-01811-2023-0004",
+      "date": "2024-02-07",
+      "amount": 7830.16,
+      "currency": "BGN",
+      "amountEur": 4003.497236467382,
+      "partyEik": "202604179",
+      "partyName": "Мира фууд ЕООД",
+      "bundleUuid": "eop-flat:2024-02-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-02-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.02.2024.json"
+    },
+    {
+      "key": "954087e95994",
+      "ocid": "eop-01811-2023-0004",
+      "date": "2024-02-07",
+      "amount": 5929.11,
+      "currency": "BGN",
+      "amountEur": 3031.505805719311,
+      "partyEik": "202604179",
+      "partyName": "Мира фууд ЕООД",
+      "bundleUuid": "eop-flat:2024-02-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-02-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.02.2024.json"
+    },
+    {
+      "key": "e61c68420f1f",
+      "ocid": "eop-01811-2023-0004",
+      "date": "2024-02-07",
+      "amount": 5519.79,
+      "currency": "BGN",
+      "amountEur": 2822.2238129080747,
+      "partyEik": "202604179",
+      "partyName": "Мира фууд ЕООД",
+      "bundleUuid": "eop-flat:2024-02-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-02-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.02.2024.json"
+    },
+    {
+      "key": "caec71abe6ac",
+      "ocid": "eop-01811-2023-0004",
+      "date": "2024-02-07",
+      "amount": 5122.39,
+      "currency": "BGN",
+      "amountEur": 2619.036419320698,
+      "partyEik": "202604179",
+      "partyName": "Мира фууд ЕООД",
+      "bundleUuid": "eop-flat:2024-02-07",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-02-07/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2007.02.2024.json"
     },
     {
       "key": "355d188bd0ac",
@@ -195,6 +363,18 @@
       "totalEur": 342412.1728371075,
       "totalOther": {},
       "contractCount": 3
+    },
+    {
+      "year": "2024",
+      "totalEur": 1416368.9124310396,
+      "totalOther": {},
+      "contractCount": 13
+    },
+    {
+      "year": "2025",
+      "totalEur": 145769.2386352597,
+      "totalOther": {},
+      "contractCount": 1
     }
   ]
 }

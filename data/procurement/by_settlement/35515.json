@@ -3,23 +3,35 @@
   "name": "Калояновец",
   "province": "Стара Загора",
   "obshtina": "Стара Загора",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 2,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 4,
   "awardCount": 0,
-  "totalEur": 47712.659999999996,
+  "totalEur": 210478.4729796557,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000802897",
       "name": "Основно училище \"Отец Паисий\"",
       "tier": "school",
-      "totalEur": 47712.659999999996,
+      "totalEur": 210478.4729796557,
       "totalOther": {},
-      "contractCount": 2,
+      "contractCount": 4,
       "awardCount": 0
     }
   ],
   "topContracts": [
+    {
+      "key": "a439326a3b95",
+      "ocid": "eop-02904-2025-0001",
+      "date": "2025-08-01",
+      "amount": 274045.52,
+      "currency": "BGN",
+      "amountEur": 140117.24945419593,
+      "partyEik": "203187219",
+      "partyName": "Кота 17 ЕООД",
+      "bundleUuid": "eop-flat:2025-08-01",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-08-01/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2001.08.2025.json"
+    },
     {
       "key": "19386a0b32d0",
       "ocid": "ocds-e82gsb-519499",
@@ -31,6 +43,18 @@
       "partyName": "Кооперация Панда",
       "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
       "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-519499-821446%2F2026-03-09-award"
+    },
+    {
+      "key": "2bdb462f15c3",
+      "ocid": "eop-02904-2025-0002",
+      "date": "2025-06-10",
+      "amount": 44296.74,
+      "currency": "BGN",
+      "amountEur": 22648.56352545978,
+      "partyEik": "204491011",
+      "partyName": "МС Строй билдинг ЕООД",
+      "bundleUuid": "eop-flat:2025-06-10",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-06-10/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2010.06.2025.json"
     },
     {
       "key": "2adea38ad16c",
@@ -46,6 +70,12 @@
     }
   ],
   "byYear": [
+    {
+      "year": "2025",
+      "totalEur": 162765.8129796557,
+      "totalOther": {},
+      "contractCount": 2
+    },
     {
       "year": "2026",
       "totalEur": 47712.659999999996,

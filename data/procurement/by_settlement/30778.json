@@ -3,28 +3,28 @@
   "name": "Земен",
   "province": "Перник",
   "obshtina": "Земен",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 22,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 27,
   "awardCount": 0,
-  "totalEur": 3899058.025904808,
+  "totalEur": 4020175.4031819743,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000386662",
       "name": "Община Земен",
       "tier": "municipal",
-      "totalEur": 3816984.6459048083,
+      "totalEur": 3890281.4048255733,
       "totalOther": {},
-      "contractCount": 21,
+      "contractCount": 25,
       "awardCount": 0
     },
     {
       "eik": "000379066",
       "name": "Средно училище \"СВ.СВ.КИРИЛ и Методий\"",
       "tier": "school",
-      "totalEur": 82073.38,
+      "totalEur": 129893.99835640113,
       "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 2,
       "awardCount": 0
     }
   ],
@@ -186,6 +186,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "1b6dcadf9c44",
+      "ocid": "eop-06544-2024-0001",
+      "date": "2024-07-12",
+      "amount": 93529,
+      "currency": "BGN",
+      "amountEur": 47820.61835640112,
+      "partyEik": "201055457",
+      "partyName": "Балистик СЕЛ ЕООД",
+      "bundleUuid": "eop-flat:2024-07-12",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-07-12/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2012.07.2024.json"
+    },
+    {
       "key": "3e225195602e",
       "ocid": "aop-legacy-2017-810515",
       "date": "2017-10-18",
@@ -244,6 +256,54 @@
       "partyName": "Нормис  ЕООД - София",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "af4886805976",
+      "ocid": "eop-01157-2024-0001",
+      "date": "2024-03-31",
+      "amount": 64000,
+      "currency": "BGN",
+      "amountEur": 32722.680396557982,
+      "partyEik": "204798474",
+      "partyName": "Транс груп 98 ЕООД",
+      "bundleUuid": "eop-flat:2024-03-31",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-03-31/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2031.03.2024.json"
+    },
+    {
+      "key": "cc7846297842",
+      "ocid": "eop-01157-2023-0012",
+      "date": "2024-01-17",
+      "amount": 29176,
+      "currency": "BGN",
+      "amountEur": 14917.451925780872,
+      "partyEik": "202485732",
+      "partyName": "Ник - индъстрий ЕООД",
+      "bundleUuid": "eop-flat:2024-01-17",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-01-17/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2017.01.2024.json"
+    },
+    {
+      "key": "8cdf983a34ab",
+      "ocid": "eop-01157-2023-0012",
+      "date": "2024-01-17",
+      "amount": 25090,
+      "currency": "BGN",
+      "amountEur": 12828.313299213121,
+      "partyEik": "205912068",
+      "partyName": "Земгруп 2020 ООД",
+      "bundleUuid": "eop-flat:2024-01-17",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-01-17/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2017.01.2024.json"
+    },
+    {
+      "key": "aa7df0832422",
+      "ocid": "eop-01157-2023-0012",
+      "date": "2024-01-17",
+      "amount": 25090,
+      "currency": "BGN",
+      "amountEur": 12828.313299213121,
+      "partyEik": "202485732",
+      "partyName": "Ник - индъстрий ЕООД",
+      "bundleUuid": "eop-flat:2024-01-17",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-01-17/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2017.01.2024.json"
     },
     {
       "key": "24c475b7e623",
@@ -348,6 +408,12 @@
       "totalEur": 508006.7695045071,
       "totalOther": {},
       "contractCount": 1
+    },
+    {
+      "year": "2024",
+      "totalEur": 121117.37727716623,
+      "totalOther": {},
+      "contractCount": 5
     },
     {
       "year": "2026",

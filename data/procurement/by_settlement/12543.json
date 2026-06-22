@@ -3,23 +3,35 @@
   "name": "Вълчедръм",
   "province": "Монтана",
   "obshtina": "Вълчедръм",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 65,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 75,
   "awardCount": 0,
-  "totalEur": 11891114.415923163,
+  "totalEur": 15700952.709639898,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000320648",
       "name": "Община Вълчедръм",
       "tier": "municipal",
-      "totalEur": 11891114.415923163,
+      "totalEur": 15700952.709639898,
       "totalOther": {},
-      "contractCount": 65,
+      "contractCount": 75,
       "awardCount": 0
     }
   ],
   "topContracts": [
+    {
+      "key": "9a5ac9c8c8b5",
+      "ocid": "eop-00401-2025-0004",
+      "date": "2025-09-11",
+      "amount": 3900193.05,
+      "currency": "BGN",
+      "amountEur": 1994137.041562917,
+      "partyEik": "200431401",
+      "partyName": "ИВТ Дивелъпмънт ЕООД",
+      "bundleUuid": "eop-flat:2025-09-11",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-09-11/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2011.09.2025.json"
+    },
     {
       "key": "55f6e797c495",
       "ocid": "ocds-e82gsb-498567",
@@ -105,6 +117,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "784ab2b85473",
+      "ocid": "eop-00401-2024-0002",
+      "date": "2024-08-02",
+      "amount": 1091103,
+      "currency": "BGN",
+      "amountEur": 557872.1054488376,
+      "partyEik": "131070485",
+      "partyName": "Каро трейдинг ООД",
+      "bundleUuid": "eop-flat:2024-08-02",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-08-02/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2002.08.2024.json"
+    },
+    {
       "key": "09e7ba7804bf",
       "ocid": "aop-legacy-2016-758688",
       "date": "2016-11-18",
@@ -115,6 +139,30 @@
       "partyName": "Каро трейдинг ООД - София",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "5111c5ccd971",
+      "ocid": "eop-00401-2024-0002",
+      "date": "2024-08-02",
+      "amount": 690619,
+      "currency": "BGN",
+      "amountEur": 353107.88769985124,
+      "partyEik": "111001688",
+      "partyName": "Пътинженеринг - м АД",
+      "bundleUuid": "eop-flat:2024-08-02",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-08-02/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2002.08.2024.json"
+    },
+    {
+      "key": "d20d00479495",
+      "ocid": "eop-00401-2023-0010",
+      "date": "2025-03-18",
+      "amount": 612820,
+      "currency": "BGN",
+      "amountEur": 313329.8906346666,
+      "partyEik": "202416234",
+      "partyName": "Криейтив М груп ЕООД",
+      "bundleUuid": "eop-flat:2025-03-18",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-03-18/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2018.03.2025.json"
     },
     {
       "key": "d9256a1fe98d",
@@ -165,6 +213,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "9a58806ba93f",
+      "ocid": "eop-00401-2023-0010",
+      "date": "2025-03-18",
+      "amount": 379090,
+      "currency": "BGN",
+      "amountEur": 193825.63924267446,
+      "partyEik": "831496285",
+      "partyName": "Петрол АД",
+      "bundleUuid": "eop-flat:2025-03-18",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-03-18/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2018.03.2025.json"
+    },
+    {
       "key": "29dc6c974819",
       "ocid": "aop-legacy-2011-2015-615946",
       "date": "2014-07-21",
@@ -187,6 +247,18 @@
       "partyName": "Стефстрой 2010 ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "61143bc17e80",
+      "ocid": "eop-00401-2023-0009",
+      "date": "2024-01-19",
+      "amount": 320497.7,
+      "currency": "BGN",
+      "amountEur": 163867.87195206128,
+      "partyEik": "111017831",
+      "partyName": "ЕЛИНА-М ЕООД",
+      "bundleUuid": "eop-flat:2024-01-19",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-01-19/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2019.01.2024.json"
     },
     {
       "key": "bc61dc8240b8",
@@ -295,6 +367,18 @@
       "partyName": "Деапроект ООД",
       "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
       "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-428622-826644%2F2026-03-18-contractamendment"
+    },
+    {
+      "key": "ef2657012886",
+      "ocid": "eop-00401-2024-0008",
+      "date": "2025-08-14",
+      "amount": 200000,
+      "currency": "BGN",
+      "amountEur": 102258.37623924369,
+      "partyEik": "204192564",
+      "partyName": "Деапроект ООД",
+      "bundleUuid": "eop-flat:2025-08-14",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-08-14/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2014.08.2025.json"
     },
     {
       "key": "80ea676be933",
@@ -417,6 +501,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "09c8296553ae",
+      "ocid": "eop-00401-2025-0002",
+      "date": "2025-08-01",
+      "amount": 92500,
+      "currency": "BGN",
+      "amountEur": 47294.49901065021,
+      "partyEik": "205058454",
+      "partyName": "Екотийм ООД",
+      "bundleUuid": "eop-flat:2025-08-01",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-08-01/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2001.08.2025.json"
+    },
+    {
       "key": "7b721e464f57",
       "ocid": "aop-legacy-2016-751937",
       "date": "2016-10-06",
@@ -427,6 +523,18 @@
       "partyName": "Цикалов и архитекти ЕООД",
       "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
+    },
+    {
+      "key": "dd6d6d321c37",
+      "ocid": "eop-00401-2025-0006",
+      "date": "2025-08-13",
+      "amount": 86500,
+      "currency": "BGN",
+      "amountEur": 44226.7477234729,
+      "partyEik": "114688344",
+      "partyName": "Ведипема ЕООД",
+      "bundleUuid": "eop-flat:2025-08-13",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-08-13/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2013.08.2025.json"
     },
     {
       "key": "81c88c0fca7b",
@@ -451,6 +559,18 @@
       "partyName": "Мира авто ООД",
       "bundleUuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
       "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-555390-845862%2F2026-04-20-award"
+    },
+    {
+      "key": "7ae26bfb3ef8",
+      "ocid": "eop-00401-2023-0009",
+      "date": "2024-01-19",
+      "amount": 78073.28,
+      "currency": "BGN",
+      "amountEur": 39918.2342023591,
+      "partyEik": "111017831",
+      "partyName": "ЕЛИНА-М ЕООД",
+      "bundleUuid": "eop-flat:2024-01-19",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-01-19/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2019.01.2024.json"
     },
     {
       "key": "464db5f5c7ef",
@@ -499,126 +619,6 @@
       "partyName": "Хена ООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "bd0847e747aa",
-      "ocid": "aop-legacy-2011-2015-515523",
-      "date": "2012-12-27",
-      "amount": 54160,
-      "currency": "BGN",
-      "amountEur": 27691.568285587193,
-      "partyEik": "200916550",
-      "partyName": "Енлайтмент ООД",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "2524ccbdc848",
-      "ocid": "aop-legacy-2016-705408",
-      "date": "2016-01-05",
-      "amount": 52044.65,
-      "currency": "BGN",
-      "amountEur": 26610.007004698775,
-      "partyEik": "200999959",
-      "partyName": "Цанков 72-Комерс ЕООД - Лом",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "98a409d380aa",
-      "ocid": "aop-legacy-2016-755279",
-      "date": "2016-10-27",
-      "amount": 49000,
-      "currency": "BGN",
-      "amountEur": 25053.302178614707,
-      "partyEik": "200260808",
-      "partyName": "Евростарт 2008 ЕООД - София",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "02acfea3330b",
-      "ocid": "aop-legacy-2019-924089",
-      "date": "2019-07-24",
-      "amount": 47083.33,
-      "currency": "BGN",
-      "amountEur": 24073.32436868235,
-      "partyEik": "201812686",
-      "partyName": "Пътища М ЕООД - Монтана",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "7a10e12ec5e4",
-      "ocid": "aop-legacy-2019-926829",
-      "date": "2019-08-08",
-      "amount": 45300,
-      "currency": "BGN",
-      "amountEur": 23161.522218188697,
-      "partyEik": "147023220",
-      "partyName": "Агропром сервиз ООД, Карнобат",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "0a75db3eec00",
-      "ocid": "aop-legacy-2016-752458",
-      "date": "2016-10-10",
-      "amount": 45000,
-      "currency": "BGN",
-      "amountEur": 23008.13465382983,
-      "partyEik": "200102270",
-      "partyName": "Фара консулт ООД - София",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "8068c197b3f4",
-      "ocid": "aop-legacy-2019-916110",
-      "date": "2019-06-12",
-      "amount": 44100,
-      "currency": "BGN",
-      "amountEur": 22547.971960753235,
-      "partyEik": "131127235",
-      "partyName": "ИВТ Консулт ЕООД (ново наименование) - /старо Инфрам ЕООД и П в д - Консулт ЕООД /- София",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "9ac88d78804b",
-      "ocid": "aop-legacy-2016-705408",
-      "date": "2016-01-05",
-      "amount": 41762.03,
-      "currency": "BGN",
-      "amountEur": 21352.586881272913,
-      "partyEik": "111031788",
-      "partyName": "Крид ООД /старо - Крид ЕООД, гр. Монтана/",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "3ed733269c1a",
-      "ocid": "aop-legacy-2016-748461",
-      "date": "2016-09-12",
-      "amount": 38000,
-      "currency": "BGN",
-      "amountEur": 19429.0914854563,
-      "partyEik": "121915290",
-      "partyName": "Контролс ООД - София",
-      "bundleUuid": "5d588198-c9e5-40df-86a6-698dbf69dbf7",
-      "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
-    },
-    {
-      "key": "db82e577eb4d",
-      "ocid": "aop-legacy-2019-926829",
-      "date": "2019-08-08",
-      "amount": 37490,
-      "currency": "BGN",
-      "amountEur": 19168.33262604623,
-      "partyEik": "126634404",
-      "partyName": "Нар ООД - Хасково",
-      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
-      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     }
   ],
   "byYear": [
@@ -679,6 +679,18 @@
     {
       "year": "2023",
       "totalEur": 619437.8090120307,
+      "totalOther": {},
+      "contractCount": 6
+    },
+    {
+      "year": "2024",
+      "totalEur": 1114766.099303109,
+      "totalOther": {},
+      "contractCount": 4
+    },
+    {
+      "year": "2025",
+      "totalEur": 2695072.1944136247,
       "totalOther": {},
       "contractCount": 6
     },

@@ -190,6 +190,17 @@ export const normalizeEopDay = (
       stats.rowsDroppedNoSupplierEik++;
       continue;
     }
+    // A multi-supplier award (consortium members or parallel framework winners)
+    // repeats the SAME total contractValue on every supplier in the flat feed.
+    // Crediting each supplier the full value would multiply one award's money by
+    // the supplier count (a €1.3bn drug framework awarded to six distributors
+    // would read as €7.8bn). Split it across the valid suppliers so the rows sum
+    // back to the awarded total — the way SIGMA reports framework totals.
+    const validSupplierCount =
+      eiks.filter((e) => isValidEik(canonicalEik(e))).length || 1;
+    const amountPer = amount != null ? amount / validSupplierCount : amount;
+    const amountEurPer =
+      amountEur != null ? amountEur / validSupplierCount : amountEur;
     eiks.forEach((rawEik, i) => {
       const supplierEik = canonicalEik(rawEik);
       if (!isValidEik(supplierEik)) {
@@ -226,9 +237,9 @@ export const normalizeEopDay = (
         contractorEik: supplierEik,
         contractorEikFull: rawEik !== supplierEik ? rawEik : undefined,
         contractorName: supplierName,
-        amount,
+        amount: amountPer,
         currency,
-        amountEur,
+        amountEur: amountEurPer,
         title,
         cpv,
         procurementMethod,

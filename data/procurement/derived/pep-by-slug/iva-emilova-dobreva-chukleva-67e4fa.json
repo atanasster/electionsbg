@@ -8,9 +8,9 @@
       "role": "councillor",
       "contractorEik": "131234828",
       "contractorName": "АЙ ТИ ЕС - Консулт ЕООД",
-      "totalEur": 29654.940000000002,
+      "totalEur": 66212.30950552961,
       "totalOther": {},
-      "contractCount": 4,
+      "contractCount": 5,
       "awardCount": 0,
       "relations": [
         {
@@ -20,6 +20,12 @@
       ],
       "byYear": [
         {
+          "year": "2025",
+          "contractCount": 1,
+          "totalEur": 36557.36950552962,
+          "totalOther": {}
+        },
+        {
           "year": "2026",
           "contractCount": 4,
           "totalEur": 29654.940000000002,
@@ -27,6 +33,13 @@
         }
       ],
       "topAwarders": [
+        {
+          "eik": "000057250",
+          "name": "Община Сунгурларе",
+          "contractCount": 1,
+          "totalEur": 36557.36950552962,
+          "totalOther": {}
+        },
         {
           "eik": "000193460",
           "name": "Община Роман",

@@ -137,6 +137,7 @@ export const buildBySettlement = async (): Promise<BySettlementResult> => {
       localAwardersPinned: 0,
       nationalAwarders: 0,
       awardersWithoutGeo: 0,
+      pruned: 0,
     };
   }
 

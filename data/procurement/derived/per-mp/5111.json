@@ -1,0 +1,51 @@
+{
+  "mpId": 5111,
+  "summary": {
+    "totalEur": 55730.81505038781,
+    "totalOther": {},
+    "contractCount": 1,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 55730.81505038781,
+    "rank": 48,
+    "cohortSize": 61,
+    "cohortMedian": 731556.67926149
+  },
+  "entries": [
+    {
+      "mpId": 5111,
+      "mpName": "Калоян Тошков Иванов",
+      "contractorEik": "204619226",
+      "contractorName": "Икон груп ООД",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        }
+      ],
+      "totalEur": 55730.81505038781,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2024",
+          "contractCount": 1,
+          "totalEur": 55730.81505038781,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000086191",
+          "name": "Средно училище \"ГЕО Милев\"",
+          "contractCount": 1,
+          "totalEur": 55730.81505038781,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

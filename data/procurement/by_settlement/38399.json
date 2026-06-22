@@ -3,28 +3,19 @@
   "name": "Конуш",
   "province": "Хасково",
   "obshtina": "Хасково",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 11,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 17,
   "awardCount": 0,
-  "totalEur": 475453.91645904805,
+  "totalEur": 602170.4971434635,
   "totalOther": {},
   "awarders": [
     {
       "eik": "176668028",
       "name": "Детска Градина № 21 \"Вихрогонче\"",
       "tier": "school",
-      "totalEur": 442651.98582090467,
+      "totalEur": 602170.4971434635,
       "totalOther": {},
-      "contractCount": 10,
-      "awardCount": 0
-    },
-    {
-      "eik": "000892631",
-      "name": "Основно училище /ОУ/ \"Св. Св. Кирил и Методий\" - с. Конуш, Хасково",
-      "tier": "school",
-      "totalEur": 32801.9306381434,
-      "totalOther": {},
-      "contractCount": 1,
+      "contractCount": 17,
       "awardCount": 0
     }
   ],
@@ -52,6 +43,18 @@
       "partyName": "Уикенд ООД",
       "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
       "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-550253-836436%2F2026-03-30-award"
+    },
+    {
+      "key": "93b27a535cfb",
+      "ocid": "eop-04842-2024-0001",
+      "date": "2024-04-03",
+      "amount": 199473.48,
+      "currency": "BGN",
+      "amountEur": 101989.17083795628,
+      "partyEik": "126145986",
+      "partyName": "Уикенд ООД",
+      "bundleUuid": "eop-flat:2024-04-03",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-04-03/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2003.04.2024.json"
     },
     {
       "key": "f05bffab10d7",
@@ -90,16 +93,28 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
-      "key": "f66169887706",
-      "ocid": "aop-legacy-2011-2015-514018",
-      "date": "2012-12-15",
-      "amount": 64155,
+      "key": "68de65b12818",
+      "ocid": "eop-04842-2025-0001",
+      "date": "2025-10-01",
+      "amount": 54546.8,
       "currency": "BGN",
-      "amountEur": 32801.9306381434,
-      "partyEik": "126163482",
-      "partyName": "ЕТ Тано - Николай Траилов , гр. Хасково",
-      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
-      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+      "amountEur": 27889.33598523389,
+      "partyEik": "126069054",
+      "partyName": "ЕТ Джемал АЛИ - есен ТУР",
+      "bundleUuid": "eop-flat:2025-10-01",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-10-01/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2001.10.2025.json"
+    },
+    {
+      "key": "a3c7c0072a5c",
+      "ocid": "eop-04842-2025-0001",
+      "date": "2025-10-01",
+      "amount": 46373.6,
+      "currency": "BGN",
+      "amountEur": 23710.445181840958,
+      "partyEik": "126069054",
+      "partyName": "ЕТ Джемал АЛИ - есен ТУР",
+      "bundleUuid": "eop-flat:2025-10-01",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-10-01/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2001.10.2025.json"
     },
     {
       "key": "1b665db11114",
@@ -114,6 +129,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
+      "key": "878c17f74fbe",
+      "ocid": "eop-04842-2025-0001",
+      "date": "2025-10-01",
+      "amount": 11593.4,
+      "currency": "BGN",
+      "amountEur": 5927.6112954602395,
+      "partyEik": "126069054",
+      "partyName": "ЕТ Джемал АЛИ - есен ТУР",
+      "bundleUuid": "eop-flat:2025-10-01",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-10-01/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2001.10.2025.json"
+    },
+    {
       "key": "55d54b2c47aa",
       "ocid": "ocds-e82gsb-517956",
       "date": "2026-04-17",
@@ -126,6 +153,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-517956-845007%2F2026-04-17-contractamendment"
     },
     {
+      "key": "c914bb89288e",
+      "ocid": "eop-04842-2024-0002",
+      "date": "2024-09-18",
+      "amount": 1.69,
+      "currency": "BGN",
+      "amountEur": 0.8640832792216092,
+      "partyEik": "126069054",
+      "partyName": "ЕТ Джемал АЛИ - есен ТУР",
+      "bundleUuid": "eop-flat:2024-09-18",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-09-18/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2018.09.2024.json"
+    },
+    {
       "key": "49588d4f1d7c",
       "ocid": "aop-legacy-2023-425957",
       "date": "2023-09-19",
@@ -136,6 +175,30 @@
       "partyName": "ЕТ Джемал али - есен тур",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "0185c51e1276",
+      "ocid": "eop-04842-2024-0002",
+      "date": "2024-09-18",
+      "amount": 1.06,
+      "currency": "BGN",
+      "amountEur": 0.5419693940679916,
+      "partyEik": "126069054",
+      "partyName": "ЕТ Джемал АЛИ - есен ТУР",
+      "bundleUuid": "eop-flat:2024-09-18",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-09-18/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2018.09.2024.json"
+    },
+    {
+      "key": "530f48c0c326",
+      "ocid": "eop-04842-2024-0002",
+      "date": "2024-09-18",
+      "amount": 1.06,
+      "currency": "BGN",
+      "amountEur": 0.5419693940679916,
+      "partyEik": "126069054",
+      "partyName": "ЕТ Джемал АЛИ - есен ТУР",
+      "bundleUuid": "eop-flat:2024-09-18",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-09-18/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2018.09.2024.json"
     },
     {
       "key": "49588d4f1d7c",
@@ -164,12 +227,6 @@
   ],
   "byYear": [
     {
-      "year": "2012",
-      "totalEur": 32801.9306381434,
-      "totalOther": {},
-      "contractCount": 1
-    },
-    {
       "year": "2015",
       "totalEur": 62516.312767469564,
       "totalOther": {},
@@ -196,6 +253,18 @@
     {
       "year": "2023",
       "totalEur": 1.7486182336910672,
+      "totalOther": {},
+      "contractCount": 3
+    },
+    {
+      "year": "2024",
+      "totalEur": 101991.11886002362,
+      "totalOther": {},
+      "contractCount": 4
+    },
+    {
+      "year": "2025",
+      "totalEur": 57527.392462535085,
       "totalOther": {},
       "contractCount": 3
     },

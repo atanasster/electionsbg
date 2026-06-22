@@ -3,19 +3,19 @@
   "name": "Искрец",
   "province": "София",
   "obshtina": "Своге",
-  "generatedAt": "2026-06-22T04:31:21.588Z",
-  "contractCount": 13,
+  "generatedAt": "2026-06-22T09:33:16.673Z",
+  "contractCount": 20,
   "awardCount": 0,
-  "totalEur": 381565.1155775298,
+  "totalEur": 662024.0818476045,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000770111",
-      "name": "Специализирана болница по пневмофтизиатрични заболявания за продължително лечение и рехабилитация - цар фердинанд і ЕООД",
+      "name": "Специализирана болница по пневмофтизиатрични заболявания за продължително лечение и рехабилитация - ЦАР фердинанд і ЕООД",
       "tier": "hospital",
-      "totalEur": 381565.1155775298,
+      "totalEur": 662024.0818476045,
       "totalOther": {},
-      "contractCount": 13,
+      "contractCount": 20,
       "awardCount": 0
     }
   ],
@@ -45,6 +45,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "2e71798f136c",
+      "ocid": "eop-00683-2025-0002",
+      "date": "2025-07-09",
+      "amount": 120000,
+      "currency": "BGN",
+      "amountEur": 61355.02574354622,
+      "partyEik": "106581264",
+      "partyName": "Екометан враца ООД",
+      "bundleUuid": "eop-flat:2025-07-09",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-07-09/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2009.07.2025.json"
+    },
+    {
       "key": "e8c1035d8562",
       "ocid": "aop-legacy-2023-387845",
       "date": "2023-06-20",
@@ -55,6 +67,54 @@
       "partyName": "Екометан враца ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "3cd070ad4f9a",
+      "ocid": "eop-00683-2024-0002",
+      "date": "2024-07-16",
+      "amount": 100489.53,
+      "currency": "BGN",
+      "amountEur": 51379.48083422383,
+      "partyEik": "106581264",
+      "partyName": "Екометан враца ООД",
+      "bundleUuid": "eop-flat:2024-07-16",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-07-16/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2016.07.2024.json"
+    },
+    {
+      "key": "8e4250d65ad4",
+      "ocid": "eop-00683-2025-0001",
+      "date": "2025-07-08",
+      "amount": 99730.28,
+      "currency": "BGN",
+      "amountEur": 50991.28247342561,
+      "partyEik": "175270007",
+      "partyName": "Криси 2007 ЕООД",
+      "bundleUuid": "eop-flat:2025-07-08",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-07-08/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2008.07.2025.json"
+    },
+    {
+      "key": "9bee3825178e",
+      "ocid": "eop-00683-2024-0003",
+      "date": "2025-03-19",
+      "amount": 80736.8,
+      "currency": "BGN",
+      "amountEur": 41280.07035376286,
+      "partyEik": "102227154",
+      "partyName": "Фаркол АД",
+      "bundleUuid": "eop-flat:2025-03-19",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-03-19/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2019.03.2025.json"
+    },
+    {
+      "key": "5462d43a4c53",
+      "ocid": "eop-00683-2024-0001",
+      "date": "2024-06-03",
+      "amount": 75695.25,
+      "currency": "BGN",
+      "amountEur": 38702.36677011806,
+      "partyEik": "175270007",
+      "partyName": "Криси 2007 ЕООД",
+      "bundleUuid": "eop-flat:2024-06-03",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-06-03/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2003.06.2024.json"
     },
     {
       "key": "65e2d8105ac9",
@@ -79,6 +139,18 @@
       "partyName": "Криси 2007 ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "f2c98c7db56e",
+      "ocid": "eop-00683-2024-0003",
+      "date": "2025-03-21",
+      "amount": 65261.8,
+      "currency": "BGN",
+      "amountEur": 33367.82849225137,
+      "partyEik": "103267194",
+      "partyName": "Софарма трейдинг АД",
+      "bundleUuid": "eop-flat:2025-03-21",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-03-21/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2021.03.2025.json"
     },
     {
       "key": "7b406fe3672a",
@@ -153,6 +225,18 @@
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
     },
     {
+      "key": "05e468dd1675",
+      "ocid": "eop-00683-2024-0003",
+      "date": "2025-03-21",
+      "amount": 6616.4,
+      "currency": "BGN",
+      "amountEur": 3382.91160274666,
+      "partyEik": "102227154",
+      "partyName": "Фаркол АД",
+      "bundleUuid": "eop-flat:2025-03-21",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-03-21/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2021.03.2025.json"
+    },
+    {
       "key": "ab44e0e05c3a",
       "ocid": "aop-legacy-2022-222599",
       "date": "2022-04-14",
@@ -189,6 +273,18 @@
       "totalEur": 149142.7066769607,
       "totalOther": {},
       "contractCount": 7
+    },
+    {
+      "year": "2024",
+      "totalEur": 90081.84760434189,
+      "totalOther": {},
+      "contractCount": 2
+    },
+    {
+      "year": "2025",
+      "totalEur": 190377.11866573273,
+      "totalOther": {},
+      "contractCount": 5
     }
   ]
 }

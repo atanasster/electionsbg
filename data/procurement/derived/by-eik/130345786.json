@@ -2,6 +2,52 @@
   "eik": "130345786",
   "entries": [
     {
+      "mpId": 3169,
+      "mpName": "Пламен Иванов Милев",
+      "contractorEik": "130345786",
+      "contractorName": "Университетска многопрофилна болница за активно лечение и спешна Медицина Н.И. Пирогов ЕАД",
+      "relations": [
+        {
+          "kind": "procurator",
+          "isCurrent": false,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 856377.7168772337,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2012",
+          "contractCount": 1,
+          "totalEur": 425567.6413594228,
+          "totalOther": {}
+        },
+        {
+          "year": "2014",
+          "contractCount": 1,
+          "totalEur": 63910.83069591938,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 1,
+          "totalEur": 366899.2448218915,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000695317",
+          "name": "Министерство на здравеопазването /МЗ/",
+          "contractCount": 3,
+          "totalEur": 856377.7168772337,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "mpId": 3655,
       "mpName": "Асен Георгиев Балтов",
       "contractorEik": "130345786",

@@ -1,0 +1,109 @@
+{
+  "mpId": 5005,
+  "summary": {
+    "totalEur": 2880202.7763093933,
+    "totalOther": {},
+    "contractCount": 23,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 2880202.7763093933,
+    "rank": 20,
+    "cohortSize": 61,
+    "cohortMedian": 731556.67926149
+  },
+  "entries": [
+    {
+      "mpId": 5005,
+      "mpName": "Стилиана Иванова Бобчева",
+      "contractorEik": "202918009",
+      "contractorName": "Национален перилен комбинат ООД",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 2880202.7763093933,
+      "totalOther": {},
+      "contractCount": 23,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2019",
+          "contractCount": 1,
+          "totalEur": 65321.72530332391,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 8,
+          "totalEur": 587864.7275069919,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 3,
+          "totalEur": 278903.58568996284,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 4,
+          "totalEur": 733192.5576353773,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 4,
+          "totalEur": 547146.9401737369,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 3,
+          "totalEur": 667773.24,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "114532352",
+          "name": "Университетска многопрофилна болница за активно лечение - Д-Р георги Странски ЕАД",
+          "contractCount": 2,
+          "totalEur": 793504.549221098,
+          "totalOther": {}
+        },
+        {
+          "eik": "000662769",
+          "name": "Специализирана болница за активно лечение по акушерство и гинекология - Майчин дом ЕАД",
+          "contractCount": 2,
+          "totalEur": 459426.4327676741,
+          "totalOther": {}
+        },
+        {
+          "eik": "130485795",
+          "name": "Втора специализирана АКУШЕРО-ГИНЕКОЛОГИЧНА болница за активно ЛЕЧЕНИЕ-ШЕЙНОВО ЕАД",
+          "contractCount": 3,
+          "totalEur": 286552.5122326583,
+          "totalOther": {}
+        },
+        {
+          "eik": "831605795",
+          "name": "Университетска многопрофилна болница за активно лечение \"Александровска\" ЕАД",
+          "contractCount": 2,
+          "totalEur": 278398.90908719064,
+          "totalOther": {}
+        },
+        {
+          "eik": "101505152",
+          "name": "Многопрофилна болница за активно лечение - благоевград АД",
+          "contractCount": 3,
+          "totalEur": 254816.62267482345,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}
