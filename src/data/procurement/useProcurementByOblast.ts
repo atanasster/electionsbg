@@ -38,8 +38,12 @@ const PROVINCE_OVERRIDES: Record<string, string> = {
 };
 
 // Map a region-map feature code back to its canonical procurement bucket.
+// The choropleth uses the Sofia-merged map, which collapses the three МИР into
+// one polygon keyed "SOF"; the raw МИР codes are kept too since regional.json's
+// population series still keys Sofia by them.
 export const featureToCanon = (code: string): string => {
-  if (code === "S23" || code === "S24" || code === "S25") return SOFIA_CITY;
+  if (code === "SOF" || code === "S23" || code === "S24" || code === "S25")
+    return SOFIA_CITY;
   if (code === "PDV-00") return "PDV";
   return code;
 };

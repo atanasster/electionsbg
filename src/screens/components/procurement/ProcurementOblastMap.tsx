@@ -2,15 +2,18 @@
 // ProcurementChoroplethTile, which renders three of these as dashboard tiles
 // (small multiples) instead of one map with metric toggle buttons.
 //
-// It reuses the shared region GeoJSON (regions_map.json), the d3 projection
-// helper, and the FeatureMap path primitive, colouring each oblast by the
-// given procurement metric. The colour scale is percentile-based per map, so
-// Sofia's dominant total doesn't wash out the rest. Clicking an oblast bubbles
-// the canonical bucket code up so the settlements table can filter to it.
+// It reuses the Sofia-merged region GeoJSON (regions_map.json with the three
+// parliamentary МИР collapsed into one Столична-община polygon keyed "SOF"),
+// the d3 projection helper, and the FeatureMap path primitive, colouring each
+// oblast by the given procurement metric. Procurement has a single value per
+// oblast, so — like the census and Eurostat regional maps — Sofia must draw as
+// one polygon, not three identical МИР. The colour scale is percentile-based
+// per map, so Sofia's dominant total doesn't wash out the rest. Clicking an
+// oblast bubbles the canonical bucket code up so the table can filter to it.
 
 import { FC, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useRegionsMap } from "@/data/regions/useRegionsMap";
+import { useSofiaMergedRegionsMap } from "@/data/regions/useSofiaMergedRegionsMap";
 import { getDataProjection } from "@/screens/components/maps/d3_utils";
 import { FeatureMap } from "@/screens/components/maps/FeatureMap";
 import { useTooltip } from "@/ux/useTooltip";
@@ -34,7 +37,7 @@ export const ProcurementOblastMap: FC<{
   onSelectOblast?: (canon: string, name: string) => void;
 }> = ({ metric, activeCanon, onSelectOblast }) => {
   const { t } = useTranslation();
-  const mapGeo = useRegionsMap();
+  const mapGeo = useSofiaMergedRegionsMap();
   const { buckets, valueFor } = useProcurementByOblast();
   const ref = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState<MapCoordinates | undefined>();
