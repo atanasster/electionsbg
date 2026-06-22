@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-17T07:54:00.338Z",
-  "total": 104,
-  "mpCount": 88,
-  "beneficiaryCount": 102,
-  "contractedEur": 170621312.54,
+  "generatedAt": "2026-06-22T15:22:45.996Z",
+  "total": 105,
+  "mpCount": 89,
+  "beneficiaryCount": 103,
+  "contractedEur": 181406304.85,
   "paidEur": 62327154.18,
   "entries": [
     {
@@ -57,6 +57,25 @@
       ],
       "contractCount": 18,
       "contractedEur": 30594384.54,
+      "paidEur": 0
+    },
+    {
+      "mpId": 3845,
+      "mpName": "Владимир Славев Табутов",
+      "beneficiaryEik": "202162424",
+      "beneficiaryName": "ХЕК Солар ЕООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "100%",
+          "valueEur": 525584.5344431776,
+          "fiscalYear": 2021,
+          "declarationYear": 2022
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 10784992.31,
       "paidEur": 0
     },
     {
@@ -599,7 +618,7 @@
       "mpId": 805,
       "mpName": "Йордан Петков Йорданов",
       "beneficiaryEik": "131380345",
-      "beneficiaryName": "Дайрект Сървисиз ООД",
+      "beneficiaryName": "Дайрект сървисиз ООД",
       "orgType": "Компания",
       "relations": [
         {
