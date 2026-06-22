@@ -2,199 +2,220 @@
   "electionDate": "2021_04_04",
   "start": "2021-04-04",
   "end": "2021-07-11",
-  "generatedAt": "2026-06-21T23:45:58.515Z",
+  "generatedAt": "2026-06-22T04:26:35.893Z",
   "totals": {
-    "contracts": 2255,
+    "contracts": 1688,
     "amendments": 0,
     "awards": 0,
     "contractorCount": 457,
     "awarderCount": 161,
-    "totalEur": 745475273.7865771,
+    "totalEur": 420866114.77991486,
     "mpCount": 1,
     "mpConnectedContractorCount": 1,
-    "mpConnectedTotalEur": 533903.5908028816
+    "mpConnectedTotalEur": 300324.5834249398,
+    "officialCount": 0,
+    "officialConnectedContractorCount": 0,
+    "officialConnectedTotalEur": 0,
+    "connectedContractorCount": 1,
+    "connectedTotalEur": 300324.5834249398
   },
   "topContractors": [
     {
       "eik": "177463439",
       "name": "ДЗЗД Вистра",
-      "totalEur": 94076683.55634181,
-      "contractCount": 2,
+      "totalEur": 47038341.778170906,
+      "contractCount": 1,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "177477054",
       "name": "ДЗЗД  Еко Проект - Пловдив",
-      "totalEur": 83339554.05122122,
-      "contractCount": 2,
+      "totalEur": 41669777.02561061,
+      "contractCount": 1,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "131279951",
       "name": "РОШ България ЕООД",
-      "totalEur": 65426256.17768416,
-      "contractCount": 9,
+      "totalEur": 39839397.15619456,
+      "contractCount": 7,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "103267194",
       "name": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
-      "totalEur": 23651776.29446323,
-      "contractCount": 234,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "202513217",
-      "name": "Фармнет АД - Варна",
-      "totalEur": 18070695.85802447,
-      "contractCount": 7,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "177478836",
-      "name": "ДЗЗД Лот 34- абв",
-      "totalEur": 16458867.549838178,
-      "contractCount": 2,
+      "totalEur": 22627338.60304833,
+      "contractCount": 230,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "203283623",
       "name": "Фьоникс Фарма ЕООД",
-      "totalEur": 15742805.44321336,
-      "contractCount": 175,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "123682269",
-      "name": "Трейс груп холд АД - Стара Загора / София",
-      "totalEur": 15557979.389824267,
-      "contractCount": 4,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "177468913",
-      "name": "ДЗЗД Етп -2",
-      "totalEur": 15250814.232320806,
-      "contractCount": 2,
+      "totalEur": 15087846.356789695,
+      "contractCount": 172,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "175256438",
       "name": "Алта Фармасютикълс ЕООД - София",
-      "totalEur": 14570316.775997914,
-      "contractCount": 13,
+      "totalEur": 11082788.207564052,
+      "contractCount": 10,
       "mpTied": false,
       "mpIds": []
     },
     {
-      "eik": "177474446",
-      "name": "ДЗЗД Рогозен 2020",
-      "totalEur": 14091123.768425683,
-      "contractCount": 2,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "102124298",
-      "name": "СМК-Монтажи АД",
-      "totalEur": 12562816.328617517,
-      "contractCount": 2,
+      "eik": "123682269",
+      "name": "Трейс груп холд АД - Стара Загора / София",
+      "totalEur": 10445060.577862084,
+      "contractCount": 3,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "131268894",
       "name": "Медекс ООД /Старо наименование Медекс Фармасютикълс ООД/",
-      "totalEur": 11509764.227974823,
-      "contractCount": 117,
+      "totalEur": 9948992.213024648,
+      "contractCount": 113,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "202513217",
+      "name": "Фармнет АД - Варна",
+      "totalEur": 9904504.742232198,
+      "contractCount": 5,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "177478836",
+      "name": "ДЗЗД Лот 34- абв",
+      "totalEur": 8229433.774919089,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "177468913",
+      "name": "ДЗЗД Етп -2",
+      "totalEur": 7625407.116160403,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "177474446",
+      "name": "ДЗЗД Рогозен 2020",
+      "totalEur": 7045561.884212841,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "102124298",
+      "name": "СМК-Монтажи АД",
+      "totalEur": 6281408.164308758,
+      "contractCount": 1,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "201955499",
       "name": "Българска автомобилна индустрия ЕАД - София",
-      "totalEur": 11433613.350853601,
-      "contractCount": 2,
+      "totalEur": 5716806.675426801,
+      "contractCount": 1,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "177488905",
       "name": "ДЗЗД  Елит вик пловдив",
-      "totalEur": 9967016.734583272,
-      "contractCount": 2,
+      "totalEur": 4983508.367291636,
+      "contractCount": 1,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "177482457",
       "name": "ДЗЗД  Мм 2020",
-      "totalEur": 9714545.742728151,
-      "contractCount": 2,
+      "totalEur": 4857272.871364076,
+      "contractCount": 1,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "177482037",
       "name": "ДЗЗД Радомир 2020",
-      "totalEur": 9329168.792788738,
-      "contractCount": 2,
+      "totalEur": 4664584.396394369,
+      "contractCount": 1,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "121819662",
       "name": "Вип Секюрити ЕООД - София",
-      "totalEur": 9166087.14458823,
-      "contractCount": 2,
+      "totalEur": 4583043.572294115,
+      "contractCount": 1,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "177431861",
       "name": "ДЗЗД Макбулис – Нск София",
-      "totalEur": 8180670.099139496,
-      "contractCount": 2,
+      "totalEur": 4090335.049569748,
+      "contractCount": 1,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "115015062",
       "name": "Пътинженеринг ЕООД - Пловдив",
-      "totalEur": 8001728.166558444,
-      "contractCount": 2,
+      "totalEur": 4000864.083279222,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "000670919",
+      "name": "Национален археологически институт с музей /Наим/ - София",
+      "totalEur": 3785751.8291467056,
+      "contractCount": 4,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "177397811",
       "name": "ДЗЗД Северна буна",
-      "totalEur": 7503760.132526856,
-      "contractCount": 2,
+      "totalEur": 3751880.066263428,
+      "contractCount": 1,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "177482674",
       "name": "ДЗЗД Надлези МХ-КЛ",
-      "totalEur": 7447314.347361478,
-      "contractCount": 2,
+      "totalEur": 3723657.173680739,
+      "contractCount": 1,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "130463628",
       "name": "Щрабаг ЕАД / старо наименование - Инжстрой София АД / - София",
-      "totalEur": 6737187.894653421,
+      "totalEur": 3368593.9473267104,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "040240284",
+      "name": "Драгиев и Ко ООД - Пловдив",
+      "totalEur": 3345791.8121718145,
       "contractCount": 2,
       "mpTied": false,
       "mpIds": []
@@ -202,159 +223,159 @@
     {
       "eik": "177454479",
       "name": "ДЗЗД  Обединение Монтажи Длв",
-      "totalEur": 5325070.512263336,
-      "contractCount": 4,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "831652485",
-      "name": "Главболгарстрой /Гбс/ АД - София",
-      "totalEur": 5090194.720400034,
+      "totalEur": 2662535.256131668,
       "contractCount": 2,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "040240284",
-      "name": "Драгиев и Ко ООД - Пловдив",
-      "totalEur": 5017614.00530721,
-      "contractCount": 3,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "104656120",
-      "name": "Вемат ЕООД - Велико Търново",
-      "totalEur": 4979982.922851169,
-      "contractCount": 2,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "202845851",
-      "name": "Леми Трафо ЕАД, Перник",
-      "totalEur": 4904118.47655471,
-      "contractCount": 2,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "109003034",
-      "name": "Елпром - Трафо Сн АД - Кюстендил",
-      "totalEur": 4904118.47655471,
-      "contractCount": 2,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "000670919",
-      "name": "Национален археологически институт с музей /Наим/ - София",
-      "totalEur": 4677352.326122414,
-      "contractCount": 5,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "130978891",
-      "name": "Комекс Рм ЕООД - София",
-      "totalEur": 4400382.446327135,
-      "contractCount": 2,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "831040520",
-      "name": "Иса-2000 ЕООД - София",
-      "totalEur": 4397110.178287479,
-      "contractCount": 2,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "202161036",
-      "name": "Топ Хоспитал Сървис АД - София",
-      "totalEur": 4308859.870234121,
-      "contractCount": 5,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "177481800",
-      "name": "ДЗЗД Радомир есе 2019",
-      "totalEur": 4304417.612982723,
-      "contractCount": 2,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "201869388",
-      "name": "Юропиан Трейд Оф Енерджи АД",
-      "totalEur": 4059657.536697975,
-      "contractCount": 2,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "200360121",
-      "name": "Aрете строй ЕООД",
-      "totalEur": 3894654.136606965,
-      "contractCount": 2,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "115172619",
-      "name": "Ринг-П ЕООД - Пловдив",
-      "totalEur": 3529818.440252987,
-      "contractCount": 2,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "203427625",
-      "name": "Неуро ЕООД",
-      "totalEur": 3496341.706590041,
-      "contractCount": 2,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "201090465",
-      "name": "Вега Медикал ЕООД - старо наименование  Вега Медикал ООД",
-      "totalEur": 3407663.9585240027,
-      "contractCount": 5,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "835013079",
       "name": "Ему АД - с. Разбойна",
-      "totalEur": 3166617.190655629,
-      "contractCount": 10,
+      "totalEur": 2601784.485359157,
+      "contractCount": 8,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "831652485",
+      "name": "Главболгарстрой /Гбс/ АД - София",
+      "totalEur": 2545097.360200017,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "104656120",
+      "name": "Вемат ЕООД - Велико Търново",
+      "totalEur": 2489991.4614255843,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "202845851",
+      "name": "Леми Трафо ЕАД, Перник",
+      "totalEur": 2452059.238277355,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "109003034",
+      "name": "Елпром - Трафо Сн АД - Кюстендил",
+      "totalEur": 2452059.238277355,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "130978891",
+      "name": "Комекс Рм ЕООД - София",
+      "totalEur": 2200191.2231635675,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "831040520",
+      "name": "Иса-2000 ЕООД - София",
+      "totalEur": 2198555.0891437395,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "202161036",
+      "name": "Топ Хоспитал Сървис АД - София",
+      "totalEur": 2155111.7428406356,
+      "contractCount": 3,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "177481800",
+      "name": "ДЗЗД Радомир есе 2019",
+      "totalEur": 2152208.8064913615,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "201869388",
+      "name": "Юропиан Трейд Оф Енерджи АД",
+      "totalEur": 2029828.7683489874,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "201090465",
+      "name": "Вега Медикал ЕООД - старо наименование  Вега Медикал ООД",
+      "totalEur": 2029308.1709555534,
+      "contractCount": 3,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "200360121",
+      "name": "Aрете строй ЕООД",
+      "totalEur": 1947327.0683034826,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "817080126",
+      "name": "Стемо ООД",
+      "totalEur": 1911324.0925847339,
+      "contractCount": 4,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "115172619",
+      "name": "Ринг-П ЕООД - Пловдив",
+      "totalEur": 1764909.2201264936,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "203427625",
+      "name": "Неуро ЕООД",
+      "totalEur": 1748170.8532950205,
+      "contractCount": 1,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "121096923",
       "name": "Агарта - Цм ЕООД -    с. Долни Богров",
-      "totalEur": 3107611.5408803425,
-      "contractCount": 8,
+      "totalEur": 1553805.770440171,
+      "contractCount": 4,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "177345095",
       "name": "ДЗЗД   Касио еър българия",
-      "totalEur": 3034524.0025973627,
-      "contractCount": 2,
+      "totalEur": 1517262.0012986814,
+      "contractCount": 1,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "201156292",
       "name": "Юсс Медика ООД /ЕООД/",
-      "totalEur": 3011212.630954633,
+      "totalEur": 1505606.3154773165,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "204128693",
+      "name": "Новимед Кардио ЕООД",
+      "totalEur": 1479097.6209588768,
       "contractCount": 2,
       "mpTied": false,
       "mpIds": []
@@ -362,56 +383,40 @@
     {
       "eik": "177480431",
       "name": "Кв Радомир ДЗЗД",
-      "totalEur": 2904644.0641569053,
-      "contractCount": 2,
+      "totalEur": 1452322.0320784526,
+      "contractCount": 1,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "177488517",
       "name": "ДЗЗД Монекс каменар",
-      "totalEur": 2801978.1780625107,
-      "contractCount": 2,
+      "totalEur": 1400989.0890312553,
+      "contractCount": 1,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "117694352",
       "name": "Ен Ер Джи Софт ЕООД - гр. Русе",
-      "totalEur": 2658717.782220336,
-      "contractCount": 2,
+      "totalEur": 1329358.891110168,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "832018046",
+      "name": "Соломед ЕООД - с. Лакатник /София/ - Соломед ООД (старо)",
+      "totalEur": 1311439.9820025254,
+      "contractCount": 16,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "177044601",
       "name": "Сдружение Стратиеви",
-      "totalEur": 2613775.2258631885,
-      "contractCount": 2,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "121706547",
-      "name": "Рср ЕООД - София",
-      "totalEur": 2603279.3136417787,
-      "contractCount": 5,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "040859856",
-      "name": "Сико фарма ООД - София",
-      "totalEur": 2539869.5285377563,
-      "contractCount": 2,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "204128693",
-      "name": "Новимед Кардио ЕООД",
-      "totalEur": 2445011.284211818,
-      "contractCount": 3,
+      "totalEur": 1306887.6129315943,
+      "contractCount": 1,
       "mpTied": false,
       "mpIds": []
     }
@@ -420,248 +425,170 @@
     {
       "eik": "000695317",
       "name": "Министерство на здравеопазването /МЗ/",
-      "totalEur": 147951669.8077032,
-      "contractCount": 970
+      "totalEur": 109173975.9232652,
+      "contractCount": 931
     },
     {
       "eik": "130823243",
       "name": "ДП Национална компания \"Железопътна инфраструктура\" /Нкжи/ - София",
-      "totalEur": 143448190.99819514,
-      "contractCount": 25
+      "totalEur": 73476447.69228409,
+      "contractCount": 14
     },
     {
       "eik": "115010670",
       "name": "Водоснабдяване и канализация /в и К/ ЕООД - Пловдив",
-      "totalEur": 103503193.35525072,
-      "contractCount": 18
+      "totalEur": 52609467.76049044,
+      "contractCount": 10
     },
     {
       "eik": "130345786",
       "name": "Университетска многопрофилна болница за активно лечение и спешна медицина /Умбалсм/ \"Н.И. Пирогов\" ЕАД - София",
-      "totalEur": 29867989.181063794,
-      "contractCount": 51
+      "totalEur": 14939001.160632571,
+      "contractCount": 26
     },
     {
       "eik": "000695089",
       "name": "Агенция \"Пътна инфраструктура\" /АПИ/ - /Старо наименование - /Национална агенция \"Пътна инфраструктура\" /Напи/ - /Старо наименование - Фонд \"Републиканска пътна инфраструктура\"/ /фрпи/",
-      "totalEur": 23086747.273536045,
-      "contractCount": 17
+      "totalEur": 12990449.302853521,
+      "contractCount": 10
     },
     {
       "eik": "816090199",
       "name": "Водоснабдяване и канализация /в и К/ ООД - Враца",
-      "totalEur": 18541894.203483947,
-      "contractCount": 16
+      "totalEur": 9270947.101741971,
+      "contractCount": 8
     },
     {
       "eik": "130277958",
       "name": "Електроразпределителни мрежи Запад\" АД  /предишно наименование - Чез Разпределение България АД /;   /предишно наименование Електроразпределение - Столично АД/",
-      "totalEur": 18376588.01634088,
-      "contractCount": 48
-    },
-    {
-      "eik": "000697179",
-      "name": "Държавно предприятие \"Ръководство на въздушното движение\" /ДП \"Рвд\"/",
-      "totalEur": 17391826.88679486,
-      "contractCount": 12
+      "totalEur": 9188294.008170445,
+      "contractCount": 24
     },
     {
       "eik": "115576405",
       "name": "Университетска многопрофилна болница за активно лечение /УМБАЛ/ \"Свети Георги\" ЕАД - Пловдив",
-      "totalEur": 16404161.51199235,
-      "contractCount": 89
+      "totalEur": 9080321.341834411,
+      "contractCount": 50
+    },
+    {
+      "eik": "000697179",
+      "name": "Държавно предприятие \"Ръководство на въздушното движение\" /ДП \"Рвд\"/",
+      "totalEur": 8706139.281021355,
+      "contractCount": 7
     },
     {
       "eik": "812115210",
       "name": "Водоснабдяване и канализация ЕАД - Бургас",
-      "totalEur": 14940013.175991775,
-      "contractCount": 11
+      "totalEur": 7733940.9764652345,
+      "contractCount": 6
     },
     {
       "eik": "823073638",
       "name": "Водоснабдяване и канализация /в и К/ ООД - Перник",
-      "totalEur": 14263864.03726295,
-      "contractCount": 12
-    },
-    {
-      "eik": "824104727",
-      "name": "Тролейбусен транспорт\" ЕООД - Плевен",
-      "totalEur": 11433613.350853601,
-      "contractCount": 2
-    },
-    {
-      "eik": "000291591",
-      "name": "Община Ловеч",
-      "totalEur": 10905851.408353487,
-      "contractCount": 4
-    },
-    {
-      "eik": "104518621",
-      "name": "Електроразпределение Север АД   /старо наименование \"Енерго - Про Мрежи\" АД /старо наименование \"Е.ОН България мрежи\" АД /Старо наименование: Електроразпределение - Горна Оряховица АД//",
-      "totalEur": 9693026.490032364,
-      "contractCount": 21
+      "totalEur": 7131932.018631475,
+      "contractCount": 6
     },
     {
       "eik": "000695114",
       "name": "Министерство на образованието и науката /МОН/",
-      "totalEur": 9512123.957603682,
-      "contractCount": 17
+      "totalEur": 5926712.546591473,
+      "contractCount": 11
     },
     {
-      "eik": "000471365",
-      "name": "Община Карлово",
-      "totalEur": 8001728.166558444,
+      "eik": "824104727",
+      "name": "Тролейбусен транспорт\" ЕООД - Плевен",
+      "totalEur": 5716806.675426801,
+      "contractCount": 1
+    },
+    {
+      "eik": "000291591",
+      "name": "Община Ловеч",
+      "totalEur": 5452925.704176743,
       "contractCount": 2
-    },
-    {
-      "eik": "831609046",
-      "name": "Топлофикация - София АД",
-      "totalEur": 7692412.183062946,
-      "contractCount": 6
-    },
-    {
-      "eik": "000057122",
-      "name": "Община Несебър",
-      "totalEur": 7687825.209757494,
-      "contractCount": 4
     },
     {
       "eik": "175201304",
       "name": "Електроенергиен системен оператор /Есо/ ЕАД",
-      "totalEur": 7346704.243211322,
-      "contractCount": 90
+      "totalEur": 5206392.682390594,
+      "contractCount": 61
     },
     {
-      "eik": "000471504",
-      "name": "Община Пловдив",
-      "totalEur": 6644136.504706441,
-      "contractCount": 8
+      "eik": "104518621",
+      "name": "Електроразпределение Север АД   /старо наименование \"Енерго - Про Мрежи\" АД /старо наименование \"Е.ОН България мрежи\" АД /Старо наименование: Електроразпределение - Горна Оряховица АД//",
+      "totalEur": 4984485.359156982,
+      "contractCount": 11
     },
     {
-      "eik": "175203478",
-      "name": "Булгартрансгаз\" ЕАД",
-      "totalEur": 6467410.531590169,
-      "contractCount": 4
+      "eik": "000471365",
+      "name": "Община Карлово",
+      "totalEur": 4000864.083279222,
+      "contractCount": 1
+    },
+    {
+      "eik": "831609046",
+      "name": "Топлофикация - София АД",
+      "totalEur": 3846206.091531473,
+      "contractCount": 3
+    },
+    {
+      "eik": "000057122",
+      "name": "Община Несебър",
+      "totalEur": 3843912.6048787474,
+      "contractCount": 2
     },
     {
       "eik": "000093442",
       "name": "Община Варна",
-      "totalEur": 6454640.055628559,
-      "contractCount": 90
+      "totalEur": 3630413.9214553414,
+      "contractCount": 50
+    },
+    {
+      "eik": "000471504",
+      "name": "Община Пловдив",
+      "totalEur": 3322068.2523532207,
+      "contractCount": 4
+    },
+    {
+      "eik": "175203478",
+      "name": "Булгартрансгаз\" ЕАД",
+      "totalEur": 3233705.265795084,
+      "contractCount": 2
     },
     {
       "eik": "121015056",
       "name": "Агенция за социално подпомагане /Асп/",
-      "totalEur": 5873894.796582526,
-      "contractCount": 12
+      "totalEur": 2936947.3982912623,
+      "contractCount": 6
     },
     {
       "eik": "000615118",
       "name": "Община Смолян",
-      "totalEur": 5074740.647193263,
-      "contractCount": 6
-    },
-    {
-      "eik": "000386776",
-      "name": "Община Радомир",
-      "totalEur": 4304417.612982723,
-      "contractCount": 2
+      "totalEur": 2537370.3235966316,
+      "contractCount": 3
     },
     {
       "eik": "000695406",
       "name": "Централен орган за покупки /предишно - Дирекция \"Централно звено за финансиране и договаряне\" /Цзфд/ към Министерство на финансите /МФ//",
-      "totalEur": 4204278.889269517,
-      "contractCount": 72
+      "totalEur": 2426471.6463087285,
+      "contractCount": 44
     },
     {
-      "eik": "831917453",
-      "name": "Студентски столове и общежития /Ссо/ ЕАД - София",
-      "totalEur": 4059657.536697975,
-      "contractCount": 2
-    },
-    {
-      "eik": "201745141",
-      "name": "Академика 2011 ЕАД",
-      "totalEur": 3894654.136606965,
-      "contractCount": 2
+      "eik": "000386776",
+      "name": "Община Радомир",
+      "totalEur": 2152208.8064913615,
+      "contractCount": 1
     },
     {
       "eik": "129007218",
       "name": "Медицински институт към Министерство на вътрешните работи /МВР/",
-      "totalEur": 3284850.7283352846,
-      "contractCount": 11
+      "totalEur": 2076301.519048179,
+      "contractCount": 8
     },
     {
-      "eik": "129010164",
-      "name": "Главна дирекция - Пожарна безопасност и защита на населението/ГДПБЗН/ към Министерство на вътрешните работи - МВР, гр. София",
-      "totalEur": 3139154.0369050475,
-      "contractCount": 6
-    },
-    {
-      "eik": "130047747",
-      "name": "Център за развитие на човешките ресурси /Црчр/",
-      "totalEur": 3034524.0025973627,
-      "contractCount": 2
-    },
-    {
-      "eik": "130344823",
-      "name": "Специализирани болници за рехабилитация - Национален комплекс /Сбр - нк/ ЕАД - София",
-      "totalEur": 2987153.7199040824,
-      "contractCount": 6
-    },
-    {
-      "eik": "103002253",
-      "name": "Водоснабдяване и канализация ООД - Варна",
-      "totalEur": 2801978.1780625107,
-      "contractCount": 2
-    },
-    {
-      "eik": "000852932",
-      "name": "Община Град Добрич",
-      "totalEur": 2772370.870678945,
-      "contractCount": 6
-    },
-    {
-      "eik": "000817778",
-      "name": "Община Казанлък",
-      "totalEur": 2351942.653502605,
-      "contractCount": 2
-    },
-    {
-      "eik": "129000273",
-      "name": "Военномедицинска академия /Вма/",
-      "totalEur": 2312683.392728407,
-      "contractCount": 4
-    },
-    {
-      "eik": "201619580",
-      "name": "Държавно предприятие - Южноцентрално държавно предприятие /Дпюцдп/ - Смолян",
-      "totalEur": 2103020.426110654,
-      "contractCount": 17
-    },
-    {
-      "eik": "000817867",
-      "name": "Община Мъглиж",
-      "totalEur": 2045167.524784874,
-      "contractCount": 2
-    },
-    {
-      "eik": "000689061",
-      "name": "Пета многопрофилна болница за активно лечение /V МБАЛ/ - София  АД",
-      "totalEur": 2032996.2317788356,
-      "contractCount": 45
-    },
-    {
-      "eik": "200105779",
-      "name": "Специализирана болница за активно лечение на хематологични заболявания/СБАЛХЗ/ - ЕАД, гр.София",
-      "totalEur": 2022494.2607486339,
-      "contractCount": 32
-    },
-    {
-      "eik": "000017149",
-      "name": "Югозападен Университет /Юзу/ \"Неофит Рилски\" - Благоевград",
-      "totalEur": 2000490.9526901622,
-      "contractCount": 6
+      "eik": "831917453",
+      "name": "Студентски столове и общежития /Ссо/ ЕАД - София",
+      "totalEur": 2029828.7683489874,
+      "contractCount": 1
     },
     {
       "eik": "000530493",
@@ -670,65 +597,144 @@
       "contractCount": 1
     },
     {
+      "eik": "201745141",
+      "name": "Академика 2011 ЕАД",
+      "totalEur": 1947327.0683034826,
+      "contractCount": 1
+    },
+    {
+      "eik": "129010164",
+      "name": "Главна дирекция - Пожарна безопасност и защита на населението/ГДПБЗН/ към Министерство на вътрешните работи - МВР, гр. София",
+      "totalEur": 1569577.0184525237,
+      "contractCount": 3
+    },
+    {
+      "eik": "130047747",
+      "name": "Център за развитие на човешките ресурси /Црчр/",
+      "totalEur": 1517262.0012986814,
+      "contractCount": 1
+    },
+    {
+      "eik": "130344823",
+      "name": "Специализирани болници за рехабилитация - Национален комплекс /Сбр - нк/ ЕАД - София",
+      "totalEur": 1493576.8599520407,
+      "contractCount": 3
+    },
+    {
+      "eik": "103002253",
+      "name": "Водоснабдяване и канализация ООД - Варна",
+      "totalEur": 1400989.0890312553,
+      "contractCount": 1
+    },
+    {
+      "eik": "000852932",
+      "name": "Община Град Добрич",
+      "totalEur": 1386185.4353394723,
+      "contractCount": 3
+    },
+    {
+      "eik": "000817778",
+      "name": "Община Казанлък",
+      "totalEur": 1175971.3267513025,
+      "contractCount": 1
+    },
+    {
+      "eik": "129000273",
+      "name": "Военномедицинска академия /Вма/",
+      "totalEur": 1156341.6963642035,
+      "contractCount": 2
+    },
+    {
+      "eik": "200105779",
+      "name": "Специализирана болница за активно лечение на хематологични заболявания/СБАЛХЗ/ - ЕАД, гр.София",
+      "totalEur": 1128323.5352765834,
+      "contractCount": 18
+    },
+    {
+      "eik": "201619580",
+      "name": "Държавно предприятие - Южноцентрално държавно предприятие /Дпюцдп/ - Смолян",
+      "totalEur": 1052008.7226394932,
+      "contractCount": 9
+    },
+    {
+      "eik": "000817867",
+      "name": "Община Мъглиж",
+      "totalEur": 1022583.762392437,
+      "contractCount": 1
+    },
+    {
+      "eik": "000689061",
+      "name": "Пета многопрофилна болница за активно лечение /V МБАЛ/ - София  АД",
+      "totalEur": 1016728.7596570255,
+      "contractCount": 23
+    },
+    {
+      "eik": "000017149",
+      "name": "Югозападен Университет /Юзу/ \"Неофит Рилски\" - Благоевград",
+      "totalEur": 1000245.4763450811,
+      "contractCount": 3
+    },
+    {
       "eik": "000614984",
       "name": "Община Мадан",
-      "totalEur": 1917776.0132526855,
-      "contractCount": 2
+      "totalEur": 958888.0066263428,
+      "contractCount": 1
     },
     {
       "eik": "130175000",
       "name": "Софийска вода\" АД",
-      "totalEur": 1901797.3034466186,
-      "contractCount": 4
+      "totalEur": 950898.6517233093,
+      "contractCount": 2
     },
     {
       "eik": "000472200",
       "name": "Община Родопи, област Пловдив",
-      "totalEur": 1888523.532208832,
-      "contractCount": 2
+      "totalEur": 944261.766104416,
+      "contractCount": 1
+    },
+    {
+      "eik": "119502733",
+      "name": "Многопрофилна болница за активно лечение /МБАЛ/ \"Д-р Иван Селимински\" АД - Сливен",
+      "totalEur": 929757.6527612318,
+      "contractCount": 11
     },
     {
       "eik": "000615043",
       "name": "Община Неделино",
-      "totalEur": 1817778.5185829035,
-      "contractCount": 4
+      "totalEur": 908889.2592914518,
+      "contractCount": 2
     },
     {
       "eik": "000903743",
       "name": "Община Минерални бани",
-      "totalEur": 1542567.6055689913,
-      "contractCount": 2
+      "totalEur": 771283.8027844956,
+      "contractCount": 1
     },
     {
       "eik": "000057179",
       "name": "Община Поморие",
-      "totalEur": 1488189.249576906,
-      "contractCount": 4
+      "totalEur": 744094.624788453,
+      "contractCount": 2
     },
     {
       "eik": "000590540",
       "name": "Община Котел",
-      "totalEur": 1368274.1240291847,
-      "contractCount": 2
-    },
-    {
-      "eik": "129001232",
-      "name": "Академия на Министерство на вътрешните работи /МВР/",
-      "totalEur": 1349603.3908877561,
-      "contractCount": 8
+      "totalEur": 684137.0620145923,
+      "contractCount": 1
     }
   ],
   "topMps": [
     {
       "mpId": 938,
       "mpName": "Дарин Величков Матов",
-      "totalEur": 533903.5908028816,
-      "contractCount": 5,
+      "totalEur": 300324.5834249398,
+      "contractCount": 3,
       "contractorCount": 1,
       "topContractorNames": [
         "Български пощи /Бп/ ЕАД - София"
       ],
       "confidence": "medium"
     }
-  ]
+  ],
+  "topOfficials": []
 }

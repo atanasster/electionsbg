@@ -408,6 +408,9 @@ type ProcIndex = {
     awarderCount: number;
   };
   crossReference: { mpCount: number; totalEur: number };
+  // Non-MP political class (cabinet, governors, mayors, councillors, …) tied to
+  // contract winners. Absent on data generated before the officials join.
+  officialsCrossReference?: { officialCount: number; totalEur: number };
 };
 
 export const procurementTotals = async (
@@ -431,6 +434,17 @@ export const procurementTotals = async (
       buyers: fmtInt(p.totals.awarderCount, ctx.lang),
       mp_connected_value: fmtEurCompact(p.crossReference.totalEur, ctx.lang),
       mp_connected_count: p.crossReference.mpCount,
+      // Officials (non-MP political class) tied to contract winners — only when
+      // the index carries the officials cross-reference.
+      ...(p.officialsCrossReference
+        ? {
+            official_connected_value: fmtEurCompact(
+              p.officialsCrossReference.totalEur,
+              ctx.lang,
+            ),
+            official_connected_count: p.officialsCrossReference.officialCount,
+          }
+        : {}),
     },
     provenance: ["procurement/index.json"],
   };

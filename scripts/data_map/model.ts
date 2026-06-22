@@ -698,8 +698,8 @@ export const DATASETS: DatasetDef[] = [
       en: "contracts, contractors, awarders",
     },
     desc: {
-      bg: "Всички договори от АОП (OCDS емисията) плюс попълване от ЦАИС ЕОП за малките възложители, които АОП пропуска — по месеци, изпълнители и възложители, с локализация до населено място и кръстосани проверки срещу графа на връзките.",
-      en: "Every procurement contract from АОП (the OCDS feed) plus a ЦАИС ЕОП gap-fill for the small contracting authorities АОП omits — by month, contractor and awarder, localised to settlement level and cross-checked against the connections graph.",
+      bg: "Всички договори от АОП (OCDS емисията) плюс попълване от ЦАИС ЕОП за малките възложители, които АОП пропуска — по месеци, изпълнители и възложители, с локализация до населено място и кръстосване с фирмите, свързани с депутати и длъжностни лица.",
+      en: "Every procurement contract from АОП (the OCDS feed) plus a ЦАИС ЕОП gap-fill for the small contracting authorities АОП omits — by month, contractor and awarder, localised to settlement level and cross-referenced against companies tied to MPs and public officials.",
     },
     path: "data/procurement/",
     tags: ["fiscal"],

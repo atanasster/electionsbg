@@ -285,10 +285,14 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Разходи за ${f(env, "function")}: ${f(env, "amount")} (${f(env, "share_of_budget")} от бюджета) през ${f(env, "year")}; ${f(env, "rank")}-о място по размер.`
         : `Spending on ${f(env, "function")}: ${f(env, "amount")} (${f(env, "share_of_budget")} of the budget) in ${f(env, "year")}; ranked #${f(env, "rank")} by size.`;
-    case "procurementTotals":
+    case "procurementTotals": {
+      const offVal = f(env, "official_connected_value");
+      const offBg = offVal ? ` и с длъжностни лица: ${offVal}` : "";
+      const offEn = offVal ? ` and officials: ${offVal}` : "";
       return lang === "bg"
-        ? `Обществени поръчки: ${f(env, "contracts")} договора за ${f(env, "total_value")}; свързани с депутати: ${f(env, "mp_connected_value")}.`
-        : `Public procurement: ${f(env, "contracts")} contracts worth ${f(env, "total_value")}; MP-connected: ${f(env, "mp_connected_value")}.`;
+        ? `Обществени поръчки: ${f(env, "contracts")} договора за ${f(env, "total_value")}; свързани с депутати: ${f(env, "mp_connected_value")}${offBg}.`
+        : `Public procurement: ${f(env, "contracts")} contracts worth ${f(env, "total_value")}; MP-connected: ${f(env, "mp_connected_value")}${offEn}.`;
+    }
     case "fundsOverview":
       return lang === "bg"
         ? `Европейски средства: договорени ${f(env, "contracted")}, изплатени ${f(env, "paid")}. Топ бенефициент: ${f(env, "top")}.`

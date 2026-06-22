@@ -2,7 +2,7 @@
   "electionDate": "2024_10_27",
   "start": "2024-10-27",
   "end": "2026-04-19",
-  "generatedAt": "2026-06-21T23:45:58.509Z",
+  "generatedAt": "2026-06-22T04:26:35.883Z",
   "totals": {
     "contracts": 12453,
     "amendments": 2385,
@@ -12,7 +12,12 @@
     "totalEur": 17434277421.67464,
     "mpCount": 8,
     "mpConnectedContractorCount": 9,
-    "mpConnectedTotalEur": 245882130.24358296
+    "mpConnectedTotalEur": 245882130.24358296,
+    "officialCount": 14,
+    "officialConnectedContractorCount": 12,
+    "officialConnectedTotalEur": 81717418.8689328,
+    "connectedContractorCount": 19,
+    "connectedTotalEur": 326353256.9525158
   },
   "topContractors": [
     {
@@ -809,6 +814,176 @@
         "ЕВРОХИМ-ГРУП ООД"
       ],
       "confidence": "medium"
+    }
+  ],
+  "topOfficials": [
+    {
+      "slug": "valeri-petrov-borisov-4cdc5f",
+      "name": "Валери Петров Борисов",
+      "tier": "executive",
+      "role": "agency_head",
+      "totalEur": 50927108.91603985,
+      "contractCount": 32,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Информационно обслужване АД"
+      ]
+    },
+    {
+      "slug": "valentina-stefanova-nedyalkova-f07289",
+      "name": "Валентина Стефанова Недялкова",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 50927108.91603985,
+      "contractCount": 32,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Информационно обслужване АД"
+      ]
+    },
+    {
+      "slug": "hristin-tsvetolyubov-savov-ea02aa",
+      "name": "Христин Цветолюбов Савов",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 27551505.26,
+      "contractCount": 8,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Славлен АД"
+      ]
+    },
+    {
+      "slug": "daniel-rumenov-gargov-c309b6",
+      "name": "Даниел Руменов Гаргов",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 1263402.24,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Глобъл клинър ООД"
+      ]
+    },
+    {
+      "slug": "mincho-stoikov-kazandzhiev-51c218",
+      "name": "Минчо Стойков Казанджиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 1195725.3900000001,
+      "contractCount": 6,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Напоителни системи ЕАД-клон Шумен"
+      ]
+    },
+    {
+      "slug": "stefan-shtiliyanov-shtiliyanov-9d11f7",
+      "name": "Стефан Щилиянов Щилиянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 1195725.3900000001,
+      "contractCount": 6,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Напоителни системи ЕАД-клон Шумен"
+      ]
+    },
+    {
+      "slug": "anton-todorov-tonev-6701a1",
+      "name": "Антон Тодоров Тонев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 213873.38999999998,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Томед ООД"
+      ]
+    },
+    {
+      "slug": "iordan-aleksandrov-dimitrov-bc224b",
+      "name": "Йордан Александров Димитров",
+      "tier": "executive",
+      "role": "regional_governor",
+      "totalEur": 162874.9328929406,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Геоман трейд АД"
+      ]
+    },
+    {
+      "slug": "georgi-ivanov-slavov-4d76ba",
+      "name": "Георги Иванов Славов",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 147401,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Проконструкт груп ООД"
+      ]
+    },
+    {
+      "slug": "iordanka-vladimirova-bicheva-f99bd5",
+      "name": "Йорданка Владимирова Бичева",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 88567.94,
+      "contractCount": 8,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Синмед българия ООД"
+      ]
+    },
+    {
+      "slug": "ivanka-petrova-nikolova-1691b4",
+      "name": "Иванка Петрова Николова",
+      "tier": "municipal",
+      "role": "mayor",
+      "totalEur": 60488.09,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Бургасинвест ООД"
+      ]
+    },
+    {
+      "slug": "nikolai-ivanov-kosev-cd5565",
+      "name": "Николай Иванов Косев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 50566.77,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "ЕВРОХИМ-ГРУП ООД"
+      ]
+    },
+    {
+      "slug": "iva-emilova-dobreva-chukleva-67e4fa",
+      "name": "Ива Емилова Добрева-Чуклева",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 29654.940000000002,
+      "contractCount": 4,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "АЙ ТИ ЕС - Консулт ЕООД"
+      ]
+    },
+    {
+      "slug": "boris-dobrinkov-drenov-a30660",
+      "name": "Борис Добринков Дренов",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 26250,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Балкангаз 2000 АД"
+      ]
     }
   ]
 }

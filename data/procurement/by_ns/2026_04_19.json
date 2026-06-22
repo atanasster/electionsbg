@@ -2,7 +2,7 @@
   "electionDate": "2026_04_19",
   "start": "2026-04-19",
   "end": null,
-  "generatedAt": "2026-06-21T23:45:58.505Z",
+  "generatedAt": "2026-06-22T04:26:35.880Z",
   "totals": {
     "contracts": 5975,
     "amendments": 1093,
@@ -12,7 +12,12 @@
     "totalEur": 2973382760.0456724,
     "mpCount": 6,
     "mpConnectedContractorCount": 6,
-    "mpConnectedTotalEur": 1431385.29
+    "mpConnectedTotalEur": 1431385.29,
+    "officialCount": 12,
+    "officialConnectedContractorCount": 10,
+    "officialConnectedTotalEur": 6459868.65,
+    "connectedContractorCount": 15,
+    "connectedTotalEur": 7831253.94
   },
   "topContractors": [
     {
@@ -784,6 +789,152 @@
         "Напоителни системи ЕАД"
       ],
       "confidence": "medium"
+    }
+  ],
+  "topOfficials": [
+    {
+      "slug": "hristin-tsvetolyubov-savov-ea02aa",
+      "name": "Христин Цветолюбов Савов",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 3783048.63,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Славлен АД"
+      ]
+    },
+    {
+      "slug": "iordan-aleksandrov-dimitrov-bc224b",
+      "name": "Йордан Александров Димитров",
+      "tier": "executive",
+      "role": "regional_governor",
+      "totalEur": 1487167.59,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Геоман трейд АД"
+      ]
+    },
+    {
+      "slug": "valeri-petrov-borisov-4cdc5f",
+      "name": "Валери Петров Борисов",
+      "tier": "executive",
+      "role": "agency_head",
+      "totalEur": 719980.78,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Информационно обслужване АД"
+      ]
+    },
+    {
+      "slug": "valentina-stefanova-nedyalkova-f07289",
+      "name": "Валентина Стефанова Недялкова",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 719980.78,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Информационно обслужване АД"
+      ]
+    },
+    {
+      "slug": "ilve-faikova-spahieva-94b2a9",
+      "name": "Илве Фаикова Спахиева",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "totalEur": 112427.4,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "ХБ Дизайн ЕООД"
+      ]
+    },
+    {
+      "slug": "velizar-toshkov-dichev-244acb",
+      "name": "Велизар Тошков Дичев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 83307.85,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "МИТ-СЕКЮРИТИ-85 ЕООД"
+      ]
+    },
+    {
+      "slug": "ivan-mitev-ionkov-0aa6ed",
+      "name": "Иван Митев Йонков",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 80582.4,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Еко груп рисайклинг ООД"
+      ]
+    },
+    {
+      "slug": "iordanka-vladimirova-bicheva-f99bd5",
+      "name": "Йорданка Владимирова Бичева",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 67517.56,
+      "contractCount": 5,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Синмед българия ООД"
+      ]
+    },
+    {
+      "slug": "mincho-stoikov-kazandzhiev-51c218",
+      "name": "Минчо Стойков Казанджиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 60000,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Напоителни системи ЕАД"
+      ]
+    },
+    {
+      "slug": "stefan-shtiliyanov-shtiliyanov-9d11f7",
+      "name": "Стефан Щилиянов Щилиянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 60000,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Напоителни системи ЕАД"
+      ]
+    },
+    {
+      "slug": "borislav-krstev-inchev-55f44e",
+      "name": "Борислав Кръстев Инчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 47586.439999999995,
+      "contractCount": 4,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "ЕН ЕМ ЕР ООД"
+      ]
+    },
+    {
+      "slug": "ivanka-petrova-nikolova-1691b4",
+      "name": "Иванка Петрова Николова",
+      "tier": "municipal",
+      "role": "mayor",
+      "totalEur": 18250,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Бургасинвест ООД"
+      ]
     }
   ]
 }

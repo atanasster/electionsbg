@@ -56,6 +56,12 @@ const GLOBAL_FILES = [
   "prices/dict.json",
   "prices/ranking.json",
   "prices/chains.json",
+  // Procurement landing page: the flow sankey (preview + full) and the
+  // top-contractors table are the heavy files the /procurement page waits on.
+  "procurement/index.json",
+  "procurement/derived/flow.json",
+  "procurement/derived/flow_full.json",
+  "procurement/derived/top_contractors.json",
 ];
 
 // Per-election files (one per ballot folder, YYYY_MM_DD[...]).
@@ -77,6 +83,14 @@ const collect = (): string[] => {
   const out: string[] = [];
   for (const rel of GLOBAL_FILES) {
     if (existsSync(join(DATA, rel))) out.push(rel);
+  }
+  // Per-election procurement slices: the /procurement landing fetches one
+  // by_ns/<election>.json on load. Small (~25 KB each) but ~6× on the wire.
+  const byNsDir = join(DATA, "procurement", "by_ns");
+  if (existsSync(byNsDir)) {
+    for (const f of readdirSync(byNsDir)) {
+      if (f.endsWith(".json")) out.push(`procurement/by_ns/${f}`);
+    }
   }
   for (const entry of readdirSync(DATA, { withFileTypes: true })) {
     if (!entry.isDirectory() || !isElectionDir(entry.name)) continue;

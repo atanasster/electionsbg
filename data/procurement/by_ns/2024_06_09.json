@@ -2,7 +2,7 @@
   "electionDate": "2024_06_09",
   "start": "2024-06-09",
   "end": "2024-10-27",
-  "generatedAt": "2026-06-21T23:45:58.509Z",
+  "generatedAt": "2026-06-22T04:26:35.884Z",
   "totals": {
     "contracts": 765,
     "amendments": 0,
@@ -12,7 +12,12 @@
     "totalEur": 34543871.49189857,
     "mpCount": 0,
     "mpConnectedContractorCount": 0,
-    "mpConnectedTotalEur": 0
+    "mpConnectedTotalEur": 0,
+    "officialCount": 2,
+    "officialConnectedContractorCount": 1,
+    "officialConnectedTotalEur": 849767.1065481151,
+    "connectedContractorCount": 1,
+    "connectedTotalEur": 849767.1065481151
   },
   "topContractors": [
     {
@@ -718,5 +723,31 @@
       "contractCount": 1
     }
   ],
-  "topMps": []
+  "topMps": [],
+  "topOfficials": [
+    {
+      "slug": "valeri-petrov-borisov-4cdc5f",
+      "name": "Валери Петров Борисов",
+      "tier": "executive",
+      "role": "agency_head",
+      "totalEur": 849767.1065481151,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Информационно обслужване АД"
+      ]
+    },
+    {
+      "slug": "valentina-stefanova-nedyalkova-f07289",
+      "name": "Валентина Стефанова Недялкова",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 849767.1065481151,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Информационно обслужване АД"
+      ]
+    }
+  ]
 }

@@ -2,7 +2,7 @@
   "electionDate": "2009_07_05",
   "start": "2009-07-05",
   "end": "2013-05-12",
-  "generatedAt": "2026-06-21T23:45:58.526Z",
+  "generatedAt": "2026-06-22T04:26:35.908Z",
   "totals": {
     "contracts": 29613,
     "amendments": 0,
@@ -12,7 +12,12 @@
     "totalEur": 6362092009.124456,
     "mpCount": 16,
     "mpConnectedContractorCount": 16,
-    "mpConnectedTotalEur": 8949979.763067342
+    "mpConnectedTotalEur": 8949979.763067342,
+    "officialCount": 26,
+    "officialConnectedContractorCount": 24,
+    "officialConnectedTotalEur": 16027219.201055307,
+    "connectedContractorCount": 37,
+    "connectedTotalEur": 24050326.076397233
   },
   "topContractors": [
     {
@@ -894,6 +899,320 @@
         "Елемент-АСК ООД - Казанлък"
       ],
       "confidence": "high"
+    }
+  ],
+  "topOfficials": [
+    {
+      "slug": "valeri-petrov-borisov-4cdc5f",
+      "name": "Валери Петров Борисов",
+      "tier": "executive",
+      "role": "agency_head",
+      "totalEur": 10059762.801470479,
+      "contractCount": 23,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Информационно обслужване АД"
+      ]
+    },
+    {
+      "slug": "valentina-stefanova-nedyalkova-f07289",
+      "name": "Валентина Стефанова Недялкова",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 10059762.801470479,
+      "contractCount": 23,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Информационно обслужване АД"
+      ]
+    },
+    {
+      "slug": "hristin-tsvetolyubov-savov-ea02aa",
+      "name": "Христин Цветолюбов Савов",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 2186070.4662470664,
+      "contractCount": 4,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Автомагистрали Хемус АД - София"
+      ]
+    },
+    {
+      "slug": "plamen-peev-patev-f5c4ee",
+      "name": "Пламен Пеев Патев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 1034302.5109544286,
+      "contractCount": 24,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Етропал Трейд ООД - Етрополе"
+      ]
+    },
+    {
+      "slug": "mincho-stoikov-kazandzhiev-51c218",
+      "name": "Минчо Стойков Казанджиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 735748.5057494773,
+      "contractCount": 10,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Напоителни системи ЕАД - София"
+      ]
+    },
+    {
+      "slug": "stefan-shtiliyanov-shtiliyanov-9d11f7",
+      "name": "Стефан Щилиянов Щилиянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 735748.5057494773,
+      "contractCount": 10,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Напоителни системи ЕАД - София"
+      ]
+    },
+    {
+      "slug": "reneta-georgieva-koleva-877928",
+      "name": "Ренета Георгиева Колева",
+      "tier": "executive",
+      "role": "cabinet",
+      "totalEur": 657806.2612803772,
+      "contractCount": 6,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Предприятие за управление на дейностите по опазване на околната среда"
+      ]
+    },
+    {
+      "slug": "svilen-ivanov-dimitrov-384011",
+      "name": "Свилен Иванов Димитров",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 500052.6426120879,
+      "contractCount": 9,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "ИНВЕСТСТРОЙ-92 ЕООД"
+      ]
+    },
+    {
+      "slug": "nikolai-ivanov-kosev-cd5565",
+      "name": "Николай Иванов Косев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 172523.02091695083,
+      "contractCount": 5,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Еврохим-Груп ООД - Габрово"
+      ]
+    },
+    {
+      "slug": "angel-georgiev-tsigularov-4076dd",
+      "name": "Ангел Георгиев Цигуларов",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 144335.04956974788,
+      "contractCount": 5,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Ай Ди 555 ООД - Царево"
+      ]
+    },
+    {
+      "slug": "andrei-simov-simov-03b222",
+      "name": "Андрей Симов Симов",
+      "tier": "municipal",
+      "role": "mayor",
+      "totalEur": 95100.28990249665,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Симов ойл ООД - с. Антон"
+      ]
+    },
+    {
+      "slug": "kaloyan-ivanov-kdriiski-ef3655",
+      "name": "Калоян Иванов Къдрийски",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "totalEur": 80528.47128840441,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Водоснабдяване и Канализация ЕООД -Плевен"
+      ]
+    },
+    {
+      "slug": "dimitr-hristov-petrov-13b8e2",
+      "name": "Димитър Христов Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 77332.89703092806,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Оптиком ООД - Стара Загора"
+      ]
+    },
+    {
+      "slug": "neli-dinkova-deneva-16c272",
+      "name": "Нели Динкова Денева",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 54249.9603748792,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Немо Транс ООД - Тервел"
+      ]
+    },
+    {
+      "slug": "shahin-mehmedov-bairamov-ed8dee",
+      "name": "Шахин Мехмедов Байрамов",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 50336.68570376771,
+      "contractCount": 4,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Латинка лес ЕООД - Ардино"
+      ]
+    },
+    {
+      "slug": "anton-todorov-tonev-6701a1",
+      "name": "Антон Тодоров Тонев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 47787.38438412337,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Томед ООД - Стара Загора"
+      ]
+    },
+    {
+      "slug": "georgi-ivanov-marinchev-c8d323",
+      "name": "Георги Иванов Маринчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 39282.55523230547,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Пепеляшка ООД - Бургас"
+      ]
+    },
+    {
+      "slug": "milka-doncheva-hristova-989eac",
+      "name": "Милка Дончева Христова",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 18601.361058987743,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Бред - Кооп Павликени ЕАД - Павликени"
+      ]
+    },
+    {
+      "slug": "metodi-petrov-baikushev-bb06bd",
+      "name": "Методи Петров Байкушев",
+      "tier": "municipal",
+      "role": "mayor",
+      "totalEur": 14943.016519840681,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Монолитстрой - Чорбаджийски, Байкушев ООД - Благоевград"
+      ]
+    },
+    {
+      "slug": "yulian-dimitrov-ivanov-b4171c",
+      "name": "Юлиан Димитров Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 13022.092922186488,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Шери Ю ЕООД - Долни Чифлик"
+      ]
+    },
+    {
+      "slug": "plamen-vladimirov-kitipov-db1872",
+      "name": "Пламен Владимиров Китипов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "totalEur": 12782.297029905461,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Озон ЕООД - Варна"
+      ]
+    },
+    {
+      "slug": "emil-asenov-maksimov-f7e0d4",
+      "name": "Емил Асенов Максимов",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 12778.717986737089,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Трейдмакс ООД"
+      ]
+    },
+    {
+      "slug": "boris-dobrinkov-drenov-a30660",
+      "name": "Борис Добринков Дренов",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 8589.70360409647,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Балкангаз 2000 АД - Ботевград"
+      ]
+    },
+    {
+      "slug": "viktoriya-dimitrova-kovchazova-6ac2da",
+      "name": "Виктория Димитрова Ковчазова",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "totalEur": 6442.277703072353,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Урбан електрик  ЕООД"
+      ]
+    },
+    {
+      "slug": "milena-kirova-dimitrova-cb2ee8",
+      "name": "Милена Кирова Димитрова",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 2556.4594059810925,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Кокомпютърс ЕООД, гр.Кърджали"
+      ]
+    },
+    {
+      "slug": "ivan-nikolov-uzunov-800186",
+      "name": "Иван Николов Узунов",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "totalEur": 2283.7721069827135,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Узунов проект ЕООД"
+      ]
     }
   ]
 }

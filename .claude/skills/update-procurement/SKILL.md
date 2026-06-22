@@ -307,25 +307,29 @@ Most BG EIKs are 9 digits (parent legal entity). 13-digit EIKs are branch / clon
 
 ## Cross-reference output (Phase 2)
 
-When `data/parliament/companies-index.json` is present, the ingest also runs the MP cross-reference and writes three derived files:
+The ingest always runs the officials cross-reference (`pep_connected.json`, from the officials declarations tree); when `data/parliament/companies-index.json` is also present it runs the MP cross-reference too. Together they write these derived files:
 
 | Path | Purpose |
 |---|---|
 | `data/procurement/derived/mp_connected.json` | One entry per (mpId, contractor) pair: relations (TR roles + declared stakes), total awarded, top awarders, byYear. The journalism payload. |
+| `data/procurement/derived/pep_connected.json` (+ `pep-by-eik/`, `pep-by-slug/` shards) | One entry per (official, contractor) pair — the **non-MP** political class (cabinet, deputy ministers, agency heads, governors, mayors, deputy-mayors, council chairs, councillors, chief architects). HIGH-confidence links only. |
 | `data/procurement/derived/top_contractors.json` | Top-1000 contractors corpus-wide, each flagged `mpTied: boolean`. Powers the `/procurement` index page. |
-| `data/procurement/derived/flow.json` | Sankey-shaped MP-tied flow (awarder → contractor → MP). Only MP-tied flows; full graph would be unreadable. |
+| `data/procurement/derived/flow.json` | Sankey-shaped money flow (awarder → contractor → **MP or official**), trimmed to the top ~150 links by value — the eager preview the `/procurement` landing tile loads. |
+| `data/procurement/derived/flow_full.json` | The complete flow graph (all MP- and official-tied links), lazy-loaded only by the `/procurement/flows` explorer. |
+
+Per-election `by_ns/<election>.json` files also gain officials totals (`officialCount`, `officialConnected*`, de-duplicated `connected*`) and a `topOfficials[]` ranking alongside the existing `topMps[]`.
 
 The cross-reference reads `companies[].tr.uic` as the join key. The skill **hard-fails** if `companies-index.json` is present but TR enrichment is missing on >90% of entries — that's the silent "TR refresh wasn't run" failure mode where mp_connected.json would otherwise collapse to empty.
 
 **TR-namesake filter (name-collision guard).** `cross_reference.ts` only keeps an MP↔company link when the relation is a declared stake OR the MP's name maps to a **single** TR company (`buildTrNamesakeCounts(raw_data/tr/state.sqlite)`, the same bar `/update-connections` applies). This drops name-only matches against big state firms (e.g. an MP namesake "directing" Автомагистрали / Български пощи / НЕК) — the inflation that took the headline from 38 MPs / €533M up to a false 55 / €711M. The filter degrades gracefully (keeps all matches, logs a warning) when the TR SQLite is absent, but in that case `companies-index.json`'s `mpRoles` must already be clean — i.e. `/update-connections` ran post-fix. So keep the ordering invariant below. `pep_connected` (officials) is already filtered upstream in `company_links.json` (HIGH-only).
 
-**Offline rebuild.** When data.egov.bg is IP-blocked (the АОП org listing 403s) but the link tables changed, `npx tsx scripts/procurement/rebuild_derived.ts` regenerates every link-dependent derived artifact (pep/mp connected + shards, top_contractors, flow, by_ns, by-id, risk_feed, concentration_full, person_procurement_index) from disk — no network, no contract re-parse. It mirrors the no-new-bundles branch of `ingest.ts`.
+**Offline rebuild.** When data.egov.bg is IP-blocked (the АОП org listing 403s) but the link tables changed, `npx tsx scripts/procurement/rebuild_derived.ts` regenerates every link-dependent derived artifact (pep/mp connected + shards, top_contractors, flow + flow_full, by_ns, by-id, risk_feed, concentration_full, person_procurement_index) from disk — no network, no contract re-parse. It mirrors the no-new-bundles branch of `ingest.ts`. Pass **`--reuse-mp`** to load the existing `mp_connected.json` instead of recomputing it from `companies-index.json` + the TR-namesake filter — use this when only the **officials** side changed, so the published MP figures stay byte-stable (the namesake filter is sensitive to the exact TR snapshot on disk and can otherwise shift the MP headline by a pair or two). With `--reuse-mp` the `index.json` `crossReference` is left untouched; `officialsCrossReference` is still refreshed.
 
 If `companies-index.json` is missing entirely, the procurement ingest still completes (raw contracts + rollups land on disk); the cross-reference step logs a skip with a hint to run /update-connections.
 
 **Ordering dependency.** When the orchestrator queues both `/update-connections` and `/update-procurement` from a single watch report, `/update-connections` must run first — it produces `companies-index.json`, which the cross-reference reads. The watcher source list in `scripts/watch/sources/index.ts` already places `cacbgDeclarations` and `egovCommerce` (both → update-connections) before `egovProcurement`, so the natural source-order traversal handles this without explicit dependency declaration. If you reorder the SOURCES list, preserve this invariant.
 
-The `crossReference` field on `data/procurement/index.json` is the at-a-glance summary: `{ mpCount, contractorCount, pairCount, byCurrency }`.
+The `crossReference` field on `data/procurement/index.json` is the at-a-glance MP summary: `{ mpCount, contractorCount, pairCount, byCurrency }`. A sibling `officialsCrossReference` (`{ officialCount, contractorCount, pairCount, totalEur }`, de-duplicated by contractor EIK) carries the same for the non-MP officials; both power the `/procurement` "Свързани лица / Connected people" headline card and the AI `procurementTotals` tool.
 
 ## What this skill does NOT do
 
@@ -343,7 +347,9 @@ The `crossReference` field on `data/procurement/index.json` is the at-a-glance s
 | `scripts/procurement/normalize.ts` | OCDS release → Contract[] flattener |
 | `scripts/procurement/rollups.ts` | Per-contractor / per-awarder JSON file builder |
 | `scripts/procurement/cross_reference.ts` | EIK-keyed join against `data/parliament/companies-index.json` |
-| `scripts/procurement/derived.ts` | Top-contractors + sankey-flow builders |
+| `scripts/procurement/derived.ts` | Top-contractors + sankey-flow builders (flow = MP + official terminals; emits the trimmed `flow.json` preview + the full `flow_full.json`) |
+| `scripts/procurement/pep_connected.ts` | Officials (non-MP) ↔ contractor join + reverse/forward shards |
+| `scripts/procurement/rebuild_derived.ts` | Offline rebuild of all link-dependent artifacts (`--reuse-mp` to keep MP figures stable) |
 | `scripts/procurement/validate.ts` | Schema + canary + diff-cap checks |
 | `scripts/procurement/eik.ts` | EIK canonicalization helpers (9-digit canonical) |
 | `scripts/procurement/types.ts` | Shared Contract / rollup type definitions |
@@ -365,7 +371,9 @@ The `crossReference` field on `data/procurement/index.json` is the at-a-glance s
 | `data/procurement/derived/per-mp/<mpId>.json` + `per-mp/index.json` | **Data-diet shard + manifest** the `/candidate/:id` procurement tile reads (carries the scorecard rank/cohort). Regenerated **every** ingest by `cross_reference.ts` (write-if-changed), so a normal `bucket:sync` keeps them in step with `mp_connected.json` — see "Per-MP shard invariant" in process-watch-report. Committed. |
 | `data/procurement/derived/per-eik/<EIK>.json` + `index.json`, `pep-by-eik/<EIK>.json`, `pep-by-slug/<slug>.json` (+ their `index.json`) | Reverse/forward shards for `/company/:eik` and `/officials/:slug` — also regenerated every ingest by `cross_reference.ts` / `pep_connected.ts`. Committed. |
 | `data/procurement/derived/top_contractors.json` | Top-N corpus-wide w/ MP-tied flag — committed |
-| `data/procurement/derived/flow.json` | Sankey-shaped MP-tied flow — committed |
+| `data/procurement/derived/pep_connected.json` | Officials (non-MP) ↔ contractor pairs — committed |
+| `data/procurement/derived/flow.json` | Sankey flow (awarder → contractor → MP/official), trimmed top-~150 preview — committed |
+| `data/procurement/derived/flow_full.json` | Complete flow graph for the `/procurement/flows` explorer — committed |
 | `tests/fixtures/procurement/canary.json` | Pinned regression baseline — committed |
 | `raw_data/procurement/<UUID>.json.gz` | Local cache of downloaded bundles — gitignored |
 
