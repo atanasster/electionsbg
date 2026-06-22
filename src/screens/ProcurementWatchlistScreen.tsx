@@ -323,6 +323,11 @@ const WatchCard: FC<{ a: WatchActivity }> = ({ a }) => {
   );
 };
 
+// Quick-links to the pages where something can actually be followed: the
+// contractors / awarders rankings and the contracts browser all carry a Follow
+// star on every row. Pages that have no per-row star (the money scanner, the
+// by-place view, the red-flag feed) are intentionally left out — sending an
+// empty-watchlist user there would be a dead end.
 const DISCOVER: Array<{ to: string; key: string; fallback: string }> = [
   {
     to: "/procurement/contractors",
@@ -335,16 +340,10 @@ const DISCOVER: Array<{ to: string; key: string; fallback: string }> = [
     fallback: "Top awarders",
   },
   {
-    to: "/procurement/people",
-    key: "procurement_people_title",
-    fallback: "Public money scanner",
+    to: "/procurement/contracts",
+    key: "procurement_index_contracts",
+    fallback: "Contracts",
   },
-  {
-    to: "/procurement/by-settlement",
-    key: "procurement_by_settlement_nav",
-    fallback: "By place",
-  },
-  { to: "/procurement/flags", key: "flags_title", fallback: "Risk signals" },
 ];
 
 const EmptyState: FC = () => {
@@ -359,7 +358,7 @@ const EmptyState: FC = () => {
           </h2>
           <p className="text-sm text-muted-foreground max-w-md mx-auto mb-5">
             {t("watchlist_empty") ||
-              "Press the star on any company, buyer, politician, place or contract to follow it. They'll appear here with their latest activity."}
+              "Press the star on any company, buyer or contract to follow it. It'll appear here with its latest activity."}
           </p>
           <div className="flex flex-wrap justify-center gap-2">
             {DISCOVER.map((d) => (

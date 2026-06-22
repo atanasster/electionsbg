@@ -9,6 +9,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/ux/data_table/DataTable";
 import { Title } from "@/ux/Title";
 import { useProcurementByNs } from "@/data/procurement/useProcurementByNs";
+import { FollowStar } from "@/screens/components/procurement/FollowStar";
 import type { ProcurementByNsTopAwarder } from "@/data/dataTypes";
 
 const formatEur = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 });
@@ -41,6 +42,12 @@ export const TopAwardersScreen: FC = () => {
         header: t("procurement_col_awarder") || "Awarder",
         cell: ({ row }) => (
           <div className="flex items-center gap-2 flex-wrap">
+            <FollowStar
+              kind="awarder"
+              id={row.original.eik}
+              label={row.original.name}
+              className="shrink-0"
+            />
             <Link
               to={`/awarder/${row.original.eik}`}
               className="font-medium hover:underline"

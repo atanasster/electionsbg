@@ -11,6 +11,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/ux/data_table/DataTable";
 import { Title } from "@/ux/Title";
 import { useTopContractors } from "@/data/procurement/useProcurementIndex";
+import { FollowStar } from "@/screens/components/procurement/FollowStar";
 import type { ProcurementTopContractorEntry } from "@/data/dataTypes";
 import { formatEurWithOther } from "@/lib/currency";
 
@@ -38,6 +39,12 @@ export const TopContractorsScreen: FC = () => {
           const e = row.original;
           return (
             <div className="flex items-center gap-2 flex-wrap">
+              <FollowStar
+                kind="company"
+                id={e.eik}
+                label={e.name}
+                className="shrink-0"
+              />
               <Link
                 to={`/company/${e.eik}`}
                 className="font-medium hover:underline"
