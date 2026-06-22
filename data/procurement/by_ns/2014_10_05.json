@@ -2,7 +2,7 @@
   "electionDate": "2014_10_05",
   "start": "2014-10-05",
   "end": "2017-03-26",
-  "generatedAt": "2026-06-22T04:31:19.601Z",
+  "generatedAt": "2026-06-22T09:30:53.778Z",
   "totals": {
     "contracts": 38377,
     "amendments": 0,
@@ -10,14 +10,14 @@
     "contractorCount": 8592,
     "awarderCount": 1438,
     "totalEur": 7845163878.681987,
-    "mpCount": 19,
-    "mpConnectedContractorCount": 20,
-    "mpConnectedTotalEur": 51271850.211930476,
+    "mpCount": 27,
+    "mpConnectedContractorCount": 27,
+    "mpConnectedTotalEur": 63076005.80827576,
     "officialCount": 32,
     "officialConnectedContractorCount": 30,
     "officialConnectedTotalEur": 28582185.65008205,
-    "connectedContractorCount": 47,
-    "connectedTotalEur": 79340593.66100325
+    "connectedContractorCount": 54,
+    "connectedTotalEur": 91144749.25734854
   },
   "topContractors": [
     {
@@ -738,6 +738,18 @@
       "confidence": "medium"
     },
     {
+      "mpId": 805,
+      "mpName": "Йордан Петков Йорданов",
+      "totalEur": 11441318.62687452,
+      "contractCount": 116,
+      "contractorCount": 2,
+      "topContractorNames": [
+        "Контракс АД  - старо - Контракс ЕАД - София",
+        "Дайрект Сървисиз ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 1689,
       "mpName": "Андон Петров Андонов",
       "totalEur": 8421304.510105684,
@@ -815,6 +827,17 @@
       "confidence": "medium"
     },
     {
+      "mpId": 5197,
+      "mpName": "Йордан Йовчев Йовчев",
+      "totalEur": 276097.615845958,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Национална спортна база ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 5094,
       "mpName": "Николай Иванов Косев",
       "totalEur": 263513.4648716913,
@@ -859,6 +882,28 @@
       "confidence": "high"
     },
     {
+      "mpId": 722,
+      "mpName": "Веселин Борисов Черкезов",
+      "totalEur": 153387.56435886555,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Есп Златни пясъци ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 4745,
+      "mpName": "Ваня Иванова Василева",
+      "totalEur": 126536.64173266593,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Фармапро ООД - София"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 5086,
       "mpName": "Иво Севдалинов Цанев",
       "totalEur": 117085.84079393404,
@@ -871,7 +916,7 @@
     },
     {
       "mpId": 2946,
-      "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
+      "mpName": "Елена Стефанова Пешева",
       "totalEur": 101160.12127843422,
       "contractCount": 10,
       "contractorCount": 2,
@@ -889,6 +934,17 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Дару Кар АД - София"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 3169,
+      "mpName": "Пламен Иванов Милев",
+      "totalEur": 63910.83069591938,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Университетска многопрофилна болница за активно лечение и спешна Медицина Н.И. Пирогов ЕАД"
       ],
       "confidence": "medium"
     },
@@ -915,6 +971,28 @@
       "confidence": "medium"
     },
     {
+      "mpId": 237,
+      "mpName": "Светослав Иванов Спасов",
+      "totalEur": 43061.00223434552,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Национална електрическа компания ЕАД - София"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5092,
+      "mpName": "Богомил Иванов Петков",
+      "totalEur": 35250.134214118814,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Осъм инженеринг АД - Ловеч"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 4663,
       "mpName": "Александър Атанасов Александров",
       "totalEur": 13200.595143749713,
@@ -922,6 +1000,17 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Микро Асу ООД - Пловдив"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5205,
+      "mpName": "Рашид Мехмедов Узунов",
+      "totalEur": 4601.626930765967,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Раломекс АД - Завет"
       ],
       "confidence": "medium"
     },

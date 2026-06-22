@@ -13,6 +13,8 @@ import type {
   ProcurementBySettlementIndex,
 } from "@/data/dataTypes";
 import { dataUrl } from "@/data/dataUrl";
+import { useProcurementScope } from "./useProcurementScope";
+import { useElectionContext } from "@/data/ElectionContext";
 
 const fetchSettlement = async (
   ekatte: string,
@@ -23,8 +25,10 @@ const fetchSettlement = async (
   return (await r.json()) as ProcurementBySettlementFile;
 };
 
-const fetchIndex = async (): Promise<ProcurementBySettlementIndex | null> => {
-  const r = await fetch(dataUrl(`/procurement/by_settlement/index.json`));
+const fetchIndex = async (
+  url: string,
+): Promise<ProcurementBySettlementIndex | null> => {
+  const r = await fetch(url);
   if (r.status === 404) return null;
   if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
   return (await r.json()) as ProcurementBySettlementIndex;
@@ -41,10 +45,23 @@ export const useSettlementProcurement = (ekatte?: string | null) =>
   });
 
 /** Landing-page index — every settlement with local-tier procurement +
- *  the national rollup card. */
-export const useProcurementBySettlementIndex = () =>
-  useQuery({
-    queryKey: ["procurement", "by_settlement_index"] as const,
-    queryFn: fetchIndex,
+ *  the national rollup card. Scope-aware: ns → the per-election index
+ *  (by_ns/by_settlement/<date>.json); all → the full-corpus index. (The
+ *  per-EKATTE detail drill-down has no scope toggle, so it stays corpus.) */
+export const useProcurementBySettlementIndex = () => {
+  const { scope } = useProcurementScope();
+  const { selected } = useElectionContext();
+  const ns = scope === "ns";
+  const url = ns
+    ? dataUrl(`/procurement/by_ns/by_settlement/${selected}.json`)
+    : dataUrl(`/procurement/by_settlement/index.json`);
+  return useQuery({
+    queryKey: [
+      "procurement",
+      "by_settlement_index",
+      ns ? `ns:${selected}` : "all",
+    ],
+    queryFn: () => fetchIndex(url),
     staleTime: Infinity,
   });
+};

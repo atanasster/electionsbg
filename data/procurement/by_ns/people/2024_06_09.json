@@ -1,16 +1,40 @@
 {
-  "generatedAt": "2026-06-22T04:31:19.582Z",
-  "total": 2,
+  "generatedAt": "2026-06-22T09:30:53.737Z",
+  "total": 41,
   "rows": [
+    {
+      "kind": "mp",
+      "mpId": 3271,
+      "name": "Георги Захаринин Попов",
+      "totalEur": 128728110.31633629,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "mp",
+      "mpId": 938,
+      "name": "Дарин Величков Матов",
+      "totalEur": 56972566.961341225,
+      "contractorCount": 1,
+      "contractCount": 20
+    },
+    {
+      "kind": "mp",
+      "mpId": 2670,
+      "name": "Валентин Алексиев Николов",
+      "totalEur": 52674043.75635919,
+      "contractorCount": 1,
+      "contractCount": 2
+    },
     {
       "kind": "official",
       "slug": "valeri-petrov-borisov-4cdc5f",
       "name": "Валери Петров Борисов",
       "tier": "executive",
       "role": "agency_head",
-      "totalEur": 849767.1065481151,
+      "totalEur": 42869651.65684133,
       "contractorCount": 1,
-      "contractCount": 2
+      "contractCount": 44
     },
     {
       "kind": "official",
@@ -18,9 +42,335 @@
       "name": "Валентина Стефанова Недялкова",
       "tier": "municipal",
       "role": "councillor",
-      "totalEur": 849767.1065481151,
+      "totalEur": 42869651.65684133,
+      "contractorCount": 1,
+      "contractCount": 44
+    },
+    {
+      "kind": "official",
+      "slug": "hristin-tsvetolyubov-savov-ea02aa",
+      "name": "Христин Цветолюбов Савов",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 29557202.521009836,
+      "contractorCount": 1,
+      "contractCount": 3
+    },
+    {
+      "kind": "mp",
+      "mpId": 3026,
+      "name": "Антон Йорданов Адамов",
+      "totalEur": 15522951.8925469,
+      "contractorCount": 1,
+      "contractCount": 3
+    },
+    {
+      "kind": "mp",
+      "mpId": 4745,
+      "name": "Ваня Иванова Василева",
+      "totalEur": 7172164.927422118,
+      "contractorCount": 1,
+      "contractCount": 7
+    },
+    {
+      "kind": "mp",
+      "mpId": 2621,
+      "name": "Евгени Димитров Стоев",
+      "totalEur": 6934166.057377176,
+      "contractorCount": 1,
+      "contractCount": 23
+    },
+    {
+      "kind": "mp",
+      "mpId": 2662,
+      "name": "Дора Илиева Янкова",
+      "totalEur": 6934166.057377176,
+      "contractorCount": 1,
+      "contractCount": 23
+    },
+    {
+      "kind": "official",
+      "slug": "dora-ilieva-yankova-082790",
+      "name": "Дора Илиева Янкова",
+      "tier": "executive",
+      "role": "cabinet",
+      "totalEur": 6934166.057377176,
+      "contractorCount": 1,
+      "contractCount": 23
+    },
+    {
+      "kind": "mp",
+      "mpId": 805,
+      "name": "Йордан Петков Йорданов",
+      "totalEur": 5457004.427787691,
+      "contractorCount": 1,
+      "contractCount": 39
+    },
+    {
+      "kind": "mp",
+      "mpId": 5268,
+      "name": "Румен Ангелов Миланов",
+      "totalEur": 4506876.5038372455,
+      "contractorCount": 1,
+      "contractCount": 6
+    },
+    {
+      "kind": "official",
+      "slug": "iordan-aleksandrov-dimitrov-bc224b",
+      "name": "Йордан Александров Димитров",
+      "tier": "executive",
+      "role": "regional_governor",
+      "totalEur": 508935.380375595,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "mp",
+      "mpId": 4649,
+      "name": "Генади Събков Събков",
+      "totalEur": 398807.6673330504,
       "contractorCount": 1,
       "contractCount": 2
+    },
+    {
+      "kind": "official",
+      "slug": "mincho-stoikov-kazandzhiev-51c218",
+      "name": "Минчо Стойков Казанджиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 398807.6673330504,
+      "contractorCount": 1,
+      "contractCount": 2
+    },
+    {
+      "kind": "official",
+      "slug": "stefan-shtiliyanov-shtiliyanov-9d11f7",
+      "name": "Стефан Щилиянов Щилиянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 398807.6673330504,
+      "contractorCount": 1,
+      "contractCount": 2
+    },
+    {
+      "kind": "official",
+      "slug": "iordanka-vladimirova-bicheva-f99bd5",
+      "name": "Йорданка Владимирова Бичева",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 342494.15849025734,
+      "contractorCount": 1,
+      "contractCount": 9
+    },
+    {
+      "kind": "official",
+      "slug": "zhoro-ivanov-ilchev-635436",
+      "name": "Жоро Иванов Илчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 325813.74659351783,
+      "contractorCount": 1,
+      "contractCount": 3
+    },
+    {
+      "kind": "official",
+      "slug": "kaloyan-ivanov-kdriiski-ef3655",
+      "name": "Калоян Иванов Къдрийски",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "totalEur": 299208.0088760271,
+      "contractorCount": 1,
+      "contractCount": 2
+    },
+    {
+      "kind": "official",
+      "slug": "ivanka-petrova-nikolova-1691b4",
+      "name": "Иванка Петрова Николова",
+      "tier": "municipal",
+      "role": "mayor",
+      "totalEur": 241524.26846914098,
+      "contractorCount": 1,
+      "contractCount": 4
+    },
+    {
+      "kind": "official",
+      "slug": "metodi-petrov-baikushev-bb06bd",
+      "name": "Методи Петров Байкушев",
+      "tier": "municipal",
+      "role": "mayor",
+      "totalEur": 180895.0675672221,
+      "contractorCount": 1,
+      "contractCount": 3
+    },
+    {
+      "kind": "official",
+      "slug": "dzhem-mustafa-kurt-060130",
+      "name": "Джем Мустафа Курт",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 153969.5321167995,
+      "contractorCount": 1,
+      "contractCount": 3
+    },
+    {
+      "kind": "mp",
+      "mpId": 1689,
+      "name": "Андон Петров Андонов",
+      "totalEur": 153387.56435886555,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "mp",
+      "mpId": 5094,
+      "name": "Николай Иванов Косев",
+      "totalEur": 147833.65629937162,
+      "contractorCount": 1,
+      "contractCount": 3
+    },
+    {
+      "kind": "official",
+      "slug": "nikolai-ivanov-kosev-cd5565",
+      "name": "Николай Иванов Косев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 147833.65629937162,
+      "contractorCount": 1,
+      "contractCount": 3
+    },
+    {
+      "kind": "mp",
+      "mpId": 2647,
+      "name": "ДИМИТЪР КРУМОВ АЛЕКСАНДРОВ",
+      "totalEur": 100859.99294417205,
+      "contractorCount": 1,
+      "contractCount": 2
+    },
+    {
+      "kind": "mp",
+      "mpId": 3351,
+      "name": "Мария Василева Капон",
+      "totalEur": 85881.69728452883,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "mp",
+      "mpId": 2558,
+      "name": "Мартин Стоянов Иванов",
+      "totalEur": 82420.25124883042,
+      "contractorCount": 1,
+      "contractCount": 2
+    },
+    {
+      "kind": "official",
+      "slug": "slav-iordanov-monov-4b176c",
+      "name": "Слав Йорданов Монов",
+      "tier": "executive",
+      "role": "agency_head",
+      "totalEur": 77339.81992299945,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "mp",
+      "mpId": 5111,
+      "name": "Калоян Тошков Иванов",
+      "totalEur": 55730.81505038781,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "mp",
+      "mpId": 801,
+      "name": "Стойко Илиев Танков",
+      "totalEur": 50413.37948594714,
+      "contractorCount": 1,
+      "contractCount": 2
+    },
+    {
+      "kind": "official",
+      "slug": "chanko-mindov-mirchev-e27cac",
+      "name": "Чанко Миндов Мирчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 42703.09791750817,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "official",
+      "slug": "plamen-peev-patev-f5c4ee",
+      "name": "Пламен Пеев Патев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 42343.14843314603,
+      "contractorCount": 1,
+      "contractCount": 2
+    },
+    {
+      "kind": "official",
+      "slug": "stefan-lyubomirov-kolarov-e75fbc",
+      "name": "Стефан Любомиров Коларов",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 34256.556040146635,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "mp",
+      "mpId": 3160,
+      "name": "Рушен Мехмед Риза",
+      "totalEur": 21269.74225776269,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "official",
+      "slug": "ilve-faikova-spahieva-94b2a9",
+      "name": "Илве Фаикова Спахиева",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "totalEur": 14294.698414483877,
+      "contractorCount": 2,
+      "contractCount": 10
+    },
+    {
+      "kind": "official",
+      "slug": "anton-todorov-tonev-6701a1",
+      "name": "Антон Тодоров Тонев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 11258.64722394073,
+      "contractorCount": 1,
+      "contractCount": 2
+    },
+    {
+      "kind": "mp",
+      "mpId": 2946,
+      "name": "Елена Стефанова Пешева",
+      "totalEur": 7157.063752984666,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "mp",
+      "mpId": 2734,
+      "name": "Тома Николов Томов",
+      "totalEur": 1533.8756435886555,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "official",
+      "slug": "borislav-krstev-inchev-55f44e",
+      "name": "Борислав Кръстев Инчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 134.98105663580168,
+      "contractorCount": 1,
+      "contractCount": 3
     }
   ]
 }

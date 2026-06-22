@@ -21,7 +21,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useDebarred } from "@/data/procurement/useDebarred";
 import { dataUrl } from "@/data/dataUrl";
 import { formatEur } from "@/lib/currency";
-import { ProcurementNav } from "@/screens/components/procurement/ProcurementNav";
+import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
+import { useProcurementScope } from "@/data/procurement/useProcurementScope";
+import { useElectionContext } from "@/data/ElectionContext";
 import { ConcentrationOblastTiles } from "@/screens/components/procurement/ConcentrationOblastTiles";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
@@ -86,18 +88,28 @@ const ShownOf: FC<{ shown: number; total?: number }> = ({ shown, total }) => {
 };
 
 // One slim file (~28 KB) instead of awarder_concentration.json (≈1 MB) +
-// mp_connected.json — the page only ever shows the top rows.
-const useRiskFeed = () =>
-  useQuery({
-    queryKey: ["procurement", "risk_feed"] as const,
+// mp_connected.json — the page only ever shows the top rows. Scope-aware: ns →
+// the per-election feed (by_ns/risk_feed/<date>.json); all → the full corpus.
+// (Debarred suppliers stay corpus — a "currently barred" register has no date
+// dimension — and are fetched separately.)
+const useRiskFeed = () => {
+  const { scope } = useProcurementScope();
+  const { selected } = useElectionContext();
+  const ns = scope === "ns";
+  const url = ns
+    ? dataUrl(`/procurement/by_ns/risk_feed/${selected}.json`)
+    : dataUrl("/procurement/derived/risk_feed.json");
+  return useQuery({
+    queryKey: ["procurement", "risk_feed", ns ? `ns:${selected}` : "all"],
     queryFn: async () => {
-      const r = await fetch(dataUrl("/procurement/derived/risk_feed.json"));
+      const r = await fetch(url);
       if (r.status === 404) return null;
       if (!r.ok) throw new Error(`fetch failed: ${r.status}`);
       return (await r.json()) as RiskFeedFile;
     },
     staleTime: Infinity,
   });
+};
 
 export const ProcurementFlagsScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -125,7 +137,7 @@ export const ProcurementFlagsScreen: FC = () => {
       >
         {t("flags_title") || "Procurement red flags"}
       </Title>
-      <ProcurementNav />
+      <ProcurementSectionHeader scopeMode="toggle" />
       <section aria-label="procurement flags" className="my-4 space-y-4">
         <p className="text-xs text-muted-foreground">
           {t("flags_intro") ||

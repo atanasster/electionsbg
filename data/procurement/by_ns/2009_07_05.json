@@ -2,7 +2,7 @@
   "electionDate": "2009_07_05",
   "start": "2009-07-05",
   "end": "2013-05-12",
-  "generatedAt": "2026-06-22T04:31:19.609Z",
+  "generatedAt": "2026-06-22T09:30:53.794Z",
   "totals": {
     "contracts": 29613,
     "amendments": 0,
@@ -10,14 +10,14 @@
     "contractorCount": 7350,
     "awarderCount": 1414,
     "totalEur": 6362092009.124456,
-    "mpCount": 16,
-    "mpConnectedContractorCount": 16,
-    "mpConnectedTotalEur": 8949979.763067342,
+    "mpCount": 22,
+    "mpConnectedContractorCount": 22,
+    "mpConnectedTotalEur": 15170014.766109532,
     "officialCount": 26,
     "officialConnectedContractorCount": 24,
     "officialConnectedTotalEur": 16027219.201055307,
-    "connectedContractorCount": 37,
-    "connectedTotalEur": 24050326.076397233
+    "connectedContractorCount": 43,
+    "connectedTotalEur": 30270361.079439424
   },
   "topContractors": [
     {
@@ -725,6 +725,18 @@
   ],
   "topMps": [
     {
+      "mpId": 805,
+      "mpName": "Йордан Петков Йорданов",
+      "totalEur": 5227345.710005473,
+      "contractCount": 73,
+      "contractorCount": 2,
+      "topContractorNames": [
+        "Контракс АД  - старо - Контракс ЕАД - София",
+        "Дайрект Сървисиз ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 938,
       "mpName": "Дарин Величков Матов",
       "totalEur": 2742232.5048700557,
@@ -754,6 +766,17 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Пътстрой-92 АД - София"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 4745,
+      "mpName": "Ваня Иванова Василева",
+      "totalEur": 913844.6337360609,
+      "contractCount": 5,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Фармапро ООД - София"
       ],
       "confidence": "medium"
     },
@@ -789,6 +812,17 @@
         "Ка Комерс ООД - Плевен"
       ],
       "confidence": "high"
+    },
+    {
+      "mpId": 3169,
+      "mpName": "Пламен Иванов Милев",
+      "totalEur": 425567.6413594228,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Университетска многопрофилна болница за активно лечение и спешна Медицина Н.И. Пирогов ЕАД"
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 3655,
@@ -846,6 +880,17 @@
       "confidence": "high"
     },
     {
+      "mpId": 1475,
+      "mpName": "Тодор Борисов Радулов",
+      "totalEur": 44738.03960466912,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Сградостроител - АД, гр. Гоце Делчев"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 50,
       "mpName": "Енчо Вълков Малев",
       "totalEur": 25963.401727143973,
@@ -853,6 +898,17 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Добруджански хляб АД - Добрич"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5121,
+      "mpName": "Атанас Петров Атанасов",
+      "totalEur": 20080.98863398148,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Олимпия Шумен ООД"
       ],
       "confidence": "medium"
     },
@@ -868,8 +924,19 @@
       "confidence": "medium"
     },
     {
+      "mpId": 5092,
+      "mpName": "Богомил Иванов Петков",
+      "totalEur": 14025.631062004366,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Осъм инженеринг АД - Ловеч"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 2946,
-      "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
+      "mpName": "Елена Стефанова Пешева",
       "totalEur": 8878.583516972334,
       "contractCount": 3,
       "contractorCount": 1,

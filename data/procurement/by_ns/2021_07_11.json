@@ -2,22 +2,22 @@
   "electionDate": "2021_07_11",
   "start": "2021-07-11",
   "end": "2021-11-14",
-  "generatedAt": "2026-06-22T04:31:19.591Z",
+  "generatedAt": "2026-06-22T09:30:53.763Z",
   "totals": {
     "contracts": 2266,
     "amendments": 0,
     "awards": 0,
     "contractorCount": 384,
     "awarderCount": 145,
-    "totalEur": 282235123.69684505,
-    "mpCount": 1,
-    "mpConnectedContractorCount": 1,
-    "mpConnectedTotalEur": 215229.789910166,
+    "totalEur": 279303371.20813185,
+    "mpCount": 2,
+    "mpConnectedContractorCount": 2,
+    "mpConnectedTotalEur": 2091585.1479934352,
     "officialCount": 2,
     "officialConnectedContractorCount": 2,
     "officialConnectedTotalEur": 1399395.141704545,
-    "connectedContractorCount": 3,
-    "connectedTotalEur": 1614624.931614711
+    "connectedContractorCount": 4,
+    "connectedTotalEur": 3490980.2896979796
   },
   "topContractors": [
     {
@@ -205,25 +205,9 @@
       "mpIds": []
     },
     {
-      "eik": "131163929",
-      "name": "Авто Инженеринг Холдинг Груп ООД - София",
-      "totalEur": 2528809.7636297634,
-      "contractCount": 2,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "115015062",
       "name": "Пътинженеринг ЕООД - Пловдив",
       "totalEur": 2497660.8396435273,
-      "contractCount": 1,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "177492362",
-      "name": "Джи.Ди.Ей.",
-      "totalEur": 2448474.5606724513,
       "contractCount": 1,
       "mpTied": false,
       "mpIds": []
@@ -273,8 +257,10 @@
       "name": "Контракс АД  - старо - Контракс ЕАД - София",
       "totalEur": 1876355.358083269,
       "contractCount": 6,
-      "mpTied": false,
-      "mpIds": []
+      "mpTied": true,
+      "mpIds": [
+        805
+      ]
     },
     {
       "eik": "030276307",
@@ -419,6 +405,22 @@
       "contractCount": 1,
       "mpTied": false,
       "mpIds": []
+    },
+    {
+      "eik": "126723511",
+      "name": "Ата - Строй ЕООД - Хасково",
+      "totalEur": 1322483.2219569185,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "131163929",
+      "name": "Авто Инженеринг Холдинг Груп ООД - София",
+      "totalEur": 1304572.483293538,
+      "contractCount": 2,
+      "mpTied": false,
+      "mpIds": []
     }
   ],
   "topAwarders": [
@@ -489,12 +491,6 @@
       "contractCount": 78
     },
     {
-      "eik": "836144261",
-      "name": "Тролейбусен транспорт ЕООД",
-      "totalEur": 4896949.121344903,
-      "contractCount": 2
-    },
-    {
       "eik": "000695406",
       "name": "Централен орган за покупки /предишно - Дирекция \"Централно звено за финансиране и договаряне\" /Цзфд/ към Министерство на финансите /МФ//",
       "totalEur": 3374727.0877325735,
@@ -517,6 +513,12 @@
       "name": "Водоснабдяване и канализация ЕООД - Стара Загора",
       "totalEur": 2488350.2144869445,
       "contractCount": 3
+    },
+    {
+      "eik": "836144261",
+      "name": "Тролейбусен транспорт ЕООД",
+      "totalEur": 2448474.5606724513,
+      "contractCount": 2
     },
     {
       "eik": "000614952",
@@ -621,12 +623,6 @@
       "contractCount": 5
     },
     {
-      "eik": "000803757",
-      "name": "Професионална гимназия по облекло и хранене \"Райна княгиня\"",
-      "totalEur": 966555.8560815613,
-      "contractCount": 2
-    },
-    {
       "eik": "130344823",
       "name": "Специализирани болници за рехабилитация - Национален комплекс /Сбр - нк/ ЕАД - София",
       "totalEur": 900660.5788846678,
@@ -717,6 +713,12 @@
       "contractCount": 1
     },
     {
+      "eik": "000803757",
+      "name": "Професионална гимназия по облекло и хранене \"Райна княгиня\"",
+      "totalEur": 483277.92804078065,
+      "contractCount": 2
+    },
+    {
       "eik": "816090199",
       "name": "Водоснабдяване и канализация /в и К/ ООД - Враца",
       "totalEur": 457052.9033709474,
@@ -724,6 +726,17 @@
     }
   ],
   "topMps": [
+    {
+      "mpId": 805,
+      "mpName": "Йордан Петков Йорданов",
+      "totalEur": 1876355.358083269,
+      "contractCount": 6,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Контракс АД  - старо - Контракс ЕАД - София"
+      ],
+      "confidence": "medium"
+    },
     {
       "mpId": 938,
       "mpName": "Дарин Величков Матов",

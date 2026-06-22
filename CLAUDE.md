@@ -67,6 +67,7 @@ There are no tests configured.
 - `?elections=YYYY_MM_DD` — selected election (read by `ElectionContext`)
 - `?cabinet=<id>` — global cabinet anchor on `/governments*` and `/indicators*` (read by `cabinetAnchorContext`)
 - `?peers=RO,GR,HU,HR` — peer-country selection on `/indicators/compare` (read by `usePeerSelection`)
+- `?pscope=all` — procurement time-scope on `/procurement*` (read by `useProcurementScope`); default `ns` (the selected parliament's contract window) is omitted from the URL, `all` pivots to the full corpus. The procurement nav pills carry the current search forward (`useProcurementHref`) so the scope survives sub-page navigation.
 
 ### Local-elections routes
 

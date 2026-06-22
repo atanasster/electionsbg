@@ -1,6 +1,31 @@
 {
-  "generatedAt": "2026-06-22T04:31:19.592Z",
+  "generatedAt": "2026-06-22T09:30:53.764Z",
   "nodes": [
+    {
+      "id": "awarder:000133933",
+      "type": "awarder",
+      "label": "Община Полски Тръмбеш"
+    },
+    {
+      "id": "contractor:175415627",
+      "type": "contractor",
+      "label": "Контракс АД"
+    },
+    {
+      "id": "awarder:129010125",
+      "type": "awarder",
+      "label": "Главна дирекция \"Гранична полиция\" /Гдгп/ към Министерство на вътрешните работи /МВР/"
+    },
+    {
+      "id": "awarder:130572816",
+      "type": "awarder",
+      "label": "Лесозащитна станция - софия"
+    },
+    {
+      "id": "awarder:000695114",
+      "type": "awarder",
+      "label": "Министерство на образованието и науката /МОН/"
+    },
     {
       "id": "awarder:000695406",
       "type": "awarder",
@@ -12,9 +37,24 @@
       "label": "Български пощи /Бп/ ЕАД - София"
     },
     {
+      "id": "awarder:000672343",
+      "type": "awarder",
+      "label": "Българско национално радио /БНР/"
+    },
+    {
       "id": "awarder:000093442",
       "type": "awarder",
       "label": "Община Варна"
+    },
+    {
+      "id": "awarder:000252923",
+      "type": "awarder",
+      "label": "Професионална гимназия по транспорт"
+    },
+    {
+      "id": "mp:805",
+      "type": "mp",
+      "label": "Йордан Петков Йорданов"
     },
     {
       "id": "mp:938",
@@ -24,14 +64,54 @@
   ],
   "links": [
     {
+      "source": "awarder:000133933",
+      "target": "contractor:175415627",
+      "valueEur": 276120.6239806118
+    },
+    {
+      "source": "awarder:129010125",
+      "target": "contractor:175415627",
+      "valueEur": 306775.1287177311
+    },
+    {
+      "source": "awarder:130572816",
+      "target": "contractor:175415627",
+      "valueEur": 19773.702213382552
+    },
+    {
+      "source": "awarder:000695114",
+      "target": "contractor:175415627",
+      "valueEur": 341307.2710818425
+    },
+    {
+      "source": "awarder:000695406",
+      "target": "contractor:175415627",
+      "valueEur": 3672.0573874007455
+    },
+    {
       "source": "awarder:000695406",
       "target": "contractor:121396123",
       "valueEur": 129893.9580638399
     },
     {
+      "source": "awarder:000672343",
+      "target": "contractor:175415627",
+      "valueEur": 86877.69386909905
+    },
+    {
       "source": "awarder:000093442",
       "target": "contractor:121396123",
       "valueEur": 170430.6253610999
+    },
+    {
+      "source": "awarder:000252923",
+      "target": "contractor:175415627",
+      "valueEur": 19073.92258018335
+    },
+    {
+      "source": "contractor:175415627",
+      "target": "mp:805",
+      "valueEur": 1053600.399830251
     },
     {
       "source": "contractor:121396123",

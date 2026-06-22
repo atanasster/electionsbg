@@ -28,7 +28,7 @@ import { Button } from "@/components/ui/button";
 import { useProcurementBySettlementIndex } from "@/data/procurement/useSettlementProcurement";
 import { provinceToCanon } from "@/data/procurement/useProcurementByOblast";
 import { ProcurementChoroplethTile } from "@/screens/components/procurement/ProcurementChoroplethTile";
-import { ProcurementNav } from "@/screens/components/procurement/ProcurementNav";
+import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
 
 const eurFmt = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 });
 const countFmt = new Intl.NumberFormat("bg-BG");
@@ -225,7 +225,7 @@ export const ProcurementBySettlementScreen: FC = () => {
       <Title>
         {t("procurement_settlement_title") || "Procurement by settlement"}
       </Title>
-      <ProcurementNav />
+      <ProcurementSectionHeader scopeMode="toggle" />
 
       <p className="mb-6 text-sm text-muted-foreground leading-relaxed">
         {t("procurement_settlement_intro_p1") ||

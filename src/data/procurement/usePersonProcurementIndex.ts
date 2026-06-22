@@ -11,6 +11,8 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
+import { useElectionContext } from "@/data/ElectionContext";
+import { useProcurementScope } from "./useProcurementScope";
 
 export type PersonProcurementRow = {
   kind: "mp" | "official";
@@ -32,10 +34,8 @@ type PersonIndexFile = {
   rows: PersonProcurementRow[];
 };
 
-const fetchIndex = async (): Promise<PersonIndexFile | null> => {
-  const r = await fetch(
-    dataUrl("/procurement/derived/person_procurement_index.json"),
-  );
+const fetchIndex = async (url: string): Promise<PersonIndexFile | null> => {
+  const r = await fetch(url);
   if (r.status === 404) return null;
   if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
   return (await r.json()) as PersonIndexFile;
@@ -45,9 +45,17 @@ export const usePersonProcurementIndex = (): {
   rows: PersonProcurementRow[];
   isLoading: boolean;
 } => {
+  const { scope } = useProcurementScope();
+  const { selected } = useElectionContext();
+  const ns = scope === "ns";
+  // ns → the per-election scanner index (by_ns/people/<date>.json); all → the
+  // full-corpus index.
+  const url = ns
+    ? dataUrl(`/procurement/by_ns/people/${selected}.json`)
+    : dataUrl("/procurement/derived/person_procurement_index.json");
   const { data, isLoading } = useQuery({
-    queryKey: ["procurement", "person_index"] as const,
-    queryFn: fetchIndex,
+    queryKey: ["procurement", "person_index", ns ? `ns:${selected}` : "all"],
+    queryFn: () => fetchIndex(url),
     staleTime: Infinity,
   });
   return { rows: data?.rows ?? [], isLoading };

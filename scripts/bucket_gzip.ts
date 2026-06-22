@@ -91,6 +91,23 @@ const collect = (): string[] => {
     for (const f of readdirSync(byNsDir)) {
       if (f.endsWith(".json")) out.push(`procurement/by_ns/${f}`);
     }
+    // Per-NS sidecars: the flows / people / concentration / flags pages each
+    // wait on one of these when the section scope is a parliament (?pscope
+    // defaults to the selected NS). Compress ~6× on the wire.
+    for (const sub of [
+      "flow",
+      "people",
+      "concentration",
+      "risk_feed",
+      "by_settlement",
+    ]) {
+      const subDir = join(byNsDir, sub);
+      if (existsSync(subDir)) {
+        for (const f of readdirSync(subDir)) {
+          if (f.endsWith(".json")) out.push(`procurement/by_ns/${sub}/${f}`);
+        }
+      }
+    }
   }
   for (const entry of readdirSync(DATA, { withFileTypes: true })) {
     if (!entry.isDirectory() || !isElectionDir(entry.name)) continue;

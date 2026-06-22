@@ -2,736 +2,963 @@
   "electionDate": "2024_06_09",
   "start": "2024-06-09",
   "end": "2024-10-27",
-  "generatedAt": "2026-06-22T04:31:19.582Z",
+  "generatedAt": "2026-06-22T09:30:53.736Z",
   "totals": {
-    "contracts": 765,
+    "contracts": 17957,
     "amendments": 0,
     "awards": 0,
-    "contractorCount": 153,
-    "awarderCount": 254,
-    "totalEur": 34543871.49189857,
-    "mpCount": 0,
-    "mpConnectedContractorCount": 0,
-    "mpConnectedTotalEur": 0,
-    "officialCount": 2,
-    "officialConnectedContractorCount": 1,
-    "officialConnectedTotalEur": 849767.1065481151,
-    "connectedContractorCount": 1,
-    "connectedTotalEur": 849767.1065481151
+    "contractorCount": 3958,
+    "awarderCount": 1757,
+    "totalEur": 5733050838.762482,
+    "mpCount": 20,
+    "mpConnectedContractorCount": 19,
+    "mpConnectedTotalEur": 279073180.5486673,
+    "officialCount": 21,
+    "officialConnectedContractorCount": 20,
+    "officialConnectedTotalEur": 82182832.67035821,
+    "connectedContractorCount": 36,
+    "connectedTotalEur": 353775205.8380159
   },
   "topContractors": [
     {
-      "eik": "130921214",
-      "name": "М-ФОРМА ООД",
-      "totalEur": 2443293.803653692,
+      "eik": "115004094",
+      "name": "Европейски пътища АД",
+      "totalEur": 140580453.66928616,
+      "contractCount": 8,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "025870637",
+      "name": "Шкода Вагонка а.с. - участник в консорциум \"Шкода Транспортейшън и Шкода Вагонка\"",
+      "totalEur": 130737334.02187307,
       "contractCount": 1,
       "mpTied": false,
       "mpIds": []
     },
     {
-      "eik": "130878827",
-      "name": "Клет българия ООД",
-      "totalEur": 1913083.0747048573,
-      "contractCount": 85,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "131468980",
-      "name": "А1 България ЕАД",
-      "totalEur": 1871476.411549061,
-      "contractCount": 13,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "201055457",
-      "name": "Балистик СЕЛ ЕООД",
-      "totalEur": 1743763.1644877107,
-      "contractCount": 26,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "175415627",
-      "name": "Контракс АД",
-      "totalEur": 1403943.082987785,
-      "contractCount": 3,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "203577735",
-      "name": "Феникс ИК ЕООД",
-      "totalEur": 1229772.654065026,
-      "contractCount": 2,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "130169509",
-      "name": "Строймонтаж ЕООД",
-      "totalEur": 1218516.000879422,
-      "contractCount": 2,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "000885099",
-      "name": "Кооперация Панда",
-      "totalEur": 1109611.3517023462,
-      "contractCount": 23,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "121057952",
-      "name": "Лирекс БГ ООД",
-      "totalEur": 1067475.189561465,
+      "eik": "062623753",
+      "name": "Шкода Транспортейшън а.с. - участник в консорциум \"Шкода Транспортейшън и Шкода Вагонка\"",
+      "totalEur": 130737334.02187307,
       "contractCount": 1,
       "mpTied": false,
       "mpIds": []
     },
     {
-      "eik": "204660454",
-      "name": "Юнион интерактив ООД",
-      "totalEur": 1045623.0347218317,
-      "contractCount": 24,
+      "eik": "831646048",
+      "name": "Автомагистрали ЕАД",
+      "totalEur": 128728110.31633629,
+      "contractCount": 1,
+      "mpTied": true,
+      "mpIds": [
+        3271
+      ]
+    },
+    {
+      "eik": "113580690",
+      "name": "Нивел строй ЕООД",
+      "totalEur": 115055118.35640112,
+      "contractCount": 14,
       "mpTied": false,
       "mpIds": []
     },
     {
-      "eik": "205975093",
-      "name": "Строй - МАЛ ЕООД",
-      "totalEur": 916627.181298988,
-      "contractCount": 3,
+      "eik": "204342601",
+      "name": "Инфра експерт АД",
+      "totalEur": 113931377.98530546,
+      "contractCount": 11,
       "mpTied": false,
       "mpIds": []
     },
     {
-      "eik": "131106522",
-      "name": "ПРОСВЕТА-СОФИЯ АД",
-      "totalEur": 895056.9885930782,
-      "contractCount": 82,
+      "eik": "836014515",
+      "name": "АБ АД",
+      "totalEur": 105215842.84591877,
+      "contractCount": 4,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "121830616",
+      "name": "Банка ДСК АД",
+      "totalEur": 103317000.96634166,
+      "contractCount": 4,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "103267194",
+      "name": "Софарма трейдинг АД",
+      "totalEur": 96836866.16909443,
+      "contractCount": 331,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "831919536",
+      "name": "УниКредит Булбанк АД",
+      "totalEur": 95990721.58623193,
+      "contractCount": 14,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "110052320",
+      "name": "Виастрой АД",
+      "totalEur": 82434510.09375389,
+      "contractCount": 8,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "123682269",
+      "name": "Трейс груп холд АД",
+      "totalEur": 67926012.95784056,
+      "contractCount": 6,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "000694959",
+      "name": "Обединена Българска банка АД",
+      "totalEur": 67507384.58864012,
+      "contractCount": 6,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "203283623",
+      "name": "Фьоникс Фарма ЕООД",
+      "totalEur": 65957925.219898134,
+      "contractCount": 213,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "200081794",
+      "name": "ПЪТПЕРФЕКТ-Т ЕАД",
+      "totalEur": 59999928.13281318,
+      "contractCount": 4,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "121396123",
+      "name": "Български пощи ЕАД",
+      "totalEur": 56972566.961341225,
+      "contractCount": 20,
+      "mpTied": true,
+      "mpIds": [
+        938
+      ]
+    },
+    {
+      "eik": "831373560",
+      "name": "Български енергиен холдинг ЕАД",
+      "totalEur": 52674043.75635919,
+      "contractCount": 2,
+      "mpTied": true,
+      "mpIds": [
+        2670
+      ]
+    },
+    {
+      "eik": "204257528",
+      "name": "ДЖИ ПИ Груп АД",
+      "totalEur": 52661702.4178993,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "121706547",
+      "name": "РСР ЕООД",
+      "totalEur": 49921253.196852475,
+      "contractCount": 131,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "831553811",
+      "name": "ИНГ Банк Н.В. - клон софия КЧТ",
+      "totalEur": 49071661,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "175256438",
+      "name": "Алта фармасютикълс ЕООД",
+      "totalEur": 45771418.07314541,
+      "contractCount": 27,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "200852966",
+      "name": "Бент ОЙЛ АД",
+      "totalEur": 45713092.49781423,
+      "contractCount": 29,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "175402074",
+      "name": "Главболгарстрой интернешънал АД",
+      "totalEur": 45703770.366886005,
+      "contractCount": 4,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "831652485",
+      "name": "Главболгарстрой АД",
+      "totalEur": 43678480.02979127,
+      "contractCount": 4,
       "mpTied": false,
       "mpIds": []
     },
     {
       "eik": "831641791",
       "name": "Информационно обслужване АД",
-      "totalEur": 849767.1065481151,
+      "totalEur": 42869651.65684133,
+      "contractCount": 44,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "205722229",
+      "name": "Хитачи Енерджи България ЕООД",
+      "totalEur": 42184809.05804696,
+      "contractCount": 6,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "050919679",
+      "name": "ХИЛ Интернешънал Н.В.",
+      "totalEur": 41329426.97814568,
       "contractCount": 2,
       "mpTied": false,
       "mpIds": []
     },
     {
-      "eik": "131223059",
-      "name": "Стреза ЕООД",
-      "totalEur": 840140.3547343072,
-      "contractCount": 1,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "112522459",
-      "name": "ТЕХНО-КОНСУЛТ 2000 ЕООД",
-      "totalEur": 796334.364438627,
-      "contractCount": 1,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "101794760",
-      "name": "Топметал ЕООД",
-      "totalEur": 766437.8345766248,
-      "contractCount": 1,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "836147896",
-      "name": "АКВА-3 ООД",
-      "totalEur": 754980.0187132829,
+      "eik": "207186755",
+      "name": "ГБС Енерджи Сълюшънс ЕАД",
+      "totalEur": 41329426.97814568,
       "contractCount": 2,
       "mpTied": false,
       "mpIds": []
     },
     {
-      "eik": "825297318",
-      "name": "Акварел ООД",
-      "totalEur": 647597.5417086352,
+      "eik": "805488680",
+      "name": "ГБС Технолоджис Инк.",
+      "totalEur": 41329426.97814568,
+      "contractCount": 2,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "131268894",
+      "name": "Медекс ООД",
+      "totalEur": 35607322.81324722,
+      "contractCount": 119,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "128001319",
+      "name": "Алианц банк българия АД",
+      "totalEur": 34935239.77032769,
       "contractCount": 3,
       "mpTied": false,
       "mpIds": []
     },
     {
-      "eik": "200388512",
-      "name": "Ивелинстрой ЕООД",
-      "totalEur": 631536.6877489352,
+      "eik": "181120574",
+      "name": "ПП София 2023",
+      "totalEur": 32989694.592577066,
       "contractCount": 1,
       "mpTied": false,
       "mpIds": []
     },
     {
-      "eik": "130479237",
-      "name": "Примастрой 21 ООД",
-      "totalEur": 631091.0201806906,
+      "eik": "202924485",
+      "name": "Обонато билд ЕООД",
+      "totalEur": 32989694.592577066,
       "contractCount": 1,
       "mpTied": false,
       "mpIds": []
     },
     {
-      "eik": "130771864",
-      "name": "Геоплан ЕООД",
-      "totalEur": 631091.0201806906,
+      "eik": "202861597",
+      "name": "Ситибанк Европа АД, клон България КЧТ",
+      "totalEur": 32518616.84809007,
       "contractCount": 1,
       "mpTied": false,
       "mpIds": []
     },
     {
-      "eik": "181126919",
-      "name": "ДЗЗД „Прима – геоплан“",
-      "totalEur": 631091.0201806906,
-      "contractCount": 1,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "109514464",
-      "name": "Стройкомерс ЕООД",
-      "totalEur": 609856.9660962354,
-      "contractCount": 1,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "181142421",
-      "name": "Аква Спорт",
-      "totalEur": 590828.042314516,
-      "contractCount": 1,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "115749729",
-      "name": "Юнивърс ЕООД",
-      "totalEur": 284140.6717352735,
-      "contractCount": 39,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "175270007",
-      "name": "Криси 2007 ЕООД",
-      "totalEur": 282979.51764723926,
-      "contractCount": 1,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "201264752",
-      "name": "БГ Учебник ЕООД",
-      "totalEur": 248614.45013114632,
-      "contractCount": 41,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "202596960",
-      "name": "Вертикал 90 ЕООД",
-      "totalEur": 236825.61879099923,
-      "contractCount": 1,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "200562468",
-      "name": "Вера строй ЕООД",
-      "totalEur": 228087.30820163307,
-      "contractCount": 1,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "205050386",
-      "name": "Ники ФИШ 2018 ЕООД",
-      "totalEur": 224052.42275657906,
-      "contractCount": 1,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "201533149",
-      "name": "Енел строй ООД",
-      "totalEur": 219469.28925315596,
-      "contractCount": 1,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "206014012",
-      "name": "НИК Строй 2000 ЕООД",
-      "totalEur": 189868.67468031475,
-      "contractCount": 1,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "205196035",
-      "name": "Билдинг СВ ЕООД",
-      "totalEur": 188506.29144659813,
-      "contractCount": 1,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "202097555",
-      "name": "Архимед 2 ЕООД",
-      "totalEur": 187660.6760301253,
-      "contractCount": 52,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "206547220",
-      "name": "Джей ЕНД ДЖИ едюкейшън ЕООД",
-      "totalEur": 181660.47151337285,
-      "contractCount": 4,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "125577594",
-      "name": "Геострой попово ООД",
-      "totalEur": 180007.95570167142,
-      "contractCount": 2,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "206368790",
-      "name": "Аксес Саунд ЕООД",
-      "totalEur": 171220.91388310844,
-      "contractCount": 4,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "203795787",
-      "name": "УНИ 47 ООД",
-      "totalEur": 160998.6655281901,
-      "contractCount": 2,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "813044200",
-      "name": "С.А.Н.-ПРО ЕООД",
-      "totalEur": 160694.04805121102,
-      "contractCount": 24,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "130508678",
-      "name": "Епос груп ЕООД",
-      "totalEur": 143347.6324629441,
-      "contractCount": 1,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "200431401",
-      "name": "ИВТ Дивелъпмънт ЕООД",
-      "totalEur": 141790.59529713728,
-      "contractCount": 1,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "206853231",
-      "name": "ТС Кънстракшън ЕООД",
-      "totalEur": 133344.55959873812,
-      "contractCount": 1,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "202395053",
-      "name": "ЕВРОКЛАС-КОНСУЛТ ЕООД",
-      "totalEur": 133080.66140717754,
-      "contractCount": 7,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "206619292",
-      "name": "ТРАНС-СТРОЙ Билд ЕООД",
-      "totalEur": 132496.94503100985,
-      "contractCount": 1,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "206113359",
-      "name": "Никстройгруп - 2001 ЕООД",
-      "totalEur": 131231.58454466902,
-      "contractCount": 1,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "126145986",
-      "name": "Уикенд ООД",
-      "totalEur": 129746.7929216752,
-      "contractCount": 2,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "103275063",
-      "name": "Варна оборот ЕООД",
-      "totalEur": 122257.64509185357,
-      "contractCount": 5,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "204968092",
-      "name": "Маив билд ООД",
-      "totalEur": 120943.1085523793,
-      "contractCount": 1,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "114616366",
-      "name": "Веселин Балев ЕООД",
-      "totalEur": 120771.85133677264,
+      "eik": "813003456",
+      "name": "А.Д.ХОЛД ООД",
+      "totalEur": 32381819.144131474,
       "contractCount": 3,
       "mpTied": false,
       "mpIds": []
     },
     {
-      "eik": "831408470",
-      "name": "Педагог 6 - Делев, Луизова и С-ИЕ СД",
-      "totalEur": 118615.4982795028,
-      "contractCount": 49,
+      "eik": "121856059",
+      "name": "Българска банка за развитие ЕАД",
+      "totalEur": 30500000,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "181135583",
+      "name": "ХИЛ Интернешънал – ГБС 3",
+      "totalEur": 30099942.394448053,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "831643461",
+      "name": "Витез проспект АД",
+      "totalEur": 29557202.521009836,
+      "contractCount": 3,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "206474936",
+      "name": "Пътстрой ВДХ ЕАД",
+      "totalEur": 28438228.35317998,
+      "contractCount": 4,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "181142446",
+      "name": "ТРП Бургас 2023",
+      "totalEur": 27547582.100693822,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "101111481",
+      "name": "Етерна кънстръкшън АД",
+      "totalEur": 25059267.30595195,
+      "contractCount": 2,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "000670919",
+      "name": "Национален Археологически институт с музей на БАН",
+      "totalEur": 24810030.524125304,
+      "contractCount": 9,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "207021725",
+      "name": "Трейс БГ ЕООД",
+      "totalEur": 24753220.820146263,
+      "contractCount": 2,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "180804772",
+      "name": "Поддържане 2022",
+      "totalEur": 23740830.83226388,
+      "contractCount": 1,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "204070457",
+      "name": "\"ПСП Строй\" АД",
+      "totalEur": 23373613.67126318,
+      "contractCount": 11,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "131279951",
+      "name": "РОШ България ЕООД",
+      "totalEur": 22815573.398506004,
+      "contractCount": 18,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "101611650",
+      "name": "Грома Холд ЕООД",
+      "totalEur": 22521463.018258236,
+      "contractCount": 14,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "103029862",
+      "name": "Хидрострой АД",
+      "totalEur": 22197282.26166555,
+      "contractCount": 20,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "206401308",
+      "name": "ЕСО Инженеринг ЕООД",
+      "totalEur": 21889000.27098469,
+      "contractCount": 9,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "202920330",
+      "name": "Пътинженеринг АД",
+      "totalEur": 21783391.393935055,
+      "contractCount": 15,
       "mpTied": false,
       "mpIds": []
     }
   ],
   "topAwarders": [
     {
-      "eik": "181092349",
-      "name": "Съдийската колегия на Висшия съдебен съвет, изпълняваща функциите на Висш съдебен съвет, съгласно пар. 23, ал. 2 от ПЗР на ЗИД на КРБ",
-      "totalEur": 7160896.049247635,
-      "contractCount": 6
+      "eik": "000695089",
+      "name": "Агенция \"Пътна инфраструктура\"",
+      "totalEur": 1411034557.4615393,
+      "contractCount": 151
     },
     {
-      "eik": "000403250",
-      "name": "Средно училище \"Евлоги Георгиев\"",
-      "totalEur": 1893273.0605420717,
-      "contractCount": 3
+      "eik": "175203478",
+      "name": "Булгартрансгаз ЕАД",
+      "totalEur": 689108659.7677867,
+      "contractCount": 70
     },
     {
-      "eik": "000759816",
-      "name": "Основно училище \"Отец Паисий\"",
-      "totalEur": 876580.1271071617,
-      "contractCount": 2
-    },
-    {
-      "eik": "000342349",
-      "name": "Средно училище \"Христо Смирненски\"",
-      "totalEur": 824364.5766758869,
-      "contractCount": 6
-    },
-    {
-      "eik": "118500462",
-      "name": "Професионална гимназия по облекло, Обслужване и транспорт",
-      "totalEur": 803932.6679721653,
-      "contractCount": 9
-    },
-    {
-      "eik": "000013204",
-      "name": "Основно училище \"СВ. СВ. Кирил и Методий\"",
-      "totalEur": 802101.4658738234,
-      "contractCount": 2
-    },
-    {
-      "eik": "000962492",
-      "name": "Професионална Техническа гимназия \"Иван Райнов\"",
-      "totalEur": 682109.7436893799,
-      "contractCount": 7
-    },
-    {
-      "eik": "000251853",
-      "name": "Основно училище \"Христаки павлович\"",
-      "totalEur": 654440.6415690525,
-      "contractCount": 2
-    },
-    {
-      "eik": "000453374",
-      "name": "Средно училище \"Христо Ботев\" - гр. Съединение",
-      "totalEur": 637243.7635172791,
-      "contractCount": 8
-    },
-    {
-      "eik": "000402390",
-      "name": "Средно училище \"Васил Априлов\"",
-      "totalEur": 631536.6877489352,
-      "contractCount": 1
-    },
-    {
-      "eik": "000378509",
-      "name": "12-ТО Основно училище \"В.ЛЕВСКИ\"",
-      "totalEur": 615079.8433401677,
-      "contractCount": 1
-    },
-    {
-      "eik": "000760455",
-      "name": "Професионална гимназия по транспорт \"Никола й. Вапцаров\"",
-      "totalEur": 609856.9660962354,
-      "contractCount": 1
-    },
-    {
-      "eik": "000341215",
-      "name": "Начално училище \"Васил Левски\"",
-      "totalEur": 601047.6830808404,
-      "contractCount": 1
-    },
-    {
-      "eik": "000965467",
-      "name": "НУ \"Професор Нойков\"",
-      "totalEur": 590828.042314516,
-      "contractCount": 1
-    },
-    {
-      "eik": "000892784",
-      "name": "Средно училище \"Проф. д-р асен Златаров\"",
-      "totalEur": 587446.6185711437,
-      "contractCount": 1
-    },
-    {
-      "eik": "000669817",
-      "name": "Национална ТЪРГОВСКО-БАНКОВА ГИМНАЗИЯ-СОФИЯ",
-      "totalEur": 369551.88845656323,
-      "contractCount": 10
-    },
-    {
-      "eik": "000451284",
-      "name": "Детска Градина \"Радост\" - гр. Пловдив",
-      "totalEur": 311277.0537316638,
-      "contractCount": 6
-    },
-    {
-      "eik": "000893231",
-      "name": "ПМГ със Засилено изучаване на чужди езици \"Иван Вазов\"",
-      "totalEur": 287544.60254725616,
-      "contractCount": 8
-    },
-    {
-      "eik": "000666080",
-      "name": "Детска Градина № 25 \"Изворче\"",
-      "totalEur": 282979.51764723926,
-      "contractCount": 1
-    },
-    {
-      "eik": "000522532",
-      "name": "Професионална гимназия по транспорт",
-      "totalEur": 266789.2096961392,
-      "contractCount": 3
-    },
-    {
-      "eik": "176557063",
-      "name": "Професионална гимназия \"Марин Попов\"",
-      "totalEur": 236825.61879099923,
-      "contractCount": 1
-    },
-    {
-      "eik": "000344290",
-      "name": "Езикова гимназия \"Бертолт брехт\"",
-      "totalEur": 224417.77659612545,
-      "contractCount": 6
-    },
-    {
-      "eik": "000522201",
-      "name": "Основно училище \"ХР.БОТЕВ\"",
-      "totalEur": 224052.42275657906,
-      "contractCount": 1
-    },
-    {
-      "eik": "000121607",
-      "name": "Начално училище \"Цани Гинчев\"",
-      "totalEur": 219469.28925315596,
-      "contractCount": 1
-    },
-    {
-      "eik": "108508795",
-      "name": "Ученическо хранене ЕООД",
-      "totalEur": 209520.39798960031,
-      "contractCount": 4
-    },
-    {
-      "eik": "000582579",
-      "name": "Средно училище \"Христо Ботев\"",
-      "totalEur": 191884.45826068727,
+      "eik": "000695388",
+      "name": "Министерство на транспорта и съобщенията",
+      "totalEur": 261911952.55722636,
       "contractCount": 18
     },
     {
-      "eik": "000082392",
-      "name": "Основно училище \"Отец Паисий\"",
-      "totalEur": 189868.67468031475,
-      "contractCount": 1
+      "eik": "130533432",
+      "name": "Овергаз мрежи АД",
+      "totalEur": 165977572.49863228,
+      "contractCount": 28
     },
     {
-      "eik": "000082588",
-      "name": "Основно училище \"Христо Ботев\"",
-      "totalEur": 189609.19405060768,
-      "contractCount": 2
+      "eik": "175201304",
+      "name": "Електроенергиен системен оператор - ЕАД, Управление МЕР - София област",
+      "totalEur": 154491733.2999291,
+      "contractCount": 412
     },
     {
-      "eik": "000581388",
-      "name": "Средно училище \"Константин Константинов\"",
-      "totalEur": 189281.0366954183,
-      "contractCount": 7
+      "eik": "115576405",
+      "name": "Университетска многопрофилна болница за активно лечение \"Свети георги\" ЕАД",
+      "totalEur": 133031263.13125381,
+      "contractCount": 209
     },
     {
-      "eik": "000127535",
-      "name": "Средно училище \"Цветан Радославов\"",
-      "totalEur": 188506.29144659813,
-      "contractCount": 1
+      "eik": "130277958",
+      "name": "Електроразпределителни мрежи Запад ЕАД",
+      "totalEur": 81276935.4033837,
+      "contractCount": 127
     },
     {
-      "eik": "000013916",
-      "name": "Национална хуманитарна гимназия \"Свети свети кирил и Методий\"",
-      "totalEur": 174454.31862687453,
-      "contractCount": 11
+      "eik": "130823243",
+      "name": "Национална компания \"Железопътна инфраструктура\" ДП",
+      "totalEur": 67941763.30764943,
+      "contractCount": 58
     },
     {
-      "eik": "000123483",
-      "name": "ПРИРОДО-МАТЕМАТИЧЕСКА Гимназия \"Васил Друмев\"",
-      "totalEur": 172011.17172760415,
+      "eik": "000697179",
+      "name": "Държавно предприятие \"Ръководство на въздушното движение\" ТПП",
+      "totalEur": 58424528.7602939,
+      "contractCount": 105
+    },
+    {
+      "eik": "106513772",
+      "name": "АЕЦ Козлодуй ЕАД",
+      "totalEur": 57746336.97714011,
+      "contractCount": 136
+    },
+    {
+      "eik": "000696327",
+      "name": "Район \"Надежда\"",
+      "totalEur": 51880854.57325022,
+      "contractCount": 240
+    },
+    {
+      "eik": "000056814",
+      "name": "Община Бургас",
+      "totalEur": 46824642.24395778,
+      "contractCount": 137
+    },
+    {
+      "eik": "000695317",
+      "name": "Министерство на здравеопазването",
+      "totalEur": 45424289.519027695,
+      "contractCount": 174
+    },
+    {
+      "eik": "000695324",
+      "name": "Министерство на отбраната",
+      "totalEur": 45137693.802631095,
+      "contractCount": 49
+    },
+    {
+      "eik": "129000273",
+      "name": "Военномедицинска академия",
+      "totalEur": 42787511.711140536,
+      "contractCount": 107
+    },
+    {
+      "eik": "200105779",
+      "name": "Специализирана болница за активно лечение на хематологични заболявания ЕАД",
+      "totalEur": 41417050.51052493,
+      "contractCount": 36
+    },
+    {
+      "eik": "129007218",
+      "name": "Медицински институт на МВР",
+      "totalEur": 40847271.95615159,
+      "contractCount": 122
+    },
+    {
+      "eik": "000695406",
+      "name": "Министерство на финансите",
+      "totalEur": 37904851.0044329,
+      "contractCount": 29
+    },
+    {
+      "eik": "833017552",
+      "name": "Мини марица - изток ЕАД",
+      "totalEur": 35197681.34244796,
+      "contractCount": 31
+    },
+    {
+      "eik": "000852932",
+      "name": "Община Град добрич",
+      "totalEur": 32940941.62069301,
+      "contractCount": 44
+    },
+    {
+      "eik": "101533900",
+      "name": "Специализирана болница за активно лечение по ОНКОЛОГИЯ\"СВЕТИ Мина\" ЕООД",
+      "totalEur": 28970506.18407528,
+      "contractCount": 269
+    },
+    {
+      "eik": "121683408",
+      "name": "Столичен автотранспорт ЕАД",
+      "totalEur": 27788771.69794921,
+      "contractCount": 19
+    },
+    {
+      "eik": "202766380",
+      "name": "Български спортен тотализатор ДП",
+      "totalEur": 27771614.393889036,
+      "contractCount": 51
+    },
+    {
+      "eik": "831913661",
+      "name": "Държавна агенция \"Държавен резерв и военновременни запаси\"",
+      "totalEur": 27395099.165060345,
+      "contractCount": 25
+    },
+    {
+      "eik": "123531939",
+      "name": "ТЕЦ Марица изток 2 ЕАД",
+      "totalEur": 26762317.128789317,
+      "contractCount": 105
+    },
+    {
+      "eik": "000662790",
+      "name": "Специализирана болница за активно лечение по детски болести – проф.Иван Митев ЕАД",
+      "totalEur": 26510135.149782952,
+      "contractCount": 60
+    },
+    {
+      "eik": "000662776",
+      "name": "Университетска специализирана болница за активно лечение по онкология \"Проф. Иван Черноземски\" ЕАД",
+      "totalEur": 25794933.05144108,
+      "contractCount": 51
+    },
+    {
+      "eik": "000900156",
+      "name": "Специализирана болница за активно лечение по онкология - хасково ЕООД",
+      "totalEur": 25636051.68138335,
+      "contractCount": 12
+    },
+    {
+      "eik": "000133673",
+      "name": "Община Горна оряховица",
+      "totalEur": 24419969.98716657,
+      "contractCount": 26
+    },
+    {
+      "eik": "104518621",
+      "name": "Електроразпределение север АД",
+      "totalEur": 22209305.701415762,
+      "contractCount": 36
+    },
+    {
+      "eik": "831605795",
+      "name": "Университетска многопрофилна болница за активно лечение \"Александровска\" ЕАД",
+      "totalEur": 21946154.83963331,
+      "contractCount": 61
+    },
+    {
+      "eik": "000024916",
+      "name": "Община Петрич",
+      "totalEur": 21452294.948947504,
+      "contractCount": 30
+    },
+    {
+      "eik": "130316140",
+      "name": "Пристанищна инфраструктура ДП",
+      "totalEur": 21401715.72171406,
       "contractCount": 13
     },
     {
-      "eik": "811147785",
-      "name": "Основно училище \"Братя миладинови\"",
-      "totalEur": 169008.19089593674,
-      "contractCount": 2
+      "eik": "115552190",
+      "name": "Електроразпределение Юг ЕАД",
+      "totalEur": 20514943.630070098,
+      "contractCount": 91
     },
     {
-      "eik": "000891305",
-      "name": "Начално училище \"Захари Стоянов\"",
-      "totalEur": 167533.40014213914,
-      "contractCount": 1
+      "eik": "000093442",
+      "name": "Община Варна",
+      "totalEur": 20268096.52168133,
+      "contractCount": 112
     },
     {
-      "eik": "000760099",
-      "name": "Профилирана ПРИРОДО-МАТЕМАТИЧЕСКА гимназия \"Акад. Проф. Д-Р асен Златаров\"",
-      "totalEur": 166888.9065000537,
-      "contractCount": 9
+      "eik": "000235920",
+      "name": "Община Кърджали",
+      "totalEur": 20107001.395826835,
+      "contractCount": 35
     },
     {
-      "eik": "000893256",
-      "name": "Средно училище \"Неофит Рилски\"",
-      "totalEur": 160087.7581384885,
-      "contractCount": 14
+      "eik": "831641791",
+      "name": "Информационно обслужване АД",
+      "totalEur": 19172031.449563615,
+      "contractCount": 47
     },
     {
-      "eik": "823090153",
-      "name": "Професионална гимназия по облекло и туризъм \"Свети иван Рилски\"",
-      "totalEur": 156471.67698624113,
-      "contractCount": 2
+      "eik": "815123415",
+      "name": "Водоснабдяване и канализация - Видин ЕООД",
+      "totalEur": 18988823.15947705,
+      "contractCount": 16
     },
     {
-      "eik": "000558635",
-      "name": "Средно училище \"Христо Ботев\"",
-      "totalEur": 152927.0795519038,
-      "contractCount": 1
+      "eik": "000694037",
+      "name": "Българска народна банка",
+      "totalEur": 18679595.139076807,
+      "contractCount": 36
     },
     {
-      "eik": "000922843",
-      "name": "Професионална гимназия по икономика",
-      "totalEur": 148296.94809876115,
-      "contractCount": 2
+      "eik": "103061301",
+      "name": "Пристанище варна ЕАД",
+      "totalEur": 18679482.893707536,
+      "contractCount": 107
     },
     {
-      "eik": "000341806",
-      "name": "Основно училище \"Никола Йонков Вапцаров\"",
-      "totalEur": 143347.6324629441,
-      "contractCount": 1
+      "eik": "130345786",
+      "name": "Университетска многопрофилна болница за активно лечение и спешна Медицина Н.И. Пирогов ЕАД",
+      "totalEur": 18663013.155540112,
+      "contractCount": 54
     },
     {
-      "eik": "000044413",
-      "name": "Професионална гимназия по туризъм \"Иван Вазов\"",
-      "totalEur": 135211.6492742212,
-      "contractCount": 7
+      "eik": "129010157",
+      "name": "Дирекция Управление на собствеността и социални дейности /Дуссд/ към Министерство на вътрешните работи - МВР",
+      "totalEur": 18378111.211097084,
+      "contractCount": 34
     },
     {
-      "eik": "000922697",
-      "name": "Основно училище \"Христо Ботев\"",
-      "totalEur": 132496.94503100985,
-      "contractCount": 1
+      "eik": "130367715",
+      "name": "Многопрофилна болница за активно лечение \"Света анна\" софия АД",
+      "totalEur": 17214529.40695255,
+      "contractCount": 84
     },
     {
-      "eik": "000460109",
-      "name": "Детска Градина \"Светлина\" - с. Царимир",
-      "totalEur": 131231.58454466902,
-      "contractCount": 1
+      "eik": "000472182",
+      "name": "Община Марица",
+      "totalEur": 17048287.069939613,
+      "contractCount": 30
     },
     {
-      "eik": "102202635",
-      "name": "Професионална Техническа гимназия",
-      "totalEur": 130921.46045412944,
-      "contractCount": 10
+      "eik": "000093435",
+      "name": "Община Бяла",
+      "totalEur": 16796398.838344842,
+      "contractCount": 11
     },
     {
-      "eik": "000669286",
-      "name": "Първа Английска гимназия",
-      "totalEur": 124499.57307127918,
-      "contractCount": 9
+      "eik": "000351743",
+      "name": "Община Панагюрище",
+      "totalEur": 16264942.755760975,
+      "contractCount": 65
     },
     {
-      "eik": "000182777",
-      "name": "Основно училище \"Н.Й.ВАПЦАРОВ\"",
-      "totalEur": 124044.09892475317,
-      "contractCount": 2
+      "eik": "103195446",
+      "name": "Веолия енерджи варна ЕАД",
+      "totalEur": 16013844.761559034,
+      "contractCount": 11
     },
     {
-      "eik": "813140704",
-      "name": "Дeтска Градина \"Буратино\"",
-      "totalEur": 122257.64509185357,
-      "contractCount": 5
+      "eik": "114532352",
+      "name": "Университетска многопрофилна болница за активно лечение - Д-Р георги Странски ЕАД",
+      "totalEur": 15940362.112249017,
+      "contractCount": 111
     },
     {
-      "eik": "000678143",
-      "name": "2 Английска Езикова гимназия \"Томас джеферсън\"",
-      "totalEur": 114537.30641211147,
-      "contractCount": 4
+      "eik": "000057122",
+      "name": "Община Несебър",
+      "totalEur": 15536800.202471586,
+      "contractCount": 52
     },
     {
-      "eik": "000759047",
-      "name": "117 Средно училище \"Свети свети кирил и Методий\"",
-      "totalEur": 112580.63839904286,
-      "contractCount": 1
-    },
-    {
-      "eik": "177059941",
-      "name": "Средно училище \"Христо Ботев\"",
-      "totalEur": 112302.70524534342,
-      "contractCount": 1
+      "eik": "000471059",
+      "name": "Община Асеновград",
+      "totalEur": 15474063.180337757,
+      "contractCount": 62
     }
   ],
-  "topMps": [],
+  "topMps": [
+    {
+      "mpId": 3271,
+      "mpName": "Георги Захаринин Попов",
+      "totalEur": 128728110.31633629,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Автомагистрали ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 938,
+      "mpName": "Дарин Величков Матов",
+      "totalEur": 56972566.961341225,
+      "contractCount": 20,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Български пощи ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 2670,
+      "mpName": "Валентин Алексиев Николов",
+      "totalEur": 52674043.75635919,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Български енергиен холдинг ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 3026,
+      "mpName": "Антон Йорданов Адамов",
+      "totalEur": 15522951.8925469,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Булгаргаз ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 4745,
+      "mpName": "Ваня Иванова Василева",
+      "totalEur": 7172164.927422118,
+      "contractCount": 7,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Фармапро ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 2621,
+      "mpName": "Евгени Димитров Стоев",
+      "totalEur": 6934166.057377176,
+      "contractCount": 23,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Фонд Флаг ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 2662,
+      "mpName": "Дора Илиева Янкова",
+      "totalEur": 6934166.057377176,
+      "contractCount": 23,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Фонд Флаг ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 805,
+      "mpName": "Йордан Петков Йорданов",
+      "totalEur": 5457004.427787691,
+      "contractCount": 39,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Контракс АД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5268,
+      "mpName": "Румен Ангелов Миланов",
+      "totalEur": 4506876.5038372455,
+      "contractCount": 6,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "ПЪТСТРОЙ-92 АД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 4649,
+      "mpName": "Генади Събков Събков",
+      "totalEur": 398807.6673330504,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Напоителни системи ЕАД - Клон Шумен"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 1689,
+      "mpName": "Андон Петров Андонов",
+      "totalEur": 153387.56435886555,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Мини марица - изток ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5094,
+      "mpName": "Николай Иванов Косев",
+      "totalEur": 147833.65629937162,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "ЕВРОХИМ-ГРУП ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 2647,
+      "mpName": "ДИМИТЪР КРУМОВ АЛЕКСАНДРОВ",
+      "totalEur": 100859.99294417205,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "АЛ и КО АД"
+      ],
+      "confidence": "high"
+    },
+    {
+      "mpId": 3351,
+      "mpName": "Мария Василева Капон",
+      "totalEur": 85881.69728452883,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Фернет българия ООД"
+      ],
+      "confidence": "high"
+    },
+    {
+      "mpId": 2558,
+      "mpName": "Мартин Стоянов Иванов",
+      "totalEur": 82420.25124883042,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Българско дружество за управление на проекти АД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5111,
+      "mpName": "Калоян Тошков Иванов",
+      "totalEur": 55730.81505038781,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Икон груп ООД"
+      ],
+      "confidence": "high"
+    },
+    {
+      "mpId": 801,
+      "mpName": "Стойко Илиев Танков",
+      "totalEur": 50413.37948594714,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Трахит БП ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 3160,
+      "mpName": "Рушен Мехмед Риза",
+      "totalEur": 21269.74225776269,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Хигиямед ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 2946,
+      "mpName": "Елена Стефанова Пешева",
+      "totalEur": 7157.063752984666,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Радио СОТ ООД"
+      ],
+      "confidence": "high"
+    },
+    {
+      "mpId": 2734,
+      "mpName": "Тома Николов Томов",
+      "totalEur": 1533.8756435886555,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Ватом томови 1991 ООД"
+      ],
+      "confidence": "medium"
+    }
+  ],
   "topOfficials": [
     {
       "slug": "valeri-petrov-borisov-4cdc5f",
       "name": "Валери Петров Борисов",
       "tier": "executive",
       "role": "agency_head",
-      "totalEur": 849767.1065481151,
-      "contractCount": 2,
+      "totalEur": 42869651.65684133,
+      "contractCount": 44,
       "contractorCount": 1,
       "topContractorNames": [
         "Информационно обслужване АД"
@@ -742,11 +969,240 @@
       "name": "Валентина Стефанова Недялкова",
       "tier": "municipal",
       "role": "councillor",
-      "totalEur": 849767.1065481151,
-      "contractCount": 2,
+      "totalEur": 42869651.65684133,
+      "contractCount": 44,
       "contractorCount": 1,
       "topContractorNames": [
         "Информационно обслужване АД"
+      ]
+    },
+    {
+      "slug": "hristin-tsvetolyubov-savov-ea02aa",
+      "name": "Христин Цветолюбов Савов",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 29557202.521009836,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Витез проспект АД"
+      ]
+    },
+    {
+      "slug": "dora-ilieva-yankova-082790",
+      "name": "Дора Илиева Янкова",
+      "tier": "executive",
+      "role": "cabinet",
+      "totalEur": 6934166.057377176,
+      "contractCount": 23,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Фонд Флаг ЕАД"
+      ]
+    },
+    {
+      "slug": "iordan-aleksandrov-dimitrov-bc224b",
+      "name": "Йордан Александров Димитров",
+      "tier": "executive",
+      "role": "regional_governor",
+      "totalEur": 508935.380375595,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Геоман трейд АД"
+      ]
+    },
+    {
+      "slug": "mincho-stoikov-kazandzhiev-51c218",
+      "name": "Минчо Стойков Казанджиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 398807.6673330504,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Напоителни системи ЕАД - Клон Шумен"
+      ]
+    },
+    {
+      "slug": "stefan-shtiliyanov-shtiliyanov-9d11f7",
+      "name": "Стефан Щилиянов Щилиянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 398807.6673330504,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Напоителни системи ЕАД - Клон Шумен"
+      ]
+    },
+    {
+      "slug": "iordanka-vladimirova-bicheva-f99bd5",
+      "name": "Йорданка Владимирова Бичева",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 342494.15849025734,
+      "contractCount": 9,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Синмед българия ООД"
+      ]
+    },
+    {
+      "slug": "zhoro-ivanov-ilchev-635436",
+      "name": "Жоро Иванов Илчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 325813.74659351783,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Пожарна техника ООД"
+      ]
+    },
+    {
+      "slug": "kaloyan-ivanov-kdriiski-ef3655",
+      "name": "Калоян Иванов Къдрийски",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "totalEur": 299208.0088760271,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Водоснабдяване и канализация ЕООД"
+      ]
+    },
+    {
+      "slug": "ivanka-petrova-nikolova-1691b4",
+      "name": "Иванка Петрова Николова",
+      "tier": "municipal",
+      "role": "mayor",
+      "totalEur": 241524.26846914098,
+      "contractCount": 4,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Бургасинвест ООД"
+      ]
+    },
+    {
+      "slug": "metodi-petrov-baikushev-bb06bd",
+      "name": "Методи Петров Байкушев",
+      "tier": "municipal",
+      "role": "mayor",
+      "totalEur": 180895.0675672221,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Монолитстрой - Чорбаджийски, Байкушев ООД"
+      ]
+    },
+    {
+      "slug": "dzhem-mustafa-kurt-060130",
+      "name": "Джем Мустафа Курт",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 153969.5321167995,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Курт 96 ЕООД"
+      ]
+    },
+    {
+      "slug": "nikolai-ivanov-kosev-cd5565",
+      "name": "Николай Иванов Косев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 147833.65629937162,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "ЕВРОХИМ-ГРУП ООД"
+      ]
+    },
+    {
+      "slug": "slav-iordanov-monov-4b176c",
+      "name": "Слав Йорданов Монов",
+      "tier": "executive",
+      "role": "agency_head",
+      "totalEur": 77339.81992299945,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Столичен автотранспорт ЕАД"
+      ]
+    },
+    {
+      "slug": "chanko-mindov-mirchev-e27cac",
+      "name": "Чанко Миндов Мирчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 42703.09791750817,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Транспортен ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН център ЕООД"
+      ]
+    },
+    {
+      "slug": "plamen-peev-patev-f5c4ee",
+      "name": "Пламен Пеев Патев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 42343.14843314603,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Етропал трейд ООД"
+      ]
+    },
+    {
+      "slug": "stefan-lyubomirov-kolarov-e75fbc",
+      "name": "Стефан Любомиров Коларов",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 34256.556040146635,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Автопотреби велинград ООД"
+      ]
+    },
+    {
+      "slug": "ilve-faikova-spahieva-94b2a9",
+      "name": "Илве Фаикова Спахиева",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "totalEur": 14294.698414483877,
+      "contractCount": 10,
+      "contractorCount": 2,
+      "topContractorNames": [
+        "ПРОЕКТИ-ИС ЕООД",
+        "ХБ Дизайн ЕООД"
+      ]
+    },
+    {
+      "slug": "anton-todorov-tonev-6701a1",
+      "name": "Антон Тодоров Тонев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 11258.64722394073,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Томед ООД"
+      ]
+    },
+    {
+      "slug": "borislav-krstev-inchev-55f44e",
+      "name": "Борислав Кръстев Инчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 134.98105663580168,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "ЕН ЕМ ЕР ООД"
       ]
     }
   ]

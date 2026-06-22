@@ -23,14 +23,27 @@ import type {
   FlowFile,
   MpCompanyRelation,
   MpConnectedFile,
+  SettlementProcurementIndex,
 } from "./types";
 import type { PepConnectedFile } from "./pep_connected";
+import type {
+  ConcentrationFullFile,
+  RiskFeedFile,
+  RiskFeedMpTied,
+} from "./risk_feed";
 import { canonicalJson } from "./validate";
 import { toEur } from "@/lib/currency";
 
 // Top-N cap per category in each per-NS file. Keeps file size predictable
 // (top 50 × ~150 bytes/row ≈ 7.5 KB per category).
 const TOP_N = 50;
+
+// Single-supplier concentration thresholds — mirror scripts/procurement/
+// derived.ts (buildAwarderConcentration) so the per-NS concentration page reads
+// the same bar as the corpus one: ≥30% of a buyer's in-range spend on one
+// supplier, buyer in-range total ≥ €100k (below that any share is noise).
+const CONCENTRATION_THRESHOLD = 0.3;
+const CONCENTRATION_MIN_AWARDER_EUR = 100_000;
 
 interface ElectionEntry {
   name: string; // "2026_04_19"
@@ -201,6 +214,15 @@ interface Accum {
     string,
     { awarderName: string; contractorName: string; eur: number }
   >;
+  // Per-(awarder, contractor) in-range totals — the base for per-NS
+  // single-supplier concentration. Tracks ALL pairs (not just connected), so it
+  // is bounded by the in-range contract count (ranges are disjoint, so the
+  // total across ranges ≈ the corpus contract count). awarderEik →
+  // contractorEik → {name, eur, count}.
+  byAwarderContractor: Map<
+    string,
+    Map<string, { name: string; eur: number; count: number }>
+  >;
 }
 
 const newAccum = (): Accum => ({
@@ -212,6 +234,7 @@ const newAccum = (): Accum => ({
   byMp: new Map(),
   byOfficial: new Map(),
   byConnectedEdge: new Map(),
+  byAwarderContractor: new Map(),
 });
 
 interface MpLink {
@@ -270,6 +293,21 @@ const accumulate = (
           ae.eur += eur;
           ae.count += 1;
           acc.byAwarder.set(r.awarderEik, ae);
+          // Per-(awarder, contractor) total for the per-NS concentration flag.
+          let acMap = acc.byAwarderContractor.get(r.awarderEik);
+          if (!acMap) {
+            acMap = new Map();
+            acc.byAwarderContractor.set(r.awarderEik, acMap);
+          }
+          const ac = acMap.get(r.contractorEik) ?? {
+            name: r.contractorName,
+            eur: 0,
+            count: 0,
+          };
+          ac.name = r.contractorName || ac.name;
+          ac.eur += eur;
+          ac.count += 1;
+          acMap.set(r.contractorEik, ac);
           // awarder→contractor edge for the per-NS sankey — only when the
           // contractor is connected to an MP or an official (the only edges
           // the flow page renders).
@@ -508,6 +546,261 @@ const buildNsFlow = (
   };
 };
 
+// Buyer EIK → NUTS3 of its seat, from derived/buyer_oblast_map.json (built by
+// build_tender_oblast_map.ts). Mirrors risk_feed.ts's loader so the per-NS
+// concentration rows + flags-by-region tally carry the same oblast tags.
+const loadOblastByEik = (oblastMapPath: string): Map<string, string> => {
+  const out = new Map<string, string>();
+  if (!fs.existsSync(oblastMapPath)) return out;
+  const m = JSON.parse(fs.readFileSync(oblastMapPath, "utf8")) as {
+    awarders?: Record<string, { nuts?: string }>;
+  };
+  for (const [eik, v] of Object.entries(m.awarders ?? {})) {
+    if (v?.nuts) out.set(eik, v.nuts);
+  }
+  return out;
+};
+
+interface NsConcEntry {
+  awarderEik: string;
+  awarderName: string;
+  contractorEik: string;
+  contractorName: string;
+  sharePct: number;
+  pairTotalEur: number;
+  awarderTotalEur: number;
+  contractCount: number;
+}
+
+// Single-supplier concentration for one NS range: every (buyer, supplier) pair
+// where the supplier took ≥30% of the buyer's in-range spend and the buyer's
+// in-range total ≥ €100k. Sorted strongest-first.
+const computeNsConcentration = (acc: Accum): NsConcEntry[] => {
+  const entries: NsConcEntry[] = [];
+  for (const [awarderEik, contractors] of acc.byAwarderContractor) {
+    const aw = acc.byAwarder.get(awarderEik);
+    const awarderTotal = aw?.eur ?? 0;
+    if (awarderTotal < CONCENTRATION_MIN_AWARDER_EUR) continue;
+    for (const [contractorEik, v] of contractors) {
+      if (v.eur <= 0) continue;
+      const sharePct = v.eur / awarderTotal;
+      if (sharePct < CONCENTRATION_THRESHOLD) continue;
+      entries.push({
+        awarderEik,
+        awarderName: aw?.name ?? "",
+        contractorEik,
+        contractorName: v.name,
+        sharePct,
+        pairTotalEur: v.eur,
+        awarderTotalEur: awarderTotal,
+        contractCount: v.count,
+      });
+    }
+  }
+  entries.sort(
+    (a, b) => b.sharePct - a.sharePct || b.pairTotalEur - a.pairTotalEur,
+  );
+  return entries;
+};
+
+// Per-NS concentration_full sibling (drop-in for the /procurement/concentration
+// table when scope === ns). Adds the buyer's oblast tag for the region filter.
+const buildNsConcentrationFull = (
+  entries: NsConcEntry[],
+  oblastByEik: Map<string, string>,
+): ConcentrationFullFile => ({
+  generatedAt: new Date().toISOString(),
+  thresholdPct: CONCENTRATION_THRESHOLD,
+  minAwarderTotalEur: CONCENTRATION_MIN_AWARDER_EUR,
+  total: entries.length,
+  rows: entries.map((e) => ({
+    awarderEik: e.awarderEik,
+    awarderName: e.awarderName,
+    contractorEik: e.contractorEik,
+    contractorName: e.contractorName,
+    sharePct: e.sharePct,
+    pairTotalEur: e.pairTotalEur,
+    awarderTotalEur: e.awarderTotalEur,
+    contractCount: e.contractCount,
+    oblast: oblastByEik.get(e.awarderEik) ?? null,
+  })),
+});
+
+// Per-NS risk_feed sibling (drop-in for the /procurement/flags page when scope
+// === ns). Built from the date-filtered accumulator: top concentration pairs,
+// top MP-tied (contractor, MP) pairs, the headline counts, and the per-oblast
+// concentration tally for the region tile-map. Debarred suppliers stay corpus
+// (a "currently barred" register has no date dimension) — the page fetches them
+// separately.
+const buildNsRiskFeed = (
+  acc: Accum,
+  entries: NsConcEntry[],
+  oblastByEik: Map<string, string>,
+): RiskFeedFile => {
+  const topConcentration = entries.slice(0, TOP_N).map((e) => ({
+    awarderEik: e.awarderEik,
+    awarderName: e.awarderName,
+    contractorEik: e.contractorEik,
+    contractorName: e.contractorName,
+    sharePct: e.sharePct,
+    pairTotalEur: e.pairTotalEur,
+  }));
+  // Flatten byMp → (MP, contractor) pairs, mirroring mp_connected's grain.
+  const mpPairs: RiskFeedMpTied[] = [];
+  for (const [mpId, v] of acc.byMp) {
+    for (const [eik, bc] of v.byContractor) {
+      if (bc.eur > 0)
+        mpPairs.push({
+          mpId,
+          mpName: v.mpName,
+          contractorEik: eik,
+          contractorName: bc.name,
+          totalEur: bc.eur,
+        });
+    }
+  }
+  mpPairs.sort((a, b) => b.totalEur - a.totalEur);
+
+  let at100 = 0;
+  let nationalCount = 0;
+  const byOblast = new Map<string, number>();
+  for (const e of entries) {
+    if (e.sharePct >= 0.9999) at100 += 1;
+    const nuts = oblastByEik.get(e.awarderEik);
+    if (nuts) byOblast.set(nuts, (byOblast.get(nuts) ?? 0) + 1);
+    else nationalCount += 1;
+  }
+  const concentrationByOblast = [...byOblast.entries()]
+    .map(([nuts, count]) => ({ nuts, count }))
+    .sort((a, b) => b.count - a.count);
+
+  return {
+    generatedAt: new Date().toISOString(),
+    topConcentration,
+    topMpTied: mpPairs.slice(0, TOP_N),
+    concentrationTotal: entries.length,
+    concentration100Total: at100,
+    mpTiedTotal: mpPairs.length,
+    connectedPeopleTotal: acc.byMp.size + acc.byOfficial.size,
+    concentrationByOblast,
+    concentrationNationalCount: nationalCount,
+  };
+};
+
+// eik → resolved seat ({ekatte, isLocalHQ}) from the awarder rollups. Mirrors
+// by_settlement.ts's geo join so the per-NS settlement index pins buyers the
+// same way; awarders without geo are omitted (dropped, as in the corpus build).
+// Reads every awarder rollup but keeps only the two slim fields, so memory stays
+// bounded.
+const loadAwarderGeo = (
+  awardersDir: string,
+): Map<string, { ekatte: string; isLocalHQ: boolean }> => {
+  const out = new Map<string, { ekatte: string; isLocalHQ: boolean }>();
+  if (!fs.existsSync(awardersDir)) return out;
+  for (const file of fs.readdirSync(awardersDir)) {
+    if (!file.endsWith(".json")) continue;
+    const aw = JSON.parse(
+      fs.readFileSync(path.join(awardersDir, file), "utf8"),
+    ) as { eik: string; geo?: { ekatte: string; isLocalHQ: boolean } };
+    if (aw.geo?.ekatte)
+      out.set(aw.eik, {
+        ekatte: aw.geo.ekatte,
+        isLocalHQ: aw.geo.isLocalHQ,
+      });
+  }
+  return out;
+};
+
+const loadEkatteCatalog = (
+  ekattePath: string,
+): Map<string, { name: string; province: string; obshtina: string }> => {
+  const out = new Map<
+    string,
+    { name: string; province: string; obshtina: string }
+  >();
+  if (!fs.existsSync(ekattePath)) return out;
+  const arr = JSON.parse(fs.readFileSync(ekattePath, "utf8")) as Array<{
+    ekatte: string;
+    name: string;
+    province: string;
+    obshtina: string;
+  }>;
+  for (const e of arr)
+    out.set(e.ekatte, {
+      name: e.name,
+      province: e.province,
+      obshtina: e.obshtina,
+    });
+  return out;
+};
+
+// Per-NS "procurement by settlement" landing index: local-tier buyers pinned to
+// their seat EKATTE, central/national buyers rolled up separately — same split
+// as the corpus by_settlement, but from in-range totals. The settlement *detail*
+// drill-down stays corpus (a full settlement profile, no scope toggle), so only
+// the index is sliced per parliament.
+const buildNsBySettlement = (
+  acc: Accum,
+  awarderGeo: Map<string, { ekatte: string; isLocalHQ: boolean }>,
+  ekByCode: Map<string, { name: string; province: string; obshtina: string }>,
+): SettlementProcurementIndex => {
+  const settlements = new Map<
+    string,
+    { eur: number; count: number; awarderEiks: Set<string> }
+  >();
+  let natEur = 0;
+  let natCount = 0;
+  const natAwarderEiks = new Set<string>();
+  for (const [eik, v] of acc.byAwarder) {
+    const geo = awarderGeo.get(eik);
+    if (!geo) continue; // no resolved seat → dropped (matches corpus build)
+    if (geo.isLocalHQ) {
+      let s = settlements.get(geo.ekatte);
+      if (!s) {
+        s = { eur: 0, count: 0, awarderEiks: new Set<string>() };
+        settlements.set(geo.ekatte, s);
+      }
+      s.eur += v.eur;
+      s.count += v.count;
+      s.awarderEiks.add(eik);
+    } else {
+      natEur += v.eur;
+      natCount += v.count;
+      natAwarderEiks.add(eik);
+    }
+  }
+  const settlementsOut = [...settlements.entries()]
+    .map(([ekatte, s]) => {
+      const ek = ekByCode.get(ekatte);
+      return {
+        ekatte,
+        name: ek?.name ?? "?",
+        province: ek?.province ?? "?",
+        obshtina: ek?.obshtina ?? "?",
+        contractCount: s.count,
+        totalEur: s.eur,
+        awarderCount: s.awarderEiks.size,
+      };
+    })
+    .sort((a, b) => b.totalEur - a.totalEur);
+  return {
+    generatedAt: new Date().toISOString(),
+    totalContracts: [...settlements.values()].reduce((s, a) => s + a.count, 0),
+    totalEur: [...settlements.values()].reduce((s, a) => s + a.eur, 0),
+    settlementCount: settlements.size,
+    // awardCount/totalOther aren't rendered by the page; the per-NS walk drops
+    // non-EUR rows, so totalOther is always empty here.
+    national: {
+      contractCount: natCount,
+      awardCount: 0,
+      totalEur: natEur,
+      totalOther: {},
+      awarderCount: natAwarderEiks.size,
+    },
+    settlements: settlementsOut,
+  };
+};
+
 export const buildByNs = (
   opts: BuildOpts,
 ): { files: number; ranges: NsRange[] } => {
@@ -562,8 +855,21 @@ export const buildByNs = (
   // fetch them, and only for the selected election.
   const flowDir = path.join(opts.outDir, "flow");
   const peopleDir = path.join(opts.outDir, "people");
-  fs.mkdirSync(flowDir, { recursive: true });
-  fs.mkdirSync(peopleDir, { recursive: true });
+  const concDir = path.join(opts.outDir, "concentration");
+  const riskDir = path.join(opts.outDir, "risk_feed");
+  const settlementDir = path.join(opts.outDir, "by_settlement");
+  for (const d of [flowDir, peopleDir, concDir, riskDir, settlementDir])
+    fs.mkdirSync(d, { recursive: true });
+  // Buyer→oblast tags for the per-NS concentration rows + flags region map.
+  const oblastByEik = loadOblastByEik(
+    path.join(opts.outDir, "..", "derived", "buyer_oblast_map.json"),
+  );
+  // Buyer→seat (ekatte/isLocalHQ) + EKATTE catalog for the per-NS settlement
+  // index. Loaded once (the rollup read is the expensive part).
+  const awarderGeo = loadAwarderGeo(path.join(opts.outDir, "..", "awarders"));
+  const ekByCode = loadEkatteCatalog(
+    path.join(opts.outDir, "..", "..", "ekatte_index.json"),
+  );
   let filesWritten = 0;
   for (const range of ranges) {
     const acc = accums.get(range.electionDate);
@@ -658,6 +964,21 @@ export const buildByNs = (
     fs.writeFileSync(
       path.join(peopleDir, `${range.electionDate}.json`),
       canonicalJson(buildNsPeople(acc, officialMeta)),
+    );
+    // Per-NS concentration table + red-flag feed (share the concentration base).
+    const concEntries = computeNsConcentration(acc);
+    fs.writeFileSync(
+      path.join(concDir, `${range.electionDate}.json`),
+      canonicalJson(buildNsConcentrationFull(concEntries, oblastByEik)),
+    );
+    fs.writeFileSync(
+      path.join(riskDir, `${range.electionDate}.json`),
+      canonicalJson(buildNsRiskFeed(acc, concEntries, oblastByEik)),
+    );
+    // Per-NS "procurement by settlement" landing index.
+    fs.writeFileSync(
+      path.join(settlementDir, `${range.electionDate}.json`),
+      canonicalJson(buildNsBySettlement(acc, awarderGeo, ekByCode)),
     );
     filesWritten++;
   }

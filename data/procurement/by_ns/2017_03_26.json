@@ -2,7 +2,7 @@
   "electionDate": "2017_03_26",
   "start": "2017-03-26",
   "end": "2021-04-04",
-  "generatedAt": "2026-06-22T04:31:19.595Z",
+  "generatedAt": "2026-06-22T09:30:53.770Z",
   "totals": {
     "contracts": 37384,
     "amendments": 0,
@@ -10,14 +10,14 @@
     "contractorCount": 8136,
     "awarderCount": 1399,
     "totalEur": 10735066285.595463,
-    "mpCount": 19,
-    "mpConnectedContractorCount": 20,
-    "mpConnectedTotalEur": 86451238.11374198,
+    "mpCount": 28,
+    "mpConnectedContractorCount": 29,
+    "mpConnectedTotalEur": 125193364.49486917,
     "officialCount": 30,
     "officialConnectedContractorCount": 28,
     "officialConnectedTotalEur": 48633592.980985045,
-    "connectedContractorCount": 46,
-    "connectedTotalEur": 133698365.87024437
+    "connectedContractorCount": 54,
+    "connectedTotalEur": 172404175.18905023
   },
   "topContractors": [
     {
@@ -749,6 +749,29 @@
       "confidence": "medium"
     },
     {
+      "mpId": 805,
+      "mpName": "Йордан Петков Йорданов",
+      "totalEur": 17839365.113532357,
+      "contractCount": 161,
+      "contractorCount": 2,
+      "topContractorNames": [
+        "Контракс АД",
+        "Комнет България Холдинг ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 237,
+      "mpName": "Светослав Иванов Спасов",
+      "totalEur": 15942884.800826246,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Национална електрическа компания ЕАД - София"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 1689,
       "mpName": "Андон Петров Андонов",
       "totalEur": 9683970.488232618,
@@ -756,6 +779,17 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Мини марица - изток ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 3026,
+      "mpName": "Антон Йорданов Адамов",
+      "totalEur": 3898950.829059785,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Булгаргаз ЕАД - София"
       ],
       "confidence": "medium"
     },
@@ -769,6 +803,18 @@
         "АЛ И ко АД"
       ],
       "confidence": "high"
+    },
+    {
+      "mpId": 722,
+      "mpName": "Веселин Борисов Черкезов",
+      "totalEur": 872604.9810055066,
+      "contractCount": 3,
+      "contractorCount": 2,
+      "topContractorNames": [
+        "Есп Златни пясъци ООД",
+        "ВиК-Златни пясъци ООД"
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 4649,
@@ -816,7 +862,7 @@
     },
     {
       "mpId": 2946,
-      "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
+      "mpName": "Елена Стефанова Пешева",
       "totalEur": 375683.9807140702,
       "contractCount": 21,
       "contractorCount": 2,
@@ -825,6 +871,17 @@
         "ДЖИ Пи ес системи България ЕООД - Пловдив"
       ],
       "confidence": "high"
+    },
+    {
+      "mpId": 3169,
+      "mpName": "Пламен Иванов Милев",
+      "totalEur": 366899.2448218915,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Университетска многопрофилна болница за активно лечение и спешна Медицина Н.И. Пирогов ЕАД"
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 3655,
@@ -871,6 +928,17 @@
       "confidence": "high"
     },
     {
+      "mpId": 4745,
+      "mpName": "Ваня Иванова Василева",
+      "totalEur": 165662.14855074318,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Фармапро ООД - София"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 4716,
       "mpName": "Венцислав Иванов Петков",
       "totalEur": 112484.21386316807,
@@ -882,13 +950,35 @@
       "confidence": "medium"
     },
     {
-      "mpId": 1586,
-      "mpName": "Йордан Георгиев Стойков",
-      "totalEur": 65874.8459733208,
+      "mpId": 5197,
+      "mpName": "Йордан Йовчев Йовчев",
+      "totalEur": 112484.21386316807,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Национална спортна база ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5005,
+      "mpName": "Стилиана Иванова Бобчева",
+      "totalEur": 65321.72530332391,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Тедей – М"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 2734,
+      "mpName": "Тома Николов Томов",
+      "totalEur": 15338.756435886555,
       "contractCount": 2,
       "contractorCount": 1,
       "topContractorNames": [
-        "Евро ферт АД  - Димитровград"
+        "Ватом Томови 1991 ООД"
       ],
       "confidence": "medium"
     },
@@ -902,6 +992,17 @@
         "Авто лукс ООД - с. Старцево"
       ],
       "confidence": "high"
+    },
+    {
+      "mpId": 5092,
+      "mpName": "Богомил Иванов Петков",
+      "totalEur": 7872.872386659373,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Осъм инженеринг АД - Ловеч"
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 233,

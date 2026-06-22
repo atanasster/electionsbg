@@ -317,7 +317,15 @@ The ingest always runs the officials cross-reference (`pep_connected.json`, from
 | `data/procurement/derived/flow.json` | Sankey-shaped money flow (awarder → contractor → **MP or official**), trimmed to the top ~150 links by value — the eager preview the `/procurement` landing tile loads. |
 | `data/procurement/derived/flow_full.json` | The complete flow graph (all MP- and official-tied links), lazy-loaded only by the `/procurement/flows` explorer. |
 
-Per-election `by_ns/<election>.json` files also gain officials totals (`officialCount`, `officialConnected*`, de-duplicated `connected*`) and a `topOfficials[]` ranking alongside the existing `topMps[]`. `buildByNs` additionally emits two per-election sidecars from the same date-filtered walk — `by_ns/flow/<election>.json` (date-scoped sankey: awarder → connected company → person) and `by_ns/people/<election>.json` (the per-parliament "public money scanner" index) — which the SPA loads when the procurement section scope is `ns` (the `?pscope` default). `bucket_gzip.ts` ships both subdirs.
+Per-election `by_ns/<election>.json` files also gain officials totals (`officialCount`, `officialConnected*`, de-duplicated `connected*`) and a `topOfficials[]` ranking alongside the existing `topMps[]`. `buildByNs` additionally emits five per-election sidecars from the same date-filtered walk, each the date-scoped sibling of a corpus derived file — so every `/procurement` section page honours the `?pscope` scope toggle (default `ns`, the selected parliament's contract window):
+
+- `by_ns/flow/<election>.json` — date-scoped sankey (awarder → connected company → person), sibling of `derived/flow_full.json`.
+- `by_ns/people/<election>.json` — the "public money scanner" index, sibling of `derived/person_procurement_index.json`.
+- `by_ns/concentration/<election>.json` — single-supplier concentration table (≥30% of in-range spend, buyer ≥ €100k), sibling of `derived/concentration_full.json`.
+- `by_ns/risk_feed/<election>.json` — red-flag feed (top concentration + MP-tied + counts + per-oblast tally), sibling of `derived/risk_feed.json`. (Debarred suppliers stay corpus — a "currently barred" register has no date dimension.)
+- `by_ns/by_settlement/<election>.json` — the "procurement by settlement" landing index (local-tier buyers pinned to their seat EKATTE via the awarder-rollup geo join + national rollup), sibling of `by_settlement/index.json`. Only the index is sliced; the per-EKATTE detail drill-down has no scope toggle and stays corpus.
+
+`bucket_gzip.ts` ships all five subdirs.
 
 The cross-reference reads `companies[].tr.uic` as the join key. The skill **hard-fails** if `companies-index.json` is present but TR enrichment is missing on >90% of entries — that's the silent "TR refresh wasn't run" failure mode where mp_connected.json would otherwise collapse to empty.
 

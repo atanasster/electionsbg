@@ -2,7 +2,7 @@
   "electionDate": "2021_04_04",
   "start": "2021-04-04",
   "end": "2021-07-11",
-  "generatedAt": "2026-06-22T04:31:19.592Z",
+  "generatedAt": "2026-06-22T09:30:53.764Z",
   "totals": {
     "contracts": 1688,
     "amendments": 0,
@@ -10,14 +10,14 @@
     "contractorCount": 457,
     "awarderCount": 161,
     "totalEur": 420866114.77991486,
-    "mpCount": 1,
-    "mpConnectedContractorCount": 1,
-    "mpConnectedTotalEur": 300324.5834249398,
+    "mpCount": 2,
+    "mpConnectedContractorCount": 2,
+    "mpConnectedTotalEur": 1353924.9832551908,
     "officialCount": 0,
     "officialConnectedContractorCount": 0,
     "officialConnectedTotalEur": 0,
-    "connectedContractorCount": 1,
-    "connectedTotalEur": 300324.5834249398
+    "connectedContractorCount": 2,
+    "connectedTotalEur": 1353924.9832551908
   },
   "topContractors": [
     {
@@ -724,6 +724,17 @@
     }
   ],
   "topMps": [
+    {
+      "mpId": 805,
+      "mpName": "Йордан Петков Йорданов",
+      "totalEur": 1053600.399830251,
+      "contractCount": 8,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Контракс АД"
+      ],
+      "confidence": "medium"
+    },
     {
       "mpId": 938,
       "mpName": "Дарин Величков Матов",

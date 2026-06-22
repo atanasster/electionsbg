@@ -22,8 +22,10 @@ import { Card, CardContent } from "@/ux/Card";
 import { Button } from "@/components/ui/button";
 import { dataUrl } from "@/data/dataUrl";
 import { formatEur } from "@/lib/currency";
-import { ProcurementNav } from "@/screens/components/procurement/ProcurementNav";
+import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
 import { nuts3Name } from "@/data/procurement/bgNuts3";
+import { useProcurementScope } from "@/data/procurement/useProcurementScope";
+import { useElectionContext } from "@/data/ElectionContext";
 
 const countFmt = new Intl.NumberFormat("bg-BG");
 const PAGE_SIZE = 50;
@@ -50,19 +52,30 @@ type ConcentrationFullFile = {
 
 type SortKey = "sharePct" | "pairTotalEur" | "awarderTotalEur" | "name";
 
-const useConcentrationFull = () =>
-  useQuery({
-    queryKey: ["procurement", "concentration_full"] as const,
+// Scope-aware: ns → the per-election concentration slice (by_ns/concentration/
+// <date>.json); all → the full-corpus table. Both share the same shape.
+const useConcentrationFull = () => {
+  const { scope } = useProcurementScope();
+  const { selected } = useElectionContext();
+  const ns = scope === "ns";
+  const url = ns
+    ? dataUrl(`/procurement/by_ns/concentration/${selected}.json`)
+    : dataUrl("/procurement/derived/concentration_full.json");
+  return useQuery({
+    queryKey: [
+      "procurement",
+      "concentration_full",
+      ns ? `ns:${selected}` : "all",
+    ],
     queryFn: async () => {
-      const r = await fetch(
-        dataUrl("/procurement/derived/concentration_full.json"),
-      );
+      const r = await fetch(url);
       if (r.status === 404) return null;
       if (!r.ok) throw new Error(`fetch failed: ${r.status}`);
       return (await r.json()) as ConcentrationFullFile;
     },
     staleTime: Infinity,
   });
+};
 
 const pctFmt = (frac: number, lang: string) =>
   new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en-GB", {
@@ -228,7 +241,7 @@ export const ProcurementConcentrationScreen: FC = () => {
       >
         {t("concentration_title") || "Single-supplier concentration"}
       </Title>
-      <ProcurementNav />
+      <ProcurementSectionHeader scopeMode="toggle" />
 
       {isLoading || !data ? (
         <div className="mt-4 h-64 animate-pulse rounded-xl bg-muted" />
