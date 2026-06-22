@@ -19,7 +19,7 @@ schemaType: Article
 
 Bulgaria signs tens of thousands of public-procurement contracts a year. The records are public — and almost unusable. They live as thousands of files on [data.egov.bg](https://data.egov.bg/) and inside the [ЦАИС ЕОП](https://app.eop.bg/) system, with no way to ask the questions that matter: *Who keeps winning without competition? Which companies are tied to the people who run the state? Where does my município's money go?*
 
-The [Public Procurement](/procurement) module answers those questions. It holds **301,011 contracts and amendments** worth **€80.0 billion**, from **4,389 contracting authorities** to **26,160 companies**, covering **2011 through 2026** — and it layers an explainable risk score, money-flow diagrams, a person scanner, a geographic view, sector (CPV) breakdowns, a contracts browser with sector/procedure/value/EU-funding filters, and a red-flag feed on top. This piece sets it against what exists in Bulgaria and abroad, walks through each tool, and ends with what you can actually find with it.
+The [Public Procurement](/procurement) module answers those questions. It holds **301,012 contracts and amendments** worth **€80.0 billion**, from **4,390 contracting authorities** to **26,160 companies**, covering **2011 through 2026** — and it layers an explainable risk score, money-flow diagrams, a person scanner, a geographic view, sector (CPV) breakdowns, a contracts browser with sector/procedure/value/EU-funding filters, and a red-flag feed on top. This piece sets it against what exists in Bulgaria and abroad, walks through each tool, and ends with what you can actually find with it.
 
 ## 1. The landscape: Bulgaria and abroad
 
@@ -78,17 +78,27 @@ Every contract carries a **Corruption Risk Index** from 0 to 100 — the share o
 
 *[See it live: an example contract →](/procurement/contract/701291266900)*
 
-The checks: a **single bidder** (read from the bid count the OCDS feed actually publishes, and suppressed in markets that are structurally single-bid so it doesn't cry wolf[^cpv]), a **non-open procedure**, a **short tender window**, an **amendment** that revises the original deal, a contractor on the АОП **debarment register**, a buyer whose spending is **concentrated** on one supplier, and a contractor **tied to an MP or a public official**.
+The checks: a **single bidder** (read from the bid count the OCDS feed actually publishes, and suppressed in markets that are structurally single-bid so it doesn't cry wolf[^cpv]), a **non-open procedure**, a **short tender window**, an **amendment** that revises the original deal, a contractor on the АОП **debarment register**, a buyer whose spending is **concentrated** on one supplier, a contractor **tied to an MP**, and one **tied to a non-MP public official**.
+
+### Every contract, sortable and searchable
+
+That same risk index sits next to every row of the full table too — 300,000+ contracts you can filter by sector, procedure, value and EU funding, sort on any column, and export. The flags show up without opening each contract one by one: sort by risk, or keep only the flagged rows. A summary line above the table tracks the current filter — count, total value, share EU-funded and share flagged.
+
+![The Contracts table with its filters, summary line and the risk index next to each row](/articles/images/procurement-tools/09-contracts.png)
+
+*[See it live: all contracts →](/procurement/contracts)*
+
+Scope switches as it does everywhere in the module — **this parliament** (only the contracts from the selected National Assembly's term) or **all years**. In "all years" the text search spans the whole period rather than the selected year alone: type a company name and you get its contracts from 2011 to today. Click the subject to open the contract itself; the star saves it to your watchlist.
 
 ### Where the money flows
 
-Each company and authority page draws the money flow as a Sankey diagram — for a supplier, which authorities pay it; for a buyer, which suppliers it pays — with companies tied to a parliamentarian highlighted.
+A buyer's spending fans out to its suppliers as a Sankey diagram — on every authority page and on the dedicated [money-flow view](/procurement/flows), with companies tied to a parliamentarian highlighted. A company (supplier) page turns the question around: because all its income funnels to a single recipient, it shows instead **how dependent the firm is on one buyer** — the top buyer's share, the top-three share and how many buyers it has in all.
 
-![A buyer-to-supplier money-flow Sankey diagram on a company page](/articles/images/procurement-tools/02-entity-flow.png)
+![The buyer-dependency lens on a company page](/articles/images/procurement-tools/02-buyer-dependency.png)
 
 *[See it live: a company page →](/company/103267194)*
 
-A treemap shows the same composition by size, so concentration is visible at a glance.
+A treemap lays out the same revenue-by-buyer composition by size, so concentration is visible at a glance.
 
 ![A treemap of a company's procurement revenue by buyer](/articles/images/procurement-tools/03-treemap.png)
 
@@ -134,15 +144,15 @@ The [red-flag feed](/procurement/flags) collects the signals worth a second look
 
 ## 3. What you can find
 
-**Single-supplier concentration.** Across the corpus, **45% of contracts whose bid count is published had a single bidder** — Bulgaria's well-documented competition problem. The feed surfaces the extreme cases: buyers that have sent *100%* of their procurement to one company — often small schools and community centres. And sometimes the scale surprises: a secondary school in the village of Ribnovo placed a single **€2.5 million** contract with one Blagoevgrad firm — roughly 95% of everything it has ever awarded. Even if each award was lawful, that degree of concentration warrants closer scrutiny.
+**Single-supplier concentration.** Across the corpus, **44% of contracts whose bid count is published had a single bidder** — Bulgaria's well-documented competition problem. The feed surfaces the extreme cases: buyers that have sent *100%* of their procurement to one company — often small schools and community centres. And sometimes the scale surprises: a secondary school in the village of Ribnovo placed a single **€2.5 million** contract with one Blagoevgrad firm — roughly 95% of everything it has ever awarded. Even if each award was lawful, that degree of concentration warrants closer scrutiny.
 
 **The political class as contractors.** The module records **61 MPs tied to 64 companies** that have won contracts worth **€1.4 billion** over the full period, and **82 non-MP officials** tied to **81** contractor companies. The largest ties run through state-owned enterprises: an MP registered as a director of the state road-builder [Avtomagistrali](/company/831646048) — **€602 million** in contracts; another MP at [Bulgarian Posts](/company/121396123) at **€182 million**; a state-agency head registered at the IT company [Informatsionno Obsluzhvane](/company/831641791) at **€315 million**. Alongside them are municipal councillors with a directly declared stake — e.g. in [Global Cleaner](/company/202758921) (cleaning, €25 million) and [Etropal Trade](/company/122055819) (medical supplies, €13 million). None of this is itself wrongdoing — it is exactly the map of declared interest that was, until now, scattered across thousands of filings.
 
-**Per-município reality.** Because every local buyer is pinned to its settlement, you can read a município like [Plovdiv](/procurement/settlement/56784) directly: **€3.9 billion** awarded across 15,286 contracts, led by the university hospital, the regional electricity distributor and the municipality itself.
+**Per-município reality.** Because every local buyer is pinned to its settlement, you can read a município like [Plovdiv](/procurement/settlement/56784) directly: **€3.9 billion** awarded across 15,312 contracts, led by the university hospital, the regional electricity distributor and the municipality itself.
 
 ## 4. Method and limits
 
-All of these features rest on the same open АОП / ЦАИС ЕОП data — no private source. The links to politicians add only two further official public registers: the asset-and-interest declarations to the Court of Audit and the Commerce Registry. The single-bidder signal reads the realised bid count the OCDS feed publishes; it is gated against a per-sector competition baseline so structurally single-bid markets aren't falsely flagged. Person links use **only** high-confidence matches — a declared stake or a unique-name Commerce-Registry record — and are dropped where a common Bulgarian name would create false positives. Out of scope: contracts below the Public Procurement Act thresholds, in-house awards, and foreign suppliers. The risk index is a sorting and screening aid, not legal evidence; every figure links back to its source on data.egov.bg so you can check it yourself.
+All of these features rest on the same open АОП / ЦАИС ЕОП data — no private source. The links to politicians add only two further official public registers: the asset-and-interest declarations to the Court of Audit and the Commerce Registry. The single-bidder signal reads the realised bid count the OCDS feed publishes; it is gated against a per-sector competition baseline so structurally single-bid markets aren't falsely flagged. Person links use **only** high-confidence matches — a declared stake or a unique-name Commerce-Registry record — and are dropped where a common Bulgarian name would create false positives. Out of scope: contracts below the Public Procurement Act thresholds, in-house awards, and foreign suppliers. Coverage runs from 2011 to today, with one gap at the source — АОП published no usable 2018 contract file, so that year is absent, and 2020–2021 carry fewer contracts than the years around them. The risk index is a sorting and screening aid, not legal evidence; every figure links back to its source on data.egov.bg so you can check it yourself.
 
 Open the [Public Procurement](/procurement) module, or ask the [assistant](https://ai.electionsbg.com) a question like *"show the procurement red flags"* — and follow the money.
 

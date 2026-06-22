@@ -31,7 +31,15 @@ const PAGES = [
   {
     url: "/company/103267194",
     shots: [
-      { name: "02-entity-flow", heading: "Откъде идват парите", padding: 10 },
+      // A company (supplier) page no longer draws the degenerate fan-in Sankey
+      // — every buyer fed the single company node. It now shows a buyer-
+      // dependency lens (CompanyBuyerConcentrationTile); the Sankey lives on
+      // authority pages + /procurement/flows.
+      {
+        name: "02-buyer-dependency",
+        heading: "Зависимост от възложители",
+        padding: 10,
+      },
       { name: "03-treemap", heading: "Приходи по възложители", padding: 10 },
     ],
   },
@@ -42,12 +50,18 @@ const PAGES = [
     // but its only "connection" was a common-name TR collision that the
     // namesake fix correctly dropped.
     url: "/company/202758921",
-    shots: [{ name: "04-officials", heading: "Свързани служители", padding: 10 }],
+    shots: [
+      { name: "04-officials", heading: "Свързани служители", padding: 10 },
+    ],
   },
   {
     url: "/procurement/by-settlement",
     shots: [
-      { name: "05-choropleth", heading: "Местни поръчки по области", padding: 10 },
+      {
+        name: "05-choropleth",
+        heading: "Местни поръчки по области",
+        padding: 10,
+      },
     ],
   },
   {
