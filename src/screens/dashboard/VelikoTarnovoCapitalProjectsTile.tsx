@@ -10,7 +10,13 @@ import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { HardHat } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { NativeSelect } from "@/components/ui/native-select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useVelikoTarnovoCapitalProgram } from "@/data/budget/useBudget";
 
 // 2024 and 2025 are on disk; 2023 and earlier are not on the rebuilt
@@ -52,20 +58,25 @@ export const VelikoTarnovoCapitalProjectsTile: FC<{
         <CardTitle className="text-base flex items-center gap-2 flex-wrap">
           <HardHat className="h-4 w-4" />
           {t("veliko_tarnovo_capital_tile_title")}
-          <NativeSelect
-            value={year}
-            onChange={(e) => setYear(Number(e.target.value))}
-            wrapperClassName="ml-auto"
-            className="text-xs font-normal bg-transparent border rounded px-1.5 py-0.5 tabular-nums cursor-pointer hover:bg-muted/40"
-            aria-label={t("sofia_capital_year_picker_label")}
+          <Select
+            value={String(year)}
+            onValueChange={(v) => setYear(Number(v))}
           >
-            {VT_CAPITAL_YEARS.map((y) => (
-              <option key={y} value={y}>
-                {y}
-                {lang === "bg" ? " г." : ""}
-              </option>
-            ))}
-          </NativeSelect>
+            <SelectTrigger
+              aria-label={t("sofia_capital_year_picker_label")}
+              className="ml-auto h-auto w-auto cursor-pointer gap-1 border-border bg-transparent px-1.5 py-0.5 text-xs font-normal tabular-nums hover:bg-muted/40"
+            >
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {VT_CAPITAL_YEARS.map((y) => (
+                <SelectItem key={y} value={String(y)}>
+                  {y}
+                  {lang === "bg" ? " г." : ""}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </CardTitle>
         <p className="text-xs text-muted-foreground">
           {t("veliko_tarnovo_capital_tile_intro")}

@@ -7,7 +7,13 @@ import { FC, useMemo, type ReactNode } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { ColumnDef } from "@tanstack/react-table";
-import { NativeSelect } from "@/components/ui/native-select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Title } from "@/ux/Title";
 import { DataTable } from "@/ux/data_table/DataTable";
 import { ProcurementNav } from "../components/procurement/ProcurementNav";
@@ -40,18 +46,23 @@ const VALUE_LABEL: Record<string, { bg: string; en: string }> = {
   "4": { bg: "над 100 млн. €", en: "over €100M" },
 };
 
-const Select: FC<{
+// Radix Select forbids an empty-string item value, so map the "" ("all") filter
+// state to a sentinel on the way in and back to "" on the way out.
+const ALL_FILTER = "__all__";
+const FilterSelect: FC<{
   value: string;
   onChange: (v: string) => void;
   children: ReactNode;
 }> = ({ value, onChange, children }) => (
-  <NativeSelect
-    value={value}
-    onChange={(e) => onChange(e.target.value)}
-    className="h-8 rounded-md border bg-card px-2 text-xs"
+  <Select
+    value={value || ALL_FILTER}
+    onValueChange={(v) => onChange(v === ALL_FILTER ? "" : v)}
   >
-    {children}
-  </NativeSelect>
+    <SelectTrigger className="h-8 w-auto gap-1 rounded-md border-border bg-card px-2 text-xs">
+      <SelectValue />
+    </SelectTrigger>
+    <SelectContent>{children}</SelectContent>
+  </Select>
 );
 
 export const ContractsBrowserScreen: FC = () => {
@@ -201,53 +212,57 @@ export const ContractsBrowserScreen: FC = () => {
             initialSort={[{ id: "value", desc: true }]}
             toolbarItems={
               <div className="flex flex-wrap items-center gap-2">
-                <Select value={year} onChange={(v) => set("year", v)}>
+                <FilterSelect value={year} onChange={(v) => set("year", v)}>
                   {years
                     .slice()
                     .reverse()
                     .map((y) => (
-                      <option key={y.year} value={y.year}>
+                      <SelectItem key={y.year} value={y.year}>
                         {y.year} ({y.count.toLocaleString(lang)})
-                      </option>
+                      </SelectItem>
                     ))}
-                </Select>
-                <Select value={sector} onChange={(v) => set("sector", v)}>
-                  <option value="">
+                </FilterSelect>
+                <FilterSelect value={sector} onChange={(v) => set("sector", v)}>
+                  <SelectItem value={ALL_FILTER}>
                     {bg ? "Всички сектори" : "All sectors"}
-                  </option>
+                  </SelectItem>
                   {Object.keys(CPV_DIVISION).map((d) => (
-                    <option key={d} value={d}>
+                    <SelectItem key={d} value={d}>
                       {cpvDivisionName(d, lang).slice(0, 40)}
-                    </option>
+                    </SelectItem>
                   ))}
-                </Select>
-                <Select value={proc} onChange={(v) => set("proc", v)}>
-                  <option value="">
+                </FilterSelect>
+                <FilterSelect value={proc} onChange={(v) => set("proc", v)}>
+                  <SelectItem value={ALL_FILTER}>
                     {bg ? "Всички процедури" : "All procedures"}
-                  </option>
+                  </SelectItem>
                   {Object.keys(PROCEDURE_LABEL).map((p) => (
-                    <option key={p} value={p}>
+                    <SelectItem key={p} value={p}>
                       {procedureLabel(p as ProcedureBucket, lang)}
-                    </option>
+                    </SelectItem>
                   ))}
-                </Select>
-                <Select value={val} onChange={(v) => set("val", v)}>
-                  <option value="">
+                </FilterSelect>
+                <FilterSelect value={val} onChange={(v) => set("val", v)}>
+                  <SelectItem value={ALL_FILTER}>
                     {bg ? "Всяка стойност" : "Any value"}
-                  </option>
+                  </SelectItem>
                   {Object.keys(VALUE_BUCKETS).map((k) => (
-                    <option key={k} value={k}>
+                    <SelectItem key={k} value={k}>
                       {bg ? VALUE_LABEL[k].bg : VALUE_LABEL[k].en}
-                    </option>
+                    </SelectItem>
                   ))}
-                </Select>
-                <Select value={eu} onChange={(v) => set("eu", v)}>
-                  <option value="">{bg ? "ЕС: всички" : "EU: all"}</option>
-                  <option value="1">
+                </FilterSelect>
+                <FilterSelect value={eu} onChange={(v) => set("eu", v)}>
+                  <SelectItem value={ALL_FILTER}>
+                    {bg ? "ЕС: всички" : "EU: all"}
+                  </SelectItem>
+                  <SelectItem value="1">
                     {bg ? "само с ЕС" : "EU-funded only"}
-                  </option>
-                  <option value="0">{bg ? "без ЕС" : "non-EU only"}</option>
-                </Select>
+                  </SelectItem>
+                  <SelectItem value="0">
+                    {bg ? "без ЕС" : "non-EU only"}
+                  </SelectItem>
+                </FilterSelect>
                 <span className="text-xs text-muted-foreground tabular-nums">
                   {filtered.length.toLocaleString(lang)}{" "}
                   {bg ? "договора" : "contracts"}

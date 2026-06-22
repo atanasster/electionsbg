@@ -29,7 +29,13 @@ import {
   TrendingDown,
   Info,
 } from "lucide-react";
-import { NativeSelect } from "@/components/ui/native-select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import {
   Tooltip,
@@ -768,17 +774,23 @@ export const BudgetTaxCalculator: FC<{ fiscalYear?: number | null }> = ({
                 >
                   {t("budget_tax_bill_children_label")}
                 </label>
-                <NativeSelect
-                  id="budget-tax-calculator-children"
-                  value={children}
-                  onChange={(e) => setChildren(Number(e.target.value))}
-                  className="rounded border border-input bg-background px-2 py-0.5 text-sm tabular-nums focus:outline-none focus:ring-1 focus:ring-ring"
+                <Select
+                  value={String(children)}
+                  onValueChange={(v) => setChildren(Number(v))}
                 >
-                  <option value={0}>0</option>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3+</option>
-                </NativeSelect>
+                  <SelectTrigger
+                    id="budget-tax-calculator-children"
+                    className="w-auto gap-1 rounded border-input bg-background px-2 py-0.5 text-sm tabular-nums"
+                  >
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="0">0</SelectItem>
+                    <SelectItem value="1">1</SelectItem>
+                    <SelectItem value="2">2</SelectItem>
+                    <SelectItem value="3">3+</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <div className="basis-full text-[11px] text-muted-foreground -mt-1">
                 {isModCustom ? (

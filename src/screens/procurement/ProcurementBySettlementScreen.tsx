@@ -22,7 +22,13 @@ import {
   Download,
   X,
 } from "lucide-react";
-import { NativeSelect } from "@/components/ui/native-select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Title } from "@/ux/Title";
 import { Card, CardContent } from "@/ux/Card";
 import { Button } from "@/components/ui/button";
@@ -309,30 +315,37 @@ export const ProcurementBySettlementScreen: FC = () => {
           }
           className="min-w-[220px] flex-1 rounded-md border bg-background px-3 py-1.5 text-sm shadow-sm"
         />
-        <label className="text-xs text-muted-foreground sm:hidden">
-          {t("procurement_settlement_sort") || "Sort by"}:{" "}
-          <NativeSelect
+        <span className="text-xs text-muted-foreground sm:hidden inline-flex items-center gap-1.5">
+          {t("procurement_settlement_sort") || "Sort by"}:
+          <Select
             value={sortKey}
-            onChange={(e) => setSortKey(e.target.value as SortKey)}
-            className="rounded-md border bg-background px-2 py-1 text-xs"
+            onValueChange={(v) => setSortKey(v as SortKey)}
           >
-            <option value="totalEur">
-              {t("procurement_settlement_sort_eur") || "Total EUR"}
-            </option>
-            <option value="contractCount">
-              {t("procurement_settlement_sort_contracts") || "Contracts"}
-            </option>
-            <option value="awarderCount">
-              {t("procurement_settlement_sort_buyers") || "Buyers"}
-            </option>
-            <option value="avgEur">
-              {t("procurement_settlement_col_avg") || "Avg contract"}
-            </option>
-            <option value="name">
-              {t("procurement_settlement_sort_name") || "Name (A→Z)"}
-            </option>
-          </NativeSelect>
-        </label>
+            <SelectTrigger
+              aria-label={t("procurement_settlement_sort") || "Sort by"}
+              className="w-auto gap-1 rounded-md border-border bg-background px-2 py-1 text-xs"
+            >
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="totalEur">
+                {t("procurement_settlement_sort_eur") || "Total EUR"}
+              </SelectItem>
+              <SelectItem value="contractCount">
+                {t("procurement_settlement_sort_contracts") || "Contracts"}
+              </SelectItem>
+              <SelectItem value="awarderCount">
+                {t("procurement_settlement_sort_buyers") || "Buyers"}
+              </SelectItem>
+              <SelectItem value="avgEur">
+                {t("procurement_settlement_col_avg") || "Avg contract"}
+              </SelectItem>
+              <SelectItem value="name">
+                {t("procurement_settlement_sort_name") || "Name (A→Z)"}
+              </SelectItem>
+            </SelectContent>
+          </Select>
+        </span>
         <Button
           variant="outline"
           size="sm"

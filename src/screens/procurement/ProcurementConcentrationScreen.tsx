@@ -17,7 +17,13 @@ import {
   Download,
   X,
 } from "lucide-react";
-import { NativeSelect } from "@/components/ui/native-select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Title } from "@/ux/Title";
 import { Card, CardContent } from "@/ux/Card";
 import { Button } from "@/components/ui/button";
@@ -30,6 +36,8 @@ import { useElectionContext } from "@/data/ElectionContext";
 
 const countFmt = new Intl.NumberFormat("bg-BG");
 const PAGE_SIZE = 50;
+// Radix Select forbids an empty-string item value; sentinel for "all oblasts".
+const ALL_OBLASTS = "__all__";
 
 type Row = {
   awarderEik: string;
@@ -259,21 +267,27 @@ export const ProcurementConcentrationScreen: FC = () => {
               }
               className="min-w-[220px] flex-1 rounded-md border bg-background px-3 py-1.5 text-sm shadow-sm"
             />
-            <NativeSelect
-              value={oblast ?? ""}
-              onChange={(e) => setOblast(e.target.value || null)}
-              className="rounded-md border bg-background px-2 py-1.5 text-sm"
-              aria-label={t("concentration_col_oblast") || "Oblast"}
+            <Select
+              value={oblast ?? ALL_OBLASTS}
+              onValueChange={(v) => setOblast(v === ALL_OBLASTS ? null : v)}
             >
-              <option value="">
-                {t("concentration_all_oblasts") || "All oblasts"}
-              </option>
-              {oblastOptions.map((o) => (
-                <option key={o.value} value={o.value}>
-                  {oblastLabel(o.value)} ({countFmt.format(o.count)})
-                </option>
-              ))}
-            </NativeSelect>
+              <SelectTrigger
+                aria-label={t("concentration_col_oblast") || "Oblast"}
+                className="w-auto gap-1 rounded-md border-border bg-background px-2 py-1.5 text-sm"
+              >
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={ALL_OBLASTS}>
+                  {t("concentration_all_oblasts") || "All oblasts"}
+                </SelectItem>
+                {oblastOptions.map((o) => (
+                  <SelectItem key={o.value} value={o.value}>
+                    {oblastLabel(o.value)} ({countFmt.format(o.count)})
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
             <Button
               variant="outline"
               size="sm"

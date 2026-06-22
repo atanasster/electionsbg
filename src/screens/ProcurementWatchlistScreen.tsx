@@ -20,7 +20,13 @@ import {
   ArrowRight,
   Bell,
 } from "lucide-react";
-import { NativeSelect } from "@/components/ui/native-select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Title } from "@/ux/Title";
 import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
 import { FollowStar } from "@/screens/components/procurement/FollowStar";
@@ -147,27 +153,31 @@ export const ProcurementWatchlistScreen: FC = () => {
                 </>
               ) : null}
             </span>
-            <label className="ml-auto inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+            <span className="ml-auto inline-flex items-center gap-1.5 text-xs text-muted-foreground">
               {t("watchlist_sort") || "Sort"}
-              <NativeSelect
-                value={sort}
-                onChange={(e) => setSort(e.target.value as SortKey)}
-                className="rounded-md border border-border bg-background px-2 py-1 text-xs"
-              >
-                <option value="activity">
-                  {t("watchlist_sort_activity") || "New activity"}
-                </option>
-                <option value="value">
-                  {t("watchlist_sort_value") || "Total value"}
-                </option>
-                <option value="added">
-                  {t("watchlist_sort_added") || "Recently added"}
-                </option>
-                <option value="name">
-                  {t("watchlist_sort_name") || "Name"}
-                </option>
-              </NativeSelect>
-            </label>
+              <Select value={sort} onValueChange={(v) => setSort(v as SortKey)}>
+                <SelectTrigger
+                  aria-label={t("watchlist_sort") || "Sort"}
+                  className="w-auto gap-1 rounded-md border-border bg-background px-2 py-1 text-xs"
+                >
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="activity">
+                    {t("watchlist_sort_activity") || "New activity"}
+                  </SelectItem>
+                  <SelectItem value="value">
+                    {t("watchlist_sort_value") || "Total value"}
+                  </SelectItem>
+                  <SelectItem value="added">
+                    {t("watchlist_sort_added") || "Recently added"}
+                  </SelectItem>
+                  <SelectItem value="name">
+                    {t("watchlist_sort_name") || "Name"}
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </span>
           </div>
 
           {/* New-activity banner */}
