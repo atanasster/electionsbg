@@ -1,18 +1,23 @@
 // Slim per-year contract index for the faceted /procurement/contracts browser.
 // A static SPA can't filter 301k rows server-side like SIGMA, so we shard by
-// year (the first facet): each shard is a compact tuple array the browser loads
-// on demand, then filters (sector / procedure / value / EU) + sorts + paginates
-// client-side. Built from the EOP-enriched shards — run eop_field_map.ts first.
+// year (the first facet): each shard is loaded on demand, then filtered
+// (sector / procedure / value / EU) + sorted + paginated client-side. Built
+// from the EOP-enriched shards — run eop_field_map.ts first.
 //
 //   npx tsx scripts/procurement/contract_index.ts
 //
 // Output (gitignored, ship via bucket:sync):
-//   derived/contract_index/<year>.json   tuple rows for that year
-//   derived/contract_index/index.json     years + counts + the ROW schema
+//   derived/contract_index/<year>.json   { awarders, contractors, rows }
+//   derived/contract_index/index.json    years + counts + the ROW schema
 //
-// Row tuple (kept positional to shave ~30% vs object keys):
-//   [date, awarderEik, awarderName, contractorEik, contractorName,
-//    amountEur, cpvDivision, procedureBucket, euFunded(1|0|null), title]
+// Awarder/contractor names repeat thousands of times per year, so we
+// dictionary-encode them (eik → name) and store only the eik in each row. The
+// hook rehydrates by reference, so 40k+ rows share a few thousand name strings
+// instead of allocating one per row — a real parse-time + memory win on top of
+// the gzip transport (see scripts/bucket_gzip.ts). Compact row tuple (positional):
+//   [date, awarderEik, contractorEik, amountEur, cpvDivision,
+//    procedureBucket, euFunded(1|0|null), title]
+// The hook re-expands this to the public ROW_SCHEMA below.
 
 import fs from "fs";
 import path from "path";
@@ -39,9 +44,10 @@ const ROW_SCHEMA = [
   "title",
 ] as const;
 
-type Row = [
-  string,
-  string,
+// Compact, dictionary-encoded row: names live in the per-shard eik→name maps.
+//   [date, awarderEik, contractorEik, amountEur, cpvDivision,
+//    procedureBucket, euFunded(1|0|null), title]
+type CompactRow = [
   string,
   string,
   string,
@@ -67,7 +73,9 @@ const main = (): void => {
 
   for (const y of years) {
     const dir = path.join(CONTRACTS_DIR, y);
-    const rows: Row[] = [];
+    const rows: CompactRow[] = [];
+    const awarders: Record<string, string> = {};
+    const contractors: Record<string, string> = {};
     for (const f of fs.readdirSync(dir).filter((x) => /\.json$/.test(x))) {
       const shard = JSON.parse(
         fs.readFileSync(path.join(dir, f), "utf8"),
@@ -75,12 +83,14 @@ const main = (): void => {
       for (const c of shard) {
         // Amendments aren't standalone awards — keep the browser to contracts.
         if (c.tag === "contractAmendment") continue;
+        if (c.awarderEik && !(c.awarderEik in awarders))
+          awarders[c.awarderEik] = trunc(c.awarderName, 48);
+        if (c.contractorEik && !(c.contractorEik in contractors))
+          contractors[c.contractorEik] = trunc(c.contractorName, 38);
         rows.push([
           c.dateSigned || c.date,
           c.awarderEik,
-          trunc(c.awarderName, 48),
           c.contractorEik,
-          trunc(c.contractorName, 38),
           Math.round(c.amountEur ?? 0),
           c.cpv ? String(c.cpv).slice(0, 2) : "",
           c.procurementMethod ? procedureBucket(c.procurementMethod) : "",
@@ -89,8 +99,11 @@ const main = (): void => {
         ]);
       }
     }
-    rows.sort((a, b) => b[5] - a[5]); // value desc — the browser's default sort
-    fs.writeFileSync(path.join(OUT, `${y}.json`), canonicalJson(rows));
+    rows.sort((a, b) => b[3] - a[3]); // value desc — the browser's default sort
+    fs.writeFileSync(
+      path.join(OUT, `${y}.json`),
+      canonicalJson({ awarders, contractors, rows }),
+    );
     counts[y] = rows.length;
   }
 

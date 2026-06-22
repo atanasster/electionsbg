@@ -39,7 +39,7 @@ export const FollowStar: FC<{
       aria-pressed={following}
       aria-label={title}
       title={title}
-      className={`inline-flex items-center justify-center rounded-full p-1 transition-colors ${
+      className={`inline-flex items-center justify-center rounded-full p-1 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 focus-visible:ring-offset-background ${
         following
           ? "text-amber-500 hover:text-amber-600"
           : "text-muted-foreground/50 hover:text-amber-500 hover:bg-accent/40"

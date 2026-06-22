@@ -18,6 +18,7 @@ import {
 } from "@/data/procurement/useProcurementFlow";
 import { ProcurementFlowSankey } from "./ProcurementFlowSankey";
 import { formatEur } from "@/lib/currency";
+import { useFlowColors } from "./chartColors";
 
 const HEIGHT = 820;
 // Below this width the 3 columns can't fit their labels without overlap.
@@ -221,22 +222,20 @@ export const ProcurementFlowTile: FC = () => {
 
 const Legend: FC = () => {
   const { t } = useTranslation();
+  const c = useFlowColors();
   return (
     <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground sm:ml-auto">
       <LegendDot
-        color="#475569"
+        color={c.awarder}
         label={t("procurement_flow_legend_awarder") || "Awarder"}
       />
       <LegendDot
-        color="#d97706"
+        color={c.contractor}
         label={t("procurement_flow_legend_contractor") || "Contractor"}
       />
+      <LegendDot color={c.mp} label={t("procurement_flow_legend_mp") || "MP"} />
       <LegendDot
-        color="#2563eb"
-        label={t("procurement_flow_legend_mp") || "MP"}
-      />
-      <LegendDot
-        color="#0d9488"
+        color={c.official}
         label={t("procurement_flow_legend_official") || "Official"}
       />
     </div>

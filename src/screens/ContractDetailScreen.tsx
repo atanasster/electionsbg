@@ -13,6 +13,10 @@ import { useContractRiskFlags } from "@/data/procurement/useContractRiskFlags";
 import { useProcurementMpConnectedByEik } from "@/data/procurement/useMpConnectedByEik";
 import { usePepConnectedByEik } from "@/data/procurement/usePepConnectedByEik";
 import { formatAmountEur } from "@/lib/currency";
+import {
+  displayProcurementMethod,
+  contractCategoryLabel,
+} from "@/lib/cpvSectors";
 import { resolveContractSource } from "./components/candidates/procurement/sourceUrl";
 import { summarizeRelations } from "./components/candidates/procurement/relationLabel";
 import { MpAvatar } from "./components/candidates/MpAvatar";
@@ -149,7 +153,10 @@ export const ContractDetailScreen: FC = () => {
           {c.procurementMethod ? (
             <KvRow
               label={t("contract_method") || "Procedure"}
-              value={c.procurementMethod}
+              value={displayProcurementMethod(
+                c.procurementMethod,
+                i18n.language,
+              )}
             />
           ) : null}
           {typeof c.numberOfTenderers === "number" ? (
@@ -173,7 +180,7 @@ export const ContractDetailScreen: FC = () => {
           {c.category ? (
             <KvRow
               label={t("contract_category") || "Category"}
-              value={c.category}
+              value={contractCategoryLabel(c.category, i18n.language)}
             />
           ) : null}
           <KvRow

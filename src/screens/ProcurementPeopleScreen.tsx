@@ -188,7 +188,8 @@ const PersonScannerRow: FC<{ row: PersonProcurementRow; rank: number }> = ({
       </span>
       <span className="hidden sm:inline text-xs text-muted-foreground tabular-nums shrink-0">
         {numFmt.format(row.contractorCount)}{" "}
-        {t("procurement_people_companies") || "cos"}
+        {t("procurement_people_companies", { count: row.contractorCount }) ||
+          "cos"}
       </span>
       <span className="tabular-nums font-medium shrink-0 min-w-[96px] text-right">
         {formatEur(row.totalEur)}

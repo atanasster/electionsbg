@@ -26,6 +26,7 @@ import type {
 import { formatEur } from "@/lib/currency";
 import { useTooltip } from "@/ux/useTooltip";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
+import { useFlowColors } from "./chartColors";
 
 type NodeDatum = SankeyExtraProperties & ProcurementFlowNode;
 // d3-sankey requires a numeric `value` field to size the ribbons — it holds
@@ -37,16 +38,10 @@ type LinkDatum = SankeyExtraProperties & {
 const NODE_WIDTH = 14;
 const NODE_PADDING = 8;
 
-// Stable colors per node type. Same families used elsewhere in the codebase
-// (slate = awarder, terracotta = contractor, blue = MP) so the visual
-// language stays consistent with /connections. Officials reuse the teal of
-// the /company "Connected officials" tile.
-const TYPE_COLOR: Record<ProcurementFlowNodeType, string> = {
-  awarder: "#475569",
-  contractor: "#d97706",
-  mp: "#2563eb",
-  official: "#0d9488",
-};
+// Node colors come from the theme-aware palette (useFlowColors) so the slate
+// awarder fill stays ≥3:1 on the navy dark background. Same families as
+// /connections (slate = awarder, terracotta = contractor, blue = MP, teal =
+// official) for a consistent visual language.
 
 const TYPE_I18N: Record<ProcurementFlowNodeType, string> = {
   awarder: "procurement_flow_legend_awarder",
@@ -89,6 +84,7 @@ export const ProcurementFlowSankey: FC<{
 }> = ({ nodes, links, width, height }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const TYPE_COLOR = useFlowColors();
   const { tooltip, onMouseEnter, onMouseMove, onMouseLeave } = useTooltip();
   // Which node the cursor is over — dims every link/node that doesn't touch
   // it. Kept local: nothing outside the diagram needs the focus state.
@@ -281,6 +277,9 @@ export const ProcurementFlowSankey: FC<{
                     go(e);
                   }
                 }}
+                // Keyboard focus ring via CSS :focus-visible (see index.css) —
+                // robust for SVG where onFocus state is unreliable.
+                className={href ? "kbd-focus-ring" : undefined}
                 style={{ cursor: href ? "pointer" : "default" }}
               >
                 <rect
@@ -321,21 +320,24 @@ const FlowEndpoint: FC<{
   id: string;
   type: ProcurementFlowNodeType;
   label: string;
-}> = ({ id, type, label }) => (
-  <div className="flex items-start gap-1.5">
-    {type === "mp" ? (
-      <MpAvatar mpId={Number(id.slice(3))} name={label} className="h-5 w-5" />
-    ) : (
-      <span
-        className="mt-0.5 h-2.5 w-2.5 shrink-0 rounded-sm"
-        style={{ backgroundColor: TYPE_COLOR[type] }}
-      />
-    )}
-    <span className="min-w-0 whitespace-normal break-words font-medium">
-      {label}
-    </span>
-  </div>
-);
+}> = ({ id, type, label }) => {
+  const TYPE_COLOR = useFlowColors();
+  return (
+    <div className="flex items-start gap-1.5">
+      {type === "mp" ? (
+        <MpAvatar mpId={Number(id.slice(3))} name={label} className="h-5 w-5" />
+      ) : (
+        <span
+          className="mt-0.5 h-2.5 w-2.5 shrink-0 rounded-sm"
+          style={{ backgroundColor: TYPE_COLOR[type] }}
+        />
+      )}
+      <span className="min-w-0 whitespace-normal break-words font-medium">
+        {label}
+      </span>
+    </div>
+  );
+};
 
 const truncate = (s: string, n: number): string =>
   s.length <= n ? s : `${s.slice(0, n - 1)}…`;

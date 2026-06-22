@@ -23,17 +23,14 @@ import {
   type EntityFlowRole,
 } from "@/data/procurement/entityFlow";
 import { ProcurementFlowSankey } from "./ProcurementFlowSankey";
+import { useFlowColors } from "./chartColors";
 
 const HEIGHT = 480;
 const MIN_DIAGRAM_WIDTH = 720;
 const TOP_LIMIT = 18;
 
-// Mirrors ProcurementFlowSankey's node palette so the relationship statement
-// reads in the same visual language (slate = awarder, orange = contractor).
-const NODE_COLOR: Record<"awarder" | "contractor", string> = {
-  awarder: "#475569",
-  contractor: "#d97706",
-};
+// Node palette comes from the shared theme-aware flow colors (slate = awarder,
+// orange = contractor) so the dots stay legible on the dark background too.
 
 export const EntityFlowTile: FC<{
   role: EntityFlowRole;
@@ -138,11 +135,12 @@ const SoloNode: FC<{
   kind: "awarder" | "contractor";
   href?: string;
 }> = ({ name, kind, href }) => {
+  const flowColors = useFlowColors();
   const inner = (
     <span className="inline-flex items-start gap-2 min-w-0">
       <span
         className="mt-1 h-2.5 w-2.5 shrink-0 rounded-sm"
-        style={{ backgroundColor: NODE_COLOR[kind] }}
+        style={{ backgroundColor: flowColors[kind] }}
       />
       <span className="font-medium break-words">{name}</span>
     </span>

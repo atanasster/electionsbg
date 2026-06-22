@@ -128,6 +128,9 @@ export const ProcurementOblastMap: FC<{
                   fillColor={colorFor(v)}
                   opacity={dimmed ? 0.3 : 1}
                   onCursor={() => (b ? "pointer" : "default")}
+                  ariaLabel={
+                    b && onSelectOblast ? `${b.name}: ${fmt(v)}` : undefined
+                  }
                   onClick={() => {
                     if (b && onSelectOblast) onSelectOblast(canon, b.name);
                   }}

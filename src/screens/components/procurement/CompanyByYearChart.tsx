@@ -22,6 +22,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { TrendingUp } from "lucide-react";
 import type { ProcurementByYear } from "@/data/dataTypes";
 import { formatEur } from "@/lib/currency";
+import { useSeriesColors } from "./chartColors";
 
 // Per-year rollup row. The euro total (`totalEur`) is what this chart plots;
 // `totalOther` (rare USD/GBP/CHF remainder) is not charted.
@@ -74,6 +75,7 @@ export const CompanyByYearChart: FC<{
   title?: string;
 }> = ({ rows, title }) => {
   const { t } = useTranslation();
+  const series = useSeriesColors();
   if (!rows || rows.length === 0) return null;
   // Sort ascending by year so the chart reads left-to-right chronologically.
   const sorted = [...rows].sort((a, b) => a.year.localeCompare(b.year));
@@ -158,7 +160,7 @@ export const CompanyByYearChart: FC<{
                 content={<ChartTooltip />}
                 cursor={{ fill: "var(--muted)", opacity: 0.3 }}
               />
-              <Bar dataKey="eur" fill="#d97706" radius={[2, 2, 0, 0]} />
+              <Bar dataKey="eur" fill={series.amount} radius={[2, 2, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>

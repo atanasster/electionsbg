@@ -38,6 +38,25 @@ export const useContractIndexMeta = () =>
     staleTime: Infinity,
   });
 
+// Dictionary-encoded year shard: names live in eik→name maps, rows carry only
+// the eik (see scripts/procurement/contract_index.ts). The compact row is
+//   [date, awarderEik, contractorEik, amount, cpvDivision, proc, eu, title].
+type CompactRow = [
+  string,
+  string,
+  string,
+  number,
+  string,
+  string,
+  0 | 1 | null,
+  string,
+];
+type YearShard = {
+  awarders: Record<string, string>;
+  contractors: Record<string, string>;
+  rows: CompactRow[];
+};
+
 export const useContractYear = (year?: string) =>
   useQuery({
     queryKey: ["procurement", "contract-index", year] as const,
@@ -46,7 +65,26 @@ export const useContractYear = (year?: string) =>
         dataUrl(`/procurement/derived/contract_index/${year}.json`),
       );
       if (!r.ok) throw new Error(`fetch failed: ${r.status}`);
-      return (await r.json()) as ContractRow[];
+      const data = (await r.json()) as YearShard | ContractRow[];
+      // Back-compat: a bucket that hasn't re-synced may still serve the old
+      // flat ContractRow[] (names inline). Use it as-is.
+      if (Array.isArray(data)) return data;
+      // Rehydrate to the public ContractRow shape, resolving names by reference
+      // so every row shares one string per awarder/contractor (parse + memory
+      // win vs repeating the name on each of ~40k rows).
+      const { awarders, contractors, rows } = data;
+      return rows.map((c) => [
+        c[0],
+        c[1],
+        awarders[c[1]] ?? c[1],
+        c[2],
+        contractors[c[2]] ?? c[2],
+        c[3],
+        c[4],
+        c[5],
+        c[6],
+        c[7],
+      ]);
     },
     enabled: !!year,
     staleTime: Infinity,

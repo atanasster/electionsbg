@@ -196,8 +196,22 @@ export type ProcedureBucket =
 export const procedureBucket = (
   method: string | undefined,
 ): ProcedureBucket => {
-  const s = String(method ?? "").toLowerCase();
+  const s = String(method ?? "")
+    .toLowerCase()
+    .trim();
   if (!s) return "unknown";
+  // OCDS English method enums (the ЦАИС ЕОП flat-договори feed, 2024+). These
+  // arrive as bare codes — without this mapping they'd all fall through to
+  // "other" and the whole recent corpus would read as "Друга" in the browser.
+  switch (s) {
+    case "open":
+      return "open";
+    case "selective":
+      return "competition"; // restricted / two-stage competitive
+    case "limited":
+    case "direct":
+      return "direct"; // limited tendering / direct award — no open advert
+  }
   if (s.includes("открит")) return "open";
   if (s.includes("събиране на оферт")) return "collection";
   if (
@@ -228,3 +242,49 @@ export const PROCEDURE_LABEL: Record<
 
 export const procedureLabel = (b: ProcedureBucket, lang: Lang): string =>
   lang === "bg" ? PROCEDURE_LABEL[b].bg : PROCEDURE_LABEL[b].en;
+
+// Display label for a raw procurementMethod. The АОП feed already publishes a
+// Bulgarian phrase ("Открита процедура", "Договаряне без обявление", …) — keep
+// it verbatim. The ЦАИС ЕОП flat feed publishes bare OCDS enums; translate
+// those so a contract page never shows "limited" / "open" untranslated.
+const OCDS_METHOD_LABEL: Record<string, { bg: string; en: string }> = {
+  open: { bg: "Открита процедура", en: "Open procedure" },
+  selective: {
+    bg: "Ограничена процедура",
+    en: "Selective (restricted) procedure",
+  },
+  limited: {
+    bg: "Договаряне без обявление",
+    en: "Limited (negotiated) procedure",
+  },
+  direct: { bg: "Пряко възлагане", en: "Direct award" },
+};
+
+export const displayProcurementMethod = (
+  method: string | undefined,
+  lang: Lang,
+): string => {
+  if (!method) return "";
+  const hit = OCDS_METHOD_LABEL[method.toLowerCase().trim()];
+  if (hit) return lang === "bg" ? hit.bg : hit.en;
+  return method; // already a Bulgarian free-text phrase
+};
+
+// Contract category (OCDS mainProcurementCategory). Same split: the АОП feed
+// gives "доставки" / "услуги" / "строителство"; the flat feed gives the English
+// enum. Map the English; pass through anything already localised.
+const CATEGORY_LABEL: Record<string, { bg: string; en: string }> = {
+  goods: { bg: "доставки", en: "Goods" },
+  services: { bg: "услуги", en: "Services" },
+  works: { bg: "строителство", en: "Works" },
+};
+
+export const contractCategoryLabel = (
+  category: string | undefined,
+  lang: Lang,
+): string => {
+  if (!category) return "";
+  const hit = CATEGORY_LABEL[category.toLowerCase().trim()];
+  if (hit) return lang === "bg" ? hit.bg : hit.en;
+  return category;
+};

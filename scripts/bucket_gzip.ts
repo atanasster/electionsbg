@@ -62,6 +62,8 @@ const GLOBAL_FILES = [
   "procurement/derived/flow.json",
   "procurement/derived/flow_full.json",
   "procurement/derived/top_contractors.json",
+  // The concentration explorer (?pscope=all) waits on this 1.1 MB table.
+  "procurement/derived/concentration_full.json",
 ];
 
 // Per-election files (one per ballot folder, YYYY_MM_DD[...]).
@@ -107,6 +109,16 @@ const collect = (): string[] => {
           if (f.endsWith(".json")) out.push(`procurement/by_ns/${sub}/${f}`);
         }
       }
+    }
+  }
+  // Contracts browser: each year shard is fetched whole on year-select and runs
+  // 5.7–14.5 MB of highly repetitive JSON (repeated names/EIKs/dates) — gzip
+  // cuts them ~8× on the wire, the single biggest procurement payload win.
+  const ciDir = join(DATA, "procurement", "derived", "contract_index");
+  if (existsSync(ciDir)) {
+    for (const f of readdirSync(ciDir)) {
+      if (f.endsWith(".json"))
+        out.push(`procurement/derived/contract_index/${f}`);
     }
   }
   for (const entry of readdirSync(DATA, { withFileTypes: true })) {

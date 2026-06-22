@@ -11,6 +11,12 @@ export const FeatureMap: React.FC<
       onClick?: () => void;
       onCursor?: () => string;
       opacity?: number;
+      // Opt-in keyboard access: when set (alongside onClick), the region
+      // becomes a focusable button — Tab to it, Enter/Space to activate, with a
+      // visible focus ring. Left undefined for the high-cardinality section
+      // maps (thousands of paths) where a giant tab order would hurt; the
+      // low-count choropleths (28 oblasts) opt in.
+      ariaLabel?: string;
     }
   >
 > = ({
@@ -23,8 +29,10 @@ export const FeatureMap: React.FC<
   onMouseMove,
   onMouseLeave,
   opacity,
+  ariaLabel,
 }) => {
   const [active, setActive] = useState<boolean>(false);
+  const keyboard = !!ariaLabel && !!onClick;
   const [isLongPress, setIsLongPress] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | undefined>(undefined);
   const isTouch = useTouch();
@@ -60,7 +68,22 @@ export const FeatureMap: React.FC<
         stroke="hsl(var(--border))"
         strokeWidth={active ? 2.5 : 1}
         cursor={onCursor ? onCursor() : "pointer"}
-        className="path"
+        // Keyboard focus ring via CSS :focus-visible (index.css) when the
+        // region opts into keyboard access.
+        className={keyboard ? "path kbd-focus-ring" : "path"}
+        tabIndex={keyboard ? 0 : undefined}
+        role={keyboard ? "button" : undefined}
+        aria-label={keyboard ? ariaLabel : undefined}
+        onKeyDown={
+          keyboard
+            ? (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onClick?.();
+                }
+              }
+            : undefined
+        }
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
         onMouseEnter={handleMouseEnter}

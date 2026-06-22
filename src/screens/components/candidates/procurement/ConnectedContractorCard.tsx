@@ -22,6 +22,7 @@ import {
 } from "recharts";
 import type { ProcurementByYear } from "@/data/dataTypes";
 import { formatEur, formatEurWithOther } from "@/lib/currency";
+import { useSeriesColors } from "@/screens/components/procurement/chartColors";
 
 // Per-company inline by-year chart. Compact (160px tall), no Card wrapper —
 // embeds inline inside the contractor card.
@@ -29,6 +30,7 @@ export const InlineByYearChart: FC<{ rows: ProcurementByYear[] }> = ({
   rows,
 }) => {
   const { t } = useTranslation();
+  const series = useSeriesColors();
   if (!rows.length) return null;
   const sorted = [...rows].sort((a, b) => a.year.localeCompare(b.year));
   const data = sorted.map((r) => ({
@@ -40,11 +42,17 @@ export const InlineByYearChart: FC<{ rows: ProcurementByYear[] }> = ({
     <div>
       <div className="flex flex-wrap gap-x-3 gap-y-0.5 text-[10px] text-muted-foreground mb-1 leading-none">
         <span className="inline-flex items-center gap-1">
-          <span className="inline-block w-2 h-2 rounded-sm bg-[#d97706]" />
+          <span
+            className="inline-block w-2 h-2 rounded-sm"
+            style={{ backgroundColor: series.amount }}
+          />
           {t("procurement_page_chart_legend_amount") || "bar: €"}
         </span>
         <span className="inline-flex items-center gap-1">
-          <span className="inline-block w-2 h-[2px] bg-[#2563eb]" />
+          <span
+            className="inline-block w-2 h-[2px]"
+            style={{ backgroundColor: series.count }}
+          />
           {t("procurement_page_chart_legend_count") || "line: contracts"}
         </span>
       </div>
@@ -114,16 +122,16 @@ export const InlineByYearChart: FC<{ rows: ProcurementByYear[] }> = ({
             <Bar
               yAxisId="eur"
               dataKey="eur"
-              fill="#d97706"
+              fill={series.amount}
               radius={[2, 2, 0, 0]}
             />
             <Line
               yAxisId="count"
               type="monotone"
               dataKey="contractCount"
-              stroke="#2563eb"
+              stroke={series.count}
               strokeWidth={2}
-              dot={{ r: 2.5, fill: "#2563eb" }}
+              dot={{ r: 2.5, fill: series.count }}
               activeDot={{ r: 4 }}
             />
           </ComposedChart>

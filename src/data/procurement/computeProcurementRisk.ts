@@ -21,6 +21,7 @@ import type {
   DebarredEntry,
   ProcurementContract,
 } from "@/data/dataTypes";
+import { procedureBucket } from "@/lib/cpvSectors";
 
 /** One evaluable red-flag check. `available` = we had the data to evaluate it;
  *  `fired` = the check tripped. */
@@ -173,8 +174,15 @@ export const computeProcurementRisk = (
     !!contract.procurementMethod || !!contract.procurementMethodRationale;
   let nonOpenProcedure = false;
   if (methodKnown) {
+    // Classify via the shared bucketer so both the OCDS enum ("open") and the
+    // Bulgarian АОП phrase ("Открита процедура") count as open — a bare
+    // `!== "open"` string compare wrongly flagged every Bulgarian open
+    // procedure (the largest slice of the corpus) as non-open.
+    const openProcedure =
+      !!contract.procurementMethod &&
+      procedureBucket(contract.procurementMethod) === "open";
     nonOpenProcedure =
-      (!!contract.procurementMethod && contract.procurementMethod !== "open") ||
+      (!!contract.procurementMethod && !openProcedure) ||
       !!contract.procurementMethodRationale;
     add("nonOpenProcedure", true, nonOpenProcedure);
   } else {

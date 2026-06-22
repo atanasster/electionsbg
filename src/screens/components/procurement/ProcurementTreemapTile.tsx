@@ -72,7 +72,16 @@ export const ProcurementTreemapTile: FC<{
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 md:p-4">
-        <div style={{ height: 300, width: "100%" }}>
+        {/* The treemap is a pointer-driven visual summary; keyboard/AT users
+            reach the same entities through the "See all" list (real links) and
+            the per-entity tables on each page. role=img keeps the decorative
+            SVG cells out of the tab/AT order rather than exposing unfocusable
+            shapes. */}
+        <div
+          role="img"
+          aria-label={`${title} — ${subtitle}`}
+          style={{ height: 300, width: "100%" }}
+        >
           <ResponsiveContainer width="100%" height="100%">
             <Treemap
               data={data}
