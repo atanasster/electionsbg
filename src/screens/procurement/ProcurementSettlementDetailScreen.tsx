@@ -84,8 +84,8 @@ export const ProcurementSettlementDetailScreen: FC = () => {
   const bgPrep = /^[вфВФ]/.test(data.name) ? "във" : "в";
   const title =
     i18n.language === "bg"
-      ? `Поръчки ${bgPrep} ${data.name}`
-      : `Procurement in ${data.name}`;
+      ? `Обществени поръчки ${bgPrep} ${data.name}`
+      : `Public procurement in ${data.name}`;
 
   return (
     <div>
