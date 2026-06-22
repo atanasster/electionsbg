@@ -45,6 +45,12 @@ type ArticleMeta = {
    *  + llms-index must always skip them, otherwise we'd serve unfinished
    *  drafts as static HTML in production. */
   draft?: boolean;
+  /** When true, the article is retired from every listing but its own
+   *  page is still prerendered (and stays in the sitemap) so existing
+   *  links + Google results keep resolving. Unlike `draft`, we still emit
+   *  the per-article route — we only drop it from the /articles index
+   *  body below. */
+  unlisted?: boolean;
 };
 
 type FrontmatterFields = {
@@ -196,6 +202,9 @@ export const buildArticleRoutes = async (
   );
   // Skip drafts — never prerender unfinished material into static HTML.
   const articles = allArticles.filter((a) => !a.draft);
+  // Unlisted articles keep their own prerendered page (Google + direct
+  // links must still resolve) but drop out of the /articles index body.
+  const listedArticles = articles.filter((a) => !a.unlisted);
 
   // Pre-scan article images so the markdown renderer can stamp explicit
   // width/height on each <img> — prevents CLS when the prerendered shell
@@ -215,7 +224,7 @@ export const buildArticleRoutes = async (
     title: "Анализи на данни — парламентарни избори | electionsbg.com",
     description:
       "Задълбочен анализ на парламентарните избори в България — активност, разминавания между протокол и флаш памет, рискови махали, точност на социологията.",
-    bodyHtml: buildIndexBody(articles, "bg"),
+    bodyHtml: buildIndexBody(listedArticles, "bg"),
     jsonLd: [
       buildBreadcrumbLd([
         { name: "Начало", url: `${SITE_URL}/` },
@@ -227,7 +236,7 @@ export const buildArticleRoutes = async (
         "Data Analysis — Bulgarian Parliamentary Elections | electionsbg.com",
       description:
         "Long-form data analysis of Bulgarian parliamentary elections — turnout, machine flash discrepancies, risk neighborhoods, polling accuracy.",
-      bodyHtml: buildIndexBody(articles, "en"),
+      bodyHtml: buildIndexBody(listedArticles, "en"),
       jsonLd: [
         buildBreadcrumbLd([
           { name: "Home", url: `${SITE_URL}/en/` },

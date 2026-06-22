@@ -34,6 +34,14 @@ export type ArticleMeta = {
    *  silently drop these — they never reach the prerender/sitemap/llms
    *  index either, see scripts/prerender/articleRoutes.ts. */
   draft?: boolean;
+  /** When true, the article is hidden from every human-facing listing
+   *  (the /articles index, dashboard topic strips/tiles, the community
+   *  CTA) but its own page, prerendered HTML, sitemap entry and raw
+   *  markdown all stay in place — so direct links and Google search keep
+   *  resolving. Used to retire a superseded article without 404-ing the
+   *  URLs already in the wild. Distinct from `draft`, which drops the
+   *  article from production entirely. */
+  unlisted?: boolean;
 };
 
 const indexQueryFn = async (): Promise<ArticleMeta[]> => {
@@ -51,6 +59,18 @@ const indexQueryFn = async (): Promise<ArticleMeta[]> => {
 
 export const useArticles = () =>
   useQuery({ queryKey: ["articles_index"], queryFn: indexQueryFn });
+
+// Listing surfaces (the /articles index, dashboard topic strips/tiles, the
+// community CTA) use this filtered view so `unlisted` articles never show up
+// in a "list of articles". The unfiltered `useArticles()` is reserved for the
+// single-article page, which must still resolve an unlisted slug's metadata.
+export const useListedArticles = () => {
+  const query = useArticles();
+  return {
+    ...query,
+    data: query.data?.filter((a) => !a.unlisted),
+  };
+};
 
 // Strip optional YAML frontmatter (`---\n...\n---`) before handing the body
 // to react-markdown. Authors may attach frontmatter for SEO/AIO metadata

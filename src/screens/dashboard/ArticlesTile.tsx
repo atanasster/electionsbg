@@ -3,7 +3,10 @@ import { useTranslation } from "react-i18next";
 import { FileText } from "lucide-react";
 import { Hint } from "@/ux/Hint";
 import { Link } from "@/ux/Link";
-import { DashboardSectionId, useArticles } from "@/data/articles/useArticles";
+import {
+  DashboardSectionId,
+  useListedArticles,
+} from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
 import { StatCard } from "./StatCard";
 
@@ -17,7 +20,7 @@ export const ArticlesTile: FC<Props> = ({ shownTopics = [] }) => {
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const { selected } = useElectionContext();
-  const { data: articles } = useArticles();
+  const { data: articles } = useListedArticles();
 
   const shown = new Set<DashboardSectionId>(shownTopics);
   const matching = (articles ?? []).filter((a) => {

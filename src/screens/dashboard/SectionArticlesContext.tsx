@@ -1,5 +1,8 @@
 import { FC, PropsWithChildren, useMemo } from "react";
-import { DashboardSectionId, useArticles } from "@/data/articles/useArticles";
+import {
+  DashboardSectionId,
+  useListedArticles,
+} from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
 import { SectionArticlesContext } from "./articlesAssignment";
 import type { Assignment } from "./articlesAssignment";
@@ -14,7 +17,7 @@ export const SectionArticlesProvider: FC<PropsWithChildren<Props>> = ({
   order,
   children,
 }) => {
-  const { data: articles } = useArticles();
+  const { data: articles } = useListedArticles();
   const { selected } = useElectionContext();
 
   const assignment = useMemo<Assignment>(() => {

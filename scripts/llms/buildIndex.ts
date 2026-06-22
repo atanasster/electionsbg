@@ -27,6 +27,10 @@ type ArticleMeta = {
   /** Editorial draft — kept out of the llms index, prerender, and sitemap.
    *  Drafts only surface on the Vite dev server. */
   draft?: boolean;
+  /** Retired-but-reachable: dropped from this curated list (a newer
+   *  article supersedes it) while its page/markdown stay live for direct
+   *  links + Google. See useArticles.ts. */
+  unlisted?: boolean;
 };
 
 const KEY_URLS: Array<{ url: string; label: string; description: string }> = [
@@ -217,7 +221,9 @@ const buildFeaturedAnalyses = (): string[] => {
   }
   if (!Array.isArray(articles) || !articles.length) return [];
   const sorted = [...articles]
-    .filter((a) => a?.slug && a.title?.en && a.title?.bg && !a.draft)
+    .filter(
+      (a) => a?.slug && a.title?.en && a.title?.bg && !a.draft && !a.unlisted,
+    )
     .sort((a, b) => (b.publishedAt || "").localeCompare(a.publishedAt || ""));
   return sorted.map((a) => {
     const enUrl = `${SITE_URL}/en/articles/${a.slug}`;

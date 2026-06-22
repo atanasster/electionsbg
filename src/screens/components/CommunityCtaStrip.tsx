@@ -11,7 +11,7 @@ import { Facebook, Users, ArrowRight, X } from "lucide-react";
 import { Link } from "@/ux/Link";
 import { Anchor } from "@/ux/Anchor";
 import { GROUP_URL, PAGE_URL } from "@/lib/community";
-import { useArticles } from "@/data/articles/useArticles";
+import { useListedArticles } from "@/data/articles/useArticles";
 
 const DISMISS_KEY = "naiasno_cta_dismissed_until";
 const DISMISS_DAYS = 14;
@@ -25,7 +25,7 @@ const isDismissed = (): boolean => {
 export const CommunityCtaStrip: FC = () => {
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
-  const { data: articles } = useArticles();
+  const { data: articles } = useListedArticles();
   const [dismissed, setDismissed] = useState(isDismissed);
 
   if (dismissed) return null;

@@ -2,7 +2,10 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { FileText } from "lucide-react";
 import { Link } from "@/ux/Link";
-import { DashboardSectionId, useArticles } from "@/data/articles/useArticles";
+import {
+  DashboardSectionId,
+  useListedArticles,
+} from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useArticlesForTopic } from "./useArticlesForTopic";
 
@@ -14,7 +17,7 @@ export const SectionArticlesStrip: FC<Props> = ({ topic }) => {
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const { selected } = useElectionContext();
-  const { data: articles } = useArticles();
+  const { data: articles } = useListedArticles();
   const assigned = useArticlesForTopic(topic);
 
   const matching =

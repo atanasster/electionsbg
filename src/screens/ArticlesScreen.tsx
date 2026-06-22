@@ -6,7 +6,7 @@ import { Link } from "@/ux/Link";
 import {
   ArticleMeta,
   DashboardSectionId,
-  useArticles,
+  useListedArticles,
 } from "@/data/articles/useArticles";
 
 const TOPIC_LABEL_KEY: Record<DashboardSectionId, string> = {
@@ -39,7 +39,7 @@ const fallbackGradient = (slug: string) => {
 export const ArticlesScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
-  const { data: articles, isLoading } = useArticles();
+  const { data: articles, isLoading } = useListedArticles();
   const [activeTopic, setActiveTopic] = useState<DashboardSectionId | null>(
     null,
   );
