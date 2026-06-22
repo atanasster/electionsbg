@@ -1704,6 +1704,16 @@ export type ProcurementByNsTopMp = {
   // stake, or TR role with seat/party witness). UI shows a badge for medium.
   confidence: "high" | "medium";
 };
+export type ProcurementByNsTopOfficial = {
+  slug: string;
+  name: string;
+  tier: string;
+  role: string;
+  totalEur: number;
+  contractCount: number;
+  contractorCount: number;
+  topContractorNames: string[];
+};
 export type ProcurementByNsFile = {
   electionDate: string;
   start: string;
@@ -1719,10 +1729,18 @@ export type ProcurementByNsFile = {
     mpCount: number;
     mpConnectedContractorCount: number;
     mpConnectedTotalEur: number;
+    // Officials (non-MP political class) connected slice.
+    officialCount: number;
+    officialConnectedContractorCount: number;
+    officialConnectedTotalEur: number;
+    // Combined MPs ∪ officials, de-duplicated by contractor EIK.
+    connectedContractorCount: number;
+    connectedTotalEur: number;
   };
   topContractors: ProcurementByNsTopContractor[];
   topAwarders: ProcurementByNsTopAwarder[];
   topMps: ProcurementByNsTopMp[];
+  topOfficials: ProcurementByNsTopOfficial[];
 };
 
 /** Global procurement index file (data/procurement/index.json). */
@@ -1752,5 +1770,12 @@ export type ProcurementIndexFile = {
     pairCount: number;
     totalEur: number;
     totalOther: Record<string, number>;
+  };
+  officialsCrossReference?: {
+    generatedAt: string;
+    officialCount: number;
+    contractorCount: number;
+    pairCount: number;
+    totalEur: number;
   };
 };

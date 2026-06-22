@@ -3,16 +3,16 @@
 // that parliament's term. A "Покажи всички години" toggle pivots to the
 // full-corpus view (every year 2011-2026).
 
-import { FC, useState } from "react";
+import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { ExternalLink, Receipt, Users, Building2, Coins } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { StatCard } from "./dashboard/StatCard";
 import { useProcurementIndex } from "@/data/procurement/useProcurementIndex";
 import { useProcurementByNs } from "@/data/procurement/useProcurementByNs";
-import { useElectionContext } from "@/data/ElectionContext";
+import { useProcurementScope } from "@/data/procurement/useProcurementScope";
 import { ProcurementFlowTile } from "./components/procurement/ProcurementFlowTile";
-import { ProcurementNav } from "./components/procurement/ProcurementNav";
+import { ProcurementSectionHeader } from "./components/procurement/ProcurementSectionHeader";
 import { TopContractorsTile } from "./components/procurement/TopContractorsTile";
 import { TopAwardersTile } from "./components/procurement/TopAwardersTile";
 import { TopMpsTile } from "./components/procurement/TopMpsTile";
@@ -31,12 +31,13 @@ const SkeletonCard: FC = () => (
 
 export const ProcurementScreen: FC = () => {
   const { t } = useTranslation();
-  const { selected } = useElectionContext();
   const { data: globalIndex, isLoading: globalLoading } = useProcurementIndex();
   const { data: byNs, isLoading: byNsLoading } = useProcurementByNs();
-  // Default false → scoped to the selected election (the per-NS slice).
-  // Operator can flip to the full-corpus view via the toggle in the header.
-  const [showAllYears, setShowAllYears] = useState(false);
+  // Scope is section-wide and URL-encoded (?pscope) so it's shareable and
+  // survives navigation to the sub-pages. Default "ns" → scoped to the
+  // selected election; "all" pivots to the full-corpus view.
+  const { scope } = useProcurementScope();
+  const showAllYears = scope === "all";
 
   const title = t("procurement_index_title") || "Public procurement";
 
@@ -61,9 +62,7 @@ export const ProcurementScreen: FC = () => {
 
   if (showAllYears) {
     if (!globalIndex) return null;
-    return renderGlobalView(t, globalIndex, title, () =>
-      setShowAllYears(false),
-    );
+    return renderGlobalView(t, globalIndex, title);
   }
 
   if (!byNs) {
@@ -75,12 +74,8 @@ export const ProcurementScreen: FC = () => {
         <Title description="Aggregated public-procurement contracts from data.egov.bg">
           {title}
         </Title>
+        <ProcurementSectionHeader scopeMode="toggle" />
         <section aria-label={title} className="my-4">
-          <ScopeToggle
-            scope="ns"
-            electionDate={selected}
-            onShowAll={() => setShowAllYears(true)}
-          />
           <p className="text-sm text-muted-foreground mt-4">
             {t("procurement_index_no_ns_data") ||
               "No procurement data falls within this election's date range."}
@@ -96,16 +91,16 @@ export const ProcurementScreen: FC = () => {
       <Title description="Aggregated public-procurement contracts from data.egov.bg">
         {title}
       </Title>
+      <ProcurementSectionHeader scopeMode="toggle" />
       <section aria-label={title} className="my-4">
-        <ScopeToggle
-          scope="ns"
-          electionDate={selected}
-          start={byNs.start}
-          end={byNs.end}
-          onShowAll={() => setShowAllYears(true)}
-        />
-
-        <ProcurementNav />
+        <p className="text-xs text-muted-foreground mb-1">
+          {t("procurement_scope_ns") ||
+            "Showing contracts during the selected parliament:"}{" "}
+          <strong className="text-foreground tabular-nums">
+            {byNs.start}
+            {byNs.end ? ` → ${byNs.end}` : " → …"}
+          </strong>
+        </p>
 
         <div
           className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mt-4"
@@ -176,24 +171,26 @@ export const ProcurementScreen: FC = () => {
             <div className="flex items-baseline gap-2">
               <Users className="h-5 w-5 text-amber-600 shrink-0" />
               <span className="text-2xl font-bold tabular-nums">
-                {numFmt.format(byNs.totals.mpCount + byNs.totals.officialCount)}
+                {numFmt.format(
+                  (byNs.totals.mpCount ?? 0) + (byNs.totals.officialCount ?? 0),
+                )}
               </span>
               <span className="text-sm text-muted-foreground">
                 {t("procurement_index_connected_people") || "people"}
               </span>
             </div>
             <div className="text-xs text-muted-foreground tabular-nums">
-              {numFmt.format(byNs.totals.mpCount)}{" "}
+              {numFmt.format(byNs.totals.mpCount ?? 0)}{" "}
               {t("procurement_index_mp_count_short") || "MPs"} ·{" "}
-              {numFmt.format(byNs.totals.officialCount)}{" "}
+              {numFmt.format(byNs.totals.officialCount ?? 0)}{" "}
               {t("procurement_index_officials_count") || "officials"}
             </div>
             <div className="text-xs text-muted-foreground tabular-nums">
-              {numFmt.format(byNs.totals.connectedContractorCount)}{" "}
+              {numFmt.format(byNs.totals.connectedContractorCount ?? 0)}{" "}
               {t("procurement_index_mp_companies") || "companies"}
             </div>
             <div className="text-xs font-medium tabular-nums">
-              {formatEur(byNs.totals.connectedTotalEur)}
+              {formatEur(byNs.totals.connectedTotalEur ?? 0)}
             </div>
           </StatCard>
         </div>
@@ -234,7 +231,6 @@ function renderGlobalView(
   t: (k: string) => string,
   index: NonNullable<ReturnType<typeof useProcurementIndex>["data"]>,
   title: string,
-  onScopeToNs: () => void,
 ) {
   const totalContracts = index.totals.contracts + index.totals.amendments;
   const cr = index.crossReference;
@@ -256,10 +252,12 @@ function renderGlobalView(
       <Title description="Aggregated public-procurement contracts from data.egov.bg">
         {title}
       </Title>
+      <ProcurementSectionHeader scopeMode="toggle" />
       <section aria-label={title} className="my-4">
-        <ScopeToggle scope="all" onScopeToNs={onScopeToNs} />
-
-        <ProcurementNav />
+        <p className="text-xs text-muted-foreground mb-1">
+          {t("procurement_scope_all") || "Showing the full corpus, all years."}
+          {yearSpan ? ` (${yearSpan})` : ""}
+        </p>
 
         <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mt-4">
           <StatCard
@@ -362,59 +360,6 @@ function renderGlobalView(
     </>
   );
 }
-
-const ScopeToggle: FC<{
-  scope: "ns" | "all";
-  electionDate?: string;
-  start?: string;
-  end?: string | null;
-  onShowAll?: () => void;
-  onScopeToNs?: () => void;
-}> = ({ scope, electionDate, start, end, onShowAll, onScopeToNs }) => {
-  const { t } = useTranslation();
-  return (
-    <div className="flex flex-wrap items-baseline gap-2 text-sm">
-      {scope === "ns" ? (
-        <>
-          <span className="text-muted-foreground">
-            {t("procurement_scope_ns") ||
-              "Showing contracts during the selected parliament:"}
-          </span>
-          <strong>
-            {electionDate?.replace(/_/g, "-")}
-            {start && end ? ` (${start} → ${end})` : ""}
-            {start && !end ? ` (${start} → …)` : ""}
-          </strong>
-          {onShowAll ? (
-            <button
-              type="button"
-              onClick={onShowAll}
-              className="ml-auto text-primary hover:underline"
-            >
-              {t("procurement_scope_show_all") || "Show all years →"}
-            </button>
-          ) : null}
-        </>
-      ) : (
-        <>
-          <span className="text-muted-foreground">
-            {t("procurement_scope_all") ||
-              "Showing the full corpus, all years."}
-          </span>
-          {onScopeToNs ? (
-            <button
-              type="button"
-              onClick={onScopeToNs}
-              className="ml-auto text-primary hover:underline"
-            >
-              {t("procurement_scope_show_ns") || "Scope to selected election →"}
-            </button>
-          ) : null}
-        </>
-      )}
-    </div>
-  );
-};
 
 const SourceFooter: FC<{ t: (k: string) => string }> = ({ t }) => (
   <p className="text-[11px] text-muted-foreground/80 mt-4">
