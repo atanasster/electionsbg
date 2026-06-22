@@ -219,3 +219,26 @@ export const getResolver = (): EkatteResolver => {
   }
   return cached;
 };
+
+// Oblast (province) name → NUTS3 code — the inverse of NUTS_TO_PROVINCE. The
+// 28 BG NUTS3 codes map 1:1 to oblast names, so this round-trips losslessly.
+const PROVINCE_TO_NUTS: Record<string, string> = Object.fromEntries(
+  Object.entries(NUTS_TO_PROVINCE).map(([nuts, prov]) => [prov, nuts]),
+);
+
+let ekatteNutsCache: Map<string, string> | null = null;
+
+// EKATTE settlement code → its oblast NUTS3 code (e.g. "10447" → "BG321"),
+// resolved through the EKATTE index's `province` name. Returns null for an
+// unknown code or a province with no NUTS3 mapping. Used as the geo fallback for
+// a local awarder's oblast when the tenders feed carries no modal oblast for it.
+export const ekatteToNuts3 = (ekatte: string): string | null => {
+  if (!ekatteNutsCache) {
+    ekatteNutsCache = new Map();
+    for (const e of getResolver().entries) {
+      const nuts = PROVINCE_TO_NUTS[e.province];
+      if (nuts) ekatteNutsCache.set(e.ekatte, nuts);
+    }
+  }
+  return ekatteNutsCache.get(ekatte) ?? null;
+};

@@ -9,6 +9,7 @@ import path from "path";
 import type { AwarderConcentrationFile, MpConnectedFile } from "./types";
 import type { PepConnectedFile } from "./pep_connected";
 import { canonicalJson } from "./validate";
+import { ekatteToNuts3 } from "./resolve_ekatte";
 
 const TOP_N = 50;
 
@@ -54,19 +55,59 @@ export interface RiskFeedFile {
   concentrationNationalCount: number;
 }
 
-// Buyer EIK → NUTS3 of its seat, from the standalone buyer_oblast_map.json
-// (built by scripts/procurement/build_tender_oblast_map.ts). Absent or
-// nuts-less buyers (central tier, unresolved) resolve to null upstream.
+// Buyer EIK → NUTS3 of its seat. Two sources, fill-missing in this order:
+//   1. buyer_oblast_map.json — the tenders-feed modal oblast (built by
+//      build_tender_oblast_map.ts). Place-of-performance, always wins.
+//   2. the awarder rollup's resolved geo (geo.ekatte → NUTS3) — the geo
+//      fallback for LOCAL buyers (schools, kindergartens, hospitals, regional
+//      directorates, …) that never surface in the tenders feed and would
+//      otherwise be dumped into the "national" bucket despite having a concrete
+//      seat. Gated on geo.isLocalHQ so central ministries/agencies — whose HQ
+//      resolves to Sofia but whose procurement is genuinely national — correctly
+//      stay national.
+// Both feeds read the same files for buildRiskFeed + buildConcentrationFull, so
+// the merged map is memoised per derivedDir.
+const oblastMapCache = new Map<string, Map<string, string>>();
 const loadOblastByEik = (derivedDir: string): Map<string, string> => {
-  const p = path.join(derivedDir, "buyer_oblast_map.json");
+  const memo = oblastMapCache.get(derivedDir);
+  if (memo) return memo;
   const out = new Map<string, string>();
-  if (!fs.existsSync(p)) return out;
-  const m = JSON.parse(fs.readFileSync(p, "utf8")) as {
-    awarders?: Record<string, { nuts?: string }>;
-  };
-  for (const [eik, v] of Object.entries(m.awarders ?? {})) {
-    if (v?.nuts) out.set(eik, v.nuts);
+
+  const p = path.join(derivedDir, "buyer_oblast_map.json");
+  if (fs.existsSync(p)) {
+    const m = JSON.parse(fs.readFileSync(p, "utf8")) as {
+      awarders?: Record<string, { nuts?: string }>;
+    };
+    for (const [eik, v] of Object.entries(m.awarders ?? {})) {
+      if (v?.nuts) out.set(eik, v.nuts);
+    }
   }
+
+  // Geo fallback — only fills buyers the tenders feed missed.
+  const awardersDir = path.join(path.dirname(derivedDir), "awarders");
+  if (fs.existsSync(awardersDir)) {
+    for (const f of fs.readdirSync(awardersDir)) {
+      if (!f.endsWith(".json")) continue;
+      const eik = f.slice(0, -5);
+      if (out.has(eik)) continue;
+      let geo: { ekatte?: string; isLocalHQ?: boolean } | undefined;
+      try {
+        geo = (
+          JSON.parse(fs.readFileSync(path.join(awardersDir, f), "utf8")) as {
+            geo?: { ekatte?: string; isLocalHQ?: boolean };
+          }
+        ).geo;
+      } catch {
+        continue;
+      }
+      if (geo?.isLocalHQ && geo.ekatte) {
+        const nuts = ekatteToNuts3(geo.ekatte);
+        if (nuts) out.set(eik, nuts);
+      }
+    }
+  }
+
+  oblastMapCache.set(derivedDir, out);
   return out;
 };
 

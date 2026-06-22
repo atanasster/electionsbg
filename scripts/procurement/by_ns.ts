@@ -32,6 +32,7 @@ import type {
   RiskFeedMpTied,
 } from "./risk_feed";
 import { canonicalJson } from "./validate";
+import { ekatteToNuts3 } from "./resolve_ekatte";
 import { toEur } from "@/lib/currency";
 
 // Top-N cap per category in each per-NS file. Keeps file size predictable
@@ -548,7 +549,10 @@ const buildNsFlow = (
 
 // Buyer EIK → NUTS3 of its seat, from derived/buyer_oblast_map.json (built by
 // build_tender_oblast_map.ts). Mirrors risk_feed.ts's loader so the per-NS
-// concentration rows + flags-by-region tally carry the same oblast tags.
+// concentration rows + flags-by-region tally carry the same oblast tags. The
+// geo fallback for local buyers the tenders feed misses is merged in below
+// (buildByNs), reusing the awarderGeo map already loaded for the settlement
+// index — keeping this loader a pure read of the tenders feed.
 const loadOblastByEik = (oblastMapPath: string): Map<string, string> => {
   const out = new Map<string, string>();
   if (!fs.existsSync(oblastMapPath)) return out;
@@ -870,6 +874,15 @@ export const buildByNs = (
   const ekByCode = loadEkatteCatalog(
     path.join(opts.outDir, "..", "..", "ekatte_index.json"),
   );
+  // Geo fallback for the oblast tags: local-HQ buyers (schools, kindergartens,
+  // hospitals, regional directorates, …) never surface in the tenders feed, so
+  // without this they'd land in the "national" bucket despite a concrete seat.
+  // Fill-missing only (a tenders modal oblast wins); central tiers stay national.
+  for (const [eik, geo] of awarderGeo) {
+    if (oblastByEik.has(eik) || !geo.isLocalHQ) continue;
+    const nuts = ekatteToNuts3(geo.ekatte);
+    if (nuts) oblastByEik.set(eik, nuts);
+  }
   let filesWritten = 0;
   for (const range of ranges) {
     const acc = accums.get(range.electionDate);
