@@ -1658,10 +1658,6 @@ export type ProcurementContractorRollup = {
   }>;
   byYear: ProcurementByYear[];
   topContracts: ProcurementRollupContractRow[];
-  contractRefs: Array<{
-    monthFile: string;
-    indexes: number[];
-  }>;
   generatedAt: string;
 };
 

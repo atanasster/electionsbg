@@ -164,13 +164,6 @@ export interface ContractorRollup {
   // /company/:eik without forcing a 4 MB contractor_contracts/<eik>.json fetch.
   // partyEik/partyName point to the awarder for this row.
   topContracts: RollupContractRow[];
-  // Sample of references to the contract month-shards where this contractor
-  // appears. Up to N most recent; the SPA's per-contractor page fetches the
-  // referenced shards on demand to materialise the full contract list.
-  contractRefs: Array<{
-    monthFile: string; // e.g. "contracts/2026/2026-04.json"
-    indexes: number[]; // positions within that file
-  }>;
   generatedAt: string;
 }
 

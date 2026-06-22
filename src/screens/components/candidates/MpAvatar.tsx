@@ -2,6 +2,7 @@ import { FC, CSSProperties } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { initials, cn } from "@/lib/utils";
 import { useMps } from "@/data/parliament/useMps";
+import { useMpAvatars } from "@/data/parliament/useMpAvatars";
 import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
 
 type Props = {
@@ -55,7 +56,15 @@ export const MpAvatarView: FC<ViewProps> = ({
   );
 };
 
-/** Connected avatar — resolves the MP by id/name through the parliament index.
+/** Connected avatar — resolves the MP's photo + party ring by id (and name).
+ *
+ * Reads the slim ~36 KB parliament/avatars.json first; the full ~970 KB
+ * parliament/index.json is fetched ONLY as a fallback (deferred via
+ * `enabled`) — when the caller gave no id, or the id isn't in the slim
+ * projection (e.g. a local-election candidate id, or a brand-new MP). This
+ * keeps connection-only pages (/company, /awarder, /officials) from
+ * downloading the whole roster just to draw a face.
+ *
  * Prefer `MpAvatarView` on hot paths where the photo is already known. */
 export const MpAvatar: FC<Props> = ({
   name,
@@ -63,14 +72,32 @@ export const MpAvatar: FC<Props> = ({
   className,
   showPartyRing = true,
 }) => {
-  const { findMpByName, findMpById } = useMps();
+  const { get, isSettled } = useMpAvatars();
+  const slim = get(mpId);
+  // The slim projection carries no names, so it can only fully answer when the
+  // caller also supplied one (for initials + alt text). Otherwise fall back to
+  // the full roster — which also covers name-only callers and slim misses.
+  // Gate the fallback on the avatars query having SETTLED: on the first render
+  // (avatars.json not yet loaded) slim is undefined for everyone, and an
+  // ungated fallback would fire the ~970 KB index fetch before avatars.json
+  // even arrives. Once settled, a still-missing id legitimately falls back.
+  const slimUsable = !!slim && !!name;
+  const needIndex = isSettled && !slimUsable && (mpId != null || !!name);
+  const { findMpByName, findMpById } = useMps(needIndex);
   const { lookup } = useParliamentGroups();
-  const mp = findMpById(mpId) ?? findMpByName(name);
-  const group = showPartyRing ? lookup(mp?.currentPartyGroupShort) : undefined;
+
+  const mp = slimUsable ? undefined : (findMpById(mpId) ?? findMpByName(name));
+  const photoUrl = slimUsable ? slim!.photoUrl : mp?.photoUrl;
+  const partyShort = slimUsable
+    ? slim!.partyGroupShort
+    : mp?.currentPartyGroupShort;
+  const displayName = (slimUsable ? name : (mp?.name ?? name)) ?? "";
+  const group = showPartyRing ? lookup(partyShort) : undefined;
+
   return (
     <MpAvatarView
-      photoUrl={mp?.photoUrl}
-      displayName={mp?.name ?? name ?? ""}
+      photoUrl={photoUrl}
+      displayName={displayName}
       ringColor={group?.color}
       className={className}
     />

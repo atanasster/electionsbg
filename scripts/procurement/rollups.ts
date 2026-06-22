@@ -86,7 +86,6 @@ interface ContractorAcc {
   // holding every Contract row per entity (the worst-case entity has
   // thousands of rows; we only need the top ~20).
   topContracts: RollupContractRow[];
-  refsByMonth: Map<string, number[]>;
 }
 
 interface AwarderAcc {
@@ -182,10 +181,9 @@ export const buildRollups = (contractsDir: string): RollupResult => {
     for (const file of fs.readdirSync(yearDir).sort()) {
       if (!/^\d{4}-\d{2}\.json$/.test(file)) continue;
       const fullPath = path.join(yearDir, file);
-      const monthFile = `contracts/${year}/${file}`;
       const rows = JSON.parse(fs.readFileSync(fullPath, "utf8")) as Contract[];
 
-      rows.forEach((row, idx) => {
+      rows.forEach((row) => {
         if (row.tag === "contract") totals.contracts++;
         else if (row.tag === "award") totals.awards++;
         else if (row.tag === "contractAmendment") totals.amendments++;
@@ -203,7 +201,6 @@ export const buildRollups = (contractsDir: string): RollupResult => {
             byAwarder: new Map(),
             byYear: new Map(),
             topContracts: [],
-            refsByMonth: new Map(),
           } satisfies ContractorAcc);
         // Prefer the most recent name observed. Rows are walked in YYYY-MM
         // order (sorted), so the last assignment is the newest.
@@ -231,10 +228,6 @@ export const buildRollups = (contractsDir: string): RollupResult => {
         addCurrency(aw.totalByCurrency, row.currency, row.amount);
         aw.contractCount++;
         ca.byAwarder.set(aw.eik, aw);
-
-        const refs = ca.refsByMonth.get(monthFile) ?? [];
-        refs.push(idx);
-        ca.refsByMonth.set(monthFile, refs);
 
         contractors.set(row.contractorEik, ca);
 
@@ -384,9 +377,6 @@ export const buildRollups = (contractsDir: string): RollupResult => {
       byAwarder: finalizeEntries([...c.byAwarder.values()]).slice(0, TOP_LIMIT),
       byYear: finalizeByYear([...c.byYear.values()]),
       topContracts: c.topContracts,
-      contractRefs: [...c.refsByMonth.entries()]
-        .sort((a, b) => (a[0] < b[0] ? 1 : -1))
-        .map(([monthFile, indexes]) => ({ monthFile, indexes })),
       generatedAt: now,
     }),
   );

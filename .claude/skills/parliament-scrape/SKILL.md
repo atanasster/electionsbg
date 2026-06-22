@@ -30,6 +30,7 @@ The scraper at `scripts/parliament/scrape_mps.ts` has three operational modes. P
 
 **Outputs** under `public/parliament/`:
 - `index.json` (~930 KB) — flat lookup table: every MP's `id`, `normalizedName`, `photoUrl`, `currentRegion`, `currentPartyGroup`, `nsFolders[]`, `isCurrent`. Loaded once by the frontend.
+- `avatars.json` (~37 KB) — slim id→{photo, party-group} projection of `index.json`, auto-regenerated at the end of the `--all` run by `scripts/parliament/build_avatars.ts`. Lets `<MpAvatar>` draw a face + party ring without pulling the full ~930 KB index on connection-only pages (`/company`, `/awarder`, `/officials`). Read by `src/data/parliament/useMpAvatars.tsx`. Regenerate standalone with `npx tsx scripts/parliament/build_avatars.ts`.
 - `profiles/{id}.json` × ~4000 (~5 MB total raw, ~1 MB gzipped) — trimmed bio per MP, lazily fetched on candidate pages.
 
 **Both outputs are committed to git** so new contributors can skip the scrape. They are NOT under `/public/2*/` (that path is gitignored), so they survive `npm run prod`.
@@ -155,9 +156,12 @@ Out of 5200 walked, ~1170 IDs return `[]` — these are gaps in parliament.bg's 
 | Path | Purpose |
 |---|---|
 | `scripts/parliament/scrape_mps.ts` | The scraper. CLI entry. |
+| `scripts/parliament/build_avatars.ts` | Emits `avatars.json` from `index.json`; auto-run by the scraper. |
 | `public/parliament/index.json` | Lookup table — committed to git. |
+| `public/parliament/avatars.json` | Slim id→{photo, party} avatar projection — committed to git. |
 | `public/parliament/profiles/{id}.json` | Per-MP bio — committed to git. |
 | `src/data/parliament/useMps.tsx` | React Query hook for the index. |
+| `src/data/parliament/useMpAvatars.tsx` | React Query hook for the slim avatar projection. |
 | `src/data/parliament/useMpProfile.tsx` | React Query hook for one profile (lazy). |
 | `src/screens/components/candidates/MpProfileHeader.tsx` | Photo + bio card on the candidate page. |
 | `src/screens/dashboard/TopCandidatesStrip.tsx` | Avatar with photo on the dashboard tile. |
@@ -169,5 +173,6 @@ If you change the scraper's output schema, update these in lockstep:
 - `MpIndexEntry` type in `src/data/parliament/useMps.tsx`
 - `RawProfile` and `MpProfile` types in `src/data/parliament/useMpProfile.tsx`
 - `PROFILE_KEEP` set in `scripts/parliament/scrape_mps.ts` if adding a new field from the API
+- `AvatarsFile` in `scripts/parliament/build_avatars.ts` + `useMpAvatars.tsx` if the photo path or party-group fields the avatar projection depends on change
 
 The match key is `normalizedName = name.toUpperCase().replace(/\s+/g, " ").trim()`. CIK candidate names are title-cased, parliament.bg names are uppercase, so normalization is required — do not rely on case-sensitive equality.

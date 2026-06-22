@@ -39,6 +39,7 @@ import { command, run, string, option, optional, flag, boolean } from "cmd-ts";
 import sharp from "sharp";
 import { titleCaseBgName } from "./name_case";
 import { transliterateName } from "../../src/data/candidates/transliterateName";
+import { buildAvatars } from "./build_avatars";
 
 const API = "https://www.parliament.bg/api/v1";
 const PHOTO_BASE = "https://www.parliament.bg/images/Assembly/";
@@ -718,6 +719,13 @@ const runHistory = async (opts: {
   console.log(`✓ wrote ${path.join(opts.out, "index.json")}`);
   console.log(`✓ wrote ${index.length} files under ${profilesDir}/`);
 
+  // Per-MP roster shards so the candidate page can resolve one MP by id without
+  // downloading the whole ~950 KB index.json (see src/data/parliament/useMpEntry).
+  const byIdCount = writeMpByIdShards(deduped, opts.out);
+  console.log(
+    `✓ wrote ${byIdCount} per-MP shards under ${path.join(opts.out, "by-id")}/`,
+  );
+
   // Photos — same logic as `main()`. Re-encoded to .webp under
   // <out>/photos/ so the SPA can serve them from the bucket with our long
   // immutable cache instead of round-tripping to parliament.bg on every
@@ -801,6 +809,14 @@ const runHistory = async (opts: {
       console.log(`✓ rewrote ${path.join(opts.out, "index.json")}`);
     }
   }
+
+  // Slim avatar projection — keeps the ~36 KB parliament/avatars.json in sync
+  // with index.json so <MpAvatar> never has to download the full roster just
+  // to draw a face. See scripts/parliament/build_avatars.ts.
+  const av = buildAvatars(opts.out);
+  console.log(
+    `✓ wrote ${path.join(opts.out, "avatars.json")} — ${av.total} MPs, ${(av.bytes / 1024).toFixed(0)} KB`,
+  );
 };
 
 const main = async (opts: {

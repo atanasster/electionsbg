@@ -63,11 +63,16 @@ interface ContractorShard {
     totalOther?: Record<string, number>;
   }>;
   byYear: Array<unknown>;
-  contractRefs: Array<{ monthFile: string; indexes: number[] }>;
   topContracts: Array<unknown>;
 }
 
 const affectedEiks = new Set<string>();
+// Per-contractor month-shard references, built from the contracts walk below.
+// Replaces the `contractRefs` field that used to live on each contractor
+// rollup (dropped — the SPA never read it). monthFile is relative to
+// data/procurement (e.g. "contracts/2026/2026-04.json"); indexes are the
+// row positions within that file where the EIK was the original contractor.
+const refsByEik = new Map<string, Map<string, number[]>>();
 let rowsPatched = 0;
 
 console.log(`→ walking ${CONTRACTS_DIR} for self-deal rows`);
@@ -85,14 +90,27 @@ for (const yr of fs.readdirSync(CONTRACTS_DIR).sort()) {
     const parsed = JSON.parse(fs.readFileSync(full, "utf8"));
     if (!Array.isArray(parsed)) continue;
     const rows = parsed as Row[];
+    const monthFile = `contracts/${yr}/${file}`;
     let changed = false;
-    for (const r of rows) {
+    rows.forEach((r, idx) => {
+      // Record where each original contractor EIK appears, so the re-aggregate
+      // step below can re-read exactly that EIK's rows without a `contractRefs`
+      // field on the shard.
+      const origCEik = r.contractorEik ?? "";
+      if (origCEik) {
+        const perFile = refsByEik.get(origCEik) ?? new Map<string, number[]>();
+        const arr = perFile.get(monthFile) ?? [];
+        arr.push(idx);
+        perFile.set(monthFile, arr);
+        refsByEik.set(origCEik, perFile);
+      }
+
       const aEik = r.awarderEik ?? "";
       const cEik = r.contractorEik ?? "";
-      if (!aEik || !cEik || aEik !== cEik) continue;
+      if (!aEik || !cEik || aEik !== cEik) return;
       const aN = normalize(r.awarderName ?? "");
       const cN = normalize(r.contractorName ?? "");
-      if (!aN || !cN || aN === cN) continue;
+      if (!aN || !cN || aN === cN) return;
       // Self-deal: clear the contractor EIK so downstream aggregation
       // attaches this row to nothing on the supplier side. The buyer
       // side is untouched.
@@ -100,7 +118,7 @@ for (const yr of fs.readdirSync(CONTRACTS_DIR).sort()) {
       r.contractorEik = "";
       rowsPatched += 1;
       changed = true;
-    }
+    });
     if (changed) {
       fs.writeFileSync(full, JSON.stringify(rows, null, 2) + "\n");
     }
@@ -161,11 +179,12 @@ for (const eik of affectedEiks) {
     row: Row;
   }
   const survivors: Survivor[] = [];
-  for (const ref of shard.contractRefs) {
-    const file = path.join(ROOT, "data/procurement", ref.monthFile);
+  const refs = refsByEik.get(eik) ?? new Map<string, number[]>();
+  for (const [monthFile, indexes] of refs) {
+    const file = path.join(ROOT, "data/procurement", monthFile);
     if (!fs.existsSync(file)) continue;
     const rows = JSON.parse(fs.readFileSync(file, "utf8")) as Row[];
-    for (const idx of ref.indexes) {
+    for (const idx of indexes) {
       const r = rows[idx];
       if (!r) continue;
       if (r.contractorEik !== eik) continue; // patched away — drop
