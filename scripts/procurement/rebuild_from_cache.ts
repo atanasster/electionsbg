@@ -30,6 +30,7 @@ import { writeByIdContracts } from "./by_id";
 import { writeContractorContracts } from "./contractor_contracts";
 import { writeAwarderContracts } from "./awarder_contracts";
 import { buildByNs } from "./by_ns";
+import { buildBySettlement } from "./by_settlement";
 import type { BundlesIndex, Contract, ProcurementIndex } from "./types";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -85,7 +86,7 @@ const migrateShards = (): { files: number; rows: number } => {
   return { files, rows };
 };
 
-const main = (): void => {
+const main = async (): Promise<void> => {
   console.log("→ backfilling amountEur onto contract month-shards");
   const migrated = migrateShards();
   console.log(
@@ -109,6 +110,14 @@ const main = (): void => {
   console.log("→ writing per-awarder contracts files");
   const ac = writeAwarderContracts(CONTRACTS_DIR, AWARDER_CONTRACTS_DIR);
   console.log(`  awarder_contracts/: ${ac.filesWritten} file(s)`);
+
+  // by-settlement maps (geo-resolved awarders → settlement). Reads the awarder
+  // rollups just written above; awarders with no address won't pin to an EKATTE.
+  console.log("→ rebuilding by-settlement maps");
+  const bs = await buildBySettlement();
+  console.log(
+    `  by_settlement/: ${bs.settlementFiles} file(s); ${bs.localAwardersPinned} local awarder(s) pinned`,
+  );
 
   // Officials (non-MP political class) → procurement. Independent of the
   // companies-index gate below (uses the officials declarations tree).
@@ -235,4 +244,7 @@ const main = (): void => {
   console.log("✓ index.json rewritten — procurement rebuild complete");
 };
 
-main();
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

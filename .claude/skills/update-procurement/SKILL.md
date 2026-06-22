@@ -76,7 +76,7 @@ npm run procurement:ingest                           # rebuild rollups/derived/b
 
 `ingest_eop` fetches the flat `договори` feed and gap-fills **only buyers entirely absent from our corpus** — an absent buyer has zero OCDS rows, so an EOP row can never double-count an existing contract. New buyers get well-formed `Contract` rows (synthetic `eop-<УНП>` ids, namespaced away from OCDS) in the same month-shards, so the existing rollup machinery picks them up with no special handling. The flat feed carries no buyer address, so these awarders won't resolve to an EKATTE (absent from the by-settlement map, present everywhere else).
 
-Caveats: the gap-fill adds buyers we *lack*; it does not (yet) fill missing contracts of buyers we already have (that would need cross-feed УНП-level dedup). It's the gap-fill, not a re-platform — the OCDS feed stays the base.
+Caveats: the **incremental** gap-fill adds buyers we *lack* — it does not fill missing contracts of buyers we already have, because for any year the OCDS feed covers that would double-count the base. The one exception is years with **no** OCDS at all (2024/2025): there the `--include-existing-buyers` one-off (below) lifts that guard safely. It's the gap-fill, not a re-platform — the OCDS feed stays the base for every year it covers.
 
 ## Step 1c — Awarder geo-enrichment (place-view coverage)
 
@@ -232,7 +232,7 @@ The legacy ingester:
 
 `--discover` walks the listing and ingests any `Договори и изменения на договори - YYYY` dataset whose year isn't already in `LEGACY_DATASETS`, after confirming via the detail page that its resource is a `contracts*.csv` (the 2018 dataset is titled like an annual dump but actually carries the out-of-scope `excl2018.csv` — discovery rejects it). It's idempotent: a discovered year that hasn't been pinned into `LEGACY_DATASETS` is simply re-discovered and re-merged (no double-count) on the next run. Optionally pin a confirmed new year's UUID into `LEGACY_DATASETS` afterward.
 
-2018 contracts are not published by АОП (only the out-of-scope file `excl2018.csv` exists). As of this writing 2024 and 2025 are not published in any form — the annual CSV series ends at 2023, the OCDS fortnight bundles start 2026-01-01. When АОП does post a 2024/2025 annual CSV, `--discover` (wired into Step 1) ingests it automatically.
+2018 contracts are not published by АОП (only the out-of-scope file `excl2018.csv` exists). АОП publishes **no** 2024 or 2025 contracts in OCDS or annual-CSV form — the annual series ends at 2023, the OCDS fortnight bundles start 2026-01-01. Those two years are instead sourced from the ЦАИС ЕОП flat feed via the `--include-existing-buyers` one-off (below). If АОП later posts a 2024/2025 annual CSV, drop the `eop-` 2024/2025 shards first — otherwise `--discover` would double-count it against the EOP fill (the two feeds use different ocid namespaces and won't dedupe by key).
 
 ### ЦАИС ЕОП full-history gap-fill (one-off)
 
@@ -242,6 +242,20 @@ To capture the ~900 small authorities the OCDS feed omits across the full 2020�
 npx tsx scripts/procurement/ingest_eop.ts --from 2020-01-01 --to <today> --backfill --apply
 npm run procurement:ingest      # rebuild rollups/derived/by-settlement/index from the new shards
 ```
+
+### 2024/2025 coverage — ЦАИС ЕОП for buyers we already have (one-off)
+
+АОП has no OCDS bundle or annual CSV for 2024/2025, but the ЦАИС ЕОП flat `договори` feed carries both years in full. Step 1b's gap-fill drops those rows because their buyers already exist in our corpus (from other years) — yet with **no OCDS for 2024/2025 there is nothing to double-count**, so the absent-buyer guard is wrong for exactly that window. `--include-existing-buyers` lifts it for a bounded range; all 731 days are already cached, so this runs offline:
+
+```bash
+npx tsx scripts/procurement/ingest_eop.ts --from 2024-01-01 --to 2025-12-31 \
+  --backfill --include-existing-buyers --apply       # ~82k rows from raw_data/procurement/eop/
+npx tsx scripts/procurement/rebuild_from_cache.ts     # offline rebuild — use THIS, not procurement:ingest, while data.egov.bg IP-blocks us
+```
+
+**Only ever pass `--include-existing-buyers` for OCDS-gap years.** For 2020–2023 or 2026 it would double-count the whole corpus against the OCDS base.
+
+**Multi-supplier value split.** The flat feed — like the OCDS export — repeats one award's *full* value on every supplier row of a consortium / parallel framework. `normalize.ts` + `normalize_eop.ts` split that value across the suppliers (`amount / N`) so the rows sum back to the award total. Without it, 2024/2025's drug-procurement mega-frameworks alone inflated the corpus headline to €120.6bn (vs €80.0bn split; the 2020–2026 window then matches SIGMA's €51.7bn). Changing that logic needs a full re-normalize — `rebuild_from_cache` reads the already-split shards and won't recompute it.
 
 ## Single bundle (debugging)
 

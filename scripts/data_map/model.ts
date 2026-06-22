@@ -231,8 +231,8 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       en: "the full procurement open-data feed",
     },
     desc: {
-      bg: "Дневната емисия отворени данни на ЦАИС ЕОП (storage.eop.bg): договори (допълват OCDS емисията на АОП с ~900 малки възложители — предимно училища и детски градини), поръчки (място на изпълнение по NUTS) и OCDS обявления (адреси на страните) — последните две захранват локализирането на възложителите до населено място/област.",
-      en: "ЦАИС ЕОП's daily open-data feed (storage.eop.bg): contracts (supplement АОП's OCDS export with ~900 small buyers — mostly schools and kindergartens), tenders (place-of-performance NUTS) and OCDS announcements (party addresses) — the latter two drive buyer geo-location to settlement/oblast.",
+      bg: "Дневната емисия отворени данни на ЦАИС ЕОП (storage.eop.bg): договори (допълват OCDS емисията на АОП с ~900 малки възложители — предимно училища и детски градини — и са единственият източник за 2024–2025 г., които АОП не публикува в OCDS), поръчки (място на изпълнение по NUTS) и OCDS обявления (адреси на страните) — последните две захранват локализирането на възложителите до населено място/област.",
+      en: "ЦАИС ЕОП's daily open-data feed (storage.eop.bg): contracts (supplement АОП's OCDS export with ~900 small buyers — mostly schools and kindergartens — and are the sole source for 2024–2025, which АОП doesn't publish in OCDS), tenders (place-of-performance NUTS) and OCDS announcements (party addresses) — the latter two drive buyer geo-location to settlement/oblast.",
     },
     url: "https://storage.eop.bg/",
     origin: "state",
