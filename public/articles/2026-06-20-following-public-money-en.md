@@ -19,7 +19,7 @@ schemaType: Article
 
 Bulgaria signs tens of thousands of public-procurement contracts a year. The records are public — and almost unusable. They live as thousands of files on [data.egov.bg](https://data.egov.bg/) and inside the [ЦАИС ЕОП](https://app.eop.bg/) system, with no way to ask the questions that matter: *Who keeps winning without competition? Which companies are tied to the people who run the state? Where does my município's money go?*
 
-The [Public Procurement](/procurement) module answers those questions. It holds **301,011 contracts and amendments** worth **€80.0 billion**, from **4,389 contracting authorities** to **26,160 companies**, covering **2011 through 2026** — and it layers an explainable risk score, money-flow diagrams, a person scanner, a geographic view and a red-flag feed on top. This piece sets it against what exists in Bulgaria and abroad, walks through each tool, and ends with what you can actually find with it.
+The [Public Procurement](/procurement) module answers those questions. It holds **301,011 contracts and amendments** worth **€80.0 billion**, from **4,389 contracting authorities** to **26,160 companies**, covering **2011 through 2026** — and it layers an explainable risk score, money-flow diagrams, a person scanner, a geographic view, sector (CPV) breakdowns, a contracts browser with sector/procedure/value/EU-funding filters, and a red-flag feed on top. This piece sets it against what exists in Bulgaria and abroad, walks through each tool, and ends with what you can actually find with it.
 
 ## 1. The landscape: Bulgaria and abroad
 
@@ -48,7 +48,7 @@ Beyond the official registers, Bulgaria has accumulated civic and commercial eff
 | Single-bidder flag | no | partial | yes | yes | yes |
 | Other red flags | no | announced | yes | yes | yes |
 | Money-flow diagrams | no | yes | no | partial | yes |
-| Filter by sector / value / procedure | no | yes | yes | yes | partial |
+| Filter by sector / value / procedure | no | yes | yes | yes | yes |
 | Links to politicians / owners | no | announced | no | partial | yes |
 | Map by region / municipality | no | no | partial | yes | yes |
 | Search by person / company | partial | yes | yes | yes | yes |

@@ -115,6 +115,24 @@ Two dependencies to remember:
   ```
 - **`pep_connected` reads `data/officials/derived/company_links.json`** (produced by `/update-officials`). It only rebuilds when `procurement:ingest` runs, so after a `cacbg`/officials refresh changes that file, re-run `procurement:ingest` to refresh the officials→procurement links. Not gated on `companies-index.json` (uses the officials declarations tree).
 
+## Step 1e — Sector / procedure / EU enrichment + breakdowns + contracts browser
+
+The legacy CSV (2011–23) and the АОП OCDS export don't carry CPV / procedure / EU
+fields uniformly — only the ЦАИС ЕОП flat feed does. Three offline, **map-safe**
+passes (they write only per-contract fields + their own derived files; they never
+touch rollups / `by_settlement` / the awarder geo) bring the corpus to SIGMA-level
+field coverage. Run after Steps 1–1c (they read the on-disk shards):
+
+```bash
+npx tsx scripts/procurement/eop_field_map.ts --apply   # CPV/procedure/bids/euFunded onto contracts — content-join on (buyer,supplier,date) with a consortium value-date fallback. 2020–26 CPV 34%→98%
+npx tsx scripts/procurement/eop_breakdowns.ts          # per-entity 'Какво купува'/'Как купува'+EU shards (derived/breakdowns/{c,a}/) + corpus derived/sector_totals.json
+npx tsx scripts/procurement/contract_index.ts          # per-year slim shards (derived/contract_index/) for the faceted /procurement/contracts browser
+```
+
+Notes:
+- `eop_field_map` is idempotent; `euFunded` is tri-state (known true/false vs unmatched). The EOP flat feed lacks some big legacy consortium contracts (e.g. АПИ roads), so the per-entity EU% is gated by value-coverage in the breakdown tile.
+- `derived/breakdowns/` + `derived/contract_index/` are **gitignored** (bulky — 12k + 15 shards); they reach prod via `bucket:sync`. Only `derived/sector_totals.json` is committed.
+
 ## Step 2 — Verify
 
 ```bash
