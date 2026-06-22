@@ -168,7 +168,7 @@ export const AwarderByEikScreen: FC = () => {
             <div className="flex items-baseline gap-2">
               <Receipt className="h-5 w-5 text-muted-foreground shrink-0" />
               <span className="text-2xl font-bold tabular-nums">
-                {numFmt.format(a.byContractor.length)}
+                {numFmt.format(a.contractorCount ?? a.byContractor.length)}
               </span>
             </div>
             <div className="text-xs text-muted-foreground">

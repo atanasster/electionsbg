@@ -33,7 +33,7 @@ export const AwarderTopContractorsTile: FC<{
             {t("awarder_top_contractors_subtitle") ||
               "Companies ranked by total amount received from this awarder."}
           </span>
-          {rollup.byContractor.length > TOP_ROWS ? (
+          {(rollup.contractorCount ?? rollup.byContractor.length) > TOP_ROWS ? (
             <Link
               to={`/awarder/${eik}/contractors`}
               className="ml-auto inline-flex items-center gap-1 text-xs text-primary hover:underline font-normal"

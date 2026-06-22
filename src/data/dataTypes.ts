@@ -1572,6 +1572,9 @@ export type ProcurementAwarderRollup = {
   totalOther: Record<string, number>;
   contractCount: number;
   awardCount: number;
+  /** True distinct-contractor count (byContractor is capped at a top-N).
+   *  Optional until the rollups are rebuilt + synced. */
+  contractorCount?: number;
   byContractor: Array<{
     eik: string;
     name: string;
@@ -1643,6 +1646,9 @@ export type ProcurementContractorRollup = {
   totalOther: Record<string, number>;
   contractCount: number;
   awardCount: number;
+  /** True distinct-awarder count (byAwarder is capped at a top-N).
+   *  Optional until the rollups are rebuilt + synced. */
+  awarderCount?: number;
   byAwarder: Array<{
     eik: string;
     name: string;

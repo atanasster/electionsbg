@@ -334,7 +334,7 @@ export const CompanyByEikScreen: FC = () => {
                 <div className="flex items-baseline gap-2">
                   <Building2 className="h-5 w-5 text-muted-foreground shrink-0" />
                   <span className="text-2xl font-bold tabular-nums">
-                    {numFmt.format(c.byAwarder.length)}
+                    {numFmt.format(c.awarderCount ?? c.byAwarder.length)}
                   </span>
                 </div>
                 <div className="text-xs text-muted-foreground">

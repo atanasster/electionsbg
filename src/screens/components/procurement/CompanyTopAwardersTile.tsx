@@ -30,7 +30,7 @@ export const CompanyTopAwardersTile: FC<{
             {t("company_top_awarders_subtitle") ||
               "State buyers that paid this company."}
           </span>
-          {rollup.byAwarder.length > TOP_ROWS ? (
+          {(rollup.awarderCount ?? rollup.byAwarder.length) > TOP_ROWS ? (
             <Link
               to={`/company/${eik}/awarders`}
               className="ml-auto inline-flex items-center gap-1 text-xs text-primary hover:underline font-normal"

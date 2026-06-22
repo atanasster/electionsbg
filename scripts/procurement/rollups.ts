@@ -378,6 +378,9 @@ export const buildRollups = (contractsDir: string): RollupResult => {
       ...splitBag(c.totalByCurrency),
       contractCount: c.contractCount,
       awardCount: c.awardCount,
+      // True distinct-awarder count (byAwarder is capped at TOP_LIMIT for file
+      // size, so its length under-reports for high-volume suppliers).
+      awarderCount: c.byAwarder.size,
       byAwarder: finalizeEntries([...c.byAwarder.values()]).slice(0, TOP_LIMIT),
       byYear: finalizeByYear([...c.byYear.values()]),
       topContracts: c.topContracts,
@@ -439,6 +442,8 @@ export const buildRollups = (contractsDir: string): RollupResult => {
       ...splitBag(a.totalByCurrency),
       contractCount: a.contractCount,
       awardCount: a.awardCount,
+      // True distinct-contractor count (byContractor is capped at TOP_LIMIT).
+      contractorCount: a.byContractor.size,
       byContractor: finalizeEntries([...a.byContractor.values()]).slice(
         0,
         TOP_LIMIT,

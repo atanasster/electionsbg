@@ -142,6 +142,9 @@ export interface ContractorRollup {
   totalOther: Record<string, number>;
   contractCount: number;
   awardCount: number;
+  // Distinct awarders that paid this contractor (true count; byAwarder below is
+  // capped at a top-N for file size).
+  awarderCount: number;
   // Top awarders, sorted by euro total.
   byAwarder: Array<{
     eik: string;
@@ -234,6 +237,9 @@ export interface AwarderRollup {
   totalOther: Record<string, number>;
   contractCount: number;
   awardCount: number;
+  // Distinct contractors this awarder has paid (true count; byContractor below
+  // is capped at a top-N for file size).
+  contractorCount: number;
   // Top contractors this awarder has paid.
   byContractor: Array<{
     eik: string;
