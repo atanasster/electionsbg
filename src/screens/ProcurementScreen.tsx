@@ -16,6 +16,7 @@ import { ProcurementNav } from "./components/procurement/ProcurementNav";
 import { TopContractorsTile } from "./components/procurement/TopContractorsTile";
 import { TopAwardersTile } from "./components/procurement/TopAwardersTile";
 import { TopMpsTile } from "./components/procurement/TopMpsTile";
+import { ProcurementTreemapTile } from "./components/procurement/ProcurementTreemapTile";
 import { formatEur, formatEurWithOther } from "@/lib/currency";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
@@ -191,6 +192,15 @@ export const ProcurementScreen: FC = () => {
         </div>
 
         <ProcurementFlowTile />
+        {/* Treemap overview: largest contractors / largest awarders, each
+            tile sized by total euro value. Sits above the ranked tables. */}
+        <div className="grid gap-4 xl:grid-cols-2">
+          <ProcurementTreemapTile
+            entity="contractor"
+            items={byNs.topContractors}
+          />
+          <ProcurementTreemapTile entity="awarder" items={byNs.topAwarders} />
+        </div>
         {/* 2-col grid on xl+ screens so top contractors / awarders / MPs
             sit side-by-side. On narrower viewports they stack. The last
             tile spans both columns when there's an odd count. */}
