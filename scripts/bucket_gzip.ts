@@ -56,6 +56,10 @@ const GLOBAL_FILES = [
   "prices/dict.json",
   "prices/ranking.json",
   "prices/chains.json",
+  // Funds: the curated journalism cross-reference. A single global file
+  // fetched (once per session) by every /company/:eik view to test the EIK
+  // against the ~10 curated cases — gzip cuts it ~6× on that first fetch.
+  "funds/confirmed.json",
   // Procurement landing page: the flow sankey (preview + full) and the
   // top-contractors table are the heavy files the /procurement page waits on.
   "procurement/index.json",
@@ -80,6 +84,21 @@ const isElectionDir = (n: string): boolean => /^\d{4}_\d{2}_\d{2}/.test(n);
 // Plovdiv ~0.8MB, Varna ~0.7MB) are fetched whole by their dashboards; gzip cuts
 // them ~6× on the wire. Threshold skips the ~1,000 tiny per-município shards.
 const SECTION_SHARD_GZIP_MIN = 120_000;
+
+// Heavy per-EIK procurement rollups. The full per-EIK tree is ~95k files (too
+// many to gzip wholesale — see the SCOPE note above), but the big ones are the
+// files the /company/:eik, /awarder/:eik and /company/:eik/contracts pages
+// fetch whole, and they're highly repetitive JSON (repeated names/EIKs/dates)
+// that gzips ~6-8×. The per-dir threshold skips the tiny long-tail (a ~4 KB
+// rollup isn't worth a gsutil cp) so the upload stays bounded (~1.8k files).
+const PER_EIK_DIRS: Array<{ dir: string; min: number }> = [
+  // /company/:eik/contracts + /awarder/:eik — the biggest payloads (up to ~740 KB).
+  { dir: "procurement/awarder_contracts", min: 50_000 },
+  // /company/:eik core rollup (also reused by its top-contracts tile).
+  { dir: "procurement/contractors", min: 20_000 },
+  // /awarder/:eik core rollup + the /company/:eik display-name fallback fetch.
+  { dir: "procurement/awarders", min: 20_000 },
+];
 
 const collect = (): string[] => {
   const out: string[] = [];
@@ -119,6 +138,17 @@ const collect = (): string[] => {
     for (const f of readdirSync(ciDir)) {
       if (f.endsWith(".json"))
         out.push(`procurement/derived/contract_index/${f}`);
+    }
+  }
+  // Heavy per-EIK rollups (see PER_EIK_DIRS) — threshold-gated so the upload
+  // stays bounded instead of touching the full ~95k-file per-EIK tree.
+  for (const { dir, min } of PER_EIK_DIRS) {
+    const abs = join(DATA, dir);
+    if (!existsSync(abs)) continue;
+    for (const f of readdirSync(abs)) {
+      if (!f.endsWith(".json")) continue;
+      const rel = `${dir}/${f}`;
+      if (statSync(join(DATA, rel)).size > min) out.push(rel);
     }
   }
   for (const entry of readdirSync(DATA, { withFileTypes: true })) {
