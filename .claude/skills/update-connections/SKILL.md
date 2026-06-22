@@ -133,10 +133,20 @@ npx tsx scripts/declarations/tr/cli.ts --incremental
 # Auto-detects zip mode vs raw_data/tr/daily/*.json
 npx tsx scripts/declarations/tr/cli.ts --reconstruct
 
-# Then rebuild aggregates (no upstream fetch)
-npx tsx -e 'import("./scripts/declarations/tr/integrate").then(m => m.integrateTr({ publicFolder: "./public", rawFolder: "./raw_data", stringify: o => JSON.stringify(o, null, 2) }))'
-npx tsx -e 'import("./scripts/declarations/build_connections_graph").then(m => m.buildConnectionsGraph({ publicFolder: "./public", rawFolder: "./raw_data", stringify: o => JSON.stringify(o, null, 2) }))'
+# Then rebuild every connections aggregate from disk (NO upstream fetch):
+# companies-index → integrateTr → connections graph → company-connections →
+# companies-by-ekatte/obshtina → officials bridge. Use this whenever the link
+# logic changed (e.g. the TR-namesake fix) but cacbg/data.egov is unreachable.
+npx tsx scripts/run-connections-rebuild.ts
 ```
+
+> The runner runs `buildCompanyIndex` FIRST on purpose: the graph builder
+> *appends* `mpRoles`, so running it against an already-graphed
+> `companies-index.json` duplicates roles. It also keeps the committed formats
+> (compact for the parliament artifacts, pretty/2-space for the officials
+> `connections.json` + `company_links.json`) — don't hand-roll a
+> `buildConnectionsGraph(...)` one-liner with pretty stringify or `./public`
+> (the data root is `./data`), or you churn the whole file.
 
 Use `--limit N` on `--reconstruct` for a smoke test (replays N days only).
 
@@ -246,6 +256,13 @@ TR-only matches are name-based. The integrator emits three tiers, of which only 
 - **low / surname-only** = suppressed entirely (Bulgarian common names like Иван Иванов explode into hundreds of false positives)
 
 The `/connections` page has a "high confidence only" filter; the dashboard tile already counts `highConfDegree` only. When investigating an MP's ties seriously, prefer the high-only view.
+
+**TR-namesake guard (name-collision fix).** On top of the tiers above, every officer→power-person name match is gated on the name being **unique to a single TR company**. A name spread across multiple companies is almost always several distinct people (common Bulgarian names recur thousands of times), so attributing all those companies to one MP/official is a false positive. Three code paths enforce this, all keyed off the same idea:
+- `build_connections_graph.ts` phase-3 — attributes a TR officer row to an MP only when the name maps to one company; otherwise it becomes a plain (non-MP) person node.
+- `build_officials_company_links.ts` — a TR link is `high` only when unique among officials AND `trNamesakeCount === 1` (see `/update-officials`).
+- `tr/build_company_connections.ts` — drops direct/bridged matches whose name maps to >1 TR company (the per-EIK `company-connections/` files behind `/company/:eik`), rather than grading them low.
+
+This is what keeps a Горна Малина councillor off Софарма Трейдинг's billions and a Чирпан deputy-mayor off "Автомагистрали". The procurement side mirrors it in `scripts/procurement/cross_reference.ts` (see `/update-procurement`).
 
 ### Why two stake schemas
 The full `MpOwnershipStake` lives in `public/parliament/declarations/{mpId}.json` — `MpFinancialDeclarations.tsx` renders all of `itemType`, `companyName`, `registeredOffice`, `holderName`, `transfereeName`. The aggregated `companies-index.json` ships only a slim `CompanyIndexStake = Pick<MpOwnershipStake, "table" | "shareSize" | "valueBgn" | "legalBasis" | "fundsOrigin">` — the dropped fields are redundant with the parent `displayName` / `registeredOffices` or unused on the company page. Don't put removed fields back into the companies-index without verifying they're actually rendered — it adds ~10 KB brotli to a file loaded on every `/mp/companies` visit. See `scripts/declarations/build_company_index.ts:121-130`.

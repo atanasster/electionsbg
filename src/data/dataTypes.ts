@@ -633,13 +633,20 @@ export type OfficialCompanyLink = {
   shareSize: string | null;
   /** Declared stake value in EUR — `source: "declared"` only. */
   valueEur: number | null;
-  /** "high" — self-declared, or a TR match on a name unique among officials.
-   *  "low" — a TR match on a name shared by 2+ officials (namesake risk). */
+  /** "high" — a self-declared stake, or a TR match where the name is unique
+   *  both among officials AND in the Commerce Registry (maps to a single
+   *  company/person). "low" — any other TR match: the name is shared by 2+
+   *  officials, or it appears on 2+ distinct TR companies, so it cannot be
+   *  pinned to one person (namesake risk). */
   confidence: "high" | "low";
   /** Normalised name used for the TR join. */
   nameNorm: string;
   /** How many distinct officials share this normalised name (>1 ⇒ ambiguous). */
   namesakeCount: number;
+  /** How many distinct TR companies (UICs) carry an officer/owner with this
+   *  normalised name. >1 ⇒ the name maps to multiple people in the Commerce
+   *  Registry, so a name-only match proves nothing. `source: "tr"` only. */
+  trNamesakeCount?: number;
 };
 
 export type OfficialCompanyLinksEntry = {

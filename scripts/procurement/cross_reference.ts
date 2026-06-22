@@ -12,6 +12,7 @@
 
 import fs from "fs";
 import path from "path";
+import { DatabaseSync } from "node:sqlite";
 import type {
   ContractorRollup,
   MpCompanyRelation,
@@ -20,6 +21,38 @@ import type {
   MpConnectedFile,
 } from "./types";
 import { canonicalJson } from "./validate";
+import { normalize } from "../officials/shared";
+
+// Distinct Commerce-Registry companies (UICs) per normalised person name.
+// An MP↔company link drawn purely from a TR officer/owner record is only
+// trustworthy when the MP's name maps to a SINGLE company — a name spread
+// across several companies almost always means several distinct people
+// (common Bulgarian names recur thousands of times), so attributing all of
+// them to one MP is the classic false positive. Mirrors the officials-side
+// guard in build_officials_company_links.ts. Returns an empty map when the
+// TR SQLite is absent (callers then skip the filter — declared stakes still
+// stand on their own).
+export const buildTrNamesakeCounts = (
+  sqlitePath: string,
+): Map<string, number> => {
+  const counts = new Map<string, number>();
+  if (!fs.existsSync(sqlitePath)) return counts;
+  const uicsByName = new Map<string, Set<string>>();
+  const db = new DatabaseSync(sqlitePath, { readOnly: true });
+  db.exec("PRAGMA query_only = ON; PRAGMA cache_size = -64000;");
+  for (const row of db
+    .prepare(`SELECT uic, name FROM company_persons WHERE erased_at IS NULL`)
+    .all() as Array<{ uic: string; name: string | null }>) {
+    if (!row.name) continue;
+    const key = normalize(row.name);
+    const set = uicsByName.get(key) ?? new Set<string>();
+    set.add(row.uic);
+    uicsByName.set(key, set);
+  }
+  db.close();
+  for (const [name, set] of uicsByName) counts.set(name, set.size);
+  return counts;
+};
 
 interface CompaniesIndex {
   generatedAt: string;
@@ -74,6 +107,7 @@ export interface EikLinkageMap {
 
 export const buildEikLinkageMap = (
   companiesIndexPath: string,
+  trNamesake?: Map<string, number>,
 ): EikLinkageMap => {
   if (!fs.existsSync(companiesIndexPath)) {
     throw new Error(
@@ -108,6 +142,13 @@ export const buildEikLinkageMap = (
     const perMp = new Map<number, MpLinkage>();
 
     for (const role of company.mpRoles ?? []) {
+      // mpRoles are name-matched TR officer/owner records (declared stakes
+      // come from the stakes loop below). Keep one only when the MP's name
+      // maps to a single TR company — otherwise it's a namesake collision.
+      // Skipped when no TR namesake map was supplied (TR SQLite absent).
+      if (trNamesake && (trNamesake.get(normalize(role.mpName)) ?? 0) !== 1) {
+        continue;
+      }
       let linkage = perMp.get(role.mpId);
       if (!linkage) {
         linkage = {

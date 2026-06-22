@@ -7,9 +7,11 @@
 //      the company is identified by free-text name, so a UIC is attached only
 //      when that name resolves to exactly one Commerce Registry entity.
 //   2. tr — a Commerce Registry (TR) officer/owner record whose person name
-//      matches the official's. UIC is exact; confidence depends on whether the
-//      official's normalised name is unique among all officials (Bulgarian
-//      namesakes are common — a shared name means the match is ambiguous).
+//      matches the official's. UIC is exact, but the name is not a person id:
+//      confidence is "high" only when the name is rare on BOTH sides — unique
+//      among officials AND mapped to a single TR company (Bulgarian namesakes
+//      are common, so a name spread over many companies means many people, and
+//      handing the official all of them is a false positive). Otherwise "low".
 //
 // Output: data/officials/derived/company_links.json. This does NOT touch the
 // MP connections graph builder — it is a stepping stone toward folding
@@ -216,7 +218,20 @@ export const buildOfficialsCompanyLinks = ({
     }
 
     // 2. TR officer/owner records matched by normalised name.
-    for (const rec of trByName.get(r.normalizedName) ?? []) {
+    //
+    // A name match is only trustworthy when the name is rare on BOTH sides:
+    //   - unique among officials (nCount === 1), so the link can't belong to a
+    //     different official sharing the name; AND
+    //   - mapped to a single company in the Commerce Registry, so it can't be a
+    //     coincidental different businessperson. The TR has no person id, so a
+    //     name spread across several UICs almost always means several distinct
+    //     people (common Bulgarian names recur thousands of times) — handing the
+    //     official every one of those companies is the classic false-positive.
+    // Either side being ambiguous ⇒ "low" (dropped by the high-only consumers).
+    const trRecs = trByName.get(r.normalizedName) ?? [];
+    const trUicCount = new Set(trRecs.map((x) => x.uic)).size;
+    for (const rec of trRecs) {
+      const high = nCount === 1 && trUicCount === 1;
       links.push({
         uic: rec.uic,
         companyName: companyNameByUic.get(rec.uic) ?? null,
@@ -224,12 +239,13 @@ export const buildOfficialsCompanyLinks = ({
         trRole: rec.role,
         shareSize: rec.share != null ? String(rec.share) : null,
         valueEur: null,
-        confidence: nCount === 1 ? "high" : "low",
+        confidence: high ? "high" : "low",
         nameNorm: r.normalizedName,
         namesakeCount: nCount,
+        trNamesakeCount: trUicCount,
       });
       trLinks++;
-      if (nCount > 1) lowConfidenceLinks++;
+      if (!high) lowConfidenceLinks++;
     }
 
     if (links.length === 0) continue;

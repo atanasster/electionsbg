@@ -31,8 +31,16 @@ const PAGES = [
     shots: [
       { name: "02-entity-flow", heading: "Откъде идват парите", padding: 10 },
       { name: "03-treemap", heading: "Приходи по възложители", padding: 10 },
-      { name: "04-officials", heading: "Свързани служители", padding: 10 },
     ],
+  },
+  {
+    // Officials demo: a company whose connected person is a DECLARED stake
+    // (councillor with a 10% holding), the strongest evidence type — not a
+    // bare name match. Софарма Трейдинг (103267194) used to host this shot,
+    // but its only "connection" was a common-name TR collision that the
+    // namesake fix correctly dropped.
+    url: "/company/202758921",
+    shots: [{ name: "04-officials", heading: "Свързани служители", padding: 10 }],
   },
   {
     url: "/procurement/by-settlement",

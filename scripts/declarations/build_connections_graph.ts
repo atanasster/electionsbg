@@ -752,12 +752,16 @@ export const buildConnectionsGraph = ({
       for (const link of entry.links) {
         if (!link.uic) continue; // only UIC-keyed links can join a company node
         // A TR officer/owner record matched purely by name is unreliable when
-        // the official shares that name with other officials: every namesake
-        // is handed the identical company set, so the edge proves nothing
-        // about any one of them. Drop these collisions rather than draw an
+        // the name is ambiguous on either side: shared by 2+ officials (every
+        // namesake is handed the identical company set), or spread across 2+ TR
+        // companies (the name maps to several distinct people). Either way the
+        // edge proves nothing about this official — drop it rather than draw an
         // unprovable connection. Declared stakes — the official's own filing —
         // are kept regardless.
-        if (link.source === "tr" && link.namesakeCount > 1) {
+        if (
+          link.source === "tr" &&
+          (link.namesakeCount > 1 || (link.trNamesakeCount ?? 1) > 1)
+        ) {
           droppedNamesakeLinks++;
           continue;
         }
@@ -837,6 +841,24 @@ export const buildConnectionsGraph = ({
             WHERE uic = ? AND erased_at IS NULL`,
         );
 
+        // How many distinct companies each person-name appears on. An MP
+        // name-match is only attributed to that MP when the name maps to a
+        // single company; a name spread over several companies is almost
+        // always several distinct people (common Bulgarian names), so it would
+        // hand the MP companies that aren't theirs. Such rows fall through to a
+        // plain (non-MP) person node instead of an MP edge.
+        const nameUicCount = new Map<string, number>();
+        for (const row of db
+          .prepare(
+            `SELECT name_norm, COUNT(DISTINCT uic) AS c
+               FROM company_persons
+              WHERE erased_at IS NULL
+              GROUP BY name_norm`,
+          )
+          .all() as Array<{ name_norm: string; c: number }>) {
+          nameUicCount.set(row.name_norm, row.c);
+        }
+
         let added = 0;
         for (const [uic, companyNodeId] of uicNodes) {
           const rows = stmt.all(uic) as Array<{
@@ -850,7 +872,9 @@ export const buildConnectionsGraph = ({
           }>;
           for (const r of rows) {
             const matchedMp = mpByNormName.get(r.name_norm);
-            const personId = matchedMp
+            const mpUnique =
+              matchedMp && (nameUicCount.get(r.name_norm) ?? 0) === 1;
+            const personId = mpUnique
               ? ensureMpNode(matchedMp)
               : ensurePersonOrCompanyNode(r.name);
             addEdge({
@@ -860,12 +884,12 @@ export const buildConnectionsGraph = ({
               role: r.role,
               isCurrent: true,
               // Confidence on these synthesized edges:
-              //   high    when this is a direct TR record on a company we
-              //           already had via a declaration (we've already seen
-              //           the MP↔company link from another source)
-              //   medium  when the only basis is the name match (i.e. this
-              //           edge is the sole reason for the connection)
-              confidence: matchedMp ? "medium" : "high",
+              //   high    a direct TR record on a company we already had via a
+              //           declaration, OR a name too common to pin to one MP
+              //           (so attributed to a plain person node, not an MP)
+              //   medium  a unique-name MP match — the name match is the sole
+              //           basis for an MP↔company connection
+              confidence: mpUnique ? "medium" : "high",
             });
             added++;
           }

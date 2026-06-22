@@ -318,6 +318,16 @@ export const buildCompanyConnections = (): void => {
     return parts >= 3 && companyCount <= NAMESAKE_CAP ? "medium" : "low";
   };
 
+  // A name-only match to a power person is trustworthy only when the name maps
+  // to a SINGLE company in the Commerce Registry — otherwise it is almost
+  // certainly a different person sharing a common Bulgarian name (e.g. a Горна
+  // Малина councillor would be handed Софарма Трейдинг's billions). Same bar as
+  // the officials/MP joins (build_officials_company_links.ts, cross_reference.ts).
+  // Failing matches are DROPPED, not shown as a low-confidence "name match" —
+  // a badge still wrongly names a real official on a company they have no tie to.
+  const isUniqueName = (nameNorm: string): boolean =>
+    (personCompanies.get(nameNorm)?.size ?? 0) === 1;
+
   fs.rmSync(OUT_DIR, { recursive: true, force: true });
   fs.mkdirSync(OUT_DIR, { recursive: true });
 
@@ -335,6 +345,7 @@ export const buildCompanyConnections = (): void => {
     for (const off of officers) {
       const matches = powerByName.get(off.nameNorm);
       if (!matches) continue;
+      if (!isUniqueName(off.nameNorm)) continue; // namesake-ambiguous → drop
       for (const power of matches) {
         const dk = `${off.nameNorm}|${powerKey(power)}`;
         if (directSeen.has(dk)) continue;
@@ -364,6 +375,7 @@ export const buildCompanyConnections = (): void => {
           if (viaOff.nameNorm === bridge.nameNorm) continue; // the bridge itself
           const matches = powerByName.get(viaOff.nameNorm);
           if (!matches) continue;
+          if (!isUniqueName(viaOff.nameNorm)) continue; // namesake-ambiguous → drop
           for (const power of matches) {
             if (directPowerKeys.has(powerKey(power))) continue; // already direct
             const bk = `${bridge.nameNorm}|${viaUic}|${powerKey(power)}`;
