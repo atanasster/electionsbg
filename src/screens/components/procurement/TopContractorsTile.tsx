@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowRight, Receipt } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
+import { FollowStar } from "./FollowStar";
 import { useTopContractors } from "@/data/procurement/useProcurementIndex";
 import type { ProcurementByNsFile } from "@/data/dataTypes";
 import { formatEur, formatEurWithOther } from "@/lib/currency";
@@ -123,6 +124,7 @@ export const TopContractorsTile: FC<{
               <span className="text-muted-foreground tabular-nums shrink-0 text-xs w-8 text-right hidden md:inline">
                 {e.contractCount.toLocaleString("bg-BG")}
               </span>
+              <FollowStar kind="company" id={e.eik} label={e.name} />
             </div>
           ))}
         </div>

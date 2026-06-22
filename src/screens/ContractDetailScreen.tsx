@@ -18,6 +18,7 @@ import { summarizeRelations } from "./components/candidates/procurement/relation
 import { MpAvatar } from "./components/candidates/MpAvatar";
 import { ErrorSection } from "./components/ErrorSection";
 import { RiskBadges } from "./components/procurement/RiskBadges";
+import { FollowStar } from "./components/procurement/FollowStar";
 
 const officialRoleLabel = (role: string, t: (k: string) => string): string => {
   const key = `official_role_${role}`;
@@ -71,9 +72,20 @@ export const ContractDetailScreen: FC = () => {
             <span>· {c.date}</span>
           )}
         </p>
-        <h1 className="text-xl md:text-2xl font-semibold leading-snug">
-          {c.title || t("contract_untitled") || "Untitled contract"}
-        </h1>
+        <div className="flex items-start gap-2">
+          <h1 className="text-xl md:text-2xl font-semibold leading-snug">
+            {c.title || t("contract_untitled") || "Untitled contract"}
+          </h1>
+          {id ? (
+            <FollowStar
+              kind="contract"
+              id={id}
+              label={c.title || t("contract_untitled") || "Untitled contract"}
+              size="md"
+              className="mt-1 shrink-0"
+            />
+          ) : null}
+        </div>
         {c.amount != null
           ? (() => {
               const { primary, original } = formatAmountEur(

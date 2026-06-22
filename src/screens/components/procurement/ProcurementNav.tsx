@@ -19,6 +19,7 @@ import {
   Star,
 } from "lucide-react";
 import { useProcurementHref } from "@/data/procurement/useProcurementScope";
+import { useCachedNewCount } from "@/data/procurement/useWatchlist";
 
 const items = [
   {
@@ -46,6 +47,10 @@ const items = [
 export const ProcurementNav: FC = () => {
   const { t } = useTranslation();
   const href = useProcurementHref();
+  // Unread badge on the watchlist pill — count of followed entities with new
+  // activity since the user last looked. Reads a cached value (no fetches); the
+  // watchlist page keeps it fresh.
+  const newCount = useCachedNewCount();
   return (
     <nav
       aria-label={t("procurement_index_title") || "Public procurement"}
@@ -68,6 +73,14 @@ export const ProcurementNav: FC = () => {
             <>
               <Icon className="h-3.5 w-3.5" aria-hidden />
               {t(key)}
+              {to === "/procurement/watchlist" && newCount > 0 ? (
+                <span
+                  className="ml-0.5 inline-flex min-w-[1rem] items-center justify-center rounded-full bg-amber-500 px-1 text-[10px] font-bold leading-none text-white tabular-nums"
+                  aria-label={`${newCount} new`}
+                >
+                  {newCount}
+                </span>
+              ) : null}
               {isActive ? <span className="sr-only"> (current)</span> : null}
             </>
           )}

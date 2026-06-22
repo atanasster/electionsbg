@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowRight, Building2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
+import { FollowStar } from "./FollowStar";
 import type {
   ProcurementByNsTopAwarder,
   ProcurementByNsFile,
@@ -35,6 +36,7 @@ const renderAwarders = (
         <th className="text-right px-3 py-2 hidden md:table-cell">
           {t("procurement_index_col_contracts") || "Contracts"}
         </th>
+        <th className="px-1 py-2 w-8" aria-hidden />
       </tr>
     </thead>
     <tbody className="divide-y divide-border">
@@ -56,6 +58,9 @@ const renderAwarders = (
           </td>
           <td className="px-3 py-2 text-right tabular-nums hidden md:table-cell">
             {e.contractCount.toLocaleString("bg-BG")}
+          </td>
+          <td className="px-1 py-2 text-center">
+            <FollowStar kind="awarder" id={e.eik} label={e.name} />
           </td>
         </tr>
       ))}

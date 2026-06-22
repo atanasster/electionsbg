@@ -12,6 +12,7 @@ import { useProcurementIndex } from "@/data/procurement/useProcurementIndex";
 import { useProcurementByNs } from "@/data/procurement/useProcurementByNs";
 import { useProcurementScope } from "@/data/procurement/useProcurementScope";
 import { ProcurementFlowTile } from "./components/procurement/ProcurementFlowTile";
+import { WatchlistDigestTile } from "./components/procurement/WatchlistDigestTile";
 import { ProcurementSectionHeader } from "./components/procurement/ProcurementSectionHeader";
 import { TopContractorsTile } from "./components/procurement/TopContractorsTile";
 import { TopAwardersTile } from "./components/procurement/TopAwardersTile";
@@ -195,6 +196,7 @@ export const ProcurementScreen: FC = () => {
           </StatCard>
         </div>
 
+        <WatchlistDigestTile />
         <ProcurementFlowTile />
         {/* Treemap overview: largest contractors / largest awarders, each
             tile sized by total euro value. Sits above the ranked tables. */}
@@ -344,6 +346,7 @@ function renderGlobalView(
           </StatCard>
         </div>
 
+        <WatchlistDigestTile />
         <ProcurementFlowTile />
         <TopContractorsTile />
         {/* Awarders + MPs tiles only have per-NS slices today; the "show

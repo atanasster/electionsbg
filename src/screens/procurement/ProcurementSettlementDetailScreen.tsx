@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { ArrowLeft, Banknote, Building2, MapPin } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
+import { FollowStar } from "@/screens/components/procurement/FollowStar";
 import { useSettlementProcurement } from "@/data/procurement/useSettlementProcurement";
 import type { ProcurementAwarderTier } from "@/data/dataTypes";
 
@@ -98,11 +99,22 @@ export const ProcurementSettlementDetailScreen: FC = () => {
           {t("procurement_settlement_back") || "Back to settlement list"}
         </Link>
       </div>
-      <Title>{title}</Title>
-      <p className="mb-6 text-sm text-muted-foreground">
-        {data.province} · {data.obshtina} ·{" "}
-        <span className="font-mono">EKATTE {data.ekatte}</span>
-      </p>
+      <div className="mb-6 flex items-start gap-2">
+        <div className="min-w-0">
+          <Title>{title}</Title>
+          <p className="text-sm text-muted-foreground">
+            {data.province} · {data.obshtina} ·{" "}
+            <span className="font-mono">EKATTE {data.ekatte}</span>
+          </p>
+        </div>
+        <FollowStar
+          kind="place"
+          id={ekatte ?? data.ekatte}
+          label={data.name}
+          size="md"
+          className="ml-auto mt-1 shrink-0"
+        />
+      </div>
 
       {/* KPI strip */}
       <div className="mb-6 grid gap-3 sm:grid-cols-3">

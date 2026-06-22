@@ -15,6 +15,7 @@ import { CandidateHeader } from "./components/candidates/CandidateHeader";
 import { ErrorSection } from "./components/ErrorSection";
 import { summarizeRelations } from "./components/candidates/procurement/relationLabel";
 import { ConnectedContractorCard } from "./components/candidates/procurement/ConnectedContractorCard";
+import { FollowButton } from "./components/procurement/FollowButton";
 import { formatEurWithOther } from "@/lib/currency";
 
 export const CandidateProcurementScreen: FC = () => {
@@ -87,6 +88,15 @@ export const CandidateProcurementScreen: FC = () => {
         seoDescription={`Public-procurement contracts awarded to companies connected to ${displayName}`}
       />
       <div className="w-full pb-8 space-y-6">
+        {mpIdParam != null ? (
+          <div className="flex">
+            <FollowButton
+              kind="person"
+              id={String(mpIdParam)}
+              label={displayName}
+            />
+          </div>
+        ) : null}
         <header className="space-y-1">
           <p className="text-sm text-muted-foreground">
             {t("procurement_page_intro") ||
