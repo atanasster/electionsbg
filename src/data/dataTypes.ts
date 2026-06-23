@@ -1562,6 +1562,20 @@ export type ProcurementAwarderGeo = {
   isLocalHQ: boolean;
 };
 
+/** Human-readable seat of the awarding body — settlement + município + oblast.
+ *  Stamped by scripts/procurement/enrich_awarder_seats.ts from the rollup's
+ *  resolved `geo.ekatte`, or (for legacy-only awarders without geo) from the
+ *  unique settlement name embedded in their contract-name variants. Names are
+ *  inlined so the client renders the seat without the EKATTE registry. */
+export type ProcurementAwarderSeat = {
+  ekatte: string;
+  settlement: string;
+  municipality: string;
+  oblast: string;
+  isVillage: boolean;
+  source: "geo" | "name";
+};
+
 /** Per-entity sector / procedure / EU-funding breakdown
  *  (data/procurement/derived/breakdowns/{c,a}/<eik>.json). Built offline by
  *  scripts/procurement/eop_breakdowns.ts from the EOP-enriched shards. `cpv.d`
@@ -1589,6 +1603,9 @@ export type ProcurementAwarderRollup = {
     street?: string;
   };
   geo?: ProcurementAwarderGeo;
+  /** Resolved seat (settlement/município/oblast). Optional until the rollups
+   *  are enriched + synced; render only when present. */
+  seat?: ProcurementAwarderSeat;
   totalEur: number;
   totalOther: Record<string, number>;
   contractCount: number;

@@ -11,6 +11,7 @@ import {
   Coins,
   Users,
   FileText,
+  MapPin,
   Receipt,
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
@@ -164,6 +165,25 @@ export const AwarderByEikScreen: FC = () => {
             <FollowButton kind="awarder" id={a.eik} label={a.name} />
           </span>
         </div>
+
+        {a.seat ? (
+          <div className="-mt-2 mb-4 flex items-center gap-1.5 text-xs text-muted-foreground">
+            <MapPin className="h-3.5 w-3.5 shrink-0" />
+            {i18n.language === "bg" ? (
+              <span>
+                {a.seat.isVillage ? "с. " : "гр. "}
+                {a.seat.settlement} · община {a.seat.municipality} · област{" "}
+                {a.seat.oblast}
+              </span>
+            ) : (
+              <span>
+                {a.seat.settlement} · {a.seat.municipality}{" "}
+                {t("seat_municipality") || "municipality"} · {a.seat.oblast}{" "}
+                {t("seat_oblast") || "oblast"}
+              </span>
+            )}
+          </div>
+        ) : null}
 
         <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           <StatCard label={t("awarder_total_awarded") || "Total awarded"}>

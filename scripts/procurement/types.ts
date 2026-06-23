@@ -220,6 +220,23 @@ export interface AwarderAddress {
   street?: string;
 }
 
+/** Human-readable seat of the awarding body — settlement + município + oblast.
+ *  Resolved by scripts/procurement/enrich_awarder_seats.ts, either from the
+ *  rollup's own `geo.ekatte` (when geo-resolved) or, for legacy-CSV-only
+ *  awarders that never got a geo block, from the settlement marker embedded in
+ *  their contract-name variants (e.g. `… с. Рибново`). Names are inlined so the
+ *  client renders the seat without loading the EKATTE registry. */
+export interface AwarderSeat {
+  ekatte: string;
+  settlement: string;
+  municipality: string;
+  oblast: string;
+  isVillage: boolean;
+  /** Provenance: "geo" = from the resolved buyer-HQ EKATTE; "name" = parsed
+   *  from a unique settlement name in the awarder's contract-name variants. */
+  source: "geo" | "name";
+}
+
 export interface AwarderRollup {
   eik: string;
   name: string;
@@ -231,6 +248,9 @@ export interface AwarderRollup {
   /** Resolved EKATTE + tier. Absent when address is missing or the
    *  resolver couldn't pick a single settlement. */
   geo?: AwarderGeo;
+  /** Human-readable seat (settlement/município/oblast). Stamped offline by
+   *  scripts/procurement/enrich_awarder_seats.ts; absent until that runs. */
+  seat?: AwarderSeat;
   totalEur: number;
   totalOther: Record<string, number>;
   contractCount: number;
