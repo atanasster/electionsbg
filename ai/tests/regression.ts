@@ -1355,7 +1355,9 @@ const CASES: Case[] = [
     lang: "en",
     tool: "simulateTaxChange",
     kind: "scalar",
-    facts: { change: "minimum wage frozen", delta_per_year: /−€279M/ },
+    // Net of the forgone private SSC/PIT (−€229M) and the public-sector
+    // payroll the budget avoids (+€114M) — see scoreMinWageFreeze.
+    facts: { change: "minimum wage frozen", delta_per_year: /−€115M/ },
     links: ["/budget/simulator?mrz=1", "/budget"],
   },
   // Phase-5 levers — same balance convention, simulator parity

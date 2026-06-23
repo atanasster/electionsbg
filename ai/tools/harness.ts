@@ -1173,7 +1173,10 @@ const run = async () => {
     ["пенсиите да се индексират само по инфлация", 479e6],
     ["ковид добавката да не се индексира", 57e6],
     ["съкращаване на администрацията с 10%", 30e6],
-    ["freeze the minimum wage", -280e6],
+    // NET of the two channels: the SSC/PIT forgone on private below-floor
+    // wages (−€229M) MINUS the public-sector payroll the budget avoids paying
+    // its own low-wage staff (+€114M) — see scoreMinWageFreeze.
+    ["freeze the minimum wage", -115e6],
     // Phase-5 levers (same balance convention). Defense is priced against
     // the projection's €123.9B 2026 GDP (commit a760b1d5d) — (3.0−2.06)% ×
     // €123.9B ≈ −€1165M. Current NATO-definition defense = 2.06% of GDP

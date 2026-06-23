@@ -1309,7 +1309,9 @@ export const scoreScenario = (
     exp && adm > 0 ? scoreAdminCut(exp.administration, adm / 100) : null;
   const adminDeltaSpend = adminRes ? adminRes.netEur : 0;
   const mwDelta =
-    exp && mrzFreeze ? scoreMinWageFreeze(earnings.bands, exp.minWage) : 0;
+    exp && mrzFreeze
+      ? scoreMinWageFreeze(earnings.bands, exp.minWage).netEur
+      : 0;
   const defDelta =
     exp && def !== DEF_DEF
       ? scoreDefenseTarget(
