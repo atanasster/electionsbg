@@ -1531,6 +1531,30 @@ export const route = (question: string, ctx: ToolContext): Route => {
     const obl = extractPlace(q);
     return { tool: "investmentProjects", args: obl ? { oblast: obl } : {} };
   }
+  // One named contractor's OWN contracts (a deep-linkable list), checked before
+  // the procurement gate because the natural phrasings ("договорите на X" /
+  // "contracts won by X") often omit "поръчки". Distinct from topContractors
+  // (a ranking) and awarderProcurement (a BUYER's procurement). The cue always
+  // pairs a contract word with a possessive/win signal, so an election "X спечели
+  // изборите" (no contract word) never matches; rankings and institutional
+  // buyers fall through to the procurement gate below.
+  if (
+    (has(q, "договорите на", "договори на", "договори с") ||
+      (has(q, "contract") && has(q, "won", " of ", " for ", " by ")) ||
+      (has(q, "договор") && has(q, "спечел"))) &&
+    !has(
+      q,
+      "топ",
+      "най-голем",
+      "largest",
+      "biggest",
+      "top ",
+      "кои ",
+      "ranking",
+    ) &&
+    !has(q, ...AWARDER_TOKENS)
+  )
+    return { tool: "contractSearch", args: { company: question } };
   // Procurement methodology questions whose phrasing often omits "поръчки":
   // the structurally single-bid sectors, and the АОП debarment register. Strong
   // signals only here so non-procurement queries aren't pulled in.

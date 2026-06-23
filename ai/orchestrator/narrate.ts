@@ -293,6 +293,18 @@ export const narrate = (env: Envelope, lang: Lang): string => {
         ? `Обществени поръчки: ${f(env, "contracts")} договора за ${f(env, "total_value")}; свързани с депутати: ${f(env, "mp_connected_value")}${offBg}.`
         : `Public procurement: ${f(env, "contracts")} contracts worth ${f(env, "total_value")}; MP-connected: ${f(env, "mp_connected_value")}${offEn}.`;
     }
+    case "contractSearch": {
+      if (!env.facts.company)
+        return lang === "bg"
+          ? "Не намерих такава фирма-изпълнител."
+          : "I couldn't find that contractor.";
+      const sb = Number(env.facts.single_bidder) || 0;
+      const sbBg = sb ? ` ${sb} с един участник.` : "";
+      const sbEn = sb ? ` ${sb} single-bidder.` : "";
+      return lang === "bg"
+        ? `${f(env, "company")}: ${f(env, "contracts")} договора за ${f(env, "total_value")}.${sbBg} Най-голям: ${f(env, "biggest_value")} от ${f(env, "biggest_awarder")}.`
+        : `${f(env, "company")}: ${f(env, "contracts")} contracts worth ${f(env, "total_value")}.${sbEn} Largest: ${f(env, "biggest_value")} from ${f(env, "biggest_awarder")}.`;
+    }
     case "fundsOverview":
       return lang === "bg"
         ? `Европейски средства: договорени ${f(env, "contracted")}, изплатени ${f(env, "paid")}. Топ бенефициент: ${f(env, "top")}.`

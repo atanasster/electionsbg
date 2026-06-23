@@ -2563,6 +2563,17 @@ const CASES: Case[] = [
     kind: "table",
     minRows: 5,
   },
+  {
+    q: "Покажи договорите на Софарма трейдинг",
+    tool: "contractSearch",
+    kind: "table",
+    minRows: 3,
+    facts: { company: /Софарма/ },
+  },
+  {
+    q: "What contracts has Glavbolgarstroy won?",
+    tool: "contractSearch",
+  },
   // ---- gap-fill: EU peers, revenue breakdown, EU-funds projects, transfers,
   // local vote flows ---------------------------------------------------------
   {

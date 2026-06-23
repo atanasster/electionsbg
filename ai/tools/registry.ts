@@ -15,6 +15,7 @@ import {
   budgetFunction,
   budgetOverview,
   budgetTrend,
+  contractSearch,
   fundsOverview,
   awarderProcurement,
   fundsProjects,
@@ -1789,6 +1790,37 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: topContractors,
+  },
+  {
+    name: "contractSearch",
+    domain: "fiscal",
+    description: {
+      bg: "Договорите на конкретна фирма-изпълнител по обществени поръчки — списък със стойност, възложител, брой оферти и връзка към всеки договор. Приема име на фирма или ЕИК и по избор година.",
+      en: "A specific contractor's public-procurement contracts — value, awarder, bid count and a link to each contract. Takes a company name or EIK, optionally a year.",
+    },
+    params: [
+      {
+        name: "company",
+        type: "person",
+        description: { bg: "Име на фирма или ЕИК", en: "Company name or EIK" },
+      },
+      {
+        name: "year",
+        type: "year",
+        description: { bg: "Година (по избор)", en: "Year (optional)" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Покажи договорите на Софарма трейдинг",
+        en: "Show the contracts won by Sofarma Trading",
+      },
+      {
+        bg: "Какви поръчки е спечелила Главболгарстрой?",
+        en: "What contracts has Glavbolgarstroy won?",
+      },
+    ],
+    run: contractSearch,
   },
   {
     name: "procurementRedFlags",

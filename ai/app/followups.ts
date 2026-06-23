@@ -631,12 +631,22 @@ export const followUps = (env: Envelope): FollowUp[] => {
       break;
     case "topContractors":
       out.push({
+        bg: "Покажи договорите на Софарма трейдинг",
+        en: "Show the contracts won by Sofarma Trading",
+      });
+      out.push({
         bg: "Поръчки към фирми, свързани с депутати",
         en: "Procurement to MP-connected companies",
       });
+      break;
+    case "contractSearch":
       out.push({
-        bg: "Колко са обществените поръчки?",
-        en: "How much public procurement is there?",
+        bg: "Кои са най-големите изпълнители по обществени поръчки?",
+        en: "Who are the biggest public-procurement contractors?",
+      });
+      out.push({
+        bg: "Поръчки към фирми, свързани с депутати",
+        en: "Procurement to MP-connected companies",
       });
       break;
     case "mpProcurement":

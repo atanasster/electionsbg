@@ -227,6 +227,7 @@ const TOOL_SECTION: Record<string, SiteLink | undefined> = {
   procurementSingleBidSectors: SECTION.procurementFlags,
   procurementDebarred: SECTION.procurementFlags,
   topContractors: SECTION.procurementContractors,
+  contractSearch: SECTION.procurementContractors,
   mpProcurement: SECTION.procurementMps,
   procurementByOblast: SECTION.procurementMap,
   fundsOverview: SECTION.funds,
@@ -325,6 +326,24 @@ export const siteLinks = (env: Envelope): SiteLink[] => {
             en: "Settlement — full data",
           },
           href: url(`/sections/${encodeURIComponent(ekatte)}`),
+        });
+      break;
+    }
+    // A contractor's contracts deep-link to the firm's own page (the full,
+    // filterable contracts list) and to its single biggest contract — the
+    // by-id shard store now resolves /procurement/contract/:key for every row.
+    case "contractSearch": {
+      const eik = fact(env, "eik_id");
+      if (eik)
+        out.push({
+          label: { bg: "Фирма — пълни данни", en: "Company — full profile" },
+          href: url(`/company/${encodeURIComponent(eik)}`),
+        });
+      const key = fact(env, "contract_id");
+      if (key)
+        out.push({
+          label: { bg: "Най-голям договор", en: "Largest contract" },
+          href: url(`/procurement/contract/${encodeURIComponent(key)}`),
         });
       break;
     }

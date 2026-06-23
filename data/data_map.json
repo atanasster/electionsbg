@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-06-22T12:55:52.495Z",
+  "generatedAt": "2026-06-23T07:59:30.351Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -24,7 +24,7 @@
       "url": "https://results.cik.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-16T07:08:32.388Z",
+      "freshness": "2026-06-23T07:40:11.378Z",
       "skills": [
         "update-local-elections"
       ],
@@ -34,7 +34,7 @@
           "label": "CIK local-elections results bundles",
           "url": "https://results.cik.bg/",
           "cadence": "daily",
-          "freshness": "2026-06-16T07:08:32.388Z"
+          "freshness": "2026-06-23T07:40:11.378Z"
         }
       ],
       "x": 28,
@@ -315,7 +315,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-22T07:09:20.100Z",
+      "freshness": "2026-06-23T07:40:11.378Z",
       "skills": [
         "update-procurement"
       ],
@@ -325,7 +325,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-06-22T07:09:20.100Z"
+          "freshness": "2026-06-23T07:40:11.378Z"
         }
       ],
       "x": 28,
@@ -609,7 +609,7 @@
       "url": "https://www.nsi.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-10T06:09:43.216Z",
+      "freshness": "2026-06-23T07:40:11.378Z",
       "skills": [
         "update-indicators",
         "update-landuse",
@@ -629,7 +629,7 @@
           "label": "НСИ: раждания, умирания и миграция по общини (timeseries XLSX)",
           "url": "https://www.nsi.bg/sites/default/files/files/data/timeseries/Pop_1.2.1._birth_DR.xlsx",
           "cadence": "daily",
-          "freshness": "2026-05-21T06:08:34.377Z"
+          "freshness": "2026-06-23T07:40:11.378Z"
         },
         {
           "id": "nsi_landuse",
@@ -1009,7 +1009,7 @@
       "url": "https://www.bnb.bg/Statistics/StExternalSector/index.htm",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-05-15T17:02:29.874Z",
+      "freshness": "2026-06-23T07:40:11.378Z",
       "skills": [
         "update-macro"
       ],
@@ -1025,7 +1025,8 @@
           "id": "bnb_fdi",
           "label": "BNB monthly FDI flows",
           "url": "https://www.bnb.bg/Statistics/StExternalSector/StDirectInvestments/StDIBulgaria/index.htm",
-          "cadence": "monthly"
+          "cadence": "monthly",
+          "freshness": "2026-06-23T07:40:11.378Z"
         }
       ],
       "x": 28,
@@ -1054,7 +1055,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-22T07:09:20.100Z",
+      "freshness": "2026-06-23T07:40:11.378Z",
       "skills": [
         "update-prices"
       ],
@@ -1064,7 +1065,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-06-22T07:09:20.100Z"
+          "freshness": "2026-06-23T07:40:11.378Z"
         }
       ],
       "x": 28,

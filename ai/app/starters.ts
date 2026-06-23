@@ -209,6 +209,10 @@ export const STARTERS: Starter[] = [
     en: "Who are the biggest public-procurement contractors?",
   },
   {
+    bg: "Покажи договорите на Софарма трейдинг",
+    en: "Show the contracts won by Sofarma Trading",
+  },
+  {
     bg: "Поръчки към фирми, свързани с депутати",
     en: "Procurement to MP-connected companies",
   },
