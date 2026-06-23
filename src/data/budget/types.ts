@@ -2091,6 +2091,10 @@ export interface PolicyBaselineFile {
       /** КТ чл.244 recursion: current × (1 + wage growth). */
       formulaEur: number;
       wageGrowthPct: number;
+      /** Share of the below-formula wage-uplift mass earned in the budget
+       *  sector — the slice whose freeze is a payroll saving rather than a
+       *  pure SSC/PIT loss (documented assumption; see run_policy_baseline.ts). */
+      publicSectorShare: number;
     };
     /** Pensioner distribution by basic monthly pension (НОИ quarterly
      *  bulletin) — drives the minimum-pension lever. Optional: absent in

@@ -79,6 +79,16 @@ const COVID_SUPPLEMENT_EUR_MONTHLY = 60 / BGN_PER_EUR; // ≈ €30.68
 // Minimum wage 2026 (МРЗ) — the КТ чл.244 formula pegs next year's МРЗ to
 // 50% of average gross wage; the un-tie debate freezes it instead.
 const MIN_WAGE_EUR = 620.2; // 2026 МРЗ = 1213 BGN ÷ 1.95583 (РМС 243/13.11.2025)
+// Share of the below-formula wage-uplift mass earned in the budget sector —
+// the slice whose freeze the budget pockets as a payroll saving (it pays
+// those wages) rather than a pure SSC/PIT loss (private wages it only taxes).
+// Not derivable from personnel.json (it covers only the ~146k civil service,
+// not the ~0.6M-strong budget sector). Anchored on general-government
+// employment ≈ 18-20% of dependent employment (НСИ/Eurostat), discounted for
+// the public sector's below-average minimum-wage incidence (most МРЗ earners
+// sit in private hospitality/agriculture/retail/security — КНСБ/ИПИ). Central
+// 0.18; the freeze nets to zero at ~0.31 and to a saving above it.
+const MIN_WAGE_PUBLIC_SECTOR_SHARE = 0.18;
 // NATO-definition defense spending, % of GDP (NATO annual estimate for BG;
 // differs from COFOG GF02 ~0.66% by military pensions, paramilitary forces
 // and equipment-payment timing). Update when NATO publishes the new year.
@@ -1094,6 +1104,7 @@ const main = async (): Promise<void> => {
         // КТ чл.244 recursion: next year's МРЗ = current × (1 + wage growth).
         formulaEur: Math.round(minWageFormulaEur),
         wageGrowthPct,
+        publicSectorShare: MIN_WAGE_PUBLIC_SECTOR_SHARE,
       },
       pensionFloor: {
         asOf: pensionFloor.asOf,

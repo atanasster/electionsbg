@@ -571,17 +571,47 @@ export const scoreAdminCut = (
 export interface MinWageBaseline {
   currentEur: number;
   formulaEur: number;
+  /** Share of the below-formula wage-uplift mass earned in the budget sector
+   *  (държавна администрация, образование, здравеопазване, МВР/отбрана,
+   *  общински дейности). For these workers the budget itself pays the wage,
+   *  so freezing them is a payroll SAVING; for the private remainder it is a
+   *  pure SSC/PIT loss. A documented assumption — not derivable from the
+   *  personnel file (which covers only the civil service) — see
+   *  run_policy_baseline.ts. */
+  publicSectorShare: number;
 }
 
-/** Δ budget revenue of freezing МРЗ instead of applying the КТ чл.244
- *  formula: every worker the formula would lift to the new floor keeps the
- *  lower wage, so the budget loses the SSC + PIT on the difference. Scored
- *  over the band grid (the model's compressed lower half IS the floor).
- *  Negative = revenue loss vs the formula path. */
+export interface MinWageFreezeResult {
+  /** SSC + PIT the budget forgoes on the PRIVATE below-floor uplift it would
+   *  have collected under the formula (negative — a revenue loss). */
+  privateRevenueLossEur: number;
+  /** Net payroll the budget avoids paying its OWN below-floor workers: the
+   *  gross uplift + employer SSC it does not disburse, less the labour-tax
+   *  that flows straight back to it (positive — a genuine saving). */
+  publicPayrollSavingEur: number;
+  /** Net budget effect, private loss + public saving (sign follows the
+   *  expenditure-balance convention: positive = the budget improves). */
+  netEur: number;
+  /** Forgone gross ANNUAL wage uplift the КТ чл.244 formula would have paid,
+   *  EUR — the common base both channels are scored on. */
+  upliftMassEur: number;
+}
+
+/** Budget effect of freezing МРЗ instead of applying the КТ чл.244 formula.
+ *  Every worker the formula would lift to the new floor keeps the lower wage;
+ *  the budget effect splits by who pays that wage:
+ *    • PRIVATE workers — the budget never paid them, so freezing only forgoes
+ *      the SSC + PIT the higher wage would have generated (a revenue loss).
+ *    • PUBLIC workers — the budget pays their wage (gross + employer SSC), so
+ *      freezing avoids that labour cost, net of the same SSC + PIT that flows
+ *      straight back to it (a genuine saving — the mechanical offset every
+ *      public-wage lever nets via labourTaxFeedbackOnCost).
+ *  Scored over the band grid (the model's compressed lower half IS the floor).
+ *  With publicSectorShare = 0 this collapses to the old revenue-only result. */
 export const scoreMinWageFreeze = (
   bands: EarningsBand[],
   b: MinWageBaseline,
-): number => {
+): MinWageFreezeResult => {
   let deltaWageMass = 0;
   for (const band of bands) {
     if (band.grossEur >= b.formulaEur) continue;
@@ -591,11 +621,21 @@ export const scoreMinWageFreeze = (
     deltaWageMass += band.workers * (b.formulaEur - lifted);
   }
   deltaWageMass *= 12;
-  // Freezing forgoes contributions + PIT on that mass.
-  return -(
-    deltaWageMass * SSC_COMBINED_BUDGET_RATE +
-    deltaWageMass * (1 - SSC_EMPLOYEE_RATE) * PIT_RATE
-  );
+  const publicMass = deltaWageMass * b.publicSectorShare;
+  const privateMass = deltaWageMass - publicMass;
+  // Private: freezing forgoes the contributions + PIT on the uplift.
+  const privateRevenueLossEur = -labourTaxFeedbackOnSalary(privateMass);
+  // Public: the budget avoids the full labour cost (gross + employer SSC) of
+  // the uplift it would otherwise have paid, net of the tax it claws back.
+  const publicLabourCostEur = publicMass * (1 + EMPLOYER_SSC_RATE);
+  const publicPayrollSavingEur =
+    publicLabourCostEur - labourTaxFeedbackOnCost(publicLabourCostEur);
+  return {
+    privateRevenueLossEur,
+    publicPayrollSavingEur,
+    netEur: privateRevenueLossEur + publicPayrollSavingEur,
+    upliftMassEur: deltaWageMass,
+  };
 };
 
 // ---------------------------------------------------------------------------

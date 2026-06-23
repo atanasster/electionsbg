@@ -727,11 +727,13 @@ export interface DynamicScenarioInput {
   gamblingFeeRevenueEur: number;
   gamblingOldRate: number;
   gamblingNewRate: number;
-  /** МРЗ-freeze delta. Deliberately EXCLUDED from the Tier-2 impulse: the
-   *  budget's foregone SSC/PIT reads as fiscal loosening, but the frozen
-   *  private wages are an opposing household-income hit — net demand effect
-   *  ≈ 0 in the reduced form. Kept in the input for documentation and so
-   *  the field can join the impulse split if the treatment ever changes. */
+  /** МРЗ-freeze delta (NET of the public-payroll saving — see
+   *  scoreMinWageFreeze). Deliberately EXCLUDED from the Tier-2 impulse: both
+   *  channels are demand-neutral in the reduced form — the budget's foregone
+   *  SSC/PIT reads as loosening but the frozen private wages are an opposing
+   *  household-income hit, and the public-payroll saving is offset by the
+   *  frozen public wages it represents. Kept in the input for documentation
+   *  and so the field can join the impulse split if the treatment changes. */
   staticMinWageDeltaEur: number;
   /** Months of the paid second maternity year that the scenario cut (0..12,
    *  0 = no cut). Drives the behavioral return-to-work recapture; the static

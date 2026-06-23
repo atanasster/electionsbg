@@ -227,13 +227,29 @@ check(
   "scoreAdminCut net saving < gross",
   Math.abs(adm30.netEur) < adm30.grossEur,
 );
-// МРЗ freeze: a band below the formula floor forgoes SSC+PIT (negative).
+// МРЗ freeze, all-private (publicSectorShare 0): a band below the formula
+// floor forgoes SSC+PIT — pure revenue loss, no offsetting public saving.
+const mwPriv = scoreMinWageFreeze([{ grossEur: 500, workers: 1000 }], {
+  currentEur: 500,
+  formulaEur: 600,
+  publicSectorShare: 0,
+});
 check(
-  "scoreMinWageFreeze forgoes revenue (< 0)",
-  scoreMinWageFreeze([{ grossEur: 500, workers: 1000 }], {
-    currentEur: 500,
-    formulaEur: 600,
-  }) < 0,
+  "scoreMinWageFreeze all-private forgoes revenue (< 0)",
+  mwPriv.netEur < 0 &&
+    mwPriv.publicPayrollSavingEur === 0 &&
+    mwPriv.netEur === mwPriv.privateRevenueLossEur,
+);
+// With a public slice, the avoided payroll partly offsets the revenue loss,
+// so the net is a smaller loss than the all-private case.
+const mwMixed = scoreMinWageFreeze([{ grossEur: 500, workers: 1000 }], {
+  currentEur: 500,
+  formulaEur: 600,
+  publicSectorShare: 0.3,
+});
+check(
+  "scoreMinWageFreeze public saving offsets the loss",
+  mwMixed.publicPayrollSavingEur > 0 && mwMixed.netEur > mwPriv.netEur,
 );
 // Defense: (3.0−2.2)/100 × 1e11.
 eq("scoreDefenseTarget 2.2→3.0", scoreDefenseTarget(1e11, 2.2, 3.0), 8e8, 1);

@@ -90,7 +90,9 @@ for (const share of [0.05, 0.1, 0.2]) {
 
 const mw = scoreMinWageFreeze(b.earnings.bands, e.minWage);
 console.log(
-  `\nМРЗ freeze at €${e.minWage.currentEur} vs formula €${e.minWage.formulaEur}: ${M(mw)}/yr revenue`,
+  `\nМРЗ freeze at €${e.minWage.currentEur} vs formula €${e.minWage.formulaEur} ` +
+    `(public share ${(e.minWage.publicSectorShare * 100).toFixed(0)}%): net ${M(mw.netEur)}/yr ` +
+    `(private SSC/PIT ${M(mw.privateRevenueLossEur)}, public payroll saving ${M(mw.publicPayrollSavingEur)})`,
 );
 
 // --- Phase-5 levers ---------------------------------------------------------

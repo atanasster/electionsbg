@@ -407,8 +407,9 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
   const adminRes =
     exp && s.adm > 0 ? scoreAdminCut(exp.administration, s.adm / 100) : null;
   const adminDeltaSpend = adminRes ? adminRes.netEur : 0;
-  const mwDelta =
-    exp && s.mrzFreeze ? scoreMinWageFreeze(earnings.bands, exp.minWage) : 0;
+  const mwRes =
+    exp && s.mrzFreeze ? scoreMinWageFreeze(earnings.bands, exp.minWage) : null;
+  const mwDelta = mwRes ? mwRes.netEur : 0;
   // Priced against the projection module's 2026 GDP so the defense lever
   // and the projection card never quote two different GDPs.
   const defDelta =
@@ -547,6 +548,7 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     adminBalance: -adminDeltaSpend,
     adminRes,
     mwDelta,
+    mwRes,
     defBalance: -defDelta,
     wiBalance: -wiDelta,
     kapBalance: -kapDelta,
@@ -2157,6 +2159,12 @@ export const BudgetPolicySimulator: FC = () => {
   // is €-prefixed site-wide, so flip it here for the simulator's BG strings.
   const eur = (v: number): string =>
     lang === "bg" ? `${formatEur(v, locale).slice(1)} €` : formatEur(v, locale);
+  // Compact signed millions for inline sub-notes ("+114 млн. €" / "−229 млн. €").
+  const eurM = (v: number): string => {
+    const sign = v < 0 ? "−" : "+";
+    const m = Math.abs(v / 1e6).toFixed(0);
+    return lang === "bg" ? `${sign}${m} млн. €` : `${sign}€${m}M`;
+  };
   const modUncertain =
     Math.abs(scenario.modRes.highEur - scenario.modRes.lowEur) > 1e6;
 
@@ -3063,7 +3071,14 @@ export const BudgetPolicySimulator: FC = () => {
                         next: baseline.expenditure?.minWage.formulaEur ?? "",
                       })}
                     </span>
-                    <InfoTip text={t("budget_policy_tip_mrz")} />
+                    <InfoTip
+                      text={t("budget_policy_tip_mrz", {
+                        share: Math.round(
+                          (baseline.expenditure?.minWage.publicSectorShare ??
+                            0.18) * 100,
+                        ),
+                      })}
+                    />
                   </label>
                   {/* Defense target, % of GDP (NATO definition), in tenths */}
                   <div>
@@ -3676,6 +3691,14 @@ export const BudgetPolicySimulator: FC = () => {
                       deltaEur={scenario.mwDelta}
                       maxAbs={maxAbs}
                       lang={lang}
+                      sub={
+                        scenario.mwRes
+                          ? t("budget_policy_mrz_note", {
+                              loss: eurM(scenario.mwRes.privateRevenueLossEur),
+                              save: eurM(scenario.mwRes.publicPayrollSavingEur),
+                            })
+                          : undefined
+                      }
                     />
                   ) : null}
                   {scenario.defBalance !== 0 ? (
