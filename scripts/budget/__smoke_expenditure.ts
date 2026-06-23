@@ -41,7 +41,11 @@ const b = JSON.parse(
     administration: Parameters<typeof scoreAdminCut>[0] & {
       positionsVacant: number;
     };
-    minWage: { currentEur: number; formulaEur: number };
+    minWage: {
+      currentEur: number;
+      formulaEur: number;
+      publicSectorShare: number;
+    };
   };
 };
 const e = b.expenditure;
