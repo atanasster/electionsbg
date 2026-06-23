@@ -24,7 +24,7 @@ That is the gap these features fill. As of this writing, the graph contains **11
 This is a **graph of declared and registered business ties** between sitting and former MPs — and, since 2026, non-MP public officials (cabinet ministers, regional governors, mayors and municipal councillors).
 
 - **Declared ties**: ownership stakes that an MP filed with the [Court of Audit](https://register.cacbg.bg/) on their annual property/interest declaration.
-- **Registered ties**: management roles, partnerships and beneficial-ownership entries pulled from the [Commerce Registry](https://portal.registryagency.bg/CR/) (Търговски регистър) for those same companies, plus other companies the same individuals appear on.
+- **Registered ties**: management roles, partnerships and beneficial-ownership entries pulled from the [Commerce Registry](https://portal.registryagency.bg/CR/en/Verifications/Verifications) (Търговски регистър) for those same companies, plus other companies the same individuals appear on.
 
 Since 2026 the graph also covers **non-MP public officials** — cabinet ministers, regional governors, and municipal mayors and councillors — drawn from the same Court of Audit register. An official is tied to a company with high confidence only when they declared the stake themselves; a name-only Commerce Registry match is a weaker signal. Officials carry no parliamentary party, so they are excluded from the party heatmap, which stays MP-only.
 

@@ -25,7 +25,7 @@ For the period after 19.04.2026 (the term of the 52nd National Assembly), 3 MPs 
 This is a public register that integrates public-procurement data with politicians' business histories, in order to surface the contractor companies that have a Member of Parliament involved.
 
 - **The contracts**: Pulled directly from the [Public Procurement Agency (АОП)](https://app.eop.bg/) via the [open-data portal](https://data.egov.bg/organisation/about/aop). They include every contract, amendment, and award decision under the Public Procurement Act.
-- **The connected persons**: The information comes from declarations to the [Audit Office](https://register.cacbg.bg/) and the [Commerce Registry](https://portal.registryagency.bg/CR/).
+- **The connected persons**: The information comes from declarations to the [Audit Office](https://register.cacbg.bg/) and the [Commerce Registry](https://portal.registryagency.bg/CR/en/Verifications/Verifications).
 - **Legal framework**: It is important to clarify that this is not a list of accusations. Bulgarian law forbids sitting MPs from holding management roles, but does not prevent them from owning shares or having had a business in the past.
 - **Limitations**: Out of scope are contracts below the Public Procurement Act thresholds, in-house awards, and contracts with foreign companies.
 
