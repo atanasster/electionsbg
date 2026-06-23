@@ -5,6 +5,7 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  OnChangeFn,
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
@@ -18,7 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ReactNode, useMemo, useState } from "react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
 import {
   ChevronDown,
   ChevronLeft,
@@ -58,6 +59,11 @@ interface DataTableProps<TData, TValue> {
   getSubRows?: (originalRow: TData, index: number) => undefined | TData[];
   toolbarItems?: ReactNode;
   initialSort?: SortingState;
+  /** Controlled sorting. When provided (with onSortingChange) the parent owns
+   *  the sort state — lets a screen flip the sort (e.g. a "sort by risk"
+   *  preset) without remounting the table and losing page/filter state. */
+  sorting?: SortingState;
+  onSortingChange?: OnChangeFn<SortingState>;
   striped?: boolean;
 }
 
@@ -69,13 +75,28 @@ export const DataTable = <TData, TValue>({
   getSubRows,
   title = "electionsbg",
   initialSort = [],
+  sorting: controlledSorting,
+  onSortingChange,
   toolbarItems,
   striped = true,
 }: DataTableProps<TData, TValue>) => {
-  const [sorting, setSorting] = useState<SortingState>(initialSort);
+  const [internalSorting, setInternalSorting] =
+    useState<SortingState>(initialSort);
+  const sorting = controlledSorting ?? internalSorting;
+  const setSorting = onSortingChange ?? setInternalSorting;
   const [filter, setFilter] = useState<string>("");
   const [expanded, setExpanded] = useState<ExpandedState>({});
   const { t } = useTranslation();
+
+  // Debounce the global text filter: TanStack's getFilteredRowModel re-scans
+  // every column of every row on each change, which janks on large tables
+  // (e.g. the all-years procurement browser, ~300k rows). Keep the input value
+  // immediate (responsive typing) but apply the filter once typing pauses.
+  const [debouncedFilter, setDebouncedFilter] = useState("");
+  useEffect(() => {
+    const id = setTimeout(() => setDebouncedFilter(filter), 200);
+    return () => clearTimeout(id);
+  }, [filter]);
   const dataColumns = useMemo(() => {
     const mapColumns = (cols: DataTableColumns<TData, TValue>) =>
       cols
@@ -107,6 +128,7 @@ export const DataTable = <TData, TValue>({
     getExpandedRowModel: getExpandedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     globalFilterFn: "includesString",
+    onGlobalFilterChange: setFilter,
     getSubRows,
     initialState: {
       pagination: { pageSize },
@@ -114,6 +136,7 @@ export const DataTable = <TData, TValue>({
     state: {
       sorting,
       expanded,
+      globalFilter: debouncedFilter,
     },
   });
   return (
@@ -123,10 +146,7 @@ export const DataTable = <TData, TValue>({
           className="w-auto"
           type="search"
           value={filter}
-          onChange={(e) => {
-            setFilter(e.target.value);
-            table.setGlobalFilter(String(e.target.value));
-          }}
+          onChange={(e) => setFilter(e.target.value)}
           placeholder={`${t("filter")}...`}
         />
         {toolbarItems}

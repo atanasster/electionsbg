@@ -16,8 +16,13 @@
 // instead of allocating one per row — a real parse-time + memory win on top of
 // the gzip transport (see scripts/bucket_gzip.ts). Compact row tuple (positional):
 //   [date, awarderEik, contractorEik, amountEur, cpvDivision,
-//    procedureBucket, euFunded(1|0|null), title]
+//    procedureBucket, euFunded(1|0|null), title, key, bidCount, cpv, euProgram]
 // The hook re-expands this to the public ROW_SCHEMA below.
+//
+// `key` lets the browser deep-link each row to /procurement/contract/:key
+// (resolved by the prefix-sharded by-id store — see by_id_shards.ts). `bidCount`
+// (numberOfTenderers) lets the table compute the single-bidder red flag inline,
+// without fetching the full contract.
 
 import fs from "fs";
 import path from "path";
@@ -42,11 +47,18 @@ const ROW_SCHEMA = [
   "procedureBucket",
   "euFunded",
   "title",
+  "key",
+  "bidCount",
+  "cpv",
+  "euProgram",
 ] as const;
 
 // Compact, dictionary-encoded row: names live in the per-shard eik→name maps.
 //   [date, awarderEik, contractorEik, amountEur, cpvDivision,
-//    procedureBucket, euFunded(1|0|null), title]
+//    procedureBucket, euFunded(1|0|null), title, key, bidCount, cpv, euProgram]
+// `cpv` is the full 8-digit code (cpvDivision is its 2-digit prefix, kept for
+// the existing sector facet); `euProgram` is the operational-programme name
+// shown in the EU-badge tooltip (both "" when absent).
 type CompactRow = [
   string,
   string,
@@ -55,6 +67,10 @@ type CompactRow = [
   string,
   string,
   0 | 1 | null,
+  string,
+  string,
+  number | null,
+  string,
   string,
 ];
 
@@ -96,6 +112,10 @@ const main = (): void => {
           c.procurementMethod ? procedureBucket(c.procurementMethod) : "",
           c.euFunded === true ? 1 : c.euFunded === false ? 0 : null,
           trunc(c.title, 70),
+          c.key,
+          typeof c.numberOfTenderers === "number" ? c.numberOfTenderers : null,
+          c.cpv ? String(c.cpv) : "",
+          trunc(c.euProgram, 90),
         ]);
       }
     }

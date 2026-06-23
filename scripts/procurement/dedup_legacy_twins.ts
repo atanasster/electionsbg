@@ -45,6 +45,7 @@ import {
   writeConcentrationFull,
 } from "./risk_feed";
 import { writeByIdContracts } from "./by_id";
+import { writeByIdShards } from "./by_id_shards";
 import { writeContractorContracts } from "./contractor_contracts";
 import { writeAwarderContracts } from "./awarder_contracts";
 import { buildByNs } from "./by_ns";
@@ -310,6 +311,11 @@ const main = async (): Promise<void> => {
     );
     console.log(
       `  by-id contracts: ${byId.emitted} file(s) (${byId.mpTied} MP-tied, ${byId.removed} pruned)`,
+    );
+
+    const byIdShards = writeByIdShards(PROCUREMENT_DIR, CONTRACTS_DIR);
+    console.log(
+      `  by-id shards: ${byIdShards.contracts.toLocaleString()} contract(s) → ${byIdShards.shards} shard(s)`,
     );
 
     let totalEur = 0;

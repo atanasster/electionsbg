@@ -27,6 +27,7 @@ import {
 } from "./derived";
 import { buildPepConnected, writePepConnected } from "./pep_connected";
 import { writeByIdContracts } from "./by_id";
+import { writeByIdShards } from "./by_id_shards";
 import { writeContractorContracts } from "./contractor_contracts";
 import { writeAwarderContracts } from "./awarder_contracts";
 import { buildByNs } from "./by_ns";
@@ -185,6 +186,11 @@ const main = async (): Promise<void> => {
       mpConnected,
     );
     console.log(`  by-id contracts: ${byId.emitted} file(s)`);
+
+    const byIdShards = writeByIdShards(PROCUREMENT_DIR, CONTRACTS_DIR);
+    console.log(
+      `  by-id shards: ${byIdShards.contracts.toLocaleString()} contract(s) → ${byIdShards.shards} shard(s)`,
+    );
 
     let totalEur = 0;
     const totalOther: Record<string, number> = {};

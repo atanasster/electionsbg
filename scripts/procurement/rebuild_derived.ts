@@ -35,6 +35,7 @@ import {
   writeConcentrationFull,
 } from "./risk_feed";
 import { writeByIdContracts } from "./by_id";
+import { writeByIdShards } from "./by_id_shards";
 import { buildByNs } from "./by_ns";
 import type { MpConnectedFile, ProcurementIndex } from "./types";
 
@@ -129,6 +130,11 @@ if (mpConnected) {
   const byId = writeByIdContracts(PROCUREMENT_DIR, CONTRACTS_DIR, mpConnected);
   console.log(
     `by-id contracts: ${byId.emitted} (${byId.mpTied} MP-tied, ${byId.removed} pruned)`,
+  );
+
+  const byIdShards = writeByIdShards(PROCUREMENT_DIR, CONTRACTS_DIR);
+  console.log(
+    `by-id shards: ${byIdShards.contracts.toLocaleString()} contract(s) → ${byIdShards.shards} shard(s)`,
   );
 
   // Refresh the index.json crossReference summary in place (keep totals/periods).

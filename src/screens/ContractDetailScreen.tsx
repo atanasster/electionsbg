@@ -159,6 +159,14 @@ export const ContractDetailScreen: FC = () => {
               )}
             />
           ) : null}
+          {c.procurementMethodRationale ? (
+            <KvRow
+              label={t("contract_rationale") || "Procedure rationale"}
+              value={
+                <span className="text-sm">{c.procurementMethodRationale}</span>
+              }
+            />
+          ) : null}
           {typeof c.numberOfTenderers === "number" ? (
             <KvRow
               label={t("contract_bids") || "Bids"}
@@ -177,10 +185,53 @@ export const ContractDetailScreen: FC = () => {
               }
             />
           ) : null}
+          {(() => {
+            // Tender open window — the short-deadline ("rushed") red flag is
+            // anything below the EU 14-day open-procedure reference. Surface the
+            // span + day count so the risk chip is explainable here.
+            if (!c.tenderPeriodStartDate || !c.tenderPeriodEndDate) return null;
+            const start = Date.parse(c.tenderPeriodStartDate);
+            const end = Date.parse(c.tenderPeriodEndDate);
+            const days =
+              Number.isFinite(start) && Number.isFinite(end) && end >= start
+                ? Math.round((end - start) / 86_400_000)
+                : null;
+            return (
+              <KvRow
+                label={t("contract_tender_window") || "Tender window"}
+                value={
+                  <span className="tabular-nums">
+                    {c.tenderPeriodStartDate} – {c.tenderPeriodEndDate}
+                    {days != null ? (
+                      <span className="text-xs text-muted-foreground">
+                        {" "}
+                        · {days} {t("contract_tender_days") || "days"}
+                        {days < 14
+                          ? ` · ${t("contract_tender_short") || "below the 14-day open-procedure reference"}`
+                          : ""}
+                      </span>
+                    ) : null}
+                  </span>
+                }
+              />
+            );
+          })()}
           {c.category ? (
             <KvRow
               label={t("contract_category") || "Category"}
               value={contractCategoryLabel(c.category, i18n.language)}
+            />
+          ) : null}
+          {c.euFunded ? (
+            <KvRow
+              label={t("contract_eu_funding") || "EU funding"}
+              value={
+                <span className="text-sm">
+                  {c.euProgram ||
+                    t("contract_eu_funded_yes") ||
+                    "EU co-financed"}
+                </span>
+              }
             />
           ) : null}
           <KvRow
