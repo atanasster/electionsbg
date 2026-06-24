@@ -462,7 +462,11 @@ export const sampleDraws = (
       revenueFeedbackShare: sampleTriangular(rnd(), REVENUE_GDP_FEEDBACK),
       modAlpha: tri(rnd(), mod.alphaLow, mod.alphaCentral, mod.alphaHigh),
       modLowerFactor: tri(rnd(), 0.85, 1, 1.15),
-      // Appended last so the draws above stay byte-identical (determinism).
+      // This group (through gamblingResponse below) is appended after the
+      // original parameter set so the rnd() call order of the parameters above
+      // stays unchanged: the central headline (centralDraw) is unaffected, and
+      // existing MC bands shift only within sampling noise, since the shared
+      // PRNG stream advances per draw.
       maternityReturnShare: sampleTriangular(rnd(), MATERNITY_RETURN_TO_WORK),
       divShiftRecapture: sampleTriangular(rnd(), DIV_SHIFT_TO_SALARY),
       exciseFuelResponse: sampleTriangular(rnd(), EXCISE_FUEL_RESPONSE),
