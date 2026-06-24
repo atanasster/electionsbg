@@ -59,6 +59,9 @@ data/confirmation gate — see Post kinds. Rules 3–5 always apply.)_
    no adjectives, no outrage, no party-side framing. (User preference: no emojis.)
 5. **Link goes in the first comment, not the post body** (Facebook throttles
    link posts). The draft states this.
+6. **End with a share CTA.** Every post body (BG and EN) closes with a one-line
+   call to share, as its last line — BG: «Споделете, за да стигне Наясно до
+   повече хора.» / EN: «Share it so Наясно reaches more people.»
 
 ## Pipeline
 
@@ -147,8 +150,11 @@ and tell the user — do not draft an unverifiable claim.
 ## Step 5 — Compose
 
 - **BG body:** a 1-line hook + the number in context (1–2 sentences) + a soft
-  CTA ("Пълната разбивка е в линка в коментарите."). No emojis, non-partisan.
-- **EN body (optional):** same, concise.
+  CTA ("Пълната разбивка е в линка в коментарите.") + the share line on its own
+  last line (rule 6: "Споделете, за да стигне Наясно до повече хора."). No emojis,
+  non-partisan, natural readable Bulgarian (not a word-for-word EN translation).
+- **EN body (optional):** same, concise, ending with "Share it so Наясно reaches
+  more people."
 - **Card spec:** `value` (e.g. "2,4 млрд. лв."), `label` (1–2 short plain-language
   lines, `\n` separated), `source` (e.g. "Източник: АОП"), optional `kicker`,
   `cta` (default "виж разбивката"), `theme` ("dark" default; "light" = cream).
