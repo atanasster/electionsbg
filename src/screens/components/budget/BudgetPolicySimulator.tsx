@@ -64,6 +64,7 @@ import {
   scoreWineExcise,
   scoreGamblingGgr,
   GAMBLING_GGR_FEE_RATE,
+  scoreRoadCharges,
   EXCISE_DIESEL_RATE,
   EXCISE_PETROL_RATE,
   EXCISE_CIGARETTE_RATE,
@@ -199,6 +200,13 @@ const WINE_STEP = 1;
 const GAMBLING_DEF = Math.round(GAMBLING_GGR_FEE_RATE * 100); // 25
 const GAMBLING_MAX = 40;
 
+// Road charges — е-винетки + тол. The lever is a uniform % uplift on the
+// combined АПИ road-charge base; default 0 (no change). The кабинет „Радев"
+// 2026 framework proposed +30% on vignettes (≈€53M of the ~€562M base).
+const ROAD_DEF = 0;
+const ROAD_MAX = 100;
+const ROAD_STEP = 5;
+
 // Exemplar payslips in the citizen pane: minimum wage, ~average, upper
 // professional, above-cap.
 const EXEMPLAR_GROSS = [620, 1250, 2500, 5000];
@@ -286,6 +294,8 @@ interface LeverState {
   wine: number;
   /** Gambling GGR fee, integer % (25 = current law). */
   gambling: number;
+  /** Road-charge (винетки+тол) tariff uplift, integer % (0 = no change). */
+  roadCharges: number;
 }
 
 // THE single static-scoring path. Returns each lever's static EUR delta
@@ -366,6 +376,11 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
   // behavioral). Industry-reported base — not a КФП line.
   const gamblingDelta =
     s.gambling !== GAMBLING_DEF ? scoreGamblingGgr(s.gambling / 100) : 0;
+
+  // Road charges (е-винетки + тол): uniform tariff uplift on the combined АПИ
+  // base. Heavy-vehicle cross-border diversion is the Tier-1 behavioral piece.
+  const roadChargesDelta =
+    s.roadCharges !== ROAD_DEF ? scoreRoadCharges(s.roadCharges / 100) : 0;
 
   // МОД: central from the band model (works in both directions and knows
   // the schedule's base rate for the deduction interaction); the range
@@ -498,6 +513,7 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     divDelta +
     exciseDelta +
     gamblingDelta +
+    roadChargesDelta +
     modRes.centralEur +
     expenditureBalance;
   const low =
@@ -507,6 +523,7 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     divDelta +
     exciseDelta +
     gamblingDelta +
+    roadChargesDelta +
     expenditureBalance +
     Math.min(modRes.lowEur, modRes.highEur);
   const high =
@@ -516,6 +533,7 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     divDelta +
     exciseDelta +
     gamblingDelta +
+    roadChargesDelta +
     expenditureBalance +
     Math.max(modRes.lowEur, modRes.highEur);
 
@@ -541,6 +559,7 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     spiritsDelta,
     wineDelta,
     gamblingDelta,
+    roadChargesDelta,
     modRes,
     brackets,
     expenditureNonPensionBalance,
@@ -609,6 +628,7 @@ const NEUTRAL_LEVERS = (currentCap: number): LeverState => ({
   spirits: SPIRITS_DEF,
   wine: 0,
   gambling: GAMBLING_DEF,
+  roadCharges: ROAD_DEF,
 });
 
 // Static central effect of one preset in isolation — the myth-buster weight
@@ -672,6 +692,7 @@ const PARAM_ROW_KEY: Record<string, string> = {
   spir: "excise",
   winex: "excise",
   haz: "gambling",
+  vin: "road_charges",
   mod: "mod",
   nocap: "mod",
   pw: "pensions",
@@ -1086,6 +1107,7 @@ interface LeverWrite {
   spirits: number;
   wine: number;
   gambling: number;
+  roadCharges: number;
 }
 
 export const BudgetPolicySimulator: FC = () => {
@@ -1150,6 +1172,9 @@ export const BudgetPolicySimulator: FC = () => {
   );
   const [gambling, setGambling] = useState(() =>
     clampIntParam(searchParams.get("haz"), 0, GAMBLING_MAX, GAMBLING_DEF),
+  );
+  const [roadCharges, setRoadCharges] = useState(() =>
+    clampIntParam(searchParams.get("vin"), 0, ROAD_MAX, ROAD_DEF),
   );
   const [exciseOpen, setExciseOpen] = useState(
     () =>
@@ -1336,6 +1361,7 @@ export const BudgetPolicySimulator: FC = () => {
     setSpirits(o.spirits ?? SPIRITS_DEF);
     setWine(o.wine ?? 0);
     setGambling(o.gambling ?? GAMBLING_DEF);
+    setRoadCharges(o.roadCharges ?? ROAD_DEF);
   };
 
   // ----- presets -------------------------------------------------------------
@@ -1403,7 +1429,8 @@ export const BudgetPolicySimulator: FC = () => {
       cigarettes === CIG_DEF &&
       spirits === SPIRITS_DEF &&
       wine === 0 &&
-      gambling === GAMBLING_DEF
+      gambling === GAMBLING_DEF &&
+      roadCharges === ROAD_DEF
     );
   };
 
@@ -1430,6 +1457,7 @@ export const BudgetPolicySimulator: FC = () => {
     if (spirits !== SPIRITS_DEF) next.spir = String(spirits);
     if (wine !== 0) next.winex = String(wine);
     if (gambling !== GAMBLING_DEF) next.haz = String(gambling);
+    if (roadCharges !== ROAD_DEF) next.vin = String(roadCharges);
     if (!noCap && mod !== currentCap) next.mod = String(mod);
     if (noCap) next.nocap = "1";
     if (gross !== GROSS_DEF) next.gross = String(gross);
@@ -1470,6 +1498,7 @@ export const BudgetPolicySimulator: FC = () => {
     spirits,
     wine,
     gambling,
+    roadCharges,
     mod,
     noCap,
     gross,
@@ -1689,6 +1718,7 @@ export const BudgetPolicySimulator: FC = () => {
       spirits,
       wine,
       gambling,
+      roadCharges,
     });
   }, [
     baseline,
@@ -1729,6 +1759,7 @@ export const BudgetPolicySimulator: FC = () => {
     spirits,
     wine,
     gambling,
+    roadCharges,
     currentCap,
   ]);
 
@@ -1929,6 +1960,7 @@ export const BudgetPolicySimulator: FC = () => {
         exciseAlcoholDeltaEur: scenario.spiritsDelta,
         wineDeltaEur: scenario.wineDelta,
         gamblingDeltaEur: scenario.gamblingDelta,
+        roadChargesDeltaEur: scenario.roadChargesDelta,
         maternityMonthsCut: MATERNITY_Y2_MONTHS - mat,
         expenditureBalanceNonPensionEur: scenario.expenditureNonPensionBalance,
         brackets: scenario.brackets,
@@ -1945,6 +1977,7 @@ export const BudgetPolicySimulator: FC = () => {
         exciseTobaccoRateChange: cigarettes / CIG_DEF - 1,
         exciseAlcoholRateChange: spirits / SPIRITS_DEF - 1,
         gamblingNewRate: gambling / 100,
+        roadChargesRateChange: roadCharges / 100,
       },
     );
     return computeDynamicScenario(input, mcDraws);
@@ -1965,6 +1998,7 @@ export const BudgetPolicySimulator: FC = () => {
     cigarettes,
     spirits,
     gambling,
+    roadCharges,
   ]);
 
   // ----- multi-year balance & debt projection --------------------------------
@@ -2186,6 +2220,8 @@ export const BudgetPolicySimulator: FC = () => {
   const effSpirits = scenario.spiritsDelta + (dynOffsets?.exciseAlcohol ?? 0);
   const effWine = scenario.wineDelta + (dynOffsets?.wine ?? 0);
   const effGambling = scenario.gamblingDelta + (dynOffsets?.gambling ?? 0);
+  const effRoadCharges =
+    scenario.roadChargesDelta + (dynOffsets?.roadCharges ?? 0);
   const effMod = scenario.modRes.centralEur + (dynOffsets?.mod ?? 0);
   const effHp = scenario.hpDelta + (dynOffsets?.health ?? 0);
   const effMat = scenario.matBalance + (dynOffsets?.maternity ?? 0);
@@ -2218,6 +2254,7 @@ export const BudgetPolicySimulator: FC = () => {
     Math.abs(effSpirits),
     Math.abs(effWine),
     Math.abs(effGambling),
+    Math.abs(effRoadCharges),
     Math.abs(effMod),
     Math.abs(scenario.pensionBalance),
     Math.abs(scenario.adminBalance),
@@ -2981,6 +3018,22 @@ export const BudgetPolicySimulator: FC = () => {
               />
             </div>
 
+            {/* Road charges — е-винетки + тол (uniform tariff uplift) */}
+            <div className="border-t pt-3">
+              <RateSlider
+                id="policy-road-charges"
+                label={t("budget_policy_road_charges")}
+                tip={t("budget_policy_tip_road_charges")}
+                min={0}
+                max={ROAD_MAX}
+                step={ROAD_STEP}
+                value={roadCharges}
+                defaultValue={ROAD_DEF}
+                onChange={setRoadCharges}
+                formatValue={(v) => (v > 0 ? `+${v}%` : `${v}%`)}
+              />
+            </div>
+
             {/* Expenditure side — pensions, administration, МРЗ */}
             <div className="border-t pt-3">
               {/* InfoTip renders its own <button>, so it must stay a sibling
@@ -3648,6 +3701,16 @@ export const BudgetPolicySimulator: FC = () => {
                       maxAbs={maxAbs}
                       lang={lang}
                       sub={staticSub(scenario.gamblingDelta, effGambling)}
+                    />
+                  ) : null}
+                  {roadCharges !== ROAD_DEF ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_road_charges")}
+                      tip={t("budget_policy_tip_road_charges_row")}
+                      deltaEur={effRoadCharges}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                      sub={staticSub(scenario.roadChargesDelta, effRoadCharges)}
                     />
                   ) : null}
                   <DeltaRow

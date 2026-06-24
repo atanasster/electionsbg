@@ -3,8 +3,10 @@
 //  - src/lib/bgFiscalProjection.ts — the 2025 ESA outturn anchors (deficit/
 //    debt/GDP from the НСИ EDP notification);
 //  - src/lib/bgBehavioral.ts — the dynamic-mode elasticities (EC VAT gap,
-//    IMF multipliers) and the dividend calibration target (Фискален съвет).
-// Four probes watch their upstreams; all four map to MANUAL edits in
+//    IMF multipliers) and the dividend calibration target (Фискален съвет);
+//  - src/lib/bgTaxPolicy.ts — ROAD_CHARGES_BASE_EUR (АПИ annual road-charge
+//    revenue: е-винетки + тол).
+// Five probes watch their upstreams; all five map to MANUAL edits in
 // process-watch-report (there is no automated ingest — the constants carry
 // editorial notes that need a human). Companion to eu_policy_anchors.ts.
 
@@ -176,5 +178,61 @@ export const fiscalCouncilBg: WatchSource = {
   describe(prev: WatchState | null, curr: Fingerprint): string {
     if (!prev) return curr.detail;
     return `new Фискален съвет publication: ${curr.meta?.latest} — if it costs a simulator lever, refresh the benchmark table in the methodology article (public/articles/2026-06-12-tax-policy-simulator-*.md), docs/budget_simulator_grounding.md and (for dividend-style costings) the calibration target in src/lib/bgBehavioral.ts`;
+  },
+};
+
+// ---------------------------------------------------------------------------
+// 5) АПИ road-charge revenue — the source of ROAD_CHARGES_BASE_EUR (the
+// road-charge lever's base in src/lib/bgTaxPolicy.ts). Агенция "Пътна
+// инфраструктура" publishes the prior year's combined е-винетки + тол revenue
+// once a year (~February) as a news item with a stable slug:
+// "...prikhodite-ot-putni-taksi-prez-<YYYY>-g" (приходите от пътни такси през
+// <YYYY>). The article is only on the news front page for ~10 days, so the
+// fingerprint is FLOORED at API_ROAD_CHARGE_LATEST_YEAR (the fiscal year the
+// constant is anchored on): the value advances when a NEWER annual figure
+// appears on the listing and never regresses when it scrolls off (no flap).
+// Bump the floor in the same edit that refreshes ROAD_CHARGES_BASE_EUR.
+// ---------------------------------------------------------------------------
+
+const API_NEWS_URL = "https://www.api.bg/bg/novini";
+// FY of the figure ROAD_CHARGES_BASE_EUR (€562M ≈ 1.1bn BGN) is anchored on —
+// raise this together with the constant when АПИ posts a newer annual total.
+const API_ROAD_CHARGE_LATEST_YEAR = 2025;
+// Annual revenue press-release slug, tolerant of the х→h/kh and ъ→u/a
+// transliteration drift ("prikhodite-ot-putni-taksi-prez-2023").
+const API_REVENUE_SLUG_RE =
+  /pri?k?hodi[a-z]*-ot-p[ua]tni-taksi[a-z0-9-]*prez-(\d{4})/g;
+
+export const apiRoadCharges: WatchSource = {
+  id: "api_road_charges",
+  label: "АПИ — годишни приходи от пътни такси (винетки + тол)",
+  url: API_NEWS_URL,
+  cadence: "weekly",
+
+  async fingerprint(): Promise<Fingerprint> {
+    const html = await fetchText(API_NEWS_URL);
+    if (!html) throw new Error("empty АПИ news page");
+    let latestOnPage = 0;
+    for (const m of html.matchAll(API_REVENUE_SLUG_RE)) {
+      const y = Number(m[1]);
+      if (y >= 2000 && y <= 2100 && y > latestOnPage) latestOnPage = y;
+    }
+    // Floor at the curated anchor year so a scrolled-off press release can't
+    // regress the value (the front page is high-volume daily traffic notices).
+    const latest = Math.max(latestOnPage, API_ROAD_CHARGE_LATEST_YEAR);
+    const onPage =
+      latestOnPage > 0
+        ? `FY${latestOnPage} press release on the front page`
+        : "no revenue press release on the front page";
+    return {
+      value: String(latest),
+      detail: `АПИ road-charge revenue: latest FY${latest} (${onPage})`,
+      meta: { latestYear: latest, onFrontPage: latestOnPage || null },
+    };
+  },
+
+  describe(prev: WatchState | null, curr: Fingerprint): string {
+    if (!prev) return curr.detail;
+    return `АПИ published FY${curr.meta?.latestYear} road-charge revenue — read the new винетки+тол total off the АПИ press release, convert BGN→EUR (÷1.95583), and refresh ROAD_CHARGES_BASE_EUR in src/lib/bgTaxPolicy.ts; bump API_ROAD_CHARGE_LATEST_YEAR in scripts/watch/sources/fiscal_anchors.ts in the same edit; re-run scripts/budget/__test_engine.ts`;
   },
 };

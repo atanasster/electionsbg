@@ -56,6 +56,7 @@ import {
   scoreDividend,
   scoreExcise,
   scoreGamblingGgr,
+  scoreRoadCharges,
   scoreHealthContribution,
   scoreMaternityMonths,
   scoreMinWageFreeze,
@@ -150,6 +151,10 @@ const WINE_MAX = 100; // €/hl
 // Change them THERE first.
 const GAMBLING_DEF = Math.round(GAMBLING_GGR_FEE_RATE * 100); // 25
 const GAMBLING_MAX = 40;
+// Road-charge lever (е-винетки + тол), bounds mirrored from the same component:
+// a uniform % uplift on the combined АПИ road-charge base, 0..100% (0 = no
+// change). Change them THERE first.
+const ROAD_MAX = 100;
 
 const clamp = (n: number, min: number, max: number): number =>
   Math.max(min, Math.min(max, Math.round(n)));
@@ -189,7 +194,8 @@ export type TaxChange =
   | { kind: "exciseTobacco"; pct: number } // % change to the tobacco excise rate
   | { kind: "exciseAlcohol"; pct: number } // % change to the alcohol excise rate
   | { kind: "wineExcise"; rateEurPerHl: number } // introduce a wine excise, €/hl
-  | { kind: "gamblingGgr"; ratePct: number }; // ЗХ GGR fee → X% (current 25%)
+  | { kind: "gamblingGgr"; ratePct: number } // ЗХ GGR fee → X% (current 25%)
+  | { kind: "roadCharges"; pct: number }; // винетки+тол tariff uplift +X%
 
 const has = (q: string, ...words: string[]): boolean =>
   words.some((w) => q.includes(w));
@@ -595,6 +601,21 @@ const GAMBLING_WORDS = [
   "lottery",
 ];
 
+// Road-charge instruments. "винетк" (винетка/винетки/винетките) + the longer
+// "пътна(и) такса/такси" are safe substrings; the bare "тол"/"toll" must be a
+// whole token (it lurks inside "толкова"/"контрол"), checked separately.
+const ROAD_WORDS = [
+  "винетк",
+  "пътни такси",
+  "пътна такса",
+  "пътни такс",
+  "пътните такси",
+  "vignette",
+  "road charge",
+  "road toll",
+  "road tax",
+];
+
 const VAT_CATEGORY_TOKENS: [VatAdjustableGroup, string[]][] = [
   ["food", ["храни", "хранит", "хляб", "food", "groceries"]],
   ["medicines", ["лекарств", "медикамент", "medicine", "drug"]],
@@ -875,6 +896,18 @@ export const detectTaxChange = (question: string): TaxChange | undefined => {
     }
   }
 
+  // 1g. Road charges — е-винетки + тол. An UPLIFT-only lever (the slider domain
+  // is 0..100), anchored on the винетка/тол/road-charge word + an explicit
+  // POSITIVE %: "вдигане на винетките с 30%", "road charges +30%". A *cut*
+  // ("намаляване на винетките") is not representable and a bare "колко струва
+  // винетката" (no %) carries no target — both fall through to the price/info
+  // tools rather than degenerating to a +0% no-op.
+  if (has(q, ...ROAD_WORDS) || hasToken(q, "тол", "toll")) {
+    const rPct = parseSignedPct(q);
+    if (rPct !== undefined && rPct > 0)
+      return { kind: "roadCharges", pct: clamp(rPct, 0, ROAD_MAX) };
+  }
+
   // 2. VAT on a category — needs the VAT word + a category word, plus a
   // target: a %, a change cue, or an explicit regime word ("zero VAT on
   // medicines", "нулева ставка за храните").
@@ -1010,6 +1043,8 @@ interface ScenarioParams {
   wine: number;
   // Gambling ЗХ GGR fee, integer % LEVEL (GAMBLING_DEF = 25 = current law).
   gambling: number;
+  // Road charges (винетки+тол), integer % uplift (0 = no change).
+  road: number;
 }
 
 const paramsFor = (change: TaxChange, currentCap: number): ScenarioParams => {
@@ -1043,6 +1078,7 @@ const paramsFor = (change: TaxChange, currentCap: number): ScenarioParams => {
     exAlcohol: 0,
     wine: 0,
     gambling: GAMBLING_DEF,
+    road: 0,
   };
   // Clamp to the simulator's own URL-param bounds (clampIntParam calls in
   // BudgetPolicySimulator.tsx) so the chat number equals what the deep link
@@ -1134,6 +1170,9 @@ const paramsFor = (change: TaxChange, currentCap: number): ScenarioParams => {
     case "gamblingGgr":
       p.gambling = clamp(change.ratePct, 0, GAMBLING_MAX);
       break;
+    case "roadCharges":
+      p.road = clamp(change.pct, 0, ROAD_MAX);
+      break;
   }
   return p;
 };
@@ -1157,6 +1196,9 @@ export interface ScenarioScore {
   /** Gambling ЗХ GGR-fee static delta — the behavioral pass runs the
    *  offshore/illicit-migration response on top (a Laffer turn on big hikes). */
   gamblingDelta: number;
+  /** Road-charge (винетки+тол) static delta — the behavioral pass runs the
+   *  heavy-vehicle cross-border-diversion response on top. */
+  roadChargesDelta: number;
   modCentral: number;
   /** МРЗ-freeze and health-contribution deltas (revenue-side levers inside
    *  the expenditure block — the Tier-2 impulse split needs them apart). */
@@ -1212,6 +1254,7 @@ export const scoreScenario = (
     exAlcohol,
     wine,
     gambling,
+    road,
   } = paramsFor(change, currentCap);
 
   const slices = baseline.vat.slices as VatBaseSlice[];
@@ -1271,6 +1314,10 @@ export const scoreScenario = (
   // behavioral response) — mirrors the screen's scenario useMemo.
   const gamblingDelta =
     gambling !== GAMBLING_DEF ? scoreGamblingGgr(gambling / 100) : 0;
+
+  // Road charges (винетки+тол) — uniform tariff uplift on the combined АПИ
+  // base; heavy-vehicle cross-border diversion is the Tier-1 behavioral piece.
+  const roadChargesDelta = road !== 0 ? scoreRoadCharges(road / 100) : 0;
 
   const targetCap = noCap ? Infinity : mod;
   const modBands = scoreModCapBands(
@@ -1399,6 +1446,7 @@ export const scoreScenario = (
     divDelta +
     exciseDelta +
     gamblingDelta +
+    roadChargesDelta +
     modRes.centralEur +
     expenditureBalance;
   const low =
@@ -1408,6 +1456,7 @@ export const scoreScenario = (
     divDelta +
     exciseDelta +
     gamblingDelta +
+    roadChargesDelta +
     expenditureBalance +
     Math.min(modRes.lowEur, modRes.highEur);
   const high =
@@ -1417,6 +1466,7 @@ export const scoreScenario = (
     divDelta +
     exciseDelta +
     gamblingDelta +
+    roadChargesDelta +
     expenditureBalance +
     Math.max(modRes.lowEur, modRes.highEur);
 
@@ -1432,6 +1482,7 @@ export const scoreScenario = (
     exciseAlcoholDelta,
     wineDelta,
     gamblingDelta,
+    roadChargesDelta,
     modCentral: modRes.centralEur,
     mwDelta,
     hpDelta,
@@ -1502,6 +1553,9 @@ export const scoreDynamicScenario = (
       // Gambling static delta — the behavioral pass runs the offshore/illicit
       // migration response (a Laffer turn on big hikes).
       gamblingDeltaEur: score.gamblingDelta,
+      // Road-charge static delta — the behavioral pass runs the heavy-vehicle
+      // cross-border-diversion response.
+      roadChargesDeltaEur: score.roadChargesDelta,
       // single-change scenarios route the pension lever through the
       // expenditure balance (no per-year compounding path here).
       expenditureBalanceNonPensionEur:
@@ -1521,6 +1575,7 @@ export const scoreDynamicScenario = (
       exciseTobaccoRateChange: p.exTobacco / 100,
       exciseAlcoholRateChange: p.exAlcohol / 100,
       gamblingNewRate: p.gambling / 100,
+      roadChargesRateChange: p.road / 100,
     },
   );
   const dyn = computeDynamicScenario(input, drawsFor(baseline.modIdentity));
@@ -1696,6 +1751,12 @@ const changeLabel = (
       return bg
         ? `данък върху хазарта (такса върху GGR) ${p.gambling}% (сега ${GAMBLING_DEF}%)`
         : `gambling tax (GGR fee) ${p.gambling}% (now ${GAMBLING_DEF}%)`;
+    case "roadCharges": {
+      const v = `${p.road > 0 ? "+" : ""}${p.road}%`;
+      return bg
+        ? `пътни такси (винетки + тол) ${v}`
+        : `road charges (vignettes + toll) ${v}`;
+    }
   }
 };
 
@@ -1732,6 +1793,7 @@ const scenarioQuery = (p: ScenarioParams, currentCap: number): string => {
   if (p.exAlcohol !== 0) parts.push(`exca=${p.exAlcohol}`);
   if (p.wine !== 0) parts.push(`winex=${p.wine}`);
   if (p.gambling !== GAMBLING_DEF) parts.push(`haz=${p.gambling}`);
+  if (p.road !== 0) parts.push(`vin=${p.road}`);
   return parts.join("&");
 };
 

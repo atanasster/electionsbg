@@ -34,6 +34,13 @@ import {
   scoreModCap,
   scoreModCapBands,
   scoreMpPayFreeze,
+  scoreRoadCharges,
+  ROAD_CHARGES_BASE_EUR,
+  scoreRoadComponentUplift,
+  VIGNETTE_BASE_EUR,
+  TOLL_BASE_EUR,
+  scoreCollectionRealism,
+  COLLECTION_REALISM_CENTRAL,
   scorePartySubsidy,
   scorePensionFloorRaise,
   scorePensionIndexation,
@@ -57,6 +64,8 @@ import {
   modBehavioralOffset,
   mulberry32,
   pitFlatBehavioralOffset,
+  roadChargesBehavioralOffset,
+  ROAD_CHARGES_RESPONSE,
   sampleTriangular,
   vatBehavioralOffset,
   zeroDraw,
@@ -82,6 +91,75 @@ eq("scoreCorporate no-op", scoreCorporate(1e9, CORP_TAX_RATE), 0);
 // scoreDividend = rev × (new/DIVIDEND_TAX_RATE − 1). 1e8 × (0.10/0.05 − 1).
 eq("scoreDividend(1e8, 0.10)", scoreDividend(1e8, 0.1), 1e8);
 eq("scoreDividend no-op", scoreDividend(1e8, DIVIDEND_TAX_RATE), 0);
+
+// scoreRoadCharges = base × pctChange (uniform vignette+toll uplift).
+eq(
+  "scoreRoadCharges(+30%)",
+  scoreRoadCharges(0.3),
+  ROAD_CHARGES_BASE_EUR * 0.3,
+);
+eq("scoreRoadCharges no-op", scoreRoadCharges(0), 0);
+
+// Road component split: vignette/тол slices apply the uplift to their own base.
+eq(
+  "scoreRoadComponentUplift vignette +30%",
+  scoreRoadComponentUplift("vignette", 0.3),
+  VIGNETTE_BASE_EUR * 0.3,
+);
+eq(
+  "scoreRoadComponentUplift toll +30%",
+  scoreRoadComponentUplift("toll", 0.3),
+  TOLL_BASE_EUR * 0.3,
+);
+// The split prices the government's vignette +30% at ≈€52.9M (their €53.3M),
+// not the ≈€168.6M the combined-base lever returns — the whole point of it.
+check(
+  "vignette +30% ∈ [€50M,€56M] (≈ gov €53.3M, not €168M)",
+  near(scoreRoadComponentUplift("vignette", 0.3), 53e6, 3e6),
+);
+// vignette + тол slices stay within the combined base (permits are the remainder).
+check(
+  "vignette + toll ≤ combined road base",
+  VIGNETTE_BASE_EUR + TOLL_BASE_EUR <= ROAD_CHARGES_BASE_EUR,
+);
+
+// Collection realism: bankable = asserted × realisation; default is central.
+eq(
+  "scoreCollectionRealism(300M, 0.4)",
+  scoreCollectionRealism(300e6, 0.4),
+  120e6,
+);
+eq(
+  "scoreCollectionRealism default = central",
+  scoreCollectionRealism(300e6),
+  300e6 * COLLECTION_REALISM_CENTRAL,
+);
+check(
+  "scoreCollectionRealism banks less than asserted (central < 1)",
+  scoreCollectionRealism(300e6) < 300e6,
+);
+
+// Dynamic layer: road=0 is a strict no-op (any elasticity), and a +30% uplift
+// erodes the base — the offset is negative and smaller than the static gain
+// (car vignettes inelastic; only the toll slice diverts cross-border).
+eq(
+  "roadChargesBehavioralOffset no-op",
+  roadChargesBehavioralOffset(
+    ROAD_CHARGES_BASE_EUR,
+    0,
+    ROAD_CHARGES_RESPONSE.central,
+  ),
+  0,
+);
+const roadOff = roadChargesBehavioralOffset(
+  ROAD_CHARGES_BASE_EUR,
+  0.3,
+  ROAD_CHARGES_RESPONSE.central,
+);
+check(
+  "road-charge diversion offset is negative and smaller than the static gain",
+  roadOff < 0 && Math.abs(roadOff) < scoreRoadCharges(0.3),
+);
 
 console.log("\n=== PIT brackets over a synthetic grid ===");
 // Untaxed minimum then 10%: 0.10 × (2000 − 500).

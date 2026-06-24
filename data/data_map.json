@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-06-24T14:25:49.159Z",
+  "generatedAt": "2026-06-24T22:20:25.381Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -905,12 +905,12 @@
         "en": "BG fiscal anchors"
       },
       "detail": {
-        "bg": "НСИ EDP нотификация, Фискален съвет",
-        "en": "НСИ EDP notification, Fiscal Council"
+        "bg": "НСИ EDP нотификация, Фискален съвет, АПИ пътни такси",
+        "en": "НСИ EDP notification, Fiscal Council, АПИ road charges"
       },
       "desc": {
-        "bg": "Българските котви на данъчния симулатор: EDP нотификацията на НСИ (дефицит/дълг/БВП — началната точка на 5-годишната проекция) и публикациите на Фискалния съвет, срещу които симулаторът сверява оценките си (включително калибрацията на дивидентния лост в динамичния режим). И двете водят до ръчна редакция на константи с източници в кода.",
-        "en": "The tax simulator's Bulgarian anchors: the НСИ EDP notification (deficit/debt/GDP — the starting point of the 5-year projection) and the Fiscal Council publications the simulator benchmarks against (including the dividend lever's calibration in dynamic mode). Both map to manual edits of sourced constants in code."
+        "bg": "Българските котви на данъчния симулатор: EDP нотификацията на НСИ (дефицит/дълг/БВП — началната точка на 5-годишната проекция), публикациите на Фискалния съвет, срещу които симулаторът сверява оценките си (включително калибрацията на дивидентния лост в динамичния режим), и годишните приходи от пътни такси на АПИ (винетки + тол — базата на лоста за пътни такси). Всички водят до ръчна редакция на константи с източници в кода.",
+        "en": "The tax simulator's Bulgarian anchors: the НСИ EDP notification (deficit/debt/GDP — the starting point of the 5-year projection), the Fiscal Council publications the simulator benchmarks against (including the dividend lever's calibration in dynamic mode), and АПИ's annual road-charge revenue (vignettes + toll — the base of the road-charge lever). All map to manual edits of sourced constants in code."
       },
       "tags": [
         "fiscal"
@@ -934,6 +934,12 @@
           "url": "https://www.fiscal-council.bg/bg/publikacii",
           "cadence": "weekly",
           "freshness": "2026-06-24T14:01:50.792Z"
+        },
+        {
+          "id": "api_road_charges",
+          "label": "АПИ — годишни приходи от пътни такси (винетки + тол)",
+          "url": "https://www.api.bg/bg/novini",
+          "cadence": "weekly"
         }
       ],
       "x": 28,

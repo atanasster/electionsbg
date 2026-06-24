@@ -40,6 +40,7 @@ import {
   MATERNITY_Y2_BENEFIT_EUR_MO,
   GAMBLING_GGR_EUR,
   GAMBLING_GGR_FEE_RATE,
+  ROAD_CHARGES_BASE_EUR,
   type EarningsBand,
   type ModIdentity,
   type PitBracket,
@@ -278,6 +279,19 @@ export const GAMBLING_GGR_RESPONSE: ElasticityBand = {
     "Judgment band: licensed GGR migrates to unlicensed/offshore operators as the rate rises (51 licensed online operators compete with offshore). High band anchored to the 2013 turnover-base episode and the >½B BGN 2015–19 under-collection; central tuned so the legislated +5pp (20→25%, 2026) lands near the МФ ≈€32M projection.",
 };
 
+/** Base erosion of road-charge revenue, % per +1pp of the tariff uplift. Car
+ *  e-vignettes are near-inelastic (you must use the network), but heavy-vehicle
+ *  тол has a real cross-border diversion margin (transit trucks reroute through
+ *  RO/RS/GR to dodge the toll), and a fresh uplift has a collection ramp.
+ *  Modest band — the bulk of the base (car vignettes) barely moves. */
+export const ROAD_CHARGES_RESPONSE: ElasticityBand = {
+  low: 0.05,
+  central: 0.15,
+  high: 0.4,
+  source:
+    "Judgment band: car e-vignette demand near-inelastic; heavy-vehicle тол has cross-border diversion (RO/RS/GR transit) at the high end; collection ramp on the uplift.",
+};
+
 /** Ordered list for the UI's "behavioral assumptions" fold-out — the i18n
  *  label key is budget_policy_elast_<key>. */
 export const BEHAVIORAL_PARAMS: { key: string; band: ElasticityBand }[] = [
@@ -291,6 +305,7 @@ export const BEHAVIORAL_PARAMS: { key: string; band: ElasticityBand }[] = [
   { key: "excise_alcohol", band: EXCISE_ALCOHOL_RESPONSE },
   { key: "excise_wine", band: EXCISE_WINE_LEAKAGE },
   { key: "gambling", band: GAMBLING_GGR_RESPONSE },
+  { key: "road_charges", band: ROAD_CHARGES_RESPONSE },
   { key: "ssc_cap", band: SSC_CAP_AVOIDANCE },
   { key: "ssc_rate", band: SSC_RATE_AVOIDANCE },
   { key: "maternity_return", band: MATERNITY_RETURN_TO_WORK },
@@ -336,6 +351,9 @@ export interface BehavioralDraw {
   exciseWineLeakage: number;
   /** Gambling GGR base erosion (offshore/illicit migration), % per +1pp. */
   gamblingResponse: number;
+  /** Road-charge base erosion (heavy-vehicle cross-border diversion), % per
+   *  +1pp of tariff uplift. */
+  roadChargesResponse: number;
 }
 
 export const centralDraw = (modAlphaCentral: number): BehavioralDraw => ({
@@ -360,6 +378,7 @@ export const centralDraw = (modAlphaCentral: number): BehavioralDraw => ({
   exciseAlcoholResponse: EXCISE_ALCOHOL_RESPONSE.central,
   exciseWineLeakage: EXCISE_WINE_LEAKAGE.central,
   gamblingResponse: GAMBLING_GGR_RESPONSE.central,
+  roadChargesResponse: ROAD_CHARGES_RESPONSE.central,
 });
 
 /** Every parameter at 0 → the layer reproduces static scoring exactly. */
@@ -385,6 +404,7 @@ export const zeroDraw = (modAlphaCentral: number): BehavioralDraw => ({
   exciseAlcoholResponse: 0,
   exciseWineLeakage: 0,
   gamblingResponse: 0,
+  roadChargesResponse: 0,
 });
 
 export const MC_DRAWS = 500;
@@ -450,6 +470,11 @@ export const sampleDraws = (
       exciseAlcoholResponse: sampleTriangular(rnd(), EXCISE_ALCOHOL_RESPONSE),
       exciseWineLeakage: sampleTriangular(rnd(), EXCISE_WINE_LEAKAGE),
       gamblingResponse: sampleTriangular(rnd(), GAMBLING_GGR_RESPONSE),
+      // Appended last so the rnd() call order of the parameters above is
+      // unchanged: the central headline (centralDraw) is unaffected, and the
+      // existing MC bands shift only within sampling noise, since the shared
+      // PRNG stream advances by one extra step per draw.
+      roadChargesResponse: sampleTriangular(rnd(), ROAD_CHARGES_RESPONSE),
     });
   }
   return draws;
@@ -587,6 +612,17 @@ export const gamblingBehavioralOffset = (
   semiElastPctPp: number,
 ): number =>
   semiElastOffset(ggrFeeRevenueEur, oldRate, newRate, semiElastPctPp);
+
+/** Behavioural offset on a road-charge tariff uplift of `pctChange` (+0.30 =
+ *  +30%): the combined vignette+toll base erodes per the semi-elasticity
+ *  (heavy-vehicle cross-border diversion + collection ramp). Same exponential
+ *  semi-elasticity form as excise, with a unit rate index. */
+export const roadChargesBehavioralOffset = (
+  roadChargeRevenueEur: number,
+  pctChange: number,
+  semiElastPctPp: number,
+): number =>
+  semiElastOffset(roadChargeRevenueEur, 1, 1 + pctChange, semiElastPctPp);
 
 /** Haircut on the incremental base of a cap RAISE (doubled, capped at 0.40,
  *  for no-cap — the increment is then the whole Pareto tail). Lowering has no
@@ -727,6 +763,11 @@ export interface DynamicScenarioInput {
   gamblingFeeRevenueEur: number;
   gamblingOldRate: number;
   gamblingNewRate: number;
+  /** Road charges (винетки+тол): combined base + uniform tariff-uplift fraction
+   *  (newRate − 1; 0 = no change). */
+  staticRoadChargesDeltaEur: number;
+  roadChargesRevenueEur: number;
+  roadChargesRateChange: number;
   /** МРЗ-freeze delta (NET of the public-payroll saving — see
    *  scoreMinWageFreeze). Deliberately EXCLUDED from the Tier-2 impulse: both
    *  channels are demand-neutral in the reduced form — the budget's foregone
@@ -815,6 +856,8 @@ export interface DynamicStaticScore {
   wineDeltaEur?: number;
   /** Gambling GGR-fee static delta (optional; default 0). */
   gamblingDeltaEur?: number;
+  /** Road-charge static delta (optional; default 0). */
+  roadChargesDeltaEur?: number;
   /** Months of the paid second maternity year cut (0..12; default 0). */
   maternityMonthsCut?: number;
   expenditureBalanceNonPensionEur: number;
@@ -838,6 +881,8 @@ export interface DynamicRateParams {
   exciseAlcoholRateChange?: number;
   /** Gambling GGR-fee new rate as a fraction (e.g. 0.30); default = current. */
   gamblingNewRate?: number;
+  /** Road-charge tariff uplift as a fraction (e.g. 0.30 = +30%); default 0. */
+  roadChargesRateChange?: number;
 }
 
 export const buildDynamicInput = (
@@ -886,6 +931,9 @@ export const buildDynamicInput = (
     gamblingFeeRevenueEur: GAMBLING_GGR_EUR * GAMBLING_GGR_FEE_RATE,
     gamblingOldRate: GAMBLING_GGR_FEE_RATE,
     gamblingNewRate: r.gamblingNewRate ?? GAMBLING_GGR_FEE_RATE,
+    staticRoadChargesDeltaEur: s.roadChargesDeltaEur ?? 0,
+    roadChargesRevenueEur: ROAD_CHARGES_BASE_EUR,
+    roadChargesRateChange: r.roadChargesRateChange ?? 0,
     maternityMonthsCut: s.maternityMonthsCut ?? 0,
     expenditureBalanceNonPensionEur: s.expenditureBalanceNonPensionEur,
     pensionPathEur: s.pensionPathEur,
@@ -932,6 +980,8 @@ export interface DynamicScenarioResult {
     wine: number;
     /** Gambling GGR-fee offshore/illicit migration. */
     gambling: number;
+    /** Road-charge heavy-vehicle cross-border diversion + collection ramp. */
+    roadCharges: number;
   };
   /** static total + Σ central Tier-1 offsets — the year-1 scalar handed to
    *  projectFiscalPath (Tier-2 feedback rides the fixed path instead). */
@@ -1077,6 +1127,11 @@ export const computeDynamicScenario = (
         input.gamblingNewRate,
         draw.gamblingResponse,
       ),
+      roadCharges: roadChargesBehavioralOffset(
+        input.roadChargesRevenueEur,
+        input.roadChargesRateChange,
+        draw.roadChargesResponse,
+      ),
     };
   };
 
@@ -1097,7 +1152,8 @@ export const computeDynamicScenario = (
       o.exciseTobacco +
       o.exciseAlcohol +
       o.wine +
-      o.gambling;
+      o.gambling +
+      o.roadCharges;
     const fb = computeMacroFeedback(
       input.staticVatDeltaEur + o.vat,
       input.staticPitEmploymentDeltaEur +
@@ -1112,6 +1168,7 @@ export const computeDynamicScenario = (
         input.staticExciseAlcoholDeltaEur +
         input.staticWineDeltaEur +
         input.staticGamblingDeltaEur +
+        input.staticRoadChargesDeltaEur +
         o.pit +
         o.corp +
         o.dividend +
@@ -1122,7 +1179,8 @@ export const computeDynamicScenario = (
         o.exciseTobacco +
         o.exciseAlcohol +
         o.wine +
-        o.gambling,
+        o.gambling +
+        o.roadCharges,
       input.expenditureBalanceNonPensionEur,
       input.pensionPathEur,
       draw,
@@ -1148,7 +1206,8 @@ export const computeDynamicScenario = (
     offsets.exciseTobacco +
     offsets.exciseAlcohol +
     offsets.wine +
-    offsets.gambling;
+    offsets.gambling +
+    offsets.roadCharges;
   const feedback = computeMacroFeedback(
     input.staticVatDeltaEur + offsets.vat,
     input.staticPitEmploymentDeltaEur +
@@ -1163,6 +1222,7 @@ export const computeDynamicScenario = (
       input.staticExciseAlcoholDeltaEur +
       input.staticWineDeltaEur +
       input.staticGamblingDeltaEur +
+      input.staticRoadChargesDeltaEur +
       offsets.pit +
       offsets.corp +
       offsets.dividend +
@@ -1173,7 +1233,8 @@ export const computeDynamicScenario = (
       offsets.exciseTobacco +
       offsets.exciseAlcohol +
       offsets.wine +
-      offsets.gambling,
+      offsets.gambling +
+      offsets.roadCharges,
     input.expenditureBalanceNonPensionEur,
     input.pensionPathEur,
     central,

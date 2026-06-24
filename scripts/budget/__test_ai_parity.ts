@@ -25,6 +25,7 @@ import {
   scorePartySubsidy,
   scorePensionFloorRaise,
   scorePitSchedule,
+  scoreRoadCharges,
   scoreTeachersPeg,
   scoreWageIndexation,
   type PitBracket,
@@ -117,6 +118,11 @@ const cases: {
     golden: scoreDividend(rev.dividendEur, 0.1),
   },
   {
+    q: "вдигане на винетките с 30%",
+    kind: "roadCharges",
+    golden: scoreRoadCharges(0.3),
+  },
+  {
     q: "съкращаване на администрацията с 10%",
     kind: "adminCut",
     golden: -scoreAdminCut(exp!.administration, 0.1).netEur,
@@ -203,6 +209,19 @@ const divDyn = scoreDynamicScenario(baseline, divCh, divScore);
 check(
   `dividend 5→10%: dynamic ${M(divDyn.headlineEur)} < static ${M(divScore.central)} (behavioral leakage surfaced)`,
   divDyn.headlineEur < divScore.central && divDyn.headlineEur > 0,
+);
+
+// Road charges are an UPLIFT-only lever (slider 0..100), so a cut phrasing must
+// fall through (detect → undefined) rather than degenerate to a +0% no-op; the
+// positive uplift still parses to a roadCharges change.
+check(
+  'road-charge cut "намаляване на винетките с 30%" falls through (not a +0% no-op)',
+  detectTaxChange("намаляване на винетките с 30%") === undefined,
+);
+const roadUp = detectTaxChange("вдигане на винетките с 30%");
+check(
+  "road-charge uplift parses to roadCharges",
+  !!roadUp && roadUp.kind === "roadCharges",
 );
 
 if (failures > 0) throw new Error(`${failures} AI-parity test(s) failed`);

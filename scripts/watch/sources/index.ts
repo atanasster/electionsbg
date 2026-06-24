@@ -62,7 +62,13 @@ import {
   natoDefence,
   ecForecastBg,
 } from "./eu_policy_anchors";
-import { nsiEdp, ecVatGap, imfWeoBg, fiscalCouncilBg } from "./fiscal_anchors";
+import {
+  nsiEdp,
+  ecVatGap,
+  imfWeoBg,
+  fiscalCouncilBg,
+  apiRoadCharges,
+} from "./fiscal_anchors";
 
 // `cik` (news/decisions index) is still intentionally omitted — see ./cik.ts
 // header. The new `cik_results` source below uses the Playwright bypass
@@ -109,6 +115,7 @@ export const SOURCES: WatchSource[] = [
   ecVatGap,
   imfWeoBg,
   fiscalCouncilBg,
+  apiRoadCharges,
   eurostatRegional,
   nsiRegional,
   ecBudgetPerMs,

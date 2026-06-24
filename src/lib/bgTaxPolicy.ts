@@ -918,3 +918,86 @@ export const GAMBLING_GGR_FEE_RATE = 0.25;
  *  the base is layered on as a behavioral offset. */
 export const scoreGamblingGgr = (newRate: number): number =>
   GAMBLING_GGR_EUR * (newRate - GAMBLING_GGR_FEE_RATE);
+
+// ---------------------------------------------------------------------------
+// Road charges — е-винетки (cars ≤3.5t) + тол (per-km, heavy vehicles), which
+// АПИ collects via Национално тол управление into the republican budget.
+// Modeled as a single lever: a uniform % uplift on the combined road-charge
+// revenue base. Like gambling, the base is an administrative АПИ/НТУ figure,
+// not a standalone КФП tax line, so it's hardcoded here rather than read from
+// the КФП-derived baseline. Behaviour (heavy-vehicle cross-border diversion;
+// car vignettes are near-inelastic) is a Tier-1 offset in bgBehavioral.ts.
+// ---------------------------------------------------------------------------
+
+/** Combined АПИ road-charge revenue (е-винетки + тол + маршрутни карти), €/yr.
+ *  2025: ≈ €562M (~1.1B BGN, АПИ); 2024 was 899M BGN = €459.7M, split ≈ €144M
+ *  e-vignettes + €302M toll. Paid into the republican budget via НТУ. */
+export const ROAD_CHARGES_BASE_EUR = 562_000_000;
+
+/** Δ revenue of a uniform `pctChange` move in road-charge tariffs (+0.30 =
+ *  +30%, the кабинет „Радев" 2026 vignette proposal): base × pctChange — the
+ *  same proportional form as `scoreExcise`. The government's vignette-only +30%
+ *  (≈€53M) is a SUBSET; this lever scales the whole vignette+toll base.
+ *  Demand response / cross-border diversion is layered on in the dynamic
+ *  engine. */
+export const scoreRoadCharges = (pctChange: number): number =>
+  ROAD_CHARGES_BASE_EUR * pctChange;
+
+// ---------------------------------------------------------------------------
+// Road-charge component split — vignette vs тол vs маршрутни карти.
+// The combined `scoreRoadCharges` over-prices a vignette-ONLY measure (a +30%
+// uplift hits the whole €562M base instead of just the e-vignette slice). The
+// ЗДБРБ-2026 measure raises *vignettes* by 30% while the тол increase was a
+// separate, earlier two-stage 2025 step — so an honest read needs the slice.
+//
+// Split anchor: АПИ's 2024 outturn of €459.7M decomposed to ≈€144M e-vignettes
+// + €302M тол + ≈€13.7M маршрутни/permits (the figures the ROAD_CHARGES_BASE_EUR
+// comment already cites). Held as shares and re-applied to the 2025 base so the
+// three slices sum back to ROAD_CHARGES_BASE_EUR.
+//   vignette 144/459.7 = 0.3133 · тол 302/459.7 = 0.6570 · permits 0.0298
+// Cross-check: VIGNETTE_BASE_EUR × 30% ≈ €52.9M, matching the government's
+// €53.3M 2026 effect (which also folds in the residual тол-tariff step) — i.e.
+// the split brings the lever onto the government's own number instead of ~3×.
+export const ROAD_VIGNETTE_SHARE = 144 / 459.7;
+export const ROAD_TOLL_SHARE = 302 / 459.7;
+export const VIGNETTE_BASE_EUR = ROAD_CHARGES_BASE_EUR * ROAD_VIGNETTE_SHARE;
+export const TOLL_BASE_EUR = ROAD_CHARGES_BASE_EUR * ROAD_TOLL_SHARE;
+
+/** Δ revenue of a `pctChange` uplift applied to ONE road-charge component
+ *  (`"vignette"` | `"toll"`): slice × pctChange. The vignette slice is the
+ *  near-inelastic one (you must hold a vignette to drive); the тол slice
+ *  carries the heavy-vehicle cross-border-diversion behaviour — so pricing them
+ *  apart also lets the dynamic pass apply the right elasticity to each. */
+export const scoreRoadComponentUplift = (
+  component: "vignette" | "toll",
+  pctChange: number,
+): number =>
+  (component === "vignette" ? VIGNETTE_BASE_EUR : TOLL_BASE_EUR) * pctChange;
+
+// ---------------------------------------------------------------------------
+// Collection-realism lever — "по-добра събираемост".
+// The ЗДБРБ-2026 consolidation leans heavily on ASSERTED collection gains that
+// carry no rate change: +€200M unspecified tax collection, +€100M ДОО, plus the
+// collection slice of the gambling/affiliate package. These are not free: the
+// EC VAT-Gap series shows compliance closes slowly (~1pp of VTTL per good year),
+// and one-year realisation of an asserted "we will collect more" line is
+// historically partial. This lever does NOT invent a base — it takes the
+// government's own asserted euro figure and returns the share our model treats
+// as bankable in the budget year, surfacing the rest as a credibility gap.
+//
+// Realisation band (share of an asserted collection target banked in year 1):
+//   central 0.40 · low 0.20 · high 0.60.
+//   Rationale: EC VAT Gap Report (BG gap ≈ €0.8B, ~8–9% of VTTL, drifting down
+//   ~1pp/yr); НАП collection-ratio improvements run incrementally, not in
+//   step-changes; a mid-year (01.08) start further prorates the in-year take.
+export const COLLECTION_REALISM_CENTRAL = 0.4;
+export const COLLECTION_REALISM_LOW = 0.2;
+export const COLLECTION_REALISM_HIGH = 0.6;
+
+/** Bankable portion of an `assertedEur` collection target at a given
+ *  `realisation` share (0..1). The shortfall (asserted − bankable) is the
+ *  credibility gap the analysis reports against the government's number. */
+export const scoreCollectionRealism = (
+  assertedEur: number,
+  realisation: number = COLLECTION_REALISM_CENTRAL,
+): number => assertedEur * realisation;

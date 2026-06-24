@@ -1246,6 +1246,9 @@ const run = async () => {
     // Gambling ЗХ GGR fee (commit ebc14cb16). Level lever; 40% = +€716M×15pp =
     // +€107M static. The screen's headline is the dynamic estimate.
     ["данъкът върху хазарта да стане 40%", 107e6],
+    // Road charges (винетки+тол). % uplift on the combined €562M АПИ base;
+    // +30% = €562M×0.30 = +€169M static. The screen's headline is dynamic.
+    ["вдигане на винетките с 30%", 168.6e6],
   ];
   // FINDING-001 guard: definitional МОД questions carrying a year must NOT
   // parse as a cap what-if (2024-2026 overlap realistic cap amounts).
@@ -1285,6 +1288,9 @@ const run = async () => {
     "колко са приходите от хазарт",
     "how much is gambling revenue",
     "какъв е данъкът върху хазарта",
+    // bare road-charge reads (винетки/тол anchor, no rate target) -> budgetOverview
+    "колко са приходите от пътни такси",
+    "how much is vignette revenue",
   ]) {
     assert(
       detectTaxChange(q) == null,
@@ -1521,6 +1527,9 @@ const run = async () => {
     // gambling ЗХ GGR fee (revenue side)
     ["Данъкът върху хазарта да стане 40%", "simulateTaxChange"],
     ["What if the gambling tax goes to 40%?", "simulateTaxChange"],
+    // road charges (винетки/тол) — tariff what-if -> the simulator
+    ["Винетките да поскъпнат с 30%", "simulateTaxChange"],
+    ["What if road charges go up 30%?", "simulateTaxChange"],
     // guards: the neighbours keep their own questions
     // bare definitional excise -> the budget overview, not the simulator
     ["Колко са акцизите?", "budgetOverview"],
@@ -1528,6 +1537,9 @@ const run = async () => {
     // bare definitional gambling -> the budget overview, not the simulator
     ["Колко са приходите от хазарт?", "budgetOverview"],
     ["How much is gambling revenue?", "budgetOverview"],
+    // bare definitional road charges -> the budget overview, not the simulator
+    ["Колко са приходите от пътни такси?", "budgetOverview"],
+    ["How much is vignette revenue?", "budgetOverview"],
     ["Какъв е държавният бюджет?", "budgetOverview"],
     // NB phrased WITHOUT "местните" — "местни данъци в X" is the known
     // pre-existing localMunicipality over-match (see memory notes), not ours.

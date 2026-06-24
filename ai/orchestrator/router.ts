@@ -1468,6 +1468,27 @@ export const route = (question: string, ctx: ToolContext): Route => {
       tool: "budgetOverview",
       args: promptYear ? { year: promptYear } : {},
     };
+  // road charges (винетки/тол) are АПИ revenue into the republican budget, not a
+  // COFOG function. A bare definitional "колко са приходите от пътни такси /
+  // винетки" goes to the budget overview; the tariff what-if ("винетките +30%")
+  // was already caught upstream by detectTaxChange -> simulateTaxChange. "тол"
+  // is matched only as "тол такс" so it can't fire inside "толкова".
+  if (
+    has(
+      q,
+      "винетк",
+      "пътни такси",
+      "пътна такса",
+      "тол такс",
+      "vignette",
+      "road charge",
+      "road toll",
+    )
+  )
+    return {
+      tool: "budgetOverview",
+      args: promptYear ? { year: promptYear } : {},
+    };
   // a specific budget FUNCTION (health/defence/education/social/…) -> its share
   // + trend, with or without the word "бюджет"
   // A COFOG function word (отбрана / здраве / образование / социал…) is also a
