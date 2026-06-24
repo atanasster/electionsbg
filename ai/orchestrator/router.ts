@@ -1672,6 +1672,11 @@ export const route = (question: string, ctx: ToolContext): Route => {
     return { tool: "procurementTotals", args: {} };
   }
   if (has(q, "европейск", "еврофонд", "eu funds", "isun", "исун", "фондове")) {
+    // place-scoped EU projects ("европроекти в община X") -> placeEuProjects,
+    // before the national register/rollup split below.
+    const euPlace = extractPlace(q);
+    if (euPlace && has(q, " в ", " във ", " in "))
+      return { tool: "placeEuProjects", args: { place: euPlace } };
     // project register / absorption / programmes -> fundsProjects; otherwise the
     // beneficiary rollup (fundsOverview).
     if (
@@ -1883,6 +1888,29 @@ export const route = (question: string, ctx: ToolContext): Route => {
   )
     return { tool: "latestPolls", args: {} };
 
+  // recent-activity feed ("what's new / recent activity here") — before the
+  // broad governance profile so a "какво ново в X" question gets the per-place
+  // alerts digest (procurement announced/awarded/annex, EU new/modified,
+  // council, elections) rather than the static dashboard. Stems are kept
+  // specific to "recent activity / what's new HERE" — the broadest generic
+  // forms ("какво се случва", "what's happening") are deliberately excluded so
+  // a national "what's happening in Bulgaria" isn't captured as a place query.
+  if (
+    has(
+      q,
+      "какво ново",
+      "що ново",
+      "последна активност",
+      "активност в",
+      "новини в",
+      "recent activity",
+      "what's new",
+      "what is new",
+    )
+  ) {
+    const place = extractPlace(q);
+    if (place) return { tool: "myAreaAlerts", args: { place } };
+  }
   // 1e. place ("about my area"): composite profile + census, before the
   // single-metric place reads so a broad "tell me about X" gets the dashboard.
   if (

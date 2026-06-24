@@ -46,6 +46,12 @@ functions/.secret.local
 # (per-machine, ~30 min lifetime — no value in version control).
 /state/cik_clearance.json
 
+# ИСУН projects new/modified snapshot — the prior-ingest baseline that
+# scripts/funds/projects_diff.ts diffs against (per-machine host state, ~80k
+# entries, fully rebuildable from the corpus). The derived change files at
+# data/funds/projects/changes/ ARE committed (small, per-município).
+/state/funds/projects_snapshot.json
+
 # Cached CIK local-elections raw downloads. The 7 ingested cycles weigh
 # ~60 MB combined (HTML mirrors of /mi{YYYY}/tur{1,2}/rezultati/*.html plus
 # the csv.zip download). Re-fetch on demand with `npm run data --

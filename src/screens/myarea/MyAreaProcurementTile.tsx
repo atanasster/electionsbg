@@ -63,6 +63,15 @@ export const MyAreaProcurementTile: FC<{
         />
       </div>
 
+      {data.awardCount > 0 ? (
+        <p className="text-[10px] text-muted-foreground mb-3 -mt-1">
+          {t("my_area_procurement_notice_split", {
+            announced: numFmt.format(data.awardCount),
+            awarded: numFmt.format(data.contractCount),
+          })}
+        </p>
+      ) : null}
+
       <ul className="flex flex-col">
         {topAwarders.map((aw) => (
           <li key={aw.eik} className="border-b last:border-b-0">

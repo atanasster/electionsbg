@@ -125,6 +125,12 @@ export interface RollupContractRow {
   key: string;
   ocid: string;
   date: string;
+  /** OCDS notice type — "award" (announced/обявена), "contract"
+   *  (awarded/възложена), "contractAmendment" (annex/анекс). Lets the place
+   *  dashboards + the alert feed distinguish the notice kind instead of
+   *  merging them into one "procurement" stream. Optional so legacy rollups
+   *  that predate this field still parse. */
+  tag?: ContractTag;
   amount?: number;
   currency?: string;
   amountEur?: number;

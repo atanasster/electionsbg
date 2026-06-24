@@ -58,6 +58,8 @@ type ProcurementAwarderFile = {
     amountEur?: number;
     currency?: string;
     partyName?: string;
+    /** OCDS notice type — drives the announced/awarded/annex sub-label. */
+    tag?: "award" | "contract" | "contractAmendment";
   }>;
 };
 
@@ -72,6 +74,24 @@ type FundsContract = {
 
 type FundsMuniFile = {
   contracts?: FundsContract[];
+};
+
+// data/funds/projects/changes/<obshtina>.json — new/modified contracts the
+// ИСУН snapshot-diff detected in the most-recent ingest. Mirrors
+// scripts/funds/projects_diff.ts FundsProjectChangesFile.
+type FundsChange = {
+  contractNumber: string;
+  title: string;
+  type: "new" | "modified";
+  changedFields?: string[];
+  prevTotalEur?: number;
+  totalEur?: number;
+  programName?: string;
+  detectedAt: string;
+};
+
+type FundsChangesFile = {
+  changes?: FundsChange[];
 };
 
 type LocalMunicipalityBundle = {
@@ -148,6 +168,12 @@ type AlertEvent = {
   /** EU-funds rows only — "2014-2020", "2021-2027", "2021-RRP". When set,
    * the tile renders this in place of the (fake) date label. */
   programPeriod?: string;
+  /** Procurement rows only — the OCDS notice type, so the feed can label a
+   * contract announced (обявена) / awarded (възложена) / annex (анекс). */
+  noticeType?: "announced" | "awarded" | "annex";
+  /** EU-funds rows only — set on contracts the snapshot-diff flagged as a
+   * brand-new project ("new") or a value/status change ("modified"). */
+  changeType?: "new" | "modified";
 };
 
 type AlertsFile = {
@@ -168,6 +194,7 @@ const PROC_BY_SETTLEMENT = path.join(
 );
 const PROC_AWARDERS = path.join(PROJECT_ROOT, "data/procurement/awarders");
 const FUNDS_BY_MUNI = path.join(PROJECT_ROOT, "data/funds/projects/by-muni");
+const FUNDS_CHANGES = path.join(PROJECT_ROOT, "data/funds/projects/changes");
 const LOCAL_CYCLE_DIR = path.join(
   PROJECT_ROOT,
   "data/2023_10_29_mi/municipalities",
@@ -191,6 +218,10 @@ const EVENT_CAP = 30;
 const PROC_PER_AWARDER = 3;
 // EU contracts per município to surface (top by totalEur).
 const FUNDS_TOP_N = 5;
+// EU new/modified contracts per município to surface (most recent ingest's
+// diff, top by value). Dated by the real detectedAt day so they sort honestly
+// to the top of the feed, unlike the in-progress rows' synthetic period date.
+const FUNDS_CHANGES_TOP_N = 5;
 // Plenary keyword cap.
 const PLENARY_TOP_N = 5;
 // Council resolution cap + freshness window. Sofia votes weekly with
@@ -298,11 +329,30 @@ const buildProcurementEvents = (
     for (const c of sorted) {
       const eur =
         c.amountEur ?? (c.currency === "EUR" ? c.amount : c.amount / 1.95583);
+      const noticeType =
+        c.tag === "award"
+          ? ("announced" as const)
+          : c.tag === "contractAmendment"
+            ? ("annex" as const)
+            : ("awarded" as const);
+      const labelBg =
+        noticeType === "announced"
+          ? "Обявена поръчка"
+          : noticeType === "annex"
+            ? "Анекс към поръчка"
+            : "Възложена поръчка";
+      const labelEn =
+        noticeType === "announced"
+          ? "Tender announced"
+          : noticeType === "annex"
+            ? "Contract amendment"
+            : "Contract awarded";
       events.push({
         date: c.date,
         kind: "procurement",
-        headline_bg: `Обществена поръчка: ${aw.name} → ${c.partyName ?? "—"} · ${formatEur(eur)}`,
-        headline_en: `Procurement: ${aw.name} → ${c.partyName ?? "—"} · ${formatEur(eur)}`,
+        noticeType,
+        headline_bg: `${labelBg}: ${aw.name} → ${c.partyName ?? "—"} · ${formatEur(eur)}`,
+        headline_en: `${labelEn}: ${aw.name} → ${c.partyName ?? "—"} · ${formatEur(eur)}`,
         amountEur: eur,
       });
     }
@@ -325,10 +375,15 @@ const buildProcurementEvents = (
 // running contracts so "recent" framing is honest. The tile renders these
 // events without a literal date label (see MyAreaAlertsTile).
 const buildFundsEvents = (obshtina: string): AlertEvent[] => {
+  // New/modified change events come from the committed `changes/` artifact and
+  // must surface even when the gitignored `by-muni/` corpus file isn't present
+  // (e.g. a checkout without a bucket sync) — so resolve them before the
+  // in-progress guard, never coupling them to the heavier per-muni shard.
+  const changeEvents = buildFundsChangeEvents(obshtina);
   const file = readJson<FundsMuniFile>(
     path.join(FUNDS_BY_MUNI, `${obshtina}.json`),
   );
-  if (!file?.contracts) return [];
+  if (!file?.contracts) return changeEvents;
   const inProgress = file.contracts.filter((c) =>
     (c.status ?? "").includes("изпълнение"),
   );
@@ -336,7 +391,7 @@ const buildFundsEvents = (obshtina: string): AlertEvent[] => {
     .slice()
     .sort((a, b) => (b.totalEur ?? 0) - (a.totalEur ?? 0))
     .slice(0, FUNDS_TOP_N);
-  return top.map((c) => {
+  const inProgressEvents: AlertEvent[] = top.map((c) => {
     const { sortDate, programPeriod } = inferFundsPeriod(c.programCode);
     return {
       date: sortDate,
@@ -346,6 +401,37 @@ const buildFundsEvents = (obshtina: string): AlertEvent[] => {
       amountEur: c.totalEur,
       detail: c.programName,
       programPeriod,
+    };
+  });
+  return [...changeEvents, ...inProgressEvents];
+};
+
+// New / modified EU contracts the snapshot-diff flagged in the most-recent
+// ingest (data/funds/projects/changes/<obshtina>.json). Unlike the in-progress
+// rows, these carry a real detectedAt date so they surface at the top of the
+// feed when fresh. The directory is reset each ingest, so a município with no
+// recent changes simply has no file (skipped).
+const buildFundsChangeEvents = (obshtina: string): AlertEvent[] => {
+  const file = readJson<FundsChangesFile>(
+    path.join(FUNDS_CHANGES, `${obshtina}.json`),
+  );
+  if (!file?.changes?.length) return [];
+  const top = file.changes
+    .slice()
+    .sort((a, b) => (b.totalEur ?? 0) - (a.totalEur ?? 0))
+    .slice(0, FUNDS_CHANGES_TOP_N);
+  return top.map((c) => {
+    const isNew = c.type === "new";
+    const labelBg = isNew ? "Нов проект от еврофонд" : "Промяна по проект";
+    const labelEn = isNew ? "New EU-funds project" : "EU-funds project changed";
+    return {
+      date: c.detectedAt,
+      kind: "eu_funds" as const,
+      changeType: c.type,
+      headline_bg: `${labelBg}: „${c.title}" · ${formatEur(c.totalEur)}`,
+      headline_en: `${labelEn}: "${c.title}" · ${formatEur(c.totalEur)}`,
+      amountEur: c.totalEur,
+      detail: c.programName,
     };
   });
 };

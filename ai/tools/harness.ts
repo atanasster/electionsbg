@@ -333,6 +333,42 @@ const run = async () => {
     "procurementBySettlement runs",
   );
 
+  const alerts = (await runTool(
+    "myAreaAlerts",
+    { place: "Бургас" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(alerts);
+  assert(
+    alerts.kind === "table" && (alerts.rows?.length ?? 0) > 0,
+    "myAreaAlerts resolves a populated município to a table",
+  );
+
+  const euP = (await runTool(
+    "placeEuProjects",
+    { place: "Варна" },
+    ctxEn,
+  )) as Envelope;
+  printEnvelope(euP);
+  assert(
+    euP.kind === "table" && (euP.rows?.length ?? 0) > 0,
+    "placeEuProjects resolves a populated município to a table",
+  );
+
+  // Sofia is keyed S22 in the funds tree (not SOF/SFO_CITY) — the bridge in
+  // placeEuProjects must resolve it, since the Варна/Бургас cases above don't
+  // exercise the synthetic-code path.
+  const euSofia = (await runTool(
+    "placeEuProjects",
+    { place: "София" },
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(euSofia);
+  assert(
+    euSofia.kind === "table" && (euSofia.rows?.length ?? 0) > 0,
+    "placeEuProjects resolves Sofia via the S22 key bridge",
+  );
+
   const awP = (await runTool(
     "awarderProcurement",
     { org: "Министерство на отбраната" },
@@ -362,6 +398,8 @@ const run = async () => {
     ["Колко поръчки има в Русе?", "procurementBySettlement"],
     ["Обществени поръчки на Министерство на отбраната", "awarderProcurement"],
     ["Колко похарчи СУ Добри Чинтулов за поръчки?", "awarderProcurement"],
+    ["Какво ново в община Бургас?", "myAreaAlerts"],
+    ["Европейски проекти в община Варна", "placeEuProjects"],
   ];
   for (const [q, expected] of cases4) {
     const r = route(q, ctx);

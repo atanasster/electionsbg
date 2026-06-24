@@ -231,12 +231,16 @@ export const buildBySettlement = async (): Promise<BySettlementResult> => {
       };
       const rows = payload.contracts ?? [];
       for (const r of rows) {
-        if (r.tag === "award") continue;
+        // Keep value-bearing announced (award) rows now — they carry the
+        // tender's estimated/award value and surface tagged. Award rows
+        // without a value still lose the amount ranking; the gate below
+        // drops them (nothing to render).
         if (!r.amount || !r.amountEur) continue;
         insertTopRow(acc.topContracts, {
           key: r.key,
           ocid: r.ocid,
           date: r.date,
+          tag: r.tag,
           amount: r.amount,
           currency: r.currency,
           amountEur: r.amountEur,

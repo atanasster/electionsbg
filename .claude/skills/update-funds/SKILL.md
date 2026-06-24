@@ -123,6 +123,18 @@ Distils each município's heavy `by-muni/{обshtina}.json` corpus into a slim `
 
 This one slim file backs the My-Area **"Проекти от еврофондовете"** tile: it renders the full `contracts` list (scrollable) and, on demand, a Leaflet map of just the subset carrying `lat`/`lon`. Always re-run after Step 3 rewrites `by-muni/` — the `isun_eu_funds_projects` watcher flips both together. Output is idempotent except the `generatedAt` stamp.
 
+### New / modified contract detection (runs inside `funds:ingest-projects`)
+
+`scripts/funds/projects_ingest.ts` calls `scripts/funds/projects_diff.ts` automatically (step 7c). ИСУН carries **no** native new-vs-amendment field — one `status` per contract — so the only way to surface a "new project" / "value or status changed" signal is to diff successive ingests on the stable `contractNumber`. The diff:
+
+- loads the prior snapshot from `state/funds/projects_snapshot.json` (per-machine host state, **gitignored**, ~80k entries, fully rebuildable);
+- emits per-município `data/funds/projects/changes/<obshtina>.json` + a national `changes/index.json` (committed — small, capped at 50/obshtina);
+- writes the new snapshot.
+
+The `changes/` directory is **reset each run**, so each file reflects only the most-recent ingest's diff (the "what changed in the last update" the My-Area alert feed renders). **First run seeds the snapshot silently** (no prior baseline ⇒ no changes emitted, else all ~80k contracts read as "new"). These change files feed `scripts/myarea/build_alerts.ts` (EU "Нов проект" / "Промяна" events) and the AI `placeEuProjects` tool. Commit `data/funds/projects/changes/` alongside the rest of `data/funds/`.
+
+> **Two-ingest warm-up:** the feature is *visibly silent* until the **second** post-baseline ingest. The first run only seeds `state/funds/projects_snapshot.json`, so `changes/` stays empty, no EU "Нов проект"/"Промяна" events appear in the alert feed, and `placeEuProjects`'s new/modified counts read zero. The first run that has a prior snapshot to diff against is the first one that emits changes.
+
 ## Step 4 — Commit + deploy
 
 ```bash

@@ -24,6 +24,7 @@ import {
 } from "./build_taxonomy_derivatives";
 import { buildIntegrity, writeIntegrity } from "./integrity";
 import { buildThemes, writeThemes } from "./themes";
+import { buildAndWriteProjectChanges } from "./projects_diff";
 import type {
   FundsProject,
   FundsProjectsIndex,
@@ -768,6 +769,23 @@ const main = async (args: MainArgs): Promise<void> => {
     }),
   );
   console.log(`→ wrote muni-map.json (${muniMapRows.length} muni row(s))`);
+
+  // 7c. New / modified contract detection. ИСУН carries no native
+  // new-vs-amendment field, so we diff this corpus against a persisted
+  // snapshot (state/funds/projects_snapshot.json) keyed by contractNumber and
+  // emit per-município change files under data/funds/projects/changes/ that
+  // feed the My-Area alert feed + AI tools. First run seeds silently.
+  const ingestDate = new Date().toISOString().slice(0, 10);
+  const changeResult = buildAndWriteProjectChanges(resolved, ingestDate);
+  if (changeResult.seeded) {
+    console.log(`→ seeded projects snapshot (first run — no changes emitted)`);
+  } else {
+    console.log(
+      `→ wrote project changes: ${changeResult.newCount} new · ` +
+        `${changeResult.modifiedCount} modified across ` +
+        `${changeResult.obshtinaCount} município(s)`,
+    );
+  }
 
   // 8. Per-EIK shards — every contract grouped by the beneficiary EIK.
   // Gitignored (~40k files), same convention as data/funds/beneficiaries-by-eik.

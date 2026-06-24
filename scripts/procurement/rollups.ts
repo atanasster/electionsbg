@@ -285,14 +285,17 @@ export const buildRollups = (contractsDir: string): RollupResult => {
 
         // Top-N preview rows. We embed two slim copies — one in the
         // contractor bucket pointing at the awarder, one in the awarder
-        // bucket pointing at the contractor. Award-only rows have no signed
-        // amount and would always lose the ranking; skip them so the tile
-        // doesn't render placeholder dashes.
-        if (row.tag !== "award" && (row.amount ?? 0) > 0) {
+        // bucket pointing at the contractor. We carry the OCDS `tag` so the
+        // tile + alert feed can label each row announced/awarded/annex.
+        // Award rows with no value still lose the amount ranking and are
+        // dropped (nothing to render), but value-bearing announced notices
+        // now surface tagged instead of being discarded wholesale.
+        if ((row.amount ?? 0) > 0) {
           insertTopRow(ca.topContracts, {
             key: row.key,
             ocid: row.ocid,
             date: row.date,
+            tag: row.tag,
             amount: row.amount,
             currency: row.currency,
             amountEur: row.amountEur,
@@ -305,6 +308,7 @@ export const buildRollups = (contractsDir: string): RollupResult => {
             key: row.key,
             ocid: row.ocid,
             date: row.date,
+            tag: row.tag,
             amount: row.amount,
             currency: row.currency,
             amountEur: row.amountEur,

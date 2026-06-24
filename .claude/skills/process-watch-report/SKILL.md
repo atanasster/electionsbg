@@ -488,7 +488,7 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
    npx tsx scripts/myarea/build_alerts.ts
    ```
 
-   The script materialises the per-município "Последна активност" feed (`data/myarea/alerts/<obshtina>.json`) from already-ingested data — council resolutions, procurement awards, EU-fund contracts, capital programmes, local elections, plenary keyword hits. It's cheap (<5 s) and its output is a function of whatever's now in `data/`, so running it last keeps the feed in sync with whatever the orchestrator just changed. Don't stamp this as a separate skill — it's a derived rebuild, not an upstream ingest.
+   The script materialises the per-município "Последна активност" feed (`data/myarea/alerts/<obshtina>.json`) from already-ingested data — council resolutions, procurement (now tagged **announced / awarded / annex** via the rollups' `tag`), EU-fund contracts **plus snapshot-diff new/modified projects** (from `data/funds/projects/changes/`, dated by the real detection day), capital programmes, local elections, plenary keyword hits. It's cheap (<5 s) and its output is a function of whatever's now in `data/`, so running it last keeps the feed in sync with whatever the orchestrator just changed. Because `update-funds` writes the EU `changes/` artifact *inside* its own run (before this post-step), the new/modified EU events are already on disk when this runs. Don't stamp this as a separate skill — it's a derived rebuild, not an upstream ingest.
 
    **Specifically do NOT append for:**
    - Bootstrap stamps (option (a) from "Bootstrap" above — `"bootstrap: marker seeded, no run"`).

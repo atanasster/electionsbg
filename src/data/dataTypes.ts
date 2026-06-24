@@ -1521,6 +1521,10 @@ export type ProcurementRollupContractRow = {
   key: string;
   ocid: string;
   date: string;
+  /** OCDS notice type — "award" (announced/обявена), "contract"
+   *  (awarded/възложена), "contractAmendment" (annex/анекс). Optional so
+   *  legacy rollups that predate the field still parse. */
+  tag?: ProcurementContractTag;
   amount?: number;
   currency?: string;
   amountEur?: number;

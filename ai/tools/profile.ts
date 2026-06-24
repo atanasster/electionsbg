@@ -485,6 +485,227 @@ export const comparePlaces = async (
   };
 };
 
+// ---- my-area recent-activity feed (alerts) ---------------------------------
+// The per-município "Последна активност" feed materialised by
+// scripts/myarea/build_alerts.ts — procurement (announced/awarded/annex), EU
+// funds (incl. snapshot-diff new/modified), council resolutions, capital
+// programmes, local elections and plenary keyword hits. Keyed by obshtina.
+
+type AlertEventRow = {
+  date: string;
+  kind:
+    | "procurement"
+    | "eu_funds"
+    | "local_election"
+    | "capital_program"
+    | "plenary_keyword"
+    | "council_resolution";
+  headline_bg: string;
+  headline_en: string;
+  detail?: string;
+  programPeriod?: string;
+  noticeType?: "announced" | "awarded" | "annex";
+  changeType?: "new" | "modified";
+};
+type AlertsFeed = { obshtina: string; events: AlertEventRow[] };
+
+// Sofia city's alert feed is keyed SFO_CITY in build_alerts (municipalities.json),
+// while resolvePlaceForData hands back the synthetic "SOF" obshtina.
+const alertObshtina = (obshtina: string): string =>
+  obshtina === "SOF" ? "SFO_CITY" : obshtina;
+
+const eventTypeLabel = (e: AlertEventRow, bg: boolean): string => {
+  if (e.kind === "procurement") {
+    if (e.noticeType === "announced")
+      return bg ? "Обявена поръчка" : "Announced";
+    if (e.noticeType === "annex") return bg ? "Анекс" : "Amendment";
+    return bg ? "Възложена поръчка" : "Awarded";
+  }
+  if (e.kind === "eu_funds") {
+    if (e.changeType === "new")
+      return bg ? "Нов проект (ЕС)" : "New EU project";
+    if (e.changeType === "modified")
+      return bg ? "Промяна (ЕС)" : "EU project changed";
+    return bg ? "Еврофонд" : "EU funds";
+  }
+  if (e.kind === "council_resolution")
+    return bg ? "Решение на ОбС" : "Council vote";
+  if (e.kind === "local_election")
+    return bg ? "Местни избори" : "Local election";
+  if (e.kind === "capital_program")
+    return bg ? "Капиталова програма" : "Capital programme";
+  return bg ? "Парламент" : "Parliament";
+};
+
+export const myAreaAlerts = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const q = String(args.place ?? "");
+  const place = await resolvePlaceForData(q);
+  if (!place) return noPlace("myAreaAlerts", q, ctx);
+  const key = alertObshtina(place.obshtina);
+  const feed = await tryFetch<AlertsFeed>(`/myarea/alerts/${key}.json`);
+  if (!feed || feed.events.length === 0) {
+    return {
+      tool: "myAreaAlerts",
+      domain: "place",
+      kind: "scalar",
+      title: bg
+        ? `Няма скорошна активност за ${place.name}`
+        : `No recent activity for ${place.nameEn}`,
+      viz: "none",
+      facts: { place: place.name },
+      provenance: [`myarea/alerts/${key}.json`],
+    };
+  }
+  // Count by kind + sub-type so the LLM can summarise "what's new here".
+  const count = (pred: (e: AlertEventRow) => boolean): number =>
+    feed.events.filter(pred).length;
+  const announced = count((e) => e.noticeType === "announced");
+  const awarded = count((e) => e.noticeType === "awarded");
+  const annex = count((e) => e.noticeType === "annex");
+  const euNew = count((e) => e.changeType === "new");
+  const euModified = count((e) => e.changeType === "modified");
+
+  const top = feed.events.slice(0, 12);
+  const columns: Column[] = [
+    { key: "date", label: bg ? "Дата" : "Date" },
+    { key: "type", label: bg ? "Вид" : "Type" },
+    { key: "what", label: bg ? "Какво" : "What" },
+  ];
+  const rows: Row[] = top.map((e) => ({
+    date: e.programPeriod ?? e.date,
+    type: eventTypeLabel(e, bg),
+    what: bg ? e.headline_bg : e.headline_en,
+  }));
+  return {
+    tool: "myAreaAlerts",
+    domain: "place",
+    kind: "table",
+    title: bg
+      ? `Скорошна активност — ${place.name}`
+      : `Recent activity — ${place.nameEn}`,
+    columns,
+    rows,
+    viz: "none",
+    geo: muniLocator(
+      place.obshtina,
+      place.oblast,
+      bg ? place.name : place.nameEn,
+    ),
+    facts: {
+      place: place.name,
+      events: fmtInt(feed.events.length, ctx.lang),
+      procurement_announced: fmtInt(announced, ctx.lang),
+      procurement_awarded: fmtInt(awarded, ctx.lang),
+      procurement_annex: fmtInt(annex, ctx.lang),
+      eu_new: fmtInt(euNew, ctx.lang),
+      eu_modified: fmtInt(euModified, ctx.lang),
+    },
+    provenance: [`myarea/alerts/${key}.json`],
+  };
+};
+
+// ---- EU-funds projects for a place (incl. new/modified) ---------------------
+
+type FundsMuniSummary = {
+  rollup: { contractCount: number; totalEur: number; paidEur: number };
+  topContracts: {
+    title: string;
+    totalEur: number;
+    paidEur: number;
+    programName: string;
+    beneficiaryName: string;
+  }[];
+};
+type FundsChange = {
+  contractNumber: string;
+  title: string;
+  type: "new" | "modified";
+  totalEur?: number;
+};
+type FundsChangesFeed = { changes: FundsChange[] };
+
+export const placeEuProjects = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const q = String(args.place ?? "");
+  const place = await resolvePlaceForData(q);
+  if (!place) return noPlace("placeEuProjects", q, ctx);
+  // Sofia city's funds shards are keyed S22 (districts S23xx/S24xx/S25xx);
+  // resolvePlaceForData hands back the synthetic "SOF" and build_alerts uses
+  // "SFO_CITY", so the funds tree never has a SOF/SFO_CITY shard.
+  const obshtina =
+    place.obshtina === "SOF" || place.obshtina === "SFO_CITY"
+      ? "S22"
+      : place.obshtina;
+  const summary = await tryFetch<FundsMuniSummary>(
+    `/funds/projects/by-muni/${obshtina}-summary.json`,
+  );
+  const changes = await tryFetch<FundsChangesFeed>(
+    `/funds/projects/changes/${obshtina}.json`,
+  );
+  if (!summary) {
+    return {
+      tool: "placeEuProjects",
+      domain: "place",
+      kind: "scalar",
+      title: bg
+        ? `Няма проекти от еврофондове за ${place.name}`
+        : `No EU-funds projects for ${place.nameEn}`,
+      viz: "none",
+      facts: { place: place.name },
+      provenance: [`funds/projects/by-muni/${obshtina}-summary.json`],
+    };
+  }
+  const newCount = changes?.changes.filter((c) => c.type === "new").length ?? 0;
+  const modCount =
+    changes?.changes.filter((c) => c.type === "modified").length ?? 0;
+  const top = summary.topContracts.slice(0, 8);
+  const columns: Column[] = [
+    { key: "project", label: bg ? "Проект" : "Project" },
+    { key: "value", label: bg ? "Стойност" : "Value", numeric: true },
+    { key: "paid", label: bg ? "Изплатено" : "Paid", numeric: true },
+  ];
+  const rows: Row[] = top.map((c) => ({
+    project: c.title,
+    value: fmtEurCompact(c.totalEur, ctx.lang),
+    paid: fmtEurCompact(c.paidEur, ctx.lang),
+  }));
+  return {
+    tool: "placeEuProjects",
+    domain: "place",
+    kind: "table",
+    title: bg
+      ? `Проекти от еврофондове — ${place.name}`
+      : `EU-funds projects — ${place.nameEn}`,
+    columns,
+    rows,
+    viz: "none",
+    geo: muniLocator(
+      place.obshtina,
+      place.oblast,
+      bg ? place.name : place.nameEn,
+    ),
+    facts: {
+      place: place.name,
+      contracts: fmtInt(summary.rollup.contractCount, ctx.lang),
+      total: fmtEurCompact(summary.rollup.totalEur, ctx.lang),
+      paid: fmtEurCompact(summary.rollup.paidEur, ctx.lang),
+      new_projects: fmtInt(newCount, ctx.lang),
+      modified_projects: fmtInt(modCount, ctx.lang),
+    },
+    provenance: [
+      `funds/projects/by-muni/${obshtina}-summary.json`,
+      `funds/projects/changes/${obshtina}.json`,
+    ],
+  };
+};
+
 function noPlace(tool: string, query: string, ctx: ToolContext): Envelope {
   return {
     tool,

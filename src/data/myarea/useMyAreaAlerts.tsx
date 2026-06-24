@@ -15,6 +15,14 @@ export type MyAreaAlertKind =
   | "plenary_keyword"
   | "council_resolution";
 
+/** Procurement notice type — announced (обявена) / awarded (възложена) /
+ * annex (анекс). Lets the feed + watchlist distinguish the three. */
+export type MyAreaNoticeType = "announced" | "awarded" | "annex";
+
+/** EU-funds change type from the snapshot-diff — a brand-new project or a
+ * value/status change to an existing one. */
+export type MyAreaChangeType = "new" | "modified";
+
 export type MyAreaAlertEvent = {
   date: string;
   kind: MyAreaAlertKind;
@@ -26,6 +34,10 @@ export type MyAreaAlertEvent = {
   /** EU-funds rows only — "2014-2020", "2021-2027", "2021-RRP". When set,
    * the tile renders this in place of the (programme-period midpoint) date. */
   programPeriod?: string;
+  /** Procurement rows only — the OCDS notice type. */
+  noticeType?: MyAreaNoticeType;
+  /** EU-funds rows only — set on snapshot-diff new/modified contracts. */
+  changeType?: MyAreaChangeType;
 };
 
 export type MyAreaAlertsFile = {

@@ -32,9 +32,16 @@ import {
   type MyAreaAlertEvent,
   type MyAreaAlertKind,
 } from "@/data/myarea/useMyAreaAlerts";
+import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
+import { FollowButton } from "@/screens/components/procurement/FollowButton";
 
 type Props = {
   obshtina: string;
+  /** Settlement view → its own ekatte; município view → resolved here from the
+   *  centre. Used as the watchlist "place" key so a user can subscribe to this
+   *  area's activity feed. */
+  ekatte?: string;
+  placeName?: string;
 };
 
 const PREVIEW_CAP = 10;
@@ -60,6 +67,34 @@ const COLOR: Record<MyAreaAlertKind, string> = {
   council_resolution: "#D97706",
 };
 
+// Short sub-type chip label for an event. Procurement rows carry a notice
+// type (announced/awarded/annex); EU-funds rows a snapshot-diff change type
+// (new/modified). Phrased the way a Bulgarian would actually say it.
+const subTypeLabel = (
+  e: MyAreaAlertEvent,
+  lang: "bg" | "en",
+): string | null => {
+  if (e.noticeType) {
+    if (lang === "bg") {
+      return e.noticeType === "announced"
+        ? "обявена"
+        : e.noticeType === "annex"
+          ? "анекс"
+          : "възложена";
+    }
+    return e.noticeType === "announced"
+      ? "announced"
+      : e.noticeType === "annex"
+        ? "annex"
+        : "awarded";
+  }
+  if (e.changeType) {
+    if (lang === "bg") return e.changeType === "new" ? "нов" : "промяна";
+    return e.changeType === "new" ? "new" : "changed";
+  }
+  return null;
+};
+
 const formatDateBg = (iso: string): string => {
   const d = new Date(iso + "T00:00:00Z");
   if (Number.isNaN(d.getTime())) return iso;
@@ -79,11 +114,21 @@ const formatDateEn = (iso: string): string => {
   }).format(d);
 };
 
-export const MyAreaAlertsTile: FC<Props> = ({ obshtina }) => {
+export const MyAreaAlertsTile: FC<Props> = ({
+  obshtina,
+  ekatte,
+  placeName,
+}) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
   const { data } = useMyAreaAlerts(obshtina);
+  const { findMunicipality } = useMunicipalities();
   const [expanded, setExpanded] = useState(false);
+
+  // The watchlist "place" key is the settlement's own ekatte, or the
+  // municipal-centre ekatte for a município view — the same target the
+  // procurement tile pins to, so following here lands on /procurement/watchlist.
+  const followEkatte = ekatte ?? findMunicipality(obshtina)?.ekatte;
 
   if (!data || data.events.length === 0) return null;
 
@@ -105,6 +150,7 @@ export const MyAreaAlertsTile: FC<Props> = ({ obshtina }) => {
       : lang === "bg"
         ? formatDateBg(e.date)
         : formatDateEn(e.date);
+    const subLabel = subTypeLabel(e, lang);
     const inner = (
       <>
         <div
@@ -115,7 +161,18 @@ export const MyAreaAlertsTile: FC<Props> = ({ obshtina }) => {
         </div>
         <div className="flex-1 min-w-0">
           <div className="text-xs leading-snug line-clamp-2">{headline}</div>
-          <div className="text-[10px] text-muted-foreground tabular-nums mt-0.5">
+          <div className="text-[10px] text-muted-foreground tabular-nums mt-0.5 flex items-center gap-1 flex-wrap">
+            {subLabel ? (
+              // Color-coded via the background tint; the label itself uses the
+              // theme foreground token so contrast holds at AA in both themes
+              // (a colored-text chip on a light tint fails AA for lighter hues).
+              <span
+                className="rounded px-1 py-px font-medium uppercase tracking-wide not-italic text-foreground/80"
+                style={{ backgroundColor: `${color}33` }}
+              >
+                {subLabel}
+              </span>
+            ) : null}
             <span>{temporalLabel}</span>
             {e.detail ? <span> · {e.detail}</span> : null}
           </div>
@@ -150,6 +207,13 @@ export const MyAreaAlertsTile: FC<Props> = ({ obshtina }) => {
         <h2 className="text-sm font-semibold flex-1">
           {t("my_area_alerts_title")}
         </h2>
+        {followEkatte && /^\d{5}$/.test(followEkatte) ? (
+          <FollowButton
+            kind="place"
+            id={followEkatte}
+            label={placeName ?? obshtina}
+          />
+        ) : null}
         <span className="text-[10px] text-muted-foreground tabular-nums">
           {data.events.length}
         </span>

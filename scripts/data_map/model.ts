@@ -115,6 +115,11 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   { pattern: /^\/polls\//, dataset: "polls" },
   { pattern: /^\/procurement\//, dataset: "procurement" },
   { pattern: /^\/funds\//, dataset: "funds" },
+  // The per-município "recent activity" feed (data/myarea/alerts/) is a derived
+  // place-governance digest — built from council/procurement/funds/budget data
+  // that already feed AI on their own edges. The model has no dataset→dataset
+  // edge, so we attribute the AI fetch to the place-governance dataset.
+  { pattern: /^\/myarea\//, dataset: "localgov" },
   { pattern: /^\/financing\//, dataset: "financing" },
   { pattern: /^\/(municipalities|settlements|ekatte)/, dataset: "geo" },
   { pattern: /^\/(maps\/|regions_map)/, dataset: "geo" },

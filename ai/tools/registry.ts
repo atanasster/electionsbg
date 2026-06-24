@@ -94,6 +94,8 @@ import {
 import {
   comparePlaces,
   governanceProfile,
+  myAreaAlerts,
+  placeEuProjects,
   procurementByOblast,
   procurementBySettlement,
 } from "./profile";
@@ -2825,6 +2827,60 @@ export const TOOLS: ToolDef[] = [
       { bg: "Колко поръчки има в Русе?", en: "How much procurement in Ruse?" },
     ],
     run: procurementBySettlement,
+  },
+  {
+    name: "myAreaAlerts",
+    domain: "place",
+    description: {
+      bg: "Скорошна активност в едно място — обявени/възложени поръчки и анекси, нови и променени проекти от еврофондове, решения на общинския съвет, местни избори.",
+      en: "Recent activity in one place — announced/awarded procurement + amendments, new and changed EU-funds projects, council resolutions, local elections.",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: {
+          bg: "Населено място или община",
+          en: "Place or município",
+        },
+      },
+    ],
+    examples: [
+      { bg: "Какво ново в община Бургас?", en: "What's new in Burgas?" },
+      {
+        bg: "Скорошна активност в Пловдив",
+        en: "Recent activity in Plovdiv",
+      },
+    ],
+    run: myAreaAlerts,
+  },
+  {
+    name: "placeEuProjects",
+    domain: "place",
+    description: {
+      bg: "Проекти от еврофондове в едно място — общо договорено, изплатено, топ проекти и нови/променени договори от последното обновяване.",
+      en: "EU-funds projects in one place — total contracted, paid, top projects, and new/changed contracts from the latest update.",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        required: true,
+        description: {
+          bg: "Населено място или община",
+          en: "Place or município",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Европейски проекти в община Варна",
+        en: "EU projects in Varna município",
+      },
+      { bg: "Нови европроекти в Габрово", en: "New EU projects in Gabrovo" },
+    ],
+    run: placeEuProjects,
   },
   {
     name: "procurementByOblast",

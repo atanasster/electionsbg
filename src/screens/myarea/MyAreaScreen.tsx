@@ -209,7 +209,11 @@ export const MyAreaScreen: FC = () => {
             per-município data (procurement, EU funds, capital programmes,
             local-election cycle, and plenary debates that mention this
             município). V1 substitute for email alerts until auth ships. */}
-        <MyAreaAlertsTile obshtina={area.obshtina} />
+        <MyAreaAlertsTile
+          obshtina={area.obshtina}
+          ekatte={area.kind === "settlement" ? area.ekatte : undefined}
+          placeName={areaName}
+        />
 
         {/* Общински съвет — unified council surface. Replaces the former
             "Последни решения" + "Как гласуваха в съвета" pair (both drew
