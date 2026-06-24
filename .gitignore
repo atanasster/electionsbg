@@ -213,3 +213,9 @@ functions/.secret.local
 *.sw?
 ai/m5/dataset/
 ai/m0/.venv/
+
+# Social posts — drafts, rendered cards, and the dup-check registry stay LOCAL
+# only. Kept on disk so post_tool can dedupe against past posts, but never
+# committed to GitHub. The rest of brand/ (covers, ads, profile artwork) stays
+# tracked.
+/brand/posts/
