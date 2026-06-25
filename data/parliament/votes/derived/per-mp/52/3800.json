@@ -7,8 +7,8 @@
     "withParty": 3,
     "loyaltyPct": 1,
     "windowFrom": "2026-04-30",
-    "windowTo": "2026-06-19",
-    "totalVoteItems": 505
+    "windowTo": "2026-06-24",
+    "totalVoteItems": 515
   },
   "attendance": {
     "totalItems": 9,
@@ -18,9 +18,9 @@
   },
   "cohort": {
     "size": 266,
-    "votesCastMedian": 358,
-    "loyaltyPctMedian": 0.9768072204990639,
-    "presentPctMedian": 0.7152886458000638
+    "votesCastMedian": 364.5,
+    "loyaltyPctMedian": 0.9771050956606387,
+    "presentPctMedian": 0.7120419049080932
   },
   "dissents": {
     "totalCast": 3,
@@ -65,11 +65,6 @@
         "overlap": 3
       },
       {
-        "mpId": 5186,
-        "score": 0.40824829046386296,
-        "overlap": 3
-      },
-      {
         "mpId": 3972,
         "score": 0.39223227027636803,
         "overlap": 3
@@ -91,6 +86,11 @@
       },
       {
         "mpId": 3984,
+        "score": 0.36514837167011066,
+        "overlap": 3
+      },
+      {
+        "mpId": 5186,
         "score": 0.36514837167011066,
         "overlap": 3
       },
@@ -121,7 +121,7 @@
       },
       {
         "mpId": 5125,
-        "score": 0.2357022603955158,
+        "score": 0.22941573387056174,
         "overlap": 3
       },
       {
