@@ -15,6 +15,10 @@ import {
   scoreDynamicScenario,
   scoreScenario,
 } from "./taxPolicy";
+import {
+  resolveSpendingBases,
+  scoreSpendingChange,
+} from "../../src/lib/bgTaxPolicy";
 import type { PolicyBaselineFile } from "../../src/data/budget/types";
 import type { Envelope, ToolContext } from "./types";
 
@@ -1201,6 +1205,10 @@ const run = async () => {
   const baseline = await fetchData<PolicyBaselineFile>(
     "/budget/derived/policy_baseline.json",
   );
+  // Spending-lever bases resolved the same way the engine does (live КФП-derived
+  // policy_baseline figures, else the curated constants) so the goldens track a
+  // baseline regeneration instead of drifting against hard-coded literals.
+  const spendBases = resolveSpendingBases(baseline.expenditure);
   const parity: [string, number][] = [
     ["какво става ако ддс стане 21%", 447e6],
     ["ддс върху храните да стане 9%", -1425e6],
@@ -1255,6 +1263,15 @@ const run = async () => {
     // SOE-subsidy cut (БДЖ/НКЖИ/Пощи; ≈€316M envelope). −50% = +€158M on the
     // balance (face value; the realism caveat is surfaced as a note).
     ["срязване на субсидиите за БДЖ с 50%", 158e6],
+    // Spending-expansion levers (raise = more spending = worse balance). Bases
+    // are resolved from the live baseline (spendBases) so these track a КФП
+    // regeneration; today they fall back to the constants (social €4.0B → +10%
+    // = −€400M; interest €0.71B → +10% = −€71M; subsidies €0.97B → +20% = −€194M).
+    ["социалните разходи +10%", -scoreSpendingChange(spendBases.social, 10)],
+    ["лихвите по дълга +10%", -scoreSpendingChange(spendBases.interest, 10)],
+    ["субсидиите +20%", -scoreSpendingChange(spendBases.subsidies, 20)],
+    // A cut (negative direction) improves the balance — exercises the sign path.
+    ["социалните разходи -10%", -scoreSpendingChange(spendBases.social, -10)],
   ];
   // FINDING-001 guard: definitional МОД questions carrying a year must NOT
   // parse as a cap what-if (2024-2026 overlap realistic cap amounts).
@@ -1297,10 +1314,25 @@ const run = async () => {
     // bare road-charge reads (винетки/тол anchor, no rate target) -> budgetOverview
     "колко са приходите от пътни такси",
     "how much is vignette revenue",
+    // spending-expansion definitional reads — a share/level statement with no
+    // change direction must NOT parse as a spendingChange what-if.
+    "социалните разходи са 36% от бюджета",
+    "колко са социалните разходи",
+    "колко са лихвите по дълга",
+    "колко са субсидиите",
   ]) {
     assert(
       detectTaxChange(q) == null,
       `definitional question is not a what-if: "${q}"`,
+    );
+  }
+  // SOE-subsidy precedence: a БДЖ/НКЖИ/Пощи subsidy cut stays the dedicated SOE
+  // lever and must NOT be stolen by the generic subsidies spendingChange lever.
+  {
+    const soeP = detectTaxChange("срязване на субсидиите за БДЖ с 50%");
+    assert(
+      soeP?.kind === "soeCut",
+      `БДЖ subsidy cut stays soeCut, not generic subsidies: got ${soeP?.kind}`,
     );
   }
   for (const [q, expected] of parity) {

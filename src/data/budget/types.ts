@@ -2121,6 +2121,16 @@ export interface PolicyBaselineFile {
       /** sectorWageEur / economyWageEur at the wage year. */
       currentRatio: number;
     };
+    /** Non-pension social-protection base (COFOG GF10 − НОИ pension mass) for
+     *  the social-benefits spending lever. Optional: absent in baseline files
+     *  generated before the lever shipped (engine falls back to a constant). */
+    socialBenefits?: { baseEur: number; cofogYear: number };
+    /** Consolidated КФП „Лихви - общо" — the interest-on-debt spending base.
+     *  Optional: see socialBenefits. */
+    interest?: { baseEur: number; year: number };
+    /** Consolidated КФП „Субсидии" — the general-subsidies spending base.
+     *  Optional: see socialBenefits. */
+    subsidies?: { baseEur: number; year: number };
   };
   /** Fitted earnings distribution (split log-normal body + Pareto tail) —
    *  anchors and validation in scripts/budget/earnings_distribution.ts. */

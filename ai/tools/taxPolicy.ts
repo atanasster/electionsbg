@@ -59,6 +59,8 @@ import {
   scoreRoadComponentUplift,
   scoreSoeSubsidyCut,
   SOE_SUBSIDY_BASE_EUR,
+  scoreSpendingChange,
+  resolveSpendingBases,
   scoreHealthContribution,
   scoreMaternityMonths,
   scoreMinWageFreeze,
@@ -157,6 +159,10 @@ const GAMBLING_MAX = 40;
 // a uniform % uplift on the combined АПИ road-charge base, 0..100% (0 = no
 // change). Change them THERE first.
 const ROAD_MAX = 100;
+// Spending-expansion levers (social/interest/subsidies): a signed % move on the
+// consolidated base, mirroring the simulator's SPEND_MIN/SPEND_MAX sliders.
+const SPEND_MIN = -50;
+const SPEND_MAX = 50;
 
 const clamp = (n: number, min: number, max: number): number =>
   Math.max(min, Math.min(max, Math.round(n)));
@@ -202,7 +208,14 @@ export type TaxChange =
       pct: number;
       component: "vignette" | "toll" | "both";
     } // винетки/тол uplift
-  | { kind: "soeCut"; sharePct: number }; // субсидии за ДП (БДЖ/НКЖИ/Пощи) −X%
+  | { kind: "soeCut"; sharePct: number } // субсидии за ДП (БДЖ/НКЖИ/Пощи) −X%
+  | {
+      // Spending-expansion levers: a signed % move on a consolidated base
+      // (social benefits / interest on debt / general subsidies).
+      kind: "spendingChange";
+      line: "social" | "interest" | "subsidies";
+      pct: number;
+    };
 
 const has = (q: string, ...words: string[]): boolean =>
   words.some((w) => q.includes(w));
@@ -478,6 +491,66 @@ const MP_PAY_WORDS = [
 // Subsidy trigger + a party/per-vote context (Bulgarian inflection makes a
 // fixed "партийн субсиди" phrase brittle — "партийните субсидии" wouldn't match).
 const SUBSIDY_WORDS = ["субсиди", "subsid"];
+// Spending-expansion lever cues (social benefits / interest on debt). The
+// noun must pair with a spending sense so definitional reads and the МОД/
+// contribution levers don't get stolen.
+const SOCIAL_SPEND_NOUNS = [
+  "плащан",
+  "разход",
+  "помощ",
+  "подпомаган",
+  "трансфер",
+  "обезщетен",
+  "benefit",
+  "spending",
+  "payment",
+  "assistance",
+  "transfer",
+];
+const INTEREST_DEBT_CONTEXT = [
+  "дълг",
+  "debt",
+  "държав",
+  "бюджет",
+  "разход",
+  "плащан",
+  "payment",
+  "spending",
+];
+// An explicit raise/cut direction must accompany the % so a definitional
+// "социалните разходи СА 36% от бюджета" (a share, no direction) falls through
+// to the budget overview instead of reading as a +36% hike.
+const SPEND_RAISE_CUES = [
+  "вдиг",
+  "увелич",
+  "покач",
+  "нараст",
+  "раздув",
+  "раздуй",
+  "повишав",
+  "raise",
+  "increase",
+  "boost",
+  "expand",
+  "grow",
+  "go up",
+];
+const SPEND_CUT_CUES = [
+  "оряз",
+  "ореж",
+  "намал",
+  "свал",
+  "свие",
+  "свив",
+  "смъкн",
+  "съкра",
+  "cut",
+  "reduc",
+  "slash",
+  "lower",
+  "shrink",
+  "trim",
+];
 const PARTY_VOTE_CONTEXT = [
   "парти",
   "на глас",
@@ -953,6 +1026,39 @@ export const detectTaxChange = (question: string): TaxChange | undefined => {
     if (share !== undefined && share > 0)
       return { kind: "soeCut", sharePct: clamp(share, 0, 100) };
   }
+  // Spending-EXPANSION levers (social benefits / interest on debt / general
+  // subsidies) — a signed % move on the consolidated base, mirroring the
+  // simulator's soc/intr/subs sliders. Each needs an explicit ±% (direction
+  // from the sign or a raise/cut verb). Placed AFTER the SOE + party-subsidy
+  // blocks so those more-specific subsidy reads win first.
+  {
+    const sv = parseSignedPct(q);
+    // Require an explicit direction (signed % or a raise/cut verb) — a bare
+    // "...са 36%" share statement carries no direction and must fall through.
+    const directed =
+      /[+\-−–]\s*\d/.test(q) ||
+      has(q, ...SPEND_RAISE_CUES) ||
+      has(q, ...SPEND_CUT_CUES);
+    if (sv !== undefined && sv !== 0 && directed) {
+      const pctc = clamp(sv, SPEND_MIN, SPEND_MAX);
+      // Social benefits ex-pensions — exclude осигуровки/contributions so the
+      // МОД/SSC levers keep their territory.
+      if (
+        has(q, "социалн", "social") &&
+        has(q, ...SOCIAL_SPEND_NOUNS) &&
+        !has(q, "осигуровк", "вноск", "contribution")
+      )
+        return { kind: "spendingChange", line: "social", pct: pctc };
+      // Interest on debt — "лихв"/"interest" with a debt/spending context (so a
+      // central-bank "лихвен процент" question can't fire).
+      if (has(q, "лихв", "interest") && has(q, ...INTEREST_DEBT_CONTEXT))
+        return { kind: "spendingChange", line: "interest", pct: pctc };
+      // General subsidies — reaches here only when neither SOE nor party
+      // subsidy matched above.
+      if (has(q, ...SUBSIDY_WORDS))
+        return { kind: "spendingChange", line: "subsidies", pct: pctc };
+    }
+  }
 
   // 2. VAT on a category — needs the VAT word + a category word, plus a
   // target: a %, a change cue, or an explicit regime word ("zero VAT on
@@ -1094,6 +1200,10 @@ interface ScenarioParams {
   toll: number;
   // SOE-subsidy cut (БДЖ/НКЖИ/Пощи), % of the envelope (0 = no change).
   soe: number;
+  // Spending-expansion levers — signed % move on the base (0 = no change).
+  soc: number;
+  intr: number;
+  subs: number;
 }
 
 const paramsFor = (change: TaxChange, currentCap: number): ScenarioParams => {
@@ -1130,6 +1240,9 @@ const paramsFor = (change: TaxChange, currentCap: number): ScenarioParams => {
     vign: 0,
     toll: 0,
     soe: 0,
+    soc: 0,
+    intr: 0,
+    subs: 0,
   };
   // Clamp to the simulator's own URL-param bounds (clampIntParam calls in
   // BudgetPolicySimulator.tsx) so the chat number equals what the deep link
@@ -1230,6 +1343,13 @@ const paramsFor = (change: TaxChange, currentCap: number): ScenarioParams => {
     case "soeCut":
       p.soe = clamp(change.sharePct, 0, 100);
       break;
+    case "spendingChange": {
+      const v = clamp(change.pct, SPEND_MIN, SPEND_MAX);
+      if (change.line === "social") p.soc = v;
+      else if (change.line === "interest") p.intr = v;
+      else p.subs = v;
+      break;
+    }
   }
   return p;
 };
@@ -1314,6 +1434,9 @@ export const scoreScenario = (
     vign,
     toll,
     soe,
+    soc,
+    intr,
+    subs,
   } = paramsFor(change, currentCap);
 
   const slices = baseline.vat.slices as VatBaseSlice[];
@@ -1489,6 +1612,16 @@ export const scoreScenario = (
     exp && soe > 0
       ? -scoreSoeSubsidyCut((soe / 100) * SOE_SUBSIDY_BASE_EUR, 1)
       : 0;
+  // Spending-expansion levers: Δ spending = base × %, pure proportional (no
+  // labour-tax feedback). Bases prefer the live КФП-derived policy_baseline
+  // figures and fall back to the constants — mirrors BudgetPolicySimulator.
+  const spendBases = resolveSpendingBases(exp);
+  const socialDeltaSpend =
+    soc !== 0 ? scoreSpendingChange(spendBases.social, soc) : 0;
+  const interestDeltaSpend =
+    intr !== 0 ? scoreSpendingChange(spendBases.interest, intr) : 0;
+  const subsidiesDeltaSpend =
+    subs !== 0 ? scoreSpendingChange(spendBases.subsidies, subs) : 0;
   const expenditureBalance =
     -(
       pensionDeltaSpend +
@@ -1502,7 +1635,10 @@ export const scoreScenario = (
       matDeltaSpend +
       mpfDeltaSpend +
       psubDeltaSpend +
-      soeDeltaSpend
+      soeDeltaSpend +
+      socialDeltaSpend +
+      interestDeltaSpend +
+      subsidiesDeltaSpend
     ) +
     mwDelta +
     hpDelta;
@@ -1844,6 +1980,28 @@ const changeLabel = (
         ? `субсидии за ДП (БДЖ/НКЖИ/Пощи) ${v}`
         : `SOE subsidies (BDZh/NRIC/Post) ${v}`;
     }
+    case "spendingChange": {
+      const raw =
+        change.line === "social"
+          ? p.soc
+          : change.line === "interest"
+            ? p.intr
+            : p.subs;
+      const v = `${raw > 0 ? "+" : raw < 0 ? "−" : ""}${Math.abs(raw)}%`;
+      const what =
+        change.line === "social"
+          ? bg
+            ? "социални плащания"
+            : "social benefits"
+          : change.line === "interest"
+            ? bg
+              ? "лихви по дълга"
+              : "interest on debt"
+            : bg
+              ? "субсидии"
+              : "subsidies";
+      return `${what} ${v}`;
+    }
   }
 };
 
@@ -1883,6 +2041,9 @@ const scenarioQuery = (p: ScenarioParams, currentCap: number): string => {
   if (p.vign !== 0) parts.push(`vign=${p.vign}`);
   if (p.toll !== 0) parts.push(`tol=${p.toll}`);
   if (p.soe !== 0) parts.push(`soe=${p.soe}`);
+  if (p.soc !== 0) parts.push(`soc=${p.soc}`);
+  if (p.intr !== 0) parts.push(`intr=${p.intr}`);
+  if (p.subs !== 0) parts.push(`subs=${p.subs}`);
   return parts.join("&");
 };
 
@@ -1969,7 +2130,8 @@ export const simulateTaxChange = async (
     change.kind === "pensionFloor" ||
     change.kind === "mpPayFreeze" ||
     change.kind === "partySubsidy" ||
-    change.kind === "soeCut"
+    change.kind === "soeCut" ||
+    change.kind === "spendingChange"
   )
     facts.basis_id = "balance";
   // SOE-subsidy honesty note: much of the envelope is locked in PSO /

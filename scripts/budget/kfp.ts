@@ -15,6 +15,7 @@ import { toEur } from "../../src/lib/currency";
 import { sentenceCaseLabel } from "../lib/normalize_name";
 import type { EgovResource } from "./fetch_sources";
 import type {
+  ConstituentBudget,
   FiscalYearSeriesFigures,
   FiscalYearSummary,
   KfpFile,
@@ -465,16 +466,22 @@ export const parseEgovResource = (
   return { header, uuid, sections };
 };
 
-const snapshotFromParsed = (p: ParsedResource): KfpSnapshot => ({
+const snapshotFromParsed = (
+  p: ParsedResource,
+  constituent: ConstituentBudget,
+): KfpSnapshot => ({
   period: p.header.period,
   fiscalYear: p.header.fiscalYear,
   asOf: p.header.asOf,
   currency: p.header.currency,
-  constituentBudget: "state",
+  constituentBudget: constituent,
   sections: p.sections,
 });
 
-const observationsFromParsed = (p: ParsedResource): KfpObservation[] => {
+const observationsFromParsed = (
+  p: ParsedResource,
+  constituent: ConstituentBudget,
+): KfpObservation[] => {
   const out: KfpObservation[] = [];
   for (const section of p.sections) {
     if (section.executed == null && section.planned == null) continue;
@@ -484,7 +491,7 @@ const observationsFromParsed = (p: ParsedResource): KfpObservation[] => {
       fiscalYear: p.header.fiscalYear,
       asOf: p.header.asOf,
       series: section.series,
-      constituentBudget: "state",
+      constituentBudget: constituent,
       executed:
         section.executed ??
         ({ amount: 0, currency: p.header.currency, amountEur: 0 } as Money),
@@ -519,11 +526,14 @@ const groupByFiscalYear = (
 };
 
 // One detailed snapshot per fiscal year — the latest month of each.
-const buildSnapshots = (parsed: ParsedResource[]): KfpSnapshot[] => {
+const buildSnapshots = (
+  parsed: ParsedResource[],
+  constituent: ConstituentBudget,
+): KfpSnapshot[] => {
   const byFy = groupByFiscalYear(parsed);
   return [...byFy.entries()]
     .sort((a, b) => a[0] - b[0])
-    .map(([, arr]) => snapshotFromParsed(arr[arr.length - 1]));
+    .map(([, arr]) => snapshotFromParsed(arr[arr.length - 1], constituent));
 };
 
 // Pull the planned or executed Money for each of the five series off one
@@ -702,9 +712,15 @@ export const buildGdpByYear = (
 export const buildKfpFile = (
   parsed: ParsedResource[],
   sources: Record<string, string>,
+  // Which budget scope these resources describe. Defaults to the state budget
+  // (the data.egov.bg 79ce7de2 dataset). Pass "consolidated" when ingesting the
+  // КФП consolidated dataset so downstream readers (the deficit baseline) can
+  // pick the consolidated scope. See docs/budget_consolidated_kfp.md.
+  constituent: ConstituentBudget = "state",
 ): KfpFile => {
   const observations: KfpObservation[] = [];
-  for (const p of parsed) observations.push(...observationsFromParsed(p));
+  for (const p of parsed)
+    observations.push(...observationsFromParsed(p, constituent));
   observations.sort((a, b) =>
     a.period === b.period
       ? a.series.localeCompare(b.series)
@@ -713,10 +729,10 @@ export const buildKfpFile = (
   return {
     generatedAt: new Date().toISOString(),
     country: "BG",
-    constituentBudget: "state",
+    constituentBudget: constituent,
     sources,
     observations,
-    snapshots: buildSnapshots(parsed),
+    snapshots: buildSnapshots(parsed, constituent),
   };
 };
 

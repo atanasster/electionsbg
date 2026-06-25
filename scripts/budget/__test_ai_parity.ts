@@ -28,6 +28,10 @@ import {
   scoreRoadComponentUplift,
   scoreSoeSubsidyCut,
   SOE_SUBSIDY_BASE_EUR,
+  scoreSpendingChange,
+  SOCIAL_BENEFITS_BASE_EUR,
+  INTEREST_BASE_EUR,
+  SUBSIDIES_BASE_EUR,
   scoreTeachersPeg,
   scoreWageIndexation,
   type PitBracket,
@@ -191,6 +195,33 @@ const cases: {
     q: "премахване на партийните субсидии",
     kind: "partySubsidy",
     golden: -scorePartySubsidy(0),
+  },
+  // Spending-expansion levers (raise = more spending = worse balance, so the
+  // balance contribution is negative). Bases prefer the live policy_baseline
+  // figures, fall back to the constants — same resolution as both UI + AI.
+  {
+    q: "социалните разходи +10%",
+    kind: "spendingChange",
+    golden: -scoreSpendingChange(
+      exp?.socialBenefits?.baseEur ?? SOCIAL_BENEFITS_BASE_EUR,
+      10,
+    ),
+  },
+  {
+    q: "лихвите по дълга +10%",
+    kind: "spendingChange",
+    golden: -scoreSpendingChange(
+      exp?.interest?.baseEur ?? INTEREST_BASE_EUR,
+      10,
+    ),
+  },
+  {
+    q: "субсидиите +20%",
+    kind: "spendingChange",
+    golden: -scoreSpendingChange(
+      exp?.subsidies?.baseEur ?? SUBSIDIES_BASE_EUR,
+      20,
+    ),
   },
 ];
 

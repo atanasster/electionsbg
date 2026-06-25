@@ -539,6 +539,11 @@ interface YearRevenue {
   personnelEur: number;
   capitalExecEur: number;
   capitalPlanEur: number;
+  /** Consolidated КФП „Лихви - общо" — the interest-on-debt spending base. */
+  interestEur: number;
+  /** Consolidated КФП „Субсидии" — the general-subsidies spending base (EU CAP
+   *  runs through the EU-funds budget; БДЖ/НКЖИ/Пощи sit in the SOE lever). */
+  subsidiesEur: number;
 }
 
 const extractRevenue = (kfp: KfpFile): YearRevenue[] => {
@@ -555,6 +560,8 @@ const extractRevenue = (kfp: KfpFile): YearRevenue[] => {
       expSec?.lines.find((x) => re.test(x.labelBg));
     const personnel = expLine(/^Персонал/i);
     const capital = expLine(/^Капиталови разходи/i);
+    const interest = expLine(/^Лихви\s*-\s*общо/i);
+    const subsidies = expLine(/^Субсидии/i);
     const line = (re: RegExp): number | null => {
       const l = rev.lines.find((x) => re.test(x.labelBg));
       return l?.executed?.amountEur ?? null;
@@ -580,6 +587,8 @@ const extractRevenue = (kfp: KfpFile): YearRevenue[] => {
       capitalPlanEur:
         (capital as { planned?: { amountEur?: number } | null } | undefined)
           ?.planned?.amountEur ?? 0,
+      interestEur: interest?.executed?.amountEur ?? 0,
+      subsidiesEur: subsidies?.executed?.amountEur ?? 0,
     });
   }
   return out.sort((a, b) => a.fiscalYear - b.fiscalYear);
@@ -898,6 +907,17 @@ const main = async (): Promise<void> => {
   }>("data/budget/noi/funds.json");
   const noiLatest = noi.years[noi.years.length - 1];
   const pensionMassEur = noiLatest.totals.pensions.amountEur;
+  // Non-pension social-protection base for the social-benefits spending lever:
+  // COFOG GF10 (all social protection) minus the pension mass that the pension
+  // lever already moves. No single КФП line isolates it (the soc.-fund transfer
+  // bundles pensions), so it is COFOG-derived. Falls back to 0 if absent.
+  const cofog = readJson<{
+    latestYear: number;
+    series: Record<string, { year: number; valueEur: number }[]>;
+  }>("data/cofog.json");
+  const gf10Eur =
+    cofog.series.GF10?.find((p) => p.year === cofog.latestYear)?.valueEur ?? 0;
+  const socialBenefitsEur = Math.max(0, gf10Eur - pensionMassEur);
   // Swiss-rule inputs: latest 4-quarter averages of HICP and insurable-income
   // growth — the July indexation looks at the prior year.
   const last4 = (series: { value: number }[]): number =>
@@ -1089,6 +1109,24 @@ const main = async (): Promise<void> => {
           baseline.capitalPlanEur > 0
             ? baseline.capitalExecEur / baseline.capitalPlanEur
             : 1,
+      },
+      // Spending-expansion lever bases (the "where the money goes" side). The
+      // simulator reads these and falls back to the curated constants in
+      // src/lib/bgTaxPolicy.ts when this block is absent.
+      socialBenefits: {
+        // COFOG GF10 (€) − НОИ pension mass; non-pension social transfers.
+        baseEur: Math.round(socialBenefitsEur),
+        cofogYear: cofog.latestYear,
+      },
+      interest: {
+        // Consolidated КФП „Лихви - общо".
+        baseEur: Math.round(baseline.interestEur),
+        year: baselineYear,
+      },
+      subsidies: {
+        // Consolidated КФП „Субсидии".
+        baseEur: Math.round(baseline.subsidiesEur),
+        year: baselineYear,
       },
       sscSelfPaid: {
         count: BUDGET_PAID_SSC_COUNT,

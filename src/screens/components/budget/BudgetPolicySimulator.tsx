@@ -67,6 +67,8 @@ import {
   scoreRoadComponentUplift,
   scoreSoeSubsidyCut,
   SOE_SUBSIDY_BASE_EUR,
+  scoreSpendingChange,
+  resolveSpendingBases,
   EXCISE_DIESEL_RATE,
   EXCISE_PETROL_RATE,
   EXCISE_CIGARETTE_RATE,
@@ -128,6 +130,7 @@ import { PolicyFiscalProjection } from "./PolicyFiscalProjection";
 import { downloadShareCard } from "./policyShareCard";
 import { fmtCompactEur, fmtDelta, fmtPct1 } from "./budgetFormat";
 import { EuFlag } from "./EuFlag";
+import { BudgetFunctionalTile } from "./BudgetFunctionalTile";
 import {
   COUNTRY_PROFILES,
   EU_LEVER_PRESETS,
@@ -208,6 +211,13 @@ const GAMBLING_MAX = 40;
 const ROAD_DEF = 0;
 const ROAD_MAX = 100;
 const ROAD_STEP = 5;
+// OFFICIAL annual e-vignette price for cars ≤3.5t (cat. 3): 97 лв ≈ €49.60
+// (АПИ tariff, unchanged for 2026; resellers add a service fee on top). Shown
+// as the concrete, relatable anchor on the vignette slider. The % uplift is
+// UNIFORM across all durations (daily/weekend/weekly/monthly/quarterly/annual),
+// so the annual price at +X% is exact — we just lack the per-type sales split
+// to weight a blended figure.
+const ANNUAL_VIGNETTE_EUR = 49.6;
 
 // SOE-subsidy cut — the БДЖ / НКЖИ / Български пощи subsidy envelope (≈€316M,
 // SOE_SUBSIDY_BASE_EUR). The lever is a % cut of that envelope; default 0. A cut
@@ -216,6 +226,12 @@ const ROAD_STEP = 5;
 const SOE_DEF = 0;
 const SOE_MAX = 100;
 const SOE_STEP = 5;
+
+// General spending levers — the EXPANSION side. ±% on the social-benefits,
+// interest and subsidies bases (curated in bgTaxPolicy.ts). 0 = current law.
+const SPEND_MIN = -50;
+const SPEND_MAX = 50;
+const SPEND_STEP = 5;
 
 // Exemplar payslips in the citizen pane: minimum wage, ~average, upper
 // professional, above-cap.
@@ -250,6 +266,10 @@ interface PresetApply {
   soe?: number;
   /** Cigarette excise, €/1000 (Бюджет-2026 ЗАДС calendar ≈120). */
   cigarettes?: number;
+  /** Spending-expansion levers, % change. */
+  social?: number;
+  interest?: number;
+  subsidies?: number;
 }
 const PRESETS: { id: string; apply: PresetApply }[] = [
   // The actual ЗДБРБ-2026 levers we can model — one click loads the government's
@@ -326,6 +346,11 @@ interface LeverState {
   tolls: number;
   /** SOE-subsidy cut (БДЖ/НКЖИ/Пощи), % of the envelope (0 = no change). */
   soe: number;
+  /** Spending-EXPANSION levers, integer % change (±; 0 = current law):
+   *  social benefits (ex-pensions), interest on debt, general subsidies. */
+  social: number;
+  interest: number;
+  subsidies: number;
 }
 
 // THE single static-scoring path. Returns each lever's static EUR delta
@@ -534,6 +559,19 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     exp && s.soe > 0
       ? -scoreSoeSubsidyCut((s.soe / 100) * SOE_SUBSIDY_BASE_EUR, 1)
       : 0;
+  // Spending-EXPANSION levers (Δ spending; positive % = more spending = worse
+  // balance). Pure proportional, no labour-tax feedback (transfers/interest).
+  // Bases prefer the live КФП-derived figures in policy_baseline.json and fall
+  // back to the curated constants when that baseline predates the levers.
+  const spendBases = resolveSpendingBases(exp);
+  const socialDeltaSpend =
+    s.social !== 0 ? scoreSpendingChange(spendBases.social, s.social) : 0;
+  const interestDeltaSpend =
+    s.interest !== 0 ? scoreSpendingChange(spendBases.interest, s.interest) : 0;
+  const subsidiesDeltaSpend =
+    s.subsidies !== 0
+      ? scoreSpendingChange(spendBases.subsidies, s.subsidies)
+      : 0;
   // The non-pension expenditure slice (the Tier-2 spending impulse):
   // pensions ride the projection's fixed path, МРЗ/health are revenue-side.
   const expenditureNonPensionBalance = -(
@@ -547,7 +585,10 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     matDeltaSpend +
     mpfDeltaSpend +
     psubDeltaSpend +
-    soeDeltaSpend
+    soeDeltaSpend +
+    socialDeltaSpend +
+    interestDeltaSpend +
+    subsidiesDeltaSpend
   );
   const expenditureBalance =
     expenditureNonPensionBalance - pensionDeltaSpend + mwDelta + hpDelta;
@@ -625,6 +666,9 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     mpfBalance: -mpfDeltaSpend,
     psubBalance: -psubDeltaSpend,
     soeBalance: -soeDeltaSpend,
+    socialBalance: -socialDeltaSpend,
+    interestBalance: -interestDeltaSpend,
+    subsidiesBalance: -subsidiesDeltaSpend,
     central,
     low,
     high,
@@ -678,6 +722,9 @@ const NEUTRAL_LEVERS = (currentCap: number): LeverState => ({
   vignettes: ROAD_DEF,
   tolls: ROAD_DEF,
   soe: SOE_DEF,
+  social: 0,
+  interest: 0,
+  subsidies: 0,
 });
 
 // Static central effect of one preset in isolation — the myth-buster weight
@@ -704,6 +751,9 @@ const presetStaticEur = (baseline: Baseline, p: PresetApply): number => {
   if (p.tol != null) s.tolls = p.tol;
   if (p.soe != null) s.soe = p.soe;
   if (p.cigarettes != null) s.cigarettes = p.cigarettes;
+  if (p.social != null) s.social = p.social;
+  if (p.interest != null) s.interest = p.interest;
+  if (p.subsidies != null) s.subsidies = p.subsidies;
   return computeStaticScenario(baseline, s)?.central ?? 0;
 };
 
@@ -1164,6 +1214,9 @@ interface LeverWrite {
   vignettes: number;
   tolls: number;
   soe: number;
+  social: number;
+  interest: number;
+  subsidies: number;
 }
 
 export const BudgetPolicySimulator: FC = () => {
@@ -1248,6 +1301,15 @@ export const BudgetPolicySimulator: FC = () => {
   );
   const [soe, setSoe] = useState(() =>
     clampIntParam(searchParams.get("soe"), 0, SOE_MAX, SOE_DEF),
+  );
+  const [social, setSocial] = useState(() =>
+    clampIntParam(searchParams.get("soc"), SPEND_MIN, SPEND_MAX, 0),
+  );
+  const [interest, setInterest] = useState(() =>
+    clampIntParam(searchParams.get("intr"), SPEND_MIN, SPEND_MAX, 0),
+  );
+  const [subsidies, setSubsidies] = useState(() =>
+    clampIntParam(searchParams.get("subs"), SPEND_MIN, SPEND_MAX, 0),
   );
   const [exciseOpen, setExciseOpen] = useState(
     () =>
@@ -1349,7 +1411,10 @@ export const BudgetPolicySimulator: FC = () => {
       searchParams.get("mat") != null ||
       searchParams.get("mpf") === "1" ||
       searchParams.get("psub") != null ||
-      searchParams.get("soe") != null,
+      searchParams.get("soe") != null ||
+      searchParams.get("soc") != null ||
+      searchParams.get("intr") != null ||
+      searchParams.get("subs") != null,
   );
   const [shareCopied, setShareCopied] = useState(false);
   const [sentenceCopied, setSentenceCopied] = useState(false);
@@ -1438,6 +1503,9 @@ export const BudgetPolicySimulator: FC = () => {
     setVignettes(o.vignettes ?? ROAD_DEF);
     setTolls(o.tolls ?? ROAD_DEF);
     setSoe(o.soe ?? SOE_DEF);
+    setSocial(o.social ?? 0);
+    setInterest(o.interest ?? 0);
+    setSubsidies(o.subsidies ?? 0);
   };
 
   // ----- presets -------------------------------------------------------------
@@ -1459,6 +1527,9 @@ export const BudgetPolicySimulator: FC = () => {
       tolls: p.tol,
       soe: p.soe,
       cigarettes: p.cigarettes,
+      social: p.social,
+      interest: p.interest,
+      subsidies: p.subsidies,
     });
     setExciseOpen(p.cigarettes != null);
     setVatCatsOpen(!!p.regimes);
@@ -1469,7 +1540,10 @@ export const BudgetPolicySimulator: FC = () => {
         !!p.mrzFreeze ||
         p.mat != null ||
         !!p.ssp ||
-        p.soe != null,
+        p.soe != null ||
+        p.social != null ||
+        p.interest != null ||
+        p.subsidies != null,
     );
   };
   const presetIsActive = (p: PresetApply): boolean => {
@@ -1514,7 +1588,10 @@ export const BudgetPolicySimulator: FC = () => {
       gambling === GAMBLING_DEF &&
       vignettes === (p.vign ?? ROAD_DEF) &&
       tolls === (p.tol ?? ROAD_DEF) &&
-      soe === (p.soe ?? SOE_DEF)
+      soe === (p.soe ?? SOE_DEF) &&
+      social === (p.social ?? 0) &&
+      interest === (p.interest ?? 0) &&
+      subsidies === (p.subsidies ?? 0)
     );
   };
 
@@ -1544,6 +1621,9 @@ export const BudgetPolicySimulator: FC = () => {
     if (vignettes !== ROAD_DEF) next.vign = String(vignettes);
     if (tolls !== ROAD_DEF) next.tol = String(tolls);
     if (soe !== SOE_DEF) next.soe = String(soe);
+    if (social !== 0) next.soc = String(social);
+    if (interest !== 0) next.intr = String(interest);
+    if (subsidies !== 0) next.subs = String(subsidies);
     if (!noCap && mod !== currentCap) next.mod = String(mod);
     if (noCap) next.nocap = "1";
     if (gross !== GROSS_DEF) next.gross = String(gross);
@@ -1587,6 +1667,9 @@ export const BudgetPolicySimulator: FC = () => {
     vignettes,
     tolls,
     soe,
+    social,
+    interest,
+    subsidies,
     mod,
     noCap,
     gross,
@@ -1809,6 +1892,9 @@ export const BudgetPolicySimulator: FC = () => {
       vignettes,
       tolls,
       soe,
+      social,
+      interest,
+      subsidies,
     });
   }, [
     baseline,
@@ -1852,6 +1938,9 @@ export const BudgetPolicySimulator: FC = () => {
     vignettes,
     tolls,
     soe,
+    social,
+    interest,
+    subsidies,
     currentCap,
   ]);
 
@@ -2217,6 +2306,11 @@ export const BudgetPolicySimulator: FC = () => {
     if (tolls !== ROAD_DEF)
       parts.push(t("budget_policy_frag_tolls", { v: tolls }));
     if (soe > 0) parts.push(t("budget_policy_frag_soe", { v: soe }));
+    if (social !== 0) parts.push(t("budget_policy_frag_social", { v: social }));
+    if (interest !== 0)
+      parts.push(t("budget_policy_frag_interest", { v: interest }));
+    if (subsidies !== 0)
+      parts.push(t("budget_policy_frag_subsidies", { v: subsidies }));
     if (!parts.length) return null;
     // The quoted total matches the displayed headline: dynamic central in
     // dynamic mode, static otherwise.
@@ -2275,6 +2369,9 @@ export const BudgetPolicySimulator: FC = () => {
     vignettes,
     tolls,
     soe,
+    social,
+    interest,
+    subsidies,
     currentCap,
     t,
     lang,
@@ -2393,23 +2490,15 @@ export const BudgetPolicySimulator: FC = () => {
     Math.abs(scenario.mpfBalance),
     Math.abs(scenario.psubBalance),
     Math.abs(scenario.soeBalance),
+    Math.abs(scenario.socialBalance),
+    Math.abs(scenario.interestBalance),
+    Math.abs(scenario.subsidiesBalance),
     1,
   );
-  const pctGdp = (headline / baseline.gdpEur) * 100;
   const anyChange =
     scenario.central !== 0 || scenario.vatDelta !== 0 || citizen.netDelta !== 0;
   const fyProj = projection.years[0];
   const lastProj = projection.years[projection.years.length - 1];
-  const heroDeficitLine = anyChange
-    ? t("budget_policy_hero_deficit", {
-        year: fyProj.year,
-        before: fmtPct1(fyProj.baselineBalancePctGdp, locale),
-        after: fmtPct1(fyProj.balancePctGdp, locale),
-      })
-    : t("budget_policy_hero_deficit_nochange", {
-        year: fyProj.year,
-        before: fmtPct1(fyProj.baselineBalancePctGdp, locale),
-      });
 
   // Myth-buster line for a preset chip's tooltip, and the consequence-line
   // renderer + share/count formatters for the levers panel.
@@ -3159,7 +3248,12 @@ export const BudgetPolicySimulator: FC = () => {
                   value={vignettes}
                   defaultValue={ROAD_DEF}
                   onChange={setVignettes}
-                  formatValue={(v) => (v > 0 ? `+${v}%` : `${v}%`)}
+                  formatValue={(v) => {
+                    const ann = lang === "bg" ? "годишна" : "annual";
+                    return v > 0
+                      ? `${ann} €${Math.round(ANNUAL_VIGNETTE_EUR * (1 + v / 100))} (+${v}%)`
+                      : `${ann} €${Math.round(ANNUAL_VIGNETTE_EUR)}`;
+                  }}
                 />
                 <RateSlider
                   id="policy-tolls"
@@ -3477,6 +3571,67 @@ export const BudgetPolicySimulator: FC = () => {
                     onChange={setSoe}
                     formatValue={(v) => (v > 0 ? `−${v}%` : `${v}%`)}
                   />
+                  {/* Spending-EXPANSION levers (the "where the money goes" side):
+                      social benefits, interest, subsidies — ± % of each base. */}
+                  <RateSlider
+                    id="policy-social"
+                    label={t("budget_policy_social")}
+                    tip={t("budget_policy_tip_social")}
+                    min={SPEND_MIN}
+                    max={SPEND_MAX}
+                    step={SPEND_STEP}
+                    value={social}
+                    defaultValue={0}
+                    onChange={setSocial}
+                    formatValue={(v) => (v > 0 ? `+${v}%` : `${v}%`)}
+                  />
+                  {cofog?.peers?.GF10 != null &&
+                  cofog.peers.GF10.bgPctGdp != null &&
+                  cofog.peers.GF10.euAvgPctGdp != null ? (
+                    <p className="-mt-1 text-[11px] leading-snug text-muted-foreground">
+                      {t("budget_policy_social_compare", {
+                        bg: cofog.peers.GF10.bgPctGdp.toLocaleString(locale, {
+                          maximumFractionDigits: 1,
+                        }),
+                        eu: cofog.peers.GF10.euAvgPctGdp.toLocaleString(
+                          locale,
+                          {
+                            maximumFractionDigits: 1,
+                          },
+                        ),
+                      })}{" "}
+                      <Link
+                        to="/indicators/compare"
+                        className="text-primary hover:underline"
+                      >
+                        {t("budget_policy_social_compare_link")}
+                      </Link>
+                    </p>
+                  ) : null}
+                  <RateSlider
+                    id="policy-interest"
+                    label={t("budget_policy_interest")}
+                    tip={t("budget_policy_tip_interest")}
+                    min={SPEND_MIN}
+                    max={SPEND_MAX}
+                    step={SPEND_STEP}
+                    value={interest}
+                    defaultValue={0}
+                    onChange={setInterest}
+                    formatValue={(v) => (v > 0 ? `+${v}%` : `${v}%`)}
+                  />
+                  <RateSlider
+                    id="policy-subsidies"
+                    label={t("budget_policy_subsidies")}
+                    tip={t("budget_policy_tip_subsidies")}
+                    min={SPEND_MIN}
+                    max={SPEND_MAX}
+                    step={SPEND_STEP}
+                    value={subsidies}
+                    defaultValue={0}
+                    onChange={setSubsidies}
+                    formatValue={(v) => (v > 0 ? `+${v}%` : `${v}%`)}
+                  />
                 </div>
               ) : null}
             </div>
@@ -3710,29 +3865,44 @@ export const BudgetPolicySimulator: FC = () => {
                 </div>
               ) : null}
             </div>
-            <div className="rounded-lg border px-3 py-2.5 bg-card border-border">
-              <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
-                {t("budget_policy_hero_gdp")}
+            <div
+              className={
+                "rounded-lg border px-3 py-2.5 " +
+                (fyProj.balancePctGdp < -3
+                  ? "bg-red-500/10 border-red-500/30"
+                  : fyProj.balancePctGdp < 0
+                    ? "bg-amber-500/10 border-amber-500/30"
+                    : "bg-emerald-500/10 border-emerald-500/30")
+              }
+            >
+              <div className="text-[11px] uppercase tracking-wide text-muted-foreground flex items-center gap-1">
+                {t("budget_policy_hero_deficit_title", { year: fyProj.year })}
+                <InfoTip text={t("budget_policy_tip_deficit")} />
               </div>
-              <div className="text-xl md:text-2xl font-bold tabular-nums leading-tight">
-                {(pctGdp >= 0 ? "+" : "−") +
-                  new Intl.NumberFormat(locale, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  }).format(Math.abs(pctGdp))}
-                %
-              </div>
-              <div className="text-[11px] text-muted-foreground">
-                {t("budget_policy_hero_gdp_sub", {
-                  pct: new Intl.NumberFormat(locale, {
-                    maximumFractionDigits: 1,
-                  }).format(
-                    (headline / baseline.revenue.totalRevenueEur) * 100,
-                  ),
-                })}
+              <div
+                className={
+                  "text-xl md:text-2xl font-bold tabular-nums leading-tight " +
+                  (fyProj.balancePctGdp < -3
+                    ? "text-red-700 dark:text-red-400"
+                    : fyProj.balancePctGdp < 0
+                      ? "text-amber-700 dark:text-amber-400"
+                      : "text-emerald-700 dark:text-emerald-400")
+                }
+              >
+                {fmtPct1(fyProj.balancePctGdp, locale)}%
+                <span className="text-sm font-medium">
+                  {" "}
+                  {t("budget_policy_hero_deficit_ofgdp")}
+                </span>
               </div>
               <div className="text-[11px] text-muted-foreground tabular-nums">
-                {heroDeficitLine}
+                {fmtCompactEur(fyProj.balanceEur, lang, true)}
+                {anyChange
+                  ? " · " +
+                    t("budget_policy_hero_deficit_from", {
+                      before: fmtPct1(fyProj.baselineBalancePctGdp, locale),
+                    })
+                  : ""}
               </div>
             </div>
             <div className="rounded-lg border px-3 py-2.5 bg-card border-border">
@@ -4023,6 +4193,30 @@ export const BudgetPolicySimulator: FC = () => {
                       lang={lang}
                     />
                   ) : null}
+                  {scenario.socialBalance !== 0 ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_social")}
+                      deltaEur={scenario.socialBalance}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                    />
+                  ) : null}
+                  {scenario.interestBalance !== 0 ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_interest")}
+                      deltaEur={scenario.interestBalance}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                    />
+                  ) : null}
+                  {scenario.subsidiesBalance !== 0 ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_subsidies")}
+                      deltaEur={scenario.subsidiesBalance}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                    />
+                  ) : null}
                 </ul>
               ) : (
                 <p className="text-sm text-muted-foreground">
@@ -4051,6 +4245,14 @@ export const BudgetPolicySimulator: FC = () => {
               </p>
             </CardContent>
           </Card>
+
+          {/* Where the money goes — the actual general-government spend by
+              COFOG function (latest Eurostat actuals). Answers the most-asked
+              "where are the additional budget expenses going" question with a
+              real functional breakdown, independent of the scenario levers. */}
+          <div data-shot="functional">
+            <BudgetFunctionalTile fiscalYear={null} />
+          </div>
 
           {/* Multi-year balance & debt projection */}
           <div data-shot="projection">

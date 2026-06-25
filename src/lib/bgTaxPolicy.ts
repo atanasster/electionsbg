@@ -1080,3 +1080,59 @@ export const scoreSoeSubsidyCut = (
   cutEur: number,
   realisation: number = SOE_SUBSIDY_REALISM_CENTRAL,
 ): number => Math.min(cutEur, SOE_SUBSIDY_BASE_EUR) * realisation;
+
+// ---------------------------------------------------------------------------
+// General spending levers — the EXPANSION side of the budget. The simulator's
+// other expenditure levers are mostly CUTS (admin, МРЗ, SOE); these three let a
+// user raise (or cut) the big spending lines the minister names as the deficit
+// driver ("структурното увеличение … на разходите за възнаграждения в публичния
+// сектор и на социалните плащания"). They also let the Бюджет-2026 preset
+// reproduce the government's real −5.7% by injecting its spending growth.
+//
+// These are the FALLBACK anchors; the simulator prefers the live КФП-derived
+// figures emitted into policy_baseline.json `expenditure` (interest/subsidies
+// re-sourced each rebuild from the consolidated КФП execution, social derived
+// as COFOG GF10 − the НОИ pension mass) and only uses the constants below when
+// that baseline is absent. Values reconciled against the КФП 2025 December
+// snapshot (consolidated, EUR/yr):
+//   • Social benefits ex-pensions ≈ €4.0B — COFOG GF10 social protection
+//     (€15.09B/2024) minus the НОИ pension mass (€11.13B): the non-pension
+//     slice (соц. помощ, лична помощ, увреждания, детски, обезщетения). No
+//     single КФП line isolates it (most flows via the soc.-fund transfer that
+//     also carries pensions), so it stays COFOG-derived, not a raw КФП line.
+//   • Interest on debt = €0.71B — the КФП „Лихви - общо" line (2025), rising
+//     as the debt stock grows.
+//   • General subsidies = €0.97B — the КФП „Субсидии" line (2025); EU-funded
+//     CAP payments run through the EU-funds budget (not a national lever) and
+//     the БДЖ/НКЖИ/Пощи TRANSPORT subsidies sit in the separate SOE lever.
+export const SOCIAL_BENEFITS_BASE_EUR = 4_000_000_000;
+export const INTEREST_BASE_EUR = 710_000_000;
+export const SUBSIDIES_BASE_EUR = 970_000_000;
+
+/** Δ spending from a `pctChange` move (+10 = +10%) on a spending base: a pure
+ *  proportional change (transfers/interest carry no labour-tax feedback). The
+ *  caller negates it into the balance (more spending = the balance worsens). */
+export const scoreSpendingChange = (
+  baseEur: number,
+  pctChange: number,
+): number => baseEur * (pctChange / 100);
+
+/** The three spending-expansion lever bases, resolved once: prefer the live
+ *  КФП-derived figures in policy_baseline.json `expenditure`, fall back to the
+ *  curated constants above. Shared by the UI, the AI tool and the parity tests
+ *  so the base a tooltip advertises is the base the engine actually uses.
+ *  Structurally typed to avoid coupling the engine to the baseline file type. */
+export const resolveSpendingBases = (
+  exp:
+    | {
+        socialBenefits?: { baseEur: number };
+        interest?: { baseEur: number };
+        subsidies?: { baseEur: number };
+      }
+    | null
+    | undefined,
+): { social: number; interest: number; subsidies: number } => ({
+  social: exp?.socialBenefits?.baseEur ?? SOCIAL_BENEFITS_BASE_EUR,
+  interest: exp?.interest?.baseEur ?? INTEREST_BASE_EUR,
+  subsidies: exp?.subsidies?.baseEur ?? SUBSIDIES_BASE_EUR,
+});

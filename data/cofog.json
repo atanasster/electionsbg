@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-05-23T21:44:29.281Z",
+  "fetchedAt": "2026-06-25T08:48:56.015Z",
   "source": {
     "name": "Eurostat",
     "dataset": "gov_10a_exp",
@@ -8,7 +8,7 @@
     "sector": "S13",
     "filters": {
       "freq": "A",
-      "unit": "MIO_NAC (converted to EUR at 1 EUR = 1.95583 BGN)",
+      "unit": "MIO_NAC (already EUR — BG re-denominated post-changeover; no /1.95583)",
       "sector": "S13",
       "na_item": "TE",
       "geo": "BG"
@@ -67,683 +67,683 @@
     "GF01": [
       {
         "year": 2010,
-        "valueEur": 739992739.655287
+        "valueEur": 1447300000
       },
       {
         "year": 2011,
-        "valueEur": 831616244.7656493
+        "valueEur": 1626500000
       },
       {
         "year": 2012,
-        "valueEur": 740504031.5364833
+        "valueEur": 1448300000
       },
       {
         "year": 2013,
-        "valueEur": 790303860.7649949
+        "valueEur": 1545700000
       },
       {
         "year": 2014,
-        "valueEur": 862396016.0136617
+        "valueEur": 1686700000
       },
       {
         "year": 2015,
-        "valueEur": 896652572.0538083
+        "valueEur": 1753700000
       },
       {
         "year": 2016,
-        "valueEur": 903452754.0737181
+        "valueEur": 1767000000
       },
       {
         "year": 2017,
-        "valueEur": 865770542.4295567
+        "valueEur": 1693300000
       },
       {
         "year": 2018,
-        "valueEur": 1052187562.313698
+        "valueEur": 2057900000
       },
       {
         "year": 2019,
-        "valueEur": 1124177459.1861255
+        "valueEur": 2198700000
       },
       {
         "year": 2020,
-        "valueEur": 1167892915.0284023
+        "valueEur": 2284200000
       },
       {
         "year": 2021,
-        "valueEur": 1806138570.3256419
+        "valueEur": 3532500000
       },
       {
         "year": 2022,
-        "valueEur": 1616551540.778084
+        "valueEur": 3161700000
       },
       {
         "year": 2023,
-        "valueEur": 1548651978.9552262
+        "valueEur": 3028900000
       },
       {
         "year": 2024,
-        "valueEur": 1572375922.2427306
+        "valueEur": 3075300000
       }
     ],
     "GF02": [
       {
         "year": 2010,
-        "valueEur": 327738095.84677607
+        "valueEur": 641000000
       },
       {
         "year": 2011,
-        "valueEur": 242965901.94444302
+        "valueEur": 475200000
       },
       {
         "year": 2012,
-        "valueEur": 223996973.1520633
+        "valueEur": 438100000
       },
       {
         "year": 2013,
-        "valueEur": 258355787.5684492
+        "valueEur": 505300000
       },
       {
         "year": 2014,
-        "valueEur": 286527970.22236085
+        "valueEur": 560400000
       },
       {
         "year": 2015,
-        "valueEur": 305445769.82662094
+        "valueEur": 597400000
       },
       {
         "year": 2016,
-        "valueEur": 276966812.04399157
+        "valueEur": 541700000
       },
       {
         "year": 2017,
-        "valueEur": 288419750.1827868
+        "valueEur": 564100000
       },
       {
         "year": 2018,
-        "valueEur": 332288593.5894224
+        "valueEur": 649900000
       },
       {
         "year": 2019,
-        "valueEur": 373140814.89700025
+        "valueEur": 729800000
       },
       {
         "year": 2020,
-        "valueEur": 467678683.73018104
+        "valueEur": 914700000
       },
       {
         "year": 2021,
-        "valueEur": 530516455.92919624
+        "valueEur": 1037599999.9999999
       },
       {
         "year": 2022,
-        "valueEur": 667696067.6541418
+        "valueEur": 1305900000
       },
       {
         "year": 2023,
-        "valueEur": 731607552.8036691
+        "valueEur": 1430900000
       },
       {
         "year": 2024,
-        "valueEur": 687431934.2683158
+        "valueEur": 1344500000
       }
     ],
     "GF03": [
       {
         "year": 2010,
-        "valueEur": 489459717.86913997
+        "valueEur": 957300000
       },
       {
         "year": 2011,
-        "valueEur": 495441832.8791357
+        "valueEur": 969000000
       },
       {
         "year": 2012,
-        "valueEur": 479233880.2452156
+        "valueEur": 937300000
       },
       {
         "year": 2013,
-        "valueEur": 562472198.50396
+        "valueEur": 1100100000
       },
       {
         "year": 2014,
-        "valueEur": 617487204.920673
+        "valueEur": 1207700000
       },
       {
         "year": 2015,
-        "valueEur": 654146832.802442
+        "valueEur": 1279400000
       },
       {
         "year": 2016,
-        "valueEur": 569272380.5238696
+        "valueEur": 1113400000
       },
       {
         "year": 2017,
-        "valueEur": 663094440.7233758
+        "valueEur": 1296900000
       },
       {
         "year": 2018,
-        "valueEur": 704560212.2883891
+        "valueEur": 1378000000
       },
       {
         "year": 2019,
-        "valueEur": 834939641.9934248
+        "valueEur": 1633000000
       },
       {
         "year": 2020,
-        "valueEur": 855237929.6769147
+        "valueEur": 1672700000
       },
       {
         "year": 2021,
-        "valueEur": 1016857293.3230393
+        "valueEur": 1988800000
       },
       {
         "year": 2022,
-        "valueEur": 1134965717.879366
+        "valueEur": 2219800000
       },
       {
         "year": 2023,
-        "valueEur": 1274701789.0102923
+        "valueEur": 2493100000
       },
       {
         "year": 2024,
-        "valueEur": 1490211316.9344983
+        "valueEur": 2914600000
       }
     ],
     "GF04": [
       {
         "year": 2010,
-        "valueEur": 978817177.3620406
+        "valueEur": 1914400000
       },
       {
         "year": 2011,
-        "valueEur": 910252936.0936278
+        "valueEur": 1780300000
       },
       {
         "year": 2012,
-        "valueEur": 1129136990.433729
+        "valueEur": 2208400000
       },
       {
         "year": 2013,
-        "valueEur": 1196065097.682314
+        "valueEur": 2339300000
       },
       {
         "year": 2014,
-        "valueEur": 1873884744.5841408
+        "valueEur": 3665000000
       },
       {
         "year": 2015,
-        "valueEur": 1442558913.6070108
+        "valueEur": 2821400000
       },
       {
         "year": 2016,
-        "valueEur": 948088535.302148
+        "valueEur": 1854300000
       },
       {
         "year": 2017,
-        "valueEur": 1111855324.8492968
+        "valueEur": 2174600000
       },
       {
         "year": 2018,
-        "valueEur": 1921332631.15915
+        "valueEur": 3757800000
       },
       {
         "year": 2019,
-        "valueEur": 2029828768.3489873
+        "valueEur": 3970000000
       },
       {
         "year": 2020,
-        "valueEur": 2676970902.379041
+        "valueEur": 5235700000
       },
       {
         "year": 2021,
-        "valueEur": 2401435707.602399
+        "valueEur": 4696800000
       },
       {
         "year": 2022,
-        "valueEur": 3766278255.267585
+        "valueEur": 7366200000
       },
       {
         "year": 2023,
-        "valueEur": 2783677517.984692
+        "valueEur": 5444400000
       },
       {
         "year": 2024,
-        "valueEur": 3121897097.3959904
+        "valueEur": 6105900000
       }
     ],
     "GF05": [
       {
         "year": 2010,
-        "valueEur": 130174912.95255722
+        "valueEur": 254600000
       },
       {
         "year": 2011,
-        "valueEur": 145206894.25972605
+        "valueEur": 284000000
       },
       {
         "year": 2012,
-        "valueEur": 147865612.04194638
+        "valueEur": 289200000
       },
       {
         "year": 2013,
-        "valueEur": 202522714.14182213
+        "valueEur": 396100000
       },
       {
         "year": 2014,
-        "valueEur": 150933363.3291237
+        "valueEur": 295200000
       },
       {
         "year": 2015,
-        "valueEur": 182122168.08209303
+        "valueEur": 356200000
       },
       {
         "year": 2016,
-        "valueEur": 164533727.3689431
+        "valueEur": 321800000
       },
       {
         "year": 2017,
-        "valueEur": 179923612.99294928
+        "valueEur": 351900000
       },
       {
         "year": 2018,
-        "valueEur": 200988838.4982335
+        "valueEur": 393100000
       },
       {
         "year": 2019,
-        "valueEur": 211981613.94395217
+        "valueEur": 414600000
       },
       {
         "year": 2020,
-        "valueEur": 218628408.39950302
+        "valueEur": 427600000
       },
       {
         "year": 2021,
-        "valueEur": 279727788.2024511
+        "valueEur": 547100000
       },
       {
         "year": 2022,
-        "valueEur": 326408736.9556659
+        "valueEur": 638400000
       },
       {
         "year": 2023,
-        "valueEur": 284073769.19261897
+        "valueEur": 555600000
       },
       {
         "year": 2024,
-        "valueEur": 327124545.58934057
+        "valueEur": 639800000
       }
     ],
     "GF06": [
       {
         "year": 2010,
-        "valueEur": 186059115.5673039
+        "valueEur": 363900000
       },
       {
         "year": 2011,
-        "valueEur": 237495078.8156435
+        "valueEur": 464500000
       },
       {
         "year": 2012,
-        "valueEur": 205692723.8052387
+        "valueEur": 402300000
       },
       {
         "year": 2013,
-        "valueEur": 282437635.1727911
+        "valueEur": 552400000
       },
       {
         "year": 2014,
-        "valueEur": 359080288.1641042
+        "valueEur": 702300000
       },
       {
         "year": 2015,
-        "valueEur": 493141019.41375273
+        "valueEur": 964500000
       },
       {
         "year": 2016,
-        "valueEur": 472331439.8490666
+        "valueEur": 923800000
       },
       {
         "year": 2017,
-        "valueEur": 415526911.84816676
+        "valueEur": 812700000
       },
       {
         "year": 2018,
-        "valueEur": 303349473.1137164
+        "valueEur": 593300000
       },
       {
         "year": 2019,
-        "valueEur": 382855360.6397284
+        "valueEur": 748800000
       },
       {
         "year": 2020,
-        "valueEur": 238006370.69683972
+        "valueEur": 465500000
       },
       {
         "year": 2021,
-        "valueEur": 348189771.0946248
+        "valueEur": 681000000
       },
       {
         "year": 2022,
-        "valueEur": 391700710.18442297
+        "valueEur": 766100000
       },
       {
         "year": 2023,
-        "valueEur": 513950598.97843885
+        "valueEur": 1005200000
       },
       {
         "year": 2024,
-        "valueEur": 545548437.2363651
+        "valueEur": 1067000000
       }
     ],
     "GF07": [
       {
         "year": 2010,
-        "valueEur": 863009566.2710972
+        "valueEur": 1687900000
       },
       {
         "year": 2011,
-        "valueEur": 876354284.3703185
+        "valueEur": 1714000000
       },
       {
         "year": 2012,
-        "valueEur": 940419157.0842047
+        "valueEur": 1839300000
       },
       {
         "year": 2013,
-        "valueEur": 970994411.5797385
+        "valueEur": 1899100000
       },
       {
         "year": 2014,
-        "valueEur": 1199235107.3457305
+        "valueEur": 2345500000
       },
       {
         "year": 2015,
-        "valueEur": 1242388142.1186912
+        "valueEur": 2429900000
       },
       {
         "year": 2016,
-        "valueEur": 1234411988.7720304
+        "valueEur": 2414300000
       },
       {
         "year": 2017,
-        "valueEur": 1302464938.159247
+        "valueEur": 2547400000
       },
       {
         "year": 2018,
-        "valueEur": 1424408051.8245451
+        "valueEur": 2785900000
       },
       {
         "year": 2019,
-        "valueEur": 1454881047.9438398
+        "valueEur": 2845500000
       },
       {
         "year": 2020,
-        "valueEur": 1840650772.3063865
+        "valueEur": 3600000000
       },
       {
         "year": 2021,
-        "valueEur": 2132291661.3407094
+        "valueEur": 4170399999.9999995
       },
       {
         "year": 2022,
-        "valueEur": 2438964531.6822014
+        "valueEur": 4770200000
       },
       {
         "year": 2023,
-        "valueEur": 2606617139.5264416
+        "valueEur": 5098100000
       },
       {
         "year": 2024,
-        "valueEur": 2872642305.312834
+        "valueEur": 5618400000
       }
     ],
     "GF08": [
       {
         "year": 2010,
-        "valueEur": 139378166.81408915
+        "valueEur": 272600000
       },
       {
         "year": 2011,
-        "valueEur": 138151066.29921824
+        "valueEur": 270200000
       },
       {
         "year": 2012,
-        "valueEur": 162437430.6560386
+        "valueEur": 317700000
       },
       {
         "year": 2013,
-        "valueEur": 163255497.66595256
+        "valueEur": 319300000
       },
       {
         "year": 2014,
-        "valueEur": 323443244.0447278
+        "valueEur": 632600000
       },
       {
         "year": 2015,
-        "valueEur": 281772955.72723603
+        "valueEur": 551100000
       },
       {
         "year": 2016,
-        "valueEur": 183809431.29004055
+        "valueEur": 359500000
       },
       {
         "year": 2017,
-        "valueEur": 273490027.2518573
+        "valueEur": 534900000
       },
       {
         "year": 2018,
-        "valueEur": 230950542.73633188
+        "valueEur": 451700000
       },
       {
         "year": 2019,
-        "valueEur": 211214676.12215787
+        "valueEur": 413100000
       },
       {
         "year": 2020,
-        "valueEur": 268530496.004254
+        "valueEur": 525200000.00000006
       },
       {
         "year": 2021,
-        "valueEur": 338577483.7281359
+        "valueEur": 662200000
       },
       {
         "year": 2022,
-        "valueEur": 273080993.7469003
+        "valueEur": 534100000
       },
       {
         "year": 2023,
-        "valueEur": 357239637.39179784
+        "valueEur": 698700000
       },
       {
         "year": 2024,
-        "valueEur": 381935035.2535752
+        "valueEur": 747000000
       }
     ],
     "GF09": [
       {
         "year": 2010,
-        "valueEur": 699345035.1001877
+        "valueEur": 1367800000
       },
       {
         "year": 2011,
-        "valueEur": 695919379.496173
+        "valueEur": 1361100000
       },
       {
         "year": 2012,
-        "valueEur": 714990566.664792
+        "valueEur": 1398400000
       },
       {
         "year": 2013,
-        "valueEur": 792349028.2897798
+        "valueEur": 1549700000
       },
       {
         "year": 2014,
-        "valueEur": 895374342.3508178
+        "valueEur": 1751200000
       },
       {
         "year": 2015,
-        "valueEur": 916337309.4798628
+        "valueEur": 1792200000
       },
       {
         "year": 2016,
-        "valueEur": 846290321.7559808
+        "valueEur": 1655200000
       },
       {
         "year": 2017,
-        "valueEur": 947372726.6684732
+        "valueEur": 1852900000
       },
       {
         "year": 2018,
-        "valueEur": 1013227120.9665462
+        "valueEur": 1981700000
       },
       {
         "year": 2019,
-        "valueEur": 1197547844.137783
+        "valueEur": 2342200000
       },
       {
         "year": 2020,
-        "valueEur": 1236508285.4849348
+        "valueEur": 2418400000
       },
       {
         "year": 2021,
-        "valueEur": 1585107090.0845165
+        "valueEur": 3100200000
       },
       {
         "year": 2022,
-        "valueEur": 1726274778.4827924
+        "valueEur": 3376300000
       },
       {
         "year": 2023,
-        "valueEur": 1998282059.2791808
+        "valueEur": 3908300000
       },
       {
         "year": 2024,
-        "valueEur": 2277805330.729153
+        "valueEur": 4455000000
       }
     ],
     "GF10": [
       {
         "year": 2010,
-        "valueEur": 2517345577.0695815
+        "valueEur": 4923500000
       },
       {
         "year": 2011,
-        "valueEur": 2573434296.4368067
+        "valueEur": 5033200000
       },
       {
         "year": 2012,
-        "valueEur": 2656979389.824269
+        "valueEur": 5196600000
       },
       {
         "year": 2013,
-        "valueEur": 2900047550.1449513
+        "valueEur": 5672000000
       },
       {
         "year": 2014,
-        "valueEur": 2928782153.868179
+        "valueEur": 5728200000
       },
       {
         "year": 2015,
-        "valueEur": 3041726530.424423
+        "valueEur": 5949100000
       },
       {
         "year": 2016,
-        "valueEur": 3068313708.246627
+        "valueEur": 6001100000
       },
       {
         "year": 2017,
-        "valueEur": 3290930193.3194604
+        "valueEur": 6436500000
       },
       {
         "year": 2018,
-        "valueEur": 3436137087.5791864
+        "valueEur": 6720500000
       },
       {
         "year": 2019,
-        "valueEur": 3603431791.106589
+        "valueEur": 7047700000
       },
       {
         "year": 2020,
-        "valueEur": 4116666581.451353
+        "valueEur": 8051500000
       },
       {
         "year": 2021,
-        "valueEur": 4708538063.124096
+        "valueEur": 9209100000
       },
       {
         "year": 2022,
-        "valueEur": 5830261321.280479
+        "valueEur": 11403000000
       },
       {
         "year": 2023,
-        "valueEur": 6677932131.11569
+        "valueEur": 13060900000
       },
       {
         "year": 2024,
-        "valueEur": 7716365941.82521
+        "valueEur": 15091900000
       }
     ],
     "TOTAL": [
       {
         "year": 2010,
-        "valueEur": 7071320104.50806
+        "valueEur": 13830300000
       },
       {
         "year": 2011,
-        "valueEur": 7146786786.172623
+        "valueEur": 13977900000
       },
       {
         "year": 2012,
-        "valueEur": 7401205626.25586
+        "valueEur": 14475500000
       },
       {
         "year": 2013,
-        "valueEur": 8118803781.514753
+        "valueEur": 15879000000
       },
       {
         "year": 2014,
-        "valueEur": 9497144434.84352
+        "valueEur": 18574800000
       },
       {
         "year": 2015,
-        "valueEur": 9456292213.535942
+        "valueEur": 18494900000
       },
       {
         "year": 2016,
-        "valueEur": 8667471099.226414
+        "valueEur": 16952099999.999998
       },
       {
         "year": 2017,
-        "valueEur": 9338950726.801409
+        "valueEur": 18265400000
       },
       {
         "year": 2018,
-        "valueEur": 10619532372.445457
+        "valueEur": 20770000000
       },
       {
         "year": 2019,
-        "valueEur": 11424050147.507708
+        "valueEur": 22343500000
       },
       {
         "year": 2020,
-        "valueEur": 13086771345.15781
+        "valueEur": 25595500000
       },
       {
         "year": 2021,
-        "valueEur": 15147328755.56669
+        "valueEur": 29625600000
       },
       {
         "year": 2022,
-        "valueEur": 18172131524.72352
+        "valueEur": 35541600000
       },
       {
         "year": 2023,
-        "valueEur": 18776683045.049927
+        "valueEur": 36724000000
       },
       {
         "year": 2024,
-        "valueEur": 20993440125.164253
+        "valueEur": 41059600000
       }
     ]
   },

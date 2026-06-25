@@ -4,13 +4,15 @@
  * budget functional-classification tile on /budget.
  *
  * COFOG-99 has ten top-level functions (GF01..GF10) covering everything from
- * Defence to Social protection. We pull annual MIO_NAC (national-currency
- * millions = BGN historically) and convert to euros at the locked parity
- * 1 EUR = 1.95583 BGN — same convention as the rest of the budget pillar.
+ * Defence to Social protection. We pull annual MIO_NAC millions.
  *
- * Eurostat publishes a parallel MIO_EUR series for BG that uses the same
- * numeric values as MIO_NAC (Eurostat treats BG as if BGN ≡ EUR pre-changeover,
- * which is wrong). Hence MIO_NAC + manual conversion, not MIO_EUR.
+ * UNIT HAZARD (fixed 2026-06): post-euro-changeover Eurostat RE-DENOMINATED BG's
+ * whole gov_10a_exp series to EUR and now serves identical values under MIO_NAC
+ * and MIO_EUR (verified against the live API: BG TOTAL 2024 = 41,059.6 under
+ * both = €41.06B ≈ 40% of GDP — the correct figure). So the value is ALREADY in
+ * euros — do NOT divide by 1.95583. An earlier ÷1.95583 here halved every BG
+ * figure (e.g. social protection read €7.7B, below the €11.1B pension mass
+ * alone). See [[reference-nsi-regional-access]] on the BG MNAC unit hazard.
  *
  * Usage:
  *   tsx scripts/macro/fetch_cofog.ts
@@ -19,8 +21,6 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-
-import { toEur } from "../../src/lib/currency";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -394,10 +394,10 @@ const main = async (): Promise<void> => {
 
   for (const r of rows) {
     if (!(COFOG_TOP_LEVEL as readonly string[]).includes(r.cofog)) continue;
-    // Eurostat reports millions of national currency. Convert to euros (units,
-    // not millions) at the locked parity; the tile rescales for display.
-    const eur = toEur(r.value * 1_000_000, "BGN");
-    if (eur == null) continue;
+    // Eurostat already serves BG in euros (re-denominated post-changeover; see
+    // header) — the value is millions of EUR, so scale to units, do NOT convert.
+    const eur = r.value * 1_000_000;
+    if (!Number.isFinite(eur)) continue;
     series[r.cofog as CofogCode].push({ year: r.year, valueEur: eur });
   }
   for (const c of COFOG_TOP_LEVEL) {
@@ -477,7 +477,7 @@ const main = async (): Promise<void> => {
       sector: "S13",
       filters: {
         freq: "A",
-        unit: "MIO_NAC (converted to EUR at 1 EUR = 1.95583 BGN)",
+        unit: "MIO_NAC (already EUR — BG re-denominated post-changeover; no /1.95583)",
         sector: "S13",
         na_item: "TE",
         geo: "BG",
