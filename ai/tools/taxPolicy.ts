@@ -56,7 +56,9 @@ import {
   scoreDividend,
   scoreExcise,
   scoreGamblingGgr,
-  scoreRoadCharges,
+  scoreRoadComponentUplift,
+  scoreSoeSubsidyCut,
+  SOE_SUBSIDY_BASE_EUR,
   scoreHealthContribution,
   scoreMaternityMonths,
   scoreMinWageFreeze,
@@ -195,7 +197,12 @@ export type TaxChange =
   | { kind: "exciseAlcohol"; pct: number } // % change to the alcohol excise rate
   | { kind: "wineExcise"; rateEurPerHl: number } // introduce a wine excise, €/hl
   | { kind: "gamblingGgr"; ratePct: number } // ЗХ GGR fee → X% (current 25%)
-  | { kind: "roadCharges"; pct: number }; // винетки+тол tariff uplift +X%
+  | {
+      kind: "roadCharges";
+      pct: number;
+      component: "vignette" | "toll" | "both";
+    } // винетки/тол uplift
+  | { kind: "soeCut"; sharePct: number }; // субсидии за ДП (БДЖ/НКЖИ/Пощи) −X%
 
 const has = (q: string, ...words: string[]): boolean =>
   words.some((w) => q.includes(w));
@@ -902,10 +909,49 @@ export const detectTaxChange = (question: string): TaxChange | undefined => {
   // ("намаляване на винетките") is not representable and a bare "колко струва
   // винетката" (no %) carries no target — both fall through to the price/info
   // tools rather than degenerating to a +0% no-op.
-  if (has(q, ...ROAD_WORDS) || hasToken(q, "тол", "toll")) {
+  const hasVignWord = has(q, "винетк", "vignette");
+  const hasTollWord = hasToken(q, "тол", "toll") || has(q, "тол такс");
+  if (has(q, ...ROAD_WORDS) || hasTollWord) {
     const rPct = parseSignedPct(q);
-    if (rPct !== undefined && rPct > 0)
-      return { kind: "roadCharges", pct: clamp(rPct, 0, ROAD_MAX) };
+    if (rPct !== undefined && rPct > 0) {
+      // "винетките с 30%" → vignette slice; "тол с 20%" → тол slice; a generic
+      // "пътните такси +30%" (or both words) → both slices.
+      const component: "vignette" | "toll" | "both" =
+        hasVignWord && !hasTollWord
+          ? "vignette"
+          : hasTollWord && !hasVignWord
+            ? "toll"
+            : "both";
+      return { kind: "roadCharges", pct: clamp(rPct, 0, ROAD_MAX), component };
+    }
+  }
+
+  // 1g-bis. SOE-subsidy cut — субсидиите за държавните предприятия (БДЖ/НКЖИ/
+  // Пощи). Subsidy word + an SOE actor + a cut cue + an explicit %: "срязване
+  // на субсидиите за БДЖ с 50%", "cut SOE subsidies by 40%". Distinct from the
+  // party subsidy (which demands a per-vote context).
+  const soeActor = has(
+    q,
+    "бдж",
+    "нкжи",
+    "български пощи",
+    "пощи",
+    "държавни предприятия",
+    "държавните предприятия",
+    "държавно предприятие",
+    "state enterprise",
+    "state-owned",
+    "soe",
+  );
+  // "срязва/среже/срез" (slash) is a natural BG verb for cutting subsidies that
+  // the админ-cut set doesn't carry — fold it in here.
+  const soeCutCue =
+    has(q, ...ADMIN_CUT_CUES) || has(q, "сряз", "среж", "срез", "slash");
+  if (has(q, ...SUBSIDY_WORDS) && soeActor && soeCutCue) {
+    const share =
+      pct ?? (bare !== undefined && bare > 0 && bare <= 100 ? bare : undefined);
+    if (share !== undefined && share > 0)
+      return { kind: "soeCut", sharePct: clamp(share, 0, 100) };
   }
 
   // 2. VAT on a category — needs the VAT word + a category word, plus a
@@ -1043,8 +1089,11 @@ interface ScenarioParams {
   wine: number;
   // Gambling ЗХ GGR fee, integer % LEVEL (GAMBLING_DEF = 25 = current law).
   gambling: number;
-  // Road charges (винетки+тол), integer % uplift (0 = no change).
-  road: number;
+  // Road charges (винетки/тол), integer % uplift per component (0 = no change).
+  vign: number;
+  toll: number;
+  // SOE-subsidy cut (БДЖ/НКЖИ/Пощи), % of the envelope (0 = no change).
+  soe: number;
 }
 
 const paramsFor = (change: TaxChange, currentCap: number): ScenarioParams => {
@@ -1078,7 +1127,9 @@ const paramsFor = (change: TaxChange, currentCap: number): ScenarioParams => {
     exAlcohol: 0,
     wine: 0,
     gambling: GAMBLING_DEF,
-    road: 0,
+    vign: 0,
+    toll: 0,
+    soe: 0,
   };
   // Clamp to the simulator's own URL-param bounds (clampIntParam calls in
   // BudgetPolicySimulator.tsx) so the chat number equals what the deep link
@@ -1170,8 +1221,14 @@ const paramsFor = (change: TaxChange, currentCap: number): ScenarioParams => {
     case "gamblingGgr":
       p.gambling = clamp(change.ratePct, 0, GAMBLING_MAX);
       break;
-    case "roadCharges":
-      p.road = clamp(change.pct, 0, ROAD_MAX);
+    case "roadCharges": {
+      const v = clamp(change.pct, 0, ROAD_MAX);
+      if (change.component !== "toll") p.vign = v;
+      if (change.component !== "vignette") p.toll = v;
+      break;
+    }
+    case "soeCut":
+      p.soe = clamp(change.sharePct, 0, 100);
       break;
   }
   return p;
@@ -1254,7 +1311,9 @@ export const scoreScenario = (
     exAlcohol,
     wine,
     gambling,
-    road,
+    vign,
+    toll,
+    soe,
   } = paramsFor(change, currentCap);
 
   const slices = baseline.vat.slices as VatBaseSlice[];
@@ -1317,7 +1376,9 @@ export const scoreScenario = (
 
   // Road charges (винетки+тол) — uniform tariff uplift on the combined АПИ
   // base; heavy-vehicle cross-border diversion is the Tier-1 behavioral piece.
-  const roadChargesDelta = road !== 0 ? scoreRoadCharges(road / 100) : 0;
+  const roadChargesDelta =
+    (vign !== 0 ? scoreRoadComponentUplift("vignette", vign / 100) : 0) +
+    (toll !== 0 ? scoreRoadComponentUplift("toll", toll / 100) : 0);
 
   const targetCap = noCap ? Infinity : mod;
   const modBands = scoreModCapBands(
@@ -1422,6 +1483,12 @@ export const scoreScenario = (
   const mpfDeltaSpend =
     exp && mpf ? scoreMpPayFreeze(exp.pensions.wageGrowthPct) : 0;
   const psubDeltaSpend = psub !== PSUB_DEF ? scorePartySubsidy(psub / 100) : 0;
+  // SOE-subsidy cut: face-value reduction of the envelope (a spending cut →
+  // negative spend delta). Mirrors BudgetPolicySimulator's soeDeltaSpend.
+  const soeDeltaSpend =
+    exp && soe > 0
+      ? -scoreSoeSubsidyCut((soe / 100) * SOE_SUBSIDY_BASE_EUR, 1)
+      : 0;
   const expenditureBalance =
     -(
       pensionDeltaSpend +
@@ -1434,7 +1501,8 @@ export const scoreScenario = (
       tpDeltaSpend +
       matDeltaSpend +
       mpfDeltaSpend +
-      psubDeltaSpend
+      psubDeltaSpend +
+      soeDeltaSpend
     ) +
     mwDelta +
     hpDelta;
@@ -1575,7 +1643,9 @@ export const scoreDynamicScenario = (
       exciseTobaccoRateChange: p.exTobacco / 100,
       exciseAlcoholRateChange: p.exAlcohol / 100,
       gamblingNewRate: p.gambling / 100,
-      roadChargesRateChange: p.road / 100,
+      // The Tier-1 road offset runs on the тол slice only (vignettes inelastic),
+      // so pass the тол uplift fraction — a vignette-only change → no haircut.
+      roadChargesRateChange: p.toll / 100,
     },
   );
   const dyn = computeDynamicScenario(input, drawsFor(baseline.modIdentity));
@@ -1752,10 +1822,27 @@ const changeLabel = (
         ? `данък върху хазарта (такса върху GGR) ${p.gambling}% (сега ${GAMBLING_DEF}%)`
         : `gambling tax (GGR fee) ${p.gambling}% (now ${GAMBLING_DEF}%)`;
     case "roadCharges": {
-      const v = `${p.road > 0 ? "+" : ""}${p.road}%`;
+      const pct = p.vign || p.toll;
+      const v = `${pct > 0 ? "+" : ""}${pct}%`;
+      const what =
+        change.component === "vignette"
+          ? bg
+            ? "е-винетки"
+            : "e-vignettes"
+          : change.component === "toll"
+            ? bg
+              ? "тол такси"
+              : "toll"
+            : bg
+              ? "пътни такси (винетки + тол)"
+              : "road charges (vignettes + toll)";
+      return `${what} ${v}`;
+    }
+    case "soeCut": {
+      const v = `−${p.soe}%`;
       return bg
-        ? `пътни такси (винетки + тол) ${v}`
-        : `road charges (vignettes + toll) ${v}`;
+        ? `субсидии за ДП (БДЖ/НКЖИ/Пощи) ${v}`
+        : `SOE subsidies (BDZh/NRIC/Post) ${v}`;
     }
   }
 };
@@ -1793,7 +1880,9 @@ const scenarioQuery = (p: ScenarioParams, currentCap: number): string => {
   if (p.exAlcohol !== 0) parts.push(`exca=${p.exAlcohol}`);
   if (p.wine !== 0) parts.push(`winex=${p.wine}`);
   if (p.gambling !== GAMBLING_DEF) parts.push(`haz=${p.gambling}`);
-  if (p.road !== 0) parts.push(`vin=${p.road}`);
+  if (p.vign !== 0) parts.push(`vign=${p.vign}`);
+  if (p.toll !== 0) parts.push(`tol=${p.toll}`);
+  if (p.soe !== 0) parts.push(`soe=${p.soe}`);
   return parts.join("&");
 };
 
@@ -1879,9 +1968,16 @@ export const simulateTaxChange = async (
     change.kind === "teachersPeg" ||
     change.kind === "pensionFloor" ||
     change.kind === "mpPayFreeze" ||
-    change.kind === "partySubsidy"
+    change.kind === "partySubsidy" ||
+    change.kind === "soeCut"
   )
     facts.basis_id = "balance";
+  // SOE-subsidy honesty note: much of the envelope is locked in PSO /
+  // infrastructure contracts, so a deep operating cut isn't really bankable.
+  if (change.kind === "soeCut")
+    facts.note = bg
+      ? "Голяма част от субсидиите за ДП са по дългосрочни договори (обществена услуга/инфраструктура) — реален оперативен срез близо до тавана не е реалистичен."
+      : "Much of the SOE subsidy is locked in multi-year public-service / infrastructure contracts — a deep operating cut near the ceiling isn't realistic.";
   // Maternity honesty note: the dynamic figure already credits the PIT+SSC of
   // mothers returning to work earlier (a recapture on top of the saving).
   if (change.kind === "maternity")

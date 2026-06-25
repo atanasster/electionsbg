@@ -478,6 +478,21 @@ export const EU_LEVER_PRESETS: Record<EuLeverId, EuPresetOption[]> = {
   ],
   exCigarettes: [
     {
+      id: "cig_bg_zads2027",
+      cc: "BG",
+      label: {
+        bg: "ЗАДС календар 2027 — 120 €/1000",
+        en: "ZADS calendar 2027 — €120/1000",
+      },
+      note: {
+        bg: "Ускореният акцизен календар по ЗДБРБ-2026: 234 лв/1000 (≈120 €) от 01.08.2026, +12 лв/год до 2029.",
+        en: "The ЗДБРБ-2026 accelerated excise calendar: BGN 234/1000 (≈€120) from 01.08.2026, +12 BGN/yr to 2029.",
+      },
+      // 120 ≈ cigaretteAcceleratedRateEur() (234 BGN ÷ 1.95583 = 119.64),
+      // rounded to the integer cigarette slider.
+      apply: { exCigarettes: 120 },
+    },
+    {
       id: "cig_ie",
       cc: "IE",
       label: { bg: "Ирландия — 535 €/1000", en: "Ireland — €535/1000" },

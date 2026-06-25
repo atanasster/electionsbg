@@ -233,6 +233,6 @@ export const apiRoadCharges: WatchSource = {
 
   describe(prev: WatchState | null, curr: Fingerprint): string {
     if (!prev) return curr.detail;
-    return `АПИ published FY${curr.meta?.latestYear} road-charge revenue — read the new винетки+тол total off the АПИ press release, convert BGN→EUR (÷1.95583), and refresh ROAD_CHARGES_BASE_EUR in src/lib/bgTaxPolicy.ts; bump API_ROAD_CHARGE_LATEST_YEAR in scripts/watch/sources/fiscal_anchors.ts in the same edit; re-run scripts/budget/__test_engine.ts`;
+    return `АПИ published FY${curr.meta?.latestYear} road-charge revenue — read the new винетки+тол total off the АПИ press release, convert BGN→EUR (÷1.95583), and refresh ROAD_CHARGES_BASE_EUR in src/lib/bgTaxPolicy.ts; bump API_ROAD_CHARGE_LATEST_YEAR in scripts/watch/sources/fiscal_anchors.ts in the same edit. If the release breaks out the винетки-vs-тол split, also re-check ROAD_VIGNETTE_SHARE/ROAD_TOLL_SHARE (currently the 2024 АПИ 144/302-of-459.7 shares) that VIGNETTE_BASE_EUR/TOLL_BASE_EUR derive from. Re-run scripts/budget/__test_engine.ts`;
   },
 };

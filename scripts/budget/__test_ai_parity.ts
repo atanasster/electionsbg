@@ -25,7 +25,9 @@ import {
   scorePartySubsidy,
   scorePensionFloorRaise,
   scorePitSchedule,
-  scoreRoadCharges,
+  scoreRoadComponentUplift,
+  scoreSoeSubsidyCut,
+  SOE_SUBSIDY_BASE_EUR,
   scoreTeachersPeg,
   scoreWageIndexation,
   type PitBracket,
@@ -118,9 +120,22 @@ const cases: {
     golden: scoreDividend(rev.dividendEur, 0.1),
   },
   {
+    // "винетки" → the vignette slice only (≈€53M), not the whole base.
     q: "вдигане на винетките с 30%",
     kind: "roadCharges",
-    golden: scoreRoadCharges(0.3),
+    golden: scoreRoadComponentUplift("vignette", 0.3),
+  },
+  {
+    // "тол" → the тол slice only.
+    q: "вдигане на тол таксите с 20%",
+    kind: "roadCharges",
+    golden: scoreRoadComponentUplift("toll", 0.2),
+  },
+  {
+    // SOE-subsidy cut (balance convention: a cut improves the balance).
+    q: "срязване на субсидиите за БДЖ с 50%",
+    kind: "soeCut",
+    golden: scoreSoeSubsidyCut(0.5 * SOE_SUBSIDY_BASE_EUR, 1),
   },
   {
     q: "съкращаване на администрацията с 10%",
@@ -222,6 +237,46 @@ const roadUp = detectTaxChange("вдигане на винетките с 30%");
 check(
   "road-charge uplift parses to roadCharges",
   !!roadUp && roadUp.kind === "roadCharges",
+);
+
+console.log(
+  "\n=== road split: dynamic offset is per-component (FINDING-001) ===",
+);
+// The Tier-1 diversion offset runs on the тол slice only — a vignette-only
+// change keeps ~all its static € dynamically (just the shared Tier-2 macro
+// feedback), while a тол-only change of equal % loses MORE per € to diversion.
+const vignCh: TaxChange = {
+  kind: "roadCharges",
+  pct: 30,
+  component: "vignette",
+};
+const tollCh: TaxChange = { kind: "roadCharges", pct: 30, component: "toll" };
+const vignSc = scoreScenario(baseline, vignCh);
+const vignDyn = scoreDynamicScenario(baseline, vignCh, vignSc);
+const tollSc = scoreScenario(baseline, tollCh);
+const tollDyn = scoreDynamicScenario(baseline, tollCh, tollSc);
+const vignKeep = vignDyn.headlineEur / vignSc.central; // fraction retained
+const tollKeep = tollDyn.headlineEur / tollSc.central;
+check(
+  `vignette-only keeps ≥80% of static dynamically (no Tier-1 haircut; ${(vignKeep * 100).toFixed(1)}%)`,
+  vignDyn.headlineEur > 0 && vignKeep >= 0.8,
+);
+check(
+  `тол-only retains LESS than vignette (diversion haircut; тол ${(tollKeep * 100).toFixed(1)}% < vignette ${(vignKeep * 100).toFixed(1)}%)`,
+  tollKeep < vignKeep,
+);
+
+console.log("\n=== soeCut graceful degradation (TEST-002) ===");
+// soeDeltaSpend is gated on `exp && soe > 0`; with no expenditure baseline the
+// SOE cut silently contributes €0 (consistent with mpf/psub) — no throw.
+const noExpBaseline = {
+  ...baseline,
+  expenditure: undefined,
+} as unknown as PolicyBaselineFile;
+const soeNoExp = scoreScenario(noExpBaseline, { kind: "soeCut", sharePct: 50 });
+check(
+  "soeCut with no expenditure baseline → €0 (documented degradation)",
+  soeNoExp.central === 0,
 );
 
 if (failures > 0) throw new Error(`${failures} AI-parity test(s) failed`);

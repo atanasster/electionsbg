@@ -64,7 +64,9 @@ import {
   scoreWineExcise,
   scoreGamblingGgr,
   GAMBLING_GGR_FEE_RATE,
-  scoreRoadCharges,
+  scoreRoadComponentUplift,
+  scoreSoeSubsidyCut,
+  SOE_SUBSIDY_BASE_EUR,
   EXCISE_DIESEL_RATE,
   EXCISE_PETROL_RATE,
   EXCISE_CIGARETTE_RATE,
@@ -207,6 +209,14 @@ const ROAD_DEF = 0;
 const ROAD_MAX = 100;
 const ROAD_STEP = 5;
 
+// SOE-subsidy cut — the БДЖ / НКЖИ / Български пощи subsidy envelope (≈€316M,
+// SOE_SUBSIDY_BASE_EUR). The lever is a % cut of that envelope; default 0. A cut
+// near the envelope is not feasible (PSO/infrastructure contracts) — the tooltip
+// carries that caveat, the number stays face-value like the other spending levers.
+const SOE_DEF = 0;
+const SOE_MAX = 100;
+const SOE_STEP = 5;
+
 // Exemplar payslips in the citizen pane: minimum wage, ~average, upper
 // professional, above-cap.
 const EXEMPLAR_GROSS = [620, 1250, 2500, 5000];
@@ -231,8 +241,24 @@ interface PresetApply {
   mat?: number;
   /** Civil servants pay their own contribution share (КСО art. 6(5)). */
   ssp?: boolean;
+  /** МОД cap, €/month (Бюджет-2026: €2,300). */
+  mod?: number;
+  /** Vignette / тол tariff uplift, integer %. */
+  vign?: number;
+  tol?: number;
+  /** SOE-subsidy cut, % of the envelope. */
+  soe?: number;
+  /** Cigarette excise, €/1000 (Бюджет-2026 ЗАДС calendar ≈120). */
+  cigarettes?: number;
 }
 const PRESETS: { id: string; apply: PresetApply }[] = [
+  // The actual ЗДБРБ-2026 levers we can model — one click loads the government's
+  // budget so you can see it, then tweak. (МОД €2,300 + vignette +30% + SOE-subsidy
+  // ~90%-of-envelope cut + the accelerated ЗАДС cigarette rate ≈120 €/1000.)
+  {
+    id: "budget2026",
+    apply: { mod: 2300, vign: 30, soe: 90, cigarettes: 120 },
+  },
   { id: "nm_mrz", apply: { nm: 620 } },
   { id: "progressive", apply: { b2: { t2: 2000, r2: 20 } } },
   { id: "food9", apply: { regimes: { food: "reduced" } } },
@@ -294,8 +320,12 @@ interface LeverState {
   wine: number;
   /** Gambling GGR fee, integer % (25 = current law). */
   gambling: number;
-  /** Road-charge (винетки+тол) tariff uplift, integer % (0 = no change). */
-  roadCharges: number;
+  /** Road-charge tariff uplift, integer %, split by component (0 = no change).
+   *  Vignettes are near-inelastic; тол carries cross-border diversion. */
+  vignettes: number;
+  tolls: number;
+  /** SOE-subsidy cut (БДЖ/НКЖИ/Пощи), % of the envelope (0 = no change). */
+  soe: number;
 }
 
 // THE single static-scoring path. Returns each lever's static EUR delta
@@ -377,10 +407,17 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
   const gamblingDelta =
     s.gambling !== GAMBLING_DEF ? scoreGamblingGgr(s.gambling / 100) : 0;
 
-  // Road charges (е-винетки + тол): uniform tariff uplift on the combined АПИ
-  // base. Heavy-vehicle cross-border diversion is the Tier-1 behavioral piece.
-  const roadChargesDelta =
-    s.roadCharges !== ROAD_DEF ? scoreRoadCharges(s.roadCharges / 100) : 0;
+  // Road charges (е-винетки + тол): each component scales its OWN slice of the
+  // АПИ base — the vignette slice is near-inelastic, the тол slice carries the
+  // heavy-vehicle cross-border diversion. Kept as a combined delta so every
+  // downstream reader (breakdown + Tier-1 behavioral pass) stays single-rail.
+  const vignetteDelta =
+    s.vignettes !== ROAD_DEF
+      ? scoreRoadComponentUplift("vignette", s.vignettes / 100)
+      : 0;
+  const tollDelta =
+    s.tolls !== ROAD_DEF ? scoreRoadComponentUplift("toll", s.tolls / 100) : 0;
+  const roadChargesDelta = vignetteDelta + tollDelta;
 
   // МОД: central from the band model (works in both directions and knows
   // the schedule's base rate for the deduction interaction); the range
@@ -489,6 +526,14 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     exp && s.mpf ? scoreMpPayFreeze(exp.pensions.wageGrowthPct) : 0;
   const psubDeltaSpend =
     s.psub !== PSUB_DEF ? scorePartySubsidy(s.psub / 100) : 0;
+  // SOE-subsidy cut (БДЖ/НКЖИ/Пощи): face-value reduction of the envelope (a
+  // spending cut → negative spend delta). The realism caveat (much is PSO/infra
+  // contracts) lives in the tooltip, not the number — consistent with the other
+  // spending levers. scoreSoeSubsidyCut(.,1) caps the cut at the envelope.
+  const soeDeltaSpend =
+    exp && s.soe > 0
+      ? -scoreSoeSubsidyCut((s.soe / 100) * SOE_SUBSIDY_BASE_EUR, 1)
+      : 0;
   // The non-pension expenditure slice (the Tier-2 spending impulse):
   // pensions ride the projection's fixed path, МРЗ/health are revenue-side.
   const expenditureNonPensionBalance = -(
@@ -501,7 +546,8 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     tpDeltaSpend +
     matDeltaSpend +
     mpfDeltaSpend +
-    psubDeltaSpend
+    psubDeltaSpend +
+    soeDeltaSpend
   );
   const expenditureBalance =
     expenditureNonPensionBalance - pensionDeltaSpend + mwDelta + hpDelta;
@@ -578,6 +624,7 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
     matBalance: -matDeltaSpend,
     mpfBalance: -mpfDeltaSpend,
     psubBalance: -psubDeltaSpend,
+    soeBalance: -soeDeltaSpend,
     central,
     low,
     high,
@@ -628,7 +675,9 @@ const NEUTRAL_LEVERS = (currentCap: number): LeverState => ({
   spirits: SPIRITS_DEF,
   wine: 0,
   gambling: GAMBLING_DEF,
-  roadCharges: ROAD_DEF,
+  vignettes: ROAD_DEF,
+  tolls: ROAD_DEF,
+  soe: SOE_DEF,
 });
 
 // Static central effect of one preset in isolation — the myth-buster weight
@@ -650,6 +699,11 @@ const presetStaticEur = (baseline: Baseline, p: PresetApply): number => {
   if (p.mrzFreeze) s.mrzFreeze = true;
   if (p.mat != null) s.mat = p.mat;
   if (p.ssp) s.ssp = true;
+  if (p.mod != null) s.mod = p.mod;
+  if (p.vign != null) s.vignettes = p.vign;
+  if (p.tol != null) s.tolls = p.tol;
+  if (p.soe != null) s.soe = p.soe;
+  if (p.cigarettes != null) s.cigarettes = p.cigarettes;
   return computeStaticScenario(baseline, s)?.central ?? 0;
 };
 
@@ -1107,7 +1161,9 @@ interface LeverWrite {
   spirits: number;
   wine: number;
   gambling: number;
-  roadCharges: number;
+  vignettes: number;
+  tolls: number;
+  soe: number;
 }
 
 export const BudgetPolicySimulator: FC = () => {
@@ -1173,8 +1229,25 @@ export const BudgetPolicySimulator: FC = () => {
   const [gambling, setGambling] = useState(() =>
     clampIntParam(searchParams.get("haz"), 0, GAMBLING_MAX, GAMBLING_DEF),
   );
-  const [roadCharges, setRoadCharges] = useState(() =>
-    clampIntParam(searchParams.get("vin"), 0, ROAD_MAX, ROAD_DEF),
+  // Legacy combined ?vin= (one uniform road uplift) maps onto BOTH components.
+  // Intentional ~3% drift: the vignette+тол bases sum to ≈0.97 of the old whole
+  // base (the ≈€13.7M permits residual is unmodeled — see ROAD_VIGNETTE_SHARE),
+  // so an old ?vin=30 link now renders ≈€163.6M instead of ≈€168.6M. Accepted —
+  // the granular split is the more accurate model.
+  const legacyVin = clampIntParam(
+    searchParams.get("vin"),
+    0,
+    ROAD_MAX,
+    ROAD_DEF,
+  );
+  const [vignettes, setVignettes] = useState(() =>
+    clampIntParam(searchParams.get("vign"), 0, ROAD_MAX, legacyVin),
+  );
+  const [tolls, setTolls] = useState(() =>
+    clampIntParam(searchParams.get("tol"), 0, ROAD_MAX, legacyVin),
+  );
+  const [soe, setSoe] = useState(() =>
+    clampIntParam(searchParams.get("soe"), 0, SOE_MAX, SOE_DEF),
   );
   const [exciseOpen, setExciseOpen] = useState(
     () =>
@@ -1275,7 +1348,8 @@ export const BudgetPolicySimulator: FC = () => {
       searchParams.get("tp") != null ||
       searchParams.get("mat") != null ||
       searchParams.get("mpf") === "1" ||
-      searchParams.get("psub") != null,
+      searchParams.get("psub") != null ||
+      searchParams.get("soe") != null,
   );
   const [shareCopied, setShareCopied] = useState(false);
   const [sentenceCopied, setSentenceCopied] = useState(false);
@@ -1361,7 +1435,9 @@ export const BudgetPolicySimulator: FC = () => {
     setSpirits(o.spirits ?? SPIRITS_DEF);
     setWine(o.wine ?? 0);
     setGambling(o.gambling ?? GAMBLING_DEF);
-    setRoadCharges(o.roadCharges ?? ROAD_DEF);
+    setVignettes(o.vignettes ?? ROAD_DEF);
+    setTolls(o.tolls ?? ROAD_DEF);
+    setSoe(o.soe ?? SOE_DEF);
   };
 
   // ----- presets -------------------------------------------------------------
@@ -1378,8 +1454,13 @@ export const BudgetPolicySimulator: FC = () => {
       mrzFreeze: !!p.mrzFreeze,
       ssp: !!p.ssp,
       mat: p.mat ?? MATERNITY_Y2_MONTHS,
+      mod: p.mod,
+      vignettes: p.vign,
+      tolls: p.tol,
+      soe: p.soe,
+      cigarettes: p.cigarettes,
     });
-    setExciseOpen(false);
+    setExciseOpen(p.cigarettes != null);
     setVatCatsOpen(!!p.regimes);
     setTaxDetailOpen(p.nm != null || !!p.b2);
     setExpOpen(
@@ -1387,7 +1468,8 @@ export const BudgetPolicySimulator: FC = () => {
         p.adm != null ||
         !!p.mrzFreeze ||
         p.mat != null ||
-        !!p.ssp,
+        !!p.ssp ||
+        p.soe != null,
     );
   };
   const presetIsActive = (p: PresetApply): boolean => {
@@ -1407,7 +1489,7 @@ export const BudgetPolicySimulator: FC = () => {
       corp === CORP_DEF &&
       div === DIV_DEF &&
       noCap === !!p.noCap &&
-      (noCap || mod === currentCap) &&
+      (noCap || mod === (p.mod ?? currentCap)) &&
       pw === (p.pw ?? 50) &&
       !noSupp &&
       ph === 1 &&
@@ -1426,11 +1508,13 @@ export const BudgetPolicySimulator: FC = () => {
       psub === PSUB_DEF &&
       diesel === DIESEL_DEF &&
       petrol === PETROL_DEF &&
-      cigarettes === CIG_DEF &&
+      cigarettes === (p.cigarettes ?? CIG_DEF) &&
       spirits === SPIRITS_DEF &&
       wine === 0 &&
       gambling === GAMBLING_DEF &&
-      roadCharges === ROAD_DEF
+      vignettes === (p.vign ?? ROAD_DEF) &&
+      tolls === (p.tol ?? ROAD_DEF) &&
+      soe === (p.soe ?? SOE_DEF)
     );
   };
 
@@ -1457,7 +1541,9 @@ export const BudgetPolicySimulator: FC = () => {
     if (spirits !== SPIRITS_DEF) next.spir = String(spirits);
     if (wine !== 0) next.winex = String(wine);
     if (gambling !== GAMBLING_DEF) next.haz = String(gambling);
-    if (roadCharges !== ROAD_DEF) next.vin = String(roadCharges);
+    if (vignettes !== ROAD_DEF) next.vign = String(vignettes);
+    if (tolls !== ROAD_DEF) next.tol = String(tolls);
+    if (soe !== SOE_DEF) next.soe = String(soe);
     if (!noCap && mod !== currentCap) next.mod = String(mod);
     if (noCap) next.nocap = "1";
     if (gross !== GROSS_DEF) next.gross = String(gross);
@@ -1498,7 +1584,9 @@ export const BudgetPolicySimulator: FC = () => {
     spirits,
     wine,
     gambling,
-    roadCharges,
+    vignettes,
+    tolls,
+    soe,
     mod,
     noCap,
     gross,
@@ -1718,7 +1806,9 @@ export const BudgetPolicySimulator: FC = () => {
       spirits,
       wine,
       gambling,
-      roadCharges,
+      vignettes,
+      tolls,
+      soe,
     });
   }, [
     baseline,
@@ -1759,7 +1849,9 @@ export const BudgetPolicySimulator: FC = () => {
     spirits,
     wine,
     gambling,
-    roadCharges,
+    vignettes,
+    tolls,
+    soe,
     currentCap,
   ]);
 
@@ -1977,7 +2069,10 @@ export const BudgetPolicySimulator: FC = () => {
         exciseTobaccoRateChange: cigarettes / CIG_DEF - 1,
         exciseAlcoholRateChange: spirits / SPIRITS_DEF - 1,
         gamblingNewRate: gambling / 100,
-        roadChargesRateChange: roadCharges / 100,
+        // The Tier-1 road offset runs on the тол slice only (vignettes are
+        // inelastic), so pass the тол uplift fraction — a vignette-only change
+        // therefore carries no behavioral haircut in the dynamic headline.
+        roadChargesRateChange: tolls / 100,
       },
     );
     return computeDynamicScenario(input, mcDraws);
@@ -1998,7 +2093,7 @@ export const BudgetPolicySimulator: FC = () => {
     cigarettes,
     spirits,
     gambling,
-    roadCharges,
+    tolls,
   ]);
 
   // ----- multi-year balance & debt projection --------------------------------
@@ -2103,6 +2198,25 @@ export const BudgetPolicySimulator: FC = () => {
         }),
       );
     }
+    // Excise (absolute rates) + gambling + road (split) + SOE — these were
+    // previously absent from the sentence; added so a scenario built only from
+    // them (or the Бюджет-2026 preset) reads completely on the share card.
+    if (diesel !== DIESEL_DEF)
+      parts.push(t("budget_policy_frag_diesel", { v: diesel }));
+    if (petrol !== PETROL_DEF)
+      parts.push(t("budget_policy_frag_petrol", { v: petrol }));
+    if (cigarettes !== CIG_DEF)
+      parts.push(t("budget_policy_frag_cig", { v: cigarettes }));
+    if (spirits !== SPIRITS_DEF)
+      parts.push(t("budget_policy_frag_spirits", { v: spirits }));
+    if (wine > 0) parts.push(t("budget_policy_frag_wine", { v: wine }));
+    if (gambling !== GAMBLING_DEF)
+      parts.push(t("budget_policy_frag_gambling", { v: gambling }));
+    if (vignettes !== ROAD_DEF)
+      parts.push(t("budget_policy_frag_vignettes", { v: vignettes }));
+    if (tolls !== ROAD_DEF)
+      parts.push(t("budget_policy_frag_tolls", { v: tolls }));
+    if (soe > 0) parts.push(t("budget_policy_frag_soe", { v: soe }));
     if (!parts.length) return null;
     // The quoted total matches the displayed headline: dynamic central in
     // dynamic mode, static otherwise.
@@ -2152,6 +2266,15 @@ export const BudgetPolicySimulator: FC = () => {
     mat,
     mpf,
     psub,
+    diesel,
+    petrol,
+    cigarettes,
+    spirits,
+    wine,
+    gambling,
+    vignettes,
+    tolls,
+    soe,
     currentCap,
     t,
     lang,
@@ -2269,6 +2392,7 @@ export const BudgetPolicySimulator: FC = () => {
     Math.abs(effMat),
     Math.abs(scenario.mpfBalance),
     Math.abs(scenario.psubBalance),
+    Math.abs(scenario.soeBalance),
     1,
   );
   const pctGdp = (headline / baseline.gdpEur) * 100;
@@ -3018,20 +3142,38 @@ export const BudgetPolicySimulator: FC = () => {
               />
             </div>
 
-            {/* Road charges — е-винетки + тол (uniform tariff uplift) */}
+            {/* Road charges — е-винетки + тол, split so each scales its own
+                base (vignettes near-inelastic; тол cross-border-elastic). */}
             <div className="border-t pt-3">
-              <RateSlider
-                id="policy-road-charges"
-                label={t("budget_policy_road_charges")}
-                tip={t("budget_policy_tip_road_charges")}
-                min={0}
-                max={ROAD_MAX}
-                step={ROAD_STEP}
-                value={roadCharges}
-                defaultValue={ROAD_DEF}
-                onChange={setRoadCharges}
-                formatValue={(v) => (v > 0 ? `+${v}%` : `${v}%`)}
-              />
+              <p className="mb-2 text-xs font-medium text-muted-foreground">
+                {t("budget_policy_road_group")}
+              </p>
+              <div className="space-y-3">
+                <RateSlider
+                  id="policy-vignettes"
+                  label={t("budget_policy_vignettes")}
+                  tip={t("budget_policy_tip_vignettes")}
+                  min={0}
+                  max={ROAD_MAX}
+                  step={ROAD_STEP}
+                  value={vignettes}
+                  defaultValue={ROAD_DEF}
+                  onChange={setVignettes}
+                  formatValue={(v) => (v > 0 ? `+${v}%` : `${v}%`)}
+                />
+                <RateSlider
+                  id="policy-tolls"
+                  label={t("budget_policy_tolls")}
+                  tip={t("budget_policy_tip_tolls")}
+                  min={0}
+                  max={ROAD_MAX}
+                  step={ROAD_STEP}
+                  value={tolls}
+                  defaultValue={ROAD_DEF}
+                  onChange={setTolls}
+                  formatValue={(v) => (v > 0 ? `+${v}%` : `${v}%`)}
+                />
+              </div>
             </div>
 
             {/* Expenditure side — pensions, administration, МРЗ */}
@@ -3321,6 +3463,19 @@ export const BudgetPolicySimulator: FC = () => {
                         ? (v / 100).toFixed(2).replace(".", ",")
                         : (v / 100).toFixed(2)) + " €"
                     }
+                  />
+                  {/* SOE-subsidy cut — БДЖ/НКЖИ/Пощи (% of the ≈€316M envelope) */}
+                  <RateSlider
+                    id="policy-soe"
+                    label={t("budget_policy_soe")}
+                    tip={t("budget_policy_tip_soe")}
+                    min={0}
+                    max={SOE_MAX}
+                    step={SOE_STEP}
+                    value={soe}
+                    defaultValue={SOE_DEF}
+                    onChange={setSoe}
+                    formatValue={(v) => (v > 0 ? `−${v}%` : `${v}%`)}
                   />
                 </div>
               ) : null}
@@ -3703,7 +3858,7 @@ export const BudgetPolicySimulator: FC = () => {
                       sub={staticSub(scenario.gamblingDelta, effGambling)}
                     />
                   ) : null}
-                  {roadCharges !== ROAD_DEF ? (
+                  {vignettes !== ROAD_DEF || tolls !== ROAD_DEF ? (
                     <DeltaRow
                       label={t("budget_policy_row_road_charges")}
                       tip={t("budget_policy_tip_road_charges_row")}
@@ -3855,6 +4010,15 @@ export const BudgetPolicySimulator: FC = () => {
                       label={t("budget_policy_row_psub")}
                       tip={t("budget_policy_tip_psub")}
                       deltaEur={scenario.psubBalance}
+                      maxAbs={maxAbs}
+                      lang={lang}
+                    />
+                  ) : null}
+                  {scenario.soeBalance !== 0 ? (
+                    <DeltaRow
+                      label={t("budget_policy_row_soe")}
+                      tip={t("budget_policy_tip_soe_row")}
+                      deltaEur={scenario.soeBalance}
                       maxAbs={maxAbs}
                       lang={lang}
                     />

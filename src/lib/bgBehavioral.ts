@@ -40,7 +40,7 @@ import {
   MATERNITY_Y2_BENEFIT_EUR_MO,
   GAMBLING_GGR_EUR,
   GAMBLING_GGR_FEE_RATE,
-  ROAD_CHARGES_BASE_EUR,
+  TOLL_BASE_EUR,
   type EarningsBand,
   type ModIdentity,
   type PitBracket,
@@ -767,8 +767,13 @@ export interface DynamicScenarioInput {
   gamblingFeeRevenueEur: number;
   gamblingOldRate: number;
   gamblingNewRate: number;
-  /** Road charges (винетки+тол): combined base + uniform tariff-uplift fraction
-   *  (newRate − 1; 0 = no change). */
+  /** Road charges. `staticRoadChargesDeltaEur` is the COMBINED vignette+тол
+   *  static delta (it feeds the Tier-2 macro impulse). The Tier-1 diversion
+   *  offset, however, runs on the **тол slice only** — `roadChargesRevenueEur`
+   *  = TOLL_BASE_EUR and `roadChargesRateChange` = the тол uplift fraction —
+   *  because car e-vignettes are near-inelastic (you must hold one to drive) and
+   *  shouldn't divert, while heavy-vehicle тол diverts cross-border. A
+   *  vignette-only change therefore carries no Tier-1 haircut. */
   staticRoadChargesDeltaEur: number;
   roadChargesRevenueEur: number;
   roadChargesRateChange: number;
@@ -936,7 +941,8 @@ export const buildDynamicInput = (
     gamblingOldRate: GAMBLING_GGR_FEE_RATE,
     gamblingNewRate: r.gamblingNewRate ?? GAMBLING_GGR_FEE_RATE,
     staticRoadChargesDeltaEur: s.roadChargesDeltaEur ?? 0,
-    roadChargesRevenueEur: ROAD_CHARGES_BASE_EUR,
+    // Tier-1 offset runs on the тол slice only (vignettes are inelastic).
+    roadChargesRevenueEur: TOLL_BASE_EUR,
     roadChargesRateChange: r.roadChargesRateChange ?? 0,
     maternityMonthsCut: s.maternityMonthsCut ?? 0,
     expenditureBalanceNonPensionEur: s.expenditureBalanceNonPensionEur,

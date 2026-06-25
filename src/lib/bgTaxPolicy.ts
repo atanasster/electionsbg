@@ -22,6 +22,7 @@ import {
   VAT_STANDARD_RATE,
   SSC_EMPLOYEE_RATE,
 } from "./bgTax";
+import { BGN_PER_EUR } from "./currency";
 
 export const VAT_REDUCED_RATE = 0.09;
 
@@ -873,6 +874,42 @@ export const scoreExcise = (
   rateChangeFraction: number,
 ): number => exciseRevenueEur * rateChangeFraction;
 
+// ---------------------------------------------------------------------------
+// ЗАДС cigarette excise CALENDAR — total-minimum excise, BGN per 1000 cigarettes.
+// The binding figure for the mass-market price segment (the specific component
+// 134.5→143 BGN and the ad-valorem 20.5%→19% of retail both fold into this
+// floor). Post the May-2025 ЗИД ЗАДС amendment: 210 BGN from 01.05.2025, rising
+// +12 BGN/yr through 2029. Sources: businessnovinite / financialtribune / 24chasa
+// (the 4-yr plan + the May-2025 acceleration); PwC 2026 puts the floor at
+// €113.51/1000 ≈ the 2026 222-BGN level ≈ EXCISE_CIGARETTE_RATE (114, the
+// rounded integer slider default).
+//   2025 210 · 2026 222 · 2027 234 · 2028 246 · 2029 258  (÷ BGN_PER_EUR → €/1000)
+export const CIGARETTE_EXCISE_CALENDAR_BGN: Record<number, number> = {
+  2025: 210,
+  2026: 222,
+  2027: 234,
+  2028: 246,
+  2029: 258,
+};
+
+/** Total-minimum cigarette excise for a calendar `year`, €/1000 (the unit
+ *  EXCISE_CIGARETTE_RATE uses). Falls back to the current slider default for
+ *  years outside the published calendar. */
+export const cigaretteExciseRateEur = (year: number): number => {
+  const bgn = CIGARETTE_EXCISE_CALENDAR_BGN[year];
+  return bgn === undefined ? EXCISE_CIGARETTE_RATE : bgn / BGN_PER_EUR;
+};
+
+/** ЗДБРБ-2026 ACCELERATES the calendar from 01.08.2026 ("намаляват се периодите
+ *  за достигане на нивата на акцизни ставки"). The one-step reading — pull the
+ *  next scheduled +12-BGN level (the 2027 step, 234 BGN ≈ €119.64/1000) forward
+ *  to mid-2026. The exact figure lives in the accompanying ЗИД ЗАДС annex; this
+ *  constant is flagged as that one-step interpretation. */
+export const CIGARETTE_ACCELERATED_2026_BGN =
+  CIGARETTE_EXCISE_CALENDAR_BGN[2027];
+export const cigaretteAcceleratedRateEur = (): number =>
+  CIGARETTE_ACCELERATED_2026_BGN / BGN_PER_EUR;
+
 /** Commercial wine volume that an introduced excise would realistically reach,
  *  hectolitres/year. Total BG wine consumption is ≈1.15M hl (ИАЛВ: 110–120M L,
  *  ~90% domestic; cross-checked vs OIV 114,000 t for 2023). A large home-
@@ -934,12 +971,12 @@ export const scoreGamblingGgr = (newRate: number): number =>
  *  e-vignettes + €302M toll. Paid into the republican budget via НТУ. */
 export const ROAD_CHARGES_BASE_EUR = 562_000_000;
 
-/** Δ revenue of a uniform `pctChange` move in road-charge tariffs (+0.30 =
- *  +30%, the кабинет „Радев" 2026 vignette proposal): base × pctChange — the
- *  same proportional form as `scoreExcise`. The government's vignette-only +30%
- *  (≈€53M) is a SUBSET; this lever scales the whole vignette+toll base.
- *  Demand response / cross-border diversion is layered on in the dynamic
- *  engine. */
+/** Δ revenue of a uniform `pctChange` move on the WHOLE combined road base.
+ *  @deprecated Not on any production path — the UI and the AI chat tool both
+ *  moved to the per-component split (`scoreRoadComponentUplift`). Retained only
+ *  as the combined-base reference and exercised by `__test_engine.ts`; do not
+ *  treat it as live. The government's vignette-only +30% (≈€53M) is a SUBSET of
+ *  what this returns (≈€169M). */
 export const scoreRoadCharges = (pctChange: number): number =>
   ROAD_CHARGES_BASE_EUR * pctChange;
 
@@ -952,9 +989,13 @@ export const scoreRoadCharges = (pctChange: number): number =>
 //
 // Split anchor: АПИ's 2024 outturn of €459.7M decomposed to ≈€144M e-vignettes
 // + €302M тол + ≈€13.7M маршрутни/permits (the figures the ROAD_CHARGES_BASE_EUR
-// comment already cites). Held as shares and re-applied to the 2025 base so the
-// three slices sum back to ROAD_CHARGES_BASE_EUR.
+// comment already cites), held as shares and re-applied to the 2025 base.
 //   vignette 144/459.7 = 0.3133 · тол 302/459.7 = 0.6570 · permits 0.0298
+// NOTE: only the vignette + тол shares are modeled — they DELIBERATELY sum to
+// ~0.97, leaving the ≈€13.7M маршрутни/permits residual UNMODELED. So
+// VIGNETTE_BASE_EUR + TOLL_BASE_EUR < ROAD_CHARGES_BASE_EUR by design, and a
+// legacy `?vin=` uniform uplift can no longer reach the full base (see the
+// migration site in BudgetPolicySimulator.tsx).
 // Cross-check: VIGNETTE_BASE_EUR × 30% ≈ €52.9M, matching the government's
 // €53.3M 2026 effect (which also folds in the residual тол-tariff step) — i.e.
 // the split brings the lever onto the government's own number instead of ~3×.
@@ -1001,3 +1042,41 @@ export const scoreCollectionRealism = (
   assertedEur: number,
   realisation: number = COLLECTION_REALISM_CENTRAL,
 ): number => assertedEur * realisation;
+
+// ---------------------------------------------------------------------------
+// SOE-subsidy "optimisation" lever — БДЖ / НКЖИ / Български пощи.
+// ЗДБРБ-2026 books €285.3M from "optimising the current AND capital subsidies
+// for БДЖ, НКЖИ, Български пощи и други, incl. indexation of capital contracts".
+// Two things make that number soft:
+//   1. It is ~90% of the whole transport-SOE subsidy envelope — an operating-
+//      subsidy cut of that size is not feasible (БДЖ/НКЖИ run public-service /
+//      infrastructure contracts; the 5% subsidy raise earlier in 2026 came
+//      *след протести*), so it cannot be a hard cut of the base.
+//   2. The measure explicitly bundles "avoided indexation of capital contracts"
+//      — a price-escalation the budget declines to pay, NOT a reduction of the
+//      operating subsidy (the same trick as the €564.7M wage mechanism).
+//
+// Envelope anchor (medium confidence, like ROAD/GAMBLING — not a КФП line):
+//   БДЖ-Пътнически ≈ €116M, НКЖИ ≈ €180M, Български пощи ≈ €20M ⇒ ≈ €316M.
+//   Derived from the government's own March-2026 "5% subsidy raise" увеличение
+//   of €5.825M (БДЖ) and €9.0M (НКЖИ) ÷ 0.05 ⇒ the implied bases above
+//   (informiran.net / БТА, 2026-03). The realised in-year saving is the share
+//   of an asserted cut that is genuinely bankable given contractual rigidity.
+//
+// Realisation band (share of an asserted SOE-subsidy cut banked in year 1):
+//   central 0.35 · low 0.15 · high 0.55 — below the collection band because the
+//   base is largely contractually committed and politically protected.
+export const SOE_SUBSIDY_BASE_EUR = 316_000_000;
+export const SOE_SUBSIDY_REALISM_CENTRAL = 0.35;
+export const SOE_SUBSIDY_REALISM_LOW = 0.15;
+export const SOE_SUBSIDY_REALISM_HIGH = 0.55;
+
+/** Bankable portion of an asserted SOE-subsidy cut. The cut is capped at the
+ *  envelope (you cannot cut more subsidy than exists), then haircut by the
+ *  realisation share. The analysis reports `cutEur / SOE_SUBSIDY_BASE_EUR` as
+ *  the implied share of the envelope (a sanity flag) and the shortfall as the
+ *  credibility gap. */
+export const scoreSoeSubsidyCut = (
+  cutEur: number,
+  realisation: number = SOE_SUBSIDY_REALISM_CENTRAL,
+): number => Math.min(cutEur, SOE_SUBSIDY_BASE_EUR) * realisation;

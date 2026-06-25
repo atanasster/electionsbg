@@ -1246,9 +1246,15 @@ const run = async () => {
     // Gambling ЗХ GGR fee (commit ebc14cb16). Level lever; 40% = +€716M×15pp =
     // +€107M static. The screen's headline is the dynamic estimate.
     ["данъкът върху хазарта да стане 40%", 107e6],
-    // Road charges (винетки+тол). % uplift on the combined €562M АПИ base;
-    // +30% = €562M×0.30 = +€169M static. The screen's headline is dynamic.
-    ["вдигане на винетките с 30%", 168.6e6],
+    // Road charges, split. Each slice scales its OWN base (АПИ 2024 split:
+    // ≈€176M vignette + ≈€369M тол). "винетки" → vignette only: +30% =
+    // €176M×0.30 = +€52.8M (matches the gov's ≈€53M, not the whole €562M base).
+    ["вдигане на винетките с 30%", 52.8e6],
+    // тол slice: +20% = €369M×0.20 = +€73.8M.
+    ["вдигане на тол таксите с 20%", 73.8e6],
+    // SOE-subsidy cut (БДЖ/НКЖИ/Пощи; ≈€316M envelope). −50% = +€158M on the
+    // balance (face value; the realism caveat is surfaced as a note).
+    ["срязване на субсидиите за БДЖ с 50%", 158e6],
   ];
   // FINDING-001 guard: definitional МОД questions carrying a year must NOT
   // parse as a cap what-if (2024-2026 overlap realistic cap amounts).

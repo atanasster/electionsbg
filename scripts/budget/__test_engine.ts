@@ -41,6 +41,14 @@ import {
   TOLL_BASE_EUR,
   scoreCollectionRealism,
   COLLECTION_REALISM_CENTRAL,
+  scoreSoeSubsidyCut,
+  SOE_SUBSIDY_BASE_EUR,
+  SOE_SUBSIDY_REALISM_CENTRAL,
+  scoreExciseRate,
+  EXCISE_CIGARETTE_RATE,
+  cigaretteExciseRateEur,
+  cigaretteAcceleratedRateEur,
+  CIGARETTE_EXCISE_CALENDAR_BGN,
   scorePartySubsidy,
   scorePensionFloorRaise,
   scorePensionIndexation,
@@ -137,6 +145,69 @@ eq(
 check(
   "scoreCollectionRealism banks less than asserted (central < 1)",
   scoreCollectionRealism(300e6) < 300e6,
+);
+
+// SOE-subsidy cut: bankable = min(cut, envelope) × realisation; cut is capped
+// at the envelope (can't cut more subsidy than exists) and default = central.
+eq("scoreSoeSubsidyCut(100M, 0.35)", scoreSoeSubsidyCut(100e6, 0.35), 35e6);
+eq(
+  "scoreSoeSubsidyCut default = central",
+  scoreSoeSubsidyCut(100e6),
+  100e6 * SOE_SUBSIDY_REALISM_CENTRAL,
+);
+// A cut larger than the envelope is capped at the envelope before the haircut.
+eq(
+  "scoreSoeSubsidyCut caps at envelope",
+  scoreSoeSubsidyCut(SOE_SUBSIDY_BASE_EUR + 50e6, 1),
+  SOE_SUBSIDY_BASE_EUR,
+);
+// The €285.3M government cut is ~90% of the ~€316M envelope (the sanity flag).
+check(
+  "gov SOE cut €285.3M ∈ [85%,95%] of envelope (implausible as hard cut)",
+  285.3e6 / SOE_SUBSIDY_BASE_EUR > 0.85 &&
+    285.3e6 / SOE_SUBSIDY_BASE_EUR < 0.95,
+);
+
+// ЗАДС cigarette excise calendar: BGN total-minimum ÷ 1.95583 → €/1000.
+eq(
+  "cigaretteExciseRateEur(2026) ≈ €113.5/1000 (= EXCISE_CIGARETTE_RATE)",
+  cigaretteExciseRateEur(2026),
+  222 / 1.95583,
+  0.01,
+);
+check(
+  "cigaretteExciseRateEur(2026) ≈ current slider default (114)",
+  near(cigaretteExciseRateEur(2026), EXCISE_CIGARETTE_RATE, 1),
+);
+// Accelerated 01.08.2026 = the 2027 step (234 BGN) pulled forward.
+eq(
+  "cigaretteAcceleratedRateEur() = 2027 step €/1000",
+  cigaretteAcceleratedRateEur(),
+  CIGARETTE_EXCISE_CALENDAR_BGN[2027] / 1.95583,
+  0.01,
+);
+check(
+  "accelerated rate is a real step UP from 2026",
+  cigaretteAcceleratedRateEur() > cigaretteExciseRateEur(2026),
+);
+// Calendar is monotone +12 BGN/yr through 2029.
+check(
+  "calendar +12 BGN/yr 2025→2029",
+  CIGARETTE_EXCISE_CALENDAR_BGN[2026] - CIGARETTE_EXCISE_CALENDAR_BGN[2025] ===
+    12 &&
+    CIGARETTE_EXCISE_CALENDAR_BGN[2029] -
+      CIGARETTE_EXCISE_CALENDAR_BGN[2028] ===
+      12,
+);
+// Pricing the accelerated step over the tobacco line is +~4.9% (≈ +€106M/yr).
+const cigStep = scoreExciseRate(
+  2_152_700_000,
+  EXCISE_CIGARETTE_RATE,
+  cigaretteAcceleratedRateEur(),
+);
+check(
+  "accelerated cigarette step ∈ [€95M,€120M]/yr on the tobacco line",
+  cigStep > 95e6 && cigStep < 120e6,
 );
 
 // Dynamic layer: road=0 is a strict no-op (any elasticity), and a +30% uplift

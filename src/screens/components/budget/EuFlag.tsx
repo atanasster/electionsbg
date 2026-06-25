@@ -29,6 +29,7 @@ const nordicCross = (field: string, cross: string): ReactNode => (
 );
 
 const FLAGS: Record<string, ReactNode> = {
+  BG: h3("#FFFFFF", "#00966E", "#D62612"),
   HU: h3("#CE2939", "#FFFFFF", "#477050"),
   DK: nordicCross("#C8102E", "#FFFFFF"),
   GR: (
