@@ -90,6 +90,33 @@ export default defineConfig(({ mode }) => {
     define: {
       "process.env.API_KEY": JSON.stringify(env.GEMINI_API_KEY),
     },
+    // Pre-bundle every Radix/UI primitive at server startup. Most of these are
+    // only reachable through lazily-imported routes, so Vite would otherwise
+    // discover them one-at-a-time as you navigate and re-run the dep optimizer
+    // mid-session. Each re-optimization forces a full reload, and a reload that
+    // races the swap can leave two React module instances live at once — which
+    // surfaces as "Invalid hook call" / "Cannot read properties of null
+    // (reading 'useMemo')" from deep inside a Radix component (e.g. <Select>).
+    // Listing them here means they're optimized once, up front, alongside the
+    // single deduped React, so no runtime re-optimization happens.
+    optimizeDeps: {
+      include: [
+        "@radix-ui/react-accordion",
+        "@radix-ui/react-avatar",
+        "@radix-ui/react-checkbox",
+        "@radix-ui/react-dialog",
+        "@radix-ui/react-dropdown-menu",
+        "@radix-ui/react-label",
+        "@radix-ui/react-popover",
+        "@radix-ui/react-select",
+        "@radix-ui/react-separator",
+        "@radix-ui/react-slot",
+        "@radix-ui/react-switch",
+        "@radix-ui/react-tabs",
+        "@radix-ui/react-tooltip",
+        "cmdk",
+      ],
+    },
     plugins: [react(), tsconfigPaths(), serveDataDir(), stripLazyCss()],
     server: {
       // Honor a PORT env var when one is set (e.g. a preview/dev harness that
