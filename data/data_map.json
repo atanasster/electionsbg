@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-06-24T22:20:25.381Z",
+  "generatedAt": "2026-06-25T07:57:56.742Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -918,7 +918,7 @@
       "url": "https://www.nsi.bg/bg/content/2432/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-06-24T14:01:50.792Z",
+      "freshness": "2026-06-25T07:39:50.676Z",
       "skills": [],
       "sources": [
         {
@@ -939,7 +939,8 @@
           "id": "api_road_charges",
           "label": "АПИ — годишни приходи от пътни такси (винетки + тол)",
           "url": "https://www.api.bg/bg/novini",
-          "cadence": "weekly"
+          "cadence": "weekly",
+          "freshness": "2026-06-25T07:39:50.676Z"
         }
       ],
       "x": 28,
