@@ -1,6 +1,39 @@
 {
-  "updatedAt": "2026-06-23T08:20:56.606Z",
+  "updatedAt": "2026-06-25T01:27:45.600Z",
   "entries": [
+    {
+      "timestamp": "2026-06-25T01:27:45.600Z",
+      "date": "2026-06-25",
+      "skill": "update-prices",
+      "summary": "2 new days (through 2026-06-24); price index + 244 settlement snapshots + ranking rebuilt",
+      "source": "КЗП kolkostruva.bg retail prices"
+    },
+    {
+      "timestamp": "2026-06-25T01:16:46.636Z",
+      "date": "2026-06-25",
+      "skill": "parliament-scrape",
+      "summary": "52-ро НС roster refresh (2122 deduped MPs); avatars + by-id shards + candidate resolution rebuilt",
+      "source": "Parliament MPs (parliament.bg)",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-25T01:12:08.185Z",
+      "date": "2026-06-25",
+      "skill": "update-rollcall",
+      "summary": "1 new session (id 11142, 2026-06-24); derived metrics rebuilt",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-06-23T08:20:56.606Z",
       "date": "2026-06-23",
