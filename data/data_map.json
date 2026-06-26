@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-06-25T07:57:56.742Z",
+  "generatedAt": "2026-06-26T18:18:00.029Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -24,7 +24,7 @@
       "url": "https://results.cik.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-23T07:40:11.378Z",
+      "freshness": "2026-06-26T06:09:03.955Z",
       "skills": [
         "update-local-elections"
       ],
@@ -34,7 +34,7 @@
           "label": "CIK local-elections results bundles",
           "url": "https://results.cik.bg/",
           "cadence": "daily",
-          "freshness": "2026-06-23T07:40:11.378Z"
+          "freshness": "2026-06-26T06:09:03.955Z"
         }
       ],
       "x": 28,
@@ -63,7 +63,7 @@
       "url": "https://www.parliament.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-24T14:01:50.792Z",
+      "freshness": "2026-06-26T06:09:03.955Z",
       "skills": [
         "update-rollcall",
         "parliament-scrape"
@@ -74,7 +74,7 @@
           "label": "Parliament roll-call votes",
           "url": "https://www.parliament.bg/api/v1/pl-sten/{id}",
           "cadence": "daily",
-          "freshness": "2026-06-24T14:01:50.792Z"
+          "freshness": "2026-06-26T06:09:03.955Z"
         },
         {
           "id": "parliament_mps",
@@ -441,7 +441,7 @@
       "url": "https://www.minfin.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-20T15:15:28.307Z",
+      "freshness": "2026-06-26T06:09:03.955Z",
       "skills": [
         "update-budget",
         "update-noi",
@@ -510,7 +510,7 @@
           "label": "МРРБ — ИПОП (Инвестиционна програма за общински проекти) изпълнение",
           "url": "https://ipop.mrrb.bg/",
           "cadence": "daily",
-          "freshness": "2026-05-29T06:08:35.979Z"
+          "freshness": "2026-06-26T06:09:03.955Z"
         },
         {
           "id": "iisda_doklad",
@@ -1062,7 +1062,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-24T14:01:50.792Z",
+      "freshness": "2026-06-26T06:09:03.955Z",
       "skills": [
         "update-prices"
       ],
@@ -1072,7 +1072,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-06-24T14:01:50.792Z"
+          "freshness": "2026-06-26T06:09:03.955Z"
         }
       ],
       "x": 28,
