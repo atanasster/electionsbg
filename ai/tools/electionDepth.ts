@@ -3,6 +3,7 @@
 
 import { resolveElection } from "./args";
 import {
+  fetchCanonicalParties,
   fetchData,
   fetchNationalSummary,
   fetchRegionVotes,
@@ -15,6 +16,7 @@ import {
   fmtPct,
 } from "./format";
 import { matchParty } from "./matchParty";
+import { translitKey } from "./translit";
 import {
   findOblastInText,
   loadMunis,
@@ -755,11 +757,86 @@ type Transition = {
   matrix: { fromNodes: Node[]; toNodes: Node[]; flows: Flow[] };
 };
 
+type CanonHist = { nickName?: string; name?: string; nameEn?: string };
+type CanonParty = {
+  id: string;
+  displayName?: string;
+  displayNameEn?: string;
+  history?: CanonHist[];
+};
+type CanonFile = { parties: CanonParty[] };
+
+const norm = (s: string): string => translitKey(s).replace(/[\s/-]+/g, "");
+const canonAliases = (p: CanonParty): string[] =>
+  [
+    p.displayName,
+    p.displayNameEn,
+    ...(p.history ?? []).flatMap((h) => [h.nickName, h.name, h.nameEn]),
+  ].filter((x): x is string => !!x);
+
+// Resolve a free-text party reference ("ПрБ", "прогресивна българия", "герб") to
+// a matrix node id — but ONLY among the parties that actually appear in THIS
+// pair's flow matrix, and with a guard so a 2-letter nickname can't latch onto a
+// stray syllable of a preposition (the failure mode of a naive substring match).
+const resolvePartyNode = async (
+  query: string,
+  nodeIds: Set<string>,
+): Promise<string | undefined> => {
+  const q = String(query ?? "").trim();
+  if (!q) return undefined;
+  let canon: CanonFile;
+  try {
+    canon = await fetchCanonicalParties<CanonFile>();
+  } catch {
+    return undefined;
+  }
+  const inPair = canon.parties.filter((p) => nodeIds.has(p.id));
+  const nq = norm(q);
+  const words = new Set(
+    q
+      .toLowerCase()
+      .split(/[^\p{L}\p{N}]+/u)
+      .filter(Boolean)
+      .map(norm),
+  );
+  // 1. whole-word token hit (handles short nicknames: "герб", "бсп", "итн", "прб")
+  let best: { id: string; len: number } | undefined;
+  for (const p of inPair) {
+    for (const a of canonAliases(p)) {
+      const na = norm(a);
+      if (na && words.has(na) && (!best || na.length > best.len))
+        best = { id: p.id, len: na.length };
+    }
+  }
+  if (best) return best.id;
+  // 2. substring of the query, but only for aliases long enough (≥4) to be safe
+  for (const p of inPair) {
+    for (const a of canonAliases(p)) {
+      const na = norm(a);
+      if (na.length >= 4 && nq.includes(na) && (!best || na.length > best.len))
+        best = { id: p.id, len: na.length };
+    }
+  }
+  if (best) return best.id;
+  // 3. typo-tolerant fuzzy fallback (last resort) — matchParty preserves the
+  // extra `id` field since it returns the matched candidate object verbatim.
+  return matchParty(
+    q,
+    inPair.map((p) => ({
+      id: p.id,
+      partyNum: 0,
+      nickName: p.displayName,
+      commonName: canonAliases(p),
+    })),
+  )?.id;
+};
+
 export const voteTransitions = async (
   args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const election = resolveElection(args, ctx);
+  const bg = ctx.lang === "bg";
   const idx = ALL_ELECTIONS.findIndex((e) => e.name === election);
   const prior =
     idx >= 0 && idx < ALL_ELECTIONS.length - 1
@@ -770,10 +847,9 @@ export const voteTransitions = async (
       tool: "voteTransitions",
       domain: "elections",
       kind: "scalar",
-      title:
-        ctx.lang === "bg"
-          ? "Няма предходен избор за сравнение"
-          : "No prior election to compare",
+      title: bg
+        ? "Няма предходен избор за сравнение"
+        : "No prior election to compare",
       viz: "none",
       facts: { election: electionFullLabel(election, ctx.lang) },
       provenance: ["transitions/"],
@@ -788,10 +864,9 @@ export const voteTransitions = async (
       tool: "voteTransitions",
       domain: "elections",
       kind: "scalar",
-      title:
-        ctx.lang === "bg"
-          ? `Няма данни за преливане ${electionShortLabel(prior.name, "bg")} → ${electionShortLabel(election, "bg")}`
-          : `No transition data ${electionShortLabel(prior.name, "en")} → ${electionShortLabel(election, "en")}`,
+      title: bg
+        ? `Няма данни за преливане ${electionShortLabel(prior.name, "bg")} → ${electionShortLabel(election, "bg")}`
+        : `No transition data ${electionShortLabel(prior.name, "en")} → ${electionShortLabel(election, "en")}`,
       viz: "none",
       facts: {},
       provenance: [`transitions/${pair}/national.json`],
@@ -801,40 +876,159 @@ export const voteTransitions = async (
     const n = [...t.matrix.fromNodes, ...t.matrix.toNodes].find(
       (x) => x.id === id,
     );
-    return n ? (ctx.lang === "bg" ? n.label : (n.labelEn ?? n.label)) : id;
+    return n ? (bg ? n.label : (n.labelEn ?? n.label)) : id;
   };
+  const pairLabel = `${electionShortLabel(prior.name, ctx.lang)} → ${electionShortLabel(election, ctx.lang)}`;
+  const pairLabelEn = `${electionShortLabel(prior.name, "en")} → ${electionShortLabel(election, "en")}`;
+
+  // ---- party-filtered mode: where one party's votes came from / went to ------
+  const partyQuery = String(args.party ?? "").trim();
+  if (partyQuery) {
+    const nodeIds = new Set(
+      [...t.matrix.fromNodes, ...t.matrix.toNodes].map((n) => n.id),
+    );
+    const nodeId = await resolvePartyNode(partyQuery, nodeIds);
+    if (nodeId) {
+      // "in" = from which parties this party's votes came (default); "out" =
+      // where this party's previous voters went.
+      const dir = String(args.direction ?? "in") === "out" ? "out" : "in";
+      const me = label(nodeId);
+      const flows = t.matrix.flows
+        .filter((f) => (dir === "in" ? f.to === nodeId : f.from === nodeId))
+        .filter((f) => f.votes > 0)
+        .sort((a, b) => b.votes - a.votes);
+      const total = flows.reduce((s, f) => s + f.votes, 0);
+      const rows: Row[] = flows.map((f) => {
+        const otherId = dir === "in" ? f.from : f.to;
+        const stayed = otherId === nodeId;
+        const name = stayed
+          ? bg
+            ? `${me} (остана)`
+            : `${me} (stayed)`
+          : label(otherId);
+        return {
+          party: name,
+          votes: f.votes,
+          pct: total > 0 ? round2((100 * f.votes) / total) : 0,
+        };
+      });
+      const top = rows.filter((r) => (r.votes as number) > 0).slice(0, 14);
+      const lead = rows.find(
+        (r) => !String(r.party).includes(bg ? "(остана)" : "(stayed)"),
+      );
+      return {
+        tool: "voteTransitions",
+        domain: "elections",
+        kind: "table",
+        title:
+          dir === "in"
+            ? bg
+              ? `Откъде идват гласовете за ${me} (${pairLabel})`
+              : `Where ${me}'s votes came from (${pairLabel})`
+            : bg
+              ? `Къде отидоха гласовете на ${me} (${pairLabel})`
+              : `Where ${me}'s votes went (${pairLabel})`,
+        subtitle:
+          dir === "in"
+            ? bg
+              ? "Дял от всички гласове, които партията получи в новия избор"
+              : "Share of all the votes the party drew in the new election"
+            : bg
+              ? "Дял от гласовете на партията от предходния избор"
+              : "Share of the party's votes from the prior election",
+        columns: [
+          {
+            key: "party",
+            label:
+              dir === "in"
+                ? bg
+                  ? "От партия"
+                  : "From party"
+                : bg
+                  ? "Към партия"
+                  : "To party",
+          },
+          {
+            key: "votes",
+            label: bg ? "Гласове" : "Votes",
+            numeric: true,
+            format: "int",
+          },
+          { key: "pct", label: "%", numeric: true, format: "pct" },
+        ],
+        rows: top,
+        categories: top.map((r) => String(r.party)),
+        series: [
+          {
+            key: "pct",
+            label: me,
+            points: top.map((r) => ({
+              x: String(r.party),
+              y: r.pct as number,
+            })),
+          },
+        ],
+        viz: "bar",
+        facts: {
+          pair: pairLabelEn,
+          party: me,
+          direction: dir === "in" ? "inflows" : "outflows",
+          total_votes: fmtInt(total, ctx.lang),
+          top_source: lead
+            ? `${lead.party} (${fmtPct(lead.pct as number, ctx.lang)})`
+            : "—",
+        },
+        provenance: [`transitions/${pair}/national.json`],
+      };
+    }
+    // unresolved party -> fall through to the national overview below
+  }
+
+  // ---- national overview: the biggest cross-party switches -------------------
+  // outflow totals per source, so each switch can be shown as a share of the
+  // source party's previous voters ("X% of [from]'s voters moved to [to]").
+  const outflow = new Map<string, number>();
+  for (const f of t.matrix.flows)
+    outflow.set(f.from, (outflow.get(f.from) ?? 0) + f.votes);
   const switches = t.matrix.flows
     .filter((f) => f.from !== f.to && f.votes > 0)
     .sort((a, b) => b.votes - a.votes)
     .slice(0, 12);
-  const rows: Row[] = switches.map((f) => ({
-    from: label(f.from),
-    to: label(f.to),
-    votes: f.votes,
-  }));
+  const rows: Row[] = switches.map((f) => {
+    const src = outflow.get(f.from) ?? 0;
+    return {
+      from: label(f.from),
+      to: label(f.to),
+      votes: f.votes,
+      pct: src > 0 ? round2((100 * f.votes) / src) : 0,
+    };
+  });
   const biggest = switches[0];
   return {
     tool: "voteTransitions",
     domain: "elections",
     kind: "table",
-    title:
-      ctx.lang === "bg"
-        ? `Преливане на гласове ${electionShortLabel(prior.name, "bg")} → ${electionShortLabel(election, "bg")}`
-        : `Vote transitions ${electionShortLabel(prior.name, "en")} → ${electionShortLabel(election, "en")}`,
+    title: bg
+      ? `Преливане на гласове ${pairLabel}`
+      : `Vote transitions ${pairLabel}`,
+    subtitle: bg
+      ? "% = дял от гласовете на партията-източник, преминали натам"
+      : "% = share of the source party's voters that moved there",
     columns: [
-      { key: "from", label: ctx.lang === "bg" ? "От" : "From" },
-      { key: "to", label: ctx.lang === "bg" ? "Към" : "To" },
+      { key: "from", label: bg ? "От" : "From" },
+      { key: "to", label: bg ? "Към" : "To" },
       {
         key: "votes",
-        label: ctx.lang === "bg" ? "Гласове" : "Votes",
+        label: bg ? "Гласове" : "Votes",
         numeric: true,
         format: "int",
       },
+      { key: "pct", label: "%", numeric: true, format: "pct" },
     ],
     rows,
     viz: "none",
     facts: {
-      pair: `${electionShortLabel(prior.name, "en")} → ${electionShortLabel(election, "en")}`,
+      pair: pairLabelEn,
       biggest: biggest
         ? `${label(biggest.from)} → ${label(biggest.to)} (${fmtInt(biggest.votes, ctx.lang)})`
         : "—",

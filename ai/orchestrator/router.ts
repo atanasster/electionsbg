@@ -2378,20 +2378,45 @@ export const route = (question: string, ctx: ToolContext): Route => {
     )
   )
     return { tool: "electionAnomalies", args: election ? { election } : {} };
-  if (
-    has(
-      q,
-      "прелива",
-      "къде отидоха",
-      "къде отиват",
-      "трансфер на глас",
-      "vote flow",
-      "vote transition",
-      "преминаха глас",
-      "миграция на глас",
-    )
-  )
-    return { tool: "voteTransitions", args: election ? { election } : {} };
+  // vote transitions between two consecutive elections. Three phrasings:
+  //  - generic flow ("преливане", "трансфер на гласове") -> national overview
+  //  - outflow of a named party ("къде отидоха гласовете на ГЕРБ") -> direction out
+  //  - inflow of a named party ("от кои партии идват гласовете за ПрБ") -> in
+  // The party slot carries the whole question; voteTransitions resolves it (and
+  // shows the national overview when no party is recognised). Revenue "откъде
+  // идват приходите" is already handled above, so the inflow cue is gated on a
+  // votes/party word to stay clear of it.
+  const flowOutCue = has(
+    q,
+    "къде отидоха",
+    "къде отиват",
+    "накъде отидоха",
+    "накъде отиват",
+    "where did the votes go",
+  );
+  const flowInCue =
+    (has(q, "от кои парти", "откъде идва", "откъде дойд", "от кои идва") &&
+      has(q, "глас", "vote")) ||
+    has(q, "идват гласове", "дойдоха гласове", "votes come from");
+  const flowGenericCue = has(
+    q,
+    "прелива",
+    "трансфер на глас",
+    "vote flow",
+    "vote transition",
+    "преминаха глас",
+    "миграция на глас",
+  );
+  if (flowGenericCue || flowOutCue || flowInCue) {
+    const flowArgs: ToolArgs = election ? { election } : {};
+    // attach the party slot only when a party is plausibly named, so a bare
+    // "къде отидоха гласовете" still renders the national overview.
+    if (flowInCue || flowOutCue || detectParty(q)) {
+      flowArgs.party = q;
+      flowArgs.direction = flowOutCue ? "out" : "in";
+    }
+    return { tool: "voteTransitions", args: flowArgs };
+  }
 
   // 2. machine voting
   if (isMachine) {

@@ -1252,10 +1252,18 @@ export const TOOLS: ToolDef[] = [
     name: "voteTransitions",
     domain: "elections",
     description: {
-      bg: "Преливане на гласове между два последователни избора (откъде накъде отиват гласовете).",
-      en: "Vote transitions between two consecutive elections (where votes moved).",
+      bg: "Преливане на гласове между два последователни избора. Без партия — общата картина; с партия — откъде идват гласовете ѝ (или, при „къде отидоха“, накъде отиват), с дял в проценти.",
+      en: "Vote transitions between two consecutive elections. With no party — the national overview; with a party — where its votes came from (or, for 'where did they go', where they went), each as a percentage.",
     },
     params: [
+      {
+        name: "party",
+        type: "party",
+        description: {
+          bg: "Партия — показва откъде идват (или накъде отиват) гласовете ѝ",
+          en: "Party — shows where its votes came from (or went to)",
+        },
+      },
       {
         name: "election",
         type: "election",
@@ -1266,6 +1274,14 @@ export const TOOLS: ToolDef[] = [
       {
         bg: "Къде отидоха гласовете на последните избори?",
         en: "Where did votes move in the latest election?",
+      },
+      {
+        bg: "От кои партии идват гласовете за Прогресивна България?",
+        en: "Which parties did Progressive Bulgaria's votes come from?",
+      },
+      {
+        bg: "Къде отидоха гласовете на ГЕРБ?",
+        en: "Where did GERB's votes go?",
       },
     ],
     run: voteTransitions,
