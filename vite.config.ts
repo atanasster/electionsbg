@@ -115,6 +115,15 @@ export default defineConfig(({ mode }) => {
         "@radix-ui/react-tabs",
         "@radix-ui/react-tooltip",
         "cmdk",
+        // react-markdown + its remark/micromark/unified subtree are only
+        // reached through the lazily-imported ArticleScreen (and the dashboard
+        // party-assessment tile). Without pre-bundling, navigating to an
+        // /articles/:slug page is the first time Vite sees this large subtree,
+        // so it re-runs the dep optimizer mid-session — the same reload race
+        // that blanks the app with "Invalid hook call" / "Cannot read
+        // properties of null (reading 'useEffect')" from QueryClientProvider.
+        "react-markdown",
+        "remark-gfm",
       ],
     },
     plugins: [react(), tsconfigPaths(), serveDataDir(), stripLazyCss()],
