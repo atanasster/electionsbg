@@ -11,6 +11,11 @@
 //      rows above raw entries.
 //   2. Procurement contracts — dated from awarder topContracts (real
 //      contract-award dates)
+//   2b. Tenders (announced procedures, BEFORE a contract) — municipal-tier
+//      buyers' freshly-announced tenders, joined from
+//      `tenders/recent_by_buyer.json` (emitted by ingest_tenders.ts; run it
+//      before this builder). Estimated value labelled as a forecast; absent
+//      file → tender events skipped.
 //   3. EU-funded projects — surfaces a programmePeriod label
 //      ("2014-2020" / "2021-2027" / "2021-RRP") instead of a fake "1 Jan
 //      YYYY" date, since the programCode prefix only identifies the
@@ -155,6 +160,7 @@ type AlertEvent = {
   date: string; // YYYY-MM-DD
   kind:
     | "procurement"
+    | "tender"
     | "eu_funds"
     | "local_election"
     | "capital_program"
@@ -193,6 +199,10 @@ const PROC_BY_SETTLEMENT = path.join(
   "data/procurement/by_settlement",
 );
 const PROC_AWARDERS = path.join(PROJECT_ROOT, "data/procurement/awarders");
+const TENDERS_RECENT = path.join(
+  PROJECT_ROOT,
+  "data/procurement/tenders/recent_by_buyer.json",
+);
 const FUNDS_BY_MUNI = path.join(PROJECT_ROOT, "data/funds/projects/by-muni");
 const FUNDS_CHANGES = path.join(PROJECT_ROOT, "data/funds/projects/changes");
 const LOCAL_CYCLE_DIR = path.join(
@@ -209,6 +219,7 @@ const VOTES_SESSIONS = path.join(
   "data/parliament/votes/sessions",
 );
 const OUT_DIR = path.join(PROJECT_ROOT, "data/myarea/alerts");
+const PLACE_TENDERS_DIR = path.join(PROJECT_ROOT, "data/myarea/place_tenders");
 
 // Per-município event cap. 30 keeps the JSON ~5 KB even for active
 // municípios; the SPA tile renders the top 20 by default.
@@ -303,19 +314,11 @@ const formatEur = (n?: number): string => {
   return `€${n.toFixed(0)}`;
 };
 
+// `muniAwarders` is the município's municipal-tier awarders, resolved once in
+// main from its centroid by_settlement file and shared with the tender builders.
 const buildProcurementEvents = (
-  obshtina: string,
-  centroidEkatte: string,
+  muniAwarders: ProcurementAwarder[],
 ): AlertEvent[] => {
-  // The município's central settlement file lists muni-tier awarders by
-  // EIK; we walk each and grab their most-recent topContracts.
-  const bySettlement = readJson<ProcurementBySettlement>(
-    path.join(PROC_BY_SETTLEMENT, `${centroidEkatte}.json`),
-  );
-  if (!bySettlement?.awarders) return [];
-  const muniAwarders = bySettlement.awarders.filter(
-    (a) => a.tier === "municipal",
-  );
   const events: AlertEvent[] = [];
   for (const aw of muniAwarders) {
     const file = readJson<ProcurementAwarderFile>(
@@ -357,11 +360,119 @@ const buildProcurementEvents = (
       });
     }
   }
-  // Mark obshtina as referenced (keeps the param list lint-clean for
-  // futures that may filter by obshtina-tier awarders outside the
-  // centroid settlement).
-  void obshtina;
   return events;
+};
+
+// Tender-STAGE events: a freshly ANNOUNCED procedure (before any contract) by a
+// municipal-tier buyer pinned to this município. Joins the município's awarders
+// (same by_settlement pinning as the contract events) against the recent-tenders
+// map emitted by ingest_tenders.ts. Estimated value is a forecast — labelled.
+type RecentTender = {
+  unp: string;
+  subject: string;
+  estimatedValueEur?: number;
+  publicationDate: string;
+  isCancelled: boolean;
+};
+type RecentByBuyer = {
+  since?: string;
+  buyers?: Record<string, RecentTender[]>;
+};
+// Loaded once (it's a single ~2-3 MB map); absent → tender alerts are skipped.
+let recentTendersCache: RecentByBuyer | null | undefined;
+const recentTenders = (): RecentByBuyer | null => {
+  if (recentTendersCache === undefined)
+    recentTendersCache = readJson<RecentByBuyer>(TENDERS_RECENT) ?? null;
+  return recentTendersCache;
+};
+
+const buildTenderEvents = (
+  muniAwarders: ProcurementAwarder[],
+): AlertEvent[] => {
+  const recent = recentTenders();
+  if (!recent?.buyers) return [];
+  const events: AlertEvent[] = [];
+  for (const aw of muniAwarders) {
+    for (const t of recent.buyers[aw.eik] ?? []) {
+      const labelBg = t.isCancelled ? "Прекратена поръчка" : "Обявена поръчка";
+      const labelEn = t.isCancelled ? "Tender cancelled" : "Tender announced";
+      const valBg = t.estimatedValueEur
+        ? ` · ${formatEur(t.estimatedValueEur)} (прогнозна)`
+        : "";
+      const valEn = t.estimatedValueEur
+        ? ` · ${formatEur(t.estimatedValueEur)} (estimated)`
+        : "";
+      events.push({
+        date: t.publicationDate,
+        kind: "tender",
+        headline_bg: `${labelBg}: ${aw.name} · ${t.subject.slice(0, 70)}${valBg}`,
+        headline_en: `${labelEn}: ${aw.name} · ${t.subject.slice(0, 70)}${valEn}`,
+        amountEur: t.estimatedValueEur,
+        link: `/tenders/${t.unp}`,
+      });
+    }
+  }
+  return events;
+};
+
+// Per-município tender SUMMARY for the place dashboard's "open tenders" tile
+// (the precise count/total, not the date-capped alerts feed). Same join.
+type PlaceTenderSummary = {
+  obshtina: string;
+  generatedAt: string;
+  since: string;
+  count: number;
+  cancelled: number;
+  totalEstimatedEur: number;
+  top: Array<{
+    unp: string;
+    buyerName: string;
+    subject: string;
+    estimatedValueEur?: number;
+    publicationDate: string;
+    isCancelled: boolean;
+  }>;
+};
+
+const buildPlaceTenderSummary = (
+  obshtina: string,
+  muniAwarders: ProcurementAwarder[],
+): PlaceTenderSummary | null => {
+  const recent = recentTenders();
+  if (!recent?.buyers) return null;
+  const top: PlaceTenderSummary["top"] = [];
+  let totalEstimatedEur = 0;
+  let cancelled = 0;
+  for (const aw of muniAwarders) {
+    for (const t of recent.buyers[aw.eik] ?? []) {
+      // The tile is the OPEN-tenders pipeline; a cancelled procedure is no
+      // longer a forecast spend, so it's counted separately, not in the total.
+      if (t.isCancelled) {
+        cancelled++;
+        continue;
+      }
+      top.push({
+        unp: t.unp,
+        buyerName: aw.name,
+        subject: t.subject,
+        estimatedValueEur: t.estimatedValueEur,
+        publicationDate: t.publicationDate,
+        isCancelled: t.isCancelled,
+      });
+      totalEstimatedEur += t.estimatedValueEur ?? 0;
+    }
+  }
+  if (top.length === 0) return null;
+  top.sort((a, b) => (b.estimatedValueEur ?? 0) - (a.estimatedValueEur ?? 0));
+  return {
+    obshtina,
+    generatedAt: new Date().toISOString(),
+    since: recent.since ?? "",
+    count: top.length,
+    cancelled,
+    totalEstimatedEur,
+    top: top.slice(0, 5),
+  };
 };
 
 // EU contracts don't carry per-contract dates — only a programCode whose
@@ -637,6 +748,12 @@ const buildCouncilResolutionEvents = (
 
 const main = () => {
   fs.mkdirSync(OUT_DIR, { recursive: true });
+  // Rebuild place_tenders/ from scratch so a município that dropped to zero open
+  // tenders doesn't keep (and re-upload) a stale summary (F-008; mirrors the
+  // ingest's shard-dir rebuild).
+  fs.rmSync(PLACE_TENDERS_DIR, { recursive: true, force: true });
+  fs.mkdirSync(PLACE_TENDERS_DIR, { recursive: true });
+  let placeTenderFiles = 0;
   const munis = readJson<MunicipalityInfo[]>(MUNICIPALITIES_FILE);
   if (!munis) {
     console.error(`failed to read municipalities`);
@@ -656,9 +773,17 @@ const main = () => {
       todayMs,
     );
     councilEvents += council.length;
+    // The município's municipal-tier awarders — read its centroid by_settlement
+    // ONCE and share across the contract + tender builders (F-009).
+    const muniAwarders = (
+      readJson<ProcurementBySettlement>(
+        path.join(PROC_BY_SETTLEMENT, `${m.ekatte}.json`),
+      )?.awarders ?? []
+    ).filter((a) => a.tier === "municipal");
     const allEvents: AlertEvent[] = [
       ...council,
-      ...buildProcurementEvents(m.obshtina, m.ekatte),
+      ...buildProcurementEvents(muniAwarders),
+      ...buildTenderEvents(muniAwarders),
       ...buildFundsEvents(m.obshtina),
       ...buildCapitalProgramEvents(m.obshtina),
       ...buildPlenaryKeywordEvents(m.obshtina, m.name),
@@ -680,9 +805,19 @@ const main = () => {
     );
     totalEvents += trimmed.length;
     municipiosWithEvents++;
+
+    // Per-município "open tenders" summary for the place dashboard tile.
+    const tenderSummary = buildPlaceTenderSummary(m.obshtina, muniAwarders);
+    if (tenderSummary) {
+      fs.writeFileSync(
+        path.join(PLACE_TENDERS_DIR, `${m.obshtina}.json`),
+        JSON.stringify(tenderSummary, null, 2) + "\n",
+      );
+      placeTenderFiles++;
+    }
   }
   console.log(
-    `Wrote ${municipiosWithEvents} per-município alerts files (${totalEvents} total events, ${councilEvents} council)`,
+    `Wrote ${municipiosWithEvents} per-município alerts files (${totalEvents} total events, ${councilEvents} council); ${placeTenderFiles} place-tender summaries`,
   );
 };
 

@@ -1190,6 +1190,69 @@ const CASES: Case[] = [
     tool: "procurementBySettlement",
     facts: { total: /€/ },
   },
+  // ---- tenders (announced procedures, ESTIMATED/forecast value) --------------
+  // The "мантинели за 1 млрд" acceptance case: a topic-aliased keyword + year
+  // routes to the corpus search, finds the 2 guardrail procedures (€490.8M the
+  // biggest), and deep-links to the SAME pre-filtered /procurement/tenders set.
+  {
+    q: "Покажи ми всички търгове за пътни предпазни съоръжения през 2025",
+    tool: "openTenders",
+    kind: "table",
+    minRows: 2,
+    facts: {
+      scope: "мантинели",
+      year: /2025/,
+      matches: { num: 2 },
+      biggest_estimate: /490/,
+    },
+    links: ["/procurement/tenders?topic=guardrails&year=2025"],
+  },
+  {
+    q: "Show me all road-guardrail tenders in 2025",
+    lang: "en",
+    tool: "openTenders",
+    kind: "table",
+    minRows: 2,
+    facts: { matches: { num: 2 }, biggest_estimate: /490/ },
+    links: ["/procurement/tenders?topic=guardrails&year=2025"],
+  },
+  // one procedure by УНП -> its detail page (/tenders/:unp) + the ocid lineage
+  {
+    q: "Покажи поръчката 00044-2025-0125",
+    tool: "tenderLookup",
+    kind: "scalar",
+    facts: {
+      unp: "00044-2025-0125",
+      buyer: "Пътна инфраструктура",
+      lots: { num: 6 },
+      procedure_id: "ocds-e82gsb-518491",
+      estimated_value: /490/,
+    },
+    links: ["/tenders/00044-2025-0125"],
+  },
+  {
+    // the T-form УНП (the regex widening) still resolves + deep-links
+    q: "Каква е прогнозната стойност на поръчка T482767?",
+    tool: "tenderLookup",
+    kind: "scalar",
+    facts: { unp: "T482767", procedure_id: "ocds-e82gsb-482767" },
+    links: ["/tenders/T482767"],
+  },
+  {
+    // GUARD: "ограничителни мерки" (pandemic restrictions) shares a stem with the
+    // guardrail topic ("ограничителни системи") but must NOT route to a tender —
+    // the topic keyword is the discriminating road phrase, so the router declines.
+    q: "ограничителни мерки при пандемия",
+    tool: null,
+  },
+  {
+    // GUARD: the bare token "търг" inside "Търговище" must NOT be read as a
+    // tender cue — the whole-token match keeps this on the settlement tool.
+    q: "Колко обществени поръчки има в Търговище?",
+    tool: "procurementBySettlement",
+    kind: "table",
+    facts: { place: "Търговище" },
+  },
   {
     q: "Кой получава най-много европейски средства?",
     tool: "fundsOverview",

@@ -297,6 +297,16 @@ const ProcurementScreen = lazy(() =>
     default: m.ProcurementScreen,
   })),
 );
+const TendersScreen = lazy(() =>
+  import("./screens/procurement/TendersScreen").then((m) => ({
+    default: m.TendersScreen,
+  })),
+);
+const TenderDetailScreen = lazy(() =>
+  import("./screens/procurement/TenderDetailScreen").then((m) => ({
+    default: m.TenderDetailScreen,
+  })),
+);
 const ProcurementFlowsScreen = lazy(() =>
   import("./screens/ProcurementFlowsScreen").then((m) => ({
     default: m.ProcurementFlowsScreen,
@@ -1820,6 +1830,22 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <ProcurementScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="procurement/tenders"
+            element={
+              <LayoutScreen>
+                <TendersScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="tenders/:unp"
+            element={
+              <LayoutScreen>
+                <TenderDetailScreen />
               </LayoutScreen>
             }
           />

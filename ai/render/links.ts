@@ -134,6 +134,10 @@ const SECTION: Record<string, SiteLink> = {
     label: { bg: "Поръчки по място", en: "Procurement by place" },
     href: url("/procurement/by-settlement"),
   },
+  tenders: {
+    label: { bg: "Обявени поръчки (търгове)", en: "Announced tenders" },
+    href: url("/procurement/tenders"),
+  },
   funds: {
     label: { bg: "Европейски средства", en: "EU funds" },
     href: url("/funds"),
@@ -345,6 +349,37 @@ export const siteLinks = (env: Envelope): SiteLink[] => {
           label: { bg: "Най-голям договор", en: "Largest contract" },
           href: url(`/procurement/contract/${encodeURIComponent(key)}`),
         });
+      break;
+    }
+    // Tender-stage answers → the /procurement/tenders search, pre-filtered to
+    // the same topic / keyword + year (hidden link facts), so the reader lands
+    // on the exact result set the answer summarised.
+    case "openTenders": {
+      const params = new URLSearchParams();
+      const slug = fact(env, "link_topic");
+      const q = fact(env, "link_q");
+      if (slug) params.set("topic", slug);
+      else if (q) params.set("q", q);
+      const yr = fact(env, "year");
+      if (yr) params.set("year", yr);
+      const qs = params.toString();
+      out.push({
+        label: { bg: "Обявени поръчки", en: "Announced tenders" },
+        href: url(`/procurement/tenders${qs ? `?${qs}` : ""}`),
+      });
+      break;
+    }
+    // A single procedure → its detail page (/tenders/:unp).
+    case "tenderLookup": {
+      const unp = fact(env, "unp");
+      out.push(
+        unp
+          ? {
+              label: { bg: "Поръчката (процедура)", en: "The tender" },
+              href: url(`/tenders/${encodeURIComponent(unp)}`),
+            }
+          : SECTION.tenders,
+      );
       break;
     }
     // Per-agency profile / poll / accuracy answers deep-link to that agency's

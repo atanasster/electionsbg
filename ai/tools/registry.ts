@@ -21,11 +21,13 @@ import {
   fundsProjects,
   mpProcurement,
   municipalTransfers,
+  openTenders,
   procurementDebarred,
   procurementRedFlags,
   procurementSingleBidSectors,
   procurementTotals,
   revenueBreakdown,
+  tenderLookup,
   topContractors,
 } from "./fiscal";
 import { governments } from "./govpeople";
@@ -1957,6 +1959,84 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: awarderProcurement,
+  },
+  {
+    name: "openTenders",
+    domain: "fiscal",
+    description: {
+      bg: "Обявени обществени поръчки (процедури, ОЧАКВАНА/прогнозна стойност — преди подписан договор). Търси в ЦЕЛИЯ корпус по ключова дума/тема И по година — отговаря на „покажи всички търгове за X през ГОДИНА“ (напр. мантинели/пътни предпазни съоръжения, асфалт). Без филтри връща най-големите текущи поръчки; по избор за един възложител. Показва прогнозна стойност, брой обособени позиции, статус (обявена/прекратена).",
+      en: "Announced public-procurement tenders (PROCEDURES, estimated/forecast value — before any signed contract). Searches the WHOLE corpus by keyword/topic AND by year — answers 'show all tenders for X in YEAR' (e.g. road guardrails, asphalt). With no filters returns the biggest live tenders; optionally for one buyer. Shows estimated value, lot count, status (announced/cancelled).",
+    },
+    params: [
+      {
+        name: "query",
+        type: "metric",
+        description: {
+          bg: "Ключова дума/тема за предмета (напр. „мантинели“, „асфалт“) — по избор",
+          en: "Subject keyword/topic (e.g. 'guardrails', 'asphalt') — optional",
+        },
+      },
+      {
+        name: "year",
+        type: "year",
+        description: {
+          bg: "Година на обявяване (напр. 2025) — по избор",
+          en: "Announcement year (e.g. 2025) — optional",
+        },
+      },
+      {
+        name: "org",
+        type: "metric",
+        description: {
+          bg: "Възложител (име или ЕИК) — по избор",
+          en: "Buyer (name or EIK) — optional",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Покажи ми всички търгове за пътни предпазни съоръжения през 2025",
+        en: "Show me all road-guardrail tenders in 2025",
+      },
+      {
+        bg: "Обявени поръчки за асфалт през 2024",
+        en: "Announced asphalt tenders in 2024",
+      },
+      {
+        bg: "Коя е най-голямата обявена поръчка на АПИ?",
+        en: "What is the biggest announced tender by the Road Infrastructure Agency?",
+      },
+    ],
+    run: openTenders,
+  },
+  {
+    name: "tenderLookup",
+    domain: "fiscal",
+    description: {
+      bg: "Детайли за една обявена поръчка (процедура) по уникален номер (УНП, напр. 00044-2025-0125) или по ключова дума: прогнозна стойност, обособени позиции, статус и връзка към подписания договор. Прогнозната стойност е ОЧАКВАНА, не похарчена.",
+      en: "Details of one announced tender (procedure) by its unique number (УНП, e.g. 00044-2025-0125) or by keyword: estimated value, lots, status and the lineage to a signed contract. The estimated value is a FORECAST, not money spent.",
+    },
+    params: [
+      {
+        name: "unp",
+        type: "metric",
+        description: {
+          bg: "УНП (00000-0000-0000) или ключова дума",
+          en: "УНП (00000-0000-0000) or a keyword",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Покажи поръчката 00044-2025-0125",
+        en: "Show tender 00044-2025-0125",
+      },
+      {
+        bg: "Каква е прогнозната стойност на поръчка T482767?",
+        en: "What is the estimated value of tender T482767?",
+      },
+    ],
+    run: tenderLookup,
   },
   {
     name: "fundsOverview",

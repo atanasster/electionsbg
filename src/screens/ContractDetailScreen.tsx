@@ -7,8 +7,19 @@
 import { FC } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Receipt, ExternalLink, Users, Landmark, Download } from "lucide-react";
+import {
+  Receipt,
+  ExternalLink,
+  Users,
+  Landmark,
+  Download,
+  ClipboardList,
+} from "lucide-react";
 import { useContract } from "@/data/procurement/useContract";
+import {
+  useTenderLineage,
+  type TenderLineage,
+} from "@/data/procurement/useTenderLineage";
 import { useContractRiskFlags } from "@/data/procurement/useContractRiskFlags";
 import { useProcurementMpConnectedByEik } from "@/data/procurement/useMpConnectedByEik";
 import { usePepConnectedByEik } from "@/data/procurement/usePepConnectedByEik";
@@ -23,6 +34,7 @@ import { MpAvatar } from "./components/candidates/MpAvatar";
 import { ErrorSection } from "./components/ErrorSection";
 import { RiskBadges } from "./components/procurement/RiskBadges";
 import { FollowStar } from "./components/procurement/FollowStar";
+import { KvRow } from "./components/procurement/KvRow";
 
 const officialRoleLabel = (role: string, t: (k: string) => string): string => {
   const key = `official_role_${role}`;
@@ -247,6 +259,7 @@ export const ContractDetailScreen: FC = () => {
         </section>
 
         <div className="space-y-4">
+          <ContractTenderLineage ocid={c.ocid} />
           <ContractConnectedPeople eik={c.contractorEik} />
 
           <div className="rounded-xl border bg-card p-4 shadow-sm space-y-1.5 text-[11px] text-muted-foreground/80">
@@ -338,6 +351,85 @@ export const ContractDetailScreen: FC = () => {
   );
 };
 
+// Lineage tile: the originating PROCEDURE (tender) this signed contract came
+// from, resolved by the shared ocid. Surfaces the procedure's estimated
+// (прогнозна) value, lot structure and status — the tender-stage facts the
+// contracts-only corpus could never show (the "мантинели за 1 млрд" case).
+// Renders nothing for legacy / non-OCDS contracts whose ocid has no tender.
+const ContractTenderLineage: FC<{ ocid: string }> = ({ ocid }) => {
+  const { t, i18n } = useTranslation();
+  const { data: tender } = useTenderLineage(ocid);
+  if (!tender) return null;
+  const lineage: TenderLineage = tender;
+  const est =
+    lineage.estimatedValueEur != null
+      ? formatAmountEur(
+          lineage.estimatedValueEur,
+          lineage.estimatedValueNative,
+          lineage.currency,
+          i18n.language,
+        ).primary
+      : null;
+  const statusLabel = lineage.isCancelled
+    ? t("tender_status_cancelled") || "Cancelled"
+    : t("tender_status_announced") || "Announced";
+  return (
+    <section className="rounded-xl border bg-card p-4 shadow-sm space-y-2.5">
+      <h2 className="text-sm font-semibold flex items-center gap-2">
+        <ClipboardList className="h-4 w-4 text-indigo-600" />
+        {t("tender_lineage_title") || "Originating procedure"}
+      </h2>
+      {est ? (
+        <div>
+          <p className="text-xs uppercase tracking-wide text-muted-foreground">
+            {t("tender_estimated_value") || "Estimated value (forecast)"}
+          </p>
+          <p className="text-lg font-bold tabular-nums">{est}</p>
+        </div>
+      ) : null}
+      <dl className="space-y-1 text-sm">
+        {lineage.lotsCount && lineage.lotsCount > 1 ? (
+          <KvRow
+            label={t("tender_lots") || "Lots"}
+            value={<span className="tabular-nums">{lineage.lotsCount}</span>}
+          />
+        ) : null}
+        <KvRow
+          label={t("tender_status") || "Status"}
+          value={
+            <span className={lineage.isCancelled ? "text-amber-600" : ""}>
+              {statusLabel}
+            </span>
+          }
+        />
+        <KvRow
+          label={t("tender_announced") || "Announced"}
+          value={lineage.publicationDate}
+        />
+        <KvRow
+          label={t("tender_unp") || "Procedure no."}
+          value={<span className="font-mono text-xs">{lineage.unp}</span>}
+        />
+      </dl>
+      <p className="text-[11px] text-muted-foreground/80">
+        {t("tender_lineage_hint") ||
+          "Estimated (announced) value of the whole procedure — a forecast, not what this contract was signed for."}
+      </p>
+      {lineage.linkToOjEu ? (
+        <a
+          href={lineage.linkToOjEu}
+          target="_blank"
+          rel="noreferrer"
+          className="text-primary hover:underline inline-flex items-center gap-0.5 text-xs"
+        >
+          {t("tender_view_ted") || "View on TED"}{" "}
+          <ExternalLink className="h-3 w-3" />
+        </a>
+      ) : null}
+    </section>
+  );
+};
+
 // The people behind the "MP-tied" / "official-tied" chips, made actionable —
 // the parliamentarians and public officials declared as officers/owners of the
 // winning contractor, with links to their pages. Renders nothing when none.
@@ -393,15 +485,3 @@ const ContractConnectedPeople: FC<{ eik: string }> = ({ eik }) => {
     </section>
   );
 };
-
-const KvRow: FC<{ label: string; value: React.ReactNode }> = ({
-  label,
-  value,
-}) => (
-  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
-    <dt className="text-xs uppercase tracking-wide text-muted-foreground min-w-[100px]">
-      {label}
-    </dt>
-    <dd>{value}</dd>
-  </div>
-);

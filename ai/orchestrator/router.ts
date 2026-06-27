@@ -14,6 +14,7 @@ import { resolveRegionKey, resolveSubnatKey } from "../tools/placesGov";
 import { detectPriceProduct } from "../tools/prices";
 import { detectTaxChange } from "../tools/taxPolicy";
 import { TOOLS_BY_NAME } from "../tools/registry";
+import { detectTopic } from "@/lib/tenderTopics";
 import type { ToolArgs, ToolContext } from "../tools/types";
 
 export type Route = { tool: string; args: ToolArgs } | null;
@@ -226,6 +227,80 @@ const seriesArgs = (q: string, count: number | undefined): ToolArgs => {
 };
 
 const has = (q: string, ...words: string[]) => words.some((w) => q.includes(w));
+
+// Strip the tender filler so the residue is the subject keyword to search:
+// "покажи всички търгове за асфалт през 2024" → "асфалт". Token-set filtering,
+// NOT a \b regex — word boundaries are unreliable around Cyrillic, so a
+// \b-based strip silently leaves the filler in. Used only for the free-keyword
+// tender path (the topic path passes a slug instead).
+const TENDER_STOP = new Set([
+  "покажи",
+  "покажете",
+  "дай",
+  "дайте",
+  "ми",
+  "всички",
+  "всеки",
+  "обявени",
+  "обявена",
+  "обявените",
+  "открити",
+  "открита",
+  "откритите",
+  "текущи",
+  "текуща",
+  "търгове",
+  "търг",
+  "търговете",
+  "тендери",
+  "тендер",
+  "тендерите",
+  "поръчките",
+  "поръчки",
+  "поръчка",
+  "процедурите",
+  "процедури",
+  "процедура",
+  "за",
+  "през",
+  "на",
+  "и",
+  "със",
+  "с",
+  "в",
+  "във",
+  "коя",
+  "кой",
+  "кои",
+  "каква",
+  "какъв",
+  "какви",
+  "е",
+  "са",
+  "show",
+  "all",
+  "tenders",
+  "tender",
+  "procedures",
+  "procedure",
+  "for",
+  "in",
+  "the",
+  "me",
+  "list",
+  "open",
+  "announced",
+]);
+const cleanTenderQuery = (s: string): string =>
+  s
+    .replace(/[„""'?.,!]/g, " ")
+    .split(/\s+/)
+    .filter(
+      (w) =>
+        w && !/^\d{4}$/.test(w) && !TENDER_STOP.has(w.toLocaleLowerCase("bg")),
+    )
+    .join(" ")
+    .trim();
 
 const TREND = [
   "тренд",
@@ -1576,6 +1651,73 @@ export const route = (question: string, ctx: ToolContext): Route => {
     !has(q, ...AWARDER_TOKENS)
   )
     return { tool: "contractSearch", args: { company: question } };
+  // TENDER-STAGE queries (procedures / "търгове", BEFORE a signed contract): a
+  // УНП (00000-0000-0000), the "обявени/открити поръчки" / "прогнозна стойност"
+  // framing, or a known topic ("мантинели"). Checked before the contracts
+  // ("поръчк") gate so the tender-specific phrasing wins. The estimated value is
+  // a forecast, so this is a distinct surface from signed-contract spend.
+  {
+    const unpHit = question.match(/\b(\d{5}-\d{4}-\d{4}|T\d{5,})\b/i);
+    if (unpHit) return { tool: "tenderLookup", args: { unp: unpHit[0] } };
+    const topic = detectTopic(question);
+    // "търг" / "тендер" must match as a WHOLE TOKEN — a substring test fires on
+    // "търговски" / "търговия" / "Търговище" (a town!), hijacking commerce and
+    // place queries (JS \b is unreliable around Cyrillic, hence the token set).
+    const tokens = new Set(q.split(/[^a-zа-яё0-9]+/i).filter(Boolean));
+    const tenderTokenCue = [
+      "търг",
+      "търгове",
+      "търга",
+      "търгът",
+      "търговете",
+      "тендер",
+      "тендери",
+      "тендера",
+      "тендерът",
+    ].some((w) => tokens.has(w));
+    const tenderCue =
+      tenderTokenCue ||
+      has(
+        q,
+        "обявена поръчк",
+        "обявени поръчк",
+        "открита поръчк",
+        "открити поръчк",
+        "прогнозна стойност",
+        "обособени позиц",
+        "open tender",
+        "announced tender",
+        "tenders for",
+        "tender for",
+      );
+    // A topic alone routes here only when it isn't a signed-contract question
+    // ("договори за …" stays with the contracts tools).
+    if (tenderCue || (topic && !has(q, "договор", "contract"))) {
+      const yr = question.match(/\b(20\d\d)\b/)?.[1];
+      if (topic)
+        return {
+          tool: "openTenders",
+          args: yr ? { topic: topic.slug, year: yr } : { topic: topic.slug },
+        };
+      // "коя е най-голямата обявена поръчка" → no keyword, just the biggest.
+      const biggest = has(
+        q,
+        "най-голям",
+        "най-голяма",
+        "най-голем",
+        "largest",
+        "biggest",
+      );
+      const kw = biggest ? "" : cleanTenderQuery(question);
+      return {
+        tool: "openTenders",
+        args: {
+          ...(kw ? { query: kw } : {}),
+          ...(yr ? { year: yr } : {}),
+        },
+      };
+    }
+  }
   // Procurement methodology questions whose phrasing often omits "поръчки":
   // the structurally single-bid sectors, and the АОП debarment register. Strong
   // signals only here so non-procurement queries aren't pulled in.

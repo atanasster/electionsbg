@@ -9,6 +9,7 @@ import { dataUrl } from "@/data/dataUrl";
 
 export type MyAreaAlertKind =
   | "procurement"
+  | "tender"
   | "eu_funds"
   | "local_election"
   | "capital_program"

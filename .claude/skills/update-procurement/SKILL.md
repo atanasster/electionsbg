@@ -19,7 +19,7 @@ Pulls АОП (Агенция за обществени поръчки) fortnight
 | Daily watcher reports `data.egov.bg АОП: N new fortnight bundle(s) on top` | Incremental ingest (`npm run procurement:ingest`) |
 | Daily watcher reports `data.egov.bg АОП: N new annual contracts dataset(s)` | Legacy discovery (`npm run procurement:ingest-legacy -- --discover`) — picks up a newly-published year; see "Pre-OCDS backfill" |
 | Daily watcher reports `АОП debarred-suppliers register: N entries` changed | Re-scrape the debarred list (`npx tsx scripts/procurement/debarred.ts`) — see Step 5 below |
-| Daily watcher reports `ЦАИС ЕОП open data: N new publication day(s)` | Incremental EOP gap-fill — see Step 1b |
+| Daily watcher reports `ЦАИС ЕОП open data: N new publication day(s)` | Incremental EOP gap-fill (Step 1b) **and** tender-stage ingest (Step 1f) — both read the same storage.eop.bg buckets |
 | User asks to "refresh procurement" / "ingest new contracts" | Same — incremental |
 | `data/procurement/` empty (fresh clone) | Cold-start ingest of every visible bundle (~24 fortnights ≈ 1 year) |
 | Canary mismatch warning surfaced | Investigate `scripts/procurement/normalize.ts` BEFORE re-running |
@@ -137,6 +137,23 @@ Notes:
 - Each `contract_index/<year>.json` is `{ awarders, contractors, rows }`: awarder/contractor names are dictionary-encoded (eik→name maps) and the compact row carries only the eik — the browser hook (`useContractBrowser.tsx`) rehydrates by reference so ~40k rows share a few thousand name strings (parse + memory win). The compact row is `[date, awarderEik, contractorEik, amountEur, cpvDivision, procedureBucket, euFunded, title, key, bidCount, cpv, euProgram]` — `key` deep-links each row to `/procurement/contract/:key`, `bidCount` (numberOfTenderers) lets the table compute the single-bidder red flag inline (the entity flags — debarred / MP-tied / official-tied / concentration — join by EIK/name from the risk-index files), `cpv` is the full 8-digit code (shown under the sector name; `cpvDivision` stays its 2-digit prefix for the sector facet), and `euProgram` is the operational-programme name shown in the EU-badge tooltip. All four are **appended** (positions 10–13) so a pre-bump shard still rehydrates; readers must treat them as optional. The "All years" facet (`?year=all`) merges every shard client-side (`useAllContractYears`, ~85 MB) for cross-year text search — opt-in, since it loads + risk-scores the whole corpus. `procedureBucket`/category labels resolve in the UI; English OCDS enums (`open`/`limited`/`selective`) are mapped to families in `cpvSectors.ts` (so the flat-feed years don't read as "Друга").
 - `contracts/by-id/shard/<3-hex>.json` is a `{ key → Contract }` map (4096 shards, ~70 rows each) covering the **whole** corpus, so every browser row's detail link resolves. The sibling `contracts/by-id/<key>.json` single-file tree (top-N + MP-tied) is kept as the ~600-byte fast path; `useContract` tries the single file first and falls back to the shard. `writeByIdShards` runs automatically inside `ingest.ts`, `rebuild_derived.ts`, `dedup_legacy_twins.ts`, and `rebuild_from_cache.ts` (alongside `writeByIdContracts`); run it standalone after a manual `contract_index` rebuild. The shard tree is **gitignored** and reaches prod via `bucket:sync` (served uncompressed — ~100 KB/shard raw, not in the `bucket_gzip.ts` hot list).
 - `derived/breakdowns/` + `derived/contract_index/` are **gitignored** (bulky — 12k + 15 shards); they reach prod via **`bucket:sync:all`** — the `contract_index` shards (5.7–14.5 MB raw), `concentration_full.json`, and (since 2026-06-22) the heavy per-EIK rollups `awarder_contracts/*` >50K, `contractors/*` >20K, `awarders/*` >20K (the `/company/:eik`, `/awarder/:eik` + `/company/:eik/contracts` payloads, ~6–10× on the wire) are gzip-shipped by `bucket_gzip.ts`, so a plain `bucket:sync` leaves them uncompressed. Only `derived/sector_totals.json` is committed. `bucket_gzip.ts` auto-discovers these dirs at runtime (size-thresholded `PER_EIK_DIRS`) — no per-EIK enumeration to maintain.
+
+## Step 1f — Tender-stage ingest (procedures, not signed contracts)
+
+The corpus above is **signed contracts**. The sibling **`поръчки`** file in the same `storage.eop.bg` daily buckets is the tender STAGE — the procedure before any contract: estimated (прогнозна) value, lots, status. `ingest_tenders.ts` writes a **parallel** `data/procurement/tenders/` tree that NEVER touches the contracted-spend rollups (estimated value is a forecast, kept in its own aggregate). Tracked by the **same `eop_procurement` watcher** (it fingerprints all three EOP files — договори + **поръчки** + OCDS), so a `ЦАИС ЕОП open data` change should refresh tenders too. Self-contained: it does **not** rebuild the contracts rollups, so run it independently of Step 1's `procurement:ingest`.
+
+```bash
+npx tsx scripts/procurement/ingest_tenders.ts --apply            # incremental: last ~30 days
+npx tsx scripts/procurement/ingest_tenders.ts --apply --upload   # + bucket:sync the tenders tree
+```
+
+Output `data/procurement/tenders/`: `<YYYY>/<YYYY-MM>.json` month-shards + `by-tender/shard/` (per-procedure, keyed sha256(УНП)) + `by-ocid/shard/` (contract→tender lineage, keyed by the ocid's last 2 chars) + `by_year/<year>.json` (the slim search shards the FE `/procurement/tenders` search + the `openTenders` AI tool read) + `index.json`. All bulky shards are **gitignored** (see `.gitignore` — `tenders/{20*,by-tender,by-ocid,by_year}`); only the ~390 KB `index.json` is committed. They reach prod via `bucket:sync` (the `--upload` flag, or `bucket:sync:all`). Lineage to a signed contract is free: a contract's `ocid` = `ocds-e82gsb-<parentTenderId>`. See `docs/plans/procurement-tenders-ingest-v1.md`.
+
+**Full 2020→ history is a one-off, flag-gated operator backfill — never in the watcher/CI** (it crawls ~2,300 daily `поръчки` buckets; raw days cache to `raw_data/procurement/eop_tenders/` so re-runs are offline):
+
+```bash
+npx tsx scripts/procurement/ingest_tenders.ts --from 2020-01-01 --to <today> --backfill --apply --upload
+```
 
 ## Step 2 — Verify
 
@@ -403,6 +420,9 @@ The `crossReference` field on `data/procurement/index.json` is the at-a-glance M
 | `scripts/procurement/types.ts` | Shared Contract / rollup type definitions |
 | `scripts/procurement/ingest_eop.ts` | ЦАИС ЕОП flat-`договори` gap-fill CLI (incremental default + `--backfill` one-off) |
 | `scripts/procurement/normalize_eop.ts` | Flat `договори` record → `Contract[]` mapper (splits multi-supplier consortia) |
+| `scripts/procurement/ingest_tenders.ts` | Tender-STAGE ingest CLI — ЦАИС ЕОП `поръчки` feed → parallel `data/procurement/tenders/` tree (Step 1f; incremental default + `--backfill` one-off; estimated value quarantined) |
+| `scripts/procurement/normalize_eop_tender.ts` | Flat `поръчки` records → `Tender[]` (one per УНП, nested lots, ocid lineage); raw shape in `eop_tender_types.ts` |
+| `src/lib/tenderTopics.ts` | Shared topic-alias map (slug→regex+CPV set) for the FE tender search + the `openTenders` AI tool — robust phrasing match (e.g. `guardrails` → мантинели) |
 | `scripts/procurement/awarder_geo_map.ts` | EKATTE override builder for address-less buyers — combines Tier B (МОН) + E (OCDS party-geo) + D (tenders oblast) + A (name-parse) |
 | `scripts/procurement/build_ocds_party_geo.ts` | Tier E — harvests OCDS обявления party addresses (storage.eop.bg, 2026+) → `derived/ocds_party_geo_map.json` (eik→locality+NUTS) |
 | `scripts/procurement/build_tender_oblast_map.ts` | Tier D — harvests поръчки `executionPlaceNuts` → `derived/buyer_oblast_map.json` (eik→modal oblast) |

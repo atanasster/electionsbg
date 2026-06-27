@@ -19,6 +19,7 @@ import {
   ChevronDown,
   ChevronRight,
   ChevronUp,
+  ClipboardList,
   Coins,
   Crown,
   FileSearch,
@@ -49,6 +50,7 @@ const EXPANDED_CAP = 20;
 
 const ICONS: Record<MyAreaAlertKind, typeof Activity> = {
   procurement: FileSearch,
+  tender: ClipboardList,
   eu_funds: Coins,
   local_election: Crown,
   capital_program: Hammer,
@@ -58,6 +60,7 @@ const ICONS: Record<MyAreaAlertKind, typeof Activity> = {
 
 const COLOR: Record<MyAreaAlertKind, string> = {
   procurement: "#5E8AC7",
+  tender: "#6366F1",
   eu_funds: "#E0A22C",
   local_election: "#56A86F",
   capital_program: "#A6792F",

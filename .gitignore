@@ -136,6 +136,16 @@ functions/.secret.local
 # committed (it's directly under derived/, not in these subdirs).
 /data/procurement/derived/breakdowns/
 /data/procurement/derived/contract_index/
+# Tender-stage (procedures) shards — same convention: bulky month-shards +
+# per-tender + lineage shards ship to the bucket; tenders/index.json (the small
+# metadata + top-by-value + per-buyer counts) stays committed.
+/data/procurement/tenders/20*/
+/data/procurement/tenders/by-tender/
+/data/procurement/tenders/by-ocid/
+/data/procurement/tenders/by_year/
+# Intermediate join source for the my-area alerts builder (read offline by
+# scripts/myarea/build_alerts.ts; not served to the FE).
+/data/procurement/tenders/recent_by_buyer.json
 
 # Cached budget source artifacts (egov КФП resources, minfin Excel, bulnao
 # PDFs). Re-fetched on demand by `/update-budget`. The normalized JSON outputs
@@ -225,3 +235,8 @@ ai/m0/.venv/
 # committed to GitHub. The rest of brand/ (covers, ads, profile artwork) stays
 # tracked.
 /brand/posts/
+
+# Local dev-only: symlink to serve the (bucket-only) procurement data tree in `npm run dev`.
+# Never commit; remove before `npm run build` (vite would bundle the whole tree).
+/public/procurement
+/public/myarea

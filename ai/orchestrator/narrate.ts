@@ -293,6 +293,28 @@ export const narrate = (env: Envelope, lang: Lang): string => {
         ? `Обществени поръчки: ${f(env, "contracts")} договора за ${f(env, "total_value")}; свързани с депутати: ${f(env, "mp_connected_value")}${offBg}.`
         : `Public procurement: ${f(env, "contracts")} contracts worth ${f(env, "total_value")}; MP-connected: ${f(env, "mp_connected_value")}${offEn}.`;
     }
+    case "openTenders": {
+      const scope = String(env.facts.scope ?? "");
+      const yr = env.facts.year ? String(env.facts.year) : "";
+      const total = env.facts.total_estimated;
+      const cancelledN = Number(env.facts.cancelled) || 0;
+      const scopeBg = scope && scope !== "всички" ? ` за „${scope}“` : "";
+      const scopeEn = scope && scope !== "all" ? ` for “${scope}”` : "";
+      const cancelBg = cancelledN ? ` (${cancelledN} прекратени)` : "";
+      const cancelEn = cancelledN ? ` (${cancelledN} cancelled)` : "";
+      return lang === "bg"
+        ? `Намерих ${f(env, "matches")} обявени поръчки${scopeBg}${yr ? ` през ${yr}` : ""}${cancelBg}${total ? `, обща прогнозна стойност ${f(env, "total_estimated")}` : ""}; най-голямата е ${f(env, "biggest_estimate")}. Прогнозни (обявени) стойности — не са похарчени средства.`
+        : `Found ${f(env, "matches")} announced tenders${scopeEn}${yr ? ` in ${yr}` : ""}${cancelEn}${total ? `, total estimated ${f(env, "total_estimated")}` : ""}; the largest is ${f(env, "biggest_estimate")}. Estimated (announced) values — not money spent.`;
+    }
+    case "tenderLookup": {
+      if (!env.facts.unp)
+        return lang === "bg"
+          ? "Не открих такава поръчка сред най-големите."
+          : "I couldn't find that tender among the largest.";
+      return lang === "bg"
+        ? `Поръчка ${f(env, "unp")} на ${f(env, "buyer")}: прогнозна стойност ${f(env, "estimated_value")}, ${f(env, "lots")} обособени позиции, статус „${f(env, "status")}“ (обявена на ${f(env, "announced")}). Прогнозна (обявена) стойност — не е похарчена.`
+        : `Tender ${f(env, "unp")} by ${f(env, "buyer")}: estimated ${f(env, "estimated_value")}, ${f(env, "lots")} lots, status “${f(env, "status")}” (announced ${f(env, "announced")}). Estimated (announced) value — not money spent.`;
+    }
     case "contractSearch": {
       if (!env.facts.company)
         return lang === "bg"

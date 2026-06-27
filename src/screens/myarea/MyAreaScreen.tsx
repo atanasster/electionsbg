@@ -32,6 +32,7 @@ import { MyAreaMunicipalBudgetTile } from "./MyAreaMunicipalBudgetTile";
 import { MyAreaLocalTaxesTile } from "./MyAreaLocalTaxesTile";
 import { MyAreaPricesTile } from "./MyAreaPricesTile";
 import { MyAreaProcurementTile } from "./MyAreaProcurementTile";
+import { MyAreaTendersTile } from "./MyAreaTendersTile";
 import { MyAreaTransparencyTile } from "./MyAreaTransparencyTile";
 import { MyAreaQualityStrip } from "./MyAreaQualityStrip";
 import { MyAreaCommunityTile } from "./MyAreaCommunityTile";
@@ -302,6 +303,9 @@ export const MyAreaScreen: FC = () => {
           obshtina={area.obshtina}
           ekatte={area.kind === "settlement" ? area.ekatte : undefined}
         />
+        {/* Tender pipeline (announced procedures, before a contract) by the
+            place's municipal-tier buyers — auto-hides when none on record. */}
+        <MyAreaTendersTile obshtina={area.obshtina} />
         {/* Personal-tax receipt calculator — content-rich (COFOG breakdown
             + municipal-return line + local-tax estimate + capital-program
             top items). Renders full-width on its own row so the calculator
