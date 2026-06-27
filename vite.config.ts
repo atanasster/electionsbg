@@ -124,6 +124,13 @@ export default defineConfig(({ mode }) => {
         // properties of null (reading 'useEffect')" from QueryClientProvider.
         "react-markdown",
         "remark-gfm",
+        // d3-sankey is only reached through lazily-imported Sankey tiles
+        // (budget flow, procurement flow, EU-funds, vote flow). Without
+        // pre-bundling, the first navigation to one of those pages is when
+        // Vite discovers it and re-runs the dep optimizer mid-session — the
+        // reload race that 504s the dep chunk ("Outdated Optimize Dep") and
+        // blanks the route with "Failed to fetch dynamically imported module".
+        "d3-sankey",
       ],
     },
     plugins: [react(), tsconfigPaths(), serveDataDir(), stripLazyCss()],
