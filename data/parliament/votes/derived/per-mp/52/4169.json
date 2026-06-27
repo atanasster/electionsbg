@@ -1,0 +1,313 @@
+{
+  "mpId": 4169,
+  "ns": "52",
+  "partyShort": "ГЕРБ - СДС",
+  "loyalty": {
+    "votesCast": 39,
+    "withParty": 31,
+    "loyaltyPct": 0.7948717948717948,
+    "windowFrom": "2026-04-30",
+    "windowTo": "2026-06-26",
+    "totalVoteItems": 607
+  },
+  "attendance": {
+    "totalItems": 92,
+    "presentCount": 39,
+    "absentCount": 53,
+    "presentPct": 0.42391304347826086
+  },
+  "cohort": {
+    "size": 267,
+    "votesCastMedian": 436,
+    "loyaltyPctMedian": 0.9788461538461538,
+    "presentPctMedian": 0.7166392092257001
+  },
+  "dissents": {
+    "totalCast": 39,
+    "dissentCount": 8,
+    "recent": [
+      {
+        "date": "2026-06-26",
+        "item": 4,
+        "slug": "4",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 18
+      },
+      {
+        "date": "2026-06-26",
+        "item": 3,
+        "slug": "3",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 17
+      },
+      {
+        "date": "2026-06-25",
+        "item": 26,
+        "slug": "26-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-6-",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 6 (става параграф 9) - вариант 2, т.1 и т.2",
+        "topic": "zid",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 21
+      },
+      {
+        "date": "2026-06-25",
+        "item": 25,
+        "slug": "25-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-6-",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 6 (става параграф 9) - вариант 1",
+        "topic": "zid",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 25
+      },
+      {
+        "date": "2026-06-25",
+        "item": 23,
+        "slug": "23-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-5-",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 5 (става параграф 8) - вариант 1",
+        "topic": "zid",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 26
+      },
+      {
+        "date": "2026-06-25",
+        "item": 22,
+        "slug": "22-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-5-",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 5 - предложение от Петър Петров",
+        "topic": "zid",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 24
+      },
+      {
+        "date": "2026-06-25",
+        "item": 4,
+        "slug": "4-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-1-",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 1 -- предложение от Надежда Йорданова и група н.п",
+        "topic": "zid",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      },
+      {
+        "date": "2026-06-25",
+        "item": 3,
+        "slug": "3-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-1-",
+        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 1 - предложение от Велислав Величков и Стою Стоев",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 16
+      }
+    ]
+  },
+  "similarity": {
+    "topK": [
+      {
+        "mpId": 5334,
+        "score": 0.4364357804719847,
+        "overlap": 31
+      },
+      {
+        "mpId": 5172,
+        "score": 0.42470599286468796,
+        "overlap": 38
+      },
+      {
+        "mpId": 5117,
+        "score": 0.2988925624117565,
+        "overlap": 35
+      },
+      {
+        "mpId": 5075,
+        "score": 0.29340782925813763,
+        "overlap": 38
+      },
+      {
+        "mpId": 5206,
+        "score": 0.2881814192777728,
+        "overlap": 36
+      },
+      {
+        "mpId": 5181,
+        "score": 0.2857291616305593,
+        "overlap": 37
+      },
+      {
+        "mpId": 5095,
+        "score": 0.27269628627341747,
+        "overlap": 29
+      },
+      {
+        "mpId": 5195,
+        "score": 0.2718636239135184,
+        "overlap": 27
+      },
+      {
+        "mpId": 5207,
+        "score": 0.2573356895783172,
+        "overlap": 38
+      },
+      {
+        "mpId": 5096,
+        "score": 0.25231441144262856,
+        "overlap": 37
+      },
+      {
+        "mpId": 5230,
+        "score": 0.2504260868297881,
+        "overlap": 32
+      },
+      {
+        "mpId": 5228,
+        "score": 0.24677595668030328,
+        "overlap": 35
+      },
+      {
+        "mpId": 5245,
+        "score": 0.24649759292660056,
+        "overlap": 37
+      },
+      {
+        "mpId": 5229,
+        "score": 0.24502772930522737,
+        "overlap": 29
+      },
+      {
+        "mpId": 5274,
+        "score": 0.24242424242424243,
+        "overlap": 35
+      },
+      {
+        "mpId": 5257,
+        "score": 0.24089568749086282,
+        "overlap": 35
+      },
+      {
+        "mpId": 5152,
+        "score": 0.24082406492091707,
+        "overlap": 33
+      },
+      {
+        "mpId": 5061,
+        "score": 0.24056419117004121,
+        "overlap": 38
+      },
+      {
+        "mpId": 5193,
+        "score": 0.24024999005214906,
+        "overlap": 26
+      },
+      {
+        "mpId": 5111,
+        "score": 0.2374587360434654,
+        "overlap": 31
+      }
+    ],
+    "bottomK": [
+      {
+        "mpId": 5175,
+        "score": 0.061666305341717374,
+        "overlap": 38
+      },
+      {
+        "mpId": 5112,
+        "score": 0.06218354227038639,
+        "overlap": 21
+      },
+      {
+        "mpId": 5184,
+        "score": 0.06227991553292183,
+        "overlap": 9
+      },
+      {
+        "mpId": 5285,
+        "score": 0.06872081327440495,
+        "overlap": 8
+      },
+      {
+        "mpId": 5160,
+        "score": 0.07020545658013636,
+        "overlap": 30
+      },
+      {
+        "mpId": 5241,
+        "score": 0.07519009528967117,
+        "overlap": 31
+      },
+      {
+        "mpId": 5156,
+        "score": 0.07800925977109881,
+        "overlap": 10
+      },
+      {
+        "mpId": 5224,
+        "score": 0.07943478763906515,
+        "overlap": 31
+      },
+      {
+        "mpId": 5126,
+        "score": 0.0832250378576479,
+        "overlap": 11
+      },
+      {
+        "mpId": 5134,
+        "score": 0.08333333333333333,
+        "overlap": 39
+      },
+      {
+        "mpId": 5105,
+        "score": 0.08337405326409632,
+        "overlap": 21
+      },
+      {
+        "mpId": 5155,
+        "score": 0.08422625485771526,
+        "overlap": 31
+      },
+      {
+        "mpId": 5299,
+        "score": 0.08454287891696467,
+        "overlap": 33
+      },
+      {
+        "mpId": 5194,
+        "score": 0.08720932535569716,
+        "overlap": 9
+      },
+      {
+        "mpId": 5141,
+        "score": 0.08941768565220114,
+        "overlap": 31
+      },
+      {
+        "mpId": 5217,
+        "score": 0.09065192181986732,
+        "overlap": 37
+      },
+      {
+        "mpId": 5323,
+        "score": 0.09323359221014225,
+        "overlap": 36
+      },
+      {
+        "mpId": 5114,
+        "score": 0.09580083246183276,
+        "overlap": 39
+      },
+      {
+        "mpId": 5063,
+        "score": 0.09611830601359905,
+        "overlap": 8
+      },
+      {
+        "mpId": 5179,
+        "score": 0.09614606180569177,
+        "overlap": 37
+      }
+    ]
+  }
+}

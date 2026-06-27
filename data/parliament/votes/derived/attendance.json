@@ -1,8 +1,8 @@
 {
-  "computedAt": "2026-06-25T01:11:07.207Z",
+  "computedAt": "2026-06-27T10:28:40.212Z",
   "byNs": {
     "44": {
-      "computedAt": "2026-06-25T01:11:07.782Z",
+      "computedAt": "2026-06-27T10:28:40.907Z",
       "windowFrom": "2020-10-28",
       "windowTo": "2021-03-25",
       "totalVoteItems": 1036,
@@ -1970,7 +1970,7 @@
       ]
     },
     "45": {
-      "computedAt": "2026-06-25T01:11:07.784Z",
+      "computedAt": "2026-06-27T10:28:40.909Z",
       "windowFrom": "2021-04-21",
       "windowTo": "2021-05-07",
       "totalVoteItems": 207,
@@ -3906,7 +3906,7 @@
       ]
     },
     "46": {
-      "computedAt": "2026-06-25T01:11:07.793Z",
+      "computedAt": "2026-06-27T10:28:40.918Z",
       "windowFrom": "2021-07-21",
       "windowTo": "2021-09-15",
       "totalVoteItems": 560,
@@ -5834,7 +5834,7 @@
       ]
     },
     "47": {
-      "computedAt": "2026-06-25T01:11:07.809Z",
+      "computedAt": "2026-06-27T10:28:40.935Z",
       "windowFrom": "2021-12-03",
       "windowTo": "2022-07-29",
       "totalVoteItems": 1933,
@@ -7986,7 +7986,7 @@
       ]
     },
     "48": {
-      "computedAt": "2026-06-25T01:11:07.821Z",
+      "computedAt": "2026-06-27T10:28:40.947Z",
       "windowFrom": "2022-10-19",
       "windowTo": "2023-02-02",
       "totalVoteItems": 1435,
@@ -9914,7 +9914,7 @@
       ]
     },
     "49": {
-      "computedAt": "2026-06-25T01:11:07.853Z",
+      "computedAt": "2026-06-27T10:28:40.978Z",
       "windowFrom": "2023-04-12",
       "windowTo": "2024-06-02",
       "totalVoteItems": 3855,
@@ -12034,7 +12034,7 @@
       ]
     },
     "50": {
-      "computedAt": "2026-06-25T01:11:07.859Z",
+      "computedAt": "2026-06-27T10:28:40.984Z",
       "windowFrom": "2024-06-19",
       "windowTo": "2024-09-26",
       "totalVoteItems": 685,
@@ -14354,7 +14354,7 @@
       ]
     },
     "51": {
-      "computedAt": "2026-06-25T01:11:07.896Z",
+      "computedAt": "2026-06-27T10:28:41.020Z",
       "windowFrom": "2024-11-11",
       "windowTo": "2026-04-01",
       "totalVoteItems": 4187,
@@ -16834,10 +16834,10 @@
       ]
     },
     "52": {
-      "computedAt": "2026-06-25T01:11:07.906Z",
+      "computedAt": "2026-06-27T10:28:41.031Z",
       "windowFrom": "2026-04-30",
-      "windowTo": "2026-06-24",
-      "totalVoteItems": 515,
+      "windowTo": "2026-06-26",
+      "totalVoteItems": 607,
       "entries": [
         {
           "mpId": 3606,
@@ -17050,10 +17050,10 @@
         {
           "mpId": 4162,
           "partyShort": "ПБ",
-          "totalItems": 483,
-          "presentCount": 453,
-          "absentCount": 30,
-          "presentPct": 0.937888198757764
+          "totalItems": 575,
+          "presentCount": 543,
+          "absentCount": 32,
+          "presentPct": 0.9443478260869566
         },
         {
           "mpId": 4167,
@@ -17064,828 +17064,836 @@
           "presentPct": 0
         },
         {
+          "mpId": 4169,
+          "partyShort": "ГЕРБ - СДС",
+          "totalItems": 92,
+          "presentCount": 39,
+          "absentCount": 53,
+          "presentPct": 0.42391304347826086
+        },
+        {
           "mpId": 5060,
           "partyShort": "ВЪЗРАЖДАНЕ",
-          "totalItems": 515,
-          "presentCount": 335,
-          "absentCount": 180,
-          "presentPct": 0.6504854368932039
+          "totalItems": 607,
+          "presentCount": 391,
+          "absentCount": 216,
+          "presentPct": 0.6441515650741351
         },
         {
           "mpId": 5061,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 356,
-          "absentCount": 159,
-          "presentPct": 0.6912621359223301
+          "totalItems": 607,
+          "presentCount": 399,
+          "absentCount": 208,
+          "presentPct": 0.657331136738056
         },
         {
           "mpId": 5062,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 376,
-          "absentCount": 139,
-          "presentPct": 0.7300970873786408
+          "totalItems": 607,
+          "presentCount": 457,
+          "absentCount": 150,
+          "presentPct": 0.7528830313014827
         },
         {
           "mpId": 5063,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 117,
-          "absentCount": 398,
-          "presentPct": 0.22718446601941747
+          "totalItems": 607,
+          "presentCount": 126,
+          "absentCount": 481,
+          "presentPct": 0.20757825370675453
         },
         {
           "mpId": 5064,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 436,
-          "absentCount": 79,
-          "presentPct": 0.8466019417475729
+          "totalItems": 607,
+          "presentCount": 522,
+          "absentCount": 85,
+          "presentPct": 0.8599670510708401
         },
         {
           "mpId": 5065,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 461,
-          "absentCount": 54,
-          "presentPct": 0.8951456310679612
+          "totalItems": 607,
+          "presentCount": 550,
+          "absentCount": 57,
+          "presentPct": 0.9060955518945635
         },
         {
           "mpId": 5066,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 423,
-          "absentCount": 92,
-          "presentPct": 0.8213592233009709
+          "totalItems": 607,
+          "presentCount": 512,
+          "absentCount": 95,
+          "presentPct": 0.8434925864909391
         },
         {
           "mpId": 5068,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 461,
-          "absentCount": 54,
-          "presentPct": 0.8951456310679612
+          "totalItems": 607,
+          "presentCount": 551,
+          "absentCount": 56,
+          "presentPct": 0.9077429983525536
         },
         {
           "mpId": 5069,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 449,
-          "absentCount": 66,
-          "presentPct": 0.8718446601941747
+          "totalItems": 607,
+          "presentCount": 538,
+          "absentCount": 69,
+          "presentPct": 0.886326194398682
         },
         {
           "mpId": 5071,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 479,
-          "absentCount": 36,
-          "presentPct": 0.9300970873786408
+          "totalItems": 607,
+          "presentCount": 564,
+          "absentCount": 43,
+          "presentPct": 0.929159802306425
         },
         {
           "mpId": 5072,
           "partyShort": "ПП",
-          "totalItems": 524,
-          "presentCount": 339,
-          "absentCount": 185,
-          "presentPct": 0.6469465648854962
+          "totalItems": 616,
+          "presentCount": 414,
+          "absentCount": 202,
+          "presentPct": 0.672077922077922
         },
         {
           "mpId": 5073,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 462,
-          "absentCount": 53,
-          "presentPct": 0.8970873786407767
+          "totalItems": 607,
+          "presentCount": 546,
+          "absentCount": 61,
+          "presentPct": 0.899505766062603
         },
         {
           "mpId": 5074,
           "partyShort": "ВЪЗРАЖДАНЕ",
-          "totalItems": 515,
-          "presentCount": 335,
-          "absentCount": 180,
-          "presentPct": 0.6504854368932039
+          "totalItems": 607,
+          "presentCount": 397,
+          "absentCount": 210,
+          "presentPct": 0.6540362438220758
         },
         {
           "mpId": 5075,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 186,
-          "absentCount": 329,
-          "presentPct": 0.3611650485436893
+          "totalItems": 607,
+          "presentCount": 269,
+          "absentCount": 338,
+          "presentPct": 0.443163097199341
         },
         {
           "mpId": 5076,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 433,
-          "absentCount": 82,
-          "presentPct": 0.8407766990291262
+          "totalItems": 607,
+          "presentCount": 521,
+          "absentCount": 86,
+          "presentPct": 0.8583196046128501
         },
         {
           "mpId": 5077,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 450,
-          "absentCount": 65,
-          "presentPct": 0.8737864077669902
+          "totalItems": 607,
+          "presentCount": 537,
+          "absentCount": 70,
+          "presentPct": 0.8846787479406919
         },
         {
           "mpId": 5078,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 467,
-          "absentCount": 48,
-          "presentPct": 0.9067961165048544
+          "totalItems": 607,
+          "presentCount": 557,
+          "absentCount": 50,
+          "presentPct": 0.9176276771004942
         },
         {
           "mpId": 5079,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 435,
-          "absentCount": 80,
-          "presentPct": 0.8446601941747572
+          "totalItems": 607,
+          "presentCount": 524,
+          "absentCount": 83,
+          "presentPct": 0.8632619439868204
         },
         {
           "mpId": 5080,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 342,
-          "absentCount": 173,
-          "presentPct": 0.6640776699029126
+          "totalItems": 607,
+          "presentCount": 431,
+          "absentCount": 176,
+          "presentPct": 0.7100494233937397
         },
         {
           "mpId": 5081,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 294,
-          "absentCount": 221,
-          "presentPct": 0.570873786407767
+          "totalItems": 607,
+          "presentCount": 317,
+          "absentCount": 290,
+          "presentPct": 0.5222405271828665
         },
         {
           "mpId": 5082,
           "partyShort": "ДБ",
-          "totalItems": 515,
-          "presentCount": 282,
-          "absentCount": 233,
-          "presentPct": 0.5475728155339806
+          "totalItems": 607,
+          "presentCount": 345,
+          "absentCount": 262,
+          "presentPct": 0.5683690280065898
         },
         {
           "mpId": 5083,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 210,
-          "absentCount": 305,
-          "presentPct": 0.4077669902912621
+          "totalItems": 607,
+          "presentCount": 266,
+          "absentCount": 341,
+          "presentPct": 0.4382207578253707
         },
         {
           "mpId": 5084,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 489,
-          "absentCount": 26,
-          "presentPct": 0.9495145631067962
+          "totalItems": 607,
+          "presentCount": 578,
+          "absentCount": 29,
+          "presentPct": 0.9522240527182867
         },
         {
           "mpId": 5085,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 428,
-          "absentCount": 87,
-          "presentPct": 0.8310679611650486
+          "totalItems": 607,
+          "presentCount": 514,
+          "absentCount": 93,
+          "presentPct": 0.8467874794069192
         },
         {
           "mpId": 5086,
           "partyShort": "ДПС",
-          "totalItems": 515,
-          "presentCount": 354,
-          "absentCount": 161,
-          "presentPct": 0.6873786407766991
+          "totalItems": 607,
+          "presentCount": 393,
+          "absentCount": 214,
+          "presentPct": 0.6474464579901154
         },
         {
           "mpId": 5087,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 318,
-          "absentCount": 197,
-          "presentPct": 0.6174757281553398
+          "totalItems": 607,
+          "presentCount": 408,
+          "absentCount": 199,
+          "presentPct": 0.6721581548599671
         },
         {
           "mpId": 5088,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 391,
-          "absentCount": 124,
-          "presentPct": 0.7592233009708738
+          "totalItems": 607,
+          "presentCount": 480,
+          "absentCount": 127,
+          "presentPct": 0.7907742998352554
         },
         {
           "mpId": 5089,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 446,
-          "absentCount": 69,
-          "presentPct": 0.8660194174757282
+          "totalItems": 607,
+          "presentCount": 536,
+          "absentCount": 71,
+          "presentPct": 0.8830313014827018
         },
         {
           "mpId": 5091,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 191,
-          "absentCount": 324,
-          "presentPct": 0.37087378640776697
+          "totalItems": 607,
+          "presentCount": 231,
+          "absentCount": 376,
+          "presentPct": 0.3805601317957166
         },
         {
           "mpId": 5092,
           "partyShort": "ПП",
-          "totalItems": 524,
-          "presentCount": 421,
-          "absentCount": 103,
-          "presentPct": 0.8034351145038168
+          "totalItems": 616,
+          "presentCount": 508,
+          "absentCount": 108,
+          "presentPct": 0.8246753246753247
         },
         {
           "mpId": 5093,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 467,
-          "absentCount": 48,
-          "presentPct": 0.9067961165048544
+          "totalItems": 607,
+          "presentCount": 555,
+          "absentCount": 52,
+          "presentPct": 0.914332784184514
         },
         {
           "mpId": 5094,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 486,
-          "absentCount": 29,
-          "presentPct": 0.9436893203883495
+          "totalItems": 607,
+          "presentCount": 566,
+          "absentCount": 41,
+          "presentPct": 0.9324546952224053
         },
         {
           "mpId": 5095,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 173,
-          "absentCount": 342,
-          "presentPct": 0.3359223300970874
+          "totalItems": 607,
+          "presentCount": 204,
+          "absentCount": 403,
+          "presentPct": 0.33607907742998355
         },
         {
           "mpId": 5096,
           "partyShort": "ДБ",
-          "totalItems": 515,
-          "presentCount": 350,
-          "absentCount": 165,
-          "presentPct": 0.6796116504854369
+          "totalItems": 607,
+          "presentCount": 438,
+          "absentCount": 169,
+          "presentPct": 0.7215815485996705
         },
         {
           "mpId": 5097,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 476,
-          "absentCount": 39,
-          "presentPct": 0.9242718446601942
+          "totalItems": 607,
+          "presentCount": 562,
+          "absentCount": 45,
+          "presentPct": 0.9258649093904449
         },
         {
           "mpId": 5098,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 464,
-          "absentCount": 51,
-          "presentPct": 0.9009708737864077
+          "totalItems": 607,
+          "presentCount": 548,
+          "absentCount": 59,
+          "presentPct": 0.9028006589785832
         },
         {
           "mpId": 5099,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 475,
-          "absentCount": 40,
-          "presentPct": 0.9223300970873787
+          "totalItems": 607,
+          "presentCount": 564,
+          "absentCount": 43,
+          "presentPct": 0.929159802306425
         },
         {
           "mpId": 5100,
           "partyShort": "ДПС",
-          "totalItems": 515,
+          "totalItems": 607,
           "presentCount": 20,
-          "absentCount": 495,
-          "presentPct": 0.038834951456310676
+          "absentCount": 587,
+          "presentPct": 0.032948929159802305
         },
         {
           "mpId": 5101,
           "partyShort": "ВЪЗРАЖДАНЕ",
-          "totalItems": 515,
-          "presentCount": 379,
-          "absentCount": 136,
-          "presentPct": 0.7359223300970874
+          "totalItems": 607,
+          "presentCount": 444,
+          "absentCount": 163,
+          "presentPct": 0.7314662273476112
         },
         {
           "mpId": 5102,
           "partyShort": "ДПС",
-          "totalItems": 515,
-          "presentCount": 308,
-          "absentCount": 207,
-          "presentPct": 0.5980582524271845
+          "totalItems": 607,
+          "presentCount": 349,
+          "absentCount": 258,
+          "presentPct": 0.5749588138385503
         },
         {
           "mpId": 5103,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 250,
-          "absentCount": 265,
-          "presentPct": 0.4854368932038835
+          "totalItems": 607,
+          "presentCount": 270,
+          "absentCount": 337,
+          "presentPct": 0.44481054365733114
         },
         {
           "mpId": 5105,
           "partyShort": "ДПС",
-          "totalItems": 515,
-          "presentCount": 253,
-          "absentCount": 262,
-          "presentPct": 0.4912621359223301
+          "totalItems": 607,
+          "presentCount": 283,
+          "absentCount": 324,
+          "presentPct": 0.46622734761120266
         },
         {
           "mpId": 5106,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 348,
-          "absentCount": 167,
-          "presentPct": 0.6757281553398058
+          "totalItems": 607,
+          "presentCount": 392,
+          "absentCount": 215,
+          "presentPct": 0.6457990115321252
         },
         {
           "mpId": 5107,
           "partyShort": "ДПС",
-          "totalItems": 515,
-          "presentCount": 364,
-          "absentCount": 151,
-          "presentPct": 0.7067961165048544
+          "totalItems": 607,
+          "presentCount": 404,
+          "absentCount": 203,
+          "presentPct": 0.6655683690280065
         },
         {
           "mpId": 5109,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 479,
-          "absentCount": 36,
-          "presentPct": 0.9300970873786408
+          "totalItems": 607,
+          "presentCount": 568,
+          "absentCount": 39,
+          "presentPct": 0.9357495881383855
         },
         {
           "mpId": 5110,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 443,
-          "absentCount": 72,
-          "presentPct": 0.8601941747572815
+          "totalItems": 607,
+          "presentCount": 533,
+          "absentCount": 74,
+          "presentPct": 0.8780889621087314
         },
         {
           "mpId": 5111,
           "partyShort": "ДБ",
-          "totalItems": 515,
-          "presentCount": 221,
-          "absentCount": 294,
-          "presentPct": 0.429126213592233
+          "totalItems": 607,
+          "presentCount": 284,
+          "absentCount": 323,
+          "presentPct": 0.46787479406919275
         },
         {
           "mpId": 5112,
           "partyShort": "ДПС",
-          "totalItems": 515,
-          "presentCount": 329,
-          "absentCount": 186,
-          "presentPct": 0.6388349514563106
+          "totalItems": 607,
+          "presentCount": 390,
+          "absentCount": 217,
+          "presentPct": 0.642504118616145
         },
         {
           "mpId": 5113,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 139,
-          "absentCount": 376,
-          "presentPct": 0.26990291262135924
+          "totalItems": 607,
+          "presentCount": 194,
+          "absentCount": 413,
+          "presentPct": 0.31960461285008235
         },
         {
           "mpId": 5114,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 479,
-          "absentCount": 36,
-          "presentPct": 0.9300970873786408
+          "totalItems": 607,
+          "presentCount": 569,
+          "absentCount": 38,
+          "presentPct": 0.9373970345963756
         },
         {
           "mpId": 5115,
           "partyShort": "ПБ",
-          "totalItems": 477,
-          "presentCount": 411,
-          "absentCount": 66,
-          "presentPct": 0.8616352201257862
+          "totalItems": 569,
+          "presentCount": 498,
+          "absentCount": 71,
+          "presentPct": 0.875219683655536
         },
         {
           "mpId": 5116,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 470,
-          "absentCount": 45,
-          "presentPct": 0.912621359223301
+          "totalItems": 607,
+          "presentCount": 559,
+          "absentCount": 48,
+          "presentPct": 0.9209225700164745
         },
         {
           "mpId": 5117,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 250,
-          "absentCount": 265,
-          "presentPct": 0.4854368932038835
+          "totalItems": 607,
+          "presentCount": 294,
+          "absentCount": 313,
+          "presentPct": 0.4843492586490939
         },
         {
           "mpId": 5119,
           "partyShort": "ПБ",
-          "totalItems": 477,
-          "presentCount": 432,
-          "absentCount": 45,
-          "presentPct": 0.9056603773584906
+          "totalItems": 569,
+          "presentCount": 520,
+          "absentCount": 49,
+          "presentPct": 0.9138840070298769
         },
         {
           "mpId": 5120,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 478,
-          "absentCount": 37,
-          "presentPct": 0.9281553398058252
+          "totalItems": 607,
+          "presentCount": 564,
+          "absentCount": 43,
+          "presentPct": 0.929159802306425
         },
         {
           "mpId": 5121,
           "partyShort": "ДБ",
-          "totalItems": 515,
-          "presentCount": 228,
-          "absentCount": 287,
-          "presentPct": 0.44271844660194176
+          "totalItems": 607,
+          "presentCount": 306,
+          "absentCount": 301,
+          "presentPct": 0.5041186161449753
         },
         {
           "mpId": 5122,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 395,
-          "absentCount": 120,
-          "presentPct": 0.7669902912621359
+          "totalItems": 607,
+          "presentCount": 485,
+          "absentCount": 122,
+          "presentPct": 0.7990115321252059
         },
         {
           "mpId": 5123,
           "partyShort": "ДБ",
-          "totalItems": 515,
-          "presentCount": 456,
-          "absentCount": 59,
-          "presentPct": 0.8854368932038835
+          "totalItems": 607,
+          "presentCount": 541,
+          "absentCount": 66,
+          "presentPct": 0.8912685337726524
         },
         {
           "mpId": 5124,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
+          "totalItems": 607,
           "presentCount": 104,
-          "absentCount": 411,
-          "presentPct": 0.20194174757281552
+          "absentCount": 503,
+          "presentPct": 0.171334431630972
         },
         {
           "mpId": 5125,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
+          "totalItems": 607,
           "presentCount": 60,
-          "absentCount": 455,
-          "presentPct": 0.11650485436893204
+          "absentCount": 547,
+          "presentPct": 0.09884678747940692
         },
         {
           "mpId": 5126,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 336,
-          "absentCount": 179,
-          "presentPct": 0.6524271844660194
+          "totalItems": 607,
+          "presentCount": 381,
+          "absentCount": 226,
+          "presentPct": 0.627677100494234
         },
         {
           "mpId": 5127,
           "partyShort": "ДПС",
-          "totalItems": 515,
-          "presentCount": 318,
-          "absentCount": 197,
-          "presentPct": 0.6174757281553398
+          "totalItems": 607,
+          "presentCount": 404,
+          "absentCount": 203,
+          "presentPct": 0.6655683690280065
         },
         {
           "mpId": 5128,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 174,
-          "absentCount": 341,
-          "presentPct": 0.3378640776699029
+          "totalItems": 607,
+          "presentCount": 195,
+          "absentCount": 412,
+          "presentPct": 0.3212520593080725
         },
         {
           "mpId": 5129,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 369,
-          "absentCount": 146,
-          "presentPct": 0.7165048543689321
+          "totalItems": 607,
+          "presentCount": 447,
+          "absentCount": 160,
+          "presentPct": 0.7364085667215815
         },
         {
           "mpId": 5130,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 450,
-          "absentCount": 65,
-          "presentPct": 0.8737864077669902
+          "totalItems": 607,
+          "presentCount": 538,
+          "absentCount": 69,
+          "presentPct": 0.886326194398682
         },
         {
           "mpId": 5132,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 486,
-          "absentCount": 29,
-          "presentPct": 0.9436893203883495
+          "totalItems": 607,
+          "presentCount": 576,
+          "absentCount": 31,
+          "presentPct": 0.9489291598023064
         },
         {
           "mpId": 5133,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 249,
-          "absentCount": 266,
-          "presentPct": 0.48349514563106794
+          "totalItems": 607,
+          "presentCount": 277,
+          "absentCount": 330,
+          "presentPct": 0.45634266886326197
         },
         {
           "mpId": 5134,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 453,
-          "absentCount": 62,
-          "presentPct": 0.8796116504854369
+          "totalItems": 607,
+          "presentCount": 542,
+          "absentCount": 65,
+          "presentPct": 0.8929159802306426
         },
         {
           "mpId": 5135,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 481,
-          "absentCount": 34,
-          "presentPct": 0.9339805825242719
+          "totalItems": 607,
+          "presentCount": 571,
+          "absentCount": 36,
+          "presentPct": 0.9406919275123559
         },
         {
           "mpId": 5136,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 454,
-          "absentCount": 61,
-          "presentPct": 0.8815533980582524
+          "totalItems": 607,
+          "presentCount": 541,
+          "absentCount": 66,
+          "presentPct": 0.8912685337726524
         },
         {
           "mpId": 5137,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 404,
-          "absentCount": 111,
-          "presentPct": 0.7844660194174757
+          "totalItems": 607,
+          "presentCount": 492,
+          "absentCount": 115,
+          "presentPct": 0.8105436573311368
         },
         {
           "mpId": 5138,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 476,
-          "absentCount": 39,
-          "presentPct": 0.9242718446601942
+          "totalItems": 607,
+          "presentCount": 563,
+          "absentCount": 44,
+          "presentPct": 0.9275123558484349
         },
         {
           "mpId": 5139,
           "partyShort": "ДБ",
-          "totalItems": 515,
-          "presentCount": 401,
-          "absentCount": 114,
-          "presentPct": 0.7786407766990291
+          "totalItems": 607,
+          "presentCount": 489,
+          "absentCount": 118,
+          "presentPct": 0.8056013179571664
         },
         {
           "mpId": 5140,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 411,
-          "absentCount": 104,
-          "presentPct": 0.7980582524271844
+          "totalItems": 607,
+          "presentCount": 501,
+          "absentCount": 106,
+          "presentPct": 0.8253706754530478
         },
         {
           "mpId": 5141,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 357,
-          "absentCount": 158,
-          "presentPct": 0.6932038834951456
+          "totalItems": 607,
+          "presentCount": 410,
+          "absentCount": 197,
+          "presentPct": 0.6754530477759473
         },
         {
           "mpId": 5143,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 476,
-          "absentCount": 39,
-          "presentPct": 0.9242718446601942
+          "totalItems": 607,
+          "presentCount": 560,
+          "absentCount": 47,
+          "presentPct": 0.9225700164744646
         },
         {
           "mpId": 5144,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 433,
-          "absentCount": 82,
-          "presentPct": 0.8407766990291262
+          "totalItems": 607,
+          "presentCount": 523,
+          "absentCount": 84,
+          "presentPct": 0.8616144975288303
         },
         {
           "mpId": 5145,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 444,
-          "absentCount": 71,
-          "presentPct": 0.8621359223300971
+          "totalItems": 607,
+          "presentCount": 532,
+          "absentCount": 75,
+          "presentPct": 0.8764415156507414
         },
         {
           "mpId": 5146,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 471,
-          "absentCount": 44,
-          "presentPct": 0.9145631067961165
+          "totalItems": 607,
+          "presentCount": 561,
+          "absentCount": 46,
+          "presentPct": 0.9242174629324547
         },
         {
           "mpId": 5147,
           "partyShort": "ДБ",
-          "totalItems": 515,
-          "presentCount": 384,
-          "absentCount": 131,
-          "presentPct": 0.7456310679611651
+          "totalItems": 607,
+          "presentCount": 469,
+          "absentCount": 138,
+          "presentPct": 0.7726523887973641
         },
         {
           "mpId": 5148,
           "partyShort": "ВЪЗРАЖДАНЕ",
-          "totalItems": 515,
-          "presentCount": 290,
-          "absentCount": 225,
-          "presentPct": 0.5631067961165048
+          "totalItems": 607,
+          "presentCount": 357,
+          "absentCount": 250,
+          "presentPct": 0.5881383855024712
         },
         {
           "mpId": 5149,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 450,
-          "absentCount": 65,
-          "presentPct": 0.8737864077669902
+          "totalItems": 607,
+          "presentCount": 536,
+          "absentCount": 71,
+          "presentPct": 0.8830313014827018
         },
         {
           "mpId": 5150,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 474,
-          "absentCount": 41,
-          "presentPct": 0.920388349514563
+          "totalItems": 607,
+          "presentCount": 562,
+          "absentCount": 45,
+          "presentPct": 0.9258649093904449
         },
         {
           "mpId": 5151,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 188,
-          "absentCount": 327,
-          "presentPct": 0.3650485436893204
+          "totalItems": 607,
+          "presentCount": 199,
+          "absentCount": 408,
+          "presentPct": 0.32784184514003295
         },
         {
           "mpId": 5152,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 216,
-          "absentCount": 299,
-          "presentPct": 0.41941747572815535
+          "totalItems": 607,
+          "presentCount": 294,
+          "absentCount": 313,
+          "presentPct": 0.4843492586490939
         },
         {
           "mpId": 5153,
           "partyShort": "ПП",
-          "totalItems": 506,
-          "presentCount": 194,
-          "absentCount": 312,
-          "presentPct": 0.383399209486166
+          "totalItems": 598,
+          "presentCount": 228,
+          "absentCount": 370,
+          "presentPct": 0.38127090301003347
         },
         {
           "mpId": 5154,
           "partyShort": "ПБ",
-          "totalItems": 495,
-          "presentCount": 464,
-          "absentCount": 31,
-          "presentPct": 0.9373737373737374
+          "totalItems": 587,
+          "presentCount": 552,
+          "absentCount": 35,
+          "presentPct": 0.9403747870528109
         },
         {
           "mpId": 5155,
           "partyShort": "ДПС",
-          "totalItems": 515,
-          "presentCount": 319,
-          "absentCount": 196,
-          "presentPct": 0.6194174757281553
+          "totalItems": 607,
+          "presentCount": 352,
+          "absentCount": 255,
+          "presentPct": 0.5799011532125206
         },
         {
           "mpId": 5156,
           "partyShort": "ДПС",
-          "totalItems": 515,
-          "presentCount": 192,
-          "absentCount": 323,
-          "presentPct": 0.37281553398058254
+          "totalItems": 607,
+          "presentCount": 247,
+          "absentCount": 360,
+          "presentPct": 0.40691927512355847
         },
         {
           "mpId": 5157,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 371,
-          "absentCount": 144,
-          "presentPct": 0.7203883495145631
+          "totalItems": 607,
+          "presentCount": 458,
+          "absentCount": 149,
+          "presentPct": 0.7545304777594728
         },
         {
           "mpId": 5159,
           "partyShort": "ВЪЗРАЖДАНЕ",
-          "totalItems": 515,
-          "presentCount": 326,
-          "absentCount": 189,
-          "presentPct": 0.6330097087378641
+          "totalItems": 607,
+          "presentCount": 385,
+          "absentCount": 222,
+          "presentPct": 0.6342668863261944
         },
         {
           "mpId": 5160,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 480,
-          "absentCount": 35,
-          "presentPct": 0.9320388349514563
+          "totalItems": 607,
+          "presentCount": 515,
+          "absentCount": 92,
+          "presentPct": 0.8484349258649094
         },
         {
           "mpId": 5161,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 471,
-          "absentCount": 44,
-          "presentPct": 0.9145631067961165
+          "totalItems": 607,
+          "presentCount": 560,
+          "absentCount": 47,
+          "presentPct": 0.9225700164744646
         },
         {
           "mpId": 5162,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 478,
-          "absentCount": 37,
-          "presentPct": 0.9281553398058252
+          "totalItems": 607,
+          "presentCount": 566,
+          "absentCount": 41,
+          "presentPct": 0.9324546952224053
         },
         {
           "mpId": 5163,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 435,
-          "absentCount": 80,
-          "presentPct": 0.8446601941747572
+          "totalItems": 607,
+          "presentCount": 524,
+          "absentCount": 83,
+          "presentPct": 0.8632619439868204
         },
         {
           "mpId": 5164,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 399,
-          "absentCount": 116,
-          "presentPct": 0.7747572815533981
+          "totalItems": 607,
+          "presentCount": 478,
+          "absentCount": 129,
+          "presentPct": 0.7874794069192751
         },
         {
           "mpId": 5165,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 111,
-          "absentCount": 404,
-          "presentPct": 0.21553398058252426
+          "totalItems": 607,
+          "presentCount": 123,
+          "absentCount": 484,
+          "presentPct": 0.2026359143327842
         },
         {
           "mpId": 5166,
           "partyShort": "ПП",
-          "totalItems": 506,
-          "presentCount": 227,
-          "absentCount": 279,
-          "presentPct": 0.44861660079051385
+          "totalItems": 598,
+          "presentCount": 252,
+          "absentCount": 346,
+          "presentPct": 0.4214046822742475
         },
         {
           "mpId": 5168,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 253,
-          "absentCount": 262,
-          "presentPct": 0.4912621359223301
+          "totalItems": 607,
+          "presentCount": 293,
+          "absentCount": 314,
+          "presentPct": 0.4827018121911038
         },
         {
           "mpId": 5169,
           "partyShort": "ДПС",
-          "totalItems": 515,
-          "presentCount": 69,
-          "absentCount": 446,
-          "presentPct": 0.13398058252427184
+          "totalItems": 607,
+          "presentCount": 97,
+          "absentCount": 510,
+          "presentPct": 0.15980230642504117
         },
         {
           "mpId": 5170,
           "partyShort": "ДБ",
-          "totalItems": 515,
-          "presentCount": 422,
-          "absentCount": 93,
-          "presentPct": 0.8194174757281554
+          "totalItems": 607,
+          "presentCount": 504,
+          "absentCount": 103,
+          "presentPct": 0.8303130148270181
         },
         {
           "mpId": 5171,
           "partyShort": "ВЪЗРАЖДАНЕ",
-          "totalItems": 515,
-          "presentCount": 357,
-          "absentCount": 158,
-          "presentPct": 0.6932038834951456
+          "totalItems": 607,
+          "presentCount": 423,
+          "absentCount": 184,
+          "presentPct": 0.6968698517298187
         },
         {
           "mpId": 5172,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 75,
-          "absentCount": 440,
-          "presentPct": 0.14563106796116504
+          "totalItems": 607,
+          "presentCount": 162,
+          "absentCount": 445,
+          "presentPct": 0.26688632619439867
         },
         {
           "mpId": 5173,
@@ -17898,594 +17906,594 @@
         {
           "mpId": 5174,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 473,
-          "absentCount": 42,
-          "presentPct": 0.9184466019417475
+          "totalItems": 607,
+          "presentCount": 562,
+          "absentCount": 45,
+          "presentPct": 0.9258649093904449
         },
         {
           "mpId": 5175,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 453,
-          "absentCount": 62,
-          "presentPct": 0.8796116504854369
+          "totalItems": 607,
+          "presentCount": 539,
+          "absentCount": 68,
+          "presentPct": 0.8879736408566722
         },
         {
           "mpId": 5176,
           "partyShort": "ПБ",
-          "totalItems": 477,
-          "presentCount": 448,
-          "absentCount": 29,
-          "presentPct": 0.939203354297694
+          "totalItems": 569,
+          "presentCount": 536,
+          "absentCount": 33,
+          "presentPct": 0.9420035149384886
         },
         {
           "mpId": 5177,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 474,
-          "absentCount": 41,
-          "presentPct": 0.920388349514563
+          "totalItems": 607,
+          "presentCount": 562,
+          "absentCount": 45,
+          "presentPct": 0.9258649093904449
         },
         {
           "mpId": 5178,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 475,
-          "absentCount": 40,
-          "presentPct": 0.9223300970873787
+          "totalItems": 607,
+          "presentCount": 565,
+          "absentCount": 42,
+          "presentPct": 0.9308072487644151
         },
         {
           "mpId": 5179,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 481,
-          "absentCount": 34,
-          "presentPct": 0.9339805825242719
+          "totalItems": 607,
+          "presentCount": 569,
+          "absentCount": 38,
+          "presentPct": 0.9373970345963756
         },
         {
           "mpId": 5180,
           "partyShort": "ДБ",
-          "totalItems": 515,
-          "presentCount": 435,
-          "absentCount": 80,
-          "presentPct": 0.8446601941747572
+          "totalItems": 607,
+          "presentCount": 516,
+          "absentCount": 91,
+          "presentPct": 0.8500823723228995
         },
         {
           "mpId": 5181,
           "partyShort": "ДБ",
-          "totalItems": 515,
-          "presentCount": 286,
-          "absentCount": 229,
-          "presentPct": 0.5553398058252427
+          "totalItems": 607,
+          "presentCount": 368,
+          "absentCount": 239,
+          "presentPct": 0.6062602965403624
         },
         {
           "mpId": 5182,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 398,
-          "absentCount": 117,
-          "presentPct": 0.7728155339805826
+          "totalItems": 607,
+          "presentCount": 485,
+          "absentCount": 122,
+          "presentPct": 0.7990115321252059
         },
         {
           "mpId": 5183,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 310,
-          "absentCount": 205,
-          "presentPct": 0.6019417475728155
+          "totalItems": 607,
+          "presentCount": 346,
+          "absentCount": 261,
+          "presentPct": 0.5700164744645799
         },
         {
           "mpId": 5184,
           "partyShort": "ПП",
-          "totalItems": 506,
-          "presentCount": 156,
-          "absentCount": 350,
-          "presentPct": 0.308300395256917
+          "totalItems": 598,
+          "presentCount": 165,
+          "absentCount": 433,
+          "presentPct": 0.27591973244147155
         },
         {
           "mpId": 5185,
           "partyShort": "ВЪЗРАЖДАНЕ",
-          "totalItems": 515,
-          "presentCount": 407,
-          "absentCount": 108,
-          "presentPct": 0.7902912621359224
+          "totalItems": 607,
+          "presentCount": 435,
+          "absentCount": 172,
+          "presentPct": 0.7166392092257001
         },
         {
           "mpId": 5186,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
+          "totalItems": 607,
           "presentCount": 18,
-          "absentCount": 497,
-          "presentPct": 0.03495145631067961
+          "absentCount": 589,
+          "presentPct": 0.029654036243822075
         },
         {
           "mpId": 5187,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 198,
-          "absentCount": 317,
-          "presentPct": 0.3844660194174757
+          "totalItems": 607,
+          "presentCount": 248,
+          "absentCount": 359,
+          "presentPct": 0.4085667215815486
         },
         {
           "mpId": 5188,
           "partyShort": "ПБ",
-          "totalItems": 496,
-          "presentCount": 406,
-          "absentCount": 90,
-          "presentPct": 0.8185483870967742
+          "totalItems": 588,
+          "presentCount": 496,
+          "absentCount": 92,
+          "presentPct": 0.8435374149659864
         },
         {
           "mpId": 5189,
           "partyShort": "ПБ",
-          "totalItems": 515,
+          "totalItems": 607,
           "presentCount": 402,
-          "absentCount": 113,
-          "presentPct": 0.7805825242718447
+          "absentCount": 205,
+          "presentPct": 0.6622734761120264
         },
         {
           "mpId": 5190,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 474,
-          "absentCount": 41,
-          "presentPct": 0.920388349514563
+          "totalItems": 607,
+          "presentCount": 563,
+          "absentCount": 44,
+          "presentPct": 0.9275123558484349
         },
         {
           "mpId": 5191,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 462,
-          "absentCount": 53,
-          "presentPct": 0.8970873786407767
+          "totalItems": 607,
+          "presentCount": 549,
+          "absentCount": 58,
+          "presentPct": 0.9044481054365733
         },
         {
           "mpId": 5192,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 431,
-          "absentCount": 84,
-          "presentPct": 0.8368932038834952
+          "totalItems": 607,
+          "presentCount": 518,
+          "absentCount": 89,
+          "presentPct": 0.8533772652388797
         },
         {
           "mpId": 5193,
           "partyShort": "ДБ",
-          "totalItems": 515,
-          "presentCount": 230,
-          "absentCount": 285,
-          "presentPct": 0.44660194174757284
+          "totalItems": 607,
+          "presentCount": 258,
+          "absentCount": 349,
+          "presentPct": 0.42504118616144976
         },
         {
           "mpId": 5194,
           "partyShort": "ВЪЗРАЖДАНЕ",
-          "totalItems": 515,
-          "presentCount": 246,
-          "absentCount": 269,
-          "presentPct": 0.47766990291262135
+          "totalItems": 607,
+          "presentCount": 285,
+          "absentCount": 322,
+          "presentPct": 0.4695222405271829
         },
         {
           "mpId": 5195,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 201,
-          "absentCount": 314,
-          "presentPct": 0.39029126213592236
+          "totalItems": 607,
+          "presentCount": 232,
+          "absentCount": 375,
+          "presentPct": 0.38220757825370677
         },
         {
           "mpId": 5196,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 381,
-          "absentCount": 134,
-          "presentPct": 0.7398058252427184
+          "totalItems": 607,
+          "presentCount": 470,
+          "absentCount": 137,
+          "presentPct": 0.7742998352553542
         },
         {
           "mpId": 5197,
           "partyShort": "ПБ",
-          "totalItems": 515,
+          "totalItems": 607,
           "presentCount": 303,
-          "absentCount": 212,
-          "presentPct": 0.5883495145631068
+          "absentCount": 304,
+          "presentPct": 0.49917627677100496
         },
         {
           "mpId": 5198,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 171,
-          "absentCount": 344,
-          "presentPct": 0.3320388349514563
+          "totalItems": 607,
+          "presentCount": 253,
+          "absentCount": 354,
+          "presentPct": 0.41680395387149916
         },
         {
           "mpId": 5199,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 448,
-          "absentCount": 67,
-          "presentPct": 0.8699029126213592
+          "totalItems": 607,
+          "presentCount": 537,
+          "absentCount": 70,
+          "presentPct": 0.8846787479406919
         },
         {
           "mpId": 5200,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 467,
-          "absentCount": 48,
-          "presentPct": 0.9067961165048544
+          "totalItems": 607,
+          "presentCount": 557,
+          "absentCount": 50,
+          "presentPct": 0.9176276771004942
         },
         {
           "mpId": 5201,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 370,
-          "absentCount": 145,
-          "presentPct": 0.7184466019417476
+          "totalItems": 607,
+          "presentCount": 459,
+          "absentCount": 148,
+          "presentPct": 0.7561779242174629
         },
         {
           "mpId": 5202,
           "partyShort": "ДБ",
-          "totalItems": 515,
-          "presentCount": 355,
-          "absentCount": 160,
-          "presentPct": 0.6893203883495146
+          "totalItems": 607,
+          "presentCount": 428,
+          "absentCount": 179,
+          "presentPct": 0.7051070840197694
         },
         {
           "mpId": 5203,
           "partyShort": "ДПС",
-          "totalItems": 515,
-          "presentCount": 314,
-          "absentCount": 201,
-          "presentPct": 0.6097087378640776
+          "totalItems": 607,
+          "presentCount": 398,
+          "absentCount": 209,
+          "presentPct": 0.6556836902800659
         },
         {
           "mpId": 5204,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 365,
-          "absentCount": 150,
-          "presentPct": 0.7087378640776699
+          "totalItems": 607,
+          "presentCount": 453,
+          "absentCount": 154,
+          "presentPct": 0.7462932454695222
         },
         {
           "mpId": 5205,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 311,
-          "absentCount": 204,
-          "presentPct": 0.6038834951456311
+          "totalItems": 607,
+          "presentCount": 346,
+          "absentCount": 261,
+          "presentPct": 0.5700164744645799
         },
         {
           "mpId": 5206,
           "partyShort": "ДБ",
-          "totalItems": 515,
-          "presentCount": 223,
-          "absentCount": 292,
-          "presentPct": 0.4330097087378641
+          "totalItems": 607,
+          "presentCount": 305,
+          "absentCount": 302,
+          "presentPct": 0.5024711696869851
         },
         {
           "mpId": 5207,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 300,
-          "absentCount": 215,
-          "presentPct": 0.5825242718446602
+          "totalItems": 607,
+          "presentCount": 389,
+          "absentCount": 218,
+          "presentPct": 0.6408566721581549
         },
         {
           "mpId": 5208,
           "partyShort": "ДПС",
-          "totalItems": 515,
-          "presentCount": 273,
-          "absentCount": 242,
-          "presentPct": 0.5300970873786408
+          "totalItems": 607,
+          "presentCount": 275,
+          "absentCount": 332,
+          "presentPct": 0.45304777594728174
         },
         {
           "mpId": 5209,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 484,
-          "absentCount": 31,
-          "presentPct": 0.9398058252427185
+          "totalItems": 607,
+          "presentCount": 571,
+          "absentCount": 36,
+          "presentPct": 0.9406919275123559
         },
         {
           "mpId": 5210,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 487,
-          "absentCount": 28,
-          "presentPct": 0.945631067961165
+          "totalItems": 607,
+          "presentCount": 576,
+          "absentCount": 31,
+          "presentPct": 0.9489291598023064
         },
         {
           "mpId": 5211,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 479,
-          "absentCount": 36,
-          "presentPct": 0.9300970873786408
+          "totalItems": 607,
+          "presentCount": 568,
+          "absentCount": 39,
+          "presentPct": 0.9357495881383855
         },
         {
           "mpId": 5212,
           "partyShort": "ДПС",
-          "totalItems": 515,
-          "presentCount": 310,
-          "absentCount": 205,
-          "presentPct": 0.6019417475728155
+          "totalItems": 607,
+          "presentCount": 396,
+          "absentCount": 211,
+          "presentPct": 0.6523887973640856
         },
         {
           "mpId": 5213,
           "partyShort": "ПБ",
-          "totalItems": 515,
+          "totalItems": 607,
           "presentCount": 471,
-          "absentCount": 44,
-          "presentPct": 0.9145631067961165
+          "absentCount": 136,
+          "presentPct": 0.7759472817133443
         },
         {
           "mpId": 5214,
           "partyShort": "ПБ",
-          "totalItems": 515,
+          "totalItems": 607,
           "presentCount": 466,
-          "absentCount": 49,
-          "presentPct": 0.9048543689320389
+          "absentCount": 141,
+          "presentPct": 0.7677100494233937
         },
         {
           "mpId": 5215,
           "partyShort": "ПП",
-          "totalItems": 524,
-          "presentCount": 321,
-          "absentCount": 203,
-          "presentPct": 0.6125954198473282
+          "totalItems": 616,
+          "presentCount": 387,
+          "absentCount": 229,
+          "presentPct": 0.6282467532467533
         },
         {
           "mpId": 5216,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 325,
-          "absentCount": 190,
-          "presentPct": 0.6310679611650486
+          "totalItems": 607,
+          "presentCount": 354,
+          "absentCount": 253,
+          "presentPct": 0.5831960461285008
         },
         {
           "mpId": 5217,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 478,
-          "absentCount": 37,
-          "presentPct": 0.9281553398058252
+          "totalItems": 607,
+          "presentCount": 564,
+          "absentCount": 43,
+          "presentPct": 0.929159802306425
         },
         {
           "mpId": 5218,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 483,
-          "absentCount": 32,
-          "presentPct": 0.9378640776699029
+          "totalItems": 607,
+          "presentCount": 573,
+          "absentCount": 34,
+          "presentPct": 0.943986820428336
         },
         {
           "mpId": 5219,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 488,
-          "absentCount": 27,
-          "presentPct": 0.9475728155339805
+          "totalItems": 607,
+          "presentCount": 578,
+          "absentCount": 29,
+          "presentPct": 0.9522240527182867
         },
         {
           "mpId": 5220,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 322,
-          "absentCount": 193,
-          "presentPct": 0.625242718446602
+          "totalItems": 607,
+          "presentCount": 373,
+          "absentCount": 234,
+          "presentPct": 0.6144975288303131
         },
         {
           "mpId": 5221,
           "partyShort": "ДПС",
-          "totalItems": 515,
-          "presentCount": 127,
-          "absentCount": 388,
-          "presentPct": 0.24660194174757283
+          "totalItems": 607,
+          "presentCount": 132,
+          "absentCount": 475,
+          "presentPct": 0.21746293245469522
         },
         {
           "mpId": 5222,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 420,
-          "absentCount": 95,
-          "presentPct": 0.8155339805825242
+          "totalItems": 607,
+          "presentCount": 509,
+          "absentCount": 98,
+          "presentPct": 0.8385502471169687
         },
         {
           "mpId": 5223,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
+          "totalItems": 607,
           "presentCount": 47,
-          "absentCount": 468,
-          "presentPct": 0.0912621359223301
+          "absentCount": 560,
+          "presentPct": 0.07742998352553541
         },
         {
           "mpId": 5224,
           "partyShort": "ДПС",
-          "totalItems": 515,
-          "presentCount": 335,
-          "absentCount": 180,
-          "presentPct": 0.6504854368932039
+          "totalItems": 607,
+          "presentCount": 392,
+          "absentCount": 215,
+          "presentPct": 0.6457990115321252
         },
         {
           "mpId": 5225,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 471,
-          "absentCount": 44,
-          "presentPct": 0.9145631067961165
+          "totalItems": 607,
+          "presentCount": 559,
+          "absentCount": 48,
+          "presentPct": 0.9209225700164745
         },
         {
           "mpId": 5226,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 438,
-          "absentCount": 77,
-          "presentPct": 0.8504854368932039
+          "totalItems": 607,
+          "presentCount": 525,
+          "absentCount": 82,
+          "presentPct": 0.8649093904448105
         },
         {
           "mpId": 5227,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 463,
-          "absentCount": 52,
-          "presentPct": 0.8990291262135922
+          "totalItems": 607,
+          "presentCount": 553,
+          "absentCount": 54,
+          "presentPct": 0.9110378912685337
         },
         {
           "mpId": 5228,
           "partyShort": "ПП",
-          "totalItems": 524,
-          "presentCount": 307,
-          "absentCount": 217,
-          "presentPct": 0.5858778625954199
+          "totalItems": 616,
+          "presentCount": 386,
+          "absentCount": 230,
+          "presentPct": 0.6266233766233766
         },
         {
           "mpId": 5229,
           "partyShort": "ДБ",
-          "totalItems": 515,
-          "presentCount": 303,
-          "absentCount": 212,
-          "presentPct": 0.5883495145631068
+          "totalItems": 607,
+          "presentCount": 337,
+          "absentCount": 270,
+          "presentPct": 0.5551894563426688
         },
         {
           "mpId": 5230,
           "partyShort": "ДБ",
-          "totalItems": 515,
-          "presentCount": 311,
-          "absentCount": 204,
-          "presentPct": 0.6038834951456311
+          "totalItems": 607,
+          "presentCount": 391,
+          "absentCount": 216,
+          "presentPct": 0.6441515650741351
         },
         {
           "mpId": 5231,
           "partyShort": "ПП",
-          "totalItems": 510,
-          "presentCount": 231,
-          "absentCount": 279,
-          "presentPct": 0.45294117647058824
+          "totalItems": 602,
+          "presentCount": 302,
+          "absentCount": 300,
+          "presentPct": 0.5016611295681063
         },
         {
           "mpId": 5232,
           "partyShort": "ПП",
-          "totalItems": 506,
-          "presentCount": 444,
-          "absentCount": 62,
-          "presentPct": 0.8774703557312253
+          "totalItems": 598,
+          "presentCount": 519,
+          "absentCount": 79,
+          "presentPct": 0.8678929765886287
         },
         {
           "mpId": 5233,
           "partyShort": "ПП",
-          "totalItems": 524,
-          "presentCount": 380,
-          "absentCount": 144,
-          "presentPct": 0.7251908396946565
+          "totalItems": 616,
+          "presentCount": 461,
+          "absentCount": 155,
+          "presentPct": 0.7483766233766234
         },
         {
           "mpId": 5234,
           "partyShort": "ВЪЗРАЖДАНЕ",
-          "totalItems": 515,
-          "presentCount": 388,
-          "absentCount": 127,
-          "presentPct": 0.7533980582524272
+          "totalItems": 607,
+          "presentCount": 446,
+          "absentCount": 161,
+          "presentPct": 0.7347611202635914
         },
         {
           "mpId": 5235,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 230,
-          "absentCount": 285,
-          "presentPct": 0.44660194174757284
+          "totalItems": 607,
+          "presentCount": 263,
+          "absentCount": 344,
+          "presentPct": 0.4332784184514003
         },
         {
           "mpId": 5236,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 232,
-          "absentCount": 283,
-          "presentPct": 0.45048543689320386
+          "totalItems": 607,
+          "presentCount": 301,
+          "absentCount": 306,
+          "presentPct": 0.4958813838550247
         },
         {
           "mpId": 5237,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 444,
-          "absentCount": 71,
-          "presentPct": 0.8621359223300971
+          "totalItems": 607,
+          "presentCount": 533,
+          "absentCount": 74,
+          "presentPct": 0.8780889621087314
         },
         {
           "mpId": 5238,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 478,
-          "absentCount": 37,
-          "presentPct": 0.9281553398058252
+          "totalItems": 607,
+          "presentCount": 567,
+          "absentCount": 40,
+          "presentPct": 0.9341021416803954
         },
         {
           "mpId": 5239,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 476,
-          "absentCount": 39,
-          "presentPct": 0.9242718446601942
+          "totalItems": 607,
+          "presentCount": 565,
+          "absentCount": 42,
+          "presentPct": 0.9308072487644151
         },
         {
           "mpId": 5240,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 272,
-          "absentCount": 243,
-          "presentPct": 0.5281553398058253
+          "totalItems": 607,
+          "presentCount": 361,
+          "absentCount": 246,
+          "presentPct": 0.5947281713344317
         },
         {
           "mpId": 5241,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 468,
-          "absentCount": 47,
-          "presentPct": 0.9087378640776699
+          "totalItems": 607,
+          "presentCount": 550,
+          "absentCount": 57,
+          "presentPct": 0.9060955518945635
         },
         {
           "mpId": 5242,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 474,
-          "absentCount": 41,
-          "presentPct": 0.920388349514563
+          "totalItems": 607,
+          "presentCount": 564,
+          "absentCount": 43,
+          "presentPct": 0.929159802306425
         },
         {
           "mpId": 5243,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 470,
-          "absentCount": 45,
-          "presentPct": 0.912621359223301
+          "totalItems": 607,
+          "presentCount": 559,
+          "absentCount": 48,
+          "presentPct": 0.9209225700164745
         },
         {
           "mpId": 5244,
           "partyShort": "ДБ",
-          "totalItems": 515,
-          "presentCount": 242,
-          "absentCount": 273,
-          "presentPct": 0.46990291262135925
+          "totalItems": 607,
+          "presentCount": 312,
+          "absentCount": 295,
+          "presentPct": 0.514003294892916
         },
         {
           "mpId": 5245,
           "partyShort": "ДБ",
-          "totalItems": 515,
-          "presentCount": 422,
-          "absentCount": 93,
-          "presentPct": 0.8194174757281554
+          "totalItems": 607,
+          "presentCount": 506,
+          "absentCount": 101,
+          "presentPct": 0.8336079077429983
         },
         {
           "mpId": 5246,
           "partyShort": "ПП",
-          "totalItems": 524,
-          "presentCount": 359,
-          "absentCount": 165,
-          "presentPct": 0.6851145038167938
+          "totalItems": 616,
+          "presentCount": 439,
+          "absentCount": 177,
+          "presentPct": 0.7126623376623377
         },
         {
           "mpId": 5247,
           "partyShort": "ВЪЗРАЖДАНЕ",
-          "totalItems": 515,
-          "presentCount": 334,
-          "absentCount": 181,
-          "presentPct": 0.6485436893203883
+          "totalItems": 607,
+          "presentCount": 400,
+          "absentCount": 207,
+          "presentPct": 0.6589785831960461
         },
         {
           "mpId": 5248,
@@ -18498,490 +18506,490 @@
         {
           "mpId": 5249,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 176,
-          "absentCount": 339,
-          "presentPct": 0.341747572815534
+          "totalItems": 607,
+          "presentCount": 189,
+          "absentCount": 418,
+          "presentPct": 0.3113673805601318
         },
         {
           "mpId": 5250,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 477,
-          "absentCount": 38,
-          "presentPct": 0.9262135922330097
+          "totalItems": 607,
+          "presentCount": 549,
+          "absentCount": 58,
+          "presentPct": 0.9044481054365733
         },
         {
           "mpId": 5251,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 490,
-          "absentCount": 25,
-          "presentPct": 0.9514563106796117
+          "totalItems": 607,
+          "presentCount": 580,
+          "absentCount": 27,
+          "presentPct": 0.9555189456342669
         },
         {
           "mpId": 5252,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 348,
-          "absentCount": 167,
-          "presentPct": 0.6757281553398058
+          "totalItems": 607,
+          "presentCount": 438,
+          "absentCount": 169,
+          "presentPct": 0.7215815485996705
         },
         {
           "mpId": 5253,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 477,
-          "absentCount": 38,
-          "presentPct": 0.9262135922330097
+          "totalItems": 607,
+          "presentCount": 565,
+          "absentCount": 42,
+          "presentPct": 0.9308072487644151
         },
         {
           "mpId": 5254,
           "partyShort": "ПП",
-          "totalItems": 524,
-          "presentCount": 137,
-          "absentCount": 387,
-          "presentPct": 0.26145038167938933
+          "totalItems": 616,
+          "presentCount": 146,
+          "absentCount": 470,
+          "presentPct": 0.237012987012987
         },
         {
           "mpId": 5255,
           "partyShort": "ДБ",
-          "totalItems": 515,
-          "presentCount": 349,
-          "absentCount": 166,
-          "presentPct": 0.6776699029126214
+          "totalItems": 607,
+          "presentCount": 434,
+          "absentCount": 173,
+          "presentPct": 0.71499176276771
         },
         {
           "mpId": 5256,
           "partyShort": "ДБ",
-          "totalItems": 515,
-          "presentCount": 351,
-          "absentCount": 164,
-          "presentPct": 0.6815533980582524
+          "totalItems": 607,
+          "presentCount": 430,
+          "absentCount": 177,
+          "presentPct": 0.7084019769357496
         },
         {
           "mpId": 5257,
           "partyShort": "ПП",
-          "totalItems": 524,
-          "presentCount": 355,
-          "absentCount": 169,
-          "presentPct": 0.6774809160305344
+          "totalItems": 616,
+          "presentCount": 436,
+          "absentCount": 180,
+          "presentPct": 0.7077922077922078
         },
         {
           "mpId": 5258,
           "partyShort": "ВЪЗРАЖДАНЕ",
-          "totalItems": 515,
-          "presentCount": 230,
-          "absentCount": 285,
-          "presentPct": 0.44660194174757284
+          "totalItems": 607,
+          "presentCount": 272,
+          "absentCount": 335,
+          "presentPct": 0.44810543657331137
         },
         {
           "mpId": 5259,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 312,
-          "absentCount": 203,
-          "presentPct": 0.6058252427184466
+          "totalItems": 607,
+          "presentCount": 390,
+          "absentCount": 217,
+          "presentPct": 0.642504118616145
         },
         {
           "mpId": 5260,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 386,
-          "absentCount": 129,
-          "presentPct": 0.7495145631067961
+          "totalItems": 607,
+          "presentCount": 446,
+          "absentCount": 161,
+          "presentPct": 0.7347611202635914
         },
         {
           "mpId": 5261,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 411,
-          "absentCount": 104,
-          "presentPct": 0.7980582524271844
+          "totalItems": 607,
+          "presentCount": 501,
+          "absentCount": 106,
+          "presentPct": 0.8253706754530478
         },
         {
           "mpId": 5262,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 454,
-          "absentCount": 61,
-          "presentPct": 0.8815533980582524
+          "totalItems": 607,
+          "presentCount": 544,
+          "absentCount": 63,
+          "presentPct": 0.8962108731466227
         },
         {
           "mpId": 5263,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 481,
-          "absentCount": 34,
-          "presentPct": 0.9339805825242719
+          "totalItems": 607,
+          "presentCount": 571,
+          "absentCount": 36,
+          "presentPct": 0.9406919275123559
         },
         {
           "mpId": 5264,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 342,
-          "absentCount": 173,
-          "presentPct": 0.6640776699029126
+          "totalItems": 607,
+          "presentCount": 432,
+          "absentCount": 175,
+          "presentPct": 0.7116968698517299
         },
         {
           "mpId": 5265,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 468,
-          "absentCount": 47,
-          "presentPct": 0.9087378640776699
+          "totalItems": 607,
+          "presentCount": 558,
+          "absentCount": 49,
+          "presentPct": 0.9192751235584844
         },
         {
           "mpId": 5266,
           "partyShort": "ДБ",
-          "totalItems": 515,
-          "presentCount": 397,
-          "absentCount": 118,
-          "presentPct": 0.7708737864077669
+          "totalItems": 607,
+          "presentCount": 432,
+          "absentCount": 175,
+          "presentPct": 0.7116968698517299
         },
         {
           "mpId": 5267,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 344,
-          "absentCount": 171,
-          "presentPct": 0.6679611650485436
+          "totalItems": 607,
+          "presentCount": 374,
+          "absentCount": 233,
+          "presentPct": 0.6161449752883031
         },
         {
           "mpId": 5268,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 415,
-          "absentCount": 100,
-          "presentPct": 0.8058252427184466
+          "totalItems": 607,
+          "presentCount": 503,
+          "absentCount": 104,
+          "presentPct": 0.828665568369028
         },
         {
           "mpId": 5269,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 315,
-          "absentCount": 200,
-          "presentPct": 0.6116504854368932
+          "totalItems": 607,
+          "presentCount": 395,
+          "absentCount": 212,
+          "presentPct": 0.6507413509060955
         },
         {
           "mpId": 5270,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 360,
-          "absentCount": 155,
-          "presentPct": 0.6990291262135923
+          "totalItems": 607,
+          "presentCount": 440,
+          "absentCount": 167,
+          "presentPct": 0.7248764415156508
         },
         {
           "mpId": 5271,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 483,
-          "absentCount": 32,
-          "presentPct": 0.9378640776699029
+          "totalItems": 607,
+          "presentCount": 573,
+          "absentCount": 34,
+          "presentPct": 0.943986820428336
         },
         {
           "mpId": 5272,
           "partyShort": "ПП",
-          "totalItems": 506,
-          "presentCount": 243,
-          "absentCount": 263,
-          "presentPct": 0.48023715415019763
+          "totalItems": 598,
+          "presentCount": 321,
+          "absentCount": 277,
+          "presentPct": 0.5367892976588629
         },
         {
           "mpId": 5273,
           "partyShort": "ВЪЗРАЖДАНЕ",
-          "totalItems": 515,
-          "presentCount": 439,
-          "absentCount": 76,
-          "presentPct": 0.8524271844660194
+          "totalItems": 607,
+          "presentCount": 506,
+          "absentCount": 101,
+          "presentPct": 0.8336079077429983
         },
         {
           "mpId": 5274,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 367,
-          "absentCount": 148,
-          "presentPct": 0.7126213592233009
+          "totalItems": 607,
+          "presentCount": 407,
+          "absentCount": 200,
+          "presentPct": 0.6705107084019769
         },
         {
           "mpId": 5275,
           "partyShort": "ДПС",
-          "totalItems": 515,
-          "presentCount": 317,
-          "absentCount": 198,
-          "presentPct": 0.6155339805825243
+          "totalItems": 607,
+          "presentCount": 357,
+          "absentCount": 250,
+          "presentPct": 0.5881383855024712
         },
         {
           "mpId": 5278,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 456,
-          "absentCount": 59,
-          "presentPct": 0.8854368932038835
+          "totalItems": 607,
+          "presentCount": 545,
+          "absentCount": 62,
+          "presentPct": 0.8978583196046128
         },
         {
           "mpId": 5279,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 475,
-          "absentCount": 40,
-          "presentPct": 0.9223300970873787
+          "totalItems": 607,
+          "presentCount": 565,
+          "absentCount": 42,
+          "presentPct": 0.9308072487644151
         },
         {
           "mpId": 5280,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 472,
-          "absentCount": 43,
-          "presentPct": 0.916504854368932
+          "totalItems": 607,
+          "presentCount": 562,
+          "absentCount": 45,
+          "presentPct": 0.9258649093904449
         },
         {
           "mpId": 5281,
           "partyShort": "ДПС",
-          "totalItems": 515,
-          "presentCount": 92,
-          "absentCount": 423,
-          "presentPct": 0.1786407766990291
+          "totalItems": 607,
+          "presentCount": 93,
+          "absentCount": 514,
+          "presentPct": 0.15321252059308071
         },
         {
           "mpId": 5282,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 424,
-          "absentCount": 91,
-          "presentPct": 0.8233009708737864
+          "totalItems": 607,
+          "presentCount": 514,
+          "absentCount": 93,
+          "presentPct": 0.8467874794069192
         },
         {
           "mpId": 5283,
           "partyShort": "ДБ",
-          "totalItems": 515,
-          "presentCount": 228,
-          "absentCount": 287,
-          "presentPct": 0.44271844660194176
+          "totalItems": 607,
+          "presentCount": 306,
+          "absentCount": 301,
+          "presentPct": 0.5041186161449753
         },
         {
           "mpId": 5284,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
+          "totalItems": 607,
           "presentCount": 150,
-          "absentCount": 365,
-          "presentPct": 0.2912621359223301
+          "absentCount": 457,
+          "presentPct": 0.2471169686985173
         },
         {
           "mpId": 5285,
           "partyShort": "ДПС",
-          "totalItems": 515,
-          "presentCount": 181,
-          "absentCount": 334,
-          "presentPct": 0.35145631067961164
+          "totalItems": 607,
+          "presentCount": 231,
+          "absentCount": 376,
+          "presentPct": 0.3805601317957166
         },
         {
           "mpId": 5286,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 467,
-          "absentCount": 48,
-          "presentPct": 0.9067961165048544
+          "totalItems": 607,
+          "presentCount": 556,
+          "absentCount": 51,
+          "presentPct": 0.9159802306425041
         },
         {
           "mpId": 5287,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 470,
-          "absentCount": 45,
-          "presentPct": 0.912621359223301
+          "totalItems": 607,
+          "presentCount": 559,
+          "absentCount": 48,
+          "presentPct": 0.9209225700164745
         },
         {
           "mpId": 5288,
           "partyShort": "ДПС",
-          "totalItems": 515,
-          "presentCount": 316,
-          "absentCount": 199,
-          "presentPct": 0.6135922330097088
+          "totalItems": 607,
+          "presentCount": 402,
+          "absentCount": 205,
+          "presentPct": 0.6622734761120264
         },
         {
           "mpId": 5290,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 486,
-          "absentCount": 29,
-          "presentPct": 0.9436893203883495
+          "totalItems": 607,
+          "presentCount": 576,
+          "absentCount": 31,
+          "presentPct": 0.9489291598023064
         },
         {
           "mpId": 5291,
           "partyShort": "ПП",
-          "totalItems": 506,
-          "presentCount": 360,
-          "absentCount": 146,
-          "presentPct": 0.7114624505928854
+          "totalItems": 598,
+          "presentCount": 393,
+          "absentCount": 205,
+          "presentPct": 0.657190635451505
         },
         {
           "mpId": 5292,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 134,
-          "absentCount": 381,
-          "presentPct": 0.26019417475728157
+          "totalItems": 607,
+          "presentCount": 156,
+          "absentCount": 451,
+          "presentPct": 0.257001647446458
         },
         {
           "mpId": 5293,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 515,
-          "presentCount": 77,
-          "absentCount": 438,
-          "presentPct": 0.14951456310679612
+          "totalItems": 607,
+          "presentCount": 139,
+          "absentCount": 468,
+          "presentPct": 0.22899505766062603
         },
         {
           "mpId": 5294,
           "partyShort": "ДПС",
-          "totalItems": 515,
-          "presentCount": 242,
-          "absentCount": 273,
-          "presentPct": 0.46990291262135925
+          "totalItems": 607,
+          "presentCount": 281,
+          "absentCount": 326,
+          "presentPct": 0.46293245469522243
         },
         {
           "mpId": 5295,
           "partyShort": "ДПС",
-          "totalItems": 515,
-          "presentCount": 298,
-          "absentCount": 217,
-          "presentPct": 0.5786407766990291
+          "totalItems": 607,
+          "presentCount": 330,
+          "absentCount": 277,
+          "presentPct": 0.5436573311367381
         },
         {
           "mpId": 5296,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 477,
-          "absentCount": 38,
-          "presentPct": 0.9262135922330097
+          "totalItems": 607,
+          "presentCount": 565,
+          "absentCount": 42,
+          "presentPct": 0.9308072487644151
         },
         {
           "mpId": 5297,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 413,
-          "absentCount": 102,
-          "presentPct": 0.8019417475728156
+          "totalItems": 607,
+          "presentCount": 503,
+          "absentCount": 104,
+          "presentPct": 0.828665568369028
         },
         {
           "mpId": 5298,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 464,
-          "absentCount": 51,
-          "presentPct": 0.9009708737864077
+          "totalItems": 607,
+          "presentCount": 552,
+          "absentCount": 55,
+          "presentPct": 0.9093904448105437
         },
         {
           "mpId": 5299,
           "partyShort": "ПБ",
-          "totalItems": 515,
-          "presentCount": 453,
-          "absentCount": 62,
-          "presentPct": 0.8796116504854369
+          "totalItems": 607,
+          "presentCount": 532,
+          "absentCount": 75,
+          "presentPct": 0.8764415156507414
         },
         {
           "mpId": 5300,
           "partyShort": "ПП",
-          "totalItems": 506,
-          "presentCount": 325,
-          "absentCount": 181,
-          "presentPct": 0.642292490118577
+          "totalItems": 598,
+          "presentCount": 400,
+          "absentCount": 198,
+          "presentPct": 0.6688963210702341
         },
         {
           "mpId": 5322,
           "partyShort": "ПБ",
-          "totalItems": 483,
-          "presentCount": 417,
-          "absentCount": 66,
-          "presentPct": 0.8633540372670807
+          "totalItems": 575,
+          "presentCount": 497,
+          "absentCount": 78,
+          "presentPct": 0.8643478260869565
         },
         {
           "mpId": 5323,
           "partyShort": "ПБ",
-          "totalItems": 483,
-          "presentCount": 432,
-          "absentCount": 51,
-          "presentPct": 0.8944099378881988
+          "totalItems": 575,
+          "presentCount": 518,
+          "absentCount": 57,
+          "presentPct": 0.9008695652173913
         },
         {
           "mpId": 5324,
           "partyShort": "ПБ",
-          "totalItems": 483,
-          "presentCount": 436,
-          "absentCount": 47,
-          "presentPct": 0.9026915113871635
+          "totalItems": 575,
+          "presentCount": 526,
+          "absentCount": 49,
+          "presentPct": 0.9147826086956522
         },
         {
           "mpId": 5325,
           "partyShort": "ПБ",
-          "totalItems": 483,
-          "presentCount": 457,
-          "absentCount": 26,
-          "presentPct": 0.9461697722567288
+          "totalItems": 575,
+          "presentCount": 547,
+          "absentCount": 28,
+          "presentPct": 0.951304347826087
         },
         {
           "mpId": 5326,
           "partyShort": "ПБ",
-          "totalItems": 483,
-          "presentCount": 457,
-          "absentCount": 26,
-          "presentPct": 0.9461697722567288
+          "totalItems": 575,
+          "presentCount": 547,
+          "absentCount": 28,
+          "presentPct": 0.951304347826087
         },
         {
           "mpId": 5327,
           "partyShort": "ПБ",
-          "totalItems": 483,
-          "presentCount": 460,
-          "absentCount": 23,
-          "presentPct": 0.9523809523809523
+          "totalItems": 575,
+          "presentCount": 550,
+          "absentCount": 25,
+          "presentPct": 0.9565217391304348
         },
         {
           "mpId": 5328,
           "partyShort": "ПБ",
-          "totalItems": 483,
-          "presentCount": 457,
-          "absentCount": 26,
-          "presentPct": 0.9461697722567288
+          "totalItems": 575,
+          "presentCount": 546,
+          "absentCount": 29,
+          "presentPct": 0.9495652173913044
         },
         {
           "mpId": 5329,
           "partyShort": "ПБ",
-          "totalItems": 483,
-          "presentCount": 451,
-          "absentCount": 32,
-          "presentPct": 0.9337474120082816
+          "totalItems": 575,
+          "presentCount": 541,
+          "absentCount": 34,
+          "presentPct": 0.9408695652173913
         },
         {
           "mpId": 5331,
           "partyShort": "ПБ",
-          "totalItems": 465,
-          "presentCount": 429,
-          "absentCount": 36,
-          "presentPct": 0.9225806451612903
+          "totalItems": 557,
+          "presentCount": 519,
+          "absentCount": 38,
+          "presentPct": 0.9317773788150808
         },
         {
           "mpId": 5332,
           "partyShort": "ПБ",
-          "totalItems": 465,
-          "presentCount": 225,
-          "absentCount": 240,
-          "presentPct": 0.4838709677419355
+          "totalItems": 557,
+          "presentCount": 315,
+          "absentCount": 242,
+          "presentPct": 0.5655296229802513
         },
         {
           "mpId": 5333,
           "partyShort": "ПБ",
-          "totalItems": 465,
-          "presentCount": 409,
-          "absentCount": 56,
-          "presentPct": 0.8795698924731182
+          "totalItems": 557,
+          "presentCount": 498,
+          "absentCount": 59,
+          "presentPct": 0.8940754039497307
         },
         {
           "mpId": 5334,
           "partyShort": "ГЕРБ - СДС",
-          "totalItems": 146,
-          "presentCount": 72,
-          "absentCount": 74,
-          "presentPct": 0.4931506849315068
+          "totalItems": 238,
+          "presentCount": 106,
+          "absentCount": 132,
+          "presentPct": 0.44537815126050423
         }
       ]
     }

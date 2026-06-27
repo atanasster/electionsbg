@@ -1,5 +1,5 @@
 {
-  "computedAt": "2026-06-25T01:11:07.207Z",
+  "computedAt": "2026-06-27T10:28:40.212Z",
   "byNs": {
     "44": {
       "seedId": 1371,
@@ -178,24 +178,24 @@
       ]
     },
     "52": {
-      "seedId": 5246,
+      "seedId": 5166,
       "seedPartyShort": "ПП",
-      "crossPartyCount": 12,
+      "crossPartyCount": 11,
       "twins": [
+        {
+          "mpId": 5266,
+          "partyShort": "ДБ",
+          "score": 0.5773629302409138
+        },
+        {
+          "mpId": 5139,
+          "partyShort": "ДБ",
+          "score": 0.5644767065651529
+        },
         {
           "mpId": 5123,
           "partyShort": "ДБ",
-          "score": 0.7144961494831074
-        },
-        {
-          "mpId": 5180,
-          "partyShort": "ДБ",
-          "score": 0.6994984649218866
-        },
-        {
-          "mpId": 5255,
-          "partyShort": "ДБ",
-          "score": 0.6988443137441254
+          "score": 0.5507427126572113
         }
       ]
     }
