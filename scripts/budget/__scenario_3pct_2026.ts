@@ -191,7 +191,7 @@ const cap20 = scoreCapitalChange(
 
 L("EXPENDITURE / EFFICIENCY LEVERS (annualised net saving)");
 L(
-  `  Администрация: щат −10%              ${M(Math.abs(admin10.netEur))}  (${admin10.realLayoffs ?? "?"} real layoffs; rest absorbed by vacancies)`,
+  `  Администрация: щат −10%              ${M(Math.abs(admin10.netEur))}  (${Math.max(0, Math.round(exp.administration.positionsTotal * 0.1 - exp.administration.positionsVacant))} real layoffs; rest absorbed by vacancies)`,
 );
 L(`  Администрация: щат −20%              ${M(Math.abs(admin20.netEur))}`);
 L(`  Администрация: щат −30%              ${M(Math.abs(admin30.netEur))}`);
