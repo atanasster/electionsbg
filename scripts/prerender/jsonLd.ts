@@ -60,40 +60,52 @@ export const buildDatasetLd = (params: {
   spatialCoverage?: string;
   keywords?: string[];
   distribution?: Array<{ url: string; format?: string; name?: string }>;
-}) => ({
-  "@context": "https://schema.org",
-  "@type": "Dataset",
-  name: params.name,
-  description: params.description,
-  url: params.url,
-  creator: ORG,
-  publisher: ORG,
-  isAccessibleForFree: true,
-  license: "https://creativecommons.org/licenses/by/4.0/",
-  inLanguage: ["bg", "en"],
-  temporalCoverage: "2005-06-25/..",
-  ...(params.spatialCoverage
-    ? {
-        spatialCoverage: {
-          "@type": "Place",
-          name: params.spatialCoverage,
-        },
-      }
-    : {}),
-  ...(params.keywords && params.keywords.length
-    ? { keywords: params.keywords.join(", ") }
-    : {}),
-  ...(params.distribution && params.distribution.length
-    ? {
-        distribution: params.distribution.map((d) => ({
-          "@type": "DataDownload",
-          contentUrl: d.url,
-          encodingFormat: d.format ?? "application/json",
-          ...(d.name ? { name: d.name } : {}),
-        })),
-      }
-    : {}),
-});
+}) => {
+  // Google's Dataset rich-result spec requires `description` to be 50–5000
+  // characters; anything outside that range is dropped as invalid (surfaces in
+  // Search Console as "Invalid string length in field 'description'"). Fail the
+  // prerender at build time rather than let it slip to GSC.
+  const len = params.description.length;
+  if (len < 50 || len > 5000) {
+    throw new Error(
+      `Dataset "${params.name}" description is ${len} chars; Google requires 50–5000. URL: ${params.url}`,
+    );
+  }
+  return {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    name: params.name,
+    description: params.description,
+    url: params.url,
+    creator: ORG,
+    publisher: ORG,
+    isAccessibleForFree: true,
+    license: "https://creativecommons.org/licenses/by/4.0/",
+    inLanguage: ["bg", "en"],
+    temporalCoverage: "2005-06-25/..",
+    ...(params.spatialCoverage
+      ? {
+          spatialCoverage: {
+            "@type": "Place",
+            name: params.spatialCoverage,
+          },
+        }
+      : {}),
+    ...(params.keywords && params.keywords.length
+      ? { keywords: params.keywords.join(", ") }
+      : {}),
+    ...(params.distribution && params.distribution.length
+      ? {
+          distribution: params.distribution.map((d) => ({
+            "@type": "DataDownload",
+            contentUrl: d.url,
+            encodingFormat: d.format ?? "application/json",
+            ...(d.name ? { name: d.name } : {}),
+          })),
+        }
+      : {}),
+  };
+};
 
 // DataCatalog wraps the headline datasets the site publishes for download into
 // a single node Google Dataset Search can ingest as one catalog. Children are

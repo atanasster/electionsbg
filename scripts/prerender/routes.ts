@@ -368,13 +368,15 @@ const CATALOG_SPECS: CatalogSpec[] = [
     dist: "/governments.json",
     bg: {
       name: "Правителства на България",
-      description: "Състав и продължителност на българските правителства.",
+      description:
+        "Състав и продължителност на всяко българско правителство от 2005 г. насам — министър-председател, коалиционни партии, дати на встъпване и оставка и причина за края на всеки кабинет.",
       distName: "Правителства (JSON)",
       keywords: ["правителства", "кабинети", "България"],
     },
     en: {
       name: "Governments of Bulgaria",
-      description: "Composition and tenure of Bulgarian governments.",
+      description:
+        "Composition and tenure of every Bulgarian government since 2005 — prime minister, coalition parties, start and end dates, and how each cabinet ended.",
       distName: "Governments (JSON)",
       keywords: ["governments", "cabinets", "Bulgaria"],
     },
