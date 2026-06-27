@@ -14,10 +14,10 @@ keywords:
   - budget reforms 2026
   - Fiscal Council opinion
 schemaType: NewsArticle
-updatedAt: 2026-06-25
+updatedAt: 2026-06-27
 ---
 
-# Budget 2026: the record deficit, the critics, and a check against the numbers
+# Budget 2026 in focus: the record deficit, the critics, and a check against the numbers
 
 On 24 June 2026 the government of Progressive Bulgaria tabled its first regular budget in the National Assembly — and immediately found itself at the centre of the sharpest fiscal dispute in years. Deputy Prime Minister and Finance Minister [Galab Donev](/candidate/mp-5158) presented a framework with a **consolidated-fiscal-programme (КФП) deficit of 5.7% of GDP** — about **€7.2bn** — and promised the country would not return below 3% until 2028.[^euronews] The opposition demanded the budget be withdrawn,[^db-ottegli] economists called it "a despairing demonstration of fear" and "zero reform,"[^plovdiv24-yankov] and the comparisons reached all the way back to "the Videnov era."[^fakti-obzor]
 
@@ -75,7 +75,7 @@ For completeness: 2026 capital expenditure is **€9,360.6M** (€4,028.9M natio
 
 Here we run the claims through the [simulator](/budget/simulator) — the same engine (`bgTaxPolicy.ts`, `bgFiscalProjection.ts`) behind the public tool, [described in detail here](/articles/2026-06-12-tax-policy-simulator). The results below are from an actual run of the engine, not a back-of-the-envelope estimate.
 
-**1. Raising the МОД €2,112 → €2,300 really does yield ~€90M.** The simulator's central estimate is **€88.3M** (range €57.5–114.8M depending on how "heavy" the high-income tail is; "central" means at the middle tail assumption, not an average) — right around the Finance Ministry's stated **€90.8M**. Confirmed. But here is a catch for the "we won't cut incomes" line: raising the ceiling is in reality a **higher contribution burden** on income between €2,112 and €2,300 — for the worker (less net) and for the employer (higher cost). That is exactly what [Bozhidar Bozhanov](/candidate/mp-5229) of DB means: "from 1 August business is burdened."[^bb]
+**1. Raising the МОД €2,112 → €2,300 really does yield ~€90M — but as an annual effect.** The simulator's central estimate is **€88.3M** (range €57.5–114.8M depending on how "heavy" the high-income tail is; "central" means at the middle tail assumption, not an average) — right around the Finance Ministry's stated **€90.8M**. But the catch is timing: the measure only starts on 1 August, so the actual 2026 cash is barely ~5/12 of that — **about €37M**. Because the Ministry's figure matches our _annual_ estimate, booking it in full as 2026 revenue front-loads it — its contribution to this year's deficit is smaller. There is a second catch — for the "we won't cut incomes" line: raising the ceiling is in reality a **higher contribution burden** on income between €2,112 and €2,300 — for the worker (less net) and for the employer (higher cost). That is exactly what [Bozhidar Bozhanov](/candidate/mp-5229) of DB means: "from 1 August business is burdened."[^bb]
 
 **2. The party-subsidy cut really is ~€2.1M.** €1.09 × 2.861M votes = €3.1M on a full-year basis; for the eight months from 30 April that is **€2.1M**. Confirmed.
 
@@ -83,7 +83,7 @@ Here we run the claims through the [simulator](/budget/simulator) — the same e
 
 **4. The government itself books a worse deficit than Brussels forecasts.** The simulator's baseline rests on the EC's spring 2026 forecast — an ESA deficit of **−4.1%** for 2026. The government, however, books **−5.4%** — **1.3 percentage points (about €1.63bn) worse**. That's unusual: governments are normally more optimistic than the Commission, here it's the reverse. The reading that the new cabinet is "clearing house" in its first year is supported by [Petar Vitanov](/candidate/mp-5164) (Progressive Bulgaria): "we inherited €2.2bn of unpaid, hidden invoices."[^vitanov]
 
-**5. The "soft" revenue measures carry serious risk — as the Fiscal Council warns too.** For measures of the "additional collection" (+€200M) and "more from gambling" (+€100M) type, the simulator applies a realisation factor of 0.40 — i.e. it banks only about **€80M** and **€40M** respectively, not the full amounts. Cutting the BDZ/NKZHI/Posts subsidies by €285.3M is ~90% of the entire available subsidy envelope — a "hard" cut that large the engine flags as unlikely. This partly confirms the Fiscal Council's worry about **overstated revenue** (in its opinion on the previous framework — a shortfall risk of €3.5–4.7bn).[^fiscal]
+**5. The "soft" revenue measures carry serious risk — as the Fiscal Council warns too.** For measures of the "additional collection" (+€200M) and "more from gambling" (+€100M) type, the simulator applies a realisation factor of 0.40 — i.e. it banks only about **€80M** and **€40M** respectively, not the full amounts. Cutting the BDZ/NKZHI/Posts subsidies by €285.3M is ~90% of the entire available subsidy envelope — a "hard" cut that large the engine flags as unlikely. This partly confirms the Fiscal Council's worry about **overstated revenue** (in its opinion on the previous framework — a shortfall risk of €3.5–4.7bn).[^fiscal] We also re-priced the entire consolidation package measure by measure: the government books measures worth **~€2.46bn**, while our independent count credits **~€1.94bn** — a gap of about **€514M**, coming mainly from the "soft" revenue (banked at 40%), one-off receipts and the mid-year start effect.
 
 In short: **the skeleton of the budget passes the arithmetic check** (deficit, debt, МОД, subsidies), but **part of the consolidation — at least a few hundred million euros of "collection" and "efficiency" — is more a promise than secured revenue.**
 
@@ -121,19 +121,19 @@ The second is about **capital expenditure**: €9.3bn planned, a €3.5bn increa
 
 ## Who's right? Claim by claim
 
-| Claim                                                     | Who says it               | Check                                                                                                                  |
-| --------------------------------------------------------- | ------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| The deficit is 5.7% of GDP (~€7.2bn)                      | Government                | **Confirmed** — the arithmetic is consistent                                                                           |
-| МОД €2,112→€2,300 yields +€90.8M                          | Government                | **Confirmed** — simulator: €88.3M central                                                                              |
-| Party-subsidy cut = €2.1M                                 | Government                | **Confirmed**                                                                                                          |
-| "We won't cut incomes"                                    | Government                | **Partly** — true for rates and benefits, but the МОД and personal contributions do reduce net pay for affected groups |
-| "Consolidating to 3% while debt explodes = contradiction" | Nozharov (UNWE)           | **Refuted** — a falling deficit + rising debt is normal; 35% debt is among the lowest in the EU                        |
-| "Revenue is overstated"                                   | Fiscal Council            | **Partly confirmed** — the "soft" ~€600M is high-risk; the model banks ~40%                                            |
-| "Zero reform" / no structural change                      | Yankov, Nozharov, Vasilev | **Largely true** — the measures are mostly one-off and parametric, not structural                                      |
-| "A deficit like Videnov's"                                | PP-DB, GERB               | **Misleading** (see below)                                                                                             |
-| The deficit is worse even than the EC's forecast          | Our check                 | **Confirmed** — −5.4% vs −4.1% (~€1.63bn)                                                                              |
-| Maintenance jumps 35% (≈ €1.5bn)                          | Asen Vasilev (PP)         | **Confirmed** — +36% (€4,251.5→5,785.9M); takes the deficit to ~4.5%                                                   |
-| €3.5bn capital increase = "3% of deficit"                 | Asen Vasilev (PP)         | **Misleading** — figures right, but 57% is EU grants (deficit-neutral); really ~1pp                                    |
+| Claim                                                     | Who says it               | Check                                                                                                                   |
+| --------------------------------------------------------- | ------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| The deficit is 5.7% of GDP (~€7.2bn)                      | Government                | **Confirmed** — the arithmetic is consistent                                                                            |
+| МОД €2,112→€2,300 yields +€90.8M                          | Government                | **Confirmed as an annual effect** — central estimate €88.3M; 2026 cash ~€37M (starts 1 Aug)                             |
+| Party-subsidy cut = €2.1M                                 | Government                | **Confirmed**                                                                                                           |
+| "We won't cut incomes"                                    | Government                | **Partly** — true for rates and benefits, but the МОД and personal contributions do reduce net pay for affected groups  |
+| "Consolidating to 3% while debt explodes = contradiction" | Nozharov (UNWE)           | **Refuted** — a falling deficit + rising debt is normal; 35% debt is among the lowest in the EU                         |
+| "Revenue is overstated"                                   | Fiscal Council            | **Partly confirmed** — the "soft" ~€600M is high-risk; the model banks ~40%                                             |
+| "Zero reform" / no structural change                      | Yankov, Nozharov, Vasilev | **Largely true** — the measures are mostly one-off and parametric, not structural                                       |
+| "A deficit like Videnov's"                                | PP-DB, GERB               | **Misleading** (see below)                                                                                              |
+| The deficit is worse even than the EC's forecast          | Our check                 | **Confirmed** — −5.4% vs −4.1% (~€1.63bn)                                                                               |
+| Maintenance jumps 35% (≈ €1.5bn)                          | Asen Vasilev (PP)         | **Confirmed (cash basis)** — +36% on КФП (€4,251.5→5,785.9M), but +23% on ESA (Prodanov); real spending → deficit ~4.5% |
+| €3.5bn capital increase = "3% of deficit"                 | Asen Vasilev (PP)         | **Misleading** — figures right, but 57% is EU grants (deficit-neutral); really ~1pp                                     |
 
 The **"Videnov era"** deserves a separate look — the most powerful rhetorical figure in the dispute. By size the deficit really is large, and the government itself calls it an "over-deficit." But **the economic analogy doesn't hold**: 1996–1997 was hyperinflation (hundreds of percent), a banking and currency crisis, at a time when the currency board was only introduced in July 1997. In 2026 Bulgaria is **in the euro area**, with 4.3% inflation, debt around 30% of GDP (among the lowest in the EU) and an investment-grade rating with a positive outlook. The closer historical parallel is in fact the **2014 banking crisis** (the collapse of Corpbank and the payout of guaranteed deposits), which the critique conveniently passes over.[^corpbank] The Videnov comparison says something about **direction and the absence of reform**, but equating a euro-area, low-debt budget with the 1996 collapse conflates very different phenomena.
 
@@ -162,7 +162,7 @@ Three illustrative packages, each of which **closes the gap**:
 - **B · Balanced.** VAT to 22% (+€799), income tax to 12% (+€734), dividend 5→10% (+€45), CPI-only pensions (+€479), headcount −20% (+€230), wages down to −20% (+€437), capital −10% (+€185), collection (+€520) = **≈ €3.43bn**. The price: spread out, but it touches pensioners, public-sector staff and investment alike.
 - **C · Maximum on the spending side.** Even if you freeze pensions to inflation (+€479), cut the administration by 30% (+€430), reduce wages by 20% (+€437) and national capital by 20% (+€371) — the pure spending side delivers **only ~€1.7bn**. Add an aggressive collection drive (+€600) and you reach ~€2.3bn. To reach 3%, **VAT at 23% (+€1,188) is still unavoidable**: total ≈ €3.50bn.
 
-The single most contested revenue lever is **removing the МОД ceiling altogether**: it adds about **€693M** (close to a fifth of the gap) on its own, but the employer organisations (AIKB) call it a "red line" — which is why we put it in none of the packages above. The milder rise to €2,500 yields just ~€70M.
+The single most contested revenue lever is **removing the МОД ceiling altogether**: it adds about **€693M** (close to a fifth of the gap) on its own — but it directly raises employers' costs on higher salaries (and employers traditionally resist lifting the ceiling), which is why we put it in none of the packages above. The milder rise to €2,500 yields just ~€70M.
 
 And that's the key takeaway: **you don't get to 3% in a single year by "cutting the administration" alone.** The non-exempt budget-sector wage bill that's even amenable to cuts is only ~€2.8bn, so even draconian cuts add hundreds of millions, not billions. The arithmetic forces either a **broad tax increase** (VAT/income tax) or **touching pensions** — most likely both. That is precisely why spreading the consolidation to 2028 isn't only political timidity: the one-year hit is enormous. But it's also the opposite of an excuse — choosing "later" means two more years of deficits and accumulated debt. Open the [simulator](/budget/simulator) and assemble your own package: you'll see just how narrow the path really is.
 
