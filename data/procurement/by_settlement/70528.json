@@ -3,10 +3,10 @@
   "name": "Съединение",
   "province": "Пловдив",
   "obshtina": "Съединение",
-  "generatedAt": "2026-06-24T22:04:14.909Z",
-  "contractCount": 138,
+  "generatedAt": "2026-06-28T16:56:47.125Z",
+  "contractCount": 156,
   "awardCount": 0,
-  "totalEur": 62801648.524950445,
+  "totalEur": 63581648.161933206,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,24 @@
       "totalEur": 62801648.524950445,
       "totalOther": {},
       "contractCount": 138,
+      "awardCount": 0
+    },
+    {
+      "eik": "000453374",
+      "name": "Средно училище \"Христо Ботев\" - гр. Съединение",
+      "tier": "school",
+      "totalEur": 742659.9142052224,
+      "totalOther": {},
+      "contractCount": 15,
+      "awardCount": 0
+    },
+    {
+      "eik": "000453367",
+      "name": "Начално училище \"Любен Каравелов\" - гр. Съединение",
+      "tier": "school",
+      "totalEur": 37339.72277754201,
+      "totalOther": {},
+      "contractCount": 3,
       "awardCount": 0
     }
   ],
@@ -266,6 +284,19 @@
       "partyName": "Динар груп ЕООД",
       "bundleUuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
       "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-540828-816246%2F2026-02-26-award"
+    },
+    {
+      "key": "13333840d489",
+      "ocid": "eop-03714-2024-0002",
+      "date": "2024-07-29",
+      "tag": "contract",
+      "amount": 1207663.06,
+      "currency": "BGN",
+      "amountEur": 617468.3177985817,
+      "partyEik": "130169509",
+      "partyName": "Строймонтаж ЕООД",
+      "bundleUuid": "eop-flat:2024-07-29",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-07-29/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2029.07.2024.json"
     },
     {
       "key": "cf24859191a0",
@@ -656,19 +687,6 @@
       "partyName": "Екосол българия АД",
       "bundleUuid": "eop-flat:2024-06-04",
       "sourceUrl": "https://storage.eop.bg/open-data-2024-06-04/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2004.06.2024.json"
-    },
-    {
-      "key": "23ba1787e0e8",
-      "ocid": "eop-00835-2024-0031",
-      "date": "2025-01-17",
-      "tag": "contract",
-      "amount": 179000,
-      "currency": "BGN",
-      "amountEur": 91521.24673412311,
-      "partyEik": "205075635",
-      "partyName": "Ай Тръкс ЕАД",
-      "bundleUuid": "eop-flat:2025-01-17",
-      "sourceUrl": "https://storage.eop.bg/open-data-2025-01-17/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2017.01.2025.json"
     }
   ],
   "byYear": [
@@ -722,15 +740,15 @@
     },
     {
       "year": "2024",
-      "totalEur": 32334455.448581938,
+      "totalEur": 33013796.55696048,
       "totalOther": {},
-      "contractCount": 33
+      "contractCount": 46
     },
     {
       "year": "2025",
-      "totalEur": 15804933.378667878,
+      "totalEur": 15905591.907272102,
       "totalOther": {},
-      "contractCount": 49
+      "contractCount": 54
     },
     {
       "year": "2026",

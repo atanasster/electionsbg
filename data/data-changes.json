@@ -1,6 +1,67 @@
 {
-  "updatedAt": "2026-06-27T10:30:44.607Z",
+  "updatedAt": "2026-06-28T17:45:07.994Z",
   "entries": [
+    {
+      "timestamp": "2026-06-28T17:45:07.994Z",
+      "date": "2026-06-28",
+      "skill": "update-budget",
+      "summary": "ИПОП общински проекти: execution refresh — FY2025 €2.98bn agreement / €990.9M paid across 264 municipalities",
+      "source": "МРРБ — ИПОП (Инвестиционна програма за общински проекти)"
+    },
+    {
+      "timestamp": "2026-06-28T17:41:56.497Z",
+      "date": "2026-06-28",
+      "skill": "update-council-minutes",
+      "summary": "3 new Sofia council decisions (protokol 64) + refreshed councillor attendance/dissent signals",
+      "source": "Общински съвет — Столична община (council.sofia.bg)"
+    },
+    {
+      "timestamp": "2026-06-28T17:34:03.137Z",
+      "date": "2026-06-28",
+      "skill": "parliament-scrape",
+      "summary": "Parliament roster refresh (52nd NS): newly-seated MP Христо Гаджев (id 5335) added; photos/bios + candidate-resolution shards re-matched",
+      "source": "Parliament MPs (parliament.bg active roster)",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-28T17:32:13.906Z",
+      "date": "2026-06-28",
+      "skill": "update-indicators",
+      "summary": "NSI vital-statistics revision: natural increase / net migration / population change updated across 264 municipalities",
+      "source": "НСИ: раждания, умирания и миграция по общини",
+      "links": [
+        {
+          "to": "/demographics/municipalities",
+          "labelKey": "data_changes_link_municipalities_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-06-28T17:27:25.363Z",
+      "date": "2026-06-28",
+      "skill": "update-funds",
+      "summary": "ИСУН EU-funds refresh: 53,049 beneficiaries / 81,616 contracts / €43.79bn contracted (+59 contracts); 31 new + 828 modified projects",
+      "source": "ИСУН 2020 (2020.eufunds.bg)"
+    },
+    {
+      "timestamp": "2026-06-28T17:22:10.770Z",
+      "date": "2026-06-28",
+      "skill": "update-procurement",
+      "summary": "EOP gap-fill (2026-06-27) + tenders refresh (125,327 procedures) + buyer geo enrichment (1857 local-tier buyers pinned)",
+      "source": "data.egov.bg АОП + ЦАИС ЕОП (storage.eop.bg)"
+    },
+    {
+      "timestamp": "2026-06-28T16:52:34.959Z",
+      "date": "2026-06-28",
+      "skill": "update-prices",
+      "summary": "kzp_prices: ingested 2026-06-27 (1.04M rows, 227 settlements); index through 177 days",
+      "source": "КЗП Колко струва (retail prices, kolkostruva.bg)"
+    },
     {
       "timestamp": "2026-06-27T10:30:44.607Z",
       "date": "2026-06-27",

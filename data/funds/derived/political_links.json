@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-06-22T15:22:46.162Z",
+  "generatedAt": "2026-06-28T17:23:41.113Z",
   "totals": {
     "flaggedEiks": 211,
     "mpOnly": 96,
     "officialOnly": 108,
     "both": 7,
     "debarredFlagged": 0,
-    "contractedEur": 407942878.1,
+    "contractedEur": 408421616.56,
     "paidEur": 152604423.63,
     "procurementEur": 909093331.92
   },
@@ -596,6 +596,46 @@
       "exposureScore": 15.24
     },
     {
+      "eik": "110032086",
+      "name": "Камакс ООД",
+      "orgType": "Компания",
+      "contractCount": 5,
+      "contractedEur": 2002711.01,
+      "paidEur": 410979.5,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "emil-asenov-maksimov-f7e0d4",
+          "name": "Емил Асенов Максимов",
+          "category": "councillor",
+          "tier": "municipal",
+          "role": "councillor",
+          "institution": null,
+          "municipality": "Тетевен",
+          "confidence": "high",
+          "latestDeclarationYear": null,
+          "roles": [
+            {
+              "source": "declared",
+              "trRole": null,
+              "shareSize": "30",
+              "valueEur": 1789.5215841867648
+            },
+            {
+              "source": "tr",
+              "trRole": "partner",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 15.2
+    },
+    {
       "eik": "101627341",
       "name": "Шипковата къща ЕООД",
       "orgType": "Компания",
@@ -646,46 +686,6 @@
       "procurementContractCount": 1042,
       "debarred": false,
       "exposureScore": 20.66
-    },
-    {
-      "eik": "110032086",
-      "name": "Камакс ООД",
-      "orgType": "Компания",
-      "contractCount": 5,
-      "contractedEur": 1523972.55,
-      "paidEur": 410979.5,
-      "mps": [],
-      "officials": [
-        {
-          "slug": "emil-asenov-maksimov-f7e0d4",
-          "name": "Емил Асенов Максимов",
-          "category": "councillor",
-          "tier": "municipal",
-          "role": "councillor",
-          "institution": null,
-          "municipality": "Тетевен",
-          "confidence": "high",
-          "latestDeclarationYear": null,
-          "roles": [
-            {
-              "source": "declared",
-              "trRole": null,
-              "shareSize": "30",
-              "valueEur": 1789.5215841867648
-            },
-            {
-              "source": "tr",
-              "trRole": "partner",
-              "shareSize": null,
-              "valueEur": null
-            }
-          ]
-        }
-      ],
-      "procurementEur": 0,
-      "procurementContractCount": 0,
-      "debarred": false,
-      "exposureScore": 14.93
     },
     {
       "eik": "124121775",
@@ -1672,9 +1672,9 @@
     "825203984",
     "206841186",
     "119603547",
+    "110032086",
     "101627341",
     "175415627",
-    "110032086",
     "124121775",
     "125021188",
     "202605690",

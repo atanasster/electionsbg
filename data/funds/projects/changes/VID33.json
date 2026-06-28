@@ -1,0 +1,70 @@
+{
+  "obshtina": "VID33",
+  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "changes": [
+    {
+      "contractNumber": "BG05SFPR001-1.010-0197",
+      "title": "Без тормоз",
+      "type": "new",
+      "totalEur": 68263.02,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Основно училище \"Свети свети Кирил и Методий\"",
+      "detectedAt": "2026-06-28"
+    },
+    {
+      "contractNumber": "BG05SFPR003-1.001-0210",
+      "title": "Предоставяне на услуги по осигуряване на топъл обяд и подкрепа на нуждаещи се лица на територията на Община Ружинци",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 1039192.11,
+      "totalEur": 1310018.49,
+      "paidEur": 846765.8,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Ружинци",
+      "detectedAt": "2026-06-28"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-0674",
+      "title": "Лабораторен комплекс за практическа приложимост на знанията по природни науки .",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 30970.34,
+      "totalEur": 30970.34,
+      "paidEur": 30767.02,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Основно училище \"Свети свети Кирил и Методий\"",
+      "detectedAt": "2026-06-28"
+    },
+    {
+      "contractNumber": "BG-RRP-11.017-0043",
+      "title": "Представяне пред българска публика на съвременна българска продукция „Плешивец свири и пее“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 8206.23,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Славяна - 2004\" НЧ",
+      "detectedAt": "2026-06-28"
+    }
+  ]
+}

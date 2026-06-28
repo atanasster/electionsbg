@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-06-27T21:15:49.590Z",
+  "generatedAt": "2026-06-28T17:45:33.772Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -24,7 +24,7 @@
       "url": "https://results.cik.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-26T06:09:03.955Z",
+      "freshness": "2026-06-28T16:34:00.777Z",
       "skills": [
         "update-local-elections"
       ],
@@ -34,7 +34,7 @@
           "label": "CIK local-elections results bundles",
           "url": "https://results.cik.bg/",
           "cadence": "daily",
-          "freshness": "2026-06-26T06:09:03.955Z"
+          "freshness": "2026-06-28T16:34:00.777Z"
         }
       ],
       "x": 28,
@@ -63,7 +63,7 @@
       "url": "https://www.parliament.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-27T06:09:04.565Z",
+      "freshness": "2026-06-28T16:34:00.777Z",
       "skills": [
         "update-rollcall",
         "parliament-scrape"
@@ -81,7 +81,7 @@
           "label": "Parliament MPs (active roster)",
           "url": "https://www.parliament.bg/api/v1/coll-list-ns/bg",
           "cadence": "daily",
-          "freshness": "2026-06-24T14:01:50.792Z"
+          "freshness": "2026-06-28T16:34:00.777Z"
         }
       ],
       "x": 28,
@@ -158,7 +158,7 @@
       "url": "https://register.cacbg.bg/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-06-22T07:09:20.100Z",
+      "freshness": "2026-06-28T16:34:00.777Z",
       "skills": [
         "update-connections",
         "update-officials",
@@ -170,7 +170,7 @@
           "label": "Сметна палата party financing",
           "url": "https://www.bulnao.government.bg/bg/kontrol-partii/",
           "cadence": "weekly",
-          "freshness": "2026-06-22T07:09:20.100Z"
+          "freshness": "2026-06-28T16:34:00.777Z"
         },
         {
           "id": "financing_reports",
@@ -230,7 +230,7 @@
       "url": "https://data.egov.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-10T06:09:43.216Z",
+      "freshness": "2026-06-28T16:34:00.777Z",
       "skills": [
         "update-procurement",
         "update-connections",
@@ -244,14 +244,14 @@
           "label": "data.egov.bg АОП (Агенция по обществени поръчки)",
           "url": "https://data.egov.bg/data?org%5B0%5D=502&page=1",
           "cadence": "weekly",
-          "freshness": "2026-06-10T06:09:43.216Z"
+          "freshness": "2026-06-28T16:34:00.777Z"
         },
         {
           "id": "egov_commerce",
           "label": "data.egov.bg Commerce Registry (Търговски регистър)",
           "url": "https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=1",
           "cadence": "weekly",
-          "freshness": "2026-06-10T06:09:43.216Z"
+          "freshness": "2026-06-28T16:34:00.777Z"
         },
         {
           "id": "egov_budget_execution",
@@ -279,7 +279,7 @@
           "label": "МОН: ДЗИ резултати (data.egov.bg)",
           "url": "https://data.egov.bg/data/view/066b4b04-d81d-444e-a61c-8ca0516079e4",
           "cadence": "daily",
-          "freshness": "2026-05-12T11:56:37.254Z"
+          "freshness": "2026-06-28T16:34:00.777Z"
         },
         {
           "id": "iaos_air_quality",
@@ -315,7 +315,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-27T06:09:04.565Z",
+      "freshness": "2026-06-28T16:34:00.777Z",
       "skills": [
         "update-procurement"
       ],
@@ -325,7 +325,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-06-27T06:09:04.565Z"
+          "freshness": "2026-06-28T16:34:00.777Z"
         }
       ],
       "x": 28,
@@ -394,7 +394,7 @@
       "url": "https://2020.eufunds.bg/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-06-22T07:09:20.100Z",
+      "freshness": "2026-06-28T16:34:00.777Z",
       "skills": [
         "update-funds"
       ],
@@ -404,14 +404,14 @@
           "label": "ИСУН EU funds (beneficiaries)",
           "url": "https://2020.eufunds.bg/bg/0/0/Beneficiary/ExportToExcel",
           "cadence": "weekly",
-          "freshness": "2026-06-22T07:09:20.100Z"
+          "freshness": "2026-06-28T16:34:00.777Z"
         },
         {
           "id": "isun_eu_funds_projects",
           "label": "ИСУН EU funds (projects)",
           "url": "https://2020.eufunds.bg/bg/0/0/Project/ExportToExcel",
           "cadence": "weekly",
-          "freshness": "2026-06-22T07:09:20.100Z"
+          "freshness": "2026-06-28T16:34:00.777Z"
         }
       ],
       "x": 28,
@@ -441,7 +441,7 @@
       "url": "https://www.minfin.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-27T06:09:04.565Z",
+      "freshness": "2026-06-28T16:34:00.777Z",
       "skills": [
         "update-budget",
         "update-noi",
@@ -510,7 +510,7 @@
           "label": "МРРБ — ИПОП (Инвестиционна програма за общински проекти) изпълнение",
           "url": "https://ipop.mrrb.bg/",
           "cadence": "daily",
-          "freshness": "2026-06-26T06:09:03.955Z"
+          "freshness": "2026-06-28T16:34:00.777Z"
         },
         {
           "id": "iisda_doklad",
@@ -1062,7 +1062,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-26T06:09:03.955Z",
+      "freshness": "2026-06-28T16:34:00.777Z",
       "skills": [
         "update-prices"
       ],
@@ -1072,7 +1072,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-06-26T06:09:03.955Z"
+          "freshness": "2026-06-28T16:34:00.777Z"
         }
       ],
       "x": 28,

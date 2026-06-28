@@ -8769,6 +8769,33 @@
     ],
     "SOF": [
       {
+        "id": "SOF-2026-prot64-r526",
+        "date": "2026-06-25",
+        "session": "64",
+        "number": "526",
+        "title": "обявяване на класиране и финансиране на проектни предложения по Програма „Европа“ 2026 на Столична община.",
+        "result": "unknown",
+        "sourceUrl": "https://council.sofia.bg/documents/d/guest/r-526-2026"
+      },
+      {
+        "id": "SOF-2026-prot64-r496",
+        "date": "2026-06-25",
+        "session": "64",
+        "number": "496",
+        "title": "(no title parsed)",
+        "result": "unknown",
+        "sourceUrl": "https://council.sofia.bg/documents/d/guest/r-496-2026"
+      },
+      {
+        "id": "SOF-2026-prot64-r479",
+        "date": "2026-06-25",
+        "session": "64",
+        "number": "479",
+        "title": "изразяване на становище по проект на Бизнес план на „Софийска вода“ АД за периода 2027-2031 г.",
+        "result": "unknown",
+        "sourceUrl": "https://council.sofia.bg/documents/d/guest/r-479-2026"
+      },
+      {
         "id": "SOF-2026-prot63-r473",
         "date": "2026-06-11",
         "session": "63",
@@ -10832,51 +10859,6 @@
           "for": 39,
           "against": 0,
           "abstain": 4,
-          "method": "named"
-        }
-      },
-      {
-        "id": "SOF-2026-prot60-r276",
-        "date": "2026-04-30",
-        "session": "60",
-        "number": "276",
-        "title": "приемане на „Общинска строителна програма за изграждане, реконструкция и ремонт на обекти - публична общинска собственост за 2026 г.“.",
-        "result": "adopted",
-        "sourceUrl": "https://council.sofia.bg/documents/d/guest/r-276-2026",
-        "tally": {
-          "for": 41,
-          "against": 1,
-          "abstain": 0,
-          "method": "named"
-        }
-      },
-      {
-        "id": "SOF-2026-prot60-r275",
-        "date": "2026-04-30",
-        "session": "60",
-        "number": "275",
-        "title": "разкриване на нови и промяна на съществуващи автобусни и тролейбусни линии във връзка с оптимизация на транспортната мрежа и доставка на нови 75 тролейбуса и 50 електробуса.",
-        "result": "adopted",
-        "sourceUrl": "https://council.sofia.bg/documents/d/guest/r-275-2026",
-        "tally": {
-          "for": 41,
-          "against": 0,
-          "abstain": 0,
-          "method": "named"
-        }
-      },
-      {
-        "id": "SOF-2026-prot60-r274",
-        "date": "2026-04-30",
-        "session": "60",
-        "number": "274",
-        "title": "подобряване на транспортното обслужване в с.Бусманци, с.Казичене, с.Кривина, с.Лозен и гара Верила.",
-        "result": "unknown",
-        "sourceUrl": "https://council.sofia.bg/documents/d/guest/r-274-2026",
-        "tally": {
-          "for": 41,
-          "against": 0,
-          "abstain": 0,
           "method": "named"
         }
       }
@@ -31120,97 +31102,97 @@
   "meta": {
     "SZR01": {
       "name": "Община Стара Загора",
-      "lastIngest": "2026-06-25T01:31:06.007Z",
+      "lastIngest": "2026-06-28T17:35:44.626Z",
       "protocolsIngested": 2,
       "resolutionCount": 67
     },
     "VTR01": {
       "name": "Община Велико Търново",
-      "lastIngest": "2026-06-25T01:33:03.702Z",
+      "lastIngest": "2026-06-28T17:36:14.048Z",
       "protocolsIngested": 20,
       "resolutionCount": 460
     },
     "RSE01": {
       "name": "Община Русе",
-      "lastIngest": "2026-06-25T01:32:45.417Z",
+      "lastIngest": "2026-06-28T17:36:08.108Z",
       "protocolsIngested": 3,
       "resolutionCount": 109
     },
     "PVN01": {
       "name": "Община Плевен",
-      "lastIngest": "2026-06-25T01:32:55.260Z",
+      "lastIngest": "2026-06-28T17:36:13.199Z",
       "protocolsIngested": 2,
       "resolutionCount": 76
     },
     "VAR01": {
       "name": "Община Варна",
-      "lastIngest": "2026-06-25T01:29:47.325Z",
+      "lastIngest": "2026-06-28T17:35:29.477Z",
       "protocolsIngested": 11,
       "resolutionCount": 56
     },
     "BGS01": {
       "name": "Община Бургас",
-      "lastIngest": "2026-06-25T01:31:02.868Z",
+      "lastIngest": "2026-06-28T17:35:43.880Z",
       "protocolsIngested": 20,
       "resolutionCount": 319
     },
     "PDV01": {
       "name": "Община Пловдив",
-      "lastIngest": "2026-06-25T01:29:33.884Z",
-      "protocolsIngested": 28,
+      "lastIngest": "2026-06-28T17:35:28.738Z",
+      "protocolsIngested": 29,
       "resolutionCount": 85
     },
     "SLV01": {
       "name": "Община Сливен",
-      "lastIngest": "2026-06-25T01:33:05.102Z",
+      "lastIngest": "2026-06-28T17:36:15.262Z",
       "protocolsIngested": 4,
       "resolutionCount": 137
     },
     "SOF": {
       "name": "Столична община",
-      "lastIngest": "2026-06-25T01:29:29.376Z",
-      "protocolsIngested": 5,
-      "resolutionCount": 225
+      "lastIngest": "2026-06-28T17:35:27.909Z",
+      "protocolsIngested": 6,
+      "resolutionCount": 228
     },
     "GAB05": {
       "name": "Община Габрово",
-      "lastIngest": "2026-06-25T01:43:38.595Z",
+      "lastIngest": "2026-06-28T17:38:53.859Z",
       "protocolsIngested": 12,
       "resolutionCount": 244
     },
     "SZR12": {
       "name": "Община Казанлък",
-      "lastIngest": "2026-06-25T01:43:19.476Z",
+      "lastIngest": "2026-06-28T17:38:43.338Z",
       "protocolsIngested": 51,
       "resolutionCount": 359
     },
     "HKV34": {
       "name": "Община Хасково",
-      "lastIngest": "2026-06-25T01:34:26.608Z",
+      "lastIngest": "2026-06-28T17:37:09.276Z",
       "protocolsIngested": 16,
       "resolutionCount": 387
     },
     "DOB28": {
       "name": "Община град Добрич",
-      "lastIngest": "2026-06-25T01:33:06.020Z",
+      "lastIngest": "2026-06-28T17:36:25.517Z",
       "protocolsIngested": 3,
       "resolutionCount": 50
     },
     "HKV09": {
       "name": "Община Димитровград",
-      "lastIngest": "2026-06-25T01:33:06.568Z",
+      "lastIngest": "2026-06-28T17:36:25.778Z",
       "protocolsIngested": 63,
       "resolutionCount": 550
     },
     "RAZ26": {
       "name": "Община Разград",
-      "lastIngest": "2026-06-25T01:34:07.838Z",
+      "lastIngest": "2026-06-28T17:36:58.086Z",
       "protocolsIngested": 19,
       "resolutionCount": 254
     },
     "PER32": {
       "name": "Община Перник",
-      "lastIngest": "2026-06-25T01:34:19.271Z",
+      "lastIngest": "2026-06-28T17:36:58.762Z",
       "protocolsIngested": 58,
       "resolutionCount": 498
     }

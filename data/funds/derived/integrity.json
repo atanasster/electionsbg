@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-24T22:15:31.134Z",
+  "generatedAt": "2026-06-28T17:25:59.163Z",
   "totals": {
     "programmeCount": 46,
     "highConcentrationCount": 17,
@@ -133,7 +133,7 @@
       "programName": "Програма на Република България по Инструмента за финансова подкрепа за управлението на границите и визовата политика",
       "period": "2021-27",
       "fundType": "Other",
-      "totalEur": 359406834.15,
+      "totalEur": 359406834.14,
       "paidEur": 120828097.04,
       "contractCount": 58,
       "beneficiaryCount": 5,
@@ -148,11 +148,11 @@
       "programName": "Програма \"Образование\" 2021-2027",
       "period": "2021-27",
       "fundType": "ESF",
-      "totalEur": 746403021.11,
+      "totalEur": 748828201.17,
       "paidEur": 277471101.18,
-      "contractCount": 497,
-      "beneficiaryCount": 421,
-      "hhi": 5586.7,
+      "contractCount": 508,
+      "beneficiaryCount": 428,
+      "hhi": 5550.6,
       "hhiBand": "high",
       "top1Share": 0.74,
       "top1Name": "Министерство на образованието и науката",
@@ -208,11 +208,11 @@
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
       "period": "2021-27",
       "fundType": "ESF",
-      "totalEur": 1296594985.92,
-      "paidEur": 715025169.78,
-      "contractCount": 2002,
-      "beneficiaryCount": 1434,
-      "hhi": 3230.2,
+      "totalEur": 1296940231.92,
+      "paidEur": 719064072.76,
+      "contractCount": 2006,
+      "beneficiaryCount": 1436,
+      "hhi": 3228.4,
       "hhiBand": "high",
       "top1Share": 0.56,
       "top1Name": "Агенция по заетостта",
@@ -283,11 +283,11 @@
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
       "period": "2021-27",
       "fundType": "ERDF",
-      "totalEur": 1372589482.43,
-      "paidEur": 370098343.54,
+      "totalEur": 1372488339.91,
+      "paidEur": 371061648.47,
       "contractCount": 6576,
       "beneficiaryCount": 5521,
-      "hhi": 2145,
+      "hhi": 2145.4,
       "hhiBand": "moderate",
       "top1Share": 0.46,
       "top1Name": "Фонд мениджър на финансови инструменти в България ЕАД",
@@ -373,11 +373,11 @@
       "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "period": "2021-27",
       "fundType": "ESF",
-      "totalEur": 224403655.57,
+      "totalEur": 226911683.27,
       "paidEur": 170360043.28,
       "contractCount": 251,
       "beneficiaryCount": 225,
-      "hhi": 1451.5,
+      "hhi": 1421.2,
       "hhiBand": "low",
       "top1Share": 0.37,
       "top1Name": "Агенция за социално подпомагане",
@@ -418,11 +418,11 @@
       "programName": "Програма \"Научни изследвания, иновации и дигитализация за интелигентна трансформация\"",
       "period": "2021-27",
       "fundType": "ERDF",
-      "totalEur": 509953633.7,
-      "paidEur": 180382218.78,
-      "contractCount": 182,
-      "beneficiaryCount": 161,
-      "hhi": 723.4,
+      "totalEur": 515064805.67,
+      "paidEur": 181236060.02,
+      "contractCount": 183,
+      "beneficiaryCount": 162,
+      "hhi": 710.1,
       "hhiBand": "low",
       "top1Share": 0.2,
       "top1Name": "Министерство на електронното управление, чрез дирекция „Мрежова и информационна сигурност“",
@@ -758,6 +758,39 @@
       ]
     },
     {
+      "eik": "000670680",
+      "name": "Софийски университет \"СВ.КЛИМЕНТ Охридски\"",
+      "programmeCount": 5,
+      "totalEur": 90528661.44,
+      "topProgrammes": [
+        {
+          "programCode": "2014BG05M2OP001",
+          "programName": "Наука и образование за интелигентен растеж",
+          "eur": 60330652.16
+        },
+        {
+          "programCode": "2021BG16RFPR002",
+          "programName": "Програма \"Научни изследвания, иновации и дигитализация за интелигентна трансформация\"",
+          "eur": 23242837.91
+        },
+        {
+          "programCode": "2021BG05SFPR001",
+          "programName": "Програма \"Образование\" 2021-2027",
+          "eur": 6764701.35
+        },
+        {
+          "programCode": "SBRP",
+          "programName": "Програма за научни изследвания и иновации",
+          "eur": 160379.69
+        },
+        {
+          "programCode": "BNSF",
+          "programName": "Фонд Научни Изследвания",
+          "eur": 30090.33
+        }
+      ]
+    },
+    {
       "eik": "000695089",
       "name": "Агенция \"Пътна инфраструктура\"",
       "programmeCount": 4,
@@ -992,34 +1025,6 @@
       ]
     },
     {
-      "eik": "000670680",
-      "name": "Софийски университет \"СВ.КЛИМЕНТ Охридски\"",
-      "programmeCount": 4,
-      "totalEur": 90498571.11,
-      "topProgrammes": [
-        {
-          "programCode": "2014BG05M2OP001",
-          "programName": "Наука и образование за интелигентен растеж",
-          "eur": 60330652.16
-        },
-        {
-          "programCode": "2021BG16RFPR002",
-          "programName": "Програма \"Научни изследвания, иновации и дигитализация за интелигентна трансформация\"",
-          "eur": 23242837.91
-        },
-        {
-          "programCode": "2021BG05SFPR001",
-          "programName": "Програма \"Образование\" 2021-2027",
-          "eur": 6764701.35
-        },
-        {
-          "programCode": "SBRP",
-          "programName": "Програма за научни изследвания и иновации",
-          "eur": 160379.69
-        }
-      ]
-    },
-    {
       "eik": "129010698",
       "name": "Дирекция \"Комуникационни и информационни системи\" - Министерство на вътрешните работи",
       "programmeCount": 4,
@@ -1135,12 +1140,12 @@
       "eik": "000695395",
       "name": "Министерство на труда и социалната политика",
       "programmeCount": 3,
-      "totalEur": 720779853.76,
+      "totalEur": 720779853.77,
       "topProgrammes": [
         {
           "programCode": "2021BG-RRP",
           "programName": "Национален план за възстановяване и устойчивост",
-          "eur": 593090099.69
+          "eur": 593090099.7
         },
         {
           "programCode": "2014BG05M9OP001",
@@ -1158,12 +1163,12 @@
       "eik": "129010125",
       "name": "Главна дирекция \"Гранична полиция\" - МВР",
       "programmeCount": 3,
-      "totalEur": 350652818.36,
+      "totalEur": 350652818.35,
       "topProgrammes": [
         {
           "programCode": "2021BG65BVPR001",
           "programName": "Програма на Република България по Инструмента за финансова подкрепа за управлението на границите и визовата политика",
-          "eur": 281044302.45
+          "eur": 281044302.44
         },
         {
           "programCode": "2014BG65ISNP001",

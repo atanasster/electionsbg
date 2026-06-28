@@ -1,0 +1,50 @@
+{
+  "obshtina": "SFO43",
+  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "changes": [
+    {
+      "contractNumber": "BG14MFPR001-2.002-0022",
+      "title": "Модернизация на рибовъдно стопанство \"Искрец\"",
+      "type": "new",
+      "totalEur": 178860.75,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG14MFPR001",
+      "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
+      "beneficiaryName": "Искрецка Пъстърва ООД",
+      "detectedAt": "2026-06-28"
+    },
+    {
+      "contractNumber": "BG-RRP-6.004-1335",
+      "title": "Закупуване на земеделска техника",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 89143.74,
+      "totalEur": 89143.74,
+      "paidEur": 44571.87,
+      "status": "Сключен",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "ЗС",
+      "detectedAt": "2026-06-28"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-2238",
+      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи (ВОСКС).",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 30098.18,
+      "totalEur": 30098.18,
+      "paidEur": 30005.42,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Основно училище \"Елин Пелин\"",
+      "detectedAt": "2026-06-28"
+    }
+  ]
+}

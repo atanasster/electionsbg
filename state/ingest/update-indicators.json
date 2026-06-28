@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-05-21T10:06:36.271Z",
+  "lastSuccessfulIngest": "2026-06-28T17:32:13.504Z",
   "skill": "update-indicators",
-  "summary": "ran ok — no data changes (NSI unemployment/dzi/population/vital/migration identical to prior; fetchedAt-only diff reverted)"
+  "summary": "NSI vital revised (290 muni slices: natural increase/net migration/population change); unemployment+DZI unchanged. 2026 DZI session published but egov CSRF-blocked (HTML download) — re-fetch DZI after egov fix"
 }

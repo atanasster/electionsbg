@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-06-22T15:19:07.410Z",
-  "count": 584,
+  "generatedAt": "2026-06-28T16:55:40.986Z",
+  "count": 617,
   "sources": {
     "mon": 0,
-    "ocds": 371,
-    "name": 190,
-    "nameOblast": 23,
-    "unresolved": 2070
+    "ocds": 387,
+    "name": 128,
+    "nameOblast": 102,
+    "unresolved": 2038
   },
   "awarders": {
     "101005300": {
@@ -59,6 +59,11 @@
       "source": "ocds",
       "confidence": "name+province"
     },
+    "102663909": {
+      "ekatte": "17974",
+      "source": "name+oblast",
+      "confidence": "name+province"
+    },
     "102664798": {
       "ekatte": "46663",
       "source": "ocds",
@@ -83,6 +88,11 @@
       "ekatte": "10135",
       "source": "name",
       "confidence": "name_only"
+    },
+    "103156991": {
+      "ekatte": "10135",
+      "source": "ocds",
+      "confidence": "name+province"
     },
     "103514755": {
       "ekatte": "10135",
@@ -181,8 +191,8 @@
     },
     "108503403": {
       "ekatte": "72610",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "108685105": {
       "ekatte": "80090",
@@ -238,6 +248,11 @@
       "ekatte": "21172",
       "source": "name",
       "confidence": "name_only"
+    },
+    "113513064": {
+      "ekatte": "55871",
+      "source": "ocds",
+      "confidence": "name+province"
     },
     "113515453": {
       "ekatte": "55871",
@@ -296,13 +311,13 @@
     },
     "115012828": {
       "ekatte": "36498",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "115012867": {
       "ekatte": "00702",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "115013798": {
       "ekatte": "56784",
@@ -321,8 +336,8 @@
     },
     "115186113": {
       "ekatte": "55909",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "115352243": {
       "ekatte": "56784",
@@ -454,6 +469,11 @@
       "source": "ocds",
       "confidence": "name+province"
     },
+    "121493615": {
+      "ekatte": "68134",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
     "121689770": {
       "ekatte": "68134",
       "source": "name",
@@ -539,6 +559,11 @@
       "source": "ocds",
       "confidence": "name+province"
     },
+    "129009856": {
+      "ekatte": "55871",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
     "129009895": {
       "ekatte": "63427",
       "source": "ocds",
@@ -550,6 +575,11 @@
       "confidence": "name+province"
     },
     "129010068": {
+      "ekatte": "68134",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
+    "129010090": {
       "ekatte": "68134",
       "source": "ocds",
       "confidence": "name+province"
@@ -592,7 +622,7 @@
     "130044740": {
       "ekatte": "68134",
       "source": "ocds",
-      "confidence": "name+province"
+      "confidence": "name_only"
     },
     "130056874": {
       "ekatte": "65231",
@@ -754,6 +784,11 @@
       "source": "ocds",
       "confidence": "name+province"
     },
+    "176031316": {
+      "ekatte": "77195",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
     "176148209": {
       "ekatte": "39921",
       "source": "name+oblast",
@@ -811,8 +846,8 @@
     },
     "177061045": {
       "ekatte": "77195",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "177252513": {
       "ekatte": "07079",
@@ -836,8 +871,8 @@
     },
     "177438560": {
       "ekatte": "68850",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "180849511": {
       "ekatte": "68134",
@@ -861,8 +896,8 @@
     },
     "200429329": {
       "ekatte": "10135",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "200451674": {
       "ekatte": "67653",
@@ -926,6 +961,11 @@
     },
     "201618489": {
       "ekatte": "07079",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
+    "202039534": {
+      "ekatte": "38978",
       "source": "ocds",
       "confidence": "name+province"
     },
@@ -1051,8 +1091,8 @@
     },
     "825279900": {
       "ekatte": "56784",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "827144634": {
       "ekatte": "63427",
@@ -1128,6 +1168,11 @@
       "ekatte": "68850",
       "source": "name",
       "confidence": "name_only"
+    },
+    "836024783": {
+      "ekatte": "21052",
+      "source": "ocds",
+      "confidence": "name+province"
     },
     "836144261": {
       "ekatte": "77195",
@@ -1346,8 +1391,8 @@
     },
     "000083156": {
       "ekatte": "10135",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000083697": {
       "ekatte": "10135",
@@ -1464,6 +1509,11 @@
       "source": "ocds",
       "confidence": "name+province"
     },
+    "000154030": {
+      "ekatte": "10971",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
     "000154557": {
       "ekatte": "10971",
       "source": "name",
@@ -1564,12 +1614,22 @@
       "source": "ocds",
       "confidence": "name+province"
     },
+    "000252784": {
+      "ekatte": "41112",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
     "000252994": {
       "ekatte": "41112",
       "source": "ocds",
       "confidence": "name+province"
     },
     "000254995": {
+      "ekatte": "41112",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
+    "000255894": {
       "ekatte": "41112",
       "source": "ocds",
       "confidence": "name+province"
@@ -1661,13 +1721,13 @@
     },
     "000342694": {
       "ekatte": "10450",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000342705": {
       "ekatte": "55155",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000343052": {
       "ekatte": "55155",
@@ -1706,8 +1766,8 @@
     },
     "000379109": {
       "ekatte": "55871",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000386559": {
       "ekatte": "06286",
@@ -1761,13 +1821,13 @@
     },
     "000450823": {
       "ekatte": "00702",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000450830": {
       "ekatte": "00702",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000450873": {
       "ekatte": "35496",
@@ -1776,8 +1836,8 @@
     },
     "000450887": {
       "ekatte": "36498",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000450912": {
       "ekatte": "36498",
@@ -1791,8 +1851,8 @@
     },
     "000451213": {
       "ekatte": "56784",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000451284": {
       "ekatte": "56784",
@@ -1811,8 +1871,8 @@
     },
     "000451341": {
       "ekatte": "56784",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000451416": {
       "ekatte": "62075",
@@ -1836,8 +1896,8 @@
     },
     "000452048": {
       "ekatte": "56784",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000452072": {
       "ekatte": "56784",
@@ -1861,12 +1921,27 @@
     },
     "000452906": {
       "ekatte": "36498",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
+    },
+    "000452920": {
+      "ekatte": "37277",
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000452938": {
       "ekatte": "39921",
       "source": "ocds",
+      "confidence": "name+province"
+    },
+    "000452945": {
+      "ekatte": "51980",
+      "source": "name+oblast",
+      "confidence": "name+province"
+    },
+    "000452952": {
+      "ekatte": "51980",
+      "source": "name+oblast",
       "confidence": "name+province"
     },
     "000452984": {
@@ -1891,13 +1966,13 @@
     },
     "000453125": {
       "ekatte": "56784",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000453171": {
       "ekatte": "56784",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000453196": {
       "ekatte": "56784",
@@ -1911,8 +1986,8 @@
     },
     "000453278": {
       "ekatte": "56784",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000453292": {
       "ekatte": "56784",
@@ -1921,23 +1996,33 @@
     },
     "000453310": {
       "ekatte": "56784",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000453342": {
       "ekatte": "62075",
       "source": "ocds",
       "confidence": "name+province"
     },
+    "000453367": {
+      "ekatte": "70528",
+      "source": "name+oblast",
+      "confidence": "name+province"
+    },
+    "000453374": {
+      "ekatte": "70528",
+      "source": "name+oblast",
+      "confidence": "name+province"
+    },
     "000453381": {
       "ekatte": "77270",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000453409": {
       "ekatte": "06029",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000453431": {
       "ekatte": "49309",
@@ -1946,8 +2031,8 @@
     },
     "000453463": {
       "ekatte": "03304",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000453470": {
       "ekatte": "03620",
@@ -1956,38 +2041,48 @@
     },
     "000453488": {
       "ekatte": "80162",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000453506": {
       "ekatte": "38950",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000453513": {
       "ekatte": "05356",
       "source": "name+oblast",
       "confidence": "name+province"
     },
+    "000453520": {
+      "ekatte": "06505",
+      "source": "name+oblast",
+      "confidence": "name+province"
+    },
     "000453577": {
       "ekatte": "11845",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
+    },
+    "000453723": {
+      "ekatte": "29475",
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000453762": {
       "ekatte": "35095",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000453777": {
       "ekatte": "31108",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000453876": {
       "ekatte": "35300",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000453890": {
       "ekatte": "24582",
@@ -2001,61 +2096,81 @@
     },
     "000453997": {
       "ekatte": "36676",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000454017": {
       "ekatte": "39579",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
+    },
+    "000454056": {
+      "ekatte": "40004",
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000454070": {
       "ekatte": "40703",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000454106": {
       "ekatte": "47086",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000454145": {
       "ekatte": "73081",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000454202": {
       "ekatte": "57621",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
+    },
+    "000454234": {
+      "ekatte": "59032",
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000454259": {
       "ekatte": "11123",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000454266": {
       "ekatte": "62858",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
+    },
+    "000454298": {
+      "ekatte": "62949",
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000454316": {
       "ekatte": "63553",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000454348": {
       "ekatte": "81342",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000454437": {
       "ekatte": "70010",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000454444": {
       "ekatte": "40939",
+      "source": "name+oblast",
+      "confidence": "name+province"
+    },
+    "000454476": {
+      "ekatte": "72789",
       "source": "name+oblast",
       "confidence": "name+province"
     },
@@ -2066,12 +2181,27 @@
     },
     "000454501": {
       "ekatte": "73242",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
+    },
+    "000454526": {
+      "ekatte": "55926",
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000454558": {
       "ekatte": "78080",
       "source": "ocds",
+      "confidence": "name+province"
+    },
+    "000454572": {
+      "ekatte": "87240",
+      "source": "name+oblast",
+      "confidence": "name+province"
+    },
+    "000454608": {
+      "ekatte": "59080",
+      "source": "name+oblast",
       "confidence": "name+province"
     },
     "000454615": {
@@ -2101,13 +2231,13 @@
     },
     "000454825": {
       "ekatte": "77270",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000454871": {
       "ekatte": "04594",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000454907": {
       "ekatte": "56784",
@@ -2126,13 +2256,13 @@
     },
     "000455029": {
       "ekatte": "56784",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000455172": {
       "ekatte": "56784",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000455293": {
       "ekatte": "55909",
@@ -2146,8 +2276,8 @@
     },
     "000455400": {
       "ekatte": "36498",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000455560": {
       "ekatte": "56784",
@@ -2176,8 +2306,8 @@
     },
     "000458343": {
       "ekatte": "56784",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000458599": {
       "ekatte": "59080",
@@ -2186,18 +2316,18 @@
     },
     "000458752": {
       "ekatte": "56784",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000458930": {
       "ekatte": "56784",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000458948": {
       "ekatte": "56784",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000458994": {
       "ekatte": "56784",
@@ -2206,13 +2336,13 @@
     },
     "000459014": {
       "ekatte": "56784",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000459053": {
       "ekatte": "56784",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000459092": {
       "ekatte": "00702",
@@ -2241,18 +2371,18 @@
     },
     "000459780": {
       "ekatte": "56784",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000459797": {
       "ekatte": "56784",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000459808": {
       "ekatte": "55378",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000459815": {
       "ekatte": "56784",
@@ -2271,13 +2401,13 @@
     },
     "000460041": {
       "ekatte": "56784",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000460109": {
       "ekatte": "78171",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000460187": {
       "ekatte": "56784",
@@ -2289,9 +2419,19 @@
       "source": "ocds",
       "confidence": "name+province"
     },
+    "000460454": {
+      "ekatte": "37277",
+      "source": "name+oblast",
+      "confidence": "name+province"
+    },
     "000460618": {
       "ekatte": "56784",
       "source": "ocds",
+      "confidence": "name+province"
+    },
+    "000460810": {
+      "ekatte": "06361",
+      "source": "name+oblast",
       "confidence": "name+province"
     },
     "000465405": {
@@ -2416,8 +2556,8 @@
     },
     "000607865": {
       "ekatte": "44402",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000608020": {
       "ekatte": "49014",
@@ -2609,6 +2749,11 @@
       "source": "ocds",
       "confidence": "name+province"
     },
+    "000668940": {
+      "ekatte": "49206",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
     "000669144": {
       "ekatte": "68134",
       "source": "ocds",
@@ -2640,6 +2785,11 @@
       "confidence": "name+province"
     },
     "000670723": {
+      "ekatte": "68134",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
+    "000671049": {
       "ekatte": "68134",
       "source": "ocds",
       "confidence": "name+province"
@@ -2736,8 +2886,8 @@
     },
     "000759054": {
       "ekatte": "10029",
-      "source": "name",
-      "confidence": "name_only"
+      "source": "name+oblast",
+      "confidence": "name+province"
     },
     "000760163": {
       "ekatte": "15309",
@@ -2769,6 +2919,11 @@
       "source": "ocds",
       "confidence": "name+province"
     },
+    "000770061": {
+      "ekatte": "32901",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
     "000770111": {
       "ekatte": "32843",
       "source": "ocds",
@@ -2791,6 +2946,11 @@
     },
     "000802580": {
       "ekatte": "80793",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
+    "000803515": {
+      "ekatte": "68850",
       "source": "ocds",
       "confidence": "name+province"
     },
@@ -2821,6 +2981,11 @@
     },
     "000841850": {
       "ekatte": "35064",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
+    "000841875": {
+      "ekatte": "72624",
       "source": "ocds",
       "confidence": "name+province"
     },

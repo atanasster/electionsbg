@@ -1,0 +1,40 @@
+{
+  "obshtina": "S2521",
+  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "changes": [
+    {
+      "contractNumber": "BG-RRP-1.024-0725",
+      "title": "Изграждане на дигитален клуб в Народно Читалище \"ХРИСТО ВИТКОВ -1899\" в с. Локорско",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 12143.36,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Христо Витков -1899\"",
+      "detectedAt": "2026-06-28"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1220",
+      "title": "Изграждане на дигитален клуб в Народно читалище ХРИСТО БОТЕВ 1925",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 17383.92,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Христо Ботев 1925",
+      "detectedAt": "2026-06-28"
+    }
+  ]
+}
