@@ -24,8 +24,15 @@
 // year token so their releaseIds never collide with the CE files'.
 //
 // 2018 contracts are not published by АОП (only excl2018.csv = out-of-scope
-// records exists). 2024 and 2025 are not published in any form — the annual
-// CSV series ends at 2023 and the OCDS fortnight bundles start at 2026-01-01.
+// records exists). For 2024 and 2025 АОП publishes ONLY a РОП (RL) annual dump
+// — no ЦАИС ЕОП (CE) file — because by then almost all procurement runs on
+// ЦАИС ЕОП, which АОП no longer mirrors into an annual CSV. These RL dumps are
+// therefore a tiny old-register tail (contracts2024_RL ≈ 136 rows / €37.6M;
+// contracts2025_RL ≈ 50 rows / €23.4M), NOT a full-year corpus. The site's
+// 2024/2025 contracts are gap-filled from the ЦАИС ЕОП open-data feed (eop-
+// ocids) instead; the RL dumps are at most an additive supplement (same role
+// the 2022-RL/2023-RL files play next to their CE files) — do NOT swap them in
+// for the eop- fill, which is vastly more complete for the ЦАИС era.
 //
 // The CSV schemas drift across years:
 //   - Newer CE files (2020-2023): include `Стойност при сключване`, `ДДС`,
@@ -39,6 +46,7 @@
 
 import { createHash } from "crypto";
 import { parse } from "csv-parse/sync";
+import { Open as Unzip } from "unzipper";
 import { canonicalEik, isValidEik } from "./eik";
 import type { Contract } from "./types";
 import { toEur } from "@/lib/currency";
@@ -460,115 +468,121 @@ export const parseLegacyCsv = (
   return { rows, stats };
 };
 
-// data.egov.bg's CSV download is CSRF-protected: a GET to /resource/download/
-// /UUID/csv returns a redirect to the homepage. The actual download is a POST
-// to /resource/download with form fields (_token, resource id, version, name,
-// format=CSV) and a session cookie established by visiting the resource page
-// first. We replicate that flow:
-//   1. GET dataset page → extract the resource UUID
-//   2. GET resource page → extract CSRF token + form fields, capture session cookie
-//   3. POST /resource/download with the form payload + cookie → CSV bytes
+// data.egov.bg download flow.
+//
+// The per-resource endpoint (/resource/download) we used to POST to broke
+// around June 2026: for EVERY portal-hosted file resource (old datasets and
+// new alike) it now 302-redirects back to the resource page with a Bulgarian
+// flash "Грешка при вземане на метаданни за ресурс" ("error retrieving
+// resource metadata"). This is NOT a CSRF/session problem on our side — the
+// CSRF gate still validates correctly (a bad/absent token yields HTTP 419,
+// while a correct token + session cookie yields the 302 + metadata-error
+// redirect). The failure is server-side, inside the portal's download
+// controller, and no client request shape gets past it.
+//
+// The dataset-level *bulk-zip* export is a separate endpoint that still works,
+// so we route through it instead. Two requests:
+//   1. GET /dataset/{datasetUuid}/resources/download/{fmt}
+//        (X-Requested-With: XMLHttpRequest) → {uri, format, delete_only_zip}
+//   2. GET /dataset/resources/download/zip/{format}/{uri}/{delete_only_zip}
+//        → application/zip of every resource in the dataset
+// Each annual АОП dump is a single dataset holding just the contracts file
+// (plus, sometimes, an annexes/excl file we skip), so the zip is small. We
+// unzip it in memory and return the contracts member's text — CSV for normal
+// years, the JSON 2D-array export for the ~136 MB 2011-2015 bundle whose raw
+// CSV historically 419'd. (This is the same flow scripts/declarations/tr's
+// --bulk path uses; the broken per-resource path has no working analogue.)
 const UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) electionsbg.com/1.0";
 
-const collectSetCookies = (res: Response): string => {
-  // Some Node versions expose getSetCookie(); fall back to the raw header.
-  // Either way, fold into a single Cookie value (name=value pairs separated
-  // by "; ").
-  const headers =
-    typeof (res.headers as { getSetCookie?: () => string[] }).getSetCookie ===
-    "function"
-      ? (res.headers as { getSetCookie: () => string[] }).getSetCookie()
-      : (res.headers.get("set-cookie")?.split(/,(?=\s*\w+=)/) ?? []);
-  return headers
-    .map((c) => c.split(";")[0].trim())
-    .filter(Boolean)
-    .join("; ");
-};
-
-interface DownloadForm {
-  token: string;
-  resourceId: string;
-  version: string;
-  name: string;
-  cookie: string;
+interface ZipPrepare {
+  uri: string;
+  format: string;
+  delete_only_zip: boolean;
 }
 
-const fetchDownloadForm = async (
-  resourceUuid: string,
-): Promise<DownloadForm> => {
-  const url = `https://data.egov.bg/organisation/datasets/resourceView/${resourceUuid}`;
+const prepareDatasetZip = async (
+  datasetUuid: string,
+  fmt: "csv" | "json",
+): Promise<ZipPrepare> => {
+  const url = `https://data.egov.bg/dataset/${datasetUuid}/resources/download/${fmt}`;
   const res = await fetch(url, {
-    headers: { "User-Agent": UA, Accept: "text/html" },
+    headers: {
+      "User-Agent": UA,
+      "X-Requested-With": "XMLHttpRequest",
+      Accept: "application/json",
+    },
   });
   if (!res.ok) {
-    throw new Error(`GET ${url} → ${res.status} ${res.statusText}`);
+    throw new Error(`prepare GET ${url} → ${res.status} ${res.statusText}`);
   }
-  const cookie = collectSetCookies(res);
-  const html = await res.text();
-  const token = html.match(/name="_token"\s+value="([^"]+)"/)?.[1];
-  const resourceId = html.match(/name="resource"[\s\S]*?value="([^"]+)"/)?.[1];
-  const version = html.match(/name="version"[\s\S]*?value="([^"]+)"/)?.[1];
-  const name = html.match(/name="name"[\s\S]*?value="([^"]+)"/)?.[1] ?? "";
-  if (!token || !resourceId || !version) {
+  const json = (await res.json()) as Partial<ZipPrepare>;
+  if (!json.uri || !json.format) {
     throw new Error(
-      `resource ${resourceUuid}: download form fields missing (token=${!!token} resource=${!!resourceId} version=${!!version})`,
+      `dataset ${datasetUuid}: malformed bulk-zip prepare payload ${JSON.stringify(json)}`,
     );
   }
-  return { token, resourceId, version, name, cookie };
+  return {
+    uri: json.uri,
+    format: json.format,
+    delete_only_zip: !!json.delete_only_zip,
+  };
 };
 
-const fetchResourceUuidForDataset = async (
-  datasetUuid: string,
-): Promise<string> => {
-  const url = `https://data.egov.bg/organisation/dataset/${datasetUuid}`;
-  const res = await fetch(url, {
-    headers: { "User-Agent": UA, Accept: "text/html" },
-  });
-  if (!res.ok) {
-    throw new Error(`GET ${url} → ${res.status} ${res.statusText}`);
-  }
-  const html = await res.text();
-  const m = html.match(/\/resourceView\/([0-9a-f-]{36})/i);
-  if (!m) throw new Error(`dataset ${datasetUuid}: no resource link found`);
-  return m[1];
+// Each annual dump ships the contracts file and, sometimes, an annexes or
+// out-of-scope (excl) file. Pick the contracts member; prefer the one whose
+// (slugified) name carries the dataset's year when several survive the filter.
+const pickContractsEntry = (names: string[], year: string): string | null => {
+  const yearOnly = year.split("-")[0];
+  const candidates = names.filter(
+    (n) => /contracts/i.test(n) && !/annex|excl/i.test(n),
+  );
+  if (candidates.length === 0) return null;
+  return candidates.find((n) => n.includes(yearOnly)) ?? candidates[0];
 };
 
 export const fetchLegacyCsv = async (ds: LegacyDataset): Promise<string> => {
-  const resourceUuid = await fetchResourceUuidForDataset(ds.datasetUuid);
-  const form = await fetchDownloadForm(resourceUuid);
-  const format = ds.format ?? "CSV";
-  const body = new URLSearchParams();
-  body.set("_token", form.token);
-  body.set("resource", form.resourceId);
-  body.set("version", form.version);
-  body.set("name", form.name);
-  body.set("format", format);
-  body.set("download", "");
-  const downloadUrl = "https://data.egov.bg/resource/download";
-  const res = await fetch(downloadUrl, {
-    method: "POST",
+  // The bulk-zip export honors csv/json; mirror ds.format so what we return
+  // matches the branch parseLegacyCsv takes (CSV text vs JSON 2D-array).
+  const fmt: "csv" | "json" = ds.format === "JSON" ? "json" : "csv";
+  const prep = await prepareDatasetZip(ds.datasetUuid, fmt);
+  const zipUrl = `https://data.egov.bg/dataset/resources/download/zip/${prep.format}/${prep.uri}/${String(prep.delete_only_zip)}`;
+  const res = await fetch(zipUrl, {
     headers: {
       "User-Agent": UA,
-      Accept:
-        format === "JSON"
-          ? "application/json,text/json,*/*"
-          : "text/csv,application/octet-stream,text/plain,*/*",
-      "Content-Type": "application/x-www-form-urlencoded",
-      Referer: `https://data.egov.bg/organisation/datasets/resourceView/${resourceUuid}`,
-      Origin: "https://data.egov.bg",
-      Cookie: form.cookie,
+      Accept: "application/zip,application/octet-stream,*/*",
     },
-    body: body.toString(),
-    redirect: "follow",
   });
   if (!res.ok) {
-    throw new Error(`POST ${downloadUrl} → ${res.status} ${res.statusText}`);
+    throw new Error(`bulk-zip GET ${zipUrl} → ${res.status} ${res.statusText}`);
   }
-  const text = await res.text();
+  const buf = Buffer.from(await res.arrayBuffer());
+  // PK\x03\x04 / PK\x05\x06 (empty) — a non-zip body here means the portal
+  // served the HTML shell or an error page instead of the archive.
+  if (buf.subarray(0, 2).toString("latin1") !== "PK") {
+    const head = buf.subarray(0, 160).toString("utf-8");
+    throw new Error(
+      `bulk-zip for dataset ${ds.datasetUuid} (${ds.year}) was not a zip ` +
+        `(content-type ${res.headers.get("content-type") ?? "?"}): ${head.slice(0, 120)}`,
+    );
+  }
+  const dir = await Unzip.buffer(buf);
+  const names = dir.files.map((f) => f.path);
+  const entryName = pickContractsEntry(names, ds.year);
+  if (!entryName) {
+    throw new Error(
+      `dataset ${ds.datasetUuid} (${ds.year}): no contracts member in zip ` +
+        `(members: ${names.join(", ") || "none"})`,
+    );
+  }
+  const entry = dir.files.find((f) => f.path === entryName);
+  if (!entry) {
+    throw new Error(`dataset ${ds.datasetUuid}: zip entry "${entryName}" gone`);
+  }
+  const text = (await entry.buffer()).toString("utf-8");
   if (text.startsWith("<!DOCTYPE") || text.startsWith("<html")) {
     throw new Error(
-      `POST ${downloadUrl} returned HTML — CSRF/session flow may have changed`,
+      `dataset ${ds.datasetUuid}: contracts member "${entryName}" is HTML, not data`,
     );
   }
   return text;

@@ -31,7 +31,7 @@ import { fileURLToPath } from "url";
 import { command, run, flag, option, optional, boolean, number } from "cmd-ts";
 import { fetchBulkZip } from "./fetch_bulk_zip";
 import { fetchDatasetIndex } from "./fetch_dataset_index";
-import { fetchAllDaily } from "./fetch_daily";
+import { fetchAllDaily, EgovPerResourceDownloadDownError } from "./fetch_daily";
 import { reconstructState } from "./reconstruct_state";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -77,11 +77,30 @@ const app = command({
     if (index || incremental) {
       const idx = await fetchDatasetIndex({ rawFolder });
       if (incremental) {
-        await fetchAllDaily({
-          rawFolder,
-          entries: idx.entries,
-          limit: limit ?? undefined,
-        });
+        try {
+          await fetchAllDaily({
+            rawFolder,
+            entries: idx.entries,
+            limit: limit ?? undefined,
+          });
+        } catch (e) {
+          if (!(e instanceof EgovPerResourceDownloadDownError)) throw e;
+          // The per-resource download backend is down. Fall back to the
+          // full-dataset bulk-zip, which is a separate endpoint that still
+          // works — --reconstruct then advances state.sqlite from that zip.
+          console.warn(`\n[tr] ${e.message}`);
+          console.warn(
+            "[tr] falling back to the full-dataset bulk zip (this re-fetches " +
+              "the whole archive — heavier than incremental, but it works)…",
+          );
+          await fetchBulkZip({ rawFolder, format: "json" });
+          if (!reconstruct) {
+            console.warn(
+              "[tr] bulk zip refreshed — run `--reconstruct` to rebuild " +
+                "state.sqlite from it.",
+            );
+          }
+        }
       }
     }
     if (reconstruct) {

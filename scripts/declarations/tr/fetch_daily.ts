@@ -7,6 +7,16 @@
  *
  * Each daily file is small (~8 MB raw / ~1–2 MB on a quiet day). Politeness:
  * 1 request per second by default.
+ *
+ * OUTAGE NOTE (June 2026): data.egov.bg's per-resource download endpoint broke
+ * server-side — it now 302-redirects to the portal HTML shell with a "Грешка
+ * при вземане на метаданни за ресурс" flash for EVERY file resource (this is a
+ * backend metadata-fetch failure, not a CSRF/session issue we can satisfy from
+ * the client; see scripts/procurement/legacy_csv.ts for the full diagnosis).
+ * While it's down we (a) refuse to write the HTML shell as if it were a filing
+ * — the old code did, leaving ~1100 stub files that made --reconstruct skip
+ * every day — and (b) raise EgovPerResourceDownloadDownError so the caller can
+ * fall back to the still-working full-dataset bulk-zip (fetch_bulk_zip.ts).
  */
 
 import fs from "fs";
@@ -19,6 +29,53 @@ const BASE = "https://data.egov.bg";
 const UA = "electionsbg.com data pipeline";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+/**
+ * Thrown when the per-resource download endpoint serves the portal HTML shell
+ * (or a redirect to it) instead of the resource — i.e. data.egov.bg's
+ * file-download backend is down. Distinct type so fetchAllDaily / the CLI can
+ * stop hammering 1700 dead requests and switch to the bulk-zip path.
+ */
+export class EgovPerResourceDownloadDownError extends Error {
+  constructor(detail: string) {
+    super(
+      `data.egov.bg per-resource download is down (${detail}). The portal ` +
+        `returns its HTML shell instead of the file for every resource. Use ` +
+        `the bulk-zip path (--bulk) + --reconstruct, which still works.`,
+    );
+    this.name = "EgovPerResourceDownloadDownError";
+  }
+}
+
+// Fold a response's Set-Cookie header(s) into a single "name=value; …" string.
+const foldCookies = (res: Response): string => {
+  const raw =
+    typeof (res.headers as { getSetCookie?: () => string[] }).getSetCookie ===
+    "function"
+      ? (res.headers as { getSetCookie: () => string[] }).getSetCookie()
+      : (res.headers.get("set-cookie")?.split(/,(?=\s*\w+=)/) ?? []);
+  return raw
+    .map((c) => c.split(";")[0].trim())
+    .filter(Boolean)
+    .join("; ");
+};
+
+/**
+ * Warm a portal session once and return its Cookie header. The per-resource
+ * GET historically worked anonymously; the cookie is insurance in case the
+ * restored backend starts requiring a session (matches how the resource page
+ * itself is gated). Best-effort — returns "" if warming fails.
+ */
+export const warmEgovSession = async (): Promise<string> => {
+  try {
+    const res = await fetch(`${BASE}/`, {
+      headers: { "User-Agent": UA, Accept: "text/html" },
+    });
+    return foldCookies(res);
+  } catch {
+    return "";
+  }
+};
 
 const dailyPath = (rawFolder: string, isoDate: string): string =>
   path.join(rawFolder, "tr", "daily", `${isoDate}.json`);
@@ -33,6 +90,7 @@ export type FetchDailyResult = {
 export const fetchDailyResource = async (
   rawFolder: string,
   entry: TrDatasetEntry,
+  opts: { cookie?: string } = {},
 ): Promise<FetchDailyResult> => {
   const outPath = dailyPath(rawFolder, entry.isoDate);
   if (fs.existsSync(outPath) && fs.statSync(outPath).size > 0) {
@@ -48,20 +106,43 @@ export const fetchDailyResource = async (
   // wedges the whole loop forever — fetch() has no implicit timeout.
   const ac = new AbortController();
   const timer = setTimeout(() => ac.abort(), 60_000);
+  const headers: Record<string, string> = {
+    "User-Agent": UA,
+    Accept: "application/json",
+  };
+  if (opts.cookie) headers.Cookie = opts.cookie;
   let res: Response;
   try {
-    res = await fetch(url, {
-      headers: { "User-Agent": UA, Accept: "application/json" },
-      signal: ac.signal,
-    });
+    // `redirect: "manual"` so we SEE the outage redirect instead of silently
+    // following it to the HTML shell. A healthy download is a direct 200.
+    res = await fetch(url, { headers, redirect: "manual", signal: ac.signal });
   } catch (e) {
     clearTimeout(timer);
     throw e;
   }
+  // A redirect (or an explicit HTML body) means the per-resource backend is
+  // down — the portal is bouncing us to the resource page / homepage. Surface
+  // it as the typed outage so the caller can switch to the bulk-zip path and
+  // we never persist the HTML shell as a "filing".
+  if (res.status >= 300 && res.status < 400) {
+    clearTimeout(timer);
+    throw new EgovPerResourceDownloadDownError(
+      `GET ${url} → ${res.status} → ${res.headers.get("location") ?? "?"}`,
+    );
+  }
   if (!res.ok) {
+    clearTimeout(timer);
     throw new Error(`GET ${url} → ${res.status} ${res.statusText}`);
   }
+  const ctype = res.headers.get("content-type") ?? "";
+  if (/text\/html/i.test(ctype)) {
+    clearTimeout(timer);
+    throw new EgovPerResourceDownloadDownError(
+      `GET ${url} → 200 but content-type ${ctype}`,
+    );
+  }
   if (!res.body) {
+    clearTimeout(timer);
     throw new Error(`GET ${url} returned empty body`);
   }
   const fileStream = fs.createWriteStream(tmpPath);
@@ -72,6 +153,21 @@ export const fetchDailyResource = async (
     await pipeline(nodeStream, fileStream);
   } finally {
     clearTimeout(timer);
+  }
+
+  // Guard against an HTML shell that slipped through with a non-html
+  // content-type: peek the first byte of the .tmp before trusting it. Only
+  // promote to the final path once it looks like data, never an HTML shell.
+  const fd = fs.openSync(tmpPath, "r");
+  const peek = Buffer.alloc(16);
+  fs.readSync(fd, peek, 0, 16, 0);
+  fs.closeSync(fd);
+  const head = peek.toString("utf-8").trimStart();
+  if (head.startsWith("<")) {
+    fs.unlinkSync(tmpPath);
+    throw new EgovPerResourceDownloadDownError(
+      `GET ${url} returned an HTML body (starts with "${head.slice(0, 12)}")`,
+    );
   }
   fs.renameSync(tmpPath, outPath);
 
@@ -105,8 +201,14 @@ export type FetchDailyAllResult = {
 
 /**
  * Walk a list of entries (e.g. from the dataset index) and download anything
- * not yet on disk. Resume is implicit via the skip-if-exists check; failures
- * accumulate in `failed[]` rather than aborting the whole run.
+ * not yet on disk. Resume is implicit via the skip-if-exists check; per-entry
+ * failures accumulate in `failed[]` rather than aborting the whole run.
+ *
+ * The exception is EgovPerResourceDownloadDownError: when the portal's
+ * per-resource backend is down it fails identically for every entry, so we
+ * abort the loop and re-throw on the FIRST such error rather than retrying
+ * 1700 dead requests. The caller (cli.ts) catches it and falls back to the
+ * bulk-zip path.
  */
 export const fetchAllDaily = async (
   opts: FetchDailyAllOpts,
@@ -116,6 +218,9 @@ export const fetchAllDaily = async (
   const limit = opts.limit ?? Infinity;
 
   const result: FetchDailyAllResult = { fetched: 0, skipped: 0, failed: [] };
+  // Warm one session up front; reused for every entry (insurance for a
+  // restored backend — see warmEgovSession).
+  const cookie = await warmEgovSession();
 
   for (const entry of opts.entries) {
     if (result.fetched >= limit) break;
@@ -124,7 +229,7 @@ export const fetchAllDaily = async (
     let lastErr: unknown = null;
     while (attempt < maxRetries) {
       try {
-        const r = await fetchDailyResource(opts.rawFolder, entry);
+        const r = await fetchDailyResource(opts.rawFolder, entry, { cookie });
         if (r.skipped) {
           result.skipped++;
         } else {
@@ -139,6 +244,12 @@ export const fetchAllDaily = async (
         lastErr = null;
         break;
       } catch (err) {
+        // Systemic outage — don't retry, don't continue; let the caller
+        // switch strategies. Surfaces on the very first entry.
+        if (err instanceof EgovPerResourceDownloadDownError) {
+          console.warn(`[tr/daily] ${err.message}`);
+          throw err;
+        }
         lastErr = err;
         attempt++;
         // Exponential backoff: 2s, 4s, 8s …

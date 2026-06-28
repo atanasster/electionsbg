@@ -119,6 +119,19 @@ The Commerce Registry changes every business day. Refresh schedule:
 
 Both finish with `--reconstruct` to rebuild the SQLite.
 
+> **Per-resource download outage (June 2026).** data.egov.bg's per-resource
+> endpoint (`/resource/download/{uuid}/json`, the `--incremental` path) broke
+> server-side: it 302-redirects to the portal HTML shell with a "Грешка при
+> вземане на метаданни за ресурс" flash for **every** file resource. This is a
+> backend metadata-fetch failure, not a CSRF/session issue a client can satisfy
+> (a bad token still gives 419; a correct token still gives the redirect).
+> `--incremental` now detects this, refuses to write the HTML shell as a filing
+> (the old code wrote ~1100 stubs that made `--reconstruct` skip every day), and
+> **auto-falls-back to the bulk zip** — so `cli.ts --incremental --reconstruct`
+> recovers in one go. The dataset-level bulk-zip endpoint (the `--bulk` path) is
+> separate and still works. Until egov restores per-resource downloads, prefer
+> `--bulk` + `--reconstruct` directly.
+
 ```bash
 # ~540 MB zip download to raw_data/tr/all-resources.json.zip — resumable (HTTP Range)
 npx tsx scripts/declarations/tr/cli.ts --bulk
