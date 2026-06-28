@@ -46,6 +46,7 @@ import { usePeerSelection } from "@/screens/components/euCompare/usePeerSelectio
 import { CabinetStrip } from "@/screens/components/governments/GovernmentTimeline";
 import { SelectedCabinetCallout } from "@/screens/components/governments/SelectedCabinetCallout";
 import { xDomainFor } from "@/screens/components/governments/governmentTimelineUtils";
+import { IndicatorsNav } from "./indicatorsNav";
 
 export const IndicatorsCompareScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -89,6 +90,8 @@ export const IndicatorsCompareScreen: FC = () => {
       <Title description={t("eu_compare_page_description")}>
         {t("eu_compare_page_title")}
       </Title>
+
+      <IndicatorsNav />
 
       {xDomain && governments ? (
         <section className="mb-5">
