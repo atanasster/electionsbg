@@ -1,8 +1,8 @@
 {
-  "detail": "0/2 regular bundle(s) reachable · 0 partial cycle(s) tracked",
-  "fingerprint": "cd61e20b4c59ada5",
-  "lastChanged": "2026-06-26T06:09:03.955Z",
-  "lastChecked": "2026-06-27T06:09:04.565Z",
+  "detail": "0/2 regular bundle(s) reachable · 14 partial cycle(s) tracked",
+  "fingerprint": "6d6b7cd3ea5eb48c",
+  "lastChanged": "2026-06-28T16:34:00.777Z",
+  "lastChecked": "2026-06-28T16:34:00.777Z",
   "meta": {
     "cycles": [
       {
@@ -11,7 +11,7 @@
         "bundleUrl": "https://results.cik.bg/mi2019/csv.zip",
         "lastModified": null,
         "contentLength": null,
-        "status": 0,
+        "status": 403,
         "runoffTracked": false,
         "runoffStage": 0
       },
@@ -21,11 +21,151 @@
         "bundleUrl": "https://results.cik.bg/mi2023/tur1/opendata/export.zip",
         "lastModified": null,
         "contentLength": null,
-        "status": 0,
+        "status": 403,
         "runoffTracked": false,
         "runoffStage": 0
+      },
+      {
+        "cycle": "chmi2024-2026/2024-03-10_chastichen",
+        "kind": "partial",
+        "bundleUrl": "",
+        "lastModified": null,
+        "contentLength": null,
+        "status": 200,
+        "runoffTracked": true,
+        "runoffStage": 2
+      },
+      {
+        "cycle": "chmi2024-2026/2024-03-10_nov",
+        "kind": "partial",
+        "bundleUrl": "",
+        "lastModified": null,
+        "contentLength": null,
+        "status": 200,
+        "runoffTracked": true,
+        "runoffStage": 2
+      },
+      {
+        "cycle": "chmi2024-2026/2024-06-23_chastichen",
+        "kind": "partial",
+        "bundleUrl": "",
+        "lastModified": null,
+        "contentLength": null,
+        "status": 200,
+        "runoffTracked": true,
+        "runoffStage": 2
+      },
+      {
+        "cycle": "chmi2024-2026/2024-06-23_nov",
+        "kind": "partial",
+        "bundleUrl": "",
+        "lastModified": null,
+        "contentLength": null,
+        "status": 200,
+        "runoffTracked": true,
+        "runoffStage": 2
+      },
+      {
+        "cycle": "chmi2024-2026/2024-10-20_chastichen",
+        "kind": "partial",
+        "bundleUrl": "",
+        "lastModified": null,
+        "contentLength": null,
+        "status": 200,
+        "runoffTracked": true,
+        "runoffStage": 2
+      },
+      {
+        "cycle": "chmi2024-2026/2024-10-20_nov",
+        "kind": "partial",
+        "bundleUrl": "",
+        "lastModified": null,
+        "contentLength": null,
+        "status": 200,
+        "runoffTracked": true,
+        "runoffStage": 2
+      },
+      {
+        "cycle": "chmi2024-2026/2025-02-16_chastichen",
+        "kind": "partial",
+        "bundleUrl": "",
+        "lastModified": null,
+        "contentLength": null,
+        "status": 200,
+        "runoffTracked": true,
+        "runoffStage": 2
+      },
+      {
+        "cycle": "chmi2024-2026/2025-02-23_nov",
+        "kind": "partial",
+        "bundleUrl": "",
+        "lastModified": null,
+        "contentLength": null,
+        "status": 200,
+        "runoffTracked": true,
+        "runoffStage": 2
+      },
+      {
+        "cycle": "chmi2024-2026/2025-03-16_chastichen",
+        "kind": "partial",
+        "bundleUrl": "",
+        "lastModified": null,
+        "contentLength": null,
+        "status": 200,
+        "runoffTracked": true,
+        "runoffStage": 2
+      },
+      {
+        "cycle": "chmi2024-2026/2025-06-15_chastichen",
+        "kind": "partial",
+        "bundleUrl": "",
+        "lastModified": null,
+        "contentLength": null,
+        "status": 200,
+        "runoffTracked": true,
+        "runoffStage": 2
+      },
+      {
+        "cycle": "chmi2024-2026/2025-10-12_chastichen",
+        "kind": "partial",
+        "bundleUrl": "",
+        "lastModified": null,
+        "contentLength": null,
+        "status": 200,
+        "runoffTracked": true,
+        "runoffStage": 2
+      },
+      {
+        "cycle": "chmi2024-2026/2025-10-12_nov",
+        "kind": "partial",
+        "bundleUrl": "",
+        "lastModified": null,
+        "contentLength": null,
+        "status": 200,
+        "runoffTracked": true,
+        "runoffStage": 2
+      },
+      {
+        "cycle": "chmi2024-2026/2026-02-22_chastichen",
+        "kind": "partial",
+        "bundleUrl": "",
+        "lastModified": null,
+        "contentLength": null,
+        "status": 200,
+        "runoffTracked": true,
+        "runoffStage": 2
+      },
+      {
+        "cycle": "chmi2024-2026/2026-06-14_chastichen",
+        "kind": "partial",
+        "bundleUrl": "",
+        "lastModified": null,
+        "contentLength": null,
+        "status": 200,
+        "runoffTracked": true,
+        "runoffStage": 1
       }
     ],
-    "discoveredAt": "2026-06-27T06:56:36.678Z"
+    "discoveredAt": "2026-06-28T16:38:09.299Z"
   }
 }
