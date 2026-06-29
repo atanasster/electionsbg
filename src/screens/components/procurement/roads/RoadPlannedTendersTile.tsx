@@ -12,6 +12,36 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useTendersIndex } from "@/data/procurement/useTendersIndex";
 import { API_EIK } from "@/data/procurement/useRoads";
 import { formatEurCompact } from "@/lib/currency";
+import {
+  roadRefOf,
+  workTypeOf,
+  workGroupOf,
+  workComponentOf,
+} from "@/lib/roadAttributes";
+import { GROUP_LABEL, COMPONENT_LABEL } from "./roadLabels";
+
+// Classify a planned procedure from its subject (tender records carry no CPV):
+// work group + a distinctive component + the corridor, when the title names one.
+const tenderKind = (subject: string, lang: string): string => {
+  const wt = workTypeOf(subject);
+  const comp = workComponentOf(subject, undefined, wt);
+  const ref = roadRefOf(subject);
+  const distinctive = !["roadway", "design_supervision", "other"].includes(
+    comp,
+  );
+  const grp = workGroupOf(wt);
+  return [
+    lang === "bg" ? GROUP_LABEL[grp].bg : GROUP_LABEL[grp].en,
+    distinctive
+      ? lang === "bg"
+        ? COMPONENT_LABEL[comp].bg
+        : COMPONENT_LABEL[comp].en
+      : null,
+    ref ? ref.corridor : null,
+  ]
+    .filter(Boolean)
+    .join(" · ");
+};
 
 export const RoadPlannedTendersTile: FC = () => {
   const { i18n } = useTranslation();
@@ -68,6 +98,9 @@ export const RoadPlannedTendersTile: FC = () => {
               >
                 {t.subject}
               </Link>
+              <div className="text-[10px] text-muted-foreground truncate">
+                {tenderKind(t.subject, lang)}
+              </div>
               <div className="flex items-center gap-2 text-xs text-muted-foreground">
                 <span>{t.publicationDate}</span>
                 {t.lotsCount && t.lotsCount > 1 ? (

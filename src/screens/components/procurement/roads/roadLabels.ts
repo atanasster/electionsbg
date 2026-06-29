@@ -1,7 +1,15 @@
 // Shared bilingual labels for the road work-component taxonomy. Kept in its own
 // (component-free) module so the tiles that render it stay fast-refresh-clean.
 
-import type { WorkComponent } from "@/lib/roadAttributes";
+import type { WorkComponent, WorkGroup } from "@/lib/roadAttributes";
+
+export const GROUP_LABEL: Record<WorkGroup, { bg: string; en: string }> = {
+  build: { bg: "Ново строителство", en: "New build" },
+  rehab: { bg: "Ремонт", en: "Repair" },
+  maintenance: { bg: "Поддържане", en: "Maintenance" },
+  design: { bg: "Проектиране/надзор", en: "Design/oversight" },
+  other: { bg: "Друго", en: "Other" },
+};
 
 export const COMPONENT_LABEL: Record<
   WorkComponent,
