@@ -14,6 +14,7 @@ import type {
   RollupContractRow,
 } from "./types";
 import { canonicalJson } from "./validate";
+import { AWARDER_IDENTITY, canonicalAwarderName } from "./awarder_identity";
 import { splitBag } from "@/lib/currency";
 import { getResolver } from "./resolve_ekatte";
 import { classifyAwarder, LOCAL_TIERS } from "./awarder_tier";
@@ -378,7 +379,9 @@ export const buildRollups = (contractsDir: string): RollupResult => {
       // True distinct-awarder count (byAwarder is capped at TOP_LIMIT for file
       // size, so its length under-reports for high-volume suppliers).
       awarderCount: c.byAwarder.size,
-      byAwarder: finalizeEntries([...c.byAwarder.values()]).slice(0, TOP_LIMIT),
+      byAwarder: finalizeEntries([...c.byAwarder.values()])
+        .slice(0, TOP_LIMIT)
+        .map((e) => ({ ...e, name: canonicalAwarderName(e.eik, e.name) })),
       byYear: finalizeByYear([...c.byYear.values()]),
       topContracts: c.topContracts,
       generatedAt: now,
@@ -427,11 +430,33 @@ export const buildRollups = (contractsDir: string): RollupResult => {
         };
       }
     }
+    // Curated identity override — trumps row-derived name / HQ for national
+    // entities whose newest-row-wins identity is wrong (e.g. АПИ landing on a
+    // regional ОПУ). Forces canonical name + HQ seat; per-row awarderName on
+    // each contract is left untouched so the sub-unit split stays recoverable.
+    const ident = AWARDER_IDENTITY[a.eik];
+    const name = ident?.name ?? a.name;
+    const region = ident?.region ?? a.region;
+    const address = ident
+      ? {
+          ...(ident.locality ? { locality: ident.locality } : {}),
+          ...(ident.postal ? { postal: ident.postal } : {}),
+          ...(ident.street ? { street: ident.street } : {}),
+        }
+      : a.address;
+    if (ident?.ekatte) {
+      geo = {
+        ekatte: ident.ekatte,
+        confidence: "manual",
+        tier,
+        isLocalHQ: LOCAL_TIERS.has(tier),
+      };
+    }
     return {
       eik: a.eik,
-      name: a.name,
-      region: a.region,
-      address: a.address,
+      name,
+      region,
+      address,
       geo,
       ...splitBag(a.totalByCurrency),
       contractCount: a.contractCount,

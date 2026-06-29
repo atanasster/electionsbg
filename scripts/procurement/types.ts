@@ -194,7 +194,10 @@ export interface AwarderGeo {
     | "postal+name"
     | "postal_only"
     | "name+province"
-    | "name_only";
+    | "name_only"
+    // Curated identity override (scripts/procurement/awarder_identity.ts) — a
+    // hand-set HQ seat that wins over any row-derived geo.
+    | "manual";
   /** Awarder tier — see scripts/procurement/awarder_tier.ts for the full
    *  list. `isLocalHQ` is derived from the LOCAL_TIERS set so consumers
    *  don't need to keep the membership rule in sync. */
