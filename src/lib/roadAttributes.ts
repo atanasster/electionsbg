@@ -43,6 +43,27 @@ const MOTORWAYS: MotorwaySpec[] = [
 const REPUBLICAN_REF =
   /[Пп]ът\s*([IVXIІ]{1,3})\s*-\s*(\d{1,5})|\b(I{1,3})\s*-\s*(\d{3,5})\b/;
 
+// Words that can follow "обход" but are not city names — guards against the
+// bypass capture grabbing a generic noun (e.g. "обходен път и мостово…").
+const OBHOD_STOPWORDS = new Set([
+  "път",
+  "пътя",
+  "пътен",
+  "път,",
+  "мост",
+  "мостово",
+  "мостови",
+  "съоръжение",
+  "трасе",
+  "участък",
+  "републиканската",
+  "републикански",
+  "имост",
+  "имостта",
+  "имо",
+  "има",
+]);
+
 export interface RoadRef {
   /** Stable corridor grouping key — motorway name or "I-1" / "III-2903". */
   corridor: string;
@@ -81,6 +102,72 @@ export const roadRefOf = (title: string): RoadRef | undefined => {
       roadClass,
       isMotorway: false,
     };
+  }
+  // Named expressway / bypass projects that carry no А-ref or "път" designation
+  // (e.g. "Обход на гр. Габрово", "Северна скоростна тангента").
+  if (/тангента/.test(n)) {
+    const name = /северна/.test(n)
+      ? "Северна тангента"
+      : /южна/.test(n)
+        ? "Южна тангента"
+        : "Скоростна тангента";
+    return { corridor: name, roadClass: "АМ", isMotorway: true };
+  }
+  if (/околовръст/.test(n))
+    return { corridor: "Околовръстен път", roadClass: "I", isMotorway: false };
+  // Lookbehind kills the substring trap: "необходимост" contains "обход"
+  // (не-обход-имост) and would otherwise capture "имост" as a city.
+  const ob = n.match(
+    /(?<![а-яё])обход(?:ен)?(?:\s+път)?\s*(?:на\s*)?(?:гр\.?\s*|град\s*)?([а-яё]{3,})/,
+  );
+  if (ob && !OBHOD_STOPWORDS.has(ob[1])) {
+    const city = ob[1][0].toUpperCase() + ob[1].slice(1);
+    return { corridor: `Обход ${city}`, roadClass: "I", isMotorway: false };
+  }
+  return undefined;
+};
+
+// Bulgarian oblasti, longest-first so "велико търново" matches before "търново".
+const OBLASTI = [
+  "благоевград",
+  "бургас",
+  "варна",
+  "велико търново",
+  "видин",
+  "враца",
+  "габрово",
+  "добрич",
+  "кърджали",
+  "кюстендил",
+  "ловеч",
+  "монтана",
+  "пазарджик",
+  "перник",
+  "плевен",
+  "пловдив",
+  "разград",
+  "русе",
+  "силистра",
+  "сливен",
+  "смолян",
+  "софия",
+  "стара загора",
+  "търговище",
+  "хасково",
+  "шумен",
+  "ямбол",
+].sort((a, b) => b.length - a.length);
+
+/** Oblast for a regional-directorate (ОПУ) maintenance lot, e.g. "Обособена
+ *  позиция №4 – ОПУ Хасково" → "Хасково". These framework lots carry no single
+ *  road reference; the region is the meaningful unit. Returns undefined when the
+ *  title is not an ОПУ-region lot. */
+export const regionOf = (title: string): string | undefined => {
+  const n = (title || "").toLowerCase();
+  if (!/опу/.test(n)) return undefined;
+  for (const o of OBLASTI) {
+    if (n.includes(o))
+      return o.replace(/(^|\s)[а-яё]/g, (c) => c.toUpperCase());
   }
   return undefined;
 };
@@ -179,9 +266,32 @@ export const workTypeOf = (title: string, cpv?: string): WorkType => {
   if (n.includes("основен ремонт")) return "rehab_major";
   if (/рехабилитац/.test(n)) return "rehab";
   if (/реконструкц/.test(n)) return "reconstruction";
-  if (/строителств|изграждане/.test(n)) return "new_build";
+  if (/строителств|строително|изграждане/.test(n)) return "new_build";
   if (/превантив/.test(n)) return "preventive";
   if (/текущ ремонт/.test(n)) return "rehab";
+  // Verb-less titles: infer from the physical component the title names, then a
+  // plain "ремонт", then an ОПУ regional-unit lot, before the CPV fallback.
+  // Without this, guardrail / marking / tunnel / bridge installs and bare
+  // "ОПУ X" framework lots (big-money rows) all collapse into "other".
+  const comp = workComponentOf(title, cpv, "other");
+  if (comp === "tunnel" || comp === "bridge") return "new_build";
+  if (comp === "retaining") return "reconstruction";
+  if (
+    comp === "markings_signs" ||
+    comp === "safety_barriers" ||
+    comp === "lighting" ||
+    comp === "drainage" ||
+    comp === "winter_maint"
+  )
+    return "area_maint";
+  if (/ремонт|възстанов/.test(n)) return "rehab"; // plain "ремонт"/"възстановяване"
+  if (regionOf(title)) return "area_maint"; // bare "ОПУ X" regional lot
+  if (/включващ\s+облас/.test(n)) return "area_maint"; // NUTS-2 multi-oblast framework
+  // Verb-less lot on a numbered road with explicit chainage ("Път III-866 …
+  // от км A до км B"): a capital work on a defined segment, not routine
+  // (network-wide) maintenance. Classed as reconstruction so a €152M road
+  // contract no longer reads as "Друго".
+  if (roadRefOf(title) && lengthOf(title)) return "reconstruction";
   return workTypeFromCpv(cpv) ?? "other";
 };
 
@@ -268,6 +378,14 @@ export const workComponentOf = (
   if (/тунел/.test(n)) return "tunnel";
   if (/мост|надлез|подлез|естакад|виадукт/.test(n) || cpv?.startsWith("45221"))
     return "bridge";
+  // Markings must beat tolling: CPV 63712200 ("highway operation") is widely
+  // mis-coded onto road-marking contracts, so the title keyword has to lead or
+  // a "ПОЛАГАНЕ НА … МАРКИРОВКА" lot gets dragged into tolling/ИТС.
+  if (
+    /маркировк|пътни знаци|вертикална сигнализац|пътна сигнализац/.test(n) ||
+    eqAny(cpv, ["45233221", "45233290", "34992200"])
+  )
+    return "markings_signs";
   if (
     /\bтол\b|тол систем|естп|електронн[а-я ]{0,12}такс|видеонаблюд|система за просле/.test(
       n,
@@ -275,11 +393,6 @@ export const workComponentOf = (
     eqAny(cpv, ["63712200", "50312610", "34972000"])
   )
     return "tolling_its";
-  if (
-    /маркировк|пътни знаци|вертикална сигнализац|пътна сигнализац/.test(n) ||
-    eqAny(cpv, ["45233221", "45233290", "34992200"])
-  )
-    return "markings_signs";
   if (
     /ограничителн|предпазна ограда|предпазни огради|мантинел|ударогасит/.test(
       n,
@@ -313,8 +426,17 @@ export interface RoadContract {
   workType: WorkType;
   group: WorkGroup;
   component: WorkComponent;
+  /** Oblast for ОПУ regional-maintenance lots (see regionOf). */
+  region?: string;
   perKm?: EurPerKm;
   amountEur: number;
+}
+
+export interface RegionAgg {
+  region: string;
+  totalEur: number;
+  contractCount: number;
+  singleBidShare?: number;
 }
 
 const median = (xs: number[]): number => {
@@ -373,6 +495,8 @@ export interface YearAgg {
   groups: Record<WorkGroup, number>;
   /** € by top corridor name (others folded into "other"). */
   corridors: Record<string, number>;
+  /** € by oblast for ОПУ regional-maintenance lots (others → "other"). */
+  regions: Record<string, number>;
   /** Single-bidder share over rows with a known bidder count that year. */
   singleBidShare?: number;
 }
@@ -393,6 +517,7 @@ export interface RoadsModel {
    *  contract; the ingest already removed true repeats). */
   rows: RoadContract[];
   corridors: CorridorAgg[];
+  regions: RegionAgg[];
   workGroups: WorkGroupAgg[];
   components: ComponentAgg[];
   years: YearAgg[];
@@ -429,6 +554,7 @@ export const buildRoadsModel = (
       workType,
       group: workGroupOf(workType),
       component: workComponentOf(c.title, c.cpv, workType),
+      region: regionOf(c.title),
       perKm: eurPerKmOf(c, workType, len),
       amountEur: c.amountEur ?? 0,
     });
@@ -480,6 +606,28 @@ export const buildRoadsModel = (
   );
   corridors.sort((a, b) => b.totalEur - a.totalEur);
 
+  // Region aggregation — ОПУ regional-maintenance lots by oblast.
+  const rMap = new Map<string, RoadContract[]>();
+  for (const r of rows) {
+    if (!r.region) continue;
+    const arr = rMap.get(r.region) ?? [];
+    arr.push(r);
+    rMap.set(r.region, arr);
+  }
+  const regions: RegionAgg[] = [...rMap.entries()]
+    .map(([region, arr]) => {
+      const tot = arr.reduce((s, r) => s + r.amountEur, 0);
+      const bidKnown = arr.filter((r) => r.c.numberOfTenderers != null);
+      const single = bidKnown.filter((r) => r.c.numberOfTenderers === 1).length;
+      return {
+        region,
+        totalEur: tot,
+        contractCount: arr.length,
+        singleBidShare: bidKnown.length ? single / bidKnown.length : undefined,
+      };
+    })
+    .sort((a, b) => b.totalEur - a.totalEur);
+
   // Work-group split (build vs repair vs maintenance vs design).
   const wgMap = new Map<WorkGroup, WorkGroupAgg>();
   for (const r of rows) {
@@ -530,10 +678,11 @@ export const buildRoadsModel = (
     })
     .sort((a, b) => b.totalEur - a.totalEur);
 
-  // Yearly series — € by work group + by top corridor, for the time spine.
+  // Yearly series — € by work group + by top corridor + by top region.
   const topCorridorNames = new Set(
     corridors.slice(0, 6).map((c) => c.corridor),
   );
+  const topRegionNames = new Set(regions.slice(0, 6).map((r) => r.region));
   const yMap = new Map<string, YearAgg>();
   const yBid = new Map<string, { known: number; single: number }>();
   for (const r of rows) {
@@ -550,12 +699,15 @@ export const buildRoadsModel = (
         other: 0,
       } as Record<WorkGroup, number>,
       corridors: {},
+      regions: {},
     };
     ya.totalEur += r.amountEur;
     ya.groups[r.group] += r.amountEur;
     const ck =
       r.ref && topCorridorNames.has(r.ref.corridor) ? r.ref.corridor : "other";
     ya.corridors[ck] = (ya.corridors[ck] ?? 0) + r.amountEur;
+    const rk = r.region && topRegionNames.has(r.region) ? r.region : "other";
+    ya.regions[rk] = (ya.regions[rk] ?? 0) + r.amountEur;
     yMap.set(year, ya);
     if (r.c.numberOfTenderers != null) {
       const b = yBid.get(year) ?? { known: 0, single: 0 };
@@ -648,6 +800,7 @@ export const buildRoadsModel = (
   return {
     rows,
     corridors,
+    regions,
     workGroups,
     components,
     years,

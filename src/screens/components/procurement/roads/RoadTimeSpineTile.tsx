@@ -24,7 +24,7 @@ import {
 import { formatEurCompact } from "@/lib/currency";
 import type { YearAgg, WorkGroup } from "@/lib/roadAttributes";
 
-type Mode = "group" | "corridor";
+type Mode = "group" | "corridor" | "region";
 
 const GROUP_KEYS: WorkGroup[] = [
   "build",
@@ -60,18 +60,24 @@ export const RoadTimeSpineTile: FC<{ years: YearAgg[] }> = ({ years }) => {
   const lang = i18n.language;
   const [mode, setMode] = useState<Mode>("group");
 
-  // Corridor stack keys: union across years, ordered by total €, "other" last.
-  const corridorKeys = useMemo(() => {
+  // Keyed-stack keys (corridor / region): union across years, by total €,
+  // "other" last. The corridor and region modes share this shape.
+  const keyedKeys = (field: "corridors" | "regions") => {
     const tot = new Map<string, number>();
     for (const y of years)
-      for (const [k, v] of Object.entries(y.corridors))
+      for (const [k, v] of Object.entries(y[field]))
         tot.set(k, (tot.get(k) ?? 0) + v);
     const keys = [...tot.entries()]
       .filter(([k]) => k !== "other")
       .sort((a, b) => b[1] - a[1])
       .map(([k]) => k);
     return [...keys, "other"];
-  }, [years]);
+  };
+  const corridorKeys = useMemo(() => keyedKeys("corridors"), [years]); // eslint-disable-line react-hooks/exhaustive-deps
+  const regionKeys = useMemo(() => keyedKeys("regions"), [years]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const keyedField = mode === "region" ? "regions" : "corridors";
+  const activeKeys = mode === "region" ? regionKeys : corridorKeys;
 
   // Fill missing years between min and max so a gap shows as an empty column.
   const data = useMemo(() => {
@@ -85,15 +91,25 @@ export const RoadTimeSpineTile: FC<{ years: YearAgg[] }> = ({ years }) => {
       const row: Record<string, number | string> = { year: String(yr) };
       if (mode === "group")
         for (const k of GROUP_KEYS) row[k] = y?.groups[k] ?? 0;
-      else for (const k of corridorKeys) row[k] = y?.corridors[k] ?? 0;
+      else for (const k of activeKeys) row[k] = y?.[keyedField][k] ?? 0;
       out.push(row);
     }
     return out;
-  }, [years, mode, corridorKeys]);
+  }, [years, mode, activeKeys, keyedField]);
 
   if (years.length === 0) return null;
-  const corridorLabel = (k: string) =>
-    k === "other" ? (lang === "bg" ? "Друго" : "Other") : k;
+  // The residual means something different per lens: corridor mode lumps the
+  // ref-less regional/diverse work, region mode lumps national-corridor work
+  // and the smaller oblasti. Label it so the grey block isn't read as "unknown".
+  const otherLabel =
+    mode === "region"
+      ? lang === "bg"
+        ? "Извън ОПУ / нац."
+        : "Outside ОПУ / national"
+      : lang === "bg"
+        ? "Без коридор"
+        : "No corridor";
+  const keyLabel = (k: string) => (k === "other" ? otherLabel : k);
 
   return (
     <Card>
@@ -113,6 +129,9 @@ export const RoadTimeSpineTile: FC<{ years: YearAgg[] }> = ({ years }) => {
               </SelectItem>
               <SelectItem value="corridor">
                 {lang === "bg" ? "По коридор" : "By corridor"}
+              </SelectItem>
+              <SelectItem value="region">
+                {lang === "bg" ? "По област (ОПУ)" : "By oblast (ОПУ)"}
               </SelectItem>
             </SelectContent>
           </Select>
@@ -164,7 +183,7 @@ export const RoadTimeSpineTile: FC<{ years: YearAgg[] }> = ({ years }) => {
                       isAnimationActive={false}
                     />
                   ))
-                : corridorKeys.map((k, i) => (
+                : activeKeys.map((k, i) => (
                     <Bar
                       key={k}
                       dataKey={k}
@@ -174,7 +193,7 @@ export const RoadTimeSpineTile: FC<{ years: YearAgg[] }> = ({ years }) => {
                           ? OTHER_COLOR
                           : PALETTE[i % PALETTE.length]
                       }
-                      name={corridorLabel(k)}
+                      name={keyLabel(k)}
                       isAnimationActive={false}
                     />
                   ))}
@@ -189,9 +208,9 @@ export const RoadTimeSpineTile: FC<{ years: YearAgg[] }> = ({ years }) => {
                 label: lang === "bg" ? GROUP_META[k].bg : GROUP_META[k].en,
                 color: GROUP_META[k].color,
               }))
-            : corridorKeys.map((k, i) => ({
+            : activeKeys.map((k, i) => ({
                 key: k,
-                label: corridorLabel(k),
+                label: keyLabel(k),
                 color:
                   k === "other" ? OTHER_COLOR : PALETTE[i % PALETTE.length],
               }))
