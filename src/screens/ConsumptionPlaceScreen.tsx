@@ -12,7 +12,7 @@
 import { FC } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ShoppingBasket, ArrowRight } from "lucide-react";
+import { ShoppingBasket, ArrowRight, Coins, Scale } from "lucide-react";
 import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
 import { Card } from "@/components/ui/card";
@@ -21,12 +21,16 @@ import { useAreaResolver } from "@/data/area/useAreaResolver";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { MyAreaPricesTile } from "@/screens/myarea/MyAreaPricesTile";
+import { MyAreaLocalTaxesTile } from "@/screens/myarea/MyAreaLocalTaxesTile";
+import { ConsumptionPriceLevelTile } from "@/screens/consumption/ConsumptionPriceLevelTile";
+import { ConsumptionAffordabilityTile } from "@/screens/consumption/ConsumptionAffordabilityTile";
 import { isSofiaCityObshtina } from "@/data/local/placeViews";
 import { findCityRayon } from "@/data/local/cityRayonCatalog";
 
 export const ConsumptionPlaceScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
+  const T = (bg: string, en: string) => (lang === "bg" ? bg : en);
   const { id } = useParams<{ id: string }>();
   const area = useAreaResolver(id);
 
@@ -119,6 +123,14 @@ export const ConsumptionPlaceScreen: FC = () => {
           subtitle={t("prices_not_cpi")}
           icon={ShoppingBasket}
         >
+          {/* Place-vs-country price-level index + distribution band. Self-hides
+              when the place isn't in the priced ranking. Leads the section as
+              the "is it expensive here?" headline before the basket detail. */}
+          <ConsumptionPriceLevelTile
+            ekatte={area.kind === "settlement" ? area.ekatte : undefined}
+            obshtina={area.obshtina}
+          />
+
           {/* Coverage-aware — self-hides outside the ~245 covered settlements
               (falls back to the município row, then hides). The drill-down link
               is suppressed here — it would point at this very page. */}
@@ -127,9 +139,45 @@ export const ConsumptionPlaceScreen: FC = () => {
             obshtina={area.obshtina}
             showConsumptionLink={false}
           />
+        </DashboardSection>
 
+        {/* What the município charges — the BG-specific cost-of-living lever
+            (property / vehicle / garbage / patent taxes). Moved here from the
+            Governance dashboard so Потребление owns the household-cost domain.
+            Auto-hides when the município has no ИПИ block. */}
+        <DashboardSection
+          id="budget"
+          title={T("Какво плаща общината", "What the municipality charges")}
+          subtitle={T(
+            "Местни данъци и такси · ИПИ",
+            "Local taxes and fees · IME",
+          )}
+          icon={Coins}
+        >
+          <MyAreaLocalTaxesTile obshtina={area.obshtina} />
+        </DashboardSection>
+
+        {/* Purchasing power — the place's basket cost relative to its oblast
+            income (Eurostat GDP-per-capita proxy, pending the per-oblast wage
+            ingest). Oblast-grain, so a settlement shows its region's figure.
+            Sofia city МИР codes resolve inside the tile. */}
+        <DashboardSection
+          id="finances"
+          title={T("Покупателна способност", "Purchasing power")}
+          subtitle={T(
+            "Кошница спрямо дохода в областта",
+            "Basket relative to regional income",
+          )}
+          icon={Scale}
+        >
+          {area.oblast ? (
+            <ConsumptionAffordabilityTile oblast={area.oblast} />
+          ) : null}
+        </DashboardSection>
+
+        <DashboardSection id="sources">
           {/* Always-present cross-links up the place ladder — keeps the page
-              useful even for an uncovered place where the tile above hides. */}
+              useful even for an uncovered place where the tiles above hide. */}
           <Card className="p-4 flex flex-col gap-2">
             <p className="text-sm text-muted-foreground">
               {t("consumption_place_intro")}

@@ -29,8 +29,6 @@ import { hasUpcomingLocalBallot } from "@/data/myarea/upcomingElections";
 import { MyAreaKmetstvoTile } from "./MyAreaKmetstvoTile";
 import { MyAreaTaxReceiptTile } from "./MyAreaTaxReceiptTile";
 import { MyAreaMunicipalBudgetTile } from "./MyAreaMunicipalBudgetTile";
-import { MyAreaLocalTaxesTile } from "./MyAreaLocalTaxesTile";
-import { MyAreaPricesTile } from "./MyAreaPricesTile";
 import { MyAreaProcurementTile } from "./MyAreaProcurementTile";
 import { MyAreaTendersTile } from "./MyAreaTendersTile";
 import { MyAreaTransparencyTile } from "./MyAreaTransparencyTile";
@@ -258,29 +256,15 @@ export const MyAreaScreen: FC = () => {
             /settlement/:id direct routes. */}
         <MyAreaGovernmentCard obshtina={area.obshtina} />
 
-        {/* Band E — Money. Three pieces in a "what I pay → at what rate →
-            where it comes back" narrative: TaxReceiptTile (national-budget
-            COFOG split for the user's personal income tax) and the local
-            tax-rate strip on top, EU-funded projects map on the bottom.
-            TaxReceiptTile + ProjectsMap stay collapsed-by-default because
-            their COFOG payload and Leaflet chunk are heavy; the local-tax
-            strip is light and renders by default. */}
-        {/* Pair local-tax rates with the area's land-use composition —
-            both are "what the place is" facts, both fit the same width,
-            and aligning them stops the local-taxes tile from looking
-            island-y on a wide screen. Collapses back to one-column on
-            < lg so each tile still has comfortable breathing room. */}
-        <div className="grid gap-3 grid-cols-1 lg:grid-cols-2 [&>*:only-child]:lg:col-span-2">
-          <MyAreaLocalTaxesTile obshtina={area.obshtina} />
-          <MyAreaPropertyStockTile oblast={area.oblast} />
-        </div>
-        {/* Цени — what the consumer basket costs here, from the КЗП euro-adoption
-            price monitor. Self-hides outside the ~245 covered settlements
-            (falls back to the município row, then hides). */}
-        <MyAreaPricesTile
-          ekatte={area.kind === "settlement" ? area.ekatte : undefined}
-          obshtina={area.obshtina}
-        />
+        {/* Band E — Money. The TaxReceiptTile (national-budget COFOG split for
+            the user's personal income tax) + the EU-funded projects map carry
+            this band now. Consumer prices and the local-tax rates moved to the
+            Потребление (cost-of-living) view, which owns the household-cost
+            domain — reach it via the place header's "потребление" switch. */}
+        {/* Land-use / property-stock composition for the area's oblast — a
+            "what the place is made of" fact. Full width; self-hides without
+            data. */}
+        <MyAreaPropertyStockTile oblast={area.oblast} />
         {/* "Money in / money out" pair — Чл.53 state-budget envelope
             (always present for the 265 общини, with an adaptive
             касово-изпълнение sub-block for the 2 munis that publish a B3)
