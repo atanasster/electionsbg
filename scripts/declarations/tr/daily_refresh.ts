@@ -76,12 +76,18 @@ const loadIndex = async (): Promise<DatasetIndexFile> => {
 const MIN_REAL_BYTES = 32;
 
 // Probe one resource: GET and decide if the day has REAL content. A status
-// check alone is not enough — data.egov.bg's broken historical window now
-// answers 200 with an empty 2-byte "[]" body instead of the old 500, so a
-// status-only probe false-positives "recovered" and triggers a pointless
-// full backfill that then fails every day on the <32-byte guard. Require a
-// non-trivial body: trust Content-Length when present (cheap — avoids
-// downloading the MBs of a genuinely recovered day), else read and measure.
+// check alone is not enough, and neither is a Content-Length check: while the
+// per-resource backend is down, data.egov.bg answers
+// `302 → https://data.egov.bg` and — if you follow it — the portal homepage
+// returns 200 with a large HTML body whose Content-Length trivially clears
+// MIN_REAL_BYTES, false-positiving "recovered" and triggering a pointless full
+// backfill. So mirror fetchDailyResource's guards exactly: `redirect: "manual"`
+// (any 3xx / non-200 = still down), reject a text/html content-type, and reject
+// a body whose first non-space char is "<" (an HTML shell that slipped through
+// with a non-html content-type). MIN_REAL_BYTES stays the final guard against
+// the empty "[]" body the broken window used to serve. The still-broken case
+// short-circuits at the status check, so we never download a body for it; only
+// a genuinely recovered day reads its (JSON) body, once, on the recovery run.
 const probeOne = async (e: TrDatasetEntry): Promise<boolean> => {
   const url = `https://data.egov.bg/resource/download/${e.uuid}/json`;
   const ac = new AbortController();
@@ -89,19 +95,25 @@ const probeOne = async (e: TrDatasetEntry): Promise<boolean> => {
   try {
     const res = await fetch(url, {
       headers: { "User-Agent": UA, Accept: "application/json" },
+      redirect: "manual",
       signal: ac.signal,
     });
+    // Any redirect / non-200 means the per-resource backend is still down.
     if (res.status !== 200) {
       await res.body?.cancel().catch(() => {});
       return false;
     }
-    const len = res.headers.get("content-length");
-    if (len !== null) {
+    // The portal shell comes back as text/html — never a real JSON filing.
+    const ctype = res.headers.get("content-type") ?? "";
+    if (/text\/html/i.test(ctype)) {
       await res.body?.cancel().catch(() => {});
-      return Number(len) >= MIN_REAL_BYTES;
+      return false;
     }
-    // No Content-Length (chunked) — read the body and measure it directly.
+    // Read the body: reject an HTML shell that slipped through with a non-html
+    // content-type (first non-space char "<"); a genuinely recovered day is
+    // JSON ("[" / "{"). MIN_REAL_BYTES is the final guard.
     const text = await res.text();
+    if (text.trimStart().startsWith("<")) return false;
     return text.length >= MIN_REAL_BYTES;
   } catch {
     return false;
