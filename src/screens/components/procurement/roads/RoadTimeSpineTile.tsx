@@ -141,6 +141,12 @@ export const RoadTimeSpineTile: FC<{ years: YearAgg[] }> = ({ years }) => {
                 tickFormatter={(v) => formatEurCompact(Number(v), lang)}
               />
               <Tooltip
+                // Default cursor is a full-height grey rect that reads as a
+                // giant bar on near-empty years (e.g. 2020) — use a faint one.
+                cursor={{
+                  fill: "hsl(var(--muted-foreground))",
+                  fillOpacity: 0.08,
+                }}
                 formatter={(v: number, name) => [
                   formatEurCompact(v, lang),
                   name,
