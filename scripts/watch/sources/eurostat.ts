@@ -41,6 +41,14 @@ const DATASETS: { code: string; query: string }[] = [
     query: "geo=BG&unit=PC_GDP&sector=S13&na_item=B9&s_adj=SCA&freq=Q",
   },
   {
+    // Annual EDP notification — the authoritative per-year ESA deficit ratio
+    // (drives the ЕСС bar/tooltip on /indicators/budgets). Released on the
+    // April/October EDP cycle, a different cadence from the quarterly GFS
+    // datasets above, so it gets its own fingerprint entry.
+    code: "gov_10dd_edpt1",
+    query: "geo=BG&na_item=B9&sector=S13&unit=PC_GDP&freq=A",
+  },
+  {
     code: "ei_bpm6ca_q",
     query:
       "geo=BG&unit=PC_GDP&s_adj=NSA&sector10=S1&sectpart=S1&partner=WRL_REST&stk_flow=BAL&bop_item=CA&freq=Q",
@@ -169,7 +177,7 @@ const fetchUpdated = async (code: string, query: string): Promise<string> => {
 
 export const eurostat: WatchSource = {
   id: "eurostat",
-  label: "Eurostat macro (BG): 22 datasets",
+  label: "Eurostat macro (BG): 23 datasets",
   // Best representative URL for the report's link column — the rest live in
   // meta.
   url: "https://ec.europa.eu/eurostat/databrowser/",

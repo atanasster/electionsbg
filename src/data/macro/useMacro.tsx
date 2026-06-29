@@ -10,6 +10,11 @@ export type MacroIndicatorKey =
   | "govDebt"
   | "budgetBalance"
   | "currentAccount"
+  // Eurostat — authoritative annual ESA deficit/surplus ratio from the EDP
+  // notification (gov_10dd_edpt1). Read THIS for the per-year headline deficit,
+  // never a sum of the quarterly budgetBalance SCA series (which drifts
+  // 0.1-0.5pp from the official annual).
+  | "esaBalanceAnnual"
   // Eurostat — fiscal / external in nominal EUR (quarterly)
   | "govDebtNominal"
   | "budgetBalanceNominal"

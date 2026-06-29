@@ -10,7 +10,7 @@ allowed-tools:
 
 # Update Macro skill
 
-Refreshes `data/macro.json` — the per-Bulgarian-cabinet macro/governance backdrop rendered on `/governments`. Pulls quarterly Eurostat series (GDP growth, HICP inflation, unemployment, gov debt, budget balance, current account; same fiscal/external triple plus government revenue + expenditure in nominal EUR), annual Eurostat GDP per capita, annual nominal GDP and net inward FDI, World Bank WGI, plus curated CPI / Eurobarometer trust / EU funds.
+Refreshes `data/macro.json` — the per-Bulgarian-cabinet macro/governance backdrop rendered on `/governments`. Pulls quarterly Eurostat series (GDP growth, HICP inflation, unemployment, gov debt, budget balance, current account; same fiscal/external triple plus government revenue + expenditure in nominal EUR), the **authoritative annual ESA deficit ratio** (`esaBalanceAnnual`, from the EDP notification table `gov_10dd_edpt1` — the figure Eurostat headlines, e.g. BG 2025 = −3.5%), annual Eurostat GDP per capita, annual nominal GDP and net inward FDI, World Bank WGI, plus curated CPI / Eurobarometer trust / EU funds.
 
 ## When to run
 
@@ -245,6 +245,17 @@ Intentional non-fatal skips:
 | Quarterly Eurostat dataset returning a `null` last cell (publication lag) | Filtered out of the series; no warning needed. Standard Eurostat behaviour at the leading edge. |
 
 After every run, eyeball the per-indicator `N points (latest …)` lines. If a series suddenly halves, the upstream query was rejected silently OR the dataset publisher changed dimensions — investigate before committing.
+
+### Annual ESA deficit — the EDP series is the single source of truth
+
+The per-year headline deficit/surplus ratio (the **Салдо (ЕСС)** column/bars on `/indicators/budgets`) comes **only** from `esaBalanceAnnual` (Eurostat `gov_10dd_edpt1`, na_item `B9`, sector `S13`, unit `PC_GDP`, freq `A`) — the EDP-notification annual figure.
+
+**Never reconstruct the annual deficit by summing the quarterly `budgetBalance` / `budgetBalanceNominal` series and dividing by GDP.** Those quarterly series are `s_adj: SCA` (seasonally + calendar adjusted) and come from a different quarterly-GFS vintage (`gov_10q_ggnfa`); their four-quarter sum drifts **0.1–0.5pp** from the official annual. This was a real bug: before `esaBalanceAnnual` existed the scorecard read **2025 = −3.6% (official −3.5%)** and **2021 = −3.5% (official −4.0%)**, and the "deepest deficit" stat showed **−4.7% '14** instead of the correct **−5.4%**. The quarterly SCA triple is for within-year *shape* only. `CabinetBudgetScorecard.tsx` reads `esaBalanceAnnual` directly and only falls back to the summed-quarters derivation if that series is absent (stale `macro.json`).
+
+A quick sanity check after a refresh — these must match the Eurostat EDP table exactly:
+```bash
+curl -s 'https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/gov_10dd_edpt1?format=JSON&lang=EN&geo=BG&na_item=B9&sector=S13&unit=PC_GDP&lastTimePeriod=6' | python3 -c "import json,sys;d=json.load(sys.stdin);i=d['dimension']['time']['category']['index'];v=d['value'];print({k:v.get(str(p)) for k,p in i.items()})"
+```
 
 ## What this skill does NOT do
 

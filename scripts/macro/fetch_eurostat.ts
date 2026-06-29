@@ -266,6 +266,37 @@ const EUROSTAT_INDICATORS: EurostatIndicator[] = [
   },
   {
     source: "eurostat",
+    key: "esaBalanceAnnual",
+    // AUTHORITATIVE annual ESA deficit/surplus ratio, straight from the EDP
+    // notification table (gov_10dd_edpt1, B9, S13, % of GDP). This is the
+    // figure Eurostat headlines (e.g. BG 2025 = -3.5%, 2021 = -4.0%).
+    //
+    // Do NOT reconstruct the annual deficit by summing the quarterly
+    // `budgetBalance` / `budgetBalanceNominal` SCA series and dividing by GDP:
+    // seasonal-and-calendar adjustment plus the different quarterly-GFS vintage
+    // make that derivation drift 0.1-0.5pp from the official annual (it read
+    // -3.6% for 2025 and -3.5% for 2021 before this series existed). Consumers
+    // that need the per-year headline deficit must read THIS series; the
+    // quarterly SCA triple is only for within-year shape.
+    dataset: "gov_10dd_edpt1",
+    query: {
+      geo: "BG",
+      na_item: "B9",
+      sector: "S13",
+      unit: "PC_GDP",
+      freq: "A",
+    },
+    cadence: "annual",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/gov_10dd_edpt1/default/table",
+    unitLabelEn: "% of GDP (general gov net lending/borrowing, EDP, annual)",
+    unitLabelBg:
+      "% от БВП (нето кредит/заем на сектор „Държавно управление“, ПСД, годишно)",
+    titleEn: "Government budget balance (annual, EDP)",
+    titleBg: "Бюджетно салдо (годишно, ПСД)",
+  },
+  {
+    source: "eurostat",
     key: "currentAccount",
     dataset: "ei_bpm6ca_q",
     query: {

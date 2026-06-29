@@ -188,9 +188,20 @@ export const CabinetBudgetScorecard = ({
     const cash = new Map<number, number>(
       (macro.series.cashBalance ?? []).map((p) => [p.year, p.value]),
     );
-    const balByYear = new Map<number, number>();
+    // Authoritative per-year ESA deficit/surplus ratio, straight from the EDP
+    // notification (macro.series.esaBalanceAnnual = gov_10dd_edpt1). The
+    // fallback below — summing the quarterly SCA balance ÷ GDP — drifts
+    // 0.1-0.5pp from the official annual and is only used when the annual
+    // series is absent (stale macro.json predating the esaBalanceAnnual ingest).
+    const esaAnnual = new Map<number, number>(
+      (macro.series.esaBalanceAnnual ?? []).map((p) => [p.year, p.value]),
+    );
+    const balByYearFallback = new Map<number, number>();
     for (const p of macro.series.budgetBalanceNominal ?? [])
-      balByYear.set(p.year, (balByYear.get(p.year) ?? 0) + p.value);
+      balByYearFallback.set(
+        p.year,
+        (balByYearFallback.get(p.year) ?? 0) + p.value,
+      );
     const reserveByYear = new Map<number, number>();
     {
       const tmp = new Map<number, { q: number; v: number }>();
@@ -224,10 +235,13 @@ export const CabinetBudgetScorecard = ({
       };
     };
 
-    const maxYear = (macro.series.budgetBalanceNominal ?? []).reduce(
-      (m, p) => Math.max(m, p.year),
-      START_YEAR,
-    );
+    // Drive the year range off the official annual series so a partly-reported
+    // current year (only some quarters present) can't surface as a half-year
+    // "annual" deficit. Fall back to the quarterly series only if the annual
+    // one is missing.
+    const maxYear = (
+      esaAnnual.size > 0 ? [...esaAnnual.keys()] : [...balByYearFallback.keys()]
+    ).reduce((m, y) => Math.max(m, y), START_YEAR);
     const out: YearRow[] = [];
     for (let year = START_YEAR; year <= maxYear; year++) {
       const yStart = Date.UTC(year, 0, 1);
@@ -259,13 +273,18 @@ export const CabinetBudgetScorecard = ({
           (best, d) => (!best || d.monthsInYear > best.monthsInYear ? d : best),
           null,
         ) ?? null;
-      const bal = balByYear.get(year);
+      const esaY = esaAnnual.get(year);
+      const balFallback = balByYearFallback.get(year);
       const gdpY = gdp.get(year);
       const cashY = cash.get(year);
       out.push({
         year,
         balancePct:
-          bal != null && gdpY ? Math.round((bal / gdpY) * 1000) / 10 : null,
+          esaY != null
+            ? Math.round(esaY * 10) / 10
+            : balFallback != null && gdpY
+              ? Math.round((balFallback / gdpY) * 1000) / 10
+              : null,
         cashPct:
           cashY != null && gdpY ? Math.round((cashY / gdpY) * 1000) / 10 : null,
         arrears: arrears.get(year) ?? null,
