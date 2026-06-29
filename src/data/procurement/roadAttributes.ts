@@ -366,12 +366,36 @@ export interface MethodAgg {
   totalEur: number;
 }
 
+export interface YearAgg {
+  year: string;
+  totalEur: number;
+  /** € by work group (build / rehab / maintenance / design / other). */
+  groups: Record<WorkGroup, number>;
+  /** € by top corridor name (others folded into "other"). */
+  corridors: Record<string, number>;
+  /** Single-bidder share over rows with a known bidder count that year. */
+  singleBidShare?: number;
+}
+
+export interface TopContractor {
+  eik: string;
+  name: string;
+  totalEur: number;
+  contractCount: number;
+  /** Single-bidder share over this contractor's rows with a known count. */
+  singleBidShare?: number;
+  /** Component where this contractor earns the most. */
+  topComponent: WorkComponent;
+}
+
 export interface RoadsModel {
   /** Deduped, amendment-free contract rows with road attributes. */
   rows: RoadContract[];
   corridors: CorridorAgg[];
   workGroups: WorkGroupAgg[];
   components: ComponentAgg[];
+  years: YearAgg[];
+  topContractors: TopContractor[];
   methods: MethodAgg[];
   topProjects: RoadContract[];
   // Corpus integrity headline (over rows with a known value).
@@ -502,6 +526,95 @@ export const buildRoadsModel = (
     })
     .sort((a, b) => b.totalEur - a.totalEur);
 
+  // Yearly series — € by work group + by top corridor, for the time spine.
+  const topCorridorNames = new Set(
+    corridors.slice(0, 6).map((c) => c.corridor),
+  );
+  const yMap = new Map<string, YearAgg>();
+  const yBid = new Map<string, { known: number; single: number }>();
+  for (const r of rows) {
+    const year = (r.c.date || "").slice(0, 4);
+    if (!/^\d{4}$/.test(year)) continue;
+    const ya = yMap.get(year) ?? {
+      year,
+      totalEur: 0,
+      groups: {
+        build: 0,
+        rehab: 0,
+        maintenance: 0,
+        design: 0,
+        other: 0,
+      } as Record<WorkGroup, number>,
+      corridors: {},
+    };
+    ya.totalEur += r.amountEur;
+    ya.groups[r.group] += r.amountEur;
+    const ck =
+      r.ref && topCorridorNames.has(r.ref.corridor) ? r.ref.corridor : "other";
+    ya.corridors[ck] = (ya.corridors[ck] ?? 0) + r.amountEur;
+    yMap.set(year, ya);
+    if (r.c.numberOfTenderers != null) {
+      const b = yBid.get(year) ?? { known: 0, single: 0 };
+      b.known++;
+      if (r.c.numberOfTenderers === 1) b.single++;
+      yBid.set(year, b);
+    }
+  }
+  const years: YearAgg[] = [...yMap.values()]
+    .map((y) => {
+      const b = yBid.get(y.year);
+      return {
+        ...y,
+        singleBidShare: b && b.known ? b.single / b.known : undefined,
+      };
+    })
+    .sort((a, b) => a.year.localeCompare(b.year));
+
+  // Top contractors (all, not just MP-connected) + competition profile.
+  const conMap = new Map<
+    string,
+    {
+      eik: string;
+      name: string;
+      totalEur: number;
+      contractCount: number;
+      known: number;
+      single: number;
+      byComp: Map<WorkComponent, number>;
+    }
+  >();
+  for (const r of rows) {
+    const e = conMap.get(r.c.contractorEik) ?? {
+      eik: r.c.contractorEik,
+      name: r.c.contractorName,
+      totalEur: 0,
+      contractCount: 0,
+      known: 0,
+      single: 0,
+      byComp: new Map<WorkComponent, number>(),
+    };
+    e.name = r.c.contractorName || e.name;
+    e.totalEur += r.amountEur;
+    e.contractCount++;
+    if (r.c.numberOfTenderers != null) {
+      e.known++;
+      if (r.c.numberOfTenderers === 1) e.single++;
+    }
+    e.byComp.set(r.component, (e.byComp.get(r.component) ?? 0) + r.amountEur);
+    conMap.set(r.c.contractorEik, e);
+  }
+  const topContractors: TopContractor[] = [...conMap.values()]
+    .sort((a, b) => b.totalEur - a.totalEur)
+    .slice(0, 12)
+    .map((e) => ({
+      eik: e.eik,
+      name: e.name,
+      totalEur: e.totalEur,
+      contractCount: e.contractCount,
+      singleBidShare: e.known ? e.single / e.known : undefined,
+      topComponent: [...e.byComp.entries()].sort((a, b) => b[1] - a[1])[0][0],
+    }));
+
   // Procedure mix.
   const mMap = new Map<ProcedureBucket, number>();
   for (const r of rows) {
@@ -533,6 +646,8 @@ export const buildRoadsModel = (
     corridors,
     workGroups,
     components,
+    years,
+    topContractors,
     methods,
     topProjects,
     singleBidShare,

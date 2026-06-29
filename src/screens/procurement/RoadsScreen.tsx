@@ -39,7 +39,13 @@ import { formatEur, formatEurWithOther } from "@/lib/currency";
 import { procedureLabel } from "@/lib/cpvSectors";
 import { RoadCostPerKmTile } from "../components/procurement/roads/RoadCostPerKmTile";
 import { RoadWorkGroupDonut } from "../components/procurement/roads/RoadWorkGroupDonut";
-import { RoadComponentsTile } from "../components/procurement/roads/RoadComponentsTile";
+import {
+  RoadComponentsTile,
+  COMPONENT_LABEL,
+} from "../components/procurement/roads/RoadComponentsTile";
+import { RoadTimeSpineTile } from "../components/procurement/roads/RoadTimeSpineTile";
+import { RoadTopContractorsTile } from "../components/procurement/roads/RoadTopContractorsTile";
+import { formatEurCompact } from "@/lib/currency";
 import {
   RoadNetworkMap,
   type RoadMetric,
@@ -84,6 +90,56 @@ export const RoadsScreen: FC = () => {
       .filter((c) => byEik.has(c.eik))
       .map((c) => ({ contractor: c, mps: byEik.get(c.eik) ?? [] }));
   }, [rollup, mpConnected]);
+
+  // All contractor EIKs tied to an MP/official (for the top-contractors badge).
+  const connectedEiks = useMemo(
+    () => new Set((mpConnected?.entries ?? []).map((e) => e.contractorEik)),
+    [mpConnected],
+  );
+
+  // Auto-generated plain-language headlines from the model.
+  const insights = useMemo(() => {
+    if (!model) return [] as { text: string; warn?: boolean }[];
+    const out: { text: string; warn?: boolean }[] = [];
+    const eur = (v: number) => formatEurCompact(v, lang);
+    const topYear = [...model.years].sort((a, b) => b.totalEur - a.totalEur)[0];
+    if (topYear)
+      out.push({
+        text:
+          lang === "bg"
+            ? `${topYear.year}: ${eur(topYear.totalEur)} — най-силна година`
+            : `${topYear.year}: ${eur(topYear.totalEur)} — peak year`,
+      });
+    const topCor = model.corridors[0];
+    if (topCor)
+      out.push({
+        text:
+          lang === "bg"
+            ? `${topCor.corridor}: ${eur(topCor.totalEur)} — най-голям коридор`
+            : `${topCor.corridor}: ${eur(topCor.totalEur)} — largest corridor`,
+      });
+    const cap = [...model.components]
+      .filter((c) => c.contractCount >= 3 && (c.singleBidShare ?? 0) >= 0.8)
+      .sort((a, b) => (b.singleBidShare ?? 0) - (a.singleBidShare ?? 0))[0];
+    if (cap)
+      out.push({
+        warn: true,
+        text: `${lang === "bg" ? COMPONENT_LABEL[cap.component].bg : COMPONENT_LABEL[cap.component].en}: ${Math.round((cap.singleBidShare ?? 0) * 100)}% ${lang === "bg" ? "една оферта" : "single-bid"}`,
+      });
+    const comp = model.topContractors.find(
+      (c) => (c.singleBidShare ?? 1) === 0 && c.totalEur > 5e7,
+    );
+    if (comp)
+      out.push({
+        text: `${comp.name.split(/[-,]/)[0].trim()}: ${eur(comp.totalEur)} ${lang === "bg" ? "при 0% една оферта" : "at 0% single-bid"}`,
+      });
+    if (model.directShare > 0.05)
+      out.push({
+        warn: model.directShare > 0.1,
+        text: `${Math.round(model.directShare * 100)}% ${lang === "bg" ? "без обявление" : "direct award"}`,
+      });
+    return out.slice(0, 5);
+  }, [model, lang]);
 
   if (isLoading) {
     return (
@@ -214,6 +270,24 @@ export const RoadsScreen: FC = () => {
         </StatCard>
       </div>
 
+      {/* Insight chips — auto headlines */}
+      {insights.length > 0 ? (
+        <div className="flex flex-wrap gap-2 my-3">
+          {insights.map((it, i) => (
+            <span
+              key={i}
+              className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium ${
+                it.warn
+                  ? "border-amber-300/60 bg-amber-100/50 text-amber-700 dark:border-amber-800/50 dark:bg-amber-900/20 dark:text-amber-400"
+                  : "border-border bg-muted/40 text-foreground"
+              }`}
+            >
+              {it.text}
+            </span>
+          ))}
+        </div>
+      ) : null}
+
       {/* Hero — motorway network coloured by the selected metric */}
       <Card className="my-4">
         <CardHeader className="pb-2">
@@ -250,6 +324,11 @@ export const RoadsScreen: FC = () => {
         </CardContent>
       </Card>
 
+      {/* Spending over time */}
+      <div className="my-4">
+        <RoadTimeSpineTile years={model.years} />
+      </div>
+
       {/* Cost/km + build-vs-repair */}
       <div className="grid gap-4 xl:grid-cols-2 my-4">
         <RoadCostPerKmTile corridors={model.corridors} />
@@ -259,8 +338,12 @@ export const RoadsScreen: FC = () => {
         />
       </div>
 
-      {/* What kind of work + per-component competition */}
-      <div className="my-4">
+      {/* Who gets the money + what kind of work */}
+      <div className="grid gap-4 grid-cols-1 xl:grid-cols-2 my-4">
+        <RoadTopContractorsTile
+          contractors={model.topContractors}
+          connectedEiks={connectedEiks}
+        />
         <RoadComponentsTile components={model.components} />
       </div>
 

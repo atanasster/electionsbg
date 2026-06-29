@@ -15,7 +15,10 @@ import type {
   WorkComponent,
 } from "@/data/procurement/roadAttributes";
 
-const LABEL: Record<WorkComponent, { bg: string; en: string }> = {
+export const COMPONENT_LABEL: Record<
+  WorkComponent,
+  { bg: string; en: string }
+> = {
   tunnel: { bg: "Тунели", en: "Tunnels" },
   bridge: { bg: "Мостове и съоръжения", en: "Bridges & structures" },
   tolling_its: { bg: "Тол и ИТС", en: "Tolling & ITS" },
@@ -88,8 +91,8 @@ export const RoadComponentsTile: FC<{ components: ComponentAgg[] }> = ({
               >
                 <span className="w-40 shrink-0 truncate">
                   {lang === "bg"
-                    ? LABEL[c.component].bg
-                    : LABEL[c.component].en}
+                    ? COMPONENT_LABEL[c.component].bg
+                    : COMPONENT_LABEL[c.component].en}
                 </span>
                 <span className="flex-1 h-2.5 rounded bg-muted overflow-hidden">
                   <span
