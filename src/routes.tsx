@@ -302,6 +302,11 @@ const TendersScreen = lazy(() =>
     default: m.TendersScreen,
   })),
 );
+const RoadsScreen = lazy(() =>
+  import("./screens/procurement/RoadsScreen").then((m) => ({
+    default: m.RoadsScreen,
+  })),
+);
 const TenderDetailScreen = lazy(() =>
   import("./screens/procurement/TenderDetailScreen").then((m) => ({
     default: m.TenderDetailScreen,
@@ -1851,6 +1856,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <TenderDetailScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="procurement/roads"
+            element={
+              <LayoutScreen>
+                <RoadsScreen />
               </LayoutScreen>
             }
           />

@@ -130,6 +130,9 @@ functions/.secret.local
 /data/procurement/awarder_contracts/
 /data/procurement/contractors/
 /data/procurement/awarders/
+# BG motorway geometry for the road dashboard hero map — generated offline by
+# scripts/procurement/ingest_osm_roads.ts (OSM/ODbL), bucket-synced not committed.
+/data/procurement/roads.json
 # Per-entity sector/procedure/EU breakdown shards + the faceted-browser per-year
 # contract index — bulky derived data, uploaded to the bucket, not committed
 # (same convention as the per-contractor files above). sector_totals.json stays
