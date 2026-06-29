@@ -1,14 +1,17 @@
-// One-off ingest of the Bulgarian motorway network geometry from OpenStreetMap,
-// for the АПИ road dashboard hero map (/procurement/roads). Emits
-// data/maps/roads.json — a GeoJSON FeatureCollection of motorway LineStrings
-// tagged with the corridor name, clipped to Bulgaria and decimated for a small
-// country-scale payload.
+// One-off ingest of the Bulgarian national-road network geometry from
+// OpenStreetMap, for the АПИ road dashboard hero map (/procurement/roads).
+// Emits data/procurement/roads.json — a GeoJSON FeatureCollection of road
+// LineStrings tagged with the corridor name + class, clipped to Bulgaria and
+// decimated for a small country-scale payload.
 //
-// Why motorways only: OSM tags BG republican roads with bare numbers (ref="8")
-// not class-prefixed ("I-8"), so they cannot be joined to our contract road
-// references precisely. Motorways carry an unambiguous ref (A1..A6) and the
-// bulk of the corridor money (Струма, Хемус, Тракия, Марица). Republican-road
-// spend stays covered in the dashboard's €/km and top-projects tiles.
+// Coverage: motorways (A1..A6) always, plus republican roads (Път I/II) whose
+// corridor is actually funded by an АПИ contract. OSM tags republican roads
+// with bare numbers (ref="8", not "I-8"), so the class is derived from the
+// highway type (trunk → I-class, primary → II-class) and the segment is only
+// kept when the derived corridor (e.g. "I-1") matches a funded contract
+// reference — which both bounds the payload and avoids drawing unfunded /
+// mis-derived roads. Class III roads (highway=secondary/tertiary) are not
+// fetched; their spend stays in the dashboard's tiles.
 //
 // Usage (network is only touched with --fetch; otherwise reads the cache):
 //   npx tsx scripts/procurement/ingest_osm_roads.ts            # from cache
@@ -19,11 +22,17 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { execFileSync } from "child_process";
+import { roadRefOf } from "@/data/procurement/roadAttributes";
+import type { ProcurementContract } from "@/data/dataTypes";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "../..");
 const CACHE = path.join(ROOT, "data/_cache/osm/bg_major_roads.json");
 const REGIONS_DIR = path.join(ROOT, "data/maps/regions");
+const CONTRACTS = path.join(
+  ROOT,
+  "data/procurement/awarder_contracts/000695089.json",
+);
 // Served via the public/procurement symlink (dev) + bucket:sync (prod), the
 // same proven path as the awarder JSON. data/maps is not web-served.
 const OUT = path.join(ROOT, "data/procurement/roads.json");
@@ -163,6 +172,55 @@ const decimate = (pts: number[][], eps = 0.001): number[][] => {
   return out;
 };
 
+// Derive the join corridor + class for an OSM way. Motorways use the A-ref;
+// republican roads carry a bare number in OSM, so the class comes from the
+// highway type (trunk → I, primary → II). Class-prefixed refs are honoured
+// directly when present.
+interface Derived {
+  corridor: string;
+  ref: string;
+  roadClass: "АМ" | "I" | "II" | "III";
+}
+const deriveCorridor = (tags?: Record<string, string>): Derived | null => {
+  const h = tags?.highway ?? "";
+  const raw = (tags?.ref ?? "").replace(/\s+/g, "").toUpperCase();
+  if (!raw) return null;
+  const pref = /^(I{1,3})-(\d{1,5})$/.exec(raw);
+  if (pref) {
+    const cls = pref[1] as "I" | "II" | "III";
+    return {
+      corridor: `${cls}-${pref[2]}`,
+      ref: `${cls}-${pref[2]}`,
+      roadClass: cls,
+    };
+  }
+  if ((h === "motorway" || h === "motorway_link") && /^A[1-6]$/.test(raw))
+    return { corridor: CORRIDOR[raw] ?? raw, ref: raw, roadClass: "АМ" };
+  if ((h === "trunk" || h === "trunk_link") && /^\d{1,3}$/.test(raw))
+    return { corridor: `I-${raw}`, ref: `I-${raw}`, roadClass: "I" };
+  if (h === "primary" && /^\d{1,4}$/.test(raw))
+    return { corridor: `II-${raw}`, ref: `II-${raw}`, roadClass: "II" };
+  return null;
+};
+
+// Corridors actually referenced by an АПИ contract — shares roadRefOf with the
+// dashboard so the geometry filter and the FE join use identical keys.
+const loadFundedCorridors = (): Set<string> => {
+  const set = new Set<string>();
+  try {
+    const f = JSON.parse(fs.readFileSync(CONTRACTS, "utf8")) as {
+      contracts?: ProcurementContract[];
+    };
+    for (const c of f.contracts ?? []) {
+      const r = roadRefOf(c.title || "");
+      if (r) set.add(r.corridor);
+    }
+  } catch {
+    /* contracts shard missing — keep motorways only */
+  }
+  return set;
+};
+
 const main = () => {
   if (process.argv.includes("--fetch") || !fs.existsSync(CACHE))
     fetchOverpass();
@@ -170,17 +228,18 @@ const main = () => {
     elements: OsmWay[];
   };
   const rings = loadBgRings();
-  console.log(`BG boundary rings: ${rings.length}`);
+  const funded = loadFundedCorridors();
+  console.log(`BG rings: ${rings.length}; funded corridors: ${funded.size}`);
 
   const features: unknown[] = [];
   const byCorridor: Record<string, number> = {};
   let dropped = 0;
   for (const w of raw.elements) {
     if (w.type !== "way" || !w.geometry || w.geometry.length < 2) continue;
-    const h = w.tags?.highway ?? "";
-    if (h !== "motorway" && h !== "motorway_link") continue;
-    const ref = (w.tags?.ref ?? "").replace(/\s+/g, "").toUpperCase();
-    if (!/^A[1-6]$/.test(ref)) continue;
+    const d = deriveCorridor(w.tags);
+    if (!d) continue;
+    // Motorways are always shown (the hero); republican roads only when funded.
+    if (d.roadClass !== "АМ" && !funded.has(d.corridor)) continue;
     // BG clip — drop cross-border bleed (e.g. Romanian A2). Strict bbox gate
     // first (cheap, removes the obvious RO/RS/GR/TR overspill), then PIP.
     const mid = w.geometry[Math.floor(w.geometry.length / 2)];
@@ -193,11 +252,10 @@ const main = () => {
     const pts = decimate(w.geometry.map((n) => [n.lon, n.lat]));
     features.push({
       type: "Feature",
-      properties: { ref, corridor: CORRIDOR[ref] ?? ref },
+      properties: { ref: d.ref, corridor: d.corridor, class: d.roadClass },
       geometry: { type: "LineString", coordinates: pts },
     });
-    byCorridor[CORRIDOR[ref] ?? ref] =
-      (byCorridor[CORRIDOR[ref] ?? ref] ?? 0) + 1;
+    byCorridor[d.corridor] = (byCorridor[d.corridor] ?? 0) + 1;
   }
 
   const fc = {
@@ -209,9 +267,9 @@ const main = () => {
   fs.writeFileSync(OUT, JSON.stringify(fc));
   const kb = Math.round(fs.statSync(OUT).size / 1024);
   console.log(
-    `Wrote ${features.length} motorway segments (${kb} KB), dropped ${dropped} non-BG.`,
+    `Wrote ${features.length} road segments (${kb} KB), dropped ${dropped} non-BG.`,
   );
-  console.log("By corridor:", byCorridor);
+  console.log("Distinct corridors:", Object.keys(byCorridor).length);
 };
 
 main();

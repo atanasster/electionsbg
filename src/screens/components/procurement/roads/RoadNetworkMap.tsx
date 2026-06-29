@@ -131,7 +131,13 @@ export const RoadNetworkMap: FC<{
                 }
                 fill="none"
                 stroke={colorForCorridor(f.properties.corridor)}
-                strokeWidth={f.properties.ref.length === 2 ? 2.6 : 1.6}
+                strokeWidth={
+                  f.properties.class === "АМ"
+                    ? 2.6
+                    : f.properties.class === "I"
+                      ? 1.7
+                      : 1.1
+                }
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 style={{ cursor: "pointer" }}

@@ -243,8 +243,8 @@ export const RoadsScreen: FC = () => {
           <RoadNetworkMap corridors={model.corridors} metric={mapMetric} />
           <p className="text-[11px] text-muted-foreground/80 mt-2">
             {lang === "bg"
-              ? "Показани са автомагистралите (А1–А6). Републиканските пътища (I/II/III) се виждат в таблиците по-долу."
-              : "Motorways (A1–A6) shown. Republican roads (I/II/III) appear in the tables below."}
+              ? "Показани са автомагистралите и финансираните републикански пътища (I и II клас). Дебелината на линията показва класа на пътя."
+              : "Motorways and funded republican roads (class I and II) are shown. Line thickness reflects the road class."}
           </p>
         </CardContent>
       </Card>
@@ -397,24 +397,41 @@ export const RoadsScreen: FC = () => {
         </CardHeader>
         <CardContent className="p-3 md:p-4 text-sm text-muted-foreground">
           {lang === "bg" ? (
-            <p>
-              Цената на километър не е сравнима между различни видове работа и
-              терен. Ново строителство на автомагистрала, основен ремонт на път
-              III клас и съоръжения (мостове, тунели) се различават многократно
-              — тунелните участъци достигат десетки милиони на километър. Затова
-              сравняваме всеки участък спрямо вътрешен еталон за същия клас път
-              и вид работа, а не директно с други държави.
-            </p>
+            <>
+              <p>
+                Цената на километър не е сравнима между различни видове работа и
+                терен. Ново строителство на автомагистрала, основен ремонт на
+                път III клас и съоръжения (мостове, тунели) се различават
+                многократно — тунелните участъци достигат десетки милиони на
+                километър. Затова сравняваме всеки участък спрямо вътрешен
+                еталон за същия клас път и вид работа, а не директно с други
+                държави.
+              </p>
+              <p className="mt-2 text-xs">
+                За груб ориентир (не пряко сравнение): ново строителство на
+                магистрала в България е средно около €3–6 млн/км, в Румъния
+                ~€6,3 млн/км, в Гърция ~€10 млн/км; базата на Световната банка
+                (ROCKS) дава ~€1,4 млн/км за двулентов път без съоръжения.
+              </p>
+            </>
           ) : (
-            <p>
-              Cost per kilometre is not comparable across work types or terrain.
-              New motorway construction, major rehabilitation of a class III
-              road and structures (bridges, tunnels) differ by an order of
-              magnitude — tunnel sections reach tens of millions per kilometre.
-              Each segment is therefore benchmarked against an internal
-              reference class for the same road class and work type, not
-              directly against other countries.
-            </p>
+            <>
+              <p>
+                Cost per kilometre is not comparable across work types or
+                terrain. New motorway construction, major rehabilitation of a
+                class III road and structures (bridges, tunnels) differ by an
+                order of magnitude — tunnel sections reach tens of millions per
+                kilometre. Each segment is therefore benchmarked against an
+                internal reference class for the same road class and work type,
+                not directly against other countries.
+              </p>
+              <p className="mt-2 text-xs">
+                As a rough, non-comparable benchmark: new motorway construction
+                averages ~€3–6M/km in Bulgaria, ~€6.3M/km in Romania, ~€10M/km
+                in Greece; the World Bank ROCKS database gives ~€1.4M/km for a
+                two-lane road excluding structures.
+              </p>
+            </>
           )}
         </CardContent>
       </Card>

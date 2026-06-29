@@ -7,7 +7,11 @@ import { dataUrl } from "@/data/dataUrl";
 
 export interface RoadFeature {
   type: "Feature";
-  properties: { ref: string; corridor: string };
+  properties: {
+    ref: string;
+    corridor: string;
+    class?: "АМ" | "I" | "II" | "III";
+  };
   geometry: { type: "LineString"; coordinates: [number, number][] };
 }
 export interface RoadGeometry {
