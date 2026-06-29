@@ -233,6 +233,78 @@ export const eurPerKmOf = (
   };
 };
 
+// --- Work component ("what kind of work") -----------------------------------
+
+export type WorkComponent =
+  | "tunnel"
+  | "bridge"
+  | "tolling_its"
+  | "markings_signs"
+  | "safety_barriers"
+  | "lighting"
+  | "drainage"
+  | "retaining"
+  | "winter_maint"
+  | "roadway"
+  | "design_supervision"
+  | "other";
+
+const eqAny = (cpv: string | undefined, codes: string[]): boolean =>
+  !!cpv && codes.includes(cpv);
+
+// Primary component by precedence: a design / oversight contract is a service
+// regardless of what it concerns (services first), then the distinctive
+// structures and systems, then the roadway itself. CPV is a co-signal only — it
+// is ~43% absent and frequently mis-coded (e.g. 63712200 "highway operation" is
+// used for markings), so title keywords lead.
+export const workComponentOf = (
+  title: string,
+  cpv: string | undefined,
+  workType: WorkType,
+): WorkComponent => {
+  const n = (title || "").toLowerCase();
+  if (workType === "supervision" || workType === "design")
+    return "design_supervision";
+  if (/тунел/.test(n)) return "tunnel";
+  if (/мост|надлез|подлез|естакад|виадукт/.test(n) || cpv?.startsWith("45221"))
+    return "bridge";
+  if (
+    /\bтол\b|тол систем|естп|електронн[а-я ]{0,12}такс|видеонаблюд|система за просле/.test(
+      n,
+    ) ||
+    eqAny(cpv, ["63712200", "50312610", "34972000"])
+  )
+    return "tolling_its";
+  if (
+    /маркировк|пътни знаци|вертикална сигнализац|пътна сигнализац/.test(n) ||
+    eqAny(cpv, ["45233221", "45233290", "34992200"])
+  )
+    return "markings_signs";
+  if (
+    /ограничителн|предпазна ограда|предпазни огради|мантинел|ударогасит/.test(
+      n,
+    ) ||
+    eqAny(cpv, ["45340000", "45233292"]) ||
+    cpv?.startsWith("34928")
+  )
+    return "safety_barriers";
+  if (/осветлени/.test(n) || cpv === "45316110") return "lighting";
+  if (/отводн|дренаж|водосток/.test(n)) return "drainage";
+  if (/подпорн/.test(n)) return "retaining";
+  if (/зимно поддър|снегопочист/.test(n)) return "winter_maint";
+  if (
+    workType === "new_build" ||
+    workType === "reconstruction" ||
+    workType === "rehab_major" ||
+    workType === "rehab" ||
+    workType === "preventive" ||
+    workType === "maintenance" ||
+    workType === "area_maint"
+  )
+    return "roadway";
+  return "other";
+};
+
 // --- Per-contract enrichment + corpus aggregation ---------------------------
 
 export interface RoadContract {
@@ -240,6 +312,7 @@ export interface RoadContract {
   ref?: RoadRef;
   workType: WorkType;
   group: WorkGroup;
+  component: WorkComponent;
   perKm?: EurPerKm;
   amountEur: number;
 }
@@ -276,6 +349,18 @@ export interface WorkGroupAgg {
   contractCount: number;
 }
 
+export interface ComponentAgg {
+  component: WorkComponent;
+  totalEur: number;
+  contractCount: number;
+  /** Single-bidder share over rows with a known bidder count. */
+  singleBidShare?: number;
+  /** Largest contractor in this component + its share of the component €
+   *  (a niche-capture signal). */
+  topContractorName?: string;
+  topContractorShare?: number;
+}
+
 export interface MethodAgg {
   bucket: ProcedureBucket;
   totalEur: number;
@@ -286,6 +371,7 @@ export interface RoadsModel {
   rows: RoadContract[];
   corridors: CorridorAgg[];
   workGroups: WorkGroupAgg[];
+  components: ComponentAgg[];
   methods: MethodAgg[];
   topProjects: RoadContract[];
   // Corpus integrity headline (over rows with a known value).
@@ -314,6 +400,7 @@ export const buildRoadsModel = (
       ref,
       workType,
       group: workGroupOf(workType),
+      component: workComponentOf(c.title, c.cpv, workType),
       perKm: eurPerKmOf(c, workType, len),
       amountEur: c.amountEur ?? 0,
     });
@@ -381,6 +468,40 @@ export const buildRoadsModel = (
     (a, b) => b.totalEur - a.totalEur,
   );
 
+  // Component split ("what kind of work") + per-component integrity / capture.
+  const cMap = new Map<WorkComponent, RoadContract[]>();
+  for (const r of rows) {
+    const arr = cMap.get(r.component) ?? [];
+    arr.push(r);
+    cMap.set(r.component, arr);
+  }
+  const components: ComponentAgg[] = [...cMap.entries()]
+    .map(([component, arr]) => {
+      const tot = arr.reduce((s, r) => s + r.amountEur, 0);
+      const bidKnown = arr.filter((r) => r.c.numberOfTenderers != null);
+      const single = bidKnown.filter((r) => r.c.numberOfTenderers === 1).length;
+      // Largest contractor by € in this component (niche-capture signal).
+      const byEik = new Map<string, { name: string; eur: number }>();
+      for (const r of arr) {
+        const e = byEik.get(r.c.contractorEik) ?? {
+          name: r.c.contractorName,
+          eur: 0,
+        };
+        e.eur += r.amountEur;
+        byEik.set(r.c.contractorEik, e);
+      }
+      const top = [...byEik.values()].sort((a, b) => b.eur - a.eur)[0];
+      return {
+        component,
+        totalEur: tot,
+        contractCount: arr.length,
+        singleBidShare: bidKnown.length ? single / bidKnown.length : undefined,
+        topContractorName: top?.name,
+        topContractorShare: top && tot > 0 ? top.eur / tot : undefined,
+      };
+    })
+    .sort((a, b) => b.totalEur - a.totalEur);
+
   // Procedure mix.
   const mMap = new Map<ProcedureBucket, number>();
   for (const r of rows) {
@@ -411,6 +532,7 @@ export const buildRoadsModel = (
     rows,
     corridors,
     workGroups,
+    components,
     methods,
     topProjects,
     singleBidShare,

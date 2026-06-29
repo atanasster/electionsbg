@@ -39,6 +39,7 @@ import { formatEur, formatEurWithOther } from "@/lib/currency";
 import { procedureLabel } from "@/lib/cpvSectors";
 import { RoadCostPerKmTile } from "../components/procurement/roads/RoadCostPerKmTile";
 import { RoadWorkGroupDonut } from "../components/procurement/roads/RoadWorkGroupDonut";
+import { RoadComponentsTile } from "../components/procurement/roads/RoadComponentsTile";
 import {
   RoadNetworkMap,
   type RoadMetric,
@@ -256,6 +257,11 @@ export const RoadsScreen: FC = () => {
           groups={model.workGroups}
           totalEur={model.totalEur}
         />
+      </div>
+
+      {/* What kind of work + per-component competition */}
+      <div className="my-4">
+        <RoadComponentsTile components={model.components} />
       </div>
 
       {/* Procedure mix + top projects */}
