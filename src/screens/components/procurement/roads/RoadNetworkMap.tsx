@@ -106,7 +106,8 @@ export const RoadNetworkMap: FC<{
                 : "Motorway network by corridor"
             }
           >
-            {/* Faint oblast basemap. */}
+            {/* Oblast basemap — a clear landmass + visible region outlines so
+                the country shape reads behind the roads. */}
             {mapGeo.features.map((feature, idx) => (
               <path
                 key={`bm-${idx}`}
@@ -116,9 +117,10 @@ export const RoadNetworkMap: FC<{
                   ) ?? undefined
                 }
                 fill="hsl(var(--muted))"
-                fillOpacity={0.35}
-                stroke="hsl(var(--border))"
-                strokeWidth={0.5}
+                fillOpacity={0.7}
+                stroke="hsl(var(--muted-foreground))"
+                strokeOpacity={0.4}
+                strokeWidth={0.7}
               />
             ))}
             {/* Motorway corridors. */}
