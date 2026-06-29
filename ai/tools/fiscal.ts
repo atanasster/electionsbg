@@ -1555,6 +1555,13 @@ export const roadsSpending = async (
     contracts: Parameters<typeof buildRoadsModel>[0];
   }>(`/procurement/awarder_contracts/${API_EIK}.json`);
   const m = buildRoadsModel(file.contracts);
+  // Headline total + count come from the awarder rollup so the chat answer
+  // matches the dashboard KPI / the /awarder page exactly (buildRoadsModel
+  // additionally dedups by contract key, which runs ~1% lower); the model
+  // drives the per-component breakdown + competition signals below.
+  const rollup = await fetchData<AwarderRollup>(
+    `/procurement/awarders/${API_EIK}.json`,
+  );
 
   const comps = m.components.filter((c) => c.totalEur > 0).slice(0, 7);
   const rows: Row[] = comps.map((c) => ({
@@ -1594,8 +1601,8 @@ export const roadsSpending = async (
     rows,
     viz: "none",
     facts: {
-      total_value: fmtEurCompact(m.totalEur, ctx.lang),
-      contracts: fmtInt(m.rows.length, ctx.lang),
+      total_value: fmtEurCompact(rollup.totalEur, ctx.lang),
+      contracts: fmtInt(rollup.contractCount, ctx.lang),
       single_bid_share: pctStr(m.singleBidShare),
       direct_award_share: pctStr(m.directShare),
       top_corridor: topCorr
@@ -1611,7 +1618,10 @@ export const roadsSpending = async (
         ? `${compLabel(captured.component, bg)} (${pctStr(captured.singleBidShare)} ${bg ? "една оферта" : "single bid"})`
         : "—",
     },
-    provenance: [`procurement/awarder_contracts/${API_EIK}.json`],
+    provenance: [
+      `procurement/awarders/${API_EIK}.json`,
+      `procurement/awarder_contracts/${API_EIK}.json`,
+    ],
   };
 };
 
