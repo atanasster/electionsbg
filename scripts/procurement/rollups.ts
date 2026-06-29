@@ -188,6 +188,13 @@ export const buildRollups = (contractsDir: string): RollupResult => {
         if (row.tag === "contract") totals.contracts++;
         else if (row.tag === "award") totals.awards++;
         else if (row.tag === "contractAmendment") totals.amendments++;
+        // Amendments re-state an existing contract's value (audit: ~97% are
+        // exact duplicates by contractor+amount), so summing them as new spend
+        // double-counts — e.g. it inflated АПИ from ~€5.6bn to €7.5bn. Keep the
+        // tally above; exclude amendments from every money + count rollup below.
+        // Per-contract detail pages still see amendments via the contract /
+        // by-id shards, which are built elsewhere.
+        if (row.tag === "contractAmendment") return;
         addCurrency(totalsBag, row.currency, row.amount);
 
         // Contractor.

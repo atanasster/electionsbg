@@ -276,6 +276,9 @@ const accumulate = (
           if (r.tag === "contract") acc.contracts++;
           else if (r.tag === "contractAmendment") acc.amendments++;
           else if (r.tag === "award") acc.awards++;
+          // Amendments re-state an existing contract's value — exclude from the
+          // money/count aggregates so they don't double-count (see rollups.ts).
+          if (r.tag === "contractAmendment") continue;
           const ce = acc.byContractor.get(r.contractorEik) ?? {
             name: r.contractorName,
             eur: 0,
