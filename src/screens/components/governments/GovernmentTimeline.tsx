@@ -88,6 +88,8 @@ const SERIES_COLORS: Record<MacroIndicatorKey, string> = {
   govDebt: "#0891b2",
   budgetBalance: "#e11d48",
   currentAccount: "#7c3aed",
+  // authoritative annual ESA deficit/surplus ratio (EDP notification)
+  esaBalanceAnnual: "#be123c",
   // nominal fiscal / external
   govDebtNominal: "#0891b2",
   debtIssuance: "#0d9488",
