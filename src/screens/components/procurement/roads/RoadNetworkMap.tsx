@@ -6,7 +6,10 @@
 import { FC, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSofiaMergedRegionsMap } from "@/data/regions/useSofiaMergedRegionsMap";
-import { useRoadGeometry } from "@/data/procurement/useRoadGeometry";
+import {
+  useRoadGeometry,
+  type RoadFeature,
+} from "@/data/procurement/useRoadGeometry";
 import { getDataProjection } from "@/screens/components/maps/d3_utils";
 import { useTooltip } from "@/ux/useTooltip";
 import type { MapCoordinates } from "@/layout/dataview/MapLayout";
@@ -25,7 +28,11 @@ const valueOf = (c: CorridorAgg, metric: RoadMetric): number | undefined =>
 export const RoadNetworkMap: FC<{
   corridors: CorridorAgg[];
   metric: RoadMetric;
-}> = ({ corridors, metric }) => {
+  /** Corridor currently focused (others dimmed). */
+  focusCorridor?: string | null;
+  /** Toggle focus on click. */
+  onFocusCorridor?: (corridor: string | null) => void;
+}> = ({ corridors, metric, focusCorridor, onFocusCorridor }) => {
   const { i18n } = useTranslation();
   const mapGeo = useSofiaMergedRegionsMap();
   const { data: geo } = useRoadGeometry();
@@ -90,6 +97,47 @@ export const RoadNetworkMap: FC<{
       : `${(v * 100).toLocaleString(i18n.language, { maximumFractionDigits: 0 })}%`;
   };
 
+  // Stroke width encodes € volume (sqrt scale) — the fat-money corridors pop.
+  const maxEur = useMemo(
+    () => Math.max(1, ...corridors.map((c) => c.totalEur)),
+    [corridors],
+  );
+  const widthFor = (name: string): number => {
+    const c = byName.get(name);
+    const f = c ? Math.sqrt(c.totalEur / maxEur) : 0;
+    return 1.2 + 4.3 * f;
+  };
+
+  // Label anchors for the top corridors by € — midpoint of the corridor's
+  // longest feature (a stable, roughly-central point).
+  const labels = useMemo(() => {
+    if (!projection || !geo) return [];
+    const top = new Set(
+      corridors
+        .filter((c) => c.isMotorway)
+        .slice(0, 6)
+        .map((c) => c.corridor),
+    );
+    const longest = new Map<string, RoadFeature>();
+    for (const f of geo.features) {
+      if (!top.has(f.properties.corridor)) continue;
+      const cur = longest.get(f.properties.corridor);
+      if (
+        !cur ||
+        f.geometry.coordinates.length > cur.geometry.coordinates.length
+      )
+        longest.set(f.properties.corridor, f);
+    }
+    const out: { name: string; x: number; y: number }[] = [];
+    for (const [name, f] of longest) {
+      const cs = f.geometry.coordinates;
+      const mid = cs[Math.floor(cs.length / 2)];
+      const p = projection.projection([mid[0], mid[1]]);
+      if (p) out.push({ name, x: p[0], y: p[1] });
+    }
+    return out;
+  }, [projection, geo, corridors]);
+
   return (
     <>
       <div ref={ref} className="relative w-full h-[300px] md:h-[360px]">
@@ -123,7 +171,7 @@ export const RoadNetworkMap: FC<{
                 strokeWidth={0.7}
               />
             ))}
-            {/* Motorway corridors. */}
+            {/* Road corridors — width = € volume, colour = metric. */}
             {geo.features.map((f, idx) => (
               <path
                 key={`rd-${idx}`}
@@ -133,16 +181,22 @@ export const RoadNetworkMap: FC<{
                 }
                 fill="none"
                 stroke={colorForCorridor(f.properties.corridor)}
-                strokeWidth={
-                  f.properties.class === "АМ"
-                    ? 2.6
-                    : f.properties.class === "I"
-                      ? 1.7
-                      : 1.1
+                strokeWidth={widthFor(f.properties.corridor)}
+                strokeOpacity={
+                  focusCorridor && f.properties.corridor !== focusCorridor
+                    ? 0.18
+                    : 1
                 }
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 style={{ cursor: "pointer" }}
+                onClick={() =>
+                  onFocusCorridor?.(
+                    focusCorridor === f.properties.corridor
+                      ? null
+                      : f.properties.corridor,
+                  )
+                }
                 onMouseEnter={(e) =>
                   onMouseEnter(
                     { pageX: e.pageX, pageY: e.pageY },
@@ -178,6 +232,29 @@ export const RoadNetworkMap: FC<{
                 }
                 onMouseLeave={onMouseLeave}
               />
+            ))}
+            {/* Top-corridor labels. */}
+            {labels.map((l) => (
+              <text
+                key={l.name}
+                x={l.x}
+                y={l.y - 4}
+                textAnchor="middle"
+                className="pointer-events-none"
+                style={{
+                  fontSize: 11,
+                  fontWeight: 500,
+                  fill: "hsl(var(--foreground))",
+                  paintOrder: "stroke",
+                  stroke: "hsl(var(--background))",
+                  strokeWidth: 3,
+                  strokeLinejoin: "round",
+                  opacity:
+                    focusCorridor && l.name !== focusCorridor ? 0.25 : 0.9,
+                }}
+              >
+                {l.name}
+              </text>
             ))}
           </svg>
         ) : (

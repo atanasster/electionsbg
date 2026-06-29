@@ -18,6 +18,7 @@ import {
   MapPin,
   Waypoints,
   TriangleAlert,
+  X,
 } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { StatCard } from "../dashboard/StatCard";
@@ -73,6 +74,7 @@ export const RoadsScreen: FC = () => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const [mapMetric, setMapMetric] = useState<RoadMetric>("singleBid");
+  const [focusCorridor, setFocusCorridor] = useState<string | null>(null);
   const { rollup, model, isLoading } = useRoads();
   const { data: mpConnected } = useMpConnected();
 
@@ -140,6 +142,16 @@ export const RoadsScreen: FC = () => {
       });
     return out.slice(0, 5);
   }, [model, lang]);
+
+  // Top projects narrow to the focused corridor when one is selected.
+  const shownProjects = useMemo(() => {
+    if (!model) return [];
+    if (!focusCorridor) return model.topProjects;
+    return [...model.rows]
+      .filter((r) => r.ref?.corridor === focusCorridor)
+      .sort((a, b) => b.amountEur - a.amountEur)
+      .slice(0, 10);
+  }, [model, focusCorridor]);
 
   if (isLoading) {
     return (
@@ -295,6 +307,16 @@ export const RoadsScreen: FC = () => {
             <CardTitle className="text-base flex items-center gap-2">
               <Waypoints className="h-4 w-4" />
               {lang === "bg" ? "Магистрална мрежа" : "Motorway network"}
+              {focusCorridor ? (
+                <button
+                  type="button"
+                  onClick={() => setFocusCorridor(null)}
+                  className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary"
+                >
+                  {focusCorridor}
+                  <X className="h-3 w-3" />
+                </button>
+              ) : null}
             </CardTitle>
             <Select
               value={mapMetric}
@@ -315,11 +337,16 @@ export const RoadsScreen: FC = () => {
           </div>
         </CardHeader>
         <CardContent className="p-3 md:p-4">
-          <RoadNetworkMap corridors={model.corridors} metric={mapMetric} />
+          <RoadNetworkMap
+            corridors={model.corridors}
+            metric={mapMetric}
+            focusCorridor={focusCorridor}
+            onFocusCorridor={setFocusCorridor}
+          />
           <p className="text-[11px] text-muted-foreground/80 mt-2">
             {lang === "bg"
-              ? "Показани са автомагистралите и финансираните републикански пътища (I и II клас). Дебелината на линията показва класа на пътя."
-              : "Motorways and funded republican roads (class I and II) are shown. Line thickness reflects the road class."}
+              ? "Автомагистрали и финансирани републикански пътища (I и II клас). Дебелината на линията показва вложените средства. Кликни коридор, за да филтрираш."
+              : "Motorways and funded republican roads (class I and II). Line thickness reflects € spent. Click a corridor to filter."}
           </p>
         </CardContent>
       </Card>
@@ -393,7 +420,7 @@ export const RoadsScreen: FC = () => {
           </CardHeader>
           <CardContent className="p-3 md:p-4">
             <ul className="divide-y divide-border text-sm">
-              {model.topProjects.map((r) => (
+              {shownProjects.map((r) => (
                 <li key={r.c.key} className="py-2">
                   <Link
                     to={`/contract/${r.c.key}`}
