@@ -10,7 +10,7 @@ import { Banknote, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur } from "@/lib/currency";
 import type { TopContractor } from "@/lib/roadAttributes";
-import { COMPONENT_LABEL } from "./RoadComponentsTile";
+import { COMPONENT_LABEL } from "./roadLabels";
 
 export const RoadTopContractorsTile: FC<{
   contractors: TopContractor[];

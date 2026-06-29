@@ -40,12 +40,11 @@ import { formatEur, formatEurWithOther } from "@/lib/currency";
 import { procedureLabel } from "@/lib/cpvSectors";
 import { RoadCostPerKmTile } from "../components/procurement/roads/RoadCostPerKmTile";
 import { RoadWorkGroupDonut } from "../components/procurement/roads/RoadWorkGroupDonut";
-import {
-  RoadComponentsTile,
-  COMPONENT_LABEL,
-} from "../components/procurement/roads/RoadComponentsTile";
+import { RoadComponentsTile } from "../components/procurement/roads/RoadComponentsTile";
+import { COMPONENT_LABEL } from "../components/procurement/roads/roadLabels";
 import { RoadTimeSpineTile } from "../components/procurement/roads/RoadTimeSpineTile";
 import { RoadTopContractorsTile } from "../components/procurement/roads/RoadTopContractorsTile";
+import { RoadPlannedTendersTile } from "../components/procurement/roads/RoadPlannedTendersTile";
 import { formatEurCompact } from "@/lib/currency";
 import {
   RoadNetworkMap,
@@ -138,7 +137,7 @@ export const RoadsScreen: FC = () => {
     if (model.directShare > 0.05)
       out.push({
         warn: model.directShare > 0.1,
-        text: `${Math.round(model.directShare * 100)}% ${lang === "bg" ? "без обявление" : "direct award"}`,
+        text: `${Math.round(model.directShare * 100)}% ${lang === "bg" ? "без търг" : "direct award"}`,
       });
     return out.slice(0, 5);
   }, [model, lang]);
@@ -251,11 +250,11 @@ export const RoadsScreen: FC = () => {
           </div>
         </StatCard>
         <StatCard
-          label={lang === "bg" ? "Без обявление" : "Direct award"}
+          label={lang === "bg" ? "Без търг" : "Direct award"}
           hint={
             lang === "bg"
-              ? "Дял от обема, възложен пряко / без обявление."
-              : "Share of volume awarded directly / without a notice."
+              ? "Дял от обема, възложен пряко (без търг / обявление)."
+              : "Share of volume awarded directly / without a tender."
           }
         >
           <div className="flex items-baseline gap-2">
@@ -445,6 +444,11 @@ export const RoadsScreen: FC = () => {
             </ul>
           </CardContent>
         </Card>
+      </div>
+
+      {/* Planned procurements (tender pipeline — what is announced to be built) */}
+      <div className="my-4">
+        <RoadPlannedTendersTile />
       </div>
 
       {/* MP-connected contractors */}

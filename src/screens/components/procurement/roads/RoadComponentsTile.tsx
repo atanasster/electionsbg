@@ -10,28 +10,8 @@ import { useTranslation } from "react-i18next";
 import { Layers } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur } from "@/lib/currency";
-import type { ComponentAgg, WorkComponent } from "@/lib/roadAttributes";
-
-export const COMPONENT_LABEL: Record<
-  WorkComponent,
-  { bg: string; en: string }
-> = {
-  tunnel: { bg: "Тунели", en: "Tunnels" },
-  bridge: { bg: "Мостове и съоръжения", en: "Bridges & structures" },
-  tolling_its: { bg: "Тол и ИТС", en: "Tolling & ITS" },
-  markings_signs: { bg: "Маркировка и знаци", en: "Markings & signs" },
-  safety_barriers: { bg: "Ограничителни системи", en: "Safety barriers" },
-  lighting: { bg: "Осветление", en: "Lighting" },
-  drainage: { bg: "Отводняване", en: "Drainage" },
-  retaining: { bg: "Подпорни стени", en: "Retaining walls" },
-  winter_maint: { bg: "Зимно поддържане", en: "Winter maintenance" },
-  roadway: { bg: "Пътно платно (строеж/ремонт)", en: "Roadway (build/repair)" },
-  design_supervision: {
-    bg: "Проектиране и надзор",
-    en: "Design & supervision",
-  },
-  other: { bg: "Друго", en: "Other" },
-};
+import type { ComponentAgg } from "@/lib/roadAttributes";
+import { COMPONENT_LABEL } from "./roadLabels";
 
 const pct = (v: number | undefined, lang: string): string =>
   v == null
