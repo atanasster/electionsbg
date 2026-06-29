@@ -20,6 +20,7 @@ export interface CellAgg {
   max: number;
   median: number;
   cheapestEik: string;
+  cheapestStore: string; // free-text store name+address of the cheapest observation
   stores: number; // distinct stores priced
   chains: number; // distinct chains priced
   promoMin: number | null;

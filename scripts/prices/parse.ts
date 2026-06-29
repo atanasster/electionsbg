@@ -23,6 +23,8 @@ interface Accum {
   stores: Set<string>;
   eikMin: Map<string, number>;
   promos: number[];
+  minPrice: number; // lowest observed price (== sorted[0]) …
+  minStore: string; // … and the store (free-text name+address) that had it
 }
 
 const median = (sorted: number[]): number => {
@@ -76,12 +78,21 @@ export const parseDay = async (
             stores: new Set(),
             eikMin: new Map(),
             promos: [],
+            minPrice: Infinity,
+            minStore: "",
           }),
         );
       a.prices.push(r.price);
       a.stores.add(r.eik + "|" + r.store);
       const prev = a.eikMin.get(r.eik);
       if (prev === undefined || r.price < prev) a.eikMin.set(r.eik, r.price);
+      // Track the specific store behind the cheapest observation. The global
+      // min belongs to cheapestEik (the chain with the lowest per-chain min),
+      // so this resolves to a real store address within that chain.
+      if (r.price < a.minPrice) {
+        a.minPrice = r.price;
+        a.minStore = r.store;
+      }
       if (r.promo != null) a.promos.push(r.promo);
     }
   }
@@ -108,6 +119,7 @@ export const parseDay = async (
         median: median(sorted),
         avg: a.prices.reduce((s, v) => s + v, 0) / a.prices.length,
         cheapestEik,
+        cheapestStore: a.minStore,
         stores: a.stores.size,
         chains: a.eikMin.size,
         promoMin: a.promos.length ? Math.min(...a.promos) : null,

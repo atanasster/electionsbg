@@ -9,7 +9,13 @@
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { TrendingUp, TrendingDown, Tag, ArrowRight } from "lucide-react";
+import {
+  TrendingUp,
+  TrendingDown,
+  Tag,
+  ArrowRight,
+  MapPin,
+} from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Link } from "@/ux/Link";
 import { PriceSparkline } from "@/screens/components/prices/PriceSparkline";
@@ -21,6 +27,7 @@ import {
   fmtEur,
   fmtPct,
   fmtPriceDate,
+  mapsDirectionsUrl,
   priceChangeColor as changeColor,
 } from "@/data/prices/usePrices";
 
@@ -283,29 +290,55 @@ export const MyAreaPricesTile: FC<Props> = ({
       ) : null}
 
       {/* Featured cheapest products (settlement). Product + price on one line
-          (price never wraps), the chain on a muted second line — so long chain
-          names don't ragged-wrap the price column on phones. */}
+          (price never wraps), the chain + store on a muted second line — so long
+          names don't ragged-wrap the price column on phones. When we know the
+          КЗП store label, the second line links to Google Maps directions. */}
       {featured.length ? (
         <div className="text-xs">
           <div className="font-medium mb-1">
             {T("Най-ниска цена днес", "Lowest price today")}
           </div>
           <ul className="space-y-1.5">
-            {featured.map((p) => (
-              <li key={p.id} className="flex flex-col leading-tight">
-                <div className="flex items-baseline justify-between gap-2">
-                  <span className="truncate min-w-0">
-                    {prodName.get(p.id) ?? p.id}
-                  </span>
-                  <span className="tabular-nums shrink-0">
-                    {fmtEur(p.min, lang)}
-                  </span>
-                </div>
-                <span className="text-[11px] text-muted-foreground truncate">
-                  {p.cheapestChain}
-                </span>
-              </li>
-            ))}
+            {featured.map((p) => {
+              const storeLabel = [p.cheapestChain, p.cheapestStore]
+                .filter(Boolean)
+                .join(" · ");
+              return (
+                <li key={p.id} className="flex flex-col leading-tight">
+                  <div className="flex items-baseline justify-between gap-2">
+                    <span className="truncate min-w-0">
+                      {prodName.get(p.id) ?? p.id}
+                    </span>
+                    <span className="tabular-nums shrink-0">
+                      {fmtEur(p.min, lang)}
+                    </span>
+                  </div>
+                  {p.cheapestStore ? (
+                    <a
+                      href={mapsDirectionsUrl([
+                        p.cheapestChain,
+                        p.cheapestStore,
+                        sett!.name,
+                      ])}
+                      target="_blank"
+                      rel="noreferrer"
+                      title={T(
+                        `Упътване до ${storeLabel}`,
+                        `Directions to ${storeLabel}`,
+                      )}
+                      className="text-[11px] text-muted-foreground hover:text-primary hover:underline inline-flex items-center gap-1 min-w-0 max-w-full"
+                    >
+                      <MapPin className="size-3 shrink-0" />
+                      <span className="truncate">{storeLabel}</span>
+                    </a>
+                  ) : (
+                    <span className="text-[11px] text-muted-foreground truncate">
+                      {p.cheapestChain}
+                    </span>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </div>
       ) : null}

@@ -352,6 +352,7 @@ export const buildPriceIndex = (): void => {
         median: r2(agg.median),
         cheapestEik: agg.cheapestEik,
         cheapestChain: latest.grid.chainNames[agg.cheapestEik] ?? "",
+        cheapestStore: agg.cheapestStore ?? "",
         stores: agg.stores,
         promoMin: agg.promoMin == null ? null : r2(agg.promoMin),
       }))

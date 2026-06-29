@@ -74,6 +74,9 @@ export interface SettlementProduct {
   median: number;
   cheapestEik: string;
   cheapestChain: string;
+  /** Free-text store name+address behind the cheapest price (КЗП "Търговски
+   * обект"). Optional — absent on shards built before store text was retained. */
+  cheapestStore?: string;
   stores: number;
   promoMin: number | null;
 }
@@ -205,6 +208,22 @@ export const findRankPlace = (
   code: string | null | undefined,
 ): PriceRankPlace | undefined =>
   code ? ranking?.places.find((p) => p.code === code) : undefined;
+
+/**
+ * Google Maps directions URL to a store we only know by free text. We have no
+ * coordinates — just the chain, the КЗП store label (name + street), and the
+ * settlement — so we hand Google a destination query and let it geocode +
+ * route from the user's location. Drops empty parts.
+ */
+export const mapsDirectionsUrl = (
+  parts: (string | null | undefined)[],
+): string => {
+  const q = parts
+    .map((p) => (p ?? "").trim())
+    .filter(Boolean)
+    .join(", ");
+  return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(q)}`;
+};
 
 /** Format a euro amount per the project convention (`${n} €` bg / `€${n}` en). */
 export const fmtEur = (n: number, lang: "bg" | "en", dp = 2): string => {
