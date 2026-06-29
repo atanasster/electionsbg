@@ -389,7 +389,8 @@ export interface TopContractor {
 }
 
 export interface RoadsModel {
-  /** Deduped, amendment-free contract rows with road attributes. */
+  /** Amendment-free contract rows with road attributes (one per distinct
+   *  contract; the ingest already removed true repeats). */
   rows: RoadContract[];
   corridors: CorridorAgg[];
   workGroups: WorkGroupAgg[];
@@ -402,20 +403,23 @@ export interface RoadsModel {
   singleBidShare?: number;
   directShare: number;
   refCoverageEur: number; // € share carrying a road ref (0..1)
-  totalEur: number; // sum over the deduped non-amendment rows
+  totalEur: number; // sum over the non-amendment rows (matches the rollup)
 }
 
 /** Build the full dashboard model from an awarder's contract rows. */
 export const buildRoadsModel = (
   contracts: ProcurementContract[],
 ): RoadsModel => {
-  // Dedup by contract key; drop amendments so money is not double-counted.
-  const seen = new Set<string>();
+  // Drop amendments (they re-state an existing contract's value — see
+  // rollups.ts). Do NOT dedup by `key`: it is a content hash, not a unique
+  // contract id, so distinct contracts (e.g. two lots of one procedure, or two
+  // identical-value awards with different contractId) collide on it. Deduping
+  // by key dropped those real records and under-counted ~1%. The ingest already
+  // dedups true repeats by (releaseId, contractId, contractor, tag), so every
+  // surviving row is a distinct contract — count them all, matching the rollup.
   const rows: RoadContract[] = [];
   for (const c of contracts) {
     if (c.tag === "contractAmendment") continue;
-    if (seen.has(c.key)) continue;
-    seen.add(c.key);
     const ref = roadRefOf(c.title);
     const workType = workTypeOf(c.title, c.cpv);
     const len = lengthOf(c.title);
