@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-06-10T08:56:44.723Z",
+  "lastSuccessfulIngest": "2026-06-29T11:02:01.467Z",
   "skill": "update-connections",
-  "summary": "TR snapshot reconstructed (582,495 companies, dailies→2026-06-04); graph 9876 nodes/11732 edges; 7,068 per-EIK company-connection files; normalize_name org-casing regression fixed"
+  "summary": "rebuilt connections graph from fresh TR snapshot (06-29: 583,824 cos / 341,187 persons); 6373 nodes / 6780 edges, 5839 TR officer/owner edges across 2006 UICs, 2004 per-EIK shards; MP nodes 522→521"
 }
