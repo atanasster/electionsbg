@@ -18,6 +18,7 @@ import {
   contractSearch,
   fundsOverview,
   awarderProcurement,
+  roadsSpending,
   fundsProjects,
   mpProcurement,
   municipalTransfers,
@@ -1959,6 +1960,26 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: awarderProcurement,
+  },
+  {
+    name: "roadsSpending",
+    domain: "fiscal",
+    description: {
+      bg: 'Разходи на Агенция "Пътна инфраструктура" (АПИ) по обществени поръчки за пътища и магистрали — по вид работа (тунели, мостове, маркировка, ограничителни системи…) с дял „една оферта“, най-големи коридори, цена на километър, по години и най-големи изпълнители.',
+      en: "Road Infrastructure Agency (АПИ) procurement spending on roads and motorways — by kind of work (tunnels, bridges, markings, safety barriers…) with single-bid share, largest corridors, cost per kilometre, by year and largest contractors.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Колко харчи АПИ за магистрали и по какво?",
+        en: "How much does АПИ spend on motorways and on what?",
+      },
+      {
+        bg: "Кои пътни коридори са най-скъпи и има ли конкуренция?",
+        en: "Which road corridors cost the most and is there competition?",
+      },
+    ],
+    run: roadsSpending,
   },
   {
     name: "openTenders",

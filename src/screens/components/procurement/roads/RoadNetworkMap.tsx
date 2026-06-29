@@ -14,7 +14,7 @@ import { getDataProjection } from "@/screens/components/maps/d3_utils";
 import { useTooltip } from "@/ux/useTooltip";
 import type { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { formatEur, formatEurCompact } from "@/lib/currency";
-import type { CorridorAgg } from "@/data/procurement/roadAttributes";
+import type { CorridorAgg } from "@/lib/roadAttributes";
 
 export type RoadMetric = "perKm" | "singleBid";
 

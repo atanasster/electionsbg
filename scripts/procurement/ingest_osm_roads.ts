@@ -22,7 +22,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { execFileSync } from "child_process";
-import { roadRefOf } from "@/data/procurement/roadAttributes";
+import { roadRefOf } from "@/lib/roadAttributes";
 import type { ProcurementContract } from "@/data/dataTypes";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

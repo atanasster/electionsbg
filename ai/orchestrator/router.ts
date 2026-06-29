@@ -1729,6 +1729,57 @@ export const route = (question: string, ctx: ToolContext): Route => {
     return { tool: "procurementSingleBidSectors", args: {} };
   if (has(q, "черен списък", "черния списък", "debarred", "субекти с нарушени"))
     return { tool: "procurementDebarred", args: {} };
+  // АПИ road spending — kind-of-work + competition, top corridors, €/km, trend
+  // (the /procurement/roads dashboard, via roadsSpending). Roads-specific intent
+  // only, so the generic procurement/awarder routing keeps its traffic. Guards:
+  // railway ("железопътна инфраструктура" = НКЖИ) and road-charge REVENUE
+  // (винетки/тол, handled far above) are excluded; a bare contractor name
+  // ("Автомагистрали ЕАД") was already caught by contractSearch above.
+  {
+    const roadWord = has(
+      q,
+      "път",
+      "магистрал",
+      "коридор",
+      "road",
+      "motorway",
+      "highway",
+    );
+    const intentWord = has(
+      q,
+      "харч",
+      "разход",
+      "струва",
+      "цена",
+      "скъп",
+      "км",
+      "километър",
+      "kilometre",
+      "kilometer",
+      "строит",
+      "ремонт",
+      "поръчк",
+      "колко",
+      "spend",
+      "cost",
+      "procurement",
+      "build",
+      "expensive",
+      "коридор",
+      "corridor",
+    );
+    const roadsCue =
+      (has(q, "магистрал", "motorway") && intentWord) ||
+      (has(q, "коридор", "corridor") &&
+        has(q, "път", "магистрал", "road", "ам ")) ||
+      (has(q, "пътна инфраструктура", "road infrastructure") &&
+        !has(q, "железо", "railway")) ||
+      ((q.includes(" апи") || q.startsWith("апи")) &&
+        !q.includes("терапи") &&
+        (roadWord || intentWord));
+    if (roadsCue && !has(q, "винетк", "тол такс", "пътни такси"))
+      return { tool: "roadsSpending", args: {} };
+  }
   if (has(q, "поръчк", "procurement", "аоп", " aop")) {
     // structurally single-bid CPV sectors — accept the "where one bidder is
     // normal" framing now that we're inside the procurement gate.

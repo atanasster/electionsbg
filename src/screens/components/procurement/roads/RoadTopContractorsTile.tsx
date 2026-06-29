@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 import { Banknote, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur } from "@/lib/currency";
-import type { TopContractor } from "@/data/procurement/roadAttributes";
+import type { TopContractor } from "@/lib/roadAttributes";
 import { COMPONENT_LABEL } from "./RoadComponentsTile";
 
 export const RoadTopContractorsTile: FC<{

@@ -10,10 +10,7 @@ import { useTranslation } from "react-i18next";
 import { Layers } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur } from "@/lib/currency";
-import type {
-  ComponentAgg,
-  WorkComponent,
-} from "@/data/procurement/roadAttributes";
+import type { ComponentAgg, WorkComponent } from "@/lib/roadAttributes";
 
 export const COMPONENT_LABEL: Record<
   WorkComponent,

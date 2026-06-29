@@ -12,6 +12,7 @@ import {
   tenderMatchesTopic,
   type TenderSearchRow,
 } from "@/lib/tenderTopics";
+import { buildRoadsModel, type WorkComponent } from "@/lib/roadAttributes";
 
 // ---- budget overview --------------------------------------------------------
 
@@ -1512,6 +1513,105 @@ export const awarderProcurement = async (
       "procurement/derived/awarders_index.json",
       `procurement/awarders/${hit.eik}.json`,
     ],
+  };
+};
+
+// ---- АПИ road spending ------------------------------------------------------
+// The chat analog of the /procurement/roads dashboard: reuses the same
+// roadAttributes engine over АПИ's per-contract rows to answer roads-specific
+// questions (kind-of-work mix + per-market competition, top corridors, headline
+// integrity) that the generic awarderProcurement can't.
+
+const API_EIK = "000695089";
+const ROAD_COMPONENT_LABEL: Record<WorkComponent, { bg: string; en: string }> =
+  {
+    tunnel: { bg: "тунели", en: "tunnels" },
+    bridge: { bg: "мостове и съоръжения", en: "bridges & structures" },
+    tolling_its: { bg: "тол и ИТС", en: "tolling & ITS" },
+    markings_signs: { bg: "маркировка и знаци", en: "markings & signs" },
+    safety_barriers: { bg: "ограничителни системи", en: "safety barriers" },
+    lighting: { bg: "осветление", en: "lighting" },
+    drainage: { bg: "отводняване", en: "drainage" },
+    retaining: { bg: "подпорни стени", en: "retaining walls" },
+    winter_maint: { bg: "зимно поддържане", en: "winter maintenance" },
+    roadway: { bg: "пътно платно", en: "roadway" },
+    design_supervision: {
+      bg: "проектиране и надзор",
+      en: "design & supervision",
+    },
+    other: { bg: "друго", en: "other" },
+  };
+const compLabel = (c: WorkComponent, bg: boolean): string =>
+  bg ? ROAD_COMPONENT_LABEL[c].bg : ROAD_COMPONENT_LABEL[c].en;
+const pctStr = (v: number | undefined): string =>
+  v == null ? "—" : Math.round(v * 100) + "%";
+
+export const roadsSpending = async (
+  _args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const file = await fetchData<{
+    contracts: Parameters<typeof buildRoadsModel>[0];
+  }>(`/procurement/awarder_contracts/${API_EIK}.json`);
+  const m = buildRoadsModel(file.contracts);
+
+  const comps = m.components.filter((c) => c.totalEur > 0).slice(0, 7);
+  const rows: Row[] = comps.map((c) => ({
+    work: compLabel(c.component, bg),
+    amount: fmtEurCompact(c.totalEur, ctx.lang),
+    single_bid: pctStr(c.singleBidShare),
+  }));
+
+  const topCorr = m.corridors[0];
+  const peak = [...m.years].sort((a, b) => b.totalEur - a.totalEur)[0];
+  const topCon = m.topContractors[0];
+  // The strongest capture signal: a recurring-commodity component near 100%
+  // single-bid (markings / barriers).
+  const captured = [...m.components]
+    .filter((c) => c.contractCount >= 3 && (c.singleBidShare ?? 0) >= 0.8)
+    .sort((a, b) => (b.singleBidShare ?? 0) - (a.singleBidShare ?? 0))[0];
+
+  return {
+    tool: "roadsSpending",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? 'Пътна инфраструктура — Агенция "Пътна инфраструктура" (АПИ)'
+      : "Road infrastructure — Road Infrastructure Agency (АПИ)",
+    subtitle: bg
+      ? "Обществени поръчки по вид работа + конкуренция (АОП)"
+      : "Procurement by kind of work + competition (AOP)",
+    columns: [
+      { key: "work", label: bg ? "Вид работа" : "Kind of work" },
+      { key: "amount", label: bg ? "Стойност" : "Value", numeric: true },
+      {
+        key: "single_bid",
+        label: bg ? "Една оферта" : "Single bid",
+        numeric: true,
+      },
+    ],
+    rows,
+    viz: "none",
+    facts: {
+      total_value: fmtEurCompact(m.totalEur, ctx.lang),
+      contracts: fmtInt(m.rows.length, ctx.lang),
+      single_bid_share: pctStr(m.singleBidShare),
+      direct_award_share: pctStr(m.directShare),
+      top_corridor: topCorr
+        ? `${topCorr.corridor} (${fmtEurCompact(topCorr.totalEur, ctx.lang)})`
+        : "—",
+      peak_year: peak
+        ? `${peak.year} (${fmtEurCompact(peak.totalEur, ctx.lang)})`
+        : "—",
+      top_contractor: topCon
+        ? `${topCon.name} (${fmtEurCompact(topCon.totalEur, ctx.lang)})`
+        : "—",
+      most_captured_work: captured
+        ? `${compLabel(captured.component, bg)} (${pctStr(captured.singleBidShare)} ${bg ? "една оферта" : "single bid"})`
+        : "—",
+    },
+    provenance: [`procurement/awarder_contracts/${API_EIK}.json`],
   };
 };
 

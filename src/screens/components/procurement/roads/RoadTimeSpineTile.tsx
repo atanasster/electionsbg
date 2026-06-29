@@ -22,7 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { formatEurCompact } from "@/lib/currency";
-import type { YearAgg, WorkGroup } from "@/data/procurement/roadAttributes";
+import type { YearAgg, WorkGroup } from "@/lib/roadAttributes";
 
 type Mode = "group" | "corridor";
 

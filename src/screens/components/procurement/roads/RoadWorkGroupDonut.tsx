@@ -9,10 +9,7 @@ import { Hammer } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur } from "@/lib/currency";
-import type {
-  WorkGroup,
-  WorkGroupAgg,
-} from "@/data/procurement/roadAttributes";
+import type { WorkGroup, WorkGroupAgg } from "@/lib/roadAttributes";
 
 const GROUP: Record<WorkGroup, { bg: string; en: string; color: string }> = {
   build: { bg: "Ново строителство", en: "New construction", color: "#1D9E75" },

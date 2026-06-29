@@ -677,6 +677,11 @@ export const narrate = (env: Envelope, lang: Lang): string => {
           : `${env.title}: highest ${hi}, lowest ${lo}.`;
       return env.subtitle ? `${env.title} — ${env.subtitle}.` : env.title;
     }
+    case "roadsSpending":
+      if (!env.facts.total_value) return env.title;
+      return lang === "bg"
+        ? `АПИ е възложила ${f(env, "total_value")} по ${f(env, "contracts")} договора (${f(env, "single_bid_share")} с една оферта, ${f(env, "direct_award_share")} без обявление). Най-голям коридор: ${f(env, "top_corridor")}; пик: ${f(env, "peak_year")}. Най-„заключен“ пазар: ${f(env, "most_captured_work")}.`
+        : `АПИ awarded ${f(env, "total_value")} across ${f(env, "contracts")} contracts (${f(env, "single_bid_share")} single-bid, ${f(env, "direct_award_share")} direct). Largest corridor: ${f(env, "top_corridor")}; peak year: ${f(env, "peak_year")}. Most captured market: ${f(env, "most_captured_work")}.`;
     default:
       return env.title;
   }

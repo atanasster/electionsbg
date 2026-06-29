@@ -4,7 +4,7 @@
 
 import { useMemo } from "react";
 import { useAwarder, useAwarderContracts } from "./useAwarder";
-import { buildRoadsModel, type RoadsModel } from "./roadAttributes";
+import { buildRoadsModel, type RoadsModel } from "@/lib/roadAttributes";
 import type { ProcurementAwarderRollup } from "@/data/dataTypes";
 
 /** АПИ — Агенция "Пътна инфраструктура". Single legal entity; the 28 ОПУ file

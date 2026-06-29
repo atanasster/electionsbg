@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import { Ruler } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
-import type { CorridorAgg } from "@/data/procurement/roadAttributes";
+import type { CorridorAgg } from "@/lib/roadAttributes";
 
 export const RoadCostPerKmTile: FC<{ corridors: CorridorAgg[] }> = ({
   corridors,
