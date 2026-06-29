@@ -97,6 +97,9 @@ const SERIES_COLORS: Record<MacroIndicatorKey, string> = {
   govExpenditure: "#c2410c",
   fdiInward: "#c026d3",
   fiscalReserve: "#0f766e",
+  // Minfin КФП — cash balance + arrears (annual)
+  cashBalance: "#f43f5e",
+  arrears: "#b45309",
   // HICP breakdown (stacked area uses these directly)
   inflationFood: "#f59e0b",
   inflationEnergy: "#dc2626",
