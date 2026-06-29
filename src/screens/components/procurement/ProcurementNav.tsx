@@ -58,6 +58,12 @@ const items = [
   { to: "/procurement/watchlist", icon: Star, key: "watchlist_nav" },
 ] as const;
 
+// Pills hidden from the production build (still visible in `npm run dev`).
+// TEMPORARY: the АПИ roads dashboard is unreleased — its data (roads.json +
+// the awarder identity patch) is not yet on the bucket. Remove this gate once
+// `npm run bucket:sync` has shipped the data. See useRoads / ingest_osm_roads.
+const DEV_ONLY: ReadonlySet<string> = new Set(["/procurement/roads"]);
+
 export const ProcurementNav: FC = () => {
   const { t } = useTranslation();
   const href = useProcurementHref();
@@ -65,12 +71,15 @@ export const ProcurementNav: FC = () => {
   // activity since the user last looked. Reads a cached value (no fetches); the
   // watchlist page keeps it fresh.
   const newCount = useCachedNewCount();
+  const visible = items.filter(
+    (it) => import.meta.env.DEV || !DEV_ONLY.has(it.to),
+  );
   return (
     <nav
       aria-label={t("procurement_index_title") || "Public procurement"}
       className="flex flex-wrap gap-2 my-3"
     >
-      {items.map(({ to, icon: Icon, key, ...rest }) => (
+      {visible.map(({ to, icon: Icon, key, ...rest }) => (
         <NavLink
           key={to}
           to={href(to)}
