@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-24T22:04:08.814Z",
+  "generatedAt": "2026-06-29T14:48:44.155Z",
   "topConcentration": [
     {
       "awarderEik": "824104727",
@@ -425,7 +425,11 @@
   "concentrationByOblast": [
     {
       "nuts": "BG411",
-      "count": 40
+      "count": 49
+    },
+    {
+      "nuts": "BG341",
+      "count": 7
     },
     {
       "nuts": "BG313",
@@ -436,14 +440,6 @@
       "count": 6
     },
     {
-      "nuts": "BG341",
-      "count": 6
-    },
-    {
-      "nuts": "BG331",
-      "count": 5
-    },
-    {
       "nuts": "BG344",
       "count": 5
     },
@@ -452,16 +448,20 @@
       "count": 5
     },
     {
-      "nuts": "BG314",
+      "nuts": "BG323",
       "count": 4
     },
     {
-      "nuts": "BG323",
+      "nuts": "BG331",
       "count": 4
     },
     {
       "nuts": "BG315",
       "count": 4
+    },
+    {
+      "nuts": "BG314",
+      "count": 2
     },
     {
       "nuts": "BG414",
@@ -477,14 +477,6 @@
     },
     {
       "nuts": "BG413",
-      "count": 2
-    },
-    {
-      "nuts": "BG423",
-      "count": 2
-    },
-    {
-      "nuts": "BG412",
       "count": 2
     },
     {
@@ -510,7 +502,15 @@
     {
       "nuts": "BG334",
       "count": 1
+    },
+    {
+      "nuts": "BG423",
+      "count": 1
+    },
+    {
+      "nuts": "BG412",
+      "count": 1
     }
   ],
-  "concentrationNationalCount": 6
+  "concentrationNationalCount": 1
 }

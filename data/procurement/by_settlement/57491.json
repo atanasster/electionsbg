@@ -3,28 +3,19 @@
   "name": "Поморие",
   "province": "Бургас",
   "obshtina": "Поморие",
-  "generatedAt": "2026-06-28T16:56:47.125Z",
-  "contractCount": 546,
+  "generatedAt": "2026-06-29T14:48:37.734Z",
+  "contractCount": 506,
   "awardCount": 0,
-  "totalEur": 161266167.63176635,
+  "totalEur": 153464807.96815437,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000057179",
       "name": "Община Поморие",
       "tier": "municipal",
-      "totalEur": 158306887.6681544,
+      "totalEur": 153464807.96815437,
       "totalOther": {},
-      "contractCount": 520,
-      "awardCount": 0
-    },
-    {
-      "eik": "000042711",
-      "name": "Средно училище \"Иван Вазов\"",
-      "tier": "school",
-      "totalEur": 2959279.96361197,
-      "totalOther": {},
-      "contractCount": 26,
+      "contractCount": 506,
       "awardCount": 0
     }
   ],
@@ -301,32 +292,6 @@
       "partyName": "Билдникс ЕООД",
       "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
       "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-527873-839856%2F2026-04-03-contractamendment"
-    },
-    {
-      "key": "de79338531d0",
-      "ocid": "ocds-e82gsb-489575",
-      "date": "2026-05-27",
-      "tag": "contractAmendment",
-      "amount": 1228650.64,
-      "currency": "EUR",
-      "amountEur": 1228650.64,
-      "partyEik": "148129415",
-      "partyName": "Еврогарант ООД",
-      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
-      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-489575-859817%2F2026-05-27-contractamendment"
-    },
-    {
-      "key": "ac724bbee920",
-      "ocid": "eop-03415-2025-0005",
-      "date": "2025-07-24",
-      "tag": "contract",
-      "amount": 2403031.78,
-      "currency": "BGN",
-      "amountEur": 1228650.6393704973,
-      "partyEik": "148129415",
-      "partyName": "Еврогарант ООД",
-      "bundleUuid": "eop-flat:2025-07-24",
-      "sourceUrl": "https://storage.eop.bg/open-data-2025-07-24/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2024.07.2025.json"
     },
     {
       "key": "cc098300d00a",
@@ -678,6 +643,32 @@
       "partyName": "Бг Нова АД - Благоевград",
       "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
       "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
+    },
+    {
+      "key": "6b1039edc163",
+      "ocid": "aop-legacy-2021-1017447",
+      "date": "2021-07-29",
+      "tag": "contract",
+      "amount": 900000,
+      "currency": "BGN",
+      "amountEur": 460162.69307659665,
+      "partyEik": "200052294",
+      "partyName": "Дс Макадам ООД - Свети Влас",
+      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
+      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
+    },
+    {
+      "key": "fe8b3ba2680b",
+      "ocid": "aop-legacy-2021-1017447",
+      "date": "2021-07-29",
+      "tag": "contract",
+      "amount": 900000,
+      "currency": "BGN",
+      "amountEur": 460162.69307659665,
+      "partyEik": "130463628",
+      "partyName": "Щрабаг ЕАД / старо наименование - Инжстрой София АД / - София",
+      "bundleUuid": "a03748c9-bb31-4cce-b350-b8e06b63c7c9",
+      "sourceUrl": "https://data.egov.bg/data/view/a03748c9-bb31-4cce-b350-b8e06b63c7c9"
     }
   ],
   "byYear": [
@@ -719,9 +710,9 @@
     },
     {
       "year": "2017",
-      "totalEur": 7502719.500161057,
+      "totalEur": 7454218.352310784,
       "totalOther": {},
-      "contractCount": 41
+      "contractCount": 40
     },
     {
       "year": "2019",
@@ -731,9 +722,9 @@
     },
     {
       "year": "2020",
-      "totalEur": 122938.05698859307,
+      "totalEur": 79644.41694830327,
       "totalOther": {},
-      "contractCount": 7
+      "contractCount": 6
     },
     {
       "year": "2021",
@@ -755,21 +746,21 @@
     },
     {
       "year": "2024",
-      "totalEur": 30911242.362577517,
+      "totalEur": 30612969.98205365,
       "totalOther": {},
-      "contractCount": 88
+      "contractCount": 75
     },
     {
       "year": "2025",
-      "totalEur": 12846276.75718237,
+      "totalEur": 11505714.601984832,
       "totalOther": {},
-      "contractCount": 106
+      "contractCount": 96
     },
     {
       "year": "2026",
-      "totalEur": 23917407.105544858,
+      "totalEur": 17846676.765544858,
       "totalOther": {},
-      "contractCount": 36
+      "contractCount": 21
     }
   ]
 }

@@ -1,46 +1,6 @@
 {
-  "generatedAt": "2026-06-24T22:04:08.756Z",
+  "generatedAt": "2026-06-29T14:48:44.102Z",
   "nodes": [
-    {
-      "id": "awarder:129010029",
-      "type": "awarder",
-      "label": "Главна дирекция \"Изпълнение на наказанията\""
-    },
-    {
-      "id": "contractor:203387159",
-      "type": "contractor",
-      "label": "МИТ-СЕКЮРИТИ-85 ЕООД"
-    },
-    {
-      "id": "awarder:121505512",
-      "type": "awarder",
-      "label": "Българска федерация по борба Сдружение"
-    },
-    {
-      "id": "contractor:831635354",
-      "type": "contractor",
-      "label": "Национална спортна база ЕАД"
-    },
-    {
-      "id": "awarder:177549112",
-      "type": "awarder",
-      "label": "Министерство на иновациите и растежа"
-    },
-    {
-      "id": "contractor:831641791",
-      "type": "contractor",
-      "label": "Информационно обслужване АД"
-    },
-    {
-      "id": "awarder:835014989",
-      "type": "awarder",
-      "label": "Водоснабдяване и канализация ООД"
-    },
-    {
-      "id": "contractor:831160078",
-      "type": "contractor",
-      "label": "Напоителни системи ЕАД"
-    },
     {
       "id": "awarder:000225011",
       "type": "awarder",
@@ -70,11 +30,6 @@
       "id": "contractor:175415627",
       "type": "contractor",
       "label": "Контракс АД"
-    },
-    {
-      "id": "awarder:131063188",
-      "type": "awarder",
-      "label": "Национална агенция за приходите"
     },
     {
       "id": "awarder:000016951",
@@ -170,11 +125,6 @@
       "id": "contractor:102006848",
       "type": "contractor",
       "label": "Бургасинвест ООД"
-    },
-    {
-      "id": "awarder:811099408",
-      "type": "awarder",
-      "label": "Увекс ЕООД"
     },
     {
       "id": "awarder:000670310",
@@ -327,21 +277,6 @@
       "label": "Пето вечерно средно училище \"Пеньо Пенев\""
     },
     {
-      "id": "mp:4716",
-      "type": "mp",
-      "label": "Венцислав Иванов Петков"
-    },
-    {
-      "id": "mp:5197",
-      "type": "mp",
-      "label": "Йордан Йовчев Йовчев"
-    },
-    {
-      "id": "mp:4649",
-      "type": "mp",
-      "label": "Генади Събков Събков"
-    },
-    {
       "id": "mp:938",
       "type": "mp",
       "label": "Дарин Величков Матов"
@@ -382,31 +317,6 @@
       "label": "Ваня Иванова Василева"
     },
     {
-      "id": "official:velizar-toshkov-dichev-244acb",
-      "type": "official",
-      "label": "Велизар Тошков Дичев"
-    },
-    {
-      "id": "official:valeri-petrov-borisov-4cdc5f",
-      "type": "official",
-      "label": "Валери Петров Борисов"
-    },
-    {
-      "id": "official:valentina-stefanova-nedyalkova-f07289",
-      "type": "official",
-      "label": "Валентина Стефанова Недялкова"
-    },
-    {
-      "id": "official:mincho-stoikov-kazandzhiev-51c218",
-      "type": "official",
-      "label": "Минчо Стойков Казанджиев"
-    },
-    {
-      "id": "official:stefan-shtiliyanov-shtiliyanov-9d11f7",
-      "type": "official",
-      "label": "Стефан Щилиянов Щилиянов"
-    },
-    {
       "id": "official:ivan-mitev-ionkov-0aa6ed",
       "type": "official",
       "label": "Иван Митев Йонков"
@@ -444,26 +354,6 @@
   ],
   "links": [
     {
-      "source": "awarder:129010029",
-      "target": "contractor:203387159",
-      "valueEur": 83307.85
-    },
-    {
-      "source": "awarder:121505512",
-      "target": "contractor:831635354",
-      "valueEur": 153387.56
-    },
-    {
-      "source": "awarder:177549112",
-      "target": "contractor:831641791",
-      "valueEur": 719980.78
-    },
-    {
-      "source": "awarder:835014989",
-      "target": "contractor:831160078",
-      "valueEur": 60000
-    },
-    {
       "source": "awarder:000225011",
       "target": "contractor:121396123",
       "valueEur": 1.4
@@ -477,11 +367,6 @@
       "source": "awarder:831641791",
       "target": "contractor:175415627",
       "valueEur": 28700
-    },
-    {
-      "source": "awarder:131063188",
-      "target": "contractor:121396123",
-      "valueEur": 5112.92
     },
     {
       "source": "awarder:000016951",
@@ -536,7 +421,7 @@
     {
       "source": "awarder:831917834",
       "target": "contractor:175415627",
-      "valueEur": 169162
+      "valueEur": 127486
     },
     {
       "source": "awarder:000759410",
@@ -552,11 +437,6 @@
       "source": "awarder:000056814",
       "target": "contractor:102006848",
       "valueEur": 18250
-    },
-    {
-      "source": "awarder:811099408",
-      "target": "contractor:121396123",
-      "valueEur": 43.75
     },
     {
       "source": "awarder:000670310",
@@ -679,29 +559,14 @@
       "valueEur": 39940
     },
     {
-      "source": "contractor:831635354",
-      "target": "mp:4716",
-      "valueEur": 153387.56
-    },
-    {
-      "source": "contractor:831635354",
-      "target": "mp:5197",
-      "valueEur": 153387.56
-    },
-    {
-      "source": "contractor:831160078",
-      "target": "mp:4649",
-      "valueEur": 60000
-    },
-    {
       "source": "contractor:121396123",
       "target": "mp:938",
-      "valueEur": 522555.73
+      "valueEur": 517399.06
     },
     {
       "source": "contractor:175415627",
       "target": "mp:805",
-      "valueEur": 1591634.6499999997
+      "valueEur": 1549958.6499999997
     },
     {
       "source": "contractor:202809611",
@@ -732,31 +597,6 @@
       "source": "contractor:131317829",
       "target": "mp:4745",
       "valueEur": 648397.12
-    },
-    {
-      "source": "contractor:203387159",
-      "target": "official:velizar-toshkov-dichev-244acb",
-      "valueEur": 83307.85
-    },
-    {
-      "source": "contractor:831641791",
-      "target": "official:valeri-petrov-borisov-4cdc5f",
-      "valueEur": 719980.78
-    },
-    {
-      "source": "contractor:831641791",
-      "target": "official:valentina-stefanova-nedyalkova-f07289",
-      "valueEur": 719980.78
-    },
-    {
-      "source": "contractor:831160078",
-      "target": "official:mincho-stoikov-kazandzhiev-51c218",
-      "valueEur": 60000
-    },
-    {
-      "source": "contractor:831160078",
-      "target": "official:stefan-shtiliyanov-shtiliyanov-9d11f7",
-      "valueEur": 60000
     },
     {
       "source": "contractor:206484688",

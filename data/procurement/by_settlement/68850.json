@@ -3,21 +3,12 @@
   "name": "Стара Загора",
   "province": "Стара Загора",
   "obshtina": "Стара Загора",
-  "generatedAt": "2026-06-28T16:56:47.125Z",
-  "contractCount": 4776,
+  "generatedAt": "2026-06-29T14:48:37.734Z",
+  "contractCount": 4750,
   "awardCount": 0,
-  "totalEur": 1120472844.2505906,
+  "totalEur": 1093656406.3405907,
   "totalOther": {},
   "awarders": [
-    {
-      "eik": "000812197",
-      "name": "Комплексен онкологичен център - стара загора ЕООД",
-      "tier": "hospital",
-      "totalEur": 413544323.4195524,
-      "totalOther": {},
-      "contractCount": 642,
-      "awardCount": 0
-    },
     {
       "eik": "000818022",
       "name": "Община - стара загора",
@@ -28,21 +19,30 @@
       "awardCount": 0
     },
     {
+      "eik": "000812197",
+      "name": "Комплексен онкологичен център - стара загора ЕООД",
+      "tier": "hospital",
+      "totalEur": 393599186.5495524,
+      "totalOther": {},
+      "contractCount": 639,
+      "awardCount": 0
+    },
+    {
       "eik": "833066300",
       "name": "Водоснабдяване и канализация ЕООД",
       "tier": "utility",
-      "totalEur": 151284848.3393446,
+      "totalEur": 145888162.5393446,
       "totalOther": {},
-      "contractCount": 289,
+      "contractCount": 277,
       "awardCount": 0
     },
     {
       "eik": "123535874",
       "name": "Университетска многопрофилна болница за активно лечение - проф. Д-Р стоян киркович АД",
       "tier": "hospital",
-      "totalEur": 104474760.0858023,
+      "totalEur": 103000144.8458023,
       "totalOther": {},
-      "contractCount": 1272,
+      "contractCount": 1261,
       "awardCount": 0
     },
     {
@@ -1001,9 +1001,9 @@
     },
     {
       "year": "2026",
-      "totalEur": 162621298.62343025,
+      "totalEur": 135804860.71343026,
       "totalOther": {},
-      "contractCount": 392
+      "contractCount": 366
     }
   ]
 }

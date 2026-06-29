@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-06-24T22:04:08.760Z",
-  "totalContracts": 6158,
-  "totalEur": 1405310902.7656713,
-  "settlementCount": 291,
+  "generatedAt": "2026-06-29T14:48:44.106Z",
+  "totalContracts": 5226,
+  "totalEur": 705786819.7956723,
+  "settlementCount": 285,
   "national": {
-    "contractCount": 910,
+    "contractCount": 750,
     "awardCount": 0,
-    "totalEur": 622712578.74,
+    "totalEur": 332755944.6200003,
     "totalOther": {},
-    "awarderCount": 178
+    "awarderCount": 163
   },
   "settlements": [
     {
@@ -16,62 +16,35 @@
       "name": "София",
       "province": "София (столица)",
       "obshtina": "Столична",
-      "contractCount": 1300,
-      "totalEur": 432147031.54999965,
-      "awarderCount": 122
-    },
-    {
-      "ekatte": "56784",
-      "name": "Пловдив",
-      "province": "Пловдив",
-      "obshtina": "Пловдив",
-      "contractCount": 325,
-      "totalEur": 116034729.27999999,
-      "awarderCount": 48
-    },
-    {
-      "ekatte": "35167",
-      "name": "Казанлък",
-      "province": "Стара Загора",
-      "obshtina": "Казанлък",
-      "contractCount": 58,
-      "totalEur": 113383793.50999996,
-      "awarderCount": 6
+      "contractCount": 1110,
+      "totalEur": 190129391.46000007,
+      "awarderCount": 120
     },
     {
       "ekatte": "10135",
       "name": "Варна",
       "province": "Варна",
       "obshtina": "Варна",
-      "contractCount": 400,
-      "totalEur": 85117943.05,
-      "awarderCount": 47
+      "contractCount": 354,
+      "totalEur": 57579159.65,
+      "awarderCount": 46
     },
     {
-      "ekatte": "07079",
-      "name": "Бургас",
-      "province": "Бургас",
-      "obshtina": "Бургас",
-      "contractCount": 281,
-      "totalEur": 51324189.839999996,
-      "awarderCount": 31
-    },
-    {
-      "ekatte": "56722",
-      "name": "Плевен",
-      "province": "Плевен",
-      "obshtina": "Плевен",
-      "contractCount": 180,
-      "totalEur": 47918767.69000003,
-      "awarderCount": 19
+      "ekatte": "56784",
+      "name": "Пловдив",
+      "province": "Пловдив",
+      "obshtina": "Пловдив",
+      "contractCount": 295,
+      "totalEur": 36349486.450000025,
+      "awarderCount": 46
     },
     {
       "ekatte": "73626",
       "name": "Търговище",
       "province": "Търговище",
       "obshtina": "Търговище",
-      "contractCount": 58,
-      "totalEur": 28223468.659999996,
+      "contractCount": 49,
+      "totalEur": 26837195.639999997,
       "awarderCount": 7
     },
     {
@@ -79,116 +52,80 @@
       "name": "Велико Търново",
       "province": "Велико Търново",
       "obshtina": "Велико Търново",
-      "contractCount": 87,
-      "totalEur": 27301554.940000005,
-      "awarderCount": 16
-    },
-    {
-      "ekatte": "77195",
-      "name": "Хасково",
-      "province": "Хасково",
-      "obshtina": "Хасково",
-      "contractCount": 78,
-      "totalEur": 21623315.49,
-      "awarderCount": 12
-    },
-    {
-      "ekatte": "66425",
-      "name": "Силистра",
-      "province": "Силистра",
-      "obshtina": "Силистра",
-      "contractCount": 70,
-      "totalEur": 19020807.409999996,
-      "awarderCount": 10
-    },
-    {
-      "ekatte": "68850",
-      "name": "Стара Загора",
-      "province": "Стара Загора",
-      "obshtina": "Стара Загора",
-      "contractCount": 142,
-      "totalEur": 18423650.269999996,
+      "contractCount": 81,
+      "totalEur": 26371741.08,
       "awarderCount": 15
     },
     {
-      "ekatte": "83510",
-      "name": "Шумен",
-      "province": "Шумен",
-      "obshtina": "Шумен",
-      "contractCount": 97,
-      "totalEur": 18331596.830000002,
-      "awarderCount": 16
+      "ekatte": "07079",
+      "name": "Бургас",
+      "province": "Бургас",
+      "obshtina": "Бургас",
+      "contractCount": 264,
+      "totalEur": 21678114.300000004,
+      "awarderCount": 31
     },
     {
       "ekatte": "57491",
       "name": "Поморие",
       "province": "Бургас",
       "obshtina": "Поморие",
-      "contractCount": 19,
-      "totalEur": 17886405.009999998,
-      "awarderCount": 2
+      "contractCount": 12,
+      "totalEur": 15756597.009999998,
+      "awarderCount": 1
     },
     {
-      "ekatte": "65334",
-      "name": "Сандански",
-      "province": "Благоевград",
-      "obshtina": "Сандански",
-      "contractCount": 48,
-      "totalEur": 17466612.07,
-      "awarderCount": 4
+      "ekatte": "77195",
+      "name": "Хасково",
+      "province": "Хасково",
+      "obshtina": "Хасково",
+      "contractCount": 73,
+      "totalEur": 15728590.830000002,
+      "awarderCount": 12
+    },
+    {
+      "ekatte": "83510",
+      "name": "Шумен",
+      "province": "Шумен",
+      "obshtina": "Шумен",
+      "contractCount": 87,
+      "totalEur": 15384240.809999997,
+      "awarderCount": 15
     },
     {
       "ekatte": "14218",
       "name": "Габрово",
       "province": "Габрово",
       "obshtina": "Габрово",
-      "contractCount": 94,
-      "totalEur": 16015909.959999999,
-      "awarderCount": 18
+      "contractCount": 88,
+      "totalEur": 13830264.79,
+      "awarderCount": 17
     },
     {
-      "ekatte": "37507",
-      "name": "Ковачево",
-      "province": "Стара Загора",
-      "obshtina": "Раднево",
-      "contractCount": 41,
-      "totalEur": 14368894.199999997,
-      "awarderCount": 1
-    },
-    {
-      "ekatte": "72624",
-      "name": "Добрич",
-      "province": "Добрич",
-      "obshtina": "Добрич",
-      "contractCount": 53,
-      "totalEur": 13259546.65,
-      "awarderCount": 12
-    },
-    {
-      "ekatte": "04279",
-      "name": "Благоевград",
-      "province": "Благоевград",
-      "obshtina": "Благоевград",
-      "contractCount": 99,
-      "totalEur": 11731354.93,
-      "awarderCount": 9
+      "ekatte": "56722",
+      "name": "Плевен",
+      "province": "Плевен",
+      "obshtina": "Плевен",
+      "contractCount": 110,
+      "totalEur": 13317976.99,
+      "awarderCount": 19
     },
     {
       "ekatte": "41112",
       "name": "Кюстендил",
       "province": "Кюстендил",
       "obshtina": "Кюстендил",
-      "contractCount": 62,
-      "totalEur": 11133401.819999997,
-      "awarderCount": 6
+      "contractCount": 53,
+      "totalEur": 9685328.69,
+      "awarderCount": 5
     },
     {
-      "ekatte": "56126",
-      "name": "Петрич",
+      "ekatte": "65334",
+      "name": "Сандански",
       "province": "Благоевград",
-      "obshtina": "Петрич",
-      "contractCount": 31,
-      "totalEur": 10632698.330000002,
+      "obshtina": "Сандански",
+      "contractCount": 38,
+      "totalEur": 9381412.850000001,
       "awarderCount": 3
     },
     {
@@ -196,27 +133,27 @@
       "name": "Борован",
       "province": "Враца",
       "obshtina": "Борован",
-      "contractCount": 2,
-      "totalEur": 9867205.350000001,
+      "contractCount": 1,
+      "totalEur": 9140134.88,
       "awarderCount": 1
+    },
+    {
+      "ekatte": "56126",
+      "name": "Петрич",
+      "province": "Благоевград",
+      "obshtina": "Петрич",
+      "contractCount": 29,
+      "totalEur": 9030514.09,
+      "awarderCount": 3
     },
     {
       "ekatte": "61710",
       "name": "Разград",
       "province": "Разград",
       "obshtina": "Разград",
-      "contractCount": 77,
-      "totalEur": 8207382.669999999,
-      "awarderCount": 11
-    },
-    {
-      "ekatte": "77181",
-      "name": "Харманли",
-      "province": "Хасково",
-      "obshtina": "Харманли",
-      "contractCount": 16,
-      "totalEur": 8057803.5200000005,
-      "awarderCount": 1
+      "contractCount": 64,
+      "totalEur": 7664071.5,
+      "awarderCount": 4
     },
     {
       "ekatte": "38902",
@@ -228,58 +165,40 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "63427",
-      "name": "Русе",
-      "province": "Русе",
-      "obshtina": "Русе",
-      "contractCount": 137,
-      "totalEur": 7006029.8900000015,
-      "awarderCount": 19
+      "ekatte": "68850",
+      "name": "Стара Загора",
+      "province": "Стара Загора",
+      "obshtina": "Стара Загора",
+      "contractCount": 131,
+      "totalEur": 7039757.01,
+      "awarderCount": 15
     },
     {
-      "ekatte": "12259",
-      "name": "Враца",
-      "province": "Враца",
-      "obshtina": "Враца",
-      "contractCount": 62,
-      "totalEur": 6829781.08,
-      "awarderCount": 11
-    },
-    {
-      "ekatte": "10450",
-      "name": "Велинград",
-      "province": "Пазарджик",
-      "obshtina": "Велинград",
-      "contractCount": 35,
-      "totalEur": 6789334.430000001,
-      "awarderCount": 3
+      "ekatte": "77181",
+      "name": "Харманли",
+      "province": "Хасково",
+      "obshtina": "Харманли",
+      "contractCount": 14,
+      "totalEur": 6890604.7,
+      "awarderCount": 1
     },
     {
       "ekatte": "51809",
       "name": "Нова Загора",
       "province": "Сливен",
       "obshtina": "Нова Загора",
-      "contractCount": 15,
-      "totalEur": 6717268.610000001,
+      "contractCount": 14,
+      "totalEur": 6292380.460000001,
       "awarderCount": 2
     },
     {
-      "ekatte": "18280",
-      "name": "Гълъбово",
-      "province": "Стара Загора",
-      "obshtina": "Гълъбово",
-      "contractCount": 6,
-      "totalEur": 6662655.08,
-      "awarderCount": 2
-    },
-    {
-      "ekatte": "51500",
-      "name": "Несебър",
-      "province": "Бургас",
-      "obshtina": "Несебър",
-      "contractCount": 22,
-      "totalEur": 6155249.199999999,
-      "awarderCount": 2
+      "ekatte": "63427",
+      "name": "Русе",
+      "province": "Русе",
+      "obshtina": "Русе",
+      "contractCount": 129,
+      "totalEur": 5828140.830000001,
+      "awarderCount": 19
     },
     {
       "ekatte": "48619",
@@ -291,31 +210,13 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "87374",
-      "name": "Ямбол",
-      "province": "Ямбол",
-      "obshtina": "Ямбол",
-      "contractCount": 82,
-      "totalEur": 5771019.38,
-      "awarderCount": 14
-    },
-    {
-      "ekatte": "38978",
-      "name": "Костинброд",
-      "province": "София",
-      "obshtina": "Костинброд",
-      "contractCount": 9,
-      "totalEur": 5595742.78,
-      "awarderCount": 1
-    },
-    {
-      "ekatte": "07603",
-      "name": "Бяла",
-      "province": "Русе",
-      "obshtina": "Бяла",
-      "contractCount": 13,
-      "totalEur": 5546285.710000001,
-      "awarderCount": 3
+      "ekatte": "04279",
+      "name": "Благоевград",
+      "province": "Благоевград",
+      "obshtina": "Благоевград",
+      "contractCount": 89,
+      "totalEur": 5609047.659999999,
+      "awarderCount": 9
     },
     {
       "ekatte": "06361",
@@ -336,112 +237,130 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "62075",
-      "name": "Раковски",
-      "province": "Пловдив",
-      "obshtina": "Раковски",
-      "contractCount": 9,
-      "totalEur": 4811468.23,
+      "ekatte": "10450",
+      "name": "Велинград",
+      "province": "Пазарджик",
+      "obshtina": "Велинград",
+      "contractCount": 31,
+      "totalEur": 4389198.11,
       "awarderCount": 3
     },
     {
-      "ekatte": "80501",
-      "name": "Червен бряг",
-      "province": "Плевен",
-      "obshtina": "Червен бряг",
-      "contractCount": 18,
-      "totalEur": 4549312.400000001,
-      "awarderCount": 2
+      "ekatte": "87374",
+      "name": "Ямбол",
+      "province": "Ямбол",
+      "obshtina": "Ямбол",
+      "contractCount": 77,
+      "totalEur": 4308285.3100000005,
+      "awarderCount": 13
     },
     {
-      "ekatte": "10971",
-      "name": "Видин",
-      "province": "Видин",
-      "obshtina": "Видин",
-      "contractCount": 70,
-      "totalEur": 4333288.700000001,
-      "awarderCount": 7
+      "ekatte": "51500",
+      "name": "Несебър",
+      "province": "Бургас",
+      "obshtina": "Несебър",
+      "contractCount": 18,
+      "totalEur": 4123642.8200000003,
+      "awarderCount": 2
     },
     {
       "ekatte": "61460",
       "name": "Раднево",
       "province": "Стара Загора",
       "obshtina": "Раднево",
-      "contractCount": 38,
-      "totalEur": 4183899.49,
+      "contractCount": 32,
+      "totalEur": 4071240.42,
       "awarderCount": 2
     },
     {
-      "ekatte": "55155",
-      "name": "Пазарджик",
-      "province": "Пазарджик",
-      "obshtina": "Пазарджик",
-      "contractCount": 21,
-      "totalEur": 4075309.8200000003,
-      "awarderCount": 7
-    },
-    {
-      "ekatte": "69633",
-      "name": "Стражица",
-      "province": "Велико Търново",
-      "obshtina": "Стражица",
+      "ekatte": "62075",
+      "name": "Раковски",
+      "province": "Пловдив",
+      "obshtina": "Раковски",
       "contractCount": 7,
-      "totalEur": 4012891.51,
-      "awarderCount": 1
+      "totalEur": 3847103.2300000004,
+      "awarderCount": 2
     },
     {
-      "ekatte": "20465",
-      "name": "Девин",
-      "province": "Смолян",
-      "obshtina": "Девин",
-      "contractCount": 12,
-      "totalEur": 3615279.6400000006,
+      "ekatte": "07603",
+      "name": "Бяла",
+      "province": "Русе",
+      "obshtina": "Бяла",
+      "contractCount": 11,
+      "totalEur": 3386797.62,
       "awarderCount": 2
+    },
+    {
+      "ekatte": "66425",
+      "name": "Силистра",
+      "province": "Силистра",
+      "obshtina": "Силистра",
+      "contractCount": 66,
+      "totalEur": 3188464.1099999994,
+      "awarderCount": 10
     },
     {
       "ekatte": "65869",
       "name": "Своге",
       "province": "София",
       "obshtina": "Своге",
-      "contractCount": 26,
-      "totalEur": 3482635.3599999994,
+      "contractCount": 16,
+      "totalEur": 3147544.5599999996,
       "awarderCount": 2
+    },
+    {
+      "ekatte": "37507",
+      "name": "Ковачево",
+      "province": "Стара Загора",
+      "obshtina": "Раднево",
+      "contractCount": 32,
+      "totalEur": 3115273.13,
+      "awarderCount": 1
     },
     {
       "ekatte": "55871",
       "name": "Перник",
       "province": "Перник",
       "obshtina": "Перник",
-      "contractCount": 58,
-      "totalEur": 3288498.78,
+      "contractCount": 57,
+      "totalEur": 3107465.5599999996,
       "awarderCount": 6
+    },
+    {
+      "ekatte": "12259",
+      "name": "Враца",
+      "province": "Враца",
+      "obshtina": "Враца",
+      "contractCount": 46,
+      "totalEur": 3054611.01,
+      "awarderCount": 11
+    },
+    {
+      "ekatte": "55155",
+      "name": "Пазарджик",
+      "province": "Пазарджик",
+      "obshtina": "Пазарджик",
+      "contractCount": 18,
+      "totalEur": 3001981.99,
+      "awarderCount": 6
+    },
+    {
+      "ekatte": "72624",
+      "name": "Добрич",
+      "province": "Добрич",
+      "obshtina": "Добрич",
+      "contractCount": 41,
+      "totalEur": 2784632.32,
+      "awarderCount": 11
     },
     {
       "ekatte": "10865",
       "name": "Ветрино",
       "province": "Варна",
       "obshtina": "Ветрино",
-      "contractCount": 10,
-      "totalEur": 3272781.39,
+      "contractCount": 8,
+      "totalEur": 2747957.16,
       "awarderCount": 2
-    },
-    {
-      "ekatte": "55782",
-      "name": "Искър",
-      "province": "Плевен",
-      "obshtina": "Искър",
-      "contractCount": 10,
-      "totalEur": 3136092.01,
-      "awarderCount": 1
-    },
-    {
-      "ekatte": "73198",
-      "name": "Троян",
-      "province": "Ловеч",
-      "obshtina": "Троян",
-      "contractCount": 21,
-      "totalEur": 2984992.12,
-      "awarderCount": 3
     },
     {
       "ekatte": "56407",
@@ -453,57 +372,21 @@
       "awarderCount": 3
     },
     {
-      "ekatte": "05815",
-      "name": "Ботевград",
+      "ekatte": "10971",
+      "name": "Видин",
+      "province": "Видин",
+      "obshtina": "Видин",
+      "contractCount": 50,
+      "totalEur": 2551334.6199999996,
+      "awarderCount": 7
+    },
+    {
+      "ekatte": "38978",
+      "name": "Костинброд",
       "province": "София",
-      "obshtina": "Ботевград",
-      "contractCount": 9,
-      "totalEur": 2742356.5100000002,
-      "awarderCount": 2
-    },
-    {
-      "ekatte": "69660",
-      "name": "Стралджа",
-      "province": "Ямбол",
-      "obshtina": "Стралджа",
-      "contractCount": 19,
-      "totalEur": 2704048.18,
-      "awarderCount": 3
-    },
-    {
-      "ekatte": "07702",
-      "name": "Бяла Слатина",
-      "province": "Враца",
-      "obshtina": "Бяла Слатина",
-      "contractCount": 14,
-      "totalEur": 2651729.9999999995,
-      "awarderCount": 1
-    },
-    {
-      "ekatte": "35883",
-      "name": "Камено",
-      "province": "Бургас",
-      "obshtina": "Камено",
-      "contractCount": 4,
-      "totalEur": 2440968.23,
-      "awarderCount": 1
-    },
-    {
-      "ekatte": "65766",
-      "name": "Свищов",
-      "province": "Велико Търново",
-      "obshtina": "Свищов",
-      "contractCount": 35,
-      "totalEur": 2435861.76,
-      "awarderCount": 6
-    },
-    {
-      "ekatte": "52009",
-      "name": "Нови пазар",
-      "province": "Шумен",
-      "obshtina": "Нови пазар",
-      "contractCount": 25,
-      "totalEur": 2385767.72,
+      "obshtina": "Костинброд",
+      "contractCount": 6,
+      "totalEur": 2397722.19,
       "awarderCount": 1
     },
     {
@@ -522,15 +405,6 @@
       "obshtina": "Самоков",
       "contractCount": 32,
       "totalEur": 2325193.6,
-      "awarderCount": 4
-    },
-    {
-      "ekatte": "43952",
-      "name": "Ловеч",
-      "province": "Ловеч",
-      "obshtina": "Ловеч",
-      "contractCount": 17,
-      "totalEur": 2288640.7,
       "awarderCount": 4
     },
     {
@@ -556,18 +430,9 @@
       "name": "Долна Митрополия",
       "province": "Плевен",
       "obshtina": "Долна Митрополия",
-      "contractCount": 11,
-      "totalEur": 2259709.57,
+      "contractCount": 10,
+      "totalEur": 2251171,
       "awarderCount": 1
-    },
-    {
-      "ekatte": "03504",
-      "name": "Белица",
-      "province": "Благоевград",
-      "obshtina": "Белица",
-      "contractCount": 13,
-      "totalEur": 2233844.74,
-      "awarderCount": 2
     },
     {
       "ekatte": "66460",
@@ -579,6 +444,15 @@
       "awarderCount": 1
     },
     {
+      "ekatte": "43952",
+      "name": "Ловеч",
+      "province": "Ловеч",
+      "obshtina": "Ловеч",
+      "contractCount": 14,
+      "totalEur": 2187409.8,
+      "awarderCount": 4
+    },
+    {
       "ekatte": "55052",
       "name": "Павликени",
       "province": "Велико Търново",
@@ -588,75 +462,12 @@
       "awarderCount": 3
     },
     {
-      "ekatte": "65677",
-      "name": "Свиленград",
-      "province": "Хасково",
-      "obshtina": "Свиленград",
-      "contractCount": 17,
-      "totalEur": 2165377.21,
-      "awarderCount": 3
-    },
-    {
-      "ekatte": "40909",
-      "name": "Кърджали",
-      "province": "Кърджали",
-      "obshtina": "Кърджали",
-      "contractCount": 32,
-      "totalEur": 2134515.7800000003,
-      "awarderCount": 7
-    },
-    {
-      "ekatte": "67800",
-      "name": "Созопол",
-      "province": "Бургас",
-      "obshtina": "Созопол",
-      "contractCount": 13,
-      "totalEur": 2084367.32,
-      "awarderCount": 2
-    },
-    {
-      "ekatte": "67338",
-      "name": "Сливен",
-      "province": "Сливен",
-      "obshtina": "Сливен",
-      "contractCount": 60,
-      "totalEur": 2082247.69,
-      "awarderCount": 12
-    },
-    {
-      "ekatte": "06183",
-      "name": "Братя Даскалови",
-      "province": "Стара Загора",
-      "obshtina": "Братя Даскалови",
-      "contractCount": 9,
-      "totalEur": 2071249.5699999998,
-      "awarderCount": 1
-    },
-    {
-      "ekatte": "57772",
-      "name": "Пордим",
-      "province": "Плевен",
-      "obshtina": "Пордим",
-      "contractCount": 5,
-      "totalEur": 2069279.08,
-      "awarderCount": 1
-    },
-    {
       "ekatte": "67708",
       "name": "Смядово",
       "province": "Шумен",
       "obshtina": "Смядово",
       "contractCount": 12,
       "totalEur": 2062127.81,
-      "awarderCount": 1
-    },
-    {
-      "ekatte": "75054",
-      "name": "Угърчин",
-      "province": "Ловеч",
-      "obshtina": "Угърчин",
-      "contractCount": 3,
-      "totalEur": 2033357.51,
       "awarderCount": 1
     },
     {
@@ -669,15 +480,6 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "18157",
-      "name": "Гурково",
-      "province": "Стара Загора",
-      "obshtina": "Гурково",
-      "contractCount": 26,
-      "totalEur": 2025719.55,
-      "awarderCount": 2
-    },
-    {
       "ekatte": "18099",
       "name": "Гулянци",
       "province": "Плевен",
@@ -685,6 +487,15 @@
       "contractCount": 9,
       "totalEur": 2016793.7599999998,
       "awarderCount": 2
+    },
+    {
+      "ekatte": "65766",
+      "name": "Свищов",
+      "province": "Велико Търново",
+      "obshtina": "Свищов",
+      "contractCount": 28,
+      "totalEur": 1987566.24,
+      "awarderCount": 6
     },
     {
       "ekatte": "39921",
@@ -696,15 +507,6 @@
       "awarderCount": 2
     },
     {
-      "ekatte": "44327",
-      "name": "Луковит",
-      "province": "Ловеч",
-      "obshtina": "Луковит",
-      "contractCount": 10,
-      "totalEur": 1975486.22,
-      "awarderCount": 3
-    },
-    {
       "ekatte": "14492",
       "name": "Кресна",
       "province": "Благоевград",
@@ -714,40 +516,13 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "57649",
-      "name": "Попово",
-      "province": "Търговище",
-      "obshtina": "Попово",
-      "contractCount": 13,
-      "totalEur": 1927401.3900000001,
-      "awarderCount": 3
-    },
-    {
-      "ekatte": "66665",
-      "name": "Ситово",
-      "province": "Силистра",
-      "obshtina": "Ситово",
-      "contractCount": 4,
-      "totalEur": 1919649.8,
+      "ekatte": "57772",
+      "name": "Пордим",
+      "province": "Плевен",
+      "obshtina": "Пордим",
+      "contractCount": 2,
+      "totalEur": 1932179.08,
       "awarderCount": 1
-    },
-    {
-      "ekatte": "17395",
-      "name": "Гоце Делчев",
-      "province": "Благоевград",
-      "obshtina": "Гоце Делчев",
-      "contractCount": 81,
-      "totalEur": 1858996.33,
-      "awarderCount": 4
-    },
-    {
-      "ekatte": "24030",
-      "name": "Дулово",
-      "province": "Силистра",
-      "obshtina": "Дулово",
-      "contractCount": 9,
-      "totalEur": 1803263.394067327,
-      "awarderCount": 2
     },
     {
       "ekatte": "59080",
@@ -768,15 +543,6 @@
       "awarderCount": 2
     },
     {
-      "ekatte": "67653",
-      "name": "Смолян",
-      "province": "Смолян",
-      "obshtina": "Смолян",
-      "contractCount": 62,
-      "totalEur": 1742718.7500000002,
-      "awarderCount": 5
-    },
-    {
       "ekatte": "62997",
       "name": "Роман",
       "province": "Враца",
@@ -784,6 +550,15 @@
       "contractCount": 5,
       "totalEur": 1740505.63,
       "awarderCount": 1
+    },
+    {
+      "ekatte": "67338",
+      "name": "Сливен",
+      "province": "Сливен",
+      "obshtina": "Сливен",
+      "contractCount": 49,
+      "totalEur": 1650278.5399999998,
+      "awarderCount": 10
     },
     {
       "ekatte": "37798",
@@ -795,31 +570,31 @@
       "awarderCount": 3
     },
     {
-      "ekatte": "10803",
-      "name": "Ветово",
-      "province": "Русе",
-      "obshtina": "Ветово",
-      "contractCount": 2,
-      "totalEur": 1606179.71,
-      "awarderCount": 1
+      "ekatte": "35167",
+      "name": "Казанлък",
+      "province": "Стара Загора",
+      "obshtina": "Казанлък",
+      "contractCount": 22,
+      "totalEur": 1592614.0100000002,
+      "awarderCount": 6
     },
     {
-      "ekatte": "44402",
-      "name": "Баните",
-      "province": "Смолян",
-      "obshtina": "Баните",
-      "contractCount": 2,
-      "totalEur": 1578329.8199999998,
-      "awarderCount": 1
+      "ekatte": "57649",
+      "name": "Попово",
+      "province": "Търговище",
+      "obshtina": "Попово",
+      "contractCount": 9,
+      "totalEur": 1509116.56,
+      "awarderCount": 3
     },
     {
-      "ekatte": "51651",
-      "name": "Никола Козлево",
-      "province": "Шумен",
-      "obshtina": "Никола Козлево",
-      "contractCount": 6,
-      "totalEur": 1537735.7699999998,
-      "awarderCount": 1
+      "ekatte": "73198",
+      "name": "Троян",
+      "province": "Ловеч",
+      "obshtina": "Троян",
+      "contractCount": 18,
+      "totalEur": 1495689.1999999997,
+      "awarderCount": 3
     },
     {
       "ekatte": "23947",
@@ -840,22 +615,13 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "73496",
-      "name": "Тутракан",
-      "province": "Силистра",
-      "obshtina": "Тутракан",
-      "contractCount": 18,
-      "totalEur": 1454802.16,
-      "awarderCount": 2
-    },
-    {
       "ekatte": "00702",
       "name": "Асеновград",
       "province": "Пловдив",
       "obshtina": "Асеновград",
-      "contractCount": 27,
-      "totalEur": 1450898.0899999996,
-      "awarderCount": 7
+      "contractCount": 26,
+      "totalEur": 1443982.0899999996,
+      "awarderCount": 6
     },
     {
       "ekatte": "43369",
@@ -867,22 +633,22 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "32874",
-      "name": "Исперих",
-      "province": "Разград",
-      "obshtina": "Исперих",
-      "contractCount": 17,
-      "totalEur": 1353706.94,
-      "awarderCount": 5
+      "ekatte": "52009",
+      "name": "Нови пазар",
+      "province": "Шумен",
+      "obshtina": "Нови пазар",
+      "contractCount": 11,
+      "totalEur": 1374881.83,
+      "awarderCount": 1
     },
     {
-      "ekatte": "58222",
-      "name": "Велики Преслав",
-      "province": "Шумен",
-      "obshtina": "Велики Преслав",
-      "contractCount": 7,
-      "totalEur": 1286682.91,
-      "awarderCount": 1
+      "ekatte": "40909",
+      "name": "Кърджали",
+      "province": "Кърджали",
+      "obshtina": "Кърджали",
+      "contractCount": 30,
+      "totalEur": 1296873.03,
+      "awarderCount": 7
     },
     {
       "ekatte": "68789",
@@ -894,6 +660,15 @@
       "awarderCount": 2
     },
     {
+      "ekatte": "58222",
+      "name": "Велики Преслав",
+      "province": "Шумен",
+      "obshtina": "Велики Преслав",
+      "contractCount": 6,
+      "totalEur": 1281036.25,
+      "awarderCount": 1
+    },
+    {
       "ekatte": "37513",
       "name": "Ковачевци",
       "province": "Перник",
@@ -903,22 +678,13 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "61813",
-      "name": "Разлог",
-      "province": "Благоевград",
-      "obshtina": "Разлог",
-      "contractCount": 14,
-      "totalEur": 1252391.0499999998,
-      "awarderCount": 4
-    },
-    {
-      "ekatte": "17974",
-      "name": "Средец",
-      "province": "Бургас",
-      "obshtina": "Средец",
-      "contractCount": 17,
-      "totalEur": 1238725.95,
-      "awarderCount": 2
+      "ekatte": "44327",
+      "name": "Луковит",
+      "province": "Ловеч",
+      "obshtina": "Луковит",
+      "contractCount": 8,
+      "totalEur": 1213661.31,
+      "awarderCount": 3
     },
     {
       "ekatte": "78361",
@@ -930,40 +696,49 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "39116",
-      "name": "Кочериново",
-      "province": "Кюстендил",
-      "obshtina": "Кочериново",
-      "contractCount": 3,
-      "totalEur": 1184507.81,
-      "awarderCount": 1
+      "ekatte": "67653",
+      "name": "Смолян",
+      "province": "Смолян",
+      "obshtina": "Смолян",
+      "contractCount": 51,
+      "totalEur": 1189030.96,
+      "awarderCount": 5
     },
     {
-      "ekatte": "48996",
-      "name": "Момчилград",
-      "province": "Кърджали",
-      "obshtina": "Момчилград",
+      "ekatte": "17974",
+      "name": "Средец",
+      "province": "Бургас",
+      "obshtina": "Средец",
       "contractCount": 16,
-      "totalEur": 1180918.07,
-      "awarderCount": 1
+      "totalEur": 1131060.4,
+      "awarderCount": 2
     },
     {
-      "ekatte": "12766",
-      "name": "Върбица",
-      "province": "Шумен",
-      "obshtina": "Върбица",
+      "ekatte": "65677",
+      "name": "Свиленград",
+      "province": "Хасково",
+      "obshtina": "Свиленград",
       "contractCount": 12,
-      "totalEur": 1136155.73,
+      "totalEur": 1125515.43,
       "awarderCount": 2
     },
     {
-      "ekatte": "12961",
-      "name": "Вършец",
-      "province": "Монтана",
-      "obshtina": "Вършец",
-      "contractCount": 16,
-      "totalEur": 1090103.31,
-      "awarderCount": 2
+      "ekatte": "10803",
+      "name": "Ветово",
+      "province": "Русе",
+      "obshtina": "Ветово",
+      "contractCount": 1,
+      "totalEur": 1110082.67,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "51651",
+      "name": "Никола Козлево",
+      "province": "Шумен",
+      "obshtina": "Никола Козлево",
+      "contractCount": 4,
+      "totalEur": 1093607.5899999999,
+      "awarderCount": 1
     },
     {
       "ekatte": "80371",
@@ -973,24 +748,6 @@
       "contractCount": 11,
       "totalEur": 1083405.06,
       "awarderCount": 1
-    },
-    {
-      "ekatte": "51319",
-      "name": "Неделино",
-      "province": "Смолян",
-      "obshtina": "Неделино",
-      "contractCount": 6,
-      "totalEur": 1074181.9,
-      "awarderCount": 2
-    },
-    {
-      "ekatte": "48489",
-      "name": "Монтана",
-      "province": "Монтана",
-      "obshtina": "Монтана",
-      "contractCount": 33,
-      "totalEur": 1061912.5099999998,
-      "awarderCount": 8
     },
     {
       "ekatte": "21912",
@@ -1011,6 +768,15 @@
       "awarderCount": 2
     },
     {
+      "ekatte": "12961",
+      "name": "Вършец",
+      "province": "Монтана",
+      "obshtina": "Вършец",
+      "contractCount": 15,
+      "totalEur": 1044350.0599999999,
+      "awarderCount": 2
+    },
+    {
       "ekatte": "21097",
       "name": "Димово",
       "province": "Видин",
@@ -1020,13 +786,13 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "18366",
-      "name": "Гърмен",
-      "province": "Благоевград",
-      "obshtina": "Гърмен",
-      "contractCount": 6,
-      "totalEur": 1012034.21,
-      "awarderCount": 1
+      "ekatte": "48489",
+      "name": "Монтана",
+      "province": "Монтана",
+      "obshtina": "Монтана",
+      "contractCount": 31,
+      "totalEur": 1030797.6599999999,
+      "awarderCount": 7
     },
     {
       "ekatte": "30065",
@@ -1038,39 +804,12 @@
       "awarderCount": 2
     },
     {
-      "ekatte": "27632",
-      "name": "Етрополе",
-      "province": "София",
-      "obshtina": "Етрополе",
-      "contractCount": 3,
-      "totalEur": 972079.63,
-      "awarderCount": 1
-    },
-    {
       "ekatte": "17645",
       "name": "Грамада",
       "province": "Видин",
       "obshtina": "Грамада",
       "contractCount": 9,
       "totalEur": 958973.79,
-      "awarderCount": 1
-    },
-    {
-      "ekatte": "27382",
-      "name": "Елхово",
-      "province": "Ямбол",
-      "obshtina": "Елхово",
-      "contractCount": 7,
-      "totalEur": 952608.27,
-      "awarderCount": 1
-    },
-    {
-      "ekatte": "72165",
-      "name": "Твърдица",
-      "province": "Сливен",
-      "obshtina": "Твърдица",
-      "contractCount": 7,
-      "totalEur": 932023.52,
       "awarderCount": 1
     },
     {
@@ -1092,6 +831,15 @@
       "awarderCount": 1
     },
     {
+      "ekatte": "17395",
+      "name": "Гоце Делчев",
+      "province": "Благоевград",
+      "obshtina": "Гоце Делчев",
+      "contractCount": 79,
+      "totalEur": 909116.47,
+      "awarderCount": 4
+    },
+    {
       "ekatte": "03719",
       "name": "Белослав",
       "province": "Варна",
@@ -1101,31 +849,22 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "73403",
-      "name": "Трявна",
-      "province": "Габрово",
-      "obshtina": "Трявна",
-      "contractCount": 7,
-      "totalEur": 898645.671604843,
-      "awarderCount": 3
-    },
-    {
-      "ekatte": "58503",
-      "name": "Провадия",
-      "province": "Варна",
-      "obshtina": "Провадия",
-      "contractCount": 5,
-      "totalEur": 857099.13,
+      "ekatte": "18280",
+      "name": "Гълъбово",
+      "province": "Стара Загора",
+      "obshtina": "Гълъбово",
+      "contractCount": 3,
+      "totalEur": 899628.65,
       "awarderCount": 2
     },
     {
-      "ekatte": "44570",
-      "name": "Любимец",
-      "province": "Хасково",
-      "obshtina": "Любимец",
-      "contractCount": 11,
-      "totalEur": 856208.64,
-      "awarderCount": 2
+      "ekatte": "18366",
+      "name": "Гърмен",
+      "province": "Благоевград",
+      "obshtina": "Гърмен",
+      "contractCount": 4,
+      "totalEur": 858772.75,
+      "awarderCount": 1
     },
     {
       "ekatte": "15309",
@@ -1134,15 +873,6 @@
       "obshtina": "Годеч",
       "contractCount": 5,
       "totalEur": 847860.06,
-      "awarderCount": 1
-    },
-    {
-      "ekatte": "12574",
-      "name": "Вълчи дол",
-      "province": "Варна",
-      "obshtina": "Вълчи дол",
-      "contractCount": 12,
-      "totalEur": 830404.06,
       "awarderCount": 1
     },
     {
@@ -1159,72 +889,45 @@
       "name": "Аврен",
       "province": "Варна",
       "obshtina": "Аврен",
-      "contractCount": 4,
-      "totalEur": 781677.38,
+      "contractCount": 2,
+      "totalEur": 781675.36,
       "awarderCount": 1
+    },
+    {
+      "ekatte": "73403",
+      "name": "Трявна",
+      "province": "Габрово",
+      "obshtina": "Трявна",
+      "contractCount": 6,
+      "totalEur": 778960.761604843,
+      "awarderCount": 3
     },
     {
       "ekatte": "65276",
       "name": "Самуил",
       "province": "Разград",
       "obshtina": "Самуил",
-      "contractCount": 19,
-      "totalEur": 781000.87,
+      "contractCount": 18,
+      "totalEur": 766275.66,
       "awarderCount": 2
     },
     {
-      "ekatte": "44793",
-      "name": "Лясковец",
-      "province": "Велико Търново",
-      "obshtina": "Лясковец",
-      "contractCount": 4,
-      "totalEur": 773770.75,
-      "awarderCount": 1
+      "ekatte": "03504",
+      "name": "Белица",
+      "province": "Благоевград",
+      "obshtina": "Белица",
+      "contractCount": 11,
+      "totalEur": 749866.0800000001,
+      "awarderCount": 2
     },
     {
-      "ekatte": "03928",
-      "name": "Берковица",
-      "province": "Монтана",
-      "obshtina": "Берковица",
-      "contractCount": 23,
-      "totalEur": 767310.77,
-      "awarderCount": 4
-    },
-    {
-      "ekatte": "80323",
-      "name": "Челопеч",
-      "province": "София",
-      "obshtina": "Челопеч",
-      "contractCount": 1,
-      "totalEur": 763357.21,
-      "awarderCount": 1
-    },
-    {
-      "ekatte": "36525",
-      "name": "Карнобат",
-      "province": "Бургас",
-      "obshtina": "Карнобат",
-      "contractCount": 24,
-      "totalEur": 750629.3699999999,
-      "awarderCount": 3
-    },
-    {
-      "ekatte": "35523",
-      "name": "Калояново",
-      "province": "Пловдив",
-      "obshtina": "Калояново",
-      "contractCount": 8,
-      "totalEur": 745597.33,
-      "awarderCount": 1
-    },
-    {
-      "ekatte": "58030",
-      "name": "Правец",
-      "province": "София",
-      "obshtina": "Правец",
-      "contractCount": 5,
-      "totalEur": 718817.1900000001,
-      "awarderCount": 1
+      "ekatte": "12766",
+      "name": "Върбица",
+      "province": "Шумен",
+      "obshtina": "Върбица",
+      "contractCount": 11,
+      "totalEur": 705775.98,
+      "awarderCount": 2
     },
     {
       "ekatte": "05027",
@@ -1254,13 +957,13 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "03616",
-      "name": "Белоградчик",
-      "province": "Видин",
-      "obshtina": "Белоградчик",
-      "contractCount": 8,
-      "totalEur": 683379.8700000001,
-      "awarderCount": 2
+      "ekatte": "36525",
+      "name": "Карнобат",
+      "province": "Бургас",
+      "obshtina": "Карнобат",
+      "contractCount": 20,
+      "totalEur": 682735.59,
+      "awarderCount": 3
     },
     {
       "ekatte": "55302",
@@ -1281,30 +984,21 @@
       "awarderCount": 2
     },
     {
-      "ekatte": "40422",
-      "name": "Кубрат",
-      "province": "Разград",
-      "obshtina": "Кубрат",
+      "ekatte": "72165",
+      "name": "Твърдица",
+      "province": "Сливен",
+      "obshtina": "Твърдица",
       "contractCount": 6,
-      "totalEur": 624687.09,
-      "awarderCount": 2
-    },
-    {
-      "ekatte": "56277",
-      "name": "Пещера",
-      "province": "Пазарджик",
-      "obshtina": "Пещера",
-      "contractCount": 8,
-      "totalEur": 584162.79,
+      "totalEur": 623105.4,
       "awarderCount": 1
     },
     {
-      "ekatte": "03366",
-      "name": "Белене",
-      "province": "Плевен",
-      "obshtina": "Белене",
-      "contractCount": 3,
-      "totalEur": 581530,
+      "ekatte": "69660",
+      "name": "Стралджа",
+      "province": "Ямбол",
+      "obshtina": "Стралджа",
+      "contractCount": 15,
+      "totalEur": 609511.41,
       "awarderCount": 2
     },
     {
@@ -1321,8 +1015,8 @@
       "name": "Генерал Тошево",
       "province": "Добрич",
       "obshtina": "Генерал Тошево",
-      "contractCount": 7,
-      "totalEur": 577270.7299999999,
+      "contractCount": 6,
+      "totalEur": 577265.6299999999,
       "awarderCount": 2
     },
     {
@@ -1353,6 +1047,15 @@
       "awarderCount": 1
     },
     {
+      "ekatte": "80501",
+      "name": "Червен бряг",
+      "province": "Плевен",
+      "obshtina": "Червен бряг",
+      "contractCount": 14,
+      "totalEur": 533047.5399999999,
+      "awarderCount": 2
+    },
+    {
       "ekatte": "77102",
       "name": "Хайредин",
       "province": "Враца",
@@ -1371,15 +1074,6 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "16359",
-      "name": "Горна Оряховица",
-      "province": "Велико Търново",
-      "obshtina": "Горна Оряховица",
-      "contractCount": 18,
-      "totalEur": 496087.05000000005,
-      "awarderCount": 5
-    },
-    {
       "ekatte": "27303",
       "name": "Елин Пелин",
       "province": "София",
@@ -1387,6 +1081,24 @@
       "contractCount": 14,
       "totalEur": 488494.14,
       "awarderCount": 3
+    },
+    {
+      "ekatte": "67800",
+      "name": "Созопол",
+      "province": "Бургас",
+      "obshtina": "Созопол",
+      "contractCount": 10,
+      "totalEur": 485752.71,
+      "awarderCount": 2
+    },
+    {
+      "ekatte": "27382",
+      "name": "Елхово",
+      "province": "Ямбол",
+      "obshtina": "Елхово",
+      "contractCount": 5,
+      "totalEur": 481915.89,
+      "awarderCount": 1
     },
     {
       "ekatte": "20184",
@@ -1402,8 +1114,8 @@
       "name": "Ардино",
       "province": "Кърджали",
       "obshtina": "Ардино",
-      "contractCount": 21,
-      "totalEur": 466794.6999999997,
+      "contractCount": 8,
+      "totalEur": 466785.49,
       "awarderCount": 1
     },
     {
@@ -1416,13 +1128,22 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "21052",
-      "name": "Димитровград",
-      "province": "Хасково",
-      "obshtina": "Димитровград",
-      "contractCount": 10,
-      "totalEur": 443851.87,
-      "awarderCount": 5
+      "ekatte": "48996",
+      "name": "Момчилград",
+      "province": "Кърджали",
+      "obshtina": "Момчилград",
+      "contractCount": 3,
+      "totalEur": 447000,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "03928",
+      "name": "Берковица",
+      "province": "Монтана",
+      "obshtina": "Берковица",
+      "contractCount": 20,
+      "totalEur": 442192.11,
+      "awarderCount": 3
     },
     {
       "ekatte": "51723",
@@ -1443,13 +1164,31 @@
       "awarderCount": 2
     },
     {
-      "ekatte": "65365",
-      "name": "Сапарева баня",
-      "province": "Кюстендил",
-      "obshtina": "Сапарева баня",
-      "contractCount": 5,
-      "totalEur": 421500.15,
+      "ekatte": "58030",
+      "name": "Правец",
+      "province": "София",
+      "obshtina": "Правец",
+      "contractCount": 3,
+      "totalEur": 407851.4,
       "awarderCount": 1
+    },
+    {
+      "ekatte": "32874",
+      "name": "Исперих",
+      "province": "Разград",
+      "obshtina": "Исперих",
+      "contractCount": 15,
+      "totalEur": 406143.12,
+      "awarderCount": 5
+    },
+    {
+      "ekatte": "16359",
+      "name": "Горна Оряховица",
+      "province": "Велико Търново",
+      "obshtina": "Горна Оряховица",
+      "contractCount": 16,
+      "totalEur": 400528.30999999994,
+      "awarderCount": 5
     },
     {
       "ekatte": "04501",
@@ -1458,6 +1197,42 @@
       "obshtina": "Бобов дол",
       "contractCount": 2,
       "totalEur": 394392.61,
+      "awarderCount": 2
+    },
+    {
+      "ekatte": "44793",
+      "name": "Лясковец",
+      "province": "Велико Търново",
+      "obshtina": "Лясковец",
+      "contractCount": 3,
+      "totalEur": 392411.36,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "21052",
+      "name": "Димитровград",
+      "province": "Хасково",
+      "obshtina": "Димитровград",
+      "contractCount": 8,
+      "totalEur": 380108.76,
+      "awarderCount": 4
+    },
+    {
+      "ekatte": "05815",
+      "name": "Ботевград",
+      "province": "София",
+      "obshtina": "Ботевград",
+      "contractCount": 5,
+      "totalEur": 376539.77999999997,
+      "awarderCount": 2
+    },
+    {
+      "ekatte": "73496",
+      "name": "Тутракан",
+      "province": "Силистра",
+      "obshtina": "Тутракан",
+      "contractCount": 14,
+      "totalEur": 372565.55,
       "awarderCount": 2
     },
     {
@@ -1477,15 +1252,6 @@
       "contractCount": 3,
       "totalEur": 352804,
       "awarderCount": 1
-    },
-    {
-      "ekatte": "65927",
-      "name": "Севлиево",
-      "province": "Габрово",
-      "obshtina": "Севлиево",
-      "contractCount": 30,
-      "totalEur": 346906.63,
-      "awarderCount": 3
     },
     {
       "ekatte": "20482",
@@ -1524,6 +1290,24 @@
       "awarderCount": 3
     },
     {
+      "ekatte": "69633",
+      "name": "Стражица",
+      "province": "Велико Търново",
+      "obshtina": "Стражица",
+      "contractCount": 4,
+      "totalEur": 324369.97,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "03366",
+      "name": "Белене",
+      "province": "Плевен",
+      "obshtina": "Белене",
+      "contractCount": 2,
+      "totalEur": 315655,
+      "awarderCount": 2
+    },
+    {
       "ekatte": "55021",
       "name": "Павел баня",
       "province": "Стара Загора",
@@ -1551,12 +1335,21 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "32024",
-      "name": "Ивайловград",
-      "province": "Хасково",
-      "obshtina": "Ивайловград",
-      "contractCount": 33,
-      "totalEur": 282164.89999999997,
+      "ekatte": "24030",
+      "name": "Дулово",
+      "province": "Силистра",
+      "obshtina": "Дулово",
+      "contractCount": 8,
+      "totalEur": 298058.1240673269,
+      "awarderCount": 2
+    },
+    {
+      "ekatte": "65365",
+      "name": "Сапарева баня",
+      "province": "Кюстендил",
+      "obshtina": "Сапарева баня",
+      "contractCount": 4,
+      "totalEur": 294328.24,
       "awarderCount": 1
     },
     {
@@ -1567,15 +1360,6 @@
       "contractCount": 6,
       "totalEur": 280277.29000000004,
       "awarderCount": 2
-    },
-    {
-      "ekatte": "36926",
-      "name": "Кирково",
-      "province": "Кърджали",
-      "obshtina": "Кирково",
-      "contractCount": 51,
-      "totalEur": 273824.73999999964,
-      "awarderCount": 1
     },
     {
       "ekatte": "02837",
@@ -1605,6 +1389,15 @@
       "awarderCount": 1
     },
     {
+      "ekatte": "32024",
+      "name": "Ивайловград",
+      "province": "Хасково",
+      "obshtina": "Ивайловград",
+      "contractCount": 30,
+      "totalEur": 246372.22999999998,
+      "awarderCount": 1
+    },
+    {
       "ekatte": "23409",
       "name": "Драгоман",
       "province": "София",
@@ -1621,6 +1414,15 @@
       "contractCount": 3,
       "totalEur": 230568.15,
       "awarderCount": 1
+    },
+    {
+      "ekatte": "65927",
+      "name": "Севлиево",
+      "province": "Габрово",
+      "obshtina": "Севлиево",
+      "contractCount": 22,
+      "totalEur": 230155.25,
+      "awarderCount": 2
     },
     {
       "ekatte": "12543",
@@ -1650,6 +1452,15 @@
       "awarderCount": 1
     },
     {
+      "ekatte": "58503",
+      "name": "Провадия",
+      "province": "Варна",
+      "obshtina": "Провадия",
+      "contractCount": 4,
+      "totalEur": 208461,
+      "awarderCount": 2
+    },
+    {
       "ekatte": "73273",
       "name": "Трън",
       "province": "Перник",
@@ -1657,6 +1468,33 @@
       "contractCount": 2,
       "totalEur": 207712.29,
       "awarderCount": 1
+    },
+    {
+      "ekatte": "18157",
+      "name": "Гурково",
+      "province": "Стара Загора",
+      "obshtina": "Гурково",
+      "contractCount": 18,
+      "totalEur": 202650.05,
+      "awarderCount": 2
+    },
+    {
+      "ekatte": "12574",
+      "name": "Вълчи дол",
+      "province": "Варна",
+      "obshtina": "Вълчи дол",
+      "contractCount": 5,
+      "totalEur": 200748.18,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "20465",
+      "name": "Девин",
+      "province": "Смолян",
+      "obshtina": "Девин",
+      "contractCount": 2,
+      "totalEur": 185644,
+      "awarderCount": 2
     },
     {
       "ekatte": "00151",
@@ -1686,6 +1524,15 @@
       "awarderCount": 1
     },
     {
+      "ekatte": "51319",
+      "name": "Неделино",
+      "province": "Смолян",
+      "obshtina": "Неделино",
+      "contractCount": 4,
+      "totalEur": 167648,
+      "awarderCount": 2
+    },
+    {
       "ekatte": "00518",
       "name": "Антоново",
       "province": "Търговище",
@@ -1701,6 +1548,15 @@
       "obshtina": "Ябланица",
       "contractCount": 2,
       "totalEur": 166522,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "40422",
+      "name": "Кубрат",
+      "province": "Разград",
+      "obshtina": "Кубрат",
+      "contractCount": 4,
+      "totalEur": 161018.4,
       "awarderCount": 1
     },
     {
@@ -1731,12 +1587,12 @@
       "awarderCount": 2
     },
     {
-      "ekatte": "68727",
-      "name": "Стамболово",
-      "province": "Хасково",
-      "obshtina": "Стамболово",
-      "contractCount": 9,
-      "totalEur": 141158.06,
+      "ekatte": "56277",
+      "name": "Пещера",
+      "province": "Пазарджик",
+      "obshtina": "Пещера",
+      "contractCount": 4,
+      "totalEur": 136782.39,
       "awarderCount": 1
     },
     {
@@ -1749,13 +1605,31 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "63224",
-      "name": "Руен",
-      "province": "Бургас",
-      "obshtina": "Руен",
-      "contractCount": 14,
-      "totalEur": 114216.23999999999,
+      "ekatte": "35523",
+      "name": "Калояново",
+      "province": "Пловдив",
+      "obshtina": "Калояново",
+      "contractCount": 7,
+      "totalEur": 121821.23,
       "awarderCount": 1
+    },
+    {
+      "ekatte": "03616",
+      "name": "Белоградчик",
+      "province": "Видин",
+      "obshtina": "Белоградчик",
+      "contractCount": 6,
+      "totalEur": 120958.79999999999,
+      "awarderCount": 2
+    },
+    {
+      "ekatte": "61813",
+      "name": "Разлог",
+      "province": "Благоевград",
+      "obshtina": "Разлог",
+      "contractCount": 12,
+      "totalEur": 110347.16,
+      "awarderCount": 3
     },
     {
       "ekatte": "66264",
@@ -1767,21 +1641,21 @@
       "awarderCount": 2
     },
     {
+      "ekatte": "06183",
+      "name": "Братя Даскалови",
+      "province": "Стара Загора",
+      "obshtina": "Братя Даскалови",
+      "contractCount": 7,
+      "totalEur": 109875.19999999998,
+      "awarderCount": 1
+    },
+    {
       "ekatte": "07598",
       "name": "Бяла",
       "province": "Варна",
       "obshtina": "Бяла",
       "contractCount": 4,
       "totalEur": 107243.76999999999,
-      "awarderCount": 1
-    },
-    {
-      "ekatte": "35242",
-      "name": "Кайнарджа",
-      "province": "Силистра",
-      "obshtina": "Кайнарджа",
-      "contractCount": 3,
-      "totalEur": 100464,
       "awarderCount": 1
     },
     {
@@ -1803,6 +1677,15 @@
       "awarderCount": 1
     },
     {
+      "ekatte": "68727",
+      "name": "Стамболово",
+      "province": "Хасково",
+      "obshtina": "Стамболово",
+      "contractCount": 2,
+      "totalEur": 88532.01999999999,
+      "awarderCount": 1
+    },
+    {
       "ekatte": "48043",
       "name": "Мизия",
       "province": "Враца",
@@ -1821,15 +1704,6 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "30898",
-      "name": "Зимница",
-      "province": "Ямбол",
-      "obshtina": "Стралджа",
-      "contractCount": 3,
-      "totalEur": 83327.01999999999,
-      "awarderCount": 1
-    },
-    {
       "ekatte": "03592",
       "name": "Белово",
       "province": "Пазарджик",
@@ -1845,6 +1719,15 @@
       "obshtina": "Земен",
       "contractCount": 1,
       "totalEur": 82073.38,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "66665",
+      "name": "Ситово",
+      "province": "Силистра",
+      "obshtina": "Ситово",
+      "contractCount": 2,
+      "totalEur": 81295.41,
       "awarderCount": 1
     },
     {
@@ -1873,15 +1756,6 @@
       "contractCount": 4,
       "totalEur": 77549.45999999999,
       "awarderCount": 1
-    },
-    {
-      "ekatte": "10642",
-      "name": "Венец",
-      "province": "Шумен",
-      "obshtina": "Венец",
-      "contractCount": 3,
-      "totalEur": 77251.07999999999,
-      "awarderCount": 2
     },
     {
       "ekatte": "70648",
@@ -1933,8 +1807,17 @@
       "name": "Доспат",
       "province": "Смолян",
       "obshtina": "Доспат",
-      "contractCount": 3,
-      "totalEur": 57849.55,
+      "contractCount": 2,
+      "totalEur": 57834.64,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "27632",
+      "name": "Етрополе",
+      "province": "София",
+      "obshtina": "Етрополе",
+      "contractCount": 2,
+      "totalEur": 56873.43,
       "awarderCount": 1
     },
     {
@@ -2163,21 +2046,21 @@
       "awarderCount": 1
     },
     {
+      "ekatte": "75054",
+      "name": "Угърчин",
+      "province": "Ловеч",
+      "obshtina": "Угърчин",
+      "contractCount": 1,
+      "totalEur": 41841.05,
+      "awarderCount": 1
+    },
+    {
       "ekatte": "65440",
       "name": "Сатовча",
       "province": "Благоевград",
       "obshtina": "Сатовча",
       "contractCount": 1,
       "totalEur": 41555.05,
-      "awarderCount": 1
-    },
-    {
-      "ekatte": "17573",
-      "name": "Градище",
-      "province": "Шумен",
-      "obshtina": "Шумен",
-      "contractCount": 1,
-      "totalEur": 41401.54,
       "awarderCount": 1
     },
     {
@@ -2214,15 +2097,6 @@
       "obshtina": "Първомай",
       "contractCount": 1,
       "totalEur": 40471.31,
-      "awarderCount": 1
-    },
-    {
-      "ekatte": "69835",
-      "name": "Стрелча",
-      "province": "Пазарджик",
-      "obshtina": "Стрелча",
-      "contractCount": 4,
-      "totalEur": 40248.62,
       "awarderCount": 1
     },
     {
@@ -2289,6 +2163,15 @@
       "awarderCount": 1
     },
     {
+      "ekatte": "44570",
+      "name": "Любимец",
+      "province": "Хасково",
+      "obshtina": "Любимец",
+      "contractCount": 10,
+      "totalEur": 38311.08,
+      "awarderCount": 2
+    },
+    {
       "ekatte": "12509",
       "name": "Вълнари",
       "province": "Шумен",
@@ -2322,6 +2205,15 @@
       "obshtina": "Златоград",
       "contractCount": 1,
       "totalEur": 36300,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "30898",
+      "name": "Зимница",
+      "province": "Ямбол",
+      "obshtina": "Стралджа",
+      "contractCount": 1,
+      "totalEur": 36134.28,
       "awarderCount": 1
     },
     {
@@ -2388,21 +2280,21 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "73643",
-      "name": "Търнава",
-      "province": "Враца",
-      "obshtina": "Бяла Слатина",
-      "contractCount": 1,
-      "totalEur": 34017.37,
-      "awarderCount": 1
-    },
-    {
       "ekatte": "51980",
       "name": "Стамболийски",
       "province": "Пловдив",
       "obshtina": "Стамболийски",
       "contractCount": 1,
       "totalEur": 33947.74,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "35242",
+      "name": "Кайнарджа",
+      "province": "Силистра",
+      "obshtina": "Кайнарджа",
+      "contractCount": 1,
+      "totalEur": 33488,
       "awarderCount": 1
     },
     {
@@ -2415,21 +2307,21 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "55909",
-      "name": "Перущица",
-      "province": "Пловдив",
-      "obshtina": "Перущица",
-      "contractCount": 2,
-      "totalEur": 32231.55,
-      "awarderCount": 1
-    },
-    {
       "ekatte": "05236",
       "name": "Бойчиновци",
       "province": "Монтана",
       "obshtina": "Бойчиновци",
       "contractCount": 1,
       "totalEur": 32211.39,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "55782",
+      "name": "Искър",
+      "province": "Плевен",
+      "obshtina": "Искър",
+      "contractCount": 2,
+      "totalEur": 32200,
       "awarderCount": 1
     },
     {
@@ -2451,15 +2343,6 @@
       "awarderCount": 1
     },
     {
-      "ekatte": "61368",
-      "name": "Радиево",
-      "province": "Хасково",
-      "obshtina": "Димитровград",
-      "contractCount": 1,
-      "totalEur": 28605.25,
-      "awarderCount": 1
-    },
-    {
       "ekatte": "10015",
       "name": "Вазово",
       "province": "Разград",
@@ -2478,12 +2361,30 @@
       "awarderCount": 1
     },
     {
+      "ekatte": "36926",
+      "name": "Кирково",
+      "province": "Кърджали",
+      "obshtina": "Кирково",
+      "contractCount": 3,
+      "totalEur": 27270.78,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "10642",
+      "name": "Венец",
+      "province": "Шумен",
+      "obshtina": "Венец",
+      "contractCount": 1,
+      "totalEur": 27055,
+      "awarderCount": 1
+    },
+    {
       "ekatte": "23813",
       "name": "Друмево",
       "province": "Шумен",
       "obshtina": "Шумен",
-      "contractCount": 7,
-      "totalEur": 26379.68,
+      "contractCount": 5,
+      "totalEur": 24313.68,
       "awarderCount": 1
     },
     {
@@ -2523,6 +2424,15 @@
       "awarderCount": 2
     },
     {
+      "ekatte": "63224",
+      "name": "Руен",
+      "province": "Бургас",
+      "obshtina": "Руен",
+      "contractCount": 5,
+      "totalEur": 18948.020000000004,
+      "awarderCount": 1
+    },
+    {
       "ekatte": "46245",
       "name": "Макреш",
       "province": "Видин",
@@ -2538,6 +2448,15 @@
       "obshtina": "Шабла",
       "contractCount": 1,
       "totalEur": 18170,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "07702",
+      "name": "Бяла Слатина",
+      "province": "Враца",
+      "obshtina": "Бяла Слатина",
+      "contractCount": 1,
+      "totalEur": 14200,
       "awarderCount": 1
     },
     {
@@ -2565,6 +2484,15 @@
       "obshtina": "Добрич-селска",
       "contractCount": 1,
       "totalEur": 10692.65,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "35883",
+      "name": "Камено",
+      "province": "Бургас",
+      "obshtina": "Камено",
+      "contractCount": 1,
+      "totalEur": 8950,
       "awarderCount": 1
     },
     {
@@ -2599,8 +2527,26 @@
       "name": "Джебел",
       "province": "Кърджали",
       "obshtina": "Джебел",
-      "contractCount": 7,
-      "totalEur": 3789.15,
+      "contractCount": 4,
+      "totalEur": 3786.11,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "39116",
+      "name": "Кочериново",
+      "province": "Кюстендил",
+      "obshtina": "Кочериново",
+      "contractCount": 1,
+      "totalEur": 2130,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "69835",
+      "name": "Стрелча",
+      "province": "Пазарджик",
+      "obshtina": "Стрелча",
+      "contractCount": 2,
+      "totalEur": 2050,
       "awarderCount": 1
     },
     {

@@ -3,28 +3,19 @@
   "name": "Челопеч",
   "province": "София",
   "obshtina": "Челопеч",
-  "generatedAt": "2026-06-28T16:56:47.125Z",
-  "contractCount": 149,
+  "generatedAt": "2026-06-29T14:48:37.734Z",
+  "contractCount": 142,
   "awardCount": 0,
-  "totalEur": 26124526.997132376,
+  "totalEur": 23193971.974517014,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000777223",
       "name": "Община Челопеч",
       "tier": "municipal",
-      "totalEur": 24147356.014974263,
+      "totalEur": 22872772.764974263,
       "totalOther": {},
-      "contractCount": 136,
-      "awardCount": 0
-    },
-    {
-      "eik": "000759507",
-      "name": "Основно училище \"СВ.СВ.КИРИЛ и Методий\"",
-      "tier": "school",
-      "totalEur": 1655971.77261536,
-      "totalOther": {},
-      "contractCount": 6,
+      "contractCount": 135,
       "awardCount": 0
     },
     {
@@ -102,32 +93,6 @@
       "partyName": "Валмекс ЕООД - София",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "234d3df12c55",
-      "ocid": "eop-05733-2024-0002",
-      "date": "2024-08-30",
-      "tag": "contract",
-      "amount": 1492996.94,
-      "currency": "BGN",
-      "amountEur": 763357.2140727977,
-      "partyEik": "131223059",
-      "partyName": "Стреза ЕООД",
-      "bundleUuid": "eop-flat:2024-08-30",
-      "sourceUrl": "https://storage.eop.bg/open-data-2024-08-30/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2030.08.2024.json"
-    },
-    {
-      "key": "59546b318123",
-      "ocid": "ocds-e82gsb-386024",
-      "date": "2026-06-02",
-      "tag": "contractAmendment",
-      "amount": 763357.21,
-      "currency": "EUR",
-      "amountEur": 763357.21,
-      "partyEik": "131223059",
-      "partyName": "Стреза ЕООД",
-      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
-      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-386024-862131%2F2026-06-02-contractamendment"
     },
     {
       "key": "a2c66f37f9ce",
@@ -687,6 +652,32 @@
       "partyName": "СТРАТИЕВИ-2003  ООД - София",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "d9be2c1e7f41",
+      "ocid": "eop-00631-2024-0007",
+      "date": "2024-07-19",
+      "tag": "contract",
+      "amount": 166666.67,
+      "currency": "BGN",
+      "amountEur": 85215.31523700936,
+      "partyEik": "206845875",
+      "partyName": "Общинско дружество челопеч ЕООД",
+      "bundleUuid": "eop-flat:2024-07-19",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-07-19/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2019.07.2024.json"
+    },
+    {
+      "key": "76b0a117d11a",
+      "ocid": "aop-legacy-2023-426026",
+      "date": "2023-09-22",
+      "tag": "contract",
+      "amount": 166289.8,
+      "currency": "BGN",
+      "amountEur": 85022.62466574293,
+      "partyEik": "206986858",
+      "partyName": "ИВ-Строй-66 ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -746,9 +737,9 @@
     },
     {
       "year": "2022",
-      "totalEur": 1791984.0783708193,
+      "totalEur": 1740854.8902511976,
       "totalOther": {},
-      "contractCount": 29
+      "contractCount": 28
     },
     {
       "year": "2023",
@@ -758,21 +749,21 @@
     },
     {
       "year": "2024",
-      "totalEur": 3474265.9024557346,
+      "totalEur": 2677744.047284273,
       "totalOther": {},
-      "contractCount": 24
+      "contractCount": 22
     },
     {
       "year": "2025",
-      "totalEur": 8876136.596738981,
+      "totalEur": 8831173.077414704,
       "totalOther": {},
-      "contractCount": 12
+      "contractCount": 10
     },
     {
       "year": "2026",
-      "totalEur": 2487774.58,
+      "totalEur": 449834.12,
       "totalOther": {},
-      "contractCount": 5
+      "contractCount": 3
     }
   ]
 }

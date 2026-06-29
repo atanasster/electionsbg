@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-06-24T22:04:08.769Z",
+  "generatedAt": "2026-06-29T14:48:44.115Z",
   "total": 66,
   "rows": [
     {
       "kind": "mp",
       "mpId": 3271,
       "name": "Георги Захаринин Попов",
-      "totalEur": 394642387.99776965,
+      "totalEur": 166698686.33776966,
       "contractorCount": 1,
-      "contractCount": 8
+      "contractCount": 5
     },
     {
       "kind": "official",
@@ -16,9 +16,9 @@
       "name": "Валери Петров Борисов",
       "tier": "executive",
       "role": "agency_head",
-      "totalEur": 146597042.3662885,
+      "totalEur": 113500409.90628853,
       "contractorCount": 1,
-      "contractCount": 111
+      "contractCount": 102
     },
     {
       "kind": "official",
@@ -26,25 +26,17 @@
       "name": "Валентина Стефанова Недялкова",
       "tier": "municipal",
       "role": "councillor",
-      "totalEur": 146597042.3662885,
+      "totalEur": 113500409.90628853,
       "contractorCount": 1,
-      "contractCount": 111
+      "contractCount": 102
     },
     {
       "kind": "mp",
       "mpId": 805,
       "name": "Йордан Петков Йорданов",
-      "totalEur": 42216237.092590086,
+      "totalEur": 41891131.64259008,
       "contractorCount": 2,
-      "contractCount": 222
-    },
-    {
-      "kind": "mp",
-      "mpId": 938,
-      "name": "Дарин Величков Матов",
-      "totalEur": 39086186.33132261,
-      "contractorCount": 1,
-      "contractCount": 139
+      "contractCount": 219
     },
     {
       "kind": "mp",
@@ -82,6 +74,14 @@
     },
     {
       "kind": "mp",
+      "mpId": 938,
+      "name": "Дарин Величков Матов",
+      "totalEur": 31984474.16132261,
+      "contractorCount": 1,
+      "contractCount": 129
+    },
+    {
+      "kind": "mp",
       "mpId": 5268,
       "name": "Румен Ангелов Миланов",
       "totalEur": 13146255.945898505,
@@ -97,22 +97,22 @@
       "contractCount": 10
     },
     {
-      "kind": "official",
-      "slug": "hristin-tsvetolyubov-savov-ea02aa",
-      "name": "Христин Цветолюбов Савов",
-      "tier": "municipal",
-      "role": "councillor",
-      "totalEur": 12210905.992624752,
-      "contractorCount": 1,
-      "contractCount": 10
-    },
-    {
       "kind": "mp",
       "mpId": 3016,
       "name": "Борис Цветков Цветков",
       "totalEur": 8120841.790953201,
       "contractorCount": 1,
       "contractCount": 2
+    },
+    {
+      "kind": "official",
+      "slug": "hristin-tsvetolyubov-savov-ea02aa",
+      "name": "Христин Цветолюбов Савов",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 6465522.815958085,
+      "contractorCount": 1,
+      "contractCount": 5
     },
     {
       "kind": "mp",
@@ -159,34 +159,6 @@
       "contractCount": 2
     },
     {
-      "kind": "mp",
-      "mpId": 4649,
-      "name": "Генади Събков Събков",
-      "totalEur": 2976560.1711415104,
-      "contractorCount": 1,
-      "contractCount": 11
-    },
-    {
-      "kind": "official",
-      "slug": "mincho-stoikov-kazandzhiev-51c218",
-      "name": "Минчо Стойков Казанджиев",
-      "tier": "municipal",
-      "role": "councillor",
-      "totalEur": 2976560.1711415104,
-      "contractorCount": 1,
-      "contractCount": 11
-    },
-    {
-      "kind": "official",
-      "slug": "stefan-shtiliyanov-shtiliyanov-9d11f7",
-      "name": "Стефан Щилиянов Щилиянов",
-      "tier": "municipal",
-      "role": "councillor",
-      "totalEur": 2976560.1711415104,
-      "contractorCount": 1,
-      "contractCount": 11
-    },
-    {
       "kind": "official",
       "slug": "iordanka-vladimirova-bicheva-f99bd5",
       "name": "Йорданка Владимирова Бичева",
@@ -195,6 +167,34 @@
       "totalEur": 2727239.6036926517,
       "contractorCount": 1,
       "contractCount": 47
+    },
+    {
+      "kind": "mp",
+      "mpId": 4649,
+      "name": "Генади Събков Събков",
+      "totalEur": 2581560.1211415105,
+      "contractorCount": 1,
+      "contractCount": 9
+    },
+    {
+      "kind": "official",
+      "slug": "mincho-stoikov-kazandzhiev-51c218",
+      "name": "Минчо Стойков Казанджиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 2581560.1211415105,
+      "contractorCount": 1,
+      "contractCount": 9
+    },
+    {
+      "kind": "official",
+      "slug": "stefan-shtiliyanov-shtiliyanov-9d11f7",
+      "name": "Стефан Щилиянов Щилиянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "totalEur": 2581560.1211415105,
+      "contractorCount": 1,
+      "contractCount": 9
     },
     {
       "kind": "mp",
@@ -344,19 +344,11 @@
     },
     {
       "kind": "mp",
-      "mpId": 5165,
-      "name": "Валери Пламенов Лачовски",
-      "totalEur": 331317.1395075748,
-      "contractorCount": 1,
-      "contractCount": 2
-    },
-    {
-      "kind": "mp",
       "mpId": 2946,
       "name": "Елена Стефанова Пешева",
-      "totalEur": 315293.8123230035,
+      "totalEur": 312716.9023230035,
       "contractorCount": 2,
-      "contractCount": 10
+      "contractCount": 9
     },
     {
       "kind": "mp",
@@ -383,6 +375,14 @@
       "tier": "municipal",
       "role": "councillor",
       "totalEur": 201238.34893625724,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "mp",
+      "mpId": 5165,
+      "name": "Валери Пламенов Лачовски",
+      "totalEur": 165658.56950757478,
       "contractorCount": 1,
       "contractCount": 1
     },
