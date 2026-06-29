@@ -1,0 +1,135 @@
+{
+  "note": "Ministers of Finance of Bulgaria by tenure, aligned to cabinet boundaries (data/governments.json). A cabinet can have more than one finance minister (Borisov III: Goranov → Ananiev in 2020), so tenures are dated, not 1:1 with cabinets. cabinetId references data/governments.json[].id. Verified against bg.wikipedia.org/Министър_на_финансите_на_България and minfin.bg minister pages.",
+  "financeMinisters": [
+    {
+      "bg": "Пламен Орешарски",
+      "en": "Plamen Oresharski",
+      "startDate": "2005-08-17",
+      "endDate": "2009-07-27",
+      "cabinetId": "stanishev"
+    },
+    {
+      "bg": "Симеон Дянков",
+      "en": "Simeon Djankov",
+      "startDate": "2009-07-27",
+      "endDate": "2013-03-13",
+      "cabinetId": "borisov-1"
+    },
+    {
+      "bg": "Калин Христов",
+      "en": "Kalin Hristov",
+      "startDate": "2013-03-13",
+      "endDate": "2013-05-29",
+      "cabinetId": "raykov"
+    },
+    {
+      "bg": "Петър Чобанов",
+      "en": "Petar Chobanov",
+      "startDate": "2013-05-29",
+      "endDate": "2014-08-06",
+      "cabinetId": "oresharski"
+    },
+    {
+      "bg": "Румен Порожанов",
+      "en": "Rumen Porozhanov",
+      "startDate": "2014-08-06",
+      "endDate": "2014-11-07",
+      "cabinetId": "bliznashki"
+    },
+    {
+      "bg": "Владислав Горанов",
+      "en": "Vladislav Goranov",
+      "startDate": "2014-11-07",
+      "endDate": "2017-01-27",
+      "cabinetId": "borisov-2"
+    },
+    {
+      "bg": "Кирил Ананиев",
+      "en": "Kiril Ananiev",
+      "startDate": "2017-01-27",
+      "endDate": "2017-05-04",
+      "cabinetId": "gerdzhikov",
+      "party": "ГЕРБ"
+    },
+    {
+      "bg": "Владислав Горанов",
+      "en": "Vladislav Goranov",
+      "startDate": "2017-05-04",
+      "endDate": "2020-07-24",
+      "cabinetId": "borisov-3"
+    },
+    {
+      "bg": "Кирил Ананиев",
+      "en": "Kiril Ananiev",
+      "startDate": "2020-07-24",
+      "endDate": "2021-05-12",
+      "cabinetId": "borisov-3"
+    },
+    {
+      "bg": "Асен Василев",
+      "en": "Asen Vasilev",
+      "startDate": "2021-05-12",
+      "endDate": "2021-09-16",
+      "cabinetId": "yanev-1",
+      "party": "ПП"
+    },
+    {
+      "bg": "Валери Белчев",
+      "en": "Valeri Belchev",
+      "startDate": "2021-09-16",
+      "endDate": "2021-12-13",
+      "cabinetId": "yanev-2"
+    },
+    {
+      "bg": "Асен Василев",
+      "en": "Asen Vasilev",
+      "startDate": "2021-12-13",
+      "endDate": "2022-08-02",
+      "cabinetId": "petkov",
+      "party": "ПП"
+    },
+    {
+      "bg": "Росица Велкова",
+      "en": "Rositsa Velkova",
+      "startDate": "2022-08-02",
+      "endDate": "2023-06-06",
+      "cabinetId": "donev"
+    },
+    {
+      "bg": "Асен Василев",
+      "en": "Asen Vasilev",
+      "startDate": "2023-06-06",
+      "endDate": "2024-04-09",
+      "cabinetId": "denkov",
+      "party": "ПП"
+    },
+    {
+      "bg": "Людмила Петкова",
+      "en": "Lyudmila Petkova",
+      "startDate": "2024-04-09",
+      "endDate": "2025-01-16",
+      "cabinetId": "glavchev-1"
+    },
+    {
+      "bg": "Теменужка Петкова",
+      "en": "Temenuzhka Petkova",
+      "startDate": "2025-01-16",
+      "endDate": "2026-02-19",
+      "cabinetId": "zhelyazkov"
+    },
+    {
+      "bg": "Георги Клисурски",
+      "en": "Georgi Klisurski",
+      "startDate": "2026-02-19",
+      "endDate": "2026-05-08",
+      "cabinetId": "gyurov"
+    },
+    {
+      "bg": "Гълъб Донев",
+      "en": "Galab Donev",
+      "startDate": "2026-05-08",
+      "endDate": null,
+      "cabinetId": "radev"
+    }
+  ]
+}

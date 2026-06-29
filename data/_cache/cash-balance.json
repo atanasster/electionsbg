@@ -1,0 +1,62 @@
+{
+  "generatedAt": "2026-06-29T00:46:43.135Z",
+  "source": "МФ Консолидирана фискална програма (годишни), row „Бюджетно салдо“ — minfin.bg/bg/statistics/13, manually downloaded (Cloudflare blocks automation) and parsed by scripts/macro/fetch_cash_balance.ts; pre-2014 / current-year gaps via data/_cache/minfin_kfp/cash-manual.json",
+  "unitNote": "value = EUR million, full-year consolidated cash balance",
+  "annual": [
+    {
+      "year": 2014,
+      "value": -1571.2,
+      "source": "minfin-annual"
+    },
+    {
+      "year": 2015,
+      "value": -1270.7,
+      "source": "minfin-annual"
+    },
+    {
+      "year": 2016,
+      "value": 750.6,
+      "source": "minfin-annual"
+    },
+    {
+      "year": 2017,
+      "value": 432.3,
+      "source": "minfin-annual"
+    },
+    {
+      "year": 2018,
+      "value": 69.1,
+      "source": "minfin-annual"
+    },
+    {
+      "year": 2019,
+      "value": -589.2,
+      "source": "minfin-annual"
+    },
+    {
+      "year": 2020,
+      "value": -1806.2,
+      "source": "minfin-annual"
+    },
+    {
+      "year": 2021,
+      "value": -1940.1,
+      "source": "minfin-annual"
+    },
+    {
+      "year": 2022,
+      "value": -676.8,
+      "source": "minfin-annual"
+    },
+    {
+      "year": 2023,
+      "value": -2872.5,
+      "source": "minfin-annual"
+    },
+    {
+      "year": 2024,
+      "value": -3151.4,
+      "source": "minfin-annual"
+    }
+  ]
+}

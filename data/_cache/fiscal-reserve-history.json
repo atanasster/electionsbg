@@ -1,0 +1,107 @@
+{
+  "generatedAt": "2026-06-29T00:46:43.748Z",
+  "source": "minfin.bg/bg/statistics/4 — year-end Фискален резерв reports (manually downloaded; Cloudflare blocks automation). 2005–2013 = 'Общ баланс на ФР'; 2014 = 'Фискален резерв (I+II)' (broader post-2014-ЗПФ measure); 2011 = inline prose. Parsed by scripts/macro/fetch_fiscal_reserve_history.ts.",
+  "unitNote": "value = EUR million, year-end stock",
+  "annual": [
+    {
+      "year": 2005,
+      "quarter": 4,
+      "period": "2005-Q4",
+      "value": 2307,
+      "nativeBgnMillion": 4511.6,
+      "measure": "balance",
+      "sourceMonth": 12,
+      "sourceFile": "FRA -12- 2005-BG.pdf"
+    },
+    {
+      "year": 2006,
+      "quarter": 4,
+      "period": "2006-Q4",
+      "value": 2989,
+      "nativeBgnMillion": 5845.7,
+      "measure": "balance",
+      "sourceMonth": 12,
+      "sourceFile": "FRA -12- 2006-BG.pdf"
+    },
+    {
+      "year": 2007,
+      "quarter": 4,
+      "period": "2007-Q4",
+      "value": 3811,
+      "nativeBgnMillion": 7453.2,
+      "measure": "balance",
+      "sourceMonth": 12,
+      "sourceFile": "FRA -12- 2007-BG.pdf"
+    },
+    {
+      "year": 2008,
+      "quarter": 4,
+      "period": "2008-Q4",
+      "value": 4286,
+      "nativeBgnMillion": 8382.2,
+      "measure": "balance",
+      "sourceMonth": 12,
+      "sourceFile": "FRA -12- 2008-BG.pdf"
+    },
+    {
+      "year": 2009,
+      "quarter": 4,
+      "period": "2009-Q4",
+      "value": 3923,
+      "nativeBgnMillion": 7672.9,
+      "measure": "balance",
+      "sourceMonth": 12,
+      "sourceFile": "FRA -12- 2009-BG.pdf"
+    },
+    {
+      "year": 2010,
+      "quarter": 4,
+      "period": "2010-Q4",
+      "value": 3074,
+      "nativeBgnMillion": 6011.8,
+      "measure": "balance",
+      "sourceMonth": 12,
+      "sourceFile": "FRA -12- 2010-BG.pdf"
+    },
+    {
+      "year": 2011,
+      "quarter": 4,
+      "period": "2011-Q4",
+      "value": 2556,
+      "nativeBgnMillion": 5000,
+      "measure": "prose",
+      "sourceMonth": 12,
+      "sourceFile": "FRA–Q4-2011-BG.pdf"
+    },
+    {
+      "year": 2012,
+      "quarter": 4,
+      "period": "2012-Q4",
+      "value": 3109,
+      "nativeBgnMillion": 6081,
+      "measure": "balance",
+      "sourceMonth": 12,
+      "sourceFile": "FRA-12-2012-BG.pdf"
+    },
+    {
+      "year": 2013,
+      "quarter": 4,
+      "period": "2013-Q4",
+      "value": 2393,
+      "nativeBgnMillion": 4680.6,
+      "measure": "balance",
+      "sourceMonth": 12,
+      "sourceFile": "FRA-12-2013-BG.pdf"
+    },
+    {
+      "year": 2014,
+      "quarter": 4,
+      "period": "2014-Q4",
+      "value": 4689,
+      "nativeBgnMillion": 9170.4,
+      "measure": "I+II",
+      "sourceMonth": 12,
+      "sourceFile": "FRA-12-2014-BG.pdf"
+    }
+  ]
+}

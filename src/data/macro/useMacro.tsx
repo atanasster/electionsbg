@@ -20,6 +20,11 @@ export type MacroIndicatorKey =
   | "debtIssuance"
   // Minfin КФП — fiscal reserve (stock of cash, quarter-end, EUR million)
   | "fiscalReserve"
+  // Minfin КФП — cash budget balance (annual, EUR million; the headline cash
+  // deficit/surplus, distinct from the ESA budgetBalanceNominal above)
+  | "cashBalance"
+  // Minfin — overdue obligations / просрочени задължения (annual year-end stock)
+  | "arrears"
   // Eurostat — FDI (annual, BPM6)
   | "fdiInward"
   // Eurostat — HICP breakdown (quarterly)

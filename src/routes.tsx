@@ -627,6 +627,11 @@ const IndicatorsSocietyScreen = lazy(() =>
     default: m.IndicatorsSocietyScreen,
   })),
 );
+const IndicatorsCabinetBudgetsScreen = lazy(() =>
+  import("./screens/indicators/IndicatorsCabinetBudgetsScreen").then((m) => ({
+    default: m.IndicatorsCabinetBudgetsScreen,
+  })),
+);
 const IndicatorsCompareScreen = lazy(() =>
   import("./screens/indicators/IndicatorsCompareScreen").then((m) => ({
     default: m.IndicatorsCompareScreen,
@@ -2358,6 +2363,14 @@ export const AuthRoutes = () => {
             element={
               <CabinetAnchoredLayoutScreen>
                 <IndicatorsFiscalScreen />
+              </CabinetAnchoredLayoutScreen>
+            }
+          />
+          <Route
+            path="indicators/budgets"
+            element={
+              <CabinetAnchoredLayoutScreen>
+                <IndicatorsCabinetBudgetsScreen />
               </CabinetAnchoredLayoutScreen>
             }
           />

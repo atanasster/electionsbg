@@ -37,6 +37,7 @@ export const ENGLISH_STATIC_PAGES = [
   "indicators",
   "indicators/economy",
   "indicators/fiscal",
+  "indicators/budgets",
   "indicators/governance",
   "indicators/society",
   "indicators/compare",
@@ -116,6 +117,10 @@ export const routeDefs = (year: string): RouteDefs => [
   {
     path: "indicators/fiscal",
     file: `src/screens/indicators/IndicatorsFiscalScreen.tsx`,
+  },
+  {
+    path: "indicators/budgets",
+    file: `src/screens/indicators/IndicatorsCabinetBudgetsScreen.tsx`,
   },
   {
     path: "indicators/governance",

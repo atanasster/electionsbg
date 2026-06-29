@@ -882,6 +882,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <ul>
 <li><a href="${SITE_URL}/indicators/economy"><strong>Икономика</strong></a> — реален БВП, ХИПЦ инфлация, безработица, трудови доходи, индустриално производство и оборот в търговията; разбивка на инфлацията по ECOICOP; потребителско доверие и Economic Sentiment Indicator (Евростат).</li>
 <li><a href="${SITE_URL}/indicators/fiscal"><strong>Фискални</strong></a> — държавен дълг, бюджетен баланс и текуща сметка като % от БВП и в номинални евро; фискален резерв със законов праг; държавни приходи/разходи; FDI; таблица с всички емисии държавен дълг (еврооблигации + ДЦК); средства от ЕС vs вноска.</li>
+<li><a href="${SITE_URL}/indicators/budgets"><strong>Бюджети по кабинети</strong></a> — коя двойка премиер и финансов министър управлява най-добре бюджета: салдо (начислено по ЕСС и касово по КФП), просрочени задължения и фискален резерв по години и кабинети, с праг на ЕС от −3%.</li>
 <li><a href="${SITE_URL}/indicators/governance"><strong>Управление</strong></a> — Индекс за възприятие на корупцията (CPI, Transparency International); Worldwide Governance Indicators (Световна банка); доверие в Народното събрание, правителството и ЕС (Евробарометър).</li>
 <li><a href="${SITE_URL}/indicators/society"><strong>Общество</strong></a> — младежка безработица, годишна промяна на жилищните цени, коефициент на Джини и риск от бедност.</li>
 <li><a href="${SITE_URL}/indicators/compare"><strong>Сравнение със страните от ЕС</strong></a> — многослойно табло срещу ЕС-27 и четирите съседа: радиограма на WGI, бюджетна композиция (COFOG), неравенство (SILC), разход срещу резултат (здравеопазване, социална закрила).</li>
@@ -901,6 +902,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <ul>
 <li><a href="${SITE_URL}/en/indicators/economy"><strong>Economy</strong></a> — real GDP growth, HICP inflation, unemployment, labour income, industrial production and retail volume; HICP breakdown by ECOICOP sub-groups; consumer confidence and the Economic Sentiment Indicator (Eurostat).</li>
 <li><a href="${SITE_URL}/en/indicators/fiscal"><strong>Fiscal</strong></a> — government debt, budget balance and current account as % of GDP and in nominal EUR; fiscal reserve with statutory floor; revenue/expenditure; FDI; full table of Bulgarian sovereign debt emissions (Eurobonds + domestic ДЦК); EU funds vs contribution.</li>
+<li><a href="${SITE_URL}/en/indicators/budgets"><strong>Budgets by cabinet</strong></a> — which PM/finance-minister duo ran the budget best: balance (accrual ESA + cash КФП), overdue obligations and the fiscal reserve by year and cabinet, with the EU −3% line.</li>
 <li><a href="${SITE_URL}/en/indicators/governance"><strong>Governance</strong></a> — Corruption Perceptions Index (Transparency International); Worldwide Governance Indicators (World Bank); trust in the National Assembly, government and EU (Eurobarometer).</li>
 <li><a href="${SITE_URL}/en/indicators/society"><strong>Society</strong></a> — youth unemployment, house-price YoY, Gini coefficient and at-risk-of-poverty rate.</li>
 <li><a href="${SITE_URL}/en/indicators/compare"><strong>Compare with EU peers</strong></a> — multi-panel dashboard against EU27 + the four CEE/southern peers: WGI radar, COFOG budget composition, SILC inequality, spend-vs-outcome scatters (health, social).</li>
@@ -1070,6 +1072,44 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><strong>EU funds</strong> — annual receipts vs Bulgaria's contribution to the EU budget.</li>
 </ul>
 <p>See also <a href="${SITE_URL}/en/budget">state budget</a> for KFP and ministry-level execution. Sources: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Eurostat</a>, <a href="https://www.bnb.bg/" rel="nofollow noopener">BNB</a>, <a href="https://www.minfin.bg/" rel="nofollow noopener">MoF</a>, <a href="https://commission.europa.eu/strategy-and-policy/eu-budget/performance-and-reporting_en" rel="nofollow noopener">European Commission</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "indicators/budgets",
+    title:
+      "Бюджети по кабинети — салдо, просрочия и резерв по премиер и финансов министър | electionsbg.com",
+    description:
+      "Коя двойка премиер и финансов министър управлява най-добре държавния бюджет: бюджетно салдо (начислено по ЕСС и касово по КФП), просрочени задължения и фискален резерв по години и кабинети от 2005 г., с праг на ЕС от −3% от БВП.",
+    breadcrumbName: "Бюджети",
+    ogImage: "/og/indicators-budgets.png",
+    bodyHtml: `
+<h1>Бюджети по кабинети</h1>
+<p>Коя двойка премиер и финансов министър управлява най-добре държавния бюджет? Страницата подрежда всяка календарна година от 2005 г. с нейните показатели и я групира по кабинети според това кой е управлявал най-дълго, така че да се види кои управления са били най-дисциплинирани фискално.</p>
+<h2>Какво показва страницата</h2>
+<ul>
+<li><strong>Бюджетно салдо — две мерки</strong> — на начислена основа по методологията на Евростат (ЕСС 2010, за целия период) и касово по консолидираната фискална програма (КФП) на Министерството на финансите — числото, което политиците обикновено цитират; с праг на ЕС от −3% от БВП.</li>
+<li><strong>Просрочени задължения</strong> — натрупан обем в края на годината (консолидирано: централно правителство, социалноосигурителни фондове и общини).</li>
+<li><strong>Фискален резерв</strong> — паричен буфер в края на годината.</li>
+<li><strong>Кой е защитил и кой е актуализирал бюджета</strong> — финансовият министър, приел бюджета за всяка година, и този, който го е актуализирал — често различни хора.</li>
+</ul>
+<p>Виж и <a href="${SITE_URL}/budget">държавния бюджет</a> за изпълнението по КФП и министерства и <a href="${SITE_URL}/indicators/fiscal">фискалните индикатори</a>. Източници: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Евростат</a>, <a href="https://www.minfin.bg/" rel="nofollow noopener">Министерство на финансите</a>.</p>`.trim(),
+    english: {
+      title:
+        "Bulgaria Budgets by Cabinet — Balance, Arrears, Reserve by PM & Finance Minister | electionsbg.com",
+      description:
+        "Which PM / finance-minister duo ran the state budget best: budget balance (accrual ESA + cash КФП), overdue obligations and the fiscal reserve by year and cabinet since 2005, with the EU −3% deficit line.",
+      breadcrumbName: "Budgets",
+      bodyHtml: `
+<h1>Bulgaria — budgets by cabinet</h1>
+<p>Which Prime-Minister / Finance-Minister duo ran the state budget best? This page lays out every calendar year since 2005 with its figures and groups them under the cabinet that governed them longest, so you can see which terms were the most fiscally disciplined.</p>
+<h2>What's on this page</h2>
+<ul>
+<li><strong>Budget balance — two measures</strong> — accrual on the Eurostat methodology (ESA 2010, full period) and cash from the Ministry of Finance consolidated fiscal programme (КФП, the figure politicians usually quote); with the EU −3%-of-GDP line.</li>
+<li><strong>Overdue obligations</strong> — year-end consolidated stock (central government, social-security funds and municipalities).</li>
+<li><strong>Fiscal reserve</strong> — the year-end cash buffer.</li>
+<li><strong>Who defended and who revised each budget</strong> — the finance minister who got each year's budget adopted and the one who amended it — often different people.</li>
+</ul>
+<p>See also the <a href="${SITE_URL}/en/budget">state budget</a> for KFP and ministry-level execution and the <a href="${SITE_URL}/en/indicators/fiscal">fiscal indicators</a>. Sources: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Eurostat</a>, <a href="https://www.minfin.bg/" rel="nofollow noopener">Ministry of Finance</a>.</p>`.trim(),
     },
   }),
   staticPage({

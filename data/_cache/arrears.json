@@ -1,0 +1,322 @@
+{
+  "generatedAt": "2026-06-29T00:46:42.685Z",
+  "source": "minfin.bg/bg/statistics/10 — year-end Payment arrears Q4 YYYY_BG.xls (Обобщена справка, Общо row); manually downloaded (Cloudflare blocks automation) and parsed by scripts/macro/fetch_arrears.ts",
+  "unitNote": "value = EUR million, year-end consolidated stock (central + social-security + local government)",
+  "annual": [
+    {
+      "year": 2005,
+      "quarter": 1,
+      "period": "2005",
+      "value": 25.8,
+      "nativeTotal": 50426,
+      "unit": "BGN_THOUSAND",
+      "breakdownEurM": {
+        "central": null,
+        "social": null,
+        "local": null
+      },
+      "sourceFile": "Payment_arrears_1Q05_BG-new08.pdf",
+      "suspect": false
+    },
+    {
+      "year": 2006,
+      "quarter": 4,
+      "period": "2006",
+      "value": 22.7,
+      "nativeTotal": 44445.3,
+      "unit": "BGN_THOUSAND",
+      "breakdownEurM": {
+        "central": null,
+        "social": null,
+        "local": null
+      },
+      "sourceFile": "Payment_arrears_4Q06_BG.pdf",
+      "suspect": false
+    },
+    {
+      "year": 2007,
+      "quarter": 4,
+      "period": "2007",
+      "value": 29.1,
+      "nativeTotal": 56994.2,
+      "unit": "BGN_THOUSAND",
+      "breakdownEurM": {
+        "central": null,
+        "social": null,
+        "local": null
+      },
+      "sourceFile": "Payment_arrears_4Q07_BG.pdf",
+      "suspect": false
+    },
+    {
+      "year": 2008,
+      "quarter": 4,
+      "period": "2008",
+      "value": 41.7,
+      "nativeTotal": 81607.7,
+      "unit": "BGN_THOUSAND",
+      "breakdownEurM": {
+        "central": null,
+        "social": null,
+        "local": null
+      },
+      "sourceFile": "Payment_arrears_4Q08_BG.pdf",
+      "suspect": false
+    },
+    {
+      "year": 2009,
+      "quarter": 4,
+      "period": "2009",
+      "value": 408.5,
+      "nativeTotal": 798965.8,
+      "unit": "BGN_THOUSAND",
+      "breakdownEurM": {
+        "central": 307.9,
+        "social": null,
+        "local": 100.6
+      },
+      "sourceFile": "Payment_arrears_4Q09_Bg_new.pdf",
+      "suspect": false
+    },
+    {
+      "year": 2010,
+      "quarter": 4,
+      "period": "2010",
+      "value": 220.6,
+      "nativeTotal": 431538,
+      "unit": "BGN_THOUSAND",
+      "breakdownEurM": {
+        "central": 121.3,
+        "social": null,
+        "local": 99.4
+      },
+      "sourceFile": "Payment_arrears_4Q10_Bg.pdf",
+      "suspect": false
+    },
+    {
+      "year": 2011,
+      "quarter": 4,
+      "period": "2011",
+      "value": 192.5,
+      "nativeTotal": 376528,
+      "unit": "BGN_THOUSAND",
+      "breakdownEurM": {
+        "central": 86.6,
+        "social": null,
+        "local": 105.9
+      },
+      "sourceFile": "Payment_arrears_4Q11_Bg-new.pdf",
+      "suspect": false
+    },
+    {
+      "year": 2012,
+      "quarter": 4,
+      "period": "2012",
+      "value": 145.6,
+      "nativeTotal": 284710.4,
+      "unit": "BGN_THOUSAND",
+      "breakdownEurM": {
+        "central": 56.7,
+        "social": null,
+        "local": 88.9
+      },
+      "sourceFile": "Payment_arrears_4Q12_BG.pdf",
+      "suspect": false
+    },
+    {
+      "year": 2013,
+      "quarter": 4,
+      "period": "2013",
+      "value": 142.3,
+      "nativeTotal": 278237.6,
+      "unit": "BGN_THOUSAND",
+      "breakdownEurM": {
+        "central": 55.1,
+        "social": null,
+        "local": 87.2
+      },
+      "sourceFile": "Payment arrears Q4 2013_BG.pdf",
+      "suspect": false
+    },
+    {
+      "year": 2014,
+      "quarter": 4,
+      "period": "2014",
+      "value": 145.1,
+      "nativeTotal": 283872.3,
+      "unit": "BGN_THOUSAND",
+      "breakdownEurM": {
+        "central": 63.7,
+        "social": null,
+        "local": 81.5
+      },
+      "sourceFile": "Payment arrears Q4 2014_BG.pdf",
+      "suspect": false
+    },
+    {
+      "year": 2015,
+      "quarter": 4,
+      "period": "2015",
+      "value": 142.5,
+      "nativeTotal": 278723.094,
+      "unit": "BGN_THOUSAND",
+      "breakdownEurM": {
+        "central": 48,
+        "social": null,
+        "local": 94.5
+      },
+      "sourceFile": "Payment arrears Q4 2015_BG.xls",
+      "suspect": false
+    },
+    {
+      "year": 2016,
+      "quarter": 4,
+      "period": "2016",
+      "value": 121.3,
+      "nativeTotal": 237336.3,
+      "unit": "BGN_THOUSAND",
+      "breakdownEurM": {
+        "central": 27.1,
+        "social": null,
+        "local": 94.3
+      },
+      "sourceFile": "Payment arrears Q4 2016_BG.xls",
+      "suspect": false
+    },
+    {
+      "year": 2017,
+      "quarter": 4,
+      "period": "2017",
+      "value": 157.6,
+      "nativeTotal": 308230.1,
+      "unit": "BGN_THOUSAND",
+      "breakdownEurM": {
+        "central": 21.9,
+        "social": 61.1,
+        "local": 74.6
+      },
+      "sourceFile": "Payment arrears Q4 2017_BG.xls",
+      "suspect": false
+    },
+    {
+      "year": 2018,
+      "quarter": 4,
+      "period": "2018",
+      "value": 160.2,
+      "nativeTotal": 313239.32499999995,
+      "unit": "BGN_THOUSAND",
+      "breakdownEurM": {
+        "central": 28.5,
+        "social": 69.2,
+        "local": 62.5
+      },
+      "sourceFile": "Payment arrears Q4 2018_BG.xls",
+      "suspect": false
+    },
+    {
+      "year": 2019,
+      "quarter": 4,
+      "period": "2019",
+      "value": 134.6,
+      "nativeTotal": 263181,
+      "unit": "BGN_THOUSAND",
+      "breakdownEurM": {
+        "central": 45.1,
+        "social": 5.7,
+        "local": 83.7
+      },
+      "sourceFile": "Payment arrears Q4 2019_BG.xls",
+      "suspect": false
+    },
+    {
+      "year": 2020,
+      "quarter": 4,
+      "period": "2020",
+      "value": 101.2,
+      "nativeTotal": 197840.1,
+      "unit": "BGN_THOUSAND",
+      "breakdownEurM": {
+        "central": 35.3,
+        "social": 0,
+        "local": 65.8
+      },
+      "sourceFile": "Payment arrears Q4 2020_BG.xls",
+      "suspect": false
+    },
+    {
+      "year": 2021,
+      "quarter": 4,
+      "period": "2021",
+      "value": 161.9,
+      "nativeTotal": 316648.39999999997,
+      "unit": "BGN_THOUSAND",
+      "breakdownEurM": {
+        "central": 101.2,
+        "social": 0,
+        "local": 60.7
+      },
+      "sourceFile": "Payment arrears Q4 2021_BG.xls",
+      "suspect": false
+    },
+    {
+      "year": 2022,
+      "quarter": 4,
+      "period": "2022",
+      "value": 46830.6,
+      "nativeTotal": 91592622.2,
+      "unit": "BGN_THOUSAND",
+      "breakdownEurM": {
+        "central": 283.9,
+        "social": 0,
+        "local": 46546.6
+      },
+      "sourceFile": "Payment arrears Q4 2022_BG.xls",
+      "suspect": true
+    },
+    {
+      "year": 2023,
+      "quarter": 4,
+      "period": "2023",
+      "value": 198.8,
+      "nativeTotal": 388761.237,
+      "unit": "BGN_THOUSAND",
+      "breakdownEurM": {
+        "central": 117.9,
+        "social": 0,
+        "local": 80.9
+      },
+      "sourceFile": "Payment arrears Q4 2023_BG.xls",
+      "suspect": false
+    },
+    {
+      "year": 2024,
+      "quarter": 4,
+      "period": "2024",
+      "value": 168,
+      "nativeTotal": 328656.135,
+      "unit": "BGN_THOUSAND",
+      "breakdownEurM": {
+        "central": 94.9,
+        "social": 0,
+        "local": 73.1
+      },
+      "sourceFile": "Payment arrears Q4 2024_BG.xls",
+      "suspect": false
+    },
+    {
+      "year": 2025,
+      "quarter": 4,
+      "period": "2025",
+      "value": 188.9,
+      "nativeTotal": 369476.79500000004,
+      "unit": "BGN_THOUSAND",
+      "breakdownEurM": {
+        "central": 93.3,
+        "social": 0,
+        "local": 95.6
+      },
+      "sourceFile": "Payment arrears Q4 2025_BG.xls",
+      "suspect": false
+    }
+  ]
+}

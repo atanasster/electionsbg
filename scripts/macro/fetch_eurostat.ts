@@ -22,6 +22,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { CASH_META } from "./fetch_cash_balance";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -1000,12 +1001,46 @@ const FISCAL_RESERVE_CACHE = path.resolve(
   "../../data/_cache/fiscal-reserve.json",
 );
 
-const loadFiscalReserve = (): MacroPoint[] => {
-  if (!fs.existsSync(FISCAL_RESERVE_CACHE)) {
-    console.warn(
-      `Fiscal-reserve cache missing (${FISCAL_RESERVE_CACHE}); run \`tsx scripts/macro/fetch_fiscal_reserve.ts\` to populate it.`,
-    );
+// Pre-2015 year-end backfill (2005–2014), parsed by
+// scripts/macro/fetch_fiscal_reserve_history.ts from manually-dropped minfin
+// PDFs. Merged in for years the Wayback quarterly cache doesn't cover.
+const FISCAL_RESERVE_HISTORY = path.resolve(
+  __dirname,
+  "../../data/_cache/fiscal-reserve-history.json",
+);
+
+const loadFiscalReserveHistory = (): MacroPoint[] => {
+  if (!fs.existsSync(FISCAL_RESERVE_HISTORY)) return [];
+  try {
+    const raw = JSON.parse(fs.readFileSync(FISCAL_RESERVE_HISTORY, "utf8")) as {
+      annual: Array<{
+        year: number;
+        quarter: 1 | 2 | 3 | 4;
+        period: string;
+        value: number | null;
+      }>;
+    };
+    return raw.annual
+      .filter((p) => typeof p.value === "number")
+      .map((p) => ({
+        year: p.year,
+        quarter: p.quarter,
+        period: p.period,
+        value: p.value as number,
+      }));
+  } catch {
     return [];
+  }
+};
+
+const loadFiscalReserve = (): MacroPoint[] => {
+  const history = loadFiscalReserveHistory();
+  if (!fs.existsSync(FISCAL_RESERVE_CACHE)) {
+    if (history.length === 0)
+      console.warn(
+        `Fiscal-reserve cache missing (${FISCAL_RESERVE_CACHE}); run \`tsx scripts/macro/fetch_fiscal_reserve.ts\` to populate it.`,
+      );
+    return history;
   }
   try {
     const raw = JSON.parse(fs.readFileSync(FISCAL_RESERVE_CACHE, "utf8")) as {
@@ -1016,17 +1051,26 @@ const loadFiscalReserve = (): MacroPoint[] => {
         value: number;
       }>;
     };
-    return raw.quarterly.map((p) => ({
+    const quarterly = raw.quarterly.map((p) => ({
       year: p.year,
       quarter: p.quarter,
       period: p.period,
       value: p.value,
     }));
+    // Merge the pre-2015 history for years the quarterly cache doesn't cover.
+    const yearsPresent = new Set(quarterly.map((p) => p.year));
+    const merged = [
+      ...history.filter((p) => !yearsPresent.has(p.year)),
+      ...quarterly,
+    ];
+    return merged.sort(
+      (a, b) => a.year - b.year || (a.quarter ?? 0) - (b.quarter ?? 0),
+    );
   } catch (err) {
     console.warn(
       `Failed to read fiscal-reserve cache: ${(err as Error).message}`,
     );
-    return [];
+    return history;
   }
 };
 
@@ -1044,6 +1088,90 @@ CURATED_INDICATORS.push({
   attributionBg:
     "Министерство на финансите — месечен бюлетин по КФП, ред „Фискален резерв“; архивирано чрез Wayback Machine",
   series: loadFiscalReserve(),
+});
+
+// Overdue obligations (просрочени задължения) — annual year-end consolidated
+// stock from minfin.bg/bg/statistics/10, parsed by scripts/macro/fetch_arrears.ts
+// from manually-dropped year-end XLS files (Cloudflare blocks automation). The
+// committed cache (data/_cache/arrears.json) is read here so a routine macro
+// refresh re-bakes the series; the suspect-year guard already ran upstream.
+const ARREARS_CACHE = path.resolve(__dirname, "../../data/_cache/arrears.json");
+
+const loadArrears = (): MacroPoint[] => {
+  if (!fs.existsSync(ARREARS_CACHE)) {
+    console.warn(
+      `Arrears cache missing (${ARREARS_CACHE}); run \`tsx scripts/macro/fetch_arrears.ts\` to populate it.`,
+    );
+    return [];
+  }
+  try {
+    const raw = JSON.parse(fs.readFileSync(ARREARS_CACHE, "utf8")) as {
+      annual: Array<{ year: number; value: number | null; suspect?: boolean }>;
+    };
+    return raw.annual
+      .filter((p) => !p.suspect && typeof p.value === "number")
+      .map((p) => ({ year: p.year, value: p.value as number }));
+  } catch (err) {
+    console.warn(`Failed to read arrears cache: ${(err as Error).message}`);
+    return [];
+  }
+};
+
+CURATED_INDICATORS.push({
+  source: "curated",
+  key: "arrears",
+  cadence: "annual",
+  sourceUrl: "https://www.minfin.bg/bg/statistics/10",
+  titleEn: "Overdue obligations (просрочени задължения)",
+  titleBg: "Просрочени задължения",
+  unitLabelEn: "EUR million (year-end consolidated stock)",
+  unitLabelBg: "млн. евро (натрупан обем към края на годината)",
+  attributionEn:
+    "Ministry of Finance — Просрочени задължения (year-end Обобщена справка, Общо row): consolidated central + social-security + local government",
+  attributionBg:
+    "Министерство на финансите — Просрочени задължения (обобщена справка към края на годината, ред „Общо“): консолидирано централно правителство, социалноосигурителни фондове и местно правителство",
+  series: loadArrears(),
+});
+
+// Cash budget balance (касов баланс по КФП) — the МФ headline cash deficit/
+// surplus, distinct from the Eurostat ESA balance above. Recent years come from
+// our own КФП ingest (data/budget/index.json); older years from a manual МФ drop
+// (data/_cache/minfin_kfp/cash-manual.json). Assembled by
+// scripts/macro/fetch_cash_balance.ts into data/_cache/cash-balance.json, read
+// here so a routine macro refresh re-bakes the series.
+const CASH_BALANCE_CACHE = path.resolve(
+  __dirname,
+  "../../data/_cache/cash-balance.json",
+);
+
+const loadCashBalance = (): MacroPoint[] => {
+  if (!fs.existsSync(CASH_BALANCE_CACHE)) {
+    console.warn(
+      `Cash-balance cache missing (${CASH_BALANCE_CACHE}); run \`tsx scripts/macro/fetch_cash_balance.ts\` to populate it.`,
+    );
+    return [];
+  }
+  try {
+    const raw = JSON.parse(fs.readFileSync(CASH_BALANCE_CACHE, "utf8")) as {
+      annual: Array<{ year: number; value: number | null }>;
+    };
+    return raw.annual
+      .filter((p) => typeof p.value === "number")
+      .map((p) => ({ year: p.year, value: p.value as number }));
+  } catch (err) {
+    console.warn(
+      `Failed to read cash-balance cache: ${(err as Error).message}`,
+    );
+    return [];
+  }
+};
+
+CURATED_INDICATORS.push({
+  // Reuse the parser's own metadata so the attribution can't drift from what
+  // fetch_cash_balance.ts actually reads (the МФ annual КФП workbook).
+  ...CASH_META,
+  key: "cashBalance",
+  series: loadCashBalance(),
 });
 
 type EurostatResponse = {

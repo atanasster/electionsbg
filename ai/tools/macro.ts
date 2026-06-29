@@ -87,6 +87,11 @@ export const MACRO_ALIASES: Record<string, string> = {
 
 export const resolveMacroKey = (raw: string): string | undefined => {
   const q = raw.toLowerCase().trim();
+  // Cash КФП balance and overdue obligations are checked first so "касов
+  // дефицит" / "просрочени задължения" win over the generic "дефицит" → ESA
+  // budgetBalance alias below.
+  if (/кфп|касов|cash balance|cash deficit/.test(q)) return "cashBalance";
+  if (/просроч|overdue|arrears/.test(q)) return "arrears";
   if (MACRO_ALIASES[q]) return MACRO_ALIASES[q];
   for (const [k, v] of Object.entries(MACRO_ALIASES))
     if (q.includes(k)) return v;
@@ -230,9 +235,11 @@ const CATEGORIES: Record<
     keys: [
       "govDebt",
       "budgetBalance",
+      "cashBalance",
       "govRevenue",
       "govExpenditure",
       "fiscalReserve",
+      "arrears",
     ],
   },
   governance: {

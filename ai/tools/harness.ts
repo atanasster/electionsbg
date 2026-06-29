@@ -219,6 +219,20 @@ const run = async () => {
     "macroIndicator returns a series",
   );
 
+  // The two fiscal series added with the cabinet-budgets feature must stay
+  // reachable by name (cash КФП balance + overdue obligations).
+  for (const ind of ["касово салдо", "просрочени задължения"]) {
+    const r = (await runTool(
+      "macroIndicator",
+      { indicator: ind },
+      ctxEn,
+    )) as Envelope;
+    assert(
+      (r.series?.[0]?.points.length ?? 0) > 0,
+      `macroIndicator returns a series for "${ind}"`,
+    );
+  }
+
   // 9. router: new-domain questions
   console.log("\n=== [router] new-domain questions ===");
   const cases2: [string, string | null][] = [
@@ -231,6 +245,8 @@ const run = async () => {
     ["Кой получава европейски средства?", "fundsOverview"],
     ["Кои са правителствата от 2005?", "governments"],
     ["Каква е инфлацията?", "macroIndicator"],
+    ["Какви са просрочените задължения?", "macroIndicator"],
+    ["Какво е касовото салдо по КФП?", "macroIndicator"],
     ["Как е икономиката?", "macroOverview"],
   ];
   for (const [q, expected] of cases2) {

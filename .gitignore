@@ -160,6 +160,23 @@ functions/.secret.local
 # know what to drop there.
 /data/_cache/minfin_mreports/
 /data/_cache/minfin_fr_xlsx/*.xlsx
+/data/_cache/minfin_fr_history/*.pdf
+
+# Cached overdue-obligations (просрочени задължения) source artifacts — the
+# year-end "Payment arrears Q4 YYYY_BG.xls" files from minfin.bg/bg/statistics/10.
+# Re-fetched manually (Cloudflare blocks automation) by dropping them here, then
+# parsed by scripts/macro/fetch_arrears.ts. The parsed annual aggregate
+# (arrears.json) is committed; the raw .xls drops are not. The README stays
+# committed so future operators know what to drop here.
+/data/_cache/minfin_arrears/*.xls
+/data/_cache/minfin_arrears/*.pdf
+
+# МФ Консолидирана фискална програма (годишни) workbook — the raw annual XLS
+# drop, parsed by scripts/macro/fetch_cash_balance.ts into the committed
+# cash-balance.json. The README + cash-manual.json stay committed; the raw XLS
+# is re-fetchable upstream (minfin.bg, behind Cloudflare) and not committed.
+/data/_cache/minfin_kfp/*.xls
+/data/_cache/minfin_kfp/*.pdf
 
 # ИСУН EU-funds XLSX export — re-fetchable upstream cache. The parsed JSON
 # (data/funds/) is committed; this raw download is not.

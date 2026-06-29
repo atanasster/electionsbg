@@ -7,7 +7,7 @@
 // current one, or actual-so-far when no projection can be anchored yet.
 
 import { FC } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   Coins,
@@ -242,6 +242,7 @@ const FiscalYearSelector: FC<{
 
 export const BudgetScreen: FC = () => {
   const { t } = useTranslation();
+  const { search } = useLocation();
   const { data: index, isLoading: indexLoading } = useBudgetIndex();
   const { data: kfp, isLoading: kfpLoading } = useKfp();
   const { data: documents } = useBudgetDocuments();
@@ -430,6 +431,29 @@ export const BudgetScreen: FC = () => {
           ) : null}
           {snapshot ? <BudgetFlowTile snapshot={snapshot} /> : null}
         </DashboardSection>
+
+        {/* Zoom out from this year's deficit to the historical cross-cabinet
+            view (deficit / arrears / fiscal reserve by PM·FM duo). */}
+        <Link
+          to={{ pathname: "/indicators/budgets", search }}
+          className="mt-6 flex items-center justify-between gap-3 rounded-xl border bg-card p-4 shadow-sm transition-colors hover:bg-accent/10"
+        >
+          <div className="flex items-start gap-3">
+            <Scale className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+            <div>
+              <h2 className="mb-0.5 text-base font-semibold">
+                {t("cabinet_budgets_heading")}
+              </h2>
+              <p className="max-w-2xl text-xs text-muted-foreground">
+                {t("cabinet_budgets_teaser")}
+              </p>
+            </div>
+          </div>
+          <span className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap text-sm text-primary">
+            {t("cabinet_budgets_open")}
+            <ArrowRight className="h-3.5 w-3.5" />
+          </span>
+        </Link>
 
         <DashboardSection
           id="budget-composition"

@@ -25,6 +25,7 @@ import { cn } from "@/lib/utils";
 const DOMAINS = [
   { path: "/indicators/economy", labelKey: "indicators_nav_economy" },
   { path: "/indicators/fiscal", labelKey: "indicators_nav_fiscal" },
+  { path: "/indicators/budgets", labelKey: "indicators_nav_budgets" },
   { path: "/indicators/governance", labelKey: "indicators_nav_governance" },
   { path: "/indicators/society", labelKey: "indicators_nav_society" },
   { path: "/indicators/compare", labelKey: "indicators_nav_compare" },

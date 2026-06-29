@@ -1,0 +1,26 @@
+{
+  "note": "Per-year State Budget Law (ЗДБРБ): when it was adopted/promulgated (Държавен вестник) and the dates of any in-year amendments (актуализация / ЗИД на ЗДБ). Used to mark WHO defended a year's budget (the finance minister in office at adoption) vs who executed it — they often differ, since the budget for year Y is normally adopted in late Y-1. 'adopted' null = no State Budget Law was in force (caretaker year on an extended/bridging law). Author/reviser names are resolved at display time from data/finance_ministers.json by date, so this file carries only dates. Routine pre-2020 laws use the conventional late-December (Y-1) promulgation; exact dates are used for delayed adoptions and the verified amendments. Sources: dv.parliament.bg / minfin.bg; 2020-2025 dates cross-checked against scripts/budget/fetch_sources.ts. 2005 omitted (its budget was adopted Dec 2004 under a finance minister outside the covered range).",
+  "budgetLaws": [
+    { "year": 2006, "adopted": "2005-12-20", "revisions": [] },
+    { "year": 2007, "adopted": "2006-12-20", "revisions": [] },
+    { "year": 2008, "adopted": "2007-12-20", "revisions": [] },
+    { "year": 2009, "adopted": "2008-12-19", "revisions": [] },
+    { "year": 2010, "adopted": "2009-12-20", "revisions": [] },
+    { "year": 2011, "adopted": "2010-12-20", "revisions": [] },
+    { "year": 2012, "adopted": "2011-12-20", "revisions": [] },
+    { "year": 2013, "adopted": "2012-12-20", "revisions": [] },
+    { "year": 2014, "adopted": "2013-12-20", "revisions": ["2014-12-19"] },
+    { "year": 2015, "adopted": "2014-12-20", "revisions": [] },
+    { "year": 2016, "adopted": "2015-12-20", "revisions": [] },
+    { "year": 2017, "adopted": "2016-12-20", "revisions": [] },
+    { "year": 2018, "adopted": "2017-12-20", "revisions": [] },
+    { "year": 2019, "adopted": "2018-12-20", "revisions": [] },
+    { "year": 2020, "adopted": "2019-12-20", "revisions": ["2020-04-09"] },
+    { "year": 2021, "adopted": "2020-12-08", "revisions": ["2021-08-26"] },
+    { "year": 2022, "adopted": "2022-03-04", "revisions": ["2022-07-05"] },
+    { "year": 2023, "adopted": "2023-08-01", "revisions": [] },
+    { "year": 2024, "adopted": "2023-12-30", "revisions": ["2024-04-30"] },
+    { "year": 2025, "adopted": "2025-03-27", "revisions": [] },
+    { "year": 2026, "adopted": null, "note": "interim" }
+  ]
+}

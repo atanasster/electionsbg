@@ -4,6 +4,7 @@
 
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Link, useLocation } from "react-router-dom";
 import { Title } from "@/ux/Title";
 import { useHashScroll } from "@/ux/useHashScroll";
 import { useGovernments } from "@/data/governments/useGovernments";
@@ -36,6 +37,7 @@ const FISCAL_INDICATOR_KEYS: MacroIndicatorKey[] = [
 
 export const IndicatorsFiscalScreen = () => {
   const { t, i18n } = useTranslation();
+  const { search } = useLocation();
   const { data: governments } = useGovernments();
   const { data: macro } = useMacro();
   const { data: peers } = useMacroPeers();
@@ -121,6 +123,27 @@ export const IndicatorsFiscalScreen = () => {
           mobileScrollable
         />
       ) : null}
+
+      <section className="mb-10">
+        <Link
+          to={{ pathname: "/indicators/budgets", search }}
+          className="block rounded-lg border border-border p-4 transition-colors hover:bg-accent/10"
+        >
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <h2 className="text-lg font-semibold mb-1">
+                {t("cabinet_budgets_heading")}
+              </h2>
+              <p className="text-xs text-muted-foreground max-w-2xl">
+                {t("cabinet_budgets_teaser")}
+              </p>
+            </div>
+            <span className="shrink-0 whitespace-nowrap text-sm text-primary">
+              {t("cabinet_budgets_open")} →
+            </span>
+          </div>
+        </Link>
+      </section>
 
       <section className="mb-10">
         <h2 className="text-lg font-semibold mb-3">
