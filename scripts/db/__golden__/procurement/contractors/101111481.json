@@ -1,0 +1,366 @@
+{
+  "eik": "101111481",
+  "name": "Етерна кънстръкшън АД",
+  "totalEur": 28010544.17,
+  "totalOther": {},
+  "contractCount": 27,
+  "awardCount": 0,
+  "awarderCount": 7,
+  "byAwarder": [
+    {
+      "eik": "000695089",
+      "name": "Агенция \"Пътна инфраструктура\"",
+      "contractCount": 2,
+      "totalEur": 25059267.31,
+      "totalOther": {}
+    },
+    {
+      "eik": "000024987",
+      "name": "Община Симитли",
+      "contractCount": 1,
+      "totalEur": 1070582.57,
+      "totalOther": {}
+    },
+    {
+      "eik": "000386790",
+      "name": "Община Трън",
+      "contractCount": 18,
+      "totalEur": 958587.21,
+      "totalOther": {}
+    },
+    {
+      "eik": "000614906",
+      "name": "Община Доспат",
+      "contractCount": 2,
+      "totalEur": 688151.14,
+      "totalOther": {}
+    },
+    {
+      "eik": "000025014",
+      "name": "Община Хаджидимово",
+      "contractCount": 1,
+      "totalEur": 167108.85,
+      "totalOther": {}
+    },
+    {
+      "eik": "000024663",
+      "name": "Община Банско",
+      "contractCount": 2,
+      "totalEur": 66847.09,
+      "totalOther": {}
+    },
+    {
+      "eik": "000627597",
+      "name": "Агенция \"Митници",
+      "contractCount": 1,
+      "totalEur": 0.01,
+      "totalOther": {}
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2015",
+      "contractCount": 3,
+      "totalEur": 161083.53,
+      "totalOther": {}
+    },
+    {
+      "year": "2016",
+      "contractCount": 1,
+      "totalEur": 8517.41,
+      "totalOther": {}
+    },
+    {
+      "year": "2017",
+      "contractCount": 4,
+      "totalEur": 1456249.58,
+      "totalOther": {}
+    },
+    {
+      "year": "2019",
+      "contractCount": 1,
+      "totalEur": 318997.75,
+      "totalOther": {}
+    },
+    {
+      "year": "2022",
+      "contractCount": 10,
+      "totalEur": 501770.31,
+      "totalOther": {}
+    },
+    {
+      "year": "2023",
+      "contractCount": 5,
+      "totalEur": 337549.43,
+      "totalOther": {}
+    },
+    {
+      "year": "2024",
+      "contractCount": 3,
+      "totalEur": 25226376.15,
+      "totalOther": {}
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "60e6ba9726e0",
+      "ocid": "eop-00044-2023-0017",
+      "date": "2024-07-11",
+      "tag": "contract",
+      "amount": 33191671.875,
+      "currency": "BGN",
+      "amountEur": 16970632.35,
+      "partyEik": "000695089",
+      "partyName": "Агенция \"Пътна инфраструктура\"",
+      "bundleUuid": "eop-flat:2024-07-11",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-07-11/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2011.07.2024.json"
+    },
+    {
+      "key": "72a381b79d9d",
+      "ocid": "eop-00044-2024-0044",
+      "date": "2024-10-24",
+      "tag": "contract",
+      "amount": 15819994.9,
+      "currency": "BGN",
+      "amountEur": 8088634.95,
+      "partyEik": "000695089",
+      "partyName": "Агенция \"Пътна инфраструктура\"",
+      "bundleUuid": "eop-flat:2024-10-24",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-10-24/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2024.10.2024.json"
+    },
+    {
+      "key": "5f93d09548d9",
+      "ocid": "aop-legacy-2017-784568",
+      "date": "2017-04-26",
+      "tag": "contract",
+      "amount": 2093877.5,
+      "currency": "BGN",
+      "amountEur": 1070582.57,
+      "partyEik": "000024987",
+      "partyName": "Община Симитли",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "ca140800b67e",
+      "ocid": "aop-legacy-2017-800736",
+      "date": "2017-08-15",
+      "tag": "contract",
+      "amount": 722001.27,
+      "currency": "BGN",
+      "amountEur": 369153.39,
+      "partyEik": "000614906",
+      "partyName": "Община Доспат",
+      "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
+      "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
+    },
+    {
+      "key": "2bd60a88b890",
+      "ocid": "aop-legacy-2019-886679",
+      "date": "2019-01-07",
+      "tag": "contract",
+      "amount": 623905.37,
+      "currency": "BGN",
+      "amountEur": 318997.75,
+      "partyEik": "000614906",
+      "partyName": "Община Доспат",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "95decbf9135e",
+      "ocid": "eop-00191-2023-0015",
+      "date": "2024-01-19",
+      "tag": "contract",
+      "amount": 326836.5,
+      "currency": "BGN",
+      "amountEur": 167108.85,
+      "partyEik": "000025014",
+      "partyName": "Община Хаджидимово",
+      "bundleUuid": "eop-flat:2024-01-19",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-01-19/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2019.01.2024.json"
+    },
+    {
+      "key": "73c89e255d2a",
+      "ocid": "aop-legacy-2023-405453",
+      "date": "2023-07-27",
+      "tag": "contract",
+      "amount": 220081.48,
+      "currency": "BGN",
+      "amountEur": 112525.87,
+      "partyEik": "000386790",
+      "partyName": "Община Трън",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "fdb134a676f2",
+      "ocid": "aop-legacy-2023-405446",
+      "date": "2023-07-27",
+      "tag": "contract",
+      "amount": 191486.85,
+      "currency": "BGN",
+      "amountEur": 97905.67,
+      "partyEik": "000386790",
+      "partyName": "Община Трън",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "d9b71548be15",
+      "ocid": "aop-legacy-2011-2015-683511",
+      "date": "2015-08-19",
+      "tag": "contract",
+      "amount": 184310.46,
+      "currency": "BGN",
+      "amountEur": 94236.44,
+      "partyEik": "000386790",
+      "partyName": "Община Трън",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
+      "key": "c7b4f89683c6",
+      "ocid": "aop-legacy-2022-270523",
+      "date": "2022-09-01",
+      "tag": "contract",
+      "amount": 157263.97,
+      "currency": "BGN",
+      "amountEur": 80407.79,
+      "partyEik": "000386790",
+      "partyName": "Община Трън",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "bc06461a1627",
+      "ocid": "aop-legacy-2022-270580",
+      "date": "2022-09-01",
+      "tag": "contract",
+      "amount": 137394.87,
+      "currency": "BGN",
+      "amountEur": 70248.88,
+      "partyEik": "000386790",
+      "partyName": "Община Трън",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "33902957bd5d",
+      "ocid": "aop-legacy-2022-270558",
+      "date": "2022-09-01",
+      "tag": "contract",
+      "amount": 109769.99,
+      "currency": "BGN",
+      "amountEur": 56124.5,
+      "partyEik": "000386790",
+      "partyName": "Община Трън",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "9b8104e3199f",
+      "ocid": "aop-legacy-2022-270570",
+      "date": "2022-09-01",
+      "tag": "contract",
+      "amount": 100577.54,
+      "currency": "BGN",
+      "amountEur": 51424.48,
+      "partyEik": "000386790",
+      "partyName": "Община Трън",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "033de6756bf8",
+      "ocid": "aop-legacy-2023-405481",
+      "date": "2023-07-27",
+      "tag": "contract",
+      "amount": 96049.68,
+      "currency": "BGN",
+      "amountEur": 49109.42,
+      "partyEik": "000386790",
+      "partyName": "Община Трън",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "f83e54ffc424",
+      "ocid": "aop-legacy-2022-303963",
+      "date": "2022-11-25",
+      "tag": "contract",
+      "amount": 94801.71,
+      "currency": "BGN",
+      "amountEur": 48471.34,
+      "partyEik": "000386790",
+      "partyName": "Община Трън",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "9b7d567be909",
+      "ocid": "aop-legacy-2022-303956",
+      "date": "2022-11-25",
+      "tag": "contract",
+      "amount": 89421.32,
+      "currency": "BGN",
+      "amountEur": 45720.39,
+      "partyEik": "000386790",
+      "partyName": "Община Трън",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "1bb98c37402a",
+      "ocid": "aop-legacy-2022-270541",
+      "date": "2022-09-01",
+      "tag": "contract",
+      "amount": 84957.07,
+      "currency": "BGN",
+      "amountEur": 43437.86,
+      "partyEik": "000386790",
+      "partyName": "Община Трън",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "6ffa908f5b49",
+      "ocid": "aop-legacy-2022-303973",
+      "date": "2022-11-25",
+      "tag": "contract",
+      "amount": 82910.09,
+      "currency": "BGN",
+      "amountEur": 42391.26,
+      "partyEik": "000386790",
+      "partyName": "Община Трън",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "f35eab174336",
+      "ocid": "aop-legacy-2023-405492",
+      "date": "2023-07-27",
+      "tag": "contract",
+      "amount": 78161.83,
+      "currency": "BGN",
+      "amountEur": 39963.51,
+      "partyEik": "000386790",
+      "partyName": "Община Трън",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "630b4035d108",
+      "ocid": "aop-legacy-2022-303978",
+      "date": "2022-11-25",
+      "tag": "contract",
+      "amount": 76025.68,
+      "currency": "BGN",
+      "amountEur": 38871.31,
+      "partyEik": "000386790",
+      "partyName": "Община Трън",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    }
+  ]
+}

@@ -150,6 +150,11 @@ functions/.secret.local
 # scripts/myarea/build_alerts.ts; not served to the FE).
 /data/procurement/tenders/recent_by_buyer.json
 
+# SQL-migration regression net (docs/plans/sql-migration-v1.md). The compact
+# baseline data/db/*.manifest.json IS committed (small, git-tracked); the full
+# per-file hash map is large + regenerable, so keep it local-only.
+/scripts/db/.cache/
+
 # Cached budget source artifacts (egov КФП resources, minfin Excel, bulnao
 # PDFs). Re-fetched on demand by `/update-budget`. The normalized JSON outputs
 # under data/budget/ are committed; this raw cache is not.

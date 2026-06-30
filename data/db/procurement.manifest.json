@@ -1,0 +1,71 @@
+{
+  "domain": "procurement",
+  "fileCount": 80549,
+  "totalBytes": 2570134479,
+  "totals": {
+    "contracts": 297528,
+    "awards": 0,
+    "amendments": 3487,
+    "contractorCount": 26126,
+    "awarderCount": 4391,
+    "totalEur": 74015053535.3,
+    "totalOther": {
+      "USD": 30049917.580000006,
+      "CHF": 572061.6,
+      "GBP": 1944595.95,
+      "SEK": 1195000
+    }
+  },
+  "categories": {
+    "_root": {
+      "fileCount": 6,
+      "totalBytes": 905298,
+      "digest": "0d9191606c2d7f0872ebee394854ab424b3910a9646ff1730e0a1d99b15b1e84"
+    },
+    "awarder_contracts": {
+      "fileCount": 4391,
+      "totalBytes": 379820969,
+      "digest": "f2358e550a98821ee8f985636f4d78178440ff606549a0ff163b377218f6c515"
+    },
+    "awarders": {
+      "fileCount": 4391,
+      "totalBytes": 37817052,
+      "digest": "bb5d2c8088db3637f4baf6dee663dcc26d52703529e21da0e5c6028737d85bb8"
+    },
+    "by_ns": {
+      "fileCount": 78,
+      "totalBytes": 5631839,
+      "digest": "ae0f5f580738aba4f5f8b32added557f34913d654141d8a2e0b753865c32c0d3"
+    },
+    "by_settlement": {
+      "fileCount": 487,
+      "totalBytes": 9439450,
+      "digest": "2ab8629eef524ca61b3781c13553922f6251f0fbf31126e6017e1974a5f69079"
+    },
+    "contractor_contracts": {
+      "fileCount": 26160,
+      "totalBytes": 383171118,
+      "digest": "c38e7e3ca3311cde82e9c42707834f517ede5184738cac52f7ba8908bedbef43"
+    },
+    "contractors": {
+      "fileCount": 26160,
+      "totalBytes": 107649057,
+      "digest": "e74a3d03220ae011ba87fc783407cab74699e346ad56905973c0359329f1eb57"
+    },
+    "contracts": {
+      "fileCount": 5796,
+      "totalBytes": 704929118,
+      "digest": "cb87676df0fd2d813e21da69ae48b3b3fb54ac4b326513563034133d7d16bc93"
+    },
+    "derived": {
+      "fileCount": 12639,
+      "totalBytes": 113028621,
+      "digest": "95fbb32656948407661c046acfed6265de2af22e2cb9e7ee4478a1ecf7f209d5"
+    },
+    "tenders": {
+      "fileCount": 441,
+      "totalBytes": 827741957,
+      "digest": "9a4832ae3bdc43bd455b3472488f2b699a01c4cf9e8a7597fbe5de78492b16e3"
+    }
+  }
+}
