@@ -14,6 +14,7 @@ import { useProcurementScope } from "@/data/procurement/useProcurementScope";
 import { ProcurementFlowTile } from "./components/procurement/ProcurementFlowTile";
 import { WatchlistDigestTile } from "./components/procurement/WatchlistDigestTile";
 import { ProcurementSectionHeader } from "./components/procurement/ProcurementSectionHeader";
+import { CompanySearchTile } from "./components/procurement/CompanySearchTile";
 import { TopContractorsTile } from "./components/procurement/TopContractorsTile";
 import { TopAwardersTile } from "./components/procurement/TopAwardersTile";
 import { TopMpsTile } from "./components/procurement/TopMpsTile";
@@ -102,6 +103,8 @@ export const ProcurementScreen: FC = () => {
             {byNs.end ? ` → ${byNs.end}` : " → …"}
           </strong>
         </p>
+
+        <CompanySearchTile />
 
         <div
           className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mt-4"
@@ -260,6 +263,8 @@ function renderGlobalView(
           {t("procurement_scope_all") || "Showing the full corpus, all years."}
           {yearSpan ? ` (${yearSpan})` : ""}
         </p>
+
+        <CompanySearchTile />
 
         <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mt-4">
           <StatCard

@@ -108,7 +108,7 @@ if (mpConnected) {
   const top = buildTopContractors(CONTRACTORS_DIR, mpConnected);
   const flow = buildFlow(AWARDERS_DIR, mpConnected, pepConnected);
   const concentration = buildAwarderConcentration(AWARDERS_DIR);
-  writeDerived(DERIVED_DIR, top, flow, concentration);
+  writeDerived(DERIVED_DIR, top, flow, concentration, CONTRACTORS_DIR);
   console.log(
     `top_contractors.json: ${top.entries.length}; flow.json: ${flow.links.length} link(s)`,
   );
