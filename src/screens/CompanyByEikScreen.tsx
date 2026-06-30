@@ -31,6 +31,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useContractor } from "@/data/procurement/useContractor";
 import { useAwarder } from "@/data/procurement/useAwarder";
 import { useProcurementMpConnectedByEik } from "@/data/procurement/useMpConnectedByEik";
+import { usePepConnectedByEik } from "@/data/procurement/usePepConnectedByEik";
 import { useFundsBeneficiary } from "@/data/funds/useFundsBeneficiary";
 import { useFundsMpConnectedByEik } from "@/data/funds/useFundsMpConnectedByEik";
 import { useFundsConfirmedCase } from "@/data/funds/useFundsConfirmed";
@@ -233,7 +234,13 @@ export const CompanyByEikScreen: FC = () => {
   const { beneficiary: funds, isLoading: fundsLoading } =
     useFundsBeneficiary(eik);
   const { entries: mpLinks } = useProcurementMpConnectedByEik(eik);
+  const { entries: officialLinks } = usePepConnectedByEik(eik);
   const { entries: fundsMpLinks } = useFundsMpConnectedByEik(eik);
+  // Headline "people in power" count = procurement-context MPs + non-MP
+  // officials (mayors, councillors, governors, ministers). Both are the
+  // procurement page's own sibling signals; the fuller Commerce-Registry graph
+  // keeps its own section lower down (CompanyConnectionsSection).
+  const powerCount = mpLinks.length + officialLinks.length;
   const { caseData: confirmedCase } = useFundsConfirmedCase(eik);
   const { connections, isLoading: connLoading } = useCompanyConnections(eik);
   const isLoading = procLoading || fundsLoading || connLoading;
@@ -292,9 +299,9 @@ export const CompanyByEikScreen: FC = () => {
         <div className="flex items-center gap-2 mb-4 text-sm text-muted-foreground">
           <Receipt className="h-4 w-4" />
           EIK {eik}
-          {mpLinks.length > 0 || fundsMpLinks.length > 0 ? (
+          {powerCount > 0 || fundsMpLinks.length > 0 ? (
             <span className="inline-block rounded bg-amber-200/60 dark:bg-amber-800/40 px-1.5 py-0.5 text-[10px] uppercase tracking-wide">
-              {t("company_mp_tag") || "MP-tied"}
+              {t("company_power_tag") || "Politically linked"}
             </span>
           ) : null}
           <span className="ml-auto">
@@ -355,29 +362,45 @@ export const CompanyByEikScreen: FC = () => {
                 </div>
               </StatCard>
               <StatCard
-                label={t("company_mp_linked") || "MP linked"}
+                label={t("company_power_linked") || "Linked to power"}
                 className={
-                  mpLinks.length > 0
+                  powerCount > 0
                     ? "ring-1 ring-amber-200/60 dark:ring-amber-800/40"
                     : undefined
                 }
               >
                 <div className="flex items-baseline gap-2">
                   <Users
-                    className={`h-5 w-5 shrink-0 ${mpLinks.length > 0 ? "text-amber-600" : "text-muted-foreground"}`}
+                    className={`h-5 w-5 shrink-0 ${powerCount > 0 ? "text-amber-600" : "text-muted-foreground"}`}
                   />
                   <span className="text-2xl font-bold tabular-nums">
-                    {numFmt.format(mpLinks.length)}
+                    {numFmt.format(powerCount)}
                   </span>
                   <span className="text-sm text-muted-foreground">
-                    {t("procurement_index_mp_count") || "MPs"}
+                    {t("company_power_count") || "people"}
                   </span>
                 </div>
-                {mpLinks.length === 0 ? (
+                {powerCount > 0 ? (
                   <div className="text-xs text-muted-foreground">
-                    {t("company_no_mp_links") || "No MP linkages on record"}
+                    {[
+                      mpLinks.length > 0
+                        ? t("company_power_mps", { count: mpLinks.length })
+                        : null,
+                      officialLinks.length > 0
+                        ? t("company_power_officials", {
+                            count: officialLinks.length,
+                          })
+                        : null,
+                    ]
+                      .filter(Boolean)
+                      .join(" · ")}
                   </div>
-                ) : null}
+                ) : (
+                  <div className="text-xs text-muted-foreground">
+                    {t("company_no_power_links") ||
+                      "No links to people in power on record"}
+                  </div>
+                )}
               </StatCard>
             </div>
 
