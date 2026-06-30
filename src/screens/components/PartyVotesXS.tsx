@@ -9,7 +9,10 @@ import { useTopParties } from "@/data/parties/useTopParties";
 export const PartyVotesXS: FC<{
   votes?: Votes[];
   className?: string;
-}> = ({ votes, className }) => {
+  // Cap the number of party rows shown (keeps compact hover cards from growing
+  // taller than the map). The total-votes line still reflects every party.
+  limit?: number;
+}> = ({ votes, className, limit }) => {
   const { findParty } = usePartyInfo();
   const { displayNameFor } = useCanonicalParties();
   const { t } = useTranslation();
@@ -17,7 +20,8 @@ export const PartyVotesXS: FC<{
     return votes?.reduce((acc, curr) => acc + curr.totalVotes, 0);
   }, [votes]);
 
-  const parties = useTopParties(votes, 4);
+  const allParties = useTopParties(votes, 4);
+  const parties = limit ? allParties?.slice(0, limit) : allParties;
   if (!parties?.length) return null;
 
   return (

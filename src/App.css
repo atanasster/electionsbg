@@ -131,9 +131,44 @@
   white-space: normal;
   max-width: 320px;
 }
-.leaflet-tooltip.section-tooltip::before {
+.leaflet-tooltip.section-tooltip.leaflet-tooltip-top::before {
   border-top-color: hsl(var(--popover));
+}
+.leaflet-tooltip.section-tooltip.leaflet-tooltip-bottom::before {
   border-bottom-color: hsl(var(--popover));
+}
+.leaflet-tooltip.section-tooltip.leaflet-tooltip-left::before {
+  border-left-color: hsl(var(--popover));
+}
+.leaflet-tooltip.section-tooltip.leaflet-tooltip-right::before {
+  border-right-color: hsl(var(--popover));
+}
+
+/* Count badge for a marker shared by several polling sections. */
+.section-count-icon {
+  background: transparent;
+  border: 0;
+}
+.section-count-icon > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.45);
+  cursor: pointer;
+}
+
+/* The shared-location card is an interactive tooltip (so it never auto-pans the
+   map); it must accept pointer events for the prev/next chevrons. */
+.leaflet-tooltip.section-pager-tip {
+  pointer-events: auto;
 }
 
 @layer components {
