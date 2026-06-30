@@ -3,17 +3,17 @@
   "name": "Оброчище",
   "province": "Добрич",
   "obshtina": "Балчик",
-  "generatedAt": "2026-06-29T14:48:37.734Z",
+  "generatedAt": "2026-06-30T17:59:20.160Z",
   "contractCount": 5,
   "awardCount": 0,
-  "totalEur": 272317.29162043735,
+  "totalEur": 272317.29,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000842315",
       "name": "Средно училище \"Христо Смирненски\"",
       "tier": "school",
-      "totalEur": 272317.29162043735,
+      "totalEur": 272317.29,
       "totalOther": {},
       "contractCount": 5,
       "awardCount": 0
@@ -40,11 +40,24 @@
       "tag": "contract",
       "amount": 88227.39,
       "currency": "BGN",
-      "amountEur": 45109.94820613244,
+      "amountEur": 45109.95,
       "partyEik": "000885099",
       "partyName": "Кооперация Панда",
       "bundleUuid": "eop-flat:2025-10-03",
       "sourceUrl": "https://storage.eop.bg/open-data-2025-10-03/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2003.10.2025.json"
+    },
+    {
+      "key": "e4f03691336c",
+      "ocid": "eop-03767-2024-0001",
+      "date": "2024-12-19",
+      "tag": "contract",
+      "amount": 83263.14,
+      "currency": "BGN",
+      "amountEur": 42571.77,
+      "partyEik": "206780299",
+      "partyName": "РД Строй добрич ЕООД",
+      "bundleUuid": "eop-flat:2024-12-19",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-12-19/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2019.12.2024.json"
     },
     {
       "key": "ea09a267b851",
@@ -60,26 +73,13 @@
       "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-434447-813710%2F2026-02-19-contractamendment"
     },
     {
-      "key": "e4f03691336c",
-      "ocid": "eop-03767-2024-0001",
-      "date": "2024-12-19",
-      "tag": "contract",
-      "amount": 83263.14,
-      "currency": "BGN",
-      "amountEur": 42571.76748490411,
-      "partyEik": "206780299",
-      "partyName": "РД Строй добрич ЕООД",
-      "bundleUuid": "eop-flat:2024-12-19",
-      "sourceUrl": "https://storage.eop.bg/open-data-2024-12-19/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2019.12.2024.json"
-    },
-    {
       "key": "f7f30b0026cd",
       "ocid": "aop-legacy-2011-2015-569635",
       "date": "2013-11-13",
       "tag": "contract",
       "amount": 45000,
       "currency": "BGN",
-      "amountEur": 23008.13465382983,
+      "amountEur": 23008.13,
       "partyEik": "834025484",
       "partyName": "Пътнически превози ЕООД - Добрич",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
@@ -92,7 +92,7 @@
       "tag": "contract",
       "amount": 28200.02,
       "currency": "BGN",
-      "amountEur": 14418.441275570985,
+      "amountEur": 14418.44,
       "partyEik": "000885099",
       "partyName": "Кооперация Панда",
       "bundleUuid": "eop-flat:2025-10-03",
@@ -102,19 +102,19 @@
   "byYear": [
     {
       "year": "2013",
-      "totalEur": 23008.13465382983,
+      "totalEur": 23008.13,
       "totalOther": {},
       "contractCount": 1
     },
     {
       "year": "2024",
-      "totalEur": 42571.76748490411,
+      "totalEur": 42571.77,
       "totalOther": {},
       "contractCount": 1
     },
     {
       "year": "2025",
-      "totalEur": 59528.38948170342,
+      "totalEur": 59528.39,
       "totalOther": {},
       "contractCount": 2
     },

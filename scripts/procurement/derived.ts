@@ -15,7 +15,12 @@ import type {
   TopContractorsFile,
 } from "./types";
 import type { PepConnectedFile } from "./pep_connected";
-import { assertFlowIntegrity, canonicalJson } from "./validate";
+import {
+  assertFlowIntegrity,
+  byConcentrationDesc,
+  byEurDesc,
+  canonicalJson,
+} from "./validate";
 import { writeContractorsSearch } from "./build_contractors_search";
 
 const TOP_LIMIT = 1000;
@@ -72,7 +77,7 @@ export const buildTopContractors = (
       });
     }
   }
-  all.sort((a, b) => b.totalEur - a.totalEur);
+  all.sort((a, b) => byEurDesc(a.totalEur, b.totalEur, a.eik, b.eik));
   return {
     generatedAt: new Date().toISOString(),
     total: all.length,
@@ -294,7 +299,7 @@ export const buildAwarderConcentration = (
       }
     }
   }
-  entries.sort((a, b) => b.sharePct - a.sharePct);
+  entries.sort(byConcentrationDesc);
   return {
     generatedAt: new Date().toISOString(),
     thresholdPct: CONCENTRATION_THRESHOLD,
@@ -344,7 +349,14 @@ const restoreAwarderProvenance = (
 export const trimFlow = (flow: FlowFile): FlowFile => {
   if (flow.links.length <= FLOW_PREVIEW_LIMIT) return flow;
   const ranked = [...flow.links]
-    .sort((a, b) => b.valueEur - a.valueEur)
+    .sort((a, b) =>
+      byEurDesc(
+        a.valueEur,
+        b.valueEur,
+        `${a.source}>${a.target}`,
+        `${b.source}>${b.target}`,
+      ),
+    )
     .slice(0, FLOW_PREVIEW_LIMIT);
   const links = restoreAwarderProvenance(ranked, flow.links);
   const keep = new Set<string>();

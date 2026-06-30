@@ -31,7 +31,12 @@ import type {
   RiskFeedFile,
   RiskFeedMpTied,
 } from "./risk_feed";
-import { assertFlowIntegrity, canonicalJson } from "./validate";
+import {
+  assertFlowIntegrity,
+  byCountDesc,
+  byEurDesc,
+  canonicalJson,
+} from "./validate";
 import { ekatteToNuts3 } from "./resolve_ekatte";
 import { toEur } from "@/lib/currency";
 
@@ -397,7 +402,7 @@ const materialiseTopMps = (
   [...acc.byMp.entries()]
     .map(([mpId, v]) => {
       const topContractorNames = [...v.byContractor.values()]
-        .sort((a, b) => b.eur - a.eur)
+        .sort((a, b) => byEurDesc(a.eur, b.eur, a.name, b.name))
         .slice(0, 3)
         .map((c) => c.name);
       const eiks = [...v.byContractor.keys()];
@@ -414,7 +419,9 @@ const materialiseTopMps = (
         confidence: (allHigh ? "high" : "medium") as "high" | "medium",
       };
     })
-    .sort((a, b) => b.totalEur - a.totalEur)
+    .sort((a, b) =>
+      byEurDesc(a.totalEur, b.totalEur, String(a.mpId), String(b.mpId)),
+    )
     .slice(0, TOP_N);
 
 // Materialise the per-official totals. Sibling of materialiseTopMps; name/
@@ -428,7 +435,7 @@ const materialiseTopOfficials = (
     .map(([slug, v]) => {
       const meta = officialMeta.get(slug);
       const topContractorNames = [...v.byContractor.values()]
-        .sort((a, b) => b.eur - a.eur)
+        .sort((a, b) => byEurDesc(a.eur, b.eur, a.name, b.name))
         .slice(0, 3)
         .map((c) => c.name);
       return {
@@ -442,7 +449,7 @@ const materialiseTopOfficials = (
         topContractorNames,
       };
     })
-    .sort((a, b) => b.totalEur - a.totalEur)
+    .sort((a, b) => byEurDesc(a.totalEur, b.totalEur, a.slug, b.slug))
     .slice(0, TOP_N);
 
 // One row of the per-NS "public money scanner" index — the date-scoped sibling
@@ -497,7 +504,14 @@ const buildNsPeople = (
       contractCount: v.count,
     });
   }
-  rows.sort((a, b) => b.totalEur - a.totalEur);
+  rows.sort((a, b) =>
+    byEurDesc(
+      a.totalEur,
+      b.totalEur,
+      a.slug ?? String(a.mpId),
+      b.slug ?? String(b.mpId),
+    ),
+  );
   return { generatedAt: new Date().toISOString(), total: rows.length, rows };
 };
 
@@ -666,7 +680,14 @@ const buildNsRiskFeed = (
         });
     }
   }
-  mpPairs.sort((a, b) => b.totalEur - a.totalEur);
+  mpPairs.sort((a, b) =>
+    byEurDesc(
+      a.totalEur,
+      b.totalEur,
+      `${a.mpId}:${a.contractorEik}`,
+      `${b.mpId}:${b.contractorEik}`,
+    ),
+  );
 
   let at100 = 0;
   let nationalCount = 0;
@@ -679,7 +700,7 @@ const buildNsRiskFeed = (
   }
   const concentrationByOblast = [...byOblast.entries()]
     .map(([nuts, count]) => ({ nuts, count }))
-    .sort((a, b) => b.count - a.count);
+    .sort((a, b) => byCountDesc(a.count, b.count, a.nuts, b.nuts));
 
   return {
     generatedAt: new Date().toISOString(),
@@ -789,7 +810,7 @@ const buildNsBySettlement = (
         awarderCount: s.awarderEiks.size,
       };
     })
-    .sort((a, b) => b.totalEur - a.totalEur);
+    .sort((a, b) => byEurDesc(a.totalEur, b.totalEur, a.ekatte, b.ekatte));
   return {
     generatedAt: new Date().toISOString(),
     totalContracts: [...settlements.values()].reduce((s, a) => s + a.count, 0),
@@ -899,7 +920,7 @@ export const buildByNs = (
         mpTied: mpTiedEiks.has(eik),
         mpIds: mpTiedEiks.get(eik) ?? [],
       }))
-      .sort((a, b) => b.totalEur - a.totalEur)
+      .sort((a, b) => byEurDesc(a.totalEur, b.totalEur, a.eik, b.eik))
       .slice(0, TOP_N);
     const topAwarders: NsTopAwarder[] = [...acc.byAwarder.entries()]
       .map(([eik, v]) => ({
@@ -908,7 +929,7 @@ export const buildByNs = (
         totalEur: v.eur,
         contractCount: v.count,
       }))
-      .sort((a, b) => b.totalEur - a.totalEur)
+      .sort((a, b) => byEurDesc(a.totalEur, b.totalEur, a.eik, b.eik))
       .slice(0, TOP_N);
     const topMps = materialiseTopMps(acc, linkConfidence);
     const topOfficials = materialiseTopOfficials(acc, officialMeta);

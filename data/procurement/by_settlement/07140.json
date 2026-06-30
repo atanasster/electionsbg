@@ -3,17 +3,17 @@
   "name": "Бухово",
   "province": "София (столица)",
   "obshtina": "Столична",
-  "generatedAt": "2026-06-29T14:48:37.734Z",
+  "generatedAt": "2026-06-30T17:59:20.160Z",
   "contractCount": 2,
   "awardCount": 0,
-  "totalEur": 173289.7542219927,
+  "totalEur": 173289.75,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000759047",
       "name": "117 Средно училище \"Свети свети кирил и Методий\"",
       "tier": "school",
-      "totalEur": 173289.7542219927,
+      "totalEur": 173289.75,
       "totalOther": {},
       "contractCount": 2,
       "awardCount": 0
@@ -27,7 +27,7 @@
       "tag": "contract",
       "amount": 220188.59,
       "currency": "BGN",
-      "amountEur": 112580.63839904286,
+      "amountEur": 112580.64,
       "partyEik": "130377435",
       "partyName": "Билдинг груп - 2000 ЕООД",
       "bundleUuid": "eop-flat:2024-08-26",
@@ -40,7 +40,7 @@
       "tag": "contract",
       "amount": 118736.71,
       "currency": "BGN",
-      "amountEur": 60709.115822949854,
+      "amountEur": 60709.12,
       "partyEik": "000885099",
       "partyName": "Кооперация Панда",
       "bundleUuid": "eop-flat:2025-07-16",
@@ -50,13 +50,13 @@
   "byYear": [
     {
       "year": "2024",
-      "totalEur": 112580.63839904286,
+      "totalEur": 112580.64,
       "totalOther": {},
       "contractCount": 1
     },
     {
       "year": "2025",
-      "totalEur": 60709.115822949854,
+      "totalEur": 60709.12,
       "totalOther": {},
       "contractCount": 1
     }

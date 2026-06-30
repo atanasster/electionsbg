@@ -3,17 +3,17 @@
   "name": "Друмево",
   "province": "Шумен",
   "obshtina": "Шумен",
-  "generatedAt": "2026-06-29T14:48:37.734Z",
+  "generatedAt": "2026-06-30T17:59:20.160Z",
   "contractCount": 9,
   "awardCount": 0,
-  "totalEur": 719450.6535185062,
+  "totalEur": 719450.65,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000922117",
       "name": "Обединено училище \"Христо Ботев\"",
       "tier": "school",
-      "totalEur": 719450.6535185062,
+      "totalEur": 719450.65,
       "totalOther": {},
       "contractCount": 9,
       "awardCount": 0
@@ -27,7 +27,7 @@
       "tag": "contract",
       "amount": 1335253.91,
       "currency": "BGN",
-      "amountEur": 682704.4835185062,
+      "amountEur": 682704.48,
       "partyEik": "127588059",
       "partyName": "Гарант строй ООД",
       "bundleUuid": "eop-flat:2025-01-20",
@@ -86,6 +86,19 @@
       "sourceUrl": "https://data.egov.bg/data/view/a2fa22b0-db7e-40a5-9624-f06a4f0baab3#ocds-e82gsb-536733-807139%2F2026-02-05-award"
     },
     {
+      "key": "0ad2b760f3b8",
+      "ocid": "ocds-e82gsb-552898",
+      "date": "2026-05-14",
+      "tag": "contract",
+      "amount": 1198,
+      "currency": "EUR",
+      "amountEur": 1198,
+      "partyEik": "201437250",
+      "partyName": "ВТ - Трейд ЕООД",
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-552898-855097%2F2026-05-14-award"
+    },
+    {
       "key": "71efc3b967ae",
       "ocid": "ocds-e82gsb-552898",
       "date": "2026-06-03",
@@ -112,30 +125,17 @@
       "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-552898-860378%2F2026-05-28-award"
     },
     {
-      "key": "0ad2b760f3b8",
+      "key": "10d9cab2aaad",
       "ocid": "ocds-e82gsb-552898",
       "date": "2026-05-14",
       "tag": "contract",
-      "amount": 1198,
-      "currency": "EUR",
-      "amountEur": 1198,
-      "partyEik": "201437250",
-      "partyName": "ВТ - Трейд ЕООД",
-      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
-      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-552898-855097%2F2026-05-14-award"
-    },
-    {
-      "key": "7d9816c9e164",
-      "ocid": "ocds-e82gsb-552898",
-      "date": "2026-06-03",
-      "tag": "contractAmendment",
       "amount": 868,
       "currency": "EUR",
       "amountEur": 868,
       "partyEik": "201437250",
       "partyName": "ВТ - Трейд ЕООД",
-      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
-      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-552898-863125%2F2026-06-03-contractamendment"
+      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
+      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-552898-855097%2F2026-05-14-award"
     },
     {
       "key": "1a3ddb8195d2",
@@ -151,23 +151,23 @@
       "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-552898-860378%2F2026-05-28-award"
     },
     {
-      "key": "10d9cab2aaad",
+      "key": "7d9816c9e164",
       "ocid": "ocds-e82gsb-552898",
-      "date": "2026-05-14",
-      "tag": "contract",
+      "date": "2026-06-03",
+      "tag": "contractAmendment",
       "amount": 868,
       "currency": "EUR",
       "amountEur": 868,
       "partyEik": "201437250",
       "partyName": "ВТ - Трейд ЕООД",
-      "bundleUuid": "572bba0c-4fe2-4e10-a36c-99432f5532f0",
-      "sourceUrl": "https://data.egov.bg/data/view/572bba0c-4fe2-4e10-a36c-99432f5532f0#ocds-e82gsb-552898-855097%2F2026-05-14-award"
+      "bundleUuid": "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
+      "sourceUrl": "https://data.egov.bg/data/view/082f5f2b-42d1-4ce2-ab94-ddcf214d151e#ocds-e82gsb-552898-863125%2F2026-06-03-contractamendment"
     }
   ],
   "byYear": [
     {
       "year": "2025",
-      "totalEur": 682704.4835185062,
+      "totalEur": 682704.48,
       "totalOther": {},
       "contractCount": 1
     },

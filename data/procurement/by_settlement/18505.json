@@ -3,17 +3,17 @@
   "name": "Гложене",
   "province": "Враца",
   "obshtina": "Козлодуй",
-  "generatedAt": "2026-06-29T14:48:37.734Z",
+  "generatedAt": "2026-06-30T17:59:20.160Z",
   "contractCount": 2,
   "awardCount": 0,
-  "totalEur": 117911.49026244611,
+  "totalEur": 117911.49,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000182282",
       "name": "Основно училище \"Христо Ботев\"",
       "tier": "school",
-      "totalEur": 117911.49026244611,
+      "totalEur": 117911.49,
       "totalOther": {},
       "contractCount": 2,
       "awardCount": 0
@@ -27,7 +27,7 @@
       "tag": "contract",
       "amount": 124381.15,
       "currency": "BGN",
-      "amountEur": 63595.07216884903,
+      "amountEur": 63595.07,
       "partyEik": "200574292",
       "partyName": "НИК - Строй 06 ЕООД",
       "bundleUuid": "c5404069-668a-4cd2-ab43-a1cdc26e03c6",
@@ -40,7 +40,7 @@
       "tag": "contract",
       "amount": 106233.68,
       "currency": "BGN",
-      "amountEur": 54316.41809359709,
+      "amountEur": 54316.42,
       "partyEik": "000885099",
       "partyName": "Кооперация Панда",
       "bundleUuid": "eop-flat:2024-10-18",
@@ -50,13 +50,13 @@
   "byYear": [
     {
       "year": "2020",
-      "totalEur": 63595.07216884903,
+      "totalEur": 63595.07,
       "totalOther": {},
       "contractCount": 1
     },
     {
       "year": "2024",
-      "totalEur": 54316.41809359709,
+      "totalEur": 54316.42,
       "totalOther": {},
       "contractCount": 1
     }

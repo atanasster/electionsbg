@@ -3,17 +3,17 @@
   "name": "Свети Влас",
   "province": "Бургас",
   "obshtina": "Несебър",
-  "generatedAt": "2026-06-29T14:48:37.734Z",
+  "generatedAt": "2026-06-30T17:59:20.160Z",
   "contractCount": 5,
   "awardCount": 0,
-  "totalEur": 90959.80990167857,
+  "totalEur": 90959.81,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000048842",
       "name": "Детска Градина \"Делфинче\"",
       "tier": "school",
-      "totalEur": 90959.80990167857,
+      "totalEur": 90959.81,
       "totalOther": {},
       "contractCount": 5,
       "awardCount": 0
@@ -34,30 +34,30 @@
       "sourceUrl": "https://data.egov.bg/data/view/7230ac85-bd64-48cc-a188-2121d58abccb#ocds-e82gsb-551399-846295%2F2026-04-21-award"
     },
     {
-      "key": "b9b12c68eb3e",
-      "ocid": "aop-legacy-2023-423049",
-      "date": "2023-09-12",
-      "tag": "contract",
-      "amount": 35000,
-      "currency": "BGN",
-      "amountEur": 17895.215841867648,
-      "partyEik": "102182129",
-      "partyName": "ИВ Трейд ООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
       "key": "6c0924d69c3d",
       "ocid": "aop-legacy-2022-272616",
       "date": "2022-09-08",
       "tag": "contract",
       "amount": 35000,
       "currency": "BGN",
-      "amountEur": 17895.215841867648,
+      "amountEur": 17895.22,
       "partyEik": "202604179",
       "partyName": "Мира фууд ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "b9b12c68eb3e",
+      "ocid": "aop-legacy-2023-423049",
+      "date": "2023-09-12",
+      "tag": "contract",
+      "amount": 35000,
+      "currency": "BGN",
+      "amountEur": 17895.22,
+      "partyEik": "102182129",
+      "partyName": "ИВ Трейд ООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
       "key": "f4ced4fec350",
@@ -66,7 +66,7 @@
       "tag": "contract",
       "amount": 15000,
       "currency": "BGN",
-      "amountEur": 7669.378217943277,
+      "amountEur": 7669.38,
       "partyEik": "202519316",
       "partyName": "Златислава 07 ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
@@ -89,13 +89,13 @@
   "byYear": [
     {
       "year": "2022",
-      "totalEur": 17895.215841867648,
+      "totalEur": 17895.22,
       "totalOther": {},
       "contractCount": 1
     },
     {
       "year": "2023",
-      "totalEur": 25564.594059810923,
+      "totalEur": 25564.59,
       "totalOther": {},
       "contractCount": 2
     },

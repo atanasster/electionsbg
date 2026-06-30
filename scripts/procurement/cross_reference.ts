@@ -20,7 +20,7 @@ import type {
   MpConnectedContractor,
   MpConnectedFile,
 } from "./types";
-import { canonicalJson } from "./validate";
+import { byEurDesc, canonicalJson } from "./validate";
 import { normalize } from "../officials/shared";
 
 // Distinct Commerce-Registry companies (UICs) per normalised person name.
@@ -245,8 +245,15 @@ export const buildMpConnected = (
       });
     }
   }
-  // Sort: largest euro total first.
-  entries.sort((a, b) => b.totalEur - a.totalEur);
+  // Sort: largest euro total first; stable on the (mp, contractor) key.
+  entries.sort((a, b) =>
+    byEurDesc(
+      a.totalEur,
+      b.totalEur,
+      `${a.mpId}:${a.contractorEik}`,
+      `${b.mpId}:${b.contractorEik}`,
+    ),
+  );
   return {
     generatedAt: new Date().toISOString(),
     total: entries.length,

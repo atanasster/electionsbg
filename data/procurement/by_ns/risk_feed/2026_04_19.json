@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-29T14:48:44.105Z",
+  "generatedAt": "2026-06-30T17:59:13.938Z",
   "topConcentration": [
     {
       "awarderEik": "000193065",
@@ -55,7 +55,7 @@
       "contractorEik": "109559419",
       "contractorName": "Меридиан ЕООД",
       "sharePct": 1,
-      "pairTotalEur": 914675.3200000001
+      "pairTotalEur": 914675.32
     },
     {
       "awarderEik": "110549443",
@@ -404,20 +404,6 @@
   ],
   "topMpTied": [
     {
-      "mpId": 805,
-      "mpName": "Йордан Петков Йорданов",
-      "contractorEik": "175415627",
-      "contractorName": "Контракс АД",
-      "totalEur": 1549958.6499999997
-    },
-    {
-      "mpId": 4745,
-      "mpName": "Ваня Иванова Василева",
-      "contractorEik": "131317829",
-      "contractorName": "Фармапро ООД",
-      "totalEur": 648397.12
-    },
-    {
       "mpId": 938,
       "mpName": "Дарин Величков Матов",
       "contractorEik": "121396123",
@@ -440,30 +426,16 @@
     },
     {
       "mpId": 2946,
-      "mpName": "Елена Стефанова Пешева",
+      "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
       "contractorEik": "112028994",
       "contractorName": "Радио СОТ ООД",
       "totalEur": 93382
-    },
-    {
-      "mpId": 3710,
-      "mpName": "Пламен Николаев Николов",
-      "contractorEik": "206867786",
-      "contractorName": "КП инвест груп ЕООД",
-      "totalEur": 51128.46
-    },
-    {
-      "mpId": 2734,
-      "mpName": "Тома Николов Томов",
-      "contractorEik": "204503086",
-      "contractorName": "Ватом томови 1991 ООД",
-      "totalEur": 1533.38
     }
   ],
   "concentrationTotal": 490,
   "concentration100Total": 75,
-  "mpTiedTotal": 8,
-  "connectedPeopleTotal": 15,
+  "mpTiedTotal": 4,
+  "connectedPeopleTotal": 11,
   "concentrationByOblast": [
     {
       "nuts": "BG411",
@@ -482,15 +454,15 @@
       "count": 24
     },
     {
-      "nuts": "BG413",
-      "count": 21
-    },
-    {
       "nuts": "BG314",
       "count": 21
     },
     {
       "nuts": "BG321",
+      "count": 21
+    },
+    {
+      "nuts": "BG413",
       "count": 21
     },
     {
@@ -562,19 +534,19 @@
       "count": 6
     },
     {
-      "nuts": "BG424",
-      "count": 5
-    },
-    {
       "nuts": "BG343",
       "count": 5
     },
     {
-      "nuts": "BG425",
-      "count": 4
+      "nuts": "BG424",
+      "count": 5
     },
     {
       "nuts": "BG414",
+      "count": 4
+    },
+    {
+      "nuts": "BG425",
       "count": 4
     }
   ],

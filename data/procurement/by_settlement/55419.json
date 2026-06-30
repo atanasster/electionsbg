@@ -3,17 +3,17 @@
   "name": "Панчарево",
   "province": "София (столица)",
   "obshtina": "Столична",
-  "generatedAt": "2026-06-29T14:48:37.734Z",
+  "generatedAt": "2026-06-30T17:59:20.160Z",
   "contractCount": 7,
   "awardCount": 0,
-  "totalEur": 2772933.9708539085,
+  "totalEur": 2772933.97,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000668373",
       "name": "83-ТО Основно училище",
       "tier": "school",
-      "totalEur": 2599094.919366816,
+      "totalEur": 2599094.92,
       "totalOther": {},
       "contractCount": 3,
       "awardCount": 0
@@ -22,7 +22,7 @@
       "eik": "000667150",
       "name": "Детска Градина № 66 \"Елица\" - район панчарево",
       "tier": "school",
-      "totalEur": 173839.05148709245,
+      "totalEur": 173839.05,
       "totalOther": {},
       "contractCount": 4,
       "awardCount": 0
@@ -49,7 +49,7 @@
       "tag": "contract",
       "amount": 100000,
       "currency": "BGN",
-      "amountEur": 51129.188119621846,
+      "amountEur": 51129.19,
       "partyEik": "121115423",
       "partyName": "БЕТИ-М ЕООД",
       "bundleUuid": "eop-flat:2024-11-18",
@@ -82,30 +82,30 @@
       "sourceUrl": "https://data.egov.bg/data/view/3c796970-b0b3-4486-b354-ef593e5a4a5e#ocds-e82gsb-554076-822898%2F2026-03-11-award"
     },
     {
-      "key": "faa2912a136f",
-      "ocid": "aop-legacy-2023-437321",
-      "date": "2023-10-16",
-      "tag": "contract",
-      "amount": 70000,
-      "currency": "BGN",
-      "amountEur": 35790.431683735296,
-      "partyEik": "121115423",
-      "partyName": "БЕТИ-М ЕООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
       "key": "f20c917535a7",
       "ocid": "aop-legacy-2022-252986",
       "date": "2022-07-13",
       "tag": "contract",
       "amount": 70000,
       "currency": "BGN",
-      "amountEur": 35790.431683735296,
+      "amountEur": 35790.43,
       "partyEik": "121115423",
       "partyName": "БЕТИ-М ЕООД",
       "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
       "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
+      "key": "faa2912a136f",
+      "ocid": "aop-legacy-2023-437321",
+      "date": "2023-10-16",
+      "tag": "contract",
+      "amount": 70000,
+      "currency": "BGN",
+      "amountEur": 35790.43,
+      "partyEik": "121115423",
+      "partyName": "БЕТИ-М ЕООД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     },
     {
       "key": "cbb68aff463c",
@@ -114,7 +114,7 @@
       "tag": "contract",
       "amount": 59200,
       "currency": "BGN",
-      "amountEur": 30268.479366816133,
+      "amountEur": 30268.48,
       "partyEik": "103950959",
       "partyName": "СС-КОНСУЛТ ЕООД",
       "bundleUuid": "eop-flat:2025-04-05",
@@ -124,25 +124,25 @@
   "byYear": [
     {
       "year": "2022",
-      "totalEur": 35790.431683735296,
+      "totalEur": 35790.43,
       "totalOther": {},
       "contractCount": 1
     },
     {
       "year": "2023",
-      "totalEur": 35790.431683735296,
+      "totalEur": 35790.43,
       "totalOther": {},
       "contractCount": 1
     },
     {
       "year": "2024",
-      "totalEur": 51129.188119621846,
+      "totalEur": 51129.19,
       "totalOther": {},
       "contractCount": 1
     },
     {
       "year": "2025",
-      "totalEur": 30268.479366816133,
+      "totalEur": 30268.48,
       "totalOther": {},
       "contractCount": 1
     },

@@ -15,7 +15,7 @@ import fs from "fs";
 import path from "path";
 import type { ContractorRollup } from "./types";
 import { canonicalEik } from "./eik";
-import { canonicalJson } from "./validate";
+import { byEurDesc, canonicalJson } from "./validate";
 
 type OfficialLink = {
   uic: string;
@@ -152,7 +152,14 @@ export const buildPepConnected = (
     }
   }
 
-  entries.sort((a, b) => b.totalEur - a.totalEur);
+  entries.sort((a, b) =>
+    byEurDesc(
+      a.totalEur,
+      b.totalEur,
+      `${a.slug}:${a.contractorEik}`,
+      `${b.slug}:${b.contractorEik}`,
+    ),
+  );
   return {
     generatedAt: new Date().toISOString(),
     total: entries.length,

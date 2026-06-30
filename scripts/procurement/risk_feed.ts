@@ -8,7 +8,12 @@ import fs from "fs";
 import path from "path";
 import type { AwarderConcentrationFile, MpConnectedFile } from "./types";
 import type { PepConnectedFile } from "./pep_connected";
-import { canonicalJson } from "./validate";
+import {
+  byConcentrationDesc,
+  byCountDesc,
+  byEurDesc,
+  canonicalJson,
+} from "./validate";
 import { ekatteToNuts3 } from "./resolve_ekatte";
 
 const TOP_N = 50;
@@ -127,7 +132,7 @@ export const buildRiskFeed = (derivedDir: string): RiskFeedFile => {
     : null;
 
   const topConcentration: RiskFeedConcentration[] = [...conc.entries]
-    .sort((a, b) => b.sharePct - a.sharePct)
+    .sort(byConcentrationDesc)
     .slice(0, TOP_N)
     .map((e) => ({
       awarderEik: e.awarderEik,
@@ -140,7 +145,14 @@ export const buildRiskFeed = (derivedDir: string): RiskFeedFile => {
 
   const topMpTied: RiskFeedMpTied[] = [...mp.entries]
     .filter((e) => e.totalEur > 0)
-    .sort((a, b) => b.totalEur - a.totalEur)
+    .sort((a, b) =>
+      byEurDesc(
+        a.totalEur,
+        b.totalEur,
+        `${a.mpId}:${a.contractorEik}`,
+        `${b.mpId}:${b.contractorEik}`,
+      ),
+    )
     .slice(0, TOP_N)
     .map((e) => ({
       mpId: e.mpId,
@@ -169,7 +181,7 @@ export const buildRiskFeed = (derivedDir: string): RiskFeedFile => {
   }
   const concentrationByOblast = [...byOblast.entries()]
     .map(([nuts, count]) => ({ nuts, count }))
-    .sort((a, b) => b.count - a.count);
+    .sort((a, b) => byCountDesc(a.count, b.count, a.nuts, b.nuts));
 
   return {
     generatedAt: new Date().toISOString(),
@@ -232,7 +244,7 @@ export const buildConcentrationFull = (
       };
   const oblastByEik = loadOblastByEik(derivedDir);
   const rows: ConcentrationFullRow[] = [...conc.entries]
-    .sort((a, b) => b.sharePct - a.sharePct || b.pairTotalEur - a.pairTotalEur)
+    .sort(byConcentrationDesc)
     .map((e) => ({
       awarderEik: e.awarderEik,
       awarderName: e.awarderName,
@@ -356,7 +368,14 @@ export const buildPersonIndex = (derivedDir: string): PersonIndexFile => {
     }
   }
 
-  rows.sort((a, b) => b.totalEur - a.totalEur);
+  rows.sort((a, b) =>
+    byEurDesc(
+      a.totalEur,
+      b.totalEur,
+      a.slug ?? String(a.mpId),
+      b.slug ?? String(b.mpId),
+    ),
+  );
   return { generatedAt: new Date().toISOString(), total: rows.length, rows };
 };
 

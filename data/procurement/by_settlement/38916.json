@@ -3,36 +3,23 @@
   "name": "Костенец",
   "province": "София",
   "obshtina": "Костенец",
-  "generatedAt": "2026-06-29T14:48:37.734Z",
+  "generatedAt": "2026-06-30T17:59:20.160Z",
   "contractCount": 2,
   "awardCount": 0,
-  "totalEur": 257478.41477561957,
+  "totalEur": 257478.41,
   "totalOther": {},
   "awarders": [
     {
       "eik": "000764763",
       "name": "Основно училище \"Константин костенечки\"",
       "tier": "school",
-      "totalEur": 257478.41477561957,
+      "totalEur": 257478.41,
       "totalOther": {},
       "contractCount": 2,
       "awardCount": 0
     }
   ],
   "topContracts": [
-    {
-      "key": "cdeea90d3add",
-      "ocid": "eop-06402-2024-0001",
-      "date": "2024-09-04",
-      "tag": "contract",
-      "amount": 412650,
-      "currency": "BGN",
-      "amountEur": 210984.59477561957,
-      "partyEik": "181167531",
-      "partyName": "АКМ Строй",
-      "bundleUuid": "eop-flat:2024-09-04",
-      "sourceUrl": "https://storage.eop.bg/open-data-2024-09-04/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2004.09.2024.json"
-    },
     {
       "key": "45dc667e5aae",
       "ocid": "ocds-e82gsb-377765",
@@ -45,6 +32,19 @@
       "partyName": "АКМ Строй",
       "bundleUuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
       "sourceUrl": "https://data.egov.bg/data/view/646a5c63-e62f-41d6-9055-72d9baa28324#ocds-e82gsb-377765-810145%2F2026-02-12-contractamendment"
+    },
+    {
+      "key": "cdeea90d3add",
+      "ocid": "eop-06402-2024-0001",
+      "date": "2024-09-04",
+      "tag": "contract",
+      "amount": 412650,
+      "currency": "BGN",
+      "amountEur": 210984.59,
+      "partyEik": "181167531",
+      "partyName": "АКМ Строй",
+      "bundleUuid": "eop-flat:2024-09-04",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-09-04/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2004.09.2024.json"
     },
     {
       "key": "67c4c02a4744",
@@ -63,7 +63,7 @@
   "byYear": [
     {
       "year": "2024",
-      "totalEur": 210984.59477561957,
+      "totalEur": 210984.59,
       "totalOther": {},
       "contractCount": 1
     },

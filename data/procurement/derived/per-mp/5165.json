@@ -1,16 +1,16 @@
 {
   "mpId": 5165,
   "summary": {
-    "totalEur": 767474.7154916327,
+    "totalEur": 767389.33,
     "totalOther": {},
-    "contractCount": 4,
+    "contractCount": 3,
     "awardCount": 0
   },
   "scorecard": {
-    "value": 767474.7154916327,
-    "rank": 30,
-    "cohortSize": 61,
-    "cohortMedian": 731556.67926149
+    "value": 767389.33,
+    "rank": 18,
+    "cohortSize": 33,
+    "cohortMedian": 856377.72
   },
   "entries": [
     {
@@ -22,12 +22,12 @@
         {
           "kind": "stake",
           "shareSize": "50%",
-          "valueEur": 0.5112918811962185,
+          "valueEur": 0.51,
           "fiscalYear": 2024,
           "declarationYear": 2025
         }
       ],
-      "totalEur": 767389.3297474729,
+      "totalEur": 767389.33,
       "totalOther": {},
       "contractCount": 3,
       "awardCount": 0,
@@ -35,13 +35,13 @@
         {
           "year": "2024",
           "contractCount": 1,
-          "totalEur": 143570.76023989814,
+          "totalEur": 143570.76,
           "totalOther": {}
         },
         {
           "year": "2025",
           "contractCount": 1,
-          "totalEur": 165658.56950757478,
+          "totalEur": 165658.57,
           "totalOther": {}
         },
         {
@@ -56,41 +56,7 @@
           "eik": "824106518",
           "name": "Водоснабдяване и канализация ЕООД",
           "contractCount": 3,
-          "totalEur": 767389.3297474729,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
-      "mpId": 5165,
-      "mpName": "Валери Пламенов Лачовски",
-      "contractorEik": "106510662",
-      "contractorName": "Многопрофилна болница за активно лечение  /МБАЛ/ - Кнежа ЕООД",
-      "relations": [
-        {
-          "kind": "procurator",
-          "isCurrent": true,
-          "confidence": "medium"
-        }
-      ],
-      "totalEur": 85.38574415976849,
-      "totalOther": {},
-      "contractCount": 1,
-      "awardCount": 0,
-      "byYear": [
-        {
-          "year": "2014",
-          "contractCount": 1,
-          "totalEur": 85.38574415976849,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "121817309",
-          "name": "Районна прокуратура, гр. Кнежа",
-          "contractCount": 1,
-          "totalEur": 85.38574415976849,
+          "totalEur": 767389.33,
           "totalOther": {}
         }
       ]

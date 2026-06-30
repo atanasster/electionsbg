@@ -39,7 +39,7 @@ import type {
   SettlementProcurementFile,
   SettlementProcurementIndex,
 } from "./types";
-import { canonicalJson } from "./validate";
+import { byEurDesc, canonicalJson, strCmp } from "./validate";
 import { splitBag, toEur } from "@/lib/currency";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -96,19 +96,22 @@ interface SettlementAcc {
   topContracts: RollupContractRow[];
 }
 
+// amount(EUR) desc, ties broken by contract key so equal-value rows keep a
+// reproducible order across rebuilds (see the rollups.ts sibling).
+const topRowCmp = (a: RollupContractRow, b: RollupContractRow): number =>
+  (b.amountEur ?? -1) - (a.amountEur ?? -1) || strCmp(a.key, b.key);
 const insertTopRow = (
   arr: RollupContractRow[],
   row: RollupContractRow,
 ): void => {
-  const amount = row.amountEur ?? -1;
   if (
     arr.length >= TOP_CONTRACTS_PER_SETTLEMENT &&
-    amount <= (arr[arr.length - 1].amountEur ?? -1)
+    topRowCmp(row, arr[arr.length - 1]) >= 0
   ) {
     return;
   }
   let i = 0;
-  while (i < arr.length && (arr[i].amountEur ?? -1) >= amount) i++;
+  while (i < arr.length && topRowCmp(arr[i], row) <= 0) i++;
   arr.splice(i, 0, row);
   if (arr.length > TOP_CONTRACTS_PER_SETTLEMENT)
     arr.length = TOP_CONTRACTS_PER_SETTLEMENT;
@@ -269,7 +272,7 @@ export const buildBySettlement = async (): Promise<BySettlementResult> => {
         contractCount: a.contractCount,
         awardCount: a.awardCount,
       }))
-      .sort((a, b) => b.totalEur - a.totalEur);
+      .sort((a, b) => byEurDesc(a.totalEur, b.totalEur, a.eik, b.eik));
 
     const split = splitBag(acc.totalByCurrency);
     const file: SettlementProcurementFile = {
@@ -346,7 +349,7 @@ export const buildBySettlement = async (): Promise<BySettlementResult> => {
           awarderCount: acc.awarders.size,
         };
       })
-      .sort((a, b) => b.totalEur - a.totalEur),
+      .sort((a, b) => byEurDesc(a.totalEur, b.totalEur, a.ekatte, b.ekatte)),
   };
   fs.writeFileSync(
     path.join(BY_SETTLEMENT_DIR, "index.json"),

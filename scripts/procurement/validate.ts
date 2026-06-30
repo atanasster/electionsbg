@@ -6,8 +6,94 @@ import path from "path";
 import { createHash } from "crypto";
 import type { Contract, FlowFile } from "./types";
 
+// Money amounts serialize at euro-cent precision; ratios/shares at 1e-6. The
+// rounding is what makes the written JSON byte-stable across rebuilds: float
+// summation in a different Map-iteration order otherwise jitters the last ULP
+// (…610975 vs …61097) and produces a noisy diff with no real change. Fields are
+// matched by name so only amount/ratio values are quantized — counts, ids,
+// years, coordinates keep full fidelity.
+const roundTo = (v: number, dp: number): number => {
+  const f = 10 ** dp;
+  return Math.round(v * f) / f;
+};
+const stabilizeNumber = (key: string, v: number): number => {
+  if (!Number.isFinite(v)) return v;
+  if (key === "eur" || key.endsWith("Eur")) return roundTo(v, 2); // money → cents
+  if (key.endsWith("Pct")) return roundTo(v, 6); // share / ratio
+  return v;
+};
+
+// Serializer for OUTPUT data files: deterministic money/ratio rounding.
 export const canonicalJson = (data: unknown): string =>
+  JSON.stringify(
+    data,
+    (key, value) =>
+      typeof value === "number" ? stabilizeNumber(key, value) : value,
+    2,
+  ) + "\n";
+
+// Serializer that preserves full numeric fidelity — used for the canary hash,
+// where byte-for-byte parity with the raw normalized rows is the whole point.
+export const rawJson = (data: unknown): string =>
   JSON.stringify(data, null, 2) + "\n";
+
+export const strCmp = (a: string, b: string): number =>
+  a < b ? -1 : a > b ? 1 : 0;
+
+// Deterministic descending comparators for rollup ordering. The primary key is
+// quantized (euros → integer cents, ratios → 1e-6) so a sub-unit float jitter
+// from a different summation order can't flip two otherwise-equal rows; genuine
+// ties resolve on a stable string key (eik / slug / ekatte) so the written order
+// is reproducible run to run.
+export const byEurDesc = (
+  aEur: number,
+  bEur: number,
+  aKey: string,
+  bKey: string,
+): number =>
+  Math.round((bEur || 0) * 100) - Math.round((aEur || 0) * 100) ||
+  strCmp(aKey, bKey);
+
+export const byPctDesc = (
+  aPct: number,
+  bPct: number,
+  aKey: string,
+  bKey: string,
+): number =>
+  Math.round((bPct || 0) * 1e6) - Math.round((aPct || 0) * 1e6) ||
+  strCmp(aKey, bKey);
+
+export const byCountDesc = (
+  aCount: number,
+  bCount: number,
+  aKey: string,
+  bKey: string,
+): number => (bCount || 0) - (aCount || 0) || strCmp(aKey, bKey);
+
+// Awarder→contractor concentration rows: share desc, then pair euro desc, then
+// a stable (awarder, contractor) key. Shared by the awarder_concentration build
+// and its concentration_full / risk-feed re-sorts so all three agree on order.
+export const byConcentrationDesc = (
+  a: {
+    sharePct: number;
+    pairTotalEur: number;
+    awarderEik: string;
+    contractorEik: string;
+  },
+  b: {
+    sharePct: number;
+    pairTotalEur: number;
+    awarderEik: string;
+    contractorEik: string;
+  },
+): number =>
+  Math.round((b.sharePct || 0) * 1e6) - Math.round((a.sharePct || 0) * 1e6) ||
+  Math.round((b.pairTotalEur || 0) * 100) -
+    Math.round((a.pairTotalEur || 0) * 100) ||
+  strCmp(
+    `${a.awarderEik}:${a.contractorEik}`,
+    `${b.awarderEik}:${b.contractorEik}`,
+  );
 
 // Sankey-flow integrity: every contractor node that feeds a person
 // (contractor → mp/official) must itself be fed by at least one awarder edge
@@ -56,7 +142,7 @@ export const assertFlowIntegrity = (flow: FlowFile, context: string): void => {
 // To deliberately update (e.g. after a real format change), delete the
 // fixture file and re-run.
 export const runCanary = (fixtureFile: string, produced: Contract[]): void => {
-  const stable = canonicalJson(produced);
+  const stable = rawJson(produced);
   const hash = createHash("sha256").update(stable).digest("hex");
   if (!fs.existsSync(fixtureFile)) {
     fs.mkdirSync(path.dirname(fixtureFile), { recursive: true });

@@ -13,7 +13,7 @@ import type {
   ProcurementIndex,
   RollupContractRow,
 } from "./types";
-import { canonicalJson } from "./validate";
+import { byEurDesc, canonicalJson, strCmp } from "./validate";
 import { AWARDER_IDENTITY, canonicalAwarderName } from "./awarder_identity";
 import { splitBag } from "@/lib/currency";
 import { getResolver } from "./resolve_ekatte";
@@ -122,19 +122,23 @@ interface AwarderAcc {
 
 // Maintain a descending top-N preview in place. Cheap O(N) insert+shift —
 // at N=20 this is trivial vs. the per-row work already happening.
+// Maintain a capped top-N by amount desc, ties broken by contract key so that
+// equal-value rows keep a reproducible order across rebuilds (insertion order
+// alone follows shard-read order, which is not stable run to run).
+const topRowCmp = (a: RollupContractRow, b: RollupContractRow): number =>
+  (b.amount ?? -1) - (a.amount ?? -1) || strCmp(a.key, b.key);
 const insertTopRow = (
   arr: RollupContractRow[],
   row: RollupContractRow,
 ): void => {
-  const amount = row.amount ?? -1;
   if (
     arr.length >= TOP_CONTRACTS_PER_ENTITY &&
-    amount <= (arr[arr.length - 1].amount ?? -1)
+    topRowCmp(row, arr[arr.length - 1]) >= 0
   ) {
     return;
   }
   let i = 0;
-  while (i < arr.length && (arr[i].amount ?? -1) >= amount) i++;
+  while (i < arr.length && topRowCmp(arr[i], row) <= 0) i++;
   arr.splice(i, 0, row);
   if (arr.length > TOP_CONTRACTS_PER_ENTITY)
     arr.length = TOP_CONTRACTS_PER_ENTITY;
@@ -343,9 +347,10 @@ export const buildRollups = (contractsDir: string): RollupResult => {
   // Cap nested lists at a top-N to keep per-EIK files small.
   const TOP_LIMIT = 50;
 
-  // Collapse a nested entry's currency bag, sort the list by euro total desc.
+  // Collapse a nested entry's currency bag, sort the list by euro total desc
+  // (stable on eik so equal-value rows keep a reproducible order).
   const finalizeEntries = <
-    T extends { totalByCurrency: Record<string, number> },
+    T extends { totalByCurrency: Record<string, number>; eik: string },
   >(
     arr: T[],
   ): Array<
@@ -359,7 +364,7 @@ export const buildRollups = (contractsDir: string): RollupResult => {
         ...rest,
         ...splitBag(totalByCurrency),
       }))
-      .sort((a, b) => b.totalEur - a.totalEur);
+      .sort((a, b) => byEurDesc(a.totalEur, b.totalEur, a.eik, b.eik));
 
   // byYear keeps chronological order; only the currency bag is collapsed.
   const finalizeByYear = (
@@ -521,7 +526,7 @@ export const writeRollups = (
         contractCount: a.contractCount,
         ...(a.geo?.tier ? { tier: a.geo.tier } : {}),
       }))
-      .sort((x, y) => y.totalEur - x.totalEur),
+      .sort((x, y) => byEurDesc(x.totalEur, y.totalEur, x.eik, y.eik)),
   };
   fs.writeFileSync(
     path.join(derivedDir, "awarders_index.json"),
