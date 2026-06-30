@@ -2636,6 +2636,15 @@ const CASES: Case[] = [
     facts: { company: /Софарма/ },
   },
   {
+    // Long-tail contractor outside the top-1000 leaderboard — exercises the
+    // full contractors_search.json resolver fallback (was unresolvable before).
+    q: "Покажи договорите на Комнет България холдинг",
+    tool: "contractSearch",
+    kind: "table",
+    minRows: 1,
+    facts: { company: /Комнет/i },
+  },
+  {
     q: "What contracts has Glavbolgarstroy won?",
     tool: "contractSearch",
   },

@@ -703,6 +703,32 @@ export const contractSearch = async (
     if (hit) eik = hit.eik;
   }
 
+  // top_contractors only carries the largest ~1000 companies, so the leaderboard
+  // lookup above misses the long tail. Fall back to the full {eik,name} search
+  // index (~26k) so the chat can resolve ANY contractor by name — exact,
+  // substring, then fuzzy — not just the top of the table.
+  if (!eik && cleaned) {
+    type NameRow = { eik: string; name: string };
+    const all = await fetchData<{ entries: NameRow[] }>(
+      "/procurement/derived/contractors_search.json",
+    );
+    const lc = cleaned.toLowerCase();
+    let hit: NameRow | undefined =
+      (lc.length >= 3 &&
+        (all.entries.find((e) => e.name.toLowerCase() === lc) ||
+          all.entries.find((e) => e.name.toLowerCase().includes(lc)))) ||
+      undefined;
+    if (!hit) {
+      const fz = fuzzyBestMatch<NameRow>(
+        cleaned,
+        () => all.entries.map((e) => ({ keys: [e.name], item: e })),
+        { threshold: 0.3, minLen: 4, cacheKey: "contractors_search" },
+      );
+      if (fz) hit = fz.item;
+    }
+    if (hit) eik = hit.eik;
+  }
+
   const notFound = (): Envelope => ({
     tool: "contractSearch",
     domain: "fiscal",
@@ -788,6 +814,7 @@ export const contractSearch = async (
     provenance: [
       `procurement/contractor_contracts/${eik}.json`,
       "procurement/derived/top_contractors.json",
+      "procurement/derived/contractors_search.json",
     ],
   };
 };
