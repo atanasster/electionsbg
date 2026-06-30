@@ -233,6 +233,18 @@ const CASES: Case[] = [
     facts: { years: { num: 5 } },
   },
   {
+    // per-institution operating cost (издръжка) — Vasilev's "Перо по перо" metric
+    q: "Издръжка на Министерството на отбраната по години",
+    tool: "institutionMaintenance",
+    kind: "series",
+  },
+  {
+    // no institution named → biggest draft-year increases table
+    q: "Кое ведомство има най-голям ръст на издръжката в Бюджет 2026?",
+    tool: "institutionMaintenance",
+    kind: "table",
+  },
+  {
     q: "Колко гласа взе ГЕРБ?",
     tool: "partyResult",
     kind: "scalar",
@@ -1317,20 +1329,30 @@ const CASES: Case[] = [
     minRows: 4,
   },
   // ---- tax-policy what-if (the /budget/simulator scoring engine) --------------
-  // The golden Δs are PARITY values: the same scenario on /budget/simulator
-  // shows the same headline (the tool mirrors the component's scenario +
-  // dynamicScenario math over the same policy_baseline.json). The screen's
-  // default is the DYNAMIC estimate, so delta_per_year pins the dynamic
-  // headline and delta_static the static counterpart. The deep link carries
-  // the simulator's own query-string params, so the answer opens pre-set.
+  // This is a ROUTING suite, so these cases assert only the parts that DON'T
+  // move when budget data is re-ingested: the prompt routes to simulateTaxChange,
+  // the deep link carries the right query-string params (i.e. the question was
+  // parsed to the right lever + magnitude), the change label, the honesty note,
+  // and the SIGN of the Δ (a gain `/^\+/` or a cost `/^−/`). The Δ MAGNITUDE is
+  // deliberately NOT pinned here — every figure is computed from
+  // policy_baseline.json, which a КФП/НОИ/earnings refresh regenerates, so a
+  // frozen literal like `/\+470/` would go stale on every ingest (and the
+  // rate-difference levers — pension indexation, the COVID supplement — can swing
+  // far more than a tolerance band when the CPI/wage-growth vintage changes).
+  // The numeric "tool == /budget/simulator" PARITY is verified drift-proof in
+  // scripts/budget/__test_ai_parity.ts, which recomputes each lever's expected
+  // value from the engine over the SAME live baseline (expected + actual move
+  // together, so it never spuriously fails). Engine math itself is golden-tested
+  // synthetically in scripts/budget/__test_engine.ts. Add a lever's wiring check
+  // THERE, not as a frozen literal here.
   {
     q: "Какво става, ако ДДС стане 22%?",
     tool: "simulateTaxChange",
     kind: "scalar",
     facts: {
       change: "ДДС 22%",
-      delta_per_year: /\+723/,
-      delta_static: /\+887/,
+      delta_per_year: /^\+/,
+      delta_static: /^\+/,
       share_of_gdp: /%/,
     },
     links: ["/budget/simulator?dds=22", "/budget"],
@@ -1342,8 +1364,8 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "income tax 15%",
-      delta_per_year: /\+€1\.6B/,
-      delta_static: /\+€1\.9B/,
+      delta_per_year: /^\+/,
+      delta_static: /^\+/,
     },
     links: ["/budget/simulator?pit=15", "/budget"],
   },
@@ -1353,7 +1375,7 @@ const CASES: Case[] = [
     q: "Колко струва необлагаем минимум?",
     tool: "simulateTaxChange",
     kind: "scalar",
-    facts: { change: /620/, delta_per_year: /−1,7/, delta_static: /−1,9/ },
+    facts: { change: /620/, delta_per_year: /^−/, delta_static: /^−/ },
     links: ["/budget/simulator?nm=620", "/budget"],
   },
   {
@@ -1361,7 +1383,7 @@ const CASES: Case[] = [
     q: "Какво става, ако ДДС върху храните стане 9%?",
     tool: "simulateTaxChange",
     kind: "scalar",
-    facts: { change: "Храни", delta_per_year: /−1,2/, delta_static: /−1,4/ },
+    facts: { change: "Храни", delta_per_year: /^−/, delta_static: /^−/ },
     links: ["/budget/simulator?food=reduced", "/budget"],
   },
   {
@@ -1371,8 +1393,8 @@ const CASES: Case[] = [
     tool: "simulateTaxChange",
     kind: "scalar",
     facts: {
-      delta_per_year: /\+€794M/,
-      delta_static: /\+€1\.1B/,
+      delta_per_year: /^\+/,
+      delta_static: /^\+/,
       range: /…/,
     },
     links: ["/budget/simulator?nocap=1", "/budget"],
@@ -1385,8 +1407,8 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "индексация на пенсиите с 100% тежест на инфлацията",
-      delta_per_year: /\+470/,
-      delta_static: /\+479/,
+      delta_per_year: /^\+/,
+      delta_static: /^\+/,
     },
     links: ["/budget/simulator?pw=100", "/budget"],
   },
@@ -1396,8 +1418,8 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "ковид добавката не се индексира",
-      delta_per_year: /\+55/,
-      delta_static: /\+56/,
+      delta_per_year: /^\+/,
+      delta_static: /^\+/,
     },
     links: ["/budget/simulator?ks=0", "/budget"],
   },
@@ -1408,7 +1430,7 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "администрация −10%",
-      delta_per_year: /\+30/,
+      delta_per_year: /^\+/,
       note: /незаети/,
     },
     links: ["/budget/simulator?adm=10", "/budget"],
@@ -1420,7 +1442,7 @@ const CASES: Case[] = [
     kind: "scalar",
     // Net of the forgone private SSC/PIT (−€229M) and the public-sector
     // payroll the budget avoids (+€114M) — see scoreMinWageFreeze.
-    facts: { change: "minimum wage frozen", delta_per_year: /−€115M/ },
+    facts: { change: "minimum wage frozen", delta_per_year: /^−/ },
     links: ["/budget/simulator?mrz=1", "/budget"],
   },
   // Phase-5 levers — same balance convention, simulator parity
@@ -1431,8 +1453,8 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "отбрана 3.0% от БВП",
-      delta_per_year: /−1,1/,
-      delta_static: /−1,2/,
+      delta_per_year: /^−/,
+      delta_static: /^−/,
       note: /НАТО/,
     },
     links: ["/budget/simulator?def=30", "/budget"],
@@ -1445,8 +1467,8 @@ const CASES: Case[] = [
       change: "заплати в публичния сектор 5%",
       // Net of the mechanical labour-tax feedback (~30.6% of indexed pay
       // returns as PIT+SSC) — consistent with the administration-cut lever.
-      delta_per_year: /−96/,
-      delta_static: /−98/,
+      delta_per_year: /^−/,
+      delta_static: /^−/,
     },
     links: ["/budget/simulator?wi=5", "/budget"],
   },
@@ -1457,8 +1479,8 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "капиталов план -10%",
-      delta_per_year: /\+182/,
-      delta_static: /\+185/,
+      delta_per_year: /^\+/,
+      delta_static: /^\+/,
       note: /изпълняемост/,
     },
     links: ["/budget/simulator?kap=-10", "/budget"],
@@ -1471,8 +1493,8 @@ const CASES: Case[] = [
       change: "държавните служители плащат осигуровките си",
       // Full КСО чл. 6, ал. 5 scope: administration + judiciary + defense &
       // security (132,862 people across the two НОИ SOD-2024 categories).
-      delta_per_year: /\+249/,
-      delta_static: /\+254/,
+      delta_per_year: /^\+/,
+      delta_static: /^\+/,
     },
     links: ["/budget/simulator?ssp=1", "/budget"],
   },
@@ -1483,8 +1505,8 @@ const CASES: Case[] = [
     facts: {
       change: "здравна вноска +1 п.п.",
       // Net of the employee-share PIT deductibility offset (~4% of the gross).
-      delta_per_year: /\+249/,
-      delta_static: /\+302/,
+      delta_per_year: /^\+/,
+      delta_static: /^\+/,
     },
     links: ["/budget/simulator?hp=1", "/budget"],
   },
@@ -1496,8 +1518,8 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "майчинство: втората година отпада",
-      delta_per_year: /\+215/,
-      delta_static: /\+154/,
+      delta_per_year: /^\+/,
+      delta_static: /^\+/,
       note: /върнал/,
     },
     links: ["/budget/simulator?mat=0", "/budget"],
@@ -1509,8 +1531,8 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "учителски заплати → 125% от средната",
-      delta_per_year: /−140/,
-      delta_static: /−143/,
+      delta_per_year: /^−/,
+      delta_static: /^−/,
     },
     links: ["/budget/simulator?tp=125", "/budget"],
   },
@@ -1520,8 +1542,8 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "минимална пенсия → €400/мес.",
-      delta_per_year: /−945/,
-      delta_static: /−963/,
+      delta_per_year: /^−/,
+      delta_static: /^−/,
     },
     links: ["/budget/simulator?mp=400", "/budget"],
   },
@@ -1531,7 +1553,7 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "замразени депутатски заплати",
-      delta_per_year: /\+2 млн/,
+      delta_per_year: /^\+/,
     },
     links: ["/budget/simulator?mpf=1", "/budget"],
   },
@@ -1541,7 +1563,7 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "без партийни субсидии",
-      delta_per_year: /\+[89] млн/,
+      delta_per_year: /^\+/,
     },
     links: ["/budget/simulator?psub=0", "/budget"],
   },
@@ -1557,8 +1579,8 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "акциз върху тютюна +40%",
-      delta_per_year: /\+498/,
-      delta_static: /\+861/,
+      delta_per_year: /^\+/,
+      delta_static: /^\+/,
       note: /Лафер/,
     },
     links: ["/budget/simulator?exct=40", "/budget"],
@@ -1571,8 +1593,8 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: "fuel excise +10%",
-      delta_per_year: /\+€111M/,
-      delta_static: /\+€144M/,
+      delta_per_year: /^\+/,
+      delta_static: /^\+/,
     },
     links: ["/budget/simulator?excf=10", "/budget"],
   },
@@ -1583,8 +1605,8 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: /вино/,
-      delta_per_year: /\+33/,
-      delta_static: /\+45/,
+      delta_per_year: /^\+/,
+      delta_static: /^\+/,
       note: /домашно/,
     },
     links: ["/budget/simulator?winex=48", "/budget"],
@@ -1598,8 +1620,8 @@ const CASES: Case[] = [
     kind: "scalar",
     facts: {
       change: /хазарт/,
-      delta_per_year: /\+59/,
-      delta_static: /\+107/,
+      delta_per_year: /^\+/,
+      delta_static: /^\+/,
       note: /Лафер/,
     },
     links: ["/budget/simulator?haz=40", "/budget"],

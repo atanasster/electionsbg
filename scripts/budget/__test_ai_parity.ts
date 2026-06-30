@@ -17,16 +17,21 @@ import {
   VAT_REDUCED_RATE,
   computeVatRevenue,
   scoreAdminCut,
+  scoreCapitalChange,
   scoreCorporate,
+  scoreDefenseTarget,
   scoreDividend,
   scoreHealthContribution,
   scoreMaternityMonths,
+  scoreMinWageFreeze,
   scoreMpPayFreeze,
   scorePartySubsidy,
   scorePensionFloorRaise,
+  scorePensionIndexation,
   scorePitSchedule,
   scoreRoadComponentUplift,
   scoreSoeSubsidyCut,
+  scoreSscSelfPaid,
   SOE_SUBSIDY_BASE_EUR,
   scoreSpendingChange,
   SOCIAL_BENEFITS_BASE_EUR,
@@ -34,11 +39,13 @@ import {
   SUBSIDIES_BASE_EUR,
   scoreTeachersPeg,
   scoreWageIndexation,
+  PENSION_POLICY_CURRENT,
   type PitBracket,
   type VatBaseSlice,
   type VatPolicy,
 } from "../../src/lib/bgTaxPolicy";
 import { VAT_STANDARD_RATE, PIT_RATE } from "../../src/lib/bgTax";
+import { NOMINAL_GDP_2026_EUR } from "../../src/lib/bgFiscalProjection";
 import {
   detectTaxChange,
   scoreDynamicScenario,
@@ -145,6 +152,70 @@ const cases: {
     q: "съкращаване на администрацията с 10%",
     kind: "adminCut",
     golden: -scoreAdminCut(exp!.administration, 0.1).netEur,
+  },
+  // Pension indexation: "само по инфлация" pins CPI weight to 1.0 (current law
+  // blends 50/50), keeping the supplement indexed and the current horizon. The
+  // spend delta is NEGATIVE (less indexation) → balance improves, so the
+  // contribution is its negation. Drives the formerly-frozen `/\+470/` literal.
+  {
+    q: "Какво става, ако пенсиите се индексират само по инфлация?",
+    kind: "pensionIndexation",
+    golden: -scorePensionIndexation(exp!.pensions, {
+      cpiWeight: 1,
+      indexSupplement: true,
+      horizonYears: PENSION_POLICY_CURRENT.horizonYears,
+    }),
+  },
+  // COVID supplement: keep the current blend weight, but stop indexing the
+  // supplement slice (the only thing this lever changes). Formerly `/\+55/`.
+  {
+    q: "Ковид добавката да не се индексира",
+    kind: "pensionSupplement",
+    golden: -scorePensionIndexation(exp!.pensions, {
+      cpiWeight: PENSION_POLICY_CURRENT.cpiWeight,
+      indexSupplement: false,
+      horizonYears: PENSION_POLICY_CURRENT.horizonYears,
+    }),
+  },
+  // МРЗ freeze: scoreMinWageFreeze.netEur already carries the balance sign
+  // (forgone private SSC/PIT minus avoided public payroll = net cost), so it
+  // enters the balance as-is, NOT negated. Formerly `/−€115M/`.
+  {
+    q: "Freeze the minimum wage",
+    kind: "minWageFreeze",
+    golden: scoreMinWageFreeze(earn.bands, exp!.minWage).netEur,
+  },
+  // Defense %-of-GDP target — priced against the EC-consistent 2026 nominal GDP
+  // (same base the tool uses, NOT gdpNextEur). More spend → balance worsens.
+  {
+    q: "Какво става, ако отбраната стане 3% от БВП?",
+    kind: "defenseTarget",
+    golden: -scoreDefenseTarget(
+      NOMINAL_GDP_2026_EUR,
+      exp!.defense.natoPctGdp,
+      3.0,
+    ),
+  },
+  // Capital plan −10%, scaled by the historical execution rate (cash effect).
+  {
+    q: "Капиталовите разходи -10%",
+    kind: "capitalChange",
+    golden: -scoreCapitalChange(
+      exp!.capital.planEur,
+      exp!.capital.executionRate,
+      -10,
+    ),
+  },
+  // Budget-paid categories take over the standard employee SSC share (no
+  // gross-up compensation in the bare phrasing → grossUp:false).
+  {
+    q: "Държавните служители да си плащат осигуровките",
+    kind: "sscSelfPaid",
+    golden: -scoreSscSelfPaid(
+      exp!.sscSelfPaid.count,
+      exp!.sscSelfPaid.avgWageEur,
+      false,
+    ),
   },
   {
     q: "заплатите в публичния сектор +5%",
