@@ -47,7 +47,13 @@ export type LocalCouncilParty = {
 export type LocalKmetstvoResult = {
   kmetstvoName: string;
   ekatte: string;
-  candidates: LocalMayorResult[];
+  candidates: LocalMayorResult[]; // round 1
+  // Round-2 (балотаж) table — present only when the kmetstvo went to a runoff.
+  round2?: LocalMayorResult[];
+  // Resolved winner: round-2 winner when there was a runoff, else the
+  // round-1 outright winner. CIK marks both finalists elected in round 1,
+  // so consumers must prefer this over `candidates.find(isElected)`.
+  elected?: LocalMayorResult | null;
   // Exact by-election turnout from the kmetstvo's aggregate protocol —
   // backfilled by ingest_byelection_turnout for chmi cycles; absent otherwise.
   numRegisteredVoters?: number;

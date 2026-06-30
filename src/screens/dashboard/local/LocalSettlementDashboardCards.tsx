@@ -38,7 +38,13 @@ const KmetstvoMayorCard: FC<{ kmetstvo: LocalKmetstvoResult }> = ({
   const { t } = useTranslation();
   const { colorFor } = useCanonicalParties();
   const sorted = useMemo(
-    () => [...kmetstvo.candidates].sort((a, b) => b.votes - a.votes),
+    () =>
+      // When the seat went to a runoff, show the round-2 (final) table — its
+      // single elected row is the real winner. Round 1 marks both finalists
+      // elected, which would bold two candidates with misleading round-1 votes.
+      [
+        ...(kmetstvo.round2?.length ? kmetstvo.round2 : kmetstvo.candidates),
+      ].sort((a, b) => b.votes - a.votes),
     [kmetstvo],
   );
   return (

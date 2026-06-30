@@ -381,7 +381,7 @@ export const ingestByElectionTurnout = async (opts: {
       // --- kmetstvo (village-mayor) races — turnout onto each kmetstvo entry ---
       for (const k of bundle.kmetstva ?? []) {
         if (!k.candidates.some((c) => c.isElected)) continue;
-        const round: 1 | 2 = k.candidates.some((c) => c.round === 2) ? 2 : 1;
+        const round: 1 | 2 = k.round2?.length ? 2 : 1;
         const oik = kmetstvoOik.get(normName(k.kmetstvoName));
         const r = await fetchRace(
           `${bundle.obshtinaCode}/${k.kmetstvoName}`,

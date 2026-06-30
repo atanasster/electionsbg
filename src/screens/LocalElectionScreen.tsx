@@ -430,7 +430,10 @@ const KmetstvaSection: FC<{
   const { ekatteFor } = useKmetstvoEkatte();
   if (kmetstva.length === 0) return null;
   const rows = kmetstva.map((k) => {
-    const winner = k.candidates.find((c) => c.isElected) ?? k.candidates[0];
+    // Prefer the round-resolved winner: in a runoff CIK's round-1 page marks
+    // both finalists elected, so candidates.find(isElected) can return the loser.
+    const winner =
+      k.elected ?? k.candidates.find((c) => c.isElected) ?? k.candidates[0];
     return {
       kmetstvo: k.kmetstvoName,
       winner,

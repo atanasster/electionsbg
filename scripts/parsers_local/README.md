@@ -139,7 +139,7 @@ npm run data -- --local-byelection-turnout "chmi2024-2026/2026-06-14_chastichen"
 ```
 
 **Round-aware**: each race is fetched for the round that elected its winner
-(`mayor.round2`/`kmetstva[].candidates[].round === 2` → tur2, else tur1), so a
+(`mayor.round2`/`kmetstva[].round2` present → tur2, else tur1), so a
 re-run after a **2nd-round runoff** backfills the runoff turnout; a round whose
 pages aren't published yet 404s and is skipped (picked up next run). The bundle
 stores the synthetic obshtinaCode as `oikCode`, so the real 4-digit ОИК is

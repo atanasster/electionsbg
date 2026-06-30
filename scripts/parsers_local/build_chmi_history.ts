@@ -184,7 +184,10 @@ export const buildChmiHistory = (opts: {
         }
       }
       for (const k of b.kmetstva) {
-        const elected = k.candidates.find((c) => c.isElected);
+        // Prefer the round-resolved winner: in a runoff CIK's round-1 page
+        // marks BOTH finalists elected, so `candidates.find(isElected)` returns
+        // whichever comes first (often the loser).
+        const elected = k.elected ?? k.candidates.find((c) => c.isElected);
         if (!elected) continue;
         const reg = k.numRegisteredVoters ?? 0;
         const voted = k.totalActualVoters ?? 0;
@@ -216,7 +219,8 @@ export const buildChmiHistory = (opts: {
       // shards, so the districts[] there IS the canonical source.
       if (b.obshtinaCode !== "SOF") {
         for (const d of b.districts) {
-          const elected = d.candidates.find((c) => c.isElected);
+          // Same round-2 caveat as kmetstva above — prefer the resolved winner.
+          const elected = d.elected ?? d.candidates.find((c) => c.isElected);
           if (!elected) continue;
           events.push({
             ...base,

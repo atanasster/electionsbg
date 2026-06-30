@@ -16,6 +16,7 @@ import { ParsedRezultatiPage } from "./parse_rezultati_html";
 import { LocalProtocolRow } from "./parse_local_protocols";
 import {
   LocalDistrictMayorResult,
+  LocalKmetstvoResult,
   LocalMayorResult,
   LocalMunicipalityBundle,
 } from "./types";
@@ -55,10 +56,10 @@ export const pickElectedMayor = (
   return sorted[0] ?? null;
 };
 
-// Normalize a район name for cross-round matching (lowercase, strip
+// Normalize a район / кметство name for cross-round matching (lowercase, strip
 // parentheticals, collapse whitespace) — mirrors normName in
 // parse_local_elections.ts.
-const normDistrict = (s: string): string =>
+const normName = (s: string): string =>
   s
     .toLocaleLowerCase("bg")
     .replace(/\(.*?\)/g, "")
@@ -77,15 +78,40 @@ const mergeDistrictRounds = (
 ): LocalDistrictMayorResult[] => {
   const tur2ByName = new Map<string, LocalDistrictMayorResult>();
   for (const d of tur2Districts ?? []) {
-    tur2ByName.set(normDistrict(d.districtName), d);
+    tur2ByName.set(normName(d.districtName), d);
   }
   return tur1Districts.map((d) => {
-    const r2 = tur2ByName.get(normDistrict(d.districtName));
+    const r2 = tur2ByName.get(normName(d.districtName));
     const round2 = r2?.candidates.length ? r2.candidates : undefined;
     return {
       ...d,
       round2,
       elected: pickElectedMayor(d.candidates, round2),
+    };
+  });
+};
+
+// Attach the round-2 (балотаж) table to each кметство and resolve its winner.
+// Like районите, CIK's round-1 page marks BOTH runoff finalists with isElected,
+// so a kmetstvo that went to a runoff is only decidable from round 2 — reuse
+// pickElectedMayor (round-2-first). Without this, the round-1 page is taken
+// verbatim and `candidates.find(isElected)` returns whichever finalist appears
+// first (often the loser).
+const mergeKmetstvoRounds = (
+  tur1Kmetstva: LocalKmetstvoResult[],
+  tur2Kmetstva: LocalKmetstvoResult[] | undefined,
+): LocalKmetstvoResult[] => {
+  const tur2ByName = new Map<string, LocalKmetstvoResult>();
+  for (const k of tur2Kmetstva ?? []) {
+    tur2ByName.set(normName(k.kmetstvoName), k);
+  }
+  return tur1Kmetstva.map((k) => {
+    const r2 = tur2ByName.get(normName(k.kmetstvoName));
+    const round2 = r2?.candidates.length ? r2.candidates : undefined;
+    return {
+      ...k,
+      round2,
+      elected: pickElectedMayor(k.candidates, round2),
     };
   });
 };
@@ -116,7 +142,7 @@ export const buildMunicipalityBundle = (opts: {
       elected,
     },
     council: tur1.council,
-    kmetstva: tur1.kmetstva,
+    kmetstva: mergeKmetstvoRounds(tur1.kmetstva, tur2?.kmetstva),
     districts: mergeDistrictRounds(tur1.districts, tur2?.districts),
   };
 };
