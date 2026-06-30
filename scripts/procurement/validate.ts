@@ -40,6 +40,19 @@ export const rawJson = (data: unknown): string =>
 export const strCmp = (a: string, b: string): number =>
   a < b ? -1 : a > b ? 1 : 0;
 
+// Stable month-shard / corpus ordering: (date, ocid, key) by localeCompare.
+// This is the single source of the canonical row order — writeMonthShards sorts
+// each shard by it, and the SQL rollup generator re-sorts the SELECT by it so
+// the "last-write-wins" name/address resolution and the per-currency float
+// summation happen in exactly the same order as the shard walk. Uses
+// localeCompare (NOT SQLite's BINARY collation), so any SQL ORDER BY can't
+// substitute for this JS sort.
+export const rowSort = (a: Contract, b: Contract): number => {
+  if (a.date !== b.date) return a.date.localeCompare(b.date);
+  if (a.ocid !== b.ocid) return a.ocid.localeCompare(b.ocid);
+  return a.key.localeCompare(b.key);
+};
+
 // Deterministic descending comparators for rollup ordering. The primary key is
 // quantized (euros → integer cents, ratios → 1e-6) so a sub-unit float jitter
 // from a different summation order can't flip two otherwise-equal rows; genuine

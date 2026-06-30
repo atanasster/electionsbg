@@ -85,6 +85,15 @@ Goal: SQL becomes the generation backend; outputs stay byte-identical (proven by
 - **2b loader** — `scripts/db/lib/procurement_schema.ts` (single column⇄field map + `contractToRow`/`rowToContract`), `scripts/db/load_procurement.ts` (`npm run db:load`): month shards → 301,015 rows in ~5s / 331 MB; stamps `meta` (schema_version, git sha, coverage, count).
 - **verification** — `scripts/db/tests/sql_roundtrip.data.test.ts`: **lossless** capture proven — all 301,015 rows rebuild from SQL and `deepStrictEqual` the on-disk rows (key-order-independent); `SUM(amount_eur)` reconciles cents-exact against the index, straight from SQL.
 
+### 2c rollups ✅ SHIPPED (2026-07-01)
+
+The per-contractor + per-awarder rollup generators run from SQL and reproduce the on-disk JSON **byte-for-byte**.
+
+- **Refactor (behavior-preserving, verified):** `rowSort` moved to `validate.ts` (single canonical-order authority); `rollups.ts` split into `buildRollupsFromRows(rows, procurementDir)` (source-agnostic accumulator) + `buildRollups(contractsDir)` (delegates via a shard generator). `ingest.ts` imports `rowSort`.
+- **Generator** — `scripts/db/gen_procurement/rollups.ts` (`npm run db:gen-rollups`): `SELECT * FROM contracts` → `rowToContract` → `.sort(rowSort)` → `buildRollupsFromRows` → compare each rollup (run-stamps stripped) to the live file. Same accumulator as JS; only the row SOURCE changes. `--write` to emit.
+- **Result:** contractors **26,125 match / 0 diff**, awarders **4,391 match / 0 diff**, in ~9s. `tsc -b` + `db:verify` (10/10) confirm the refactor changed nothing.
+- **Finding — 34 stale "extra-live" files:** exactly the amendment-only contractors (e.g. `177531370`: live `totalEur` = its single amendment's value, zero contract-tag rows). Created before amendment-exclusion; current JS `buildRollups` wouldn't produce them either, and the rollup writer doesn't purge orphans. **2c `--write` flip must clear the dir first** (and a one-off purge + bucket re-sync drops the 34 from the live corpus).
+
 **Two findings that reshape 2c (the generators):**
 1. **Month shards carry 113 source-dependent field orderings** (legacy/OCDS/EOP × which optional fields present; e.g. `amountEur` after `sourceUrl` in OCDS but right after `currency` in EOP). So byte-identical *shard* regeneration from typed columns is not a goal — the generated shards will have ONE canonical field order (a one-time, reviewable format normalization). The derived layer (rollups/by-id/etc., built by `rollups.ts` with a fixed object shape) IS byte-reproducible.
 2. **On-disk month shards are stale w.r.t. cents-rounding.** `b5074b144` added `*Eur` rounding to `canonicalJson` and regenerated the rollups (rounded on disk) but NOT the shards (still full precision). The next JS ingest would round shard `amountEur` too. **Decision for 2c:** either round shard `amountEur` (matches current code, churns every shard + a full bucket re-sync) or keep shards full-precision (matches long-standing on-disk format; don't apply `*Eur` rounding to shard rows). Rollups round either way, so they're unaffected.
@@ -155,7 +164,7 @@ Explicitly **not** doing: git-LFS the binary (400 MB churn, low-value history), 
 |---|---|---|
 | 0 | ✅ `scripts/db/{open,migrate,schema}`, meta convention | tsc + lint green |
 | 1 | ✅ manifest + goldens + invariants, `test:data` local gate | `test:data` / `db:verify` green on current `main` |
-| 2 | ✅ 2a schema + 2b loader (lossless, 301,015 rows); ⬜ 2c generators | round-trip lossless ✅; generators: `db:verify` diffs = 0 (or explained) |
+| 2 | ✅ 2a schema + 2b loader (lossless); ✅ 2c rollups (byte-identical); ⬜ 2c rest (month shards, by-id, contractor_/awarder_contracts, by_ns, by_settlement, derived) | rollups 0 diff ✅; remaining generators: `db:gen-*` 0 diff |
 | 3 | snapshot/restore + lockfile | restore on a clean checkout reproduces a verifying DB |
 
 Existing gates that must stay green throughout: `npm run lint`, `npm run build`, `npm run data:map`, `tenders:test`, `ai:test:all`, `npm test` (Playwright).

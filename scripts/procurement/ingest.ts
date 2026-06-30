@@ -25,6 +25,7 @@ import {
   countDomainFiles,
   dropSyntheticLegacyTwins,
   findHugeContracts,
+  rowSort,
   runCanary,
   validateContract,
 } from "./validate";
@@ -160,12 +161,6 @@ const writeMonthShards = (
     else modifiedFiles++;
   }
   return { newFiles, modifiedFiles };
-};
-
-const rowSort = (a: Contract, b: Contract): number => {
-  if (a.date !== b.date) return a.date.localeCompare(b.date);
-  if (a.ocid !== b.ocid) return a.ocid.localeCompare(b.ocid);
-  return a.key.localeCompare(b.key);
 };
 
 const writeIndexJson = (

@@ -150,12 +150,18 @@ export interface RollupResult {
   totals: ProcurementIndex["totals"];
 }
 
-// Build rollups by re-reading every month-shard. This is the simplest correct
-// approach — incremental update would need to know which contractors were
-// touched, which fights with the "single fortnight may amend a year-old
-// contract" reality. At ~50k rows/year × 3 years = 150k rows, full rebuild
-// is ~1-2s.
-export const buildRollups = (contractsDir: string): RollupResult => {
+// Source-agnostic rollup accumulation + materialization. Takes a stream of
+// Contract rows in canonical rowSort order (see validate.ts:rowSort) plus the
+// procurement dir (for the awarder geo-override map), and returns the per-
+// contractor / per-awarder rollups. buildRollups() below feeds it the month
+// shards; scripts/db/gen_procurement/rollups.ts feeds it SELECT * FROM contracts.
+// Ordering matters: the "last-write-wins" name/address resolution and the
+// per-currency float summation must see rows in the same order, so callers pass
+// rows already sorted by rowSort.
+export const buildRollupsFromRows = (
+  rows: Iterable<Contract>,
+  procurementDir: string,
+): RollupResult => {
   const contractors = new Map<string, ContractorAcc>();
   const awarders = new Map<string, AwarderAcc>();
   const totals: ProcurementIndex["totals"] = {
@@ -171,165 +177,146 @@ export const buildRollups = (contractsDir: string): RollupResult => {
   // via splitBag once the full corpus has been walked.
   const totalsBag: Record<string, number> = {};
 
-  if (!fs.existsSync(contractsDir)) {
-    return { contractors: [], awarders: [], totals };
-  }
+  for (const row of rows) {
+    if (row.tag === "contract") totals.contracts++;
+    else if (row.tag === "award") totals.awards++;
+    else if (row.tag === "contractAmendment") totals.amendments++;
+    // Amendments re-state an existing contract's value (audit: ~97% are
+    // exact duplicates by contractor+amount), so summing them as new spend
+    // double-counts — e.g. it inflated АПИ from ~€5.6bn to €7.5bn. Keep the
+    // tally above; exclude amendments from every money + count rollup below.
+    // Per-contract detail pages still see amendments via the contract /
+    // by-id shards, which are built elsewhere.
+    if (row.tag === "contractAmendment") continue;
+    addCurrency(totalsBag, row.currency, row.amount);
 
-  // Walk contracts/<YYYY>/<YYYY-MM>.json shards. Skip the sibling `by-id/`
-  // tree (per-contract single-row files used by the SPA detail page) — its
-  // entries are individual objects, not arrays, and would crash forEach.
-  for (const year of fs.readdirSync(contractsDir).sort()) {
-    if (!/^\d{4}$/.test(year)) continue;
-    const yearDir = path.join(contractsDir, year);
-    const stat = fs.statSync(yearDir);
-    if (!stat.isDirectory()) continue;
-    for (const file of fs.readdirSync(yearDir).sort()) {
-      if (!/^\d{4}-\d{2}\.json$/.test(file)) continue;
-      const fullPath = path.join(yearDir, file);
-      const rows = JSON.parse(fs.readFileSync(fullPath, "utf8")) as Contract[];
+    // Contractor.
+    const ca =
+      contractors.get(row.contractorEik) ??
+      ({
+        eik: row.contractorEik,
+        name: row.contractorName,
+        totalByCurrency: {},
+        contractCount: 0,
+        awardCount: 0,
+        byAwarder: new Map(),
+        byYear: new Map(),
+        topContracts: [],
+      } satisfies ContractorAcc);
+    // Prefer the most recent name observed. Rows are walked in YYYY-MM
+    // order (sorted), so the last assignment is the newest.
+    ca.name = row.contractorName || ca.name;
+    addCurrency(ca.totalByCurrency, row.currency, row.amount);
+    if (row.tag === "award") ca.awardCount++;
+    else ca.contractCount++;
 
-      rows.forEach((row) => {
-        if (row.tag === "contract") totals.contracts++;
-        else if (row.tag === "award") totals.awards++;
-        else if (row.tag === "contractAmendment") totals.amendments++;
-        // Amendments re-state an existing contract's value (audit: ~97% are
-        // exact duplicates by contractor+amount), so summing them as new spend
-        // double-counts — e.g. it inflated АПИ from ~€5.6bn to €7.5bn. Keep the
-        // tally above; exclude amendments from every money + count rollup below.
-        // Per-contract detail pages still see amendments via the contract /
-        // by-id shards, which are built elsewhere.
-        if (row.tag === "contractAmendment") return;
-        addCurrency(totalsBag, row.currency, row.amount);
+    const ay = ca.byYear.get(yearOf(row.date)) ?? {
+      year: yearOf(row.date),
+      totalByCurrency: {},
+      contractCount: 0,
+    };
+    addCurrency(ay.totalByCurrency, row.currency, row.amount);
+    ay.contractCount++;
+    ca.byYear.set(ay.year, ay);
 
-        // Contractor.
-        const ca =
-          contractors.get(row.contractorEik) ??
-          ({
-            eik: row.contractorEik,
-            name: row.contractorName,
-            totalByCurrency: {},
-            contractCount: 0,
-            awardCount: 0,
-            byAwarder: new Map(),
-            byYear: new Map(),
-            topContracts: [],
-          } satisfies ContractorAcc);
-        // Prefer the most recent name observed. Rows are walked in YYYY-MM
-        // order (sorted), so the last assignment is the newest.
-        ca.name = row.contractorName || ca.name;
-        addCurrency(ca.totalByCurrency, row.currency, row.amount);
-        if (row.tag === "award") ca.awardCount++;
-        else ca.contractCount++;
+    const aw = ca.byAwarder.get(row.awarderEik) ?? {
+      eik: row.awarderEik,
+      name: row.awarderName,
+      totalByCurrency: {},
+      contractCount: 0,
+    };
+    aw.name = row.awarderName || aw.name;
+    addCurrency(aw.totalByCurrency, row.currency, row.amount);
+    aw.contractCount++;
+    ca.byAwarder.set(aw.eik, aw);
 
-        const ay = ca.byYear.get(yearOf(row.date)) ?? {
-          year: yearOf(row.date),
-          totalByCurrency: {},
-          contractCount: 0,
-        };
-        addCurrency(ay.totalByCurrency, row.currency, row.amount);
-        ay.contractCount++;
-        ca.byYear.set(ay.year, ay);
+    contractors.set(row.contractorEik, ca);
 
-        const aw = ca.byAwarder.get(row.awarderEik) ?? {
-          eik: row.awarderEik,
-          name: row.awarderName,
-          totalByCurrency: {},
-          contractCount: 0,
-        };
-        aw.name = row.awarderName || aw.name;
-        addCurrency(aw.totalByCurrency, row.currency, row.amount);
-        aw.contractCount++;
-        ca.byAwarder.set(aw.eik, aw);
+    // Awarder.
+    const aa: AwarderAcc =
+      awarders.get(row.awarderEik) ??
+      ({
+        eik: row.awarderEik,
+        name: row.awarderName,
+        region: row.awarderRegion,
+        totalByCurrency: {},
+        contractCount: 0,
+        awardCount: 0,
+        byContractor: new Map(),
+        byYear: new Map(),
+        topContracts: [],
+      } satisfies AwarderAcc);
+    aa.name = row.awarderName || aa.name;
+    if (row.awarderRegion) aa.region = row.awarderRegion;
+    // Capture address fields when present. Rows are walked YYYY-MM
+    // ascending, so the last write wins → newest known HQ.
+    if (row.awarderLocality || row.awarderPostal || row.awarderStreet) {
+      aa.address = {
+        ...(aa.address ?? {}),
+        ...(row.awarderLocality ? { locality: row.awarderLocality } : {}),
+        ...(row.awarderPostal ? { postal: row.awarderPostal } : {}),
+        ...(row.awarderStreet ? { street: row.awarderStreet } : {}),
+      };
+    }
+    addCurrency(aa.totalByCurrency, row.currency, row.amount);
+    if (row.tag === "award") aa.awardCount++;
+    else aa.contractCount++;
 
-        contractors.set(row.contractorEik, ca);
+    const ay2 = aa.byYear.get(yearOf(row.date)) ?? {
+      year: yearOf(row.date),
+      totalByCurrency: {},
+      contractCount: 0,
+    };
+    addCurrency(ay2.totalByCurrency, row.currency, row.amount);
+    ay2.contractCount++;
+    aa.byYear.set(ay2.year, ay2);
 
-        // Awarder.
-        const aa: AwarderAcc =
-          awarders.get(row.awarderEik) ??
-          ({
-            eik: row.awarderEik,
-            name: row.awarderName,
-            region: row.awarderRegion,
-            totalByCurrency: {},
-            contractCount: 0,
-            awardCount: 0,
-            byContractor: new Map(),
-            byYear: new Map(),
-            topContracts: [],
-          } satisfies AwarderAcc);
-        aa.name = row.awarderName || aa.name;
-        if (row.awarderRegion) aa.region = row.awarderRegion;
-        // Capture address fields when present. Rows are walked YYYY-MM
-        // ascending, so the last write wins → newest known HQ.
-        if (row.awarderLocality || row.awarderPostal || row.awarderStreet) {
-          aa.address = {
-            ...(aa.address ?? {}),
-            ...(row.awarderLocality ? { locality: row.awarderLocality } : {}),
-            ...(row.awarderPostal ? { postal: row.awarderPostal } : {}),
-            ...(row.awarderStreet ? { street: row.awarderStreet } : {}),
-          };
-        }
-        addCurrency(aa.totalByCurrency, row.currency, row.amount);
-        if (row.tag === "award") aa.awardCount++;
-        else aa.contractCount++;
+    const bc = aa.byContractor.get(row.contractorEik) ?? {
+      eik: row.contractorEik,
+      name: row.contractorName,
+      totalByCurrency: {},
+      contractCount: 0,
+    };
+    bc.name = row.contractorName || bc.name;
+    addCurrency(bc.totalByCurrency, row.currency, row.amount);
+    bc.contractCount++;
+    aa.byContractor.set(bc.eik, bc);
 
-        const ay2 = aa.byYear.get(yearOf(row.date)) ?? {
-          year: yearOf(row.date),
-          totalByCurrency: {},
-          contractCount: 0,
-        };
-        addCurrency(ay2.totalByCurrency, row.currency, row.amount);
-        ay2.contractCount++;
-        aa.byYear.set(ay2.year, ay2);
+    awarders.set(row.awarderEik, aa);
 
-        const bc = aa.byContractor.get(row.contractorEik) ?? {
-          eik: row.contractorEik,
-          name: row.contractorName,
-          totalByCurrency: {},
-          contractCount: 0,
-        };
-        bc.name = row.contractorName || bc.name;
-        addCurrency(bc.totalByCurrency, row.currency, row.amount);
-        bc.contractCount++;
-        aa.byContractor.set(bc.eik, bc);
-
-        awarders.set(row.awarderEik, aa);
-
-        // Top-N preview rows. We embed two slim copies — one in the
-        // contractor bucket pointing at the awarder, one in the awarder
-        // bucket pointing at the contractor. We carry the OCDS `tag` so the
-        // tile + alert feed can label each row announced/awarded/annex.
-        // Award rows with no value still lose the amount ranking and are
-        // dropped (nothing to render), but value-bearing announced notices
-        // now surface tagged instead of being discarded wholesale.
-        if ((row.amount ?? 0) > 0) {
-          insertTopRow(ca.topContracts, {
-            key: row.key,
-            ocid: row.ocid,
-            date: row.date,
-            tag: row.tag,
-            amount: row.amount,
-            currency: row.currency,
-            amountEur: row.amountEur,
-            partyEik: row.awarderEik,
-            partyName: row.awarderName,
-            bundleUuid: row.bundleUuid,
-            sourceUrl: row.sourceUrl,
-          });
-          insertTopRow(aa.topContracts, {
-            key: row.key,
-            ocid: row.ocid,
-            date: row.date,
-            tag: row.tag,
-            amount: row.amount,
-            currency: row.currency,
-            amountEur: row.amountEur,
-            partyEik: row.contractorEik,
-            partyName: row.contractorName,
-            bundleUuid: row.bundleUuid,
-            sourceUrl: row.sourceUrl,
-          });
-        }
+    // Top-N preview rows. We embed two slim copies — one in the
+    // contractor bucket pointing at the awarder, one in the awarder
+    // bucket pointing at the contractor. We carry the OCDS `tag` so the
+    // tile + alert feed can label each row announced/awarded/annex.
+    // Award rows with no value still lose the amount ranking and are
+    // dropped (nothing to render), but value-bearing announced notices
+    // now surface tagged instead of being discarded wholesale.
+    if ((row.amount ?? 0) > 0) {
+      insertTopRow(ca.topContracts, {
+        key: row.key,
+        ocid: row.ocid,
+        date: row.date,
+        tag: row.tag,
+        amount: row.amount,
+        currency: row.currency,
+        amountEur: row.amountEur,
+        partyEik: row.awarderEik,
+        partyName: row.awarderName,
+        bundleUuid: row.bundleUuid,
+        sourceUrl: row.sourceUrl,
+      });
+      insertTopRow(aa.topContracts, {
+        key: row.key,
+        ocid: row.ocid,
+        date: row.date,
+        tag: row.tag,
+        amount: row.amount,
+        currency: row.currency,
+        amountEur: row.amountEur,
+        partyEik: row.contractorEik,
+        partyName: row.contractorName,
+        bundleUuid: row.bundleUuid,
+        sourceUrl: row.sourceUrl,
       });
     }
   }
@@ -409,7 +396,7 @@ export const buildRollups = (contractsDir: string): RollupResult => {
   // Built by scripts/procurement/awarder_geo_map.ts from name-parse + the МОН
   // school register. Applied fill-missing only — an address-derived geo always
   // wins. See docs/plans/procurement-awarder-geo-v2.md.
-  const overrides = loadGeoOverrides(path.dirname(contractsDir));
+  const overrides = loadGeoOverrides(procurementDir);
 
   const awarderOut: AwarderRollup[] = [...awarders.values()].map((a) => {
     let geo: AwarderGeo | undefined;
@@ -486,6 +473,29 @@ export const buildRollups = (contractsDir: string): RollupResult => {
   });
 
   return { contractors: contractorOut, awarders: awarderOut, totals };
+};
+
+// Build rollups by re-reading every month-shard. Streams contracts/<YYYY>/
+// <YYYY-MM>.json into the source-agnostic accumulator above. Shards are already
+// written in rowSort order (writeMonthShards sorts each, months walk
+// ascending), so the global stream is in canonical order without a re-sort.
+// Skips the sibling by-id/ tree (per-contract single-row files, not arrays).
+export const buildRollups = (contractsDir: string): RollupResult => {
+  function* readShards(): Generator<Contract> {
+    if (!fs.existsSync(contractsDir)) return;
+    for (const year of fs.readdirSync(contractsDir).sort()) {
+      if (!/^\d{4}$/.test(year)) continue;
+      const yearDir = path.join(contractsDir, year);
+      if (!fs.statSync(yearDir).isDirectory()) continue;
+      for (const file of fs.readdirSync(yearDir).sort()) {
+        if (!/^\d{4}-\d{2}\.json$/.test(file)) continue;
+        yield* JSON.parse(
+          fs.readFileSync(path.join(yearDir, file), "utf8"),
+        ) as Contract[];
+      }
+    }
+  }
+  return buildRollupsFromRows(readShards(), path.dirname(contractsDir));
 };
 
 export const writeRollups = (
