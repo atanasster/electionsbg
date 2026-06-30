@@ -46,6 +46,11 @@ export type MenuItem = {
   // Rendered only inside the mobile hamburger tree. Used for the section
   // "Overview" home link, which the desktop split-button title supplies.
   mobileOnly?: boolean;
+  // Rendered only in the dev build (`import.meta.env.DEV`). For entries whose
+  // page is itself dev-gated because its data is bucket-synced but not yet
+  // shipped to production — a prod link would 404. Drop the flag here and on the
+  // matching <Route> once `npm run bucket:sync` has shipped the data.
+  devOnly?: boolean;
   // Desktop only, top-level menus: lay the section groups out in this many
   // columns instead of one tall single-column list. Set on menus with enough
   // groups to otherwise run the full viewport height (e.g. governance's four
@@ -255,6 +260,20 @@ export const governanceMenu: MenuItem[] = [
           { title: "budget_policy_page_title", link: "/budget/simulator" },
           { title: "procurement_link_label", link: "/procurement" },
           { title: "funds_index_title", link: "/funds" },
+        ],
+      },
+      // Per-entity spending dashboards — deep-dives into a single public body
+      // (АПИ road spending today; ДОО, БулгарТрансГаз and others to follow).
+      // They'd crowd the procurement sub-nav as pills, so they group here under
+      // governance instead. Dev-gated for now: the roads page + its data are
+      // unreleased (see the roads <Route> in routes.tsx / useRoads).
+      { title: "-", devOnly: true },
+      {
+        title: "menu_group_state_entities",
+        group: true,
+        devOnly: true,
+        subMenu: [
+          { title: "procurement_roads_nav", link: "/procurement/roads" },
         ],
       },
       { title: "-" },

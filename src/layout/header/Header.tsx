@@ -175,6 +175,11 @@ export const Header = () => {
     if (item.mobileOnly && !isMobile) {
       return null;
     }
+    // `devOnly` items (and their leading separator) drop out of the production
+    // build, matching the dev-gated route they point at.
+    if (item.devOnly && !import.meta.env.DEV) {
+      return null;
+    }
     if (item.category === "financials" && !electionStats?.hasFinancials) {
       return null;
     }
@@ -293,7 +298,9 @@ export const Header = () => {
       >
         {topMenu.columns === 2
           ? topMenu.subMenu
-              ?.filter((menu) => menu.group)
+              ?.filter(
+                (menu) => menu.group && (import.meta.env.DEV || !menu.devOnly),
+              )
               .map((menu, idx) => (
                 <div key={`${menu.title}-${idx}`}>
                   <DropdownMenuLabel>{t(menu.title)}</DropdownMenuLabel>
