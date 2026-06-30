@@ -10,6 +10,7 @@ import { useFinanceMinisters } from "@/data/governments/useFinanceMinisters";
 import { useBudgetLaws } from "@/data/governments/useBudgetLaws";
 import { useMacro } from "@/data/macro/useMacro";
 import { CabinetBudgetScorecard } from "@/screens/components/macro/CabinetBudgetScorecard";
+import { IzdrazhkaHeatmapTile } from "@/screens/components/budget/IzdrazhkaHeatmapTile";
 import { IndicatorsNav } from "./indicatorsNav";
 import { ChartSources } from "./indicatorsShared";
 
@@ -32,6 +33,10 @@ export const IndicatorsCabinetBudgetsScreen = () => {
           macro={macro}
         />
       ) : null}
+      <IzdrazhkaHeatmapTile
+        financeMinisters={financeMinisters ?? []}
+        budgetLaws={budgetLaws ?? []}
+      />
       {/* Full methodology + sources sit below the charts so the visualisation
           gets the top of the page. Split into self-contained, labelled blocks in
           a responsive grid — fills the full-width dashboard without the random

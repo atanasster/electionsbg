@@ -231,6 +231,177 @@ export const budgetTrend = async (
   };
 };
 
+// ---- institution operating cost (издръжка) ---------------------------------
+// The per-first-level-spending-unit operating-cost series behind the
+// /indicators/budgets heatmap — the residual Asen Vasilev charts in "Бюджет
+// 2026: Перо по перо" (издръжка = current spending minus personnel, subsidies,
+// interest and household transfers), reconstructed from the State Budget Laws
+// 2018→2026. With an institution → its multi-year line; without → the table of
+// the biggest year-over-year increases in the draft budget.
+type IzdInstitution = {
+  bg: string;
+  values: Record<string, number>; // year → EUR thousands
+  yoy: Record<string, number>;
+};
+type IzdPayload = {
+  years: number[];
+  draftYear: number;
+  source: string;
+  institutions: IzdInstitution[];
+};
+
+// A few full-name / colloquial aliases so "издръжка на отбраната" or "на
+// регионалното министерство" resolve to the short heatmap labels.
+const IZD_ALIASES: Record<string, string[]> = {
+  МРРБ: ["регионално развитие", "регионалното развитие", "благоустройство"],
+  Отбрана: ["министерство на отбраната", "армия", "военни"],
+  "Външни работи": ["външно министерство", "външни работи"],
+  "Министерския съвет": ["министерски съвет"],
+  "Държавен резерв": ["държавен резерв", "военновременни запаси"],
+  "ДФ Земеделие": ["държавен фонд земеделие"],
+  Земеделие: ["министерство на земеделието", "земеделие и храни"],
+  Финанси: ["министерство на финансите"],
+  МВР: ["вътрешни работи", "полиция"],
+  Здравеопазване: ["министерство на здравеопазването", "здраве"],
+  Образование: ["министерство на образованието", "образование и наука"],
+  Култура: ["министерство на културата"],
+};
+
+export const institutionMaintenance = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const data = await fetchData<IzdPayload>(
+    "/budget/izdrazhka_by_institution.json",
+  );
+  const dy = data.draftYear;
+  const eurK = (k: number) => fmtEurCompact(k * 1000, ctx.lang);
+  const q = String(args.institution ?? "").trim();
+  // Containment-first resolution: the query is a whole sentence ("издръжка на
+  // министерството на отбраната по години"), so a fuse pattern-match (pattern ≫
+  // key) is unreliable — instead find the institution whose label/alias appears
+  // in the query (longest wins), with a token-equality pass for short
+  // abbreviations (МВР, МРРБ) and fuse only as a typo fallback.
+  const nq = q.toLowerCase();
+  const toks = nq.split(/[^a-zа-я0-9]+/i).filter(Boolean);
+  let inst: IzdInstitution | undefined;
+  let bestLen = 0;
+  for (const i of data.institutions) {
+    for (const k of [i.bg, ...(IZD_ALIASES[i.bg] ?? [])]) {
+      const nk = k.toLowerCase();
+      const hit =
+        (nk.length >= 5 && nq.includes(nk)) ||
+        (nk.length >= 3 && nk.length <= 6 && toks.includes(nk));
+      if (hit && nk.length > bestLen) {
+        bestLen = nk.length;
+        inst = i;
+      }
+    }
+  }
+  if (!inst && q.length >= 3) {
+    const m = fuzzyBestMatch(
+      q,
+      data.institutions.map((i) => ({
+        item: i,
+        keys: [i.bg, ...(IZD_ALIASES[i.bg] ?? [])],
+      })),
+      { threshold: 0.45, minLen: 3, tokenSort: true },
+    );
+    if (m) inst = m.item;
+  }
+
+  if (inst) {
+    const pts = data.years
+      .filter((y) => inst.values[String(y)] !== undefined)
+      .map((y) => ({ x: String(y), y: inst.values[String(y)] }));
+    const cur = inst.values[String(dy)];
+    const yoy = inst.yoy[String(dy)];
+    const peak = Math.max(...pts.map((p) => p.y));
+    return {
+      tool: "institutionMaintenance",
+      domain: "fiscal",
+      kind: "series",
+      title: bg
+        ? `Издръжка — ${inst.bg} (${data.years[0]}–${dy})`
+        : `Operating cost — ${inst.bg} (${data.years[0]}–${dy})`,
+      subtitle: bg
+        ? "по приет бюджет; 2026 = проект"
+        : "as adopted; 2026 = draft",
+      categories: pts.map((p) => p.x),
+      series: [
+        {
+          key: "izdrazhka",
+          label: bg ? "Издръжка" : "Operating cost",
+          points: pts,
+        },
+      ],
+      viz: "line",
+      facts: {
+        institution: inst.bg,
+        latest_year: dy,
+        izdrazhka: cur !== undefined ? eurK(cur) : "—",
+        yoy: yoy !== undefined ? `${yoy >= 0 ? "+" : ""}${round2(yoy)}%` : "—",
+        vs_peak:
+          peak > 0 && cur !== undefined
+            ? `${Math.round((cur / peak - 1) * 100)}%`
+            : "—",
+      },
+      provenance: ["budget/izdrazhka_by_institution.json"],
+    };
+  }
+
+  // No institution resolved → the biggest draft-year increases.
+  const ranked = data.institutions
+    .map((i) => ({
+      i,
+      prev: i.values[String(dy - 1)],
+      cur: i.values[String(dy)],
+    }))
+    .filter((r) => r.prev !== undefined && r.cur !== undefined)
+    .map((r) => ({
+      ...r,
+      delta: r.cur - r.prev,
+      pct: r.prev ? (r.cur / r.prev - 1) * 100 : 0,
+    }))
+    .sort((a, b) => b.delta - a.delta)
+    .slice(0, 12);
+  const rows: Row[] = ranked.map((r) => ({
+    institution: r.i.bg,
+    [String(dy - 1)]: eurK(r.prev),
+    [String(dy)]: eurK(r.cur),
+    change: `${r.pct >= 0 ? "+" : ""}${Math.round(r.pct)}%`,
+  }));
+  const columns: Column[] = [
+    { key: "institution", label: bg ? "Ведомство" : "Institution" },
+    { key: String(dy - 1), label: String(dy - 1), numeric: true },
+    { key: String(dy), label: String(dy), numeric: true },
+    { key: "change", label: bg ? "Промяна" : "Change", numeric: true },
+  ];
+  return {
+    tool: "institutionMaintenance",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? `Издръжка по ведомства — най-голям ръст ${dy}`
+      : `Operating cost by institution — biggest ${dy} increase`,
+    subtitle: bg
+      ? "издръжка = текущи разходи без персонал, субсидии, лихви и трансфери; 2026 = проект"
+      : "operating cost = current spending less personnel, subsidies, interest, transfers; 2026 = draft",
+    columns,
+    rows,
+    viz: "none",
+    facts: {
+      institutions: data.institutions.length,
+      top: ranked[0]?.i.bg ?? "—",
+      top_change: ranked[0]
+        ? `${ranked[0].pct >= 0 ? "+" : ""}${Math.round(ranked[0].pct)}%`
+        : "—",
+    },
+    provenance: ["budget/izdrazhka_by_institution.json"],
+  };
+};
+
 // ---- budget by function (COFOG) --------------------------------------------
 
 const COFOG: Record<string, { bg: string; en: string }> = {

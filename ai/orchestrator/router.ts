@@ -1570,6 +1570,15 @@ export const route = (question: string, ctx: ToolContext): Route => {
   // component of many institution names ("Министерство на отбраната"). When the
   // question is procurement-framed, it's a buyer query, not a spending-function
   // one — let it fall through to the procurement block below.
+  // Per-institution издръжка (operating cost) — the "Бюджет 2026: Перо по перо"
+  // metric. Distinct from cost-of-living "издръжка на живота" (caught upstream)
+  // and from a spending FUNCTION ("издръжка на отбраната" = МО's operating line,
+  // not COFOG defence), so it must beat resolveBudgetFunction below.
+  if (
+    has(q, "издръжк", "оперативни разход", "operating cost") &&
+    !has(q, "живот", "living")
+  )
+    return { tool: "institutionMaintenance", args: { institution: q } };
   const gf = resolveBudgetFunction(q);
   if (gf && !has(q, "поръчк", "procurement", "аоп", " aop"))
     return {

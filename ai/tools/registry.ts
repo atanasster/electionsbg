@@ -15,6 +15,7 @@ import {
   budgetFunction,
   budgetOverview,
   budgetTrend,
+  institutionMaintenance,
   contractSearch,
   fundsOverview,
   awarderProcurement,
@@ -1699,6 +1700,35 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: budgetTrend,
+  },
+  {
+    name: "institutionMaintenance",
+    domain: "fiscal",
+    description: {
+      bg: "Издръжка (оперативни разходи) по ведомства — текущи разходи без персонал, субсидии, лихви и трансфери, по години 2018–2026 (методът „Перо по перо“). С ведомство → неговата крива; без → най-голям ръст в проекта за 2026.",
+      en: "Operating cost (издръжка) by institution — current spending less personnel, subsidies, interest and transfers, 2018–2026. With an institution → its trend; without → the biggest 2026-draft increases.",
+    },
+    params: [
+      {
+        name: "institution",
+        type: "metric",
+        description: {
+          bg: "Ведомство (напр. „отбрана“, „МРРБ“, „министерски съвет“)",
+          en: "Institution (e.g. defence, regional development, council of ministers)",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Издръжка на Министерството на отбраната по години",
+        en: "Defence ministry operating costs over the years",
+      },
+      {
+        bg: "Кое ведомство има най-голям ръст на издръжката в Бюджет 2026?",
+        en: "Which institution has the biggest operating-cost increase in Budget 2026?",
+      },
+    ],
+    run: institutionMaintenance,
   },
   {
     name: "simulateTaxChange",
