@@ -121,6 +121,37 @@ export const dropSyntheticLegacyTwins = (
   return dropped > 0 ? { rows: kept, dropped } : { rows, dropped: 0 };
 };
 
+// Key-uniqueness guard. The contract `key` is the SPA's row identity — it
+// indexes /contract/:key, every per-entity contracts list keys its React rows
+// on it, and the shard merge dedups on it. Two distinct rows sharing a key
+// silently conflate (the by-id store keeps only one) and trigger React's
+// "two children with the same key" warning. disambiguateContractKeys (in
+// contract_key.ts) is supposed to make every key unique; this asserts it held,
+// so a future regression in the generators or the merge fails loudly instead of
+// shipping conflated contracts. Returns the offending keys (capped) for the
+// thrown message.
+export const findDuplicateKeys = (rows: Contract[]): string[] => {
+  const seen = new Set<string>();
+  const dupes = new Set<string>();
+  for (const r of rows) {
+    if (seen.has(r.key)) dupes.add(r.key);
+    else seen.add(r.key);
+  }
+  return [...dupes];
+};
+
+export const assertUniqueKeys = (rows: Contract[], context: string): void => {
+  const dupes = findDuplicateKeys(rows);
+  if (dupes.length > 0) {
+    throw new Error(
+      `duplicate contract key(s) in ${context}: ${dupes.length} key(s) shared ` +
+        `by >1 row (e.g. ${dupes.slice(0, 5).join(", ")}). Distinct contracts ` +
+        `would conflate on /contract/:key and warn in React. Check ` +
+        `disambiguateContractKeys in scripts/procurement/contract_key.ts.`,
+    );
+  }
+};
+
 // Per-contract sanity. Throws on rows that would corrupt downstream metrics.
 // Currently only checks the negative-amount case; >1B amounts are flagged as
 // warnings (PRD says "individually flagged for review", not blocked).

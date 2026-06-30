@@ -19,24 +19,24 @@
 // the contractor side are dropped (they can't be cross-referenced and they're
 // almost always non-BG suppliers / placeholder rows).
 
-import { createHash } from "crypto";
 import type { Contract, ContractTag } from "./types";
 import { canonicalEik, isValidEik } from "./eik";
 import { toEur } from "@/lib/currency";
 import { normaliseOrgName } from "../lib/normalize_name";
+import { disambiguateContractKeys, hashKey } from "./contract_key";
 
-// Stable per-row slug. Mirrors the dedupe key used by writeMonthShards in
-// ingest.ts so a row's URL persists across re-runs.
+// Stable per-row BASE slug. When a release yields more than one distinct row to
+// the same supplier with no distinguishing id in this tuple (e.g. several awards
+// to one supplier — contractId is undefined on the award path), the tuple
+// repeats; disambiguateContractKeys (called at the end of normalizeBundle)
+// re-keys those collisions by award/contract id so each row gets its own URL.
 const contractKey = (
   releaseId: string,
   contractId: string | undefined,
   contractorEik: string,
   tag: ContractTag,
 ): string =>
-  createHash("sha256")
-    .update(`${releaseId}::${contractId ?? ""}::${contractorEik}::${tag}`)
-    .digest("hex")
-    .slice(0, 12);
+  hashKey(`${releaseId}::${contractId ?? ""}::${contractorEik}::${tag}`);
 
 interface OcdsParty {
   id: string;
@@ -253,6 +253,9 @@ export const normalizeBundle = (
     rowsDroppedSelfDeal: 0,
   };
   const rows: Contract[] = [];
+  // Per-row discriminator, aligned 1:1 with `rows`, applied only to rows whose
+  // base key collides within this bundle (see disambiguateContractKeys below).
+  const discs: string[] = [];
 
   for (const release of bundle.releases ?? []) {
     stats.releasesSeen++;
@@ -377,6 +380,11 @@ export const normalizeBundle = (
             bundleUuid: datasetUuid,
             sourceUrl,
           });
+          // contract.id is usually present (so collisions are rare here); the
+          // awardID + amount fallbacks cover the id-less multi-contract release.
+          discs.push(
+            `${contract.id ?? ""}::${contract.awardID ?? ""}::${perAmount ?? ""}`,
+          );
           if (tag === "contract") stats.contractsEmitted++;
           else stats.amendmentsEmitted++;
         }
@@ -448,11 +456,20 @@ export const normalizeBundle = (
             bundleUuid: datasetUuid,
             sourceUrl,
           });
+          // award.id distinguishes multiple awards to the same supplier in one
+          // release (the historical collision on this path); amount is the
+          // fallback when an award carries no id.
+          discs.push(`${award.id ?? ""}::${perAwardAmount ?? ""}`);
           stats.awardsEmitted++;
         }
       }
     }
   }
+
+  // Re-key the rare within-bundle collisions (multiple awards/contracts to one
+  // supplier with no distinguishing id in the base tuple). Non-colliding rows
+  // keep their bare base key, so existing /contract/:key URLs never move.
+  disambiguateContractKeys(rows, (i) => discs[i]);
 
   return { rows, stats };
 };

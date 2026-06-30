@@ -21,6 +21,7 @@ import {
   type LegacyDataset,
 } from "./legacy_csv";
 import {
+  assertUniqueKeys,
   canonicalJson,
   dropSyntheticLegacyTwins,
   validateContract,
@@ -56,13 +57,10 @@ const loadCsv = async (
   return text;
 };
 
-const rowKey = (r: Contract): string =>
-  `${r.releaseId}::${r.contractId ?? ""}::${r.contractorEik}::${r.tag}`;
-
 const rowSort = (a: Contract, b: Contract): number => {
   if (a.date !== b.date) return a.date.localeCompare(b.date);
   if (a.ocid !== b.ocid) return a.ocid.localeCompare(b.ocid);
-  return rowKey(a).localeCompare(rowKey(b));
+  return a.key.localeCompare(b.key);
 };
 
 // Group rows by YYYY-MM and merge each into its month-shard. Same logic as
@@ -90,14 +88,15 @@ const writeMonthShards = (
       ? (JSON.parse(fs.readFileSync(file, "utf8")) as Contract[])
       : [];
     const byKey = new Map<string, Contract>();
-    for (const r of existing) byKey.set(rowKey(r), r);
-    for (const r of freshRows) byKey.set(rowKey(r), r);
+    for (const r of existing) byKey.set(r.key, r);
+    for (const r of freshRows) byKey.set(r.key, r);
     // Drop synthetic legacy `-x` twins that duplicate a real row in the same
     // shard (see dropSyntheticLegacyTwins) — a blank-document-id row gets the
     // "-x" ocid fallback and would otherwise double-count its real twin.
     const merged = dropSyntheticLegacyTwins([...byKey.values()]).rows.sort(
       rowSort,
     );
+    assertUniqueKeys(merged, `${month}.json`);
     const prev = fs.existsSync(file) ? fs.readFileSync(file, "utf8") : null;
     const next = canonicalJson(merged);
     if (next === prev) continue;

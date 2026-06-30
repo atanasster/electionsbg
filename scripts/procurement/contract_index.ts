@@ -77,7 +77,7 @@ type CompactRow = [
 const trunc = (s: string | undefined, n: number): string =>
   !s ? "" : s.length > n ? s.slice(0, n - 1) + "…" : s;
 
-const main = (): void => {
+export const main = (): void => {
   fs.rmSync(OUT, { recursive: true, force: true });
   fs.mkdirSync(OUT, { recursive: true });
 
@@ -142,4 +142,9 @@ const main = (): void => {
   );
 };
 
-main();
+// Auto-run only when invoked directly; imported by dedup_contract_keys.ts so the
+// re-key migration can refresh the index in-process.
+const isMain =
+  process.argv[1] &&
+  fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+if (isMain) main();

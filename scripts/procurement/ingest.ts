@@ -19,6 +19,7 @@ import { fetchBundlesIndex } from "./fetch_dataset_index";
 import { fetchBundle } from "./fetch_bundle";
 import { normalizeBundle } from "./normalize";
 import {
+  assertUniqueKeys,
   canonicalJson,
   checkDiffSize,
   countDomainFiles,
@@ -115,8 +116,10 @@ const writeBundlesIndex = (idx: BundlesIndex): void => {
 };
 
 // Group rows by YYYY-MM and write/merge each month shard. Merging strategy:
-// dedupe by (releaseId, contractId, contractorEik). Same release re-ingested
-// from a later bundle (АОП sometimes republishes) replaces in place.
+// dedupe by the contract `key` — the disambiguated row identity (see
+// contract_key.ts). The same row re-ingested from a later bundle (АОП sometimes
+// republishes) hashes to the same key and replaces in place; genuinely distinct
+// rows that once shared a base tuple now carry distinct keys and both survive.
 const writeMonthShards = (
   rows: Contract[],
 ): { newFiles: number; modifiedFiles: number } => {
@@ -139,8 +142,8 @@ const writeMonthShards = (
       ? (JSON.parse(fs.readFileSync(file, "utf8")) as Contract[])
       : [];
     const byKey = new Map<string, Contract>();
-    for (const r of existing) byKey.set(rowKey(r), r);
-    for (const r of freshRows) byKey.set(rowKey(r), r);
+    for (const r of existing) byKey.set(r.key, r);
+    for (const r of freshRows) byKey.set(r.key, r);
     // Drop synthetic legacy `-x` twins that duplicate a real row in the same
     // shard (see dropSyntheticLegacyTwins). Self-heals shards polluted by an
     // earlier ingest and prevents a re-introduced blank-document-id row from
@@ -148,6 +151,7 @@ const writeMonthShards = (
     const merged = dropSyntheticLegacyTwins([...byKey.values()]).rows.sort(
       rowSort,
     );
+    assertUniqueKeys(merged, `${month}.json`);
     const prev = fs.existsSync(file) ? fs.readFileSync(file, "utf8") : null;
     const next = canonicalJson(merged);
     if (next === prev) continue;
@@ -158,15 +162,10 @@ const writeMonthShards = (
   return { newFiles, modifiedFiles };
 };
 
-const rowKey = (r: Contract): string =>
-  // contractId is missing on award-only rows; awardId-less awards are deduped
-  // by releaseId + contractor + tag.
-  `${r.releaseId}::${r.contractId ?? ""}::${r.contractorEik}::${r.tag}`;
-
 const rowSort = (a: Contract, b: Contract): number => {
   if (a.date !== b.date) return a.date.localeCompare(b.date);
   if (a.ocid !== b.ocid) return a.ocid.localeCompare(b.ocid);
-  return rowKey(a).localeCompare(rowKey(b));
+  return a.key.localeCompare(b.key);
 };
 
 const writeIndexJson = (

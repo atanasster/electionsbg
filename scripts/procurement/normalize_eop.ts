@@ -16,25 +16,25 @@
 // a gap-fill filter on top (only buyers absent from our corpus) so EOP rows can
 // never double-count an OCDS contract.
 
-import { createHash } from "crypto";
 import type { Contract, ContractTag } from "./types";
 import { canonicalEik, isValidEik } from "./eik";
 import { toEur } from "@/lib/currency";
 import { normaliseOrgName } from "../lib/normalize_name";
+import { disambiguateContractKeys, hashKey } from "./contract_key";
 
-// Stable per-row slug. Mirrors normalize.ts::contractKey exactly so a row's URL
-// is stable across re-runs and namespaced away from OCDS rows by the synthetic
-// `eop-…` releaseId.
+// Stable per-row BASE slug. Mirrors normalize.ts::contractKey exactly so a row's
+// URL is stable across re-runs and namespaced away from OCDS rows by the
+// synthetic `eop-…` releaseId. The flat feed already carries a contractNumber in
+// both the releaseId and contractId, so collisions are practically impossible —
+// the disambiguation pass below is kept only to stay symmetric with the other
+// two generators.
 const contractKey = (
   releaseId: string,
   contractId: string | undefined,
   contractorEik: string,
   tag: ContractTag,
 ): string =>
-  createHash("sha256")
-    .update(`${releaseId}::${contractId ?? ""}::${contractorEik}::${tag}`)
-    .digest("hex")
-    .slice(0, 12);
+  hashKey(`${releaseId}::${contractId ?? ""}::${contractorEik}::${tag}`);
 
 // The flat договори record. Loose on purpose — the feed carries ~55 fields;
 // we read the subset that maps onto Contract. Keys are English camelCase.
@@ -142,6 +142,9 @@ export const normalizeEopDay = (
 ): { rows: Contract[]; stats: EopNormalizeStats } => {
   const stats = emptyStats();
   const rows: Contract[] = [];
+  // Per-row discriminator, aligned 1:1 with `rows` (see disambiguateContractKeys
+  // below). Practically never used — the eop base key already separates rows.
+  const discs: string[] = [];
   const bundleUuid = `eop-flat:${day}`;
   const tag: ContractTag = "contract";
 
@@ -249,9 +252,15 @@ export const normalizeEopDay = (
         bundleUuid,
         sourceUrl,
       });
+      discs.push(`${amountPer ?? ""}`);
       stats.rowsEmitted++;
     });
   }
+
+  // Symmetric with the OCDS / legacy generators: re-key any within-day base-key
+  // collision (a republished contract is collapsed, not split, because it shares
+  // both base key and discriminator).
+  disambiguateContractKeys(rows, (i) => discs[i]);
 
   return { rows, stats };
 };

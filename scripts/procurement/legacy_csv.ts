@@ -44,12 +44,16 @@
 // We resolve columns by name patterns rather than position so each year's
 // quirks are isolated to a small per-year config block.
 
-import { createHash } from "crypto";
 import { parse } from "csv-parse/sync";
 import { Open as Unzip } from "unzipper";
 import { canonicalEik, isValidEik } from "./eik";
 import type { Contract } from "./types";
 import { toEur } from "@/lib/currency";
+import {
+  disambiguateContractKeys,
+  hashKey,
+  legacyKeyDiscriminator,
+} from "./contract_key";
 
 export interface LegacyDataset {
   // Year of the file, optionally suffixed with the source system when АОП
@@ -298,15 +302,16 @@ const CATEGORY_MAP: Record<string, string> = {
   Строителство: "works",
 };
 
+// BASE key. The document number groups every lot / обособена позиция of one
+// procurement, so two lots awarded to the same supplier under one document
+// share this key — disambiguateContractKeys (called at the end of
+// parseLegacyCsv) re-keys those collisions by contractId so each lot gets its
+// own /contract/:key. A document-id with a single lot keeps this bare key.
 const contractKey = (
   datasetUuid: string,
   documentId: string,
   contractorEik: string,
-): string =>
-  createHash("sha256")
-    .update(`legacy::${datasetUuid}::${documentId}::${contractorEik}`)
-    .digest("hex")
-    .slice(0, 12);
+): string => hashKey(`legacy::${datasetUuid}::${documentId}::${contractorEik}`);
 
 export interface LegacyNormalizeStats {
   rowsSeen: number;
@@ -464,6 +469,12 @@ export const parseLegacyCsv = (
     });
     stats.rowsEmitted++;
   }
+
+  // Split lots that share a document number (and thus a base key) into distinct
+  // keys. contractId is the per-lot id; the amount tiebreak covers blank ids.
+  // Reproduced byte-for-byte by the offline re-derive (dedup_contract_keys.ts)
+  // from the same stored fields, so a re-ingest never moves a URL.
+  disambiguateContractKeys(rows, (i) => legacyKeyDiscriminator(rows[i]));
 
   return { rows, stats };
 };
