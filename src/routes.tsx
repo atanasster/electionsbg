@@ -1859,14 +1859,21 @@ export const AuthRoutes = () => {
               </LayoutScreen>
             }
           />
-          <Route
-            path="procurement/roads"
-            element={
-              <LayoutScreen>
-                <RoadsScreen />
-              </LayoutScreen>
-            }
-          />
+          {/* TEMPORARY: roads dashboard is unreleased — its data (roads.json +
+              the awarder patch) is bucket-synced, not committed, so a prod
+              deep-link would render a no-data map. Gated to match the hidden
+              nav pill (ProcurementNav DEV_ONLY); drop both once bucket:sync
+              ships the data. */}
+          {import.meta.env.DEV && (
+            <Route
+              path="procurement/roads"
+              element={
+                <LayoutScreen>
+                  <RoadsScreen />
+                </LayoutScreen>
+              }
+            />
+          )}
           <Route
             path="procurement/flows"
             element={

@@ -9,23 +9,8 @@ import { Hammer } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur } from "@/lib/currency";
-import type { WorkGroup, WorkGroupAgg } from "@/lib/roadAttributes";
-
-const GROUP: Record<WorkGroup, { bg: string; en: string; color: string }> = {
-  build: { bg: "Ново строителство", en: "New construction", color: "#1D9E75" },
-  rehab: {
-    bg: "Ремонт и рехабилитация",
-    en: "Repair & rehabilitation",
-    color: "#EF9F27",
-  },
-  maintenance: { bg: "Поддържане", en: "Maintenance", color: "#378ADD" },
-  design: {
-    bg: "Проектиране и надзор",
-    en: "Design & supervision",
-    color: "#888780",
-  },
-  other: { bg: "Друго", en: "Other", color: "#B4B2A9" },
-};
+import type { WorkGroupAgg } from "@/lib/roadAttributes";
+import { GROUP_META as GROUP } from "./roadLabels";
 
 export const RoadWorkGroupDonut: FC<{
   groups: WorkGroupAgg[];

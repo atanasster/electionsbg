@@ -12,7 +12,12 @@ import {
   tenderMatchesTopic,
   type TenderSearchRow,
 } from "@/lib/tenderTopics";
-import { buildRoadsModel, type WorkComponent } from "@/lib/roadAttributes";
+import {
+  buildRoadsModel,
+  API_EIK,
+  COMPONENT_LABEL,
+  type WorkComponent,
+} from "@/lib/roadAttributes";
 
 // ---- budget overview --------------------------------------------------------
 
@@ -1522,27 +1527,10 @@ export const awarderProcurement = async (
 // questions (kind-of-work mix + per-market competition, top corridors, headline
 // integrity) that the generic awarderProcurement can't.
 
-const API_EIK = "000695089";
-const ROAD_COMPONENT_LABEL: Record<WorkComponent, { bg: string; en: string }> =
-  {
-    tunnel: { bg: "тунели", en: "tunnels" },
-    bridge: { bg: "мостове и съоръжения", en: "bridges & structures" },
-    tolling_its: { bg: "тол и ИТС", en: "tolling & ITS" },
-    markings_signs: { bg: "маркировка и знаци", en: "markings & signs" },
-    safety_barriers: { bg: "ограничителни системи", en: "safety barriers" },
-    lighting: { bg: "осветление", en: "lighting" },
-    drainage: { bg: "отводняване", en: "drainage" },
-    retaining: { bg: "подпорни стени", en: "retaining walls" },
-    winter_maint: { bg: "зимно поддържане", en: "winter maintenance" },
-    roadway: { bg: "пътно платно", en: "roadway" },
-    design_supervision: {
-      bg: "проектиране и надзор",
-      en: "design & supervision",
-    },
-    other: { bg: "друго", en: "other" },
-  };
+// Lowercased for in-sentence narration; the canonical Title-Case map is shared
+// with the dashboard tiles in @/lib/roadAttributes (one source of truth).
 const compLabel = (c: WorkComponent, bg: boolean): string =>
-  bg ? ROAD_COMPONENT_LABEL[c].bg : ROAD_COMPONENT_LABEL[c].en;
+  (bg ? COMPONENT_LABEL[c].bg : COMPONENT_LABEL[c].en).toLowerCase();
 const pctStr = (v: number | undefined): string =>
   v == null ? "—" : Math.round(v * 100) + "%";
 
@@ -1556,9 +1544,9 @@ export const roadsSpending = async (
   }>(`/procurement/awarder_contracts/${API_EIK}.json`);
   const m = buildRoadsModel(file.contracts);
   // Headline total + count come from the awarder rollup so the chat answer
-  // matches the dashboard KPI / the /awarder page exactly (buildRoadsModel
-  // additionally dedups by contract key, which runs ~1% lower); the model
-  // drives the per-component breakdown + competition signals below.
+  // matches the dashboard KPI / the /awarder page exactly (the rollup is the
+  // canonical multi-currency headline); the model drives the per-component
+  // breakdown + competition signals below.
   const rollup = await fetchData<AwarderRollup>(
     `/procurement/awarders/${API_EIK}.json`,
   );

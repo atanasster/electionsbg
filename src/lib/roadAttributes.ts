@@ -17,6 +17,12 @@
 import type { ProcurementContract } from "@/data/dataTypes";
 import { procedureBucket, type ProcedureBucket } from "@/lib/cpvSectors";
 
+/** АПИ — Агенция "Пътна инфраструктура". One legal entity; the 28 ОПУ regional
+ *  directorates file under this EIK as buyer sub-units (see awarder_identity.ts).
+ *  Lives here in the dependency-free engine so the FE hook, the AI tool and the
+ *  ingest scripts can all share one literal. */
+export const API_EIK = "000695089";
+
 // --- Road designation -------------------------------------------------------
 
 export type RoadClass = "АМ" | "I" | "II" | "III";
@@ -165,6 +171,11 @@ const OBLASTI = [
 export const regionOf = (title: string): string | undefined => {
   const n = (title || "").toLowerCase();
   if (!/опу/.test(n)) return undefined;
+  // TODO(heuristic): returns the first oblast name found anywhere (longest-first),
+  // not necessarily the one right after "ОПУ". A title naming two equal-length
+  // oblasti (e.g. "ОПУ Видин … път I-1 София–Видин") can pick the wrong bucket.
+  // Low impact (only mislabels a regional-maintenance lot); anchor the match to
+  // the text immediately after "ОПУ" if it ever proves wrong in the data.
   for (const o of OBLASTI) {
     if (n.includes(o))
       return o.replace(/(^|\s)[а-яё]/g, (c) => c.toUpperCase());
@@ -416,6 +427,52 @@ export const workComponentOf = (
   )
     return "roadway";
   return "other";
+};
+
+// --- Display labels (single source of truth) --------------------------------
+// Bilingual labels for the work-group and component taxonomies. Kept here in the
+// dependency-free engine so every layer shares one map: the dashboard tiles
+// (via roadLabels.ts), and the AI narration in ai/tools/fiscal.ts (which can't
+// import src/screens). Title Case; the AI layer lowercases at its call site.
+
+export const GROUP_META: Record<
+  WorkGroup,
+  { bg: string; en: string; color: string }
+> = {
+  build: { bg: "Ново строителство", en: "New build", color: "#1D9E75" },
+  rehab: {
+    bg: "Ремонт и рехабилитация",
+    en: "Repair & rehabilitation",
+    color: "#EF9F27",
+  },
+  maintenance: { bg: "Поддържане", en: "Maintenance", color: "#378ADD" },
+  design: {
+    bg: "Проектиране и надзор",
+    en: "Design & supervision",
+    color: "#888780",
+  },
+  other: { bg: "Друго", en: "Other", color: "#B4B2A9" },
+};
+
+export const COMPONENT_LABEL: Record<
+  WorkComponent,
+  { bg: string; en: string }
+> = {
+  tunnel: { bg: "Тунели", en: "Tunnels" },
+  bridge: { bg: "Мостове и съоръжения", en: "Bridges & structures" },
+  tolling_its: { bg: "Тол и ИТС", en: "Tolling & ITS" },
+  markings_signs: { bg: "Маркировка и знаци", en: "Markings & signs" },
+  safety_barriers: { bg: "Ограничителни системи", en: "Safety barriers" },
+  lighting: { bg: "Осветление", en: "Lighting" },
+  drainage: { bg: "Отводняване", en: "Drainage" },
+  retaining: { bg: "Подпорни стени", en: "Retaining walls" },
+  winter_maint: { bg: "Зимно поддържане", en: "Winter maintenance" },
+  roadway: { bg: "Пътно платно (строеж/ремонт)", en: "Roadway (build/repair)" },
+  design_supervision: {
+    bg: "Проектиране и надзор",
+    en: "Design & supervision",
+  },
+  other: { bg: "Друго", en: "Other" },
 };
 
 // --- Per-contract enrichment + corpus aggregation ---------------------------

@@ -22,7 +22,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { execFileSync } from "child_process";
-import { roadRefOf } from "@/lib/roadAttributes";
+import { roadRefOf, API_EIK } from "@/lib/roadAttributes";
 import type { ProcurementContract } from "@/data/dataTypes";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -31,7 +31,7 @@ const CACHE = path.join(ROOT, "data/_cache/osm/bg_major_roads.json");
 const REGIONS_DIR = path.join(ROOT, "data/maps/regions");
 const CONTRACTS = path.join(
   ROOT,
-  "data/procurement/awarder_contracts/000695089.json",
+  `data/procurement/awarder_contracts/${API_EIK}.json`,
 );
 // Served via the public/procurement symlink (dev) + bucket:sync (prod), the
 // same proven path as the awarder JSON. data/maps is not web-served.

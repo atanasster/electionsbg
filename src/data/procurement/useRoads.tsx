@@ -4,12 +4,16 @@
 
 import { useMemo } from "react";
 import { useAwarder, useAwarderContracts } from "./useAwarder";
-import { buildRoadsModel, type RoadsModel } from "@/lib/roadAttributes";
+import {
+  buildRoadsModel,
+  API_EIK,
+  type RoadsModel,
+} from "@/lib/roadAttributes";
 import type { ProcurementAwarderRollup } from "@/data/dataTypes";
 
-/** АПИ — Агенция "Пътна инфраструктура". Single legal entity; the 28 ОПУ file
- *  under this EIK as buyer sub-units. See awarder_identity.ts. */
-export const API_EIK = "000695089";
+// Re-exported so existing importers (tiles, RoadsScreen) keep their path; the
+// canonical literal now lives in the dependency-free engine. See roadAttributes.
+export { API_EIK };
 
 export interface RoadsData {
   rollup: ProcurementAwarderRollup | null | undefined;

@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/select";
 import { formatEurCompact } from "@/lib/currency";
 import type { YearAgg, WorkGroup } from "@/lib/roadAttributes";
+import { GROUP_META } from "./roadLabels";
 
 type Mode = "group" | "corridor" | "region";
 
@@ -33,18 +34,6 @@ const GROUP_KEYS: WorkGroup[] = [
   "design",
   "other",
 ];
-const GROUP_META: Record<WorkGroup, { bg: string; en: string; color: string }> =
-  {
-    build: { bg: "Ново строителство", en: "New build", color: "#1D9E75" },
-    rehab: { bg: "Ремонт", en: "Repair", color: "#EF9F27" },
-    maintenance: { bg: "Поддържане", en: "Maintenance", color: "#378ADD" },
-    design: {
-      bg: "Проектиране/надзор",
-      en: "Design/oversight",
-      color: "#888780",
-    },
-    other: { bg: "Друго", en: "Other", color: "#B4B2A9" },
-  };
 const PALETTE = [
   "#1D9E75",
   "#378ADD",

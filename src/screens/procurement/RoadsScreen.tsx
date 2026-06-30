@@ -36,7 +36,11 @@ import { MpAvatar } from "../components/candidates/MpAvatar";
 import { useRoads, API_EIK } from "@/data/procurement/useRoads";
 import { dataUrl } from "@/data/dataUrl";
 import type { ProcurementMpConnectedFile } from "@/data/dataTypes";
-import { formatEur, formatEurWithOther } from "@/lib/currency";
+import {
+  formatEur,
+  formatEurWithOther,
+  formatEurCompact,
+} from "@/lib/currency";
 import { procedureLabel } from "@/lib/cpvSectors";
 import { RoadCostPerKmTile } from "../components/procurement/roads/RoadCostPerKmTile";
 import { RoadWorkGroupDonut } from "../components/procurement/roads/RoadWorkGroupDonut";
@@ -45,7 +49,6 @@ import { COMPONENT_LABEL } from "../components/procurement/roads/roadLabels";
 import { RoadTimeSpineTile } from "../components/procurement/roads/RoadTimeSpineTile";
 import { RoadTopContractorsTile } from "../components/procurement/roads/RoadTopContractorsTile";
 import { RoadPlannedTendersTile } from "../components/procurement/roads/RoadPlannedTendersTile";
-import { formatEurCompact } from "@/lib/currency";
 import {
   RoadNetworkMap,
   type RoadMetric,

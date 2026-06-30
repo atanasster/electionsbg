@@ -18,7 +18,7 @@ import {
   workGroupOf,
   workComponentOf,
 } from "@/lib/roadAttributes";
-import { GROUP_LABEL, COMPONENT_LABEL } from "./roadLabels";
+import { GROUP_META, COMPONENT_LABEL } from "./roadLabels";
 
 // Classify a planned procedure from its subject (tender records carry no CPV):
 // work group + a distinctive component + the corridor, when the title names one.
@@ -31,7 +31,7 @@ const tenderKind = (subject: string, lang: string): string => {
   );
   const grp = workGroupOf(wt);
   return [
-    lang === "bg" ? GROUP_LABEL[grp].bg : GROUP_LABEL[grp].en,
+    lang === "bg" ? GROUP_META[grp].bg : GROUP_META[grp].en,
     distinctive
       ? lang === "bg"
         ? COMPONENT_LABEL[comp].bg
@@ -84,7 +84,7 @@ export const RoadPlannedTendersTile: FC = () => {
               </>
             ) : null}
             {" · ~"}
-            {formatEurCompact(buyer.estimatedValueEur, lang)}{" "}
+            {formatEurCompact(buyer.estimatedValueEur ?? 0, lang)}{" "}
             {lang === "bg" ? "прогнозни" : "estimated"}
           </div>
         ) : null}

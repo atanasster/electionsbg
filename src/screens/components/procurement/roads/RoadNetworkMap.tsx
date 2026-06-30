@@ -182,6 +182,12 @@ export const RoadNetworkMap: FC<{
                 fill="none"
                 stroke={colorForCorridor(f.properties.corridor)}
                 strokeWidth={widthFor(f.properties.corridor)}
+                // No-data corridors get a dashed line so they read as "no data"
+                // by pattern, not only by a grey that can blend with the dark
+                // basemap.
+                strokeDasharray={
+                  byName.get(f.properties.corridor) ? undefined : "3 3"
+                }
                 strokeOpacity={
                   focusCorridor && f.properties.corridor !== focusCorridor
                     ? 0.18
