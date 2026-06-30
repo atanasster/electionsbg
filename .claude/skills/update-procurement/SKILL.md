@@ -373,6 +373,7 @@ The ingest always runs the officials cross-reference (`pep_connected.json`, from
 | `data/procurement/derived/mp_connected.json` | One entry per (mpId, contractor) pair: relations (TR roles + declared stakes), total awarded, top awarders, byYear. The journalism payload. |
 | `data/procurement/derived/pep_connected.json` (+ `pep-by-eik/`, `pep-by-slug/` shards) | One entry per (official, contractor) pair — the **non-MP** political class (cabinet, deputy ministers, agency heads, governors, mayors, deputy-mayors, council chairs, councillors, chief architects). HIGH-confidence links only. |
 | `data/procurement/derived/top_contractors.json` | Top-1000 contractors corpus-wide, each flagged `mpTied: boolean`. Powers the `/procurement` index page. |
+| `data/procurement/derived/contractors_search.json` | Slim `{eik,name}` index of **all** ~26k contractors (not just the top-1000), value-ranked. Powers the `/procurement` dashboard's company-name search box (lazy-loaded on first focus) and the chat `contractSearch` long-tail resolver. Emitted by `writeDerived` via `build_contractors_search.ts`. Add it to `bucket_gzip.ts`'s hot-file list (done) so it ships gzipped. |
 | `data/procurement/derived/flow.json` | Sankey-shaped money flow (awarder → contractor → **MP or official**), trimmed to the top ~150 links by value — the eager preview the `/procurement` landing tile loads. |
 | `data/procurement/derived/flow_full.json` | The complete flow graph (all MP- and official-tied links), lazy-loaded only by the `/procurement/flows` explorer. |
 
@@ -417,6 +418,7 @@ The `crossReference` field on `data/procurement/index.json` is the at-a-glance M
 | `scripts/procurement/rollups.ts` | Per-contractor / per-awarder JSON file builder |
 | `scripts/procurement/cross_reference.ts` | EIK-keyed join against `data/parliament/companies-index.json` |
 | `scripts/procurement/derived.ts` | Top-contractors + sankey-flow builders (flow = MP + official terminals; emits the trimmed `flow.json` preview + the full `flow_full.json`) |
+| `scripts/procurement/build_contractors_search.ts` | Slim `{eik,name}` company-search index from all `contractors/` shards → `derived/contractors_search.json`. Imported + called by `writeDerived` (every ingest/rebuild incl. the dedup one-offs), or run standalone. |
 | `scripts/procurement/pep_connected.ts` | Officials (non-MP) ↔ contractor join + reverse/forward shards |
 | `scripts/procurement/rebuild_derived.ts` | Offline rebuild of all link-dependent artifacts (`--reuse-mp` to keep MP figures stable) |
 | `scripts/procurement/dedup_legacy_twins.ts` | One-shot: strip synthetic `-x` legacy-twin duplicates from all shards + full offline rebuild (guard now in `writeMonthShards`, so re-run normally unnecessary) |

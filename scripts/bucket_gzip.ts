@@ -68,6 +68,9 @@ const GLOBAL_FILES = [
   "procurement/derived/top_contractors.json",
   // The concentration explorer (?pscope=all) waits on this 1.1 MB table.
   "procurement/derived/concentration_full.json",
+  // The procurement dashboard's company-search box: slim {eik,name} index of
+  // all ~26k contractors (1.8 MB raw), fetched once on first focus. Gzips ~4×.
+  "procurement/derived/contractors_search.json",
 ];
 
 // Per-election files (one per ballot folder, YYYY_MM_DD[...]).
