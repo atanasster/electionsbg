@@ -35,6 +35,7 @@ import { usePepConnectedByEik } from "@/data/procurement/usePepConnectedByEik";
 import { useFundsBeneficiary } from "@/data/funds/useFundsBeneficiary";
 import { useFundsMpConnectedByEik } from "@/data/funds/useFundsMpConnectedByEik";
 import { useFundsConfirmedCase } from "@/data/funds/useFundsConfirmed";
+import { usePoliticalForEik } from "@/data/funds/usePoliticalLinks";
 import { useCompanyConnections } from "@/data/parliament/useCompanyConnections";
 import type {
   FundsBeneficiary,
@@ -243,6 +244,14 @@ export const CompanyByEikScreen: FC = () => {
   const powerCount = mpLinks.length + officialLinks.length;
   const { caseData: confirmedCase } = useFundsConfirmedCase(eik);
   const { connections, isLoading: connLoading } = useCompanyConnections(eik);
+  // The richer "Свързани публични фигури" card (PoliticalLinksCard) covers a
+  // company when it's in the EU-funds political register. When it does, it
+  // supersedes the simpler procurement MP/officials pair — but that register
+  // misses most procurement-only companies, so those still need the pair as
+  // their connected-people section. Gate on `entry` (settled) to avoid a flash.
+  const { entry: politicalEntry, isLoading: politicalLoading } =
+    usePoliticalForEik(eik);
+  const showProcurementLinks = !politicalLoading && !politicalEntry;
   const isLoading = procLoading || fundsLoading || connLoading;
 
   if (isLoading) {
@@ -404,7 +413,12 @@ export const CompanyByEikScreen: FC = () => {
               </StatCard>
             </div>
 
-            {mpLinks.length > 0 ? (
+            {/* Connected public figures — the richer EU-funds + procurement
+                join. Promoted to the top of the page; when present it supersedes
+                the procurement-only MP/officials pair below. */}
+            <PoliticalLinksCard eik={eik} />
+
+            {showProcurementLinks && mpLinks.length > 0 ? (
               <Card className="my-4">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-base flex items-center gap-2">
@@ -436,7 +450,7 @@ export const CompanyByEikScreen: FC = () => {
               </Card>
             ) : null}
 
-            <CompanyOfficialsTile eik={c.eik} />
+            {showProcurementLinks ? <CompanyOfficialsTile eik={c.eik} /> : null}
 
             {/* 2-col grid on xl: top contracts + top awarders side-by-side. */}
             <div className="grid gap-4 xl:grid-cols-2 my-4">
@@ -481,7 +495,10 @@ export const CompanyByEikScreen: FC = () => {
 
         <CompanyConnectionsSection eik={eik} />
 
-        <PoliticalLinksCard eik={eik} />
+        {/* Funds-only companies (no procurement block above) still get the
+            political-figures card here; for procurement companies it's rendered
+            at the top of the block instead. */}
+        {!c ? <PoliticalLinksCard eik={eik} /> : null}
 
         {funds ? (
           <EuFundsCard funds={funds} standalone={!c} mpLinks={fundsMpLinks} />
