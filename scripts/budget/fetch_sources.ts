@@ -41,8 +41,10 @@ export const BULNAO_AUDIT_URL =
 // on an interim bridging law instead (see INTERIM_BUDGET_LAWS below). Add the
 // 2026 row here when the real State Budget Law is finally promulgated.
 export const LAW_DV_MATERIALS: Record<number, string> = {
+  2018: "120521", // ДВ бр.99 от 2017-12-12
+  2019: "132563", // ДВ бр.103 от 2018-12-13
   2020: "143562", // ДВ бр.100 от 2019-12-20
-  // 2021 intentionally absent — caretaker year, no adopted budget law
+  2021: "154110", // ДВ бр.104 от 2020-12-08 (adopted Dec-2020 by the 44th NS, before the spring-2021 caretaker period — the law exists and parses)
   2022: "170229", // ДВ бр.18 от 2022-03-04
   2023: "198020", // ДВ бр.66 от 2023-08-01 (delayed adoption due to political instability)
   2024: "202168", // ДВ бр.108 от 2023-12-30
