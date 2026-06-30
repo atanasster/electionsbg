@@ -37,7 +37,7 @@ import { useChmiHistory } from "@/data/local/useChmiHistory";
 import type { ChmiHistoryEvent } from "@/data/local/useChmiHistory";
 import { useKmetstvoEkatte } from "@/data/local/useKmetstvoEkatte";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
-import { friendlyCycleDate } from "@/data/local/cycleDate";
+import { friendlyCycleDate, friendlyIsoDate } from "@/data/local/cycleDate";
 import { LocalCountryDashboardCards } from "./dashboard/local/LocalCountryDashboardCards";
 import { LocalSofiaRayonMapTile } from "./dashboard/local/LocalSofiaRayonMapTile";
 import { LocalCouncilHemicycleTile } from "./dashboard/local/LocalCouncilHemicycleTile";
@@ -421,22 +421,89 @@ const CouncilFullTable: FC<{ bundle: LocalMunicipalityBundle }> = ({
 
 // === Kmetstvo mayors table ===============================================
 
+// Sub-mayor roster name normalizer (mirrors the chmi feed join).
+const normLocalName = (s: string): string =>
+  s.normalize("NFC").replace(/\s+/g, " ").trim().toLowerCase();
+
+// Latest by-election holder for a kmetstvo / район seat, newer than the regular
+// cycle — a частичен / нов избор supersedes the regular-cycle winner. The chmi
+// feed stores both kmetstvo and район names in `kmetstvoName`, and is already
+// as-of-filtered by useChmiHistory. Returns null when nothing supersedes.
+const latestSeatHolder = (
+  events: ChmiHistoryEvent[],
+  kind: "kmetstvo_mayor" | "rayon_mayor",
+  name: string,
+  cycleIso: string,
+): ChmiHistoryEvent | null => {
+  const target = normLocalName(name);
+  return (
+    events
+      .filter(
+        (e) =>
+          e.kind === kind &&
+          e.date > cycleIso &&
+          e.kmetstvoName != null &&
+          normLocalName(e.kmetstvoName) === target,
+      )
+      .sort((a, b) => b.date.localeCompare(a.date))[0] ?? null
+  );
+};
+
+// One roster row's current holder: the latest by-election winner if any seat
+// changed hands since the regular cycle, else the regular-cycle winner. Carries
+// `byElectionDate` so the row can flag a mid-term change.
+type SeatHolder = {
+  candidateName: string;
+  localPartyName: string;
+  primaryCanonicalId: string | null;
+  mpId?: number;
+  votes: number;
+  pctOfValid: number;
+  byElectionDate: string | null;
+};
+
+const resolveSeatHolder = (
+  regular: LocalMayorResult | null | undefined,
+  holder: ChmiHistoryEvent | null,
+): SeatHolder | null => {
+  const src = holder ?? regular;
+  if (!src) return null;
+  return {
+    candidateName: src.candidateName,
+    localPartyName: src.localPartyName,
+    primaryCanonicalId: src.primaryCanonicalId,
+    mpId: src.mpId,
+    votes: src.votes,
+    pctOfValid: src.pctOfValid,
+    byElectionDate: holder?.date ?? null,
+  };
+};
+
 const KmetstvaSection: FC<{
   kmetstva: LocalKmetstvoResult[];
   obshtinaCode: string;
   cycle: string;
-}> = ({ kmetstva, obshtinaCode, cycle }) => {
+  chmiEvents: ChmiHistoryEvent[];
+}> = ({ kmetstva, obshtinaCode, cycle, chmiEvents }) => {
   const { t } = useTranslation();
   const { ekatteFor } = useKmetstvoEkatte();
   if (kmetstva.length === 0) return null;
+  const cycleIso = cycle.replace(/^(\d{4})_(\d{2})_(\d{2}).*/, "$1-$2-$3");
   const rows = kmetstva.map((k) => {
     // Prefer the round-resolved winner: in a runoff CIK's round-1 page marks
     // both finalists elected, so candidates.find(isElected) can return the loser.
-    const winner =
+    const regular =
       k.elected ?? k.candidates.find((c) => c.isElected) ?? k.candidates[0];
+    // A later by-election supersedes the regular-cycle holder.
+    const holder = latestSeatHolder(
+      chmiEvents,
+      "kmetstvo_mayor",
+      k.kmetstvoName,
+      cycleIso,
+    );
     return {
       kmetstvo: k.kmetstvoName,
-      winner,
+      winner: resolveSeatHolder(regular, holder),
       ekatte: ekatteFor(obshtinaCode, k.kmetstvoName),
     };
   });
@@ -483,9 +550,18 @@ const KmetstvaSection: FC<{
                         mpId={r.winner.mpId}
                         showPartyRing={false}
                       />
-                      <span className="break-words min-w-0">
-                        {r.winner.candidateName}
-                      </span>
+                      <div className="min-w-0">
+                        <span className="break-words">
+                          {r.winner.candidateName}
+                        </span>
+                        {r.winner.byElectionDate ? (
+                          <span className="ml-2 inline-flex items-center whitespace-nowrap rounded border border-primary/30 bg-primary/5 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-primary">
+                            {t("local_election_byelection_chip", {
+                              date: friendlyIsoDate(r.winner.byElectionDate),
+                            })}
+                          </span>
+                        ) : null}
+                      </div>
                     </div>
                   ) : (
                     <span className="text-muted-foreground">—</span>
@@ -511,9 +587,12 @@ const KmetstvaSection: FC<{
 const DistrictsSection: FC<{
   obshtinaCode: string;
   districts: LocalDistrictMayorResult[];
-}> = ({ obshtinaCode, districts }) => {
+  cycle: string;
+  chmiEvents: ChmiHistoryEvent[];
+}> = ({ obshtinaCode, districts, cycle, chmiEvents }) => {
   const { t } = useTranslation();
   if (districts.length === 0) return null;
+  const cycleIso = cycle.replace(/^(\d{4})_(\d{2})_(\d{2}).*/, "$1-$2-$3");
   // Each row links to the район's governance place — Sofia районите resolve to
   // their own S2xxx município, Пловдив/Варна районите to the catalog id
   // (PDV22-01). Names join by the official spelling (districtCode is empty).
@@ -544,11 +623,18 @@ const DistrictsSection: FC<{
             {districts.map((d) => {
               // Prefer the round-2-resolved winner: CIK flags both finalists
               // elected in round 1, so candidates.find(isElected) can return
-              // the runoff loser.
-              const winner =
+              // the runoff loser. A later by-election supersedes it.
+              const regular =
                 d.elected ??
                 d.candidates.find((c) => c.isElected) ??
                 d.candidates[0];
+              const holder = latestSeatHolder(
+                chmiEvents,
+                "rayon_mayor",
+                d.districtName,
+                cycleIso,
+              );
+              const winner = resolveSeatHolder(regular, holder);
               return (
                 <tr key={d.districtName} className="border-b last:border-b-0">
                   <td className="py-2 px-3 font-medium align-top break-words">
@@ -577,9 +663,18 @@ const DistrictsSection: FC<{
                           mpId={winner.mpId}
                           showPartyRing={false}
                         />
-                        <span className="break-words min-w-0">
-                          {winner.candidateName}
-                        </span>
+                        <div className="min-w-0">
+                          <span className="break-words">
+                            {winner.candidateName}
+                          </span>
+                          {winner.byElectionDate ? (
+                            <span className="ml-2 inline-flex items-center whitespace-nowrap rounded border border-primary/30 bg-primary/5 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-primary">
+                              {t("local_election_byelection_chip", {
+                                date: friendlyIsoDate(winner.byElectionDate),
+                              })}
+                            </span>
+                          ) : null}
+                        </div>
                       </div>
                     ) : null}
                   </td>
@@ -1142,10 +1237,13 @@ const MunicipalityResults: FC<{
         kmetstva={municipality.kmetstva}
         obshtinaCode={obshtinaCode}
         cycle={cycle}
+        chmiEvents={chmiEvents}
       />
       <DistrictsSection
         obshtinaCode={obshtinaCode}
         districts={municipality.districts}
+        cycle={cycle}
+        chmiEvents={chmiEvents}
       />
 
       {/* Extraordinary (частични / нови) elections held since this regular

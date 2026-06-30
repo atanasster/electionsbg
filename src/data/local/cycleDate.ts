@@ -15,3 +15,11 @@ export const friendlyCycleDate = (cycle: string): string => {
   if (!m) return cycle;
   return `${m[3]}.${m[2]}.${m[1]}`;
 };
+
+/** "2026-06-14" → "14.06.2026". ISO date as published in the chmi history
+ *  feed; returns the input untouched when it can't be parsed. */
+export const friendlyIsoDate = (iso: string): string => {
+  const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!m) return iso;
+  return `${m[3]}.${m[2]}.${m[1]}`;
+};
