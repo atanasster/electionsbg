@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T17:59:13.962Z",
+  "generatedAt": "2026-06-30T18:22:56.883Z",
   "thresholdPct": 0.3,
   "minAwarderTotalEur": 100000,
   "total": 873,
@@ -896,6 +896,17 @@
       "oblast": "BG325"
     },
     {
+      "awarderEik": "124609886",
+      "awarderName": "ДКИ-КУЛТУРЕН ЦЕНТЪР-ДВОРЕЦА",
+      "contractorEik": "175110216",
+      "contractorName": "Менпауър България ООД",
+      "sharePct": 1,
+      "pairTotalEur": 137793.16,
+      "awarderTotalEur": 137793.17,
+      "contractCount": 1,
+      "oblast": "BG332"
+    },
+    {
       "awarderEik": "000048671",
       "awarderName": "Детска Градина \"Детелина\"",
       "contractorEik": "202205949",
@@ -1323,17 +1334,6 @@
       "awarderTotalEur": 100254.11,
       "contractCount": 1,
       "oblast": "BG411"
-    },
-    {
-      "awarderEik": "124609886",
-      "awarderName": "ДКИ-КУЛТУРЕН ЦЕНТЪР-ДВОРЕЦА",
-      "contractorEik": "175110216",
-      "contractorName": "Менпауър България ООД",
-      "sharePct": 1,
-      "pairTotalEur": 137793.16,
-      "awarderTotalEur": 137793.17,
-      "contractCount": 1,
-      "oblast": "BG332"
     },
     {
       "awarderEik": "206086428",
@@ -5551,8 +5551,8 @@
     {
       "awarderEik": "000695388",
       "awarderName": "Министерство на транспорта и съобщенията",
-      "contractorEik": "062623753",
-      "contractorName": "Шкода Транспортейшън а.с. - участник в консорциум \"Шкода Транспортейшън и Шкода Вагонка\"",
+      "contractorEik": "025870637",
+      "contractorName": "Шкода Вагонка а.с. - участник в консорциум \"Шкода Транспортейшън и Шкода Вагонка\"",
       "sharePct": 0.499165,
       "pairTotalEur": 130737334.02,
       "awarderTotalEur": 261911952.56,
@@ -5562,8 +5562,8 @@
     {
       "awarderEik": "000695388",
       "awarderName": "Министерство на транспорта и съобщенията",
-      "contractorEik": "025870637",
-      "contractorName": "Шкода Вагонка а.с. - участник в консорциум \"Шкода Транспортейшън и Шкода Вагонка\"",
+      "contractorEik": "062623753",
+      "contractorName": "Шкода Транспортейшън а.с. - участник в консорциум \"Шкода Транспортейшън и Шкода Вагонка\"",
       "sharePct": 0.499165,
       "pairTotalEur": 130737334.02,
       "awarderTotalEur": 261911952.56,
@@ -6244,8 +6244,8 @@
     {
       "awarderEik": "000320580",
       "awarderName": "Община Брусарци",
-      "contractorEik": "204331947",
-      "contractorName": "Геоман трейд АД",
+      "contractorEik": "113580690",
+      "contractorName": "Нивел строй ЕООД",
       "sharePct": 0.456639,
       "pairTotalEur": 508935.38,
       "awarderTotalEur": 1114524.36,
@@ -6255,8 +6255,8 @@
     {
       "awarderEik": "000320580",
       "awarderName": "Община Брусарци",
-      "contractorEik": "113580690",
-      "contractorName": "Нивел строй ЕООД",
+      "contractorEik": "204331947",
+      "contractorName": "Геоман трейд АД",
       "sharePct": 0.456639,
       "pairTotalEur": 508935.38,
       "awarderTotalEur": 1114524.36,
@@ -9335,17 +9335,6 @@
     {
       "awarderEik": "201617412",
       "awarderName": "Териториално поделение държавно ловно стопанство \"Черни ЛОМ\"-ПОПОВО",
-      "contractorEik": "175251156",
-      "contractorName": "Люник ЕООД",
-      "sharePct": 0.306329,
-      "pairTotalEur": 2556459.41,
-      "awarderTotalEur": 8345467.13,
-      "contractCount": 1,
-      "oblast": "BG332"
-    },
-    {
-      "awarderEik": "201617412",
-      "awarderName": "Териториално поделение държавно ловно стопанство \"Черни ЛОМ\"-ПОПОВО",
       "contractorEik": "126721599",
       "contractorName": "Екип - МГ ООД",
       "sharePct": 0.306329,
@@ -9359,6 +9348,17 @@
       "awarderName": "Териториално поделение държавно ловно стопанство \"Черни ЛОМ\"-ПОПОВО",
       "contractorEik": "175041916",
       "contractorName": "Болкан ентърпрайз груп ЕООД",
+      "sharePct": 0.306329,
+      "pairTotalEur": 2556459.41,
+      "awarderTotalEur": 8345467.13,
+      "contractCount": 1,
+      "oblast": "BG332"
+    },
+    {
+      "awarderEik": "201617412",
+      "awarderName": "Териториално поделение държавно ловно стопанство \"Черни ЛОМ\"-ПОПОВО",
+      "contractorEik": "175251156",
+      "contractorName": "Люник ЕООД",
       "sharePct": 0.306329,
       "pairTotalEur": 2556459.41,
       "awarderTotalEur": 8345467.13,
@@ -9588,8 +9588,8 @@
     {
       "awarderEik": "000351750",
       "awarderName": "Община Пещера",
-      "contractorEik": "825357352",
-      "contractorName": "С.И.Т. ООД",
+      "contractorEik": "112069083",
+      "contractorName": "Братя пашкулеви ООД",
       "sharePct": 0.300189,
       "pairTotalEur": 745950.47,
       "awarderTotalEur": 2484940.04,
@@ -9599,8 +9599,8 @@
     {
       "awarderEik": "000351750",
       "awarderName": "Община Пещера",
-      "contractorEik": "112069083",
-      "contractorName": "Братя пашкулеви ООД",
+      "contractorEik": "825357352",
+      "contractorName": "С.И.Т. ООД",
       "sharePct": 0.300189,
       "pairTotalEur": 745950.47,
       "awarderTotalEur": 2484940.04,

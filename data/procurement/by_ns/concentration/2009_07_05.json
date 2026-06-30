@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T17:59:14.021Z",
+  "generatedAt": "2026-06-30T18:22:56.946Z",
   "thresholdPct": 0.3,
   "minAwarderTotalEur": 100000,
   "total": 853,
@@ -1028,32 +1028,10 @@
       "oblast": "BG313"
     },
     {
-      "awarderEik": "836005135",
-      "awarderName": "Водоснабдяване и канализация /в и К/ ООД - Димитровград",
-      "contractorEik": "126608352",
-      "contractorName": "Вито 22 ООД - Димитровград",
-      "sharePct": 1,
-      "pairTotalEur": 127822.97,
-      "awarderTotalEur": 127822.97,
-      "contractCount": 2,
-      "oblast": "BG422"
-    },
-    {
       "awarderEik": "102618523",
       "awarderName": "Многопрофилна болница за активно лечение /МБАЛ/ - Поморие ЕООД",
       "contractorEik": "102227154",
       "contractorName": "Фаркол АД - Бургас",
-      "sharePct": 1,
-      "pairTotalEur": 127822.97,
-      "awarderTotalEur": 127822.97,
-      "contractCount": 1,
-      "oblast": null
-    },
-    {
-      "awarderEik": "129010513",
-      "awarderName": "Главна дирекция национална полиция /Гднп/, гр. София",
-      "contractorEik": "831609046",
-      "contractorName": "Топлофикация софия ЕАД",
       "sharePct": 1,
       "pairTotalEur": 127822.97,
       "awarderTotalEur": 127822.97,
@@ -1072,6 +1050,17 @@
       "oblast": "BG421"
     },
     {
+      "awarderEik": "129010513",
+      "awarderName": "Главна дирекция национална полиция /Гднп/, гр. София",
+      "contractorEik": "831609046",
+      "contractorName": "Топлофикация софия ЕАД",
+      "sharePct": 1,
+      "pairTotalEur": 127822.97,
+      "awarderTotalEur": 127822.97,
+      "contractCount": 1,
+      "oblast": null
+    },
+    {
       "awarderEik": "202099976",
       "awarderName": "София Тех Парк ЕАД",
       "contractorEik": "130979057",
@@ -1081,6 +1070,17 @@
       "awarderTotalEur": 127822.97,
       "contractCount": 1,
       "oblast": null
+    },
+    {
+      "awarderEik": "836005135",
+      "awarderName": "Водоснабдяване и канализация /в и К/ ООД - Димитровград",
+      "contractorEik": "126608352",
+      "contractorName": "Вито 22 ООД - Димитровград",
+      "sharePct": 1,
+      "pairTotalEur": 127822.97,
+      "awarderTotalEur": 127822.97,
+      "contractCount": 2,
+      "oblast": "BG422"
     },
     {
       "awarderEik": "121148195",
@@ -1281,17 +1281,6 @@
       "oblast": null
     },
     {
-      "awarderEik": "123732117",
-      "awarderName": "Тролейбусни и автобусни превози\" ЕООД - Стара Загора /предишно наименование \"Тролейбусни превози\" ЕООД - Стара Загора/",
-      "contractorEik": "040336507",
-      "contractorName": "ТОМБОУ-БЪЛГАРИЯ  ЕООД - старо наименование ТОМБОУ-БЪЛГАРИЯ ООД",
-      "sharePct": 1,
-      "pairTotalEur": 103076.44,
-      "awarderTotalEur": 103076.44,
-      "contractCount": 2,
-      "oblast": "BG344"
-    },
-    {
       "awarderEik": "000631663",
       "awarderName": "Държавно предприятие \"Съобщително строителство и възстановяване\" /ДП Ссв/",
       "contractorEik": "831661979",
@@ -1301,6 +1290,17 @@
       "awarderTotalEur": 103076.44,
       "contractCount": 1,
       "oblast": null
+    },
+    {
+      "awarderEik": "123732117",
+      "awarderName": "Тролейбусни и автобусни превози\" ЕООД - Стара Загора /предишно наименование \"Тролейбусни превози\" ЕООД - Стара Загора/",
+      "contractorEik": "040336507",
+      "contractorName": "ТОМБОУ-БЪЛГАРИЯ  ЕООД - старо наименование ТОМБОУ-БЪЛГАРИЯ ООД",
+      "sharePct": 1,
+      "pairTotalEur": 103076.44,
+      "awarderTotalEur": 103076.44,
+      "contractCount": 2,
+      "oblast": "BG344"
     },
     {
       "awarderEik": "176030673",
@@ -4726,8 +4726,8 @@
     {
       "awarderEik": "000692207",
       "awarderName": "ДОМ За медико-социални грижи за деца /ДМСГД/ \"Св. Иван Рилски Чудотворец\" - София",
-      "contractorEik": "121711206",
-      "contractorName": "ЕТ Ерик-96 - Димитринка Белчинска - София",
+      "contractorEik": "101773353",
+      "contractorName": "Асф Кетъринг ЕООД - Перник",
       "sharePct": 0.5,
       "pairTotalEur": 92032.54,
       "awarderTotalEur": 184065.08,
@@ -4737,8 +4737,8 @@
     {
       "awarderEik": "000692207",
       "awarderName": "ДОМ За медико-социални грижи за деца /ДМСГД/ \"Св. Иван Рилски Чудотворец\" - София",
-      "contractorEik": "101773353",
-      "contractorName": "Асф Кетъринг ЕООД - Перник",
+      "contractorEik": "121711206",
+      "contractorName": "ЕТ Ерик-96 - Димитринка Белчинска - София",
       "sharePct": 0.5,
       "pairTotalEur": 92032.54,
       "awarderTotalEur": 184065.08,
@@ -6255,8 +6255,8 @@
     {
       "awarderEik": "000463112",
       "awarderName": "Специализирана болница по пневмо-фтизиатрични заболявания за активно лечение /Сбпфзал/ \"Димитър Петров Кудоглу\" ЕООД - Пловдив",
-      "contractorEik": "836149057",
-      "contractorName": "Химтекс ООД - Димитровград",
+      "contractorEik": "115524180",
+      "contractorName": "Надежда - 2000 ЕООД - Пловдив",
       "sharePct": 0.409836,
       "pairTotalEur": 92032.54,
       "awarderTotalEur": 224559.39,
@@ -6266,8 +6266,8 @@
     {
       "awarderEik": "000463112",
       "awarderName": "Специализирана болница по пневмо-фтизиатрични заболявания за активно лечение /Сбпфзал/ \"Димитър Петров Кудоглу\" ЕООД - Пловдив",
-      "contractorEik": "115524180",
-      "contractorName": "Надежда - 2000 ЕООД - Пловдив",
+      "contractorEik": "836149057",
+      "contractorName": "Химтекс ООД - Димитровград",
       "sharePct": 0.409836,
       "pairTotalEur": 92032.54,
       "awarderTotalEur": 224559.39,

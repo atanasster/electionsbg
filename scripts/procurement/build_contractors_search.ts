@@ -22,6 +22,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { command, run, flag, boolean } from "cmd-ts";
+import { byEurDesc } from "./validate";
 
 type SlimEntry = { eik: string; name: string };
 
@@ -47,7 +48,7 @@ export const buildContractorsSearch = (
     if (!c.eik || !c.name) continue;
     rows.push({ eik: c.eik, name: c.name, totalEur: c.totalEur ?? 0 });
   }
-  rows.sort((a, b) => b.totalEur - a.totalEur);
+  rows.sort((a, b) => byEurDesc(a.totalEur, b.totalEur, a.eik, b.eik));
   return {
     generatedAt: new Date().toISOString(),
     total: rows.length,

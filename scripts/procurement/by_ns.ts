@@ -33,6 +33,7 @@ import type {
 } from "./risk_feed";
 import {
   assertFlowIntegrity,
+  byConcentrationDesc,
   byCountDesc,
   byEurDesc,
   canonicalJson,
@@ -618,9 +619,7 @@ const computeNsConcentration = (acc: Accum): NsConcEntry[] => {
       });
     }
   }
-  entries.sort(
-    (a, b) => b.sharePct - a.sharePct || b.pairTotalEur - a.pairTotalEur,
-  );
+  entries.sort(byConcentrationDesc);
   return entries;
 };
 

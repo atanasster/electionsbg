@@ -17,7 +17,7 @@
 import fs from "fs";
 import path from "path";
 import type { Contract, MpConnectedFile } from "./types";
-import { canonicalJson } from "./validate";
+import { canonicalJson, strCmp } from "./validate";
 
 const TOP_BY_AMOUNT = 500;
 
@@ -67,7 +67,9 @@ const selectKeys = (
         if (wouldEnterTop) {
           // Insert and keep sorted desc by amount; trim to top-N.
           topPairs.push({ amount: amt, key: r.key });
-          topPairs.sort((a, b) => b.amount - a.amount);
+          // amount desc, ties broken by contract key so the trim cutoff keeps a
+          // reproducible set when several contracts share an amount.
+          topPairs.sort((a, b) => b.amount - a.amount || strCmp(a.key, b.key));
           if (topPairs.length > TOP_BY_AMOUNT) {
             const dropped = topPairs.splice(TOP_BY_AMOUNT);
             // A dropped key may still be MP-tied — only forget the row if it's
