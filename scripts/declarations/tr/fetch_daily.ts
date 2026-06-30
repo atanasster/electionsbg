@@ -270,3 +270,102 @@ export const fetchAllDaily = async (
   );
   return result;
 };
+
+export type FetchDailyResilientOpts = {
+  rawFolder: string;
+  entries: TrDatasetEntry[];
+  /** Politeness delay between successful fetches in ms. Default 1000. */
+  delayMs?: number;
+  /** Retries on a 302/HTML outage for a single day before skipping it. Default 2. */
+  outageRetries?: number;
+  /** Retries on a network/transient error before giving up on a day. Default 3. */
+  transientRetries?: number;
+  /** Log a progress line every N successful fetches. Default 25. */
+  progressEvery?: number;
+  /** Prefix for log lines, e.g. "[tr/daily-refresh]". Default "[tr/daily]". */
+  logPrefix?: string;
+};
+
+export type FetchDailyResilientResult = {
+  fetched: number;
+  bytes: number;
+  /** Days the per-resource backend 302'd for (skipped after retries). */
+  outage: string[];
+  failed: Array<{ isoDate: string; error: string }>;
+};
+
+/**
+ * Like {@link fetchAllDaily}, but a 302/HTML outage on one day is a PER-DAY
+ * skip instead of a whole-run abort. data.egov.bg's per-resource endpoint
+ * 302s intermittently for individual resources (and there are a few resources
+ * it 302s permanently); `fetchAllDaily` re-throws on the first such error so
+ * the CLI can fall back to the bulk zip, but for the daily catch-up + the
+ * historical backfill we want to keep going and collect the unreachable days.
+ *
+ * Skip-if-exists makes it resume-safe: already-cached days cost one `stat`.
+ */
+export const fetchAllDailyResilient = async (
+  opts: FetchDailyResilientOpts,
+): Promise<FetchDailyResilientResult> => {
+  const delayMs = opts.delayMs ?? 1000;
+  const outageRetries = opts.outageRetries ?? 2;
+  const transientRetries = opts.transientRetries ?? 3;
+  const progressEvery = opts.progressEvery ?? 25;
+  const tag = opts.logPrefix ?? "[tr/daily]";
+
+  const result: FetchDailyResilientResult = {
+    fetched: 0,
+    bytes: 0,
+    outage: [],
+    failed: [],
+  };
+  const cookie = await warmEgovSession();
+  const t0 = Date.now();
+
+  for (const entry of opts.entries) {
+    let done = false;
+    let outageHits = 0;
+    let transientHits = 0;
+    while (!done) {
+      try {
+        const r = await fetchDailyResource(opts.rawFolder, entry, { cookie });
+        if (!r.skipped) {
+          result.fetched++;
+          result.bytes += r.bytes;
+          if (result.fetched % progressEvery === 0) {
+            const mins = ((Date.now() - t0) / 60000).toFixed(1);
+            console.log(
+              `${tag}   ${result.fetched} fetched ` +
+                `(${(result.bytes / 1024 / 1024).toFixed(0)} MB, ${mins}m) — last ${entry.isoDate}`,
+            );
+          }
+          await sleep(delayMs);
+        }
+        done = true;
+      } catch (err) {
+        if (err instanceof EgovPerResourceDownloadDownError) {
+          outageHits++;
+          if (outageHits > outageRetries) {
+            result.outage.push(entry.isoDate);
+            done = true;
+            break;
+          }
+          await sleep(3000 * outageHits);
+          continue;
+        }
+        transientHits++;
+        if (transientHits > transientRetries) {
+          result.failed.push({
+            isoDate: entry.isoDate,
+            error: (err as Error).message,
+          });
+          done = true;
+          break;
+        }
+        await sleep(2000 * 2 ** (transientHits - 1));
+      }
+    }
+  }
+
+  return result;
+};

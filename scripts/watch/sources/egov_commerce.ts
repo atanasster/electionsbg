@@ -1,6 +1,6 @@
 // data.egov.bg Commerce Registry (Търговски регистър) daily-filings dataset.
-// The /update-connections skill consumes the bulk dumps from here; this
-// watcher tells us when new daily files have been added.
+// `npm run tr:daily-refresh` (wired into process-watch-report) consumes the
+// daily filings from here; this watcher tells us when new daily files dropped.
 //
 // data.egov.bg's CKAN-style /api/3/action endpoints are broken (return
 // success:false), and the SPA pages redirect away from deep links. So we
@@ -20,7 +20,7 @@ export const egovCommerce: WatchSource = {
   id: "egov_commerce",
   label: "data.egov.bg Commerce Registry (Търговски регистър)",
   url: PAGE,
-  cadence: "weekly",
+  cadence: "daily",
 
   async fingerprint(): Promise<Fingerprint> {
     const html = await fetchText(PAGE);
