@@ -1,6 +1,27 @@
 {
-  "updatedAt": "2026-06-29T11:02:01.890Z",
+  "updatedAt": "2026-06-30T14:12:12.969Z",
   "entries": [
+    {
+      "timestamp": "2026-06-30T14:12:12.969Z",
+      "date": "2026-06-30",
+      "skill": "update-budget",
+      "summary": "Tax-policy simulator baseline rebuilt (НОИ STATB1/2026 refresh)",
+      "source": "НОИ STATB пенсии + НСИ заплати (policy-baseline)"
+    },
+    {
+      "timestamp": "2026-06-30T14:11:40.465Z",
+      "date": "2026-06-30",
+      "skill": "update-prices",
+      "summary": "Retail prices refreshed through 2026-06-29 (КЗП daily basket)",
+      "source": "КЗП Колко струва (kolkostruva.bg)"
+    },
+    {
+      "timestamp": "2026-06-30T14:10:23.724Z",
+      "date": "2026-06-30",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП tenders refreshed through 2026-06-29 (125,413 procedures)",
+      "source": "ЦАИС ЕОП open data (storage.eop.bg — поръчки)"
+    },
     {
       "timestamp": "2026-06-29T11:02:01.890Z",
       "date": "2026-06-29",

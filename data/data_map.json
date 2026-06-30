@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-06-29T13:16:28.496Z",
+  "generatedAt": "2026-06-30T14:13:34.984Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -24,7 +24,7 @@
       "url": "https://results.cik.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-28T16:34:00.777Z",
+      "freshness": "2026-06-30T06:08:57.757Z",
       "skills": [
         "update-local-elections"
       ],
@@ -34,7 +34,7 @@
           "label": "CIK local-elections results bundles",
           "url": "https://results.cik.bg/",
           "cadence": "daily",
-          "freshness": "2026-06-28T16:34:00.777Z"
+          "freshness": "2026-06-30T06:08:57.757Z"
         }
       ],
       "x": 28,
@@ -315,7 +315,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-28T16:34:00.777Z",
+      "freshness": "2026-06-30T06:08:57.757Z",
       "skills": [
         "update-procurement"
       ],
@@ -325,7 +325,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-06-28T16:34:00.777Z"
+          "freshness": "2026-06-30T06:08:57.757Z"
         }
       ],
       "x": 28,
@@ -441,7 +441,7 @@
       "url": "https://www.minfin.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-28T16:34:00.777Z",
+      "freshness": "2026-06-30T06:08:57.757Z",
       "skills": [
         "update-budget",
         "update-noi",
@@ -503,7 +503,7 @@
           "label": "НОИ STATB пенсии + НСИ заплати (policy-baseline)",
           "url": "https://nssi.bg/publikacii/statistika/pensii-statistika/",
           "cadence": "weekly",
-          "freshness": "2026-06-11T06:09:27.673Z"
+          "freshness": "2026-06-30T06:08:57.757Z"
         },
         {
           "id": "ipop_mrrb",
@@ -554,7 +554,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-27T06:09:04.565Z",
+      "freshness": "2026-06-30T06:08:57.757Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -573,7 +573,7 @@
           "label": "Council resolutions + vote tallies",
           "url": "data/council/sources.json",
           "cadence": "daily",
-          "freshness": "2026-06-27T06:09:04.565Z"
+          "freshness": "2026-06-30T06:08:57.757Z"
         },
         {
           "id": "municipal_naredba",
@@ -1062,7 +1062,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-28T16:34:00.777Z",
+      "freshness": "2026-06-30T06:08:57.757Z",
       "skills": [
         "update-prices"
       ],
@@ -1072,7 +1072,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-06-28T16:34:00.777Z"
+          "freshness": "2026-06-30T06:08:57.757Z"
         }
       ],
       "x": 28,
@@ -1180,7 +1180,7 @@
       "url": "https://bg.wikipedia.org/",
       "origin": "community",
       "cadence": "daily",
-      "freshness": "2026-05-23T13:26:43.573Z",
+      "freshness": "2026-06-30T06:08:57.757Z",
       "skills": [
         "update-polls"
       ],
@@ -1197,7 +1197,7 @@
           "label": "BG Wikipedia governments list",
           "url": "https://bg.wikipedia.org/wiki/Списък_на_правителствата_на_България",
           "cadence": "weekly",
-          "freshness": "2026-05-23T13:26:43.573Z"
+          "freshness": "2026-06-30T06:08:57.757Z"
         }
       ],
       "x": 28,

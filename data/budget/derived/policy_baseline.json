@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-15T05:45:31.708Z",
+  "generatedAt": "2026-06-30T14:11:55.911Z",
   "country": "BG",
   "baselineYear": 2025,
   "gdpEur": 116018300000,
@@ -842,7 +842,7 @@
       "pensionerCount": 2050000,
       "supplementMassEur": 754666817,
       "cpiPct": 3.1575,
-      "wageGrowthPct": 11.762500000000001
+      "wageGrowthPct": 12.05
     },
     "administration": {
       "year": 2025,
@@ -866,6 +866,18 @@
       "executedEur": 1853948069,
       "executionRate": 0.677650928692406
     },
+    "socialBenefits": {
+      "baseEur": 3961389919,
+      "cofogYear": 2024
+    },
+    "interest": {
+      "baseEur": 708925973,
+      "year": 2025
+    },
+    "subsidies": {
+      "baseEur": 965697284,
+      "year": 2025
+    },
     "sscSelfPaid": {
       "count": 132862,
       "avgWageEur": 1282.23
@@ -875,8 +887,8 @@
     },
     "minWage": {
       "currentEur": 620.2,
-      "formulaEur": 693,
-      "wageGrowthPct": 11.762500000000001,
+      "formulaEur": 695,
+      "wageGrowthPct": 12.05,
       "publicSectorShare": 0.18
     },
     "pensionFloor": {
