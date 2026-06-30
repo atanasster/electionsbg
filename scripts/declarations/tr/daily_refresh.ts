@@ -35,7 +35,7 @@ import {
   type TrDatasetEntry,
   type DatasetIndexFile,
 } from "./fetch_dataset_index";
-import { fetchAllDaily } from "./fetch_daily";
+import { fetchAllDaily, EgovPerResourceDownloadDownError } from "./fetch_daily";
 import { reconstructState } from "./reconstruct_state";
 import { buildCompanyConnections } from "./build_company_connections";
 
@@ -170,14 +170,32 @@ const main = async (): Promise<void> => {
       console.log(
         `[tr/daily-refresh] historical window RECOVERED — backfilling ${historicalMissing.length} day(s)`,
       );
-      const fetched = await fetchAllDaily({
-        rawFolder,
-        entries: historicalMissing,
-        maxRetries: 1, // keep waste low on any days still broken
-      });
-      console.log(
-        `[tr/daily-refresh] backfill fetched ${fetched.fetched}, failed ${fetched.failed.length}`,
-      );
+      try {
+        const fetched = await fetchAllDaily({
+          rawFolder,
+          entries: historicalMissing,
+          maxRetries: 1, // keep waste low on any days still broken
+        });
+        console.log(
+          `[tr/daily-refresh] backfill fetched ${fetched.fetched}, failed ${fetched.failed.length}`,
+        );
+      } catch (err) {
+        // PARTIAL recovery: the probe saw the oldest historical day serving,
+        // but the per-resource backend flipped back to its 302→HTML-shell
+        // outage partway through the backfill. fetchAllDaily persists every
+        // day it fetched before re-throwing on the first dead resource, so we
+        // KEEP that progress and still fall through to reconstruct + rebuild
+        // below — a mid-backfill outage must never wedge the daily rebuild
+        // (which is this job's everyday responsibility). The next run resumes
+        // from the first still-missing day (cached days are skipped). Re-throw
+        // anything that isn't the known per-resource outage.
+        if (!(err instanceof EgovPerResourceDownloadDownError)) throw err;
+        console.warn(
+          `[tr/daily-refresh] per-resource backend flipped back to down ` +
+            `mid-backfill — keeping the days already fetched and proceeding ` +
+            `to reconstruct. (${(err as Error).message})`,
+        );
+      }
     } else {
       console.log(
         "[tr/daily-refresh] historical window still broken — skipping fetch",
