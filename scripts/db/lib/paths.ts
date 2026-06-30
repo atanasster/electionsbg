@@ -18,6 +18,19 @@ export const DATA_DIR = path.join(REPO_ROOT, "data");
  *  characterizes and Phase 2 will regenerate from SQL. */
 export const PROC_DIR = path.join(DATA_DIR, "procurement");
 
+/** Numbered DDL migrations applied by scripts/db/migrate.ts. */
+export const SCHEMA_DIR = path.join(REPO_ROOT, "scripts", "db", "schema");
+
+/** Procurement source-of-truth SQLite (Phase 2). Lives under raw_data/ next to
+ *  the TR state.sqlite — gitignored, a regenerable cache distributed via GCS
+ *  (Phase 3), never committed. */
+export const PROC_DB = path.join(
+  REPO_ROOT,
+  "raw_data",
+  "procurement",
+  "procurement.sqlite",
+);
+
 /** Home for SQL-migration artifacts. The compact manifest here IS committed
  *  (small, git-tracked baseline); the full per-file map lives under .cache. */
 export const DB_DIR = path.join(DATA_DIR, "db");

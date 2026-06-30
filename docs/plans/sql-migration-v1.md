@@ -18,7 +18,11 @@ Current procurement scale: **297,528 contracts · 26,126 contractors · 4,391 aw
 
 ---
 
-## Phase 0 — foundations (no migration yet)
+## Phase 0 — foundations ✅ SHIPPED (2026-07-01)
+
+`scripts/db/lib/open.ts` (`openDb`/`checkpointAndClose` — WAL pragmas, read-only + fresh-rebuild modes), `scripts/db/migrate.ts` (`applyMigrations`/`schemaVersion` over `scripts/db/schema/*.sql`, tracked in `schema_migrations`), `meta` table convention. Separate DB per domain: `raw_data/procurement/procurement.sqlite` (gitignored, next to TR's `state.sqlite`). Details below were the original plan; what shipped matches it.
+
+## Phase 0 (original notes) — foundations
 
 Goal: shared DB plumbing + conventions, reused by TR and procurement.
 
@@ -74,6 +78,16 @@ Deliverable: `test:data` passes green on current `main`; manifest + goldens comm
 ## Phase 2 — procurement → SQL
 
 Goal: SQL becomes the generation backend; outputs stay byte-identical (proven by Phase 1).
+
+### Status: 2a + 2b ✅ SHIPPED (2026-07-01)
+
+- **2a schema** — `scripts/db/schema/001_procurement.sql`: `contracts` table, 31 typed columns covering the full `Contract` shape; money as REAL (full precision, no SQL rounding); indexes on `(contractor_eik)`, `(awarder_eik)`, `(date, ocid, key)`, `(tag)`. Contractors/awarders stay GROUP BY queries.
+- **2b loader** — `scripts/db/lib/procurement_schema.ts` (single column⇄field map + `contractToRow`/`rowToContract`), `scripts/db/load_procurement.ts` (`npm run db:load`): month shards → 301,015 rows in ~5s / 331 MB; stamps `meta` (schema_version, git sha, coverage, count).
+- **verification** — `scripts/db/tests/sql_roundtrip.data.test.ts`: **lossless** capture proven — all 301,015 rows rebuild from SQL and `deepStrictEqual` the on-disk rows (key-order-independent); `SUM(amount_eur)` reconciles cents-exact against the index, straight from SQL.
+
+**Two findings that reshape 2c (the generators):**
+1. **Month shards carry 113 source-dependent field orderings** (legacy/OCDS/EOP × which optional fields present; e.g. `amountEur` after `sourceUrl` in OCDS but right after `currency` in EOP). So byte-identical *shard* regeneration from typed columns is not a goal — the generated shards will have ONE canonical field order (a one-time, reviewable format normalization). The derived layer (rollups/by-id/etc., built by `rollups.ts` with a fixed object shape) IS byte-reproducible.
+2. **On-disk month shards are stale w.r.t. cents-rounding.** `b5074b144` added `*Eur` rounding to `canonicalJson` and regenerated the rollups (rounded on disk) but NOT the shards (still full precision). The next JS ingest would round shard `amountEur` too. **Decision for 2c:** either round shard `amountEur` (matches current code, churns every shard + a full bucket re-sync) or keep shards full-precision (matches long-standing on-disk format; don't apply `*Eur` rounding to shard rows). Rollups round either way, so they're unaffected.
 
 ### 2a. Schema (`scripts/db/schema/001_procurement.sql`)
 ```
@@ -139,9 +153,9 @@ Explicitly **not** doing: git-LFS the binary (400 MB churn, low-value history), 
 
 | Phase | Deliverable | Gate |
 |---|---|---|
-| 0 | `scripts/db/{open,migrate,schema}`, meta convention | tsc + lint green |
+| 0 | ✅ `scripts/db/{open,migrate,schema}`, meta convention | tsc + lint green |
 | 1 | ✅ manifest + goldens + invariants, `test:data` local gate | `test:data` / `db:verify` green on current `main` |
-| 2 | procurement SQL loader + generators | `test:data` diffs = 0 (or explained); tenders.harness + ai:test:all still green |
+| 2 | ✅ 2a schema + 2b loader (lossless, 301,015 rows); ⬜ 2c generators | round-trip lossless ✅; generators: `db:verify` diffs = 0 (or explained) |
 | 3 | snapshot/restore + lockfile | restore on a clean checkout reproduces a verifying DB |
 
 Existing gates that must stay green throughout: `npm run lint`, `npm run build`, `npm run data:map`, `tenders:test`, `ai:test:all`, `npm test` (Playwright).
