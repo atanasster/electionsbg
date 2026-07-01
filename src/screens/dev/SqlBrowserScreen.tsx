@@ -104,6 +104,14 @@ LIMIT 50;`,
     sql: `SELECT * FROM search_companies('лукойл', 20);`,
   },
   {
+    label: "Unified search",
+    sql: `SELECT * FROM search_all('лукойл', 30);`,
+  },
+  {
+    label: "Recent updates",
+    sql: `SELECT * FROM recent_updates(1, 100);`,
+  },
+  {
     label: "Single-bidder",
     sql: `SELECT date, awarder_name, contractor_name, amount_eur
 FROM contracts

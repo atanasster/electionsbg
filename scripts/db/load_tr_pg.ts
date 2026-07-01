@@ -25,6 +25,9 @@ const TR_SQL = fileURLToPath(
 const API_SQL = fileURLToPath(
   new URL("./schema/pg/004_search_api.sql", import.meta.url),
 );
+const BUILDERS_SQL = fileURLToPath(
+  new URL("./schema/pg/007_query_builders.sql", import.meta.url),
+);
 
 const gitSha = (): string => {
   try {
@@ -85,20 +88,28 @@ export const loadTrPg = async (): Promise<{
 
   const companies = tr
     .prepare(
-      "SELECT uic, name, legal_form, seat, status FROM companies WHERE name IS NOT NULL AND name <> ''",
+      "SELECT uic, name, legal_form, seat, status, last_updated FROM companies WHERE name IS NOT NULL AND name <> ''",
     )
     .all() as Array<Record<string, string | null>>;
   await bulkInsert(
     "tr_companies",
-    ["uic", "name", "legal_form", "seat", "status"],
-    companies.map((r) => [r.uic, r.name, r.legal_form, r.seat, r.status]),
+    ["uic", "name", "legal_form", "seat", "status", "last_updated"],
+    companies.map((r) => [
+      r.uic,
+      r.name,
+      r.legal_form,
+      r.seat,
+      r.status,
+      r.last_updated || null, // '' → NULL for the timestamptz column
+    ]),
   );
 
   const officers = tr
     .prepare(
       `SELECT uic, name,
               group_concat(DISTINCT role) AS roles,
-              MAX(CASE WHEN erased_at IS NULL THEN 1 ELSE 0 END) AS active
+              MAX(CASE WHEN erased_at IS NULL THEN 1 ELSE 0 END) AS active,
+              MAX(COALESCE(NULLIF(erased_at, ''), NULLIF(added_at, ''))) AS changed_at
        FROM company_persons
        WHERE name IS NOT NULL AND name <> ''
        GROUP BY uic, name`,
@@ -106,8 +117,14 @@ export const loadTrPg = async (): Promise<{
     .all() as Array<Record<string, string | number | null>>;
   await bulkInsert(
     "tr_officers",
-    ["uic", "name", "roles", "active"],
-    officers.map((r) => [r.uic, r.name, r.roles, r.active]),
+    ["uic", "name", "roles", "active", "changed_at"],
+    officers.map((r) => [
+      r.uic,
+      r.name,
+      r.roles,
+      r.active,
+      r.changed_at || null,
+    ]),
   );
   tr.close();
 
@@ -119,11 +136,20 @@ export const loadTrPg = async (): Promise<{
     "CREATE INDEX idx_tr_officers_fold ON tr_officers USING gin (name_fold gin_trgm_ops)",
   );
   await exec("CREATE INDEX idx_tr_officers_uic ON tr_officers (uic)");
+  // Timestamp indexes for recent_updates' day-window filter.
+  await exec(
+    "CREATE INDEX idx_tr_companies_updated ON tr_companies (last_updated)",
+  );
+  await exec(
+    "CREATE INDEX idx_tr_officers_changed ON tr_officers (changed_at)",
+  );
   await exec("ANALYZE tr_companies");
   await exec("ANALYZE tr_officers");
 
-  // Search API functions (idempotent; depend on the tables + contracts).
+  // Search API + multi-table builders (idempotent; depend on the tables +
+  // contracts + contract_first_seen + contractor_search).
   await exec(readFileSync(API_SQL, "utf8"));
+  await exec(readFileSync(BUILDERS_SQL, "utf8"));
 
   await exec(
     "CREATE TABLE IF NOT EXISTS meta (key text PRIMARY KEY, value text)",

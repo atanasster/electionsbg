@@ -7,19 +7,21 @@
 
 DROP TABLE IF EXISTS tr_companies CASCADE;
 CREATE TABLE tr_companies (
-  uic        text PRIMARY KEY,
-  name       text NOT NULL,
-  legal_form text,
-  seat       text,
-  status     text,
-  name_fold  text GENERATED ALWAYS AS (translit_bg_latin(name)) STORED
+  uic          text PRIMARY KEY,
+  name         text NOT NULL,
+  legal_form   text,
+  seat         text,
+  status       text,
+  last_updated timestamptz,  -- TR registry change date (for recent_updates)
+  name_fold    text GENERATED ALWAYS AS (translit_bg_latin(name)) STORED
 );
 
 DROP TABLE IF EXISTS tr_officers CASCADE;
 CREATE TABLE tr_officers (
-  uic       text NOT NULL,
-  name      text NOT NULL,
-  roles     text,
-  active    integer,
-  name_fold text GENERATED ALWAYS AS (translit_bg_latin(name)) STORED
+  uic        text NOT NULL,
+  name       text NOT NULL,
+  roles      text,
+  active     integer,
+  changed_at timestamptz,  -- latest added_at/erased_at across this (uic,name)
+  name_fold  text GENERATED ALWAYS AS (translit_bg_latin(name)) STORED
 );

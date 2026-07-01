@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS contract_first_seen (
   batch_id      integer NOT NULL REFERENCES ingest_batches(id)
 );
 CREATE INDEX IF NOT EXISTS idx_cfs_batch ON contract_first_seen(batch_id);
+CREATE INDEX IF NOT EXISTS idx_cfs_seen ON contract_first_seen(first_seen_at);
 
 -- The contracts first seen in the latest 'shards' load, most recent first.
 CREATE OR REPLACE FUNCTION last_ingested_contracts(lim int DEFAULT 200)

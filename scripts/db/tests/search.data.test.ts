@@ -187,3 +187,81 @@ test(
     );
   },
 );
+
+test(
+  "search_all: one ranked feed spanning companies + officers + contractors",
+  { skip },
+  async () => {
+    interface Hit {
+      kind: string;
+      eik: string;
+      name: string;
+    }
+    // A common surname must surface hits from more than one table.
+    const kinds = new Set(
+      (await rows<Hit>("SELECT * FROM search_all($1, 200)", ["петров"])).map(
+        (r) => r.kind,
+      ),
+    );
+    assert.ok(kinds.has("officer"), "search_all returns officer hits");
+    assert.ok(
+      kinds.has("company") || kinds.has("contractor"),
+      "search_all returns company/contractor hits too",
+    );
+    // A non-TR contractor is reachable through the unified feed.
+    const elsevier = await rows<Hit>("SELECT * FROM search_all($1, 20)", [
+      "elsevier",
+    ]);
+    assert.ok(
+      elsevier.some((r) => r.kind === "contractor" && /elsevier/i.test(r.name)),
+      "search_all surfaces the non-TR contractor branch",
+    );
+  },
+);
+
+test(
+  "recent_updates: multi-table window, newest first, respects the day arg",
+  { skip },
+  async () => {
+    interface Upd {
+      kind: string;
+      changed_at: string;
+    }
+    const wide = await rows<Upd>(
+      "SELECT * FROM recent_updates($1, $2)",
+      [3650, 5000],
+    );
+    assert.ok(
+      wide.length > 0,
+      "recent_updates returns rows over a wide window",
+    );
+    // Sorted newest-first.
+    for (let i = 1; i < wide.length; i++)
+      assert.ok(
+        wide[i - 1].changed_at >= wide[i].changed_at,
+        "recent_updates is ordered by changed_at DESC",
+      );
+    // A 10-year window sees more than a 1-day window (monotonic in `days`).
+    const day = Number(
+      await scalar<string>("SELECT count(*) FROM recent_updates(1, 100000000)"),
+    );
+    const decade = Number(
+      await scalar<string>(
+        "SELECT count(*) FROM recent_updates(3650, 100000000)",
+      ),
+    );
+    assert.ok(decade >= day, "wider window returns at least as many rows");
+    // Over a decade the feed spans TR too, not only contracts.
+    const kinds = new Set(
+      (
+        await rows<Upd>(
+          "SELECT DISTINCT kind FROM recent_updates(3650, 100000000)",
+        )
+      ).map((r) => r.kind),
+    );
+    assert.ok(
+      kinds.has("company"),
+      "recent_updates includes TR company updates",
+    );
+  },
+);
