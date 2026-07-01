@@ -67,10 +67,10 @@ export const dbApi = (): Plugin => ({
         const name = q("name");
         if (!name) return send(400, { error: "missing `name`" });
         Promise.all([
-          allRows("SELECT * FROM person_profile($1)", [name]),
+          allRows("SELECT * FROM person_roles($1)", [name]),
           allRows("SELECT * FROM person_politicians($1)", [name]),
         ]).then(
-          ([profile, politicians]) => send(200, { name, profile, politicians }),
+          ([roles, politicians]) => send(200, { name, roles, politicians }),
           fail,
         );
         return;

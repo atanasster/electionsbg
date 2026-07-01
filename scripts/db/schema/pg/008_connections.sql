@@ -48,6 +48,44 @@ LANGUAGE sql STABLE AS $$
   ORDER BY contracts_eur DESC NULLS LAST, company;
 $$;
 
+-- Per-role history: one row per company × role, with the ownership share and the
+-- from/to dates (current vs former). Powers the person page's detailed roles
+-- table + chronology. `share` is nullable until the TR parser captures дял.
+CREATE OR REPLACE FUNCTION person_roles(q text)
+RETURNS TABLE (
+  uic           text,
+  company       text,
+  status        text,
+  role          text,
+  share         numeric,
+  added_at      timestamptz,
+  erased_at     timestamptz,
+  active        boolean,
+  contracts     bigint,
+  contracts_eur double precision
+)
+LANGUAGE sql STABLE AS $$
+  WITH me AS (SELECT translit_bg_latin(q) AS qf)
+  SELECT r.uic,
+         c.name AS company,
+         c.status,
+         r.role,
+         r.share,
+         r.added_at,
+         r.erased_at,
+         (r.erased_at IS NULL) AS active,
+         (SELECT count(*) FROM contracts k WHERE k.contractor_eik = r.uic)
+           AS contracts,
+         (SELECT coalesce(sum(k.amount_eur), 0) FROM contracts k
+            WHERE k.contractor_eik = r.uic AND k.tag = 'contract')
+           AS contracts_eur
+  FROM tr_person_roles r
+  CROSS JOIN me
+  LEFT JOIN tr_companies c ON c.uic = r.uic
+  WHERE r.name_fold = me.qf
+  ORDER BY active DESC, added_at DESC NULLS LAST, company;
+$$;
+
 -- Politicians reachable from the person, via a company they're both tied to
 -- (the person as officer, the politician via the curated link).
 CREATE OR REPLACE FUNCTION person_politicians(q text)

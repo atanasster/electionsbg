@@ -25,3 +25,19 @@ CREATE TABLE tr_officers (
   changed_at timestamptz,  -- latest added_at/erased_at across this (uic,name)
   name_fold  text GENERATED ALWAYS AS (translit_bg_latin(name)) STORED
 );
+
+-- Raw per-role records (one row per company × role) so the person page can show
+-- history: from-date (added_at), to-date (erased_at), current-vs-former, and the
+-- ownership share. NOTE: our TR ingest does not yet capture `share` (0/1M in the
+-- source) — the column is here, ready, and populated once the TR parser extracts
+-- ownership %. See docs/plans/postgres-migration-v1.md.
+DROP TABLE IF EXISTS tr_person_roles CASCADE;
+CREATE TABLE tr_person_roles (
+  uic       text NOT NULL,
+  name      text NOT NULL,
+  role      text,
+  share     numeric,       -- ownership % (дял) — nullable; pending TR-parser support
+  added_at  timestamptz,   -- role opened
+  erased_at timestamptz,   -- role closed (NULL = current)
+  name_fold text GENERATED ALWAYS AS (translit_bg_latin(name)) STORED
+);

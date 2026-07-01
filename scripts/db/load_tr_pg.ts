@@ -135,6 +135,27 @@ export const loadTrPg = async (): Promise<{
       r.changed_at || null,
     ]),
   );
+
+  // Raw per-role records for the person page's history (from/to dates + share).
+  const roles = tr
+    .prepare(
+      `SELECT uic, name, role, share_percent, added_at, erased_at
+       FROM company_persons
+       WHERE name IS NOT NULL AND name <> ''`,
+    )
+    .all() as Array<Record<string, string | number | null>>;
+  await bulkInsert(
+    "tr_person_roles",
+    ["uic", "name", "role", "share", "added_at", "erased_at"],
+    roles.map((r) => [
+      r.uic,
+      r.name,
+      r.role,
+      r.share_percent,
+      r.added_at || null,
+      r.erased_at || null,
+    ]),
+  );
   tr.close();
 
   // One-shot index build (cheaper than incremental during load).
@@ -147,6 +168,9 @@ export const loadTrPg = async (): Promise<{
   await exec("CREATE INDEX idx_tr_officers_uic ON tr_officers (uic)");
   // Btree for exact-fold person lookup (person_profile / connection_between).
   await exec("CREATE INDEX idx_tr_officers_fold_eq ON tr_officers (name_fold)");
+  await exec(
+    "CREATE INDEX idx_tr_person_roles_fold ON tr_person_roles (name_fold)",
+  );
   // Timestamp indexes for recent_updates' day-window filter.
   await exec(
     "CREATE INDEX idx_tr_companies_updated ON tr_companies (last_updated)",

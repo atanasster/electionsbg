@@ -1,33 +1,38 @@
 // Dev-only, DB-backed person page (/person/:name). Unlike the JSON-fed
 // /procurement/people scanner, this queries Postgres live (via the /__db dev API)
 // so it works for ANY TR officer, not just the political class:
-//   • the companies the person is an officer of (+ roles + procurement),
+//   • per-role history — the companies + roles the person holds/held, with the
+//     from/to dates, current-vs-former status, procurement, and ownership share
+//     (share is nullable: our TR ingest doesn't capture дял yet — 0/1M),
 //   • political connections (companies they're tied to that a politician is
 //     curated-linked to — from company_politicians),
-//   • a custom connection check: enter any other name and see the companies
-//     where both are co-officers.
+//   • a chronology of role events (added / removed),
+//   • a custom connection check: enter any other name → shared companies.
 // A person is identified only by folded name (TR has no person id), so rows may
-// span more than one real individual sharing the name. Route is DEV-gated in
+// span more than one real individual sharing the name; and our TR store only
+// covers ~2022+, so older participations may be missing. Route is DEV-gated in
 // routes.tsx (the /__db API only exists on the dev server) — the seam a deployed
 // Cloud Function would later fill. See docs/plans/postgres-migration-v1.md.
 
 import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Building2, Landmark, Link2, Search } from "lucide-react";
+import { Building2, Clock, Landmark, Link2, Search } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { formatEur } from "@/lib/currency";
 
-interface ProfileRow {
+interface RoleRow {
   uic: string;
   company: string | null;
   status: string | null;
-  roles: string | null;
-  active: number | null;
+  role: string | null;
+  share: string | number | null;
+  added_at: string | null;
+  erased_at: string | null;
+  active: boolean;
   contracts: string;
   contracts_eur: number;
-  politician_links: string;
 }
 interface PoliticianRow {
   politician: string;
@@ -47,12 +52,15 @@ interface ConnRow {
 }
 
 const num = new Intl.NumberFormat("bg-BG");
+const day = (s: string | null): string => (s ? String(s).slice(0, 10) : "—");
+const pct = (s: string | number | null): string =>
+  s === null || s === undefined || s === "" ? "—" : `${s}%`;
 
 export const PersonScreen: FC = () => {
   const { name = "" } = useParams();
   const person = decodeURIComponent(name);
 
-  const [profile, setProfile] = useState<ProfileRow[]>([]);
+  const [roles, setRoles] = useState<RoleRow[]>([]);
   const [politicians, setPoliticians] = useState<PoliticianRow[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -67,7 +75,7 @@ export const PersonScreen: FC = () => {
         if (!live) return;
         if (j.error) setError(j.error);
         else {
-          setProfile(j.profile ?? []);
+          setRoles(j.roles ?? []);
           setPoliticians(j.politicians ?? []);
         }
       })
@@ -79,16 +87,51 @@ export const PersonScreen: FC = () => {
   }, [person]);
 
   const summary = useMemo(() => {
-    const byUic = new Map<string, ProfileRow>();
-    for (const r of profile) if (!byUic.has(r.uic)) byUic.set(r.uic, r);
+    const byUic = new Map<string, RoleRow>();
+    for (const r of roles) if (!byUic.has(r.uic)) byUic.set(r.uic, r);
     let eur = 0;
     let contracts = 0;
     for (const r of byUic.values()) {
       eur += r.contracts_eur ?? 0;
       contracts += Number(r.contracts) || 0;
     }
-    return { companies: byUic.size, eur, contracts };
-  }, [profile]);
+    const active = roles.filter((r) => r.active).length;
+    return { companies: byUic.size, eur, contracts, active };
+  }, [roles]);
+
+  // Chronology: an event per role opened (+) and closed (−), newest first.
+  const chronology = useMemo(() => {
+    const ev: Array<{
+      date: string;
+      sign: "+" | "−";
+      role: string | null;
+      company: string | null;
+      uic: string;
+      share: string | number | null;
+    }> = [];
+    for (const r of roles) {
+      if (r.added_at)
+        ev.push({
+          date: r.added_at,
+          sign: "+",
+          role: r.role,
+          company: r.company,
+          uic: r.uic,
+          share: r.share,
+        });
+      if (r.erased_at)
+        ev.push({
+          date: r.erased_at,
+          sign: "−",
+          role: r.role,
+          company: r.company,
+          uic: r.uic,
+          share: r.share,
+        });
+    }
+    ev.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+    return ev;
+  }, [roles]);
 
   // Custom connection check.
   const [other, setOther] = useState("");
@@ -118,6 +161,7 @@ export const PersonScreen: FC = () => {
         {!loading && !error && (
           <div className="mt-2 flex flex-wrap gap-4 text-sm text-muted-foreground">
             <span>{num.format(summary.companies)} фирми</span>
+            <span>{num.format(summary.active)} активни роли</span>
             <span>{num.format(summary.contracts)} договора</span>
             <span>{formatEur(summary.eur)}</span>
             <span>{num.format(politicians.length)} политически връзки</span>
@@ -134,34 +178,36 @@ export const PersonScreen: FC = () => {
 
       {!loading && !error && (
         <div className="space-y-6">
-          {/* Companies */}
+          {/* Roles / companies */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-base">
-                <Building2 className="h-4 w-4" /> Фирми (
-                {num.format(summary.companies)})
+                <Building2 className="h-4 w-4" /> Участия (
+                {num.format(roles.length)})
               </CardTitle>
             </CardHeader>
             <CardContent>
-              {profile.length === 0 ? (
+              {roles.length === 0 ? (
                 <div className="text-sm text-muted-foreground">
-                  Няма намерени фирми за това име.
+                  Няма намерени участия за това име.
                 </div>
               ) : (
-                <table className="w-full text-sm">
+                <table className="w-full text-sm [&_td]:px-2 [&_td]:first:pl-0 [&_th]:px-2 [&_th]:first:pl-0">
                   <thead className="text-left text-xs text-muted-foreground">
                     <tr>
                       <th className="py-1">Фирма</th>
                       <th className="py-1">Роля</th>
+                      <th className="py-1 text-right">Дял</th>
+                      <th className="py-1">От</th>
+                      <th className="py-1">Статус</th>
                       <th className="py-1 text-right">Договори</th>
                       <th className="py-1 text-right">Стойност</th>
-                      <th className="py-1 text-right">Политици</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {profile.map((r, i) => (
+                    {roles.map((r, i) => (
                       <tr
-                        key={`${r.uic}-${i}`}
+                        key={`${r.uic}-${r.role}-${i}`}
                         className="border-t border-border"
                       >
                         <td className="py-1">
@@ -171,14 +217,22 @@ export const PersonScreen: FC = () => {
                           >
                             {r.company ?? r.uic}
                           </Link>
-                          {r.status && r.status !== "active" && (
-                            <span className="ml-2 text-xs text-muted-foreground">
-                              {r.status}
+                        </td>
+                        <td className="py-1 text-muted-foreground">{r.role}</td>
+                        <td className="py-1 text-right tabular-nums">
+                          {pct(r.share)}
+                        </td>
+                        <td className="py-1 tabular-nums text-muted-foreground">
+                          {day(r.added_at)}
+                        </td>
+                        <td className="py-1">
+                          {r.active ? (
+                            <span className="text-emerald-600">активен</span>
+                          ) : (
+                            <span className="text-muted-foreground">
+                              бивш · {day(r.erased_at)}
                             </span>
                           )}
-                        </td>
-                        <td className="py-1 text-muted-foreground">
-                          {r.roles}
                         </td>
                         <td className="py-1 text-right tabular-nums">
                           {num.format(Number(r.contracts))}
@@ -186,16 +240,14 @@ export const PersonScreen: FC = () => {
                         <td className="py-1 text-right tabular-nums">
                           {r.contracts_eur ? formatEur(r.contracts_eur) : "—"}
                         </td>
-                        <td className="py-1 text-right tabular-nums">
-                          {Number(r.politician_links) > 0
-                            ? r.politician_links
-                            : "—"}
-                        </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               )}
+              <p className="mt-3 text-xs text-muted-foreground/70">
+                Дял (%) все още не се извлича при импорта на ТР — предстои.
+              </p>
             </CardContent>
           </Card>
 
@@ -240,6 +292,47 @@ export const PersonScreen: FC = () => {
               )}
             </CardContent>
           </Card>
+
+          {/* Chronology */}
+          {chronology.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <Clock className="h-4 w-4" /> Хронология
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-1 text-sm">
+                  {chronology.map((e, i) => (
+                    <li key={i} className="flex gap-3">
+                      <span className="w-24 shrink-0 tabular-nums text-muted-foreground">
+                        {day(e.date)}
+                      </span>
+                      <span
+                        className={
+                          e.sign === "+"
+                            ? "text-emerald-600"
+                            : "text-destructive"
+                        }
+                      >
+                        {e.sign}
+                      </span>
+                      <span>
+                        {e.role}
+                        {e.share ? ` (${e.share}%)` : ""}{" "}
+                        <Link
+                          to={`/company/${e.uic}`}
+                          className="text-accent hover:underline"
+                        >
+                          {e.company ?? e.uic}
+                        </Link>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          )}
 
           {/* Custom connection check */}
           <Card>
