@@ -25,6 +25,7 @@ import {
   countDomainFiles,
   dropSyntheticLegacyTwins,
   findHugeContracts,
+  rawJson,
   rowSort,
   runCanary,
   validateContract,
@@ -154,7 +155,14 @@ const writeMonthShards = (
     );
     assertUniqueKeys(merged, `${month}.json`);
     const prev = fs.existsSync(file) ? fs.readFileSync(file, "utf8") : null;
-    const next = canonicalJson(merged);
+    // Month shards keep FULL-precision amountEur (rawJson), NOT the cents
+    // rounding canonicalJson applies to rollups. The shards are the normalized
+    // source rows; rounding them here would (a) rewrite every shard the first
+    // time it runs after the rounding was added — churning ~685MB through the
+    // bucket for no data change — and (b) make the ingest non-idempotent (a
+    // re-run with unchanged rows would still diff). Rollups/derived round at
+    // serialization for determinism; shards do not. See docs/plans/sql-migration-v1.md (Phase 2d).
+    const next = rawJson(merged);
     if (next === prev) continue;
     fs.writeFileSync(file, next);
     if (prev == null) newFiles++;

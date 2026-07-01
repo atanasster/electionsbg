@@ -161,7 +161,7 @@ Dual-generation test — legacy JS (`buildRollups`) vs SQL, both → temp dirs, 
 
 ### Flip steps
 
-1. **Shard serializer fix** (above) — aligns legacy shard output with on-disk + SQL; removes the latent non-idempotency.
+1. ✅ **Shard serializer fix** SHIPPED (2026-07-01) — `writeMonthShards` now serializes with `rawJson` (full precision), not `canonicalJson`. Verified: `rawJson(parse(shard)) === shard` for all 174 shards (zero data change), while `canonicalJson` matched 0/174 (the churn it would have caused). The ingest is now idempotent for shards; `db:verify` unchanged. `canonicalJson` still rounds index/bundles/rollups/derived.
 2. **Wire `--write` into the pipeline** — the ingest/`rebuild_from_cache` path emits every layer from SQL (or the JS builders delegate to the SQL store). Decide: SQL-as-primary vs JS-with-SQL-as-verify.
 3. **Orphan cleanup on `--write`** — clear per-entity dirs before writing so stale files drop: the 34 amendment-only contractor rollups (+ their `top_contractors`/`by_ns` knock-on). `contractor_contracts`/`awarder_contracts`/`by-id`/`by_settlement` already prune; `rollups` + `top_contractors` do NOT — add a dir-clear.
 4. **Field-order note** — month shards / contract lists / by-id embed full `Contract` rows; SQL emits ONE canonical field order vs the 113 on-disk variants. The flip normalizes these (data-identical reformat + a one-time resync of those categories). Acceptable; call it out in the changelog.
