@@ -30,9 +30,13 @@ AS $$
             WHERE k.contractor_eik = c.uic AND k.tag = 'contract'),
          word_similarity((SELECT qf FROM qq), c.name_fold)
   FROM tr_companies c, qq
-  WHERE (SELECT bool_and(tok <% c.name_fold)
+  -- Index-usable candidate filter (GIN trigram) first, THEN the strict
+  -- every-token refine — otherwise the token subquery forces a full seq scan.
+  WHERE qq.qf <% c.name_fold
+    AND (SELECT bool_and(tok <% c.name_fold)
          FROM unnest(string_to_array(qq.qf, ' ')) AS tok WHERE tok <> '')
-  ORDER BY word_similarity((SELECT qf FROM qq), c.name_fold) DESC, length(c.name)
+  ORDER BY word_similarity((SELECT qf FROM qq), c.name_fold) DESC,
+           length(c.name), c.uic
   LIMIT lim;
 $$;
 
@@ -61,8 +65,10 @@ AS $$
   FROM tr_officers o
   CROSS JOIN qq
   LEFT JOIN tr_companies c ON c.uic = o.uic
-  WHERE (SELECT bool_and(tok <% o.name_fold)
+  WHERE qq.qf <% o.name_fold
+    AND (SELECT bool_and(tok <% o.name_fold)
          FROM unnest(string_to_array(qq.qf, ' ')) AS tok WHERE tok <> '')
-  ORDER BY word_similarity((SELECT qf FROM qq), o.name_fold) DESC, o.active DESC NULLS LAST
+  ORDER BY word_similarity((SELECT qf FROM qq), o.name_fold) DESC,
+           o.active DESC NULLS LAST, length(o.name), o.uic
   LIMIT lim;
 $$;
