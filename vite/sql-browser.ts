@@ -1,4 +1,4 @@
-// Dev-only SQL browser backend. Mounts /__sql/* on the Vite dev server so the
+// Dev-only SQL browser backend. Mounts /api/sql/* on the Vite dev server so the
 // /dev/sql page can run read-only queries against the Postgres source of truth
 // (docs/plans/postgres-migration-v1.md) — contracts + tr_companies/tr_officers +
 // contractor_search + the ingest tracking, all in one database, so cross-domain
@@ -13,8 +13,8 @@
 // server-side via a cursor so `SELECT * FROM tr_companies` can't pull 1M rows.
 //
 // Endpoints:
-//   GET  /__sql/schema  → schemas + tables (+ columns, indexes, est. row counts)
-//   POST /__sql/query  {sql, limit} → { columns, rows, rowCount, truncated, elapsedMs }
+//   GET  /api/sql/schema  → schemas + tables (+ columns, indexes, est. row counts)
+//   POST /api/sql/query  {sql, limit} → { columns, rows, rowCount, truncated, elapsedMs }
 
 import type { Plugin } from "vite";
 import { allRows, withClient, DATABASE_URL } from "../scripts/db/lib/pg";
@@ -219,7 +219,7 @@ export const sqlBrowser = (): Plugin => ({
   name: "sql-browser-dev",
   apply: "serve",
   configureServer(server) {
-    server.middlewares.use("/__sql", (req, res) => {
+    server.middlewares.use("/api/sql", (req, res) => {
       const send = (code: number, obj: unknown): void => {
         res.statusCode = code;
         res.setHeader("Content-Type", "application/json; charset=utf-8");
@@ -250,7 +250,7 @@ export const sqlBrowser = (): Plugin => ({
         });
         return;
       }
-      send(404, { error: "unknown /__sql endpoint" });
+      send(404, { error: "unknown /api/sql endpoint" });
     });
   },
 });

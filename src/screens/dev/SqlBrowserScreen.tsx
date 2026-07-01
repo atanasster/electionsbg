@@ -1,10 +1,10 @@
-// Dev-only SQL browser over the Postgres source of truth (contracts +
-// tr_companies/tr_officers + contractor_search + ingest tracking — one database,
-// see vite/sql-browser.ts). Full-screen tool: CodeMirror editor with SQL syntax
+// Public SQL browser (/db) over the Postgres source of truth (contracts +
+// tr_companies/tr_officers + contractor_search + ingest tracking — one database).
+// A Datasette-style read-only console: CodeMirror editor with SQL syntax
 // highlighting + schema-aware autocomplete, EXPLAIN, query history + saved
 // queries (localStorage), and a sortable / expandable / exportable results grid.
-// The route is registered in routes.tsx only under import.meta.env.DEV, so this
-// never ships to production.
+// Backed by /api/sql/* — the Vite plugin in dev, the hardened `sql` Cloud
+// Function (read-only tx + statement_timeout + row cap + rate limit) in prod.
 //
 // See docs/plans/postgres-migration-v1.md.
 
@@ -258,7 +258,7 @@ export const SqlBrowserScreen = () => {
   const dark = useDarkMode();
 
   const loadSchema = useCallback((reopen = false) => {
-    fetch(`/__sql/schema${reopen ? "?reopen=1" : ""}`)
+    fetch(`/api/sql/schema${reopen ? "?reopen=1" : ""}`)
       .then((r) => r.json())
       .then((j) => (j.error ? setError(j.error) : setSchema(j)))
       .catch((e) => setError(String(e)));
@@ -275,7 +275,7 @@ export const SqlBrowserScreen = () => {
       setExpandedRow(null);
       setSort(null);
       try {
-        const r = await fetch("/__sql/query", {
+        const r = await fetch("/api/sql/query", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ sql: finalSql, limit }),
@@ -425,7 +425,7 @@ export const SqlBrowserScreen = () => {
   );
 
   return (
-    <div className="flex h-screen w-full bg-background text-foreground">
+    <div className="flex h-[calc(100dvh-8rem)] min-h-[540px] w-full bg-background text-foreground">
       {/* Sidebar */}
       <aside className="flex w-80 shrink-0 flex-col border-r border-border bg-muted/20">
         <div className="flex items-center gap-1 border-b border-border p-2">

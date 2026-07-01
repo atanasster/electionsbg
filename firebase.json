@@ -53,6 +53,10 @@
           "function": { "functionId": "db", "region": "europe-west3" }
         },
         {
+          "source": "/api/sql/**",
+          "function": { "functionId": "sql", "region": "europe-west3" }
+        },
+        {
           "source": "/en/**",
           "destination": "/en/index.html"
         },

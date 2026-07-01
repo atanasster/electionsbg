@@ -34,20 +34,14 @@ const NotFound = lazy(() =>
   import("@/screens/NotFound").then((m) => ({ default: m.NotFound })),
 );
 
-// Dev-only SQL browser (/dev/sql). The lazy import is inside a
-// `import.meta.env.DEV ? … : null` ternary so that in a production build (where
-// Vite inlines DEV as `false`) Rollup constant-folds the whole branch away —
-// dropping the SqlBrowserScreen chunk AND its CodeMirror deps. Gating only the
-// JSX usage is NOT enough: a top-level `lazy(() => import(...))` always emits a
-// chunk. The backing /__sql/* endpoints only exist on the Vite dev server
-// (vite/sql-browser.ts).
-const SqlBrowserScreen = import.meta.env.DEV
-  ? lazy(() =>
-      import("@/screens/dev/SqlBrowserScreen").then((m) => ({
-        default: m.SqlBrowserScreen,
-      })),
-    )
-  : null;
+// Public SQL browser (/db) — a Datasette-style read-only console over the open
+// data. Backed by /api/sql/* (the Vite plugin in dev, the hardened `sql` Cloud
+// Function in prod). Lazy-loaded so its CodeMirror deps stay in a separate chunk.
+const SqlBrowserScreen = lazy(() =>
+  import("@/screens/dev/SqlBrowserScreen").then((m) => ({
+    default: m.SqlBrowserScreen,
+  })),
+);
 
 // DB-backed person page (/person/:name) — served in prod by the `db` Cloud
 // Function via the /api/db/** rewrite (dev: the Vite plugin), so it ships.
@@ -3012,16 +3006,16 @@ export const AuthRoutes = () => {
               </LayoutScreen>
             }
           />
-          {import.meta.env.DEV && SqlBrowserScreen && (
-            <Route
-              path="dev/sql"
-              element={
+          <Route
+            path="db"
+            element={
+              <LayoutScreen>
                 <Suspense fallback={<RouteFallback />}>
                   <SqlBrowserScreen />
                 </Suspense>
-              }
-            />
-          )}
+              </LayoutScreen>
+            }
+          />
           <Route
             path="person/:name"
             element={

@@ -532,3 +532,88 @@ const makeDb = () => {
 
 if ((process.env.GCLOUD_PROJECT || "") !== "electionsbg-ai")
   exports.db = makeDb();
+
+// ---- sql: PUBLIC read-only SQL console over the open data (elections-bg) ------
+// Datasette-style: anyone can run SELECTs against the TR + procurement data.
+// Hardening: every query runs READ ONLY + statement_timeout + a server-side row
+// cap (sql_lib.js); this function caps maxInstances (bounds concurrent DB load)
+// and rate-limits per IP. Reached via the `/api/sql/**` hosting rewrite.
+//   GET  /api/sql/schema           → { databases[], tables[] }
+//   POST /api/sql/query {sql,limit} → { columns, rows, rowCount, truncated, elapsedMs }
+const sqlLib = require("./sql_lib");
+
+// In-memory sliding-window rate limit, per instance. maxInstances is small so
+// this bounds abuse well enough without external state; the real caps are the
+// read-only tx + statement_timeout + row cap in sql_lib.
+const SQL_RATE_WINDOW_MS = 60 * 1000;
+const SQL_RATE_MAX = 40; // queries per IP per minute
+const sqlHits = new Map();
+const sqlRateLimited = (ip) => {
+  const now = Date.now();
+  const arr = (sqlHits.get(ip) || []).filter((t) => now - t < SQL_RATE_WINDOW_MS);
+  if (arr.length >= SQL_RATE_MAX) {
+    sqlHits.set(ip, arr);
+    return true;
+  }
+  arr.push(now);
+  sqlHits.set(ip, arr);
+  if (sqlHits.size > 5000)
+    for (const [k, v] of sqlHits)
+      if (!v.some((t) => now - t < SQL_RATE_WINDOW_MS)) sqlHits.delete(k);
+  return false;
+};
+
+const makeSql = () => {
+  const DB_PASSWORD = defineSecret("ELECTIONSBG_DB_PASSWORD");
+  return onRequest(
+    { secrets: [DB_PASSWORD], region: "europe-west3", maxInstances: 3 },
+    async (req, res) => {
+      const origin = req.headers.origin || "";
+      const originOk =
+        !origin || DB_ALLOWED_ORIGINS.some((re) => re.test(origin));
+      if (origin && originOk) res.set("Access-Control-Allow-Origin", origin);
+      res.set("Vary", "Origin");
+      if (req.method === "OPTIONS") {
+        res.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+        res.set("Access-Control-Allow-Headers", "Content-Type");
+        res.set("Access-Control-Max-Age", "3600");
+        return res.status(204).send("");
+      }
+      if (!originOk) return res.status(403).json({ error: "forbidden origin" });
+
+      const ip =
+        String(req.headers["x-forwarded-for"] || "").split(",")[0].trim() ||
+        req.ip ||
+        "?";
+      if (sqlRateLimited(ip))
+        return res
+          .status(429)
+          .json({ error: "rate limit — too many queries, try again shortly" });
+
+      const seg = (req.path || "").split("/").filter(Boolean).pop();
+      try {
+        const pool = await getDbPool(DB_PASSWORD.value());
+        if (req.method === "GET" && seg === "schema") {
+          res.set("Cache-Control", "public, max-age=300");
+          return res.json(await sqlLib.readSchema(pool));
+        }
+        if (req.method === "POST" && seg === "query") {
+          const body = req.body || {};
+          if (!body.sql || typeof body.sql !== "string")
+            return res.status(400).json({ error: "missing `sql`" });
+          const out = await sqlLib.runQuery(pool, body.sql, body.limit, {
+            rowCapMax: 2000,
+            statementTimeout: "8s",
+          });
+          return res.json(out);
+        }
+        return res.status(404).json({ error: "unknown /api/sql endpoint" });
+      } catch (e) {
+        return res.status(400).json({ error: String(e?.message || e) });
+      }
+    },
+  );
+};
+
+if ((process.env.GCLOUD_PROJECT || "") !== "electionsbg-ai")
+  exports.sql = makeSql();
