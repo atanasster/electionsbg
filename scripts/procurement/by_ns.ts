@@ -167,11 +167,19 @@ export interface ProcurementByNs {
 }
 
 interface BuildOpts {
-  contractsDir: string; // data/procurement/contracts
+  contractsDir: string; // data/procurement/contracts (used when `contracts` is absent)
   mpConnected: MpConnectedFile;
   pepConnected: PepConnectedFile;
   outDir: string; // data/procurement/by_ns
   elections: ElectionEntry[];
+  /** SQL generator passes the contract rows directly instead of reading shards. */
+  contracts?: Iterable<Contract>;
+  /** Explicit input paths — default to outDir-relative locations (ingest). The
+   *  SQL generator overrides them so it can write to a temp outDir while still
+   *  reading the real oblast map / awarder rollups / EKATTE catalog. */
+  oblastMapPath?: string;
+  awardersDir?: string;
+  ekattePath?: string;
 }
 
 const inRange = (date: string, start: string, end: string | null): boolean => {
@@ -253,139 +261,127 @@ interface MpLink {
 // against every NS range and add to the matching accumulator. With 13 NS
 // ranges × ~245k rows × 5 fields/row, this finishes in a couple of seconds.
 const accumulate = (
-  contractsDir: string,
+  rows: Iterable<Contract>,
   ranges: NsRange[],
   eikToMps: Map<string, MpLink[]>,
   eikToOfficials: Map<string, string[]>,
 ): Map<string, Accum> => {
   const out = new Map<string, Accum>();
   for (const r of ranges) out.set(r.electionDate, newAccum());
-  if (!fs.existsSync(contractsDir)) return out;
-  for (const year of fs.readdirSync(contractsDir).sort()) {
-    if (!/^\d{4}$/.test(year)) continue;
-    const yearDir = path.join(contractsDir, year);
-    if (!fs.statSync(yearDir).isDirectory()) continue;
-    for (const file of fs.readdirSync(yearDir)) {
-      if (!/^\d{4}-\d{2}\.json$/.test(file)) continue;
-      const rows = JSON.parse(
-        fs.readFileSync(path.join(yearDir, file), "utf8"),
-      ) as Contract[];
-      for (const r of rows) {
-        // USD/GBP/CHF rows (toEur -> null) are excluded from these MP-focused
-        // aggregates — negligible volume, not worth approximate-rate noise.
-        const eur = toEur(r.amount, r.currency);
-        if (eur == null || eur <= 0) continue;
-        for (const range of ranges) {
-          if (!inRange(r.date, range.start, range.end)) continue;
-          const acc = out.get(range.electionDate);
-          if (!acc) continue;
-          if (r.tag === "contract") acc.contracts++;
-          else if (r.tag === "contractAmendment") acc.amendments++;
-          else if (r.tag === "award") acc.awards++;
-          // Amendments re-state an existing contract's value — exclude from the
-          // money/count aggregates so they don't double-count (see rollups.ts).
-          if (r.tag === "contractAmendment") continue;
-          const ce = acc.byContractor.get(r.contractorEik) ?? {
+  for (const r of rows) {
+    // USD/GBP/CHF rows (toEur -> null) are excluded from these MP-focused
+    // aggregates — negligible volume, not worth approximate-rate noise.
+    const eur = toEur(r.amount, r.currency);
+    if (eur == null || eur <= 0) continue;
+    for (const range of ranges) {
+      if (!inRange(r.date, range.start, range.end)) continue;
+      const acc = out.get(range.electionDate);
+      if (!acc) continue;
+      if (r.tag === "contract") acc.contracts++;
+      else if (r.tag === "contractAmendment") acc.amendments++;
+      else if (r.tag === "award") acc.awards++;
+      // Amendments re-state an existing contract's value — exclude from the
+      // money/count aggregates so they don't double-count (see rollups.ts).
+      if (r.tag === "contractAmendment") continue;
+      const ce = acc.byContractor.get(r.contractorEik) ?? {
+        name: r.contractorName,
+        eur: 0,
+        count: 0,
+      };
+      ce.name = r.contractorName || ce.name;
+      ce.eur += eur;
+      ce.count += 1;
+      acc.byContractor.set(r.contractorEik, ce);
+      const ae = acc.byAwarder.get(r.awarderEik) ?? {
+        name: r.awarderName,
+        eur: 0,
+        count: 0,
+      };
+      ae.name = r.awarderName || ae.name;
+      ae.eur += eur;
+      ae.count += 1;
+      acc.byAwarder.set(r.awarderEik, ae);
+      // Per-(awarder, contractor) total for the per-NS concentration flag.
+      let acMap = acc.byAwarderContractor.get(r.awarderEik);
+      if (!acMap) {
+        acMap = new Map();
+        acc.byAwarderContractor.set(r.awarderEik, acMap);
+      }
+      const ac = acMap.get(r.contractorEik) ?? {
+        name: r.contractorName,
+        eur: 0,
+        count: 0,
+      };
+      ac.name = r.contractorName || ac.name;
+      ac.eur += eur;
+      ac.count += 1;
+      acMap.set(r.contractorEik, ac);
+      // awarder→contractor edge for the per-NS sankey — only when the
+      // contractor is connected to an MP or an official (the only edges
+      // the flow page renders).
+      if (
+        eikToMps.has(r.contractorEik) ||
+        eikToOfficials.has(r.contractorEik)
+      ) {
+        const ekey = `${r.awarderEik}|${r.contractorEik}`;
+        const ed = acc.byConnectedEdge.get(ekey) ?? {
+          awarderName: r.awarderName,
+          contractorName: r.contractorName,
+          eur: 0,
+        };
+        ed.awarderName = r.awarderName || ed.awarderName;
+        ed.contractorName = r.contractorName || ed.contractorName;
+        ed.eur += eur;
+        acc.byConnectedEdge.set(ekey, ed);
+      }
+      // Per-MP attribution: this contract row contributes to every MP
+      // who has a linkage to this contractor.
+      const mps = eikToMps.get(r.contractorEik);
+      if (mps && mps.length > 0) {
+        for (const mp of mps) {
+          const mpAcc = acc.byMp.get(mp.mpId) ?? {
+            mpName: mp.mpName,
+            eur: 0,
+            count: 0,
+            contractorEiks: new Set<string>(),
+            byContractor: new Map<string, { name: string; eur: number }>(),
+          };
+          mpAcc.mpName = mp.mpName || mpAcc.mpName;
+          mpAcc.eur += eur;
+          mpAcc.count += 1;
+          mpAcc.contractorEiks.add(r.contractorEik);
+          const bc = mpAcc.byContractor.get(r.contractorEik) ?? {
             name: r.contractorName,
             eur: 0,
-            count: 0,
           };
-          ce.name = r.contractorName || ce.name;
-          ce.eur += eur;
-          ce.count += 1;
-          acc.byContractor.set(r.contractorEik, ce);
-          const ae = acc.byAwarder.get(r.awarderEik) ?? {
-            name: r.awarderName,
+          bc.name = r.contractorName || bc.name;
+          bc.eur += eur;
+          mpAcc.byContractor.set(r.contractorEik, bc);
+          acc.byMp.set(mp.mpId, mpAcc);
+        }
+      }
+      // Per-official attribution: this contract row contributes to every
+      // official tied to this contractor (same shape as the MP branch).
+      const offs = eikToOfficials.get(r.contractorEik);
+      if (offs && offs.length > 0) {
+        for (const slug of offs) {
+          const offAcc = acc.byOfficial.get(slug) ?? {
             eur: 0,
             count: 0,
+            contractorEiks: new Set<string>(),
+            byContractor: new Map<string, { name: string; eur: number }>(),
           };
-          ae.name = r.awarderName || ae.name;
-          ae.eur += eur;
-          ae.count += 1;
-          acc.byAwarder.set(r.awarderEik, ae);
-          // Per-(awarder, contractor) total for the per-NS concentration flag.
-          let acMap = acc.byAwarderContractor.get(r.awarderEik);
-          if (!acMap) {
-            acMap = new Map();
-            acc.byAwarderContractor.set(r.awarderEik, acMap);
-          }
-          const ac = acMap.get(r.contractorEik) ?? {
+          offAcc.eur += eur;
+          offAcc.count += 1;
+          offAcc.contractorEiks.add(r.contractorEik);
+          const bc = offAcc.byContractor.get(r.contractorEik) ?? {
             name: r.contractorName,
             eur: 0,
-            count: 0,
           };
-          ac.name = r.contractorName || ac.name;
-          ac.eur += eur;
-          ac.count += 1;
-          acMap.set(r.contractorEik, ac);
-          // awarder→contractor edge for the per-NS sankey — only when the
-          // contractor is connected to an MP or an official (the only edges
-          // the flow page renders).
-          if (
-            eikToMps.has(r.contractorEik) ||
-            eikToOfficials.has(r.contractorEik)
-          ) {
-            const ekey = `${r.awarderEik}|${r.contractorEik}`;
-            const ed = acc.byConnectedEdge.get(ekey) ?? {
-              awarderName: r.awarderName,
-              contractorName: r.contractorName,
-              eur: 0,
-            };
-            ed.awarderName = r.awarderName || ed.awarderName;
-            ed.contractorName = r.contractorName || ed.contractorName;
-            ed.eur += eur;
-            acc.byConnectedEdge.set(ekey, ed);
-          }
-          // Per-MP attribution: this contract row contributes to every MP
-          // who has a linkage to this contractor.
-          const mps = eikToMps.get(r.contractorEik);
-          if (mps && mps.length > 0) {
-            for (const mp of mps) {
-              const mpAcc = acc.byMp.get(mp.mpId) ?? {
-                mpName: mp.mpName,
-                eur: 0,
-                count: 0,
-                contractorEiks: new Set<string>(),
-                byContractor: new Map<string, { name: string; eur: number }>(),
-              };
-              mpAcc.mpName = mp.mpName || mpAcc.mpName;
-              mpAcc.eur += eur;
-              mpAcc.count += 1;
-              mpAcc.contractorEiks.add(r.contractorEik);
-              const bc = mpAcc.byContractor.get(r.contractorEik) ?? {
-                name: r.contractorName,
-                eur: 0,
-              };
-              bc.name = r.contractorName || bc.name;
-              bc.eur += eur;
-              mpAcc.byContractor.set(r.contractorEik, bc);
-              acc.byMp.set(mp.mpId, mpAcc);
-            }
-          }
-          // Per-official attribution: this contract row contributes to every
-          // official tied to this contractor (same shape as the MP branch).
-          const offs = eikToOfficials.get(r.contractorEik);
-          if (offs && offs.length > 0) {
-            for (const slug of offs) {
-              const offAcc = acc.byOfficial.get(slug) ?? {
-                eur: 0,
-                count: 0,
-                contractorEiks: new Set<string>(),
-                byContractor: new Map<string, { name: string; eur: number }>(),
-              };
-              offAcc.eur += eur;
-              offAcc.count += 1;
-              offAcc.contractorEiks.add(r.contractorEik);
-              const bc = offAcc.byContractor.get(r.contractorEik) ?? {
-                name: r.contractorName,
-                eur: 0,
-              };
-              bc.name = r.contractorName || bc.name;
-              bc.eur += eur;
-              offAcc.byContractor.set(r.contractorEik, bc);
-              acc.byOfficial.set(slug, offAcc);
-            }
-          }
+          bc.name = r.contractorName || bc.name;
+          bc.eur += eur;
+          offAcc.byContractor.set(r.contractorEik, bc);
+          acc.byOfficial.set(slug, offAcc);
         }
       }
     }
@@ -871,8 +867,23 @@ export const buildByNs = (
     if (!officialMeta.has(e.slug))
       officialMeta.set(e.slug, { name: e.name, tier: e.tier, role: e.role });
   }
+  function* readShards(): Generator<Contract> {
+    const dir = opts.contractsDir;
+    if (!fs.existsSync(dir)) return;
+    for (const year of fs.readdirSync(dir).sort()) {
+      if (!/^\d{4}$/.test(year)) continue;
+      const yearDir = path.join(dir, year);
+      if (!fs.statSync(yearDir).isDirectory()) continue;
+      for (const file of fs.readdirSync(yearDir)) {
+        if (!/^\d{4}-\d{2}\.json$/.test(file)) continue;
+        yield* JSON.parse(
+          fs.readFileSync(path.join(yearDir, file), "utf8"),
+        ) as Contract[];
+      }
+    }
+  }
   const accums = accumulate(
-    opts.contractsDir,
+    opts.contracts ?? readShards(),
     ranges,
     eikToMps,
     eikToOfficials,
@@ -889,13 +900,16 @@ export const buildByNs = (
     fs.mkdirSync(d, { recursive: true });
   // Buyer→oblast tags for the per-NS concentration rows + flags region map.
   const oblastByEik = loadOblastByEik(
-    path.join(opts.outDir, "..", "derived", "buyer_oblast_map.json"),
+    opts.oblastMapPath ??
+      path.join(opts.outDir, "..", "derived", "buyer_oblast_map.json"),
   );
   // Buyer→seat (ekatte/isLocalHQ) + EKATTE catalog for the per-NS settlement
   // index. Loaded once (the rollup read is the expensive part).
-  const awarderGeo = loadAwarderGeo(path.join(opts.outDir, "..", "awarders"));
+  const awarderGeo = loadAwarderGeo(
+    opts.awardersDir ?? path.join(opts.outDir, "..", "awarders"),
+  );
   const ekByCode = loadEkatteCatalog(
-    path.join(opts.outDir, "..", "..", "ekatte_index.json"),
+    opts.ekattePath ?? path.join(opts.outDir, "..", "..", "ekatte_index.json"),
   );
   // Geo fallback for the oblast tags: local-HQ buyers (schools, kindergartens,
   // hospitals, regional directorates, …) never surface in the tenders feed, so

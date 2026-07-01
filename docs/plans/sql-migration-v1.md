@@ -133,7 +133,16 @@ Extended the same recipe to every output that's a pure function of the contract 
   - `risk_feed`, `concentration_full`, `person_procurement_index` — re-run the JS builders over the (SQL-reproducible) derived files: a determinism + non-staleness check.
 - **Result:** all four **byte-identical, 0 diff**.
 
-Remaining 2c = `by_ns` only (the 1024-line per-parliament aggregation).
+### 2c by_ns ✅ SHIPPED (2026-07-01) — Phase 2c COMPLETE
+
+- **Refactor:** `by_ns.ts` `accumulate()` now takes a `Contract` iterable; `BuildOpts` gained `contracts?` (SQL rows) + explicit `oblastMapPath`/`awardersDir`/`ekattePath` (default to the outDir-relative paths) so a temp-outDir build still reads the real inputs. Behavior-preserving.
+- **Generator** — `gen_procurement/by_ns.ts` (`npm run db:gen-byns`): SQL rows + on-disk mp/pep_connected + real oblast/awarders/ekatte → builds into a temp dir (gitignored `scripts/db/.cache/`) and diffs every file against `data/procurement/by_ns/`.
+- **Result:** **78 files across 13 elections — 0 diff, 0 extra** (all 6 families: main + flow/people/concentration/risk_feed/by_settlement).
+
+**Phase 2c is COMPLETE.** Every procurement JSON the frontend fetches now regenerates from the SQL store and is verified to reproduce the on-disk output:
+`db:gen-{rollups,lists,shards,derived,settlement,xref,index,byns}`. The whole suite runs verify-only by default; `--write` emits.
+
+**Next: Phase 2d (the flip)** — wire the generators into the ingest with `--write` + orphan-dir cleanup so SQL becomes the real production source of truth; **Phase 3** — `db:restore` + lockfile + GCS snapshot.
 
 **Two findings that reshape 2c (the generators):**
 1. **Month shards carry 113 source-dependent field orderings** (legacy/OCDS/EOP × which optional fields present; e.g. `amountEur` after `sourceUrl` in OCDS but right after `currency` in EOP). So byte-identical *shard* regeneration from typed columns is not a goal — the generated shards will have ONE canonical field order (a one-time, reviewable format normalization). The derived layer (rollups/by-id/etc., built by `rollups.ts` with a fixed object shape) IS byte-reproducible.
@@ -205,7 +214,9 @@ Explicitly **not** doing: git-LFS the binary (400 MB churn, low-value history), 
 |---|---|---|
 | 0 | ✅ `scripts/db/{open,migrate,schema}`, meta convention | tsc + lint green |
 | 1 | ✅ manifest + goldens + invariants, `test:data` local gate | `test:data` / `db:verify` green on current `main` |
-| 2 | ✅ 2a schema + 2b loader; ✅ 2c row-derived + derived/ analytics + by_settlement + mp/pep_connected — all reproduce; ⬜ 2c by_ns, risk_feed, index.json | `db:gen-*` reproduce ✅; by_ns/risk_feed/index next |
+| 2 | ✅ 2a schema + 2b loader; ✅ **2c COMPLETE** — every output regenerates from SQL (rollups, shards, lists, by-id, derived/, by_settlement, mp/pep_connected, index, risk feeds, by_ns) | all `db:gen-*` reproduce ✅ |
+| 2d | ⬜ flip: wire generators into ingest (`--write` + orphan cleanup) | ingest emits from SQL; `db:verify` stays 0-diff |
+| 3 | ⬜ `db:restore` + lockfile + GCS snapshot | fresh clone reproduces a verifying DB |
 | 3 | snapshot/restore + lockfile | restore on a clean checkout reproduces a verifying DB |
 
 Existing gates that must stay green throughout: `npm run lint`, `npm run build`, `npm run data:map`, `tenders:test`, `ai:test:all`, `npm test` (Playwright).
