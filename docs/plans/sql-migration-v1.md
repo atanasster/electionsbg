@@ -126,7 +126,14 @@ Extended the same recipe to every output that's a pure function of the contract 
 - **Generator** — `gen_procurement/cross_reference.ts` (`npm run db:gen-xref`): SQL contractor rollups (rounded) + the external inputs the JS builders also read — `companies-index.json`, TR `state.sqlite` namesake counts (`buildTrNamesakeCounts`), `officials/…/company_links.json` — → the two joins.
 - **Result:** `mp_connected` + `pep_connected` **byte-identical, 0 diff**. Confirms the cross-domain joins reproduce from SQL rollups + unchanged external graphs.
 
-Remaining 2c = `by_ns` (biggest, per-parliament aggregation), `risk_feed`/`concentration_full`, and `index.json` (totals from SQL + crossReference summaries).
+### 2c index.json + risk feeds ✅ SHIPPED (2026-07-01)
+
+- **Generator** — `gen_procurement/index.ts` (`npm run db:gen-index`), no production refactor needed:
+  - `index.json` = SQL rollup totals + years/months (from contract dates) + periods (bundles.json) + crossReference/officialsCrossReference summaries computed over the SQL-reproducible mp/pep_connected.
+  - `risk_feed`, `concentration_full`, `person_procurement_index` — re-run the JS builders over the (SQL-reproducible) derived files: a determinism + non-staleness check.
+- **Result:** all four **byte-identical, 0 diff**.
+
+Remaining 2c = `by_ns` only (the 1024-line per-parliament aggregation).
 
 **Two findings that reshape 2c (the generators):**
 1. **Month shards carry 113 source-dependent field orderings** (legacy/OCDS/EOP × which optional fields present; e.g. `amountEur` after `sourceUrl` in OCDS but right after `currency` in EOP). So byte-identical *shard* regeneration from typed columns is not a goal — the generated shards will have ONE canonical field order (a one-time, reviewable format normalization). The derived layer (rollups/by-id/etc., built by `rollups.ts` with a fixed object shape) IS byte-reproducible.
