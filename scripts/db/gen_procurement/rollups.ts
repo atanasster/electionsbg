@@ -15,9 +15,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import { isDeepStrictEqual } from "node:util";
-import { PROC_DIR, PROC_DB } from "../lib/paths";
-import { openDb } from "../lib/open";
-import { rowToContract } from "../lib/procurement_schema";
+import { PROC_DIR } from "../lib/paths";
+import { readContractsFromPg } from "../lib/rows";
 import { stripVolatile } from "../lib/canonical";
 import { buildRollupsFromRows } from "../../procurement/rollups";
 import { rowSort, canonicalJson } from "../../procurement/validate";
@@ -95,22 +94,13 @@ const showFirstDiff = (kind: string, rollups: RollupOut[]): void => {
   }
 };
 
-const main = (): void => {
-  if (!fs.existsSync(PROC_DB)) {
-    console.error(`No ${PROC_DB} — run npm run db:load first.`);
-    process.exit(1);
-  }
+const main = async (): Promise<void> => {
   const write = process.argv.includes("--write");
 
-  const db = openDb(PROC_DB, { readOnly: true });
   const t0 = Date.now();
-  const sqlRows = db.prepare("SELECT * FROM contracts").all() as Array<
-    Record<string, string | number | null>
-  >;
-  db.close();
-  const rows: Contract[] = sqlRows.map(rowToContract).sort(rowSort);
+  const rows: Contract[] = (await readContractsFromPg()).sort(rowSort);
   console.log(
-    `read ${rows.length} rows from SQL in ${((Date.now() - t0) / 1000).toFixed(1)}s`,
+    `read ${rows.length} rows from Postgres in ${((Date.now() - t0) / 1000).toFixed(1)}s`,
   );
 
   const { contractors, awarders } = buildRollupsFromRows(rows, PROC_DIR);
@@ -162,4 +152,7 @@ const main = (): void => {
   process.exit(clean ? 0 : 1);
 };
 
-main();
+main().catch((e) => {
+  console.error(e instanceof Error ? e.message : e);
+  process.exit(1);
+});

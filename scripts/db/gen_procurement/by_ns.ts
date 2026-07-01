@@ -16,9 +16,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import { isDeepStrictEqual } from "node:util";
-import { PROC_DIR, PROC_DB } from "../lib/paths";
-import { openDb } from "../lib/open";
-import { rowToContract } from "../lib/procurement_schema";
+import { PROC_DIR } from "../lib/paths";
+import { readContractsFromPg } from "../lib/rows";
 import { stripVolatile, walkJsonFiles } from "../lib/canonical";
 import { buildByNs } from "../../procurement/by_ns";
 import { rowSort, canonicalJson } from "../../procurement/validate";
@@ -43,25 +42,13 @@ const rel = (...p: string[]) => path.join(PROC_DIR, "..", ...p);
 const readJson = <T>(abs: string): T =>
   JSON.parse(fs.readFileSync(abs, "utf8")) as T;
 
-const main = (): void => {
-  if (!fs.existsSync(PROC_DB)) {
-    console.error(`No ${PROC_DB} — run npm run db:load first.`);
-    process.exit(1);
-  }
+const main = async (): Promise<void> => {
   const write = process.argv.includes("--write");
 
-  const db = openDb(PROC_DB, { readOnly: true });
   const t0 = Date.now();
-  const rows: Contract[] = (
-    db.prepare("SELECT * FROM contracts").all() as Array<
-      Record<string, string | number | null>
-    >
-  )
-    .map(rowToContract)
-    .sort(rowSort);
-  db.close();
+  const rows: Contract[] = (await readContractsFromPg()).sort(rowSort);
   console.log(
-    `read ${rows.length} rows from SQL in ${((Date.now() - t0) / 1000).toFixed(1)}s`,
+    `read ${rows.length} rows from Postgres in ${((Date.now() - t0) / 1000).toFixed(1)}s`,
   );
 
   const mpConnected = readJson<MpConnectedFile>(
@@ -135,4 +122,7 @@ const main = (): void => {
   process.exit(clean ? 0 : 1);
 };
 
-main();
+main().catch((e) => {
+  console.error(e instanceof Error ? e.message : e);
+  process.exit(1);
+});

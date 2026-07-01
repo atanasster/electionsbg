@@ -1,7 +1,9 @@
-// Phase 2d — end-to-end "generate the procurement corpus from SQL" orchestrator.
+// Phase 4a — end-to-end "generate the procurement corpus from Postgres"
+// orchestrator (was SQLite; now single-engine Postgres — see
+// docs/plans/postgres-migration-v1.md).
 //
-// Reloads the SQL store from the current contracts, then runs every generator in
-// dependency order. Two modes:
+// Brings the Postgres container up, reloads the store from the current contracts,
+// then runs every generator in dependency order. Two modes:
 //   npm run db:build            → VERIFY (default): each generator compares its
 //                                 output to on-disk (no writes). Proves the whole
 //                                 corpus reproduces from SQL. Safe.
@@ -16,15 +18,17 @@
 // by_ns/index read them; rollups before by_ns reads awarders geo). In verify
 // mode every step reads the current on-disk inputs, so order is irrelevant.
 //
-// See docs/plans/sql-migration-v1.md (Phase 2d).
+// See docs/plans/postgres-migration-v1.md.
 
 import { spawnSync } from "node:child_process";
 
 const write = process.argv.includes("--write");
 
-// [npm script, participates in --write]. `db:load` always rebuilds the SQLite.
+// [npm script, participates in --write]. db:pg:up is idempotent; db:load:pg
+// always rebuilds the Postgres store from the current month shards.
 const STEPS: Array<[string, boolean]> = [
-  ["db:load", false],
+  ["db:pg:up", false],
+  ["db:load:pg", false],
   ["db:gen-rollups", true],
   ["db:gen-lists", true],
   ["db:gen-shards", true],
@@ -65,5 +69,5 @@ if (failed.length) {
 console.log(
   write
     ? "\n✓ db:build --write complete — review the diff, then `npm run db:snapshot` + `npm run bucket:sync:all`"
-    : "\n✓ db:build verify complete — the entire procurement corpus reproduces from SQL",
+    : "\n✓ db:build verify complete — the entire procurement corpus reproduces from Postgres",
 );
