@@ -35,6 +35,7 @@
     "db:pg:down": "docker compose down",
     "db:load:pg": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/load_pg.ts",
     "db:load:tr:pg": "NODE_OPTIONS=--max-old-space-size=6144 tsx scripts/db/load_tr_pg.ts",
+    "db:load:tenders:pg": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/load_tenders_pg.ts",
     "db:gen-rollups": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/gen_procurement/rollups.ts",
     "db:gen-lists": "NODE_OPTIONS=--max-old-space-size=8192 tsx scripts/db/gen_procurement/contract_lists.ts",
     "db:gen-shards": "NODE_OPTIONS=--max-old-space-size=8192 tsx scripts/db/gen_procurement/month_shards.ts",
