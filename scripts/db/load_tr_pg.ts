@@ -28,6 +28,15 @@ const API_SQL = fileURLToPath(
 const BUILDERS_SQL = fileURLToPath(
   new URL("./schema/pg/007_query_builders.sql", import.meta.url),
 );
+const CONN_SQL = fileURLToPath(
+  new URL("./schema/pg/008_connections.sql", import.meta.url),
+);
+const MP_JSON = fileURLToPath(
+  new URL("../../data/procurement/derived/mp_connected.json", import.meta.url),
+);
+const PEP_JSON = fileURLToPath(
+  new URL("../../data/procurement/derived/pep_connected.json", import.meta.url),
+);
 
 const gitSha = (): string => {
   try {
@@ -136,6 +145,8 @@ export const loadTrPg = async (): Promise<{
     "CREATE INDEX idx_tr_officers_fold ON tr_officers USING gin (name_fold gin_trgm_ops)",
   );
   await exec("CREATE INDEX idx_tr_officers_uic ON tr_officers (uic)");
+  // Btree for exact-fold person lookup (person_profile / connection_between).
+  await exec("CREATE INDEX idx_tr_officers_fold_eq ON tr_officers (name_fold)");
   // Timestamp indexes for recent_updates' day-window filter.
   await exec(
     "CREATE INDEX idx_tr_companies_updated ON tr_companies (last_updated)",
@@ -150,6 +161,60 @@ export const loadTrPg = async (): Promise<{
   // contracts + contract_first_seen + contractor_search).
   await exec(readFileSync(API_SQL, "utf8"));
   await exec(readFileSync(BUILDERS_SQL, "utf8"));
+  await exec(readFileSync(CONN_SQL, "utf8"));
+
+  // Curated company↔politician links (from mp_connected / pep_connected) → PG,
+  // so the person page's political connections come straight from the DB.
+  const links: Array<
+    [string, string, string, string, string | null, number | null]
+  > = [];
+  if (existsSync(MP_JSON)) {
+    const mp = JSON.parse(readFileSync(MP_JSON, "utf8")) as {
+      entries: Array<{
+        mpId: number;
+        mpName: string;
+        contractorEik: string;
+        relations?: Array<{ kind?: string }>;
+        totalEur?: number;
+      }>;
+    };
+    for (const e of mp.entries)
+      links.push([
+        e.contractorEik,
+        e.mpName,
+        `/candidate/mp-${e.mpId}`,
+        "mp",
+        e.relations?.[0]?.kind ?? null,
+        e.totalEur ?? null,
+      ]);
+  }
+  if (existsSync(PEP_JSON)) {
+    const pep = JSON.parse(readFileSync(PEP_JSON, "utf8")) as {
+      entries: Array<{
+        slug: string;
+        name: string;
+        contractorEik: string;
+        role?: string;
+        totalEur?: number;
+      }>;
+    };
+    for (const e of pep.entries)
+      links.push([
+        e.contractorEik,
+        e.name,
+        `/officials/${e.slug}`,
+        "official",
+        e.role ?? null,
+        e.totalEur ?? null,
+      ]);
+  }
+  await exec("TRUNCATE company_politicians");
+  if (links.length)
+    await bulkInsert(
+      "company_politicians",
+      ["eik", "politician", "ref", "kind", "role", "total_eur"],
+      links,
+    );
 
   await exec(
     "CREATE TABLE IF NOT EXISTS meta (key text PRIMARY KEY, value text)",

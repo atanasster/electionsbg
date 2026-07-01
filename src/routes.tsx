@@ -48,6 +48,16 @@ const SqlBrowserScreen = import.meta.env.DEV
       })),
     )
   : null;
+
+// Dev-only, DB-backed person page (/person/:name) — needs the /__db dev API, so
+// same DEV-gated ternary keeps it (and its data path) out of production builds.
+const PersonScreen = import.meta.env.DEV
+  ? lazy(() =>
+      import("@/screens/dev/PersonScreen").then((m) => ({
+        default: m.PersonScreen,
+      })),
+    )
+  : null;
 const SectionsScreen = lazy(() =>
   import("./screens/SectionsScreen").then((m) => ({
     default: m.SectionsScreen,
@@ -3003,6 +3013,18 @@ export const AuthRoutes = () => {
                 <Suspense fallback={<RouteFallback />}>
                   <SqlBrowserScreen />
                 </Suspense>
+              }
+            />
+          )}
+          {import.meta.env.DEV && PersonScreen && (
+            <Route
+              path="person/:name"
+              element={
+                <LayoutScreen>
+                  <Suspense fallback={<RouteFallback />}>
+                    <PersonScreen />
+                  </Suspense>
+                </LayoutScreen>
               }
             />
           )}

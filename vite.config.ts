@@ -5,6 +5,7 @@ import path from "path";
 import type { Connect, Plugin } from "vite";
 import { defineConfig, loadEnv } from "vite";
 import { sqlBrowser } from "./vite/sql-browser";
+import { dbApi } from "./vite/db-api";
 
 // In production we serve large/changing JSON from a GCS bucket via the
 // `dataUrl` helper (see src/data/dataUrl.ts). The historical archives and
@@ -142,6 +143,8 @@ export default defineConfig(({ mode }) => {
       // Dev-only SQL browser backend (/__sql/*). apply:"serve" keeps it out of
       // production builds and `vite preview`.
       sqlBrowser(),
+      // Dev-only DB API backing the person page (/__db/*).
+      dbApi(),
     ],
     server: {
       // Honor a PORT env var when one is set (e.g. a preview/dev harness that

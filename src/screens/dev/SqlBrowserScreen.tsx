@@ -157,8 +157,7 @@ const cellLink = (
   if (col === "eik" || col === "uic" || col === "contractor_eik")
     return `/company/${encodeURIComponent(s)}`;
   if (col === "name" || col === "officer" || col === "contractor_name") {
-    if (kind === "officer")
-      return `/procurement/people?q=${encodeURIComponent(s)}`;
+    if (kind === "officer") return `/person/${encodeURIComponent(s)}`;
     const eik = rowCompanyEik(row);
     return eik ? `/company/${encodeURIComponent(eik)}` : null;
   }
