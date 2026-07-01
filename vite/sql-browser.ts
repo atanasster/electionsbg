@@ -20,7 +20,15 @@ import type { Plugin } from "vite";
 
 const REPO_ROOT = process.cwd();
 const RAW_DIR = path.resolve(REPO_ROOT, "raw_data");
-const PRIMARY_DB = path.resolve(RAW_DIR, "procurement/procurement.sqlite");
+// Procurement + TR are now the Postgres source of truth; this legacy browser
+// still inspects whatever raw_data/*.sqlite remain (e.g. the TR ingest's
+// state.sqlite). Prefer procurement.sqlite as primary if it's still around,
+// else fall back to the first discovered DB. (Repointing this to Postgres is a
+// tracked follow-up — see docs/plans/postgres-migration-v1.md.)
+const PREFERRED_PRIMARY = path.resolve(
+  RAW_DIR,
+  "procurement/procurement.sqlite",
+);
 
 const ROW_CAP_DEFAULT = 1000;
 const ROW_CAP_MAX = 5000;
@@ -68,18 +76,22 @@ const aliasFor = (p: string, used: Set<string>): string => {
 };
 
 const openConnection = (): DatabaseSync => {
-  if (!fs.existsSync(PRIMARY_DB)) {
+  const all = discoverSqlite();
+  const primary =
+    all.find((p) => path.resolve(p) === PREFERRED_PRIMARY) ?? all[0];
+  if (!primary) {
     throw new Error(
-      "procurement.sqlite not found — run `npm run db:load` first " +
-        `(expected at ${path.relative(REPO_ROOT, PRIMARY_DB)}).`,
+      "No SQLite DBs found under raw_data/. Procurement + TR are now in Postgres " +
+        "(npm run db:pg:up + db:load:pg + db:load:tr:pg); this legacy browser " +
+        "reads raw_data/*.sqlite only.",
     );
   }
-  const conn = new DatabaseSync(PRIMARY_DB, { readOnly: true });
+  const conn = new DatabaseSync(primary, { readOnly: true });
   // Attach every OTHER discovered DB (before locking read-only), so cross-domain
   // joins are available. A failed attach (locked/corrupt) is skipped, not fatal.
   const used = new Set(["main", "temp"]);
-  for (const p of discoverSqlite()) {
-    if (path.resolve(p) === PRIMARY_DB) continue;
+  for (const p of all) {
+    if (path.resolve(p) === path.resolve(primary)) continue;
     const alias = aliasFor(p, used);
     try {
       conn.exec(`ATTACH DATABASE '${p.replace(/'/g, "''")}' AS ${alias}`);

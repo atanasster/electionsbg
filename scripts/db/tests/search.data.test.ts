@@ -52,7 +52,7 @@ test(
     assert.equal(await f("Щур"), "shtur"); // щ→sht
     assert.equal(await f("Жеков"), "zhekov"); // ж→zh
     assert.equal(await f("Ючбашиев"), "yuchbashiev"); // ю→yu, ч→ch, ш→sh
-    assert.equal(await f("José"), "jose"); // Latin diacritic fold (immutable_unaccent)
+    assert.equal(await f("José"), "jose"); // Latin diacritic fold (unaccent)
     // Same fold whether typed in Cyrillic or Latin — the core of BG/EN search.
     assert.equal(await f("петров"), await f("petrov"));
   },

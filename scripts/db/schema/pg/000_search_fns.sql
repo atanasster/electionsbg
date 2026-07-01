@@ -6,22 +6,24 @@
 CREATE EXTENSION IF NOT EXISTS pg_trgm;
 CREATE EXTENSION IF NOT EXISTS unaccent;
 
--- unaccent() is only STABLE (it depends on the loaded dictionary), so it can't
--- appear in a generated column or index expression. Documented workaround: pin
--- the dictionary by name and assert IMMUTABLE.
-CREATE OR REPLACE FUNCTION immutable_unaccent(text)
-  RETURNS text LANGUAGE sql IMMUTABLE PARALLEL SAFE STRICT AS
-$$ SELECT unaccent('unaccent', $1) $$;
-
 -- Bulgarian Streamlined System (2009) romanization + diacritic fold + lowercase.
 -- "Иван Петров", "ИВАН ПЕТРОВ" and "Ivan Petrov" all collapse to "ivan petrov".
 -- Both Cyrillic cases are mapped explicitly so the result is independent of the
 -- database collation (lower() on Cyrillic isn't guaranteed under the C locale).
--- IMMUTABLE so it can drive STORED generated columns + GIN trigram indexes.
+--
+-- unaccent() is only STABLE, but we pin the dictionary and assert the whole
+-- function IMMUTABLE so it can drive STORED generated columns + GIN indexes.
+-- Two pg_dump/restore subtleties are handled here:
+--   1. We inline unaccent rather than via a wrapper function — pg_dump doesn't
+--      record dependencies inside SQL function bodies, so an intermediate user
+--      function would be restored AFTER the tables that (transitively) need it.
+--   2. unaccent lives in `public`; pg_restore runs with search_path='' and only
+--      pg_catalog is implicit, so unaccent + its dictionary are schema-qualified
+--      (translate/lower/replace are pg_catalog and resolve without qualifying).
 CREATE OR REPLACE FUNCTION translit_bg_latin(txt text)
   RETURNS text LANGUAGE sql IMMUTABLE PARALLEL SAFE AS
 $$
-  SELECT lower(immutable_unaccent(translate(
+  SELECT lower(public.unaccent('public.unaccent'::regdictionary, translate(
     replace(replace(replace(replace(replace(replace(replace(
     replace(replace(replace(replace(replace(replace(replace(
       coalesce(txt, ''),
@@ -31,3 +33,7 @@ $$
     'абвгдезийклмнопрстуфхъьАБВГДЕЗИЙКЛМНОПРСТУФХЪЬ',
     'abvgdeziyklmnoprstufhayabvgdeziyklmnoprstufhay')));
 $$;
+
+-- Retire the old immutable_unaccent wrapper (its body dependency broke pg_dump
+-- restore ordering); translit_bg_latin no longer references it.
+DROP FUNCTION IF EXISTS immutable_unaccent(text);

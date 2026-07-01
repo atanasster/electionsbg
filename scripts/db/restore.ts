@@ -1,33 +1,34 @@
-// Phase 3 — restore the procurement .sqlite from the GCS snapshot recorded in
-// the committed lockfile. For a fresh clone / CI / a second machine that has the
-// repo but not the (gitignored) DB.
+// DB versioning — restore the Postgres store from the GCS pg_dump snapshot
+// recorded in the committed lockfile. For a fresh clone / CI / a second machine
+// that has the repo but not the (regenerable) DB.
 //
 //   npm run db:restore                 → download from lockfile.snapshot.gcs
 //   npm run db:restore -- --local <dir> → read from a local dir (round-trip test)
 //
-// Verifies the download against the lockfile sha256, gunzips into place, then
-// sanity-checks the restored DB's meta (schema version + contract count) against
-// the lockfile. See docs/plans/sql-migration-v1.md (Phase 3).
+// Verifies the download against the lockfile sha256, pg_restores into the DB,
+// then sanity-checks the restored DB's identity against the lockfile.
+// See docs/plans/postgres-migration-v1.md.
 
 import fs from "node:fs";
 import path from "node:path";
-import zlib from "node:zlib";
 import { spawnSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
-import { PROC_DB } from "./lib/paths";
+import { PG_DUMP_FILE } from "./lib/paths";
 import {
   LATEST_NAME,
   readIdentity,
   readLockfile,
   sha256File,
+  pgRestore,
 } from "./lib/snapshot";
+import { end } from "./lib/pg";
 
 const argFlag = (name: string): string | undefined => {
   const i = process.argv.indexOf(name);
   return i >= 0 ? process.argv[i + 1] : undefined;
 };
 
-const main = (): void => {
+const main = async (): Promise<void> => {
   const lock = readLockfile();
   if (!lock) {
     console.error(
@@ -43,14 +44,12 @@ const main = (): void => {
   }
   const localDir = argFlag("--local");
 
-  // Fetch the gz next to the DB.
-  const gzPath = `${PROC_DB}.gz`;
-  fs.mkdirSync(path.dirname(PROC_DB), { recursive: true });
+  fs.mkdirSync(path.dirname(PG_DUMP_FILE), { recursive: true });
   if (localDir) {
-    fs.copyFileSync(path.join(localDir, LATEST_NAME), gzPath);
+    fs.copyFileSync(path.join(localDir, LATEST_NAME), PG_DUMP_FILE);
     console.log(`copied from ${localDir}`);
   } else {
-    const r = spawnSync("gsutil", ["cp", lock.snapshot.gcs, gzPath], {
+    const r = spawnSync("gsutil", ["cp", lock.snapshot.gcs, PG_DUMP_FILE], {
       stdio: "inherit",
     });
     if (r.status !== 0) {
@@ -60,7 +59,7 @@ const main = (): void => {
   }
 
   // Download integrity.
-  const sha = sha256File(gzPath);
+  const sha = sha256File(PG_DUMP_FILE);
   if (sha !== lock.snapshot.sha256) {
     console.error(
       `sha256 mismatch: got ${sha.slice(0, 16)}, lockfile ${lock.snapshot.sha256.slice(0, 16)} — corrupt download.`,
@@ -68,20 +67,19 @@ const main = (): void => {
     process.exit(1);
   }
 
-  // Gunzip into place (WAL/shm sidecars from a previous open would shadow it).
-  for (const ext of ["-wal", "-shm", "-journal"])
-    fs.rmSync(PROC_DB + ext, { force: true });
-  fs.writeFileSync(PROC_DB, zlib.gunzipSync(fs.readFileSync(gzPath)));
-  fs.rmSync(gzPath, { force: true });
+  console.log("pg_restore …");
+  pgRestore(PG_DUMP_FILE);
+  fs.rmSync(PG_DUMP_FILE, { force: true });
 
   // Sanity-check the restored DB against the lockfile identity.
-  const got = readIdentity(PROC_DB);
+  const got = await readIdentity();
   const ok =
     got.schemaVersion === lock.schemaVersion &&
     got.rowCounts.contracts === lock.rowCounts.contracts;
   console.log(
-    `restored ${path.basename(PROC_DB)} — schema ${got.schemaVersion}, ` +
-      `${got.rowCounts.contracts.toLocaleString()} contracts, coverage ${got.coverage}`,
+    `restored ${got.db} — schema ${got.schemaVersion}, ` +
+      `${got.rowCounts.contracts.toLocaleString()} contracts, ` +
+      `${got.rowCounts.trCompanies.toLocaleString()} TR companies, coverage ${got.coverage}`,
   );
   if (!ok) {
     console.error(
@@ -93,4 +91,11 @@ const main = (): void => {
   console.log("✓ verified against lockfile");
 };
 
-if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) main();
+if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href)
+  main()
+    .then(() => end())
+    .catch(async (e) => {
+      console.error(e);
+      await end();
+      process.exit(1);
+    });

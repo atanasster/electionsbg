@@ -1,67 +1,63 @@
-// Phase 3 — snapshot the procurement .sqlite to GCS + update the committed
-// lockfile. The .sqlite is gitignored (a regenerable cache); this ships it as a
-// distributable artifact so a fresh clone / CI / a second machine can `db:restore`
-// instead of re-running the full ingest.
+// DB versioning — snapshot the Postgres store to GCS + update the committed
+// lockfile. The store is regenerable, so this ships a pg_dump artifact so a fresh
+// clone / CI / a second machine can `db:restore` instead of re-running the full
+// ingest.
 //
-//   npm run db:push               → gzip + gsutil cp to gs://…/db + write lockfile
-//   npm run db:push -- --dry-run  → gzip + hash + write lockfile (snapshot=null),
+//   npm run db:push               → pg_dump + gsutil cp to gs://…/db + lockfile
+//   npm run db:push -- --dry-run  → pg_dump + hash + lockfile (snapshot=null),
 //                                   print the gsutil commands; no upload
 //   npm run db:push -- --local <dir> → transport to a local dir (round-trip test)
 //
-// See docs/plans/sql-migration-v1.md (Phase 3).
+// See docs/plans/postgres-migration-v1.md.
 
 import fs from "node:fs";
 import path from "node:path";
-import zlib from "node:zlib";
 import { spawnSync } from "node:child_process";
 import { pathToFileURL } from "node:url";
-import { PROC_DB } from "./lib/paths";
+import { PG_DUMP_FILE } from "./lib/paths";
 import {
   GCS_DB_DIR,
   LATEST_NAME,
   readIdentity,
   writeLockfile,
   sha256File,
+  pgDump,
   type SnapshotRef,
 } from "./lib/snapshot";
+import { end } from "./lib/pg";
 
 const argFlag = (name: string): string | undefined => {
   const i = process.argv.indexOf(name);
   return i >= 0 ? process.argv[i + 1] : undefined;
 };
 
-const main = (): void => {
-  if (!fs.existsSync(PROC_DB)) {
-    console.error(`No ${PROC_DB} — run npm run db:load first.`);
-    process.exit(1);
-  }
+const main = async (): Promise<void> => {
   const dryRun = process.argv.includes("--dry-run");
   const localDir = argFlag("--local");
 
-  const identity = readIdentity(PROC_DB);
+  const identity = await readIdentity();
   const stamp = new Date().toISOString();
   const day = stamp.slice(0, 10);
 
-  // Gzip alongside the DB.
-  const gzPath = `${PROC_DB}.gz`;
-  console.log(`gzipping ${path.basename(PROC_DB)} …`);
-  fs.writeFileSync(gzPath, zlib.gzipSync(fs.readFileSync(PROC_DB)));
-  const sha = sha256File(gzPath);
-  const bytes = fs.statSync(gzPath).size;
-  const datedName = `procurement-${day}-${sha.slice(0, 8)}.sqlite.gz`;
+  console.log(`pg_dump ${identity.db} …`);
+  fs.mkdirSync(path.dirname(PG_DUMP_FILE), { recursive: true });
+  pgDump(PG_DUMP_FILE);
+  const sha = sha256File(PG_DUMP_FILE);
+  const bytes = fs.statSync(PG_DUMP_FILE).size;
+  const datedName = `electionsbg-${day}-${sha.slice(0, 8)}.dump`;
   console.log(
-    `  ${(bytes / 1e6).toFixed(1)}MB gz, sha256 ${sha.slice(0, 16)} → ${datedName}`,
+    `  ${(bytes / 1e6).toFixed(1)}MB, sha256 ${sha.slice(0, 16)} → ${datedName}`,
   );
 
   let snapshot: SnapshotRef | null = null;
   if (dryRun) {
     console.log("--dry-run: skipping upload. Would run:");
-    console.log(`  gsutil cp ${gzPath} ${GCS_DB_DIR}/${datedName}`);
-    console.log(`  gsutil cp ${gzPath} ${GCS_DB_DIR}/${LATEST_NAME}`);
+    console.log(`  gsutil cp ${PG_DUMP_FILE} ${GCS_DB_DIR}/${datedName}`);
+    console.log(`  gsutil cp ${PG_DUMP_FILE} ${GCS_DB_DIR}/${LATEST_NAME}`);
   } else if (localDir) {
     fs.mkdirSync(localDir, { recursive: true });
-    fs.copyFileSync(gzPath, path.join(localDir, datedName));
-    fs.copyFileSync(gzPath, path.join(localDir, LATEST_NAME));
+    fs.copyFileSync(PG_DUMP_FILE, path.join(localDir, datedName));
+    fs.copyFileSync(PG_DUMP_FILE, path.join(localDir, LATEST_NAME));
     snapshot = {
       gcs: pathToFileURL(path.join(localDir, LATEST_NAME)).href,
       sha256: sha,
@@ -74,7 +70,13 @@ const main = (): void => {
       const dest = `${GCS_DB_DIR}/${name}`;
       const r = spawnSync(
         "gsutil",
-        ["-h", "Content-Type:application/gzip", "cp", gzPath, dest],
+        [
+          "-h",
+          "Content-Type:application/octet-stream",
+          "cp",
+          PG_DUMP_FILE,
+          dest,
+        ],
         { stdio: "inherit" },
       );
       if (r.status !== 0) {
@@ -91,11 +93,18 @@ const main = (): void => {
     console.log(`uploaded to ${GCS_DB_DIR}/`);
   }
 
-  fs.rmSync(gzPath, { force: true });
+  fs.rmSync(PG_DUMP_FILE, { force: true });
   writeLockfile({ ...identity, snapshot });
   console.log(
     `lockfile → data/db/procurement.lock.json (snapshot: ${snapshot ? "set" : "null — dry-run"})`,
   );
 };
 
-if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) main();
+if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href)
+  main()
+    .then(() => end())
+    .catch(async (e) => {
+      console.error(e);
+      await end();
+      process.exit(1);
+    });

@@ -137,23 +137,19 @@ export const loadPg = async (): Promise<{
       batchId,
     ]);
 
+    // Upsert (not TRUNCATE) so the TR loader's meta stamps survive re-loads.
     const sorted = [...years].sort();
-    await c.query("TRUNCATE meta");
-    await c.query(
-      "INSERT INTO meta (key, value) VALUES ($1,$2),($3,$4),($5,$6),($7,$8),($9,$10)",
-      [
-        "schema_version",
-        "pg/001_procurement.sql",
-        "generated_at",
-        new Date().toISOString(),
-        "code_git_sha",
-        gitSha(),
-        "contracts",
-        String(rows.length),
-        "coverage",
-        `${sorted[0]}..${sorted.at(-1)}`,
-      ],
-    );
+    for (const [k, v] of [
+      ["schema_version", "pg/001_procurement.sql"],
+      ["generated_at", new Date().toISOString()],
+      ["code_git_sha", gitSha()],
+      ["contracts", String(rows.length)],
+      ["coverage", `${sorted[0]}..${sorted.at(-1)}`],
+    ])
+      await c.query(
+        "INSERT INTO meta (key, value) VALUES ($1,$2) ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value",
+        [k, v],
+      );
     await c.query("COMMIT");
   });
 

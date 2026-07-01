@@ -18,17 +18,14 @@ export const DATA_DIR = path.join(REPO_ROOT, "data");
  *  characterizes and Phase 2 will regenerate from SQL. */
 export const PROC_DIR = path.join(DATA_DIR, "procurement");
 
-/** Numbered DDL migrations applied by scripts/db/migrate.ts. */
-export const SCHEMA_DIR = path.join(REPO_ROOT, "scripts", "db", "schema");
-
-/** Procurement source-of-truth SQLite (Phase 2). Lives under raw_data/ next to
- *  the TR state.sqlite — gitignored, a regenerable cache distributed via GCS
- *  (Phase 3), never committed. */
-export const PROC_DB = path.join(
+/** Postgres pg_dump snapshot artifact (custom format). Lives under raw_data/ —
+ *  gitignored, a regenerable cache distributed via GCS with a committed lockfile
+ *  pointer, never committed. See docs/plans/postgres-migration-v1.md. */
+export const PG_DUMP_FILE = path.join(
   REPO_ROOT,
   "raw_data",
   "procurement",
-  "procurement.sqlite",
+  "electionsbg.dump",
 );
 
 /** Home for SQL-migration artifacts. The compact manifest here IS committed
