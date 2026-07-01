@@ -31,5 +31,8 @@ Docker Compose, pinned **Postgres 16** + `pg_trgm`/`unaccent`, host port **5433*
 ## Still open
 
 - **Live serving (step 5)** — the only thing between the DB-side features and users. Needs a deployed Postgres (Cloud SQL / Neon) + `/api/search` + `/api/recent` (Firebase Fn / Cloud Run) + a frontend search UI.
-- **Dev SQL browser** still reads legacy SQLite (TR `state.sqlite`); repoint to Postgres to inspect the real source + search tables.
 - **Deferred outward triggers** (operator-run): `db:build --write` flip + `bucket:sync`; real `db:push` GCS upload.
+
+## Done since
+
+- **Dev SQL browser repointed to Postgres** (`42e96d9be`): `vite/sql-browser.ts` uses the pg pool (schema from `pg_catalog`, read-only tx + cursor cap); `/dev/sql` inspects the real source (contracts + tr_* + contractor_search + tracking, native cross-domain joins). Deleted the unused `procurement.sqlite` (kept `tr/state.sqlite` — it feeds `db:load:tr:pg`).
