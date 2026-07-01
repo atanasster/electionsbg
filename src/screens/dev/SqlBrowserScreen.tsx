@@ -73,7 +73,7 @@ const SAMPLES: Array<{ label: string; sql: string }> = [
 FROM contracts
 WHERE tag = 'contract'
 GROUP BY contractor_eik
-ORDER BY eur DESC
+ORDER BY eur DESC NULLS LAST
 LIMIT 25;`,
   },
   {
@@ -85,7 +85,7 @@ FROM contracts c
 JOIN tr_officers o ON o.uic = c.contractor_eik
 WHERE c.tag = 'contract' AND o.active = 1
 GROUP BY c.contractor_eik, o.roles, o.name
-ORDER BY eur DESC
+ORDER BY eur DESC NULLS LAST
 LIMIT 50;`,
   },
   {
@@ -96,7 +96,7 @@ FROM contracts c
 JOIN tr_companies co ON co.uic = c.contractor_eik
 WHERE c.tag = 'contract'
 GROUP BY co.uic
-ORDER BY eur DESC
+ORDER BY eur DESC NULLS LAST
 LIMIT 50;`,
   },
   {
@@ -108,17 +108,17 @@ LIMIT 50;`,
     sql: `SELECT date, awarder_name, contractor_name, amount_eur
 FROM contracts
 WHERE tag = 'contract' AND number_of_tenderers = 1
-ORDER BY amount_eur DESC
+ORDER BY amount_eur DESC NULLS LAST
 LIMIT 50;`,
   },
   {
     label: "Top awarders",
-    sql: `SELECT awarder_eik, awarder_name,
+    sql: `SELECT awarder_eik, MIN(awarder_name) AS awarder_name,
        ROUND(SUM(amount_eur)) AS eur, COUNT(*) AS n
 FROM contracts
 WHERE tag = 'contract'
 GROUP BY awarder_eik
-ORDER BY eur DESC
+ORDER BY eur DESC NULLS LAST
 LIMIT 25;`,
   },
 ];
