@@ -3,10 +3,10 @@
   "name": "Велико Търново",
   "province": "Велико Търново",
   "obshtina": "Велико Търново",
-  "generatedAt": "2026-06-30T17:59:20.160Z",
-  "contractCount": 2884,
+  "generatedAt": "2026-07-01T07:34:38.431Z",
+  "contractCount": 3079,
   "awardCount": 0,
-  "totalEur": 486006786.53,
+  "totalEur": 517732261.46,
   "totalOther": {},
   "awarders": [
     {
@@ -43,6 +43,15 @@
       "totalEur": 47955223.63,
       "totalOther": {},
       "contractCount": 639,
+      "awardCount": 0
+    },
+    {
+      "eik": "129009094",
+      "name": "Национален военен университет (НВУ) \"Васил Левски\"",
+      "tier": "university",
+      "totalEur": 31434442.67,
+      "totalOther": {},
+      "contractCount": 185,
       "awardCount": 0
     },
     {
@@ -160,6 +169,15 @@
       "totalEur": 333512.81,
       "totalOther": {},
       "contractCount": 12,
+      "awardCount": 0
+    },
+    {
+      "eik": "176358289",
+      "name": "Спортно училище - ГР.ВЕЛИКО търново",
+      "tier": "school",
+      "totalEur": 291032.26,
+      "totalOther": {},
+      "contractCount": 10,
       "awardCount": 0
     },
     {
@@ -393,6 +411,32 @@
       "sourceUrl": "https://data.egov.bg/data/view/5d588198-c9e5-40df-86a6-698dbf69dbf7"
     },
     {
+      "key": "b509619b4cac",
+      "ocid": "aop-legacy-2019-926358",
+      "date": "2019-08-08",
+      "tag": "contract",
+      "amount": 7932480.83,
+      "currency": "BGN",
+      "amountEur": 4055813.05,
+      "partyEik": "130015233",
+      "partyName": "Либърти Фуд Сървисис /Лфс/ ЕООД - София",
+      "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
+      "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
+    },
+    {
+      "key": "f27723535788",
+      "ocid": "aop-legacy-2023-437279",
+      "date": "2023-10-20",
+      "tag": "contract",
+      "amount": 7000000,
+      "currency": "BGN",
+      "amountEur": 3579043.17,
+      "partyEik": "103533691",
+      "partyName": "ЕНЕРГО-ПРО Продажби АД",
+      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
+      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
       "key": "4444ddb98aa4",
       "ocid": "aop-legacy-2019-910869",
       "date": "2019-05-13",
@@ -471,6 +515,19 @@
       "sourceUrl": "https://storage.eop.bg/open-data-2025-04-14/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2014.04.2025.json"
     },
     {
+      "key": "3bdf6cbc8ee3",
+      "ocid": "eop-00456-2024-0014",
+      "date": "2025-07-18",
+      "tag": "contract",
+      "amount": 5498208.75,
+      "currency": "BGN",
+      "amountEur": 2811189.49,
+      "partyEik": "202596960",
+      "partyName": "Вертикал 90 ЕООД",
+      "bundleUuid": "eop-flat:2025-07-18",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-07-18/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2018.07.2025.json"
+    },
+    {
       "key": "49f99e2a4cbe",
       "ocid": "aop-legacy-2023-426812",
       "date": "2023-09-26",
@@ -510,6 +567,19 @@
       "sourceUrl": "https://storage.eop.bg/open-data-2025-06-11/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2011.06.2025.json"
     },
     {
+      "key": "06521fe5e07a",
+      "ocid": "aop-legacy-2011-2015-674536",
+      "date": "2015-06-26",
+      "tag": "contract",
+      "amount": 4970000,
+      "currency": "BGN",
+      "amountEur": 2541120.65,
+      "partyEik": "121868385",
+      "partyName": "Нове Трейдинг ООД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
+    },
+    {
       "key": "d2797b620ce9",
       "ocid": "ocds-e82gsb-545654",
       "date": "2026-04-01",
@@ -547,6 +617,19 @@
       "partyName": "РОШ България ЕООД",
       "bundleUuid": "3edde0c3-80da-468c-8536-53db74680863",
       "sourceUrl": "https://data.egov.bg/data/view/3edde0c3-80da-468c-8536-53db74680863#ocds-e82gsb-558569-823308%2F2026-03-13-award"
+    },
+    {
+      "key": "c250b019c3fe",
+      "ocid": "aop-legacy-2011-2015-441023",
+      "date": "2011-06-10",
+      "tag": "contract",
+      "amount": 4547362,
+      "currency": "BGN",
+      "amountEur": 2325029.27,
+      "partyEik": "121868385",
+      "partyName": "Нове Трейдинг ООД - София",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
       "key": "c9e69487e9f3",
@@ -820,127 +903,62 @@
       "partyName": "Маримпекс-7 ЕООД - София",
       "bundleUuid": "5a06c9b5-4db6-4213-8c7a-df9bb9c94c55",
       "sourceUrl": "https://data.egov.bg/data/view/5a06c9b5-4db6-4213-8c7a-df9bb9c94c55"
-    },
-    {
-      "key": "57c6e2213111",
-      "ocid": "aop-legacy-2022-253936",
-      "date": "2022-07-22",
-      "tag": "contract",
-      "amount": 3333333.33,
-      "currency": "BGN",
-      "amountEur": 1704306.27,
-      "partyEik": "104639368",
-      "partyName": "Скорпион инвестстрой ЕООД",
-      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
-      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
-    },
-    {
-      "key": "8ba953e9b742",
-      "ocid": "aop-legacy-2023-401665",
-      "date": "2023-07-21",
-      "tag": "contract",
-      "amount": 3333333.33,
-      "currency": "BGN",
-      "amountEur": 1704306.27,
-      "partyEik": "103533691",
-      "partyName": "ЕНЕРГО-ПРО Продажби АД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "3605b8da8bd7",
-      "ocid": "eop-00073-2025-0102",
-      "date": "2025-12-23",
-      "tag": "contract",
-      "amount": 3232620,
-      "currency": "BGN",
-      "amountEur": 1652812.36,
-      "partyEik": "104600641",
-      "partyName": "Алекс о'к ЕООД",
-      "bundleUuid": "eop-flat:2025-12-23",
-      "sourceUrl": "https://storage.eop.bg/open-data-2025-12-23/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2023.12.2025.json"
-    },
-    {
-      "key": "da8f90ef3559",
-      "ocid": "ocds-e82gsb-536318",
-      "date": "2026-01-15",
-      "tag": "contract",
-      "amount": 1635433.12,
-      "currency": "EUR",
-      "amountEur": 1635433.12,
-      "partyEik": "104600641",
-      "partyName": "Алекс о'к ЕООД",
-      "bundleUuid": "d1c77a64-9031-456a-b1d7-7a3a659db41a",
-      "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-536318-796732%2F2026-01-15-award"
-    },
-    {
-      "key": "237f1fdc764b",
-      "ocid": "eop-00073-2024-0068",
-      "date": "2025-06-30",
-      "tag": "contract",
-      "amount": 3170653.76,
-      "currency": "BGN",
-      "amountEur": 1621129.53,
-      "partyEik": "104035947",
-      "partyName": "Стима ООД",
-      "bundleUuid": "eop-flat:2025-06-30",
-      "sourceUrl": "https://storage.eop.bg/open-data-2025-06-30/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2030.06.2025.json"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 21294563.41,
+      "totalEur": 23932169.45,
       "totalOther": {},
-      "contractCount": 50
+      "contractCount": 53
     },
     {
       "year": "2012",
-      "totalEur": 8368433.19,
+      "totalEur": 8433738.46,
       "totalOther": {},
-      "contractCount": 70
+      "contractCount": 72
     },
     {
       "year": "2013",
-      "totalEur": 10466278.61,
+      "totalEur": 10850305.85,
       "totalOther": {},
-      "contractCount": 77
+      "contractCount": 88
     },
     {
       "year": "2014",
-      "totalEur": 22730151.64,
+      "totalEur": 23181975.16,
       "totalOther": {},
-      "contractCount": 126
+      "contractCount": 137
     },
     {
       "year": "2015",
-      "totalEur": 9380026.66,
+      "totalEur": 12331828.2,
       "totalOther": {},
-      "contractCount": 132
+      "contractCount": 144
     },
     {
       "year": "2016",
-      "totalEur": 28045526.35,
+      "totalEur": 28491138.7,
       "totalOther": {},
-      "contractCount": 131
+      "contractCount": 141
     },
     {
       "year": "2017",
-      "totalEur": 26641171.15,
+      "totalEur": 27338024.15,
       "totalOther": {},
-      "contractCount": 153
+      "contractCount": 162
     },
     {
       "year": "2019",
-      "totalEur": 30736227.22,
+      "totalEur": 36741137.75,
       "totalOther": {},
-      "contractCount": 238
+      "contractCount": 247
     },
     {
       "year": "2020",
-      "totalEur": 2936738.71,
+      "totalEur": 2952153.65,
       "totalOther": {},
-      "contractCount": 36
+      "contractCount": 38
     },
     {
       "year": "2021",
@@ -950,27 +968,27 @@
     },
     {
       "year": "2022",
-      "totalEur": 51494732.72,
+      "totalEur": 52558914.08,
       "totalOther": {},
-      "contractCount": 394
+      "contractCount": 430
     },
     {
       "year": "2023",
-      "totalEur": 58210123.41,
+      "totalEur": 62339835.34,
       "totalOther": {},
-      "contractCount": 447
+      "contractCount": 476
     },
     {
       "year": "2024",
-      "totalEur": 51628988.8,
+      "totalEur": 58747435.37,
       "totalOther": {},
-      "contractCount": 378
+      "contractCount": 419
     },
     {
       "year": "2025",
-      "totalEur": 97959443.59,
+      "totalEur": 103719224.25,
       "totalOther": {},
-      "contractCount": 428
+      "contractCount": 448
     },
     {
       "year": "2026",

@@ -3,10 +3,10 @@
   "name": "Опан",
   "province": "Стара Загора",
   "obshtina": "Опан",
-  "generatedAt": "2026-06-30T17:59:20.160Z",
-  "contractCount": 76,
+  "generatedAt": "2026-07-01T07:34:38.431Z",
+  "contractCount": 77,
   "awardCount": 0,
-  "totalEur": 69684968.38,
+  "totalEur": 69730489.66,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 69684968.38,
       "totalOther": {},
       "contractCount": 76,
+      "awardCount": 0
+    },
+    {
+      "eik": "000803084",
+      "name": "Средно училище \"Христо Ботев\"",
+      "tier": "school",
+      "totalEur": 45521.28,
+      "totalOther": {},
+      "contractCount": 1,
       "awardCount": 0
     }
   ],
@@ -437,6 +446,19 @@
       "sourceUrl": "https://data.egov.bg/data/view/c5404069-668a-4cd2-ab43-a1cdc26e03c6"
     },
     {
+      "key": "0f933b386688",
+      "ocid": "eop-06449-2025-0001",
+      "date": "2025-05-21",
+      "tag": "contract",
+      "amount": 89031.89,
+      "currency": "BGN",
+      "amountEur": 45521.28,
+      "partyEik": "000885099",
+      "partyName": "Кооперация Панда",
+      "bundleUuid": "eop-flat:2025-05-21",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-05-21/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2021.05.2025.json"
+    },
+    {
       "key": "81a56e66359c",
       "ocid": "aop-legacy-2016-748749",
       "date": "2016-09-13",
@@ -656,19 +678,6 @@
       "partyName": "Иван Иванов - митко Иванов",
       "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
-    },
-    {
-      "key": "b985c8a37efe",
-      "ocid": "eop-00971-2022-0007",
-      "date": "2024-12-19",
-      "tag": "contract",
-      "amount": 49500,
-      "currency": "BGN",
-      "amountEur": 25308.95,
-      "partyEik": "201077998",
-      "partyName": "Аква консултинг ЕООД",
-      "bundleUuid": "eop-flat:2024-12-19",
-      "sourceUrl": "https://storage.eop.bg/open-data-2024-12-19/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2019.12.2024.json"
     }
   ],
   "byYear": [
@@ -746,9 +755,9 @@
     },
     {
       "year": "2025",
-      "totalEur": 4973951.2,
+      "totalEur": 5019472.48,
       "totalOther": {},
-      "contractCount": 11
+      "contractCount": 12
     },
     {
       "year": "2026",

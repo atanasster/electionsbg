@@ -3,10 +3,10 @@
   "name": "Главиница",
   "province": "Силистра",
   "obshtina": "Главиница",
-  "generatedAt": "2026-06-30T17:59:20.160Z",
-  "contractCount": 183,
+  "generatedAt": "2026-07-01T07:34:38.431Z",
+  "contractCount": 210,
   "awardCount": 0,
-  "totalEur": 28548619.66,
+  "totalEur": 29850420.46,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 28548619.66,
       "totalOther": {},
       "contractCount": 183,
+      "awardCount": 0
+    },
+    {
+      "eik": "000558350",
+      "name": "Средно училище \"Васил Левски\"",
+      "tier": "school",
+      "totalEur": 1301800.8,
+      "totalOther": {},
+      "contractCount": 27,
       "awardCount": 0
     }
   ],
@@ -346,6 +355,19 @@
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
     },
     {
+      "key": "5c25c2a53efe",
+      "ocid": "aop-legacy-2022-224595",
+      "date": "2022-04-25",
+      "tag": "contract",
+      "amount": 520400,
+      "currency": "BGN",
+      "amountEur": 266076.29,
+      "partyEik": "200542686",
+      "partyName": "Лего трейд ЕООД",
+      "bundleUuid": "b6ec0598-8dfd-4338-8756-a679420c2cd0",
+      "sourceUrl": "https://data.egov.bg/data/view/b6ec0598-8dfd-4338-8756-a679420c2cd0"
+    },
+    {
       "key": "33f1cf401407",
       "ocid": "aop-legacy-2011-2015-530925",
       "date": "2013-03-21",
@@ -448,6 +470,19 @@
       "partyName": "Паралел 92 трейд ЕООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
+    },
+    {
+      "key": "c03462c00b33",
+      "ocid": "eop-02375-2025-0006",
+      "date": "2025-08-12",
+      "tag": "contract",
+      "amount": 399870,
+      "currency": "BGN",
+      "amountEur": 204450.28,
+      "partyEik": "200388512",
+      "partyName": "Ивелинстрой ЕООД",
+      "bundleUuid": "eop-flat:2025-08-12",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-08-12/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2012.08.2025.json"
     },
     {
       "key": "30517014b36c",
@@ -643,52 +678,26 @@
       "partyName": "Булкрис 83 ООД",
       "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
       "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "0234a6ddba9b",
-      "ocid": "eop-00368-2023-0016",
-      "date": "2024-02-16",
-      "tag": "contract",
-      "amount": 243315.51,
-      "currency": "BGN",
-      "amountEur": 124405.24,
-      "partyEik": "200081794",
-      "partyName": "ПЪТПЕРФЕКТ-Т ЕАД",
-      "bundleUuid": "eop-flat:2024-02-16",
-      "sourceUrl": "https://storage.eop.bg/open-data-2024-02-16/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2016.02.2024.json"
-    },
-    {
-      "key": "4fd7c530fbcc",
-      "ocid": "aop-legacy-2023-338604",
-      "date": "2023-02-28",
-      "tag": "contract",
-      "amount": 237437.01,
-      "currency": "BGN",
-      "amountEur": 121399.62,
-      "partyEik": "116014376",
-      "partyName": "Пътно строителство АД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 753001.99,
+      "totalEur": 799276.97,
       "totalOther": {},
-      "contractCount": 8
+      "contractCount": 9
     },
     {
       "year": "2012",
-      "totalEur": 361238.87,
+      "totalEur": 410441,
       "totalOther": {},
-      "contractCount": 6
+      "contractCount": 7
     },
     {
       "year": "2013",
-      "totalEur": 785215.54,
+      "totalEur": 944364.34,
       "totalOther": {},
-      "contractCount": 6
+      "contractCount": 8
     },
     {
       "year": "2014",
@@ -704,9 +713,9 @@
     },
     {
       "year": "2016",
-      "totalEur": 345658.09,
+      "totalEur": 446135,
       "totalOther": {},
-      "contractCount": 7
+      "contractCount": 9
     },
     {
       "year": "2017",
@@ -716,9 +725,9 @@
     },
     {
       "year": "2019",
-      "totalEur": 898815.45,
+      "totalEur": 1001891.89,
       "totalOther": {},
-      "contractCount": 17
+      "contractCount": 18
     },
     {
       "year": "2020",
@@ -728,27 +737,27 @@
     },
     {
       "year": "2022",
-      "totalEur": 902832.57,
+      "totalEur": 1211492.71,
       "totalOther": {},
-      "contractCount": 12
+      "contractCount": 15
     },
     {
       "year": "2023",
-      "totalEur": 3501978.34,
+      "totalEur": 3551236.46,
       "totalOther": {},
-      "contractCount": 30
+      "contractCount": 32
     },
     {
       "year": "2024",
-      "totalEur": 3839023.63,
+      "totalEur": 3929767.44,
       "totalOther": {},
-      "contractCount": 29
+      "contractCount": 38
     },
     {
       "year": "2025",
-      "totalEur": 5649880.7,
+      "totalEur": 6044840.18,
       "totalOther": {},
-      "contractCount": 27
+      "contractCount": 33
     },
     {
       "year": "2026",

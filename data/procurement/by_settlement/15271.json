@@ -1,0 +1,77 @@
+{
+  "ekatte": "15271",
+  "name": "Говедаре",
+  "province": "Пазарджик",
+  "obshtina": "Пазарджик",
+  "generatedAt": "2026-07-01T07:34:38.431Z",
+  "contractCount": 2,
+  "awardCount": 0,
+  "totalEur": 644403.19,
+  "totalOther": {},
+  "awarders": [
+    {
+      "eik": "000342178",
+      "name": "Основно училище \"Отец Паисий\"",
+      "tier": "school",
+      "totalEur": 644403.19,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0
+    }
+  ],
+  "topContracts": [
+    {
+      "key": "2f565a0897be",
+      "ocid": "ocds-e82gsb-362936",
+      "date": "2026-03-26",
+      "tag": "contractAmendment",
+      "amount": 600907.59,
+      "currency": "EUR",
+      "amountEur": 600907.59,
+      "partyEik": "130169509",
+      "partyName": "Строймонтаж ЕООД",
+      "bundleUuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
+      "sourceUrl": "https://data.egov.bg/data/view/6768e043-d3ae-4d00-8e6f-33605d6efbb2#ocds-e82gsb-362936-831869%2F2026-03-26-contractamendment"
+    },
+    {
+      "key": "4f0b8d544135",
+      "ocid": "eop-03356-2024-0001",
+      "date": "2024-06-16",
+      "tag": "contract",
+      "amount": 1175273.09,
+      "currency": "BGN",
+      "amountEur": 600907.59,
+      "partyEik": "130169509",
+      "partyName": "Строймонтаж ЕООД",
+      "bundleUuid": "eop-flat:2024-06-16",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-06-16/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2016.06.2024.json"
+    },
+    {
+      "key": "d5833aa576ba",
+      "ocid": "eop-03356-2025-0001",
+      "date": "2025-02-19",
+      "tag": "contract",
+      "amount": 85070,
+      "currency": "BGN",
+      "amountEur": 43495.6,
+      "partyEik": "202395053",
+      "partyName": "ЕВРОКЛАС-КОНСУЛТ ЕООД",
+      "bundleUuid": "eop-flat:2025-02-19",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-02-19/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2019.02.2025.json"
+    }
+  ],
+  "byYear": [
+    {
+      "year": "2024",
+      "totalEur": 600907.59,
+      "totalOther": {},
+      "contractCount": 1
+    },
+    {
+      "year": "2025",
+      "totalEur": 43495.6,
+      "totalOther": {},
+      "contractCount": 1
+    }
+  ]
+}
