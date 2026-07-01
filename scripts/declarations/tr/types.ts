@@ -48,8 +48,11 @@ export type TrPersonAddedEvent = {
   // SQLite, not in /public outputs. Person-level joins are by normalized
   // plain-text name only. See docs/plans/mp-financial-connections-slice3-tr-design.md.
   positionLabel: string | null;
-  /** For partners — declared share size as percent if parseable. */
-  sharePercent: number | null;
+  /** For partners/owners — the declared capital share as an absolute amount
+   * (e.g. 3825) + its currency. The percentage is derived downstream (a
+   * partner's amount ÷ the company's total partner shares). */
+  shareAmount: number | null;
+  shareCurrency: string | null;
   filingDate: string; // ISO
   recordId: string;
   groupId: string | null;
@@ -102,7 +105,8 @@ export type TrPersonState = {
   name: string;
   nameNormalized: string;
   positionLabel: string | null;
-  sharePercent: number | null;
+  shareAmount: number | null;
+  shareCurrency: string | null;
   recordId: string;
   groupId: string | null;
   fieldIdent: string;

@@ -86,12 +86,11 @@ const PERSON_RECORD_KEYS = [
   "BoardMember",
 ];
 
-// Cell-level helpers
-const parseSharePercent = (raw: string | null): number | null => {
+// Cell-level helpers. The partner/owner capital share lives on the record's
+// `$.share` as an ABSOLUTE amount (e.g. "3825") + `$.currency` — not a percent.
+const parseShareAmount = (raw: string | null | undefined): number | null => {
   if (!raw) return null;
-  const m = raw.match(/(-?\d+(?:[.,]\d+)?)\s*%/);
-  if (!m) return null;
-  const n = Number(m[1].replace(",", "."));
+  const n = Number(String(raw).replace(",", "."));
   return Number.isFinite(n) ? n : null;
 };
 
@@ -170,7 +169,8 @@ const eventsFromPersonGroup = (
     const { name, position } = extractPersonName(subject);
     if (!name) continue;
 
-    const sharePercent = parseSharePercent(recordAttrs.share ?? null);
+    const shareAmount = parseShareAmount(recordAttrs.share);
+    const shareCurrency = recordAttrs.currency ?? null;
 
     const ev: TrPersonAddedEvent = {
       kind: "person_added",
@@ -179,7 +179,8 @@ const eventsFromPersonGroup = (
       role,
       personName: name,
       positionLabel: position,
-      sharePercent,
+      shareAmount,
+      shareCurrency,
       filingDate,
       recordId,
       groupId: recordAttrs.GroupID ?? groupAttrs?.GroupID ?? null,

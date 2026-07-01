@@ -42,7 +42,9 @@ CREATE TABLE IF NOT EXISTS company_persons (
   name           TEXT NOT NULL,
   name_norm      TEXT NOT NULL,
   position_label TEXT,
-  share_percent  REAL,
+  share_percent  REAL,   -- derived: amount ÷ company's total partner shares × 100
+  share_amount   REAL,   -- raw declared capital share (дял), currency below
+  share_currency TEXT,
   record_id      TEXT NOT NULL,
   group_id       TEXT,
   field_ident    TEXT NOT NULL,
@@ -97,8 +99,9 @@ export const writeStateToSqlite = (
   const insertPerson = db.prepare(
     `INSERT INTO company_persons
        (uic, role, name, name_norm, position_label, share_percent,
+        share_amount, share_currency,
         record_id, group_id, field_ident, added_at, erased_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
   );
   const insertMeta = db.prepare(
     `INSERT OR REPLACE INTO meta (key, value) VALUES (?, ?)`,
@@ -126,14 +129,36 @@ export const writeStateToSqlite = (
       );
       companies++;
 
+      // Derive each active owner's % from the company's total active partner
+      // shares (a 3825/3825 pair → 50/50). Non-owners / erased / share-less
+      // records get a null %.
+      const isOwner = (role: string): boolean =>
+        role === "partner" || role === "sole_owner";
+      let ownerTotal = 0;
+      for (const p of c.persons.values())
+        if (p.erasedAt === null && isOwner(p.role) && p.shareAmount != null)
+          ownerTotal += p.shareAmount;
+
       for (const p of c.persons.values()) {
+        // A sole owner (едноличен собственик) is 100% by definition, even when
+        // no explicit share amount is filed. Other owners: amount ÷ total.
+        const pct =
+          p.erasedAt !== null || !isOwner(p.role)
+            ? null
+            : p.role === "sole_owner"
+              ? 100
+              : p.shareAmount != null && ownerTotal > 0
+                ? (p.shareAmount / ownerTotal) * 100
+                : null;
         insertPerson.run(
           c.uic,
           p.role,
           p.name,
           p.nameNormalized,
           p.positionLabel,
-          p.sharePercent,
+          pct,
+          p.shareAmount,
+          p.shareCurrency,
           p.recordId,
           p.groupId,
           p.fieldIdent,
