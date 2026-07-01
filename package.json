@@ -32,6 +32,7 @@
     "db:manifest": "tsx scripts/db/manifest.ts --full",
     "db:load": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/load_procurement.ts",
     "db:gen-rollups": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/gen_procurement/rollups.ts",
+    "db:gen-lists": "NODE_OPTIONS=--max-old-space-size=8192 tsx scripts/db/gen_procurement/contract_lists.ts",
     "db:goldens": "tsx scripts/db/snapshot_goldens.ts",
     "db:snapshot": "npm run db:manifest && npm run db:goldens",
     "db:verify": "DB_VERIFY=1 NODE_OPTIONS=--max-old-space-size=4096 tsx --test scripts/db/tests/*.data.test.ts",

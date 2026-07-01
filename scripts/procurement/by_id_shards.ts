@@ -33,6 +33,27 @@ export interface ByIdShardResult {
   contracts: number;
 }
 
+// Source-agnostic: group a Contract stream into prefix buckets ({ [key]: row }).
+// Shared by the shard-reading writer below and the SQL generator. On the
+// astronomically rare key collision, last write wins — same as the single-file
+// tree.
+export const buildByIdBuckets = (
+  rows: Iterable<Contract>,
+): Map<string, Record<string, Contract>> => {
+  const buckets = new Map<string, Record<string, Contract>>();
+  for (const r of rows) {
+    if (!r.key) continue;
+    const prefix = r.key.slice(0, PREFIX_LEN);
+    let bucket = buckets.get(prefix);
+    if (!bucket) {
+      bucket = {};
+      buckets.set(prefix, bucket);
+    }
+    bucket[r.key] = r;
+  }
+  return buckets;
+};
+
 export const writeByIdShards = (
   procurementDir: string,
   contractsDir: string,
@@ -43,39 +64,28 @@ export const writeByIdShards = (
   fs.rmSync(shardDir, { recursive: true, force: true });
   fs.mkdirSync(shardDir, { recursive: true });
 
-  // Group every contract by key prefix. Holds the corpus in memory once; at
-  // ~300k rows this is a few hundred MB — comparable to the rollup builders.
-  const buckets = new Map<string, Record<string, Contract>>();
-  let contracts = 0;
-
-  if (fs.existsSync(contractsDir)) {
+  function* readShards(): Generator<Contract> {
+    if (!fs.existsSync(contractsDir)) return;
     for (const year of fs.readdirSync(contractsDir)) {
       if (!/^\d{4}$/.test(year)) continue; // skip the sibling by-id/ tree
       const yearDir = path.join(contractsDir, year);
       if (!fs.statSync(yearDir).isDirectory()) continue;
       for (const file of fs.readdirSync(yearDir)) {
         if (!/^\d{4}-\d{2}\.json$/.test(file)) continue;
-        const rows = JSON.parse(
+        yield* JSON.parse(
           fs.readFileSync(path.join(yearDir, file), "utf8"),
         ) as Contract[];
-        for (const r of rows) {
-          if (!r.key) continue;
-          const prefix = r.key.slice(0, PREFIX_LEN);
-          let bucket = buckets.get(prefix);
-          if (!bucket) {
-            bucket = {};
-            buckets.set(prefix, bucket);
-          }
-          // On the astronomically rare key collision, last write wins — same as
-          // the single-file tree.
-          bucket[r.key] = r;
-          contracts++;
-        }
       }
     }
   }
 
+  // Group every contract by key prefix. Holds the corpus in memory once; at
+  // ~300k rows this is a few hundred MB — comparable to the rollup builders.
+  const buckets = buildByIdBuckets(readShards());
+  let contracts = 0;
+
   for (const [prefix, bucket] of buckets) {
+    contracts += Object.keys(bucket).length;
     // Compact (no pretty-print): these shards are gitignored, so there's no
     // diff-readability win to pay the ~40% indentation tax for — the detail
     // page just parses them.

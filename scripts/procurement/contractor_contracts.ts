@@ -27,51 +27,73 @@ export interface WriteContractorContractsResult {
   pruned: number;
 }
 
+// Newest-first (date desc), ties broken by key asc — the SPA DataTable's default
+// view. Keys are globally unique, so this is a total, reproducible order.
+export const byDateDescKeyAsc = (a: Contract, b: Contract): number =>
+  a.date < b.date ? 1 : a.date > b.date ? -1 : a.key.localeCompare(b.key);
+
+// Source-agnostic: group a Contract stream by contractor EIK into per-entity
+// files. Shared by the shard-reading writer below and the SQL generator
+// (scripts/db/gen_procurement/contract_lists.ts) so both stay in lock-step.
+// `now` is stamped into each file's generatedAt.
+export const buildContractorContractsFiles = (
+  rows: Iterable<Contract>,
+  now: string,
+): ContractorContractsFile[] => {
+  const byContractor = new Map<string, Contract[]>();
+  for (const r of rows) {
+    const arr = byContractor.get(r.contractorEik) ?? [];
+    arr.push(r);
+    byContractor.set(r.contractorEik, arr);
+  }
+  const out: ContractorContractsFile[] = [];
+  for (const [eik, list] of byContractor) {
+    list.sort(byDateDescKeyAsc);
+    out.push({
+      eik,
+      name: list[0]?.contractorName ?? "",
+      generatedAt: now,
+      count: list.length,
+      contracts: list,
+    });
+  }
+  return out;
+};
+
 export const writeContractorContracts = (
   contractsDir: string,
   outDir: string,
 ): WriteContractorContractsResult => {
   fs.mkdirSync(outDir, { recursive: true });
-  const byContractor = new Map<string, Contract[]>();
-  if (fs.existsSync(contractsDir)) {
+
+  function* readShards(): Generator<Contract> {
+    if (!fs.existsSync(contractsDir)) return;
     for (const year of fs.readdirSync(contractsDir).sort()) {
       if (!/^\d{4}$/.test(year)) continue;
       const yearDir = path.join(contractsDir, year);
       if (!fs.statSync(yearDir).isDirectory()) continue;
       for (const file of fs.readdirSync(yearDir)) {
         if (!/^\d{4}-\d{2}\.json$/.test(file)) continue;
-        const rows = JSON.parse(
+        yield* JSON.parse(
           fs.readFileSync(path.join(yearDir, file), "utf8"),
         ) as Contract[];
-        for (const r of rows) {
-          const arr = byContractor.get(r.contractorEik) ?? [];
-          arr.push(r);
-          byContractor.set(r.contractorEik, arr);
-        }
       }
     }
   }
+
   const now = new Date().toISOString();
+  const files = buildContractorContractsFiles(readShards(), now);
   const writtenEiks = new Set<string>();
   let totalRows = 0;
-  for (const [eik, rows] of byContractor) {
-    // Sort newest-first; the SPA's DataTable lets users re-sort but newest
-    // is the default journalism view (recent contracts most relevant).
-    rows.sort((a, b) =>
-      a.date < b.date ? 1 : a.date > b.date ? -1 : a.key.localeCompare(b.key),
+  for (const file of files) {
+    fs.writeFileSync(
+      path.join(outDir, `${file.eik}.json`),
+      canonicalJson(file),
     );
-    const name = rows[0]?.contractorName ?? "";
-    const file: ContractorContractsFile = {
-      eik,
-      name,
-      generatedAt: now,
-      count: rows.length,
-      contracts: rows,
-    };
-    fs.writeFileSync(path.join(outDir, `${eik}.json`), canonicalJson(file));
-    writtenEiks.add(eik);
-    totalRows += rows.length;
+    writtenEiks.add(file.eik);
+    totalRows += file.count;
   }
+
   // Sweep: remove stale files for EIKs no longer present in the corpus.
   let pruned = 0;
   for (const f of fs.readdirSync(outDir)) {

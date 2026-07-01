@@ -9,6 +9,7 @@ import fs from "fs";
 import path from "path";
 import type { Contract } from "./types";
 import { canonicalJson } from "./validate";
+import { byDateDescKeyAsc } from "./contractor_contracts";
 
 export interface AwarderContractsFile {
   eik: string;
@@ -24,49 +25,66 @@ export interface WriteAwarderContractsResult {
   pruned: number;
 }
 
+// Source-agnostic: group a Contract stream by awarder EIK into per-entity files.
+// Shared by the shard-reading writer below and the SQL generator.
+export const buildAwarderContractsFiles = (
+  rows: Iterable<Contract>,
+  now: string,
+): AwarderContractsFile[] => {
+  const byAwarder = new Map<string, Contract[]>();
+  for (const r of rows) {
+    const arr = byAwarder.get(r.awarderEik) ?? [];
+    arr.push(r);
+    byAwarder.set(r.awarderEik, arr);
+  }
+  const out: AwarderContractsFile[] = [];
+  for (const [eik, list] of byAwarder) {
+    list.sort(byDateDescKeyAsc);
+    out.push({
+      eik,
+      name: list[0]?.awarderName ?? "",
+      generatedAt: now,
+      count: list.length,
+      contracts: list,
+    });
+  }
+  return out;
+};
+
 export const writeAwarderContracts = (
   contractsDir: string,
   outDir: string,
 ): WriteAwarderContractsResult => {
   fs.mkdirSync(outDir, { recursive: true });
-  const byAwarder = new Map<string, Contract[]>();
-  if (fs.existsSync(contractsDir)) {
+
+  function* readShards(): Generator<Contract> {
+    if (!fs.existsSync(contractsDir)) return;
     for (const year of fs.readdirSync(contractsDir).sort()) {
       if (!/^\d{4}$/.test(year)) continue;
       const yearDir = path.join(contractsDir, year);
       if (!fs.statSync(yearDir).isDirectory()) continue;
       for (const file of fs.readdirSync(yearDir)) {
         if (!/^\d{4}-\d{2}\.json$/.test(file)) continue;
-        const rows = JSON.parse(
+        yield* JSON.parse(
           fs.readFileSync(path.join(yearDir, file), "utf8"),
         ) as Contract[];
-        for (const r of rows) {
-          const arr = byAwarder.get(r.awarderEik) ?? [];
-          arr.push(r);
-          byAwarder.set(r.awarderEik, arr);
-        }
       }
     }
   }
+
   const now = new Date().toISOString();
+  const files = buildAwarderContractsFiles(readShards(), now);
   const writtenEiks = new Set<string>();
   let totalRows = 0;
-  for (const [eik, rows] of byAwarder) {
-    rows.sort((a, b) =>
-      a.date < b.date ? 1 : a.date > b.date ? -1 : a.key.localeCompare(b.key),
+  for (const file of files) {
+    fs.writeFileSync(
+      path.join(outDir, `${file.eik}.json`),
+      canonicalJson(file),
     );
-    const name = rows[0]?.awarderName ?? "";
-    const file: AwarderContractsFile = {
-      eik,
-      name,
-      generatedAt: now,
-      count: rows.length,
-      contracts: rows,
-    };
-    fs.writeFileSync(path.join(outDir, `${eik}.json`), canonicalJson(file));
-    writtenEiks.add(eik);
-    totalRows += rows.length;
+    writtenEiks.add(file.eik);
+    totalRows += file.count;
   }
+
   let pruned = 0;
   for (const f of fs.readdirSync(outDir)) {
     if (!f.endsWith(".json")) continue;
