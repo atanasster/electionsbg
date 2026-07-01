@@ -241,7 +241,7 @@ Explicitly **not** doing: git-LFS the binary (400 MB churn, low-value history), 
 | 1 | ✅ manifest + goldens + invariants, `test:data` local gate | `test:data` / `db:verify` green on current `main` |
 | 2 | ✅ 2a schema + 2b loader; ✅ **2c COMPLETE** — every output regenerates from SQL (rollups, shards, lists, by-id, derived/, by_settlement, mp/pep_connected, index, risk feeds, by_ns) | all `db:gen-*` reproduce ✅ |
 | 2d | ✅ shard-serializer fix + `db:build` orchestrator (verify green end-to-end) + orphan sweep code; ⬜ execute `db:build --write` flip + bucket re-sync (operator trigger) | verify 0-diff ✅; flip regenerates prod data (field-order resync) — deferred |
-| 3 | ⬜ `db:restore` + lockfile + GCS snapshot | fresh clone reproduces a verifying DB |
+| 3 | ✅ `db:push`/`db:restore` + committed lockfile (round-trip verified via `--local`); ⬜ real GCS upload (operator trigger) | restore verifies sha256 + meta vs lockfile ✅ |
 | 3 | snapshot/restore + lockfile | restore on a clean checkout reproduces a verifying DB |
 
 Existing gates that must stay green throughout: `npm run lint`, `npm run build`, `npm run data:map`, `tenders:test`, `ai:test:all`, `npm test` (Playwright).
@@ -255,6 +255,16 @@ A dev-only, in-app SQL console for manually inspecting the database + joins.
 - **Deps (devDependencies, dev-only):** `@uiw/react-codemirror`, `@codemirror/lang-sql`, `@codemirror/theme-one-dark`.
 - **Verified in-browser:** schema shows `main.contracts` (301,015) + `tr.companies` (1.0M) + `tr.company_persons` (1.0M) + `tr.meta`; contracts × `tr.company_persons` join returns rows; sort/expand/export/history work; EXPLAIN shows `SEARCH contracts USING INDEX idx_contracts_tag`; read-only enforced; no console errors.
 - Note: doesn't depend on the aggregate generators — `GROUP BY` gives aggregations live.
+
+## Phase 3 — DB versioning ✅ SHIPPED (2026-07-01, real push = operator trigger)
+
+Treat the `.sqlite` as a regenerable cache: version the recipe (schema migrations in git + `meta` stamped at load) and distribute the binary via GCS with a committed lockfile pointer — mirroring how `data/` ships.
+
+- **Lockfile** — `data/db/procurement.lock.json` (committed): data identity (`schemaVersion`, `rowCounts`, `coverage`, `generatedAt`, `codeGitSha`) + `snapshot` (`gcs`, gz `sha256`, `bytes`, `pushedAt`) — null until a real push. `scripts/db/lib/snapshot.ts` reads it from the DB's `meta`.
+- **`db:push`** (`scripts/db/push.ts`) — gzip the DB (331 MB → **62.8 MB**, ~5.3×), sha256 it, `gsutil cp` to `gs://data-electionsbg-com/db/procurement-<date>-<sha8>.sqlite.gz` + `procurement-latest.sqlite.gz`, then write the lockfile. `--dry-run` = gzip + hash + lockfile (snapshot=null), print the gsutil commands, no upload. `--local <dir>` = local transport (for round-trip testing).
+- **`db:restore`** (`scripts/db/restore.ts`) — read lockfile → fetch the gz → **verify sha256** (download integrity) → gunzip into place → **sanity-check** the restored DB's `meta` (schema + contract count) against the lockfile. `--local <dir>` for testing.
+- **Verified:** full `--local` push → restore round-trip (sha match, gunzip, meta check ✓). The committed lockfile was generated via `--dry-run` (snapshot=null). The real GCS upload (`npm run db:push`) is left as a deliberate operator trigger (it publishes ~63 MB to the bucket) — like the flip.
+- This is NOT served to the site (users get JSON); it's a dev/CI distribution artifact so a fresh clone can `db:restore` instead of re-ingesting.
 
 ## Follow-ups (deferred)
 - Fold TR generation onto the shared `openDb` helper + lockfile/snapshot (same Phase 3 machinery).
