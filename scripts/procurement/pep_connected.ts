@@ -37,7 +37,7 @@ type OfficialEntry = {
   links: OfficialLink[];
 };
 
-type CompanyLinksFile = {
+export type CompanyLinksFile = {
   byOfficial: Record<string, OfficialEntry>;
 };
 
@@ -90,22 +90,14 @@ export type PepConnectedFile = {
   entries: PepConnectedEntry[];
 };
 
-export const buildPepConnected = (
-  companyLinksPath: string,
-  contractorsDir: string,
+// Source-agnostic core: join officials' high-confidence company links to
+// procurement contractors via `getContractor(eik)` (returns the rollup or null).
+// buildPepConnected below reads the on-disk rollups; the SQL generator passes a
+// lookup over its SQL-built rollups.
+export const buildPepConnectedFrom = (
+  links: CompanyLinksFile,
+  getContractor: (eik: string) => ContractorRollup | null,
 ): PepConnectedFile => {
-  if (!fs.existsSync(companyLinksPath) || !fs.existsSync(contractorsDir)) {
-    return {
-      generatedAt: new Date().toISOString(),
-      total: 0,
-      officialCount: 0,
-      entries: [],
-    };
-  }
-  const links = JSON.parse(
-    fs.readFileSync(companyLinksPath, "utf8"),
-  ) as CompanyLinksFile;
-
   const entries: PepConnectedEntry[] = [];
   const officials = new Set<string>();
 
@@ -130,9 +122,8 @@ export const buildPepConnected = (
       perEik.set(eik, arr);
     }
     for (const [eik, relations] of perEik) {
-      const file = path.join(contractorsDir, `${eik}.json`);
-      if (!fs.existsSync(file)) continue; // not a procurement contractor
-      const c = JSON.parse(fs.readFileSync(file, "utf8")) as ContractorRollup;
+      const c = getContractor(eik);
+      if (!c) continue; // not a procurement contractor
       officials.add(official.slug);
       entries.push({
         slug: official.slug,
@@ -166,6 +157,29 @@ export const buildPepConnected = (
     officialCount: officials.size,
     entries,
   };
+};
+
+export const buildPepConnected = (
+  companyLinksPath: string,
+  contractorsDir: string,
+): PepConnectedFile => {
+  if (!fs.existsSync(companyLinksPath) || !fs.existsSync(contractorsDir)) {
+    return {
+      generatedAt: new Date().toISOString(),
+      total: 0,
+      officialCount: 0,
+      entries: [],
+    };
+  }
+  const links = JSON.parse(
+    fs.readFileSync(companyLinksPath, "utf8"),
+  ) as CompanyLinksFile;
+  return buildPepConnectedFrom(links, (eik) => {
+    const f = path.join(contractorsDir, `${eik}.json`);
+    return fs.existsSync(f)
+      ? (JSON.parse(fs.readFileSync(f, "utf8")) as ContractorRollup)
+      : null;
+  });
 };
 
 export const writePepConnected = (

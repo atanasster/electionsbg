@@ -36,6 +36,7 @@
     "db:gen-shards": "NODE_OPTIONS=--max-old-space-size=8192 tsx scripts/db/gen_procurement/month_shards.ts",
     "db:gen-derived": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/gen_procurement/derived.ts",
     "db:gen-settlement": "NODE_OPTIONS=--max-old-space-size=8192 tsx scripts/db/gen_procurement/by_settlement.ts",
+    "db:gen-xref": "NODE_OPTIONS=--max-old-space-size=8192 tsx scripts/db/gen_procurement/cross_reference.ts",
     "db:goldens": "tsx scripts/db/snapshot_goldens.ts",
     "db:snapshot": "npm run db:manifest && npm run db:goldens",
     "db:verify": "DB_VERIFY=1 NODE_OPTIONS=--max-old-space-size=4096 tsx --test scripts/db/tests/*.data.test.ts",

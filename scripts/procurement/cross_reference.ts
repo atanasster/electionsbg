@@ -211,24 +211,20 @@ export const buildEikLinkageMap = (
   };
 };
 
-// Walk data/procurement/contractors/*.json and emit (mpId, contractor) records
-// for every match against the linkage map.
-export const buildMpConnected = (
-  contractorsDir: string,
+// Source-agnostic: emit (mpId, contractor) records for every linkage whose
+// contractor is a procurement supplier. `getContractor(eik)` returns the
+// contractor rollup or null. Output is sorted deterministically, so lookup order
+// doesn't matter. buildMpConnected below reads the on-disk rollups; the SQL
+// generator passes a lookup over its SQL-built rollups.
+export const buildMpConnectedFrom = (
+  getContractor: (eik: string) => ContractorRollup | null,
   linkageMap: EikLinkageMap,
 ): MpConnectedFile => {
-  if (!fs.existsSync(contractorsDir)) {
-    return { generatedAt: new Date().toISOString(), total: 0, entries: [] };
-  }
   const entries: MpConnectedContractor[] = [];
-  for (const file of fs.readdirSync(contractorsDir).sort()) {
-    if (!file.endsWith(".json")) continue;
-    const eik = file.replace(/\.json$/, "");
-    const linkages = linkageMap.byEik.get(eik);
+  for (const [eik, linkages] of linkageMap.byEik) {
     if (!linkages || linkages.length === 0) continue;
-    const contractor = JSON.parse(
-      fs.readFileSync(path.join(contractorsDir, file), "utf8"),
-    ) as ContractorRollup;
+    const contractor = getContractor(eik);
+    if (!contractor) continue;
     for (const linkage of linkages) {
       entries.push({
         mpId: linkage.mpId,
@@ -259,6 +255,23 @@ export const buildMpConnected = (
     total: entries.length,
     entries,
   };
+};
+
+// Walk data/procurement/contractors/*.json and emit (mpId, contractor) records
+// for every match against the linkage map.
+export const buildMpConnected = (
+  contractorsDir: string,
+  linkageMap: EikLinkageMap,
+): MpConnectedFile => {
+  if (!fs.existsSync(contractorsDir)) {
+    return { generatedAt: new Date().toISOString(), total: 0, entries: [] };
+  }
+  return buildMpConnectedFrom((eik) => {
+    const f = path.join(contractorsDir, `${eik}.json`);
+    return fs.existsSync(f)
+      ? (JSON.parse(fs.readFileSync(f, "utf8")) as ContractorRollup)
+      : null;
+  }, linkageMap);
 };
 
 export const writeMpConnected = (
