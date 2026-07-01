@@ -97,18 +97,29 @@ export const loadTrPg = async (): Promise<{
 
   const companies = tr
     .prepare(
-      "SELECT uic, name, legal_form, seat, status, last_updated FROM companies WHERE name IS NOT NULL AND name <> ''",
+      "SELECT uic, name, legal_form, seat, status, funds_amount, funds_currency, last_updated FROM companies WHERE name IS NOT NULL AND name <> ''",
     )
-    .all() as Array<Record<string, string | null>>;
+    .all() as Array<Record<string, string | number | null>>;
   await bulkInsert(
     "tr_companies",
-    ["uic", "name", "legal_form", "seat", "status", "last_updated"],
+    [
+      "uic",
+      "name",
+      "legal_form",
+      "seat",
+      "status",
+      "funds_amount",
+      "funds_currency",
+      "last_updated",
+    ],
     companies.map((r) => [
       r.uic,
       r.name,
       r.legal_form,
       r.seat,
       r.status,
+      r.funds_amount,
+      r.funds_currency,
       r.last_updated || null, // '' → NULL for the timestamptz column
     ]),
   );
@@ -139,19 +150,30 @@ export const loadTrPg = async (): Promise<{
   // Raw per-role records for the person page's history (from/to dates + share).
   const roles = tr
     .prepare(
-      `SELECT uic, name, role, share_percent, added_at, erased_at
+      `SELECT uic, name, role, share_percent, share_amount, share_currency, added_at, erased_at
        FROM company_persons
        WHERE name IS NOT NULL AND name <> ''`,
     )
     .all() as Array<Record<string, string | number | null>>;
   await bulkInsert(
     "tr_person_roles",
-    ["uic", "name", "role", "share", "added_at", "erased_at"],
+    [
+      "uic",
+      "name",
+      "role",
+      "share",
+      "share_amount",
+      "share_currency",
+      "added_at",
+      "erased_at",
+    ],
     roles.map((r) => [
       r.uic,
       r.name,
       r.role,
       r.share_percent,
+      r.share_amount,
+      r.share_currency,
       r.added_at || null,
       r.erased_at || null,
     ]),
@@ -171,6 +193,7 @@ export const loadTrPg = async (): Promise<{
   await exec(
     "CREATE INDEX idx_tr_person_roles_fold ON tr_person_roles (name_fold)",
   );
+  await exec("CREATE INDEX idx_tr_person_roles_uic ON tr_person_roles (uic)");
   // Timestamp indexes for recent_updates' day-window filter.
   await exec(
     "CREATE INDEX idx_tr_companies_updated ON tr_companies (last_updated)",

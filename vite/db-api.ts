@@ -63,6 +63,37 @@ export const dbApi = (): Plugin => ({
         return;
       }
 
+      if (url.pathname.startsWith("/company")) {
+        const eik = q("eik");
+        if (!eik) return send(400, { error: "missing `eik`" });
+        Promise.all([
+          allRows(
+            "SELECT uic, name, legal_form, seat, status, funds_amount, funds_currency FROM tr_companies WHERE uic = $1",
+            [eik],
+          ),
+          allRows(
+            "SELECT count(*)::int AS contracts, coalesce(sum(amount_eur) FILTER (WHERE tag = 'contract'), 0) AS contracts_eur FROM contracts WHERE contractor_eik = $1",
+            [eik],
+          ),
+          allRows("SELECT * FROM company_officers($1)", [eik]),
+          allRows(
+            "SELECT politician, ref, kind, role, total_eur FROM company_politicians WHERE eik = $1 ORDER BY total_eur DESC NULLS LAST",
+            [eik],
+          ),
+        ]).then(
+          ([company, summary, officers, politicians]) =>
+            send(200, {
+              eik,
+              company: company[0] ?? null,
+              summary: summary[0] ?? null,
+              officers,
+              politicians,
+            }),
+          fail,
+        );
+        return;
+      }
+
       if (url.pathname.startsWith("/person")) {
         const name = q("name");
         if (!name) return send(400, { error: "missing `name`" });

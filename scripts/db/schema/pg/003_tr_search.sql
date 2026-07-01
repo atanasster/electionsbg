@@ -7,13 +7,15 @@
 
 DROP TABLE IF EXISTS tr_companies CASCADE;
 CREATE TABLE tr_companies (
-  uic          text PRIMARY KEY,
-  name         text NOT NULL,
-  legal_form   text,
-  seat         text,
-  status       text,
-  last_updated timestamptz,  -- TR registry change date (for recent_updates)
-  name_fold    text GENERATED ALWAYS AS (translit_bg_latin(name)) STORED
+  uic            text PRIMARY KEY,
+  name           text NOT NULL,
+  legal_form     text,
+  seat           text,
+  status         text,
+  funds_amount   numeric,     -- registered capital (капитал)
+  funds_currency text,
+  last_updated   timestamptz, -- TR registry change date (for recent_updates)
+  name_fold      text GENERATED ALWAYS AS (translit_bg_latin(name)) STORED
 );
 
 DROP TABLE IF EXISTS tr_officers CASCADE;
@@ -33,11 +35,13 @@ CREATE TABLE tr_officers (
 -- ownership %. See docs/plans/postgres-migration-v1.md.
 DROP TABLE IF EXISTS tr_person_roles CASCADE;
 CREATE TABLE tr_person_roles (
-  uic       text NOT NULL,
-  name      text NOT NULL,
-  role      text,
-  share     numeric,       -- ownership % (дял) — nullable; pending TR-parser support
-  added_at  timestamptz,   -- role opened
-  erased_at timestamptz,   -- role closed (NULL = current)
-  name_fold text GENERATED ALWAYS AS (translit_bg_latin(name)) STORED
+  uic            text NOT NULL,
+  name           text NOT NULL,
+  role           text,
+  share          numeric,      -- ownership % (derived from the capital shares)
+  share_amount   numeric,      -- raw declared capital share (дял)
+  share_currency text,
+  added_at       timestamptz,  -- role opened
+  erased_at      timestamptz,  -- role closed (NULL = current)
+  name_fold      text GENERATED ALWAYS AS (translit_bg_latin(name)) STORED
 );

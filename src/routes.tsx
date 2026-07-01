@@ -58,6 +58,16 @@ const PersonScreen = import.meta.env.DEV
       })),
     )
   : null;
+
+// Dev-only, DB-backed company page (/db/company/:eik) — works for any TR company,
+// including the ~1M with no procurement JSON shard.
+const CompanyDbScreen = import.meta.env.DEV
+  ? lazy(() =>
+      import("@/screens/dev/CompanyDbScreen").then((m) => ({
+        default: m.CompanyDbScreen,
+      })),
+    )
+  : null;
 const SectionsScreen = lazy(() =>
   import("./screens/SectionsScreen").then((m) => ({
     default: m.SectionsScreen,
@@ -3023,6 +3033,18 @@ export const AuthRoutes = () => {
                 <LayoutScreen>
                   <Suspense fallback={<RouteFallback />}>
                     <PersonScreen />
+                  </Suspense>
+                </LayoutScreen>
+              }
+            />
+          )}
+          {import.meta.env.DEV && CompanyDbScreen && (
+            <Route
+              path="db/company/:eik"
+              element={
+                <LayoutScreen>
+                  <Suspense fallback={<RouteFallback />}>
+                    <CompanyDbScreen />
                   </Suspense>
                 </LayoutScreen>
               }

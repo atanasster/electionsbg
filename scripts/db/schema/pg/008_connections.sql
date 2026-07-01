@@ -86,6 +86,28 @@ LANGUAGE sql STABLE AS $$
   ORDER BY active DESC, added_at DESC NULLS LAST, company;
 $$;
 
+-- Officers of a company (for the DB-backed company page) — role, ownership
+-- share (% + raw amount), from/to dates, current-vs-former.
+CREATE OR REPLACE FUNCTION company_officers(eik text)
+RETURNS TABLE (
+  name           text,
+  role           text,
+  share          numeric,
+  share_amount   numeric,
+  share_currency text,
+  added_at       timestamptz,
+  erased_at      timestamptz,
+  active         boolean
+)
+LANGUAGE sql STABLE AS $$
+  SELECT r.name, r.role, r.share, r.share_amount, r.share_currency,
+         r.added_at, r.erased_at, (r.erased_at IS NULL) AS active
+  FROM tr_person_roles r
+  WHERE r.uic = eik
+  ORDER BY (r.erased_at IS NULL) DESC, r.share DESC NULLS LAST,
+           r.added_at DESC NULLS LAST;
+$$;
+
 -- Politicians reachable from the person, via a company they're both tied to
 -- (the person as officer, the politician via the curated link).
 CREATE OR REPLACE FUNCTION person_politicians(q text)

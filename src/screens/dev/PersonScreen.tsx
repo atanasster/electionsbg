@@ -54,7 +54,7 @@ interface ConnRow {
 const num = new Intl.NumberFormat("bg-BG");
 const day = (s: string | null): string => (s ? String(s).slice(0, 10) : "—");
 const pct = (s: string | number | null): string =>
-  s === null || s === undefined || s === "" ? "—" : `${s}%`;
+  s === null || s === undefined || s === "" ? "—" : `${Math.round(Number(s))}%`;
 
 export const PersonScreen: FC = () => {
   const { name = "" } = useParams();
@@ -212,7 +212,7 @@ export const PersonScreen: FC = () => {
                       >
                         <td className="py-1">
                           <Link
-                            to={`/company/${r.uic}`}
+                            to={`/db/company/${r.uic}`}
                             className="text-accent hover:underline"
                           >
                             {r.company ?? r.uic}
@@ -279,7 +279,7 @@ export const PersonScreen: FC = () => {
                         · {p.kind === "mp" ? "депутат" : "служител"}
                         {p.role ? ` · ${p.role}` : ""} · през{" "}
                         <Link
-                          to={`/company/${p.via_eik}`}
+                          to={`/db/company/${p.via_eik}`}
                           className="hover:underline"
                         >
                           {p.via_company ?? p.via_eik}
@@ -319,9 +319,11 @@ export const PersonScreen: FC = () => {
                       </span>
                       <span>
                         {e.role}
-                        {e.share ? ` (${e.share}%)` : ""}{" "}
+                        {e.share
+                          ? ` (${Math.round(Number(e.share))}%)`
+                          : ""}{" "}
                         <Link
-                          to={`/company/${e.uic}`}
+                          to={`/db/company/${e.uic}`}
                           className="text-accent hover:underline"
                         >
                           {e.company ?? e.uic}
@@ -368,7 +370,7 @@ export const PersonScreen: FC = () => {
                       {conn.map((c, i) => (
                         <li key={`${c.uic}-${i}`}>
                           <Link
-                            to={`/company/${c.uic}`}
+                            to={`/db/company/${c.uic}`}
                             className="text-accent hover:underline"
                           >
                             {c.company ?? c.uic}
