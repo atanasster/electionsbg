@@ -1,11 +1,12 @@
-// Dev-only SQL browser over the procurement source-of-truth SQLite (with every
-// other raw_data/*.sqlite ATTACHed — see vite/sql-browser.ts). Full-screen tool:
-// CodeMirror editor with SQL syntax highlighting + schema-aware autocomplete,
-// EXPLAIN QUERY PLAN, query history + saved queries (localStorage), and a
-// sortable / expandable / exportable results grid. The route is registered in
-// routes.tsx only under import.meta.env.DEV, so this never ships to production.
+// Dev-only SQL browser over the Postgres source of truth (contracts +
+// tr_companies/tr_officers + contractor_search + ingest tracking — one database,
+// see vite/sql-browser.ts). Full-screen tool: CodeMirror editor with SQL syntax
+// highlighting + schema-aware autocomplete, EXPLAIN, query history + saved
+// queries (localStorage), and a sortable / expandable / exportable results grid.
+// The route is registered in routes.tsx only under import.meta.env.DEV, so this
+// never ships to production.
 //
-// See docs/plans/sql-migration-v1.md.
+// See docs/plans/postgres-migration-v1.md.
 
 import {
   Fragment,
@@ -18,7 +19,7 @@ import {
 import CodeMirror from "@uiw/react-codemirror";
 import { EditorView, keymap } from "@codemirror/view";
 import { Prec } from "@codemirror/state";
-import { sql, SQLite } from "@codemirror/lang-sql";
+import { sql, PostgreSQL } from "@codemirror/lang-sql";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -67,7 +68,7 @@ const HISTORY_MAX = 50;
 const SAMPLES: Array<{ label: string; sql: string }> = [
   {
     label: "Top contractors",
-    sql: `SELECT contractor_eik, contractor_name,
+    sql: `SELECT contractor_eik, MIN(contractor_name) AS contractor_name,
        ROUND(SUM(amount_eur)) AS eur, COUNT(*) AS n
 FROM contracts
 WHERE tag = 'contract'
@@ -77,13 +78,13 @@ LIMIT 25;`,
   },
   {
     label: "Contractors × TR officers",
-    sql: `SELECT c.contractor_eik, c.contractor_name,
-       p.role, p.name AS officer,
+    sql: `SELECT c.contractor_eik, MIN(c.contractor_name) AS contractor_name,
+       o.roles, o.name AS officer,
        ROUND(SUM(c.amount_eur)) AS eur, COUNT(*) AS n
 FROM contracts c
-JOIN tr.company_persons p ON p.uic = c.contractor_eik
-WHERE c.tag = 'contract' AND p.erased_at IS NULL
-GROUP BY c.contractor_eik, p.role, p.name
+JOIN tr_officers o ON o.uic = c.contractor_eik
+WHERE c.tag = 'contract' AND o.active = 1
+GROUP BY c.contractor_eik, o.roles, o.name
 ORDER BY eur DESC
 LIMIT 50;`,
   },
@@ -92,11 +93,15 @@ LIMIT 50;`,
     sql: `SELECT co.uic, co.name, co.legal_form, co.status,
        ROUND(SUM(c.amount_eur)) AS eur
 FROM contracts c
-JOIN tr.companies co ON co.uic = c.contractor_eik
+JOIN tr_companies co ON co.uic = c.contractor_eik
 WHERE c.tag = 'contract'
 GROUP BY co.uic
 ORDER BY eur DESC
 LIMIT 50;`,
+  },
+  {
+    label: "Name search",
+    sql: `SELECT * FROM search_companies('лукойл', 20);`,
   },
   {
     label: "Single-bidder",
@@ -217,7 +222,7 @@ export const SqlBrowserScreen = () => {
     async (text: string, plan: boolean) => {
       const trimmed = text.trim().replace(/;\s*$/, "");
       if (!trimmed) return;
-      const finalSql = plan ? `EXPLAIN QUERY PLAN ${trimmed}` : trimmed;
+      const finalSql = plan ? `EXPLAIN ${trimmed}` : trimmed;
       setLoading(true);
       setError(null);
       setExpandedRow(null);
@@ -277,12 +282,12 @@ export const SqlBrowserScreen = () => {
     view.focus();
   }, []);
 
-  // CodeMirror schema for autocomplete (bare names for main, qualified for
-  // attached DBs).
+  // CodeMirror schema for autocomplete (bare names for the public schema,
+  // qualified for any other).
   const cmSchema = useMemo(() => {
     const s: Record<string, string[]> = {};
     for (const t of schema?.tables ?? []) {
-      const key = t.db === "main" ? t.table : `${t.db}.${t.table}`;
+      const key = t.db === "public" ? t.table : `${t.db}.${t.table}`;
       s[key] = t.columns.map((c) => c.name);
     }
     return s;
@@ -290,7 +295,7 @@ export const SqlBrowserScreen = () => {
 
   const extensions = useMemo(
     () => [
-      sql({ dialect: SQLite, schema: cmSchema, upperCaseKeywords: true }),
+      sql({ dialect: PostgreSQL, schema: cmSchema, upperCaseKeywords: true }),
       EditorView.lineWrapping,
       Prec.highest(
         keymap.of([
@@ -386,9 +391,9 @@ export const SqlBrowserScreen = () => {
           <button
             className="ml-auto text-xs text-accent hover:underline"
             onClick={() => loadSchema(true)}
-            title="Reopen the DB (after db:load) and refresh schema"
+            title="Refresh schema (after a reload)"
           >
-            reopen
+            refresh
           </button>
         </div>
 
@@ -411,7 +416,7 @@ export const SqlBrowserScreen = () => {
               {filteredTables.map((t) => {
                 const key = `${t.db}.${t.table}`;
                 const open = !!f || expandedTables.has(key);
-                const label = t.db === "main" ? t.table : key;
+                const label = t.db === "public" ? t.table : key;
                 return (
                   <div key={key} className="mb-1">
                     <div className="flex items-center gap-1">
