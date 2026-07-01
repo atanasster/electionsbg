@@ -16,7 +16,7 @@ import { getPool, exec, withClient, end } from "./lib/pg";
 import { COLUMN_NAMES, contractToRow } from "./lib/procurement_schema";
 import type { Contract } from "../procurement/types";
 
-const SCHEMA_FILE = path.join(
+const SCHEMA_DIR = path.join(
   PROC_DIR,
   "..",
   "..",
@@ -24,8 +24,9 @@ const SCHEMA_FILE = path.join(
   "db",
   "schema",
   "pg",
-  "001_procurement.sql",
 );
+const SCHEMA_FILE = path.join(SCHEMA_DIR, "001_procurement.sql");
+const TRACKING_FILE = path.join(SCHEMA_DIR, "005_ingest_tracking.sql");
 const monthShardDir = path.join(PROC_DIR, "contracts");
 const N = COLUMN_NAMES.length;
 const BATCH = 1000; // 1000 × 31 cols = 31k params (< PG's 65535 cap)
@@ -68,11 +69,19 @@ const waitForPg = async (): Promise<void> => {
   throw new Error("Postgres not reachable — run `npm run db:pg:up`.");
 };
 
-export const loadPg = async (): Promise<{ rows: number; years: string[] }> => {
+export const loadPg = async (): Promise<{
+  rows: number;
+  years: string[];
+  batchId: number;
+  rowsNew: number;
+}> => {
   await waitForPg();
   await exec(readFileSync(SCHEMA_FILE, "utf8"));
+  await exec(readFileSync(TRACKING_FILE, "utf8"));
 
   const { rows, years } = readShards();
+  let batchId = 0;
+  let rowsNew = 0;
 
   await withClient(async (c) => {
     await c.query("BEGIN");
@@ -92,6 +101,26 @@ export const loadPg = async (): Promise<{ rows: number; years: string[] }> => {
         params,
       );
     }
+
+    // Feature 2: open a batch, then record first-seen for any key not already
+    // known (existing keys keep their original batch). rows_new = the delta.
+    const b = await c.query(
+      "INSERT INTO ingest_batches (source, rows_total) VALUES ('shards', $1) RETURNING id",
+      [rows.length],
+    );
+    batchId = b.rows[0].id as number;
+    const ins = await c.query(
+      `INSERT INTO contract_first_seen (key, batch_id)
+       SELECT key, $1 FROM contracts
+       ON CONFLICT (key) DO NOTHING`,
+      [batchId],
+    );
+    rowsNew = ins.rowCount ?? 0;
+    await c.query("UPDATE ingest_batches SET rows_new = $1 WHERE id = $2", [
+      rowsNew,
+      batchId,
+    ]);
+
     const sorted = [...years].sort();
     await c.query("TRUNCATE meta");
     await c.query(
@@ -112,7 +141,7 @@ export const loadPg = async (): Promise<{ rows: number; years: string[] }> => {
     await c.query("COMMIT");
   });
 
-  return { rows: rows.length, years: [...years].sort() };
+  return { rows: rows.length, years: [...years].sort(), batchId, rowsNew };
 };
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
@@ -122,9 +151,10 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
   }
   const t0 = Date.now();
   loadPg()
-    .then(async ({ rows, years }) => {
+    .then(async ({ rows, years, batchId, rowsNew }) => {
       console.log(
-        `loaded ${rows} contracts → Postgres (${years[0]}..${years.at(-1)}) in ${((Date.now() - t0) / 1000).toFixed(1)}s`,
+        `loaded ${rows} contracts → Postgres (${years[0]}..${years.at(-1)}) in ${((Date.now() - t0) / 1000).toFixed(1)}s` +
+          `  [batch ${batchId}: ${rowsNew} new]`,
       );
       await end();
     })
