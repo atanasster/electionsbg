@@ -1,6 +1,34 @@
 {
-  "updatedAt": "2026-06-30T14:12:12.969Z",
+  "updatedAt": "2026-07-01T07:36:04.394Z",
   "entries": [
+    {
+      "timestamp": "2026-07-01T07:36:04.394Z",
+      "date": "2026-07-01",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-06-30 (240 settlements)",
+      "source": "KZP kolkostruva price feed"
+    },
+    {
+      "timestamp": "2026-07-01T07:35:19.940Z",
+      "date": "2026-07-01",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП refresh through 2026-06-30: tender procedures + awarder geo-enrichment (by_settlement pins 1,865)",
+      "source": "ЦАИС ЕОП open data"
+    },
+    {
+      "timestamp": "2026-07-01T07:32:05.133Z",
+      "date": "2026-07-01",
+      "skill": "tr-daily-refresh",
+      "summary": "TR daily filings refreshed; 3,537 per-EIK company-connections rebuilt",
+      "source": "data.egov.bg Commerce Registry"
+    },
+    {
+      "timestamp": "2026-07-01T07:24:54.231Z",
+      "date": "2026-07-01",
+      "skill": "update-council-minutes",
+      "summary": "2 município(s) (PDV01 +19, RSE01 +40), 5 protocols touched, 59 new resolutions",
+      "source": "Council resolutions + vote tallies"
+    },
     {
       "timestamp": "2026-06-30T14:12:12.969Z",
       "date": "2026-06-30",
