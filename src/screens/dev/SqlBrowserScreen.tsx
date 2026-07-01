@@ -409,10 +409,6 @@ export const SqlBrowserScreen = () => {
     });
   };
 
-  if (!import.meta.env.DEV) {
-    return <div className="p-8">SQL browser is dev-only.</div>;
-  }
-
   const tabBtn = (id: typeof tab, label: string) => (
     <button
       onClick={() => setTab(id)}
