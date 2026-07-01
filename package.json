@@ -166,6 +166,7 @@
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
     "i18next": "^24.2.0",
+    "kdtree-ts": "file:vendor/kdtree-ts-1.0.0.tgz",
     "pdf2array": "^0.0.1",
     "polygon-clipping": "^0.15.7",
     "postcss": "^8.4.49",
@@ -183,6 +184,6 @@
   },
   "overrides": {
     "tar": "^7.5.13",
-    "kdtree-ts": "file:vendor/kdtree-ts-1.0.0.tgz"
+    "kdtree-ts": "$kdtree-ts"
   }
 }
