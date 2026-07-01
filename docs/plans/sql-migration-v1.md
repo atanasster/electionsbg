@@ -180,13 +180,14 @@ Explicitly **not** doing: git-LFS the binary (400 MB churn, low-value history), 
 
 Existing gates that must stay green throughout: `npm run lint`, `npm run build`, `npm run data:map`, `tenders:test`, `ai:test:all`, `npm test` (Playwright).
 
-## Dev SQL browser (tooling) ✅ SHIPPED (2026-07-01)
+## Dev SQL browser (tooling) ✅ SHIPPED (2026-07-01, extended to "full")
 
 A dev-only, in-app SQL console for manually inspecting the database + joins.
 
-- **Backend:** `vite/sql-browser.ts` — a Vite plugin (`apply: "serve"`, so absent from prod builds + `vite preview`) mounting `/__sql/*`. Opens `procurement.sqlite` **read-only** via `node:sqlite`, `ATTACH`es `raw_data/tr/state.sqlite` as `tr` (procurement↔commerce-registry joins), and sets `PRAGMA query_only = ON` (hard read-only — verified: DELETE/UPDATE/DROP all rejected "attempt to write a readonly database", SELECT still works). `GET /__sql/schema` (attached DBs + tables + columns + row counts), `POST /__sql/query` (`{sql, limit}` → rows, capped 5k, `iterate()` for early-stop). The 331 MB DB never reaches the browser.
-- **UI:** `src/screens/dev/SqlBrowserScreen.tsx` at `/dev/sql`, route registered only under `import.meta.env.DEV` (chunk DCE'd from prod). Schema sidebar (click table → `SELECT *`), query editor (⌘/Ctrl+Enter), sample join queries, results grid, copy-CSV.
-- **Verified in-browser:** schema shows `main.contracts` (301,015) + `tr.companies` (1.0M) + `tr.company_persons` (1.0M); the contracts × `tr.company_persons` join returns rows; no console errors.
+- **Backend:** `vite/sql-browser.ts` — a Vite plugin (`apply: "serve"`, so absent from prod builds + `vite preview`) mounting `/__sql/*`. Opens `procurement.sqlite` **read-only** via `node:sqlite` and **auto-discovers + ATTACHes every other `raw_data/*.sqlite`** (depth ≤ 2; alias from path — `tr/state.sqlite` → `tr`; per-attach try/catch), so cross-domain joins work (contracts.contractor_eik = tr.companies.uic / tr.company_persons.uic). `PRAGMA query_only = ON` (hard read-only — verified: DELETE/UPDATE/DROP rejected, SELECT works). `GET /__sql/schema` (attached DBs + tables + columns + **indexes** + row counts; marks indexed columns), `POST /__sql/query` (`{sql, limit}` → rows, capped 5k, `iterate()` early-stop). The DB never reaches the browser.
+- **UI:** `src/screens/dev/SqlBrowserScreen.tsx` at `/dev/sql`, full-screen (no site chrome), route registered only under `import.meta.env.DEV` (chunk + CodeMirror deps DCE'd from prod). Features: **CodeMirror editor** (SQL syntax highlighting + schema-aware autocomplete, dark-mode aware), **Run** (runs selection if any) + **Explain** (EXPLAIN QUERY PLAN — shows index usage) via ⌘/Ctrl+Enter, filterable **schema explorer** (collapsible tables, row counts, pk/idx flags, click column → insert), **query history + saved queries** (localStorage), sortable + row-expand (full JSON) + CSV/JSON export results grid, sample join queries.
+- **Deps (devDependencies, dev-only):** `@uiw/react-codemirror`, `@codemirror/lang-sql`, `@codemirror/theme-one-dark`.
+- **Verified in-browser:** schema shows `main.contracts` (301,015) + `tr.companies` (1.0M) + `tr.company_persons` (1.0M) + `tr.meta`; contracts × `tr.company_persons` join returns rows; sort/expand/export/history work; EXPLAIN shows `SEARCH contracts USING INDEX idx_contracts_tag`; read-only enforced; no console errors.
 - Note: doesn't depend on the aggregate generators — `GROUP BY` gives aggregations live.
 
 ## Follow-ups (deferred)

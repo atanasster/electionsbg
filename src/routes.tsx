@@ -2994,9 +2994,9 @@ export const AuthRoutes = () => {
             <Route
               path="dev/sql"
               element={
-                <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
                   <SqlBrowserScreen />
-                </LayoutScreen>
+                </Suspense>
               }
             />
           )}

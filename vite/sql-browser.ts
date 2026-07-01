@@ -1,15 +1,16 @@
 // Dev-only SQL browser backend. Mounts /__sql/* on the Vite dev server so the
 // /dev/sql page can run read-only queries against the procurement source-of-
-// truth SQLite (docs/plans/sql-migration-v1.md) — with the TR commerce-registry
-// DB ATTACHed as `tr`, so procurement↔company joins work
+// truth SQLite (docs/plans/sql-migration-v1.md). It auto-discovers every
+// *.sqlite under raw_data/ and ATTACHes them, so cross-domain joins work — most
+// usefully procurement↔TR commerce registry
 // (contracts.contractor_eik = tr.companies.uic / tr.company_persons.uic).
 //
-// The 331 MB DB never reaches the browser: the plugin opens it in the Node dev
-// process, runs the query, and returns JSON rows. `apply: "serve"` +
-// configureServer only → absent from production builds and `vite preview`.
+// The DB never reaches the browser: the plugin opens it in the Node dev process,
+// runs the query, and returns JSON rows. `apply: "serve"` + configureServer only
+// → absent from production builds and `vite preview`.
 //
 // Endpoints:
-//   GET  /__sql/schema[?reopen=1]  → attached DBs + tables + columns + row counts
+//   GET  /__sql/schema[?reopen=1]  → attached DBs + tables (+ columns, indexes, row counts)
 //   POST /__sql/query  {sql, limit} → { columns, rows, rowCount, truncated, elapsedMs }
 
 import fs from "node:fs";
@@ -18,29 +19,73 @@ import { DatabaseSync } from "node:sqlite";
 import type { Plugin } from "vite";
 
 const REPO_ROOT = process.cwd();
-const PROC_DB = path.resolve(
-  REPO_ROOT,
-  "raw_data/procurement/procurement.sqlite",
-);
-const TR_DB = path.resolve(REPO_ROOT, "raw_data/tr/state.sqlite");
+const RAW_DIR = path.resolve(REPO_ROOT, "raw_data");
+const PRIMARY_DB = path.resolve(RAW_DIR, "procurement/procurement.sqlite");
 
 const ROW_CAP_DEFAULT = 1000;
 const ROW_CAP_MAX = 5000;
 
 let db: DatabaseSync | null = null;
 
+// Every *.sqlite under raw_data/ (depth ≤ 2 — where the domain DBs live; avoids
+// deep-walking the multi-GB raw tree). Skips WAL/shm/journal sidecars.
+const discoverSqlite = (): string[] => {
+  const out: string[] = [];
+  if (!fs.existsSync(RAW_DIR)) return out;
+  const scan = (dir: string, depth: number): void => {
+    let entries: fs.Dirent[];
+    try {
+      entries = fs.readdirSync(dir, { withFileTypes: true });
+    } catch {
+      return;
+    }
+    for (const e of entries) {
+      const p = path.join(dir, e.name);
+      if (e.isFile() && e.name.endsWith(".sqlite")) out.push(p);
+      else if (e.isDirectory() && depth > 0) scan(p, depth - 1);
+    }
+  };
+  scan(RAW_DIR, 1);
+  return out.sort();
+};
+
+// Stable, valid-identifier alias for an attached DB. tr/state.sqlite → "tr";
+// generic basenames (state/db/data) fall back to the parent dir name.
+const aliasFor = (p: string, used: Set<string>): string => {
+  const base = path.basename(p, ".sqlite");
+  const parent = path.basename(path.dirname(p));
+  let a = /^(state|db|data)$/.test(base) ? parent : base;
+  a = a
+    .toLowerCase()
+    .replace(/[^a-z0-9_]/g, "_")
+    .replace(/^([0-9])/, "_$1");
+  if (!a || a === "main" || a === "temp") a = "db";
+  let cand = a;
+  let i = 2;
+  while (used.has(cand)) cand = `${a}_${i++}`;
+  used.add(cand);
+  return cand;
+};
+
 const openConnection = (): DatabaseSync => {
-  if (!fs.existsSync(PROC_DB)) {
+  if (!fs.existsSync(PRIMARY_DB)) {
     throw new Error(
       "procurement.sqlite not found — run `npm run db:load` first " +
-        `(expected at ${path.relative(REPO_ROOT, PROC_DB)}).`,
+        `(expected at ${path.relative(REPO_ROOT, PRIMARY_DB)}).`,
     );
   }
-  const conn = new DatabaseSync(PROC_DB, { readOnly: true });
-  // Attach the TR commerce-registry DB (if present) BEFORE locking the
-  // connection read-only, so cross-domain joins are available.
-  if (fs.existsSync(TR_DB)) {
-    conn.exec(`ATTACH DATABASE '${TR_DB.replace(/'/g, "''")}' AS tr`);
+  const conn = new DatabaseSync(PRIMARY_DB, { readOnly: true });
+  // Attach every OTHER discovered DB (before locking read-only), so cross-domain
+  // joins are available. A failed attach (locked/corrupt) is skipped, not fatal.
+  const used = new Set(["main", "temp"]);
+  for (const p of discoverSqlite()) {
+    if (path.resolve(p) === PRIMARY_DB) continue;
+    const alias = aliasFor(p, used);
+    try {
+      conn.exec(`ATTACH DATABASE '${p.replace(/'/g, "''")}' AS ${alias}`);
+    } catch {
+      used.delete(alias);
+    }
   }
   // Hard read-only: blocks INSERT/UPDATE/DELETE/DDL on every attached DB, so an
   // arbitrary pasted statement can never mutate anything.
@@ -63,17 +108,24 @@ const getDb = (reopen = false): DatabaseSync => {
 
 const qi = (name: string): string => `"${String(name).replace(/"/g, '""')}"`;
 
+interface IndexInfo {
+  name: string;
+  unique: boolean;
+  columns: string[];
+}
 interface ColumnInfo {
   name: string;
   type: string;
   pk: boolean;
   notnull: boolean;
+  indexed: boolean;
 }
 interface TableInfo {
   db: string;
   table: string;
   rowCount: number;
   columns: ColumnInfo[];
+  indexes: IndexInfo[];
 }
 
 const readSchema = (reopen: boolean): unknown => {
@@ -86,10 +138,10 @@ const readSchema = (reopen: boolean): unknown => {
   for (const d of databases) {
     const names = conn
       .prepare(
-        `SELECT name FROM ${qi(d.name)}.sqlite_master ` +
+        `SELECT name, type FROM ${qi(d.name)}.sqlite_master ` +
           `WHERE type IN ('table','view') AND name NOT LIKE 'sqlite_%' ORDER BY name`,
       )
-      .all() as Array<{ name: string }>;
+      .all() as Array<{ name: string; type: string }>;
     for (const t of names) {
       const cols = conn
         .prepare(`PRAGMA ${qi(d.name)}.table_info(${qi(t.name)})`)
@@ -99,6 +151,20 @@ const readSchema = (reopen: boolean): unknown => {
         pk: number;
         notnull: number;
       }>;
+      // Index list + which columns each covers.
+      const idxRows = conn
+        .prepare(`PRAGMA ${qi(d.name)}.index_list(${qi(t.name)})`)
+        .all() as Array<{ name: string; unique: number }>;
+      const indexes: IndexInfo[] = [];
+      const indexedCols = new Set<string>();
+      for (const ix of idxRows) {
+        const info = conn
+          .prepare(`PRAGMA ${qi(d.name)}.index_info(${qi(ix.name)})`)
+          .all() as Array<{ name: string | null }>;
+        const columns = info.map((r) => r.name).filter((n): n is string => !!n);
+        columns.forEach((c) => indexedCols.add(c));
+        indexes.push({ name: ix.name, unique: !!ix.unique, columns });
+      }
       const { n } = conn
         .prepare(`SELECT COUNT(*) AS n FROM ${qi(d.name)}.${qi(t.name)}`)
         .get() as { n: number };
@@ -111,7 +177,9 @@ const readSchema = (reopen: boolean): unknown => {
           type: c.type,
           pk: !!c.pk,
           notnull: !!c.notnull,
+          indexed: !!c.pk || indexedCols.has(c.name),
         })),
+        indexes,
       });
     }
   }
