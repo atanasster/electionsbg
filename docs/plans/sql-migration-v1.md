@@ -142,7 +142,32 @@ Extended the same recipe to every output that's a pure function of the contract 
 **Phase 2c is COMPLETE.** Every procurement JSON the frontend fetches now regenerates from the SQL store and is verified to reproduce the on-disk output:
 `db:gen-{rollups,lists,shards,derived,settlement,xref,index,byns}`. The whole suite runs verify-only by default; `--write` emits.
 
-**Next: Phase 2d (the flip)** — wire the generators into the ingest with `--write` + orphan-dir cleanup so SQL becomes the real production source of truth; **Phase 3** — `db:restore` + lockfile + GCS snapshot.
+## Phase 2d — flip the pipeline to SQL (planned)
+
+Goal: make SQL the real production source of truth — the ingest emits JSON from SQL via the generators' `--write` paths instead of the in-memory JS generation.
+
+### Idempotency baseline (measured 2026-07-01)
+
+Dual-generation test — legacy JS (`buildRollups`) vs SQL, both → temp dirs, hashed volatile-insensitively (ignoring `generatedAt`) against on-disk:
+
+- **Fixed-shape layer** (rollups, derived/, by_settlement, mp/pep_connected, index, by_ns): **legacy == SQL == on-disk, byte-identical.** Fully idempotent. (contractors 26,125/26,125; awarders 4,391/4,391.)
+- **Month shards: NOT idempotent** — a legacy re-write would change all 174 shards because **281,439 `amountEur` values on disk carry >2 decimals** and `canonicalJson` rounds them. The on-disk shards are **stale full-precision**, predating the `b5074b144` cents-rounding. The SQL shard generator preserves full precision (`rawJson`) → matches on-disk; the *legacy* path would round.
+- **34 amendment-only contractor rollups** are stale orphans neither path regenerates (the rollup writer doesn't prune).
+
+### Shard-precision decision (folded in — locked)
+
+**Keep month-shard `amountEur` at full precision.** The SQL generator already does this, so it matches today's on-disk shards and avoids a one-time ~685 MB bucket re-sync of every shard. The corollary fix belongs in this phase: **make the legacy `writeMonthShards` serialize shards without `*Eur` rounding** (use `rawJson`, or scope `canonicalJson` so it doesn't round bare-array shard rows) — so the legacy and SQL paths agree and a future `procurement:ingest` stops churning every shard. Rollups/derived keep cents-rounding (unchanged; that rounding is what makes them deterministic).
+- Verify after: `db:gen-shards` stays 0-diff, and a legacy re-write of a shard equals on-disk (no rounding delta).
+
+### Flip steps
+
+1. **Shard serializer fix** (above) — aligns legacy shard output with on-disk + SQL; removes the latent non-idempotency.
+2. **Wire `--write` into the pipeline** — the ingest/`rebuild_from_cache` path emits every layer from SQL (or the JS builders delegate to the SQL store). Decide: SQL-as-primary vs JS-with-SQL-as-verify.
+3. **Orphan cleanup on `--write`** — clear per-entity dirs before writing so stale files drop: the 34 amendment-only contractor rollups (+ their `top_contractors`/`by_ns` knock-on). `contractor_contracts`/`awarder_contracts`/`by-id`/`by_settlement` already prune; `rollups` + `top_contractors` do NOT — add a dir-clear.
+4. **Field-order note** — month shards / contract lists / by-id embed full `Contract` rows; SQL emits ONE canonical field order vs the 113 on-disk variants. The flip normalizes these (data-identical reformat + a one-time resync of those categories). Acceptable; call it out in the changelog.
+5. **Gate** — `db:verify` 0-diff (or explained), `test:data` + `tenders:test` + `ai:test:all` green, before `bucket:sync`.
+
+**Phase 3** — `db:restore` + lockfile + GCS snapshot.
 
 **Two findings that reshape 2c (the generators):**
 1. **Month shards carry 113 source-dependent field orderings** (legacy/OCDS/EOP × which optional fields present; e.g. `amountEur` after `sourceUrl` in OCDS but right after `currency` in EOP). So byte-identical *shard* regeneration from typed columns is not a goal — the generated shards will have ONE canonical field order (a one-time, reviewable format normalization). The derived layer (rollups/by-id/etc., built by `rollups.ts` with a fixed object shape) IS byte-reproducible.
@@ -215,7 +240,7 @@ Explicitly **not** doing: git-LFS the binary (400 MB churn, low-value history), 
 | 0 | ✅ `scripts/db/{open,migrate,schema}`, meta convention | tsc + lint green |
 | 1 | ✅ manifest + goldens + invariants, `test:data` local gate | `test:data` / `db:verify` green on current `main` |
 | 2 | ✅ 2a schema + 2b loader; ✅ **2c COMPLETE** — every output regenerates from SQL (rollups, shards, lists, by-id, derived/, by_settlement, mp/pep_connected, index, risk feeds, by_ns) | all `db:gen-*` reproduce ✅ |
-| 2d | ⬜ flip: wire generators into ingest (`--write` + orphan cleanup) | ingest emits from SQL; `db:verify` stays 0-diff |
+| 2d | ⬜ flip: shard-serializer fix (full precision) + wire `--write` into ingest + orphan cleanup | ingest emits from SQL; `db:verify` 0-diff; legacy shard re-write == on-disk |
 | 3 | ⬜ `db:restore` + lockfile + GCS snapshot | fresh clone reproduces a verifying DB |
 | 3 | snapshot/restore + lockfile | restore on a clean checkout reproduces a verifying DB |
 
