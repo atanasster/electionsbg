@@ -60,7 +60,7 @@ const EKATTE_INDEX_FILE = path.resolve(
 // on /awarder/:eik for drill-down.
 const TOP_CONTRACTS_PER_SETTLEMENT = 50;
 
-interface EkatteEntry {
+export interface EkatteEntry {
   ekatte: string;
   name: string;
   postal: string | null;
@@ -132,24 +132,41 @@ export interface BySettlementResult {
   pruned: number;
 }
 
-export const buildBySettlement = async (): Promise<BySettlementResult> => {
-  if (!fs.existsSync(AWARDERS_DIR)) {
-    return {
-      settlementFiles: 0,
-      settlementsWithProcurement: 0,
-      localAwardersPinned: 0,
-      nationalAwarders: 0,
-      awardersWithoutGeo: 0,
-      pruned: 0,
-    };
-  }
+/** National-tier rollup card (Sofia HQ but national footprint). */
+export interface NationalProcurement {
+  generatedAt: string;
+  awarderCount: number;
+  contractCount: number;
+  awardCount: number;
+  totalEur: number;
+  totalOther: Record<string, number>;
+}
 
-  const ekIndex = JSON.parse(
-    fs.readFileSync(EKATTE_INDEX_FILE, "utf8"),
-  ) as EkatteEntry[];
+export interface BySettlementData {
+  settlements: SettlementProcurementFile[];
+  national: NationalProcurement;
+  index: SettlementProcurementIndex;
+  /** Ekattes that stayed in the build (for the wrapper's stale-file sweep). */
+  keptEkattes: Set<string>;
+  localAwardersPinned: number;
+  nationalAwarders: number;
+  awardersWithoutGeo: number;
+}
+
+// Source-agnostic core: group awarder rollups by settlement geo, pull top
+// contracts per settlement from `getAwarderContracts`, and materialize the
+// per-settlement files + national card + landing index. All outputs are sorted
+// deterministically, so the awarder input order doesn't matter. buildBySettlement
+// below feeds it the on-disk rollups; the SQL generator feeds it SQL-built ones.
+// Callers pass rollups/contracts already cents-rounded (as the serialized files
+// are) so the summed totals match byte-for-byte.
+export const buildBySettlementData = (
+  awarders: AwarderRollup[],
+  getAwarderContracts: (eik: string) => Contract[],
+  ekIndex: EkatteEntry[],
+  now: string,
+): BySettlementData => {
   const ekByCode = new Map(ekIndex.map((e) => [e.ekatte, e]));
-
-  fs.mkdirSync(BY_SETTLEMENT_DIR, { recursive: true });
 
   const settlements = new Map<string, SettlementAcc>();
   const nationalBag: Record<string, number> = {};
@@ -159,14 +176,7 @@ export const buildBySettlement = async (): Promise<BySettlementResult> => {
   let awardersWithoutGeo = 0;
   let localAwardersPinned = 0;
 
-  const awarderFiles = fs
-    .readdirSync(AWARDERS_DIR)
-    .filter((f) => f.endsWith(".json"));
-
-  for (const file of awarderFiles) {
-    const aw = JSON.parse(
-      fs.readFileSync(path.join(AWARDERS_DIR, file), "utf8"),
-    ) as AwarderRollup;
+  for (const aw of awarders) {
     if (!aw.geo) {
       awardersWithoutGeo++;
       continue;
@@ -227,12 +237,7 @@ export const buildBySettlement = async (): Promise<BySettlementResult> => {
   // otherwise blow up).
   for (const acc of settlements.values()) {
     for (const aw of acc.awarders.values()) {
-      const acFile = path.join(AWARDER_CONTRACTS_DIR, `${aw.eik}.json`);
-      if (!fs.existsSync(acFile)) continue;
-      const payload = JSON.parse(fs.readFileSync(acFile, "utf8")) as {
-        contracts?: Contract[];
-      };
-      const rows = payload.contracts ?? [];
+      const rows = getAwarderContracts(aw.eik);
       for (const r of rows) {
         // Keep value-bearing announced (award) rows now — they carry the
         // tender's estimated/award value and surface tagged. Award rows
@@ -256,8 +261,8 @@ export const buildBySettlement = async (): Promise<BySettlementResult> => {
     }
   }
 
-  // Materialise per-settlement files.
-  const now = new Date().toISOString();
+  // Materialise per-settlement files (returned, not written).
+  const settlementFiles: SettlementProcurementFile[] = [];
   for (const [ekatte, acc] of settlements) {
     const ek = ekByCode.get(ekatte);
     if (!ek) continue;
@@ -275,7 +280,7 @@ export const buildBySettlement = async (): Promise<BySettlementResult> => {
       .sort((a, b) => byEurDesc(a.totalEur, b.totalEur, a.eik, b.eik));
 
     const split = splitBag(acc.totalByCurrency);
-    const file: SettlementProcurementFile = {
+    settlementFiles.push({
       ekatte,
       name: ek.name,
       province: ek.province,
@@ -294,17 +299,11 @@ export const buildBySettlement = async (): Promise<BySettlementResult> => {
           contractCount: v.count,
         }))
         .sort((a, b) => a.year.localeCompare(b.year)),
-    };
-
-    fs.writeFileSync(
-      path.join(BY_SETTLEMENT_DIR, `${ekatte}.json`),
-      canonicalJson(file),
-    );
+    });
   }
 
-  // National rollup.
   const nationalSplit = splitBag(nationalBag);
-  const nationalFile = {
+  const national: NationalProcurement = {
     generatedAt: now,
     awarderCount: nationalAwarderEiks.size,
     contractCount: nationalContracts,
@@ -312,13 +311,8 @@ export const buildBySettlement = async (): Promise<BySettlementResult> => {
     totalEur: nationalSplit.totalEur,
     totalOther: nationalSplit.totalOther,
   };
-  fs.writeFileSync(
-    path.join(BY_SETTLEMENT_DIR, "_national.json"),
-    canonicalJson(nationalFile),
-  );
 
-  // Landing index.
-  const indexFile: SettlementProcurementIndex = {
+  const index: SettlementProcurementIndex = {
     generatedAt: now,
     totalContracts: [...settlements.values()].reduce(
       (s, a) => s + a.contractCount,
@@ -351,37 +345,92 @@ export const buildBySettlement = async (): Promise<BySettlementResult> => {
       })
       .sort((a, b) => byEurDesc(a.totalEur, b.totalEur, a.ekatte, b.ekatte)),
   };
-  fs.writeFileSync(
-    path.join(BY_SETTLEMENT_DIR, "index.json"),
-    canonicalJson(indexFile),
+
+  return {
+    settlements: settlementFiles,
+    national,
+    index,
+    keptEkattes: new Set(settlements.keys()),
+    localAwardersPinned,
+    nationalAwarders: nationalAwarderEiks.size,
+    awardersWithoutGeo,
+  };
+};
+
+// Shard-reading writer: reads the on-disk awarder rollups + awarder_contracts +
+// EKATTE index, builds the data, writes the files, and sweeps stale settlements.
+export const buildBySettlement = async (): Promise<BySettlementResult> => {
+  if (!fs.existsSync(AWARDERS_DIR)) {
+    return {
+      settlementFiles: 0,
+      settlementsWithProcurement: 0,
+      localAwardersPinned: 0,
+      nationalAwarders: 0,
+      awardersWithoutGeo: 0,
+      pruned: 0,
+    };
+  }
+
+  const ekIndex = JSON.parse(
+    fs.readFileSync(EKATTE_INDEX_FILE, "utf8"),
+  ) as EkatteEntry[];
+  const awarders = fs
+    .readdirSync(AWARDERS_DIR)
+    .filter((f) => f.endsWith(".json"))
+    .map(
+      (f) =>
+        JSON.parse(
+          fs.readFileSync(path.join(AWARDERS_DIR, f), "utf8"),
+        ) as AwarderRollup,
+    );
+  const getAwarderContracts = (eik: string): Contract[] => {
+    const acFile = path.join(AWARDER_CONTRACTS_DIR, `${eik}.json`);
+    if (!fs.existsSync(acFile)) return [];
+    const payload = JSON.parse(fs.readFileSync(acFile, "utf8")) as {
+      contracts?: Contract[];
+    };
+    return payload.contracts ?? [];
+  };
+
+  const data = buildBySettlementData(
+    awarders,
+    getAwarderContracts,
+    ekIndex,
+    new Date().toISOString(),
   );
 
-  // Optional: write a list of unclassified-by-tier awarders so the operator
-  // can curate the OVERRIDES table in awarder_tier.ts. Cheap to emit
-  // and only material on a refresh.
-  // (skipped here — generated by enrich_awarders_geo.ts during the one-shot
-  //  enrichment, which has the full unclassified list anyway)
+  fs.mkdirSync(BY_SETTLEMENT_DIR, { recursive: true });
+  for (const file of data.settlements) {
+    fs.writeFileSync(
+      path.join(BY_SETTLEMENT_DIR, `${file.ekatte}.json`),
+      canonicalJson(file),
+    );
+  }
+  fs.writeFileSync(
+    path.join(BY_SETTLEMENT_DIR, "_national.json"),
+    canonicalJson(data.national),
+  );
+  fs.writeFileSync(
+    path.join(BY_SETTLEMENT_DIR, "index.json"),
+    canonicalJson(data.index),
+  );
 
-  // Sweep stale per-settlement files. A settlement drops out of the build when
-  // its only local-tier buyer loses that classification or its geo, leaving an
-  // orphaned <ekatte>.json with stale totals (and, after the legacy de-dup, the
-  // removed "-x" rows). Remove any <ekatte>.json not in the current build so a
-  // direct /procurement/by-settlement/<ekatte>.json fetch can't serve it.
+  // Sweep stale per-settlement files not in the current build.
   let pruned = 0;
   for (const file of fs.readdirSync(BY_SETTLEMENT_DIR)) {
     if (!/^\d+\.json$/.test(file)) continue; // skip index.json / _national.json
     const ekatte = file.replace(/\.json$/, "");
-    if (settlements.has(ekatte)) continue;
+    if (data.keptEkattes.has(ekatte)) continue;
     fs.unlinkSync(path.join(BY_SETTLEMENT_DIR, file));
     pruned++;
   }
 
   return {
-    settlementFiles: settlements.size,
-    settlementsWithProcurement: settlements.size,
-    localAwardersPinned,
-    nationalAwarders: nationalAwarderEiks.size,
-    awardersWithoutGeo,
+    settlementFiles: data.settlements.length,
+    settlementsWithProcurement: data.keptEkattes.size,
+    localAwardersPinned: data.localAwardersPinned,
+    nationalAwarders: data.nationalAwarders,
+    awardersWithoutGeo: data.awardersWithoutGeo,
     pruned,
   };
 };

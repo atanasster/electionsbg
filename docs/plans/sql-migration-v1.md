@@ -114,7 +114,13 @@ Extended the same recipe to every output that's a pure function of the contract 
 
 **Baseline refresh:** the watcher's `a11a46758` (ЦАИС ЕОП refresh + awarder geo-enrichment) legitimately changed the corpus after Phase 1; `db:verify` correctly flagged the drift (contracts unchanged; awarders/by_ns/by_settlement/derived/tenders/index moved). Reloaded the DB, re-verified all generators (0 diff), refreshed the Tier 1/2 baseline via `db:snapshot`.
 
-Remaining 2c = the cross-domain layer (`by_ns`, `by_settlement`, `mp_connected`, `pep_connected`, `risk_feed`, `index.json` crossReference).
+### 2c by_settlement ✅ SHIPPED (2026-07-01)
+
+- **Refactor:** `by_settlement.ts` → pure `buildBySettlementData(awarders, getAwarderContracts, ekIndex, now)` core returning `{settlements, national, index, keptEkattes, …}`; `buildBySettlement()` now a thin writer wrapper (reads awarder rollups + awarder_contracts + EKATTE registry, calls the core, writes + prunes). Behavior-preserving.
+- **Generator** — `gen_procurement/by_settlement.ts` (`npm run db:gen-settlement`): SQL awarder rollups + SQL-built awarder_contracts (both round-tripped through canonicalJson to match the serialized files the JS builder reads) + EKATTE registry → per-settlement + `_national` + `index`.
+- **Result:** 492 settlements + `_national` + `index` — **byte-identical, 0 diff**.
+
+Remaining 2c = the cross-domain layer (`by_ns`, `mp_connected`, `pep_connected`, `risk_feed`, `index.json` crossReference) — these join contracts to the MP/officials/TR domains.
 
 **Two findings that reshape 2c (the generators):**
 1. **Month shards carry 113 source-dependent field orderings** (legacy/OCDS/EOP × which optional fields present; e.g. `amountEur` after `sourceUrl` in OCDS but right after `currency` in EOP). So byte-identical *shard* regeneration from typed columns is not a goal — the generated shards will have ONE canonical field order (a one-time, reviewable format normalization). The derived layer (rollups/by-id/etc., built by `rollups.ts` with a fixed object shape) IS byte-reproducible.
@@ -186,7 +192,7 @@ Explicitly **not** doing: git-LFS the binary (400 MB churn, low-value history), 
 |---|---|---|
 | 0 | ✅ `scripts/db/{open,migrate,schema}`, meta convention | tsc + lint green |
 | 1 | ✅ manifest + goldens + invariants, `test:data` local gate | `test:data` / `db:verify` green on current `main` |
-| 2 | ✅ 2a schema + 2b loader; ✅ 2c row-derived (rollups, shards, lists, by-id) + derived/ analytics (cpv, top_contractors, awarder_concentration, flow) — all reproduce; ⬜ 2c cross-domain (by_ns, by_settlement, mp/pep_connected, risk_feed, index.json) | `db:gen-*` reproduce ✅; cross-domain layer next |
+| 2 | ✅ 2a schema + 2b loader; ✅ 2c row-derived + derived/ analytics + by_settlement — all reproduce; ⬜ 2c cross-domain (by_ns, mp/pep_connected, risk_feed, index.json) | `db:gen-*` reproduce ✅; cross-domain layer next |
 | 3 | snapshot/restore + lockfile | restore on a clean checkout reproduces a verifying DB |
 
 Existing gates that must stay green throughout: `npm run lint`, `npm run build`, `npm run data:map`, `tenders:test`, `ai:test:all`, `npm test` (Playwright).
