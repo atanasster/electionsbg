@@ -396,9 +396,12 @@ const getDbPool = async (password) => {
     instanceConnectionName: "elections-bg:europe-west3:electionsbg-pg",
     ipType: "PUBLIC",
   });
+  // Connect as the least-privilege read-only role (see roles_readonly.sql) —
+  // it can only SELECT + EXECUTE in `public`, so a public SQL console can never
+  // write, regardless of the read-only-tx guard.
   dbPool = new Pool({
     ...clientOpts,
-    user: "postgres",
+    user: "app_readonly",
     password,
     database: "electionsbg",
     max: 4,
@@ -495,7 +498,7 @@ const DB_ROUTES = {
 };
 
 const makeDb = () => {
-  const DB_PASSWORD = defineSecret("ELECTIONSBG_DB_PASSWORD");
+  const DB_PASSWORD = defineSecret("ELECTIONSBG_DB_READONLY_PASSWORD");
   return onRequest(
     { secrets: [DB_PASSWORD], region: "europe-west3", maxInstances: 10 },
     async (req, res) => {
@@ -564,7 +567,7 @@ const sqlRateLimited = (ip) => {
 };
 
 const makeSql = () => {
-  const DB_PASSWORD = defineSecret("ELECTIONSBG_DB_PASSWORD");
+  const DB_PASSWORD = defineSecret("ELECTIONSBG_DB_READONLY_PASSWORD");
   return onRequest(
     { secrets: [DB_PASSWORD], region: "europe-west3", maxInstances: 3 },
     async (req, res) => {
