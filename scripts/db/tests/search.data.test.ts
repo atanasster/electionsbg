@@ -150,3 +150,40 @@ test(
     );
   },
 );
+
+test(
+  "search_contractors: finds contractors absent from TR (foreign firms)",
+  { skip },
+  async () => {
+    interface Ct {
+      eik: string;
+      name: string;
+      contracts: string;
+    }
+    // Elsevier / Pesa are contractors in the corpus with no TR record — they
+    // must still be findable by name via the contract-derived index.
+    const elsevier = await rows<Ct>(
+      "SELECT * FROM search_contractors($1, 10)",
+      ["elsevier"],
+    );
+    assert.ok(
+      elsevier.some((r) => /elsevier/i.test(r.name)),
+      "elsevier (non-TR contractor) is findable",
+    );
+    const pesa = await rows<Ct>("SELECT * FROM search_contractors($1, 10)", [
+      "pesa bydgoszcz",
+    ]);
+    assert.ok(
+      pesa.some((r) => /pesa/i.test(r.name)),
+      "pesa bydgoszcz (non-TR contractor) is findable",
+    );
+    // And Cyrillic corpus names too, with a procurement volume attached.
+    const lukoyl = await rows<Ct>("SELECT * FROM search_contractors($1, 10)", [
+      "лукойл",
+    ]);
+    assert.ok(
+      lukoyl.some((r) => r.eik === "121699202" && Number(r.contracts) > 0),
+      "лукойл resolves with contracts",
+    );
+  },
+);

@@ -25,8 +25,13 @@ const SCHEMA_DIR = path.join(
   "schema",
   "pg",
 );
+const FN_FILE = path.join(SCHEMA_DIR, "000_search_fns.sql");
 const SCHEMA_FILE = path.join(SCHEMA_DIR, "001_procurement.sql");
 const TRACKING_FILE = path.join(SCHEMA_DIR, "005_ingest_tracking.sql");
+const CONTRACTOR_SEARCH_FILE = path.join(
+  SCHEMA_DIR,
+  "006_contractor_search.sql",
+);
 const monthShardDir = path.join(PROC_DIR, "contracts");
 const N = COLUMN_NAMES.length;
 const BATCH = 1000; // 1000 × 31 cols = 31k params (< PG's 65535 cap)
@@ -76,8 +81,10 @@ export const loadPg = async (): Promise<{
   rowsNew: number;
 }> => {
   await waitForPg();
+  await exec(readFileSync(FN_FILE, "utf8"));
   await exec(readFileSync(SCHEMA_FILE, "utf8"));
   await exec(readFileSync(TRACKING_FILE, "utf8"));
+  await exec(readFileSync(CONTRACTOR_SEARCH_FILE, "utf8"));
 
   const { rows, years } = readShards();
   let batchId = 0;
@@ -101,6 +108,15 @@ export const loadPg = async (): Promise<{
         params,
       );
     }
+
+    // Contract-name search index — distinct contractor as they appear in the
+    // corpus (covers contractors absent from TR). Rebuilt each load.
+    await c.query("TRUNCATE contractor_search");
+    await c.query(
+      `INSERT INTO contractor_search (eik, name)
+       SELECT DISTINCT contractor_eik, contractor_name
+       FROM contracts WHERE contractor_eik <> ''`,
+    );
 
     // Feature 2: open a batch, then record first-seen for any key not already
     // known (existing keys keep their original batch). rows_new = the delta.
