@@ -180,6 +180,15 @@ Explicitly **not** doing: git-LFS the binary (400 MB churn, low-value history), 
 
 Existing gates that must stay green throughout: `npm run lint`, `npm run build`, `npm run data:map`, `tenders:test`, `ai:test:all`, `npm test` (Playwright).
 
+## Dev SQL browser (tooling) ✅ SHIPPED (2026-07-01)
+
+A dev-only, in-app SQL console for manually inspecting the database + joins.
+
+- **Backend:** `vite/sql-browser.ts` — a Vite plugin (`apply: "serve"`, so absent from prod builds + `vite preview`) mounting `/__sql/*`. Opens `procurement.sqlite` **read-only** via `node:sqlite`, `ATTACH`es `raw_data/tr/state.sqlite` as `tr` (procurement↔commerce-registry joins), and sets `PRAGMA query_only = ON` (hard read-only — verified: DELETE/UPDATE/DROP all rejected "attempt to write a readonly database", SELECT still works). `GET /__sql/schema` (attached DBs + tables + columns + row counts), `POST /__sql/query` (`{sql, limit}` → rows, capped 5k, `iterate()` for early-stop). The 331 MB DB never reaches the browser.
+- **UI:** `src/screens/dev/SqlBrowserScreen.tsx` at `/dev/sql`, route registered only under `import.meta.env.DEV` (chunk DCE'd from prod). Schema sidebar (click table → `SELECT *`), query editor (⌘/Ctrl+Enter), sample join queries, results grid, copy-CSV.
+- **Verified in-browser:** schema shows `main.contracts` (301,015) + `tr.companies` (1.0M) + `tr.company_persons` (1.0M); the contracts × `tr.company_persons` join returns rows; no console errors.
+- Note: doesn't depend on the aggregate generators — `GROUP BY` gives aggregations live.
+
 ## Follow-ups (deferred)
 - Fold TR generation onto the shared `openDb` helper + lockfile/snapshot (same Phase 3 machinery).
 - Unified read layer via `ATTACH` for cross-domain joins.

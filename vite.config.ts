@@ -4,6 +4,7 @@ import fs from "node:fs";
 import path from "path";
 import type { Connect, Plugin } from "vite";
 import { defineConfig, loadEnv } from "vite";
+import { sqlBrowser } from "./vite/sql-browser";
 
 // In production we serve large/changing JSON from a GCS bucket via the
 // `dataUrl` helper (see src/data/dataUrl.ts). The historical archives and
@@ -133,7 +134,15 @@ export default defineConfig(({ mode }) => {
         "d3-sankey",
       ],
     },
-    plugins: [react(), tsconfigPaths(), serveDataDir(), stripLazyCss()],
+    plugins: [
+      react(),
+      tsconfigPaths(),
+      serveDataDir(),
+      stripLazyCss(),
+      // Dev-only SQL browser backend (/__sql/*). apply:"serve" keeps it out of
+      // production builds and `vite preview`.
+      sqlBrowser(),
+    ],
     server: {
       // Honor a PORT env var when one is set (e.g. a preview/dev harness that
       // assigns a free port), otherwise fall back to Vite's default 5173.

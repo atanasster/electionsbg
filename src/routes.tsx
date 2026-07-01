@@ -33,6 +33,15 @@ const SettlementsScreen = lazy(() =>
 const NotFound = lazy(() =>
   import("@/screens/NotFound").then((m) => ({ default: m.NotFound })),
 );
+
+// Dev-only SQL browser (/dev/sql). Gated on import.meta.env.DEV so the route
+// and its chunk are dead-code-eliminated from production builds; the backing
+// /__sql/* endpoints only exist on the Vite dev server (vite/sql-browser.ts).
+const SqlBrowserScreen = lazy(() =>
+  import("@/screens/dev/SqlBrowserScreen").then((m) => ({
+    default: m.SqlBrowserScreen,
+  })),
+);
 const SectionsScreen = lazy(() =>
   import("./screens/SectionsScreen").then((m) => ({
     default: m.SectionsScreen,
@@ -2981,6 +2990,16 @@ export const AuthRoutes = () => {
               </LayoutScreen>
             }
           />
+          {import.meta.env.DEV && (
+            <Route
+              path="dev/sql"
+              element={
+                <LayoutScreen>
+                  <SqlBrowserScreen />
+                </LayoutScreen>
+              }
+            />
+          )}
           <Route
             path="*"
             element={
