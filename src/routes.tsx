@@ -34,14 +34,20 @@ const NotFound = lazy(() =>
   import("@/screens/NotFound").then((m) => ({ default: m.NotFound })),
 );
 
-// Dev-only SQL browser (/dev/sql). Gated on import.meta.env.DEV so the route
-// and its chunk are dead-code-eliminated from production builds; the backing
-// /__sql/* endpoints only exist on the Vite dev server (vite/sql-browser.ts).
-const SqlBrowserScreen = lazy(() =>
-  import("@/screens/dev/SqlBrowserScreen").then((m) => ({
-    default: m.SqlBrowserScreen,
-  })),
-);
+// Dev-only SQL browser (/dev/sql). The lazy import is inside a
+// `import.meta.env.DEV ? … : null` ternary so that in a production build (where
+// Vite inlines DEV as `false`) Rollup constant-folds the whole branch away —
+// dropping the SqlBrowserScreen chunk AND its CodeMirror deps. Gating only the
+// JSX usage is NOT enough: a top-level `lazy(() => import(...))` always emits a
+// chunk. The backing /__sql/* endpoints only exist on the Vite dev server
+// (vite/sql-browser.ts).
+const SqlBrowserScreen = import.meta.env.DEV
+  ? lazy(() =>
+      import("@/screens/dev/SqlBrowserScreen").then((m) => ({
+        default: m.SqlBrowserScreen,
+      })),
+    )
+  : null;
 const SectionsScreen = lazy(() =>
   import("./screens/SectionsScreen").then((m) => ({
     default: m.SectionsScreen,
@@ -2990,7 +2996,7 @@ export const AuthRoutes = () => {
               </LayoutScreen>
             }
           />
-          {import.meta.env.DEV && (
+          {import.meta.env.DEV && SqlBrowserScreen && (
             <Route
               path="dev/sql"
               element={
