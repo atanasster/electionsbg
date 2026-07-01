@@ -31,6 +31,7 @@
     "test:data": "NODE_OPTIONS=--max-old-space-size=4096 tsx --test scripts/db/tests/*.data.test.ts",
     "db:manifest": "tsx scripts/db/manifest.ts --full",
     "db:load": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/load_procurement.ts",
+    "db:refresh": "npm run db:load && npm run test:data",
     "db:gen-rollups": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/gen_procurement/rollups.ts",
     "db:gen-lists": "NODE_OPTIONS=--max-old-space-size=8192 tsx scripts/db/gen_procurement/contract_lists.ts",
     "db:gen-shards": "NODE_OPTIONS=--max-old-space-size=8192 tsx scripts/db/gen_procurement/month_shards.ts",
@@ -181,6 +182,7 @@
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   },
   "overrides": {
-    "tar": "^7.5.13"
+    "tar": "^7.5.13",
+    "kdtree-ts": "file:vendor/kdtree-ts-1.0.0.tgz"
   }
 }

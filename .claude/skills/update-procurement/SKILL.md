@@ -179,6 +179,16 @@ git diff --stat data/procurement/
 
 Expected: 1-2 month-shards modified or added, plus `index.json` + `bundles.json` + N changed `contractors/*.json` + N changed `awarders/*.json`. The diff-cap aborts the run if >5% of the existing tree touched.
 
+## Step 2b — Refresh the local SQL store
+
+The procurement source-of-truth SQLite (`raw_data/procurement/procurement.sqlite`, see docs/plans/sql-migration-v1.md) is loaded from the contract month-shards, so a fresh ingest leaves it stale. Refresh it:
+
+```bash
+npm run db:refresh   # db:load (shards → SQL) + test:data (invariants + lossless round-trip)
+```
+
+`db:load` (~5 s) rebuilds the `contracts` table from the just-written shards; `test:data` then confirms the SQL captured them losslessly and the integrity invariants hold (it does NOT compare against the committed manifest/goldens baseline, so it won't false-fail on the new data). The `.sqlite` is gitignored and local — **no commit or bucket sync needed** (it's not what the SPA reads; it powers the `/dev/sql` browser + the `db:gen-*` generators). Only run this after a procurement ingest — nothing else feeds the `contracts` table.
+
 ## Step 3 — Upload to bucket
 
 ```bash
