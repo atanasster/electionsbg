@@ -33,39 +33,26 @@ interface DivisionAcc {
   singleBid: number;
 }
 
-export const buildCpvCompetition = (
-  contractsDir: string,
+// Source-agnostic: tally CPV-division competition from a Contract stream.
+// Shared by the shard-reading builder below and the SQL generator.
+export const buildCpvCompetitionFromRows = (
+  rows: Iterable<Contract>,
 ): CpvCompetitionFile => {
   const acc = new Map<string, DivisionAcc>();
-  if (fs.existsSync(contractsDir)) {
-    // Same safe walk as buildRollups: only YYYY/ dirs + YYYY-MM.json shards,
-    // skipping the sibling by-id/ tree (single objects, not arrays).
-    for (const year of fs.readdirSync(contractsDir).sort()) {
-      if (!/^\d{4}$/.test(year)) continue;
-      const yearDir = path.join(contractsDir, year);
-      if (!fs.statSync(yearDir).isDirectory()) continue;
-      for (const file of fs.readdirSync(yearDir).sort()) {
-        if (!/^\d{4}-\d{2}\.json$/.test(file)) continue;
-        const rows = JSON.parse(
-          fs.readFileSync(path.join(yearDir, file), "utf8"),
-        ) as Contract[];
-        for (const row of rows) {
-          const division = row.cpv?.slice(0, 2);
-          if (!division || !/^\d{2}$/.test(division)) continue;
-          const a = acc.get(division) ?? {
-            contractCount: 0,
-            withBidData: 0,
-            singleBid: 0,
-          };
-          a.contractCount += 1;
-          if (typeof row.numberOfTenderers === "number") {
-            a.withBidData += 1;
-            if (row.numberOfTenderers === 1) a.singleBid += 1;
-          }
-          acc.set(division, a);
-        }
-      }
+  for (const row of rows) {
+    const division = row.cpv?.slice(0, 2);
+    if (!division || !/^\d{2}$/.test(division)) continue;
+    const a = acc.get(division) ?? {
+      contractCount: 0,
+      withBidData: 0,
+      singleBid: 0,
+    };
+    a.contractCount += 1;
+    if (typeof row.numberOfTenderers === "number") {
+      a.withBidData += 1;
+      if (row.numberOfTenderers === 1) a.singleBid += 1;
     }
+    acc.set(division, a);
   }
 
   const divisions: CpvCompetitionDivision[] = [...acc.entries()]
@@ -83,6 +70,28 @@ export const buildCpvCompetition = (
     structuralSingleBidShare: STRUCTURAL_SINGLE_BID_SHARE,
     divisions,
   };
+};
+
+export const buildCpvCompetition = (
+  contractsDir: string,
+): CpvCompetitionFile => {
+  function* readShards(): Generator<Contract> {
+    if (!fs.existsSync(contractsDir)) return;
+    // Same safe walk as buildRollups: only YYYY/ dirs + YYYY-MM.json shards,
+    // skipping the sibling by-id/ tree (single objects, not arrays).
+    for (const year of fs.readdirSync(contractsDir).sort()) {
+      if (!/^\d{4}$/.test(year)) continue;
+      const yearDir = path.join(contractsDir, year);
+      if (!fs.statSync(yearDir).isDirectory()) continue;
+      for (const file of fs.readdirSync(yearDir).sort()) {
+        if (!/^\d{4}-\d{2}\.json$/.test(file)) continue;
+        yield* JSON.parse(
+          fs.readFileSync(path.join(yearDir, file), "utf8"),
+        ) as Contract[];
+      }
+    }
+  }
+  return buildCpvCompetitionFromRows(readShards());
 };
 
 export const writeCpvCompetition = (

@@ -103,7 +103,18 @@ Extended the same recipe to every output that's a pure function of the contract 
 - **Results (0 diff / 0 missing / 0 extra):** contractor_contracts **26,160**, awarder_contracts **4,391**, by-id **4,096**, month shards **174**.
 - Month shards keep FULL precision on `--write` (`rawJson`) per the decision below; contract lists are cents-rounded (`canonicalJson`); by-id stays full-precision compact.
 
-**Row-derived layer complete** — every per-row output (shards, rollups, contract lists, by-id) regenerates from SQL. Remaining 2c = the aggregation/derived layer.
+**Row-derived layer complete** — every per-row output (shards, rollups, contract lists, by-id) regenerates from SQL.
+
+### 2c derived/ analytics ✅ SHIPPED (2026-07-01)
+
+- **Refactors (source-agnostic `*From` variants; dir-based fns delegate via `readRollupDir`):** `cpv_competition.ts` → `buildCpvCompetitionFromRows`; `derived.ts` → `buildTopContractorsFrom` / `buildAwarderConcentrationFrom` / `buildFlowFrom`.
+- **Generator** — `gen_procurement/derived.ts` (`npm run db:gen-derived`): SQL rollups (+ existing `mp_connected`/`pep_connected` inputs, which the JS builders also consume) → the derived files.
+- **Results:** `cpv_competition`, `awarder_concentration` **byte-identical**; `flow`/`flow_full` **content-equal** (their node/link order follows the awarder `readdirSync` walk — FS-dependent, non-deterministic even for the JS builder); `top_contractors` matches **current code** — its only diff is the known stale amendment-only artifact (the on-disk file predates amendment exclusion, so 2 amendment-only contractors crack the top-1000).
+- **Gotcha:** the JS derived builders read the **serialized (cents-rounded) rollup files**, so the generator round-trips the in-memory rollups through `canonicalJson` before feeding them — otherwise `sharePct = full/full` diverges from `rounded/rounded` at 1e-6.
+
+**Baseline refresh:** the watcher's `a11a46758` (ЦАИС ЕОП refresh + awarder geo-enrichment) legitimately changed the corpus after Phase 1; `db:verify` correctly flagged the drift (contracts unchanged; awarders/by_ns/by_settlement/derived/tenders/index moved). Reloaded the DB, re-verified all generators (0 diff), refreshed the Tier 1/2 baseline via `db:snapshot`.
+
+Remaining 2c = the cross-domain layer (`by_ns`, `by_settlement`, `mp_connected`, `pep_connected`, `risk_feed`, `index.json` crossReference).
 
 **Two findings that reshape 2c (the generators):**
 1. **Month shards carry 113 source-dependent field orderings** (legacy/OCDS/EOP × which optional fields present; e.g. `amountEur` after `sourceUrl` in OCDS but right after `currency` in EOP). So byte-identical *shard* regeneration from typed columns is not a goal — the generated shards will have ONE canonical field order (a one-time, reviewable format normalization). The derived layer (rollups/by-id/etc., built by `rollups.ts` with a fixed object shape) IS byte-reproducible.
@@ -175,7 +186,7 @@ Explicitly **not** doing: git-LFS the binary (400 MB churn, low-value history), 
 |---|---|---|
 | 0 | ✅ `scripts/db/{open,migrate,schema}`, meta convention | tsc + lint green |
 | 1 | ✅ manifest + goldens + invariants, `test:data` local gate | `test:data` / `db:verify` green on current `main` |
-| 2 | ✅ 2a schema + 2b loader; ✅ 2c row-derived layer (rollups, shards, contract lists, by-id — all 0 diff); ⬜ 2c aggregation/derived (by_ns, by_settlement, derived/*, index.json) | row-derived: `db:gen-*` 0 diff ✅; aggregation layer next |
+| 2 | ✅ 2a schema + 2b loader; ✅ 2c row-derived (rollups, shards, lists, by-id) + derived/ analytics (cpv, top_contractors, awarder_concentration, flow) — all reproduce; ⬜ 2c cross-domain (by_ns, by_settlement, mp/pep_connected, risk_feed, index.json) | `db:gen-*` reproduce ✅; cross-domain layer next |
 | 3 | snapshot/restore + lockfile | restore on a clean checkout reproduces a verifying DB |
 
 Existing gates that must stay green throughout: `npm run lint`, `npm run build`, `npm run data:map`, `tenders:test`, `ai:test:all`, `npm test` (Playwright).

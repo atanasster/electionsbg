@@ -25,6 +25,19 @@ import { writeContractorsSearch } from "./build_contractors_search";
 
 const TOP_LIMIT = 1000;
 
+// Read every <EIK>.json rollup in a dir into an array, in readdirSync order
+// (unsorted — the concentration/top builders re-sort deterministically, and the
+// flow builder's node/link order intentionally follows this walk order).
+const readRollupDir = <T>(dir: string): T[] => {
+  if (!fs.existsSync(dir)) return [];
+  const out: T[] = [];
+  for (const file of fs.readdirSync(dir)) {
+    if (file.endsWith(".json"))
+      out.push(JSON.parse(fs.readFileSync(path.join(dir, file), "utf8")) as T);
+  }
+  return out;
+};
+
 // The /procurement landing tile is a PREVIEW: it defaults to ~30 visible links
 // and links out to the full /procurement/flows explorer. So we ship a trimmed
 // flow.json (top-N links by euro value + their nodes) for the eager landing
@@ -46,8 +59,9 @@ const CONCENTRATION_MIN_AWARDER_EUR = 100_000;
 // Top contractors across the corpus, sorted by euro total. The per-MP-tied
 // subset is identified by intersecting with the MP-connected EIK set — same
 // `mpTied: boolean` shape the SPA's /procurement page expects.
-export const buildTopContractors = (
-  contractorsDir: string,
+// Source-agnostic core: take contractor rollups + the MP-connected join.
+export const buildTopContractorsFrom = (
+  contractors: ContractorRollup[],
   mpConnected: MpConnectedFile,
 ): TopContractorsFile => {
   const mpTiedEiks = new Map<string, Set<number>>();
@@ -57,26 +71,19 @@ export const buildTopContractors = (
     mpTiedEiks.set(entry.contractorEik, set);
   }
 
-  const all: TopContractorEntry[] = [];
-  if (fs.existsSync(contractorsDir)) {
-    for (const file of fs.readdirSync(contractorsDir)) {
-      if (!file.endsWith(".json")) continue;
-      const c = JSON.parse(
-        fs.readFileSync(path.join(contractorsDir, file), "utf8"),
-      ) as ContractorRollup;
-      const tiedSet = mpTiedEiks.get(c.eik);
-      all.push({
-        eik: c.eik,
-        name: c.name,
-        totalEur: c.totalEur,
-        totalOther: c.totalOther,
-        contractCount: c.contractCount,
-        awardCount: c.awardCount,
-        mpTied: !!tiedSet,
-        mpIds: tiedSet ? [...tiedSet].sort((a, b) => a - b) : [],
-      });
-    }
-  }
+  const all: TopContractorEntry[] = contractors.map((c) => {
+    const tiedSet = mpTiedEiks.get(c.eik);
+    return {
+      eik: c.eik,
+      name: c.name,
+      totalEur: c.totalEur,
+      totalOther: c.totalOther,
+      contractCount: c.contractCount,
+      awardCount: c.awardCount,
+      mpTied: !!tiedSet,
+      mpIds: tiedSet ? [...tiedSet].sort((a, b) => a - b) : [],
+    };
+  });
   all.sort((a, b) => byEurDesc(a.totalEur, b.totalEur, a.eik, b.eik));
   return {
     generatedAt: new Date().toISOString(),
@@ -84,6 +91,15 @@ export const buildTopContractors = (
     entries: all.slice(0, TOP_LIMIT),
   };
 };
+
+export const buildTopContractors = (
+  contractorsDir: string,
+  mpConnected: MpConnectedFile,
+): TopContractorsFile =>
+  buildTopContractorsFrom(
+    readRollupDir<ContractorRollup>(contractorsDir),
+    mpConnected,
+  );
 
 // Sankey-shaped flow to connected people: awarder → contractor → {mp |
 // official}. Terminal nodes are MPs (`mp:<id>`) and the broader political
@@ -94,8 +110,8 @@ export const buildTopContractors = (
 // Edge values are euro totals (EUR + BGN folded via the locked peg). Edges
 // whose contracts are entirely USD/GBP/CHF collapse to 0 and are dropped —
 // negligible at current data volumes.
-export const buildFlow = (
-  awardersDir: string,
+export const buildFlowFrom = (
+  awarders: AwarderRollup[],
   mpConnected: MpConnectedFile,
   pepConnected: PepConnectedFile,
 ): FlowFile => {
@@ -104,7 +120,7 @@ export const buildFlow = (
   const tiedEiks = new Set<string>();
   for (const e of mpConnected.entries) tiedEiks.add(e.contractorEik);
   for (const e of pepConnected.entries) tiedEiks.add(e.contractorEik);
-  if (tiedEiks.size === 0 || !fs.existsSync(awardersDir)) {
+  if (tiedEiks.size === 0) {
     return { generatedAt: new Date().toISOString(), nodes: [], links: [] };
   }
 
@@ -135,13 +151,9 @@ export const buildFlow = (
     }
   >();
 
-  // Walk awarders/<EIK>.json and for each contractor they paid that's MP-
+  // Walk the awarder rollups and for each contractor they paid that's MP-
   // tied, emit an awarder→contractor link.
-  for (const file of fs.readdirSync(awardersDir)) {
-    if (!file.endsWith(".json")) continue;
-    const a = JSON.parse(
-      fs.readFileSync(path.join(awardersDir, file), "utf8"),
-    ) as AwarderRollup;
+  for (const a of awarders) {
     let touched = false;
     for (const bc of a.byContractor) {
       if (!tiedEiks.has(bc.eik)) continue;
@@ -263,6 +275,17 @@ export const buildFlow = (
   };
 };
 
+export const buildFlow = (
+  awardersDir: string,
+  mpConnected: MpConnectedFile,
+  pepConnected: PepConnectedFile,
+): FlowFile =>
+  buildFlowFrom(
+    readRollupDir<AwarderRollup>(awardersDir),
+    mpConnected,
+    pepConnected,
+  );
+
 // Awarder→contractor concentration. For each awarder, what share of its
 // lifetime euro spending goes to its top contractors? Emits only pairs at or
 // above CONCENTRATION_THRESHOLD where the awarder's lifetime spend exceeds
@@ -271,32 +294,26 @@ export const buildFlow = (
 //
 // The risk read here is "this buyer's procurement is concentrated on one
 // supplier". Used as one input to the per-contract risk score in the SPA.
-export const buildAwarderConcentration = (
-  awardersDir: string,
+export const buildAwarderConcentrationFrom = (
+  awarders: AwarderRollup[],
 ): AwarderConcentrationFile => {
   const entries: AwarderConcentrationEntry[] = [];
-  if (fs.existsSync(awardersDir)) {
-    for (const file of fs.readdirSync(awardersDir)) {
-      if (!file.endsWith(".json")) continue;
-      const a = JSON.parse(
-        fs.readFileSync(path.join(awardersDir, file), "utf8"),
-      ) as AwarderRollup;
-      if (a.totalEur < CONCENTRATION_MIN_AWARDER_EUR) continue;
-      for (const bc of a.byContractor) {
-        if (bc.totalEur <= 0) continue;
-        const sharePct = bc.totalEur / a.totalEur;
-        if (sharePct < CONCENTRATION_THRESHOLD) continue;
-        entries.push({
-          awarderEik: a.eik,
-          awarderName: a.name,
-          contractorEik: bc.eik,
-          contractorName: bc.name,
-          sharePct,
-          awarderTotalEur: a.totalEur,
-          pairTotalEur: bc.totalEur,
-          contractCount: bc.contractCount,
-        });
-      }
+  for (const a of awarders) {
+    if (a.totalEur < CONCENTRATION_MIN_AWARDER_EUR) continue;
+    for (const bc of a.byContractor) {
+      if (bc.totalEur <= 0) continue;
+      const sharePct = bc.totalEur / a.totalEur;
+      if (sharePct < CONCENTRATION_THRESHOLD) continue;
+      entries.push({
+        awarderEik: a.eik,
+        awarderName: a.name,
+        contractorEik: bc.eik,
+        contractorName: bc.name,
+        sharePct,
+        awarderTotalEur: a.totalEur,
+        pairTotalEur: bc.totalEur,
+        contractCount: bc.contractCount,
+      });
     }
   }
   entries.sort(byConcentrationDesc);
@@ -308,6 +325,11 @@ export const buildAwarderConcentration = (
     entries,
   };
 };
+
+export const buildAwarderConcentration = (
+  awardersDir: string,
+): AwarderConcentrationFile =>
+  buildAwarderConcentrationFrom(readRollupDir<AwarderRollup>(awardersDir));
 
 // Each contractor→person edge carries the contractor's full euro total, while
 // each awarder→contractor edge is just one buyer's slice. So any value-ranked
