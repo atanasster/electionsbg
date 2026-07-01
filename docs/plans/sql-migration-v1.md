@@ -162,8 +162,8 @@ Dual-generation test — legacy JS (`buildRollups`) vs SQL, both → temp dirs, 
 ### Flip steps
 
 1. ✅ **Shard serializer fix** SHIPPED (2026-07-01) — `writeMonthShards` now serializes with `rawJson` (full precision), not `canonicalJson`. Verified: `rawJson(parse(shard)) === shard` for all 174 shards (zero data change), while `canonicalJson` matched 0/174 (the churn it would have caused). The ingest is now idempotent for shards; `db:verify` unchanged. `canonicalJson` still rounds index/bundles/rollups/derived.
-2. **Wire `--write` into the pipeline** — the ingest/`rebuild_from_cache` path emits every layer from SQL (or the JS builders delegate to the SQL store). Decide: SQL-as-primary vs JS-with-SQL-as-verify.
-3. **Orphan cleanup on `--write`** — clear per-entity dirs before writing so stale files drop: the 34 amendment-only contractor rollups (+ their `top_contractors`/`by_ns` knock-on). `contractor_contracts`/`awarder_contracts`/`by-id`/`by_settlement` already prune; `rollups` + `top_contractors` do NOT — add a dir-clear.
+2. ✅ **`db:build` orchestrator** SHIPPED (2026-07-01, capability) — `scripts/db/build.ts` reloads the SQL store then runs every generator in dependency order. `npm run db:build` = VERIFY (no writes; proves the whole corpus reproduces — ran green end-to-end, all 8 layers 0-diff in ~77s). `npm run db:build -- --write` = the FLIP (writes every layer from SQL + orphan sweep). **The `--write` flip is implemented but NOT executed** — it regenerates production data (field-order resync) and is left as a deliberate operator trigger.
+3. ✅ **Orphan sweep** SHIPPED (code) — `gen_procurement/rollups.ts --write` now prunes per-EIK rollups it no longer produces (drops the 34 stale amendment-only, which also removes them from `top_contractors`). `contractor_contracts`/`awarder_contracts`/`by-id`/`by_settlement`/`by_ns` already prune. Takes effect only on the `--write` flip.
 4. **Field-order note** — month shards / contract lists / by-id embed full `Contract` rows; SQL emits ONE canonical field order vs the 113 on-disk variants. The flip normalizes these (data-identical reformat + a one-time resync of those categories). Acceptable; call it out in the changelog.
 5. **Gate** — `db:verify` 0-diff (or explained), `test:data` + `tenders:test` + `ai:test:all` green, before `bucket:sync`.
 
@@ -240,7 +240,7 @@ Explicitly **not** doing: git-LFS the binary (400 MB churn, low-value history), 
 | 0 | ✅ `scripts/db/{open,migrate,schema}`, meta convention | tsc + lint green |
 | 1 | ✅ manifest + goldens + invariants, `test:data` local gate | `test:data` / `db:verify` green on current `main` |
 | 2 | ✅ 2a schema + 2b loader; ✅ **2c COMPLETE** — every output regenerates from SQL (rollups, shards, lists, by-id, derived/, by_settlement, mp/pep_connected, index, risk feeds, by_ns) | all `db:gen-*` reproduce ✅ |
-| 2d | ⬜ flip: shard-serializer fix (full precision) + wire `--write` into ingest + orphan cleanup | ingest emits from SQL; `db:verify` 0-diff; legacy shard re-write == on-disk |
+| 2d | ✅ shard-serializer fix + `db:build` orchestrator (verify green end-to-end) + orphan sweep code; ⬜ execute `db:build --write` flip + bucket re-sync (operator trigger) | verify 0-diff ✅; flip regenerates prod data (field-order resync) — deferred |
 | 3 | ⬜ `db:restore` + lockfile + GCS snapshot | fresh clone reproduces a verifying DB |
 | 3 | snapshot/restore + lockfile | restore on a clean checkout reproduces a verifying DB |
 

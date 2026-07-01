@@ -136,11 +136,22 @@ const main = (): void => {
     ] as const) {
       const dir = path.join(PROC_DIR, kind);
       fs.mkdirSync(dir, { recursive: true });
+      const keep = new Set<string>();
       for (const r of list)
-        if (r.eik !== "")
+        if (r.eik !== "") {
           fs.writeFileSync(path.join(dir, `${r.eik}.json`), canonicalJson(r));
+          keep.add(`${r.eik}.json`);
+        }
+      // Orphan sweep: drop per-EIK rollups no longer produced (e.g. the 34
+      // stale amendment-only contractors) — the JS writeRollups never pruned
+      // these, so a --write flip must, or they linger and re-enter top_contractors.
+      for (const f of fs.readdirSync(dir))
+        if (/^\d+\.json$/.test(f) && !keep.has(f))
+          fs.unlinkSync(path.join(dir, f));
     }
-    console.log("wrote rollups to data/procurement/{contractors,awarders}");
+    console.log(
+      "wrote rollups (+ orphan sweep) to data/procurement/{contractors,awarders}",
+    );
   }
 
   const clean =
