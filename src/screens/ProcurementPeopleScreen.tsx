@@ -9,7 +9,7 @@
 // procurement-only view.
 
 import { FC, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Search, ArrowRight, Landmark } from "lucide-react";
 import { Title } from "@/ux/Title";
@@ -42,7 +42,9 @@ const roleLabel = (
 export const ProcurementPeopleScreen: FC = () => {
   const { t } = useTranslation();
   const { rows, isLoading } = usePersonProcurementIndex();
-  const [q, setQ] = useState("");
+  // Seed from ?q= so the scanner is deep-linkable (e.g. from /dev/sql).
+  const [searchParams] = useSearchParams();
+  const [q, setQ] = useState(() => searchParams.get("q") ?? "");
 
   // Precompute a bilingual search blob per row: the normalized Cyrillic name
   // plus its Latin transliteration. This lets a Latin-script query

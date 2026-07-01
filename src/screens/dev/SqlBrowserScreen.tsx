@@ -131,6 +131,46 @@ LIMIT 25;`,
   },
 ];
 
+// ---- result cell → app deep-links -----------------------------------------
+// Make entity columns clickable: an EIK/UIC opens the company (or awarder) page;
+// a name opens the person scanner for officer rows, else its own entity page.
+// Opens in a new tab so the query stays put. Heuristic on column name + the
+// row's `kind` (present in search_all / the search functions).
+
+const rowCompanyEik = (row: Record<string, unknown>): string | null => {
+  for (const k of ["contractor_eik", "eik", "uic"]) {
+    const v = row[k];
+    if (typeof v === "string" && v) return v;
+  }
+  return null;
+};
+
+const cellLink = (
+  col: string,
+  row: Record<string, unknown>,
+  value: unknown,
+): string | null => {
+  if (value === null || value === undefined || value === "") return null;
+  const s = String(value);
+  const kind = typeof row.kind === "string" ? row.kind : null;
+  if (col === "awarder_eik") return `/awarder/${encodeURIComponent(s)}`;
+  if (col === "eik" || col === "uic" || col === "contractor_eik")
+    return `/company/${encodeURIComponent(s)}`;
+  if (col === "name" || col === "officer" || col === "contractor_name") {
+    if (kind === "officer")
+      return `/procurement/people?q=${encodeURIComponent(s)}`;
+    const eik = rowCompanyEik(row);
+    return eik ? `/company/${encodeURIComponent(eik)}` : null;
+  }
+  if (col === "awarder_name") {
+    const a = row.awarder_eik;
+    return typeof a === "string" && a
+      ? `/awarder/${encodeURIComponent(a)}`
+      : null;
+  }
+  return null;
+};
+
 // ---- localStorage helpers -------------------------------------------------
 
 const loadJson = <T,>(key: string, fallback: T): T => {
@@ -697,6 +737,8 @@ export const SqlBrowserScreen = () => {
                       {result.columns.map((c) => {
                         const v = row[c];
                         const isNull = v === null || v === undefined;
+                        const href = isNull ? null : cellLink(c, row, v);
+                        const text = isNull ? "NULL" : String(v);
                         return (
                           <td
                             key={c}
@@ -707,7 +749,19 @@ export const SqlBrowserScreen = () => {
                             } ${isNull ? "italic text-muted-foreground/50" : ""}`}
                             title={isNull ? "NULL" : String(v)}
                           >
-                            {isNull ? "NULL" : String(v)}
+                            {href ? (
+                              <a
+                                href={href}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="text-accent hover:underline"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                {text}
+                              </a>
+                            ) : (
+                              text
+                            )}
                           </td>
                         );
                       })}
