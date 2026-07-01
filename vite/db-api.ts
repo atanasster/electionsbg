@@ -1,12 +1,14 @@
-// Dev-only DB API. Mounts /__db/* on the Vite dev server so the DB-backed person
-// page can query Postgres directly (contracts + TR + curated politician links) —
-// the same seam a deployed Cloud Function would later fill. `apply: "serve"` +
-// configureServer only → absent from production builds and `vite preview`.
+// Dev DB API. Mounts /api/db/* on the Vite dev server so the person/company
+// pages query Postgres directly in dev — the SAME path + shapes the production
+// `db` Cloud Function serves (functions/index.js), so dev == prod. `apply:
+// "serve"` + configureServer only → in production these routes are served by the
+// function via the `/api/db/**` hosting rewrite, not this plugin.
 //
 // Endpoints (all read-only, via the shared pg pool):
-//   GET /__db/person?name=…          → { name, profile[], politicians[] }
-//   GET /__db/connection?a=…&b=…     → { shared[] }  (co-officership between names)
-//   GET /__db/person-search?q=…      → { people[] }  (distinct officer-name matches)
+//   GET /api/db/person?name=…       → { name, roles[], politicians[] }
+//   GET /api/db/company?eik=…       → { company, summary, officers[], politicians[] }
+//   GET /api/db/connection?a=…&b=…  → { shared[] }  (co-officership between names)
+//   GET /api/db/person-search?q=…   → { people[] }
 //
 // See docs/plans/postgres-migration-v1.md.
 
@@ -22,7 +24,7 @@ export const dbApi = (): Plugin => ({
   name: "db-api-dev",
   apply: "serve",
   configureServer(server) {
-    server.middlewares.use("/__db", (req, res) => {
+    server.middlewares.use("/api/db", (req, res) => {
       const send = (code: number, obj: unknown): void => {
         res.statusCode = code;
         res.setHeader("Content-Type", "application/json; charset=utf-8");
@@ -107,7 +109,7 @@ export const dbApi = (): Plugin => ({
         return;
       }
 
-      send(404, { error: "unknown /__db endpoint" });
+      send(404, { error: "unknown /api/db endpoint" });
     });
   },
 });

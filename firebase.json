@@ -49,6 +49,10 @@
           "function": { "functionId": "scenarios", "region": "us-central1" }
         },
         {
+          "source": "/api/db/**",
+          "function": { "functionId": "db", "region": "europe-west3" }
+        },
+        {
           "source": "/en/**",
           "destination": "/en/index.html"
         },

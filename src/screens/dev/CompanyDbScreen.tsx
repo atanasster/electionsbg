@@ -1,10 +1,9 @@
-// Dev-only, DB-backed company page (/db/company/:eik). Works for ANY registered
-// company — including the ~1M TR companies with no procurement (hence no JSON
-// shard). Fed live from Postgres via /__db/company: TR identity + capital,
-// officers with ownership %, political connections, and a link out to the full
-// procurement dashboard when the company has contracts.
-// Route is DEV-gated in routes.tsx (the /__db API only exists on the dev server)
-// — the seam a deployed Cloud Function would later fill.
+// DB-backed company page (/db/company/:eik). Works for ANY registered company —
+// including the ~1M TR companies with no procurement (hence no JSON shard). Fed
+// live from Postgres via /api/db/company: TR identity + capital, officers with
+// ownership %, political connections, and a link out to the full procurement
+// dashboard when the company has contracts. Served by /api/db — the Vite plugin
+// in dev, the `db` Cloud Function (hosting rewrite) in prod.
 // See docs/plans/postgres-migration-v1.md.
 
 import { FC, useEffect, useState } from "react";
@@ -63,7 +62,7 @@ export const CompanyDbScreen: FC = () => {
     let live = true;
     setLoading(true);
     setError(null);
-    fetch(`/__db/company?eik=${encodeURIComponent(eik)}`)
+    fetch(`/api/db/company?eik=${encodeURIComponent(eik)}`)
       .then((r) => r.json())
       .then((j) => {
         if (!live) return;

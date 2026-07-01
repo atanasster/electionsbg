@@ -10,8 +10,10 @@
     "node": "22"
   },
   "dependencies": {
+    "@google-cloud/cloud-sql-connector": "^1.11.2",
     "firebase-admin": "^13.0.0",
-    "firebase-functions": "^7.2.5"
+    "firebase-functions": "^7.2.5",
+    "pg": "^8.22.0"
   },
   "overrides": {
     "uuid": "^11.1.1"

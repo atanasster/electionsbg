@@ -49,25 +49,21 @@ const SqlBrowserScreen = import.meta.env.DEV
     )
   : null;
 
-// Dev-only, DB-backed person page (/person/:name) — needs the /__db dev API, so
-// same DEV-gated ternary keeps it (and its data path) out of production builds.
-const PersonScreen = import.meta.env.DEV
-  ? lazy(() =>
-      import("@/screens/dev/PersonScreen").then((m) => ({
-        default: m.PersonScreen,
-      })),
-    )
-  : null;
+// DB-backed person page (/person/:name) — served in prod by the `db` Cloud
+// Function via the /api/db/** rewrite (dev: the Vite plugin), so it ships.
+const PersonScreen = lazy(() =>
+  import("@/screens/dev/PersonScreen").then((m) => ({
+    default: m.PersonScreen,
+  })),
+);
 
-// Dev-only, DB-backed company page (/db/company/:eik) — works for any TR company,
-// including the ~1M with no procurement JSON shard.
-const CompanyDbScreen = import.meta.env.DEV
-  ? lazy(() =>
-      import("@/screens/dev/CompanyDbScreen").then((m) => ({
-        default: m.CompanyDbScreen,
-      })),
-    )
-  : null;
+// DB-backed company page (/db/company/:eik) — works for any TR company, incl. the
+// ~1M with no procurement JSON shard. Same /api/db serving path.
+const CompanyDbScreen = lazy(() =>
+  import("@/screens/dev/CompanyDbScreen").then((m) => ({
+    default: m.CompanyDbScreen,
+  })),
+);
 const SectionsScreen = lazy(() =>
   import("./screens/SectionsScreen").then((m) => ({
     default: m.SectionsScreen,
@@ -3026,30 +3022,26 @@ export const AuthRoutes = () => {
               }
             />
           )}
-          {import.meta.env.DEV && PersonScreen && (
-            <Route
-              path="person/:name"
-              element={
-                <LayoutScreen>
-                  <Suspense fallback={<RouteFallback />}>
-                    <PersonScreen />
-                  </Suspense>
-                </LayoutScreen>
-              }
-            />
-          )}
-          {import.meta.env.DEV && CompanyDbScreen && (
-            <Route
-              path="db/company/:eik"
-              element={
-                <LayoutScreen>
-                  <Suspense fallback={<RouteFallback />}>
-                    <CompanyDbScreen />
-                  </Suspense>
-                </LayoutScreen>
-              }
-            />
-          )}
+          <Route
+            path="person/:name"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <PersonScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="db/company/:eik"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <CompanyDbScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
           <Route
             path="*"
             element={

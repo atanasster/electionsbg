@@ -1,18 +1,17 @@
-// Dev-only, DB-backed person page (/person/:name). Unlike the JSON-fed
-// /procurement/people scanner, this queries Postgres live (via the /__db dev API)
-// so it works for ANY TR officer, not just the political class:
+// DB-backed person page (/person/:name). Unlike the JSON-fed /procurement/people
+// scanner, this queries Postgres live so it works for ANY TR officer, not just
+// the political class:
 //   • per-role history — the companies + roles the person holds/held, with the
-//     from/to dates, current-vs-former status, procurement, and ownership share
-//     (share is nullable: our TR ingest doesn't capture дял yet — 0/1M),
+//     from/to dates, current-vs-former status, procurement, and ownership share %,
 //   • political connections (companies they're tied to that a politician is
 //     curated-linked to — from company_politicians),
 //   • a chronology of role events (added / removed),
 //   • a custom connection check: enter any other name → shared companies.
 // A person is identified only by folded name (TR has no person id), so rows may
 // span more than one real individual sharing the name; and our TR store only
-// covers ~2022+, so older participations may be missing. Route is DEV-gated in
-// routes.tsx (the /__db API only exists on the dev server) — the seam a deployed
-// Cloud Function would later fill. See docs/plans/postgres-migration-v1.md.
+// covers ~2022+, so older participations may be missing. Served by /api/db — the
+// Vite plugin in dev, the `db` Cloud Function (hosting rewrite) in prod.
+// See docs/plans/postgres-migration-v1.md.
 
 import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -69,7 +68,7 @@ export const PersonScreen: FC = () => {
     let live = true;
     setLoading(true);
     setError(null);
-    fetch(`/__db/person?name=${encodeURIComponent(person)}`)
+    fetch(`/api/db/person?name=${encodeURIComponent(person)}`)
       .then((r) => r.json())
       .then((j) => {
         if (!live) return;
@@ -143,7 +142,7 @@ export const PersonScreen: FC = () => {
     setConnLoading(true);
     setConn(null);
     fetch(
-      `/__db/connection?a=${encodeURIComponent(person)}&b=${encodeURIComponent(b)}`,
+      `/api/db/connection?a=${encodeURIComponent(person)}&b=${encodeURIComponent(b)}`,
     )
       .then((r) => r.json())
       .then((j) => setConn(j.shared ?? []))

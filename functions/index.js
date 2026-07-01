@@ -364,3 +364,171 @@ const makeScenarios = () =>
 
 if ((process.env.GCLOUD_PROJECT || "") !== "electionsbg-ai")
   exports.scenarios = makeScenarios();
+
+// ---- db: Postgres-backed person / company / search API (elections-bg) --------
+// Serves the same JSON the dev Vite plugin (/api/db/*) serves, so the person
+// (/person/:name) and company (/db/company/:eik) pages — and the search/recent
+// builders — work in production, not just dev. Reached same-origin via the
+// `/api/db/**` hosting rewrite. Region europe-west3 (colocated with Cloud SQL,
+// closest to BG). Connects to Cloud SQL over the Node connector (public IP + TLS,
+// no proxy sidecar). Secret: ELECTIONSBG_DB_PASSWORD. The heavy lifting is in the
+// PG functions (search_all / person_roles / company_officers / ...).
+const DB_ALLOWED_ORIGINS = [
+  /^https:\/\/elections-bg\.web\.app$/,
+  /^https:\/\/elections-bg\.firebaseapp\.com$/,
+  /^https:\/\/electionsbg\.com$/,
+  /^https:\/\/www\.electionsbg\.com$/,
+  /^https:\/\/naiasno\.bg$/,
+  /^https:\/\/www\.naiasno\.bg$/,
+  /^http:\/\/localhost:\d+$/,
+  /^http:\/\/127\.0\.0\.1:\d+$/,
+];
+
+let dbPool = null;
+const getDbPool = async (password) => {
+  if (dbPool) return dbPool;
+  // eslint-disable-next-line global-require
+  const { Connector } = require("@google-cloud/cloud-sql-connector");
+  // eslint-disable-next-line global-require
+  const { Pool } = require("pg");
+  const connector = new Connector();
+  const clientOpts = await connector.getOptions({
+    instanceConnectionName: "elections-bg:europe-west3:electionsbg-pg",
+    ipType: "PUBLIC",
+  });
+  dbPool = new Pool({
+    ...clientOpts,
+    user: "postgres",
+    password,
+    database: "electionsbg",
+    max: 4,
+  });
+  return dbPool;
+};
+
+const dbRows = (pool, sql, params) =>
+  pool.query(sql, params).then((r) => r.rows);
+const clampInt = (v, def, lo, hi) => {
+  const n = Number(v);
+  return Number.isFinite(n) ? Math.min(Math.max(n, lo), hi) : def;
+};
+
+const DB_ROUTES = {
+  async person(pool, q) {
+    const name = String(q.name || "").trim();
+    if (!name) return { status: 400, body: { error: "missing name" } };
+    const [roles, politicians] = await Promise.all([
+      dbRows(pool, "SELECT * FROM person_roles($1)", [name]),
+      dbRows(pool, "SELECT * FROM person_politicians($1)", [name]),
+    ]);
+    return { body: { name, roles, politicians } };
+  },
+  async company(pool, q) {
+    const eik = String(q.eik || "").trim();
+    if (!eik) return { status: 400, body: { error: "missing eik" } };
+    const [company, summary, officers, politicians] = await Promise.all([
+      dbRows(
+        pool,
+        "SELECT uic, name, legal_form, seat, status, funds_amount, funds_currency FROM tr_companies WHERE uic = $1",
+        [eik],
+      ),
+      dbRows(
+        pool,
+        "SELECT count(*)::int AS contracts, coalesce(sum(amount_eur) FILTER (WHERE tag = 'contract'), 0) AS contracts_eur FROM contracts WHERE contractor_eik = $1",
+        [eik],
+      ),
+      dbRows(pool, "SELECT * FROM company_officers($1)", [eik]),
+      dbRows(
+        pool,
+        "SELECT politician, ref, kind, role, total_eur FROM company_politicians WHERE eik = $1 ORDER BY total_eur DESC NULLS LAST",
+        [eik],
+      ),
+    ]);
+    return {
+      body: {
+        eik,
+        company: company[0] ?? null,
+        summary: summary[0] ?? null,
+        officers,
+        politicians,
+      },
+    };
+  },
+  async connection(pool, q) {
+    const a = String(q.a || "").trim();
+    const b = String(q.b || "").trim();
+    if (!a || !b) return { status: 400, body: { error: "missing a or b" } };
+    return {
+      body: {
+        a,
+        b,
+        shared: await dbRows(pool, "SELECT * FROM connection_between($1, $2)", [
+          a,
+          b,
+        ]),
+      },
+    };
+  },
+  async search(pool, q) {
+    const term = String(q.q || "").trim();
+    if (!term) return { status: 400, body: { error: "missing q" } };
+    return {
+      body: {
+        q: term,
+        results: await dbRows(pool, "SELECT * FROM search_all($1, $2)", [
+          term,
+          clampInt(q.limit, 30, 1, 100),
+        ]),
+      },
+    };
+  },
+  async recent(pool, q) {
+    return {
+      body: {
+        rows: await dbRows(pool, "SELECT * FROM recent_updates($1, $2)", [
+          clampInt(q.days, 1, 1, 3650),
+          clampInt(q.limit, 200, 1, 1000),
+        ]),
+      },
+    };
+  },
+};
+
+const makeDb = () => {
+  const DB_PASSWORD = defineSecret("ELECTIONSBG_DB_PASSWORD");
+  return onRequest(
+    { secrets: [DB_PASSWORD], region: "europe-west3", maxInstances: 10 },
+    async (req, res) => {
+      const origin = req.headers.origin || "";
+      const originOk =
+        !origin || DB_ALLOWED_ORIGINS.some((re) => re.test(origin));
+      if (origin && originOk) res.set("Access-Control-Allow-Origin", origin);
+      res.set("Vary", "Origin");
+      if (req.method === "OPTIONS") {
+        res.set("Access-Control-Allow-Methods", "GET, OPTIONS");
+        res.set("Access-Control-Allow-Headers", "Content-Type");
+        res.set("Access-Control-Max-Age", "3600");
+        return res.status(204).send("");
+      }
+      if (!originOk) return res.status(403).json({ error: "forbidden origin" });
+      if (req.method !== "GET")
+        return res.status(405).json({ error: "GET only" });
+      // Reached as `/api/db/{route}` via the rewrite — match the last segment.
+      const seg = (req.path || "").split("/").filter(Boolean).pop();
+      const route = DB_ROUTES[seg];
+      if (!route) return res.status(404).json({ error: "unknown db route" });
+      try {
+        const pool = await getDbPool(DB_PASSWORD.value());
+        const { status = 200, body } = await route(pool, req.query || {});
+        if (status === 200) res.set("Cache-Control", "public, max-age=60");
+        return res.status(status).json(body);
+      } catch (e) {
+        console.error("db route error", e);
+        return res.status(500).json({ error: "db error" });
+      }
+    },
+  );
+};
+
+if ((process.env.GCLOUD_PROJECT || "") !== "electionsbg-ai")
+  exports.db = makeDb();
