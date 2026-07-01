@@ -1,0 +1,29 @@
+# Local Postgres for the data pipeline — dev/prod parity with the deployed
+# cloud Postgres (Cloud SQL / Neon). Pinned to 16, host port 5433 to avoid
+# clashing with a brew postgresql@14 on 5432.
+#
+#   npm run db:pg:up     # start (detached)
+#   npm run db:pg:down   # stop (keeps the volume)
+#
+# Connection: postgres://postgres:postgres@localhost:5433/electionsbg
+# Override with DATABASE_URL. See docs/plans/postgres-migration-v1.md.
+services:
+  postgres:
+    image: postgres:16
+    container_name: electionsbg-pg
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: electionsbg
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d electionsbg"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  pgdata:
