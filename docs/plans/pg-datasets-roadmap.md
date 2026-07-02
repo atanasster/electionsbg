@@ -160,7 +160,11 @@ don't extend it. (Steps 2 and 4 below are therefore struck.)
    decision). The ingest stays the source of the on-disk JSON.
 5. **Live serving** — add `/api/db/*` routes (the `db` Cloud Function) for the
    dynamic/joined views; keep bulk/static as JSON on the bucket.
-6. **Distribution** — the `pg_dump` snapshot + lockfile already covers new tables.
+6. **SQL browser samples** — add ≥1 sample query to `SqlBrowserScreen` `SAMPLES`
+   for the new table (a table-only query + a join that shows what it unlocks),
+   under a new/existing `group`. Required for every table so the public console
+   teaches the data as it grows.
+7. **Distribution** — the `pg_dump` snapshot + lockfile already covers new tables.
 
 ## Cross-cutting payoff: the unified entity graph
 

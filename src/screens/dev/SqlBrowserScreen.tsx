@@ -65,8 +65,13 @@ const HISTORY_KEY = "sqlbrowser.history.v1";
 const SAVED_KEY = "sqlbrowser.saved.v1";
 const HISTORY_MAX = 50;
 
-const SAMPLES: Array<{ label: string; sql: string }> = [
+// Sample queries, grouped by domain. Each new DB table SHOULD add at least one
+// sample here (a table-only query + a join that shows what the table unlocks) so
+// the public console teaches the data as it grows. Keep groups contiguous — the
+// toolbar renders one labeled cluster per group.
+const SAMPLES: Array<{ group: string; label: string; sql: string }> = [
   {
+    group: "Contracts",
     label: "Top contractors",
     sql: `SELECT contractor_eik, MIN(contractor_name) AS contractor_name,
        ROUND(SUM(amount_eur)) AS eur, COUNT(*) AS n
@@ -77,6 +82,54 @@ ORDER BY eur DESC NULLS LAST
 LIMIT 25;`,
   },
   {
+    group: "Contracts",
+    label: "Top awarders",
+    sql: `SELECT awarder_eik, MIN(awarder_name) AS awarder_name,
+       ROUND(SUM(amount_eur)) AS eur, COUNT(*) AS n
+FROM contracts
+WHERE tag = 'contract'
+GROUP BY awarder_eik
+ORDER BY eur DESC NULLS LAST
+LIMIT 25;`,
+  },
+  {
+    group: "Contracts",
+    label: "Single-bidder",
+    sql: `SELECT date, awarder_name, contractor_name, amount_eur
+FROM contracts
+WHERE tag = 'contract' AND number_of_tenderers = 1
+ORDER BY amount_eur DESC NULLS LAST
+LIMIT 50;`,
+  },
+  {
+    group: "Tenders",
+    label: "Biggest tenders",
+    sql: `-- Announced procedures. estimated_value_eur is a FORECAST
+-- (прогнозна стойност), NOT contracted spend.
+SELECT publication_date, buyer_name, subject,
+       ROUND(estimated_value_eur) AS forecast_eur, procedure_type
+FROM tenders
+WHERE estimated_value_eur IS NOT NULL AND NOT is_cancelled
+ORDER BY estimated_value_eur DESC NULLS LAST
+LIMIT 50;`,
+  },
+  {
+    group: "Tenders",
+    label: "Forecast vs actual",
+    sql: `-- Procedure -> award lineage (tenders.ocid = contracts.ocid):
+-- the announced forecast next to what was actually contracted.
+SELECT t.buyer_name, t.subject,
+       ROUND(t.estimated_value_eur) AS forecast_eur,
+       ROUND(SUM(c.amount_eur) FILTER (WHERE c.tag = 'contract')) AS awarded_eur
+FROM tenders t
+JOIN contracts c ON c.ocid = t.ocid
+WHERE t.estimated_value_eur IS NOT NULL
+GROUP BY t.unp, t.buyer_name, t.subject, t.estimated_value_eur
+ORDER BY awarded_eur DESC NULLS LAST
+LIMIT 50;`,
+  },
+  {
+    group: "Registry",
     label: "Contractors × TR officers",
     sql: `SELECT c.contractor_eik, MIN(c.contractor_name) AS contractor_name,
        o.roles, o.name AS officer,
@@ -89,6 +142,7 @@ ORDER BY eur DESC NULLS LAST
 LIMIT 50;`,
   },
   {
+    group: "Registry",
     label: "Contractor → TR company",
     sql: `SELECT co.uic, co.name, co.legal_form, co.status,
        ROUND(SUM(c.amount_eur)) AS eur
@@ -100,34 +154,19 @@ ORDER BY eur DESC NULLS LAST
 LIMIT 50;`,
   },
   {
+    group: "Search",
     label: "Name search",
     sql: `SELECT * FROM search_companies('лукойл', 20);`,
   },
   {
+    group: "Search",
     label: "Unified search",
     sql: `SELECT * FROM search_all('лукойл', 30);`,
   },
   {
+    group: "Search",
     label: "Recent updates",
     sql: `SELECT * FROM recent_updates(1, 100);`,
-  },
-  {
-    label: "Single-bidder",
-    sql: `SELECT date, awarder_name, contractor_name, amount_eur
-FROM contracts
-WHERE tag = 'contract' AND number_of_tenderers = 1
-ORDER BY amount_eur DESC NULLS LAST
-LIMIT 50;`,
-  },
-  {
-    label: "Top awarders",
-    sql: `SELECT awarder_eik, MIN(awarder_name) AS awarder_name,
-       ROUND(SUM(amount_eur)) AS eur, COUNT(*) AS n
-FROM contracts
-WHERE tag = 'contract'
-GROUP BY awarder_eik
-ORDER BY eur DESC NULLS LAST
-LIMIT 25;`,
   },
 ];
 
@@ -598,15 +637,22 @@ export const SqlBrowserScreen = () => {
 
       {/* Main */}
       <main className="flex min-w-0 flex-1 flex-col">
-        <div className="flex flex-wrap items-center gap-1 border-b border-border p-2">
-          {SAMPLES.map((s) => (
-            <button
-              key={s.label}
-              onClick={() => setSqlText(s.sql)}
-              className="rounded border border-border bg-muted/40 px-2 py-1 text-xs hover:bg-muted"
-            >
-              {s.label}
-            </button>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-border p-2">
+          {[...new Set(SAMPLES.map((s) => s.group))].map((group) => (
+            <div key={group} className="flex items-center gap-1">
+              <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground/70">
+                {group}
+              </span>
+              {SAMPLES.filter((s) => s.group === group).map((s) => (
+                <button
+                  key={s.label}
+                  onClick={() => setSqlText(s.sql)}
+                  className="rounded border border-border bg-muted/40 px-2 py-1 text-xs hover:bg-muted"
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
           ))}
         </div>
 
