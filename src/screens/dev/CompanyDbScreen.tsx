@@ -16,7 +16,6 @@ import {
   Coins,
   FileText,
   Ban,
-  Euro,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur, formatEurCompact, toEur } from "@/lib/currency";
@@ -44,6 +43,10 @@ import {
 } from "../components/procurement/CompanyGeographyTile";
 import { CompanyPortfolioTreemap } from "../components/procurement/CompanyPortfolioTreemap";
 import { AwarderTopContractorsTile } from "../components/procurement/AwarderTopContractorsTile";
+import {
+  CompanyFundsTile,
+  type FundProjectRow,
+} from "../components/procurement/CompanyFundsTile";
 import { ProcurementBreakdownTile } from "../components/procurement/ProcurementBreakdownTile";
 import {
   CabinetTimelineTile,
@@ -194,6 +197,7 @@ export const CompanyDbScreen: FC = () => {
   const [cabinets, setCabinets] = useState<CabinetRow[]>([]);
   const [debarred, setDebarred] = useState<Debarred[]>([]);
   const [funds, setFunds] = useState<Funds | null>(null);
+  const [fundProjects, setFundProjects] = useState<FundProjectRow[]>([]);
   const [relationships, setRelationships] = useState<BuyerRelationships | null>(
     null,
   );
@@ -230,6 +234,7 @@ export const CompanyDbScreen: FC = () => {
           setCabinets(j.cabinets ?? []);
           setDebarred(j.debarred ?? []);
           setFunds(j.funds ?? null);
+          setFundProjects(j.fundProjects ?? []);
           setRelationships(j.relationships ?? null);
           setSectors(j.sectors ?? null);
           setRelated(j.related ?? null);
@@ -642,60 +647,7 @@ export const CompanyDbScreen: FC = () => {
           )}
 
           {funds && Number(funds.contracted_eur ?? 0) > 0 && (
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="flex items-center gap-2 text-base">
-                  <Euro className="h-4 w-4 text-muted-foreground" /> Средства от
-                  ЕС (ИСУН)
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-3 md:p-4">
-                <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm">
-                  <div>
-                    <div className="text-xs text-muted-foreground">
-                      Договорени
-                    </div>
-                    <div className="font-semibold tabular-nums">
-                      {formatEur(
-                        Number(funds.contracted_eur ?? 0),
-                        i18n.language,
-                      )}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-xs text-muted-foreground">
-                      Изплатени
-                    </div>
-                    <div className="font-semibold tabular-nums">
-                      {formatEur(Number(funds.paid_eur ?? 0), i18n.language)}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-xs text-muted-foreground">Проекти</div>
-                    <Link
-                      to={`/db/company/${eik}/funds`}
-                      className="font-semibold tabular-nums text-accent hover:underline"
-                    >
-                      {num.format(Number(funds.contract_count ?? 0))}
-                    </Link>
-                  </div>
-                  {funds.org_type && (
-                    <div>
-                      <div className="text-xs text-muted-foreground">
-                        Тип организация
-                      </div>
-                      <div className="font-semibold">{funds.org_type}</div>
-                    </div>
-                  )}
-                </div>
-                <Link
-                  to={`/db/company/${eik}/funds`}
-                  className="mt-3 inline-flex items-center gap-1 text-sm text-accent hover:underline"
-                >
-                  Виж проектите <ArrowRight className="h-3 w-3" />
-                </Link>
-              </CardContent>
-            </Card>
+            <CompanyFundsTile eik={eik} funds={funds} projects={fundProjects} />
           )}
 
           {company && (

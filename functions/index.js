@@ -445,6 +445,7 @@ const DB_ROUTES = {
       institution,
       geography,
       awarderProcurement,
+      fundProjects,
     ] = await Promise.all([
       dbRows(
         pool,
@@ -480,6 +481,13 @@ const DB_ROUTES = {
         q.from || null,
         q.to || null,
       ]),
+      dbRows(
+        pool,
+        `SELECT contract_number, title, program_name, total_eur, paid_eur, status
+         FROM fund_projects WHERE beneficiary_eik = $1
+         ORDER BY total_eur DESC NULLS LAST LIMIT 6`,
+        [eik],
+      ),
     ]);
     return {
       body: {
@@ -498,6 +506,7 @@ const DB_ROUTES = {
         institution: institution[0]?.r ?? null,
         geography: geography[0]?.r ?? null,
         awarderProcurement: awarderProcurement[0]?.r ?? null,
+        fundProjects,
       },
     };
   },
