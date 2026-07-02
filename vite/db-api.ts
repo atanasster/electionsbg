@@ -267,8 +267,22 @@ export const dbApi = (): Plugin => ({
         Promise.all([
           allRows("SELECT * FROM person_roles($1)", [name]),
           allRows("SELECT * FROM person_politicians($1)", [name]),
+          allRows<{ r: unknown }>(
+            "SELECT person_procurement($1, $2, $3) AS r",
+            [name, q("from") || null, q("to") || null],
+          ),
+          allRows("SELECT * FROM person_by_cabinet($1)", [name]),
+          allRows("SELECT * FROM person_associates($1)", [name]),
         ]).then(
-          ([roles, politicians]) => send(200, { name, roles, politicians }),
+          ([roles, politicians, procurement, cabinets, associates]) =>
+            send(200, {
+              name,
+              roles,
+              politicians,
+              procurement: procurement[0]?.r ?? null,
+              cabinets,
+              associates,
+            }),
           fail,
         );
         return;

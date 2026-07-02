@@ -37,6 +37,9 @@ const RELATED_SQL = fileURLToPath(
 const OFFICERS_SQL = fileURLToPath(
   new URL("./schema/pg/022_company_officers.sql", import.meta.url),
 );
+const PERSON_API_SQL = fileURLToPath(
+  new URL("./schema/pg/024_person_api.sql", import.meta.url),
+);
 const MP_JSON = fileURLToPath(
   new URL("../../data/procurement/derived/mp_connected.json", import.meta.url),
 );
@@ -226,6 +229,10 @@ export const loadTrPg = async (): Promise<{
   await exec("REFRESH MATERIALIZED VIEW company_person_roles");
   // Officer namesake counts (hub pruning for the multi-hop path finder).
   await exec("REFRESH MATERIALIZED VIEW officer_name_counts");
+
+  // Person-page portfolio rollups (procurement / by-cabinet / inner circle) —
+  // depend on tr_officers + contracts + cabinets + officer_name_counts (above).
+  await exec(readFileSync(PERSON_API_SQL, "utf8"));
 
   // Curated company↔politician links (from mp_connected / pep_connected) → PG,
   // so the person page's political connections come straight from the DB.

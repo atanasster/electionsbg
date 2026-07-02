@@ -25,14 +25,16 @@ export const CompanyTopContractsTile: FC<{
   rollup?: ProcurementContractorRollup | null;
   /** Link builder for the counterparty (awarder or contractor). */
   partyHref?: (eik: string) => string;
-  /** Override the "see all" target (defaults to the JSON contracts page). */
-  seeAllHref?: string;
+  /** Override the "see all" target (defaults to the JSON contracts page).
+   *  Pass null to hide the link (e.g. the person page has no per-person list). */
+  seeAllHref?: string | null;
 }> = ({ eik, rollup, partyHref, seeAllHref }) => {
   const { t } = useTranslation();
   const { data: fetched, isLoading } = useContractor(rollup ? undefined : eik);
   const data = rollup ?? fetched;
   const hrefParty = partyHref ?? ((e: string) => `/awarder/${e}`);
-  const hrefSeeAll = seeAllHref ?? `/company/${eik}/contracts`;
+  const hrefSeeAll =
+    seeAllHref === null ? null : (seeAllHref ?? `/company/${eik}/contracts`);
 
   const top = data?.topContracts?.slice(0, TOP_ROWS) ?? [];
 
@@ -56,13 +58,15 @@ export const CompanyTopContractsTile: FC<{
           <span className="text-xs text-muted-foreground font-normal ml-1">
             {t("company_top_contracts_subtitle") || "Largest by signed amount."}
           </span>
-          <Link
-            to={hrefSeeAll}
-            className="ml-auto inline-flex items-center gap-1 text-xs text-primary hover:underline font-normal"
-          >
-            {t("procurement_tile_see_all") || "See all"}
-            <ArrowRight className="h-3 w-3" />
-          </Link>
+          {hrefSeeAll && (
+            <Link
+              to={hrefSeeAll}
+              className="ml-auto inline-flex items-center gap-1 text-xs text-primary hover:underline font-normal"
+            >
+              {t("procurement_tile_see_all") || "See all"}
+              <ArrowRight className="h-3 w-3" />
+            </Link>
+          )}
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 md:p-4">

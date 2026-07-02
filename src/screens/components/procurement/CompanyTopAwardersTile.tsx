@@ -17,13 +17,16 @@ export const CompanyTopAwardersTile: FC<{
   rollup: ProcurementContractorRollup;
   /** Link builder for an awarder row (DB page routes to the DB awarder view). */
   awarderHref?: (eik: string) => string;
-  /** Override the "see all" target (defaults to the JSON awarders page). */
-  seeAllHref?: string;
+  /** Override the "see all" target (defaults to the JSON awarders page).
+   *  Pass null to hide the link (e.g. the person page has no per-person list). */
+  seeAllHref?: string | null;
   /** Render an inline proportion bar in the share column (DB page). */
   showBars?: boolean;
 }> = ({ eik, rollup, awarderHref, seeAllHref, showBars }) => {
   const { t, i18n } = useTranslation();
   const hrefAwarder = awarderHref ?? ((e: string) => `/awarder/${e}`);
+  const hrefSeeAll =
+    seeAllHref === null ? null : (seeAllHref ?? `/company/${eik}/awarders`);
   const rows = rollup.byAwarder.slice(0, TOP_ROWS);
   if (rows.length === 0) return null;
   // Bars scale to the top awarder (#1 = full width) so proportions read even
@@ -40,9 +43,10 @@ export const CompanyTopAwardersTile: FC<{
             {t("company_top_awarders_subtitle") ||
               "State buyers that paid this company."}
           </span>
-          {(rollup.awarderCount ?? rollup.byAwarder.length) > TOP_ROWS ? (
+          {hrefSeeAll &&
+          (rollup.awarderCount ?? rollup.byAwarder.length) > TOP_ROWS ? (
             <Link
-              to={seeAllHref ?? `/company/${eik}/awarders`}
+              to={hrefSeeAll}
               className="ml-auto inline-flex items-center gap-1 text-xs text-primary hover:underline font-normal"
             >
               {t("procurement_tile_see_all") || "See all"}

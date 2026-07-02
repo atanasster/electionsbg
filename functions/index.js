@@ -421,11 +421,30 @@ const DB_ROUTES = {
   async person(pool, q) {
     const name = String(q.name || "").trim();
     if (!name) return { status: 400, body: { error: "missing name" } };
-    const [roles, politicians] = await Promise.all([
-      dbRows(pool, "SELECT * FROM person_roles($1)", [name]),
-      dbRows(pool, "SELECT * FROM person_politicians($1)", [name]),
-    ]);
-    return { body: { name, roles, politicians } };
+    const from = String(q.from || "").trim() || null;
+    const to = String(q.to || "").trim() || null;
+    const [roles, politicians, procurement, cabinets, associates] =
+      await Promise.all([
+        dbRows(pool, "SELECT * FROM person_roles($1)", [name]),
+        dbRows(pool, "SELECT * FROM person_politicians($1)", [name]),
+        dbRows(pool, "SELECT person_procurement($1, $2, $3) AS r", [
+          name,
+          from,
+          to,
+        ]),
+        dbRows(pool, "SELECT * FROM person_by_cabinet($1)", [name]),
+        dbRows(pool, "SELECT * FROM person_associates($1)", [name]),
+      ]);
+    return {
+      body: {
+        name,
+        roles,
+        politicians,
+        procurement: procurement[0]?.r ?? null,
+        cabinets,
+        associates,
+      },
+    };
   },
   async company(pool, q) {
     const eik = String(q.eik || "").trim();
