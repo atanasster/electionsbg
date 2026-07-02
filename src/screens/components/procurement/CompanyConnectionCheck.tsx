@@ -34,6 +34,16 @@ interface ConnResult {
   shared: BridgeRow[];
   path: PathResult | null;
 }
+// Bulgarian feminine ordinal for the degree ("2-ра степен", "3-та степен").
+// Only degrees 2–3 ever reach the deep-path branch, but the map covers 1–5.
+const BG_ORDINAL: Record<number, string> = {
+  1: "1-ва",
+  2: "2-ра",
+  3: "3-та",
+  4: "4-та",
+  5: "5-та",
+};
+const bgOrdinal = (n: number): string => BG_ORDINAL[n] ?? `${n}-та`;
 
 export const CompanyConnectionCheck: FC<{ eik: string }> = ({ eik }) => {
   const { t } = useTranslation();
@@ -172,8 +182,8 @@ export const CompanyConnectionCheck: FC<{ eik: string }> = ({ eik }) => {
                 <div className="mb-1 text-muted-foreground">
                   {t("company_conn_check_degree", {
                     degree: deepPath.degree,
-                    defaultValue:
-                      "Свързан на {{degree}} степен на отдалеченост:",
+                    ord: bgOrdinal(deepPath.degree),
+                    defaultValue: "Свързан на {{ord}} степен на отдалеченост:",
                   })}
                 </div>
                 <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1">
