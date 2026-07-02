@@ -48,6 +48,11 @@ CREATE INDEX IF NOT EXISTS idx_contracts_contractor ON contracts(contractor_eik)
 CREATE INDEX IF NOT EXISTS idx_contracts_awarder    ON contracts(awarder_eik);
 CREATE INDEX IF NOT EXISTS idx_contracts_order      ON contracts(date, ocid, key);
 CREATE INDEX IF NOT EXISTS idx_contracts_tag        ON contracts(tag);
+-- ocid is the tender→award lineage key (tenders.ocid = contracts.ocid). The
+-- (date,ocid,key) composite can't seek by ocid alone (leading col is date), so
+-- the tenders LATERAL joins (tenders_by_buyer / tender_awards) need this or they
+-- seq-scan contracts per tender (14s for a big buyer's pipeline).
+CREATE INDEX IF NOT EXISTS idx_contracts_ocid       ON contracts(ocid);
 
 CREATE TABLE IF NOT EXISTS meta (
   key   text PRIMARY KEY,
