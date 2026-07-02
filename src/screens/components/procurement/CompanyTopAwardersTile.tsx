@@ -19,11 +19,16 @@ export const CompanyTopAwardersTile: FC<{
   awarderHref?: (eik: string) => string;
   /** Override the "see all" target (defaults to the JSON awarders page). */
   seeAllHref?: string;
-}> = ({ eik, rollup, awarderHref, seeAllHref }) => {
+  /** Render an inline proportion bar in the share column (DB page). */
+  showBars?: boolean;
+}> = ({ eik, rollup, awarderHref, seeAllHref, showBars }) => {
   const { t, i18n } = useTranslation();
   const hrefAwarder = awarderHref ?? ((e: string) => `/awarder/${e}`);
   const rows = rollup.byAwarder.slice(0, TOP_ROWS);
   if (rows.length === 0) return null;
+  // Bars scale to the top awarder (#1 = full width) so proportions read even
+  // when the leader is only a small slice of the whole.
+  const maxEur = Math.max(...rows.map((a) => a.totalEur), 1);
 
   return (
     <Card>
@@ -91,12 +96,31 @@ export const CompanyTopAwardersTile: FC<{
                     {a.contractCount.toLocaleString("bg-BG")}
                   </td>
                   <td className="px-3 py-2 text-right tabular-nums hidden sm:table-cell text-muted-foreground">
-                    {rollup.totalEur > 0
-                      ? ((a.totalEur / rollup.totalEur) * 100).toLocaleString(
-                          i18n.language,
-                          { maximumFractionDigits: 1 },
-                        ) + "%"
-                      : "—"}
+                    {showBars ? (
+                      <div className="flex items-center justify-end gap-2">
+                        <span className="h-1.5 w-16 md:w-24 overflow-hidden rounded bg-muted">
+                          <span
+                            className="block h-full rounded bg-primary/70"
+                            style={{
+                              width: `${Math.max(3, (a.totalEur / maxEur) * 100)}%`,
+                            }}
+                          />
+                        </span>
+                        <span className="w-9 text-right">
+                          {rollup.totalEur > 0
+                            ? Math.round((a.totalEur / rollup.totalEur) * 100) +
+                              "%"
+                            : "—"}
+                        </span>
+                      </div>
+                    ) : rollup.totalEur > 0 ? (
+                      ((a.totalEur / rollup.totalEur) * 100).toLocaleString(
+                        i18n.language,
+                        { maximumFractionDigits: 1 },
+                      ) + "%"
+                    ) : (
+                      "—"
+                    )}
                   </td>
                 </tr>
               ))}

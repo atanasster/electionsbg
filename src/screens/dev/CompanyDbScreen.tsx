@@ -41,8 +41,8 @@ import {
   CompanyGeographyTile,
   type CompanyGeography,
 } from "../components/procurement/CompanyGeographyTile";
-import { CompanyPortfolioTreemap } from "../components/procurement/CompanyPortfolioTreemap";
 import { AwarderTopContractorsTile } from "../components/procurement/AwarderTopContractorsTile";
+import { CompanyRiskChips } from "../components/procurement/CompanyRiskChips";
 import {
   CompanyFundsTile,
   type FundProjectRow,
@@ -399,10 +399,19 @@ export const CompanyDbScreen: FC = () => {
             {company?.seat ?? institution?.locality}
           </div>
         )}
+        {!loading && !error && (
+          <CompanyRiskChips
+            debarredCount={debarred.length}
+            sectors={sectors}
+            relationships={relationships}
+            politicianCount={politicians.length}
+            fundsContractedEur={Number(funds?.contracted_eur ?? 0)}
+          />
+        )}
         {contracts > 0 && (
           <Link
             to={`/company/${eik}`}
-            className="mt-2 inline-flex items-center gap-1 text-sm text-accent hover:underline"
+            className="mt-3 inline-flex items-center gap-1 text-sm text-accent hover:underline"
           >
             Обществени поръчки — пълно табло <ArrowRight className="h-3 w-3" />
           </Link>
@@ -545,15 +554,15 @@ export const CompanyDbScreen: FC = () => {
           )}
           {rollup && rollup.contractCount > 0 && (
             <>
-              {/* When the entity is BOTH an awarder and a contractor (e.g. a
-                  state EAD), label this section so its "По години" / "Топ
-                  договори" aren't confused with the awarder dashboard's. */}
-              {awarderRollup && (
-                <div className="flex items-center gap-2">
-                  <Building2 className="h-5 w-5 text-muted-foreground" />
-                  <h2 className="text-lg font-semibold">Като изпълнител</h2>
-                </div>
-              )}
+              {/* Section header. When the entity is BOTH an awarder and a
+                  contractor (e.g. a state EAD), "Като изпълнител" distinguishes
+                  this from the awarder dashboard; otherwise "Обществени поръчки". */}
+              <div className="flex items-center gap-2">
+                <Building2 className="h-5 w-5 text-muted-foreground" />
+                <h2 className="text-lg font-semibold">
+                  {awarderRollup ? "Като изпълнител" : "Обществени поръчки"}
+                </h2>
+              </div>
               <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
                 <StatCard label="Общо възложени">
                   <div className="flex items-baseline gap-2">
@@ -629,6 +638,7 @@ export const CompanyDbScreen: FC = () => {
                     eik={eik}
                     rollup={rollup}
                     awarderHref={(e) => `/db/company/${e}`}
+                    showBars
                   />
                 )}
               </div>
@@ -646,14 +656,6 @@ export const CompanyDbScreen: FC = () => {
               {relationships && (
                 <CompanyBuyerCaptureTile data={relationships} />
               )}
-              <CompanyPortfolioTreemap
-                role="contractor"
-                items={rollup.byAwarder.map((a) => ({
-                  eik: a.eik,
-                  name: a.name,
-                  totalEur: a.totalEur,
-                }))}
-              />
               {rollup.byYear.length > 0 && (
                 <CompanyByYearChart rows={rollup.byYear} />
               )}
@@ -671,6 +673,13 @@ export const CompanyDbScreen: FC = () => {
 
           {funds && Number(funds.contracted_eur ?? 0) > 0 && (
             <CompanyFundsTile eik={eik} funds={funds} projects={fundProjects} />
+          )}
+
+          {company && (
+            <div className="flex items-center gap-2 pt-2">
+              <Users className="h-5 w-5 text-muted-foreground" />
+              <h2 className="text-lg font-semibold">Собственост и връзки</h2>
+            </div>
           )}
 
           {company && (

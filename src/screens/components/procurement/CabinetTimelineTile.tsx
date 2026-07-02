@@ -1,13 +1,23 @@
 // Government-correlation tile for the DB company page: how much this company was
-// awarded under each cabinet. Fed entirely from Postgres (company_by_cabinet →
-// /api/db/company `cabinets`). Normalises by tenure length (€/month) — caretaker
-// cabinets run 2 months, regular ones up to 4 years, so raw totals would mislead.
-// Descriptive framing ("awarded during"), not causal; award date is the proxy
-// for who governed. See docs/plans/pg-query-performance.md.
+// awarded under each cabinet, as a party-coloured bar chart. Fed from Postgres
+// (company_by_cabinet → /api/db/company `cabinets`). Bar HEIGHT = €/month rate,
+// NOT total € — caretaker cabinets run ~2 months and regular ones up to 4 years,
+// so raw totals would just rank cabinets by length. Descriptive ("awarded
+// during"), not causal; award date is the proxy for who governed.
 
-import { FC } from "react";
+import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Landmark } from "lucide-react";
+import {
+  Bar,
+  BarChart,
+  Cell,
+  ReferenceLine,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 
@@ -38,6 +48,55 @@ const partyColor = (party: string | undefined): string => {
 
 const MS_PER_MONTH = 1000 * 60 * 60 * 24 * 30.44;
 const yr = (d: string) => d.slice(0, 4);
+const surname = (pm: string | null): string =>
+  (pm ?? "").trim().split(/\s+/).pop() ?? "—";
+
+interface Datum {
+  key: string;
+  label: string;
+  pm: string | null;
+  lead: string | undefined;
+  years: string;
+  perMonth: number;
+  eur: number;
+  share: number;
+  caretaker: boolean;
+  color: string;
+}
+
+const ChartTooltip: FC<{
+  active?: boolean;
+  payload?: { payload: Datum }[];
+  bg: boolean;
+  lang: string;
+}> = ({ active, payload, bg, lang }) => {
+  if (!active || !payload?.[0]) return null;
+  const d = payload[0].payload;
+  return (
+    <div className="rounded-md border bg-popover px-2 py-1.5 text-popover-foreground shadow-sm text-xs">
+      <div className="font-semibold">
+        {d.pm}
+        {d.caretaker ? (
+          <span className="font-normal text-muted-foreground">
+            {bg ? " · служебен" : " · caretaker"}
+          </span>
+        ) : d.lead ? (
+          <span className="font-normal text-muted-foreground"> ({d.lead})</span>
+        ) : null}
+      </div>
+      <div className="text-muted-foreground tabular-nums">{d.years}</div>
+      <div className="tabular-nums">
+        <span className="font-semibold">
+          {formatEurCompact(d.perMonth, lang)}
+        </span>
+        {bg ? " / мес" : " / mo"}
+      </div>
+      <div className="text-muted-foreground tabular-nums">
+        {formatEurCompact(d.eur, lang)} · {Math.round(d.share * 100)}%
+      </div>
+    </div>
+  );
+};
 
 export const CabinetTimelineTile: FC<{
   cabinets: CabinetRow[];
@@ -45,36 +104,48 @@ export const CabinetTimelineTile: FC<{
 }> = ({ cabinets, totalEur }) => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
+  const [regularOnly, setRegularOnly] = useState(false);
 
-  const rows = (cabinets ?? [])
-    .filter((c) => c.contracts > 0)
-    .map((c) => {
-      const start = Date.parse(c.start_date);
-      const end = c.end_date ? Date.parse(c.end_date) : Date.now();
-      const months = Math.max(1, (end - start) / MS_PER_MONTH);
-      return {
-        ...c,
-        months,
-        perMonth: c.eur / months,
-        share: totalEur > 0 ? c.eur / totalEur : 0,
-        lead: c.parties?.[0],
-        caretaker: c.type === "caretaker" || !c.parties?.length,
-      };
-    });
-  if (rows.length === 0) return null;
+  const all = useMemo<Datum[]>(
+    () =>
+      (cabinets ?? [])
+        .filter((c) => c.contracts > 0)
+        .map((c) => {
+          const start = Date.parse(c.start_date);
+          const end = c.end_date ? Date.parse(c.end_date) : Date.now();
+          const months = Math.max(1, (end - start) / MS_PER_MONTH);
+          const lead = c.parties?.[0];
+          const caretaker = c.type === "caretaker" || !c.parties?.length;
+          return {
+            key: c.id,
+            label: `${surname(c.pm)} '${yr(c.start_date).slice(2)}`,
+            pm: c.pm,
+            lead,
+            years: `${yr(c.start_date)}–${c.end_date ? yr(c.end_date) : ""}`,
+            perMonth: c.eur / months,
+            eur: c.eur,
+            share: totalEur > 0 ? c.eur / totalEur : 0,
+            caretaker,
+            color: partyColor(lead),
+          };
+        })
+        .sort((a, b) => (a.years < b.years ? -1 : 1)),
+    [cabinets, totalEur],
+  );
 
-  const maxPerMonth = Math.max(...rows.map((r) => r.perMonth), 1);
-  // The takeaway answers "which POLITICAL government" — so pick the peak among
-  // regular (elected) cabinets, not a short caretaker whose €/month spikes on a
-  // couple of contracts in a 2-month window. Fall back to all if no regular one.
-  const regular = rows.filter((r) => !r.caretaker);
-  const peak = (regular.length ? regular : rows).reduce((a, b) =>
+  const data = regularOnly ? all.filter((d) => !d.caretaker) : all;
+  if (all.length === 0) return null;
+
+  // Peak among REGULAR (elected) cabinets — a 2-month caretaker's €/month spikes
+  // on a couple of contracts and isn't the political takeaway.
+  const regular = all.filter((d) => !d.caretaker);
+  const peak = (regular.length ? regular : all).reduce((a, b) =>
     b.perMonth > a.perMonth ? b : a,
   );
-  // chronological for the timeline reading
-  const ordered = [...rows].sort((a, b) =>
-    a.start_date < b.start_date ? -1 : 1,
-  );
+  const avg =
+    data.length > 0
+      ? data.reduce((s, d) => s + d.perMonth, 0) / data.length
+      : 0;
 
   return (
     <Card className="my-4">
@@ -85,70 +156,94 @@ export const CabinetTimelineTile: FC<{
         </CardTitle>
         <p className="text-xs text-muted-foreground">
           {bg
-            ? "Възложено на компанията по кабинети — темп на месец (кабинетите са с различна дължина), по дата на възлагане."
-            : "Awarded to the company per cabinet — rate per month (cabinets vary in length), by award date."}
+            ? "Темп на възлагане на месец по кабинети (кабинетите са с различна дължина), по дата на възлагане."
+            : "Award rate per month by cabinet (cabinets vary in length), by award date."}
         </p>
       </CardHeader>
       <CardContent className="p-3 md:p-4 space-y-3">
-        <div className="rounded-md bg-muted/40 px-3 py-2 text-sm">
-          {bg ? "Най-висок темп при " : "Highest rate under "}
-          <span className="font-semibold">{peak.pm}</span>
-          {peak.lead ? (
-            <span className="text-muted-foreground"> ({peak.lead})</span>
-          ) : null}
-          {": "}
-          <span className="font-semibold tabular-nums">
-            {formatEurCompact(peak.perMonth, i18n.language)}
-          </span>
-          {bg ? " / мес" : " / mo"}
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="rounded-md bg-muted/40 px-3 py-2 text-sm">
+            {bg ? "Най-висок темп при " : "Highest rate under "}
+            <span className="font-semibold">{peak.pm}</span>
+            {peak.lead ? (
+              <span className="text-muted-foreground"> ({peak.lead})</span>
+            ) : null}
+            {": "}
+            <span className="font-semibold tabular-nums">
+              {formatEurCompact(peak.perMonth, i18n.language)}
+            </span>
+            {bg ? " / мес" : " / mo"}
+          </div>
+          <label className="flex items-center gap-1.5 text-xs text-muted-foreground cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={regularOnly}
+              onChange={(e) => setRegularOnly(e.target.checked)}
+            />
+            {bg ? "само редовни кабинети" : "regular cabinets only"}
+          </label>
         </div>
 
-        <div className="space-y-2.5">
-          {ordered.map((c) => (
-            <div key={c.id} className="text-xs">
-              <div className="flex items-baseline gap-2">
-                <span
-                  className="h-2.5 w-2.5 rounded-full shrink-0"
-                  style={{ backgroundColor: partyColor(c.lead) }}
+        <div style={{ height: 280, width: "100%" }}>
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart
+              data={data}
+              margin={{ top: 8, right: 8, bottom: 44, left: 0 }}
+            >
+              <XAxis
+                dataKey="label"
+                interval={0}
+                angle={-38}
+                textAnchor="end"
+                height={44}
+                tickLine={false}
+                axisLine={false}
+                fontSize={10}
+                className="fill-muted-foreground"
+              />
+              <YAxis
+                tickFormatter={(v: number) =>
+                  v >= 1_000_000
+                    ? `€${(v / 1_000_000).toFixed(0)}M`
+                    : v >= 1_000
+                      ? `€${(v / 1_000).toFixed(0)}k`
+                      : `€${v}`
+                }
+                tickLine={false}
+                axisLine={false}
+                fontSize={11}
+                className="fill-muted-foreground"
+                width={52}
+              />
+              <Tooltip
+                content={<ChartTooltip bg={bg} lang={i18n.language} />}
+                cursor={{ fill: "var(--muted)", opacity: 0.3 }}
+              />
+              {avg > 0 && (
+                <ReferenceLine
+                  y={avg}
+                  stroke="var(--muted-foreground)"
+                  strokeDasharray="4 4"
+                  strokeOpacity={0.6}
+                  label={{
+                    value: bg ? "средно" : "avg",
+                    position: "right",
+                    fontSize: 10,
+                    fill: "var(--muted-foreground)",
+                  }}
                 />
-                <span className="font-medium truncate">
-                  {c.pm}
-                  {c.caretaker ? (
-                    <span className="text-muted-foreground font-normal">
-                      {bg ? " · служебен" : " · caretaker"}
-                    </span>
-                  ) : c.lead ? (
-                    <span className="text-muted-foreground font-normal">
-                      {" "}
-                      ({c.lead})
-                    </span>
-                  ) : null}
-                </span>
-                <span className="text-muted-foreground tabular-nums whitespace-nowrap">
-                  {yr(c.start_date)}–{c.end_date ? yr(c.end_date) : ""}
-                </span>
-                <span className="ml-auto tabular-nums whitespace-nowrap font-semibold">
-                  {formatEurCompact(c.eur, i18n.language)}
-                </span>
-              </div>
-              <div className="mt-1 flex items-center gap-2 pl-[18px]">
-                <span className="flex-1 min-w-0 h-2 rounded bg-muted overflow-hidden">
-                  <span
-                    className="block h-full rounded"
-                    style={{
-                      width: `${Math.max(2, (c.perMonth / maxPerMonth) * 100)}%`,
-                      backgroundColor: partyColor(c.lead),
-                      opacity: 0.65,
-                    }}
+              )}
+              <Bar dataKey="perMonth" radius={[2, 2, 0, 0]}>
+                {data.map((d) => (
+                  <Cell
+                    key={d.key}
+                    fill={d.color}
+                    fillOpacity={d.caretaker ? 0.4 : 0.85}
                   />
-                </span>
-                <span className="shrink-0 whitespace-nowrap tabular-nums text-muted-foreground">
-                  {formatEurCompact(c.perMonth, i18n.language)}
-                  {bg ? "/мес" : "/mo"} · {Math.round(c.share * 100)}%
-                </span>
-              </div>
-            </div>
-          ))}
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
         </div>
       </CardContent>
     </Card>
