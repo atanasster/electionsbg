@@ -15,28 +15,30 @@ import {
   procedureLabel,
   type ProcedureBucket,
 } from "@/lib/cpvSectors";
-import { formatEur } from "@/lib/currency";
+import { formatEurCompact } from "@/lib/currency";
 
 const pct = (v: number, lang: string) =>
   (v * 100).toLocaleString(lang, { maximumFractionDigits: 1 }) + "%";
 
-// A labelled share row with a thin proportion bar.
+// A labelled share row with a thin proportion bar. The label narrows on mobile
+// and the amount is compact + auto-width (was a fixed w-12 that a long euro
+// figure overflowed, leaking left over the bar on narrow screens).
 const Bar: FC<{ label: string; share: number; amount: string }> = ({
   label,
   share,
   amount,
 }) => (
   <div className="flex items-center gap-2 text-xs">
-    <span className="w-44 shrink-0 truncate" title={label}>
+    <span className="w-28 sm:w-44 shrink-0 truncate" title={label}>
       {label}
     </span>
-    <span className="flex-1 h-2 rounded bg-muted overflow-hidden">
+    <span className="flex-1 min-w-0 h-2 rounded bg-muted overflow-hidden">
       <span
         className="block h-full bg-primary/60"
         style={{ width: `${Math.max(2, Math.min(100, share * 100))}%` }}
       />
     </span>
-    <span className="w-12 text-right tabular-nums text-muted-foreground">
+    <span className="shrink-0 whitespace-nowrap text-right tabular-nums text-muted-foreground">
       {amount}
     </span>
   </div>
@@ -98,7 +100,7 @@ export const ProcurementBreakdownTile: FC<{
               key={c.d}
               label={cpvDivisionName(c.d, lang)}
               share={c.eur / cpvTotal}
-              amount={formatEur(c.eur)}
+              amount={formatEurCompact(c.eur, lang)}
             />
           ))}
         </div>
