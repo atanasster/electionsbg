@@ -641,6 +641,31 @@ const DB_ROUTES = {
       },
     };
   },
+  // Single contract by key → ProcurementContract shape.
+  contract: async (pool, q) => {
+    const key = String(q.key || "").trim();
+    if (!key) return { status: 400, body: { error: "missing key" } };
+    const rows = await dbRows(
+      pool,
+      `SELECT key, ocid, tag, date, date_signed AS "dateSigned",
+              awarder_eik AS "awarderEik", awarder_name AS "awarderName",
+              awarder_region AS "awarderRegion",
+              contractor_eik AS "contractorEik", contractor_eik_full AS "contractorEikFull",
+              contractor_name AS "contractorName",
+              amount, currency, amount_eur AS "amountEur", title, cpv,
+              procurement_method AS "procurementMethod",
+              procurement_method_rationale AS "procurementMethodRationale",
+              number_of_tenderers AS "numberOfTenderers",
+              CASE WHEN eu_funded IS NULL THEN NULL ELSE eu_funded = 1 END AS "euFunded",
+              eu_program AS "euProgram",
+              tender_period_start_date AS "tenderPeriodStartDate",
+              tender_period_end_date AS "tenderPeriodEndDate",
+              category, bundle_uuid AS "bundleUuid", source_url AS "sourceUrl"
+       FROM contracts WHERE key = $1 LIMIT 1`,
+      [key],
+    );
+    return { body: { contract: rows[0] ?? null } };
+  },
   // Risk-signals feed — top concentration + top MP-tied + headline counts +
   // per-oblast tally, window-scoped or full corpus.
   "procurement-risk-feed": async (pool, q) => {

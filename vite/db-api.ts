@@ -25,6 +25,25 @@ const withHint = (msg: string): string =>
     ? `${msg} — is Postgres up? run \`npm run db:pg:up\` + \`db:load:pg\` + \`db:load:tr:pg\`.`
     : msg;
 
+// Single contract by key → ProcurementContract shape (camelCased). Colocated so
+// the dev plugin and the Cloud Function serve the identical projection.
+const CONTRACT_SQL = `
+  SELECT key, ocid, tag, date, date_signed AS "dateSigned",
+         awarder_eik AS "awarderEik", awarder_name AS "awarderName",
+         awarder_region AS "awarderRegion",
+         contractor_eik AS "contractorEik", contractor_eik_full AS "contractorEikFull",
+         contractor_name AS "contractorName",
+         amount, currency, amount_eur AS "amountEur", title, cpv,
+         procurement_method AS "procurementMethod",
+         procurement_method_rationale AS "procurementMethodRationale",
+         number_of_tenderers AS "numberOfTenderers",
+         CASE WHEN eu_funded IS NULL THEN NULL ELSE eu_funded = 1 END AS "euFunded",
+         eu_program AS "euProgram",
+         tender_period_start_date AS "tenderPeriodStartDate",
+         tender_period_end_date AS "tenderPeriodEndDate",
+         category, bundle_uuid AS "bundleUuid", source_url AS "sourceUrl"
+  FROM contracts WHERE key = $1 LIMIT 1`;
+
 export const dbApi = (): Plugin => ({
   name: "db-api-dev",
   apply: "serve",
@@ -146,6 +165,16 @@ export const dbApi = (): Plugin => ({
           eik,
         ]).then(
           (rows) => send(200, rows[0]?.r ?? { division, peers: [] }),
+          fail,
+        );
+        return;
+      }
+
+      if (url.pathname.startsWith("/contract")) {
+        const key = q("key");
+        if (!key) return send(400, { error: "missing `key`" });
+        allRows(CONTRACT_SQL, [key]).then(
+          (rows) => send(200, { contract: rows[0] ?? null }),
           fail,
         );
         return;
