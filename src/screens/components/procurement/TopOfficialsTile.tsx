@@ -77,7 +77,7 @@ export const TopOfficialsTile: FC<{
   data?: ProcurementByNsFile | null;
 }> = ({ data: dataProp }) => {
   const { t } = useTranslation();
-  const q = useProcurementByNs();
+  const q = useProcurementByNs(dataProp === undefined);
   const data = dataProp !== undefined ? dataProp : q.data;
   const isLoading = dataProp !== undefined ? false : q.isLoading;
 

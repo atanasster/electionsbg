@@ -33,8 +33,9 @@ export const TopContractorsTile: FC<{
   byNs?: ProcurementByNsFile | null;
 }> = ({ byNs }) => {
   const { t, i18n } = useTranslation();
-  const allYears = useTopContractors();
   const useNs = byNs !== undefined;
+  // Skip the full-corpus JSON fetch when the parent passes per-NS data (overview).
+  const allYears = useTopContractors(!useNs);
 
   const rows = useMemo<Row[]>(() => {
     if (useNs) {
@@ -44,7 +45,7 @@ export const TopContractorsTile: FC<{
         name: e.name,
         totalDisplay: formatEur(e.totalEur, i18n.language),
         contractCount: e.contractCount,
-        mpTied: e.mpTied,
+        mpTied: e.mpTied ?? false,
       }));
     }
     return (
@@ -54,7 +55,7 @@ export const TopContractorsTile: FC<{
         totalDisplay:
           formatEurWithOther(e.totalEur, e.totalOther, i18n.language) || "—",
         contractCount: e.contractCount,
-        mpTied: e.mpTied,
+        mpTied: e.mpTied ?? false,
       })) ?? []
     );
   }, [useNs, byNs, allYears.data, i18n.language]);

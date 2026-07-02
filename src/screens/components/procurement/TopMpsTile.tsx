@@ -79,7 +79,7 @@ export const TopMpsTile: FC<{
   data?: ProcurementByNsFile | null;
 }> = ({ data: dataProp }) => {
   const { t } = useTranslation();
-  const q = useProcurementByNs();
+  const q = useProcurementByNs(dataProp === undefined);
   const { partyForMp } = useMpParty();
   const { findMpById } = useMps();
   const { mpName } = useCandidateName();

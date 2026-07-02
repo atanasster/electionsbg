@@ -29,9 +29,12 @@ export const useProcurementIndex = () =>
     staleTime: Infinity,
   });
 
-export const useTopContractors = () =>
+// `enabled` lets a consumer already showing per-NS data (the overview) skip the
+// full-corpus JSON fetch.
+export const useTopContractors = (enabled = true) =>
   useQuery({
     queryKey: ["procurement", "top_contractors"] as const,
     queryFn: fetchTop,
+    enabled,
     staleTime: Infinity,
   });

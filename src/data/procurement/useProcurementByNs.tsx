@@ -17,12 +17,14 @@ const fetchByNs = async (
   return (await r.json()) as ProcurementByNsFile;
 };
 
-export const useProcurementByNs = () => {
+// `enabled` lets a consumer that already has the per-NS data in hand (e.g. the
+// overview, which loads it from Postgres) skip this JSON fetch entirely.
+export const useProcurementByNs = (enabled = true) => {
   const { selected } = useElectionContext();
   return useQuery({
     queryKey: ["procurement", "by_ns", selected] as const,
     queryFn: () => fetchByNs(selected),
-    enabled: !!selected,
+    enabled: enabled && !!selected,
     staleTime: Infinity,
   });
 };
