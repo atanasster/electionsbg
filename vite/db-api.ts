@@ -160,6 +160,10 @@ export const dbApi = (): Plugin => ({
           allRows("SELECT * FROM company_by_cabinet($1)", [eik]),
           allRows("SELECT * FROM company_debarred($1)", [eik]),
           allRows("SELECT * FROM fund_beneficiaries WHERE eik = $1", [eik]),
+          allRows<{ r: unknown }>(
+            "SELECT company_buyer_relationships($1) AS r",
+            [eik],
+          ),
         ]).then(
           ([
             company,
@@ -170,6 +174,7 @@ export const dbApi = (): Plugin => ({
             cabinets,
             debarred,
             funds,
+            relationships,
           ]) =>
             send(200, {
               eik,
@@ -181,6 +186,7 @@ export const dbApi = (): Plugin => ({
               cabinets,
               debarred,
               funds: funds[0] ?? null,
+              relationships: relationships[0]?.r ?? null,
             }),
           fail,
         );

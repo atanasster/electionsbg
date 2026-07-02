@@ -26,6 +26,10 @@ import { CompanyTopContractsTile } from "../components/procurement/CompanyTopCon
 import { CompanyTopAwardersTile } from "../components/procurement/CompanyTopAwardersTile";
 import { CompanyByYearChart } from "../components/procurement/CompanyByYearChart";
 import { CompanyBuyerConcentrationTile } from "../components/procurement/CompanyBuyerConcentrationTile";
+import {
+  CompanyBuyerCaptureTile,
+  type BuyerRelationships,
+} from "../components/procurement/CompanyBuyerCaptureTile";
 import { CompanyPortfolioTreemap } from "../components/procurement/CompanyPortfolioTreemap";
 import { ProcurementBreakdownTile } from "../components/procurement/ProcurementBreakdownTile";
 import {
@@ -146,6 +150,9 @@ export const CompanyDbScreen: FC = () => {
   const [cabinets, setCabinets] = useState<CabinetRow[]>([]);
   const [debarred, setDebarred] = useState<Debarred[]>([]);
   const [funds, setFunds] = useState<Funds | null>(null);
+  const [relationships, setRelationships] = useState<BuyerRelationships | null>(
+    null,
+  );
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [period, setPeriod] = useState<string>(PERIOD_ALL);
@@ -174,6 +181,7 @@ export const CompanyDbScreen: FC = () => {
           setCabinets(j.cabinets ?? []);
           setDebarred(j.debarred ?? []);
           setFunds(j.funds ?? null);
+          setRelationships(j.relationships ?? null);
         }
       })
       .catch((e) => live && setError(String(e)))
@@ -431,6 +439,9 @@ export const CompanyDbScreen: FC = () => {
                 breakdown={breakdown}
               />
               <CompanyBuyerConcentrationTile rollup={rollup} />
+              {relationships && (
+                <CompanyBuyerCaptureTile data={relationships} />
+              )}
               <CompanyPortfolioTreemap
                 role="contractor"
                 items={rollup.byAwarder.map((a) => ({
