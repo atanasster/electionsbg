@@ -77,7 +77,7 @@ export const CompanyBuyerCaptureTile: FC<{ data: BuyerRelationships }> = ({
       <CardHeader className="pb-2">
         <CardTitle className="text-base flex items-center gap-2 flex-wrap">
           <Crosshair className="h-4 w-4" />
-          {t("company_capture_title") || "Пазарна тежест при възложители"}
+          {t("company_capture_title") || "Пазарна тежест по възложители"}
           <span className="text-xs text-muted-foreground font-normal ml-1">
             {t("company_capture_subtitle") ||
               "Дял от поръчките на възложителя, спечелен от тази фирма"}
