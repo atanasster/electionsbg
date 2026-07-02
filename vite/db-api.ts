@@ -9,6 +9,8 @@
 //   GET /api/db/company?eik=…       → { company, summary, officers[], politicians[] }
 //   GET /api/db/connection?a=…&b=…  → { shared[] }  (co-officership between names)
 //   GET /api/db/person-search?q=…   → { people[] }
+//   GET /api/db/tenders?eik=…       → { summary, recent[] }  (per-buyer pipeline)
+//   GET /api/db/tender?ocid=|unp=…  → { tender, awards[] }   (forecast vs actual)
 //
 // See docs/plans/postgres-migration-v1.md.
 
@@ -51,6 +53,40 @@ export const dbApi = (): Plugin => ({
            LIMIT 50`,
           [term],
         ).then((people) => send(200, { people }), fail);
+        return;
+      }
+
+      if (url.pathname.startsWith("/tenders")) {
+        const eik = q("eik");
+        if (!eik) return send(400, { error: "missing `eik`" });
+        const limit = Math.min(Math.max(Number(q("limit")) || 25, 1), 200);
+        Promise.all([
+          allRows("SELECT * FROM tenders_buyer_summary($1)", [eik]),
+          allRows("SELECT * FROM tenders_by_buyer($1, $2)", [eik, limit]),
+        ]).then(
+          ([summary, recent]) =>
+            send(200, { eik, summary: summary[0] ?? null, recent }),
+          fail,
+        );
+        return;
+      }
+
+      if (url.pathname.startsWith("/tender")) {
+        const ocid = q("ocid");
+        const unp = q("unp");
+        if (!ocid && !unp)
+          return send(400, { error: "missing `ocid` or `unp`" });
+        allRows(
+          "SELECT * FROM tenders WHERE ($1 <> '' AND ocid = $1) OR ($2 <> '' AND unp = $2) LIMIT 1",
+          [ocid, unp],
+        ).then((rows) => {
+          const tender = rows[0] ?? null;
+          if (!tender) return send(200, { tender: null, awards: [] });
+          allRows("SELECT * FROM tender_awards($1)", [tender.ocid ?? ""]).then(
+            (awards) => send(200, { tender, awards }),
+            fail,
+          );
+        }, fail);
         return;
       }
 

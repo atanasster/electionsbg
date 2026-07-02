@@ -457,6 +457,31 @@ const DB_ROUTES = {
       },
     };
   },
+  async tenders(pool, q) {
+    const eik = String(q.eik || "").trim();
+    if (!eik) return { status: 400, body: { error: "missing eik" } };
+    const limit = clampInt(q.limit, 25, 1, 200);
+    const [summary, recent] = await Promise.all([
+      dbRows(pool, "SELECT * FROM tenders_buyer_summary($1)", [eik]),
+      dbRows(pool, "SELECT * FROM tenders_by_buyer($1, $2)", [eik, limit]),
+    ]);
+    return { body: { eik, summary: summary[0] ?? null, recent } };
+  },
+  async tender(pool, q) {
+    const ocid = String(q.ocid || "").trim();
+    const unp = String(q.unp || "").trim();
+    if (!ocid && !unp) return { status: 400, body: { error: "missing ocid or unp" } };
+    const rows = await dbRows(
+      pool,
+      "SELECT * FROM tenders WHERE ($1 <> '' AND ocid = $1) OR ($2 <> '' AND unp = $2) LIMIT 1",
+      [ocid, unp],
+    );
+    const tender = rows[0] ?? null;
+    const awards = tender
+      ? await dbRows(pool, "SELECT * FROM tender_awards($1)", [tender.ocid ?? ""])
+      : [];
+    return { body: { tender, awards } };
+  },
   async connection(pool, q) {
     const a = String(q.a || "").trim();
     const b = String(q.b || "").trim();

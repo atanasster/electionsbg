@@ -25,6 +25,7 @@ import { formatEurWithOther } from "@/lib/currency";
 import { MpAvatar } from "./components/candidates/MpAvatar";
 import { AwarderTopContractsTile } from "./components/procurement/AwarderTopContractsTile";
 import { AwarderTopContractorsTile } from "./components/procurement/AwarderTopContractorsTile";
+import { AwarderTendersTile } from "./components/procurement/AwarderTendersTile";
 import { CompanyByYearChart } from "./components/procurement/CompanyByYearChart";
 import { EntityFlowTile } from "./components/procurement/EntityFlowTile";
 import { ProcurementBreakdownTile } from "./components/procurement/ProcurementBreakdownTile";
@@ -348,6 +349,8 @@ export const AwarderByEikScreen: FC = () => {
             />
           ) : null}
         </div>
+
+        <AwarderTendersTile eik={a.eik} />
 
         <div className="my-4">
           <ProcurementBreakdownTile kind="a" eik={a.eik} />
