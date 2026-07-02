@@ -37,13 +37,7 @@ precision from the by-tender shards) + the `ocid` lineage to contracts are in
 `010_tenders_api.sql` (`tenders_buyer_summary` / `tenders_by_buyer` /
 `tender_awards`) → `/api/db/tenders` + `/api/db/tender` (dev plugin + `db`
 function) → the **"Announced procedures" tile on `/awarder/:eik`** (forecast Σ vs
-actual awarded, contracted share, recent procedures). Two follow-ups:
-- **Deferred — JSON-from-PG generators** (`by-tender`/`by-ocid`/`by_year` from
-  PG, verified in `db:build`). Lower value (the ingest already produces that
-  JSON) and more invasive (the derived shards are written in non-deterministic
-  cache order + full float precision, so reproducing them means extracting the
-  builders out of the watcher/CI `ingest_tenders.ts`). Do only if/when we flip
-  PG to be the source of the static tenders JSON too.
+actual awarded, contracted share, recent procedures). One follow-up:
 - **Prod-enablement (operator)** — the tenders table + API functions live only
   in local PG; the tile stays hidden in prod until the Cloud SQL snapshot
   includes them: `npm run db:push` (pg_dump/restore covers the new table +
@@ -54,9 +48,8 @@ actual awarded, contracted share, recent procedures). Two follow-ups:
 ## Recommended sequence
 
 **0. Tenders (procedures) — the fastest, most natural first move.** It's the
-**same procurement domain already in Postgres**, so it reuses *everything* —
-the shard→PG loader shape, the source-agnostic builders, the golden/manifest
-verification net, the `db:build` orchestrator, the `/api/db` serving. It's large
+**same procurement domain already in Postgres**, so it reuses the shard→PG loader
+shape and the `/api/db` serving. It's large
 (788 M, #2), changes ~daily (same ЦАИС ЕОП feed as contracts), and — via `ocid`
 — **completes the procurement lifecycle in one engine: procedure → award**. That
 lineage unlocks the questions contracts alone can't answer: forecast
@@ -99,8 +92,8 @@ queries + similarity and trims the mega-JSON. MPs join the existing parliament d
   `buyer_fold` / `subject_fold`. Lives beside `contracts` in the same DB.
 - **Load** `load_tenders_pg.ts` from the existing tender ingest (full rebuild from
   `data/procurement/tenders/**` shards, exactly like `load_pg.ts` does contracts).
-- **Generate** the current `tenders/by_year|by-ocid|by-tender` JSON FROM PG via
-  `build*FromRows`, verified by the same net.
+  DONE. The ingest keeps writing the tenders JSON; not regenerated from PG (scope
+  decision).
 - **Live payoff:** join `tenders.ocid = contracts.ocid` →
   forecast-vs-actual, "competitively tendered?", cancelled/failed procedures,
   per-buyer pipeline; surface a "tenders" section on the awarder + company pages.
@@ -111,11 +104,9 @@ queries + similarity and trims the mega-JSON. MPs join the existing parliament d
 - **Schema** `fund_projects` (contract_number PK, title, total_eur, paid_eur,
   status, program_code, program_name, **beneficiary_eik**, beneficiary_name,
   ekatte/muni, dates) + GIN trgm on a `beneficiary_fold` for name search.
-- **Load** `load_funds_pg.ts` from the raw ИСУН ingest → PG (full rebuild).
-- **Generate** the existing `data/funds/**` (by-muni / by-program / by-ekatte /
-  taxonomy) FROM PG via source-agnostic `build*FromRows` — verified byte-identical
-  by the same golden/manifest net. Kills the 43 M / 19 M mega-files as a
-  regeneration concern.
+- **Load** `load_funds_pg.ts` from the raw ИСУН ingest → PG (full rebuild). The
+  existing ingest keeps writing `data/funds/**`; we do NOT regenerate it from PG
+  (see scope decision).
 - **Live payoff:** `funds_by_eik(eik)` → add an "EU funds" section to the
   company/person pages (contractor_eik = beneficiary_eik), and fold beneficiaries
   into `search_all`. **This is the unified entity graph.**
@@ -128,9 +119,8 @@ queries + similarity and trims the mega-JSON. MPs join the existing parliament d
 - **Ingest** `load_prices_pg.ts`: **append the day's ~1.29M rows** (idempotent
   upsert on (date,ekatte,product,chain)); never re-load history. This is the new
   pattern vs procurement's truncate+reload.
-- **Generate** `data/prices/index.json` + per-settlement + ranking + chains FROM
-  PG (aggregates over the time-series), or serve the heavy per-settlement views
-  live and keep only the small index static.
+- The ingest keeps writing `data/prices/**`; we do NOT regenerate it from PG.
+  Serve the heavy per-settlement / time-series views live instead.
 - **Live payoff:** `/api/db/price?ekatte=&product=` — price of a basket in a
   place over time; cross-place ranking; chain comparison — all without shipping
   462 M of JSON.
@@ -140,26 +130,36 @@ queries + similarity and trims the mega-JSON. MPs join the existing parliament d
 ### 3. Parliament roll-call votes (append-per-session)
 - **Schema** `votes(session_id, mp_id, vote)` + `sessions` + derived per-MP
   metrics (loyalty, attendance, similarity, cohesion) as views/materialised.
-- **Ingest** append new sessions (the watcher flags "N new sessions").
-- **Generate** the per-MP + dissents JSON FROM PG (dissents.json is 29 M —
-  compute live or shard). **Live payoff:** per-MP voting record + similarity live.
+- **Ingest** append new sessions (the watcher flags "N new sessions"). The ingest
+  keeps writing the per-MP + dissents JSON; we do NOT regenerate it from PG.
+- **Live payoff:** per-MP voting record + similarity served live from PG (the
+  29 M dissents.json becomes a live query, not a shipped file).
 - Effort: **medium** (similarity/cohesion metrics are the fiddly part).
+
+## Scope decision (2026-07-02): NO JSON-from-PG generation
+
+We will **NOT** build the "regenerate the static JSON FROM Postgres, verified in
+`db:build`" step for **any** new dataset (funds, prices, votes, …). The offline
+ingests already produce that JSON correctly; PG is for **live serving + queryable/
+joinable tables** only. Reproducing the shards from PG is low value and invasive
+(shards are written in non-deterministic order at full float precision). So per
+dataset: build the **schema + loader + `/api/db` live serving**, and stop. The
+contracts + TR `db:gen-*`/`db:build` machinery that already exists stays; we just
+don't extend it. (Steps 2 and 4 below are therefore struck.)
 
 ## The reusable checklist (from procurement/TR — apply to each)
 
 1. **Golden/verification net FIRST** — hash the current JSON (volatile-insensitive)
-   so the migration is provably lossless (`scripts/db/lib/canonical.ts` +
-   `*.data.test.ts`). This is what made procurement safe.
-2. **Source-agnostic builders** — refactor the JS generators to `build*FromRows`
-   (rows in, JSON out) so the row source swaps SQLite/shards → PG with no logic
-   change.
+   so the loader is provably lossless (`scripts/db/lib/canonical.ts`, a round-trip
+   check). Confirms the table captures the corpus; not a `db:build` gate.
+2. ~~**Source-agnostic builders** (`build*FromRows`)~~ — SKIP (see scope decision).
 3. **Schema + loader** — `schema/pg/NNN_*.sql` + `load_*_pg.ts`. Choose the
    ingestion pattern: **full rebuild** (funds) vs **incremental append** (prices,
    votes).
-4. **Generators read PG** — `db:gen-*` produce the on-disk JSON from PG; `db:build`
-   verifies 0-diff.
+4. ~~**Generators read PG** (`db:gen-*` → `db:build` 0-diff)~~ — SKIP (see scope
+   decision). The ingest stays the source of the on-disk JSON.
 5. **Live serving** — add `/api/db/*` routes (the `db` Cloud Function) for the
-   dynamic views; keep bulk/static as JSON on the bucket.
+   dynamic/joined views; keep bulk/static as JSON on the bucket.
 6. **Distribution** — the `pg_dump` snapshot + lockfile already covers new tables.
 
 ## Cross-cutting payoff: the unified entity graph
