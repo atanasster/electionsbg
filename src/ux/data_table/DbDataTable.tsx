@@ -67,6 +67,9 @@ interface Props<T> {
     total: number,
     totalExact: boolean,
   ) => ReactNode;
+  /** Called whenever a page loads — lets the parent derive a header (e.g. the
+   *  entity name) from the rows without a second request. Memoize it. */
+  onData?: (resp: DbTableResponse<T>) => void;
 }
 
 const numFmt = new Intl.NumberFormat("bg-BG");
@@ -82,6 +85,7 @@ export const DbDataTable = <T,>({
   searchPlaceholder,
   toolbar,
   renderAggregates,
+  onData,
 }: Props<T>) => {
   const { t } = useTranslation();
   const [sorting, setSorting] = useState<SortingState>(defaultSort);
@@ -133,6 +137,10 @@ export const DbDataTable = <T,>({
     placeholderData: keepPreviousData,
     staleTime: 60_000,
   });
+
+  useEffect(() => {
+    if (data && onData) onData(data);
+  }, [data, onData]);
 
   const rows = data?.rows ?? [];
   const total = data?.total ?? 0;

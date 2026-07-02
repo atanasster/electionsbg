@@ -5,7 +5,7 @@
 // scored client-side per page row (from the static risk-context files) — display
 // only, since risk isn't a Postgres column. See docs/plans/pg-query-performance.md.
 
-import { FC, useMemo, useState } from "react";
+import { FC, useCallback, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
@@ -44,9 +44,17 @@ export const CompanyContractsDbScreen: FC<{
   const [singleBidder, setSingleBidder] = useState(false);
   const [method, setMethod] = useState<string>(ALL);
   const [cpvDiv, setCpvDiv] = useState<string>(ALL);
+  const [companyName, setCompanyName] = useState("");
 
   const isAnnex = tag === "contractAmendment";
   const heading = isAnnex ? "Анекси" : "Договори";
+
+  // Company name comes free on every row (contractor_name) — grab it from the
+  // first loaded page, no extra request.
+  const handleData = useCallback((resp: { rows: ProcurementContract[] }) => {
+    const first = resp.rows[0];
+    if (first?.contractorName) setCompanyName(first.contractorName);
+  }, []);
 
   // Facet options (distinct methods + CPV divisions for THIS company), scoped +
   // tag-fixed so the dropdowns are stable regardless of the other selections.
@@ -181,14 +189,19 @@ export const CompanyContractsDbScreen: FC<{
 
   return (
     <>
-      <Title description={`${heading} — ЕИК ${eik}`}>{heading}</Title>
+      <Title description={`${heading} — ${companyName || `ЕИК ${eik}`}`}>
+        {heading}
+      </Title>
       <section aria-label={heading} className="w-full px-4 py-6 md:px-6">
-        <div className="mb-4 flex items-center gap-2 text-sm text-muted-foreground">
-          <Receipt className="h-4 w-4" />
-          <Link to={`/db/company/${eik}`} className="hover:underline">
-            ЕИК {eik}
+        <div className="mb-4 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+          <Receipt className="h-4 w-4 shrink-0" />
+          <Link
+            to={`/db/company/${eik}`}
+            className="font-medium text-foreground hover:underline"
+          >
+            {companyName || `ЕИК ${eik}`}
           </Link>
-          <span>· {heading}</span>
+          <span>· ЕИК {eik}</span>
         </div>
 
         <DbDataTable<ProcurementContract>
@@ -197,6 +210,7 @@ export const CompanyContractsDbScreen: FC<{
           fixedFilters={[{ id: "tag", value: [tag] }]}
           extraFilters={extraFilters}
           columns={columns}
+          onData={handleData}
           defaultSort={[{ id: "date", desc: true }]}
           pageSize={25}
           searchPlaceholder={
