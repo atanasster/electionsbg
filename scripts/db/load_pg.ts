@@ -39,6 +39,7 @@ const RELATIONSHIPS_FILE = path.join(
   SCHEMA_DIR,
   "017_company_relationships.sql",
 );
+const SECTOR_STATS_FILE = path.join(SCHEMA_DIR, "018_sector_stats.sql");
 const GOVERNMENTS_FILE = path.join(PROC_DIR, "..", "governments.json");
 const DEBARRED_FILE = path.join(PROC_DIR, "debarred.json");
 const monthShardDir = path.join(PROC_DIR, "contracts");
@@ -98,6 +99,7 @@ export const loadPg = async (): Promise<{
   await exec(readFileSync(CABINETS_FILE, "utf8"));
   await exec(readFileSync(DEBARRED_SCHEMA_FILE, "utf8"));
   await exec(readFileSync(RELATIONSHIPS_FILE, "utf8"));
+  await exec(readFileSync(SECTOR_STATS_FILE, "utf8"));
 
   const { rows, years } = readShards();
   let batchId = 0;
@@ -240,6 +242,7 @@ export const loadPg = async (): Promise<{
   // Precomputed aggregates over the freshly-loaded contracts (buyer grand-totals
   // for capture share; sector rank stats). Refreshed here so they never go stale.
   await exec("REFRESH MATERIALIZED VIEW awarder_totals");
+  await exec("REFRESH MATERIALIZED VIEW sector_contractor_stats");
 
   return { rows: rows.length, years: [...years].sort(), batchId, rowsNew };
 };

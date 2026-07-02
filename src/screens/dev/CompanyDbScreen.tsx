@@ -30,6 +30,10 @@ import {
   CompanyBuyerCaptureTile,
   type BuyerRelationships,
 } from "../components/procurement/CompanyBuyerCaptureTile";
+import {
+  CompanySectorRankTile,
+  type SectorRank,
+} from "../components/procurement/CompanySectorRankTile";
 import { CompanyPortfolioTreemap } from "../components/procurement/CompanyPortfolioTreemap";
 import { ProcurementBreakdownTile } from "../components/procurement/ProcurementBreakdownTile";
 import {
@@ -153,6 +157,7 @@ export const CompanyDbScreen: FC = () => {
   const [relationships, setRelationships] = useState<BuyerRelationships | null>(
     null,
   );
+  const [sectors, setSectors] = useState<SectorRank[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [period, setPeriod] = useState<string>(PERIOD_ALL);
@@ -182,6 +187,7 @@ export const CompanyDbScreen: FC = () => {
           setDebarred(j.debarred ?? []);
           setFunds(j.funds ?? null);
           setRelationships(j.relationships ?? null);
+          setSectors(j.sectors ?? null);
         }
       })
       .catch((e) => live && setError(String(e)))
@@ -438,6 +444,9 @@ export const CompanyDbScreen: FC = () => {
                 eik={eik}
                 breakdown={breakdown}
               />
+              {sectors && sectors.length > 0 && (
+                <CompanySectorRankTile data={sectors} />
+              )}
               <CompanyBuyerConcentrationTile rollup={rollup} />
               {relationships && (
                 <CompanyBuyerCaptureTile data={relationships} />
