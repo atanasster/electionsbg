@@ -48,6 +48,13 @@ CREATE INDEX IF NOT EXISTS idx_contracts_contractor ON contracts(contractor_eik)
 CREATE INDEX IF NOT EXISTS idx_contracts_awarder    ON contracts(awarder_eik);
 CREATE INDEX IF NOT EXISTS idx_contracts_order      ON contracts(date, ocid, key);
 CREATE INDEX IF NOT EXISTS idx_contracts_tag        ON contracts(tag);
+-- Covering index for per-contractor count + sum(amount_eur) FILTER (tag): the
+-- company-page summary and the person page's per-company value bars (person_roles)
+-- both aggregate contracts by contractor_eik. INCLUDE (amount_eur) + tag in the
+-- key make the sum an Index Only Scan (no heap) — person_roles on a big
+-- contractor 117ms→3.4ms, 8385→244 buffers.
+CREATE INDEX IF NOT EXISTS idx_contracts_contractor_tag_amt
+  ON contracts(contractor_eik, tag) INCLUDE (amount_eur);
 -- ocid is the tender→award lineage key (tenders.ocid = contracts.ocid). The
 -- (date,ocid,key) composite can't seek by ocid alone (leading col is date), so
 -- the tenders LATERAL joins (tenders_by_buyer / tender_awards) need this or they
