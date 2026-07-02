@@ -1,19 +1,17 @@
 // Top contracts preview for the company dashboard. Reads the pre-computed
-// topContracts slice already embedded inside the rollup — so the preview costs
-// no extra fetch on top of the rollup the page already loads.
+// topContracts slice already embedded inside the DB rollup the page loads —
+// so the preview costs no extra fetch.
 //
 // Works for both sides: on a contractor page `partyEik/partyName` is the AWARDER;
 // on an awarder page (awarder_procurement) it's the CONTRACTOR. The contract
 // TITLE is the primary, clickable element (→ the contract detail page); the
-// party + date sit under it. Link targets are injectable so the DB page routes
-// to /db/* while the JSON page keeps /awarder + /company.
+// party + date sit under it. Link targets are injectable per page.
 
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowRight, Receipt, ExternalLink, Building2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { useContractor } from "@/data/procurement/useContractor";
 import type { ProcurementContractorRollup } from "@/data/dataTypes";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { resolveContractSource } from "../candidates/procurement/sourceUrl";
@@ -23,10 +21,10 @@ const TOP_ROWS = 10;
 
 export const CompanyTopContractsTile: FC<{
   eik: string;
-  rollup?: ProcurementContractorRollup | null;
+  rollup: ProcurementContractorRollup | null;
   /** Link builder for the counterparty (awarder or contractor). */
   partyHref?: (eik: string) => string;
-  /** Override the "see all" target (defaults to the JSON contracts page).
+  /** Override the "see all" target (defaults to the DB contracts page).
    *  Pass null to hide the link (e.g. the person page has no per-person list). */
   seeAllHref?: string | null;
   /** When set, each row names the WINNING company (contractorEik/Name on the
@@ -35,23 +33,13 @@ export const CompanyTopContractsTile: FC<{
   contractorHref?: (eik: string) => string;
 }> = ({ eik, rollup, partyHref, seeAllHref, contractorHref }) => {
   const { t } = useTranslation();
-  const { data: fetched, isLoading } = useContractor(rollup ? undefined : eik);
-  const data = rollup ?? fetched;
+  const data = rollup;
   const hrefParty = partyHref ?? ((e: string) => `/awarder/${e}`);
   const hrefSeeAll =
     seeAllHref === null ? null : (seeAllHref ?? `/company/${eik}/contracts`);
 
   const top = data?.topContracts?.slice(0, TOP_ROWS) ?? [];
 
-  if (isLoading) {
-    return (
-      <Card aria-hidden>
-        <CardContent>
-          <div className="min-h-[440px]" />
-        </CardContent>
-      </Card>
-    );
-  }
   if (!data || top.length === 0) return null;
 
   return (

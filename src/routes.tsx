@@ -435,11 +435,6 @@ const TopMpsScreen = lazy(() =>
     default: m.TopMpsScreen,
   })),
 );
-const AwarderContractsScreen = lazy(() =>
-  import("./screens/AwarderContractsScreen").then((m) => ({
-    default: m.AwarderContractsScreen,
-  })),
-);
 const AwarderContractorsScreen = lazy(() =>
   import("./screens/AwarderContractorsScreen").then((m) => ({
     default: m.AwarderContractorsScreen,
@@ -2148,7 +2143,9 @@ export const AuthRoutes = () => {
             path="awarder/:eik/contracts"
             element={
               <LayoutScreen>
-                <AwarderContractsScreen />
+                <Suspense fallback={<RouteFallback />}>
+                  <CompanyContractsDbScreen tag="contract" side="awarder" />
+                </Suspense>
               </LayoutScreen>
             }
           />

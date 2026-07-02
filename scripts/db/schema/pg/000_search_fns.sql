@@ -5,6 +5,13 @@
 
 CREATE EXTENSION IF NOT EXISTS pg_trgm;
 CREATE EXTENSION IF NOT EXISTS unaccent;
+-- Query-level perf visibility (needs shared_preload_libraries, set in
+-- docker-compose.yml locally / database flags on Cloud SQL). Harmless no-op
+-- error-free create when preloaded; skipped silently on servers without it.
+DO $$ BEGIN
+  CREATE EXTENSION IF NOT EXISTS pg_stat_statements;
+EXCEPTION WHEN OTHERS THEN NULL;
+END $$;
 
 -- Bulgarian Streamlined System (2009) romanization + diacritic fold + lowercase.
 -- "Иван Петров", "ИВАН ПЕТРОВ" and "Ivan Petrov" all collapse to "ivan petrov".

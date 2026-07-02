@@ -11,9 +11,17 @@ CREATE TABLE IF NOT EXISTS company_politicians (
   ref        text NOT NULL,       -- app route: /candidate/mp-<id> | /officials/<slug>
   kind       text NOT NULL,       -- 'mp' | 'official'
   role       text,
-  total_eur  double precision
+  total_eur  double precision,
+  -- Full relation detail (kind/confidence/shareSize/isCurrent/…) straight from
+  -- the connections pipeline, so the candidate/officials procurement pages keep
+  -- confidence badges when served from the DB.
+  relations  jsonb NOT NULL DEFAULT '[]'::jsonb
 );
+-- Upgrade path for DBs created before the relations column existed.
+ALTER TABLE company_politicians
+  ADD COLUMN IF NOT EXISTS relations jsonb NOT NULL DEFAULT '[]'::jsonb;
 CREATE INDEX IF NOT EXISTS idx_company_politicians_eik ON company_politicians(eik);
+CREATE INDEX IF NOT EXISTS idx_company_politicians_ref ON company_politicians(ref);
 
 -- Companies a person is an officer of (+ roles, procurement, politician-link count).
 CREATE OR REPLACE FUNCTION person_profile(q text)

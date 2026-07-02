@@ -1404,8 +1404,9 @@ export type DebarredEntry = {
   publishedAt: string;
   debarredUntil: string;
   detailsUrl: string | null;
-  firstSeenAt: string;
-  lastSeenAt: string;
+  // Scraper bookkeeping — present in the offline file, not in the DB payload.
+  firstSeenAt?: string;
+  lastSeenAt?: string;
 };
 export type DebarredFile = {
   generatedAt: string;

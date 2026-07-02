@@ -1,5 +1,6 @@
-// /procurement/mps — full pageable list of MPs ranked by procurement
-// awarded to their connected companies, for the selected election (per-NS).
+// /procurement/mps — full pageable list of MPs ranked by procurement awarded
+// to their connected companies, DB-backed (/api/db/procurement-rankings) and
+// scoped to the current procurement window (?pscope).
 
 import { FC, useMemo } from "react";
 import { Link } from "react-router-dom";
@@ -8,7 +9,7 @@ import { Users } from "lucide-react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/ux/data_table/DataTable";
 import { Title } from "@/ux/Title";
-import { useProcurementByNs } from "@/data/procurement/useProcurementByNs";
+import { useProcurementRankings } from "@/data/procurement/useProcurementRankings";
 import type { ProcurementByNsTopMp } from "@/data/dataTypes";
 import { MpAvatar } from "./components/candidates/MpAvatar";
 import { ConfidenceBadge } from "./components/connections/ConfidenceBadge";
@@ -17,7 +18,7 @@ const formatEur = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 });
 
 export const TopMpsScreen: FC = () => {
   const { t } = useTranslation();
-  const { data, isLoading } = useProcurementByNs();
+  const { data, isLoading } = useProcurementRankings();
 
   const columns = useMemo<ColumnDef<ProcurementByNsTopMp>[]>(
     () => [
@@ -91,7 +92,7 @@ export const TopMpsScreen: FC = () => {
           <Users className="h-4 w-4 text-amber-600" />
           {t("procurement_top_mps_subtitle") ||
             "MPs whose declared business interests received the most procurement in the period."}
-          {data ? (
+          {data?.start ? (
             <span className="ml-2">
               · {data.start}
               {data.end ? `…${data.end}` : ` …`}

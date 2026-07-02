@@ -1,39 +1,28 @@
-// Top-level procurement index + the top-contractors list. Both come from
-// small files (a few KB), so we just fetch them as-is rather than sharding.
+// Full-corpus top-contractors list — DB-backed (/api/db/procurement-rankings
+// with no window → procurement_rankings(NULL, NULL)). Kept in the old
+// ProcurementTopContractorsFile shape so consumers are unchanged.
 
 import { useQuery } from "@tanstack/react-query";
-import type {
-  ProcurementIndexFile,
-  ProcurementTopContractorsFile,
-} from "@/data/dataTypes";
-import { dataUrl } from "@/data/dataUrl";
-
-const fetchIndex = async (): Promise<ProcurementIndexFile | null> => {
-  const r = await fetch(dataUrl("/procurement/index.json"));
-  if (r.status === 404) return null;
-  if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
-  return (await r.json()) as ProcurementIndexFile;
-};
+import type { ProcurementTopContractorsFile } from "@/data/dataTypes";
 
 const fetchTop = async (): Promise<ProcurementTopContractorsFile | null> => {
-  const r = await fetch(dataUrl("/procurement/derived/top_contractors.json"));
-  if (r.status === 404) return null;
-  if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
-  return (await r.json()) as ProcurementTopContractorsFile;
+  const r = await fetch("/api/db/procurement-rankings");
+  if (!r.ok) return null;
+  const j = (await r.json()) as {
+    topContractors: ProcurementTopContractorsFile["entries"];
+  };
+  return {
+    generatedAt: "",
+    total: j.topContractors.length,
+    entries: j.topContractors,
+  };
 };
 
-export const useProcurementIndex = () =>
-  useQuery({
-    queryKey: ["procurement", "index"] as const,
-    queryFn: fetchIndex,
-    staleTime: Infinity,
-  });
-
 // `enabled` lets a consumer already showing per-NS data (the overview) skip the
-// full-corpus JSON fetch.
+// full-corpus fetch.
 export const useTopContractors = (enabled = true) =>
   useQuery({
-    queryKey: ["procurement", "top_contractors"] as const,
+    queryKey: ["db", "procurement-rankings", null, null, "top"] as const,
     queryFn: fetchTop,
     enabled,
     staleTime: Infinity,

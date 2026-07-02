@@ -1,89 +1,71 @@
-// Per-EIK MP-connection lookup. Replaces the chamber-wide fetch +
-// client-side filter the /company/{eik} and /awarder/{eik} pages used to
-// do, which streamed the full ~105 KB procurement/derived/mp_connected.json
-// even though they only needed the rows for one EIK.
-//
-// Two-phase loader:
-//   1. Manifest (procurement/derived/by-eik/index.json) lists every EIK
-//      that has at least one MP linkage. ~few KB.
-//   2. Per-EIK shard (procurement/derived/by-eik/{eik}.json) carries the
-//      MP entries for that EIK. ~1-3 KB each.
-//
-// For an EIK with no MP linkage (the vast majority), the manifest answers
-// "no" and the page renders the empty state without any shard fetch.
+// Per-EIK MP-connection lookup — DB-backed (/api/db/company-politicians →
+// company_politicians). One request per EIK, shared with the officials hook
+// via the same query key, replacing the manifest + per-EIK JSON shard pair.
 
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { dataUrl } from "@/data/dataUrl";
-import type { ProcurementMpConnectedFile } from "@/data/dataTypes";
+import type { ProcurementRelation } from "@/data/dataTypes";
 
-type Entry = ProcurementMpConnectedFile["entries"][number];
-
-interface ByEikManifest {
-  eiks: string[];
-}
-
-interface ByEikShard {
-  eik: string;
-  entries: Entry[];
-}
-
-const fetchManifest = async (): Promise<ByEikManifest | null> => {
-  const r = await fetch(dataUrl("/procurement/derived/by-eik/index.json"));
-  if (r.status === 404) return null;
-  if (!r.ok) return null;
-  const ct = r.headers.get("content-type") ?? "";
-  if (!ct.includes("json")) return null;
-  return (await r.json()) as ByEikManifest;
+export type CompanyPoliticianRow = {
+  politician: string;
+  ref: string;
+  kind: "mp" | "official";
+  role: string | null;
+  totalEur: number | null;
 };
 
-const fetchShard = async (eik: string): Promise<ByEikShard | null> => {
-  const r = await fetch(dataUrl(`/procurement/derived/by-eik/${eik}.json`));
-  if (r.status === 404) return null;
-  if (!r.ok) return null;
-  const ct = r.headers.get("content-type") ?? "";
-  if (!ct.includes("json")) return null;
-  return (await r.json()) as ByEikShard;
+/** Chip-grade MP entry: who, link id, and the declared relation(s). */
+export type MpConnectedChipEntry = {
+  mpId: number;
+  mpName: string;
+  relations: ProcurementRelation[];
 };
+
+const fetchCompanyPoliticians = async (
+  eik: string,
+): Promise<CompanyPoliticianRow[]> => {
+  const r = await fetch(
+    `/api/db/company-politicians?eik=${encodeURIComponent(eik)}`,
+  );
+  if (!r.ok) return [];
+  const j = (await r.json()) as { entries?: CompanyPoliticianRow[] };
+  return j.entries ?? [];
+};
+
+export const useCompanyPoliticians = (eik?: string | null) =>
+  useQuery({
+    queryKey: ["db", "company-politicians", eik ?? ""] as const,
+    queryFn: () => fetchCompanyPoliticians(eik as string),
+    enabled: !!eik,
+    staleTime: Infinity,
+    retry: false,
+  });
 
 export const useProcurementMpConnectedByEik = (
   eik?: string | null,
-): { entries: Entry[]; isLoading: boolean } => {
-  const manifestQuery = useQuery({
-    queryKey: ["procurement", "mp_connected_by_eik_manifest"] as const,
-    queryFn: fetchManifest,
-    staleTime: Infinity,
-    enabled: !!eik,
-    retry: false,
-  });
-  const flagged = useMemo(
-    () => new Set(manifestQuery.data?.eiks ?? []),
-    [manifestQuery.data],
-  );
-  const isFlagged = !!eik && flagged.has(eik);
+): { entries: MpConnectedChipEntry[]; isLoading: boolean } => {
+  const { data, isLoading } = useCompanyPoliticians(eik);
 
-  const shardQuery = useQuery({
-    queryKey: ["procurement", "mp_connected_by_eik_shard", eik ?? ""] as const,
-    queryFn: () => fetchShard(eik!),
-    enabled: isFlagged,
-    staleTime: Infinity,
-    retry: false,
-  });
+  const entries = useMemo<MpConnectedChipEntry[]>(() => {
+    const byMp = new Map<number, MpConnectedChipEntry>();
+    for (const row of data ?? []) {
+      if (row.kind !== "mp") continue;
+      const m = /^\/candidate\/mp-(\d+)$/.exec(row.ref);
+      if (!m) continue;
+      const mpId = Number(m[1]);
+      const prior = byMp.get(mpId) ?? {
+        mpId,
+        mpName: row.politician,
+        relations: [],
+      };
+      if (row.role)
+        prior.relations.push({
+          kind: row.role as ProcurementRelation["kind"],
+        });
+      byMp.set(mpId, prior);
+    }
+    return [...byMp.values()];
+  }, [data]);
 
-  return useMemo(() => {
-    if (!eik) return { entries: [], isLoading: false };
-    const manifestKnown = manifestQuery.data != null || manifestQuery.isFetched;
-    if (!manifestKnown) return { entries: [], isLoading: true };
-    if (!isFlagged) return { entries: [], isLoading: false };
-    if (shardQuery.data)
-      return { entries: shardQuery.data.entries, isLoading: false };
-    return { entries: [], isLoading: shardQuery.isLoading };
-  }, [
-    eik,
-    isFlagged,
-    manifestQuery.data,
-    manifestQuery.isFetched,
-    shardQuery.data,
-    shardQuery.isLoading,
-  ]);
+  return { entries, isLoading: !!eik && isLoading };
 };

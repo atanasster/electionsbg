@@ -60,6 +60,25 @@ CREATE INDEX IF NOT EXISTS idx_contracts_contractor_tag_amt
 -- the tenders LATERAL joins (tenders_by_buyer / tender_awards) need this or they
 -- seq-scan contracts per tender (14s for a big buyer's pipeline).
 CREATE INDEX IF NOT EXISTS idx_contracts_ocid       ON contracts(ocid);
+-- The global contracts browser (/procurement/contracts → /api/db/table) always
+-- filters by tag and default-sorts date DESC with a `key` tiebreaker; without
+-- this the all-years page is a 300k-row parallel seq scan + top-N sort per page
+-- (142ms local, worse on Cloud SQL). Same for the amount_eur sort option.
+-- NULLS LAST matches the table engine's "DESC NULLS LAST" order exactly —
+-- without it the planner can't early-terminate and walks the whole tag.
+CREATE INDEX IF NOT EXISTS idx_contracts_tag_date
+  ON contracts(tag, date DESC NULLS LAST, key);
+CREATE INDEX IF NOT EXISTS idx_contracts_tag_amount
+  ON contracts(tag, amount_eur DESC NULLS LAST);
+-- Global text search in the browser is `col ILIKE '%q%'` over the three text
+-- columns — trigram GIN makes each a bitmap scan instead of a seq scan (298ms
+-- full-corpus local without them).
+CREATE INDEX IF NOT EXISTS idx_contracts_awarder_name_trgm
+  ON contracts USING gin (awarder_name gin_trgm_ops);
+CREATE INDEX IF NOT EXISTS idx_contracts_contractor_name_trgm
+  ON contracts USING gin (contractor_name gin_trgm_ops);
+CREATE INDEX IF NOT EXISTS idx_contracts_title_trgm
+  ON contracts USING gin (title gin_trgm_ops);
 
 CREATE TABLE IF NOT EXISTS meta (
   key   text PRIMARY KEY,

@@ -1,17 +1,14 @@
-// Contract → originating-tender lineage for /procurement/contract/:id.
-//
-// A signed contract carries the procedure's ocid (ocds-e82gsb-<tenderId>). The
-// tender ingest (scripts/procurement/ingest_tenders.ts) writes a compact lineage
-// record per ocid, sharded by the last 2 chars of the ocid (its tenderId is
-// numeric → 2-digit bucket), so we resolve "the procedure this came from" in ONE
-// small fetch with no hashing and no mutation of the contracts tree.
+// Contract → originating-tender lineage for /procurement/contract/:id —
+// DB-backed (/api/db/tender?ocid= → tender_detail()). A signed contract
+// carries the procedure's ocid (ocds-e82gsb-<tenderId>); the tenders table is
+// indexed by ocid, so the lookup is a single index probe. Replaces the
+// by-ocid JSON shard reader.
 //
 // The estimated value here is the procedure's прогнозна (forecast) value — NOT
 // what was contracted. The two are deliberately kept distinct (see the tile).
 
 import { useQuery } from "@tanstack/react-query";
-import { dataUrl } from "@/data/dataUrl";
-import { fetchJsonMap } from "@/data/fetchJson";
+import type { Tender } from "@/lib/tenderTypes";
 
 export interface TenderLineageLot {
   name?: string;
@@ -36,14 +33,11 @@ export interface TenderLineage {
 }
 
 const fetchLineage = async (ocid: string): Promise<TenderLineage | null> => {
-  // Shard key MUST mirror the ingest's ocidShardKey (ingest_tenders.ts) — the
-  // last 2 chars of the ocid. tenderIds are 5-6 digits, so this is the last 2
-  // digits; the two sides stay in lockstep by using the identical derivation.
-  const shard = ocid.slice(-2);
-  return fetchJsonMap<TenderLineage>(
-    dataUrl(`/procurement/tenders/by-ocid/shard/${shard}.json`),
-    ocid,
-  );
+  const r = await fetch(`/api/db/tender?ocid=${encodeURIComponent(ocid)}`);
+  if (!r.ok) return null;
+  const j = (await r.json()) as { tender: Tender | null };
+  // The full Tender shape is a superset of the lineage tile's needs.
+  return j.tender ? { ...j.tender, ocid: j.tender.ocid ?? ocid } : null;
 };
 
 const OCID_RE = /^ocds-e82gsb-\d+$/;

@@ -237,7 +237,7 @@ export const loadTrPg = async (): Promise<{
   // Curated company↔politician links (from mp_connected / pep_connected) → PG,
   // so the person page's political connections come straight from the DB.
   const links: Array<
-    [string, string, string, string, string | null, number | null]
+    [string, string, string, string, string | null, number | null, string]
   > = [];
   if (existsSync(MP_JSON)) {
     const mp = JSON.parse(readFileSync(MP_JSON, "utf8")) as {
@@ -257,6 +257,7 @@ export const loadTrPg = async (): Promise<{
         "mp",
         e.relations?.[0]?.kind ?? null,
         e.totalEur ?? null,
+        JSON.stringify(e.relations ?? []),
       ]);
   }
   if (existsSync(PEP_JSON)) {
@@ -267,6 +268,7 @@ export const loadTrPg = async (): Promise<{
         contractorEik: string;
         role?: string;
         totalEur?: number;
+        relations?: Array<{ role?: string }>;
       }>;
     };
     for (const e of pep.entries)
@@ -277,13 +279,14 @@ export const loadTrPg = async (): Promise<{
         "official",
         e.role ?? null,
         e.totalEur ?? null,
+        JSON.stringify(e.relations ?? []),
       ]);
   }
   await exec("TRUNCATE company_politicians");
   if (links.length)
     await bulkInsert(
       "company_politicians",
-      ["eik", "politician", "ref", "kind", "role", "total_eur"],
+      ["eik", "politician", "ref", "kind", "role", "total_eur", "relations"],
       links,
     );
 

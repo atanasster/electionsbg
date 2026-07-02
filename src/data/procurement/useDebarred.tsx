@@ -1,17 +1,15 @@
-// SPA hook for the АОП debarred-suppliers register. Tiny file (single-digit
-// kB), fetched once and indexed by both EIK (rare — most entries lack one,
-// only ones we've enriched from PDFs carry it) and folded contractor name so
-// procurement rows can be checked against it client-side without a join in
-// the data pipeline.
+// SPA hook for the АОП debarred-suppliers register — DB-backed via the shared
+// risk-indexes payload (useRiskIndexes → /api/db/procurement-risk-indexes).
+// The register is tiny and NAME-ONLY; entries are indexed by folded contractor
+// name so procurement rows can be checked client-side in O(1).
 //
 // Name folding mirrors scripts/procurement/debarred.ts → normalizeName(): we
 // re-implement it here rather than ship the function across the SPA/Node
 // boundary because the rule is short and the two sides change rarely.
 
 import { useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
-import type { DebarredEntry, DebarredFile } from "@/data/dataTypes";
-import { dataUrl } from "@/data/dataUrl";
+import type { DebarredEntry } from "@/data/dataTypes";
+import { useRiskIndexes } from "./useRiskIndexes";
 
 const LEGAL_SUFFIX_RE =
   /\s*[„"„“(]?(ЕООД|ООД|ЕАД|АД|ЕТ|СД|КД|КДА|ДЗЗД|АДСИЦ|ООД-К|ЕООД-К)\.?[)"”]?\s*$/iu;
@@ -28,15 +26,6 @@ export const normalizeContractorName = (raw: string): string => {
   return s.toLocaleLowerCase("bg");
 };
 
-const fetchDebarred = async (): Promise<DebarredFile | null> => {
-  const response = await fetch(dataUrl("/procurement/debarred.json"));
-  if (response.status === 404) return null;
-  if (!response.ok) {
-    throw new Error(`fetch failed: ${response.status} ${response.url}`);
-  }
-  return (await response.json()) as DebarredFile;
-};
-
 export type DebarredIndex = {
   list: DebarredEntry[];
   /** Lookup by folded contractor name → the most-recent (highest publishedAt)
@@ -50,22 +39,25 @@ export const useDebarred = (): {
   debarred: DebarredIndex;
   isLoading: boolean;
 } => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["procurement_debarred"] as const,
-    queryFn: fetchDebarred,
-    staleTime: Infinity,
-  });
+  const { data, isLoading } = useRiskIndexes();
 
   const debarred = useMemo<DebarredIndex>(() => {
     if (!data) return EMPTY;
+    const list: DebarredEntry[] = data.debarred.entries.map((e) => ({
+      name: e.name,
+      nameNormalized: normalizeContractorName(e.name),
+      publishedAt: e.publishedAt ?? "",
+      debarredUntil: e.debarredUntil ?? "",
+      detailsUrl: e.detailsUrl,
+    }));
     const byName = new Map<string, DebarredEntry>();
-    for (const e of data.entries) {
+    for (const e of list) {
       const prior = byName.get(e.nameNormalized);
       if (!prior || prior.publishedAt < e.publishedAt) {
         byName.set(e.nameNormalized, e);
       }
     }
-    return { list: data.entries, byName };
+    return { list, byName };
   }, [data]);
 
   return { debarred, isLoading };

@@ -8,7 +8,6 @@
 import { FC, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useQuery } from "@tanstack/react-query";
 import {
   Coins,
   FileText,
@@ -34,8 +33,7 @@ import { ProcurementNav } from "../components/procurement/ProcurementNav";
 import { ErrorSection } from "../components/ErrorSection";
 import { MpAvatar } from "../components/candidates/MpAvatar";
 import { useRoads, API_EIK } from "@/data/procurement/useRoads";
-import { dataUrl } from "@/data/dataUrl";
-import type { ProcurementMpConnectedFile } from "@/data/dataTypes";
+import { useMpConnectedContractors } from "@/data/procurement/useMpConnectedContractors";
 import {
   formatEur,
   formatEurWithOther,
@@ -60,44 +58,28 @@ const pctFmt = (v: number | undefined, lang: string) =>
     ? "—"
     : (v * 100).toLocaleString(lang, { maximumFractionDigits: 1 }) + "%";
 
-const useMpConnected = () =>
-  useQuery({
-    queryKey: ["procurement", "mp_connected"] as const,
-    queryFn: async () => {
-      const r = await fetch(dataUrl("/procurement/derived/mp_connected.json"));
-      if (r.status === 404) return null;
-      if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
-      return (await r.json()) as ProcurementMpConnectedFile;
-    },
-    staleTime: Infinity,
-  });
-
 export const RoadsScreen: FC = () => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const [mapMetric, setMapMetric] = useState<RoadMetric>("singleBid");
   const [focusCorridor, setFocusCorridor] = useState<string | null>(null);
   const { rollup, model, isLoading } = useRoads();
-  const { data: mpConnected } = useMpConnected();
+  const { index: mpConnected } = useMpConnectedContractors();
 
   // АПИ contractors that are MP-connected, with the MPs behind them.
   const mpTied = useMemo(() => {
-    if (!rollup || !mpConnected) return [];
-    const byEik = new Map<string, { mpId: number; mpName: string }[]>();
-    for (const e of mpConnected.entries) {
-      const arr = byEik.get(e.contractorEik) ?? [];
-      if (!arr.some((m) => m.mpId === e.mpId))
-        arr.push({ mpId: e.mpId, mpName: e.mpName });
-      byEik.set(e.contractorEik, arr);
-    }
+    if (!rollup) return [];
     return rollup.byContractor
-      .filter((c) => byEik.has(c.eik))
-      .map((c) => ({ contractor: c, mps: byEik.get(c.eik) ?? [] }));
+      .filter((c) => mpConnected.byContractorEik.has(c.eik))
+      .map((c) => ({
+        contractor: c,
+        mps: mpConnected.byContractorEik.get(c.eik) ?? [],
+      }));
   }, [rollup, mpConnected]);
 
   // All contractor EIKs tied to an MP/official (for the top-contractors badge).
   const connectedEiks = useMemo(
-    () => new Set((mpConnected?.entries ?? []).map((e) => e.contractorEik)),
+    () => new Set(mpConnected.byContractorEik.keys()),
     [mpConnected],
   );
 

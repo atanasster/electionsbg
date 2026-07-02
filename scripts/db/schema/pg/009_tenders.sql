@@ -76,3 +76,7 @@ CREATE INDEX IF NOT EXISTS idx_tenders_order      ON tenders(publication_date, u
 CREATE INDEX IF NOT EXISTS idx_tenders_cancelled  ON tenders(is_cancelled);
 CREATE INDEX IF NOT EXISTS idx_tenders_buyer_fold ON tenders USING gin (buyer_fold gin_trgm_ops);
 CREATE INDEX IF NOT EXISTS idx_tenders_subj_fold  ON tenders USING gin (subject_fold gin_trgm_ops);
+-- The global tenders browser default-sorts by forecast value — keep it an index
+-- walk instead of a 125k-row top-N sort per page.
+CREATE INDEX IF NOT EXISTS idx_tenders_value
+  ON tenders(estimated_value_eur DESC NULLS LAST, unp);

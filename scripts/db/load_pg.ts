@@ -66,6 +66,16 @@ const PROC_BY_SETTLEMENT_FILE = path.join(
   SCHEMA_DIR,
   "030_procurement_by_settlement.sql",
 );
+const PROC_RANKINGS_FILE = path.join(
+  SCHEMA_DIR,
+  "031_procurement_rankings.sql",
+);
+const TENDER_DETAIL_FILE = path.join(SCHEMA_DIR, "032_tender_detail.sql");
+const PROC_RISK_INDEXES_FILE = path.join(
+  SCHEMA_DIR,
+  "033_procurement_risk_indexes.sql",
+);
+const REF_PROCUREMENT_FILE = path.join(SCHEMA_DIR, "034_ref_procurement.sql");
 const GOVERNMENTS_FILE = path.join(PROC_DIR, "..", "governments.json");
 const DEBARRED_FILE = path.join(PROC_DIR, "debarred.json");
 const monthShardDir = path.join(PROC_DIR, "contracts");
@@ -140,6 +150,10 @@ export const loadPg = async (): Promise<{
   await exec(readFileSync(PROC_SCANNER_FILE, "utf8"));
   await exec(readFileSync(PROC_RISK_FEED_FILE, "utf8"));
   await exec(readFileSync(PROC_BY_SETTLEMENT_FILE, "utf8"));
+  await exec(readFileSync(PROC_RANKINGS_FILE, "utf8"));
+  await exec(readFileSync(TENDER_DETAIL_FILE, "utf8"));
+  await exec(readFileSync(PROC_RISK_INDEXES_FILE, "utf8"));
+  await exec(readFileSync(REF_PROCUREMENT_FILE, "utf8"));
 
   const { rows, years } = readShards();
   let batchId = 0;

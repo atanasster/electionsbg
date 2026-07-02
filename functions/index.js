@@ -406,366 +406,36 @@ const getDbPool = async (password) => {
     password,
     database: "electionsbg",
     max: 4,
+    // Server-side kill switch: no /api/db query may hold a connection longer
+    // than this (the /api/sql console has its own 8s cap in sql_lib.js).
+    statement_timeout: 10000,
   });
   return dbPool;
 };
 
-const dbRows = (pool, sql, params) =>
-  pool.query(sql, params).then((r) => r.rows);
-const clampInt = (v, def, lo, hi) => {
-  const n = Number(v);
-  return Number.isFinite(n) ? Math.min(Math.max(n, lo), hi) : def;
-};
+// Shared route table (functions/db_routes.js) — also mounted by the Vite dev
+// plugin (vite/db-api.ts), so dev == prod by construction.
+const { DB_ROUTES } = require("./db_routes.js");
 
-const DB_ROUTES = {
-  async person(pool, q) {
-    const name = String(q.name || "").trim();
-    if (!name) return { status: 400, body: { error: "missing name" } };
-    const from = String(q.from || "").trim() || null;
-    const to = String(q.to || "").trim() || null;
-    const [roles, politicians, procurement, cabinets, associates] =
-      await Promise.all([
-        dbRows(pool, "SELECT * FROM person_roles($1)", [name]),
-        dbRows(pool, "SELECT * FROM person_politicians($1)", [name]),
-        dbRows(pool, "SELECT person_procurement($1, $2, $3) AS r", [
-          name,
-          from,
-          to,
-        ]),
-        dbRows(pool, "SELECT * FROM person_by_cabinet($1)", [name]),
-        dbRows(pool, "SELECT * FROM person_associates($1)", [name]),
-      ]);
-    return {
-      body: {
-        name,
-        roles,
-        politicians,
-        procurement: procurement[0]?.r ?? null,
-        cabinets,
-        associates,
-      },
-    };
-  },
-  async company(pool, q) {
-    const eik = String(q.eik || "").trim();
-    if (!eik) return { status: 400, body: { error: "missing eik" } };
-    const [
-      company,
-      summary,
-      officers,
-      politicians,
-      procurement,
-      cabinets,
-      debarred,
-      funds,
-      relationships,
-      sectors,
-      related,
-      institution,
-      geography,
-      awarderProcurement,
-      fundProjects,
-    ] = await Promise.all([
-      dbRows(
-        pool,
-        "SELECT uic, name, legal_form, seat, status, funds_amount, funds_currency FROM tr_companies WHERE uic = $1",
-        [eik],
-      ),
-      dbRows(
-        pool,
-        "SELECT count(*)::int AS contracts, coalesce(sum(amount_eur) FILTER (WHERE tag = 'contract'), 0) AS contracts_eur FROM contracts WHERE contractor_eik = $1",
-        [eik],
-      ),
-      dbRows(pool, "SELECT * FROM company_officers($1)", [eik]),
-      dbRows(
-        pool,
-        "SELECT politician, ref, kind, role, total_eur FROM company_politicians WHERE eik = $1 ORDER BY total_eur DESC NULLS LAST",
-        [eik],
-      ),
-      dbRows(pool, "SELECT company_procurement($1, $2, $3) AS r", [
-        eik,
-        q.from || null,
-        q.to || null,
-      ]),
-      dbRows(pool, "SELECT * FROM company_by_cabinet($1)", [eik]),
-      dbRows(pool, "SELECT * FROM company_debarred($1)", [eik]),
-      dbRows(pool, "SELECT * FROM fund_beneficiaries WHERE eik = $1", [eik]),
-      dbRows(pool, "SELECT company_buyer_relationships($1) AS r", [eik]),
-      dbRows(pool, "SELECT company_sectors($1) AS r", [eik]),
-      dbRows(pool, "SELECT company_related($1) AS r", [eik]),
-      dbRows(pool, "SELECT institution_identity($1) AS r", [eik]),
-      dbRows(pool, "SELECT company_geography($1) AS r", [eik]),
-      dbRows(pool, "SELECT awarder_procurement($1, $2, $3) AS r", [
-        eik,
-        q.from || null,
-        q.to || null,
-      ]),
-      dbRows(
-        pool,
-        `SELECT contract_number, title, program_name, total_eur, paid_eur, status
-         FROM fund_projects WHERE beneficiary_eik = $1
-         ORDER BY total_eur DESC NULLS LAST LIMIT 6`,
-        [eik],
-      ),
-    ]);
-    return {
-      body: {
-        eik,
-        company: company[0] ?? null,
-        summary: summary[0] ?? null,
-        officers,
-        politicians,
-        procurement: procurement[0]?.r ?? null,
-        cabinets,
-        debarred,
-        funds: funds[0] ?? null,
-        relationships: relationships[0]?.r ?? null,
-        sectors: sectors[0]?.r ?? null,
-        related: related[0]?.r ?? null,
-        institution: institution[0]?.r ?? null,
-        geography: geography[0]?.r ?? null,
-        awarderProcurement: awarderProcurement[0]?.r ?? null,
-        fundProjects,
-      },
-    };
-  },
-  async table(pool, q) {
-    let req;
-    try {
-      req = JSON.parse(q.q || "{}");
-    } catch {
-      return { status: 400, body: { error: "bad q" } };
-    }
-    const out = await runDbTable(
-      (sql, params) => dbRows(pool, sql, params),
-      req,
-    );
-    return { body: out };
-  },
-  async facets(pool, q) {
-    let req;
-    try {
-      req = JSON.parse(q.q || "{}");
-    } catch {
-      return { status: 400, body: { error: "bad q" } };
-    }
-    const out = await runDbFacets(
-      (sql, params) => dbRows(pool, sql, params),
-      req,
-    );
-    return { body: out };
-  },
-  async tenders(pool, q) {
-    const eik = String(q.eik || "").trim();
-    if (!eik) return { status: 400, body: { error: "missing eik" } };
-    const limit = clampInt(q.limit, 25, 1, 200);
-    const [summary, recent] = await Promise.all([
-      dbRows(pool, "SELECT * FROM tenders_buyer_summary($1)", [eik]),
-      dbRows(pool, "SELECT * FROM tenders_by_buyer($1, $2)", [eik, limit]),
-    ]);
-    return { body: { eik, summary: summary[0] ?? null, recent } };
-  },
-  async tender(pool, q) {
-    const ocid = String(q.ocid || "").trim();
-    const unp = String(q.unp || "").trim();
-    if (!ocid && !unp) return { status: 400, body: { error: "missing ocid or unp" } };
-    const rows = await dbRows(
-      pool,
-      "SELECT * FROM tenders WHERE ($1 <> '' AND ocid = $1) OR ($2 <> '' AND unp = $2) LIMIT 1",
-      [ocid, unp],
-    );
-    const tender = rows[0] ?? null;
-    const awards = tender
-      ? await dbRows(pool, "SELECT * FROM tender_awards($1)", [tender.ocid ?? ""])
-      : [];
-    return { body: { tender, awards } };
-  },
-  async connection(pool, q) {
-    const a = String(q.a || "").trim();
-    const b = String(q.b || "").trim();
-    if (!a || !b) return { status: 400, body: { error: "missing a or b" } };
-    return {
-      body: {
-        a,
-        b,
-        shared: await dbRows(pool, "SELECT * FROM connection_between($1, $2)", [
-          a,
-          b,
-        ]),
-      },
-    };
-  },
-  // Company ↔ person connection check (last path segment "company-connection").
-  // Returns direct roles + 1-hop bridges (company_connection) AND the shortest
-  // multi-hop path up to 3 degrees (company_person_path).
-  "company-connection": async (pool, q) => {
-    const eik = String(q.eik || "").trim();
-    const name = String(q.name || "").trim();
-    if (!eik || !name)
-      return { status: 400, body: { error: "missing eik or name" } };
-    const [conn, path] = await Promise.all([
-      dbRows(pool, "SELECT company_connection($1, $2) AS r", [eik, name]),
-      dbRows(pool, "SELECT company_person_path($1, $2, 3) AS r", [eik, name]),
-    ]);
-    const c = conn[0]?.r ?? { direct: [], shared: [] };
-    return {
-      body: {
-        direct: c.direct ?? [],
-        shared: c.shared ?? [],
-        path: path[0]?.r ?? null,
-      },
-    };
-  },
-  // Sector competitors (last path segment "sector-peers") — lazy per-division.
-  "sector-peers": async (pool, q) => {
-    const division = String(q.division || "").trim();
-    const eik = String(q.eik || "").trim();
-    if (!division || !eik)
-      return { status: 400, body: { error: "missing division or eik" } };
-    const rows = await dbRows(pool, "SELECT sector_peers($1, $2) AS r", [
-      division,
-      eik,
-    ]);
-    return { body: rows[0]?.r ?? { division, peers: [] } };
-  },
-  async search(pool, q) {
-    const term = String(q.q || "").trim();
-    if (!term) return { status: 400, body: { error: "missing q" } };
-    return {
-      body: {
-        q: term,
-        results: await dbRows(pool, "SELECT * FROM search_all($1, $2)", [
-          term,
-          clampInt(q.limit, 30, 1, 100),
-        ]),
-      },
-    };
-  },
-  // Single contract by key → ProcurementContract shape.
-  contract: async (pool, q) => {
-    const key = String(q.key || "").trim();
-    if (!key) return { status: 400, body: { error: "missing key" } };
-    const rows = await dbRows(
-      pool,
-      `SELECT key, ocid, tag, date, date_signed AS "dateSigned",
-              awarder_eik AS "awarderEik", awarder_name AS "awarderName",
-              awarder_region AS "awarderRegion",
-              contractor_eik AS "contractorEik", contractor_eik_full AS "contractorEikFull",
-              contractor_name AS "contractorName",
-              amount, currency, amount_eur AS "amountEur", title, cpv,
-              procurement_method AS "procurementMethod",
-              procurement_method_rationale AS "procurementMethodRationale",
-              number_of_tenderers AS "numberOfTenderers",
-              CASE WHEN eu_funded IS NULL THEN NULL ELSE eu_funded = 1 END AS "euFunded",
-              eu_program AS "euProgram",
-              tender_period_start_date AS "tenderPeriodStartDate",
-              tender_period_end_date AS "tenderPeriodEndDate",
-              category, bundle_uuid AS "bundleUuid", source_url AS "sourceUrl"
-       FROM contracts WHERE key = $1 LIMIT 1`,
-      [key],
-    );
-    return { body: { contract: rows[0] ?? null } };
-  },
-  // Risk-signals feed — top concentration + top MP-tied + headline counts +
-  // per-oblast tally, window-scoped or full corpus.
-  "procurement-risk-feed": async (pool, q) => {
-    const rows = await dbRows(pool, "SELECT procurement_risk_feed($1, $2) AS r", [
-      String(q.from || "").trim() || null,
-      String(q.to || "").trim() || null,
-    ]);
-    return { body: rows[0]?.r ?? null };
-  },
-  // Public-money scanner — the full political-class (MP + official) procurement
-  // index, window-scoped or full corpus.
-  "procurement-scanner": async (pool, q) => {
-    const rows = await dbRows(pool, "SELECT procurement_scanner($1, $2) AS r", [
-      String(q.from || "").trim() || null,
-      String(q.to || "").trim() || null,
-    ]);
-    return { body: rows[0]?.r ?? null };
-  },
-  // By-place: local-tier settlements + national card, window-scoped or full corpus.
-  "procurement-by-settlement": async (pool, q) => {
-    const rows = await dbRows(
-      pool,
-      "SELECT procurement_by_settlement($1, $2) AS r",
-      [String(q.from || "").trim() || null, String(q.to || "").trim() || null],
-    );
-    return { body: rows[0]?.r ?? null };
-  },
-  // Per-settlement detail (awarders + top contracts + by-year).
-  "procurement-settlement": async (pool, q) => {
-    const ekatte = String(q.ekatte || "").trim();
-    if (!ekatte) return { status: 400, body: { error: "missing ekatte" } };
-    const rows = await dbRows(
-      pool,
-      "SELECT procurement_settlement_detail($1, $2, $3) AS r",
-      [
-        ekatte,
-        String(q.from || "").trim() || null,
-        String(q.to || "").trim() || null,
-      ],
-    );
-    return { body: rows[0]?.r ?? null };
-  },
-  // Money-flow Sankey (awarder → politician-tied contractor → mp|official),
-  // window-scoped or full corpus.
-  "procurement-flow": async (pool, q) => {
-    const rows = await dbRows(pool, "SELECT procurement_flow($1, $2) AS r", [
-      String(q.from || "").trim() || null,
-      String(q.to || "").trim() || null,
-    ]);
-    return { body: rows[0]?.r ?? null };
-  },
-  // Single-supplier concentration cases (buyer→supplier ≥30%, buyer ≥€100k),
-  // window-scoped or full corpus.
-  "procurement-concentration": async (pool, q) => {
-    const rows = await dbRows(
-      pool,
-      "SELECT procurement_concentration($1, $2) AS r",
-      [String(q.from || "").trim() || null, String(q.to || "").trim() || null],
-    );
-    return { body: rows[0]?.r ?? null };
-  },
-  // Procurement dashboard overview — totals + treemaps + connected-people lists,
-  // scoped to a parliament window [from, to) or the full corpus (both NULL).
-  "procurement-overview": async (pool, q) => {
-    const rows = await dbRows(
-      pool,
-      "SELECT procurement_overview($1, $2) AS r",
-      [String(q.from || "").trim() || null, String(q.to || "").trim() || null],
-    );
-    return { body: rows[0]?.r ?? null };
-  },
-  // Contractor name search for the procurement dashboard tile — any firm that
-  // signed a public contract, deduped to one row per eik (best-matching name).
-  "company-search": async (pool, q) => {
-    const term = String(q.q || "").trim();
-    if (!term) return { status: 400, body: { error: "missing q" } };
-    const companies = await dbRows(
-      pool,
-      `WITH s AS (SELECT * FROM search_contractors($1, 60))
-       SELECT eik, name, contracts, contracts_eur AS "contractsEur"
-       FROM (
-         SELECT DISTINCT ON (eik) eik, name, contracts, contracts_eur, sim
-         FROM s ORDER BY eik, sim DESC, length(name)
-       ) d
-       ORDER BY sim DESC, length(name), eik
-       LIMIT 20`,
-      [term],
-    );
-    return { body: { companies } };
-  },
-  async recent(pool, q) {
-    return {
-      body: {
-        rows: await dbRows(pool, "SELECT * FROM recent_updates($1, $2)", [
-          clampInt(q.days, 1, 1, 3650),
-          clampInt(q.limit, 200, 1, 1000),
-        ]),
-      },
-    };
-  },
+// In-memory sliding-window rate limit per instance (same approach as /api/sql
+// below, which has a stricter 40/min). Generous: a busy page fires ~1-3 calls,
+// type-ahead search is debounced client-side.
+const DB_RATE_WINDOW_MS = 60 * 1000;
+const DB_RATE_MAX = 120; // requests per IP per minute
+const dbHits = new Map();
+const dbRateLimited = (ip) => {
+  const now = Date.now();
+  const arr = (dbHits.get(ip) || []).filter((t) => now - t < DB_RATE_WINDOW_MS);
+  if (arr.length >= DB_RATE_MAX) {
+    dbHits.set(ip, arr);
+    return true;
+  }
+  arr.push(now);
+  dbHits.set(ip, arr);
+  if (dbHits.size > 5000)
+    for (const [k, v] of dbHits)
+      if (!v.some((t) => now - t < DB_RATE_WINDOW_MS)) dbHits.delete(k);
+  return false;
 };
 
 const makeDb = () => {
@@ -787,14 +457,36 @@ const makeDb = () => {
       if (!originOk) return res.status(403).json({ error: "forbidden origin" });
       if (req.method !== "GET")
         return res.status(405).json({ error: "GET only" });
+
+      const ip =
+        String(req.headers["x-forwarded-for"] || "").split(",")[0].trim() ||
+        req.ip ||
+        "?";
+      if (dbRateLimited(ip))
+        return res
+          .status(429)
+          .json({ error: "rate limit — too many requests, try again shortly" });
+
       // Reached as `/api/db/{route}` via the rewrite — match the last segment.
       const seg = (req.path || "").split("/").filter(Boolean).pop();
       const route = DB_ROUTES[seg];
       if (!route) return res.status(404).json({ error: "unknown db route" });
       try {
         const pool = await getDbPool(DB_PASSWORD.value());
-        const { status = 200, body } = await route(pool, req.query || {});
-        if (status === 200) res.set("Cache-Control", "public, max-age=60");
+        const dbRows = (sql, params) =>
+          pool.query(sql, params).then((r) => r.rows);
+        const started = Date.now();
+        const { status = 200, body } = await route(dbRows, req.query || {});
+        const elapsed = Date.now() - started;
+        if (elapsed > 500) console.warn(`slow db route ${seg}: ${elapsed}ms`);
+        // The data changes only on ingest (~daily): let the CDN hold responses
+        // for an hour and serve stale while it revalidates; browsers keep them
+        // for 5 minutes.
+        if (status === 200)
+          res.set(
+            "Cache-Control",
+            "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400",
+          );
         return res.status(status).json(body);
       } catch (e) {
         console.error("db route error", e);

@@ -1,9 +1,11 @@
-// DB-driven company contracts / annexes drill-down (/company/:eik/contracts
-// and /annexes). Server-side paginated/sorted/filtered/aggregated via
-// DbDataTable → /api/db/table (the `contracts` resource, scoped to
-// contractor_eik, tag fixed per route). Works for ANY company. Risk chips are
-// scored client-side per page row (from the static risk-context files) — display
-// only, since risk isn't a Postgres column. See docs/plans/pg-query-performance.md.
+// DB-driven contracts / annexes drill-down for both entity sides:
+// /company/:eik/contracts|annexes (scoped to contractor_eik) and
+// /awarder/:eik/contracts (scoped to awarder_eik via side="awarder").
+// Server-side paginated/sorted/filtered/aggregated via DbDataTable →
+// /api/db/table (the `contracts` resource, tag fixed per route). Works for ANY
+// company. Risk chips are scored client-side per page row (from the shared
+// risk-indexes payload) — display only, since risk isn't a Postgres column.
+// See docs/plans/pg-query-performance.md.
 
 import { FC, useCallback, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
@@ -35,7 +37,10 @@ const ALL = "__all__";
 
 export const CompanyContractsDbScreen: FC<{
   tag: "contract" | "contractAmendment";
-}> = ({ tag }) => {
+  /** Which side of the contract the :eik entity is on. "contractor" (default)
+   *  lists what the company won; "awarder" lists what the state buyer paid. */
+  side?: "contractor" | "awarder";
+}> = ({ tag, side = "contractor" }) => {
   const { eik = "" } = useParams();
   const { t, i18n } = useTranslation();
   const { scoreRow } = useContractRiskScorer();
@@ -46,26 +51,33 @@ export const CompanyContractsDbScreen: FC<{
   const [cpvDiv, setCpvDiv] = useState<string>(ALL);
   const [companyName, setCompanyName] = useState("");
 
+  const isAwarder = side === "awarder";
+  const scopeCol = isAwarder ? "awarder_eik" : "contractor_eik";
+  const entityHref = isAwarder ? `/awarder/${eik}` : `/company/${eik}`;
   const isAnnex = tag === "contractAmendment";
   const heading = isAnnex ? "Анекси" : "Договори";
 
-  // Company name comes free on every row (contractor_name) — grab it from the
-  // first loaded page, no extra request.
-  const handleData = useCallback((resp: { rows: ProcurementContract[] }) => {
-    const first = resp.rows[0];
-    if (first?.contractorName) setCompanyName(first.contractorName);
-  }, []);
+  // Entity name comes free on every row — grab it from the first loaded page,
+  // no extra request.
+  const handleData = useCallback(
+    (resp: { rows: ProcurementContract[] }) => {
+      const first = resp.rows[0];
+      const name = isAwarder ? first?.awarderName : first?.contractorName;
+      if (name) setCompanyName(name);
+    },
+    [isAwarder],
+  );
 
   // Facet options (distinct methods + CPV divisions for THIS company), scoped +
   // tag-fixed so the dropdowns are stable regardless of the other selections.
   const { data: facetData } = useQuery({
-    queryKey: ["db-facets", "contracts", eik, tag],
+    queryKey: ["db-facets", "contracts", eik, tag, side],
     queryFn: async (): Promise<{
       facets: Record<string, { value: string; count: number }[]>;
     }> => {
       const req = {
         resource: "contracts",
-        scope: { col: "contractor_eik", val: eik },
+        scope: { col: scopeCol, val: eik },
         fixedFilters: [{ id: "tag", value: [tag] }],
         columns: ["procurement_method", "cpv"],
         limit: 100,
@@ -110,19 +122,33 @@ export const CompanyContractsDbScreen: FC<{
           </div>
         ),
       },
-      {
-        id: "awarder_name",
-        accessorFn: (r) => r.awarderName,
-        header: t("company_contract_awarder") || "Awarder",
-        cell: ({ row }) => (
-          <Link
-            to={`/company/${row.original.awarderEik}`}
-            className="text-sm hover:underline"
-          >
-            {row.original.awarderName}
-          </Link>
-        ),
-      },
+      isAwarder
+        ? {
+            id: "contractor_name",
+            accessorFn: (r: ProcurementContract) => r.contractorName,
+            header: t("procurement_col_contractor") || "Contractor",
+            cell: ({ row }) => (
+              <Link
+                to={`/company/${row.original.contractorEik}`}
+                className="text-sm hover:underline"
+              >
+                {row.original.contractorName}
+              </Link>
+            ),
+          }
+        : {
+            id: "awarder_name",
+            accessorFn: (r: ProcurementContract) => r.awarderName,
+            header: t("company_contract_awarder") || "Awarder",
+            cell: ({ row }) => (
+              <Link
+                to={`/awarder/${row.original.awarderEik}`}
+                className="text-sm hover:underline"
+              >
+                {row.original.awarderName}
+              </Link>
+            ),
+          },
       {
         id: "title",
         accessorFn: (r) => r.title,
@@ -184,7 +210,7 @@ export const CompanyContractsDbScreen: FC<{
         },
       },
     ],
-    [t, scoreRow],
+    [t, scoreRow, isAwarder],
   );
 
   return (
@@ -196,7 +222,7 @@ export const CompanyContractsDbScreen: FC<{
         <div className="mb-4 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
           <Receipt className="h-4 w-4 shrink-0" />
           <Link
-            to={`/company/${eik}`}
+            to={entityHref}
             className="font-medium text-foreground hover:underline"
           >
             {companyName || `ЕИК ${eik}`}
@@ -206,7 +232,7 @@ export const CompanyContractsDbScreen: FC<{
 
         <DbDataTable<ProcurementContract>
           resource="contracts"
-          scope={{ col: "contractor_eik", val: eik }}
+          scope={{ col: scopeCol, val: eik }}
           fixedFilters={[{ id: "tag", value: [tag] }]}
           extraFilters={extraFilters}
           columns={columns}
@@ -214,7 +240,9 @@ export const CompanyContractsDbScreen: FC<{
           defaultSort={[{ id: "date", desc: true }]}
           pageSize={25}
           searchPlaceholder={
-            t("company_contracts_search") || "Търси възложител / предмет…"
+            isAwarder
+              ? t("awarder_contracts_search") || "Търси изпълнител / предмет…"
+              : t("company_contracts_search") || "Търси възложител / предмет…"
           }
           toolbar={
             <>

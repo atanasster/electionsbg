@@ -1,43 +1,13 @@
-// SPA hook for the procurement cross-reference. Fetches the full
-// mp_connected.json once (small — single-digit kB at current data volume)
-// and indexes by mpId so per-candidate tiles + the standalone procurement
-// page can both read it without a second round-trip.
-//
-// If the file is absent (404) the hook treats the result as empty rather
-// than throwing. The /update-procurement skill writes this file when paired
-// with /update-connections; in environments without procurement data the
-// SPA renders nothing rather than failing.
+// Per-MP procurement cross-reference — DB-backed (/api/db/ref-procurement →
+// ref_procurement('/candidate/mp-<id>')). Every contractor linked to the MP
+// (curated high-confidence links, full relations detail) with live totals,
+// per-year breakdown and top awarders. Replaces the per-mp JSON shards +
+// mp_connected.json aggregate fallback.
 
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import type {
-  ProcurementMpConnectedContractor,
-  ProcurementMpConnectedFile,
-} from "@/data/dataTypes";
+import type { ProcurementMpConnectedContractor } from "@/data/dataTypes";
 import { useMpIdForName } from "@/data/candidates/CandidateMpContext";
-import { dataUrl } from "@/data/dataUrl";
-
-const fetchMpConnected =
-  async (): Promise<ProcurementMpConnectedFile | null> => {
-    const response = await fetch(
-      dataUrl("/procurement/derived/mp_connected.json"),
-    );
-    if (response.status === 404) return null;
-    if (!response.ok) {
-      throw new Error(`fetch failed: ${response.status} ${response.url}`);
-    }
-    return (await response.json()) as ProcurementMpConnectedFile;
-  };
-
-// Internal: one-time fetch + memoised index by mpId. Every call to the
-// per-MP hook below shares the same query cache.
-const useMpConnectedFile = (enabled = true) =>
-  useQuery({
-    queryKey: ["procurement", "mp_connected"] as const,
-    queryFn: fetchMpConnected,
-    staleTime: Infinity,
-    enabled,
-  });
 
 export interface MpConnectedSummary {
   // Euro total across all connected contractors (EUR + BGN folded via the
@@ -49,54 +19,34 @@ export interface MpConnectedSummary {
   awardCount: number;
 }
 
-interface ProcurementShard {
-  mpId: number;
+type RefProcurementPayload = {
+  ref: string;
   summary: MpConnectedSummary;
   entries: ProcurementMpConnectedContractor[];
-}
-
-interface ShardManifest {
-  mpIds: number[];
-}
-
-// Per-MP shard manifest — tells the frontend which MPs have shards so we
-// can skip both the shard-404 round-trip and the aggregate fallback for
-// MPs with no declared procurement connections (the common case).
-const fetchShardManifest = async (): Promise<ShardManifest | null> => {
-  const r = await fetch(dataUrl("/procurement/derived/per-mp/index.json"));
-  if (r.status === 404) return null;
-  if (!r.ok) return null;
-  const ct = r.headers.get("content-type") ?? "";
-  if (!ct.includes("json")) return null;
-  return (await r.json()) as ShardManifest;
 };
 
-const useShardManifest = () =>
+const fetchRefProcurement = async (
+  ref: string,
+): Promise<RefProcurementPayload | null> => {
+  const r = await fetch(
+    `/api/db/ref-procurement?ref=${encodeURIComponent(ref)}`,
+  );
+  if (!r.ok) return null;
+  return (await r.json()) as RefProcurementPayload;
+};
+
+export const useRefProcurement = (ref?: string | null) =>
   useQuery({
-    queryKey: ["procurement", "shard_manifest"] as const,
-    queryFn: fetchShardManifest,
+    queryKey: ["db", "ref-procurement", ref ?? ""] as const,
+    queryFn: () => fetchRefProcurement(ref as string),
+    enabled: !!ref,
     staleTime: Infinity,
     retry: false,
   });
 
-// Per-MP shard fetch — content-type guard mirrors the votes shard hook so
-// SPA-fallback HTML responses on missing paths are treated as misses
-// instead of throwing a JSON-parse error.
-const fetchProcurementShard = async (
-  mpId: number,
-): Promise<ProcurementShard | null> => {
-  const r = await fetch(dataUrl(`/procurement/derived/per-mp/${mpId}.json`));
-  if (r.status === 404) return null;
-  if (!r.ok) return null;
-  const ct = r.headers.get("content-type") ?? "";
-  if (!ct.includes("json")) return null;
-  return (await r.json()) as ProcurementShard;
-};
-
 /** Returns the MP-connected contractors for one candidate (resolved by name),
  * along with a summary rollup across them. Renders nothing-friendly: returns
- * `entries: []` when the data file is missing or the MP has no connected
- * contractors. */
+ * `entries: []` when the MP has no connected contractors. */
 export const useMpConnectedContracts = (
   name?: string | null,
 ): {
@@ -105,34 +55,9 @@ export const useMpConnectedContracts = (
   isLoading: boolean;
 } => {
   const mpId = useMpIdForName(name);
-
-  // Phase 1: check the tiny manifest (~600 B) to learn whether this MP has
-  // a shard at all. Avoids both the shard-404 round-trip and the aggregate
-  // fallback when the MP simply has no procurement connections.
-  const manifestQuery = useShardManifest();
-  const mpIdsWithShards = useMemo(
-    () => new Set(manifestQuery.data?.mpIds ?? []),
-    [manifestQuery.data],
+  const query = useRefProcurement(
+    mpId != null ? `/candidate/mp-${mpId}` : null,
   );
-  const hasShard = mpId != null && mpIdsWithShards.has(mpId);
-
-  // Phase 2: per-MP shard. Only fired when the manifest says one exists.
-  const shardQuery = useQuery({
-    queryKey: ["procurement", "mp_connected_shard", mpId ?? 0] as const,
-    queryFn: () => fetchProcurementShard(mpId!),
-    enabled: hasShard,
-    staleTime: Infinity,
-    retry: false,
-  });
-
-  // Aggregate is the fallback only when the manifest fetch FAILS (legacy
-  // deploy without shards). We wait for `isFetched` rather than just
-  // checking `data != null` so we don't double-fire at initial mount
-  // before the manifest response arrives.
-  const manifestKnown = manifestQuery.data != null;
-  const manifestSettled = manifestQuery.isFetched;
-  const aggregateEnabled = mpId != null && manifestSettled && !manifestKnown;
-  const q = useMpConnectedFile(aggregateEnabled);
 
   return useMemo(() => {
     const empty: MpConnectedSummary = {
@@ -141,53 +66,25 @@ export const useMpConnectedContracts = (
       contractCount: 0,
       awardCount: 0,
     };
-    if (mpId == null) {
+    if (mpId == null || (!query.isLoading && !query.data)) {
       return { entries: [], summary: empty, isLoading: false };
     }
-    // Manifest says this MP has no shard → no connections, return empty
-    // without touching the network further.
-    if (manifestKnown && !hasShard) {
-      return { entries: [], summary: empty, isLoading: false };
+    if (!query.data) {
+      return { entries: [], summary: empty, isLoading: query.isLoading };
     }
-    if (shardQuery.data) {
-      return {
-        entries: shardQuery.data.entries,
-        summary: shardQuery.data.summary,
-        isLoading: false,
-      };
-    }
-    if (!q.data) {
-      return {
-        entries: [],
-        summary: empty,
-        isLoading:
-          manifestQuery.isLoading || shardQuery.isLoading || q.isLoading,
-      };
-    }
-    const entries = q.data.entries.filter((e) => e.mpId === mpId);
-    const summary: MpConnectedSummary = {
-      totalEur: 0,
-      totalOther: {},
-      contractCount: 0,
-      awardCount: 0,
-    };
+    const entries = query.data.entries;
+    // The DB summary carries the EUR side; merge the rare native remainder
+    // from the per-entry maps client-side.
+    const totalOther: Record<string, number> = {};
     for (const e of entries) {
-      summary.totalEur += e.totalEur;
-      for (const [cur, amt] of Object.entries(e.totalOther)) {
-        summary.totalOther[cur] = (summary.totalOther[cur] ?? 0) + amt;
+      for (const [cur, amt] of Object.entries(e.totalOther ?? {})) {
+        totalOther[cur] = (totalOther[cur] ?? 0) + amt;
       }
-      summary.contractCount += e.contractCount;
-      summary.awardCount += e.awardCount;
     }
-    return { entries, summary, isLoading: false };
-  }, [
-    mpId,
-    q.data,
-    q.isLoading,
-    shardQuery.data,
-    shardQuery.isLoading,
-    manifestKnown,
-    hasShard,
-    manifestQuery.isLoading,
-  ]);
+    return {
+      entries,
+      summary: { ...query.data.summary, totalOther },
+      isLoading: false,
+    };
+  }, [mpId, query.data, query.isLoading]);
 };

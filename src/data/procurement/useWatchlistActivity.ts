@@ -1,24 +1,18 @@
-// Live activity for the watchlist. For every followed entity it fetches the
-// same rollup the entity page already uses (so the cache is shared) and
-// normalises it into a comparable signature — contract count, total awarded,
-// latest contract date — plus a few display fields (top counterparty). It then
-// diffs that live signature against the per-item "last seen" snapshot to flag
-// "new activity since you last looked", and baselines any entity we've never
-// snapshotted (so following something doesn't immediately read as "new").
+// Live activity for the watchlist — DB-backed. For every followed entity it
+// fetches a light activity signature (/api/db/watch-signature: contract count,
+// total awarded, latest date, top counterparty in one indexed aggregate);
+// followed contracts reuse the contract-detail query, and followed persons
+// read the shared corpus scanner payload. It then diffs that live signature
+// against the per-item "last seen" snapshot to flag "new activity since you
+// last looked", and baselines any entity we've never snapshotted (so
+// following something doesn't immediately read as "new").
 //
 // Reused by the watchlist screen (cards + new-activity section), the unread
 // badge on the procurement nav, and the overview digest tile.
 
 import { useEffect, useMemo } from "react";
 import { useQueries, useQuery } from "@tanstack/react-query";
-import { dataUrl } from "@/data/dataUrl";
-import type {
-  ProcurementContractorRollup,
-  ProcurementAwarderRollup,
-  ProcurementBySettlementFile,
-  ProcurementContract,
-  ProcurementRollupContractRow,
-} from "@/data/dataTypes";
+import type { ProcurementContract } from "@/data/dataTypes";
 import {
   useWatchlist,
   useSeenMap,
@@ -59,53 +53,44 @@ const ID_OK: Record<WatchKind, RegExp> = {
   person: /^\d+$/,
 };
 
-const urlFor = (it: WatchItem): string => {
-  switch (it.kind) {
-    case "company":
-      return dataUrl(`/procurement/contractors/${it.id}.json`);
-    case "awarder":
-      return dataUrl(`/procurement/awarders/${it.id}.json`);
-    case "place":
-      return dataUrl(`/procurement/by_settlement/${it.id}.json`);
-    case "contract":
-      return dataUrl(`/procurement/contracts/by-id/${it.id}.json`);
-    default:
-      return "";
-  }
+type Signature = {
+  found: boolean;
+  count?: number;
+  totalEur?: number;
+  latestDate?: string;
+  topEik?: string | null;
+  topName?: string | null;
+  topKind?: "company" | "awarder";
 };
 
-const queryKeyFor = (it: WatchItem): readonly unknown[] => {
-  switch (it.kind) {
-    case "company":
-      return ["procurement", "contractor", it.id];
-    case "awarder":
-      return ["procurement", "awarder", it.id];
-    case "place":
-      return ["procurement", "by_settlement", it.id];
-    case "contract":
-      return ["procurement", "contract", it.id];
-    default:
-      return ["procurement", "noop", it.id];
-  }
+const fetchSignature = async (it: WatchItem): Promise<Signature | null> => {
+  const r = await fetch(
+    `/api/db/watch-signature?kind=${it.kind}&id=${encodeURIComponent(it.id)}`,
+  );
+  if (!r.ok) return null;
+  return (await r.json()) as Signature;
 };
 
-const fetchEntity = async (it: WatchItem): Promise<unknown | null> => {
-  const url = urlFor(it);
-  if (!url) return null;
-  const r = await fetch(url);
-  if (r.status === 404) return null;
-  if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
-  return r.json();
+const fetchContract = async (
+  key: string,
+): Promise<ProcurementContract | null> => {
+  const r = await fetch(`/api/db/contract?key=${encodeURIComponent(key)}`);
+  if (!r.ok) return null;
+  const j = (await r.json()) as { contract: ProcurementContract | null };
+  return j.contract ?? null;
 };
 
-const maxDate = (rows?: ProcurementRollupContractRow[]): string => {
-  if (!rows || rows.length === 0) return "";
-  let m = "";
-  for (const c of rows) if (c.date && c.date > m) m = c.date;
-  return m;
-};
+const fetchEntity = async (it: WatchItem): Promise<unknown | null> =>
+  it.kind === "contract" ? fetchContract(it.id) : fetchSignature(it);
 
-// Person index (full corpus) — one shared file for all watched MPs.
+const queryKeyFor = (it: WatchItem): readonly unknown[] =>
+  it.kind === "contract"
+    ? // Same key as useContract → shared cache with the detail page.
+      ["procurement", "contract", it.id]
+    : ["db", "watch-signature", it.kind, it.id];
+
+// Person rows come from the shared corpus scanner (same payload the
+// /procurement/people page uses with no window).
 type PersonRow = {
   kind: "mp" | "official";
   name: string;
@@ -114,9 +99,7 @@ type PersonRow = {
   mpId?: number;
 };
 const fetchPersonIndex = async (): Promise<PersonRow[]> => {
-  const r = await fetch(
-    dataUrl("/procurement/derived/person_procurement_index.json"),
-  );
+  const r = await fetch("/api/db/procurement-scanner");
   if (!r.ok) return [];
   const j = (await r.json()) as { rows?: PersonRow[] };
   return j.rows ?? [];
@@ -136,11 +119,9 @@ export const useWatchlistActivity = (): {
   const items = useWatchlist();
   const seen = useSeenMap();
 
-  // Person rows come from one shared corpus index; everything else is a
-  // per-entity rollup fetched in parallel via useQueries.
   const hasPerson = items.some((i) => i.kind === "person");
   const personQ = useQuery({
-    queryKey: ["procurement", "person_index", "all"],
+    queryKey: ["procurement", "scanner", null, null] as const,
     queryFn: fetchPersonIndex,
     enabled: hasPerson,
     staleTime: Infinity,
@@ -165,7 +146,7 @@ export const useWatchlistActivity = (): {
     return items.map((item): WatchActivity => {
       const seenSnap = seen[`${item.kind}:${item.id}`];
 
-      // --- person: look up the shared index row -----------------------------
+      // --- person: look up the shared scanner row ----------------------------
       if (item.kind === "person") {
         const row = personQ.data?.find(
           (r) => r.kind === "mp" && String(r.mpId) === item.id,
@@ -187,80 +168,46 @@ export const useWatchlistActivity = (): {
         };
       }
 
-      // --- entity kinds (company / awarder / place / contract) --------------
+      // --- contract: one row, keyed like the detail page ---------------------
       const q = byKey.get(`${item.kind}:${item.id}`);
       const loading = !!q?.isLoading;
       const data = q?.data ?? null;
       if (!data) return baseActivity(item, loading, null, seenSnap);
 
-      let count: number;
-      let totalEur: number | null;
-      let totalOther: Record<string, number> | undefined;
-      let topName: string | undefined;
-      let topEik: string | undefined;
-      let topKind: "company" | "awarder" | undefined;
-      let latestDate = "";
-
-      if (item.kind === "company") {
-        const d = data as ProcurementContractorRollup;
-        count = d.contractCount;
-        totalEur = d.totalEur;
-        totalOther = d.totalOther;
-        latestDate = maxDate(d.topContracts);
-        const top = d.byAwarder?.[0];
-        if (top) {
-          topName = top.name;
-          topEik = top.eik;
-          topKind = "awarder";
-        }
-      } else if (item.kind === "awarder") {
-        const d = data as ProcurementAwarderRollup;
-        count = d.contractCount;
-        totalEur = d.totalEur;
-        totalOther = d.totalOther;
-        latestDate = maxDate(d.topContracts);
-        const top = d.byContractor?.[0];
-        if (top) {
-          topName = top.name;
-          topEik = top.eik;
-          topKind = "company";
-        }
-      } else if (item.kind === "place") {
-        const d = data as ProcurementBySettlementFile;
-        count = d.contractCount;
-        totalEur = d.totalEur;
-        totalOther = d.totalOther;
-        latestDate = maxDate(d.topContracts);
-        const top = d.awarders?.[0];
-        if (top) {
-          topName = top.name;
-          topEik = top.eik;
-          topKind = "awarder";
-        }
-      } else {
-        // contract
+      if (item.kind === "contract") {
         const d = data as ProcurementContract;
-        count = 1;
-        totalEur = d.amountEur ?? null;
-        latestDate = d.dateSigned || d.date || "";
+        const latestDate = d.dateSigned || d.date || "";
+        const sig: WatchSignature = {
+          count: 1,
+          totalEur: d.amountEur ?? 0,
+          latestDate,
+        };
+        return {
+          ...baseActivity(item, false, sig, seenSnap),
+          resolved: true,
+          count: 1,
+          totalEur: d.amountEur ?? null,
+          latestDate,
+        };
       }
 
+      // --- company / awarder / place: the signature IS the payload -----------
+      const d = data as Signature;
+      if (!d.found) return baseActivity(item, false, null, seenSnap);
       const sig: WatchSignature = {
-        count,
-        totalEur: totalEur ?? 0,
-        latestDate,
+        count: d.count ?? 0,
+        totalEur: d.totalEur ?? 0,
+        latestDate: d.latestDate ?? "",
       };
-      const base = baseActivity(item, false, sig, seenSnap);
       return {
-        ...base,
+        ...baseActivity(item, false, sig, seenSnap),
         resolved: true,
-        count,
-        totalEur,
-        totalOther,
-        latestDate,
-        topName,
-        topEik,
-        topKind,
+        count: d.count ?? 0,
+        totalEur: d.totalEur ?? null,
+        latestDate: d.latestDate ?? "",
+        topName: d.topName ?? undefined,
+        topEik: d.topEik ?? undefined,
+        topKind: d.topKind,
       };
     });
   }, [items, results, personQ.data, personQ.isLoading, seen, entityItems]);
