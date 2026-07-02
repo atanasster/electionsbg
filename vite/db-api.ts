@@ -151,6 +151,14 @@ export const dbApi = (): Plugin => ({
         return;
       }
 
+      if (url.pathname.startsWith("/procurement-risk-feed")) {
+        allRows<{ r: unknown }>("SELECT procurement_risk_feed($1, $2) AS r", [
+          q("from") || null,
+          q("to") || null,
+        ]).then((rows) => send(200, rows[0]?.r ?? null), fail);
+        return;
+      }
+
       if (url.pathname.startsWith("/procurement-scanner")) {
         allRows<{ r: unknown }>("SELECT procurement_scanner($1, $2) AS r", [
           q("from") || null,

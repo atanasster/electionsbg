@@ -641,6 +641,15 @@ const DB_ROUTES = {
       },
     };
   },
+  // Risk-signals feed — top concentration + top MP-tied + headline counts +
+  // per-oblast tally, window-scoped or full corpus.
+  "procurement-risk-feed": async (pool, q) => {
+    const rows = await dbRows(pool, "SELECT procurement_risk_feed($1, $2) AS r", [
+      String(q.from || "").trim() || null,
+      String(q.to || "").trim() || null,
+    ]);
+    return { body: rows[0]?.r ?? null };
+  },
   // Public-money scanner — the full political-class (MP + official) procurement
   // index, window-scoped or full corpus.
   "procurement-scanner": async (pool, q) => {

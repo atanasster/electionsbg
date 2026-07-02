@@ -19,11 +19,9 @@ import {
 import { Title } from "@/ux/Title";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useDebarred } from "@/data/procurement/useDebarred";
-import { dataUrl } from "@/data/dataUrl";
 import { formatEur } from "@/lib/currency";
 import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
-import { useProcurementScope } from "@/data/procurement/useProcurementScope";
-import { useElectionContext } from "@/data/ElectionContext";
+import { useProcurementWindow } from "@/data/procurement/useProcurementWindow";
 import { ConcentrationOblastTiles } from "@/screens/components/procurement/ConcentrationOblastTiles";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
@@ -53,7 +51,7 @@ type RiskFeedFile = {
   concentration100Total?: number;
   mpTiedTotal?: number;
   connectedPeopleTotal?: number;
-  concentrationByOblast?: Array<{ nuts: string; count: number }>;
+  concentrationByOblast?: Array<{ oblast: string; count: number }>;
   concentrationNationalCount?: number;
 };
 
@@ -87,23 +85,19 @@ const ShownOf: FC<{ shown: number; total?: number }> = ({ shown, total }) => {
   );
 };
 
-// One slim file (~28 KB) instead of awarder_concentration.json (≈1 MB) +
-// mp_connected.json — the page only ever shows the top rows. Scope-aware: ns →
-// the per-election feed (by_ns/risk_feed/<date>.json); all → the full corpus.
-// (Debarred suppliers stay corpus — a "currently barred" register has no date
-// dimension — and are fetched separately.)
+// DB-backed (/api/db/procurement-risk-feed → procurement_risk_feed): the same
+// top-concentration + top-MP-tied excerpts + headline counts, scoped to the
+// selected parliament window or the full corpus. (Debarred suppliers stay a
+// corpus register — no date dimension — and are fetched separately.)
 const useRiskFeed = () => {
-  const { scope } = useProcurementScope();
-  const { selected } = useElectionContext();
-  const ns = scope === "ns";
-  const url = ns
-    ? dataUrl(`/procurement/by_ns/risk_feed/${selected}.json`)
-    : dataUrl("/procurement/derived/risk_feed.json");
+  const { from, to } = useProcurementWindow();
   return useQuery({
-    queryKey: ["procurement", "risk_feed", ns ? `ns:${selected}` : "all"],
-    queryFn: async () => {
-      const r = await fetch(url);
-      if (r.status === 404) return null;
+    queryKey: ["procurement", "risk_feed", from, to],
+    queryFn: async (): Promise<RiskFeedFile | null> => {
+      const qs = new URLSearchParams();
+      if (from) qs.set("from", from);
+      if (to) qs.set("to", to);
+      const r = await fetch(`/api/db/procurement-risk-feed?${qs.toString()}`);
       if (!r.ok) throw new Error(`fetch failed: ${r.status}`);
       return (await r.json()) as RiskFeedFile;
     },
