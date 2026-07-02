@@ -181,13 +181,13 @@ Expected: 1-2 month-shards modified or added, plus `index.json` + `bundles.json`
 
 ## Step 2b — Refresh the local SQL store
 
-The procurement source-of-truth SQLite (`raw_data/procurement/procurement.sqlite`, see docs/plans/sql-migration-v1.md) is loaded from the contract month-shards, so a fresh ingest leaves it stale. Refresh it:
+The local Postgres store (docker `electionsbg-pg`, see docs/plans/postgres-migration-v1.md) is loaded from the just-written shards, so a fresh ingest leaves it stale — **for BOTH the `contracts` and the `tenders` tables** (this ingest refreshes both trees). Reload both:
 
 ```bash
-npm run db:refresh   # db:load (shards → SQL) + test:data (invariants + lossless round-trip)
+npm run db:refresh   # db:pg:up + db:load:pg (contracts) + db:load:tenders:pg + test:data
 ```
 
-`db:load` (~5 s) rebuilds the `contracts` table from the just-written shards; `test:data` then confirms the SQL captured them losslessly and the integrity invariants hold (it does NOT compare against the committed manifest/goldens baseline, so it won't false-fail on the new data). The `.sqlite` is gitignored and local — **no commit or bucket sync needed** (it's not what the SPA reads; it powers the `/dev/sql` browser + the `db:gen-*` generators). Only run this after a procurement ingest — nothing else feeds the `contracts` table.
+`db:refresh` rebuilds the `contracts` table (~10 s) AND the `tenders` table (~18 s) from the fresh shards, then `test:data` confirms the SQL captured them losslessly (it does NOT compare against the committed manifest/goldens baseline, so it won't false-fail on new data). Postgres is local + gitignored — **no commit or bucket sync needed** (it powers `/db`, the `/api/db` live pages, and the `db:gen-*` generators). Run after every procurement ingest — it's the ONLY thing that keeps `contracts` + `tenders` fresh; if a table's loader isn't in `db:refresh`, that table silently goes stale (the tenders-stale bug, fixed 2026-07-02).
 
 ## Step 3 — Upload to bucket
 

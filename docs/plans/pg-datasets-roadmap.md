@@ -156,10 +156,18 @@ don't extend it. (Steps 2 and 4 below are therefore struck.)
 3. **Schema + loader** — `schema/pg/NNN_*.sql` + `load_*_pg.ts`. Choose the
    ingestion pattern: **full rebuild** (funds) vs **incremental append** (prices,
    votes).
+3b. **Wire the loader into an auto-refresh** — the ingest rewrites the on-disk
+   JSON; PG only reloads if something calls the loader. Add it to `db:refresh`
+   (procurement domain) or chain it into the owning ingest npm script (as
+   `tr:daily-refresh` chains `db:load:tr:pg`), so a watch-report run keeps PG
+   fresh. A table left out of the refresh path silently goes stale (the tenders +
+   TR stale bug, fixed 2026-07-02).
 4. ~~**Generators read PG** (`db:gen-*` → `db:build` 0-diff)~~ — SKIP (see scope
    decision). The ingest stays the source of the on-disk JSON.
 5. **Live serving** — add `/api/db/*` routes (the `db` Cloud Function) for the
-   dynamic/joined views; keep bulk/static as JSON on the bucket.
+   dynamic/joined views; keep bulk/static as JSON on the bucket. **EXPLAIN ANALYZE
+   every new query on the worst-case entity before shipping** (docs/plans/
+   pg-query-performance.md) — index every entity FK + both sides of every join.
 6. **SQL browser samples** — add ≥1 sample query to `SqlBrowserScreen` `SAMPLES`
    for the new table (a table-only query + a join that shows what it unlocks),
    under a new/existing `group`. Required for every table so the public console
