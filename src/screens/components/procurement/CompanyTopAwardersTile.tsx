@@ -42,7 +42,7 @@ export const CompanyTopAwardersTile: FC<{
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 md:p-4">
-        <div className="rounded-md border bg-card overflow-hidden">
+        <div className="rounded-md border bg-card overflow-x-auto">
           <table className="w-full text-sm">
             <thead className="bg-muted/40 text-xs uppercase tracking-wide text-muted-foreground">
               <tr>

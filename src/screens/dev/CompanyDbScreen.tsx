@@ -17,7 +17,7 @@ import {
   FileText,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { formatEur, toEur } from "@/lib/currency";
+import { formatEur, formatEurCompact, toEur } from "@/lib/currency";
 import { useTranslation } from "react-i18next";
 import { StatCard } from "../dashboard/StatCard";
 import { CompanyTopContractsTile } from "../components/procurement/CompanyTopContractsTile";
@@ -250,8 +250,11 @@ export const CompanyDbScreen: FC = () => {
                 <StatCard label="Общо възложени">
                   <div className="flex items-baseline gap-2">
                     <Coins className="h-5 w-5 text-muted-foreground shrink-0" />
-                    <span className="text-base md:text-lg font-bold tabular-nums break-words">
-                      {formatEur(rollup.totalEur, i18n.language) || "—"}
+                    <span
+                      className="text-lg md:text-xl font-bold tabular-nums"
+                      title={formatEur(rollup.totalEur, i18n.language)}
+                    >
+                      {formatEurCompact(rollup.totalEur, i18n.language) || "—"}
                     </span>
                   </div>
                   <div className="text-xs text-muted-foreground tabular-nums">
