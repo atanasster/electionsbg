@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { PieChart } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useProcurementBreakdown } from "@/data/procurement/useProcurementBreakdown";
+import type { ProcurementBreakdown } from "@/data/dataTypes";
 import {
   cpvDivisionName,
   procedureLabel,
@@ -41,13 +42,20 @@ const Bar: FC<{ label: string; share: number; amount: string }> = ({
   </div>
 );
 
-export const ProcurementBreakdownTile: FC<{ kind: "c" | "a"; eik: string }> = ({
-  kind,
-  eik,
-}) => {
+// `breakdown` lets the DB-backed page pass a pre-built breakdown (from the PG
+// company rollup) instead of fetching the JSON shard; the hook is disabled then.
+export const ProcurementBreakdownTile: FC<{
+  kind: "c" | "a";
+  eik: string;
+  breakdown?: ProcurementBreakdown | null;
+}> = ({ kind, eik, breakdown }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
-  const { data: b } = useProcurementBreakdown(kind, eik);
+  const { data: fetched } = useProcurementBreakdown(
+    kind,
+    breakdown ? undefined : eik,
+  );
+  const b = breakdown ?? fetched;
   if (!b || b.cpv.length === 0) return null;
 
   const cpvTotal = b.cpvKnownEur || 1;

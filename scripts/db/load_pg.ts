@@ -32,6 +32,7 @@ const CONTRACTOR_SEARCH_FILE = path.join(
   SCHEMA_DIR,
   "006_contractor_search.sql",
 );
+const COMPANY_API_FILE = path.join(SCHEMA_DIR, "011_company_api.sql");
 const monthShardDir = path.join(PROC_DIR, "contracts");
 const N = COLUMN_NAMES.length;
 const BATCH = 1000; // 1000 × 31 cols = 31k params (< PG's 65535 cap)
@@ -85,6 +86,7 @@ export const loadPg = async (): Promise<{
   await exec(readFileSync(SCHEMA_FILE, "utf8"));
   await exec(readFileSync(TRACKING_FILE, "utf8"));
   await exec(readFileSync(CONTRACTOR_SEARCH_FILE, "utf8"));
+  await exec(readFileSync(COMPANY_API_FILE, "utf8"));
 
   const { rows, years } = readShards();
   let batchId = 0;

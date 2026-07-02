@@ -118,14 +118,16 @@ export const dbApi = (): Plugin => ({
             "SELECT politician, ref, kind, role, total_eur FROM company_politicians WHERE eik = $1 ORDER BY total_eur DESC NULLS LAST",
             [eik],
           ),
+          allRows<{ r: unknown }>("SELECT company_procurement($1) AS r", [eik]),
         ]).then(
-          ([company, summary, officers, politicians]) =>
+          ([company, summary, officers, politicians, procurement]) =>
             send(200, {
               eik,
               company: company[0] ?? null,
               summary: summary[0] ?? null,
               officers,
               politicians,
+              procurement: procurement[0]?.r ?? null,
             }),
           fail,
         );

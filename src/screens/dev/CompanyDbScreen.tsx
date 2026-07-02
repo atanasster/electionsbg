@@ -6,11 +6,31 @@
 // in dev, the `db` Cloud Function (hosting rewrite) in prod.
 // See docs/plans/postgres-migration-v1.md.
 
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Building2, Landmark, Users, ArrowRight } from "lucide-react";
+import {
+  Building2,
+  Landmark,
+  Users,
+  ArrowRight,
+  Coins,
+  FileText,
+} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { formatEur } from "@/lib/currency";
+import { formatEur, formatEurWithOther } from "@/lib/currency";
+import { useTranslation } from "react-i18next";
+import { StatCard } from "../dashboard/StatCard";
+import { CompanyTopContractsTile } from "../components/procurement/CompanyTopContractsTile";
+import { CompanyTopAwardersTile } from "../components/procurement/CompanyTopAwardersTile";
+import { CompanyByYearChart } from "../components/procurement/CompanyByYearChart";
+import { CompanyBuyerConcentrationTile } from "../components/procurement/CompanyBuyerConcentrationTile";
+import { CompanyPortfolioTreemap } from "../components/procurement/CompanyPortfolioTreemap";
+import { ProcurementBreakdownTile } from "../components/procurement/ProcurementBreakdownTile";
+import type {
+  ProcurementContractorRollup,
+  ProcurementBreakdown,
+} from "@/data/dataTypes";
+import { procedureBucket, type ProcedureBucket } from "@/lib/cpvSectors";
 
 interface Company {
   uic: string;
@@ -43,6 +63,31 @@ interface Politician {
   total_eur: number | null;
 }
 
+// The procurement rollup from company_procurement() — the ProcurementContractorRollup
+// fields (minus eik/name/generatedAt, filled client-side) + the raw breakdown
+// aggregation the CPV/procedure tile buckets client-side.
+type DbRollup = Pick<
+  ProcurementContractorRollup,
+  | "totalEur"
+  | "totalOther"
+  | "contractCount"
+  | "awardCount"
+  | "byAwarder"
+  | "byYear"
+  | "topContracts"
+> & {
+  awarderCount: number;
+  breakdown: {
+    totalEur: number;
+    cpvKnownEur: number;
+    procKnownEur: number;
+    euEur: number;
+    euKnownEur: number;
+    cpvRaw: { d: string; eur: number; n: number }[];
+    procRaw: { method: string; eur: number; n: number }[];
+  };
+};
+
 const num = new Intl.NumberFormat("bg-BG");
 const day = (s: string | null): string => (s ? String(s).slice(0, 10) : "—");
 const pct = (s: string | number | null): string =>
@@ -55,8 +100,10 @@ export const CompanyDbScreen: FC = () => {
   const [summary, setSummary] = useState<Summary | null>(null);
   const [officers, setOfficers] = useState<Officer[]>([]);
   const [politicians, setPoliticians] = useState<Politician[]>([]);
+  const [procurement, setProcurement] = useState<DbRollup | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     let live = true;
@@ -72,6 +119,7 @@ export const CompanyDbScreen: FC = () => {
           setSummary(j.summary);
           setOfficers(j.officers ?? []);
           setPoliticians(j.politicians ?? []);
+          setProcurement(j.procurement ?? null);
         }
       })
       .catch((e) => live && setError(String(e)))
@@ -83,8 +131,56 @@ export const CompanyDbScreen: FC = () => {
 
   const contracts = Number(summary?.contracts ?? 0);
 
+  // Assemble the ProcurementContractorRollup the existing tiles expect (add the
+  // eik/name/generatedAt the endpoint omits).
+  const rollup = useMemo<ProcurementContractorRollup | null>(
+    () =>
+      procurement
+        ? {
+            eik,
+            name: company?.name ?? eik,
+            totalEur: procurement.totalEur,
+            totalOther: procurement.totalOther,
+            contractCount: procurement.contractCount,
+            awardCount: procurement.awardCount,
+            awarderCount: procurement.awarderCount,
+            byAwarder: procurement.byAwarder,
+            byYear: procurement.byYear,
+            topContracts: procurement.topContracts,
+            generatedAt: "",
+          }
+        : null,
+    [procurement, eik, company?.name],
+  );
+
+  // Bucket the raw procedure-method sums into the ProcedureBucket the breakdown
+  // tile expects (same procedureBucket() the offline builder uses → identical
+  // buckets); the CPV part is already division-grouped (d = left(cpv,2)).
+  const breakdown = useMemo<ProcurementBreakdown | null>(() => {
+    if (!procurement) return null;
+    const bd = procurement.breakdown;
+    const byBucket = new Map<ProcedureBucket, { eur: number; n: number }>();
+    for (const p of bd.procRaw) {
+      const b = procedureBucket(p.method);
+      const cur = byBucket.get(b) ?? { eur: 0, n: 0 };
+      cur.eur += p.eur;
+      cur.n += p.n;
+      byBucket.set(b, cur);
+    }
+    return {
+      eik,
+      totalEur: bd.totalEur,
+      cpvKnownEur: bd.cpvKnownEur,
+      procKnownEur: bd.procKnownEur,
+      euEur: bd.euEur,
+      euKnownEur: bd.euKnownEur,
+      cpv: bd.cpvRaw,
+      proc: [...byBucket].map(([b, v]) => ({ b, eur: v.eur, n: v.n })),
+    };
+  }, [procurement, eik]);
+
   return (
-    <div className="mx-auto w-full max-w-5xl px-4 py-6">
+    <div className="w-full px-4 py-6 md:px-6">
       <div className="mb-6">
         <div className="text-xs uppercase tracking-wide text-muted-foreground">
           Фирма (Търговски регистър)
@@ -143,6 +239,94 @@ export const CompanyDbScreen: FC = () => {
 
       {!loading && !error && company && (
         <div className="space-y-6">
+          {rollup && rollup.contractCount > 0 && (
+            <>
+              <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
+                <StatCard label="Общо възложени">
+                  <div className="flex items-baseline gap-2">
+                    <Coins className="h-5 w-5 text-muted-foreground shrink-0" />
+                    <span className="text-base md:text-lg font-bold tabular-nums break-words">
+                      {formatEurWithOther(
+                        rollup.totalEur,
+                        rollup.totalOther,
+                        i18n.language,
+                      ) || "—"}
+                    </span>
+                  </div>
+                  <div className="text-xs text-muted-foreground tabular-nums">
+                    средно{" "}
+                    {formatEurWithOther(
+                      rollup.totalEur / rollup.contractCount,
+                      {},
+                      i18n.language,
+                    )}{" "}
+                    / договор
+                  </div>
+                </StatCard>
+                <StatCard label="Договори">
+                  <div className="flex items-baseline gap-2">
+                    <FileText className="h-5 w-5 text-muted-foreground shrink-0" />
+                    <span className="text-2xl font-bold tabular-nums">
+                      {num.format(rollup.contractCount)}
+                    </span>
+                  </div>
+                  {rollup.awardCount > 0 && (
+                    <div className="text-xs text-muted-foreground tabular-nums">
+                      + {num.format(rollup.awardCount)} обявления
+                    </div>
+                  )}
+                </StatCard>
+                <StatCard label="Възложители">
+                  <div className="flex items-baseline gap-2">
+                    <Building2 className="h-5 w-5 text-muted-foreground shrink-0" />
+                    <span className="text-2xl font-bold tabular-nums">
+                      {num.format(
+                        rollup.awarderCount ?? rollup.byAwarder.length,
+                      )}
+                    </span>
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    Брой държавни институции
+                  </div>
+                </StatCard>
+                <StatCard label="Свързани с властта">
+                  <div className="flex items-baseline gap-2">
+                    <Users className="h-5 w-5 text-muted-foreground shrink-0" />
+                    <span className="text-2xl font-bold tabular-nums">
+                      {num.format(politicians.length)}
+                    </span>
+                    <span className="text-sm text-muted-foreground">лица</span>
+                  </div>
+                </StatCard>
+              </div>
+
+              <div className="grid gap-4 xl:grid-cols-2">
+                <CompanyTopContractsTile eik={eik} rollup={rollup} />
+                {rollup.byAwarder.length > 0 && (
+                  <CompanyTopAwardersTile eik={eik} rollup={rollup} />
+                )}
+              </div>
+
+              <ProcurementBreakdownTile
+                kind="c"
+                eik={eik}
+                breakdown={breakdown}
+              />
+              <CompanyBuyerConcentrationTile rollup={rollup} />
+              <CompanyPortfolioTreemap
+                role="contractor"
+                items={rollup.byAwarder.map((a) => ({
+                  eik: a.eik,
+                  name: a.name,
+                  totalEur: a.totalEur,
+                }))}
+              />
+              {rollup.byYear.length > 0 && (
+                <CompanyByYearChart rows={rollup.byYear} />
+              )}
+            </>
+          )}
+
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-base">

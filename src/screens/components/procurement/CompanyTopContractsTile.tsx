@@ -10,14 +10,22 @@ import { useTranslation } from "react-i18next";
 import { ArrowRight, Receipt, ExternalLink } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useContractor } from "@/data/procurement/useContractor";
+import type { ProcurementContractorRollup } from "@/data/dataTypes";
 import { resolveContractSource } from "../candidates/procurement/sourceUrl";
 import { ContractAmount } from "./ContractAmount";
 
 const TOP_ROWS = 10;
 
-export const CompanyTopContractsTile: FC<{ eik: string }> = ({ eik }) => {
+// `rollup` lets a caller (the DB-backed company page) pass a pre-loaded rollup
+// so the tile renders from Postgres instead of fetching the JSON shard; the hook
+// is disabled in that case (pass undefined eik).
+export const CompanyTopContractsTile: FC<{
+  eik: string;
+  rollup?: ProcurementContractorRollup | null;
+}> = ({ eik, rollup }) => {
   const { t } = useTranslation();
-  const { data, isLoading } = useContractor(eik);
+  const { data: fetched, isLoading } = useContractor(rollup ? undefined : eik);
+  const data = rollup ?? fetched;
 
   const top = data?.topContracts?.slice(0, TOP_ROWS) ?? [];
 
