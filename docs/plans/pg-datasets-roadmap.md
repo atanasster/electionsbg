@@ -28,6 +28,29 @@ election is ingested), so they fail the "changes often" test and are low-priorit
 The datasets that are *both* large *and* frequently changing are the three in
 bold: **funds, prices, votes**.
 
+## Status (updated 2026-07-02)
+
+**Tenders — foundation + live serving SHIPPED.** The `tenders` table
+(`009_tenders.sql`) + loader (`load_tenders_pg.ts`, 125,505 procedures, full
+precision from the by-tender shards) + the `ocid` lineage to contracts are in
+(commit tenders→Postgres). Live serving is in (commit live tender pipeline):
+`010_tenders_api.sql` (`tenders_buyer_summary` / `tenders_by_buyer` /
+`tender_awards`) → `/api/db/tenders` + `/api/db/tender` (dev plugin + `db`
+function) → the **"Announced procedures" tile on `/awarder/:eik`** (forecast Σ vs
+actual awarded, contracted share, recent procedures). Two follow-ups:
+- **Deferred — JSON-from-PG generators** (`by-tender`/`by-ocid`/`by_year` from
+  PG, verified in `db:build`). Lower value (the ingest already produces that
+  JSON) and more invasive (the derived shards are written in non-deterministic
+  cache order + full float precision, so reproducing them means extracting the
+  builders out of the watcher/CI `ingest_tenders.ts`). Do only if/when we flip
+  PG to be the source of the static tenders JSON too.
+- **Prod-enablement (operator)** — the tenders table + API functions live only
+  in local PG; the tile stays hidden in prod until the Cloud SQL snapshot
+  includes them: `npm run db:push` (pg_dump/restore covers the new table +
+  functions), then redeploy `functions:db`. The read-only role auto-grants
+  (ALTER DEFAULT PRIVILEGES) SELECT on the new table + EXECUTE on the new
+  functions.
+
 ## Recommended sequence
 
 **0. Tenders (procedures) — the fastest, most natural first move.** It's the
