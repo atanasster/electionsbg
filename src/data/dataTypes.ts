@@ -1495,27 +1495,6 @@ export type ProcurementContract = {
   sourceUrl: string;
 };
 
-/** Per-contractor full contract list, at
- * data/procurement/contractor_contracts/<EIK>.json. */
-export type ProcurementContractorContractsFile = {
-  eik: string;
-  name: string;
-  generatedAt: string;
-  count: number;
-  contracts: ProcurementContract[];
-};
-
-/** Per-awarder full contract list, at
- * data/procurement/awarder_contracts/<EIK>.json. Same shape as
- * ProcurementContractorContractsFile, just keyed on the buyer side. */
-export type ProcurementAwarderContractsFile = {
-  eik: string;
-  name: string;
-  generatedAt: string;
-  count: number;
-  contracts: ProcurementContract[];
-};
-
 /** Slim contract row embedded inside per-entity rollups. Mirrors
  * scripts/procurement/types.ts RollupContractRow. */
 export type ProcurementRollupContractRow = {
@@ -1797,41 +1776,4 @@ export type ProcurementByNsFile = {
   topAwarders: ProcurementByNsTopAwarder[];
   topMps: ProcurementByNsTopMp[];
   topOfficials: ProcurementByNsTopOfficial[];
-};
-
-/** Global procurement index file (data/procurement/index.json). */
-export type ProcurementIndexFile = {
-  generatedAt: string;
-  lastIngest: string;
-  years: string[];
-  months: string[];
-  totals: {
-    contracts: number;
-    awards: number;
-    amendments: number;
-    contractorCount: number;
-    awarderCount: number;
-    totalEur: number;
-    totalOther: Record<string, number>;
-  };
-  periods: Array<{
-    bundleUuid: string;
-    periodStart: string;
-    periodEnd: string;
-  }>;
-  crossReference?: {
-    generatedAt: string;
-    mpCount: number;
-    contractorCount: number;
-    pairCount: number;
-    totalEur: number;
-    totalOther: Record<string, number>;
-  };
-  officialsCrossReference?: {
-    generatedAt: string;
-    officialCount: number;
-    contractorCount: number;
-    pairCount: number;
-    totalEur: number;
-  };
 };

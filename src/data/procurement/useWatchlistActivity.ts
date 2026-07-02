@@ -7,6 +7,11 @@
 // last looked", and baselines any entity we've never snapshotted (so
 // following something doesn't immediately read as "new").
 //
+// One request per followed entity is intentional: signatures are tiny, cached
+// per-item (staleTime Infinity + 1h CDN), and lists are short. If following
+// 20+ entities ever becomes a hot path, the batched-endpoint pattern used by
+// procurement-risk-indexes is the shape to reach for.
+//
 // Reused by the watchlist screen (cards + new-activity section), the unread
 // badge on the procurement nav, and the overview digest tile.
 
@@ -57,6 +62,9 @@ type Signature = {
   found: boolean;
   count?: number;
   totalEur?: number;
+  /** Rare native USD/GBP/CHF remainder — kept so the watchlist card shows the
+   *  same "+ other currency" note as the entity's own page. */
+  totalOther?: Record<string, number>;
   latestDate?: string;
   topEik?: string | null;
   topName?: string | null;
@@ -199,11 +207,16 @@ export const useWatchlistActivity = (): {
         totalEur: d.totalEur ?? 0,
         latestDate: d.latestDate ?? "",
       };
+      const totalOther =
+        d.totalOther && Object.keys(d.totalOther).length > 0
+          ? d.totalOther
+          : undefined;
       return {
         ...baseActivity(item, false, sig, seenSnap),
         resolved: true,
         count: d.count ?? 0,
         totalEur: d.totalEur ?? null,
+        totalOther,
         latestDate: d.latestDate ?? "",
         topName: d.topName ?? undefined,
         topEik: d.topEik ?? undefined,

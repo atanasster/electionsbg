@@ -81,15 +81,20 @@ export const TopAwardersScreen: FC = () => {
           <Building2 className="h-4 w-4" />
           {t("procurement_top_awarders_subtitle") ||
             "State buyers ranked by total contract value (EUR-converted)."}
-          {data?.start ? (
+          {data && (data.start || data.end) ? (
             <span className="ml-2">
-              · {data.start}
+              · {data.start ?? ""}
               {data.end ? `…${data.end}` : ` …`}
             </span>
           ) : null}
         </div>
-        {isLoading || !data ? (
+        {isLoading ? (
           <div className="min-h-[600px]" aria-hidden />
+        ) : !data ? (
+          <p className="text-sm text-muted-foreground">
+            {t("data_load_failed") ||
+              "The data could not be loaded — please try again shortly."}
+          </p>
         ) : (
           <DataTable
             columns={columns}

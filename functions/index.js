@@ -359,7 +359,10 @@ const makeScenarios = () =>
         return res.status(429).json({ error: "daily limit reached" });
       return res.json({ ok: true, duplicate: result.duplicate === true });
     } catch (e) {
-      return res.status(500).json({ error: "storage error", detail: String(e) });
+      // Log server-side only — never surface internal error text to clients
+      // (same policy as the db route's catch below).
+      console.error("scenario submit error", e);
+      return res.status(500).json({ error: "storage error" });
     }
   });
 
@@ -482,6 +485,11 @@ const makeDb = () => {
         // The data changes only on ingest (~daily): let the CDN hold responses
         // for an hour and serve stale while it revalidates; browsers keep them
         // for 5 minutes.
+        // SECURITY: this assumes the CDN cache key includes the FULL query
+        // string (true for Firebase Hosting function rewrites). If a future
+        // rewrite/CDN config ever normalizes or drops query params, different
+        // ?eik=/?name=/?key= values would collide and serve each other's
+        // (public, non-PII) payloads.
         if (status === 200)
           res.set(
             "Cache-Control",

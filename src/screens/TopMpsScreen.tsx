@@ -92,15 +92,20 @@ export const TopMpsScreen: FC = () => {
           <Users className="h-4 w-4 text-amber-600" />
           {t("procurement_top_mps_subtitle") ||
             "MPs whose declared business interests received the most procurement in the period."}
-          {data?.start ? (
+          {data && (data.start || data.end) ? (
             <span className="ml-2">
-              · {data.start}
+              · {data.start ?? ""}
               {data.end ? `…${data.end}` : ` …`}
             </span>
           ) : null}
         </div>
-        {isLoading || !data ? (
+        {isLoading ? (
           <div className="min-h-[600px]" aria-hidden />
+        ) : !data ? (
+          <p className="text-sm text-muted-foreground">
+            {t("data_load_failed") ||
+              "The data could not be loaded — please try again shortly."}
+          </p>
         ) : (
           <DataTable
             columns={columns}

@@ -367,14 +367,20 @@ const DB_ROUTES = {
   },
   // Full grouped counterparty list for one entity — every awarder that paid a
   // company (side=contractor) or every contractor a state buyer paid
-  // (side=awarder). Complete (not top-50), with the MP-tie badge inline.
+  // (side=awarder), with the MP-tie badge inline.
+  //
+  // DELIBERATELY UNBOUNDED — a known exception to this file's LIMIT policy:
+  // these are the "see everyone" breakdown pages, and the result is naturally
+  // capped by grouping (one row per distinct counterparty; the biggest buyer,
+  // АПИ, has ~2.1k). The 1h CDN cache absorbs the two aggregate scans.
   "company-counterparties": async (dbRows, q) => {
     const eik = s(q, "eik");
     const side = s(q, "side") === "awarder" ? "awarder" : "contractor";
     if (!eik) return { status: 400, body: { error: "missing eik" } };
     const me = side === "awarder" ? "awarder" : "contractor";
     const other = side === "awarder" ? "contractor" : "awarder";
-    // Identifiers come from the two fixed strings above, never from the client.
+    // SECURITY: `me`/`other` are spliced into SQL as identifiers — they MUST
+    // stay this fixed two-branch ternary; never derive them from client text.
     const entries = await dbRows(
       `WITH mine AS (
          SELECT ${other}_eik AS eik, ${other}_name AS name, tag,
@@ -425,12 +431,22 @@ const DB_ROUTES = {
     const kind = s(q, "kind");
     if (!id) return { status: 400, body: { error: "missing id" } };
     if (kind === "company" || kind === "awarder") {
+      // SECURITY: `me`/`other` are spliced into SQL — they MUST stay this
+      // fixed two-branch ternary; never derive them from client text.
       const me = kind === "company" ? "contractor" : "awarder";
       const other = kind === "company" ? "awarder" : "contractor";
       const rows = await dbRows(
         `SELECT (COUNT(*) FILTER (WHERE tag = 'contract'))::int AS count,
                 ROUND(COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract'), 0)) AS "totalEur",
-                COALESCE(MAX(date) FILTER (WHERE tag = 'contract'), '') AS "latestDate"
+                COALESCE(MAX(date) FILTER (WHERE tag = 'contract'), '') AS "latestDate",
+                (SELECT COALESCE(jsonb_object_agg(cur, s2), '{}'::jsonb) FROM (
+                   SELECT currency AS cur, ROUND(SUM(amount)) AS s2
+                   FROM contracts c2
+                   WHERE c2.${me}_eik = $1 AND c2.tag = 'contract'
+                     AND c2.amount_eur IS NULL AND c2.amount IS NOT NULL
+                     AND c2.currency IS NOT NULL
+                   GROUP BY currency
+                ) o) AS "totalOther"
          FROM contracts WHERE ${me}_eik = $1`,
         [id],
       );
@@ -459,7 +475,16 @@ const DB_ROUTES = {
       const rows = await dbRows(
         `SELECT (COUNT(*) FILTER (WHERE c.tag = 'contract'))::int AS count,
                 ROUND(COALESCE(SUM(c.amount_eur) FILTER (WHERE c.tag = 'contract'), 0)) AS "totalEur",
-                COALESCE(MAX(c.date) FILTER (WHERE c.tag = 'contract'), '') AS "latestDate"
+                COALESCE(MAX(c.date) FILTER (WHERE c.tag = 'contract'), '') AS "latestDate",
+                (SELECT COALESCE(jsonb_object_agg(cur, s2), '{}'::jsonb) FROM (
+                   SELECT c2.currency AS cur, ROUND(SUM(c2.amount)) AS s2
+                   FROM contracts c2
+                   JOIN awarder_seats s3 ON s3.eik = c2.awarder_eik
+                   WHERE s3.ekatte = $1 AND s3.source = 'geo' AND s3.is_local_hq
+                     AND c2.tag = 'contract' AND c2.amount_eur IS NULL
+                     AND c2.amount IS NOT NULL AND c2.currency IS NOT NULL
+                   GROUP BY c2.currency
+                ) o) AS "totalOther"
          FROM contracts c
          JOIN awarder_seats s ON s.eik = c.awarder_eik
          WHERE s.ekatte = $1 AND s.source = 'geo' AND s.is_local_hq`,
@@ -505,7 +530,7 @@ const DB_ROUTES = {
     const entries = await dbRows(
       `SELECT politician, ref, kind, role, total_eur AS "totalEur"
        FROM company_politicians WHERE eik = $1
-       ORDER BY total_eur DESC NULLS LAST`,
+       ORDER BY total_eur DESC NULLS LAST LIMIT 200`,
       [eik],
     );
     return { body: { eik, entries } };

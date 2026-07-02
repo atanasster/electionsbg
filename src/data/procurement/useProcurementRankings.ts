@@ -23,20 +23,33 @@ export type ProcurementRankings = {
   topOfficials: ProcurementByNsTopOfficial[];
 };
 
+/** Shared fetcher + key shape — useTopContractors (useProcurementIndex.tsx)
+ *  reuses both with a (null, null) window so the two hooks share one cache
+ *  entry when scoped identically. Resolves to null on a non-OK response, like
+ *  every sibling consolidated-payload hook. */
+export const fetchProcurementRankings = async (
+  from: string | null,
+  to: string | null,
+): Promise<ProcurementRankings | null> => {
+  const qs = new URLSearchParams();
+  if (from) qs.set("from", from);
+  if (to) qs.set("to", to);
+  const r = await fetch(`/api/db/procurement-rankings?${qs.toString()}`);
+  if (!r.ok) return null;
+  return (await r.json()) as ProcurementRankings;
+};
+
+export const rankingsQueryKey = (from: string | null, to: string | null) =>
+  ["db", "procurement-rankings", from, to] as const;
+
 export const useProcurementRankings = () => {
   const { from, to, all } = useProcurementWindow();
 
   const query = useQuery({
-    queryKey: ["db", "procurement-rankings", from, to] as const,
-    queryFn: async (): Promise<ProcurementRankings> => {
-      const qs = new URLSearchParams();
-      if (from) qs.set("from", from);
-      if (to) qs.set("to", to);
-      const r = await fetch(`/api/db/procurement-rankings?${qs.toString()}`);
-      if (!r.ok) throw new Error(`rankings fetch failed: ${r.status}`);
-      return (await r.json()) as ProcurementRankings;
-    },
+    queryKey: rankingsQueryKey(from, to),
+    queryFn: () => fetchProcurementRankings(from, to),
     staleTime: Infinity,
+    retry: false,
   });
 
   return { ...query, from, to, all };

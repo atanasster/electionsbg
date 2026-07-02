@@ -84,7 +84,9 @@ export const AwarderContractorsScreen: FC = () => {
       </>
     );
   }
-  if (!data || data.entries.length === 0) {
+  // Only a failed/absent payload is "not found" — a valid entity with zero
+  // contracts renders its header + an empty state instead.
+  if (!data) {
     return (
       <ErrorSection
         title={t("awarder_not_found_title") || "Awarder not found"}
@@ -107,12 +109,19 @@ export const AwarderContractorsScreen: FC = () => {
             · {t("awarder_top_contractors") || "Top contractors paid"}
           </span>
         </div>
-        <DataTable
-          columns={columns}
-          data={data.entries}
-          pageSize={25}
-          initialSort={[{ id: "totalEur", desc: true }]}
-        />
+        {data.entries.length === 0 ? (
+          <p className="text-sm text-muted-foreground">
+            {t("procurement_no_contracts") ||
+              "No public-procurement contracts found for this entity."}
+          </p>
+        ) : (
+          <DataTable
+            columns={columns}
+            data={data.entries}
+            pageSize={25}
+            initialSort={[{ id: "totalEur", desc: true }]}
+          />
+        )}
       </section>
     </>
   );

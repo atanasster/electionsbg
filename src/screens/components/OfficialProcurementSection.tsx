@@ -10,7 +10,10 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Receipt } from "lucide-react";
-import { usePepConnectedBySlug } from "@/data/procurement/usePepConnectedBySlug";
+import {
+  usePepConnectedBySlug,
+  type PepProcurementEntry,
+} from "@/data/procurement/usePepConnectedBySlug";
 import { formatEur } from "@/lib/currency";
 import {
   ConnectedContractorCard,
@@ -49,11 +52,9 @@ const summarizePepRelations = (
   return labels.join(", ");
 };
 
-// pep entries carry byYear/topAwarders as optional (older shards lacked them);
-// normalize to the card's required shape.
-const toCardEntry = (
-  e: ProcurementPepConnectedEntry,
-): ConnectedContractorEntry => ({
+// pep entries carry byYear/topAwarders as optional; normalize to the card's
+// required shape.
+const toCardEntry = (e: PepProcurementEntry): ConnectedContractorEntry => ({
   contractorEik: e.contractorEik,
   contractorName: e.contractorName,
   totalEur: e.totalEur,
