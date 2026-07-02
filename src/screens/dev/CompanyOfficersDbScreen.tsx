@@ -12,6 +12,7 @@ import { Users } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { DbDataTable, type DbColumnFilter } from "@/ux/data_table/DbDataTable";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
+import { trRoleLabel } from "@/lib/trRole";
 import {
   Select,
   SelectContent,
@@ -99,7 +100,9 @@ export const CompanyOfficersDbScreen: FC = () => {
         accessorFn: (r) => r.role,
         header: "Роля",
         cell: ({ row }) => (
-          <span className="text-muted-foreground">{row.original.role}</span>
+          <span className="text-muted-foreground">
+            {trRoleLabel(row.original.role, t)}
+          </span>
         ),
       },
       {
@@ -147,7 +150,7 @@ export const CompanyOfficersDbScreen: FC = () => {
           ),
       },
     ],
-    [],
+    [t],
   );
 
   return (
@@ -187,7 +190,7 @@ export const CompanyOfficersDbScreen: FC = () => {
                     <SelectItem value={ALL}>Всички роли</SelectItem>
                     {roleOptions.map((o) => (
                       <SelectItem key={o.value} value={o.value}>
-                        {o.value} ({o.count})
+                        {trRoleLabel(o.value, t)} ({o.count})
                       </SelectItem>
                     ))}
                   </SelectContent>

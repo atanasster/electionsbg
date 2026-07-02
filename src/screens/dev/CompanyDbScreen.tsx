@@ -58,6 +58,7 @@ import type {
   ProcurementBreakdown,
 } from "@/data/dataTypes";
 import { procedureBucket, type ProcedureBucket } from "@/lib/cpvSectors";
+import { trRoleLabel } from "@/lib/trRole";
 import {
   Select,
   SelectContent,
@@ -209,7 +210,7 @@ export const CompanyDbScreen: FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [period, setPeriod] = useState<string>(PERIOD_ALL);
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     let live = true;
@@ -689,7 +690,7 @@ export const CompanyDbScreen: FC = () => {
                             </Link>
                           </td>
                           <td className="py-1 text-muted-foreground">
-                            {o.role}
+                            {trRoleLabel(o.role, t)}
                           </td>
                           <td className="py-1 text-right tabular-nums">
                             {pct(o.share)}
