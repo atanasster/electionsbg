@@ -1105,6 +1105,16 @@ const MyAreaIdRedirect: FC = () => {
   return <Navigate to={{ pathname: `/governance/${id}`, search }} replace />;
 };
 
+// Back-compat: the DB entity dashboard was promoted from /db/company/:eik to the
+// canonical /company/:eik (+ sub-pages). Redirect the old links.
+const DbCompanyRedirect: FC<{ suffix?: string }> = ({ suffix = "" }) => {
+  const { eik } = useParams<{ eik: string }>();
+  const { search } = useLocation();
+  return (
+    <Navigate to={{ pathname: `/company/${eik}${suffix}`, search }} replace />
+  );
+};
+
 const RouteFallback: FC = () => (
   <div className="flex items-center justify-center min-h-[40vh] w-full" />
 );
@@ -3069,55 +3079,23 @@ export const AuthRoutes = () => {
               </LayoutScreen>
             }
           />
-          <Route
-            path="db/company/:eik"
-            element={
-              <LayoutScreen>
-                <Suspense fallback={<RouteFallback />}>
-                  <CompanyDbScreen />
-                </Suspense>
-              </LayoutScreen>
-            }
-          />
+          {/* Canonicalised to /company/:eik (+ sub-pages) — redirect old links. */}
+          <Route path="db/company/:eik" element={<DbCompanyRedirect />} />
           <Route
             path="db/company/:eik/contracts"
-            element={
-              <LayoutScreen>
-                <Suspense fallback={<RouteFallback />}>
-                  <CompanyContractsDbScreen tag="contract" />
-                </Suspense>
-              </LayoutScreen>
-            }
+            element={<DbCompanyRedirect suffix="/contracts" />}
           />
           <Route
             path="db/company/:eik/annexes"
-            element={
-              <LayoutScreen>
-                <Suspense fallback={<RouteFallback />}>
-                  <CompanyContractsDbScreen tag="contractAmendment" />
-                </Suspense>
-              </LayoutScreen>
-            }
+            element={<DbCompanyRedirect suffix="/annexes" />}
           />
           <Route
             path="db/company/:eik/funds"
-            element={
-              <LayoutScreen>
-                <Suspense fallback={<RouteFallback />}>
-                  <CompanyFundsDbScreen />
-                </Suspense>
-              </LayoutScreen>
-            }
+            element={<DbCompanyRedirect suffix="/funds" />}
           />
           <Route
             path="db/company/:eik/officers"
-            element={
-              <LayoutScreen>
-                <Suspense fallback={<RouteFallback />}>
-                  <CompanyOfficersDbScreen />
-                </Suspense>
-              </LayoutScreen>
-            }
+            element={<DbCompanyRedirect suffix="/officers" />}
           />
           <Route
             path="*"
