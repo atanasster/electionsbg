@@ -94,8 +94,14 @@ export const CompanyConnectionCheck: FC<{ eik: string }> = ({ eik }) => {
           <div className="space-y-3 text-sm">
             {result.direct.length > 0 && (
               <div>
-                <span className="font-medium">„{queried}“</span>{" "}
-                {t("company_conn_check_direct") || "е"}{" "}
+                „
+                <Link
+                  to={`/person/${encodeURIComponent(result.direct[0].name)}`}
+                  className="font-medium text-accent hover:underline"
+                >
+                  {decodeEntities(result.direct[0].name) || queried}
+                </Link>
+                “ {t("company_conn_check_direct") || "е"}{" "}
                 <span className="text-foreground">
                   {rolesLabel(result.direct[0].roles)}
                 </span>{" "}
@@ -124,7 +130,12 @@ export const CompanyConnectionCheck: FC<{ eik: string }> = ({ eik }) => {
                         <span className="text-muted-foreground">
                           {" "}
                           — {t("company_conn_check_via") || "чрез"}{" "}
-                          {decodeEntities(b.bridge)}
+                          <Link
+                            to={`/person/${encodeURIComponent(b.bridge)}`}
+                            className="text-accent hover:underline"
+                          >
+                            {decodeEntities(b.bridge)}
+                          </Link>
                         </span>
                       ) : null}
                     </li>
