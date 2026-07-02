@@ -151,6 +151,14 @@ export const dbApi = (): Plugin => ({
         return;
       }
 
+      if (url.pathname.startsWith("/procurement-overview")) {
+        allRows<{ r: unknown }>("SELECT procurement_overview($1, $2) AS r", [
+          q("from") || null,
+          q("to") || null,
+        ]).then((rows) => send(200, rows[0]?.r ?? null), fail);
+        return;
+      }
+
       if (url.pathname.startsWith("/company-search")) {
         const term = q("q");
         if (!term) return send(400, { error: "missing `q`" });

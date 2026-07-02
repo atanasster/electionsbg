@@ -641,6 +641,16 @@ const DB_ROUTES = {
       },
     };
   },
+  // Procurement dashboard overview — totals + treemaps + connected-people lists,
+  // scoped to a parliament window [from, to) or the full corpus (both NULL).
+  "procurement-overview": async (pool, q) => {
+    const rows = await dbRows(
+      pool,
+      "SELECT procurement_overview($1, $2) AS r",
+      [String(q.from || "").trim() || null, String(q.to || "").trim() || null],
+    );
+    return { body: rows[0]?.r ?? null };
+  },
   // Contractor name search for the procurement dashboard tile — any firm that
   // signed a public contract, deduped to one row per eik (best-matching name).
   "company-search": async (pool, q) => {
