@@ -684,6 +684,30 @@ const DB_ROUTES = {
     ]);
     return { body: rows[0]?.r ?? null };
   },
+  // By-place: local-tier settlements + national card, window-scoped or full corpus.
+  "procurement-by-settlement": async (pool, q) => {
+    const rows = await dbRows(
+      pool,
+      "SELECT procurement_by_settlement($1, $2) AS r",
+      [String(q.from || "").trim() || null, String(q.to || "").trim() || null],
+    );
+    return { body: rows[0]?.r ?? null };
+  },
+  // Per-settlement detail (awarders + top contracts + by-year).
+  "procurement-settlement": async (pool, q) => {
+    const ekatte = String(q.ekatte || "").trim();
+    if (!ekatte) return { status: 400, body: { error: "missing ekatte" } };
+    const rows = await dbRows(
+      pool,
+      "SELECT procurement_settlement_detail($1, $2, $3) AS r",
+      [
+        ekatte,
+        String(q.from || "").trim() || null,
+        String(q.to || "").trim() || null,
+      ],
+    );
+    return { body: rows[0]?.r ?? null };
+  },
   // Money-flow Sankey (awarder → politician-tied contractor → mp|official),
   // window-scoped or full corpus.
   "procurement-flow": async (pool, q) => {

@@ -196,6 +196,24 @@ export const dbApi = (): Plugin => ({
         return;
       }
 
+      if (url.pathname.startsWith("/procurement-by-settlement")) {
+        allRows<{ r: unknown }>(
+          "SELECT procurement_by_settlement($1, $2) AS r",
+          [q("from") || null, q("to") || null],
+        ).then((rows) => send(200, rows[0]?.r ?? null), fail);
+        return;
+      }
+
+      if (url.pathname.startsWith("/procurement-settlement")) {
+        const ekatte = q("ekatte");
+        if (!ekatte) return send(400, { error: "missing `ekatte`" });
+        allRows<{ r: unknown }>(
+          "SELECT procurement_settlement_detail($1, $2, $3) AS r",
+          [ekatte, q("from") || null, q("to") || null],
+        ).then((rows) => send(200, rows[0]?.r ?? null), fail);
+        return;
+      }
+
       if (url.pathname.startsWith("/procurement-flow")) {
         allRows<{ r: unknown }>("SELECT procurement_flow($1, $2) AS r", [
           q("from") || null,

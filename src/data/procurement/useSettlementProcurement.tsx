@@ -12,56 +12,46 @@ import type {
   ProcurementBySettlementFile,
   ProcurementBySettlementIndex,
 } from "@/data/dataTypes";
-import { dataUrl } from "@/data/dataUrl";
-import { useProcurementScope } from "./useProcurementScope";
-import { useElectionContext } from "@/data/ElectionContext";
+import { useProcurementWindow } from "./useProcurementWindow";
 
-const fetchSettlement = async (
-  ekatte: string,
-): Promise<ProcurementBySettlementFile | null> => {
-  const r = await fetch(dataUrl(`/procurement/by_settlement/${ekatte}.json`));
-  if (r.status === 404) return null;
-  if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
-  return (await r.json()) as ProcurementBySettlementFile;
-};
-
-const fetchIndex = async (
-  url: string,
-): Promise<ProcurementBySettlementIndex | null> => {
-  const r = await fetch(url);
-  if (r.status === 404) return null;
-  if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
-  return (await r.json()) as ProcurementBySettlementIndex;
-};
-
-/** Per-settlement procurement file (one EKATTE). Returns null when the
- *  settlement has no local-tier procurement on record. */
+/** Per-settlement procurement (one EKATTE), DB-backed (/api/db/procurement-
+ *  settlement → procurement_settlement_detail). Corpus-scoped: the detail
+ *  drill-down has no scope toggle. Null when the settlement has no local-tier
+ *  procurement on record. */
 export const useSettlementProcurement = (ekatte?: string | null) =>
   useQuery({
-    queryKey: ["procurement", "by_settlement", ekatte] as const,
-    queryFn: () => fetchSettlement(ekatte as string),
+    queryKey: ["procurement", "settlement_detail", ekatte] as const,
+    queryFn: async (): Promise<ProcurementBySettlementFile | null> => {
+      const r = await fetch(
+        `/api/db/procurement-settlement?ekatte=${encodeURIComponent(
+          ekatte as string,
+        )}`,
+      );
+      if (!r.ok) throw new Error(`fetch failed: ${r.status}`);
+      return (await r.json()) as ProcurementBySettlementFile | null;
+    },
     enabled: !!ekatte && /^\d{5}$/.test(ekatte),
     staleTime: Infinity,
   });
 
-/** Landing-page index — every settlement with local-tier procurement +
- *  the national rollup card. Scope-aware: ns → the per-election index
- *  (by_ns/by_settlement/<date>.json); all → the full-corpus index. (The
- *  per-EKATTE detail drill-down has no scope toggle, so it stays corpus.) */
+/** Landing-page index — every settlement with local-tier procurement + the
+ *  national rollup card, DB-backed (/api/db/procurement-by-settlement →
+ *  procurement_by_settlement). Scoped to the selected parliament window or the
+ *  full corpus (?pscope). */
 export const useProcurementBySettlementIndex = () => {
-  const { scope } = useProcurementScope();
-  const { selected } = useElectionContext();
-  const ns = scope === "ns";
-  const url = ns
-    ? dataUrl(`/procurement/by_ns/by_settlement/${selected}.json`)
-    : dataUrl(`/procurement/by_settlement/index.json`);
+  const { from, to } = useProcurementWindow();
   return useQuery({
-    queryKey: [
-      "procurement",
-      "by_settlement_index",
-      ns ? `ns:${selected}` : "all",
-    ],
-    queryFn: () => fetchIndex(url),
+    queryKey: ["procurement", "by_settlement_index", from, to],
+    queryFn: async (): Promise<ProcurementBySettlementIndex | null> => {
+      const qs = new URLSearchParams();
+      if (from) qs.set("from", from);
+      if (to) qs.set("to", to);
+      const r = await fetch(
+        `/api/db/procurement-by-settlement?${qs.toString()}`,
+      );
+      if (!r.ok) throw new Error(`fetch failed: ${r.status}`);
+      return (await r.json()) as ProcurementBySettlementIndex | null;
+    },
     staleTime: Infinity,
   });
 };

@@ -34,6 +34,8 @@ const COLS = [
   "oblast",
   "is_village",
   "source",
+  "tier",
+  "is_local_hq",
 ];
 const N = COLS.length;
 const BATCH = 1000;
@@ -63,6 +65,8 @@ export const loadAwarderSeatsPg = async (): Promise<{ rows: number }> => {
     s.oblast ?? null,
     s.isVillage ?? null,
     s.source ?? null,
+    s.tier ?? null,
+    s.isLocalHQ ?? null,
   ]);
 
   await withClient(async (c) => {

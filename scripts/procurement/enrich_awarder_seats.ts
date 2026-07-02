@@ -88,6 +88,7 @@ const seatCandidates = (eik: string, rollupName: string): string[] => {
 const seatFromEntry = (
   entry: EkatteEntry,
   source: "geo" | "name",
+  geo?: AwarderRollup["geo"],
 ): AwarderSeat => ({
   ekatte: entry.ekatte,
   settlement: entry.name,
@@ -95,6 +96,9 @@ const seatFromEntry = (
   oblast: entry.province,
   isVillage: entry.is_village,
   source,
+  // Tier/local-HQ only exist on the geo block (name-parsed seats have neither).
+  tier: geo?.tier,
+  isLocalHQ: geo?.isLocalHQ,
 });
 
 const sameSeat = (a: AwarderSeat | undefined, b: AwarderSeat): boolean =>
@@ -116,7 +120,7 @@ const resolveSeat = (
 ): AwarderSeat | undefined => {
   const geoEkatte = aw.geo?.ekatte;
   if (geoEkatte && byEkatte.has(geoEkatte)) {
-    return seatFromEntry(byEkatte.get(geoEkatte)!, "geo");
+    return seatFromEntry(byEkatte.get(geoEkatte)!, "geo", aw.geo);
   }
   const resolved = new Map<string, EkatteEntry>();
   for (const c of seatCandidates(aw.eik, aw.name)) {

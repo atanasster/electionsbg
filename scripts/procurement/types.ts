@@ -244,6 +244,11 @@ export interface AwarderSeat {
   /** Provenance: "geo" = from the resolved buyer-HQ EKATTE; "name" = parsed
    *  from a unique settlement name in the awarder's contract-name variants. */
   source: "geo" | "name";
+  /** Buyer tier + local-HQ flag (from the geo block; only "geo"-source seats
+   *  carry them). Lets the DB by-settlement rollup replicate the offline
+   *  builder's local-vs-national split without re-running classifyAwarder. */
+  tier?: AwarderGeo["tier"];
+  isLocalHQ?: boolean;
 }
 
 export interface AwarderRollup {

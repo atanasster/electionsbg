@@ -18,9 +18,19 @@ CREATE TABLE IF NOT EXISTS awarder_seats (
   municipality text,
   oblast       text,
   is_village   boolean,
-  source       text
+  source       text,
+  -- Buyer tier + local-HQ flag (geo-source seats only). Powers the by-settlement
+  -- rollup's local-vs-national split (procurement_by_settlement, 030).
+  tier         text,
+  is_local_hq  boolean
 );
+-- Older DBs: add the columns if the table predates them.
+ALTER TABLE awarder_seats ADD COLUMN IF NOT EXISTS tier text;
+ALTER TABLE awarder_seats ADD COLUMN IF NOT EXISTS is_local_hq boolean;
 CREATE INDEX IF NOT EXISTS idx_awarder_seats_oblast ON awarder_seats(oblast);
+-- by-settlement rollup filters to local-HQ geo-resolved seats + groups by ekatte.
+CREATE INDEX IF NOT EXISTS idx_awarder_seats_local
+  ON awarder_seats(is_local_hq, source, ekatte);
 GRANT SELECT ON awarder_seats TO app_readonly;
 
 -- Where a contractor WINS: distribution of its contract value across the buyers'
