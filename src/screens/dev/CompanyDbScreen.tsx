@@ -16,6 +16,7 @@ import {
   Coins,
   FileText,
   Ban,
+  Euro,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur, formatEurCompact, toEur } from "@/lib/currency";
@@ -95,6 +96,13 @@ interface Debarred {
   details_url: string | null;
   published_at: string | null;
 }
+interface Funds {
+  name: string | null;
+  org_type: string | null;
+  contract_count: number | null;
+  contracted_eur: number | null;
+  paid_eur: number | null;
+}
 
 // The procurement rollup from company_procurement() — the ProcurementContractorRollup
 // fields (minus eik/name/generatedAt, filled client-side) + the raw breakdown
@@ -137,6 +145,7 @@ export const CompanyDbScreen: FC = () => {
   const [procurement, setProcurement] = useState<DbRollup | null>(null);
   const [cabinets, setCabinets] = useState<CabinetRow[]>([]);
   const [debarred, setDebarred] = useState<Debarred[]>([]);
+  const [funds, setFunds] = useState<Funds | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [period, setPeriod] = useState<string>(PERIOD_ALL);
@@ -164,6 +173,7 @@ export const CompanyDbScreen: FC = () => {
           setProcurement(j.procurement ?? null);
           setCabinets(j.cabinets ?? []);
           setDebarred(j.debarred ?? []);
+          setFunds(j.funds ?? null);
         }
       })
       .catch((e) => live && setError(String(e)))
@@ -442,6 +452,60 @@ export const CompanyDbScreen: FC = () => {
               cabinets={cabinets}
               totalEur={Number(summary?.contracts_eur ?? 0)}
             />
+          )}
+
+          {funds && Number(funds.contracted_eur ?? 0) > 0 && (
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <Euro className="h-4 w-4 text-muted-foreground" /> Средства от
+                  ЕС (ИСУН)
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-3 md:p-4">
+                <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm">
+                  <div>
+                    <div className="text-xs text-muted-foreground">
+                      Договорени
+                    </div>
+                    <div className="font-semibold tabular-nums">
+                      {formatEur(
+                        Number(funds.contracted_eur ?? 0),
+                        i18n.language,
+                      )}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-xs text-muted-foreground">
+                      Изплатени
+                    </div>
+                    <div className="font-semibold tabular-nums">
+                      {formatEur(Number(funds.paid_eur ?? 0), i18n.language)}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-xs text-muted-foreground">Проекти</div>
+                    <div className="font-semibold tabular-nums">
+                      {num.format(Number(funds.contract_count ?? 0))}
+                    </div>
+                  </div>
+                  {funds.org_type && (
+                    <div>
+                      <div className="text-xs text-muted-foreground">
+                        Тип организация
+                      </div>
+                      <div className="font-semibold">{funds.org_type}</div>
+                    </div>
+                  )}
+                </div>
+                <Link
+                  to="/funds"
+                  className="mt-3 inline-flex items-center gap-1 text-sm text-accent hover:underline"
+                >
+                  Отвори ИСУН <ArrowRight className="h-3 w-3" />
+                </Link>
+              </CardContent>
+            </Card>
           )}
 
           <Card>
