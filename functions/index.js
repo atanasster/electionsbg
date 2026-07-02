@@ -641,6 +641,25 @@ const DB_ROUTES = {
       },
     };
   },
+  // Contractor name search for the procurement dashboard tile — any firm that
+  // signed a public contract, deduped to one row per eik (best-matching name).
+  "company-search": async (pool, q) => {
+    const term = String(q.q || "").trim();
+    if (!term) return { status: 400, body: { error: "missing q" } };
+    const companies = await dbRows(
+      pool,
+      `WITH s AS (SELECT * FROM search_contractors($1, 60))
+       SELECT eik, name, contracts, contracts_eur AS "contractsEur"
+       FROM (
+         SELECT DISTINCT ON (eik) eik, name, contracts, contracts_eur, sim
+         FROM s ORDER BY eik, sim DESC, length(name)
+       ) d
+       ORDER BY sim DESC, length(name), eik
+       LIMIT 20`,
+      [term],
+    );
+    return { body: { companies } };
+  },
   async recent(pool, q) {
     return {
       body: {

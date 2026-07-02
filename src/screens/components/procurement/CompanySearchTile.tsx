@@ -1,39 +1,63 @@
 // Company-name search for the procurement dashboard. Type a company name and
-// jump to its /company/:eik page. Lives here (not in the global header search)
-// because the contractors index is ~475 KB gz — most site visitors are here for
-// elections, so only procurement users who actually click into the box pay for
-// it. The fetch is gated on first focus.
+// jump to its /company/:eik page. Backed by Postgres (/api/db/company-search →
+// search_contractors) — a live, debounced query, so there's no ~475 KB index to
+// download and it covers every firm that signed a public contract (incl. foreign
+// contractors absent from the commercial register).
 
-import { FC, useEffect, useMemo, useRef, useState, KeyboardEvent } from "react";
+import { FC, useEffect, useRef, useState, KeyboardEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Search, Briefcase } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import {
-  useContractorsIndex,
-  filterContractors,
-} from "@/data/procurement/useContractorsSearch";
 
-const numFmt = new Intl.NumberFormat("bg-BG");
+interface Row {
+  eik: string;
+  name: string;
+  contracts: number;
+  contractsEur: number;
+}
 
 export const CompanySearchTile: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  // Flips true on first focus, which enables the index fetch. Stays true after
-  // blur so a returning user doesn't re-trigger the query.
-  const [active, setActive] = useState(false);
   const [q, setQ] = useState("");
-  // Keyboard-highlighted row index (-1 = none). Reset whenever the query
-  // changes so a stale highlight can't point past the new result list.
+  const [results, setResults] = useState<Row[]>([]);
+  const [loading, setLoading] = useState(false);
+  // Keyboard-highlighted row index (-1 = none).
   const [highlight, setHighlight] = useState(-1);
-  const { rows, total, isLoading } = useContractorsIndex(active);
   const listRef = useRef<HTMLDivElement>(null);
 
-  const results = useMemo(
-    () => (q.trim().length >= 2 ? filterContractors(rows, q, 20) : []),
-    [rows, q],
-  );
   const hasQuery = q.trim().length >= 2;
+
+  // Debounced live DB search (200 ms); stale requests aborted.
+  useEffect(() => {
+    const term = q.trim();
+    if (term.length < 2) {
+      setResults([]);
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
+    const ctl = new AbortController();
+    const id = setTimeout(() => {
+      fetch(`/api/db/company-search?q=${encodeURIComponent(term)}`, {
+        signal: ctl.signal,
+      })
+        .then((r) => r.json())
+        .then((j: { companies?: Row[] }) => {
+          setResults(j.companies ?? []);
+          setHighlight(-1);
+          setLoading(false);
+        })
+        .catch(() => {
+          /* aborted or failed — keep prior results */
+        });
+    }, 200);
+    return () => {
+      clearTimeout(id);
+      ctl.abort();
+    };
+  }, [q]);
 
   // Keep the highlighted row scrolled into view as the user arrows through.
   useEffect(() => {
@@ -62,7 +86,6 @@ export const CompanySearchTile: FC = () => {
         break;
       case "Enter": {
         e.preventDefault();
-        // Highlighted row, or the first (best-ranked) match on a bare Enter.
         const pick = results[highlight >= 0 ? highlight : 0];
         if (pick) navigate(`/company/${pick.eik}`);
         break;
@@ -88,12 +111,11 @@ export const CompanySearchTile: FC = () => {
             aria-expanded={hasQuery}
             aria-controls="company-search-results"
             aria-activedescendant={
-              highlight >= 0
+              highlight >= 0 && results[highlight]
                 ? `company-opt-${results[highlight].eik}`
                 : undefined
             }
             aria-autocomplete="list"
-            onFocus={() => setActive(true)}
             onChange={(e) => {
               setQ(e.target.value);
               setHighlight(-1);
@@ -117,7 +139,7 @@ export const CompanySearchTile: FC = () => {
             role="listbox"
             className="mt-2 max-h-72 overflow-auto rounded-md border divide-y"
           >
-            {isLoading ? (
+            {loading && results.length === 0 ? (
               <div className="px-3 py-3 text-sm text-muted-foreground">
                 {t("loading") || "Loading…"}
               </div>
@@ -149,12 +171,8 @@ export const CompanySearchTile: FC = () => {
           </div>
         ) : (
           <p className="mt-2 text-[11px] text-muted-foreground">
-            {total > 0
-              ? t("procurement_company_search_hint_loaded", {
-                  n: numFmt.format(total),
-                })
-              : t("procurement_company_search_hint") ||
-                "Search every company that signed a public contract by name."}
+            {t("procurement_company_search_hint") ||
+              "Search every company that signed a public contract by name."}
           </p>
         )}
       </CardContent>

@@ -151,6 +151,26 @@ export const dbApi = (): Plugin => ({
         return;
       }
 
+      if (url.pathname.startsWith("/company-search")) {
+        const term = q("q");
+        if (!term) return send(400, { error: "missing `q`" });
+        // Any firm that signed a public contract (contractor_search covers
+        // foreign contractors absent from TR); dedupe the several name variants
+        // per eik to the best-matching one.
+        allRows(
+          `WITH s AS (SELECT * FROM search_contractors($1, 60))
+           SELECT eik, name, contracts, contracts_eur AS "contractsEur"
+           FROM (
+             SELECT DISTINCT ON (eik) eik, name, contracts, contracts_eur, sim
+             FROM s ORDER BY eik, sim DESC, length(name)
+           ) d
+           ORDER BY sim DESC, length(name), eik
+           LIMIT 20`,
+          [term],
+        ).then((companies) => send(200, { companies }), fail);
+        return;
+      }
+
       if (url.pathname.startsWith("/company-connection")) {
         const eik = q("eik");
         const name = q("name");
