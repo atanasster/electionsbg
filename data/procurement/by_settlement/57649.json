@@ -3,10 +3,10 @@
   "name": "Попово",
   "province": "Търговище",
   "obshtina": "Попово",
-  "generatedAt": "2026-07-01T07:34:38.431Z",
-  "contractCount": 610,
+  "generatedAt": "2026-07-02T06:58:48.039Z",
+  "contractCount": 613,
   "awardCount": 0,
-  "totalEur": 70861745.66,
+  "totalEur": 72834522.45,
   "totalOther": {},
   "awarders": [
     {
@@ -25,6 +25,15 @@
       "totalEur": 4002880.18,
       "totalOther": {},
       "contractCount": 89,
+      "awardCount": 0
+    },
+    {
+      "eik": "000866960",
+      "name": "Основно училище \"СВ.КЛИМЕНТ Охридски\"",
+      "tier": "school",
+      "totalEur": 1972776.79,
+      "totalOther": {},
+      "contractCount": 3,
       "awardCount": 0
     },
     {
@@ -63,6 +72,19 @@
       "partyName": "Обединена Българска банка АД",
       "bundleUuid": "eop-flat:2024-06-24",
       "sourceUrl": "https://storage.eop.bg/open-data-2024-06-24/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2024.06.2024.json"
+    },
+    {
+      "key": "f49983541cf6",
+      "ocid": "eop-03593-2024-0003",
+      "date": "2025-05-14",
+      "tag": "contract",
+      "amount": 3580000,
+      "currency": "BGN",
+      "amountEur": 1830424.93,
+      "partyEik": "201015110",
+      "partyName": "С-М Строй ЕООД",
+      "bundleUuid": "eop-flat:2025-05-14",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-05-14/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2014.05.2025.json"
     },
     {
       "key": "3e1d0730e6bf",
@@ -674,19 +696,6 @@
       "partyName": "Уейст солюшънс българия ЕООД",
       "bundleUuid": "eop-flat:2025-08-04",
       "sourceUrl": "https://storage.eop.bg/open-data-2025-08-04/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2004.08.2025.json"
-    },
-    {
-      "key": "a7e1cc4e7861",
-      "ocid": "eop-00012-2025-0021",
-      "date": "2025-08-28",
-      "tag": "contract",
-      "amount": 800000,
-      "currency": "BGN",
-      "amountEur": 409033.5,
-      "partyEik": "103533691",
-      "partyName": "ЕНЕРГО-ПРО Продажби АД",
-      "bundleUuid": "eop-flat:2025-08-28",
-      "sourceUrl": "https://storage.eop.bg/open-data-2025-08-28/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2028.08.2025.json"
     }
   ],
   "byYear": [
@@ -758,15 +767,15 @@
     },
     {
       "year": "2024",
-      "totalEur": 13159583.76,
+      "totalEur": 13248285.76,
       "totalOther": {},
-      "contractCount": 65
+      "contractCount": 66
     },
     {
       "year": "2025",
-      "totalEur": 14320186.53,
+      "totalEur": 16204261.32,
       "totalOther": {},
-      "contractCount": 151
+      "contractCount": 153
     },
     {
       "year": "2026",
