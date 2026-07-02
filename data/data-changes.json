@@ -1,6 +1,40 @@
 {
-  "updatedAt": "2026-07-01T07:36:04.394Z",
+  "updatedAt": "2026-07-02T07:00:38.059Z",
   "entries": [
+    {
+      "timestamp": "2026-07-02T07:00:38.059Z",
+      "date": "2026-07-02",
+      "skill": "update-prices",
+      "summary": "Retail-price index extended through 2026-07-01 (240 settlements, 209 chains)",
+      "source": "КЗП kolkostruva.bg"
+    },
+    {
+      "timestamp": "2026-07-02T06:59:56.448Z",
+      "date": "2026-07-02",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП gap-fill + tender-stage refresh; buyer geo-enrichment (1868 local buyers pinned); risk/flow rebuilt",
+      "source": "ЦАИС ЕОП open data"
+    },
+    {
+      "timestamp": "2026-07-02T06:49:08.940Z",
+      "date": "2026-07-02",
+      "skill": "update-council-minutes",
+      "summary": "2 munis (SLV01 +46, HKV09 +35), 81 new decisions, 3 protocols",
+      "source": "Council resolutions + vote tallies"
+    },
+    {
+      "timestamp": "2026-07-02T06:44:35.866Z",
+      "date": "2026-07-02",
+      "skill": "update-rollcall",
+      "summary": "1 new session (2026-07-01, id 11145): 28 items, 6720 rows, 0 unresolved",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-07-01T07:36:04.394Z",
       "date": "2026-07-01",
