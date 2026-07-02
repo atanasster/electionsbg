@@ -28,23 +28,29 @@ RETURNS TABLE (
   politician_links bigint
 )
 LANGUAGE sql STABLE AS $$
-  WITH me AS (SELECT translit_bg_latin(q) AS qf)
-  SELECT o.uic,
+  WITH me AS (SELECT translit_bg_latin(q) AS qf),
+  -- tr_officers can carry >1 row per (person, company) across filings; collapse
+  -- to one current record per company so a person's page lists each company once.
+  dedup AS (
+    SELECT DISTINCT ON (o.uic) o.uic, o.roles, o.active
+    FROM tr_officers o CROSS JOIN me
+    WHERE o.name_fold = me.qf
+    ORDER BY o.uic, o.active DESC, o.changed_at DESC NULLS LAST
+  )
+  SELECT d.uic,
          c.name AS company,
          c.status,
-         o.roles,
-         o.active,
-         (SELECT count(*) FROM contracts k WHERE k.contractor_eik = o.uic)
+         d.roles,
+         d.active,
+         (SELECT count(*) FROM contracts k WHERE k.contractor_eik = d.uic)
            AS contracts,
          (SELECT coalesce(sum(k.amount_eur), 0) FROM contracts k
-            WHERE k.contractor_eik = o.uic AND k.tag = 'contract')
+            WHERE k.contractor_eik = d.uic AND k.tag = 'contract')
            AS contracts_eur,
-         (SELECT count(*) FROM company_politicians p WHERE p.eik = o.uic)
+         (SELECT count(*) FROM company_politicians p WHERE p.eik = d.uic)
            AS politician_links
-  FROM tr_officers o
-  CROSS JOIN me
-  LEFT JOIN tr_companies c ON c.uic = o.uic
-  WHERE o.name_fold = me.qf
+  FROM dedup d
+  LEFT JOIN tr_companies c ON c.uic = d.uic
   ORDER BY contracts_eur DESC NULLS LAST, company;
 $$;
 
@@ -65,24 +71,32 @@ RETURNS TABLE (
   contracts_eur double precision
 )
 LANGUAGE sql STABLE AS $$
-  WITH me AS (SELECT translit_bg_latin(q) AS qf)
-  SELECT r.uic,
+  WITH me AS (SELECT translit_bg_latin(q) AS qf),
+  -- tr_person_roles keeps one row per FILING, so a partner re-listed on every
+  -- capital change appears many times (50× for a heavy filer). Collapse to the
+  -- current record per (company, role) so the person page lists each once.
+  dedup AS (
+    SELECT DISTINCT ON (r.uic, r.role)
+           r.uic, r.role, r.share, r.added_at, r.erased_at
+    FROM tr_person_roles r CROSS JOIN me
+    WHERE r.name_fold = me.qf
+    ORDER BY r.uic, r.role, (r.erased_at IS NULL) DESC, r.added_at DESC NULLS LAST
+  )
+  SELECT d.uic,
          c.name AS company,
          c.status,
-         r.role,
-         r.share,
-         r.added_at,
-         r.erased_at,
-         (r.erased_at IS NULL) AS active,
-         (SELECT count(*) FROM contracts k WHERE k.contractor_eik = r.uic)
+         d.role,
+         d.share,
+         d.added_at,
+         d.erased_at,
+         (d.erased_at IS NULL) AS active,
+         (SELECT count(*) FROM contracts k WHERE k.contractor_eik = d.uic)
            AS contracts,
          (SELECT coalesce(sum(k.amount_eur), 0) FROM contracts k
-            WHERE k.contractor_eik = r.uic AND k.tag = 'contract')
+            WHERE k.contractor_eik = d.uic AND k.tag = 'contract')
            AS contracts_eur
-  FROM tr_person_roles r
-  CROSS JOIN me
-  LEFT JOIN tr_companies c ON c.uic = r.uic
-  WHERE r.name_fold = me.qf
+  FROM dedup d
+  LEFT JOIN tr_companies c ON c.uic = d.uic
   ORDER BY active DESC, added_at DESC NULLS LAST, company;
 $$;
 
