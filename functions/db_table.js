@@ -94,6 +94,58 @@ const REGISTRY = {
     aggregates: [{ fn: "count" }, { fn: "sum", col: "amount_eur" }],
     maxPageSize: 100,
   },
+  // ЦАИС ЕОП tender-stage procedures (estimated/forecast value, NOT spend).
+  // Scoped to a buyer for the per-awarder pipeline; also a global tenders browser.
+  tenders: {
+    base: "tenders",
+    scopeCols: ["buyer_eik"],
+    columns: {
+      unp: { type: "text" },
+      ocid: { type: "text" },
+      publication_date: { type: "date", sort: true, filter: "range" },
+      buyer_eik: { type: "text", filter: "eq" },
+      buyer_name: { type: "text", sort: true, filter: "text", search: true },
+      subject: { type: "text", filter: "text", search: true },
+      procedure_type: { type: "text", sort: true, filter: "in" },
+      // Exact-code `in` (not division prefix) so a curated topic deep-link can
+      // filter by its precise CPV set (e.g. guardrails → 45233292, 34928…).
+      cpv: { type: "text", filter: "in" },
+      cpv_desc: { type: "text" },
+      estimated_value_eur: {
+        type: "number",
+        sort: true,
+        filter: "range",
+        agg: "sum",
+      },
+      currency: { type: "text" },
+      lots_count: { type: "int", sort: true, filter: "range" },
+      is_cancelled: { type: "bool", filter: "eq" },
+      is_framework_agreement: { type: "bool", filter: "eq" },
+      is_eu_funded: { type: "bool", filter: "eq" },
+      link_to_oj_eu: { type: "text" },
+    },
+    select: [
+      "unp",
+      "ocid",
+      "publication_date",
+      "buyer_eik",
+      "buyer_name",
+      "subject",
+      "procedure_type",
+      "cpv",
+      "cpv_desc",
+      "estimated_value_eur",
+      "currency",
+      "lots_count",
+      "is_cancelled",
+      "is_framework_agreement",
+      "is_eu_funded",
+      "link_to_oj_eu",
+    ],
+    defaultSort: [["estimated_value_eur", "desc"]],
+    aggregates: [{ fn: "count" }, { fn: "sum", col: "estimated_value_eur" }],
+    maxPageSize: 100,
+  },
   // ИСУН EU-funds per-project table (fund_projects). Scoped to a beneficiary EIK
   // for the per-company funds drill-down; also usable as a global funds browser.
   fund_projects: {

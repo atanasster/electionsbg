@@ -340,9 +340,9 @@ const ProcurementScreen = lazy(() =>
     default: m.ProcurementScreen,
   })),
 );
-const TendersScreen = lazy(() =>
-  import("./screens/procurement/TendersScreen").then((m) => ({
-    default: m.TendersScreen,
+const TendersBrowserDbScreen = lazy(() =>
+  import("./screens/dev/TendersBrowserDbScreen").then((m) => ({
+    default: m.TendersBrowserDbScreen,
   })),
 );
 const RoadsScreen = lazy(() =>
@@ -1875,7 +1875,9 @@ export const AuthRoutes = () => {
             path="procurement/tenders"
             element={
               <LayoutScreen>
-                <TendersScreen />
+                <Suspense fallback={<RouteFallback />}>
+                  <TendersBrowserDbScreen />
+                </Suspense>
               </LayoutScreen>
             }
           />
