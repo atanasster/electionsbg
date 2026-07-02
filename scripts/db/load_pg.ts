@@ -34,7 +34,9 @@ const CONTRACTOR_SEARCH_FILE = path.join(
 );
 const COMPANY_API_FILE = path.join(SCHEMA_DIR, "011_company_api.sql");
 const CABINETS_FILE = path.join(SCHEMA_DIR, "013_cabinets.sql");
+const DEBARRED_SCHEMA_FILE = path.join(SCHEMA_DIR, "014_debarred.sql");
 const GOVERNMENTS_FILE = path.join(PROC_DIR, "..", "governments.json");
+const DEBARRED_FILE = path.join(PROC_DIR, "debarred.json");
 const monthShardDir = path.join(PROC_DIR, "contracts");
 const N = COLUMN_NAMES.length;
 const BATCH = 1000; // 1000 × 31 cols = 31k params (< PG's 65535 cap)
@@ -90,6 +92,7 @@ export const loadPg = async (): Promise<{
   await exec(readFileSync(CONTRACTOR_SEARCH_FILE, "utf8"));
   await exec(readFileSync(COMPANY_API_FILE, "utf8"));
   await exec(readFileSync(CABINETS_FILE, "utf8"));
+  await exec(readFileSync(DEBARRED_SCHEMA_FILE, "utf8"));
 
   const { rows, years } = readShards();
   let batchId = 0;
@@ -191,6 +194,38 @@ export const loadPg = async (): Promise<{
             g.type ?? null,
             g.parties ?? null,
             g.partiesEn ?? null,
+          ],
+        );
+      await c.query("COMMIT");
+    });
+  }
+
+  // АОП debarred-suppliers register (name-only) → debarred table; name_norm
+  // computed via debar_norm() so the /db company page can flag it from PG.
+  if (existsSync(DEBARRED_FILE)) {
+    const deb =
+      (
+        JSON.parse(readFileSync(DEBARRED_FILE, "utf8")) as {
+          entries?: Array<{
+            name: string;
+            publishedAt?: string;
+            debarredUntil?: string;
+            detailsUrl?: string;
+          }>;
+        }
+      ).entries ?? [];
+    await withClient(async (c) => {
+      await c.query("BEGIN");
+      await c.query("TRUNCATE debarred");
+      for (const d of deb)
+        await c.query(
+          `INSERT INTO debarred (name, name_norm, published_at, debarred_until, details_url)
+           VALUES ($1, debar_norm($1), $2, $3, $4)`,
+          [
+            d.name,
+            d.publishedAt ?? null,
+            d.debarredUntil ?? null,
+            d.detailsUrl ?? null,
           ],
         );
       await c.query("COMMIT");

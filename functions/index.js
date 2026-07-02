@@ -430,8 +430,15 @@ const DB_ROUTES = {
   async company(pool, q) {
     const eik = String(q.eik || "").trim();
     if (!eik) return { status: 400, body: { error: "missing eik" } };
-    const [company, summary, officers, politicians, procurement, cabinets] =
-      await Promise.all([
+    const [
+      company,
+      summary,
+      officers,
+      politicians,
+      procurement,
+      cabinets,
+      debarred,
+    ] = await Promise.all([
       dbRows(
         pool,
         "SELECT uic, name, legal_form, seat, status, funds_amount, funds_currency FROM tr_companies WHERE uic = $1",
@@ -454,6 +461,7 @@ const DB_ROUTES = {
         q.to || null,
       ]),
       dbRows(pool, "SELECT * FROM company_by_cabinet($1)", [eik]),
+      dbRows(pool, "SELECT * FROM company_debarred($1)", [eik]),
     ]);
     return {
       body: {
@@ -464,6 +472,7 @@ const DB_ROUTES = {
         politicians,
         procurement: procurement[0]?.r ?? null,
         cabinets,
+        debarred,
       },
     };
   },

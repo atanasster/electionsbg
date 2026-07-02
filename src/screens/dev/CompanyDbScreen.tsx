@@ -15,6 +15,7 @@ import {
   ArrowRight,
   Coins,
   FileText,
+  Ban,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur, formatEurCompact, toEur } from "@/lib/currency";
@@ -88,6 +89,12 @@ interface Politician {
   role: string | null;
   total_eur: number | null;
 }
+interface Debarred {
+  name: string;
+  debarred_until: string | null;
+  details_url: string | null;
+  published_at: string | null;
+}
 
 // The procurement rollup from company_procurement() — the ProcurementContractorRollup
 // fields (minus eik/name/generatedAt, filled client-side) + the raw breakdown
@@ -129,6 +136,7 @@ export const CompanyDbScreen: FC = () => {
   const [politicians, setPoliticians] = useState<Politician[]>([]);
   const [procurement, setProcurement] = useState<DbRollup | null>(null);
   const [cabinets, setCabinets] = useState<CabinetRow[]>([]);
+  const [debarred, setDebarred] = useState<Debarred[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [period, setPeriod] = useState<string>(PERIOD_ALL);
@@ -155,6 +163,7 @@ export const CompanyDbScreen: FC = () => {
           setPoliticians(j.politicians ?? []);
           setProcurement(j.procurement ?? null);
           setCabinets(j.cabinets ?? []);
+          setDebarred(j.debarred ?? []);
         }
       })
       .catch((e) => live && setError(String(e)))
@@ -278,6 +287,36 @@ export const CompanyDbScreen: FC = () => {
 
       {!loading && !error && company && (
         <div className="space-y-6">
+          {debarred.length > 0 && (
+            <div className="rounded-md border border-red-300 bg-red-100 p-3 text-sm text-red-900 dark:border-red-900 dark:bg-red-900/30 dark:text-red-100">
+              <div className="flex items-center gap-2 font-semibold">
+                <Ban className="h-4 w-4 shrink-0" />
+                Фирмата е в Регистъра на отстранените изпълнители (АОП)
+              </div>
+              <ul className="mt-1.5 space-y-0.5 pl-6 text-xs">
+                {debarred.map((d, i) => (
+                  <li key={i}>
+                    {d.debarred_until
+                      ? `отстранена до ${d.debarred_until}`
+                      : "отстранена"}
+                    {d.details_url ? (
+                      <>
+                        {" · "}
+                        <a
+                          href={d.details_url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="underline"
+                        >
+                          решение на КЗК
+                        </a>
+                      </>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           {contracts > 0 && (
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-sm text-muted-foreground">Период</span>
