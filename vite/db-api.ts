@@ -151,6 +151,14 @@ export const dbApi = (): Plugin => ({
         return;
       }
 
+      if (url.pathname.startsWith("/procurement-flow")) {
+        allRows<{ r: unknown }>("SELECT procurement_flow($1, $2) AS r", [
+          q("from") || null,
+          q("to") || null,
+        ]).then((rows) => send(200, rows[0]?.r ?? null), fail);
+        return;
+      }
+
       if (url.pathname.startsWith("/procurement-concentration")) {
         allRows<{ r: unknown }>(
           "SELECT procurement_concentration($1, $2) AS r",

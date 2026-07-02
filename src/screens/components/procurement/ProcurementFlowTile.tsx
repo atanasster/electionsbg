@@ -49,7 +49,7 @@ export const ProcurementFlowTile: FC = () => {
   // The dedicated explorer page loads the complete graph; the embedded landing
   // tile loads the trimmed preview (smaller eager payload).
   const isFullPage = pathname === "/procurement/flows";
-  const { data, isLoading } = useProcurementFlow(isFullPage);
+  const { data, isLoading } = useProcurementFlow();
   const showExploreLink = !isFullPage;
   // null = not yet initialised (data still loading). Once data arrives, the
   // effect below computes a sensible default that filters out the long tail

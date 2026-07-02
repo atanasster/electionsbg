@@ -641,6 +641,15 @@ const DB_ROUTES = {
       },
     };
   },
+  // Money-flow Sankey (awarder → politician-tied contractor → mp|official),
+  // window-scoped or full corpus.
+  "procurement-flow": async (pool, q) => {
+    const rows = await dbRows(pool, "SELECT procurement_flow($1, $2) AS r", [
+      String(q.from || "").trim() || null,
+      String(q.to || "").trim() || null,
+    ]);
+    return { body: rows[0]?.r ?? null };
+  },
   // Single-supplier concentration cases (buyer→supplier ≥30%, buyer ≥€100k),
   // window-scoped or full corpus.
   "procurement-concentration": async (pool, q) => {
