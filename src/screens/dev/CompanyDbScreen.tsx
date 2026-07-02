@@ -161,6 +161,9 @@ type DbRollup = Pick<
 };
 
 const num = new Intl.NumberFormat("bg-BG");
+// Officers shown inline on the dashboard; the rest live on the standalone
+// backend-paginated /db/company/:eik/officers table.
+const OFFICERS_PREVIEW = 10;
 const day = (s: string | null): string => (s ? String(s).slice(0, 10) : "—");
 const pct = (s: string | number | null): string =>
   s === null || s === undefined || s === "" ? "—" : `${Math.round(Number(s))}%`;
@@ -644,7 +647,7 @@ export const CompanyDbScreen: FC = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {officers.map((o, i) => (
+                      {officers.slice(0, OFFICERS_PREVIEW).map((o, i) => (
                         <tr
                           key={`${o.name}-${o.role}-${i}`}
                           className="border-t border-border"
@@ -686,6 +689,15 @@ export const CompanyDbScreen: FC = () => {
                       ))}
                     </tbody>
                   </table>
+                )}
+                {officers.length > OFFICERS_PREVIEW && (
+                  <Link
+                    to={`/db/company/${eik}/officers`}
+                    className="mt-3 inline-flex items-center gap-1 text-sm text-accent hover:underline"
+                  >
+                    Виж всички {num.format(officers.length)} лица{" "}
+                    <ArrowRight className="h-3 w-3" />
+                  </Link>
                 )}
               </CardContent>
             </Card>

@@ -70,6 +70,12 @@ const CompanyFundsDbScreen = lazy(() =>
     default: m.CompanyFundsDbScreen,
   })),
 );
+// DB-driven officers/partners drill-down (server-side paginated table).
+const CompanyOfficersDbScreen = lazy(() =>
+  import("@/screens/dev/CompanyOfficersDbScreen").then((m) => ({
+    default: m.CompanyOfficersDbScreen,
+  })),
+);
 const SectionsScreen = lazy(() =>
   import("./screens/SectionsScreen").then((m) => ({
     default: m.SectionsScreen,
@@ -3074,6 +3080,16 @@ export const AuthRoutes = () => {
               <LayoutScreen>
                 <Suspense fallback={<RouteFallback />}>
                   <CompanyFundsDbScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="db/company/:eik/officers"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <CompanyOfficersDbScreen />
                 </Suspense>
               </LayoutScreen>
             }

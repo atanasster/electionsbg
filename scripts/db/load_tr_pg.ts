@@ -34,6 +34,9 @@ const CONN_SQL = fileURLToPath(
 const RELATED_SQL = fileURLToPath(
   new URL("./schema/pg/019_related_companies.sql", import.meta.url),
 );
+const OFFICERS_SQL = fileURLToPath(
+  new URL("./schema/pg/022_company_officers.sql", import.meta.url),
+);
 const MP_JSON = fileURLToPath(
   new URL("../../data/procurement/derived/mp_connected.json", import.meta.url),
 );
@@ -217,6 +220,10 @@ export const loadTrPg = async (): Promise<{
   // re-runs don't leave the owner→company counts stale.
   await exec(readFileSync(RELATED_SQL, "utf8"));
   await exec("REFRESH MATERIALIZED VIEW owner_name_counts");
+
+  // Deduped officers relation for the server-side officers table.
+  await exec(readFileSync(OFFICERS_SQL, "utf8"));
+  await exec("REFRESH MATERIALIZED VIEW company_person_roles");
 
   // Curated company↔politician links (from mp_connected / pep_connected) → PG,
   // so the person page's political connections come straight from the DB.

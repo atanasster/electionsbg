@@ -145,6 +145,42 @@ const REGISTRY = {
     ],
     maxPageSize: 100,
   },
+  // Deduped officers/partners per company (matview company_person_roles) — the
+  // standalone backend-paginated officers list for /db/company/:eik/officers.
+  company_person_roles: {
+    base: "company_person_roles",
+    scopeCols: ["uic"],
+    columns: {
+      key: { type: "text" },
+      uic: { type: "text", filter: "eq" },
+      name: { type: "text", sort: true, filter: "text", search: true },
+      role: { type: "text", sort: true, filter: "in" },
+      share: { type: "number", sort: true, filter: "range" },
+      share_amount: { type: "number" },
+      share_currency: { type: "text" },
+      added_at: { type: "date", sort: true, filter: "range" },
+      erased_at: { type: "date" },
+      active: { type: "int", filter: "eq" },
+    },
+    select: [
+      "key",
+      "uic",
+      "name",
+      "role",
+      "share",
+      "share_amount",
+      "share_currency",
+      "added_at",
+      "erased_at",
+      "active",
+    ],
+    defaultSort: [
+      ["active", "desc"],
+      ["share", "desc"],
+    ],
+    aggregates: [{ fn: "count" }],
+    maxPageSize: 100,
+  },
 };
 
 const MAX_OFFSET = 100000; // deep-paging guard (use search/filters instead)
