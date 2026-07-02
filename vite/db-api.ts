@@ -141,13 +141,23 @@ export const dbApi = (): Plugin => ({
         const name = q("name");
         if (!eik || !name)
           return send(400, { error: "missing `eik` or `name`" });
-        allRows<{ r: unknown }>("SELECT company_connection($1,$2) AS r", [
-          eik,
-          name,
-        ]).then(
-          (rows) => send(200, rows[0]?.r ?? { direct: [], shared: [] }),
-          fail,
-        );
+        Promise.all([
+          allRows<{ r: { direct?: unknown; shared?: unknown } }>(
+            "SELECT company_connection($1,$2) AS r",
+            [eik, name],
+          ),
+          allRows<{ r: unknown }>("SELECT company_person_path($1,$2,3) AS r", [
+            eik,
+            name,
+          ]),
+        ]).then(([conn, path]) => {
+          const c = conn[0]?.r ?? { direct: [], shared: [] };
+          send(200, {
+            direct: c.direct ?? [],
+            shared: c.shared ?? [],
+            path: path[0]?.r ?? null,
+          });
+        }, fail);
         return;
       }
 

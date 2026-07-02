@@ -577,16 +577,25 @@ const DB_ROUTES = {
     };
   },
   // Company ↔ person connection check (last path segment "company-connection").
+  // Returns direct roles + 1-hop bridges (company_connection) AND the shortest
+  // multi-hop path up to 3 degrees (company_person_path).
   "company-connection": async (pool, q) => {
     const eik = String(q.eik || "").trim();
     const name = String(q.name || "").trim();
     if (!eik || !name)
       return { status: 400, body: { error: "missing eik or name" } };
-    const rows = await dbRows(pool, "SELECT company_connection($1, $2) AS r", [
-      eik,
-      name,
+    const [conn, path] = await Promise.all([
+      dbRows(pool, "SELECT company_connection($1, $2) AS r", [eik, name]),
+      dbRows(pool, "SELECT company_person_path($1, $2, 3) AS r", [eik, name]),
     ]);
-    return { body: rows[0]?.r ?? { direct: [], shared: [] } };
+    const c = conn[0]?.r ?? { direct: [], shared: [] };
+    return {
+      body: {
+        direct: c.direct ?? [],
+        shared: c.shared ?? [],
+        path: path[0]?.r ?? null,
+      },
+    };
   },
   async search(pool, q) {
     const term = String(q.q || "").trim();

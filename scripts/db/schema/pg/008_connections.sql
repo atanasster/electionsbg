@@ -219,3 +219,58 @@ SELECT jsonb_build_object(
     '[]'::jsonb)
 );
 $$;
+
+-- Multi-hop connection PATH from a company to a person, over the officer graph.
+-- BFS (recursive CTE) that walks company → shared non-hub officer → next company,
+-- up to p_max_depth hops, returning the SHORTEST chain to a company the person
+-- sits on. Hub names (in > 12 companies — nominees / namesakes) are excluded
+-- both to keep the dense graph tractable (worst-case full BFS ~90ms) and to
+-- avoid spurious "everyone is connected" links. Cycle-free (no company revisited
+-- on a path); expansion stops once the person is reached. Name-only match.
+CREATE MATERIALIZED VIEW IF NOT EXISTS officer_name_counts AS
+  SELECT name_fold, (COUNT(DISTINCT uic))::int AS company_count
+  FROM tr_officers WHERE name_fold <> '' GROUP BY name_fold;
+CREATE UNIQUE INDEX IF NOT EXISTS idx_officer_name_counts_fold
+  ON officer_name_counts(name_fold);
+GRANT SELECT ON officer_name_counts TO app_readonly;
+
+DROP FUNCTION IF EXISTS company_person_path(text, text, int);
+CREATE OR REPLACE FUNCTION company_person_path(
+  p_eik text, p_name text, p_max_depth int DEFAULT 3
+)
+RETURNS jsonb LANGUAGE sql STABLE AS $$
+WITH RECURSIVE
+pf AS (SELECT translit_bg_latin(p_name) AS f),
+walk AS (
+  SELECT p_eik AS uic, 0 AS depth,
+         ARRAY[p_eik] AS cpath,
+         ARRAY[]::text[] AS people,
+         EXISTS (SELECT 1 FROM tr_officers t, pf WHERE t.uic = p_eik AND t.name_fold = pf.f) AS hit
+  UNION ALL
+  SELECT step.uic, w.depth + 1, w.cpath || step.uic, w.people || step.person,
+         EXISTS (SELECT 1 FROM tr_officers t, pf WHERE t.uic = step.uic AND t.name_fold = pf.f)
+  FROM walk w
+  CROSS JOIN LATERAL (
+    SELECT ob.uic, MIN(oa.name) AS person
+    FROM tr_officers oa
+    JOIN officer_name_counts c ON c.name_fold = oa.name_fold AND c.company_count <= 12
+    JOIN tr_officers ob ON ob.name_fold = oa.name_fold AND ob.uic <> oa.uic
+    WHERE oa.uic = w.uic AND ob.uic <> ALL(w.cpath)
+    GROUP BY ob.uic
+  ) step
+  WHERE w.depth < p_max_depth AND NOT w.hit
+)
+SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM walk WHERE hit) THEN NULL
+ELSE (
+  SELECT jsonb_build_object(
+    'degree', w.depth,
+    'companies', (
+      SELECT jsonb_agg(jsonb_build_object('eik', e,
+        'name', (SELECT name FROM tr_companies WHERE uic = e)) ORDER BY ord)
+      FROM unnest(w.cpath) WITH ORDINALITY AS u(e, ord)
+    ),
+    'people', to_jsonb(w.people)
+  )
+  FROM walk w WHERE w.hit ORDER BY w.depth LIMIT 1
+) END;
+$$;

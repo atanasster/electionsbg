@@ -24,9 +24,15 @@ interface BridgeRow {
   company: string | null;
   bridge: string | null;
 }
+interface PathResult {
+  degree: number;
+  companies: { eik: string; name: string | null }[];
+  people: string[];
+}
 interface ConnResult {
   direct: DirectRow[];
   shared: BridgeRow[];
+  path: PathResult | null;
 }
 
 export const CompanyConnectionCheck: FC<{ eik: string }> = ({ eik }) => {
@@ -54,14 +60,31 @@ export const CompanyConnectionCheck: FC<{ eik: string }> = ({ eik }) => {
     )
       .then((r) => r.json())
       .then((j) =>
-        setResult({ direct: j.direct ?? [], shared: j.shared ?? [] }),
+        setResult({
+          direct: j.direct ?? [],
+          shared: j.shared ?? [],
+          path: j.path ?? null,
+        }),
       )
-      .catch(() => setResult({ direct: [], shared: [] }))
+      .catch(() => setResult({ direct: [], shared: [], path: null }))
       .finally(() => setLoading(false));
   }, [name, eik]);
 
+  // Show the multi-hop chain only when there's no direct role and no 1-hop
+  // bridge (degree ≥ 2); degrees 0/1 are already covered by direct/shared.
+  const deepPath =
+    result &&
+    result.direct.length === 0 &&
+    result.shared.length === 0 &&
+    result.path &&
+    result.path.degree >= 2
+      ? result.path
+      : null;
   const empty =
-    result && result.direct.length === 0 && result.shared.length === 0;
+    result &&
+    result.direct.length === 0 &&
+    result.shared.length === 0 &&
+    !deepPath;
 
   return (
     <Card>
@@ -141,6 +164,58 @@ export const CompanyConnectionCheck: FC<{ eik: string }> = ({ eik }) => {
                     </li>
                   ))}
                 </ul>
+              </div>
+            )}
+
+            {deepPath && (
+              <div>
+                <div className="mb-1 text-muted-foreground">
+                  {t("company_conn_check_degree", {
+                    degree: deepPath.degree,
+                    defaultValue:
+                      "Свързан на {{degree}} степен на отдалеченост:",
+                  })}
+                </div>
+                <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1">
+                  {deepPath.companies.map((c, i) => (
+                    <span
+                      key={`${c.eik}-${i}`}
+                      className="flex items-center gap-1.5"
+                    >
+                      {i > 0 && (
+                        <span className="text-muted-foreground">
+                          →{" "}
+                          <Link
+                            to={`/person/${encodeURIComponent(deepPath.people[i - 1] ?? "")}`}
+                            className="text-accent hover:underline"
+                          >
+                            {decodeEntities(deepPath.people[i - 1])}
+                          </Link>{" "}
+                          →
+                        </span>
+                      )}
+                      <Link
+                        to={`/db/company/${c.eik}`}
+                        className={
+                          i === 0
+                            ? "font-medium"
+                            : "text-accent hover:underline"
+                        }
+                      >
+                        {decodeEntities(c.name) || c.eik}
+                      </Link>
+                    </span>
+                  ))}
+                  <span className="text-muted-foreground">
+                    →{" "}
+                    <Link
+                      to={`/person/${encodeURIComponent(queried)}`}
+                      className="text-accent hover:underline"
+                    >
+                      {queried}
+                    </Link>
+                  </span>
+                </div>
               </div>
             )}
 

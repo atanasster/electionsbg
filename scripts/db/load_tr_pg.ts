@@ -224,6 +224,8 @@ export const loadTrPg = async (): Promise<{
   // Deduped officers relation for the server-side officers table.
   await exec(readFileSync(OFFICERS_SQL, "utf8"));
   await exec("REFRESH MATERIALIZED VIEW company_person_roles");
+  // Officer namesake counts (hub pruning for the multi-hop path finder).
+  await exec("REFRESH MATERIALIZED VIEW officer_name_counts");
 
   // Curated company↔politician links (from mp_connected / pep_connected) → PG,
   // so the person page's political connections come straight from the DB.
