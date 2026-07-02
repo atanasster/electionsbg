@@ -641,6 +641,16 @@ const DB_ROUTES = {
       },
     };
   },
+  // Single-supplier concentration cases (buyer→supplier ≥30%, buyer ≥€100k),
+  // window-scoped or full corpus.
+  "procurement-concentration": async (pool, q) => {
+    const rows = await dbRows(
+      pool,
+      "SELECT procurement_concentration($1, $2) AS r",
+      [String(q.from || "").trim() || null, String(q.to || "").trim() || null],
+    );
+    return { body: rows[0]?.r ?? null };
+  },
   // Procurement dashboard overview — totals + treemaps + connected-people lists,
   // scoped to a parliament window [from, to) or the full corpus (both NULL).
   "procurement-overview": async (pool, q) => {

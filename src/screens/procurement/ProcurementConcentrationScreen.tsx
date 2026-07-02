@@ -27,12 +27,9 @@ import {
 import { Title } from "@/ux/Title";
 import { Card, CardContent } from "@/ux/Card";
 import { Button } from "@/components/ui/button";
-import { dataUrl } from "@/data/dataUrl";
 import { formatEur } from "@/lib/currency";
 import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
-import { nuts3Name } from "@/data/procurement/bgNuts3";
-import { useProcurementScope } from "@/data/procurement/useProcurementScope";
-import { useElectionContext } from "@/data/ElectionContext";
+import { useProcurementWindow } from "@/data/procurement/useProcurementWindow";
 
 const countFmt = new Intl.NumberFormat("bg-BG");
 const PAGE_SIZE = 50;
@@ -61,24 +58,20 @@ type ConcentrationFullFile = {
 
 type SortKey = "sharePct" | "pairTotalEur" | "awarderTotalEur" | "name";
 
-// Scope-aware: ns → the per-election concentration slice (by_ns/concentration/
-// <date>.json); all → the full-corpus table. Both share the same shape.
+// Scope-aware, DB-backed (/api/db/procurement-concentration → the same
+// concentration cases the offline by_ns/concentration + concentration_full
+// builders produced): the selected parliament window, or the full corpus.
 const useConcentrationFull = () => {
-  const { scope } = useProcurementScope();
-  const { selected } = useElectionContext();
-  const ns = scope === "ns";
-  const url = ns
-    ? dataUrl(`/procurement/by_ns/concentration/${selected}.json`)
-    : dataUrl("/procurement/derived/concentration_full.json");
+  const { from, to } = useProcurementWindow();
   return useQuery({
-    queryKey: [
-      "procurement",
-      "concentration_full",
-      ns ? `ns:${selected}` : "all",
-    ],
-    queryFn: async () => {
-      const r = await fetch(url);
-      if (r.status === 404) return null;
+    queryKey: ["procurement", "concentration", from, to],
+    queryFn: async (): Promise<ConcentrationFullFile | null> => {
+      const qs = new URLSearchParams();
+      if (from) qs.set("from", from);
+      if (to) qs.set("to", to);
+      const r = await fetch(
+        `/api/db/procurement-concentration?${qs.toString()}`,
+      );
       if (!r.ok) throw new Error(`fetch failed: ${r.status}`);
       return (await r.json()) as ConcentrationFullFile;
     },
@@ -118,10 +111,10 @@ export const ProcurementConcentrationScreen: FC = () => {
     return list;
   }, [data]);
 
+  // oblast is now the awarder's seat oblast name (from awarder_seats); show it
+  // verbatim. "national" = central / unresolved buyers (no seat).
   const oblastLabel = (value: string) =>
-    value === "national"
-      ? t("flags_map_national") || "National"
-      : nuts3Name(value, lang);
+    value === "national" ? t("flags_map_national") || "National" : value;
 
   // Count-aware noun: BG uses "договор" for 1, the counting form "договора"
   // otherwise; EN "contract"/"contracts".
@@ -197,7 +190,7 @@ export const ProcurementConcentrationScreen: FC = () => {
           Math.round(r.pairTotalEur),
           Math.round(r.awarderTotalEur),
           r.contractCount,
-          r.oblast ? esc(nuts3Name(r.oblast, "bg")) : "",
+          r.oblast ? esc(r.oblast) : "",
         ].join(";"),
       );
     }
@@ -382,7 +375,7 @@ export const ProcurementConcentrationScreen: FC = () => {
                             {r.contractorName}
                           </Link>
                           <div className="text-xs text-muted-foreground">
-                            {r.oblast ? nuts3Name(r.oblast, lang) : ""}
+                            {r.oblast ? r.oblast : ""}
                             {r.oblast ? " · " : ""}
                             {countFmt.format(r.contractCount)}{" "}
                             {contractsWord(r.contractCount)}
