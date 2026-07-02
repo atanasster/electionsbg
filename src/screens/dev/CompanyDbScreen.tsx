@@ -264,16 +264,22 @@ export const CompanyDbScreen: FC = () => {
                   </div>
                 </StatCard>
                 <StatCard label="Договори">
-                  <div className="flex items-baseline gap-2">
+                  <Link
+                    to={`/db/company/${eik}/contracts`}
+                    className="flex items-baseline gap-2 hover:underline"
+                  >
                     <FileText className="h-5 w-5 text-muted-foreground shrink-0" />
                     <span className="text-2xl font-bold tabular-nums">
                       {num.format(rollup.contractCount)}
                     </span>
-                  </div>
+                  </Link>
                   {procurement && procurement.amendmentCount > 0 && (
-                    <div className="text-xs text-muted-foreground tabular-nums">
+                    <Link
+                      to={`/db/company/${eik}/annexes`}
+                      className="text-xs text-muted-foreground tabular-nums hover:underline hover:text-foreground"
+                    >
                       + {num.format(procurement.amendmentCount)} анекса
-                    </div>
+                    </Link>
                   )}
                 </StatCard>
                 <StatCard label="Възложители">

@@ -21,6 +21,7 @@
 const crypto = require("crypto");
 const { onRequest } = require("firebase-functions/v2/https");
 const { defineSecret } = require("firebase-functions/params");
+const { runDbTable } = require("./db_table.js");
 
 // Only these (cheap, Bulgarian-capable) models may be requested. Keep in sync
 // with the cloud entries in ai/llm/models.ts.
@@ -459,6 +460,19 @@ const DB_ROUTES = {
         procurement: procurement[0]?.r ?? null,
       },
     };
+  },
+  async table(pool, q) {
+    let req;
+    try {
+      req = JSON.parse(q.q || "{}");
+    } catch {
+      return { status: 400, body: { error: "bad q" } };
+    }
+    const out = await runDbTable(
+      (sql, params) => dbRows(pool, sql, params),
+      req,
+    );
+    return { body: out };
   },
   async tenders(pool, q) {
     const eik = String(q.eik || "").trim();

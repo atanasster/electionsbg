@@ -58,6 +58,12 @@ const CompanyDbScreen = lazy(() =>
     default: m.CompanyDbScreen,
   })),
 );
+// DB-driven contracts / annexes drill-downs (server-side paginated table).
+const CompanyContractsDbScreen = lazy(() =>
+  import("@/screens/dev/CompanyContractsDbScreen").then((m) => ({
+    default: m.CompanyContractsDbScreen,
+  })),
+);
 const SectionsScreen = lazy(() =>
   import("./screens/SectionsScreen").then((m) => ({
     default: m.SectionsScreen,
@@ -3032,6 +3038,26 @@ export const AuthRoutes = () => {
               <LayoutScreen>
                 <Suspense fallback={<RouteFallback />}>
                   <CompanyDbScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="db/company/:eik/contracts"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <CompanyContractsDbScreen tag="contract" />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="db/company/:eik/annexes"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <CompanyContractsDbScreen tag="contractAmendment" />
                 </Suspense>
               </LayoutScreen>
             }

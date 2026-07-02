@@ -1,0 +1,218 @@
+// DB-driven company contracts / annexes drill-down (/db/company/:eik/contracts
+// and /annexes). Server-side paginated/sorted/filtered/aggregated via
+// DbDataTable → /api/db/table (the `contracts` resource, scoped to
+// contractor_eik, tag fixed per route). Works for ANY company. Risk chips are
+// scored client-side per page row (from the static risk-context files) — display
+// only, since risk isn't a Postgres column. See docs/plans/pg-query-performance.md.
+
+import { FC, useMemo, useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { Receipt, ExternalLink } from "lucide-react";
+import { Title } from "@/ux/Title";
+import { DbDataTable, type DbColumnFilter } from "@/ux/data_table/DbDataTable";
+import type { DataTableColumnDef } from "@/ux/data_table/utils";
+import { ContractAmount } from "@/screens/components/procurement/ContractAmount";
+import { RiskBadges } from "@/screens/components/procurement/RiskBadges";
+import { useContractRiskScorer } from "@/data/procurement/useContractRiskFlags";
+import { resolveContractSource } from "@/screens/components/candidates/procurement/sourceUrl";
+import { formatEur } from "@/lib/currency";
+import type { ProcurementContract } from "@/data/dataTypes";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+const YEARS: string[] = Array.from({ length: 2026 - 2007 + 1 }, (_, i) =>
+  String(2026 - i),
+);
+const ALL = "__all__";
+
+export const CompanyContractsDbScreen: FC<{
+  tag: "contract" | "contractAmendment";
+}> = ({ tag }) => {
+  const { eik = "" } = useParams();
+  const { t } = useTranslation();
+  const { scoreRow } = useContractRiskScorer();
+
+  const [year, setYear] = useState<string>(ALL);
+  const [singleBidder, setSingleBidder] = useState(false);
+
+  const isAnnex = tag === "contractAmendment";
+  const heading = isAnnex ? "Анекси" : "Договори";
+
+  const extraFilters = useMemo<DbColumnFilter[]>(() => {
+    const f: DbColumnFilter[] = [];
+    if (year !== ALL)
+      f.push({ id: "date", min: `${year}-01-01`, max: `${year}-12-31` });
+    if (singleBidder) f.push({ id: "number_of_tenderers", min: 1, max: 1 });
+    return f;
+  }, [year, singleBidder]);
+
+  const columns = useMemo<DataTableColumnDef<ProcurementContract, unknown>[]>(
+    () => [
+      {
+        id: "date",
+        accessorFn: (r) => r.date,
+        header: t("company_contract_date") || "Date",
+        cell: ({ row }) => (
+          <div className="tabular-nums whitespace-nowrap">
+            <div>{row.original.date}</div>
+            {row.original.dateSigned &&
+            row.original.dateSigned !== row.original.date ? (
+              <div className="text-xs text-muted-foreground">
+                {t("company_contract_signed") || "signed"}:{" "}
+                {row.original.dateSigned}
+              </div>
+            ) : null}
+          </div>
+        ),
+      },
+      {
+        id: "awarder_name",
+        accessorFn: (r) => r.awarderName,
+        header: t("company_contract_awarder") || "Awarder",
+        cell: ({ row }) => (
+          <Link
+            to={`/awarder/${row.original.awarderEik}`}
+            className="text-sm hover:underline"
+          >
+            {row.original.awarderName}
+          </Link>
+        ),
+      },
+      {
+        id: "title",
+        accessorFn: (r) => r.title,
+        header: t("company_contract_subject") || "Subject",
+        enableSorting: false,
+        cell: ({ row }) => (
+          <span className="text-sm line-clamp-2 max-w-md inline-block">
+            {row.original.title || "—"}
+          </span>
+        ),
+      },
+      {
+        id: "amount_eur",
+        accessorFn: (r) => r.amountEur,
+        header: t("company_contract_amount") || "Amount",
+        meta: { align: "right" },
+        cell: ({ row }) => (
+          <ContractAmount
+            amountEur={row.original.amountEur}
+            amount={row.original.amount}
+            currency={row.original.currency}
+          />
+        ),
+      },
+      {
+        id: "risk",
+        header: t("company_contract_risk") || "Risk",
+        enableSorting: false,
+        cell: ({ row }) => (
+          <RiskBadges result={scoreRow(row.original)} showScore />
+        ),
+      },
+      {
+        id: "source",
+        header: t("company_contract_source") || "Source",
+        enableSorting: false,
+        cell: ({ row }) => {
+          const c = row.original;
+          const src = resolveContractSource(c);
+          return (
+            <div className="flex items-center gap-2 whitespace-nowrap">
+              <Link
+                to={`/procurement/contract/${c.key}`}
+                className="text-xs text-primary hover:underline"
+              >
+                {t("company_contract_details") || "Details"}
+              </Link>
+              <a
+                href={src.url}
+                target="_blank"
+                rel="noreferrer"
+                className="text-xs text-muted-foreground hover:text-primary inline-flex items-center gap-0.5"
+              >
+                {src.label === "egov" ? "egov" : "ЕОП"}
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </div>
+          );
+        },
+      },
+    ],
+    [t, scoreRow],
+  );
+
+  return (
+    <>
+      <Title description={`${heading} — ЕИК ${eik}`}>{heading}</Title>
+      <section aria-label={heading} className="w-full px-4 py-6 md:px-6">
+        <div className="mb-4 flex items-center gap-2 text-sm text-muted-foreground">
+          <Receipt className="h-4 w-4" />
+          <Link to={`/db/company/${eik}`} className="hover:underline">
+            ЕИК {eik}
+          </Link>
+          <span>· {heading}</span>
+        </div>
+
+        <DbDataTable<ProcurementContract>
+          resource="contracts"
+          scope={{ col: "contractor_eik", val: eik }}
+          fixedFilters={[{ id: "tag", value: [tag] }]}
+          extraFilters={extraFilters}
+          columns={columns}
+          defaultSort={[{ id: "date", desc: true }]}
+          pageSize={25}
+          searchPlaceholder={
+            t("company_contracts_search") || "Търси възложител / предмет…"
+          }
+          toolbar={
+            <>
+              <Select value={year} onValueChange={setYear}>
+                <SelectTrigger className="w-auto h-9">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={ALL}>
+                    {t("company_contracts_all_years") || "Всички години"}
+                  </SelectItem>
+                  {YEARS.map((y) => (
+                    <SelectItem key={y} value={y}>
+                      {y}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <label className="flex items-center gap-1.5 text-xs text-muted-foreground cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={singleBidder}
+                  onChange={(e) => setSingleBidder(e.target.checked)}
+                />
+                {t("company_contracts_single_bidder") || "само 1 оферта"}
+              </label>
+            </>
+          }
+          renderAggregates={(agg, total, exact) => (
+            <span className="text-sm text-muted-foreground">
+              <span className="font-semibold tabular-nums text-foreground">
+                {formatEur(agg.sumAmountEur ?? 0)}
+              </span>{" "}
+              {t("company_contracts_total_over") || "по"}{" "}
+              <span className="tabular-nums">
+                {exact ? "" : "≈"}
+                {(agg.count ?? total).toLocaleString("bg-BG")}
+              </span>{" "}
+              {isAnnex ? "анекса" : "договора"}
+            </span>
+          )}
+        />
+      </section>
+    </>
+  );
+};

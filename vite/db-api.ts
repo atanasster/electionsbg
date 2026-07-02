@@ -16,6 +16,9 @@
 
 import type { Plugin } from "vite";
 import { allRows } from "../scripts/db/lib/pg";
+// Shared server-side table engine (registry + query builder), colocated with the
+// Cloud Function so dev == prod. CJS default-import → the exports object.
+import dbTable from "../functions/db_table.js";
 
 const withHint = (msg: string): string =>
   /ECONNREFUSED|reachable|connect/i.test(msg)
@@ -53,6 +56,22 @@ export const dbApi = (): Plugin => ({
            LIMIT 50`,
           [term],
         ).then((people) => send(200, { people }), fail);
+        return;
+      }
+
+      if (url.pathname.startsWith("/table")) {
+        let reqObj: unknown;
+        try {
+          reqObj = JSON.parse(q("q") || "{}");
+        } catch {
+          return send(400, { error: "bad `q` (expected URL-encoded JSON)" });
+        }
+        dbTable
+          .runDbTable(
+            (sql: string, params: unknown[]) => allRows(sql, params),
+            reqObj,
+          )
+          .then((out: unknown) => send(200, out), fail);
         return;
       }
 
