@@ -641,6 +641,15 @@ const DB_ROUTES = {
       },
     };
   },
+  // Public-money scanner — the full political-class (MP + official) procurement
+  // index, window-scoped or full corpus.
+  "procurement-scanner": async (pool, q) => {
+    const rows = await dbRows(pool, "SELECT procurement_scanner($1, $2) AS r", [
+      String(q.from || "").trim() || null,
+      String(q.to || "").trim() || null,
+    ]);
+    return { body: rows[0]?.r ?? null };
+  },
   // Money-flow Sankey (awarder → politician-tied contractor → mp|official),
   // window-scoped or full corpus.
   "procurement-flow": async (pool, q) => {

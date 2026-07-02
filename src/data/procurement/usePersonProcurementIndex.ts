@@ -10,9 +10,7 @@
 // into /officials/<slug>.
 
 import { useQuery } from "@tanstack/react-query";
-import { dataUrl } from "@/data/dataUrl";
-import { useElectionContext } from "@/data/ElectionContext";
-import { useProcurementScope } from "./useProcurementScope";
+import { useProcurementWindow } from "./useProcurementWindow";
 
 export type PersonProcurementRow = {
   kind: "mp" | "official";
@@ -34,28 +32,24 @@ type PersonIndexFile = {
   rows: PersonProcurementRow[];
 };
 
-const fetchIndex = async (url: string): Promise<PersonIndexFile | null> => {
-  const r = await fetch(url);
-  if (r.status === 404) return null;
-  if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
-  return (await r.json()) as PersonIndexFile;
-};
-
+// DB-backed (/api/db/procurement-scanner → procurement_scanner): the full
+// political-class procurement index, scoped to the selected parliament window or
+// the full corpus (?pscope).
 export const usePersonProcurementIndex = (): {
   rows: PersonProcurementRow[];
   isLoading: boolean;
 } => {
-  const { scope } = useProcurementScope();
-  const { selected } = useElectionContext();
-  const ns = scope === "ns";
-  // ns → the per-election scanner index (by_ns/people/<date>.json); all → the
-  // full-corpus index.
-  const url = ns
-    ? dataUrl(`/procurement/by_ns/people/${selected}.json`)
-    : dataUrl("/procurement/derived/person_procurement_index.json");
+  const { from, to } = useProcurementWindow();
   const { data, isLoading } = useQuery({
-    queryKey: ["procurement", "person_index", ns ? `ns:${selected}` : "all"],
-    queryFn: () => fetchIndex(url),
+    queryKey: ["procurement", "scanner", from, to],
+    queryFn: async (): Promise<PersonIndexFile | null> => {
+      const qs = new URLSearchParams();
+      if (from) qs.set("from", from);
+      if (to) qs.set("to", to);
+      const r = await fetch(`/api/db/procurement-scanner?${qs.toString()}`);
+      if (!r.ok) throw new Error(`fetch failed: ${r.status}`);
+      return (await r.json()) as PersonIndexFile;
+    },
     staleTime: Infinity,
   });
   return { rows: data?.rows ?? [], isLoading };

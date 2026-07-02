@@ -57,6 +57,7 @@ const PROC_CONCENTRATION_FILE = path.join(
   "026_procurement_concentration.sql",
 );
 const PROC_FLOW_FILE = path.join(SCHEMA_DIR, "027_procurement_flow.sql");
+const PROC_SCANNER_FILE = path.join(SCHEMA_DIR, "028_procurement_scanner.sql");
 const GOVERNMENTS_FILE = path.join(PROC_DIR, "..", "governments.json");
 const DEBARRED_FILE = path.join(PROC_DIR, "debarred.json");
 const monthShardDir = path.join(PROC_DIR, "contracts");
@@ -128,6 +129,7 @@ export const loadPg = async (): Promise<{
   await exec(readFileSync(PROC_OVERVIEW_FILE, "utf8"));
   await exec(readFileSync(PROC_CONCENTRATION_FILE, "utf8"));
   await exec(readFileSync(PROC_FLOW_FILE, "utf8"));
+  await exec(readFileSync(PROC_SCANNER_FILE, "utf8"));
 
   const { rows, years } = readShards();
   let batchId = 0;
