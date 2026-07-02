@@ -1735,8 +1735,10 @@ export type ProcurementByNsTopContractor = {
   name: string;
   totalEur: number;
   contractCount: number;
-  mpTied: boolean;
-  mpIds: number[];
+  // Optional: the JSON builder computes the MP-tie badge; the DB overview
+  // (procurement_overview) omits it, so the badge simply doesn't render.
+  mpTied?: boolean;
+  mpIds?: number[];
 };
 export type ProcurementByNsTopAwarder = {
   eik: string;
@@ -1754,12 +1756,13 @@ export type ProcurementByNsTopMp = {
   // "medium" when at least one contributing (mpId, EIK) link rests on a
   // name-match-only TR role. "high" when every link is corroborated (declared
   // stake, or TR role with seat/party witness). UI shows a badge for medium.
-  confidence: "high" | "medium";
+  // Optional: the DB overview doesn't derive it, so no badge renders.
+  confidence?: "high" | "medium";
 };
 export type ProcurementByNsTopOfficial = {
   slug: string;
   name: string;
-  tier: string;
+  tier?: string;
   role: string;
   totalEur: number;
   contractCount: number;

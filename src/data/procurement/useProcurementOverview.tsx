@@ -1,0 +1,50 @@
+// Procurement dashboard overview, DB-backed (/api/db/procurement-overview →
+// procurement_overview). Replaces the static index.json / by_ns/<date>.json
+// fetch: the same ProcurementByNsFile shape, computed live and scoped to a
+// window. The window is the selected parliament's tenure [start, next election)
+// — elections.json is newest-first, so the next (more recent) election sits at
+// the previous index. Scope "all" (?pscope=all) drops the window → full corpus.
+
+import { useQuery } from "@tanstack/react-query";
+import allElections from "@/data/json/elections.json";
+import { useElectionContext } from "@/data/ElectionContext";
+import { useProcurementScope } from "./useProcurementScope";
+import type { ProcurementByNsFile } from "@/data/dataTypes";
+
+const dash = (d: string): string => d.replace(/_/g, "-");
+const elections = allElections as Array<{ name: string }>;
+
+export const useProcurementOverview = () => {
+  const { selected } = useElectionContext();
+  const { scope } = useProcurementScope();
+  const all = scope === "all";
+
+  const idx = elections.findIndex((e) => e.name === selected);
+  const from = all ? null : dash(selected);
+  const to = all ? null : idx > 0 ? dash(elections[idx - 1].name) : null;
+
+  const query = useQuery({
+    queryKey: ["procurement", "overview", from, to] as const,
+    queryFn: async (): Promise<ProcurementByNsFile> => {
+      const qs = new URLSearchParams();
+      if (from) qs.set("from", from);
+      if (to) qs.set("to", to);
+      const r = await fetch(`/api/db/procurement-overview?${qs.toString()}`);
+      if (!r.ok) throw new Error(`overview fetch failed: ${r.status}`);
+      const j = (await r.json()) as Omit<
+        ProcurementByNsFile,
+        "electionDate" | "start" | "end" | "generatedAt"
+      >;
+      return {
+        electionDate: selected,
+        start: from ?? "",
+        end: to,
+        generatedAt: "",
+        ...j,
+      };
+    },
+    staleTime: Infinity,
+  });
+
+  return { ...query, from, to, all };
+};
