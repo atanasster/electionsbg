@@ -29,10 +29,8 @@ import {
   CompanyBuyerCaptureTile,
   type BuyerRelationships,
 } from "../components/procurement/CompanyBuyerCaptureTile";
-import {
-  CompanySectorRankTile,
-  type SectorRank,
-} from "../components/procurement/CompanySectorRankTile";
+import { type SectorRank } from "../components/procurement/CompanySectorRankTile";
+import { CompanySectorsTile } from "../components/procurement/CompanySectorsTile";
 import {
   CompanyRelatedTile,
   type RelatedCompany,
@@ -48,7 +46,6 @@ import {
   type FundProjectRow,
 } from "../components/procurement/CompanyFundsTile";
 import { CompanyConnectionCheck } from "../components/procurement/CompanyConnectionCheck";
-import { ProcurementBreakdownTile } from "../components/procurement/ProcurementBreakdownTile";
 import {
   CabinetTimelineTile,
   type CabinetRow,
@@ -643,13 +640,12 @@ export const CompanyDbScreen: FC = () => {
                 )}
               </div>
 
-              <ProcurementBreakdownTile
-                kind="c"
-                eik={eik}
-                breakdown={breakdown}
-              />
-              {sectors && sectors.length > 0 && (
-                <CompanySectorRankTile data={sectors} />
+              {breakdown && (
+                <CompanySectorsTile
+                  eik={eik}
+                  breakdown={breakdown}
+                  sectors={sectors}
+                />
               )}
               {geography && <CompanyGeographyTile data={geography} />}
               <CompanyBuyerConcentrationTile rollup={rollup} />

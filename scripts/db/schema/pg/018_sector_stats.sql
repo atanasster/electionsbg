@@ -64,3 +64,47 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     LIMIT 6
   ) s;
 $$;
+
+-- Sector competitors for the company-page merged sectors tile (lazy, on expand).
+-- Top-8 contractors in a CPV division + the queried company's own row (if it's
+-- outside the top 8), with names from contractor_search. Used to show "who else
+-- is big in this sector" with the current company highlighted.
+CREATE INDEX IF NOT EXISTS idx_sector_stats_division
+  ON sector_contractor_stats(division, rank_in_div);
+
+DROP FUNCTION IF EXISTS sector_peers(text, text);
+CREATE OR REPLACE FUNCTION sector_peers(p_division text, p_eik text)
+RETURNS jsonb LANGUAGE sql STABLE AS $$
+WITH ranked AS (
+  SELECT s.eik, s.total_eur, s.rank_in_div, s.div_contractors
+  FROM sector_contractor_stats s
+  WHERE s.division = p_division
+),
+topn AS (SELECT * FROM ranked ORDER BY rank_in_div LIMIT 8),
+combined AS (
+  SELECT * FROM topn
+  UNION
+  SELECT * FROM ranked WHERE eik = p_eik AND eik NOT IN (SELECT eik FROM topn)
+),
+-- Name only the ~9 selected rows (not all 34k). Prefer the canonical TR name;
+-- else a contractor_search spelling (that table has several per eik).
+named AS (
+  SELECT c.eik, c.total_eur, c.rank_in_div, c.eik = p_eik AS is_self,
+         COALESCE(
+           tc.name,
+           (SELECT MIN(name) FROM contractor_search cs WHERE cs.eik = c.eik)
+         ) AS name
+  FROM combined c
+  LEFT JOIN tr_companies tc ON tc.uic = c.eik
+)
+SELECT jsonb_build_object(
+  'division', p_division,
+  'divContractors', (SELECT MAX(div_contractors) FROM ranked),
+  'peers', COALESCE((
+    SELECT jsonb_agg(jsonb_build_object(
+      'eik', eik, 'name', name, 'totalEur', ROUND(total_eur),
+      'rank', rank_in_div, 'isSelf', is_self
+    ) ORDER BY rank_in_div) FROM named
+  ), '[]'::jsonb)
+);
+$$;

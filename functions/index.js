@@ -597,6 +597,18 @@ const DB_ROUTES = {
       },
     };
   },
+  // Sector competitors (last path segment "sector-peers") — lazy per-division.
+  "sector-peers": async (pool, q) => {
+    const division = String(q.division || "").trim();
+    const eik = String(q.eik || "").trim();
+    if (!division || !eik)
+      return { status: 400, body: { error: "missing division or eik" } };
+    const rows = await dbRows(pool, "SELECT sector_peers($1, $2) AS r", [
+      division,
+      eik,
+    ]);
+    return { body: rows[0]?.r ?? { division, peers: [] } };
+  },
   async search(pool, q) {
     const term = String(q.q || "").trim();
     if (!term) return { status: 400, body: { error: "missing q" } };

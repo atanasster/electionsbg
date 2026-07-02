@@ -136,6 +136,21 @@ export const dbApi = (): Plugin => ({
         return;
       }
 
+      if (url.pathname.startsWith("/sector-peers")) {
+        const division = q("division");
+        const eik = q("eik");
+        if (!division || !eik)
+          return send(400, { error: "missing `division` or `eik`" });
+        allRows<{ r: unknown }>("SELECT sector_peers($1,$2) AS r", [
+          division,
+          eik,
+        ]).then(
+          (rows) => send(200, rows[0]?.r ?? { division, peers: [] }),
+          fail,
+        );
+        return;
+      }
+
       if (url.pathname.startsWith("/company-connection")) {
         const eik = q("eik");
         const name = q("name");
