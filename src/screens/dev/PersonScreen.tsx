@@ -16,7 +16,7 @@
 import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Building2, Clock, Landmark, Link2, Search } from "lucide-react";
+import { Building2, Clock, Info, Landmark, Link2, Search } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -169,6 +169,12 @@ export const PersonScreen: FC = () => {
             <span>{formatEur(summary.eur)}</span>
             <span>{num.format(politicians.length)} политически връзки</span>
           </div>
+        )}
+        {!loading && !error && (
+          <p className="mt-3 flex items-start gap-1.5 rounded-md border border-border/60 bg-muted/40 p-2.5 text-xs text-muted-foreground">
+            <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+            <span>{t("person_namesake_disclosure")}</span>
+          </p>
         )}
       </div>
 
