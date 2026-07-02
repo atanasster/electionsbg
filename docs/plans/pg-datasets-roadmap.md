@@ -100,17 +100,19 @@ queries + similarity and trims the mega-JSON. MPs join the existing parliament d
 - Effort: **lowest** (same domain, all infra exists). Keeps the quarantine honest
   (separate table, never in contract totals).
 
-### 1. ИСУН EU funds (full-rebuild pattern — reuse procurement's)
-- **Schema** `fund_projects` (contract_number PK, title, total_eur, paid_eur,
-  status, program_code, program_name, **beneficiary_eik**, beneficiary_name,
-  ekatte/muni, dates) + GIN trgm on a `beneficiary_fold` for name search.
-- **Load** `load_funds_pg.ts` from the raw ИСУН ingest → PG (full rebuild). The
-  existing ingest keeps writing `data/funds/**`; we do NOT regenerate it from PG
-  (see scope decision).
-- **Live payoff:** `funds_by_eik(eik)` → add an "EU funds" section to the
-  company/person pages (contractor_eik = beneficiary_eik), and fold beneficiaries
-  into `search_all`. **This is the unified entity graph.**
-- Effort: **low–medium** (pattern already built; the win is the join).
+### 1. ИСУН EU funds (full-rebuild pattern — reuse procurement's) — SHIPPED
+- **Schema** `fund_beneficiaries` (per-EIK aggregate, 015) + `fund_projects`
+  (per-project, 016: contract_number PK, title, total/grant/own/paid_eur, status,
+  program_code/name, **beneficiary_eik**, beneficiary_name, ekatte/oblast) with
+  FK + GIN-trgm indexes for name/title search. Both loaded by `load_funds_pg.ts`
+  (`db:load:funds:pg`, also in `db:refresh`); ingest keeps writing `data/funds/**`.
+- **Live payoff:** EU-funds card on `/db/company/:eik` (fund_beneficiaries) +
+  server-side per-project drill-down `/db/company/:eik/funds` (fund_projects via
+  the DbDataTable registry, scope beneficiary_eik; program/status facets). The
+  unified entity graph: contractor_eik = beneficiary_eik = tr_companies.uic.
+- 81,616 projects (€43.79bn); scoped queries ~1ms on idx_fund_projects_eik.
+- Still TODO: a GLOBAL `/db/funds` browser (registry already supports it) + fold
+  beneficiaries into `search_all`.
 
 ### 2. КЗП prices (NEW: incremental daily-append / time-series)
 - **Schema** `price_obs` (date, ekatte, product_id, chain_id, min/avg/max/median
