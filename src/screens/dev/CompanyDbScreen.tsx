@@ -34,6 +34,10 @@ import {
   CompanySectorRankTile,
   type SectorRank,
 } from "../components/procurement/CompanySectorRankTile";
+import {
+  CompanyRelatedTile,
+  type RelatedCompany,
+} from "../components/procurement/CompanyRelatedTile";
 import { CompanyPortfolioTreemap } from "../components/procurement/CompanyPortfolioTreemap";
 import { ProcurementBreakdownTile } from "../components/procurement/ProcurementBreakdownTile";
 import {
@@ -158,6 +162,7 @@ export const CompanyDbScreen: FC = () => {
     null,
   );
   const [sectors, setSectors] = useState<SectorRank[] | null>(null);
+  const [related, setRelated] = useState<RelatedCompany[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [period, setPeriod] = useState<string>(PERIOD_ALL);
@@ -188,6 +193,7 @@ export const CompanyDbScreen: FC = () => {
           setFunds(j.funds ?? null);
           setRelationships(j.relationships ?? null);
           setSectors(j.sectors ?? null);
+          setRelated(j.related ?? null);
         }
       })
       .catch((e) => live && setError(String(e)))
@@ -597,6 +603,10 @@ export const CompanyDbScreen: FC = () => {
               )}
             </CardContent>
           </Card>
+
+          {related && related.length > 0 && (
+            <CompanyRelatedTile data={related} />
+          )}
 
           <Card>
             <CardHeader>

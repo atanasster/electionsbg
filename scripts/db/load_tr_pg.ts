@@ -31,6 +31,9 @@ const BUILDERS_SQL = fileURLToPath(
 const CONN_SQL = fileURLToPath(
   new URL("./schema/pg/008_connections.sql", import.meta.url),
 );
+const RELATED_SQL = fileURLToPath(
+  new URL("./schema/pg/019_related_companies.sql", import.meta.url),
+);
 const MP_JSON = fileURLToPath(
   new URL("../../data/procurement/derived/mp_connected.json", import.meta.url),
 );
@@ -209,6 +212,11 @@ export const loadTrPg = async (): Promise<{
   await exec(readFileSync(API_SQL, "utf8"));
   await exec(readFileSync(BUILDERS_SQL, "utf8"));
   await exec(readFileSync(CONN_SQL, "utf8"));
+
+  // Related-companies (same-owner) namesake index + fn. Matview is refreshed so
+  // re-runs don't leave the owner→company counts stale.
+  await exec(readFileSync(RELATED_SQL, "utf8"));
+  await exec("REFRESH MATERIALIZED VIEW owner_name_counts");
 
   // Curated company↔politician links (from mp_connected / pep_connected) → PG,
   // so the person page's political connections come straight from the DB.

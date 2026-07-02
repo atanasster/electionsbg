@@ -441,6 +441,7 @@ const DB_ROUTES = {
       funds,
       relationships,
       sectors,
+      related,
     ] = await Promise.all([
       dbRows(
         pool,
@@ -468,6 +469,7 @@ const DB_ROUTES = {
       dbRows(pool, "SELECT * FROM fund_beneficiaries WHERE eik = $1", [eik]),
       dbRows(pool, "SELECT company_buyer_relationships($1) AS r", [eik]),
       dbRows(pool, "SELECT company_sectors($1) AS r", [eik]),
+      dbRows(pool, "SELECT company_related($1) AS r", [eik]),
     ]);
     return {
       body: {
@@ -482,6 +484,7 @@ const DB_ROUTES = {
         funds: funds[0] ?? null,
         relationships: relationships[0]?.r ?? null,
         sectors: sectors[0]?.r ?? null,
+        related: related[0]?.r ?? null,
       },
     };
   },
