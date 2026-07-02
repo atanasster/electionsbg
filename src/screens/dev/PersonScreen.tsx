@@ -534,6 +534,7 @@ export const PersonScreen: FC = () => {
                   eik=""
                   rollup={rollup}
                   partyHref={(e) => `/db/company/${e}`}
+                  contractorHref={(e) => `/db/company/${e}`}
                   seeAllHref={null}
                 />
                 {rollup.byAwarder.length > 0 && (

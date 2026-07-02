@@ -1533,6 +1533,11 @@ export type ProcurementRollupContractRow = {
   /** Contract subject/title — present on DB rollups (company_procurement /
    *  awarder_procurement); optional so legacy JSON rollups still parse. */
   title?: string;
+  /** Winning contractor — present on the PERSON rollup (person_procurement),
+   *  where top contracts span several of the person's companies, so each row
+   *  names which company won it. Absent elsewhere (the page IS the contractor). */
+  contractorEik?: string;
+  contractorName?: string;
   bundleUuid: string;
   sourceUrl: string;
 };

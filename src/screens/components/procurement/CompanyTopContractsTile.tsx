@@ -11,10 +11,11 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, Receipt, ExternalLink } from "lucide-react";
+import { ArrowRight, Receipt, ExternalLink, Building2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useContractor } from "@/data/procurement/useContractor";
 import type { ProcurementContractorRollup } from "@/data/dataTypes";
+import { decodeEntities } from "@/lib/decodeEntities";
 import { resolveContractSource } from "../candidates/procurement/sourceUrl";
 import { ContractAmount } from "./ContractAmount";
 
@@ -28,7 +29,11 @@ export const CompanyTopContractsTile: FC<{
   /** Override the "see all" target (defaults to the JSON contracts page).
    *  Pass null to hide the link (e.g. the person page has no per-person list). */
   seeAllHref?: string | null;
-}> = ({ eik, rollup, partyHref, seeAllHref }) => {
+  /** When set, each row names the WINNING company (contractorEik/Name on the
+   *  row) as a clickable line — used on the person page where top contracts
+   *  span several of the person's companies. */
+  contractorHref?: (eik: string) => string;
+}> = ({ eik, rollup, partyHref, seeAllHref, contractorHref }) => {
   const { t } = useTranslation();
   const { data: fetched, isLoading } = useContractor(rollup ? undefined : eik);
   const data = rollup ?? fetched;
@@ -115,6 +120,18 @@ export const CompanyTopContractsTile: FC<{
                         <span className="tabular-nums"> · {c.date}</span>
                       </div>
                     </>
+                  )}
+                  {/* Which of the person's companies won it (person page only). */}
+                  {contractorHref && c.contractorEik && c.contractorName && (
+                    <div className="mt-0.5 flex items-center gap-1 text-xs">
+                      <Building2 className="h-3 w-3 shrink-0 text-muted-foreground" />
+                      <Link
+                        to={contractorHref(c.contractorEik)}
+                        className="truncate font-medium text-accent hover:underline"
+                      >
+                        {decodeEntities(c.contractorName)}
+                      </Link>
+                    </div>
                   )}
                 </div>
                 <div className="flex shrink-0 items-center gap-2 whitespace-nowrap pt-0.5 text-right tabular-nums">

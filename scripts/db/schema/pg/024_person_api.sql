@@ -81,14 +81,18 @@ byyr AS (
   ) y
 ),
 topc AS (
+  -- party = the AWARDER (state buyer); contractor* names WHICH of the person's
+  -- companies won it (the portfolio spans several), for per-company attribution.
   SELECT COALESCE(jsonb_agg(to_jsonb(t) ORDER BY t."amountEur" DESC NULLS LAST), '[]'::jsonb) AS arr FROM (
     SELECT key, ocid, date, tag, amount, currency,
-           amount_eur   AS "amountEur",
-           awarder_eik  AS "partyEik",
-           awarder_name AS "partyName",
+           amount_eur      AS "amountEur",
+           awarder_eik     AS "partyEik",
+           awarder_name    AS "partyName",
            title,
-           bundle_uuid  AS "bundleUuid",
-           source_url   AS "sourceUrl"
+           contractor_eik  AS "contractorEik",
+           contractor_name AS "contractorName",
+           bundle_uuid     AS "bundleUuid",
+           source_url      AS "sourceUrl"
     FROM base
     WHERE tag = 'contract'
     ORDER BY amount_eur DESC NULLS LAST
