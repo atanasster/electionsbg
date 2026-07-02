@@ -88,6 +88,11 @@ $$;
 
 -- Officers of a company (for the DB-backed company page) — role, ownership
 -- share (% + raw amount), from/to dates, current-vs-former.
+--
+-- tr_person_roles keeps the full FILING HISTORY: every capital change re-lists
+-- all partners, so one person appears once per filing (a 50-member company can
+-- have ~1,000 rows). Collapse to the CURRENT record per (person, role) — the
+-- most recent, active-preferred — so each officer shows once.
 CREATE OR REPLACE FUNCTION company_officers(eik text)
 RETURNS TABLE (
   name           text,
@@ -100,12 +105,19 @@ RETURNS TABLE (
   active         boolean
 )
 LANGUAGE sql STABLE AS $$
-  SELECT r.name, r.role, r.share, r.share_amount, r.share_currency,
-         r.added_at, r.erased_at, (r.erased_at IS NULL) AS active
-  FROM tr_person_roles r
-  WHERE r.uic = eik
-  ORDER BY (r.erased_at IS NULL) DESC, r.share DESC NULLS LAST,
-           r.added_at DESC NULLS LAST;
+  WITH dedup AS (
+    SELECT DISTINCT ON (r.name_fold, r.role)
+           r.name, r.role, r.share, r.share_amount, r.share_currency,
+           r.added_at, r.erased_at, (r.erased_at IS NULL) AS active
+    FROM tr_person_roles r
+    WHERE r.uic = eik
+    ORDER BY r.name_fold, r.role,
+             (r.erased_at IS NULL) DESC, r.added_at DESC NULLS LAST
+  )
+  SELECT name, role, share, share_amount, share_currency,
+         added_at, erased_at, active
+  FROM dedup
+  ORDER BY active DESC, share DESC NULLS LAST, added_at DESC NULLS LAST;
 $$;
 
 -- Politicians reachable from the person, via a company they're both tied to
