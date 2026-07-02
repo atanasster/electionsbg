@@ -17,7 +17,7 @@ import {
   FileText,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { formatEur, formatEurWithOther } from "@/lib/currency";
+import { formatEur, toEur } from "@/lib/currency";
 import { useTranslation } from "react-i18next";
 import { StatCard } from "../dashboard/StatCard";
 import { CompanyTopContractsTile } from "../components/procurement/CompanyTopContractsTile";
@@ -199,8 +199,12 @@ export const CompanyDbScreen: FC = () => {
             {company?.status && <span>{company.status}</span>}
             {company?.funds_amount != null && (
               <span>
-                капитал {num.format(Number(company.funds_amount))}{" "}
-                {company.funds_currency ?? ""}
+                капитал{" "}
+                {formatEur(
+                  toEur(Number(company.funds_amount), company.funds_currency) ??
+                    Number(company.funds_amount),
+                  i18n.language,
+                )}
               </span>
             )}
             <span>{num.format(contracts)} договора</span>
@@ -246,18 +250,13 @@ export const CompanyDbScreen: FC = () => {
                   <div className="flex items-baseline gap-2">
                     <Coins className="h-5 w-5 text-muted-foreground shrink-0" />
                     <span className="text-base md:text-lg font-bold tabular-nums break-words">
-                      {formatEurWithOther(
-                        rollup.totalEur,
-                        rollup.totalOther,
-                        i18n.language,
-                      ) || "—"}
+                      {formatEur(rollup.totalEur, i18n.language) || "—"}
                     </span>
                   </div>
                   <div className="text-xs text-muted-foreground tabular-nums">
                     средно{" "}
-                    {formatEurWithOther(
+                    {formatEur(
                       rollup.totalEur / rollup.contractCount,
-                      {},
                       i18n.language,
                     )}{" "}
                     / договор

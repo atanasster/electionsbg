@@ -25,7 +25,10 @@ hd AS (
   SELECT
     COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract'), 0)   AS total_eur,
     (COUNT(*) FILTER (WHERE tag = 'contract'))::int                AS contract_count,
-    (COUNT(*) FILTER (WHERE tag <> 'contract'))::int               AS award_count,
+    -- awardCount = OCDS 'award' notices only (matches the JSON rollup). The
+    -- corpus has none today (only 'contract' + 'contractAmendment'), so this is
+    -- 0 and the "+ N awards" line hides — do NOT count amendments here.
+    (COUNT(*) FILTER (WHERE tag = 'award'))::int                    AS award_count,
     (COUNT(DISTINCT awarder_eik) FILTER (WHERE tag = 'contract'))::int AS awarder_count
   FROM base
 ),

@@ -133,9 +133,14 @@ export const formatAmountEur = (
   if (amountEur != null && Number.isFinite(amountEur)) {
     return {
       primary: formatEur(amountEur, locale),
-      // Footnote the original only when it was actually converted (i.e. leva).
+      // Euro is Bulgaria's currency since 2026-01-01 — NEVER footnote the original
+      // leva amount (or a redundant EUR-native). Only a genuinely foreign
+      // currency we couldn't peg (USD/GBP/CHF, outside EUR_RATE) would footnote —
+      // but those carry no amountEur, so in practice this is always "".
       original:
-        code && code !== "EUR" ? formatNative(amount, currency, locale) : "",
+        EUR_RATE[code] === undefined
+          ? formatNative(amount, currency, locale)
+          : "",
     };
   }
   // No euro figure → a currency we keep native (USD/GBP/CHF, unrecognized).
@@ -145,8 +150,10 @@ export const formatAmountEur = (
   return { primary: "", original: "" };
 };
 
-/** Render a euro subtotal plus any native remainder we kept un-converted:
- * "€1 234" or "€1 234 · 1 200 USD". */
+/** Render a euro subtotal plus any native remainder in a currency we could NOT
+ * fold into euro (USD/GBP/CHF): "€1 234" or "€1 234 · 1 200 USD". Leva and
+ * EUR-native remainders are dropped — they're already inside totalEur, and euro
+ * is Bulgaria's currency since 2026-01-01 (no leva display anywhere). */
 export const formatEurWithOther = (
   totalEur: number,
   totalOther: Record<string, number> | undefined,
@@ -155,7 +162,8 @@ export const formatEurWithOther = (
   const parts: string[] = [];
   if (totalEur > 0) parts.push(formatEur(totalEur, locale));
   for (const [code, amount] of Object.entries(totalOther ?? {})) {
-    if (amount > 0) parts.push(formatNative(amount, code, locale));
+    if (amount > 0 && EUR_RATE[normCurrency(code)] === undefined)
+      parts.push(formatNative(amount, code, locale));
   }
   return parts.join(" · ");
 };
