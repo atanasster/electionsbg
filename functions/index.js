@@ -448,7 +448,11 @@ const DB_ROUTES = {
         "SELECT politician, ref, kind, role, total_eur FROM company_politicians WHERE eik = $1 ORDER BY total_eur DESC NULLS LAST",
         [eik],
       ),
-      dbRows(pool, "SELECT company_procurement($1) AS r", [eik]),
+      dbRows(pool, "SELECT company_procurement($1, $2, $3) AS r", [
+        eik,
+        q.from || null,
+        q.to || null,
+      ]),
       dbRows(pool, "SELECT * FROM company_by_cabinet($1)", [eik]),
     ]);
     return {

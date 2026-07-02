@@ -15,11 +15,21 @@
 
 SET check_function_bodies = off;
 DROP FUNCTION IF EXISTS company_procurement(text);
+DROP FUNCTION IF EXISTS company_procurement(text, text, text);
 
-CREATE OR REPLACE FUNCTION company_procurement(p_eik text)
+-- p_from / p_to (YYYY-MM-DD, nullable) scope the WHOLE rollup to a date window
+-- so the company dashboard can re-scope to a year / last-N-years. NULL = all time.
+CREATE OR REPLACE FUNCTION company_procurement(
+  p_eik text,
+  p_from text DEFAULT NULL,
+  p_to text DEFAULT NULL
+)
 RETURNS jsonb LANGUAGE sql STABLE AS $$
 WITH base AS (
-  SELECT * FROM contracts WHERE contractor_eik = p_eik
+  SELECT * FROM contracts
+  WHERE contractor_eik = p_eik
+    AND (p_from IS NULL OR date >= p_from)
+    AND (p_to IS NULL OR date <= p_to)
 ),
 hd AS (
   SELECT

@@ -35,6 +35,28 @@ import type {
   ProcurementBreakdown,
 } from "@/data/dataTypes";
 import { procedureBucket, type ProcedureBucket } from "@/lib/cpvSectors";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+const PERIOD_ALL = "all";
+const PERIOD_LAST4 = "last4";
+const NOW_YEAR = new Date().getFullYear();
+const PERIOD_YEARS: string[] = Array.from(
+  { length: NOW_YEAR - 2007 + 1 },
+  (_, i) => String(NOW_YEAR - i),
+);
+
+// Period preset → [from, to] (YYYY-MM-DD | null) for company_procurement.
+const periodRange = (p: string): [string | null, string | null] => {
+  if (p === PERIOD_ALL) return [null, null];
+  if (p === PERIOD_LAST4) return [`${NOW_YEAR - 3}-01-01`, null];
+  return [`${p}-01-01`, `${p}-12-31`];
+};
 
 interface Company {
   uic: string;
@@ -109,13 +131,19 @@ export const CompanyDbScreen: FC = () => {
   const [cabinets, setCabinets] = useState<CabinetRow[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [period, setPeriod] = useState<string>(PERIOD_ALL);
   const { i18n } = useTranslation();
 
   useEffect(() => {
     let live = true;
     setLoading(true);
     setError(null);
-    fetch(`/api/db/company?eik=${encodeURIComponent(eik)}`)
+    const [from, to] = periodRange(period);
+    const qs =
+      `/api/db/company?eik=${encodeURIComponent(eik)}` +
+      (from ? `&from=${from}` : "") +
+      (to ? `&to=${to}` : "");
+    fetch(qs)
       .then((r) => r.json())
       .then((j) => {
         if (!live) return;
@@ -134,7 +162,7 @@ export const CompanyDbScreen: FC = () => {
     return () => {
       live = false;
     };
-  }, [eik]);
+  }, [eik, period]);
 
   const contracts = Number(summary?.contracts ?? 0);
 
@@ -250,6 +278,32 @@ export const CompanyDbScreen: FC = () => {
 
       {!loading && !error && company && (
         <div className="space-y-6">
+          {contracts > 0 && (
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-sm text-muted-foreground">Период</span>
+              <Select value={period} onValueChange={setPeriod}>
+                <SelectTrigger className="w-auto h-9">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={PERIOD_ALL}>Всички години</SelectItem>
+                  <SelectItem value={PERIOD_LAST4}>Последните 4 г.</SelectItem>
+                  {PERIOD_YEARS.map((y) => (
+                    <SelectItem key={y} value={y}>
+                      {y}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {period !== PERIOD_ALL && (
+                <span className="text-xs text-muted-foreground">
+                  {rollup
+                    ? `${num.format(rollup.contractCount)} договора · ${formatEurCompact(rollup.totalEur, i18n.language)}`
+                    : "няма договори за периода"}
+                </span>
+              )}
+            </div>
+          )}
           {rollup && rollup.contractCount > 0 && (
             <>
               <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
@@ -339,11 +393,16 @@ export const CompanyDbScreen: FC = () => {
               {rollup.byYear.length > 0 && (
                 <CompanyByYearChart rows={rollup.byYear} />
               )}
-              <CabinetTimelineTile
-                cabinets={cabinets}
-                totalEur={rollup.totalEur}
-              />
             </>
+          )}
+
+          {/* All-time (not date-scoped) — its per-cabinet shares use the all-time
+              total, so it's correct regardless of the period filter above. */}
+          {contracts > 0 && (
+            <CabinetTimelineTile
+              cabinets={cabinets}
+              totalEur={Number(summary?.contracts_eur ?? 0)}
+            />
           )}
 
           <Card>

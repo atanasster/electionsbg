@@ -153,7 +153,10 @@ export const dbApi = (): Plugin => ({
             "SELECT politician, ref, kind, role, total_eur FROM company_politicians WHERE eik = $1 ORDER BY total_eur DESC NULLS LAST",
             [eik],
           ),
-          allRows<{ r: unknown }>("SELECT company_procurement($1) AS r", [eik]),
+          allRows<{ r: unknown }>(
+            "SELECT company_procurement($1, $2, $3) AS r",
+            [eik, q("from") || null, q("to") || null],
+          ),
           allRows("SELECT * FROM company_by_cabinet($1)", [eik]),
         ]).then(
           ([company, summary, officers, politicians, procurement, cabinets]) =>
