@@ -59,6 +59,22 @@ export const dbApi = (): Plugin => ({
         return;
       }
 
+      if (url.pathname.startsWith("/facets")) {
+        let reqObj: unknown;
+        try {
+          reqObj = JSON.parse(q("q") || "{}");
+        } catch {
+          return send(400, { error: "bad `q`" });
+        }
+        dbTable
+          .runDbFacets(
+            (sql: string, params: unknown[]) => allRows(sql, params),
+            reqObj,
+          )
+          .then((out: unknown) => send(200, out), fail);
+        return;
+      }
+
       if (url.pathname.startsWith("/table")) {
         let reqObj: unknown;
         try {

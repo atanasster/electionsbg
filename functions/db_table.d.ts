@@ -11,11 +11,19 @@ export interface DbTableResult {
   aggregates: Record<string, number>;
 }
 
+export interface DbFacetsResult {
+  facets: Record<string, { value: string; count: number }[]>;
+}
+
 declare const dbTable: {
   runDbTable: (
     q: (sql: string, params: unknown[]) => Promise<Record<string, unknown>[]>,
     req: unknown,
   ) => Promise<DbTableResult>;
+  runDbFacets: (
+    q: (sql: string, params: unknown[]) => Promise<Record<string, unknown>[]>,
+    req: unknown,
+  ) => Promise<DbFacetsResult>;
   REGISTRY: Record<string, unknown>;
 };
 

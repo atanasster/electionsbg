@@ -8,6 +8,8 @@
 import { FC, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
+import { cpvDivisionName } from "@/lib/cpvSectors";
 import { Receipt, ExternalLink } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { DbDataTable, type DbColumnFilter } from "@/ux/data_table/DbDataTable";
@@ -35,22 +37,51 @@ export const CompanyContractsDbScreen: FC<{
   tag: "contract" | "contractAmendment";
 }> = ({ tag }) => {
   const { eik = "" } = useParams();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { scoreRow } = useContractRiskScorer();
 
   const [year, setYear] = useState<string>(ALL);
   const [singleBidder, setSingleBidder] = useState(false);
+  const [method, setMethod] = useState<string>(ALL);
+  const [cpvDiv, setCpvDiv] = useState<string>(ALL);
 
   const isAnnex = tag === "contractAmendment";
   const heading = isAnnex ? "Анекси" : "Договори";
+
+  // Facet options (distinct methods + CPV divisions for THIS company), scoped +
+  // tag-fixed so the dropdowns are stable regardless of the other selections.
+  const { data: facetData } = useQuery({
+    queryKey: ["db-facets", "contracts", eik, tag],
+    queryFn: async (): Promise<{
+      facets: Record<string, { value: string; count: number }[]>;
+    }> => {
+      const req = {
+        resource: "contracts",
+        scope: { col: "contractor_eik", val: eik },
+        fixedFilters: [{ id: "tag", value: [tag] }],
+        columns: ["procurement_method", "cpv"],
+        limit: 100,
+      };
+      const r = await fetch(
+        `/api/db/facets?q=${encodeURIComponent(JSON.stringify(req))}`,
+      );
+      if (!r.ok) return { facets: {} };
+      return r.json();
+    },
+    staleTime: Infinity,
+  });
+  const methodOptions = facetData?.facets?.procurement_method ?? [];
+  const cpvOptions = facetData?.facets?.cpv ?? [];
 
   const extraFilters = useMemo<DbColumnFilter[]>(() => {
     const f: DbColumnFilter[] = [];
     if (year !== ALL)
       f.push({ id: "date", min: `${year}-01-01`, max: `${year}-12-31` });
     if (singleBidder) f.push({ id: "number_of_tenderers", min: 1, max: 1 });
+    if (method !== ALL) f.push({ id: "procurement_method", value: [method] });
+    if (cpvDiv !== ALL) f.push({ id: "cpv", value: cpvDiv });
     return f;
-  }, [year, singleBidder]);
+  }, [year, singleBidder, method, cpvDiv]);
 
   const columns = useMemo<DataTableColumnDef<ProcurementContract, unknown>[]>(
     () => [
@@ -188,6 +219,40 @@ export const CompanyContractsDbScreen: FC<{
                   ))}
                 </SelectContent>
               </Select>
+              {cpvOptions.length > 0 ? (
+                <Select value={cpvDiv} onValueChange={setCpvDiv}>
+                  <SelectTrigger className="w-auto h-9 max-w-[220px]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={ALL}>
+                      {t("company_contracts_all_cpv") || "Всички сектори (CPV)"}
+                    </SelectItem>
+                    {cpvOptions.map((o) => (
+                      <SelectItem key={o.value} value={o.value}>
+                        {cpvDivisionName(o.value, i18n.language)} ({o.count})
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              ) : null}
+              {methodOptions.length > 0 ? (
+                <Select value={method} onValueChange={setMethod}>
+                  <SelectTrigger className="w-auto h-9 max-w-[220px]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={ALL}>
+                      {t("company_contracts_all_methods") || "Всички процедури"}
+                    </SelectItem>
+                    {methodOptions.map((o) => (
+                      <SelectItem key={o.value} value={o.value}>
+                        {o.value} ({o.count})
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              ) : null}
               <label className="flex items-center gap-1.5 text-xs text-muted-foreground cursor-pointer select-none">
                 <input
                   type="checkbox"

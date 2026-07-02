@@ -43,7 +43,10 @@ const REGISTRY = {
       amount: { type: "number" },
       currency: { type: "text" },
       amount_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
-      cpv: { type: "text", filter: "prefix" },
+      // facetExpr groups the facet dropdown by CPV DIVISION (2-digit prefix)
+      // instead of the full code; selecting one sends a prefix filter (cpv LIKE
+      // '45%'). The client maps the division code → name via cpvDivisionName.
+      cpv: { type: "text", filter: "prefix", facetExpr: "left(cpv, 2)" },
       procurement_method: { type: "text", sort: true, filter: "in" },
       procurement_method_rationale: { type: "text" },
       category: { type: "text", filter: "in" },
@@ -258,4 +261,35 @@ const runDbTable = async (q, reqRaw) => {
   return { rows, total, totalExact, page, pageSize, aggregates };
 };
 
-module.exports = { runDbTable, REGISTRY };
+/**
+ * Distinct values (+ counts) for facet dropdowns, over the resource's scope +
+ * fixed filters only (so options are stable regardless of the user's other
+ * selections). `req.columns` must be whitelisted + filterable. Returns
+ * { facets: { col: [{ value, count }] } }.
+ */
+const runDbFacets = async (q, reqRaw) => {
+  const req = reqRaw || {};
+  const r = REGISTRY[req.resource];
+  if (!r) throw new Error(`unknown resource: ${req.resource}`);
+
+  const { whereSql, params } = buildWhere(r, {
+    scope: req.scope,
+    filters: { columns: req.fixedFilters ?? [] },
+  });
+  const limit = clampInt(req.limit, 100, 1, 500);
+  const cols = (req.columns ?? []).filter((c) => r.columns[c]?.filter);
+
+  const facets = {};
+  for (const c of cols) {
+    const expr = r.columns[c].facetExpr || c; // registry-sourced, safe
+    const guard = `${expr} IS NOT NULL AND ${expr} <> ''`;
+    const where = whereSql ? `${whereSql} AND (${guard})` : `WHERE ${guard}`;
+    facets[c] = await q(
+      `SELECT ${expr} AS value, count(*)::int AS count FROM ${r.base} ${where} GROUP BY ${expr} ORDER BY count DESC LIMIT ${limit}`,
+      params,
+    );
+  }
+  return { facets };
+};
+
+module.exports = { runDbTable, runDbFacets, REGISTRY };
