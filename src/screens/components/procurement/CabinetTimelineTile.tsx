@@ -20,6 +20,9 @@ import {
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
+
+const CARETAKER_COLOR = "#9ca3af";
 
 export interface CabinetRow {
   id: string;
@@ -31,20 +34,6 @@ export interface CabinetRow {
   contracts: number;
   eur: number;
 }
-
-// Lead-party brand colours (only a handful of parties ever form cabinets). Match
-// by substring so "ГЕРБ-СДС" → ГЕРБ, "ПП-ДБ" → ПП. Caretaker/unknown → grey.
-const partyColor = (party: string | undefined): string => {
-  const p = party ?? "";
-  if (/ГЕРБ/.test(p)) return "#1f6fd6";
-  if (/ПП|Продължаваме/.test(p)) return "#f2a900";
-  if (/ДБ|Демократична/.test(p)) return "#14477d";
-  if (/БСП/.test(p)) return "#e01a1a";
-  if (/ИТН|Има такъв/.test(p)) return "#0f9d8f";
-  if (/ДПС/.test(p)) return "#6d28d9";
-  if (/НДСВ/.test(p)) return "#eab308";
-  return "#9ca3af";
-};
 
 const MS_PER_MONTH = 1000 * 60 * 60 * 24 * 30.44;
 const yr = (d: string) => d.slice(0, 4);
@@ -61,7 +50,6 @@ interface Datum {
   eur: number;
   share: number;
   caretaker: boolean;
-  color: string;
 }
 
 const ChartTooltip: FC<{
@@ -105,6 +93,18 @@ export const CabinetTimelineTile: FC<{
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const [regularOnly, setRegularOnly] = useState(false);
+  const { colorFor } = useCanonicalParties();
+  // Canonical party colour (ПП = blue-violet, ГЕРБ = dark blue, НДСВ = yellow…),
+  // the same source the election maps use. Coalition labels ("ПП-ДБ") resolve
+  // directly; fall back to the lead token before "-". Caretaker/unknown → grey.
+  const barColor = (party: string | undefined): string => {
+    if (!party) return CARETAKER_COLOR;
+    return (
+      colorFor(party) ??
+      colorFor(party.split(/[-–/]/)[0].trim()) ??
+      CARETAKER_COLOR
+    );
+  };
 
   const all = useMemo<Datum[]>(
     () =>
@@ -126,7 +126,6 @@ export const CabinetTimelineTile: FC<{
             eur: c.eur,
             share: totalEur > 0 ? c.eur / totalEur : 0,
             caretaker,
-            color: partyColor(lead),
           };
         })
         .sort((a, b) => (a.years < b.years ? -1 : 1)),
@@ -247,7 +246,7 @@ export const CabinetTimelineTile: FC<{
                 {data.map((d) => (
                   <Cell
                     key={d.key}
-                    fill={d.color}
+                    fill={d.caretaker ? CARETAKER_COLOR : barColor(d.lead)}
                     fillOpacity={d.caretaker ? 0.4 : 0.85}
                     stroke={
                       d.key === peak.key ? "var(--foreground)" : undefined
