@@ -15,11 +15,14 @@
 
 import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Building2, Clock, Landmark, Link2, Search } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { formatEur } from "@/lib/currency";
+import { trRoleLabel } from "@/lib/trRole";
+import { decodeEntities } from "@/lib/decodeEntities";
 
 interface RoleRow {
   uic: string;
@@ -57,6 +60,7 @@ const pct = (s: string | number | null): string =>
 
 export const PersonScreen: FC = () => {
   const { name = "" } = useParams();
+  const { t } = useTranslation();
   const person = decodeURIComponent(name);
 
   const [roles, setRoles] = useState<RoleRow[]>([]);
@@ -151,7 +155,7 @@ export const PersonScreen: FC = () => {
   }, [other, person]);
 
   return (
-    <div className="mx-auto w-full max-w-5xl px-4 py-6">
+    <div className="w-full px-4 py-6 md:px-6">
       <div className="mb-6">
         <div className="text-xs uppercase tracking-wide text-muted-foreground">
           Лице (Търговски регистър)
@@ -214,12 +218,17 @@ export const PersonScreen: FC = () => {
                             to={`/db/company/${r.uic}`}
                             className="text-accent hover:underline"
                           >
-                            {r.company ?? r.uic}
+                            {decodeEntities(r.company) || r.uic}
                           </Link>
                         </td>
-                        <td className="py-1 text-muted-foreground">{r.role}</td>
+                        <td className="py-1 text-muted-foreground">
+                          {trRoleLabel(r.role, t)}
+                        </td>
                         <td className="py-1 text-right tabular-nums">
-                          {pct(r.share)}
+                          {r.role === "sole_owner" &&
+                          (r.share === null || r.share === "")
+                            ? "100%"
+                            : pct(r.share)}
                         </td>
                         <td className="py-1 tabular-nums text-muted-foreground">
                           {day(r.added_at)}
@@ -244,9 +253,6 @@ export const PersonScreen: FC = () => {
                   </tbody>
                 </table>
               )}
-              <p className="mt-3 text-xs text-muted-foreground/70">
-                Дял (%) все още не се извлича при импорта на ТР — предстои.
-              </p>
             </CardContent>
           </Card>
 
@@ -281,7 +287,7 @@ export const PersonScreen: FC = () => {
                           to={`/db/company/${p.via_eik}`}
                           className="hover:underline"
                         >
-                          {p.via_company ?? p.via_eik}
+                          {decodeEntities(p.via_company) || p.via_eik}
                         </Link>
                         {p.total_eur ? ` · ${formatEur(p.total_eur)}` : ""}
                       </span>
@@ -317,7 +323,7 @@ export const PersonScreen: FC = () => {
                         {e.sign}
                       </span>
                       <span>
-                        {e.role}
+                        {trRoleLabel(e.role, t)}
                         {e.share
                           ? ` (${Math.round(Number(e.share))}%)`
                           : ""}{" "}
@@ -325,7 +331,7 @@ export const PersonScreen: FC = () => {
                           to={`/db/company/${e.uic}`}
                           className="text-accent hover:underline"
                         >
-                          {e.company ?? e.uic}
+                          {decodeEntities(e.company) || e.uic}
                         </Link>
                       </span>
                     </li>
@@ -372,7 +378,7 @@ export const PersonScreen: FC = () => {
                             to={`/db/company/${c.uic}`}
                             className="text-accent hover:underline"
                           >
-                            {c.company ?? c.uic}
+                            {decodeEntities(c.company) || c.uic}
                           </Link>
                           <span className="text-muted-foreground">
                             {" "}
