@@ -25,10 +25,11 @@ hd AS (
   SELECT
     COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract'), 0)   AS total_eur,
     (COUNT(*) FILTER (WHERE tag = 'contract'))::int                AS contract_count,
-    -- awardCount = OCDS 'award' notices only (matches the JSON rollup). The
-    -- corpus has none today (only 'contract' + 'contractAmendment'), so this is
-    -- 0 and the "+ N awards" line hides — do NOT count amendments here.
+    -- awardCount = OCDS 'award' notices (matches the JSON rollup; corpus has none
+    -- today). amendmentCount = 'contractAmendment' rows (анекси) — surfaced
+    -- separately so they're labelled correctly, not lumped in as "awards".
     (COUNT(*) FILTER (WHERE tag = 'award'))::int                    AS award_count,
+    (COUNT(*) FILTER (WHERE tag = 'contractAmendment'))::int        AS amendment_count,
     (COUNT(DISTINCT awarder_eik) FILTER (WHERE tag = 'contract'))::int AS awarder_count
   FROM base
 ),
@@ -104,12 +105,13 @@ bd AS (
   FROM base
 )
 SELECT CASE
-  WHEN hd.contract_count = 0 AND hd.award_count = 0 THEN NULL
+  WHEN hd.contract_count = 0 AND hd.award_count = 0 AND hd.amendment_count = 0 THEN NULL
   ELSE jsonb_build_object(
     'totalEur', hd.total_eur,
     'totalOther', other.total_other,
     'contractCount', hd.contract_count,
     'awardCount', hd.award_count,
+    'amendmentCount', hd.amendment_count,
     'awarderCount', hd.awarder_count,
     'byAwarder', byaw.arr,
     'byYear', byyr.arr,

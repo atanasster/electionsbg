@@ -77,6 +77,7 @@ type DbRollup = Pick<
   | "topContracts"
 > & {
   awarderCount: number;
+  amendmentCount: number;
   breakdown: {
     totalEur: number;
     cpvKnownEur: number;
@@ -269,9 +270,9 @@ export const CompanyDbScreen: FC = () => {
                       {num.format(rollup.contractCount)}
                     </span>
                   </div>
-                  {rollup.awardCount > 0 && (
+                  {procurement && procurement.amendmentCount > 0 && (
                     <div className="text-xs text-muted-foreground tabular-nums">
-                      + {num.format(rollup.awardCount)} обявления
+                      + {num.format(procurement.amendmentCount)} анекса
                     </div>
                   )}
                 </StatCard>
