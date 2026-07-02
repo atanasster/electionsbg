@@ -116,7 +116,7 @@ export const CompanyContractsDbScreen: FC<{
         header: t("company_contract_awarder") || "Awarder",
         cell: ({ row }) => (
           <Link
-            to={`/awarder/${row.original.awarderEik}`}
+            to={`/db/company/${row.original.awarderEik}`}
             className="text-sm hover:underline"
           >
             {row.original.awarderName}
