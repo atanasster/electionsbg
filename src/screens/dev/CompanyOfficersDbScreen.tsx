@@ -112,7 +112,9 @@ export const CompanyOfficersDbScreen: FC = () => {
         meta: { align: "right" },
         cell: ({ row }) => (
           <span className="tabular-nums whitespace-nowrap">
-            {pct(row.original.share)}
+            {row.original.role === "sole_owner" && row.original.share == null
+              ? "100%"
+              : pct(row.original.share)}
             {row.original.shareAmount != null && (
               <span className="ml-1 text-xs text-muted-foreground/70">
                 ({num.format(Number(row.original.shareAmount))}

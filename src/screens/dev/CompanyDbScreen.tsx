@@ -59,6 +59,8 @@ import type {
 } from "@/data/dataTypes";
 import { procedureBucket, type ProcedureBucket } from "@/lib/cpvSectors";
 import { trRoleLabel } from "@/lib/trRole";
+import { legalFormLabel } from "@/lib/legalForm";
+import { decodeEntities } from "@/lib/decodeEntities";
 import {
   Select,
   SelectContent,
@@ -227,7 +229,13 @@ export const CompanyDbScreen: FC = () => {
         if (!live) return;
         if (j.error) setError(j.error);
         else {
-          setCompany(j.company);
+          // Names from TR/OCDS can carry HTML entities (&quot; …) — decode at the
+          // boundary so every downstream use (header, awarder heading) is clean.
+          setCompany(
+            j.company
+              ? { ...j.company, name: decodeEntities(j.company.name) }
+              : null,
+          );
           setSummary(j.summary);
           setOfficers(j.officers ?? []);
           setPoliticians(j.politicians ?? []);
@@ -239,7 +247,11 @@ export const CompanyDbScreen: FC = () => {
           setRelationships(j.relationships ?? null);
           setSectors(j.sectors ?? null);
           setRelated(j.related ?? null);
-          setInstitution(j.institution ?? null);
+          setInstitution(
+            j.institution
+              ? { ...j.institution, name: decodeEntities(j.institution.name) }
+              : null,
+          );
           setGeography(j.geography ?? null);
           setAwarderProc(j.awarderProcurement ?? null);
         }
@@ -358,7 +370,7 @@ export const CompanyDbScreen: FC = () => {
           {company?.name ?? institution?.name ?? eik}{" "}
           {company?.legal_form && (
             <span className="text-base font-normal text-muted-foreground">
-              {company.legal_form}
+              {legalFormLabel(company.legal_form)}
             </span>
           )}
         </h1>
@@ -532,6 +544,15 @@ export const CompanyDbScreen: FC = () => {
           )}
           {rollup && rollup.contractCount > 0 && (
             <>
+              {/* When the entity is BOTH an awarder and a contractor (e.g. a
+                  state EAD), label this section so its "По години" / "Топ
+                  договори" aren't confused with the awarder dashboard's. */}
+              {awarderRollup && (
+                <div className="flex items-center gap-2">
+                  <Building2 className="h-5 w-5 text-muted-foreground" />
+                  <h2 className="text-lg font-semibold">Като изпълнител</h2>
+                </div>
+              )}
               <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
                 <StatCard label="Общо възложени">
                   <div className="flex items-baseline gap-2">
@@ -693,7 +714,10 @@ export const CompanyDbScreen: FC = () => {
                             {trRoleLabel(o.role, t)}
                           </td>
                           <td className="py-1 text-right tabular-nums">
-                            {pct(o.share)}
+                            {o.role === "sole_owner" &&
+                            (o.share === null || o.share === "")
+                              ? "100%"
+                              : pct(o.share)}
                             {o.share_amount != null && (
                               <span className="ml-1 text-xs text-muted-foreground/70">
                                 ({num.format(Number(o.share_amount))}
