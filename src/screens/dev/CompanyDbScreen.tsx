@@ -115,6 +115,20 @@ interface Funds {
   contracted_eur: number | null;
   paid_eur: number | null;
 }
+// Synthesised identity for an EIK that isn't in the commercial register but
+// appears as an awarder / fund beneficiary (state agencies, ministries).
+interface Institution {
+  name: string | null;
+  region: string | null;
+  locality: string | null;
+  orgType: string | null;
+  isAwarder: boolean;
+  isBeneficiary: boolean;
+  isContractor: boolean;
+  buyContractCount: number;
+  buyTotalEur: number;
+  buyContractorCount: number;
+}
 
 // The procurement rollup from company_procurement() — the ProcurementContractorRollup
 // fields (minus eik/name/generatedAt, filled client-side) + the raw breakdown
@@ -163,6 +177,7 @@ export const CompanyDbScreen: FC = () => {
   );
   const [sectors, setSectors] = useState<SectorRank[] | null>(null);
   const [related, setRelated] = useState<RelatedCompany[] | null>(null);
+  const [institution, setInstitution] = useState<Institution | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [period, setPeriod] = useState<string>(PERIOD_ALL);
@@ -194,6 +209,7 @@ export const CompanyDbScreen: FC = () => {
           setRelationships(j.relationships ?? null);
           setSectors(j.sectors ?? null);
           setRelated(j.related ?? null);
+          setInstitution(j.institution ?? null);
         }
       })
       .catch((e) => live && setError(String(e)))
@@ -257,10 +273,14 @@ export const CompanyDbScreen: FC = () => {
     <div className="w-full px-4 py-6 md:px-6">
       <div className="mb-6">
         <div className="text-xs uppercase tracking-wide text-muted-foreground">
-          Фирма (Търговски регистър)
+          {company
+            ? "Фирма (Търговски регистър)"
+            : institution
+              ? "Институция / възложител"
+              : "Фирма (Търговски регистър)"}
         </div>
         <h1 className="text-2xl font-bold">
-          {company?.name ?? eik}{" "}
+          {company?.name ?? institution?.name ?? eik}{" "}
           {company?.legal_form && (
             <span className="text-base font-normal text-muted-foreground">
               {company.legal_form}
@@ -271,6 +291,7 @@ export const CompanyDbScreen: FC = () => {
           <div className="mt-2 flex flex-wrap gap-4 text-sm text-muted-foreground">
             <span>ЕИК {eik}</span>
             {company?.status && <span>{company.status}</span>}
+            {institution?.orgType && <span>{institution.orgType}</span>}
             {company?.funds_amount != null && (
               <span>
                 капитал{" "}
@@ -281,16 +302,26 @@ export const CompanyDbScreen: FC = () => {
                 )}
               </span>
             )}
-            <span>{num.format(contracts)} договора</span>
+            {(company || contracts > 0) && (
+              <span>{num.format(contracts)} договора</span>
+            )}
             {summary?.contracts_eur ? (
               <span>{formatEur(summary.contracts_eur)}</span>
             ) : null}
-            <span>{num.format(politicians.length)} политически връзки</span>
+            {institution?.isAwarder && (
+              <span>
+                {num.format(institution.buyContractCount)} поръчки като
+                възложител
+              </span>
+            )}
+            {company && (
+              <span>{num.format(politicians.length)} политически връзки</span>
+            )}
           </div>
         )}
-        {company?.seat && (
+        {(company?.seat || institution?.locality) && (
           <div className="mt-1 text-sm text-muted-foreground">
-            {company.seat}
+            {company?.seat ?? institution?.locality}
           </div>
         )}
         {contracts > 0 && (
@@ -309,14 +340,58 @@ export const CompanyDbScreen: FC = () => {
           {error}
         </div>
       )}
-      {!loading && !error && !company && (
+      {!loading && !error && !company && !institution && (
         <div className="text-sm text-muted-foreground">
           Няма фирма с ЕИК {eik} в базата.
         </div>
       )}
 
-      {!loading && !error && company && (
+      {!loading && !error && (company || institution) && (
         <div className="space-y-6">
+          {institution?.isAwarder && (
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <Landmark className="h-4 w-4 text-muted-foreground" /> Като
+                  възложител
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-3 md:p-4">
+                <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm">
+                  <div>
+                    <div className="text-xs text-muted-foreground">
+                      Възложени поръчки
+                    </div>
+                    <div className="font-semibold tabular-nums">
+                      {num.format(institution.buyContractCount)}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-xs text-muted-foreground">
+                      Обща стойност
+                    </div>
+                    <div className="font-semibold tabular-nums">
+                      {formatEur(institution.buyTotalEur, i18n.language)}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-xs text-muted-foreground">
+                      Изпълнители
+                    </div>
+                    <div className="font-semibold tabular-nums">
+                      {num.format(institution.buyContractorCount)}
+                    </div>
+                  </div>
+                </div>
+                <Link
+                  to={`/awarder/${eik}`}
+                  className="mt-3 inline-flex items-center gap-1 text-sm text-accent hover:underline"
+                >
+                  Пълно табло на възложителя <ArrowRight className="h-3 w-3" />
+                </Link>
+              </CardContent>
+            </Card>
+          )}
           {debarred.length > 0 && (
             <div className="rounded-md border border-red-300 bg-red-100 p-3 text-sm text-red-900 dark:border-red-900 dark:bg-red-900/30 dark:text-red-100">
               <div className="flex items-center gap-2 font-semibold">
@@ -537,113 +612,120 @@ export const CompanyDbScreen: FC = () => {
             </Card>
           )}
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <Users className="h-4 w-4" /> Лица (
-                {num.format(officers.length)})
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {officers.length === 0 ? (
-                <div className="text-sm text-muted-foreground">
-                  Няма вписани лица.
-                </div>
-              ) : (
-                <table className="w-full text-sm [&_td]:px-2 [&_td]:first:pl-0 [&_th]:px-2 [&_th]:first:pl-0">
-                  <thead className="text-left text-xs text-muted-foreground">
-                    <tr>
-                      <th className="py-1">Лице</th>
-                      <th className="py-1">Роля</th>
-                      <th className="py-1 text-right">Дял</th>
-                      <th className="py-1">От</th>
-                      <th className="py-1">Статус</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {officers.map((o, i) => (
-                      <tr
-                        key={`${o.name}-${o.role}-${i}`}
-                        className="border-t border-border"
-                      >
-                        <td className="py-1">
-                          <Link
-                            to={`/person/${encodeURIComponent(o.name)}`}
-                            className="text-accent hover:underline"
-                          >
-                            {o.name}
-                          </Link>
-                        </td>
-                        <td className="py-1 text-muted-foreground">{o.role}</td>
-                        <td className="py-1 text-right tabular-nums">
-                          {pct(o.share)}
-                          {o.share_amount != null && (
-                            <span className="ml-1 text-xs text-muted-foreground/70">
-                              ({num.format(Number(o.share_amount))}
-                              {o.share_currency ? ` ${o.share_currency}` : ""})
-                            </span>
-                          )}
-                        </td>
-                        <td className="py-1 tabular-nums text-muted-foreground">
-                          {day(o.added_at)}
-                        </td>
-                        <td className="py-1">
-                          {o.active ? (
-                            <span className="text-emerald-600">активен</span>
-                          ) : (
-                            <span className="text-muted-foreground">
-                              бивш · {day(o.erased_at)}
-                            </span>
-                          )}
-                        </td>
+          {company && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <Users className="h-4 w-4" /> Лица (
+                  {num.format(officers.length)})
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {officers.length === 0 ? (
+                  <div className="text-sm text-muted-foreground">
+                    Няма вписани лица.
+                  </div>
+                ) : (
+                  <table className="w-full text-sm [&_td]:px-2 [&_td]:first:pl-0 [&_th]:px-2 [&_th]:first:pl-0">
+                    <thead className="text-left text-xs text-muted-foreground">
+                      <tr>
+                        <th className="py-1">Лице</th>
+                        <th className="py-1">Роля</th>
+                        <th className="py-1 text-right">Дял</th>
+                        <th className="py-1">От</th>
+                        <th className="py-1">Статус</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              )}
-            </CardContent>
-          </Card>
+                    </thead>
+                    <tbody>
+                      {officers.map((o, i) => (
+                        <tr
+                          key={`${o.name}-${o.role}-${i}`}
+                          className="border-t border-border"
+                        >
+                          <td className="py-1">
+                            <Link
+                              to={`/person/${encodeURIComponent(o.name)}`}
+                              className="text-accent hover:underline"
+                            >
+                              {o.name}
+                            </Link>
+                          </td>
+                          <td className="py-1 text-muted-foreground">
+                            {o.role}
+                          </td>
+                          <td className="py-1 text-right tabular-nums">
+                            {pct(o.share)}
+                            {o.share_amount != null && (
+                              <span className="ml-1 text-xs text-muted-foreground/70">
+                                ({num.format(Number(o.share_amount))}
+                                {o.share_currency ? ` ${o.share_currency}` : ""}
+                                )
+                              </span>
+                            )}
+                          </td>
+                          <td className="py-1 tabular-nums text-muted-foreground">
+                            {day(o.added_at)}
+                          </td>
+                          <td className="py-1">
+                            {o.active ? (
+                              <span className="text-emerald-600">активен</span>
+                            ) : (
+                              <span className="text-muted-foreground">
+                                бивш · {day(o.erased_at)}
+                              </span>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </CardContent>
+            </Card>
+          )}
 
           {related && related.length > 0 && (
             <CompanyRelatedTile data={related} />
           )}
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <Landmark className="h-4 w-4" /> Политически връзки (
-                {num.format(politicians.length)})
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {politicians.length === 0 ? (
-                <div className="text-sm text-muted-foreground">
-                  Няма установени връзки с политици.
-                </div>
-              ) : (
-                <ul className="space-y-2">
-                  {politicians.map((p, i) => (
-                    <li key={`${p.ref}-${i}`} className="text-sm">
-                      <Link
-                        to={p.ref}
-                        className="font-medium text-accent hover:underline"
-                      >
-                        {p.politician}
-                      </Link>
-                      <span className="text-muted-foreground">
-                        {" "}
-                        · {p.kind === "mp" ? "депутат" : "служител"}
-                        {p.role ? ` · ${p.role}` : ""}
-                        {p.total_eur ? ` · ${formatEur(p.total_eur)}` : ""}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </CardContent>
-          </Card>
+          {company && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <Landmark className="h-4 w-4" /> Политически връзки (
+                  {num.format(politicians.length)})
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {politicians.length === 0 ? (
+                  <div className="text-sm text-muted-foreground">
+                    Няма установени връзки с политици.
+                  </div>
+                ) : (
+                  <ul className="space-y-2">
+                    {politicians.map((p, i) => (
+                      <li key={`${p.ref}-${i}`} className="text-sm">
+                        <Link
+                          to={p.ref}
+                          className="font-medium text-accent hover:underline"
+                        >
+                          {p.politician}
+                        </Link>
+                        <span className="text-muted-foreground">
+                          {" "}
+                          · {p.kind === "mp" ? "депутат" : "служител"}
+                          {p.role ? ` · ${p.role}` : ""}
+                          {p.total_eur ? ` · ${formatEur(p.total_eur)}` : ""}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </CardContent>
+            </Card>
+          )}
 
-          {contracts === 0 && (
+          {company && contracts === 0 && (
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Building2 className="h-4 w-4" /> Фирмата няма обществени поръчки
               в базата.
