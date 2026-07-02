@@ -323,9 +323,9 @@ const ProcurementBySettlementScreen = lazy(() =>
     default: m.ProcurementBySettlementScreen,
   })),
 );
-const ContractsBrowserScreen = lazy(() =>
-  import("./screens/procurement/ContractsBrowserScreen").then((m) => ({
-    default: m.ContractsBrowserScreen,
+const ContractsBrowserDbScreen = lazy(() =>
+  import("./screens/dev/ContractsBrowserDbScreen").then((m) => ({
+    default: m.ContractsBrowserDbScreen,
   })),
 );
 const ProcurementSettlementDetailScreen = lazy(() =>
@@ -1954,7 +1954,9 @@ export const AuthRoutes = () => {
             path="procurement/contracts"
             element={
               <LayoutScreen>
-                <ContractsBrowserScreen />
+                <Suspense fallback={<RouteFallback />}>
+                  <ContractsBrowserDbScreen />
+                </Suspense>
               </LayoutScreen>
             }
           />

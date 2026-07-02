@@ -6,22 +6,11 @@
 // the previous index. Scope "all" (?pscope=all) drops the window → full corpus.
 
 import { useQuery } from "@tanstack/react-query";
-import allElections from "@/data/json/elections.json";
-import { useElectionContext } from "@/data/ElectionContext";
-import { useProcurementScope } from "./useProcurementScope";
+import { useProcurementWindow } from "./useProcurementWindow";
 import type { ProcurementByNsFile } from "@/data/dataTypes";
 
-const dash = (d: string): string => d.replace(/_/g, "-");
-const elections = allElections as Array<{ name: string }>;
-
 export const useProcurementOverview = () => {
-  const { selected } = useElectionContext();
-  const { scope } = useProcurementScope();
-  const all = scope === "all";
-
-  const idx = elections.findIndex((e) => e.name === selected);
-  const from = all ? null : dash(selected);
-  const to = all ? null : idx > 0 ? dash(elections[idx - 1].name) : null;
+  const { from, to, all, selected } = useProcurementWindow();
 
   const query = useQuery({
     queryKey: ["procurement", "overview", from, to] as const,
