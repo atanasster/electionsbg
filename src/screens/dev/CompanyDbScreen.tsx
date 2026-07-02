@@ -26,6 +26,10 @@ import { CompanyByYearChart } from "../components/procurement/CompanyByYearChart
 import { CompanyBuyerConcentrationTile } from "../components/procurement/CompanyBuyerConcentrationTile";
 import { CompanyPortfolioTreemap } from "../components/procurement/CompanyPortfolioTreemap";
 import { ProcurementBreakdownTile } from "../components/procurement/ProcurementBreakdownTile";
+import {
+  CabinetTimelineTile,
+  type CabinetRow,
+} from "../components/procurement/CabinetTimelineTile";
 import type {
   ProcurementContractorRollup,
   ProcurementBreakdown,
@@ -102,6 +106,7 @@ export const CompanyDbScreen: FC = () => {
   const [officers, setOfficers] = useState<Officer[]>([]);
   const [politicians, setPoliticians] = useState<Politician[]>([]);
   const [procurement, setProcurement] = useState<DbRollup | null>(null);
+  const [cabinets, setCabinets] = useState<CabinetRow[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const { i18n } = useTranslation();
@@ -121,6 +126,7 @@ export const CompanyDbScreen: FC = () => {
           setOfficers(j.officers ?? []);
           setPoliticians(j.politicians ?? []);
           setProcurement(j.procurement ?? null);
+          setCabinets(j.cabinets ?? []);
         }
       })
       .catch((e) => live && setError(String(e)))
@@ -333,6 +339,10 @@ export const CompanyDbScreen: FC = () => {
               {rollup.byYear.length > 0 && (
                 <CompanyByYearChart rows={rollup.byYear} />
               )}
+              <CabinetTimelineTile
+                cabinets={cabinets}
+                totalEur={rollup.totalEur}
+              />
             </>
           )}
 

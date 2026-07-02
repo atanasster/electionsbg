@@ -154,8 +154,9 @@ export const dbApi = (): Plugin => ({
             [eik],
           ),
           allRows<{ r: unknown }>("SELECT company_procurement($1) AS r", [eik]),
+          allRows("SELECT * FROM company_by_cabinet($1)", [eik]),
         ]).then(
-          ([company, summary, officers, politicians, procurement]) =>
+          ([company, summary, officers, politicians, procurement, cabinets]) =>
             send(200, {
               eik,
               company: company[0] ?? null,
@@ -163,6 +164,7 @@ export const dbApi = (): Plugin => ({
               officers,
               politicians,
               procurement: procurement[0]?.r ?? null,
+              cabinets,
             }),
           fail,
         );

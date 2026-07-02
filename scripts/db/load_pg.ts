@@ -33,6 +33,8 @@ const CONTRACTOR_SEARCH_FILE = path.join(
   "006_contractor_search.sql",
 );
 const COMPANY_API_FILE = path.join(SCHEMA_DIR, "011_company_api.sql");
+const CABINETS_FILE = path.join(SCHEMA_DIR, "013_cabinets.sql");
+const GOVERNMENTS_FILE = path.join(PROC_DIR, "..", "governments.json");
 const monthShardDir = path.join(PROC_DIR, "contracts");
 const N = COLUMN_NAMES.length;
 const BATCH = 1000; // 1000 × 31 cols = 31k params (< PG's 65535 cap)
@@ -87,6 +89,7 @@ export const loadPg = async (): Promise<{
   await exec(readFileSync(TRACKING_FILE, "utf8"));
   await exec(readFileSync(CONTRACTOR_SEARCH_FILE, "utf8"));
   await exec(readFileSync(COMPANY_API_FILE, "utf8"));
+  await exec(readFileSync(CABINETS_FILE, "utf8"));
 
   const { rows, years } = readShards();
   let batchId = 0;
@@ -154,6 +157,45 @@ export const loadPg = async (): Promise<{
       );
     await c.query("COMMIT");
   });
+
+  // Cabinet timeline (governments.json → cabinets) for the government-correlation
+  // view. Tiny (~18 rows); the /db pages read it from PG, not JSON.
+  if (existsSync(GOVERNMENTS_FILE)) {
+    const govs = (
+      JSON.parse(readFileSync(GOVERNMENTS_FILE, "utf8")) as {
+        governments: Array<{
+          id: string;
+          pmBg?: string;
+          pmEn?: string;
+          startDate: string;
+          endDate?: string | null;
+          type?: string;
+          parties?: string[];
+          partiesEn?: string[];
+        }>;
+      }
+    ).governments;
+    await withClient(async (c) => {
+      await c.query("BEGIN");
+      await c.query("TRUNCATE cabinets");
+      for (const g of govs)
+        await c.query(
+          `INSERT INTO cabinets (id, pm_bg, pm_en, start_date, end_date, type, parties, parties_en)
+           VALUES ($1,$2,$3,$4,$5,$6,$7,$8) ON CONFLICT (id) DO NOTHING`,
+          [
+            g.id,
+            g.pmBg ?? null,
+            g.pmEn ?? null,
+            g.startDate,
+            g.endDate ?? null,
+            g.type ?? null,
+            g.parties ?? null,
+            g.partiesEn ?? null,
+          ],
+        );
+      await c.query("COMMIT");
+    });
+  }
 
   return { rows: rows.length, years: [...years].sort(), batchId, rowsNew };
 };
