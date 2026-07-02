@@ -47,6 +47,7 @@ const FUND_PROJECTS_SCHEMA_FILE = path.join(
 );
 const INSTITUTION_FILE = path.join(SCHEMA_DIR, "020_institution.sql");
 const AWARDER_SEATS_FILE = path.join(SCHEMA_DIR, "021_awarder_seats.sql");
+const AWARDER_API_FILE = path.join(SCHEMA_DIR, "023_awarder_api.sql");
 const GOVERNMENTS_FILE = path.join(PROC_DIR, "..", "governments.json");
 const DEBARRED_FILE = path.join(PROC_DIR, "debarred.json");
 const monthShardDir = path.join(PROC_DIR, "contracts");
@@ -114,6 +115,7 @@ export const loadPg = async (): Promise<{
   await exec(readFileSync(FUND_PROJECTS_SCHEMA_FILE, "utf8"));
   await exec(readFileSync(INSTITUTION_FILE, "utf8"));
   await exec(readFileSync(AWARDER_SEATS_FILE, "utf8"));
+  await exec(readFileSync(AWARDER_API_FILE, "utf8"));
 
   const { rows, years } = readShards();
   let batchId = 0;

@@ -43,6 +43,7 @@ import {
   type CompanyGeography,
 } from "../components/procurement/CompanyGeographyTile";
 import { CompanyPortfolioTreemap } from "../components/procurement/CompanyPortfolioTreemap";
+import { AwarderTopContractorsTile } from "../components/procurement/AwarderTopContractorsTile";
 import { ProcurementBreakdownTile } from "../components/procurement/ProcurementBreakdownTile";
 import {
   CabinetTimelineTile,
@@ -50,6 +51,7 @@ import {
 } from "../components/procurement/CabinetTimelineTile";
 import type {
   ProcurementContractorRollup,
+  ProcurementAwarderRollup,
   ProcurementBreakdown,
 } from "@/data/dataTypes";
 import { procedureBucket, type ProcedureBucket } from "@/lib/cpvSectors";
@@ -134,6 +136,19 @@ interface Institution {
   buyContractorCount: number;
 }
 
+// The buy-side rollup from awarder_procurement() — the ProcurementAwarderRollup
+// fields (minus eik/name/generatedAt/seat, filled client-side).
+type DbAwarderRollup = Pick<
+  ProcurementAwarderRollup,
+  | "totalEur"
+  | "totalOther"
+  | "contractCount"
+  | "awardCount"
+  | "byContractor"
+  | "byYear"
+  | "topContracts"
+> & { contractorCount: number; amendmentCount: number };
+
 // The procurement rollup from company_procurement() — the ProcurementContractorRollup
 // fields (minus eik/name/generatedAt, filled client-side) + the raw breakdown
 // aggregation the CPV/procedure tile buckets client-side.
@@ -186,6 +201,7 @@ export const CompanyDbScreen: FC = () => {
   const [related, setRelated] = useState<RelatedCompany[] | null>(null);
   const [institution, setInstitution] = useState<Institution | null>(null);
   const [geography, setGeography] = useState<CompanyGeography | null>(null);
+  const [awarderProc, setAwarderProc] = useState<DbAwarderRollup | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [period, setPeriod] = useState<string>(PERIOD_ALL);
@@ -219,6 +235,7 @@ export const CompanyDbScreen: FC = () => {
           setRelated(j.related ?? null);
           setInstitution(j.institution ?? null);
           setGeography(j.geography ?? null);
+          setAwarderProc(j.awarderProcurement ?? null);
         }
       })
       .catch((e) => live && setError(String(e)))
@@ -250,6 +267,49 @@ export const CompanyDbScreen: FC = () => {
           }
         : null,
     [procurement, eik, company?.name],
+  );
+
+  // Buy-side rollup for the DB awarder dashboard (when the EIK is an awarder).
+  const awarderName = company?.name ?? institution?.name ?? eik;
+  const awarderRollup = useMemo<ProcurementAwarderRollup | null>(
+    () =>
+      awarderProc
+        ? {
+            eik,
+            name: awarderName,
+            totalEur: awarderProc.totalEur,
+            totalOther: awarderProc.totalOther,
+            contractCount: awarderProc.contractCount,
+            awardCount: awarderProc.awardCount,
+            contractorCount: awarderProc.contractorCount,
+            byContractor: awarderProc.byContractor,
+            byYear: awarderProc.byYear,
+            topContracts: awarderProc.topContracts,
+            generatedAt: "",
+          }
+        : null,
+    [awarderProc, eik, awarderName],
+  );
+  // The top-contracts tile takes a contractor-shaped rollup; feed it the
+  // awarder's topContracts (party = the CONTRACTOR that was paid).
+  const awarderContractsRollup = useMemo<ProcurementContractorRollup | null>(
+    () =>
+      awarderProc
+        ? {
+            eik,
+            name: awarderName,
+            totalEur: awarderProc.totalEur,
+            totalOther: awarderProc.totalOther,
+            contractCount: awarderProc.contractCount,
+            awardCount: awarderProc.awardCount,
+            awarderCount: awarderProc.contractorCount,
+            byAwarder: [],
+            byYear: awarderProc.byYear,
+            topContracts: awarderProc.topContracts,
+            generatedAt: "",
+          }
+        : null,
+    [awarderProc, eik, awarderName],
   );
 
   // Bucket the raw procedure-method sums into the ProcedureBucket the breakdown
@@ -296,6 +356,8 @@ export const CompanyDbScreen: FC = () => {
             </span>
           )}
         </h1>
+        {/* Identity only — contract counts / totals / political links live in the
+            stat cards + the political-links card below, so they aren't repeated. */}
         {!loading && !error && (
           <div className="mt-2 flex flex-wrap gap-4 text-sm text-muted-foreground">
             <span>ЕИК {eik}</span>
@@ -310,21 +372,6 @@ export const CompanyDbScreen: FC = () => {
                   i18n.language,
                 )}
               </span>
-            )}
-            {(company || contracts > 0) && (
-              <span>{num.format(contracts)} договора</span>
-            )}
-            {summary?.contracts_eur ? (
-              <span>{formatEur(summary.contracts_eur)}</span>
-            ) : null}
-            {institution?.isAwarder && (
-              <span>
-                {num.format(institution.buyContractCount)} поръчки като
-                възложител
-              </span>
-            )}
-            {company && (
-              <span>{num.format(politicians.length)} политически връзки</span>
             )}
           </div>
         )}
@@ -357,49 +404,69 @@ export const CompanyDbScreen: FC = () => {
 
       {!loading && !error && (company || institution) && (
         <div className="space-y-6">
-          {institution?.isAwarder && (
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="flex items-center gap-2 text-base">
-                  <Landmark className="h-4 w-4 text-muted-foreground" /> Като
-                  възложител
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-3 md:p-4">
-                <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm">
-                  <div>
-                    <div className="text-xs text-muted-foreground">
-                      Възложени поръчки
-                    </div>
-                    <div className="font-semibold tabular-nums">
-                      {num.format(institution.buyContractCount)}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-xs text-muted-foreground">
-                      Обща стойност
-                    </div>
-                    <div className="font-semibold tabular-nums">
-                      {formatEur(institution.buyTotalEur, i18n.language)}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-xs text-muted-foreground">
-                      Изпълнители
-                    </div>
-                    <div className="font-semibold tabular-nums">
-                      {num.format(institution.buyContractorCount)}
-                    </div>
-                  </div>
-                </div>
+          {awarderRollup && (
+            <section className="space-y-4">
+              <div className="flex items-center gap-2">
+                <Landmark className="h-5 w-5 text-muted-foreground" />
+                <h2 className="text-lg font-semibold">Като възложител</h2>
                 <Link
                   to={`/awarder/${eik}`}
-                  className="mt-3 inline-flex items-center gap-1 text-sm text-accent hover:underline"
+                  className="ml-auto inline-flex items-center gap-1 text-sm text-accent hover:underline"
                 >
-                  Пълно табло на възложителя <ArrowRight className="h-3 w-3" />
+                  Пълно табло <ArrowRight className="h-3 w-3" />
                 </Link>
-              </CardContent>
-            </Card>
+              </div>
+              <div className="grid gap-3 grid-cols-2 lg:grid-cols-3">
+                <StatCard label="Общо възложени">
+                  <div className="flex items-baseline gap-2">
+                    <Coins className="h-5 w-5 text-muted-foreground shrink-0" />
+                    <span
+                      className="text-lg md:text-xl font-bold tabular-nums"
+                      title={formatEur(awarderRollup.totalEur, i18n.language)}
+                    >
+                      {formatEurCompact(awarderRollup.totalEur, i18n.language)}
+                    </span>
+                  </div>
+                </StatCard>
+                <StatCard label="Договори">
+                  <div className="flex items-baseline gap-2">
+                    <FileText className="h-5 w-5 text-muted-foreground shrink-0" />
+                    <span className="text-lg md:text-xl font-bold tabular-nums">
+                      {num.format(awarderRollup.contractCount)}
+                    </span>
+                    {awarderProc && awarderProc.amendmentCount > 0 && (
+                      <span className="text-xs text-muted-foreground">
+                        + {num.format(awarderProc.amendmentCount)} анекса
+                      </span>
+                    )}
+                  </div>
+                </StatCard>
+                <StatCard label="Изпълнители">
+                  <div className="flex items-baseline gap-2">
+                    <Users className="h-5 w-5 text-muted-foreground shrink-0" />
+                    <span className="text-lg md:text-xl font-bold tabular-nums">
+                      {num.format(awarderRollup.contractorCount ?? 0)}
+                    </span>
+                  </div>
+                </StatCard>
+              </div>
+              <div className="grid gap-4 lg:grid-cols-2">
+                <CompanyTopContractsTile
+                  eik={eik}
+                  rollup={awarderContractsRollup}
+                  partyHref={(e) => `/db/company/${e}`}
+                  seeAllHref={`/awarder/${eik}`}
+                />
+                <AwarderTopContractorsTile
+                  eik={eik}
+                  rollup={awarderRollup}
+                  contractorHref={(e) => `/db/company/${e}`}
+                />
+              </div>
+              {awarderRollup.byYear.length > 0 && (
+                <CompanyByYearChart rows={awarderRollup.byYear} />
+              )}
+            </section>
           )}
           {debarred.length > 0 && (
             <div className="rounded-md border border-red-300 bg-red-100 p-3 text-sm text-red-900 dark:border-red-900 dark:bg-red-900/30 dark:text-red-100">
@@ -523,9 +590,18 @@ export const CompanyDbScreen: FC = () => {
               </div>
 
               <div className="grid gap-4 xl:grid-cols-2">
-                <CompanyTopContractsTile eik={eik} rollup={rollup} />
+                <CompanyTopContractsTile
+                  eik={eik}
+                  rollup={rollup}
+                  partyHref={(e) => `/db/company/${e}`}
+                  seeAllHref={`/db/company/${eik}/contracts`}
+                />
                 {rollup.byAwarder.length > 0 && (
-                  <CompanyTopAwardersTile eik={eik} rollup={rollup} />
+                  <CompanyTopAwardersTile
+                    eik={eik}
+                    rollup={rollup}
+                    awarderHref={(e) => `/db/company/${e}`}
+                  />
                 )}
               </div>
 

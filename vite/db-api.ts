@@ -170,6 +170,10 @@ export const dbApi = (): Plugin => ({
             eik,
           ]),
           allRows<{ r: unknown }>("SELECT company_geography($1) AS r", [eik]),
+          allRows<{ r: unknown }>(
+            "SELECT awarder_procurement($1, $2, $3) AS r",
+            [eik, q("from") || null, q("to") || null],
+          ),
         ]).then(
           ([
             company,
@@ -185,6 +189,7 @@ export const dbApi = (): Plugin => ({
             related,
             institution,
             geography,
+            awarderProcurement,
           ]) =>
             send(200, {
               eik,
@@ -201,6 +206,7 @@ export const dbApi = (): Plugin => ({
               related: related[0]?.r ?? null,
               institution: institution[0]?.r ?? null,
               geography: geography[0]?.r ?? null,
+              awarderProcurement: awarderProcurement[0]?.r ?? null,
             }),
           fail,
         );

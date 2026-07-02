@@ -1530,6 +1530,9 @@ export type ProcurementRollupContractRow = {
   amountEur?: number;
   partyEik: string;
   partyName: string;
+  /** Contract subject/title — present on DB rollups (company_procurement /
+   *  awarder_procurement); optional so legacy JSON rollups still parse. */
+  title?: string;
   bundleUuid: string;
   sourceUrl: string;
 };

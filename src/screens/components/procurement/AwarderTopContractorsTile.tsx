@@ -12,14 +12,21 @@ import { formatEurWithOther } from "@/lib/currency";
 
 const TOP_ROWS = 10;
 
+const EMPTY_SET: Set<string> = new Set();
+
 export const AwarderTopContractorsTile: FC<{
   eik: string;
   rollup: ProcurementAwarderRollup;
   // EIK → mpIds map so MP-tied rows can be highlighted at-a-glance even
   // before the user scrolls back up to the dedicated MP-tied section.
-  mpTiedEiks: Set<string>;
-}> = ({ eik, rollup, mpTiedEiks }) => {
+  mpTiedEiks?: Set<string>;
+  /** Link builder for a contractor row (DB page routes to the DB company view). */
+  contractorHref?: (eik: string) => string;
+  /** Override the "see all" target (defaults to the JSON contractors page). */
+  seeAllHref?: string;
+}> = ({ eik, rollup, mpTiedEiks = EMPTY_SET, contractorHref, seeAllHref }) => {
   const { t, i18n } = useTranslation();
+  const hrefContractor = contractorHref ?? ((e: string) => `/company/${e}`);
   const rows = rollup.byContractor.slice(0, TOP_ROWS);
   if (rows.length === 0) return null;
 
@@ -35,7 +42,7 @@ export const AwarderTopContractorsTile: FC<{
           </span>
           {(rollup.contractorCount ?? rollup.byContractor.length) > TOP_ROWS ? (
             <Link
-              to={`/awarder/${eik}/contractors`}
+              to={seeAllHref ?? `/awarder/${eik}/contractors`}
               className="ml-auto inline-flex items-center gap-1 text-xs text-primary hover:underline font-normal"
             >
               {t("procurement_tile_see_all") || "See all"}
@@ -79,7 +86,7 @@ export const AwarderTopContractorsTile: FC<{
                   </td>
                   <td className="px-3 py-2">
                     <Link
-                      to={`/company/${c.eik}`}
+                      to={hrefContractor(c.eik)}
                       className="font-medium hover:underline"
                     >
                       {c.name}

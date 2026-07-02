@@ -15,8 +15,13 @@ const TOP_ROWS = 10;
 export const CompanyTopAwardersTile: FC<{
   eik: string;
   rollup: ProcurementContractorRollup;
-}> = ({ eik, rollup }) => {
+  /** Link builder for an awarder row (DB page routes to the DB awarder view). */
+  awarderHref?: (eik: string) => string;
+  /** Override the "see all" target (defaults to the JSON awarders page). */
+  seeAllHref?: string;
+}> = ({ eik, rollup, awarderHref, seeAllHref }) => {
   const { t, i18n } = useTranslation();
+  const hrefAwarder = awarderHref ?? ((e: string) => `/awarder/${e}`);
   const rows = rollup.byAwarder.slice(0, TOP_ROWS);
   if (rows.length === 0) return null;
 
@@ -32,7 +37,7 @@ export const CompanyTopAwardersTile: FC<{
           </span>
           {(rollup.awarderCount ?? rollup.byAwarder.length) > TOP_ROWS ? (
             <Link
-              to={`/company/${eik}/awarders`}
+              to={seeAllHref ?? `/company/${eik}/awarders`}
               className="ml-auto inline-flex items-center gap-1 text-xs text-primary hover:underline font-normal"
             >
               {t("procurement_tile_see_all") || "See all"}
@@ -69,7 +74,7 @@ export const CompanyTopAwardersTile: FC<{
                   </td>
                   <td className="px-3 py-2">
                     <Link
-                      to={`/awarder/${a.eik}`}
+                      to={hrefAwarder(a.eik)}
                       className="font-medium hover:underline"
                     >
                       {a.name}

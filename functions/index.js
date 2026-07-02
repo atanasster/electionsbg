@@ -444,6 +444,7 @@ const DB_ROUTES = {
       related,
       institution,
       geography,
+      awarderProcurement,
     ] = await Promise.all([
       dbRows(
         pool,
@@ -474,6 +475,11 @@ const DB_ROUTES = {
       dbRows(pool, "SELECT company_related($1) AS r", [eik]),
       dbRows(pool, "SELECT institution_identity($1) AS r", [eik]),
       dbRows(pool, "SELECT company_geography($1) AS r", [eik]),
+      dbRows(pool, "SELECT awarder_procurement($1, $2, $3) AS r", [
+        eik,
+        q.from || null,
+        q.to || null,
+      ]),
     ]);
     return {
       body: {
@@ -491,6 +497,7 @@ const DB_ROUTES = {
         related: related[0]?.r ?? null,
         institution: institution[0]?.r ?? null,
         geography: geography[0]?.r ?? null,
+        awarderProcurement: awarderProcurement[0]?.r ?? null,
       },
     };
   },

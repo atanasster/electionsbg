@@ -1,25 +1,18 @@
--- Company procurement rollup for the DB-backed company page (/db/company/:eik).
--- Returns, in ONE jsonb, the same shape the static contractors/<eik>.json rollup
--- carries (ProcurementContractorRollup) so the DB page reuses the existing
--- procurement tiles unchanged: headline totals, per-awarder + per-year rollups,
--- top contracts, and the raw CPV-division / procedure-method aggregation the
--- breakdown tile buckets client-side (d = left(cpv,2), b = procedureBucket()).
+-- Awarder (buy-side) procurement rollup for the DB company page when the EIK is
+-- an awarding body (/db/company/:eik, institution view). The mirror of
+-- company_procurement (011) but from the BUYER's side: filters awarder_eik and
+-- groups by CONTRACTOR (who the institution paid). Returns the same jsonb shape
+-- so the page reuses the contract/party/by-year tiles — with byContractor in
+-- place of byAwarder and contractorCount in place of awarderCount.
 --
--- Aggregations mirror the offline builder exactly (contract-only rule
--- tag='contract'; db:build already proves PG reproduces that rollup 0-diff), so
--- the DB page is at parity with the JSON page for contracts/awarders/charts.
--- Returns NULL when the EIK has no procurement rows (page hides the block).
---
--- Depends on `contracts` (001). EXECUTE auto-granted to app_readonly via ALTER
--- DEFAULT PRIVILEGES (roles_readonly.sql).
+-- Depends on contracts (001). awarder_eik is indexed. Returns NULL when the EIK
+-- awarded nothing. EXECUTE auto-granted to app_readonly.
 
 SET check_function_bodies = off;
-DROP FUNCTION IF EXISTS company_procurement(text);
-DROP FUNCTION IF EXISTS company_procurement(text, text, text);
+DROP FUNCTION IF EXISTS awarder_procurement(text);
+DROP FUNCTION IF EXISTS awarder_procurement(text, text, text);
 
--- p_from / p_to (YYYY-MM-DD, nullable) scope the WHOLE rollup to a date window
--- so the company dashboard can re-scope to a year / last-N-years. NULL = all time.
-CREATE OR REPLACE FUNCTION company_procurement(
+CREATE OR REPLACE FUNCTION awarder_procurement(
   p_eik text,
   p_from text DEFAULT NULL,
   p_to text DEFAULT NULL
@@ -27,20 +20,17 @@ CREATE OR REPLACE FUNCTION company_procurement(
 RETURNS jsonb LANGUAGE sql STABLE AS $$
 WITH base AS (
   SELECT * FROM contracts
-  WHERE contractor_eik = p_eik
+  WHERE awarder_eik = p_eik
     AND (p_from IS NULL OR date >= p_from)
     AND (p_to IS NULL OR date <= p_to)
 ),
 hd AS (
   SELECT
-    COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract'), 0)   AS total_eur,
-    (COUNT(*) FILTER (WHERE tag = 'contract'))::int                AS contract_count,
-    -- awardCount = OCDS 'award' notices (matches the JSON rollup; corpus has none
-    -- today). amendmentCount = 'contractAmendment' rows (анекси) — surfaced
-    -- separately so they're labelled correctly, not lumped in as "awards".
-    (COUNT(*) FILTER (WHERE tag = 'award'))::int                    AS award_count,
-    (COUNT(*) FILTER (WHERE tag = 'contractAmendment'))::int        AS amendment_count,
-    (COUNT(DISTINCT awarder_eik) FILTER (WHERE tag = 'contract'))::int AS awarder_count
+    COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract'), 0)        AS total_eur,
+    (COUNT(*) FILTER (WHERE tag = 'contract'))::int                     AS contract_count,
+    (COUNT(*) FILTER (WHERE tag = 'award'))::int                        AS award_count,
+    (COUNT(*) FILTER (WHERE tag = 'contractAmendment'))::int            AS amendment_count,
+    (COUNT(DISTINCT contractor_eik) FILTER (WHERE tag = 'contract'))::int AS contractor_count
   FROM base
 ),
 other AS (
@@ -51,14 +41,14 @@ other AS (
     GROUP BY currency
   ) q
 ),
-byaw AS (
+byc AS (
   SELECT COALESCE(jsonb_agg(to_jsonb(a) ORDER BY a."totalEur" DESC NULLS LAST), '[]'::jsonb) AS arr FROM (
-    SELECT awarder_eik AS eik, MIN(awarder_name) AS name,
+    SELECT contractor_eik AS eik, MIN(contractor_name) AS name,
            COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract'), 0) AS "totalEur",
            '{}'::jsonb AS "totalOther",
            (COUNT(*) FILTER (WHERE tag = 'contract'))::int AS "contractCount"
     FROM base
-    GROUP BY awarder_eik
+    GROUP BY contractor_eik
     HAVING COUNT(*) FILTER (WHERE tag = 'contract') > 0
     ORDER BY "totalEur" DESC NULLS LAST
     LIMIT 50
@@ -78,12 +68,12 @@ byyr AS (
 topc AS (
   SELECT COALESCE(jsonb_agg(to_jsonb(t) ORDER BY t."amountEur" DESC NULLS LAST), '[]'::jsonb) AS arr FROM (
     SELECT key, ocid, date, tag, amount, currency,
-           amount_eur   AS "amountEur",
-           awarder_eik  AS "partyEik",
-           awarder_name AS "partyName",
+           amount_eur     AS "amountEur",
+           contractor_eik AS "partyEik",
+           contractor_name AS "partyName",
            title,
-           bundle_uuid  AS "bundleUuid",
-           source_url   AS "sourceUrl"
+           bundle_uuid    AS "bundleUuid",
+           source_url     AS "sourceUrl"
     FROM base
     WHERE tag = 'contract'
     ORDER BY amount_eur DESC NULLS LAST
@@ -123,8 +113,8 @@ SELECT CASE
     'contractCount', hd.contract_count,
     'awardCount', hd.award_count,
     'amendmentCount', hd.amendment_count,
-    'awarderCount', hd.awarder_count,
-    'byAwarder', byaw.arr,
+    'contractorCount', hd.contractor_count,
+    'byContractor', byc.arr,
     'byYear', byyr.arr,
     'topContracts', topc.arr,
     'breakdown', jsonb_build_object(
@@ -138,5 +128,5 @@ SELECT CASE
     )
   )
 END
-FROM hd, other, byaw, byyr, topc, bd, bd_cpv, bd_proc;
+FROM hd, other, byc, byyr, topc, bd, bd_cpv, bd_proc;
 $$;
