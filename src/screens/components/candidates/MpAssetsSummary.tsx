@@ -21,7 +21,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useMpAssets } from "@/data/parliament/useMpAssets";
 import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
 import type { MpAsset, MpAssetCategory } from "@/data/dataTypes";
-import { formatEur } from "@/lib/currency";
+import { formatEur, toEur } from "@/lib/currency";
 
 type Props = { name: string; linkSlug?: string };
 
@@ -304,7 +304,10 @@ export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
                 if (a.amount != null && a.currency && a.currency !== "BGN") {
                   parts.push(`${a.amount} ${a.currency}`);
                 } else if (a.amount != null && a.currency === "BGN") {
-                  parts.push(`${a.amount} лв`);
+                  // Euro since 2026-01-01 — show the BGN declaration converted.
+                  parts.push(
+                    formatEur(toEur(Number(a.amount), "BGN") ?? 0, lang),
+                  );
                 }
                 if (a.share) parts.push(`(${a.share})`);
                 if (a.acquiredYear) parts.push(`${a.acquiredYear}`);

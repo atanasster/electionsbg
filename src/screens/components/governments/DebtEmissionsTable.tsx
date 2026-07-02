@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import type { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/ux/data_table/DataTable";
 import { DebtEmission, useDebtEmissions } from "@/data/macro/useDebtEmissions";
+import { BGN_PER_EUR } from "@/lib/currency";
 
 // Lookup of currency code → unicode symbol. Anything not listed falls back
 // to the bare ISO code so we never silently drop a currency.
@@ -17,10 +18,15 @@ const CURRENCY_SYMBOL: Record<string, string> = {
   USD: "$",
   GBP: "£",
   CHF: "CHF ",
-  BGN: "лв ",
 };
 
 const fmtPrincipal = (currency: string, principalMillion: number): string => {
+  // Euro since 2026-01-01: redenominate BGN (domestic ДЦК) principals to EUR at
+  // the locked peg so nothing shows in leva.
+  if (currency === "BGN") {
+    principalMillion /= BGN_PER_EUR;
+    currency = "EUR";
+  }
   const sym = CURRENCY_SYMBOL[currency] ?? `${currency} `;
   // Billions when ≥ 1000 million; millions otherwise. Two decimals on bn
   // to keep €2.25bn legible; zero decimals on small T-bill auctions.

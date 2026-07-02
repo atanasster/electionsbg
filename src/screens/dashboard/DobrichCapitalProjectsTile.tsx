@@ -127,7 +127,7 @@ export const DobrichCapitalProjectsTile: FC<{ obshtinaCode: string }> = ({
                   <div
                     key={f.code}
                     className="rounded border bg-card p-2 text-xs"
-                    title={`${f.total.amount.toLocaleString("bg-BG")} лв.`}
+                    title={`€${Math.round(f.total.amountEur).toLocaleString("bg-BG")}`}
                   >
                     <div
                       className="h-1 rounded-full mb-1"

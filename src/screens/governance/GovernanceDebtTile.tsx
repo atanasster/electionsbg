@@ -9,16 +9,22 @@ import { ArrowRight, Coins } from "lucide-react";
 import { Link } from "react-router-dom";
 import { DebtEmission, useDebtEmissions } from "@/data/macro/useDebtEmissions";
 import { StatCard } from "@/screens/dashboard/StatCard";
+import { BGN_PER_EUR } from "@/lib/currency";
 
 const CURRENCY_SYMBOL: Record<string, string> = {
   EUR: "€",
   USD: "$",
   GBP: "£",
   CHF: "CHF ",
-  BGN: "лв ",
 };
 
 const fmtPrincipal = (currency: string, principalMillion: number): string => {
+  // Euro since 2026-01-01: redenominate BGN (domestic ДЦК) principals to EUR at
+  // the locked peg so nothing shows in leva.
+  if (currency === "BGN") {
+    principalMillion /= BGN_PER_EUR;
+    currency = "EUR";
+  }
   const sym = CURRENCY_SYMBOL[currency] ?? `${currency} `;
   if (principalMillion >= 1000) {
     return `${sym}${(principalMillion / 1000).toFixed(2)}bn`;

@@ -164,7 +164,7 @@ export const MunicipalTransfersTile: FC<{ regionCode: string }> = ({
                 className="rounded border bg-card p-2 text-xs"
                 title={
                   money
-                    ? `${money.amount.toLocaleString("bg-BG")} ${money.currency === "BGN" ? "лв." : "EUR"}`
+                    ? `€${Math.round(money.amountEur).toLocaleString("bg-BG")}`
                     : undefined
                 }
               >
