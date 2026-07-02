@@ -38,6 +38,10 @@ import {
   CompanyRelatedTile,
   type RelatedCompany,
 } from "../components/procurement/CompanyRelatedTile";
+import {
+  CompanyGeographyTile,
+  type CompanyGeography,
+} from "../components/procurement/CompanyGeographyTile";
 import { CompanyPortfolioTreemap } from "../components/procurement/CompanyPortfolioTreemap";
 import { ProcurementBreakdownTile } from "../components/procurement/ProcurementBreakdownTile";
 import {
@@ -178,6 +182,7 @@ export const CompanyDbScreen: FC = () => {
   const [sectors, setSectors] = useState<SectorRank[] | null>(null);
   const [related, setRelated] = useState<RelatedCompany[] | null>(null);
   const [institution, setInstitution] = useState<Institution | null>(null);
+  const [geography, setGeography] = useState<CompanyGeography | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [period, setPeriod] = useState<string>(PERIOD_ALL);
@@ -210,6 +215,7 @@ export const CompanyDbScreen: FC = () => {
           setSectors(j.sectors ?? null);
           setRelated(j.related ?? null);
           setInstitution(j.institution ?? null);
+          setGeography(j.geography ?? null);
         }
       })
       .catch((e) => live && setError(String(e)))
@@ -528,6 +534,7 @@ export const CompanyDbScreen: FC = () => {
               {sectors && sectors.length > 0 && (
                 <CompanySectorRankTile data={sectors} />
               )}
+              {geography && <CompanyGeographyTile data={geography} />}
               <CompanyBuyerConcentrationTile rollup={rollup} />
               {relationships && (
                 <CompanyBuyerCaptureTile data={relationships} />

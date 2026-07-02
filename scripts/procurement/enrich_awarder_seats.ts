@@ -106,6 +106,48 @@ const sameSeat = (a: AwarderSeat | undefined, b: AwarderSeat): boolean =>
   a.isVillage === b.isVillage &&
   a.source === b.source;
 
+// Resolve one awarder's seat: prefer its already-resolved buyer-HQ EKATTE, else
+// a UNIQUE settlement name parsed from the buyer's name variants (ambiguous →
+// none). Shared by the JSON enrichment and the PG loader.
+const resolveSeat = (
+  aw: AwarderRollup,
+  resolver: ReturnType<typeof getResolver>,
+  byEkatte: Map<string, EkatteEntry>,
+): AwarderSeat | undefined => {
+  const geoEkatte = aw.geo?.ekatte;
+  if (geoEkatte && byEkatte.has(geoEkatte)) {
+    return seatFromEntry(byEkatte.get(geoEkatte)!, "geo");
+  }
+  const resolved = new Map<string, EkatteEntry>();
+  for (const c of seatCandidates(aw.eik, aw.name)) {
+    const r = resolver.resolve({ locality: c });
+    if (r.ekatte && r.matched) resolved.set(r.ekatte, r.matched);
+  }
+  return resolved.size === 1
+    ? seatFromEntry([...resolved.values()][0], "name")
+    : undefined;
+};
+
+// eik → resolved seat for every awarder shard (no file writes) — the source for
+// the PG awarder_seats table (load_awarder_seats_pg.ts), so the DB company page
+// can build a geographic footprint entirely from Postgres.
+export const computeAwarderSeats = (): Map<string, AwarderSeat> => {
+  const out = new Map<string, AwarderSeat>();
+  if (!fs.existsSync(AWARDERS_DIR)) return out;
+  const resolver = getResolver();
+  const byEkatte = new Map<string, EkatteEntry>();
+  for (const e of resolver.entries) byEkatte.set(e.ekatte, e);
+  for (const file of fs.readdirSync(AWARDERS_DIR)) {
+    if (!file.endsWith(".json")) continue;
+    const aw = JSON.parse(
+      fs.readFileSync(path.join(AWARDERS_DIR, file), "utf8"),
+    ) as AwarderRollup;
+    const seat = resolveSeat(aw, resolver, byEkatte);
+    if (seat) out.set(aw.eik, seat);
+  }
+  return out;
+};
+
 export interface EnrichSeatsResult {
   total: number;
   fromGeo: number;
@@ -141,33 +183,13 @@ export const enrichAwarderSeats = (
     const filePath = path.join(AWARDERS_DIR, file);
     const aw = JSON.parse(fs.readFileSync(filePath, "utf8")) as AwarderRollup;
 
-    let seat: AwarderSeat | undefined;
-
-    // 1. Prefer the already-resolved buyer-HQ EKATTE.
-    const geoEkatte = aw.geo?.ekatte;
-    if (geoEkatte && byEkatte.has(geoEkatte)) {
-      seat = seatFromEntry(byEkatte.get(geoEkatte)!, "geo");
-      res.fromGeo += 1;
-    } else {
-      // 2. Fall back to a unique settlement name parsed from the buyer's name.
-      const cands = seatCandidates(aw.eik, aw.name);
-      const resolved = new Map<string, EkatteEntry>();
-      for (const c of cands) {
-        const r = resolver.resolve({ locality: c });
-        if (r.ekatte && r.matched) resolved.set(r.ekatte, r.matched);
-      }
-      if (resolved.size === 1) {
-        seat = seatFromEntry([...resolved.values()][0], "name");
-        res.fromName += 1;
-      } else if (resolved.size > 1) {
-        // Two different unique settlements in the name → don't guess.
-        res.conflicts += 1;
-      } else {
-        res.unresolved += 1;
-      }
+    const seat = resolveSeat(aw, resolver, byEkatte);
+    if (!seat) {
+      res.unresolved += 1;
+      continue;
     }
-
-    if (!seat) continue;
+    if (seat.source === "geo") res.fromGeo += 1;
+    else res.fromName += 1;
 
     if (sameSeat(aw.seat, seat)) {
       res.unchanged += 1;

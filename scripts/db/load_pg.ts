@@ -41,7 +41,12 @@ const RELATIONSHIPS_FILE = path.join(
 );
 const SECTOR_STATS_FILE = path.join(SCHEMA_DIR, "018_sector_stats.sql");
 const FUNDS_SCHEMA_FILE = path.join(SCHEMA_DIR, "015_funds.sql");
+const FUND_PROJECTS_SCHEMA_FILE = path.join(
+  SCHEMA_DIR,
+  "016_fund_projects.sql",
+);
 const INSTITUTION_FILE = path.join(SCHEMA_DIR, "020_institution.sql");
+const AWARDER_SEATS_FILE = path.join(SCHEMA_DIR, "021_awarder_seats.sql");
 const GOVERNMENTS_FILE = path.join(PROC_DIR, "..", "governments.json");
 const DEBARRED_FILE = path.join(PROC_DIR, "debarred.json");
 const monthShardDir = path.join(PROC_DIR, "contracts");
@@ -102,10 +107,13 @@ export const loadPg = async (): Promise<{
   await exec(readFileSync(DEBARRED_SCHEMA_FILE, "utf8"));
   await exec(readFileSync(RELATIONSHIPS_FILE, "utf8"));
   await exec(readFileSync(SECTOR_STATS_FILE, "utf8"));
-  // Ensure the fund_beneficiaries table exists (data loaded by load_funds_pg) so
-  // institution_identity can reference it even on a contracts-only load.
+  // Ensure the funds tables exist (data loaded by load_funds_pg) so
+  // institution_identity / company_geography can reference them even on a
+  // contracts-only load. awarder_seats data is loaded by load_awarder_seats_pg.
   await exec(readFileSync(FUNDS_SCHEMA_FILE, "utf8"));
+  await exec(readFileSync(FUND_PROJECTS_SCHEMA_FILE, "utf8"));
   await exec(readFileSync(INSTITUTION_FILE, "utf8"));
+  await exec(readFileSync(AWARDER_SEATS_FILE, "utf8"));
 
   const { rows, years } = readShards();
   let batchId = 0;
