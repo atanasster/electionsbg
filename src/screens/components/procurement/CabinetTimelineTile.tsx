@@ -137,11 +137,15 @@ export const CabinetTimelineTile: FC<{
   if (all.length === 0) return null;
 
   // Peak among REGULAR (elected) cabinets — a 2-month caretaker's €/month spikes
-  // on a couple of contracts and isn't the political takeaway.
+  // on a couple of contracts and isn't the political takeaway. So the tallest
+  // bar in the default (all-cabinets) view can be a caretaker that ISN'T the
+  // highlighted government; the label + a marked bar make that explicit.
   const regular = all.filter((d) => !d.caretaker);
-  const peak = (regular.length ? regular : all).reduce((a, b) =>
+  const hasRegular = regular.length > 0;
+  const peak = (hasRegular ? regular : all).reduce((a, b) =>
     b.perMonth > a.perMonth ? b : a,
   );
+  const anyCaretaker = all.some((d) => d.caretaker);
   const avg =
     data.length > 0
       ? data.reduce((s, d) => s + d.perMonth, 0) / data.length
@@ -163,7 +167,13 @@ export const CabinetTimelineTile: FC<{
       <CardContent className="p-3 md:p-4 space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="rounded-md bg-muted/40 px-3 py-2 text-sm">
-            {bg ? "Най-висок темп при " : "Highest rate under "}
+            {bg
+              ? hasRegular
+                ? "Най-висок темп сред редовните кабинети: "
+                : "Най-висок темп при "
+              : hasRegular
+                ? "Highest rate among regular cabinets: "
+                : "Highest rate under "}
             <span className="font-semibold">{peak.pm}</span>
             {peak.lead ? (
               <span className="text-muted-foreground"> ({peak.lead})</span>
@@ -239,12 +249,24 @@ export const CabinetTimelineTile: FC<{
                     key={d.key}
                     fill={d.color}
                     fillOpacity={d.caretaker ? 0.4 : 0.85}
+                    stroke={
+                      d.key === peak.key ? "var(--foreground)" : undefined
+                    }
+                    strokeWidth={d.key === peak.key ? 1.5 : 0}
                   />
                 ))}
               </Bar>
             </BarChart>
           </ResponsiveContainer>
         </div>
+
+        {anyCaretaker && !regularOnly && (
+          <p className="text-xs text-muted-foreground/80">
+            {bg
+              ? "Служебните кабинети са затъмнени и не влизат в „най-висок темп“ (кратък мандат → изкривен темп на месец)."
+              : "Caretaker cabinets are dimmed and excluded from the “highest rate” (short tenure skews the monthly rate)."}
+          </p>
+        )}
       </CardContent>
     </Card>
   );
