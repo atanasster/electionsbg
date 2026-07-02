@@ -294,9 +294,12 @@ export const loadPg = async (): Promise<{
   }
 
   // Precomputed aggregates over the freshly-loaded contracts (buyer grand-totals
-  // for capture share; sector rank stats). Refreshed here so they never go stale.
+  // for capture share; sector rank stats; the risk-indexes payload — a
+  // full-corpus aggregate too slow to compute per request on Cloud SQL).
+  // Refreshed here so they never go stale.
   await exec("REFRESH MATERIALIZED VIEW awarder_totals");
   await exec("REFRESH MATERIALIZED VIEW sector_contractor_stats");
+  await exec("REFRESH MATERIALIZED VIEW procurement_risk_indexes_cache");
 
   return { rows: rows.length, years: [...years].sort(), batchId, rowsNew };
 };

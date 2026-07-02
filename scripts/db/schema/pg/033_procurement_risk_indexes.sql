@@ -15,6 +15,10 @@
 
 SET check_function_bodies = off;
 
+-- The cache matview depends on the function — drop it first so the
+-- DROP FUNCTION below doesn't fail on the dependency.
+DROP MATERIALIZED VIEW IF EXISTS procurement_risk_indexes_cache;
+
 DROP FUNCTION IF EXISTS procurement_risk_indexes();
 CREATE OR REPLACE FUNCTION procurement_risk_indexes()
 RETURNS jsonb LANGUAGE sql STABLE AS $$
@@ -110,3 +114,11 @@ SELECT jsonb_build_object(
   )
 );
 $$;
+
+-- MEASURED (2026-07-03): the live function is a full-corpus aggregate —
+-- ~700ms local / ~2.8s warm on Cloud SQL (db-g1-small), over the repo's
+-- 200ms precompute bar for a payload every contract-row page needs. The
+-- route serves this matview instead; load_pg refreshes it after each load
+-- (the ingest cadence — the payload is deterministic per corpus).
+CREATE MATERIALIZED VIEW IF NOT EXISTS procurement_risk_indexes_cache AS
+  SELECT procurement_risk_indexes() AS r;

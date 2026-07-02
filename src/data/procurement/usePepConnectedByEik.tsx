@@ -47,6 +47,13 @@ export const usePepConnectedByEik = (
         role: row.role ?? "",
         relations: [],
       };
+      // Official rows' relations jsonb carries the pep shape ({role, …}) —
+      // surface the company-relation roles next to the official's own role.
+      for (const r of row.relations ?? []) {
+        const role = typeof r.role === "string" ? r.role : null;
+        if (role && !prior.relations.some((x) => x.role === role))
+          prior.relations.push({ role });
+      }
       bySlug.set(m[1], prior);
     }
     return [...bySlug.values()];

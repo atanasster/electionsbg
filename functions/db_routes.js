@@ -340,7 +340,19 @@ const DB_ROUTES = {
   // Consolidated client-side risk-scorer indexes (debarred register,
   // awarder→contractor concentration pairs, MP/official-connected EIK sets,
   // per-CPV-division competition baseline) — one payload, corpus-scoped.
+  // Served from the load-time matview (the live function is a full-corpus
+  // aggregate, ~2.8s warm on Cloud SQL); falls back to the live function on
+  // a DB that predates the cache.
   "procurement-risk-indexes": async (dbRows) => {
+    try {
+      const rows = await dbRows(
+        "SELECT r FROM procurement_risk_indexes_cache",
+        [],
+      );
+      if (rows[0]?.r) return { body: rows[0].r };
+    } catch {
+      // matview absent — fall through to the live computation
+    }
     const rows = await dbRows("SELECT procurement_risk_indexes() AS r", []);
     return { body: rows[0]?.r ?? null };
   },
@@ -431,8 +443,8 @@ const DB_ROUTES = {
     const kind = s(q, "kind");
     if (!id) return { status: 400, body: { error: "missing id" } };
     if (kind === "company" || kind === "awarder") {
-      // SECURITY: `me`/`other` are spliced into SQL — they MUST stay this
-      // fixed two-branch ternary; never derive them from client text.
+      // SECURITY: `me`/`other` are spliced into SQL as identifiers — they MUST
+      // stay this fixed two-branch ternary; never derive them from client text.
       const me = kind === "company" ? "contractor" : "awarder";
       const other = kind === "company" ? "awarder" : "contractor";
       const rows = await dbRows(
@@ -523,12 +535,14 @@ const DB_ROUTES = {
     return { body: rows[0]?.r ?? null };
   },
   // The MPs / officials declared as officers/owners of one contractor — the
-  // "connected people" chips on contract/company pages.
+  // "connected people" chips on contract/company pages. `relations` is the
+  // full jsonb from the connections pipeline (kind/isCurrent/shareSize/
+  // confidence), so chips keep "(former)" / "declared stake N%" fidelity.
   "company-politicians": async (dbRows, q) => {
     const eik = s(q, "eik");
     if (!eik) return { status: 400, body: { error: "missing eik" } };
     const entries = await dbRows(
-      `SELECT politician, ref, kind, role, total_eur AS "totalEur"
+      `SELECT politician, ref, kind, role, relations, total_eur AS "totalEur"
        FROM company_politicians WHERE eik = $1
        ORDER BY total_eur DESC NULLS LAST LIMIT 200`,
       [eik],

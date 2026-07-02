@@ -12,6 +12,8 @@ export type CounterpartyEntry = {
   totalEur: number;
   totalOther: Record<string, number>;
   contractCount: number;
+  /** Only meaningful for side="awarder" (contractors can be MP-tied);
+   *  always false on the awarders-of-a-company side. */
   mpTied: boolean;
 };
 
@@ -42,4 +44,5 @@ export const useCounterparties = (
     queryFn: () => fetchCounterparties(eik as string, side),
     enabled: !!eik,
     staleTime: Infinity,
+    retry: false,
   });

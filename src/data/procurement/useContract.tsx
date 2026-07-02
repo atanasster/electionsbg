@@ -5,7 +5,9 @@
 import { useQuery } from "@tanstack/react-query";
 import type { ProcurementContract } from "@/data/dataTypes";
 
-const fetchContract = async (
+// Shared with the watchlist (useWatchlistActivity), which fetches under the
+// SAME query key — keep one fetcher so the error semantics can't diverge.
+export const fetchContract = async (
   key: string,
 ): Promise<ProcurementContract | null> => {
   const r = await fetch(`/api/db/contract?key=${encodeURIComponent(key)}`);

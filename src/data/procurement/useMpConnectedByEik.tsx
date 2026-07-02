@@ -11,6 +11,10 @@ export type CompanyPoliticianRow = {
   ref: string;
   kind: "mp" | "official";
   role: string | null;
+  /** Full relation detail from the connections pipeline — MP rows carry the
+   *  {kind, isCurrent?, shareSize?, confidence?} shape, official rows the
+   *  {role, …} shape. */
+  relations: Array<Record<string, unknown>> | null;
   totalEur: number | null;
 };
 
@@ -58,10 +62,18 @@ export const useProcurementMpConnectedByEik = (
         mpName: row.politician,
         relations: [],
       };
-      if (row.role)
+      // Prefer the full relations jsonb (keeps isCurrent/shareSize/confidence
+      // → "(former)" / "declared stake N%" labels); fall back to the flat
+      // role column for rows loaded before the relations column existed.
+      if (row.relations && row.relations.length > 0) {
+        prior.relations.push(
+          ...(row.relations as unknown as ProcurementRelation[]),
+        );
+      } else if (row.role) {
         prior.relations.push({
           kind: row.role as ProcurementRelation["kind"],
         });
+      }
       byMp.set(mpId, prior);
     }
     return [...byMp.values()];

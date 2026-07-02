@@ -18,6 +18,9 @@
 import { useEffect, useMemo } from "react";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import type { ProcurementContract } from "@/data/dataTypes";
+// Same fetcher AND same query key as the contract detail page — the cache
+// entry is shared, so the error semantics must stay identical (it throws).
+import { fetchContract } from "./useContract";
 import {
   useWatchlist,
   useSeenMap,
@@ -79,15 +82,6 @@ const fetchSignature = async (it: WatchItem): Promise<Signature | null> => {
   return (await r.json()) as Signature;
 };
 
-const fetchContract = async (
-  key: string,
-): Promise<ProcurementContract | null> => {
-  const r = await fetch(`/api/db/contract?key=${encodeURIComponent(key)}`);
-  if (!r.ok) return null;
-  const j = (await r.json()) as { contract: ProcurementContract | null };
-  return j.contract ?? null;
-};
-
 const fetchEntity = async (it: WatchItem): Promise<unknown | null> =>
   it.kind === "contract" ? fetchContract(it.id) : fetchSignature(it);
 
@@ -133,6 +127,7 @@ export const useWatchlistActivity = (): {
     queryFn: fetchPersonIndex,
     enabled: hasPerson,
     staleTime: Infinity,
+    retry: false,
   });
 
   const entityItems = items.filter((i) => i.kind !== "person");
@@ -142,6 +137,7 @@ export const useWatchlistActivity = (): {
       queryFn: () => fetchEntity(it),
       enabled: ID_OK[it.kind].test(it.id),
       staleTime: Infinity,
+      retry: false,
     })),
   });
 

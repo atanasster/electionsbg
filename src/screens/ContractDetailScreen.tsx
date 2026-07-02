@@ -455,9 +455,11 @@ const ContractConnectedPeople: FC<{ eik: string }> = ({ eik }) => {
               <MpAvatar mpId={e.mpId} name={e.mpName} />
               {e.mpName}
             </Link>
-            <span className="text-xs text-muted-foreground">
-              — {summarizeRelations(t, e.relations)}
-            </span>
+            {e.relations.length > 0 ? (
+              <span className="text-xs text-muted-foreground">
+                — {summarizeRelations(t, e.relations)}
+              </span>
+            ) : null}
           </li>
         ))}
         {officials.map((e) => (

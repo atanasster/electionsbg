@@ -40,6 +40,7 @@ export const useTender = (unp?: string | null) =>
         .tender,
     enabled: !!unp && UNP_RE.test(unp),
     staleTime: Infinity,
+    retry: false,
   });
 
 /** Tender + its signed award contracts in one call (for detail screens that
@@ -51,4 +52,5 @@ export const useTenderDetail = (unp?: string | null) =>
       fetchTenderDetail(`unp=${encodeURIComponent(unp as string)}`),
     enabled: !!unp && UNP_RE.test(unp),
     staleTime: Infinity,
+    retry: false,
   });

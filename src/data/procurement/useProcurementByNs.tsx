@@ -42,5 +42,6 @@ export const useProcurementByNs = (enabled = true) => {
     },
     enabled: enabled && !!selected,
     staleTime: Infinity,
+    retry: false,
   });
 };

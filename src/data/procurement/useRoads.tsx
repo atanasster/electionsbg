@@ -56,6 +56,7 @@ export const useAwarderContracts = (eik?: string | null) =>
     queryFn: () => fetchAwarderContracts(eik as string),
     enabled: !!eik && /^\d{9,13}$/.test(eik),
     staleTime: Infinity,
+    retry: false,
   });
 
 export const useRoads = (eik: string = API_EIK): RoadsData => {
@@ -67,6 +68,11 @@ export const useRoads = (eik: string = API_EIK): RoadsData => {
     [contracts.data],
   );
 
+  // Headline totals are DERIVED by summing the counterparty groups — exact
+  // only because company-counterparties is uncapped by design (documented in
+  // functions/db_routes.js). If that route ever gains a LIMIT, this must
+  // switch to an authoritative rollup total or the АПИ headline will silently
+  // under-report.
   const rollup = useMemo<RoadsRollup | null>(() => {
     const cp = counterparties.data;
     if (!cp || cp.entries.length === 0) return null;
