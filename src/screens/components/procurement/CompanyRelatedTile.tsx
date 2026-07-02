@@ -56,7 +56,7 @@ export const CompanyRelatedTile: FC<{ data: RelatedCompany[] }> = ({
             >
               <div className="min-w-0">
                 <Link
-                  to={`/db/company/${r.eik}`}
+                  to={`/company/${r.eik}`}
                   className="text-sm font-medium hover:underline"
                 >
                   {r.name || `ЕИК ${r.eik}`}

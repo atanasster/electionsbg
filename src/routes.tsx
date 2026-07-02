@@ -435,16 +435,6 @@ const TopMpsScreen = lazy(() =>
     default: m.TopMpsScreen,
   })),
 );
-const CompanyByEikScreen = lazy(() =>
-  import("./screens/CompanyByEikScreen").then((m) => ({
-    default: m.CompanyByEikScreen,
-  })),
-);
-const AwarderByEikScreen = lazy(() =>
-  import("./screens/AwarderByEikScreen").then((m) => ({
-    default: m.AwarderByEikScreen,
-  })),
-);
 const AwarderContractsScreen = lazy(() =>
   import("./screens/AwarderContractsScreen").then((m) => ({
     default: m.AwarderContractsScreen,
@@ -453,11 +443,6 @@ const AwarderContractsScreen = lazy(() =>
 const AwarderContractorsScreen = lazy(() =>
   import("./screens/AwarderContractorsScreen").then((m) => ({
     default: m.AwarderContractorsScreen,
-  })),
-);
-const CompanyContractsScreen = lazy(() =>
-  import("./screens/CompanyContractsScreen").then((m) => ({
-    default: m.CompanyContractsScreen,
   })),
 );
 const CompanyAwardersScreen = lazy(() =>
@@ -2081,7 +2066,9 @@ export const AuthRoutes = () => {
             path="company/:eik"
             element={
               <LayoutScreen>
-                <CompanyByEikScreen />
+                <Suspense fallback={<RouteFallback />}>
+                  <CompanyDbScreen />
+                </Suspense>
               </LayoutScreen>
             }
           />
@@ -2089,7 +2076,39 @@ export const AuthRoutes = () => {
             path="company/:eik/contracts"
             element={
               <LayoutScreen>
-                <CompanyContractsScreen />
+                <Suspense fallback={<RouteFallback />}>
+                  <CompanyContractsDbScreen tag="contract" />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="company/:eik/annexes"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <CompanyContractsDbScreen tag="contractAmendment" />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="company/:eik/funds"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <CompanyFundsDbScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="company/:eik/officers"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <CompanyOfficersDbScreen />
+                </Suspense>
               </LayoutScreen>
             }
           />
@@ -2105,7 +2124,9 @@ export const AuthRoutes = () => {
             path="awarder/:eik"
             element={
               <LayoutScreen>
-                <AwarderByEikScreen />
+                <Suspense fallback={<RouteFallback />}>
+                  <CompanyDbScreen />
+                </Suspense>
               </LayoutScreen>
             }
           />

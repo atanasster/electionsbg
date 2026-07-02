@@ -67,7 +67,7 @@ export const PersonAssociatesTile: FC<{ associates: Associate[] }> = ({
                 {a.companies.map((c) => (
                   <Link
                     key={c.eik}
-                    to={`/db/company/${c.eik}`}
+                    to={`/company/${c.eik}`}
                     className="hover:text-foreground hover:underline"
                   >
                     {decodeEntities(c.name) || c.eik}

@@ -200,7 +200,7 @@ export const CompanySectorsTile: FC<{
                               №{p.rank}
                             </span>
                             <Link
-                              to={`/db/company/${p.eik}`}
+                              to={`/company/${p.eik}`}
                               className={`truncate ${p.isSelf ? "" : "text-accent hover:underline"}`}
                             >
                               {decodeEntities(p.name) || p.eik}

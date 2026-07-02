@@ -1,4 +1,4 @@
-// DB-driven company EU-funds (ИСУН) drill-down (/db/company/:eik/funds).
+// DB-driven company EU-funds (ИСУН) drill-down (/company/:eik/funds).
 // Server-side paginated/sorted/filtered/aggregated via DbDataTable → /api/db/table
 // (the `fund_projects` resource, scoped to beneficiary_eik). Works for ANY
 // beneficiary. All data from Postgres. See docs/plans/pg-query-performance.md.
@@ -169,7 +169,7 @@ export const CompanyFundsDbScreen: FC = () => {
         <div className="mb-4 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
           <Landmark className="h-4 w-4 shrink-0" />
           <Link
-            to={`/db/company/${eik}`}
+            to={`/company/${eik}`}
             className="font-medium text-foreground hover:underline"
           >
             {companyName || `ЕИК ${eik}`}

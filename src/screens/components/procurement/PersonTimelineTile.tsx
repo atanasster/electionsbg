@@ -81,7 +81,7 @@ export const PersonTimelineTile: FC<{ roles: TimelineRole[] }> = ({
               >
                 <div className="w-40 shrink-0 truncate text-xs md:w-52">
                   <Link
-                    to={`/db/company/${r.uic}`}
+                    to={`/company/${r.uic}`}
                     className="text-accent hover:underline"
                     title={decodeEntities(r.company) || r.uic}
                   >

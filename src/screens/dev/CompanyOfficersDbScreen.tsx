@@ -1,4 +1,4 @@
-// DB-driven company officers/partners drill-down (/db/company/:eik/officers).
+// DB-driven company officers/partners drill-down (/company/:eik/officers).
 // Server-side paginated/sorted/filtered via DbDataTable → /api/db/table (the
 // deduped `company_person_roles` matview, scoped to uic). A mass-membership
 // company (743 partners) is a full page, so it gets its own table instead of
@@ -162,7 +162,7 @@ export const CompanyOfficersDbScreen: FC = () => {
         <div className="mb-4 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
           <Users className="h-4 w-4 shrink-0" />
           <Link
-            to={`/db/company/${eik}`}
+            to={`/company/${eik}`}
             className="font-medium text-foreground hover:underline"
           >
             {`ЕИК ${eik}`}

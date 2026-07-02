@@ -1,4 +1,4 @@
-// DB-driven company contracts / annexes drill-down (/db/company/:eik/contracts
+// DB-driven company contracts / annexes drill-down (/company/:eik/contracts
 // and /annexes). Server-side paginated/sorted/filtered/aggregated via
 // DbDataTable → /api/db/table (the `contracts` resource, scoped to
 // contractor_eik, tag fixed per route). Works for ANY company. Risk chips are
@@ -116,7 +116,7 @@ export const CompanyContractsDbScreen: FC<{
         header: t("company_contract_awarder") || "Awarder",
         cell: ({ row }) => (
           <Link
-            to={`/db/company/${row.original.awarderEik}`}
+            to={`/company/${row.original.awarderEik}`}
             className="text-sm hover:underline"
           >
             {row.original.awarderName}
@@ -196,7 +196,7 @@ export const CompanyContractsDbScreen: FC<{
         <div className="mb-4 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
           <Receipt className="h-4 w-4 shrink-0" />
           <Link
-            to={`/db/company/${eik}`}
+            to={`/company/${eik}`}
             className="font-medium text-foreground hover:underline"
           >
             {companyName || `ЕИК ${eik}`}

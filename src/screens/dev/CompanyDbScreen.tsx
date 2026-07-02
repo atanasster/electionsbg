@@ -1,4 +1,4 @@
-// DB-backed company page (/db/company/:eik). Works for ANY registered company —
+// DB-backed company page (/company/:eik). Works for ANY registered company —
 // including the ~1M TR companies with no procurement (hence no JSON shard). Fed
 // live from Postgres via /api/db/company: TR identity + capital, officers with
 // ownership %, political connections, and a link out to the full procurement
@@ -181,7 +181,7 @@ type DbRollup = Pick<
 
 const num = new Intl.NumberFormat("bg-BG");
 // Officers shown inline on the dashboard; the rest live on the standalone
-// backend-paginated /db/company/:eik/officers table.
+// backend-paginated /company/:eik/officers table.
 const OFFICERS_PREVIEW = 10;
 const day = (s: string | null): string => (s ? String(s).slice(0, 10) : "—");
 const pct = (s: string | number | null): string =>
@@ -405,14 +405,6 @@ export const CompanyDbScreen: FC = () => {
             fundsContractedEur={Number(funds?.contracted_eur ?? 0)}
           />
         )}
-        {contracts > 0 && (
-          <Link
-            to={`/company/${eik}`}
-            className="mt-3 inline-flex items-center gap-1 text-sm text-accent hover:underline"
-          >
-            Обществени поръчки — пълно табло <ArrowRight className="h-3 w-3" />
-          </Link>
-        )}
       </div>
 
       {loading && <div className="text-muted-foreground">Зареждане…</div>}
@@ -434,12 +426,6 @@ export const CompanyDbScreen: FC = () => {
               <div className="flex items-center gap-2">
                 <Landmark className="h-5 w-5 text-muted-foreground" />
                 <h2 className="text-lg font-semibold">Като възложител</h2>
-                <Link
-                  to={`/awarder/${eik}`}
-                  className="ml-auto inline-flex items-center gap-1 text-sm text-accent hover:underline"
-                >
-                  Пълно табло <ArrowRight className="h-3 w-3" />
-                </Link>
               </div>
               <div className="grid gap-3 grid-cols-2 lg:grid-cols-3">
                 <StatCard label="Общо възложени">
@@ -479,13 +465,13 @@ export const CompanyDbScreen: FC = () => {
                 <CompanyTopContractsTile
                   eik={eik}
                   rollup={awarderContractsRollup}
-                  partyHref={(e) => `/db/company/${e}`}
+                  partyHref={(e) => `/company/${e}`}
                   seeAllHref={`/awarder/${eik}`}
                 />
                 <AwarderTopContractorsTile
                   eik={eik}
                   rollup={awarderRollup}
-                  contractorHref={(e) => `/db/company/${e}`}
+                  contractorHref={(e) => `/company/${e}`}
                 />
               </div>
               {awarderRollup.byYear.length > 0 && (
@@ -582,7 +568,7 @@ export const CompanyDbScreen: FC = () => {
                 </StatCard>
                 <StatCard label="Договори">
                   <Link
-                    to={`/db/company/${eik}/contracts`}
+                    to={`/company/${eik}/contracts`}
                     className="flex items-baseline gap-2 hover:underline"
                   >
                     <FileText className="h-5 w-5 text-muted-foreground shrink-0" />
@@ -592,7 +578,7 @@ export const CompanyDbScreen: FC = () => {
                   </Link>
                   {procurement && procurement.amendmentCount > 0 && (
                     <Link
-                      to={`/db/company/${eik}/annexes`}
+                      to={`/company/${eik}/annexes`}
                       className="text-xs text-muted-foreground tabular-nums hover:underline hover:text-foreground"
                     >
                       + {num.format(procurement.amendmentCount)} анекса
@@ -627,14 +613,14 @@ export const CompanyDbScreen: FC = () => {
                 <CompanyTopContractsTile
                   eik={eik}
                   rollup={rollup}
-                  partyHref={(e) => `/db/company/${e}`}
-                  seeAllHref={`/db/company/${eik}/contracts`}
+                  partyHref={(e) => `/company/${e}`}
+                  seeAllHref={`/company/${eik}/contracts`}
                 />
                 {rollup.byAwarder.length > 0 && (
                   <CompanyTopAwardersTile
                     eik={eik}
                     rollup={rollup}
-                    awarderHref={(e) => `/db/company/${e}`}
+                    awarderHref={(e) => `/company/${e}`}
                     showBars
                   />
                 )}
@@ -751,7 +737,7 @@ export const CompanyDbScreen: FC = () => {
                 )}
                 {officers.length > OFFICERS_PREVIEW && (
                   <Link
-                    to={`/db/company/${eik}/officers`}
+                    to={`/company/${eik}/officers`}
                     className="mt-3 inline-flex items-center gap-1 text-sm text-accent hover:underline"
                   >
                     Виж всички {num.format(officers.length)} лица{" "}

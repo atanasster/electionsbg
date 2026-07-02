@@ -134,10 +134,7 @@ export const ContractDetailScreen: FC = () => {
           <KvRow
             label={t("contract_awarder") || "Awarder"}
             value={
-              <Link
-                to={`/db/company/${c.awarderEik}`}
-                className="hover:underline"
-              >
+              <Link to={`/company/${c.awarderEik}`} className="hover:underline">
                 {c.awarderName}{" "}
                 <span className="text-xs text-muted-foreground">
                   EIK {c.awarderEik}
@@ -149,7 +146,7 @@ export const ContractDetailScreen: FC = () => {
             label={t("contract_contractor") || "Contractor"}
             value={
               <Link
-                to={`/db/company/${c.contractorEik}`}
+                to={`/company/${c.contractorEik}`}
                 className="hover:underline"
               >
                 {c.contractorName}{" "}

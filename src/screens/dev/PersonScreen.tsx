@@ -341,7 +341,7 @@ export const PersonScreen: FC = () => {
           >
             <td className="py-1">
               <Link
-                to={`/db/company/${r.uic}`}
+                to={`/company/${r.uic}`}
                 className="text-accent hover:underline"
               >
                 {decodeEntities(r.company) || r.uic}
@@ -533,15 +533,15 @@ export const PersonScreen: FC = () => {
                 <CompanyTopContractsTile
                   eik=""
                   rollup={rollup}
-                  partyHref={(e) => `/db/company/${e}`}
-                  contractorHref={(e) => `/db/company/${e}`}
+                  partyHref={(e) => `/company/${e}`}
+                  contractorHref={(e) => `/company/${e}`}
                   seeAllHref={null}
                 />
                 {rollup.byAwarder.length > 0 && (
                   <CompanyTopAwardersTile
                     eik=""
                     rollup={rollup}
-                    awarderHref={(e) => `/db/company/${e}`}
+                    awarderHref={(e) => `/company/${e}`}
                     seeAllHref={null}
                     showBars
                   />
@@ -637,7 +637,7 @@ export const PersonScreen: FC = () => {
                         · {p.kind === "mp" ? "депутат" : "служител"}
                         {p.role ? ` · ${p.role}` : ""} · през{" "}
                         <Link
-                          to={`/db/company/${p.via_eik}`}
+                          to={`/company/${p.via_eik}`}
                           className="hover:underline"
                         >
                           {decodeEntities(p.via_company) || p.via_eik}
@@ -688,7 +688,7 @@ export const PersonScreen: FC = () => {
                       {conn.map((c, i) => (
                         <li key={`${c.uic}-${i}`}>
                           <Link
-                            to={`/db/company/${c.uic}`}
+                            to={`/company/${c.uic}`}
                             className="text-accent hover:underline"
                           >
                             {decodeEntities(c.company) || c.uic}

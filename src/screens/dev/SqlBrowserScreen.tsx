@@ -194,11 +194,11 @@ const cellLink = (
   const kind = typeof row.kind === "string" ? row.kind : null;
   if (col === "awarder_eik") return `/awarder/${encodeURIComponent(s)}`;
   if (col === "eik" || col === "uic" || col === "contractor_eik")
-    return `/db/company/${encodeURIComponent(s)}`;
+    return `/company/${encodeURIComponent(s)}`;
   if (col === "name" || col === "officer" || col === "contractor_name") {
     if (kind === "officer") return `/person/${encodeURIComponent(s)}`;
     const eik = rowCompanyEik(row);
-    return eik ? `/db/company/${encodeURIComponent(eik)}` : null;
+    return eik ? `/company/${encodeURIComponent(eik)}` : null;
   }
   if (col === "awarder_name") {
     const a = row.awarder_eik;

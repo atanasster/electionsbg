@@ -154,7 +154,7 @@ export const CompanyConnectionCheck: FC<{ eik: string }> = ({ eik }) => {
                   {result.shared.map((b, i) => (
                     <li key={`${b.eik}-${i}`}>
                       <Link
-                        to={`/db/company/${b.eik}`}
+                        to={`/company/${b.eik}`}
                         className="text-accent hover:underline"
                       >
                         {decodeEntities(b.company) || b.eik}
@@ -205,7 +205,7 @@ export const CompanyConnectionCheck: FC<{ eik: string }> = ({ eik }) => {
                         </span>
                       )}
                       <Link
-                        to={`/db/company/${c.eik}`}
+                        to={`/company/${c.eik}`}
                         className={
                           i === 0
                             ? "font-medium"

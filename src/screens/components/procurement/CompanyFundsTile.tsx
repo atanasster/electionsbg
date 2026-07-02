@@ -1,7 +1,7 @@
 // EU-funds (ИСУН) tile for the DB company page. The funds analogue of the top
 // contracts tile: headline totals (contracted / paid / project count / org type)
 // + a preview of the largest projects, with "виж всички" into the backend-
-// paginated funds drill-down (/db/company/:eik/funds). Fed by the company route
+// paginated funds drill-down (/company/:eik/funds). Fed by the company route
 // (fund_beneficiaries aggregate + top fund_projects). All DB-only.
 
 import { FC } from "react";
@@ -55,7 +55,7 @@ export const CompanyFundsTile: FC<{
           <Euro className="h-4 w-4 text-muted-foreground" />
           {t("company_funds_title") || "Средства от ЕС (ИСУН)"}
           <Link
-            to={`/db/company/${eik}/funds`}
+            to={`/company/${eik}/funds`}
             className="ml-auto inline-flex items-center gap-1 text-xs text-primary hover:underline font-normal"
           >
             {t("procurement_tile_see_all") || "Виж всички"}
@@ -73,7 +73,7 @@ export const CompanyFundsTile: FC<{
           </Metric>
           <Metric label={t("company_funds_projects") || "Проекти"}>
             <Link
-              to={`/db/company/${eik}/funds`}
+              to={`/company/${eik}/funds`}
               className="text-accent hover:underline"
             >
               {num.format(count)}
