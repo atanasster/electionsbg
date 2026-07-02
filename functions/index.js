@@ -576,6 +576,18 @@ const DB_ROUTES = {
       },
     };
   },
+  // Company ↔ person connection check (last path segment "company-connection").
+  "company-connection": async (pool, q) => {
+    const eik = String(q.eik || "").trim();
+    const name = String(q.name || "").trim();
+    if (!eik || !name)
+      return { status: 400, body: { error: "missing eik or name" } };
+    const rows = await dbRows(pool, "SELECT company_connection($1, $2) AS r", [
+      eik,
+      name,
+    ]);
+    return { body: rows[0]?.r ?? { direct: [], shared: [] } };
+  },
   async search(pool, q) {
     const term = String(q.q || "").trim();
     if (!term) return { status: 400, body: { error: "missing q" } };

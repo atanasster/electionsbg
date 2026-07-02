@@ -183,3 +183,39 @@ LANGUAGE sql STABLE AS $$
   WHERE oa.name_fold = qa.f
   ORDER BY company;
 $$;
+
+-- Company ↔ person connection check for the DB company page. Given a company EIK
+-- and a typed person name, returns (a) the person's DIRECT role(s) in this
+-- company, and (b) BRIDGE companies — other firms where the person co-appears
+-- with one of THIS company's officers (the indirect ownership/management link),
+-- naming the bridge person. The company-anchored analog of connection_between().
+-- Name-only match (no personal id) — treat as a lead, like the person page.
+DROP FUNCTION IF EXISTS company_connection(text, text);
+CREATE OR REPLACE FUNCTION company_connection(p_eik text, p_name text)
+RETURNS jsonb LANGUAGE sql STABLE AS $$
+WITH pf AS (SELECT translit_bg_latin(p_name) AS f),
+mine AS (  -- officers of THIS company (bridge candidates)
+  SELECT DISTINCT name_fold, name FROM tr_officers
+  WHERE uic = p_eik AND name_fold <> ''
+),
+direct AS (  -- the person's own role(s) in this company
+  SELECT o.name, o.roles, (o.active = 1) AS active
+  FROM tr_officers o CROSS JOIN pf
+  WHERE o.uic = p_eik AND o.name_fold = pf.f
+),
+bridges AS (  -- other companies where the person co-appears with an officer of THIS company
+  SELECT DISTINCT op.uic AS eik, c.name AS company, m.name AS bridge
+  FROM tr_officers op
+  CROSS JOIN pf
+  JOIN tr_officers ob ON ob.uic = op.uic AND ob.name_fold <> pf.f
+  JOIN mine m ON m.name_fold = ob.name_fold AND m.name_fold <> pf.f
+  LEFT JOIN tr_companies c ON c.uic = op.uic
+  WHERE op.name_fold = pf.f AND op.uic <> p_eik
+)
+SELECT jsonb_build_object(
+  'direct', COALESCE((SELECT jsonb_agg(to_jsonb(d)) FROM direct d), '[]'::jsonb),
+  'shared', COALESCE(
+    (SELECT jsonb_agg(to_jsonb(b) ORDER BY b.company) FROM (SELECT * FROM bridges LIMIT 40) b),
+    '[]'::jsonb)
+);
+$$;

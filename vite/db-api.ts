@@ -136,6 +136,21 @@ export const dbApi = (): Plugin => ({
         return;
       }
 
+      if (url.pathname.startsWith("/company-connection")) {
+        const eik = q("eik");
+        const name = q("name");
+        if (!eik || !name)
+          return send(400, { error: "missing `eik` or `name`" });
+        allRows<{ r: unknown }>("SELECT company_connection($1,$2) AS r", [
+          eik,
+          name,
+        ]).then(
+          (rows) => send(200, rows[0]?.r ?? { direct: [], shared: [] }),
+          fail,
+        );
+        return;
+      }
+
       if (url.pathname.startsWith("/company")) {
         const eik = q("eik");
         if (!eik) return send(400, { error: "missing `eik`" });

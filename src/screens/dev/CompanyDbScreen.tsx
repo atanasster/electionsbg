@@ -47,6 +47,7 @@ import {
   CompanyFundsTile,
   type FundProjectRow,
 } from "../components/procurement/CompanyFundsTile";
+import { CompanyConnectionCheck } from "../components/procurement/CompanyConnectionCheck";
 import { ProcurementBreakdownTile } from "../components/procurement/ProcurementBreakdownTile";
 import {
   CabinetTimelineTile,
@@ -796,6 +797,8 @@ export const CompanyDbScreen: FC = () => {
               </CardContent>
             </Card>
           )}
+
+          {company && <CompanyConnectionCheck eik={eik} />}
 
           {company && contracts === 0 && (
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
