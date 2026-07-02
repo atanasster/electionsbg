@@ -94,6 +94,57 @@ const REGISTRY = {
     aggregates: [{ fn: "count" }, { fn: "sum", col: "amount_eur" }],
     maxPageSize: 100,
   },
+  // ИСУН EU-funds per-project table (fund_projects). Scoped to a beneficiary EIK
+  // for the per-company funds drill-down; also usable as a global funds browser.
+  fund_projects: {
+    base: "fund_projects",
+    scopeCols: ["beneficiary_eik"],
+    columns: {
+      contract_number: { type: "text" },
+      beneficiary_eik: { type: "text", filter: "eq" },
+      beneficiary_name: {
+        type: "text",
+        sort: true,
+        filter: "text",
+        search: true,
+      },
+      program_code: { type: "text", filter: "eq" },
+      program_name: { type: "text", sort: true, filter: "in", search: true },
+      title: { type: "text", filter: "text", search: true },
+      total_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+      grant_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+      own_cofinance_eur: { type: "number", sort: true, filter: "range" },
+      paid_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+      duration_months: { type: "int", sort: true, filter: "range" },
+      status: { type: "text", sort: true, filter: "in" },
+      org_type: { type: "text", filter: "in" },
+      oblast: { type: "text", filter: "in" },
+    },
+    select: [
+      "contract_number",
+      "beneficiary_eik",
+      "beneficiary_name",
+      "program_code",
+      "program_name",
+      "title",
+      "total_eur",
+      "grant_eur",
+      "own_cofinance_eur",
+      "paid_eur",
+      "duration_months",
+      "status",
+      "org_type",
+      "oblast",
+    ],
+    defaultSort: [["total_eur", "desc"]],
+    aggregates: [
+      { fn: "count" },
+      { fn: "sum", col: "total_eur" },
+      { fn: "sum", col: "grant_eur" },
+      { fn: "sum", col: "paid_eur" },
+    ],
+    maxPageSize: 100,
+  },
 };
 
 const MAX_OFFSET = 100000; // deep-paging guard (use search/filters instead)

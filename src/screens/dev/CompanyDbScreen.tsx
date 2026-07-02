@@ -485,9 +485,12 @@ export const CompanyDbScreen: FC = () => {
                   </div>
                   <div>
                     <div className="text-xs text-muted-foreground">Проекти</div>
-                    <div className="font-semibold tabular-nums">
+                    <Link
+                      to={`/db/company/${eik}/funds`}
+                      className="font-semibold tabular-nums text-accent hover:underline"
+                    >
                       {num.format(Number(funds.contract_count ?? 0))}
-                    </div>
+                    </Link>
                   </div>
                   {funds.org_type && (
                     <div>
@@ -499,10 +502,10 @@ export const CompanyDbScreen: FC = () => {
                   )}
                 </div>
                 <Link
-                  to="/funds"
+                  to={`/db/company/${eik}/funds`}
                   className="mt-3 inline-flex items-center gap-1 text-sm text-accent hover:underline"
                 >
-                  Отвори ИСУН <ArrowRight className="h-3 w-3" />
+                  Виж проектите <ArrowRight className="h-3 w-3" />
                 </Link>
               </CardContent>
             </Card>

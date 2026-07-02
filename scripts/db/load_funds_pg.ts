@@ -22,7 +22,72 @@ const SCHEMA_DIR = path.join(
   "pg",
 );
 const SCHEMA_FILE = path.join(SCHEMA_DIR, "015_funds.sql");
+const PROJECTS_SCHEMA_FILE = path.join(SCHEMA_DIR, "016_fund_projects.sql");
 const BY_EIK_DIR = path.join(PROC_DIR, "..", "funds", "beneficiaries-by-eik");
+const BY_CONTRACT_DIR = path.join(
+  PROC_DIR,
+  "..",
+  "funds",
+  "projects",
+  "by-contract",
+);
+
+interface FundProject {
+  contractNumber: string;
+  beneficiaryEik?: string;
+  beneficiaryName?: string;
+  programCode?: string;
+  programName?: string;
+  title?: string;
+  totalEur?: number;
+  grantEur?: number;
+  ownCofinanceEur?: number;
+  paidEur?: number;
+  durationMonths?: number;
+  status?: string;
+  orgType?: string;
+  locationRaw?: string;
+  location?: { ekatte?: string; oblasts?: string[] };
+}
+
+const PROJ_COLS = [
+  "contract_number",
+  "beneficiary_eik",
+  "beneficiary_name",
+  "program_code",
+  "program_name",
+  "title",
+  "total_eur",
+  "grant_eur",
+  "own_cofinance_eur",
+  "paid_eur",
+  "duration_months",
+  "status",
+  "org_type",
+  "location_raw",
+  "ekatte",
+  "oblast",
+];
+const PN = PROJ_COLS.length;
+
+const projRow = (p: FundProject) => [
+  p.contractNumber,
+  p.beneficiaryEik ?? null,
+  p.beneficiaryName ?? null,
+  p.programCode ?? null,
+  p.programName ?? null,
+  p.title ?? null,
+  p.totalEur ?? null,
+  p.grantEur ?? null,
+  p.ownCofinanceEur ?? null,
+  p.paidEur ?? null,
+  p.durationMonths ?? null,
+  p.status ?? null,
+  p.orgType ?? null,
+  p.locationRaw ?? null,
+  p.location?.ekatte ?? null,
+  p.location?.oblasts?.[0] ?? null,
+];
 
 interface Beneficiary {
   eik: string;
@@ -71,9 +136,13 @@ const waitForPg = async (): Promise<void> => {
   throw new Error("Postgres not reachable — run `npm run db:pg:up`.");
 };
 
-export const loadFundsPg = async (): Promise<{ rows: number }> => {
+export const loadFundsPg = async (): Promise<{
+  rows: number;
+  projects: number;
+}> => {
   await waitForPg();
   await exec(readFileSync(SCHEMA_FILE, "utf8"));
+  await exec(readFileSync(PROJECTS_SCHEMA_FILE, "utf8"));
 
   const files = readdirSync(BY_EIK_DIR).filter((f) => f.endsWith(".json"));
   const rows: Beneficiary[] = [];
@@ -105,7 +174,43 @@ export const loadFundsPg = async (): Promise<{ rows: number }> => {
     await c.query("COMMIT");
   });
 
-  return { rows: rows.length };
+  // Per-project table (by-contract shards — one project per file).
+  let projects = 0;
+  if (existsSync(BY_CONTRACT_DIR)) {
+    const pfiles = readdirSync(BY_CONTRACT_DIR).filter((f) =>
+      f.endsWith(".json"),
+    );
+    const projRows: FundProject[] = [];
+    for (const f of pfiles) {
+      const p = JSON.parse(
+        readFileSync(path.join(BY_CONTRACT_DIR, f), "utf8"),
+      ) as FundProject;
+      if (p?.contractNumber) projRows.push(p);
+    }
+    projects = projRows.length;
+    await withClient(async (c) => {
+      await c.query("BEGIN");
+      await c.query("TRUNCATE fund_projects");
+      const insertCols = PROJ_COLS.join(", ");
+      for (let i = 0; i < projRows.length; i += BATCH) {
+        const batch = projRows.slice(i, i + BATCH);
+        const values = batch
+          .map(
+            (_, r) =>
+              `(${PROJ_COLS.map((_, col) => `$${r * PN + col + 1}`).join(",")})`,
+          )
+          .join(",");
+        await c.query(
+          `INSERT INTO fund_projects (${insertCols}) VALUES ${values}
+           ON CONFLICT (contract_number) DO NOTHING`,
+          batch.flatMap(projRow),
+        );
+      }
+      await c.query("COMMIT");
+    });
+  }
+
+  return { rows: rows.length, projects };
 };
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
@@ -117,9 +222,9 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
   }
   const t0 = Date.now();
   loadFundsPg()
-    .then(async ({ rows }) => {
+    .then(async ({ rows, projects }) => {
       console.log(
-        `loaded ${rows} fund beneficiaries → Postgres in ${((Date.now() - t0) / 1000).toFixed(1)}s`,
+        `loaded ${rows} fund beneficiaries + ${projects} projects → Postgres in ${((Date.now() - t0) / 1000).toFixed(1)}s`,
       );
       await end();
     })

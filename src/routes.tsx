@@ -64,6 +64,12 @@ const CompanyContractsDbScreen = lazy(() =>
     default: m.CompanyContractsDbScreen,
   })),
 );
+// DB-driven EU-funds (ИСУН) per-project drill-down (server-side paginated table).
+const CompanyFundsDbScreen = lazy(() =>
+  import("@/screens/dev/CompanyFundsDbScreen").then((m) => ({
+    default: m.CompanyFundsDbScreen,
+  })),
+);
 const SectionsScreen = lazy(() =>
   import("./screens/SectionsScreen").then((m) => ({
     default: m.SectionsScreen,
@@ -3058,6 +3064,16 @@ export const AuthRoutes = () => {
               <LayoutScreen>
                 <Suspense fallback={<RouteFallback />}>
                   <CompanyContractsDbScreen tag="contractAmendment" />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="db/company/:eik/funds"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <CompanyFundsDbScreen />
                 </Suspense>
               </LayoutScreen>
             }
