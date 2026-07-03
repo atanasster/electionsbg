@@ -110,14 +110,16 @@ BEGIN
   -- value-index walk finds the top rows immediately (sub-ms), but on RARE
   -- tokens the same walk degenerates into evaluating the tsvector across the
   -- whole table (measured 1.3s) because the match-count estimate is a default
-  -- guess. A bounded probe (does the query match ≥500 rows?) picks the plan
-  -- explicitly: dense → value-index walk; sparse → materialised bitmap scan
-  -- of the few matches. Both corners stay in the tens of milliseconds.
-  SELECT count(*) = 500 INTO dense FROM (
+  -- guess. A bounded probe (does the query match ≥2000 rows?) picks the plan
+  -- explicitly: dense → value-index walk; sparse → materialised bitmap scan.
+  -- Cutoff math: the walk visits ~rows×lim/matches heap tuples, so it only
+  -- beats materialising once matches ≥ ~6×301k/1000 ≈ 2000. Both corners
+  -- stay in the tens of milliseconds (measured on Cloud SQL).
+  SELECT count(*) = 2000 INTO dense FROM (
     SELECT 1 FROM contracts c
     WHERE c.tag = 'contract' AND c.title IS NOT NULL AND c.title <> ''
       AND to_tsvector('simple', c.title_fold) @@ tsq
-    LIMIT 500) p;
+    LIMIT 2000) p;
   IF dense THEN
     seen := ARRAY(
       SELECT c.key FROM contracts c
@@ -172,11 +174,11 @@ AS $$
 DECLARE seen text[]; dense boolean; tsq tsquery := fold_prefix_tsquery(q);
 BEGIN
   -- Density probe — see search_contract_titles for why.
-  SELECT count(*) = 500 INTO dense FROM (
+  SELECT count(*) = 2000 INTO dense FROM (
     SELECT 1 FROM tenders t
     WHERE t.subject IS NOT NULL AND t.subject <> ''
       AND to_tsvector('simple', t.subject_fold) @@ tsq
-    LIMIT 500) p;
+    LIMIT 2000) p;
   IF dense THEN
     seen := ARRAY(
       SELECT t.unp FROM tenders t
