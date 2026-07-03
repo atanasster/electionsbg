@@ -2,7 +2,7 @@
   "electionDate": "2021_11_14",
   "start": "2021-11-14",
   "end": "2022-10-02",
-  "generatedAt": "2026-07-03T09:06:26.290Z",
+  "generatedAt": "2026-07-03T11:14:12.362Z",
   "totals": {
     "contracts": 22043,
     "amendments": 0,
@@ -10,14 +10,14 @@
     "contractorCount": 4536,
     "awarderCount": 1489,
     "totalEur": 3900445368.39,
-    "mpCount": 11,
-    "mpConnectedContractorCount": 11,
-    "mpConnectedTotalEur": 5782242.13,
+    "mpCount": 10,
+    "mpConnectedContractorCount": 9,
+    "mpConnectedTotalEur": 11166826.54,
     "officialCount": 25,
     "officialConnectedContractorCount": 23,
     "officialConnectedTotalEur": 9156247.72,
-    "connectedContractorCount": 32,
-    "connectedTotalEur": 14064585.72
+    "connectedContractorCount": 30,
+    "connectedTotalEur": 13790376.43
   },
   "topContractors": [
     {
@@ -725,6 +725,28 @@
   ],
   "topMps": [
     {
+      "mpId": 4727,
+      "mpName": "Хюсни Осман Адем",
+      "totalEur": 5724981.47,
+      "contractCount": 10,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Информационно обслужване АД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 1129,
+      "mpName": "Антоний Венциславов Кръстев",
+      "totalEur": 3935546.15,
+      "contractCount": 41,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Български пощи ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 938,
       "mpName": "Дарин Величков Матов",
       "totalEur": 3935546.15,
@@ -747,19 +769,8 @@
       "confidence": "medium"
     },
     {
-      "mpId": 5268,
-      "mpName": "Румен Ангелов Миланов",
-      "totalEur": 270118.96,
-      "contractCount": 3,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "ПЪТСТРОЙ-92 АД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 1689,
-      "mpName": "Андон Петров Андонов",
+      "mpId": 3693,
+      "mpName": "Тихомир Гочев Тенев",
       "totalEur": 178984.88,
       "contractCount": 1,
       "contractorCount": 1,
@@ -802,17 +813,6 @@
       "confidence": "high"
     },
     {
-      "mpId": 4649,
-      "mpName": "Генади Събков Събков",
-      "totalEur": 66187.76,
-      "contractCount": 2,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Напоителни системи ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 2946,
       "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
       "totalEur": 39307.1,
@@ -833,17 +833,6 @@
         "Холдинг Български държавни железници ЕАД"
       ],
       "confidence": "medium"
-    },
-    {
-      "mpId": 5292,
-      "mpName": "Стефан Апостолов Апостолов",
-      "totalEur": 4090.34,
-      "contractCount": 1,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Авто лукс ООД"
-      ],
-      "confidence": "high"
     }
   ],
   "topOfficials": [

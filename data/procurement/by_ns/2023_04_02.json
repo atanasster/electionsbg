@@ -2,7 +2,7 @@
   "electionDate": "2023_04_02",
   "start": "2023-04-02",
   "end": "2024-06-09",
-  "generatedAt": "2026-07-03T09:06:26.276Z",
+  "generatedAt": "2026-07-03T11:14:12.348Z",
   "totals": {
     "contracts": 40559,
     "amendments": 0,
@@ -10,14 +10,14 @@
     "contractorCount": 6815,
     "awarderCount": 2050,
     "totalEur": 9582806857.61,
-    "mpCount": 16,
+    "mpCount": 17,
     "mpConnectedContractorCount": 16,
-    "mpConnectedTotalEur": 26265787.18,
+    "mpConnectedTotalEur": 92992495.11,
     "officialCount": 35,
     "officialConnectedContractorCount": 33,
     "officialConnectedTotalEur": 74947333.99,
     "connectedContractorCount": 47,
-    "connectedTotalEur": 99768436.26
+    "connectedTotalEur": 102641058.36
   },
   "topContractors": [
     {
@@ -201,8 +201,10 @@
       "name": "Информационно обслужване АД",
       "totalEur": 64838604.21,
       "contractCount": 52,
-      "mpTied": false,
-      "mpIds": []
+      "mpTied": true,
+      "mpIds": [
+        4727
+      ]
     },
     {
       "eik": "200081794",
@@ -725,6 +727,28 @@
   ],
   "topMps": [
     {
+      "mpId": 4727,
+      "mpName": "Хюсни Осман Адем",
+      "totalEur": 64838604.21,
+      "contractCount": 52,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Информационно обслужване АД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 1129,
+      "mpName": "Антоний Венциславов Кръстев",
+      "totalEur": 16884198.24,
+      "contractCount": 101,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Български пощи ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 938,
       "mpName": "Дарин Величков Матов",
       "totalEur": 16884198.24,
@@ -747,13 +771,24 @@
       "confidence": "medium"
     },
     {
-      "mpId": 4649,
-      "mpName": "Генади Събков Събков",
-      "totalEur": 984518.39,
-      "contractCount": 5,
+      "mpId": 3799,
+      "mpName": "Лозко Стефанов Лозев",
+      "totalEur": 2108579.79,
+      "contractCount": 4,
       "contractorCount": 1,
       "topContractorNames": [
-        "Напоителни системи ЕАД"
+        "Български ВиК холдинг ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 3674,
+      "mpName": "Андрей Николаев Михайлов",
+      "totalEur": 959694.86,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Армоконсулт 2000 ООД"
       ],
       "confidence": "medium"
     },
@@ -769,13 +804,13 @@
       "confidence": "medium"
     },
     {
-      "mpId": 3016,
-      "mpName": "Борис Цветков Цветков",
-      "totalEur": 350432.3,
+      "mpId": 3551,
+      "mpName": "Златомира Димитрова Карагеоргиева-Мострова",
+      "totalEur": 298850.1,
       "contractCount": 2,
       "contractorCount": 1,
       "topContractorNames": [
-        "Ученически отдих и спорт ЕАД"
+        "Водоснабдяване и канализация ЕАД"
       ],
       "confidence": "medium"
     },
@@ -800,17 +835,6 @@
         "АЛ И ко АД"
       ],
       "confidence": "high"
-    },
-    {
-      "mpId": 5268,
-      "mpName": "Румен Ангелов Миланов",
-      "totalEur": 113392.84,
-      "contractCount": 2,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "ПЪТСТРОЙ-92 АД"
-      ],
-      "confidence": "medium"
     },
     {
       "mpId": 2946,
@@ -888,17 +912,6 @@
         "Петров и Борисов архитекти ЕООД"
       ],
       "confidence": "medium"
-    },
-    {
-      "mpId": 5292,
-      "mpName": "Стефан Апостолов Апостолов",
-      "totalEur": 30677.51,
-      "contractCount": 1,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Авто лукс ООД"
-      ],
-      "confidence": "high"
     }
   ],
   "topOfficials": [

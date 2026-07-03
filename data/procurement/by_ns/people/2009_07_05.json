@@ -1,7 +1,15 @@
 {
-  "generatedAt": "2026-07-03T09:06:26.325Z",
-  "total": 41,
+  "generatedAt": "2026-07-03T11:14:12.400Z",
+  "total": 45,
   "rows": [
+    {
+      "kind": "mp",
+      "mpId": 4727,
+      "name": "Хюсни Осман Адем",
+      "totalEur": 10059762.8,
+      "contractorCount": 1,
+      "contractCount": 23
+    },
     {
       "kind": "official",
       "slug": "valentina-stefanova-nedyalkova-f07289",
@@ -21,6 +29,14 @@
       "totalEur": 10059762.8,
       "contractorCount": 1,
       "contractCount": 23
+    },
+    {
+      "kind": "mp",
+      "mpId": 1129,
+      "name": "Антоний Венциславов Кръстев",
+      "totalEur": 2742232.5,
+      "contractorCount": 1,
+      "contractCount": 30
     },
     {
       "kind": "mp",
@@ -49,14 +65,6 @@
       "contractCount": 32
     },
     {
-      "kind": "mp",
-      "mpId": 5268,
-      "name": "Румен Ангелов Миланов",
-      "totalEur": 1345351.4,
-      "contractorCount": 1,
-      "contractCount": 5
-    },
-    {
       "kind": "official",
       "slug": "plamen-peev-patev-f5c4ee",
       "name": "Пламен Пеев Патев",
@@ -68,11 +76,11 @@
     },
     {
       "kind": "mp",
-      "mpId": 4649,
-      "name": "Генади Събков Събков",
-      "totalEur": 735748.51,
+      "mpId": 809,
+      "name": "Альоша Маков Даков",
+      "totalEur": 805353.74,
       "contractorCount": 1,
-      "contractCount": 10
+      "contractCount": 1
     },
     {
       "kind": "official",
@@ -106,8 +114,8 @@
     },
     {
       "kind": "mp",
-      "mpId": 1689,
-      "name": "Андон Петров Андонов",
+      "mpId": 3693,
+      "name": "Тихомир Гочев Тенев",
       "totalEur": 577248.53,
       "contractorCount": 1,
       "contractCount": 3
@@ -173,14 +181,6 @@
       "contractCount": 5
     },
     {
-      "kind": "mp",
-      "mpId": 3016,
-      "name": "Борис Цветков Цветков",
-      "totalEur": 170427.9,
-      "contractorCount": 1,
-      "contractCount": 1
-    },
-    {
       "kind": "official",
       "slug": "angel-georgiev-tsigularov-4076dd",
       "name": "Ангел Георгиев Цигуларов",
@@ -189,6 +189,14 @@
       "totalEur": 144335.05,
       "contractorCount": 1,
       "contractCount": 5
+    },
+    {
+      "kind": "mp",
+      "mpId": 3674,
+      "name": "Андрей Николаев Михайлов",
+      "totalEur": 117597.13,
+      "contractorCount": 1,
+      "contractCount": 1
     },
     {
       "kind": "mp",
@@ -283,6 +291,30 @@
       "tier": "municipal",
       "role": "councillor",
       "totalEur": 18601.36,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "mp",
+      "mpId": 1060,
+      "name": "Иво Тенев Димов",
+      "totalEur": 16616.99,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "mp",
+      "mpId": 2821,
+      "name": "Станислав Иванов Владимиров",
+      "totalEur": 16616.99,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "mp",
+      "mpId": 4939,
+      "name": "Юксел Осман Ахмед",
+      "totalEur": 16616.99,
       "contractorCount": 1,
       "contractCount": 1
     },

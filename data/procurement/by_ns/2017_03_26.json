@@ -2,7 +2,7 @@
   "electionDate": "2017_03_26",
   "start": "2017-03-26",
   "end": "2021-04-04",
-  "generatedAt": "2026-07-03T09:06:26.301Z",
+  "generatedAt": "2026-07-03T11:14:12.373Z",
   "totals": {
     "contracts": 37384,
     "amendments": 0,
@@ -10,14 +10,14 @@
     "contractorCount": 8136,
     "awarderCount": 1399,
     "totalEur": 10735066285.6,
-    "mpCount": 17,
-    "mpConnectedContractorCount": 17,
-    "mpConnectedTotalEur": 86267817.26,
+    "mpCount": 19,
+    "mpConnectedContractorCount": 18,
+    "mpConnectedTotalEur": 105994173.52,
     "officialCount": 30,
     "officialConnectedContractorCount": 28,
     "officialConnectedTotalEur": 48633592.98,
-    "connectedContractorCount": 43,
-    "connectedTotalEur": 133514945.02
+    "connectedContractorCount": 44,
+    "connectedTotalEur": 133111914.09
   },
   "topContractors": [
     {
@@ -738,6 +738,17 @@
       "confidence": "medium"
     },
     {
+      "mpId": 1129,
+      "mpName": "Антоний Венциславов Кръстев",
+      "totalEur": 21024187.88,
+      "contractCount": 76,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Български пощи /Бп/ ЕАД - София"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 938,
       "mpName": "Дарин Величков Матов",
       "totalEur": 21024187.88,
@@ -749,8 +760,19 @@
       "confidence": "medium"
     },
     {
-      "mpId": 1689,
-      "mpName": "Андон Петров Андонов",
+      "mpId": 4727,
+      "mpName": "Хюсни Осман Адем",
+      "totalEur": 20822849.98,
+      "contractCount": 24,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Информационно обслужване АД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 3693,
+      "mpName": "Тихомир Гочев Тенев",
       "totalEur": 9683970.49,
       "contractCount": 3,
       "contractorCount": 1,
@@ -769,17 +791,6 @@
         "АЛ И ко АД"
       ],
       "confidence": "high"
-    },
-    {
-      "mpId": 4649,
-      "mpName": "Генади Събков Събков",
-      "totalEur": 693462.79,
-      "contractCount": 8,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Напоителни системи ЕАД клон среден дунав плевен"
-      ],
-      "confidence": "medium"
     },
     {
       "mpId": 5094,
@@ -849,28 +860,6 @@
       "confidence": "medium"
     },
     {
-      "mpId": 3016,
-      "mpName": "Борис Цветков Цветков",
-      "totalEur": 332280.41,
-      "contractCount": 2,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Ученически отдих и спорт ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 5268,
-      "mpName": "Румен Ангелов Миланов",
-      "totalEur": 309273.2,
-      "contractCount": 3,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "ПЪТСТРОЙ-92 АД"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 3185,
       "mpName": "ГРИГОР АНГЕЛОВ ГОРЧЕВ",
       "totalEur": 186396.57,
@@ -882,15 +871,48 @@
       "confidence": "high"
     },
     {
-      "mpId": 5292,
-      "mpName": "Стефан Апостолов Апостолов",
-      "totalEur": 13293.59,
+      "mpId": 3551,
+      "mpName": "Златомира Димитрова Карагеоргиева-Мострова",
+      "totalEur": 117457.56,
+      "contractCount": 7,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Водоснабдяване и канализация ЕАД - Бургас"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 2727,
+      "mpName": "Светла Маринова Бъчварова-Пиралкова",
+      "totalEur": 67183.75,
       "contractCount": 1,
       "contractorCount": 1,
       "topContractorNames": [
-        "Авто лукс ООД - с. Старцево"
+        "Интелект Консулт Плюс-ЦМ ЕООД"
       ],
-      "confidence": "high"
+      "confidence": "medium"
+    },
+    {
+      "mpId": 3459,
+      "mpName": "Чавдар Борисов Божурски",
+      "totalEur": 50195.98,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Първа частна полиция /Пчп/ - Сливен ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 3674,
+      "mpName": "Андрей Николаев Михайлов",
+      "totalEur": 16978.98,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Армконсулт 2000 ООД - София"
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 4739,

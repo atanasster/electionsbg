@@ -8,9 +8,9 @@
   },
   "scorecard": {
     "value": 69995.86,
-    "rank": 26,
-    "cohortSize": 33,
-    "cohortMedian": 856377.72
+    "rank": 31,
+    "cohortSize": 43,
+    "cohortMedian": 767389.33
   },
   "entries": [
     {
@@ -20,12 +20,12 @@
       "contractorName": "Петров и Борисов архитекти ЕООД",
       "relations": [
         {
-          "kind": "manager",
+          "kind": "sole_owner",
           "isCurrent": true,
           "confidence": "medium"
         },
         {
-          "kind": "sole_owner",
+          "kind": "manager",
           "isCurrent": true,
           "confidence": "medium"
         }

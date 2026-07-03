@@ -2,7 +2,7 @@
   "electionDate": "2021_07_11",
   "start": "2021-07-11",
   "end": "2021-11-14",
-  "generatedAt": "2026-07-03T09:06:26.294Z",
+  "generatedAt": "2026-07-03T11:14:12.366Z",
   "totals": {
     "contracts": 2266,
     "amendments": 0,
@@ -10,7 +10,7 @@
     "contractorCount": 384,
     "awarderCount": 145,
     "totalEur": 279303371.21,
-    "mpCount": 1,
+    "mpCount": 2,
     "mpConnectedContractorCount": 1,
     "mpConnectedTotalEur": 215229.79,
     "officialCount": 2,
@@ -724,6 +724,17 @@
     }
   ],
   "topMps": [
+    {
+      "mpId": 1129,
+      "mpName": "Антоний Венциславов Кръстев",
+      "totalEur": 215229.79,
+      "contractCount": 4,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Български пощи /Бп/ ЕАД - София"
+      ],
+      "confidence": "medium"
+    },
     {
       "mpId": 938,
       "mpName": "Дарин Величков Матов",

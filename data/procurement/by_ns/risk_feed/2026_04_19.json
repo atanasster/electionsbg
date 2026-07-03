@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-03T09:06:26.247Z",
+  "generatedAt": "2026-07-03T11:14:12.316Z",
   "topConcentration": [
     {
       "awarderEik": "000193065",
@@ -404,6 +404,13 @@
   ],
   "topMpTied": [
     {
+      "mpId": 1129,
+      "mpName": "Антоний Венциславов Кръстев",
+      "contractorEik": "121396123",
+      "contractorName": "Български пощи ЕАД",
+      "totalEur": 517399.06
+    },
+    {
       "mpId": 938,
       "mpName": "Дарин Величков Матов",
       "contractorEik": "121396123",
@@ -430,12 +437,19 @@
       "contractorEik": "112028994",
       "contractorName": "Радио СОТ ООД",
       "totalEur": 93382
+    },
+    {
+      "mpId": 2741,
+      "mpName": "Диана Димова Саватева",
+      "contractorEik": "208188531",
+      "contractorName": "Бургас - 2032 Фондация",
+      "totalEur": 62500
     }
   ],
   "concentrationTotal": 490,
   "concentration100Total": 75,
-  "mpTiedTotal": 4,
-  "connectedPeopleTotal": 11,
+  "mpTiedTotal": 6,
+  "connectedPeopleTotal": 13,
   "concentrationByOblast": [
     {
       "nuts": "BG411",

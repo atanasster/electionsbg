@@ -8,12 +8,12 @@
       "contractorName": "Петров и Борисов архитекти ЕООД",
       "relations": [
         {
-          "kind": "manager",
+          "kind": "sole_owner",
           "isCurrent": true,
           "confidence": "medium"
         },
         {
-          "kind": "sole_owner",
+          "kind": "manager",
           "isCurrent": true,
           "confidence": "medium"
         }

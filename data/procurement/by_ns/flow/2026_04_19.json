@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-03T09:06:26.244Z",
+  "generatedAt": "2026-07-03T11:14:12.313Z",
   "nodes": [
     {
       "id": "awarder:000225011",
@@ -80,6 +80,16 @@
       "id": "contractor:102006848",
       "type": "contractor",
       "label": "Бургасинвест ООД"
+    },
+    {
+      "id": "awarder:176789478",
+      "type": "awarder",
+      "label": "Министерство на туризма"
+    },
+    {
+      "id": "contractor:208188531",
+      "type": "contractor",
+      "label": "Бургас - 2032 Фондация"
     },
     {
       "id": "awarder:000695235",
@@ -167,6 +177,11 @@
       "label": "Община Каспичан"
     },
     {
+      "id": "mp:1129",
+      "type": "mp",
+      "label": "Антоний Венциславов Кръстев"
+    },
+    {
       "id": "mp:938",
       "type": "mp",
       "label": "Дарин Величков Матов"
@@ -180,6 +195,11 @@
       "id": "mp:2946",
       "type": "mp",
       "label": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА"
+    },
+    {
+      "id": "mp:2741",
+      "type": "mp",
+      "label": "Диана Димова Саватева"
     },
     {
       "id": "mp:2822",
@@ -269,6 +289,11 @@
       "valueEur": 18250
     },
     {
+      "source": "awarder:176789478",
+      "target": "contractor:208188531",
+      "valueEur": 62500
+    },
+    {
       "source": "awarder:000695235",
       "target": "contractor:205175742",
       "valueEur": 0.55
@@ -335,6 +360,11 @@
     },
     {
       "source": "contractor:121396123",
+      "target": "mp:1129",
+      "valueEur": 517399.06
+    },
+    {
+      "source": "contractor:121396123",
       "target": "mp:938",
       "valueEur": 517399.06
     },
@@ -347,6 +377,11 @@
       "source": "contractor:112028994",
       "target": "mp:2946",
       "valueEur": 93382
+    },
+    {
+      "source": "contractor:208188531",
+      "target": "mp:2741",
+      "valueEur": 62500
     },
     {
       "source": "contractor:113566864",

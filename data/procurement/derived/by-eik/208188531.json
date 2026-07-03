@@ -1,0 +1,44 @@
+{
+  "eik": "208188531",
+  "entries": [
+    {
+      "mpId": 2741,
+      "mpName": "Диана Димова Саватева",
+      "contractorEik": "208188531",
+      "contractorName": "Бургас - 2032 Фондация",
+      "relations": [
+        {
+          "kind": "ngo_representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "ngo_board",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 62500,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2026",
+          "contractCount": 1,
+          "totalEur": 62500,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "176789478",
+          "name": "Министерство на туризма",
+          "contractCount": 1,
+          "totalEur": 62500,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

@@ -2,7 +2,7 @@
   "electionDate": "2024_10_27",
   "start": "2024-10-27",
   "end": "2026-04-19",
-  "generatedAt": "2026-07-03T09:06:26.256Z",
+  "generatedAt": "2026-07-03T11:14:12.326Z",
   "totals": {
     "contracts": 61456,
     "amendments": 2385,
@@ -10,14 +10,14 @@
     "contractorCount": 8469,
     "awarderCount": 3104,
     "totalEur": 19529464818.23,
-    "mpCount": 14,
-    "mpConnectedContractorCount": 15,
-    "mpConnectedTotalEur": 268321765.9,
+    "mpCount": 18,
+    "mpConnectedContractorCount": 18,
+    "mpConnectedTotalEur": 367478728.69,
     "officialCount": 37,
     "officialConnectedContractorCount": 36,
     "officialConnectedTotalEur": 176566241.55,
-    "connectedContractorCount": 48,
-    "connectedTotalEur": 405537028.67
+    "connectedContractorCount": 51,
+    "connectedTotalEur": 393775141.67
   },
   "topContractors": [
     {
@@ -155,8 +155,10 @@
       "name": "Информационно обслужване АД",
       "totalEur": 113500409.91,
       "contractCount": 102,
-      "mpTied": false,
-      "mpIds": []
+      "mpTied": true,
+      "mpIds": [
+        4727
+      ]
     },
     {
       "eik": "200487072",
@@ -738,13 +740,35 @@
       "confidence": "medium"
     },
     {
-      "mpId": 2662,
-      "mpName": "Дора Илиева Янкова",
+      "mpId": 4727,
+      "mpName": "Хюсни Осман Адем",
+      "totalEur": 113500409.91,
+      "contractCount": 102,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Информационно обслужване АД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 4149,
+      "mpName": "Радослава Пламен Чеканска",
       "totalEur": 35455151.83,
       "contractCount": 4,
       "contractorCount": 1,
       "topContractorNames": [
         "Фонд Флаг ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 1129,
+      "mpName": "Антоний Венциславов Кръстев",
+      "totalEur": 31984474.16,
+      "contractCount": 129,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Български пощи ЕАД"
       ],
       "confidence": "medium"
     },
@@ -760,46 +784,24 @@
       "confidence": "medium"
     },
     {
-      "mpId": 5268,
-      "mpName": "Румен Ангелов Миланов",
-      "totalEur": 13146255.95,
-      "contractCount": 9,
+      "mpId": 3799,
+      "mpName": "Лозко Стефанов Лозев",
+      "totalEur": 7624206.46,
+      "contractCount": 4,
       "contractorCount": 1,
       "topContractorNames": [
-        "ПЪТСТРОЙ-92 АД"
+        "Български ВиК холдинг ЕАД"
       ],
       "confidence": "medium"
     },
     {
-      "mpId": 3016,
-      "mpName": "Борис Цветков Цветков",
-      "totalEur": 8120841.79,
-      "contractCount": 2,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Ученически отдих и спорт ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 1689,
-      "mpName": "Андон Петров Андонов",
+      "mpId": 3693,
+      "mpName": "Тихомир Гочев Тенев",
       "totalEur": 5653669.7,
       "contractCount": 3,
       "contractorCount": 1,
       "topContractorNames": [
         "Мини марица - изток ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 4649,
-      "mpName": "Генади Събков Събков",
-      "totalEur": 2581560.12,
-      "contractCount": 9,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Напоителни системи ЕАД клон среден дунав плевен"
       ],
       "confidence": "medium"
     },
@@ -826,6 +828,17 @@
       "confidence": "medium"
     },
     {
+      "mpId": 3459,
+      "mpName": "Чавдар Борисов Божурски",
+      "totalEur": 950849.51,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "П ч п - сливен ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 2647,
       "mpName": "ДИМИТЪР КРУМОВ АЛЕКСАНДРОВ",
       "totalEur": 851961.83,
@@ -835,6 +848,28 @@
         "АЛ и КО АД"
       ],
       "confidence": "high"
+    },
+    {
+      "mpId": 1488,
+      "mpName": "Хасан Илияз Хаджихасан",
+      "totalEur": 527709.01,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "ЖИЛ-СТРОЙ 2003 ЕООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 3551,
+      "mpName": "Златомира Димитрова Карагеоргиева-Мострова",
+      "totalEur": 358098.85,
+      "contractCount": 10,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Водоснабдяване и канализация ЕАД"
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 2946,
@@ -880,6 +915,17 @@
         "Фернет българия ООД"
       ],
       "confidence": "high"
+    },
+    {
+      "mpId": 3674,
+      "mpName": "Андрей Николаев Михайлов",
+      "totalEur": 44346.9,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Армоконсулт 2000 ООД"
+      ],
+      "confidence": "medium"
     }
   ],
   "topOfficials": [

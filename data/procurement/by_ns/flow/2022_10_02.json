@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-03T09:06:26.284Z",
+  "generatedAt": "2026-07-03T11:14:12.356Z",
   "nodes": [
     {
       "id": "awarder:106513772",
@@ -102,16 +102,6 @@
       "label": "Диагностично - консултативен център V - Пловдив ЕООД"
     },
     {
-      "id": "awarder:000776089",
-      "type": "awarder",
-      "label": "Община Ботевград"
-    },
-    {
-      "id": "contractor:121015330",
-      "type": "contractor",
-      "label": "ПЪТСТРОЙ-92 АД"
-    },
-    {
       "id": "awarder:000405689",
       "type": "awarder",
       "label": "Медицински университет"
@@ -185,6 +175,11 @@
       "id": "contractor:202758921",
       "type": "contractor",
       "label": "Глобъл клинър ООД"
+    },
+    {
+      "id": "awarder:000776089",
+      "type": "awarder",
+      "label": "Община Ботевград"
     },
     {
       "id": "contractor:831643461",
@@ -447,11 +442,6 @@
       "label": "Община Джебел"
     },
     {
-      "id": "awarder:000777248",
-      "type": "awarder",
-      "label": "Община Мирково"
-    },
-    {
       "id": "awarder:121817309",
       "type": "awarder",
       "label": "Окръжна прокуратура - бургас"
@@ -602,9 +592,19 @@
       "label": "Кадиев консулт ЕООД"
     },
     {
+      "id": "mp:1129",
+      "type": "mp",
+      "label": "Антоний Венциславов Кръстев"
+    },
+    {
       "id": "mp:938",
       "type": "mp",
       "label": "Дарин Величков Матов"
+    },
+    {
+      "id": "mp:4727",
+      "type": "mp",
+      "label": "Хюсни Осман Адем"
     },
     {
       "id": "mp:4059",
@@ -617,19 +617,14 @@
       "label": "Георги Захаринин Попов"
     },
     {
-      "id": "mp:5268",
-      "type": "mp",
-      "label": "Румен Ангелов Миланов"
-    },
-    {
       "id": "mp:4456",
       "type": "mp",
       "label": "Христо Симеонов Борисов"
     },
     {
-      "id": "mp:1689",
+      "id": "mp:3693",
       "type": "mp",
-      "label": "Андон Петров Андонов"
+      "label": "Тихомир Гочев Тенев"
     },
     {
       "id": "mp:5094",
@@ -640,11 +635,6 @@
       "id": "mp:2647",
       "type": "mp",
       "label": "ДИМИТЪР КРУМОВ АЛЕКСАНДРОВ"
-    },
-    {
-      "id": "mp:4649",
-      "type": "mp",
-      "label": "Генади Събков Събков"
     },
     {
       "id": "official:plamen-peev-patev-f5c4ee",
@@ -837,11 +827,6 @@
       "source": "awarder:000466329",
       "target": "contractor:121396123",
       "valueEur": 51129.19
-    },
-    {
-      "source": "awarder:000776089",
-      "target": "contractor:121015330",
-      "valueEur": 345545.2
     },
     {
       "source": "awarder:000405689",
@@ -1139,11 +1124,6 @@
       "valueEur": 818067.01
     },
     {
-      "source": "awarder:000777248",
-      "target": "contractor:121015330",
-      "valueEur": 344851.37
-    },
-    {
       "source": "awarder:121817309",
       "target": "contractor:121396123",
       "valueEur": 46016.27
@@ -1275,8 +1255,18 @@
     },
     {
       "source": "contractor:121396123",
+      "target": "mp:1129",
+      "valueEur": 3377289.57
+    },
+    {
+      "source": "contractor:121396123",
       "target": "mp:938",
       "valueEur": 3377289.57
+    },
+    {
+      "source": "contractor:831641791",
+      "target": "mp:4727",
+      "valueEur": 7845519.91
     },
     {
       "source": "contractor:121125663",
@@ -1289,18 +1279,13 @@
       "valueEur": 21408856.09
     },
     {
-      "source": "contractor:121015330",
-      "target": "mp:5268",
-      "valueEur": 690396.57
-    },
-    {
       "source": "contractor:205590667",
       "target": "mp:4456",
       "valueEur": 35534.79
     },
     {
       "source": "contractor:833017552",
-      "target": "mp:1689",
+      "target": "mp:3693",
       "valueEur": 16396946.56
     },
     {
@@ -1312,11 +1297,6 @@
       "source": "contractor:127003032",
       "target": "mp:2647",
       "valueEur": 143181.67
-    },
-    {
-      "source": "contractor:831160078",
-      "target": "mp:4649",
-      "valueEur": 0.28
     },
     {
       "source": "contractor:122055819",

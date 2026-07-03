@@ -2,7 +2,7 @@
   "electionDate": "2013_05_12",
   "start": "2013-05-12",
   "end": "2014-10-05",
-  "generatedAt": "2026-07-03T09:06:26.317Z",
+  "generatedAt": "2026-07-03T11:14:12.392Z",
   "totals": {
     "contracts": 23366,
     "amendments": 0,
@@ -11,13 +11,13 @@
     "awarderCount": 1286,
     "totalEur": 4960771103.15,
     "mpCount": 18,
-    "mpConnectedContractorCount": 19,
-    "mpConnectedTotalEur": 21434974.91,
+    "mpConnectedContractorCount": 18,
+    "mpConnectedTotalEur": 16175259.08,
     "officialCount": 21,
     "officialConnectedContractorCount": 19,
     "officialConnectedTotalEur": 4812680.27,
-    "connectedContractorCount": 36,
-    "connectedTotalEur": 25786866.35
+    "connectedContractorCount": 35,
+    "connectedTotalEur": 20090378.37
   },
   "topContractors": [
     {
@@ -725,24 +725,13 @@
   ],
   "topMps": [
     {
-      "mpId": 1689,
-      "mpName": "Андон Петров Андонов",
+      "mpId": 3693,
+      "mpName": "Тихомир Гочев Тенев",
       "totalEur": 7786003.9,
       "contractCount": 2,
       "contractorCount": 1,
       "topContractorNames": [
         "Мини Марица - Изток ЕАД - Раднево"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 5268,
-      "mpName": "Румен Ангелов Миланов",
-      "totalEur": 3646192.72,
-      "contractCount": 4,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Пътстрой-92 АД - София"
       ],
       "confidence": "medium"
     },
@@ -758,13 +747,13 @@
       "confidence": "high"
     },
     {
-      "mpId": 3016,
-      "mpName": "Борис Цветков Цветков",
-      "totalEur": 2125158.12,
-      "contractCount": 3,
+      "mpId": 1129,
+      "mpName": "Антоний Венциславов Кръстев",
+      "totalEur": 1735476.81,
+      "contractCount": 9,
       "contractorCount": 1,
       "topContractorNames": [
-        "Ученически отдих и спорт ЕАД"
+        "Български пощи ЕАД - Ру „Западен регион”  - (Териториално поделение  Софийски пощенски съобщения  /тп \"Спс\"/ ЕАД)"
       ],
       "confidence": "medium"
     },
@@ -800,6 +789,17 @@
         "Солво ООД - София"
       ],
       "confidence": "high"
+    },
+    {
+      "mpId": 4727,
+      "mpName": "Хюсни Осман Адем",
+      "totalEur": 725140.78,
+      "contractCount": 15,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Информационно обслужване АД"
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 2826,
@@ -847,17 +847,6 @@
       "confidence": "high"
     },
     {
-      "mpId": 4649,
-      "mpName": "Генади Събков Събков",
-      "totalEur": 288368.62,
-      "contractCount": 3,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Напоителни системи ЕАД - София"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 5094,
       "mpName": "Николай Иванов Косев",
       "totalEur": 172420.2,
@@ -865,6 +854,17 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Еврохим-Груп ООД - Габрово"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 3551,
+      "mpName": "Златомира Димитрова Карагеоргиева-Мострова",
+      "totalEur": 74137.32,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Водоснабдяване и канализация ЕАД - Бургас"
       ],
       "confidence": "medium"
     },
@@ -891,6 +891,17 @@
       "confidence": "high"
     },
     {
+      "mpId": 3674,
+      "mpName": "Андрей Николаев Михайлов",
+      "totalEur": 2157.14,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Армконсулт 2000 ООД - София"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 4372,
       "mpName": "Радослав Красенов Василев",
       "totalEur": 1839.63,
@@ -898,17 +909,6 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ТЕВА-ТМ ООД, Раднево"
-      ],
-      "confidence": "high"
-    },
-    {
-      "mpId": 5292,
-      "mpName": "Стефан Апостолов Апостолов",
-      "totalEur": 1431.62,
-      "contractCount": 1,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Авто лукс ООД - с. Старцево"
       ],
       "confidence": "high"
     },

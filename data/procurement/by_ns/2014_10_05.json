@@ -2,7 +2,7 @@
   "electionDate": "2014_10_05",
   "start": "2014-10-05",
   "end": "2017-03-26",
-  "generatedAt": "2026-07-03T09:06:26.309Z",
+  "generatedAt": "2026-07-03T11:14:12.383Z",
   "totals": {
     "contracts": 38377,
     "amendments": 0,
@@ -10,14 +10,14 @@
     "contractorCount": 8592,
     "awarderCount": 1438,
     "totalEur": 7845163878.68,
-    "mpCount": 16,
+    "mpCount": 17,
     "mpConnectedContractorCount": 16,
-    "mpConnectedTotalEur": 50930297.97,
+    "mpConnectedTotalEur": 64862152.03,
     "officialCount": 32,
     "officialConnectedContractorCount": 30,
     "officialConnectedTotalEur": 28582185.65,
     "connectedContractorCount": 44,
-    "connectedTotalEur": 79012242.01
+    "connectedTotalEur": 78163153.64
   },
   "topContractors": [
     {
@@ -243,6 +243,7 @@
       "contractCount": 78,
       "mpTied": true,
       "mpIds": [
+        1129,
         938
       ]
     },
@@ -727,6 +728,17 @@
   ],
   "topMps": [
     {
+      "mpId": 1129,
+      "mpName": "Антоний Венциславов Кръстев",
+      "totalEur": 35035786.01,
+      "contractCount": 78,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Български пощи /Бп/ ЕАД - София"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 938,
       "mpName": "Дарин Величков Матов",
       "totalEur": 35035786.01,
@@ -738,8 +750,19 @@
       "confidence": "medium"
     },
     {
-      "mpId": 1689,
-      "mpName": "Андон Петров Андонов",
+      "mpId": 4727,
+      "mpName": "Хюсни Осман Адем",
+      "totalEur": 15017670.57,
+      "contractCount": 26,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Информационно обслужване АД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 3693,
+      "mpName": "Тихомир Гочев Тенев",
       "totalEur": 8421304.51,
       "contractCount": 3,
       "contractorCount": 1,
@@ -782,28 +805,6 @@
       "confidence": "medium"
     },
     {
-      "mpId": 5268,
-      "mpName": "Румен Ангелов Миланов",
-      "totalEur": 568967.2,
-      "contractCount": 3,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Пътстрой-92 АД - София"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 3016,
-      "mpName": "Борис Цветков Цветков",
-      "totalEur": 289631.21,
-      "contractCount": 2,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Ученически отдих и спорт ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 5094,
       "mpName": "Николай Иванов Косев",
       "totalEur": 263513.46,
@@ -811,17 +812,6 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Еврохим-Груп ООД - Габрово"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 4649,
-      "mpName": "Генади Събков Събков",
-      "totalEur": 236728.14,
-      "contractCount": 2,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Напоителни системи - клон Дупница ЕАД"
       ],
       "confidence": "medium"
     },
@@ -900,6 +890,28 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Университетска многопрофилна болница за активно лечение и спешна Медицина Н.И. Пирогов ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 3551,
+      "mpName": "Златомира Димитрова Карагеоргиева-Мострова",
+      "totalEur": 6442.28,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Водоснабдяване и канализация ЕАД - Бургас"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 69,
+      "mpName": "Жори Йорданов Алексиев",
+      "totalEur": 3067.75,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "ДИК-95 ООД - Лом"
       ],
       "confidence": "medium"
     }

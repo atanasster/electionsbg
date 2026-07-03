@@ -2,7 +2,7 @@
   "electionDate": "2022_10_02",
   "start": "2022-10-02",
   "end": "2023-04-02",
-  "generatedAt": "2026-07-03T09:06:26.284Z",
+  "generatedAt": "2026-07-03T11:14:12.354Z",
   "totals": {
     "contracts": 16538,
     "amendments": 0,
@@ -11,13 +11,13 @@
     "awarderCount": 1454,
     "totalEur": 3627438944.98,
     "mpCount": 9,
-    "mpConnectedContractorCount": 9,
-    "mpConnectedTotalEur": 42286161.44,
+    "mpConnectedContractorCount": 8,
+    "mpConnectedTotalEur": 49441284.5,
     "officialCount": 26,
     "officialConnectedContractorCount": 23,
     "officialConnectedTotalEur": 11857393.09,
-    "connectedContractorCount": 30,
-    "connectedTotalEur": 53938358.5
+    "connectedContractorCount": 29,
+    "connectedTotalEur": 53247961.93
   },
   "topContractors": [
     {
@@ -333,7 +333,7 @@
       "contractCount": 2,
       "mpTied": true,
       "mpIds": [
-        1689
+        3693
       ]
     },
     {
@@ -740,13 +740,35 @@
       "confidence": "medium"
     },
     {
-      "mpId": 1689,
-      "mpName": "Андон Петров Андонов",
+      "mpId": 3693,
+      "mpName": "Тихомир Гочев Тенев",
       "totalEur": 16396946.56,
       "contractCount": 2,
       "contractorCount": 1,
       "topContractorNames": [
         "Мини марица - изток ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 4727,
+      "mpName": "Хюсни Осман Адем",
+      "totalEur": 7845519.91,
+      "contractCount": 10,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Информационно обслужване АД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 1129,
+      "mpName": "Антоний Венциславов Кръстев",
+      "totalEur": 3377289.57,
+      "contractCount": 48,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Български пощи ЕАД"
       ],
       "confidence": "medium"
     },
@@ -758,17 +780,6 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Български пощи ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 5268,
-      "mpName": "Румен Ангелов Миланов",
-      "totalEur": 690396.57,
-      "contractCount": 6,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "ПЪТСТРОЙ-92 АД"
       ],
       "confidence": "medium"
     },
@@ -815,17 +826,6 @@
         "Екотехпродукт ООД"
       ],
       "confidence": "high"
-    },
-    {
-      "mpId": 4649,
-      "mpName": "Генади Събков Събков",
-      "totalEur": 0.28,
-      "contractCount": 1,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Напоителни системи ЕАД"
-      ],
-      "confidence": "medium"
     }
   ],
   "topOfficials": [

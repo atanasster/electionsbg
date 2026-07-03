@@ -2,7 +2,7 @@
   "electionDate": "2026_04_19",
   "start": "2026-04-19",
   "end": null,
-  "generatedAt": "2026-07-03T09:06:26.244Z",
+  "generatedAt": "2026-07-03T11:14:12.312Z",
   "totals": {
     "contracts": 5980,
     "amendments": 1093,
@@ -10,14 +10,14 @@
     "contractorCount": 1778,
     "awarderCount": 1028,
     "totalEur": 1038619608.43,
-    "mpCount": 4,
-    "mpConnectedContractorCount": 4,
-    "mpConnectedTotalEur": 1212841.06,
+    "mpCount": 6,
+    "mpConnectedContractorCount": 5,
+    "mpConnectedTotalEur": 1275341.06,
     "officialCount": 7,
     "officialConnectedContractorCount": 7,
     "officialConnectedTotalEur": 2961471.91,
-    "connectedContractorCount": 11,
-    "connectedTotalEur": 4174312.97
+    "connectedContractorCount": 12,
+    "connectedTotalEur": 4236812.97
   },
   "topContractors": [
     {
@@ -725,6 +725,17 @@
   ],
   "topMps": [
     {
+      "mpId": 1129,
+      "mpName": "Антоний Венциславов Кръстев",
+      "totalEur": 517399.06,
+      "contractCount": 7,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Български пощи ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 938,
       "mpName": "Дарин Величков Матов",
       "totalEur": 517399.06,
@@ -767,6 +778,17 @@
         "Радио СОТ ООД"
       ],
       "confidence": "high"
+    },
+    {
+      "mpId": 2741,
+      "mpName": "Диана Димова Саватева",
+      "totalEur": 62500,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Бургас - 2032 Фондация"
+      ],
+      "confidence": "medium"
     }
   ],
   "topOfficials": [

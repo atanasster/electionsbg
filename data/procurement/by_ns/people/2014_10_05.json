@@ -1,7 +1,15 @@
 {
-  "generatedAt": "2026-07-03T09:06:26.310Z",
-  "total": 48,
+  "generatedAt": "2026-07-03T11:14:12.384Z",
+  "total": 49,
   "rows": [
+    {
+      "kind": "mp",
+      "mpId": 1129,
+      "name": "Антоний Венциславов Кръстев",
+      "totalEur": 35035786.01,
+      "contractorCount": 1,
+      "contractCount": 78
+    },
     {
       "kind": "mp",
       "mpId": 938,
@@ -9,6 +17,14 @@
       "totalEur": 35035786.01,
       "contractorCount": 1,
       "contractCount": 78
+    },
+    {
+      "kind": "mp",
+      "mpId": 4727,
+      "name": "Хюсни Осман Адем",
+      "totalEur": 15017670.57,
+      "contractorCount": 1,
+      "contractCount": 26
     },
     {
       "kind": "official",
@@ -32,8 +48,8 @@
     },
     {
       "kind": "mp",
-      "mpId": 1689,
-      "name": "Андон Петров Андонов",
+      "mpId": 3693,
+      "name": "Тихомир Гочев Тенев",
       "totalEur": 8421304.51,
       "contractorCount": 1,
       "contractCount": 3
@@ -113,14 +129,6 @@
       "contractCount": 1
     },
     {
-      "kind": "mp",
-      "mpId": 5268,
-      "name": "Румен Ангелов Миланов",
-      "totalEur": 568967.2,
-      "contractorCount": 1,
-      "contractCount": 3
-    },
-    {
       "kind": "official",
       "slug": "reneta-georgieva-koleva-877928",
       "name": "Ренета Георгиева Колева",
@@ -129,14 +137,6 @@
       "totalEur": 322702.89,
       "contractorCount": 1,
       "contractCount": 4
-    },
-    {
-      "kind": "mp",
-      "mpId": 3016,
-      "name": "Борис Цветков Цветков",
-      "totalEur": 289631.21,
-      "contractorCount": 1,
-      "contractCount": 2
     },
     {
       "kind": "mp",
@@ -155,14 +155,6 @@
       "totalEur": 263513.46,
       "contractorCount": 1,
       "contractCount": 5
-    },
-    {
-      "kind": "mp",
-      "mpId": 4649,
-      "name": "Генади Събков Събков",
-      "totalEur": 236728.14,
-      "contractorCount": 1,
-      "contractCount": 2
     },
     {
       "kind": "official",
@@ -421,12 +413,28 @@
       "contractCount": 2
     },
     {
+      "kind": "mp",
+      "mpId": 3551,
+      "name": "Златомира Димитрова Карагеоргиева-Мострова",
+      "totalEur": 6442.28,
+      "contractorCount": 1,
+      "contractCount": 2
+    },
+    {
       "kind": "official",
       "slug": "plamen-vladimirov-kitipov-db1872",
       "name": "Пламен Владимиров Китипов",
       "tier": "municipal",
       "role": "deputy_mayor",
       "totalEur": 4243.72,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "mp",
+      "mpId": 69,
+      "name": "Жори Йорданов Алексиев",
+      "totalEur": 3067.75,
       "contractorCount": 1,
       "contractCount": 1
     },

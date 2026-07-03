@@ -1,0 +1,115 @@
+{
+  "mpId": 3551,
+  "summary": {
+    "totalEur": 1478782.14,
+    "totalOther": {},
+    "contractCount": 30,
+    "awardCount": 0
+  },
+  "scorecard": {
+    "value": 1478782.14,
+    "rank": 12,
+    "cohortSize": 43,
+    "cohortMedian": 767389.33
+  },
+  "entries": [
+    {
+      "mpId": 3551,
+      "mpName": "Златомира Димитрова Карагеоргиева-Мострова",
+      "contractorEik": "812115210",
+      "contractorName": "Водоснабдяване и канализация ЕАД",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 1478782.14,
+      "totalOther": {},
+      "contractCount": 30,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2014",
+          "contractCount": 1,
+          "totalEur": 74137.32,
+          "totalOther": {}
+        },
+        {
+          "year": "2015",
+          "contractCount": 1,
+          "totalEur": 4601.63,
+          "totalOther": {}
+        },
+        {
+          "year": "2016",
+          "contractCount": 1,
+          "totalEur": 1840.65,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 2,
+          "totalEur": 5112.92,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 5,
+          "totalEur": 112344.63,
+          "totalOther": {}
+        },
+        {
+          "year": "2024",
+          "contractCount": 12,
+          "totalEur": 974797.9,
+          "totalOther": {}
+        },
+        {
+          "year": "2025",
+          "contractCount": 8,
+          "totalEur": 305947.08,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "129010157",
+          "name": "Дирекция Управление на собствеността и социални дейности /Дуссд/ към Министерство на вътрешните работи - МВР",
+          "contractCount": 3,
+          "totalEur": 295164.54,
+          "totalOther": {}
+        },
+        {
+          "eik": "102011085",
+          "name": "Топлофикация - бургас АД",
+          "contractCount": 1,
+          "totalEur": 254112.06,
+          "totalOther": {}
+        },
+        {
+          "eik": "129008829",
+          "name": "Изпълнителна агенция “Военни клубове и военно-почивно дело”",
+          "contractCount": 1,
+          "totalEur": 172278.43,
+          "totalOther": {}
+        },
+        {
+          "eik": "129010125",
+          "name": "Главна дирекция \"Гранична полиция\" /Гдгп/ към Министерство на вътрешните работи /МВР/",
+          "contractCount": 4,
+          "totalEur": 155830.25,
+          "totalOther": {}
+        },
+        {
+          "eik": "812114464",
+          "name": "Бургасбус ЕООД",
+          "contractCount": 1,
+          "totalEur": 153387.56,
+          "totalOther": {}
+        }
+      ]
+    }
+  ]
+}

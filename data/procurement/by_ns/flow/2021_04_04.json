@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-03T09:06:26.296Z",
+  "generatedAt": "2026-07-03T11:14:12.368Z",
   "nodes": [
     {
       "id": "awarder:000695406",
@@ -17,6 +17,11 @@
       "label": "Община Варна"
     },
     {
+      "id": "mp:1129",
+      "type": "mp",
+      "label": "Антоний Венциславов Кръстев"
+    },
+    {
       "id": "mp:938",
       "type": "mp",
       "label": "Дарин Величков Матов"
@@ -32,6 +37,11 @@
       "source": "awarder:000093442",
       "target": "contractor:121396123",
       "valueEur": 170430.63
+    },
+    {
+      "source": "contractor:121396123",
+      "target": "mp:1129",
+      "valueEur": 300324.58
     },
     {
       "source": "contractor:121396123",

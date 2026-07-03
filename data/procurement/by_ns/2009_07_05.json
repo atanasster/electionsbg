@@ -2,7 +2,7 @@
   "electionDate": "2009_07_05",
   "start": "2009-07-05",
   "end": "2013-05-12",
-  "generatedAt": "2026-07-03T09:06:26.324Z",
+  "generatedAt": "2026-07-03T11:14:12.400Z",
   "totals": {
     "contracts": 29613,
     "amendments": 0,
@@ -10,14 +10,14 @@
     "contractorCount": 7350,
     "awarderCount": 1414,
     "totalEur": 6362092009.12,
-    "mpCount": 15,
-    "mpConnectedContractorCount": 14,
-    "mpConnectedTotalEur": 8919721.51,
+    "mpCount": 19,
+    "mpConnectedContractorCount": 15,
+    "mpConnectedTotalEur": 17667524.36,
     "officialCount": 26,
     "officialConnectedContractorCount": 24,
     "officialConnectedTotalEur": 16027219.2,
-    "connectedContractorCount": 35,
-    "connectedTotalEur": 24020067.82
+    "connectedContractorCount": 36,
+    "connectedTotalEur": 23443856.38
   },
   "topContractors": [
     {
@@ -725,6 +725,28 @@
   ],
   "topMps": [
     {
+      "mpId": 4727,
+      "mpName": "Хюсни Осман Адем",
+      "totalEur": 10059762.8,
+      "contractCount": 23,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Информационно обслужване АД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 1129,
+      "mpName": "Антоний Венциславов Кръстев",
+      "totalEur": 2742232.5,
+      "contractCount": 30,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Български пощи /Бп/ ЕАД - София"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 938,
       "mpName": "Дарин Величков Матов",
       "totalEur": 2742232.5,
@@ -747,30 +769,19 @@
       "confidence": "high"
     },
     {
-      "mpId": 5268,
-      "mpName": "Румен Ангелов Миланов",
-      "totalEur": 1345351.4,
-      "contractCount": 5,
+      "mpId": 809,
+      "mpName": "Альоша Маков Даков",
+      "totalEur": 805353.74,
+      "contractCount": 1,
       "contractorCount": 1,
       "topContractorNames": [
-        "Пътстрой-92 АД - София"
+        "Академика 2011  ЕАД  - София"
       ],
       "confidence": "medium"
     },
     {
-      "mpId": 4649,
-      "mpName": "Генади Събков Събков",
-      "totalEur": 735748.51,
-      "contractCount": 10,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Напоителни системи ЕАД - София"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 1689,
-      "mpName": "Андон Петров Андонов",
+      "mpId": 3693,
+      "mpName": "Тихомир Гочев Тенев",
       "totalEur": 577248.53,
       "contractCount": 3,
       "contractorCount": 1,
@@ -835,13 +846,13 @@
       "confidence": "medium"
     },
     {
-      "mpId": 3016,
-      "mpName": "Борис Цветков Цветков",
-      "totalEur": 170427.9,
+      "mpId": 3674,
+      "mpName": "Андрей Николаев Михайлов",
+      "totalEur": 117597.13,
       "contractCount": 1,
       "contractorCount": 1,
       "topContractorNames": [
-        "Ученически отдих и спорт ЕАД"
+        "Армконсулт 2000 ООД - София"
       ],
       "confidence": "medium"
     },
@@ -864,6 +875,39 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Бред - Кооп Павликени ЕАД - Павликени"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 1060,
+      "mpName": "Иво Тенев Димов",
+      "totalEur": 16616.99,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Национално сдружение на общините в Република България - София"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 2821,
+      "mpName": "Станислав Иванов Владимиров",
+      "totalEur": 16616.99,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Национално сдружение на общините в Република България - София"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 4939,
+      "mpName": "Юксел Осман Ахмед",
+      "totalEur": 16616.99,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Национално сдружение на общините в Република България - София"
       ],
       "confidence": "medium"
     },
