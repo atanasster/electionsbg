@@ -25,8 +25,10 @@ WITH c AS (
     AND (p_to   IS NULL OR date <  p_to)
 ),
 pair AS (
-  SELECT awarder_eik, MIN(awarder_name) AS aw_name,
-         contractor_eik, MIN(contractor_name) AS ct_name,
+  -- COLLATE "C" pins the alias choice to byte order across instances (see
+  -- risk-indexes, 70f92e10a).
+  SELECT awarder_eik, MIN(awarder_name COLLATE "C") AS aw_name,
+         contractor_eik, MIN(contractor_name COLLATE "C") AS ct_name,
          SUM(amount_eur) AS eur, COUNT(*)::int AS n
   FROM c GROUP BY awarder_eik, contractor_eik
 ),
@@ -58,7 +60,11 @@ SELECT jsonb_build_object(
       'awarderTotalEur', ROUND(f.tot),
       'contractCount', f.n,
       'oblast', (SELECT s.oblast FROM awarder_seats s WHERE s.eik = f.awarder_eik)
-    ) ORDER BY f.share DESC, f.eur DESC)
+    -- Rounded sort keys + eik tiebreaks: raw float share/eur carry
+    -- per-instance summation noise that swaps near-equal rows (same
+    -- determinism rule as risk-indexes, 70f92e10a).
+    ) ORDER BY ROUND(f.share::numeric, 4) DESC, ROUND(f.eur) DESC,
+               f.awarder_eik, f.contractor_eik)
     FROM flagged f
   ), '[]'::jsonb)
 );

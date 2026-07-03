@@ -23,16 +23,18 @@ coded AS (
   SELECT d, COALESCE(SUM(amount_eur), 0) AS eur, COUNT(*)::int AS n
   FROM c WHERE d IS NOT NULL AND d <> '' GROUP BY d
 )
+-- ROUND + rounded ordering: raw double sums carry per-instance summation
+-- noise (Docker vs Cloud SQL) — same determinism rule as risk-indexes.
 SELECT jsonb_build_object(
-  'totalEur', (SELECT COALESCE(SUM(amount_eur), 0) FROM c),
+  'totalEur', (SELECT ROUND(COALESCE(SUM(amount_eur), 0)) FROM c),
   'uncoded', jsonb_build_object(
-    'eur', (SELECT COALESCE(SUM(amount_eur), 0) FROM c WHERE d IS NULL OR d = ''),
+    'eur', (SELECT ROUND(COALESCE(SUM(amount_eur), 0)) FROM c WHERE d IS NULL OR d = ''),
     'n',   (SELECT COUNT(*)::int FROM c WHERE d IS NULL OR d = '')
   ),
   'sectors', (
     SELECT COALESCE(jsonb_agg(jsonb_build_object(
-      'division', d, 'eur', eur, 'n', n
-    ) ORDER BY eur DESC NULLS LAST), '[]'::jsonb)
+      'division', d, 'eur', ROUND(eur), 'n', n
+    ) ORDER BY ROUND(eur) DESC NULLS LAST, d), '[]'::jsonb)
     FROM coded
   )
 );

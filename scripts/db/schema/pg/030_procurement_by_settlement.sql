@@ -58,17 +58,19 @@ SELECT jsonb_build_object(
   -- Headline totals are the LOCAL settlements only (= sum of settlements[]); the
   -- national card is reported separately, not folded into totalEur/Contracts.
   'totalContracts', (SELECT (COUNT(*) FILTER (WHERE tag = 'contract' AND is_local_hq))::int FROM c),
-  'totalEur', (SELECT COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract' AND is_local_hq), 0) FROM c),
+  -- ROUND + rounded ordering: raw double sums carry per-instance summation
+  -- noise (Docker vs Cloud SQL) — same determinism rule as risk-indexes.
+  'totalEur', (SELECT ROUND(COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract' AND is_local_hq), 0)) FROM c),
   'settlementCount', (SELECT count(*) FROM sett),
   'national', jsonb_build_object(
     'contractCount', nat.contract_count, 'awardCount', nat.award_count,
-    'totalEur', nat.total_eur, 'totalOther', nat_other.o,
+    'totalEur', ROUND(nat.total_eur), 'totalOther', nat_other.o,
     'awarderCount', nat.awarder_count),
   'settlements', COALESCE((
     SELECT jsonb_agg(jsonb_build_object(
       'ekatte', ekatte, 'name', name, 'province', province, 'obshtina', obshtina,
-      'contractCount', contract_count, 'totalEur', total_eur,
-      'awarderCount', awarder_count) ORDER BY total_eur DESC)
+      'contractCount', contract_count, 'totalEur', ROUND(total_eur),
+      'awarderCount', awarder_count) ORDER BY ROUND(total_eur) DESC, ekatte)
     FROM sett), '[]'::jsonb)
 ) FROM nat, nat_other;
 $$;
@@ -91,7 +93,9 @@ c AS (
     AND (p_to   IS NULL OR ct.date <  p_to)
 ),
 aw AS (
-  SELECT c.awarder_eik AS eik, MIN(c.awarder_name) AS name,
+  -- COLLATE "C" pins the alias choice to byte order across instances (see
+  -- risk-indexes, 70f92e10a).
+  SELECT c.awarder_eik AS eik, MIN(c.awarder_name COLLATE "C") AS name,
          (SELECT tier FROM seats s WHERE s.eik = c.awarder_eik) AS tier,
          COALESCE(SUM(c.amount_eur) FILTER (WHERE c.tag = 'contract'), 0) AS total_eur,
          (COUNT(*) FILTER (WHERE c.tag = 'contract'))::int AS contract_count,
@@ -101,7 +105,7 @@ aw AS (
 byyr AS (
   SELECT COALESCE(jsonb_agg(to_jsonb(y) ORDER BY y.year), '[]'::jsonb) AS arr FROM (
     SELECT left(date, 4) AS year,
-           COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract'), 0) AS "totalEur",
+           ROUND(COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract'), 0)) AS "totalEur",
            '{}'::jsonb AS "totalOther",
            (COUNT(*) FILTER (WHERE tag = 'contract'))::int AS "contractCount"
     FROM c WHERE tag = 'contract' GROUP BY left(date, 4)
@@ -124,15 +128,15 @@ SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM seats) THEN NULL ELSE jsonb_build_obj
   'generatedAt', '',
   'contractCount', (SELECT (COUNT(*) FILTER (WHERE tag = 'contract'))::int FROM c),
   'awardCount', (SELECT (COUNT(*) FILTER (WHERE tag = 'award'))::int FROM c),
-  'totalEur', (SELECT COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract'), 0) FROM c),
+  'totalEur', (SELECT ROUND(COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract'), 0)) FROM c),
   'totalOther', COALESCE((SELECT jsonb_object_agg(cur, s) FROM (
      SELECT currency AS cur, ROUND(SUM(amount)) AS s FROM c
      WHERE tag = 'contract' AND currency IS NOT NULL AND amount IS NOT NULL
      GROUP BY currency) x), '{}'::jsonb),
   'awarders', COALESCE((SELECT jsonb_agg(jsonb_build_object(
-     'eik', eik, 'name', name, 'tier', tier, 'totalEur', total_eur,
+     'eik', eik, 'name', name, 'tier', tier, 'totalEur', ROUND(total_eur),
      'totalOther', '{}'::jsonb, 'contractCount', contract_count,
-     'awardCount', award_count) ORDER BY total_eur DESC) FROM aw), '[]'::jsonb),
+     'awardCount', award_count) ORDER BY ROUND(total_eur) DESC, eik) FROM aw), '[]'::jsonb),
   'topContracts', (SELECT arr FROM topc),
   'byYear', (SELECT arr FROM byyr)
 ) END;
