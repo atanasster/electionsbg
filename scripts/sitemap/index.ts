@@ -4,7 +4,7 @@ import { ENGLISH_STATIC_PAGES, RouteDef, routeDefs } from "./route_defs";
 import { fileURLToPath } from "url";
 import { ElectionInfo, PartyInfo, SectionIndex } from "@/data/dataTypes";
 
-type SettlementBundleEntry = { ekatte?: string };
+type SettlementBundleEntry = { ekatte?: string; oblast?: string };
 type PollAgency = { id: string };
 type ArticleMeta = { slug: string; updatedAt?: string; draft?: boolean };
 
@@ -181,6 +181,10 @@ const enumerateEkatteFromBundles = (
     );
     for (const s of bundle) {
       if (!s.ekatte || seen.has(s.ekatte)) continue;
+      // Abroad bundles (obshtina "EU") nest one pseudo-settlement entry per
+      // country (oblast "32") for section aggregation — these aren't real
+      // place pages; the abroad rollup lives at the "EU" municipality URL.
+      if (s.oblast === "32") continue;
       seen.add(s.ekatte);
       expandWithSubTabs(
         `${rootUrl}/${routes[0]}${s.ekatte}`,
