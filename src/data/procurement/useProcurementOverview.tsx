@@ -10,7 +10,7 @@ import { useProcurementWindow } from "./useProcurementWindow";
 import type { ProcurementByNsFile } from "@/data/dataTypes";
 
 export const useProcurementOverview = () => {
-  const { from, to, all, selected } = useProcurementWindow();
+  const { from, to, all, year, selected } = useProcurementWindow();
 
   const query = useQuery({
     queryKey: ["procurement", "overview", from, to] as const,
@@ -35,5 +35,5 @@ export const useProcurementOverview = () => {
     staleTime: Infinity,
   });
 
-  return { ...query, from, to, all };
+  return { ...query, from, to, all, year };
 };

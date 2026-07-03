@@ -67,7 +67,8 @@ There are no tests configured.
 - `?elections=YYYY_MM_DD` — selected election (read by `ElectionContext`)
 - `?cabinet=<id>` — global cabinet anchor on `/governments*` and `/indicators*` (read by `cabinetAnchorContext`)
 - `?peers=RO,GR,HU,HR` — peer-country selection on `/indicators/compare` (read by `usePeerSelection`)
-- `?pscope=all` — procurement time-scope on `/procurement*` (read by `useProcurementScope`); default `ns` (the selected parliament's contract window) is omitted from the URL, `all` pivots to the full corpus. The procurement nav pills carry the current search forward (`useProcurementHref`) so the scope survives sub-page navigation.
+- `?pscope=all` / `?pscope=y:2024` — procurement time-scope on `/procurement*` (read by `useProcurementScope`); default `ns` (the selected parliament's contract window) is omitted from the URL, `all` pivots to the full corpus, `y:<year>` to one calendar year. The procurement nav pills carry the current search forward (`useProcurementHref`) so the scope survives sub-page navigation.
+- `?q=<term>` — on `/procurement/contracts` and `/procurement/tenders`, seeds the DbDataTable free-text search (used by the combined-search "see all" deep links).
 
 ### Local-elections routes
 

@@ -40,7 +40,12 @@ type Props = {
     | "local-overview"
     | "sources"
     | "changes"
-    | "downloads";
+    | "downloads"
+    | "procurement-money"
+    | "procurement-entities"
+    | "procurement-people"
+    | "procurement-risk"
+    | "procurement-tenders";
   title?: ReactNode;
   subtitle?: ReactNode;
   icon?: LucideIcon;

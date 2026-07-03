@@ -59,6 +59,8 @@ interface Props<T> {
   defaultSort?: SortingState;
   pageSize?: number;
   searchPlaceholder?: string;
+  /** Seed the free-text search box (e.g. from a ?q= deep link). */
+  initialSearch?: string;
   /** Extra toolbar controls (facet selects), rendered next to the search box. */
   toolbar?: ReactNode;
   /** Render the aggregates footer from the server totals. */
@@ -83,6 +85,7 @@ export const DbDataTable = <T,>({
   defaultSort = [],
   pageSize = 25,
   searchPlaceholder,
+  initialSearch,
   toolbar,
   renderAggregates,
   onData,
@@ -90,8 +93,8 @@ export const DbDataTable = <T,>({
   const { t } = useTranslation();
   const [sorting, setSorting] = useState<SortingState>(defaultSort);
   const [pageIndex, setPageIndex] = useState(0);
-  const [search, setSearch] = useState("");
-  const [debounced, setDebounced] = useState("");
+  const [search, setSearch] = useState(initialSearch ?? "");
+  const [debounced, setDebounced] = useState(initialSearch ?? "");
 
   useEffect(() => {
     const id = setTimeout(() => setDebounced(search), 250);

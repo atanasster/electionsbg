@@ -327,6 +327,24 @@ const DB_ROUTES = {
     ]);
     return { body: rows[0]?.r ?? null };
   },
+  // National CPV-division totals ("what does the state buy"), window-scoped
+  // [from, to) or full corpus.
+  "procurement-sectors": async (dbRows, q) => {
+    const rows = await dbRows("SELECT procurement_sectors($1, $2) AS r", [
+      orNull(q, "from"),
+      orNull(q, "to"),
+    ]);
+    return { body: rows[0]?.r ?? null };
+  },
+  // EU Single Market Scoreboard competition indicators (single-bidder share,
+  // no-call-for-bids share), window-scoped [from, to) or full corpus.
+  "procurement-benchmarks": async (dbRows, q) => {
+    const rows = await dbRows("SELECT procurement_benchmarks($1, $2) AS r", [
+      orNull(q, "from"),
+      orNull(q, "to"),
+    ]);
+    return { body: rows[0]?.r ?? null };
+  },
   // Full "see all" rankings (top contractors / awarders / MPs / officials),
   // window-scoped [from, to) or full corpus — the big-list sibling of
   // procurement-overview.
@@ -566,6 +584,42 @@ const DB_ROUTES = {
       [term],
     );
     return { body: { companies } };
+  },
+  // Combined procurement search — one query, grouped results: contractors,
+  // buyers (deduped to one row per eik — corpus rows carry name aliases),
+  // contract subjects and tender subjects. Persons are merged client-side from
+  // person_procurement_index.json (bilingual token matching lives there).
+  "procurement-search": async (dbRows, q) => {
+    const term = s(q, "q");
+    if (!term) return { status: 400, body: { error: "missing q" } };
+    const lim = clampInt(q.limit, 6, 1, 20);
+    const dedupByEik = (fn) => `
+      WITH s AS (SELECT * FROM ${fn}($1, 60))
+      SELECT eik, name, contracts, contracts_eur AS "contractsEur"
+      FROM (
+        SELECT DISTINCT ON (eik) eik, name, contracts, contracts_eur, sim
+        FROM s ORDER BY eik, sim DESC, length(name)
+      ) d
+      ORDER BY sim DESC, length(name), eik
+      LIMIT $2`;
+    const [companies, awarders, contracts, tenders] = await Promise.all([
+      dbRows(dedupByEik("search_contractors"), [term, lim]),
+      dbRows(dedupByEik("search_awarders"), [term, lim]),
+      dbRows(
+        `SELECT key, title, date, awarder_name AS "awarderName",
+                contractor_name AS "contractorName", amount_eur AS "amountEur"
+         FROM search_contract_titles($1, $2)`,
+        [term, lim],
+      ),
+      dbRows(
+        `SELECT unp, subject, publication_date AS "publicationDate",
+                buyer_name AS "buyerName",
+                estimated_value_eur AS "estimatedValueEur"
+         FROM search_tender_subjects($1, $2)`,
+        [term, lim],
+      ),
+    ]);
+    return { body: { companies, awarders, contracts, tenders } };
   },
   async recent(dbRows, q) {
     return {

@@ -76,6 +76,12 @@ const PROC_RISK_INDEXES_FILE = path.join(
   "033_procurement_risk_indexes.sql",
 );
 const REF_PROCUREMENT_FILE = path.join(SCHEMA_DIR, "034_ref_procurement.sql");
+const PROC_SEARCH_FILE = path.join(SCHEMA_DIR, "035_procurement_search.sql");
+const PROC_SECTORS_FILE = path.join(SCHEMA_DIR, "036_procurement_sectors.sql");
+const PROC_BENCHMARKS_FILE = path.join(
+  SCHEMA_DIR,
+  "037_procurement_benchmarks.sql",
+);
 const GOVERNMENTS_FILE = path.join(PROC_DIR, "..", "governments.json");
 const DEBARRED_FILE = path.join(PROC_DIR, "debarred.json");
 const monthShardDir = path.join(PROC_DIR, "contracts");
@@ -154,6 +160,9 @@ export const loadPg = async (): Promise<{
   await exec(readFileSync(TENDER_DETAIL_FILE, "utf8"));
   await exec(readFileSync(PROC_RISK_INDEXES_FILE, "utf8"));
   await exec(readFileSync(REF_PROCUREMENT_FILE, "utf8"));
+  await exec(readFileSync(PROC_SEARCH_FILE, "utf8"));
+  await exec(readFileSync(PROC_SECTORS_FILE, "utf8"));
+  await exec(readFileSync(PROC_BENCHMARKS_FILE, "utf8"));
 
   const { rows, years } = readShards();
   let batchId = 0;
@@ -185,6 +194,15 @@ export const loadPg = async (): Promise<{
       `INSERT INTO contractor_search (eik, name)
        SELECT DISTINCT contractor_eik, contractor_name
        FROM contracts WHERE contractor_eik <> ''`,
+    );
+
+    // Buyer-name search index (combined procurement search) — same treatment
+    // for the awarder side. Rebuilt each load.
+    await c.query("TRUNCATE awarder_search");
+    await c.query(
+      `INSERT INTO awarder_search (eik, name)
+       SELECT DISTINCT awarder_eik, awarder_name
+       FROM contracts WHERE awarder_eik <> '' AND awarder_name <> ''`,
     );
 
     // Feature 2: open a batch, then record first-seen for any key not already

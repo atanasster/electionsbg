@@ -1,18 +1,35 @@
-// /procurement — public-procurement landing page. By default scoped to the
-// selected election (NS): stats + top contractors/awarders/MPs reflect just
-// that parliament's term. A "Покажи всички години" toggle pivots to the
-// full-corpus view (every year 2011-2026).
+// /procurement — public-procurement landing page, organised like the elections
+// homepage: a headline KPI row + combined search up top, then DashboardSection
+// blocks that each preview one sub-page (money flows, who wins/awards,
+// politicians, risk signals, tender pipeline, watchlist) and link into it.
+// By default scoped to the selected election (NS); the section scope control
+// (?pscope) pivots to the full corpus or a single year.
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { ExternalLink, Receipt, Users, Building2, Coins } from "lucide-react";
+import {
+  ExternalLink,
+  Receipt,
+  Users,
+  Building2,
+  Coins,
+  AlertTriangle,
+  ClipboardList,
+  Waypoints,
+} from "lucide-react";
 import { Title } from "@/ux/Title";
 import { StatCard } from "./dashboard/StatCard";
+import { DashboardSection } from "./dashboard/DashboardSection";
 import { useProcurementOverview } from "@/data/procurement/useProcurementOverview";
 import { ProcurementFlowTile } from "./components/procurement/ProcurementFlowTile";
 import { WatchlistDigestTile } from "./components/procurement/WatchlistDigestTile";
 import { ProcurementSectionHeader } from "./components/procurement/ProcurementSectionHeader";
-import { CompanySearchTile } from "./components/procurement/CompanySearchTile";
+import { ProcurementSearchTile } from "./components/procurement/ProcurementSearchTile";
+import { ProcurementSectorsTile } from "./components/procurement/ProcurementSectorsTile";
+import { RiskSignalsTile } from "./components/procurement/RiskSignalsTile";
+import { ProcurementBenchmarksTile } from "./components/procurement/ProcurementBenchmarksTile";
+import { LatestContractsTile } from "./components/procurement/LatestContractsTile";
+import { LatestTendersTile } from "./components/procurement/LatestTendersTile";
 import { TopContractorsTile } from "./components/procurement/TopContractorsTile";
 import { TopAwardersTile } from "./components/procurement/TopAwardersTile";
 import { TopMpsTile } from "./components/procurement/TopMpsTile";
@@ -33,8 +50,8 @@ export const ProcurementScreen: FC = () => {
   const { t } = useTranslation();
   // Scope is section-wide and URL-encoded (?pscope) so it's shareable and
   // survives navigation to the sub-pages. Default "ns" → scoped to the selected
-  // election window; "all" pivots to the full corpus. Both are one DB query.
-  const { data, isLoading, all } = useProcurementOverview();
+  // election window; "all" pivots to the full corpus; "y:<year>" to one year.
+  const { data, isLoading, all, year } = useProcurementOverview();
   const title = t("procurement_index_title") || "Public procurement";
 
   if (isLoading) {
@@ -85,6 +102,9 @@ export const ProcurementScreen: FC = () => {
         <p className="text-xs text-muted-foreground mb-1">
           {all ? (
             t("procurement_scope_all") || "Showing the full corpus, all years."
+          ) : year != null ? (
+            t("procurement_scope_year", { year }) ||
+            `Showing contracts signed in ${year}.`
           ) : (
             <>
               {t("procurement_scope_ns") ||
@@ -97,7 +117,7 @@ export const ProcurementScreen: FC = () => {
           )}
         </p>
 
-        <CompanySearchTile />
+        <ProcurementSearchTile />
 
         <div
           className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mt-4"
@@ -192,29 +212,75 @@ export const ProcurementScreen: FC = () => {
           </StatCard>
         </div>
 
+        {/* One-line "you follow N · M with new activity" alert strip — stays
+            directly under the KPIs (it's a notification, not a section). */}
         <WatchlistDigestTile />
-        <ProcurementFlowTile />
-        {/* Treemap overview: largest contractors / largest awarders, each
-            tile sized by total euro value. Sits above the ranked tables. */}
-        <div className="grid gap-4 xl:grid-cols-2">
-          <ProcurementTreemapTile
-            entity="contractor"
-            items={data.topContractors}
-          />
-          <ProcurementTreemapTile entity="awarder" items={data.topAwarders} />
-        </div>
-        {/* 2-col grid on xl+ screens so top contractors / awarders / MPs
-            sit side-by-side. On narrower viewports they stack. */}
-        <div className="grid gap-4 xl:grid-cols-2">
-          <TopContractorsTile byNs={data} />
-          <TopAwardersTile data={data} />
-          <div className="xl:col-span-2">
-            <TopMpsTile data={data} />
+
+        <DashboardSection
+          id="procurement-money"
+          title={t("procurement_section_money") || "Money flows"}
+          icon={Waypoints}
+          articleTopic="procurement"
+        >
+          <ProcurementFlowTile />
+          <ProcurementSectorsTile />
+        </DashboardSection>
+
+        <DashboardSection
+          id="procurement-entities"
+          title={t("procurement_section_entities") || "Who wins · who awards"}
+          icon={Building2}
+        >
+          {/* Treemap overview: largest contractors / largest awarders, each
+              tile sized by total euro value. Sits above the ranked tables. */}
+          <div className="grid gap-4 xl:grid-cols-2">
+            <ProcurementTreemapTile
+              entity="contractor"
+              items={data.topContractors}
+            />
+            <ProcurementTreemapTile entity="awarder" items={data.topAwarders} />
           </div>
-          <div className="xl:col-span-2">
-            <TopOfficialsTile data={data} />
+          <div className="grid gap-4 xl:grid-cols-2">
+            <TopContractorsTile byNs={data} />
+            <TopAwardersTile data={data} />
           </div>
-        </div>
+          <LatestContractsTile />
+        </DashboardSection>
+
+        <DashboardSection
+          id="procurement-people"
+          title={t("procurement_section_people") || "Politicians & connections"}
+          icon={Users}
+        >
+          <TopMpsTile data={data} />
+          <TopOfficialsTile data={data} />
+        </DashboardSection>
+
+        <DashboardSection
+          id="procurement-risk"
+          title={t("procurement_section_risk") || "Risk signals"}
+          icon={AlertTriangle}
+        >
+          {/* min-w-0 wrappers: grid items default to min-width:auto, which
+              would let long entity names push the cards past the viewport on
+              narrow screens instead of truncating. */}
+          <div className="grid gap-4 xl:grid-cols-2">
+            <div className="min-w-0">
+              <RiskSignalsTile />
+            </div>
+            <div className="min-w-0">
+              <ProcurementBenchmarksTile />
+            </div>
+          </div>
+        </DashboardSection>
+
+        <DashboardSection
+          id="procurement-tenders"
+          title={t("procurement_section_tenders") || "Tenders (procedures)"}
+          icon={ClipboardList}
+        >
+          <LatestTendersTile />
+        </DashboardSection>
 
         <SourceFooter t={t} />
       </section>

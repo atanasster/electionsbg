@@ -8,7 +8,6 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useQuery } from "@tanstack/react-query";
 import {
   Ban,
   AlertTriangle,
@@ -19,9 +18,9 @@ import {
 import { Title } from "@/ux/Title";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useDebarred } from "@/data/procurement/useDebarred";
+import { useRiskFeed } from "@/data/procurement/useRiskFeed";
 import { formatEur } from "@/lib/currency";
 import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
-import { useProcurementWindow } from "@/data/procurement/useProcurementWindow";
 import { ConcentrationOblastTiles } from "@/screens/components/procurement/ConcentrationOblastTiles";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
@@ -30,30 +29,6 @@ const pctFmt = (frac: number, lang: string) =>
     style: "percent",
     maximumFractionDigits: 0,
   }).format(frac);
-
-type RiskFeedFile = {
-  topConcentration: Array<{
-    awarderEik: string;
-    awarderName: string;
-    contractorEik: string;
-    contractorName: string;
-    sharePct: number;
-    pairTotalEur: number;
-  }>;
-  topMpTied: Array<{
-    mpId: number;
-    mpName: string;
-    contractorEik: string;
-    contractorName: string;
-    totalEur: number;
-  }>;
-  concentrationTotal?: number;
-  concentration100Total?: number;
-  mpTiedTotal?: number;
-  connectedPeopleTotal?: number;
-  concentrationByOblast?: Array<{ oblast: string; count: number }>;
-  concentrationNationalCount?: number;
-};
 
 // Summary metric tile — gives the reader the scale of each signal before the
 // ranked excerpts below.
@@ -83,26 +58,6 @@ const ShownOf: FC<{ shown: number; total?: number }> = ({ shown, total }) => {
         .replace("{{total}}", numFmt.format(total))}
     </span>
   );
-};
-
-// DB-backed (/api/db/procurement-risk-feed → procurement_risk_feed): the same
-// top-concentration + top-MP-tied excerpts + headline counts, scoped to the
-// selected parliament window or the full corpus. (Debarred suppliers stay a
-// corpus register — no date dimension — and are fetched separately.)
-const useRiskFeed = () => {
-  const { from, to } = useProcurementWindow();
-  return useQuery({
-    queryKey: ["procurement", "risk_feed", from, to],
-    queryFn: async (): Promise<RiskFeedFile | null> => {
-      const qs = new URLSearchParams();
-      if (from) qs.set("from", from);
-      if (to) qs.set("to", to);
-      const r = await fetch(`/api/db/procurement-risk-feed?${qs.toString()}`);
-      if (!r.ok) throw new Error(`fetch failed: ${r.status}`);
-      return (await r.json()) as RiskFeedFile;
-    },
-    staleTime: Infinity,
-  });
 };
 
 export const ProcurementFlagsScreen: FC = () => {

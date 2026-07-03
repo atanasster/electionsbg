@@ -1,8 +1,9 @@
 // Section-wide procurement scope: "ns" (the selected parliament's contract
-// window) vs "all" (the full corpus, every year). Encoded in the URL as
-// `?pscope=all` (ns is the default and stays out of the URL to keep it clean)
-// so the scope is shareable AND survives navigation between the procurement
-// landing and its sub-pages — see the URL contract note in CLAUDE.md.
+// window), "all" (the full corpus, every year) or "y:<year>" (one calendar
+// year). Encoded in the URL as `?pscope=all` / `?pscope=y:2024` (ns is the
+// default and stays out of the URL to keep it clean) so the scope is shareable
+// AND survives navigation between the procurement landing and its sub-pages —
+// see the URL contract note in CLAUDE.md.
 //
 // Two consumers:
 //   useProcurementScope()  — read the active scope + flip it (segmented control)
@@ -14,24 +15,37 @@
 import { useCallback } from "react";
 import { To, useSearchParams } from "react-router-dom";
 
-export type ProcurementScope = "ns" | "all";
+export type ProcurementScope = "ns" | "all" | `y:${number}`;
 
 const PARAM = "pscope";
+
+// The years the corpus actually covers — the earliest contract is 2011-01-03.
+export const PROCUREMENT_FIRST_YEAR = 2011;
+
+const parseScope = (raw: string | null): ProcurementScope => {
+  if (raw === "all") return "all";
+  if (raw && /^y:20\d{2}$/.test(raw)) return raw as ProcurementScope;
+  return "ns";
+};
+
+/** The calendar year of a "y:<year>" scope, or null for ns/all. */
+export const scopeYear = (scope: ProcurementScope): number | null =>
+  scope.startsWith("y:") ? Number(scope.slice(2)) : null;
 
 export const useProcurementScope = (): {
   scope: ProcurementScope;
   setScope: (next: ProcurementScope) => void;
 } => {
   const [params, setParams] = useSearchParams();
-  const scope: ProcurementScope = params.get(PARAM) === "all" ? "all" : "ns";
+  const scope = parseScope(params.get(PARAM));
   const setScope = useCallback(
     (next: ProcurementScope) => {
       setParams(
         (prev) => {
           const p = new URLSearchParams(prev);
           // "ns" is the default → drop the param so the URL stays canonical.
-          if (next === "all") p.set(PARAM, "all");
-          else p.delete(PARAM);
+          if (next === "ns") p.delete(PARAM);
+          else p.set(PARAM, next);
           return p;
         },
         { replace: false },

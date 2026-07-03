@@ -6,7 +6,7 @@
 // page (risk isn't a Postgres column). See docs/plans/postgres-migration-v1.md.
 
 import { FC, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { Receipt, ExternalLink } from "lucide-react";
@@ -36,7 +36,9 @@ const ALL = "__all__";
 export const ContractsBrowserDbScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const { scoreRow } = useContractRiskScorer();
-  const { from, to, all } = useProcurementWindow();
+  const { from, to, all, year } = useProcurementWindow();
+  // ?q= deep link (combined-search "see all" footer) seeds the search box.
+  const [params] = useSearchParams();
 
   const [method, setMethod] = useState<string>(ALL);
   const [cpvDiv, setCpvDiv] = useState<string>(ALL);
@@ -191,7 +193,10 @@ export const ContractsBrowserDbScreen: FC = () => {
           <Receipt className="h-4 w-4 shrink-0" />
           {all
             ? t("procurement_scope_all") || "Full corpus, all years."
-            : `${from ?? ""}${to ? ` → ${to}` : " → …"}`}
+            : year != null
+              ? t("procurement_scope_year", { year }) ||
+                `Showing contracts signed in ${year}.`
+              : `${from ?? ""}${to ? ` → ${to}` : " → …"}`}
         </div>
 
         <DbDataTable<ProcurementContract>
@@ -201,6 +206,7 @@ export const ContractsBrowserDbScreen: FC = () => {
           columns={columns}
           defaultSort={[{ id: "amount_eur", desc: true }]}
           pageSize={25}
+          initialSearch={params.get("q") ?? ""}
           searchPlaceholder={
             t("procurement_contracts_search") ||
             "Търси възложител / изпълнител / предмет…"

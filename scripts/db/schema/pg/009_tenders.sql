@@ -80,3 +80,7 @@ CREATE INDEX IF NOT EXISTS idx_tenders_subj_fold  ON tenders USING gin (subject_
 -- walk instead of a 125k-row top-N sort per page.
 CREATE INDEX IF NOT EXISTS idx_tenders_value
   ON tenders(estimated_value_eur DESC NULLS LAST, unp);
+-- Combined-search subject lookup (search_tender_subjects, 035): FTS prefix-AND
+-- over the fold — trigram word-similarity rechecks explode on common words.
+CREATE INDEX IF NOT EXISTS idx_tenders_subj_fts
+  ON tenders USING gin (to_tsvector('simple', subject_fold));

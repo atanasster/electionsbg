@@ -14,6 +14,7 @@ import { Title } from "@/ux/Title";
 import { DbDataTable, type DbColumnFilter } from "@/ux/data_table/DbDataTable";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
 import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
+import { useProcurementWindow } from "@/data/procurement/useProcurementWindow";
 import { topicBySlug } from "@/lib/tenderTopics";
 import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
@@ -43,16 +44,13 @@ interface TenderRow {
 }
 
 const ALL = "__all__";
-const YEARS: string[] = Array.from({ length: 2026 - 2018 + 1 }, (_, i) =>
-  String(2026 - i),
-);
 
 export const TendersBrowserDbScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const [params] = useSearchParams();
   const topic = topicBySlug(params.get("topic"));
+  const { from, to, all } = useProcurementWindow();
 
-  const [year, setYear] = useState<string>(ALL);
   const [procedure, setProcedure] = useState<string>(ALL);
   const [cancelled, setCancelled] = useState(false);
 
@@ -81,16 +79,14 @@ export const TendersBrowserDbScreen: FC = () => {
     // Curated topic → filter by its precise CPV set (the discriminator the
     // offline builder used); catches the procedures however they're worded.
     if (topic?.cpv?.length) f.push({ id: "cpv", value: topic.cpv });
-    if (year !== ALL)
-      f.push({
-        id: "publication_date",
-        min: `${year}-01-01`,
-        max: `${year}-12-31`,
-      });
+    // Section scope (?pscope) → bound the announcement date. Exclusive end ≈
+    // inclusive max, off by ≤1 day — same convention as the contracts browser.
+    if (!all && from)
+      f.push({ id: "publication_date", min: from, max: to ?? undefined });
     if (procedure !== ALL) f.push({ id: "procedure_type", value: [procedure] });
     if (cancelled) f.push({ id: "is_cancelled", value: true });
     return f;
-  }, [topic, year, procedure, cancelled]);
+  }, [topic, all, from, to, procedure, cancelled]);
 
   const columns = useMemo<DataTableColumnDef<TenderRow, unknown>[]>(
     () => [
@@ -205,7 +201,7 @@ export const TendersBrowserDbScreen: FC = () => {
       <Title description="Tender-stage public-procurement procedures (estimated value, lots, status) from the ЦАИС ЕОП open-data feed">
         {t("tenders_title") || "Tenders"}
       </Title>
-      <ProcurementSectionHeader scopeMode="none" />
+      <ProcurementSectionHeader scopeMode="toggle" />
       <section aria-label="tenders" className="my-4">
         <div className="mb-3 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
           <ClipboardList className="h-4 w-4 shrink-0 text-indigo-600" />
@@ -225,26 +221,12 @@ export const TendersBrowserDbScreen: FC = () => {
           columns={columns}
           defaultSort={[{ id: "estimated_value_eur", desc: true }]}
           pageSize={25}
+          initialSearch={params.get("q") ?? ""}
           searchPlaceholder={
             t("tenders_search_ph") || "Търси по предмет или възложител…"
           }
           toolbar={
             <>
-              <Select value={year} onValueChange={setYear}>
-                <SelectTrigger className="w-auto h-9">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value={ALL}>
-                    {t("company_contracts_all_years") || "Всички години"}
-                  </SelectItem>
-                  {YEARS.map((y) => (
-                    <SelectItem key={y} value={y}>
-                      {y}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
               {procedureOptions.length > 0 ? (
                 <Select value={procedure} onValueChange={setProcedure}>
                   <SelectTrigger className="w-auto h-9 max-w-[220px]">

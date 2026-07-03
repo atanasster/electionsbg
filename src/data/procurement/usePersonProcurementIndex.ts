@@ -32,6 +32,18 @@ type PersonIndexFile = {
   rows: PersonProcurementRow[];
 };
 
+const fetchScanner = async (
+  from: string | null,
+  to: string | null,
+): Promise<PersonIndexFile | null> => {
+  const qs = new URLSearchParams();
+  if (from) qs.set("from", from);
+  if (to) qs.set("to", to);
+  const r = await fetch(`/api/db/procurement-scanner?${qs.toString()}`);
+  if (!r.ok) throw new Error(`fetch failed: ${r.status}`);
+  return (await r.json()) as PersonIndexFile;
+};
+
 // DB-backed (/api/db/procurement-scanner → procurement_scanner): the full
 // political-class procurement index, scoped to the selected parliament window or
 // the full corpus (?pscope).
@@ -42,15 +54,24 @@ export const usePersonProcurementIndex = (): {
   const { from, to } = useProcurementWindow();
   const { data, isLoading } = useQuery({
     queryKey: ["procurement", "scanner", from, to],
-    queryFn: async (): Promise<PersonIndexFile | null> => {
-      const qs = new URLSearchParams();
-      if (from) qs.set("from", from);
-      if (to) qs.set("to", to);
-      const r = await fetch(`/api/db/procurement-scanner?${qs.toString()}`);
-      if (!r.ok) throw new Error(`fetch failed: ${r.status}`);
-      return (await r.json()) as PersonIndexFile;
-    },
+    queryFn: () => fetchScanner(from, to),
     staleTime: Infinity,
   });
   return { rows: data?.rows ?? [], isLoading };
+};
+
+// Window-independent (full-corpus) variant for the combined search box, so a
+// person match doesn't vanish when the scope narrows. Shares the query cache
+// with the scanner page's "all years" mode. `enabled` gates the fetch to the
+// first focus/keystroke — the dashboard doesn't pay for it up front.
+export const useCorpusPersonIndex = (
+  enabled: boolean,
+): PersonProcurementRow[] => {
+  const { data } = useQuery({
+    queryKey: ["procurement", "scanner", null, null],
+    queryFn: () => fetchScanner(null, null),
+    staleTime: Infinity,
+    enabled,
+  });
+  return data?.rows ?? [];
 };
