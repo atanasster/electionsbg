@@ -1,6 +1,40 @@
 {
-  "updatedAt": "2026-07-02T07:00:38.059Z",
+  "updatedAt": "2026-07-03T09:34:41.457Z",
   "entries": [
+    {
+      "timestamp": "2026-07-03T09:34:41.457Z",
+      "date": "2026-07-03",
+      "skill": "update-prices",
+      "summary": "Retail price basket refreshed through 2026-07-02 (243 settlements)",
+      "source": "КЗП Колко струва (kolkostruva.bg)"
+    },
+    {
+      "timestamp": "2026-07-03T09:32:45.060Z",
+      "date": "2026-07-03",
+      "skill": "update-council-minutes",
+      "summary": "Стара Загора council: 48 new resolutions across 2 sessions",
+      "source": "Municipal council protocols (Стара Загора)"
+    },
+    {
+      "timestamp": "2026-07-03T09:09:45.412Z",
+      "date": "2026-07-03",
+      "skill": "update-procurement",
+      "summary": "Tender-stage refresh (125,656 procedures) + wider place coverage (1,873 buyers pinned to settlements)",
+      "source": "ЦАИС ЕОП open data (storage.eop.bg)"
+    },
+    {
+      "timestamp": "2026-07-03T08:51:51.473Z",
+      "date": "2026-07-03",
+      "skill": "update-rollcall",
+      "summary": "1 new roll-call session 2026-07-02 (14 items)",
+      "source": "Parliament roll-call votes (parliament.bg)",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-07-02T07:00:38.059Z",
       "date": "2026-07-02",

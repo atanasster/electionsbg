@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-07-02T06:56:27.403Z",
+  "lastSuccessfulIngest": "2026-07-03T09:01:00.291Z",
   "skill": "tr-daily-refresh",
-  "summary": "0 new daily filings (3 known-unreachable 302 days); state.sqlite reconstructed 1,016,585 companies; connections graph unchanged"
+  "summary": "TR daily refresh: 1,016,585 companies, 627,368 officers; 3,537 per-EIK connection files; PG tr_* reloaded"
 }
