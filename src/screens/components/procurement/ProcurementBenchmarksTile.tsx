@@ -17,8 +17,6 @@ import { Scale } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useProcurementBenchmarks } from "@/data/procurement/useProcurementBenchmarks";
 
-const numFmt = new Intl.NumberFormat("bg-BG");
-
 const IndicatorBar: FC<{
   label: string;
   hint: string;
@@ -97,6 +95,7 @@ export const ProcurementBenchmarksTile: FC = () => {
   if (sb.known < 100 || nc.methodKnown < 100) return null;
 
   const lang = i18n.language;
+  const numFmt = new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en-GB");
   return (
     <Card>
       <CardHeader className="pb-2">

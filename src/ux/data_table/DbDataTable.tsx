@@ -59,7 +59,10 @@ interface Props<T> {
   defaultSort?: SortingState;
   pageSize?: number;
   searchPlaceholder?: string;
-  /** Seed the free-text search box (e.g. from a ?q= deep link). */
+  /** Seed the free-text search box (e.g. from a ?q= deep link). Read ONCE at
+   *  mount — a later change to this prop is ignored, so it must not clobber
+   *  what the user typed. Deep links that need a fresh seed must remount the
+   *  page (every current "see all" entry point does). */
   initialSearch?: string;
   /** Extra toolbar controls (facet selects), rendered next to the search box. */
   toolbar?: ReactNode;

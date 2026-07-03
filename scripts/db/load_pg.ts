@@ -197,12 +197,23 @@ export const loadPg = async (): Promise<{
     );
 
     // Buyer-name search index (combined procurement search) — same treatment
-    // for the awarder side. Rebuilt each load.
+    // for the awarder side, plus the per-eik volume precomputed here so
+    // search_awarders never touches contracts at query time. Alias rows of
+    // the same eik carry the same totals. Rebuilt each load.
     await c.query("TRUNCATE awarder_search");
     await c.query(
-      `INSERT INTO awarder_search (eik, name)
-       SELECT DISTINCT awarder_eik, awarder_name
-       FROM contracts WHERE awarder_eik <> '' AND awarder_name <> ''`,
+      `WITH agg AS (
+         SELECT awarder_eik AS eik, count(*) AS contracts,
+                coalesce(sum(amount_eur) FILTER (WHERE tag = 'contract'), 0) AS contracts_eur
+         FROM contracts WHERE awarder_eik <> '' GROUP BY awarder_eik
+       ),
+       names AS (
+         SELECT DISTINCT awarder_eik AS eik, awarder_name AS name
+         FROM contracts WHERE awarder_eik <> '' AND awarder_name <> ''
+       )
+       INSERT INTO awarder_search (eik, name, contracts, contracts_eur)
+       SELECT n.eik, n.name, a.contracts, a.contracts_eur
+       FROM names n JOIN agg a USING (eik)`,
     );
 
     // Feature 2: open a batch, then record first-seen for any key not already

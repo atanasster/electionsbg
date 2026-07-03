@@ -4,6 +4,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { useProcurementWindow } from "./useProcurementWindow";
+import { fetchTablePage } from "./fetchTablePage";
 
 export type LatestTenderRow = {
   unp: string;
@@ -18,8 +19,8 @@ export const useLatestTenders = (count = 5) => {
   const { from, to, all } = useProcurementWindow();
   return useQuery({
     queryKey: ["procurement", "latest_tenders", from, to, count],
-    queryFn: async (): Promise<LatestTenderRow[]> => {
-      const request = {
+    queryFn: () =>
+      fetchTablePage<LatestTenderRow>({
         resource: "tenders",
         page: 0,
         pageSize: count,
@@ -30,14 +31,7 @@ export const useLatestTenders = (count = 5) => {
               ? [{ id: "publication_date", min: from, max: to ?? undefined }]
               : [],
         },
-      };
-      const r = await fetch(
-        `/api/db/table?q=${encodeURIComponent(JSON.stringify(request))}`,
-      );
-      if (!r.ok) throw new Error(`table fetch failed: ${r.status}`);
-      const j = (await r.json()) as { rows?: LatestTenderRow[] };
-      return j.rows ?? [];
-    },
+      }),
     staleTime: Infinity,
   });
 };

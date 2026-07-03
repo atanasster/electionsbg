@@ -20,11 +20,20 @@
 --
 -- Requires 000_search_fns.sql (translit_bg_latin) + 001_procurement.sql.
 
+-- Per-eik procurement volume is PRECOMPUTED at load (the table is TRUNCATE +
+-- rebuilt by load_pg.ts anyway): correlated count/sum subqueries per matched
+-- row cost ~140ms locally (worse on Cloud SQL) for a broad prefix at the
+-- route's 60-row fetch. Alias rows of the same eik repeat the same totals.
 CREATE TABLE IF NOT EXISTS awarder_search (
-  eik       text NOT NULL,
-  name      text NOT NULL,
-  name_fold text GENERATED ALWAYS AS (translit_bg_latin(name)) STORED
+  eik           text NOT NULL,
+  name          text NOT NULL,
+  name_fold     text GENERATED ALWAYS AS (translit_bg_latin(name)) STORED,
+  contracts     bigint NOT NULL DEFAULT 0,
+  contracts_eur double precision NOT NULL DEFAULT 0
 );
+-- Existing DBs predate the precomputed columns.
+ALTER TABLE awarder_search ADD COLUMN IF NOT EXISTS contracts bigint NOT NULL DEFAULT 0;
+ALTER TABLE awarder_search ADD COLUMN IF NOT EXISTS contracts_eur double precision NOT NULL DEFAULT 0;
 CREATE INDEX IF NOT EXISTS idx_awarder_search_fold
   ON awarder_search USING gin (name_fold gin_trgm_ops);
 CREATE INDEX IF NOT EXISTS idx_awarder_search_eik ON awarder_search (eik);
@@ -56,7 +65,9 @@ RETURNS tsquery LANGUAGE sql IMMUTABLE PARALLEL SAFE AS $$
   WHERE tok <> '';
 $$;
 
--- Same shape/behavior as search_contractors but over the buyer side.
+-- Same shape/behavior as search_contractors but over the buyer side; the
+-- procurement volume comes from the precomputed columns, not per-row
+-- subqueries over contracts.
 CREATE OR REPLACE FUNCTION search_awarders(q text, lim int DEFAULT 20)
 RETURNS TABLE (
   eik           text,
@@ -70,10 +81,7 @@ SET pg_trgm.word_similarity_threshold = 0.4
 SET pg_trgm.similarity_threshold = 0.3
 AS $$
   WITH qq AS (SELECT translit_bg_latin(q) AS qf)
-  SELECT s.eik, s.name,
-         (SELECT count(*) FROM contracts k WHERE k.awarder_eik = s.eik),
-         (SELECT coalesce(sum(k.amount_eur), 0) FROM contracts k
-            WHERE k.awarder_eik = s.eik AND k.tag = 'contract'),
+  SELECT s.eik, s.name, s.contracts, s.contracts_eur,
          word_similarity((SELECT qf FROM qq), s.name_fold)
   FROM awarder_search s, qq
   WHERE qq.qf <% s.name_fold

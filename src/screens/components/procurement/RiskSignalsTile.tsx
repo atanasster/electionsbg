@@ -12,7 +12,6 @@ import { useRiskFeed } from "@/data/procurement/useRiskFeed";
 import { useProcurementHref } from "@/data/procurement/useProcurementScope";
 import { formatEur } from "@/lib/currency";
 
-const numFmt = new Intl.NumberFormat("bg-BG");
 const PREVIEW = 5;
 
 export const RiskSignalsTile: FC = () => {
@@ -21,10 +20,12 @@ export const RiskSignalsTile: FC = () => {
   const { data: feed } = useRiskFeed();
   if (!feed) return null;
 
-  const pctFmt = new Intl.NumberFormat(
-    i18n.language === "bg" ? "bg-BG" : "en-GB",
-    { style: "percent", maximumFractionDigits: 0 },
-  );
+  const locale = i18n.language === "bg" ? "bg-BG" : "en-GB";
+  const numFmt = new Intl.NumberFormat(locale);
+  const pctFmt = new Intl.NumberFormat(locale, {
+    style: "percent",
+    maximumFractionDigits: 0,
+  });
   const top = (feed.topConcentration ?? []).slice(0, PREVIEW);
 
   return (

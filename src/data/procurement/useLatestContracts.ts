@@ -5,6 +5,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { useProcurementWindow } from "./useProcurementWindow";
+import { fetchTablePage } from "./fetchTablePage";
 import type { ProcurementContract } from "@/data/dataTypes";
 
 const MIN_EUR = 100_000;
@@ -13,8 +14,8 @@ export const useLatestContracts = (count = 6) => {
   const { from, to, all } = useProcurementWindow();
   return useQuery({
     queryKey: ["procurement", "latest_contracts", from, to, count],
-    queryFn: async (): Promise<ProcurementContract[]> => {
-      const request = {
+    queryFn: () =>
+      fetchTablePage<ProcurementContract>({
         resource: "contracts",
         page: 0,
         pageSize: count,
@@ -28,14 +29,7 @@ export const useLatestContracts = (count = 6) => {
               : []),
           ],
         },
-      };
-      const r = await fetch(
-        `/api/db/table?q=${encodeURIComponent(JSON.stringify(request))}`,
-      );
-      if (!r.ok) throw new Error(`table fetch failed: ${r.status}`);
-      const j = (await r.json()) as { rows?: ProcurementContract[] };
-      return j.rows ?? [];
-    },
+      }),
     staleTime: Infinity,
   });
 };

@@ -244,6 +244,12 @@ export const ProcurementSearchTile: FC = () => {
   }, [persons, db, t, term, params]);
 
   const flat = useMemo(() => groups.flatMap((g) => g.items), [groups]);
+  // Stable id → flat-highlight-index lookup, so the grouped render never has
+  // to recover positions with a render-time counter.
+  const flatIndexById = useMemo(
+    () => new Map(flat.map((item, i) => [item.id, i])),
+    [flat],
+  );
   const empty = flat.length === 0;
 
   // Keep the highlighted row scrolled into view as the user arrows through.
@@ -279,9 +285,6 @@ export const ProcurementSearchTile: FC = () => {
       }
     }
   };
-
-  // Flat index offsets per group so highlight maps onto the grouped render.
-  let idx = -1;
 
   return (
     <Card className="my-4">
@@ -339,13 +342,18 @@ export const ProcurementSearchTile: FC = () => {
               </div>
             ) : (
               groups.map((g) => (
-                <div key={g.key}>
-                  <div className="sticky top-0 bg-muted/80 backdrop-blur-sm px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground border-b">
+                // role="group": the listbox's children are labelled groups of
+                // options, so AT doesn't announce the visual header (hidden —
+                // the group label carries it) as a stray non-option node.
+                <div key={g.key} role="group" aria-label={g.label}>
+                  <div
+                    aria-hidden="true"
+                    className="sticky top-0 bg-muted/80 backdrop-blur-sm px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground border-b"
+                  >
                     {g.label}
                   </div>
                   {g.items.map((item) => {
-                    idx += 1;
-                    const i = idx;
+                    const i = flatIndexById.get(item.id) ?? -1;
                     return (
                       <Link
                         key={item.id}

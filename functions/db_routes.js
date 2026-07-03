@@ -589,6 +589,14 @@ const DB_ROUTES = {
   // buyers (deduped to one row per eik — corpus rows carry name aliases),
   // contract subjects and tender subjects. Persons are merged client-side from
   // person_procurement_index.json (bilingual token matching lives there).
+  //
+  // DEPLOY COUPLING: needs schema pg/035_procurement_search.sql applied and
+  // awarder_search / contracts.title_fold rebuilt before this route is live —
+  // see docs/plans/procurement-dashboard-redesign-v1.md for the checklist.
+  //
+  // allSettled, not all: a failing group (e.g. search_tender_subjects on a DB
+  // where tenders isn't loaded yet) degrades that group to [] instead of
+  // blanking every entity type in the search box.
   "procurement-search": async (dbRows, q) => {
     const term = s(q, "q");
     if (!term) return { status: 400, body: { error: "missing q" } };
@@ -602,7 +610,7 @@ const DB_ROUTES = {
       ) d
       ORDER BY sim DESC, length(name), eik
       LIMIT $2`;
-    const [companies, awarders, contracts, tenders] = await Promise.all([
+    const settled = await Promise.allSettled([
       dbRows(dedupByEik("search_contractors"), [term, lim]),
       dbRows(dedupByEik("search_awarders"), [term, lim]),
       dbRows(
@@ -619,6 +627,9 @@ const DB_ROUTES = {
         [term, lim],
       ),
     ]);
+    const [companies, awarders, contracts, tenders] = settled.map((r) =>
+      r.status === "fulfilled" ? r.value : [],
+    );
     return { body: { companies, awarders, contracts, tenders } };
   },
   async recent(dbRows, q) {
