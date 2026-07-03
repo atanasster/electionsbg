@@ -44,15 +44,19 @@ export interface AwarderTendersResponse {
   recent: AwarderTenderRow[];
 }
 
-export const useAwarderTenders = (eik: string | undefined, limit = 25) =>
+export const useAwarderTenders = (
+  eik: string | undefined,
+  limit = 25,
+  sort: "date" | "value" = "date",
+) =>
   useQuery({
-    queryKey: ["db", "awarder-tenders", eik, limit] as const,
+    queryKey: ["db", "awarder-tenders", eik, limit, sort] as const,
     enabled: !!eik,
     // Live endpoint may be absent (tenders not yet pushed to Cloud SQL) — soft
     // null so the tile simply doesn't render, never breaks the page.
     queryFn: async (): Promise<AwarderTendersResponse | null> => {
       const r = await fetch(
-        `/api/db/tenders?eik=${encodeURIComponent(eik ?? "")}&limit=${limit}`,
+        `/api/db/tenders?eik=${encodeURIComponent(eik ?? "")}&limit=${limit}&sort=${sort}`,
       );
       if (!r.ok) return null;
       return (await r.json()) as AwarderTendersResponse;

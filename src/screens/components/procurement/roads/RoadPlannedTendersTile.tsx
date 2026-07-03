@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ClipboardList } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { useTendersIndex } from "@/data/procurement/useTendersIndex";
+import { useAwarderTenders } from "@/data/procurement/useAwarderTenders";
 import { API_EIK } from "@/data/procurement/useRoads";
 import { formatEurCompact } from "@/lib/currency";
 import {
@@ -46,14 +46,11 @@ const tenderKind = (subject: string, lang: string): string => {
 export const RoadPlannedTendersTile: FC = () => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
-  const { data: idx } = useTendersIndex();
-  if (!idx) return null;
+  const { data } = useAwarderTenders(API_EIK, 12, "value");
+  if (!data) return null;
 
-  const buyer = idx.buyers.find((b) => b.eik === API_EIK);
-  const planned = idx.topByValue
-    .filter((t) => t.buyerEik === API_EIK && !t.isCancelled)
-    .sort((a, b) => (b.estimatedValueEur ?? 0) - (a.estimatedValueEur ?? 0))
-    .slice(0, 8);
+  const summary = data.summary;
+  const planned = data.recent.filter((t) => !t.is_cancelled).slice(0, 8);
   if (planned.length === 0) return null;
 
   const numFmt = new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en");
@@ -72,19 +69,19 @@ export const RoadPlannedTendersTile: FC = () => {
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 md:p-4">
-        {buyer ? (
+        {summary ? (
           <div className="mb-2 text-xs text-muted-foreground tabular-nums">
-            {numFmt.format(buyer.procedures)}{" "}
+            {numFmt.format(summary.procedures)}{" "}
             {lang === "bg" ? "процедури" : "procedures"}
-            {buyer.cancelled > 0 ? (
+            {summary.cancelled > 0 ? (
               <>
                 {" · "}
-                {numFmt.format(buyer.cancelled)}{" "}
+                {numFmt.format(summary.cancelled)}{" "}
                 {lang === "bg" ? "прекратени" : "cancelled"}
               </>
             ) : null}
             {" · ~"}
-            {formatEurCompact(buyer.estimatedValueEur ?? 0, lang)}{" "}
+            {formatEurCompact(summary.forecast_eur ?? 0, lang)}{" "}
             {lang === "bg" ? "прогнозни" : "estimated"}
           </div>
         ) : null}
@@ -102,14 +99,14 @@ export const RoadPlannedTendersTile: FC = () => {
                 {tenderKind(t.subject, lang)}
               </div>
               <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                <span>{t.publicationDate}</span>
-                {t.lotsCount && t.lotsCount > 1 ? (
+                <span>{t.publication_date}</span>
+                {t.lots_count && t.lots_count > 1 ? (
                   <span className="rounded bg-muted px-1.5 py-0.5">
-                    {t.lotsCount} {lang === "bg" ? "об. позиции" : "lots"}
+                    {t.lots_count} {lang === "bg" ? "об. позиции" : "lots"}
                   </span>
                 ) : null}
                 <span className="ml-auto tabular-nums font-medium text-foreground">
-                  ~{formatEurCompact(t.estimatedValueEur ?? 0, lang)}
+                  ~{formatEurCompact(t.forecast_eur ?? 0, lang)}
                 </span>
               </div>
             </li>

@@ -21,6 +21,7 @@ SET check_function_bodies = off;
 -- Dropped first so a signature/return-type change re-creates cleanly on reload.
 DROP FUNCTION IF EXISTS tenders_buyer_summary(text);
 DROP FUNCTION IF EXISTS tenders_by_buyer(text, int);
+DROP FUNCTION IF EXISTS tenders_by_buyer(text, int, text);
 DROP FUNCTION IF EXISTS tender_awards(text);
 
 -- One-row aggregate pipeline summary for a buyer (contracting authority).
@@ -53,9 +54,14 @@ RETURNS TABLE(
   WHERE t.buyer_eik = p_eik;
 $$;
 
--- Recent procedures for a buyer, each with the awarded value (if a contract has
--- been signed) so the FE can render forecast → actual per row. Newest first.
-CREATE OR REPLACE FUNCTION tenders_by_buyer(p_eik text, p_limit int)
+-- Procedures for a buyer, each with the awarded value (if a contract has been
+-- signed) so the FE can render forecast → actual per row. p_sort='date'
+-- (default) is newest-first, for the recent-activity views; 'value' is
+-- forecast-value-descending, for a buyer's biggest-ticket pipeline (e.g. the
+-- roads dashboard's "planned procurements" tile). Row set is pre-filtered to
+-- one buyer_eik (idx_tenders_buyer), so an in-memory sort is cheap even for
+-- the busiest buyers — no composite index needed.
+CREATE OR REPLACE FUNCTION tenders_by_buyer(p_eik text, p_limit int, p_sort text DEFAULT 'date')
 RETURNS TABLE(
   unp             text,
   ocid            text,
@@ -84,7 +90,9 @@ RETURNS TABLE(
     WHERE t.ocid IS NOT NULL AND c.ocid = t.ocid
   ) a ON true
   WHERE t.buyer_eik = p_eik
-  ORDER BY t.publication_date DESC, t.unp DESC
+  ORDER BY
+    CASE WHEN p_sort = 'value' THEN t.estimated_value_eur END DESC NULLS LAST,
+    t.publication_date DESC, t.unp DESC
   LIMIT p_limit;
 $$;
 

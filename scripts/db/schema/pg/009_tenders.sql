@@ -74,6 +74,15 @@ CREATE INDEX IF NOT EXISTS idx_tenders_ocid       ON tenders(ocid);
 CREATE INDEX IF NOT EXISTS idx_tenders_buyer      ON tenders(buyer_eik);
 CREATE INDEX IF NOT EXISTS idx_tenders_order      ON tenders(publication_date, unp);
 CREATE INDEX IF NOT EXISTS idx_tenders_cancelled  ON tenders(is_cancelled);
+-- tenders_by_buyer (010): a single buyer's pipeline sorted by date or by
+-- forecast value. Without these, the planner walks the GLOBAL idx_tenders_order
+-- / idx_tenders_value index filtering out every other buyer's rows as it goes —
+-- measured 622ms (value-sort) / 58ms (date-sort) for a 3k-tender buyer on the
+-- global index vs 6ms / 2ms once the buyer is the index's leading column.
+CREATE INDEX IF NOT EXISTS idx_tenders_buyer_value
+  ON tenders(buyer_eik, estimated_value_eur DESC NULLS LAST, unp DESC);
+CREATE INDEX IF NOT EXISTS idx_tenders_buyer_date
+  ON tenders(buyer_eik, publication_date DESC, unp DESC);
 CREATE INDEX IF NOT EXISTS idx_tenders_buyer_fold ON tenders USING gin (buyer_fold gin_trgm_ops);
 CREATE INDEX IF NOT EXISTS idx_tenders_subj_fold  ON tenders USING gin (subject_fold gin_trgm_ops);
 -- The global tenders browser default-sorts by forecast value — keep it an index

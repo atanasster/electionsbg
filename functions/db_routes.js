@@ -183,9 +183,10 @@ const DB_ROUTES = {
     const eik = s(q, "eik");
     if (!eik) return { status: 400, body: { error: "missing eik" } };
     const limit = clampInt(q.limit, 25, 1, 200);
+    const sort = s(q, "sort") === "value" ? "value" : "date";
     const [summary, recent] = await Promise.all([
       dbRows("SELECT * FROM tenders_buyer_summary($1)", [eik]),
-      dbRows("SELECT * FROM tenders_by_buyer($1, $2)", [eik, limit]),
+      dbRows("SELECT * FROM tenders_by_buyer($1, $2, $3)", [eik, limit, sort]),
     ]);
     return { body: { eik, summary: summary[0] ?? null, recent } };
   },
