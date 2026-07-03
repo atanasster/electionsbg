@@ -233,13 +233,6 @@ export const buildCompaniesBySettlement = ({
     totalCompaniesLinked += rows.length;
   }
 
-  const indexOut: CompaniesByEkatteIndexFile = {
-    generatedAt: new Date().toISOString(),
-    total: totalCompaniesLinked,
-    settlements: indexEntries,
-  };
-  fs.writeFileSync(path.join(outDir, "index.json"), stringify(indexOut));
-
   console.log(
     `[companies-by-ekatte] wrote ${Object.keys(indexEntries).length} settlement(s), ` +
       `${totalCompaniesLinked} company-rows, ` +

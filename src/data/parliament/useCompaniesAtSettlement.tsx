@@ -37,18 +37,6 @@ export type CompaniesHqPage = {
   companies: CompaniesHqRow[];
 };
 
-export type CompaniesHqIndexEntry = {
-  count: number;
-  mpCount: number;
-  topMpIds: number[];
-};
-
-export type CompaniesHqIndexFile = {
-  generatedAt: string;
-  total: number;
-  settlements: Record<string, CompaniesHqIndexEntry>;
-};
-
 const fetchOrNull = async <T,>(url: string): Promise<T | null> => {
   const r = await fetch(url);
   if (r.status === 404) return null;
@@ -96,13 +84,3 @@ export const useCompaniesHqPage = (place: CompaniesHqPlace, page: number) => {
     staleTime: Infinity,
   });
 };
-
-export const useCompaniesHqIndex = () =>
-  useQuery({
-    queryKey: ["companies-hq", "index"] as const,
-    queryFn: () =>
-      fetchOrNull<CompaniesHqIndexFile>(
-        dataUrl(`/parliament/companies-by-ekatte/index.json`),
-      ),
-    staleTime: Infinity,
-  });

@@ -255,13 +255,6 @@ export const buildCompaniesByObshtina = ({
     totalCompaniesLinked += rows.length;
   }
 
-  const indexOut: CompaniesByObshtinaIndexFile = {
-    generatedAt: new Date().toISOString(),
-    total: totalCompaniesLinked,
-    obshtinas: indexEntries,
-  };
-  fs.writeFileSync(path.join(outDir, "index.json"), stringify(indexOut));
-
   console.log(
     `[companies-by-obshtina] wrote ${Object.keys(indexEntries).length} obshtina(s), ` +
       `${totalCompaniesLinked} company-rows, ` +

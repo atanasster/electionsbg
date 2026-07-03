@@ -38,10 +38,6 @@ const MUNICIPAL_INDEX = path.join(
   "data/officials/municipal/index.json",
 );
 const OUT_DIR = path.join(repoRoot, "data/parliament/company-connections");
-const STATS_PATH = path.join(
-  repoRoot,
-  "data/parliament/company-connections-stats.json",
-);
 
 /** Don't bridge through a name that appears in more than this many companies —
  *  a common Bulgarian name explodes the traversal into namesake noise. */
@@ -422,20 +418,6 @@ export const buildCompanyConnections = (): void => {
     if (bridgedLinks.length > 0) withBridges++;
     else directOnly++;
   }
-
-  const stats = {
-    generatedAt,
-    namesakeCap: NAMESAKE_CAP,
-    bridgeCap: BRIDGE_CAP,
-    powerPeople: powerCounts,
-    companiesWithOfficers: companyOfficers.size,
-    connectedCompanies: connectedCount,
-    directOnly,
-    withBridges,
-    totalDirectLinks: totalDirect,
-    totalBridgedLinks: totalBridged,
-  };
-  fs.writeFileSync(STATS_PATH, JSON.stringify(stats, null, 2));
 
   console.log(
     `[company-connections] wrote ${connectedCount.toLocaleString()} per-EIK file(s) → ${OUT_DIR}`,
