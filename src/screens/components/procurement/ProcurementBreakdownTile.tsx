@@ -1,14 +1,14 @@
 // SIGMA-parity entity breakdown: "Какво купува" (CPV sectors) + "Как купува /
 // печели" (procedure mix) + an EU-funding share, for /company/:eik (kind "c")
-// and /awarder/:eik (kind "a"). Reads the precomputed breakdown shard
-// (derived/breakdowns/{kind}/<eik>.json). Renders nothing when the entity has
-// no breakdown shard (too few CPV-coded contracts).
+// and /awarder/:eik (kind "a"). The breakdown is pre-built by the caller from
+// the PG entity rollup (company_procurement / awarder_procurement, which emit
+// the cpv/proc/eu buckets). Renders nothing when the entity has no CPV-coded
+// contracts.
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { PieChart } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { useProcurementBreakdown } from "@/data/procurement/useProcurementBreakdown";
 import type { ProcurementBreakdown } from "@/data/dataTypes";
 import {
   cpvDivisionName,
@@ -44,20 +44,15 @@ const Bar: FC<{ label: string; share: number; amount: string }> = ({
   </div>
 );
 
-// `breakdown` lets the DB-backed page pass a pre-built breakdown (from the PG
-// company rollup) instead of fetching the JSON shard; the hook is disabled then.
+// The caller passes a pre-built breakdown from the PG entity rollup
+// (company_procurement / awarder_procurement).
 export const ProcurementBreakdownTile: FC<{
   kind: "c" | "a";
-  eik: string;
-  breakdown?: ProcurementBreakdown | null;
-}> = ({ kind, eik, breakdown }) => {
+  breakdown: ProcurementBreakdown | null;
+}> = ({ kind, breakdown }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
-  const { data: fetched } = useProcurementBreakdown(
-    kind,
-    breakdown ? undefined : eik,
-  );
-  const b = breakdown ?? fetched;
+  const b = breakdown;
   if (!b || b.cpv.length === 0) return null;
 
   const cpvTotal = b.cpvKnownEur || 1;

@@ -1573,12 +1573,11 @@ export type ProcurementAwarderSeat = {
   source: "geo" | "name";
 };
 
-/** Per-entity sector / procedure / EU-funding breakdown
- *  (data/procurement/derived/breakdowns/{c,a}/<eik>.json). Built offline by
- *  scripts/procurement/eop_breakdowns.ts from the EOP-enriched shards. `cpv.d`
- *  is the 2-digit CPV division; `proc.b` is a ProcedureBucket key. EU-share is
- *  euEur/euKnownEur; value-coverage is euKnownEur/totalEur (gate the % when
- *  low). */
+/** Per-entity sector / procedure / EU-funding breakdown, served from Postgres
+ *  as the `breakdown` field of company_procurement / awarder_procurement
+ *  (011/023). `cpv.d` is the 2-digit CPV division; `proc.b` is a ProcedureBucket
+ *  key. EU-share is euEur/euKnownEur; value-coverage is euKnownEur/totalEur
+ *  (gate the % when low). */
 export type ProcurementBreakdown = {
   eik: string;
   totalEur: number;

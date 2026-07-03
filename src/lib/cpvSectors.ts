@@ -1,8 +1,8 @@
 // CPV (Common Procurement Vocabulary, 2008) reference: the 2-digit division
 // titles + the procedure-type buckets we surface in the "Какво купува" /
-// "Как купува" entity breakdowns and the contracts browser. Shared by the
-// offline builder (scripts/procurement/eop_breakdowns.ts) and the UI so the
-// labels stay in one place. The division is `cpv.slice(0, 2)`.
+// "Как купува" entity breakdowns and the contracts browser. The breakdown
+// buckets are produced in Postgres (company_procurement / awarder_procurement);
+// these labels live UI-side. The division is `cpv.slice(0, 2)`.
 
 export type Lang = string;
 

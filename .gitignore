@@ -140,9 +140,11 @@ functions/.secret.local
 /data/procurement/roads.json
 # Per-entity sector/procedure/EU breakdown shards + the faceted-browser per-year
 # contract index — bulky derived data, uploaded to the bucket, not committed
-# (same convention as the per-contractor files above). sector_totals.json stays
-# committed (it's directly under derived/, not in these subdirs).
+# (same convention as the per-contractor files above). breakdowns/ +
+# sector_totals.json are retired — served from Postgres (company_procurement /
+# awarder_procurement); see docs/plans/direct-db-ingest-v1.md.
 /data/procurement/derived/breakdowns/
+/data/procurement/derived/sector_totals.json
 /data/procurement/derived/contract_index/
 # Tender-stage (procedures) shards — same convention: bulky month-shards +
 # per-tender + lineage shards ship to the bucket; tenders/index.json (the small

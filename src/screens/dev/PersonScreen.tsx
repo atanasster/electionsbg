@@ -550,11 +550,7 @@ export const PersonScreen: FC = () => {
               </div>
 
               {breakdown && (
-                <ProcurementBreakdownTile
-                  kind="c"
-                  eik=""
-                  breakdown={breakdown}
-                />
+                <ProcurementBreakdownTile kind="c" breakdown={breakdown} />
               )}
               {cabinets.length > 0 && (
                 <CabinetTimelineTile cabinets={cabinets} totalEur={totalEur} />
