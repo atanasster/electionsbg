@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-06-29T10:59:54.723Z",
-  "total": 167,
-  "officialMpEdges": 38,
+  "generatedAt": "2026-07-03T11:13:06.668Z",
+  "total": 168,
+  "officialMpEdges": 45,
   "officialPeerEdges": 294,
   "byOfficial": {
     "angel-borisov-zaburtov-fd5ef9": {
@@ -56,7 +56,19 @@
       "tier": "executive",
       "role": "agency_head",
       "municipality": null,
-      "mpConnections": [],
+      "mpConnections": [
+        {
+          "mpId": 4727,
+          "mpName": "Хюсни Осман Адем",
+          "sharedCompanies": [
+            {
+              "uic": "831641791",
+              "companyName": "ИНФОРМАЦИОННО ОБСЛУЖВАНЕ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
       "peerConnections": [
         {
           "slug": "valentina-stefanova-nedyalkova-f07289",
@@ -148,6 +160,17 @@
             }
           ],
           "confidence": "high"
+        },
+        {
+          "mpId": 4149,
+          "mpName": "Радослава Пламен Чеканска",
+          "sharedCompanies": [
+            {
+              "uic": "175331015",
+              "companyName": "Фонд ФЛАГ"
+            }
+          ],
+          "confidence": "high"
         }
       ],
       "peerConnections": []
@@ -174,6 +197,38 @@
           "confidence": "low"
         }
       ]
+    },
+    "lazar-manolov-lazarov-c2473e": {
+      "slug": "lazar-manolov-lazarov-c2473e",
+      "name": "Лазар Манолов Лазаров",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null,
+      "mpConnections": [
+        {
+          "mpId": 3794,
+          "mpName": "Димитър Колев Гочев",
+          "sharedCompanies": [
+            {
+              "uic": "121577013",
+              "companyName": "ПРОФИЛАКТИКА, РЕХАБИЛИТАЦИЯ И ОТДИХ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "mpId": 1122,
+          "mpName": "Христо Георгиев Чаушев",
+          "sharedCompanies": [
+            {
+              "uic": "121577013",
+              "companyName": "ПРОФИЛАКТИКА, РЕХАБИЛИТАЦИЯ И ОТДИХ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": []
     },
     "petko-georgiev-nikolov-0e4c71": {
       "slug": "petko-georgiev-nikolov-0e4c71",
@@ -282,27 +337,6 @@
             }
           ],
           "confidence": "low"
-        }
-      ],
-      "peerConnections": []
-    },
-    "angel-ivanov-petrov-006f88": {
-      "slug": "angel-ivanov-petrov-006f88",
-      "name": "Ангел Иванов Петров",
-      "tier": "municipal",
-      "role": "councillor",
-      "municipality": "Монтана",
-      "mpConnections": [
-        {
-          "mpId": 2760,
-          "mpName": "Иван Димов Иванов",
-          "sharedCompanies": [
-            {
-              "uic": "121433881",
-              "companyName": "КАРГО ЕР"
-            }
-          ],
-          "confidence": "high"
         }
       ],
       "peerConnections": []
@@ -536,7 +570,19 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Ловеч",
-      "mpConnections": [],
+      "mpConnections": [
+        {
+          "mpId": 4727,
+          "mpName": "Хюсни Осман Адем",
+          "sharedCompanies": [
+            {
+              "uic": "831641791",
+              "companyName": "ИНФОРМАЦИОННО ОБСЛУЖВАНЕ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
       "peerConnections": [
         {
           "slug": "valeri-petrov-borisov-4cdc5f",
@@ -621,27 +667,6 @@
           "confidence": "high"
         }
       ]
-    },
-    "vladimir-hristov-petrov-e6e658": {
-      "slug": "vladimir-hristov-petrov-e6e658",
-      "name": "Владимир Христов Петров",
-      "tier": "municipal",
-      "role": "councillor",
-      "municipality": "Неделино",
-      "mpConnections": [
-        {
-          "mpId": 2657,
-          "mpName": "Петър Христов Петров",
-          "sharedCompanies": [
-            {
-              "uic": "208101103",
-              "companyName": "ВИПТЕХ ТРЕЙД"
-            }
-          ],
-          "confidence": "high"
-        }
-      ],
-      "peerConnections": []
     },
     "vladislav-zlatkov-bakalov-47a692": {
       "slug": "vladislav-zlatkov-bakalov-47a692",
@@ -766,6 +791,27 @@
           "confidence": "low"
         }
       ]
+    },
+    "georgi-vasilev-georgiev-4a1b92": {
+      "slug": "georgi-vasilev-georgiev-4a1b92",
+      "name": "Георги Василев Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Дупница",
+      "mpConnections": [
+        {
+          "mpId": 4925,
+          "mpName": "Мюмюн Сали Мюмюн",
+          "sharedCompanies": [
+            {
+              "uic": "207068600",
+              "companyName": "Графит Интернешънъл"
+            }
+          ],
+          "confidence": "low"
+        }
+      ],
+      "peerConnections": []
     },
     "georgi-vasilev-dimitrov-2f5615": {
       "slug": "georgi-vasilev-dimitrov-2f5615",
@@ -1250,19 +1296,7 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Бяла/Варна/",
-      "mpConnections": [
-        {
-          "mpId": 4452,
-          "mpName": "Кирил Тодоров Тодоров",
-          "sharedCompanies": [
-            {
-              "uic": "205912359",
-              "companyName": "ГКС Инженеринг"
-            }
-          ],
-          "confidence": "low"
-        }
-      ],
+      "mpConnections": [],
       "peerConnections": [
         {
           "slug": "angel-hristov-tanev-e89412",
@@ -1324,19 +1358,7 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Хасково",
-      "mpConnections": [
-        {
-          "mpId": 4452,
-          "mpName": "Кирил Тодоров Тодоров",
-          "sharedCompanies": [
-            {
-              "uic": "205912359",
-              "companyName": "ГКС Инженеринг"
-            }
-          ],
-          "confidence": "low"
-        }
-      ],
+      "mpConnections": [],
       "peerConnections": [
         {
           "slug": "angel-hristov-tanev-e89412",
@@ -1398,19 +1420,7 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Чирпан",
-      "mpConnections": [
-        {
-          "mpId": 4452,
-          "mpName": "Кирил Тодоров Тодоров",
-          "sharedCompanies": [
-            {
-              "uic": "205912359",
-              "companyName": "ГКС Инженеринг"
-            }
-          ],
-          "confidence": "low"
-        }
-      ],
+      "mpConnections": [],
       "peerConnections": [
         {
           "slug": "angel-hristov-tanev-e89412",
@@ -1850,7 +1860,23 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Габрово",
-      "mpConnections": [],
+      "mpConnections": [
+        {
+          "mpId": 2435,
+          "mpName": "Добромир Проданов Проданов",
+          "sharedCompanies": [
+            {
+              "uic": "200373318",
+              "companyName": "ВАВИ-М ЕООД"
+            },
+            {
+              "uic": "107047402",
+              "companyName": "СТИВ - 98"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
       "peerConnections": [
         {
           "slug": "dobromir-prodanov-prodanov-070ebb",
@@ -1874,6 +1900,17 @@
       "role": "councillor",
       "municipality": "Горна Малина",
       "mpConnections": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "sharedCompanies": [
+            {
+              "uic": "108563610",
+              "companyName": "КРУМКООП - 1"
+            }
+          ],
+          "confidence": "low"
+        },
         {
           "mpId": 5205,
           "mpName": "Рашид Мехмедов Узунов",
@@ -2733,7 +2770,19 @@
       "tier": "municipal",
       "role": "council_chair",
       "municipality": "Асеновград",
-      "mpConnections": [],
+      "mpConnections": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "sharedCompanies": [
+            {
+              "uic": "208744266",
+              "companyName": "ГОШ 95"
+            }
+          ],
+          "confidence": "low"
+        }
+      ],
       "peerConnections": [
         {
           "slug": "georgi-ivanov-ivanov-f7c5fb",
@@ -2821,7 +2870,19 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Враца",
-      "mpConnections": [],
+      "mpConnections": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "sharedCompanies": [
+            {
+              "uic": "208744266",
+              "companyName": "ГОШ 95"
+            }
+          ],
+          "confidence": "low"
+        }
+      ],
       "peerConnections": [
         {
           "slug": "georgi-ivanov-ivanov-f7c5fb",
@@ -3017,19 +3078,7 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Айтос",
-      "mpConnections": [
-        {
-          "mpId": 805,
-          "mpName": "Йордан Петков Йорданов",
-          "sharedCompanies": [
-            {
-              "uic": "102151443",
-              "companyName": "КОМНЕТ БЪЛГАРИЯ ХОЛДИНГ"
-            }
-          ],
-          "confidence": "high"
-        }
-      ],
+      "mpConnections": [],
       "peerConnections": [
         {
           "slug": "ivan-zhelyazkov-ivanov-02f38d",
@@ -3065,19 +3114,7 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Гълъбово",
-      "mpConnections": [
-        {
-          "mpId": 805,
-          "mpName": "Йордан Петков Йорданов",
-          "sharedCompanies": [
-            {
-              "uic": "102151443",
-              "companyName": "КОМНЕТ БЪЛГАРИЯ ХОЛДИНГ"
-            }
-          ],
-          "confidence": "low"
-        }
-      ],
+      "mpConnections": [],
       "peerConnections": [
         {
           "slug": "georgi-dimitrov-dimitrov-3a7727",
@@ -4041,6 +4078,27 @@
         }
       ]
     },
+    "mariyan-ivanchev-ivanov-eb6898": {
+      "slug": "mariyan-ivanchev-ivanov-eb6898",
+      "name": "Мариян Иванчев Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бургас",
+      "mpConnections": [
+        {
+          "mpId": 4986,
+          "mpName": "Михаил Илиев Митов",
+          "sharedCompanies": [
+            {
+              "uic": "206478735",
+              "companyName": "ОРГАНИЗАЦИЯ ПО ОПОЛЗОТВОРЯВАНЕ НА ТЕКСТИЛ И ОБУВКИ"
+            }
+          ],
+          "confidence": "low"
+        }
+      ],
+      "peerConnections": []
+    },
     "martin-nikolov-donchev-6a4df5": {
       "slug": "martin-nikolov-donchev-6a4df5",
       "name": "Мартин Николов Дончев",
@@ -4098,6 +4156,38 @@
       ],
       "peerConnections": []
     },
+    "milko-dimitrov-milanov-5215b6": {
+      "slug": "milko-dimitrov-milanov-5215b6",
+      "name": "Милко Димитров Миланов",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Сливница",
+      "mpConnections": [
+        {
+          "mpId": 2737,
+          "mpName": "Атанас Славчев Стоянов",
+          "sharedCompanies": [
+            {
+              "uic": "101536112",
+              "companyName": "СДРУЖЕНИЕ НА ЮГОЗАПАДНИТЕ ОБЩИНИ /СЮЗО/"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "mpId": 3091,
+          "mpName": "Илко Стоянов Стоянов",
+          "sharedCompanies": [
+            {
+              "uic": "101536112",
+              "companyName": "СДРУЖЕНИЕ НА ЮГОЗАПАДНИТЕ ОБЩИНИ /СЮЗО/"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": []
+    },
     "mincho-stoikov-kazandzhiev-51c218": {
       "slug": "mincho-stoikov-kazandzhiev-51c218",
       "name": "Минчо Стойков Казанджиев",
@@ -4106,8 +4196,30 @@
       "municipality": "Ловеч",
       "mpConnections": [
         {
+          "mpId": 5198,
+          "mpName": "Галин Неделчев Дурев",
+          "sharedCompanies": [
+            {
+              "uic": "831160078",
+              "companyName": "НАПОИТЕЛНИ СИСТЕМИ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
           "mpId": 4649,
           "mpName": "Генади Събков Събков",
+          "sharedCompanies": [
+            {
+              "uic": "831160078",
+              "companyName": "НАПОИТЕЛНИ СИСТЕМИ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "mpId": 909,
+          "mpName": "Емил Димитров Гущеров",
           "sharedCompanies": [
             {
               "uic": "831160078",
@@ -4454,19 +4566,7 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Антон",
-      "mpConnections": [
-        {
-          "mpId": 2984,
-          "mpName": "Георги Александров Александров",
-          "sharedCompanies": [
-            {
-              "uic": "204133950",
-              "companyName": "ШИЙП ГРУП – 2016"
-            }
-          ],
-          "confidence": "low"
-        }
-      ],
+      "mpConnections": [],
       "peerConnections": [
         {
           "slug": "dimitr-todorov-dimitrov-825d75",
@@ -4489,19 +4589,7 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Бяла Слатина",
-      "mpConnections": [
-        {
-          "mpId": 2984,
-          "mpName": "Георги Александров Александров",
-          "sharedCompanies": [
-            {
-              "uic": "204133950",
-              "companyName": "ШИЙП ГРУП – 2016"
-            }
-          ],
-          "confidence": "low"
-        }
-      ],
+      "mpConnections": [],
       "peerConnections": [
         {
           "slug": "dimitr-todorov-dimitrov-825d75",
@@ -4524,19 +4612,7 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Стрелча",
-      "mpConnections": [
-        {
-          "mpId": 2984,
-          "mpName": "Георги Александров Александров",
-          "sharedCompanies": [
-            {
-              "uic": "204133950",
-              "companyName": "ШИЙП ГРУП – 2016"
-            }
-          ],
-          "confidence": "low"
-        }
-      ],
+      "mpConnections": [],
       "peerConnections": [
         {
           "slug": "dimitr-todorov-dimitrov-825d75",
@@ -4595,7 +4671,19 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Свищов",
-      "mpConnections": [],
+      "mpConnections": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "sharedCompanies": [
+            {
+              "uic": "124048666",
+              "companyName": "ПЛУТОН АГРО"
+            }
+          ],
+          "confidence": "low"
+        }
+      ],
       "peerConnections": [
         {
           "slug": "georgi-ivanov-georgiev-c46138",
@@ -4644,19 +4732,7 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Айтос",
-      "mpConnections": [
-        {
-          "mpId": 805,
-          "mpName": "Йордан Петков Йорданов",
-          "sharedCompanies": [
-            {
-              "uic": "102151443",
-              "companyName": "КОМНЕТ БЪЛГАРИЯ ХОЛДИНГ"
-            }
-          ],
-          "confidence": "low"
-        }
-      ],
+      "mpConnections": [],
       "peerConnections": [
         {
           "slug": "zdravko-kostov-kostov-1e9225",
@@ -5292,17 +5368,6 @@
       "municipality": "Столична община",
       "mpConnections": [
         {
-          "mpId": 2862,
-          "mpName": "Георги Георгиев Стоилов",
-          "sharedCompanies": [
-            {
-              "uic": "117001983",
-              "companyName": "СВОБОДНА ЗОНА-РУСЕ"
-            }
-          ],
-          "confidence": "high"
-        },
-        {
           "mpId": 2724,
           "mpName": "Таско Михайлов Ерменков",
           "sharedCompanies": [
@@ -5324,8 +5389,30 @@
       "municipality": "Сливен",
       "mpConnections": [
         {
+          "mpId": 5198,
+          "mpName": "Галин Неделчев Дурев",
+          "sharedCompanies": [
+            {
+              "uic": "831160078",
+              "companyName": "НАПОИТЕЛНИ СИСТЕМИ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
           "mpId": 4649,
           "mpName": "Генади Събков Събков",
+          "sharedCompanies": [
+            {
+              "uic": "831160078",
+              "companyName": "НАПОИТЕЛНИ СИСТЕМИ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "mpId": 909,
+          "mpName": "Емил Димитров Гущеров",
           "sharedCompanies": [
             {
               "uic": "831160078",
@@ -5350,27 +5437,6 @@
           "confidence": "high"
         }
       ]
-    },
-    "stefka-georgieva-aleksandrova-dbb8ad": {
-      "slug": "stefka-georgieva-aleksandrova-dbb8ad",
-      "name": "Стефка Георгиева Александрова",
-      "tier": "municipal",
-      "role": "councillor",
-      "municipality": "Монтана",
-      "mpConnections": [
-        {
-          "mpId": 2984,
-          "mpName": "Георги Александров Александров",
-          "sharedCompanies": [
-            {
-              "uic": "206529934",
-              "companyName": "Фаворит Секюрити 4 ООД"
-            }
-          ],
-          "confidence": "high"
-        }
-      ],
-      "peerConnections": []
     },
     "stoyan-borisov-hristov-a391df": {
       "slug": "stoyan-borisov-hristov-a391df",
@@ -5711,7 +5777,19 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Мездра",
-      "mpConnections": [],
+      "mpConnections": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "sharedCompanies": [
+            {
+              "uic": "202679281",
+              "companyName": "КАНАРИНИ"
+            }
+          ],
+          "confidence": "low"
+        }
+      ],
       "peerConnections": [
         {
           "slug": "georgi-ivanov-georgiev-c46138",
@@ -5786,7 +5864,19 @@
       "tier": "municipal",
       "role": "deputy_mayor",
       "municipality": "Опан",
-      "mpConnections": [],
+      "mpConnections": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "sharedCompanies": [
+            {
+              "uic": "202679281",
+              "companyName": "КАНАРИНИ"
+            }
+          ],
+          "confidence": "low"
+        }
+      ],
       "peerConnections": [
         {
           "slug": "georgi-ivanov-georgiev-c46138",
