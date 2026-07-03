@@ -1,9 +1,9 @@
 // NUTS3 (BG3xx) → oblast display names. The procurement oblast tile-map and the
-// /procurement/concentration explorer key on NUTS3 (unambiguous, 1:1 with the
-// 28 oblasts, and already the keyspace of buyer_oblast_map.json) rather than the
-// app's canonical oblast codes (SFO/S23/PDV-00…), which carry Sofia/Plovdiv
-// special-casing this feature doesn't need. Names only live here; the data files
-// carry the bare NUTS code.
+// concentration section (/procurement/flags#concentration) key on NUTS3
+// (unambiguous, 1:1 with the 28 oblasts, and already the keyspace of
+// buyer_oblast_map.json) rather than the app's canonical oblast codes
+// (SFO/S23/PDV-00…), which carry Sofia/Plovdiv special-casing this feature
+// doesn't need. Names only live here; the data files carry the bare NUTS code.
 
 export const NUTS3_NAMES: Record<string, { bg: string; en: string }> = {
   BG311: { bg: "Видин", en: "Vidin" },

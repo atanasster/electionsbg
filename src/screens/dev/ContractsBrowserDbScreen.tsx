@@ -38,10 +38,13 @@ export const ContractsBrowserDbScreen: FC = () => {
   const { scoreRow } = useContractRiskScorer();
   const { from, to, all, year } = useProcurementWindow();
   // ?q= deep link (combined-search "see all" footer) seeds the search box.
+  // ?cpv= deep link (from /procurement/sectors) seeds the CPV division filter
+  // below — the cpv column is registered with filter:"prefix", so this value
+  // (a 2-digit division) matches every contract whose code starts with it.
   const [params] = useSearchParams();
 
   const [method, setMethod] = useState<string>(ALL);
-  const [cpvDiv, setCpvDiv] = useState<string>(ALL);
+  const [cpvDiv, setCpvDiv] = useState<string>(() => params.get("cpv") ?? ALL);
   const [singleBidder, setSingleBidder] = useState(false);
 
   // The parliament window is the base temporal bound (exclusive end ≈ inclusive

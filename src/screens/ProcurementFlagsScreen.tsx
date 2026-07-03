@@ -1,20 +1,15 @@
 // /procurement/flags — public red-flag feed. Surfaces the procurement risk
 // signals we already compute, aggregated into one accountability view: debarred
 // suppliers still winning work, buyers whose spend is concentrated on a single
-// supplier, and the largest MP-tied contractor relationships. Built entirely
-// from committed derived files (debarred.json, awarder_concentration.json,
-// mp_connected.json) — no pipeline build, no backend.
+// supplier (full searchable/sortable table in ConcentrationSection, id=
+// "concentration"), and the largest MP-tied contractor relationships. DB-backed
+// (useRiskFeed + useDebarred + ConcentrationSection's own fetch), scoped to the
+// selected parliament window or the full corpus (?pscope).
 
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import {
-  Ban,
-  AlertTriangle,
-  Link as LinkIcon,
-  Search,
-  ArrowRight,
-} from "lucide-react";
+import { Ban, Link as LinkIcon, Search, ArrowRight } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useDebarred } from "@/data/procurement/useDebarred";
@@ -22,13 +17,10 @@ import { useRiskFeed } from "@/data/procurement/useRiskFeed";
 import { formatEur } from "@/lib/currency";
 import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
 import { ConcentrationOblastTiles } from "@/screens/components/procurement/ConcentrationOblastTiles";
+import { ConcentrationSection } from "@/screens/components/procurement/ConcentrationSection";
+import { useHashScroll } from "@/ux/useHashScroll";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
-const pctFmt = (frac: number, lang: string) =>
-  new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en-GB", {
-    style: "percent",
-    maximumFractionDigits: 0,
-  }).format(frac);
 
 // Summary metric tile — gives the reader the scale of each signal before the
 // ranked excerpts below.
@@ -61,10 +53,10 @@ const ShownOf: FC<{ shown: number; total?: number }> = ({ shown, total }) => {
 };
 
 export const ProcurementFlagsScreen: FC = () => {
-  const { t, i18n } = useTranslation();
-  const lang = i18n.language;
+  const { t } = useTranslation();
   const { debarred } = useDebarred();
   const { data: feed } = useRiskFeed();
+  useHashScroll();
 
   const today = new Date().toISOString().slice(0, 10);
   // Debarred suppliers whose ban is still active.
@@ -73,7 +65,6 @@ export const ProcurementFlagsScreen: FC = () => {
     .sort((a, b) => (a.debarredUntil < b.debarredUntil ? 1 : -1))
     .slice(0, 20);
 
-  const topConcentration = (feed?.topConcentration ?? []).slice(0, 20);
   const topMp = (feed?.topMpTied ?? []).slice(0, 20);
 
   return (
@@ -132,64 +123,7 @@ export const ProcurementFlagsScreen: FC = () => {
           </Card>
         ) : null}
 
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base flex items-center gap-2 flex-wrap">
-              <AlertTriangle className="h-4 w-4 text-orange-600" />
-              {t("flags_concentration") || "Single-supplier concentration"}
-              <ShownOf
-                shown={topConcentration.length}
-                total={feed?.concentrationTotal}
-              />
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-3 md:p-4">
-            <ul className="flex flex-col">
-              {topConcentration.map((e) => (
-                <li
-                  key={`${e.awarderEik}|${e.contractorEik}`}
-                  className="flex items-center gap-2 py-1.5 border-b border-border/40 last:border-b-0 text-sm"
-                >
-                  <span className="rounded bg-orange-100 dark:bg-orange-900/40 px-1.5 py-0.5 text-[10px] font-semibold tabular-nums shrink-0">
-                    {pctFmt(e.sharePct, lang)}
-                  </span>
-                  <span className="min-w-0 flex-1 truncate">
-                    <Link
-                      to={`/awarder/${e.awarderEik}`}
-                      className="hover:underline"
-                    >
-                      {e.awarderName}
-                    </Link>
-                    <span className="text-muted-foreground"> → </span>
-                    <Link
-                      to={`/company/${e.contractorEik}`}
-                      className="hover:underline"
-                    >
-                      {e.contractorName}
-                    </Link>
-                  </span>
-                  <span className="tabular-nums text-xs shrink-0">
-                    {formatEur(e.pairTotalEur)}
-                  </span>
-                </li>
-              ))}
-            </ul>
-            <Link
-              to="/procurement/concentration"
-              className="mt-3 flex items-center justify-center gap-1.5 rounded-md border border-border bg-accent/30 px-3 py-2 text-xs font-medium text-foreground hover:bg-accent/60 transition-colors"
-            >
-              <Search className="h-3.5 w-3.5" />
-              {(
-                t("flags_concentration_see_all") ||
-                "See all {{count}} flagged pairs"
-              ).replace(
-                "{{count}}",
-                numFmt.format(feed?.concentrationTotal ?? 0),
-              )}
-              <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-          </CardContent>
-        </Card>
+        <ConcentrationSection />
 
         <Card>
           <CardHeader className="pb-2">
@@ -225,7 +159,7 @@ export const ProcurementFlagsScreen: FC = () => {
               ))}
             </ul>
             <Link
-              to="/procurement/people"
+              to="/procurement/mps"
               className="mt-3 flex items-center justify-center gap-1.5 rounded-md border border-border bg-accent/30 px-3 py-2 text-xs font-medium text-foreground hover:bg-accent/60 transition-colors"
             >
               <Search className="h-3.5 w-3.5" />

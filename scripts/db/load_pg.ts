@@ -82,6 +82,10 @@ const PROC_BENCHMARKS_FILE = path.join(
   SCHEMA_DIR,
   "037_procurement_benchmarks.sql",
 );
+const SECTOR_PEERS_WINDOW_FILE = path.join(
+  SCHEMA_DIR,
+  "038_sector_peers_window.sql",
+);
 const GOVERNMENTS_FILE = path.join(PROC_DIR, "..", "governments.json");
 const DEBARRED_FILE = path.join(PROC_DIR, "debarred.json");
 const monthShardDir = path.join(PROC_DIR, "contracts");
@@ -163,6 +167,7 @@ export const loadPg = async (): Promise<{
   await exec(readFileSync(PROC_SEARCH_FILE, "utf8"));
   await exec(readFileSync(PROC_SECTORS_FILE, "utf8"));
   await exec(readFileSync(PROC_BENCHMARKS_FILE, "utf8"));
+  await exec(readFileSync(SECTOR_PEERS_WINDOW_FILE, "utf8"));
 
   const { rows, years } = readShards();
   let batchId = 0;

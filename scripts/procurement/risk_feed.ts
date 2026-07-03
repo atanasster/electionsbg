@@ -48,8 +48,8 @@ export interface RiskFeedFile {
   /** Full count of MP↔contractor pairs behind the top-N list. */
   mpTiedTotal: number;
   /** Distinct political-class people (MPs + non-MP officials) with at least one
-   *  procurement-connected company — the universe the /procurement/people
-   *  scanner lets the reader search. */
+   *  procurement-connected company — the universe /procurement/mps and the
+   *  combined search box let the reader search. */
   connectedPeopleTotal: number;
   /** Concentration flags per buyer oblast (NUTS3), sorted desc — drives the
    *  flags-by-region tile-map. Keyed on the buyer's resolved seat. */
@@ -204,10 +204,10 @@ export const writeRiskFeed = (derivedDir: string, data: RiskFeedFile): void => {
   );
 };
 
-// Full single-supplier concentration list for the /procurement/concentration
-// explorer — every flagged pair (not just the top-N feed), each tagged with the
-// buyer's oblast (NUTS3) so the page can filter by region. Slimmed from
-// awarder_concentration.json (drops nothing the table needs).
+// Full single-supplier concentration list for the ConcentrationSection table
+// on /procurement/flags — every flagged pair (not just the top-N feed), each
+// tagged with the buyer's oblast (NUTS3) so the page can filter by region.
+// Slimmed from awarder_concentration.json (drops nothing the table needs).
 export interface ConcentrationFullRow {
   awarderEik: string;
   awarderName: string;
@@ -276,8 +276,8 @@ export const writeConcentrationFull = (
   );
 };
 
-// Slim per-person procurement index for the /procurement/people scanner: one
-// row per political-class person (MPs from mp_connected.json + non-MP officials
+// Slim per-person procurement index for the combined search box: one row per
+// political-class person (MPs from mp_connected.json + non-MP officials
 // from pep_connected.json) with the euro total + supplier/contract counts, so
 // the scanner loads ~20 KB instead of the two full cross-reference files. Each
 // row carries a `kind` discriminator + the fields needed to render + link:

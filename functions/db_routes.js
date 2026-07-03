@@ -63,6 +63,10 @@ const DB_ROUTES = {
   "person-search": async (dbRows, q) => {
     const term = s(q, "q");
     if (!term) return { status: 400, body: { error: "missing q" } };
+    // Bounded server-side so a caller filters a small candidate set, not the
+    // whole fuzzy match list, client-side. Default 20; the combined-search box
+    // dedups by folded name and shows a handful.
+    const lim = clampInt(q.limit, 20, 1, 50);
     const people = await dbRows(
       `SELECT o.name, count(DISTINCT o.uic) AS companies
        FROM tr_officers o
@@ -71,8 +75,8 @@ const DB_ROUTES = {
               FROM unnest(string_to_array(translit_bg_latin($1),' ')) tok WHERE tok<>'')
        GROUP BY o.name
        ORDER BY companies DESC, length(o.name)
-       LIMIT 50`,
-      [term],
+       LIMIT $2`,
+      [term, lim],
     );
     return { body: { people } };
   },
@@ -237,13 +241,26 @@ const DB_ROUTES = {
   // Sector competitors — lazy per-division.
   "sector-peers": async (dbRows, q) => {
     const division = s(q, "division");
+    if (!division) return { status: 400, body: { error: "missing division" } };
+    // eik is OPTIONAL. With it, the caller's company is flagged isSelf and
+    // pulled in even if outside the division's top 8 (company page). Without it
+    // (the state-wide /procurement/sectors page), s() yields "" — no contractor
+    // matches, so the top 8 come back unflagged.
     const eik = s(q, "eik");
-    if (!division || !eik)
-      return { status: 400, body: { error: "missing division or eik" } };
-    const rows = await dbRows("SELECT sector_peers($1, $2) AS r", [
-      division,
-      eik,
-    ]);
+    // Optional date window (?from/?to, from ?pscope): when set, rank live within
+    // the window so the panel matches the window-scoped division totals; corpus
+    // scope (no window) uses the fast precomputed matview.
+    const from = orNull(q, "from");
+    const to = orNull(q, "to");
+    const rows =
+      from || to
+        ? await dbRows("SELECT sector_peers_window($1, $2, $3, $4) AS r", [
+            division,
+            eik,
+            from,
+            to,
+          ])
+        : await dbRows("SELECT sector_peers($1, $2) AS r", [division, eik]);
     return { body: rows[0]?.r ?? { division, peers: [] } };
   },
   async search(dbRows, q) {

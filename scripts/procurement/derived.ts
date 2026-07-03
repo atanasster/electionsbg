@@ -38,11 +38,12 @@ const readRollupDir = <T>(dir: string): T[] => {
   return out;
 };
 
-// The /procurement landing tile is a PREVIEW: it defaults to ~30 visible links
-// and links out to the full /procurement/flows explorer. So we ship a trimmed
+// The /procurement landing tile is a PREVIEW: it defaults to ~30 visible links,
+// with a slider (down to a "show all" reset) for the rest. So we ship a trimmed
 // flow.json (top-N links by euro value + their nodes) for the eager landing
-// load and the complete graph as flow_full.json for the explorer. Keeps the
-// largest single payload on the landing page small without losing any data.
+// load and the complete graph as flow_full.json for the "show all" state.
+// Keeps the largest single payload on the landing page small without losing
+// any data.
 const FLOW_PREVIEW_LIMIT = 150;
 
 // Thresholds for the awarder→contractor concentration flag. Tuned so the
@@ -413,9 +414,9 @@ export const writeDerived = (
   );
   if (contractorsDir) writeContractorsSearch(outDir, contractorsDir);
   // flow.json = trimmed preview (eager landing load); flow_full.json = complete
-  // graph (lazy-loaded by the /procurement/flows explorer). Assert both are
-  // free of orphaned contractors before writing — a regression here ships a
-  // broken sankey, so fail the ingest loudly instead.
+  // graph (lazy-loaded when the tile's threshold slider is pulled to 0).
+  // Assert both are free of orphaned contractors before writing — a
+  // regression here ships a broken sankey, so fail the ingest loudly instead.
   const preview = trimFlow(flow);
   assertFlowIntegrity(flow, "flow_full.json");
   assertFlowIntegrity(preview, "flow.json (preview)");

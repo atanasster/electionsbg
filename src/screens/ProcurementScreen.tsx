@@ -32,8 +32,7 @@ import { LatestContractsTile } from "./components/procurement/LatestContractsTil
 import { LatestTendersTile } from "./components/procurement/LatestTendersTile";
 import { TopContractorsTile } from "./components/procurement/TopContractorsTile";
 import { TopAwardersTile } from "./components/procurement/TopAwardersTile";
-import { TopMpsTile } from "./components/procurement/TopMpsTile";
-import { TopOfficialsTile } from "./components/procurement/TopOfficialsTile";
+import { TopConnectedPeopleTile } from "./components/procurement/TopConnectedPeopleTile";
 import { ProcurementTreemapTile } from "./components/procurement/ProcurementTreemapTile";
 import { formatEur } from "@/lib/currency";
 
@@ -252,8 +251,7 @@ export const ProcurementScreen: FC = () => {
           title={t("procurement_section_people") || "Politicians & connections"}
           icon={Users}
         >
-          <TopMpsTile data={data} />
-          <TopOfficialsTile data={data} />
+          <TopConnectedPeopleTile data={data} />
         </DashboardSection>
 
         <DashboardSection

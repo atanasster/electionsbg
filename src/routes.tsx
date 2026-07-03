@@ -355,16 +355,6 @@ const TenderDetailScreen = lazy(() =>
     default: m.TenderDetailScreen,
   })),
 );
-const ProcurementFlowsScreen = lazy(() =>
-  import("./screens/ProcurementFlowsScreen").then((m) => ({
-    default: m.ProcurementFlowsScreen,
-  })),
-);
-const ProcurementPeopleScreen = lazy(() =>
-  import("./screens/ProcurementPeopleScreen").then((m) => ({
-    default: m.ProcurementPeopleScreen,
-  })),
-);
 const ProcurementFlagsScreen = lazy(() =>
   import("./screens/ProcurementFlagsScreen").then((m) => ({
     default: m.ProcurementFlagsScreen,
@@ -373,11 +363,6 @@ const ProcurementFlagsScreen = lazy(() =>
 const ProcurementWatchlistScreen = lazy(() =>
   import("./screens/ProcurementWatchlistScreen").then((m) => ({
     default: m.ProcurementWatchlistScreen,
-  })),
-);
-const ProcurementConcentrationScreen = lazy(() =>
-  import("./screens/procurement/ProcurementConcentrationScreen").then((m) => ({
-    default: m.ProcurementConcentrationScreen,
   })),
 );
 const CandidateFundsScreen = lazy(() =>
@@ -433,6 +418,11 @@ const TopAwardersScreen = lazy(() =>
 const TopMpsScreen = lazy(() =>
   import("./screens/TopMpsScreen").then((m) => ({
     default: m.TopMpsScreen,
+  })),
+);
+const ProcurementSectorsScreen = lazy(() =>
+  import("./screens/ProcurementSectorsScreen").then((m) => ({
+    default: m.ProcurementSectorsScreen,
   })),
 );
 const AwarderContractorsScreen = lazy(() =>
@@ -1910,34 +1900,10 @@ export const AuthRoutes = () => {
             />
           )}
           <Route
-            path="procurement/flows"
-            element={
-              <LayoutScreen>
-                <ProcurementFlowsScreen />
-              </LayoutScreen>
-            }
-          />
-          <Route
-            path="procurement/people"
-            element={
-              <LayoutScreen>
-                <ProcurementPeopleScreen />
-              </LayoutScreen>
-            }
-          />
-          <Route
             path="procurement/flags"
             element={
               <LayoutScreen>
                 <ProcurementFlagsScreen />
-              </LayoutScreen>
-            }
-          />
-          <Route
-            path="procurement/concentration"
-            element={
-              <LayoutScreen>
-                <ProcurementConcentrationScreen />
               </LayoutScreen>
             }
           />
@@ -2060,6 +2026,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <TopMpsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="procurement/sectors"
+            element={
+              <LayoutScreen>
+                <ProcurementSectorsScreen />
               </LayoutScreen>
             }
           />

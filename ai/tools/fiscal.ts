@@ -1358,7 +1358,8 @@ type MpProcEntry = {
 // Non-MP officials (mayors / councillors / ministers / governors / agency
 // heads) → procurement, from pep_connected.json. Same person→firm shape as the
 // MP join; used as the fallback when a named person isn't a sitting MP so the
-// tool covers the whole political class the /procurement/people scanner does.
+// tool covers the whole political class (MPs + non-MP officials) that the
+// procurement person index resolves.
 type PepProcEntry = {
   name: string;
   role: string;

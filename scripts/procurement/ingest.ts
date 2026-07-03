@@ -556,8 +556,8 @@ const main = async (args: {
 
   // 7a. Slim feeds for the heavy SPA pages — top-N pre-selected from the
   // derived files so the /procurement/flags page (~1 MB otherwise) and the
-  // /procurement/people scanner load a few KB. Read from disk; emit empty when
-  // the underlying derived files are absent.
+  // combined search box's person index load a few KB. Read from disk; emit
+  // empty when the underlying derived files are absent.
   const riskFeed = buildRiskFeed(DERIVED_DIR);
   writeRiskFeed(DERIVED_DIR, riskFeed);
   const concFull = buildConcentrationFull(DERIVED_DIR);

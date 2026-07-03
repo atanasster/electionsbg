@@ -4,8 +4,8 @@
 // procurement, with the relation(s), euro total, contract count, a by-year
 // chart and the top awarders — the same per-company card the MP procurement
 // page uses, so the two read identically. Renders nothing when the official has
-// no procurement linkage. The same data powers the /procurement/people scanner
-// row that links here.
+// no procurement linkage. The same data powers the /procurement/mps officials
+// ranking that links here.
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";

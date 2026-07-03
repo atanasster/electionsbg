@@ -491,7 +491,7 @@ export const DataSources = () => {
             </p>
             <p className="mt-2 text-xs text-muted-foreground">
               {t("about_procurement_risk_note") ||
-                "Each contract carries an explainable Corruption Risk Index — the share of the applicable red-flag checks that fired (debarred supplier, MP- or official-connected contractor, single bidder gated against the per-CPV competition baseline, non-open procedure, short tender window, post-award amendment, single-supplier concentration). The same signals drive the money-flow diagrams (/procurement/flows + per-entity), the public money scanner (/procurement/people), the red-flag feed (/procurement/flags) and a per-oblast choropleth (total / per-capita / average contract). All derived from the same АОП / ЦАИС ЕОП open data — no new source."}
+                "Each contract carries an explainable Corruption Risk Index — the share of the applicable red-flag checks that fired (debarred supplier, MP- or official-connected contractor, single bidder gated against the per-CPV competition baseline, non-open procedure, short tender window, post-award amendment, single-supplier concentration). The same signals drive the money-flow diagram on the dashboard (and per-entity), the connected MPs & officials rankings (/procurement/mps), the red-flag feed (/procurement/flags) and a per-oblast choropleth (total / per-capita / average contract). All derived from the same АОП / ЦАИС ЕОП open data — no new source."}
             </p>
           </DataGroup>
 

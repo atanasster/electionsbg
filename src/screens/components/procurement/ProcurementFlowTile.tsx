@@ -9,8 +9,7 @@
 
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useLocation } from "react-router-dom";
-import { ArrowRight, GitFork } from "lucide-react";
+import { GitFork } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import {
   useProcurementFlow,
@@ -45,12 +44,7 @@ const pickDefaultThreshold = (
 
 export const ProcurementFlowTile: FC = () => {
   const { t } = useTranslation();
-  const { pathname } = useLocation();
-  // The dedicated explorer page loads the complete graph; the embedded landing
-  // tile loads the trimmed preview (smaller eager payload).
-  const isFullPage = pathname === "/procurement/flows";
   const { data, isLoading } = useProcurementFlow();
-  const showExploreLink = !isFullPage;
   // null = not yet initialised (data still loading). Once data arrives, the
   // effect below computes a sensible default that filters out the long tail
   // of small links. Operators can drag the slider down to 0 to see everything.
@@ -157,15 +151,6 @@ export const ProcurementFlowTile: FC = () => {
               {t("procurement_flow_links") || "link(s)"}
             </span>
           ) : null}
-          {showExploreLink ? (
-            <Link
-              to="/procurement/flows"
-              className="ml-auto inline-flex items-center gap-1 text-xs text-primary hover:underline font-normal"
-            >
-              {t("procurement_flows_explore") || "Explore"}
-              <ArrowRight className="h-3 w-3" />
-            </Link>
-          ) : null}
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 md:p-4 space-y-3">
@@ -191,6 +176,15 @@ export const ProcurementFlowTile: FC = () => {
                   {formatEur(effectiveThreshold)}
                 </span>
               </label>
+              {effectiveThreshold > 0 ? (
+                <button
+                  type="button"
+                  onClick={() => setThreshold(0)}
+                  className="rounded-md border border-border px-2 py-1 text-xs font-medium text-foreground hover:bg-accent/60 transition-colors"
+                >
+                  {t("procurement_flow_show_all") || "Show all"}
+                </button>
+              ) : null}
               <Legend />
             </div>
 

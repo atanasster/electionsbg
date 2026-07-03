@@ -619,8 +619,9 @@ const computeNsConcentration = (acc: Accum): NsConcEntry[] => {
   return entries;
 };
 
-// Per-NS concentration_full sibling (drop-in for the /procurement/concentration
-// table when scope === ns). Adds the buyer's oblast tag for the region filter.
+// Per-NS concentration_full sibling (drop-in for the ConcentrationSection
+// table on /procurement/flags when scope === ns). Adds the buyer's oblast tag
+// for the region filter.
 const buildNsConcentrationFull = (
   entries: NsConcEntry[],
   oblastByEik: Map<string, string>,

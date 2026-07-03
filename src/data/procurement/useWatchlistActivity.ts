@@ -91,8 +91,8 @@ const queryKeyFor = (it: WatchItem): readonly unknown[] =>
       ["procurement", "contract", it.id]
     : ["db", "watch-signature", it.kind, it.id];
 
-// Person rows come from the shared corpus scanner (same payload the
-// /procurement/people page uses with no window).
+// Person rows come from the shared corpus scanner (same payload the combined
+// search box and /procurement/mps use, fetched here with no window).
 type PersonRow = {
   kind: "mp" | "official";
   name: string;

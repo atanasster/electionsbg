@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { PieChart, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
+import { Tooltip } from "@/ux/Tooltip";
 import { useProcurementSectors } from "@/data/procurement/useProcurementSectors";
 import { useProcurementHref } from "@/data/procurement/useProcurementScope";
 import { cpvDivisionName } from "@/lib/cpvSectors";
@@ -22,9 +23,9 @@ const Bar: FC<{ label: string; share: number; amount: string }> = ({
   amount,
 }) => (
   <div className="flex items-center gap-2 py-1 text-sm">
-    <span className="min-w-0 w-40 sm:w-56 truncate" title={label}>
-      {label}
-    </span>
+    <Tooltip content={label}>
+      <span className="min-w-0 w-40 sm:w-56 truncate">{label}</span>
+    </Tooltip>
     <span className="relative h-2 flex-1 overflow-hidden rounded bg-muted">
       <span
         className="absolute inset-y-0 left-0 rounded bg-primary/70"
@@ -75,10 +76,10 @@ export const ProcurementSectorsTile: FC = () => {
           />
         ) : null}
         <Link
-          to={buildHref("/procurement/contracts")}
+          to={buildHref("/procurement/sectors")}
           className="mt-3 flex items-center justify-center gap-1.5 rounded-md border border-border bg-accent/30 px-3 py-2 text-xs font-medium text-foreground hover:bg-accent/60 transition-colors"
         >
-          {t("procurement_sectors_browse") || "Browse the contracts"}
+          {t("procurement_sectors_browse") || "See all sectors"}
           <ArrowRight className="h-3.5 w-3.5" />
         </Link>
       </CardContent>

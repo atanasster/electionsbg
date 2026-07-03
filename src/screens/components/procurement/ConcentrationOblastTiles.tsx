@@ -1,6 +1,7 @@
 // Flags-by-region tile-map for /procurement/flags. A grid of oblast tiles
 // coloured by how many single-supplier-concentration pairs sit with buyers in
-// that oblast. Clicking a tile opens the full explorer filtered to that oblast.
+// that oblast. Clicking a tile scrolls to the concentration section below,
+// filtered to that oblast.
 // A separate "national / unresolved" tile covers buyers with no single seat
 // (central ministries/agencies), so the map never silently drops them. Oblast is
 // the awarder's seat oblast name (from awarder_seats), matching the explorer's
@@ -91,7 +92,7 @@ export const ConcentrationOblastTiles: FC<{
             label={o.oblast}
             count={o.count}
             tier={tierOf(o.count, max)}
-            to={`/procurement/concentration?oblast=${encodeURIComponent(o.oblast)}`}
+            to={`/procurement/flags?oblast=${encodeURIComponent(o.oblast)}#concentration`}
           />
         ))}
         {nationalCount > 0 && (
@@ -99,7 +100,7 @@ export const ConcentrationOblastTiles: FC<{
             label={t("flags_map_national") || "National"}
             count={nationalCount}
             tier={tierOf(nationalCount, max)}
-            to="/procurement/concentration?oblast=national"
+            to="/procurement/flags?oblast=national#concentration"
           />
         )}
       </div>

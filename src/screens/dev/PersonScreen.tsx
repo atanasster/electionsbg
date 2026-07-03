@@ -1,6 +1,7 @@
 // DB-backed person page (/person/:name) — a dashboard that rolls the person's
-// whole PORTFOLIO up to the individual. Unlike the JSON-fed /procurement/people
-// scanner, it queries Postgres live so it works for ANY TR officer:
+// whole PORTFOLIO up to the individual. Unlike the political-class-only
+// /procurement/mps rankings, it queries Postgres live so it works for ANY TR
+// officer:
 //   • portfolio procurement rollup — top awarders / top contracts / sectors /
 //     by-cabinet / by-year, aggregated over every company the person runs/owns
 //     (person_procurement, person_by_cabinet), reusing the company-page tiles;
