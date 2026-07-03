@@ -8,7 +8,7 @@
  * into clean change events.
  */
 
-/** Roles a person can hold in a Bulgarian commercial entity. */
+/** Roles a person can hold in a Bulgarian commercial entity or ЮЛНЦ. */
 export type TrRole =
   | "manager"
   | "representative"
@@ -21,7 +21,12 @@ export type TrRole =
   | "partner"
   | "sole_owner"
   | "actual_owner"
-  | "foreign_trader";
+  | "foreign_trader"
+  // Non-profit legal entity (ЮЛНЦ) roles — сдружения/фондации/читалища.
+  | "ngo_board" // член на управителния орган (управителен съвет)
+  | "ngo_representative" // представляващ ЮЛНЦ
+  | "trustee" // настоятел (читалищно настоятелство)
+  | "verifier"; // член на проверителна комисия
 
 /** What scalar field on the company itself a meta event refers to. */
 export type TrCompanyMetaField =
@@ -34,7 +39,12 @@ export type TrCompanyMetaField =
   | "addemption"
   | "bankruptcy_open"
   | "bankruptcy_declared"
-  | "liquidation";
+  | "liquidation"
+  // ЮЛНЦ-specific metadata.
+  | "objectives" // цели
+  | "means" // средства за постигане на целите
+  | "public_benefit" // определено за общественополезна дейност
+  | "private_benefit"; // определено за частна дейност
 
 export type TrPersonAddedEvent = {
   kind: "person_added";
@@ -48,6 +58,10 @@ export type TrPersonAddedEvent = {
   // SQLite, not in /public outputs. Person-level joins are by normalized
   // plain-text name only. See docs/plans/mp-financial-connections-slice3-tr-design.md.
   positionLabel: string | null;
+  /** Country of the person (CountryName, e.g. "БЪЛГАРИЯ"; falls back to the
+   * ISO CountryCode). Used to flag foreign-controlled entities. Not personal
+   * data — a jurisdiction, not an identifier. */
+  country: string | null;
   /** For partners/owners — the declared capital share as an absolute amount
    * (e.g. 3825) + its currency. The percentage is derived downstream (a
    * partner's amount ÷ the company's total partner shares). */
@@ -105,6 +119,7 @@ export type TrPersonState = {
   name: string;
   nameNormalized: string;
   positionLabel: string | null;
+  country: string | null;
   shareAmount: number | null;
   shareCurrency: string | null;
   recordId: string;
@@ -128,6 +143,11 @@ export type TrCompanyState = {
     | "erased"
     | "unknown";
   lastUpdated: string | null;
+  /** ЮЛНЦ metadata (null for commercial entities). */
+  objectives: string | null;
+  means: string | null;
+  publicBenefit: boolean | null;
+  privateBenefit: boolean | null;
   /** keyed by `${recordId}|${fieldIdent}` — the natural unique-id of a record. */
   persons: Map<string, TrPersonState>;
 };

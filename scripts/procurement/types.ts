@@ -348,7 +348,12 @@ export type MpCompanyRelationKind =
   | "representative"
   | "liquidator"
   | "procurator"
-  | "stake";
+  | "stake"
+  // ЮЛНЦ governing-body roles.
+  | "ngo_board"
+  | "ngo_representative"
+  | "trustee"
+  | "verifier";
 
 export interface MpCompanyRelation {
   kind: MpCompanyRelationKind;

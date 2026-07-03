@@ -66,6 +66,7 @@ export const ENGLISH_STATIC_PAGES = [
   "officials/assets",
   "procurement",
   "procurement/contracts",
+  "procurement/ngos",
   "procurement/sectors",
   "procurement/flags",
   "procurement/contractors",

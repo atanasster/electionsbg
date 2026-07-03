@@ -24,6 +24,13 @@ const KEY: Record<ProcurementRelationKind, { en: string; bgKey: string }> = {
   liquidator: { en: "liquidator", bgKey: "procurement_rel_liquidator" },
   procurator: { en: "procurator", bgKey: "procurement_rel_procurator" },
   stake: { en: "declared stake", bgKey: "procurement_rel_stake" },
+  ngo_board: { en: "NGO board member", bgKey: "procurement_rel_ngo_board" },
+  ngo_representative: {
+    en: "NGO representative",
+    bgKey: "procurement_rel_ngo_representative",
+  },
+  trustee: { en: "trustee", bgKey: "procurement_rel_trustee" },
+  verifier: { en: "audit commission", bgKey: "procurement_rel_verifier" },
 };
 
 export const relationLabel = (

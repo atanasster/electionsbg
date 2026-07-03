@@ -2264,6 +2264,32 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "procurement/ngos",
+    title:
+      "Организации с нестопанска цел — сдружения, фондации, читалища | electionsbg.com",
+    description:
+      "Търсене в регистъра на юридическите лица с нестопанска цел (ЮЛНЦ) — сдружения, фондации и читалища, техните управителни органи, публично и външно финансиране и сигнали за конфликт на интереси.",
+    breadcrumbName: "НПО",
+    ogImage: "/og/procurement-ngos.png",
+    bodyHtml: `
+<h1>Организации с нестопанска цел</h1>
+<p>Регистърът на юридическите лица с нестопанска цел (сдружения, фондации и читалища) от общата база на Търговския регистър и регистъра на ЮЛНЦ — сортируема и филтрируема таблица по вид и категория, с връзка към страницата на всяка организация.</p>
+<p>За всяка организация се показват управителните органи (управителен съвет, представляващи, настоятелства), целите и статутът за обществена полза, полученото публично и външно финансиране (държавни субсидии, пряко управлявани средства от ЕС), както и сигнали за конфликт на интереси, когато член на властта е в управата на НПО, спечелило обществени поръчки или субсидии.</p>
+<p>Виж и <a href="${SITE_URL}/procurement">общия преглед на обществените поръчки</a> и <a href="${SITE_URL}/procurement/mps">депутатите и длъжностните лица с връзки</a>.</p>`.trim(),
+    english: {
+      title:
+        "Non-profit organisations — associations, foundations | electionsbg.com",
+      description:
+        "Search the register of non-profit legal entities (NPOs) — associations, foundations and community centres, their governing bodies, public and external funding, and conflict-of-interest flags.",
+      breadcrumbName: "NPOs",
+      bodyHtml: `
+<h1>Non-profit organisations</h1>
+<p>The register of non-profit legal entities (associations, foundations and community centres) from the shared Commerce and NPO register — a sortable, filterable table by type and category, linking to each organisation's page.</p>
+<p>Each organisation shows its governing bodies (management board, representatives, boards of trustees), objectives and public-benefit status, the public and external funding it received (state subsidies, directly-managed EU funds), and conflict-of-interest flags when a person in power sits on the board of an NGO that won public contracts or subsidies.</p>
+<p>See also the <a href="${SITE_URL}/en/procurement">procurement overview</a> and <a href="${SITE_URL}/en/procurement/mps">connected MPs and officials</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "procurement/sectors",
     title: "Какво купува държавата — сектори (CPV) | electionsbg.com",
     description:

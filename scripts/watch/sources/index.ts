@@ -22,6 +22,7 @@ import { policyBaselineLocal } from "./policy_baseline_local";
 import { eurostatRegional } from "./eurostat_regional";
 import { nsiRegional } from "./nsi_regional";
 import { ecBudgetPerMs } from "./ec_budget_per_ms";
+import { ecFts } from "./ec_fts";
 import { bnbAuctions } from "./bnb_auctions";
 import { bnbFdi } from "./bnb_fdi";
 import { minfinMreports } from "./minfin_mreports";
@@ -119,6 +120,7 @@ export const SOURCES: WatchSource[] = [
   eurostatRegional,
   nsiRegional,
   ecBudgetPerMs,
+  ecFts,
   bnbAuctions,
   bnbFdi,
   minfinMreports,

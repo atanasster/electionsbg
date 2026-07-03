@@ -99,9 +99,12 @@ const DB_ROUTES = {
       geography,
       awarderProcurement,
       fundProjects,
+      ngoDetails,
+      awarderKindex,
+      ngoFunding,
     ] = await Promise.all([
       dbRows(
-        "SELECT uic, name, legal_form, seat, status, funds_amount, funds_currency FROM tr_companies WHERE uic = $1",
+        "SELECT uic, name, legal_form, seat, status, funds_amount, funds_currency, entity_class, ngo_type FROM tr_companies WHERE uic = $1",
         [eik],
       ),
       dbRows(
@@ -139,6 +142,15 @@ const DB_ROUTES = {
          ORDER BY total_eur DESC NULLS LAST LIMIT 6`,
         [eik],
       ),
+      dbRows(
+        "SELECT public_benefit, private_benefit, objectives, means FROM ngo_details WHERE uic = $1",
+        [eik],
+      ),
+      // Awarder K-Index (share of the buyer's contract value to politician /
+      // NGO-board-linked suppliers). Returns a zero-ish payload for non-awarders.
+      dbRows("SELECT awarder_kindex($1) AS r", [eik]),
+      // External funding received (EU direct / state subsidy / foreign grants).
+      dbRows("SELECT ngo_funding_for($1) AS r", [eik]),
     ]);
     return {
       body: {
@@ -158,6 +170,9 @@ const DB_ROUTES = {
         geography: geography[0]?.r ?? null,
         awarderProcurement: awarderProcurement[0]?.r ?? null,
         fundProjects,
+        ngoDetails: ngoDetails[0] ?? null,
+        awarderKindex: awarderKindex[0]?.r ?? null,
+        ngoFunding: ngoFunding[0]?.r ?? null,
       },
     };
   },
@@ -178,6 +193,25 @@ const DB_ROUTES = {
       return { status: 400, body: { error: "bad q" } };
     }
     return { body: await runDbFacets(dbRows, req) };
+  },
+  // Registry-scale stat cards for the /procurement/ngos header. One round-trip,
+  // ~14ms: entity_class counts hit the index, the register total is the pg_class
+  // reltuples estimate (exact enough for a headline, no 1M-row scan), and the
+  // state-awarder count reads the awarder_totals matview (one row per awarder).
+  "ngo-stats": async (dbRows) => {
+    const rows = await dbRows(
+      `SELECT
+         (SELECT count(*)::int FROM tr_companies WHERE entity_class = 'ngo_assoc')      AS assoc,
+         (SELECT count(*)::int FROM tr_companies WHERE entity_class = 'ngo_found')      AS found,
+         (SELECT count(*)::int FROM tr_companies WHERE entity_class = 'chitalishte')    AS chitalishte,
+         (SELECT count(*)::int FROM tr_companies WHERE entity_class = 'foreign_branch') AS foreign_branch,
+         (SELECT reltuples::bigint FROM pg_class WHERE relname = 'tr_companies')        AS tr_companies,
+         (SELECT count(*)::int FROM awarder_totals)                                     AS state_awarders,
+         (SELECT count(DISTINCT eik)::int FROM ngo_funding WHERE eik IS NOT NULL)       AS ngos_funded,
+         (SELECT COALESCE(ROUND(SUM(amount_eur)), 0) FROM ngo_funding WHERE eik IS NOT NULL) AS external_eur
+       `,
+    );
+    return { body: rows[0] ?? {} };
   },
   async tenders(dbRows, q) {
     const eik = s(q, "eik");

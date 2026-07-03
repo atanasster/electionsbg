@@ -106,7 +106,7 @@ export const loadTrPg = async (): Promise<{
 
   const companies = tr
     .prepare(
-      "SELECT uic, name, legal_form, seat, status, funds_amount, funds_currency, last_updated FROM companies WHERE name IS NOT NULL AND name <> ''",
+      "SELECT uic, name, legal_form, seat, status, funds_amount, funds_currency, last_updated, objectives, means, public_benefit, private_benefit FROM companies WHERE name IS NOT NULL AND name <> ''",
     )
     .all() as Array<Record<string, string | number | null>>;
   await bulkInsert(
@@ -132,6 +132,27 @@ export const loadTrPg = async (): Promise<{
       r.last_updated || null, // '' → NULL for the timestamptz column
     ]),
   );
+
+  // ЮЛНЦ metadata sidecar — only rows that actually carry NGO fields.
+  const ngoDetails = companies.filter(
+    (r) =>
+      r.objectives != null ||
+      r.means != null ||
+      r.public_benefit != null ||
+      r.private_benefit != null,
+  );
+  if (ngoDetails.length)
+    await bulkInsert(
+      "ngo_details",
+      ["uic", "public_benefit", "private_benefit", "objectives", "means"],
+      ngoDetails.map((r) => [
+        r.uic,
+        r.public_benefit == null ? null : r.public_benefit === 1,
+        r.private_benefit == null ? null : r.private_benefit === 1,
+        r.objectives,
+        r.means,
+      ]),
+    );
 
   const officers = tr
     .prepare(
@@ -159,7 +180,7 @@ export const loadTrPg = async (): Promise<{
   // Raw per-role records for the person page's history (from/to dates + share).
   const roles = tr
     .prepare(
-      `SELECT uic, name, role, share_percent, share_amount, share_currency, added_at, erased_at
+      `SELECT uic, name, role, country, share_percent, share_amount, share_currency, added_at, erased_at
        FROM company_persons
        WHERE name IS NOT NULL AND name <> ''`,
     )
@@ -170,6 +191,7 @@ export const loadTrPg = async (): Promise<{
       "uic",
       "name",
       "role",
+      "country",
       "share",
       "share_amount",
       "share_currency",
@@ -180,6 +202,7 @@ export const loadTrPg = async (): Promise<{
       r.uic,
       r.name,
       r.role,
+      r.country,
       r.share_percent,
       r.share_amount,
       r.share_currency,
@@ -197,6 +220,16 @@ export const loadTrPg = async (): Promise<{
     "CREATE INDEX idx_tr_officers_fold ON tr_officers USING gin (name_fold gin_trgm_ops)",
   );
   await exec("CREATE INDEX idx_tr_officers_uic ON tr_officers (uic)");
+  // Entity-class facet (NGO browse/segmentation) + NGO metadata lookup. The
+  // composite (entity_class, name) also serves the /procurement/ngos browse's
+  // default name-sort — a single-category facet becomes an index-only scan
+  // (~0.2ms vs a ~190ms top-N sort over 30k rows).
+  await exec(
+    "CREATE INDEX idx_tr_companies_entity_class ON tr_companies (entity_class)",
+  );
+  await exec(
+    "CREATE INDEX idx_tr_companies_class_name ON tr_companies (entity_class, name)",
+  );
   // Btree for exact-fold person lookup (person_profile / connection_between).
   await exec("CREATE INDEX idx_tr_officers_fold_eq ON tr_officers (name_fold)");
   await exec(
@@ -289,6 +322,19 @@ export const loadTrPg = async (): Promise<{
       ["eik", "politician", "ref", "kind", "role", "total_eur", "relations"],
       links,
     );
+
+  // Awarder K-Index (politician/NGO-board-linked-supplier share per awarder) —
+  // depends on contracts + the company_politicians just loaded. The migration
+  // creates the fn + (re)builds the ranking matview. Skipped cleanly if the
+  // contracts table isn't present yet (TR-only load before a contract load).
+  const KINDEX_SQL = fileURLToPath(
+    new URL("./schema/pg/039_awarder_kindex.sql", import.meta.url),
+  );
+  const hasContracts = await getPool()
+    .query("SELECT to_regclass('public.contracts') AS t")
+    .then((r) => r.rows[0]?.t != null)
+    .catch(() => false);
+  if (hasContracts) await exec(readFileSync(KINDEX_SQL, "utf8"));
 
   await exec(
     "CREATE TABLE IF NOT EXISTS meta (key text PRIMARY KEY, value text)",

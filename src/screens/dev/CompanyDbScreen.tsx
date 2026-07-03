@@ -16,6 +16,7 @@ import {
   Coins,
   FileText,
   Ban,
+  Target,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur, formatEurCompact, toEur } from "@/lib/currency";
@@ -90,7 +91,52 @@ interface Company {
   status: string | null;
   funds_amount: string | number | null;
   funds_currency: string | null;
+  entity_class: string | null;
+  ngo_type: string | null;
 }
+// ЮЛНЦ metadata sidecar (цели/полза) — null for commercial entities.
+interface NgoDetails {
+  public_benefit: boolean | null;
+  private_benefit: boolean | null;
+  objectives: string | null;
+  means: string | null;
+}
+const NGO_CLASSES = new Set(["ngo_assoc", "ngo_found", "chitalishte"]);
+// Awarder K-Index — share of a buyer's contract value to politically linked
+// suppliers (from awarder_kindex()).
+interface KindexSupplier {
+  eik: string;
+  name: string | null;
+  eur: number;
+  n: number;
+  politicians: { politician: string; ref: string; kind: string }[] | null;
+}
+interface AwarderKindex {
+  totalEur: number;
+  supplierCount: number;
+  linkedEur: number;
+  linkedSupplierCount: number;
+  sharePct: number;
+  suppliers: KindexSupplier[];
+}
+// External funding received by an NGO (EU direct / state subsidy / foreign grant).
+interface NgoFunding {
+  totalEur: number;
+  bySource: { source: string; funder: string | null; eur: number; n: number }[];
+  rows: {
+    source: string;
+    funder: string | null;
+    year: number | null;
+    programme: string | null;
+    eur: number;
+  }[];
+}
+const FUNDING_SOURCE_LABEL: Record<string, { bg: string; en: string }> = {
+  eu_fts: { bg: "ЕС (пряко управление)", en: "EU (direct)" },
+  budget_subsidy: { bg: "Държавна субсидия", en: "State subsidy" },
+  abf: { bg: "Фондация Америка за България", en: "America for Bulgaria Fdn" },
+  ned: { bg: "NED", en: "NED" },
+};
 interface Summary {
   contracts: number;
   contracts_eur: number;
@@ -179,6 +225,20 @@ type DbRollup = Pick<
   };
 };
 
+// Kicker label by entity_class (BG / EN). NGO classes get an "Организация с
+// нестопанска цел" framing; foreign branches and state enterprises their own.
+const ENTITY_CLASS_KICKER: Record<string, { bg: string; en: string }> = {
+  ngo_assoc: { bg: "Сдружение (ЮЛНЦ)", en: "Association (NPO)" },
+  ngo_found: { bg: "Фондация (ЮЛНЦ)", en: "Foundation (NPO)" },
+  chitalishte: { bg: "Народно читалище", en: "Community centre (chitalishte)" },
+  coop: { bg: "Кооперация", en: "Cooperative" },
+  foreign_branch: {
+    bg: "Клон на чуждестранно лице",
+    en: "Foreign entity branch",
+  },
+  state_enterprise: { bg: "Държавно предприятие", en: "State enterprise" },
+};
+
 const num = new Intl.NumberFormat("bg-BG");
 // Officers shown inline on the dashboard; the rest live on the standalone
 // backend-paginated /company/:eik/officers table.
@@ -207,6 +267,11 @@ export const CompanyDbScreen: FC = () => {
   const [institution, setInstitution] = useState<Institution | null>(null);
   const [geography, setGeography] = useState<CompanyGeography | null>(null);
   const [awarderProc, setAwarderProc] = useState<DbAwarderRollup | null>(null);
+  const [ngoDetails, setNgoDetails] = useState<NgoDetails | null>(null);
+  const [awarderKindex, setAwarderKindex] = useState<AwarderKindex | null>(
+    null,
+  );
+  const [ngoFunding, setNgoFunding] = useState<NgoFunding | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [period, setPeriod] = useState<string>(PERIOD_ALL);
@@ -252,6 +317,9 @@ export const CompanyDbScreen: FC = () => {
           );
           setGeography(j.geography ?? null);
           setAwarderProc(j.awarderProcurement ?? null);
+          setNgoDetails(j.ngoDetails ?? null);
+          setAwarderKindex(j.awarderKindex ?? null);
+          setNgoFunding(j.ngoFunding ?? null);
         }
       })
       .catch((e) => live && setError(String(e)))
@@ -359,7 +427,11 @@ export const CompanyDbScreen: FC = () => {
       <div className="mb-6">
         <div className="text-xs uppercase tracking-wide text-muted-foreground">
           {company
-            ? "Фирма (Търговски регистър)"
+            ? company.entity_class && ENTITY_CLASS_KICKER[company.entity_class]
+              ? ENTITY_CLASS_KICKER[company.entity_class][
+                  i18n.language === "bg" ? "bg" : "en"
+                ]
+              : "Фирма (Търговски регистър)"
             : institution
               ? "Институция / възложител"
               : "Фирма (Търговски регистър)"}
@@ -421,6 +493,125 @@ export const CompanyDbScreen: FC = () => {
 
       {!loading && !error && (company || institution) && (
         <div className="space-y-6">
+          {company &&
+            company.entity_class &&
+            NGO_CLASSES.has(company.entity_class) &&
+            (ngoDetails?.objectives ||
+              ngoDetails?.public_benefit != null ||
+              company.ngo_type) && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <Target className="h-4 w-4" />
+                    {i18n.language === "bg"
+                      ? "Организация с нестопанска цел"
+                      : "Non-profit organisation"}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3 text-sm">
+                  <div className="flex flex-wrap gap-2">
+                    {ngoDetails?.public_benefit && (
+                      <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:text-emerald-300">
+                        {i18n.language === "bg"
+                          ? "Общественополезна дейност"
+                          : "Public benefit"}
+                      </span>
+                    )}
+                    {ngoDetails?.private_benefit && (
+                      <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
+                        {i18n.language === "bg"
+                          ? "Частна дейност"
+                          : "Private benefit"}
+                      </span>
+                    )}
+                    {company.ngo_type && company.ngo_type !== "other" && (
+                      <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
+                        {t(`ngo_type_${company.ngo_type}`, company.ngo_type)}
+                      </span>
+                    )}
+                  </div>
+                  {ngoDetails?.objectives && (
+                    <div>
+                      <div className="mb-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                        {i18n.language === "bg" ? "Цели" : "Objectives"}
+                      </div>
+                      <p className="whitespace-pre-line text-muted-foreground">
+                        {ngoDetails.objectives.length > 600
+                          ? ngoDetails.objectives.slice(0, 600) + "…"
+                          : ngoDetails.objectives}
+                      </p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            )}
+          {ngoFunding && ngoFunding.totalEur > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <Coins className="h-4 w-4" />
+                  {i18n.language === "bg"
+                    ? "Външно финансиране"
+                    : "External funding"}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3 text-sm">
+                <div className="flex flex-wrap items-baseline gap-x-2">
+                  <span className="text-2xl font-bold tabular-nums">
+                    {formatEurCompact(ngoFunding.totalEur, i18n.language)}
+                  </span>
+                  <span className="text-muted-foreground">
+                    {i18n.language === "bg"
+                      ? "получено от именувани донори (абсолютни суми)"
+                      : "received from named funders (absolute amounts)"}
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {ngoFunding.bySource.map((s) => {
+                    const l = FUNDING_SOURCE_LABEL[s.source];
+                    return (
+                      <span
+                        key={s.source}
+                        className="rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground"
+                      >
+                        {(l
+                          ? i18n.language === "bg"
+                            ? l.bg
+                            : l.en
+                          : s.source) +
+                          ": " +
+                          formatEurCompact(s.eur, i18n.language)}
+                      </span>
+                    );
+                  })}
+                </div>
+                <ul className="divide-y">
+                  {ngoFunding.rows.slice(0, 6).map((r, idx) => (
+                    <li
+                      key={idx}
+                      className="flex items-center justify-between gap-2 py-1.5"
+                    >
+                      <span className="min-w-0 text-muted-foreground line-clamp-1">
+                        {r.funder ||
+                          FUNDING_SOURCE_LABEL[r.source]?.bg ||
+                          r.source}
+                        {r.year ? ` · ${r.year}` : ""}
+                        {r.programme ? ` · ${r.programme}` : ""}
+                      </span>
+                      <span className="shrink-0 tabular-nums">
+                        {formatEurCompact(r.eur, i18n.language)}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-xs text-muted-foreground">
+                  {i18n.language === "bg"
+                    ? "Източници: EU Financial Transparency System, Закон за държавния бюджет. Публични данни за публично и международно финансиране."
+                    : "Sources: EU Financial Transparency System, State Budget Law. Public data on public and international funding."}
+                </p>
+              </CardContent>
+            </Card>
+          )}
           {awarderRollup && (
             <section className="space-y-4">
               <div className="flex items-center gap-2">
@@ -479,6 +670,62 @@ export const CompanyDbScreen: FC = () => {
               )}
             </section>
           )}
+          {awarderKindex &&
+            awarderKindex.linkedSupplierCount > 0 &&
+            awarderKindex.totalEur > 0 && (
+              <Card className="border-amber-300/60 dark:border-amber-800/60">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <Landmark className="h-4 w-4" />
+                    {i18n.language === "bg"
+                      ? "Свързани с политиката изпълнители"
+                      : "Politically linked suppliers"}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3 text-sm">
+                  <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                    <span className="text-2xl font-bold tabular-nums text-amber-700 dark:text-amber-400">
+                      {Math.round(awarderKindex.sharePct * 100)}%
+                    </span>
+                    <span className="text-muted-foreground">
+                      {i18n.language === "bg"
+                        ? `от възложените средства (${formatEurCompact(awarderKindex.linkedEur, i18n.language)}) отиват към ${awarderKindex.linkedSupplierCount} свързан(и) изпълнител(и)`
+                        : `of awarded value (${formatEurCompact(awarderKindex.linkedEur, i18n.language)}) goes to ${awarderKindex.linkedSupplierCount} linked supplier(s)`}
+                    </span>
+                  </div>
+                  <ul className="divide-y">
+                    {awarderKindex.suppliers.slice(0, 8).map((s) => (
+                      <li
+                        key={s.eik}
+                        className="flex items-center justify-between gap-2 py-1.5"
+                      >
+                        <div className="min-w-0">
+                          <Link
+                            to={`/company/${s.eik}`}
+                            className="hover:text-primary hover:underline"
+                          >
+                            {decodeEntities(s.name) || s.eik}
+                          </Link>
+                          {s.politicians && s.politicians.length > 0 && (
+                            <span className="ml-1 text-xs text-muted-foreground">
+                              (
+                              {s.politicians
+                                .map((p) => p.politician)
+                                .slice(0, 2)
+                                .join(", ")}
+                              )
+                            </span>
+                          )}
+                        </div>
+                        <span className="shrink-0 tabular-nums text-muted-foreground">
+                          {formatEurCompact(s.eur, i18n.language)}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            )}
           {debarred.length > 0 && (
             <div className="rounded-md border border-red-300 bg-red-100 p-3 text-sm text-red-900 dark:border-red-900 dark:bg-red-900/30 dark:text-red-100">
               <div className="flex items-center gap-2 font-semibold">

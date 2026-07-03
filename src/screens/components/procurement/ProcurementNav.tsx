@@ -18,6 +18,7 @@ import {
   Table2,
   ClipboardList,
   Route,
+  HeartHandshake,
 } from "lucide-react";
 import { useProcurementHref } from "@/data/procurement/useProcurementScope";
 import { useCachedNewCount } from "@/data/procurement/useWatchlist";
@@ -38,6 +39,11 @@ const items = [
     to: "/procurement/tenders",
     icon: ClipboardList,
     key: "procurement_tenders_nav",
+  },
+  {
+    to: "/procurement/ngos",
+    icon: HeartHandshake,
+    key: "procurement_ngos_nav",
   },
   {
     to: "/procurement/by-settlement",

@@ -328,6 +328,11 @@ const ContractsBrowserDbScreen = lazy(() =>
     default: m.ContractsBrowserDbScreen,
   })),
 );
+const NgoBrowseDbScreen = lazy(() =>
+  import("./screens/dev/NgoBrowseDbScreen").then((m) => ({
+    default: m.NgoBrowseDbScreen,
+  })),
+);
 const ProcurementSettlementDetailScreen = lazy(() =>
   import("./screens/procurement/ProcurementSettlementDetailScreen").then(
     (m) => ({
@@ -1929,6 +1934,16 @@ export const AuthRoutes = () => {
               <LayoutScreen>
                 <Suspense fallback={<RouteFallback />}>
                   <ContractsBrowserDbScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="procurement/ngos"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <NgoBrowseDbScreen />
                 </Suspense>
               </LayoutScreen>
             }

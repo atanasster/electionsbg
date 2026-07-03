@@ -32,6 +32,7 @@ import {
   tenderLookup,
   topContractors,
 } from "./fiscal";
+import { ngoOverview, ngoTopFunded, ngoConflictAwarders } from "./ngo";
 import { governments } from "./govpeople";
 import {
   localCouncilTrend,
@@ -1680,6 +1681,64 @@ export const TOOLS: ToolDef[] = [
       { bg: "Какъв е държавният бюджет?", en: "What's the state budget?" },
     ],
     run: budgetOverview,
+  },
+  {
+    name: "ngoOverview",
+    domain: "fiscal",
+    description: {
+      bg: "Организации с нестопанска цел (ЮЛНЦ) — обзор: брой, публично и външно финансиране, видове.",
+      en: "Non-profit organisations (NPOs) — overview: count, public + external funding, types.",
+    },
+    params: [],
+    examples: [
+      { bg: "Колко НПО има в България?", en: "How many NGOs are there?" },
+      {
+        bg: "Колко пари получават неправителствените организации?",
+        en: "How much money do non-profits receive?",
+      },
+      { bg: "Обзор на ЮЛНЦ", en: "NGO sector overview" },
+    ],
+    run: ngoOverview,
+  },
+  {
+    name: "ngoTopFunded",
+    domain: "fiscal",
+    description: {
+      bg: "Най-финансираните НПО — организации с най-много външно финансиране (ЕС, държавни субсидии).",
+      en: "Best-funded NGOs — organisations with the most external funding (EU, state subsidies).",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Кои НПО получават най-много пари от ЕС?",
+        en: "Which NGOs get the most EU money?",
+      },
+      {
+        bg: "Най-финансираните неправителствени организации",
+        en: "The best-funded non-profits",
+      },
+    ],
+    run: ngoTopFunded,
+  },
+  {
+    name: "ngoConflictAwarders",
+    domain: "fiscal",
+    description: {
+      bg: "К-индекс: възложители, чиито поръчки най-много отиват към политически свързани изпълнители (вкл. чрез управата на НПО).",
+      en: "K-Index: authorities whose contracts most flow to politically-linked suppliers (incl. via NGO boards).",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Кои институции дават поръчки на свързани фирми?",
+        en: "Which authorities award contracts to linked companies?",
+      },
+      {
+        bg: "Конфликт на интереси в поръчките",
+        en: "Procurement conflict of interest",
+      },
+    ],
+    run: ngoConflictAwarders,
   },
   {
     name: "budgetTrend",

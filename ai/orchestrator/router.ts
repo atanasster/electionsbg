@@ -1515,6 +1515,67 @@ export const route = (question: string, ctx: ToolContext): Route => {
       args: { category: q, ...(promptYear ? { year: promptYear } : {}) },
     };
   // state -> municipality transfers (Art. 53 of the State Budget Law)
+  // NGO (ЮЛНЦ) sector questions. Distinct tokens ("нпо"/"юлнц"/"сдружени"/
+  // "фондаци"/"читалищ"/"неправителствен") so they never collide with the
+  // generic budget/EU-funds views below. Funding intent → the best-funded list;
+  // otherwise the sector overview.
+  if (
+    has(
+      q,
+      "нпо",
+      "юлнц",
+      "неправителствен",
+      "сдружени",
+      "фондаци",
+      "читалищ",
+      " ngo",
+      "non-profit",
+      "nonprofit",
+      " npo",
+    )
+  ) {
+    if (
+      has(
+        q,
+        "финансир",
+        "субсиди",
+        "средства",
+        "дарени",
+        "funding",
+        "grant",
+        "донор",
+        "donor",
+        "пари",
+        "получав",
+        "money",
+        "receive",
+        "най-много",
+        "най-финансиран",
+        "best-funded",
+      )
+    )
+      return { tool: "ngoTopFunded", args: {} };
+    return { tool: "ngoOverview", args: {} };
+  }
+  // Conflict-of-interest / K-Index: AWARDERS whose procurement flows to
+  // politically-linked suppliers. The explicit к-индекс/конфликт terms fire on
+  // their own; the softer "linked-supplier" path additionally requires an
+  // authority/awarder context (институции/възложител/държавни) so a plain
+  // company-connections question ("свързани фирми") — whose vocabulary overlaps
+  // "свързан"/"connected" — doesn't get pulled in here.
+  if (
+    has(
+      q,
+      "к-индекс",
+      "k-index",
+      "конфликт на интерес",
+      "conflict of interest",
+    ) ||
+    (has(q, "поръчк", "възложи", "procurement", "contract") &&
+      has(q, "свързан", "политическ", "linked", "connected") &&
+      has(q, "институци", "възложи", "държав", "authorit", "awarder"))
+  )
+    return { tool: "ngoConflictAwarders", args: {} };
   if (
     has(q, "трансфер", "субсиди", "subsidy", "transfer") &&
     has(q, "общин", "municipalit")

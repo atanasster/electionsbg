@@ -1,0 +1,239 @@
+// Load external NGO funding into Postgres `ngo_funding` (migration 040): EU
+// direct funds (FTS), domestic State-Budget subsidies to named ЮЛНЦ, and (later)
+// foreign grantmakers. Every source is name-keyed, so we match to a BG EIK via
+// VAT (FTS only) → exact folded-name → fuzzy trigram, scoped to the NGO surface.
+//
+//   npm run db:load:ngo-funding:pg
+//
+// Sources on disk:
+//   raw_data/ngo_funding/fts/*.xlsx           — EU FTS per-year datasets
+//     (download: https://ec.europa.eu/budget/financial-transparency-system/
+//      download/{YEAR}_FTS_dataset_en.xlsx)
+//   data/ngo/budget_subsidies.json            — curated State-Budget subsidies
+//   data/ngo/foreign_grants.json              — curated ABF/NED grantee rows
+// See docs/plans/ngo-final-implementation-plan.md (Phases 5a + 6).
+
+import * as fs from "node:fs";
+import { readFileSync, existsSync, readdirSync } from "node:fs";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import * as XLSX from "xlsx";
+import { getPool, exec, withClient, end } from "../db/lib/pg";
+
+// The ESM build of `xlsx` ships without Node fs bound — wire it so readFile works.
+XLSX.set_fs(fs);
+
+const FTS_DIR = fileURLToPath(
+  new URL("../../raw_data/ngo_funding/fts", import.meta.url),
+);
+const BUDGET_JSON = fileURLToPath(
+  new URL("../../data/ngo/budget_subsidies.json", import.meta.url),
+);
+const FOREIGN_JSON = fileURLToPath(
+  new URL("../../data/ngo/foreign_grants.json", import.meta.url),
+);
+const SCHEMA_SQL = fileURLToPath(
+  new URL("../db/schema/pg/040_ngo_funding.sql", import.meta.url),
+);
+
+type RawRow = {
+  name_raw: string;
+  source: string;
+  funder: string | null;
+  year: number | null;
+  amount_eur: number | null;
+  programme: string | null;
+  vat: string | null;
+};
+
+// Robust column pick — FTS headers carry stray double-spaces / smart chars.
+const pick = (row: Record<string, unknown>, re: RegExp): unknown => {
+  for (const k of Object.keys(row)) if (re.test(k)) return row[k];
+  return null;
+};
+
+const parseFts = (): RawRow[] => {
+  if (!existsSync(FTS_DIR)) return [];
+  const files = readdirSync(FTS_DIR).filter((f) => f.endsWith(".xlsx"));
+  const out: RawRow[] = [];
+  for (const f of files) {
+    const wb = XLSX.readFile(`${FTS_DIR}/${f}`);
+    const rows = XLSX.utils.sheet_to_json<Record<string, unknown>>(
+      wb.Sheets[wb.SheetNames[0]],
+      { defval: null },
+    );
+    for (const r of rows) {
+      const country = String(pick(r, /Beneficiary country/) ?? "");
+      if (!country.includes("Bulgaria")) continue;
+      const isNgo = String(pick(r, /Non-governmental/) ?? "") === "Yes";
+      const isNfpo = String(pick(r, /Not-for-profit/) ?? "") === "Yes";
+      if (!isNgo && !isNfpo) continue; // NGO surface only
+      const name = String(pick(r, /Name of beneficiary/) ?? "").trim();
+      if (!name) continue;
+      const amt = Number(pick(r, /Commitment\s+total amount/));
+      out.push({
+        name_raw: name,
+        source: "eu_fts",
+        funder: "EU (direct)",
+        year: Number(pick(r, /^Year/)) || null,
+        amount_eur: Number.isFinite(amt) ? amt : null,
+        programme: (pick(r, /Programme name/) as string) ?? null,
+        vat: (pick(r, /VAT number/) as string) ?? null,
+      });
+    }
+  }
+  return out;
+};
+
+const parseCurated = (path: string, defaultSource: string): RawRow[] => {
+  if (!existsSync(path)) return [];
+  const arr = JSON.parse(readFileSync(path, "utf8")) as Array<{
+    name: string;
+    // Per-row `source` (e.g. 'abf' vs 'ned') — falls back to the file's default
+    // so a mixed foreign-grants file labels each row correctly rather than
+    // stamping the whole file with one funder.
+    source?: string;
+    funder?: string;
+    year?: number;
+    amountEur?: number;
+    programme?: string;
+    eik?: string;
+  }>;
+  return arr.map((r) => ({
+    name_raw: r.name,
+    source: r.source ?? defaultSource,
+    funder: r.funder ?? null,
+    year: r.year ?? null,
+    amount_eur: r.amountEur ?? null,
+    programme: r.programme ?? null,
+    // A curated row may carry a hand-verified EIK — stash it in `vat` as
+    // "BG<eik>" so the matcher treats it as an exact identifier.
+    vat: r.eik ? `BG${r.eik}` : null,
+  }));
+};
+
+export const loadNgoFundingPg = async (): Promise<{
+  rows: number;
+  matched: number;
+}> => {
+  await exec(readFileSync(SCHEMA_SQL, "utf8"));
+
+  const rows = [
+    ...parseFts(),
+    ...parseCurated(BUDGET_JSON, "budget_subsidy"),
+    ...parseCurated(FOREIGN_JSON, "abf"),
+  ];
+  if (!rows.length) {
+    console.warn("[ngo-funding] no source rows found — nothing to load.");
+    return { rows: 0, matched: 0 };
+  }
+
+  // Stage raw rows, then match to EIK in one SQL pass (VAT → exact fold → fuzzy).
+  // A real (not TEMP) table so the later exec()s — which draw fresh pool
+  // connections — can see it; dropped at the end.
+  await exec("DROP TABLE IF EXISTS ngo_funding_stage");
+  await exec(`CREATE TABLE ngo_funding_stage (
+    name_raw text, source text, funder text, year int,
+    amount_eur numeric, programme text, vat text
+  )`);
+
+  await withClient(async (c) => {
+    await c.query("BEGIN");
+    const cols = 7;
+    const batch = Math.floor(60000 / cols);
+    for (let i = 0; i < rows.length; i += batch) {
+      const slice = rows.slice(i, i + batch);
+      const values = slice
+        .map(
+          (_, r) =>
+            `(${Array.from({ length: cols }, (_, k) => `$${r * cols + k + 1}`).join(",")})`,
+        )
+        .join(",");
+      await c.query(
+        `INSERT INTO ngo_funding_stage (name_raw, source, funder, year, amount_eur, programme, vat) VALUES ${values}`,
+        slice.flatMap((r) => [
+          r.name_raw,
+          r.source,
+          r.funder,
+          r.year,
+          r.amount_eur,
+          r.programme,
+          r.vat,
+        ]),
+      );
+    }
+    await c.query("COMMIT");
+  });
+
+  // Match. `nf` = the NGO surface with a folded name for comparison. FTS names
+  // are already romanized, so translit_bg_latin(name_raw) lines up with our
+  // name_fold. VAT "BG#########" → eik (verified to exist). Fuzzy uses pg_trgm
+  // similarity, top-1, and only when comfortably above the ambiguity floor.
+  await exec("TRUNCATE ngo_funding");
+  await exec(`
+    WITH nf AS (
+      SELECT uic, name_fold FROM tr_companies
+      WHERE entity_class IN ('ngo_assoc','ngo_found','chitalishte','foreign_branch')
+    ),
+    -- Only folds that map to exactly ONE NGO are safe for an exact match; an
+    -- ambiguous fold falls through to fuzzy/unmatched (equi-join, no row blow-up).
+    uniq_fold AS (
+      SELECT name_fold, MIN(uic) AS uic FROM nf
+      GROUP BY name_fold HAVING count(*) = 1
+    ),
+    m AS (
+      SELECT s.*,
+        translit_bg_latin(s.name_raw) AS fold,
+        CASE WHEN s.vat ~ '^BG\\d{9}$' THEN substr(s.vat, 3) END AS vat_eik
+      FROM ngo_funding_stage s
+    )
+    INSERT INTO ngo_funding (eik, name_raw, source, funder, year, amount_eur, programme, match_method)
+    SELECT
+      COALESCE(vh.uic, uf.uic, fz.uic) AS eik,
+      m.name_raw, m.source, m.funder, m.year, m.amount_eur, m.programme,
+      CASE
+        WHEN vh.uic IS NOT NULL THEN 'vat'
+        WHEN uf.uic IS NOT NULL THEN 'name_exact'
+        WHEN fz.uic IS NOT NULL THEN 'name_fuzzy'
+        ELSE 'unmatched'
+      END AS match_method
+    FROM m
+    LEFT JOIN tr_companies vh ON vh.uic = m.vat_eik
+    LEFT JOIN uniq_fold uf ON uf.name_fold = m.fold
+    LEFT JOIN LATERAL (
+      SELECT nf.uic FROM nf
+      WHERE m.vat_eik IS NULL AND uf.uic IS NULL AND length(m.fold) > 4
+        AND similarity(nf.name_fold, m.fold) > 0.55
+      ORDER BY similarity(nf.name_fold, m.fold) DESC
+      LIMIT 1
+    ) fz ON true
+  `);
+  await exec("DROP TABLE IF EXISTS ngo_funding_stage");
+
+  const [{ rows: total }, { matched }] = await Promise.all([
+    getPool()
+      .query("SELECT count(*)::int AS rows FROM ngo_funding")
+      .then((r) => r.rows[0]),
+    getPool()
+      .query(
+        "SELECT count(*)::int AS matched FROM ngo_funding WHERE eik IS NOT NULL",
+      )
+      .then((r) => r.rows[0]),
+  ]);
+  return { rows: total, matched };
+};
+
+if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
+  const t0 = Date.now();
+  loadNgoFundingPg()
+    .then(async ({ rows, matched }) => {
+      console.log(
+        `ngo_funding: ${rows} rows, ${matched} matched to EIK (${((Date.now() - t0) / 1000).toFixed(1)}s)`,
+      );
+      await end();
+    })
+    .catch(async (e) => {
+      console.error(e);
+      await end();
+      process.exit(1);
+    });
+}

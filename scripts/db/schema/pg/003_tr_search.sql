@@ -15,7 +15,24 @@ CREATE TABLE tr_companies (
   funds_amount   numeric,     -- registered capital (капитал)
   funds_currency text,
   last_updated   timestamptz, -- TR registry change date (for recent_updates)
-  name_fold      text GENERATED ALWAYS AS (translit_bg_latin(name)) STORED
+  name_fold      text GENERATED ALWAYS AS (translit_bg_latin(name)) STORED,
+  -- Derived classification (needs tr_entity_class/tr_ngo_type from 000). NGO
+  -- surface = entity_class IN ('ngo_assoc','ngo_found','chitalishte'); the
+  -- feature filters/segments on these. ngo_type is a best-effort sub-type.
+  entity_class   text GENERATED ALWAYS AS (tr_entity_class(legal_form)) STORED,
+  ngo_type       text GENERATED ALWAYS AS (tr_ngo_type(name, legal_form)) STORED
+);
+
+-- ЮЛНЦ metadata (цели/средства/полза), one row per NGO. Loaded from the new
+-- state.sqlite columns by load_tr_pg.ts. Kept out of tr_companies (long text)
+-- to keep the search table lean.
+DROP TABLE IF EXISTS ngo_details CASCADE;
+CREATE TABLE ngo_details (
+  uic             text PRIMARY KEY,
+  public_benefit  boolean,   -- определено за общественополезна дейност
+  private_benefit boolean,   -- определено за частна дейност
+  objectives      text,      -- цели
+  means           text       -- средства за постигане на целите
 );
 
 DROP TABLE IF EXISTS tr_officers CASCADE;
@@ -38,6 +55,7 @@ CREATE TABLE tr_person_roles (
   uic            text NOT NULL,
   name           text NOT NULL,
   role           text,
+  country        text,         -- jurisdiction of the person (foreign-control signal)
   share          numeric,      -- ownership % (derived from the capital shares)
   share_amount   numeric,      -- raw declared capital share (дял)
   share_currency text,

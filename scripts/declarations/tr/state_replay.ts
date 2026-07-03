@@ -32,6 +32,10 @@ const ensureCompany = (
       funds: null,
       status: "unknown",
       lastUpdated: filingDate,
+      objectives: null,
+      means: null,
+      publicBenefit: null,
+      privateBenefit: null,
       persons: new Map(),
     };
     state.set(uic, c);
@@ -55,6 +59,7 @@ export const replayEvents = (
         name: ev.personName,
         nameNormalized: normalizePersonName(ev.personName),
         positionLabel: ev.positionLabel,
+        country: ev.country,
         shareAmount: ev.shareAmount,
         shareCurrency: ev.shareCurrency,
         recordId: ev.recordId,
@@ -106,6 +111,18 @@ export const replayEvents = (
         case "cessation":
         case "addemption":
           c.status = "ceased";
+          break;
+        case "objectives":
+          if (ev.value) c.objectives = ev.value;
+          break;
+        case "means":
+          if (ev.value) c.means = ev.value;
+          break;
+        case "public_benefit":
+          c.publicBenefit = ev.value === "1";
+          break;
+        case "private_benefit":
+          c.privateBenefit = ev.value === "1";
           break;
         case "bankruptcy_open":
         case "bankruptcy_declared":

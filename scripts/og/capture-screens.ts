@@ -189,6 +189,15 @@ const captures: Capture[] = [
     settleMs: 2500,
   },
   {
+    slug: "procurement-ngos",
+    routePath: "procurement/ngos",
+    // NGO browser — DbDataTable renders tbody rows once the first page loads.
+    // Anchor on the section so the clip leads with the title + table.
+    waitFor: 'section[aria-label="ngos"] tbody tr',
+    anchor: 'section[aria-label="ngos"]',
+    settleMs: 1800,
+  },
+  {
     slug: "votes",
     // Representative recent session in NS 52 with a dozen items, so the
     // first-item hemicycle is well-populated.

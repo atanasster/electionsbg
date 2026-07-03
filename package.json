@@ -35,6 +35,8 @@
     "db:pg:down": "docker compose down",
     "db:load:pg": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/load_pg.ts",
     "db:load:tr:pg": "NODE_OPTIONS=--max-old-space-size=6144 tsx scripts/db/load_tr_pg.ts",
+    "db:load:ngo-funding:pg": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/ngo/load_ngo_funding_pg.ts",
+    "ngo:ai-summary": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/ngo/build_ai_summary.ts",
     "db:load:tenders:pg": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/load_tenders_pg.ts",
     "db:load:funds:pg": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/load_funds_pg.ts",
     "db:load:awarder-seats:pg": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/load_awarder_seats_pg.ts",

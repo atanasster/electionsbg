@@ -1,0 +1,377 @@
+{
+  "generatedAt": "2026-07-03T20:26:07.572Z",
+  "totals": {
+    "ngos": 30105,
+    "touchingPublicMoney": 2400,
+    "externalFundingEur": 243256586,
+    "contractsEur": 20658146
+  },
+  "byType": [
+    {
+      "ngo_type": "other",
+      "count": 16546
+    },
+    {
+      "ngo_type": "sport",
+      "count": 6376
+    },
+    {
+      "ngo_type": "chitalishte",
+      "count": 3427
+    },
+    {
+      "ngo_type": "chamber",
+      "count": 2467
+    },
+    {
+      "ngo_type": "school",
+      "count": 922
+    },
+    {
+      "ngo_type": "hunting",
+      "count": 297
+    },
+    {
+      "ngo_type": "professional",
+      "count": 70
+    }
+  ],
+  "byClass": [
+    {
+      "entity_class": "ngo_assoc",
+      "count": 21637
+    },
+    {
+      "entity_class": "ngo_found",
+      "count": 5036
+    },
+    {
+      "entity_class": "chitalishte",
+      "count": 3432
+    },
+    {
+      "entity_class": "coop",
+      "count": 2705
+    },
+    {
+      "entity_class": "foreign_branch",
+      "count": 873
+    }
+  ],
+  "fundingBySource": [
+    {
+      "source": "eu_fts",
+      "eur": 239496786,
+      "ngos": 122
+    },
+    {
+      "source": "budget_subsidy",
+      "eur": 3759800,
+      "ngos": 3
+    }
+  ],
+  "topFunded": [
+    {
+      "eik": "115341414",
+      "name": "ЕНЕРГИЙНА  АГЕНЦИЯ - ПЛОВДИВ",
+      "eur": 22792014,
+      "sources": [
+        "eu_fts"
+      ]
+    },
+    {
+      "eik": "121546427",
+      "name": "БЪЛГАРСКИ АНТАРКТИЧЕСКИ ИНСТИТУТ",
+      "eur": 14588114,
+      "sources": [
+        "eu_fts"
+      ]
+    },
+    {
+      "eik": "176937717",
+      "name": "ЦЕНТЪР ПО РАСТИТЕЛНА СИСТЕМНА БИОЛОГИЯ И БИОТЕХНОЛОГИЯ",
+      "eur": 13197039,
+      "sources": [
+        "eu_fts"
+      ]
+    },
+    {
+      "eik": "175929030",
+      "name": "Клъстер възобновяеми енергийни източници",
+      "eur": 10895121,
+      "sources": [
+        "eu_fts"
+      ]
+    },
+    {
+      "eik": "831228084",
+      "name": "СДРУЖЕНИЕ &quot;КЛУБ ИКОНОМИКА-2000&quot;",
+      "eur": 10559588,
+      "sources": [
+        "eu_fts"
+      ]
+    },
+    {
+      "eik": "121399226",
+      "name": "НАЦИОНАЛНО СДРУЖЕНИЕ НА ОБЩИНИТЕ В РЕПУБЛИКА БЪЛГАРИЯ",
+      "eur": 9629968,
+      "sources": [
+        "eu_fts"
+      ]
+    },
+    {
+      "eik": "130511877",
+      "name": "ФОНДАЦИЯ ПРАВО И ИНТЕРНЕТ",
+      "eur": 7260147,
+      "sources": [
+        "eu_fts"
+      ]
+    },
+    {
+      "eik": "130316140",
+      "name": "ПРИСТАНИЩНА ИНФРАСТРУКТУРА",
+      "eur": 6926650,
+      "sources": [
+        "eu_fts"
+      ]
+    },
+    {
+      "eik": "110574293",
+      "name": "ДЕВЕТАШКО ПЛАТО",
+      "eur": 6592887,
+      "sources": [
+        "eu_fts"
+      ]
+    },
+    {
+      "eik": "206590271",
+      "name": "ИНСТИТУТ ЗА ГЛОБАЛНИ АНАЛИЗИ",
+      "eur": 5531961,
+      "sources": [
+        "eu_fts"
+      ]
+    },
+    {
+      "eik": "121072915",
+      "name": "ЦЕНТЪР ОТВОРЕНО ОБРАЗОВАНИЕ",
+      "eur": 5263623,
+      "sources": [
+        "eu_fts"
+      ]
+    },
+    {
+      "eik": "206887995",
+      "name": "СЪВМЕСТНА ОНКОЛОГИЧНА НАЦИОНАЛНА МРЕЖА",
+      "eur": 5199479,
+      "sources": [
+        "eu_fts"
+      ]
+    },
+    {
+      "eik": "176460447",
+      "name": "БЪЛГАРСКА АСОЦИАЦИЯ НА ПРОИЗВОДИТЕЛИТЕ И ИЗНОСИТЕЛИТЕ НА ВИНО",
+      "eur": 5159965,
+      "sources": [
+        "eu_fts"
+      ]
+    },
+    {
+      "eik": "175840628",
+      "name": "НАЦИОНАЛНА ПАЦИЕНТСКА ОРГАНИЗАЦИЯ",
+      "eur": 4998765,
+      "sources": [
+        "eu_fts"
+      ]
+    },
+    {
+      "eik": "121575966",
+      "name": "&quot;ФОНДАЦИЯ ЗА БИОЛОГИЧНО ЗЕМЕДЕЛИЕ &quot;БИОСЕЛЕНА&quot;&quot;",
+      "eur": 4998670,
+      "sources": [
+        "eu_fts"
+      ]
+    },
+    {
+      "eik": "175360102",
+      "name": "Горичка",
+      "eur": 4985728,
+      "sources": [
+        "eu_fts"
+      ]
+    },
+    {
+      "eik": "121893100",
+      "name": "ЕВРОПЕЙСКИ ИНСТИТУТ",
+      "eur": 4914263,
+      "sources": [
+        "eu_fts"
+      ]
+    },
+    {
+      "eik": "121625839",
+      "name": "СДРУЖЕНИЕ АГЕНЦИЯ ЗА УСТОЙЧИВО РАЗВИТИЕ И ЕВРОИНТЕГРАЦИЯ - ЕКОРЕГИОНИ",
+      "eur": 4810586,
+      "sources": [
+        "eu_fts"
+      ]
+    },
+    {
+      "eik": "175072609",
+      "name": "АЛИАНС ЗА РЕГИОНАЛНИ И ГРАЖДАНСКИ ИНИЦИАТИВИ (АРГИ)",
+      "eur": 4465264,
+      "sources": [
+        "eu_fts"
+      ]
+    },
+    {
+      "eik": "130770099",
+      "name": "ФОНДАЦИЯ СЛЕДВАЩА СТРАНИЦА",
+      "eur": 4268872,
+      "sources": [
+        "eu_fts"
+      ]
+    }
+  ],
+  "topKindexAwarders": [
+    {
+      "eik": "131236380",
+      "name": "Агенция по обществени поръчки",
+      "sharePct": 0.9733,
+      "linkedEur": 8689443,
+      "linkedSuppliers": 1
+    },
+    {
+      "eik": "121242837",
+      "name": "Национална експертна Лекарска комисия",
+      "sharePct": 0.7847,
+      "linkedEur": 974977,
+      "linkedSuppliers": 2
+    },
+    {
+      "eik": "175076479",
+      "name": "Агенция за държавна Финансова инспекция",
+      "sharePct": 0.7289,
+      "linkedEur": 900811,
+      "linkedSuppliers": 1
+    },
+    {
+      "eik": "131282355",
+      "name": "Агенция по вписванията",
+      "sharePct": 0.5104,
+      "linkedEur": 16215065,
+      "linkedSuppliers": 2
+    },
+    {
+      "eik": "123526430",
+      "name": "ЕВН България електроснабдяване ЕАД",
+      "sharePct": 0.4924,
+      "linkedEur": 12239500,
+      "linkedSuppliers": 1
+    },
+    {
+      "eik": "815123415",
+      "name": "Водоснабдяване и канализация - Видин ЕООД",
+      "sharePct": 0.4776,
+      "linkedEur": 16905314,
+      "linkedSuppliers": 2
+    },
+    {
+      "eik": "180680495",
+      "name": "Министерство на електронното управление",
+      "sharePct": 0.437,
+      "linkedEur": 65791878,
+      "linkedSuppliers": 1
+    },
+    {
+      "eik": "000695071",
+      "name": "Българска телеграфна агенция",
+      "sharePct": 0.363,
+      "linkedEur": 3655628,
+      "linkedSuppliers": 1
+    },
+    {
+      "eik": "121203554",
+      "name": "Изпълнителна агенция по лекарствата",
+      "sharePct": 0.3386,
+      "linkedEur": 644150,
+      "linkedSuppliers": 1
+    },
+    {
+      "eik": "000777230",
+      "name": "Община Чавдар",
+      "sharePct": 0.312,
+      "linkedEur": 3221968,
+      "linkedSuppliers": 1
+    },
+    {
+      "eik": "121858220",
+      "name": "Национална здравноосигурителна каса",
+      "sharePct": 0.2437,
+      "linkedEur": 19022016,
+      "linkedSuppliers": 3
+    },
+    {
+      "eik": "176481459",
+      "name": "Централна избирателна комисия",
+      "sharePct": 0.2341,
+      "linkedEur": 15986287,
+      "linkedSuppliers": 1
+    },
+    {
+      "eik": "176789460",
+      "name": "Министерство на енергетиката",
+      "sharePct": 0.2149,
+      "linkedEur": 908438,
+      "linkedSuppliers": 1
+    },
+    {
+      "eik": "121004469",
+      "name": "Сметна палата",
+      "sharePct": 0.1879,
+      "linkedEur": 1183546,
+      "linkedSuppliers": 1
+    },
+    {
+      "eik": "200464696",
+      "name": "Експериментална база\" ДП към Из - Шумен",
+      "sharePct": 0.175,
+      "linkedEur": 180264,
+      "linkedSuppliers": 1
+    },
+    {
+      "eik": "203740812",
+      "name": "Фонд мениджър на финансови инструменти в България ЕАД",
+      "sharePct": 0.1742,
+      "linkedEur": 35053380,
+      "linkedSuppliers": 1
+    },
+    {
+      "eik": "127526189",
+      "name": "Земеделски институт - шумен",
+      "sharePct": 0.1706,
+      "linkedEur": 452831,
+      "linkedSuppliers": 1
+    },
+    {
+      "eik": "127512595",
+      "name": "Държавно предприятие /ДП/ \"Кабиюк\" - Шумен",
+      "sharePct": 0.1679,
+      "linkedEur": 1726178,
+      "linkedSuppliers": 1
+    },
+    {
+      "eik": "121082521",
+      "name": "Национален осигурителе институт",
+      "sharePct": 0.1509,
+      "linkedEur": 15981302,
+      "linkedSuppliers": 7
+    },
+    {
+      "eik": "000615164",
+      "name": "Община Чепеларе",
+      "sharePct": 0.1473,
+      "linkedEur": 4490370,
+      "linkedSuppliers": 1
+    }
+  ]
+}

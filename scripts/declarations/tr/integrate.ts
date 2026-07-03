@@ -210,6 +210,12 @@ const OFFICER_ROLES = new Set([
   "procurator",
   "branch_manager",
   "liquidator",
+  // ЮЛНЦ governing-body roles — an official on an NGO board is a governance
+  // link the same as a company officer (drives the conflict-of-interest signal).
+  "ngo_board",
+  "ngo_representative",
+  "trustee",
+  "verifier",
 ]);
 const OWNER_ROLES = new Set([
   "partner",

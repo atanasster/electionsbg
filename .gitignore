@@ -115,6 +115,11 @@ functions/.secret.local
 # under data/procurement/ are committed; this raw cache is not.
 /raw_data/procurement/
 
+# Cached EC Financial Transparency System (FTS) yearly datasets (~16-20 MB each).
+# Downloaded on demand for `db:load:ngo-funding:pg`. The matched rows live in the
+# Postgres ngo_funding table; this raw cache is not committed.
+/raw_data/ngo_funding/
+
 # Cached ГРАО settlement-population table (t41nm-*.txt).
 # Re-fetched on demand by `/update-grao`. The joined data/grao_population.json
 # + per-municipality slices are committed; this raw cache is not.

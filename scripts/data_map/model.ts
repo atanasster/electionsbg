@@ -114,6 +114,7 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   { pattern: /^\/prices\//, dataset: "prices" },
   { pattern: /^\/polls\//, dataset: "polls" },
   { pattern: /^\/procurement\//, dataset: "procurement" },
+  { pattern: /^\/ngo\//, dataset: "ngo" },
   { pattern: /^\/funds\//, dataset: "funds" },
   // The per-município "recent activity" feed (data/myarea/alerts/) is a derived
   // place-governance digest — built from council/procurement/funds/budget data
@@ -281,6 +282,25 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     members: ["isun_eu_funds", "isun_eu_funds_projects"],
     skills: ["update-funds"],
     tags: ["fiscal", "local"],
+  },
+  {
+    id: "ec_fts",
+    label: {
+      bg: "ЕК — Система за финансова прозрачност",
+      en: "EC Financial Transparency System",
+    },
+    detail: {
+      bg: "получатели на пряко управлявани средства от ЕС",
+      en: "recipients of directly-managed EU funds",
+    },
+    desc: {
+      bg: "Годишните набори данни на Системата за финансова прозрачност (FTS) на Европейската комисия — получателите на пряко управляваните бюджетни средства на ЕС (Horizon, Erasmus, CERV, LIFE и др.), с флаг за НПО и ДДС номер. Захранва профила „Външно финансиране“ на организациите с нестопанска цел (допълва ИСУН, който покрива средствата при споделено управление).",
+      en: "The European Commission's Financial Transparency System annual datasets — recipients of directly-managed EU budget funds (Horizon, Erasmus, CERV, LIFE, etc.), with an NGO flag and VAT number. Feeds the NGO 'external funding' profile (complements ISUN, which covers shared-management funds).",
+    },
+    url: "https://ec.europa.eu/budget/financial-transparency-system/",
+    origin: "eu",
+    members: ["ec_fts"],
+    tags: ["fiscal"],
   },
   {
     id: "ministries",
@@ -713,6 +733,23 @@ export const DATASETS: DatasetDef[] = [
     tags: ["fiscal"],
   },
   {
+    id: "ngo",
+    label: {
+      bg: "Организации с нестопанска цел",
+      en: "Non-profit organisations",
+    },
+    detail: {
+      bg: "ЮЛНЦ, управителни органи, публично и външно финансиране",
+      en: "NPOs, governing bodies, public and external funding",
+    },
+    desc: {
+      bg: "Регистърът на юридическите лица с нестопанска цел (сдружения, фондации, читалища) от общата база на Търговския регистър — управителни съвети, представляващи и настоятелства, цели и статут за обществена полза, гражданство на членовете, плюс полученото публично и външно финансиране (държавни субсидии, пряко управлявани средства от ЕС). Само в базата данни — сървира се от Postgres, без статични JSON файлове.",
+      en: "The register of non-profit legal entities (associations, foundations, community centres) from the shared Commerce Registry database — management boards, representatives and boards of trustees, objectives and public-benefit status, member nationality, plus the public and external funding received (state subsidies, directly-managed EU funds). Database-only — served live from Postgres, no static JSON.",
+    },
+    path: "raw_data/tr/state.sqlite",
+    tags: ["fiscal", "parliament"],
+  },
+  {
     id: "funds",
     label: { bg: "Еврофондове", en: "EU funds" },
     detail: {
@@ -971,6 +1008,23 @@ export const FEATURES: FeatureDef[] = [
     tags: ["fiscal"],
   },
   {
+    id: "ngo",
+    label: {
+      bg: "Организации с нестопанска цел",
+      en: "Non-profit organisations",
+    },
+    detail: {
+      bg: "НПО, управителни органи, конфликт на интереси",
+      en: "NPOs, governing bodies, conflicts of interest",
+    },
+    desc: {
+      bg: "Профилите на сдруженията, фондациите и читалищата — управителни органи, публично и външно финансиране, и сигнали за конфликт на интереси, когато член на властта е в управата на НПО, което печели обществени поръчки или субсидии.",
+      en: "Profiles of associations, foundations and community centres — governing bodies, public and external funding, and conflict-of-interest flags when a person in power sits on the board of an NGO that wins public contracts or subsidies.",
+    },
+    route: "/procurement/ngos",
+    tags: ["fiscal", "parliament"],
+  },
+  {
     id: "funds",
     label: { bg: "Еврофондове", en: "EU funds" },
     detail: {
@@ -1086,6 +1140,8 @@ export const EDGES: [string, string][] = [
   ["src:eop", "ds:procurement"],
   ["src:aop", "ds:procurement"],
   ["src:isun", "ds:funds"],
+  ["src:egov", "ds:ngo"],
+  ["src:ec_fts", "ds:ngo"],
   ["src:dv", "ds:budget"],
   ["src:ministries", "ds:budget"],
   ["src:ministries", "ds:macro"],
@@ -1128,6 +1184,9 @@ export const EDGES: [string, string][] = [
   ["ds:financing", "f:mps"],
   ["ds:procurement", "f:procurement"],
   ["ds:procurement", "f:mps"],
+  ["ds:ngo", "f:ngo"],
+  ["ds:ngo", "f:procurement"],
+  ["ds:ngo", "f:mps"],
   ["ds:funds", "f:funds"],
   ["ds:funds", "f:mps"],
   ["ds:funds", "f:governance"],

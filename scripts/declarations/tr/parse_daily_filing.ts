@@ -51,6 +51,23 @@ const PERSON_SECTION_TO_ROLE: Record<string, TrRole> = {
   SoleCapitalOwner: "sole_owner",
   ForeignTraders: "foreign_trader",
   ActualOwners: "actual_owner",
+  // ЮЛНЦ (non-profit) governing bodies. These nest one level deeper
+  // (section → record wrapper → Subject/Person), but eventsFromPersonGroup +
+  // the PERSON_RECORD_KEYS / subject-fallback below already handle that.
+  ManagementBodies12d: "ngo_board", // управителен съвет (чл.18 ал.1 т.3)
+  Representatives103: "ngo_representative", // представляващи
+  BoardOfTrusties13g: "trustee", // читалищно настоятелство
+  VerificationCommission15b: "verifier", // проверителна комисия
+};
+
+// Non-person ЮЛНЦ metadata sections, keyed by their SubDeed element name
+// (the value lives on the group's text or a nested Text child).
+const NGO_META_SECTION_TO_KIND: Record<string, TrCompanyMetaField> = {
+  Objectives: "objectives", // 00062
+  MeansOfAchievingTheObjectives: "means", // 00063
+  DesignatedToPerformPublicBenefit: "public_benefit", // 00171 (value "1")
+  DesignatedToCarryOutPrivateActivity: "private_benefit", // 00174 (value "1")
+  CessationOfNonProfitLegalEntity: "cessation", // 00261 → status ceased
 };
 
 const META_FIELD_TO_KIND: Record<string, TrCompanyMetaField> = {
@@ -84,6 +101,11 @@ const PERSON_RECORD_KEYS = [
   "ForeignTrader",
   "Controller",
   "BoardMember",
+  // ЮЛНЦ record wrappers (each nests a Subject or Person leaf).
+  "ManagementBody12d",
+  "Representative103",
+  "Trustee13g",
+  "CommissionMember15b",
 ];
 
 // Cell-level helpers. The partner/owner capital share lives on the record's
@@ -106,6 +128,7 @@ const extractPersonName = (
 ): {
   name: string | null;
   position: string | null;
+  country: string | null;
 } => {
   // We deliberately do NOT extract the source `Indent` element here. It holds
   // a hash+salt of the person's EGN — sensitive personal data that we treat
@@ -113,7 +136,12 @@ const extractPersonName = (
   // Joins across filings rely on the normalized plain-text `Name`.
   const name = firstText(subject.Name as Arr<Wrapped>);
   const position = attr(subject as { $?: Record<string, string> }, "Position");
-  return { name, position };
+  // Country is a jurisdiction, not an identifier — prefer the human-readable
+  // CountryName child ("БЪЛГАРИЯ"), fall back to the ISO CountryCode attr.
+  const country =
+    firstText(subject.CountryName as Arr<Wrapped>) ??
+    attr(subject as { $?: Record<string, string> }, "CountryCode");
+  return { name, position, country };
 };
 
 const eventsFromPersonGroup = (
@@ -166,7 +194,7 @@ const eventsFromPersonGroup = (
       (record.Person as Arr<Wrapped>)?.[0] ??
       (record.LegalEntity as Arr<Wrapped>)?.[0] ??
       record;
-    const { name, position } = extractPersonName(subject);
+    const { name, position, country } = extractPersonName(subject);
     if (!name) continue;
 
     const shareAmount = parseShareAmount(recordAttrs.share);
@@ -179,6 +207,7 @@ const eventsFromPersonGroup = (
       role,
       personName: name,
       positionLabel: position,
+      country,
       shareAmount,
       shareCurrency,
       filingDate,
@@ -226,6 +255,11 @@ const eventsFromMetaGroup = (
     value = groupAttrs.Text ?? null;
   } else if (typeof group._ === "string" && group._ !== "") {
     value = group._;
+  }
+  // ЮЛНЦ цели/средства: the text sometimes sits on a nested <Text> child
+  // rather than on the group itself.
+  if (!value && (field === "objectives" || field === "means")) {
+    value = firstText(group.Text as Arr<Wrapped>);
   }
   // Try common nested structures
   if (!value) {
@@ -283,6 +317,18 @@ const handleSubDeed = (
           out.push(
             ...eventsFromPersonGroup(group as Wrapped, role, uic, companyName),
           );
+        }
+      }
+      continue;
+    }
+
+    // ЮЛНЦ META SECTIONS: identified by their element name (цели/средства/
+    // обществена-частна полза/прекратяване), value on the group text/child.
+    const ngoMetaKind = NGO_META_SECTION_TO_KIND[key];
+    if (ngoMetaKind) {
+      for (const group of val) {
+        if (typeof group === "object" && group !== null) {
+          out.push(...eventsFromMetaGroup(group as Wrapped, ngoMetaKind, uic));
         }
       }
       continue;

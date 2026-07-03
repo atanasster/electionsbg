@@ -233,6 +233,26 @@ const REGISTRY = {
     aggregates: [{ fn: "count" }],
     maxPageSize: 100,
   },
+
+  // NGO (ЮЛНЦ) browse — сдружения/фондации/читалища + foreign branches. The
+  // client sends a fixed `entity_class in (...)` filter to scope to the NGO
+  // surface; entity_class/ngo_type are also user-facing facets.
+  ngos: {
+    base: "tr_companies",
+    scopeCols: [],
+    columns: {
+      uic: { type: "text" },
+      name: { type: "text", sort: true, filter: "text", search: true },
+      entity_class: { type: "text", sort: true, filter: "in" },
+      ngo_type: { type: "text", sort: true, filter: "in" },
+      seat: { type: "text", sort: true, filter: "text" },
+      status: { type: "text", filter: "in" },
+    },
+    select: ["uic", "name", "entity_class", "ngo_type", "seat", "status"],
+    defaultSort: [["name", "asc"]],
+    aggregates: [{ fn: "count" }],
+    maxPageSize: 100,
+  },
 };
 
 const MAX_OFFSET = 100000; // deep-paging guard (use search/filters instead)

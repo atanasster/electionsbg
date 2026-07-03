@@ -334,6 +334,17 @@ export const loadPg = async (): Promise<{
   await exec("REFRESH MATERIALIZED VIEW awarder_totals");
   await exec("REFRESH MATERIALIZED VIEW sector_contractor_stats");
   await exec("REFRESH MATERIALIZED VIEW procurement_risk_indexes_cache");
+  // The awarder K-Index ranking (built by migration 039 in load_tr_pg) is
+  // computed FROM this contract corpus, so it must track a contract reload too —
+  // otherwise a procurement-only re-ingest leaves the ranking (and the AI
+  // summary's topKindexAwarders) reflecting the previous corpus. Guarded on the
+  // view existing (a contracts-first load may run before the TR load creates it).
+  const hasKindexRanking = await getPool()
+    .query("SELECT to_regclass('public.awarder_kindex_ranking') AS t")
+    .then((r) => r.rows[0]?.t != null)
+    .catch(() => false);
+  if (hasKindexRanking)
+    await exec("REFRESH MATERIALIZED VIEW awarder_kindex_ranking");
 
   return { rows: rows.length, years: [...years].sort(), batchId, rowsNew };
 };

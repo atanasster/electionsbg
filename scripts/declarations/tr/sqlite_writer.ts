@@ -29,7 +29,12 @@ CREATE TABLE IF NOT EXISTS companies (
   funds_amount   REAL,
   funds_currency TEXT,
   status         TEXT,
-  last_updated   TEXT
+  last_updated   TEXT,
+  -- ЮЛНЦ (non-profit) metadata; NULL for commercial entities.
+  objectives     TEXT,
+  means          TEXT,
+  public_benefit INTEGER,   -- 1 = общественополезна дейност
+  private_benefit INTEGER   -- 1 = частна дейност
 );
 
 -- NB: no person_hash column. The TR open-data dump Indent element
@@ -42,6 +47,7 @@ CREATE TABLE IF NOT EXISTS company_persons (
   name           TEXT NOT NULL,
   name_norm      TEXT NOT NULL,
   position_label TEXT,
+  country        TEXT,   -- jurisdiction of the person (e.g. "БЪЛГАРИЯ"); not an identifier
   share_percent  REAL,   -- derived: amount ÷ company's total partner shares × 100
   share_amount   REAL,   -- raw declared capital share (дял), currency below
   share_currency TEXT,
@@ -93,15 +99,16 @@ export const writeStateToSqlite = (
 
   const insertCompany = db.prepare(
     `INSERT INTO companies
-       (uic, name, legal_form, seat, funds_amount, funds_currency, status, last_updated)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+       (uic, name, legal_form, seat, funds_amount, funds_currency, status, last_updated,
+        objectives, means, public_benefit, private_benefit)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
   );
   const insertPerson = db.prepare(
     `INSERT INTO company_persons
-       (uic, role, name, name_norm, position_label, share_percent,
+       (uic, role, name, name_norm, position_label, country, share_percent,
         share_amount, share_currency,
         record_id, group_id, field_ident, added_at, erased_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
   );
   const insertMeta = db.prepare(
     `INSERT OR REPLACE INTO meta (key, value) VALUES (?, ?)`,
@@ -126,6 +133,10 @@ export const writeStateToSqlite = (
         fundsCurrency,
         c.status,
         c.lastUpdated,
+        c.objectives,
+        c.means,
+        c.publicBenefit == null ? null : c.publicBenefit ? 1 : 0,
+        c.privateBenefit == null ? null : c.privateBenefit ? 1 : 0,
       );
       companies++;
 
@@ -156,6 +167,7 @@ export const writeStateToSqlite = (
           p.name,
           p.nameNormalized,
           p.positionLabel,
+          p.country,
           pct,
           p.shareAmount,
           p.shareCurrency,

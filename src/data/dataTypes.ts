@@ -1322,7 +1322,12 @@ export type ProcurementRelationKind =
   | "representative"
   | "liquidator"
   | "procurator"
-  | "stake";
+  | "stake"
+  // ЮЛНЦ governing-body roles.
+  | "ngo_board"
+  | "ngo_representative"
+  | "trustee"
+  | "verifier";
 export type ProcurementRelation = {
   kind: ProcurementRelationKind;
   isCurrent?: boolean;
