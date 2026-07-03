@@ -33,8 +33,11 @@ awtot AS (
   HAVING SUM(amount_eur) >= 100000
 ),
 pairs AS (
-  SELECT c.awarder_eik, MIN(c.awarder_name) AS awarder_name,
-         c.contractor_eik, MIN(c.contractor_name) AS contractor_name,
+  -- COLLATE "C" pins MIN() to byte order: the local Docker and Cloud SQL
+  -- glibc builds sort quotes/hyphens differently under the same en_US.utf8
+  -- name, so an unpinned MIN picks different name variants per instance.
+  SELECT c.awarder_eik, MIN(c.awarder_name COLLATE "C") AS awarder_name,
+         c.contractor_eik, MIN(c.contractor_name COLLATE "C") AS contractor_name,
          SUM(c.amount_eur) AS pair_total, COUNT(*)::int AS n,
          awtot.total AS awarder_total
   FROM c
@@ -77,7 +80,11 @@ SELECT jsonb_build_object(
         'awarderTotalEur', ROUND(p.awarder_total),
         'pairTotalEur', ROUND(p.pair_total),
         'contractCount', p.n
-      ) ORDER BY p.pair_total DESC), '[]'::jsonb)
+      -- Sort by the ROUNDED total + eik tiebreaks → deterministic order
+      -- across instances (raw float sums carry per-instance summation-order
+      -- noise, so near-equal values would otherwise swap and break
+      -- payload-equality checks)
+      ) ORDER BY ROUND(p.pair_total) DESC, p.awarder_eik, p.contractor_eik), '[]'::jsonb)
       FROM pairs p
     )
   ),
