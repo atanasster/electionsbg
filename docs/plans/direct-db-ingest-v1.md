@@ -61,10 +61,16 @@ truth grep of `src/` (2026-07-03) splits `derived/` into:
   `risk_feed`, `person_procurement_index`, `contractors_search`, `sector_totals`,
   `cpv_competition`, `ocds_party_geo_map`, `pep_connected`.
 
-**Churn reality:** the 12,656-file `derived/` count is **98% the live
-`breakdowns/` family**. Retiring only the dead files saves ~320 files — it barely
-dents the churn. **Killing the churn requires migrating `breakdowns/` (Workstream
-D), whose PG path already exists.**
+**Correction (verified on implementation 2026-07-04):** `breakdowns/` (12,373
+files) is **already gitignored** (`.gitignore:145`) — it is on-disk only and was
+never a *git*-churn driver. Even better, its data is already served from Postgres
+(`company_procurement`/`awarder_procurement` emit the `breakdown` field) and every
+render site passes it as a prop, so `useProcurementBreakdown` never fired — the
+hook + generator were **dead code**. D1 therefore = delete the dead hook +
+generator + stop regenerating 151 MB of on-disk shards (SHIPPED). The **git**
+churn from procurement derived is the ~267 *tracked* shard files (`by-eik` 42,
+`pep-by-eik` 82, `pep-by-slug` 83, `per-mp` 44) + ~15 single rollups — that is
+Workstreams A + D2.
 
 **Connections domain** has no PG presence at all — 100% JSON, mostly still
 frontend-live (see §3).
@@ -78,6 +84,38 @@ Key facts (verified 2026-07-03):
 - No MP-declaration / connections tables exist in `schema/pg/`.
 
 ---
+
+## 1b. CRITICAL: there are TWO frontends — the AI chat is a second consumer
+
+**Discovered during implementation (2026-07-04).** Every audit above scanned only
+`src/` (the React app). There is a **second consumer**: the AI chat tool layer in
+`ai/`, which fetches the static JSON directly via its own `fetchData()` path
+(`ai/tools/dataClient.ts`), independent of the React-Query hooks. `ai/tools/fiscal.ts`
+(and the connections tools) read these at runtime:
+
+`/procurement/index.json`, `derived/top_contractors.json`, `derived/contractors_search.json`,
+`derived/risk_feed.json`, `derived/cpv_competition.json`, `derived/awarders_index.json`,
+`derived/pep_connected.json`, **`derived/mp_connected.json`** (a D2 target),
+`by_settlement/index.json`, `debarred.json`, and **`/parliament/connections-rankings.json`
++ `-top.json`** (a Workstream B target).
+
+**Consequence:** "frontend-dead" ≠ "dead". A file is only retirable when **no
+`src/` hook AND no `ai/` tool AND no pipeline script** reads it. This blocks the
+*valuable* part of Workstreams A, B, and D2 behind **migrating the AI chat tools
+to Postgres** (new PG routes matching the AI's query shapes + repoint
+`ai/tools/fiscal.ts` + the connections tool + verify the chat still answers). That
+is a substantial workstream not in the original plan (it ties into the
+"AI chat retrieval" direction — augment tool calls with a PG-backed fetch).
+
+**What remains genuinely retirable now** (no `src/`, no `ai/`, only the
+verification net/audit): `derived/flow_full.json`, `derived/flow.json`,
+`derived/ocds_party_geo_map.json` (+ `derived/by-eik/` — one audit-script reader).
+These die *with* the net (§5 Half 1), so there is no standalone win here.
+
+**Verified SAFE and SHIPPED:** §3 (no reader anywhere incl. `ai/`) and D1
+(`ai/` reads neither breakdowns nor sector_totals). **D2 partial:** the `per-mp`
+scorecard repoint is safe (`ai/` doesn't read `per-mp`), but `mp_connected.json`
+must keep generating until the AI tool migrates.
 
 ## 2. Three independent workstreams
 
