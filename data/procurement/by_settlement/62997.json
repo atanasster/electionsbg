@@ -3,10 +3,10 @@
   "name": "Роман",
   "province": "Враца",
   "obshtina": "Роман",
-  "generatedAt": "2026-07-02T06:58:48.039Z",
-  "contractCount": 155,
+  "generatedAt": "2026-07-03T09:06:30.900Z",
+  "contractCount": 157,
   "awardCount": 0,
-  "totalEur": 19243400.52,
+  "totalEur": 19383463.82,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 19243400.52,
       "totalOther": {},
       "contractCount": 155,
+      "awardCount": 0
+    },
+    {
+      "eik": "000185780",
+      "name": "Детска Градина зора",
+      "tier": "school",
+      "totalEur": 140063.3,
+      "totalOther": {},
+      "contractCount": 2,
       "awardCount": 0
     }
   ],
@@ -554,6 +563,19 @@
       "sourceUrl": "https://storage.eop.bg/open-data-2025-09-04/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2004.09.2025.json"
     },
     {
+      "key": "eac92e18e9d4",
+      "ocid": "eop-06721-2025-0002",
+      "date": "2025-11-14",
+      "tag": "contract",
+      "amount": 222000,
+      "currency": "BGN",
+      "amountEur": 113506.8,
+      "partyEik": "206363341",
+      "partyName": "Дженерал конструкшън ЕООД",
+      "bundleUuid": "eop-flat:2025-11-14",
+      "sourceUrl": "https://storage.eop.bg/open-data-2025-11-14/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2014.11.2025.json"
+    },
+    {
       "key": "8b5e38fabb74",
       "ocid": "aop-legacy-2019-917533",
       "date": "2019-06-24",
@@ -656,19 +678,6 @@
       "partyName": "М-Форма ЕООД - София /Гоце Делчев/",
       "bundleUuid": "83e02856-b460-4ec8-bf5e-b23ae6e267ca",
       "sourceUrl": "https://data.egov.bg/data/view/83e02856-b460-4ec8-bf5e-b23ae6e267ca"
-    },
-    {
-      "key": "f26d9726deb0",
-      "ocid": "aop-legacy-2023-390699",
-      "date": "2023-06-21",
-      "tag": "contract",
-      "amount": 167204.56,
-      "currency": "BGN",
-      "amountEur": 85490.33,
-      "partyEik": "125537703",
-      "partyName": "СТРОЙЕКСПРЕС-НН ООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
     }
   ],
   "byYear": [
@@ -752,9 +761,9 @@
     },
     {
       "year": "2025",
-      "totalEur": 3368307.93,
+      "totalEur": 3508371.23,
       "totalOther": {},
-      "contractCount": 23
+      "contractCount": 25
     },
     {
       "year": "2026",

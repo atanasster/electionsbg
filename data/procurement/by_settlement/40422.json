@@ -3,10 +3,10 @@
   "name": "Кубрат",
   "province": "Разград",
   "obshtina": "Кубрат",
-  "generatedAt": "2026-07-02T06:58:48.039Z",
-  "contractCount": 378,
+  "generatedAt": "2026-07-03T09:06:30.900Z",
+  "contractCount": 393,
   "awardCount": 0,
-  "totalEur": 47223818.46,
+  "totalEur": 48849726.64,
   "totalOther": {},
   "awarders": [
     {
@@ -16,6 +16,15 @@
       "totalEur": 46133262.7,
       "totalOther": {},
       "contractCount": 343,
+      "awardCount": 0
+    },
+    {
+      "eik": "000504032",
+      "name": "Многопрофилна болница за активно лечение - кубрат ЕООД",
+      "tier": "hospital",
+      "totalEur": 1625908.18,
+      "totalOther": {},
+      "contractCount": 15,
       "awardCount": 0
     },
     {
@@ -537,6 +546,19 @@
       "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     },
     {
+      "key": "5cb23cf5da51",
+      "ocid": "eop-01138-2024-0001",
+      "date": "2024-07-04",
+      "tag": "contract",
+      "amount": 400000,
+      "currency": "BGN",
+      "amountEur": 204516.75,
+      "partyEik": "102227154",
+      "partyName": "Фаркол АД",
+      "bundleUuid": "eop-flat:2024-07-04",
+      "sourceUrl": "https://storage.eop.bg/open-data-2024-07-04/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2004.07.2024.json"
+    },
+    {
       "key": "a25218fd54e9",
       "ocid": "aop-legacy-2011-2015-578835",
       "date": "2014-01-09",
@@ -654,38 +676,25 @@
       "sourceUrl": "https://data.egov.bg/data/view/d1c77a64-9031-456a-b1d7-7a3a659db41a#ocds-e82gsb-538273-799627%2F2026-01-20-award"
     },
     {
-      "key": "019427f04d14",
-      "ocid": "aop-legacy-2023-330117",
-      "date": "2023-02-08",
+      "key": "39fffb61fc7d",
+      "ocid": "aop-legacy-2011-2015-649147",
+      "date": "2015-02-18",
       "tag": "contract",
-      "amount": 299196,
+      "amount": 300000,
       "currency": "BGN",
-      "amountEur": 152976.49,
-      "partyEik": "103591328",
-      "partyName": "Одесосстрой ООД",
-      "bundleUuid": "20b30088-7a6e-4486-a17a-02871c573783",
-      "sourceUrl": "https://data.egov.bg/data/view/20b30088-7a6e-4486-a17a-02871c573783"
-    },
-    {
-      "key": "8674345230b8",
-      "ocid": "eop-00803-2024-0029",
-      "date": "2025-02-21",
-      "tag": "contract",
-      "amount": 295969.43,
-      "currency": "BGN",
-      "amountEur": 151326.77,
-      "partyEik": "116014376",
-      "partyName": "Пътно строителство АД",
-      "bundleUuid": "eop-flat:2025-02-21",
-      "sourceUrl": "https://storage.eop.bg/open-data-2025-02-21/%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%BD%D0%BE%20%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D0%B0%D0%BD%D0%B8%20%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%20%D0%B7%D0%B0%20%D0%B4%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B8%2C%20%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D1%83%D0%B2%D0%B0%D0%BD%D0%B8%20%D0%B2%20%D0%A6%D0%90%D0%98%D0%A1%20%D0%95%D0%9E%D0%9F%20%D0%BD%D0%B0%2021.02.2025.json"
+      "amountEur": 153387.56,
+      "partyEik": "102227154",
+      "partyName": "Фаркол АД - Бургас",
+      "bundleUuid": "049115c2-6556-4171-b030-e36b3b82546d",
+      "sourceUrl": "https://data.egov.bg/data/view/049115c2-6556-4171-b030-e36b3b82546d"
     }
   ],
   "byYear": [
     {
       "year": "2011",
-      "totalEur": 52486.67,
+      "totalEur": 205874.23,
       "totalOther": {},
-      "contractCount": 1
+      "contractCount": 2
     },
     {
       "year": "2012",
@@ -695,39 +704,39 @@
     },
     {
       "year": "2013",
-      "totalEur": 18414599.64,
+      "totalEur": 18567987.2,
       "totalOther": {},
-      "contractCount": 19
+      "contractCount": 20
     },
     {
       "year": "2014",
-      "totalEur": 2736534.96,
+      "totalEur": 2889922.52,
       "totalOther": {},
-      "contractCount": 17
+      "contractCount": 18
     },
     {
       "year": "2015",
-      "totalEur": 3377623.61,
+      "totalEur": 3531011.17,
       "totalOther": {},
-      "contractCount": 13
+      "contractCount": 14
     },
     {
       "year": "2016",
-      "totalEur": 2984844.9,
+      "totalEur": 3138232.46,
       "totalOther": {},
-      "contractCount": 6
+      "contractCount": 7
     },
     {
       "year": "2017",
-      "totalEur": 420800.36,
+      "totalEur": 540953.95,
       "totalOther": {},
-      "contractCount": 4
+      "contractCount": 5
     },
     {
       "year": "2019",
-      "totalEur": 1149576.39,
+      "totalEur": 1269729.98,
       "totalOther": {},
-      "contractCount": 28
+      "contractCount": 29
     },
     {
       "year": "2020",
@@ -743,9 +752,9 @@
     },
     {
       "year": "2022",
-      "totalEur": 3579195.26,
+      "totalEur": 3717244.07,
       "totalOther": {},
-      "contractCount": 37
+      "contractCount": 39
     },
     {
       "year": "2023",
@@ -755,9 +764,9 @@
     },
     {
       "year": "2024",
-      "totalEur": 1643238.25,
+      "totalEur": 2123852.62,
       "totalOther": {},
-      "contractCount": 73
+      "contractCount": 79
     },
     {
       "year": "2025",

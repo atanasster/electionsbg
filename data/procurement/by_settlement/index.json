@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-07-02T06:58:48.039Z",
-  "totalContracts": 209605,
-  "totalEur": 39554806349.62,
-  "settlementCount": 492,
+  "generatedAt": "2026-07-03T09:06:30.900Z",
+  "totalContracts": 209832,
+  "totalEur": 39561617472.98,
+  "settlementCount": 493,
   "national": {
-    "contractCount": 74181,
+    "contractCount": 74187,
     "awardCount": 0,
-    "totalEur": 32997395550.67,
+    "totalEur": 32999747053.58,
     "totalOther": {
       "USD": 28653367.96,
       "GBP": 449595,
       "SEK": 1195000,
       "CHF": 485061.6
     },
-    "awarderCount": 497
+    "awarderCount": 499
   },
   "settlements": [
     {
@@ -39,9 +39,9 @@
       "name": "Варна",
       "province": "Варна",
       "obshtina": "Варна",
-      "contractCount": 10992,
-      "totalEur": 2761846973.43,
-      "awarderCount": 73
+      "contractCount": 11192,
+      "totalEur": 2766833033.6,
+      "awarderCount": 74
     },
     {
       "ekatte": "07079",
@@ -84,9 +84,9 @@
       "name": "Русе",
       "province": "Русе",
       "obshtina": "Русе",
-      "contractCount": 5011,
-      "totalEur": 850918473.23,
-      "awarderCount": 46
+      "contractCount": 5020,
+      "totalEur": 850941901.31,
+      "awarderCount": 47
     },
     {
       "ekatte": "10447",
@@ -962,6 +962,15 @@
       "awarderCount": 1
     },
     {
+      "ekatte": "40422",
+      "name": "Кубрат",
+      "province": "Разград",
+      "obshtina": "Кубрат",
+      "contractCount": 393,
+      "totalEur": 48849726.64,
+      "awarderCount": 3
+    },
+    {
       "ekatte": "49494",
       "name": "Мъглиж",
       "province": "Стара Загора",
@@ -987,15 +996,6 @@
       "contractCount": 320,
       "totalEur": 47382050.88,
       "awarderCount": 3
-    },
-    {
-      "ekatte": "40422",
-      "name": "Кубрат",
-      "province": "Разград",
-      "obshtina": "Кубрат",
-      "contractCount": 378,
-      "totalEur": 47223818.46,
-      "awarderCount": 2
     },
     {
       "ekatte": "21912",
@@ -1965,9 +1965,9 @@
       "name": "Роман",
       "province": "Враца",
       "obshtina": "Роман",
-      "contractCount": 155,
-      "totalEur": 19243400.52,
-      "awarderCount": 1
+      "contractCount": 157,
+      "totalEur": 19383463.82,
+      "awarderCount": 2
     },
     {
       "ekatte": "51651",
@@ -4217,6 +4217,15 @@
       "obshtina": "Венец",
       "contractCount": 1,
       "totalEur": 35780,
+      "awarderCount": 1
+    },
+    {
+      "ekatte": "23546",
+      "name": "Дралфа",
+      "province": "Търговище",
+      "obshtina": "Търговище",
+      "contractCount": 1,
+      "totalEur": 35663.63,
       "awarderCount": 1
     },
     {
