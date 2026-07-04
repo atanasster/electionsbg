@@ -14,6 +14,7 @@ import { pathToFileURL } from "node:url";
 import { PROC_DIR } from "./lib/paths";
 import { getPool, exec, withClient, end } from "./lib/pg";
 import { COLUMN_NAMES, contractToRow } from "./lib/procurement_schema";
+import { INGEST_SUMMARY_THRESHOLD } from "./lib/ingest_changelog";
 import type { Contract } from "../procurement/types";
 
 const SCHEMA_DIR = path.join(
@@ -235,10 +236,14 @@ export const loadPg = async (): Promise<{
       [batchId],
     );
     rowsNew = ins.rowCount ?? 0;
-    await c.query("UPDATE ingest_batches SET rows_new = $1 WHERE id = $2", [
-      rowsNew,
-      batchId,
-    ]);
+    // Same detail/summary gate as the other datasets: a normal daily delta is
+    // itemised per-contract in recent_updates; a bulk backfill / cold load above
+    // the threshold collapses to one summary line instead of 100k+ feed rows.
+    const mode = rowsNew > INGEST_SUMMARY_THRESHOLD ? "summary" : "detail";
+    await c.query(
+      "UPDATE ingest_batches SET rows_new = $1, mode = $2 WHERE id = $3",
+      [rowsNew, mode, batchId],
+    );
 
     // Upsert (not TRUNCATE) so the TR loader's meta stamps survive re-loads.
     const sorted = [...years].sort();

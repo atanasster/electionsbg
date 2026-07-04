@@ -15,6 +15,7 @@ import { pathToFileURL } from "node:url";
 import { PROC_DIR } from "./lib/paths";
 import { getPool, exec, withClient, end } from "./lib/pg";
 import { COLUMN_NAMES, columnCast, tenderToRow } from "./lib/tenders_schema";
+import { recordIngestBatch } from "./lib/ingest_changelog";
 import type { Tender } from "../../src/lib/tenderTypes";
 
 const SCHEMA_DIR = path.join(
@@ -28,6 +29,7 @@ const SCHEMA_DIR = path.join(
 );
 const FN_FILE = path.join(SCHEMA_DIR, "000_search_fns.sql");
 const SCHEMA_FILE = path.join(SCHEMA_DIR, "009_tenders.sql");
+const TRACKING_FILE = path.join(SCHEMA_DIR, "005_ingest_tracking.sql");
 const API_FILE = path.join(SCHEMA_DIR, "010_tenders_api.sql");
 const tendersDir = path.join(PROC_DIR, "tenders");
 const N = COLUMN_NAMES.length;
@@ -87,6 +89,10 @@ export const loadTendersPg = async (): Promise<{
   await waitForPg();
   await exec(readFileSync(FN_FILE, "utf8"));
   await exec(readFileSync(SCHEMA_FILE, "utf8"));
+  // Changelog tracking tables (ingest_batches + ingest_first_seen). Idempotent;
+  // ensures they exist even when the tenders loader runs standalone (not via the
+  // full db:refresh where load_pg applies 005 first).
+  await exec(readFileSync(TRACKING_FILE, "utf8"));
 
   const { rows, years } = readShards();
   const insertCols = COLUMN_NAMES.join(", ");
@@ -116,6 +122,16 @@ export const loadTendersPg = async (): Promise<{
         "INSERT INTO meta (key, value) VALUES ($1,$2) ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value",
         [k, v],
       );
+    // "What changed" changelog — atomic with the tender load (same txn). Small
+    // daily deltas surface per-row in recent_updates; a bulk backfill summarises.
+    await recordIngestBatch(c, {
+      source: "tender",
+      table: "tenders",
+      keyExpr: "t.unp",
+      nameExpr: "t.buyer_name",
+      detailExpr: "t.subject",
+      rowsTotal: rows.length,
+    });
     await c.query("COMMIT");
   });
 

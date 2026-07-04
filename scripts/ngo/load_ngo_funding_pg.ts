@@ -17,7 +17,8 @@ import * as fs from "node:fs";
 import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import * as XLSX from "xlsx";
-import { getPool, exec, withClient, end } from "../db/lib/pg";
+import { exec, withClient, end } from "../db/lib/pg";
+import { recordIngestBatch } from "../db/lib/ingest_changelog";
 
 // The ESM build of `xlsx` ships without Node fs bound — wire it so readFile works.
 XLSX.set_fs(fs);
@@ -33,6 +34,9 @@ const FOREIGN_JSON = fileURLToPath(
 );
 const SCHEMA_SQL = fileURLToPath(
   new URL("../db/schema/pg/040_ngo_funding.sql", import.meta.url),
+);
+const TRACKING_SQL = fileURLToPath(
+  new URL("../db/schema/pg/005_ingest_tracking.sql", import.meta.url),
 );
 
 type RawRow = {
@@ -116,6 +120,7 @@ export const loadNgoFundingPg = async (): Promise<{
   matched: number;
 }> => {
   await exec(readFileSync(SCHEMA_SQL, "utf8"));
+  await exec(readFileSync(TRACKING_SQL, "utf8"));
 
   const rows = [
     ...parseFts(),
@@ -168,8 +173,16 @@ export const loadNgoFundingPg = async (): Promise<{
   // are already romanized, so translit_bg_latin(name_raw) lines up with our
   // name_fold. VAT "BG#########" → eik (verified to exist). Fuzzy uses pg_trgm
   // similarity, top-1, and only when comfortably above the ambiguity floor.
-  await exec("TRUNCATE ngo_funding");
-  await exec(`
+  // TRUNCATE + repopulate + changelog in ONE transaction so a mid-load failure
+  // can't leave ngo_funding empty (orphan-free), and the changelog commits with
+  // the data. ngo_funding's PK is a serial, so the changelog keys on an md5 of
+  // the row's content columns (stable across reloads).
+  let total = 0;
+  let matched = 0;
+  await withClient(async (c) => {
+    await c.query("BEGIN");
+    await c.query("TRUNCATE ngo_funding");
+    await c.query(`
     WITH nf AS (
       SELECT uic, name_fold FROM tr_companies
       WHERE entity_class IN ('ngo_assoc','ngo_found','chitalishte','foreign_branch')
@@ -207,18 +220,29 @@ export const loadNgoFundingPg = async (): Promise<{
       LIMIT 1
     ) fz ON true
   `);
-  await exec("DROP TABLE IF EXISTS ngo_funding_stage");
+    await c.query("DROP TABLE IF EXISTS ngo_funding_stage");
 
-  const [{ rows: total }, { matched }] = await Promise.all([
-    getPool()
-      .query("SELECT count(*)::int AS rows FROM ngo_funding")
-      .then((r) => r.rows[0]),
-    getPool()
-      .query(
-        "SELECT count(*)::int AS matched FROM ngo_funding WHERE eik IS NOT NULL",
+    total = (await c.query("SELECT count(*)::int AS n FROM ngo_funding"))
+      .rows[0].n;
+    matched = (
+      await c.query(
+        "SELECT count(*)::int AS n FROM ngo_funding WHERE eik IS NOT NULL",
       )
-      .then((r) => r.rows[0]),
-  ]);
+    ).rows[0].n;
+
+    // "What changed" changelog — atomic with the reload.
+    await recordIngestBatch(c, {
+      source: "ngo_funding",
+      table: "ngo_funding",
+      keyExpr:
+        "md5(concat_ws('|', t.source, coalesce(t.funder,''), coalesce(t.year::text,''), t.name_raw, coalesce(t.amount_eur::text,''), coalesce(t.programme,'')))",
+      nameExpr: "t.name_raw",
+      detailExpr: "concat_ws(' · ', t.funder, t.programme)",
+      amountExpr: "t.amount_eur::double precision",
+      rowsTotal: total,
+    });
+    await c.query("COMMIT");
+  });
   return { rows: total, matched };
 };
 

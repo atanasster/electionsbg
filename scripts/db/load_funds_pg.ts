@@ -11,6 +11,7 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { PROC_DIR } from "./lib/paths";
 import { exec, getPool, withClient, end } from "./lib/pg";
+import { recordIngestBatch } from "./lib/ingest_changelog";
 
 const SCHEMA_DIR = path.join(
   PROC_DIR,
@@ -143,6 +144,10 @@ export const loadFundsPg = async (): Promise<{
   await waitForPg();
   await exec(readFileSync(SCHEMA_FILE, "utf8"));
   await exec(readFileSync(PROJECTS_SCHEMA_FILE, "utf8"));
+  // Changelog tracking tables (idempotent; also present via load_pg's 005).
+  await exec(
+    readFileSync(path.join(SCHEMA_DIR, "005_ingest_tracking.sql"), "utf8"),
+  );
 
   const files = readdirSync(BY_EIK_DIR).filter((f) => f.endsWith(".json"));
   const rows: Beneficiary[] = [];
@@ -206,6 +211,16 @@ export const loadFundsPg = async (): Promise<{
           batch.flatMap(projRow),
         );
       }
+      // "What changed" changelog for EU-fund projects — atomic with the load.
+      await recordIngestBatch(c, {
+        source: "fund_project",
+        table: "fund_projects",
+        keyExpr: "t.contract_number",
+        nameExpr: "t.beneficiary_name",
+        detailExpr: "t.title",
+        amountExpr: "t.total_eur::double precision",
+        rowsTotal: projRows.length,
+      });
       await c.query("COMMIT");
     });
   }

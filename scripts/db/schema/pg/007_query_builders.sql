@@ -73,6 +73,11 @@ AS $$
   ORDER BY m.sim DESC, contracts_eur DESC NULLS LAST, length(m.name);
 $$;
 
+-- recent_updates references ingest_first_seen / ingest_batches.mode (005) and
+-- the tenders / fund / ngo tables, which may not all exist when THIS file is
+-- applied (007 runs from the TR loader; those tables come from other loaders).
+-- Defer body validation — every referenced table exists by CALL time.
+SET check_function_bodies = off;
 CREATE OR REPLACE FUNCTION recent_updates(days int DEFAULT 1, lim int DEFAULT 1000)
 RETURNS TABLE (
   kind       text,
@@ -85,13 +90,33 @@ RETURNS TABLE (
 LANGUAGE sql STABLE AS $$
   WITH cutoff AS (SELECT now() - make_interval(days => days) AS ts)
   SELECT * FROM (
-    -- Contracts first seen in the window (our ingestion time).
+    -- Contracts first seen in the window (our ingestion time). Gated to 'detail'
+    -- batches so a bulk contract backfill surfaces as one summary row (below),
+    -- not 100k per-row entries.
     SELECT 'contract'::text AS kind, c.contractor_eik AS eik, c.contractor_name AS name,
            c.awarder_name AS detail, f.first_seen_at AS changed_at, c.amount_eur
     FROM contract_first_seen f
+    JOIN ingest_batches b ON b.id = f.batch_id AND b.mode = 'detail'
     JOIN contracts c USING (key)
     CROSS JOIN cutoff
     WHERE f.first_seen_at >= cutoff.ts
+    UNION ALL
+    -- Per-row detail for every other PG-loaded dataset (tenders, EU fund
+    -- projects, NGO funding) whose load delta was small enough to itemise.
+    SELECT fs.source AS kind, fs.key AS eik, fs.name, fs.detail,
+           fs.first_seen_at AS changed_at, fs.amount_eur
+    FROM ingest_first_seen fs
+    JOIN ingest_batches b ON b.id = fs.batch_id AND b.mode = 'detail'
+    CROSS JOIN cutoff
+    WHERE fs.first_seen_at >= cutoff.ts
+    UNION ALL
+    -- One-line summary for any bulk load (mode='summary', across ALL datasets):
+    -- a first cold load or a backfill above the per-loader threshold.
+    SELECT 'dataset'::text AS kind, NULL::text AS eik, b.source AS name,
+           b.rows_new || ' new · ' || b.rows_total || ' total' AS detail,
+           b.loaded_at AS changed_at, NULL::double precision AS amount_eur
+    FROM ingest_batches b CROSS JOIN cutoff
+    WHERE b.mode = 'summary' AND b.loaded_at >= cutoff.ts
     UNION ALL
     -- TR companies whose registry record changed in the window.
     SELECT 'company', co.uic, co.name,
