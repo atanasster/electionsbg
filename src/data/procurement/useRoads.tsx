@@ -3,10 +3,20 @@
 // (АПИ ≈ 2.1k rows) and feeds the pure roadAttributes engine; the headline
 // rollup (totals + byContractor) is derived from the same rows plus the
 // grouped counterparty list, so no static JSON shard is involved.
+//
+// The section-wide procurement scope (?pscope — this parliament / all years /
+// one calendar year) is applied CLIENT-SIDE here: the awarder-contracts query
+// fetches the whole corpus once (cached), and the [from, to) window from
+// useProcurementWindow simply filters the rows before they reach
+// buildRoadsModel. Windowing the already-loaded ~2.1k rows keeps scope switches
+// instant (no refetch) and matches the overview's half-open [from, to) on the
+// contract `date`. The headline rollup is derived from the SAME windowed rows
+// so every number on the page re-scopes together.
 
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useCounterparties } from "./useCounterparties";
+import { useProcurementWindow } from "./useProcurementWindow";
 import {
   buildRoadsModel,
   API_EIK,
@@ -62,38 +72,70 @@ export const useAwarderContracts = (eik?: string | null) =>
 export const useRoads = (eik: string = API_EIK): RoadsData => {
   const counterparties = useCounterparties(eik, "awarder");
   const contracts = useAwarderContracts(eik);
+  const { from, to } = useProcurementWindow();
+
+  // Apply the active scope window client-side: keep the corpus fetch cached and
+  // just filter the rows to [from, to) on the contract `date` (half-open, same
+  // as procurement_overview). "all" leaves from/to null → the whole corpus.
+  const scopedContracts = useMemo<ProcurementContract[] | null>(() => {
+    const all = contracts.data?.contracts;
+    if (!all) return null;
+    if (!from && !to) return all;
+    return all.filter(
+      (c) => (!from || (c.date ?? "") >= from) && (!to || (c.date ?? "") < to),
+    );
+  }, [contracts.data, from, to]);
 
   const model = useMemo(
-    () => (contracts.data ? buildRoadsModel(contracts.data.contracts) : null),
-    [contracts.data],
+    () => (scopedContracts ? buildRoadsModel(scopedContracts) : null),
+    [scopedContracts],
   );
 
-  // Headline totals are DERIVED by summing the counterparty groups — exact
-  // only because company-counterparties is uncapped by design (documented in
-  // functions/db_routes.js). If that route ever gains a LIMIT, this must
-  // switch to an authoritative rollup total or the АПИ headline will silently
-  // under-report.
+  // Headline rollup DERIVED from the same windowed rows so the totals, the
+  // contractor list (MP-tie section) and every tile re-scope together. Filters
+  // tag='contract' to reproduce the company-counterparties aggregate exactly on
+  // the "all" window (contractCount can be 0 for a sparse scope — the screen
+  // renders a scope-aware empty state, not a broken dashboard). The counterparty
+  // list is kept only for the canonical (most-frequent) awarder display name.
   const rollup = useMemo<RoadsRollup | null>(() => {
-    const cp = counterparties.data;
-    if (!cp || cp.entries.length === 0) return null;
+    if (!scopedContracts) return null;
+    const byMap = new Map<string, RoadsRollup["byContractor"][number]>();
     const totalOther: Record<string, number> = {};
     let totalEur = 0;
     let contractCount = 0;
-    for (const e of cp.entries) {
-      totalEur += e.totalEur;
-      contractCount += e.contractCount;
-      for (const [cur, v] of Object.entries(e.totalOther ?? {}))
-        totalOther[cur] = (totalOther[cur] ?? 0) + v;
+    for (const c of scopedContracts) {
+      if (c.tag !== "contract") continue;
+      totalEur += c.amountEur ?? 0;
+      contractCount += 1;
+      if (c.amountEur == null && c.amount != null && c.currency)
+        totalOther[c.currency] = (totalOther[c.currency] ?? 0) + c.amount;
+      const ceik = c.contractorEik;
+      if (!ceik) continue;
+      let e = byMap.get(ceik);
+      if (!e) {
+        e = {
+          eik: ceik,
+          name: c.contractorName || `ЕИК ${ceik}`,
+          totalEur: 0,
+          totalOther: {},
+          contractCount: 0,
+        };
+        byMap.set(ceik, e);
+      }
+      e.totalEur += c.amountEur ?? 0;
+      e.contractCount += 1;
+      if (c.amountEur == null && c.amount != null && c.currency)
+        e.totalOther[c.currency] = (e.totalOther[c.currency] ?? 0) + c.amount;
     }
     return {
-      eik: cp.eik,
-      name: cp.name ?? `ЕИК ${cp.eik}`,
+      eik,
+      name: counterparties.data?.name ?? `ЕИК ${eik}`,
       totalEur,
       totalOther,
       contractCount,
-      byContractor: cp.entries,
+      byContractor: [...byMap.values()].sort((a, b) => b.totalEur - a.totalEur),
     };
-  }, [counterparties.data]);
+  }, [scopedContracts, counterparties.data, eik]);
 
   return {
     rollup,

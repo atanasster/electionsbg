@@ -29,7 +29,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ProcurementNav } from "../components/procurement/ProcurementNav";
+import { ProcurementSectionHeader } from "../components/procurement/ProcurementSectionHeader";
 import { ErrorSection } from "../components/ErrorSection";
 import { MpAvatar } from "../components/candidates/MpAvatar";
 import { useRoads, API_EIK } from "@/data/procurement/useRoads";
@@ -143,7 +143,7 @@ export const RoadsScreen: FC = () => {
         <Title description="АПИ road-spending dashboard">
           {lang === "bg" ? "Пътна инфраструктура" : "Road infrastructure"}
         </Title>
-        <ProcurementNav />
+        <ProcurementSectionHeader scopeMode="toggle" />
         <div className="grid gap-3 grid-cols-2 lg:grid-cols-5 my-4">
           {Array.from({ length: 5 }).map((_, i) => (
             <div
@@ -170,20 +170,48 @@ export const RoadsScreen: FC = () => {
 
   const methodTotal = model.methods.reduce((s, m) => s + m.totalEur, 0) || 1;
 
+  const titleEl = (
+    <Title
+      description={
+        lang === "bg"
+          ? "Разходи и ефективност на АПИ по обществени поръчки"
+          : "АПИ road-procurement spending and effectiveness"
+      }
+    >
+      {lang === "bg"
+        ? "Пътна инфраструктура — АПИ"
+        : "Road infrastructure — АПИ"}
+    </Title>
+  );
+
+  // Scope windowed down to a period with no АПИ contracts — keep the nav +
+  // scope control on screen (so the reader can widen the range) instead of a
+  // dashboard full of zeros.
+  if (rollup.contractCount === 0) {
+    return (
+      <>
+        {titleEl}
+        <ProcurementSectionHeader scopeMode="toggle" />
+        <ErrorSection
+          title={
+            lang === "bg"
+              ? "Няма договори в периода"
+              : "No contracts in this period"
+          }
+          description={
+            lang === "bg"
+              ? 'Няма договори на АПИ в избрания времеви обхват. Изберете „Всички години" или друг период.'
+              : "No АПИ contracts fall in the selected time range. Pick “All years” or another period."
+          }
+        />
+      </>
+    );
+  }
+
   return (
     <>
-      <Title
-        description={
-          lang === "bg"
-            ? "Разходи и ефективност на АПИ по обществени поръчки"
-            : "АПИ road-procurement spending and effectiveness"
-        }
-      >
-        {lang === "bg"
-          ? "Пътна инфраструктура — АПИ"
-          : "Road infrastructure — АПИ"}
-      </Title>
-      <ProcurementNav />
+      {titleEl}
+      <ProcurementSectionHeader scopeMode="toggle" />
 
       <div className="flex items-center gap-2 my-2 text-sm text-muted-foreground">
         <RouteIcon className="h-4 w-4" />
