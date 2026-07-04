@@ -37,7 +37,53 @@ export const fetchData = <T>(path: string): Promise<T> => {
   return p as Promise<T>;
 };
 
-export const clearDataCache = (): void => cache.clear();
+// DB-query seam — mirrors the JSON fetcher above, but targets the `/api/db/*`
+// Postgres routes (functions/db_routes.js) instead of static bucket JSON. The
+// browser default hits the same-origin function; the node correctness harness
+// swaps in a fetcher that runs the SAME route handlers against local Postgres
+// (so tool numbers are verified against the exact route code prod serves).
+export type DbParams = Record<string, string | number | null | undefined>;
+type DbFetcher = (route: string, params: DbParams) => Promise<unknown>;
+
+const browserDbFetcher: DbFetcher = async (route, params) => {
+  const qs = new URLSearchParams(
+    Object.entries(params)
+      .filter(([, v]) => v != null && v !== "")
+      .map(([k, v]) => [k, String(v)]),
+  ).toString();
+  const url = `/api/db/${route}${qs ? `?${qs}` : ""}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`db ${url} -> ${res.status}`);
+  return res.json();
+};
+
+let dbFetcher: DbFetcher = browserDbFetcher;
+
+export const setDbFetcher = (f: DbFetcher): void => {
+  dbFetcher = f;
+};
+
+const dbCache = new Map<string, Promise<unknown>>();
+
+/** Fetch one `/api/db/<route>` payload (the route's `body`). Cached per
+ *  (route, params) for the session, like fetchData. */
+export const fetchDb = <T>(
+  route: string,
+  params: DbParams = {},
+): Promise<T> => {
+  const key = `${route}?${JSON.stringify(params)}`;
+  let p = dbCache.get(key);
+  if (!p) {
+    p = dbFetcher(route, params);
+    dbCache.set(key, p);
+  }
+  return p as Promise<T>;
+};
+
+export const clearDataCache = (): void => {
+  cache.clear();
+  dbCache.clear();
+};
 
 // Convenience helpers for the well-known per-election artifacts.
 export const fetchNationalSummary = <T = unknown>(
