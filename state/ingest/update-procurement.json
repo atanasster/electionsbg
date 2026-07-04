@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-07-03T09:09:44.823Z",
+  "lastSuccessfulIngest": "2026-07-04T11:07:08.057Z",
   "skill": "update-procurement",
-  "summary": "EOP day 2026-07-02: tenders 125,656 procedures; geo enrich (by_settlement 1873 pinned); 0 new contract rows; PG contracts+tenders reloaded"
+  "summary": "EOP day 2026-07-03: tenders +87 (125,743 procedures); +4 EOP contract rows (schools, 297,533); by_settlement 1,873 pinned. Builder aligned to PG per-row EUR (kills €8.11 skew); PG contracts+tenders reloaded; db:verify 23/23."
 }
