@@ -18,8 +18,33 @@
 
 import type { PoolClient } from "pg";
 
-/** A load bringing more than this many NEW rows is summarised, not itemised. */
+/** A load bringing more than this many NEW rows is summarised, not itemised.
+ *  Kept in sync with the same literal in recent_updates (schema/pg/007). */
 export const INGEST_SUMMARY_THRESHOLD = 500;
+
+/** Accumulate one load into the day-coalesced changelog history
+ *  (changelog_days). UPSERT on (source, current calendar day): multiple same-day
+ *  ingests sum into one row (kept together), and past days are never erased
+ *  (append-only history). Call inside the loader's txn so it commits with the
+ *  data. `rowsTotal` is the corpus size after this load. */
+export const upsertChangelogDay = async (
+  c: PoolClient,
+  source: string,
+  rowsNew: number,
+  rowsTotal: number,
+): Promise<void> => {
+  await c.query(
+    `INSERT INTO changelog_days (source, day, rows_new, rows_total, load_count,
+                                 first_loaded_at, last_loaded_at)
+     VALUES ($1, current_date, $2, $3, 1, now(), now())
+     ON CONFLICT (source, day) DO UPDATE SET
+       rows_new       = changelog_days.rows_new + EXCLUDED.rows_new,
+       rows_total     = EXCLUDED.rows_total,
+       load_count     = changelog_days.load_count + 1,
+       last_loaded_at = EXCLUDED.last_loaded_at`,
+    [source, rowsNew, rowsTotal],
+  );
+};
 
 export interface IngestChangelogOpts {
   /** Stable machine source id — also the recent_updates `kind` for detail rows
@@ -93,6 +118,9 @@ export const recordIngestBatch = async (
       [opts.source, batchId],
     );
   }
+
+  // Roll this load into the day-coalesced history (same-day loads accumulate).
+  await upsertChangelogDay(c, opts.source, rowsNew, opts.rowsTotal);
 
   return { batchId, rowsNew, mode };
 };

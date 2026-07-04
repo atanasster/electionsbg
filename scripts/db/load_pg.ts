@@ -14,7 +14,10 @@ import { pathToFileURL } from "node:url";
 import { PROC_DIR } from "./lib/paths";
 import { getPool, exec, withClient, end } from "./lib/pg";
 import { COLUMN_NAMES, contractToRow } from "./lib/procurement_schema";
-import { INGEST_SUMMARY_THRESHOLD } from "./lib/ingest_changelog";
+import {
+  INGEST_SUMMARY_THRESHOLD,
+  upsertChangelogDay,
+} from "./lib/ingest_changelog";
 import type { Contract } from "../procurement/types";
 
 const SCHEMA_DIR = path.join(
@@ -244,6 +247,8 @@ export const loadPg = async (): Promise<{
       "UPDATE ingest_batches SET rows_new = $1, mode = $2 WHERE id = $3",
       [rowsNew, mode, batchId],
     );
+    // Roll into the day-coalesced changelog history (same-day loads accumulate).
+    await upsertChangelogDay(c, "shards", rowsNew, rows.length);
 
     // Upsert (not TRUNCATE) so the TR loader's meta stamps survive re-loads.
     const sorted = [...years].sort();

@@ -73,10 +73,17 @@ AS $$
   ORDER BY m.sim DESC, contracts_eur DESC NULLS LAST, length(m.name);
 $$;
 
--- recent_updates references ingest_first_seen / ingest_batches.mode (005) and
--- the tenders / fund / ngo tables, which may not all exist when THIS file is
--- applied (007 runs from the TR loader; those tables come from other loaders).
--- Defer body validation — every referenced table exists by CALL time.
+-- recent_updates references changelog_days / ingest_first_seen (005) and the
+-- tenders / fund / ngo tables, which may not all exist when THIS file is applied
+-- (007 runs from the TR loader; those tables come from other loaders). Defer body
+-- validation — every referenced table exists by CALL time.
+--
+-- Day-grained feed: the itemise-vs-summarise decision is per (source, calendar
+-- day), read from the coalesced changelog_days history — so multiple same-day
+-- ingests of a source read as ONE unit (all its per-row entries, or one summary
+-- line if that day's coalesced new-row total is large), and past days persist
+-- (changelog_days is append-only, never erased). 500 mirrors
+-- INGEST_SUMMARY_THRESHOLD (scripts/db/lib/ingest_changelog.ts).
 SET check_function_bodies = off;
 CREATE OR REPLACE FUNCTION recent_updates(days int DEFAULT 1, lim int DEFAULT 1000)
 RETURNS TABLE (
@@ -90,33 +97,38 @@ RETURNS TABLE (
 LANGUAGE sql STABLE AS $$
   WITH cutoff AS (SELECT now() - make_interval(days => days) AS ts)
   SELECT * FROM (
-    -- Contracts first seen in the window (our ingestion time). Gated to 'detail'
-    -- batches so a bulk contract backfill surfaces as one summary row (below),
-    -- not 100k per-row entries.
+    -- Contracts (source 'shards') first seen on a day whose coalesced new-row
+    -- total stayed small — itemised per-row. A bulk contract day is summarised
+    -- (below), not shown as 100k rows.
     SELECT 'contract'::text AS kind, c.contractor_eik AS eik, c.contractor_name AS name,
            c.awarder_name AS detail, f.first_seen_at AS changed_at, c.amount_eur
     FROM contract_first_seen f
-    JOIN ingest_batches b ON b.id = f.batch_id AND b.mode = 'detail'
     JOIN contracts c USING (key)
+    JOIN changelog_days d
+      ON d.source = 'shards' AND d.day = f.first_seen_at::date AND d.rows_new <= 500
     CROSS JOIN cutoff
     WHERE f.first_seen_at >= cutoff.ts
     UNION ALL
     -- Per-row detail for every other PG-loaded dataset (tenders, EU fund
-    -- projects, NGO funding) whose load delta was small enough to itemise.
+    -- projects, NGO funding) on days that stayed small.
     SELECT fs.source AS kind, fs.key AS eik, fs.name, fs.detail,
            fs.first_seen_at AS changed_at, fs.amount_eur
     FROM ingest_first_seen fs
-    JOIN ingest_batches b ON b.id = fs.batch_id AND b.mode = 'detail'
+    JOIN changelog_days d
+      ON d.source = fs.source AND d.day = fs.first_seen_at::date AND d.rows_new <= 500
     CROSS JOIN cutoff
     WHERE fs.first_seen_at >= cutoff.ts
     UNION ALL
-    -- One-line summary for any bulk load (mode='summary', across ALL datasets):
-    -- a first cold load or a backfill above the per-loader threshold.
-    SELECT 'dataset'::text AS kind, NULL::text AS eik, b.source AS name,
-           b.rows_new || ' new · ' || b.rows_total || ' total' AS detail,
-           b.loaded_at AS changed_at, NULL::double precision AS amount_eur
-    FROM ingest_batches b CROSS JOIN cutoff
-    WHERE b.mode = 'summary' AND b.loaded_at >= cutoff.ts
+    -- One coalesced summary line per (source, day) whose day total was large:
+    -- a first cold load, a bulk backfill, or several same-day loads that together
+    -- crossed the threshold. 'shards' → 'contract' so it matches the detail kind.
+    SELECT 'dataset'::text AS kind, NULL::text AS eik,
+           CASE d.source WHEN 'shards' THEN 'contract' ELSE d.source END AS name,
+           d.rows_new || ' new · ' || d.rows_total || ' total'
+             || CASE WHEN d.load_count > 1 THEN ' (' || d.load_count || ' loads)' ELSE '' END AS detail,
+           d.last_loaded_at AS changed_at, NULL::double precision AS amount_eur
+    FROM changelog_days d CROSS JOIN cutoff
+    WHERE d.rows_new > 500 AND d.last_loaded_at >= cutoff.ts
     UNION ALL
     -- TR companies whose registry record changed in the window.
     SELECT 'company', co.uic, co.name,

@@ -51,6 +51,42 @@ CREATE TABLE IF NOT EXISTS ingest_first_seen (
 CREATE INDEX IF NOT EXISTS idx_ifs_seen  ON ingest_first_seen (first_seen_at);
 CREATE INDEX IF NOT EXISTS idx_ifs_batch ON ingest_first_seen (batch_id);
 
+-- Day-coalesced, append-only changelog HISTORY: one durable row per
+-- (source, calendar day), accumulating every ingest that lands that day. This
+-- is what makes the "what changed" feed:
+--   • keep same-day loads together — multiple ingests of a source in one day
+--     read as ONE unit (rows_new summed, load_count tracked), not N feed lines;
+--   • keep a real history — rows are never erased or overwritten (UPSERT only
+--     accumulates), and the table is independent of the TRUNCATE+reloaded source
+--     tables, so past days survive every reload.
+-- recent_updates(007) reads this to make the per-DAY itemise-vs-summarise call
+-- (a day whose coalesced rows_new exceeds the summary threshold shows one line;
+-- a small day shows its rows per-row from ingest_first_seen) and to render the
+-- summary lines. Written by recordIngestBatch / load_pg inside the load txn.
+CREATE TABLE IF NOT EXISTS changelog_days (
+  source          text NOT NULL,
+  day             date NOT NULL,
+  rows_new        integer NOT NULL DEFAULT 0,   -- Σ new rows across the day's loads
+  rows_total      integer,                      -- corpus size at the day's last load
+  load_count      integer NOT NULL DEFAULT 0,   -- how many ingests coalesced into this day
+  first_loaded_at timestamptz NOT NULL DEFAULT now(),
+  last_loaded_at  timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (source, day)
+);
+CREATE INDEX IF NOT EXISTS idx_changelog_days_last ON changelog_days (last_loaded_at);
+
+-- One-time / idempotent backfill from the historical per-load ingest_batches, so
+-- days that predate this table (and the pre-existing contract loads) still have a
+-- coalesced history row. DO NOTHING preserves any live-accumulated rows, so
+-- re-applying 005 never double-counts.
+INSERT INTO changelog_days (source, day, rows_new, rows_total, load_count,
+                            first_loaded_at, last_loaded_at)
+SELECT source, loaded_at::date, COALESCE(SUM(rows_new), 0)::int,
+       MAX(rows_total)::int, COUNT(*)::int, MIN(loaded_at), MAX(loaded_at)
+FROM ingest_batches
+GROUP BY source, loaded_at::date
+ON CONFLICT (source, day) DO NOTHING;
+
 CREATE TABLE IF NOT EXISTS contract_first_seen (
   key           text PRIMARY KEY,
   first_seen_at timestamptz NOT NULL DEFAULT now(),
