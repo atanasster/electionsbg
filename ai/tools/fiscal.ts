@@ -1335,29 +1335,28 @@ export const procurementDebarred = async (
 // A named MP returns a per-year value trend; otherwise the biggest MP↔contractor
 // relationships across the chamber.
 
-type MpProcYear = { year: string; totalEur: number };
-type MpProcEntry = {
-  mpId: number;
-  mpName: string;
-  contractorName: string;
-  totalEur: number;
-  contractCount: number;
-  byYear?: MpProcYear[];
+// person route payload (subset the tool needs): the connected-company edges
+// (person_politicians) + aggregated by-year procurement (person_procurement),
+// covering MPs AND non-MP officials in one curated-set call.
+type PersonProcPayload = {
+  politicians?: Array<{
+    politician: string;
+    kind: string; // 'mp' | official tier
+    role: string;
+    via_company?: string;
+    total_eur?: number;
+  }>;
+  procurement?: {
+    totalEur: number;
+    byYear?: { year: string; totalEur: number; contractCount: number }[];
+  } | null;
 };
-
-// Non-MP officials (mayors / councillors / ministers / governors / agency
-// heads) → procurement, from pep_connected.json. Same person→firm shape as the
-// MP join; used as the fallback when a named person isn't a sitting MP so the
-// tool covers the whole political class (MPs + non-MP officials) that the
-// procurement person index resolves.
-type PepProcEntry = {
-  name: string;
-  role: string;
-  tier: string;
-  contractorName: string;
+// procurement_rankings.topMps rows (chamber ranking).
+type TopMpRow = {
+  mpName: string;
   totalEur: number;
   contractCount: number;
-  byYear?: { year: string; totalEur: number }[];
+  topContractorNames?: string[];
 };
 
 export const mpProcurement = async (
@@ -1365,149 +1364,91 @@ export const mpProcurement = async (
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
-  const d = await fetchData<{ entries: MpProcEntry[] }>(
-    "/procurement/derived/mp_connected.json",
-  );
-  const who = String(args.person ?? "")
-    .trim()
-    .toLowerCase();
+  const who = String(args.person ?? "").trim();
+
   if (who) {
-    const mine = d.entries.filter((e) => e.mpName.toLowerCase().includes(who));
-    const byYear = new Map<string, number>();
-    for (const e of mine)
-      for (const y of e.byYear ?? [])
-        byYear.set(y.year, (byYear.get(y.year) ?? 0) + y.totalEur);
-    const years = [...byYear.keys()].sort();
-    if (mine.length && years.length > 1) {
-      const total = mine.reduce((s, e) => s + e.totalEur, 0);
-      return {
-        tool: "mpProcurement",
-        domain: "fiscal",
-        kind: "series",
-        title: bg
-          ? `Поръчки към фирми, свързани с ${mine[0].mpName}`
-          : `Procurement to firms tied to ${mine[0].mpName}`,
-        subtitle: bg
-          ? "По година (стойност на договорите)"
-          : "By year (contract value)",
-        categories: years,
-        series: [
-          {
-            key: "value",
-            label: bg ? "Стойност (€)" : "Value (€)",
-            points: years.map((y) => ({
-              x: y,
-              y: Math.round(byYear.get(y) ?? 0),
-            })),
-          },
-        ],
-        viz: "line",
-        facts: {
-          mp: mine[0].mpName,
-          companies: mine.length,
-          total_value: fmtEurCompact(total, ctx.lang),
-          years: years.length,
-        },
-        provenance: ["procurement/derived/mp_connected.json"],
-      };
-    }
-    // Not a sitting MP — try the broader political class (mayors, councillors,
-    // ministers, governors, agency heads) via pep_connected. Fetched only on an
-    // MP miss to keep the common path lean.
-    if (!mine.length) {
-      const pep = await fetchData<{ entries: PepProcEntry[] }>(
-        "/procurement/derived/pep_connected.json",
-      );
-      const off = pep.entries.filter((e) => e.name.toLowerCase().includes(who));
-      if (off.length) {
-        const oByYear = new Map<string, number>();
-        for (const e of off)
-          for (const y of e.byYear ?? [])
-            oByYear.set(y.year, (oByYear.get(y.year) ?? 0) + y.totalEur);
-        const oYears = [...oByYear.keys()].sort();
-        const total = off.reduce((s, e) => s + e.totalEur, 0);
-        const name = off[0].name;
-        if (oYears.length > 1) {
-          return {
-            tool: "mpProcurement",
-            domain: "fiscal",
-            kind: "series",
-            title: bg
-              ? `Поръчки към фирми, свързани с ${name}`
-              : `Procurement to firms tied to ${name}`,
-            subtitle: bg
-              ? "По година (стойност на договорите)"
-              : "By year (contract value)",
-            categories: oYears,
-            series: [
-              {
-                key: "value",
-                label: bg ? "Стойност (€)" : "Value (€)",
-                points: oYears.map((y) => ({
-                  x: y,
-                  y: Math.round(oByYear.get(y) ?? 0),
-                })),
-              },
-            ],
-            viz: "line",
-            facts: {
-              official: name,
-              role: off[0].role,
-              companies: off.length,
-              total_value: fmtEurCompact(total, ctx.lang),
-              years: oYears.length,
-            },
-            provenance: ["procurement/derived/pep_connected.json"],
-          };
-        }
-        // single-year official -> a small table of their connected firms
+    // Person mode — one named politician (MP or official), unified via the
+    // person route (person_procurement + person_politicians = the curated set).
+    const p = await fetchDb<PersonProcPayload>("person", { name: who });
+    const pol = p?.politicians ?? [];
+    const proc = p?.procurement;
+    if (pol.length && proc && proc.totalEur > 0) {
+      const personName = pol[0].politician;
+      const roleKey = pol[0].kind === "mp" ? "mp" : "official";
+      const byYear = (proc.byYear ?? [])
+        .filter((y) => y.totalEur > 0)
+        .sort((a, b) => a.year.localeCompare(b.year));
+      if (byYear.length > 1) {
         return {
           tool: "mpProcurement",
           domain: "fiscal",
-          kind: "table",
+          kind: "series",
           title: bg
-            ? `Поръчки към фирми, свързани с ${name}`
-            : `Procurement to firms tied to ${name}`,
-          columns: [
-            { key: "contractor", label: bg ? "Изпълнител" : "Contractor" },
+            ? `Поръчки към фирми, свързани с ${personName}`
+            : `Procurement to firms tied to ${personName}`,
+          subtitle: bg
+            ? "По година (стойност на договорите)"
+            : "By year (contract value)",
+          categories: byYear.map((y) => y.year),
+          series: [
             {
-              key: "amount",
-              label: bg ? "Стойност" : "Value",
-              numeric: true,
-            },
-            {
-              key: "contracts",
-              label: bg ? "Договори" : "Contracts",
-              numeric: true,
-              format: "int",
+              key: "value",
+              label: bg ? "Стойност (€)" : "Value (€)",
+              points: byYear.map((y) => ({
+                x: y.year,
+                y: Math.round(y.totalEur),
+              })),
             },
           ],
-          rows: off
-            .sort((a, b) => b.totalEur - a.totalEur)
-            .map((e) => ({
-              contractor: e.contractorName,
-              amount: fmtEurCompact(e.totalEur, ctx.lang),
-              contracts: e.contractCount,
-            })),
-          viz: "none",
+          viz: "line",
           facts: {
-            official: name,
-            role: off[0].role,
-            companies: off.length,
-            total_value: fmtEurCompact(total, ctx.lang),
+            [roleKey]: personName,
+            role: pol[0].role,
+            companies: pol.length,
+            total_value: fmtEurCompact(proc.totalEur, ctx.lang),
+            years: byYear.length,
           },
-          provenance: ["procurement/derived/pep_connected.json"],
+          provenance: ["db:person"],
         };
       }
+      // single-year / single-firm -> a compact table of the connected firms.
+      const firms = pol
+        .filter((r) => r.via_company)
+        .sort((a, b) => (b.total_eur ?? 0) - (a.total_eur ?? 0));
+      return {
+        tool: "mpProcurement",
+        domain: "fiscal",
+        kind: "table",
+        title: bg
+          ? `Поръчки към фирми, свързани с ${personName}`
+          : `Procurement to firms tied to ${personName}`,
+        columns: [
+          { key: "contractor", label: bg ? "Изпълнител" : "Contractor" },
+          { key: "amount", label: bg ? "Стойност" : "Value", numeric: true },
+        ],
+        rows: firms.map((r) => ({
+          contractor: r.via_company ?? "—",
+          amount: fmtEurCompact(r.total_eur ?? 0, ctx.lang),
+        })),
+        viz: "none",
+        facts: {
+          [roleKey]: personName,
+          role: pol[0].role,
+          companies: pol.length,
+          total_value: fmtEurCompact(proc.totalEur, ctx.lang),
+        },
+        provenance: ["db:person"],
+      };
     }
-    // named person not found / single year -> fall through to the chamber ranking
+    // named person not connected -> fall through to the chamber ranking.
   }
-  const top = [...d.entries]
-    .sort((a, b) => b.totalEur - a.totalEur)
-    .slice(0, 12);
+
+  // Chamber ranking — top MPs by connected procurement value (curated set).
+  const rk = await fetchDb<{ topMps?: TopMpRow[] }>("procurement-rankings");
+  const top = (rk.topMps ?? []).slice(0, 12);
   const rows: Row[] = top.map((e) => ({
     mp: e.mpName,
-    contractor: e.contractorName,
+    contractor: e.topContractorNames?.[0] ?? "—",
     amount: fmtEurCompact(e.totalEur, ctx.lang),
     contracts: e.contractCount,
   }));
@@ -1519,11 +1460,11 @@ export const mpProcurement = async (
       ? "Поръчки към фирми, свързани с депутати (АОП)"
       : "Procurement to MP-connected companies (AOP)",
     subtitle: bg
-      ? "Договори към фирми, в които заседаващ депутат има дял или ръководна роля"
-      : "Contracts to firms where a sitting MP holds a stake or management role",
+      ? "Депутати с най-голяма стойност на договорите към свързани фирми"
+      : "MPs with the largest contract value to connected firms",
     columns: [
       { key: "mp", label: bg ? "Депутат" : "MP" },
-      { key: "contractor", label: bg ? "Изпълнител" : "Contractor" },
+      { key: "contractor", label: bg ? "Основна фирма" : "Main firm" },
       { key: "amount", label: bg ? "Стойност" : "Value", numeric: true },
       {
         key: "contracts",
@@ -1536,10 +1477,10 @@ export const mpProcurement = async (
     viz: "none",
     facts: {
       top_mp: top[0]?.mpName ?? "—",
-      top_contractor: top[0]?.contractorName ?? "—",
+      top_contractor: top[0]?.topContractorNames?.[0] ?? "—",
       top_value: top[0] ? fmtEurCompact(top[0].totalEur, ctx.lang) : "—",
     },
-    provenance: ["procurement/derived/mp_connected.json"],
+    provenance: ["db:procurement-rankings"],
   };
 };
 
