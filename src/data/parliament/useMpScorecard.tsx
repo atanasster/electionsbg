@@ -5,8 +5,6 @@
 
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import type { ProcurementMpConnectedFile } from "@/data/dataTypes";
-import { dataUrl } from "@/data/dataUrl";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder } from "./nsFolders";
 import { useMpEntryForName } from "@/data/candidates/CandidateMpContext";
@@ -14,43 +12,25 @@ import { useMpLoyalty } from "./votes/useMpLoyalty";
 import { useMpAssets } from "./useMpAssets";
 import { useAssetsRankings } from "./useAssetsRankings";
 
-// Pre-computed scorecard stats embedded in the per-MP procurement shard.
-// Lets the scorecard render rank + cohort context without loading the
-// chamber-wide mp_connected.json (~15 KB gzipped).
-interface ProcurementShard {
-  mpId: number;
-  scorecard: {
-    value: number;
-    rank: number | null;
-    cohortSize: number;
-    cohortMedian: number;
-  };
+// Connected-contracts scorecard metric, served by /api/db/mp-scorecard
+// (mp_scorecard() — the MP's connected-contract total + its rank / cohort size /
+// cohort median across all connected MPs). Replaces the derived/per-mp/ shard +
+// chamber-wide mp_connected.json fetches the tile used to do.
+interface MpScorecardStats {
+  value: number | null;
+  rank: number | null;
+  cohortSize: number;
+  cohortMedian: number | null;
 }
 
-interface ProcurementShardManifest {
-  mpIds: number[];
-  cohort?: { size: number; median: number };
-}
-
-const fetchProcurementShardManifest =
-  async (): Promise<ProcurementShardManifest | null> => {
-    const r = await fetch(dataUrl("/procurement/derived/per-mp/index.json"));
-    if (r.status === 404) return null;
-    if (!r.ok) return null;
-    const ct = r.headers.get("content-type") ?? "";
-    if (!ct.includes("json")) return null;
-    return (await r.json()) as ProcurementShardManifest;
-  };
-
-const fetchProcurementShard = async (
+const fetchMpScorecard = async (
   mpId: number,
-): Promise<ProcurementShard | null> => {
-  const r = await fetch(dataUrl(`/procurement/derived/per-mp/${mpId}.json`));
-  if (r.status === 404) return null;
+): Promise<MpScorecardStats | null> => {
+  const r = await fetch(`/api/db/mp-scorecard?mpId=${mpId}`);
   if (!r.ok) return null;
   const ct = r.headers.get("content-type") ?? "";
   if (!ct.includes("json")) return null;
-  return (await r.json()) as ProcurementShard;
+  return (await r.json()) as MpScorecardStats | null;
 };
 
 export type ScorecardMetric = {
@@ -102,17 +82,6 @@ const medianOf = (sortedDesc: number[]): number | null => {
   return (sortedDesc[n >> 1] + sortedDesc[(n >> 1) - 1]) / 2;
 };
 
-const fetchConnected = async (): Promise<ProcurementMpConnectedFile | null> => {
-  const response = await fetch(
-    dataUrl("/procurement/derived/mp_connected.json"),
-  );
-  if (response.status === 404) return null;
-  if (!response.ok) {
-    throw new Error(`fetch failed: ${response.status} ${response.url}`);
-  }
-  return (await response.json()) as ProcurementMpConnectedFile;
-};
-
 /** Combined scorecard for a single MP, scoped to the selected NS. Returns
  *  `hasAny: false` when none of the metrics have data for this person — the
  *  caller can then skip rendering the tile entirely. */
@@ -151,35 +120,15 @@ export const useMpScorecard = (
   const { rankings: assetsRankings, isLoading: assetsRankingsLoading } =
     useAssetsRankings({ enabled: hasNetWorth && servedInSelectedNs });
 
-  // Fast-path: pre-computed scorecard stats embedded in the per-MP shard
-  // (manifest + shard). When the manifest exists, the chamber-wide
-  // mp_connected.json fetch is skipped entirely.
-  const procManifestQuery = useQuery({
-    queryKey: ["procurement", "shard_manifest"] as const,
-    queryFn: fetchProcurementShardManifest,
+  // Connected-contracts metric — one lightweight /api/db/mp-scorecard call
+  // (value + rank + cohort) instead of the old per-MP shard + chamber-wide
+  // mp_connected.json fetches.
+  const scorecardQuery = useQuery({
+    queryKey: ["procurement", "mp_scorecard", mpId ?? 0] as const,
+    queryFn: () => fetchMpScorecard(mpId!),
+    enabled: mpId != null,
     staleTime: Infinity,
     retry: false,
-  });
-  const procManifestSettled = procManifestQuery.isFetched;
-  const procManifestKnown = procManifestQuery.data != null;
-  const procHasShard =
-    mpId != null && (procManifestQuery.data?.mpIds ?? []).includes(mpId);
-  const procShardQuery = useQuery({
-    queryKey: ["procurement", "mp_connected_shard", mpId ?? 0] as const,
-    queryFn: () => fetchProcurementShard(mpId!),
-    enabled: procHasShard,
-    staleTime: Infinity,
-    retry: false,
-  });
-
-  // Aggregate fallback only fires when the manifest is unavailable (legacy
-  // deploy without shards).
-  const connectedAggregateEnabled = procManifestSettled && !procManifestKnown;
-  const connectedQuery = useQuery({
-    queryKey: ["procurement", "mp_connected"] as const,
-    queryFn: fetchConnected,
-    staleTime: Infinity,
-    enabled: connectedAggregateEnabled,
   });
 
   const scorecard = useMemo<MpScorecard>(() => {
@@ -265,47 +214,16 @@ export const useMpScorecard = (
     };
 
     // --- Connected contracts ---------------------------------------------
-    // Prefer the shard's pre-computed stats — same semantics as the runtime
-    // computation below, just done at ingest time. When the manifest reports
-    // no shard for this MP, the metric is "no connections" (value=null) but
-    // the cohort context (size + median) still comes from the manifest so
-    // the UI can show "0 vs N average".
-    let connectedContracts: ScorecardMetric;
-    if (procShardQuery.data) {
-      const sc = procShardQuery.data.scorecard;
-      connectedContracts = {
-        value: sc.value,
-        rank: sc.rank,
-        cohortSize: sc.cohortSize,
-        median: sc.cohortMedian,
-      };
-    } else if (procManifestKnown && procManifestQuery.data?.cohort) {
-      connectedContracts = {
-        value: null,
-        rank: null,
-        cohortSize: procManifestQuery.data.cohort.size,
-        median: procManifestQuery.data.cohort.median,
-      };
-    } else {
-      // Legacy fallback: chamber-wide aggregate. mp_connected.json carries
-      // one row per (mp × contractor). Roll up to a per-MP total, then rank.
-      const allEntries = connectedQuery.data?.entries ?? [];
-      const totalByMp = new Map<number, number>();
-      for (const e of allEntries) {
-        totalByMp.set(e.mpId, (totalByMp.get(e.mpId) ?? 0) + e.totalEur);
-      }
-      const contractTotalsDesc = Array.from(totalByMp.values()).sort(
-        (a, b) => b - a,
-      );
-      const contractsValue =
-        mpId != null && totalByMp.has(mpId) ? totalByMp.get(mpId)! : null;
-      connectedContracts = {
-        value: contractsValue,
-        rank: rankIn(contractsValue, contractTotalsDesc),
-        cohortSize: contractTotalsDesc.length,
-        median: medianOf(contractTotalsDesc),
-      };
-    }
+    // mp_scorecard() returns the MP's connected-contract total + rank + cohort
+    // over all connected MPs (value=null when the MP has no connections; the
+    // cohort context still shows so the UI can render "0 vs N average").
+    const sc = scorecardQuery.data;
+    const connectedContracts: ScorecardMetric = {
+      value: sc?.value ?? null,
+      rank: sc?.rank ?? null,
+      cohortSize: sc?.cohortSize ?? 0,
+      median: sc?.cohortMedian ?? null,
+    };
 
     const hasAny =
       loyalty.value != null ||
@@ -328,11 +246,7 @@ export const useMpScorecard = (
     assetsRollup,
     assetsRankings,
     ns,
-    connectedQuery.data,
-    procShardQuery.data,
-    procManifestKnown,
-    procManifestQuery.data,
-    mpId,
+    scorecardQuery.data,
   ]);
 
   const isLoading =
@@ -340,9 +254,7 @@ export const useMpScorecard = (
     loyaltyLoading ||
     assetsLoading ||
     assetsRankingsLoading ||
-    (connectedAggregateEnabled && connectedQuery.isLoading) ||
-    (!procManifestSettled && procManifestQuery.isLoading) ||
-    (procHasShard && procShardQuery.isLoading);
+    (mpId != null && scorecardQuery.isLoading);
 
   if (!mpId) {
     return {

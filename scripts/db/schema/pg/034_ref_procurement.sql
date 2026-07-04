@@ -93,3 +93,45 @@ SELECT jsonb_build_object(
   )
 );
 $$;
+
+-- Per-MP procurement scorecard metric for the candidate-page scorecard tile
+-- (useMpScorecard): one MP's connected-contract total + its rank / cohort size /
+-- cohort median among all connected MPs. Replaces the derived/per-mp/ shard +
+-- the chamber-wide mp_connected.json fallback the tile used to fetch. Value =
+-- Σ over the MP's DISTINCT connected contractors (matches the shard semantics,
+-- deduping multi-role links). Full corpus (connections aren't NS-scoped).
+-- Depends on contracts (001) + company_politicians (008). EXECUTE → app_readonly.
+DROP FUNCTION IF EXISTS mp_scorecard(int);
+CREATE OR REPLACE FUNCTION mp_scorecard(p_mp_id int)
+RETURNS jsonb LANGUAGE sql STABLE AS $$
+WITH ctr AS (
+  SELECT contractor_eik AS eik, SUM(amount_eur) AS eur
+  FROM contracts
+  WHERE tag = 'contract' AND contractor_eik IS NOT NULL AND contractor_eik <> ''
+  GROUP BY contractor_eik
+),
+pol AS (
+  SELECT DISTINCT cp.ref, ctr.eik, ctr.eur
+  FROM company_politicians cp
+  JOIN ctr ON ctr.eik = cp.eik
+  WHERE cp.kind = 'mp'
+),
+polagg AS (SELECT ref, SUM(eur) AS total_eur FROM pol GROUP BY ref),
+ranked AS (
+  SELECT ref, total_eur,
+         RANK() OVER (ORDER BY total_eur DESC NULLS LAST) AS rnk
+  FROM polagg
+),
+stats AS (
+  SELECT COUNT(*)::int AS cohort_size,
+         percentile_cont(0.5) WITHIN GROUP (ORDER BY total_eur) AS median
+  FROM polagg
+),
+me AS (SELECT total_eur, rnk FROM ranked WHERE ref = '/candidate/mp-' || p_mp_id)
+SELECT jsonb_build_object(
+  'value', (SELECT ROUND(total_eur::numeric, 2) FROM me),
+  'rank', (SELECT rnk FROM me),
+  'cohortSize', (SELECT cohort_size FROM stats),
+  'cohortMedian', (SELECT ROUND(median::numeric, 2) FROM stats)
+);
+$$;

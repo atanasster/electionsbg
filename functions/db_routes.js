@@ -634,6 +634,15 @@ const DB_ROUTES = {
     const rows = await dbRows("SELECT ref_procurement($1) AS r", [ref]);
     return { body: rows[0]?.r ?? null };
   },
+  // One MP's connected-contract scorecard metric (value + rank + cohort) for the
+  // candidate-page scorecard tile — replaces the derived/per-mp/ shard fetch.
+  "mp-scorecard": async (dbRows, q) => {
+    const mpId = parseInt(s(q, "mpId"), 10);
+    if (!Number.isFinite(mpId))
+      return { status: 400, body: { error: "missing mpId" } };
+    const rows = await dbRows("SELECT mp_scorecard($1) AS r", [mpId]);
+    return { body: rows[0]?.r ?? null };
+  },
   // The MPs / officials declared as officers/owners of one contractor — the
   // "connected people" chips on contract/company pages. `relations` is the
   // full jsonb from the connections pipeline (kind/isCurrent/shareSize/
