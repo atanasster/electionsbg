@@ -1238,9 +1238,13 @@ export const procurementSingleBidSectors = async (
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
-  const f = await fetchData<CpvCompetitionFile>(
-    "/procurement/derived/cpv_competition.json",
+  // cpvCompetition from procurement_risk_indexes — the same per-CPV single-bid
+  // baseline the /procurement risk scorer uses (suppressed-set identical; the
+  // displayed counts track the live risk-indexes snapshot).
+  const ri = await fetchDb<{ cpvCompetition: CpvCompetitionFile }>(
+    "procurement-risk-indexes",
   );
+  const f = ri.cpvCompetition;
   const threshold = f.structuralSingleBidShare;
   const thresholdPct = Math.round(threshold * 100);
   const suppressed = f.divisions
@@ -1277,7 +1281,7 @@ export const procurementSingleBidSectors = async (
       suppressed_divisions: suppressed.length,
       total_divisions: f.divisions.length,
     },
-    provenance: ["procurement/derived/cpv_competition.json"],
+    provenance: ["db:procurement-risk-indexes"],
   };
 };
 
