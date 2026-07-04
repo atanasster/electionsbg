@@ -133,12 +133,26 @@ assertion fails):
 | procurementSingleBidSectors | cpv_competition.json | procurement-risk-indexes | suppressed-set identical |
 | procurementTotals | index.json | procurement-overview | **MP-connected de-duped 1.16bn→981M** (dashboard-consistent) |
 
-**Remaining 3 (resolution-redesign, not clean repoints):** `contractSearch` +
-`awarderProcurement` do client-side fuzzy name→eik over the full JSON lists —
-moving to PG `pg_trgm` changes which entity resolves (functional change, needs a
-search route + harness re-baseline). `mpProcurement` (mp_connected/pep_connected)
-needs per-person resolution redesign against the curated PG set. A JSON file can
-be retired only once ALL its readers (src/ + ai/ + pipeline) are on PG.
+**Remaining 3 (blocked on PG route enhancements — would REGRESS if migrated now):**
+- `contractSearch` — name→eik resolves cleanly via `procurement-search` (trgm, covers
+  all ~26k contractors, replacing both `top_contractors` + `contractors_search`
+  lookups). BUT the contracts table needs per-contract `numberOfTenderers` (bid
+  count) + accurate single-bid/year filtering over ALL of a contractor's contracts;
+  `company_procurement.topContracts` gives only top-25-by-value and **omits
+  `numberOfTenderers`**. Migrating now would drop the bid column + single-bid stat.
+  → needs `topContracts` (011) enriched with `numberOfTenderers`, or a
+  contractor-scoped contracts+bids route, before the tool can match today's output.
+- `awarderProcurement` — same fuzzy-resolution shape (awarder name→eik) + likely
+  the same per-contract enrichment gap.
+- `mpProcurement` (mp_connected/pep_connected) — per-person resolution redesign
+  against the curated PG set (name→person→by-year connected procurement); maps to
+  `/api/db/person?name=` but changes matching semantics + the curated-set totals.
+
+These touch the live company/awarder pages (011/023) or change matching behavior,
+so they are a distinct follow-on, not a clean repoint. A JSON file is retired only
+once ALL readers (src/ + ai/ + pipeline) are on PG — so `top_contractors`,
+`contractors_search`, `awarders_index`, `mp_connected`, `pep_connected` stay until
+these 3 land.
 
 ## 2. Three independent workstreams
 
