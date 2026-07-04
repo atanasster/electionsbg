@@ -193,9 +193,15 @@ export const procurementByOblast = async (
     : oblastName(ob.code)[ctx.lang];
   const province = oblastToProvince(ob.code, ob.name.bg);
 
-  const idx = await tryFetch<BySettlementIndex>(
-    "/procurement/by_settlement/index.json",
-  );
+  // procurement_by_settlement — same per-settlement index the /procurement
+  // by-settlement choropleths aggregate (province/totalEur/contractCount/
+  // awarderCount per settlement); euro-rounded, canonical names.
+  let idx: BySettlementIndex | null = null;
+  try {
+    idx = await fetchDb<BySettlementIndex>("procurement-by-settlement");
+  } catch {
+    idx = null;
+  }
   const rows = (idx?.settlements ?? []).filter((s) => s.province === province);
   if (rows.length === 0) {
     return {
@@ -207,7 +213,7 @@ export const procurementByOblast = async (
         : `No local procurement in ${label}`,
       viz: "none",
       facts: { oblast: label },
-      provenance: ["procurement/by_settlement/index.json"],
+      provenance: ["db:procurement-by-settlement"],
     };
   }
 
@@ -270,7 +276,7 @@ export const procurementByOblast = async (
       settlements: fmtInt(rows.length, ctx.lang),
       top_settlement: top[0]?.name ?? "—",
     },
-    provenance: ["procurement/by_settlement/index.json", "regional.json"],
+    provenance: ["db:procurement-by-settlement", "regional.json"],
   };
 };
 
