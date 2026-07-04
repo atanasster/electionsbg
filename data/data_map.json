@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-03T20:36:44.109Z",
+  "generatedAt": "2026-07-04T11:23:50.156Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -63,7 +63,7 @@
       "url": "https://www.parliament.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-03T06:08:35.143Z",
+      "freshness": "2026-07-04T06:09:29.998Z",
       "skills": [
         "update-rollcall",
         "parliament-scrape"
@@ -74,7 +74,7 @@
           "label": "Parliament roll-call votes",
           "url": "https://www.parliament.bg/api/v1/pl-sten/{id}",
           "cadence": "daily",
-          "freshness": "2026-07-03T06:08:35.143Z"
+          "freshness": "2026-07-04T06:09:29.998Z"
         },
         {
           "id": "parliament_mps",
@@ -110,7 +110,7 @@
       "url": "https://dv.parliament.bg/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-06-27T06:09:04.565Z",
+      "freshness": "2026-07-04T06:09:29.998Z",
       "skills": [
         "update-budget"
       ],
@@ -127,7 +127,7 @@
           "label": "ДВ — Инвестиционна програма за общински проекти (Приложение III)",
           "url": "https://dv.parliament.bg/",
           "cadence": "weekly",
-          "freshness": "2026-06-27T06:09:04.565Z"
+          "freshness": "2026-07-04T06:09:29.998Z"
         }
       ],
       "x": 28,
@@ -230,7 +230,7 @@
       "url": "https://data.egov.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-03T06:08:35.143Z",
+      "freshness": "2026-07-04T06:09:29.998Z",
       "skills": [
         "update-procurement",
         "update-connections",
@@ -251,7 +251,7 @@
           "label": "data.egov.bg Commerce Registry (Търговски регистър)",
           "url": "https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=1",
           "cadence": "daily",
-          "freshness": "2026-07-03T06:08:35.143Z"
+          "freshness": "2026-07-04T06:09:29.998Z"
         },
         {
           "id": "egov_budget_execution",
@@ -315,7 +315,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-03T06:08:35.143Z",
+      "freshness": "2026-07-04T06:09:29.998Z",
       "skills": [
         "update-procurement"
       ],
@@ -325,7 +325,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-07-03T06:08:35.143Z"
+          "freshness": "2026-07-04T06:09:29.998Z"
         }
       ],
       "x": 28,
@@ -440,12 +440,14 @@
       "url": "https://ec.europa.eu/budget/financial-transparency-system/",
       "origin": "eu",
       "cadence": "weekly",
+      "freshness": "2026-07-04T06:09:29.998Z",
       "sources": [
         {
           "id": "ec_fts",
           "label": "EC Financial Transparency System (EU direct funds to BG NGOs)",
           "url": "https://ec.europa.eu/budget/financial-transparency-system/help.html",
-          "cadence": "weekly"
+          "cadence": "weekly",
+          "freshness": "2026-07-04T06:09:29.998Z"
         }
       ],
       "x": 28,
@@ -475,7 +477,7 @@
       "url": "https://www.minfin.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-30T06:08:57.757Z",
+      "freshness": "2026-07-04T06:09:29.998Z",
       "skills": [
         "update-budget",
         "update-noi",
@@ -523,7 +525,7 @@
           "label": "НАП — Годишен отчет за дейността",
           "url": "https://nra.bg/wps/portal/nra/za-nap/osnovni-dokumenti/Godishni-otcheti-za-deynostta-na-NAP",
           "cadence": "weekly",
-          "freshness": "2026-06-20T15:15:28.307Z"
+          "freshness": "2026-07-04T06:09:29.998Z"
         },
         {
           "id": "nssi_b1",
@@ -588,7 +590,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-03T06:08:35.143Z",
+      "freshness": "2026-07-04T06:09:29.998Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -600,7 +602,7 @@
           "label": "Общински капиталови програми (per-municipality capital lists)",
           "url": "https://www.sofia.bg/",
           "cadence": "weekly",
-          "freshness": "2026-06-27T06:09:04.565Z"
+          "freshness": "2026-07-04T06:09:29.998Z"
         },
         {
           "id": "council_minutes",
@@ -1096,7 +1098,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-03T06:08:35.143Z",
+      "freshness": "2026-07-04T06:09:29.998Z",
       "skills": [
         "update-prices"
       ],
@@ -1106,7 +1108,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-07-03T06:08:35.143Z"
+          "freshness": "2026-07-04T06:09:29.998Z"
         }
       ],
       "x": 28,
