@@ -78,89 +78,85 @@ export const readIdentity = async (): Promise<Omit<Lockfile, "snapshot">> => {
   };
 };
 
-// The local Docker container serves 127.0.0.1/localhost:5433 — dump it via
-// `docker exec` (its client tools match the server version).
-const isLocalContainerTarget = (): boolean => {
+const redactUrl = (url: string): string => url.replace(/\/\/[^@]*@/, "//");
+const DOCKER_HOST = "host.docker.internal";
+
+interface Target {
+  local: boolean; // the local docker container (127.0.0.1/localhost:5433)
+  hostname: string;
+  port: string;
+  user: string;
+  db: string;
+}
+
+// Parse a connection URL into a dump/restore target. The local docker container
+// serves 127.0.0.1/localhost:5433 — dump/restore it via `docker exec` (its
+// client tools match the server version). Anything else (the Cloud SQL proxy on
+// 5434) is a remote target.
+const parseTarget = (url: string): Target => {
   try {
-    const u = new URL(DATABASE_URL);
-    return (
-      (u.hostname === "127.0.0.1" || u.hostname === "localhost") &&
-      (u.port === "5433" || u.port === "")
-    );
+    const u = new URL(url);
+    const port = u.port || "5432";
+    return {
+      local:
+        (u.hostname === "127.0.0.1" || u.hostname === "localhost") &&
+        (u.port === "5433" || u.port === ""),
+      hostname: u.hostname,
+      port,
+      user: decodeURIComponent(u.username) || "postgres",
+      db: u.pathname.replace(/^\//, "") || PG_DB,
+    };
   } catch {
-    return true;
+    return { local: true, hostname: "", port: "", user: "postgres", db: PG_DB };
   }
 };
 
-const redactUrl = (url: string): string => url.replace(/\/\/[^@]*@/, "//");
-
-// A remote target (the Cloud SQL proxy on 5434) is dumped through the LOCAL
-// postgres:16 container's pg_dump — the host pg_dump is often older than the
-// server (14 vs 16) and would refuse. The container reaches the host-side proxy
-// via host.docker.internal; auth comes from a PGPASSFILE (never a plaintext
-// password): we copy the repo .pgpass into the container with its host field
-// rewritten to host.docker.internal so the line still matches. The password
-// field is untouched and never printed.
-const pgDumpRemoteViaContainer = (file: string, out: number): void => {
+// Run `fn` with a PGPASSFILE copied INTO the local postgres:16 container, its
+// host field rewritten to host.docker.internal so the line still matches when
+// the container dials the host-side proxy. The password field is untouched and
+// never read into a variable or printed — auth stays file→file via PGPASSFILE.
+// Used for remote dump/restore: the host pg client is often older than the Cloud
+// SQL server (14 vs 16) and would refuse, but the container's client matches.
+const withContainerPgpass = <T>(
+  t: Target,
+  hostTmpDir: string,
+  fn: (inContainerPgpass: string) => T,
+): T => {
   const src = process.env.PGPASSFILE;
   if (!src || !fs.existsSync(src))
     throw new Error(
-      "cloud pg_dump needs PGPASSFILE (a .pgpass with the proxy line); none set",
+      "remote pg needs PGPASSFILE (a .pgpass with the proxy line); none set",
     );
-  const u = new URL(DATABASE_URL);
-  const port = u.port || "5432";
-  const user = decodeURIComponent(u.username) || "postgres";
-  const db = u.pathname.replace(/^\//, "") || PG_DB;
-  const dockerHost = "host.docker.internal";
-  // Rewrite the host field of the matching line so it still matches when the
-  // container connects to `dockerHost` instead of 127.0.0.1. Password untouched.
   const rewritten = fs
     .readFileSync(src, "utf8")
     .replace(
-      new RegExp(`^${u.hostname.replace(/\./g, "\\.")}:${port}:`, "gm"),
-      `${dockerHost}:${port}:`,
+      new RegExp(`^${t.hostname.replace(/\./g, "\\.")}:${t.port}:`, "gm"),
+      `${DOCKER_HOST}:${t.port}:`,
     );
-  const hostTmp = `${file}.pgpass.tmp`;
+  const hostTmp = path.join(hostTmpDir, `.ndp_pgpass_${process.pid}`);
   const inTmp = `/tmp/ndp_pgpass_${process.pid}`;
   fs.writeFileSync(hostTmp, rewritten, { mode: 0o600 });
   try {
     if (spawnSync("docker", ["cp", hostTmp, `${PG_CONTAINER}:${inTmp}`]).status)
       throw new Error(`docker cp .pgpass → ${PG_CONTAINER} failed`);
     spawnSync("docker", ["exec", PG_CONTAINER, "chmod", "600", inTmp]);
-    const r = spawnSync(
-      "docker",
-      [
-        "exec",
-        "-e",
-        `PGPASSFILE=${inTmp}`,
-        PG_CONTAINER,
-        "pg_dump",
-        "-h",
-        dockerHost,
-        "-p",
-        port,
-        "-U",
-        user,
-        "-Fc",
-        db,
-      ],
-      { stdio: ["ignore", out, "inherit"], maxBuffer: 1 << 30 },
-    );
-    if (r.status !== 0)
-      throw new Error(
-        `pg_dump (via ${PG_CONTAINER}) failed (status ${r.status}) — is the container up and the proxy listening on ${redactUrl(DATABASE_URL)}?`,
-      );
+    return fn(inTmp);
   } finally {
     spawnSync("docker", ["exec", PG_CONTAINER, "rm", "-f", inTmp]);
     fs.rmSync(hostTmp, { force: true });
   }
 };
 
-/** pg_dump the whole DB (custom, compressed, restorable) to `file`. */
-export const pgDump = (file: string): void => {
+/**
+ * pg_dump the whole DB (custom, compressed, restorable) to `file`. `url`
+ * defaults to DATABASE_URL; pass an explicit url to dump a specific target (e.g.
+ * the local container while restoring elsewhere — see db:sync:cloud).
+ */
+export const pgDump = (file: string, url: string = DATABASE_URL): void => {
+  const t = parseTarget(url);
   const out = fs.openSync(file, "w");
   try {
-    if (isLocalContainerTarget()) {
+    if (t.local) {
       const r = spawnSync(
         "docker",
         ["exec", PG_CONTAINER, "pg_dump", "-U", "postgres", "-Fc", PG_DB],
@@ -171,41 +167,78 @@ export const pgDump = (file: string): void => {
           `pg_dump failed (status ${r.status}) — is the container up?`,
         );
     } else {
-      pgDumpRemoteViaContainer(file, out);
+      withContainerPgpass(t, path.dirname(file), (pgpass) => {
+        const r = spawnSync(
+          "docker",
+          [
+            "exec",
+            "-e",
+            `PGPASSFILE=${pgpass}`,
+            PG_CONTAINER,
+            "pg_dump",
+            "-h",
+            DOCKER_HOST,
+            "-p",
+            t.port,
+            "-U",
+            t.user,
+            "-Fc",
+            t.db,
+          ],
+          { stdio: ["ignore", out, "inherit"], maxBuffer: 1 << 30 },
+        );
+        if (r.status !== 0)
+          throw new Error(
+            `pg_dump (via ${PG_CONTAINER}) failed (status ${r.status}) — is the container up and the proxy listening on ${redactUrl(url)}?`,
+          );
+      });
     }
   } finally {
     fs.closeSync(out);
   }
 };
 
-/** pg_restore `file` into the DB (drops + recreates objects). */
-export const pgRestore = (file: string): void => {
-  const r = spawnSync(
-    "docker",
-    [
-      "exec",
-      "-i",
-      PG_CONTAINER,
-      "pg_restore",
-      "-U",
-      "postgres",
-      "-d",
-      PG_DB,
-      "--clean",
-      "--if-exists",
-      "--no-owner",
-    ],
-    {
-      input: fs.readFileSync(file),
-      stdio: ["pipe", "inherit", "inherit"],
-      maxBuffer: 1 << 30,
-    },
-  );
+/**
+ * pg_restore `file` into the DB (drops + recreates objects). `url` defaults to
+ * DATABASE_URL; pass an explicit url to restore into a specific target (e.g.
+ * Cloud SQL — see db:sync:cloud / db:restore:cloud). A remote restore is
+ * DESTRUCTIVE: --clean drops + recreates every object in the target.
+ */
+export const pgRestore = (file: string, url: string = DATABASE_URL): void => {
+  const t = parseTarget(url);
+  const input = fs.readFileSync(file);
+  const run = (extraArgs: string[]): number | null => {
+    const r = spawnSync(
+      "docker",
+      [
+        "exec",
+        "-i",
+        ...extraArgs,
+        PG_CONTAINER,
+        "pg_restore",
+        "-U",
+        t.user,
+        "-d",
+        t.db,
+        "--clean",
+        "--if-exists",
+        "--no-owner",
+        ...(t.local ? [] : ["-h", DOCKER_HOST, "-p", t.port]),
+      ],
+      { input, stdio: ["pipe", "inherit", "inherit"], maxBuffer: 1 << 30 },
+    );
+    return r.status;
+  };
   // pg_restore exits non-zero on ignorable "does not exist" notices under
   // --clean; surface real failures via the post-restore identity check instead.
-  if (r.status !== 0)
+  const status = t.local
+    ? run([])
+    : withContainerPgpass(t, path.dirname(file), (pgpass) =>
+        run(["-e", `PGPASSFILE=${pgpass}`]),
+      );
+  if (status !== 0)
     console.warn(
-      `  pg_restore exited ${r.status} (often benign --clean notices)`,
+      `  pg_restore exited ${status} (often benign --clean notices)`,
     );
 };
 
