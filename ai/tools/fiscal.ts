@@ -1550,13 +1550,6 @@ export const mpProcurement = async (
 // the only place a buyer can be found BY NAME, and the surface for the ~900
 // small schools the ЦАИС ЕОП gap-fill adds. Accepts an EIK directly too.
 
-type AwarderIndexRow = {
-  eik: string;
-  name: string;
-  totalEur: number;
-  contractCount: number;
-  tier?: string;
-};
 type AwarderRollup = {
   eik: string;
   name: string;
@@ -1630,42 +1623,40 @@ export const awarderProcurement = async (
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
   const raw = String(args.org ?? args.place ?? "").trim();
-  const idx = await fetchData<{ awarders: AwarderIndexRow[] }>(
-    "/procurement/derived/awarders_index.json",
-  );
-
-  // Direct EIK (9–13 digits) wins over name resolution.
+  // Resolve (eik, name): a bare EIK wins; otherwise trgm-search the awarder
+  // corpus — procurement_search returns awarders alongside contractors.
   const eikInRaw = raw.match(/\b\d{9,13}\b/)?.[0];
-  let hit: AwarderIndexRow | undefined = eikInRaw
-    ? idx.awarders.find((a) => a.eik === eikInRaw)
-    : undefined;
-  if (!hit) {
-    const q = cleanAwarderQuery(raw);
-    const m = fuzzyBestMatch<AwarderIndexRow>(
-      q,
-      () => idx.awarders.map((a) => ({ item: a, keys: [a.name] })),
-      { cacheKey: "procAwarders", threshold: 0.45, minLen: 3 },
+  let eik: string | undefined = eikInRaw;
+  let name: string | undefined;
+  if (!eik) {
+    const sr = await fetchDb<{ awarders: { eik: string; name: string }[] }>(
+      "procurement-search",
+      { q: cleanAwarderQuery(raw), limit: 1 },
     );
-    hit = m?.item;
+    const hit = sr.awarders?.[0];
+    if (hit) {
+      eik = hit.eik;
+      name = hit.name;
+    }
   }
 
-  if (!hit) {
-    return {
-      tool: "awarderProcurement",
-      domain: "fiscal",
-      kind: "scalar",
-      title: bg
-        ? "Не открих такъв възложител в данните за поръчки"
-        : "No such procurement buyer found",
-      viz: "none",
-      facts: { query: raw },
-      provenance: ["procurement/derived/awarders_index.json"],
-    };
-  }
+  const notFound = (): Envelope => ({
+    tool: "awarderProcurement",
+    domain: "fiscal",
+    kind: "scalar",
+    title: bg
+      ? "Не открих такъв възложител в данните за поръчки"
+      : "No such procurement buyer found",
+    viz: "none",
+    facts: { query: raw },
+    provenance: ["db:procurement-search"],
+  });
 
-  const a = await fetchData<AwarderRollup>(
-    `/procurement/awarders/${hit.eik}.json`,
-  );
+  if (!eik) return notFound();
+
+  const a = await fetchDb<AwarderRollup>("awarder-procurement", { eik });
+  if (!a) return notFound();
+  name = name ?? a.name;
   const suppliers = [...(a.byContractor ?? [])]
     .sort((x, y) => y.totalEur - x.totalEur)
     .slice(0, 8);
@@ -1682,9 +1673,7 @@ export const awarderProcurement = async (
     tool: "awarderProcurement",
     domain: "fiscal",
     kind: "table",
-    title: bg
-      ? `Обществени поръчки — ${a.name}`
-      : `Public procurement — ${a.name}`,
+    title: bg ? `Обществени поръчки — ${name}` : `Public procurement — ${name}`,
     subtitle: bg
       ? "Като възложител: най-големи изпълнители (АОП / ЦАИС ЕОП)"
       : "As a buyer: largest suppliers (AOP / CAIS EOP)",
@@ -1695,18 +1684,15 @@ export const awarderProcurement = async (
     rows,
     viz: "none",
     facts: {
-      buyer: a.name,
-      eik: a.eik,
+      buyer: name,
+      eik,
       total_value: fmtEurCompact(a.totalEur, ctx.lang),
       contracts: fmtInt(a.contractCount, ctx.lang),
       suppliers: (a.byContractor ?? []).length,
       years: span,
       top_supplier: suppliers[0]?.name ?? "—",
     },
-    provenance: [
-      "procurement/derived/awarders_index.json",
-      `procurement/awarders/${hit.eik}.json`,
-    ],
+    provenance: ["db:procurement-search", "db:awarder-procurement"],
   };
 };
 

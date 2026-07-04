@@ -447,6 +447,31 @@ const DB_ROUTES = {
     );
     return { body: { eik, contracts } };
   },
+  // Lightweight awarder rollup (as a BUYER): top suppliers (byContractor),
+  // by-year series + headline totals — the same awarder_procurement() the
+  // /awarder page's company payload embeds, plus the awarder's own name (the
+  // function omits it) from awarder_search. Window-scoped [from, to) or full.
+  "awarder-procurement": async (dbRows, q) => {
+    const eik = s(q, "eik");
+    if (!eik) return { status: 400, body: { error: "missing eik" } };
+    const [roll, named] = await Promise.all([
+      dbRows("SELECT awarder_procurement($1, $2, $3) AS r", [
+        eik,
+        orNull(q, "from"),
+        orNull(q, "to"),
+      ]),
+      // Canonical display name = the modal awarder_name across this eik's
+      // contracts (awarder_search carries several spellings per eik).
+      dbRows(
+        `SELECT awarder_name AS name FROM contracts WHERE awarder_eik = $1
+         GROUP BY awarder_name ORDER BY count(*) DESC, length(awarder_name) LIMIT 1`,
+        [eik],
+      ),
+    ]);
+    const r = roll[0]?.r ?? null;
+    if (r && named[0]?.name) r.name = named[0].name;
+    return { body: r };
+  },
   // Full grouped counterparty list for one entity — every awarder that paid a
   // company (side=contractor) or every contractor a state buyer paid
   // (side=awarder), with the MP-tie badge inline.
