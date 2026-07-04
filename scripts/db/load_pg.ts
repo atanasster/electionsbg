@@ -341,6 +341,12 @@ export const loadPg = async (): Promise<{
   await exec("REFRESH MATERIALIZED VIEW awarder_totals");
   await exec("REFRESH MATERIALIZED VIEW sector_contractor_stats");
   await exec("REFRESH MATERIALIZED VIEW procurement_risk_indexes_cache");
+  // Full-corpus (all-years) caches for the overview / rankings / by-settlement
+  // payloads — too slow (~330-530ms) to compute per request; the routes serve
+  // these when from/to are both absent (025/031/030).
+  await exec("REFRESH MATERIALIZED VIEW procurement_overview_cache");
+  await exec("REFRESH MATERIALIZED VIEW procurement_rankings_cache");
+  await exec("REFRESH MATERIALIZED VIEW procurement_by_settlement_cache");
   // The awarder K-Index ranking (built by migration 039 in load_tr_pg) is
   // computed FROM this contract corpus, so it must track a contract reload too —
   // otherwise a procurement-only re-ingest leaves the ranking (and the AI

@@ -338,9 +338,23 @@ const DB_ROUTES = {
   },
   // By-place: local-tier settlements + national card, window-scoped or full corpus.
   "procurement-by-settlement": async (dbRows, q) => {
+    const from = orNull(q, "from");
+    const to = orNull(q, "to");
+    // Full-corpus scope → cache matview (030); the live aggregate is ~388ms.
+    if (!from && !to) {
+      try {
+        const c = await dbRows(
+          "SELECT r FROM procurement_by_settlement_cache",
+          [],
+        );
+        if (c[0]?.r) return { body: c[0].r };
+      } catch {
+        // matview absent — fall through to the live computation
+      }
+    }
     const rows = await dbRows("SELECT procurement_by_settlement($1, $2) AS r", [
-      orNull(q, "from"),
-      orNull(q, "to"),
+      from,
+      to,
     ]);
     return { body: rows[0]?.r ?? null };
   },
@@ -373,9 +387,21 @@ const DB_ROUTES = {
   // Procurement dashboard overview — totals + treemaps + connected-people lists,
   // scoped to a parliament window [from, to) or the full corpus (both NULL).
   "procurement-overview": async (dbRows, q) => {
+    const from = orNull(q, "from");
+    const to = orNull(q, "to");
+    // Full-corpus (all-years) scope → the load-time cache matview (025); the
+    // live aggregate is ~334ms. Windowed scopes fall through to the function.
+    if (!from && !to) {
+      try {
+        const c = await dbRows("SELECT r FROM procurement_overview_cache", []);
+        if (c[0]?.r) return { body: c[0].r };
+      } catch {
+        // matview absent — fall through to the live computation
+      }
+    }
     const rows = await dbRows("SELECT procurement_overview($1, $2) AS r", [
-      orNull(q, "from"),
-      orNull(q, "to"),
+      from,
+      to,
     ]);
     return { body: rows[0]?.r ?? null };
   },
@@ -401,9 +427,21 @@ const DB_ROUTES = {
   // window-scoped [from, to) or full corpus — the big-list sibling of
   // procurement-overview.
   "procurement-rankings": async (dbRows, q) => {
+    const from = orNull(q, "from");
+    const to = orNull(q, "to");
+    // Full-corpus scope (all-years + the AI fiscal tools) → cache matview (031);
+    // the live aggregate is ~530ms.
+    if (!from && !to) {
+      try {
+        const c = await dbRows("SELECT r FROM procurement_rankings_cache", []);
+        if (c[0]?.r) return { body: c[0].r };
+      } catch {
+        // matview absent — fall through to the live computation
+      }
+    }
     const rows = await dbRows("SELECT procurement_rankings($1, $2) AS r", [
-      orNull(q, "from"),
-      orNull(q, "to"),
+      from,
+      to,
     ]);
     return { body: rows[0]?.r ?? null };
   },

@@ -125,3 +125,9 @@ SELECT jsonb_build_object(
   )
 );
 $$;
+
+-- Full-corpus rankings cache (all-years scope + the AI fiscal tools). The
+-- NULL/NULL aggregate is ~530ms live; served from this matview, refreshed by
+-- load_pg. Windowed calls fall through to the live function.
+CREATE MATERIALIZED VIEW IF NOT EXISTS procurement_rankings_cache AS
+  SELECT procurement_rankings(NULL, NULL) AS r;

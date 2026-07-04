@@ -141,3 +141,8 @@ SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM seats) THEN NULL ELSE jsonb_build_obj
   'byYear', (SELECT arr FROM byyr)
 ) END;
 $$;
+
+-- Full-corpus by-settlement cache (~388ms live). Served from this matview for
+-- the NULL/NULL scope; refreshed by load_pg.
+CREATE MATERIALIZED VIEW IF NOT EXISTS procurement_by_settlement_cache AS
+  SELECT procurement_by_settlement(NULL, NULL) AS r;

@@ -138,3 +138,11 @@ SELECT jsonb_build_object(
   )
 ) FROM hd;
 $$;
+
+-- Full-corpus (all-years) overview cache. The windowed call is fast (small
+-- slice), but the NULL/NULL full-corpus aggregate is ~334ms — too slow per
+-- request on Cloud SQL. The route serves this matview when from/to are both
+-- absent; load_pg refreshes it after each load. Same pattern as
+-- procurement_risk_indexes_cache (033).
+CREATE MATERIALIZED VIEW IF NOT EXISTS procurement_overview_cache AS
+  SELECT procurement_overview(NULL, NULL) AS r;
