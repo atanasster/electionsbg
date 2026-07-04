@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-07-03T11:14:12.314Z",
-  "total": 13,
+  "generatedAt": "2026-07-04T10:56:13.962Z",
+  "total": 22,
   "rows": [
     {
       "kind": "official",
@@ -21,6 +21,22 @@
       "totalEur": 743583.8,
       "contractorCount": 1,
       "contractCount": 2
+    },
+    {
+      "kind": "mp",
+      "mpId": 4745,
+      "name": "Ваня Иванова Василева",
+      "totalEur": 648397.12,
+      "contractorCount": 1,
+      "contractCount": 3
+    },
+    {
+      "kind": "mp",
+      "mpId": 1043,
+      "name": "Иван Дечков Колев",
+      "totalEur": 580140,
+      "contractorCount": 1,
+      "contractCount": 5
     },
     {
       "kind": "mp",
@@ -48,6 +64,30 @@
     },
     {
       "kind": "mp",
+      "mpId": 745,
+      "name": "Иван Павлов Павлов",
+      "totalEur": 414159,
+      "contractorCount": 1,
+      "contractCount": 3
+    },
+    {
+      "kind": "mp",
+      "mpId": 3427,
+      "name": "Петко Ангелов Кущирев",
+      "totalEur": 373157.86,
+      "contractorCount": 1,
+      "contractCount": 2
+    },
+    {
+      "kind": "mp",
+      "mpId": 5202,
+      "name": "Джипо Николов Джипов",
+      "totalEur": 144003.5,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "mp",
       "mpId": 2822,
       "name": "Любомир Бойков Бонев",
       "totalEur": 143900,
@@ -67,8 +107,24 @@
     {
       "kind": "mp",
       "mpId": 2946,
-      "name": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
+      "name": "Елена Стефанова Пешева",
       "totalEur": 93382,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "mp",
+      "mpId": 854,
+      "name": "Стоян Иванов Иванов",
+      "totalEur": 93382,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "mp",
+      "mpId": 185,
+      "name": "Стоян Проданов Иванов",
+      "totalEur": 90821.52,
       "contractorCount": 1,
       "contractCount": 1
     },
@@ -101,6 +157,14 @@
       "contractCount": 1
     },
     {
+      "kind": "mp",
+      "mpId": 4663,
+      "name": "Александър Атанасов Александров",
+      "totalEur": 51124,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
       "kind": "official",
       "slug": "borislav-krstev-inchev-55f44e",
       "name": "Борислав Кръстев Инчев",
@@ -117,6 +181,14 @@
       "tier": "municipal",
       "role": "mayor",
       "totalEur": 18250,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "mp",
+      "mpId": 5113,
+      "name": "Георги Иванов Георгиев",
+      "totalEur": 17040,
       "contractorCount": 1,
       "contractCount": 1
     }

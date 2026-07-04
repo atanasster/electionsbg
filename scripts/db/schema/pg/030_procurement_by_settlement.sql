@@ -12,6 +12,8 @@
 SET check_function_bodies = off;
 
 -- Landing index: every settlement with ≥1 local-tier contract + the national card.
+-- Drop the dependent cache matview first (re-apply path); recreated at tail. See 033.
+DROP MATERIALIZED VIEW IF EXISTS procurement_by_settlement_cache;
 DROP FUNCTION IF EXISTS procurement_by_settlement(text, text);
 CREATE OR REPLACE FUNCTION procurement_by_settlement(
   p_from text DEFAULT NULL,

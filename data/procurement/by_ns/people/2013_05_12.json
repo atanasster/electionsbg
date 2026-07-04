@@ -1,7 +1,23 @@
 {
-  "generatedAt": "2026-07-03T11:14:12.393Z",
-  "total": 39,
+  "generatedAt": "2026-07-04T10:56:14.097Z",
+  "total": 68,
   "rows": [
+    {
+      "kind": "mp",
+      "mpId": 1043,
+      "name": "Иван Дечков Колев",
+      "totalEur": 11553302.48,
+      "contractorCount": 1,
+      "contractCount": 25
+    },
+    {
+      "kind": "mp",
+      "mpId": 1689,
+      "name": "Андон Петров Андонов",
+      "totalEur": 7786003.9,
+      "contractorCount": 1,
+      "contractCount": 2
+    },
     {
       "kind": "mp",
       "mpId": 3693,
@@ -12,11 +28,51 @@
     },
     {
       "kind": "mp",
+      "mpId": 185,
+      "name": "Стоян Проданов Иванов",
+      "totalEur": 5718794.55,
+      "contractorCount": 1,
+      "contractCount": 14
+    },
+    {
+      "kind": "mp",
+      "mpId": 2924,
+      "name": "Мартин Владимиров Тинчев",
+      "totalEur": 3653732.69,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "mp",
+      "mpId": 5268,
+      "name": "Румен Ангелов Миланов",
+      "totalEur": 3646192.72,
+      "contractorCount": 1,
+      "contractCount": 4
+    },
+    {
+      "kind": "mp",
       "mpId": 3410,
       "name": "Георги  Стоянов Кадиев",
       "totalEur": 2422882.3,
       "contractorCount": 1,
       "contractCount": 4
+    },
+    {
+      "kind": "mp",
+      "mpId": 4719,
+      "name": "Петър Георгиев Кънев",
+      "totalEur": 2384624.43,
+      "contractorCount": 1,
+      "contractCount": 6
+    },
+    {
+      "kind": "mp",
+      "mpId": 3016,
+      "name": "Борис Цветков Цветков",
+      "totalEur": 2125158.12,
+      "contractorCount": 1,
+      "contractCount": 3
     },
     {
       "kind": "official",
@@ -43,6 +99,14 @@
       "totalEur": 1735476.81,
       "contractorCount": 1,
       "contractCount": 9
+    },
+    {
+      "kind": "mp",
+      "mpId": 4745,
+      "name": "Ваня Иванова Василева",
+      "totalEur": 1340812.1,
+      "contractorCount": 1,
+      "contractCount": 6
     },
     {
       "kind": "mp",
@@ -102,9 +166,41 @@
       "kind": "mp",
       "mpId": 2826,
       "name": "Васил Миланов Антонов",
-      "totalEur": 363747.97,
-      "contractorCount": 1,
+      "totalEur": 562758.11,
+      "contractorCount": 2,
+      "contractCount": 6
+    },
+    {
+      "kind": "mp",
+      "mpId": 5113,
+      "name": "Георги Иванов Георгиев",
+      "totalEur": 508972.66,
+      "contractorCount": 2,
       "contractCount": 4
+    },
+    {
+      "kind": "mp",
+      "mpId": 990,
+      "name": "Кирчо Димитров Димитров",
+      "totalEur": 462906.19,
+      "contractorCount": 1,
+      "contractCount": 10
+    },
+    {
+      "kind": "mp",
+      "mpId": 5202,
+      "name": "Джипо Николов Джипов",
+      "totalEur": 357904.32,
+      "contractorCount": 1,
+      "contractCount": 2
+    },
+    {
+      "kind": "mp",
+      "mpId": 5270,
+      "name": "Здравко Марков Марков",
+      "totalEur": 354606.48,
+      "contractorCount": 1,
+      "contractCount": 2
     },
     {
       "kind": "mp",
@@ -125,10 +221,34 @@
     {
       "kind": "mp",
       "mpId": 2946,
-      "name": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
+      "name": "Елена Стефанова Пешева",
       "totalEur": 295115.63,
       "contractorCount": 2,
       "contractCount": 9
+    },
+    {
+      "kind": "mp",
+      "mpId": 4649,
+      "name": "Генади Събков Събков",
+      "totalEur": 288368.62,
+      "contractorCount": 1,
+      "contractCount": 3
+    },
+    {
+      "kind": "mp",
+      "mpId": 5198,
+      "name": "Галин Неделчев Дурев",
+      "totalEur": 288368.62,
+      "contractorCount": 1,
+      "contractCount": 3
+    },
+    {
+      "kind": "mp",
+      "mpId": 909,
+      "name": "Емил Димитров Гущеров",
+      "totalEur": 288368.62,
+      "contractorCount": 1,
+      "contractCount": 3
     },
     {
       "kind": "official",
@@ -149,6 +269,14 @@
       "totalEur": 288368.62,
       "contractorCount": 1,
       "contractCount": 3
+    },
+    {
+      "kind": "mp",
+      "mpId": 3342,
+      "name": "Юлиян Милчев Ненчев",
+      "totalEur": 283206.8,
+      "contractorCount": 1,
+      "contractCount": 1
     },
     {
       "kind": "official",
@@ -179,12 +307,36 @@
       "contractCount": 2
     },
     {
+      "kind": "mp",
+      "mpId": 3993,
+      "name": "Георги Станчев Георгиев",
+      "totalEur": 164117.54,
+      "contractorCount": 1,
+      "contractCount": 6
+    },
+    {
+      "kind": "mp",
+      "mpId": 854,
+      "name": "Стоян Иванов Иванов",
+      "totalEur": 141728.06,
+      "contractorCount": 1,
+      "contractCount": 8
+    },
+    {
       "kind": "official",
       "slug": "georgi-ivanov-marinchev-c8d323",
       "name": "Георги Иванов Маринчев",
       "tier": "municipal",
       "role": "councillor",
       "totalEur": 137151.8,
+      "contractorCount": 1,
+      "contractCount": 2
+    },
+    {
+      "kind": "mp",
+      "mpId": 233,
+      "name": "Николай Петров Кънчев",
+      "totalEur": 135363.5,
       "contractorCount": 1,
       "contractCount": 2
     },
@@ -237,6 +389,14 @@
       "contractCount": 2
     },
     {
+      "kind": "mp",
+      "mpId": 3067,
+      "name": "Минко Велчев Ангелов",
+      "totalEur": 66770.63,
+      "contractorCount": 1,
+      "contractCount": 2
+    },
+    {
       "kind": "official",
       "slug": "neli-dinkova-deneva-16c272",
       "name": "Нели Динкова Денева",
@@ -245,6 +405,22 @@
       "totalEur": 50212.95,
       "contractorCount": 1,
       "contractCount": 3
+    },
+    {
+      "kind": "mp",
+      "mpId": 5222,
+      "name": "Стефан Атанасов Сабрутев",
+      "totalEur": 49326.83,
+      "contractorCount": 1,
+      "contractCount": 5
+    },
+    {
+      "kind": "mp",
+      "mpId": 5092,
+      "name": "Богомил Иванов Петков",
+      "totalEur": 48454.69,
+      "contractorCount": 1,
+      "contractCount": 1
     },
     {
       "kind": "official",
@@ -257,12 +433,28 @@
       "contractCount": 1
     },
     {
+      "kind": "mp",
+      "mpId": 4663,
+      "name": "Александър Атанасов Александров",
+      "totalEur": 34086.3,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
       "kind": "official",
       "slug": "reneta-georgieva-koleva-877928",
       "name": "Ренета Георгиева Колева",
       "tier": "executive",
       "role": "cabinet",
       "totalEur": 31495.99,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "mp",
+      "mpId": 50,
+      "name": "Енчо Вълков Малев",
+      "totalEur": 29825.7,
       "contractorCount": 1,
       "contractCount": 1
     },
@@ -298,9 +490,33 @@
     },
     {
       "kind": "mp",
+      "mpId": 3241,
+      "name": "Николай Цветанов Сираков",
+      "totalEur": 15147.37,
+      "contractorCount": 1,
+      "contractCount": 3
+    },
+    {
+      "kind": "mp",
+      "mpId": 42,
+      "name": "Йордан Димитров Костадинов",
+      "totalEur": 12945.91,
+      "contractorCount": 1,
+      "contractCount": 6
+    },
+    {
+      "kind": "mp",
       "mpId": 4925,
       "name": "МЮМЮН САЛИ МЮМЮН",
       "totalEur": 9538.66,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "mp",
+      "mpId": 5205,
+      "name": "Рашид Мехмедов Узунов",
+      "totalEur": 7917.1,
       "contractorCount": 1,
       "contractCount": 1
     },
@@ -329,6 +545,14 @@
       "contractCount": 2
     },
     {
+      "kind": "mp",
+      "mpId": 2853,
+      "name": "Дора Стоянова Христова",
+      "totalEur": 1593.38,
+      "contractorCount": 1,
+      "contractCount": 4
+    },
+    {
       "kind": "official",
       "slug": "tsvetenka-vasileva-hadzhieva-b4e5d0",
       "name": "Цветенка Василева Хаджиева",
@@ -353,6 +577,14 @@
       "mpId": 2822,
       "name": "Любомир Бойков Бонев",
       "totalEur": 869.2,
+      "contractorCount": 1,
+      "contractCount": 1
+    },
+    {
+      "kind": "mp",
+      "mpId": 5165,
+      "name": "Валери Пламенов Лачовски",
+      "totalEur": 85.39,
       "contractorCount": 1,
       "contractCount": 1
     }

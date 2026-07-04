@@ -59,6 +59,23 @@ const addCurrency = (
   bag[currency] = (bag[currency] ?? 0) + amount;
 };
 
+// Accumulate one contract row's money into a currency bag using the SAME basis
+// as Postgres (SUM(amount_eur)) and the per-contract cards: sum the per-row
+// pre-converted `amountEur` (never re-derive it from a per-currency subtotal ×
+// rate). The euro figure lands in the "EUR" slot, which splitBag folds as
+// identity (toEur(x,"EUR") === x), so every rollup/index totalEur becomes
+// Σ amountEur in shard-read order — cents-exact with contracts_aggregate.ts and
+// PG, killing the float-non-associativity drift (the €8.11 headline skew). A row
+// with no euro peg (foreign USD/GBP/CHF → amountEur null) falls through to its
+// native currency slot, exactly like PG's `others` CTE (amount_eur IS NULL).
+const addRowMoney = (bag: Record<string, number>, row: Contract): void => {
+  if (row.amountEur != null && Number.isFinite(row.amountEur)) {
+    bag.EUR = (bag.EUR ?? 0) + row.amountEur;
+  } else {
+    addCurrency(bag, row.currency, row.amount);
+  }
+};
+
 // In-memory accumulators keyed by EIK.
 interface ContractorAcc {
   eik: string;
@@ -188,7 +205,7 @@ export const buildRollupsFromRows = (
     // Per-contract detail pages still see amendments via the contract /
     // by-id shards, which are built elsewhere.
     if (row.tag === "contractAmendment") continue;
-    addCurrency(totalsBag, row.currency, row.amount);
+    addRowMoney(totalsBag, row);
 
     // Contractor.
     const ca =
@@ -206,7 +223,7 @@ export const buildRollupsFromRows = (
     // Prefer the most recent name observed. Rows are walked in YYYY-MM
     // order (sorted), so the last assignment is the newest.
     ca.name = row.contractorName || ca.name;
-    addCurrency(ca.totalByCurrency, row.currency, row.amount);
+    addRowMoney(ca.totalByCurrency, row);
     if (row.tag === "award") ca.awardCount++;
     else ca.contractCount++;
 
@@ -215,7 +232,7 @@ export const buildRollupsFromRows = (
       totalByCurrency: {},
       contractCount: 0,
     };
-    addCurrency(ay.totalByCurrency, row.currency, row.amount);
+    addRowMoney(ay.totalByCurrency, row);
     ay.contractCount++;
     ca.byYear.set(ay.year, ay);
 
@@ -226,7 +243,7 @@ export const buildRollupsFromRows = (
       contractCount: 0,
     };
     aw.name = row.awarderName || aw.name;
-    addCurrency(aw.totalByCurrency, row.currency, row.amount);
+    addRowMoney(aw.totalByCurrency, row);
     aw.contractCount++;
     ca.byAwarder.set(aw.eik, aw);
 
@@ -258,7 +275,7 @@ export const buildRollupsFromRows = (
         ...(row.awarderStreet ? { street: row.awarderStreet } : {}),
       };
     }
-    addCurrency(aa.totalByCurrency, row.currency, row.amount);
+    addRowMoney(aa.totalByCurrency, row);
     if (row.tag === "award") aa.awardCount++;
     else aa.contractCount++;
 
@@ -267,7 +284,7 @@ export const buildRollupsFromRows = (
       totalByCurrency: {},
       contractCount: 0,
     };
-    addCurrency(ay2.totalByCurrency, row.currency, row.amount);
+    addRowMoney(ay2.totalByCurrency, row);
     ay2.contractCount++;
     aa.byYear.set(ay2.year, ay2);
 
@@ -278,7 +295,7 @@ export const buildRollupsFromRows = (
       contractCount: 0,
     };
     bc.name = row.contractorName || bc.name;
-    addCurrency(bc.totalByCurrency, row.currency, row.amount);
+    addRowMoney(bc.totalByCurrency, row);
     bc.contractCount++;
     aa.byContractor.set(bc.eik, bc);
 

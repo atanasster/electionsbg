@@ -2,22 +2,22 @@
   "electionDate": "2026_04_19",
   "start": "2026-04-19",
   "end": null,
-  "generatedAt": "2026-07-03T11:14:12.312Z",
+  "generatedAt": "2026-07-04T10:56:13.960Z",
   "totals": {
-    "contracts": 5980,
+    "contracts": 5984,
     "amendments": 1093,
     "awards": 0,
-    "contractorCount": 1778,
-    "awarderCount": 1028,
-    "totalEur": 1038619608.43,
-    "mpCount": 6,
-    "mpConnectedContractorCount": 5,
-    "mpConnectedTotalEur": 1275341.06,
+    "contractorCount": 1779,
+    "awarderCount": 1029,
+    "totalEur": 1038658731.49,
+    "mpCount": 15,
+    "mpConnectedContractorCount": 13,
+    "mpConnectedTotalEur": 3594184.06,
     "officialCount": 7,
     "officialConnectedContractorCount": 7,
     "officialConnectedTotalEur": 2961471.91,
-    "connectedContractorCount": 12,
-    "connectedTotalEur": 4236812.97
+    "connectedContractorCount": 20,
+    "connectedTotalEur": 6555655.97
   },
   "topContractors": [
     {
@@ -725,6 +725,28 @@
   ],
   "topMps": [
     {
+      "mpId": 4745,
+      "mpName": "Ваня Иванова Василева",
+      "totalEur": 648397.12,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Фармапро ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 1043,
+      "mpName": "Иван Дечков Колев",
+      "totalEur": 580140,
+      "contractCount": 5,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Енергоремонт - гълъбово АД"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 1129,
       "mpName": "Антоний Венциславов Кръстев",
       "totalEur": 517399.06,
@@ -758,6 +780,39 @@
       "confidence": "high"
     },
     {
+      "mpId": 745,
+      "mpName": "Иван Павлов Павлов",
+      "totalEur": 414159,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Ифелоус ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 3427,
+      "mpName": "Петко Ангелов Кущирев",
+      "totalEur": 373157.86,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "“Корект ИНВЕСТ-2012” ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5202,
+      "mpName": "Джипо Николов Джипов",
+      "totalEur": 144003.5,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "МАТ ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 2822,
       "mpName": "Любомир Бойков Бонев",
       "totalEur": 143900,
@@ -770,7 +825,7 @@
     },
     {
       "mpId": 2946,
-      "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
+      "mpName": "Елена Стефанова Пешева",
       "totalEur": 93382,
       "contractCount": 1,
       "contractorCount": 1,
@@ -780,6 +835,28 @@
       "confidence": "high"
     },
     {
+      "mpId": 854,
+      "mpName": "Стоян Иванов Иванов",
+      "totalEur": 93382,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Радио СОТ ООД"
+      ],
+      "confidence": "high"
+    },
+    {
+      "mpId": 185,
+      "mpName": "Стоян Проданов Иванов",
+      "totalEur": 90821.52,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Технострой - инженеринг 99 АД"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 2741,
       "mpName": "Диана Димова Саватева",
       "totalEur": 62500,
@@ -787,6 +864,28 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Бургас - 2032 Фондация"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 4663,
+      "mpName": "Александър Атанасов Александров",
+      "totalEur": 51124,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "НБС Меритайм ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5113,
+      "mpName": "Георги Иванов Георгиев",
+      "totalEur": 17040,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "България ЕЪР АД"
       ],
       "confidence": "medium"
     }

@@ -1,14 +1,14 @@
 {
   "domain": "procurement",
-  "fileCount": 80560,
-  "totalBytes": 2568406453,
+  "fileCount": 82267,
+  "totalBytes": 2567081551,
   "totals": {
-    "contracts": 297529,
+    "contracts": 297533,
     "awards": 0,
     "amendments": 3487,
     "contractorCount": 26126,
-    "awarderCount": 4392,
-    "totalEur": 74015089198.93,
+    "awarderCount": 4393,
+    "totalEur": 74015128330.1,
     "totalOther": {
       "USD": 30049917.580000006,
       "CHF": 572061.6,
@@ -19,53 +19,53 @@
   "categories": {
     "_root": {
       "fileCount": 6,
-      "totalBytes": 915397,
-      "digest": "b6a46afb8684ce2389b321dbf533ab319742d634013564ed23f01e159211b4b4"
+      "totalBytes": 916169,
+      "digest": "9063dd436df164a282876ed6e26d4e49ea5833d88099ec9c2e4df4b88dc15013"
     },
     "awarder_contracts": {
-      "fileCount": 4392,
-      "totalBytes": 379822615,
-      "digest": "ffcf05678eb3a168cd7d2f4582a8e4b7192a7f3c96977bb4eb01ec2c64ffaae2"
+      "fileCount": 4393,
+      "totalBytes": 379829890,
+      "digest": "2a6d6004b72284f1403bc5b819de115cb7314edde999917aa3285b5b4b8613cf"
     },
     "awarders": {
-      "fileCount": 4392,
-      "totalBytes": 37829255,
-      "digest": "d21a4199624a1e38b10e98735f68ba6aa87b456e6e02ac98b69a2c28517fb02b"
+      "fileCount": 4393,
+      "totalBytes": 37833708,
+      "digest": "adb552a361494c6c2ae97054cf1c8ff91db1cf7e7a09ec19a61f22810b2dc004"
     },
     "by_ns": {
       "fileCount": 78,
-      "totalBytes": 5634388,
-      "digest": "6f77cf04c38817a2191a9f94b1b2ac2c1058ec5e846d2f7fb949ff5ae161fa51"
+      "totalBytes": 6117475,
+      "digest": "bbb8bc5207c68ea7a980e65b48bb98179fe1c6aabf49d51d86e00a655489d350"
     },
     "by_settlement": {
-      "fileCount": 494,
-      "totalBytes": 9478746,
-      "digest": "93af95fed274e0c7aae5fea9a0e9b46d060786e7c6c3690a5890944d6d6eb78f"
+      "fileCount": 495,
+      "totalBytes": 9481835,
+      "digest": "54a97a00e2c76a6a60fc974ba1d12881cac2375fcedf9edfc9cc0ef5f1493d7d"
     },
     "contractor_contracts": {
       "fileCount": 26160,
-      "totalBytes": 383172573,
-      "digest": "245391065f0aee356fdb24e87e15cff0e41801d7f102236d382062e43fffb85a"
+      "totalBytes": 383179672,
+      "digest": "7c70e63eda5d5af8d44b42af2c4202feeb132e846f90414b10e6282af4460561"
     },
     "contractors": {
       "fileCount": 26160,
-      "totalBytes": 107649057,
-      "digest": "0c5975997bdb36b5e0a4c8ba2e18f2fea52f3d5afd55a6fcebc853d384eebcd2"
+      "totalBytes": 107652441,
+      "digest": "b82ccc0b70692a6c7014818f43ada042ff3a897ff06bfedeffbc2e7f4aa28a2a"
     },
     "contracts": {
-      "fileCount": 5797,
-      "totalBytes": 704931822,
-      "digest": "441559e5c9a9186881b939101803ab28579a79ccfc0f65b154f6c2f661485aa4"
+      "fileCount": 7334,
+      "totalBytes": 701310532,
+      "digest": "2dd1ce7589f3b0f46b32d06cbcc14540d5df0fe91e9b34ca9b984b7452551942"
     },
     "derived": {
-      "fileCount": 12639,
-      "totalBytes": 113039740,
-      "digest": "d4bce315859133a21bdf5f98e3a478cee78f37fd337d22bcb5b90736beff0adf"
+      "fileCount": 12806,
+      "totalBytes": 113689402,
+      "digest": "abe588a8e695e52320f63a8ffb8a869016b72200cbd6ddd23dc01714fe9e92d0"
     },
     "tenders": {
       "fileCount": 442,
-      "totalBytes": 825932860,
-      "digest": "3e02c14e2fb8753fdbc47a00bcd6819e472e30161e5a12ee241d06b2e26b82b3"
+      "totalBytes": 827070427,
+      "digest": "d9c0a801d45e9c7b85ef588500825256c93c8443f37201774d7dec4d7ed92ebe"
     }
   }
 }

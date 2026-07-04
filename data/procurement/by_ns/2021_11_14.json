@@ -2,7 +2,7 @@
   "electionDate": "2021_11_14",
   "start": "2021-11-14",
   "end": "2022-10-02",
-  "generatedAt": "2026-07-03T11:14:12.362Z",
+  "generatedAt": "2026-07-04T10:56:14.034Z",
   "totals": {
     "contracts": 22043,
     "amendments": 0,
@@ -10,14 +10,14 @@
     "contractorCount": 4536,
     "awarderCount": 1489,
     "totalEur": 3900445368.39,
-    "mpCount": 10,
-    "mpConnectedContractorCount": 9,
-    "mpConnectedTotalEur": 11166826.54,
+    "mpCount": 44,
+    "mpConnectedContractorCount": 35,
+    "mpConnectedTotalEur": 29450686.01,
     "officialCount": 25,
     "officialConnectedContractorCount": 23,
     "officialConnectedTotalEur": 9156247.72,
-    "connectedContractorCount": 30,
-    "connectedTotalEur": 13790376.43
+    "connectedContractorCount": 54,
+    "connectedTotalEur": 31956918.94
   },
   "topContractors": [
     {
@@ -725,6 +725,17 @@
   ],
   "topMps": [
     {
+      "mpId": 1043,
+      "mpName": "Иван Дечков Колев",
+      "totalEur": 10130809.48,
+      "contractCount": 35,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Енергоремонт - гълъбово АД"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 4727,
       "mpName": "Хюсни Осман Адем",
       "totalEur": 5724981.47,
@@ -758,6 +769,28 @@
       "confidence": "medium"
     },
     {
+      "mpId": 185,
+      "mpName": "Стоян Проданов Иванов",
+      "totalEur": 2459574.19,
+      "contractCount": 9,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Технострой - инженеринг 99 АД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5270,
+      "mpName": "Здравко Марков Марков",
+      "totalEur": 1975631.83,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "ЕЛ-ТИМ ЕООД"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 5094,
       "mpName": "Николай Иванов Косев",
       "totalEur": 807716.37,
@@ -765,6 +798,94 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ЕВРОХИМ-ГРУП ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5202,
+      "mpName": "Джипо Николов Джипов",
+      "totalEur": 760985.18,
+      "contractCount": 7,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Мат ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 4745,
+      "mpName": "Ваня Иванова Василева",
+      "totalEur": 681807.72,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Фармапро ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 4716,
+      "mpName": "Венцислав Иванов Петков",
+      "totalEur": 460162.69,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Национална спортна база ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5197,
+      "mpName": "Йордан Йовчев Йовчев",
+      "totalEur": 460162.69,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Национална спортна база ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5268,
+      "mpName": "Румен Ангелов Миланов",
+      "totalEur": 270118.96,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "ПЪТСТРОЙ-92 АД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5005,
+      "mpName": "Стилиана Иванова Бобчева",
+      "totalEur": 254927.82,
+      "contractCount": 6,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Национален перилен комбинат ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 2376,
+      "mpName": "Костадин Иванов Марков",
+      "totalEur": 214317.02,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Аква Системс  АД - Бургас"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 1689,
+      "mpName": "Андон Петров Андонов",
+      "totalEur": 178984.88,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Мини марица - изток ЕАД"
       ],
       "confidence": "medium"
     },
@@ -780,6 +901,17 @@
       "confidence": "medium"
     },
     {
+      "mpId": 3160,
+      "mpName": "Рушен Мехмед Риза",
+      "totalEur": 178797.75,
+      "contractCount": 6,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Хигиямед ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 2647,
       "mpName": "ДИМИТЪР КРУМОВ АЛЕКСАНДРОВ",
       "totalEur": 178695.35,
@@ -789,6 +921,17 @@
         "АЛ И ко АД"
       ],
       "confidence": "high"
+    },
+    {
+      "mpId": 3427,
+      "mpName": "Петко Ангелов Кущирев",
+      "totalEur": 168149.07,
+      "contractCount": 4,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "“Корект ИНВЕСТ-2012” ЕООД"
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 3271,
@@ -813,8 +956,141 @@
       "confidence": "high"
     },
     {
+      "mpId": 4663,
+      "mpName": "Александър Атанасов Александров",
+      "totalEur": 132935.89,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "НБС Меритайм ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5222,
+      "mpName": "Стефан Атанасов Сабрутев",
+      "totalEur": 112356.95,
+      "contractCount": 5,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Чечосан ЕООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 2853,
+      "mpName": "Дора Стоянова Христова",
+      "totalEur": 106860,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Медицински център младост варна ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5113,
+      "mpName": "Георги Иванов Георгиев",
+      "totalEur": 84110.07,
+      "contractCount": 6,
+      "contractorCount": 2,
+      "topContractorNames": [
+        "Национален алианс за социална отговорност Сдружение",
+        "Яйца и птици - зора АД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 4649,
+      "mpName": "Генади Събков Събков",
+      "totalEur": 66187.76,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Напоителни системи ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5198,
+      "mpName": "Галин Неделчев Дурев",
+      "totalEur": 66187.76,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Напоителни системи ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 909,
+      "mpName": "Емил Димитров Гущеров",
+      "totalEur": 66187.76,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Напоителни системи ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 1621,
+      "mpName": "Милко Петров Багдасаров",
+      "totalEur": 56242.11,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Българска федерация по волейбол Сдружение"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 2804,
+      "mpName": "Ивайло Любенов Константинов",
+      "totalEur": 56242.11,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Българска федерация по волейбол Сдружение"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 4719,
+      "mpName": "Петър Георгиев Кънев",
+      "totalEur": 56242.11,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Българска федерация по волейбол Сдружение"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 1122,
+      "mpName": "Христо Георгиев Чаушев",
+      "totalEur": 51129.19,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Профилактика, Рехабилитация и отдих ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 3794,
+      "mpName": "Димитър Колев Гочев",
+      "totalEur": 51129.19,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Профилактика, Рехабилитация и отдих ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 2946,
-      "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
+      "mpName": "Елена Стефанова Пешева",
       "totalEur": 39307.1,
       "contractCount": 4,
       "contractorCount": 1,
@@ -824,6 +1100,39 @@
       "confidence": "high"
     },
     {
+      "mpId": 854,
+      "mpName": "Стоян Иванов Иванов",
+      "totalEur": 39307.1,
+      "contractCount": 4,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Радио сот ООД"
+      ],
+      "confidence": "high"
+    },
+    {
+      "mpId": 5177,
+      "mpName": "Владимир Христов Гончев",
+      "totalEur": 35739.3,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Университетска многопрофилна болница за активно лечение - бургас АД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 1087,
+      "mpName": "Румен Стефанов Стоилов",
+      "totalEur": 25564.59,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Българска федерация по джудо Сдружение"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 139,
       "mpName": "Йордан Мирчев Митев",
       "totalEur": 25564.59,
@@ -831,6 +1140,72 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Холдинг Български държавни железници ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 2547,
+      "mpName": "Димитър Григоров Шишков",
+      "totalEur": 25564.59,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Българска федерация по джудо Сдружение"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 3241,
+      "mpName": "Николай Цветанов Сираков",
+      "totalEur": 24882.6,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "ОФИС-ПРИНТ Сервиз ЕООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5098,
+      "mpName": "Стоян Тонев Петров",
+      "totalEur": 15338.76,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Водоснабдяване и канализация добрич АД"
+      ],
+      "confidence": "high"
+    },
+    {
+      "mpId": 42,
+      "mpName": "Йордан Димитров Костадинов",
+      "totalEur": 8691.96,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Лемна Екоинвест-България АД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 2665,
+      "mpName": "Мария Йорданова Илиева",
+      "totalEur": 6340.02,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Одитон ЕООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 3993,
+      "mpName": "Георги Станчев Георгиев",
+      "totalEur": 2198.56,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Градиакт консулт ООД"
       ],
       "confidence": "medium"
     }

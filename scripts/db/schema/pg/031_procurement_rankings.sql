@@ -13,6 +13,8 @@
 
 SET check_function_bodies = off;
 
+-- Drop the dependent cache matview first (re-apply path); recreated at tail. See 033.
+DROP MATERIALIZED VIEW IF EXISTS procurement_rankings_cache;
 DROP FUNCTION IF EXISTS procurement_rankings(text, text);
 CREATE OR REPLACE FUNCTION procurement_rankings(
   p_from text DEFAULT NULL,

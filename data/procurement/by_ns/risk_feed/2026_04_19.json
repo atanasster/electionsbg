@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-03T11:14:12.316Z",
+  "generatedAt": "2026-07-04T10:56:13.964Z",
   "topConcentration": [
     {
       "awarderEik": "000193065",
@@ -404,6 +404,20 @@
   ],
   "topMpTied": [
     {
+      "mpId": 4745,
+      "mpName": "Ваня Иванова Василева",
+      "contractorEik": "131317829",
+      "contractorName": "Фармапро ООД",
+      "totalEur": 648397.12
+    },
+    {
+      "mpId": 1043,
+      "mpName": "Иван Дечков Колев",
+      "contractorEik": "833103535",
+      "contractorName": "Енергоремонт - гълъбово АД",
+      "totalEur": 580140
+    },
+    {
       "mpId": 1129,
       "mpName": "Антоний Венциславов Кръстев",
       "contractorEik": "121396123",
@@ -425,6 +439,27 @@
       "totalEur": 458160
     },
     {
+      "mpId": 745,
+      "mpName": "Иван Павлов Павлов",
+      "contractorEik": "131335001",
+      "contractorName": "Ифелоус ООД",
+      "totalEur": 414159
+    },
+    {
+      "mpId": 3427,
+      "mpName": "Петко Ангелов Кущирев",
+      "contractorEik": "202314393",
+      "contractorName": "“Корект ИНВЕСТ-2012” ООД",
+      "totalEur": 373157.86
+    },
+    {
+      "mpId": 5202,
+      "mpName": "Джипо Николов Джипов",
+      "contractorEik": "116011316",
+      "contractorName": "МАТ ООД",
+      "totalEur": 144003.5
+    },
+    {
       "mpId": 2822,
       "mpName": "Любомир Бойков Бонев",
       "contractorEik": "113566864",
@@ -433,10 +468,24 @@
     },
     {
       "mpId": 2946,
-      "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
+      "mpName": "Елена Стефанова Пешева",
       "contractorEik": "112028994",
       "contractorName": "Радио СОТ ООД",
       "totalEur": 93382
+    },
+    {
+      "mpId": 854,
+      "mpName": "Стоян Иванов Иванов",
+      "contractorEik": "112028994",
+      "contractorName": "Радио СОТ ООД",
+      "totalEur": 93382
+    },
+    {
+      "mpId": 185,
+      "mpName": "Стоян Проданов Иванов",
+      "contractorEik": "128056792",
+      "contractorName": "Технострой - инженеринг 99 АД",
+      "totalEur": 90821.52
     },
     {
       "mpId": 2741,
@@ -444,12 +493,26 @@
       "contractorEik": "208188531",
       "contractorName": "Бургас - 2032 Фондация",
       "totalEur": 62500
+    },
+    {
+      "mpId": 4663,
+      "mpName": "Александър Атанасов Александров",
+      "contractorEik": "127595228",
+      "contractorName": "НБС Меритайм ООД",
+      "totalEur": 51124
+    },
+    {
+      "mpId": 5113,
+      "mpName": "Георги Иванов Георгиев",
+      "contractorEik": "000633828",
+      "contractorName": "България ЕЪР АД",
+      "totalEur": 17040
     }
   ],
   "concentrationTotal": 490,
   "concentration100Total": 75,
-  "mpTiedTotal": 6,
-  "connectedPeopleTotal": 13,
+  "mpTiedTotal": 15,
+  "connectedPeopleTotal": 22,
   "concentrationByOblast": [
     {
       "nuts": "BG411",

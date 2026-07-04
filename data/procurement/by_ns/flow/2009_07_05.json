@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-03T11:14:12.400Z",
+  "generatedAt": "2026-07-04T10:56:14.114Z",
   "nodes": [
     {
       "id": "awarder:000093442",
@@ -10,6 +10,16 @@
       "id": "contractor:121396123",
       "type": "contractor",
       "label": "Български пощи /Бп/ ЕАД - София"
+    },
+    {
+      "id": "awarder:123531939",
+      "type": "awarder",
+      "label": "Тец \"Марица Изток\" 2 ЕАД"
+    },
+    {
+      "id": "contractor:833103535",
+      "type": "contractor",
+      "label": "Енергоремонт Гълъбово АД"
     },
     {
       "id": "awarder:119502733",
@@ -30,6 +40,26 @@
       "id": "contractor:200193238",
       "type": "contractor",
       "label": "Вита Трейдинг ЕООД - Пловдив"
+    },
+    {
+      "id": "awarder:000215889",
+      "type": "awarder",
+      "label": "Община Севлиево"
+    },
+    {
+      "id": "contractor:107558418",
+      "type": "contractor",
+      "label": "Охрана и банков сервиз ООД - Севлиево"
+    },
+    {
+      "id": "awarder:834056394",
+      "type": "awarder",
+      "label": "Държавна психиатрична болница /Дпб/ - с. Карвуна"
+    },
+    {
+      "id": "contractor:124121775",
+      "type": "contractor",
+      "label": "Добруджански хляб АД - Добрич"
     },
     {
       "id": "awarder:831661388",
@@ -57,9 +87,9 @@
       "label": "Етропал Трейд ООД - Етрополе"
     },
     {
-      "id": "awarder:123531939",
+      "id": "awarder:130020522",
       "type": "awarder",
-      "label": "Тец \"Марица Изток\" 2 ЕАД"
+      "label": "КонтурГлобал Марица Изток 3 АД  - /Старо наименование - Енел Марица изток 3 АД /Старо наименование: Енергийна компания /Ек/ \"Марица Изток 3\" АД/"
     },
     {
       "id": "contractor:130158384",
@@ -97,6 +127,16 @@
       "label": "Териториално поделение \"Социално осигуряване\" на Национален осигурителен институт /Тп на НОИ/ - Пазарджик"
     },
     {
+      "id": "awarder:828050351",
+      "type": "awarder",
+      "label": "Водоснабдяване и канализация ООД - Силистра"
+    },
+    {
+      "id": "contractor:116011316",
+      "type": "contractor",
+      "label": "Мат ООД - Разград"
+    },
+    {
       "id": "awarder:831901901",
       "type": "awarder",
       "label": "Болница \"Лозенец\" - София"
@@ -127,6 +167,16 @@
       "label": "Водоснабдяване и канализация \"Дупница\" ЕООД"
     },
     {
+      "id": "awarder:000695317",
+      "type": "awarder",
+      "label": "Министерство на здравеопазването /МЗ/"
+    },
+    {
+      "id": "contractor:131317829",
+      "type": "contractor",
+      "label": "Фармапро ООД - София"
+    },
+    {
       "id": "awarder:102003505",
       "type": "awarder",
       "label": "Държавно горско стопанство/ДГС/ - с.Кости - Старо наименование Държавно лесничейство /Дл/ - с. Кости"
@@ -147,6 +197,16 @@
       "label": "Шери Ю ЕООД - Долни Чифлик"
     },
     {
+      "id": "awarder:000697179",
+      "type": "awarder",
+      "label": "Държавно предприятие \"Ръководство на въздушното движение\" /ДП \"Рвд\"/"
+    },
+    {
+      "id": "contractor:101004974",
+      "type": "contractor",
+      "label": "Сградостроител - АД, гр. Гоце Делчев"
+    },
+    {
       "id": "awarder:102004333",
       "type": "awarder",
       "label": "Държавно ловно стопанство /Длс/ - с.Граматиково -  Старо наименование -/Държавна дивечовъдна станция /ддс/ /-  с. Граматиково"
@@ -162,6 +222,16 @@
       "label": "Радио Сот ООД"
     },
     {
+      "id": "awarder:000694293",
+      "type": "awarder",
+      "label": "Български спортен тотализатор /Бст/"
+    },
+    {
+      "id": "contractor:831453003",
+      "type": "contractor",
+      "label": "Демакс АД - София"
+    },
+    {
       "id": "awarder:000695406",
       "type": "awarder",
       "label": "Министерство на финансите /МФ/"
@@ -170,6 +240,16 @@
       "id": "awarder:000689022",
       "type": "awarder",
       "label": "Втора многопрофилна болница за активно лечение /II МБАЛ/ - София ЕАД"
+    },
+    {
+      "id": "awarder:000236164",
+      "type": "awarder",
+      "label": "Община Черноочене"
+    },
+    {
+      "id": "contractor:836163459",
+      "type": "contractor",
+      "label": "Компютър консулт ЕООД - Хасково"
     },
     {
       "id": "awarder:127022634",
@@ -192,9 +272,14 @@
       "label": "Втора специализирана акушеро-гинекологична болница за активно лечение /II Сагбал/ \"Шейново\" АД - София"
     },
     {
-      "id": "awarder:828050351",
+      "id": "awarder:115552190",
       "type": "awarder",
-      "label": "Водоснабдяване и канализация ООД - Силистра"
+      "label": "Евн България Електроразпределение ЕАД /старо наименование-ЕВН България Електроразпределение АД - Пловдив /Старо наименование: Електроразпределение Пловдив АД/"
+    },
+    {
+      "id": "contractor:126519537",
+      "type": "contractor",
+      "label": "Ел-Тим ЕООД - Хасково"
     },
     {
       "id": "awarder:826043778",
@@ -205,6 +290,11 @@
       "id": "awarder:106518890",
       "type": "awarder",
       "label": "Многопрофилна болница за активно лечение /МБАЛ/ \"Христо Ботев\" АД - Враца"
+    },
+    {
+      "id": "awarder:000852188",
+      "type": "awarder",
+      "label": "Община Добричка"
     },
     {
       "id": "awarder:000929072",
@@ -222,6 +312,11 @@
       "label": "Агенция по заетостта"
     },
     {
+      "id": "awarder:114532352",
+      "type": "awarder",
+      "label": "Университетска многопрофилна болница за активно лечение /УМБАЛ/ \"Д-р Георги Странски\" ЕАД - Плевен"
+    },
+    {
       "id": "awarder:126529015",
       "type": "awarder",
       "label": "Многопрофилна болница за активно лечение /МБАЛ/ АД - Хасково"
@@ -232,9 +327,44 @@
       "label": "Еврохим-Груп ООД - Габрово"
     },
     {
+      "id": "awarder:000193371",
+      "type": "awarder",
+      "label": "Община Мездра"
+    },
+    {
+      "id": "contractor:121015330",
+      "type": "contractor",
+      "label": "Пътстрой-92 АД - София"
+    },
+    {
+      "id": "awarder:121410441",
+      "type": "awarder",
+      "label": "Изпълнителна агенция \"Автомобилна администрация"
+    },
+    {
       "id": "awarder:109513731",
       "type": "awarder",
       "label": "Тец \"Бобов дол"
+    },
+    {
+      "id": "awarder:000291709",
+      "type": "awarder",
+      "label": "Община Троян"
+    },
+    {
+      "id": "contractor:121748902",
+      "type": "contractor",
+      "label": "Градиакт консулт ООД - София"
+    },
+    {
+      "id": "awarder:000057026",
+      "type": "awarder",
+      "label": "Община Карнобат"
+    },
+    {
+      "id": "contractor:128056792",
+      "type": "contractor",
+      "label": "Технострой - инженеринг 99 АД - Ямбол"
     },
     {
       "id": "awarder:127512595",
@@ -245,6 +375,11 @@
       "id": "awarder:121004469",
       "type": "awarder",
       "label": "Сметна палата на Република България /Рб/"
+    },
+    {
+      "id": "awarder:000056764",
+      "type": "awarder",
+      "label": "Община Айтос"
     },
     {
       "id": "awarder:000777230",
@@ -260,6 +395,11 @@
       "id": "awarder:000931575",
       "type": "awarder",
       "label": "Община Нови пазар"
+    },
+    {
+      "id": "awarder:000662776",
+      "type": "awarder",
+      "label": "Специализирана болница за активно лечение по онкология /СБАЛО/ ЕАД - София"
     },
     {
       "id": "awarder:000133634",
@@ -287,9 +427,29 @@
       "label": "Водоснабдяване и канализация /в и К/ ООД - Сливен"
     },
     {
+      "id": "awarder:000056814",
+      "type": "awarder",
+      "label": "Община Бургас"
+    },
+    {
       "id": "awarder:000215630",
       "type": "awarder",
       "label": "Община Габрово"
+    },
+    {
+      "id": "awarder:000695089",
+      "type": "awarder",
+      "label": "Областно пътно управление /Опу/ - София"
+    },
+    {
+      "id": "awarder:000615118",
+      "type": "awarder",
+      "label": "Община Смолян"
+    },
+    {
+      "id": "contractor:102705120",
+      "type": "contractor",
+      "label": "Аква Системс  АД - Бургас"
     },
     {
       "id": "awarder:115532049",
@@ -297,14 +457,49 @@
       "label": "Многопрофилна болница за активно лечение /МБАЛ/ - Пловдив АД"
     },
     {
+      "id": "awarder:000970457",
+      "type": "awarder",
+      "label": "Община Тунджа, област Ямбол"
+    },
+    {
       "id": "contractor:107562605",
       "type": "contractor",
       "label": "Узунов проект ЕООД"
     },
     {
+      "id": "awarder:000413725",
+      "type": "awarder",
+      "label": "Община Долна Митрополия"
+    },
+    {
+      "id": "contractor:114112658",
+      "type": "contractor",
+      "label": "КА-Груп ООД - Плевен"
+    },
+    {
+      "id": "awarder:000695025",
+      "type": "awarder",
+      "label": "Министерски съвет /Мс/ на Република България /рб/"
+    },
+    {
       "id": "awarder:000413579",
       "type": "awarder",
       "label": "Община Белене"
+    },
+    {
+      "id": "contractor:102083469",
+      "type": "contractor",
+      "label": "Лемна Екоинвест-България АД - Бургас"
+    },
+    {
+      "id": "awarder:000695324",
+      "type": "awarder",
+      "label": "Министерство на отбраната /МО/"
+    },
+    {
+      "id": "contractor:127595228",
+      "type": "contractor",
+      "label": "Навибулгар Сървисес ЕООД - Варна"
     },
     {
       "id": "awarder:000695114",
@@ -315,6 +510,21 @@
       "id": "contractor:121399226",
       "type": "contractor",
       "label": "Национално сдружение на общините в Република България - София"
+    },
+    {
+      "id": "awarder:000133965",
+      "type": "awarder",
+      "label": "Община Свищов"
+    },
+    {
+      "id": "contractor:104054085",
+      "type": "contractor",
+      "label": "Драгажен флот - Истър АД - Свищов"
+    },
+    {
+      "id": "awarder:126004284",
+      "type": "awarder",
+      "label": "Водоснабдяване и канализация /в и К/ ЕООД - Хасково"
     },
     {
       "id": "awarder:000817778",
@@ -347,19 +557,29 @@
       "label": "Министерство на земеделието и храните /МЗХ//Старо наименование: Министерство на земеделието и продоволствието /Мзп/"
     },
     {
+      "id": "awarder:000970165",
+      "type": "awarder",
+      "label": "Община Елхово"
+    },
+    {
       "id": "awarder:000921944",
       "type": "awarder",
       "label": "Средно общообразователно училище /СОУ/ \"Никола Йонков Вапцаров\" с. Венец"
     },
     {
-      "id": "awarder:000133965",
-      "type": "awarder",
-      "label": "Община Свищов"
+      "id": "contractor:119020085",
+      "type": "contractor",
+      "label": "Мебеллукс АД - Сливен"
     },
     {
       "id": "awarder:175405647",
       "type": "awarder",
       "label": "БДЖ - Пътнически превози ЕООД"
+    },
+    {
+      "id": "awarder:000410184",
+      "type": "awarder",
+      "label": "ДОМ За медико-социални грижи за деца /ДМСГД/ - Плевен"
     },
     {
       "id": "contractor:201745141",
@@ -382,14 +602,34 @@
       "label": "Териториално поделение държавно горско стопанство /Тпдгс/ - Смядово към Държавно предприятие - Североизточно държавно предприятие /дпсидп/ - Шумен"
     },
     {
+      "id": "awarder:831917834",
+      "type": "awarder",
+      "label": "Технически университет /ТУ/ - София"
+    },
+    {
       "id": "awarder:000932193",
       "type": "awarder",
       "label": "Регионална дирекция по горите/РДГ/ - Шумен - /Старо наименование - Регионално управление на горите /Руг/ - Шумен"
     },
     {
+      "id": "awarder:119667813",
+      "type": "awarder",
+      "label": "Административен съд /Ас/ - Сливен"
+    },
+    {
       "id": "awarder:837077874",
       "type": "awarder",
       "label": "Център за спешна медицинска помощ /ЦСМП/ - Шумен"
+    },
+    {
+      "id": "awarder:103002253",
+      "type": "awarder",
+      "label": "Водоснабдяване и канализация ООД - Варна"
+    },
+    {
+      "id": "awarder:833017552",
+      "type": "awarder",
+      "label": "Мини \"Марица Изток\" ЕАД - Раднево"
     },
     {
       "id": "awarder:831605806",
@@ -407,6 +647,11 @@
       "label": "Симов ойл ООД - с. Антон"
     },
     {
+      "id": "awarder:040624317",
+      "type": "awarder",
+      "label": "Стопанска академия \"Д. А. Ценов\" - Свищов"
+    },
+    {
       "id": "awarder:000776464",
       "type": "awarder",
       "label": "Община Златица"
@@ -420,6 +665,11 @@
       "id": "awarder:831900201",
       "type": "awarder",
       "label": "Специализирана болница за активно лечение по ортопедия /СБАЛО/ \"Проф. Бойчо Бойчев\" ЕАД - София"
+    },
+    {
+      "id": "awarder:831912591",
+      "type": "awarder",
+      "label": "Областна администрация - област София /София-град/"
     },
     {
       "id": "awarder:115627433",
@@ -512,14 +762,24 @@
       "label": "Многопрофилна болница за активно лечение /МБАЛ/ - Добрич АД"
     },
     {
+      "id": "awarder:121817309",
+      "type": "awarder",
+      "label": "Прокуратура на Република България /Прб/ - Главен прокурор"
+    },
+    {
       "id": "awarder:102612100",
       "type": "awarder",
       "label": "Многопрофилна болница за активно лечение /МБАЛ/ - Карнобат"
     },
     {
-      "id": "awarder:000056814",
+      "id": "awarder:000672382",
       "type": "awarder",
-      "label": "Община Бургас"
+      "label": "Национален дворец на децата /Ндд/"
+    },
+    {
+      "id": "contractor:175030371",
+      "type": "contractor",
+      "label": "Ученически отдих и спорт ЕАД"
     },
     {
       "id": "awarder:130345786",
@@ -527,29 +787,19 @@
       "label": "Университетска многопрофилна болница за активно лечение и спешна медицина /Умбалсм/ \"Н.И. Пирогов\" ЕАД - София"
     },
     {
-      "id": "awarder:121817309",
-      "type": "awarder",
-      "label": "Прокуратура на Република България /Прб/ - Главен прокурор"
-    },
-    {
       "id": "awarder:105515902",
       "type": "awarder",
       "label": "Многопрофилна болница за активно лечение /МБАЛ/ \"Света Петка\" АД - Видин"
     },
     {
-      "id": "awarder:000695317",
+      "id": "awarder:000413999",
       "type": "awarder",
-      "label": "Министерство на здравеопазването /МЗ/"
+      "label": "Община Пордим"
     },
     {
       "id": "awarder:000472182",
       "type": "awarder",
       "label": "Община Марица, област Пловдив"
-    },
-    {
-      "id": "awarder:000695025",
-      "type": "awarder",
-      "label": "Министерски съвет /Мс/ на Република България /рб/"
     },
     {
       "id": "contractor:201901327",
@@ -565,6 +815,16 @@
       "id": "awarder:000715054",
       "type": "awarder",
       "label": "Университетска многопрофилна болница за активно лечение /УМБАЛ/ \"Свети Иван Рилски\" ЕАД - София"
+    },
+    {
+      "id": "awarder:129010011",
+      "type": "awarder",
+      "label": "Главна дирекция \"Охрана\" към Министерство на правосъдието /Гдо към мп/"
+    },
+    {
+      "id": "contractor:000633828",
+      "type": "contractor",
+      "label": "България Ер АД - София"
     },
     {
       "id": "awarder:000770086",
@@ -587,6 +847,26 @@
       "label": "Многопрофилна болница за активно лечение /МБАЛ/ \"Д-р Тота Венкова\" АД - Габрово"
     },
     {
+      "id": "awarder:000670602",
+      "type": "awarder",
+      "label": "Университет за национално и световно стопанство /УНСС/"
+    },
+    {
+      "id": "awarder:130047747",
+      "type": "awarder",
+      "label": "Център за развитие на човешките ресурси /Црчр/"
+    },
+    {
+      "id": "awarder:000615075",
+      "type": "awarder",
+      "label": "Община Рудозем"
+    },
+    {
+      "id": "contractor:120549872",
+      "type": "contractor",
+      "label": "Чечосан ЕООД - Смолян"
+    },
+    {
       "id": "contractor:130345786",
       "type": "contractor",
       "label": "Университетска многопрофилна болница за активно лечение и спешна Медицина Н.И. Пирогов ЕАД"
@@ -607,6 +887,16 @@
       "label": "Министерство на труда и социалната политика /МТСП/"
     },
     {
+      "id": "contractor:123085516",
+      "type": "contractor",
+      "label": "Водоканалпроект -97 ООД - гр.Стара Загора"
+    },
+    {
+      "id": "contractor:107558642",
+      "type": "contractor",
+      "label": "Офис-Принт Сервиз ЕООД - Габрово /стар адрес Севлиево/"
+    },
+    {
       "id": "awarder:000922786",
       "type": "awarder",
       "label": "Средно общообразователно училище /СОУ/ \"Черноризец Храбър\" - гр. Велики Преслав"
@@ -620,6 +910,11 @@
       "id": "contractor:103835309",
       "type": "contractor",
       "label": "Озон ЕООД - Варна"
+    },
+    {
+      "id": "contractor:110001952",
+      "type": "contractor",
+      "label": "Осъм инженеринг АД - Ловеч"
     },
     {
       "id": "awarder:000412255",
@@ -640,6 +935,21 @@
       "id": "awarder:121015056",
       "type": "awarder",
       "label": "Агенция за социално подпомагане /Асп/"
+    },
+    {
+      "id": "contractor:124031444",
+      "type": "contractor",
+      "label": "Яйца и птици - Зора АД  Дончево"
+    },
+    {
+      "id": "awarder:127521758",
+      "type": "awarder",
+      "label": "Комплексен онкологичен център/КОЦ/ - Шумен ЕООД/Старо наименование - Междуобластен диспансер за онкологични заболявания със стационар /Мдозс/ - Шумен"
+    },
+    {
+      "id": "contractor:201832124",
+      "type": "contractor",
+      "label": "Олимпия Шумен ООД"
     },
     {
       "id": "contractor:101055748",
@@ -672,11 +982,6 @@
       "label": "Национален център по трансфузионна хематология/НЦТХ/  към МЗ - /Старо наименование - Национален център по хематология и трансфузиология /Нцхт/ - София/"
     },
     {
-      "id": "awarder:103002253",
-      "type": "awarder",
-      "label": "Водоснабдяване и канализация ООД - Варна"
-    },
-    {
       "id": "awarder:125501290",
       "type": "awarder",
       "label": "Многопрофилна болница за активно лечение /МБАЛ/ - Търговище АД"
@@ -685,6 +990,26 @@
       "id": "contractor:104688050",
       "type": "contractor",
       "label": "Бред - Кооп Павликени ЕАД - Павликени"
+    },
+    {
+      "id": "awarder:000455471",
+      "type": "awarder",
+      "label": "Медицински университет /Му/ - Пловдив"
+    },
+    {
+      "id": "awarder:131326059",
+      "type": "awarder",
+      "label": "Център \"Фонд за лечение на деца\" /Цфлд/"
+    },
+    {
+      "id": "awarder:130169256",
+      "type": "awarder",
+      "label": "Министерство на икономиката и енергетиката /Мие/ - Старо наименование - Министерство на икономиката, енергетиката и туризма /миет/ /Старо наименование - Министерство на икономиката и енергетиката /мие//"
+    },
+    {
+      "id": "awarder:000413974",
+      "type": "awarder",
+      "label": "Община Плевен"
     },
     {
       "id": "awarder:000627597",
@@ -737,9 +1062,24 @@
       "label": "Дарин Величков Матов"
     },
     {
+      "id": "mp:1043",
+      "type": "mp",
+      "label": "Иван Дечков Колев"
+    },
+    {
       "id": "mp:2838",
       "type": "mp",
       "label": "ГЕОРГИ ЙОРДАНОВ ЙОРДАНОВ"
+    },
+    {
+      "id": "mp:5093",
+      "type": "mp",
+      "label": "Данаил Лалев Петков"
+    },
+    {
+      "id": "mp:50",
+      "type": "mp",
+      "label": "Енчо Вълков Малев"
     },
     {
       "id": "mp:4727",
@@ -757,14 +1097,69 @@
       "label": "Васил Миланов Антонов"
     },
     {
+      "id": "mp:5202",
+      "type": "mp",
+      "label": "Джипо Николов Джипов"
+    },
+    {
+      "id": "mp:4649",
+      "type": "mp",
+      "label": "Генади Събков Събков"
+    },
+    {
+      "id": "mp:5198",
+      "type": "mp",
+      "label": "Галин Неделчев Дурев"
+    },
+    {
+      "id": "mp:909",
+      "type": "mp",
+      "label": "Емил Димитров Гущеров"
+    },
+    {
+      "id": "mp:4745",
+      "type": "mp",
+      "label": "Ваня Иванова Василева"
+    },
+    {
+      "id": "mp:1475",
+      "type": "mp",
+      "label": "Тодор Борисов Радулов"
+    },
+    {
       "id": "mp:2946",
       "type": "mp",
-      "label": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА"
+      "label": "Елена Стефанова Пешева"
+    },
+    {
+      "id": "mp:854",
+      "type": "mp",
+      "label": "Стоян Иванов Иванов"
+    },
+    {
+      "id": "mp:4719",
+      "type": "mp",
+      "label": "Петър Георгиев Кънев"
+    },
+    {
+      "id": "mp:3067",
+      "type": "mp",
+      "label": "Минко Велчев Ангелов"
     },
     {
       "id": "mp:2647",
       "type": "mp",
       "label": "ДИМИТЪР КРУМОВ АЛЕКСАНДРОВ"
+    },
+    {
+      "id": "mp:5270",
+      "type": "mp",
+      "label": "Здравко Марков Марков"
+    },
+    {
+      "id": "mp:1689",
+      "type": "mp",
+      "label": "Андон Петров Андонов"
     },
     {
       "id": "mp:3693",
@@ -777,6 +1172,36 @@
       "label": "Николай Иванов Косев"
     },
     {
+      "id": "mp:5268",
+      "type": "mp",
+      "label": "Румен Ангелов Миланов"
+    },
+    {
+      "id": "mp:3993",
+      "type": "mp",
+      "label": "Георги Станчев Георгиев"
+    },
+    {
+      "id": "mp:185",
+      "type": "mp",
+      "label": "Стоян Проданов Иванов"
+    },
+    {
+      "id": "mp:2376",
+      "type": "mp",
+      "label": "Костадин Иванов Марков"
+    },
+    {
+      "id": "mp:42",
+      "type": "mp",
+      "label": "Йордан Димитров Костадинов"
+    },
+    {
+      "id": "mp:4663",
+      "type": "mp",
+      "label": "Александър Атанасов Александров"
+    },
+    {
       "id": "mp:1060",
       "type": "mp",
       "label": "Иво Тенев Димов"
@@ -787,14 +1212,44 @@
       "label": "Станислав Иванов Владимиров"
     },
     {
+      "id": "mp:4871",
+      "type": "mp",
+      "label": "Владимир Владимиров Георгиев"
+    },
+    {
       "id": "mp:4939",
       "type": "mp",
       "label": "Юксел Осман Ахмед"
     },
     {
+      "id": "mp:63",
+      "type": "mp",
+      "label": "Донка Иванова Михайлова"
+    },
+    {
+      "id": "mp:931",
+      "type": "mp",
+      "label": "Никола Иванов Белишки"
+    },
+    {
+      "id": "mp:968",
+      "type": "mp",
+      "label": "Белгин Фикри Шукри"
+    },
+    {
+      "id": "mp:233",
+      "type": "mp",
+      "label": "Николай Петров Кънчев"
+    },
+    {
       "id": "mp:3782",
       "type": "mp",
       "label": "Момчил Донев Ненов"
+    },
+    {
+      "id": "mp:990",
+      "type": "mp",
+      "label": "Кирчо Димитров Димитров"
     },
     {
       "id": "mp:809",
@@ -807,6 +1262,21 @@
       "label": "Мария Василева Капон"
     },
     {
+      "id": "mp:3016",
+      "type": "mp",
+      "label": "Борис Цветков Цветков"
+    },
+    {
+      "id": "mp:5113",
+      "type": "mp",
+      "label": "Георги Иванов Георгиев"
+    },
+    {
+      "id": "mp:5222",
+      "type": "mp",
+      "label": "Стефан Атанасов Сабрутев"
+    },
+    {
       "id": "mp:3169",
       "type": "mp",
       "label": "Пламен Иванов Милев"
@@ -815,6 +1285,26 @@
       "id": "mp:3655",
       "type": "mp",
       "label": "Асен Георгиев Балтов"
+    },
+    {
+      "id": "mp:2410",
+      "type": "mp",
+      "label": "Димитър Танев Танев"
+    },
+    {
+      "id": "mp:3241",
+      "type": "mp",
+      "label": "Николай Цветанов Сираков"
+    },
+    {
+      "id": "mp:5092",
+      "type": "mp",
+      "label": "Богомил Иванов Петков"
+    },
+    {
+      "id": "mp:5121",
+      "type": "mp",
+      "label": "Атанас Петров Атанасов"
     },
     {
       "id": "mp:1622",
@@ -959,6 +1449,11 @@
       "valueEur": 460162.69
     },
     {
+      "source": "awarder:123531939",
+      "target": "contractor:833103535",
+      "valueEur": 11160166.24
+    },
+    {
       "source": "awarder:119502733",
       "target": "contractor:123685800",
       "valueEur": 5043.38
@@ -967,6 +1462,16 @@
       "source": "awarder:000812197",
       "target": "contractor:200193238",
       "valueEur": 42601.35
+    },
+    {
+      "source": "awarder:000215889",
+      "target": "contractor:107558418",
+      "valueEur": 52765.32
+    },
+    {
+      "source": "awarder:834056394",
+      "target": "contractor:124121775",
+      "valueEur": 7045.6
     },
     {
       "source": "awarder:831661388",
@@ -982,6 +1487,11 @@
       "source": "awarder:130367715",
       "target": "contractor:122055819",
       "valueEur": 2337.63
+    },
+    {
+      "source": "awarder:130020522",
+      "target": "contractor:833103535",
+      "valueEur": 5450631.99
     },
     {
       "source": "awarder:123531939",
@@ -1009,6 +1519,11 @@
       "valueEur": 9203.25
     },
     {
+      "source": "awarder:828050351",
+      "target": "contractor:116011316",
+      "valueEur": 71580.86
+    },
+    {
       "source": "awarder:831901901",
       "target": "contractor:131045382",
       "valueEur": 49643.92
@@ -1029,6 +1544,11 @@
       "valueEur": 23215.72
     },
     {
+      "source": "awarder:000695317",
+      "target": "contractor:131317829",
+      "valueEur": 139652.73
+    },
+    {
       "source": "awarder:102003505",
       "target": "contractor:200357965",
       "valueEur": 120421.93
@@ -1037,6 +1557,11 @@
       "source": "awarder:103004948",
       "target": "contractor:103768337",
       "valueEur": 13022.09
+    },
+    {
+      "source": "awarder:000697179",
+      "target": "contractor:101004974",
+      "valueEur": 44738.04
     },
     {
       "source": "awarder:102004333",
@@ -1049,6 +1574,11 @@
       "valueEur": 6178.96
     },
     {
+      "source": "awarder:000694293",
+      "target": "contractor:831453003",
+      "valueEur": 3885818.3
+    },
+    {
       "source": "awarder:000695406",
       "target": "contractor:831641791",
       "valueEur": 6613680.64
@@ -1057,6 +1587,11 @@
       "source": "awarder:000689022",
       "target": "contractor:122055819",
       "valueEur": 1938.82
+    },
+    {
+      "source": "awarder:000236164",
+      "target": "contractor:836163459",
+      "valueEur": 10225.84
     },
     {
       "source": "awarder:127022634",
@@ -1072,6 +1607,11 @@
       "source": "awarder:130485795",
       "target": "contractor:131045382",
       "valueEur": 60723.15
+    },
+    {
+      "source": "awarder:115552190",
+      "target": "contractor:126519537",
+      "valueEur": 1019216.39
     },
     {
       "source": "awarder:828050351",
@@ -1094,6 +1634,11 @@
       "valueEur": 103300.9
     },
     {
+      "source": "awarder:000852188",
+      "target": "contractor:124121775",
+      "valueEur": 18917.8
+    },
+    {
       "source": "awarder:000929072",
       "target": "contractor:127003032",
       "valueEur": 41581.32
@@ -1109,9 +1654,24 @@
       "valueEur": 269992.79
     },
     {
+      "source": "awarder:114532352",
+      "target": "contractor:131317829",
+      "valueEur": 161004.31
+    },
+    {
       "source": "awarder:126529015",
       "target": "contractor:107564054",
       "valueEur": 85488
+    },
+    {
+      "source": "awarder:000193371",
+      "target": "contractor:121015330",
+      "valueEur": 294104.8
+    },
+    {
+      "source": "awarder:121410441",
+      "target": "contractor:831453003",
+      "valueEur": 28410667.1
     },
     {
       "source": "awarder:109513731",
@@ -1119,14 +1679,34 @@
       "valueEur": 443801.35
     },
     {
+      "source": "awarder:000291709",
+      "target": "contractor:121748902",
+      "valueEur": 5828.73
+    },
+    {
+      "source": "awarder:000057026",
+      "target": "contractor:128056792",
+      "valueEur": 233726.74
+    },
+    {
       "source": "awarder:127512595",
       "target": "contractor:127003032",
       "valueEur": 284026.15
     },
     {
+      "source": "awarder:826043778",
+      "target": "contractor:116011316",
+      "valueEur": 33745.26
+    },
+    {
       "source": "awarder:121004469",
       "target": "contractor:831641791",
       "valueEur": 111226.44
+    },
+    {
+      "source": "awarder:000056764",
+      "target": "contractor:128056792",
+      "valueEur": 142139.14
     },
     {
       "source": "awarder:000777230",
@@ -1137,6 +1717,11 @@
       "source": "awarder:000931575",
       "target": "contractor:127003032",
       "valueEur": 3120.16
+    },
+    {
+      "source": "awarder:000662776",
+      "target": "contractor:131317829",
+      "valueEur": 613187.6
     },
     {
       "source": "awarder:000133634",
@@ -1159,6 +1744,11 @@
       "valueEur": 158500.48
     },
     {
+      "source": "awarder:000056814",
+      "target": "contractor:128056792",
+      "valueEur": 25533.07
+    },
+    {
       "source": "awarder:000696327",
       "target": "contractor:831160078",
       "valueEur": 35279.14
@@ -1169,9 +1759,24 @@
       "valueEur": 10577.03
     },
     {
+      "source": "awarder:121604974",
+      "target": "contractor:831453003",
+      "valueEur": 73149.51
+    },
+    {
       "source": "awarder:000695349",
       "target": "contractor:121396123",
       "valueEur": 1022.58
+    },
+    {
+      "source": "awarder:000695089",
+      "target": "contractor:121015330",
+      "valueEur": 1051246.6
+    },
+    {
+      "source": "awarder:000615118",
+      "target": "contractor:102705120",
+      "valueEur": 77357.03
     },
     {
       "source": "awarder:115532049",
@@ -1179,9 +1784,24 @@
       "valueEur": 51975.87
     },
     {
+      "source": "awarder:000970457",
+      "target": "contractor:128056792",
+      "valueEur": 22316.6
+    },
+    {
       "source": "awarder:000215630",
       "target": "contractor:107562605",
       "valueEur": 869.2
+    },
+    {
+      "source": "awarder:000413725",
+      "target": "contractor:114112658",
+      "valueEur": 324592.73
+    },
+    {
+      "source": "awarder:000695025",
+      "target": "contractor:831453003",
+      "valueEur": 181496.54
     },
     {
       "source": "awarder:000413579",
@@ -1189,9 +1809,34 @@
       "valueEur": 321684.4
     },
     {
+      "source": "awarder:000056814",
+      "target": "contractor:102083469",
+      "valueEur": 8088.64
+    },
+    {
+      "source": "awarder:000695324",
+      "target": "contractor:127595228",
+      "valueEur": 28760.17
+    },
+    {
+      "source": "awarder:115552190",
+      "target": "contractor:831453003",
+      "valueEur": 61355.03
+    },
+    {
       "source": "awarder:000695114",
       "target": "contractor:121399226",
       "valueEur": 16616.99
+    },
+    {
+      "source": "awarder:000133965",
+      "target": "contractor:104054085",
+      "valueEur": 4294.85
+    },
+    {
+      "source": "awarder:126004284",
+      "target": "contractor:116011316",
+      "valueEur": 194290.91
     },
     {
       "source": "awarder:000817778",
@@ -1219,9 +1864,19 @@
       "valueEur": 156132.69
     },
     {
+      "source": "awarder:000970165",
+      "target": "contractor:128056792",
+      "valueEur": 31719.32
+    },
+    {
       "source": "awarder:000921944",
       "target": "contractor:127003032",
       "valueEur": 51237.89
+    },
+    {
+      "source": "awarder:115552190",
+      "target": "contractor:119020085",
+      "valueEur": 84874.45
     },
     {
       "source": "awarder:000133965",
@@ -1232,6 +1887,11 @@
       "source": "awarder:175405647",
       "target": "contractor:107564054",
       "valueEur": 7266.74
+    },
+    {
+      "source": "awarder:000410184",
+      "target": "contractor:114112658",
+      "valueEur": 269962.11
     },
     {
       "source": "awarder:000695114",
@@ -1249,14 +1909,39 @@
       "valueEur": 35156.56
     },
     {
+      "source": "awarder:831917834",
+      "target": "contractor:119020085",
+      "valueEur": 77122.33
+    },
+    {
       "source": "awarder:000932193",
       "target": "contractor:127003032",
       "valueEur": 2834.6
     },
     {
+      "source": "awarder:119667813",
+      "target": "contractor:119020085",
+      "valueEur": 29554.72
+    },
+    {
       "source": "awarder:837077874",
       "target": "contractor:127003032",
       "valueEur": 116355.72
+    },
+    {
+      "source": "awarder:131063188",
+      "target": "contractor:119020085",
+      "valueEur": 8642.42
+    },
+    {
+      "source": "awarder:103002253",
+      "target": "contractor:116011316",
+      "valueEur": 217299.05
+    },
+    {
+      "source": "awarder:833017552",
+      "target": "contractor:833103535",
+      "valueEur": 148274.65
     },
     {
       "source": "awarder:831605806",
@@ -1267,6 +1952,11 @@
       "source": "awarder:000758792",
       "target": "contractor:131274160",
       "valueEur": 51129.19
+    },
+    {
+      "source": "awarder:040624317",
+      "target": "contractor:114112658",
+      "valueEur": 434598.1
     },
     {
       "source": "awarder:000776464",
@@ -1287,6 +1977,11 @@
       "source": "awarder:119502733",
       "target": "contractor:831641791",
       "valueEur": 8761.5
+    },
+    {
+      "source": "awarder:831912591",
+      "target": "contractor:831453003",
+      "valueEur": 114196.02
     },
     {
       "source": "awarder:115627433",
@@ -1384,6 +2079,11 @@
       "valueEur": 62561.67
     },
     {
+      "source": "awarder:121817309",
+      "target": "contractor:119020085",
+      "valueEur": 5644.66
+    },
+    {
       "source": "awarder:102612100",
       "target": "contractor:122055819",
       "valueEur": 2198.56
@@ -1392,6 +2092,11 @@
       "source": "awarder:000056814",
       "target": "contractor:102655436",
       "valueEur": 10307.64
+    },
+    {
+      "source": "awarder:000672382",
+      "target": "contractor:175030371",
+      "valueEur": 170427.9
     },
     {
       "source": "awarder:130345786",
@@ -1407,6 +2112,16 @@
       "source": "awarder:105515902",
       "target": "contractor:122055819",
       "valueEur": 21985.04
+    },
+    {
+      "source": "awarder:000413999",
+      "target": "contractor:114112658",
+      "valueEur": 118666.76
+    },
+    {
+      "source": "awarder:000133965",
+      "target": "contractor:102083469",
+      "valueEur": 16361.34
     },
     {
       "source": "awarder:000695317",
@@ -1439,9 +2154,24 @@
       "valueEur": 23570.56
     },
     {
+      "source": "awarder:129010011",
+      "target": "contractor:000633828",
+      "valueEur": 562421.07
+    },
+    {
       "source": "awarder:000770086",
       "target": "contractor:122055819",
       "valueEur": 18701.01
+    },
+    {
+      "source": "awarder:000133634",
+      "target": "contractor:102083469",
+      "valueEur": 10225.84
+    },
+    {
+      "source": "awarder:000093442",
+      "target": "contractor:102083469",
+      "valueEur": 19684.74
     },
     {
       "source": "awarder:000133901",
@@ -1454,6 +2184,11 @@
       "valueEur": 51722.29
     },
     {
+      "source": "awarder:000670602",
+      "target": "contractor:831453003",
+      "valueEur": 30677.51
+    },
+    {
       "source": "awarder:000413579",
       "target": "contractor:814191534",
       "valueEur": 2438.86
@@ -1462,6 +2197,16 @@
       "source": "awarder:131063188",
       "target": "contractor:831641791",
       "valueEur": 582872.74
+    },
+    {
+      "source": "awarder:130047747",
+      "target": "contractor:000633828",
+      "valueEur": 81806.7
+    },
+    {
+      "source": "awarder:000615075",
+      "target": "contractor:120549872",
+      "valueEur": 953.56
     },
     {
       "source": "awarder:000695317",
@@ -1499,6 +2244,16 @@
       "valueEur": 299105.75
     },
     {
+      "source": "awarder:000817778",
+      "target": "contractor:123085516",
+      "valueEur": 368.13
+    },
+    {
+      "source": "awarder:000215630",
+      "target": "contractor:107558642",
+      "valueEur": 62857.23
+    },
+    {
       "source": "awarder:129008829",
       "target": "contractor:107564054",
       "valueEur": 1540.62
@@ -1517,6 +2272,11 @@
       "source": "awarder:000093442",
       "target": "contractor:103835309",
       "valueEur": 12782.3
+    },
+    {
+      "source": "awarder:000291709",
+      "target": "contractor:110001952",
+      "valueEur": 14025.63
     },
     {
       "source": "awarder:000412255",
@@ -1539,9 +2299,24 @@
       "valueEur": 3016.62
     },
     {
+      "source": "awarder:201619580",
+      "target": "contractor:120549872",
+      "valueEur": 30677.51
+    },
+    {
       "source": "awarder:121015056",
       "target": "contractor:121396123",
       "valueEur": 274052.45
+    },
+    {
+      "source": "awarder:000852188",
+      "target": "contractor:124031444",
+      "valueEur": 9077.48
+    },
+    {
+      "source": "awarder:127521758",
+      "target": "contractor:201832124",
+      "valueEur": 20080.99
     },
     {
       "source": "awarder:121015056",
@@ -1599,6 +2374,31 @@
       "valueEur": 8496.26
     },
     {
+      "source": "awarder:000670602",
+      "target": "contractor:836163459",
+      "valueEur": 1533.88
+    },
+    {
+      "source": "awarder:000455471",
+      "target": "contractor:119020085",
+      "valueEur": 55997.27
+    },
+    {
+      "source": "awarder:131326059",
+      "target": "contractor:000633828",
+      "valueEur": 184065.08
+    },
+    {
+      "source": "awarder:130169256",
+      "target": "contractor:000633828",
+      "valueEur": 674905.28
+    },
+    {
+      "source": "awarder:000413974",
+      "target": "contractor:102083469",
+      "valueEur": 8436.32
+    },
+    {
       "source": "awarder:000627597",
       "target": "contractor:831641791",
       "valueEur": 214742.59
@@ -1612,6 +2412,16 @@
       "source": "awarder:123535874",
       "target": "contractor:122055819",
       "valueEur": 59312.41
+    },
+    {
+      "source": "awarder:000093442",
+      "target": "contractor:000633828",
+      "valueEur": 255645.94
+    },
+    {
+      "source": "awarder:000695395",
+      "target": "contractor:000633828",
+      "valueEur": 127822.97
     },
     {
       "source": "awarder:831545394",
@@ -1649,9 +2459,24 @@
       "valueEur": 2742232.5
     },
     {
+      "source": "contractor:833103535",
+      "target": "mp:1043",
+      "valueEur": 16759072.87
+    },
+    {
       "source": "contractor:200193238",
       "target": "mp:2838",
       "valueEur": 105453.8
+    },
+    {
+      "source": "contractor:107558418",
+      "target": "mp:5093",
+      "valueEur": 52765.32
+    },
+    {
+      "source": "contractor:124121775",
+      "target": "mp:50",
+      "valueEur": 25963.4
     },
     {
       "source": "contractor:831641791",
@@ -1669,14 +2494,74 @@
       "valueEur": 547242.06
     },
     {
+      "source": "contractor:114112658",
+      "target": "mp:2826",
+      "valueEur": 1147819.7
+    },
+    {
+      "source": "contractor:116011316",
+      "target": "mp:5202",
+      "valueEur": 516916.09
+    },
+    {
+      "source": "contractor:831160078",
+      "target": "mp:4649",
+      "valueEur": 735748.51
+    },
+    {
+      "source": "contractor:831160078",
+      "target": "mp:5198",
+      "valueEur": 735748.51
+    },
+    {
+      "source": "contractor:831160078",
+      "target": "mp:909",
+      "valueEur": 735748.51
+    },
+    {
+      "source": "contractor:131317829",
+      "target": "mp:4745",
+      "valueEur": 913844.63
+    },
+    {
+      "source": "contractor:101004974",
+      "target": "mp:1475",
+      "valueEur": 44738.04
+    },
+    {
       "source": "contractor:112028994",
       "target": "mp:2946",
       "valueEur": 8878.58
     },
     {
+      "source": "contractor:112028994",
+      "target": "mp:854",
+      "valueEur": 8878.58
+    },
+    {
+      "source": "contractor:831453003",
+      "target": "mp:4719",
+      "valueEur": 32757360
+    },
+    {
+      "source": "contractor:836163459",
+      "target": "mp:3067",
+      "valueEur": 11759.71
+    },
+    {
       "source": "contractor:127003032",
       "target": "mp:2647",
       "valueEur": 1676189.02
+    },
+    {
+      "source": "contractor:126519537",
+      "target": "mp:5270",
+      "valueEur": 1019216.39
+    },
+    {
+      "source": "contractor:833017552",
+      "target": "mp:1689",
+      "valueEur": 577248.53
     },
     {
       "source": "contractor:833017552",
@@ -1687,6 +2572,36 @@
       "source": "contractor:107564054",
       "target": "mp:5094",
       "valueEur": 172523.02
+    },
+    {
+      "source": "contractor:121015330",
+      "target": "mp:5268",
+      "valueEur": 1345351.4
+    },
+    {
+      "source": "contractor:121748902",
+      "target": "mp:3993",
+      "valueEur": 5828.73
+    },
+    {
+      "source": "contractor:128056792",
+      "target": "mp:185",
+      "valueEur": 455434.87
+    },
+    {
+      "source": "contractor:102705120",
+      "target": "mp:2376",
+      "valueEur": 77357.03
+    },
+    {
+      "source": "contractor:102083469",
+      "target": "mp:42",
+      "valueEur": 62796.87
+    },
+    {
+      "source": "contractor:127595228",
+      "target": "mp:4663",
+      "valueEur": 28760.17
     },
     {
       "source": "contractor:121399226",
@@ -1700,13 +2615,43 @@
     },
     {
       "source": "contractor:121399226",
+      "target": "mp:4871",
+      "valueEur": 16616.99
+    },
+    {
+      "source": "contractor:121399226",
       "target": "mp:4939",
       "valueEur": 16616.99
+    },
+    {
+      "source": "contractor:121399226",
+      "target": "mp:63",
+      "valueEur": 16616.99
+    },
+    {
+      "source": "contractor:121399226",
+      "target": "mp:931",
+      "valueEur": 16616.99
+    },
+    {
+      "source": "contractor:121399226",
+      "target": "mp:968",
+      "valueEur": 16616.99
+    },
+    {
+      "source": "contractor:104054085",
+      "target": "mp:233",
+      "valueEur": 4294.85
     },
     {
       "source": "contractor:123716465",
       "target": "mp:3782",
       "valueEur": 1022.58
+    },
+    {
+      "source": "contractor:119020085",
+      "target": "mp:990",
+      "valueEur": 261835.84
     },
     {
       "source": "contractor:201745141",
@@ -1719,6 +2664,26 @@
       "valueEur": 393234.59
     },
     {
+      "source": "contractor:175030371",
+      "target": "mp:3016",
+      "valueEur": 170427.9
+    },
+    {
+      "source": "contractor:000633828",
+      "target": "mp:5113",
+      "valueEur": 1886667.04
+    },
+    {
+      "source": "contractor:124031444",
+      "target": "mp:5113",
+      "valueEur": 9077.48
+    },
+    {
+      "source": "contractor:120549872",
+      "target": "mp:5222",
+      "valueEur": 31631.07
+    },
+    {
       "source": "contractor:130345786",
       "target": "mp:3169",
       "valueEur": 425567.64
@@ -1727,6 +2692,26 @@
       "source": "contractor:130345786",
       "target": "mp:3655",
       "valueEur": 425567.64
+    },
+    {
+      "source": "contractor:123085516",
+      "target": "mp:2410",
+      "valueEur": 368.13
+    },
+    {
+      "source": "contractor:107558642",
+      "target": "mp:3241",
+      "valueEur": 62857.23
+    },
+    {
+      "source": "contractor:110001952",
+      "target": "mp:5092",
+      "valueEur": 14025.63
+    },
+    {
+      "source": "contractor:201832124",
+      "target": "mp:5121",
+      "valueEur": 20080.99
     },
     {
       "source": "contractor:104688050",

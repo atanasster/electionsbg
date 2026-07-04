@@ -13,6 +13,9 @@
 
 SET check_function_bodies = off;
 
+-- Drop the dependent cache matview first so the function DROP doesn't fail on the
+-- dependency (re-apply path); it's recreated at the file tail. Mirrors 033.
+DROP MATERIALIZED VIEW IF EXISTS procurement_overview_cache;
 DROP FUNCTION IF EXISTS procurement_overview(text, text);
 CREATE OR REPLACE FUNCTION procurement_overview(
   p_from text DEFAULT NULL,

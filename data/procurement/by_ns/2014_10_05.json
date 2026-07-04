@@ -2,7 +2,7 @@
   "electionDate": "2014_10_05",
   "start": "2014-10-05",
   "end": "2017-03-26",
-  "generatedAt": "2026-07-03T11:14:12.383Z",
+  "generatedAt": "2026-07-04T10:56:14.071Z",
   "totals": {
     "contracts": 38377,
     "amendments": 0,
@@ -10,14 +10,14 @@
     "contractorCount": 8592,
     "awarderCount": 1438,
     "totalEur": 7845163878.68,
-    "mpCount": 17,
-    "mpConnectedContractorCount": 16,
-    "mpConnectedTotalEur": 64862152.03,
+    "mpCount": 52,
+    "mpConnectedContractorCount": 48,
+    "mpConnectedTotalEur": 159385683.25,
     "officialCount": 32,
     "officialConnectedContractorCount": 30,
     "officialConnectedTotalEur": 28582185.65,
-    "connectedContractorCount": 44,
-    "connectedTotalEur": 78163153.64
+    "connectedContractorCount": 74,
+    "connectedTotalEur": 172436756.13
   },
   "topContractors": [
     {
@@ -161,8 +161,10 @@
       "name": "Българска банка за развитие  АД",
       "totalEur": 44365249.03,
       "contractCount": 2,
-      "mpTied": false,
-      "mpIds": []
+      "mpTied": true,
+      "mpIds": [
+        2823
+      ]
     },
     {
       "eik": "177125220",
@@ -340,8 +342,10 @@
       "name": "Енергоремонт Гълъбово АД",
       "totalEur": 26460220.04,
       "contractCount": 45,
-      "mpTied": false,
-      "mpIds": []
+      "mpTied": true,
+      "mpIds": [
+        1043
+      ]
     },
     {
       "eik": "177043798",
@@ -728,6 +732,17 @@
   ],
   "topMps": [
     {
+      "mpId": 2823,
+      "mpName": "Ивайло Ангелов Московски",
+      "totalEur": 44365249.03,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Българска банка за развитие  АД"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 1129,
       "mpName": "Антоний Венциславов Кръстев",
       "totalEur": 35035786.01,
@@ -750,6 +765,17 @@
       "confidence": "medium"
     },
     {
+      "mpId": 1043,
+      "mpName": "Иван Дечков Колев",
+      "totalEur": 26460220.04,
+      "contractCount": 45,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Енергоремонт Гълъбово АД"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 4727,
       "mpName": "Хюсни Осман Адем",
       "totalEur": 15017670.57,
@@ -757,6 +783,29 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Информационно обслужване АД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 4719,
+      "mpName": "Петър Георгиев Кънев",
+      "totalEur": 14301606.32,
+      "contractCount": 6,
+      "contractorCount": 2,
+      "topContractorNames": [
+        "Демакс АД - София",
+        "Сдружение Българска федерация по волейбол"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 1689,
+      "mpName": "Андон Петров Андонов",
+      "totalEur": 8421304.51,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Мини Марица - Изток ЕАД - Раднево"
       ],
       "confidence": "medium"
     },
@@ -783,6 +832,30 @@
       "confidence": "high"
     },
     {
+      "mpId": 2376,
+      "mpName": "Костадин Иванов Марков",
+      "totalEur": 2725810.5,
+      "contractCount": 5,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Аква Системс  АД - Бургас"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5113,
+      "mpName": "Георги Иванов Георгиев",
+      "totalEur": 1973140.99,
+      "contractCount": 10,
+      "contractorCount": 3,
+      "topContractorNames": [
+        "България Ер АД - София",
+        "Керамика Летница 2010 ЕООД",
+        "Яйца и птици - Зора АД  Дончево"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 2647,
       "mpName": "ДИМИТЪР КРУМОВ АЛЕКСАНДРОВ",
       "totalEur": 1428009.87,
@@ -794,6 +867,29 @@
       "confidence": "high"
     },
     {
+      "mpId": 2826,
+      "mpName": "Васил Миланов Антонов",
+      "totalEur": 973673.89,
+      "contractCount": 14,
+      "contractorCount": 2,
+      "topContractorNames": [
+        "КА-Груп ООД - Плевен",
+        "Ка Комерс ООД - Плевен"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5202,
+      "mpName": "Джипо Николов Джипов",
+      "totalEur": 772050.74,
+      "contractCount": 6,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Мат ООД - Разград"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 3271,
       "mpName": "Георги Захаринин Попов",
       "totalEur": 766937.82,
@@ -801,6 +897,72 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Автомагистрали ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 185,
+      "mpName": "Стоян Проданов Иванов",
+      "totalEur": 684491.16,
+      "contractCount": 8,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Технострой - инженеринг 99 АД - Ямбол"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5268,
+      "mpName": "Румен Ангелов Миланов",
+      "totalEur": 568967.2,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Пътстрой-92 АД - София"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 3016,
+      "mpName": "Борис Цветков Цветков",
+      "totalEur": 289631.21,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Ученически отдих и спорт ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 990,
+      "mpName": "Кирчо Димитров Димитров",
+      "totalEur": 276533.04,
+      "contractCount": 7,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Мебеллукс АД - Сливен"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 4716,
+      "mpName": "Венцислав Иванов Петков",
+      "totalEur": 276097.62,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Национална спортна база ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5197,
+      "mpName": "Йордан Йовчев Йовчев",
+      "totalEur": 276097.62,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Национална спортна база ЕАД"
       ],
       "confidence": "medium"
     },
@@ -816,6 +978,39 @@
       "confidence": "medium"
     },
     {
+      "mpId": 4649,
+      "mpName": "Генади Събков Събков",
+      "totalEur": 236728.14,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Напоителни системи - клон Дупница ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5198,
+      "mpName": "Галин Неделчев Дурев",
+      "totalEur": 236728.14,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Напоителни системи - клон Дупница ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 909,
+      "mpName": "Емил Димитров Гущеров",
+      "totalEur": 236728.14,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Напоителни системи - клон Дупница ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 4170,
       "mpName": "Ивайло Ванев Вълчев",
       "totalEur": 194290.91,
@@ -827,15 +1022,37 @@
       "confidence": "high"
     },
     {
-      "mpId": 2826,
-      "mpName": "Васил Миланов Антонов",
-      "totalEur": 177622.8,
-      "contractCount": 2,
+      "mpId": 5222,
+      "mpName": "Стефан Атанасов Сабрутев",
+      "totalEur": 179678.39,
+      "contractCount": 7,
       "contractorCount": 1,
       "topContractorNames": [
-        "Ка Комерс ООД - Плевен"
+        "Чечосан ЕООД - Смолян"
       ],
-      "confidence": "high"
+      "confidence": "medium"
+    },
+    {
+      "mpId": 722,
+      "mpName": "Веселин Борисов Черкезов",
+      "totalEur": 153387.56,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Есп Златни пясъци ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 4745,
+      "mpName": "Ваня Иванова Василева",
+      "totalEur": 126536.64,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Фармапро ООД - София"
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 5086,
@@ -850,13 +1067,24 @@
     },
     {
       "mpId": 2946,
-      "mpName": "ЕЛЕНА СТЕФАНОВА ПЕШЕВА",
+      "mpName": "Елена Стефанова Пешева",
       "totalEur": 101160.12,
       "contractCount": 10,
       "contractorCount": 2,
       "topContractorNames": [
         "Радио Сот ООД",
         "ДЖИ Пи ЕС системи българия\" ЕООД, Пловдив"
+      ],
+      "confidence": "high"
+    },
+    {
+      "mpId": 854,
+      "mpName": "Стоян Иванов Иванов",
+      "totalEur": 99074.05,
+      "contractCount": 9,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Радио Сот ООД"
       ],
       "confidence": "high"
     },
@@ -868,6 +1096,17 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Дару Кар АД - София"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 3993,
+      "mpName": "Георги Станчев Георгиев",
+      "totalEur": 70494.65,
+      "contractCount": 4,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Градиакт консулт ООД - София"
       ],
       "confidence": "medium"
     },
@@ -894,6 +1133,105 @@
       "confidence": "medium"
     },
     {
+      "mpId": 745,
+      "mpName": "Иван Павлов Павлов",
+      "totalEur": 55207.25,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Ифелоус  ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 50,
+      "mpName": "Енчо Вълков Малев",
+      "totalEur": 49441.92,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Добруджански хляб АД - Добрич"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 237,
+      "mpName": "Светослав Иванов Спасов",
+      "totalEur": 43061,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Национална електрическа компания ЕАД - София"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 3067,
+      "mpName": "Минко Велчев Ангелов",
+      "totalEur": 40531.13,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Компютър консулт ЕООД - Хасково"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 5092,
+      "mpName": "Богомил Иванов Петков",
+      "totalEur": 35250.13,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Осъм инженеринг АД - Ловеч"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 1621,
+      "mpName": "Милко Петров Багдасаров",
+      "totalEur": 25564.59,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Сдружение Българска федерация по волейбол"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 2804,
+      "mpName": "Ивайло Любенов Константинов",
+      "totalEur": 25564.59,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Сдружение Българска федерация по волейбол"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 3241,
+      "mpName": "Николай Цветанов Сираков",
+      "totalEur": 15708.59,
+      "contractCount": 4,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Офис-Принт Сервиз ЕООД - Габрово /стар адрес Севлиево/"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 4663,
+      "mpName": "Александър Атанасов Александров",
+      "totalEur": 13200.6,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Микро Асу ООД - Пловдив"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 3551,
       "mpName": "Златомира Димитрова Карагеоргиева-Мострова",
       "totalEur": 6442.28,
@@ -905,6 +1243,28 @@
       "confidence": "medium"
     },
     {
+      "mpId": 5205,
+      "mpName": "Рашид Мехмедов Узунов",
+      "totalEur": 4601.63,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Раломекс АД - Завет"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 42,
+      "mpName": "Йордан Димитров Костадинов",
+      "totalEur": 3566.77,
+      "contractCount": 4,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Лемна Екоинвест-България АД - Бургас"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 69,
       "mpName": "Жори Йорданов Алексиев",
       "totalEur": 3067.75,
@@ -912,6 +1272,17 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ДИК-95 ООД - Лом"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 233,
+      "mpName": "Николай Петров Кънчев",
+      "totalEur": 2812.11,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Драгажен флот - Истър АД - Свищов"
       ],
       "confidence": "medium"
     }
