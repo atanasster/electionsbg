@@ -132,6 +132,21 @@ assertion fails):
 | procurementByOblast | by_settlement/index | procurement-by-settlement | agg identical |
 | procurementSingleBidSectors | cpv_competition.json | procurement-risk-indexes | suppressed-set identical |
 | procurementTotals | index.json | procurement-overview | **MP-connected de-duped 1.16bn→981M** (dashboard-consistent) |
+| contractSearch | contractor_contracts + top_contractors + contractors_search | procurement-search + /api/db/table | full parity (€104M biggest); `page` is 0-indexed |
+| awarderProcurement | awarders_index + awarders/{eik} | procurement-search + **new** awarder-procurement route | €835M МО parity |
+| procurementSingleBidSectors | cpv_competition | procurement-risk-indexes | suppressed-set identical |
+| mpProcurement | mp_connected + pep_connected | **person** route (unified) + procurement-rankings | exact by-year + total parity |
+
+**ALL 9 fiscal/place procurement tools migrated + harness-verified (2026-07-04).**
+Remaining `ai/` procurement reads are `debarred.json` + `tenders/index.json` — PG
+*load sources* that stay JSON (Workstream C), not retirement targets. Added a
+lightweight `awarder-procurement` route (`db_routes.js`). The row-level `table`-route
+"bug" was a 0-indexed-`page` mistake in the first rewrite attempt (route is correct;
+`page:0` = first page), plus a fixed store-in-flux artifact (loader now ANALYZEs).
+
+**UPDATE: all 3 completed (2026-07-04)** — see the AI-tools table above. The
+"blocked" analysis below is superseded (the `table`-route concern was a 0-indexed
+page bug, and the awarder rollup got its own route). Kept for history:
 
 **Remaining 3 (blocked on PG route enhancements — would REGRESS if migrated now):**
 - `contractSearch` — name→eik resolves cleanly via `procurement-search` (trgm, covers
