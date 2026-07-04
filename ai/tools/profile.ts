@@ -1,7 +1,7 @@
 // Phase C — local procurement (by settlement) + the composite governance profile
 // for a place (the "about my area" place-ladder dashboard).
 
-import { fetchData } from "./dataClient";
+import { fetchData, fetchDb } from "./dataClient";
 import { fmtEurCompact, fmtInt, fmtPct } from "./format";
 import {
   fetchLocalMuni,
@@ -54,9 +54,16 @@ export const procurementBySettlement = async (
   const q = String(args.place ?? "");
   const place = await resolvePlaceForData(q);
   if (!place) return noPlace("procurementBySettlement", q, ctx);
-  const data = await tryFetch<SettlementProc>(
-    `/procurement/by_settlement/${place.ekatte}.json`,
-  );
+  // procurement_settlement_detail — same per-settlement awarders/totals the
+  // /procurement by-settlement view serves (canonical TR names, euro-rounded).
+  let data: SettlementProc | null = null;
+  try {
+    data = await fetchDb<SettlementProc>("procurement-settlement", {
+      ekatte: place.ekatte,
+    });
+  } catch {
+    data = null;
+  }
   if (!data) {
     return {
       tool: "procurementBySettlement",
@@ -68,7 +75,7 @@ export const procurementBySettlement = async (
           : `No procurement data for ${place.nameEn}`,
       viz: "none",
       facts: { place: place.name },
-      provenance: [`procurement/by_settlement/${place.ekatte}.json`],
+      provenance: ["db:procurement-settlement"],
     };
   }
   const top = [...data.awarders]
@@ -115,7 +122,7 @@ export const procurementBySettlement = async (
           : "—",
       top_buyer: top[0]?.name ?? "—",
     },
-    provenance: [`procurement/by_settlement/${place.ekatte}.json`],
+    provenance: ["db:procurement-settlement"],
   };
 };
 
