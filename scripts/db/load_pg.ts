@@ -256,6 +256,13 @@ export const loadPg = async (): Promise<{
     await c.query("COMMIT");
   });
 
+  // Refresh planner statistics immediately — a freshly TRUNCATE+INSERT'd table
+  // carries reltuples=0 and no column histograms until autovacuum happens to
+  // run, so the FIRST queries after a load plan blind. (Harmless for correctness
+  // — every plan still sorts globally — but it removes the "was it stale stats?"
+  // variable and keeps first-hit /api/db/table + search plans honest.)
+  await exec("ANALYZE contracts, contractor_search, awarder_search");
+
   // Cabinet timeline (governments.json → cabinets) for the government-correlation
   // view. Tiny (~18 rows); the /db pages read it from PG, not JSON.
   if (existsSync(GOVERNMENTS_FILE)) {

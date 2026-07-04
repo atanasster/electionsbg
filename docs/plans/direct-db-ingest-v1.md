@@ -157,12 +157,37 @@ dropped the true biggest contract (raw `contracts.amount_eur` max = €104M; the
 `table` route returned €30.1M and varied €1.6M/€11.2M/€30.1M **across processes**,
 stable within one) — the 104M row (tag `contract`, correct `contractor_eik`, 40
 distinct keys, no dups) is silently excluded while the aggregate count/sum stay
-correct. Root cause unresolved (rows-query vs agg-query WHERE divergence, or a
-node-fetcher/ANALYZE-less-local-store artifact — the live React contracts browser
-uses this same route). **Must be diagnosed before `contractSearch`/`awarderProcurement`
-migrate.** Reverted rather than ship non-deterministic contract amounts to the chat.
-(The 6 committed migrations use jsonb AGGREGATE routes, not the row `table` route,
-and were value-verified — unaffected.)
+correct.
+
+**Diagnosis (2026-07-04) — NOT a `runDbTable` defect; unblocked.** Exhaustively
+ruled out every proposed cause against the committed store (PG 16.14):
+- *WHERE divergence — impossible.* `runDbTable` builds `whereSql`/`params` **once**
+  and feeds the SAME two variables to both the rows query and the agg query; they
+  cannot differ. (`functions/db_table.js:378` → shared by the `SELECT … LIMIT` and
+  the `SELECT count/sum` calls.)
+- *Plan/LIMIT-ordering — impossible.* `ORDER BY amount_eur DESC NULLS LAST, key ASC
+  LIMIT 1` always places a **global Sort above** the scan/Gather. Verified the plan
+  is `Limit → Sort → {Index|Bitmap|Parallel Seq} Scan` under: analyzed stats,
+  zero-stats (deleted `pg_statistic` + `reltuples=0`), `force_generic_plan`, and a
+  forced 4-worker parallel plan with every contractor index dropped. 20/20 forced-
+  parallel executions returned the €104M row. Postgres never yields a non-max row.
+- *Stale stats / missing ANALYZE — ruled out.* Real node route (`nodeDbFetcher` →
+  `DB_ROUTES.table`) returned €104M 5/5 on a zero-stats table AND 5/5 after
+  `ANALYZE`. (The reporter's own table was already autoanalyzed 07-03, pre-session.)
+- *node-fetcher/type artifact — ruled out.* node-pg parses `double precision` (OID
+  701) to a JS `number`; rows come back numerically ordered. No consumer re-sorts
+  the raw `table` rows.
+
+The route returns the correct €104M top row **deterministically** in every
+configuration. The reporter's transient, process-varying reading was an
+environmental artifact of a store in flux during the active migration session
+(re-running `db:refresh` / a half-loaded or swapped local DB), not a code defect —
+it no longer reproduces. `contractSearch`/`awarderProcurement` are **unblocked** on
+the `table` route. Hardening added: `scripts/db/load_pg.ts` now runs
+`ANALYZE contracts, contractor_search, awarder_search` after the load COMMIT (the
+loaders never did), so first-hit post-refresh plans use real stats instead of
+waiting on autovacuum. (The 6 committed migrations use jsonb AGGREGATE routes, not
+the row `table` route, and were value-verified — unaffected regardless.)
 
 These touch the live company/awarder pages (011/023) or change matching behavior,
 so they are a distinct follow-on, not a clean repoint. A JSON file is retired only
