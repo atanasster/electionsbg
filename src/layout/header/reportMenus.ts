@@ -265,13 +265,11 @@ export const governanceMenu: MenuItem[] = [
       // Per-entity spending dashboards — deep-dives into a single public body
       // (АПИ road spending today; ДОО, БулгарТрансГаз and others to follow).
       // They'd crowd the procurement sub-nav as pills, so they group here under
-      // governance instead. Dev-gated for now: the roads page + its data are
-      // unreleased (see the roads <Route> in routes.tsx / useRoads).
-      { title: "-", devOnly: true },
+      // governance instead.
+      { title: "-" },
       {
         title: "menu_group_state_entities",
         group: true,
-        devOnly: true,
         subMenu: [
           { title: "procurement_roads_nav", link: "/procurement/roads" },
         ],
