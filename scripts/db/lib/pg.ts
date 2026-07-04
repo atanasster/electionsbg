@@ -4,7 +4,28 @@
 // local === deployed. See docs/plans/postgres-migration-v1.md.
 
 import { Pool, type PoolClient } from "pg";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
+// Point node-pg's .pgpass lookup at the repo-local .pgpass when the caller
+// hasn't set PGPASSFILE. node-pg only consults it when a connection has NO inline
+// password, so this is a no-op for the local default below (which carries its
+// password inline) and only kicks in for a password-less DATABASE_URL — i.e. the
+// Cloud SQL proxy target (db:push:cloud), whose password lives in .pgpass. Keeps
+// the cloud password out of source and out of argv.
+const REPO_PGPASS = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../../..",
+  ".pgpass",
+);
+if (fs.existsSync(REPO_PGPASS) && !process.env.PGPASSFILE)
+  process.env.PGPASSFILE = REPO_PGPASS;
+
+// Local dev = the docker-compose Postgres (password inline, works out of the box).
+// Override DATABASE_URL to target the Cloud SQL proxy WITHOUT a password so the
+// password is read from .pgpass, e.g.
+//   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg   (see db:push:cloud)
 export const DATABASE_URL =
   process.env.DATABASE_URL ??
   "postgres://postgres:postgres@localhost:5433/electionsbg";

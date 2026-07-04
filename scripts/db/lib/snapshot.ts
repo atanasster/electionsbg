@@ -16,7 +16,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { createHash } from "node:crypto";
 import { spawnSync } from "node:child_process";
-import { allRows } from "./pg";
+import { allRows, DATABASE_URL } from "./pg";
 import { DB_DIR } from "./paths";
 
 export const GCS_DB_DIR = "gs://data-electionsbg-com/db";
@@ -78,19 +78,101 @@ export const readIdentity = async (): Promise<Omit<Lockfile, "snapshot">> => {
   };
 };
 
-/** pg_dump the whole DB (custom, compressed, restorable) to `file`. */
-export const pgDump = (file: string): void => {
-  const out = fs.openSync(file, "w");
+// The local Docker container serves 127.0.0.1/localhost:5433 — dump it via
+// `docker exec` (its client tools match the server version).
+const isLocalContainerTarget = (): boolean => {
   try {
+    const u = new URL(DATABASE_URL);
+    return (
+      (u.hostname === "127.0.0.1" || u.hostname === "localhost") &&
+      (u.port === "5433" || u.port === "")
+    );
+  } catch {
+    return true;
+  }
+};
+
+const redactUrl = (url: string): string => url.replace(/\/\/[^@]*@/, "//");
+
+// A remote target (the Cloud SQL proxy on 5434) is dumped through the LOCAL
+// postgres:16 container's pg_dump — the host pg_dump is often older than the
+// server (14 vs 16) and would refuse. The container reaches the host-side proxy
+// via host.docker.internal; auth comes from a PGPASSFILE (never a plaintext
+// password): we copy the repo .pgpass into the container with its host field
+// rewritten to host.docker.internal so the line still matches. The password
+// field is untouched and never printed.
+const pgDumpRemoteViaContainer = (file: string, out: number): void => {
+  const src = process.env.PGPASSFILE;
+  if (!src || !fs.existsSync(src))
+    throw new Error(
+      "cloud pg_dump needs PGPASSFILE (a .pgpass with the proxy line); none set",
+    );
+  const u = new URL(DATABASE_URL);
+  const port = u.port || "5432";
+  const user = decodeURIComponent(u.username) || "postgres";
+  const db = u.pathname.replace(/^\//, "") || PG_DB;
+  const dockerHost = "host.docker.internal";
+  // Rewrite the host field of the matching line so it still matches when the
+  // container connects to `dockerHost` instead of 127.0.0.1. Password untouched.
+  const rewritten = fs
+    .readFileSync(src, "utf8")
+    .replace(
+      new RegExp(`^${u.hostname.replace(/\./g, "\\.")}:${port}:`, "gm"),
+      `${dockerHost}:${port}:`,
+    );
+  const hostTmp = `${file}.pgpass.tmp`;
+  const inTmp = `/tmp/ndp_pgpass_${process.pid}`;
+  fs.writeFileSync(hostTmp, rewritten, { mode: 0o600 });
+  try {
+    if (spawnSync("docker", ["cp", hostTmp, `${PG_CONTAINER}:${inTmp}`]).status)
+      throw new Error(`docker cp .pgpass → ${PG_CONTAINER} failed`);
+    spawnSync("docker", ["exec", PG_CONTAINER, "chmod", "600", inTmp]);
     const r = spawnSync(
       "docker",
-      ["exec", PG_CONTAINER, "pg_dump", "-U", "postgres", "-Fc", PG_DB],
+      [
+        "exec",
+        "-e",
+        `PGPASSFILE=${inTmp}`,
+        PG_CONTAINER,
+        "pg_dump",
+        "-h",
+        dockerHost,
+        "-p",
+        port,
+        "-U",
+        user,
+        "-Fc",
+        db,
+      ],
       { stdio: ["ignore", out, "inherit"], maxBuffer: 1 << 30 },
     );
     if (r.status !== 0)
       throw new Error(
-        `pg_dump failed (status ${r.status}) — is the container up?`,
+        `pg_dump (via ${PG_CONTAINER}) failed (status ${r.status}) — is the container up and the proxy listening on ${redactUrl(DATABASE_URL)}?`,
       );
+  } finally {
+    spawnSync("docker", ["exec", PG_CONTAINER, "rm", "-f", inTmp]);
+    fs.rmSync(hostTmp, { force: true });
+  }
+};
+
+/** pg_dump the whole DB (custom, compressed, restorable) to `file`. */
+export const pgDump = (file: string): void => {
+  const out = fs.openSync(file, "w");
+  try {
+    if (isLocalContainerTarget()) {
+      const r = spawnSync(
+        "docker",
+        ["exec", PG_CONTAINER, "pg_dump", "-U", "postgres", "-Fc", PG_DB],
+        { stdio: ["ignore", out, "inherit"], maxBuffer: 1 << 30 },
+      );
+      if (r.status !== 0)
+        throw new Error(
+          `pg_dump failed (status ${r.status}) — is the container up?`,
+        );
+    } else {
+      pgDumpRemoteViaContainer(file, out);
+    }
   } finally {
     fs.closeSync(out);
   }
