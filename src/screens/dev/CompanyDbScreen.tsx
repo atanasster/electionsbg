@@ -60,27 +60,32 @@ import { procedureBucket, type ProcedureBucket } from "@/lib/cpvSectors";
 import { trRoleLabel } from "@/lib/trRole";
 import { legalFormLabel } from "@/lib/legalForm";
 import { decodeEntities } from "@/lib/decodeEntities";
+import { ProcurementScopeControl } from "../components/procurement/ProcurementScopeControl";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  scopeYear,
+  type ProcurementScope,
+} from "@/data/procurement/useProcurementScope";
+import { useElectionContext } from "@/data/ElectionContext";
+import allElections from "@/data/json/elections.json";
 
-const PERIOD_ALL = "all";
-const PERIOD_LAST4 = "last4";
-const NOW_YEAR = new Date().getFullYear();
-const PERIOD_YEARS: string[] = Array.from(
-  { length: NOW_YEAR - 2007 + 1 },
-  (_, i) => String(NOW_YEAR - i),
-);
+const elections = allElections as Array<{ name: string }>;
+const dash = (d: string): string => d.replace(/_/g, "-");
 
-// Period preset → [from, to] (YYYY-MM-DD | null) for company_procurement.
-const periodRange = (p: string): [string | null, string | null] => {
-  if (p === PERIOD_ALL) return [null, null];
-  if (p === PERIOD_LAST4) return [`${NOW_YEAR - 3}-01-01`, null];
-  return [`${p}-01-01`, `${p}-12-31`];
+// Scope preset → [from, to] (YYYY-MM-DD | null), inclusive on both ends to match
+// the awarder_procurement / company_procurement SQL (date >= from AND date <= to).
+// Mirrors the procurement section scope: "all" (full corpus), "y:<year>" (one
+// calendar year), "ns" (the selected parliament's tenure — [election, next]).
+const scopeRange = (
+  scope: ProcurementScope,
+  selected: string,
+): [string | null, string | null] => {
+  if (scope === "all") return [null, null];
+  const year = scopeYear(scope);
+  if (year != null) return [`${year}-01-01`, `${year}-12-31`];
+  // "ns": elections.json is newest-first, so the next election sits one index
+  // earlier; the last (most recent) parliament is open-ended (to = null).
+  const idx = elections.findIndex((e) => e.name === selected);
+  return [dash(selected), idx > 0 ? dash(elections[idx - 1].name) : null];
 };
 
 interface Company {
@@ -274,14 +279,22 @@ export const CompanyDbScreen: FC = () => {
   const [ngoFunding, setNgoFunding] = useState<NgoFunding | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const [period, setPeriod] = useState<string>(PERIOD_ALL);
+  // Section scope, mirroring the procurement pages (?pscope semantics), but held
+  // locally since it drives a scoped DB fetch rather than intra-section nav.
+  // Default "all" keeps the page's headline totals all-time on first load.
+  const [scope, setScope] = useState<ProcurementScope>("all");
+  // Latches true once the entity is known to be an awarder, so narrowing the
+  // scope to an empty window can't hide the control (which would strand the user
+  // with no way back to "all").
+  const [hadAwarder, setHadAwarder] = useState(false);
+  const { selected } = useElectionContext();
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
     let live = true;
     setLoading(true);
     setError(null);
-    const [from, to] = periodRange(period);
+    const [from, to] = scopeRange(scope, selected);
     const qs =
       `/api/db/company?eik=${encodeURIComponent(eik)}` +
       (from ? `&from=${from}` : "") +
@@ -317,6 +330,7 @@ export const CompanyDbScreen: FC = () => {
           );
           setGeography(j.geography ?? null);
           setAwarderProc(j.awarderProcurement ?? null);
+          if (j.awarderProcurement) setHadAwarder(true);
           setNgoDetails(j.ngoDetails ?? null);
           setAwarderKindex(j.awarderKindex ?? null);
           setNgoFunding(j.ngoFunding ?? null);
@@ -327,7 +341,7 @@ export const CompanyDbScreen: FC = () => {
     return () => {
       live = false;
     };
-  }, [eik, period]);
+  }, [eik, scope, selected]);
 
   const contracts = Number(summary?.contracts ?? 0);
 
@@ -612,6 +626,15 @@ export const CompanyDbScreen: FC = () => {
               </CardContent>
             </Card>
           )}
+          {/* Section scope — same pill UI as the procurement pages. Drives the
+              scoped DB fetch, so every money tile below (awarder + contractor)
+              re-scopes together. Shown once the entity has any procurement. */}
+          {(hadAwarder || contracts > 0) && (
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-sm text-muted-foreground">Обхват</span>
+              <ProcurementScopeControl value={scope} onChange={setScope} />
+            </div>
+          )}
           {awarderRollup && (
             <section className="space-y-4">
               <div className="flex items-center gap-2">
@@ -668,6 +691,19 @@ export const CompanyDbScreen: FC = () => {
               {awarderRollup.byYear.length > 0 && (
                 <CompanyByYearChart rows={awarderRollup.byYear} />
               )}
+            </section>
+          )}
+          {/* Awarder with no awards inside the chosen window — keep the section
+              present (and the scope control reachable) instead of vanishing. */}
+          {hadAwarder && !awarderRollup && scope !== "all" && (
+            <section className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Landmark className="h-5 w-5 text-muted-foreground" />
+                <h2 className="text-lg font-semibold">Като възложител</h2>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Няма възложени договори за избрания период.
+              </p>
             </section>
           )}
           {awarderKindex &&
@@ -756,30 +792,12 @@ export const CompanyDbScreen: FC = () => {
               </ul>
             </div>
           )}
-          {contracts > 0 && (
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-sm text-muted-foreground">Период</span>
-              <Select value={period} onValueChange={setPeriod}>
-                <SelectTrigger className="w-auto h-9">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value={PERIOD_ALL}>Всички години</SelectItem>
-                  <SelectItem value={PERIOD_LAST4}>Последните 4 г.</SelectItem>
-                  {PERIOD_YEARS.map((y) => (
-                    <SelectItem key={y} value={y}>
-                      {y}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {period !== PERIOD_ALL && (
-                <span className="text-xs text-muted-foreground">
-                  {rollup
-                    ? `${num.format(rollup.contractCount)} договора · ${formatEurCompact(rollup.totalEur, i18n.language)}`
-                    : "няма договори за периода"}
-                </span>
-              )}
+          {/* Contractor with no contracts inside the chosen window — mirror the
+              awarder empty state so the scope stays legible on a narrowed view. */}
+          {contracts > 0 && (!rollup || rollup.contractCount === 0) && (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Building2 className="h-4 w-4" /> Няма договори за избрания
+              период.
             </div>
           )}
           {rollup && rollup.contractCount > 0 && (
@@ -892,7 +910,7 @@ export const CompanyDbScreen: FC = () => {
           )}
 
           {/* All-time (not date-scoped) — its per-cabinet shares use the all-time
-              total, so it's correct regardless of the period filter above. */}
+              total, so it's correct regardless of the scope filter above. */}
           {contracts > 0 && (
             <CabinetTimelineTile
               cabinets={cabinets}

@@ -31,6 +31,13 @@ import {
 interface Props {
   mode?: "toggle" | "corpus";
   className?: string;
+  // Controlled mode: when both are supplied the scope lives in the caller's
+  // state instead of the `?pscope` URL param. Used by the awarder/company page
+  // (which drives a scoped DB fetch, not intra-section nav) to reuse the exact
+  // pill UI without hijacking the URL. Omit both for the default URL-backed
+  // behaviour on the procurement section pages.
+  value?: ProcurementScope;
+  onChange?: (next: ProcurementScope) => void;
 }
 
 const LAST_YEAR = new Date().getFullYear();
@@ -42,10 +49,16 @@ const YEARS: number[] = Array.from(
 export const ProcurementScopeControl: FC<Props> = ({
   mode = "toggle",
   className,
+  value,
+  onChange,
 }) => {
   const { t } = useTranslation();
   const { selected } = useElectionContext();
-  const { scope, setScope } = useProcurementScope();
+  const url = useProcurementScope();
+  // Controlled (caller-owned state) when both props are given; otherwise the
+  // URL-backed `?pscope` hook drives the control.
+  const scope = value ?? url.scope;
+  const setScope = onChange ?? url.setScope;
   const electionLabel = selected?.replace(/_/g, "-");
 
   if (mode === "corpus") {

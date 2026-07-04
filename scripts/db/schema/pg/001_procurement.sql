@@ -48,6 +48,18 @@ CREATE INDEX IF NOT EXISTS idx_contracts_contractor ON contracts(contractor_eik)
 CREATE INDEX IF NOT EXISTS idx_contracts_awarder    ON contracts(awarder_eik);
 CREATE INDEX IF NOT EXISTS idx_contracts_order      ON contracts(date, ocid, key);
 CREATE INDEX IF NOT EXISTS idx_contracts_tag        ON contracts(tag);
+-- (eik, date) composites for the DATE-SCOPED entity rollups: awarder_procurement
+-- / company_procurement filter `WHERE {awarder,contractor}_eik = $1 AND date
+-- BETWEEN $2 AND $3` (the awarder/company page scope pill — this parliament / a
+-- year). Without these, adding a date window makes the planner BitmapAnd the
+-- single-col eik index against idx_contracts_order (a 39k-row date-range bitmap,
+-- ~320 disk pages cold) instead of one tight range seek — the windowed query is
+-- SLOWER than all-time (24-72ms cold vs 6ms) despite touching fewer rows. The
+-- composite collapses it to a 4-buffer index scan over just the eik's rows.
+CREATE INDEX IF NOT EXISTS idx_contracts_awarder_date
+  ON contracts(awarder_eik, date);
+CREATE INDEX IF NOT EXISTS idx_contracts_contractor_date
+  ON contracts(contractor_eik, date);
 -- Covering index for per-contractor count + sum(amount_eur) FILTER (tag): the
 -- company-page summary and the person page's per-company value bars (person_roles)
 -- both aggregate contracts by contractor_eik. INCLUDE (amount_eur) + tag in the
