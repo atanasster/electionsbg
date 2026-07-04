@@ -15,15 +15,19 @@ export interface DbFacetsResult {
   facets: Record<string, { value: string; count: number }[]>;
 }
 
+// The caller's query fn. May optionally expose `tx(cb)` — runs `cb` with a query
+// fn pinned to one READ ONLY-transaction snapshot, so runDbTable's rows +
+// aggregate queries stay consistent across a concurrent ingest COMMIT.
+export type DbRows = ((
+  sql: string,
+  params: unknown[],
+) => Promise<Record<string, unknown>[]>) & {
+  tx?: <T>(cb: (q: DbRows) => Promise<T>) => Promise<T>;
+};
+
 declare const dbTable: {
-  runDbTable: (
-    q: (sql: string, params: unknown[]) => Promise<Record<string, unknown>[]>,
-    req: unknown,
-  ) => Promise<DbTableResult>;
-  runDbFacets: (
-    q: (sql: string, params: unknown[]) => Promise<Record<string, unknown>[]>,
-    req: unknown,
-  ) => Promise<DbFacetsResult>;
+  runDbTable: (q: DbRows, req: unknown) => Promise<DbTableResult>;
+  runDbFacets: (q: DbRows, req: unknown) => Promise<DbFacetsResult>;
   REGISTRY: Record<string, unknown>;
 };
 

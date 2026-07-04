@@ -8,15 +8,16 @@
 // functions bundle. Only *.harness.ts / *.test.ts entrypoints import it.
 
 import { createRequire } from "node:module";
-import { allRows } from "../../scripts/db/lib/pg";
+import { allRows, withReadOnlyTx } from "../../scripts/db/lib/pg";
 import type { DbParams } from "./dataClient";
+import type { DbRows } from "../../functions/db_table";
 
 const require = createRequire(import.meta.url);
 const { DB_ROUTES } = require("../../functions/db_routes.js") as {
   DB_ROUTES: Record<
     string,
     (
-      dbRows: (sql: string, params: unknown[]) => Promise<unknown[]>,
+      dbRows: DbRows,
       q: Record<string, string>,
     ) => Promise<{ status?: number; body: unknown }>
   >;
@@ -34,7 +35,9 @@ export const nodeDbFetcher = async (
   for (const [k, v] of Object.entries(params)) {
     if (v != null && v !== "") q[k] = String(v);
   }
-  const dbRows = (sql: string, p: unknown[]) => allRows(sql, p);
+  // Pin the table engine's rows + aggregate queries to one READ ONLY snapshot.
+  const dbRows: DbRows = (sql, p) => allRows(sql, p);
+  dbRows.tx = (cb) => withReadOnlyTx(cb);
   const { status = 200, body } = await handler(dbRows, q);
   if (status !== 200) throw new Error(`db route ${route} -> ${status}`);
   return body;

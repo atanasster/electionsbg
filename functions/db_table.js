@@ -367,8 +367,13 @@ const buildAggSelect = (r) => {
 
 /**
  * Run one server-side table request. `q(sql, params) => Promise<rows>` is the
- * caller's query fn (dev pool or Cloud SQL pool). Returns { rows, total,
- * totalExact, page, pageSize, aggregates }.
+ * caller's query fn (dev pool or Cloud SQL pool). If `q.tx(cb)` is exposed, the
+ * page-of-rows query and the count/aggregate query run inside it as ONE READ
+ * ONLY transaction — a single MVCC snapshot — so a concurrent ingest COMMIT can
+ * never make them reflect different corpora (paginated rows from the pre-ingest
+ * table, totals from the post-ingest table). Callers without `q.tx` fall back to
+ * two autocommit round-trips (only observably inconsistent mid-ingest). Returns
+ * { rows, total, totalExact, page, pageSize, aggregates }.
  */
 const runDbTable = async (q, reqRaw) => {
   const req = reqRaw || {};
@@ -386,38 +391,45 @@ const runDbTable = async (q, reqRaw) => {
     .map((c) => `${c} AS "${snakeToCamel(c)}"`)
     .join(", ");
 
-  const rows = await q(
-    `SELECT ${projection} FROM ${r.base} ${whereSql} ${orderSql} LIMIT ${pageSize} OFFSET ${offset}`,
-    params,
-  );
-
-  // Exact count + aggregates in ONE scan when the set is bounded (scoped or
-  // filtered) OR aggregates are wanted anyway; else a cheap reltuples estimate.
+  // Exact count + aggregates when the set is bounded (scoped or filtered) OR
+  // aggregates are wanted anyway; else a cheap reltuples estimate.
   const wantAgg = (r.aggregates ?? []).length > 0;
-  let total;
-  let totalExact;
-  let aggregates = {};
-  if (scoped || filtered || wantAgg) {
-    const [a] = await q(
-      `SELECT ${buildAggSelect(r)} FROM ${r.base} ${whereSql}`,
+  const exact = scoped || filtered || wantAgg;
+
+  // Pin both queries to one snapshot when the caller supports it (see docstring).
+  const run = typeof q.tx === "function" ? q.tx : (cb) => cb(q);
+
+  return run(async (qq) => {
+    const rows = await qq(
+      `SELECT ${projection} FROM ${r.base} ${whereSql} ${orderSql} LIMIT ${pageSize} OFFSET ${offset}`,
       params,
     );
-    total = Number(a._count);
-    totalExact = true;
-    aggregates = Object.fromEntries(
-      Object.entries(a).filter(([k]) => k !== "_count"),
-    );
-    aggregates.count = total;
-  } else {
-    const [e] = await q(
-      `SELECT reltuples::bigint AS est FROM pg_class WHERE oid = $1::regclass`,
-      [r.base],
-    );
-    total = Math.max(0, Number(e?.est ?? 0));
-    totalExact = false;
-  }
 
-  return { rows, total, totalExact, page, pageSize, aggregates };
+    let total;
+    let totalExact;
+    let aggregates = {};
+    if (exact) {
+      const [a] = await qq(
+        `SELECT ${buildAggSelect(r)} FROM ${r.base} ${whereSql}`,
+        params,
+      );
+      total = Number(a._count);
+      totalExact = true;
+      aggregates = Object.fromEntries(
+        Object.entries(a).filter(([k]) => k !== "_count"),
+      );
+      aggregates.count = total;
+    } else {
+      const [e] = await qq(
+        `SELECT reltuples::bigint AS est FROM pg_class WHERE oid = $1::regclass`,
+        [r.base],
+      );
+      total = Math.max(0, Number(e?.est ?? 0));
+      totalExact = false;
+    }
+
+    return { rows, total, totalExact, page, pageSize, aggregates };
+  });
 };
 
 /**

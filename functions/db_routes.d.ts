@@ -2,10 +2,14 @@
 // plugin (vite/db-api.ts) can import it type-safely. Runtime is plain JS shared
 // with the Cloud Function.
 
+import type { DbRows } from "./db_table";
+
 export type DbRouteResult = { status?: number; body: unknown };
 
+// `dbRows` may optionally expose `tx(cb)` (see DbRows) so the table engine can
+// pin its rows + aggregate queries to one READ ONLY-transaction snapshot.
 export type DbRouteFn = (
-  dbRows: (sql: string, params: unknown[]) => Promise<Record<string, unknown>[]>,
+  dbRows: DbRows,
   query: Record<string, string>,
 ) => Promise<DbRouteResult>;
 

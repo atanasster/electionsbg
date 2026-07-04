@@ -478,6 +478,26 @@ const makeDb = () => {
         const pool = await getDbPool(DB_PASSWORD.value());
         const dbRows = (sql, params) =>
           pool.query(sql, params).then((r) => r.rows);
+        // Pin multi-statement engines (the table engine's rows + aggregate) to
+        // ONE READ ONLY-transaction snapshot, so a page and its totals can't
+        // straddle a concurrent ingest COMMIT. Inherits the pool's
+        // statement_timeout; always rolls back + releases the client.
+        dbRows.tx = async (cb) => {
+          const c = await pool.connect();
+          try {
+            await c.query("BEGIN TRANSACTION READ ONLY");
+            const out = await cb((sql, params) =>
+              c.query(sql, params).then((r) => r.rows),
+            );
+            await c.query("COMMIT");
+            return out;
+          } catch (e) {
+            await c.query("ROLLBACK").catch(() => {});
+            throw e;
+          } finally {
+            c.release();
+          }
+        };
         const started = Date.now();
         const { status = 200, body } = await route(dbRows, req.query || {});
         const elapsed = Date.now() - started;

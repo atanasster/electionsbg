@@ -36,6 +36,33 @@ export const withClient = async <T>(
   }
 };
 
+/**
+ * Run `fn` with a query fn pinned to ONE pooled connection inside a READ ONLY
+ * transaction, so every statement it issues shares a single MVCC snapshot. Wired
+ * as `q.tx` for the /api/db table engine (functions/db_table.js) so a page of
+ * rows and its count/aggregate totals stay consistent across a concurrent
+ * ingest COMMIT. On any error the transaction is rolled back and the error
+ * rethrown; the connection is always released (via withClient).
+ */
+export const withReadOnlyTx = async <T>(
+  fn: (
+    q: (sql: string, params: unknown[]) => Promise<Record<string, unknown>[]>,
+  ) => Promise<T>,
+): Promise<T> =>
+  withClient(async (c) => {
+    await c.query("BEGIN TRANSACTION READ ONLY");
+    try {
+      const out = await fn((sql, params) =>
+        c.query(sql, params).then((r) => r.rows as Record<string, unknown>[]),
+      );
+      await c.query("COMMIT");
+      return out;
+    } catch (e) {
+      await c.query("ROLLBACK").catch(() => {});
+      throw e;
+    }
+  });
+
 export const end = async (): Promise<void> => {
   if (pool) {
     await pool.end();

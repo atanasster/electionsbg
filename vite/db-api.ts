@@ -8,10 +8,11 @@
 // See docs/plans/postgres-migration-v1.md.
 
 import type { Plugin } from "vite";
-import { allRows } from "../scripts/db/lib/pg";
+import { allRows, withReadOnlyTx } from "../scripts/db/lib/pg";
 // Shared route table + server-side table engine, colocated with the Cloud
 // Function so dev == prod. CJS default-import → the exports object.
 import dbRoutes from "../functions/db_routes.js";
+import type { DbRows } from "../functions/db_table";
 
 const withHint = (msg: string): string =>
   /ECONNREFUSED|reachable|connect/i.test(msg)
@@ -46,7 +47,10 @@ export const dbApi = (): Plugin => ({
       url.searchParams.forEach((v, k) => {
         query[k] = v;
       });
-      route((sql, params) => allRows(sql, params), query).then(
+      // Pin the table engine's rows + aggregate queries to one READ ONLY snapshot.
+      const q: DbRows = (sql, params) => allRows(sql, params);
+      q.tx = (cb) => withReadOnlyTx(cb);
+      route(q, query).then(
         ({ status = 200, body }) => send(status, body),
         (e: unknown) => send(400, { error: withHint((e as Error).message) }),
       );
