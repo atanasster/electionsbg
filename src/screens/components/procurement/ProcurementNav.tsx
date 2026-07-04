@@ -56,16 +56,12 @@ const items = [
 
 // Per-entity spending deep dives (АПИ roads today; ДОО, БулгарТрансГаз and
 // others to follow) — a second, lighter row below the main section pills so
-// the list can grow without crowding primary navigation. One entry per page;
-// mark `devOnly` while a page's data is bucket-synced-only (unreleased to
-// prod), mirroring the Route gate in routes.tsx and the governance mega-menu's
-// menu_group_state_entities group.
+// the list can grow without crowding primary navigation. One entry per page.
 const secondaryItems = [
   {
     to: "/procurement/roads",
     icon: Route,
     key: "procurement_roads_nav",
-    devOnly: true,
   },
 ] as const;
 
@@ -83,9 +79,7 @@ export const ProcurementNav: FC = () => {
   // activity since the user last looked. Reads a cached value (no fetches); the
   // watchlist page keeps it fresh.
   const newCount = useCachedNewCount();
-  const visibleSecondary = secondaryItems.filter(
-    (i) => !i.devOnly || import.meta.env.DEV,
-  );
+  const visibleSecondary = secondaryItems;
   return (
     <>
       <nav
