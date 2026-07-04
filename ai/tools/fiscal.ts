@@ -583,24 +583,28 @@ export const budgetFunction = async (
 
 // ---- procurement totals -----------------------------------------------------
 
-type ProcIndex = {
-  totals: {
-    contracts: number;
-    totalEur: number;
-    contractorCount: number;
-    awarderCount: number;
-  };
-  crossReference: { mpCount: number; totalEur: number };
-  // Non-MP political class (cabinet, governors, mayors, councillors, …) tied to
-  // contract winners. Absent on data generated before the officials join.
-  officialsCrossReference?: { officialCount: number; totalEur: number };
+// The flattened totals from procurement_overview (025). The MP/official
+// connected sums are DISTINCT-contractor (each linked firm counted once) — the
+// legacy index.json summed per MP↔firm pair, double-counting firms tied to
+// several politicians.
+type OverviewTotals = {
+  contracts: number;
+  totalEur: number;
+  contractorCount: number;
+  awarderCount: number;
+  mpCount: number;
+  mpConnectedTotalEur: number;
+  officialCount?: number;
+  officialConnectedTotalEur?: number;
 };
 
 export const procurementTotals = async (
   _args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> => {
-  const p = await fetchData<ProcIndex>("/procurement/index.json");
+  const { totals: t } = await fetchDb<{ totals: OverviewTotals }>(
+    "procurement-overview",
+  );
   return {
     tool: "procurementTotals",
     domain: "fiscal",
@@ -611,25 +615,27 @@ export const procurementTotals = async (
         : "Public procurement — totals (AOP)",
     viz: "none",
     facts: {
-      contracts: fmtInt(p.totals.contracts, ctx.lang),
-      total_value: fmtEurCompact(p.totals.totalEur, ctx.lang),
-      contractors: fmtInt(p.totals.contractorCount, ctx.lang),
-      buyers: fmtInt(p.totals.awarderCount, ctx.lang),
-      mp_connected_value: fmtEurCompact(p.crossReference.totalEur, ctx.lang),
-      mp_connected_count: p.crossReference.mpCount,
-      // Officials (non-MP political class) tied to contract winners — only when
-      // the index carries the officials cross-reference.
-      ...(p.officialsCrossReference
+      contracts: fmtInt(t.contracts, ctx.lang),
+      total_value: fmtEurCompact(t.totalEur, ctx.lang),
+      contractors: fmtInt(t.contractorCount, ctx.lang),
+      buyers: fmtInt(t.awarderCount, ctx.lang),
+      // Distinct-contractor sum (each linked firm once) — the /procurement
+      // dashboard figure. The legacy index.json summed per MP↔firm pair, so a
+      // firm tied to several MPs was double-counted (~1.16bn → ~981M).
+      mp_connected_value: fmtEurCompact(t.mpConnectedTotalEur, ctx.lang),
+      mp_connected_count: t.mpCount,
+      // Officials (non-MP political class) tied to contract winners.
+      ...(t.officialConnectedTotalEur != null
         ? {
             official_connected_value: fmtEurCompact(
-              p.officialsCrossReference.totalEur,
+              t.officialConnectedTotalEur,
               ctx.lang,
             ),
-            official_connected_count: p.officialsCrossReference.officialCount,
+            official_connected_count: t.officialCount,
           }
         : {}),
     },
-    provenance: ["procurement/index.json"],
+    provenance: ["db:procurement-overview"],
   };
 };
 
