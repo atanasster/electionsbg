@@ -148,6 +148,22 @@ assertion fails):
   against the curated PG set (name→person→by-year connected procurement); maps to
   `/api/db/person?name=` but changes matching semantics + the curated-set totals.
 
+**`contractSearch` attempt (2026-07-04) — reverted on a caught parity bug.** The
+tool was fully rewritten on `procurement-search` (name→eik, trgm, covers all ~26k)
++ the `/api/db/table` contracts engine (rows + `count`/`sum(amount_eur)`
+aggregates + a single-bid count query). Aggregates matched exactly (count 40, Σ
+€205.9M, single-bid 2 for Главболгарстрой). BUT the **row-level** `table` result
+dropped the true biggest contract (raw `contracts.amount_eur` max = €104M; the
+`table` route returned €30.1M and varied €1.6M/€11.2M/€30.1M **across processes**,
+stable within one) — the 104M row (tag `contract`, correct `contractor_eik`, 40
+distinct keys, no dups) is silently excluded while the aggregate count/sum stay
+correct. Root cause unresolved (rows-query vs agg-query WHERE divergence, or a
+node-fetcher/ANALYZE-less-local-store artifact — the live React contracts browser
+uses this same route). **Must be diagnosed before `contractSearch`/`awarderProcurement`
+migrate.** Reverted rather than ship non-deterministic contract amounts to the chat.
+(The 6 committed migrations use jsonb AGGREGATE routes, not the row `table` route,
+and were value-verified — unaffected.)
+
 These touch the live company/awarder pages (011/023) or change matching behavior,
 so they are a distinct follow-on, not a clean repoint. A JSON file is retired only
 once ALL readers (src/ + ai/ + pipeline) are on PG — so `top_contractors`,
