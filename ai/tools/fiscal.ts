@@ -758,22 +758,21 @@ export const topContractors = async (
 // (not just the top-N). Distinct from topContractors (a ranking) and
 // awarderProcurement (a BUYER's procurement).
 
-type ContractRow = {
+// One row of the /api/db/table contracts engine (camelCased projection).
+type ContractTableRow = {
   key: string;
   date: string;
   dateSigned?: string;
   awarderName: string;
+  contractorName?: string;
   title: string;
-  amount?: number;
   amountEur?: number;
   numberOfTenderers?: number;
-  euFunded?: boolean;
 };
-type ContractorContractsFile = {
-  eik: string;
-  name: string;
-  count: number;
-  contracts: ContractRow[];
+type ContractsTablePage = {
+  rows: ContractTableRow[];
+  total: number;
+  aggregates?: { sumAmountEur?: number; count?: number };
 };
 
 // Strip the procurement/question filler so the residue is just the firm name to
@@ -846,67 +845,31 @@ const cleanCompany = (raw: string): string =>
     .join(" ")
     .trim();
 
-const eurOf = (c: ContractRow): number => c.amountEur ?? c.amount ?? 0;
-
 export const contractSearch = async (
   args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
   const raw = String(args.company ?? args.eik ?? "").trim();
-
-  // Resolve to an EIK: a bare 9–13-digit token is already one; otherwise match
-  // the (cleaned) name against the top-contractors index — exact, then
-  // substring, then fuzzy.
   const cleaned = cleanCompany(raw);
+
+  // Resolve to (eik, name): a bare 9–13-digit token is already an EIK; otherwise
+  // trgm-search the full contractor corpus. procurement_search covers ALL ~26k
+  // contractors, replacing the old top_contractors + contractors_search lookups.
   let eik: string | undefined;
+  let name: string | undefined;
   if (/^\d{9,13}$/.test(raw)) eik = raw;
   else if (/^\d{9,13}$/.test(cleaned)) eik = cleaned; // "ЕИК 1234…" → the digits
-  if (!eik) {
-    const idx = await fetchData<{ entries: ContractorEntry[] }>(
-      "/procurement/derived/top_contractors.json",
-    );
-    const lc = cleaned.toLowerCase();
-    let hit =
-      (lc.length >= 3 &&
-        (idx.entries.find((e) => e.name.toLowerCase() === lc) ||
-          idx.entries.find((e) => e.name.toLowerCase().includes(lc)))) ||
-      undefined;
-    if (!hit) {
-      const fz = fuzzyBestMatch<ContractorEntry>(
-        cleaned,
-        () => idx.entries.map((e) => ({ keys: [e.name], item: e })),
-        { threshold: 0.3, minLen: 4, cacheKey: "top_contractors" },
-      );
-      if (fz) hit = fz.item;
-    }
-    if (hit) eik = hit.eik;
-  }
-
-  // top_contractors only carries the largest ~1000 companies, so the leaderboard
-  // lookup above misses the long tail. Fall back to the full {eik,name} search
-  // index (~26k) so the chat can resolve ANY contractor by name — exact,
-  // substring, then fuzzy — not just the top of the table.
   if (!eik && cleaned) {
-    type NameRow = { eik: string; name: string };
-    const all = await fetchData<{ entries: NameRow[] }>(
-      "/procurement/derived/contractors_search.json",
+    const sr = await fetchDb<{ companies: { eik: string; name: string }[] }>(
+      "procurement-search",
+      { q: cleaned, limit: 1 },
     );
-    const lc = cleaned.toLowerCase();
-    let hit: NameRow | undefined =
-      (lc.length >= 3 &&
-        (all.entries.find((e) => e.name.toLowerCase() === lc) ||
-          all.entries.find((e) => e.name.toLowerCase().includes(lc)))) ||
-      undefined;
-    if (!hit) {
-      const fz = fuzzyBestMatch<NameRow>(
-        cleaned,
-        () => all.entries.map((e) => ({ keys: [e.name], item: e })),
-        { threshold: 0.3, minLen: 4, cacheKey: "contractors_search" },
-      );
-      if (fz) hit = fz.item;
+    const hit = sr.companies?.[0];
+    if (hit) {
+      eik = hit.eik;
+      name = hit.name;
     }
-    if (hit) eik = hit.eik;
   }
 
   const notFound = (): Envelope => ({
@@ -917,39 +880,58 @@ export const contractSearch = async (
       ? `Не намерих фирма „${raw}“ сред изпълнителите по поръчки`
       : `No procurement contractor matching “${raw}”`,
     subtitle: bg
-      ? "Търсенето покрива най-едрите изпълнители; пробвайте с ЕИК или точното име."
-      : "Search covers the largest contractors; try the EIK or the exact name.",
+      ? "Пробвайте с ЕИК или точното име на фирмата."
+      : "Try the EIK or the exact company name.",
     facts: {},
     viz: "none",
-    provenance: ["procurement/derived/top_contractors.json"],
+    provenance: ["db:procurement-search"],
   });
 
   if (!eik) return notFound();
 
-  let file: ContractorContractsFile | null = null;
-  try {
-    file = await fetchData<ContractorContractsFile>(
-      `/procurement/contractor_contracts/${eik}.json`,
-    );
-  } catch {
-    file = null;
-  }
-  if (!file || !file.contracts?.length) return notFound();
-
+  // Contractor's contracts via the /api/db/table contracts engine: top-N by value
+  // (+ optional year window) for the table, plus the corpus-wide count + Σ from
+  // its aggregates so the totals stay accurate over ALL the firm's contracts.
+  // NB: `page` is 0-indexed (page 0 = first page).
   const yr = Number(args.year);
   const hasYear = Number.isFinite(yr);
-  const contracts = hasYear
-    ? file.contracts.filter(
-        (c) => (c.dateSigned || c.date || "").slice(0, 4) === String(yr),
-      )
-    : file.contracts;
-  if (!contracts.length) return notFound();
-
-  const sorted = [...contracts].sort((a, b) => eurOf(b) - eurOf(a));
+  const scopeCols: Array<Record<string, unknown>> = [
+    { id: "contractor_eik", value: eik },
+  ];
+  if (hasYear)
+    scopeCols.push({ id: "date", min: `${yr}-01-01`, max: `${yr}-12-31` });
   const n = Math.min(Math.max(Number(args.count) || 12, 1), 25);
-  const top = sorted.slice(0, n);
-  const totalEur = contracts.reduce((s, c) => s + (c.amountEur ?? 0), 0);
-  const singleBid = contracts.filter((c) => c.numberOfTenderers === 1).length;
+
+  const page = await fetchDb<ContractsTablePage>("table", {
+    q: JSON.stringify({
+      resource: "contracts",
+      page: 0,
+      pageSize: n,
+      sort: [{ id: "amount_eur", desc: true }],
+      filters: { columns: scopeCols },
+    }),
+  });
+  const top = page.rows;
+  if (!top.length) return notFound();
+
+  const contractCount = page.total;
+  const totalEur = page.aggregates?.sumAmountEur ?? 0;
+  name = name ?? top[0].contractorName ?? raw;
+
+  // Single-bid count: the same scope filtered to exactly one tenderer.
+  const singleBidPage = await fetchDb<ContractsTablePage>("table", {
+    q: JSON.stringify({
+      resource: "contracts",
+      page: 0,
+      pageSize: 1,
+      sort: [{ id: "amount_eur", desc: true }],
+      filters: {
+        columns: [...scopeCols, { id: "number_of_tenderers", min: 1, max: 1 }],
+      },
+    }),
+  });
+  const singleBid = singleBidPage.total;
+  const eurOf = (c: ContractTableRow): number => c.amountEur ?? 0;
   const biggest = top[0];
 
   const rows: Row[] = top.map((c) => ({
@@ -973,29 +955,25 @@ export const contractSearch = async (
     domain: "fiscal",
     kind: "table",
     title: bg
-      ? `Договори на ${file.name}${hasYear ? ` (${yr})` : ""}`
-      : `Contracts won by ${file.name}${hasYear ? ` (${yr})` : ""}`,
+      ? `Договори на ${name}${hasYear ? ` (${yr})` : ""}`
+      : `Contracts won by ${name}${hasYear ? ` (${yr})` : ""}`,
     subtitle: bg
-      ? `${fmtInt(contracts.length, ctx.lang)} договора · ${fmtEurCompact(totalEur, ctx.lang)} общо — показани най-едрите ${top.length}`
-      : `${fmtInt(contracts.length, ctx.lang)} contracts · ${fmtEurCompact(totalEur, ctx.lang)} total — showing the largest ${top.length}`,
+      ? `${fmtInt(contractCount, ctx.lang)} договора · ${fmtEurCompact(totalEur, ctx.lang)} общо — показани най-едрите ${top.length}`
+      : `${fmtInt(contractCount, ctx.lang)} contracts · ${fmtEurCompact(totalEur, ctx.lang)} total — showing the largest ${top.length}`,
     columns,
     rows,
     viz: "none",
     facts: {
-      company: file.name,
+      company: name,
       eik_id: eik, // hidden → /company/:eik (see links.ts)
-      contracts: fmtInt(contracts.length, ctx.lang),
+      contracts: fmtInt(contractCount, ctx.lang),
       total_value: fmtEurCompact(totalEur, ctx.lang),
       single_bidder: singleBid,
       biggest_awarder: biggest?.awarderName ?? "—",
       biggest_value: biggest ? fmtEurCompact(eurOf(biggest), ctx.lang) : "—",
       ...(biggest?.key ? { contract_id: biggest.key } : {}), // hidden → /procurement/contract/:key
     },
-    provenance: [
-      `procurement/contractor_contracts/${eik}.json`,
-      "procurement/derived/top_contractors.json",
-      "procurement/derived/contractors_search.json",
-    ],
+    provenance: ["db:procurement-search", "db:table/contracts"],
   };
 };
 
