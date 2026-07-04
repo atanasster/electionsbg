@@ -234,6 +234,21 @@ fixtures), `contractors_search` (bucket-gz), `mp_party` (still frontend-live via
 (retire the gen_procurement JSON-mirror + goldens + migrate `invariants` to PG) or
 when their last consumer moves.
 
+## 1d. §5 net teardown — "keep + migrate" half SHIPPED (2026-07-04)
+
+`invariants_pg.data.test.ts` added — the durable data-integrity net (contract-key
+uniqueness, the EUR peg, zero `-x` twin survivors) now runs **in SQL over the
+`contracts` table** instead of streaming on-disk shards, so it survives the
+derived-JSON retirement. 3/3 pass; auto-wired into `test:data`; auto-skips without
+PG. The headline Σ reconciliation stays in `pg_roundtrip`.
+
+**Still remaining in §5 (the "retire the mirror" half — lower value, operator
+tooling, delicate):** retire `scripts/db/gen_procurement/*` + `db:build` + the
+Tier-1 manifest / Tier-2 goldens (`golden_targets.ts`, `__golden__/`,
+`snapshot_goldens.ts`) once the ingest stops writing the mirrored JSON. NB:
+`mp_connected`/`pep_connected` are NOT part of the mirror — they're `load_tr_pg`
+inputs and must keep generating.
+
 ## 2. Three independent workstreams
 
 Classify every file family into one of three buckets, each with a different fix:
