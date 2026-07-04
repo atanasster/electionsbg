@@ -137,6 +137,12 @@ assertion fails):
 | procurementSingleBidSectors | cpv_competition | procurement-risk-indexes | suppressed-set identical |
 | mpProcurement | mp_connected + pep_connected | **person** route (unified) + procurement-rankings | exact by-year + total parity |
 
+**D2 (per-mp scorecard) SHIPPED (2026-07-04):** new `mp_scorecard(mpId)` fn (034) +
+`/api/db/mp-scorecard` route; `useMpScorecard` now makes one route call instead of
+3 JSON fetches (per-mp manifest + shard + mp_connected fallback). Exact parity
+(mp 594: 81806.7/rank 29/cohort 43/median 767389.33). NOT browser-verified yet
+(route+SQL parity + TSC only) — confirm the candidate-page tile before prod.
+
 **ALL 9 fiscal/place procurement tools migrated + harness-verified (2026-07-04).**
 Remaining `ai/` procurement reads are `debarred.json` + `tenders/index.json` — PG
 *load sources* that stay JSON (Workstream C), not retirement targets. Added a
