@@ -461,14 +461,19 @@ const DB_ROUTES = {
     if (!eik) return { status: 400, body: { error: "missing eik" } };
     const me = side === "awarder" ? "awarder" : "contractor";
     const other = side === "awarder" ? "contractor" : "awarder";
+    const from = orNull(q, "from");
+    const to = orNull(q, "to");
     // SECURITY: `me`/`other` are spliced into SQL as identifiers — they MUST
     // stay this fixed two-branch ternary; never derive them from client text.
+    // from/to are bound params ($2/$3), inclusive — the date-scope pill.
     const entries = await dbRows(
       `WITH mine AS (
          SELECT ${other}_eik AS eik, ${other}_name AS name, tag,
                 amount, currency, amount_eur
          FROM contracts
          WHERE ${me}_eik = $1 AND ${other}_eik IS NOT NULL AND ${other}_eik <> ''
+           AND ($2::text IS NULL OR date >= $2::text)
+           AND ($3::text IS NULL OR date <= $3::text)
        ),
        others AS (
          SELECT eik, jsonb_object_agg(cur, s2) AS other FROM (
@@ -494,7 +499,7 @@ const DB_ROUTES = {
        ) g
        LEFT JOIN others o ON o.eik = g.eik
        ORDER BY g."totalEur" DESC NULLS LAST`,
-      [eik],
+      [eik, from, to],
     );
     // Contract rows carry several name aliases per EIK (АПИ vs its regional
     // ОПУ branches) — pick the most frequent one as the display name.

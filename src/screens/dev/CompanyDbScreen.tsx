@@ -61,32 +61,9 @@ import { trRoleLabel } from "@/lib/trRole";
 import { legalFormLabel } from "@/lib/legalForm";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { ProcurementScopeControl } from "../components/procurement/ProcurementScopeControl";
-import {
-  scopeYear,
-  type ProcurementScope,
-} from "@/data/procurement/useProcurementScope";
+import { type ProcurementScope } from "@/data/procurement/useProcurementScope";
+import { scopeRange } from "@/data/procurement/scopeRange";
 import { useElectionContext } from "@/data/ElectionContext";
-import allElections from "@/data/json/elections.json";
-
-const elections = allElections as Array<{ name: string }>;
-const dash = (d: string): string => d.replace(/_/g, "-");
-
-// Scope preset → [from, to] (YYYY-MM-DD | null), inclusive on both ends to match
-// the awarder_procurement / company_procurement SQL (date >= from AND date <= to).
-// Mirrors the procurement section scope: "all" (full corpus), "y:<year>" (one
-// calendar year), "ns" (the selected parliament's tenure — [election, next]).
-const scopeRange = (
-  scope: ProcurementScope,
-  selected: string,
-): [string | null, string | null] => {
-  if (scope === "all") return [null, null];
-  const year = scopeYear(scope);
-  if (year != null) return [`${year}-01-01`, `${year}-12-31`];
-  // "ns": elections.json is newest-first, so the next election sits one index
-  // earlier; the last (most recent) parliament is open-ended (to = null).
-  const idx = elections.findIndex((e) => e.name === selected);
-  return [dash(selected), idx > 0 ? dash(elections[idx - 1].name) : null];
-};
 
 interface Company {
   uic: string;

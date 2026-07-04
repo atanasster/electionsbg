@@ -2,7 +2,7 @@
 // awarder paid. DB-backed (/api/db/company-counterparties side=awarder) —
 // complete, not the old top-50 JSON rollup cap; MP-tie badges come inline.
 
-import { FC, useMemo } from "react";
+import { FC, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Receipt } from "lucide-react";
@@ -13,13 +13,20 @@ import {
   useCounterparties,
   type CounterpartyEntry,
 } from "@/data/procurement/useCounterparties";
+import { ProcurementScopeControl } from "./components/procurement/ProcurementScopeControl";
+import { type ProcurementScope } from "@/data/procurement/useProcurementScope";
+import { scopeRange } from "@/data/procurement/scopeRange";
+import { useElectionContext } from "@/data/ElectionContext";
 import { formatEurWithOther } from "@/lib/currency";
 import { ErrorSection } from "./components/ErrorSection";
 
 export const AwarderContractorsScreen: FC = () => {
   const { eik } = useParams<{ eik: string }>();
   const { t, i18n } = useTranslation();
-  const { data, isLoading } = useCounterparties(eik, "awarder");
+  const { selected } = useElectionContext();
+  const [scope, setScope] = useState<ProcurementScope>("all");
+  const [from, to] = scopeRange(scope, selected);
+  const { data, isLoading } = useCounterparties(eik, "awarder", from, to);
 
   const columns = useMemo<ColumnDef<CounterpartyEntry>[]>(
     () => [
@@ -100,14 +107,17 @@ export const AwarderContractorsScreen: FC = () => {
     <>
       <Title description={`Contractors paid by ${name}`}>{name}</Title>
       <section aria-label={name} className="my-4">
-        <div className="flex items-center gap-2 mb-4 text-sm text-muted-foreground">
-          <Receipt className="h-4 w-4" />
-          <Link to={`/awarder/${data.eik}`} className="hover:underline">
-            EIK {data.eik}
-          </Link>
-          <span>
-            · {t("awarder_top_contractors") || "Top contractors paid"}
-          </span>
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Receipt className="h-4 w-4" />
+            <Link to={`/awarder/${data.eik}`} className="hover:underline">
+              EIK {data.eik}
+            </Link>
+            <span>
+              · {t("awarder_top_contractors") || "Top contractors paid"}
+            </span>
+          </div>
+          <ProcurementScopeControl value={scope} onChange={setScope} />
         </div>
         {data.entries.length === 0 ? (
           <p className="text-sm text-muted-foreground">
