@@ -695,11 +695,14 @@ export const topContractors = async (
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
-  const d = await fetchData<{ entries: ContractorEntry[] }>(
-    "/procurement/derived/top_contractors.json",
+  // procurement_rankings.topContractors — the same ranked set (eik, name,
+  // totalEur, contractCount, mpTied) the /procurement leaderboard serves; names
+  // are the canonical TR spelling.
+  const d = await fetchDb<{ topContractors: ContractorEntry[] }>(
+    "procurement-rankings",
   );
   const n = Math.min(Math.max(Number(args.count) || 12, 1), 25);
-  const top = [...d.entries]
+  const top = [...d.topContractors]
     .sort((a, b) => b.totalEur - a.totalEur)
     .slice(0, n);
   const mpTied = top.filter((e) => e.mpTied).length;
@@ -737,7 +740,7 @@ export const topContractors = async (
       top_value: top[0] ? fmtEurCompact(top[0].totalEur, ctx.lang) : "—",
       mp_tied_in_top: mpTied,
     },
-    provenance: ["procurement/derived/top_contractors.json"],
+    provenance: ["db:procurement-rankings"],
   };
 };
 
