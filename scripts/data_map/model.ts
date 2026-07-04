@@ -267,6 +267,25 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     tags: ["fiscal"],
   },
   {
+    id: "kzk",
+    label: { bg: "КЗК — жалби по ЗОП", en: "CPC procurement appeals" },
+    detail: {
+      bg: "регистър на жалбите пред КЗК",
+      en: "the procurement-appeals register",
+    },
+    desc: {
+      bg: "Публичният електронен регистър на Комисията за защита на конкуренцията (reg.cpc.bg) — всяка жалба срещу обществена поръчка с нейния УНП, статус (спряно/приключено/…) и изхода на решението (уважена/отхвърлена). Свързва се точно към търга по УНП и показва „обжалвана“/„спряна“ на страницата на процедурата. Ръчно обхождане с браузър (изисква българска свързаност).",
+      en: "The Competition Protection Commission's public register (reg.cpc.bg) — every complaint against a public-procurement procedure with its УНП, status (suspended/concluded/…) and merits outcome (upheld/rejected). Joins to the tender by exact УНП and drives the “under appeal” / “suspended” markers on the procedure page. Manual headed-browser crawl (needs a Bulgarian connection).",
+    },
+    url: "https://reg.cpc.bg/AllComplaints.aspx?dt=2",
+    origin: "state",
+    members: ["kzk_appeals"],
+    // Manual, headed-Playwright ingest (scripts/procurement/kzk_appeals.ts) — NOT
+    // part of update-procurement's automated flow, so no auto-skill is mapped.
+    skills: [],
+    tags: ["fiscal"],
+  },
+  {
     id: "isun",
     label: { bg: "ИСУН 2020", en: "ISUN (EU funds register)" },
     detail: {
@@ -1139,6 +1158,7 @@ export const EDGES: [string, string][] = [
   ["src:egov", "ds:localgov"],
   ["src:eop", "ds:procurement"],
   ["src:aop", "ds:procurement"],
+  ["src:kzk", "ds:procurement"],
   ["src:isun", "ds:funds"],
   ["src:egov", "ds:ngo"],
   ["src:ec_fts", "ds:ngo"],

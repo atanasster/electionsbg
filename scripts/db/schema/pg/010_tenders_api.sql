@@ -75,13 +75,17 @@ RETURNS TABLE(
   lots_count      integer,
   is_cancelled    boolean,
   awarded_eur     double precision,
-  award_contracts integer
+  award_contracts integer,
+  has_appeal      boolean
 ) LANGUAGE sql STABLE AS $$
   SELECT
     t.unp, t.ocid, t.publication_date, t.subject, t.procedure_type,
     t.cpv, t.cpv_desc, t.estimated_value_eur AS forecast_eur, t.currency,
     t.lots_count, t.is_cancelled,
-    a.awarded_eur, a.award_contracts
+    a.awarded_eur, a.award_contracts,
+    -- КЗК appeal against this procedure (migration 042; deferred body validation
+    -- so the cross-migration reference is fine — kzk_appeals exists by call time).
+    EXISTS (SELECT 1 FROM kzk_appeals k WHERE k.unp = t.unp) AS has_appeal
   FROM tenders t
   LEFT JOIN LATERAL (
     SELECT sum(c.amount_eur) FILTER (WHERE c.tag = 'contract') AS awarded_eur,

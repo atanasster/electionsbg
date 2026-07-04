@@ -27,6 +27,13 @@ import { ProcurementSectionHeader } from "./components/procurement/ProcurementSe
 import { ProcurementSearchTile } from "./components/procurement/ProcurementSearchTile";
 import { ProcurementSectorsTile } from "./components/procurement/ProcurementSectorsTile";
 import { RiskSignalsTile } from "./components/procurement/RiskSignalsTile";
+import {
+  RiskGradeLeaderboardTile,
+  RISK_GRADE_BOARD_PREVIEW,
+  RISK_GRADE_BOARD_MIN_SCORE,
+} from "./components/procurement/RiskGradeLeaderboardTile";
+import { useAwarderRiskTop } from "@/data/procurement/useAwarderRiskTop";
+import { RecentAppealsTile } from "./components/procurement/RecentAppealsTile";
 import { ProcurementBenchmarksTile } from "./components/procurement/ProcurementBenchmarksTile";
 import { LatestContractsTile } from "./components/procurement/LatestContractsTile";
 import { LatestTendersTile } from "./components/procurement/LatestTendersTile";
@@ -51,6 +58,14 @@ export const ProcurementScreen: FC = () => {
   // survives navigation to the sub-pages. Default "ns" → scoped to the selected
   // election window; "all" pivots to the full corpus; "y:<year>" to one year.
   const { data, isLoading, all, year } = useProcurementOverview();
+  // Same query (deduped) the RiskGradeLeaderboardTile uses — lets us collapse its
+  // grid column when it has nothing to show (no buyers ≥ E for a narrow scope),
+  // so RiskSignalsTile isn't left stranded at half-width (FINDING-030).
+  const { data: riskBoard } = useAwarderRiskTop(
+    RISK_GRADE_BOARD_PREVIEW,
+    RISK_GRADE_BOARD_MIN_SCORE,
+  );
+  const showRiskBoard = !!riskBoard && riskBoard.rows.length > 0;
   const title = t("procurement_index_title") || "Public procurement";
 
   if (isLoading) {
@@ -262,14 +277,19 @@ export const ProcurementScreen: FC = () => {
           {/* min-w-0 wrappers: grid items default to min-width:auto, which
               would let long entity names push the cards past the viewport on
               narrow screens instead of truncating. */}
-          <div className="grid gap-4 xl:grid-cols-2">
-            <div className="min-w-0">
-              <RiskSignalsTile />
+          {showRiskBoard ? (
+            <div className="grid gap-4 xl:grid-cols-2">
+              <div className="min-w-0">
+                <RiskSignalsTile />
+              </div>
+              <div className="min-w-0">
+                <RiskGradeLeaderboardTile />
+              </div>
             </div>
-            <div className="min-w-0">
-              <ProcurementBenchmarksTile />
-            </div>
-          </div>
+          ) : (
+            <RiskSignalsTile />
+          )}
+          <ProcurementBenchmarksTile />
         </DashboardSection>
 
         <DashboardSection
@@ -278,6 +298,7 @@ export const ProcurementScreen: FC = () => {
           icon={ClipboardList}
         >
           <LatestTendersTile />
+          <RecentAppealsTile />
         </DashboardSection>
 
         <SourceFooter t={t} />

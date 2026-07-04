@@ -36,6 +36,7 @@ export interface AwarderTenderRow {
   is_cancelled: boolean;
   awarded_eur: number | null;
   award_contracts: number | null;
+  has_appeal: boolean | null;
 }
 
 export interface AwarderTendersResponse {

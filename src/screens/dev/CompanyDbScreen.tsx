@@ -43,6 +43,10 @@ import {
 import { AwarderTopContractorsTile } from "../components/procurement/AwarderTopContractorsTile";
 import { CompanyRiskChips } from "../components/procurement/CompanyRiskChips";
 import {
+  EntityRiskGradeCard,
+  type EntityRiskGrade,
+} from "../components/procurement/EntityRiskGradeCard";
+import {
   CompanyFundsTile,
   type FundProjectRow,
 } from "../components/procurement/CompanyFundsTile";
@@ -254,6 +258,12 @@ export const CompanyDbScreen: FC = () => {
     null,
   );
   const [ngoFunding, setNgoFunding] = useState<NgoFunding | null>(null);
+  const [awarderGrade, setAwarderGrade] = useState<EntityRiskGrade | null>(
+    null,
+  );
+  const [supplierGrade, setSupplierGrade] = useState<EntityRiskGrade | null>(
+    null,
+  );
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   // Section scope, mirroring the procurement pages (?pscope semantics), but held
@@ -311,6 +321,8 @@ export const CompanyDbScreen: FC = () => {
           setNgoDetails(j.ngoDetails ?? null);
           setAwarderKindex(j.awarderKindex ?? null);
           setNgoFunding(j.ngoFunding ?? null);
+          setAwarderGrade(j.awarderRiskGrade ?? null);
+          setSupplierGrade(j.supplierRiskGrade ?? null);
         }
       })
       .catch((e) => live && setError(String(e)))
@@ -683,6 +695,8 @@ export const CompanyDbScreen: FC = () => {
               </p>
             </section>
           )}
+          <EntityRiskGradeCard grade={supplierGrade} />
+          <EntityRiskGradeCard grade={awarderGrade} />
           {awarderKindex &&
             awarderKindex.linkedSupplierCount > 0 &&
             awarderKindex.totalEur > 0 && (

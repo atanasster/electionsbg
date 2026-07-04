@@ -14,7 +14,9 @@ import fs from "fs";
 
 const OG_W = 1200;
 const OG_H = 630;
-const DEV_URL = "http://localhost:5173";
+// Defaults to the standard Vite dev port; override with OG_BASE_URL when the
+// dev server was auto-assigned a different port (matches screenshot_procurement.ts).
+const DEV_URL = process.env.OG_BASE_URL ?? "http://localhost:5173";
 const OUT_DIR = path.resolve("public/og");
 
 type Capture = {
@@ -195,6 +197,15 @@ const captures: Capture[] = [
     // Anchor on the section so the clip leads with the title + table.
     waitFor: 'section[aria-label="ngos"] tbody tr',
     anchor: 'section[aria-label="ngos"]',
+    settleMs: 1800,
+  },
+  {
+    slug: "procurement-appeals",
+    routePath: "procurement/appeals?pscope=all",
+    // КЗК appeals browser — DbDataTable renders tbody rows once the first page
+    // loads. Anchor on the section so the clip leads with the title + table.
+    waitFor: 'section[aria-label="appeals"] tbody tr',
+    anchor: 'section[aria-label="appeals"]',
     settleMs: 1800,
   },
   {

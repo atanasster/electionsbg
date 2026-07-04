@@ -14,6 +14,7 @@ import { Title } from "@/ux/Title";
 import { DbDataTable, type DbColumnFilter } from "@/ux/data_table/DbDataTable";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
 import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
+import { AppealChip } from "@/screens/components/procurement/AppealChip";
 import { useProcurementWindow } from "@/data/procurement/useProcurementWindow";
 import { topicBySlug } from "@/lib/tenderTopics";
 import { formatEurCompact } from "@/lib/currency";
@@ -41,6 +42,8 @@ interface TenderRow {
   isFrameworkAgreement: boolean;
   isEuFunded: boolean;
   linkToOjEu: string | null;
+  hasAppeal: boolean | null;
+  appealSuspended: boolean | null;
 }
 
 const ALL = "__all__";
@@ -162,6 +165,11 @@ export const TendersBrowserDbScreen: FC = () => {
         enableSorting: false,
         cell: ({ row }) => (
           <div className="flex flex-wrap gap-1">
+            {row.original.appealSuspended ? (
+              <AppealChip suspended />
+            ) : row.original.hasAppeal ? (
+              <AppealChip />
+            ) : null}
             {row.original.isCancelled ? (
               <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-800 dark:bg-amber-900/30 dark:text-amber-300">
                 {t("tender_status_cancelled") || "Cancelled"}

@@ -17,6 +17,7 @@ import {
   Star,
   Table2,
   ClipboardList,
+  Gavel,
   Route,
   HeartHandshake,
 } from "lucide-react";
@@ -39,6 +40,11 @@ const items = [
     to: "/procurement/tenders",
     icon: ClipboardList,
     key: "procurement_tenders_nav",
+  },
+  {
+    to: "/procurement/appeals",
+    icon: Gavel,
+    key: "procurement_appeals_nav",
   },
   {
     to: "/procurement/ngos",

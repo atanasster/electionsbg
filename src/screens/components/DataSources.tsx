@@ -484,6 +484,13 @@ export const DataSources = () => {
                 href="https://storage.eop.bg/"
                 label={t("procurement_eop_source")}
               />
+              <SourceItem
+                href="https://reg.cpc.bg/AllComplaints.aspx?dt=2"
+                label={
+                  t("procurement_kzk_source") ||
+                  "КЗК — public register of public-procurement appeals (reg.cpc.bg)"
+                }
+              />
             </ul>
             <p className="mt-3 text-xs text-muted-foreground">
               {t("about_procurement_by_settlement_note") ||

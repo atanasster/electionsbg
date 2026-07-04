@@ -2214,6 +2214,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/procurement/mps">Депутати и длъжностни лица с връзки</a> — народни представители и служители, чиито свързани фирми са спечелили поръчки.</li>
 <li><a href="${SITE_URL}/procurement/sectors">Какво купува държавата</a> — класация на секторите (CPV) по обща стойност на поръчките.</li>
 <li><a href="${SITE_URL}/procurement/by-settlement">Поръчки по населено място</a> — сумите, разпределени по адреса на възложителя.</li>
+<li><a href="${SITE_URL}/procurement/appeals">Жалби (КЗК)</a> — жалбите пред Комисията за защита на конкуренцията срещу процедури за обществени поръчки.</li>
 <li><a href="${SITE_URL}/procurement/flags">Сигнали за риск</a> — концентрация върху един изпълнител и фирми в черен списък.</li>
 </ul>
 <p>Източник: <a href="https://data.egov.bg/organisation/about/aop" rel="nofollow noopener">data.egov.bg</a> (АОП OCDS, двуседмични пакети).</p>`.trim(),
@@ -2234,6 +2235,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/en/procurement/mps">MPs & officials connected</a> — MPs and officials whose declared business interests received procurement.</li>
 <li><a href="${SITE_URL}/en/procurement/sectors">What does the state buy</a> — CPV sectors ranked by total procurement value.</li>
 <li><a href="${SITE_URL}/en/procurement/by-settlement">By settlement</a> — totals pinned to the buyer's HQ address.</li>
+<li><a href="${SITE_URL}/en/procurement/appeals">Appeals (КЗК)</a> — appeals to the Commission for Protection of Competition against procurement procedures.</li>
 <li><a href="${SITE_URL}/en/procurement/flags">Red flags</a> — single-supplier concentration and debarred suppliers.</li>
 </ul>
 <p>Source: <a href="https://data.egov.bg/organisation/about/aop" rel="nofollow noopener">data.egov.bg</a> (АОП OCDS, fortnightly bundles).</p>`.trim(),
@@ -2331,6 +2333,30 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <h1>Public-procurement red flags</h1>
 <p>Signals worth a second look: buyers whose spending is concentrated on a single supplier, suppliers on the AOP debarment register, and the largest MP-tied contractors. Each is a public-record fact, not an accusation.</p>
 <p>See also the <a href="${SITE_URL}/en/procurement">overview</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "procurement/appeals",
+    title: "Жалби по обществени поръчки (КЗК) | electionsbg.com",
+    description:
+      "Жалби пред Комисията за защита на конкуренцията (КЗК) срещу обществени поръчки — възложител, жалбоподател, предмет и изход, свързани с процедурата по УНП. Преглед, не доказателство за нарушение.",
+    breadcrumbName: "Жалби (КЗК)",
+    ogImage: "/og/procurement-appeals.png",
+    bodyHtml: `
+<h1>Жалби по обществени поръчки (КЗК)</h1>
+<p>Пълна, сортируема и филтрируема таблица с жалбите пред Комисията за защита на конкуренцията (КЗК) срещу процедури за обществени поръчки — по възложител, жалбоподател, предмет и изход (уважена, отхвърлена, прекратена), с връзка към съответната процедура по уникалния номер (УНП), когато е налична.</p>
+<p>Жалбата е преглед на процедурата от независим орган, а не доказателство за нарушение. Данните са от публичния регистър на КЗК и се обновяват периодично.</p>
+<p>Виж и <a href="${SITE_URL}/procurement">общия преглед на обществените поръчки</a>, <a href="${SITE_URL}/procurement/tenders">обявените процедури</a> и <a href="${SITE_URL}/procurement/flags">сигналите за риск</a>.</p>`.trim(),
+    english: {
+      title: "Public-Procurement Appeals (КЗК) | electionsbg.com",
+      description:
+        "Appeals to the Commission for Protection of Competition (КЗК) against public-procurement procedures — buyer, complainant, subject and outcome, joined to the procedure by its UNP. A review, not proof of wrongdoing.",
+      breadcrumbName: "Appeals (КЗК)",
+      bodyHtml: `
+<h1>Public-procurement appeals (КЗК)</h1>
+<p>A full, sortable and filterable table of appeals to the Commission for Protection of Competition (КЗК) against public-procurement procedures — by buyer, complainant, subject and outcome (upheld, rejected, terminated), each linked to its procedure by the unique procedure number (UNP) where available.</p>
+<p>An appeal is an independent review of the procedure, not proof of wrongdoing. The data comes from the public КЗК register and is refreshed periodically.</p>
+<p>See also the <a href="${SITE_URL}/en/procurement">procurement overview</a>, the <a href="${SITE_URL}/en/procurement/tenders">announced procedures</a> and the <a href="${SITE_URL}/en/procurement/flags">red flags</a>.</p>`.trim(),
     },
   }),
   staticPage({

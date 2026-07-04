@@ -17,6 +17,7 @@ import {
   budgetTrend,
   institutionMaintenance,
   contractSearch,
+  procurementAppeals,
   fundsOverview,
   awarderProcurement,
   roadsSpending,
@@ -1900,6 +1901,47 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: topContractors,
+  },
+  {
+    name: "procurementAppeals",
+    domain: "fiscal",
+    description: {
+      bg: "Жалби пред КЗК срещу обществени поръчки — общ брой, колко са уважени/отхвърлени и кои възложители се обжалват най-често. „Уважена“ = отменено решение на възложителя.",
+      en: "КЗК appeals against public procurement — how many, how many upheld/rejected, and which buyers get appealed most. “Upheld” = the buyer's decision was annulled.",
+    },
+    params: [
+      {
+        name: "count",
+        type: "count",
+        description: { bg: "Брой възложители", en: "How many buyers" },
+      },
+      {
+        name: "awarder",
+        type: "metric",
+        description: {
+          bg: "Възложител (име) — за жалбите на един възложител",
+          en: "Buyer (name) — for one buyer's appeals",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Колко обществени поръчки са обжалвани пред КЗК?",
+        en: "How many procurement appeals were there at КЗК?",
+      },
+      {
+        bg: "Кои възложители се обжалват най-често?",
+        en: "Which buyers get appealed most often?",
+      },
+      {
+        // Intentionally NOT a translation pair: each half is a different buyer so
+        // the EN example also exercises transliteration matching (Kozloduy →
+        // КОЗЛОДУЙ) against the Cyrillic-only summary.
+        bg: "Обжалваните поръчки на Столична община",
+        en: "How many procurement appeals against AEC Kozloduy?",
+      },
+    ],
+    run: procurementAppeals,
   },
   {
     name: "contractSearch",

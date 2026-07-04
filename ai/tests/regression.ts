@@ -14,7 +14,8 @@ import { STARTERS } from "../app/starters";
 import { SUGGESTIONS } from "../app/suggestions";
 import { route } from "../orchestrator/router";
 import { siteLinks } from "../render/links";
-import { setFetcher } from "../tools/dataClient";
+import { setFetcher, setDbFetcher } from "../tools/dataClient";
+import { nodeDbFetcher } from "../tools/dbFetcherNode";
 import { runTool } from "../tools/registry";
 import type {
   Envelope,
@@ -29,6 +30,11 @@ setFetcher(async (path: string) => {
   const rel = path.startsWith("/") ? path.slice(1) : path;
   return JSON.parse(await readFile(join(process.cwd(), "data", rel), "utf8"));
 });
+// DB-backed tools (procurement overview / rankings / search, …) run the SAME
+// functions/db_routes.js handlers against local Postgres — so their numbers are
+// verified against the exact route code prod serves. Requires `npm run db:pg:up`
+// (mirrors ai/tools/harness.ts).
+setDbFetcher(nodeDbFetcher);
 
 const LATEST = "2026_04_19";
 const SITE = "https://electionsbg.com";
@@ -2641,6 +2647,176 @@ const CASES: Case[] = [
   {
     q: "Кои са най-големите изпълнители по обществени поръчки?",
     tool: "topContractors",
+    kind: "table",
+    minRows: 5,
+  },
+  {
+    q: "Колко обществени поръчки са обжалвани пред КЗК?",
+    tool: "procurementAppeals",
+    kind: "table",
+    minRows: 5,
+    // Locks the /procurement/appeals deep link (links.ts SECTION mapping).
+    links: ["/procurement/appeals"],
+  },
+  {
+    q: "How many procurement appeals were there at КЗК?",
+    tool: "procurementAppeals",
+    kind: "table",
+    minRows: 5,
+  },
+  {
+    // Particle-only residual ("ли") must NOT become a phantom awarder → national
+    // aggregate (FINDING-011).
+    q: "Обжалват ли се поръчките често?",
+    tool: "procurementAppeals",
+    kind: "table",
+    minRows: 5,
+  },
+  {
+    // "Какви" (capitalized question word) must be a stop-word → national table.
+    q: "Какви жалби има по поръчките?",
+    tool: "procurementAppeals",
+    kind: "table",
+    minRows: 5,
+  },
+  {
+    // Temporal filler ("имаше", "през") must be stop-words, not a phantom
+    // awarder "имаше през" → national aggregate (FINDING-003).
+    q: "Колко жалби по поръчки имаше през 2025?",
+    tool: "procurementAppeals",
+    kind: "table",
+    minRows: 5,
+  },
+  {
+    // EN exonym: "Sofia" must alias to Столична община (FINDING-012), not miss.
+    q: "How many procurement appeals against Sofia municipality?",
+    lang: "en",
+    tool: "procurementAppeals",
+    kind: "scalar",
+    facts: { buyer: /Столична/ },
+  },
+  {
+    // Negative: a УНП-bearing appeal question is about ONE procedure → it must
+    // fall through the procurementAppeals gate to the tender page, not the
+    // corpus tool (locks the `!/\d{5}-\d{4}-\d{4}/` exclusion in the router).
+    q: "Обжалвана ли е поръчка 00589-2026-0026?",
+    tool: "tenderLookup",
+  },
+  {
+    // The tool's OWN canonical phrasing carries "срещу" (a compare trigger) —
+    // locks the 0d gate sitting ABOVE the compare block (F-001).
+    q: "Жалби пред КЗК срещу обществени поръчки",
+    tool: "procurementAppeals",
+    kind: "table",
+    minRows: 5,
+  },
+  {
+    // Ranking phrasing from the registry example — must reach the corpus tool.
+    q: "Кои възложители се обжалват най-често?",
+    tool: "procurementAppeals",
+    kind: "table",
+    minRows: 5,
+  },
+  {
+    // EN half of the ranking example — the "buyer" gate token (its BG twin
+    // "възложител" had no EN equivalent, so this fell through to partyResult via
+    // the "a-PP-ealed" substring). Locks the FINDING-004 fix.
+    q: "Which buyers get appealed most often?",
+    lang: "en",
+    tool: "procurementAppeals",
+    kind: "table",
+    minRows: 5,
+  },
+  {
+    // Negative: the LEGACY `T…` procedure number is also one procedure → tender
+    // page, not the corpus (locks the widened `T\d{5,}` exclusion, F-001).
+    q: "Обжалвана ли е поръчка T12345?",
+    tool: "tenderLookup",
+  },
+  {
+    // Negative: a non-procurement КЗК matter (cartels/antitrust) must NOT reach
+    // the procurement-appeals tool — the gate now needs a procurement word, not
+    // bare "КЗК" (F-035).
+    q: "Колко жалби е разгледала КЗК за картели?",
+    tool: null,
+  },
+  {
+    // Buyer-scoped appeal ask → the named buyer's own appeal/upheld counts, not
+    // the national top-list (FINDING-017). Locks the router awarder-extraction +
+    // the tool's top-buyer name match.
+    q: "Обжалваните поръчки на Столична община",
+    tool: "procurementAppeals",
+    kind: "scalar",
+    // Assert the buyer resolved + that counts are surfaced (any digit), NOT their
+    // exact values — those grow with every kzk:summary regen and would break the
+    // suite with numbers that are merely newer.
+    facts: {
+      buyer: "СТОЛИЧНА ОБЩИНА",
+      appeals: /\d/,
+      upheld: /\d/,
+    },
+  },
+  {
+    // EN half: an English-typed proper noun ("Kozloduy") must resolve against the
+    // Cyrillic-only summary via transliteration. Counts asserted as present-only
+    // (see the Столична case above).
+    q: "How many procurement appeals against AEC Kozloduy?",
+    lang: "en",
+    tool: "procurementAppeals",
+    kind: "scalar",
+    facts: { buyer: "КОЗЛОДУЙ", appeals: /\d/, upheld: /\d/ },
+  },
+  {
+    // Exact-number guard on the buyer-scoped path: pin ONE stable buyer's counts
+    // (АПИ, the corpus #1 by a wide margin) so a count↔upheld field-swap — which
+    // the /\d/ checks above would miss — fails loudly. Re-pin after a kzk:summary
+    // regen if these move.
+    q: "Обжалваните поръчки на Агенция Пътна инфраструктура",
+    tool: "procurementAppeals",
+    kind: "scalar",
+    facts: { buyer: /Пътна инфраструктура/, appeals: "349", upheld: "14" },
+  },
+  {
+    // A bare place token must NOT pin a longer buyer name — "изток" alone (1 of
+    // «Мини Марица-изток»'s 3 distinctive tokens) falls below the half-match floor
+    // (FINDING-002 / matchTopBuyer ratio floor). Before the floor it wrongly
+    // pinned that EIK; now it's treated as an untracked awarder (buyer_query), the
+    // same honest "not among the most-appealed" answer as the Габрово case — never
+    // a confidently-wrong buyer-scoped scalar.
+    q: "Колко жалби пред КЗК има по поръчки в район Изток?",
+    tool: "procurementAppeals",
+    kind: "scalar",
+    facts: { buyer_query: "Изток" },
+  },
+  {
+    // Buyer named, but outside the top-25 the summary tracks → say so honestly
+    // rather than returning the national list (FINDING-017).
+    q: "Жалби пред КЗК за поръчките на община Габрово",
+    tool: "procurementAppeals",
+    kind: "scalar",
+    facts: { buyer_query: "Габрово" },
+  },
+  {
+    // Negative guard: a complaint to the OMBUDSMAN about a tender is not a КЗК
+    // procurement appeal — it must not hijack the appeals corpus (FINDING-017).
+    q: "Подадох жалба до омбудсмана за поръчката",
+    tool: "procurementTotals",
+  },
+  {
+    // Stop-words + a bare year: extractAppealAwarder drops the year (/^\d+$/) and
+    // the residual is empty → NO awarder, so the NATIONAL aggregate table returns
+    // (not a scalar buyer answer). Guards the stop-list edge (TEST-001).
+    q: "жалби по поръчки 2026",
+    tool: "procurementAppeals",
+    kind: "table",
+    minRows: 5,
+  },
+  {
+    // National aggregate ("how many are upheld?") — the status word "уважени"
+    // must be a stop-word, not a phantom awarder, so the national table returns
+    // rather than a "not among the most-appealed" miss (locks FINDING-007).
+    q: "Колко жалби по поръчки са уважени?",
+    tool: "procurementAppeals",
     kind: "table",
     minRows: 5,
   },

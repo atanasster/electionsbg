@@ -19,8 +19,8 @@ export type ProcurementScope = "ns" | "all" | `y:${number}`;
 
 const PARAM = "pscope";
 
-// The years the corpus actually covers — the earliest contract is 2011-01-03.
-export const PROCUREMENT_FIRST_YEAR = 2011;
+// Re-exported from the UI-free constants module (shared with the Node loader).
+export { PROCUREMENT_FIRST_YEAR } from "./constants";
 
 const parseScope = (raw: string | null): ProcurementScope => {
   if (raw === "all") return "all";

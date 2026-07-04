@@ -13,6 +13,7 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { PROC_DIR } from "./lib/paths";
 import { getPool, exec, withClient, end } from "./lib/pg";
+import { rebuildRiskGradeScoped } from "./lib/riskGradeScoped";
 import { COLUMN_NAMES, contractToRow } from "./lib/procurement_schema";
 import {
   INGEST_SUMMARY_THRESHOLD,
@@ -364,10 +365,35 @@ export const loadPg = async (): Promise<{
   // view existing (a contracts-first load may run before the TR load creates it).
   const hasKindexRanking = await getPool()
     .query("SELECT to_regclass('public.awarder_kindex_ranking') AS t")
-    .then((r) => r.rows[0]?.t != null)
-    .catch(() => false);
+    .then((r) => r.rows[0]?.t != null);
   if (hasKindexRanking)
     await exec("REFRESH MATERIALIZED VIEW awarder_kindex_ranking");
+
+  // The buyer risk-grade leaderboard (migration 041) is likewise computed FROM
+  // this corpus and must track a contract reload. Same existence guard.
+  const hasGradeRanking = await getPool()
+    .query("SELECT to_regclass('public.awarder_risk_grade_ranking') AS t")
+    .then((r) => r.rows[0]?.t != null);
+  if (hasGradeRanking)
+    await exec("REFRESH MATERIALIZED VIEW awarder_risk_grade_ranking");
+
+  // Per-scope risk-grade leaderboards (awarder_risk_grade_scoped, migration 041):
+  // one ranking per pscope window the UI can request. Shared helper (also called
+  // by load_tr_pg + kzk_appeals.ts --apply) so the served leaderboard tracks
+  // every ingest that changes its inputs. Guarded on the 041 schema.
+  const hasScoped = await getPool()
+    .query("SELECT to_regclass('public.awarder_risk_grade_scoped') AS t")
+    .then((r) => r.rows[0]?.t != null);
+  if (hasScoped && hasGradeRanking) {
+    const n = await withClient((c) => rebuildRiskGradeScoped(c));
+    console.log(`  risk-grade scoped: ${n} scopes precomputed`);
+  }
+
+  // NOTE: appealed_ocids / upheld_ocids (042) are NOT refreshed here — they are
+  // defined over tenders × kzk_appeals (not contracts), so a contract reload
+  // cannot change their contents. They're kept fresh by load_tenders_pg (which
+  // re-runs 042's DROP+CREATE) and kzk_appeals.ts --apply. The contracts_list
+  // VIEW that joins them picks up new contracts automatically (it's a view).
 
   return { rows: rows.length, years: [...years].sort(), batchId, rowsNew };
 };

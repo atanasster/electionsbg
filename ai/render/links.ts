@@ -138,6 +138,10 @@ const SECTION: Record<string, SiteLink> = {
     label: { bg: "Обявени поръчки (търгове)", en: "Announced tenders" },
     href: url("/procurement/tenders"),
   },
+  procurementAppeals: {
+    label: { bg: "Жалби пред КЗК", en: "КЗК appeals" },
+    href: url("/procurement/appeals"),
+  },
   funds: {
     label: { bg: "Европейски средства", en: "EU funds" },
     href: url("/funds"),
@@ -232,6 +236,7 @@ const TOOL_SECTION: Record<string, SiteLink | undefined> = {
   procurementDebarred: SECTION.procurementFlags,
   topContractors: SECTION.procurementContractors,
   contractSearch: SECTION.procurementContractors,
+  procurementAppeals: SECTION.procurementAppeals,
   mpProcurement: SECTION.procurementMps,
   procurementByOblast: SECTION.procurementMap,
   fundsOverview: SECTION.funds,

@@ -9,30 +9,54 @@
 const { runDbTable, runDbFacets } = require("./db_table.js");
 
 const clampInt = (v, def, lo, hi) => {
-  const n = Number(v);
+  // trunc so a fractional query param (?limit=12.5) becomes a valid int rather
+  // than being bound to an int SQL arg and 500-ing with 22P02.
+  const n = Math.trunc(Number(v));
   return Number.isFinite(n) ? Math.min(Math.max(n, lo), hi) : def;
 };
 
 const s = (q, k) => String(q[k] || "").trim();
 const orNull = (q, k) => s(q, k) || null;
 
-// Single contract by key → ProcurementContract shape (camelCased).
+// Single contract by key → ProcurementContract shape (camelCased). The columns
+// common to both the enriched (contracts_list) and base (contracts) queries.
+const CONTRACT_COLS = `
+  key, ocid, tag, date, date_signed AS "dateSigned",
+  awarder_eik AS "awarderEik", awarder_name AS "awarderName",
+  awarder_region AS "awarderRegion",
+  contractor_eik AS "contractorEik", contractor_eik_full AS "contractorEikFull",
+  contractor_name AS "contractorName",
+  amount, currency, amount_eur AS "amountEur", title, cpv,
+  procurement_method AS "procurementMethod",
+  procurement_method_rationale AS "procurementMethodRationale",
+  number_of_tenderers AS "numberOfTenderers",
+  CASE WHEN eu_funded IS NULL THEN NULL ELSE eu_funded = 1 END AS "euFunded",
+  eu_program AS "euProgram",
+  tender_period_start_date AS "tenderPeriodStartDate",
+  tender_period_end_date AS "tenderPeriodEndDate",
+  category, bundle_uuid AS "bundleUuid", source_url AS "sourceUrl"`;
 const CONTRACT_SQL = `
-  SELECT key, ocid, tag, date, date_signed AS "dateSigned",
-         awarder_eik AS "awarderEik", awarder_name AS "awarderName",
-         awarder_region AS "awarderRegion",
-         contractor_eik AS "contractorEik", contractor_eik_full AS "contractorEikFull",
-         contractor_name AS "contractorName",
-         amount, currency, amount_eur AS "amountEur", title, cpv,
-         procurement_method AS "procurementMethod",
-         procurement_method_rationale AS "procurementMethodRationale",
-         number_of_tenderers AS "numberOfTenderers",
-         CASE WHEN eu_funded IS NULL THEN NULL ELSE eu_funded = 1 END AS "euFunded",
-         eu_program AS "euProgram",
-         tender_period_start_date AS "tenderPeriodStartDate",
-         tender_period_end_date AS "tenderPeriodEndDate",
-         category, bundle_uuid AS "bundleUuid", source_url AS "sourceUrl"
-  FROM contracts WHERE key = $1 LIMIT 1`;
+  SELECT ${CONTRACT_COLS},
+         has_appeal AS "hasAppeal", appeal_upheld AS "appealUpheld"
+  FROM contracts_list WHERE key = $1 LIMIT 1`;
+// Fallback for a DB predating migration 042 (contracts_list missing → 42P01):
+// serve the contract without the appeal fields rather than 500 the whole page.
+const CONTRACT_SQL_BASE = `
+  SELECT ${CONTRACT_COLS} FROM contracts WHERE key = $1 LIMIT 1`;
+
+// Degrade to "no appeals" ONLY for the missing-migration case (42883 =
+// undefined_function): until 042 reaches this DB the appeals tile stays empty
+// instead of 500-ing the whole tender page. Any other error still propagates.
+const appealsOrEmpty = (e) =>
+  e?.code === "42883" ? [{ r: [] }] : Promise.reject(e);
+
+// Degrade a dedicated route to an empty result when its migration hasn't reached
+// this DB yet — 42883 (undefined_function) OR 42P01 (undefined_table) — instead
+// of hard-500-ing on a functions-before-db:push deploy. Real errors propagate.
+const missingMigrationEmpty = (e) =>
+  e?.code === "42883" || e?.code === "42P01"
+    ? [{ r: [] }]
+    : Promise.reject(e);
 
 const DB_ROUTES = {
   async person(dbRows, q) {
@@ -102,6 +126,8 @@ const DB_ROUTES = {
       ngoDetails,
       awarderKindex,
       ngoFunding,
+      awarderRiskGrade,
+      supplierRiskGrade,
     ] = await Promise.all([
       dbRows(
         "SELECT uic, name, legal_form, seat, status, funds_amount, funds_currency, entity_class, ngo_type FROM tr_companies WHERE uic = $1",
@@ -151,6 +177,18 @@ const DB_ROUTES = {
       dbRows("SELECT awarder_kindex($1) AS r", [eik]),
       // External funding received (EU direct / state subsidy / foreign grants).
       dbRows("SELECT ngo_funding_for($1) AS r", [eik]),
+      // Multi-component A–F risk grade — as a BUYER and as a SUPPLIER. Null when
+      // the entity has no contracts in that role. Both <90ms worst-case (live).
+      // Guarded on the missing-migration case ONLY (42883 = undefined_function):
+      // until migration 041 lands on this DB these functions don't exist, so
+      // degrade the two grade tiles to null instead of 500-ing the whole company
+      // page. A real outage (timeout, pool exhaustion) still propagates.
+      dbRows("SELECT awarder_risk_grade($1) AS r", [eik]).catch((e) =>
+        e?.code === "42883" ? [] : Promise.reject(e),
+      ),
+      dbRows("SELECT supplier_risk_grade($1) AS r", [eik]).catch((e) =>
+        e?.code === "42883" ? [] : Promise.reject(e),
+      ),
     ]);
     return {
       body: {
@@ -173,6 +211,8 @@ const DB_ROUTES = {
         ngoDetails: ngoDetails[0] ?? null,
         awarderKindex: awarderKindex[0]?.r ?? null,
         ngoFunding: ngoFunding[0]?.r ?? null,
+        awarderRiskGrade: awarderRiskGrade[0]?.r ?? null,
+        supplierRiskGrade: supplierRiskGrade[0]?.r ?? null,
       },
     };
   },
@@ -232,11 +272,27 @@ const DB_ROUTES = {
     const unp = s(q, "unp");
     if (!ocid && !unp)
       return { status: 400, body: { error: "missing ocid or unp" } };
-    const rows = await dbRows("SELECT tender_detail($1, $2) AS r", [
-      unp || null,
-      ocid || null,
+    // КЗК appeals key on the УНП (exact join). On the hot ?unp= path (every
+    // fact-check link) the unp is known up front, so fetch appeals in parallel
+    // with the detail; only the ocid-only lineage tile needs the sequential
+    // fallback (unp comes from the detail result).
+    const [rows, appealsPre] = await Promise.all([
+      dbRows("SELECT tender_detail($1, $2) AS r", [unp || null, ocid || null]),
+      unp
+        ? dbRows("SELECT tender_appeals($1) AS r", [unp]).catch(appealsOrEmpty)
+        : Promise.resolve(null),
     ]);
-    return { body: rows[0]?.r ?? { tender: null, awards: [] } };
+    const detail = rows[0]?.r ?? { tender: null, awards: [] };
+    let appeals = appealsPre ? (appealsPre[0]?.r ?? []) : [];
+    if (!unp && detail.tender?.unp) {
+      appeals =
+        (
+          await dbRows("SELECT tender_appeals($1) AS r", [
+            detail.tender.unp,
+          ]).catch(appealsOrEmpty)
+        )[0]?.r ?? [];
+    }
+    return { body: { ...detail, appeals } };
   },
   async connection(dbRows, q) {
     const a = s(q, "a");
@@ -315,7 +371,11 @@ const DB_ROUTES = {
   contract: async (dbRows, q) => {
     const key = s(q, "key");
     if (!key) return { status: 400, body: { error: "missing key" } };
-    const rows = await dbRows(CONTRACT_SQL, [key]);
+    // 42P01 (contracts_list view absent = migration 042 not yet applied) →
+    // degrade to the base contracts table so /contract/:key still renders.
+    const rows = await dbRows(CONTRACT_SQL, [key]).catch((e) =>
+      e?.code === "42P01" ? dbRows(CONTRACT_SQL_BASE, [key]) : Promise.reject(e),
+    );
     return { body: { contract: rows[0] ?? null } };
   },
   // Risk-signals feed — top concentration + top MP-tied + headline counts +
@@ -444,6 +504,36 @@ const DB_ROUTES = {
       to,
     ]);
     return { body: rows[0]?.r ?? null };
+  },
+  // National "recent КЗК appeals" feed — top-N from kzk_recent_appeals (042),
+  // each joined to its tender by УНП. ?limit (≤200).
+  "kzk-appeals": async (dbRows, q) => {
+    const limit = clampInt(q.limit, 30, 1, 200);
+    const rows = await dbRows("SELECT kzk_recent_appeals($1) AS r", [
+      limit,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? [] };
+  },
+  // Buyer risk-grade leaderboard ("riskiest institutions") — top-N from the
+  // precomputed awarder_risk_grade_scoped table (041). ?scope selects the pscope
+  // window ('all' | 'y:<year>' | 'ns:<election>', default 'all'); ?limit (≤200);
+  // ?minScore (grade floor — 55 is the E floor, 70 the F floor). One jsonb trip.
+  "awarder-risk-top": async (dbRows, q) => {
+    const scope = s(q, "scope") || "all";
+    const limit = clampInt(q.limit, 20, 1, 200);
+    const minScore = clampInt(q.minScore, 0, 0, 100);
+    // Payload is { requested, scope, rows } (scope = the effective key served —
+    // may differ from `requested` on a fallback). Degrade to an empty payload of
+    // that shape when the migration is absent (42883/42P01).
+    const rows = await dbRows(
+      "SELECT awarder_risk_grade_top($1, $2, $3) AS r",
+      [scope, limit, minScore],
+    ).catch((e) =>
+      e?.code === "42883" || e?.code === "42P01"
+        ? []
+        : Promise.reject(e),
+    );
+    return { body: rows[0]?.r ?? { requested: scope, scope, rows: [] } };
   },
   // Consolidated client-side risk-scorer indexes (debarred register,
   // awarder→contractor concentration pairs, MP/official-connected EIK sets,

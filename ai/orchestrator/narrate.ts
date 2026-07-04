@@ -306,6 +306,27 @@ export const narrate = (env: Envelope, lang: Lang): string => {
         ? `Намерих ${f(env, "matches")} обявени поръчки${scopeBg}${yr ? ` през ${yr}` : ""}${cancelBg}${total ? `, обща прогнозна стойност ${f(env, "total_estimated")}` : ""}; най-голямата е ${f(env, "biggest_estimate")}. Прогнозни (обявени) стойности — не са похарчени средства.`
         : `Found ${f(env, "matches")} announced tenders${scopeEn}${yr ? ` in ${yr}` : ""}${cancelEn}${total ? `, total estimated ${f(env, "total_estimated")}` : ""}; the largest is ${f(env, "biggest_estimate")}. Estimated (announced) values — not money spent.`;
     }
+    case "procurementAppeals": {
+      const sinceBg = env.facts.since_year
+        ? ` (от ${f(env, "since_year")} г. насам)`
+        : "";
+      const sinceEn = env.facts.since_year
+        ? ` since ${f(env, "since_year")}`
+        : "";
+      // buyer-scoped answer: one entity's appeal / upheld counts
+      if (env.facts.buyer)
+        return lang === "bg"
+          ? `${f(env, "buyer")}: ${f(env, "appeals")} ${f(env, "appeals") === "1" ? "жалба" : "жалби"} пред КЗК${sinceBg}, от които ${f(env, "upheld")} ${f(env, "upheld") === "1" ? "уважена" : "уважени"} (отменено решение на възложителя). За сравнение — ${f(env, "total_complaints")} жалби общо. Жалбата е преглед, не доказателство за нарушение.`
+          : `${f(env, "buyer")}: ${f(env, "appeals")} КЗК appeals${sinceEn}, of which ${f(env, "upheld")} upheld (the buyer's decision was annulled). For context — ${f(env, "total_complaints")} appeals in total. An appeal is a review, not proof of wrongdoing.`;
+      // buyer-scoped ask, but the entity isn't among the tracked top-appealed
+      if (env.facts.buyer_query)
+        return lang === "bg"
+          ? `„${f(env, "buyer_query")}“ не е сред най-обжалваните възложители, които следя (класацията покрива само първите ${f(env, "tracked_buyers")}). Най-обжалван е ${f(env, "most_appealed_buyer")}; общо ${f(env, "total_complaints")} жалби пред КЗК${sinceBg}.`
+          : `“${f(env, "buyer_query")}” isn't among the most-appealed buyers I track (the list covers only the top ${f(env, "tracked_buyers")}). The most-appealed is ${f(env, "most_appealed_buyer")}; ${f(env, "total_complaints")} КЗК appeals in total${sinceEn}.`;
+      return lang === "bg"
+        ? `${f(env, "total_complaints")} жалби пред КЗК срещу обществени поръчки${sinceBg}; с решение по същество: ${f(env, "with_outcome")} (${f(env, "upheld")} уважени, ${f(env, "rejected")} отхвърлени), ${f(env, "suspended")} спрени процедури. Най-често обжалван възложител: ${f(env, "most_appealed_buyer")}. Жалбата е преглед, не доказателство за нарушение.`
+        : `${f(env, "total_complaints")} КЗК appeals against public procurement${sinceEn}; decided on the merits: ${f(env, "with_outcome")} (${f(env, "upheld")} upheld, ${f(env, "rejected")} rejected), ${f(env, "suspended")} suspended procedures. Most-appealed buyer: ${f(env, "most_appealed_buyer")}. An appeal is a review, not proof of wrongdoing.`;
+    }
     case "tenderLookup": {
       if (!env.facts.unp)
         return lang === "bg"

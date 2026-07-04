@@ -12,6 +12,7 @@ import { execSync } from "node:child_process";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { DatabaseSync } from "node:sqlite";
 import { getPool, exec, withClient, end } from "./lib/pg";
+import { rebuildRiskGradeScoped } from "./lib/riskGradeScoped";
 
 const TR_DB = fileURLToPath(
   new URL("../../raw_data/tr/state.sqlite", import.meta.url),
@@ -330,11 +331,22 @@ export const loadTrPg = async (): Promise<{
   const KINDEX_SQL = fileURLToPath(
     new URL("./schema/pg/039_awarder_kindex.sql", import.meta.url),
   );
+  // Multi-component A–F risk grade (buyer + supplier) — same deps as the K-Index
+  // (contracts + company_politicians), so applied in the same guarded block.
+  const RISK_GRADE_SQL = fileURLToPath(
+    new URL("./schema/pg/041_procurement_risk_grade.sql", import.meta.url),
+  );
   const hasContracts = await getPool()
     .query("SELECT to_regclass('public.contracts') AS t")
     .then((r) => r.rows[0]?.t != null)
     .catch(() => false);
-  if (hasContracts) await exec(readFileSync(KINDEX_SQL, "utf8"));
+  if (hasContracts) {
+    await exec(readFileSync(KINDEX_SQL, "utf8"));
+    await exec(readFileSync(RISK_GRADE_SQL, "utf8"));
+    // 041 rebuilt the ranking matview from fresh company_politicians; repopulate
+    // the per-scope serving table so the leaderboard doesn't go stale (F-007).
+    await withClient((c) => rebuildRiskGradeScoped(c));
+  }
 
   await exec(
     "CREATE TABLE IF NOT EXISTS meta (key text PRIMARY KEY, value text)",

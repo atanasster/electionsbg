@@ -556,6 +556,172 @@ const extractPlace = (q: string): string | undefined => {
   return cand.length > 1 ? cand : undefined;
 };
 
+// Appeal/procurement/question filler stripped from a КЗК-appeals question so
+// what remains is the named buyer, if any ("обжалваните поръчки на Столична
+// община" -> "Столична община"; a bare aggregate/ranking question -> ""). Keeps
+// the org category word ("община") so the residual reads as a proper name.
+// Country/whole-corpus words are stripped too so "жалби по поръчки в България"
+// stays the national aggregate rather than a (never-matching) named buyer.
+const APPEAL_AWARDER_STOP = new Set([
+  // appeal
+  "жалба",
+  "жалби",
+  "жалбата",
+  "жалбите",
+  "обжалване",
+  "обжалвания",
+  "обжалван",
+  "обжалвана",
+  "обжалвано",
+  "обжалвани",
+  "обжалваната",
+  "обжалваното",
+  "обжалваните",
+  "обжалва",
+  "обжалват",
+  "appeal",
+  "appeals",
+  "appealed",
+  // procurement
+  "поръчка",
+  "поръчки",
+  "поръчката",
+  "поръчките",
+  "обществена",
+  "обществени",
+  "обществената",
+  "обществените",
+  "procurement",
+  "tender",
+  "tenders",
+  "договор",
+  "договори",
+  "contract",
+  "contracts",
+  // institution / aggregate / question filler
+  "кзк",
+  "пред",
+  "срещу",
+  "до",
+  "against",
+  "at",
+  "which",
+  "buyer",
+  "buyers",
+  "възложител",
+  "възложителя",
+  "възложители",
+  "възложителите",
+  "на",
+  "за",
+  "по",
+  "се",
+  "е",
+  "са",
+  "в",
+  "във",
+  "от",
+  "и",
+  "колко",
+  "кои",
+  "кой",
+  "коя",
+  "how",
+  "many",
+  "most",
+  "often",
+  "най",
+  "често",
+  "класация",
+  "ranking",
+  "top",
+  "топ",
+  "get",
+  "were",
+  "there",
+  "was",
+  "the",
+  "of",
+  "a",
+  "an",
+  "покажи",
+  "показва",
+  "show",
+  // country / whole-corpus qualifiers (keep national asks national)
+  "българия",
+  "bulgaria",
+  "страната",
+  "държавата",
+  "всички",
+  "all",
+  "общо",
+  "total",
+  // plural "municipalities" reads as a ranking, not one named buyer
+  "общини",
+  "общините",
+  "тази",
+  "това",
+  "този",
+  "this",
+  "година",
+  "години",
+  "годината",
+  "year",
+  // aggregate-status words — a national "how many appeals are upheld/rejected/
+  // suspended/filed?" must NOT leave a residual token that becomes a phantom
+  // awarder (which would answer "not among the most-appealed" instead of the
+  // national aggregate).
+  "има",
+  "уважени",
+  "уважена",
+  "уважената",
+  "отхвърлени",
+  "отхвърлена",
+  "отхвърлената",
+  "подадени",
+  "подадена",
+  "спрени",
+  "спряна",
+  "спрените",
+  "разгледани",
+  "разгледана",
+  "upheld",
+  "rejected",
+  "suspended",
+  "filed",
+  // question particles / possessives — "Обжалвана ли е поръчката?" must not leave
+  // "ли" as a phantom awarder (it passes the length>1 gate).
+  "ли",
+  "дали",
+  "какви",
+  "какво",
+  "кога",
+  "защо",
+  "район",
+  "моя",
+  "моята",
+  // temporal filler — "Колко жалби имаше през 2025?" must not leave "имаше през"
+  // as a phantom awarder; the year itself is already dropped by the \d filter.
+  "през",
+  "имаше",
+  "бяха",
+  "миналата",
+  "миналото",
+  "последните",
+  "месец",
+  "месеца",
+]);
+const extractAppealAwarder = (question: string): string | undefined => {
+  const kept = question
+    .replace(/[?.,!„“”"'`/()\-–—]/g, " ")
+    .split(/\s+/)
+    .filter(
+      (w) => w && !/^\d+$/.test(w) && !APPEAL_AWARDER_STOP.has(w.toLowerCase()),
+    );
+  const cand = kept.join(" ").trim();
+  return cand.length > 1 ? cand : undefined;
+};
+
 export const route = (question: string, ctx: ToolContext): Route => {
   const q = question.toLowerCase().trim();
   if (!q) return null;
@@ -747,6 +913,34 @@ export const route = (question: string, ctx: ToolContext): Route => {
   // the "колко струва…" cost-of-policy framing.
   if (detectTaxChange(q))
     return { tool: "simulateTaxChange", args: { change: q } };
+
+  // 0d. КЗК procurement-appeals corpus (aggregate): "how many procurement
+  // appeals / how many upheld / which buyers get appealed most". Placed ABOVE the
+  // compare block because the canonical phrasing "жалби ... срещу обществени
+  // поръчки" carries "срещу" (a compare trigger) and would otherwise be read as
+  // an election-vs-election comparison. Requires an appeal word paired with a
+  // PROCUREMENT word (поръчк/procurement/възложит/tender) so a bare "жалби пред
+  // КЗК" about e.g. cartels does NOT match; and NOT a specific УНП (a УНП appeal
+  // question falls through to the tender page, which carries the per-procedure
+  // appeals). The УНП exclusion covers both the modern `NNNNN-YYYY-NNNN` and the
+  // legacy `T…` procedure-number forms the tender gate recognises.
+  if (
+    has(q, "жалб", "обжалв", "appeal") &&
+    has(q, "поръчк", "procurement", "възложит", "tender", "buyer") &&
+    // a complaint to the ombudsman about a tender is NOT a КЗК procurement
+    // appeal — let it fall through rather than hijack the appeals corpus.
+    !has(q, "омбудсман", "ombudsman") &&
+    !/\b(\d{5}-\d{4}-\d{4}|T\d{5,})\b/i.test(question)
+  ) {
+    // buyer-scoped appeal ask ("обжалваните поръчки на Столична община") -> the
+    // named awarder, so the tool answers for that entity instead of the national
+    // top-list. Absent a name, the aggregate table (existing behaviour) stands.
+    const awarder = extractAppealAwarder(question);
+    return {
+      tool: "procurementAppeals",
+      args: { count, ...(awarder ? { awarder } : {}) },
+    };
+  }
 
   // 1. comparison of two elections
   if (isCompare) {
@@ -1697,6 +1891,9 @@ export const route = (question: string, ctx: ToolContext): Route => {
     const obl = extractPlace(q);
     return { tool: "investmentProjects", args: obl ? { oblast: obl } : {} };
   }
+  // (КЗК procurement-appeals corpus is gated as "0d" above, before the compare
+  // block — its canonical "срещу обществени поръчки" phrasing carries a compare
+  // trigger, so it can't live down here.)
   // One named contractor's OWN contracts (a deep-linkable list), checked before
   // the procurement gate because the natural phrasings ("договорите на X" /
   // "contracts won by X") often omit "поръчки". Distinct from topContractors

@@ -31,6 +31,10 @@ const FN_FILE = path.join(SCHEMA_DIR, "000_search_fns.sql");
 const SCHEMA_FILE = path.join(SCHEMA_DIR, "009_tenders.sql");
 const TRACKING_FILE = path.join(SCHEMA_DIR, "005_ingest_tracking.sql");
 const API_FILE = path.join(SCHEMA_DIR, "010_tenders_api.sql");
+// КЗК appeals schema (table + tender_appeals / kzk_recent_appeals) — joins
+// tenders by УНП; created here so db:push ships it. Data comes from the separate
+// headed-Playwright ingest (scripts/procurement/kzk_appeals.ts --apply).
+const KZK_FILE = path.join(SCHEMA_DIR, "042_kzk_appeals.sql");
 const tendersDir = path.join(PROC_DIR, "tenders");
 const N = COLUMN_NAMES.length;
 const BATCH = 1000; // 1000 × 33 cols = 33k params (< PG's 65535 cap)
@@ -139,6 +143,9 @@ export const loadTendersPg = async (): Promise<{
   // is deferred (SET check_function_bodies=off in the file) and a contracts-less
   // DB still gets a durable data load.
   await exec(readFileSync(API_FILE, "utf8"));
+  // КЗК appeals table + serving fns (idempotent; preserves any ingested rows —
+  // CREATE TABLE IF NOT EXISTS, functions replaced).
+  await exec(readFileSync(KZK_FILE, "utf8"));
 
   return { rows: rows.length, years: [...years].sort() };
 };

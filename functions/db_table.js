@@ -22,11 +22,21 @@ const snakeToCamel = (s) =>
 // (global text), agg. `type` picks the filter/predicate shape.
 const REGISTRY = {
   contracts: {
-    base: "contracts",
+    // contracts_list = contracts + a per-row КЗК-appeal flag via the appealed-
+    // ocids matview (migration 042); a view over the base, filters/sorts intact.
+    // ⚠ Hard dep on migration 042 (no base-table fallback here — the projection
+    // selects has_appeal/appeal_upheld): db:push BEFORE functions:db, else 42P01.
+    base: "contracts_list",
     scopeCols: ["contractor_eik", "awarder_eik"],
     columns: {
       key: { type: "text" },
       ocid: { type: "text" },
+      // Projected (badge) but NOT filterable: has_appeal/appeal_upheld are
+      // LEFT-JOIN flags (ao.ocid IS NOT NULL), so `WHERE flag = $1` can't reduce
+      // the join → a full-corpus scan twice per request. Re-add a filter only via
+      // a matview semi-join if a UI ever needs it.
+      has_appeal: { type: "bool" },
+      appeal_upheld: { type: "bool" },
       tag: { type: "text", filter: "in" },
       date: { type: "date", sort: true, filter: "range" },
       date_signed: { type: "date" },
@@ -89,6 +99,8 @@ const REGISTRY = {
       "tender_period_end_date",
       "bundle_uuid",
       "source_url",
+      "has_appeal",
+      "appeal_upheld",
     ],
     defaultSort: [["date", "desc"]],
     aggregates: [{ fn: "count" }, { fn: "sum", col: "amount_eur" }],
@@ -97,11 +109,17 @@ const REGISTRY = {
   // ЦАИС ЕОП tender-stage procedures (estimated/forecast value, NOT spend).
   // Scoped to a buyer for the per-awarder pipeline; also a global tenders browser.
   tenders: {
-    base: "tenders",
+    // tenders_list = tenders + a per-row КЗК-appeal flag (migration 042); a view
+    // over the base table, so all filters/sorts still resolve.
+    base: "tenders_list",
     scopeCols: ["buyer_eik"],
     columns: {
       unp: { type: "text" },
       ocid: { type: "text" },
+      // Projected badge, not filterable — correlated EXISTS can't be index-driven
+      // as a WHERE predicate (full ~125k scan). See the contracts note above.
+      has_appeal: { type: "bool" },
+      appeal_suspended: { type: "bool" },
       publication_date: { type: "date", sort: true, filter: "range" },
       buyer_eik: { type: "text", filter: "eq" },
       buyer_name: { type: "text", sort: true, filter: "text", search: true },
@@ -141,6 +159,8 @@ const REGISTRY = {
       "is_framework_agreement",
       "is_eu_funded",
       "link_to_oj_eu",
+      "has_appeal",
+      "appeal_suspended",
     ],
     defaultSort: [["estimated_value_eur", "desc"]],
     aggregates: [{ fn: "count" }, { fn: "sum", col: "estimated_value_eur" }],
@@ -230,6 +250,53 @@ const REGISTRY = {
       ["active", "desc"],
       ["share", "desc"],
     ],
+    aggregates: [{ fn: "count" }],
+    maxPageSize: 100,
+  },
+
+  // КЗК procurement-appeals browse (/procurement/appeals). base =
+  // kzk_appeals_list (schema 042) = the whole appeals corpus + tender-derived
+  // buyer name + resolved flag. No EIK scope column — the section scope (?pscope)
+  // is applied as a complaint_date range filter, same as the tenders browser's
+  // publication_date. ⚠ Hard dep on migration 042: db:push BEFORE functions:db.
+  kzk_appeals: {
+    base: "kzk_appeals_list",
+    scopeCols: [],
+    columns: {
+      complaint_no: { type: "text" },
+      complaint_date: { type: "date", sort: true, filter: "range" },
+      unp: { type: "text" },
+      buyer_eik: { type: "text", filter: "eq" },
+      // buyer_name is the tenders-joined COALESCE (display only). Search targets
+      // the base-table `respondent` instead so the count query keeps its LEFT
+      // JOIN elimination — see the view comment in migration 042.
+      buyer_name: { type: "text", sort: true, filter: "text" },
+      respondent: { type: "text", filter: "text", search: true },
+      complainant: { type: "text", sort: true, filter: "text", search: true },
+      subject: { type: "text", filter: "text", search: true },
+      status: { type: "text", filter: "in" },
+      outcome: { type: "text", filter: "in" },
+      decision_date: { type: "text" },
+      suspension: { type: "bool", filter: "eq" },
+      vm_requested: { type: "bool", filter: "eq" },
+      resolved: { type: "bool", filter: "eq" },
+    },
+    select: [
+      "complaint_no",
+      "complaint_date",
+      "unp",
+      "buyer_eik",
+      "buyer_name",
+      "complainant",
+      "subject",
+      "status",
+      "outcome",
+      "decision_date",
+      "suspension",
+      "vm_requested",
+      "resolved",
+    ],
+    defaultSort: [["complaint_date", "desc"]],
     aggregates: [{ fn: "count" }],
     maxPageSize: 100,
   },
@@ -453,7 +520,12 @@ const runDbFacets = async (q, reqRaw) => {
   const facets = {};
   for (const c of cols) {
     const expr = r.columns[c].facetExpr || c; // registry-sourced, safe
-    const guard = `${expr} IS NOT NULL AND ${expr} <> ''`;
+    // `<> ''` is an empty-STRING guard; on a boolean column it errors ("invalid
+    // input syntax for type boolean: \"\""), so drop it for bool facets.
+    const guard =
+      r.columns[c].type === "bool"
+        ? `${expr} IS NOT NULL`
+        : `${expr} IS NOT NULL AND ${expr} <> ''`;
     const where = whereSql ? `${whereSql} AND (${guard})` : `WHERE ${guard}`;
     facets[c] = await q(
       `SELECT ${expr} AS value, count(*)::int AS count FROM ${r.base} ${where} GROUP BY ${expr} ORDER BY count DESC LIMIT ${limit}`,

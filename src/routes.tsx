@@ -350,6 +350,11 @@ const TendersBrowserDbScreen = lazy(() =>
     default: m.TendersBrowserDbScreen,
   })),
 );
+const AppealsBrowserDbScreen = lazy(() =>
+  import("./screens/dev/AppealsBrowserDbScreen").then((m) => ({
+    default: m.AppealsBrowserDbScreen,
+  })),
+);
 const RoadsScreen = lazy(() =>
   import("./screens/procurement/RoadsScreen").then((m) => ({
     default: m.RoadsScreen,
@@ -1877,6 +1882,16 @@ export const AuthRoutes = () => {
               <LayoutScreen>
                 <Suspense fallback={<RouteFallback />}>
                   <TendersBrowserDbScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="procurement/appeals"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <AppealsBrowserDbScreen />
                 </Suspense>
               </LayoutScreen>
             }

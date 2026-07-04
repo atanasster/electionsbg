@@ -74,6 +74,11 @@ CREATE INDEX IF NOT EXISTS idx_tenders_ocid       ON tenders(ocid);
 CREATE INDEX IF NOT EXISTS idx_tenders_buyer      ON tenders(buyer_eik);
 CREATE INDEX IF NOT EXISTS idx_tenders_order      ON tenders(publication_date, unp);
 CREATE INDEX IF NOT EXISTS idx_tenders_cancelled  ON tenders(is_cancelled);
+-- Backs the /procurement/tenders browse "sort by lots" path (a whitelisted
+-- DbDataTable sort over tenders_list): without it the unscoped sort seq-scans +
+-- heapsorts all ~125k rows (~280ms measured); the index makes it a top-N index
+-- scan (~6ms). (The appeal-flag EXISTS in the view is a hashed subplan, ~1ms.)
+CREATE INDEX IF NOT EXISTS idx_tenders_lots_count ON tenders(lots_count DESC NULLS LAST);
 -- tenders_by_buyer (010): a single buyer's pipeline sorted by date or by
 -- forecast value. Without these, the planner walks the GLOBAL idx_tenders_order
 -- / idx_tenders_value index filtering out every other buyer's rows as it goes —

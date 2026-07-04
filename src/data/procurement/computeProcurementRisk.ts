@@ -33,7 +33,8 @@ export type RiskComponentKey =
   | "singleBidder"
   | "nonOpenProcedure"
   | "shortTenderPeriod"
-  | "amendment";
+  | "amendment"
+  | "appealUpheld";
 
 export type RiskComponent = {
   key: RiskComponentKey;
@@ -59,6 +60,9 @@ export type ContractRiskFlags = {
   singleBidder: boolean;
   /** Negotiated / non-open procedure (or an explicit method rationale). */
   nonOpenProcedure: boolean;
+  /** КЗК upheld an appeal against this procedure (уважена) — an official finding
+   *  that the award was improper. The one regulator-ruled (not heuristic) flag. */
+  appealUpheld: boolean;
   /** Tender open window shorter than the EU 14-day reference. */
   shortTenderPeriod: boolean;
   /** Realised bid count when known (surfaced in the single-bidder tooltip). */
@@ -91,6 +95,9 @@ const WEIGHT_HIGH_CONCENTRATION = 30;
 const WEIGHT_NON_OPEN = 20;
 const WEIGHT_SHORT_PERIOD = 15;
 const WEIGHT_AMENDMENT = 10;
+// КЗК-upheld appeal — authoritative (a regulator annulled the award), so heavy,
+// just below debarment (80). Only fires where the appeal outcome is known.
+const WEIGHT_APPEAL_UPHELD = 70;
 
 /** EU Directive 2014/24/EU Art. 27 reference open-procedure minimum. A tender
  *  window below this is the conventional "rushed deadline" red flag. */
@@ -147,6 +154,13 @@ export const computeProcurementRisk = (
 
   const isAmendment = contract.tag === "contractAmendment";
   add("amendment", true, isAmendment);
+
+  // КЗК-upheld appeal — checkable only where the appeal join was loaded
+  // (contracts browser + tender page); undefined elsewhere → unavailable. Where
+  // it IS loaded, `false` means "no KNOWN upheld appeal" (merits outcomes are a
+  // partial tier-2 backfill) — treated as clean for CRI purposes.
+  const appealUpheld = contract.appealUpheld === true;
+  add("appealUpheld", contract.appealUpheld !== undefined, appealUpheld);
 
   // Single bidder — checkable only when the realised bid count is known.
   const bidCount =
@@ -215,6 +229,7 @@ export const computeProcurementRisk = (
   if (nonOpenProcedure) score += WEIGHT_NON_OPEN;
   if (shortTenderPeriod) score += WEIGHT_SHORT_PERIOD;
   if (isAmendment) score += WEIGHT_AMENDMENT;
+  if (appealUpheld) score += WEIGHT_APPEAL_UPHELD;
   score = Math.min(100, score);
 
   const availableCount = components.filter((c) => c.available).length;
@@ -231,6 +246,7 @@ export const computeProcurementRisk = (
       isAmendment,
       singleBidder,
       nonOpenProcedure,
+      appealUpheld,
       shortTenderPeriod,
       bidCount,
       tenderPeriodDays,

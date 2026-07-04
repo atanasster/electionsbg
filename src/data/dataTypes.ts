@@ -1496,6 +1496,17 @@ export type ProcurementContract = {
   tenderPeriodStartDate?: string;
   tenderPeriodEndDate?: string;
   category?: string;
+  /** КЗК upheld an appeal against this contract's procedure (уважена — the
+   *  buyer's award decision was annulled). Present where the appeal join is
+   *  loaded (the contracts browser + the tender page); undefined elsewhere → the
+   *  risk check is "unavailable", not "not fired". NOTE `false` means "no KNOWN
+   *  upheld appeal" — merits outcomes are a partial tier-2 backfill, so absence
+   *  of a ruling reads as clean, not proven-clean. */
+  appealUpheld?: boolean;
+  /** The procedure behind this contract has at least one КЗК appeal (ever) —
+   *  projected from contracts_list.has_appeal by the DbDataTable browser; drives
+   *  the "Appealed (КЗК)" row chip. Absent outside that browser. */
+  hasAppeal?: boolean;
   bundleUuid: string;
   sourceUrl: string;
 };

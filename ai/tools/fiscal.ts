@@ -5,6 +5,7 @@ import { fetchData, fetchDb } from "./dataClient";
 import { fmtEurCompact, fmtInt } from "./format";
 import { round2 } from "./dataset";
 import { fuzzyBestMatch } from "./resolve";
+import { translitKey } from "./translit";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
 import {
   topicBySlug,
@@ -2463,5 +2464,249 @@ export const tenderLookup = async (
       value_type: bg ? "прогнозна (forecast)" : "estimated (forecast)",
     },
     provenance: ["procurement/tenders/index.json"],
+  };
+};
+
+// КЗК procurement-appeals corpus summary — the AI surface for the appeal data
+// joined onto the tender corpus (reads the committed slim summary built by
+// scripts/procurement/build_kzk_summary.ts; the per-tender appeals live on
+// /tenders/:unp). Answers "how many procurement appeals / how many upheld /
+// which buyers get appealed most".
+type KzkSummary = {
+  totals: {
+    complaints: number;
+    resolvedToTender: number;
+    withOutcome: number;
+    upheld: number;
+    rejected: number;
+    suspended: number;
+  };
+  byYear: Record<string, number>;
+  topBuyers: { eik: string; name: string; count: number; upheld: number }[];
+};
+
+// Generic org tokens that don't distinguish one buyer from another — dropped
+// when matching a named awarder against the top-buyers list so a bare category
+// word ("община") can't match every município, but a proper name ("Столична")
+// still pins its buyer.
+const KZK_GENERIC_TOKEN = new Set([
+  "община",
+  "общината",
+  "общини",
+  "район",
+  "районна",
+  "министерство",
+  "министерството",
+  "агенция",
+  "дирекция",
+  "държавно",
+  "предприятие",
+  "национална",
+  "компания",
+  "град",
+  "гр",
+  "на",
+  "и",
+  "за",
+  "по",
+  "еад",
+  "ад",
+  "оод",
+  "еоод",
+  "дп",
+  "municipality",
+  "ministry",
+  "agency",
+  "directorate",
+  "national",
+  "company",
+  "the",
+  "of",
+]);
+
+// Cyrillic→Latin transliteration so an English-typed proper noun ("Kozloduy")
+// matches its Bulgarian buyer name ("КОЗЛОДУЙ") — the summary is Cyrillic-only.
+// Shared `translitKey` (used per-token here, where its separator-collapse is a
+// no-op) — avoids a second, drift-prone copy of the map in this directory.
+const kzkTranslit = translitKey;
+
+const kzkTokens = (s: string): string[] =>
+  s
+    .toLowerCase()
+    .replace(/[^a-zа-яё0-9 ]/gi, " ")
+    .split(/\s+/)
+    .filter(Boolean);
+
+// Best top-buyer match for a named-awarder query, or null. Scores each buyer on
+// how many of its DISTINCTIVE tokens (generic org words removed) the query names
+// — both verbatim and transliterated. ONE matched distinctive token is enough
+// (they're the proper-name part, so "Пловдив"/"Столична" pins the entity); the
+// buyer with the most matches (fewest left over) wins the tie.
+const matchTopBuyer = (
+  query: string,
+  buyers: KzkSummary["topBuyers"],
+): KzkSummary["topBuyers"][number] | null => {
+  const qtok = kzkTokens(query);
+  // EN exonyms that transliteration can't bridge (sofia → софия ≠ столична). Map
+  // them to the Cyrillic distinctive token the buyer name actually carries.
+  const KZK_ALIAS: Record<string, string> = {
+    sofia: "столична",
+    sofiya: "столична",
+    софия: "столична",
+  };
+  const qset = new Set([
+    ...qtok,
+    ...qtok.map(kzkTranslit),
+    ...qtok.map((t) => KZK_ALIAS[t]).filter(Boolean),
+  ]);
+  let best: {
+    b: KzkSummary["topBuyers"][number];
+    matched: number;
+    leftover: number;
+  } | null = null;
+  for (const b of buyers) {
+    const distinctive = [
+      ...new Set(
+        kzkTokens(b.name).filter(
+          (t) => t.length >= 2 && !KZK_GENERIC_TOKEN.has(t),
+        ),
+      ),
+    ];
+    if (!distinctive.length) continue;
+    const matched = distinctive.filter(
+      (t) => qset.has(t) || qset.has(kzkTranslit(t)),
+    ).length;
+    // Require at least HALF the buyer's distinctive tokens (matched*2 ≥ count),
+    // not just one: "Столична" (1/1) and "Kozloduy"→АЕЦ Козлодуй (1/2) still pin,
+    // but a bare stray token can't pin a longer name — e.g. "изток" alone (1/3)
+    // no longer mis-pins «Мини Марица-изток», it falls through to the national
+    // table. (The former "община Пловдив → район Източен" mislabel is resolved
+    // upstream by the modal-name fix in build_kzk_summary.ts.) Best match = most
+    // tokens matched, fewest left over.
+    if (matched * 2 < distinctive.length) continue;
+    const leftover = distinctive.length - matched;
+    if (
+      !best ||
+      matched > best.matched ||
+      (matched === best.matched && leftover < best.leftover)
+    )
+      best = { b, matched, leftover };
+  }
+  return best?.b ?? null;
+};
+
+// Shared caveat for every КЗК-appeals surface.
+const kzkAppealsSubtitle = (bg: boolean): string =>
+  bg
+    ? "Обжалвания пред Комисията за защита на конкуренцията; „Уважени“ = отменено решение на възложителя (не доказателство за нарушение)"
+    : "Appeals to the Competition Protection Commission; “Upheld” = the buyer's decision was annulled (not proof of wrongdoing)";
+
+export const procurementAppeals = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const d = await fetchData<KzkSummary>(
+    "/procurement/derived/kzk_appeals_summary.json",
+  );
+  const t = d.totals;
+  // Earliest year in the corpus — surfaced so the narration can date the totals
+  // ("since 2020") instead of reading as all-time. Computed here (not in
+  // narrate) to keep the exact-number invariant; also the one consumer of byYear.
+  const sinceYearAll = Object.keys(d.byYear ?? {})
+    .filter((y) => /^\d{4}$/.test(y))
+    .sort()[0];
+
+  // Buyer-scoped ask ("обжалваните поръчки на Столична община"): answer for that
+  // one entity instead of the national table. The summary carries only the
+  // top-25 most-appealed buyers, so a buyer outside it can't be quantified here —
+  // say so honestly rather than falling back to the national list (FINDING-017).
+  const awarder = String(args.awarder ?? "").trim();
+  if (awarder) {
+    const hit = matchTopBuyer(awarder, d.topBuyers);
+    if (hit)
+      return {
+        tool: "procurementAppeals",
+        domain: "fiscal",
+        kind: "scalar",
+        title: bg
+          ? `Жалби пред КЗК — ${hit.name}`
+          : `КЗК appeals — ${hit.name}`,
+        subtitle: kzkAppealsSubtitle(bg),
+        viz: "none",
+        facts: {
+          buyer: hit.name,
+          appeals: fmtInt(hit.count, ctx.lang),
+          upheld: fmtInt(hit.upheld, ctx.lang),
+          total_complaints: fmtInt(t.complaints, ctx.lang),
+          ...(sinceYearAll ? { since_year: sinceYearAll } : {}),
+        },
+        provenance: ["procurement/derived/kzk_appeals_summary.json"],
+      };
+    // named, but not among the most-appealed buyers the summary tracks
+    return {
+      tool: "procurementAppeals",
+      domain: "fiscal",
+      kind: "scalar",
+      title: bg
+        ? "Не е сред най-обжалваните възложители"
+        : "Not among the most-appealed buyers",
+      subtitle: kzkAppealsSubtitle(bg),
+      viz: "none",
+      facts: {
+        buyer_query: awarder,
+        most_appealed_buyer: d.topBuyers[0]?.name ?? "—",
+        total_complaints: fmtInt(t.complaints, ctx.lang),
+        // the cutoff lives in build_kzk_summary.ts (.slice(0, 25)); pass it so the
+        // narration doesn't hard-code "top 25" and drift from the builder.
+        tracked_buyers: fmtInt(d.topBuyers.length, ctx.lang),
+        ...(sinceYearAll ? { since_year: sinceYearAll } : {}),
+      },
+      provenance: ["procurement/derived/kzk_appeals_summary.json"],
+    };
+  }
+
+  const n = Math.min(Math.max(Number(args.count) || 10, 1), 25);
+  const rows: Row[] = d.topBuyers.slice(0, n).map((b) => ({
+    buyer: b.name,
+    appeals: b.count,
+    upheld: b.upheld,
+  }));
+  return {
+    tool: "procurementAppeals",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? "Жалби пред КЗК по обществени поръчки"
+      : "КЗК procurement appeals",
+    subtitle: kzkAppealsSubtitle(bg),
+    columns: [
+      { key: "buyer", label: bg ? "Възложител" : "Buyer" },
+      {
+        key: "appeals",
+        label: bg ? "Жалби" : "Appeals",
+        numeric: true,
+        format: "int",
+      },
+      {
+        key: "upheld",
+        label: bg ? "Уважени" : "Upheld",
+        numeric: true,
+        format: "int",
+      },
+    ],
+    rows,
+    viz: "none",
+    facts: {
+      total_complaints: fmtInt(t.complaints, ctx.lang),
+      resolved_to_tender: fmtInt(t.resolvedToTender, ctx.lang),
+      with_outcome: fmtInt(t.withOutcome, ctx.lang),
+      upheld: fmtInt(t.upheld, ctx.lang),
+      rejected: fmtInt(t.rejected, ctx.lang),
+      suspended: fmtInt(t.suspended, ctx.lang),
+      most_appealed_buyer: d.topBuyers[0]?.name ?? "—",
+      ...(sinceYearAll ? { since_year: sinceYearAll } : {}),
+    },
+    provenance: ["procurement/derived/kzk_appeals_summary.json"],
   };
 };

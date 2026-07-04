@@ -16,6 +16,7 @@ import type { DataTableColumnDef } from "@/ux/data_table/utils";
 import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
 import { ContractAmount } from "@/screens/components/procurement/ContractAmount";
 import { RiskBadges } from "@/screens/components/procurement/RiskBadges";
+import { AppealChip } from "@/screens/components/procurement/AppealChip";
 import { useContractRiskScorer } from "@/data/procurement/useContractRiskFlags";
 import { useProcurementWindow } from "@/data/procurement/useProcurementWindow";
 import { resolveContractSource } from "@/screens/components/candidates/procurement/sourceUrl";
@@ -159,7 +160,12 @@ export const ContractsBrowserDbScreen: FC = () => {
         header: t("company_contract_risk") || "Risk",
         enableSorting: false,
         cell: ({ row }) => (
-          <RiskBadges result={scoreRow(row.original)} showScore />
+          <div className="flex flex-wrap items-center gap-1">
+            <RiskBadges result={scoreRow(row.original)} showScore />
+            {row.original.hasAppeal && !row.original.appealUpheld ? (
+              <AppealChip />
+            ) : null}
+          </div>
         ),
       },
       {

@@ -13,6 +13,7 @@ import { Megaphone, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { useAwarderTenders } from "@/data/procurement/useAwarderTenders";
+import { AppealChip } from "@/screens/components/procurement/AppealChip";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
 
@@ -127,6 +128,7 @@ export const AwarderTendersTile: FC<{ eik: string }> = ({ eik }) => {
                           {r.procedure_type}
                         </div>
                       ) : null}
+                      {r.has_appeal ? <AppealChip className="mt-0.5" /> : null}
                     </td>
                     <td className="px-3 py-2 text-right tabular-nums whitespace-nowrap">
                       {formatEurCompact(r.forecast_eur, i18n.language) || "—"}

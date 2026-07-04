@@ -138,6 +138,17 @@ functions/.secret.local
 # BG motorway geometry for the road dashboard hero map — generated offline by
 # scripts/procurement/ingest_osm_roads.ts (OSM/ODbL), bucket-synced not committed.
 /data/procurement/roads.json
+# КЗК appeals + decisions — headed-Playwright ingest artifacts, served from
+# Postgres (kzk_appeals), not client-fetched. Off-laptop durability is via
+# `bucket:sync` (the blanket `rsync -r data` sweeps these up), NOT git.
+# WARNING: only the intake tier (complaints) is regenerable — `kzk_appeals.ts`
+# re-scrapes it. The ~2,098 merits `outcome`/`decisionDate` rows are NOT: their
+# crawler (kzk_decisions.ts) isn't in the repo yet, so THIS FILE (or a PG dump /
+# bucket copy) is the only copy. Durability = keep a PG dump or a bucket copy of
+# this JSON. `--apply` is now safe on a fresh DB: it seeds PG's tier-2 columns
+# from this JSON and the write-back preserves outcomes when PG lacks them.
+/data/procurement/kzk_appeals.json
+/data/procurement/kzk_decisions.json
 # Per-entity sector/procedure/EU breakdown shards + the faceted-browser per-year
 # contract index — bulky derived data, uploaded to the bucket, not committed
 # (same convention as the per-contractor files above). breakdowns/ +

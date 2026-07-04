@@ -24,6 +24,7 @@ import {
   Users,
 } from "lucide-react";
 import { Tooltip } from "@/ux/Tooltip";
+import { formatShare } from "@/lib/riskGrade";
 import type { ContractRiskResult } from "@/data/procurement/useContractRiskFlags";
 
 type Props = {
@@ -36,12 +37,6 @@ type Props = {
 
 const chipBase =
   "inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide";
-
-const formatPct = (frac: number, lang: string): string =>
-  new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en-GB", {
-    style: "percent",
-    maximumFractionDigits: 0,
-  }).format(frac);
 
 // CRI band colour — green (low) → amber (mid) → red (high). Inline style so the
 // width-bound meter bar can use the same scale the badge ring implies.
@@ -203,6 +198,30 @@ export const RiskBadges: FC<Props> = ({
         </Tooltip>
       ) : null}
 
+      {flags.appealUpheld ? (
+        <Tooltip
+          content={
+            <div className="space-y-1">
+              <div className="font-medium">
+                {t("risk_flag_appeal_upheld_long") ||
+                  "КЗК upheld an appeal against this procedure"}
+              </div>
+              <div className="text-xs text-muted-foreground">
+                {t("risk_flag_appeal_upheld_hint") ||
+                  "The Competition Protection Commission annulled the buyer's award decision — an official finding it was improper (not just a heuristic flag)."}
+              </div>
+            </div>
+          }
+        >
+          <span
+            className={`${chipBase} border-red-300 bg-red-100 text-red-900 dark:border-red-900 dark:bg-red-900/40 dark:text-red-100`}
+          >
+            <Gavel className="h-3 w-3" />
+            {t("risk_flag_appeal_upheld") || "Appeal upheld"}
+          </span>
+        </Tooltip>
+      ) : null}
+
       {flags.shortTenderPeriod ? (
         <Tooltip
           content={
@@ -240,7 +259,7 @@ export const RiskBadges: FC<Props> = ({
                   "Awarder concentrated on this contractor"}
               </div>
               <div className="text-xs tabular-nums">
-                {formatPct(flags.awarderConcentration.sharePct, lang)}{" "}
+                {formatShare(flags.awarderConcentration.sharePct, lang)}{" "}
                 {t("risk_flag_concentration_of") || "of buyer's lifetime spend"}
               </div>
               <div className="text-xs text-muted-foreground">
@@ -254,7 +273,7 @@ export const RiskBadges: FC<Props> = ({
             className={`${chipBase} border-orange-300 bg-orange-100 text-orange-900 dark:border-orange-900 dark:bg-orange-900/40 dark:text-orange-100`}
           >
             <AlertTriangle className="h-3 w-3" />
-            {formatPct(flags.awarderConcentration.sharePct, lang)}
+            {formatShare(flags.awarderConcentration.sharePct, lang)}
           </span>
         </Tooltip>
       ) : null}
