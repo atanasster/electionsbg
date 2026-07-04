@@ -216,6 +216,24 @@ once ALL readers (src/ + ai/ + pipeline) are on PG — so `top_contractors`,
 `contractors_search`, `awarders_index`, `mp_connected`, `pep_connected` stay until
 these 3 land.
 
+## 1c. Workstream A (churn teardown) SHIPPED (2026-07-04)
+
+After all 9 AI tools + D2 landed, **258 dead procurement derived files were
+git-untracked** (−161k lines) — the churn the whole plan targeted is gone. Verified
+family-by-family that each has no consumer in `src/` + `ai/` + `functions/` +
+PG-loaders. Untracked: `per-mp/` (44), `pep-by-slug/` (83), `pep-by-eik/` (82),
+`by-eik/` (42) + 7 singles (`person_procurement_index`, `awarders_index`,
+`awarder_concentration`, `ocds_party_geo_map`, `buyer_oblast_map`, `risk_feed`,
+`concentration_full`). They still generate locally; PG serves the live versions.
+
+**KEPT (still have consumers):** `mp_connected`/`pep_connected` (→ `load_tr_pg` →
+`company_politicians`, the table EVERY migrated tool queries — load-bearing),
+`top_contractors` (`funds/political_links`), `flow_full`/`cpv_competition` (golden
+fixtures), `contractors_search` (bucket-gz), `mp_party` (still frontend-live via
+`useMpParty` — a D3 item), `flow.json`. These retire only in the §5 net teardown
+(retire the gen_procurement JSON-mirror + goldens + migrate `invariants` to PG) or
+when their last consumer moves.
+
 ## 2. Three independent workstreams
 
 Classify every file family into one of three buckets, each with a different fix:
