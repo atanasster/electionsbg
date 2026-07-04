@@ -1,7 +1,7 @@
 // Governance — fiscal tools (budget, COFOG, procurement, EU funds). All read
 // headline index/rollup files; amounts are in EUR.
 
-import { fetchData } from "./dataClient";
+import { fetchData, fetchDb } from "./dataClient";
 import { fmtEurCompact, fmtInt } from "./format";
 import { round2 } from "./dataset";
 import { fuzzyBestMatch } from "./resolve";
@@ -1008,9 +1008,11 @@ export const procurementRedFlags = async (
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
-  // Slim pre-selected feed (~28 KB) — not the full awarder_concentration.json.
-  const feed = await fetchData<{ topConcentration: ConcentrationEntry[] }>(
-    "/procurement/derived/risk_feed.json",
+  // Concentration feed from Postgres (procurement_risk_feed) — same pairs +
+  // shares the /procurement risk dashboard serves; supplier names are the
+  // canonical TR spelling. debarred.json stays JSON (it is the PG load source).
+  const feed = await fetchDb<{ topConcentration: ConcentrationEntry[] }>(
+    "procurement-risk-feed",
   );
   const deb = await fetchData<{ entries: DebarredRow[] }>(
     "/procurement/debarred.json",
@@ -1048,10 +1050,7 @@ export const procurementRedFlags = async (
       active_debarred: activeDebarred,
       top_share: top[0] ? `${Math.round(top[0].sharePct * 100)}%` : "—",
     },
-    provenance: [
-      "procurement/derived/risk_feed.json",
-      "procurement/debarred.json",
-    ],
+    provenance: ["db:procurement-risk-feed", "procurement/debarred.json"],
   };
 };
 

@@ -8,7 +8,8 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { route } from "../orchestrator/router";
-import { fetchData, setFetcher } from "./dataClient";
+import { fetchData, setFetcher, setDbFetcher } from "./dataClient";
+import { nodeDbFetcher } from "./dbFetcherNode";
 import { runTool } from "./registry";
 import {
   detectTaxChange,
@@ -27,6 +28,10 @@ setFetcher(async (path: string) => {
   const abs = join(process.cwd(), "data", rel);
   return JSON.parse(await readFile(abs, "utf8"));
 });
+
+// Tools migrated to Postgres call fetchDb — run the real /api/db route handlers
+// against local PG (needs `npm run db:pg:up` + a loaded store).
+setDbFetcher(nodeDbFetcher);
 
 let failures = 0;
 const assert = (cond: boolean, msg: string) => {
