@@ -279,3 +279,20 @@ ai/m0/.venv/
 /public/myarea
 cloud-sql-proxy
 .pgpass
+# Retired procurement derived JSON — frontend now reads Postgres; AI tools migrated
+# to /api/db (see docs/plans/direct-db-ingest-v1.md). Still generated locally by the
+# ingest; no longer tracked (they drove the multi-thousand-file commits). KEPT:
+# mp_connected/pep_connected (PG load sources), top_contractors/flow_full/
+# cpv_competition (golden fixtures), contractors_search (bucket-gz), mp_party (still
+# frontend-live).
+/data/procurement/derived/per-mp/
+/data/procurement/derived/pep-by-slug/
+/data/procurement/derived/pep-by-eik/
+/data/procurement/derived/by-eik/
+/data/procurement/derived/person_procurement_index.json
+/data/procurement/derived/awarders_index.json
+/data/procurement/derived/awarder_concentration.json
+/data/procurement/derived/ocds_party_geo_map.json
+/data/procurement/derived/buyer_oblast_map.json
+/data/procurement/derived/risk_feed.json
+/data/procurement/derived/concentration_full.json
