@@ -117,6 +117,29 @@ These die *with* the net (§5 Half 1), so there is no standalone win here.
 scorecard repoint is safe (`ai/` doesn't read `per-mp`), but `mp_connected.json`
 must keep generating until the AI tool migrates.
 
+### AI-tools migration progress (2026-07-04)
+
+The `fetchDb` seam (SHIPPED) gives AI tools a PG path; the node harness runs the
+real `DB_ROUTES` against local PG, so tool numbers are verified against prod's
+route code. Migrated + harness-verified (only the pre-existing pension-sim
+assertion fails):
+
+| Tool | Was | Now (PG route) | Note |
+|---|---|---|---|
+| procurementRedFlags | risk_feed.json | procurement-risk-feed | canonical names |
+| topContractors | top_contractors.json | procurement-rankings | top-12 identical |
+| procurementBySettlement | by_settlement/{ekatte} | procurement-settlement | identical |
+| procurementByOblast | by_settlement/index | procurement-by-settlement | agg identical |
+| procurementSingleBidSectors | cpv_competition.json | procurement-risk-indexes | suppressed-set identical |
+| procurementTotals | index.json | procurement-overview | **MP-connected de-duped 1.16bn→981M** (dashboard-consistent) |
+
+**Remaining 3 (resolution-redesign, not clean repoints):** `contractSearch` +
+`awarderProcurement` do client-side fuzzy name→eik over the full JSON lists —
+moving to PG `pg_trgm` changes which entity resolves (functional change, needs a
+search route + harness re-baseline). `mpProcurement` (mp_connected/pep_connected)
+needs per-person resolution redesign against the curated PG set. A JSON file can
+be retired only once ALL its readers (src/ + ai/ + pipeline) are on PG.
+
 ## 2. Three independent workstreams
 
 Classify every file family into one of three buckets, each with a different fix:
