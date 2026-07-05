@@ -2189,7 +2189,7 @@ export const openTenders = async (
       viz: "none",
       facts: {
         scope: scopeLabel,
-        year,
+        year: year ?? "—",
         matches: res.matches,
         total_estimated: fmtEurCompact(res.totalEur, ctx.lang),
         cancelled: res.cancelled,
