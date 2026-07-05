@@ -1,18 +1,22 @@
 {
-  "detail": "6 datasets on page 1, hash 910256f1b91d2aaa",
-  "fingerprint": "910256f1b91d2aaa",
-  "lastChanged": "2026-06-28T16:34:00.777Z",
-  "lastChecked": "2026-06-28T16:34:00.777Z",
+  "detail": "6 datasets on page 1, hash 854f0f37c419de9d",
+  "fingerprint": "854f0f37c419de9d",
+  "lastChanged": "2026-07-05T06:09:03.234Z",
+  "lastChecked": "2026-07-05T06:09:03.234Z",
   "meta": {
     "topUuids": [
+      "b55dcb49-7d7a-41b0-b1db-4cee4e8ebc4d",
       "7990cb41-719d-4616-b656-c750ebb487d7",
       "88ea1672-944b-4b9a-b074-528e316eab46",
       "082f5f2b-42d1-4ce2-ab94-ddcf214d151e",
-      "572bba0c-4fe2-4e10-a36c-99432f5532f0",
-      "76d32733-5ad2-4cfb-8f91-69b0a7cd5564"
+      "572bba0c-4fe2-4e10-a36c-99432f5532f0"
     ],
     "count": 6,
     "datasets": [
+      {
+        "uuid": "b55dcb49-7d7a-41b0-b1db-4cee4e8ebc4d",
+        "kind": "ocds"
+      },
       {
         "uuid": "7990cb41-719d-4616-b656-c750ebb487d7",
         "kind": "annual",
@@ -33,10 +37,6 @@
       },
       {
         "uuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
-        "kind": "ocds"
-      },
-      {
-        "uuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
         "kind": "ocds"
       }
     ]
