@@ -22,18 +22,34 @@ const REPO_PGPASS = path.resolve(
 if (fs.existsSync(REPO_PGPASS) && !process.env.PGPASSFILE)
   process.env.PGPASSFILE = REPO_PGPASS;
 
-// Local dev = the docker-compose Postgres (password inline, works out of the box).
+// The docker-compose Postgres (password inline, works out of the box).
+export const LOCAL_DATABASE_URL =
+  "postgres://postgres:postgres@localhost:5433/electionsbg";
+
+// Local dev = the docker-compose Postgres.
 // Override DATABASE_URL to target the Cloud SQL proxy WITHOUT a password so the
 // password is read from .pgpass, e.g.
 //   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg   (see db:push:cloud)
-export const DATABASE_URL =
-  process.env.DATABASE_URL ??
-  "postgres://postgres:postgres@localhost:5433/electionsbg";
+export const DATABASE_URL = process.env.DATABASE_URL ?? LOCAL_DATABASE_URL;
+
+// Explicit local override, wins over any ambient DATABASE_URL. Set by the AI
+// harness (see ai/tools/dbFetcherNode.ts): the regression/tool harnesses are
+// DEFINED to verify against the local docker Postgres, but a cloud DATABASE_URL
+// left in the shell (from db:push:cloud) is password-less and resolves its
+// password from .pgpass — the CLOUD password — which fails auth against local
+// PG and breaks the predeploy `ai:test`. Call pinLocalDatabase() before the
+// first query to pin local regardless of the shell env.
+let urlOverride: string | null = null;
+
+export const pinLocalDatabase = (): void => {
+  urlOverride = LOCAL_DATABASE_URL;
+};
 
 let pool: Pool | null = null;
 
 export const getPool = (): Pool => {
-  if (!pool) pool = new Pool({ connectionString: DATABASE_URL, max: 8 });
+  if (!pool)
+    pool = new Pool({ connectionString: urlOverride ?? DATABASE_URL, max: 8 });
   return pool;
 };
 

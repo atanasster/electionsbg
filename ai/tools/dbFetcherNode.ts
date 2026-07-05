@@ -8,9 +8,20 @@
 // functions bundle. Only *.harness.ts / *.test.ts entrypoints import it.
 
 import { createRequire } from "node:module";
-import { allRows, withReadOnlyTx } from "../../scripts/db/lib/pg";
+import {
+  allRows,
+  pinLocalDatabase,
+  withReadOnlyTx,
+} from "../../scripts/db/lib/pg";
 import type { DbParams } from "./dataClient";
 import type { DbRows } from "../../functions/db_table";
+
+// This node fetcher exists ONLY for the AI harnesses, which verify tool numbers
+// against the local docker Postgres. Pin the local URL so a cloud DATABASE_URL
+// left in the shell (password-less → .pgpass cloud password) can't fail auth
+// against local PG and break `npm run ai:test` in the deploy predeploy hook.
+// Runs at import time, before any getPool() call (getPool is lazy).
+pinLocalDatabase();
 
 const require = createRequire(import.meta.url);
 const { DB_ROUTES } = require("../../functions/db_routes.js") as {
