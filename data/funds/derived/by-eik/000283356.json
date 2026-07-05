@@ -1,0 +1,27 @@
+{
+  "eik": "000283356",
+  "entries": [
+    {
+      "mpId": 3993,
+      "mpName": "Георги Станчев Георгиев",
+      "beneficiaryEik": "000283356",
+      "beneficiaryName": "НЧ \"Просвета – 1906г.\" с.Дойренци",
+      "orgType": "Нестопанска организация",
+      "relations": [
+        {
+          "kind": "ngo_representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "trustee",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 14316.17,
+      "paidEur": 7694.18
+    }
+  ]
+}

@@ -1,11 +1,28 @@
 {
   "mpId": 2874,
   "summary": {
-    "contractCount": 1,
-    "contractedEur": 25564.59,
-    "paidEur": 25564.59
+    "contractCount": 3,
+    "contractedEur": 72347.08,
+    "paidEur": 72347.06
   },
   "entries": [
+    {
+      "mpId": 2874,
+      "mpName": "Александър Николаев Сабанов",
+      "beneficiaryEik": "114107675",
+      "beneficiaryName": "Асоциация на дунавските общини -дунав",
+      "orgType": "Нестопанска организация",
+      "relations": [
+        {
+          "kind": "ngo_board",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 2,
+      "contractedEur": 46782.49,
+      "paidEur": 46782.47
+    },
     {
       "mpId": 2874,
       "mpName": "Александър Николаев Сабанов",

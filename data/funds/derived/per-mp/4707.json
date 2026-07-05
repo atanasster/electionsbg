@@ -1,9 +1,9 @@
 {
   "mpId": 4707,
   "summary": {
-    "contractCount": 5,
-    "contractedEur": 408240,
-    "paidEur": 231754.25
+    "contractCount": 6,
+    "contractedEur": 584749.15,
+    "paidEur": 382095.27
   },
   "entries": [
     {
@@ -24,6 +24,23 @@
       "contractCount": 5,
       "contractedEur": 408240,
       "paidEur": 231754.25
+    },
+    {
+      "mpId": 4707,
+      "mpName": "Андрей Иванов Цеков",
+      "beneficiaryEik": "177122217",
+      "beneficiaryName": "СНЦ \"Институт за интеграция, Научноизследователска и развойна дейност и образование\" (ИНИРДО)",
+      "orgType": "Нестопанска организация",
+      "relations": [
+        {
+          "kind": "ngo_board",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 176509.15,
+      "paidEur": 150341.02
     }
   ]
 }

@@ -1,0 +1,44 @@
+{
+  "mpId": 4191,
+  "summary": {
+    "contractCount": 3,
+    "contractedEur": 33932.67,
+    "paidEur": 31439.21
+  },
+  "entries": [
+    {
+      "mpId": 4191,
+      "mpName": "Валентина Иванова Димова",
+      "beneficiaryEik": "123104137",
+      "beneficiaryName": "Народно читалище \"Отец Паисий - 1924\"",
+      "orgType": "Нестопанска организация",
+      "relations": [
+        {
+          "kind": "trustee",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 2,
+      "contractedEur": 23866.61,
+      "paidEur": 21373.15
+    },
+    {
+      "mpId": 4191,
+      "mpName": "Валентина Иванова Димова",
+      "beneficiaryEik": "104064396",
+      "beneficiaryName": "Народно читалище \"Мита Стойчева 1900\"",
+      "orgType": "Нестопанска организация",
+      "relations": [
+        {
+          "kind": "trustee",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 10066.06,
+      "paidEur": 10066.06
+    }
+  ]
+}

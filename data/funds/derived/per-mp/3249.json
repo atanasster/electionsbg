@@ -1,0 +1,32 @@
+{
+  "mpId": 3249,
+  "summary": {
+    "contractCount": 2,
+    "contractedEur": 1226619.65,
+    "paidEur": 609374.42
+  },
+  "entries": [
+    {
+      "mpId": 3249,
+      "mpName": "Владимир Стоянов Русев",
+      "beneficiaryEik": "831622969",
+      "beneficiaryName": "ЕЛ БИ Булгарикум ЕАД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 2,
+      "contractedEur": 1226619.65,
+      "paidEur": 609374.42
+    }
+  ]
+}

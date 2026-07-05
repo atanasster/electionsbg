@@ -1,0 +1,44 @@
+{
+  "mpId": 2750,
+  "summary": {
+    "contractCount": 3,
+    "contractedEur": 20140995.12,
+    "paidEur": 5816448.7
+  },
+  "entries": [
+    {
+      "mpId": 2750,
+      "mpName": "Николай Асенов Тишев",
+      "beneficiaryEik": "201847598",
+      "beneficiaryName": "Индустриален и логистичен парк - Бургас АД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 2,
+      "contractedEur": 20039113.14,
+      "paidEur": 5816448.7
+    },
+    {
+      "mpId": 2750,
+      "mpName": "Николай Асенов Тишев",
+      "beneficiaryEik": "102004532",
+      "beneficiaryName": "Пристанище бургас ЕАД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 101881.98,
+      "paidEur": 0
+    }
+  ]
+}

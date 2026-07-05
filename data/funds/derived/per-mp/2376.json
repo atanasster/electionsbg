@@ -1,0 +1,44 @@
+{
+  "mpId": 2376,
+  "summary": {
+    "contractCount": 6,
+    "contractedEur": 1508941.96,
+    "paidEur": 739157.74
+  },
+  "entries": [
+    {
+      "mpId": 2376,
+      "mpName": "Костадин Иванов Марков",
+      "beneficiaryEik": "204336356",
+      "beneficiaryName": "Етерични масла и билки ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 4,
+      "contractedEur": 1324927.97,
+      "paidEur": 662463.96
+    },
+    {
+      "mpId": 2376,
+      "mpName": "Костадин Иванов Марков",
+      "beneficiaryEik": "102705120",
+      "beneficiaryName": "Аква системс ЕАД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 2,
+      "contractedEur": 184013.99,
+      "paidEur": 76693.78
+    }
+  ]
+}

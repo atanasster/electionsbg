@@ -7,11 +7,33 @@
   "paidEur": 49484788.67,
   "mps": [
     {
+      "mpId": 909,
+      "mpName": "Емил Димитров Гущеров",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ]
+    },
+    {
       "mpId": 4649,
       "mpName": "Генади Събков Събков",
       "relations": [
         {
           "kind": "branch_manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ]
+    },
+    {
+      "mpId": 5198,
+      "mpName": "Галин Неделчев Дурев",
+      "relations": [
+        {
+          "kind": "director",
           "isCurrent": true,
           "confidence": "medium"
         }
@@ -58,8 +80,8 @@
       ]
     }
   ],
-  "procurementEur": 6440382.32,
-  "procurementContractCount": 47,
+  "procurementEur": 5985382.29,
+  "procurementContractCount": 44,
   "debarred": false,
-  "exposureScore": 23.91
+  "exposureScore": 24.3
 }

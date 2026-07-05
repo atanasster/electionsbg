@@ -14,6 +14,11 @@
       "orgType": "Компания",
       "relations": [
         {
+          "kind": "sole_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
           "kind": "manager",
           "isCurrent": true,
           "confidence": "medium"
@@ -30,6 +35,11 @@
       "beneficiaryName": "Тракия Кабел ООД",
       "orgType": "Компания",
       "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
         {
           "kind": "stake",
           "shareSize": "50%",

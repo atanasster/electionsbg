@@ -1,0 +1,36 @@
+{
+  "eik": "200712697",
+  "name": "ПАК дизайн ООД",
+  "orgType": "Компания",
+  "contractCount": 10,
+  "contractedEur": 3604160.55,
+  "paidEur": 1853787.8,
+  "mps": [
+    {
+      "mpId": 3427,
+      "mpName": "Петко Ангелов Кущирев",
+      "relations": [
+        {
+          "kind": "sole_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": false,
+          "confidence": "medium"
+        }
+      ]
+    }
+  ],
+  "officials": [],
+  "procurementEur": 0,
+  "procurementContractCount": 0,
+  "debarred": false,
+  "exposureScore": 15.79
+}

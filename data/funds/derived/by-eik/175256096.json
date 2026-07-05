@@ -9,6 +9,11 @@
       "orgType": "Компания",
       "relations": [
         {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
           "kind": "representative",
           "isCurrent": true,
           "confidence": "medium"

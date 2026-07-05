@@ -1,0 +1,27 @@
+{
+  "eik": "103792060",
+  "entries": [
+    {
+      "mpId": 22,
+      "mpName": "Яни Димитров Янев",
+      "beneficiaryEik": "103792060",
+      "beneficiaryName": "Сдружение с нестопанска цел \"Регионална агенция за предприемачество и иновации - Варна\" (РАПИВ)",
+      "orgType": "Нестопанска организация",
+      "relations": [
+        {
+          "kind": "ngo_representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "ngo_board",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 35796.57,
+      "paidEur": 35796.58
+    }
+  ]
+}

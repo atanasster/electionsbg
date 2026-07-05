@@ -14,6 +14,16 @@
       "orgType": "Компания",
       "relations": [
         {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
           "kind": "stake",
           "shareSize": "99 дяла",
           "valueEur": 50.61789623842563,

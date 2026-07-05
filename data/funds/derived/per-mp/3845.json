@@ -1,9 +1,9 @@
 {
   "mpId": 3845,
   "summary": {
-    "contractCount": 1,
-    "contractedEur": 10784992.31,
-    "paidEur": 0
+    "contractCount": 2,
+    "contractedEur": 10861655.42,
+    "paidEur": 34498.4
   },
   "entries": [
     {
@@ -13,6 +13,11 @@
       "beneficiaryName": "ХЕК Солар ЕООД",
       "orgType": "Компания",
       "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        },
         {
           "kind": "stake",
           "shareSize": "100%",
@@ -24,6 +29,23 @@
       "contractCount": 1,
       "contractedEur": 10784992.31,
       "paidEur": 0
+    },
+    {
+      "mpId": 3845,
+      "mpName": "Владимир Славев Табутов",
+      "beneficiaryEik": "130223309",
+      "beneficiaryName": "Хотели лион ЕООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 76663.11,
+      "paidEur": 34498.4
     }
   ]
 }

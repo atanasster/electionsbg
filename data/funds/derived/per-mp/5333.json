@@ -1,9 +1,9 @@
 {
   "mpId": 5333,
   "summary": {
-    "contractCount": 2,
-    "contractedEur": 119076.76,
-    "paidEur": 56459.85
+    "contractCount": 5,
+    "contractedEur": 190146,
+    "paidEur": 61572.77
   },
   "entries": [
     {
@@ -22,6 +22,23 @@
       "contractCount": 2,
       "contractedEur": 119076.76,
       "paidEur": 56459.85
+    },
+    {
+      "mpId": 5333,
+      "mpName": "Таня Петрова Гюрюшева-Николова",
+      "beneficiaryEik": "125560520",
+      "beneficiaryName": "Афродита ЕООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "high"
+        }
+      ],
+      "contractCount": 3,
+      "contractedEur": 71069.24,
+      "paidEur": 5112.92
     }
   ]
 }

@@ -1,0 +1,37 @@
+{
+  "mpId": 185,
+  "summary": {
+    "contractCount": 3,
+    "contractedEur": 968209.09,
+    "paidEur": 533122.23
+  },
+  "entries": [
+    {
+      "mpId": 185,
+      "mpName": "Стоян Проданов Иванов",
+      "beneficiaryEik": "128056792",
+      "beneficiaryName": "Технострой - инженеринг 99 АД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 3,
+      "contractedEur": 968209.09,
+      "paidEur": 533122.23
+    }
+  ]
+}

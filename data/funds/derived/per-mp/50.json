@@ -14,12 +14,12 @@
       "orgType": "Компания",
       "relations": [
         {
-          "kind": "representative",
+          "kind": "director",
           "isCurrent": true,
           "confidence": "medium"
         },
         {
-          "kind": "director",
+          "kind": "representative",
           "isCurrent": true,
           "confidence": "medium"
         }

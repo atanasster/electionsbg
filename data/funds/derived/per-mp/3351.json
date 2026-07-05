@@ -14,6 +14,11 @@
       "orgType": "Компания",
       "relations": [
         {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
           "kind": "stake",
           "shareSize": "250",
           "valueEur": 51129.188119621846,

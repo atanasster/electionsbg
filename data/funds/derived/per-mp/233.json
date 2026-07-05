@@ -1,9 +1,9 @@
 {
   "mpId": 233,
   "summary": {
-    "contractCount": 1,
-    "contractedEur": 76693.78,
-    "paidEur": 76693.78
+    "contractCount": 2,
+    "contractedEur": 78943.45999999999,
+    "paidEur": 78943.45999999999
   },
   "entries": [
     {
@@ -22,6 +22,23 @@
       "contractCount": 1,
       "contractedEur": 76693.78,
       "paidEur": 76693.78
+    },
+    {
+      "mpId": 233,
+      "mpName": "Николай Петров Кънчев",
+      "beneficiaryEik": "104667451",
+      "beneficiaryName": "МАНАСТИРА-СВИЩОВ ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 2249.68,
+      "paidEur": 2249.68
     }
   ]
 }

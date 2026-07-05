@@ -1,0 +1,54 @@
+{
+  "mpId": 603,
+  "summary": {
+    "contractCount": 2,
+    "contractedEur": 10225.84,
+    "paidEur": 10225.84
+  },
+  "entries": [
+    {
+      "mpId": 603,
+      "mpName": "Диляна Николова Грозданова",
+      "beneficiaryEik": "121699842",
+      "beneficiaryName": "Имидж АД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 5112.92,
+      "paidEur": 5112.92
+    },
+    {
+      "mpId": 603,
+      "mpName": "Диляна Николова Грозданова",
+      "beneficiaryEik": "122042572",
+      "beneficiaryName": "Булмедия АД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 5112.92,
+      "paidEur": 5112.92
+    }
+  ]
+}

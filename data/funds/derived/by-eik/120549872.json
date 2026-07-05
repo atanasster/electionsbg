@@ -1,0 +1,27 @@
+{
+  "eik": "120549872",
+  "entries": [
+    {
+      "mpId": 5222,
+      "mpName": "Стефан Атанасов Сабрутев",
+      "beneficiaryEik": "120549872",
+      "beneficiaryName": "Чечосан ЕООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "sole_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 4,
+      "contractedEur": 288794.32,
+      "paidEur": 202560.58
+    }
+  ]
+}

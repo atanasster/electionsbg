@@ -1,0 +1,27 @@
+{
+  "mpId": 990,
+  "summary": {
+    "contractCount": 4,
+    "contractedEur": 298997.51,
+    "paidEur": 191574.94
+  },
+  "entries": [
+    {
+      "mpId": 990,
+      "mpName": "Кирчо Димитров Димитров",
+      "beneficiaryEik": "119020085",
+      "beneficiaryName": "Мебеллукс АД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 4,
+      "contractedEur": 298997.51,
+      "paidEur": 191574.94
+    }
+  ]
+}

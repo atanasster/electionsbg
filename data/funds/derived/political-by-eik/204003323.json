@@ -1,0 +1,33 @@
+{
+  "eik": "204003323",
+  "name": "ТТ Маркет ЕООД",
+  "orgType": "Компания",
+  "contractCount": 1,
+  "contractedEur": 2119.81,
+  "paidEur": 2119.82,
+  "mps": [
+    {
+      "mpId": 5193,
+      "mpName": "Йордан Яворов Иванов",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
+          "kind": "stake",
+          "shareSize": "6 лв.",
+          "valueEur": null,
+          "fiscalYear": 2024,
+          "declarationYear": 2025
+        }
+      ]
+    }
+  ],
+  "officials": [],
+  "procurementEur": 0,
+  "procurementContractCount": 0,
+  "debarred": false,
+  "exposureScore": 8.35
+}

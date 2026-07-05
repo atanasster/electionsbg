@@ -1,0 +1,31 @@
+{
+  "eik": "202798036",
+  "name": "ТИП Транс ЕООД",
+  "orgType": "Компания",
+  "contractCount": 1,
+  "contractedEur": 5112.92,
+  "paidEur": 5112.92,
+  "mps": [
+    {
+      "mpId": 1505,
+      "mpName": "Щерьо Щерев Щерев",
+      "relations": [
+        {
+          "kind": "sole_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ]
+    }
+  ],
+  "officials": [],
+  "procurementEur": 0,
+  "procurementContractCount": 0,
+  "debarred": false,
+  "exposureScore": 9.23
+}

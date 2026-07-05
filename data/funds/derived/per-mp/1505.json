@@ -1,0 +1,32 @@
+{
+  "mpId": 1505,
+  "summary": {
+    "contractCount": 1,
+    "contractedEur": 5112.92,
+    "paidEur": 5112.92
+  },
+  "entries": [
+    {
+      "mpId": 1505,
+      "mpName": "Щерьо Щерев Щерев",
+      "beneficiaryEik": "202798036",
+      "beneficiaryName": "ТИП Транс ЕООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "sole_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "manager",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 1,
+      "contractedEur": 5112.92,
+      "paidEur": 5112.92
+    }
+  ]
+}

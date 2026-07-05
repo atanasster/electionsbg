@@ -1,0 +1,36 @@
+{
+  "eik": "128056792",
+  "name": "Технострой - инженеринг 99 АД",
+  "orgType": "Компания",
+  "contractCount": 3,
+  "contractedEur": 968209.09,
+  "paidEur": 533122.23,
+  "mps": [
+    {
+      "mpId": 185,
+      "mpName": "Стоян Проданов Иванов",
+      "relations": [
+        {
+          "kind": "actual_owner",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ]
+    }
+  ],
+  "officials": [],
+  "procurementEur": 29881984.2,
+  "procurementContractCount": 108,
+  "debarred": false,
+  "exposureScore": 19.64
+}

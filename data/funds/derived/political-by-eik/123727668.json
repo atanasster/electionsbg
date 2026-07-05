@@ -11,6 +11,11 @@
       "mpName": "Борис Петков Кърчев",
       "relations": [
         {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "high"
+        },
+        {
           "kind": "stake",
           "shareSize": "50%",
           "valueEur": 1278.2297029905462,

@@ -1,0 +1,32 @@
+{
+  "mpId": 806,
+  "summary": {
+    "contractCount": 2,
+    "contractedEur": 76672.32,
+    "paidEur": 76672.3
+  },
+  "entries": [
+    {
+      "mpId": 806,
+      "mpName": "Евгений Спасов Иванов",
+      "beneficiaryEik": "177072084",
+      "beneficiaryName": "\"Институт за политики за малки и средни предприятия\"",
+      "orgType": "Нестопанска организация",
+      "relations": [
+        {
+          "kind": "ngo_representative",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
+          "kind": "ngo_board",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 2,
+      "contractedEur": 76672.32,
+      "paidEur": 76672.3
+    }
+  ]
+}

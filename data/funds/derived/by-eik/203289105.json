@@ -9,6 +9,11 @@
       "orgType": "Компания",
       "relations": [
         {
+          "kind": "liquidator",
+          "isCurrent": true,
+          "confidence": "medium"
+        },
+        {
           "kind": "actual_owner",
           "isCurrent": true,
           "confidence": "medium"
