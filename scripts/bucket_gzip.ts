@@ -60,17 +60,9 @@ const GLOBAL_FILES = [
   // fetched (once per session) by every /company/:eik view to test the EIK
   // against the ~10 curated cases — gzip cuts it ~6× on that first fetch.
   "funds/confirmed.json",
-  // Procurement landing page: the flow sankey (preview + full) and the
-  // top-contractors table are the heavy files the /procurement page waits on.
-  "procurement/index.json",
-  "procurement/derived/flow.json",
-  "procurement/derived/flow_full.json",
-  "procurement/derived/top_contractors.json",
-  // The concentration explorer (?pscope=all) waits on this 1.1 MB table.
-  "procurement/derived/concentration_full.json",
-  // The procurement dashboard's company-search box: slim {eik,name} index of
-  // all ~26k contractors (1.8 MB raw), fetched once on first focus. Gzips ~4×.
-  "procurement/derived/contractors_search.json",
+  // NOTE: procurement is served from Cloud SQL (/api/db/*), not GCS. The whole
+  // data/procurement/ tree (except roads.json + derived/mp_party.json) is
+  // excluded from bucket:sync and no longer gzip-uploaded here.
 ];
 
 // Per-election files (one per ballot folder, YYYY_MM_DD[...]).
@@ -88,71 +80,15 @@ const isElectionDir = (n: string): boolean => /^\d{4}_\d{2}_\d{2}/.test(n);
 // them ~6× on the wire. Threshold skips the ~1,000 tiny per-município shards.
 const SECTION_SHARD_GZIP_MIN = 120_000;
 
-// Heavy per-EIK procurement rollups. The full per-EIK tree is ~95k files (too
-// many to gzip wholesale — see the SCOPE note above), but the big ones are the
-// files the /company/:eik, /awarder/:eik and /company/:eik/contracts pages
-// fetch whole, and they're highly repetitive JSON (repeated names/EIKs/dates)
-// that gzips ~6-8×. The per-dir threshold skips the tiny long-tail (a ~4 KB
-// rollup isn't worth a gsutil cp) so the upload stays bounded (~1.8k files).
-const PER_EIK_DIRS: Array<{ dir: string; min: number }> = [
-  // /company/:eik/contracts + /awarder/:eik — the biggest payloads (up to ~740 KB).
-  { dir: "procurement/awarder_contracts", min: 50_000 },
-  // /company/:eik core rollup (also reused by its top-contracts tile).
-  { dir: "procurement/contractors", min: 20_000 },
-  // /awarder/:eik core rollup + the /company/:eik display-name fallback fetch.
-  { dir: "procurement/awarders", min: 20_000 },
-];
+// NOTE: the heavy per-EIK procurement rollups (awarder_contracts / contractors
+// / awarders), the by_ns slices and the derived/contract_index year shards used
+// to be gzip-uploaded here. Procurement now serves from Cloud SQL (/api/db/*),
+// so those trees are excluded from the bucket entirely — nothing to gzip.
 
 const collect = (): string[] => {
   const out: string[] = [];
   for (const rel of GLOBAL_FILES) {
     if (existsSync(join(DATA, rel))) out.push(rel);
-  }
-  // Per-election procurement slices: the /procurement landing fetches one
-  // by_ns/<election>.json on load. Small (~25 KB each) but ~6× on the wire.
-  const byNsDir = join(DATA, "procurement", "by_ns");
-  if (existsSync(byNsDir)) {
-    for (const f of readdirSync(byNsDir)) {
-      if (f.endsWith(".json")) out.push(`procurement/by_ns/${f}`);
-    }
-    // Per-NS sidecars: the flows / people / concentration / flags pages each
-    // wait on one of these when the section scope is a parliament (?pscope
-    // defaults to the selected NS). Compress ~6× on the wire.
-    for (const sub of [
-      "flow",
-      "people",
-      "concentration",
-      "risk_feed",
-      "by_settlement",
-    ]) {
-      const subDir = join(byNsDir, sub);
-      if (existsSync(subDir)) {
-        for (const f of readdirSync(subDir)) {
-          if (f.endsWith(".json")) out.push(`procurement/by_ns/${sub}/${f}`);
-        }
-      }
-    }
-  }
-  // Contracts browser: each year shard is fetched whole on year-select and runs
-  // 5.7–14.5 MB of highly repetitive JSON (repeated names/EIKs/dates) — gzip
-  // cuts them ~8× on the wire, the single biggest procurement payload win.
-  const ciDir = join(DATA, "procurement", "derived", "contract_index");
-  if (existsSync(ciDir)) {
-    for (const f of readdirSync(ciDir)) {
-      if (f.endsWith(".json"))
-        out.push(`procurement/derived/contract_index/${f}`);
-    }
-  }
-  // Heavy per-EIK rollups (see PER_EIK_DIRS) — threshold-gated so the upload
-  // stays bounded instead of touching the full ~95k-file per-EIK tree.
-  for (const { dir, min } of PER_EIK_DIRS) {
-    const abs = join(DATA, dir);
-    if (!existsSync(abs)) continue;
-    for (const f of readdirSync(abs)) {
-      if (!f.endsWith(".json")) continue;
-      const rel = `${dir}/${f}`;
-      if (statSync(join(DATA, rel)).size > min) out.push(rel);
-    }
   }
   for (const entry of readdirSync(DATA, { withFileTypes: true })) {
     if (!entry.isDirectory() || !isElectionDir(entry.name)) continue;
