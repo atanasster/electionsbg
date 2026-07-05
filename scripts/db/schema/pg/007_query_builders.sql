@@ -85,10 +85,18 @@ $$;
 -- (changelog_days is append-only, never erased). 500 mirrors
 -- INGEST_SUMMARY_THRESHOLD (scripts/db/lib/ingest_changelog.ts).
 SET check_function_bodies = off;
+-- Return signature changed (added the `id` record-id column), so CREATE OR
+-- REPLACE alone can't alter an already-created function — drop it first.
+DROP FUNCTION IF EXISTS recent_updates(int, int);
 CREATE OR REPLACE FUNCTION recent_updates(days int DEFAULT 1, lim int DEFAULT 1000)
 RETURNS TABLE (
   kind       text,
-  eik        text,
+  id         text,   -- the record's own id (contract key / tender unp / fund
+                     -- contract_number); null for company/officer/dataset rows.
+                     -- Routed to the record page by `kind` (contract → /contract,
+                     -- tender → /tenders, fund_project → /funds/contract).
+  eik        text,   -- the involved party: contractor / beneficiary (→ /company),
+                     -- tender buyer (→ /awarder), or the TR company (→ /company).
   name       text,
   detail     text,
   changed_at timestamptz,
@@ -99,8 +107,10 @@ LANGUAGE sql STABLE AS $$
   SELECT * FROM (
     -- Contracts (source 'shards') first seen on a day whose coalesced new-row
     -- total stayed small — itemised per-row. A bulk contract day is summarised
-    -- (below), not shown as 100k rows.
-    SELECT 'contract'::text AS kind, c.contractor_eik AS eik, c.contractor_name AS name,
+    -- (below), not shown as 100k rows. id = contract key (→ /contract page),
+    -- eik = contractor company.
+    SELECT 'contract'::text AS kind, c.key AS id, c.contractor_eik AS eik,
+           c.contractor_name AS name,
            c.awarder_name AS detail, f.first_seen_at AS changed_at, c.amount_eur
     FROM contract_first_seen f
     JOIN contracts c USING (key)
@@ -110,19 +120,27 @@ LANGUAGE sql STABLE AS $$
     WHERE f.first_seen_at >= cutoff.ts
     UNION ALL
     -- Per-row detail for every other PG-loaded dataset (tenders, EU fund
-    -- projects, NGO funding) on days that stayed small.
-    SELECT fs.source AS kind, fs.key AS eik, fs.name, fs.detail,
+    -- projects, NGO funding) on days that stayed small. id = the record key
+    -- (fs.key = tender unp / fund contract_number); eik = the party company/
+    -- institution, pulled from the source table (buyer for tenders → /awarder,
+    -- beneficiary for funds → /company). Both join keys are PRIMARY KEY, so the
+    -- LEFT JOINs cannot fan out. NGO rows carry no eik (no join).
+    SELECT fs.source AS kind, fs.key AS id,
+           COALESCE(t.buyer_eik, fp.beneficiary_eik) AS eik,
+           fs.name, fs.detail,
            fs.first_seen_at AS changed_at, fs.amount_eur
     FROM ingest_first_seen fs
     JOIN changelog_days d
       ON d.source = fs.source AND d.day = fs.first_seen_at::date AND d.rows_new <= 500
+    LEFT JOIN tenders t        ON fs.source = 'tender'       AND t.unp = fs.key
+    LEFT JOIN fund_projects fp ON fs.source = 'fund_project' AND fp.contract_number = fs.key
     CROSS JOIN cutoff
     WHERE fs.first_seen_at >= cutoff.ts
     UNION ALL
     -- One coalesced summary line per (source, day) whose day total was large:
     -- a first cold load, a bulk backfill, or several same-day loads that together
     -- crossed the threshold. 'shards' → 'contract' so it matches the detail kind.
-    SELECT 'dataset'::text AS kind, NULL::text AS eik,
+    SELECT 'dataset'::text AS kind, NULL::text AS id, NULL::text AS eik,
            CASE d.source WHEN 'shards' THEN 'contract' ELSE d.source END AS name,
            d.rows_new || ' new · ' || d.rows_total || ' total'
              || CASE WHEN d.load_count > 1 THEN ' (' || d.load_count || ' loads)' ELSE '' END AS detail,
@@ -131,14 +149,14 @@ LANGUAGE sql STABLE AS $$
     WHERE d.rows_new > 500 AND d.last_loaded_at >= cutoff.ts
     UNION ALL
     -- TR companies whose registry record changed in the window.
-    SELECT 'company', co.uic, co.name,
+    SELECT 'company', NULL::text, co.uic, co.name,
            NULLIF(concat_ws(' · ', co.legal_form, co.status), ''),
            co.last_updated, NULL::double precision
     FROM tr_companies co CROSS JOIN cutoff
     WHERE co.last_updated >= cutoff.ts
     UNION ALL
     -- TR officers added/erased in the window.
-    SELECT 'officer', o.uic, o.name, o.roles, o.changed_at, NULL::double precision
+    SELECT 'officer', NULL::text, o.uic, o.name, o.roles, o.changed_at, NULL::double precision
     FROM tr_officers o CROSS JOIN cutoff
     WHERE o.changed_at >= cutoff.ts
   ) u

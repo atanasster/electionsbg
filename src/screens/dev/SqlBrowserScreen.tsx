@@ -193,12 +193,30 @@ const cellLink = (
   const s = String(value);
   const kind = typeof row.kind === "string" ? row.kind : null;
   if (col === "awarder_eik") return `/awarder/${encodeURIComponent(s)}`;
+  // recent_updates `id` column = the record's own id → route to the record page
+  // by kind. (Guarded by kind, so a plain `id` column on any other table stays
+  // unlinked.)
+  if (col === "id") {
+    if (kind === "contract")
+      return `/procurement/contract/${encodeURIComponent(s)}`;
+    if (kind === "tender") return `/tenders/${encodeURIComponent(s)}`;
+    if (kind === "fund_project")
+      return `/funds/contract/${encodeURIComponent(s)}`;
+    return null;
+  }
+  // Party columns (eik / name). A tender's party is its buyer (an institution →
+  // /awarder); everyone else is a company → /company.
   if (col === "eik" || col === "uic" || col === "contractor_eik")
-    return `/company/${encodeURIComponent(s)}`;
+    return kind === "tender"
+      ? `/awarder/${encodeURIComponent(s)}`
+      : `/company/${encodeURIComponent(s)}`;
   if (col === "name" || col === "officer" || col === "contractor_name") {
     if (kind === "officer") return `/person/${encodeURIComponent(s)}`;
     const eik = rowCompanyEik(row);
-    return eik ? `/company/${encodeURIComponent(eik)}` : null;
+    if (!eik) return null;
+    return kind === "tender"
+      ? `/awarder/${encodeURIComponent(eik)}`
+      : `/company/${encodeURIComponent(eik)}`;
   }
   if (col === "awarder_name") {
     const a = row.awarder_eik;
