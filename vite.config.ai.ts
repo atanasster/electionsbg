@@ -11,6 +11,8 @@ import path from "path";
 import type { Connect, Plugin } from "vite";
 import { defineConfig, loadEnv } from "vite";
 
+import { dbApi } from "./vite/db-api";
+
 const DATA_DIR = path.resolve(__dirname, "data");
 
 const CONTENT_TYPES: Record<string, string> = {
@@ -262,7 +264,10 @@ export default defineConfig(({ mode }) => {
     define: {
       "process.env.API_KEY": JSON.stringify(env.GEMINI_API_KEY),
     },
-    plugins: [react(), serveDataDir(), pruneDistAi(), writeSeoFiles()],
+    // dbApi mounts /api/db/* on the dev/preview server (same handlers as prod)
+    // so migrated tools work locally; in the prod build the AI app reaches the
+    // deployed function cross-origin via VITE_DB_API_ORIGIN instead.
+    plugins: [react(), serveDataDir(), dbApi(), pruneDistAi(), writeSeoFiles()],
     resolve: {
       alias: { "@": path.resolve(__dirname, "./src") },
       // Force a single React instance, same as the main app (vite.config.ts).

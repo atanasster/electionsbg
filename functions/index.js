@@ -384,6 +384,11 @@ const DB_ALLOWED_ORIGINS = [
   /^https:\/\/www\.electionsbg\.com$/,
   /^https:\/\/naiasno\.bg$/,
   /^https:\/\/www\.naiasno\.bg$/,
+  // Standalone AI app (electionsbg-ai project) — no db function of its own, so
+  // it calls this one cross-origin (VITE_DB_API_ORIGIN in ai/tools/dataClient).
+  /^https:\/\/ai\.electionsbg\.com$/,
+  /^https:\/\/electionsbg-ai\.web\.app$/,
+  /^https:\/\/electionsbg-ai\.firebaseapp\.com$/,
   /^http:\/\/localhost:\d+$/,
   /^http:\/\/127\.0\.0\.1:\d+$/,
 ];
