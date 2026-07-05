@@ -25,7 +25,10 @@ RETURNS TABLE (
   sim           real
 )
 LANGUAGE sql STABLE PARALLEL SAFE
-SET pg_trgm.word_similarity_threshold = 0.4
+-- 0.5, not 0.4: at 0.4 a no-real-match query surfaces garbage — "Невзоров"
+-- (nevzorov) matched "невен 2000" (neven) at ws 0.44. Legit prefix/substring/
+-- exact hits all score >=0.6, so 0.5 drops the noise without hurting recall.
+SET pg_trgm.word_similarity_threshold = 0.5
 SET pg_trgm.similarity_threshold = 0.3
 AS $$
   WITH qq AS (SELECT translit_bg_latin(q) AS qf)

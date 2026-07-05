@@ -20,7 +20,9 @@ RETURNS TABLE (
   sim           real
 )
 LANGUAGE sql STABLE PARALLEL SAFE
-SET pg_trgm.word_similarity_threshold = 0.4
+-- 0.5, not 0.4: mirror search_companies / search_contractors — 0.4 admits
+-- near-miss noise for no-real-match queries; legit hits score >=0.6.
+SET pg_trgm.word_similarity_threshold = 0.5
 SET pg_trgm.similarity_threshold = 0.3
 AS $$
   WITH qq AS (SELECT translit_bg_latin(q) AS qf),

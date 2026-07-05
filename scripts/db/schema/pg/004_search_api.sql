@@ -20,7 +20,10 @@ RETURNS TABLE (
   sim           real
 )
 LANGUAGE sql STABLE PARALLEL SAFE
-SET pg_trgm.word_similarity_threshold = 0.4
+-- 0.5, not 0.4: at 0.4 a no-real-match query surfaces near-miss noise
+-- ("Невзоров" → "Невз"/"ВЗОРОВА"/"ЗОРОВ-97" at ws 0.44). Legit prefix/exact
+-- hits score >=0.6, so 0.5 drops the noise without hurting recall.
+SET pg_trgm.word_similarity_threshold = 0.5
 SET pg_trgm.similarity_threshold = 0.3
 AS $$
   WITH qq AS (SELECT translit_bg_latin(q) AS qf)
@@ -53,7 +56,8 @@ RETURNS TABLE (
   sim           real
 )
 LANGUAGE sql STABLE PARALLEL SAFE
-SET pg_trgm.word_similarity_threshold = 0.4
+-- 0.5, not 0.4: mirror search_companies — 0.4 admits near-miss surname noise.
+SET pg_trgm.word_similarity_threshold = 0.5
 SET pg_trgm.similarity_threshold = 0.3
 AS $$
   WITH qq AS (SELECT translit_bg_latin(q) AS qf)
