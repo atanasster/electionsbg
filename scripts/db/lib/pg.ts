@@ -47,9 +47,37 @@ export const pinLocalDatabase = (): void => {
 
 let pool: Pool | null = null;
 
+// pg_trgm's fuzzy-search functions (006_contractor_search.sql,
+// 035_procurement_search.sql, …) carry per-function
+// `SET pg_trgm.word_similarity_threshold` clauses. On Cloud SQL the `postgres`
+// role is NOT a real superuser, so `CREATE FUNCTION … SET <pg_trgm.*>` is
+// rejected ("permission denied to set parameter") when pg_trgm's C module has
+// not been LOADED in that connection: until the module runs, the param is only
+// an unrecognized custom *placeholder*, and storing a placeholder into a
+// function's config (validate_option_array_item) is superuser-only. A plain
+// `SET pg_trgm.x` does NOT load the module (it just sets the placeholder) —
+// only calling a pg_trgm function does. So force-load the module with a trivial
+// trigram op on every new connection; that defines the real PGC_USERSET GUCs,
+// after which a non-superuser owner may set them in a function. It is enqueued
+// on the client before the caller's first query (node-pg runs a client's queue
+// FIFO), so it always completes first — whichever pooled connection later runs
+// the DDL has pg_trgm loaded. Harmless + cheap locally (superuser).
+const initConnection = (client: PoolClient): void => {
+  client.query("SELECT similarity('', '')").catch((e: unknown) => {
+    // Don't crash the process on a stray init failure — the real DDL will fail
+    // loudly downstream if pg_trgm genuinely can't be loaded.
+    console.error(
+      "pg connect init (pg_trgm load) failed:",
+      (e as Error).message,
+    );
+  });
+};
+
 export const getPool = (): Pool => {
-  if (!pool)
+  if (!pool) {
     pool = new Pool({ connectionString: urlOverride ?? DATABASE_URL, max: 8 });
+    pool.on("connect", initConnection);
+  }
   return pool;
 };
 
