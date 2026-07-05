@@ -7,6 +7,7 @@ import { generateCanonicalParties } from "./parsers/canonicalParties";
 import { parseElections } from "./parsers/parse_elections";
 import { generateAllSearchFIles } from "./search";
 import { parseFinancing } from "./smetna_palata";
+import { scrapeErik } from "./smetna_palata/scrape_erik";
 import { parseFinancialDeclarations } from "./declarations";
 import { runPartyStats } from "./party_stats";
 import { createPreferencesFiles } from "./preferences";
@@ -97,6 +98,11 @@ const app = command({
       type: optional(boolean),
       long: "financing",
       short: "f",
+      defaultValue: () => false,
+    }),
+    erik: flag({
+      type: optional(boolean),
+      long: "erik",
       defaultValue: () => false,
     }),
     parties: flag({
@@ -267,6 +273,7 @@ const app = command({
     reports,
     search,
     financing,
+    erik,
     parties,
     candidates,
     machines,
@@ -347,6 +354,16 @@ const app = command({
       generateAllSearchFIles({
         dataFolder: inFolder,
         publicFolder,
+        stringify,
+      });
+    }
+    if (erik) {
+      // Scrape ЕРИК campaign-finance data into the raw_data layout the parser
+      // reads. `-e <election>` targets a specific election; default = latest.
+      await scrapeErik({
+        electionKey: election,
+        rawFolder: inFolder,
+        dataFolder: publicFolder,
         stringify,
       });
     }

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-04T17:08:06.911Z",
+  "generatedAt": "2026-07-05T00:14:30.216Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -178,6 +178,12 @@
           "url": "https://www.bulnao.government.bg/bg/kontrol-partii/otcheti-na-partii/",
           "cadence": "monthly",
           "freshness": "2026-05-22T06:25:14.640Z"
+        },
+        {
+          "id": "erik_campaign_financing",
+          "label": "ЕРИК campaign financing (Сметна палата, изборни дарения/отчети)",
+          "url": "https://erik.bulnao.government.bg/Reports?electionId=93",
+          "cadence": "weekly"
         },
         {
           "id": "cacbg_declarations",

@@ -285,17 +285,10 @@ const main = async () => {
     "simulator.png",
   );
 
-  renderStaticPageCard(
-    "Финансиране на партии",
-    "Декларирани приходи и разходи на политическите кампании",
-    [
-      { label: "източник", value: "Сметна палата" },
-      { label: "приходи", value: "дарители" },
-      { label: "разходи", value: "медии" },
-      { label: "обхват", value: yearSpan },
-    ],
-    "financing.png",
-  );
+  // NB: /financing uses a live Playwright dashboard screenshot (public/og/
+  // financing.png via scripts/og/capture-screens.ts), not a rendered text
+  // card — so no financing.png job is queued here (it would overwrite the
+  // screenshot in dist/og/ during postbuild).
 
   renderStaticPageCard(
     "Резултати в София",

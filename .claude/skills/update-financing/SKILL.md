@@ -1,6 +1,6 @@
 ---
 name: update-financing
-description: Refresh the Сметна палата party-financing data — re-scrape the bulnao.government.bg/bg/kontrol-partii/ section for the list of available years (data/financing/index.json), and crawl the gfopp.bulnao.government.bg register for the per-party annual-report filing-status catalogue (data/financing/reports.json — filed on time / late / non-compliant / not filed). Use when the daily watch report flags "Сметна палата party financing" as changed, when the user asks to refresh party-financing data, or to investigate which year of annual reports was added/removed.
+description: Refresh the Сметна палата party-financing data — re-scrape the bulnao.government.bg/bg/kontrol-partii/ section for the list of available years (data/financing/index.json), crawl the gfopp.bulnao.government.bg register for the per-party annual-report filing-status catalogue (data/financing/reports.json — filed on time / late / non-compliant / not filed), and scrape the ЕРИК register (erik.bulnao.government.bg) for a given election's campaign financing — donors, candidate donations and post-election financial reports — via `npm run data -- --erik --financing`. Use when the daily watch report flags "Сметна палата party financing" or "erik_campaign_financing" as changed, when the user asks to refresh party or campaign financing data, to ingest a new election's campaign financing, or to investigate which year of annual reports was added/removed.
 allowed-tools:
   - Read
   - Bash
@@ -11,10 +11,11 @@ allowed-tools:
 
 # Update Financing skill
 
-Tier-2 ingest for Сметна палата (Court of Audit) party-financing disclosures. Two scrapers:
+Tier-2 ingest for Сметна палата (Court of Audit) party-financing disclosures. Three scrapers:
 
 - **`scrape_index.ts`** — catalogs the per-year annual-report index that the Court publishes at `https://www.bulnao.government.bg/bg/kontrol-partii/otcheti-na-partii/` → `data/financing/index.json`.
 - **`scrape_reports.ts`** — crawls the `gfopp.bulnao.government.bg` register for the per-party **filing-status catalogue** (which parties filed their annual financial report on time / late / non-compliant / not at all, with a deep link to each report document) → `data/financing/reports.json` + `data/financing/reports-summary.json`. Surfaced at `/financing/annual-reports`.
+- **`scripts/smetna_palata/scrape_erik.ts`** — the **per-election campaign-finance** scraper (donors, candidate donations, and post-election financial reports for a specific election) from the ЕРИК register (`erik.bulnao.government.bg`). Previously downloaded by hand; now automatic. See "ЕРИК campaign-finance ingest" below.
 
 ## When to run
 
@@ -25,6 +26,7 @@ Tier-2 ingest for Сметна палата (Court of Audit) party-financing dis
 | Fresh clone (no `data/financing/index.json`) | Cold-start `scrape_index.ts` to populate the catalog |
 | Watcher flags `Сметна палата annual-report index` (a new year appeared — typically spring, after the 31 March deadline) | Run `scrape_index.ts`, then `scrape_reports.ts` to pull the new year's filings |
 | Fresh clone (no `data/financing/reports.json`) | Run `scrape_index.ts` first, then `scrape_reports.ts` |
+| Watcher flags `erik_campaign_financing` (new donors/filings for the current election) | Run `npm run data -- --erik --financing` (see "ЕРИК campaign-finance ingest") |
 
 ## Step 1 — Scrape
 
@@ -110,6 +112,63 @@ sanity floor. If it throws, open `gfopp.bulnao.government.bg/?year=2025` in a
 browser and check the page structure before adjusting the parser in
 `scripts/financing/scrape_reports.ts`.
 
+## ЕРИК campaign-finance ingest (`scrape_erik.ts`)
+
+Per-election campaign financing (donors, candidate/ИнК donations, and the
+post-election financial reports) lives in the ЕРИК register
+(`erik.bulnao.government.bg` — Единен регистър по Изборния кодекс). It used to be
+downloaded by hand; `scripts/smetna_palata/scrape_erik.ts` now reproduces the
+exact `raw_data/<election>/smetna_palata/` layout the manual process built, so
+the existing parser (`--financing`) consumes it unchanged.
+
+```bash
+# Scrape the LATEST election (ERIK_ELECTIONS[0]) + re-parse into data/<election>/
+npm run data -- --erik --financing
+
+# A specific past election
+npm run data -- --erik --financing -e 2024_10_27
+# or directly:
+npx tsx scripts/smetna_palata/scrape_erik.ts 2026_04_19
+```
+
+What it does:
+
+1. **Enumerate participants** for the election (ЦИК/РИК/ОИК) via the ЕРИК
+   DataTables JSON endpoints (plain HTTP — no Playwright; a session cookie is
+   warmed with a GET, cold POSTs 403).
+2. **Reconcile every participant's ЕРИК name → CIK party name** (the folder key
+   the parser matches against `data/<election>/cik_parties.json`). Handles
+   prefix (`ПП`/`КП`/`КОАЛИЦИЯ`), case, en-dash vs hyphen, and dropped suffixes
+   automatically; genuinely underivable acronyms/rebrands live in
+   `PARTY_OVERRIDES` (`scripts/smetna_palata/erik_config.ts`). Writes
+   `sp_parties.json`.
+3. **Write** `candidates_donations.csv`, `agencies.csv` (election-wide
+   contracted agencies/suppliers — name + **ЕИК** + type + participant, 100%
+   EIK coverage → joins to the Commerce Registry), per-party `from_donors.csv` /
+   `from_candidates.csv`, and download each party's `filing.pdf` (the GDPR-safe
+   copy, via an anti-forgery token on the AfterElectionSub page).
+
+The parser (`--financing`) emits, per election: `parties/financing.json`
+(income aggregate), `parties/agencies.json` (per-party agency list), and each
+party's `parties/financing/<n>/filing.json` (now also carrying `data.agencies`).
+Agencies are attributed to CIK parties with the same participant→party
+reconciliation as `candidates_donations` (`parse_agencies.ts`).
+
+**Fails loudly if any participant can't be reconciled** — so no campaign
+financing is silently unattributed. If it lists an unmatched participant, add a
+`registeredName → CIK name` entry to `PARTY_OVERRIDES` and re-run.
+
+**Adding a new election**: append one line to `ERIK_ELECTIONS` (latest first) in
+`scripts/smetna_palata/erik_config.ts` with its ЕРИК `electionId` (from
+`/Reports?electionId=<id>`), our election folder name, and `isOldSystem`
+(`false` for 2024-06 onward). The watcher (`erik_campaign_financing`) fingerprints
+`ERIK_ELECTIONS[0]`, so this is what makes the watcher track a freshly-called
+election.
+
+**Missing filings are skipped, not fatal**: filing PDFs are filed weeks after an
+election, so a participant with no report yet just skips its `filing.pdf` (logged)
+— re-running later picks it up.
+
 ## Data-integrity contract
 
 The scraper is designed to **fail loudly rather than write a stale or empty index**. The frontend reads this file and trusts it; we must not silently let upstream restructures corrupt that trust.
@@ -130,7 +189,7 @@ Top-level `data/financing/index.json` always has `status: "ok"` — it's never p
 
 ## What this skill does NOT do (v1 limitations)
 
-- **Does not extract the financial figures from filed reports.** `scrape_reports.ts` catalogues the *filing status* of every party (on time / late / non-compliant / not filed) and links each report document, but the documents themselves are inconsistently-formatted scans — parsing structured income/expense/donor numbers out of them is a separate project.
+- **Does not extract figures from the *annual* filed reports.** `scrape_reports.ts` catalogues the *filing status* of every party (on time / late / non-compliant / not filed) and links each annual report document, but those documents are inconsistently-formatted scans — parsing structured income/expense numbers out of them is a separate project. (Per-election **campaign** figures — donors, candidate donations, income/expense — *are* now ingested from ЕРИК; see "ЕРИК campaign-finance ingest".)
 - **Does not parse the `dokladi-subsidii` section.** That page lists state-subsidy reports and audit findings under an AJAX-driven filter UI; the static HTML has no year anchors to extract. The scraper records the section URL but returns 0 entries for it — extend the scraper with Playwright or the underlying API to add subsidy data.
 - **Does not produce a frontend hook.** Once a downstream `/governments` or `/parties` page wants to surface this data, add `src/data/financing/useFinancing.tsx` that fetches via `dataUrl("/financing/index.json")`.
 

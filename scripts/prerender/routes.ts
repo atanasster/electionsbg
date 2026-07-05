@@ -643,37 +643,43 @@ export const prerenderRoutes: PrerenderRoute[] = [
     path: "financing",
     title: "Финансиране на партии и предизборни кампании | electionsbg.com",
     description:
-      "Декларирани приходи и разходи на политическите партии за всеки парламентарен вот — дарители, кандидати, медийни и други разходи.",
+      "Декларирани приходи и разходи на политическите партии за всеки парламентарен вот — дарители, кандидати, агенции и изпълнители, медийни и други разходи, с концентрация на дарителите.",
     breadcrumbName: "Финансиране",
     ogImage: "/og/financing.png",
     bodyHtml: `
 <h1>Финансиране на партии и предизборни кампании</h1>
-<p>Декларираните приходи и разходи на политическите партии и коалиции за всеки парламентарен вот — данни от Сметната палата, обединени и съпоставими между изборите. Включва общия размер на кампанията, разпределението по типове разходи (медии, реклама, печат, транспорт), индивидуални дарители и сумите по кандидати.</p>
+<p>Декларираните приходи и разходи на политическите партии и коалиции за всеки парламентарен вот — данни от Единния регистър по Изборния кодекс (ЕРИК) на Сметната палата, обединени и съпоставими между изборите. Включва общия размер на кампанията, структурата на приходите (собствени средства, дарители, кандидати, медиен пакет), разпределението на разходите по типове (медии, реклама, печат, транспорт), индивидуалните дарители и наетите агенции и изпълнители.</p>
 <h2>Какво се вижда тук</h2>
 <ul>
-<li>Съвкупен приход и разход на всяка партия по години.</li>
+<li>Съвкупен приход и разход на всяка партия по години, съпоставими между изборите.</li>
+<li>Структура на приходите — собствени средства, дарители, кандидати и медиен пакет.</li>
 <li>Топ дарители (физически и юридически лица) — суми и брой дарения.</li>
+<li>Концентрация на дарителите — какъв дял държат най-едрите дарители за всяка партия.</li>
+<li>Агенции и изпълнители — рекламни, социологически и PR фирми, наети от кампаниите, с ЕИК от Търговския регистър.</li>
 <li>Разходи по канали — телевизия, радио, интернет, печатни медии, билбордове.</li>
 <li>Данни на ниво кандидат — индивидуални приходи/разходи, когато са декларирани.</li>
 </ul>
-<p>Източник: <a href="https://www.bulnao.government.bg" rel="nofollow noopener">Сметна палата на Република България</a>.</p>`.trim(),
+<p>Източник: <a href="https://www.bulnao.government.bg" rel="nofollow noopener">Сметна палата на Република България</a> (ЕРИК).</p>`.trim(),
     english: {
       title:
         "Party and Campaign Financing — Bulgarian Parliamentary Elections | electionsbg.com",
       description:
-        "Declared income and expenditures of Bulgarian political parties for each parliamentary vote — donors, candidates, and media spending.",
+        "Declared income and expenditures of Bulgarian political parties for each parliamentary vote — donors, candidates, hired agencies and contractors, media and other spending, with donor concentration.",
       breadcrumbName: "Financing",
       bodyHtml: `
 <h1>Party and campaign financing</h1>
-<p>Declared income and expenditures of Bulgarian political parties and coalitions for each parliamentary vote — data from the National Audit Office, consolidated and comparable across elections. Includes total campaign size, breakdown by spending category (media, advertising, print, transport), individual donors, and per-candidate amounts.</p>
+<p>Declared income and expenditures of Bulgarian political parties and coalitions for each parliamentary vote — data from the National Audit Office's Unified Register under the Election Code (ЕРИК), consolidated and comparable across elections. Includes total campaign size, income structure (self-funding, donors, candidates, media package), breakdown by spending category (media, advertising, print, transport), individual donors, and the agencies and contractors each campaign hired.</p>
 <h2>What you'll find</h2>
 <ul>
-<li>Aggregate income and expenditure per party, by year.</li>
+<li>Aggregate income and expenditure per party, by year, comparable across elections.</li>
+<li>Income structure — self-funding, donors, candidates and media package.</li>
 <li>Top donors (individuals and legal entities) — totals and donation counts.</li>
+<li>Donor concentration — the share held by each party's largest donors.</li>
+<li>Agencies and contractors — advertising, polling and PR firms hired by campaigns, with company IDs from the Commercial Register.</li>
 <li>Spending by channel — TV, radio, internet, print, billboards.</li>
 <li>Candidate-level data when declared.</li>
 </ul>
-<p>Source: <a href="https://www.bulnao.government.bg" rel="nofollow noopener">National Audit Office of Bulgaria</a>.</p>`.trim(),
+<p>Source: <a href="https://www.bulnao.government.bg" rel="nofollow noopener">National Audit Office of Bulgaria</a> (ЕРИК).</p>`.trim(),
     },
   }),
   staticPage({

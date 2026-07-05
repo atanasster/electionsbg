@@ -38,6 +38,7 @@ import { nsiLanduse } from "./nsi_landuse";
 import { grao } from "./grao";
 import { smetnaPalata } from "./smetna_palata";
 import { financingReports } from "./financing_reports";
+import { erikCampaignFinancing } from "./erik_campaign_financing";
 import { transparencyCpi } from "./transparency_cpi";
 import { worldbankWgi } from "./worldbank_wgi";
 import { customsRevenue } from "./customs_revenue";
@@ -86,6 +87,7 @@ export const SOURCES: WatchSource[] = [
   cacbgLocal,
   smetnaPalata,
   financingReports,
+  erikCampaignFinancing,
   egovCommerce,
   bgpostPostcodes,
   egovProcurement,

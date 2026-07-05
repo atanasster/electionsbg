@@ -194,6 +194,7 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     members: [
       "smetna_palata",
       "financing_reports",
+      "erik_campaign_financing",
       "cacbg_declarations",
       "cacbg_officials",
       "cacbg_local",

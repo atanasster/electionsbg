@@ -118,6 +118,10 @@ const localElectionResults: { date: string; href: string }[] = [
 
 const campaignFinancing: { date: string; href: string }[] = [
   {
+    date: "19.04.2026",
+    href: "https://erik.bulnao.government.bg/Reports?electionId=93",
+  },
+  {
     date: "27.10.2024",
     href: "https://erik.bulnao.government.bg/Reports/Index/83",
   },

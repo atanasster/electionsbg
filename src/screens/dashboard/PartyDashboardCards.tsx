@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Briefcase,
@@ -31,6 +31,12 @@ import { PartyDemographicFingerprintTile } from "./PartyDemographicFingerprintTi
 import { PartyAssessmentTile } from "./PartyAssessmentTile";
 import { PartyExpenseBreakdownTile } from "./PartyExpenseBreakdownTile";
 import { PartyTopDonorsTile } from "./PartyTopDonorsTile";
+import { FundingMixBars } from "@/screens/components/financing/FundingMixBars";
+import { DonorConcentration } from "@/screens/components/financing/DonorConcentration";
+import { PartyAgenciesTile } from "@/screens/components/financing/PartyAgenciesTile";
+import { computeDonorStat } from "@/data/financing/partyDonorStat";
+import { PartyFinancingRow } from "@/data/financing/usePartiesFinancing";
+import { totalIncomeFiling } from "@/data/utils";
 import { PartyTrajectoryTile } from "./PartyTrajectoryTile";
 import { PartyPollingDeltaTile } from "./PartyPollingDeltaTile";
 import { PartyAgencyForecastsTile } from "./PartyAgencyForecastsTile";
@@ -90,6 +96,30 @@ export const PartyDashboardCards: FC<Props> = ({ party }) => {
   const hasPreferences = !!electionStats?.hasPreferences;
   const { financing, priorFinancing } = useFinancing(
     hasFinancials ? party : undefined,
+  );
+  const fundingRows = useMemo<PartyFinancingRow[]>(() => {
+    const inc = financing?.data.filing.income;
+    if (!inc) return [];
+    return [
+      {
+        party: party.number,
+        info: party,
+        fromParties: inc.party.monetary + inc.party.nonMonetary,
+        fromDonors: inc.donors.monetary + inc.donors.nonMonetary,
+        fromCandidates: inc.candidates.monetary + inc.candidates.nonMonetary,
+        media: inc.mediaPackage,
+        total: totalIncomeFiling(inc),
+      },
+    ];
+  }, [financing, party]);
+  // Concentration computed from the already-loaded per-party filing (no extra
+  // national donors.json fetch — see computeDonorStat).
+  const donorStat = useMemo(
+    () =>
+      financing
+        ? computeDonorStat(party.number, financing.data.fromDonors)
+        : undefined,
+    [financing, party.number],
   );
 
   // Court-of-Audit annual-report record — resolve this party to a gfopp
@@ -262,19 +292,26 @@ export const PartyDashboardCards: FC<Props> = ({ party }) => {
             icon={Coins}
             articleTopic="financing"
           >
-            <div className={TILE_HEIGHTS.expenseBreakdown}>
+            {/* Two columns on wide screens with items-start so each tile sizes
+                to its own content — no fixed min-heights (they over-reserve and
+                leave big empty gaps for parties with short donor/expense lists,
+                especially on narrower screens). */}
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 items-start">
+              <FundingMixBars rows={fundingRows} hideChip />
+              {donorStat ? <DonorConcentration stats={[donorStat]} /> : null}
               <PartyExpenseBreakdownTile
                 filing={financing?.data.filing}
                 priorFiling={priorFinancing?.data.filing}
                 color={data.color}
               />
-            </div>
-            <div className={TILE_HEIGHTS.topDonors}>
               <PartyTopDonorsTile
                 financing={financing}
                 partyNickName={data.nickName}
                 color={data.color}
               />
+              {financing?.data.agencies?.length ? (
+                <PartyAgenciesTile agencies={financing.data.agencies} />
+              ) : null}
             </div>
           </DashboardSection>
         ) : null}

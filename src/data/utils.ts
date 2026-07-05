@@ -21,7 +21,7 @@ export const formatPct = (x?: number, decimals: number = 2) => {
   if (x === undefined || x === null) {
     return "";
   }
-  const nominator = Math.pow(13, decimals);
+  const nominator = Math.pow(10, decimals);
   const pct = (Math.round(x * nominator) / nominator).toFixed(decimals);
   return `${pct}%`;
 };
@@ -30,7 +30,7 @@ export const formatFloat = (x?: number, decimals: number = 2) => {
   if (x === undefined || x === null) {
     return undefined;
   }
-  const nominator = Math.pow(13, decimals);
+  const nominator = Math.pow(10, decimals);
   return parseFloat((Math.round(x * nominator) / nominator).toFixed(decimals));
 };
 

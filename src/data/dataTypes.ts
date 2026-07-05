@@ -382,14 +382,75 @@ export type FinancingFromParties = {
   name: string;
 } & FinancingType;
 
+// A contracted campaign agency/supplier from the ЕРИК register. `eik` is the
+// Commerce-Registry company id (join key to companies/connections).
+export type FinancingAgency = {
+  name: string;
+  eik?: string;
+  type?: string; // "Рекламна" | "Социологическа" | PR | media | …
+  descr?: string;
+};
+
+// One contractor (keyed by ЕИК) rolled up across every party that hired it.
+export type SharedVendor = {
+  name: string;
+  eik?: string;
+  type?: string;
+  parties: number[]; // CIK party numbers, ≥2
+};
+
+// Precomputed agencies summary for the common financing dashboard, so it loads
+// a small file instead of the full per-party agency list (~200 KB). Built at
+// ingest — see scripts/smetna_palata/parse_agencies.ts.
+export type AgenciesSummary = {
+  total: number; // all agency rows
+  distinctCompanies: number; // distinct ЕИК
+  byType: { type: string; count: number }[];
+  sharedVendors: SharedVendor[]; // vendors hired by >1 party, most-shared first
+};
+
 export type PartyFinancing = {
   party: number;
   data: {
     fromDonors: FinancingFromDonors[];
     fromParties: FinancingFromParties[];
     fromCandidates: FinancingFromCandidates[];
+    agencies: FinancingAgency[];
     filing: PartyFiling;
   };
+};
+
+// Per-party donor concentration + national donor leaderboard, precomputed at
+// ingest so the common financing dashboard loads one compact file instead of
+// every party's donor list. Amounts are euros (monetary + in-kind).
+export type DonorPartyStat = {
+  party: number;
+  donors: number; // distinct donors
+  monetary: number;
+  nonMonetary: number;
+  // Share of the party's donation total from its single largest / top-5 donors.
+  top1Pct: number;
+  top5Pct: number;
+};
+export type TopDonor = {
+  name: string;
+  monetary: number;
+  nonMonetary: number;
+  count: number; // number of donations
+  parties: number[]; // CIK party numbers this donor gave to
+  // Candidate-page slug, set only when the person has a resolvable candidate
+  // page (used to link candidate-donors). Absent for plain donors.
+  slug?: string;
+};
+export type DonorSummary = {
+  totalDonations: number;
+  distinctDonors: number;
+  totalMonetary: number;
+  totalNonMonetary: number;
+  byParty: DonorPartyStat[];
+  byPartyCandidates: DonorPartyStat[]; // per-party candidate-donation concentration
+  topDonors: TopDonor[]; // national, largest first
+  topCandidates: TopDonor[]; // candidates who donated to their party, largest first
 };
 
 // MP property/interest declarations from register.cacbg.bg.

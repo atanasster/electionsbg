@@ -10,6 +10,8 @@ import { candidatesFileName, cikPartiesFileName } from "scripts/consts";
 import { fileURLToPath } from "url";
 import { parsePartyFinancing } from "./party_financials";
 import { parseCandidateDonations } from "./parse_candidate_donations";
+import { parseAgencies, buildAgenciesSummary } from "./parse_agencies";
+import { buildDonorSummary } from "./donor_summary";
 import { BGN_PER_EUR } from "@/lib/currency";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
@@ -80,6 +82,10 @@ export const parseCampaignFinancing = async ({
     cik_parties: parties,
     candidates,
   });
+  const agencies = await parseAgencies({
+    dataFolder: financialFolder,
+    cik_parties: parties,
+  });
   const data = await Promise.all(
     folders.map(async (f) => {
       const party = parties.find((p) => p.name.localeCompare(f, ["bg"]) === 0);
@@ -92,6 +98,7 @@ export const parseCampaignFinancing = async ({
           dataFolder: `${partiesFinancialFolder}/${f}`,
           candidateDonations,
           candidates,
+          agencies,
           party,
         }),
       };
@@ -177,6 +184,53 @@ export const parseFinancing = async ({
         fs.writeFileSync(
           `${partiesFolder}/financing.json`,
           stringify(allParties),
+          "utf-8",
+        );
+        // Election-wide agencies aggregate (one row per party that contracted
+        // any agency), mirroring financing.json. Per-party detail also lives in
+        // each party's filing.json (`data.agencies`).
+        const allAgencies = partiesFinancing
+          .map((p) => ({ party: p.party, agencies: p.data.agencies }))
+          .filter((p) => p.agencies.length > 0);
+        fs.writeFileSync(
+          `${partiesFolder}/agencies.json`,
+          stringify(allAgencies),
+          "utf-8",
+        );
+        // Small precomputed summary (counts + multi-party vendors) the common
+        // dashboard loads instead of the full agencies.json.
+        fs.writeFileSync(
+          `${partiesFolder}/agencies_summary.json`,
+          stringify(buildAgenciesSummary(partiesFinancing)),
+          "utf-8",
+        );
+        // National donor summary (leaderboard + per-party concentration) for
+        // the common financing dashboard.
+        const donorSummary = buildDonorSummary(partiesFinancing);
+        // Resolve each candidate-donor to their REAL candidate-page slug
+        // (mp-{id} when matched to a sitting/former MP, else the CIK slug) from
+        // the per-name resolved.json shard, so the leaderboard links only to
+        // pages that actually exist (and to the correct URL for MP-matched
+        // candidates). Names that don't resolve are left unlinked.
+        const candDir = `${publicFolder}/${e.name}/candidates`;
+        for (const c of donorSummary.topCandidates) {
+          const shard = `${candDir}/${c.name}/resolved.json`;
+          if (!fs.existsSync(shard)) continue;
+          try {
+            const recs: { slug?: string; partyNum?: number }[] = JSON.parse(
+              fs.readFileSync(shard, "utf-8"),
+            );
+            // Strict (name, party) match only — never fall back to a namesake
+            // from a different party (that would link to the wrong person).
+            const rec = recs.find((r) => c.parties.includes(r.partyNum ?? -1));
+            if (rec?.slug) c.slug = rec.slug;
+          } catch {
+            // leave unlinked on any read/parse error
+          }
+        }
+        fs.writeFileSync(
+          `${partiesFolder}/donors.json`,
+          stringify(donorSummary),
           "utf-8",
         );
       }

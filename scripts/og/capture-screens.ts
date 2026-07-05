@@ -40,6 +40,11 @@ type Capture = {
   // measuring/screenshotting. For pages where the chart is only rendered
   // after a user interaction (e.g. expanding the first accordion item).
   clickFirst?: string;
+  // When true, the clip's left edge is pinned to the anchor's left edge (minus
+  // a small margin) instead of centered. Best for wide left-to-right content
+  // (a table + KPI row) where the identity columns live on the left and the
+  // trailing columns can clip off naturally. Ignored when centerOnAnchor.
+  leftAlign?: boolean;
 };
 
 const captures: Capture[] = [
@@ -305,6 +310,18 @@ const captures: Capture[] = [
     settleMs: 2500,
   },
   {
+    slug: "financing",
+    routePath: "financing?elections=2026_04_19",
+    // Campaign-finance dashboard: 6 headline KPI tiles (total raised, donations,
+    // top donor, self-funded %, media, agencies) sitting directly above the
+    // parties table with its folded funding-mix bars. Top-aligned on the KPI
+    // grid so the clip leads with the numbers and the colourful table below.
+    waitFor: '[data-og="financing-hero"]',
+    anchor: '[data-og="financing-hero"]',
+    leftAlign: true,
+    settleMs: 2000,
+  },
+  {
     slug: "governance",
     routePath: "governance",
     // The budget-summary tile is the largest data-driven visual on the
@@ -355,7 +372,9 @@ const captureOne = async (page: Page, c: Capture): Promise<void> => {
   } else {
     // Top-align the clip on the anchor, with a small top margin so the H1
     // isn't pinned right against the edge of the card.
-    clipX = Math.round(box.x + (box.width - OG_W) / 2);
+    clipX = c.leftAlign
+      ? Math.round(box.x - 12)
+      : Math.round(box.x + (box.width - OG_W) / 2);
     clipY = Math.max(0, Math.round(box.y - 16));
   }
 
