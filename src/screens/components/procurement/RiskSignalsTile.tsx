@@ -6,7 +6,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { AlertTriangle, ArrowRight } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useRiskFeed } from "@/data/procurement/useRiskFeed";
 import { useProcurementHref } from "@/data/procurement/useProcurementScope";
@@ -31,9 +31,17 @@ export const RiskSignalsTile: FC = () => {
   return (
     <Card>
       <CardHeader className="pb-2">
-        <CardTitle className="text-base flex items-center gap-2">
-          <AlertTriangle className="h-4 w-4 text-orange-600" />
-          {t("flags_title") || "Procurement red flags"}
+        <CardTitle className="text-base flex items-center justify-between gap-2 flex-wrap">
+          <span className="flex items-center gap-2 min-w-0">
+            <AlertTriangle className="h-4 w-4 text-orange-600" />
+            {t("flags_title") || "Procurement red flags"}
+          </span>
+          <Link
+            to={buildHref("/procurement/flags")}
+            className="text-[10px] normal-case text-primary hover:underline shrink-0"
+          >
+            {t("procurement_risk_see_feed") || "See the full red-flag feed"} →
+          </Link>
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 md:p-4 pt-0">
@@ -85,13 +93,6 @@ export const RiskSignalsTile: FC = () => {
             </li>
           ))}
         </ul>
-        <Link
-          to={buildHref("/procurement/flags")}
-          className="mt-3 flex items-center justify-center gap-1.5 rounded-md border border-border bg-accent/30 px-3 py-2 text-xs font-medium text-foreground hover:bg-accent/60 transition-colors"
-        >
-          {t("procurement_risk_see_feed") || "See the full red-flag feed"}
-          <ArrowRight className="h-3.5 w-3.5" />
-        </Link>
       </CardContent>
     </Card>
   );

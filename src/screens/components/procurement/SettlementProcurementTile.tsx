@@ -6,7 +6,7 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { Building2, ArrowRight } from "lucide-react";
+import { Building2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useSettlementProcurement } from "@/data/procurement/useSettlementProcurement";
 
@@ -24,16 +24,15 @@ export const SettlementProcurementTile: FC<{ ekatte: string }> = ({
   return (
     <Card className="my-4">
       <CardHeader className="flex flex-row items-center justify-between space-y-0">
-        <CardTitle className="flex items-center gap-2">
-          <Building2 className="h-5 w-5" />
+        <CardTitle className="text-base flex items-center gap-2">
+          <Building2 className="h-4 w-4" />
           {t("settlement_procurement_tile_title") || "Local procurement"}
         </CardTitle>
         <Link
           to={`/procurement/settlement/${ekatte}`}
-          className="text-xs text-muted-foreground hover:underline inline-flex items-center gap-1"
+          className="text-[10px] normal-case text-primary hover:underline shrink-0"
         >
-          {t("view_details") || "Details"}
-          <ArrowRight className="h-3 w-3" />
+          {t("view_details") || "Details"} →
         </Link>
       </CardHeader>
       <CardContent>

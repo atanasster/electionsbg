@@ -6,7 +6,7 @@
 import { FC } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Gavel, ExternalLink, ArrowRight } from "lucide-react";
+import { Gavel, ExternalLink } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useKzkRecentAppeals } from "@/data/procurement/useKzkRecentAppeals";
 import { decodeEntities } from "@/lib/decodeEntities";
@@ -32,15 +32,25 @@ export const RecentAppealsTile: FC = () => {
   return (
     <Card>
       <CardHeader className="pb-2">
-        <CardTitle className="text-base flex items-center gap-2">
-          <Gavel className="h-4 w-4 text-amber-600" />
-          {t("appeals_feed_title") || "Recent appeals (КЗК)"}
-          {/* The КЗК feed is corpus-wide (schema 042) — the ONE procurement tile
-              not windowed by the pscope scope (the risk-grade leaderboard IS
-              scoped), so it carries this explicit "all years" badge. */}
-          <span className="text-[11px] font-normal text-muted-foreground">
-            {t("procurement_scope_corpus_badge") || "Scope: all years"}
+        <CardTitle className="text-base flex items-center justify-between gap-2 flex-wrap">
+          <span className="flex items-center gap-2 min-w-0">
+            <Gavel className="h-4 w-4 text-amber-600" />
+            {t("appeals_feed_title") || "Recent appeals (КЗК)"}
+            {/* The КЗК feed is corpus-wide (schema 042) — the ONE procurement tile
+                not windowed by the pscope scope (the risk-grade leaderboard IS
+                scoped), so it carries this explicit "all years" badge. */}
+            <span className="text-[11px] font-normal text-muted-foreground">
+              {t("procurement_scope_corpus_badge") || "Scope: all years"}
+            </span>
           </span>
+          {/* Into the paginated appeals browser at ?pscope=all — matches this
+              tile's advertised "all years" scope. */}
+          <Link
+            to={seeAllHref}
+            className="text-[10px] normal-case text-primary hover:underline shrink-0"
+          >
+            {t("appeals_feed_see_all") || "See all appeals"} →
+          </Link>
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 md:p-4 pt-0">
@@ -82,15 +92,6 @@ export const RecentAppealsTile: FC = () => {
             </li>
           ))}
         </ul>
-        {/* Into the paginated appeals browser at ?pscope=all — matches this
-            tile's advertised "all years" scope. */}
-        <Link
-          to={seeAllHref}
-          className="mt-3 flex items-center justify-center gap-1.5 rounded-md border border-border bg-accent/30 px-3 py-2 text-xs font-medium text-foreground hover:bg-accent/60 transition-colors"
-        >
-          {t("appeals_feed_see_all") || "See all appeals"}
-          <ArrowRight className="h-3.5 w-3.5" />
-        </Link>
         <p className="mt-3 text-[11px] text-muted-foreground/80 flex items-center gap-1">
           {t("appeals_feed_hint") ||
             "Appeals to the CPC (КЗК). A review, not proof of wrongdoing."}{" "}

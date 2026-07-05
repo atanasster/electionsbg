@@ -7,7 +7,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, Euro } from "lucide-react";
+import { Euro } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur } from "@/lib/currency";
 
@@ -56,10 +56,9 @@ export const CompanyFundsTile: FC<{
           {t("company_funds_title") || "Средства от ЕС (ИСУН)"}
           <Link
             to={`/company/${eik}/funds`}
-            className="ml-auto inline-flex items-center gap-1 text-xs text-primary hover:underline font-normal"
+            className="ml-auto text-[10px] normal-case text-primary hover:underline"
           >
-            {t("procurement_tile_see_all") || "Виж всички"}
-            <ArrowRight className="h-3 w-3" />
+            {t("procurement_tile_see_all") || "Виж всички"} →
           </Link>
         </CardTitle>
       </CardHeader>

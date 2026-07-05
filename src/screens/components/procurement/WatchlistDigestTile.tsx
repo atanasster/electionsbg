@@ -7,7 +7,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Star, ArrowRight } from "lucide-react";
+import { Star } from "lucide-react";
 import { Card, CardContent } from "@/ux/Card";
 import {
   useWatchlist,
@@ -44,10 +44,9 @@ export const WatchlistDigestTile: FC = () => {
         </span>
         <Link
           to="/procurement/watchlist"
-          className="ml-auto inline-flex items-center gap-1 text-xs text-primary hover:underline font-medium"
+          className="ml-auto text-[10px] normal-case text-primary hover:underline"
         >
-          {t("watchlist_digest_open") || "Open watchlist"}
-          <ArrowRight className="h-3 w-3" />
+          {t("watchlist_digest_open") || "Open watchlist"} →
         </Link>
       </CardContent>
     </Card>

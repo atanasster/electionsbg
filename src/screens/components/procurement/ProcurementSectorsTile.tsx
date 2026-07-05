@@ -7,7 +7,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { PieChart, ArrowRight } from "lucide-react";
+import { PieChart } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { Tooltip } from "@/ux/Tooltip";
 import { useProcurementSectors } from "@/data/procurement/useProcurementSectors";
@@ -54,9 +54,17 @@ export const ProcurementSectorsTile: FC = () => {
   return (
     <Card>
       <CardHeader className="pb-2">
-        <CardTitle className="text-base flex items-center gap-2">
-          <PieChart className="h-4 w-4 text-muted-foreground" />
-          {t("procurement_sectors_title") || "What does the state buy"}
+        <CardTitle className="text-base flex items-center justify-between gap-2 flex-wrap">
+          <span className="flex items-center gap-2 min-w-0">
+            <PieChart className="h-4 w-4 text-muted-foreground" />
+            {t("procurement_sectors_title") || "What does the state buy"}
+          </span>
+          <Link
+            to={buildHref("/procurement/sectors")}
+            className="text-[10px] normal-case text-primary hover:underline shrink-0"
+          >
+            {t("procurement_sectors_browse") || "See all sectors"} →
+          </Link>
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 md:p-4 pt-0">
@@ -75,13 +83,6 @@ export const ProcurementSectorsTile: FC = () => {
             amount={formatEurCompact(restEur, i18n.language)}
           />
         ) : null}
-        <Link
-          to={buildHref("/procurement/sectors")}
-          className="mt-3 flex items-center justify-center gap-1.5 rounded-md border border-border bg-accent/30 px-3 py-2 text-xs font-medium text-foreground hover:bg-accent/60 transition-colors"
-        >
-          {t("procurement_sectors_browse") || "See all sectors"}
-          <ArrowRight className="h-3.5 w-3.5" />
-        </Link>
       </CardContent>
     </Card>
   );

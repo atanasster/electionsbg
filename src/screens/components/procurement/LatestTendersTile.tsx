@@ -5,7 +5,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ClipboardList, ArrowRight } from "lucide-react";
+import { ClipboardList } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useLatestTenders } from "@/data/procurement/useLatestTenders";
 import { useProcurementHref } from "@/data/procurement/useProcurementScope";
@@ -21,12 +21,21 @@ export const LatestTendersTile: FC = () => {
   return (
     <Card>
       <CardHeader className="pb-2">
-        <CardTitle className="text-base flex items-center gap-2">
-          <ClipboardList className="h-4 w-4 text-indigo-600" />
-          {t("procurement_latest_tenders_title") || "Latest announced tenders"}
-          <span className="text-xs text-muted-foreground font-normal">
-            {t("procurement_latest_tenders_note") || "estimated value"}
+        <CardTitle className="text-base flex items-center justify-between gap-2 flex-wrap">
+          <span className="flex items-center gap-2 min-w-0">
+            <ClipboardList className="h-4 w-4 text-indigo-600" />
+            {t("procurement_latest_tenders_title") ||
+              "Latest announced tenders"}
+            <span className="text-xs text-muted-foreground font-normal">
+              {t("procurement_latest_tenders_note") || "estimated value"}
+            </span>
           </span>
+          <Link
+            to={buildHref("/procurement/tenders")}
+            className="text-[10px] normal-case text-primary hover:underline shrink-0"
+          >
+            {t("procurement_latest_tenders_see_all") || "Browse all tenders"} →
+          </Link>
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 md:p-4 pt-0">
@@ -59,13 +68,6 @@ export const LatestTendersTile: FC = () => {
             </li>
           ))}
         </ul>
-        <Link
-          to={buildHref("/procurement/tenders")}
-          className="mt-3 flex items-center justify-center gap-1.5 rounded-md border border-border bg-accent/30 px-3 py-2 text-xs font-medium text-foreground hover:bg-accent/60 transition-colors"
-        >
-          {t("procurement_latest_tenders_see_all") || "Browse all tenders"}
-          <ArrowRight className="h-3.5 w-3.5" />
-        </Link>
       </CardContent>
     </Card>
   );

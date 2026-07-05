@@ -6,7 +6,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, Building2 } from "lucide-react";
+import { Building2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { FollowStar } from "./FollowStar";
 import type {
@@ -102,10 +102,9 @@ export const TopAwardersTile: FC<{
           </span>
           <Link
             to="/procurement/awarders"
-            className="ml-auto inline-flex items-center gap-1 text-xs text-primary hover:underline font-normal"
+            className="ml-auto text-[10px] normal-case text-primary hover:underline"
           >
-            {t("procurement_tile_see_all") || "See all"}
-            <ArrowRight className="h-3 w-3" />
+            {t("procurement_tile_see_all") || "See all"} →
           </Link>
         </CardTitle>
       </CardHeader>

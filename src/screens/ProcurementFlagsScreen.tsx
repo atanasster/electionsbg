@@ -9,7 +9,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Ban, Link as LinkIcon, Search, ArrowRight } from "lucide-react";
+import { Ban, Link as LinkIcon } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useDebarred } from "@/data/procurement/useDebarred";
@@ -127,10 +127,25 @@ export const ProcurementFlagsScreen: FC = () => {
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-base flex items-center gap-2 flex-wrap">
-              <LinkIcon className="h-4 w-4 text-amber-600" />
-              {t("flags_mp_tied") || "Largest MP-tied contractors"}
-              <ShownOf shown={topMp.length} total={feed?.mpTiedTotal} />
+            <CardTitle className="text-base flex items-center justify-between gap-2 flex-wrap">
+              <span className="flex items-center gap-2 flex-wrap">
+                <LinkIcon className="h-4 w-4 text-amber-600" />
+                {t("flags_mp_tied") || "Largest MP-tied contractors"}
+                <ShownOf shown={topMp.length} total={feed?.mpTiedTotal} />
+              </span>
+              <Link
+                to="/procurement/mps"
+                className="text-[10px] normal-case text-primary hover:underline"
+              >
+                {(
+                  t("flags_mp_tied_search_all") ||
+                  "Search all {{count}} connected politicians & officials"
+                ).replace(
+                  "{{count}}",
+                  numFmt.format(feed?.connectedPeopleTotal ?? 0),
+                )}{" "}
+                →
+              </Link>
             </CardTitle>
           </CardHeader>
           <CardContent className="p-3 md:p-4">
@@ -158,20 +173,6 @@ export const ProcurementFlagsScreen: FC = () => {
                 </li>
               ))}
             </ul>
-            <Link
-              to="/procurement/mps"
-              className="mt-3 flex items-center justify-center gap-1.5 rounded-md border border-border bg-accent/30 px-3 py-2 text-xs font-medium text-foreground hover:bg-accent/60 transition-colors"
-            >
-              <Search className="h-3.5 w-3.5" />
-              {(
-                t("flags_mp_tied_search_all") ||
-                "Search all {{count}} connected politicians & officials"
-              ).replace(
-                "{{count}}",
-                numFmt.format(feed?.connectedPeopleTotal ?? 0),
-              )}
-              <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
           </CardContent>
         </Card>
 

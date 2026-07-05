@@ -9,7 +9,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Megaphone, ArrowRight } from "lucide-react";
+import { Megaphone } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { useAwarderTenders } from "@/data/procurement/useAwarderTenders";
@@ -50,11 +50,19 @@ export const AwarderTendersTile: FC<{ eik: string }> = ({ eik }) => {
   return (
     <Card className="my-4">
       <CardHeader className="pb-2">
-        <CardTitle className="text-base flex items-center gap-2">
-          <Megaphone className="h-4 w-4 text-muted-foreground" />
-          {bg
-            ? "Обявени поръчки (процедури)"
-            : "Announced procedures (tenders)"}
+        <CardTitle className="text-base flex items-center justify-between gap-2 flex-wrap">
+          <span className="flex items-center gap-2 min-w-0">
+            <Megaphone className="h-4 w-4 text-muted-foreground" />
+            {bg
+              ? "Обявени поръчки (процедури)"
+              : "Announced procedures (tenders)"}
+          </span>
+          <Link
+            to="/procurement/tenders"
+            className="text-[10px] normal-case text-primary hover:underline shrink-0"
+          >
+            {bg ? "Всички обявени поръчки" : "All announced procedures"} →
+          </Link>
         </CardTitle>
         <p className="text-xs text-muted-foreground">
           {bg
@@ -150,14 +158,6 @@ export const AwarderTendersTile: FC<{ eik: string }> = ({ eik }) => {
             </table>
           </div>
         ) : null}
-
-        <Link
-          to="/procurement/tenders"
-          className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
-        >
-          {bg ? "Всички обявени поръчки" : "All announced procedures"}
-          <ArrowRight className="h-3.5 w-3.5" />
-        </Link>
       </CardContent>
     </Card>
   );
