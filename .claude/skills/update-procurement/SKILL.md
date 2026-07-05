@@ -57,7 +57,7 @@ Expected output on a normal day (one new fortnight published):
 
 The per-settlement step (added 2026) reads each awarder rollup's `geo` block (set by `buildRollups` via the resolver in `scripts/procurement/resolve_ekatte.ts`) and groups local-tier buyers by EKATTE. Output lives at `data/procurement/by_settlement/{ekatte}.json` + `index.json` + `_national.json` — drives the /procurement/by-settlement landing and the procurement tile on the existing settlement detail pages. Central ministries and national state companies are *not* pinned to settlements — they're aggregated into the national rollup. See [[project_procurement_geo]] for the methodology + the curated tier overrides in `scripts/procurement/awarder_tier.ts`.
 
-**Notice type on the rollup rows:** since 2026 the slim `topContracts` rows in the contractor / awarder / by_settlement rollups carry the OCDS `tag` (`award` = announced/обявена, `contract` = awarded/възложена, `contractAmendment` = annex/анекс), and value-bearing `award` rows are no longer discarded. This lets the place dashboards and the My-Area alert feed (`scripts/myarea/build_alerts.ts`) label each contract announced / awarded / annex. No new ingest — a normal `procurement:ingest` rebuild populates it; finish with `bucket:sync:all` as usual.
+**Notice type on the rollup rows:** since 2026 the slim `topContracts` rows in the contractor / awarder / by_settlement rollups carry the OCDS `tag` (`award` = announced/обявена, `contract` = awarded/възложена, `contractAmendment` = annex/анекс), and value-bearing `award` rows are no longer discarded. This lets the place dashboards and the My-Area alert feed (`scripts/myarea/build_alerts.ts`) label each contract announced / awarded / annex. No new ingest — a normal `procurement:ingest` rebuild populates it; publish via `db:refresh` (local) + the `db:load:*:cloud` loaders (prod), per the Deployment note in Step 1e.
 
 **One-shot enrichment after this commit:** existing awarder rollups built before this code change have no `geo` block (the normalizer wasn't capturing locality/postalCode). Run `npx tsx scripts/procurement/enrich_awarders_geo.ts` once to backfill from the cached fortnight bundles in `raw_data/procurement/`. From the next `procurement:ingest` onward the rollup builder applies geo automatically.
 
@@ -127,27 +127,29 @@ field coverage. Run after Steps 1–1c (they read the on-disk shards):
 
 ```bash
 npx tsx scripts/procurement/eop_field_map.ts --apply   # CPV/procedure/bids/euFunded onto contracts — content-join on (buyer,supplier,date) with a consortium value-date fallback. 2020–26 CPV 34%→98%
-npx tsx scripts/procurement/eop_breakdowns.ts          # per-entity 'Какво купува'/'Как купува'+EU shards (derived/breakdowns/{c,a}/) + corpus derived/sector_totals.json
 npx tsx scripts/procurement/contract_index.ts          # per-year slim shards (derived/contract_index/) for the faceted /procurement/contracts browser
-npx tsx scripts/procurement/by_id_shards.ts            # prefix-sharded per-contract detail store (contracts/by-id/shard/) — full coverage for /procurement/contract/:key
+npx tsx scripts/procurement/by_id_shards.ts            # prefix-sharded per-contract detail store (contracts/by-id/shard/) — the PG load source for /procurement/contract/:key
 ```
+
+> **RETIRED:** `eop_breakdowns.ts` (the per-entity 'Какво купува'/'Как купува' + `derived/sector_totals.json` builder) was removed in commit `7258bd1e` — breakdowns are now served from Postgres (`company_procurement` / `awarder_procurement`), so there is no JSON step. Do NOT re-add it; `derived/breakdowns/` + `derived/sector_totals.json` are gitignored leftovers.
 
 Notes:
 - `eop_field_map` is idempotent; `euFunded` is tri-state (known true/false vs unmatched). The EOP flat feed lacks some big legacy consortium contracts (e.g. АПИ roads), so the per-entity EU% is gated by value-coverage in the breakdown tile.
 - Each `contract_index/<year>.json` is `{ awarders, contractors, rows }`: awarder/contractor names are dictionary-encoded (eik→name maps) and the compact row carries only the eik — the browser hook (`useContractBrowser.tsx`) rehydrates by reference so ~40k rows share a few thousand name strings (parse + memory win). The compact row is `[date, awarderEik, contractorEik, amountEur, cpvDivision, procedureBucket, euFunded, title, key, bidCount, cpv, euProgram]` — `key` deep-links each row to `/procurement/contract/:key`, `bidCount` (numberOfTenderers) lets the table compute the single-bidder red flag inline (the entity flags — debarred / MP-tied / official-tied / concentration — join by EIK/name from the risk-index files), `cpv` is the full 8-digit code (shown under the sector name; `cpvDivision` stays its 2-digit prefix for the sector facet), and `euProgram` is the operational-programme name shown in the EU-badge tooltip. All four are **appended** (positions 10–13) so a pre-bump shard still rehydrates; readers must treat them as optional. The "All years" facet (`?year=all`) merges every shard client-side (`useAllContractYears`, ~85 MB) for cross-year text search — opt-in, since it loads + risk-scores the whole corpus. `procedureBucket`/category labels resolve in the UI; English OCDS enums (`open`/`limited`/`selective`) are mapped to families in `cpvSectors.ts` (so the flat-feed years don't read as "Друга").
-- `contracts/by-id/shard/<3-hex>.json` is a `{ key → Contract }` map (4096 shards, ~70 rows each) covering the **whole** corpus, so every browser row's detail link resolves. The sibling `contracts/by-id/<key>.json` single-file tree (top-N + MP-tied) is kept as the ~600-byte fast path; `useContract` tries the single file first and falls back to the shard. `writeByIdShards` runs automatically inside `ingest.ts`, `rebuild_derived.ts`, `dedup_legacy_twins.ts`, and `rebuild_from_cache.ts` (alongside `writeByIdContracts`); run it standalone after a manual `contract_index` rebuild. The shard tree is **gitignored** and reaches prod via `bucket:sync` (served uncompressed — ~100 KB/shard raw, not in the `bucket_gzip.ts` hot list).
-- `derived/breakdowns/` + `derived/contract_index/` are **gitignored** (bulky — 12k + 15 shards); they reach prod via **`bucket:sync:all`** — the `contract_index` shards (5.7–14.5 MB raw), `concentration_full.json`, and (since 2026-06-22) the heavy per-EIK rollups `awarder_contracts/*` >50K, `contractors/*` >20K, `awarders/*` >20K (the `/company/:eik`, `/awarder/:eik` + `/company/:eik/contracts` payloads, ~6–10× on the wire) are gzip-shipped by `bucket_gzip.ts`, so a plain `bucket:sync` leaves them uncompressed. Only `derived/sector_totals.json` is committed. `bucket_gzip.ts` auto-discovers these dirs at runtime (size-thresholded `PER_EIK_DIRS`) — no per-EIK enumeration to maintain.
+- `contracts/by-id/shard/<3-hex>.json` is a `{ key → Contract }` map (4096 shards, ~70 rows each) covering the **whole** corpus. `writeByIdShards` runs automatically inside `ingest.ts`, `rebuild_derived.ts`, `dedup_legacy_twins.ts`, and `rebuild_from_cache.ts` (alongside `writeByIdContracts`); run it standalone after a manual `contract_index` rebuild. The shard tree is **gitignored** and is now a **local PG-load source only** — `/procurement/contract/:key` (`useContract`) reads Postgres via `/api/db`. It is NOT bucket-synced (see the Deployment note below).
+- `derived/contract_index/` is **gitignored** (bulky — 15 shards) and, like the by-id shards, is a **local source that `db:load:pg` reads**; the `/procurement/contracts` browser reads the resulting PG table via `/api/db`. It is NOT bucket-synced.
+
+> **Deployment (READ THIS before syncing):** the entire `data/procurement/` tree is served from **Cloud SQL** (Firebase fn `/api/db/*`), **not GCS**. `bucket:sync` **excludes** all of `procurement/` except `roads.json` + `derived/mp_party.json` (the `-x` regex in package.json), and `bucket_gzip.ts` ships **no** procurement dir. The ingest's JSON shards are the **local source** `db:load:*:pg` reads to populate Postgres. So the prod-deploy path for procurement is **`db:load:pg:cloud && db:load:tenders:pg:cloud && db:load:awarder-seats:pg:cloud`** (Cloud SQL proxy on `127.0.0.1:5434`), NOT `bucket:sync:all`. Ignore any older "finish with `bucket:sync:all`" phrasing in this doc.
 
 ## Step 1f — Tender-stage ingest (procedures, not signed contracts)
 
 The corpus above is **signed contracts**. The sibling **`поръчки`** file in the same `storage.eop.bg` daily buckets is the tender STAGE — the procedure before any contract: estimated (прогнозна) value, lots, status. `ingest_tenders.ts` writes a **parallel** `data/procurement/tenders/` tree that NEVER touches the contracted-spend rollups (estimated value is a forecast, kept in its own aggregate). Tracked by the **same `eop_procurement` watcher** (it fingerprints all three EOP files — договори + **поръчки** + OCDS), so a `ЦАИС ЕОП open data` change should refresh tenders too. Self-contained: it does **not** rebuild the contracts rollups, so run it independently of Step 1's `procurement:ingest`.
 
 ```bash
-npx tsx scripts/procurement/ingest_tenders.ts --apply            # incremental: last ~30 days
-npx tsx scripts/procurement/ingest_tenders.ts --apply --upload   # + bucket:sync the tenders tree
+npx tsx scripts/procurement/ingest_tenders.ts --apply            # incremental: last ~30 days (then db:load:tenders:pg to publish)
 ```
 
-Output `data/procurement/tenders/`: `<YYYY>/<YYYY-MM>.json` month-shards + `by-tender/shard/` (per-procedure, keyed sha256(УНП)) + `by-ocid/shard/` (contract→tender lineage, keyed by the ocid's last 2 chars) + `by_year/<year>.json` (the slim search shards the FE `/procurement/tenders` search + the `openTenders` AI tool read) + `index.json`. All bulky shards are **gitignored** (see `.gitignore` — `tenders/{20*,by-tender,by-ocid,by_year}`); only the ~390 KB `index.json` is committed. They reach prod via `bucket:sync` (the `--upload` flag, or `bucket:sync:all`). Lineage to a signed contract is free: a contract's `ocid` = `ocds-e82gsb-<parentTenderId>`. See `docs/plans/procurement-tenders-ingest-v1.md`.
+Output `data/procurement/tenders/`: `<YYYY>/<YYYY-MM>.json` month-shards + `by-tender/shard/` (per-procedure, keyed sha256(УНП)) + `by-ocid/shard/` (contract→tender lineage, keyed by the ocid's last 2 chars) + `by_year/<year>.json` (the slim search shards the FE `/procurement/tenders` search + the `openTenders` AI tool read) + `index.json`. All bulky shards are **gitignored** (see `.gitignore` — `tenders/{20*,by-tender,by-ocid,by_year}`); only the ~390 KB `index.json` is committed. They are the **local source for `db:load:tenders:pg`** — the `/procurement/tenders` search + `/tenders/:unp` read Postgres via `/api/db`, not GCS (tenders is inside the `procurement/` bucket exclusion). Lineage to a signed contract is free: a contract's `ocid` = `ocds-e82gsb-<parentTenderId>`. See `docs/plans/procurement-tenders-ingest-v1.md`.
 
 **Full 2020→ history is a one-off, flag-gated operator backfill — never in the watcher/CI** (it crawls ~2,300 daily `поръчки` buckets; raw days cache to `raw_data/procurement/eop_tenders/` so re-runs are offline):
 
@@ -189,18 +191,17 @@ npm run db:refresh   # db:pg:up + db:load:pg (contracts) + db:load:tenders:pg + 
 
 `db:refresh` rebuilds the `contracts` table (~10 s) AND the `tenders` table (~18 s) from the fresh shards, then `test:data` confirms the SQL captured them losslessly (it does NOT compare against the committed manifest/goldens baseline, so it won't false-fail on new data). Postgres is local + gitignored — **no commit or bucket sync needed** (it powers `/db`, the `/api/db` live pages, and the `db:gen-*` generators). Run after every procurement ingest — it's the ONLY thing that keeps `contracts` + `tenders` fresh; if a table's loader isn't in `db:refresh`, that table silently goes stale (the tenders-stale bug, fixed 2026-07-02).
 
-## Step 3 — Upload to bucket
+## Step 3 — Publish to prod (Cloud SQL, not the bucket)
+
+Procurement is served from **Postgres**, so publishing means reloading the Cloud SQL tables from the fresh on-disk shards — NOT an rsync to GCS. Local PG is refreshed by Step 2b's `db:refresh`; for prod, run the Cloud SQL loaders (proxy on `127.0.0.1:5434`, `.pgpass` set):
 
 ```bash
-npm run procurement:ingest -- --upload
+npm run db:load:pg:cloud            # contracts
+npm run db:load:tenders:pg:cloud    # tenders
+npm run db:load:awarder-seats:pg:cloud
 ```
 
-Or upload separately:
-
-```bash
-gsutil -m -h "Cache-Control:no-cache, max-age=0" rsync -r -J \
-  data/procurement/ gs://data-electionsbg-com/procurement/
-```
+The **only** procurement files that still belong on GCS are `roads.json` + `derived/mp_party.json` (frontend) — a normal `bucket:sync` already ships exactly those (its `-x` regex excludes the rest of `procurement/`). The AI-tool files `debarred.json`, `derived/kzk_appeals_summary.json`, `tenders/index.json` are bundled/PG-served, not fetched from GCS. **Do NOT** `gsutil rsync data/procurement/ → gs://…/procurement/` — that re-pushes the whole PG-served tree the sync deliberately excludes.
 
 ## Step 4 — Commit
 
@@ -383,7 +384,7 @@ The ingest always runs the officials cross-reference (`pep_connected.json`, from
 | `data/procurement/derived/mp_connected.json` | One entry per (mpId, contractor) pair: relations (TR roles + declared stakes), total awarded, top awarders, byYear. The journalism payload. |
 | `data/procurement/derived/pep_connected.json` (+ `pep-by-eik/`, `pep-by-slug/` shards) | One entry per (official, contractor) pair — the **non-MP** political class (cabinet, deputy ministers, agency heads, governors, mayors, deputy-mayors, council chairs, councillors, chief architects). HIGH-confidence links only. |
 | `data/procurement/derived/top_contractors.json` | Top-1000 contractors corpus-wide, each flagged `mpTied: boolean`. Powers the `/procurement` index page. |
-| `data/procurement/derived/contractors_search.json` | Slim `{eik,name}` index of **all** ~26k contractors (not just the top-1000), value-ranked. Powers the `/procurement` dashboard's company-name search box (lazy-loaded on first focus) and the chat `contractSearch` long-tail resolver. Emitted by `writeDerived` via `build_contractors_search.ts`. Add it to `bucket_gzip.ts`'s hot-file list (done) so it ships gzipped. |
+| `data/procurement/derived/contractors_search.json` | Slim `{eik,name}` index of **all** ~26k contractors (not just the top-1000), value-ranked. Backs the `/procurement` dashboard's company-name search + the chat `contractSearch` long-tail resolver, which now query Postgres via `/api/db`. Emitted by `writeDerived` via `build_contractors_search.ts` as a **local PG-load source** (not bucket-served — `procurement/` is excluded from `bucket:sync`). |
 | `data/procurement/derived/flow.json` | Sankey-shaped money flow (awarder → contractor → **MP or official**), trimmed to the top ~150 links by value — the eager preview the `/procurement` landing tile loads. |
 | `data/procurement/derived/flow_full.json` | The complete flow graph (all MP- and official-tied links), lazy-loaded only by the `/procurement/flows` explorer. |
 
@@ -395,7 +396,7 @@ Per-election `by_ns/<election>.json` files also gain officials totals (`official
 - `by_ns/risk_feed/<election>.json` — red-flag feed (top concentration + MP-tied + counts + per-oblast tally), sibling of `derived/risk_feed.json`. (Debarred suppliers stay corpus — a "currently barred" register has no date dimension.)
 - `by_ns/by_settlement/<election>.json` — the "procurement by settlement" landing index (local-tier buyers pinned to their seat EKATTE via the awarder-rollup geo join + national rollup), sibling of `by_settlement/index.json`. Only the index is sliced; the per-EKATTE detail drill-down has no scope toggle and stays corpus.
 
-`bucket_gzip.ts` ships all five subdirs.
+These `by_ns/` sidecars are **gitignored local PG-load sources** — the `/procurement` section pages read the scoped data from Postgres via `/api/db`. They are NOT bucket-synced or gzip-shipped (procurement is served from Cloud SQL; see the Deployment note in Step 1e).
 
 The cross-reference reads `companies[].tr.uic` as the join key. The skill **hard-fails** if `companies-index.json` is present but TR enrichment is missing on >90% of entries — that's the silent "TR refresh wasn't run" failure mode where mp_connected.json would otherwise collapse to empty.
 
@@ -468,8 +469,10 @@ The `crossReference` field on `data/procurement/index.json` is the at-a-glance M
 # Daily ingest after watcher flags new bundles
 npm run procurement:ingest
 
-# Ingest + upload + commit in one pass
-npm run procurement:ingest -- --upload
+# Ingest, publish to Postgres (local + prod), commit
+npm run procurement:ingest
+npm run db:refresh                  # local PG (Step 2b)
+npm run db:load:pg:cloud && npm run db:load:tenders:pg:cloud && npm run db:load:awarder-seats:pg:cloud   # prod Cloud SQL
 git add data/procurement/ tests/fixtures/procurement/
 git commit -m "procurement: ingest"
 
