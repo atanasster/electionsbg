@@ -318,9 +318,9 @@ export const governanceProfile = async (
       fetchLocalMuni(cycle, place.obshtina).catch(() => null),
       tryFetch<LisiData>("/municipal_transparency/index.json"),
       tryFetch<IndData>("/indicators.json"),
-      tryFetch<SettlementProc>(
-        `/procurement/by_settlement/${place.ekatte}.json`,
-      ),
+      fetchDb<SettlementProc>("procurement-settlement", {
+        ekatte: place.ekatte,
+      }).catch(() => null),
       tryFetch<AirData>("/air/index.json"),
       tryFetch<GraoData>("/grao_population.json"),
       tryFetch<CouncilData>("/council/index.json"),
@@ -374,7 +374,7 @@ export const governanceProfile = async (
   }
   if (proc?.totalEur) {
     facts.local_procurement = fmtEurCompact(proc.totalEur, ctx.lang);
-    provenance.push(`procurement/by_settlement/${place.ekatte}.json`);
+    provenance.push("db:procurement-settlement");
   }
   const graoRec = grao?.settlements?.[place.ekatte];
   if (graoRec?.permanent) {

@@ -7,12 +7,7 @@ import { round2 } from "./dataset";
 import { fuzzyBestMatch } from "./resolve";
 import { translitKey } from "./translit";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
-import {
-  topicBySlug,
-  detectTopic,
-  tenderMatchesTopic,
-  type TenderSearchRow,
-} from "@/lib/tenderTopics";
+import { topicBySlug, detectTopic } from "@/lib/tenderTopics";
 import {
   buildRoadsModel,
   API_EIK,
@@ -989,7 +984,6 @@ type ConcentrationEntry = {
   sharePct: number;
   pairTotalEur: number;
 };
-type DebarredRow = { debarredUntil: string };
 
 export const procurementRedFlags = async (
   _args: ToolArgs,
@@ -1002,13 +996,8 @@ export const procurementRedFlags = async (
   const feed = await fetchDb<{ topConcentration: ConcentrationEntry[] }>(
     "procurement-risk-feed",
   );
-  const deb = await fetchData<{ entries: DebarredRow[] }>(
-    "/procurement/debarred.json",
-  );
-  const today = new Date().toISOString().slice(0, 10);
-  const activeDebarred = deb.entries.filter(
-    (d) => !d.debarredUntil || d.debarredUntil >= today,
-  ).length;
+  const deb = await fetchDb<{ active: number }>("debarred");
+  const activeDebarred = deb.active;
   const top = feed.topConcentration.slice(0, 10);
   const rows: Row[] = top.map((e) => ({
     awarder: e.awarderName,
@@ -1038,7 +1027,7 @@ export const procurementRedFlags = async (
       active_debarred: activeDebarred,
       top_share: top[0] ? `${Math.round(top[0].sharePct * 100)}%` : "—",
     },
-    provenance: ["db:procurement-risk-feed", "procurement/debarred.json"],
+    provenance: ["db:procurement-risk-feed", "db:debarred"],
   };
 };
 
@@ -1272,9 +1261,9 @@ export const procurementSingleBidSectors = async (
 
 // ---- debarred suppliers (черен списък) --------------------------------------
 // The list behind procurementRedFlags' active_debarred count: the companies on
-// the АОП "Стопански субекти с нарушения" register. Reads the merged snapshot
-// (data/procurement/debarred.json), which retains historical entries the live
-// page has dropped, so we filter to the still-active debarments.
+// the АОП "Стопански субекти с нарушения" register. The `debarred` route serves
+// the still-active debarments (the register retains historical entries the live
+// page has dropped; the route filters them out and returns the total).
 
 type DebarredFull = {
   name: string;
@@ -1282,11 +1271,10 @@ type DebarredFull = {
   debarredUntil: string;
   detailsUrl: string | null;
 };
-type DebarredFileFull = {
-  generatedAt: string;
-  source: string;
-  total: number;
+type DebarredPayload = {
   entries: DebarredFull[];
+  total: number;
+  active: number;
 };
 
 export const procurementDebarred = async (
@@ -1294,13 +1282,9 @@ export const procurementDebarred = async (
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
-  const f = await fetchData<DebarredFileFull>("/procurement/debarred.json");
-  const today = new Date().toISOString().slice(0, 10);
-  const active = f.entries
-    .filter((e) => !e.debarredUntil || e.debarredUntil >= today)
-    .sort((a, b) =>
-      (b.debarredUntil || "").localeCompare(a.debarredUntil || ""),
-    );
+  const f = await fetchDb<DebarredPayload>("debarred");
+  // Route returns active entries already sorted newest-expiry first.
+  const active = f.entries;
   const rows: Row[] = active.map((e) => ({
     company: e.name,
     until: e.debarredUntil || (bg ? "безсрочно" : "open-ended"),
@@ -1324,10 +1308,10 @@ export const procurementDebarred = async (
     rows,
     viz: "none",
     facts: {
-      active_debarred: active.length,
+      active_debarred: f.active,
       total_incl_historical: f.total,
     },
-    provenance: ["procurement/debarred.json"],
+    provenance: ["db:debarred"],
   };
 };
 
@@ -1656,17 +1640,18 @@ export const roadsSpending = async (
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
-  const file = await fetchData<{
-    contracts: Parameters<typeof buildRoadsModel>[0];
-  }>(`/procurement/awarder_contracts/${API_EIK}.json`);
+  // Every АПИ contract row (the road model input) + the canonical awarder rollup,
+  // both from Postgres — the same routes the /awarder/:eik page uses. Headline
+  // total + count come from the rollup so the chat answer matches the dashboard
+  // KPI exactly (the rollup is the canonical multi-currency headline); the model
+  // drives the per-component breakdown + competition signals below.
+  const [file, rollup] = await Promise.all([
+    fetchDb<{
+      contracts: Parameters<typeof buildRoadsModel>[0];
+    }>("awarder-contracts", { eik: API_EIK }),
+    fetchDb<AwarderRollup>("awarder-procurement", { eik: API_EIK }),
+  ]);
   const m = buildRoadsModel(file.contracts);
-  // Headline total + count come from the awarder rollup so the chat answer
-  // matches the dashboard KPI / the /awarder page exactly (the rollup is the
-  // canonical multi-currency headline); the model drives the per-component
-  // breakdown + competition signals below.
-  const rollup = await fetchData<AwarderRollup>(
-    `/procurement/awarders/${API_EIK}.json`,
-  );
 
   const comps = m.components.filter((c) => c.totalEur > 0).slice(0, 7);
   const rows: Row[] = comps.map((c) => ({
@@ -1723,10 +1708,7 @@ export const roadsSpending = async (
         ? `${compLabel(captured.component, bg)} (${pctStr(captured.singleBidShare)} ${bg ? "една оферта" : "single bid"})`
         : "—",
     },
-    provenance: [
-      `procurement/awarders/${API_EIK}.json`,
-      `procurement/awarder_contracts/${API_EIK}.json`,
-    ],
+    provenance: ["db:awarder-procurement", "db:awarder-contracts"],
   };
 };
 
@@ -2049,43 +2031,41 @@ export const municipalTransfers = async (
 };
 
 // ---- tenders (procedures, not signed contracts) -----------------------------
-// Reads the tender-stage index built by scripts/procurement/ingest_tenders.ts.
-// Values here are ESTIMATED (прогнозна стойност) — a forecast, NOT money spent —
-// so every surface labels them as such. Answers "what is X's biggest open
-// tender", "open поръчка за …", which the contracts-only corpus could not.
+// Postgres-backed (the tenders corpus lives in the `tenders` table). Values here
+// are ESTIMATED (прогнозна стойност) — a forecast, NOT money spent — so every
+// surface labels them as such. Answers "what is X's biggest open tender", "open
+// поръчка за …", which the contracts-only corpus could not.
+//
+// Two DB seams: the corpus search (topic / keyword / year) → tender-corpus-search
+// (regex + full-set aggregates the capped table route can't give); the buyer /
+// keyword / largest browse → the generic `table` route (resource "tenders").
 
-type TenderSlim = {
+// One row of the tenders `table` engine / the corpus-search rows (camelCased).
+type TenderTableRow = {
   unp: string;
   ocid?: string;
-  publicationDate: string;
-  buyerEik: string;
+  buyerEik?: string;
   buyerName: string;
   subject: string;
   estimatedValueEur?: number;
-  currency?: string;
   lotsCount?: number;
   isCancelled: boolean;
-  nuts?: string;
 };
-type TenderBuyer = {
-  eik: string;
-  name: string;
-  procedures: number;
+type TendersTablePage = {
+  rows: TenderTableRow[];
+  total: number;
+  aggregates?: { sumEstimatedValueEur?: number; count?: number };
+};
+// tender-corpus-search payload — matched top-N + full-set aggregates.
+type TenderCorpusResult = {
+  year: number | null;
+  yearRequested: number | null;
+  yearMissing: boolean;
+  matches: number;
+  totalEur: number;
   cancelled: number;
-  estimatedValueEur: number;
-};
-type TendersIndex = {
-  coverage: { firstDay: string; lastDay: string; months: string[] };
-  totals: {
-    procedures: number;
-    lots: number;
-    cancelled: number;
-    withEstimate: number;
-    estimatedValueEur: number;
-  };
-  byYear: Array<{ year: string; procedures: number }>;
-  topByValue: TenderSlim[];
-  buyers: TenderBuyer[];
+  biggest: { subject: string; estimatedValueEur?: number } | null;
+  rows: TenderTableRow[];
 };
 
 const forecastNote = (lang: ToolContext["lang"]): string =>
@@ -2110,20 +2090,53 @@ const tenderStatusLabel = (
 
 // List the biggest tenders, optionally narrowed to one buyer (`org`) or a free
 // keyword (`query`). Defaults to the largest non-cancelled procedures.
+const TENDER_COLUMNS = (bg: boolean): Column[] => [
+  { key: "buyer", label: bg ? "Възложител" : "Buyer" },
+  { key: "subject", label: bg ? "Предмет" : "Subject" },
+  { key: "estimate", label: bg ? "Прогнозна ст." : "Estimated", numeric: true },
+  { key: "lots", label: bg ? "Обос. позиции" : "Lots", numeric: true },
+  { key: "status", label: bg ? "Статус" : "Status" },
+];
+const tenderRow = (t: TenderTableRow, ctx: ToolContext): Row => ({
+  buyer: t.buyerName,
+  subject: shortTenderSubject(t.subject),
+  estimate:
+    t.estimatedValueEur != null
+      ? fmtEurCompact(t.estimatedValueEur, ctx.lang)
+      : "—",
+  lots: t.lotsCount ?? 1,
+  status: tenderStatusLabel(t, ctx.lang),
+});
+// One tenders `table` request (top-N by estimate + count + Σ estimate) over the
+// given column filters.
+const tendersTable = (
+  columns: Array<Record<string, unknown>>,
+  pageSize = 10,
+): Promise<TendersTablePage> =>
+  fetchDb<TendersTablePage>("table", {
+    q: JSON.stringify({
+      resource: "tenders",
+      page: 0,
+      pageSize,
+      sort: [{ id: "estimated_value_eur", desc: true }],
+      filters: { columns },
+    }),
+  });
+
 export const openTenders = async (
   args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
-  const idx = await fetchData<TendersIndex>("/procurement/tenders/index.json");
   const org = String(args.org ?? args.place ?? "").trim();
   const query = String(args.query ?? args.subject ?? args.metric ?? "").trim();
 
-  // --- corpus search (a year shard, full corpus) -----------------------------
+  // --- corpus search (topic / keyword / year, full corpus) -------------------
   // Triggered by a topic (alias or auto-detected), an explicit year, or a
   // substantive free keyword. Answers "всички търгове за X през 2025" — the
-  // top-250 index below can't (it only holds the biggest). Bounded to ONE year
-  // shard so the client fetch stays sane.
+  // largest-N browse below can't (it only ranks by value). Served by
+  // tender-corpus-search: the SAME topic-match semantics (subject/CPV regex OR
+  // exact-CPV membership) the year-shard JSON drove, with full-set aggregates.
   const rawAll = `${org} ${query} ${String(args.unp ?? "")}`.trim();
   const topic =
     topicBySlug(typeof args.topic === "string" ? args.topic : undefined) ??
@@ -2139,61 +2152,26 @@ export const openTenders = async (
   const corpusIntent = !!topic || !!yearAsked || (!org && keyword.length >= 3);
 
   if (corpusIntent) {
-    const years = (idx.byYear ?? []).map((y) => y.year).sort();
-    const latest = years[years.length - 1];
-    const year = yearAsked && years.includes(yearAsked) ? yearAsked : latest;
-    const yearMissing = !!yearAsked && !years.includes(yearAsked);
-    const rows = await fetchData<TenderSearchRow[]>(
-      `/procurement/tenders/by_year/${year}.json`,
-    );
-    let matched = rows;
-    if (topic) {
-      matched = matched.filter((r) => tenderMatchesTopic(topic, r));
-    } else if (keyword) {
-      const q = keyword.toLocaleLowerCase("bg");
-      matched = matched.filter(
-        (r) =>
-          (r.subject ?? "").toLocaleLowerCase("bg").includes(q) ||
-          (r.cpvDesc ?? "").toLocaleLowerCase("bg").includes(q) ||
-          (r.buyerName ?? "").toLocaleLowerCase("bg").includes(q),
-      );
-    }
-    // Optional extra buyer filter: when `org` carries a real institution name
-    // (token-contained in the row's buyer) AND it wasn't just the topic trigger.
-    const orgTokens = org
-      ? cleanAwarderQuery(org)
-          .toLocaleLowerCase("bg")
-          .split(/\s+/)
-          .filter((w) => w.length >= 4)
-      : [];
-    if (orgTokens.length > 0 && (topic || keyword)) {
-      matched = matched.filter((r) => {
-        const name = (r.buyerName ?? "").toLocaleLowerCase("bg");
-        return orgTokens.every((tk) => name.includes(tk));
-      });
-    }
-    matched = [...matched].sort(
-      (a, b) => (b.estimatedValueEur ?? 0) - (a.estimatedValueEur ?? 0),
-    );
-    const totalEur = matched.reduce(
-      (s, r) => s + (r.estimatedValueEur ?? 0),
-      0,
-    );
-    const cancelled = matched.filter((r) => r.isCancelled).length;
+    // Extra buyer filter: when `org` carries a real institution name AND it
+    // wasn't just the topic trigger (matches the old orgTokens narrowing).
+    const orgTokens =
+      org && (topic || keyword)
+        ? cleanAwarderQuery(org)
+            .split(/\s+/)
+            .filter((w) => w.length >= 4)
+        : [];
+    const res = await fetchDb<TenderCorpusResult>("tender-corpus-search", {
+      year: yearAsked ?? "",
+      cpv: topic ? topic.cpv.join(",") : "",
+      pattern: topic ? topic.pattern.source : "",
+      keyword: topic ? "" : keyword,
+      buyerTokens: orgTokens.join(","),
+    });
+    const year = res.year;
     const scopeLabel = topic
       ? topic.label[ctx.lang]
       : keyword || (bg ? "всички" : "all");
-    const tableRows: Row[] = matched.slice(0, 12).map((r) => ({
-      buyer: r.buyerName,
-      subject: shortTenderSubject(r.subject),
-      estimate:
-        r.estimatedValueEur != null
-          ? fmtEurCompact(r.estimatedValueEur, ctx.lang)
-          : "—",
-      lots: r.lotsCount ?? 1,
-      status: tenderStatusLabel(r, ctx.lang),
-    }));
-    const top = matched[0];
+    const top = res.biggest;
     return {
       tool: "openTenders",
       domain: "fiscal",
@@ -2201,30 +2179,20 @@ export const openTenders = async (
       title: bg
         ? `Обявени поръчки — ${scopeLabel} (${year})`
         : `Tenders — ${scopeLabel} (${year})`,
-      subtitle: yearMissing
+      subtitle: res.yearMissing
         ? bg
           ? `Няма данни за ${yearAsked}; показана е ${year}. ${forecastNote(ctx.lang)}`
           : `No data for ${yearAsked}; showing ${year}. ${forecastNote(ctx.lang)}`
         : forecastNote(ctx.lang),
-      columns: [
-        { key: "buyer", label: bg ? "Възложител" : "Buyer" },
-        { key: "subject", label: bg ? "Предмет" : "Subject" },
-        {
-          key: "estimate",
-          label: bg ? "Прогнозна ст." : "Estimated",
-          numeric: true,
-        },
-        { key: "lots", label: bg ? "Обос. позиции" : "Lots", numeric: true },
-        { key: "status", label: bg ? "Статус" : "Status" },
-      ],
-      rows: tableRows,
+      columns: TENDER_COLUMNS(bg),
+      rows: res.rows.map((r) => tenderRow(r, ctx)),
       viz: "none",
       facts: {
         scope: scopeLabel,
         year,
-        matches: matched.length,
-        total_estimated: fmtEurCompact(totalEur, ctx.lang),
-        cancelled,
+        matches: res.matches,
+        total_estimated: fmtEurCompact(res.totalEur, ctx.lang),
+        cancelled: res.cancelled,
         biggest: top ? shortTenderSubject(top.subject) : "—",
         biggest_estimate:
           top?.estimatedValueEur != null
@@ -2238,192 +2206,126 @@ export const openTenders = async (
             ? { link_q: keyword }
             : {}),
       },
-      provenance: [`procurement/tenders/by_year/${year}.json`],
+      provenance: ["db:tender-corpus-search"],
     };
   }
 
-  let pool = idx.topByValue;
+  // --- largest / buyer / keyword browse (all years) → tenders `table` route ---
+  const baseCols: Array<Record<string, unknown>> = [];
   let scopeTitle = bg
     ? "Най-големи обявени поръчки"
     : "Largest announced tenders";
-  let buyerHit: TenderBuyer | undefined;
-
+  let scopeFact = bg ? "всички" : "all";
+  let linkQ: string | undefined;
+  let scoped = false;
   if (org) {
     const eikInRaw = org.match(/\b\d{9,13}\b/)?.[0];
-    let hitEik: string | undefined;
-    let hitName: string | undefined;
-    if (eikInRaw) {
-      hitEik = eikInRaw;
-      hitName =
-        idx.buyers.find((b) => b.eik === eikInRaw)?.name ??
-        idx.topByValue.find((t) => t.buyerEik === eikInRaw)?.buyerName;
-    } else {
-      // Candidate (eik → name) set drawn from BOTH the topByValue rows (where a
-      // big buyer's notice carries its HQ name, e.g. 'Агенция "Пътна
-      // инфраструктура"') AND the index buyers list (covers buyers without a
-      // top-250 tender). One EIK can publish under many display names (АПИ HQ +
-      // its 27 regional road directorates share EIK 000695089), so we key on EIK
-      // and keep every name variant for matching.
-      const q = cleanAwarderQuery(org);
-      const qTokens = q.toLocaleLowerCase("bg").split(/\s+/).filter(Boolean);
-      // Whitespace/punct tokenizer — JS \b is unreliable around Cyrillic, so a
-      // token-set test is what stops "пътна инфраструктура" matching
-      // "железо*пътна* инфраструктура" (different token).
-      const nameTokens = (n: string): Set<string> =>
-        new Set(
-          n
-            .toLocaleLowerCase("bg")
-            .replace(/[„“”"'`().,-]/g, " ")
-            .split(/\s+/)
-            .filter(Boolean),
-        );
-      type Cand = { eik: string; name: string; procedures: number };
-      const cands = new Map<string, Cand>();
-      for (const t of idx.topByValue) {
-        if (!cands.has(t.buyerEik))
-          cands.set(t.buyerEik, {
-            eik: t.buyerEik,
-            name: t.buyerName,
-            procedures:
-              idx.buyers.find((b) => b.eik === t.buyerEik)?.procedures ?? 1,
-          });
-      }
-      for (const b of idx.buyers) if (!cands.has(b.eik)) cands.set(b.eik, b);
-      const all = [...cands.values()];
-      const tokenHits =
-        qTokens.length > 0
-          ? all
-              .filter((c) => {
-                const toks = nameTokens(c.name);
-                return qTokens.every((t) => toks.has(t));
-              })
-              .sort((a, b) => b.procedures - a.procedures)
-          : [];
-      const hit =
-        tokenHits[0] ??
-        fuzzyBestMatch<Cand>(
-          q,
-          () => all.map((c) => ({ item: c, keys: [c.name] })),
-          { cacheKey: "tenderBuyers", threshold: 0.45, minLen: 3 },
-        )?.item;
-      if (hit) {
-        hitEik = hit.eik;
-        hitName = hit.name;
-      }
-    }
-    if (hitEik) {
-      buyerHit = idx.buyers.find((b) => b.eik === hitEik);
-      pool = idx.topByValue.filter((t) => t.buyerEik === hitEik);
-      const label = hitName ?? buyerHit?.name ?? hitEik;
-      scopeTitle = bg
-        ? `Най-големи поръчки — ${label}`
-        : `Largest tenders — ${label}`;
-    }
+    if (eikInRaw) baseCols.push({ id: "buyer_eik", value: eikInRaw });
+    else baseCols.push({ id: "buyer_name", value: cleanAwarderQuery(org) });
+    scoped = true;
   } else if (query) {
-    const q = query.toLocaleLowerCase("bg");
-    pool = idx.topByValue.filter(
-      (t) =>
-        t.subject.toLocaleLowerCase("bg").includes(q) ||
-        t.buyerName.toLocaleLowerCase("bg").includes(q),
-    );
+    baseCols.push({ id: "subject", value: query });
     scopeTitle = bg ? `Обявени поръчки — „${query}“` : `Tenders — "${query}"`;
-  } else {
-    pool = idx.topByValue.filter((t) => !t.isCancelled);
+    scopeFact = query;
+    linkQ = query;
   }
 
-  const rows: Row[] = pool.slice(0, 10).map((t) => ({
-    buyer: t.buyerName,
-    subject: shortTenderSubject(t.subject),
-    estimate:
-      t.estimatedValueEur != null
-        ? fmtEurCompact(t.estimatedValueEur, ctx.lang)
-        : "—",
-    lots: t.lotsCount ?? 1,
-    status: tenderStatusLabel(t, ctx.lang),
-  }));
+  // The largest-overall default excludes cancelled procedures (as the old index
+  // pool did); a scoped/keyword browse keeps them and reports the cancelled count.
+  const mainCols =
+    scoped || query ? baseCols : [{ id: "is_cancelled", value: false }];
+  const [page, cancelledPage] = await Promise.all([
+    tendersTable(mainCols, 10),
+    scoped || query
+      ? tendersTable([...baseCols, { id: "is_cancelled", value: true }], 1)
+      : Promise.resolve<TendersTablePage>({ rows: [], total: 0 }),
+  ]);
 
-  const biggest = pool[0];
+  const biggest = page.rows[0];
+  if (org && scoped) {
+    const label = biggest?.buyerName ?? org;
+    scopeTitle = bg
+      ? `Най-големи поръчки — ${label}`
+      : `Largest tenders — ${label}`;
+    scopeFact = label;
+    linkQ = label;
+  }
+
   return {
     tool: "openTenders",
     domain: "fiscal",
     kind: "table",
     title: scopeTitle,
     subtitle: forecastNote(ctx.lang),
-    columns: [
-      { key: "buyer", label: bg ? "Възложител" : "Buyer" },
-      { key: "subject", label: bg ? "Предмет" : "Subject" },
-      {
-        key: "estimate",
-        label: bg ? "Прогнозна ст." : "Estimated",
-        numeric: true,
-      },
-      { key: "lots", label: bg ? "Обос. позиции" : "Lots", numeric: true },
-      { key: "status", label: bg ? "Статус" : "Status" },
-    ],
-    rows,
+    columns: TENDER_COLUMNS(bg),
+    rows: page.rows.map((t) => tenderRow(t, ctx)),
     viz: "none",
     facts: {
-      scope: buyerHit?.name ?? (query ? query : bg ? "всички" : "all"),
-      matches: pool.length,
-      cancelled: pool.filter((t) => t.isCancelled).length,
+      scope: scopeFact,
+      matches: page.total,
+      cancelled: cancelledPage.total,
       biggest: biggest ? shortTenderSubject(biggest.subject) : "—",
       biggest_estimate:
         biggest?.estimatedValueEur != null
           ? fmtEurCompact(biggest.estimatedValueEur, ctx.lang)
           : "—",
-      ...(buyerHit
-        ? {
-            buyer_total_procedures: fmtInt(buyerHit.procedures, ctx.lang),
-            buyer_cancelled: fmtInt(buyerHit.cancelled, ctx.lang),
-          }
+      ...(scoped
+        ? { buyer_total_procedures: fmtInt(page.total, ctx.lang) }
         : {}),
       value_type: bg ? "прогнозна (forecast)" : "estimated (forecast)",
-      coverage: `${idx.coverage.firstDay} … ${idx.coverage.lastDay}`,
       // Hidden link fact → /procurement/tenders search pre-filtered to the same
       // keyword / buyer (the FE search matches subject AND buyer name).
-      ...(query
-        ? { link_q: query }
-        : buyerHit
-          ? { link_q: buyerHit.name }
-          : {}),
+      ...(linkQ ? { link_q: linkQ } : {}),
     },
-    provenance: ["procurement/tenders/index.json"],
+    provenance: ["db:table/tenders"],
   };
 };
 
 // Look up one procedure by УНП (e.g. 00044-2025-0125) or by the best keyword
 // match among the largest procedures. Returns the estimate, lot structure,
 // status and the ocid lineage back to a signed contract.
+// Subset of the tender_detail (FE Tender) shape this tool renders.
+type TenderDetail = {
+  unp: string;
+  ocid?: string;
+  buyerName: string;
+  subject: string;
+  estimatedValueEur?: number;
+  lotsCount?: number;
+  isCancelled: boolean;
+  publicationDate: string;
+};
+
 export const tenderLookup = async (
   args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
-  const idx = await fetchData<TendersIndex>("/procurement/tenders/index.json");
   const raw = String(
     args.unp ?? args.query ?? args.subject ?? args.metric ?? "",
   ).trim();
   const unp = raw.match(/\b(\d{5}-\d{4}-\d{4}|T\d{5,})\b/i)?.[0];
 
-  let t: TenderSlim | undefined;
+  let t: TenderDetail | undefined;
   if (unp) {
-    t = idx.topByValue.find((x) => x.unp === unp);
-  } else if (raw) {
-    // Keyword fallback — only reachable on the LLM tool-call path. The
-    // deterministic router sends a bare keyword to openTenders (corpus search)
-    // and routes here ONLY for a УНП-shaped token, so `raw` is a УНП there.
-    // Kept as a backstop so an LLM asking tenderLookup("мантинели") still
-    // resolves to the single biggest matching procedure.
-    const q = raw.toLocaleLowerCase("bg");
-    t =
-      idx.topByValue.find((x) =>
-        x.subject.toLocaleLowerCase("bg").includes(q),
-      ) ??
-      fuzzyBestMatch<TenderSlim>(
-        raw,
-        () => idx.topByValue.map((x) => ({ item: x, keys: [x.subject] })),
-        { cacheKey: "tenderSubjects", threshold: 0.5, minLen: 3 },
-      )?.item;
+    // Exact procedure by УНП (tender_detail, 032) — the whole corpus, not a
+    // top-N index. Also carries the ocid lineage back to any signed contract.
+    const d = await fetchDb<{ tender: TenderDetail | null }>("tender", { unp });
+    t = d.tender ?? undefined;
+  } else if (raw.length >= 3) {
+    // Keyword fallback — only reachable on the LLM tool-call path (the router
+    // sends bare keywords to openTenders). Resolve the biggest matching subject
+    // via the corpus search, then fetch its full detail.
+    const res = await fetchDb<TenderCorpusResult>("tender-corpus-search", {
+      keyword: raw,
+    });
+    const hitUnp = res.rows[0]?.unp;
+    if (hitUnp) {
+      const d = await fetchDb<{ tender: TenderDetail | null }>("tender", {
+        unp: hitUnp,
+      });
+      t = d.tender ?? undefined;
+    }
   }
 
   if (!t) {
@@ -2431,15 +2333,13 @@ export const tenderLookup = async (
       tool: "tenderLookup",
       domain: "fiscal",
       kind: "scalar",
-      title: bg
-        ? "Не открих такава поръчка сред най-големите"
-        : "No such tender among the largest procedures",
+      title: bg ? "Не открих такава поръчка" : "No such tender",
       subtitle: bg
-        ? "Търсенето покрива 250-те най-големи обявени поръчки."
-        : "Lookup covers the 250 largest announced tenders.",
+        ? "Проверете УНП-то на процедурата (напр. 00044-2025-0125)."
+        : "Check the procedure's УНП (e.g. 00044-2025-0125).",
       viz: "none",
       facts: { query: raw || (unp ?? "") },
-      provenance: ["procurement/tenders/index.json"],
+      provenance: ["db:tender"],
     };
   }
 
@@ -2463,13 +2363,13 @@ export const tenderLookup = async (
       procedure_id: t.ocid ?? t.unp,
       value_type: bg ? "прогнозна (forecast)" : "estimated (forecast)",
     },
-    provenance: ["procurement/tenders/index.json"],
+    provenance: ["db:tender"],
   };
 };
 
 // КЗК procurement-appeals corpus summary — the AI surface for the appeal data
-// joined onto the tender corpus (reads the committed slim summary built by
-// scripts/procurement/build_kzk_summary.ts; the per-tender appeals live on
+// joined onto the tender corpus (kzk-appeals-summary route = kzk_appeals_summary(),
+// a Postgres port of build_kzk_summary.ts; the per-tender appeals live on
 // /tenders/:unp). Answers "how many procurement appeals / how many upheld /
 // which buyers get appealed most".
 type KzkSummary = {
@@ -2606,9 +2506,7 @@ export const procurementAppeals = async (
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
-  const d = await fetchData<KzkSummary>(
-    "/procurement/derived/kzk_appeals_summary.json",
-  );
+  const d = await fetchDb<KzkSummary>("kzk-appeals-summary");
   const t = d.totals;
   // Earliest year in the corpus — surfaced so the narration can date the totals
   // ("since 2020") instead of reading as all-time. Computed here (not in
@@ -2641,7 +2539,7 @@ export const procurementAppeals = async (
           total_complaints: fmtInt(t.complaints, ctx.lang),
           ...(sinceYearAll ? { since_year: sinceYearAll } : {}),
         },
-        provenance: ["procurement/derived/kzk_appeals_summary.json"],
+        provenance: ["db:kzk-appeals-summary"],
       };
     // named, but not among the most-appealed buyers the summary tracks
     return {
@@ -2662,7 +2560,7 @@ export const procurementAppeals = async (
         tracked_buyers: fmtInt(d.topBuyers.length, ctx.lang),
         ...(sinceYearAll ? { since_year: sinceYearAll } : {}),
       },
-      provenance: ["procurement/derived/kzk_appeals_summary.json"],
+      provenance: ["db:kzk-appeals-summary"],
     };
   }
 
@@ -2707,6 +2605,6 @@ export const procurementAppeals = async (
       most_appealed_buyer: d.topBuyers[0]?.name ?? "—",
       ...(sinceYearAll ? { since_year: sinceYearAll } : {}),
     },
-    provenance: ["procurement/derived/kzk_appeals_summary.json"],
+    provenance: ["db:kzk-appeals-summary"],
   };
 };

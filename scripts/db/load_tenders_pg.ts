@@ -35,6 +35,10 @@ const API_FILE = path.join(SCHEMA_DIR, "010_tenders_api.sql");
 // tenders by УНП; created here so db:push ships it. Data comes from the separate
 // headed-Playwright ingest (scripts/procurement/kzk_appeals.ts --apply).
 const KZK_FILE = path.join(SCHEMA_DIR, "042_kzk_appeals.sql");
+// AI-chat serving fns over the tenders + kzk_appeals tables (tender_corpus_search
+// for openTenders' corpus path, kzk_appeals_summary for procurementAppeals) —
+// applied after KZK_FILE since both read those tables.
+const AI_FILE = path.join(SCHEMA_DIR, "044_procurement_ai.sql");
 const tendersDir = path.join(PROC_DIR, "tenders");
 const N = COLUMN_NAMES.length;
 const BATCH = 1000; // 1000 × 33 cols = 33k params (< PG's 65535 cap)
@@ -146,6 +150,8 @@ export const loadTendersPg = async (): Promise<{
   // КЗК appeals table + serving fns (idempotent; preserves any ingested rows —
   // CREATE TABLE IF NOT EXISTS, functions replaced).
   await exec(readFileSync(KZK_FILE, "utf8"));
+  // AI-chat serving fns (functions only; replaced each run).
+  await exec(readFileSync(AI_FILE, "utf8"));
 
   return { rows: rows.length, years: [...years].sort() };
 };
