@@ -1,8 +1,15 @@
-// Load the ИСУН EU-funds per-beneficiary aggregates into Postgres so the DB
-// company page's "EU grants" section is DB-only. Full rebuild from the per-EIK
-// shards (data/funds/beneficiaries-by-eik/<eik>.json).
+// Load the ИСУН EU-funds corpus into Postgres so the whole /funds surface is
+// DB-served (no GCS static-JSON fetch) — mirrors the procurement PG migration.
 //
-//   npm run db:load:funds:pg     (needs `npm run db:pg:up` first)
+//   npm run db:load:funds:pg           (needs `npm run db:pg:up` first)
+//   npm run db:load:funds:pg:cloud     (targets the Cloud SQL proxy on :5434)
+//
+// Three targets, all rebuilt from the on-disk data/funds/ shards the ingest
+// writes (JSON → PG; never the reverse — see [[feedback_no_json_from_pg]]):
+//   • fund_beneficiaries — per-EIK rollup (beneficiaries-by-eik/*.json)
+//   • fund_projects      — per-project rows (projects/by-contract/*.json), now
+//                          incl. the by-contract DETAIL columns
+//   • fund_payloads      — every precomputed page payload verbatim (043 header)
 //
 // See docs/plans/pg-datasets-roadmap.md §1 (ИСУН EU funds).
 
@@ -24,18 +31,26 @@ const SCHEMA_DIR = path.join(
 );
 const SCHEMA_FILE = path.join(SCHEMA_DIR, "015_funds.sql");
 const PROJECTS_SCHEMA_FILE = path.join(SCHEMA_DIR, "016_fund_projects.sql");
-const BY_EIK_DIR = path.join(PROC_DIR, "..", "funds", "beneficiaries-by-eik");
-const BY_CONTRACT_DIR = path.join(
-  PROC_DIR,
-  "..",
-  "funds",
-  "projects",
-  "by-contract",
-);
+const SERVING_SCHEMA_FILE = path.join(SCHEMA_DIR, "043_funds_serving.sql");
+const FUNDS_DIR = path.join(PROC_DIR, "..", "funds");
+const BY_EIK_DIR = path.join(FUNDS_DIR, "beneficiaries-by-eik");
+const PROJECTS_DIR = path.join(FUNDS_DIR, "projects");
+const DERIVED_DIR = path.join(FUNDS_DIR, "derived");
+const BY_CONTRACT_DIR = path.join(PROJECTS_DIR, "by-contract");
+
+interface FundLocation {
+  kind?: string;
+  raw?: string;
+  ekatte?: string;
+  munis?: string[];
+  oblasts?: string[];
+  nutsCodes?: string[];
+  ambiguousCandidates?: string[];
+}
 
 interface FundProject {
   contractNumber: string;
-  beneficiaryEik?: string;
+  beneficiaryEik?: string | null;
   beneficiaryName?: string;
   programCode?: string;
   programName?: string;
@@ -47,8 +62,11 @@ interface FundProject {
   durationMonths?: number;
   status?: string;
   orgType?: string;
+  orgKind?: string;
+  orgForm?: string;
+  hqAddress?: string;
   locationRaw?: string;
-  location?: { ekatte?: string; oblasts?: string[] };
+  location?: FundLocation;
 }
 
 const PROJ_COLS = [
@@ -68,6 +86,10 @@ const PROJ_COLS = [
   "location_raw",
   "ekatte",
   "oblast",
+  "org_kind",
+  "org_form",
+  "hq_address",
+  "location_json",
 ];
 const PN = PROJ_COLS.length;
 
@@ -88,6 +110,13 @@ const projRow = (p: FundProject) => [
   p.locationRaw ?? null,
   p.location?.ekatte ?? null,
   p.location?.oblasts?.[0] ?? null,
+  p.orgKind ?? null,
+  p.orgForm ?? null,
+  p.hqAddress ?? null,
+  // Full resolved location object → jsonb, so fund_contract_detail() reproduces
+  // the by-contract payload byte-for-content. Verbatim from the source, so the
+  // optional sub-fields stay omitted-when-absent exactly as written.
+  p.location ? JSON.stringify(p.location) : null,
 ];
 
 interface Beneficiary {
@@ -99,6 +128,7 @@ interface Beneficiary {
   contractCount?: number;
   contractedEur?: number;
   paidEur?: number;
+  subUnits?: string[];
 }
 
 const COLS = [
@@ -110,9 +140,10 @@ const COLS = [
   "contract_count",
   "contracted_eur",
   "paid_eur",
+  "sub_units",
 ];
 const N = COLS.length;
-const BATCH = 1000; // 1000 × 8 cols = 8k params (< 65535)
+const BATCH = 1000; // 1000 × 9 cols = 9k params (< 65535)
 
 const toRow = (b: Beneficiary) => [
   b.eik,
@@ -123,7 +154,127 @@ const toRow = (b: Beneficiary) => [
   b.contractCount ?? null,
   b.contractedEur ?? null,
   b.paidEur ?? null,
+  // Sub-unit list → jsonb (text param, implicit assignment cast); null omits it.
+  b.subUnits ? JSON.stringify(b.subUnits) : null,
 ];
+
+// ── fund_payloads sources ─────────────────────────────────────────────────────
+// Each precomputed page payload, stored verbatim keyed by (kind, key). Loaded
+// straight from the on-disk shards the ingest writes.
+interface PayloadRow {
+  kind: string;
+  key: string;
+  text: string; // raw file JSON → cast to jsonb on insert
+}
+
+const rd = (abs: string): string | null =>
+  existsSync(abs) ? readFileSync(abs, "utf8") : null;
+
+const collectPayloads = (): PayloadRow[] => {
+  const rows: PayloadRow[] = [];
+
+  // Singleton payloads (key = '').
+  const singles: [string, string][] = [
+    ["index", path.join(FUNDS_DIR, "index.json")],
+    ["projects-index", path.join(PROJECTS_DIR, "index.json")],
+    ["muni-map", path.join(PROJECTS_DIR, "muni-map.json")],
+    ["taxonomy", path.join(FUNDS_DIR, "taxonomy.json")],
+    ["absorption", path.join(DERIVED_DIR, "absorption.json")],
+    ["sankey", path.join(DERIVED_DIR, "sankey.json")],
+    ["integrity", path.join(DERIVED_DIR, "integrity.json")],
+    ["mp-connected", path.join(DERIVED_DIR, "mp_connected.json")],
+    ["political-links", path.join(DERIVED_DIR, "political_links.json")],
+    ["confirmed", path.join(FUNDS_DIR, "confirmed.json")],
+    ["rrf-context", path.join(FUNDS_DIR, "rrf_context.json")],
+    ["themes-index", path.join(DERIVED_DIR, "themes", "index.json")],
+    ["by-eik-index", path.join(DERIVED_DIR, "by-eik", "index.json")],
+    ["per-mp-index", path.join(DERIVED_DIR, "per-mp", "index.json")],
+    [
+      "political-by-eik-index",
+      path.join(DERIVED_DIR, "political-by-eik", "index.json"),
+    ],
+  ];
+  for (const [kind, abs] of singles) {
+    const text = rd(abs);
+    if (text !== null) rows.push({ kind, key: "", text });
+  }
+
+  // Keyed shard dirs: (kind, dir, predicate, key-from-filename).
+  const dirs: [
+    string,
+    string,
+    (f: string) => boolean,
+    (f: string) => string,
+  ][] = [
+    [
+      "ekatte-summary",
+      path.join(PROJECTS_DIR, "by-ekatte"),
+      (f) => f.endsWith("-summary.json"),
+      (f) => f.slice(0, -"-summary.json".length),
+    ],
+    [
+      "muni-summary",
+      path.join(PROJECTS_DIR, "by-muni"),
+      (f) => f.endsWith("-summary.json"),
+      (f) => f.slice(0, -"-summary.json".length),
+    ],
+    [
+      "program-summary",
+      path.join(PROJECTS_DIR, "by-program"),
+      (f) => f.endsWith("-summary.json"),
+      (f) => f.slice(0, -"-summary.json".length),
+    ],
+    [
+      "geo",
+      path.join(PROJECTS_DIR, "by-muni-geo"),
+      (f) => f.endsWith(".json"),
+      (f) => f.slice(0, -".json".length),
+    ],
+    [
+      "integrity-program",
+      path.join(DERIVED_DIR, "integrity-by-program"),
+      (f) => f.endsWith(".json") && f !== "index.json",
+      (f) => f.slice(0, -".json".length),
+    ],
+    [
+      "political-by-eik",
+      path.join(DERIVED_DIR, "political-by-eik"),
+      (f) => f.endsWith(".json") && f !== "index.json",
+      (f) => f.slice(0, -".json".length),
+    ],
+    [
+      "by-eik",
+      path.join(DERIVED_DIR, "by-eik"),
+      (f) => f.endsWith(".json") && f !== "index.json",
+      (f) => f.slice(0, -".json".length),
+    ],
+    [
+      "per-mp",
+      path.join(DERIVED_DIR, "per-mp"),
+      (f) => f.endsWith(".json") && f !== "index.json",
+      (f) => f.slice(0, -".json".length),
+    ],
+    [
+      "theme",
+      path.join(DERIVED_DIR, "themes"),
+      (f) => f.endsWith(".json") && f !== "index.json",
+      (f) => f.slice(0, -".json".length),
+    ],
+  ];
+  for (const [kind, dir, pred, keyFn] of dirs) {
+    if (!existsSync(dir)) continue;
+    for (const f of readdirSync(dir)) {
+      if (!pred(f)) continue;
+      rows.push({
+        kind,
+        key: keyFn(f),
+        text: readFileSync(path.join(dir, f), "utf8"),
+      });
+    }
+  }
+
+  return rows;
+};
 
 const waitForPg = async (): Promise<void> => {
   for (let i = 0; i < 30; i++) {
@@ -140,10 +291,12 @@ const waitForPg = async (): Promise<void> => {
 export const loadFundsPg = async (): Promise<{
   rows: number;
   projects: number;
+  payloads: number;
 }> => {
   await waitForPg();
   await exec(readFileSync(SCHEMA_FILE, "utf8"));
   await exec(readFileSync(PROJECTS_SCHEMA_FILE, "utf8"));
+  await exec(readFileSync(SERVING_SCHEMA_FILE, "utf8"));
   // Changelog tracking tables (idempotent; also present via load_pg's 005).
   await exec(
     readFileSync(path.join(SCHEMA_DIR, "005_ingest_tracking.sql"), "utf8"),
@@ -193,12 +346,13 @@ export const loadFundsPg = async (): Promise<{
       if (p?.contractNumber) projRows.push(p);
     }
     projects = projRows.length;
+    const PBATCH = 500; // 500 × 20 cols = 10k params (< 65535)
     await withClient(async (c) => {
       await c.query("BEGIN");
       await c.query("TRUNCATE fund_projects");
       const insertCols = PROJ_COLS.join(", ");
-      for (let i = 0; i < projRows.length; i += BATCH) {
-        const batch = projRows.slice(i, i + BATCH);
+      for (let i = 0; i < projRows.length; i += PBATCH) {
+        const batch = projRows.slice(i, i + PBATCH);
         const values = batch
           .map(
             (_, r) =>
@@ -225,7 +379,27 @@ export const loadFundsPg = async (): Promise<{
     });
   }
 
-  return { rows: rows.length, projects };
+  // Precomputed page payloads (verbatim, keyed by kind+key).
+  const payloadRows = collectPayloads();
+  const PLBATCH = 200; // payloads can be tens of KB — keep the query modest
+  await withClient(async (c) => {
+    await c.query("BEGIN");
+    await c.query("TRUNCATE fund_payloads");
+    for (let i = 0; i < payloadRows.length; i += PLBATCH) {
+      const batch = payloadRows.slice(i, i + PLBATCH);
+      const values = batch
+        .map((_, r) => `($${r * 3 + 1},$${r * 3 + 2},$${r * 3 + 3}::jsonb)`)
+        .join(",");
+      await c.query(
+        `INSERT INTO fund_payloads (kind, key, payload) VALUES ${values}
+         ON CONFLICT (kind, key) DO NOTHING`,
+        batch.flatMap((p) => [p.kind, p.key, p.text]),
+      );
+    }
+    await c.query("COMMIT");
+  });
+
+  return { rows: rows.length, projects, payloads: payloadRows.length };
 };
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
@@ -237,9 +411,9 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
   }
   const t0 = Date.now();
   loadFundsPg()
-    .then(async ({ rows, projects }) => {
+    .then(async ({ rows, projects, payloads }) => {
       console.log(
-        `loaded ${rows} fund beneficiaries + ${projects} projects → Postgres in ${((Date.now() - t0) / 1000).toFixed(1)}s`,
+        `loaded ${rows} fund beneficiaries + ${projects} projects + ${payloads} payloads → Postgres in ${((Date.now() - t0) / 1000).toFixed(1)}s`,
       );
       await end();
     })

@@ -7,24 +7,14 @@
 // always <5 KB, so the tile loads instantly even on the largest place.
 
 import { useQuery } from "@tanstack/react-query";
-import { dataUrl } from "@/data/dataUrl";
+import { fetchFundPayload } from "./fetchFundPayload";
 import type { FundsProjectsSummaryFile } from "./types";
-
-const fetchSummary = async (
-  url: string,
-): Promise<FundsProjectsSummaryFile | null> => {
-  const r = await fetch(url);
-  // 404 means the place has no EU-funds activity — render nothing-friendly.
-  if (r.status === 404) return null;
-  if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
-  return (await r.json()) as FundsProjectsSummaryFile;
-};
 
 export const useFundsForEkatte = (ekatte: string | undefined) =>
   useQuery({
     queryKey: ["funds", "projects", "ekatte", ekatte ?? ""] as const,
     queryFn: () =>
-      fetchSummary(dataUrl(`/funds/projects/by-ekatte/${ekatte}-summary.json`)),
+      fetchFundPayload<FundsProjectsSummaryFile>("ekatte-summary", ekatte),
     enabled: !!ekatte,
     staleTime: Infinity,
   });
@@ -33,7 +23,7 @@ export const useFundsForMuni = (obshtina: string | undefined) =>
   useQuery({
     queryKey: ["funds", "projects", "muni", obshtina ?? ""] as const,
     queryFn: () =>
-      fetchSummary(dataUrl(`/funds/projects/by-muni/${obshtina}-summary.json`)),
+      fetchFundPayload<FundsProjectsSummaryFile>("muni-summary", obshtina),
     enabled: !!obshtina,
     staleTime: Infinity,
   });

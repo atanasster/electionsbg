@@ -7,17 +7,11 @@
 
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { dataUrl } from "@/data/dataUrl";
+import { fetchFundBeneficiary } from "./fetchFundPayload";
 import type { FundsBeneficiary } from "./types";
 
-const fetchBeneficiary = async (
-  eik: string,
-): Promise<FundsBeneficiary | null> => {
-  const r = await fetch(dataUrl(`/funds/beneficiaries-by-eik/${eik}.json`));
-  if (r.status === 404) return null;
-  if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
-  return (await r.json()) as FundsBeneficiary;
-};
+const fetchBeneficiary = (eik: string): Promise<FundsBeneficiary | null> =>
+  fetchFundBeneficiary<FundsBeneficiary>(eik);
 
 /** EU-funds beneficiary record for one EIK, or `null` when the company is
  * not in the ИСУН register. `isLoading` is false once the lookup settles. */

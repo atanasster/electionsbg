@@ -5,7 +5,7 @@
 // milliseconds even for big municipalities.
 
 import { useQuery } from "@tanstack/react-query";
-import { dataUrl } from "@/data/dataUrl";
+import { fetchFundPayload } from "./fetchFundPayload";
 
 export type FundsGeoContract = {
   contractNumber: string;
@@ -33,14 +33,8 @@ export type FundsGeoFile = {
   contracts: FundsGeoContract[];
 };
 
-const fetchGeo = async (obshtina: string): Promise<FundsGeoFile | null> => {
-  const r = await fetch(
-    dataUrl(`/funds/projects/by-muni-geo/${obshtina}.json`),
-  );
-  if (r.status === 404) return null;
-  if (!r.ok) throw new Error(`funds geo fetch failed: ${r.status}`);
-  return r.json();
-};
+const fetchGeo = (obshtina: string): Promise<FundsGeoFile | null> =>
+  fetchFundPayload<FundsGeoFile>("geo", obshtina);
 
 export const useFundsGeoPins = (obshtina?: string | null) => {
   const { data } = useQuery({

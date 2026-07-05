@@ -7,15 +7,11 @@
 
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { dataUrl } from "@/data/dataUrl";
+import { fetchFundPayload } from "./fetchFundPayload";
 import type { FundsConfirmedFile, FundsConfirmedCase } from "./types";
 
-const fetchConfirmed = async (): Promise<FundsConfirmedFile | null> => {
-  const r = await fetch(dataUrl("/funds/confirmed.json"));
-  if (r.status === 404) return null;
-  if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
-  return (await r.json()) as FundsConfirmedFile;
-};
+const fetchConfirmed = (): Promise<FundsConfirmedFile | null> =>
+  fetchFundPayload<FundsConfirmedFile>("confirmed");
 
 export const useFundsConfirmedFile = () =>
   useQuery({

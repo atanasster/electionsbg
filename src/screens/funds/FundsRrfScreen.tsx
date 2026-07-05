@@ -25,7 +25,7 @@ import { Title } from "@/ux/Title";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { useFundsProgramSummary } from "@/data/funds/useFundsProgramSummary";
-import { dataUrl } from "@/data/dataUrl";
+import { fetchFundPayload } from "@/data/funds/fetchFundPayload";
 import { formatEur } from "@/lib/currency";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
@@ -44,12 +44,8 @@ interface RrfContextFile {
   };
 }
 
-const fetchContext = async (): Promise<RrfContextFile | null> => {
-  const r = await fetch(dataUrl("/funds/rrf_context.json"));
-  if (r.status === 404) return null;
-  if (!r.ok) return null;
-  return (await r.json()) as RrfContextFile;
-};
+const fetchContext = (): Promise<RrfContextFile | null> =>
+  fetchFundPayload<RrfContextFile>("rrf-context");
 
 export const FundsRrfScreen: FC = () => {
   const { t, i18n } = useTranslation();

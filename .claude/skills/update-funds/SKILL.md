@@ -135,13 +135,43 @@ The `changes/` directory is **reset each run**, so each file reflects only the m
 
 > **Two-ingest warm-up:** the feature is *visibly silent* until the **second** post-baseline ingest. The first run only seeds `state/funds/projects_snapshot.json`, so `changes/` stays empty, no EU "Нов проект"/"Промяна" events appear in the alert feed, and `placeEuProjects`'s new/modified counts read zero. The first run that has a prior snapshot to diff against is the first one that emits changes.
 
-## Step 4 — Commit + deploy
+## Step 4 — Commit + publish to Postgres (Cloud SQL, not the bucket)
+
+The whole `/funds` surface is served from **Cloud SQL** (`/api/db/fund-*`), so
+publishing means reloading the DB tables from the fresh on-disk shards — NOT an
+rsync to GCS.
 
 ```bash
+# 1) Commit the committed globals (bulky shards are gitignored — see below)
 git add data/funds/
 git commit -m "funds: refresh ИСУН EU-funds beneficiaries + projects"
-npm run bucket:sync       # push data/ to gs://data-electionsbg-com
+
+# 2) Reload LOCAL Postgres from the fresh shards
+npm run db:load:funds:pg          # fund_beneficiaries + fund_projects + fund_payloads
+
+# 3) Publish to PROD Cloud SQL (operator runs this — proxy on 127.0.0.1:5434, .pgpass set)
+npm run db:load:funds:pg:cloud
 ```
+
+> **Deployment (READ THIS before syncing):** funds is served from **Cloud SQL**
+> (Firebase fn `/api/db/*`), **not GCS** — same architecture as procurement.
+> `bucket:sync` **excludes** all of `funds/` (the `^funds/.*` term in the `-x`
+> regex in package.json), and `bucket_gzip.ts` ships **no** funds file. The
+> ingest's JSON is the **local PG-load source** `db:load:funds:pg` reads: every
+> precomputed page payload (index, projects-index, muni-map, taxonomy,
+> absorption, sankey, integrity + per-programme, mp_connected + per-mp/by-eik,
+> political_links + per-eik, confirmed, rrf_context, themes + per-slug, per-place
+> + per-programme summaries, geo pins) is loaded verbatim into the
+> `fund_payloads(kind, key)` table; per-beneficiary rollups → `fund_beneficiaries`,
+> per-contract detail → `fund_projects`. So the prod-deploy path for funds is
+> **`db:load:funds:pg:cloud`**, NOT `bucket:sync`. The small curated globals
+> (`index.json`, `derived/political_links.json`, `derived/integrity.json`,
+> `rrf_context.json`, `themes.json`, …) stay **committed** because the deploy
+> build (prerender + sitemap) reads them from the git tree — they are load
+> sources, not bucket-served. Verify parity after any loader/serving change:
+> `npx tsx scripts/db/gen_funds/parity.ts --full` (asserts PG payloads ==
+> on-disk JSON). **Cloud SQL is production — never auto-run
+> `db:load:funds:pg:cloud` unprompted; emit it for the operator.**
 
 ## Why a full export (no incremental path)
 
@@ -262,19 +292,19 @@ Surfaces that are **intentionally non-fatal**:
 | `scripts/watch/sources/isun_eu_funds.ts` | Watcher source — fingerprints the export corpus shape |
 | `data/funds/index.json` | Totals, by-org-type / by-org-form breakdowns, top beneficiaries, `crossReference` summary — committed |
 | `data/funds/beneficiaries/<0-9>.json`, `_x.json` | Beneficiary rows sharded by EIK last digit — committed |
-| `data/funds/beneficiaries-by-eik/<EIK>.json` | One small file per beneficiary for O(1) `/company/{EIK}` lookup — bulky (~46k files), uploaded to the bucket, gitignored |
-| `data/funds/derived/mp_connected.json` | One entry per (MP, beneficiary) pair — the MP-tied journalism payload — committed. The **aggregate fallback** only; the candidate page reads the per-MP shard below and pulls this (~56 KB) only when the shard is absent. |
-| `data/funds/derived/per-mp/<mpId>.json` + `per-mp/index.json`; `by-eik/<EIK>.json` + `index.json` | **Data-diet shards + manifest** the `/candidate/:id` EU-funds tile and `/company/:eik` read. Regenerated **every** ingest by `cross_reference.ts` (write-if-changed), so a normal `bucket:sync` keeps them in step with `mp_connected.json` — see "Per-MP shard invariant" in process-watch-report. Committed. |
-| `data/funds/derived/political_links.json` | Slim leaderboard of politically-tied beneficiaries (MP + non-MP officials + АОП overlap + debarred) — committed |
-| `data/funds/derived/political-by-eik/{EIK}.json` | Per-EIK political-economy shard for the `/company` panel — committed |
-| `data/funds/taxonomy.json` | Per-programme period + fund-family lookup (~10 KB) — committed |
-| `data/funds/derived/absorption.json` | Per-period / per-fund-type / per-programme absorption% rollup (~10 KB) — committed |
-| `data/funds/derived/sankey.json` | Precomputed Fund → top-OP Sankey for the `/funds` tile (~5 KB) — committed |
-| `data/funds/derived/integrity.json` | Slim concentration / serial-winner / debarred leaderboard (~50 KB) — committed |
-| `data/funds/derived/integrity-by-program/{code}.json` | Per-programme HHI + top-10 beneficiaries + debarred matches (~3-5 KB) — committed |
-| `data/funds/themes.json` | Editorial focus-theme definitions (slug, label, keywords, programme codes, investigative cards) — hand-maintained, committed |
-| `data/funds/derived/themes/{slug}.json` | Per-theme derived shard (totals, top beneficiaries, top contracts, top munis, programmes, sources) — committed |
-| `data/funds/derived/themes/index.json` | Slim themes index for the `/funds` tile and `/funds/focus/{slug}` router — committed |
+| `data/funds/beneficiaries-by-eik/<EIK>.json` | One small file per beneficiary for O(1) `/company/{EIK}` lookup — bulky (~46k files), **gitignored local PG-load source** → `fund_beneficiaries` (served via `/api/db/fund-beneficiary`) |
+| `data/funds/derived/mp_connected.json` | One entry per (MP, beneficiary) pair — the MP-tied journalism payload — committed; PG-load source → `fund_payloads('mp-connected')`. The **aggregate fallback** only; the candidate page reads the per-MP shard below first. |
+| `data/funds/derived/per-mp/<mpId>.json` + `per-mp/index.json`; `by-eik/<EIK>.json` + `index.json` | **Data-diet shards + manifest** the `/candidate/:id` EU-funds tile and `/company/:eik` read. Regenerated **every** ingest by `cross_reference.ts` (write-if-changed). **Gitignored PG-load sources** → `fund_payloads('per-mp'/'per-mp-index'/'by-eik'/'by-eik-index')`, served via `/api/db` — NOT bucket-synced. See "Per-MP shard invariant" in process-watch-report. |
+| `data/funds/derived/political_links.json` | Slim leaderboard of politically-tied beneficiaries (MP + non-MP officials + АОП overlap + debarred) — committed; PG-load source → `fund_payloads('political-links')` |
+| `data/funds/derived/political-by-eik/{EIK}.json` | Per-EIK political-economy shard for the `/company` panel — **gitignored PG-load source** → `fund_payloads('political-by-eik')` |
+| `data/funds/taxonomy.json` | Per-programme period + fund-family lookup (~10 KB) — committed; PG-load source → `fund_payloads('taxonomy')` |
+| `data/funds/derived/absorption.json` | Per-period / per-fund-type / per-programme absorption% rollup (~10 KB) — committed; PG-load source → `fund_payloads('absorption')` |
+| `data/funds/derived/sankey.json` | Precomputed Fund → top-OP Sankey for the `/funds` tile (~5 KB) — committed; PG-load source → `fund_payloads('sankey')` |
+| `data/funds/derived/integrity.json` | Slim concentration / serial-winner / debarred leaderboard (~50 KB) — committed; PG-load source → `fund_payloads('integrity')` |
+| `data/funds/derived/integrity-by-program/{code}.json` | Per-programme HHI + top-10 beneficiaries + debarred matches (~3-5 KB) — **gitignored PG-load source** → `fund_payloads('integrity-program')` |
+| `data/funds/themes.json` | Editorial focus-theme definitions (slug, label, keywords, programme codes, investigative cards) — hand-maintained, **committed** (also read at build by prerender + sitemap) |
+| `data/funds/derived/themes/{slug}.json` | Per-theme derived shard (totals, top beneficiaries, top contracts, top munis, programmes, sources) — **gitignored PG-load source** → `fund_payloads('theme')` |
+| `data/funds/derived/themes/index.json` | Slim themes index for the `/funds` tile and `/funds/focus/{slug}` router — **gitignored PG-load source** → `fund_payloads('themes-index')` |
 | `data/_cache/funds/beneficiaries.xlsx` | Snapshot of the last downloaded export — gitignored |
 
 ## Quick command reference
@@ -283,11 +313,12 @@ Surfaces that are **intentionally non-fatal**:
 # Daily ingest after the watcher flags the source
 npm run funds:ingest
 
-# Ingest + commit + deploy
+# Ingest + commit + publish to Postgres (funds is Cloud SQL-served, not GCS)
 npm run funds:ingest
 git add data/funds/
 git commit -m "funds: refresh ИСУН EU-funds beneficiaries"
-npm run bucket:sync
+npm run db:load:funds:pg          # local PG
+npm run db:load:funds:pg:cloud    # prod Cloud SQL (operator runs this)
 
 # Dry run (parse + validate, no writes)
 npm run funds:ingest -- --dry-run

@@ -851,6 +851,66 @@ const DB_ROUTES = {
     );
     return { body: { companies, awarders, contracts, tenders } };
   },
+  // openTenders corpus path (topic / free-keyword / bare-year) → matched top-N
+  // rows + full-set aggregates (count, Σ estimate, cancelled, biggest). Topic
+  // match = subject/CPV-description regex OR exact-CPV membership, mirroring
+  // @/lib/tenderTopics.tenderMatchesTopic. `cpv` is a comma-joined code list and
+  // `buyerTokens` a comma-joined token list (both optional); `pattern`/`keyword`
+  // are bound VALUES (never spliced), and the READ ONLY tx + statement_timeout
+  // bound any regex cost. Degrades to an empty payload on a tenders-less DB.
+  "tender-corpus-search": async (dbRows, q) => {
+    const year = Number.isFinite(Number(q.year))
+      ? Math.trunc(Number(q.year))
+      : null;
+    const cpv = s(q, "cpv") ? s(q, "cpv").split(",").filter(Boolean) : [];
+    const tokens = s(q, "buyerTokens")
+      ? s(q, "buyerTokens").split(",").filter(Boolean)
+      : [];
+    const limit = clampInt(q.limit, 12, 1, 50);
+    const rows = await dbRows(
+      "SELECT tender_corpus_search($1, $2, $3, $4, $5, $6) AS r",
+      [year, cpv, orNull(q, "pattern"), orNull(q, "keyword"), tokens, limit],
+    ).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
+  // procurementAppeals corpus rollup — totals + per-year + top-25 buyers (port of
+  // build_kzk_summary.ts). Empty payload on a DB without the migration/kzk table.
+  "kzk-appeals-summary": async (dbRows) => {
+    const rows = await dbRows("SELECT kzk_appeals_summary() AS r", []).catch(
+      missingMigrationEmpty,
+    );
+    return { body: rows[0]?.r ?? null };
+  },
+  // АОП debarred-suppliers register — the still-active debarments (open-ended or
+  // not yet lapsed), newest expiry first, + the historical total. now() under the
+  // READ ONLY tx dates the "active" cut. Serves procurementDebarred + the
+  // active_debarred count on procurementRedFlags.
+  async debarred(dbRows) {
+    const activePred =
+      "(debarred_until IS NULL OR debarred_until = '' OR debarred_until >= to_char(now(), 'YYYY-MM-DD'))";
+    const [entries, totals] = await Promise.all([
+      dbRows(
+        `SELECT name, published_at AS "publishedAt",
+                debarred_until AS "debarredUntil", details_url AS "detailsUrl"
+         FROM debarred WHERE ${activePred}
+         ORDER BY debarred_until DESC NULLS LAST, name`,
+        [],
+      ).catch(missingMigrationEmpty),
+      dbRows(
+        `SELECT count(*)::int AS total,
+                count(*) FILTER (WHERE ${activePred})::int AS active
+         FROM debarred`,
+        [],
+      ).catch(() => [{ total: 0, active: 0 }]),
+    ]);
+    return {
+      body: {
+        entries,
+        total: totals[0]?.total ?? 0,
+        active: totals[0]?.active ?? 0,
+      },
+    };
+  },
   async recent(dbRows, q) {
     return {
       body: {
@@ -860,6 +920,36 @@ const DB_ROUTES = {
         ]),
       },
     };
+  },
+
+  // ── ИСУН EU-funds serving (mirrors the retired data/funds/ GCS JSON) ─────────
+  // Every precomputed funds page payload is stored verbatim in fund_payloads
+  // keyed by (kind, key); a fetch is one PK seek returning the jsonb (or null
+  // when the place/programme/entity has no funds activity — the hooks render a
+  // nothing-friendly empty state, same as the old 404 → null behaviour).
+  "fund-payload": async (dbRows, q) => {
+    const kind = s(q, "kind");
+    if (!kind) return { status: 400, body: { error: "missing kind" } };
+    const key = s(q, "key"); // '' for singletons
+    const rows = await dbRows(
+      "SELECT payload FROM fund_payloads WHERE kind = $1 AND key = $2",
+      [kind, key],
+    );
+    return { body: rows[0]?.payload ?? null };
+  },
+  // Per-beneficiary rollup → FundsBeneficiary (was beneficiaries-by-eik/{eik}).
+  "fund-beneficiary": async (dbRows, q) => {
+    const eik = s(q, "eik");
+    if (!eik) return { status: 400, body: { error: "missing eik" } };
+    const rows = await dbRows("SELECT fund_beneficiary_detail($1) AS r", [eik]);
+    return { body: rows[0]?.r ?? null };
+  },
+  // Single project detail → FundsProjectsContractFile (was by-contract/{key}).
+  "fund-contract": async (dbRows, q) => {
+    const key = s(q, "key");
+    if (!key) return { status: 400, body: { error: "missing key" } };
+    const rows = await dbRows("SELECT fund_contract_detail($1) AS r", [key]);
+    return { body: rows[0]?.r ?? null };
   },
 };
 

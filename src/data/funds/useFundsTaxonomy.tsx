@@ -7,7 +7,7 @@
 // the queries return `null` rather than throwing.
 
 import { useQuery } from "@tanstack/react-query";
-import { dataUrl } from "@/data/dataUrl";
+import { fetchFundPayload } from "./fetchFundPayload";
 
 export type FundsPeriod = "2007-13" | "2014-20" | "2021-27" | "RRP";
 export type FundType =
@@ -96,20 +96,11 @@ export interface FundsSankeyFile {
   links: FundsSankeyLink[];
 }
 
-const fetchJson = async <T,>(path: string): Promise<T | null> => {
-  const r = await fetch(dataUrl(path));
-  if (r.status === 404) return null;
-  if (!r.ok) return null;
-  const ct = r.headers.get("content-type") ?? "";
-  if (!ct.includes("json")) return null;
-  return (await r.json()) as T;
-};
-
 /** Per-programme taxonomy (period, fund family, MA-friendly bucket label). */
 export const useFundsTaxonomy = () =>
   useQuery({
     queryKey: ["funds", "taxonomy"] as const,
-    queryFn: () => fetchJson<TaxonomyFile>("/funds/taxonomy.json"),
+    queryFn: () => fetchFundPayload<TaxonomyFile>("taxonomy"),
     staleTime: Infinity,
     retry: false,
   });
@@ -119,7 +110,7 @@ export const useFundsTaxonomy = () =>
 export const useFundsAbsorption = () =>
   useQuery({
     queryKey: ["funds", "absorption"] as const,
-    queryFn: () => fetchJson<AbsorptionFile>("/funds/derived/absorption.json"),
+    queryFn: () => fetchFundPayload<AbsorptionFile>("absorption"),
     staleTime: Infinity,
     retry: false,
   });
@@ -129,7 +120,7 @@ export const useFundsAbsorption = () =>
 export const useFundsSankey = () =>
   useQuery({
     queryKey: ["funds", "sankey"] as const,
-    queryFn: () => fetchJson<FundsSankeyFile>("/funds/derived/sankey.json"),
+    queryFn: () => fetchFundPayload<FundsSankeyFile>("sankey"),
     staleTime: Infinity,
     retry: false,
   });

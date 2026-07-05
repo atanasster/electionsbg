@@ -5,19 +5,13 @@
 // per programme.
 
 import { useQuery } from "@tanstack/react-query";
-import { dataUrl } from "@/data/dataUrl";
+import { fetchFundPayload } from "./fetchFundPayload";
 import type { FundsProjectsProgramSummaryFile } from "./types";
 
-const fetchSummary = async (
+const fetchSummary = (
   code: string,
-): Promise<FundsProjectsProgramSummaryFile | null> => {
-  const r = await fetch(
-    dataUrl(`/funds/projects/by-program/${code}-summary.json`),
-  );
-  if (r.status === 404) return null;
-  if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
-  return (await r.json()) as FundsProjectsProgramSummaryFile;
-};
+): Promise<FundsProjectsProgramSummaryFile | null> =>
+  fetchFundPayload<FundsProjectsProgramSummaryFile>("program-summary", code);
 
 export const useFundsProgramSummary = (code: string | undefined) =>
   useQuery({

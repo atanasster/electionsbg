@@ -6,18 +6,13 @@
 // segment. We still encodeURIComponent for defence in depth.
 
 import { useQuery } from "@tanstack/react-query";
-import { dataUrl } from "@/data/dataUrl";
+import { fetchFundContract } from "./fetchFundPayload";
 import type { FundsProjectsContractFile } from "./types";
 
-const fetchContract = async (
+const fetchContract = (
   number: string,
-): Promise<FundsProjectsContractFile | null> => {
-  const safe = encodeURIComponent(number);
-  const r = await fetch(dataUrl(`/funds/projects/by-contract/${safe}.json`));
-  if (r.status === 404) return null;
-  if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
-  return (await r.json()) as FundsProjectsContractFile;
-};
+): Promise<FundsProjectsContractFile | null> =>
+  fetchFundContract<FundsProjectsContractFile>(number);
 
 export const useFundsContract = (number: string | undefined) =>
   useQuery({

@@ -4,15 +4,11 @@
 // beneficiary-rollup index).
 
 import { useQuery } from "@tanstack/react-query";
-import { dataUrl } from "@/data/dataUrl";
+import { fetchFundPayload } from "./fetchFundPayload";
 import type { FundsProjectsIndexFile } from "./types";
 
-const fetchIndex = async (): Promise<FundsProjectsIndexFile | null> => {
-  const r = await fetch(dataUrl("/funds/projects/index.json"));
-  if (r.status === 404) return null;
-  if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
-  return (await r.json()) as FundsProjectsIndexFile;
-};
+const fetchIndex = (): Promise<FundsProjectsIndexFile | null> =>
+  fetchFundPayload<FundsProjectsIndexFile>("projects-index");
 
 export const useFundsProjectsIndex = () =>
   useQuery({

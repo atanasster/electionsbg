@@ -3,15 +3,11 @@
 // corpus-wide rollup); this hook serves the spatial dimension.
 
 import { useQuery } from "@tanstack/react-query";
-import { dataUrl } from "@/data/dataUrl";
+import { fetchFundPayload } from "./fetchFundPayload";
 import type { FundsProjectsMuniMapFile } from "./types";
 
-const fetchMap = async (): Promise<FundsProjectsMuniMapFile | null> => {
-  const r = await fetch(dataUrl("/funds/projects/muni-map.json"));
-  if (r.status === 404) return null;
-  if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
-  return (await r.json()) as FundsProjectsMuniMapFile;
-};
+const fetchMap = (): Promise<FundsProjectsMuniMapFile | null> =>
+  fetchFundPayload<FundsProjectsMuniMapFile>("muni-map");
 
 export const useFundsMuniMap = () =>
   useQuery({

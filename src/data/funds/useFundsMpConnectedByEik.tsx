@@ -6,7 +6,7 @@
 
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { dataUrl } from "@/data/dataUrl";
+import { fetchFundPayload } from "./fetchFundPayload";
 import type { FundsMpConnected } from "./types";
 
 interface ByEikManifest {
@@ -18,23 +18,11 @@ interface ByEikShard {
   entries: FundsMpConnected[];
 }
 
-const fetchManifest = async (): Promise<ByEikManifest | null> => {
-  const r = await fetch(dataUrl("/funds/derived/by-eik/index.json"));
-  if (r.status === 404) return null;
-  if (!r.ok) return null;
-  const ct = r.headers.get("content-type") ?? "";
-  if (!ct.includes("json")) return null;
-  return (await r.json()) as ByEikManifest;
-};
+const fetchManifest = (): Promise<ByEikManifest | null> =>
+  fetchFundPayload<ByEikManifest>("by-eik-index");
 
-const fetchShard = async (eik: string): Promise<ByEikShard | null> => {
-  const r = await fetch(dataUrl(`/funds/derived/by-eik/${eik}.json`));
-  if (r.status === 404) return null;
-  if (!r.ok) return null;
-  const ct = r.headers.get("content-type") ?? "";
-  if (!ct.includes("json")) return null;
-  return (await r.json()) as ByEikShard;
-};
+const fetchShard = (eik: string): Promise<ByEikShard | null> =>
+  fetchFundPayload<ByEikShard>("by-eik", eik);
 
 /** EU-funds MP cross-reference for one beneficiary EIK — replaces the
  * older `useFundsConnectedForEik` (which read the chamber-wide aggregate).

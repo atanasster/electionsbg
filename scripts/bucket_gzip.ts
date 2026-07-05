@@ -56,13 +56,10 @@ const GLOBAL_FILES = [
   "prices/dict.json",
   "prices/ranking.json",
   "prices/chains.json",
-  // Funds: the curated journalism cross-reference. A single global file
-  // fetched (once per session) by every /company/:eik view to test the EIK
-  // against the ~10 curated cases — gzip cuts it ~6× on that first fetch.
-  "funds/confirmed.json",
-  // NOTE: procurement is served from Cloud SQL (/api/db/*), not GCS. The whole
-  // data/procurement/ tree (except roads.json + derived/mp_party.json) is
-  // excluded from bucket:sync and no longer gzip-uploaded here.
+  // NOTE: procurement AND funds are served from Cloud SQL (/api/db/*), not GCS.
+  // The whole data/procurement/ tree (except roads.json + derived/mp_party.json)
+  // and the whole data/funds/ tree are excluded from bucket:sync and no longer
+  // gzip-uploaded here (funds/confirmed.json is now a fund_payloads row).
 ];
 
 // Per-election files (one per ballot folder, YYYY_MM_DD[...]).

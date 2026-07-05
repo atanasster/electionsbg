@@ -8,15 +8,11 @@
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useMpIdForName } from "@/data/candidates/CandidateMpContext";
-import { dataUrl } from "@/data/dataUrl";
+import { fetchFundPayload } from "./fetchFundPayload";
 import type { FundsMpConnected, FundsMpConnectedFile } from "./types";
 
-const fetchMpConnected = async (): Promise<FundsMpConnectedFile | null> => {
-  const r = await fetch(dataUrl("/funds/derived/mp_connected.json"));
-  if (r.status === 404) return null;
-  if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
-  return (await r.json()) as FundsMpConnectedFile;
-};
+const fetchMpConnected = (): Promise<FundsMpConnectedFile | null> =>
+  fetchFundPayload<FundsMpConnectedFile>("mp-connected");
 
 // One-time fetch — every per-MP call below shares this query cache.
 export const useFundsMpConnectedFile = (enabled = true) =>
@@ -43,14 +39,8 @@ interface ShardManifest {
   mpIds: number[];
 }
 
-const fetchShardManifest = async (): Promise<ShardManifest | null> => {
-  const r = await fetch(dataUrl("/funds/derived/per-mp/index.json"));
-  if (r.status === 404) return null;
-  if (!r.ok) return null;
-  const ct = r.headers.get("content-type") ?? "";
-  if (!ct.includes("json")) return null;
-  return (await r.json()) as ShardManifest;
-};
+const fetchShardManifest = (): Promise<ShardManifest | null> =>
+  fetchFundPayload<ShardManifest>("per-mp-index");
 
 const useShardManifest = () =>
   useQuery({
@@ -60,14 +50,8 @@ const useShardManifest = () =>
     retry: false,
   });
 
-const fetchFundsShard = async (mpId: number): Promise<FundsShard | null> => {
-  const r = await fetch(dataUrl(`/funds/derived/per-mp/${mpId}.json`));
-  if (r.status === 404) return null;
-  if (!r.ok) return null;
-  const ct = r.headers.get("content-type") ?? "";
-  if (!ct.includes("json")) return null;
-  return (await r.json()) as FundsShard;
-};
+const fetchFundsShard = (mpId: number): Promise<FundsShard | null> =>
+  fetchFundPayload<FundsShard>("per-mp", String(mpId));
 
 /** EU-funds MP cross-reference for one beneficiary EIK — which MP(s) are
  * linked to this company, and through what declared/registered relation.

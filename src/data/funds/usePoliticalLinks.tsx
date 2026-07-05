@@ -13,7 +13,7 @@
 
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { dataUrl } from "@/data/dataUrl";
+import { fetchFundPayload } from "./fetchFundPayload";
 
 export interface PoliticalMpLink {
   mpId: number;
@@ -85,35 +85,14 @@ interface PoliticalManifestFile {
   flaggedEiks: string[];
 }
 
-const fetchPoliticalIndex = async (): Promise<PoliticalIndexFile | null> => {
-  const r = await fetch(dataUrl("/funds/derived/political_links.json"));
-  if (r.status === 404) return null;
-  if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
-  return (await r.json()) as PoliticalIndexFile;
-};
+const fetchPoliticalIndex = (): Promise<PoliticalIndexFile | null> =>
+  fetchFundPayload<PoliticalIndexFile>("political-links");
 
-const fetchPoliticalManifest =
-  async (): Promise<PoliticalManifestFile | null> => {
-    const r = await fetch(
-      dataUrl("/funds/derived/political-by-eik/index.json"),
-    );
-    if (r.status === 404) return null;
-    if (!r.ok) return null;
-    const ct = r.headers.get("content-type") ?? "";
-    if (!ct.includes("json")) return null;
-    return (await r.json()) as PoliticalManifestFile;
-  };
+const fetchPoliticalManifest = (): Promise<PoliticalManifestFile | null> =>
+  fetchFundPayload<PoliticalManifestFile>("political-by-eik-index");
 
-const fetchPoliticalShard = async (
-  eik: string,
-): Promise<PoliticalEntry | null> => {
-  const r = await fetch(dataUrl(`/funds/derived/political-by-eik/${eik}.json`));
-  if (r.status === 404) return null;
-  if (!r.ok) return null;
-  const ct = r.headers.get("content-type") ?? "";
-  if (!ct.includes("json")) return null;
-  return (await r.json()) as PoliticalEntry;
-};
+const fetchPoliticalShard = (eik: string): Promise<PoliticalEntry | null> =>
+  fetchFundPayload<PoliticalEntry>("political-by-eik", eik);
 
 /** Slim leaderboard — top-50 flagged beneficiaries plus corpus totals. Loads
  * one ~54 KB file. Used by the /funds tile and the standalone /funds/political

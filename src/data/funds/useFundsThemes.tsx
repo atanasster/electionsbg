@@ -4,7 +4,7 @@
 //   - useFundsTheme(slug)   — per-theme shard
 
 import { useQuery } from "@tanstack/react-query";
-import { dataUrl } from "@/data/dataUrl";
+import { fetchFundPayload } from "./fetchFundPayload";
 
 export interface ThemeInvestigativeCard {
   outlet: string;
@@ -83,20 +83,10 @@ export interface ThemesIndexFile {
   }>;
 }
 
-const fetchJson = async <T,>(p: string): Promise<T | null> => {
-  const r = await fetch(dataUrl(p));
-  if (r.status === 404) return null;
-  if (!r.ok) return null;
-  const ct = r.headers.get("content-type") ?? "";
-  if (!ct.includes("json")) return null;
-  return (await r.json()) as T;
-};
-
 export const useFundsThemesIndex = () =>
   useQuery({
     queryKey: ["funds", "themes_index"] as const,
-    queryFn: () =>
-      fetchJson<ThemesIndexFile>("/funds/derived/themes/index.json"),
+    queryFn: () => fetchFundPayload<ThemesIndexFile>("themes-index"),
     staleTime: Infinity,
     retry: false,
   });
@@ -104,7 +94,7 @@ export const useFundsThemesIndex = () =>
 export const useFundsTheme = (slug?: string) =>
   useQuery({
     queryKey: ["funds", "theme_shard", slug ?? ""] as const,
-    queryFn: () => fetchJson<ThemeShard>(`/funds/derived/themes/${slug}.json`),
+    queryFn: () => fetchFundPayload<ThemeShard>("theme", slug),
     staleTime: Infinity,
     retry: false,
     enabled: !!slug,

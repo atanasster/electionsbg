@@ -4,7 +4,7 @@
 //                                      beneficiaries + debarred matches)
 
 import { useQuery } from "@tanstack/react-query";
-import { dataUrl } from "@/data/dataUrl";
+import { fetchFundPayload } from "./fetchFundPayload";
 
 export type HhiBand = "low" | "moderate" | "high";
 
@@ -82,20 +82,10 @@ export interface IntegrityIndexFile {
   }>;
 }
 
-const fetchJson = async <T,>(p: string): Promise<T | null> => {
-  const r = await fetch(dataUrl(p));
-  if (r.status === 404) return null;
-  if (!r.ok) return null;
-  const ct = r.headers.get("content-type") ?? "";
-  if (!ct.includes("json")) return null;
-  return (await r.json()) as T;
-};
-
 export const useFundsIntegrityIndex = () =>
   useQuery({
     queryKey: ["funds", "integrity_index"] as const,
-    queryFn: () =>
-      fetchJson<IntegrityIndexFile>("/funds/derived/integrity.json"),
+    queryFn: () => fetchFundPayload<IntegrityIndexFile>("integrity"),
     staleTime: Infinity,
     retry: false,
   });
@@ -104,9 +94,7 @@ export const useFundsIntegrityForProgram = (programCode?: string | null) =>
   useQuery({
     queryKey: ["funds", "integrity_program", programCode ?? ""] as const,
     queryFn: () =>
-      fetchJson<IntegrityProgramFile>(
-        `/funds/derived/integrity-by-program/${programCode}.json`,
-      ),
+      fetchFundPayload<IntegrityProgramFile>("integrity-program", programCode),
     staleTime: Infinity,
     retry: false,
     enabled: !!programCode,
