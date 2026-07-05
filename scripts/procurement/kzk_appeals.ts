@@ -54,6 +54,19 @@ export const UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/537.36 " +
   "(KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36";
 
+// Third-party analytics/beacons the register embeds that NEVER settle — the
+// Matomo host m.cpc.bg no longer resolves (ERR_NAME_NOT_RESOLVED) and the Google
+// Analytics / DoubleClick collect beacons hang open indefinitely (verified
+// 2026-07-05). Playwright's `networkidle` needs 500ms with zero in-flight
+// requests, so a single hanging beacon makes networkidle unreachable — which is
+// what stalled the whole crawl (the old code leaned on networkidle for goto + the
+// year postback + every page turn). The real fix is that this crawler no longer
+// waits on networkidle at all (it keys off the DOM turn signal instead); aborting
+// these hosts here is belt-and-suspenders — it frees the browser from retrying
+// dead beacons and silences the console error spam.
+export const BLOCK_HOSTS =
+  /m\.cpc\.bg|google-analytics\.com|googletagmanager\.com|doubleclick\.net|google\.com\/ads|ga-audiences|\/g\/collect|matomo/i;
+
 // Write-to-temp-then-rename: OUT_FILE is declared "the only copy" of the
 // unregenerable tier-2 outcomes, so a crash mid-write must not truncate it
 // (rename is atomic on the same filesystem).
@@ -105,10 +118,18 @@ export const parseComplaintsText = (
   idByNo: Record<string, string>,
   fetchedAt: string,
 ): KzkAppeal[] => {
-  // Each record starts with a "Жалба № <no>" header AT LINE START. Anchor the
-  // split there (/m) so a stray "Жалба №" inside a subject line can't fracture a
-  // record. Keep the no (first token after the header).
-  const parts = text.split(/^Жалба\s*№\s*/gm).slice(1);
+  // Each record is a line "<row-ordinal> Жалба № <no>" — the register renders a
+  // leading row number (1, 2, 3 …) before the "Жалба №" header, separated by
+  // NON-BREAKING spaces (U+00A0, not plain 0x20) (verified 2026-07-05; earlier
+  // markup had no ordinal). Split on that header at line start (/m), tolerating an
+  // OPTIONAL leading ordinal so both the current and the older markup parse. The
+  // inter-token gap uses [^\S\n] — any whitespace EXCEPT newline — so it matches
+  // the NBSPs but can't swallow across lines. Keep "Жалба №" (not bare "Жалба",
+  // which also begins every "Предмет: Жалба - …" subject) so a subject can't
+  // fracture a record. Keep the no (first token after the header).
+  const parts = text
+    .split(/^[^\S\n]*(?:\d+[^\S\n]+)?Жалба[^\S\n]*№[^\S\n]*/gm)
+    .slice(1);
   const out: KzkAppeal[] = [];
   for (const part of parts) {
     const complaintNo = part.split(/[\n\r]/)[0]?.trim();
@@ -166,7 +187,15 @@ const crawlYear = async (
   // for an operator-present run.
   for (let attempt = 1; ; attempt++) {
     try {
-      await page.goto(LIST_URL, { waitUntil: "networkidle" });
+      // domcontentloaded, NOT networkidle: the register embeds analytics beacons
+      // that never settle (see BLOCK_HOSTS — we abort them, but even so
+      // networkidle is unreliable here). The list is server-rendered, so the
+      // complaint anchors exist at DOM-ready — wait for the first one instead.
+      await page.goto(LIST_URL, { waitUntil: "domcontentloaded" });
+      await page
+        .locator("a[href*='Complaint.aspx?ID=']")
+        .first()
+        .waitFor({ timeout: 15000 });
       break;
     } catch (e) {
       if (attempt >= 3) throw e;
@@ -188,22 +217,32 @@ const crawlYear = async (
         `kzk: year ${year} is not selectable on the register — refusing to crawl the default year silently`,
       );
     await yearLink.first().click();
-    // Verify the postback actually loaded the requested year — networkidle can
-    // resolve pre-postback, which under --backfill would silently harvest the
-    // default (current) year while labeling it year Y. The results header prints
-    // "… за <year> година" (the same line the watcher parses).
-    await page
-      .waitForFunction(
-        (y) => document.body.innerText.includes(`за ${y} година`),
-        year,
-        { timeout: 15000 },
-      )
-      .catch(() => {
-        throw new Error(
-          `kzk: year ${year} postback not confirmed (header missing "за ${year} година") — refusing to crawl the wrong year`,
-        );
-      });
-    await page.waitForLoadState("networkidle");
+    // Verify the postback actually loaded the requested year rather than silently
+    // harvesting the default (current) year while labeling it year Y. The results
+    // header prints "… за <year> година" (the same line the watcher parses); the
+    // list must also be repopulated. Poll from Node (a fresh evaluate per tick),
+    // NOT an in-page waitForFunction: the year link is a full ASP.NET postback
+    // that destroys the execution context, which rejects waitForFunction
+    // mid-navigation even when the header is correct (observed 2026-07-05).
+    let confirmed = false;
+    for (let i = 0; i < 30; i++) {
+      const txt = await page
+        .locator("body")
+        .innerText()
+        .catch(() => "");
+      if (
+        txt.includes(`за ${year} година`) &&
+        (await page.locator("a[href*='Complaint.aspx?ID=']").count())
+      ) {
+        confirmed = true;
+        break;
+      }
+      await page.waitForTimeout(500);
+    }
+    if (!confirmed)
+      throw new Error(
+        `kzk: year ${year} postback not confirmed (header missing "за ${year} година" after 15s) — refusing to crawl the wrong year`,
+      );
   }
   // The first complaint number currently rendered — used to detect a REAL page
   // turn (the ASP.NET postback swaps the list) rather than trusting networkidle,
@@ -235,24 +274,77 @@ const crawlYear = async (
       .then(() => true)
       .catch(() => false);
 
+  // Click "Следваща >" resiliently. Over a ~130-page sequential crawl a single
+  // slow postback can leave the link non-actionable past Playwright's default 30s
+  // click timeout and abort the whole year. A click that TIMES OUT never dispatched
+  // (the postback didn't fire → the list didn't advance), so retrying is safe — no
+  // page is skipped. Re-locate the link each attempt (the prior postback may have
+  // detached it). Returns false only if it can't click after the retries.
+  const clickNext = async (): Promise<boolean> => {
+    for (let a = 1; a <= 3; a++) {
+      try {
+        await page
+          .getByRole("link", { name: /Следваща/ })
+          .first()
+          .click({ timeout: 12000 });
+        return true;
+      } catch {
+        await page.waitForTimeout(1000 * a);
+      }
+    }
+    return false;
+  };
+
+  // The register header prints the authoritative total ("Намерени са общо N жалби
+  // …") — the single most reliable completeness signal. We page until we've
+  // collected all N distinct complaints and assert equality at the end. This is
+  // what makes the crawl correct WITHOUT depending on last-page pager markup: this
+  // ASP.NET GridView renders "Следваща >"/"Последна >>" as live anchors even on the
+  // last page (no disabled state — verified 2026-07-05), so a Next-link-based end
+  // signal is impossible. A short read (transient empty/partial page) now fails
+  // loud on the count mismatch instead of silently returning fewer rows.
+  const headerText = await page
+    .locator("body")
+    .innerText()
+    .catch(() => "");
+  const expM = /Намерени\s+са\s+общо\s+(\d+)\s+жалби/i.exec(headerText);
+  if (!expM)
+    throw new Error(
+      `kzk: could not read the "Намерени са общо N жалби" total from the register header — refusing to crawl without a completeness target`,
+    );
+  const expected = Number(expM[1]);
+
   const seen = new Map<string, KzkAppeal>();
-  let reachedEnd = false;
-  for (let guard = 0; guard < 500; guard++) {
+  for (let guard = 0; guard < 1000; guard++) {
     for (const rec of await scrapePage(page, fetchedAt)) {
       if (!seen.has(rec.complaintNo)) seen.set(rec.complaintNo, rec);
     }
+    if (seen.size >= expected) break; // collected every complaint the header promised
+    // Progress heartbeat (stderr) — lets a future stall be located to a page/count
+    // instead of a bare timeout, on this ~130-page sequential crawl.
+    if (guard % 25 === 0)
+      console.error(
+        `  … kzk crawl: page ${guard + 1}, ${seen.size}/${expected}`,
+      );
     const next = page.getByRole("link", { name: /Следваща/ });
-    if (!(await next.count())) {
-      reachedEnd = true;
-      break; // genuine end: no next-page link
-    }
+    if (!(await next.count()))
+      // No next link but the header total isn't reached — a real problem; the
+      // completeness assert below fails loud rather than truncate here.
+      break;
     const before = await firstNo();
-    await next.first().click();
-    // If the page didn't turn, distinguish a genuine end (next link now gone)
-    // from a FAILED postback (next link still present) — retry once, then THROW
-    // rather than silently truncating the year on `added === 0`.
+    if (!(await clickNext()))
+      throw new Error(
+        `kzk: could not click "Следваща >" at ${seen.size}/${expected} after retries (first complaint ${before ?? "?"})`,
+      );
+    // If the list didn't turn, retry once (transient postback). Still stuck →
+    // fail loud: we haven't collected `expected` yet, so this is a genuine stall,
+    // NOT the last page (the last page is reached via seen.size >= expected, never
+    // by clicking Next off it).
     if (!(await turned(before))) {
-      await page.waitForLoadState("networkidle").catch(() => undefined);
+      // Give a genuinely-slow postback a beat to land before re-reading (we no
+      // longer wait on networkidle — the register's analytics beacons never let
+      // it settle; the DOM turn signal from turned()/firstNo() is authoritative).
+      await page.waitForTimeout(800);
       // The postback may have been slow (turned past the 15s wait) rather than
       // failed. Re-read the first number: if it already advanced past `before`,
       // the first click DID turn the page — a blind re-click would skip the
@@ -263,27 +355,29 @@ const crawlYear = async (
         await page.waitForTimeout(400);
         continue;
       }
-      if (!(await next.count())) {
-        reachedEnd = true;
-        break; // it was the last page after all
-      }
-      await next.first().click();
+      if (!(await clickNext()))
+        // retry once (transient hiccup)
+        throw new Error(
+          `kzk: could not re-click "Следваща >" at ${seen.size}/${expected} (first complaint ${before ?? "?"})`,
+        );
       if (!(await turned(before)))
         throw new Error(
-          `kzk: pagination stalled (page did not turn after retry; first complaint still ${before ?? "?"}) — refusing to silently truncate the year`,
+          `kzk: pagination stalled at ${seen.size}/${expected} (first complaint still ${before ?? "?"}) — refusing to silently truncate the year`,
         );
     }
-    await page.waitForLoadState("networkidle");
     // Polite inter-page delay on a rate-sensitive ASP.NET register — this is an
-    // explicitly manual, operator-present tool, so a small pause is free.
+    // explicitly manual, operator-present tool, so a small pause is free. (No
+    // networkidle wait: turned() already confirmed the list swapped, and the
+    // beacons never let networkidle settle anyway.)
     await page.waitForTimeout(400);
   }
-  // The 500-page guard is a runaway backstop, not an end signal — if we hit it
-  // without seeing the last page, the year is bigger than expected; fail loud
-  // rather than return a silently-truncated slice.
-  if (!reachedEnd)
+  // Completeness invariant: the distinct complaints collected MUST equal the
+  // register's own header total. A shortfall = truncated crawl (stall, transient
+  // empty page); an overage = the header drifted or dedupe missed a key. Either
+  // way, fail loud rather than write a wrong-sized year.
+  if (seen.size !== expected)
     throw new Error(
-      "kzk: page guard exhausted at 500 — year larger than expected; refusing to return partial data",
+      `kzk: collected ${seen.size} distinct complaints but the register header expected ${expected} — refusing to return an incomplete/over-collected year`,
     );
   return [...seen.values()];
 };
@@ -653,6 +747,9 @@ const cmd = command({
     const all: KzkAppeal[] = [];
     try {
       const ctx = await browser.newContext({ userAgent: UA, locale: "bg-BG" });
+      // Drop the never-settling analytics beacons so `networkidle` is reachable
+      // again (see BLOCK_HOSTS). Without this the crawl stalls on page 1.
+      await ctx.route(BLOCK_HOSTS, (route) => route.abort());
       const page = await ctx.newPage();
       await page.addInitScript(() => {
         Object.defineProperty(navigator, "webdriver", { get: () => false });
