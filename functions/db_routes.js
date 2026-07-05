@@ -128,6 +128,7 @@ const DB_ROUTES = {
       ngoFunding,
       awarderRiskGrade,
       supplierRiskGrade,
+      corpusName,
     ] = await Promise.all([
       dbRows(
         "SELECT uic, name, legal_form, seat, status, funds_amount, funds_currency, entity_class, ngo_type FROM tr_companies WHERE uic = $1",
@@ -189,6 +190,19 @@ const DB_ROUTES = {
       dbRows("SELECT supplier_risk_grade($1) AS r", [eik]).catch((e) =>
         e?.code === "42883" ? [] : Promise.reject(e),
       ),
+      // Representative name as it appears in the procurement corpus — the only
+      // identity we have for a contractor/awarder absent from the TR register
+      // (foreign / deregistered). Both lookups are eik-indexed. Prefer the
+      // longest variant (most complete legal name); sell-side then buy-side.
+      dbRows(
+        `SELECT coalesce(
+           (SELECT name FROM contractor_search WHERE eik = $1
+              ORDER BY length(name) DESC LIMIT 1),
+           (SELECT name FROM awarder_search WHERE eik = $1
+              ORDER BY length(name) DESC LIMIT 1)
+         ) AS name`,
+        [eik],
+      ).catch((e) => (e?.code === "42P01" ? [] : Promise.reject(e))),
     ]);
     return {
       body: {
@@ -213,6 +227,7 @@ const DB_ROUTES = {
         ngoFunding: ngoFunding[0]?.r ?? null,
         awarderRiskGrade: awarderRiskGrade[0]?.r ?? null,
         supplierRiskGrade: supplierRiskGrade[0]?.r ?? null,
+        corpusName: corpusName[0]?.name ?? null,
       },
     };
   },

@@ -264,6 +264,9 @@ export const CompanyDbScreen: FC = () => {
   const [supplierGrade, setSupplierGrade] = useState<EntityRiskGrade | null>(
     null,
   );
+  // Name as it appears in the procurement corpus — the only identity we have
+  // for a contractor/awarder absent from the TR register.
+  const [corpusName, setCorpusName] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   // Section scope, mirroring the procurement pages (?pscope semantics), but held
@@ -323,6 +326,7 @@ export const CompanyDbScreen: FC = () => {
           setNgoFunding(j.ngoFunding ?? null);
           setAwarderGrade(j.awarderRiskGrade ?? null);
           setSupplierGrade(j.supplierRiskGrade ?? null);
+          setCorpusName(j.corpusName ? decodeEntities(j.corpusName) : null);
         }
       })
       .catch((e) => live && setError(String(e)))
@@ -333,6 +337,17 @@ export const CompanyDbScreen: FC = () => {
   }, [eik, scope, selected]);
 
   const contracts = Number(summary?.contracts ?? 0);
+  // A contractor can appear in the procurement corpus without a TR record (~32%
+  // of distinct EIKs — foreign / deregistered suppliers the search deliberately
+  // surfaces). We still have their contracts, so render the procurement body
+  // instead of dead-ending on "Няма фирма …".
+  const hasProcurement = contracts > 0 || hadAwarder;
+  // Best available display name: TR record → synthesised institution → the
+  // procurement-corpus name → bare EIK as a last resort.
+  const displayName = company?.name ?? institution?.name ?? corpusName ?? eik;
+  // Corpus-only entity: has procurement but no TR record and no institution
+  // identity — surface it with a procurement kicker, not the TR-register one.
+  const corpusOnly = !company && !institution && hasProcurement;
 
   // Assemble the ProcurementContractorRollup the existing tiles expect (add the
   // eik/name/generatedAt the endpoint omits).
@@ -341,7 +356,7 @@ export const CompanyDbScreen: FC = () => {
       procurement
         ? {
             eik,
-            name: company?.name ?? eik,
+            name: displayName,
             totalEur: procurement.totalEur,
             totalOther: procurement.totalOther,
             contractCount: procurement.contractCount,
@@ -353,11 +368,11 @@ export const CompanyDbScreen: FC = () => {
             generatedAt: "",
           }
         : null,
-    [procurement, eik, company?.name],
+    [procurement, eik, displayName],
   );
 
   // Buy-side rollup for the DB awarder dashboard (when the EIK is an awarder).
-  const awarderName = company?.name ?? institution?.name ?? eik;
+  const awarderName = displayName;
   const awarderRollup = useMemo<ProcurementAwarderRollup | null>(
     () =>
       awarderProc
@@ -437,10 +452,12 @@ export const CompanyDbScreen: FC = () => {
               : "Фирма (Търговски регистър)"
             : institution
               ? "Институция / възложител"
-              : "Фирма (Търговски регистър)"}
+              : corpusOnly
+                ? "Изпълнител / възложител по поръчки"
+                : "Фирма (Търговски регистър)"}
         </div>
         <h1 className="text-2xl font-bold">
-          {company?.name ?? institution?.name ?? eik}{" "}
+          {displayName}{" "}
           {company?.legal_form && (
             <span className="text-base font-normal text-muted-foreground">
               {legalFormLabel(company.legal_form)}
@@ -488,13 +505,24 @@ export const CompanyDbScreen: FC = () => {
           {error}
         </div>
       )}
-      {!loading && !error && !company && !institution && (
+      {!loading && !error && !company && !institution && !hasProcurement && (
         <div className="text-sm text-muted-foreground">
           Няма фирма с ЕИК {eik} в базата.
         </div>
       )}
 
-      {!loading && !error && (company || institution) && (
+      {/* Corpus-only entity: appears in contracts but has no Commerce-Register
+          record in our data (may simply be un-ingested, or a foreign /
+          deregistered entity). Soft-worded — we can't assert it's unregistered —
+          then fall through to the procurement body below. */}
+      {!loading && !error && corpusOnly && (
+        <div className="mb-4 text-sm text-muted-foreground">
+          Няма запис от Търговския регистър в нашата база — показани са данните
+          от обществените поръчки.
+        </div>
+      )}
+
+      {!loading && !error && (company || institution || hasProcurement) && (
         <div className="space-y-6">
           {company &&
             company.entity_class &&
