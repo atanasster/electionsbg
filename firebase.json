@@ -33,7 +33,9 @@
         "firebase.json",
         "**/.*",
         "**/node_modules/**",
-        "**/.DS_Store"
+        "**/.DS_Store",
+        "procurement/*.json",
+        "procurement/**/*.json"
       ],
       "redirects": [
         { "source": "/index", "destination": "/", "type": 301 },
