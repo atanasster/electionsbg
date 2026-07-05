@@ -44,6 +44,17 @@ ALTER TABLE fund_projects ADD COLUMN IF NOT EXISTS location_json jsonb;
 -- aggregated into one row; the source file then carries a `subUnits` array).
 ALTER TABLE fund_beneficiaries ADD COLUMN IF NOT EXISTS sub_units jsonb;
 
+-- Money-sort index for the fund_projects browse (functions/db_table.js). The
+-- registry's DEFAULT sort is `total_eur DESC NULLS LAST`; a SCOPED browse
+-- (/db/company/:eik/funds → beneficiary_eik) filters to a small set first via
+-- idx_fund_projects_eik, but an UNSCOPED / global browse would parallel-seq-scan
+-- + top-N sort the whole 81k-row corpus (~49ms). Composite with contract_number
+-- = the table engine's stable tiebreak, so paging is an index-only walk (49ms →
+-- 0.7ms). grant_eur/paid_eur sorts stay covered by the scoped fast-path (a
+-- global sort on them is rare and not the default) — don't over-index.
+CREATE INDEX IF NOT EXISTS idx_fund_projects_total_eur
+  ON fund_projects (total_eur DESC NULLS LAST, contract_number);
+
 -- Single by-contract project → the FundsProjectsContractFile shape. All 18 top-
 -- level keys are ALWAYS present in the source (beneficiaryEik may be null but the
 -- KEY is kept), so we build every key unconditionally — NO jsonb_strip_nulls at
