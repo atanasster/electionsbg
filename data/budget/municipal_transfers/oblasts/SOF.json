@@ -4,6 +4,150 @@
   "oblastNameEn": "Sofia (capital)",
   "years": [
     {
+      "asOf": "2018-01-01",
+      "fiscalYear": 2018,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 8623300,
+            "amountEur": 4409023,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 410123400,
+            "amountEur": 209692765,
+            "currency": "BGN"
+          },
+          "ekatte": "68134",
+          "equalization": {
+            "amount": 9482700,
+            "amountEur": 4848428,
+            "currency": "BGN"
+          },
+          "nameBg": "Столична",
+          "nameEn": "Sofia (capital)",
+          "obshtinaCode": "SOF",
+          "otherTargeted": null,
+          "total": {
+            "amount": 428901400,
+            "amountEur": 219293804,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 672000,
+            "amountEur": 343588,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 8623300,
+          "amountEur": 4409023,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 410123400,
+          "amountEur": 209692765,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 9482700,
+          "amountEur": 4848428,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 428901400,
+          "amountEur": 219293804,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 672000,
+          "amountEur": 343588,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2018",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=120521"
+      }
+    },
+    {
+      "asOf": "2019-01-01",
+      "fiscalYear": 2019,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 9350600,
+            "amountEur": 4780886,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 478459700,
+            "amountEur": 244632560,
+            "currency": "BGN"
+          },
+          "ekatte": "68134",
+          "equalization": null,
+          "nameBg": "Столична",
+          "nameEn": "Sofia (capital)",
+          "obshtinaCode": "SOF",
+          "otherTargeted": null,
+          "total": {
+            "amount": 488552400,
+            "amountEur": 249792876,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 742100,
+            "amountEur": 379430,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 9350600,
+          "amountEur": 4780886,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 478459700,
+          "amountEur": 244632560,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 488552400,
+          "amountEur": 249792876,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 742100,
+          "amountEur": 379430,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2019",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=132563"
+      }
+    },
+    {
       "asOf": "2020-01-01",
       "fiscalYear": 2020,
       "municipalities": [
@@ -75,6 +219,76 @@
       "source": {
         "documentId": "law-2020",
         "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+      }
+    },
+    {
+      "asOf": "2021-01-01",
+      "fiscalYear": 2021,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 11751900,
+            "amountEur": 6008651,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 652005100,
+            "amountEur": 333364914,
+            "currency": "BGN"
+          },
+          "ekatte": "68134",
+          "equalization": null,
+          "nameBg": "Столична",
+          "nameEn": "Sofia (capital)",
+          "obshtinaCode": "SOF",
+          "otherTargeted": null,
+          "total": {
+            "amount": 664748300,
+            "amountEur": 339880409,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 991300,
+            "amountEur": 506844,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 11751900,
+          "amountEur": 6008651,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 652005100,
+          "amountEur": 333364914,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 664748300,
+          "amountEur": 339880409,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 991300,
+          "amountEur": 506844,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2021",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=154110"
       }
     },
     {

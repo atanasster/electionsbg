@@ -1,0 +1,64 @@
+{
+  "asOf": "2019-01-01",
+  "fiscalYear": 2019,
+  "reconciliationDeltasEur": {},
+  "rowSum": {
+    "capital": {
+      "amount": 179110200,
+      "amountEur": 91577591,
+      "currency": "BGN"
+    },
+    "delegated": {
+      "amount": 3234390200,
+      "amountEur": 1653717450,
+      "currency": "BGN"
+    },
+    "equalization": {
+      "amount": 294022000,
+      "amountEur": 150331061,
+      "currency": "BGN"
+    },
+    "otherTargeted": {
+      "amount": 0,
+      "amountEur": 0,
+      "currency": "BGN"
+    },
+    "total": {
+      "amount": 3745750500,
+      "amountEur": 1915171820,
+      "currency": "BGN"
+    },
+    "winter": {
+      "amount": 38228100,
+      "amountEur": 19545717,
+      "currency": "BGN"
+    }
+  },
+  "source": {
+    "documentId": "law-2019",
+    "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=132563"
+  },
+  "totals": {
+    "capital": {
+      "amount": 179110200,
+      "amountEur": 91577591,
+      "currency": "BGN"
+    },
+    "delegated": {
+      "amount": 3234390200,
+      "amountEur": 1653717450,
+      "currency": "BGN"
+    },
+    "equalization": {
+      "amount": 294022000,
+      "amountEur": 150331061,
+      "currency": "BGN"
+    },
+    "otherTargeted": null,
+    "winter": {
+      "amount": 38228100,
+      "amountEur": 19545717,
+      "currency": "BGN"
+    }
+  }
+}

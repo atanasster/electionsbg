@@ -4,6 +4,794 @@
   "oblastNameEn": "Pleven",
   "years": [
     {
+      "asOf": "2018-01-01",
+      "fiscalYear": 2018,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 1456400,
+            "amountEur": 744645,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 47392800,
+            "amountEur": 24231554,
+            "currency": "BGN"
+          },
+          "ekatte": "56722",
+          "equalization": {
+            "amount": 3239800,
+            "amountEur": 1656483,
+            "currency": "BGN"
+          },
+          "nameBg": "Плевен",
+          "nameEn": "Pleven",
+          "obshtinaCode": "PVN24",
+          "otherTargeted": null,
+          "total": {
+            "amount": 52306500,
+            "amountEur": 26743889,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 217500,
+            "amountEur": 111206,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 560400,
+            "amountEur": 286528,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 10286500,
+            "amountEur": 5259404,
+            "currency": "BGN"
+          },
+          "ekatte": "80501",
+          "equalization": {
+            "amount": 2039500,
+            "amountEur": 1042780,
+            "currency": "BGN"
+          },
+          "nameBg": "Червен бряг",
+          "nameEn": "Cherven bryag",
+          "obshtinaCode": "PVN37",
+          "otherTargeted": null,
+          "total": {
+            "amount": 12991300,
+            "amountEur": 6642346,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 104900,
+            "amountEur": 53635,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 395200,
+            "amountEur": 202063,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 6406800,
+            "amountEur": 3275745,
+            "currency": "BGN"
+          },
+          "ekatte": "43236",
+          "equalization": {
+            "amount": 1287900,
+            "amountEur": 658493,
+            "currency": "BGN"
+          },
+          "nameBg": "Левски",
+          "nameEn": "Levski",
+          "obshtinaCode": "PVN16",
+          "otherTargeted": null,
+          "total": {
+            "amount": 8134800,
+            "amountEur": 4159257,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 44900,
+            "amountEur": 22957,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 571600,
+            "amountEur": 292254,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 5966300,
+            "amountEur": 3050521,
+            "currency": "BGN"
+          },
+          "ekatte": "22215",
+          "equalization": {
+            "amount": 1389700,
+            "amountEur": 710542,
+            "currency": "BGN"
+          },
+          "nameBg": "Долна Митрополия",
+          "nameEn": "Dolna Mitropolia",
+          "obshtinaCode": "PVN10",
+          "otherTargeted": null,
+          "total": {
+            "amount": 8035300,
+            "amountEur": 4108384,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 107700,
+            "amountEur": 55066,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 196600,
+            "amountEur": 100520,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 6241900,
+            "amountEur": 3191433,
+            "currency": "BGN"
+          },
+          "ekatte": "37376",
+          "equalization": {
+            "amount": 811800,
+            "amountEur": 415067,
+            "currency": "BGN"
+          },
+          "nameBg": "Кнежа",
+          "nameEn": "Knezha",
+          "obshtinaCode": "PVN39",
+          "otherTargeted": null,
+          "total": {
+            "amount": 7277500,
+            "amountEur": 3720927,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 27200,
+            "amountEur": 13907,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 303700,
+            "amountEur": 155279,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 5064700,
+            "amountEur": 2589540,
+            "currency": "BGN"
+          },
+          "ekatte": "22407",
+          "equalization": {
+            "amount": 879400,
+            "amountEur": 449630,
+            "currency": "BGN"
+          },
+          "nameBg": "Долни Дъбник",
+          "nameEn": "Dolni Dabnik",
+          "obshtinaCode": "PVN11",
+          "otherTargeted": null,
+          "total": {
+            "amount": 6315900,
+            "amountEur": 3229268,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 68100,
+            "amountEur": 34819,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 377000,
+            "amountEur": 192757,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3759300,
+            "amountEur": 1922100,
+            "currency": "BGN"
+          },
+          "ekatte": "18099",
+          "equalization": {
+            "amount": 830400,
+            "amountEur": 424577,
+            "currency": "BGN"
+          },
+          "nameBg": "Гулянци",
+          "nameEn": "Gulyantsi",
+          "obshtinaCode": "PVN08",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5029300,
+            "amountEur": 2571440,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 62600,
+            "amountEur": 32007,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 361600,
+            "amountEur": 184883,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3063200,
+            "amountEur": 1566189,
+            "currency": "BGN"
+          },
+          "ekatte": "51723",
+          "equalization": {
+            "amount": 646000,
+            "amountEur": 330295,
+            "currency": "BGN"
+          },
+          "nameBg": "Никопол",
+          "nameEn": "Nikopol",
+          "obshtinaCode": "PVN21",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4117800,
+            "amountEur": 2105398,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 47000,
+            "amountEur": 24031,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 260900,
+            "amountEur": 133396,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3269400,
+            "amountEur": 1671618,
+            "currency": "BGN"
+          },
+          "ekatte": "57772",
+          "equalization": {
+            "amount": 434100,
+            "amountEur": 221952,
+            "currency": "BGN"
+          },
+          "nameBg": "Пордим",
+          "nameEn": "Pordim",
+          "obshtinaCode": "PVN27",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4018700,
+            "amountEur": 2054729,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 54300,
+            "amountEur": 27763,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 258000,
+            "amountEur": 131913,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 2957800,
+            "amountEur": 1512299,
+            "currency": "BGN"
+          },
+          "ekatte": "03366",
+          "equalization": {
+            "amount": 562200,
+            "amountEur": 287448,
+            "currency": "BGN"
+          },
+          "nameBg": "Белене",
+          "nameEn": "Belene",
+          "obshtinaCode": "PVN03",
+          "otherTargeted": null,
+          "total": {
+            "amount": 3835500,
+            "amountEur": 1961060,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 57500,
+            "amountEur": 29399,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 168400,
+            "amountEur": 86102,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 2384400,
+            "amountEur": 1219124,
+            "currency": "BGN"
+          },
+          "ekatte": "55782",
+          "equalization": {
+            "amount": 506700,
+            "amountEur": 259072,
+            "currency": "BGN"
+          },
+          "nameBg": "Искър",
+          "nameEn": "Iskar",
+          "obshtinaCode": "PVN23",
+          "otherTargeted": null,
+          "total": {
+            "amount": 3092700,
+            "amountEur": 1581272,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 33200,
+            "amountEur": 16975,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 4909800,
+          "amountEur": 2510340,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 96793100,
+          "amountEur": 49489527,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 12627500,
+          "amountEur": 6456339,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 115155300,
+          "amountEur": 58877970,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 824900,
+          "amountEur": 421765,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2018",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=120521"
+      }
+    },
+    {
+      "asOf": "2019-01-01",
+      "fiscalYear": 2019,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 1565400,
+            "amountEur": 800376,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 55735700,
+            "amountEur": 28497211,
+            "currency": "BGN"
+          },
+          "ekatte": "56722",
+          "equalization": {
+            "amount": 3247300,
+            "amountEur": 1660318,
+            "currency": "BGN"
+          },
+          "nameBg": "Плевен",
+          "nameEn": "Pleven",
+          "obshtinaCode": "PVN24",
+          "otherTargeted": null,
+          "total": {
+            "amount": 60787400,
+            "amountEur": 31080104,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 239000,
+            "amountEur": 122199,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 601500,
+            "amountEur": 307542,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 12131300,
+            "amountEur": 6202635,
+            "currency": "BGN"
+          },
+          "ekatte": "80501",
+          "equalization": {
+            "amount": 2248500,
+            "amountEur": 1149640,
+            "currency": "BGN"
+          },
+          "nameBg": "Червен бряг",
+          "nameEn": "Cherven bryag",
+          "obshtinaCode": "PVN37",
+          "otherTargeted": null,
+          "total": {
+            "amount": 15096500,
+            "amountEur": 7718718,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 115200,
+            "amountEur": 58901,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 424000,
+            "amountEur": 216788,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 7510800,
+            "amountEur": 3840211,
+            "currency": "BGN"
+          },
+          "ekatte": "43236",
+          "equalization": {
+            "amount": 1600500,
+            "amountEur": 818323,
+            "currency": "BGN"
+          },
+          "nameBg": "Левски",
+          "nameEn": "Levski",
+          "obshtinaCode": "PVN16",
+          "otherTargeted": null,
+          "total": {
+            "amount": 9584600,
+            "amountEur": 4900528,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 49300,
+            "amountEur": 25207,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 639300,
+            "amountEur": 326869,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 6852600,
+            "amountEur": 3503679,
+            "currency": "BGN"
+          },
+          "ekatte": "22215",
+          "equalization": {
+            "amount": 1744000,
+            "amountEur": 891693,
+            "currency": "BGN"
+          },
+          "nameBg": "Долна Митрополия",
+          "nameEn": "Dolna Mitropolia",
+          "obshtinaCode": "PVN10",
+          "otherTargeted": null,
+          "total": {
+            "amount": 9354300,
+            "amountEur": 4782778,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 118400,
+            "amountEur": 60537,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 235700,
+            "amountEur": 120511,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 7312500,
+            "amountEur": 3738822,
+            "currency": "BGN"
+          },
+          "ekatte": "37376",
+          "equalization": {
+            "amount": 949900,
+            "amountEur": 485676,
+            "currency": "BGN"
+          },
+          "nameBg": "Кнежа",
+          "nameEn": "Knezha",
+          "obshtinaCode": "PVN39",
+          "otherTargeted": null,
+          "total": {
+            "amount": 8528000,
+            "amountEur": 4360297,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 29900,
+            "amountEur": 15288,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 351600,
+            "amountEur": 179770,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 5998500,
+            "amountEur": 3066984,
+            "currency": "BGN"
+          },
+          "ekatte": "22407",
+          "equalization": {
+            "amount": 1075200,
+            "amountEur": 549741,
+            "currency": "BGN"
+          },
+          "nameBg": "Долни Дъбник",
+          "nameEn": "Dolni Dabnik",
+          "obshtinaCode": "PVN11",
+          "otherTargeted": null,
+          "total": {
+            "amount": 7500200,
+            "amountEur": 3834791,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 74900,
+            "amountEur": 38296,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 429600,
+            "amountEur": 219651,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 4489800,
+            "amountEur": 2295598,
+            "currency": "BGN"
+          },
+          "ekatte": "18099",
+          "equalization": {
+            "amount": 1030100,
+            "amountEur": 526682,
+            "currency": "BGN"
+          },
+          "nameBg": "Гулянци",
+          "nameEn": "Gulyantsi",
+          "obshtinaCode": "PVN08",
+          "otherTargeted": null,
+          "total": {
+            "amount": 6018300,
+            "amountEur": 3077108,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 68800,
+            "amountEur": 35177,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 413700,
+            "amountEur": 211521,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3618200,
+            "amountEur": 1849956,
+            "currency": "BGN"
+          },
+          "ekatte": "51723",
+          "equalization": {
+            "amount": 660400,
+            "amountEur": 337657,
+            "currency": "BGN"
+          },
+          "nameBg": "Никопол",
+          "nameEn": "Nikopol",
+          "obshtinaCode": "PVN21",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4743900,
+            "amountEur": 2425518,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 51600,
+            "amountEur": 26383,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 305200,
+            "amountEur": 156046,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3661100,
+            "amountEur": 1871891,
+            "currency": "BGN"
+          },
+          "ekatte": "57772",
+          "equalization": {
+            "amount": 557100,
+            "amountEur": 284841,
+            "currency": "BGN"
+          },
+          "nameBg": "Пордим",
+          "nameEn": "Pordim",
+          "obshtinaCode": "PVN27",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4583100,
+            "amountEur": 2343302,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 59700,
+            "amountEur": 30524,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 276600,
+            "amountEur": 141423,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3443300,
+            "amountEur": 1760531,
+            "currency": "BGN"
+          },
+          "ekatte": "03366",
+          "equalization": {
+            "amount": 598000,
+            "amountEur": 305753,
+            "currency": "BGN"
+          },
+          "nameBg": "Белене",
+          "nameEn": "Belene",
+          "obshtinaCode": "PVN03",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4381100,
+            "amountEur": 2240021,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 63200,
+            "amountEur": 32314,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 205800,
+            "amountEur": 105224,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 2790300,
+            "amountEur": 1426658,
+            "currency": "BGN"
+          },
+          "ekatte": "55782",
+          "equalization": {
+            "amount": 582100,
+            "amountEur": 297623,
+            "currency": "BGN"
+          },
+          "nameBg": "Искър",
+          "nameEn": "Iskar",
+          "obshtinaCode": "PVN23",
+          "otherTargeted": null,
+          "total": {
+            "amount": 3614700,
+            "amountEur": 1848167,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 36500,
+            "amountEur": 18662,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 5448400,
+          "amountEur": 2785721,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 113544100,
+          "amountEur": 58054176,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 14293100,
+          "amountEur": 7307947,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 134192100,
+          "amountEur": 68611332,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 906500,
+          "amountEur": 463488,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2019",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=132563"
+      }
+    },
+    {
       "asOf": "2020-01-01",
       "fiscalYear": 2020,
       "municipalities": [
@@ -395,6 +1183,400 @@
       "source": {
         "documentId": "law-2020",
         "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+      }
+    },
+    {
+      "asOf": "2021-01-01",
+      "fiscalYear": 2021,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 1931800,
+            "amountEur": 987714,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 74003300,
+            "amountEur": 37837286,
+            "currency": "BGN"
+          },
+          "ekatte": "56722",
+          "equalization": {
+            "amount": 3344100,
+            "amountEur": 1709811,
+            "currency": "BGN"
+          },
+          "nameBg": "Плевен",
+          "nameEn": "Pleven",
+          "obshtinaCode": "PVN24",
+          "otherTargeted": null,
+          "total": {
+            "amount": 79579500,
+            "amountEur": 40688352,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 300300,
+            "amountEur": 153541,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 742800,
+            "amountEur": 379788,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 16317100,
+            "amountEur": 8342801,
+            "currency": "BGN"
+          },
+          "ekatte": "80501",
+          "equalization": {
+            "amount": 2377400,
+            "amountEur": 1215545,
+            "currency": "BGN"
+          },
+          "nameBg": "Червен бряг",
+          "nameEn": "Cherven bryag",
+          "obshtinaCode": "PVN37",
+          "otherTargeted": null,
+          "total": {
+            "amount": 19581700,
+            "amountEur": 10011964,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 144400,
+            "amountEur": 73831,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 523600,
+            "amountEur": 267712,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 9961900,
+            "amountEur": 5093439,
+            "currency": "BGN"
+          },
+          "ekatte": "43236",
+          "equalization": {
+            "amount": 1685800,
+            "amountEur": 861936,
+            "currency": "BGN"
+          },
+          "nameBg": "Левски",
+          "nameEn": "Levski",
+          "obshtinaCode": "PVN16",
+          "otherTargeted": null,
+          "total": {
+            "amount": 12233400,
+            "amountEur": 6254838,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 62100,
+            "amountEur": 31751,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 818300,
+            "amountEur": 418390,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 9240800,
+            "amountEur": 4724746,
+            "currency": "BGN"
+          },
+          "ekatte": "22215",
+          "equalization": {
+            "amount": 1923900,
+            "amountEur": 983674,
+            "currency": "BGN"
+          },
+          "nameBg": "Долна Митрополия",
+          "nameEn": "Dolna Mitropolia",
+          "obshtinaCode": "PVN10",
+          "otherTargeted": null,
+          "total": {
+            "amount": 12131300,
+            "amountEur": 6202635,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 148300,
+            "amountEur": 75825,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 319800,
+            "amountEur": 163511,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 9737800,
+            "amountEur": 4978858,
+            "currency": "BGN"
+          },
+          "ekatte": "37376",
+          "equalization": {
+            "amount": 1028000,
+            "amountEur": 525608,
+            "currency": "BGN"
+          },
+          "nameBg": "Кнежа",
+          "nameEn": "Knezha",
+          "obshtinaCode": "PVN39",
+          "otherTargeted": null,
+          "total": {
+            "amount": 11123200,
+            "amountEur": 5687202,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 37600,
+            "amountEur": 19225,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 463900,
+            "amountEur": 237188,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 7774900,
+            "amountEur": 3975243,
+            "currency": "BGN"
+          },
+          "ekatte": "22407",
+          "equalization": {
+            "amount": 1227700,
+            "amountEur": 627713,
+            "currency": "BGN"
+          },
+          "nameBg": "Долни Дъбник",
+          "nameEn": "Dolni Dabnik",
+          "obshtinaCode": "PVN11",
+          "otherTargeted": null,
+          "total": {
+            "amount": 9560200,
+            "amountEur": 4888053,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 93700,
+            "amountEur": 47908,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 560100,
+            "amountEur": 286375,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 6188100,
+            "amountEur": 3163925,
+            "currency": "BGN"
+          },
+          "ekatte": "18099",
+          "equalization": {
+            "amount": 1155900,
+            "amountEur": 591002,
+            "currency": "BGN"
+          },
+          "nameBg": "Гулянци",
+          "nameEn": "Gulyantsi",
+          "obshtinaCode": "PVN08",
+          "otherTargeted": null,
+          "total": {
+            "amount": 7990400,
+            "amountEur": 4085427,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 86300,
+            "amountEur": 44124,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 541500,
+            "amountEur": 276865,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 4845100,
+            "amountEur": 2477260,
+            "currency": "BGN"
+          },
+          "ekatte": "51723",
+          "equalization": {
+            "amount": 928600,
+            "amountEur": 474786,
+            "currency": "BGN"
+          },
+          "nameBg": "Никопол",
+          "nameEn": "Nikopol",
+          "obshtinaCode": "PVN21",
+          "otherTargeted": null,
+          "total": {
+            "amount": 6380200,
+            "amountEur": 3262144,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 65000,
+            "amountEur": 33234,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 406900,
+            "amountEur": 208045,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 4972000,
+            "amountEur": 2542143,
+            "currency": "BGN"
+          },
+          "ekatte": "57772",
+          "equalization": {
+            "amount": 677100,
+            "amountEur": 346196,
+            "currency": "BGN"
+          },
+          "nameBg": "Пордим",
+          "nameEn": "Pordim",
+          "obshtinaCode": "PVN27",
+          "otherTargeted": null,
+          "total": {
+            "amount": 6130800,
+            "amountEur": 3134628,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 74800,
+            "amountEur": 38245,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 340100,
+            "amountEur": 173890,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 4489400,
+            "amountEur": 2295394,
+            "currency": "BGN"
+          },
+          "ekatte": "03366",
+          "equalization": {
+            "amount": 684900,
+            "amountEur": 350184,
+            "currency": "BGN"
+          },
+          "nameBg": "Белене",
+          "nameEn": "Belene",
+          "obshtinaCode": "PVN03",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5593400,
+            "amountEur": 2859860,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 79000,
+            "amountEur": 40392,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 282500,
+            "amountEur": 144440,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3707200,
+            "amountEur": 1895461,
+            "currency": "BGN"
+          },
+          "ekatte": "55782",
+          "equalization": {
+            "amount": 634100,
+            "amountEur": 324210,
+            "currency": "BGN"
+          },
+          "nameBg": "Искър",
+          "nameEn": "Iskar",
+          "obshtinaCode": "PVN23",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4669500,
+            "amountEur": 2387477,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 45700,
+            "amountEur": 23366,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 6931300,
+          "amountEur": 3543918,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 151237600,
+          "amountEur": 77326556,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 15667500,
+          "amountEur": 8010665,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 174973600,
+          "amountEur": 89462580,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1137200,
+          "amountEur": 581442,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2021",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=154110"
       }
     },
     {

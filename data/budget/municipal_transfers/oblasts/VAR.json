@@ -4,6 +4,842 @@
   "oblastNameEn": "Varna",
   "years": [
     {
+      "asOf": "2018-01-01",
+      "fiscalYear": 2018,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 2204400,
+            "amountEur": 1127092,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 119258400,
+            "amountEur": 60975852,
+            "currency": "BGN"
+          },
+          "ekatte": "10135",
+          "equalization": {
+            "amount": 2350100,
+            "amountEur": 1201587,
+            "currency": "BGN"
+          },
+          "nameBg": "Варна",
+          "nameEn": "Varna",
+          "obshtinaCode": "VAR06",
+          "otherTargeted": null,
+          "total": {
+            "amount": 123992400,
+            "amountEur": 63396307,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 179500,
+            "amountEur": 91777,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 755700,
+            "amountEur": 386383,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 10700200,
+            "amountEur": 5470925,
+            "currency": "BGN"
+          },
+          "ekatte": "58503",
+          "equalization": {
+            "amount": 1356900,
+            "amountEur": 693772,
+            "currency": "BGN"
+          },
+          "nameBg": "Провадия",
+          "nameEn": "Provadia",
+          "obshtinaCode": "VAR24",
+          "otherTargeted": null,
+          "total": {
+            "amount": 12985300,
+            "amountEur": 6639278,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 172500,
+            "amountEur": 88198,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 553900,
+            "amountEur": 283205,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 9177600,
+            "amountEur": 4692432,
+            "currency": "BGN"
+          },
+          "ekatte": "21912",
+          "equalization": {
+            "amount": 1367500,
+            "amountEur": 699192,
+            "currency": "BGN"
+          },
+          "nameBg": "Долни чифлик",
+          "nameEn": "Dolni chiflik",
+          "obshtinaCode": "VAR13",
+          "otherTargeted": null,
+          "total": {
+            "amount": 11221400,
+            "amountEur": 5737411,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 122400,
+            "amountEur": 62582,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 730900,
+            "amountEur": 373703,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 7013900,
+            "amountEur": 3586150,
+            "currency": "BGN"
+          },
+          "ekatte": "00182",
+          "equalization": {
+            "amount": 697300,
+            "amountEur": 356524,
+            "currency": "BGN"
+          },
+          "nameBg": "Аксаково",
+          "nameEn": "Aksakovo",
+          "obshtinaCode": "VAR02",
+          "otherTargeted": null,
+          "total": {
+            "amount": 8622300,
+            "amountEur": 4408512,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 180200,
+            "amountEur": 92135,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 476800,
+            "amountEur": 243784,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 5729900,
+            "amountEur": 2929651,
+            "currency": "BGN"
+          },
+          "ekatte": "24565",
+          "equalization": {
+            "amount": 1066900,
+            "amountEur": 545497,
+            "currency": "BGN"
+          },
+          "nameBg": "Дългопол",
+          "nameEn": "Dalgopol",
+          "obshtinaCode": "VAR16",
+          "otherTargeted": null,
+          "total": {
+            "amount": 7373700,
+            "amountEur": 3770113,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 100100,
+            "amountEur": 51180,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 161400,
+            "amountEur": 82523,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 6028400,
+            "amountEur": 3082272,
+            "currency": "BGN"
+          },
+          "ekatte": "03719",
+          "equalization": {
+            "amount": 579500,
+            "amountEur": 296294,
+            "currency": "BGN"
+          },
+          "nameBg": "Белослав",
+          "nameEn": "Beloslav",
+          "obshtinaCode": "VAR04",
+          "otherTargeted": null,
+          "total": {
+            "amount": 6799200,
+            "amountEur": 3476376,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 29900,
+            "amountEur": 15288,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 555300,
+            "amountEur": 283920,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 5322100,
+            "amountEur": 2721147,
+            "currency": "BGN"
+          },
+          "ekatte": "12574",
+          "equalization": {
+            "amount": 781900,
+            "amountEur": 399779,
+            "currency": "BGN"
+          },
+          "nameBg": "Вълчи дол",
+          "nameEn": "Valchi dol",
+          "obshtinaCode": "VAR09",
+          "otherTargeted": null,
+          "total": {
+            "amount": 6776800,
+            "amountEur": 3464923,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 117500,
+            "amountEur": 60077,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 291600,
+            "amountEur": 149093,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 4059800,
+            "amountEur": 2075743,
+            "currency": "BGN"
+          },
+          "ekatte": "70175",
+          "equalization": {
+            "amount": 420800,
+            "amountEur": 215152,
+            "currency": "BGN"
+          },
+          "nameBg": "Суворово",
+          "nameEn": "Suvorovo",
+          "obshtinaCode": "VAR26",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4848200,
+            "amountEur": 2478845,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 76000,
+            "amountEur": 38858,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 437700,
+            "amountEur": 223792,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3550400,
+            "amountEur": 1815291,
+            "currency": "BGN"
+          },
+          "ekatte": "00084",
+          "equalization": {
+            "amount": 258500,
+            "amountEur": 132169,
+            "currency": "BGN"
+          },
+          "nameBg": "Аврен",
+          "nameEn": "Avren",
+          "obshtinaCode": "VAR01",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4326900,
+            "amountEur": 2212309,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 80300,
+            "amountEur": 41057,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 180300,
+            "amountEur": 92186,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3490600,
+            "amountEur": 1784715,
+            "currency": "BGN"
+          },
+          "ekatte": "20482",
+          "equalization": {
+            "amount": 188700,
+            "amountEur": 96481,
+            "currency": "BGN"
+          },
+          "nameBg": "Девня",
+          "nameEn": "Devnya",
+          "obshtinaCode": "VAR14",
+          "otherTargeted": null,
+          "total": {
+            "amount": 3914900,
+            "amountEur": 2001657,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 55300,
+            "amountEur": 28274,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 314300,
+            "amountEur": 160699,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 2062700,
+            "amountEur": 1054642,
+            "currency": "BGN"
+          },
+          "ekatte": "10865",
+          "equalization": {
+            "amount": 213200,
+            "amountEur": 109007,
+            "currency": "BGN"
+          },
+          "nameBg": "Ветрино",
+          "nameEn": "Vetrino",
+          "obshtinaCode": "VAR08",
+          "otherTargeted": null,
+          "total": {
+            "amount": 2677600,
+            "amountEur": 1369035,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 87400,
+            "amountEur": 44687,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 134300,
+            "amountEur": 68666,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 2043200,
+            "amountEur": 1044672,
+            "currency": "BGN"
+          },
+          "ekatte": "07598",
+          "equalization": {
+            "amount": 37900,
+            "amountEur": 19378,
+            "currency": "BGN"
+          },
+          "nameBg": "Бяла",
+          "nameEn": "Byala",
+          "obshtinaCode": "VAR05",
+          "otherTargeted": null,
+          "total": {
+            "amount": 2238600,
+            "amountEur": 1144578,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 23200,
+            "amountEur": 11862,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 6796600,
+          "amountEur": 3475046,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 178437200,
+          "amountEur": 91233492,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 9319200,
+          "amountEur": 4764832,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 195777300,
+          "amountEur": 100099344,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1224300,
+          "amountEur": 625975,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2018",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=120521"
+      }
+    },
+    {
+      "asOf": "2019-01-01",
+      "fiscalYear": 2019,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 2392300,
+            "amountEur": 1223164,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 139463200,
+            "amountEur": 71306402,
+            "currency": "BGN"
+          },
+          "ekatte": "10135",
+          "equalization": null,
+          "nameBg": "Варна",
+          "nameEn": "Varna",
+          "obshtinaCode": "VAR06",
+          "otherTargeted": null,
+          "total": {
+            "amount": 142053800,
+            "amountEur": 72630955,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 198300,
+            "amountEur": 101389,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 814500,
+            "amountEur": 416447,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 12220100,
+            "amountEur": 6248038,
+            "currency": "BGN"
+          },
+          "ekatte": "58503",
+          "equalization": {
+            "amount": 1744100,
+            "amountEur": 891744,
+            "currency": "BGN"
+          },
+          "nameBg": "Провадия",
+          "nameEn": "Provadia",
+          "obshtinaCode": "VAR24",
+          "otherTargeted": null,
+          "total": {
+            "amount": 14968400,
+            "amountEur": 7653221,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 189700,
+            "amountEur": 96992,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 596900,
+            "amountEur": 305190,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 10423300,
+            "amountEur": 5329349,
+            "currency": "BGN"
+          },
+          "ekatte": "21912",
+          "equalization": {
+            "amount": 1554000,
+            "amountEur": 794548,
+            "currency": "BGN"
+          },
+          "nameBg": "Долни чифлик",
+          "nameEn": "Dolni chiflik",
+          "obshtinaCode": "VAR13",
+          "otherTargeted": null,
+          "total": {
+            "amount": 12708800,
+            "amountEur": 6497906,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 134600,
+            "amountEur": 68820,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 786500,
+            "amountEur": 402131,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 8105400,
+            "amountEur": 4144225,
+            "currency": "BGN"
+          },
+          "ekatte": "00182",
+          "equalization": {
+            "amount": 701100,
+            "amountEur": 358467,
+            "currency": "BGN"
+          },
+          "nameBg": "Аксаково",
+          "nameEn": "Aksakovo",
+          "obshtinaCode": "VAR02",
+          "otherTargeted": null,
+          "total": {
+            "amount": 9791100,
+            "amountEur": 5006110,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 198100,
+            "amountEur": 101287,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 538300,
+            "amountEur": 275228,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 6742100,
+            "amountEur": 3447181,
+            "currency": "BGN"
+          },
+          "ekatte": "24565",
+          "equalization": {
+            "amount": 1296500,
+            "amountEur": 662890,
+            "currency": "BGN"
+          },
+          "nameBg": "Дългопол",
+          "nameEn": "Dalgopol",
+          "obshtinaCode": "VAR16",
+          "otherTargeted": null,
+          "total": {
+            "amount": 8686900,
+            "amountEur": 4441541,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 110000,
+            "amountEur": 56242,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 198600,
+            "amountEur": 101543,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 6951500,
+            "amountEur": 3554246,
+            "currency": "BGN"
+          },
+          "ekatte": "03719",
+          "equalization": {
+            "amount": 613800,
+            "amountEur": 313831,
+            "currency": "BGN"
+          },
+          "nameBg": "Белослав",
+          "nameEn": "Beloslav",
+          "obshtinaCode": "VAR04",
+          "otherTargeted": null,
+          "total": {
+            "amount": 7796800,
+            "amountEur": 3986441,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 32900,
+            "amountEur": 16822,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 622300,
+            "amountEur": 318177,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 6073200,
+            "amountEur": 3105178,
+            "currency": "BGN"
+          },
+          "ekatte": "12574",
+          "equalization": {
+            "amount": 809200,
+            "amountEur": 413737,
+            "currency": "BGN"
+          },
+          "nameBg": "Вълчи дол",
+          "nameEn": "Valchi dol",
+          "obshtinaCode": "VAR09",
+          "otherTargeted": null,
+          "total": {
+            "amount": 7633900,
+            "amountEur": 3903151,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 129200,
+            "amountEur": 66059,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 339000,
+            "amountEur": 173328,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 4806400,
+            "amountEur": 2457473,
+            "currency": "BGN"
+          },
+          "ekatte": "70175",
+          "equalization": {
+            "amount": 515100,
+            "amountEur": 263366,
+            "currency": "BGN"
+          },
+          "nameBg": "Суворово",
+          "nameEn": "Suvorovo",
+          "obshtinaCode": "VAR26",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5744000,
+            "amountEur": 2936861,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 83500,
+            "amountEur": 42693,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 495600,
+            "amountEur": 253396,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 4129000,
+            "amountEur": 2111124,
+            "currency": "BGN"
+          },
+          "ekatte": "00084",
+          "equalization": null,
+          "nameBg": "Аврен",
+          "nameEn": "Avren",
+          "obshtinaCode": "VAR01",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4712900,
+            "amountEur": 2409668,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 88300,
+            "amountEur": 45147,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 187900,
+            "amountEur": 96072,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 4034200,
+            "amountEur": 2062654,
+            "currency": "BGN"
+          },
+          "ekatte": "20482",
+          "equalization": null,
+          "nameBg": "Девня",
+          "nameEn": "Devnya",
+          "obshtinaCode": "VAR14",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4282800,
+            "amountEur": 2189761,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 60700,
+            "amountEur": 31035,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 363300,
+            "amountEur": 185752,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 2396300,
+            "amountEur": 1225209,
+            "currency": "BGN"
+          },
+          "ekatte": "10865",
+          "equalization": {
+            "amount": 314400,
+            "amountEur": 160750,
+            "currency": "BGN"
+          },
+          "nameBg": "Ветрино",
+          "nameEn": "Vetrino",
+          "obshtinaCode": "VAR08",
+          "otherTargeted": null,
+          "total": {
+            "amount": 3170100,
+            "amountEur": 1620846,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 96100,
+            "amountEur": 49135,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 169600,
+            "amountEur": 86715,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 2400200,
+            "amountEur": 1227203,
+            "currency": "BGN"
+          },
+          "ekatte": "07598",
+          "equalization": null,
+          "nameBg": "Бяла",
+          "nameEn": "Byala",
+          "obshtinaCode": "VAR05",
+          "otherTargeted": null,
+          "total": {
+            "amount": 2595300,
+            "amountEur": 1326956,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 25500,
+            "amountEur": 13038,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 7504800,
+          "amountEur": 3837143,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 207744900,
+          "amountEur": 106218282,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 7548200,
+          "amountEur": 3859333,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 224144800,
+          "amountEur": 114603417,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1346900,
+          "amountEur": 688659,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2019",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=132563"
+      }
+    },
+    {
       "asOf": "2020-01-01",
       "fiscalYear": 2020,
       "municipalities": [
@@ -427,6 +1263,416 @@
       "source": {
         "documentId": "law-2020",
         "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+      }
+    },
+    {
+      "asOf": "2021-01-01",
+      "fiscalYear": 2021,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 3002900,
+            "amountEur": 1535358,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 191990700,
+            "amountEur": 98163286,
+            "currency": "BGN"
+          },
+          "ekatte": "10135",
+          "equalization": null,
+          "nameBg": "Варна",
+          "nameEn": "Varna",
+          "obshtinaCode": "VAR06",
+          "otherTargeted": null,
+          "total": {
+            "amount": 195253300,
+            "amountEur": 99831427,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 259700,
+            "amountEur": 132783,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1010900,
+            "amountEur": 516865,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 15642100,
+            "amountEur": 7997679,
+            "currency": "BGN"
+          },
+          "ekatte": "58503",
+          "equalization": {
+            "amount": 1885600,
+            "amountEur": 964092,
+            "currency": "BGN"
+          },
+          "nameBg": "Провадия",
+          "nameEn": "Provadia",
+          "obshtinaCode": "VAR24",
+          "otherTargeted": null,
+          "total": {
+            "amount": 18785100,
+            "amountEur": 9604669,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 246500,
+            "amountEur": 126033,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 740600,
+            "amountEur": 378663,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 13519800,
+            "amountEur": 6912564,
+            "currency": "BGN"
+          },
+          "ekatte": "21912",
+          "equalization": {
+            "amount": 1833100,
+            "amountEur": 937249,
+            "currency": "BGN"
+          },
+          "nameBg": "Долни чифлик",
+          "nameEn": "Dolni chiflik",
+          "obshtinaCode": "VAR13",
+          "otherTargeted": null,
+          "total": {
+            "amount": 16268400,
+            "amountEur": 8317901,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 174900,
+            "amountEur": 89425,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 977800,
+            "amountEur": 499941,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 11034700,
+            "amountEur": 5641953,
+            "currency": "BGN"
+          },
+          "ekatte": "00182",
+          "equalization": {
+            "amount": 768400,
+            "amountEur": 392877,
+            "currency": "BGN"
+          },
+          "nameBg": "Аксаково",
+          "nameEn": "Aksakovo",
+          "obshtinaCode": "VAR02",
+          "otherTargeted": null,
+          "total": {
+            "amount": 13038400,
+            "amountEur": 6666428,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 257500,
+            "amountEur": 131658,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 697000,
+            "amountEur": 356370,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 9062500,
+            "amountEur": 4633583,
+            "currency": "BGN"
+          },
+          "ekatte": "24565",
+          "equalization": {
+            "amount": 1492600,
+            "amountEur": 763154,
+            "currency": "BGN"
+          },
+          "nameBg": "Дългопол",
+          "nameEn": "Dalgopol",
+          "obshtinaCode": "VAR16",
+          "otherTargeted": null,
+          "total": {
+            "amount": 11395100,
+            "amountEur": 5826222,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 143000,
+            "amountEur": 73115,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 274700,
+            "amountEur": 140452,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 8970800,
+            "amountEur": 4586697,
+            "currency": "BGN"
+          },
+          "ekatte": "03719",
+          "equalization": {
+            "amount": 613800,
+            "amountEur": 313831,
+            "currency": "BGN"
+          },
+          "nameBg": "Белослав",
+          "nameEn": "Beloslav",
+          "obshtinaCode": "VAR04",
+          "otherTargeted": null,
+          "total": {
+            "amount": 9902000,
+            "amountEur": 5062812,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 42700,
+            "amountEur": 21832,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 800800,
+            "amountEur": 409443,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 7794800,
+            "amountEur": 3985418,
+            "currency": "BGN"
+          },
+          "ekatte": "12574",
+          "equalization": {
+            "amount": 856900,
+            "amountEur": 438126,
+            "currency": "BGN"
+          },
+          "nameBg": "Вълчи дол",
+          "nameEn": "Valchi dol",
+          "obshtinaCode": "VAR09",
+          "otherTargeted": null,
+          "total": {
+            "amount": 9620400,
+            "amountEur": 4918832,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 167900,
+            "amountEur": 85846,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 449400,
+            "amountEur": 229775,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 6042600,
+            "amountEur": 3089532,
+            "currency": "BGN"
+          },
+          "ekatte": "70175",
+          "equalization": {
+            "amount": 607500,
+            "amountEur": 310610,
+            "currency": "BGN"
+          },
+          "nameBg": "Суворово",
+          "nameEn": "Suvorovo",
+          "obshtinaCode": "VAR26",
+          "otherTargeted": null,
+          "total": {
+            "amount": 7208100,
+            "amountEur": 3685443,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 108600,
+            "amountEur": 55526,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 644300,
+            "amountEur": 329425,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 5249600,
+            "amountEur": 2684078,
+            "currency": "BGN"
+          },
+          "ekatte": "00084",
+          "equalization": null,
+          "nameBg": "Аврен",
+          "nameEn": "Avren",
+          "obshtinaCode": "VAR01",
+          "otherTargeted": null,
+          "total": {
+            "amount": 6008600,
+            "amountEur": 3072148,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 114700,
+            "amountEur": 58645,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 232900,
+            "amountEur": 119080,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 5231000,
+            "amountEur": 2674568,
+            "currency": "BGN"
+          },
+          "ekatte": "20482",
+          "equalization": null,
+          "nameBg": "Девня",
+          "nameEn": "Devnya",
+          "obshtinaCode": "VAR14",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5542800,
+            "amountEur": 2833989,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 78900,
+            "amountEur": 40341,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 479800,
+            "amountEur": 245318,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3193400,
+            "amountEur": 1632759,
+            "currency": "BGN"
+          },
+          "ekatte": "10865",
+          "equalization": {
+            "amount": 368400,
+            "amountEur": 188360,
+            "currency": "BGN"
+          },
+          "nameBg": "Ветрино",
+          "nameEn": "Vetrino",
+          "obshtinaCode": "VAR08",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4166500,
+            "amountEur": 2130298,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 124900,
+            "amountEur": 63860,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 240200,
+            "amountEur": 122812,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3094000,
+            "amountEur": 1581937,
+            "currency": "BGN"
+          },
+          "ekatte": "07598",
+          "equalization": null,
+          "nameBg": "Бяла",
+          "nameEn": "Byala",
+          "obshtinaCode": "VAR05",
+          "otherTargeted": null,
+          "total": {
+            "amount": 3367400,
+            "amountEur": 1721724,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 33200,
+            "amountEur": 16975,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 9551300,
+          "amountEur": 4883502,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 280826000,
+          "amountEur": 143584054,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 8426300,
+          "amountEur": 4308299,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 300556100,
+          "amountEur": 153671893,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1752500,
+          "amountEur": 896039,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2021",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=154110"
       }
     },
     {

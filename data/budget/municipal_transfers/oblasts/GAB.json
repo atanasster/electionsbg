@@ -4,6 +4,346 @@
   "oblastNameEn": "Gabrovo",
   "years": [
     {
+      "asOf": "2018-01-01",
+      "fiscalYear": 2018,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 2346000,
+            "amountEur": 1199491,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 20764400,
+            "amountEur": 10616669,
+            "currency": "BGN"
+          },
+          "ekatte": "14218",
+          "equalization": {
+            "amount": 2962600,
+            "amountEur": 1514753,
+            "currency": "BGN"
+          },
+          "nameBg": "Габрово",
+          "nameEn": "Gabrovo",
+          "obshtinaCode": "GAB05",
+          "otherTargeted": null,
+          "total": {
+            "amount": 26581900,
+            "amountEur": 13591110,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 508900,
+            "amountEur": 260196,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1528900,
+            "amountEur": 781714,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 13619300,
+            "amountEur": 6963438,
+            "currency": "BGN"
+          },
+          "ekatte": "65927",
+          "equalization": {
+            "amount": 1654400,
+            "amountEur": 845881,
+            "currency": "BGN"
+          },
+          "nameBg": "Севлиево",
+          "nameEn": "Sevlievo",
+          "obshtinaCode": "GAB29",
+          "otherTargeted": null,
+          "total": {
+            "amount": 17216600,
+            "amountEur": 8802708,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 414000,
+            "amountEur": 211675,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 666500,
+            "amountEur": 340776,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 5421700,
+            "amountEur": 2772071,
+            "currency": "BGN"
+          },
+          "ekatte": "23947",
+          "equalization": {
+            "amount": 544900,
+            "amountEur": 278603,
+            "currency": "BGN"
+          },
+          "nameBg": "Дряново",
+          "nameEn": "Dryanovo",
+          "obshtinaCode": "GAB12",
+          "otherTargeted": null,
+          "total": {
+            "amount": 6813000,
+            "amountEur": 3483432,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 179900,
+            "amountEur": 91981,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 929100,
+            "amountEur": 475041,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3937600,
+            "amountEur": 2013263,
+            "currency": "BGN"
+          },
+          "ekatte": "73403",
+          "equalization": {
+            "amount": 534800,
+            "amountEur": 273439,
+            "currency": "BGN"
+          },
+          "nameBg": "Трявна",
+          "nameEn": "Tryavna",
+          "obshtinaCode": "GAB35",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5898000,
+            "amountEur": 3015600,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 496500,
+            "amountEur": 253856,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 5470500,
+          "amountEur": 2797022,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 43743000,
+          "amountEur": 22365441,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 5696700,
+          "amountEur": 2912676,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 56509500,
+          "amountEur": 28892850,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1599300,
+          "amountEur": 817708,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2018",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=120521"
+      }
+    },
+    {
+      "asOf": "2019-01-01",
+      "fiscalYear": 2019,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 2541100,
+            "amountEur": 1299244,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 24368100,
+            "amountEur": 12459212,
+            "currency": "BGN"
+          },
+          "ekatte": "14218",
+          "equalization": {
+            "amount": 2963900,
+            "amountEur": 1515418,
+            "currency": "BGN"
+          },
+          "nameBg": "Габрово",
+          "nameEn": "Gabrovo",
+          "obshtinaCode": "GAB05",
+          "otherTargeted": null,
+          "total": {
+            "amount": 30432800,
+            "amountEur": 15560044,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 559700,
+            "amountEur": 286170,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1644700,
+            "amountEur": 840922,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 15652900,
+            "amountEur": 8003201,
+            "currency": "BGN"
+          },
+          "ekatte": "65927",
+          "equalization": {
+            "amount": 1654600,
+            "amountEur": 845984,
+            "currency": "BGN"
+          },
+          "nameBg": "Севлиево",
+          "nameEn": "Sevlievo",
+          "obshtinaCode": "GAB29",
+          "otherTargeted": null,
+          "total": {
+            "amount": 19407400,
+            "amountEur": 9922846,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 455200,
+            "amountEur": 232740,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 699900,
+            "amountEur": 357853,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 6196800,
+            "amountEur": 3168374,
+            "currency": "BGN"
+          },
+          "ekatte": "23947",
+          "equalization": {
+            "amount": 717000,
+            "amountEur": 366596,
+            "currency": "BGN"
+          },
+          "nameBg": "Дряново",
+          "nameEn": "Dryanovo",
+          "obshtinaCode": "GAB12",
+          "otherTargeted": null,
+          "total": {
+            "amount": 7811500,
+            "amountEur": 3993957,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 197800,
+            "amountEur": 101134,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 929100,
+            "amountEur": 475041,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 4623000,
+            "amountEur": 2363702,
+            "currency": "BGN"
+          },
+          "ekatte": "73403",
+          "equalization": {
+            "amount": 704000,
+            "amountEur": 359949,
+            "currency": "BGN"
+          },
+          "nameBg": "Трявна",
+          "nameEn": "Tryavna",
+          "obshtinaCode": "GAB35",
+          "otherTargeted": null,
+          "total": {
+            "amount": 6801200,
+            "amountEur": 3477398,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 545100,
+            "amountEur": 278705,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 5814800,
+          "amountEur": 2973060,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 50840800,
+          "amountEur": 25994489,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 6039500,
+          "amountEur": 3087947,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 64452900,
+          "amountEur": 32954245,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1757800,
+          "amountEur": 898749,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2019",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=132563"
+      }
+    },
+    {
       "asOf": "2020-01-01",
       "fiscalYear": 2020,
       "municipalities": [
@@ -171,6 +511,176 @@
       "source": {
         "documentId": "law-2020",
         "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+      }
+    },
+    {
+      "asOf": "2021-01-01",
+      "fiscalYear": 2021,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 2981600,
+            "amountEur": 1524468,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 32516600,
+            "amountEur": 16625474,
+            "currency": "BGN"
+          },
+          "ekatte": "14218",
+          "equalization": {
+            "amount": 3248800,
+            "amountEur": 1661085,
+            "currency": "BGN"
+          },
+          "nameBg": "Габрово",
+          "nameEn": "Gabrovo",
+          "obshtinaCode": "GAB05",
+          "otherTargeted": null,
+          "total": {
+            "amount": 39474700,
+            "amountEur": 20183094,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 727700,
+            "amountEur": 372067,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 2038800,
+            "amountEur": 1042422,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 21146600,
+            "amountEur": 10812085,
+            "currency": "BGN"
+          },
+          "ekatte": "65927",
+          "equalization": {
+            "amount": 1654600,
+            "amountEur": 845984,
+            "currency": "BGN"
+          },
+          "nameBg": "Севлиево",
+          "nameEn": "Sevlievo",
+          "obshtinaCode": "GAB29",
+          "otherTargeted": null,
+          "total": {
+            "amount": 25421700,
+            "amountEur": 12997909,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 581700,
+            "amountEur": 297418,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 910300,
+            "amountEur": 465429,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 8078300,
+            "amountEur": 4130369,
+            "currency": "BGN"
+          },
+          "ekatte": "23947",
+          "equalization": {
+            "amount": 831900,
+            "amountEur": 425344,
+            "currency": "BGN"
+          },
+          "nameBg": "Дряново",
+          "nameEn": "Dryanovo",
+          "obshtinaCode": "GAB12",
+          "otherTargeted": null,
+          "total": {
+            "amount": 10074900,
+            "amountEur": 5151215,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 254400,
+            "amountEur": 130073,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1064700,
+            "amountEur": 544372,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 6179800,
+            "amountEur": 3159682,
+            "currency": "BGN"
+          },
+          "ekatte": "73403",
+          "equalization": {
+            "amount": 778600,
+            "amountEur": 398092,
+            "currency": "BGN"
+          },
+          "nameBg": "Трявна",
+          "nameEn": "Tryavna",
+          "obshtinaCode": "GAB35",
+          "otherTargeted": null,
+          "total": {
+            "amount": 8750500,
+            "amountEur": 4474060,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 727400,
+            "amountEur": 371914,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 6995400,
+          "amountEur": 3576691,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 67921300,
+          "amountEur": 34727610,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 6513900,
+          "amountEur": 3330505,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 83721800,
+          "amountEur": 42806278,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 2291200,
+          "amountEur": 1171472,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2021",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=154110"
       }
     },
     {

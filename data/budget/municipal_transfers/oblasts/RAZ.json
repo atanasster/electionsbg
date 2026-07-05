@@ -4,6 +4,538 @@
   "oblastNameEn": "Razgrad",
   "years": [
     {
+      "asOf": "2018-01-01",
+      "fiscalYear": 2018,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 840300,
+            "amountEur": 429639,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 22851900,
+            "amountEur": 11683991,
+            "currency": "BGN"
+          },
+          "ekatte": "61710",
+          "equalization": {
+            "amount": 1593800,
+            "amountEur": 814897,
+            "currency": "BGN"
+          },
+          "nameBg": "Разград",
+          "nameEn": "Razgrad",
+          "obshtinaCode": "RAZ26",
+          "otherTargeted": null,
+          "total": {
+            "amount": 25487900,
+            "amountEur": 13031756,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 201900,
+            "amountEur": 103230,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 624000,
+            "amountEur": 319046,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 10990700,
+            "amountEur": 5619456,
+            "currency": "BGN"
+          },
+          "ekatte": "32874",
+          "equalization": {
+            "amount": 1392000,
+            "amountEur": 711718,
+            "currency": "BGN"
+          },
+          "nameBg": "Исперих",
+          "nameEn": "Isperih",
+          "obshtinaCode": "RAZ14",
+          "otherTargeted": null,
+          "total": {
+            "amount": 13100200,
+            "amountEur": 6698026,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 93500,
+            "amountEur": 47806,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 544700,
+            "amountEur": 278501,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 7008500,
+            "amountEur": 3583389,
+            "currency": "BGN"
+          },
+          "ekatte": "40422",
+          "equalization": {
+            "amount": 1180200,
+            "amountEur": 603427,
+            "currency": "BGN"
+          },
+          "nameBg": "Кубрат",
+          "nameEn": "Kubrat",
+          "obshtinaCode": "RAZ16",
+          "otherTargeted": null,
+          "total": {
+            "amount": 8860200,
+            "amountEur": 4530148,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 126800,
+            "amountEur": 64832,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 468800,
+            "amountEur": 239694,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 4522600,
+            "amountEur": 2312369,
+            "currency": "BGN"
+          },
+          "ekatte": "44166",
+          "equalization": {
+            "amount": 648700,
+            "amountEur": 331675,
+            "currency": "BGN"
+          },
+          "nameBg": "Лозница",
+          "nameEn": "Loznitsa",
+          "obshtinaCode": "RAZ17",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5764400,
+            "amountEur": 2947291,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 124300,
+            "amountEur": 63554,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 364600,
+            "amountEur": 186417,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 4568000,
+            "amountEur": 2335581,
+            "currency": "BGN"
+          },
+          "ekatte": "65276",
+          "equalization": {
+            "amount": 505600,
+            "amountEur": 258509,
+            "currency": "BGN"
+          },
+          "nameBg": "Самуил",
+          "nameEn": "Samuil",
+          "obshtinaCode": "RAZ29",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5515200,
+            "amountEur": 2819877,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 77000,
+            "amountEur": 39369,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 262000,
+            "amountEur": 133958,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3853500,
+            "amountEur": 1970263,
+            "currency": "BGN"
+          },
+          "ekatte": "30065",
+          "equalization": {
+            "amount": 735900,
+            "amountEur": 376260,
+            "currency": "BGN"
+          },
+          "nameBg": "Завет",
+          "nameEn": "Zavet",
+          "obshtinaCode": "RAZ11",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4914900,
+            "amountEur": 2512948,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 63500,
+            "amountEur": 32467,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 130300,
+            "amountEur": 66621,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 2235400,
+            "amountEur": 1142942,
+            "currency": "BGN"
+          },
+          "ekatte": "77308",
+          "equalization": {
+            "amount": 425300,
+            "amountEur": 217452,
+            "currency": "BGN"
+          },
+          "nameBg": "Цар Калоян",
+          "nameEn": "Tsar Kaloyan",
+          "obshtinaCode": "RAZ36",
+          "otherTargeted": null,
+          "total": {
+            "amount": 2823900,
+            "amountEur": 1443837,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 32900,
+            "amountEur": 16822,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 3234700,
+          "amountEur": 1653876,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 56030600,
+          "amountEur": 28647991,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 6481500,
+          "amountEur": 3313938,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 66466700,
+          "amountEur": 33983883,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 719900,
+          "amountEur": 368080,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2018",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=120521"
+      }
+    },
+    {
+      "asOf": "2019-01-01",
+      "fiscalYear": 2019,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 903000,
+            "amountEur": 461697,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 26738100,
+            "amountEur": 13670973,
+            "currency": "BGN"
+          },
+          "ekatte": "61710",
+          "equalization": {
+            "amount": 1903700,
+            "amountEur": 973346,
+            "currency": "BGN"
+          },
+          "nameBg": "Разград",
+          "nameEn": "Razgrad",
+          "obshtinaCode": "RAZ26",
+          "otherTargeted": null,
+          "total": {
+            "amount": 29746700,
+            "amountEur": 15209246,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 201900,
+            "amountEur": 103230,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 671300,
+            "amountEur": 343230,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 12934600,
+            "amountEur": 6613356,
+            "currency": "BGN"
+          },
+          "ekatte": "32874",
+          "equalization": {
+            "amount": 1532200,
+            "amountEur": 783401,
+            "currency": "BGN"
+          },
+          "nameBg": "Исперих",
+          "nameEn": "Isperih",
+          "obshtinaCode": "RAZ14",
+          "otherTargeted": null,
+          "total": {
+            "amount": 15240900,
+            "amountEur": 7792548,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 102800,
+            "amountEur": 52561,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 585300,
+            "amountEur": 299259,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 8196200,
+            "amountEur": 4190651,
+            "currency": "BGN"
+          },
+          "ekatte": "40422",
+          "equalization": {
+            "amount": 1459600,
+            "amountEur": 746282,
+            "currency": "BGN"
+          },
+          "nameBg": "Кубрат",
+          "nameEn": "Kubrat",
+          "obshtinaCode": "RAZ16",
+          "otherTargeted": null,
+          "total": {
+            "amount": 10380500,
+            "amountEur": 5307465,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 139400,
+            "amountEur": 71274,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 529900,
+            "amountEur": 270934,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 5198200,
+            "amountEur": 2657797,
+            "currency": "BGN"
+          },
+          "ekatte": "44166",
+          "equalization": {
+            "amount": 810100,
+            "amountEur": 414198,
+            "currency": "BGN"
+          },
+          "nameBg": "Лозница",
+          "nameEn": "Loznitsa",
+          "obshtinaCode": "RAZ17",
+          "otherTargeted": null,
+          "total": {
+            "amount": 6674900,
+            "amountEur": 3412822,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 136700,
+            "amountEur": 69894,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 418000,
+            "amountEur": 213720,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 5295800,
+            "amountEur": 2707700,
+            "currency": "BGN"
+          },
+          "ekatte": "65276",
+          "equalization": {
+            "amount": 707700,
+            "amountEur": 361841,
+            "currency": "BGN"
+          },
+          "nameBg": "Самуил",
+          "nameEn": "Samuil",
+          "obshtinaCode": "RAZ29",
+          "otherTargeted": null,
+          "total": {
+            "amount": 6506200,
+            "amountEur": 3326567,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 84700,
+            "amountEur": 43306,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 306300,
+            "amountEur": 156609,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 4495200,
+            "amountEur": 2298359,
+            "currency": "BGN"
+          },
+          "ekatte": "30065",
+          "equalization": {
+            "amount": 869400,
+            "amountEur": 444517,
+            "currency": "BGN"
+          },
+          "nameBg": "Завет",
+          "nameEn": "Zavet",
+          "obshtinaCode": "RAZ11",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5740700,
+            "amountEur": 2935173,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 69800,
+            "amountEur": 35688,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 164800,
+            "amountEur": 84261,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 2513800,
+            "amountEur": 1285286,
+            "currency": "BGN"
+          },
+          "ekatte": "77308",
+          "equalization": {
+            "amount": 582900,
+            "amountEur": 298032,
+            "currency": "BGN"
+          },
+          "nameBg": "Цар Калоян",
+          "nameEn": "Tsar Kaloyan",
+          "obshtinaCode": "RAZ36",
+          "otherTargeted": null,
+          "total": {
+            "amount": 3297600,
+            "amountEur": 1686036,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 36100,
+            "amountEur": 18458,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 3578600,
+          "amountEur": 1829710,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 65371900,
+          "amountEur": 33424122,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 7865600,
+          "amountEur": 4021617,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 77587500,
+          "amountEur": 39669857,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 771400,
+          "amountEur": 394411,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2019",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=132563"
+      }
+    },
+    {
       "asOf": "2020-01-01",
       "fiscalYear": 2020,
       "municipalities": [
@@ -267,6 +799,272 @@
       "source": {
         "documentId": "law-2020",
         "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+      }
+    },
+    {
+      "asOf": "2021-01-01",
+      "fiscalYear": 2021,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 1118500,
+            "amountEur": 571880,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 35459900,
+            "amountEur": 18130359,
+            "currency": "BGN"
+          },
+          "ekatte": "61710",
+          "equalization": {
+            "amount": 2104600,
+            "amountEur": 1076065,
+            "currency": "BGN"
+          },
+          "nameBg": "Разград",
+          "nameEn": "Razgrad",
+          "obshtinaCode": "RAZ26",
+          "otherTargeted": null,
+          "total": {
+            "amount": 38904900,
+            "amountEur": 19891760,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 221900,
+            "amountEur": 113456,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 834600,
+            "amountEur": 426724,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 17247100,
+            "amountEur": 8818302,
+            "currency": "BGN"
+          },
+          "ekatte": "32874",
+          "equalization": {
+            "amount": 1718600,
+            "amountEur": 878706,
+            "currency": "BGN"
+          },
+          "nameBg": "Исперих",
+          "nameEn": "Isperih",
+          "obshtinaCode": "RAZ14",
+          "otherTargeted": null,
+          "total": {
+            "amount": 19933900,
+            "amountEur": 10192041,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 133600,
+            "amountEur": 68309,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 723700,
+            "amountEur": 370022,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 11010200,
+            "amountEur": 5629426,
+            "currency": "BGN"
+          },
+          "ekatte": "40422",
+          "equalization": {
+            "amount": 1535100,
+            "amountEur": 784884,
+            "currency": "BGN"
+          },
+          "nameBg": "Кубрат",
+          "nameEn": "Kubrat",
+          "obshtinaCode": "RAZ16",
+          "otherTargeted": null,
+          "total": {
+            "amount": 13450000,
+            "amountEur": 6876876,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 181000,
+            "amountEur": 92544,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 549000,
+            "amountEur": 280699,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 7130900,
+            "amountEur": 3645971,
+            "currency": "BGN"
+          },
+          "ekatte": "65276",
+          "equalization": {
+            "amount": 823600,
+            "amountEur": 421100,
+            "currency": "BGN"
+          },
+          "nameBg": "Самуил",
+          "nameEn": "Samuil",
+          "obshtinaCode": "RAZ29",
+          "otherTargeted": null,
+          "total": {
+            "amount": 8613600,
+            "amountEur": 4404064,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 110100,
+            "amountEur": 56293,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 686800,
+            "amountEur": 351155,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 6518900,
+            "amountEur": 3333061,
+            "currency": "BGN"
+          },
+          "ekatte": "44166",
+          "equalization": {
+            "amount": 887100,
+            "amountEur": 453567,
+            "currency": "BGN"
+          },
+          "nameBg": "Лозница",
+          "nameEn": "Loznitsa",
+          "obshtinaCode": "RAZ17",
+          "otherTargeted": null,
+          "total": {
+            "amount": 8270500,
+            "amountEur": 4228640,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 177700,
+            "amountEur": 90857,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 406900,
+            "amountEur": 208045,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 5673900,
+            "amountEur": 2901019,
+            "currency": "BGN"
+          },
+          "ekatte": "30065",
+          "equalization": {
+            "amount": 947400,
+            "amountEur": 484398,
+            "currency": "BGN"
+          },
+          "nameBg": "Завет",
+          "nameEn": "Zavet",
+          "obshtinaCode": "RAZ11",
+          "otherTargeted": null,
+          "total": {
+            "amount": 7118800,
+            "amountEur": 3639785,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 90600,
+            "amountEur": 46323,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 232200,
+            "amountEur": 118722,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3408700,
+            "amountEur": 1742841,
+            "currency": "BGN"
+          },
+          "ekatte": "77308",
+          "equalization": {
+            "amount": 652300,
+            "amountEur": 333516,
+            "currency": "BGN"
+          },
+          "nameBg": "Цар Калоян",
+          "nameEn": "Tsar Kaloyan",
+          "obshtinaCode": "RAZ36",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4340100,
+            "amountEur": 2219058,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 46900,
+            "amountEur": 23980,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 4551700,
+          "amountEur": 2327247,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 86449600,
+          "amountEur": 44200979,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 8668700,
+          "amountEur": 4432236,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 100631800,
+          "amountEur": 51452224,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 961800,
+          "amountEur": 491762,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2021",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=154110"
       }
     },
     {

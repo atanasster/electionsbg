@@ -2,6 +2,38 @@
   "documents": [
     {
       "discovery": "auto-confirmed",
+      "fiscalYear": 2018,
+      "id": "law-2018",
+      "kind": "law",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "html",
+          "label": "Държавен вестник — promulgated text + appropriation tables",
+          "role": "promulgated",
+          "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=120521"
+        }
+      ],
+      "title": "Закон за държавния бюджет на Република България за 2018 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2019,
+      "id": "law-2019",
+      "kind": "law",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "html",
+          "label": "Държавен вестник — promulgated text + appropriation tables",
+          "role": "promulgated",
+          "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=132563"
+        }
+      ],
+      "title": "Закон за държавния бюджет на Република България за 2019 г."
+    },
+    {
+      "discovery": "auto-confirmed",
       "fiscalYear": 2020,
       "id": "law-2020",
       "kind": "law",
@@ -17,13 +49,19 @@
       "title": "Закон за държавния бюджет на Република България за 2020 г."
     },
     {
-      "discovery": "auto",
+      "discovery": "auto-confirmed",
       "fiscalYear": 2021,
       "id": "law-2021",
       "kind": "law",
-      "notes": "Placeholder — resolve the Държавен вестник idMat and add it to LAW_DV_MATERIALS in scripts/budget/fetch_sources.ts.",
       "seq": 0,
-      "sources": [],
+      "sources": [
+        {
+          "format": "html",
+          "label": "Държавен вестник — promulgated text + appropriation tables",
+          "role": "promulgated",
+          "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=154110"
+        }
+      ],
       "title": "Закон за държавния бюджет на Република България за 2021 г."
     },
     {
@@ -803,10 +841,16 @@
           "label": "Execution as of 2026-04-30",
           "role": "resource",
           "url": "https://data.egov.bg/resource/download/956cd2d0-6eb1-4922-a6bb-77582e9534fa/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2026-05-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/578e8af7-3acd-4090-8d25-b57f2cb25920/json"
         }
       ],
       "title": "КФП — state budget execution by major budget indicators"
     }
   ],
-  "generatedAt": "2026-06-04T07:45:27.581Z"
+  "generatedAt": "2026-07-05T10:46:25.195Z"
 }

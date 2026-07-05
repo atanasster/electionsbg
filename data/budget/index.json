@@ -1,6 +1,6 @@
 {
   "country": "BG",
-  "documentCount": 28,
+  "documentCount": 30,
   "fiscalYears": [
     {
       "actual": {
@@ -335,80 +335,80 @@
     {
       "actual": {
         "balance": {
-          "amount": -1965023487,
-          "amountEur": -1965023487,
+          "amount": -2435423320,
+          "amountEur": -2435423320,
           "currency": "EUR"
         },
         "euContribution": {
-          "amount": 351762859,
-          "amountEur": 351762859,
+          "amount": 445524862,
+          "amountEur": 445524862,
           "currency": "EUR"
         },
         "expenditure": {
-          "amount": 9530477487,
-          "amountEur": 9530477487,
+          "amount": 11894563000,
+          "amountEur": 11894563000,
           "currency": "EUR"
         },
         "financing": {
-          "amount": 1965023486,
-          "amountEur": 1965023486,
+          "amount": 2435423318,
+          "amountEur": 2435423318,
           "currency": "EUR"
         },
         "revenue": {
-          "amount": 7917216859,
-          "amountEur": 7917216859,
+          "amount": 9904664542,
+          "amountEur": 9904664542,
           "currency": "EUR"
         }
       },
-      "asOf": "2026-04-30",
+      "asOf": "2026-05-31",
       "complete": false,
       "currency": "EUR",
       "firstPeriod": "2026-01",
       "fiscalYear": 2026,
       "gdpEur": 128155604775,
-      "lastPeriod": "2026-04",
-      "monthsAvailable": 4,
+      "lastPeriod": "2026-05",
+      "monthsAvailable": 5,
       "planned": null,
       "projected": {
         "balance": {
-          "amount": -4854463809,
-          "amountEur": -4854463809,
+          "amount": -5049755454,
+          "amountEur": -5049755454,
           "currency": "EUR"
         },
         "euContribution": {
-          "amount": 1081792233,
-          "amountEur": 1081792233,
+          "amount": 1114284091,
+          "amountEur": 1114284091,
           "currency": "EUR"
         },
         "expenditure": {
-          "amount": 31889919556,
-          "amountEur": 31889919556,
+          "amount": 30764317945,
+          "amountEur": 30764317945,
           "currency": "EUR"
         },
         "financing": {
-          "amount": 4854463809,
-          "amountEur": 4854463809,
+          "amount": 5049755454,
+          "amountEur": 5049755454,
           "currency": "EUR"
         },
         "revenue": {
-          "amount": 28117247980,
-          "amountEur": 28117247980,
+          "amount": 26828846582,
+          "amountEur": 26828846582,
           "currency": "EUR"
         }
       },
       "projectionBasis": 2025
     }
   ],
-  "generatedAt": "2026-06-04T07:45:27.582Z",
+  "generatedAt": "2026-07-05T10:46:25.196Z",
   "kfp": {
     "cadences": [
       "monthly"
     ],
     "firstPeriod": "2021-06",
-    "lastPeriod": "2026-04",
-    "observationCount": 290
+    "lastPeriod": "2026-05",
+    "observationCount": 295
   },
-  "lastIngest": "2026-06-04T07:45:27.582Z",
+  "lastIngest": "2026-07-05T10:46:25.196Z",
   "personnel": {
     "ministryCountByYear": {
       "2022": 1,
@@ -443,6 +443,28 @@
         "admin": true,
         "program": true
       },
+      "fiscalYear": 2018,
+      "kfpPeriods": [],
+      "stages": [
+        "law"
+      ]
+    },
+    {
+      "dimensions": {
+        "admin": true,
+        "program": true
+      },
+      "fiscalYear": 2019,
+      "kfpPeriods": [],
+      "stages": [
+        "law"
+      ]
+    },
+    {
+      "dimensions": {
+        "admin": true,
+        "program": true
+      },
       "fiscalYear": 2020,
       "kfpPeriods": [],
       "stages": [
@@ -451,7 +473,9 @@
     },
     {
       "dimensions": {
-        "economic": true
+        "admin": true,
+        "economic": true,
+        "program": true
       },
       "fiscalYear": 2021,
       "kfpPeriods": [
@@ -463,7 +487,8 @@
         "2021-12"
       ],
       "stages": [
-        "execution"
+        "execution",
+        "law"
       ]
     },
     {
@@ -582,7 +607,8 @@
         "2026-01",
         "2026-02",
         "2026-03",
-        "2026-04"
+        "2026-04",
+        "2026-05"
       ],
       "stages": [
         "execution"

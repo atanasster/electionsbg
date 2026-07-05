@@ -1,4 +1,790 @@
 {
+  "2018": {
+    "balance": null,
+    "euContribution": {
+      "amount": {
+        "amount": 1133942700,
+        "amountEur": 579775696,
+        "currency": "BGN"
+      },
+      "code": "IV",
+      "kind": "balance",
+      "labelBg": "ВНОСКА В ОБЩИЯ БЮДЖЕТ НА ЕВРОПЕЙСКИЯ СЪЮЗ",
+      "lines": []
+    },
+    "expenditure": {
+      "amount": {
+        "amount": 11923291500,
+        "amountEur": 6096282141,
+        "currency": "BGN"
+      },
+      "code": "II",
+      "kind": "expenditure",
+      "labelBg": "РАЗХОДИ",
+      "lines": [
+        {
+          "amount": {
+            "amount": 9458355800,
+            "amountEur": 4835980530,
+            "currency": "BGN"
+          },
+          "code": "1",
+          "labelBg": "Текущи разходи"
+        },
+        {
+          "amount": {
+            "amount": 4490685800,
+            "amountEur": 2296051191,
+            "currency": "BGN"
+          },
+          "code": "1.1",
+          "labelBg": "Персонал"
+        },
+        {
+          "amount": {
+            "amount": 924759300,
+            "amountEur": 472821922,
+            "currency": "BGN"
+          },
+          "code": "1.2",
+          "labelBg": "Субсидии и други текущи трансфери"
+        },
+        {
+          "amount": {
+            "amount": 856086000,
+            "amountEur": 437709821,
+            "currency": "BGN"
+          },
+          "code": "1.2.1",
+          "labelBg": "Субсидии и други текущи трансфери за нефинансови предприятия"
+        },
+        {
+          "amount": {
+            "amount": 68673300,
+            "amountEur": 35112101,
+            "currency": "BGN"
+          },
+          "code": "1.2.2",
+          "labelBg": "Субсидии и други текущи трансфери за юридически лица с нестопанска цел"
+        },
+        {
+          "amount": {
+            "amount": 684305200,
+            "amountEur": 349879693,
+            "currency": "BGN"
+          },
+          "code": "1.3",
+          "labelBg": "Лихви"
+        },
+        {
+          "amount": {
+            "amount": 1124690400,
+            "amountEur": 575045070,
+            "currency": "BGN"
+          },
+          "code": "1.4",
+          "labelBg": "Текущи трансфери, обезщетения и помощи за домакинствата"
+        },
+        {
+          "amount": {
+            "amount": 2360252600,
+            "amountEur": 1206777992,
+            "currency": "BGN"
+          },
+          "code": "2",
+          "labelBg": "Капиталови разходи"
+        },
+        {
+          "amount": {
+            "amount": 2123378900,
+            "amountEur": 1085666392,
+            "currency": "BGN"
+          },
+          "code": "2.1",
+          "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+        },
+        {
+          "amount": {
+            "amount": 236873700,
+            "amountEur": 121111600,
+            "currency": "BGN"
+          },
+          "code": "2.2",
+          "labelBg": "Капиталови трансфери"
+        },
+        {
+          "amount": {
+            "amount": 19233100,
+            "amountEur": 9833728,
+            "currency": "BGN"
+          },
+          "code": "3",
+          "labelBg": "Прираст на държавния резерв (нето)"
+        },
+        {
+          "amount": {
+            "amount": 14350000,
+            "amountEur": 7337038,
+            "currency": "BGN"
+          },
+          "code": "4",
+          "labelBg": "Предоставени текущи и капиталови трансфери за чужбина"
+        },
+        {
+          "amount": {
+            "amount": 71100000,
+            "amountEur": 36352853,
+            "currency": "BGN"
+          },
+          "code": "5",
+          "labelBg": "Резерв за непредвидени и/или неотложни разходи"
+        },
+        {
+          "amount": {
+            "amount": 70000000,
+            "amountEur": 35790432,
+            "currency": "BGN"
+          },
+          "code": "5.1",
+          "labelBg": "По централния бюджет за предотвратяване, овладяване и преодоляване на последиците от бедствия"
+        },
+        {
+          "amount": {
+            "amount": 600000,
+            "amountEur": 306775,
+            "currency": "BGN"
+          },
+          "code": "5.2",
+          "labelBg": "По бюджета на съдебната власт"
+        },
+        {
+          "amount": {
+            "amount": 500000,
+            "amountEur": 255646,
+            "currency": "BGN"
+          },
+          "code": "5.3",
+          "labelBg": "По бюджета на Народното събрание"
+        }
+      ]
+    },
+    "fiscalYear": 2018,
+    "revenue": {
+      "amount": {
+        "amount": 23515773100,
+        "amountEur": 12023423866,
+        "currency": "BGN"
+      },
+      "code": "I",
+      "kind": "revenue",
+      "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+      "lines": [
+        {
+          "amount": {
+            "amount": 21040600000,
+            "amountEur": 10757887955,
+            "currency": "BGN"
+          },
+          "code": "1",
+          "labelBg": "Данъчни приходи"
+        },
+        {
+          "amount": {
+            "amount": 2294100000,
+            "amountEur": 1172954705,
+            "currency": "BGN"
+          },
+          "code": "1.1",
+          "labelBg": "Корпоративен данък"
+        },
+        {
+          "amount": {
+            "amount": 69900000,
+            "amountEur": 35739302,
+            "currency": "BGN"
+          },
+          "code": "1.2",
+          "labelBg": "Данъци върху дивидентите, ликвидационните дялове и доходите на юридически лица"
+        },
+        {
+          "amount": {
+            "amount": 3372400000,
+            "amountEur": 1724280740,
+            "currency": "BGN"
+          },
+          "code": "1.3",
+          "labelBg": "Данъци върху доходите на физически лица"
+        },
+        {
+          "amount": {
+            "amount": 9780000000,
+            "amountEur": 5000434598,
+            "currency": "BGN"
+          },
+          "code": "1.4",
+          "labelBg": "Данък върху добавената стойност"
+        },
+        {
+          "amount": {
+            "amount": 5150000000,
+            "amountEur": 2633153188,
+            "currency": "BGN"
+          },
+          "code": "1.5",
+          "labelBg": "Акцизи"
+        },
+        {
+          "amount": {
+            "amount": 36300000,
+            "amountEur": 18559895,
+            "currency": "BGN"
+          },
+          "code": "1.6",
+          "labelBg": "Данък върху застрахователните премии"
+        },
+        {
+          "amount": {
+            "amount": 190100000,
+            "amountEur": 97196587,
+            "currency": "BGN"
+          },
+          "code": "1.7",
+          "labelBg": "Мита и митнически такси"
+        },
+        {
+          "amount": {
+            "amount": 147800000,
+            "amountEur": 75568940,
+            "currency": "BGN"
+          },
+          "code": "1.8",
+          "labelBg": "Други данъци"
+        },
+        {
+          "amount": {
+            "amount": 2475173100,
+            "amountEur": 1265535911,
+            "currency": "BGN"
+          },
+          "code": "2",
+          "labelBg": "Неданъчни приходи"
+        }
+      ]
+    },
+    "transfers": {
+      "amount": {
+        "amount": 11082080700,
+        "amountEur": 5666177889,
+        "currency": "BGN"
+      },
+      "code": "III",
+      "kind": "financing",
+      "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – НЕТО",
+      "lines": [
+        {
+          "amount": {
+            "amount": 11100063700,
+            "amountEur": 5675372451,
+            "currency": "BGN"
+          },
+          "code": "1",
+          "labelBg": "Предоставени трансфери за:"
+        },
+        {
+          "amount": {
+            "amount": 3264075100,
+            "amountEur": 1668895098,
+            "currency": "BGN"
+          },
+          "code": "1.1",
+          "labelBg": "Общините"
+        },
+        {
+          "amount": {
+            "amount": 4495090400,
+            "amountEur": 2298303227,
+            "currency": "BGN"
+          },
+          "code": "1.2",
+          "labelBg": "Държавното обществено осигуряване"
+        },
+        {
+          "amount": {
+            "amount": 1286186000,
+            "amountEur": 657616460,
+            "currency": "BGN"
+          },
+          "code": "1.3",
+          "labelBg": "Националната здравноосигурителна каса"
+        },
+        {
+          "amount": {
+            "amount": 24000000,
+            "amountEur": 12271005,
+            "currency": "BGN"
+          },
+          "code": "1.3.1",
+          "labelBg": "– от Министерството на здравеопазването"
+        },
+        {
+          "amount": {
+            "amount": 899826300,
+            "amountEur": 460073882,
+            "currency": "BGN"
+          },
+          "code": "1.4",
+          "labelBg": "Сметката за средствата от Европейския съюз на Националния фонд"
+        },
+        {
+          "amount": {
+            "amount": 275890800,
+            "amountEur": 141060726,
+            "currency": "BGN"
+          },
+          "code": "1.5",
+          "labelBg": "Сметката за средствата от Европейския съюз на Държавния фонд „Земеделие“"
+        },
+        {
+          "amount": {
+            "amount": 17983000,
+            "amountEur": 9194562,
+            "currency": "BGN"
+          },
+          "code": "2",
+          "labelBg": "Получени трансфери от:"
+        },
+        {
+          "amount": {
+            "amount": 7400000,
+            "amountEur": 3783560,
+            "currency": "BGN"
+          },
+          "code": "2.1",
+          "labelBg": "Държавното обществено осигуряване"
+        },
+        {
+          "amount": {
+            "amount": 7150000,
+            "amountEur": 3655737,
+            "currency": "BGN"
+          },
+          "code": "2.1.1",
+          "labelBg": "– за Министерството на труда и социалната политика"
+        },
+        {
+          "amount": {
+            "amount": 250000,
+            "amountEur": 127823,
+            "currency": "BGN"
+          },
+          "code": "2.1.2",
+          "labelBg": "– за Министерството на транспорта, информационните технологии и съобщенията"
+        },
+        {
+          "amount": {
+            "amount": 4583000,
+            "amountEur": 2343251,
+            "currency": "BGN"
+          },
+          "code": "2.2",
+          "labelBg": "Националната здравноосигурителна каса за Министерството на финансите"
+        }
+      ]
+    }
+  },
+  "2019": {
+    "balance": null,
+    "euContribution": {
+      "amount": {
+        "amount": 1282127700,
+        "amountEur": 655541484,
+        "currency": "BGN"
+      },
+      "code": "IV",
+      "kind": "balance",
+      "labelBg": "ВНОСКА В ОБЩИЯ БЮДЖЕТ НА ЕВРОПЕЙСКИЯ СЪЮЗ",
+      "lines": []
+    },
+    "expenditure": {
+      "amount": {
+        "amount": 13323731600,
+        "amountEur": 6812315794,
+        "currency": "BGN"
+      },
+      "code": "II",
+      "kind": "expenditure",
+      "labelBg": "РАЗХОДИ",
+      "lines": [
+        {
+          "amount": {
+            "amount": 10444825800,
+            "amountEur": 5340354632,
+            "currency": "BGN"
+          },
+          "code": "1",
+          "labelBg": "Текущи разходи"
+        },
+        {
+          "amount": {
+            "amount": 5143286000,
+            "amountEur": 2629720374,
+            "currency": "BGN"
+          },
+          "code": "1.1",
+          "labelBg": "Персонал"
+        },
+        {
+          "amount": {
+            "amount": 955507300,
+            "amountEur": 488543125,
+            "currency": "BGN"
+          },
+          "code": "1.2",
+          "labelBg": "Субсидии и други текущи трансфери"
+        },
+        {
+          "amount": {
+            "amount": 885181000,
+            "amountEur": 452585859,
+            "currency": "BGN"
+          },
+          "code": "1.2.1",
+          "labelBg": "Субсидии и други текущи трансфери за нефинансови предприятия"
+        },
+        {
+          "amount": {
+            "amount": 70326300,
+            "amountEur": 35957266,
+            "currency": "BGN"
+          },
+          "code": "1.2.2",
+          "labelBg": "Субсидии и други текущи трансфери за юридически лица с нестопанска цел"
+        },
+        {
+          "amount": {
+            "amount": 633338600,
+            "amountEur": 323820884,
+            "currency": "BGN"
+          },
+          "code": "1.3",
+          "labelBg": "Лихви"
+        },
+        {
+          "amount": {
+            "amount": 1283573100,
+            "amountEur": 656280505,
+            "currency": "BGN"
+          },
+          "code": "1.4",
+          "labelBg": "Текущи трансфери, обезщетения и помощи за домакинствата"
+        },
+        {
+          "amount": {
+            "amount": 2764222700,
+            "amountEur": 1413324624,
+            "currency": "BGN"
+          },
+          "code": "2",
+          "labelBg": "Капиталови разходи"
+        },
+        {
+          "amount": {
+            "amount": 2329926800,
+            "amountEur": 1191272657,
+            "currency": "BGN"
+          },
+          "code": "2.1",
+          "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+        },
+        {
+          "amount": {
+            "amount": 434295900,
+            "amountEur": 222051968,
+            "currency": "BGN"
+          },
+          "code": "2.2",
+          "labelBg": "Капиталови трансфери"
+        },
+        {
+          "amount": {
+            "amount": 19233100,
+            "amountEur": 9833728,
+            "currency": "BGN"
+          },
+          "code": "3",
+          "labelBg": "Прираст на държавния резерв (нето)"
+        },
+        {
+          "amount": {
+            "amount": 14350000,
+            "amountEur": 7337038,
+            "currency": "BGN"
+          },
+          "code": "4",
+          "labelBg": "Предоставени текущи и капиталови трансфери за чужбина"
+        },
+        {
+          "amount": {
+            "amount": 81100000,
+            "amountEur": 41465772,
+            "currency": "BGN"
+          },
+          "code": "5",
+          "labelBg": "Резерв за непредвидени и/или неотложни разходи"
+        },
+        {
+          "amount": {
+            "amount": 80000000,
+            "amountEur": 40903350,
+            "currency": "BGN"
+          },
+          "code": "5.1",
+          "labelBg": "По централния бюджет за предотвратяване, овладяване и преодоляване на последиците от бедствия"
+        },
+        {
+          "amount": {
+            "amount": 600000,
+            "amountEur": 306775,
+            "currency": "BGN"
+          },
+          "code": "5.2",
+          "labelBg": "По бюджета на съдебната власт"
+        },
+        {
+          "amount": {
+            "amount": 500000,
+            "amountEur": 255646,
+            "currency": "BGN"
+          },
+          "code": "5.3",
+          "labelBg": "По бюджета на Народното събрание"
+        }
+      ]
+    },
+    "fiscalYear": 2019,
+    "revenue": {
+      "amount": {
+        "amount": 25693299800,
+        "amountEur": 13136775589,
+        "currency": "BGN"
+      },
+      "code": "I",
+      "kind": "revenue",
+      "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+      "lines": [
+        {
+          "amount": {
+            "amount": 23133200000,
+            "amountEur": 11827817346,
+            "currency": "BGN"
+          },
+          "code": "1",
+          "labelBg": "Данъчни приходи"
+        },
+        {
+          "amount": {
+            "amount": 2576200000,
+            "amountEur": 1317190144,
+            "currency": "BGN"
+          },
+          "code": "1.1",
+          "labelBg": "Корпоративен данък"
+        },
+        {
+          "amount": {
+            "amount": 99700000,
+            "amountEur": 50975801,
+            "currency": "BGN"
+          },
+          "code": "1.2",
+          "labelBg": "Данъци върху дивидентите, ликвидационните дялове и доходите на юридически лица"
+        },
+        {
+          "amount": {
+            "amount": 3861000000,
+            "amountEur": 1974097953,
+            "currency": "BGN"
+          },
+          "code": "1.3",
+          "labelBg": "Данъци върху доходите на физически лица"
+        },
+        {
+          "amount": {
+            "amount": 10830000000,
+            "amountEur": 5537291073,
+            "currency": "BGN"
+          },
+          "code": "1.4",
+          "labelBg": "Данък върху добавената стойност"
+        },
+        {
+          "amount": {
+            "amount": 5330700000,
+            "amountEur": 2725543631,
+            "currency": "BGN"
+          },
+          "code": "1.5",
+          "labelBg": "Акцизи"
+        },
+        {
+          "amount": {
+            "amount": 39700000,
+            "amountEur": 20298288,
+            "currency": "BGN"
+          },
+          "code": "1.6",
+          "labelBg": "Данък върху застрахователните премии"
+        },
+        {
+          "amount": {
+            "amount": 236900000,
+            "amountEur": 121125047,
+            "currency": "BGN"
+          },
+          "code": "1.7",
+          "labelBg": "Мита и митнически такси"
+        },
+        {
+          "amount": {
+            "amount": 159000000,
+            "amountEur": 81295409,
+            "currency": "BGN"
+          },
+          "code": "1.8",
+          "labelBg": "Други данъци"
+        },
+        {
+          "amount": {
+            "amount": 2560099800,
+            "amountEur": 1308958243,
+            "currency": "BGN"
+          },
+          "code": "2",
+          "labelBg": "Неданъчни приходи"
+        }
+      ]
+    },
+    "transfers": {
+      "amount": {
+        "amount": 11486769200,
+        "amountEur": 5873091833,
+        "currency": "BGN"
+      },
+      "code": "III",
+      "kind": "financing",
+      "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – НЕТО",
+      "lines": [
+        {
+          "amount": {
+            "amount": 11505227200,
+            "amountEur": 5882529259,
+            "currency": "BGN"
+          },
+          "code": "1",
+          "labelBg": "Предоставени трансфери за:"
+        },
+        {
+          "amount": {
+            "amount": 3745750500,
+            "amountEur": 1915171820,
+            "currency": "BGN"
+          },
+          "code": "1.1",
+          "labelBg": "Общините"
+        },
+        {
+          "amount": {
+            "amount": 4231661600,
+            "amountEur": 2163614220,
+            "currency": "BGN"
+          },
+          "code": "1.2",
+          "labelBg": "Държавното обществено осигуряване"
+        },
+        {
+          "amount": {
+            "amount": 1437589000,
+            "amountEur": 735027584,
+            "currency": "BGN"
+          },
+          "code": "1.3",
+          "labelBg": "Националната здравноосигурителна каса"
+        },
+        {
+          "amount": {
+            "amount": 43000000,
+            "amountEur": 21985551,
+            "currency": "BGN"
+          },
+          "code": "1.3.1",
+          "labelBg": "– от Министерството на здравеопазването"
+        },
+        {
+          "amount": {
+            "amount": 862582200,
+            "amountEur": 441031276,
+            "currency": "BGN"
+          },
+          "code": "1.4",
+          "labelBg": "Сметката за средствата от Европейския съюз на Националния фонд"
+        },
+        {
+          "amount": {
+            "amount": 294833800,
+            "amountEur": 150746128,
+            "currency": "BGN"
+          },
+          "code": "1.5",
+          "labelBg": "Сметката за средствата от Европейския съюз на Държавния фонд „Земеделие“"
+        },
+        {
+          "amount": {
+            "amount": 18458000,
+            "amountEur": 9437426,
+            "currency": "BGN"
+          },
+          "code": "2",
+          "labelBg": "Получени трансфери от:"
+        },
+        {
+          "amount": {
+            "amount": 7400000,
+            "amountEur": 3783560,
+            "currency": "BGN"
+          },
+          "code": "2.1",
+          "labelBg": "Държавното обществено осигуряване"
+        },
+        {
+          "amount": {
+            "amount": 7150000,
+            "amountEur": 3655737,
+            "currency": "BGN"
+          },
+          "code": "2.1.1",
+          "labelBg": "– за Министерството на труда и социалната политика"
+        },
+        {
+          "amount": {
+            "amount": 250000,
+            "amountEur": 127823,
+            "currency": "BGN"
+          },
+          "code": "2.1.2",
+          "labelBg": "– за Министерството на транспорта, информационните технологии и съобщенията"
+        },
+        {
+          "amount": {
+            "amount": 5058000,
+            "amountEur": 2586114,
+            "currency": "BGN"
+          },
+          "code": "2.2",
+          "labelBg": "Националната здравноосигурителна каса за Министерството на финансите"
+        }
+      ]
+    }
+  },
   "2020": {
     "balance": null,
     "euContribution": {
@@ -406,6 +1192,408 @@
           },
           "code": "2.2",
           "labelBg": "Националната здравноосигурителна каса за Министерството на финансите"
+        }
+      ]
+    }
+  },
+  "2021": {
+    "balance": null,
+    "euContribution": {
+      "amount": {
+        "amount": 1462555700,
+        "amountEur": 747792855,
+        "currency": "BGN"
+      },
+      "code": "IV",
+      "kind": "balance",
+      "labelBg": "ВНОСКА В ОБЩИЯ БЮДЖЕТ НА ЕВРОПЕЙСКИЯ СЪЮЗ",
+      "lines": []
+    },
+    "expenditure": {
+      "amount": {
+        "amount": 15817840100,
+        "amountEur": 8087533221,
+        "currency": "BGN"
+      },
+      "code": "II",
+      "kind": "expenditure",
+      "labelBg": "РАЗХОДИ",
+      "lines": [
+        {
+          "amount": {
+            "amount": 13282823500,
+            "amountEur": 6791399815,
+            "currency": "BGN"
+          },
+          "code": "1",
+          "labelBg": "Текущи разходи"
+        },
+        {
+          "amount": {
+            "amount": 6735875500,
+            "amountEur": 3443998456,
+            "currency": "BGN"
+          },
+          "code": "1.1",
+          "labelBg": "Персонал"
+        },
+        {
+          "amount": {
+            "amount": 1258578200,
+            "amountEur": 643500816,
+            "currency": "BGN"
+          },
+          "code": "1.2",
+          "labelBg": "Субсидии и други текущи трансфери"
+        },
+        {
+          "amount": {
+            "amount": 1135197800,
+            "amountEur": 580417419,
+            "currency": "BGN"
+          },
+          "code": "1.2.1",
+          "labelBg": "Субсидии и други текущи трансфери за нефинансови предприятия"
+        },
+        {
+          "amount": {
+            "amount": 117197700,
+            "amountEur": 59922233,
+            "currency": "BGN"
+          },
+          "code": "1.2.2",
+          "labelBg": "Субсидии и други текущи трансфери за юридически лица с нестопанска цел"
+        },
+        {
+          "amount": {
+            "amount": 6182700,
+            "amountEur": 3161164,
+            "currency": "BGN"
+          },
+          "code": "1.2.3",
+          "labelBg": "Субсидии и други текущи трансфери за финансови институции"
+        },
+        {
+          "amount": {
+            "amount": 622632200,
+            "amountEur": 318346789,
+            "currency": "BGN"
+          },
+          "code": "1.3",
+          "labelBg": "Лихви"
+        },
+        {
+          "amount": {
+            "amount": 1738039000,
+            "amountEur": 888645230,
+            "currency": "BGN"
+          },
+          "code": "1.4",
+          "labelBg": "Текущи трансфери, обезщетения и помощи за домакинствата"
+        },
+        {
+          "amount": {
+            "amount": 2419674900,
+            "amountEur": 1237160132,
+            "currency": "BGN"
+          },
+          "code": "2",
+          "labelBg": "Капиталови разходи"
+        },
+        {
+          "amount": {
+            "amount": 1970680200,
+            "amountEur": 1007592787,
+            "currency": "BGN"
+          },
+          "code": "2.1",
+          "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+        },
+        {
+          "amount": {
+            "amount": 448994700,
+            "amountEur": 229567345,
+            "currency": "BGN"
+          },
+          "code": "2.2",
+          "labelBg": "Капиталови трансфери"
+        },
+        {
+          "amount": {
+            "amount": 16241700,
+            "amountEur": 8304249,
+            "currency": "BGN"
+          },
+          "code": "3",
+          "labelBg": "Прираст на държавния резерв (нето)"
+        },
+        {
+          "amount": {
+            "amount": 18000000,
+            "amountEur": 9203254,
+            "currency": "BGN"
+          },
+          "code": "4",
+          "labelBg": "Предоставени текущи и капиталови трансфери за чужбина"
+        },
+        {
+          "amount": {
+            "amount": 81100000,
+            "amountEur": 41465772,
+            "currency": "BGN"
+          },
+          "code": "5",
+          "labelBg": "Резерв за непредвидени и/или неотложни разходи"
+        },
+        {
+          "amount": {
+            "amount": 80000000,
+            "amountEur": 40903350,
+            "currency": "BGN"
+          },
+          "code": "5.1",
+          "labelBg": "По централния бюджет за предотвратяване, овладяване и преодоляване на последиците от бедствия"
+        },
+        {
+          "amount": {
+            "amount": 600000,
+            "amountEur": 306775,
+            "currency": "BGN"
+          },
+          "code": "5.2",
+          "labelBg": "По бюджета на съдебната власт"
+        },
+        {
+          "amount": {
+            "amount": 500000,
+            "amountEur": 255646,
+            "currency": "BGN"
+          },
+          "code": "5.3",
+          "labelBg": "По бюджета на Народното събрание"
+        }
+      ]
+    },
+    "fiscalYear": 2021,
+    "revenue": {
+      "amount": {
+        "amount": 27051399400,
+        "amountEur": 13831160888,
+        "currency": "BGN"
+      },
+      "code": "I",
+      "kind": "revenue",
+      "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+      "lines": [
+        {
+          "amount": {
+            "amount": 24192000000,
+            "amountEur": 12369173190,
+            "currency": "BGN"
+          },
+          "code": "1",
+          "labelBg": "Данъчни приходи"
+        },
+        {
+          "amount": {
+            "amount": 2571400000,
+            "amountEur": 1314735943,
+            "currency": "BGN"
+          },
+          "code": "1.1",
+          "labelBg": "Корпоративен данък"
+        },
+        {
+          "amount": {
+            "amount": 79800000,
+            "amountEur": 40801092,
+            "currency": "BGN"
+          },
+          "code": "1.2",
+          "labelBg": "Данъци върху дивидентите, ликвидационните дялове и доходите на юридически лица"
+        },
+        {
+          "amount": {
+            "amount": 4306600000,
+            "amountEur": 2201929616,
+            "currency": "BGN"
+          },
+          "code": "1.3",
+          "labelBg": "Данъци върху доходите на физически лица"
+        },
+        {
+          "amount": {
+            "amount": 11220000000,
+            "amountEur": 5736694907,
+            "currency": "BGN"
+          },
+          "code": "1.4",
+          "labelBg": "Данък върху добавената стойност"
+        },
+        {
+          "amount": {
+            "amount": 5580000000,
+            "amountEur": 2853008697,
+            "currency": "BGN"
+          },
+          "code": "1.5",
+          "labelBg": "Акцизи"
+        },
+        {
+          "amount": {
+            "amount": 46000000,
+            "amountEur": 23519427,
+            "currency": "BGN"
+          },
+          "code": "1.6",
+          "labelBg": "Данък върху застрахователните премии"
+        },
+        {
+          "amount": {
+            "amount": 234200000,
+            "amountEur": 119744559,
+            "currency": "BGN"
+          },
+          "code": "1.7",
+          "labelBg": "Мита и митнически такси"
+        },
+        {
+          "amount": {
+            "amount": 154000000,
+            "amountEur": 78738950,
+            "currency": "BGN"
+          },
+          "code": "1.8",
+          "labelBg": "Други данъци"
+        },
+        {
+          "amount": {
+            "amount": 2859399400,
+            "amountEur": 1461987698,
+            "currency": "BGN"
+          },
+          "code": "2",
+          "labelBg": "Неданъчни приходи"
+        }
+      ]
+    },
+    "transfers": {
+      "amount": {
+        "amount": 15255424000,
+        "amountEur": 7799974435,
+        "currency": "BGN"
+      },
+      "code": "III",
+      "kind": "financing",
+      "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – НЕТО",
+      "lines": [
+        {
+          "amount": {
+            "amount": 15268824000,
+            "amountEur": 7806825747,
+            "currency": "BGN"
+          },
+          "code": "1",
+          "labelBg": "Предоставени трансфери за:"
+        },
+        {
+          "amount": {
+            "amount": 4934247900,
+            "amountEur": 2522840891,
+            "currency": "BGN"
+          },
+          "code": "1.1",
+          "labelBg": "Общините"
+        },
+        {
+          "amount": {
+            "amount": 6330055200,
+            "amountEur": 3236505831,
+            "currency": "BGN"
+          },
+          "code": "1.2",
+          "labelBg": "Държавното обществено осигуряване"
+        },
+        {
+          "amount": {
+            "amount": 2100511000,
+            "amountEur": 1073974221,
+            "currency": "BGN"
+          },
+          "code": "1.3",
+          "labelBg": "Националната здравноосигурителна каса"
+        },
+        {
+          "amount": {
+            "amount": 83400000,
+            "amountEur": 42641743,
+            "currency": "BGN"
+          },
+          "code": "1.3.1",
+          "labelBg": "– от Министерството на здравеопазването"
+        },
+        {
+          "amount": {
+            "amount": 515578500,
+            "amountEur": 263611101,
+            "currency": "BGN"
+          },
+          "code": "1.4",
+          "labelBg": "Сметката за средствата от Европейския съюз на Националния фонд"
+        },
+        {
+          "amount": {
+            "amount": 246780200,
+            "amountEur": 126176713,
+            "currency": "BGN"
+          },
+          "code": "1.5",
+          "labelBg": "Сметката за средствата от Европейския съюз на Държавния фонд „Земеделие“"
+        },
+        {
+          "amount": {
+            "amount": 13400000,
+            "amountEur": 6851311,
+            "currency": "BGN"
+          },
+          "code": "2",
+          "labelBg": "Получени трансфери от:"
+        },
+        {
+          "amount": {
+            "amount": 7400000,
+            "amountEur": 3783560,
+            "currency": "BGN"
+          },
+          "code": "2.1",
+          "labelBg": "Държавното обществено осигуряване"
+        },
+        {
+          "amount": {
+            "amount": 4000000,
+            "amountEur": 2045168,
+            "currency": "BGN"
+          },
+          "code": "2.1.1",
+          "labelBg": "– за Министерството на труда и социалната политика"
+        },
+        {
+          "amount": {
+            "amount": 250000,
+            "amountEur": 127823,
+            "currency": "BGN"
+          },
+          "code": "2.1.2",
+          "labelBg": "– за Министерството на транспорта, информационните технологии и съобщенията"
+        },
+        {
+          "amount": {
+            "amount": 3150000,
+            "amountEur": 1610569,
+            "currency": "BGN"
+          },
+          "code": "2.1.3",
+          "labelBg": "– за Министерството на здравеопазването"
         }
       ]
     }

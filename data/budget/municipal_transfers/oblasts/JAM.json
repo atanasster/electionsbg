@@ -4,6 +4,410 @@
   "oblastNameEn": "Yambol",
   "years": [
     {
+      "asOf": "2018-01-01",
+      "fiscalYear": 2018,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 438100,
+            "amountEur": 223997,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 29829500,
+            "amountEur": 15251581,
+            "currency": "BGN"
+          },
+          "ekatte": "87374",
+          "equalization": {
+            "amount": 3087800,
+            "amountEur": 1578767,
+            "currency": "BGN"
+          },
+          "nameBg": "Ямбол",
+          "nameEn": "Yambol",
+          "obshtinaCode": "JAM26",
+          "otherTargeted": null,
+          "total": {
+            "amount": 33382900,
+            "amountEur": 17068406,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 27500,
+            "amountEur": 14061,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1178000,
+            "amountEur": 602302,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 7257700,
+            "amountEur": 3710803,
+            "currency": "BGN"
+          },
+          "ekatte": "87374",
+          "equalization": {
+            "amount": 1866200,
+            "amountEur": 954173,
+            "currency": "BGN"
+          },
+          "nameBg": "Тунджа",
+          "nameEn": "Tundzha",
+          "obshtinaCode": "JAM25",
+          "otherTargeted": null,
+          "total": {
+            "amount": 10488100,
+            "amountEur": 5362480,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 186200,
+            "amountEur": 95203,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 630800,
+            "amountEur": 322523,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 6267300,
+            "amountEur": 3204420,
+            "currency": "BGN"
+          },
+          "ekatte": "27382",
+          "equalization": {
+            "amount": 1108400,
+            "amountEur": 566716,
+            "currency": "BGN"
+          },
+          "nameBg": "Елхово",
+          "nameEn": "Elhovo",
+          "obshtinaCode": "JAM07",
+          "otherTargeted": null,
+          "total": {
+            "amount": 8108600,
+            "amountEur": 4145861,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 102100,
+            "amountEur": 52203,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 616000,
+            "amountEur": 314956,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 5822200,
+            "amountEur": 2976844,
+            "currency": "BGN"
+          },
+          "ekatte": "69660",
+          "equalization": {
+            "amount": 1031200,
+            "amountEur": 527244,
+            "currency": "BGN"
+          },
+          "nameBg": "Стралджа",
+          "nameEn": "Straldzha",
+          "obshtinaCode": "JAM22",
+          "otherTargeted": null,
+          "total": {
+            "amount": 7572300,
+            "amountEur": 3871656,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 102900,
+            "amountEur": 52612,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 517500,
+            "amountEur": 264594,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3168200,
+            "amountEur": 1619875,
+            "currency": "BGN"
+          },
+          "ekatte": "05284",
+          "equalization": {
+            "amount": 186500,
+            "amountEur": 95356,
+            "currency": "BGN"
+          },
+          "nameBg": "Болярово",
+          "nameEn": "Bolyarovo",
+          "obshtinaCode": "JAM03",
+          "otherTargeted": null,
+          "total": {
+            "amount": 3961200,
+            "amountEur": 2025329,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 89000,
+            "amountEur": 45505,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 3380400,
+          "amountEur": 1728372,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 52344900,
+          "amountEur": 26763523,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 7280100,
+          "amountEur": 3722256,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 63513100,
+          "amountEur": 32473732,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 507700,
+          "amountEur": 259584,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2018",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=120521"
+      }
+    },
+    {
+      "asOf": "2019-01-01",
+      "fiscalYear": 2019,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 470300,
+            "amountEur": 240461,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 34842600,
+            "amountEur": 17814738,
+            "currency": "BGN"
+          },
+          "ekatte": "87374",
+          "equalization": {
+            "amount": 3087800,
+            "amountEur": 1578767,
+            "currency": "BGN"
+          },
+          "nameBg": "Ямбол",
+          "nameEn": "Yambol",
+          "obshtinaCode": "JAM26",
+          "otherTargeted": null,
+          "total": {
+            "amount": 38430900,
+            "amountEur": 19649407,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 30200,
+            "amountEur": 15441,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1267100,
+            "amountEur": 647858,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 8356600,
+            "amountEur": 4272662,
+            "currency": "BGN"
+          },
+          "ekatte": "87374",
+          "equalization": {
+            "amount": 1912400,
+            "amountEur": 977795,
+            "currency": "BGN"
+          },
+          "nameBg": "Тунджа",
+          "nameEn": "Tundzha",
+          "obshtinaCode": "JAM25",
+          "otherTargeted": null,
+          "total": {
+            "amount": 11740800,
+            "amountEur": 6002976,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 204700,
+            "amountEur": 104661,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 678000,
+            "amountEur": 346656,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 7297400,
+            "amountEur": 3731101,
+            "currency": "BGN"
+          },
+          "ekatte": "27382",
+          "equalization": {
+            "amount": 1185300,
+            "amountEur": 606034,
+            "currency": "BGN"
+          },
+          "nameBg": "Елхово",
+          "nameEn": "Elhovo",
+          "obshtinaCode": "JAM07",
+          "otherTargeted": null,
+          "total": {
+            "amount": 9273000,
+            "amountEur": 4741210,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 112300,
+            "amountEur": 57418,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 687700,
+            "amountEur": 351615,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 6741000,
+            "amountEur": 3446619,
+            "currency": "BGN"
+          },
+          "ekatte": "69660",
+          "equalization": {
+            "amount": 1040000,
+            "amountEur": 531744,
+            "currency": "BGN"
+          },
+          "nameBg": "Стралджа",
+          "nameEn": "Straldzha",
+          "obshtinaCode": "JAM22",
+          "otherTargeted": null,
+          "total": {
+            "amount": 8581900,
+            "amountEur": 4387856,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 113200,
+            "amountEur": 57878,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 582000,
+            "amountEur": 297572,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3688300,
+            "amountEur": 1885798,
+            "currency": "BGN"
+          },
+          "ekatte": "05284",
+          "equalization": {
+            "amount": 379200,
+            "amountEur": 193882,
+            "currency": "BGN"
+          },
+          "nameBg": "Болярово",
+          "nameEn": "Bolyarovo",
+          "obshtinaCode": "JAM03",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4747300,
+            "amountEur": 2427256,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 97800,
+            "amountEur": 50004,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 3685100,
+          "amountEur": 1884162,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 60925900,
+          "amountEur": 31150918,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 7604700,
+          "amountEur": 3888222,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 72773900,
+          "amountEur": 37208705,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 558200,
+          "amountEur": 285402,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2019",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=132563"
+      }
+    },
+    {
       "asOf": "2020-01-01",
       "fiscalYear": 2020,
       "municipalities": [
@@ -203,6 +607,208 @@
       "source": {
         "documentId": "law-2020",
         "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+      }
+    },
+    {
+      "asOf": "2021-01-01",
+      "fiscalYear": 2021,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 577200,
+            "amountEur": 295118,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 45728200,
+            "amountEur": 23380457,
+            "currency": "BGN"
+          },
+          "ekatte": "87374",
+          "equalization": {
+            "amount": 3087800,
+            "amountEur": 1578767,
+            "currency": "BGN"
+          },
+          "nameBg": "Ямбол",
+          "nameEn": "Yambol",
+          "obshtinaCode": "JAM26",
+          "otherTargeted": null,
+          "total": {
+            "amount": 49431600,
+            "amountEur": 25273976,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 38400,
+            "amountEur": 19634,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1573300,
+            "amountEur": 804416,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 11211600,
+            "amountEur": 5732400,
+            "currency": "BGN"
+          },
+          "ekatte": "87374",
+          "equalization": {
+            "amount": 2067900,
+            "amountEur": 1057300,
+            "currency": "BGN"
+          },
+          "nameBg": "Тунджа",
+          "nameEn": "Tundzha",
+          "obshtinaCode": "JAM25",
+          "otherTargeted": null,
+          "total": {
+            "amount": 15109900,
+            "amountEur": 7725569,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 257100,
+            "amountEur": 131453,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 819900,
+            "amountEur": 419208,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 9768500,
+            "amountEur": 4994555,
+            "currency": "BGN"
+          },
+          "ekatte": "27382",
+          "equalization": {
+            "amount": 1353100,
+            "amountEur": 691829,
+            "currency": "BGN"
+          },
+          "nameBg": "Елхово",
+          "nameEn": "Elhovo",
+          "obshtinaCode": "JAM07",
+          "otherTargeted": null,
+          "total": {
+            "amount": 12082500,
+            "amountEur": 6177684,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 141000,
+            "amountEur": 72092,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 882100,
+            "amountEur": 451011,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 8723500,
+            "amountEur": 4460255,
+            "currency": "BGN"
+          },
+          "ekatte": "69660",
+          "equalization": {
+            "amount": 1276600,
+            "amountEur": 652715,
+            "currency": "BGN"
+          },
+          "nameBg": "Стралджа",
+          "nameEn": "Straldzha",
+          "obshtinaCode": "JAM22",
+          "otherTargeted": null,
+          "total": {
+            "amount": 11024200,
+            "amountEur": 5636584,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 142000,
+            "amountEur": 72603,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 752100,
+            "amountEur": 384543,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 4979100,
+            "amountEur": 2545773,
+            "currency": "BGN"
+          },
+          "ekatte": "05284",
+          "equalization": {
+            "amount": 508000,
+            "amountEur": 259736,
+            "currency": "BGN"
+          },
+          "nameBg": "Болярово",
+          "nameEn": "Bolyarovo",
+          "obshtinaCode": "JAM03",
+          "otherTargeted": null,
+          "total": {
+            "amount": 6362000,
+            "amountEur": 3252839,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 122800,
+            "amountEur": 62787,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 4604600,
+          "amountEur": 2354296,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 80410900,
+          "amountEur": 41113440,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 8293400,
+          "amountEur": 4240347,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 94010200,
+          "amountEur": 48066652,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 701300,
+          "amountEur": 358569,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2021",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=154110"
       }
     },
     {

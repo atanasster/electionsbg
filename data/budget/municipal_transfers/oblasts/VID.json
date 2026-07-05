@@ -4,6 +4,794 @@
   "oblastNameEn": "Vidin",
   "years": [
     {
+      "asOf": "2018-01-01",
+      "fiscalYear": 2018,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 1079000,
+            "amountEur": 551684,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 21227600,
+            "amountEur": 10853500,
+            "currency": "BGN"
+          },
+          "ekatte": "10971",
+          "equalization": {
+            "amount": 3448600,
+            "amountEur": 1763241,
+            "currency": "BGN"
+          },
+          "nameBg": "Видин",
+          "nameEn": "Vidin",
+          "obshtinaCode": "VID09",
+          "otherTargeted": null,
+          "total": {
+            "amount": 25896800,
+            "amountEur": 13240824,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 141600,
+            "amountEur": 72399,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 543000,
+            "amountEur": 277631,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3553900,
+            "amountEur": 1817080,
+            "currency": "BGN"
+          },
+          "ekatte": "21097",
+          "equalization": {
+            "amount": 473200,
+            "amountEur": 241943,
+            "currency": "BGN"
+          },
+          "nameBg": "Димово",
+          "nameEn": "Dimovo",
+          "obshtinaCode": "VID16",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4671100,
+            "amountEur": 2388296,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 101000,
+            "amountEur": 51640,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 274600,
+            "amountEur": 140401,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3897700,
+            "amountEur": 1992862,
+            "currency": "BGN"
+          },
+          "ekatte": "06224",
+          "equalization": {
+            "amount": 397900,
+            "amountEur": 203443,
+            "currency": "BGN"
+          },
+          "nameBg": "Брегово",
+          "nameEn": "Bregovo",
+          "obshtinaCode": "VID06",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4621200,
+            "amountEur": 2362782,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 51000,
+            "amountEur": 26076,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 420300,
+            "amountEur": 214896,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3648700,
+            "amountEur": 1865551,
+            "currency": "BGN"
+          },
+          "ekatte": "03616",
+          "equalization": {
+            "amount": 391900,
+            "amountEur": 200375,
+            "currency": "BGN"
+          },
+          "nameBg": "Белоградчик",
+          "nameEn": "Belogradchik",
+          "obshtinaCode": "VID01",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4545900,
+            "amountEur": 2324282,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 85000,
+            "amountEur": 43460,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 265300,
+            "amountEur": 135646,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 2693000,
+            "amountEur": 1376909,
+            "currency": "BGN"
+          },
+          "ekatte": "63255",
+          "equalization": {
+            "amount": 381800,
+            "amountEur": 195211,
+            "currency": "BGN"
+          },
+          "nameBg": "Ружинци",
+          "nameEn": "Ruzhintsi",
+          "obshtinaCode": "VID33",
+          "otherTargeted": null,
+          "total": {
+            "amount": 3386700,
+            "amountEur": 1731592,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 46600,
+            "amountEur": 23826,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 284800,
+            "amountEur": 145616,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 2233300,
+            "amountEur": 1141868,
+            "currency": "BGN"
+          },
+          "ekatte": "40525",
+          "equalization": {
+            "amount": 385300,
+            "amountEur": 197001,
+            "currency": "BGN"
+          },
+          "nameBg": "Кула",
+          "nameEn": "Kula",
+          "obshtinaCode": "VID22",
+          "otherTargeted": null,
+          "total": {
+            "amount": 2966900,
+            "amountEur": 1516952,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 63500,
+            "amountEur": 32467,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 126800,
+            "amountEur": 64832,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 1911200,
+            "amountEur": 977181,
+            "currency": "BGN"
+          },
+          "ekatte": "52180",
+          "equalization": {
+            "amount": 226300,
+            "amountEur": 115705,
+            "currency": "BGN"
+          },
+          "nameBg": "Ново село",
+          "nameEn": "Novo selo",
+          "obshtinaCode": "VID30",
+          "otherTargeted": null,
+          "total": {
+            "amount": 2282200,
+            "amountEur": 1166870,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 17900,
+            "amountEur": 9152,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 222400,
+            "amountEur": 113711,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 1639000,
+            "amountEur": 838007,
+            "currency": "BGN"
+          },
+          "ekatte": "81757",
+          "equalization": {
+            "amount": 293700,
+            "amountEur": 150166,
+            "currency": "BGN"
+          },
+          "nameBg": "Чупрене",
+          "nameEn": "Chuprene",
+          "obshtinaCode": "VID37",
+          "otherTargeted": null,
+          "total": {
+            "amount": 2195700,
+            "amountEur": 1122644,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 40600,
+            "amountEur": 20758,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 167400,
+            "amountEur": 85590,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 1610000,
+            "amountEur": 823180,
+            "currency": "BGN"
+          },
+          "ekatte": "05195",
+          "equalization": {
+            "amount": 175900,
+            "amountEur": 89936,
+            "currency": "BGN"
+          },
+          "nameBg": "Бойница",
+          "nameEn": "Boynitsa",
+          "obshtinaCode": "VID03",
+          "otherTargeted": null,
+          "total": {
+            "amount": 1989700,
+            "amountEur": 1017317,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 36400,
+            "amountEur": 18611,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 202100,
+            "amountEur": 103332,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 938100,
+            "amountEur": 479643,
+            "currency": "BGN"
+          },
+          "ekatte": "17645",
+          "equalization": {
+            "amount": 194500,
+            "amountEur": 99446,
+            "currency": "BGN"
+          },
+          "nameBg": "Грамада",
+          "nameEn": "Gramada",
+          "obshtinaCode": "VID15",
+          "otherTargeted": null,
+          "total": {
+            "amount": 1369600,
+            "amountEur": 700265,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 34900,
+            "amountEur": 17844,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 165100,
+            "amountEur": 84414,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 857100,
+            "amountEur": 438228,
+            "currency": "BGN"
+          },
+          "ekatte": "46245",
+          "equalization": {
+            "amount": 202500,
+            "amountEur": 103537,
+            "currency": "BGN"
+          },
+          "nameBg": "Макреш",
+          "nameEn": "Makresh",
+          "obshtinaCode": "VID25",
+          "otherTargeted": null,
+          "total": {
+            "amount": 1246800,
+            "amountEur": 637479,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 22100,
+            "amountEur": 11300,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 3750800,
+          "amountEur": 1917753,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 44209600,
+          "amountEur": 22604009,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 6571600,
+          "amountEur": 3360004,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 55172600,
+          "amountEur": 28209303,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 640600,
+          "amountEur": 327533,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2018",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=120521"
+      }
+    },
+    {
+      "asOf": "2019-01-01",
+      "fiscalYear": 2019,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 1158100,
+            "amountEur": 592127,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 24693800,
+            "amountEur": 12625739,
+            "currency": "BGN"
+          },
+          "ekatte": "10971",
+          "equalization": {
+            "amount": 3745600,
+            "amountEur": 1915095,
+            "currency": "BGN"
+          },
+          "nameBg": "Видин",
+          "nameEn": "Vidin",
+          "obshtinaCode": "VID09",
+          "otherTargeted": null,
+          "total": {
+            "amount": 29753100,
+            "amountEur": 15212518,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 155600,
+            "amountEur": 79557,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 626800,
+            "amountEur": 320478,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 4141500,
+            "amountEur": 2117515,
+            "currency": "BGN"
+          },
+          "ekatte": "21097",
+          "equalization": {
+            "amount": 668400,
+            "amountEur": 341747,
+            "currency": "BGN"
+          },
+          "nameBg": "Димово",
+          "nameEn": "Dimovo",
+          "obshtinaCode": "VID16",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5547700,
+            "amountEur": 2836494,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 111000,
+            "amountEur": 56753,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 320100,
+            "amountEur": 163665,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 4492100,
+            "amountEur": 2296774,
+            "currency": "BGN"
+          },
+          "ekatte": "06224",
+          "equalization": {
+            "amount": 552500,
+            "amountEur": 282489,
+            "currency": "BGN"
+          },
+          "nameBg": "Брегово",
+          "nameEn": "Bregovo",
+          "obshtinaCode": "VID06",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5420700,
+            "amountEur": 2771560,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 56000,
+            "amountEur": 28632,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 435200,
+            "amountEur": 222514,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 4208400,
+            "amountEur": 2151721,
+            "currency": "BGN"
+          },
+          "ekatte": "03616",
+          "equalization": {
+            "amount": 556200,
+            "amountEur": 284381,
+            "currency": "BGN"
+          },
+          "nameBg": "Белоградчик",
+          "nameEn": "Belogradchik",
+          "obshtinaCode": "VID01",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5293200,
+            "amountEur": 2706370,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 93400,
+            "amountEur": 47755,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 310600,
+            "amountEur": 158807,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3089400,
+            "amountEur": 1579585,
+            "currency": "BGN"
+          },
+          "ekatte": "63255",
+          "equalization": {
+            "amount": 482700,
+            "amountEur": 246801,
+            "currency": "BGN"
+          },
+          "nameBg": "Ружинци",
+          "nameEn": "Ruzhintsi",
+          "obshtinaCode": "VID33",
+          "otherTargeted": null,
+          "total": {
+            "amount": 3934000,
+            "amountEur": 2011422,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 51300,
+            "amountEur": 26229,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 331400,
+            "amountEur": 169442,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 2584200,
+            "amountEur": 1321280,
+            "currency": "BGN"
+          },
+          "ekatte": "40525",
+          "equalization": {
+            "amount": 434700,
+            "amountEur": 222259,
+            "currency": "BGN"
+          },
+          "nameBg": "Кула",
+          "nameEn": "Kula",
+          "obshtinaCode": "VID22",
+          "otherTargeted": null,
+          "total": {
+            "amount": 3420100,
+            "amountEur": 1748669,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 69800,
+            "amountEur": 35688,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 161100,
+            "amountEur": 82369,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 2187800,
+            "amountEur": 1118604,
+            "currency": "BGN"
+          },
+          "ekatte": "52180",
+          "equalization": {
+            "amount": 317300,
+            "amountEur": 162233,
+            "currency": "BGN"
+          },
+          "nameBg": "Ново село",
+          "nameEn": "Novo selo",
+          "obshtinaCode": "VID30",
+          "otherTargeted": null,
+          "total": {
+            "amount": 2685900,
+            "amountEur": 1373279,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 19700,
+            "amountEur": 10072,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 264200,
+            "amountEur": 135083,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 1845000,
+            "amountEur": 943334,
+            "currency": "BGN"
+          },
+          "ekatte": "81757",
+          "equalization": {
+            "amount": 293700,
+            "amountEur": 150166,
+            "currency": "BGN"
+          },
+          "nameBg": "Чупрене",
+          "nameEn": "Chuprene",
+          "obshtinaCode": "VID37",
+          "otherTargeted": null,
+          "total": {
+            "amount": 2447600,
+            "amountEur": 1251438,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 44700,
+            "amountEur": 22855,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 204900,
+            "amountEur": 104764,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 1845700,
+            "amountEur": 943691,
+            "currency": "BGN"
+          },
+          "ekatte": "05195",
+          "equalization": {
+            "amount": 218800,
+            "amountEur": 111871,
+            "currency": "BGN"
+          },
+          "nameBg": "Бойница",
+          "nameEn": "Boynitsa",
+          "obshtinaCode": "VID03",
+          "otherTargeted": null,
+          "total": {
+            "amount": 2309400,
+            "amountEur": 1180777,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 40000,
+            "amountEur": 20452,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 242200,
+            "amountEur": 123835,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 1055000,
+            "amountEur": 539413,
+            "currency": "BGN"
+          },
+          "ekatte": "17645",
+          "equalization": {
+            "amount": 194500,
+            "amountEur": 99446,
+            "currency": "BGN"
+          },
+          "nameBg": "Грамада",
+          "nameEn": "Gramada",
+          "obshtinaCode": "VID15",
+          "otherTargeted": null,
+          "total": {
+            "amount": 1530100,
+            "amountEur": 782328,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 38400,
+            "amountEur": 19634,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 202400,
+            "amountEur": 103485,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 950600,
+            "amountEur": 486034,
+            "currency": "BGN"
+          },
+          "ekatte": "46245",
+          "equalization": {
+            "amount": 218200,
+            "amountEur": 111564,
+            "currency": "BGN"
+          },
+          "nameBg": "Макреш",
+          "nameEn": "Makresh",
+          "obshtinaCode": "VID25",
+          "otherTargeted": null,
+          "total": {
+            "amount": 1395500,
+            "amountEur": 713508,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 24300,
+            "amountEur": 12424,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 4257000,
+          "amountEur": 2176569,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 51093500,
+          "amountEur": 26123690,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 7682600,
+          "amountEur": 3928052,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 63737300,
+          "amountEur": 32588363,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 704200,
+          "amountEur": 360051,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2019",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=132563"
+      }
+    },
+    {
       "asOf": "2020-01-01",
       "fiscalYear": 2020,
       "municipalities": [
@@ -395,6 +1183,400 @@
       "source": {
         "documentId": "law-2020",
         "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+      }
+    },
+    {
+      "asOf": "2021-01-01",
+      "fiscalYear": 2021,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 1428100,
+            "amountEur": 730176,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 31419100,
+            "amountEur": 16064331,
+            "currency": "BGN"
+          },
+          "ekatte": "10971",
+          "equalization": {
+            "amount": 3975700,
+            "amountEur": 2032743,
+            "currency": "BGN"
+          },
+          "nameBg": "Видин",
+          "nameEn": "Vidin",
+          "obshtinaCode": "VID09",
+          "otherTargeted": null,
+          "total": {
+            "amount": 37018500,
+            "amountEur": 18927259,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 195600,
+            "amountEur": 100009,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 764300,
+            "amountEur": 390780,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 5474500,
+            "amountEur": 2799067,
+            "currency": "BGN"
+          },
+          "ekatte": "21097",
+          "equalization": {
+            "amount": 816800,
+            "amountEur": 417623,
+            "currency": "BGN"
+          },
+          "nameBg": "Димово",
+          "nameEn": "Dimovo",
+          "obshtinaCode": "VID16",
+          "otherTargeted": null,
+          "total": {
+            "amount": 7195000,
+            "amountEur": 3678745,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 139400,
+            "amountEur": 71274,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 424700,
+            "amountEur": 217146,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 5922600,
+            "amountEur": 3028177,
+            "currency": "BGN"
+          },
+          "ekatte": "06224",
+          "equalization": {
+            "amount": 628500,
+            "amountEur": 321347,
+            "currency": "BGN"
+          },
+          "nameBg": "Брегово",
+          "nameEn": "Bregovo",
+          "obshtinaCode": "VID06",
+          "otherTargeted": null,
+          "total": {
+            "amount": 7046000,
+            "amountEur": 3602563,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 70200,
+            "amountEur": 35893,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 560500,
+            "amountEur": 286579,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 5506200,
+            "amountEur": 2815275,
+            "currency": "BGN"
+          },
+          "ekatte": "03616",
+          "equalization": {
+            "amount": 634500,
+            "amountEur": 324415,
+            "currency": "BGN"
+          },
+          "nameBg": "Белоградчик",
+          "nameEn": "Belogradchik",
+          "obshtinaCode": "VID01",
+          "otherTargeted": null,
+          "total": {
+            "amount": 6822000,
+            "amountEur": 3488033,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 120800,
+            "amountEur": 61764,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 413900,
+            "amountEur": 211624,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3930200,
+            "amountEur": 2009479,
+            "currency": "BGN"
+          },
+          "ekatte": "63255",
+          "equalization": {
+            "amount": 611100,
+            "amountEur": 312450,
+            "currency": "BGN"
+          },
+          "nameBg": "Ружинци",
+          "nameEn": "Ruzhintsi",
+          "obshtinaCode": "VID33",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5019500,
+            "amountEur": 2566430,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 64300,
+            "amountEur": 32876,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 439000,
+            "amountEur": 224457,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3413700,
+            "amountEur": 1745397,
+            "currency": "BGN"
+          },
+          "ekatte": "40525",
+          "equalization": {
+            "amount": 519600,
+            "amountEur": 265667,
+            "currency": "BGN"
+          },
+          "nameBg": "Кула",
+          "nameEn": "Kula",
+          "obshtinaCode": "VID22",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4459700,
+            "amountEur": 2280208,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 87400,
+            "amountEur": 44687,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 228300,
+            "amountEur": 116728,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 2894900,
+            "amountEur": 1480139,
+            "currency": "BGN"
+          },
+          "ekatte": "52180",
+          "equalization": {
+            "amount": 396300,
+            "amountEur": 202625,
+            "currency": "BGN"
+          },
+          "nameBg": "Ново село",
+          "nameEn": "Novo selo",
+          "obshtinaCode": "VID30",
+          "otherTargeted": null,
+          "total": {
+            "amount": 3544200,
+            "amountEur": 1812121,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 24700,
+            "amountEur": 12629,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 356700,
+            "amountEur": 182378,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 2587900,
+            "amountEur": 1323172,
+            "currency": "BGN"
+          },
+          "ekatte": "81757",
+          "equalization": {
+            "amount": 384900,
+            "amountEur": 196796,
+            "currency": "BGN"
+          },
+          "nameBg": "Чупрене",
+          "nameEn": "Chuprene",
+          "obshtinaCode": "VID37",
+          "otherTargeted": null,
+          "total": {
+            "amount": 3385500,
+            "amountEur": 1730979,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 56000,
+            "amountEur": 28632,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 261600,
+            "amountEur": 133754,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 2252600,
+            "amountEur": 1151736,
+            "currency": "BGN"
+          },
+          "ekatte": "05195",
+          "equalization": {
+            "amount": 286300,
+            "amountEur": 146383,
+            "currency": "BGN"
+          },
+          "nameBg": "Бойница",
+          "nameEn": "Boynitsa",
+          "obshtinaCode": "VID03",
+          "otherTargeted": null,
+          "total": {
+            "amount": 2850600,
+            "amountEur": 1457489,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 50100,
+            "amountEur": 25616,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 308900,
+            "amountEur": 157938,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 1416200,
+            "amountEur": 724092,
+            "currency": "BGN"
+          },
+          "ekatte": "17645",
+          "equalization": {
+            "amount": 264700,
+            "amountEur": 135339,
+            "currency": "BGN"
+          },
+          "nameBg": "Грамада",
+          "nameEn": "Gramada",
+          "obshtinaCode": "VID15",
+          "otherTargeted": null,
+          "total": {
+            "amount": 2038000,
+            "amountEur": 1042013,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 48200,
+            "amountEur": 24644,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 280500,
+            "amountEur": 143417,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 1277600,
+            "amountEur": 653227,
+            "currency": "BGN"
+          },
+          "ekatte": "46245",
+          "equalization": {
+            "amount": 309600,
+            "amountEur": 158296,
+            "currency": "BGN"
+          },
+          "nameBg": "Макреш",
+          "nameEn": "Makresh",
+          "obshtinaCode": "VID25",
+          "otherTargeted": null,
+          "total": {
+            "amount": 1898200,
+            "amountEur": 970534,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 30500,
+            "amountEur": 15594,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 5466500,
+          "amountEur": 2794977,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 66095500,
+          "amountEur": 33794092,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 8828000,
+          "amountEur": 4513684,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 81277200,
+          "amountEur": 41556374,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 887200,
+          "amountEur": 453618,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2021",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=154110"
       }
     },
     {

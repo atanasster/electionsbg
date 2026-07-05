@@ -4,6 +4,538 @@
   "oblastNameEn": "Kardzhali",
   "years": [
     {
+      "asOf": "2018-01-01",
+      "fiscalYear": 2018,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 2517000,
+            "amountEur": 1286922,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 29884600,
+            "amountEur": 15279753,
+            "currency": "BGN"
+          },
+          "ekatte": "40909",
+          "equalization": {
+            "amount": 3061600,
+            "amountEur": 1565371,
+            "currency": "BGN"
+          },
+          "nameBg": "Кърджали",
+          "nameEn": "Kardzhali",
+          "obshtinaCode": "KRZ16",
+          "otherTargeted": null,
+          "total": {
+            "amount": 35899000,
+            "amountEur": 18354867,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 435800,
+            "amountEur": 222821,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1801500,
+            "amountEur": 921092,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 8896300,
+            "amountEur": 4548606,
+            "currency": "BGN"
+          },
+          "ekatte": "39970",
+          "equalization": {
+            "amount": 1386200,
+            "amountEur": 708753,
+            "currency": "BGN"
+          },
+          "nameBg": "Крумовград",
+          "nameEn": "Krumovgrad",
+          "obshtinaCode": "KRZ15",
+          "otherTargeted": null,
+          "total": {
+            "amount": 12449400,
+            "amountEur": 6365277,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 365400,
+            "amountEur": 186826,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1606600,
+            "amountEur": 821442,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 7942600,
+            "amountEur": 4060987,
+            "currency": "BGN"
+          },
+          "ekatte": "36926",
+          "equalization": {
+            "amount": 1758000,
+            "amountEur": 898851,
+            "currency": "BGN"
+          },
+          "nameBg": "Кирково",
+          "nameEn": "Kirkovo",
+          "obshtinaCode": "KRZ14",
+          "otherTargeted": null,
+          "total": {
+            "amount": 11612000,
+            "amountEur": 5937121,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 304800,
+            "amountEur": 155842,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1087600,
+            "amountEur": 556081,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 6318600,
+            "amountEur": 3230649,
+            "currency": "BGN"
+          },
+          "ekatte": "48996",
+          "equalization": {
+            "amount": 953000,
+            "amountEur": 487261,
+            "currency": "BGN"
+          },
+          "nameBg": "Момчилград",
+          "nameEn": "Momchilgrad",
+          "obshtinaCode": "KRZ21",
+          "otherTargeted": null,
+          "total": {
+            "amount": 8624700,
+            "amountEur": 4409739,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 265500,
+            "amountEur": 135748,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1080600,
+            "amountEur": 552502,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 4740900,
+            "amountEur": 2423984,
+            "currency": "BGN"
+          },
+          "ekatte": "00607",
+          "equalization": {
+            "amount": 995800,
+            "amountEur": 509144,
+            "currency": "BGN"
+          },
+          "nameBg": "Ардино",
+          "nameEn": "Ardino",
+          "obshtinaCode": "KRZ02",
+          "otherTargeted": null,
+          "total": {
+            "amount": 7056800,
+            "amountEur": 3608085,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 239500,
+            "amountEur": 122454,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1003100,
+            "amountEur": 512877,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 4116300,
+            "amountEur": 2104631,
+            "currency": "BGN"
+          },
+          "ekatte": "81236",
+          "equalization": {
+            "amount": 696000,
+            "amountEur": 355859,
+            "currency": "BGN"
+          },
+          "nameBg": "Черноочене",
+          "nameEn": "Chernoochene",
+          "obshtinaCode": "KRZ35",
+          "otherTargeted": null,
+          "total": {
+            "amount": 6023000,
+            "amountEur": 3079511,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 207600,
+            "amountEur": 106144,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 856600,
+            "amountEur": 437973,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 4238300,
+            "amountEur": 2167008,
+            "currency": "BGN"
+          },
+          "ekatte": "20746",
+          "equalization": {
+            "amount": 623100,
+            "amountEur": 318586,
+            "currency": "BGN"
+          },
+          "nameBg": "Джебел",
+          "nameEn": "Dzhebel",
+          "obshtinaCode": "KRZ08",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5843800,
+            "amountEur": 2987887,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 125800,
+            "amountEur": 64321,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 9953000,
+          "amountEur": 5088889,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 66137600,
+          "amountEur": 33815618,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 9473700,
+          "amountEur": 4843825,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 87508700,
+          "amountEur": 44742487,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1944400,
+          "amountEur": 994156,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2018",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=120521"
+      }
+    },
+    {
+      "asOf": "2019-01-01",
+      "fiscalYear": 2019,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 2699300,
+            "amountEur": 1380130,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 34850200,
+            "amountEur": 17818624,
+            "currency": "BGN"
+          },
+          "ekatte": "40909",
+          "equalization": {
+            "amount": 3146300,
+            "amountEur": 1608678,
+            "currency": "BGN"
+          },
+          "nameBg": "Кърджали",
+          "nameEn": "Kardzhali",
+          "obshtinaCode": "KRZ16",
+          "otherTargeted": null,
+          "total": {
+            "amount": 41131600,
+            "amountEur": 21030253,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 435800,
+            "amountEur": 222821,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1924500,
+            "amountEur": 983981,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 10294200,
+            "amountEur": 5263341,
+            "currency": "BGN"
+          },
+          "ekatte": "39970",
+          "equalization": {
+            "amount": 1524500,
+            "amountEur": 779464,
+            "currency": "BGN"
+          },
+          "nameBg": "Крумовград",
+          "nameEn": "Krumovgrad",
+          "obshtinaCode": "KRZ15",
+          "otherTargeted": null,
+          "total": {
+            "amount": 14145100,
+            "amountEur": 7232275,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 401900,
+            "amountEur": 205488,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1772700,
+            "amountEur": 906367,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 9184900,
+            "amountEur": 4696165,
+            "currency": "BGN"
+          },
+          "ekatte": "36926",
+          "equalization": {
+            "amount": 1947600,
+            "amountEur": 995792,
+            "currency": "BGN"
+          },
+          "nameBg": "Кирково",
+          "nameEn": "Kirkovo",
+          "obshtinaCode": "KRZ14",
+          "otherTargeted": null,
+          "total": {
+            "amount": 13228500,
+            "amountEur": 6763625,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 323300,
+            "amountEur": 165301,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1172700,
+            "amountEur": 599592,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 7238100,
+            "amountEur": 3700782,
+            "currency": "BGN"
+          },
+          "ekatte": "48996",
+          "equalization": {
+            "amount": 1150500,
+            "amountEur": 588241,
+            "currency": "BGN"
+          },
+          "nameBg": "Момчилград",
+          "nameEn": "Momchilgrad",
+          "obshtinaCode": "KRZ21",
+          "otherTargeted": null,
+          "total": {
+            "amount": 9826800,
+            "amountEur": 5024363,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 265500,
+            "amountEur": 135748,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1191100,
+            "amountEur": 609000,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 5409800,
+            "amountEur": 2765987,
+            "currency": "BGN"
+          },
+          "ekatte": "00607",
+          "equalization": {
+            "amount": 1182000,
+            "amountEur": 604347,
+            "currency": "BGN"
+          },
+          "nameBg": "Ардино",
+          "nameEn": "Ardino",
+          "obshtinaCode": "KRZ02",
+          "otherTargeted": null,
+          "total": {
+            "amount": 8046300,
+            "amountEur": 4114008,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 263400,
+            "amountEur": 134674,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1071800,
+            "amountEur": 548003,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 4738100,
+            "amountEur": 2422552,
+            "currency": "BGN"
+          },
+          "ekatte": "81236",
+          "equalization": {
+            "amount": 905900,
+            "amountEur": 463179,
+            "currency": "BGN"
+          },
+          "nameBg": "Черноочене",
+          "nameEn": "Chernoochene",
+          "obshtinaCode": "KRZ35",
+          "otherTargeted": null,
+          "total": {
+            "amount": 6944100,
+            "amountEur": 3550462,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 228300,
+            "amountEur": 116728,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 948600,
+            "amountEur": 485011,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 4930500,
+            "amountEur": 2520925,
+            "currency": "BGN"
+          },
+          "ekatte": "20746",
+          "equalization": {
+            "amount": 741500,
+            "amountEur": 379123,
+            "currency": "BGN"
+          },
+          "nameBg": "Джебел",
+          "nameEn": "Dzhebel",
+          "obshtinaCode": "KRZ08",
+          "otherTargeted": null,
+          "total": {
+            "amount": 6759000,
+            "amountEur": 3455822,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 138400,
+            "amountEur": 70763,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 10780700,
+          "amountEur": 5512084,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 76645800,
+          "amountEur": 39188376,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 10598300,
+          "amountEur": 5418824,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 100081400,
+          "amountEur": 51170808,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 2056600,
+          "amountEur": 1051523,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2019",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=132563"
+      }
+    },
+    {
       "asOf": "2020-01-01",
       "fiscalYear": 2020,
       "municipalities": [
@@ -267,6 +799,272 @@
       "source": {
         "documentId": "law-2020",
         "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+      }
+    },
+    {
+      "asOf": "2021-01-01",
+      "fiscalYear": 2021,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 3383800,
+            "amountEur": 1730109,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 46517700,
+            "amountEur": 23784122,
+            "currency": "BGN"
+          },
+          "ekatte": "40909",
+          "equalization": {
+            "amount": 5056700,
+            "amountEur": 2585450,
+            "currency": "BGN"
+          },
+          "nameBg": "Кърджали",
+          "nameEn": "Kardzhali",
+          "obshtinaCode": "KRZ16",
+          "otherTargeted": null,
+          "total": {
+            "amount": 55448000,
+            "amountEur": 28350112,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 489800,
+            "amountEur": 250431,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 2402300,
+            "amountEur": 1228276,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 13721600,
+            "amountEur": 7015743,
+            "currency": "BGN"
+          },
+          "ekatte": "39970",
+          "equalization": {
+            "amount": 1981600,
+            "amountEur": 1013176,
+            "currency": "BGN"
+          },
+          "nameBg": "Крумовград",
+          "nameEn": "Krumovgrad",
+          "obshtinaCode": "KRZ15",
+          "otherTargeted": null,
+          "total": {
+            "amount": 18622000,
+            "amountEur": 9521277,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 516500,
+            "amountEur": 264082,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 2226000,
+            "amountEur": 1138136,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 12294300,
+            "amountEur": 6285976,
+            "currency": "BGN"
+          },
+          "ekatte": "36926",
+          "equalization": {
+            "amount": 2405900,
+            "amountEur": 1230117,
+            "currency": "BGN"
+          },
+          "nameBg": "Кирково",
+          "nameEn": "Kirkovo",
+          "obshtinaCode": "KRZ14",
+          "otherTargeted": null,
+          "total": {
+            "amount": 17341700,
+            "amountEur": 8866670,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 415500,
+            "amountEur": 212442,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1466400,
+            "amountEur": 749758,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 9733500,
+            "amountEur": 4976660,
+            "currency": "BGN"
+          },
+          "ekatte": "48996",
+          "equalization": {
+            "amount": 1487300,
+            "amountEur": 760444,
+            "currency": "BGN"
+          },
+          "nameBg": "Момчилград",
+          "nameEn": "Momchilgrad",
+          "obshtinaCode": "KRZ21",
+          "otherTargeted": null,
+          "total": {
+            "amount": 12980100,
+            "amountEur": 6636620,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 292900,
+            "amountEur": 149757,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1586300,
+            "amountEur": 811062,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 7120000,
+            "amountEur": 3640398,
+            "currency": "BGN"
+          },
+          "ekatte": "00607",
+          "equalization": {
+            "amount": 1480000,
+            "amountEur": 756712,
+            "currency": "BGN"
+          },
+          "nameBg": "Ардино",
+          "nameEn": "Ardino",
+          "obshtinaCode": "KRZ02",
+          "otherTargeted": null,
+          "total": {
+            "amount": 10583100,
+            "amountEur": 5411053,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 396800,
+            "amountEur": 202881,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1363400,
+            "amountEur": 697095,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 6155200,
+            "amountEur": 3147104,
+            "currency": "BGN"
+          },
+          "ekatte": "81236",
+          "equalization": {
+            "amount": 1055400,
+            "amountEur": 539617,
+            "currency": "BGN"
+          },
+          "nameBg": "Черноочене",
+          "nameEn": "Chernoochene",
+          "obshtinaCode": "KRZ35",
+          "otherTargeted": null,
+          "total": {
+            "amount": 8875000,
+            "amountEur": 4537715,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 301000,
+            "amountEur": 153899,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1241200,
+            "amountEur": 634615,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 6304200,
+            "amountEur": 3223286,
+            "currency": "BGN"
+          },
+          "ekatte": "20746",
+          "equalization": {
+            "amount": 1036800,
+            "amountEur": 530107,
+            "currency": "BGN"
+          },
+          "nameBg": "Джебел",
+          "nameEn": "Dzhebel",
+          "obshtinaCode": "KRZ08",
+          "otherTargeted": null,
+          "total": {
+            "amount": 8762600,
+            "amountEur": 4480246,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 180400,
+            "amountEur": 92237,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 13669400,
+          "amountEur": 6989051,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 101846500,
+          "amountEur": 52073289,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 14503700,
+          "amountEur": 7415623,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 132612500,
+          "amountEur": 67803693,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 2592900,
+          "amountEur": 1325729,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2021",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=154110"
       }
     },
     {

@@ -1,5 +1,962 @@
 {
   "fiscalYears": {
+    "2018": {
+      "executedTotalEur": null,
+      "fiscalYear": 2018,
+      "ministries": [
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на вътрешните работи",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-vatreshnite-raboti",
+          "plannedEur": 662838795
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на отбраната",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-otbranata",
+          "plannedEur": 610134316
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на труда и социалната политика",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-truda-i-sotsialnata-politika",
+          "plannedEur": 605089297
+        },
+        {
+          "executedEur": null,
+          "nameBg": "съдебната власт",
+          "nameEn": "Judiciary",
+          "nodeId": "admin-sadebnata-vlast",
+          "plannedEur": 302234857
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на образованието и науката",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-obrazovanieto-i-naukata",
+          "plannedEur": 298835021
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на здравеопазването",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-zdraveopazvaneto",
+          "plannedEur": 253214339
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на финансите",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-finansite",
+          "plannedEur": 245821978
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на регионалното развитие и благоустройството",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blagoustroystvoto",
+          "plannedEur": 213906628
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Държавен фонд „Земеделие“",
+          "nameEn": "",
+          "nodeId": "admin-darzhaven-fond-zemedelie",
+          "plannedEur": 188140329
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на правосъдието",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-pravosadieto",
+          "plannedEur": 118412643
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на културата",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-kulturata",
+          "plannedEur": 89620468
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на външните работи",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-vanshnite-raboti",
+          "plannedEur": 64407643
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Държавната агенция „Национална сигурност“",
+          "nameEn": "",
+          "nodeId": "admin-darzhavnata-agentsiya-natsionalna-sigurnost",
+          "plannedEur": 55300819
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на енергетиката",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-energetikata",
+          "plannedEur": 50450857
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерския съвет",
+          "nameEn": "Council of Ministers",
+          "nodeId": "admin-ministerskiya-savet",
+          "plannedEur": 46563352
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на икономиката",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-ikonomikata",
+          "plannedEur": 41089870
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на младежта и спорта",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-mladezhta-i-sporta",
+          "plannedEur": 38721157
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Народното събрание",
+          "nameEn": "National Assembly",
+          "nodeId": "admin-narodnoto-sabranie",
+          "plannedEur": 31776790
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на околната среда и водите",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-okolnata-sreda-i-vodite",
+          "plannedEur": 25492042
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Държавната агенция „Технически операции“",
+          "nameEn": "",
+          "nodeId": "admin-darzhavnata-agentsiya-tehnicheski-operatsii",
+          "plannedEur": 24773114
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Държавната агенция „Държавен резерв и военновременни запаси“",
+          "nameEn": "",
+          "nodeId": "admin-darzhavnata-agentsiya-darzhaven-rezerv-i-voennovremenni-zapa",
+          "plannedEur": 20812750
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Националната служба за охрана",
+          "nameEn": "",
+          "nodeId": "admin-natsionalnata-sluzhba-za-ohrana",
+          "plannedEur": 19144813
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Държавната агенция „Разузнаване“",
+          "nameEn": "",
+          "nodeId": "admin-darzhavnata-agentsiya-razuznavane",
+          "plannedEur": 17547026
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Държавната агенция „Електронно управление“",
+          "nameEn": "",
+          "nodeId": "admin-darzhavnata-agentsiya-elektronno-upravlenie",
+          "plannedEur": 13965733
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Националния статистически институт",
+          "nameEn": "",
+          "nodeId": "admin-natsionalniya-statisticheski-institut",
+          "plannedEur": 10880956
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Комисия за финансов надзор",
+          "nameEn": "",
+          "nodeId": "admin-komisiya-za-finansov-nadzor",
+          "plannedEur": 10241585
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на туризма",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-turizma",
+          "plannedEur": 9764652
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Сметната палата",
+          "nameEn": "National Audit Office",
+          "nodeId": "admin-smetnata-palata",
+          "plannedEur": 8809559
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Комисия за регулиране на съобщенията",
+          "nameEn": "",
+          "nodeId": "admin-komisiya-za-regulirane-na-saobshteniyata",
+          "plannedEur": 4943783
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Държавната комисия по сигурността на информацията",
+          "nameEn": "",
+          "nodeId": "admin-darzhavnata-komisiya-po-sigurnostta-na-informatsiyata",
+          "plannedEur": 4781090
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Администрация на президента",
+          "nameEn": "",
+          "nodeId": "admin-administratsiya-na-prezidenta",
+          "plannedEur": 3409294
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Комисия за отнемане на незаконно придобито имущество",
+          "nameEn": "",
+          "nodeId": "admin-komisiya-za-otnemane-na-nezakonno-pridobito-imushtestvo",
+          "plannedEur": 3183303
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Комисия за енергийно и водно регулиране",
+          "nameEn": "",
+          "nodeId": "admin-komisiya-za-energiyno-i-vodno-regulirane",
+          "plannedEur": 2973776
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Агенция за ядрено регулиране",
+          "nameEn": "",
+          "nodeId": "admin-agentsiya-za-yadreno-regulirane",
+          "plannedEur": 2789404
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Комисия за защита на конкуренцията",
+          "nameEn": "",
+          "nodeId": "admin-komisiya-za-zashtita-na-konkurentsiyata",
+          "plannedEur": 2339160
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Конституционния съд",
+          "nameEn": "Constitutional Court",
+          "nodeId": "admin-konstitutsionniya-sad",
+          "plannedEur": 2278828
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Централната избирателна комисия",
+          "nameEn": "",
+          "nodeId": "admin-tsentralnata-izbiratelna-komisiya",
+          "plannedEur": 2239458
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство за Българското председателство на Съвета на Европейския съюз 2018",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-za-balgarskoto-predsedatelstvo-na-saveta-na-evr",
+          "plannedEur": 1687263
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Омбудсмана",
+          "nameEn": "Ombudsman",
+          "nodeId": "admin-ombudsmana",
+          "plannedEur": 1520582
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Комисия за защита от дискриминация",
+          "nameEn": "",
+          "nodeId": "admin-komisiya-za-zashtita-ot-diskriminatsiya",
+          "plannedEur": 1314020
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Комисия за защита на личните данни",
+          "nameEn": "",
+          "nodeId": "admin-komisiya-za-zashtita-na-lichnite-danni",
+          "plannedEur": 1293568
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Съвета за електронни медии",
+          "nameEn": "",
+          "nodeId": "admin-saveta-za-elektronni-medii",
+          "plannedEur": 788719
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Комисия за публичен надзор над регистрираните одитори",
+          "nameEn": "",
+          "nodeId": "admin-komisiya-za-publichen-nadzor-nad-registriranite-oditori",
+          "plannedEur": 737948
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Националното бюро за контрол на специалните разузнавателни средства",
+          "nameEn": "",
+          "nodeId": "admin-natsionalnoto-byuro-za-kontrol-na-spetsialnite-razuznavateln",
+          "plannedEur": 705583
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Комисия за предотвратяване и установяване на конфликт на интереси",
+          "nameEn": "",
+          "nodeId": "admin-komisiya-za-predotvratyavane-i-ustanovyavane-na-konflikt-na-",
+          "plannedEur": 664679
+        }
+      ],
+      "plannedBalanceEur": -318811860,
+      "plannedEuContributionEur": 579775696,
+      "plannedRevenue": {
+        "lines": [
+          {
+            "code": "1",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Данъчни приходи",
+            "plannedEur": 10757887955
+          },
+          {
+            "code": "1.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Корпоративен данък",
+            "plannedEur": 1172954705
+          },
+          {
+            "code": "1.2",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данъци върху дивидентите, ликвидационните дялове и доходите на юридически лица",
+            "plannedEur": 35739302
+          },
+          {
+            "code": "1.3",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данъци върху доходите на физически лица",
+            "plannedEur": 1724280740
+          },
+          {
+            "code": "1.4",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данък върху добавената стойност",
+            "plannedEur": 5000434598
+          },
+          {
+            "code": "1.5",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Акцизи",
+            "plannedEur": 2633153188
+          },
+          {
+            "code": "1.6",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данък върху застрахователните премии",
+            "plannedEur": 18559895
+          },
+          {
+            "code": "1.7",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Мита и митнически такси",
+            "plannedEur": 97196587
+          },
+          {
+            "code": "1.8",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Други данъци",
+            "plannedEur": 75568940
+          },
+          {
+            "code": "2",
+            "depth": 0,
+            "isSubtotal": false,
+            "labelBg": "Неданъчни приходи",
+            "plannedEur": 1265535911
+          }
+        ],
+        "totalEur": 12023423866
+      },
+      "plannedSectionIIEur": 6096282141,
+      "plannedTotalEur": 4115641847,
+      "plannedTransfers": {
+        "lines": [
+          {
+            "code": "1",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Предоставени трансфери за:",
+            "plannedEur": 5675372451
+          },
+          {
+            "code": "1.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Общините",
+            "plannedEur": 1668895098
+          },
+          {
+            "code": "1.2",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Държавното обществено осигуряване",
+            "plannedEur": 2298303227
+          },
+          {
+            "code": "1.3",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Националната здравноосигурителна каса",
+            "plannedEur": 657616460
+          },
+          {
+            "code": "1.3.1",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– от Министерството на здравеопазването",
+            "plannedEur": 12271005
+          },
+          {
+            "code": "1.4",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Сметката за средствата от Европейския съюз на Националния фонд",
+            "plannedEur": 460073882
+          },
+          {
+            "code": "1.5",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Сметката за средствата от Европейския съюз на Държавния фонд „Земеделие“",
+            "plannedEur": 141060726
+          },
+          {
+            "code": "2",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Получени трансфери от:",
+            "plannedEur": 9194562
+          },
+          {
+            "code": "2.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Държавното обществено осигуряване",
+            "plannedEur": 3783560
+          },
+          {
+            "code": "2.1.1",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– за Министерството на труда и социалната политика",
+            "plannedEur": 3655737
+          },
+          {
+            "code": "2.1.2",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– за Министерството на транспорта, информационните технологии и съобщенията",
+            "plannedEur": 127823
+          },
+          {
+            "code": "2.2",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Националната здравноосигурителна каса за Министерството на финансите",
+            "plannedEur": 2343251
+          }
+        ],
+        "totalEur": 5666177889
+      }
+    },
+    "2019": {
+      "executedTotalEur": null,
+      "fiscalYear": 2019,
+      "ministries": [
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на вътрешните работи",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-vatreshnite-raboti",
+          "plannedEur": 774499931
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на отбраната",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-otbranata",
+          "plannedEur": 723074603
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на труда и социалната политика",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-truda-i-sotsialnata-politika",
+          "plannedEur": 697910299
+        },
+        {
+          "executedEur": null,
+          "nameBg": "съдебната власт",
+          "nameEn": "Judiciary",
+          "nodeId": "admin-sadebnata-vlast",
+          "plannedEur": 360111564
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на образованието и науката",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-obrazovanieto-i-naukata",
+          "plannedEur": 339996114
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на здравеопазването",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-zdraveopazvaneto",
+          "plannedEur": 280482404
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на финансите",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-finansite",
+          "plannedEur": 266490953
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на регионалното развитие и благо­устройството",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blago-ustroystvoto",
+          "plannedEur": 264181243
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Държавен фонд „Земеделие“",
+          "nameEn": "",
+          "nodeId": "admin-darzhaven-fond-zemedelie",
+          "plannedEur": 189768487
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на правосъдието",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-pravosadieto",
+          "plannedEur": 140507099
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на културата",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-kulturata",
+          "plannedEur": 99393199
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на външните работи",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-vanshnite-raboti",
+          "plannedEur": 67832889
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Държавната агенция „Държавен резерв и военновременни запаси“",
+          "nameEn": "",
+          "nodeId": "admin-darzhavnata-agentsiya-darzhaven-rezerv-i-voennovremenni-zapa",
+          "plannedEur": 62105756
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Държавната агенция „Национална сигурност“",
+          "nameEn": "",
+          "nodeId": "admin-darzhavnata-agentsiya-natsionalna-sigurnost",
+          "plannedEur": 59151051
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерския съвет",
+          "nameEn": "Council of Ministers",
+          "nodeId": "admin-ministerskiya-savet",
+          "plannedEur": 48616700
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на енергетиката",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-energetikata",
+          "plannedEur": 43325545
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на икономиката",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-ikonomikata",
+          "plannedEur": 43067905
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на младежта и спорта",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-mladezhta-i-sporta",
+          "plannedEur": 40759166
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Народното събрание",
+          "nameEn": "National Assembly",
+          "nodeId": "admin-narodnoto-sabranie",
+          "plannedEur": 40545446
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на околната среда и водите",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-okolnata-sreda-i-vodite",
+          "plannedEur": 26907809
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Държавната агенция „Технически операции“",
+          "nameEn": "",
+          "nodeId": "admin-darzhavnata-agentsiya-tehnicheski-operatsii",
+          "plannedEur": 26654157
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Националната служба за охрана",
+          "nameEn": "",
+          "nodeId": "admin-natsionalnata-sluzhba-za-ohrana",
+          "plannedEur": 20698118
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Държавната агенция „Разузнаване“",
+          "nameEn": "",
+          "nodeId": "admin-darzhavnata-agentsiya-razuznavane",
+          "plannedEur": 19116692
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Държавната агенция „Електронно управление“",
+          "nameEn": "",
+          "nodeId": "admin-darzhavnata-agentsiya-elektronno-upravlenie",
+          "plannedEur": 15266664
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Националния статистически институт",
+          "nameEn": "",
+          "nodeId": "admin-natsionalniya-statisticheski-institut",
+          "plannedEur": 12169258
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на туризма",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-turizma",
+          "plannedEur": 9894930
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Комисия за финансов надзор",
+          "nameEn": "",
+          "nodeId": "admin-komisiya-za-finansov-nadzor",
+          "plannedEur": 9443561
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Сметната палата",
+          "nameEn": "National Audit Office",
+          "nodeId": "admin-smetnata-palata",
+          "plannedEur": 9402658
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Комисия за регулиране на съобщенията",
+          "nameEn": "",
+          "nodeId": "admin-komisiya-za-regulirane-na-saobshteniyata",
+          "plannedEur": 5665063
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Държавната комисия по сигурността на информацията",
+          "nameEn": "",
+          "nodeId": "admin-darzhavnata-komisiya-po-sigurnostta-na-informatsiyata",
+          "plannedEur": 5134649
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Комисия за енергийно и водно регулиране",
+          "nameEn": "",
+          "nodeId": "admin-komisiya-za-energiyno-i-vodno-regulirane",
+          "plannedEur": 4157979
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Администрация на президента",
+          "nameEn": "",
+          "nodeId": "admin-administratsiya-na-prezidenta",
+          "plannedEur": 3746236
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Агенция за ядрено регулиране",
+          "nameEn": "",
+          "nodeId": "admin-agentsiya-za-yadreno-regulirane",
+          "plannedEur": 3495703
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Централната избирателна комисия",
+          "nameEn": "",
+          "nodeId": "admin-tsentralnata-izbiratelna-komisiya",
+          "plannedEur": 2552880
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Комисия за защита на конкуренцията",
+          "nameEn": "",
+          "nodeId": "admin-komisiya-za-zashtita-na-konkurentsiyata",
+          "plannedEur": 2550682
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Конституционния съд",
+          "nameEn": "Constitutional Court",
+          "nodeId": "admin-konstitutsionniya-sad",
+          "plannedEur": 1695955
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Омбудсмана",
+          "nameEn": "Ombudsman",
+          "nodeId": "admin-ombudsmana",
+          "plannedEur": 1615171
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Комисия за защита на личните данни",
+          "nameEn": "",
+          "nodeId": "admin-komisiya-za-zashtita-na-lichnite-danni",
+          "plannedEur": 1498085
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Комисия за защита от дискриминация",
+          "nameEn": "",
+          "nodeId": "admin-komisiya-za-zashtita-ot-diskriminatsiya",
+          "plannedEur": 1423437
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Съвета за електронни медии",
+          "nameEn": "",
+          "nodeId": "admin-saveta-za-elektronni-medii",
+          "plannedEur": 853704
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Комисия за публичен надзор над регистрираните одитори",
+          "nameEn": "",
+          "nodeId": "admin-komisiya-za-publichen-nadzor-nad-registriranite-oditori",
+          "plannedEur": 848847
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Националното бюро за контрол на специалните разузнавателни средства",
+          "nameEn": "",
+          "nodeId": "admin-natsionalnoto-byuro-za-kontrol-na-spetsialnite-razuznavateln",
+          "plannedEur": 827833
+        }
+      ],
+      "plannedBalanceEur": -204173522,
+      "plannedEuContributionEur": 655541484,
+      "plannedRevenue": {
+        "lines": [
+          {
+            "code": "1",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Данъчни приходи",
+            "plannedEur": 11827817346
+          },
+          {
+            "code": "1.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Корпоративен данък",
+            "plannedEur": 1317190144
+          },
+          {
+            "code": "1.2",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данъци върху дивидентите, ликвидационните дялове и доходите на юридически лица",
+            "plannedEur": 50975801
+          },
+          {
+            "code": "1.3",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данъци върху доходите на физически лица",
+            "plannedEur": 1974097953
+          },
+          {
+            "code": "1.4",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данък върху добавената стойност",
+            "plannedEur": 5537291073
+          },
+          {
+            "code": "1.5",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Акцизи",
+            "plannedEur": 2725543631
+          },
+          {
+            "code": "1.6",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данък върху застрахователните премии",
+            "plannedEur": 20298288
+          },
+          {
+            "code": "1.7",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Мита и митнически такси",
+            "plannedEur": 121125047
+          },
+          {
+            "code": "1.8",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Други данъци",
+            "plannedEur": 81295409
+          },
+          {
+            "code": "2",
+            "depth": 0,
+            "isSubtotal": false,
+            "labelBg": "Неданъчни приходи",
+            "plannedEur": 1308958243
+          }
+        ],
+        "totalEur": 13136775589
+      },
+      "plannedSectionIIEur": 6812315794,
+      "plannedTotalEur": 4727440425,
+      "plannedTransfers": {
+        "lines": [
+          {
+            "code": "1",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Предоставени трансфери за:",
+            "plannedEur": 5882529259
+          },
+          {
+            "code": "1.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Общините",
+            "plannedEur": 1915171820
+          },
+          {
+            "code": "1.2",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Държавното обществено осигуряване",
+            "plannedEur": 2163614220
+          },
+          {
+            "code": "1.3",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Националната здравноосигурителна каса",
+            "plannedEur": 735027584
+          },
+          {
+            "code": "1.3.1",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– от Министерството на здравеопазването",
+            "plannedEur": 21985551
+          },
+          {
+            "code": "1.4",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Сметката за средствата от Европейския съюз на Националния фонд",
+            "plannedEur": 441031276
+          },
+          {
+            "code": "1.5",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Сметката за средствата от Европейския съюз на Държавния фонд „Земеделие“",
+            "plannedEur": 150746128
+          },
+          {
+            "code": "2",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Получени трансфери от:",
+            "plannedEur": 9437426
+          },
+          {
+            "code": "2.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Държавното обществено осигуряване",
+            "plannedEur": 3783560
+          },
+          {
+            "code": "2.1.1",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– за Министерството на труда и социалната политика",
+            "plannedEur": 3655737
+          },
+          {
+            "code": "2.1.2",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– за Министерството на транспорта, информационните технологии и съобщенията",
+            "plannedEur": 127823
+          },
+          {
+            "code": "2.2",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Националната здравноосигурителна каса за Министерството на финансите",
+            "plannedEur": 2586114
+          }
+        ],
+        "totalEur": 5873091833
+      }
+    },
     "2020": {
       "executedTotalEur": null,
       "fiscalYear": 2020,
@@ -473,6 +1430,474 @@
           }
         ],
         "totalEur": 6257466907
+      }
+    },
+    "2021": {
+      "executedTotalEur": null,
+      "fiscalYear": 2021,
+      "ministries": [
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на вътрешните работи",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-vatreshnite-raboti",
+          "plannedEur": 997158956
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на труда и социалната политика",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-truda-i-sotsialnata-politika",
+          "plannedEur": 939829842
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на отбраната",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-otbranata",
+          "plannedEur": 830908975
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на регионалното развитие и благоустройството",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-regionalnoto-razvitie-i-blagoustroystvoto",
+          "plannedEur": 465746563
+        },
+        {
+          "executedEur": null,
+          "nameBg": "съдебната власт",
+          "nameEn": "Judiciary",
+          "nodeId": "admin-sadebnata-vlast",
+          "plannedEur": 450098935
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на образованието и науката",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-obrazovanieto-i-naukata",
+          "plannedEur": 413236120
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на здравеопазването",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-zdraveopazvaneto",
+          "plannedEur": 400843632
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на финансите",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-finansite",
+          "plannedEur": 346442431
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Държавен фонд „Земеделие“",
+          "nameEn": "",
+          "nodeId": "admin-darzhaven-fond-zemedelie",
+          "plannedEur": 189627268
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на правосъдието",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-pravosadieto",
+          "plannedEur": 186526897
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на културата",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-kulturata",
+          "plannedEur": 125101415
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на външните работи",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-vanshnite-raboti",
+          "plannedEur": 76979032
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Държавната агенция „Национална сигурност“",
+          "nameEn": "",
+          "nodeId": "admin-darzhavnata-agentsiya-natsionalna-sigurnost",
+          "plannedEur": 70328710
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерския съвет",
+          "nameEn": "Council of Ministers",
+          "nodeId": "admin-ministerskiya-savet",
+          "plannedEur": 67160132
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на икономиката",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-ikonomikata",
+          "plannedEur": 51808848
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на младежта и спорта",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-mladezhta-i-sporta",
+          "plannedEur": 49904031
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Народното събрание",
+          "nameEn": "National Assembly",
+          "nodeId": "admin-narodnoto-sabranie",
+          "plannedEur": 42445100
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на енергетиката",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-energetikata",
+          "plannedEur": 37694483
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Държавната агенция „Технически операции“",
+          "nameEn": "",
+          "nodeId": "admin-darzhavnata-agentsiya-tehnicheski-operatsii",
+          "plannedEur": 36121902
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на околната среда и водите",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-okolnata-sreda-i-vodite",
+          "plannedEur": 33052873
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Държавната агенция „Разузнаване“",
+          "nameEn": "",
+          "nodeId": "admin-darzhavnata-agentsiya-razuznavane",
+          "plannedEur": 25543580
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Държавната агенция „Държавен резерв и военновременни запаси“",
+          "nameEn": "",
+          "nodeId": "admin-darzhavnata-agentsiya-darzhaven-rezerv-i-voennovremenni-zapa",
+          "plannedEur": 24976404
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Националната служба за охрана",
+          "nameEn": "",
+          "nodeId": "admin-natsionalnata-sluzhba-za-ohrana",
+          "plannedEur": 24480400
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Държавната агенция „Електронно управление“",
+          "nameEn": "",
+          "nodeId": "admin-darzhavnata-agentsiya-elektronno-upravlenie",
+          "plannedEur": 16906377
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Националния статистически институт",
+          "nameEn": "",
+          "nodeId": "admin-natsionalniya-statisticheski-institut",
+          "plannedEur": 14564763
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Министерство на туризма",
+          "nameEn": "",
+          "nodeId": "admin-ministerstvo-na-turizma",
+          "plannedEur": 12809395
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Сметната палата",
+          "nameEn": "National Audit Office",
+          "nodeId": "admin-smetnata-palata",
+          "plannedEur": 11068805
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Комисия за регулиране на съобщенията",
+          "nameEn": "",
+          "nodeId": "admin-komisiya-za-regulirane-na-saobshteniyata",
+          "plannedEur": 10985873
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Комисия за финансов надзор",
+          "nameEn": "",
+          "nodeId": "admin-komisiya-za-finansov-nadzor",
+          "plannedEur": 10073064
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Държавната комисия по сигурността на информацията",
+          "nameEn": "",
+          "nodeId": "admin-darzhavnata-komisiya-po-sigurnostta-na-informatsiyata",
+          "plannedEur": 5904348
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Комисия за енергийно и водно регулиране",
+          "nameEn": "",
+          "nodeId": "admin-komisiya-za-energiyno-i-vodno-regulirane",
+          "plannedEur": 4772347
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Администрация на президента",
+          "nameEn": "",
+          "nodeId": "admin-administratsiya-na-prezidenta",
+          "plannedEur": 4589612
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Агенция за ядрено регулиране",
+          "nameEn": "",
+          "nodeId": "admin-agentsiya-za-yadreno-regulirane",
+          "plannedEur": 3832695
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Комисия за защита на конкуренцията",
+          "nameEn": "",
+          "nodeId": "admin-komisiya-za-zashtita-na-konkurentsiyata",
+          "plannedEur": 2983593
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Централната избирателна комисия",
+          "nameEn": "",
+          "nodeId": "admin-tsentralnata-izbiratelna-komisiya",
+          "plannedEur": 2960891
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Конституционния съд",
+          "nameEn": "Constitutional Court",
+          "nodeId": "admin-konstitutsionniya-sad",
+          "plannedEur": 2852804
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Омбудсмана",
+          "nameEn": "Ombudsman",
+          "nodeId": "admin-ombudsmana",
+          "plannedEur": 1860693
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Комисия за защита на личните данни",
+          "nameEn": "",
+          "nodeId": "admin-komisiya-za-zashtita-na-lichnite-danni",
+          "plannedEur": 1646616
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Комисия за защита от дискриминация",
+          "nameEn": "",
+          "nodeId": "admin-komisiya-za-zashtita-ot-diskriminatsiya",
+          "plannedEur": 1622840
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Съвета за електронни медии",
+          "nameEn": "",
+          "nodeId": "admin-saveta-za-elektronni-medii",
+          "plannedEur": 1490927
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Комисия за публичен надзор над регистрираните одитори",
+          "nameEn": "",
+          "nodeId": "admin-komisiya-za-publichen-nadzor-nad-registriranite-oditori",
+          "plannedEur": 1064510
+        },
+        {
+          "executedEur": null,
+          "nameBg": "Националното бюро за контрол на специалните разузнавателни средства",
+          "nameEn": "",
+          "nodeId": "admin-natsionalnoto-byuro-za-kontrol-na-spetsialnite-razuznavateln",
+          "plannedEur": 865975
+        }
+      ],
+      "plannedBalanceEur": -2804139623,
+      "plannedEuContributionEur": 747792855,
+      "plannedRevenue": {
+        "lines": [
+          {
+            "code": "1",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Данъчни приходи",
+            "plannedEur": 12369173190
+          },
+          {
+            "code": "1.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Корпоративен данък",
+            "plannedEur": 1314735943
+          },
+          {
+            "code": "1.2",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данъци върху дивидентите, ликвидационните дялове и доходите на юридически лица",
+            "plannedEur": 40801092
+          },
+          {
+            "code": "1.3",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данъци върху доходите на физически лица",
+            "plannedEur": 2201929616
+          },
+          {
+            "code": "1.4",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данък върху добавената стойност",
+            "plannedEur": 5736694907
+          },
+          {
+            "code": "1.5",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Акцизи",
+            "plannedEur": 2853008697
+          },
+          {
+            "code": "1.6",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данък върху застрахователните премии",
+            "plannedEur": 23519427
+          },
+          {
+            "code": "1.7",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Мита и митнически такси",
+            "plannedEur": 119744559
+          },
+          {
+            "code": "1.8",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Други данъци",
+            "plannedEur": 78738950
+          },
+          {
+            "code": "2",
+            "depth": 0,
+            "isSubtotal": false,
+            "labelBg": "Неданъчни приходи",
+            "plannedEur": 1461987698
+          }
+        ],
+        "totalEur": 13831160888
+      },
+      "plannedSectionIIEur": 8087533221,
+      "plannedTotalEur": 5998872657,
+      "plannedTransfers": {
+        "lines": [
+          {
+            "code": "1",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Предоставени трансфери за:",
+            "plannedEur": 7806825747
+          },
+          {
+            "code": "1.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Общините",
+            "plannedEur": 2522840891
+          },
+          {
+            "code": "1.2",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Държавното обществено осигуряване",
+            "plannedEur": 3236505831
+          },
+          {
+            "code": "1.3",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Националната здравноосигурителна каса",
+            "plannedEur": 1073974221
+          },
+          {
+            "code": "1.3.1",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– от Министерството на здравеопазването",
+            "plannedEur": 42641743
+          },
+          {
+            "code": "1.4",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Сметката за средствата от Европейския съюз на Националния фонд",
+            "plannedEur": 263611101
+          },
+          {
+            "code": "1.5",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Сметката за средствата от Европейския съюз на Държавния фонд „Земеделие“",
+            "plannedEur": 126176713
+          },
+          {
+            "code": "2",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Получени трансфери от:",
+            "plannedEur": 6851311
+          },
+          {
+            "code": "2.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Държавното обществено осигуряване",
+            "plannedEur": 3783560
+          },
+          {
+            "code": "2.1.1",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– за Министерството на труда и социалната политика",
+            "plannedEur": 2045168
+          },
+          {
+            "code": "2.1.2",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– за Министерството на транспорта, информационните технологии и съобщенията",
+            "plannedEur": 127823
+          },
+          {
+            "code": "2.1.3",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– за Министерството на здравеопазването",
+            "plannedEur": 1610569
+          }
+        ],
+        "totalEur": 7799974435
       }
     },
     "2022": {
@@ -2481,5 +3906,5 @@
       }
     }
   },
-  "generatedAt": "2026-06-04T07:45:27.656Z"
+  "generatedAt": "2026-07-05T10:46:25.297Z"
 }

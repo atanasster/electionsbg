@@ -4,6 +4,474 @@
   "oblastNameEn": "Pernik",
   "years": [
     {
+      "asOf": "2018-01-01",
+      "fiscalYear": 2018,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 1108500,
+            "amountEur": 566767,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 29697600,
+            "amountEur": 15184142,
+            "currency": "BGN"
+          },
+          "ekatte": "55871",
+          "equalization": {
+            "amount": 3099100,
+            "amountEur": 1584545,
+            "currency": "BGN"
+          },
+          "nameBg": "Перник",
+          "nameEn": "Pernik",
+          "obshtinaCode": "PER32",
+          "otherTargeted": null,
+          "total": {
+            "amount": 34242300,
+            "amountEur": 17507810,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 337100,
+            "amountEur": 172356,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 789100,
+            "amountEur": 403460,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 7373500,
+            "amountEur": 3770011,
+            "currency": "BGN"
+          },
+          "ekatte": "61577",
+          "equalization": {
+            "amount": 1028500,
+            "amountEur": 525864,
+            "currency": "BGN"
+          },
+          "nameBg": "Радомир",
+          "nameEn": "Radomir",
+          "obshtinaCode": "PER36",
+          "otherTargeted": null,
+          "total": {
+            "amount": 9358300,
+            "amountEur": 4784823,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 167200,
+            "amountEur": 85488,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 733400,
+            "amountEur": 374981,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 2671100,
+            "amountEur": 1365712,
+            "currency": "BGN"
+          },
+          "ekatte": "06286",
+          "equalization": {
+            "amount": 520300,
+            "amountEur": 266025,
+            "currency": "BGN"
+          },
+          "nameBg": "Брезник",
+          "nameEn": "Breznik",
+          "obshtinaCode": "PER08",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4172400,
+            "amountEur": 2133314,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 247600,
+            "amountEur": 126596,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 973600,
+            "amountEur": 497794,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 2163600,
+            "amountEur": 1106231,
+            "currency": "BGN"
+          },
+          "ekatte": "73273",
+          "equalization": {
+            "amount": 478000,
+            "amountEur": 244398,
+            "currency": "BGN"
+          },
+          "nameBg": "Трън",
+          "nameEn": "Tran",
+          "obshtinaCode": "PER51",
+          "otherTargeted": null,
+          "total": {
+            "amount": 3863800,
+            "amountEur": 1975530,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 248600,
+            "amountEur": 127107,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 370000,
+            "amountEur": 189178,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 1103800,
+            "amountEur": 564364,
+            "currency": "BGN"
+          },
+          "ekatte": "30778",
+          "equalization": {
+            "amount": 311200,
+            "amountEur": 159114,
+            "currency": "BGN"
+          },
+          "nameBg": "Земен",
+          "nameEn": "Zemen",
+          "obshtinaCode": "PER19",
+          "otherTargeted": null,
+          "total": {
+            "amount": 1862100,
+            "amountEur": 952077,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 77100,
+            "amountEur": 39421,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 358500,
+            "amountEur": 183298,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 1067900,
+            "amountEur": 546009,
+            "currency": "BGN"
+          },
+          "ekatte": "37513",
+          "equalization": {
+            "amount": 185200,
+            "amountEur": 94691,
+            "currency": "BGN"
+          },
+          "nameBg": "Ковачевци",
+          "nameEn": "Kovachevtsi",
+          "obshtinaCode": "PER22",
+          "otherTargeted": null,
+          "total": {
+            "amount": 1799000,
+            "amountEur": 919814,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 187400,
+            "amountEur": 95816,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 4333100,
+          "amountEur": 2215478,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 44077500,
+          "amountEur": 22536469,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 5622300,
+          "amountEur": 2874637,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 55297900,
+          "amountEur": 28273368,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1265000,
+          "amountEur": 646784,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2018",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=120521"
+      }
+    },
+    {
+      "asOf": "2019-01-01",
+      "fiscalYear": 2019,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 1192800,
+            "amountEur": 609869,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 34589500,
+            "amountEur": 17685331,
+            "currency": "BGN"
+          },
+          "ekatte": "55871",
+          "equalization": {
+            "amount": 3685100,
+            "amountEur": 1884162,
+            "currency": "BGN"
+          },
+          "nameBg": "Перник",
+          "nameEn": "Pernik",
+          "obshtinaCode": "PER32",
+          "otherTargeted": null,
+          "total": {
+            "amount": 39804500,
+            "amountEur": 20351718,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 337100,
+            "amountEur": 172356,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 848900,
+            "amountEur": 434036,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 8403600,
+            "amountEur": 4296692,
+            "currency": "BGN"
+          },
+          "ekatte": "61577",
+          "equalization": {
+            "amount": 1205200,
+            "amountEur": 616209,
+            "currency": "BGN"
+          },
+          "nameBg": "Радомир",
+          "nameEn": "Radomir",
+          "obshtinaCode": "PER36",
+          "otherTargeted": null,
+          "total": {
+            "amount": 10641500,
+            "amountEur": 5440913,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 183800,
+            "amountEur": 93975,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 772700,
+            "amountEur": 395075,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3073000,
+            "amountEur": 1571200,
+            "currency": "BGN"
+          },
+          "ekatte": "06286",
+          "equalization": {
+            "amount": 520300,
+            "amountEur": 266025,
+            "currency": "BGN"
+          },
+          "nameBg": "Брезник",
+          "nameEn": "Breznik",
+          "obshtinaCode": "PER08",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4638300,
+            "amountEur": 2371525,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 272300,
+            "amountEur": 139225,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1049100,
+            "amountEur": 536396,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 2478300,
+            "amountEur": 1267135,
+            "currency": "BGN"
+          },
+          "ekatte": "73273",
+          "equalization": {
+            "amount": 478000,
+            "amountEur": 244398,
+            "currency": "BGN"
+          },
+          "nameBg": "Трън",
+          "nameEn": "Tran",
+          "obshtinaCode": "PER51",
+          "otherTargeted": null,
+          "total": {
+            "amount": 4279400,
+            "amountEur": 2188022,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 274000,
+            "amountEur": 140094,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 440200,
+            "amountEur": 225071,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 1245000,
+            "amountEur": 636558,
+            "currency": "BGN"
+          },
+          "ekatte": "30778",
+          "equalization": {
+            "amount": 311200,
+            "amountEur": 159114,
+            "currency": "BGN"
+          },
+          "nameBg": "Земен",
+          "nameEn": "Zemen",
+          "obshtinaCode": "PER19",
+          "otherTargeted": null,
+          "total": {
+            "amount": 2081200,
+            "amountEur": 1064101,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 84800,
+            "amountEur": 43358,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 410700,
+            "amountEur": 209988,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 1205600,
+            "amountEur": 616413,
+            "currency": "BGN"
+          },
+          "ekatte": "37513",
+          "equalization": {
+            "amount": 193100,
+            "amountEur": 98730,
+            "currency": "BGN"
+          },
+          "nameBg": "Ковачевци",
+          "nameEn": "Kovachevtsi",
+          "obshtinaCode": "PER22",
+          "otherTargeted": null,
+          "total": {
+            "amount": 2015400,
+            "amountEur": 1030458,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 206000,
+            "amountEur": 105326,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 4714400,
+          "amountEur": 2410435,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 50995000,
+          "amountEur": 26073329,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 6392900,
+          "amountEur": 3268638,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 63460300,
+          "amountEur": 32446737,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1358000,
+          "amountEur": 694334,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2019",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=132563"
+      }
+    },
+    {
       "asOf": "2020-01-01",
       "fiscalYear": 2020,
       "municipalities": [
@@ -235,6 +703,240 @@
       "source": {
         "documentId": "law-2020",
         "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+      }
+    },
+    {
+      "asOf": "2021-01-01",
+      "fiscalYear": 2021,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 1453100,
+            "amountEur": 742958,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 47920500,
+            "amountEur": 24501363,
+            "currency": "BGN"
+          },
+          "ekatte": "55871",
+          "equalization": {
+            "amount": 3951800,
+            "amountEur": 2020523,
+            "currency": "BGN"
+          },
+          "nameBg": "Перник",
+          "nameEn": "Pernik",
+          "obshtinaCode": "PER32",
+          "otherTargeted": null,
+          "total": {
+            "amount": 53600700,
+            "amountEur": 27405603,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 275300,
+            "amountEur": 140759,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1052400,
+            "amountEur": 538084,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 11247700,
+            "amountEur": 5750858,
+            "currency": "BGN"
+          },
+          "ekatte": "61577",
+          "equalization": {
+            "amount": 1309300,
+            "amountEur": 669434,
+            "currency": "BGN"
+          },
+          "nameBg": "Радомир",
+          "nameEn": "Radomir",
+          "obshtinaCode": "PER36",
+          "otherTargeted": null,
+          "total": {
+            "amount": 13856000,
+            "amountEur": 7084460,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 246600,
+            "amountEur": 126085,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 937500,
+            "amountEur": 479336,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 4497700,
+            "amountEur": 2299637,
+            "currency": "BGN"
+          },
+          "ekatte": "06286",
+          "equalization": {
+            "amount": 728200,
+            "amountEur": 372323,
+            "currency": "BGN"
+          },
+          "nameBg": "Брезник",
+          "nameEn": "Breznik",
+          "obshtinaCode": "PER08",
+          "otherTargeted": null,
+          "total": {
+            "amount": 6529500,
+            "amountEur": 3338480,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 366100,
+            "amountEur": 187184,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 1241400,
+            "amountEur": 634718,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 3491000,
+            "amountEur": 1784920,
+            "currency": "BGN"
+          },
+          "ekatte": "73273",
+          "equalization": {
+            "amount": 505300,
+            "amountEur": 258356,
+            "currency": "BGN"
+          },
+          "nameBg": "Трън",
+          "nameEn": "Tran",
+          "obshtinaCode": "PER51",
+          "otherTargeted": null,
+          "total": {
+            "amount": 5604700,
+            "amountEur": 2865638,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 367000,
+            "amountEur": 187644,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 534000,
+            "amountEur": 273030,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 1754000,
+            "amountEur": 896806,
+            "currency": "BGN"
+          },
+          "ekatte": "30778",
+          "equalization": {
+            "amount": 423400,
+            "amountEur": 216481,
+            "currency": "BGN"
+          },
+          "nameBg": "Земен",
+          "nameEn": "Zemen",
+          "obshtinaCode": "PER19",
+          "otherTargeted": null,
+          "total": {
+            "amount": 2825200,
+            "amountEur": 1444502,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 113800,
+            "amountEur": 58185,
+            "currency": "BGN"
+          }
+        },
+        {
+          "capital": {
+            "amount": 537600,
+            "amountEur": 274871,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 1717300,
+            "amountEur": 878042,
+            "currency": "BGN"
+          },
+          "ekatte": "37513",
+          "equalization": {
+            "amount": 248100,
+            "amountEur": 126852,
+            "currency": "BGN"
+          },
+          "nameBg": "Ковачевци",
+          "nameEn": "Kovachevtsi",
+          "obshtinaCode": "PER22",
+          "otherTargeted": null,
+          "total": {
+            "amount": 2780600,
+            "amountEur": 1421698,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 277600,
+            "amountEur": 141935,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 5756000,
+          "amountEur": 2942997,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 70628200,
+          "amountEur": 36111626,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 7166100,
+          "amountEur": 3663969,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 85196700,
+          "amountEur": 43560381,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 1646400,
+          "amountEur": 841792,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2021",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=154110"
       }
     },
     {
