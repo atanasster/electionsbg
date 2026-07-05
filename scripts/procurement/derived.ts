@@ -21,7 +21,6 @@ import {
   byEurDesc,
   canonicalJson,
 } from "./validate";
-import { writeContractorsSearch } from "./build_contractors_search";
 
 const TOP_LIMIT = 1000;
 
@@ -399,20 +398,12 @@ export const writeDerived = (
   top: TopContractorsFile,
   flow: FlowFile,
   awarderConcentration: AwarderConcentrationFile,
-  // When provided, also rewrites the slim {eik,name} contractors search index
-  // (data/procurement/derived/contractors_search.json) that powers the
-  // procurement dashboard's company-search tile. Every caller passes it (incl.
-  // the dedup_* one-offs, which rewrite contractor shards and so must refresh
-  // the index too); optional only for back-compat with any future caller that
-  // deliberately skips the refresh.
-  contractorsDir?: string,
 ): void => {
   fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(
     path.join(outDir, "top_contractors.json"),
     canonicalJson(top),
   );
-  if (contractorsDir) writeContractorsSearch(outDir, contractorsDir);
   // flow.json = trimmed preview (eager landing load); flow_full.json = complete
   // graph (lazy-loaded when the tile's threshold slider is pulled to 0).
   // Assert both are free of orphaned contractors before writing — a

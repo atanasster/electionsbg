@@ -233,7 +233,7 @@ export const routeDefs = (year: string): RouteDefs => [
   { path: "procurement/mps", file: `src/screens/TopMpsScreen.tsx` },
   {
     path: "procurement/by-settlement",
-    file: `data/procurement/by_settlement/index.json`,
+    file: `src/screens/procurement/ProcurementBySettlementScreen.tsx`,
   },
   {
     path: "procurement/settlement/:id",

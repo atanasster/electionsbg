@@ -10,6 +10,7 @@ import {
   Votes,
 } from "@/data/dataTypes";
 import { DATA_URL, PrerenderRoute, SITE_URL } from "./routes";
+import { readProcurementSeoSettlements } from "../db/lib/seo_settlements";
 import {
   buildBreadcrumbLd,
   buildDatasetLd,
@@ -742,38 +743,16 @@ export const buildGovernanceRegionRoutes = (
     });
 };
 
-type ProcurementSettlementEntry = {
-  ekatte: string;
-  name: string;
-  province?: string;
-  contractCount: number;
-  totalEur: number;
-  awarderCount: number;
-};
-
 // /procurement/settlement/{ekatte} — per-settlement procurement detail. Real
 // SPA route (ProcurementSettlementDetailScreen) that previously had NO
 // prerendered HTML, so a no-JS crawler hit the SPA rewrite → homepage
-// soft-duplicate. Enumerated from the same by_settlement index the sitemap
-// uses. BG only (matches the sitemap).
-export const buildProcurementSettlementRoutes = (
-  projectRoot: string,
-): PrerenderRoute[] => {
-  const file = path.join(
-    projectRoot,
-    "data",
-    "procurement",
-    "by_settlement",
-    "index.json",
-  );
-  if (!fs.existsSync(file)) return [];
-  let payload: { settlements?: ProcurementSettlementEntry[] };
-  try {
-    payload = JSON.parse(fs.readFileSync(file, "utf-8"));
-  } catch {
-    return [];
-  }
-  const settlements = payload.settlements ?? [];
+// soft-duplicate. Enumerated from Postgres (the same live source the sitemap
+// and the SPA's /api/db routes read), not the retired by_settlement JSON shard.
+// BG only (matches the sitemap).
+export const buildProcurementSettlementRoutes = async (): Promise<
+  PrerenderRoute[]
+> => {
+  const settlements = await readProcurementSeoSettlements();
   const result: PrerenderRoute[] = [];
   for (const s of settlements) {
     if (!s.ekatte) continue;
@@ -3247,7 +3226,7 @@ export const buildDynamicRoutes = async (
     ...(await buildArticleRoutes(path.join(projectRoot, "public"))),
     ...buildBudgetMinistryRoutes(projectRoot),
     ...buildOfficialRoutes(projectRoot),
-    ...buildProcurementSettlementRoutes(projectRoot),
+    ...(await buildProcurementSettlementRoutes()),
     ...buildFundsThemeRoutes(projectRoot),
   ];
 };

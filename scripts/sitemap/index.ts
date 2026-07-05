@@ -2,6 +2,10 @@ import fs from "fs";
 import path from "path";
 import { ENGLISH_STATIC_PAGES, RouteDef, routeDefs } from "./route_defs";
 import { fileURLToPath } from "url";
+import {
+  readProcurementSeoSettlements,
+  type SeoProcurementSettlement,
+} from "../db/lib/seo_settlements";
 import { ElectionInfo, PartyInfo, SectionIndex } from "@/data/dataTypes";
 
 type SettlementBundleEntry = { ekatte?: string; oblast?: string };
@@ -490,21 +494,13 @@ const enumerateFundsProgrammes = (rootUrl: string, routes: string[]) => {
 };
 
 const enumerateProcurementSettlements = (rootUrl: string, routes: string[]) => {
-  // One URL per settlement that has at least one local-tier contract on
-  // file. Read from by_settlement/index.json which is freshest after every
-  // procurement ingest. Skip the synthetic _national.json sibling — that
-  // surfaces as a card on the landing, not a standalone page.
-  const idxFile = `${projectPath}/data/procurement/by_settlement/index.json`;
-  if (!fs.existsSync(idxFile)) return;
-  let idx: { settlements?: Array<{ ekatte: string }> };
-  try {
-    idx = JSON.parse(fs.readFileSync(idxFile, "utf-8"));
-  } catch {
-    return;
-  }
-  const lastmod = safeFileMod(idxFile);
-  for (const s of idx.settlements ?? []) {
-    pushUrl(`${rootUrl}/${routes[0]}${s.ekatte}`, lastmod);
+  // One URL per settlement that has at least one local-tier contract. Read from
+  // Postgres (procurementSeoSettlements, fetched once at startup) — the same
+  // live source the SPA's /api/db routes and the prerender read, now that the
+  // by_settlement JSON shard is retired. The national card surfaces on the
+  // landing, not as a standalone page, so it isn't enumerated here.
+  for (const s of procurementSeoSettlements) {
+    pushUrl(`${rootUrl}/${routes[0]}${s.ekatte}`, today);
   }
 };
 
@@ -690,6 +686,13 @@ const getRoute = (route: RouteDef, rootUrl: string) => {
     routeXML(`${rootUrl}/${route.path}`, route.file),
   );
 };
+
+// Fetch the procurement-by-settlement enumeration from Postgres once, up front
+// (top-level await), so the otherwise-synchronous route walk can read it. Falls
+// back to [] if Postgres is unavailable — the /procurement/settlement/* URLs are
+// simply omitted, same as when the retired JSON shard was missing.
+const procurementSeoSettlements: SeoProcurementSettlement[] =
+  await readProcurementSeoSettlements();
 
 routeDefs(election).forEach((r) => getRoute(r, ""));
 enumerateVotes("");

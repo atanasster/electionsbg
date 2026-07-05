@@ -479,7 +479,7 @@ const main = async (args: {
     const top = buildTopContractors(CONTRACTORS_DIR, mpConnected);
     const flow = buildFlow(AWARDERS_DIR, mpConnected, pepConnected);
     const concentration = buildAwarderConcentration(AWARDERS_DIR);
-    writeDerived(DERIVED_DIR, top, flow, concentration, CONTRACTORS_DIR);
+    writeDerived(DERIVED_DIR, top, flow, concentration);
     console.log(
       `  top_contractors.json: ${top.entries.length} entries (top of ${top.total}); ` +
         `flow.json: ${flow.nodes.length} node(s), ${flow.links.length} link(s); ` +
