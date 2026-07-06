@@ -72,16 +72,19 @@ Add to `RoadsPack` / `buildRoadsModel` (`src/lib/roadAttributes.ts`), no backend
 2. **Repeat-winner-by-corridor** — **SHIPPED** (`d48cf56b1`,
    `RoadRepeatWinnersTile`). Corridors where one contractor holds ≥40% of the money
    over ≥2 contracts, from `model.rows`.
-3. **Chainage coverage strip** — per motorway (A1/A3/Хемус…), a km-axis showing
-   which segments have had contracts + spend density. Reuses `lengthOf()`/chainage
-   parse; reveals unbuilt gaps. Highest remaining signal, most effort.
-4. **Capital-vs-maintenance ratio over time** — trend from the `WorkGroup` split;
-   deferred as it overlaps `RoadTimeSpineTile`'s category mode.
-5. **€/km international benchmark band** — turn the static "key factors" text into
-   a visual: plot corridor €/km against World Bank/ROCKS ranges by class + tunnel/
-   bridge premium.
-6. **Forecast-vs-actual per corridor** via `tenders.ocid → contracts.ocid` — flag
-   coverage-limited (roads ocid join is ~11–23%; present honestly, not headline).
+3. **Chainage coverage strip** — **SHIPPED** (`386ebf56e`,
+   `RoadChainageStripTile`). Per-motorway km-axis spend-density heat strip;
+   `lengthOf()` now returns absolute `kmFrom`/`kmTo`, and a per-motorway
+   plausible-length cap (`MOTORWAY_MAX_KM`) rejects km markers borrowed from
+   cross-referenced roads (fixed Струма 442→78 km).
+4. **€/km international benchmark band** — **SHIPPED** (`386ebf56e`,
+   `RoadCostBenchmarkTile`). Corridor p25–p75 IQR + median vs ROCKS/BG/RO/GR.
+5. **Capital-vs-maintenance ratio over time** — deferred (overlaps
+   `RoadTimeSpineTile`'s category mode).
+6. **Forecast-vs-actual per corridor** — **decided out.** Measured: only 112 of
+   АПИ's 2034 contracts (5.5%) join a tender via `ocid`, so a corridor grid would
+   be mostly empty. `AwarderTendersTile` already shows the honest entity-level
+   forecast→actual; a corridor breakdown would add noise, not signal.
 
 ### P4 — prove the seam (НОИ / ДОО) — DONE, and the finding is "no pack needed"
 
