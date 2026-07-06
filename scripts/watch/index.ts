@@ -67,7 +67,14 @@ const main = async (): Promise<void> => {
     }
 
     try {
-      const curr = await src.fingerprint();
+      const fingerprintP = src.fingerprint();
+      const timeoutP = new Promise<never>((_, reject) =>
+        setTimeout(
+          () => reject(new Error(`source timed out after 90s`)),
+          90_000,
+        ),
+      );
+      const curr = await Promise.race([fingerprintP, timeoutP]);
       const changed = !prev || prev.fingerprint !== curr.value;
       const status = !prev ? "first-run" : changed ? "changed" : "unchanged";
       const line = changed

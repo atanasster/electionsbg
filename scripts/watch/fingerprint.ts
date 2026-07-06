@@ -27,10 +27,14 @@ export interface FetchOpts {
   // when probing for the existence of a record.
   allow404?: boolean;
   // Retry transient failures (network + 5xx) with exponential backoff.
+  // Timeout/abort errors are never retried.
   retries?: number;
   // Disable TLS cert chain verification for this request only. Use only when
   // the upstream is known to serve an incomplete chain. Read-only data!
   insecureTls?: boolean;
+  // AbortSignal for cancellation / timeout. Defaults to a 30-second timeout
+  // so a hung upstream can't block the watcher indefinitely.
+  signal?: AbortSignal;
 }
 
 export const fetchText = async (
@@ -38,18 +42,21 @@ export const fetchText = async (
   opts: FetchOpts = {},
 ): Promise<string | null> => {
   const retries = opts.retries ?? 3;
+  const signal = opts.signal ?? AbortSignal.timeout(30_000);
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
       const headers = { ...DEFAULT_HEADERS, ...(opts.headers ?? {}) };
       const res = opts.insecureTls
-        ? await undiciFetch(url, { headers, dispatcher: insecureAgent })
-        : await fetch(url, { headers });
+        ? await undiciFetch(url, { headers, dispatcher: insecureAgent, signal })
+        : await fetch(url, { headers, signal });
       if (res.status === 404 && opts.allow404) return null;
       if (res.status >= 500 && attempt < retries)
         throw new Error(`HTTP ${res.status}`);
       if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
       return await res.text();
     } catch (e) {
+      // Don't retry on abort/timeout — the server is unresponsive, not transiently failing.
+      if (e instanceof Error && e.name === "AbortError") throw e;
       if (attempt >= retries) throw e;
       await sleep(500 * (attempt + 1));
     }
