@@ -1,54 +1,70 @@
 {
   "obshtina": "DOB27",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.023-1942",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда на СС\" КОМПЛЕКС БЪЛГАРКА\", гр.Тервел, ул.\"Хан Аспарух № 35, 35 А, 37, 39, 39 А\"",
+      "contractNumber": "BG05SFPR002-2.003-0023",
+      "title": "Бъдеще за децата в Община Тервел",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 893074.93,
-      "totalEur": 893074.93,
-      "paidEur": 451404.45,
+      "prevTotalEur": 157581.94,
+      "totalEur": 157581.94,
+      "paidEur": 126065.55,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
       "beneficiaryName": "Община Тервел",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-4.023-0422",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда на СС\"Калина\", гр.Тервел, ж.к. Изгрев, бл.9\"",
+      "contractNumber": "BG-RRP-13.009-0026",
+      "title": "Закупуване на електрическо превозно средство и свързана с него зарядна станция за нуждите на социалните услуги, предоставяни от Община Тервел",
       "type": "modified",
       "changedFields": [
         "durationMonths"
       ],
-      "prevTotalEur": 448440.9,
-      "totalEur": 448440.9,
-      "paidEur": 446406.86,
+      "prevTotalEur": 58082.75,
+      "totalEur": 58082.75,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Тервел",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-4.023-0764",
-      "title": "\"Енергийно обновяване на многофамилна жилищна сграда на СС \" ВАПЦАРОВ 5\",гр.Тервел, ул.\"Никола Вапцаров\" № 5\"",
+      "contractNumber": "BG-RRP-1.024-0168",
+      "title": "изграждане на дигитален клуб в НЧ Пробуда-1940 с.Коларци",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 359864.93,
-      "totalEur": 359864.93,
-      "paidEur": 184679.91,
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 8862.86,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Тервел",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Народно читалище \"Пробуда-1940\" с.Коларци",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0178",
+      "title": "Изграждане на дигитален клуб в НЧ Светлина 1942 - с.Божан",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 11639.25,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Светлина-1942\" с .Божан",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

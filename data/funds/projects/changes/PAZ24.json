@@ -1,22 +1,56 @@
 {
   "obshtina": "PAZ24",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-0903",
-      "title": "\"Изграждане на дигитален клуб в с. Дорково\"",
+      "contractNumber": "BG05SFPR003-1.001-0234",
+      "title": "Топъл обяд в община Ракитово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 647318.55,
+      "totalEur": 695169.08,
+      "paidEur": 529430.55,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Ракитово",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0235",
+      "title": "“Устойчиво енергийно обновяване на общинска сграда – сграда за културни дейности в гр. Ракитово с идентификатор 62004.6.23.1”",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 17383.92,
-      "totalEur": 17383.92,
-      "paidEur": 13773.63,
+      "prevTotalEur": 662663.92,
+      "totalEur": 662663.92,
+      "paidEur": 583816.27,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"СВ. СВ. Кирил и МЕТОДИЙ-1919 г.\"",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Община Ракитово",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0232",
+      "title": "„Устойчиво енергийно обновяване на административна сграда кметство, с. Дорково, община Ракитово с идентификатор 23008.8.488.1“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 469241.46,
+      "totalEur": 469241.46,
+      "paidEur": 431451.18,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Ракитово",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

@@ -1,326 +1,141 @@
 {
   "obshtina": "SZR12",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
-    {
-      "contractNumber": "BG16FFPR003-4.006-0012",
-      "title": "Производствени инвестиции в М+С Хидравлик АД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 18596409.16,
-      "totalEur": 18596409.16,
-      "paidEur": 4000000,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "М + с хидравлик АД",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2291",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда на ул. \"Пушкин\" № 5, гр. Казанлък",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 2834896.22,
-      "totalEur": 2834896.22,
-      "paidEur": 1744803.99,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Казанлък",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2346",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда в ж.к. Изток бл. 7, гр. Казанлък",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 1594553.38,
-      "totalEur": 1594553.38,
-      "paidEur": 969153.57,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Казанлък",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1458",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда в ж.к. Изток 20, гр. Казанлък",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 1457725.55,
-      "totalEur": 1457725.55,
-      "paidEur": 1099763.43,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Казанлък",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2370",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда на бул. \"23-ти Пехотен шипченски полк\" № 80, гр. Казанлък",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 1110785.6,
-      "totalEur": 1110785.6,
-      "paidEur": 256884.07,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Казанлък",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2165",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда в ж.к \"Изток\" № 72, гр.Казанлък",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 1068434.65,
-      "totalEur": 1068434.65,
-      "paidEur": 676177.41,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Казанлък",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1740",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда с адрес гр. Казанлък, \"24-ти август\" № 4",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 1039476.44,
-      "totalEur": 1039476.44,
-      "paidEur": 686959.29,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Казанлък",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1819",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда с адрес гр. Казанлък, ул. \"Стара планина\" № 11",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 865602.69,
-      "totalEur": 865602.69,
-      "paidEur": 196689.77,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Казанлък",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1971",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда на ул. \"Цар Иван Шишман\" № 21, гр. Казанлък",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 817092.85,
-      "totalEur": 817092.85,
-      "paidEur": 494922.13,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Казанлък",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2344",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда на бул. 23-ти Пехотен шипченски полк № 62, гр. Казанлък",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 692731.67,
-      "totalEur": 692731.67,
-      "paidEur": 527487.23,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Казанлък",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1702",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда - ул. \"Тракия\" № 25, гр. Казанлък",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 670369.36,
-      "totalEur": 670369.36,
-      "paidEur": 670299,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Казанлък",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG05SFPR002-2.012-0219",
-      "title": "Иновативни здравно-социални услуги в община Казанлък",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 651642.97,
-      "totalEur": 651642.97,
-      "paidEur": 376193.34,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Казанлък",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2267",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда на в гр. Казанлък, ж.к. \"Изток\" Бл. № 71, Вх. А,Б,В",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 587131.64,
-      "totalEur": 587131.64,
-      "paidEur": 374469.61,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Казанлък",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1738",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда на ул. \"Преслав\" № 4, гр.Казанлък",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 470177.12,
-      "totalEur": 470177.12,
-      "paidEur": 321721.51,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Казанлък",
-      "detectedAt": "2026-06-28"
-    },
     {
       "contractNumber": "BG-RRP-4.023-1463",
       "title": "Енергийно обновяване на многофамилна жилищна сграда на ул. \"Ген. Радецки\" 7, гр. Казанлък",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur"
       ],
       "prevTotalEur": 469845.71,
       "totalEur": 469845.71,
-      "paidEur": 322769.8,
+      "paidEur": 469280.22,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Казанлък",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-4.021-0001",
-      "title": "ЕНЕРГИЙНО ОБНОВЯВАНЕ НА ПРОИЗВОДСТВЕНА СГРАДА НА ПРЕДПРИЯТИЕ \"ХЛЯБ-97\" АД",
+      "contractNumber": "BG16RFPR001-1.003-0364",
+      "title": "Внедряване на иновативен процес в \"МЕДИЦИНСКИ ЦЕНТЪР КАЗАНЛЪК\" ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 175086.79,
+      "totalEur": 162800.63,
+      "paidEur": 81400.29,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Медицински център казанлък ЕООД",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-2131",
+      "title": "Създаване на училищна STEM среда в ОУ \"Свети Паисий Хилендарски\" - с. Хаджидимитрово",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 427873.25,
-      "totalEur": 427873.25,
-      "paidEur": 153383.42,
+      "prevTotalEur": 92550.79,
+      "totalEur": 92550.79,
+      "paidEur": 92397.34,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Хляб - 97 АД",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Основно училище \"Свети Паисий Хилендарски\"",
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-4.023-2917",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда на ул. \"Генерал Радецки\" № 1, гр. Казанлък",
+      "contractNumber": "BG05SFPR002-1.012-0242",
+      "title": "Устойчива заетост и социално включване на хора в неравностойно положение",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 325297.87,
-      "totalEur": 325297.87,
-      "paidEur": 72275,
+      "prevTotalEur": 54999.72,
+      "totalEur": 54999.72,
+      "paidEur": 46095.48,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Казанлък",
-      "detectedAt": "2026-06-28"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Работилничка \"Бисквитките\"",
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-4.023-2345",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда на бул. Освобождение № 3, гр. Казанлък",
+      "contractNumber": "BG-RRP-1.015-1413",
+      "title": "Създаване на училищна STEM среда в ОУ \"Д-р Петър Берон\" - с.Шейново",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 320468.67,
-      "totalEur": 320468.67,
-      "paidEur": 200364.69,
+      "prevTotalEur": 30857.01,
+      "totalEur": 30857.01,
+      "paidEur": 30805.7,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Казанлък",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Основно училище \"Петър берон\"",
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-4.023-2089",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда намираща се на ул. \"Шипченска Епопея\" №26, гр. Казанлък",
+      "contractNumber": "BG-RRP-1.024-0317",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ОСВОБОЖДЕНИЕ - 1884\"",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 114135.48,
-      "totalEur": 114135.48,
-      "paidEur": 77848.54,
+      "prevTotalEur": 17383.93,
+      "totalEur": 17383.93,
+      "paidEur": 11050.31,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Казанлък",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Народно читалище \"Освобождение - 1884\"",
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-4.023-1465",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда на ул. \"Бяло море\" №3, гр. Казанлък",
+      "contractNumber": "BG-RRP-11.025-0092",
+      "title": "Изработване на изделия от кожа,за да се възроди културното наследство на българските шевиците ,изобразявайки ги върху изделия от естествена кожа, модерни бижута и аксесоари, насочени към младите хора в неравностойно положение",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 113608.25,
-      "totalEur": 113608.25,
-      "paidEur": 113569.85,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 4923.74,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Казанлък",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Стефан Стефанов Петрунов",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0113",
+      "title": "Литературна траектория: Казанлък – Ботевград",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 8921.54,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Фондация \"Свободно поетическо общество\"",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

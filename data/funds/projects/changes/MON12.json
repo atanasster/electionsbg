@@ -1,38 +1,40 @@
 {
   "obshtina": "MON12",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-2.012-0050",
-      "title": "Иновативни здравно-социални услуги в община Вършец",
+      "contractNumber": "BG-RRP-4.021-0080",
+      "title": "Повишаване на енергийната ефективност на сграда ХОТЕЛ АТА - гр. Вършец, чрез комбинация от енергоспестяващи мерки (ЕСМ)",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 169446.11,
-      "totalEur": 169446.11,
-      "paidEur": 120330.04,
+      "prevTotalEur": 784693.25,
+      "totalEur": 784693.25,
+      "paidEur": 252164.57,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Вършец",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-6.004-1434",
-      "title": "Инвестиции в технологична и екологична модернизация в стопанството на земеделския производител",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 155356.04,
-      "totalEur": 155356.04,
-      "paidEur": 77678,
-      "status": "Сключен",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "ЕТ МОТО-МАКС - Аврам Василев",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "АТА-СПА ООД",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG05SFPR003-1.001-0144",
+      "title": "Топъл обяд в Община Вършец",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 244627.13,
+      "totalEur": 308640.64,
+      "paidEur": 210446.27,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Вършец",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

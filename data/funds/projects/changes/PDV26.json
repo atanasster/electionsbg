@@ -1,38 +1,106 @@
 {
   "obshtina": "PDV26",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-6.006-0010",
-      "title": "Модернизиране и автоматизиране на процеса по първична подготовка за пазара на пресни моркови и изграждане на ВЕИ за собствени нужди",
+      "contractNumber": "BG-RRP-1.015-1963",
+      "title": "Концепция за изграждане на училищна STEM среда в Основно училище \"Св. св. Кирил и Методий\" - село Марково",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 1118225.44,
-      "totalEur": 1118225.44,
-      "paidEur": 559112.72,
-      "status": "Сключен",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Анелийка ЕООД",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-4.020-0041",
-      "title": "Устойчиво енергийно обновяване на Спортна зала с идентификатор № 75188.501.181.1 в с. Устина, община Родопи, област Пловдив",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 330835,
-      "totalEur": 330835,
-      "paidEur": 282851.15,
+      "prevTotalEur": 92952.24,
+      "totalEur": 92952.24,
+      "paidEur": 92631.89,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Родопи",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Основно училище \"Св. Св. Кирил и Методий\"",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-1035",
+      "title": "Основно училище \"Васил Левски\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 92615.18,
+      "totalEur": 92615.18,
+      "paidEur": 92281.5,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Основно училище \"Васил Левски\" - с. Брестник",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1238",
+      "title": "Изграждане на дигитален клуб в Народно Читалище ХРИСТО БОТЕВ – 1936 Г.- С. ЗЛАТИТРАП в с. Златитрап",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 17383.91,
+      "totalEur": 17383.91,
+      "paidEur": 15175.06,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище Христо Ботев – 1936 Г.-С. златитрап",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0473",
+      "title": "Изграждане на дигитален клуб в село Брестовица",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 17321.54,
+      "totalEur": 17321.54,
+      "paidEur": 14252.47,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "НЧ \"Съзнание 1873\" Народно читалище \"Съзнание 1873\"",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-6.004-2841",
+      "title": "Инвестиции в технологична и екологична модернизация за подобряване на цялостната дейност в земеделското стопанство",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 123998.51,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Радослав",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0130",
+      "title": "„Цветна феерия – Магичен карнавален спектакъл и уъркшоп”",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 8504.83,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Фондация \"Повелители на мечти\"",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

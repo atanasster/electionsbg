@@ -1,22 +1,54 @@
 {
   "obshtina": "SFO34",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-6.004-0505",
-      "title": "Закупуване на земеделска техника и доставка на мобилна фотоволтаична електро централа",
+      "contractNumber": "BG-RRP-4.020-0085",
+      "title": "„ЕНЕРГИЙНО ОБНОВЯВАНЕ ЧРЕЗ ПРИЛАГАНЕ НА МЕРКИ ЗА ЕНЕРГИЙНА ЕФЕКТИВНОСТ НА АДМИНИСТРАТИВНА СГРАДА НА РУ НА МВР, ГР.ПРАВЕЦ“",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 302660.09,
+      "totalEur": 302660.09,
+      "paidEur": 203764.43,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Областна дирекция на министерство на вътрешните работи -софия",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-1357",
+      "title": "Изграждане на СТЕМ център по роботика и прототипиране",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 209475.26,
-      "totalEur": 209475.26,
-      "paidEur": 104737.63,
-      "status": "Сключен",
+      "prevTotalEur": 139429.11,
+      "totalEur": 139429.11,
+      "paidEur": 128492.28,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Дамян Маринов Стоев",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Национална професионална гимназия по компютърни технологии и системи",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0785",
+      "title": "Изграждане на дигитален клуб НАРОДНО ЧИТАЛИЩЕ \"ЗАРЯ 1895\"-ГРАД ПРАВЕЦ",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 17383.92,
+      "totalEur": 17383.92,
+      "paidEur": 12075.61,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Заря 1895\"-ГРАД правец",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

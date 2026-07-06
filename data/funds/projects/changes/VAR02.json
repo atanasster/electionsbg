@@ -1,40 +1,74 @@
 {
   "obshtina": "VAR02",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.020-0138",
-      "title": "Въвеждане на мерки за енергийна ефективност (енергийно обновяване) на административната сграда на Община Аксаково с адрес: гр. Аксаково, ул. „Георги Петлешев“ №58б",
+      "contractNumber": "BG-RRP-1.015-1260",
+      "title": "Концепция за изграждане на училищна STEM среда в Средно училище \"Свети Климент Охридски\"",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 1364208.17,
-      "totalEur": 1364208.17,
-      "paidEur": 1013500.56,
+      "prevTotalEur": 185905.73,
+      "totalEur": 185905.73,
+      "paidEur": 185557.64,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Средно училище \"Свети климент Охридски\"",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-13.009-0070",
+      "title": "Инсталиране на фотоволтаични системи и закупуване на електрическо превозно средства, включително зарядна станция за социални услуги, делегирани от държвата дейности на територията на община Аксаково",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 101454.12,
+      "totalEur": 101454.12,
+      "paidEur": 63784.56,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Аксаково",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG05SFPR003-1.001-0126",
-      "title": "Топъл обяд в община Аксаково",
+      "contractNumber": "BG-RRP-11.025-0067",
+      "title": "Моноспектакъл \"Виктория\" - изкуство и човешки съдби",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "durationMonths"
+        "status"
       ],
-      "prevTotalEur": 202841.08,
-      "totalEur": 261241,
-      "paidEur": 171289.54,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Аксаково",
-      "detectedAt": "2026-06-28"
+      "prevTotalEur": 7040.49,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"Б Плюс\" Сдружение",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0089",
+      "title": "Да спасим заедно Черно море",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 7934.23,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Димитър Павлов Павлов",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

@@ -1,22 +1,71 @@
 {
   "obshtina": "SLS10",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.015-1817",
-      "title": "Натура Динамика",
+      "contractNumber": "BG-RRP-11.018-0033",
+      "title": "Изграждане и оборудване на две резидентни грижи за пълнолетни лица с психични разстройства и един център за специализирана подкрепа за лица с увреждания и техните семейства в село Правда, Община Дулово",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 2176377.3,
+      "totalEur": 2176377.3,
+      "paidEur": 527662.58,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Дулово",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0639",
+      "title": "Изграждане на дигитален клуб в Народно читалище - \"Неофит Рилски-1942\" в село Чернолик, община Дулово, област Силистра.",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 185905.72,
-      "totalEur": 185905.72,
-      "paidEur": 183245.76,
+      "prevTotalEur": 16736.81,
+      "totalEur": 16736.81,
+      "paidEur": 15517.79,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Средно училище \"Васил Левски\"",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Народно читалище - \"Неофит Рилски-1942\" в село Чернолик, община Дулово, област Силистра.",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0210",
+      "title": "изграждане на дигитален клуб в НЧ Н.Й.Вапцаров-1941 - с.Черковна",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 10881.81,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Н.Й.Вапцаров-1941 - с.Черковна",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0411",
+      "title": "изграждане на дигитален клуб в Народно читалище Отец Паисий - 1949 - с.Овен",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 7367.85,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Отец Паисий - 1949 - с.Овен",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "obshtina": "PDV12",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
       "contractNumber": "BG-RRP-11.018-0036",
@@ -11,44 +11,96 @@
       ],
       "prevTotalEur": 3887061.41,
       "totalEur": 3887061.41,
-      "paidEur": 1457480.99,
+      "paidEur": 1852047.18,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Калояново",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0614",
-      "title": "Изграждане на дигитален клуб в сградата на Народно читалище \"Народни будители - 2013\"",
+      "contractNumber": "BG-RRP-4.028-0022",
+      "title": "Внедряване на мерки за енергийна ефективност в системата за външно изкуствено осветление в населените места на община Калояново",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 17383.93,
-      "totalEur": 17383.93,
-      "paidEur": 14365.76,
+      "prevTotalEur": 1009327.5,
+      "totalEur": 1009327.5,
+      "paidEur": 540096.41,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Народни будители - 2013\"",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Община Калояново",
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-1.024-1317",
-      "title": "ПРОЕКТ ЗА СЪЗДАВАНЕ НА ДИГИТАЛЕН КЛУБ Народно читалище \"Христо Ботев - 1929\" с. Дуванлий",
+      "contractNumber": "BG05SFPR002-1.004-0371",
+      "title": "Адаптирана работна среда 2023",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 14152.56,
-      "totalEur": 14152.56,
-      "paidEur": 8228.76,
+      "prevTotalEur": 116065.94,
+      "totalEur": 116065.94,
+      "paidEur": 100443.09,
       "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Екомикс ООД",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-6.004-3721",
+      "title": "Закупуване на земеделска техника за нуждите на стопанството на ЗП Катя Маргаритова",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 41925.93,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Христо Ботев - 1929\" с. Дуванлий",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Катя Францова Маргаритова - Земеделски производител, с. Житница, общ. Калояново, обл. Пловдив",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.008-0033",
+      "title": "Обединени за по-доброто на нашите деца",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 0,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Основно училище „Отец Паисий“",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-6.004-0482",
+      "title": "Инвестиции в технологична и екологична модернизация за подобряване на цялостната дейност в земеделското стопанство",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 163756.57,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Петър",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

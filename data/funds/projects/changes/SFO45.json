@@ -1,88 +1,54 @@
 {
   "obshtina": "SFO45",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
+    {
+      "contractNumber": "BG-RRP-4.020-0153",
+      "title": "Реализиране на мерки за устойчиво енергийно обновяване на „Административна сградата“ гр. Сливница",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 1089127.12,
+      "totalEur": 1089127.12,
+      "paidEur": 503464,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Сливница",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0154",
+      "title": "„Реализиране на мерки за устойчиво енергийно обновяване на сградата на „Народно Читалище Светлина“ с. Алдомировци“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 687650.84,
+      "totalEur": 687650.84,
+      "paidEur": 598881.09,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Сливница",
+      "detectedAt": "2026-07-06"
+    },
     {
       "contractNumber": "BG-RRP-4.023-2332",
       "title": "Устойчиво енергийно обновяване по НПВУ чрез въвеждане на мерки за енергийна ефективност в сграда с три входа и пет етажа, находяща се в гр.Сливница, на адрес ул.\"П.Хилендарски\" №40",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur"
       ],
       "prevTotalEur": 527476.82,
       "totalEur": 527476.82,
-      "paidEur": 267232.19,
+      "paidEur": 509099.04,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Сливница",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2834",
-      "title": "Устойчиво енергийно обновяване по НПВУ чрез въвеждане на мерки за енергийна ефективност в сграда с три входа и пет етажа, находяща се в гр.Сливница, на адрес ул.\"П.Хилендарски\" №33",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 451147.14,
-      "totalEur": 451147.14,
-      "paidEur": 115394.23,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Сливница",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2312",
-      "title": "Устойчиво енергийно обновяване по НПВУ чрез въвеждане на мерки за енергийна ефективност в сграда с два входа и пет етажа, находяща се в гр.Сливница, на адрес ул.\"Ангел Кънчев\" №2",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 275180.2,
-      "totalEur": 275180.2,
-      "paidEur": 70093.93,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Сливница",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2308",
-      "title": "Устойчиво енергийно обновяване по НПВУ чрез въвеждане на мерки за енергийна ефективност в сграда с два входа и пет етажа, находяща се в гр.Сливница, на адрес ул.\"Иван Вазов\" №23",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 269165.95,
-      "totalEur": 269165.95,
-      "paidEur": 67459.29,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Сливница",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG05SFPR003-1.001-0178",
-      "title": "Топъл обяд в община Сливница",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "durationMonths"
-      ],
-      "prevTotalEur": 160903.13,
-      "totalEur": 209128.62,
-      "paidEur": 134058.83,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Сливница",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
     },
     {
       "contractNumber": "BG-RRP-1.015-1658",
@@ -93,12 +59,12 @@
       ],
       "prevTotalEur": 92634.21,
       "totalEur": 92634.21,
-      "paidEur": 361.2,
+      "paidEur": 80363.8,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Обединено училище \"Иван Вазов\"",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
     }
   ]
 }

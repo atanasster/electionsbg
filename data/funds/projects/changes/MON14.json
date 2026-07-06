@@ -1,0 +1,40 @@
+{
+  "obshtina": "MON14",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "changes": [
+    {
+      "contractNumber": "BG05SFPR003-1.001-0048",
+      "title": "Топъл обяд в Община Георги Дамяново",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 399477.8,
+      "totalEur": 441940.52,
+      "paidEur": 321022.99,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Георги Дамяново",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0644",
+      "title": "Изграждане на дигитален клуб в с. Георги Дамяново",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14301.41,
+      "totalEur": 14301.41,
+      "paidEur": 9650.19,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище трудолюбие -1899 г., с. Георги дамяново",
+      "detectedAt": "2026-07-06"
+    }
+  ]
+}

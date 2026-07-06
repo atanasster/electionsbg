@@ -1,22 +1,40 @@
 {
   "obshtina": "PAZ32",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG14MFPR001-2.005-0012",
-      "title": "Компенсация и пропуснати ползи при отглеждането на аквакултури, осигуряващи екологични услуги в рибовъдно стопанство „Калаващица“, разположено в землището на общ. Стрелча, гр. Стрелча, обл. Пазарджик",
+      "contractNumber": "BG05SFPR003-1.001-0057",
+      "title": "Топъл обяд в община Стрелча.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 158852.79,
+      "totalEur": 198054.77,
+      "paidEur": 137627.49,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Стрелча",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0072",
+      "title": "Изграждане на дигитален клуб в сградата на НЧ „Просвещение-1871г.“, гр. Стрелча",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 117801.65,
-      "totalEur": 117801.65,
-      "paidEur": 39267.22,
+      "prevTotalEur": 17383.92,
+      "totalEur": 17383.92,
+      "paidEur": 13068.08,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG14MFPR001",
-      "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
-      "beneficiaryName": "ФТ Агротур",
-      "detectedAt": "2026-06-28"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище „Просвещение-1871г.“",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

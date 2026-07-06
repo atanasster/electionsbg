@@ -1,29 +1,29 @@
 {
   "obshtina": "DOB28",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-2.006-0103",
-      "title": "Икономика и мобилност в интерес на хората",
+      "contractNumber": "BG-RRP-4.020-0031",
+      "title": "Енергийно обновяване на публичен сграден фонд за административно обслужване",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "durationMonths"
       ],
-      "prevTotalEur": 3028477.76,
-      "totalEur": 3028477.76,
-      "paidEur": 1019856.25,
+      "prevTotalEur": 2764450.9,
+      "totalEur": 2764450.9,
+      "paidEur": 489376.48,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община Добричка",
-      "detectedAt": "2026-06-28"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Град добрич",
+      "detectedAt": "2026-07-06"
     },
     {
       "contractNumber": "BG-RRP-11.010-0022",
       "title": "\"Основен ремонт и модернизация на Дом за стари хора - Добрич\"",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "durationMonths"
       ],
       "prevTotalEur": 2531861.16,
       "totalEur": 2531861.16,
@@ -32,39 +32,106 @@
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Град добрич",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-1.015-2278",
-      "title": ",,Училищна STEM среда и ВОСКС''",
+      "contractNumber": "BG-RRP-1.015-2102",
+      "title": "Земеделие с бъдеще",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 258202.39,
-      "totalEur": 258202.39,
-      "paidEur": 231471.64,
+      "prevTotalEur": 126878.24,
+      "totalEur": 126878.24,
+      "paidEur": 120029.15,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Средно училище \"Свети климент Охридски\"",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Професионална гимназия по аграрна гимназия",
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-1.015-1457",
-      "title": "Изграждане на STEM център \"Дизайн и 3D прототипиране\" в СУ \"Любен Каравелов\"",
+      "contractNumber": "BG05SFPR001-1.004-0034",
+      "title": "Интеркултурно образование чрез култура, наука и спорт в община Добричка",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 106218.53,
-      "totalEur": 106218.53,
-      "paidEur": 85379.78,
+      "prevTotalEur": 111603.17,
+      "totalEur": 111603.17,
+      "paidEur": 46370.37,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Община Добричка",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0078",
+      "title": "ИЗГРАЖДАНЕ НА ДИГИТАЛЕН КЛУБ В ГРАД ДОБРИЧ",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 26575.84,
+      "totalEur": 26575.84,
+      "paidEur": 21598.54,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Средно училище \"Любен Каравелов\"",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Синдикален регионален съюз \"Подкрепа\"",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0859",
+      "title": "Изграждане на дигитален клуб при Народно читалище \"Йордан Йовков-1870 г.\" гр. Добрич",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 26002.75,
+      "totalEur": 26002.76,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище\" Йордан Йовков-1870 г.\"",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0820",
+      "title": "Изграждане на мрежа от дигитален клуб в Народно читалище \"Палитра - 2022\" , град Добрич",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 21908.36,
+      "totalEur": 21908.36,
+      "paidEur": 19951.77,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Палитра - 2022\" , град Добрич",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1939",
+      "title": "Подобряване на капацитета и оптимизиране на работните процесите на фирма \"ВК Проджект консултинг\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 40577.24,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ВК Проджект консултинг ЕООД",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

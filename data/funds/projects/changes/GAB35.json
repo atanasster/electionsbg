@@ -1,24 +1,82 @@
 {
   "obshtina": "GAB35",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0140",
-      "title": "Топъл обяд в община Трявна",
+      "contractNumber": "BG05SFPR002-1.030-0001",
+      "title": "ПРЕДПРИЕМАЧЕСТВО В ДЕЙСТВИЕ",
+      "type": "new",
+      "totalEur": 60876.5,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Сдружение цветница",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.010-0057",
+      "title": "Извършване на строителни дейности с оглед реформиране на съществуващ дом за стари хора в Община Трявна",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
         "durationMonths"
       ],
-      "prevTotalEur": 57583.05,
-      "totalEur": 72052.18,
-      "paidEur": 49565.78,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "prevTotalEur": 1883814.17,
+      "totalEur": 1883814.17,
+      "paidEur": 1823466.74,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Трявна",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-1247",
+      "title": "Център по природни науки, изследвания и иновации",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 181592.63,
+      "totalEur": 181592.63,
+      "paidEur": 162808.02,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Средно училище \"П.Р.СЛАВЕЙКОВ\"",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-13.009-0103",
+      "title": "„Инсталиране на фотоволтаични системи (ФЕЦ) в съществуващи социални услуги, делегирана от държавата дейност и закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги в община Трявна“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 133440.85,
+      "totalEur": 133440.85,
+      "paidEur": 38356.09,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Трявна",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0132",
+      "title": "Подкрепа за адаптирана работна среда в \"Проект БГ\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 133029.87,
+      "totalEur": 133029.87,
+      "paidEur": 116497.24,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Проект БГ ЕООД",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

@@ -1,55 +1,72 @@
 {
   "obshtina": "TGV22",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.007-0188",
-      "title": "„Обновяване на инфраструктурата и мерки за повишаване на енергийната ефективност, ремонт и доставка на оборудване и обзавеждане на сградата на ОУ „Акад. Даки Йорданов“ – гр. Омуртаг“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 1278216.75,
-      "totalEur": 1278216.75,
-      "paidEur": 1702952.29,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Омуртаг",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-4.020-0162",
-      "title": "„Енергийно обновяване на спортна зала УПИ I, кв. 132, ПИ 53535.501.5.1, гр. Омуртаг“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 830315.42,
-      "totalEur": 830315.42,
-      "paidEur": 496586.75,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Омуртаг",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0555",
-      "title": "Изграждане на дигитален клуб в село Врани кон",
+      "contractNumber": "BG05SFPR003-1.001-0204",
+      "title": "Топъл обяд в община Омуртаг",
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur"
+        "grantEur",
+        "durationMonths"
       ],
-      "prevTotalEur": 28000,
-      "totalEur": 14316.17,
-      "paidEur": 8580.27,
+      "prevTotalEur": 1640787.36,
+      "totalEur": 2083957.8,
+      "paidEur": 1404150.73,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Омуртаг",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.032-0196",
+      "title": "Нови мощности за производство и съхранение на електроенергия от ВЕИ \"ЕМУ\" АД - обект 1 с идентификатор: 53535.3.290",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 794843.11,
+      "totalEur": 794843.11,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Народно читалище \"ТРУД-1950\"-С.ВРАНИ КОН\"",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "ЕМУ АД",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.032-0186",
+      "title": "Нови мощности за производство и съхранение на електроенергия от ВЕИ \"ЕМУ\" АД - обект 2 с идентификатор: 53535.3.291",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 794842.09,
+      "totalEur": 794842.09,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "ЕМУ",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1937",
+      "title": "„Енергийно обновяване на многофамилна жилищна сграда с административен адрес: обл. Търговище, общ. Омуртаг, ул. Църковна № 3“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 594576.71,
+      "totalEur": 594576.71,
+      "paidEur": 593579.84,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Омуртаг",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

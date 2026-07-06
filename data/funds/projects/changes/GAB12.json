@@ -1,0 +1,51 @@
+{
+  "obshtina": "GAB12",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "changes": [
+    {
+      "contractNumber": "BG05SFPR002-1.030-0001",
+      "title": "ПРЕДПРИЕМАЧЕСТВО В ДЕЙСТВИЕ",
+      "type": "new",
+      "totalEur": 60876.5,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Сдружение цветница",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0503",
+      "title": "Изграждане на дигитален клуб в гр.Дряново",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 17383.94,
+      "totalEur": 17383.94,
+      "paidEur": 11472.94,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище „Развитие-1869“",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1224",
+      "title": "Изграждане на дигитален клуб в Народно Читалище \"ВЪРБАН Р. ГЕНЧЕВ-1924 Г.\" в с. Царева ливада",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 14316.16,
+      "totalEur": 14316.17,
+      "paidEur": 4257.87,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Върбан р. ГЕНЧЕВ-1924 г.\"",
+      "detectedAt": "2026-07-06"
+    }
+  ]
+}

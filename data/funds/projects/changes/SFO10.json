@@ -1,0 +1,41 @@
+{
+  "obshtina": "SFO10",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "changes": [
+    {
+      "contractNumber": "BG05SFPR003-1.001-0018",
+      "title": "Топъл обяд в община Горна Малина",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 207111.59,
+      "totalEur": 257722.32,
+      "paidEur": 179238.93,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Горна Малина",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-13.009-0077",
+      "title": "BG-RRP-13.009 „Инсталиране на фотоволтаични системи (ФЕЦ) в съществуващи социални услуги, делегирана от държавата дейност и закупуване на електрически превозни средства, включително свързани зарядни станции за предоставяне на социални услуги“, в \"Център за рехабилитация и интеграция -Горна Малина\".",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 107979.99,
+      "totalEur": 107979.98,
+      "paidEur": 14607.96,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Горна Малина",
+      "detectedAt": "2026-07-06"
+    }
+  ]
+}

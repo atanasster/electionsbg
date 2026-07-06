@@ -1,25 +1,29 @@
 {
   "obshtina": "SHU30",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BNSF-1.009-0010",
-      "title": "Молекулярно-генетичен анализ на полиморфизма в локуса на гена на лептина и връзката му с някои продуктивни качества при свине от Дунавска бяла порода",
-      "type": "new",
-      "totalEur": 18400,
-      "paidEur": 0,
+      "contractNumber": "BG-RRP-8.013-0015",
+      "title": "Устойчива градска мобилност в общините Шумен и Търговище",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 5179289.89,
+      "totalEur": 5179289.89,
+      "paidEur": 3912139.45,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "BNSF",
-      "programName": "Фонд Научни Изследвания",
-      "beneficiaryName": "Земеделски институт - шумен",
-      "detectedAt": "2026-06-28"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Шумен",
+      "detectedAt": "2026-07-06"
     },
     {
       "contractNumber": "BG-RRP-4.020-0032",
       "title": "Подобряване на енергийната ефективност на Административната сграда на Община Шумен с административен адрес: гр. Шумен, бул. „Славянски“ №17, общ Шумен, обл. Шумен",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "durationMonths"
       ],
       "prevTotalEur": 2194209.81,
       "totalEur": 2194209.81,
@@ -28,14 +32,46 @@
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Шумен",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0061",
+      "title": "Подобряване на енергийната ефективност на сградата на спортен комплекс \"Плиска\" в гр. Шумен, община Шумен",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 1359438.44,
+      "totalEur": 1359438.44,
+      "paidEur": 1012300.74,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Шумен",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0034",
+      "title": "Подобряване на енергийната ефективност на Регионална Библиотека„Стилиян Чилингиров“ в гр. Шумен, община Шумен",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 1349751.28,
+      "totalEur": 1349751.28,
+      "paidEur": 1070671.53,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Шумен",
+      "detectedAt": "2026-07-06"
     },
     {
       "contractNumber": "BG-RRP-4.020-0033",
       "title": "Подобряване на енергийната ефективност на Регионален Исторически Музей в гр. Шумен, община Шумен",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "durationMonths"
       ],
       "prevTotalEur": 1275549.99,
       "totalEur": 1275549.99,
@@ -44,88 +80,203 @@
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Шумен",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-1289",
-      "title": "Подобряване на микроклимата и ЛПС на служителите на Алкомет АД.",
+      "contractNumber": "BG-RRP-11.018-0044",
+      "title": "Изграждане и оборудване на нова здравно-социална услуга за резидентна грижа за пълнолетни лица с психични разстройства на територията на община Шумен",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 672513.84,
+      "totalEur": 672513.84,
+      "paidEur": 156310.52,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Шумен",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0062",
+      "title": "Подобряване на енергийната ефективност на сградата на кметството в с. Мадара, община Шумен",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 485576,
+      "totalEur": 485576,
+      "paidEur": 391832.15,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Шумен",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.021-0079",
+      "title": "Енергийно обновяване на сградата на Дидис ООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur"
+        "durationMonths"
       ],
-      "prevTotalEur": 233878.9,
-      "totalEur": 233878.91,
+      "prevTotalEur": 392454.84,
+      "totalEur": 392454.88,
+      "paidEur": 28128.08,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Дидис ООД",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-13.009-0163",
+      "title": "Инсталиране на фотоволтаични системи (ФЕЦ) в съществуващи социални услуги, делегирана от държавата дейност и закупуване на електрически автомобил, включително свързана зарядна станция за предоставяне на социалните услуги в Община Шумен.",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 383509.58,
+      "totalEur": 383509.58,
+      "paidEur": 723.98,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Шумен",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-1571",
+      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи (ВОСКС).",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 185890.79,
+      "totalEur": 185890.79,
+      "paidEur": 183790.2,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Профилирана Езикова гимназия \"Никола Йонков Вапцаров\"",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-1972",
+      "title": "Изграждане на STEM среда в ПГСАГ град Шумен",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 129101.2,
+      "totalEur": 129101.2,
+      "paidEur": 127591.73,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Професионална гимназия по строителство, Архитектура и геодезия",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-0525",
+      "title": "Изграждане на училищна STEM среда и ВОСКС в СРЕДНО УЧИЛИЩЕ \"ТРАЙКО СИМЕОНОВ\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 97642.47,
+      "totalEur": 97642.47,
+      "paidEur": 95781.26,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Средно училище \"Трайко Симеонов\"",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-1868",
+      "title": "Изграждане на STEM среда в ОбУ \"Христо Ботев\" село Ивански, област Шумен",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 92952.87,
+      "totalEur": 92952.87,
+      "paidEur": 92286.29,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Обединено училище \"Христо Ботев\"",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-1577",
+      "title": "Изграждане на училищна STEM среда",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 92739.33,
+      "totalEur": 92739.33,
+      "paidEur": 92732.6,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "6-ТО Основно училище \"Еньо Марковски\"",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-13.011-0011",
+      "title": "Закупуване на един брой електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги в Община Шумен",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 58082.76,
+      "totalEur": 58082.76,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Алкомет АД",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0693",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда в град Шумен, бул. \"Велики Преслав\" № 37 и № 39",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 221332.28,
-      "totalEur": 221332.28,
-      "paidEur": 116933.01,
-      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Шумен",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-4.023-1096",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда в град Шумен, бул. \"Велики Преслав\" № 33 А и 33 Б",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 211617.83,
-      "totalEur": 211617.83,
-      "paidEur": 132949.48,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Шумен",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0772",
-      "title": "Подобряване на работната среда в Булгартранс ЕООД",
+      "contractNumber": "BG-RRP-1.024-0197",
+      "title": "Дигитален клуб \"За нас\" с. Илия Блъсково",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 68488.15,
-      "totalEur": 68488.15,
-      "paidEur": 65988.86,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Булгартранс ЕООД",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1166",
-      "title": "ТЕХНОЛОГИИ, ОБУЧЕНИЕ, РАЗВИТИЕ, ОБЩНОСТ /ТOРО/",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 26576.95,
-      "totalEur": 26576.95,
-      "paidEur": 23770.46,
+      "prevTotalEur": 14082.51,
+      "totalEur": 14082.51,
+      "paidEur": 10510.98,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Назъм Хикмет 1881\"",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "НЧ Просвета - 1925",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-2337",
+      "title": "Подобряване на работната среда в КРИОС ТРЕЙД ООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 45349.57,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Криос трейд ООД",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

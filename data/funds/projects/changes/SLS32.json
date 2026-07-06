@@ -1,22 +1,57 @@
 {
   "obshtina": "SLS32",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
       "contractNumber": "BG-RRP-11.018-0034",
       "title": "Изграждане и оборудване на две резидентни грижи за пълнолетни лица с физически увреждания и един център за специализирана подкрепа за лица с увреждания и техните семейства в село Гарван, Община Ситово",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "paidEur",
+        "durationMonths"
       ],
       "prevTotalEur": 2312204.63,
       "totalEur": 2312204.63,
-      "paidEur": 1989636.23,
+      "paidEur": 2104261.72,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Ситово",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG05SFPR003-1.001-0112",
+      "title": "Топъл обяд в община Ситово",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 296692.72,
+      "totalEur": 374954.84,
+      "paidEur": 254115.09,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Ситово",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0348",
+      "title": "Създаване на дигитален клуб в Народно читалище Христо Смирненски 1940 - с.Ситово",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 11848.4,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Христо Смирненски 1940 - с.Ситово",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

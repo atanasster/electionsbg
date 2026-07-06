@@ -1,72 +1,138 @@
 {
   "obshtina": "BLG03",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-1.001-0022",
-      "title": "Реконструкция и обновяване на паркови пространства в местност „Бачиново“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 4157716.16,
-      "totalEur": 4157716.16,
-      "paidEur": 1542201.53,
+      "contractNumber": "BG05SFPR001-1.010-0186",
+      "title": "В УЧИЛИЩЕ ЗА ХОРИЗОНТИ - ЗАЕДНО ЗА СИЛНА ОБЩНОСТ ОТ УЧЕНИЦИ, УЧИТЕЛИ И РОДИТЕЛИ СРЕЩУ АГРЕСИЯТА И ТОРМОЗА, ФОРМИРАНЕ НА АСЕРТИВНОСТ И ИЗГРАЖДАНЕ НА ЖЕЛАНА ЕВРОПЕЙСКА УЧИЛИЩНА СРЕДА.",
+      "type": "new",
+      "totalEur": 27099.09,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община Благоевград",
-      "detectedAt": "2026-06-28"
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Единадесето основно училище \"Христо Ботев\"",
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-1.008-0010",
-      "title": "Изграждане на младежки център Благоевград",
+      "contractNumber": "BG-RRP-11.018-0060",
+      "title": "Изграждане на нови услуги за резидентна грижа и специализирана подкрепа за лица с деменция в община Благоевград",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 2186617.65,
-      "totalEur": 2186617.65,
-      "paidEur": 1381619.07,
+      "prevTotalEur": 2660771.63,
+      "totalEur": 2660771.63,
+      "paidEur": 430452.2,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Благоевград",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-1.015-1328",
-      "title": "Проектно предложение за изграждане на STEM център",
+      "contractNumber": "BG-RRP-4.020-0253",
+      "title": "\"Въвеждане на мерки за енергийна ефективност в сгради за административно обслужване в община Благоевград\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 1845557.56,
+      "totalEur": 1845557.56,
+      "paidEur": 923272.01,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Благоевград",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0233",
+      "title": "Устойчиво енергийно обновяване на сградата на Закрит плувен басейн в ж.к. \"Еленово-1\", гр. Благоевград",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 1517193.48,
+      "totalEur": 1517193.48,
+      "paidEur": 531516.96,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Благоевград",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-0455",
+      "title": "Устойчиво енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Благоевград, ул. \"Владо Черноземски\" №10, вх. А и вх. Б",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 287947.37,
+      "totalEur": 276495.99,
+      "paidEur": 66335.13,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Благоевград",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1082",
+      "title": "Подобряване на производствения капацитет на \"ФОТО СВЯТ - БЛАГОЕВГРАД\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 32364.26,
+      "totalEur": 32364.21,
+      "paidEur": 24273.14,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Фото свят - благоевград ЕООД",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0094",
+      "title": "\"Изграждане на дигитален клуб в Благоевград\"",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 185865.74,
-      "totalEur": 185865.74,
-      "paidEur": 183763.46,
+      "prevTotalEur": 26587.17,
+      "totalEur": 26587.17,
+      "paidEur": 21041.73,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Трето основно училище \"Димитър Талев\"",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Синдикален регионален съюз на КТ \"Подкрепа\" - Благоевград",
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-4.024-0108",
-      "title": "Устойчиво енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Благоевград, ул. \"Николай Петрини\" № 18",
+      "contractNumber": "BG-RRP-11.024-0077",
+      "title": "Европейската култура на колелата на времето",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 66019.05,
+      "prevTotalEur": 55914.88,
       "totalEur": 0,
       "paidEur": 0,
       "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Благоевград",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Студио лайм ЕООД",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

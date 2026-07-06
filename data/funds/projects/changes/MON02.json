@@ -1,38 +1,72 @@
 {
   "obshtina": "MON02",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-2.012-0108",
-      "title": "Иновативни здравно-социални услуги в община Берковица",
+      "contractNumber": "BG-RRP-6.004-1816",
+      "title": "Инвестиции в технологична и екологична модернизация в стопанството на земеделския производител ПЕТЪР ДИМИТРОВ ВИТАНОВ",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 281337.66,
-      "totalEur": 281337.66,
-      "paidEur": 159198.31,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Берковица",
-      "detectedAt": "2026-06-28"
+      "prevTotalEur": 208177.59,
+      "totalEur": 208177.59,
+      "paidEur": 86740.63,
+      "status": "Сключен",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Петър Димитров Витанов",
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-1.015-1640",
-      "title": "Изследователски STEM център \"Д-р Иван Панов\"",
+      "contractNumber": "BG05SFPR003-1.001-0116",
+      "title": "Топъл обяд в Берковица",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "durationMonths"
       ],
-      "prevTotalEur": 124067.54,
-      "totalEur": 124067.54,
-      "paidEur": 60114.5,
+      "prevTotalEur": 99869.46,
+      "totalEur": 124490.04,
+      "paidEur": 86722.99,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Берковица",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-13.011-0010",
+      "title": "Закупуване на електрическо превозно средство и свързана зарядна станция в подкрепа на социалната дейност в Община Берковица",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 88143.29,
+      "totalEur": 88143.29,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Профилирана гимназия Д-Р иван Панов",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Община Берковица",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0053",
+      "title": "Изграждане на Дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ИВАН ВАЗОВ 1911\" с.Бързия",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 8565.06,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Иван Вазов 1911\" с.Бързия",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

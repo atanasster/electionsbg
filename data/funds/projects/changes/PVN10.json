@@ -1,6 +1,6 @@
 {
   "obshtina": "PVN10",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
       "contractNumber": "BG-RRP-1.015-1735",
@@ -11,28 +11,30 @@
       ],
       "prevTotalEur": 129071.85,
       "totalEur": 129071.85,
-      "paidEur": 126355.2,
+      "paidEur": 128563.82,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Средно училище \"Васил Априлов\"",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-1.015-0361",
-      "title": "КОНЦЕПЦИЯ ЗА ИЗГРАЖДАНЕ НА УЧИЛИЩНА STEM СРЕДА В УЧИЛИЩЕ ОУ ХРИСТО СМИРНЕНСКИ С.ОРЕХОВИЦА",
+      "contractNumber": "BG-RRP-11.025-0017",
+      "title": "ИСТОРИИ ОТ НЯКОГА",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 90117.79,
-      "totalEur": 90117.79,
-      "paidEur": 85777.78,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 9049.87,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Училище \"Христо Смирненски\"",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Младежко бюро за социални услуги и граждански инициативи",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

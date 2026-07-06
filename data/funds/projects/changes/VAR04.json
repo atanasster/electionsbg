@@ -1,54 +1,58 @@
 {
   "obshtina": "VAR04",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.023-1042",
-      "title": "\" Многофамилна жилищна сграда - Бл. № 2, с Идентификатор 03719.502.3284.4, кв. \"Младост\", гр. Белослав, община Белослав, Област Варна\"",
+      "contractNumber": "BG05SFPR003-1.001-0055",
+      "title": "Топъл обяд в община Белослав",
       "type": "modified",
       "changedFields": [
+        "totalEur",
+        "grantEur",
         "durationMonths"
       ],
-      "prevTotalEur": 642120.91,
-      "totalEur": 642120.91,
-      "paidEur": 337461.96,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
+      "prevTotalEur": 368987.56,
+      "totalEur": 423941.35,
+      "paidEur": 298214.97,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Белослав",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-4.023-1050",
-      "title": "\"Многофамилна жилищна сграда - Бл. № 16, с Идентификатор 03719.502.432.1, кв. \"Младост\", гр. Белослав, община Белослав, Област Варна\"",
+      "contractNumber": "BG05SFPR002-1.004-1642",
+      "title": "Адаптирана работна среда в \"Балкански\" ООД",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 556601.2,
-      "totalEur": 556601.2,
-      "paidEur": 326487.27,
+      "prevTotalEur": 199645.95,
+      "totalEur": 199645.95,
+      "paidEur": 112610.76,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Белослав",
-      "detectedAt": "2026-06-28"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Балкански ООД",
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-4.023-0976",
-      "title": "Многофамилна жилищна сграда - бл. 5, с Идентификатор 27125.501.387.1, ул. \"Клокотница\" № 2, с. Езерово, община Белослав, Област Варна\"",
+      "contractNumber": "BG-RRP-13.009-0019",
+      "title": "Закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги (делегирани от държавата дейност) в Община Белослав.",
       "type": "modified",
       "changedFields": [
+        "totalEur",
+        "grantEur",
         "durationMonths"
       ],
-      "prevTotalEur": 295562.99,
-      "totalEur": 295562.99,
-      "paidEur": 189546.5,
+      "prevTotalEur": 58072.54,
+      "totalEur": 58072.53,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Белослав",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
     }
   ]
 }

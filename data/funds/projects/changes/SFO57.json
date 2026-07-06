@@ -1,22 +1,24 @@
 {
   "obshtina": "SFO57",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-2.012-0217",
-      "title": "Иновативни здравно-социални услуги в община Чавдар",
+      "contractNumber": "BG05SFPR003-1.001-0029",
+      "title": "Топъл обяд в община Чавдар",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "durationMonths"
       ],
-      "prevTotalEur": 22427.42,
-      "totalEur": 22427.42,
-      "paidEur": 12878.97,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Чавдар",
-      "detectedAt": "2026-06-28"
+      "prevTotalEur": 74995.12,
+      "totalEur": 94598.28,
+      "paidEur": 66119.11,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "община Чавдар",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

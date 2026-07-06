@@ -1,62 +1,86 @@
 {
   "obshtina": "BGS18",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-1.004-0107",
-      "title": "Детски усмивки",
-      "type": "new",
-      "totalEur": 202852.99,
-      "paidEur": 0,
+      "contractNumber": "BG-RRP-13.009-0100",
+      "title": "\"Повишаване на енергийната ефективност в социалния сектор на община Руен, чрез закупуване на електрическо превозно средство и инсталиране на фотоволтаична система\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 58082.76,
+      "totalEur": 58082.76,
+      "paidEur": 57908.1,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Обединено училище \"Св. св. Кирил и Методий\"",
-      "detectedAt": "2026-06-28"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Руен, Област бургас",
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG05SFPR001-1.010-0201",
-      "title": "Без тормоз",
-      "type": "new",
-      "totalEur": 58288.55,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Основно училище \"Климент Охридски\"",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1313",
-      "title": "Клуб \"Дигитален свят\"към НЧ\"Просвета - 1929г.\"с.Люляково",
+      "contractNumber": "BG-RRP-1.024-1007",
+      "title": "Онлайн обучение в електронна среда за хора в неравностойно положение",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
       "prevTotalEur": 17383.93,
       "totalEur": 17383.93,
-      "paidEur": 11273.84,
+      "paidEur": 10397.56,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Просвета - 1929\"с.Люляково",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "НЧ \"Ралю Т.Кехайов 1929\" с .Просеник",
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-1.024-1084",
-      "title": "Създаване на дигитален клуб към НЧ\"Пробуда - 1952г.\"с.Добра поляна за лица в неравностойно положение",
+      "contractNumber": "BG-RRP-1.024-1311",
+      "title": "Създаване на клуб \"Дигитален свят\"",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 14316.18,
-      "paidEur": 8101.5,
+      "prevTotalEur": 17383.93,
+      "totalEur": 17383.93,
+      "paidEur": 11268.76,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "НЧ\"Пробуда-1952г.\"с.Добра поляна",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "НЧ\"Зора - 1928г.\"с.Руен",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1016",
+      "title": "Създаване на дигитален клуб в с.Мрежичко за обучение на лица в неравностойно положение",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 8102.4,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище\"Нова светлина 2019 г.\"",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0983",
+      "title": "Създаване на Дигитален клуб за лица в неравностойно положение в с.Ябълчево",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 8165.95,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "НЧ\"Пробуда- 1928г.\"с.Ябълчево",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

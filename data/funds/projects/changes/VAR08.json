@@ -1,0 +1,58 @@
+{
+  "obshtina": "VAR08",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "changes": [
+    {
+      "contractNumber": "BG-RRP-11.010-0071",
+      "title": "„Реконструкция, реновиране и пристройка на съществуващ Дом за стари хора, с.Ветрино“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 724940.17,
+      "totalEur": 802753.28,
+      "paidEur": 346714.6,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Ветрино",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG05SFPR003-1.001-0200",
+      "title": "Топъл обяд в община Ветрино",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 146958.6,
+      "totalEur": 186351.53,
+      "paidEur": 115576.67,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Ветрино",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-6.004-1725",
+      "title": "Модернизиране и повишаване на добивите в земеделското стопанство на ГЕОРГИЕВ АГРО 85 ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 60281.31,
+      "totalEur": 60281.31,
+      "paidEur": 30140.65,
+      "status": "Сключен",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Георгиев агро 85 ЕООД",
+      "detectedAt": "2026-07-06"
+    }
+  ]
+}

@@ -1,54 +1,88 @@
 {
   "obshtina": "HKV09",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.015-2076",
-      "title": "\"Училищна STEM среда\"",
+      "contractNumber": "BG16RFPR001-1.004-2480",
+      "title": "Повишаване на производствения капацитет на Анакинис EООД",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 92937.17,
-      "totalEur": 92937.17,
-      "paidEur": 90797.76,
+      "prevTotalEur": 102258.38,
+      "totalEur": 102258.38,
+      "paidEur": 69024.39,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"Васил Левски\"",
-      "detectedAt": "2026-06-28"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Анакинис ЕООД",
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0695",
-      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ПРОБУДА-1896\"",
+      "contractNumber": "BG-RRP-1.015-0691",
+      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи (ВОСКС).",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 14316.18,
-      "paidEur": 10908.29,
+      "prevTotalEur": 92866.37,
+      "totalEur": 92866.37,
+      "paidEur": 77879.47,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"ПРОБУДА-1896\"",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Обединено училище \"СВ.СВ. кирил и Методий\"",
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0663",
-      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ПРОСВЕТА - 1926\" Народно читалище",
+      "contractNumber": "BG-RRP-13.011-0002",
+      "title": "Закупуване на електрически превозни средства, включително свързани зарядни станции за предоставяне на социални услуги в Община Димитровград",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 14316.18,
-      "paidEur": 8805.59,
+      "prevTotalEur": 88510.37,
+      "totalEur": 88510.37,
+      "paidEur": 5520,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Просвета - 1926\"",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Община Димитровград",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG16FFPR003-2.005-0009",
+      "title": "Техническа помощ за община Димитровград за изпълнение на ИТИ инструмента",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 31905.84,
+      "totalEur": 31905.84,
+      "paidEur": 31905.84,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Димитровград",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0101",
+      "title": "РАЗПРОСТРАНЕНИЕ НА ТЕАТРАЛНИ ПОСТАНОВКИ",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 8466.99,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Общински драматичен театър \"Апостол Карамитев\" димитровград",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

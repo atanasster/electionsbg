@@ -1,0 +1,40 @@
+{
+  "obshtina": "SLS01",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "changes": [
+    {
+      "contractNumber": "BG-RRP-11.010-0003",
+      "title": "Основен ремонт и преустройство на част от сграден фонд, доставка на оборудване и обзавеждане с оглед реформиране на съществуващ Дом за стари хора в гр. Алфатар",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 912775.24,
+      "totalEur": 897879.96,
+      "paidEur": 897879.95,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Алфатар",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-6.004-4084",
+      "title": "Закупуване на зърнокомбайн за екологична модернизация и изграждане на соларна система автономна с мощност 33kWp",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 511117.02,
+      "totalEur": 511117.02,
+      "paidEur": 255558.51,
+      "status": "Сключен",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Евроземеделие 1 ЕООД",
+      "detectedAt": "2026-07-06"
+    }
+  ]
+}

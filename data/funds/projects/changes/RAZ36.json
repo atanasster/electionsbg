@@ -1,30 +1,54 @@
 {
   "obshtina": "RAZ36",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-1.010-0161",
-      "title": "Заедно срещу агресията",
-      "type": "new",
-      "totalEur": 131191.83,
-      "paidEur": 0,
+      "contractNumber": "BG-RRP-13.009-0067",
+      "title": "\"Устойчива енергия и електромобилност за социалните услуги в Община Цар Калоян\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 128605.3,
+      "totalEur": 128605.3,
+      "paidEur": 117613.77,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Средно Училище \"Христо Ботев\"",
-      "detectedAt": "2026-06-28"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община ЦАР калоян",
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG05SFPR002-1.013-0017",
-      "title": "Насърчаване на социалната икономика в община Цар Калоян",
-      "type": "new",
-      "totalEur": 89269.21,
-      "paidEur": 0,
+      "contractNumber": "BG-RRP-1.024-0256",
+      "title": "Изграждане на дигитален клуб в село Цар Калоян",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 17383.93,
+      "totalEur": 17383.93,
+      "paidEur": 9554.85,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община ЦАР калоян",
-      "detectedAt": "2026-06-28"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Народно читалище \"Съзнай себе СИ-1895 г.\"",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0791",
+      "title": "Изграждане на дигитален клуб в село с. Езерче",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 17383.92,
+      "totalEur": 17383.92,
+      "paidEur": 14571.25,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Образование - 1894",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

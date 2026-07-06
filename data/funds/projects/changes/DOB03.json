@@ -1,54 +1,89 @@
 {
   "obshtina": "DOB03",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.023-2553",
-      "title": "Внедряване на мерки за енергийна ефективност в Многофамилна жилищна сграда, находяща се в град Балчик, ж.к.Балик, бл.11, вх. А и Б",
+      "contractNumber": "BG-RRP-4.020-0082",
+      "title": "Внедряване на мерки за енергийна ефективност в Сградата на Народно читалище \"Паисий Хилендарски- 1870\"",
       "type": "modified",
       "changedFields": [
         "durationMonths"
       ],
-      "prevTotalEur": 511144.22,
-      "totalEur": 511144.22,
-      "paidEur": 366582.96,
+      "prevTotalEur": 693311.79,
+      "totalEur": 693311.79,
+      "paidEur": 450816.44,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Балчик",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG05SFPR002-2.012-0192",
-      "title": "Иновативни здравно-социални услуги в община Балчик",
+      "contractNumber": "BG-RRP-4.021-0223",
+      "title": "Енергийно обновяване на сградата на хотел \"Феникс\", с. Кранево",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 113935.5,
+      "totalEur": 113935.49,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Сънсолар",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0142",
+      "title": "Изграждане на дигитален клуб в сградата на НЧ „Паисий Хилендарски - 1870“ - Балчик",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 209746.53,
-      "totalEur": 209746.53,
-      "paidEur": 117301.36,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Балчик",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2543",
-      "title": "Внедряване на мерки за енергийна ефективност в Многофамилна жилищна сграда, находяща се в град Балчик, ул. “ген. Владимир Заимов“ № 2",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 108859.43,
-      "totalEur": 108859.43,
-      "paidEur": 35291.67,
+      "prevTotalEur": 20451.67,
+      "totalEur": 20451.67,
+      "paidEur": 14206.74,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Балчик",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Народно читалище „Паисий Хилендарски - 1870“ - Балчик",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0656",
+      "title": "изграждане на дигитален клуб в Народно читалище Христо Смирненски -1941г - с.Сенокос",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 11407.51,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Христо Смирненски -1941г - с.Сенокос",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0089",
+      "title": "Да спасим заедно Черно море",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 7934.23,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Димитър Павлов Павлов",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

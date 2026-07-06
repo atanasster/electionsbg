@@ -1,40 +1,38 @@
 {
   "obshtina": "VRC21",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0069",
-      "title": "Топъл обяд в Община Криводол",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "durationMonths"
-      ],
-      "prevTotalEur": 1735683.53,
-      "totalEur": 1862384.81,
-      "paidEur": 1556603.06,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Криводол",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG05SFPR002-2.012-0147",
-      "title": "Иновативни здравно-социални услуги в община Криводол",
+      "contractNumber": "BG-RRP-6.004-3568",
+      "title": "Инвестиции в технологична и екологична модернизация в стопанството на \"АГРО СТИЛ - 06\" ЕООД",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 168606.58,
-      "totalEur": 168606.58,
-      "paidEur": 116056.8,
+      "prevTotalEur": 146839.04,
+      "totalEur": 146839.04,
+      "paidEur": 73419.52,
+      "status": "Сключен",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Агро СТИЛ-06 ЕООД",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-1921",
+      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи (ВОСКС).",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 92952.87,
+      "totalEur": 92952.87,
+      "paidEur": 68887.32,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Криводол",
-      "detectedAt": "2026-06-28"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Основно училище \"В.ЛЕВСКИ\"",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

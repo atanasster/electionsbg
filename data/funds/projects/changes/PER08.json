@@ -1,22 +1,39 @@
 {
   "obshtina": "PER08",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.023-0941",
-      "title": "Устойчиво енергийно обновяване на многофамилна жилищна сграда на ул. Ангел Коцелянов № 5А, гр. Брезник, Община Брезник",
+      "contractNumber": "BG-RRP-8.013-0016",
+      "title": "Развитие на устойчива градска мобилност в Перник и Брезник",
       "type": "modified",
       "changedFields": [
+        "paidEur",
         "durationMonths"
       ],
-      "prevTotalEur": 353138.91,
-      "totalEur": 353138.91,
-      "paidEur": 182176.76,
+      "prevTotalEur": 4112794.66,
+      "totalEur": 4112794.66,
+      "paidEur": 2776633.52,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Брезник",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Община Перник",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1011",
+      "title": "Дигитален клуб - Народно Читалище \"Пробуда - 1931\" с. Ноевци",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14314.13,
+      "totalEur": 14314.13,
+      "paidEur": 7182.62,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Пробуда - 1931\" с. Ноевци",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

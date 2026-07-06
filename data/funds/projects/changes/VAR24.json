@@ -1,54 +1,156 @@
 {
   "obshtina": "VAR24",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.018-0061",
-      "title": "Създаване на нови социални услуги на територията на община Провадия",
+      "contractNumber": "BG-RRP-3.008-0657",
+      "title": "Подкрепа за прехода към кръгова икономика",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur"
       ],
-      "prevTotalEur": 3027552.49,
-      "totalEur": 3027552.49,
-      "paidEur": 528349.13,
+      "prevTotalEur": 562421.06,
+      "totalEur": 562421.07,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Провадия",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Епос груп ЕООД",
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-4.023-2986",
-      "title": "„Въвеждане на мерки за подобряване на енергийната ефективност на жилищния сектор в град Провадия, кв. Север - блок 10\"",
+      "contractNumber": "BG-RRP-13.009-0158",
+      "title": "„Слънчева енергия и чист транспорт – новата посока на социалните услуги в Община Провадия“",
       "type": "modified",
       "changedFields": [
+        "totalEur",
+        "grantEur",
         "durationMonths"
       ],
-      "prevTotalEur": 1285816.36,
-      "totalEur": 1285816.36,
-      "paidEur": 782358.03,
+      "prevTotalEur": 259017.5,
+      "totalEur": 259017.52,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Провадия",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-6.004-4233",
-      "title": "„Инвестиции в технологична и екологична модернизация“ “ЗП Ангел Найденов Мавров“",
+      "contractNumber": "BG-RRP-1.024-0871",
+      "title": "Изграждане на дигитален клуб в Народно читалище ПРОБУДА 1927 г. в с. Бозвелийско",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 133214.3,
-      "totalEur": 133214.3,
-      "paidEur": 66607.14,
-      "status": "Сключен",
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 7495.43,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "ЗП Ангел Найденов Мавров",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Народно читалище Пробуда 1927 г.",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1029",
+      "title": "Изграждане на дигитален клуб в НЧ ПРОБУДА-1899 г. в с. Кривня",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 11166.74,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище ПРОБУДА-1899 г.",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0642",
+      "title": "\"Изграждане на дигитален клуб в НЧ \"Развитие - 1903\", село Блъсково\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14315.97,
+      "totalEur": 14315.97,
+      "paidEur": 12246.32,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Развитие - 1903\"",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0633",
+      "title": "\"Изграждане на дигитален клуб в Народно читалище \"Илия Добрев -1899“, с.Манастир\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14271.22,
+      "totalEur": 14271.22,
+      "paidEur": 10844.83,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Илия Добрев - 1899\" с. Манастир",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0759",
+      "title": "\"Изграждане на дигитален клуб в Народно читалище \"Отец Паисий - 1923\" с.Комарево\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 13489.31,
+      "totalEur": 13489.31,
+      "paidEur": 10163.45,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище „Отец Паисий – 1923“ с комарево",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-6.004-3454",
+      "title": "Модернизация на животновъдно стопанство чрез инвестиции в иновации и опазване на околната среда",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 171066.62,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Галя Иванова Димитрова",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-11.025-0089",
+      "title": "Да спасим заедно Черно море",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 7934.23,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Димитър Павлов Павлов",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

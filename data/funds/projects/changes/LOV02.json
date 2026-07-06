@@ -1,22 +1,54 @@
 {
   "obshtina": "LOV02",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-0511",
-      "title": "Изграждане на дигитален клуб в Народно Читалище \"БЪДЕЩЕ-1894\" в гр./с. Априлци",
+      "contractNumber": "BG-RRP-13.009-0150",
+      "title": "Закупуване на електрически превозни средства, включително свързани зарядни станции за предоставяне на социални услуги в община Априлци",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 58082.76,
+      "totalEur": 58082.76,
+      "paidEur": 46241.44,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Априлци",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0952",
+      "title": "Изграждане на дигитален клуб към Читалище Петър Берон 1927 – гр. Априлци",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
       "prevTotalEur": 17383.92,
       "totalEur": 17383.92,
-      "paidEur": 8138.72,
+      "paidEur": 15917.84,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"БЪДЕЩЕ-1894\"",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Народно читалище \"Петър берон - 1927 г.\"",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0585",
+      "title": "Изграждане на дигитален клуб в Народно Читалище \"СВЕТЛИНА - 1894 Г.\" в гр./с. Априлци",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 17383.92,
+      "totalEur": 17383.92,
+      "paidEur": 15197.6,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Светлина - 1894 г.\"",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

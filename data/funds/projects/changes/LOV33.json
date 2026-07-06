@@ -1,7 +1,39 @@
 {
   "obshtina": "LOV33",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
+    {
+      "contractNumber": "BG-RRP-4.034-0109",
+      "title": "Изграждане и въвеждане в експлоатация на самостоятелни съоръжения за съхранение на електрическа енергия от възобновяеми източници - обект Тетевен",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 3680301.27,
+      "totalEur": 3680301.27,
+      "paidEur": 1567486.69,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Баланс парк ЕООД",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.028-0007",
+      "title": "Рехабилитация и модернизация на система за външно изкуствено осветление на територията на община Тетевен",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 1002709.53,
+      "totalEur": 1002709.53,
+      "paidEur": 996376.3,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Тетевен",
+      "detectedAt": "2026-07-06"
+    },
     {
       "contractNumber": "BG-RRP-3.008-0351",
       "title": "Подкрепа за прехода към кръгова икономика",
@@ -10,30 +42,78 @@
         "totalEur",
         "grantEur"
       ],
-      "prevTotalEur": 500861.54,
-      "totalEur": 979600,
+      "prevTotalEur": 979600,
+      "totalEur": 500861.53,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Камакс ООД",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0804",
-      "title": "Изграждане на дигитален клуб в Народно читалище ЦАЧО НЕНОВ - 1897 в с. Гложене",
+      "contractNumber": "BG-RRP-1.015-0686",
+      "title": "Създаване на СТЕМ център",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 92856.47,
+      "totalEur": 92856.47,
+      "paidEur": 92703.2,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Основно училище \"Христо Ботев\"",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0047",
+      "title": "Изграждане на дигитален клуб в Тетевен",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 20451.67,
+      "totalEur": 20451.67,
+      "paidEur": 9937.98,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Съгласие 1869\"",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0122",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ИЗГРЕВ - 1946\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 17383.92,
+      "totalEur": 17383.92,
+      "paidEur": 16221.11,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Изгрев - 1946\"",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0240",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ ХРИСТО БОТЕВ - 1897 Г.",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
       "prevTotalEur": 14316.17,
       "totalEur": 14316.17,
-      "paidEur": 13031.74,
+      "paidEur": 10794.22,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Цачо Ненов - 1897",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Народно читалище христо Ботев - 1897 г.",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

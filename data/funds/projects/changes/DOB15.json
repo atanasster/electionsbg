@@ -1,22 +1,54 @@
 {
   "obshtina": "DOB15",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-6.004-1035",
-      "title": "Покупка на земеделска техника за обработка на почвата за нуждите на земеделското стопанство на \" ТИ - МИ АГРО\" ЕООД",
+      "contractNumber": "BG-RRP-4.032-0207",
+      "title": "Нови мощности за производство и съхранение на електроенергия от ВЕИ в \"Мост Солар Енерджи 4\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 541752.61,
+      "totalEur": 541752.61,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Мост солар енерджи 4 ЕООД",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.032-0202",
+      "title": "Нови мощности за производство и съхранение на електроенергия от ВЕИ в \"Мост Солар Енерджи 3\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 541752.09,
+      "totalEur": 541752.09,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Мост солар енерджи 3 ЕООД",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.004-0034",
+      "title": "Интеркултурно образование чрез култура, наука и спорт в община Добричка",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 219157.08,
-      "totalEur": 219157.08,
-      "paidEur": 109578.53,
-      "status": "Сключен",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "ТИ-МИ Агро ЕООД",
-      "detectedAt": "2026-06-28"
+      "prevTotalEur": 111603.17,
+      "totalEur": 111603.17,
+      "paidEur": 46370.37,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Община Добричка",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

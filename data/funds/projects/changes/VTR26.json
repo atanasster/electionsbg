@@ -1,22 +1,74 @@
 {
   "obshtina": "VTR26",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-0595",
-      "title": "Изграждане на дигитален клуб в Народно читалище \"Съединение 1885\" село Климентово",
+      "contractNumber": "BG05SFPR003-1.001-0159",
+      "title": "Топъл обяд в Община Полски Тръмбеш",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 194317.24,
+      "totalEur": 243558.4,
+      "paidEur": 168024.29,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Полски тръмбеш",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-6.004-4128",
+      "title": "Инвестиции в технологична и екологична модернизация на ЗП Йосиф Евгени Георгиев Михайлов",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 13585.34,
-      "totalEur": 13585.34,
-      "paidEur": 12461.71,
+      "prevTotalEur": 207208.7,
+      "totalEur": 207208.7,
+      "paidEur": 103604.34,
+      "status": "Сключен",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "ЗП Йосиф Евгени Георгиев Михайлов",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0392",
+      "title": "Дигитален клуб Читалище Полски Тръмбеш",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 17258.15,
+      "totalEur": 17258.15,
+      "paidEur": 16783.02,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Съединение 1885\"",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Народно читалище \"Отец Паисий 1905\"",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-6.004-4001",
+      "title": "Инвестиции в технологична и екологична модернизация на земеделско стопанство",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 130747.56,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Тервел 2014 ООД",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

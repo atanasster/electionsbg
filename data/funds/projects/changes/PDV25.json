@@ -1,38 +1,88 @@
 {
   "obshtina": "PDV25",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.015-1895",
-      "title": "Създаване на училищна STEM среда",
+      "contractNumber": "BG-RRP-6.004-3434",
+      "title": "Закупуване на автоматизирана механизация с цел екологична и технологична модернизация на стопанството на МИЛКОМ БЪЛГАРИЯ ООД и монтиране на фотоволтаична инсталация с инсталирана мощност 650,250 kWp за производството на енергия за собствено потребление.",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 97816.38,
-      "totalEur": 97816.38,
-      "paidEur": 97620.73,
+      "prevTotalEur": 511050.3,
+      "totalEur": 511050.3,
+      "paidEur": 130261.52,
+      "status": "Сключен",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Милкком българия ООД",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG05SFPR001-2.003-0035",
+      "title": "Подкрепа за ученици с таланти от община Раковски",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 383457.86,
+      "totalEur": 383457.86,
+      "paidEur": 76691.57,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Община Раковски",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-1531",
+      "title": "Подобряване на работната среда в ШЕКИ 83 ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 127312.68,
+      "totalEur": 112076.27,
+      "paidEur": 112076.27,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Шеки 83 ЕООД",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0799",
+      "title": "Изграждане на дигитален клуб НЧ ПЕТЪР БОГДАН БАКШЕВ",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 20451.68,
+      "totalEur": 20451.68,
+      "paidEur": 14516.47,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Професионална гимназия по селско стопанство - с. Белозем",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Народно читалище \"Петър богдан Бакшев - 1909\" - гр. Раковски",
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG05SFPR002-1.013-0052",
-      "title": "Подкрепа за заетост и социална интеграция в Работилница на Каритас",
+      "contractNumber": "BG-RRP-1.024-0505",
+      "title": "изграждане на дигитален клуб в Народно читалище \"СВ.СВ. КИРИЛ И МЕТОДИЙ 1929 г. - с. ШИШМАНЦИ\"",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 80214.56,
-      "totalEur": 80214.56,
-      "paidEur": 0,
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 12030.02,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Фондация \"Благотворителна Католическа организация Каритас Витания\"",
-      "detectedAt": "2026-06-28"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"СВ.СВ. Кирил и Методий 1929 г. - с. Шишманци\"",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

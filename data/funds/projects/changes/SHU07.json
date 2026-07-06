@@ -1,38 +1,55 @@
 {
   "obshtina": "SHU07",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.015-1625",
-      "title": "Изграждане на STEM среда в СУ \"Никола Йонков Вапцаров\" село Венец, област Шумен",
+      "contractNumber": "BG-RRP-13.009-0073",
+      "title": "Инсталиране на фотоволтаична система в съществуваща сграда на Център за обществена подкрепа - Венец и закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги в Община Венец",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "durationMonths"
       ],
-      "prevTotalEur": 129101.2,
-      "totalEur": 129101.2,
-      "paidEur": 126295.89,
+      "prevTotalEur": 108454.78,
+      "totalEur": 108454.78,
+      "paidEur": 46198.8,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Средно училище \"Никола Йонков Вапцаров\"",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Община Венец",
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-1.015-1743",
-      "title": "Изграждане на STEM среда в ОУ \"Петко Рачев Славейков\" село Изгрев, област Шумен",
+      "contractNumber": "BG-RRP-1.024-0612",
+      "title": "Изграждане на дигитален клуб в Народно Читалище \" Просвета - 1945 \" в с. Габрица",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 92952.87,
-      "totalEur": 92952.87,
-      "paidEur": 92488.94,
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 9043.42,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"Петко Рачев Славейков\"",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Народно Читалище \" Просвета - 1945 \"",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-1010",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 7361.58,
+      "totalEur": 7361.58,
+      "paidEur": 5153.11,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "МИГРОС-ТМ ЕООД",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

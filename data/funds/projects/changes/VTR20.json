@@ -1,22 +1,56 @@
 {
   "obshtina": "VTR20",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-0421",
-      "title": "Изграждане на дигитален клуб в село Джулюница",
+      "contractNumber": "BG05SFPR003-1.001-0131",
+      "title": "Топъл обяд в Община Лясковец",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 119843.34,
+      "totalEur": 149388.04,
+      "paidEur": 104067.56,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Лясковец",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0223",
+      "title": "Изграждане на дигитален клуб в град Лясковец",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 17383.93,
-      "totalEur": 17383.93,
-      "paidEur": 14458.13,
+      "prevTotalEur": 20451.68,
+      "totalEur": 20451.68,
+      "paidEur": 14400.21,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"ПРОБУЖДАНЕ-1896\"",
-      "detectedAt": "2026-06-28"
+      "beneficiaryName": "Народно читалище НЧ „Напредък-1870”",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.019-0121",
+      "title": "Създаване на устойчива заетост за заетите лица в Енигма 1 ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 15277.4,
+      "totalEur": 15277.4,
+      "paidEur": 10694.18,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Енигма 1 ЕООД",
+      "detectedAt": "2026-07-06"
     }
   ]
 }

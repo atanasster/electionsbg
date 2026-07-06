@@ -1,25 +1,45 @@
 {
   "obshtina": "KRZ16",
-  "generatedAt": "2026-06-28T17:25:30.376Z",
+  "generatedAt": "2026-07-06T08:55:09.363Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-2.003-0022",
-      "title": "„Талантите на Кърджали“",
-      "type": "new",
-      "totalEur": 357722.35,
+      "contractNumber": "BG-RRP-4.034-0010",
+      "title": "Изграждане на самостоятелно съоръжение за съхранение на електрическа енергия с инсталирана мощност 10 MW и капацитет 40 MWh, с адрес в град Кърджали 6600, м. Къртала, поземлен имот с идентификатор №40909.2.3",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 6000000.01,
+      "totalEur": 6000000.01,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Токи сторидж ЕАД",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-1.008-0001",
+      "title": "Изграждане на младежки център в град Кърджали",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 2197723.06,
+      "totalEur": 2197723.06,
+      "paidEur": 1123379.01,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Кърджали",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
     },
     {
       "contractNumber": "BG-RRP-4.020-0191",
       "title": "„Въвеждане на мерки за енергийна ефективност в сградата на „Дом на културата“ в град Кърджали“",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "durationMonths"
       ],
       "prevTotalEur": 1569887.17,
       "totalEur": 1569887.17,
@@ -28,83 +48,62 @@
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Кърджали",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-4.023-2383",
-      "title": "\"Въвеждане на мерки за енергийна ефективност в блок 42, кв. \"Възрожденци\" в град Кърджали\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "durationMonths"
-      ],
-      "prevTotalEur": 651258,
-      "totalEur": 1273749.94,
-      "paidEur": 474207.18,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Кърджали",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2311",
-      "title": "\"Въвеждане на мерки за енергийна ефективност в блок 45, кв. \"Възрожденци\" в гр. Кърджали\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 965713.46,
-      "totalEur": 954919.03,
-      "paidEur": 593027.96,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Кърджали",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2647",
-      "title": "„Въвеждане на мерки за енергийна ефективност в блок \"Явор\", ул. „Плиска“ № 1 в град Кърджали“",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "durationMonths"
-      ],
-      "prevTotalEur": 375765.65,
-      "totalEur": 734933.73,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Кърджали",
-      "detectedAt": "2026-06-28"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2294",
-      "title": "\"Въвеждане на мерки за енергийна ефективност в блок 29, кв. \"Възрожденци\" в град Кърджали\"",
+      "contractNumber": "BG-RRP-4.020-0264",
+      "title": "„Въвеждане на мерки за енергийна ефективност в административна сграда (бивш окръжен народен съвет), гр. Кърджали“",
       "type": "modified",
       "changedFields": [
         "durationMonths"
       ],
-      "prevTotalEur": 630414.98,
-      "totalEur": 630414.98,
-      "paidEur": 0,
+      "prevTotalEur": 1353698.73,
+      "totalEur": 1353698.73,
+      "paidEur": 228405.1,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Кърджали",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0299",
+      "title": "\"Въвеждане на мерки за енергийна ефективност в сградата на общинска и областна администрации в град Кърджали\"",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 1324043.6,
+      "totalEur": 1324043.6,
+      "paidEur": 648609.68,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Кърджали",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0249",
+      "title": "\"Въвеждане на мерки за енергийна ефективност в сграда на Спортна зала \"Арпезос\" в град Кърджали\"",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 1308857.64,
+      "totalEur": 1308857.64,
+      "paidEur": 891931.91,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Кърджали",
+      "detectedAt": "2026-07-06"
     },
     {
       "contractNumber": "BG-RRP-4.020-0189",
       "title": "\"Въвеждане на мерки за енергийна ефективност в сградата на Регионална библиотека „Н. Й. Вапцаров“ и Народно читалище „Обединение 1913“ в град Кърджали\"",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "durationMonths"
       ],
       "prevTotalEur": 534287.23,
       "totalEur": 534287.23,
@@ -113,23 +112,39 @@
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Кърджали",
-      "detectedAt": "2026-06-28"
+      "detectedAt": "2026-07-06"
     },
     {
-      "contractNumber": "BG-RRP-4.023-2378",
-      "title": "\"Въвеждане на мерки за енергийна ефективност в бл. \"Христо Смирненски\", ул. \"Пети септември\" № 3 в гр. Кърджали\"",
+      "contractNumber": "BG05SFPR002-1.035-0024",
+      "title": "Повишаване готовността на област Кърджали за предотвратяване и овладяване на бедствия, пожари и извънредни ситуации",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 260759.4,
-      "totalEur": 260759.4,
-      "paidEur": 202745.48,
+      "prevTotalEur": 217606.68,
+      "totalEur": 217606.68,
+      "paidEur": 43521.34,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Кърджали",
-      "detectedAt": "2026-06-28"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Регионална дирекция \"Пожарна безопасност и защита на населението\" - Кърджали",
+      "detectedAt": "2026-07-06"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.010-0084",
+      "title": "Развитие на социално-емоционалните умения и превенция на насилието в ОУ „Васил Левски“, гр. Кърджали",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 51326.91,
+      "totalEur": 51326.91,
+      "paidEur": 10265.38,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Основно училище „Васил Левски“, гр. Кърджали – общинско училище, предоставящо образование за ученици от 1. до 7. клас",
+      "detectedAt": "2026-07-06"
     }
   ]
 }
