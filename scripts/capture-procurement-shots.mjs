@@ -34,24 +34,22 @@ const PAGES = [
       // A company (supplier) page no longer draws the degenerate fan-in Sankey
       // — every buyer fed the single company node. It now shows a buyer-
       // dependency lens (CompanyBuyerConcentrationTile); the Sankey lives on
-      // authority pages + /procurement/flows.
+      // authority pages + the /procurement dashboard.
       {
         name: "02-buyer-dependency",
         heading: "Зависимост от възложители",
         padding: 10,
       },
-      { name: "03-treemap", heading: "Приходи по възложители", padding: 10 },
     ],
   },
   {
     // Officials demo: a company whose connected person is a DECLARED stake
-    // (councillor with a 10% holding), the strongest evidence type — not a
-    // bare name match. Софарма Трейдинг (103267194) used to host this shot,
-    // but its only "connection" was a common-name TR collision that the
-    // namesake fix correctly dropped.
+    // (councillor with a holding), the strongest evidence type — not a bare
+    // name match. The company page now folds connected politicians/officials
+    // into a single "Политически връзки (N)" section (was "Свързани служители").
     url: "/company/202758921",
     shots: [
-      { name: "04-officials", heading: "Свързани служители", padding: 10 },
+      { name: "04-officials", heading: "Политически връзки", padding: 10 },
     ],
   },
   {
@@ -74,7 +72,10 @@ const PAGES = [
     shots: [{ name: "06-flags", viewport: true }],
   },
   {
-    url: "/procurement/people",
+    // The standalone people scanner (/procurement/people) was folded into the
+    // universal search on the dashboard; the ranked connected-people list now
+    // lives at /procurement/mps (the "see it live" target in the article).
+    url: "/procurement/mps?pscope=all",
     shots: [{ name: "07-scanner", viewport: true }],
   },
   {
@@ -82,6 +83,12 @@ const PAGES = [
     shots: [
       { name: "08-myarea", heading: "Обществени поръчки тук", padding: 10 },
     ],
+  },
+  {
+    // The global contracts browser: filters + per-filter summary + the risk
+    // index beside every row. Full corpus so the table is dense.
+    url: "/procurement/contracts?pscope=all",
+    shots: [{ name: "09-contracts", viewport: true }],
   },
 ];
 
@@ -131,6 +138,8 @@ await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
 await page.evaluate(() => {
   localStorage.setItem("language", "bg");
   localStorage.setItem("i18nextLng", "bg");
+  // Dismiss the community CTA strip so it doesn't eat the top of viewport shots.
+  localStorage.setItem("naiasno_cta_dismissed_until", String(9_999_999_999_999));
 });
 
 for (const p of PAGES) {
