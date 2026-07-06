@@ -43,22 +43,15 @@ reference_db_push_cloud.
 
 ### P1b — generic competition KPIs + per-buyer KZK (highest value)
 
-1. **Entity-scoped `ProcurementBenchmarksTile`.** Today the tile draws single-bid
-   % and no-call % on the EU red-line scale for the national window. Give it an
-   entity mode: extend `awarder_procurement()` to also return, on `tag='contract'`
-   rows:
-   - `singleBidShare` — contracts with `number_of_tenderers = 1` ÷ contracts with
-     a known tenderer count (competitive procedures only). Denominator excludes
-     direct awards.
-   - `directShare` — € on direct-negotiation / no-prior-publication methods ÷
-     total € (procedure-method basis, same buckets as `procedureBucket`).
-   - `bidCoverage` — share of € with a known tenderer count (honesty line; bid
-     counts only exist on the ЦАИС-era feed).
-   These are the same definitions `roadAttributes` computes client-side — the SQL
-   must match so АПИ shows one number regardless of path. Mount the tile on the
-   awarder branch for **every** awarder (not just packed ones). This retires the
-   roads-only single-bid/direct KPIs into a generic tile; RoadsPack can keep the
-   "на разпознат път" ref-coverage KPI (genuinely roads-only).
+1. ~~**Entity-scoped `ProcurementBenchmarksTile`.**~~ **SHIPPED** (`7527bdddd`).
+   `awarder_procurement()` (023) + `company_procurement()` (011) now return
+   `bidKnownN` + `singleBidN`; the client derives single-bid share from them and
+   no-call from the procedure buckets, feeding the reused tile (now takes optional
+   entity `data`) on `/awarder/:eik` + `/company/:eik`. АПИ single-bid 22.5% =
+   191/849, parity with the roads model. RoadsPack deduped to the roads-only "на
+   разпознат път" KPI.
+   **Prod:** needs `db:push` + functions redeploy for the new jsonb fields; until
+   then the tile hides itself (bidKnownN absent → below coverage floor).
 
 2. ~~**Per-buyer KZK appeals tile.**~~ **SHIPPED** without a migration — the
    generic `/api/db/table` engine already scopes `kzk_appeals` by `buyer_eik` and
@@ -88,15 +81,22 @@ Add to `RoadsPack` / `buildRoadsModel` (`src/lib/roadAttributes.ts`), no backend
 6. **Forecast-vs-actual per corridor** via `tenders.ocid → contracts.ocid` — flag
    coverage-limited (roads ocid join is ~11–23%; present honestly, not headline).
 
-### P4 — second sector pack: НОИ / ДОО (proves the seam)
+### P4 — prove the seam (НОИ / ДОО) — DONE, and the finding is "no pack needed"
 
-Register a second EIK in `sectorPacks.tsx` with a `NoiPack`. **Derive the taxonomy
-from the real corpus first** (sample its top contracts + CPV mix via
-`/api/db/awarder-contracts?eik=<НОИ>`) rather than guessing — candidate buckets:
-IT / pension-payment systems · postal delivery of pensions · facilities / real-
-estate · medical assessment (ТЕЛК) · other. Same pack contract (`{eik, window}`),
-its own classifier + tiles, no new generic components. Acceptance test: the pack
-drops in with zero changes to `CompanyDbScreen`.
+Verified `/awarder/121082521` (НОИ, 2279 contracts). It renders the **full generic
+enrichment with zero new code**: CPV "Какво купува", EU benchmarks (single-bid
+42.3% — red, worse than roads' 22.5%), money-flow sankey (→ Информационно
+обслужване АД, Български пощи — its IT + postal spend surfacing naturally),
+treemap, tenders, КЗК appeals. No roads pack (correctly).
+
+Conclusion: **a sector pack is only warranted when a buyer needs domain-specific
+geometry the generic tiles can't express — i.e. the roads network map.** НОИ/ДОО's
+"taxonomy" (IT / postal / facilities / ТЕЛК) is already legible from CPV divisions
++ the flow tile, so it needs no `NoiPack`. The seam exists (`sectorPacks.tsx`) for
+the next buyer that genuinely does — register an EIK + a `<Pack eik window/>` and
+it drops in with no `CompanyDbScreen` change. The `buildAwarderModel` /
+`SectorClassifier` refactor below is only worth doing once such a second pack
+actually materialises.
 
 ## Generalising the classifier (when P4 lands)
 
