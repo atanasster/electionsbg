@@ -163,10 +163,27 @@ export const reconcileLocalCycles = ({
     (a, b) => combinedShare(b) - combinedShare(a),
   );
 
-  // Rolls grew → from-side needs a JOINED placeholder; shrank → to-side needs
-  // EXITED. Either way both sides total max(regFrom, regTo).
-  const useJoinedNode = to.totalRegistered > from.totalRegistered;
-  const useExitedNode = from.totalRegistered > to.totalRegistered;
+  // Which pseudo-nodes are needed? Decided per oblast on the matched
+  // sections only — the same universe RAS balances (see reconcile.ts).
+  // A raw-total gate would use the wrong universe (unmatched sections)
+  // and leave opposite-sign oblasts with no pseudo-node at all.
+  let useJoinedNode = false;
+  let useExitedNode = false;
+  {
+    const regByOblast = new Map<string, { f: number; t: number }>();
+    for (const [sid, fromSec] of from.sections) {
+      const toSec = to.sections.get(sid);
+      if (!toSec) continue;
+      const e = regByOblast.get(fromSec.oblast) ?? { f: 0, t: 0 };
+      e.f += fromSec.registered;
+      e.t += toSec.registered;
+      regByOblast.set(fromSec.oblast, e);
+    }
+    for (const { f, t } of regByOblast.values()) {
+      if (t > f) useJoinedNode = true;
+      if (f > t) useExitedNode = true;
+    }
+  }
 
   const fromIds: string[] = [...orderedBig, LOCAL_OTHER_ID, ABSTAIN_ID];
   if (useJoinedNode) fromIds.push(JOINED_ID);
@@ -300,13 +317,13 @@ export const reconcileLocalCycles = ({
       continue;
     }
 
-    // Inject the JOINED / EXITED pseudo mass from the registered-voter delta
-    // so both sides total max(regFrom, regTo) per oblast.
+    // Inject the JOINED / EXITED pseudo mass from this oblast's own
+    // matched-roll delta so both sides total max(regFrom, regTo).
     const regDelta = oblastRegTo - oblastRegFrom;
-    if (regDelta > 0 && useJoinedNode) {
+    if (regDelta > 0) {
       const idx = idIndexFrom.get(JOINED_ID);
       if (idx !== undefined) fromTotals[idx] += regDelta;
-    } else if (regDelta < 0 && useExitedNode) {
+    } else if (regDelta < 0) {
       const idx = idIndexTo.get(EXITED_ID);
       if (idx !== undefined) toTotals[idx] += -regDelta;
     }

@@ -9,13 +9,17 @@
 //   - "abstain": registered voters who didn't vote (both sides)
 //   - "joined" (from-side only): people who weren't on T's rolls but
 //     appear on T+1's. Source-side placeholder for the new electorate.
-//     Only used when T+1 had more registered voters than T.
-//   - "exited" (to-side only): people who were on T's rolls but no
-//     longer on T+1's. Sink-side placeholder for departed voters.
-//     Only used when T+1 had fewer registered voters than T.
+//     Sized per изборен район from the matched-section roll delta, so it
+//     carries mass in every район whose rolls grew.
+//   - "exited" (to-side only): mirror image — people who were on T's
+//     rolls but not on T+1's. Carries mass in every район whose rolls
+//     shrank.
 //
-// With these pseudo-nodes both sides total max(regFrom, regTo), so RAS
-// scaling has a balanced row/column-sum target.
+// Within one район only one of the two carries mass (the roll delta is
+// net), but nationally both nodes can appear because райони move in
+// different directions. With these pseudo-nodes both sides total
+// max(regFrom, regTo) per район, so RAS scaling has a balanced
+// row/column-sum target.
 
 import fs from "fs";
 import path from "path";
@@ -207,19 +211,33 @@ export const reconcileCycles = ({
     return sb - sa;
   });
 
-  // Did the rolls grow or shrink? Pick the right pseudo-node side.
-  let totalRegFrom = 0;
-  let totalRegTo = 0;
-  for (const s of fromSections.values())
-    totalRegFrom += s.results.protocol?.numRegisteredVoters ?? 0;
-  for (const s of toSections.values())
-    totalRegTo += s.results.protocol?.numRegisteredVoters ?? 0;
-  // When rolls grew the from-side needs a JOINED placeholder (the new
-  // electorate hadn't appeared yet in T). When rolls shrank the to-side
-  // needs an EXITED placeholder (those voters are gone by T+1). Either
-  // way, both sides end up totalling max(regFrom, regTo).
-  const useJoinedNode = totalRegTo > totalRegFrom;
-  const useExitedNode = totalRegFrom > totalRegTo;
+  // Which pseudo-nodes are needed? Decided per изборен район on the
+  // matched sections only — the same universe RAS balances. A район whose
+  // rolls grew needs JOINED mass on the from side; one whose rolls shrank
+  // needs EXITED mass on the to side. The previous national either/or gate
+  // on raw roll totals used the wrong universe (abroad + unmatched
+  // sections flipped its direction on 5 of 12 cycle pairs) and left
+  // opposite-sign райони with no pseudo-node at all, silently smearing
+  // their roll change across all parties in the RAS pre-scale.
+  let useJoinedNode = false;
+  let useExitedNode = false;
+  {
+    const regByOblast = new Map<string, { f: number; t: number }>();
+    for (const [sid, fromInfo] of fromSections) {
+      const oblast = sid.slice(0, 2);
+      if (oblast === "32") continue;
+      const toInfo = toSections.get(sid);
+      if (!toInfo) continue;
+      const e = regByOblast.get(oblast) ?? { f: 0, t: 0 };
+      e.f += fromInfo.results.protocol?.numRegisteredVoters ?? 0;
+      e.t += toInfo.results.protocol?.numRegisteredVoters ?? 0;
+      regByOblast.set(oblast, e);
+    }
+    for (const { f, t } of regByOblast.values()) {
+      if (t > f) useJoinedNode = true;
+      if (f > t) useExitedNode = true;
+    }
+  }
 
   const SMALL_ID = SMALL_ID_PREFIX + "all";
   const fromIds: string[] = [...orderedBig, SMALL_ID, ABSTAIN_ID];
@@ -357,17 +375,15 @@ export const reconcileCycles = ({
       continue;
     }
 
-    // Inject the JOINED / EXITED pseudo-node as oblast-level mass on the
-    // *opposite* side from where the change is published. Rolls grew →
-    // from-side needs a JOINED placeholder so its totals match the wider
-    // T+1 electorate. Rolls shrank → to-side needs an EXITED placeholder
-    // so its totals match the wider T electorate. Either way, both sides
-    // total max(regFrom, regTo) per oblast.
+    // Inject the JOINED / EXITED pseudo-node mass from this район's own
+    // matched-roll delta: rolls grew → JOINED on the from side, rolls
+    // shrank → EXITED on the to side. Either way both sides total
+    // max(regFrom, regTo) for the район, so RAS gets balanced margins.
     const regDelta = oblastRegTo - oblastRegFrom;
-    if (regDelta > 0 && useJoinedNode) {
+    if (regDelta > 0) {
       const idx = idIndexFrom.get(JOINED_ID);
       if (idx !== undefined) fromTotals[idx] += regDelta;
-    } else if (regDelta < 0 && useExitedNode) {
+    } else if (regDelta < 0) {
       const idx = idIndexTo.get(EXITED_ID);
       if (idx !== undefined) toTotals[idx] += -regDelta;
     }

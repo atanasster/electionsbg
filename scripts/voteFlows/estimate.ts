@@ -42,10 +42,11 @@ export const estimateOblast = ({
   toTotals: number[];
 }): OblastEstimate => {
   // RAS can only converge when the row-sum target and column-sum target
-  // share the same total mass. If they differ, distribute the gap into
-  // the abstain/joined/exited pseudo-buckets — in practice the gap is
-  // tiny rounding (a few hundred votes from invalid-ballot accounting
-  // on cycles with very different protocols).
+  // share the same total mass. The joined/exited pseudo-nodes already
+  // balance the two sides per район, so any remaining gap is tiny
+  // rounding — split it proportionally across both margins as a safety
+  // net. (Note this rescales every party's margin, so it must stay a
+  // last resort, not a substitute for the pseudo-nodes.)
   const rowMass = fromTotals.reduce((s, n) => s + n, 0);
   const colMass = toTotals.reduce((s, n) => s + n, 0);
   if (Math.abs(rowMass - colMass) > 0.5 && rowMass > 0 && colMass > 0) {
