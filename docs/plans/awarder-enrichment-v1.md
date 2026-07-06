@@ -19,6 +19,10 @@ implement all four phases.
   built from `awarder_kindex` linked suppliers (`awarderMpEdges`).
 - `CompanyPortfolioTreemap` role=`awarder` — spend composition across suppliers.
 - `AwarderTendersTile` — announced-procedures lifecycle (forecast→awarded via ocid).
+- `AwarderAppealsTile` — per-buyer КЗК appeals (total / upheld / suspended +
+  recent list), via the generic `/api/db/table` engine scoped by `buyer_eik`
+  (`useAwarderAppeals`). No new endpoint or migration — `aggregates.count` gives
+  the totals. Every awarder with appeals gets it.
 
 **P2 — sector-pack seam + roads pack + redirect**:
 - `getSectorPack(eik)` registry (`components/procurement/sectorPacks.tsx`) →
@@ -56,12 +60,11 @@ reference_db_push_cloud.
    roads-only single-bid/direct KPIs into a generic tile; RoadsPack can keep the
    "на разпознат път" ref-coverage KPI (genuinely roads-only).
 
-2. **Per-buyer KZK appeals tile.** New `kzk_buyer_summary(eik)` jsonb fn over
-   `kzk_appeals WHERE buyer_eik = $1`: `{ complaints, resolved, upheld, rejected,
-   suspended, byYear[], recent[] }`. Index `idx_kzk_appeals_buyer` already exists.
-   New `<AwarderAppealsTile eik>` (model it on `RecentAppealsTile`) in the awarder
-   lifecycle section, next to `AwarderTendersTile`. Renders nothing when the buyer
-   has no appeals. This is the "КЗК arbitrations for all awarders" ask.
+2. ~~**Per-buyer KZK appeals tile.**~~ **SHIPPED** without a migration — the
+   generic `/api/db/table` engine already scopes `kzk_appeals` by `buyer_eik` and
+   returns `aggregates.count`, so `AwarderAppealsTile` needs no `kzk_buyer_summary`
+   fn. If a byYear breakdown or single-round-trip is later wanted, add the jsonb fn
+   then; not required for the current tile.
 
 3. **`CompanySectorRankTile` on the awarder side (optional).** Buy-side sector
    percentile — needs a buyer-analogue of `sector_contractor_stats`
