@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-05T18:34:56.815Z",
+  "generatedAt": "2026-07-06T08:59:36.214Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -322,7 +322,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-05T06:09:03.234Z",
+      "freshness": "2026-07-06T06:09:05.846Z",
       "skills": [
         "update-procurement"
       ],
@@ -332,7 +332,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-07-05T06:09:03.234Z"
+          "freshness": "2026-07-06T06:09:05.846Z"
         }
       ],
       "x": 28,
@@ -438,7 +438,7 @@
       "url": "https://2020.eufunds.bg/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-07-05T06:09:03.234Z",
+      "freshness": "2026-07-06T06:09:05.846Z",
       "skills": [
         "update-funds"
       ],
@@ -455,7 +455,7 @@
           "label": "ИСУН EU funds (projects)",
           "url": "https://2020.eufunds.bg/bg/0/0/Project/ExportToExcel",
           "cadence": "weekly",
-          "freshness": "2026-06-28T16:34:00.777Z"
+          "freshness": "2026-07-06T06:09:05.846Z"
         }
       ],
       "x": 28,
@@ -634,7 +634,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-04T06:09:29.998Z",
+      "freshness": "2026-07-06T06:09:05.846Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -653,14 +653,14 @@
           "label": "Council resolutions + vote tallies",
           "url": "data/council/sources.json",
           "cadence": "daily",
-          "freshness": "2026-07-03T06:08:35.143Z"
+          "freshness": "2026-07-06T06:09:05.846Z"
         },
         {
           "id": "municipal_naredba",
           "label": "Общински наредби за местни данъци",
           "url": "https://www.265obshtini.bg/",
           "cadence": "weekly",
-          "freshness": "2026-06-05T06:09:20.061Z"
+          "freshness": "2026-07-06T06:09:05.846Z"
         }
       ],
       "x": 28,
@@ -1142,7 +1142,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-05T06:09:03.234Z",
+      "freshness": "2026-07-06T06:09:05.846Z",
       "skills": [
         "update-prices"
       ],
@@ -1152,7 +1152,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-07-05T06:09:03.234Z"
+          "freshness": "2026-07-06T06:09:05.846Z"
         }
       ],
       "x": 28,
