@@ -271,7 +271,7 @@ export const governanceMenu: MenuItem[] = [
         title: "menu_group_state_entities",
         group: true,
         subMenu: [
-          { title: "procurement_roads_nav", link: "/procurement/roads" },
+          { title: "procurement_roads_nav", link: "/awarder/000695089" },
         ],
       },
       { title: "-" },

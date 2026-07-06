@@ -69,10 +69,23 @@ export const useAwarderContracts = (eik?: string | null) =>
     retry: false,
   });
 
-export const useRoads = (eik: string = API_EIK): RoadsData => {
+/** Explicit [from, to) window override — half-open on the contract `date`, same
+ *  semantics as useProcurementWindow. Passed by hosts (e.g. the awarder page)
+ *  whose scope lives in local state rather than the ?pscope URL param. */
+export interface RoadsWindow {
+  from: string | null;
+  to: string | null;
+}
+
+export const useRoads = (
+  eik: string = API_EIK,
+  windowOverride?: RoadsWindow,
+): RoadsData => {
   const counterparties = useCounterparties(eik, "awarder");
   const contracts = useAwarderContracts(eik);
-  const { from, to } = useProcurementWindow();
+  const urlWindow = useProcurementWindow();
+  const from = windowOverride ? windowOverride.from : urlWindow.from;
+  const to = windowOverride ? windowOverride.to : urlWindow.to;
 
   // Apply the active scope window client-side: keep the corpus fetch cached and
   // just filter the rows to [from, to) on the contract `date` (half-open, same

@@ -65,7 +65,7 @@ const items = [
 // the list can grow without crowding primary navigation. One entry per page.
 const secondaryItems = [
   {
-    to: "/procurement/roads",
+    to: "/awarder/000695089",
     icon: Route,
     key: "procurement_roads_nav",
   },

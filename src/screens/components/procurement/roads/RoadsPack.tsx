@@ -1,0 +1,313 @@
+// Roads sector pack — the АПИ-specific procurement visuals, rendered inside the
+// generic awarder dashboard (/awarder/000695089). This is the "keep the focus
+// on roads" layer: the motorway network map, construction-category split,
+// cost-per-km, work components and the tender pipeline, all computed client-side
+// from the per-contract rows by the roadAttributes engine.
+//
+// It deliberately renders ONLY the road-unique tiles — the generic buy-side
+// tiles (KPIs, top contracts/contractors, "Какво купува", money-flow, treemap,
+// by-year) already live on the awarder page above it, so nothing is duplicated.
+//
+// Scope is inherited from the host: the awarder page's scope control drives a
+// [from, to) window that is passed straight through to useRoads, so the whole
+// page (generic + roads) re-scopes together.
+
+import { FC, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Gavel, MapPin, Waypoints, TriangleAlert, X } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
+import { StatCard } from "@/screens/dashboard/StatCard";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useRoads, type RoadsWindow } from "@/data/procurement/useRoads";
+import { formatEurCompact } from "@/lib/currency";
+import { RoadCostPerKmTile } from "./RoadCostPerKmTile";
+import { RoadWorkGroupDonut } from "./RoadWorkGroupDonut";
+import { RoadComponentsTile } from "./RoadComponentsTile";
+import { COMPONENT_LABEL } from "./roadLabels";
+import { RoadTimeSpineTile } from "./RoadTimeSpineTile";
+import { RoadPlannedTendersTile } from "./RoadPlannedTendersTile";
+import { RoadNetworkMap, type RoadMetric } from "./RoadNetworkMap";
+
+const pctFmt = (v: number | undefined, lang: string) =>
+  v == null
+    ? "—"
+    : (v * 100).toLocaleString(lang, { maximumFractionDigits: 1 }) + "%";
+
+export const RoadsPack: FC<{ eik: string; window: RoadsWindow }> = ({
+  eik,
+  window,
+}) => {
+  const { i18n } = useTranslation();
+  const lang = i18n.language;
+  const [mapMetric, setMapMetric] = useState<RoadMetric>("singleBid");
+  const [focusCorridor, setFocusCorridor] = useState<string | null>(null);
+  const { model, isLoading } = useRoads(eik, window);
+
+  // Auto-generated plain-language headlines from the model (road-specific: peak
+  // year, largest corridor, captured component, clean big contractor, direct %).
+  const insights = useMemo(() => {
+    if (!model) return [] as { text: string; warn?: boolean }[];
+    const out: { text: string; warn?: boolean }[] = [];
+    const eur = (v: number) => formatEurCompact(v, lang);
+    const topYear = [...model.years].sort((a, b) => b.totalEur - a.totalEur)[0];
+    if (topYear)
+      out.push({
+        text:
+          lang === "bg"
+            ? `${topYear.year}: ${eur(topYear.totalEur)} — най-силна година`
+            : `${topYear.year}: ${eur(topYear.totalEur)} — peak year`,
+      });
+    const topCor = model.corridors[0];
+    if (topCor)
+      out.push({
+        text:
+          lang === "bg"
+            ? `${topCor.corridor}: ${eur(topCor.totalEur)} — най-голям коридор`
+            : `${topCor.corridor}: ${eur(topCor.totalEur)} — largest corridor`,
+      });
+    const cap = [...model.components]
+      .filter((c) => c.contractCount >= 3 && (c.singleBidShare ?? 0) >= 0.8)
+      .sort((a, b) => (b.singleBidShare ?? 0) - (a.singleBidShare ?? 0))[0];
+    if (cap)
+      out.push({
+        warn: true,
+        text: `${lang === "bg" ? COMPONENT_LABEL[cap.component].bg : COMPONENT_LABEL[cap.component].en}: ${Math.round((cap.singleBidShare ?? 0) * 100)}% ${lang === "bg" ? "една оферта" : "single-bid"}`,
+      });
+    const comp = model.topContractors.find(
+      (c) => (c.singleBidShare ?? 1) === 0 && c.totalEur > 5e7,
+    );
+    if (comp)
+      out.push({
+        text: `${comp.name.split(/[-,]/)[0].trim()}: ${eur(comp.totalEur)} ${lang === "bg" ? "при 0% една оферта" : "at 0% single-bid"}`,
+      });
+    if (model.directShare > 0.05)
+      out.push({
+        warn: model.directShare > 0.1,
+        text: `${Math.round(model.directShare * 100)}% ${lang === "bg" ? "без търг" : "direct award"}`,
+      });
+    return out.slice(0, 5);
+  }, [model, lang]);
+
+  // Loading / empty — the host already renders its awarder header + KPIs, so a
+  // quiet skeleton (or nothing) keeps the page coherent while the corpus loads.
+  if (isLoading)
+    return (
+      <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
+    );
+  if (!model || model.totalEur === 0) return null;
+
+  return (
+    <section className="space-y-4">
+      <div className="flex items-center gap-2 pt-2">
+        <Waypoints className="h-5 w-5 text-muted-foreground" />
+        <h2 className="text-lg font-semibold">
+          {lang === "bg" ? "Пътна инфраструктура" : "Road infrastructure"}
+        </h2>
+      </div>
+
+      {/* Road-specific competition KPIs (the generic total/contracts/suppliers
+          KPIs already sit above this in the awarder header). */}
+      <div className="grid gap-3 grid-cols-2 lg:grid-cols-3">
+        <StatCard
+          label={lang === "bg" ? "Една оферта" : "Single bidder"}
+          hint={
+            lang === "bg"
+              ? "Дял на договорите с един участник (където броят е известен)."
+              : "Share of contracts with a single bidder (where the count is known)."
+          }
+          className={
+            (model.singleBidShare ?? 0) > 0.3
+              ? "ring-1 ring-amber-200/60 dark:ring-amber-800/40"
+              : undefined
+          }
+        >
+          <div className="flex items-baseline gap-2">
+            <TriangleAlert className="h-5 w-5 text-amber-600 shrink-0" />
+            <span className="text-2xl font-bold tabular-nums">
+              {pctFmt(model.singleBidShare, lang)}
+            </span>
+          </div>
+        </StatCard>
+        <StatCard
+          label={lang === "bg" ? "Без търг" : "Direct award"}
+          hint={
+            lang === "bg"
+              ? "Дял от обема, възложен пряко (без търг / обявление)."
+              : "Share of volume awarded directly / without a tender."
+          }
+        >
+          <div className="flex items-baseline gap-2">
+            <Gavel className="h-5 w-5 text-muted-foreground shrink-0" />
+            <span className="text-2xl font-bold tabular-nums">
+              {pctFmt(model.directShare, lang)}
+            </span>
+          </div>
+        </StatCard>
+        <StatCard
+          label={lang === "bg" ? "На разпознат път" : "On a named road"}
+          hint={
+            lang === "bg"
+              ? "Дял от обема по договори с разпознаваема пътна референция (АМ или Път I/II/III)."
+              : "Share of volume on contracts with a recognisable road reference."
+          }
+        >
+          <div className="flex items-baseline gap-2">
+            <MapPin className="h-5 w-5 text-muted-foreground shrink-0" />
+            <span className="text-2xl font-bold tabular-nums">
+              {pctFmt(model.refCoverageEur, lang)}
+            </span>
+          </div>
+        </StatCard>
+      </div>
+
+      {/* Insight chips — auto headlines */}
+      {insights.length > 0 ? (
+        <div className="flex flex-wrap gap-2">
+          {insights.map((it, i) => (
+            <span
+              key={i}
+              className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium ${
+                it.warn
+                  ? "border-amber-300/60 bg-amber-100/50 text-amber-700 dark:border-amber-800/50 dark:bg-amber-900/20 dark:text-amber-400"
+                  : "border-border bg-muted/40 text-foreground"
+              }`}
+            >
+              {it.text}
+            </span>
+          ))}
+        </div>
+      ) : null}
+
+      {/* Hero — motorway network coloured by the selected metric */}
+      <Card>
+        <CardHeader className="pb-2">
+          <div className="flex items-center justify-between gap-2">
+            <CardTitle className="text-base flex items-center gap-2">
+              <Waypoints className="h-4 w-4" />
+              {lang === "bg" ? "Магистрална мрежа" : "Motorway network"}
+              {focusCorridor ? (
+                <button
+                  type="button"
+                  onClick={() => setFocusCorridor(null)}
+                  className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary"
+                >
+                  {focusCorridor}
+                  <X className="h-3 w-3" />
+                </button>
+              ) : null}
+            </CardTitle>
+            <Select
+              value={mapMetric}
+              onValueChange={(v) => setMapMetric(v as RoadMetric)}
+            >
+              <SelectTrigger className="h-8 w-auto text-xs">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="singleBid">
+                  {lang === "bg" ? "Една оферта" : "Single bidder"}
+                </SelectItem>
+                <SelectItem value="perKm">
+                  {lang === "bg" ? "Цена на километър" : "Cost per kilometre"}
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </CardHeader>
+        <CardContent className="p-3 md:p-4">
+          <RoadNetworkMap
+            corridors={model.corridors}
+            metric={mapMetric}
+            focusCorridor={focusCorridor}
+            onFocusCorridor={setFocusCorridor}
+          />
+          <p className="text-[11px] text-muted-foreground/80 mt-2">
+            {lang === "bg"
+              ? "Автомагистрали и финансирани републикански пътища (I и II клас). Дебелината на линията показва вложените средства. Кликни коридор, за да филтрираш."
+              : "Motorways and funded republican roads (class I and II). Line thickness reflects € spent. Click a corridor to filter."}
+          </p>
+        </CardContent>
+      </Card>
+
+      {/* Spending over time — stacked by construction category / corridor */}
+      <RoadTimeSpineTile years={model.years} />
+
+      {/* Cost/km + construction-category split (build vs repair vs maintenance) */}
+      <div className="grid gap-4 xl:grid-cols-2">
+        <RoadCostPerKmTile corridors={model.corridors} />
+        <RoadWorkGroupDonut
+          groups={model.workGroups}
+          totalEur={model.totalEur}
+        />
+      </div>
+
+      {/* Kinds of work (tunnels, bridges, markings…) with capture metrics */}
+      <RoadComponentsTile components={model.components} />
+
+      {/* Planned procurements (tender pipeline — what is announced to be built) */}
+      <RoadPlannedTendersTile />
+
+      {/* Key factors explainer (static context) */}
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="text-base">
+            {lang === "bg"
+              ? "Какво влияе на цената на километър"
+              : "What drives cost per kilometre"}
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-3 md:p-4 text-sm text-muted-foreground">
+          {lang === "bg" ? (
+            <>
+              <p>
+                Цената на километър не е сравнима между различни видове работа и
+                терен. Ново строителство на автомагистрала, основен ремонт на
+                път III клас и съоръжения (мостове, тунели) се различават
+                многократно — тунелните участъци достигат десетки милиони на
+                километър. Затова сравняваме всеки участък спрямо вътрешен
+                еталон за същия клас път и вид работа, а не директно с други
+                държави.
+              </p>
+              <p className="mt-2 text-xs">
+                За груб ориентир (не пряко сравнение): ново строителство на
+                магистрала в България е средно около €3–6 млн/км, в Румъния
+                ~€6,3 млн/км, в Гърция ~€10 млн/км; базата на Световната банка
+                (ROCKS) дава ~€1,4 млн/км за двулентов път без съоръжения.
+              </p>
+            </>
+          ) : (
+            <>
+              <p>
+                Cost per kilometre is not comparable across work types or
+                terrain. New motorway construction, major rehabilitation of a
+                class III road and structures (bridges, tunnels) differ by an
+                order of magnitude — tunnel sections reach tens of millions per
+                kilometre. Each segment is therefore benchmarked against an
+                internal reference class for the same road class and work type,
+                not directly against other countries.
+              </p>
+              <p className="mt-2 text-xs">
+                As a rough, non-comparable benchmark: new motorway construction
+                averages ~€3–6M/km in Bulgaria, ~€6.3M/km in Romania, ~€10M/km
+                in Greece; the World Bank ROCKS database gives ~€1.4M/km for a
+                two-lane road excluding structures.
+              </p>
+            </>
+          )}
+        </CardContent>
+      </Card>
+
+      <p className="text-[11px] text-muted-foreground/80">
+        {lang === "bg"
+          ? "Пътните референции и дължини са разчетени от заглавията на договорите."
+          : "Road references and lengths parsed from contract titles."}
+      </p>
+    </section>
+  );
+};

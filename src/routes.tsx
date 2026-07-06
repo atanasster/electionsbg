@@ -355,11 +355,6 @@ const AppealsBrowserDbScreen = lazy(() =>
     default: m.AppealsBrowserDbScreen,
   })),
 );
-const RoadsScreen = lazy(() =>
-  import("./screens/procurement/RoadsScreen").then((m) => ({
-    default: m.RoadsScreen,
-  })),
-);
 const TenderDetailScreen = lazy(() =>
   import("./screens/procurement/TenderDetailScreen").then((m) => ({
     default: m.TenderDetailScreen,
@@ -1904,16 +1899,14 @@ export const AuthRoutes = () => {
               </LayoutScreen>
             }
           />
-          {/* АПИ road-spending dashboard. DB-backed (/api/db/awarder-contracts
-              + company-counterparties) — no bucket-synced JSON — so it renders
-              in prod. */}
+          {/* АПИ road-spending dashboard — retired into the generic awarder
+              page, where it renders as the roads sector pack (map, construction
+              categories, cost/km …) below the buy-side KPIs. Redirect keeps old
+              links + the nav pill working. See components/procurement/roads/
+              RoadsPack + sectorPacks. */}
           <Route
             path="procurement/roads"
-            element={
-              <LayoutScreen>
-                <RoadsScreen />
-              </LayoutScreen>
-            }
+            element={<Navigate to="/awarder/000695089" replace />}
           />
           <Route
             path="procurement/flags"

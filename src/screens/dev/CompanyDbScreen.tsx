@@ -6,7 +6,7 @@
 // in dev, the `db` Cloud Function (hosting rewrite) in prod.
 // See docs/plans/postgres-migration-v1.md.
 
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, Suspense, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   Building2,
@@ -46,6 +46,7 @@ import { ProcurementBreakdownTile } from "../components/procurement/ProcurementB
 import { CompanyPortfolioTreemap } from "../components/procurement/CompanyPortfolioTreemap";
 import { EntityFlowTile } from "../components/procurement/EntityFlowTile";
 import { type EntityFlowMpEdge } from "@/data/procurement/entityFlow";
+import { getSectorPack } from "../components/procurement/sectorPacks";
 import { CompanyRiskChips } from "../components/procurement/CompanyRiskChips";
 import {
   EntityRiskGradeCard,
@@ -335,11 +336,20 @@ export const CompanyDbScreen: FC = () => {
   const { selected } = useElectionContext();
   const { t, i18n } = useTranslation();
 
+  // The active [from, to) window from the local scope control — shared by the
+  // scoped DB fetch below and any sector pack (which re-scopes with the page).
+  const [from, to] = useMemo(
+    () => scopeRange(scope, selected),
+    [scope, selected],
+  );
+  // A domain pack (e.g. roads for АПИ) rendered as a hero inside the awarder
+  // section; null for the vast majority of awarders (generic page only).
+  const SectorPack = useMemo(() => getSectorPack(eik), [eik]);
+
   useEffect(() => {
     let live = true;
     setLoading(true);
     setError(null);
-    const [from, to] = scopeRange(scope, selected);
     const qs =
       `/api/db/company?eik=${encodeURIComponent(eik)}` +
       (from ? `&from=${from}` : "") +
@@ -389,7 +399,7 @@ export const CompanyDbScreen: FC = () => {
     return () => {
       live = false;
     };
-  }, [eik, scope, selected]);
+  }, [eik, from, to]);
 
   const contracts = Number(summary?.contracts ?? 0);
   // A contractor can appear in the procurement corpus without a TR record (~32%
@@ -758,6 +768,17 @@ export const CompanyDbScreen: FC = () => {
                   </div>
                 </StatCard>
               </div>
+              {/* Domain pack hero (roads for АПИ …) — kept the focus of the page
+                  for the buyers that have one; renders nothing for the rest. */}
+              {SectorPack && (
+                <Suspense
+                  fallback={
+                    <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
+                  }
+                >
+                  <SectorPack eik={eik} window={{ from, to }} />
+                </Suspense>
+              )}
               <div className="grid gap-4 lg:grid-cols-2">
                 <CompanyTopContractsTile
                   eik={eik}
