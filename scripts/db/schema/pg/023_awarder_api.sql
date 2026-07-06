@@ -103,12 +103,27 @@ bd AS (
     COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract' AND procurement_method IS NOT NULL AND procurement_method <> ''), 0) AS proc_known_eur,
     COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract' AND eu_funded = 1), 0) AS eu_eur,
     COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract' AND eu_funded IS NOT NULL), 0) AS eu_known_eur,
-    -- Competition (EU Single Market Scoreboard basis): single-bidder share over
-    -- contracts with a KNOWN tenderer count (bid counts only exist on the
-    -- ЦАИС-era feed). The client computes single/known + derives no-call from
-    -- the procedure buckets — same definitions as ProcurementBenchmarksTile.
-    (COUNT(*) FILTER (WHERE tag = 'contract' AND number_of_tenderers IS NOT NULL))::int AS bid_known_n,
-    (COUNT(*) FILTER (WHERE tag = 'contract' AND number_of_tenderers = 1))::int AS single_bid_n
+    -- Competition — IDENTICAL classification to procurement_benchmarks (037), so
+    -- an entity's numbers are its slice of the national figure (ECA SR 28/2023):
+    -- the single-bidder denominator is COMPETITIVE procedures only (excludes the
+    -- structurally single-bid direct/no-call methods, requires a known method)
+    -- with a known bid count; no-call is that same direct-method list.
+    (COUNT(*) FILTER (WHERE tag = 'contract' AND number_of_tenderers = 1
+      AND NULLIF(TRIM(procurement_method), '') IS NOT NULL
+      AND NULLIF(TRIM(procurement_method), '') NOT IN
+        ('Пряко договаряне', 'Договаряне без предварително обявление',
+         'Покана до определени лица', 'direct')))::int AS single_bid_n,
+    (COUNT(*) FILTER (WHERE tag = 'contract' AND number_of_tenderers IS NOT NULL
+      AND NULLIF(TRIM(procurement_method), '') IS NOT NULL
+      AND NULLIF(TRIM(procurement_method), '') NOT IN
+        ('Пряко договаряне', 'Договаряне без предварително обявление',
+         'Покана до определени лица', 'direct')))::int AS bid_known_n,
+    (COUNT(*) FILTER (WHERE tag = 'contract'
+      AND NULLIF(TRIM(procurement_method), '') IN
+        ('Пряко договаряне', 'Договаряне без предварително обявление',
+         'Покана до определени лица', 'direct')))::int AS no_call_n,
+    (COUNT(*) FILTER (WHERE tag = 'contract'
+      AND NULLIF(TRIM(procurement_method), '') IS NOT NULL))::int AS method_known_n
   FROM base
 )
 SELECT CASE
@@ -131,6 +146,8 @@ SELECT CASE
       'euKnownEur', bd.eu_known_eur,
       'bidKnownN', bd.bid_known_n,
       'singleBidN', bd.single_bid_n,
+      'noCallN', bd.no_call_n,
+      'methodKnownN', bd.method_known_n,
       'cpvRaw', bd_cpv.arr,
       'procRaw', bd_proc.arr
     )

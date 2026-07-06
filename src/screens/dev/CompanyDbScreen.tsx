@@ -206,6 +206,8 @@ type DbAwarderRollup = Pick<
     euKnownEur: number;
     bidKnownN?: number;
     singleBidN?: number;
+    noCallN?: number;
+    methodKnownN?: number;
     cpvRaw: { d: string; eur: number; n: number }[];
     procRaw: { method: string; eur: number; n: number }[];
   };
@@ -234,6 +236,8 @@ type DbRollup = Pick<
     euKnownEur: number;
     bidKnownN?: number;
     singleBidN?: number;
+    noCallN?: number;
+    methodKnownN?: number;
     cpvRaw: { d: string; eur: number; n: number }[];
     procRaw: { method: string; eur: number; n: number }[];
   };
@@ -289,25 +293,24 @@ const toBreakdown = (
   };
 };
 
-// Build the EU-threshold benchmark inputs for one entity from its rollup: the
-// single-bidder share (bid counts from *_procurement) and the no-call share
-// (direct/no-notice procedures ÷ contracts with a known method, from the
-// procedure buckets). Same definitions as the national ProcurementBenchmarksTile
-// so an entity's number matches its slice of the national figure.
+// EU-threshold benchmark inputs for one entity, taken straight from the four
+// competition counts *_procurement() computes the SAME way as the national
+// procurement_benchmarks (037) — competitive-only single-bid denominator, the
+// direct-method no-call list. So an entity's number is genuinely its slice of
+// the national figure, and the ≤10%/>20% thresholds apply unchanged.
 const entityBenchmarks = (
   contractCount: number,
-  bidKnownN: number | undefined,
-  singleBidN: number | undefined,
-  breakdown: ProcurementBreakdown,
-): ProcurementBenchmarksFile => {
-  const methodKnown = breakdown.proc.reduce((s, p) => s + p.n, 0);
-  const noCall = breakdown.proc.find((p) => p.b === "direct")?.n ?? 0;
-  return {
-    total: contractCount,
-    singleBidder: { single: singleBidN ?? 0, known: bidKnownN ?? 0 },
-    noCall: { noCall, methodKnown },
-  };
-};
+  bd: {
+    bidKnownN?: number;
+    singleBidN?: number;
+    noCallN?: number;
+    methodKnownN?: number;
+  },
+): ProcurementBenchmarksFile => ({
+  total: contractCount,
+  singleBidder: { single: bd.singleBidN ?? 0, known: bd.bidKnownN ?? 0 },
+  noCall: { noCall: bd.noCallN ?? 0, methodKnown: bd.methodKnownN ?? 0 },
+});
 
 const num = new Intl.NumberFormat("bg-BG");
 // Officers shown inline on the dashboard; the rest live on the standalone
@@ -528,27 +531,17 @@ export const CompanyDbScreen: FC = () => {
   // floor, so small entities simply don't show it.
   const awarderBenchmarks = useMemo<ProcurementBenchmarksFile | null>(
     () =>
-      awarderProc?.breakdown && awarderBreakdown
-        ? entityBenchmarks(
-            awarderProc.contractCount,
-            awarderProc.breakdown.bidKnownN,
-            awarderProc.breakdown.singleBidN,
-            awarderBreakdown,
-          )
+      awarderProc?.breakdown
+        ? entityBenchmarks(awarderProc.contractCount, awarderProc.breakdown)
         : null,
-    [awarderProc, awarderBreakdown],
+    [awarderProc],
   );
   const contractorBenchmarks = useMemo<ProcurementBenchmarksFile | null>(
     () =>
-      procurement && breakdown
-        ? entityBenchmarks(
-            procurement.contractCount,
-            procurement.breakdown.bidKnownN,
-            procurement.breakdown.singleBidN,
-            breakdown,
-          )
+      procurement
+        ? entityBenchmarks(procurement.contractCount, procurement.breakdown)
         : null,
-    [procurement, breakdown],
+    [procurement],
   );
 
   // MP overlay for the awarder money-flow sankey: any politically-linked
