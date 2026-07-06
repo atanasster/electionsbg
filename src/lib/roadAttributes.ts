@@ -191,6 +191,11 @@ const KMPT = /км\s*(\d+)\s*\+\s*(\d+)/gi;
 export interface ParsedLength {
   lengthKm: number;
   segments: number;
+  /** Absolute chainage extent along the road (min/max km markers seen). Present
+   *  whenever any km marker was parsed; used by the chainage-coverage strip to
+   *  place a contract on its motorway's km axis. */
+  kmFrom?: number;
+  kmTo?: number;
 }
 
 /** Parse the funded length from a title's chainage. Sums explicit
@@ -201,19 +206,32 @@ export const lengthOf = (title: string): ParsedLength | undefined => {
   let total = 0;
   let n = 0;
   let r: RegExpExecArray | null;
+  const rangePts: number[] = [];
   while ((r = RANGE.exec(t)) !== null) {
     const a = Number(r[1]) + Number(r[2]) / 1000;
     const b = Number(r[3]) + Number(r[4]) / 1000;
     total += Math.abs(b - a);
     n++;
+    rangePts.push(a, b);
   }
-  if (n > 0) return { lengthKm: total, segments: n };
+  if (n > 0)
+    return {
+      lengthKm: total,
+      segments: n,
+      kmFrom: Math.min(...rangePts),
+      kmTo: Math.max(...rangePts),
+    };
   KMPT.lastIndex = 0;
   const pts: number[] = [];
   while ((r = KMPT.exec(t)) !== null)
     pts.push(Number(r[1]) + Number(r[2]) / 1000);
   if (pts.length >= 2) {
-    return { lengthKm: Math.max(...pts) - Math.min(...pts), segments: 1 };
+    return {
+      lengthKm: Math.max(...pts) - Math.min(...pts),
+      segments: 1,
+      kmFrom: Math.min(...pts),
+      kmTo: Math.max(...pts),
+    };
   }
   return undefined;
 };

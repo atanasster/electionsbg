@@ -34,6 +34,8 @@ import { RoadTimeSpineTile } from "./RoadTimeSpineTile";
 import { RoadPlannedTendersTile } from "./RoadPlannedTendersTile";
 import { RoadRegionCompetitionTile } from "./RoadRegionCompetitionTile";
 import { RoadRepeatWinnersTile } from "./RoadRepeatWinnersTile";
+import { RoadCostBenchmarkTile } from "./RoadCostBenchmarkTile";
+import { RoadChainageStripTile } from "./RoadChainageStripTile";
 import { RoadNetworkMap, type RoadMetric } from "./RoadNetworkMap";
 
 const pctFmt = (v: number | undefined, lang: string) =>
@@ -204,6 +206,9 @@ export const RoadsPack: FC<{ eik: string; window: RoadsWindow }> = ({
         </CardContent>
       </Card>
 
+      {/* Where the money landed along each motorway (km axis, spend density) */}
+      <RoadChainageStripTile rows={model.rows} />
+
       {/* Spending over time — stacked by construction category / corridor */}
       <RoadTimeSpineTile years={model.years} />
 
@@ -215,6 +220,9 @@ export const RoadsPack: FC<{ eik: string; window: RoadsWindow }> = ({
           totalEur={model.totalEur}
         />
       </div>
+
+      {/* €/km against international reference levels (ROCKS / BG / RO / GR) */}
+      <RoadCostBenchmarkTile corridors={model.corridors} />
 
       {/* Kinds of work (tunnels, bridges, markings…) with capture metrics */}
       <RoadComponentsTile components={model.components} />
