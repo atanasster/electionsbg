@@ -66,15 +66,17 @@ reference_db_push_cloud.
 ### P3 — roads-specific enhancements (client-side, reuse the roads engine)
 
 Add to `RoadsPack` / `buildRoadsModel` (`src/lib/roadAttributes.ts`), no backend:
-1. **Chainage coverage strip** — per motorway (A1/A3/Хемус…), a km-axis showing
+1. **ОПУ regional-competition heatmap** — **SHIPPED** (`d48cf56b1`,
+   `RoadRegionCompetitionTile`). Single-bid share per oblast directorate from
+   `model.regions`, green→red, sized by €.
+2. **Repeat-winner-by-corridor** — **SHIPPED** (`d48cf56b1`,
+   `RoadRepeatWinnersTile`). Corridors where one contractor holds ≥40% of the money
+   over ≥2 contracts, from `model.rows`.
+3. **Chainage coverage strip** — per motorway (A1/A3/Хемус…), a km-axis showing
    which segments have had contracts + spend density. Reuses `lengthOf()`/chainage
-   parse; reveals unbuilt gaps. Highest signal.
-2. **Capital-vs-maintenance ratio over time** — one trend line from the existing
-   `WorkGroup` split (build+rehab vs maintenance) per year. Cheap.
-3. **ОПУ regional-maintenance competition heatmap** — per-oblast single-bid share
-   on regional-upkeep lots, from `regionOf()`. Surfaces captured local markets.
-4. **Repeat-winner-on-corridor** — same contractor taking consecutive lots on one
-   corridor; pure aggregation over `model.rows`.
+   parse; reveals unbuilt gaps. Highest remaining signal, most effort.
+4. **Capital-vs-maintenance ratio over time** — trend from the `WorkGroup` split;
+   deferred as it overlaps `RoadTimeSpineTile`'s category mode.
 5. **€/km international benchmark band** — turn the static "key factors" text into
    a visual: plot corridor €/km against World Bank/ROCKS ranges by class + tunnel/
    bridge premium.
