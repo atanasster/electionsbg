@@ -41,6 +41,11 @@ import {
   type CompanyGeography,
 } from "../components/procurement/CompanyGeographyTile";
 import { AwarderTopContractorsTile } from "../components/procurement/AwarderTopContractorsTile";
+import { AwarderTendersTile } from "../components/procurement/AwarderTendersTile";
+import { ProcurementBreakdownTile } from "../components/procurement/ProcurementBreakdownTile";
+import { CompanyPortfolioTreemap } from "../components/procurement/CompanyPortfolioTreemap";
+import { EntityFlowTile } from "../components/procurement/EntityFlowTile";
+import { type EntityFlowMpEdge } from "@/data/procurement/entityFlow";
 import { CompanyRiskChips } from "../components/procurement/CompanyRiskChips";
 import {
   EntityRiskGradeCard,
@@ -183,7 +188,21 @@ type DbAwarderRollup = Pick<
   | "byContractor"
   | "byYear"
   | "topContracts"
-> & { contractorCount: number; amendmentCount: number };
+> & {
+  contractorCount: number;
+  amendmentCount: number;
+  // awarder_procurement() emits the same breakdown block as company_procurement
+  // (CPV divisions + procedure mix + EU share) — the buy-side "Какво купува" tile.
+  breakdown?: {
+    totalEur: number;
+    cpvKnownEur: number;
+    procKnownEur: number;
+    euEur: number;
+    euKnownEur: number;
+    cpvRaw: { d: string; eur: number; n: number }[];
+    procRaw: { method: string; eur: number; n: number }[];
+  };
+};
 
 // The procurement rollup from company_procurement() — the ProcurementContractorRollup
 // fields (minus eik/name/generatedAt, filled client-side) + the raw breakdown
@@ -223,6 +242,42 @@ const ENTITY_CLASS_KICKER: Record<string, { bg: string; en: string }> = {
     en: "Foreign entity branch",
   },
   state_enterprise: { bg: "Държавно предприятие", en: "State enterprise" },
+};
+
+// Bucket a raw awarder/company breakdown (CPV divisions + per-method sums, as
+// emitted by *_procurement()) into the ProcurementBreakdown the breakdown tile
+// expects. Shared by the contractor ("В кои сектори печели") and awarder
+// ("Какво купува") sides so both use identical procedure bucketing.
+const toBreakdown = (
+  eik: string,
+  bd: {
+    totalEur: number;
+    cpvKnownEur: number;
+    procKnownEur: number;
+    euEur: number;
+    euKnownEur: number;
+    cpvRaw: { d: string; eur: number; n: number }[];
+    procRaw: { method: string; eur: number; n: number }[];
+  },
+): ProcurementBreakdown => {
+  const byBucket = new Map<ProcedureBucket, { eur: number; n: number }>();
+  for (const p of bd.procRaw) {
+    const b = procedureBucket(p.method);
+    const cur = byBucket.get(b) ?? { eur: 0, n: 0 };
+    cur.eur += p.eur;
+    cur.n += p.n;
+    byBucket.set(b, cur);
+  }
+  return {
+    eik,
+    totalEur: bd.totalEur,
+    cpvKnownEur: bd.cpvKnownEur,
+    procKnownEur: bd.procKnownEur,
+    euEur: bd.euEur,
+    euKnownEur: bd.euKnownEur,
+    cpv: bd.cpvRaw,
+    proc: [...byBucket].map(([b, v]) => ({ b, eur: v.eur, n: v.n })),
+  };
 };
 
 const num = new Intl.NumberFormat("bg-BG");
@@ -417,28 +472,39 @@ export const CompanyDbScreen: FC = () => {
   // Bucket the raw procedure-method sums into the ProcedureBucket the breakdown
   // tile expects (same procedureBucket() the offline builder uses → identical
   // buckets); the CPV part is already division-grouped (d = left(cpv,2)).
-  const breakdown = useMemo<ProcurementBreakdown | null>(() => {
-    if (!procurement) return null;
-    const bd = procurement.breakdown;
-    const byBucket = new Map<ProcedureBucket, { eur: number; n: number }>();
-    for (const p of bd.procRaw) {
-      const b = procedureBucket(p.method);
-      const cur = byBucket.get(b) ?? { eur: 0, n: 0 };
-      cur.eur += p.eur;
-      cur.n += p.n;
-      byBucket.set(b, cur);
+  const breakdown = useMemo<ProcurementBreakdown | null>(
+    () => (procurement ? toBreakdown(eik, procurement.breakdown) : null),
+    [procurement, eik],
+  );
+
+  // Buy-side "Какво купува" breakdown — the awarder's spend by CPV division +
+  // how it procures (procedure mix). Same shape/tile as the contractor side.
+  const awarderBreakdown = useMemo<ProcurementBreakdown | null>(
+    () =>
+      awarderProc?.breakdown ? toBreakdown(eik, awarderProc.breakdown) : null,
+    [awarderProc, eik],
+  );
+
+  // MP overlay for the awarder money-flow sankey: any politically-linked
+  // supplier (from awarder_kindex) whose link is a sitting/former MP, keyed by
+  // the /candidate/mp-<id> ref the connections graph uses.
+  const awarderMpEdges = useMemo<EntityFlowMpEdge[]>(() => {
+    if (!awarderKindex) return [];
+    const edges: EntityFlowMpEdge[] = [];
+    for (const s of awarderKindex.suppliers) {
+      for (const p of s.politicians ?? []) {
+        const m = /mp-(\d+)/.exec(p.ref);
+        if (!m) continue;
+        edges.push({
+          contractorEik: s.eik,
+          mpId: Number(m[1]),
+          mpName: p.politician,
+          valueEur: s.eur,
+        });
+      }
     }
-    return {
-      eik,
-      totalEur: bd.totalEur,
-      cpvKnownEur: bd.cpvKnownEur,
-      procKnownEur: bd.procKnownEur,
-      euEur: bd.euEur,
-      euKnownEur: bd.euKnownEur,
-      cpv: bd.cpvRaw,
-      proc: [...byBucket].map(([b, v]) => ({ b, eur: v.eur, n: v.n })),
-    };
-  }, [procurement, eik]);
+    return edges;
+  }, [awarderKindex]);
 
   return (
     <div className="w-full px-4 py-6 md:px-6">
@@ -705,9 +771,44 @@ export const CompanyDbScreen: FC = () => {
                   contractorHref={(e) => `/company/${e}`}
                 />
               </div>
+              {/* Какво купува — CPV-division spend + procedure mix, buy-side. */}
+              {awarderBreakdown && (
+                <ProcurementBreakdownTile
+                  kind="a"
+                  breakdown={awarderBreakdown}
+                />
+              )}
+              {/* Where the money goes — top suppliers with the MP overlay. */}
+              {awarderRollup.byContractor.length > 0 && (
+                <EntityFlowTile
+                  role="awarder"
+                  centerEik={eik}
+                  centerName={awarderRollup.name}
+                  counterparties={awarderRollup.byContractor.map((c) => ({
+                    eik: c.eik,
+                    name: c.name,
+                    totalEur: c.totalEur,
+                  }))}
+                  mpEdges={awarderMpEdges}
+                />
+              )}
+              {/* Static composition of spend across suppliers. */}
+              {awarderRollup.byContractor.length > 1 && (
+                <CompanyPortfolioTreemap
+                  role="awarder"
+                  items={awarderRollup.byContractor.map((c) => ({
+                    eik: c.eik,
+                    name: c.name,
+                    totalEur: c.totalEur,
+                  }))}
+                />
+              )}
               {awarderRollup.byYear.length > 0 && (
                 <CompanyByYearChart rows={awarderRollup.byYear} />
               )}
+              {/* Lifecycle — announced procedures (forecast) → awarded (actual)
+                  via the ocid join. Self-fetching; renders nothing if none. */}
+              <AwarderTendersTile eik={eik} />
             </section>
           )}
           {/* Awarder with no awards inside the chosen window — keep the section
