@@ -42,6 +42,7 @@ import {
 } from "../components/procurement/CompanyGeographyTile";
 import { AwarderTopContractorsTile } from "../components/procurement/AwarderTopContractorsTile";
 import { AwarderTendersTile } from "../components/procurement/AwarderTendersTile";
+import { AwarderAppealsTile } from "../components/procurement/AwarderAppealsTile";
 import { ProcurementBreakdownTile } from "../components/procurement/ProcurementBreakdownTile";
 import { CompanyPortfolioTreemap } from "../components/procurement/CompanyPortfolioTreemap";
 import { EntityFlowTile } from "../components/procurement/EntityFlowTile";
@@ -828,8 +829,10 @@ export const CompanyDbScreen: FC = () => {
                 <CompanyByYearChart rows={awarderRollup.byYear} />
               )}
               {/* Lifecycle — announced procedures (forecast) → awarded (actual)
-                  via the ocid join. Self-fetching; renders nothing if none. */}
+                  via the ocid join, then the КЗК appeals filed against them.
+                  Both self-fetching; render nothing when there's none. */}
               <AwarderTendersTile eik={eik} />
+              <AwarderAppealsTile eik={eik} />
             </section>
           )}
           {/* Awarder with no awards inside the chosen window — keep the section
