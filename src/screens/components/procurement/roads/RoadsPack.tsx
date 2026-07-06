@@ -14,7 +14,7 @@
 
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Gavel, MapPin, Waypoints, TriangleAlert, X } from "lucide-react";
+import { MapPin, Waypoints, X } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import {
@@ -111,44 +111,11 @@ export const RoadsPack: FC<{ eik: string; window: RoadsWindow }> = ({
         </h2>
       </div>
 
-      {/* Road-specific competition KPIs (the generic total/contracts/suppliers
-          KPIs already sit above this in the awarder header). */}
+      {/* Road-specific coverage KPI. The generic total/contracts/suppliers KPIs
+          sit in the awarder header above, and single-bid % / no-call % now render
+          in the shared EU-benchmarks tile — so the pack keeps only the metric
+          that is genuinely roads-only. */}
       <div className="grid gap-3 grid-cols-2 lg:grid-cols-3">
-        <StatCard
-          label={lang === "bg" ? "Една оферта" : "Single bidder"}
-          hint={
-            lang === "bg"
-              ? "Дял на договорите с един участник (където броят е известен)."
-              : "Share of contracts with a single bidder (where the count is known)."
-          }
-          className={
-            (model.singleBidShare ?? 0) > 0.3
-              ? "ring-1 ring-amber-200/60 dark:ring-amber-800/40"
-              : undefined
-          }
-        >
-          <div className="flex items-baseline gap-2">
-            <TriangleAlert className="h-5 w-5 text-amber-600 shrink-0" />
-            <span className="text-2xl font-bold tabular-nums">
-              {pctFmt(model.singleBidShare, lang)}
-            </span>
-          </div>
-        </StatCard>
-        <StatCard
-          label={lang === "bg" ? "Без търг" : "Direct award"}
-          hint={
-            lang === "bg"
-              ? "Дял от обема, възложен пряко (без търг / обявление)."
-              : "Share of volume awarded directly / without a tender."
-          }
-        >
-          <div className="flex items-baseline gap-2">
-            <Gavel className="h-5 w-5 text-muted-foreground shrink-0" />
-            <span className="text-2xl font-bold tabular-nums">
-              {pctFmt(model.directShare, lang)}
-            </span>
-          </div>
-        </StatCard>
         <StatCard
           label={lang === "bg" ? "На разпознат път" : "On a named road"}
           hint={

@@ -15,7 +15,10 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Scale } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { useProcurementBenchmarks } from "@/data/procurement/useProcurementBenchmarks";
+import {
+  useProcurementBenchmarks,
+  type ProcurementBenchmarksFile,
+} from "@/data/procurement/useProcurementBenchmarks";
 
 const IndicatorBar: FC<{
   label: string;
@@ -85,9 +88,19 @@ const IndicatorBar: FC<{
   );
 };
 
-export const ProcurementBenchmarksTile: FC = () => {
+// National mode (no `data`) self-fetches the window totals; entity mode is fed a
+// pre-built {total, singleBidder, noCall} from the awarder/company rollup so the
+// same green/amber/red bars work on /awarder/:eik and /company/:eik.
+export const ProcurementBenchmarksTile: FC<{
+  data?: ProcurementBenchmarksFile | null;
+  /** Heading override for the entity view ("this buyer" vs the national feed). */
+  title?: string;
+}> = ({ data: entityData, title }) => {
   const { t, i18n } = useTranslation();
-  const { data } = useProcurementBenchmarks();
+  const national = useProcurementBenchmarks();
+  // Entity mode passes `data` explicitly (may be null → nothing to show);
+  // national mode reads the hook. `entityData === undefined` = not entity mode.
+  const data = entityData !== undefined ? entityData : national.data;
   if (!data) return null;
   const sb = data.singleBidder;
   const nc = data.noCall;
@@ -101,7 +114,9 @@ export const ProcurementBenchmarksTile: FC = () => {
       <CardHeader className="pb-2">
         <CardTitle className="text-base flex items-center gap-2">
           <Scale className="h-4 w-4 text-muted-foreground" />
-          {t("procurement_bm_title") || "Competition vs the EU thresholds"}
+          {title ||
+            t("procurement_bm_title") ||
+            "Competition vs the EU thresholds"}
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 md:p-4 pt-0 divide-y divide-border/40">

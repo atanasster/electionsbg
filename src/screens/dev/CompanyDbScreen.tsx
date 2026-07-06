@@ -48,6 +48,8 @@ import { CompanyPortfolioTreemap } from "../components/procurement/CompanyPortfo
 import { EntityFlowTile } from "../components/procurement/EntityFlowTile";
 import { type EntityFlowMpEdge } from "@/data/procurement/entityFlow";
 import { getSectorPack } from "../components/procurement/sectorPacks";
+import { ProcurementBenchmarksTile } from "../components/procurement/ProcurementBenchmarksTile";
+import { type ProcurementBenchmarksFile } from "@/data/procurement/useProcurementBenchmarks";
 import { CompanyRiskChips } from "../components/procurement/CompanyRiskChips";
 import {
   EntityRiskGradeCard,
@@ -194,13 +196,16 @@ type DbAwarderRollup = Pick<
   contractorCount: number;
   amendmentCount: number;
   // awarder_procurement() emits the same breakdown block as company_procurement
-  // (CPV divisions + procedure mix + EU share) — the buy-side "Какво купува" tile.
+  // (CPV divisions + procedure mix + EU share + bid-count competition) — feeds
+  // the buy-side "Какво купува" tile and the EU-threshold benchmarks tile.
   breakdown?: {
     totalEur: number;
     cpvKnownEur: number;
     procKnownEur: number;
     euEur: number;
     euKnownEur: number;
+    bidKnownN?: number;
+    singleBidN?: number;
     cpvRaw: { d: string; eur: number; n: number }[];
     procRaw: { method: string; eur: number; n: number }[];
   };
@@ -227,6 +232,8 @@ type DbRollup = Pick<
     procKnownEur: number;
     euEur: number;
     euKnownEur: number;
+    bidKnownN?: number;
+    singleBidN?: number;
     cpvRaw: { d: string; eur: number; n: number }[];
     procRaw: { method: string; eur: number; n: number }[];
   };
@@ -279,6 +286,26 @@ const toBreakdown = (
     euKnownEur: bd.euKnownEur,
     cpv: bd.cpvRaw,
     proc: [...byBucket].map(([b, v]) => ({ b, eur: v.eur, n: v.n })),
+  };
+};
+
+// Build the EU-threshold benchmark inputs for one entity from its rollup: the
+// single-bidder share (bid counts from *_procurement) and the no-call share
+// (direct/no-notice procedures ÷ contracts with a known method, from the
+// procedure buckets). Same definitions as the national ProcurementBenchmarksTile
+// so an entity's number matches its slice of the national figure.
+const entityBenchmarks = (
+  contractCount: number,
+  bidKnownN: number | undefined,
+  singleBidN: number | undefined,
+  breakdown: ProcurementBreakdown,
+): ProcurementBenchmarksFile => {
+  const methodKnown = breakdown.proc.reduce((s, p) => s + p.n, 0);
+  const noCall = breakdown.proc.find((p) => p.b === "direct")?.n ?? 0;
+  return {
+    total: contractCount,
+    singleBidder: { single: singleBidN ?? 0, known: bidKnownN ?? 0 },
+    noCall: { noCall, methodKnown },
   };
 };
 
@@ -494,6 +521,34 @@ export const CompanyDbScreen: FC = () => {
     () =>
       awarderProc?.breakdown ? toBreakdown(eik, awarderProc.breakdown) : null,
     [awarderProc, eik],
+  );
+
+  // EU-threshold competition benchmarks (single-bid % / no-call %) for the
+  // awarder and contractor sides — the tile hides itself below the coverage
+  // floor, so small entities simply don't show it.
+  const awarderBenchmarks = useMemo<ProcurementBenchmarksFile | null>(
+    () =>
+      awarderProc?.breakdown && awarderBreakdown
+        ? entityBenchmarks(
+            awarderProc.contractCount,
+            awarderProc.breakdown.bidKnownN,
+            awarderProc.breakdown.singleBidN,
+            awarderBreakdown,
+          )
+        : null,
+    [awarderProc, awarderBreakdown],
+  );
+  const contractorBenchmarks = useMemo<ProcurementBenchmarksFile | null>(
+    () =>
+      procurement && breakdown
+        ? entityBenchmarks(
+            procurement.contractCount,
+            procurement.breakdown.bidKnownN,
+            procurement.breakdown.singleBidN,
+            breakdown,
+          )
+        : null,
+    [procurement, breakdown],
   );
 
   // MP overlay for the awarder money-flow sankey: any politically-linked
@@ -800,6 +855,15 @@ export const CompanyDbScreen: FC = () => {
                   breakdown={awarderBreakdown}
                 />
               )}
+              {/* Competition vs the EU red lines (single-bid % / no-call %). */}
+              <ProcurementBenchmarksTile
+                data={awarderBenchmarks}
+                title={
+                  i18n.language === "bg"
+                    ? "Конкуренция спрямо праговете на ЕС"
+                    : "Competition vs the EU thresholds"
+                }
+              />
               {/* Where the money goes — top suppliers with the MP overlay. */}
               {awarderRollup.byContractor.length > 0 && (
                 <EntityFlowTile
@@ -1042,6 +1106,16 @@ export const CompanyDbScreen: FC = () => {
                   sectors={sectors}
                 />
               )}
+              {/* Competition vs the EU red lines, sell-side (contracts this
+                  supplier won with a single bidder / without a call). */}
+              <ProcurementBenchmarksTile
+                data={contractorBenchmarks}
+                title={
+                  i18n.language === "bg"
+                    ? "Конкуренция спрямо праговете на ЕС"
+                    : "Competition vs the EU thresholds"
+                }
+              />
               {geography && <CompanyGeographyTile data={geography} />}
               <CompanyBuyerConcentrationTile rollup={rollup} />
               {relationships && (

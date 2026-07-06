@@ -102,7 +102,13 @@ bd AS (
     COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract' AND cpv IS NOT NULL AND cpv <> ''), 0) AS cpv_known_eur,
     COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract' AND procurement_method IS NOT NULL AND procurement_method <> ''), 0) AS proc_known_eur,
     COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract' AND eu_funded = 1), 0) AS eu_eur,
-    COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract' AND eu_funded IS NOT NULL), 0) AS eu_known_eur
+    COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract' AND eu_funded IS NOT NULL), 0) AS eu_known_eur,
+    -- Competition (EU Single Market Scoreboard basis): single-bidder share over
+    -- contracts with a KNOWN tenderer count (bid counts only exist on the
+    -- ЦАИС-era feed). The client computes single/known + derives no-call from
+    -- the procedure buckets — same definitions as ProcurementBenchmarksTile.
+    (COUNT(*) FILTER (WHERE tag = 'contract' AND number_of_tenderers IS NOT NULL))::int AS bid_known_n,
+    (COUNT(*) FILTER (WHERE tag = 'contract' AND number_of_tenderers = 1))::int AS single_bid_n
   FROM base
 )
 SELECT CASE
@@ -123,6 +129,8 @@ SELECT CASE
       'procKnownEur', bd.proc_known_eur,
       'euEur', bd.eu_eur,
       'euKnownEur', bd.eu_known_eur,
+      'bidKnownN', bd.bid_known_n,
+      'singleBidN', bd.single_bid_n,
       'cpvRaw', bd_cpv.arr,
       'procRaw', bd_proc.arr
     )
