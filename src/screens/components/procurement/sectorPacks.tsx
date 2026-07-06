@@ -17,6 +17,7 @@ import { lazy, type ComponentType } from "react";
 // so nav surfaces importing ROADS_AWARDER_PATH don't eager-load the roads corpus
 // hook — the RoadsPack itself stays a lazy() dynamic import.
 import { API_EIK } from "@/lib/roadAttributes";
+import { NOI_EIK } from "@/lib/noiBenchmarks";
 import type { RoadsWindow } from "@/data/procurement/useRoads";
 
 export interface SectorPackProps {
@@ -26,17 +27,22 @@ export interface SectorPackProps {
   scopeWindow: RoadsWindow;
 }
 
-// Canonical path to the roads awarder dashboard. Single source for the nav
-// surfaces (route redirect, procurement pill, report menu) so re-keying the
-// pack — or giving a second pack a pill — can't drift the hardcoded EIK.
+// Canonical paths to the packed awarder dashboards. Single source for the nav
+// surfaces (route redirect, procurement pill, report menu) so re-keying a pack —
+// or giving a pack a pill — can't drift the hardcoded EIK.
 export const ROADS_AWARDER_PATH = `/awarder/${API_EIK}`;
+export const NOI_AWARDER_PATH = `/awarder/${NOI_EIK}`;
 
 const RoadsPack = lazy(() =>
   import("./roads/RoadsPack").then((m) => ({ default: m.RoadsPack })),
 );
+const NoiPack = lazy(() =>
+  import("./noi/NoiPack").then((m) => ({ default: m.NoiPack })),
+);
 
 const PACKS: Record<string, ComponentType<SectorPackProps>> = {
   [API_EIK]: RoadsPack,
+  [NOI_EIK]: NoiPack,
 };
 
 export const getSectorPack = (

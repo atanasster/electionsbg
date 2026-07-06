@@ -94,24 +94,73 @@ Add to `RoadsPack` / `buildRoadsModel` (`src/lib/roadAttributes.ts`), no backend
    be mostly empty. `AwarderTendersTile` already shows the honest entity-level
    forecast→actual; a corridor breakdown would add noise, not signal.
 
-### P4 — prove the seam (НОИ / ДОО) — DONE, and the finding is "no pack needed"
+### P4 — НОИ / ДОО pack — SHIPPED (the fund-fusion justified it after all)
 
-Verified `/awarder/121082521` (НОИ, 2279 contracts). It renders the **full generic
-enrichment with zero new code**: CPV "Какво купува", EU benchmarks (single-bid
-42.3% — red, worse than roads' 22.5%), money-flow sankey (→ Информационно
-обслужване АД, Български пощи — its IT + postal spend surfacing naturally),
-treemap, tenders, КЗК appeals. No roads pack (correctly).
+The earlier P4 conclusion ("no pack needed") was right on its own terms — НОИ's
+procurement taxonomy is legible from CPV + the flow tile, and there's no roads-
+style geometry. But it missed the actual differentiator surfaced in competitive
+research: we already ingest the **ДОО fund execution** (`data/budget/noi/funds.json`,
+via `useNoiFunds`), and **nobody fuses a social fund's execution with its
+procurement ledger** (not НОИ's own PDF bulletins, not ИПИ's static deficit
+articles, not USASpending / OpenTender / ProZorro, which are procurement-only).
+That fusion is domain geometry the generic tiles structurally can't express, so
+it passes P4's own test. `NoiPack` shipped:
 
-Conclusion: **a sector pack is only warranted when a buyer needs domain-specific
-geometry the generic tiles can't express — i.e. the roads network map.** НОИ/ДОО's
-"taxonomy" (IT / postal / facilities / ТЕЛК) is already legible from CPV divisions
-+ the flow tile, so it needs no `NoiPack`. The seam exists (`sectorPacks.tsx`) for
-the next buyer that genuinely does — register an EIK + a `<Pack eik window/>` and
-it drops in with no `CompanyDbScreen` change. The `buildAwarderModel` /
-`SectorClassifier` refactor below is only worth doing once such a second pack
-actually materialises.
+- `src/lib/noiBenchmarks.ts` — SSA/DRV admin-cost band, CPV→function taxonomy
+  (`categoryOfCpv`), and the statutory-supplier context registry
+  (Информационно обслужване = systems integrator by law; Български пощи = pension
+  delivery under the НПОС чл. 92 mandate expiring 1.07.2026).
+- `src/lib/noiAttributes.ts` — pure classification engine (mirrors
+  `roadAttributes`): functional categories, supplier dependence, single-bid /
+  direct-award, year spine. `buildNoiModel(rows)`.
+- `src/data/procurement/useNoi.tsx` — `useAwarderContracts` + scope window +
+  `useNoiFunds` join; flattens the latest ДОО year (admin = Персонал + Издръжка
+  executed, from B1).
+- Tiles (`screens/components/procurement/noi/`): **NoiFundFlowTile** (hero — the
+  €12.6bn ДОО the €106M of contracts sits inside, contributions-vs-transfer
+  coverage, pension-type split), **NoiCategoryTile** (the industry-function
+  breakdown), **NoiAdminBenchmarkTile** (НОИ 0.75% vs SSA ~0.5% / DRV 0.9–1.3%,
+  execution-basis; €/pensioner; procurement's share of издръжка = the zIndex
+  visibility lens), **NoiStrategicSuppliersTile** (Tussell-style dependence bar
+  with the two statutory context chips). `NoiPack.tsx` assembles them.
+- Registered `NOI_EIK → NoiPack` in `sectorPacks.tsx`; nav pill "Осигуряване
+  (НОИ)" added to `ProcurementNav` `secondaryItems` (`procurement_noi_nav`).
 
-## Generalising the classifier (when P4 lands)
+Measured on the corpus: €105.9M / 2282 contracts / 651 suppliers / 2011–2026;
+ИТ и системи €29.5M is the largest function; 44% single-bid overall (but the two
+statutory suppliers carry the context chip so it doesn't read as scandal); top-8
+suppliers = 41% of value. Admin ratio 0.75% lands honestly inside the SSA–DRV band.
+
+### P4b — НОИ ТП map + trend depth (deferred, needs an ingest)
+
+The one enhancement deliberately NOT shipped is the **28-ТП territorial map**
+("procurement € / pensioner served per oblast"). It is a genuine Phase-2 because
+the data isn't in the repo and faking it would violate the site's honesty
+standard:
+- Contracts carry no execution-location column (only `awarder_region` = the
+  buyer seat = Sofia for НОИ's ЦУ), so a procurement choropleth would be
+  Sofia-only and misleading.
+- The honest version needs **pensioners-/benefit-recipients-by-ТП** from
+  data.egov.bg (НОИ publishes it since 2010) as the denominator, joined to
+  title-parsed per-ТП contracts ("ТП на НОИ – Варна" style) — and the ТП-attribution
+  coverage must be measured first (same rule as the roads chainage strip).
+  Reuse `ProcurementOblastMap` (already metric-generic) once the denominator lands.
+- `funds.json` currently covers only **2023–2024**; the admin-ratio and
+  €/pensioner *trend* lines want a few more years of B1 backfill (nssi.bg's B1
+  URL template is year-parameterised → the `update-noi` skill's parser handles
+  prior years).
+
+### Generic follow-ups the second pack now unlocks (optional)
+
+- **Peer scorecard (zIndex 0–100)** vs НАП / НЗОК / АСП rather than the national
+  mean — wants to be a *generic* awarder feature (inputs already exist via
+  `computeProcurementRisk` + the EU benchmarks tile), with a pack merely pinning
+  the peer group. Build generic, not per-pack.
+- The `buildRoadsModel` / `buildNoiModel` duplication is now real; the
+  `buildAwarderModel(contracts, classifier)` + `SectorClassifier` unification
+  below is finally worth doing (two concrete packs to abstract over).
+
+## Generalising the classifier (now that P4 has landed)
 
 `buildRoadsModel` currently fuses parsing + aggregation. Split into:
 - `buildAwarderModel(contracts, classifier)` — pure generic aggregation.
