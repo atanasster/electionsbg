@@ -32,6 +32,8 @@ import { RoadComponentsTile } from "./RoadComponentsTile";
 import { COMPONENT_LABEL } from "./roadLabels";
 import { RoadTimeSpineTile } from "./RoadTimeSpineTile";
 import { RoadPlannedTendersTile } from "./RoadPlannedTendersTile";
+import { RoadRegionCompetitionTile } from "./RoadRegionCompetitionTile";
+import { RoadRepeatWinnersTile } from "./RoadRepeatWinnersTile";
 import { RoadNetworkMap, type RoadMetric } from "./RoadNetworkMap";
 
 const pctFmt = (v: number | undefined, lang: string) =>
@@ -216,6 +218,12 @@ export const RoadsPack: FC<{ eik: string; window: RoadsWindow }> = ({
 
       {/* Kinds of work (tunnels, bridges, markings…) with capture metrics */}
       <RoadComponentsTile components={model.components} />
+
+      {/* Where competition collapses — ОПУ single-bid heatmap + corridor capture */}
+      <div className="grid gap-4 xl:grid-cols-2">
+        <RoadRegionCompetitionTile regions={model.regions} />
+        <RoadRepeatWinnersTile rows={model.rows} />
+      </div>
 
       {/* Planned procurements (tender pipeline — what is announced to be built) */}
       <RoadPlannedTendersTile />
