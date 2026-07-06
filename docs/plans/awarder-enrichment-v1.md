@@ -43,15 +43,19 @@ reference_db_push_cloud.
 
 ### P1b — generic competition KPIs + per-buyer KZK (highest value)
 
-1. ~~**Entity-scoped `ProcurementBenchmarksTile`.**~~ **SHIPPED** (`7527bdddd`).
-   `awarder_procurement()` (023) + `company_procurement()` (011) now return
-   `bidKnownN` + `singleBidN`; the client derives single-bid share from them and
-   no-call from the procedure buckets, feeding the reused tile (now takes optional
-   entity `data`) on `/awarder/:eik` + `/company/:eik`. АПИ single-bid 22.5% =
-   191/849, parity with the roads model. RoadsPack deduped to the roads-only "на
-   разпознат път" KPI.
-   **Prod:** needs `db:push` + functions redeploy for the new jsonb fields; until
-   then the tile hides itself (bidKnownN absent → below coverage floor).
+1. ~~**Entity-scoped `ProcurementBenchmarksTile`.**~~ **SHIPPED** (`7527bdddd`,
+   parity-fixed `a17cbbf11`). `awarder_procurement()` (023) + `company_procurement()`
+   (011) emit four competition counts — `bidKnownN`, `singleBidN`, `noCallN`,
+   `methodKnownN` — computed IDENTICALLY to the national `procurement_benchmarks`
+   (037, ECA SR 28/2023): single-bidder over COMPETITIVE procedures only (excludes
+   direct/no-call, method known), no-call by the explicit direct-method list. The
+   client uses them directly (no procedureBucket derivation). Verified vs a
+   national-style oracle for АПИ: 143/794/71/1108 → single-bid **18.0%**, no-call
+   6.4%. (The first cut counted single-bid over all bid-known rows → an inflated
+   22.5%; the audit caught it.) RoadsPack deduped to the roads-only "на разпознат
+   път" KPI.
+   **Prod:** needs a schema reload (011/023 wired into `load_pg`) for the new jsonb
+   fields; until then the tile hides itself (fields absent → below coverage floor).
 
 2. ~~**Per-buyer KZK appeals tile.**~~ **SHIPPED** without a migration — the
    generic `/api/db/table` engine already scopes `kzk_appeals` by `buyer_eik` and
