@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/select";
 import { useRoads, type RoadsWindow } from "@/data/procurement/useRoads";
 import { formatEurCompact } from "@/lib/currency";
+import { ROAD_EUR_PER_KM, eurPerKmMln } from "@/lib/roadBenchmarks";
 import { RoadCostPerKmTile } from "./RoadCostPerKmTile";
 import { RoadWorkGroupDonut } from "./RoadWorkGroupDonut";
 import { RoadComponentsTile } from "./RoadComponentsTile";
@@ -43,15 +44,18 @@ const pctFmt = (v: number | undefined, lang: string) =>
     ? "—"
     : (v * 100).toLocaleString(lang, { maximumFractionDigits: 1 }) + "%";
 
-export const RoadsPack: FC<{ eik: string; window: RoadsWindow }> = ({
+export const RoadsPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
   eik,
-  window,
+  scopeWindow,
 }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const [mapMetric, setMapMetric] = useState<RoadMetric>("singleBid");
   const [focusCorridor, setFocusCorridor] = useState<string | null>(null);
-  const { model, isLoading } = useRoads(eik, window);
+  const { model, isLoading } = useRoads(eik, scopeWindow);
+  // Shared €/km reference levels, formatted for the key-factors prose below.
+  const { rocks, bgLo, bgHi, ro, gr } = ROAD_EUR_PER_KM;
+  const km = (v: number) => eurPerKmMln(v, lang);
 
   // Auto-generated plain-language headlines from the model (road-specific: peak
   // year, largest corridor, captured component, clean big contractor, direct %).
@@ -200,8 +204,8 @@ export const RoadsPack: FC<{ eik: string; window: RoadsWindow }> = ({
           />
           <p className="text-[11px] text-muted-foreground/80 mt-2">
             {lang === "bg"
-              ? "Автомагистрали и финансирани републикански пътища (I и II клас). Дебелината на линията показва вложените средства. Кликни коридор, за да филтрираш."
-              : "Motorways and funded republican roads (class I and II). Line thickness reflects € spent. Click a corridor to filter."}
+              ? "Автомагистрали и финансирани републикански пътища (I и II клас). Дебелината на линията показва вложените средства. Кликни коридор, за да го откроиш на картата."
+              : "Motorways and funded republican roads (class I and II). Line thickness reflects € spent. Click a corridor to highlight it on the map."}
           </p>
         </CardContent>
       </Card>
@@ -259,9 +263,10 @@ export const RoadsPack: FC<{ eik: string; window: RoadsWindow }> = ({
               </p>
               <p className="mt-2 text-xs">
                 За груб ориентир (не пряко сравнение): ново строителство на
-                магистрала в България е средно около €3–6 млн/км, в Румъния
-                ~€6,3 млн/км, в Гърция ~€10 млн/км; базата на Световната банка
-                (ROCKS) дава ~€1,4 млн/км за двулентов път без съоръжения.
+                магистрала в България е средно около €{km(bgLo)}–{km(bgHi)}{" "}
+                млн/км, в Румъния ~€{km(ro)} млн/км, в Гърция ~€{km(gr)} млн/км;
+                базата на Световната банка (ROCKS) дава ~€{km(rocks)} млн/км за
+                двулентов път без съоръжения.
               </p>
             </>
           ) : (
@@ -277,9 +282,10 @@ export const RoadsPack: FC<{ eik: string; window: RoadsWindow }> = ({
               </p>
               <p className="mt-2 text-xs">
                 As a rough, non-comparable benchmark: new motorway construction
-                averages ~€3–6M/km in Bulgaria, ~€6.3M/km in Romania, ~€10M/km
-                in Greece; the World Bank ROCKS database gives ~€1.4M/km for a
-                two-lane road excluding structures.
+                averages ~€{km(bgLo)}–{km(bgHi)}M/km in Bulgaria, ~€{km(ro)}M/km
+                in Romania, ~€{km(gr)}M/km in Greece; the World Bank ROCKS
+                database gives ~€{km(rocks)}M/km for a two-lane road excluding
+                structures.
               </p>
             </>
           )}

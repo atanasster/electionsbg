@@ -11,9 +11,10 @@ export type ProcurementBenchmarksFile = {
   noCall: { noCall: number; methodKnown: number };
 };
 
-export const useProcurementBenchmarks = () => {
+export const useProcurementBenchmarks = (enabled = true) => {
   const { from, to } = useProcurementWindow();
   return useQuery({
+    enabled,
     queryKey: ["procurement", "benchmarks", from, to],
     queryFn: async (): Promise<ProcurementBenchmarksFile | null> => {
       const qs = new URLSearchParams();

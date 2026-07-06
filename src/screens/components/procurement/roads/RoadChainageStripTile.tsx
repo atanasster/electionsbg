@@ -165,8 +165,8 @@ export const RoadChainageStripTile: FC<{ rows: RoadContract[] }> = ({
         ))}
         <p className="text-[11px] text-muted-foreground/80">
           {lang === "bg"
-            ? "Само договори с абсолютна километрична референция по именувана магистрала. По-тъмното означава повече вложени средства на този участък; празното — липса на договори (не непременно липса на път)."
-            : "Only contracts with an absolute km reference on a named motorway. Darker = more € spent on that stretch; empty = no contracts (not necessarily no road)."}
+            ? "Само договори с абсолютна километрична референция по именувана магистрала и поне 3 локализирани договора на магистрала. По-тъмното означава повече вложени средства на този участък; празното — липса на договори (не непременно липса на път)."
+            : "Only contracts with an absolute km reference on a named motorway, and at least 3 locatable contracts per motorway. Darker = more € spent on that stretch; empty = no contracts (not necessarily no road)."}
         </p>
       </CardContent>
     </Card>

@@ -97,7 +97,9 @@ export const ProcurementBenchmarksTile: FC<{
   title?: string;
 }> = ({ data: entityData, title }) => {
   const { t, i18n } = useTranslation();
-  const national = useProcurementBenchmarks();
+  // Only the national mode needs the fetch; in entity mode the query is disabled
+  // so /company/:eik and /awarder/:eik don't fire a discarded Cloud SQL call.
+  const national = useProcurementBenchmarks(entityData === undefined);
   // Entity mode passes `data` explicitly (may be null → nothing to show);
   // national mode reads the hook. `entityData === undefined` = not entity mode.
   const data = entityData !== undefined ? entityData : national.data;

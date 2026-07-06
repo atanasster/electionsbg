@@ -14,13 +14,16 @@ import { Scale } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import type { CorridorAgg } from "@/lib/roadAttributes";
+import { ROAD_EUR_PER_KM } from "@/lib/roadBenchmarks";
 
-// Reference levels (€/km) lifted from the key-factors note.
-const ROCKS = 1_400_000; // World Bank ROCKS, 2-lane road w/o structures
-const BG_LO = 3_000_000; // BG new motorway, low
-const BG_HI = 6_000_000; // BG new motorway, high
-const RO = 6_300_000; // Romania motorway avg
-const GR = 10_000_000; // Greece motorway avg
+// Reference levels (€/km) — shared with the key-factors prose in RoadsPack.
+const {
+  rocks: ROCKS,
+  bgLo: BG_LO,
+  bgHi: BG_HI,
+  ro: RO,
+  gr: GR,
+} = ROAD_EUR_PER_KM;
 
 const POINT_REFS = [
   { v: ROCKS, label: "ROCKS", bg: "СБ 2-лентов", en: "WB 2-lane" },

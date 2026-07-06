@@ -8,6 +8,7 @@ import {
   useParams,
 } from "react-router-dom";
 import { Layout } from "./layout/Layout";
+import { ROADS_AWARDER_PATH } from "./screens/components/procurement/sectorPacks";
 import { CabinetAnchorProvider } from "@/data/macro/cabinetAnchorContext";
 import { AreaAnchorProvider } from "@/data/area/AreaAnchorProvider";
 
@@ -1906,7 +1907,7 @@ export const AuthRoutes = () => {
               RoadsPack + sectorPacks. */}
           <Route
             path="procurement/roads"
-            element={<Navigate to="/awarder/000695089" replace />}
+            element={<Navigate to={ROADS_AWARDER_PATH} replace />}
           />
           <Route
             path="procurement/flags"

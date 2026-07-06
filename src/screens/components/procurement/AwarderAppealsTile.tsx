@@ -11,8 +11,6 @@ import { Gavel } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useAwarderAppeals } from "@/data/procurement/useAwarderAppeals";
 
-const numFmt = new Intl.NumberFormat("bg-BG");
-
 const outcomeChip = (
   outcome: string | null,
   status: string | null,
@@ -38,6 +36,7 @@ const outcomeChip = (
 export const AwarderAppealsTile: FC<{ eik: string }> = ({ eik }) => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
+  const numFmt = new Intl.NumberFormat(bg ? "bg-BG" : "en-GB");
   const { data } = useAwarderAppeals(eik);
   if (!data || data.total === 0) return null;
 
@@ -124,7 +123,7 @@ export const AwarderAppealsTile: FC<{ eik: string }> = ({ eik }) => {
 
         {data.total > data.recent.length && (
           <Link
-            to="/procurement/appeals"
+            to={`/procurement/appeals?buyer=${eik}`}
             className="inline-block text-sm text-accent hover:underline"
           >
             {bg

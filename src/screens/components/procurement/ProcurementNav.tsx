@@ -10,6 +10,7 @@
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { ROADS_AWARDER_PATH } from "./sectorPacks";
 import {
   LayoutGrid,
   MapPin,
@@ -65,7 +66,7 @@ const items = [
 // the list can grow without crowding primary navigation. One entry per page.
 const secondaryItems = [
   {
-    to: "/awarder/000695089",
+    to: ROADS_AWARDER_PATH,
     icon: Route,
     key: "procurement_roads_nav",
   },

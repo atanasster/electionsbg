@@ -13,14 +13,23 @@
 // own classifier + tiles and register its EIK below.
 
 import { lazy, type ComponentType } from "react";
-import { API_EIK } from "@/data/procurement/useRoads";
+// API_EIK from the dependency-free engine (not useRoads, which pulls react-query)
+// so nav surfaces importing ROADS_AWARDER_PATH don't eager-load the roads corpus
+// hook — the RoadsPack itself stays a lazy() dynamic import.
+import { API_EIK } from "@/lib/roadAttributes";
 import type { RoadsWindow } from "@/data/procurement/useRoads";
 
 export interface SectorPackProps {
   eik: string;
-  /** [from, to) window inherited from the host's scope control. */
-  window: RoadsWindow;
+  /** [from, to) window inherited from the host's scope control. Named
+   *  `scopeWindow` (not `window`) so it can't shadow the global `window`. */
+  scopeWindow: RoadsWindow;
 }
+
+// Canonical path to the roads awarder dashboard. Single source for the nav
+// surfaces (route redirect, procurement pill, report menu) so re-keying the
+// pack — or giving a second pack a pill — can't drift the hardcoded EIK.
+export const ROADS_AWARDER_PATH = `/awarder/${API_EIK}`;
 
 const RoadsPack = lazy(() =>
   import("./roads/RoadsPack").then((m) => ({ default: m.RoadsPack })),

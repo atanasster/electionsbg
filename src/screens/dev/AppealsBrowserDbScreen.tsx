@@ -73,6 +73,11 @@ export const AppealsBrowserDbScreen: FC = () => {
   });
   const outcomeOptions = facetData?.facets?.outcome ?? [];
 
+  // ?buyer=<eik> scopes the whole table to one contracting authority — the
+  // deep-link target of the awarder page's "see all appeals" link (buyer_eik is
+  // a whitelisted eq filter in the kzk_appeals registry).
+  const buyerEik = params.get("buyer");
+
   const extraFilters = useMemo<DbColumnFilter[]>(() => {
     const f: DbColumnFilter[] = [];
     // Section scope (?pscope) → bound the complaint date to the window. Exclusive
@@ -80,8 +85,9 @@ export const AppealsBrowserDbScreen: FC = () => {
     if (!all && from)
       f.push({ id: "complaint_date", min: from, max: to ?? undefined });
     if (outcome !== ALL) f.push({ id: "outcome", value: [outcome] });
+    if (buyerEik) f.push({ id: "buyer_eik", value: buyerEik });
     return f;
-  }, [all, from, to, outcome]);
+  }, [all, from, to, outcome, buyerEik]);
 
   const columns = useMemo<DataTableColumnDef<AppealRow, unknown>[]>(
     () => [

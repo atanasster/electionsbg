@@ -825,7 +825,7 @@ export const CompanyDbScreen: FC = () => {
                     <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
                   }
                 >
-                  <SectorPack eik={eik} window={{ from, to }} />
+                  <SectorPack eik={eik} scopeWindow={{ from, to }} />
                 </Suspense>
               )}
               <div className="grid gap-4 lg:grid-cols-2">
