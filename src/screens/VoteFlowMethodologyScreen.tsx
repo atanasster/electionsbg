@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { ArticleLayout } from "@/components/article/ArticleLayout";
 import {
   ArticleH2,
@@ -6,6 +6,16 @@ import {
   ArticleP,
   ArticleUL,
 } from "@/components/article/ArticleProse";
+import { proseClasses } from "@/components/article/proseClasses";
+
+const extLink = (href: string) => (
+  <a
+    className={proseClasses.a}
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+  />
+);
 
 export const VoteFlowMethodologyScreen = () => {
   const { t } = useTranslation();
@@ -19,8 +29,26 @@ export const VoteFlowMethodologyScreen = () => {
       <ArticleP>{t("vote_flow_methodology_intro")}</ArticleP>
 
       <ArticleH2>{t("vote_flow_methodology_h_estimate")}</ArticleH2>
-      <ArticleP>{t("vote_flow_methodology_p_estimate1")}</ArticleP>
-      <ArticleP>{t("vote_flow_methodology_p_estimate2")}</ArticleP>
+      <ArticleP>
+        <Trans
+          i18nKey="vote_flow_methodology_p_estimate1"
+          components={{
+            goodman: extLink(
+              "https://en.wikipedia.org/wiki/Ecological_regression",
+            ),
+          }}
+        />
+      </ArticleP>
+      <ArticleP>
+        <Trans
+          i18nKey="vote_flow_methodology_p_estimate2"
+          components={{
+            ras: extLink(
+              "https://en.wikipedia.org/wiki/Iterative_proportional_fitting",
+            ),
+          }}
+        />
+      </ArticleP>
 
       <ArticleH2>{t("vote_flow_methodology_h_pseudo")}</ArticleH2>
       <ArticleP>{t("vote_flow_methodology_p_pseudo1")}</ArticleP>
