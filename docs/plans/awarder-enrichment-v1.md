@@ -54,8 +54,12 @@ reference_db_push_cloud.
    6.4%. (The first cut counted single-bid over all bid-known rows → an inflated
    22.5%; the audit caught it.) RoadsPack deduped to the roads-only "на разпознат
    път" KPI.
-   **Prod:** needs a schema reload (011/023 wired into `load_pg`) for the new jsonb
-   fields; until then the tile hides itself (fields absent → below coverage floor).
+   **Prod: DEPLOYED.** Applied 011 + 023 to Cloud SQL via the new surgical
+   `scripts/db/apply_functions.ts` (CREATE OR REPLACE only — no destructive
+   `db:sync:cloud`, no full reload). Verified end-to-end: `electionsbg.com/api/db/
+   company?eik=000695089` returns bidKnownN 794 / singleBidN 143 / noCallN 71 /
+   methodKnownN 1108, exact parity with local. `db_routes.js` unchanged (forwards
+   the whole jsonb), so no Firebase Functions redeploy was needed.
 
 2. ~~**Per-buyer KZK appeals tile.**~~ **SHIPPED** without a migration — the
    generic `/api/db/table` engine already scopes `kzk_appeals` by `buyer_eik` and
