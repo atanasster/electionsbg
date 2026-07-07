@@ -27,6 +27,36 @@ export interface Money {
 }
 
 // ---------------------------------------------------------------------------
+// НЗОК budget-law breakdown (health sector pack) — see the src/ mirror in
+// src/data/budget/types.ts. Written by scripts/budget/nzok/__write_budget.ts.
+// ---------------------------------------------------------------------------
+
+export type NzokBudgetGroup = "care" | "admin" | "reserve";
+
+export interface NzokBudgetLine {
+  id: string;
+  group: NzokBudgetGroup;
+  bg: string;
+  en: string;
+  amount: Money;
+}
+
+export interface NzokBudgetYear {
+  fiscalYear: number;
+  basis: "law" | "draft";
+  currencyOfRecord: "BGN" | "EUR";
+  totalExpenditure: Money;
+  lines: NzokBudgetLine[];
+}
+
+export interface NzokBudgetFile {
+  generatedAt: string;
+  source: { publisher: string; law: string; url: string; description: string };
+  latestYear: number;
+  years: NzokBudgetYear[];
+}
+
+// ---------------------------------------------------------------------------
 // KfpObservation — КФП consolidated fiscal series (Phase 1)
 // ---------------------------------------------------------------------------
 

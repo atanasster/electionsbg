@@ -9,6 +9,36 @@ export interface Money {
   currency: "BGN" | "EUR";
 }
 
+// НЗОК (National Health Insurance Fund) annual budget-law breakdown — powers the
+// health sector pack's "Къде отиват €5,5 млрд." bridge tile. Written by
+// scripts/budget/nzok/__write_budget.ts from the annual ЗБНЗОК law.
+export type NzokBudgetGroup = "care" | "admin" | "reserve";
+
+export interface NzokBudgetLine {
+  id: string;
+  group: NzokBudgetGroup;
+  bg: string;
+  en: string;
+  amount: Money;
+}
+
+export interface NzokBudgetYear {
+  fiscalYear: number;
+  /** "law" = adopted budget law; "draft" = Надзор-approved проект. */
+  basis: "law" | "draft";
+  currencyOfRecord: "BGN" | "EUR";
+  totalExpenditure: Money;
+  /** care + admin lines, then a computed "reserve" residual — Σ == total. */
+  lines: NzokBudgetLine[];
+}
+
+export interface NzokBudgetFile {
+  generatedAt: string;
+  source: { publisher: string; law: string; url: string; description: string };
+  latestYear: number;
+  years: NzokBudgetYear[]; // descending by fiscalYear
+}
+
 export type KfpSeries =
   | "revenue"
   | "expenditure"

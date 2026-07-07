@@ -23,6 +23,7 @@ import type {
   BurgasCapitalProgramFile,
   DobrichCapitalProgramFile,
   NoiFundsFile,
+  NzokBudgetFile,
   PersonnelFile,
   PitBreakdownFile,
   PlevenCapitalProgramFile,
@@ -233,6 +234,16 @@ export const useNoiFunds = () =>
   useQuery({
     queryKey: ["budget", "noi", "funds"] as const,
     queryFn: () => fetchJson<NoiFundsFile>("/budget/noi/funds.json"),
+    staleTime: Infinity,
+  });
+
+// НЗОК budget-law breakdown — drives the health sector pack's "Къде отиват
+// €5,5 млрд." bridge tile. Single committed file (~4 KB across the ingested
+// fiscal years). Written by scripts/budget/nzok/__write_budget.ts.
+export const useNzokBudget = () =>
+  useQuery({
+    queryKey: ["budget", "nzok", "budget"] as const,
+    queryFn: () => fetchJson<NzokBudgetFile>("/budget/nzok/budget.json"),
     staleTime: Infinity,
   });
 

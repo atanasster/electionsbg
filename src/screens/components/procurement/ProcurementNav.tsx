@@ -10,7 +10,11 @@
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ROADS_AWARDER_PATH, NOI_AWARDER_PATH } from "./sectorPacks";
+import {
+  ROADS_AWARDER_PATH,
+  NOI_AWARDER_PATH,
+  NZOK_AWARDER_PATH,
+} from "./sectorPacks";
 import {
   LayoutGrid,
   MapPin,
@@ -21,6 +25,7 @@ import {
   Gavel,
   Route,
   PiggyBank,
+  HeartPulse,
   HeartHandshake,
 } from "lucide-react";
 import { useProcurementHref } from "@/data/procurement/useProcurementScope";
@@ -75,6 +80,11 @@ const secondaryItems = [
     to: NOI_AWARDER_PATH,
     icon: PiggyBank,
     key: "procurement_noi_nav",
+  },
+  {
+    to: NZOK_AWARDER_PATH,
+    icon: HeartPulse,
+    key: "procurement_nzok_nav",
   },
 ] as const;
 

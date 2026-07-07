@@ -1,0 +1,278 @@
+{
+  "generatedAt": "2026-07-07T01:13:11.369Z",
+  "source": {
+    "publisher": "Национална здравноосигурителна каса (НЗОК)",
+    "law": "Закон за бюджета на НЗОК (ЗБНЗОК)",
+    "url": "https://www.nhif.bg/bg/completion-reports",
+    "description": "Годишни разходни линии от Закона за бюджета на НЗОК. 2026 — проект (приет от Надзора 29.10.2025), суми в евро; 2025 — обн. закон, суми в лева, конвертирани при 1 EUR = 1.95583 BGN. Редът „Резерв, трансфери и капиталови разходи“ е остатък до общия разход."
+  },
+  "latestYear": 2026,
+  "years": [
+    {
+      "fiscalYear": 2026,
+      "basis": "draft",
+      "currencyOfRecord": "EUR",
+      "totalExpenditure": {
+        "amount": 5537996900,
+        "amountEur": 5537996900,
+        "currency": "EUR"
+      },
+      "lines": [
+        {
+          "id": "hospital",
+          "group": "care",
+          "bg": "Болнична медицинска помощ",
+          "en": "Hospital care",
+          "amount": {
+            "amount": 2359887300,
+            "amountEur": 2359887300,
+            "currency": "EUR"
+          }
+        },
+        {
+          "id": "drugs",
+          "group": "care",
+          "bg": "Лекарства, медицински изделия и храни",
+          "en": "Drugs, devices & foods",
+          "amount": {
+            "amount": 1332089400,
+            "amountEur": 1332089400,
+            "currency": "EUR"
+          }
+        },
+        {
+          "id": "specialist",
+          "group": "care",
+          "bg": "Специализирана извънболнична помощ (СИМП)",
+          "en": "Specialist outpatient care",
+          "amount": {
+            "amount": 352495700,
+            "amountEur": 352495700,
+            "currency": "EUR"
+          }
+        },
+        {
+          "id": "gp",
+          "group": "care",
+          "bg": "Първична извънболнична помощ (ПИМП)",
+          "en": "Primary care (GPs)",
+          "amount": {
+            "amount": 349292100,
+            "amountEur": 349292100,
+            "currency": "EUR"
+          }
+        },
+        {
+          "id": "dental",
+          "group": "care",
+          "bg": "Дентална помощ",
+          "en": "Dental care",
+          "amount": {
+            "amount": 233511100,
+            "amountEur": 233511100,
+            "currency": "EUR"
+          }
+        },
+        {
+          "id": "diagnostics",
+          "group": "care",
+          "bg": "Медико-диагностична дейност",
+          "en": "Medical diagnostics",
+          "amount": {
+            "amount": 167490400,
+            "amountEur": 167490400,
+            "currency": "EUR"
+          }
+        },
+        {
+          "id": "devices_hospital",
+          "group": "care",
+          "bg": "Медицински изделия в болничната помощ",
+          "en": "Medical devices in hospital care",
+          "amount": {
+            "amount": 114587800,
+            "amountEur": 114587800,
+            "currency": "EUR"
+          }
+        },
+        {
+          "id": "other_care",
+          "group": "care",
+          "bg": "Други здравноосигурителни плащания",
+          "en": "Other health payments",
+          "amount": {
+            "amount": 42863500,
+            "amountEur": 42863500,
+            "currency": "EUR"
+          }
+        },
+        {
+          "id": "personnel",
+          "group": "admin",
+          "bg": "Персонал",
+          "en": "Personnel",
+          "amount": {
+            "amount": 51630300,
+            "amountEur": 51630300,
+            "currency": "EUR"
+          }
+        },
+        {
+          "id": "operations",
+          "group": "admin",
+          "bg": "Издръжка на администрацията",
+          "en": "Administrative operations",
+          "amount": {
+            "amount": 18002600,
+            "amountEur": 18002600,
+            "currency": "EUR"
+          }
+        },
+        {
+          "id": "reserve",
+          "group": "reserve",
+          "bg": "Резерв, трансфери и капиталови разходи",
+          "en": "Reserve, transfers & capital",
+          "amount": {
+            "amount": 516146700,
+            "amountEur": 516146700,
+            "currency": "EUR"
+          }
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2025,
+      "basis": "law",
+      "currencyOfRecord": "BGN",
+      "totalExpenditure": {
+        "amount": 9474716200,
+        "amountEur": 4844345470,
+        "currency": "BGN"
+      },
+      "lines": [
+        {
+          "id": "hospital",
+          "group": "care",
+          "bg": "Болнична медицинска помощ",
+          "en": "Hospital care",
+          "amount": {
+            "amount": 4155279600,
+            "amountEur": 2124560724,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "drugs",
+          "group": "care",
+          "bg": "Лекарства, медицински изделия и храни",
+          "en": "Drugs, devices & foods",
+          "amount": {
+            "amount": 2368531100,
+            "amountEur": 1211010722,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "specialist",
+          "group": "care",
+          "bg": "Специализирана извънболнична помощ (СИМП)",
+          "en": "Specialist outpatient care",
+          "amount": {
+            "amount": 658218600,
+            "amountEur": 336541826,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "gp",
+          "group": "care",
+          "bg": "Първична извънболнична помощ (ПИМП)",
+          "en": "Primary care (GPs)",
+          "amount": {
+            "amount": 647577600,
+            "amountEur": 331101169,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "dental",
+          "group": "care",
+          "bg": "Дентална помощ",
+          "en": "Dental care",
+          "amount": {
+            "amount": 416466200,
+            "amountEur": 212935787,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "diagnostics",
+          "group": "care",
+          "bg": "Медико-диагностична дейност",
+          "en": "Medical diagnostics",
+          "amount": {
+            "amount": 303859400,
+            "amountEur": 155360844,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "devices_hospital",
+          "group": "care",
+          "bg": "Медицински изделия в болничната помощ",
+          "en": "Medical devices in hospital care",
+          "amount": {
+            "amount": 207342100,
+            "amountEur": 106012332,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "other_care",
+          "group": "care",
+          "bg": "Други здравноосигурителни плащания",
+          "en": "Other health payments",
+          "amount": {
+            "amount": 116604300,
+            "amountEur": 59618832,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "personnel",
+          "group": "admin",
+          "bg": "Персонал",
+          "en": "Personnel",
+          "amount": {
+            "amount": 91802700,
+            "amountEur": 46937975,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "operations",
+          "group": "admin",
+          "bg": "Издръжка на администрацията",
+          "en": "Administrative operations",
+          "amount": {
+            "amount": 35210000,
+            "amountEur": 18002587,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "reserve",
+          "group": "reserve",
+          "bg": "Резерв, трансфери и капиталови разходи",
+          "en": "Reserve, transfers & capital",
+          "amount": {
+            "amount": 473824600,
+            "amountEur": 242262671,
+            "currency": "BGN"
+          }
+        }
+      ]
+    }
+  ]
+}

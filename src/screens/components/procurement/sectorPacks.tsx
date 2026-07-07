@@ -18,6 +18,7 @@ import { lazy, type ComponentType } from "react";
 // hook — the RoadsPack itself stays a lazy() dynamic import.
 import { API_EIK } from "@/lib/roadAttributes";
 import { NOI_EIK } from "@/lib/noiBenchmarks";
+import { NZOK_EIK } from "@/lib/nzokBenchmarks";
 import type { RoadsWindow } from "@/data/procurement/useRoads";
 
 export interface SectorPackProps {
@@ -32,6 +33,7 @@ export interface SectorPackProps {
 // or giving a pack a pill — can't drift the hardcoded EIK.
 export const ROADS_AWARDER_PATH = `/awarder/${API_EIK}`;
 export const NOI_AWARDER_PATH = `/awarder/${NOI_EIK}`;
+export const NZOK_AWARDER_PATH = `/awarder/${NZOK_EIK}`;
 
 const RoadsPack = lazy(() =>
   import("./roads/RoadsPack").then((m) => ({ default: m.RoadsPack })),
@@ -39,10 +41,14 @@ const RoadsPack = lazy(() =>
 const NoiPack = lazy(() =>
   import("./noi/NoiPack").then((m) => ({ default: m.NoiPack })),
 );
+const NzokPack = lazy(() =>
+  import("./nzok/NzokPack").then((m) => ({ default: m.NzokPack })),
+);
 
 const PACKS: Record<string, ComponentType<SectorPackProps>> = {
   [API_EIK]: RoadsPack,
   [NOI_EIK]: NoiPack,
+  [NZOK_EIK]: NzokPack,
 };
 
 export const getSectorPack = (
