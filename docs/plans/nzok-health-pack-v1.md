@@ -48,11 +48,19 @@ local PG on 2026-07-07.
 
 ## Decisions (agreed — "proceed all")
 
-1. **Serve-path split by dataset size.** Tiny annual data (budget waterfall, B1
-   execution) ships as **static JSON on GCS** (the NOI `funds.json` pattern — no new
-   endpoint). Large row-level data (per-hospital monthly payments) gets a **PG table +
-   `/api/db` function** with the index/`EXPLAIN ANALYZE` discipline. Do not force both
-   through one path.
+1. **Serve-path split by dataset size** (confirmed 2026-07-07). The tiny
+   whole-fetch tiles — `budget.json` (8KB), `drug_reimbursement.json` (6.7KB),
+   `execution.json` (590B) — **stay static JSON on GCS**, consistent with the whole
+   budget pillar (NOI funds, ministry rollups, capital programs are all static JSON);
+   PG-ifying a 590-byte file is overhead with no query benefit. The **per-hospital
+   corpus goes to Postgres** — but the *full multi-year* corpus (per-entity queries
+   for hospital `/company` pages + momentum), done together with the 2017-2026
+   backfill + the ИАМН EIK crosswalk (one coherent migration, funds blob-table
+   pattern + `/api/db` + parity net + `recordIngestBatch` changelog). The current
+   381-row snapshot stays static JSON until that lands. **DEPLOYED**: the four static
+   files are live at `gs://data-electionsbg-com/budget/nzok/` (2026-07-07). No Cloud
+   SQL schema changes exist yet — the hospital PG table + `db:push:cloud` come with
+   the backfill/crosswalk work.
 2. **Hospital рег.№→EIK crosswalk is a tracked prerequisite, not inline scope.** The
    per-hospital ranking ships **name-keyed in v1** (no EIK link); the ИАМН crosswalk is
    its own work item that, when done, lights up the reimbursement tile on the 381
