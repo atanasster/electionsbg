@@ -65,6 +65,7 @@
     "db:snapshot": "npm run db:manifest && npm run db:goldens",
     "db:verify": "DB_VERIFY=1 NODE_OPTIONS=--max-old-space-size=4096 tsx --test scripts/db/tests/*.data.test.ts",
     "data": "tsx ./scripts/main.ts",
+    "data:nzok": "tsx ./scripts/nzok/ingest.ts",
     "prices": "tsx ./scripts/prices/ingest.ts",
     "prod": "tsx ./scripts/main.ts --all --prod",
     "sitemap": "tsx ./scripts/sitemap/index.ts",
