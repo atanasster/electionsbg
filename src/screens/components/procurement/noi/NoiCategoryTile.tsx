@@ -33,6 +33,11 @@ export const NoiCategoryTile: FC<{
   const rows = categories.filter((c) => c.totalEur > 0);
   if (rows.length < 2 || totalEur <= 0) return null;
   const max = rows[0].totalEur;
+  // "Друго" on НОИ is overwhelmingly contracts with no CPV code (small ТП-level
+  // purchases), not an unmapped theme — say so rather than let a big grey bar
+  // read as hidden spend.
+  const other = rows.find((c) => c.id === "other");
+  const otherShare = other ? other.totalEur / totalEur : 0;
 
   return (
     <Card>
@@ -104,6 +109,14 @@ export const NoiCategoryTile: FC<{
           {bg
             ? "Категориите групират CPV-разделите на договорите в оперативни функции на НОИ. Делът с една оферта се показва за категории с поне 3 договора с известен брой оферти."
             : "Categories group the contracts' CPV divisions into НОИ operating functions. Single-bid share is shown for categories with at least 3 bid-known contracts."}
+          {otherShare >= 0.1 && (
+            <>
+              {" "}
+              {bg
+                ? `„Друго" са предимно договори без CPV код (${Math.round(otherShare * 100)}% от стойността).`
+                : `"Other" is mostly contracts with no CPV code (${Math.round(otherShare * 100)}% of value).`}
+            </>
+          )}
         </p>
       </CardContent>
     </Card>

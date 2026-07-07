@@ -15,6 +15,8 @@ import type { RoadsWindow } from "./useRoads";
 import type { NoiFundsFile } from "@/data/budget/types";
 
 export { NOI_EIK };
+// Re-export so the pack can take its scope-window type from one place.
+export type { RoadsWindow };
 
 /** The single ДОО fiscal-year snapshot the pack renders (the most recent
  *  ingested year), flattened to the figures the tiles need. Admin = Персонал +

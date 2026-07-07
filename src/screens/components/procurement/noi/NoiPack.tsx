@@ -34,12 +34,14 @@ export const NoiPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
   const bg = lang === "bg";
   const { model, fundYear, isLoading } = useNoi(eik, scopeWindow);
 
-  // Span of the scoped corpus, for annualising the contracted total against the
-  // fund's annual figures.
-  const procYears = useMemo(() => {
-    if (!model || model.minYear == null || model.maxYear == null) return null;
-    return model.maxYear - model.minYear + 1;
-  }, [model]);
+  // Count of distinct years that actually carry contracts in scope, for
+  // annualising the contracted total against the fund's annual figures. Using
+  // the active-year count (not the min→max span) avoids diluting the average
+  // with gap years that carry no data (НОИ's corpus is missing 2018).
+  const procYears = useMemo(
+    () => (model && model.years.length > 0 ? model.years.length : null),
+    [model],
+  );
 
   const annualProc = useMemo(() => {
     if (!model || !procYears || procYears <= 0) return null;
@@ -56,16 +58,19 @@ export const NoiPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
       out.push({
         text: `${topYear.year}: ${eur(topYear.totalEur)} — ${bg ? "пик" : "peak year"}`,
       });
-    const topCat = model.categories.find((c) => c.totalEur > 0);
+    // Largest classified function (skip "other" — it's the uncoded remainder,
+    // not a spend theme).
+    const topCat = model.categories.find(
+      (c) => c.totalEur > 0 && c.id !== "other",
+    );
     if (topCat)
       out.push({
         text: `${categoryLabel(topCat.id, lang)}: ${eur(topCat.totalEur)}`,
       });
-    if (model.singleBidShare != null && model.bidKnownN >= 10)
-      out.push({
-        warn: model.singleBidShare > 0.2,
-        text: `${Math.round(model.singleBidShare * 100)}% ${bg ? "с една оферта" : "single-bid"}`,
-      });
+    // No headline single-bid chip: the shared EU-benchmarks tile above the pack
+    // owns that number (competitive-only denominator), and duplicating it here
+    // with a different denominator would show two competing figures. Per-category
+    // and per-supplier single-bid stay (a different, descriptive grain).
     if (model.directShare > 0.05)
       out.push({
         warn: model.directShare > 0.1,

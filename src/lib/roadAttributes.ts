@@ -16,6 +16,13 @@
 
 import type { ProcurementContract } from "@/data/dataTypes";
 import { procedureBucket, type ProcedureBucket } from "@/lib/cpvSectors";
+import {
+  median,
+  quantile,
+  competitionStats,
+  isSpendRow,
+  isSingleBid,
+} from "./awarderModel";
 
 /** АПИ — Агенция "Пътна инфраструктура". One legal entity; the 28 ОПУ regional
  *  directorates file under this EIK as buyer sub-units (see awarder_identity.ts).
@@ -514,18 +521,6 @@ export interface RegionAgg {
   singleBidShare?: number;
 }
 
-const median = (xs: number[]): number => {
-  if (xs.length === 0) return 0;
-  const s = [...xs].sort((a, b) => a - b);
-  const m = Math.floor(s.length / 2);
-  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
-};
-const quantile = (xs: number[], q: number): number => {
-  if (xs.length === 0) return 0;
-  const s = [...xs].sort((a, b) => a - b);
-  return s[Math.min(s.length - 1, Math.floor(q * s.length))];
-};
-
 export interface CorridorAgg {
   corridor: string;
   osmRef?: string;
@@ -619,7 +614,7 @@ export const buildRoadsModel = (
   // surviving row is a distinct contract — count them all, matching the rollup.
   const rows: RoadContract[] = [];
   for (const c of contracts) {
-    if (c.tag === "contractAmendment") continue;
+    if (!isSpendRow(c)) continue;
     const ref = roadRefOf(c.title);
     const workType = workTypeOf(c.title, c.cpv);
     const len = lengthOf(c.title);
@@ -635,7 +630,10 @@ export const buildRoadsModel = (
     });
   }
 
-  const totalEur = rows.reduce((s, r) => s + r.amountEur, 0);
+  // Canonical totals + competition (single-bid / direct) from the shared core,
+  // so the headline rules are defined in exactly one place (awarderModel).
+  const stats = competitionStats(rows.map((r) => r.c));
+  const totalEur = stats.totalEur;
   const refEur = rows.reduce((s, r) => (r.ref ? s + r.amountEur : s), 0);
 
   // Corridor aggregation.
@@ -653,7 +651,9 @@ export const buildRoadsModel = (
         .map((r) => r.perKm?.eurPerKm)
         .filter((x): x is number => x != null);
       const bidKnown = arr.filter((r) => r.c.numberOfTenderers != null);
-      const single = bidKnown.filter((r) => r.c.numberOfTenderers === 1).length;
+      const single = bidKnown.filter((r) =>
+        isSingleBid(r.c.numberOfTenderers),
+      ).length;
       const directEur = arr.reduce(
         (s, r) =>
           procedureBucket(r.c.procurementMethod) === "direct"
@@ -693,7 +693,9 @@ export const buildRoadsModel = (
     .map(([region, arr]) => {
       const tot = arr.reduce((s, r) => s + r.amountEur, 0);
       const bidKnown = arr.filter((r) => r.c.numberOfTenderers != null);
-      const single = bidKnown.filter((r) => r.c.numberOfTenderers === 1).length;
+      const single = bidKnown.filter((r) =>
+        isSingleBid(r.c.numberOfTenderers),
+      ).length;
       return {
         region,
         totalEur: tot,
@@ -730,7 +732,9 @@ export const buildRoadsModel = (
     .map(([component, arr]) => {
       const tot = arr.reduce((s, r) => s + r.amountEur, 0);
       const bidKnown = arr.filter((r) => r.c.numberOfTenderers != null);
-      const single = bidKnown.filter((r) => r.c.numberOfTenderers === 1).length;
+      const single = bidKnown.filter((r) =>
+        isSingleBid(r.c.numberOfTenderers),
+      ).length;
       // Largest contractor by € in this component (niche-capture signal).
       const byEik = new Map<string, { name: string; eur: number }>();
       for (const r of arr) {
@@ -787,7 +791,7 @@ export const buildRoadsModel = (
     if (r.c.numberOfTenderers != null) {
       const b = yBid.get(year) ?? { known: 0, single: 0 };
       b.known++;
-      if (r.c.numberOfTenderers === 1) b.single++;
+      if (isSingleBid(r.c.numberOfTenderers)) b.single++;
       yBid.set(year, b);
     }
   }
@@ -829,7 +833,7 @@ export const buildRoadsModel = (
     e.contractCount++;
     if (r.c.numberOfTenderers != null) {
       e.known++;
-      if (r.c.numberOfTenderers === 1) e.single++;
+      if (isSingleBid(r.c.numberOfTenderers)) e.single++;
     }
     e.byComp.set(r.component, (e.byComp.get(r.component) ?? 0) + r.amountEur);
     conMap.set(r.c.contractorEik, e);
@@ -856,18 +860,6 @@ export const buildRoadsModel = (
     .map(([bucket, totalEur]) => ({ bucket, totalEur }))
     .sort((a, b) => b.totalEur - a.totalEur);
 
-  // Headline integrity.
-  const bidKnown = rows.filter((r) => r.c.numberOfTenderers != null);
-  const singleBidShare = bidKnown.length
-    ? bidKnown.filter((r) => r.c.numberOfTenderers === 1).length /
-      bidKnown.length
-    : undefined;
-  const directEur = rows.reduce(
-    (s, r) =>
-      procedureBucket(r.c.procurementMethod) === "direct" ? s + r.amountEur : s,
-    0,
-  );
-
   const topProjects = [...rows]
     .sort((a, b) => b.amountEur - a.amountEur)
     .slice(0, 10);
@@ -882,8 +874,8 @@ export const buildRoadsModel = (
     topContractors,
     methods,
     topProjects,
-    singleBidShare,
-    directShare: totalEur > 0 ? directEur / totalEur : 0,
+    singleBidShare: stats.singleBidShare ?? undefined,
+    directShare: stats.directShare,
     refCoverageEur: totalEur > 0 ? refEur / totalEur : 0,
     totalEur,
   };
