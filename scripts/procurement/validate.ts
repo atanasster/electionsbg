@@ -37,6 +37,31 @@ export const canonicalJson = (data: unknown): string =>
 export const rawJson = (data: unknown): string =>
   JSON.stringify(data, null, 2) + "\n";
 
+// Timestamp fields that get stamped fresh on every run even when the payload is
+// byte-for-byte identical. Masking them lets writeStableJson recognise a
+// no-op rebuild and skip the rewrite — otherwise every ingest, however small,
+// churns a one-line `generatedAt` diff across the whole derived layer.
+const VOLATILE_TS =
+  /("(?:generatedAt|lastIngest|fetchedAt)":\s*)("[^"]*"|null|\d+)/g;
+const maskVolatile = (json: string): string =>
+  json.replace(VOLATILE_TS, '$1"~"');
+
+// Write `data` as canonical JSON, but skip the write (leaving the on-disk file
+// and its old timestamps untouched) when the only thing that would change is a
+// volatile timestamp field. Returns true if the file was actually (re)written.
+// The DB parity net (scripts/db/gen_procurement) already strips these
+// timestamps before comparing, so a preserved stale timestamp is invisible to
+// it.
+export const writeStableJson = (filePath: string, data: unknown): boolean => {
+  const next = canonicalJson(data);
+  if (fs.existsSync(filePath)) {
+    const prev = fs.readFileSync(filePath, "utf8");
+    if (maskVolatile(prev) === maskVolatile(next)) return false;
+  }
+  fs.writeFileSync(filePath, next);
+  return true;
+};
+
 export const strCmp = (a: string, b: string): number =>
   a < b ? -1 : a > b ? 1 : 0;
 

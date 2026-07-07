@@ -25,6 +25,7 @@ import {
   buildTopContractors,
   writeDerived,
 } from "./derived";
+import { writeStableJson } from "./validate";
 import { buildPepConnected, writePepConnected } from "./pep_connected";
 import {
   buildRiskFeed,
@@ -185,7 +186,7 @@ if (mpConnected) {
       pairCount: pepConnected.entries.length,
       totalEur: officialsTotalEur,
     };
-    fs.writeFileSync(INDEX_FILE, JSON.stringify(idx, null, 2) + "\n");
+    writeStableJson(INDEX_FILE, idx);
     console.log(
       `index.json crossReference: ${recomputedMp ? `${mpSet.size} MP(s), ${contractorSet.size} firm(s), €${(totalEur / 1e6).toFixed(0)}M` : "kept (reused)"}; ` +
         `officials: ${offSlugs.size} official(s), ${offByEik.size} firm(s), €${(officialsTotalEur / 1e6).toFixed(0)}M`,

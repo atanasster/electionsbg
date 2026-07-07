@@ -19,7 +19,7 @@ import {
   assertFlowIntegrity,
   byConcentrationDesc,
   byEurDesc,
-  canonicalJson,
+  writeStableJson,
 } from "./validate";
 
 const TOP_LIMIT = 1000;
@@ -400,10 +400,7 @@ export const writeDerived = (
   awarderConcentration: AwarderConcentrationFile,
 ): void => {
   fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(
-    path.join(outDir, "top_contractors.json"),
-    canonicalJson(top),
-  );
+  writeStableJson(path.join(outDir, "top_contractors.json"), top);
   // flow.json = trimmed preview (eager landing load); flow_full.json = complete
   // graph (lazy-loaded when the tile's threshold slider is pulled to 0).
   // Assert both are free of orphaned contractors before writing — a
@@ -411,10 +408,10 @@ export const writeDerived = (
   const preview = trimFlow(flow);
   assertFlowIntegrity(flow, "flow_full.json");
   assertFlowIntegrity(preview, "flow.json (preview)");
-  fs.writeFileSync(path.join(outDir, "flow_full.json"), canonicalJson(flow));
-  fs.writeFileSync(path.join(outDir, "flow.json"), canonicalJson(preview));
-  fs.writeFileSync(
+  writeStableJson(path.join(outDir, "flow_full.json"), flow);
+  writeStableJson(path.join(outDir, "flow.json"), preview);
+  writeStableJson(
     path.join(outDir, "awarder_concentration.json"),
-    canonicalJson(awarderConcentration),
+    awarderConcentration,
   );
 };

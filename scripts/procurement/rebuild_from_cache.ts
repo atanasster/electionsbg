@@ -12,7 +12,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { toEur } from "@/lib/currency";
-import { canonicalJson } from "./validate";
+import { canonicalJson, writeStableJson } from "./validate";
 import { buildRollups, writeRollups } from "./rollups";
 import {
   buildEikLinkageMap,
@@ -246,7 +246,7 @@ const main = async (): Promise<void> => {
       ? { officialsCrossReference: officialsCrossRefSummary }
       : {}),
   };
-  fs.writeFileSync(INDEX_FILE, canonicalJson(idx));
+  writeStableJson(INDEX_FILE, idx);
   console.log("✓ index.json rewritten — procurement rebuild complete");
 };
 

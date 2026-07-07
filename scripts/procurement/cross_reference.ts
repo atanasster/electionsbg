@@ -20,7 +20,7 @@ import type {
   MpConnectedContractor,
   MpConnectedFile,
 } from "./types";
-import { byEurDesc, canonicalJson } from "./validate";
+import { byEurDesc, canonicalJson, writeStableJson } from "./validate";
 import { normalize } from "../officials/shared";
 
 // Distinct Commerce-Registry companies (UICs) per normalised person name.
@@ -279,7 +279,7 @@ export const writeMpConnected = (
   data: MpConnectedFile,
 ): void => {
   fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(path.join(outDir, "mp_connected.json"), canonicalJson(data));
+  writeStableJson(path.join(outDir, "mp_connected.json"), data);
 
   // Per-MP shards. The candidate page only needs one MP's contractor list;
   // sharding lets it skip the chamber-wide fetch. Idempotent — re-running

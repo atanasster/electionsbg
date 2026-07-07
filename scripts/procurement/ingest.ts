@@ -20,7 +20,6 @@ import { fetchBundle } from "./fetch_bundle";
 import { normalizeBundle } from "./normalize";
 import {
   assertUniqueKeys,
-  canonicalJson,
   checkDiffSize,
   countDomainFiles,
   dropSyntheticLegacyTwins,
@@ -29,6 +28,7 @@ import {
   rowSort,
   runCanary,
   validateContract,
+  writeStableJson,
 } from "./validate";
 import { buildRollups, writeRollups } from "./rollups";
 import {
@@ -114,7 +114,7 @@ const readBundlesIndex = (): BundlesIndex | null => {
 
 const writeBundlesIndex = (idx: BundlesIndex): void => {
   fs.mkdirSync(PROCUREMENT_DIR, { recursive: true });
-  fs.writeFileSync(BUNDLES_FILE, canonicalJson(idx));
+  writeStableJson(BUNDLES_FILE, idx);
 };
 
 // Group rows by YYYY-MM and write/merge each month shard. Merging strategy:
@@ -205,7 +205,7 @@ const writeIndexJson = (
     ...(crossReference ? { crossReference } : {}),
     ...(officialsCrossReference ? { officialsCrossReference } : {}),
   };
-  fs.writeFileSync(INDEX_FILE, canonicalJson(idx));
+  writeStableJson(INDEX_FILE, idx);
 };
 
 const main = async (args: {

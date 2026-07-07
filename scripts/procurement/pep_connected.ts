@@ -15,7 +15,7 @@ import fs from "fs";
 import path from "path";
 import type { ContractorRollup } from "./types";
 import { canonicalEik } from "./eik";
-import { byEurDesc, canonicalJson } from "./validate";
+import { byEurDesc, canonicalJson, writeStableJson } from "./validate";
 
 type OfficialLink = {
   uic: string;
@@ -187,10 +187,7 @@ export const writePepConnected = (
   data: PepConnectedFile,
 ): void => {
   fs.mkdirSync(derivedDir, { recursive: true });
-  fs.writeFileSync(
-    path.join(derivedDir, "pep_connected.json"),
-    canonicalJson(data),
-  );
+  writeStableJson(path.join(derivedDir, "pep_connected.json"), data);
   writePepByEikShards(derivedDir, data);
   writePepBySlugShards(derivedDir, data);
 };

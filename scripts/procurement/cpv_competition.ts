@@ -21,7 +21,7 @@ import type {
   CpvCompetitionDivision,
   CpvCompetitionFile,
 } from "./types";
-import { canonicalJson } from "./validate";
+import { writeStableJson } from "./validate";
 
 // Divisions at/above this single-bid share are treated as structurally
 // single-bid; the per-contract single-bidder flag is suppressed for them.
@@ -99,8 +99,5 @@ export const writeCpvCompetition = (
   file: CpvCompetitionFile,
 ): void => {
   fs.mkdirSync(derivedDir, { recursive: true });
-  fs.writeFileSync(
-    path.join(derivedDir, "cpv_competition.json"),
-    canonicalJson(file),
-  );
+  writeStableJson(path.join(derivedDir, "cpv_competition.json"), file);
 };
