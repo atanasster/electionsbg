@@ -15,13 +15,14 @@
   the top-paid ranking + Болници/По РЗОК toggle on the pack. REMAINING:
   2017-2026 backfill, PG table + `/api/db` (for per-hospital pages), ИАМН
   рег.№→EIK crosswalk, watcher+changelog, `update-nzok` skill.
-- **Phase 3 — drug tile DONE + verified** (commit `5b7d863bf`).
-  `scripts/nzok/write_drug_reimbursement.ts` → `data/budget/nzok/
-  drug_reimbursement.json` (top-25 INN + ATC groups, BGN→EUR);
-  `NzokDrugReimbursementTile` ranks substances with a Молекула/Област toggle.
-  2025 = €1.62bn, top PEMBROLIZUMAB €189.8M, oncology 62%. REMAINING: the
-  B1_5600 monthly execution gauge (reuse the NOI B1 parser); the quarterly
-  "Превишение" overspend signal.
+- **Phase 3 — drug tile + execution gauge DONE + verified** (commits
+  `5b7d863bf`, `efaf1251d`). `write_drug_reimbursement.ts` →
+  `drug_reimbursement.json`; `NzokDrugReimbursementTile` (Молекула/Област). 2025
+  = €1.62bn, top PEMBROLIZUMAB €189.8M, oncology 62%. `write_execution.ts` reads
+  the monthly B1_5600 ЕБК template (own parser — different sheets from NSSI's B1)
+  → `execution.json`; the budget-bridge tile shows a "spent €X of €Y (Z%)" gauge
+  (April 2026 = €1.72bn of €5.54bn, 31.1%). REMAINING: the quarterly "Превишение"
+  overspend signal (nice-to-have).
 - **Phase 4 — not started** (crosswalk lights up hospital pages + prerender +
   launch post).
 
