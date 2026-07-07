@@ -18,9 +18,15 @@ import {
   type ScopeWindow,
 } from "./useAwarderContracts";
 import { useProcurementWindow } from "./useProcurementWindow";
-import { useNzokBudget } from "@/data/budget/useBudget";
+import {
+  useNzokBudget,
+  useNzokHospitalPayments,
+} from "@/data/budget/useBudget";
 import { buildNzokModel, NZOK_EIK, type NzokModel } from "@/lib/nzokAttributes";
-import type { NzokBudgetFile } from "@/data/budget/types";
+import type {
+  NzokBudgetFile,
+  NzokHospitalPaymentsFile,
+} from "@/data/budget/types";
 
 export { NZOK_EIK };
 // Back-compat alias so the pack takes its scope-window type from here.
@@ -29,6 +35,7 @@ export type RoadsWindow = ScopeWindow;
 export interface NzokData {
   model: NzokModel | null;
   budget: NzokBudgetFile | null;
+  hospitalPayments: NzokHospitalPaymentsFile | null;
   isLoading: boolean;
 }
 
@@ -38,6 +45,7 @@ export const useNzok = (
 ): NzokData => {
   const contracts = useAwarderContracts(eik);
   const budget = useNzokBudget();
+  const hospitalPayments = useNzokHospitalPayments();
   const urlWindow = useProcurementWindow();
   const from = windowOverride ? windowOverride.from : urlWindow.from;
   const to = windowOverride ? windowOverride.to : urlWindow.to;
@@ -51,6 +59,7 @@ export const useNzok = (
   return {
     model,
     budget: budget.data ?? null,
+    hospitalPayments: hospitalPayments.data ?? null,
     isLoading: contracts.isLoading || budget.isLoading,
   };
 };

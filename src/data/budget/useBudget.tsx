@@ -24,6 +24,7 @@ import type {
   DobrichCapitalProgramFile,
   NoiFundsFile,
   NzokBudgetFile,
+  NzokHospitalPaymentsFile,
   PersonnelFile,
   PitBreakdownFile,
   PlevenCapitalProgramFile,
@@ -244,6 +245,19 @@ export const useNzokBudget = () =>
   useQuery({
     queryKey: ["budget", "nzok", "budget"] as const,
     queryFn: () => fetchJson<NzokBudgetFile>("/budget/nzok/budget.json"),
+    staleTime: Infinity,
+  });
+
+// НЗОК per-hospital БМП payments — the latest monthly snapshot of what the fund
+// actually pays hospitals (the biggest non-ЗОП line). ~90 KB (all 381
+// facilities). Drives the health pack's hospital-ranking tile.
+export const useNzokHospitalPayments = () =>
+  useQuery({
+    queryKey: ["budget", "nzok", "hospital-payments"] as const,
+    queryFn: () =>
+      fetchJson<NzokHospitalPaymentsFile>(
+        "/budget/nzok/hospital_payments.json",
+      ),
     staleTime: Infinity,
   });
 

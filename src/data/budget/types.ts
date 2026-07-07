@@ -39,6 +39,41 @@ export interface NzokBudgetFile {
   years: NzokBudgetYear[]; // descending by fiscalYear
 }
 
+// Latest monthly per-hospital БМП (hospital care) payment snapshot — the real
+// money НЗОК pays out, OUTSIDE ЗОП. Written by
+// scripts/nzok/write_hospital_payments.ts from the nhif.bg БМП report.
+export interface NzokHospitalRow {
+  /** 10-digit facility registration number (Рег.№ ЛЗ) — join key to ИАМН (→EIK),
+   *  not an EIK. Not yet crosswalked, so rows are name-keyed for now. */
+  regNo: string;
+  name: string;
+  rzokCode: string;
+  rzokName: string;
+  /** Cumulative year-to-date paid, euros. */
+  cumulativeEur: number;
+  /** Paid in the report month, euros. */
+  monthEur: number;
+}
+
+export interface NzokHospitalPaymentsFile {
+  generatedAt: string;
+  source: { publisher: string; url: string; description: string };
+  asOf: string;
+  year: number;
+  month: number;
+  currencyOfRecord: "BGN" | "EUR";
+  totalCumulativeEur: number;
+  monthTotalEur: number;
+  facilityCount: number;
+  byRzok: {
+    code: string;
+    name: string;
+    cumulativeEur: number;
+    facilityCount: number;
+  }[];
+  hospitals: NzokHospitalRow[]; // sorted by cumulativeEur desc
+}
+
 export type KfpSeries =
   | "revenue"
   | "expenditure"

@@ -323,3 +323,4 @@ cloud-sql-proxy
 # now enumerate /procurement/settlement/{ekatte} straight from Postgres
 # (scripts/db/lib/seo_settlements.ts), so nothing reads the JSON shard anymore.
 /data/procurement/by_settlement/
+/raw_data/nzok/
