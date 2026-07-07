@@ -7,15 +7,21 @@
   (€5.5bn ↔ €4.8bn), honest "под 0,5% минава през поръчки" sentence, ЗОП lens
   (Информационно обслужване 23% + statutory chip), "Какво купува по функция"
   category tile (54%-single-bid IT), nav pill "Здравна каса (НЗОК)".
-- **Phase 2 — parser DONE + verified** (commit `bd1fe0ee6`). `scripts/nzok/
-  parse_hospital_payments.ts` parses the monthly per-hospital БМП PDFs with a
-  reconciliation+count completeness assert; verified vs May-2026 (381 facilities,
-  Σ €942,127,529 vs header €942,127,532). REMAINING: fetcher+backfill, PG table +
-  `/api/db` function, ranking/choropleth tiles, ИАМН рег.№→EIK crosswalk,
-  watcher+changelog wiring, `update-nzok` skill. These are a follow-up ingest
-  build (real-data iteration + new schema/skill), not yet done.
-- **Phase 3 — not started** (drug-INN XLSX tile; B1_5600 execution gauge reusing
-  the NOI parser).
+- **Phase 2 — parser + hospital tile DONE + verified** (commits `bd1fe0ee6`,
+  `9a1f35564`). `scripts/nzok/parse_hospital_payments.ts` parses the monthly
+  per-hospital БМП PDFs (reconciliation+count assert; May-2026 = 381 facilities,
+  Σ €942,127,529 vs header €942,127,532). `write_hospital_payments.ts` →
+  `data/budget/nzok/hospital_payments.json`; `NzokHospitalPaymentsTile` renders
+  the top-paid ranking + Болници/По РЗОК toggle on the pack. REMAINING:
+  2017-2026 backfill, PG table + `/api/db` (for per-hospital pages), ИАМН
+  рег.№→EIK crosswalk, watcher+changelog, `update-nzok` skill.
+- **Phase 3 — drug tile DONE + verified** (commit `5b7d863bf`).
+  `scripts/nzok/write_drug_reimbursement.ts` → `data/budget/nzok/
+  drug_reimbursement.json` (top-25 INN + ATC groups, BGN→EUR);
+  `NzokDrugReimbursementTile` ranks substances with a Молекула/Област toggle.
+  2025 = €1.62bn, top PEMBROLIZUMAB €189.8M, oncology 62%. REMAINING: the
+  B1_5600 monthly execution gauge (reuse the NOI B1 parser); the quarterly
+  "Превишение" overspend signal.
 - **Phase 4 — not started** (crosswalk lights up hospital pages + prerender +
   launch post).
 
