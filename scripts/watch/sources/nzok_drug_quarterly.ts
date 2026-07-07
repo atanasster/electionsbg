@@ -8,6 +8,7 @@
 
 import { createHash } from "crypto";
 import type { WatchSource, Fingerprint, WatchState } from "../types";
+import { drugReimbursementLinks } from "../../nzok/lib/drug_links";
 
 const BASE = "https://www.nhif.bg";
 const UA = "electionsbg.com data pipeline";
@@ -18,11 +19,26 @@ const fetchHtml = async (url: string): Promise<string> => {
   return res.text();
 };
 
-const newestDrugLink = (html: string): string | null => {
-  for (const m of html.matchAll(/href="(\/upload\/[^"]+\.(?:xlsx|xls))"/gi)) {
-    if (/Брутни\s+разходи/i.test(decodeURIComponent(m[1]))) return m[1];
+const newestDrugLink = (html: string): string | null =>
+  drugReimbursementLinks(html)[0]?.href ?? null;
+
+// The annual roll-up ("Брутни разходи за {year} г.xls") is updated IN PLACE as
+// quarters are added — same URL, new bytes — so a link-only hash never flips.
+// Fold the file's HEAD identity (etag / last-modified / content-length) into
+// the fingerprint so an in-place refresh is detected.
+const headStamp = async (link: string): Promise<string> => {
+  try {
+    const res = await fetch(BASE + link, {
+      method: "HEAD",
+      headers: { "User-Agent": UA },
+    });
+    const h = res.headers;
+    return [h.get("etag"), h.get("last-modified"), h.get("content-length")]
+      .filter(Boolean)
+      .join("|");
+  } catch {
+    return ""; // HEAD unsupported/blocked → fall back to link-only fingerprint
   }
-  return null;
 };
 
 const resolveLatest = async (): Promise<{ link: string; year: number }> => {
@@ -47,7 +63,10 @@ export const nzokDrugQuarterly: WatchSource = {
 
   async fingerprint(): Promise<Fingerprint> {
     const { link, year } = await resolveLatest();
-    const value = createHash("sha256").update(link).digest("hex");
+    const stamp = await headStamp(link);
+    const value = createHash("sha256")
+      .update(`${link}\n${stamp}`)
+      .digest("hex");
     const name = decodeURIComponent(link.split("/").pop() ?? link);
     return {
       value,

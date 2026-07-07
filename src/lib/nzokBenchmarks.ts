@@ -82,3 +82,9 @@ export const NZOK_SUPPLIER_CONTEXT: Record<
     en: "Statutory national systems integrator (2019) — the national health-IT systems are awarded directly, outside open tender",
   },
 };
+
+// Display-trim for a supplier's registered name: drop the trailing legal-form /
+// address tail after the first " - "/" – "/dash or comma/slash so the tile shows
+// the recognisable brand ("МБАЛ Пловдив", not "МБАЛ Пловдив - гр. Пловдив, ул…").
+export const cleanSupplierName = (name: string): string =>
+  name.split(/\s[-–—]\s|[,/]/)[0].trim();

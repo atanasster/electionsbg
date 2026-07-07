@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 import { Boxes } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
-import { categoryLabel } from "@/lib/nzokBenchmarks";
+import { categoryLabel, cleanSupplierName } from "@/lib/nzokBenchmarks";
 import type { NzokCategoryAgg } from "@/lib/nzokAttributes";
 
 const CATEGORY_COLOR: Record<string, string> = {
@@ -80,7 +80,7 @@ export const NzokCategoryTile: FC<{
                       to={`/company/${c.topSupplier.eik}`}
                       className="hover:text-primary hover:underline"
                     >
-                      {c.topSupplier.name.split(/\s[-–—]\s|[,/]/)[0].trim()}
+                      {cleanSupplierName(c.topSupplier.name)}
                     </Link>
                   </span>
                 )}

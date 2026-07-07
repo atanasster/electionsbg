@@ -161,7 +161,7 @@ export const NzokBudgetBridgeTile: FC<{
                 <span className="text-muted-foreground">{s.label}</span>
                 <span className="font-medium tabular-nums">{eur(s.value)}</span>
                 <span className="text-muted-foreground/70 tabular-nums">
-                  {pct(s.value / total, lang)}
+                  {pct(total > 0 ? s.value / total : 0, lang)}
                 </span>
               </span>
             ))}

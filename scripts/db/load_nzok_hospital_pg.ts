@@ -14,6 +14,7 @@
 // scripts/nzok/README.md and loads into the same table as each era is hardened.
 
 import { readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import fs from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -54,7 +55,10 @@ interface Row {
 }
 
 const fetchToCache = async (link: string): Promise<string> => {
-  const id = link.split("/")[2];
+  // Key the cache on a hash of the FULL link, not a positional path segment:
+  // the source URL format shifts by era, so `/upload/<id>/file.pdf` is not a
+  // stable assumption — two links sharing a segment must not alias to one file.
+  const id = createHash("sha256").update(link).digest("hex").slice(0, 16);
   const p = path.join(RAW_DIR, `clean_${id}.pdf`);
   if (!fs.existsSync(p)) {
     const res = await fetch(BASE + link, { headers: { "User-Agent": UA } });
@@ -81,19 +85,37 @@ const collectRows = async (): Promise<{
 
   const rows: Row[] = [];
   const monthsSkipped: string[] = [];
+  // Page order is newest-first, so the FIRST link resolving to a period is the
+  // newest file. nhif.bg periodically re-issues a corrected month as a new
+  // /upload/<id> while the superseded one lingers — dedup to one link per
+  // period (newest wins) so a stale re-upload can't shadow the correction, and
+  // log the skip so a correction is visible.
+  const seenPeriods = new Set<string>();
   let monthsOk = 0;
   for (const year of YEARS) {
-    const html = await (
-      await fetch(`${BASE}/bg/hospitals/bmp/${year}`, {
-        headers: { "User-Agent": UA },
-      })
-    ).text();
+    const pageUrl = `${BASE}/bg/hospitals/bmp/${year}`;
+    const pageRes = await fetch(pageUrl, { headers: { "User-Agent": UA } });
+    if (!pageRes.ok) throw new Error(`GET ${pageUrl} → ${pageRes.status}`);
+    const html = await pageRes.text();
     for (const link of bmpPaymentLinks(html)) {
+      // Fetch OUTSIDE the try: a transport/HTTP error must ABORT the whole run,
+      // never be swallowed as a "skipped month" — otherwise a transient nhif.bg
+      // outage would TRUNCATE-replace the live table with a shrunken corpus.
+      const pdf = await fetchToCache(link);
       let period = "";
       try {
-        const pdf = await fetchToCache(link);
+        // Only PARSE/RECONCILE failures are skippable here (early-year 3-column
+        // layout the parser can't yet reconcile) — those load later once the
+        // parser is hardened. Network failures already aborted above.
         const f = parseHospitalPaymentsPdf(pdf);
         period = `${f.year}-${String(f.month).padStart(2, "0")}-01`;
+        if (seenPeriods.has(period)) {
+          console.log(
+            `  · superseded duplicate for ${period} (${link.slice(-24)}) — keeping newer`,
+          );
+          continue;
+        }
+        seenPeriods.add(period);
         for (const r of f.rows)
           rows.push({
             reg_no: r.regNo,
@@ -108,8 +130,6 @@ const collectRows = async (): Promise<{
           });
         monthsOk++;
       } catch (e) {
-        // Skip months the parser can't yet reconcile (early-year 3-column
-        // layout) — they load later once the parser is hardened.
         monthsSkipped.push(
           `${period || link.slice(-24)}: ${(e as Error).message.slice(0, 70)}`,
         );
@@ -157,6 +177,34 @@ const main = async (): Promise<void> => {
         batch.flatMap((row) => COLS.map((col) => row[col])),
       );
     }
+    // Post-load reconciliation — the DB must agree with what we collected.
+    // `ON CONFLICT DO NOTHING` can silently drop rows (a same-(reg_no,period)
+    // dup), and a sub-tolerance parser misparse already shipped once caught only
+    // by a MANUAL total check (see README). `mixed` also asserts the
+    // single-currency-per-period invariant the `min(currency)` serving function
+    // relies on. Throwing here rolls the whole transaction back.
+    const jsSum = Math.round(rows.reduce((a, r) => a + r.cumulative_eur, 0));
+    const { rows: chk } = await c.query<{
+      n: number;
+      s: string;
+      mixed: number;
+    }>(
+      `SELECT count(*)::int AS n,
+              round(sum(cumulative_eur))::bigint AS s,
+              (SELECT count(*) FROM (
+                 SELECT period FROM nzok_hospital_payments
+                 GROUP BY period HAVING count(DISTINCT currency) > 1
+               ) q)::int AS mixed
+         FROM nzok_hospital_payments`,
+    );
+    if (
+      chk[0].n !== rows.length ||
+      Number(chk[0].s) !== jsSum ||
+      Number(chk[0].mixed) !== 0
+    )
+      throw new Error(
+        `post-load mismatch: db ${chk[0].n}/${chk[0].s} (mixed-currency periods ${chk[0].mixed}) vs collected ${rows.length}/${jsSum}`,
+      );
     // "What changed" changelog — atomic with the load. Natural key = (facility,
     // period) so a TRUNCATE+reload dedups and only genuinely-new months itemise.
     await recordIngestBatch(c, {

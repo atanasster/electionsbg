@@ -22,6 +22,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import * as xlsx from "xlsx";
 import { toEur } from "../../src/lib/currency";
+import { drugReimbursementLinks } from "./lib/drug_links";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -99,15 +100,13 @@ const argYear = (): number => {
  *  ("Брутни разходи за {year} г"), else the newest quarterly file (they list
  *  newest-first). */
 const findFileHref = (html: string, year: number): string | null => {
-  const links = [
-    ...html.matchAll(/href="(\/upload\/[^"]+\.(?:xlsx|xls))"/gi),
-  ].map((m) => ({ href: m[1], name: decodeURIComponent(m[1]) }));
+  const links = drugReimbursementLinks(html);
   const annual = links.find((l) =>
     new RegExp(`Брутни разходи за\\s*${year}\\s*г`, "i").test(l.name),
   );
   if (annual) return annual.href;
-  const quarterly = links.find((l) => /Брутни разходи/i.test(l.name));
-  return quarterly?.href ?? null;
+  // else the newest quarterly file (page is newest-first).
+  return links[0]?.href ?? null;
 };
 
 const main = async (): Promise<void> => {

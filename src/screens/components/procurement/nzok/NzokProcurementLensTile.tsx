@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 import { ScanSearch } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
-import { NZOK_SUPPLIER_CONTEXT } from "@/lib/nzokBenchmarks";
+import { NZOK_SUPPLIER_CONTEXT, cleanSupplierName } from "@/lib/nzokBenchmarks";
 import type { NzokModel } from "@/lib/nzokAttributes";
 
 export const NzokProcurementLensTile: FC<{ model: NzokModel }> = ({
@@ -70,7 +70,7 @@ export const NzokProcurementLensTile: FC<{ model: NzokModel }> = ({
                 to={`/company/${topSupplier.eik}`}
                 className="font-medium hover:text-primary hover:underline"
               >
-                {topSupplier.name.split(/\s[-–—]\s|[,/]/)[0].trim()}
+                {cleanSupplierName(topSupplier.name)}
               </Link>
               <span className="tabular-nums text-muted-foreground">
                 {eur(topSupplier.totalEur)}

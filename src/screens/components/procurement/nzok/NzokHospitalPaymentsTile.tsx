@@ -47,7 +47,10 @@ export const NzokHospitalPaymentsTile: FC<{
           value: r.cumulativeEur,
           eik: null as string | null,
         }));
-  const max = Math.max(...rows.map((r) => r.value));
+  // Guard the ACTIVE view's array: the toggled view renders a different field
+  // than the early-return guard checked, so an empty secondary array would make
+  // Math.max(...[]) return -Infinity (every bar collapses to the 2% floor).
+  const max = rows.length ? Math.max(...rows.map((r) => r.value)) : 1;
 
   return (
     <Card>

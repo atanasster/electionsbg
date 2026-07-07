@@ -89,7 +89,7 @@ const AMOUNT_RE = /\d{1,3}(?:[ \t\u00a0]\d{3})+|\d+/g;
  *     lands on a fragment, not the cumulative).
  *  A merged/again-wrapped month reads > cumulative and is recorded 0 (unknown)
  *  rather than a wrong figure. */
-const extractAmounts = (
+export const extractAmounts = (
   tail: string,
 ): { name: string; cumulative: number; month: number } | null => {
   const all = [...tail.matchAll(AMOUNT_RE)];
