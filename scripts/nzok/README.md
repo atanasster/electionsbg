@@ -79,15 +79,21 @@ the Рег.№). So the crosswalk is a **high-precision verified match**, not a 
 - **Backfill status** (2026-07-07): **2023-2026 loaded** into `nzok_hospital_payments`
   — 35 months / 13,296 rows (the loader's `YEARS`, reconciliation-asserted per
   month). Remaining tail:
-  - **3-column early-year files — SOLVED** (2026-07-07). `extractAmounts` now
-    anchors on the tail's LAST letter (amount region = everything after the name),
-    so the merged single-space month columns no longer break cumulative
-    extraction. Feb files parse. **Residual**: Jan files still fail a
-    *count* check (8 facility rows don't match `ROW_START_RE` — a row-matching
-    issue, not amount extraction; likely a slightly different Jan row shape) and 4
-    mid-2024 months drift ~0.54% (just over the 0.5% reconciliation tolerance,
-    systematic across the whole file — not a single bad row). Both are
-    assert-rejected (no wrong data); each needs its own per-file look.
+  - **3-column early-year files — SOLVED** (2026-07-07). `extractAmounts` reads
+    cumulative as `max(first-amount-after-the-last-name-letter, second-to-last-
+    amount)` — the cumulative YTD is the largest money figure in a row, so the max
+    unifies the 3-column merge, a name glued to the amount, a wrapped trailing
+    name fragment, and a name-index digit. Feb files parse. **Residual**: Jan
+    files fail a *count* check (8 facility rows don't match `ROW_START_RE` — a
+    row-matching issue) and 4 mid-2024 months drift ~0.54% (just over the 0.5%
+    reconciliation tolerance, systematic — not one bad row). Assert-rejected (no
+    wrong data); each needs its own per-file look.
+  - **Assert-tolerance gap (lesson)**: the reconciliation assert is ±0.5%, which
+    can't go lower without rejecting the legitimately-drifting 2024 files — so a
+    sub-0.5% per-row misparse (a €201K/€942M = 0.02% cumulative regression from an
+    earlier parser rev) shipped and was only caught by a manual total check. A
+    stronger guard (per-row sanity, or cumulative-monotonic-vs-prior-period) would
+    catch that class; TODO.
   - **≤2022** — naming shifts mid-2022 ("по реда на НРД"), 2020-2021 use
     "Заплатени средства за БМП (КП, КПр и АПр)" with the period in the *filename*
     not the PDF text, and 2019- differ further. Each era needs its own link
