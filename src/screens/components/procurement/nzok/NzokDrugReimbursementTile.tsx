@@ -1,4 +1,4 @@
-// "Лекарства по реимбурсна сума" — the drugs НЗОК pays most for. Drug
+// "Плащания за лекарства" — the drugs НЗОК pays most for. Drug
 // reimbursement (~€1.33bn/yr) is НЗОК's second-largest budget line and, like
 // hospital payments, is paid OUTSIDE public procurement. This tile ranks the
 // top INN (active substances) and lets the reader flip to the ATC therapeutic
@@ -54,7 +54,7 @@ export const NzokDrugReimbursementTile: FC<{
         <div className="flex flex-wrap items-center justify-between gap-2">
           <CardTitle className="text-base flex items-center gap-2">
             <Pill className="h-4 w-4" />
-            {bg ? "Лекарства по реимбурсна сума" : "Drugs by reimbursement"}
+            {bg ? "Плащания за лекарства" : "Drug reimbursement"}
           </CardTitle>
           <div
             className="flex gap-1"
@@ -91,8 +91,8 @@ export const NzokDrugReimbursementTile: FC<{
           <span className="text-2xl font-bold tabular-nums">{eur(total)}</span>
           <span className="text-sm text-muted-foreground">
             {bg
-              ? `реимбурсна сума за лекарства (${data.year}) · ${data.distinctInn} молекули`
-              : `drug reimbursement (${data.year}) · ${data.distinctInn} substances`}
+              ? `платени за лекарства (${data.year}) · ${data.distinctInn} молекули`
+              : `paid for medicines (${data.year}) · ${data.distinctInn} substances`}
           </span>
         </div>
         {oncoShare > 0 && (
