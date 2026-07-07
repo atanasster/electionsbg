@@ -70,4 +70,14 @@ the Рег.№). So the crosswalk is a **high-precision verified match**, not a 
 - **Watcher + changelog wiring** + an `update-nzok` skill so the daily watcher
   refreshes these files (currently a manual `npm run data:nzok`).
 - **2017–2026 backfill** of hospital payments (behind a `--backfill` flag).
+  Parser hardening needed per era (verified 2026-07-07): the current parser
+  reconciles for **14 of 17** recent months (2026 Mar-May + 2025 Feb-Dec). The 3
+  failures are all the **early-year 3-column layout** — Jan/Feb files carry
+  `cumulative | month-N | month-N-1` (e.g. Feb-2026 Свети Георги row
+  `16 293 109  8 293 099  8 000 011`), so `extractAmounts`' "last-two-amounts"
+  picks the wrong columns. Fix: take the trailing *numeric block* (consecutive
+  numbers not separated by letters) → `block[0]` = cumulative, `block[1]` =
+  reporting month; must stay compatible with the wrapped-name handling. Older
+  years (≤2019) additionally use a different listing-link text, so the
+  link-finder needs per-era patterns.
 - The quarterly **"Превишение"** (overspend) signal.
