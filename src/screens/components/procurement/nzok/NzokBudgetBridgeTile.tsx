@@ -11,7 +11,23 @@ import { useTranslation } from "react-i18next";
 import { HeartPulse } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
-import type { NzokBudgetYear } from "@/data/budget/types";
+import type { NzokBudgetYear, NzokExecutionFile } from "@/data/budget/types";
+
+const MONTHS_BG = [
+  "",
+  "януари",
+  "февруари",
+  "март",
+  "април",
+  "май",
+  "юни",
+  "юли",
+  "август",
+  "септември",
+  "октомври",
+  "ноември",
+  "декември",
+];
 
 const pct = (v: number, lang: string) =>
   (v * 100).toLocaleString(lang, { maximumFractionDigits: 1 }) + "%";
@@ -40,6 +56,9 @@ export const NzokBudgetBridgeTile: FC<{
   procurementTotalEur: number;
   procurementYears: number | null;
   annualProc: number | null;
+  /** Cash-execution snapshot for the SELECTED year (null otherwise) — the
+   *  budget-law plan above + this YTD actual give the execution gauge. */
+  execution: NzokExecutionFile | null;
 }> = ({
   year,
   years,
@@ -48,6 +67,7 @@ export const NzokBudgetBridgeTile: FC<{
   procurementTotalEur,
   procurementYears,
   annualProc,
+  execution,
 }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
@@ -157,6 +177,41 @@ export const NzokBudgetBridgeTile: FC<{
             ))}
           </div>
         </div>
+
+        {/* Execution gauge — YTD cash execution against the annual plan */}
+        {execution &&
+          execution.expenditureEur != null &&
+          total > 0 &&
+          (() => {
+            const spent = execution.expenditureEur;
+            const share = spent / total;
+            const asOfLabel = bg
+              ? `${MONTHS_BG[execution.month] ?? ""} ${execution.year}`.trim()
+              : `${execution.asOf}`;
+            return (
+              <div>
+                <div className="mb-1 flex flex-wrap items-baseline justify-between gap-x-2 text-xs">
+                  <span className="text-muted-foreground">
+                    {bg
+                      ? `Изпълнение към ${asOfLabel}`
+                      : `Executed as of ${asOfLabel}`}
+                  </span>
+                  <span className="tabular-nums">
+                    <span className="font-semibold">{eur(spent)}</span>
+                    <span className="ml-1 text-muted-foreground">
+                      {bg ? "от" : "of"} {eur(total)} ({pct(share, lang)})
+                    </span>
+                  </span>
+                </div>
+                <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
+                  <div
+                    className="h-full rounded-full bg-primary/70"
+                    style={{ width: `${Math.min(100, share * 100)}%` }}
+                  />
+                </div>
+              </div>
+            );
+          })()}
 
         {/* Procurement bridge — the point of the pack */}
         {procurementTotalEur > 0 && annualProc != null && shareText && (

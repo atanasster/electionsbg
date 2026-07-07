@@ -37,8 +37,14 @@ export const NzokPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
-  const { model, budget, hospitalPayments, drugReimbursement, isLoading } =
-    useNzok(eik, scopeWindow);
+  const {
+    model,
+    budget,
+    execution,
+    hospitalPayments,
+    drugReimbursement,
+    isLoading,
+  } = useNzok(eik, scopeWindow);
 
   // Budget-year picker — defaults to the latest ingested year; user-selectable.
   const [yearOverride, setYearOverride] = useState<number | null>(null);
@@ -157,6 +163,9 @@ export const NzokPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
           procurementTotalEur={model.totalEur}
           procurementYears={procYears}
           annualProc={annualProc}
+          execution={
+            execution && execution.year === selectedYear ? execution : null
+          }
         />
       )}
 

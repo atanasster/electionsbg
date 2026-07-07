@@ -24,6 +24,7 @@ import type {
   DobrichCapitalProgramFile,
   NoiFundsFile,
   NzokBudgetFile,
+  NzokExecutionFile,
   NzokHospitalPaymentsFile,
   NzokDrugReimbursementFile,
   PersonnelFile,
@@ -246,6 +247,15 @@ export const useNzokBudget = () =>
   useQuery({
     queryKey: ["budget", "nzok", "budget"] as const,
     queryFn: () => fetchJson<NzokBudgetFile>("/budget/nzok/budget.json"),
+    staleTime: Infinity,
+  });
+
+// НЗОК cash-execution (form B1) — cumulative revenue + expenditure YTD, paired
+// with the budget-law plan for the execution gauge on the budget-bridge tile.
+export const useNzokExecution = () =>
+  useQuery({
+    queryKey: ["budget", "nzok", "execution"] as const,
+    queryFn: () => fetchJson<NzokExecutionFile>("/budget/nzok/execution.json"),
     staleTime: Infinity,
   });
 

@@ -39,6 +39,20 @@ export interface NzokBudgetFile {
   years: NzokBudgetYear[]; // descending by fiscalYear
 }
 
+// Latest НЗОК cash-execution snapshot (form B1, fund 5600) — cumulative
+// revenue + expenditure YTD, paired with the budget-law plan for an execution
+// gauge. Written by scripts/nzok/write_execution.ts.
+export interface NzokExecutionFile {
+  generatedAt: string;
+  source: { publisher: string; url: string; description: string };
+  year: number;
+  month: number;
+  asOf: string; // "YYYY-MM"
+  currencyOfRecord: "BGN" | "EUR";
+  revenueEur: number | null;
+  expenditureEur: number | null;
+}
+
 // Latest monthly per-hospital БМП (hospital care) payment snapshot — the real
 // money НЗОК pays out, OUTSIDE ЗОП. Written by
 // scripts/nzok/write_hospital_payments.ts from the nhif.bg БМП report.
