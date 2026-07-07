@@ -74,18 +74,21 @@ const parseAsOf = (
 // separate tokens instead of merging "48" + "230 716" into a bogus "48 230 716".
 const AMOUNT_RE = /\d{1,3}(?:[ \t\u00a0]\d{3})+|\d+/g;
 
-/** Pull the last two amounts from a row's accumulated tail (text after the reg
- *  number, possibly spanning wrapped lines). Returns them in document order
- *  (cumulative, month) and strips the amounts off the facility name. Digits
- *  inside the name (e.g. "ДКЦ 1") are harmless: the amounts are always the last
- *  two numbers on the row. */
+/** Pull the amounts from a row's accumulated tail (text after the reg number,
+ *  possibly spanning wrapped lines). `cols` is the number of amount COLUMNS in
+ *  the file — 2 in most months (cumulative-YTD, in-month), but 3 in early-year
+ *  files (cumulative, month-N, month-N-1). The columns are the trailing `cols`
+ *  numbers; cumulative is the FIRST of them and the reporting month the SECOND.
+ *  Taking them from the RIGHT excludes any name-embedded digit (e.g. "ДКЦ 1"),
+ *  which sits before the amount block. */
 const extractAmounts = (
   tail: string,
+  cols: number,
 ): { name: string; cumulative: number; month: number } | null => {
   const matches = [...tail.matchAll(AMOUNT_RE)];
-  if (matches.length < 2) return null;
-  const cumM = matches[matches.length - 2];
-  const monM = matches[matches.length - 1];
+  if (matches.length < cols) return null;
+  const cumM = matches[matches.length - cols];
+  const monM = matches[matches.length - cols + 1];
   const cumulative = num(cumM[0]);
   const month = num(monM[0]);
   if (!Number.isFinite(cumulative) || !Number.isFinite(month)) return null;
@@ -124,17 +127,23 @@ export const parseHospitalPaymentsPdf = (
   const rows: HospitalPaymentRow[] = [];
   let totalCumulativeEur = 0;
   let headerFacilityCount = 0;
+  // Amount-column count, read from the "Общо РЗОК" grand-total row: 2 in most
+  // months (cumulative-YTD, in-month), 3 in early-year files (cumulative + two
+  // per-month columns). Every facility row carries the same number.
+  let cols = 2;
 
-  // Grand total: a row whose label is "Общо РЗОК" with two trailing amounts and
-  // a leading facility count (e.g. "381   Общо РЗОК   942 127 532   191 249 510").
+  // Grand total, e.g. "381  Общо РЗОК  942 127 532  191 249 510" (2 columns) or
+  // "380  Общо РЗОК  368 752 383  182 964 878  185 787 505" (3). Facility count
+  // leads; the amounts follow, cumulative first.
   const totalLine = lines.find((l) => /Общо\s+РЗОК/.test(l));
   if (totalLine) {
-    const m = totalLine.match(
-      /(\d+)\s+Общо\s+РЗОК\s+([\d\s]+?)\s{2,}([\d\s]+?)\s*$/,
-    );
-    if (m) {
-      headerFacilityCount = Number(m[1]);
-      totalCumulativeEur = asEur(num(m[2]));
+    const cnt = totalLine.match(/(\d+)\s+Общо\s+РЗОК/);
+    if (cnt) headerFacilityCount = Number(cnt[1]);
+    const after = totalLine.replace(/^.*Общо\s+РЗОК/, "");
+    const amts = [...after.matchAll(AMOUNT_RE)].map((mm) => num(mm[0]));
+    if (amts.length >= 2) {
+      totalCumulativeEur = asEur(amts[0]);
+      cols = amts.length;
     }
   }
 
@@ -150,7 +159,7 @@ export const parseHospitalPaymentsPdf = (
   } | null = null;
   const flush = () => {
     if (!pending) return;
-    const parsed = extractAmounts(pending.tail);
+    const parsed = extractAmounts(pending.tail, cols);
     if (parsed)
       rows.push({
         rzokCode: pending.rzokCode,

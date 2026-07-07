@@ -32,9 +32,13 @@ const EIK_FILE = path.join(REPO, "data/budget/nzok/hospital_eik.json");
 const BASE = "https://www.nhif.bg";
 const UA = "electionsbg.com data pipeline";
 
-// Years whose monthly files we attempt. The parser reconciles for 2025-2026;
-// older years use different listing-link text + layout (tracked for backfill).
-const YEARS = [2026, 2025];
+// Years whose monthly files we attempt. 2023-2026 use the "Заплатени
+// здравноосигурителни плащания за БМП" naming + the 2-column monthly layout the
+// parser reconciles cleanly (early-year Jan/Feb files are 3-column and get
+// skipped by the reconciliation assert). 2022-and-earlier shift naming/format
+// (period-in-filename, wrap-drops) and need per-era link+parser work — tracked
+// in scripts/nzok/README.md.
+const YEARS = [2026, 2025, 2024, 2023];
 
 interface Row {
   reg_no: string;
