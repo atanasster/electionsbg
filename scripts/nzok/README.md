@@ -69,15 +69,21 @@ the Рег.№). So the crosswalk is a **high-precision verified match**, not a 
   snapshot as static JSON.
 - **Watcher + changelog wiring** + an `update-nzok` skill so the daily watcher
   refreshes these files (currently a manual `npm run data:nzok`).
-- **2017–2026 backfill** of hospital payments (behind a `--backfill` flag).
-  Parser hardening needed per era (verified 2026-07-07): the current parser
-  reconciles for **14 of 17** recent months (2026 Mar-May + 2025 Feb-Dec). The 3
-  failures are all the **early-year 3-column layout** — Jan/Feb files carry
-  `cumulative | month-N | month-N-1` (e.g. Feb-2026 Свети Георги row
-  `16 293 109  8 293 099  8 000 011`), so `extractAmounts`' "last-two-amounts"
-  picks the wrong columns. Fix: take the trailing *numeric block* (consecutive
-  numbers not separated by letters) → `block[0]` = cumulative, `block[1]` =
-  reporting month; must stay compatible with the wrapped-name handling. Older
-  years (≤2019) additionally use a different listing-link text, so the
-  link-finder needs per-era patterns.
+- **Backfill status** (2026-07-07): **2023-2026 loaded** into `nzok_hospital_payments`
+  — 34 months / 12,916 rows (the loader's `YEARS`, reconciliation-asserted per
+  month). Remaining tail:
+  - **Jan/Feb of every year (3-column layout)** — these files carry three amount
+    columns (`cumulative | month-N | month-N-1`) AND the columns are often only a
+    single space apart in the pdftotext output (e.g. Feb-2026 header
+    `368 752 383  182 964 878 185 787 505`), so the digit-group regex *merges*
+    adjacent amounts and column-count mis-detects. Digit-grouping can't
+    disambiguate — needs **column-position parsing** (detect right-edge char
+    offsets of the amount columns from the multi-space rows, extract by position).
+    The parser is already N-column-aware (`extractAmounts(tail, cols)`); only the
+    tokeniser needs position-awareness. ~2 months/year.
+  - **≤2022** — naming shifts mid-2022 ("по реда на НРД"), 2020-2021 use
+    "Заплатени средства за БМП (КП, КПр и АПр)" with the period in the *filename*
+    not the PDF text, and 2019- differ further. Each era needs its own link
+    pattern + a period-from-filename fallback + the 2022 wrap-drop fix. Add years
+    to the loader's `YEARS` as each era is hardened.
 - The quarterly **"Превишение"** (overspend) signal.
