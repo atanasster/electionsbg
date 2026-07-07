@@ -40,11 +40,15 @@ export const NoiAdminBenchmarkTile: FC<{
     `${Math.max(0, Math.min(100, (v / scaleMax) * 100))}%`;
 
   const perPensioner = fundYear.adminEur / NOI_PENSIONERS_2024;
-  // Procurement's share of Издръжка (operations) — the zIndex "how much of the
-  // non-salary operating spend actually runs through public tender" lens.
+  // Procurement's share of the non-personnel operating base — the zIndex "how
+  // much of the addressable operating spend runs through public tender" lens.
+  // The denominator is издръжка + капиталови (both are procured), matching the
+  // numerator, which spans operating goods/services AND capital acquisitions —
+  // dividing by издръжка alone mixed bases and overstated the ratio.
+  const operatingBaseEur = fundYear.operationsEur + fundYear.capitalEur;
   const procShareOfOps =
-    procurementAnnualEur != null && fundYear.operationsEur > 0
-      ? procurementAnnualEur / fundYear.operationsEur
+    procurementAnnualEur != null && operatingBaseEur > 0
+      ? procurementAnnualEur / operatingBaseEur
       : null;
 
   return (
@@ -136,8 +140,8 @@ export const NoiAdminBenchmarkTile: FC<{
             <div className="rounded-md border bg-muted/30 p-2">
               <div className="text-muted-foreground">
                 {bg
-                  ? "Поръчки като дял от издръжката"
-                  : "Procurement as share of operations"}
+                  ? "Поръчки / издръжка + капиталови"
+                  : "Procurement / operations + capital"}
               </div>
               <div className="font-semibold tabular-nums">
                 {(procShareOfOps * 100).toLocaleString(lang, {

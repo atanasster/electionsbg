@@ -32,7 +32,10 @@ export const NoiCategoryTile: FC<{
   const bg = lang === "bg";
   const rows = categories.filter((c) => c.totalEur > 0);
   if (rows.length < 2 || totalEur <= 0) return null;
-  const max = rows[0].totalEur;
+  // True maximum, not rows[0]: the sink ("Друго") is forced last in the sort but
+  // can be the largest bucket (it is for НОИ), so rows[0] would under-scale it
+  // and overflow its bar. Scale bar widths against the actual biggest value.
+  const max = Math.max(...rows.map((c) => c.totalEur));
   // "Друго" on НОИ is overwhelmingly contracts with no CPV code (small ТП-level
   // purchases), not an unmapped theme — say so rather than let a big grey bar
   // read as hidden spend.

@@ -198,6 +198,21 @@ export const buildAwarderModel = <Cat extends string>(
     if (known) ca.bidKnownN += 1;
     if (single) ca.singleBidN += 1;
 
+    // Year aggregation — every spend row, independent of whether it carries a
+    // contractor eik, so Σ years[].totalEur reconciles with the headline
+    // totalEur (a row with no eik still spent money in its year).
+    const y = yearOf(c.date);
+    if (y != null) {
+      let yr = yearMap.get(y);
+      if (!yr) {
+        yr = { year: y, totalEur: 0, contractCount: 0, byCategory: {} };
+        yearMap.set(y, yr);
+      }
+      yr.totalEur += eur;
+      yr.contractCount += 1;
+      yr.byCategory[category] = (yr.byCategory[category] ?? 0) + eur;
+    }
+
     const eik = c.contractorEik;
     if (eik) {
       ca.suppliers.add(eik);
@@ -219,18 +234,6 @@ export const buildAwarderModel = <Cat extends string>(
       if (known) s.bidKnownN += 1;
       if (single) s.singleBidN += 1;
       s.byCat.set(category, (s.byCat.get(category) ?? 0) + eur);
-
-      const y = yearOf(c.date);
-      if (y != null) {
-        let yr = yearMap.get(y);
-        if (!yr) {
-          yr = { year: y, totalEur: 0, contractCount: 0, byCategory: {} };
-          yearMap.set(y, yr);
-        }
-        yr.totalEur += eur;
-        yr.contractCount += 1;
-        yr.byCategory[category] = (yr.byCategory[category] ?? 0) + eur;
-      }
     }
   }
 

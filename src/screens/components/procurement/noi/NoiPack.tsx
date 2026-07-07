@@ -97,7 +97,7 @@ export const NoiPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
       {/* НОИ-specific KPI: procurement per year against the fund it administers.
           The generic total/contracts/suppliers KPIs sit in the awarder header
           above; this keeps only the figure that is genuinely НОИ-only. */}
-      <div className="grid gap-3 grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-3 grid-cols-2">
         <StatCard
           label={bg ? "Поръчки на година" : "Procurement per year"}
           hint={

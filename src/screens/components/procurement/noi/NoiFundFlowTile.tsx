@@ -169,8 +169,8 @@ export const NoiFundFlowTile: FC<{
         {procurementTotalEur > 0 && (
           <p className="text-xs text-muted-foreground/90">
             {bg
-              ? `За сравнение: обществените поръчки на НОИ по-долу са ${eur(procurementTotalEur)} общо за ${procurementYears ?? "—"} г. (~${eur(annualProc)}/г.) — под ${procShareOfExp < 0.005 ? "0,5" : pct(procShareOfExp, lang)}% от годишния разход на фонда.`
-              : `For scale: НОИ's procurement below totals ${eur(procurementTotalEur)} over ${procurementYears ?? "—"} years (~${eur(annualProc)}/yr) — under ${procShareOfExp < 0.005 ? "0.5" : pct(procShareOfExp, lang)}% of the fund's annual expenditure.`}
+              ? `За сравнение: обществените поръчки на НОИ по-долу са ${eur(procurementTotalEur)} общо за ${procurementYears ?? "—"} г. (~${eur(annualProc)}/г.) — под ${procShareOfExp < 0.005 ? "0,5%" : pct(procShareOfExp, lang)} от годишния разход на фонда.`
+              : `For scale: НОИ's procurement below totals ${eur(procurementTotalEur)} over ${procurementYears ?? "—"} years (~${eur(annualProc)}/yr) — under ${procShareOfExp < 0.005 ? "0.5%" : pct(procShareOfExp, lang)} of the fund's annual expenditure.`}
           </p>
         )}
       </CardContent>
