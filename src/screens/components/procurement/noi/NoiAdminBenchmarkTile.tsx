@@ -11,7 +11,10 @@ import { useTranslation } from "react-i18next";
 import { Scale } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
-import { NOI_ADMIN_BENCHMARK, NOI_PENSIONERS_2024 } from "@/lib/noiBenchmarks";
+import {
+  NOI_ADMIN_BENCHMARK,
+  NOI_PENSIONERS_BY_YEAR,
+} from "@/lib/noiBenchmarks";
 import type { NoiFundYear } from "@/data/procurement/useNoi";
 
 const { ssa, drvLo, drvHi } = NOI_ADMIN_BENCHMARK;
@@ -42,7 +45,11 @@ export const NoiAdminBenchmarkTile: FC<{
   const pos = (v: number) =>
     `${Math.max(0, Math.min(100, (v / scaleMax) * 100))}%`;
 
-  const perPensioner = fundYear.adminEur / NOI_PENSIONERS_2024;
+  // Headcount for the SAME fund year, or null → the per-pensioner KPI hides
+  // rather than dividing by a stale year's count.
+  const pensioners = NOI_PENSIONERS_BY_YEAR[fundYear.fiscalYear] ?? null;
+  const perPensioner =
+    pensioners != null ? fundYear.adminEur / pensioners : null;
   // Procurement's share of the non-personnel operating base — the zIndex "how
   // much of the addressable operating spend runs through public tender" lens.
   // The denominator is издръжка + капиталови (both are procured), matching the
@@ -126,19 +133,21 @@ export const NoiAdminBenchmarkTile: FC<{
         </div>
 
         <div className="pt-3 grid gap-2 sm:grid-cols-2 text-xs">
-          <div className="rounded-md border bg-muted/30 p-2">
-            <div className="text-muted-foreground">
-              {bg
-                ? "Администрация на пенсионер"
-                : "Administration per pensioner"}
+          {perPensioner != null && (
+            <div className="rounded-md border bg-muted/30 p-2">
+              <div className="text-muted-foreground">
+                {bg
+                  ? "Администрация на пенсионер"
+                  : "Administration per pensioner"}
+              </div>
+              <div className="font-semibold tabular-nums">
+                {formatEurCompact(perPensioner, lang)}
+                <span className="ml-1 font-normal text-muted-foreground">
+                  {bg ? "/ година" : "/ year"}
+                </span>
+              </div>
             </div>
-            <div className="font-semibold tabular-nums">
-              {formatEurCompact(perPensioner, lang)}
-              <span className="ml-1 font-normal text-muted-foreground">
-                {bg ? "/ година" : "/ year"}
-              </span>
-            </div>
-          </div>
+          )}
           {procShareOfOps != null && (
             <div className="rounded-md border bg-muted/30 p-2">
               <div className="text-muted-foreground">

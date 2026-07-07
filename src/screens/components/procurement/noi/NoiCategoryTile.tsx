@@ -86,7 +86,7 @@ export const NoiCategoryTile: FC<{
                       to={`/company/${c.topSupplier.eik}`}
                       className="hover:text-primary hover:underline"
                     >
-                      {c.topSupplier.name.split(/[-,/]/)[0].trim()}
+                      {c.topSupplier.name.split(/\s[-–—]\s|[,/]/)[0].trim()}
                     </Link>
                   </span>
                 )}

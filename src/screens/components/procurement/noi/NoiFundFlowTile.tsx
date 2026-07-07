@@ -67,13 +67,38 @@ export const NoiFundFlowTile: FC<{
 
   const { expenditureEur, pensionsEur, benefitsEur, adminEur, capitalEur } =
     fundYear;
-  const values = {
+  const stackValues: Record<string, number> = {
     pensions: pensionsEur,
     benefits: benefitsEur,
     admin: adminEur,
     capital: capitalEur,
   };
   const stackTotal = pensionsEur + benefitsEur + adminEur + capitalEur;
+  // Reconcile the bar to the headline (expenditureEur): anything not in the four
+  // named lines — interest, subsidies, transfers abroad, reserve — becomes a
+  // residual segment, so the legend amounts always sum to the headline € above
+  // and the shares use the same base. (≈0 for ДОО; matters if a year carries
+  // non-trivial other lines.)
+  const denom = expenditureEur > 0 ? expenditureEur : stackTotal;
+  const residual = Math.max(0, expenditureEur - stackTotal);
+  const segments: { bg: string; en: string; color: string; value: number }[] = [
+    ...SEGMENTS.map((s) => ({
+      bg: s.bg,
+      en: s.en,
+      color: s.color,
+      value: stackValues[s.key],
+    })),
+    ...(residual > denom * 0.001
+      ? [
+          {
+            bg: "Друго",
+            en: "Other",
+            color: "bg-muted-foreground/30",
+            value: residual,
+          },
+        ]
+      : []),
+  ];
 
   // Revenue coverage — own contributions vs the state transfer that fills the
   // gap. balance is small; the honest framing is "contributions cover X%".
@@ -83,11 +108,25 @@ export const NoiFundFlowTile: FC<{
 
   // Procurement bridge — the "% of the fund" uses the SAME fund year on both
   // sides (fundYearProcEur / that year's expenditure) so periods match; falls
-  // back to the annualised multi-year average only when the fund year is out of
-  // the scoped window. annualProc is passed in, not re-derived.
-  const bridgeProc = fundYearProcEur ?? annualProc ?? procurementTotalEur;
-  const procShareOfExp = expenditureEur > 0 ? bridgeProc / expenditureEur : 0;
-  const perYear = annualProc ?? procurementTotalEur;
+  // back to the annualised multi-year average when the fund year is out of the
+  // scoped window. No total-corpus fallback: dividing a 15-year total by one
+  // year's expenditure would overstate the share ~10×, so the sentence hides
+  // instead. annualProc is passed in, not re-derived.
+  const bridgeProc = fundYearProcEur ?? annualProc;
+  const procShareOfExp =
+    bridgeProc != null && expenditureEur > 0
+      ? bridgeProc / expenditureEur
+      : null;
+  // "под 0,5%" is honest only for the rounding floor; above it, show the actual
+  // value with "~" rather than claiming it is "under" a number it exceeds.
+  const shareText =
+    procShareOfExp == null
+      ? null
+      : procShareOfExp < 0.005
+        ? bg
+          ? "под 0,5%"
+          : "under 0.5%"
+        : `~${pct(procShareOfExp, lang)}`;
 
   const pt = fundYear.pensionTypes;
 
@@ -117,32 +156,32 @@ export const NoiFundFlowTile: FC<{
         {/* Expenditure composition bar */}
         <div>
           <div className="flex h-6 w-full overflow-hidden rounded-md">
-            {SEGMENTS.map((s) => {
-              const w = stackTotal > 0 ? (values[s.key] / stackTotal) * 100 : 0;
+            {segments.map((s, i) => {
+              const w = denom > 0 ? (s.value / denom) * 100 : 0;
               if (w <= 0) return null;
               return (
                 <div
-                  key={s.key}
+                  key={i}
                   className={s.color}
                   style={{ width: `${w}%` }}
-                  title={`${bg ? s.bg : s.en}: ${eur(values[s.key])}`}
+                  title={`${bg ? s.bg : s.en}: ${eur(s.value)}`}
                 />
               );
             })}
           </div>
           <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs">
-            {SEGMENTS.map((s) =>
-              values[s.key] > 0 ? (
-                <span key={s.key} className="inline-flex items-center gap-1.5">
+            {segments.map((s, i) =>
+              s.value > 0 ? (
+                <span key={i} className="inline-flex items-center gap-1.5">
                   <span className={`h-2.5 w-2.5 rounded-sm ${s.color}`} />
                   <span className="text-muted-foreground">
                     {bg ? s.bg : s.en}
                   </span>
                   <span className="font-medium tabular-nums">
-                    {eur(values[s.key])}
+                    {eur(s.value)}
                   </span>
                   <span className="text-muted-foreground/70 tabular-nums">
-                    {pct(values[s.key] / stackTotal, lang)}
+                    {pct(s.value / denom, lang)}
                   </span>
                 </span>
               ) : null,
@@ -178,11 +217,11 @@ export const NoiFundFlowTile: FC<{
         </div>
 
         {/* Procurement bridge — the point of the pack */}
-        {procurementTotalEur > 0 && (
+        {procurementTotalEur > 0 && annualProc != null && shareText && (
           <p className="text-xs text-muted-foreground/90">
             {bg
-              ? `За сравнение: обществените поръчки на НОИ по-долу са ${eur(procurementTotalEur)} общо за ${procurementYears ?? "—"} г. (~${eur(perYear)}/г.) — под ${procShareOfExp < 0.005 ? "0,5%" : pct(procShareOfExp, lang)} от разхода на фонда за ${fundYear.fiscalYear} г.`
-              : `For scale: НОИ's procurement below totals ${eur(procurementTotalEur)} over ${procurementYears ?? "—"} years (~${eur(perYear)}/yr) — under ${procShareOfExp < 0.005 ? "0.5%" : pct(procShareOfExp, lang)} of the fund's ${fundYear.fiscalYear} expenditure.`}
+              ? `За сравнение: обществените поръчки на НОИ по-долу са ${eur(procurementTotalEur)} общо за ${procurementYears ?? "—"} г. (~${eur(annualProc)}/г.) — ${shareText} от разхода на фонда за ${fundYear.fiscalYear} г.`
+              : `For scale: НОИ's procurement below totals ${eur(procurementTotalEur)} over ${procurementYears ?? "—"} years (~${eur(annualProc)}/yr) — ${shareText} of the fund's ${fundYear.fiscalYear} expenditure.`}
           </p>
         )}
       </CardContent>

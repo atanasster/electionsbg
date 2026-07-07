@@ -18,6 +18,7 @@ import { useTranslation } from "react-i18next";
 import { PiggyBank } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEurCompact } from "@/lib/currency";
+import { WARN_CHIP_COLORS } from "../chipStyles";
 import { useNoi, type RoadsWindow } from "@/data/procurement/useNoi";
 import { categoryLabel } from "@/lib/noiBenchmarks";
 import { NoiFundFlowTile } from "./NoiFundFlowTile";
@@ -89,7 +90,7 @@ export const NoiPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
         warn: model.directShare > 0.1,
         text: `${Math.round(model.directShare * 100)}% ${bg ? "без обявление" : "direct award"}`,
       });
-    return out.slice(0, 5);
+    return out;
   }, [model, lang, bg]);
 
   if (isLoading)
@@ -146,7 +147,7 @@ export const NoiPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
               key={i}
               className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium ${
                 it.warn
-                  ? "border-amber-300/60 bg-amber-100/50 text-amber-700 dark:border-amber-800/50 dark:bg-amber-900/20 dark:text-amber-400"
+                  ? WARN_CHIP_COLORS
                   : "border-border bg-muted/40 text-foreground"
               }`}
             >

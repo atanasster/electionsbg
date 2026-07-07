@@ -7,16 +7,20 @@
 // no procurement-only portal has.
 
 import { useMemo } from "react";
-import { useAwarderContracts } from "./useRoads";
+import {
+  useAwarderContracts,
+  scopeByWindow,
+  type ScopeWindow,
+} from "./useAwarderContracts";
 import { useProcurementWindow } from "./useProcurementWindow";
 import { useNoiFunds } from "@/data/budget/useBudget";
 import { buildNoiModel, NOI_EIK, type NoiModel } from "@/lib/noiAttributes";
-import type { RoadsWindow } from "./useRoads";
 import type { NoiFundsFile } from "@/data/budget/types";
 
 export { NOI_EIK };
-// Re-export so the pack can take its scope-window type from one place.
-export type { RoadsWindow };
+// `RoadsWindow` is the back-compat alias of the neutral ScopeWindow; the pack
+// takes its scope-window type from here.
+export type RoadsWindow = ScopeWindow;
 
 /** The single ДОО fiscal-year snapshot the pack renders (the most recent
  *  ingested year), flattened to the figures the tiles need. Admin = Персонал +
@@ -91,14 +95,7 @@ export const useNoi = (
   const model = useMemo<NoiModel | null>(() => {
     const all = contracts.data?.contracts;
     if (!all) return null;
-    const scoped =
-      !from && !to
-        ? all
-        : all.filter(
-            (c) =>
-              (!from || (c.date ?? "") >= from) && (!to || (c.date ?? "") < to),
-          );
-    return buildNoiModel(scoped);
+    return buildNoiModel(scopeByWindow(all, from, to));
   }, [contracts.data, from, to]);
 
   const fundYear = useMemo(

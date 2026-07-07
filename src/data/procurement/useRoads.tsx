@@ -14,9 +14,13 @@
 // so every number on the page re-scopes together.
 
 import { useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { useCounterparties } from "./useCounterparties";
 import { useProcurementWindow } from "./useProcurementWindow";
+import {
+  useAwarderContracts,
+  scopeByWindow,
+  type ScopeWindow,
+} from "./useAwarderContracts";
 import {
   buildRoadsModel,
   API_EIK,
@@ -24,9 +28,11 @@ import {
 } from "@/lib/roadAttributes";
 import type { ProcurementContract } from "@/data/dataTypes";
 
-// Re-exported so existing importers (tiles, RoadsScreen) keep their path; the
-// canonical literal now lives in the dependency-free engine. See roadAttributes.
-export { API_EIK };
+// Re-exported so existing importers keep their path. The corpus hook + window
+// type now live in the buyer-agnostic useAwarderContracts module; `RoadsWindow`
+// is kept as a back-compat alias of the neutral `ScopeWindow`.
+export { API_EIK, useAwarderContracts };
+export type RoadsWindow = ScopeWindow;
 
 /** The slice of the old awarder rollup the roads dashboard actually renders. */
 export interface RoadsRollup {
@@ -50,33 +56,6 @@ export interface RoadsData {
   isLoading: boolean;
 }
 
-const fetchAwarderContracts = async (
-  eik: string,
-): Promise<{ contracts: ProcurementContract[] } | null> => {
-  const r = await fetch(
-    `/api/db/awarder-contracts?eik=${encodeURIComponent(eik)}`,
-  );
-  if (!r.ok) return null;
-  return (await r.json()) as { contracts: ProcurementContract[] };
-};
-
-export const useAwarderContracts = (eik?: string | null) =>
-  useQuery({
-    queryKey: ["db", "awarder-contracts", eik] as const,
-    queryFn: () => fetchAwarderContracts(eik as string),
-    enabled: !!eik && /^\d{9,13}$/.test(eik),
-    staleTime: Infinity,
-    retry: false,
-  });
-
-/** Explicit [from, to) window override — half-open on the contract `date`, same
- *  semantics as useProcurementWindow. Passed by hosts (e.g. the awarder page)
- *  whose scope lives in local state rather than the ?pscope URL param. */
-export interface RoadsWindow {
-  from: string | null;
-  to: string | null;
-}
-
 export const useRoads = (
   eik: string = API_EIK,
   windowOverride?: RoadsWindow,
@@ -93,10 +72,7 @@ export const useRoads = (
   const scopedContracts = useMemo<ProcurementContract[] | null>(() => {
     const all = contracts.data?.contracts;
     if (!all) return null;
-    if (!from && !to) return all;
-    return all.filter(
-      (c) => (!from || (c.date ?? "") >= from) && (!to || (c.date ?? "") < to),
-    );
+    return scopeByWindow(all, from, to);
   }, [contracts.data, from, to]);
 
   const model = useMemo(

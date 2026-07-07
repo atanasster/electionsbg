@@ -38,6 +38,7 @@ import { RoadRepeatWinnersTile } from "./RoadRepeatWinnersTile";
 import { RoadCostBenchmarkTile } from "./RoadCostBenchmarkTile";
 import { RoadChainageStripTile } from "./RoadChainageStripTile";
 import { RoadNetworkMap, type RoadMetric } from "./RoadNetworkMap";
+import { WARN_CHIP_COLORS } from "../chipStyles";
 
 const pctFmt = (v: number | undefined, lang: string) =>
   v == null
@@ -92,7 +93,7 @@ export const RoadsPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
     );
     if (comp)
       out.push({
-        text: `${comp.name.split(/[-,]/)[0].trim()}: ${eur(comp.totalEur)} ${lang === "bg" ? "при 0% една оферта" : "at 0% single-bid"}`,
+        text: `${comp.name.split(/\s[-–—]\s|,/)[0].trim()}: ${eur(comp.totalEur)} ${lang === "bg" ? "при 0% една оферта" : "at 0% single-bid"}`,
       });
     if (model.directShare > 0.05)
       out.push({
@@ -149,7 +150,7 @@ export const RoadsPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
               key={i}
               className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium ${
                 it.warn
-                  ? "border-amber-300/60 bg-amber-100/50 text-amber-700 dark:border-amber-800/50 dark:bg-amber-900/20 dark:text-amber-400"
+                  ? WARN_CHIP_COLORS
                   : "border-border bg-muted/40 text-foreground"
               }`}
             >

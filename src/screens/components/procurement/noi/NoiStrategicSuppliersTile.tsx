@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import { Users, Gavel, Truck } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
+import { WARN_CHIP_COLORS } from "../chipStyles";
 import { NOI_SUPPLIER_CONTEXT } from "@/lib/noiBenchmarks";
 import type { NoiSupplier } from "@/lib/noiAttributes";
 
@@ -28,7 +29,9 @@ export const NoiStrategicSuppliersTile: FC<{
 
   const top = suppliers.slice(0, TOP_N);
   const topShare = top.reduce((s, x) => s + x.totalEur, 0) / totalEur;
-  const max = top[0].totalEur;
+  // `|| 1` guards against every supplier row being €0 (totalEur > 0 coming only
+  // from eik-less rows) → avoids NaN bar widths.
+  const max = top[0].totalEur || 1;
 
   return (
     <Card>
@@ -94,7 +97,9 @@ export const NoiStrategicSuppliersTile: FC<{
                     </span>
                   )}
                   {ctx && (
-                    <span className="inline-flex items-center gap-1 rounded-full border border-amber-300/60 bg-amber-100/50 px-2 py-0.5 text-[10px] font-medium text-amber-700 dark:border-amber-800/50 dark:bg-amber-900/20 dark:text-amber-400">
+                    <span
+                      className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-medium ${WARN_CHIP_COLORS}`}
+                    >
                       {ctx.kind === "statutory" ? (
                         <Gavel className="h-3 w-3" />
                       ) : (

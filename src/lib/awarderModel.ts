@@ -199,8 +199,10 @@ export const buildAwarderModel = <Cat extends string>(
     if (single) ca.singleBidN += 1;
 
     // Year aggregation — every spend row, independent of whether it carries a
-    // contractor eik, so Σ years[].totalEur reconciles with the headline
-    // totalEur (a row with no eik still spent money in its year).
+    // contractor eik (a row with no eik still spent money in its year). Σ
+    // years[].totalEur reconciles with the headline totalEur up to rows whose
+    // date is unparseable (yearOf → null), which are counted in the total but
+    // belong to no year bucket.
     const y = yearOf(c.date);
     if (y != null) {
       let yr = yearMap.get(y);
