@@ -467,6 +467,30 @@ const main = async (): Promise<void> => {
       totalEur > 0 ? Math.round((matchedEur / totalEur) * 1000) / 10 : 0,
     entries,
   };
+  // Regression floor — the crosswalk is near-static and only improves as
+  // MANUAL_OVERRIDES grow, so a drop in match rate vs the last committed run
+  // means the partner scrape or the TR join silently regressed (e.g. a РЗОК page
+  // returned fewer cards but still cleared the ≥300 gate). Fail loudly rather
+  // than quietly pulling verified hospitals off their /company/:eik pages. No
+  // readable baseline (first run / legacy shape) → skip the floor.
+  let prev: { matchedCount?: number; matchedEurShare?: number } | null = null;
+  if (fs.existsSync(OUT_FILE)) {
+    try {
+      prev = JSON.parse(fs.readFileSync(OUT_FILE, "utf8"));
+    } catch {
+      prev = null;
+    }
+  }
+  if (prev) {
+    const prevCount = Number(prev.matchedCount ?? 0);
+    const prevShare = Number(prev.matchedEurShare ?? 0);
+    if (matched.length < prevCount - 5 || out.matchedEurShare < prevShare - 2)
+      throw new Error(
+        `crosswalk match-rate regression: ${matched.length}/${entries.length} matched (${out.matchedEurShare}% of YTD) vs prior ${prevCount} (${prevShare}%) — ` +
+          `partner scrape or TR join may have regressed; re-check before overwriting ${OUT_FILE}`,
+      );
+  }
+
   fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
   fs.writeFileSync(OUT_FILE, JSON.stringify(out, null, 2));
 

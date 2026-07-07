@@ -158,6 +158,7 @@ const main = async (): Promise<void> => {
   // Data starts at row 2 (row 0 title, row 1 header). Cols: 1=ATC, 2=INN,
   // 4=trade name, 9=Реимбурсна сума (BGN).
   let droppedNonPositive = 0;
+  let droppedUnparseable = 0;
   for (let i = 2; i < rows.length; i++) {
     const r = rows[i];
     if (!r) continue;
@@ -165,9 +166,13 @@ const main = async (): Promise<void> => {
     const atc = String(r[1] ?? "").trim();
     const product = String(r[4] ?? "").trim();
     const bgn = Number(r[9]);
-    // Count silently-dropped non-positive amounts — a correction/clawback row
-    // shouldn't invisibly shrink the total.
-    if (inn && Number.isFinite(bgn) && bgn <= 0) droppedNonPositive++;
+    // Count silently-dropped rows so a layout shift affecting only a few can't
+    // ship an invisible under-count. Two classes: a non-positive amount (a
+    // correction/clawback that shouldn't shrink the total) and an INN row whose
+    // amount column is non-finite (NaN — a stray footnote, merged cell, or moved
+    // column), which the plausibility gate below is too coarse to catch.
+    if (inn && !Number.isFinite(bgn)) droppedUnparseable++;
+    else if (inn && bgn <= 0) droppedNonPositive++;
     if (!inn || !Number.isFinite(bgn) || bgn <= 0) continue;
     const eur = Math.round((toEur(bgn, "BGN") ?? 0) * 100) / 100;
     dataRows++;
@@ -238,6 +243,9 @@ const main = async (): Promise<void> => {
     `Wrote ${OUT_FILE}\n  ${year} (${out.basis}): €${out.totalEur.toLocaleString("en")} across ${out.distinctInn} INN / ${dataRows} products` +
       (droppedNonPositive
         ? ` (${droppedNonPositive} non-positive rows dropped)`
+        : "") +
+      (droppedUnparseable
+        ? ` (${droppedUnparseable} rows with unparseable amounts dropped)`
         : "") +
       `\n  top: ${top[0].inn} €${top[0].eur.toLocaleString("en")} · onco group L €${(byAtcGroup.find((g) => g.code === "L")?.eur ?? 0).toLocaleString("en")}`,
   );
