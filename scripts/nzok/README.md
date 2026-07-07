@@ -72,15 +72,15 @@ the Рег.№). So the crosswalk is a **high-precision verified match**, not a 
 - **Backfill status** (2026-07-07): **2023-2026 loaded** into `nzok_hospital_payments`
   — 34 months / 12,916 rows (the loader's `YEARS`, reconciliation-asserted per
   month). Remaining tail:
-  - **Jan/Feb of every year (3-column layout)** — these files carry three amount
-    columns (`cumulative | month-N | month-N-1`) AND the columns are often only a
-    single space apart in the pdftotext output (e.g. Feb-2026 header
-    `368 752 383  182 964 878 185 787 505`), so the digit-group regex *merges*
-    adjacent amounts and column-count mis-detects. Digit-grouping can't
-    disambiguate — needs **column-position parsing** (detect right-edge char
-    offsets of the amount columns from the multi-space rows, extract by position).
-    The parser is already N-column-aware (`extractAmounts(tail, cols)`); only the
-    tokeniser needs position-awareness. ~2 months/year.
+  - **3-column early-year files — SOLVED** (2026-07-07). `extractAmounts` now
+    anchors on the tail's LAST letter (amount region = everything after the name),
+    so the merged single-space month columns no longer break cumulative
+    extraction. Feb files parse. **Residual**: Jan files still fail a
+    *count* check (8 facility rows don't match `ROW_START_RE` — a row-matching
+    issue, not amount extraction; likely a slightly different Jan row shape) and 4
+    mid-2024 months drift ~0.54% (just over the 0.5% reconciliation tolerance,
+    systematic across the whole file — not a single bad row). Both are
+    assert-rejected (no wrong data); each needs its own per-file look.
   - **≤2022** — naming shifts mid-2022 ("по реда на НРД"), 2020-2021 use
     "Заплатени средства за БМП (КП, КПр и АПр)" with the period in the *filename*
     not the PDF text, and 2019- differ further. Each era needs its own link
