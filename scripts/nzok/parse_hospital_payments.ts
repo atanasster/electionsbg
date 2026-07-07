@@ -77,59 +77,57 @@ const AMOUNT_RE = /\d{1,3}(?:[ \t\u00a0]\d{3})+|\d+/g;
 /** Pull the amounts off a row's accumulated tail (text after the reg number,
  *  possibly spanning wrapped lines).
  *
- *  Primary path — the amount block is right-aligned AFTER the facility name, so
- *  anchor on the LAST letter in the tail: everything after it is the amount
- *  region, cumulative first, reporting-month second. This one anchor handles all
- *  the layout quirks at once: a name-embedded digit ("ДКЦ 1" — before the last
- *  letter, excluded), a name glued to the first amount with no gutter
- *  ("…ЕООД153 490", "гр. Монтана 694 602"), and the early-year 3-column files
- *  where the two month columns merge under a single space (cumulative — the
- *  reconciliation-critical value — is still the FIRST amount). A merged month
- *  reads implausibly large (> cumulative) and is recorded as 0 (unknown) rather
- *  than a wrong figure.
- *
- *  Fallback — a wrapped row leaves name fragments AFTER the amounts, so the
- *  "after the last letter" region is empty; fall back to the last two digit-group
- *  tokens (the \n-non-merging AMOUNT_RE keeps a stray name-fragment digit
- *  separate). */
+ *  The cumulative YTD is the LARGEST money figure in a row — it is ≥ its own
+ *  reporting month, and ≥ any name-embedded index digit ("МБАЛ 2"). So we take
+ *  two candidate readings and keep the larger; its position bounds the facility
+ *  name. This one rule unifies every observed layout without per-case branching:
+ *   - Candidate A — first amount AFTER the last name letter. Right for the
+ *     early-year 3-column merge (two month columns share one gutter) and a name
+ *     glued to the first amount with no gutter ("…ЕООД242 730", "гр. Монтана 694 602").
+ *   - Candidate B — the second-to-last amount of the whole row. Right for wrapped
+ *     rows where a name fragment trails the amounts (so "after the last letter"
+ *     lands on a fragment, not the cumulative).
+ *  A merged/again-wrapped month reads > cumulative and is recorded 0 (unknown)
+ *  rather than a wrong figure. */
 const extractAmounts = (
   tail: string,
 ): { name: string; cumulative: number; month: number } | null => {
+  const all = [...tail.matchAll(AMOUNT_RE)];
+  if (all.length < 2) return null;
+
+  // Candidate A — first amount after the last letter.
   let lastLetter = -1;
   for (const m of tail.matchAll(/\p{L}/gu)) lastLetter = m.index ?? lastLetter;
-  const region = lastLetter >= 0 ? tail.slice(lastLetter + 1) : tail;
+  const region = lastLetter >= 0 ? tail.slice(lastLetter + 1) : "";
   const rm = [...region.matchAll(AMOUNT_RE)];
-  // Guard a facility NAME ending in a bare index digit ("…МБАЛ 2"): that digit
-  // leads the amount region and would be read as `cumulative`. A short ungrouped
-  // integer at the very start of the region, with the real cumulative + month
-  // still following (≥3 tokens), is a name token — drop it. Grouped amounts
-  // ("4 684 771") never match /^\d{1,3}$/, so real data is untouched.
-  if (rm.length >= 3 && /^\d{1,3}$/.test(rm[0][0]) && (rm[0].index ?? 99) <= 2)
-    rm.shift();
-  if (rm.length >= 1) {
-    const cumulative = num(rm[0][0]);
-    if (Number.isFinite(cumulative)) {
-      let month = rm.length >= 2 ? num(rm[1][0]) : 0;
-      if (!Number.isFinite(month) || month > cumulative) month = 0;
-      const name = tail
-        .slice(0, lastLetter + 1)
-        .replace(/\s+/g, " ")
-        .replace(/[\s"„“]+$/u, "")
-        .trim();
-      if (name) return { name, cumulative, month };
-    }
-  }
+  const aVal = rm.length ? num(rm[0][0]) : NaN;
+  const aIdx = rm.length ? lastLetter + 1 + (rm[0].index ?? 0) : -1;
 
-  // Fallback: wrapped row → last two digit-group amounts.
-  const matches = [...tail.matchAll(AMOUNT_RE)];
-  if (matches.length < 2) return null;
-  const cumM = matches[matches.length - 2];
-  const monM = matches[matches.length - 1];
-  const cumulative = num(cumM[0]);
-  const month = num(monM[0]);
-  if (!Number.isFinite(cumulative) || !Number.isFinite(month)) return null;
+  // Candidate B — second-to-last amount of the whole row.
+  const bVal = num(all[all.length - 2][0]);
+  const bIdx = all[all.length - 2].index ?? -1;
+
+  const useA =
+    Number.isFinite(aVal) && (!Number.isFinite(bVal) || aVal >= bVal);
+  const cumulative = useA ? aVal : bVal;
+  const cumIdx = useA ? aIdx : bIdx;
+  // Keep zero-payment facilities (cumulative €0) — they're counted in the
+  // facility total and contribute €0 to the sum; only a non-finite/negative
+  // reading is a genuine drop.
+  if (!Number.isFinite(cumulative) || cumulative < 0) return null;
+
+  // Reporting month — the amount right after the cumulative (in A's region, or
+  // the row's last amount for B). Zeroed when it reads larger than cumulative
+  // (a merged/wrapped month), so a wrong figure is never recorded.
+  let month = useA
+    ? rm.length >= 2
+      ? num(rm[1][0])
+      : NaN
+    : num(all[all.length - 1][0]);
+  if (!Number.isFinite(month) || month > cumulative) month = 0;
+
   const name = tail
-    .slice(0, cumM.index ?? 0)
+    .slice(0, cumIdx >= 0 ? cumIdx : (all[0].index ?? 0))
     .replace(/\s+/g, " ")
     .replace(/[\s"„“]+$/u, "")
     .trim();
