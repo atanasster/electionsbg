@@ -26,6 +26,7 @@ import type {
   NzokBudgetFile,
   NzokExecutionFile,
   NzokHospitalPaymentsFile,
+  NzokHospitalByEikFile,
   NzokDrugReimbursementFile,
   PersonnelFile,
   PitBreakdownFile,
@@ -268,6 +269,19 @@ export const useNzokHospitalPayments = () =>
     queryFn: () =>
       fetchJson<NzokHospitalPaymentsFile>(
         "/budget/nzok/hospital_payments.json",
+      ),
+    staleTime: Infinity,
+  });
+
+// НЗОК hospital-care reimbursement keyed by EIK — the Рег.№→EIK crosswalk folded
+// into a compact per-company index (~256 hospitals). Powers the "НЗОК плащания за
+// болнична помощ" tile on a hospital's own /company/:eik page. Small (~40 KB).
+export const useNzokHospitalByEik = () =>
+  useQuery({
+    queryKey: ["budget", "nzok", "hospital-by-eik"] as const,
+    queryFn: () =>
+      fetchJson<NzokHospitalByEikFile>(
+        "/budget/nzok/hospital_reimbursement_by_eik.json",
       ),
     staleTime: Infinity,
   });

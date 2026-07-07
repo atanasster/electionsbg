@@ -57,8 +57,7 @@ export interface NzokExecutionFile {
 // money НЗОК pays out, OUTSIDE ЗОП. Written by
 // scripts/nzok/write_hospital_payments.ts from the nhif.bg БМП report.
 export interface NzokHospitalRow {
-  /** 10-digit facility registration number (Рег.№ ЛЗ) — join key to ИАМН (→EIK),
-   *  not an EIK. Not yet crosswalked, so rows are name-keyed for now. */
+  /** 10-digit facility registration number (Рег.№ ЛЗ) — НЗОК-internal code. */
   regNo: string;
   name: string;
   rzokCode: string;
@@ -67,6 +66,29 @@ export interface NzokHospitalRow {
   cumulativeEur: number;
   /** Paid in the report month, euros. */
   monthEur: number;
+  /** Commerce-Register EIK, from the verified Рег.№→EIK crosswalk
+   *  (hospital_eik.json). null when the facility isn't confidently matched. */
+  eik?: string | null;
+}
+
+// Reverse index of the hospital-payments file keyed by EIK — powers the "НЗОК
+// плащания за болнична помощ" tile on a hospital's own /company/:eik page. One
+// EIK can run several ЛЗ facilities, so each carries the facility list + the sum.
+// Written by scripts/nzok/write_hospital_payments.ts from the crosswalk.
+export interface NzokHospitalByEikFile {
+  generatedAt: string;
+  asOf: string;
+  year: number;
+  month: number;
+  /** eik → its hospital-care reimbursement (summed across the EIK's facilities). */
+  byEik: Record<
+    string,
+    {
+      totalCumulativeEur: number;
+      totalMonthEur: number;
+      facilities: { regNo: string; name: string; cumulativeEur: number }[];
+    }
+  >;
 }
 
 export interface NzokHospitalPaymentsFile {

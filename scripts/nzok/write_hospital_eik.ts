@@ -36,7 +36,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { getPool, end } from "../db/lib/pg";
-import { fetchPartners, type PartnerCard } from "./fetch_partners";
+import { fetchPartners } from "./fetch_partners";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUT_FILE = path.resolve(
@@ -91,28 +91,109 @@ const clean = (s: string): string =>
     .trim();
 
 const NOISE = new Set([
-  "УНИВЕРСИТЕТСКА", "МНОГОПРОФИЛНА", "БОЛНИЦА", "ЗА", "АКТИВНО", "ЛЕЧЕНИЕ",
-  "СПЕШНА", "МЕДИЦИНА", "СПЕЦИАЛИЗИРАНА", "ПО", "ОБЛАСТНА", "ДИАГНОСТИЧНО",
-  "КОНСУЛТАТИВЕН", "ЦЕНТЪР", "НАЦИОНАЛНА", "И", "ПРОДЪЛЖИТЕЛНО", "РЕХАБИЛИТАЦИЯ",
-  "ЗАБОЛЯВАНИЯ", "ОНКОЛОГИЧЕН", "КОМПЛЕКСЕН", "ДЕТСКИ", "БОЛЕСТИ", "ГР", "ПРОФ",
-  "АКАД", "ЛЕЧЕБНО", "ЗАВЕДЕНИЕ", "СВ", "СВЕТИ", "СВЕТА", "ДОКТОР", "ЗДРАВЕ",
+  "УНИВЕРСИТЕТСКА",
+  "МНОГОПРОФИЛНА",
+  "БОЛНИЦА",
+  "ЗА",
+  "АКТИВНО",
+  "ЛЕЧЕНИЕ",
+  "СПЕШНА",
+  "МЕДИЦИНА",
+  "СПЕЦИАЛИЗИРАНА",
+  "ПО",
+  "ОБЛАСТНА",
+  "ДИАГНОСТИЧНО",
+  "КОНСУЛТАТИВЕН",
+  "ЦЕНТЪР",
+  "НАЦИОНАЛНА",
+  "И",
+  "ПРОДЪЛЖИТЕЛНО",
+  "РЕХАБИЛИТАЦИЯ",
+  "ЗАБОЛЯВАНИЯ",
+  "ОНКОЛОГИЧЕН",
+  "КОМПЛЕКСЕН",
+  "ДЕТСКИ",
+  "БОЛЕСТИ",
+  "ГР",
+  "ПРОФ",
+  "АКАД",
+  "ЛЕЧЕБНО",
+  "ЗАВЕДЕНИЕ",
+  "СВ",
+  "СВЕТИ",
+  "СВЕТА",
+  "ДОКТОР",
+  "ЗДРАВЕ",
 ]);
 // Oblast-centre / common city names — a hospital's town is a separate field, not
 // part of its brand (TR names usually omit it), so it must not gate the match.
 const CITIES = new Set([
-  "СОФИЯ", "ПЛОВДИВ", "ВАРНА", "БУРГАС", "РУСЕ", "СТАРА", "ЗАГОРА", "ПЛЕВЕН",
-  "СЛИВЕН", "ДОБРИЧ", "ШУМЕН", "ПЕРНИК", "ХАСКОВО", "ЯМБОЛ", "ПАЗАРДЖИК",
-  "БЛАГОЕВГРАД", "ВЕЛИКО", "ТЪРНОВО", "ВРАЦА", "ГАБРОВО", "ВИДИН", "МОНТАНА",
-  "КЪРДЖАЛИ", "КЮСТЕНДИЛ", "ТЪРГОВИЩЕ", "РАЗГРАД", "СИЛИСТРА", "ЛОВЕЧ", "СМОЛЯН",
+  "СОФИЯ",
+  "ПЛОВДИВ",
+  "ВАРНА",
+  "БУРГАС",
+  "РУСЕ",
+  "СТАРА",
+  "ЗАГОРА",
+  "ПЛЕВЕН",
+  "СЛИВЕН",
+  "ДОБРИЧ",
+  "ШУМЕН",
+  "ПЕРНИК",
+  "ХАСКОВО",
+  "ЯМБОЛ",
+  "ПАЗАРДЖИК",
+  "БЛАГОЕВГРАД",
+  "ВЕЛИКО",
+  "ТЪРНОВО",
+  "ВРАЦА",
+  "ГАБРОВО",
+  "ВИДИН",
+  "МОНТАНА",
+  "КЪРДЖАЛИ",
+  "КЮСТЕНДИЛ",
+  "ТЪРГОВИЩЕ",
+  "РАЗГРАД",
+  "СИЛИСТРА",
+  "ЛОВЕЧ",
+  "СМОЛЯН",
 ]);
 const EXTRA_ACR = new Set([
-  "ДКЦ", "КДЦ", "КОЦ", "ЦПЗ", "ЦКВЗ", "УСБ", "СБР", "МДОЗС", "ДМСГД", "МЦ", "МС",
-  "ДЦ", "МК", "МИ", "НК", "ПЗ",
+  "ДКЦ",
+  "КДЦ",
+  "КОЦ",
+  "ЦПЗ",
+  "ЦКВЗ",
+  "УСБ",
+  "СБР",
+  "МДОЗС",
+  "ДМСГД",
+  "МЦ",
+  "МС",
+  "ДЦ",
+  "МК",
+  "МИ",
+  "НК",
+  "ПЗ",
 ]);
+// Legal-form suffixes — held in a separate TR column, never in the name, so they
+// must never become brand tokens (ООД/ЕАД/… would zero out every candidate).
+const LEGAL = new Set(["АД", "ЕАД", "ООД", "ЕООД", "ЕТ", "АГ"]);
 const GENERIC = new Set([
-  "БОЛНИЦА", "АКТИВНО", "ЛЕЧЕНИЕ", "МНОГОПРОФИЛНА", "УНИВЕРСИТЕТСКА", "ЦЕНТЪР",
-  "МЕДИЦИНСКИ", "СПЕЦИАЛИЗИРАНА", "ДИАГНОСТИЧНО", "КОНСУЛТАТИВЕН", "СПЕШНА",
-  "МЕДИЦИНА", "ЗДРАВЕ", "ПО",
+  "БОЛНИЦА",
+  "АКТИВНО",
+  "ЛЕЧЕНИЕ",
+  "МНОГОПРОФИЛНА",
+  "УНИВЕРСИТЕТСКА",
+  "ЦЕНТЪР",
+  "МЕДИЦИНСКИ",
+  "СПЕЦИАЛИЗИРАНА",
+  "ДИАГНОСТИЧНО",
+  "КОНСУЛТАТИВЕН",
+  "СПЕШНА",
+  "МЕДИЦИНА",
+  "ЗДРАВЕ",
+  "ПО",
 ]);
 
 // A facility-type acronym: any token containing "БАЛ" (МБАЛ, УМБАЛ, СБАЛ, УСБАЛ,
@@ -127,6 +208,7 @@ const brandTokens = (name: string): string[] => {
         t &&
         !NOISE.has(t) &&
         !CITIES.has(t) &&
+        !LEGAL.has(t) &&
         t.length > 1 &&
         !/^\d+$/.test(t) &&
         !isTypeAcr(t),
@@ -162,7 +244,14 @@ const legalForm = (name: string): string => {
 const managerTokenSets = (managers: string): Set<string>[] =>
   managers
     .split(",")
-    .map((p) => new Set(clean(p).split(" ").filter((x) => x.length >= 3)))
+    .map(
+      (p) =>
+        new Set(
+          clean(p)
+            .split(" ")
+            .filter((x) => x.length >= 3),
+        ),
+    )
     .filter((s) => s.size >= 2);
 
 interface TrRow {
@@ -226,7 +315,14 @@ const main = async (): Promise<void> => {
     offSets: (r.officers ?? "")
       .split("|")
       .filter(Boolean)
-      .map((o) => new Set(clean(o).split(" ").filter((x) => x.length >= 3))),
+      .map(
+        (o) =>
+          new Set(
+            clean(o)
+              .split(" ")
+              .filter((x) => x.length >= 3),
+          ),
+      ),
   }));
 
   const entries: CrosswalkEntry[] = [];
@@ -251,7 +347,14 @@ const main = async (): Promise<void> => {
 
     // Without a partner card (no manager/settlement) we can't verify a match — leave null.
     if (!partner) {
-      entries.push({ regNo, eik: null, name: displayName, settlement, method: "no_match", confidence: null });
+      entries.push({
+        regNo,
+        eik: null,
+        name: displayName,
+        settlement,
+        method: "no_match",
+        confidence: null,
+      });
       continue;
     }
 
@@ -263,7 +366,9 @@ const main = async (): Promise<void> => {
       .split(" ")
       .filter((t) => t.length >= 3);
 
-    let cands = bt.length ? trs.filter((t) => bt.every((tok) => t.cn.includes(tok))) : [];
+    let cands = bt.length
+      ? trs.filter((t) => bt.every((tok) => t.cn.includes(tok)))
+      : [];
     if (tm) cands = cands.filter((c) => c.cn.includes(tm));
     const lfCands = lf ? cands.filter((c) => c.lf === lf) : [];
     const candPool = lfCands.length ? lfCands : cands;
@@ -273,7 +378,9 @@ const main = async (): Promise<void> => {
       settleToks.some((st) => c.cn.includes(st) || c.seat.includes(st));
     const officerHit = (c: TrRow): boolean =>
       mgrs.length > 0 &&
-      c.offSets.some((os) => mgrs.some((mt) => [...mt].every((x) => os.has(x))));
+      c.offSets.some((os) =>
+        mgrs.some((mt) => [...mt].every((x) => os.has(x))),
+      );
 
     const verified = candPool.filter(officerHit);
     const settleHits = candPool.filter(hasSettle);
@@ -282,15 +389,24 @@ const main = async (): Promise<void> => {
     let method: CrosswalkEntry["method"] = "no_match";
     let confidence: CrosswalkEntry["confidence"] = null;
     if (verified.length === 1) {
-      eik = verified[0].uic; method = "manager"; confidence = "high";
+      eik = verified[0].uic;
+      method = "manager";
+      confidence = "high";
     } else if (candPool.length === 1) {
-      eik = candPool[0].uic; method = "unique"; confidence = "high";
+      eik = candPool[0].uic;
+      method = "unique";
+      confidence = "high";
     } else if (verified.length > 1) {
       const vs = verified.filter(hasSettle);
-      if (vs.length === 1) { eik = vs[0].uic; method = "manager+settlement"; confidence = "high"; }
-      else method = "ambiguous";
+      if (vs.length === 1) {
+        eik = vs[0].uic;
+        method = "manager+settlement";
+        confidence = "high";
+      } else method = "ambiguous";
     } else if (settleHits.length === 1) {
-      eik = settleHits[0].uic; method = "settlement"; confidence = "medium";
+      eik = settleHits[0].uic;
+      method = "settlement";
+      confidence = "medium";
     } else if (candPool.length > 1) {
       method = "ambiguous";
     }
@@ -302,12 +418,25 @@ const main = async (): Promise<void> => {
       const chosen = candPool.find((c) => c.uic === eik);
       if (chosen) {
         const trToks = new Set(chosen.cn.split(" "));
-        const shared = bt.filter((x) => trToks.has(x) && !GENERIC.has(x) && x.length > 3);
-        if (shared.length === 0) { eik = null; method = "no_match"; confidence = null; }
+        const shared = bt.filter(
+          (x) => trToks.has(x) && !GENERIC.has(x) && x.length > 3,
+        );
+        if (shared.length === 0) {
+          eik = null;
+          method = "no_match";
+          confidence = null;
+        }
       }
     }
 
-    entries.push({ regNo, eik, name: displayName, settlement, method, confidence });
+    entries.push({
+      regNo,
+      eik,
+      name: displayName,
+      settlement,
+      method,
+      confidence,
+    });
   }
 
   await end();
@@ -329,20 +458,21 @@ const main = async (): Promise<void> => {
       register:
         "Търговски регистър (tr_companies/tr_officers) — EIK. Match verified by manager + type + legal form; famous cases hand-verified.",
     },
-    note:
-      "No public register carries BOTH the НЗОК Рег.№ ЛЗ and the EIK, so this is a high-precision verified match, not an authoritative lookup. Unmatched facilities carry eik:null.",
+    note: "No public register carries BOTH the НЗОК Рег.№ ЛЗ and the EIK, so this is a high-precision verified match, not an authoritative lookup. Unmatched facilities carry eik:null.",
     facilityCount: entries.length,
     matchedCount: matched.length,
     distinctEikCount: distinctEik.size,
     matchedEur,
-    matchedEurShare: totalEur > 0 ? Math.round((matchedEur / totalEur) * 1000) / 10 : 0,
+    matchedEurShare:
+      totalEur > 0 ? Math.round((matchedEur / totalEur) * 1000) / 10 : 0,
     entries,
   };
   fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
   fs.writeFileSync(OUT_FILE, JSON.stringify(out, null, 2));
 
   const byMethod = new Map<string, number>();
-  for (const e of entries) byMethod.set(e.method, (byMethod.get(e.method) ?? 0) + 1);
+  for (const e of entries)
+    byMethod.set(e.method, (byMethod.get(e.method) ?? 0) + 1);
   console.log(
     `Wrote ${OUT_FILE}\n  ${matched.length}/${entries.length} facilities matched → ${distinctEik.size} distinct EIK` +
       ` · €${matchedEur.toLocaleString("en")} (${out.matchedEurShare}% of YTD)\n  by method: ` +

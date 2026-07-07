@@ -60,6 +60,7 @@ import {
   type FundProjectRow,
 } from "../components/procurement/CompanyFundsTile";
 import { CompanyConnectionCheck } from "../components/procurement/CompanyConnectionCheck";
+import { NzokHospitalReimbursementTile } from "../components/procurement/nzok/NzokHospitalReimbursementTile";
 import {
   CabinetTimelineTile,
   type CabinetRow,
@@ -649,6 +650,9 @@ export const CompanyDbScreen: FC = () => {
 
       {!loading && !error && (company || institution || hasProcurement) && (
         <div className="space-y-6">
+          {/* Money IN — НЗОК hospital-care reimbursement. Self-hides unless this
+              EIK is a matched hospital; sits above the ЗОП (money-out) tiles. */}
+          <NzokHospitalReimbursementTile eik={eik} />
           {company &&
             company.entity_class &&
             NGO_CLASSES.has(company.entity_class) &&

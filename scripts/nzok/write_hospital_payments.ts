@@ -27,6 +27,17 @@ const OUT_FILE = path.resolve(
   __dirname,
   "../../data/budget/nzok/hospital_payments.json",
 );
+// The verified Рег.№ ЛЗ → EIK crosswalk (scripts/nzok/write_hospital_eik.ts).
+// Joined in here so every facility row carries its EIK; the compact by-EIK index
+// (feeding the hospital-page reimbursement tile) is emitted alongside.
+const EIK_FILE = path.resolve(
+  __dirname,
+  "../../data/budget/nzok/hospital_eik.json",
+);
+const BY_EIK_FILE = path.resolve(
+  __dirname,
+  "../../data/budget/nzok/hospital_reimbursement_by_eik.json",
+);
 const BASE = "https://www.nhif.bg";
 const UA = "Mozilla/5.0 (compatible; naiasno-data/1.0)";
 
@@ -88,6 +99,23 @@ const main = async (): Promise<void> => {
   await fetchToFile(BASE + href, cachePath);
 
   const parsed = parseHospitalPaymentsPdf(cachePath);
+
+  // Load the committed Рег.№→EIK crosswalk (if present) and join each facility to
+  // its EIK. The crosswalk is near-static and regenerated separately (needs the
+  // local Postgres); the monthly payment refresh just reads it. A new/unmatched
+  // regNo simply gets eik:null until the crosswalk is next regenerated.
+  const regToEik = new Map<string, string | null>();
+  if (fs.existsSync(EIK_FILE)) {
+    const xw = JSON.parse(fs.readFileSync(EIK_FILE, "utf8")) as {
+      entries: { regNo: string; eik: string | null }[];
+    };
+    for (const e of xw.entries) regToEik.set(e.regNo, e.eik ?? null);
+  } else {
+    console.warn(
+      `  (no ${path.basename(EIK_FILE)} — rows will have eik:null; run --crosswalk)`,
+    );
+  }
+
   const hospitals = [...parsed.rows]
     .sort(
       (a, b) =>
@@ -100,6 +128,7 @@ const main = async (): Promise<void> => {
       rzokName: r.rzokName,
       cumulativeEur: r.cumulativeEur,
       monthEur: r.monthEur,
+      eik: regToEik.get(r.regNo) ?? null,
     }));
 
   // Per-РЗОК rollup (28 regions).
@@ -149,8 +178,44 @@ const main = async (): Promise<void> => {
   fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
   fs.writeFileSync(OUT_FILE, JSON.stringify(out, null, 2));
 
+  // Compact reverse index keyed by EIK — one entry per matched company, summing
+  // the facilities it runs (one EIK can operate several ЛЗ). Powers the hospital
+  // page's reimbursement tile; only matched facilities appear.
+  const byEik: Record<
+    string,
+    {
+      totalCumulativeEur: number;
+      totalMonthEur: number;
+      facilities: { regNo: string; name: string; cumulativeEur: number }[];
+    }
+  > = {};
+  for (const h of hospitals) {
+    if (!h.eik) continue;
+    const e = (byEik[h.eik] ??= {
+      totalCumulativeEur: 0,
+      totalMonthEur: 0,
+      facilities: [],
+    });
+    e.totalCumulativeEur += h.cumulativeEur;
+    e.totalMonthEur += h.monthEur;
+    e.facilities.push({
+      regNo: h.regNo,
+      name: h.name,
+      cumulativeEur: h.cumulativeEur,
+    });
+  }
+  const byEikFile = {
+    generatedAt: out.generatedAt,
+    asOf: parsed.asOf,
+    year: parsed.year,
+    month: parsed.month,
+    byEik,
+  };
+  fs.writeFileSync(BY_EIK_FILE, JSON.stringify(byEikFile, null, 2));
+
+  const matched = hospitals.filter((h) => h.eik).length;
   console.log(
-    `Wrote ${OUT_FILE}\n  ${parsed.asOf}: ${parsed.facilityCount} facilities · YTD €${parsed.totalCumulativeEur.toLocaleString("en")} · month €${monthTotalEur.toLocaleString("en")}\n  top: ${hospitals[0].name} €${hospitals[0].cumulativeEur.toLocaleString("en")}`,
+    `Wrote ${OUT_FILE}\n  ${parsed.asOf}: ${parsed.facilityCount} facilities · YTD €${parsed.totalCumulativeEur.toLocaleString("en")} · month €${monthTotalEur.toLocaleString("en")}\n  top: ${hospitals[0].name} €${hospitals[0].cumulativeEur.toLocaleString("en")}\n  EIK-matched: ${matched}/${hospitals.length} → ${Object.keys(byEik).length} companies (${path.basename(BY_EIK_FILE)})`,
   );
 };
 

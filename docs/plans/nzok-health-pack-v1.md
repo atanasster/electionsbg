@@ -23,8 +23,21 @@
   → `execution.json`; the budget-bridge tile shows a "spent €X of €Y (Z%)" gauge
   (April 2026 = €1.72bn of €5.54bn, 31.1%). REMAINING: the quarterly "Превишение"
   overspend signal (nice-to-have).
-- **Phase 4 — not started** (crosswalk lights up hospital pages + prerender +
-  launch post).
+- **Phase 4 — Рег.№→EIK crosswalk DONE + verified.** No public register carries
+  BOTH the НЗОК Рег.№ ЛЗ and the EIK (the Рег.№ is НЗОК-internal), so it is a
+  **high-precision verified match**, not the hoped-for data.egov.bg lookup:
+  `scripts/nzok/fetch_partners.ts` scrapes НЗОК's own договорни-партньори register
+  (`reports.nhif.bg`) for Рег.№ + управител + settlement (the anchor), then
+  `write_hospital_eik.ts` matches to `tr_companies`/`tr_officers` (brand tokens +
+  type marker + legal form + manager verification + safety gate) plus a
+  hand-verified `MANUAL_OVERRIDES` table → `data/budget/nzok/hospital_eik.json`.
+  **265/381 facilities matched = 93% of YTD € · 0 false positives** (audited);
+  the rest stay `eik: null`. `write_hospital_payments.ts` joins `eik` onto every
+  row and emits `hospital_reimbursement_by_eik.json` (per-company, multi-site
+  summed). New `NzokHospitalReimbursementTile` on `/company/:eik` shows
+  reimbursement-IN above procurement-OUT; the pack's payments-tile rows deep-link
+  to matched companies. Run: `npm run data:nzok -- --crosswalk` (needs local PG).
+  REMAINING: the null tail (6.9% €), prerender + launch post.
 
 ---
 

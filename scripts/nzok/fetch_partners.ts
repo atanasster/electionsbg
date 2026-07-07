@@ -84,7 +84,9 @@ const parseCards = (html: string, rzok: string): PartnerCard[] => {
 };
 
 const fetchText = async (url: string, cookie: string): Promise<Response> =>
-  fetch(url, { headers: { "User-Agent": UA, ...(cookie ? { Cookie: cookie } : {}) } });
+  fetch(url, {
+    headers: { "User-Agent": UA, ...(cookie ? { Cookie: cookie } : {}) },
+  });
 
 /** Fetch and parse all 28 РЗОК hospital pages. */
 export const scrapePartners = async (): Promise<PartnerCard[]> => {
@@ -96,7 +98,10 @@ export const scrapePartners = async (): Promise<PartnerCard[]> => {
 
   const all: PartnerCard[] = [];
   for (const rz of RZOKS) {
-    const r = await fetchText(`${BASE}?page=hospitals&rzok=${rz}&district=`, cookie);
+    const r = await fetchText(
+      `${BASE}?page=hospitals&rzok=${rz}&district=`,
+      cookie,
+    );
     if (!r.ok) throw new Error(`GET rzok=${rz} → ${r.status}`);
     const c = r.headers.get("set-cookie");
     if (c && !cookie) cookie = c.split(";")[0];
@@ -111,9 +116,7 @@ export const scrapePartners = async (): Promise<PartnerCard[]> => {
 };
 
 /** Return the cached partner cards, scraping + caching if missing or --force. */
-export const fetchPartners = async (
-  force = false,
-): Promise<PartnerCard[]> => {
+export const fetchPartners = async (force = false): Promise<PartnerCard[]> => {
   if (!force && fs.existsSync(CACHE_FILE)) {
     return JSON.parse(fs.readFileSync(CACHE_FILE, "utf8")) as PartnerCard[];
   }

@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-07-07T11:38:13.238Z",
+  "generatedAt": "2026-07-07T11:43:09.883Z",
   "source": {
     "partners": "НЗОК договорни партньори (reports.nhif.bg/nhif_reports/nhif_partners) — Рег.№ ЛЗ + управител + седалище",
     "register": "Търговски регистър (tr_companies/tr_officers) — EIK. Match verified by manager + type + legal form; famous cases hand-verified."
   },
   "note": "No public register carries BOTH the НЗОК Рег.№ ЛЗ and the EIK, so this is a high-precision verified match, not an authoritative lookup. Unmatched facilities carry eik:null.",
   "facilityCount": 381,
-  "matchedCount": 37,
-  "distinctEikCount": 24,
-  "matchedEur": 225523055,
-  "matchedEurShare": 23.9,
+  "matchedCount": 265,
+  "distinctEikCount": 256,
+  "matchedEur": 876592300,
+  "matchedEurShare": 93,
   "entries": [
     {
       "regNo": "0103131003",
-      "eik": null,
+      "eik": "101615428",
       "name": "МЦ Надежда ООД",
       "settlement": "Гр. Благоевград",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0103131013",
@@ -29,35 +29,35 @@
     },
     {
       "regNo": "0103211001",
-      "eik": null,
+      "eik": "101505152",
       "name": "МБАЛ Благоевград АД",
       "settlement": "Гр. Благоевград",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0103211015",
-      "eik": null,
+      "eik": "200110954",
       "name": "МБАЛ Пулс АД",
       "settlement": "Гр. Благоевград",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0103212016",
-      "eik": null,
+      "eik": "101533900",
       "name": "СБАЛО Свети Мина ЕООД",
       "settlement": "Гр. Благоевград",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0103212017",
-      "eik": null,
+      "eik": "101533917",
       "name": "СБАЛПФЗ Св. Ив. Рилски - Бл-д ЕООД",
       "settlement": "Гр. Благоевград",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0111133001",
@@ -69,27 +69,27 @@
     },
     {
       "regNo": "0111211004",
-      "eik": null,
+      "eik": "000022025",
       "name": "МБАЛ Иван Скендеров ЕООД",
       "settlement": "Гр.Гоце Делчев",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "0133232006",
-      "eik": null,
+      "eik": "101510103",
       "name": "СБР Марикостиново ЕООД",
       "settlement": "С.Марикостиново",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0133232018",
-      "eik": null,
+      "eik": "202516074",
       "name": "СБР-Петрич ЕООД",
       "settlement": "Гр.Петрич",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0137211002",
@@ -117,27 +117,27 @@
     },
     {
       "regNo": "0201211002",
-      "eik": null,
+      "eik": "102613775",
       "name": "\"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ-АЙТОС\" ЕООД",
       "settlement": "Гр.Айтос",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0204131007",
-      "eik": null,
+      "eik": "102627700",
       "name": "МЦ Оксиком ООД",
       "settlement": "Гр.Бургас",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "0204131018",
-      "eik": null,
+      "eik": "102891276",
       "name": "\"МЕДИЦИНСКИ ЦЕНТЪР ЗА СПЕЦИАЛИЗИРАНА ПОМОЩ Д-Р ИВАНОВИ - МЛАДОСТ\" ООД",
       "settlement": "Гр.Бургас",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "0204131030",
@@ -149,35 +149,35 @@
     },
     {
       "regNo": "0204211001",
-      "eik": null,
+      "eik": "102274111",
       "name": "\"УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ БУРГАС\" АД",
       "settlement": "Гр.Бургас",
-      "method": "ambiguous",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0204211024",
       "eik": null,
       "name": "\"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ЛАЙФ ХОСПИТАЛ\" ЕООД",
       "settlement": "Гр.Бургас",
-      "method": "no_match",
+      "method": "ambiguous",
       "confidence": null
     },
     {
       "regNo": "0204211027",
-      "eik": null,
+      "eik": "201328272",
       "name": "\"УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ ДЕВА МАРИЯ\" ЕООД",
       "settlement": "Гр.Бургас",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0204211031",
-      "eik": null,
+      "eik": "201351100",
       "name": "\"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ Д-Р МАДЖУРОВ\" ООД",
       "settlement": "Гр.Бургас",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0204211032",
@@ -189,27 +189,27 @@
     },
     {
       "regNo": "0204212010",
-      "eik": null,
+      "eik": "000053088",
       "name": "\"СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ НА ПНЕВМО-ФТИЗИАТРИЧНИ ЗАБОЛЯВАНИЯ- БУРГАС\" ЕООД",
       "settlement": "Гр.Бургас",
-      "method": "no_match",
-      "confidence": null
+      "method": "settlement",
+      "confidence": "medium"
     },
     {
       "regNo": "0204212025",
-      "eik": null,
+      "eik": "147098760",
       "name": "\"СПЕЦИАЛИЗИРАНА ОЧНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - БУРГАС\" ООД",
       "settlement": "Гр.Бургас",
-      "method": "no_match",
-      "confidence": null
+      "method": "settlement",
+      "confidence": "medium"
     },
     {
       "regNo": "0204232016",
-      "eik": null,
+      "eik": "102659833",
       "name": "Специализирана болница за рехабилитация - Бургаски минерални бани ЕАД",
       "settlement": "Гр.Бургас",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0204334013",
@@ -253,35 +253,35 @@
     },
     {
       "regNo": "0209211003",
-      "eik": null,
+      "eik": "102612100",
       "name": "\"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ КАРНОБАТ\" ЕООД",
       "settlement": "Гр.Карнобат",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0215232022",
-      "eik": null,
+      "eik": "119625586",
       "name": "\"СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА РЕХАБИЛИТАЦИЯ СТАЙКОВ И ФАМИЛИЯ\" ЕООД",
       "settlement": "Гр.Несебър",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0215232029",
       "eik": null,
       "name": "\"СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА РЕХАБИЛИТАЦИЯ МАРИ\" ООД",
       "settlement": "Гр.Несебър",
-      "method": "no_match",
+      "method": "ambiguous",
       "confidence": null
     },
     {
       "regNo": "0215232030",
-      "eik": null,
+      "eik": "206249359",
       "name": "\"СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА РЕХАБИЛИТАЦИЯ \"НЕСЕБЪР\"АД",
       "settlement": "Гр.Несебър",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "0215391023",
@@ -293,11 +293,11 @@
     },
     {
       "regNo": "0217211004",
-      "eik": null,
+      "eik": "102618523",
       "name": "\"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ-ПОМОРИЕ\" ЕООД",
       "settlement": "Гр.Поморие",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0217233017",
@@ -349,11 +349,11 @@
     },
     {
       "regNo": "0306131078",
-      "eik": null,
+      "eik": "148018742",
       "name": "Аджибадем Сити Клиник МЦ Варна ЕООД",
       "settlement": "Гр.Варна",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager+settlement",
+      "confidence": "high"
     },
     {
       "regNo": "0306131117",
@@ -365,51 +365,51 @@
     },
     {
       "regNo": "0306211001",
-      "eik": null,
+      "eik": "103562052",
       "name": "УМБАЛ СВЕТА МАРИНА ЕАД гр. Варна",
       "settlement": "Гр.Варна",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "0306211002",
-      "eik": null,
+      "eik": "000090019",
       "name": "МБАЛ СВЕТА АННА-ВАРНА АД",
       "settlement": "Гр.Варна",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0306211013",
-      "eik": "000022044",
+      "eik": "200429329",
       "name": "МБАЛ - Варна ЕООД",
       "settlement": "Гр.Варна",
-      "method": "unique",
+      "method": "manager",
       "confidence": "high"
     },
     {
       "regNo": "0306211021",
-      "eik": null,
+      "eik": "103929677",
       "name": "МБАЛ ЕВРОХОСПИТАЛ ООД ВАРНА",
       "settlement": "С.Виница",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0306211030",
-      "eik": null,
+      "eik": "103801755",
       "name": "МБАЛ Майчин дом-Варна ЕООД",
       "settlement": "Гр.Варна",
-      "method": "no_match",
-      "confidence": null
+      "method": "settlement",
+      "confidence": "medium"
     },
     {
       "regNo": "0306212007",
-      "eik": "000022044",
+      "eik": null,
       "name": "УСБОБАЛ-Варна ЕООД",
       "settlement": "Гр.Варна",
-      "method": "unique",
-      "confidence": "high"
+      "method": "ambiguous",
+      "confidence": null
     },
     {
       "regNo": "0306212008",
@@ -421,58 +421,58 @@
     },
     {
       "regNo": "0306212009",
-      "eik": null,
+      "eik": "103253312",
       "name": "СХБАЛ проф. Темелков ООД Варна",
       "settlement": "Гр.Варна",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "0306212011",
-      "eik": null,
+      "eik": "103263000",
       "name": "СОБАЛ - доц. Георгиев ЕООД Варна",
       "settlement": "Гр.Варна",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "0306212022",
-      "eik": null,
+      "eik": "175463110",
       "name": "СБАЛ по кардиология Варна ЕАД",
       "settlement": "Гр.Варна",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager+settlement",
+      "confidence": "high"
     },
     {
       "regNo": "0306212026",
-      "eik": null,
+      "eik": "000090154",
       "name": "СБАЛОЗ Д-р Марко Антонов Марков-Варна ЕООД",
       "settlement": "Гр.Варна",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "0306212027",
-      "eik": null,
+      "eik": "201299963",
       "name": "СБАЛК - КАРДИОЛАЙФ ООД ВАРНА",
       "settlement": "Гр.Варна",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0306232016",
-      "eik": null,
+      "eik": "103552026",
       "name": "СБР - ВАРНА АД",
       "settlement": "Гр.Варна",
-      "method": "ambiguous",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0306232033",
       "eik": null,
       "name": "СБР Света Елена 1 ООД",
       "settlement": "Гр.Варна",
-      "method": "no_match",
+      "method": "ambiguous",
       "confidence": null
     },
     {
@@ -496,7 +496,7 @@
       "eik": null,
       "name": "ДЦ ХИПОКРАТ ЕООД",
       "settlement": "Гр.Варна",
-      "method": "no_match",
+      "method": "ambiguous",
       "confidence": null
     },
     {
@@ -509,43 +509,43 @@
     },
     {
       "regNo": "0314211005",
-      "eik": null,
+      "eik": "000092550",
       "name": "МБАЛ - Девня ЕООД",
       "settlement": "Гр.Девня",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0324211004",
-      "eik": null,
+      "eik": "000090033",
       "name": "МБАЛ ЦАРИЦА ЙОАННА-ПРОВАДИЯ ЕООД",
       "settlement": "Гр.Провадия",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "0404211001",
-      "eik": null,
+      "eik": "104510514",
       "name": "Многопрофилна областна болница за активно лечение \"Д-р Стефан Черкезов\" АД гр. Велико Търново",
       "settlement": "Гр.Велико Търново",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0404212016",
-      "eik": null,
+      "eik": "200111255",
       "name": "СБАЛК Велико Търново ЕАД",
       "settlement": "Гр.Велико Търново",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0404212017",
-      "eik": null,
+      "eik": "000130104",
       "name": "Специализирана болница за активно лечение на пневмо-фтизиатрични заболявания \"Д-р Трейман\" ЕООД",
       "settlement": "Гр.Велико Търново",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "0404232018",
@@ -557,19 +557,19 @@
     },
     {
       "regNo": "0404333010",
-      "eik": null,
+      "eik": "104527481",
       "name": "\"ЦЕНТЪР ЗА КОЖНО-ВЕНЕРИЧЕСКИ ЗАБОЛЯВАНИЯ-ВЕЛИКО ТЪРНОВО\" ЕООД",
       "settlement": "Гр.Велико Търново",
-      "method": "no_match",
-      "confidence": null
+      "method": "settlement",
+      "confidence": "medium"
     },
     {
       "regNo": "0404334009",
-      "eik": null,
+      "eik": "104524994",
       "name": "КОЦ Велико Търново ЕООД",
       "settlement": "Гр.Велико Търново",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0404391019",
@@ -581,35 +581,35 @@
     },
     {
       "regNo": "0406131002",
-      "eik": null,
+      "eik": "104655851",
       "name": "\"МЕДИЦИНСКИ ЦЕНТЪР ЗА СПЕЦИАЛИЗИРАНА МЕДИЦИНСКА ПОМОЩ - ВИЗУС\" ООД",
       "settlement": "Гр.Горна Оряховица",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0406211002",
-      "eik": null,
+      "eik": "104512579",
       "name": "МБАЛ Св. Иван Рилски ЕООД Горна Оряховица",
       "settlement": "Гр.Горна Оряховица",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "0422211004",
-      "eik": null,
+      "eik": "104508837",
       "name": "МБАЛ Павликени ЕООД",
       "settlement": "Гр.Павликени",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "0426252021",
-      "eik": null,
+      "eik": "203650343",
       "name": "СБПЛР Минерални бани - Полски Тръмбеш ЕООД",
       "settlement": "Гр.Полски Тръмбеш",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "0428211006",
@@ -629,19 +629,19 @@
     },
     {
       "regNo": "0501211002",
-      "eik": null,
+      "eik": "105515375",
       "name": "МБАЛ \"Професор доктор Георги Златарски\" ЕООД",
       "settlement": "Гр.Белоградчик",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "0509211001",
-      "eik": null,
+      "eik": "105515902",
       "name": "МБАЛ-Света Петка АД - Видин",
       "settlement": "Гр.Видин",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0509391009",
@@ -653,11 +653,11 @@
     },
     {
       "regNo": "0608211003",
-      "eik": null,
+      "eik": "106513498",
       "name": "МБАЛ Бяла Слатина ЕООД",
       "settlement": "Гр.Бяла Слатина",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0610131005",
@@ -677,11 +677,11 @@
     },
     {
       "regNo": "0610211001",
-      "eik": null,
+      "eik": "106518890",
       "name": "МБАЛ Христо Ботев АД Враца",
       "settlement": "Гр.Враца",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0610211019",
@@ -693,90 +693,90 @@
     },
     {
       "regNo": "0610212016",
-      "eik": null,
+      "eik": "106629912",
       "name": "СОБАЛ Ралчовски ЕООД Враца",
-      "settlement": "Гр.Враца",
-      "method": "no_match",
-      "confidence": null
-    },
-    {
-      "regNo": "0610212018",
-      "eik": "000022044",
-      "name": "СБАЛПФЗ Враца ЕООД",
       "settlement": "Гр.Враца",
       "method": "unique",
       "confidence": "high"
     },
     {
+      "regNo": "0610212018",
+      "eik": "000190083",
+      "name": "СБАЛПФЗ Враца ЕООД",
+      "settlement": "Гр.Враца",
+      "method": "manager",
+      "confidence": "high"
+    },
+    {
       "regNo": "0610333009",
-      "eik": null,
+      "eik": "000190090",
       "name": "ЦЕНТЪР ЗА КОЖНО - ВЕНЕРИЧЕСКИ ЗАБОЛЯВАНИЯ - Враца ЕООД",
       "settlement": "Гр.Враца",
-      "method": "no_match",
-      "confidence": null
+      "method": "settlement",
+      "confidence": "medium"
     },
     {
       "regNo": "0610334010",
-      "eik": null,
+      "eik": "000190101",
       "name": "КОЦ Враца ЕООД",
       "settlement": "Гр.Враца",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0620211004",
-      "eik": null,
+      "eik": "106510388",
       "name": "МБАЛ Св. Иван Рилски ЕООД Козлодуй",
       "settlement": "Гр.Козлодуй",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0627211002",
-      "eik": null,
+      "eik": "106512909",
       "name": "МБАЛ Мездра ЕООД",
       "settlement": "Гр.Мездра",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0627252021",
-      "eik": null,
+      "eik": "000192383",
       "name": "СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА ПРОДЪЛЖИТЕЛНО ЛЕЧЕНИЕ И РЕХАБИЛИТАЦИЯ ПО ВЪТРЕШНИ БОЛЕСТИ – МЕЗДРА” ЕООД",
       "settlement": "Гр.Мездра",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0632222014",
-      "eik": null,
+      "eik": "106519070",
       "name": "СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА ПРОДЪЛЖИТЕЛНО ЛЕЧЕНИЕ НА БЕЛОДРОБНИ БОЛЕСТИ - РОМАН“ ЕООД",
       "settlement": "Гр.Роман",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0705211001",
-      "eik": null,
+      "eik": "107507217",
       "name": "МБАЛ Д-р Тота Венкова АД Габрово",
       "settlement": "Гр.Габрово",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0705211013",
       "eik": null,
       "name": "Многопрофилна болница за активно лечение Свети Иван Рилски Габрово ЕООД",
       "settlement": "Гр.Габрово",
-      "method": "no_match",
+      "method": "ambiguous",
       "confidence": null
     },
     {
       "regNo": "0705212005",
-      "eik": "000022044",
+      "eik": "000214050",
       "name": "СБАЛББ Габрово ЕООД",
       "settlement": "Гр.Габрово",
-      "method": "unique",
+      "method": "manager",
       "confidence": "high"
     },
     {
@@ -797,43 +797,43 @@
     },
     {
       "regNo": "0803211002",
-      "eik": "000022044",
+      "eik": null,
       "name": "\"Многопрофилна болница за активно лечение - Балчик\" ЕООД",
       "settlement": "Гр.Балчик",
+      "method": "no_match",
+      "confidence": null
+    },
+    {
+      "regNo": "0803232008",
+      "eik": "124517480",
+      "name": "\"СБР-Тузлата\" ЕООД",
+      "settlement": "Гр.Балчик",
+      "method": "manager",
+      "confidence": "high"
+    },
+    {
+      "regNo": "0803232016",
+      "eik": "124618376",
+      "name": "СБР \"Медика - Албена\" ЕООД",
+      "settlement": "С.Оброчище,К.К.Албена",
       "method": "unique",
       "confidence": "high"
     },
     {
-      "regNo": "0803232008",
-      "eik": null,
-      "name": "\"СБР-Тузлата\" ЕООД",
-      "settlement": "Гр.Балчик",
-      "method": "no_match",
-      "confidence": null
-    },
-    {
-      "regNo": "0803232016",
-      "eik": null,
-      "name": "СБР \"Медика - Албена\" ЕООД",
-      "settlement": "С.Оброчище,К.К.Албена",
-      "method": "no_match",
-      "confidence": null
-    },
-    {
       "regNo": "0817211003",
-      "eik": null,
+      "eik": "124142404",
       "name": "\"МБАЛ-Каварна\" ЕООД",
       "settlement": "Гр.Каварна",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0828134001",
-      "eik": null,
+      "eik": "124140855",
       "name": "\"ДКЦ-I-Добрич\" ЕООД",
       "settlement": "Гр.Добрич",
-      "method": "ambiguous",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "0828134002",
@@ -845,11 +845,11 @@
     },
     {
       "regNo": "0828211001",
-      "eik": null,
+      "eik": "124141302",
       "name": "МБАЛ-Добрич АД",
       "settlement": "Гр.Добрич",
-      "method": "ambiguous",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "0828391015",
@@ -861,11 +861,11 @@
     },
     {
       "regNo": "0902211002",
-      "eik": null,
+      "eik": "108508788",
       "name": "МБАЛ АРДИНО ЕООД",
       "settlement": "Гр.Ардино",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "0915211004",
@@ -901,19 +901,19 @@
     },
     {
       "regNo": "1029131002",
-      "eik": null,
+      "eik": "109530392",
       "name": "МЦ Д-Р НИКОЛА ВАСИЛИЕВ ЕООД",
       "settlement": "Гр.Кюстендил",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "1029211001",
-      "eik": null,
+      "eik": "109080582",
       "name": "МБАЛ Д-Р НИКОЛА ВАСИЛИЕВ АД",
       "settlement": "Гр.Кюстендил",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1029233006",
@@ -925,75 +925,75 @@
     },
     {
       "regNo": "1041232010",
-      "eik": null,
+      "eik": "109563191",
       "name": "СБР - САПАРЕВА БАНЯ АД",
       "settlement": "Гр.Сапарева Баня",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "1048131004",
-      "eik": null,
+      "eik": "201371373",
       "name": "МЦ - ХИПОКРАТ ООД",
       "settlement": "Гр.Дупница",
-      "method": "no_match",
-      "confidence": null
+      "method": "settlement",
+      "confidence": "medium"
     },
     {
       "regNo": "1048211002",
-      "eik": null,
+      "eik": "109501412",
       "name": "МБАЛ СВ. ИВАН РИЛСКИ ЕООД",
       "settlement": "Гр.Дупница",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1048211009",
-      "eik": null,
+      "eik": "109568877",
       "name": "МБАЛ СВЕТИ ИВАН РИЛСКИ - 2003 ООД",
       "settlement": "Гр.Дупница",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "1118131004",
-      "eik": null,
+      "eik": "110530756",
       "name": "МЦ-Ловеч ЕООД",
       "settlement": "Гр.Ловеч",
-      "method": "ambiguous",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1118211001",
-      "eik": null,
+      "eik": "110503990",
       "name": "\"МБАЛ-Проф. Д-р Параскев Стоянов\"-АД Ловеч",
       "settlement": "Гр.Ловеч",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1118211010",
-      "eik": null,
+      "eik": "203720884",
       "name": "\"Многопрофилна болница за активно лечение Кардиолайф\" ООД",
       "settlement": "Гр.Ловеч",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1119211004",
-      "eik": null,
+      "eik": "110504291",
       "name": "МБАЛ Луковит ЕООД",
       "settlement": "Гр.Луковит",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1133211003",
-      "eik": null,
+      "eik": "110502867",
       "name": "МБАЛ Тетевен ЕООД",
       "settlement": "Гр.Тетевен",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1134211002",
@@ -1005,19 +1005,19 @@
     },
     {
       "regNo": "1134212005",
-      "eik": null,
+      "eik": "000289081",
       "name": "\"СБАЛББ-Троян\"ЕООД",
       "settlement": "Гр.Троян",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1202211002",
-      "eik": null,
+      "eik": "111511773",
       "name": "МБАЛ-БЕРКОВИЦА ЕООД",
       "settlement": "Гр.Берковица",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1212233004",
@@ -1037,19 +1037,19 @@
     },
     {
       "regNo": "1229211001",
-      "eik": null,
+      "eik": "111047073",
       "name": "МБАЛ Д-Р СТАМЕН ИЛИЕВ АД",
       "settlement": "Гр.Монтана",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1229211008",
-      "eik": null,
+      "eik": "111587016",
       "name": "МБАЛ Сити клиник - Свети Георги ЕООД гр. Монтана",
       "settlement": "Гр.Монтана",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "1229391010",
@@ -1061,11 +1061,11 @@
     },
     {
       "regNo": "1308211017",
-      "eik": null,
+      "eik": "200143491",
       "name": "МБАЛ ВЕЛИМЕД ЕООД",
       "settlement": "Гр.Велинград",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1308212012",
@@ -1077,11 +1077,11 @@
     },
     {
       "regNo": "1308232020",
-      "eik": null,
+      "eik": "112531538",
       "name": "СБР ВИТА ЕООД",
       "settlement": "Гр.Велинград",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1308233008",
@@ -1101,19 +1101,19 @@
     },
     {
       "regNo": "1319211013",
-      "eik": null,
+      "eik": "112052721",
       "name": "МБАЛ ХИГИЯ АД",
       "settlement": "Гр.Пазарджик",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1319211014",
-      "eik": null,
+      "eik": "112511199",
       "name": "МБАЛ ХИГИЯ-СЕВЕР ООД",
       "settlement": "Гр.Пазарджик",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "1319211015",
@@ -1125,11 +1125,11 @@
     },
     {
       "regNo": "1319212018",
-      "eik": null,
+      "eik": "000349201",
       "name": "СБАЛПФЗ Д-р Никола Пенчев - Пазарджик ЕООД",
       "settlement": "Гр.Пазарджик",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1319391019",
@@ -1141,19 +1141,19 @@
     },
     {
       "regNo": "1320211002",
-      "eik": null,
+      "eik": "112520604",
       "name": "МБАЛ Уни Хоспитал ООД",
       "settlement": "Гр.Панагюрище",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1321211003",
-      "eik": null,
+      "eik": "112519153",
       "name": "МБАЛ ПРОФ ДИМИТЪР РАНЕВ ООД",
       "settlement": "Гр.Пещера",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "1390391001",
@@ -1173,27 +1173,27 @@
     },
     {
       "regNo": "1432211013",
-      "eik": null,
+      "eik": "202876236",
       "name": "МБАЛ Свети Георги Перник ООД",
       "settlement": "Гр.Перник",
-      "method": "no_match",
-      "confidence": null
+      "method": "settlement",
+      "confidence": "medium"
     },
     {
       "regNo": "1432212005",
-      "eik": null,
+      "eik": "113513064",
       "name": "СБАЛББ - СВ.ПАНТЕЛЕЙМОН ЕООД",
       "settlement": "Гр.Перник",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1432252010",
-      "eik": null,
+      "eik": "203650343",
       "name": "СБПЛР ЕООД",
       "settlement": "Гр.Перник",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "1432391012",
@@ -1205,35 +1205,35 @@
     },
     {
       "regNo": "1503211006",
-      "eik": null,
+      "eik": "114542439",
       "name": "МБАЛ-БЕЛЕНЕ ЕООД",
       "settlement": "Гр.Белене",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1508211005",
-      "eik": null,
+      "eik": "000412255",
       "name": "МБАЛ-ГУЛЯНЦИ ЕООД",
       "settlement": "Гр.Гулянци",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "1516211003",
-      "eik": null,
+      "eik": "000410031",
       "name": "МБАЛ-ЛЕВСКИ ЕООД",
       "settlement": "Гр.Левски",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1521211004",
-      "eik": null,
+      "eik": "000410049",
       "name": "МБАЛ-НИКОПОЛ ЕООД",
       "settlement": "Гр.Никопол",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1524131015",
@@ -1245,11 +1245,11 @@
     },
     {
       "regNo": "1524131022",
-      "eik": null,
+      "eik": "202284487",
       "name": "МЦ СВЕТА МАРИНА-ДИАГНОСТИКА И ТЕРАПИЯ ООД",
       "settlement": "Гр.Плевен",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1524134003",
@@ -1261,35 +1261,35 @@
     },
     {
       "regNo": "1524211001",
-      "eik": null,
+      "eik": "114532352",
       "name": "УМБАЛ-Д-Р ГЕОРГИ СТРАНСКИ ЕАД",
       "settlement": "Гр.Плевен",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1524211014",
-      "eik": null,
+      "eik": "114671238",
       "name": "\"МБАЛ Авис Медика\" ООД",
       "settlement": "Гр.Плевен",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1524211017",
-      "eik": null,
+      "eik": "114686820",
       "name": "МБАЛ Свети Панталеймон-Плевен ООД",
       "settlement": "Гр.Плевен",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1524211019",
-      "eik": null,
+      "eik": "202284487",
       "name": "\"УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"СВЕТА МАРИНА\"-ПЛЕВЕН\" ООД",
       "settlement": "Гр.Плевен",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1524211020",
@@ -1301,11 +1301,11 @@
     },
     {
       "regNo": "1524212015",
-      "eik": null,
+      "eik": "175075078",
       "name": "\"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ СЪРЦЕ И МОЗЪК ВРАЦА\" ЕАД",
       "settlement": "Гр.Плевен",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1524911008",
@@ -1317,19 +1317,19 @@
     },
     {
       "regNo": "1537211002",
-      "eik": null,
+      "eik": "000410056",
       "name": "МБАЛ-ЧЕРВЕН БРЯГ ЕООД",
       "settlement": "Гр.Червен Бряг",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1539211012",
-      "eik": null,
+      "eik": "106510662",
       "name": "МБАЛ-КНЕЖА ЕООД",
       "settlement": "Гр.Кнежа",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1601133001",
@@ -1341,11 +1341,11 @@
     },
     {
       "regNo": "1601211005",
-      "eik": null,
+      "eik": "115532654",
       "name": "МБАЛ Асеновград ЕООД",
       "settlement": "Гр.Асеновград",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1601232056",
@@ -1365,19 +1365,19 @@
     },
     {
       "regNo": "1613131004",
-      "eik": null,
+      "eik": "115811006",
       "name": "МЦ Витамед ЕООД",
       "settlement": "Гр.Карлово",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "1613211006",
-      "eik": null,
+      "eik": "115518099",
       "name": "МБАЛ Д-р Киро Попов - Карлово ЕООД",
       "settlement": "Гр.Карлово",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1613232020",
@@ -1413,11 +1413,11 @@
     },
     {
       "regNo": "1622131104",
-      "eik": null,
+      "eik": "206330409",
       "name": "МЦ АВАНГАРД 1 ЕООД",
       "settlement": "Гр.Пловдив",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1622211001",
@@ -1429,59 +1429,59 @@
     },
     {
       "regNo": "1622211002",
-      "eik": null,
+      "eik": "115532049",
       "name": "УМБАЛ Пловдив АД",
       "settlement": "Гр.Пловдив",
-      "method": "ambiguous",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1622211003",
-      "eik": null,
+      "eik": "115531627",
       "name": "МБАЛ Свети Мина Пловдив ЕООД",
       "settlement": "Гр.Пловдив",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1622211004",
-      "eik": null,
+      "eik": "115517517",
       "name": "МБАЛ Свети Пантелеймон Пловдив ЕООД",
       "settlement": "Гр.Пловдив",
-      "method": "no_match",
-      "confidence": null
+      "method": "settlement",
+      "confidence": "medium"
     },
     {
       "regNo": "1622211029",
-      "eik": null,
+      "eik": "115757028",
       "name": "УМБАЛ Каспела ЕООД Пловдив",
       "settlement": "Гр.Пловдив",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "1622211031",
-      "eik": null,
+      "eik": "201964523",
       "name": "МБАЛ Мед Лайн Клиник АД Пловдив",
       "settlement": "Пловдив 1 Р-Н Централен",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "1622211036",
-      "eik": null,
+      "eik": "200213096",
       "name": "МБАЛ Тримонциум ООД Пловдив",
       "settlement": "Гр.Пловдив",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "1622211037",
-      "eik": null,
+      "eik": "112596309",
       "name": "УМБАЛ Пълмед ООД",
       "settlement": "Гр.Пловдив",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "1622211039",
@@ -1493,11 +1493,11 @@
     },
     {
       "regNo": "1622211042",
-      "eik": null,
+      "eik": "201739317",
       "name": "МБАЛ Централ онко хоспитал ООД Пловдив",
       "settlement": "Гр.Пловдив",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "1622211044",
@@ -1509,11 +1509,11 @@
     },
     {
       "regNo": "1622211045",
-      "eik": null,
+      "eik": "201537560",
       "name": "УМБАЛ ЕВРОХОСПИТАЛ ПЛОВДИВ ООД",
       "settlement": "Гр.Пловдив",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1622211049",
@@ -1525,58 +1525,58 @@
     },
     {
       "regNo": "1622211053",
-      "eik": null,
+      "eik": "160105708",
       "name": "МБАЛ \"Св.Св.Козма и Дамян\" ООД Пловдив",
       "settlement": "Гр.Пловдив",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "1622212028",
-      "eik": null,
+      "eik": "125535944",
       "name": "СОБАЛ Луксор ООД Пловдив",
       "settlement": "Гр.Пловдив",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1622212030",
-      "eik": null,
+      "eik": "160044550",
       "name": "УСБАЛАГ СЕЛЕНА ЕООД",
       "settlement": "Гр.Пловдив",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1622212033",
-      "eik": null,
+      "eik": "160058895",
       "name": "СГЕБАЛ Еврохоспитал ООД Пловдив",
       "settlement": "Гр.Пловдив",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1622212038",
-      "eik": null,
+      "eik": "160087562",
       "name": "Медикус Алфа СХБАЛ ЕООД Пловдив",
       "settlement": "Гр.Пловдив",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "1622212041",
-      "eik": null,
+      "eik": "115519436",
       "name": "СБАЛАГ Торакс Д-р Сава Бояджиев ЕООД Пловдив",
       "settlement": "Гр.Пловдив",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1622212050",
       "eik": null,
       "name": "СБАЛ\"СПЕЦИАЛ МЕДИК\"ООД",
       "settlement": "Гр.Пловдив",
-      "method": "no_match",
+      "method": "ambiguous",
       "confidence": null
     },
     {
@@ -1589,11 +1589,11 @@
     },
     {
       "regNo": "1622334019",
-      "eik": null,
+      "eik": "000463379",
       "name": "КОЦ Пловдив ЕООД",
       "settlement": "Гр.Пловдив",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "1622391046",
@@ -1629,35 +1629,35 @@
     },
     {
       "regNo": "1623211007",
-      "eik": null,
+      "eik": "115516059",
       "name": "МБАЛ - Първомай ЕООД",
       "settlement": "Гр.Първомай",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "1625131001",
-      "eik": null,
+      "eik": "115524159",
       "name": "МЦ Света Елисавета -Раковски ЕООД",
       "settlement": "Гр.Раковски",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "1625211008",
-      "eik": null,
+      "eik": "115532871",
       "name": "МБАЛ- Раковски ЕООД",
       "settlement": "Гр.Раковски",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "1626131002",
-      "eik": null,
+      "eik": "201675287",
       "name": "МЦ Литомед ООД",
       "settlement": "С.Браниполе",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1626211048",
@@ -1677,11 +1677,11 @@
     },
     {
       "regNo": "1637232057",
-      "eik": null,
+      "eik": "203788650",
       "name": "СБР-Витус ЕООД",
       "settlement": "Гр.Хисаря",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1637233021",
@@ -1701,11 +1701,11 @@
     },
     {
       "regNo": "1641131001",
-      "eik": null,
+      "eik": "115343340",
       "name": "Медицински център 1 Стамболийски ЕООД",
       "settlement": "Гр.Стамболийски",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "1641221054",
@@ -1725,19 +1725,19 @@
     },
     {
       "regNo": "1714211002",
-      "eik": null,
+      "eik": "116504387",
       "name": "МБАЛ-Исперих ЕООД",
       "settlement": "Гр.Исперих",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1716211003",
-      "eik": null,
+      "eik": "000504032",
       "name": "МБАЛ-Кубрат ЕООД",
       "settlement": "Гр.Кубрат",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1726131002",
@@ -1757,11 +1757,11 @@
     },
     {
       "regNo": "1726131006",
-      "eik": null,
+      "eik": "203218275",
       "name": "МЦ Ре Спиро ООД",
       "settlement": "Гр.Разград",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "1726211001",
@@ -1773,19 +1773,19 @@
     },
     {
       "regNo": "1804211002",
-      "eik": null,
+      "eik": "117500566",
       "name": "МБАЛ ЮЛИЯ ВРЕВСКА БЯЛА ЕООД",
       "settlement": "Гр.Бяла",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1827211001",
-      "eik": null,
+      "eik": "117505556",
       "name": "УМБАЛ КАНЕВ АД",
       "settlement": "Гр.Русе",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1827211019",
@@ -1805,11 +1805,11 @@
     },
     {
       "regNo": "1827212015",
-      "eik": null,
+      "eik": "117684874",
       "name": "СБАЛК Медика Кор ЕАД Русе",
       "settlement": "Гр.Русе",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "1827212016",
@@ -1824,32 +1824,32 @@
       "eik": null,
       "name": "КОЦ Русе ЕООД",
       "settlement": "Гр.Русе",
-      "method": "no_match",
-      "confidence": null
-    },
-    {
-      "regNo": "1910211003",
-      "eik": null,
-      "name": "МБАЛ ДУЛОВО ЕООД",
-      "settlement": "Гр.Дулово",
-      "method": "no_match",
-      "confidence": null
-    },
-    {
-      "regNo": "1931211001",
-      "eik": null,
-      "name": "МБАЛ СИЛИСТРА АД",
-      "settlement": "Гр.Силистра",
       "method": "ambiguous",
       "confidence": null
     },
     {
+      "regNo": "1910211003",
+      "eik": "118502097",
+      "name": "МБАЛ ДУЛОВО ЕООД",
+      "settlement": "Гр.Дулово",
+      "method": "manager",
+      "confidence": "high"
+    },
+    {
+      "regNo": "1931211001",
+      "eik": "118501906",
+      "name": "МБАЛ СИЛИСТРА АД",
+      "settlement": "Гр.Силистра",
+      "method": "manager",
+      "confidence": "high"
+    },
+    {
       "regNo": "1934211002",
-      "eik": null,
+      "eik": "118506069",
       "name": "МБАЛ ТУТРАКАН ЕООД",
       "settlement": "Гр.Тутракан",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2011252017",
@@ -1861,35 +1861,35 @@
     },
     {
       "regNo": "2016211002",
-      "eik": null,
+      "eik": "119502651",
       "name": "МБАЛ Света Петка Българска ЕООД",
       "settlement": "Гр.Нова Загора",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2020211001",
-      "eik": null,
+      "eik": "119502733",
       "name": "МБАЛ Д-р Иван Селимински - Сливен АД",
       "settlement": "Гр.Сливен",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2020211016",
-      "eik": null,
+      "eik": "119624388",
       "name": "МБАЛ Хаджи Димитър ООД",
       "settlement": "Гр.Сливен",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2020212012",
-      "eik": null,
+      "eik": "119544675",
       "name": "СХБАЛ Амброаз Паре ООД",
       "settlement": "Гр.Сливен",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2020212015",
@@ -1917,99 +1917,99 @@
     },
     {
       "regNo": "2109211004",
-      "eik": null,
+      "eik": "200591288",
       "name": "МБАЛ ДЕВИН ЕАД",
       "settlement": "Гр.Девин",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2109232012",
-      "eik": null,
+      "eik": "130963149",
       "name": "СБР ОРФЕЙ ЕООД",
       "settlement": "Гр.Девин",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2111211002",
-      "eik": null,
+      "eik": "120504642",
       "name": "МБАЛ Проф. Д-р Асен Шопов ЕООД",
       "settlement": "Гр.Златоград",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2116211003",
-      "eik": null,
+      "eik": "120505630",
       "name": "МБАЛ Проф. Д-р Константин Чилов ЕООД",
       "settlement": "Гр.Мадан",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2127232011",
-      "eik": null,
+      "eik": "202812027",
       "name": "СБР РОДОПИ ЕООД",
       "settlement": "Гр.Рудозем",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2131211001",
-      "eik": null,
+      "eik": "120503871",
       "name": "МБАЛ Д-Р БРАТАН ШУКЕРОВ АД",
       "settlement": "Гр.Смолян",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2201211001",
-      "eik": null,
+      "eik": "130367715",
       "name": "МБАЛ СВ. АННА - СОФИЯ АД",
       "settlement": "София 15 Рн Младост",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2201211002",
-      "eik": null,
+      "eik": "831605806",
       "name": "УМБАЛ ЦАРИЦА ЙОАННА-ИСУЛ ЕАД СОФИЯ",
       "settlement": "София 04 Рн Оборище",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2201211003",
-      "eik": null,
+      "eik": "130345786",
       "name": "УМБАЛСМ Н.И. ПИРОГОВ ЕАД СОФИЯ",
       "settlement": "София 02 Рн Красно Село",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2201211004",
-      "eik": null,
+      "eik": "000715054",
       "name": "УМБАЛ СВ. ИВАН РИЛСКИ ЕАД СОФИЯ",
       "settlement": "Гр.София",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2201211005",
-      "eik": null,
+      "eik": "831605845",
       "name": "УМБАЛ „СВЕТА ЕКАТЕРИНА“ ЕАД",
       "settlement": "София 10 Рн Триадица",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2201211032",
-      "eik": null,
+      "eik": "000689015",
       "name": "УНИВЕРСИТЕТСКА І МБАЛ СОФИЯ СВ. ЙОАН КРЪСТИТЕЛ ЕАД",
       "settlement": "София 01 Рн Средец",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2201211033",
@@ -2029,35 +2029,35 @@
     },
     {
       "regNo": "2201211035",
-      "eik": null,
+      "eik": "000689061",
       "name": "МБАЛ \"КНЯГИНЯ КЛЕМЕНТИНА\" - СОФИЯ ЕАД",
       "settlement": "София 05 Рн Сердика",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2201211055",
-      "eik": null,
+      "eik": "831605795",
       "name": "УМБАЛ АЛЕКСАНДРОВСКА ЕАД СОФИЯ",
       "settlement": "София 10 Рн Триадица",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2201211060",
-      "eik": null,
+      "eik": "131259767",
       "name": "МБАЛ ВИТА ЕООД СОФИЯ",
       "settlement": "София 07 Рн Слатина",
-      "method": "no_match",
-      "confidence": null
+      "method": "settlement",
+      "confidence": "medium"
     },
     {
       "regNo": "2201211063",
-      "eik": null,
+      "eik": "131372487",
       "name": "МБАЛ ДОВЕРИЕ АД СОФИЯ",
       "settlement": "София 18 Рн Овча Купел",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2201211064",
@@ -2069,11 +2069,11 @@
     },
     {
       "regNo": "2201211067",
-      "eik": null,
+      "eik": "175077093",
       "name": "АДЖИБАДЕМ СИТИ КЛИНИК УМБАЛ ТОКУДА СОФИЯ ЕАД",
       "settlement": "София 09 Рн Лозенец",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2201211078",
@@ -2085,19 +2085,19 @@
     },
     {
       "regNo": "2201211080",
-      "eik": null,
+      "eik": "200261536",
       "name": "МБАЛ ПОЛИМЕД ООД СОФИЯ",
       "settlement": "София 03 Рн Възраждане",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2201211082",
-      "eik": null,
+      "eik": "201242663",
       "name": "МБАЛ СЕРДИКАМЕД ЕООД",
       "settlement": "Гр.София",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2201211083",
@@ -2112,32 +2112,32 @@
       "eik": null,
       "name": "МБАЛ СВ. БОГОРОДИЦА ЕООД СОФИЯ",
       "settlement": "София 04 Рн Оборище",
-      "method": "no_match",
+      "method": "ambiguous",
       "confidence": null
     },
     {
       "regNo": "2201211085",
-      "eik": null,
+      "eik": "130539054",
       "name": "МБАЛ СВ. ПАНТАЛЕЙМОН СОФИЯ АД",
       "settlement": "София 15 Рн Младост",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2201211091",
-      "eik": null,
+      "eik": "160138163",
       "name": "УМБАЛ СОФИЯМЕД ООД",
       "settlement": "София 08 Рн Изгрев",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2201211093",
-      "eik": null,
+      "eik": "202139132",
       "name": "АДЖИБАДЕМ СИТИ КЛИНИК УМБАЛ ЕООД",
       "settlement": "София 09 Рн Лозенец",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2201211094",
@@ -2149,67 +2149,67 @@
     },
     {
       "regNo": "2201211096",
-      "eik": null,
+      "eik": "202108197",
       "name": "МБАЛ БОЛНИЦА ЕВРОПА ООД СОФИЯ",
       "settlement": "София 02 Рн Красно Село",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2201211097",
-      "eik": null,
+      "eik": "202285258",
       "name": "МБАЛ ЗДРАВЕТО 2012 ООД СОФИЯ",
       "settlement": "София 02 Рн Красно Село",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2201211109",
-      "eik": null,
+      "eik": "205967328",
       "name": "МБАЛ ЛОЗЕНЕЦ ЕАД",
       "settlement": "София 09 Рн Лозенец",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2201212006",
-      "eik": null,
+      "eik": "000662769",
       "name": "СБАЛАГ МАЙЧИН ДОМ ЕАД СОФИЯ",
       "settlement": "София 10 Рн Триадица",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2201212007",
-      "eik": null,
+      "eik": "000689182",
       "name": "І САГБАЛ СВ. СОФИЯ ЕАД СОФИЯ",
       "settlement": "София 11 Рн Красна Поляна",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2201212008",
-      "eik": null,
+      "eik": "130485795",
       "name": "ВТОРА САГБАЛ ШЕЙНОВО ЕАД",
       "settlement": "София 01 Рн Средец",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2201212009",
-      "eik": null,
+      "eik": "831605813",
       "name": "МБАЛНП СВ. НАУМ ЕАД СОФИЯ",
       "settlement": "София 08 Рн Изгрев",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2201212010",
-      "eik": null,
+      "eik": "831900201",
       "name": "УСБАЛО ПРОФ. БОЙЧО БОЙЧЕВ ЕАД СОФИЯ",
       "settlement": "София 18 Рн Овча Купел",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2201212011",
@@ -2221,67 +2221,67 @@
     },
     {
       "regNo": "2201212012",
-      "eik": null,
+      "eik": "000662790",
       "name": "СБАЛДБ ПРОФ.ИВАН МИТЕВ ЕАД СОФИЯ",
       "settlement": "София 10 Рн Триадица",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2201212014",
-      "eik": null,
+      "eik": "000689150",
       "name": "СБАЛИПБ ПРОФ. ИВАН КИРОВ ЕАД СОФИЯ",
       "settlement": "София 10 Рн Триадица",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2201212017",
-      "eik": null,
+      "eik": "831142169",
       "name": "СБАЛТОСМ ПРОФ. Д-Р ДИМИТЪР ШОЙЛЕВ ЕАД СОФИЯ",
       "settlement": "София 08 Рн Изгрев",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2201212038",
-      "eik": null,
+      "eik": "831717011",
       "name": "СБАЛ СВ. ЛАЗАР ООД СОФИЯ",
       "settlement": "София 09 Рн Лозенец",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2201212039",
-      "eik": null,
+      "eik": "130467417",
       "name": "СБАЛОТ ВИТОША ЕООД СОФИЯ",
       "settlement": "София 09 Рн Лозенец",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2201212059",
-      "eik": null,
+      "eik": "131187321",
       "name": "СБАЛГАР Д.Р МАЛИНОВ ООД СОФИЯ",
       "settlement": "София 02 Рн Красно Село",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2201212061",
       "eik": null,
       "name": "САГБАЛ Д-Р ЩЕРЕВ ЕООД СОФИЯ",
       "settlement": "Гр.София",
-      "method": "no_match",
+      "method": "ambiguous",
       "confidence": null
     },
     {
       "regNo": "2201212065",
-      "eik": null,
+      "eik": "131487151",
       "name": "СБАЛ ЙОАН ПАВЕЛ ЕООД СОФИЯ",
       "settlement": "София 05 Рн Сердика",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2201212066",
@@ -2293,27 +2293,27 @@
     },
     {
       "regNo": "2201212070",
-      "eik": null,
+      "eik": "175279629",
       "name": "СОБАЛ ВИЗУС ЕООД СОФИЯ",
       "settlement": "София 17 Рн Витоша",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2201212071",
-      "eik": null,
+      "eik": "208515399",
       "name": "СБАЛОБ ЗОРА АД СОФИЯ",
       "settlement": "София 15 Рн Младост",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2201212072",
-      "eik": null,
+      "eik": "175317154",
       "name": "СОБАЛ ВИЖЪН ЕООД",
       "settlement": "София 02 Рн Красно Село",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2201212075",
@@ -2325,67 +2325,67 @@
     },
     {
       "regNo": "2201212076",
-      "eik": null,
+      "eik": "175403781",
       "name": "СБАЛОБ ЗРЕНИЕ ООД СОФИЯ",
       "settlement": "София 09 Рн Лозенец",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2201212079",
-      "eik": null,
+      "eik": "201215716",
       "name": "СБАЛ ГРЪБНАЧЕН ЦЕНТЪР АД",
       "settlement": "София 05 Рн Сердика",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2201212086",
-      "eik": null,
+      "eik": "000693654",
       "name": "СБАЛОЗ \"ПРОФ. Д-Р МАРИН МУШМОВ\" ЕООД СОФИЯ",
       "settlement": "София 15 Рн Младост",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2201212090",
       "eik": null,
       "name": "СБАЛОБ ДЕН ЕООД СОФИЯ",
       "settlement": "София 04 Рн Оборище",
-      "method": "no_match",
+      "method": "ambiguous",
       "confidence": null
     },
     {
       "regNo": "2201212095",
-      "eik": null,
+      "eik": "202302622",
       "name": "СОБАЛ ПЕНТАГРАМ ЕООД СОФИЯ",
       "settlement": "София 03 Рн Възраждане",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2201212102",
       "eik": null,
       "name": "СБАЛОЗ КРИСТАЛ ООД СОФИЯ",
       "settlement": "София 11 Рн Красна Поляна",
-      "method": "no_match",
+      "method": "ambiguous",
       "confidence": null
     },
     {
       "regNo": "2201212116",
-      "eik": null,
+      "eik": "175172463",
       "name": "Специализирана Болница за Активно Лечение на Очни Болести ПРОСПЕРИТАС\"ООД",
       "settlement": "София 10 Рн Триадица",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2201214020",
-      "eik": null,
+      "eik": "000662776",
       "name": "УСБАЛО Проф. Иван Черноземски''ЕАД СОФИЯ",
       "settlement": "София 16 Рн Студентски",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2201222024",
@@ -2421,11 +2421,11 @@
     },
     {
       "regNo": "2201232029",
-      "eik": null,
+      "eik": "130287411",
       "name": "СБР БАНКЯ АД СОФИЯ",
       "settlement": "София 24 Рн Банкя",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2201232030",
@@ -2525,11 +2525,11 @@
     },
     {
       "regNo": "2202131522",
-      "eik": null,
+      "eik": "130484427",
       "name": "МЦ ОЧЕН ЛАЗЕРЕН ЦЕНТЪР ВИЖЪН ЕООД",
       "settlement": "София 02 Рн Красно Село",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2203131515",
@@ -2541,27 +2541,27 @@
     },
     {
       "regNo": "2203131519",
-      "eik": null,
+      "eik": "202999819",
       "name": "МЦ ЗА ОЧНО ЗДРАВЕ ФОКУС ЕООД",
       "settlement": "София 03 Рн Възраждане",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2204131521",
-      "eik": null,
+      "eik": "175339962",
       "name": "МЦ ДЕВА МАРИЯ -ЗДРАВЕ ЕООД",
       "settlement": "София 04 Рн Оборище",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2204131532",
-      "eik": null,
+      "eik": "202896872",
       "name": "МЦ КЛИНИКА СВЕТА МАРИЯ МАГДАЛЕНА ЕООД",
       "settlement": "София 04 Рн Оборище",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2204131537",
@@ -2573,19 +2573,19 @@
     },
     {
       "regNo": "2205131519",
-      "eik": null,
+      "eik": "205660674",
       "name": "МЕДИЦИНСКИ ЦЕНТЪР СВЕТЛИНА ЕООД",
       "settlement": "София 05 Рн Сердика",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2209131537",
-      "eik": null,
+      "eik": "205436270",
       "name": "МЦ БЕТА КЛИНИК ООД",
       "settlement": "София 09 Рн Лозенец",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2210134002",
@@ -2597,75 +2597,75 @@
     },
     {
       "regNo": "2210134507",
-      "eik": null,
+      "eik": "203578986",
       "name": "ДКЦ НЕОКЛИНИК ЕАД",
       "settlement": "София 10 Рн Триадица",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2212131505",
-      "eik": null,
+      "eik": "201827812",
       "name": "МЦ ПЕНТАГРАМ 2012 ООД",
       "settlement": "София 12 Рн Илинден",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2290211001",
       "eik": null,
       "name": "МБАЛ СВЕТИ ГЕОРГИ ПЕРНИК ООД",
       "settlement": "София 19 Рн Люлин",
-      "method": "no_match",
+      "method": "ambiguous",
       "confidence": null
     },
     {
       "regNo": "2301212022",
-      "eik": null,
+      "eik": "000770246",
       "name": "\"СБАЛОЗ -София област\" ЕООД",
       "settlement": "Гр.София",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2301212023",
-      "eik": null,
+      "eik": "000770225",
       "name": "\"СБАЛПФЗ - София област\" ЕООД",
       "settlement": "Гр.София",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2307211002",
-      "eik": null,
+      "eik": "000770022",
       "name": "\"МБАЛ - Ботевград\" ЕООД",
       "settlement": "Гр.Ботевград",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2317211004",
-      "eik": null,
+      "eik": "000770047",
       "name": "\"МБАЛ- Елин Пелин\" ЕООД",
       "settlement": "Гр.Елин Пелин",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2317211024",
-      "eik": null,
+      "eik": "200603178",
       "name": "\"МБАЛ - Скин Системс\" ЕООД",
       "settlement": "С.Доганово",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2318211005",
-      "eik": null,
+      "eik": "000770054",
       "name": "\"МБАЛ \"Проф. д-р Александър Герчев \"Етрополе\"ЕООД",
       "settlement": "Гр.Етрополе",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2320211006",
@@ -2693,19 +2693,19 @@
     },
     {
       "regNo": "2339211009",
-      "eik": null,
+      "eik": "000770086",
       "name": "\"МБАЛ - Самоков\" ЕООД",
       "settlement": "Гр.Самоков",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2343211008",
-      "eik": null,
+      "eik": "000770093",
       "name": "\"МБАЛ-Своге\" ЕООД",
       "settlement": "Гр.Своге",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2343222013",
@@ -2717,27 +2717,27 @@
     },
     {
       "regNo": "2355211007",
-      "eik": null,
+      "eik": "202503899",
       "name": "\"МБАЛ - Пирдоп\" АД",
       "settlement": "Гр.Пирдоп",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2407211005",
-      "eik": null,
+      "eik": "123531146",
       "name": "Многопрофилна болница за активно лечение ЕАД гр. Гълъбово",
       "settlement": "Гр.Гълъбово",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2412211003",
-      "eik": null,
+      "eik": "123540775",
       "name": "МБАЛ Д-Р ХРИСТО СТАМБОЛСКИ\" ЕООД",
       "settlement": "Гр.Казанлък",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2412212028",
@@ -2757,51 +2757,51 @@
     },
     {
       "regNo": "2431131035",
-      "eik": null,
+      "eik": "200415548",
       "name": "ОЧЕН МЦ ТРОШЕВ ООД",
       "settlement": "Гр.Стара Загора",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2431131041",
-      "eik": null,
+      "eik": "202192245",
       "name": "МЦ-МЕДИЦИНСКИ КОМПЛЕКС БЕРОЕ ЕООД",
       "settlement": "Гр.Стара Загора",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2431131051",
-      "eik": null,
+      "eik": "203738793",
       "name": "МЦ ВЕРЕЯ ЕООД",
       "settlement": "Гр.Стара Загора",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2431211002",
-      "eik": null,
+      "eik": "123535874",
       "name": "УМБАЛ Проф. д-р Стоян Киркович АД гр. Стара Загора",
       "settlement": "Гр.Стара Загора",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2431211024",
-      "eik": null,
+      "eik": "123672022",
       "name": "МБАЛ Ниамед ООД гр. Стара Загора",
       "settlement": "Гр.Стара Загора",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2431211026",
-      "eik": null,
+      "eik": "160135466",
       "name": "УМБАЛ ТРАКИЯ ЕООД",
       "settlement": "Гр.Стара Загора",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2431211029",
@@ -2813,19 +2813,19 @@
     },
     {
       "regNo": "2431212027",
-      "eik": "000022044",
+      "eik": "000812172",
       "name": "СБАЛПФЗ Стара Загора ЕООД",
       "settlement": "Гр.Стара Загора",
-      "method": "unique",
+      "method": "manager",
       "confidence": "high"
     },
     {
       "regNo": "2431334012",
-      "eik": null,
+      "eik": "000812197",
       "name": "КОЦ Стара Загора ЕООД",
       "settlement": "Гр.Стара Загора",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2431391030",
@@ -2837,83 +2837,83 @@
     },
     {
       "regNo": "2436211004",
-      "eik": null,
+      "eik": "123535867",
       "name": "МБАЛ-ЧИРПАН ЕООД",
       "settlement": "Гр.Чирпан",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2522211003",
-      "eik": null,
+      "eik": "125550070",
       "name": "\"МБАЛ-ОМУРТАГ\" ЕАД",
       "settlement": "Гр.Омуртаг",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2524211002",
-      "eik": null,
+      "eik": "000874028",
       "name": "\"МБАЛ-ПОПОВО\" ЕООД",
       "settlement": "Гр.Попово",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2535211001",
-      "eik": null,
+      "eik": "125501290",
       "name": "\"МБАЛ-ТЪРГОВИЩЕ\" АД",
       "settlement": "Гр.Търговище",
-      "method": "ambiguous",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2535212007",
-      "eik": null,
+      "eik": "200366302",
       "name": "\"СОБАЛ Д-Р ТАСКОВ\" ООД",
       "settlement": "Гр.Търговище",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2609211002",
-      "eik": null,
+      "eik": "126531685",
       "name": "\"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"СВЕТА ЕКАТЕРИНА\" - ДИМИТРОВГРАД\" ЕООД",
       "settlement": "Гр.Димитровград",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2617212008",
-      "eik": null,
+      "eik": "126618510",
       "name": "\"СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА ПРОДЪЛЖИТЕЛНО ЛЕЧЕНИЕ И РЕХАБИЛИТАЦИЯ - ЛЮБИМЕЦ\" ЕООД",
       "settlement": "Гр.Любимец",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2619232019",
-      "eik": "117675537",
+      "eik": null,
       "name": "\"СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА РЕХАБИЛИТАЦИЯ “АЙЛИН”\" ЕООД",
       "settlement": "С.Минерални Бани",
-      "method": "unique",
-      "confidence": "high"
+      "method": "ambiguous",
+      "confidence": null
     },
     {
       "regNo": "2628211004",
       "eik": null,
       "name": "\"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - СВИЛЕНГРАД\" ЕООД",
       "settlement": "Гр.Свиленград",
-      "method": "no_match",
+      "method": "ambiguous",
       "confidence": null
     },
     {
       "regNo": "2632212018",
-      "eik": null,
+      "eik": "000967532",
       "name": "\"СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ ПО ВЪТРЕШНИ БОЛЕСТИ - ТОПОЛОВГРАД\" ЕООД",
       "settlement": "Гр.Тополовград",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2633211003",
@@ -2925,91 +2925,91 @@
     },
     {
       "regNo": "2634131016",
-      "eik": null,
+      "eik": "203346454",
       "name": "\"ОЧЕН МЕДИЦИНСКИ ЦЕНТЪР ХАСКОВО\" ООД",
       "settlement": "Гр.Хасково",
-      "method": "no_match",
-      "confidence": null
+      "method": "settlement",
+      "confidence": "medium"
     },
     {
       "regNo": "2634131024",
-      "eik": null,
+      "eik": "207860969",
       "name": "\"МЕДИЦИНСКИ ЦЕНТЪР УРОЛОДЖИЯ\" ЕООД",
       "settlement": "Гр.Хасково",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2634211001",
-      "eik": null,
+      "eik": "126529015",
       "name": "\"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ХАСКОВО\" АД",
       "settlement": "Гр.Хасково",
-      "method": "ambiguous",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2634211015",
       "eik": null,
       "name": "\"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"ХИГИЯ\"\" ООД",
       "settlement": "Гр.Хасково",
-      "method": "no_match",
-      "confidence": null
-    },
-    {
-      "regNo": "2634212016",
-      "eik": null,
-      "name": "\"СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ НА ПНЕВМО-ФТИЗИАТРИЧНИ ЗАБОЛЯВАНИЯ ХАСКОВО\" ЕООД",
-      "settlement": "Гр.Хасково",
-      "method": "no_match",
-      "confidence": null
-    },
-    {
-      "regNo": "2634212017",
-      "eik": null,
-      "name": "\"СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ ПО ОНКОЛОГИЯ - ХАСКОВО\" ЕООД",
-      "settlement": "Гр.Хасково",
-      "method": "no_match",
-      "confidence": null
-    },
-    {
-      "regNo": "2723211002",
-      "eik": null,
-      "name": "МБАЛ ВЕЛИКИ ПРЕСЛАВ ЕООД",
-      "settlement": "Гр.Велики Преслав",
-      "method": "no_match",
-      "confidence": null
-    },
-    {
-      "regNo": "2730131021",
-      "eik": null,
-      "name": "МЦ ПО ОЧНИ БОЛЕСТИ Д-Р МАРИНОВИ ООД",
-      "settlement": "Гр.Шумен",
-      "method": "no_match",
-      "confidence": null
-    },
-    {
-      "regNo": "2730211001",
-      "eik": null,
-      "name": "МБАЛ - ШУМЕН АД",
-      "settlement": "Гр.Шумен",
       "method": "ambiguous",
       "confidence": null
     },
     {
+      "regNo": "2634212016",
+      "eik": "000900131",
+      "name": "\"СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ НА ПНЕВМО-ФТИЗИАТРИЧНИ ЗАБОЛЯВАНИЯ ХАСКОВО\" ЕООД",
+      "settlement": "Гр.Хасково",
+      "method": "manager",
+      "confidence": "high"
+    },
+    {
+      "regNo": "2634212017",
+      "eik": "000900156",
+      "name": "\"СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ ПО ОНКОЛОГИЯ - ХАСКОВО\" ЕООД",
+      "settlement": "Гр.Хасково",
+      "method": "manager",
+      "confidence": "high"
+    },
+    {
+      "regNo": "2723211002",
+      "eik": "127513804",
+      "name": "МБАЛ ВЕЛИКИ ПРЕСЛАВ ЕООД",
+      "settlement": "Гр.Велики Преслав",
+      "method": "manager",
+      "confidence": "high"
+    },
+    {
+      "regNo": "2730131021",
+      "eik": "205475063",
+      "name": "МЦ ПО ОЧНИ БОЛЕСТИ Д-Р МАРИНОВИ ООД",
+      "settlement": "Гр.Шумен",
+      "method": "manager",
+      "confidence": "high"
+    },
+    {
+      "regNo": "2730211001",
+      "eik": "127521092",
+      "name": "МБАЛ - ШУМЕН АД",
+      "settlement": "Гр.Шумен",
+      "method": "manager",
+      "confidence": "high"
+    },
+    {
       "regNo": "2730212011",
-      "eik": null,
+      "eik": "201612434",
       "name": "СБАЛК ПО КАРДИОЛОГИЯ МАДАРА ЕАД ШУМЕН",
       "settlement": "Гр.Шумен",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2730334007",
-      "eik": null,
+      "eik": "127521758",
       "name": "КОЦ-ШУМЕН ЕООД",
       "settlement": "Гр.Шумен",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2730391012",
@@ -3021,27 +3021,27 @@
     },
     {
       "regNo": "2807211002",
-      "eik": null,
+      "eik": "128501819",
       "name": "МБАЛ СВЕТИ ИВАН РИЛСКИ ЕООД",
       "settlement": "Гр.Елхово",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2826134001",
-      "eik": "207798332",
+      "eik": "128057410",
       "name": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН ЦЕНТЪР 1 ЯМБОЛ ЕООД",
       "settlement": "Гр.Ямбол",
-      "method": "settlement",
-      "confidence": "medium"
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2826211001",
-      "eik": null,
+      "eik": "128501598",
       "name": "МБАЛ СВ. ПАНТЕЛЕЙМОН-ЯМБОЛ АД",
       "settlement": "Гр.Ямбол",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     },
     {
       "regNo": "2826211008",
@@ -3053,11 +3053,11 @@
     },
     {
       "regNo": "2826212007",
-      "eik": null,
+      "eik": "200111173",
       "name": "СБАЛ ПО КАРДИОЛОГИЯ ЯМБОЛ ЕАД",
       "settlement": "Гр.Ямбол",
-      "method": "no_match",
-      "confidence": null
+      "method": "manager",
+      "confidence": "high"
     }
   ]
 }

@@ -2,11 +2,12 @@
 // медицинска помощ) is НЗОК's single largest budget line (~€2.36bn/yr) and it is
 // paid OUTSIDE public procurement, so it never appears in the contract ledger
 // above. This tile surfaces it from НЗОК's own monthly per-facility report: the
-// national YTD total, the top-paid hospitals, and the per-РЗОК split. Rows are
-// name-keyed for now (the ИАМН рег.№→EIK crosswalk that would link each hospital
-// to its own page is a later phase). Pure from NzokHospitalPaymentsFile.
+// national YTD total, the top-paid hospitals, and the per-РЗОК split. Matched
+// hospitals (via the Рег.№→EIK crosswalk) deep-link to their own /company/:eik
+// page — reimbursement-in meets procurement-out. Pure from NzokHospitalPaymentsFile.
 
 import { FC, useState } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Building2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -68,12 +69,14 @@ export const NzokHospitalPaymentsTile: FC<{
           label: h.name,
           sub: h.rzokName,
           value: h.cumulativeEur,
+          eik: h.eik ?? null,
         }))
       : data.byRzok.map((r) => ({
           key: r.code,
           label: r.name,
           sub: `${r.facilityCount} ${bg ? "заведения" : "facilities"}`,
           value: r.cumulativeEur,
+          eik: null as string | null,
         }));
   const max = Math.max(...rows.map((r) => r.value));
 
@@ -127,9 +130,18 @@ export const NzokHospitalPaymentsTile: FC<{
             return (
               <div key={r.key} className="text-xs">
                 <div className="flex items-baseline justify-between gap-2 mb-0.5">
-                  <span className="min-w-0 truncate font-medium">
-                    {r.label}
-                  </span>
+                  {r.eik ? (
+                    <Link
+                      to={`/company/${r.eik}`}
+                      className="min-w-0 truncate font-medium text-accent hover:underline"
+                    >
+                      {r.label}
+                    </Link>
+                  ) : (
+                    <span className="min-w-0 truncate font-medium">
+                      {r.label}
+                    </span>
+                  )}
                   <span className="tabular-nums text-muted-foreground shrink-0">
                     {eur(r.value)}
                     <span className="ml-1 text-muted-foreground/70">
