@@ -1,5 +1,27 @@
 # НЗОК health pack — v1
 
+## Status (2026-07-07)
+
+- **Phase 1 — SHIPPED** (commit `7914e520d`), verified in dev. Pack renders on
+  `/awarder/121858220`: budget-bridge hero with 2026-draft/2025-law year toggle
+  (€5.5bn ↔ €4.8bn), honest "под 0,5% минава през поръчки" sentence, ЗОП lens
+  (Информационно обслужване 23% + statutory chip), "Какво купува по функция"
+  category tile (54%-single-bid IT), nav pill "Здравна каса (НЗОК)".
+- **Phase 2 — parser DONE + verified** (commit `bd1fe0ee6`). `scripts/nzok/
+  parse_hospital_payments.ts` parses the monthly per-hospital БМП PDFs with a
+  reconciliation+count completeness assert; verified vs May-2026 (381 facilities,
+  Σ €942,127,529 vs header €942,127,532). REMAINING: fetcher+backfill, PG table +
+  `/api/db` function, ranking/choropleth tiles, ИАМН рег.№→EIK crosswalk,
+  watcher+changelog wiring, `update-nzok` skill. These are a follow-up ingest
+  build (real-data iteration + new schema/skill), not yet done.
+- **Phase 3 — not started** (drug-INN XLSX tile; B1_5600 execution gauge reusing
+  the NOI parser).
+- **Phase 4 — not started** (crosswalk lights up hospital pages + prerender +
+  launch post).
+
+---
+
+
 Goal: give the National Health Insurance Fund (НЗОК, EIK `121858220`) a
 domain-specific **sector pack** on `/awarder/121858220`, the same seam the roads
 pack uses (`getSectorPack(eik)` in `src/screens/components/procurement/sectorPacks.tsx`).
