@@ -26,7 +26,7 @@ import type {
   NzokBudgetFile,
   NzokExecutionFile,
   NzokHospitalPaymentsFile,
-  NzokHospitalByEikFile,
+  NzokHospitalReimbursement,
   NzokDrugReimbursementFile,
   PersonnelFile,
   PitBreakdownFile,
@@ -66,6 +66,16 @@ const fetchJson = async <T,>(path: string): Promise<T | null> => {
   if (r.status === 404) return null;
   if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
   return (await r.json()) as T;
+};
+
+// /api/db endpoints (DB-served via the Cloud Function / dev plugin) — a relative
+// URL, NOT the GCS static bucket, so no dataUrl(). The endpoint returns a JSON
+// `null` body when there is no record (e.g. a non-hospital EIK), passed through.
+const fetchDb = async <T,>(url: string): Promise<T | null> => {
+  const r = await fetch(url);
+  if (r.status === 404) return null;
+  if (!r.ok) throw new Error(`db fetch failed: ${r.status} ${r.url}`);
+  return (await r.json()) as T | null;
 };
 
 export const useBudgetIndex = () =>
@@ -260,29 +270,31 @@ export const useNzokExecution = () =>
     staleTime: Infinity,
   });
 
-// НЗОК per-hospital БМП payments — the latest monthly snapshot of what the fund
-// actually pays hospitals (the biggest non-ЗОП line). ~90 KB (all 381
-// facilities). Drives the health pack's hospital-ranking tile.
+// НЗОК per-hospital БМП payments — the latest-period snapshot of what the fund
+// pays hospitals (the biggest non-ЗОП line), now DB-served from the
+// nzok_hospital_payments corpus (/api/db, migration 045) instead of the static
+// snapshot: the table is multi-period so the tile can grow momentum/history.
+// Drives the health pack's hospital-ranking tile.
 export const useNzokHospitalPayments = () =>
   useQuery({
-    queryKey: ["budget", "nzok", "hospital-payments"] as const,
+    queryKey: ["nzok", "hospital-payments"] as const,
     queryFn: () =>
-      fetchJson<NzokHospitalPaymentsFile>(
-        "/budget/nzok/hospital_payments.json",
-      ),
+      fetchDb<NzokHospitalPaymentsFile>("/api/db/nzok-hospital-payments"),
     staleTime: Infinity,
   });
 
-// НЗОК hospital-care reimbursement keyed by EIK — the Рег.№→EIK crosswalk folded
-// into a compact per-company index (~256 hospitals). Powers the "НЗОК плащания за
-// болнична помощ" tile on a hospital's own /company/:eik page. Small (~40 KB).
-export const useNzokHospitalByEik = () =>
+// НЗОК hospital-care reimbursement for ONE company (its ЛЗ facilities summed) —
+// DB-served per-EIK (/api/db/nzok-hospital-by-eik) so a hospital's /company/:eik
+// page fetches only its own figure, not the whole crosswalk. null when the EIK
+// has no matched НЗОК payment.
+export const useNzokHospitalByEik = (eik?: string | null) =>
   useQuery({
-    queryKey: ["budget", "nzok", "hospital-by-eik"] as const,
+    queryKey: ["nzok", "hospital-by-eik", eik ?? ""] as const,
     queryFn: () =>
-      fetchJson<NzokHospitalByEikFile>(
-        "/budget/nzok/hospital_reimbursement_by_eik.json",
+      fetchDb<NzokHospitalReimbursement>(
+        `/api/db/nzok-hospital-by-eik?eik=${encodeURIComponent(eik!)}`,
       ),
+    enabled: !!eik,
     staleTime: Infinity,
   });
 

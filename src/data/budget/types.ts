@@ -91,6 +91,21 @@ export interface NzokHospitalByEikFile {
   >;
 }
 
+// One company's hospital-care reimbursement for the latest period — the shape the
+// /api/db/nzok-hospital-by-eik endpoint returns (nzok_hospital_reimbursement_by_eik).
+// null-body when the EIK has no matched НЗОК payment.
+export interface NzokHospitalReimbursement {
+  asOf: string; // "YYYY-MM-DD" (end of the report month)
+  totalCumulativeEur: number;
+  totalMonthEur: number;
+  facilities: {
+    regNo: string;
+    name: string;
+    cumulativeEur: number;
+    monthEur: number;
+  }[];
+}
+
 export interface NzokHospitalPaymentsFile {
   generatedAt: string;
   source: { publisher: string; url: string; description: string };

@@ -966,6 +966,27 @@ const DB_ROUTES = {
     const rows = await dbRows("SELECT fund_contract_detail($1) AS r", [key]);
     return { body: rows[0]?.r ?? null };
   },
+  // НЗОК per-hospital БМП payments — latest-period snapshot for the health-pack
+  // tile (was data/budget/nzok/hospital_payments.json). No param. Degrades to
+  // null (not 500) until migration 045 reaches this DB.
+  "nzok-hospital-payments": async (dbRows) => {
+    const rows = await dbRows(
+      "SELECT nzok_hospital_payments_latest() AS r",
+      [],
+    ).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
+  // НЗОК reimbursement for one company (its ЛЗ facilities summed) → the
+  // reimbursement tile on /company/:eik. null when the EIK has no matched НЗОК
+  // payments (or migration 045 not yet applied).
+  "nzok-hospital-by-eik": async (dbRows, q) => {
+    const eik = s(q, "eik");
+    if (!eik) return { status: 400, body: { error: "missing eik" } };
+    const rows = await dbRows("SELECT nzok_hospital_reimbursement_by_eik($1) AS r", [
+      eik,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
 };
 
 module.exports = { DB_ROUTES };

@@ -49,13 +49,15 @@ const MONTHS_EN = [
 export const NzokHospitalReimbursementTile: FC<{ eik: string }> = ({ eik }) => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
-  const { data } = useNzokHospitalByEik();
-  const entry = data?.byEik[eik];
-  if (!data || !entry || entry.totalCumulativeEur <= 0) return null;
+  const { data: entry } = useNzokHospitalByEik(eik);
+  if (!entry || entry.totalCumulativeEur <= 0) return null;
 
+  // asOf is the report month-end ("2026-05-31"); derive the period label from it.
+  const month = Number(entry.asOf.slice(5, 7));
+  const year = Number(entry.asOf.slice(0, 4));
   const period = bg
-    ? `${MONTHS_BG[data.month] ?? ""} ${data.year}`.trim()
-    : `${MONTHS_EN[data.month] ?? ""} ${data.year}`.trim();
+    ? `${MONTHS_BG[month] ?? ""} ${year}`.trim()
+    : `${MONTHS_EN[month] ?? ""} ${year}`.trim();
   const facilities = [...entry.facilities].sort(
     (a, b) => b.cumulativeEur - a.cumulativeEur,
   );
