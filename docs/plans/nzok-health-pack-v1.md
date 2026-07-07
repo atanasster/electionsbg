@@ -116,6 +116,14 @@ local PG on 2026-07-07.
   `useProcurementHref` carries scope automatically. When a 3rd pack lands, collapse the
   secondary row into a "Сектори" group (defer).
 
+### Watcher + skill — SHIPPED (commit `9bf44ee4f`)
+
+Three watch sources (`scripts/watch/sources/nzok_{hospital_bmp,drug_quarterly,
+execution_b1}.ts`) fingerprint the newest nhif.bg file per listing page; an
+`update-nzok` skill (auto-fetch via `npm run data:nzok`) is mapped in
+`process-watch-report`. The daily watcher now flags a new month/quarter and the
+orchestrator re-runs the matching ingest step. Budget law stays manual (no source).
+
 ### Phase 2 — per-hospital payments (the moat: PG table + parser + watcher + skill)
 
 New ingest, so follow every convention:
