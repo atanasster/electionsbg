@@ -32,7 +32,11 @@
 // section dashboard, so they'd be redundant there.
 
 import { LATEST_LOCAL_CYCLE } from "@/data/local/useLatestLocalCycle";
-import { ROADS_AWARDER_PATH } from "@/screens/components/procurement/sectorPacks";
+import {
+  ROADS_AWARDER_PATH,
+  NOI_AWARDER_PATH,
+  NZOK_AWARDER_PATH,
+} from "@/screens/components/procurement/sectorPacks";
 
 export type MenuItem = {
   title: string;
@@ -271,7 +275,11 @@ export const governanceMenu: MenuItem[] = [
       {
         title: "menu_group_state_entities",
         group: true,
-        subMenu: [{ title: "procurement_roads_nav", link: ROADS_AWARDER_PATH }],
+        subMenu: [
+          { title: "procurement_roads_nav", link: ROADS_AWARDER_PATH },
+          { title: "procurement_noi_nav", link: NOI_AWARDER_PATH },
+          { title: "procurement_nzok_nav", link: NZOK_AWARDER_PATH },
+        ],
       },
       { title: "-" },
       {
