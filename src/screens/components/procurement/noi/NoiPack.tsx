@@ -48,12 +48,25 @@ export const NoiPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
     return model.totalEur / procYears;
   }, [model, procYears]);
 
+  // Procurement € in the exact fund year the fund figures come from — so the
+  // "share of the fund" ratios compare like periods (2024 procurement vs 2024
+  // fund figures), not a multi-year average against one fund year. Null when
+  // that year is outside the scoped window (then the ratios hide themselves).
+  const fundYearProcEur = useMemo(() => {
+    if (!model || !fundYear) return null;
+    return (
+      model.years.find((y) => y.year === fundYear.fiscalYear)?.totalEur ?? null
+    );
+  }, [model, fundYear]);
+
   // Auto headlines from the model + fund join.
   const insights = useMemo(() => {
     if (!model) return [] as { text: string; warn?: boolean }[];
     const out: { text: string; warn?: boolean }[] = [];
     const eur = (v: number) => formatEurCompact(v, lang);
-    const topYear = [...model.years].sort((a, b) => b.totalEur - a.totalEur)[0];
+    const topYear = [...model.years].sort(
+      (a, b) => b.totalEur - a.totalEur || a.year - b.year,
+    )[0];
     if (topYear)
       out.push({
         text: `${topYear.year}: ${eur(topYear.totalEur)} — ${bg ? "пик" : "peak year"}`,
@@ -149,6 +162,8 @@ export const NoiPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
           fundYear={fundYear}
           procurementTotalEur={model.totalEur}
           procurementYears={procYears}
+          annualProc={annualProc}
+          fundYearProcEur={fundYearProcEur}
         />
       )}
 
@@ -158,11 +173,11 @@ export const NoiPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
         totalEur={model.totalEur}
       />
 
-      {/* Admin cost vs SSA / DRV + procurement's share of издръжка */}
+      {/* Admin cost vs SSA / DRV + procurement's share of the operating base */}
       {fundYear && (
         <NoiAdminBenchmarkTile
           fundYear={fundYear}
-          procurementAnnualEur={annualProc}
+          fundYearProcurementEur={fundYearProcEur}
         />
       )}
 

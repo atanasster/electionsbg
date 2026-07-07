@@ -42,7 +42,16 @@ export interface NoiData {
 
 const flattenFundYear = (file: NoiFundsFile | null): NoiFundYear | null => {
   if (!file || !file.years.length) return null;
-  const y = [...file.years].sort((a, b) => b.fiscalYear - a.fiscalYear)[0];
+  // Pick the latest year that carries real fund detail. The B1 ingest publishes
+  // a new fiscal year mid-cycle as a partial/shell record (funds: [], revenue:
+  // 0 — the current 2023 record is exactly this shape); taking the raw max would
+  // select that shell and render adminEur/revenue = 0, i.e. a false "0% covered
+  // by contributions / 100% state transfer" claim and a vanished admin tile.
+  const usable = file.years.filter(
+    (yr) => yr.funds.length > 0 && yr.totals.revenue.amountEur > 0,
+  );
+  if (!usable.length) return null;
+  const y = [...usable].sort((a, b) => b.fiscalYear - a.fiscalYear)[0];
   let personnelEur = 0;
   let operationsEur = 0;
   let capitalEur = 0;

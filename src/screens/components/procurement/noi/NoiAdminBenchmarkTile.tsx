@@ -24,8 +24,11 @@ const fmtPct = (v: number, lang: string) =>
 
 export const NoiAdminBenchmarkTile: FC<{
   fundYear: NoiFundYear;
-  procurementAnnualEur: number | null;
-}> = ({ fundYear, procurementAnnualEur }) => {
+  /** Procurement € in the SAME fund year (fundYear.fiscalYear), so the
+   *  operating-base ratio compares like periods. Null when that year is out of
+   *  the scoped window → the ratio KPI hides. */
+  fundYearProcurementEur: number | null;
+}> = ({ fundYear, fundYearProcurementEur }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
@@ -47,8 +50,8 @@ export const NoiAdminBenchmarkTile: FC<{
   // dividing by издръжка alone mixed bases and overstated the ratio.
   const operatingBaseEur = fundYear.operationsEur + fundYear.capitalEur;
   const procShareOfOps =
-    procurementAnnualEur != null && operatingBaseEur > 0
-      ? procurementAnnualEur / operatingBaseEur
+    fundYearProcurementEur != null && operatingBaseEur > 0
+      ? fundYearProcurementEur / operatingBaseEur
       : null;
 
   return (
@@ -140,8 +143,8 @@ export const NoiAdminBenchmarkTile: FC<{
             <div className="rounded-md border bg-muted/30 p-2">
               <div className="text-muted-foreground">
                 {bg
-                  ? "Поръчки / издръжка + капиталови"
-                  : "Procurement / operations + capital"}
+                  ? `Поръчки / издръжка + капиталови (${fundYear.fiscalYear})`
+                  : `Procurement / operations + capital (${fundYear.fiscalYear})`}
               </div>
               <div className="font-semibold tabular-nums">
                 {(procShareOfOps * 100).toLocaleString(lang, {

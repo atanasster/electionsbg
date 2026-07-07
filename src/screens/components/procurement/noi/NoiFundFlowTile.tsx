@@ -47,7 +47,19 @@ export const NoiFundFlowTile: FC<{
   fundYear: NoiFundYear;
   procurementTotalEur: number;
   procurementYears: number | null;
-}> = ({ fundYear, procurementTotalEur, procurementYears }) => {
+  /** Annualised procurement (computed once by NoiPack) — passed in rather than
+   *  re-derived so the KPI, hero and admin tile can never disagree. */
+  annualProc: number | null;
+  /** Procurement € in fundYear.fiscalYear, for a same-year share of the fund;
+   *  null when that year is outside the scoped window. */
+  fundYearProcEur: number | null;
+}> = ({
+  fundYear,
+  procurementTotalEur,
+  procurementYears,
+  annualProc,
+  fundYearProcEur,
+}) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
@@ -69,13 +81,13 @@ export const NoiFundFlowTile: FC<{
     expenditureEur > 0 ? fundYear.revenueEur / expenditureEur : 0;
   const transferEur = Math.max(0, expenditureEur - fundYear.revenueEur);
 
-  // Procurement bridge — annualise the multi-year contracted total so it's a
-  // fair comparison against one year's издръжка (operations).
-  const annualProc =
-    procurementYears && procurementYears > 0
-      ? procurementTotalEur / procurementYears
-      : procurementTotalEur;
-  const procShareOfExp = expenditureEur > 0 ? annualProc / expenditureEur : 0;
+  // Procurement bridge — the "% of the fund" uses the SAME fund year on both
+  // sides (fundYearProcEur / that year's expenditure) so periods match; falls
+  // back to the annualised multi-year average only when the fund year is out of
+  // the scoped window. annualProc is passed in, not re-derived.
+  const bridgeProc = fundYearProcEur ?? annualProc ?? procurementTotalEur;
+  const procShareOfExp = expenditureEur > 0 ? bridgeProc / expenditureEur : 0;
+  const perYear = annualProc ?? procurementTotalEur;
 
   const pt = fundYear.pensionTypes;
 
@@ -169,8 +181,8 @@ export const NoiFundFlowTile: FC<{
         {procurementTotalEur > 0 && (
           <p className="text-xs text-muted-foreground/90">
             {bg
-              ? `За сравнение: обществените поръчки на НОИ по-долу са ${eur(procurementTotalEur)} общо за ${procurementYears ?? "—"} г. (~${eur(annualProc)}/г.) — под ${procShareOfExp < 0.005 ? "0,5%" : pct(procShareOfExp, lang)} от годишния разход на фонда.`
-              : `For scale: НОИ's procurement below totals ${eur(procurementTotalEur)} over ${procurementYears ?? "—"} years (~${eur(annualProc)}/yr) — under ${procShareOfExp < 0.005 ? "0.5%" : pct(procShareOfExp, lang)} of the fund's annual expenditure.`}
+              ? `За сравнение: обществените поръчки на НОИ по-долу са ${eur(procurementTotalEur)} общо за ${procurementYears ?? "—"} г. (~${eur(perYear)}/г.) — под ${procShareOfExp < 0.005 ? "0,5%" : pct(procShareOfExp, lang)} от разхода на фонда за ${fundYear.fiscalYear} г.`
+              : `For scale: НОИ's procurement below totals ${eur(procurementTotalEur)} over ${procurementYears ?? "—"} years (~${eur(perYear)}/yr) — under ${procShareOfExp < 0.005 ? "0.5%" : pct(procShareOfExp, lang)} of the fund's ${fundYear.fiscalYear} expenditure.`}
           </p>
         )}
       </CardContent>

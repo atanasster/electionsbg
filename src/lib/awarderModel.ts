@@ -257,7 +257,8 @@ export const buildAwarderModel = <Cat extends string>(
         bidKnownN: s.bidKnownN,
       };
     })
-    .sort((a, b) => b.totalEur - a.totalEur);
+    // eik tiebreak so equal-€ suppliers order deterministically across renders.
+    .sort((a, b) => b.totalEur - a.totalEur || a.eik.localeCompare(b.eik));
 
   const topSupplierOf = (
     category: Cat,
@@ -266,7 +267,12 @@ export const buildAwarderModel = <Cat extends string>(
     for (const s of sup.values()) {
       const e = s.byCat.get(category);
       if (e == null) continue;
-      if (!best || e > best.totalEur)
+      // Deterministic tiebreak on eik when two suppliers tie on category €.
+      if (
+        !best ||
+        e > best.totalEur ||
+        (e === best.totalEur && s.eik < best.eik)
+      )
         best = { eik: s.eik, name: s.name, totalEur: e };
     }
     return best;
@@ -293,7 +299,10 @@ export const buildAwarderModel = <Cat extends string>(
       if (xs !== ys) return xs ? 1 : -1;
       const oi = orderIndex(x.id) - orderIndex(y.id);
       if (oi !== 0) return oi;
-      return y.totalEur - x.totalEur;
+      // id tiebreak so equal-€ categories order deterministically.
+      return (
+        y.totalEur - x.totalEur || String(x.id).localeCompare(String(y.id))
+      );
     });
 
   const years = [...yearMap.values()].sort((a, b) => a.year - b.year);
