@@ -2,6 +2,15 @@
 
 ## Status (2026-07-07)
 
+- **Hospital data → Postgres + Cloud SQL — SHIPPED + LIVE** (commits `5440ad40e`,
+  `f2c289cbf`, `a94ea4ee1`). `nzok_hospital_payments` (facility × period, 14 clean
+  months / 5,371 rows) + 2 jsonb serving fns; `/api/db/nzok-hospital-payments` +
+  `/api/db/nzok-hospital-by-eik` (functions/db_routes.js, db fn redeployed); the
+  two tiles serve from `/api/db`. Verified live on
+  `electionsbg.com/api/db/*` (381 fac / €942,127,529). REMAINING: the frontend
+  hosting deploy (`npm run deploy`) for user-visibility; the backfill increment
+  (early-year 3-column months + ≤2024 — parser hardening per scripts/nzok/README).
+
 - **Phase 1 — SHIPPED** (commit `7914e520d`), verified in dev. Pack renders on
   `/awarder/121858220`: budget-bridge hero with 2026-draft/2025-law year toggle
   (€5.5bn ↔ €4.8bn), honest "под 0,5% минава през поръчки" sentence, ЗОП lens
