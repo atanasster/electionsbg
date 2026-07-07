@@ -27,6 +27,7 @@ import { categoryLabel } from "@/lib/nzokBenchmarks";
 import { NzokBudgetBridgeTile } from "./NzokBudgetBridgeTile";
 import { NzokCategoryTile } from "./NzokCategoryTile";
 import { NzokHospitalPaymentsTile } from "./NzokHospitalPaymentsTile";
+import { NzokDrugReimbursementTile } from "./NzokDrugReimbursementTile";
 import { NzokProcurementLensTile } from "./NzokProcurementLensTile";
 
 export const NzokPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
@@ -36,10 +37,8 @@ export const NzokPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
-  const { model, budget, hospitalPayments, isLoading } = useNzok(
-    eik,
-    scopeWindow,
-  );
+  const { model, budget, hospitalPayments, drugReimbursement, isLoading } =
+    useNzok(eik, scopeWindow);
 
   // Budget-year picker — defaults to the latest ingested year; user-selectable.
   const [yearOverride, setYearOverride] = useState<number | null>(null);
@@ -161,8 +160,11 @@ export const NzokPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
         />
       )}
 
-      {/* The real money — hospital-care payments, paid outside ЗОП */}
+      {/* The real money — the two biggest non-ЗОП lines, paid outside procurement */}
       {hospitalPayments && <NzokHospitalPaymentsTile data={hospitalPayments} />}
+      {drugReimbursement && (
+        <NzokDrugReimbursementTile data={drugReimbursement} />
+      )}
 
       {/* The ЗОП lens — IT + security, one in-house integrator */}
       <NzokProcurementLensTile model={model} />

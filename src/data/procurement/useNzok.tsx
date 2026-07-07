@@ -21,11 +21,13 @@ import { useProcurementWindow } from "./useProcurementWindow";
 import {
   useNzokBudget,
   useNzokHospitalPayments,
+  useNzokDrugReimbursement,
 } from "@/data/budget/useBudget";
 import { buildNzokModel, NZOK_EIK, type NzokModel } from "@/lib/nzokAttributes";
 import type {
   NzokBudgetFile,
   NzokHospitalPaymentsFile,
+  NzokDrugReimbursementFile,
 } from "@/data/budget/types";
 
 export { NZOK_EIK };
@@ -36,6 +38,7 @@ export interface NzokData {
   model: NzokModel | null;
   budget: NzokBudgetFile | null;
   hospitalPayments: NzokHospitalPaymentsFile | null;
+  drugReimbursement: NzokDrugReimbursementFile | null;
   isLoading: boolean;
 }
 
@@ -46,6 +49,7 @@ export const useNzok = (
   const contracts = useAwarderContracts(eik);
   const budget = useNzokBudget();
   const hospitalPayments = useNzokHospitalPayments();
+  const drugReimbursement = useNzokDrugReimbursement();
   const urlWindow = useProcurementWindow();
   const from = windowOverride ? windowOverride.from : urlWindow.from;
   const to = windowOverride ? windowOverride.to : urlWindow.to;
@@ -60,6 +64,7 @@ export const useNzok = (
     model,
     budget: budget.data ?? null,
     hospitalPayments: hospitalPayments.data ?? null,
+    drugReimbursement: drugReimbursement.data ?? null,
     isLoading: contracts.isLoading || budget.isLoading,
   };
 };

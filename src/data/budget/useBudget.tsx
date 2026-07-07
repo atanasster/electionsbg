@@ -25,6 +25,7 @@ import type {
   NoiFundsFile,
   NzokBudgetFile,
   NzokHospitalPaymentsFile,
+  NzokDrugReimbursementFile,
   PersonnelFile,
   PitBreakdownFile,
   PlevenCapitalProgramFile,
@@ -257,6 +258,19 @@ export const useNzokHospitalPayments = () =>
     queryFn: () =>
       fetchJson<NzokHospitalPaymentsFile>(
         "/budget/nzok/hospital_payments.json",
+      ),
+    staleTime: Infinity,
+  });
+
+// НЗОК annual drug reimbursement by INN — the second-largest non-ЗОП line.
+// Small (~7 KB: top-25 INN + ATC-group rollup). Drives the health pack's
+// top-reimbursed-medicines tile.
+export const useNzokDrugReimbursement = () =>
+  useQuery({
+    queryKey: ["budget", "nzok", "drug-reimbursement"] as const,
+    queryFn: () =>
+      fetchJson<NzokDrugReimbursementFile>(
+        "/budget/nzok/drug_reimbursement.json",
       ),
     staleTime: Infinity,
   });

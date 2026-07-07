@@ -74,6 +74,30 @@ export interface NzokHospitalPaymentsFile {
   hospitals: NzokHospitalRow[]; // sorted by cumulativeEur desc
 }
 
+// Annual gross drug-reimbursement rollup — НЗОК's second-largest budget line
+// (~€1.33bn/yr), paid outside ЗОП. Written by
+// scripts/nzok/write_drug_reimbursement.ts from the nhif.bg "Брутни разходи" XLS.
+export interface NzokDrugInn {
+  inn: string;
+  atc: string;
+  atcGroup: string; // ATC anatomical main group (first letter)
+  eur: number;
+  productCount: number;
+  topProduct: string | null;
+}
+
+export interface NzokDrugReimbursementFile {
+  generatedAt: string;
+  source: { publisher: string; url: string; description: string };
+  year: number;
+  basis: "annual" | "ytd";
+  totalEur: number;
+  distinctInn: number;
+  productRows: number;
+  byAtcGroup: { code: string; bg: string; en: string; eur: number }[];
+  top: NzokDrugInn[]; // sorted by eur desc
+}
+
 export type KfpSeries =
   | "revenue"
   | "expenditure"
