@@ -40,7 +40,10 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   r AS (
     SELECT * FROM nzok_hospital_payments WHERE period = (SELECT p FROM latest)
   )
-  SELECT jsonb_build_object(
+  -- NULL (not an object-of-nulls) on an empty table — schema applied but no
+  -- load yet — mirroring nzok_hospital_reimbursement_by_eik so consumers get a
+  -- clean null instead of {asOf:null, hospitals:null, …}.
+  SELECT CASE WHEN COUNT(*) = 0 THEN NULL ELSE jsonb_build_object(
     'asOf',  to_char((SELECT p FROM latest) + interval '1 month' - interval '1 day', 'YYYY-MM-DD'),
     'year',  extract(year  FROM (SELECT p FROM latest))::int,
     'month', extract(month FROM (SELECT p FROM latest))::int,
@@ -69,7 +72,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
               ORDER BY ROUND(cumulative_eur) DESC, reg_no)
       FROM r
     )
-  )
+  ) END
   FROM r;
 $$;
 

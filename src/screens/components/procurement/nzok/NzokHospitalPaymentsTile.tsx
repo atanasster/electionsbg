@@ -13,38 +13,8 @@ import { Building2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
+import { monthYearLabel } from "@/lib/monthNames";
 import type { NzokHospitalPaymentsFile } from "@/data/budget/types";
-
-const MONTHS_BG = [
-  "",
-  "януари",
-  "февруари",
-  "март",
-  "април",
-  "май",
-  "юни",
-  "юли",
-  "август",
-  "септември",
-  "октомври",
-  "ноември",
-  "декември",
-];
-const MONTHS_EN = [
-  "",
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
 
 const TOP_N = 12;
 
@@ -59,9 +29,7 @@ export const NzokHospitalPaymentsTile: FC<{
 
   const total = data.totalCumulativeEur;
   if (total <= 0 || !data.hospitals.length) return null;
-  const period = bg
-    ? `${MONTHS_BG[data.month] ?? ""} ${data.year}`.trim()
-    : `${MONTHS_EN[data.month] ?? ""} ${data.year}`.trim();
+  const period = monthYearLabel(data.month, data.year, lang);
 
   const rows =
     view === "hospitals"

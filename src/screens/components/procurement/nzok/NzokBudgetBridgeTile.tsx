@@ -11,38 +11,8 @@ import { useTranslation } from "react-i18next";
 import { HeartPulse } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
+import { monthYearLabel } from "@/lib/monthNames";
 import type { NzokBudgetYear, NzokExecutionFile } from "@/data/budget/types";
-
-const MONTHS_BG = [
-  "",
-  "януари",
-  "февруари",
-  "март",
-  "април",
-  "май",
-  "юни",
-  "юли",
-  "август",
-  "септември",
-  "октомври",
-  "ноември",
-  "декември",
-];
-const MONTHS_EN = [
-  "",
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
 
 const pct = (v: number, lang: string) =>
   (v * 100).toLocaleString(lang, { maximumFractionDigits: 1 }) + "%";
@@ -205,9 +175,11 @@ export const NzokBudgetBridgeTile: FC<{
           (() => {
             const spent = execution.expenditureEur;
             const share = spent / total;
-            const asOfLabel = bg
-              ? `${MONTHS_BG[execution.month] ?? ""} ${execution.year}`.trim()
-              : `${MONTHS_EN[execution.month] ?? ""} ${execution.year}`.trim();
+            const asOfLabel = monthYearLabel(
+              execution.month,
+              execution.year,
+              lang,
+            );
             return (
               <div>
                 <div className="mb-1 flex flex-wrap items-baseline justify-between gap-x-2 text-xs">

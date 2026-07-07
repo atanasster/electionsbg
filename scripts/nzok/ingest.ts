@@ -59,6 +59,17 @@ const OPT_IN: { flag: string; scripts: string[]; label: string }[] = [
 ];
 
 const args = process.argv.slice(2);
+// A typo (`--hospital`, `--drug`) matches no step, which would otherwise fall
+// back to the full default set — four fetches the operator didn't ask for. Fail
+// loudly on any unrecognized `--flag` instead.
+const KNOWN = new Set([...STEPS, ...OPT_IN].map((s) => s.flag));
+const unknown = args.filter((a) => a.startsWith("--") && !KNOWN.has(a));
+if (unknown.length) {
+  console.error(
+    `unknown flag(s): ${unknown.join(" ")} — expected one of ${[...KNOWN].join(" ")}`,
+  );
+  process.exit(1);
+}
 const optIn = OPT_IN.filter((s) => args.includes(s.flag));
 const selected = STEPS.filter((s) => args.includes(s.flag));
 // No default-set flag AND no opt-in flag → run the whole default set. An opt-in

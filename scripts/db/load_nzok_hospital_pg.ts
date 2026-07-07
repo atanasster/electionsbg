@@ -72,8 +72,11 @@ const collectRows = async (): Promise<{
 }> => {
   const eikMap: Record<string, string | null> = {};
   const eikFile = JSON.parse(readFileSync(EIK_FILE, "utf8"));
-  const eikArr: { regNo: string; eik: string | null }[] =
-    eikFile.entries ?? eikFile.crosswalk ?? eikFile.facilities ?? [];
+  // The crosswalk writer only ever emits `entries[]`; a renamed/corrupted file
+  // must fail loudly, not silently load the corpus with every eik = null.
+  const eikArr: { regNo: string; eik: string | null }[] = eikFile.entries;
+  if (!Array.isArray(eikArr) || eikArr.length === 0)
+    throw new Error(`${EIK_FILE} has no entries[] — crosswalk shape changed?`);
   for (const e of eikArr) eikMap[e.regNo] = e.eik ?? null;
 
   const rows: Row[] = [];

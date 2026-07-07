@@ -14,37 +14,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { useNzokHospitalByEik } from "@/data/budget/useBudget";
 import { decodeEntities } from "@/lib/decodeEntities";
-
-const MONTHS_BG = [
-  "",
-  "януари",
-  "февруари",
-  "март",
-  "април",
-  "май",
-  "юни",
-  "юли",
-  "август",
-  "септември",
-  "октомври",
-  "ноември",
-  "декември",
-];
-const MONTHS_EN = [
-  "",
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+import { monthYearLabel } from "@/lib/monthNames";
 
 export const NzokHospitalReimbursementTile: FC<{ eik: string }> = ({ eik }) => {
   const { i18n } = useTranslation();
@@ -55,9 +25,7 @@ export const NzokHospitalReimbursementTile: FC<{ eik: string }> = ({ eik }) => {
   // asOf is the report month-end ("2026-05-31"); derive the period label from it.
   const month = Number(entry.asOf.slice(5, 7));
   const year = Number(entry.asOf.slice(0, 4));
-  const period = bg
-    ? `${MONTHS_BG[month] ?? ""} ${year}`.trim()
-    : `${MONTHS_EN[month] ?? ""} ${year}`.trim();
+  const period = monthYearLabel(month, year, i18n.language);
   // Already ordered by the DB function (cumulative desc, reg_no tiebreak).
   const facilities = entry.facilities;
 
