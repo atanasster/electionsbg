@@ -235,8 +235,14 @@ const buildYear = (def: YearDef): NzokBudgetYear => {
     amount: money(l.k, def.currency),
   }));
   // Reserve = residual to the headline (reserve + central-budget transfers +
-  // capital). Computed in the currency-of-record so it reconciles exactly.
+  // capital). Computed in the currency-of-record so it reconciles exactly. A
+  // negative residual beyond rounding means the named lines were hand-keyed to
+  // exceed the total — surface it rather than silently clamp reserve to 0.
   const namedK = def.lines.reduce((s, l) => s + l.k, 0);
+  if (def.totalK - namedK < -1)
+    throw new Error(
+      `${def.fiscalYear}: named lines (${namedK}) exceed total (${def.totalK}) — check the ЗБНЗОК figures`,
+    );
   const reserveK = Math.max(0, def.totalK - namedK);
   lines.push({
     id: "reserve",

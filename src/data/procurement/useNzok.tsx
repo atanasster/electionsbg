@@ -70,6 +70,14 @@ export const useNzok = (
     execution: execution.data ?? null,
     hospitalPayments: hospitalPayments.data ?? null,
     drugReimbursement: drugReimbursement.data ?? null,
-    isLoading: contracts.isLoading || budget.isLoading,
+    // OR in every dataset so the pack paints once, not tile-by-tile (avoids the
+    // execution gauge / hospital / drug tiles popping into an already-rendered
+    // pack). The contract-corpus fetch dominates the wall clock regardless.
+    isLoading:
+      contracts.isLoading ||
+      budget.isLoading ||
+      execution.isLoading ||
+      hospitalPayments.isLoading ||
+      drugReimbursement.isLoading,
   };
 };

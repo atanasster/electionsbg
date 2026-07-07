@@ -1,16 +1,14 @@
 // Fetch + parse the latest НЗОК monthly per-hospital БМП payment report and
-// write a compact summary to data/budget/nzok/hospital_payments.json — the file
-// the health pack's per-hospital ranking tile reads (served statically, like the
-// NOI funds file; ~40 KB for all 381 facilities).
+// write a compact summary to data/budget/nzok/hospital_payments.json.
+//
+// Post-PG-migration role: the tiles are now DB-served from the multi-period
+// nzok_hospital_payments table (scripts/db/load_nzok_hospital_pg.ts). This JSON
+// is retained as the crosswalk universe (regNo/eik map input) + the parity net
+// (per [[feedback_no_json_from_pg]]); it is no longer the serving path.
 //
 // Usage:
 //   tsx scripts/nzok/write_hospital_payments.ts            # latest month, current year
 //   tsx scripts/nzok/write_hospital_payments.ts --year 2025
-//
-// The full multi-year corpus (for per-hospital pages + momentum) is a later
-// Phase — it belongs in Postgres and needs the ИАМН рег.№→EIK crosswalk. This
-// generator ships the single latest snapshot: a top-paid ranking + per-РЗОК
-// rollup + the national headline that reconciles to the file's own grand total.
 //
 // The source page lists three БМП files per month (payments / drugs-in-hospital /
 // devices); we take the "здравноосигурителни плащания" one (the БМП payments).
@@ -19,6 +17,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { parseHospitalPaymentsPdf } from "./parse_hospital_payments";
+import { bmpPaymentLinks } from "./lib/bmp_links";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -63,23 +62,6 @@ const fetchToFile = async (url: string, dest: string): Promise<void> => {
   fs.writeFileSync(dest, buf);
 };
 
-/** Find the latest БМП-payments PDF href on a bmp/{year} listing page. The page
- *  lists newest-first; we take the first "здравноосигурителни плащания за БМП"
- *  link (not the МИ / лекарствени-продукти siblings). */
-const findLatestPaymentsHref = (html: string): string | null => {
-  const re = /href="(\/upload\/[^"]+\.pdf)"/gi;
-  for (const m of html.matchAll(re)) {
-    const href = m[1];
-    const decoded = decodeURIComponent(href);
-    if (
-      /здравноосигурителни\s+плащания\s+за\s+БМП/i.test(decoded) &&
-      !/МИ\b|лек[_\s]?прод|изделия/i.test(decoded)
-    )
-      return href;
-  }
-  return null;
-};
-
 const main = async (): Promise<void> => {
   let year = argYear();
   if (!year) {
@@ -91,7 +73,8 @@ const main = async (): Promise<void> => {
     year = years.length ? Math.max(...years) : 2026;
   }
   const pageHtml = await fetchText(`${BASE}/bg/hospitals/bmp/${year}`);
-  const href = findLatestPaymentsHref(pageHtml);
+  // The page lists newest-first, so the first payments link is the latest month.
+  const href = bmpPaymentLinks(pageHtml)[0] ?? null;
   if (!href)
     throw new Error(`no БМП-payments PDF link found on bmp/${year} page`);
 
@@ -99,6 +82,11 @@ const main = async (): Promise<void> => {
   await fetchToFile(BASE + href, cachePath);
 
   const parsed = parseHospitalPaymentsPdf(cachePath);
+  // Never write an empty/degenerate file (a layout change or a bad fetch): the
+  // parser's own reconciliation assert covers content, this covers "no rows at
+  // all" so a corrupted artifact can't be committed + bucket-synced.
+  if (parsed.rows.length === 0)
+    throw new Error(`no facility rows parsed from ${cachePath}`);
 
   // Load the committed Рег.№→EIK crosswalk (if present) and join each facility to
   // its EIK. The crosswalk is near-static and regenerated separately (needs the

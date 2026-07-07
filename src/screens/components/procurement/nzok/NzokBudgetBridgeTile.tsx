@@ -28,6 +28,21 @@ const MONTHS_BG = [
   "ноември",
   "декември",
 ];
+const MONTHS_EN = [
+  "",
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
 const pct = (v: number, lang: string) =>
   (v * 100).toLocaleString(lang, { maximumFractionDigits: 1 }) + "%";
@@ -118,12 +133,17 @@ export const NzokBudgetBridgeTile: FC<{
               : `Where НЗОК's money goes (${year.fiscalYear})`}
           </CardTitle>
           {years.length > 1 && (
-            <div className="flex gap-1" role="group" aria-label="fiscal year">
+            <div
+              className="flex gap-1"
+              role="group"
+              aria-label={bg ? "Финансова година" : "Fiscal year"}
+            >
               {years.map((y) => (
                 <button
                   key={y}
                   type="button"
                   onClick={() => onSelectYear(y)}
+                  aria-pressed={y === selectedYear}
                   className={`rounded-full border px-2 py-0.5 text-xs font-medium transition-colors ${
                     y === selectedYear
                       ? "border-primary bg-primary/10 text-primary"
@@ -187,7 +207,7 @@ export const NzokBudgetBridgeTile: FC<{
             const share = spent / total;
             const asOfLabel = bg
               ? `${MONTHS_BG[execution.month] ?? ""} ${execution.year}`.trim()
-              : `${execution.asOf}`;
+              : `${MONTHS_EN[execution.month] ?? ""} ${execution.year}`.trim();
             return (
               <div>
                 <div className="mb-1 flex flex-wrap items-baseline justify-between gap-x-2 text-xs">

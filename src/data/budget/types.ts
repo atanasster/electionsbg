@@ -75,22 +75,6 @@ export interface NzokHospitalRow {
 // плащания за болнична помощ" tile on a hospital's own /company/:eik page. One
 // EIK can run several ЛЗ facilities, so each carries the facility list + the sum.
 // Written by scripts/nzok/write_hospital_payments.ts from the crosswalk.
-export interface NzokHospitalByEikFile {
-  generatedAt: string;
-  asOf: string;
-  year: number;
-  month: number;
-  /** eik → its hospital-care reimbursement (summed across the EIK's facilities). */
-  byEik: Record<
-    string,
-    {
-      totalCumulativeEur: number;
-      totalMonthEur: number;
-      facilities: { regNo: string; name: string; cumulativeEur: number }[];
-    }
-  >;
-}
-
 // One company's hospital-care reimbursement for the latest period — the shape the
 // /api/db/nzok-hospital-by-eik endpoint returns (nzok_hospital_reimbursement_by_eik).
 // null-body when the EIK has no matched НЗОК payment.
@@ -145,6 +129,7 @@ export interface NzokDrugReimbursementFile {
   totalEur: number;
   distinctInn: number;
   productRows: number;
+  // sorted by eur desc — the ATC-group view slices/relies on the leading entries
   byAtcGroup: { code: string; bg: string; en: string; eur: number }[];
   top: NzokDrugInn[]; // sorted by eur desc
 }

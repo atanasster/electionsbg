@@ -95,7 +95,15 @@ export const NzokPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
     return (
       <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
     );
-  if (!model || model.totalEur === 0) return null;
+  // The budget-bridge, hospital-payments and drug-reimbursement tiles are the
+  // point of the pack (the ~98.5% of НЗОК that flows OUTSIDE ЗОП) and do NOT
+  // depend on the contract corpus — so only hide the whole pack when there is
+  // genuinely nothing to show. The procurement-derived pieces (KPI, insights,
+  // lens, category) are gated on `hasModel` individually below, so a scope-pill
+  // pivot to a window with no НЗОК contracts no longer deletes the pack.
+  const hasModel = !!model && model.totalEur > 0;
+  if (!hasModel && !budget && !hospitalPayments && !drugReimbursement)
+    return null;
 
   return (
     <section className="space-y-4">
@@ -108,18 +116,20 @@ export const NzokPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
 
       {/* НЗОК-specific KPI: procurement per year against the fund it runs. */}
       <div className="grid gap-3 grid-cols-2">
-        <StatCard
-          label={bg ? "Поръчки на година" : "Procurement per year"}
-          hint={
-            bg
-              ? "Договорена стойност, усреднена за годините с договори в обхвата."
-              : "Contracted value averaged over the years with contracts in scope."
-          }
-        >
-          <span className="text-2xl font-bold tabular-nums">
-            {annualProc != null ? formatEurCompact(annualProc, lang) : "—"}
-          </span>
-        </StatCard>
+        {hasModel && (
+          <StatCard
+            label={bg ? "Поръчки на година" : "Procurement per year"}
+            hint={
+              bg
+                ? "Договорена стойност, усреднена за годините с договори в обхвата."
+                : "Contracted value averaged over the years with contracts in scope."
+            }
+          >
+            <span className="text-2xl font-bold tabular-nums">
+              {annualProc != null ? formatEurCompact(annualProc, lang) : "—"}
+            </span>
+          </StatCard>
+        )}
         {budgetYear && (
           <StatCard
             label={bg ? "Бюджет на НЗОК" : "НЗОК budget"}
@@ -160,7 +170,7 @@ export const NzokPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
           years={budgetYears}
           selectedYear={selectedYear}
           onSelectYear={setYearOverride}
-          procurementTotalEur={model.totalEur}
+          procurementTotalEur={model?.totalEur ?? 0}
           procurementYears={procYears}
           annualProc={annualProc}
           execution={
@@ -175,14 +185,16 @@ export const NzokPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
         <NzokDrugReimbursementTile data={drugReimbursement} />
       )}
 
-      {/* The ЗОП lens — IT + security, one in-house integrator */}
-      <NzokProcurementLensTile model={model} />
+      {/* The ЗОП lens — IT + security, one in-house integrator (contract-derived) */}
+      {model && <NzokProcurementLensTile model={model} />}
 
-      {/* What НЗОК buys via ЗОП, by operating function */}
-      <NzokCategoryTile
-        categories={model.categories}
-        totalEur={model.totalEur}
-      />
+      {/* What НЗОК buys via ЗОП, by operating function (contract-derived) */}
+      {model && (
+        <NzokCategoryTile
+          categories={model.categories}
+          totalEur={model.totalEur}
+        />
+      )}
 
       <p className="text-[11px] text-muted-foreground/80">
         {bg

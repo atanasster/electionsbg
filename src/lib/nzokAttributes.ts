@@ -11,18 +11,14 @@ import {
   buildAwarderModel,
   isSpendRow,
   type AwarderModel,
-  type AwarderSupplier,
   type AwarderCategoryAgg,
-  type AwarderYear,
   type SectorClassifier,
 } from "./awarderModel";
 
 export { NZOK_EIK };
 
 // Public shapes the tiles import — thin aliases over the generic model.
-export type NzokSupplier = AwarderSupplier<NzokCategory>;
 export type NzokCategoryAgg = AwarderCategoryAgg<NzokCategory>;
-export type NzokYear = AwarderYear<NzokCategory>;
 export type NzokModel = AwarderModel<NzokCategory>;
 
 // НЗОК classifier: category by CPV division; "other" sinks to the bottom, the

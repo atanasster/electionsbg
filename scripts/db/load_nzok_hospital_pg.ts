@@ -8,10 +8,10 @@
 // Source = the monthly БМП PDFs on nhif.bg, parsed with the shared
 // reconciliation-asserted parser; eik is joined from the Рег.№→EIK crosswalk
 // (data/budget/nzok/hospital_eik.json). We load only the months that PARSE +
-// RECONCILE cleanly — currently 2026 (Mar-May) + 2025 (Feb-Dec) = 14 months. The
-// early-year 3-column layout (Jan/Feb) and the ≤2024 backfill need parser
-// hardening first (see scripts/nzok/README.md) and load into the same table
-// later, incrementally.
+// RECONCILE cleanly — currently 2023-2026 (see YEARS). Any month the parser
+// can't reconcile is skipped, not shipped wrong; the remaining backfill tail
+// (a few early-year files + ≤2022's shifted naming/format) is tracked in
+// scripts/nzok/README.md and loads into the same table as each era is hardened.
 
 import { readFileSync } from "node:fs";
 import path from "node:path";
@@ -20,6 +20,7 @@ import { fileURLToPath } from "node:url";
 import { exec, withClient, end } from "./lib/pg";
 import { recordIngestBatch } from "./lib/ingest_changelog";
 import { parseHospitalPaymentsPdf } from "../nzok/parse_hospital_payments";
+import { bmpPaymentLinks } from "../nzok/lib/bmp_links";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(__dirname, "../..");
@@ -51,17 +52,6 @@ interface Row {
   month_eur: number;
   currency: string;
 }
-
-const bmpLinks = (html: string): string[] =>
-  [...html.matchAll(/href="(\/upload\/[^"]+\.pdf)"/gi)]
-    .map((m) => m[1])
-    .filter((h) => {
-      const d = decodeURIComponent(h);
-      return (
-        /здравноосигурителни\s+плащания\s+за\s+БМП/i.test(d) &&
-        !/МИ\b|лек[_\s]?прод|изделия/i.test(d)
-      );
-    });
 
 const fetchToCache = async (link: string): Promise<string> => {
   const id = link.split("/")[2];
@@ -95,7 +85,7 @@ const collectRows = async (): Promise<{
         headers: { "User-Agent": UA },
       })
     ).text();
-    for (const link of bmpLinks(html)) {
+    for (const link of bmpPaymentLinks(html)) {
       let period = "";
       try {
         const pdf = await fetchToCache(link);

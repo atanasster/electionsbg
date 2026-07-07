@@ -23,7 +23,7 @@ served from the GCS bucket, not the deploy.
 | File | Generator | Source (nhif.bg) | Notes |
 |---|---|---|---|
 | `budget.json` | `scripts/budget/nzok/__write_budget.ts` | ЗБНЗОК law (hard-keyed) | 2026 draft (EUR) + 2025 law (BGN→EUR). Reserve = residual to headline. Add a year by appending to `YEARS`. |
-| `hospital_payments.json` | `write_hospital_payments.ts` | `/bg/hospitals/bmp/{year}` PDF | Latest monthly per-hospital БМП. `pdftotext -layout`, wrap-tolerant, reconciliation+count assert. Each row now carries `eik` from the crosswalk. ~90 KB (381 facilities). |
+| `hospital_payments.json` | `write_hospital_payments.ts` | `/bg/hospitals/bmp/{year}` PDF | Latest monthly per-hospital БМП. `pdftotext -layout`, wrap-tolerant, reconciliation+count assert. Each row carries `eik` from the crosswalk. **Now the crosswalk universe + parity net — the tile is PG-served** (see Shipped below). ~90 KB (381 facilities). |
 | `drug_reimbursement.json` | `write_drug_reimbursement.ts` | `/bg/medicine_food/quarter-payments/{year}` XLS | Annual gross reimbursement → top-25 INN + ATC groups. BGN→EUR; Cyrillic/Latin INN homoglyphs normalized. |
 | `execution.json` | `write_execution.ts` | `/bg/nzok/financial_report/quarter` B1_5600 XLS | Latest monthly cash execution (revenue + expenditure YTD). EBK `Sheet1`, EUR-native from 2026. |
 | `hospital_eik.json` | `write_hospital_eik.ts` (`--crosswalk`) | НЗОК договорни партньори + Търговски регистър (PG) | The **Рег.№ ЛЗ → EIK crosswalk**. One entry per facility with `eik` (null when unmatched) + match `method`. 265/381 matched = **93% of YTD €** (verified: 0 false positives). Needs local PG. |
@@ -59,18 +59,25 @@ the Рег.№). So the crosswalk is a **high-precision verified match**, not a 
   reusable; `write_execution.ts` reads the EBK section totals directly.
 - Raw downloads cache under `raw_data/nzok/` (gitignored).
 
+## Shipped (post-v1)
+
+- **PG serving** — the pack's hospital tile + the `/company/:eik` reimbursement
+  tile are DB-served from the multi-period `nzok_hospital_payments` table
+  (migration `045`, loader `scripts/db/load_nzok_hospital_pg.ts`, routes
+  `/api/db/nzok-hospital-payments` + `/api/db/nzok-hospital-by-eik`), deployed to
+  Cloud SQL. The static `hospital_payments.json` / `hospital_reimbursement_by_eik.json`
+  are now the **crosswalk universe + parity net**, not the serving path.
+- **Watcher + skill** — three watch sources (`scripts/watch/sources/nzok_*.ts`)
+  + the `update-nzok` skill refresh these on the daily watcher (the skill wires
+  the PG reload; see FINDING-001 in the review).
+
 ## Not yet built (the roadmap)
 
 - **Crosswalk tail** — 111 small facilities (6.9% of YTD €) stay `eik: null`;
   extend `MANUAL_OVERRIDES` or the matcher to chip away at them. Re-run
   `--crosswalk` and re-audit (0 false positives is the bar) before shipping.
-- **PG table + `/api/db`** for the full multi-year per-hospital corpus (for
-  per-hospital pages + payment momentum); the tile currently ships the latest
-  snapshot as static JSON.
-- **Watcher + changelog wiring** + an `update-nzok` skill so the daily watcher
-  refreshes these files (currently a manual `npm run data:nzok`).
 - **Backfill status** (2026-07-07): **2023-2026 loaded** into `nzok_hospital_payments`
-  — 34 months / 12,916 rows (the loader's `YEARS`, reconciliation-asserted per
+  — 35 months / 13,296 rows (the loader's `YEARS`, reconciliation-asserted per
   month). Remaining tail:
   - **3-column early-year files — SOLVED** (2026-07-07). `extractAmounts` now
     anchors on the tail's LAST letter (amount region = everything after the name),

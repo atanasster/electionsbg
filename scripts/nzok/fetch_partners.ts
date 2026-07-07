@@ -13,7 +13,7 @@
 //   onclick="openClinicPathsWindowByCode('1622211036')"   ← the Рег.№ ЛЗ
 // We walk all 28 РЗОК and cache the parsed cards under raw_data/nzok/ (gitignored).
 //
-// Usage: tsx scripts/nzok/fetch_partners.ts [--force]
+// Usage: tsx scripts/nzok/fetch_partners.ts   (scrapes + rewrites the cache)
 // (write_hospital_eik.ts calls fetchPartners() directly, fetching only if the
 // cache is missing/stale.)
 
@@ -127,8 +127,9 @@ export const fetchPartners = async (force = false): Promise<PartnerCard[]> => {
 };
 
 // CLI entry — refresh the cache.
+// Run directly → always (re)scrape and rewrite the cache (that IS the point of
+// the CLI). `fetchPartners(force)` is the cache-aware entry the crosswalk uses.
 if (import.meta.url === `file://${process.argv[1]}`) {
-  const force = process.argv.includes("--force");
   scrapePartners()
     .then((cards) => {
       fs.mkdirSync(path.dirname(CACHE_FILE), { recursive: true });
@@ -136,8 +137,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       const byRzok = new Map<string, number>();
       for (const c of cards) byRzok.set(c.rzok, (byRzok.get(c.rzok) ?? 0) + 1);
       console.log(
-        `Wrote ${CACHE_FILE}\n  ${cards.length} hospital cards across ${byRzok.size} РЗОК` +
-          `${force ? " (forced refresh)" : ""}`,
+        `Wrote ${CACHE_FILE}\n  ${cards.length} hospital cards across ${byRzok.size} РЗОК`,
       );
     })
     .catch((e) => {

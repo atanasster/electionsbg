@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import { Building2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
+import { decodeEntities } from "@/lib/decodeEntities";
 import type { NzokHospitalPaymentsFile } from "@/data/budget/types";
 
 const MONTHS_BG = [
@@ -88,12 +89,17 @@ export const NzokHospitalPaymentsTile: FC<{
             <Building2 className="h-4 w-4" />
             {bg ? "Плащания към болниците" : "Payments to hospitals"}
           </CardTitle>
-          <div className="flex gap-1" role="group">
+          <div
+            className="flex gap-1"
+            role="group"
+            aria-label={bg ? "Изглед" : "View"}
+          >
             {(["hospitals", "rzok"] as const).map((v) => (
               <button
                 key={v}
                 type="button"
                 onClick={() => setView(v)}
+                aria-pressed={v === view}
                 className={`rounded-full border px-2 py-0.5 text-xs font-medium transition-colors ${
                   v === view
                     ? "border-primary bg-primary/10 text-primary"
@@ -135,11 +141,11 @@ export const NzokHospitalPaymentsTile: FC<{
                       to={`/company/${r.eik}`}
                       className="min-w-0 truncate font-medium text-accent hover:underline"
                     >
-                      {r.label}
+                      {decodeEntities(r.label)}
                     </Link>
                   ) : (
                     <span className="min-w-0 truncate font-medium">
-                      {r.label}
+                      {decodeEntities(r.label)}
                     </span>
                   )}
                   <span className="tabular-nums text-muted-foreground shrink-0">
@@ -158,7 +164,7 @@ export const NzokHospitalPaymentsTile: FC<{
                     style={{ width: `${Math.max(2, (r.value / max) * 100)}%` }}
                   />
                 </div>
-                {view === "hospitals" && r.sub && (
+                {r.sub && (
                   <div className="mt-0.5 text-[11px] text-muted-foreground/70">
                     {r.sub}
                   </div>

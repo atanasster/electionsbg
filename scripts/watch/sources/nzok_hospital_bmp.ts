@@ -8,6 +8,7 @@
 
 import { createHash } from "crypto";
 import type { WatchSource, Fingerprint, WatchState } from "../types";
+import { bmpPaymentLinks } from "../../nzok/lib/bmp_links";
 
 const BASE = "https://www.nhif.bg";
 const UA = "electionsbg.com data pipeline";
@@ -18,20 +19,10 @@ const fetchHtml = async (url: string): Promise<string> => {
   return res.text();
 };
 
-/** Newest "здравноосигурителни плащания за БМП" PDF href on a bmp/{year} page
- *  (the page lists newest-first). Excludes the МИ / лекарствени-продукти
- *  siblings. Returns null when none found. */
-const newestBmpLink = (html: string): string | null => {
-  for (const m of html.matchAll(/href="(\/upload\/[^"]+\.pdf)"/gi)) {
-    const decoded = decodeURIComponent(m[1]);
-    if (
-      /здравноосигурителни\s+плащания\s+за\s+БМП/i.test(decoded) &&
-      !/МИ\b|лек[_\s]?прод|изделия/i.test(decoded)
-    )
-      return m[1];
-  }
-  return null;
-};
+/** Newest БМП-payments PDF href on a bmp/{year} page (the page lists
+ *  newest-first). Returns null when none found. */
+const newestBmpLink = (html: string): string | null =>
+  bmpPaymentLinks(html)[0] ?? null;
 
 /** Resolve the newest year that actually carries a БМП page. The current year's
  *  page exists mid-cycle; at a year boundary the new year may lag, so fall back

@@ -327,11 +327,11 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     label: { bg: "Министерства и агенции", en: "Ministries and agencies" },
     detail: {
       bg: "МФ, НАП, Митници, НОИ, МРРБ, ИИСДА",
-      en: "MoF, NRA, Customs, NSSI, MRDPW, IISDA",
+      en: "MoF, NRA, Customs, NSSI, NHIF, MRDPW, IISDA",
     },
     desc: {
-      bg: "Отчети за изпълнението на програмните бюджети, месечните бюлетини на МФ, годишните отчети на НАП и Агенция „Митници“, фондовете на НОИ, общинските проекти в ИПОП (МРРБ) и регистрите на администрацията (ИИСДА).",
-      en: "Programme-budget execution reports, MoF monthly bulletins, NRA and Customs annual reports, NSSI social-security funds, MRDPW's municipal project register (IPOP) and the state-administration registers (IISDA).",
+      bg: "Отчети за изпълнението на програмните бюджети, месечните бюлетини на МФ, годишните отчети на НАП и Агенция „Митници“, фондовете на НОИ, бюджета и плащанията на НЗОК (болнична помощ, лекарства), общинските проекти в ИПОП (МРРБ) и регистрите на администрацията (ИИСДА).",
+      en: "Programme-budget execution reports, MoF monthly bulletins, NRA and Customs annual reports, NSSI social-security funds, NHIF (НЗОК) budget + payments (hospital care, drugs), MRDPW's municipal project register (IPOP) and the state-administration registers (IISDA).",
     },
     url: "https://www.minfin.bg/",
     origin: "state",
@@ -343,6 +343,9 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       "customs_revenue",
       "nap_annual",
       "nssi_b1",
+      "nzok_hospital_bmp",
+      "nzok_drug_quarterly",
+      "nzok_execution_b1",
       "policy_baseline_local",
       "ipop_mrrb",
       "iisda_doklad",
@@ -351,6 +354,7 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     skills: [
       "update-budget",
       "update-noi",
+      "update-nzok",
       "update-macro",
       "update-municipal-contacts",
     ],

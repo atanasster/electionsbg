@@ -72,7 +72,12 @@ const main = async (): Promise<void> => {
     codepage: 1251,
     type: "buffer",
   });
-  const rows = xlsx.utils.sheet_to_json(wb.Sheets["Sheet1"], {
+  const sheet = wb.Sheets["Sheet1"];
+  if (!sheet)
+    throw new Error(
+      `B1 sheet "Sheet1" not found in ${cachePath} (sheets: ${wb.SheetNames.join(", ")}) — layout may have changed`,
+    );
+  const rows = xlsx.utils.sheet_to_json(sheet, {
     header: 1,
     defval: "",
   }) as unknown[][];

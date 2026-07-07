@@ -309,8 +309,8 @@ const main = async (): Promise<void> => {
   const trs: TrRow[] = rows.map((r) => ({
     uic: r.uic,
     name: r.name,
-    lf: r.lf,
-    seat: clean(r.seat),
+    lf: r.lf ?? "",
+    seat: clean(r.seat ?? ""),
     cn: clean(r.name),
     offSets: (r.officers ?? "")
       .split("|")

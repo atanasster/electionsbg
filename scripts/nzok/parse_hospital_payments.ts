@@ -99,6 +99,13 @@ const extractAmounts = (
   for (const m of tail.matchAll(/\p{L}/gu)) lastLetter = m.index ?? lastLetter;
   const region = lastLetter >= 0 ? tail.slice(lastLetter + 1) : tail;
   const rm = [...region.matchAll(AMOUNT_RE)];
+  // Guard a facility NAME ending in a bare index digit ("…МБАЛ 2"): that digit
+  // leads the amount region and would be read as `cumulative`. A short ungrouped
+  // integer at the very start of the region, with the real cumulative + month
+  // still following (≥3 tokens), is a name token — drop it. Grouped amounts
+  // ("4 684 771") never match /^\d{1,3}$/, so real data is untouched.
+  if (rm.length >= 3 && /^\d{1,3}$/.test(rm[0][0]) && (rm[0].index ?? 99) <= 2)
+    rm.shift();
   if (rm.length >= 1) {
     const cumulative = num(rm[0][0]);
     if (Number.isFinite(cumulative)) {

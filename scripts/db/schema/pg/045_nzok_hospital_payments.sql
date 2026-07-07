@@ -44,7 +44,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     'asOf',  to_char((SELECT p FROM latest) + interval '1 month' - interval '1 day', 'YYYY-MM-DD'),
     'year',  extract(year  FROM (SELECT p FROM latest))::int,
     'month', extract(month FROM (SELECT p FROM latest))::int,
-    'currencyOfRecord', (SELECT currency FROM r LIMIT 1),
+    'currencyOfRecord', (SELECT min(currency) FROM r),
     'totalCumulativeEur', ROUND(SUM(cumulative_eur))::bigint,
     'monthTotalEur',      ROUND(SUM(month_eur))::bigint,
     'facilityCount',      COUNT(*),

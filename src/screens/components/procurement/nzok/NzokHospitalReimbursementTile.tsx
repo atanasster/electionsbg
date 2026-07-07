@@ -58,9 +58,8 @@ export const NzokHospitalReimbursementTile: FC<{ eik: string }> = ({ eik }) => {
   const period = bg
     ? `${MONTHS_BG[month] ?? ""} ${year}`.trim()
     : `${MONTHS_EN[month] ?? ""} ${year}`.trim();
-  const facilities = [...entry.facilities].sort(
-    (a, b) => b.cumulativeEur - a.cumulativeEur,
-  );
+  // Already ordered by the DB function (cumulative desc, reg_no tiebreak).
+  const facilities = entry.facilities;
 
   return (
     <Card className="border-rose-300/50 dark:border-rose-900/50">

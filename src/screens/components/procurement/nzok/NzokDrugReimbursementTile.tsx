@@ -53,12 +53,17 @@ export const NzokDrugReimbursementTile: FC<{
             <Pill className="h-4 w-4" />
             {bg ? "Лекарства по реимбурсна сума" : "Drugs by reimbursement"}
           </CardTitle>
-          <div className="flex gap-1" role="group">
+          <div
+            className="flex gap-1"
+            role="group"
+            aria-label={bg ? "Изглед" : "View"}
+          >
             {(["inn", "atc"] as const).map((v) => (
               <button
                 key={v}
                 type="button"
                 onClick={() => setView(v)}
+                aria-pressed={v === view}
                 className={`rounded-full border px-2 py-0.5 text-xs font-medium transition-colors ${
                   v === view
                     ? "border-primary bg-primary/10 text-primary"
@@ -70,7 +75,7 @@ export const NzokDrugReimbursementTile: FC<{
                     ? "Молекула"
                     : "Substance"
                   : bg
-                    ? "Област"
+                    ? "Група"
                     : "Area"}
               </button>
             ))}

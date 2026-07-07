@@ -158,6 +158,7 @@ const main = async (): Promise<void> => {
 
   // Data starts at row 2 (row 0 title, row 1 header). Cols: 1=ATC, 2=INN,
   // 4=trade name, 9=Реимбурсна сума (BGN).
+  let droppedNonPositive = 0;
   for (let i = 2; i < rows.length; i++) {
     const r = rows[i];
     if (!r) continue;
@@ -165,6 +166,9 @@ const main = async (): Promise<void> => {
     const atc = String(r[1] ?? "").trim();
     const product = String(r[4] ?? "").trim();
     const bgn = Number(r[9]);
+    // Count silently-dropped non-positive amounts — a correction/clawback row
+    // shouldn't invisibly shrink the total.
+    if (inn && Number.isFinite(bgn) && bgn <= 0) droppedNonPositive++;
     if (!inn || !Number.isFinite(bgn) || bgn <= 0) continue;
     const eur = Math.round((toEur(bgn, "BGN") ?? 0) * 100) / 100;
     dataRows++;
@@ -219,11 +223,24 @@ const main = async (): Promise<void> => {
     byAtcGroup,
     top,
   };
+  // Completeness gate BEFORE writing — a shifted sheet layout (hardcoded column
+  // indices) would silently collect ~0 rows and ship a zeroed artifact. The
+  // corpus is ~€1.33bn across thousands of product rows, so anything far below
+  // that is a parse failure, not a real year.
+  if (dataRows < 500 || totalEur < 100_000_000)
+    throw new Error(
+      `implausible drug-reimbursement parse: ${dataRows} rows, €${Math.round(totalEur)} — sheet layout may have changed`,
+    );
+
   fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
   fs.writeFileSync(OUT_FILE, JSON.stringify(out, null, 2));
 
   console.log(
-    `Wrote ${OUT_FILE}\n  ${year} (${out.basis}): €${out.totalEur.toLocaleString("en")} across ${out.distinctInn} INN / ${dataRows} products\n  top: ${top[0].inn} €${top[0].eur.toLocaleString("en")} · onco group L €${(byAtcGroup.find((g) => g.code === "L")?.eur ?? 0).toLocaleString("en")}`,
+    `Wrote ${OUT_FILE}\n  ${year} (${out.basis}): €${out.totalEur.toLocaleString("en")} across ${out.distinctInn} INN / ${dataRows} products` +
+      (droppedNonPositive
+        ? ` (${droppedNonPositive} non-positive rows dropped)`
+        : "") +
+      `\n  top: ${top[0].inn} €${top[0].eur.toLocaleString("en")} · onco group L €${(byAtcGroup.find((g) => g.code === "L")?.eur ?? 0).toLocaleString("en")}`,
   );
 };
 
