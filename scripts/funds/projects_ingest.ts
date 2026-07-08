@@ -17,6 +17,7 @@ import { fileURLToPath } from "url";
 import { command, run, optional, option, string, flag, boolean } from "cmd-ts";
 import { fetchProjectsExport, PROJECTS_EXPORT_URL } from "./projects_fetch";
 import { parseProjects } from "./projects_parse";
+import { applyProjectEikOverrides } from "./eik_overrides";
 import { buildResolver } from "./projects_resolve";
 import {
   buildAll as buildTaxonomyDerivatives,
@@ -453,8 +454,10 @@ const main = async (args: MainArgs): Promise<void> => {
   }
   console.log(`  ${(buf.length / 1024 / 1024).toFixed(1)} MB`);
 
-  // 2. Parse + validate.
-  const rows = parseProjects(buf);
+  // 2. Parse + validate. applyProjectEikOverrides corrects known ИСУН source
+  // data-entry errors (contracts filed under the wrong EIK — see
+  // ./eik_overrides.ts) before locations are resolved and shards are written.
+  const rows = applyProjectEikOverrides(parseProjects(buf));
   console.log(`  parsed ${rows.length} contract row(s)`);
   validateRows(rows);
 

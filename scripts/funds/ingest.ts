@@ -14,6 +14,7 @@ import { fileURLToPath } from "url";
 import { command, run, optional, option, string, flag, boolean } from "cmd-ts";
 import { fetchBeneficiariesExport, EXPORT_URL } from "./fetch";
 import { parseBeneficiaries } from "./parse";
+import { applyBeneficiaryEikOverrides } from "./eik_overrides";
 import {
   buildEikLinkageMap,
   buildMpConnected,
@@ -169,7 +170,9 @@ const main = async (args: {
   console.log(`  ${(buf.length / 1024 / 1024).toFixed(1)} MB`);
 
   // 2. Parse + validate. parseBeneficiaries throws on header-schema drift.
-  const rows = parseBeneficiaries(buf);
+  // applyBeneficiaryEikOverrides corrects known ИСУН source data-entry errors
+  // (see ./eik_overrides.ts) before any shard is written.
+  const rows = applyBeneficiaryEikOverrides(parseBeneficiaries(buf));
   console.log(`  parsed ${rows.length} beneficiary row(s)`);
   validate(rows);
 
