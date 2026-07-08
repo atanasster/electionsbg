@@ -19,6 +19,7 @@ import { lazy, type ComponentType } from "react";
 import { API_EIK } from "@/lib/roadAttributes";
 import { NOI_EIK } from "@/lib/noiBenchmarks";
 import { NZOK_EIK } from "@/lib/nzokBenchmarks";
+import { AGRI_PAYER_EIK } from "@/data/agri/constants";
 import type { RoadsWindow } from "@/data/procurement/useRoads";
 
 export interface SectorPackProps {
@@ -34,6 +35,10 @@ export interface SectorPackProps {
 export const ROADS_AWARDER_PATH = `/awarder/${API_EIK}`;
 export const NOI_AWARDER_PATH = `/awarder/${NOI_EIK}`;
 export const NZOK_AWARDER_PATH = `/awarder/${NZOK_EIK}`;
+// ДФ „Земеделие" has no bespoke SectorPack — its awarder page is the generic
+// awarder dashboard plus the administering-agency subsidies card (gated on
+// AGRI_PAYER_EIK in CompanyDbScreen), the entry point into the /subsidies pack.
+export const DFZ_AWARDER_PATH = `/awarder/${AGRI_PAYER_EIK}`;
 
 const RoadsPack = lazy(() =>
   import("./roads/RoadsPack").then((m) => ({ default: m.RoadsPack })),

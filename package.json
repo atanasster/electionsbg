@@ -93,6 +93,8 @@
     "budget:policy-baseline": "tsx ./scripts/budget/run_consumption_coicop.ts && tsx ./scripts/budget/run_policy_baseline.ts",
     "budget:test": "tsx ./scripts/budget/test.ts",
     "funds:ingest": "tsx ./scripts/funds/ingest.ts",
+    "agri:ingest": "NODE_OPTIONS=--max-old-space-size=6144 tsx ./scripts/agri/ingest.ts",
+    "agri:seu": "tsx ./scripts/agri/seu_fetch.ts",
     "funds:ingest-projects": "tsx ./scripts/funds/projects_ingest.ts",
     "funds:political-links": "tsx ./scripts/funds/political_links.ts",
     "tr:build-company-connections": "tsx ./scripts/declarations/tr/build_company_connections.ts",

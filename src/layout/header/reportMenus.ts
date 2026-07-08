@@ -36,6 +36,7 @@ import {
   ROADS_AWARDER_PATH,
   NOI_AWARDER_PATH,
   NZOK_AWARDER_PATH,
+  DFZ_AWARDER_PATH,
 } from "@/screens/components/procurement/sectorPacks";
 
 export type MenuItem = {
@@ -279,6 +280,7 @@ export const governanceMenu: MenuItem[] = [
           { title: "procurement_roads_nav", link: ROADS_AWARDER_PATH },
           { title: "procurement_noi_nav", link: NOI_AWARDER_PATH },
           { title: "procurement_nzok_nav", link: NZOK_AWARDER_PATH },
+          { title: "procurement_dfz_nav", link: DFZ_AWARDER_PATH },
         ],
       },
       { title: "-" },

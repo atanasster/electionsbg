@@ -45,7 +45,11 @@ type Props = {
     | "procurement-entities"
     | "procurement-people"
     | "procurement-risk"
-    | "procurement-tenders";
+    | "procurement-tenders"
+    | "subsidies-headline"
+    | "subsidies-distribution"
+    | "subsidies-recipients"
+    | "subsidies-data";
   title?: ReactNode;
   subtitle?: ReactNode;
   icon?: LucideIcon;

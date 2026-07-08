@@ -209,6 +209,41 @@ const run = async () => {
   printEnvelope(funds);
   assert((funds.rows?.length ?? 0) > 0, "fundsOverview returns rows");
 
+  // Farm subsidies (ДФ „Земеделие", CAP). All-years overview + a scheme split +
+  // a per-recipient rollup, all off the agri_payloads blobs.
+  const subs = (await runTool("subsidiesOverview", {}, ctxEn)) as Envelope;
+  printEnvelope(subs);
+  assert((subs.rows?.length ?? 0) > 0, "subsidiesOverview returns recipients");
+  assert(
+    !!subs.facts.paid && !!subs.facts.recipients,
+    "subsidiesOverview carries paid + recipients facts",
+  );
+  const subsScheme = (await runTool(
+    "subsidiesByScheme",
+    {},
+    ctxEn,
+  )) as Envelope;
+  printEnvelope(subsScheme);
+  assert(
+    (subsScheme.rows?.length ?? 0) > 0,
+    "subsidiesByScheme returns scheme rows",
+  );
+  // A per-recipient lookup: take the top recipient the overview just returned
+  // and resolve it back through the entity tool (name → eik → rollup).
+  const topRecName = String(subs.rows?.[0]?.name ?? "");
+  if (topRecName) {
+    const ent = (await runTool(
+      "subsidiesForEntity",
+      { company: topRecName },
+      ctxEn,
+    )) as Envelope;
+    printEnvelope(ent);
+    assert(
+      (ent.series?.[0]?.points.length ?? 0) > 0,
+      "subsidiesForEntity returns a by-year series",
+    );
+  }
+
   const govs = (await runTool("governments", {}, ctxEn)) as Envelope;
   printEnvelope(govs);
   assert((govs.rows?.length ?? 0) > 0, "governments returns rows");
@@ -251,6 +286,11 @@ const run = async () => {
     ["Кои НПО получават най-много пари от ЕС?", "ngoTopFunded"],
     ["Кои институции дават поръчки на свързани фирми?", "ngoConflictAwarders"],
     ["Кой получава европейски средства?", "fundsOverview"],
+    ["Кой получава най-много земеделски субсидии?", "subsidiesOverview"],
+    ["Колко субсидии раздава ДФ Земеделие?", "subsidiesOverview"],
+    ["Земеделски субсидии по схема", "subsidiesByScheme"],
+    // must NOT be stolen by the land-use rule ("земеделск") or municipalTransfers
+    ["Колко земеделска земя има в Добрич?", "landUse"],
     ["Кои са правителствата от 2005?", "governments"],
     ["Каква е инфлацията?", "macroIndicator"],
     ["Какви са просрочените задължения?", "macroIndicator"],

@@ -17,8 +17,11 @@ import {
   FileText,
   Ban,
   Target,
+  Sprout,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
+import { type AgriRecipientFile } from "@/data/agri/types";
+import { AGRI_PAYER_EIK } from "@/data/agri/constants";
 import { formatEur, formatEurCompact, toEur } from "@/lib/currency";
 import { useTranslation } from "react-i18next";
 import { StatCard } from "../dashboard/StatCard";
@@ -346,6 +349,7 @@ export const CompanyDbScreen: FC = () => {
     null,
   );
   const [ngoFunding, setNgoFunding] = useState<NgoFunding | null>(null);
+  const [subsidies, setSubsidies] = useState<AgriRecipientFile | null>(null);
   const [awarderGrade, setAwarderGrade] = useState<EntityRiskGrade | null>(
     null,
   );
@@ -421,6 +425,7 @@ export const CompanyDbScreen: FC = () => {
           setNgoDetails(j.ngoDetails ?? null);
           setAwarderKindex(j.awarderKindex ?? null);
           setNgoFunding(j.ngoFunding ?? null);
+          setSubsidies(j.subsidies ?? null);
           setAwarderGrade(j.awarderRiskGrade ?? null);
           setSupplierGrade(j.supplierRiskGrade ?? null);
           setCorpusName(j.corpusName ? decodeEntities(j.corpusName) : null);
@@ -650,6 +655,17 @@ export const CompanyDbScreen: FC = () => {
 
       {!loading && !error && (company || institution || hasProcurement) && (
         <div className="space-y-6">
+          {/* Page-level time scope (same pill UI as the procurement pages) — at
+              the very top so it reads as the page control, above the subsidies /
+              НЗОК / procurement sections. Drives the scoped DB fetch for the
+              procurement sections (awarder + contractor); the subsidies + НЗОК
+              tiles are all-time. Shown once the entity has any procurement. */}
+          {(hadAwarder || contracts > 0) && (
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-sm text-muted-foreground">Обхват</span>
+              <ProcurementScopeControl value={scope} onChange={setScope} />
+            </div>
+          )}
           {/* Money IN — НЗОК hospital-care reimbursement. Self-hides unless this
               EIK is a matched hospital; sits above the ЗОП (money-out) tiles. */}
           <NzokHospitalReimbursementTile eik={eik} />
@@ -772,14 +788,85 @@ export const CompanyDbScreen: FC = () => {
               </CardContent>
             </Card>
           )}
-          {/* Section scope — same pill UI as the procurement pages. Drives the
-              scoped DB fetch, so every money tile below (awarder + contractor)
-              re-scopes together. Shown once the entity has any procurement. */}
-          {(hadAwarder || contracts > 0) && (
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-sm text-muted-foreground">Обхват</span>
-              <ProcurementScopeControl value={scope} onChange={setScope} />
-            </div>
+          {/* ДФ „Земеделие" administers the CAP subsidy programme (it doesn't
+              receive farm money — its own rows are техническа помощ / публично
+              складиране), so instead of the per-recipient "received" tile it gets
+              a card linking to the whole /subsidies pack. */}
+          {eik === AGRI_PAYER_EIK && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <Sprout className="h-4 w-4 text-emerald-600" />
+                  {i18n.language === "bg"
+                    ? "Земеделски субсидии"
+                    : "Farm subsidies"}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3 text-sm">
+                <p className="text-muted-foreground">
+                  {i18n.language === "bg"
+                    ? "ДФ „Земеделие“ е разплащателната агенция по Общата селскостопанска политика — изплаща директните плащания и мерките за развитие на селските райони на земеделските стопани."
+                    : "The State Fund Agriculture is the CAP paying agency — it disburses the direct payments and rural-development measures to farmers."}
+                </p>
+                <Link
+                  to="/subsidies"
+                  className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                >
+                  {i18n.language === "bg"
+                    ? "Разгледай земеделските субсидии"
+                    : "Explore farm subsidies"}
+                  <ArrowRight className="h-3 w-3" />
+                </Link>
+              </CardContent>
+            </Card>
+          )}
+          {subsidies && subsidies.totalEur > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <Sprout className="h-4 w-4 text-emerald-600" />
+                  {i18n.language === "bg"
+                    ? "Земеделски субсидии"
+                    : "Farm subsidies"}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3 text-sm">
+                <div className="flex flex-wrap items-baseline gap-x-2">
+                  <span className="text-2xl font-bold tabular-nums">
+                    {formatEurCompact(subsidies.totalEur, i18n.language)}
+                  </span>
+                  <span className="text-muted-foreground">
+                    {i18n.language === "bg"
+                      ? `от ДФ „Земеделие“ · ${subsidies.paymentCount.toLocaleString("bg-BG")} плащания · ${subsidies.firstYear}–${subsidies.lastYear}`
+                      : `from the State Fund Agriculture · ${subsidies.paymentCount.toLocaleString("en-US")} payments · ${subsidies.firstYear}–${subsidies.lastYear}`}
+                  </span>
+                </div>
+                <ul className="divide-y">
+                  {subsidies.byScheme.slice(0, 5).map((s) => (
+                    <li
+                      key={s.scheme}
+                      className="flex items-center justify-between gap-2 py-1.5"
+                    >
+                      <span className="min-w-0 text-muted-foreground line-clamp-1">
+                        {s.scheme}
+                      </span>
+                      <span className="shrink-0 tabular-nums">
+                        {formatEurCompact(s.totalEur, i18n.language)}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  to={`/farm/${eik}`}
+                  className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+                >
+                  {i18n.language === "bg"
+                    ? "Пълна история на субсидиите"
+                    : "Full subsidy history"}
+                  <ArrowRight className="h-3 w-3" />
+                </Link>
+              </CardContent>
+            </Card>
           )}
           {awarderRollup && (
             <section className="space-y-4">

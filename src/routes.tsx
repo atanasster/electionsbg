@@ -351,6 +351,21 @@ const TendersBrowserDbScreen = lazy(() =>
     default: m.TendersBrowserDbScreen,
   })),
 );
+const SubsidiesDashboardScreen = lazy(() =>
+  import("./screens/SubsidiesDashboardScreen").then((m) => ({
+    default: m.SubsidiesDashboardScreen,
+  })),
+);
+const SubsidiesBrowserDbScreen = lazy(() =>
+  import("./screens/dev/SubsidiesBrowserDbScreen").then((m) => ({
+    default: m.SubsidiesBrowserDbScreen,
+  })),
+);
+const FarmDetailScreen = lazy(() =>
+  import("./screens/dev/FarmDetailScreen").then((m) => ({
+    default: m.FarmDetailScreen,
+  })),
+);
 const AppealsBrowserDbScreen = lazy(() =>
   import("./screens/dev/AppealsBrowserDbScreen").then((m) => ({
     default: m.AppealsBrowserDbScreen,
@@ -1869,6 +1884,36 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <ProcurementScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="subsidies"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <SubsidiesDashboardScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="subsidies/browse"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <SubsidiesBrowserDbScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="farm/:eik"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <FarmDetailScreen />
+                </Suspense>
               </LayoutScreen>
             }
           />

@@ -13,6 +13,7 @@ import { aopDebarred } from "./aop_debarred";
 import { kzkAppeals } from "./kzk_appeals";
 import { isunEuFunds } from "./isun_eu_funds";
 import { isunEuFundsProjects } from "./isun_eu_funds_projects";
+import { dfzSubsidies } from "./dfz_subsidies";
 import { egovBudgetExecution } from "./egov_budget_execution";
 import { egovMunicipalExecution } from "./egov_municipal_execution";
 import { ministryExecutionReports } from "./ministry_execution_reports";
@@ -99,6 +100,7 @@ export const SOURCES: WatchSource[] = [
   kzkAppeals,
   isunEuFunds,
   isunEuFundsProjects,
+  dfzSubsidies,
   egovBudgetExecution,
   egovMunicipalExecution,
   ministryExecutionReports,

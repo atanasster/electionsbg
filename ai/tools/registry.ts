@@ -33,6 +33,11 @@ import {
   tenderLookup,
   topContractors,
 } from "./fiscal";
+import {
+  subsidiesOverview,
+  subsidiesByScheme,
+  subsidiesForEntity,
+} from "./subsidies";
 import { ngoOverview, ngoTopFunded, ngoConflictAwarders } from "./ngo";
 import { governments } from "./govpeople";
 import {
@@ -2205,6 +2210,93 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: fundsOverview,
+  },
+  {
+    name: "subsidiesOverview",
+    domain: "fiscal",
+    description: {
+      bg: "Земеделски субсидии (ДФ „Земеделие“, ОСП) — общо изплатено, брой получатели, концентрация и топ получатели по финансова година.",
+      en: "Farm subsidies (State Fund Agriculture, CAP) — total paid, recipient count, concentration and top recipients by financial year.",
+    },
+    params: [
+      {
+        name: "year",
+        type: "year",
+        description: {
+          bg: "Финансова година (по подразбиране: всички години)",
+          en: "Financial year (default: all years)",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кой получава най-много земеделски субсидии?",
+        en: "Who gets the most farm subsidies?",
+      },
+      {
+        bg: "Колко субсидии раздава ДФ Земеделие?",
+        en: "How much does the State Fund Agriculture pay in subsidies?",
+      },
+    ],
+    run: subsidiesOverview,
+  },
+  {
+    name: "subsidiesByScheme",
+    domain: "fiscal",
+    description: {
+      bg: "Земеделски субсидии по схема/интервенция (директни плащания, пазарни мерки, развитие на селските райони) — сума и дял.",
+      en: "Farm subsidies by scheme/intervention (direct payments, market measures, rural development) — amount and share.",
+    },
+    params: [
+      {
+        name: "year",
+        type: "year",
+        description: {
+          bg: "Финансова година (по подразбиране: всички години)",
+          en: "Financial year (default: all years)",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Земеделски субсидии по схема",
+        en: "Farm subsidies by scheme",
+      },
+      {
+        bg: "Коя мярка раздава най-много пари на земеделците?",
+        en: "Which scheme pays farmers the most?",
+      },
+    ],
+    run: subsidiesByScheme,
+  },
+  {
+    name: "subsidiesForEntity",
+    domain: "fiscal",
+    description: {
+      bg: "Земеделски субсидии за конкретна фирма/получател — общо получено, по година и по схема (само юридически лица с ЕИК).",
+      en: "Farm subsidies for a specific company/recipient — total received, by year and by scheme (legal entities with an EIK only).",
+    },
+    params: [
+      {
+        name: "company",
+        type: "person",
+        description: {
+          bg: "Име или ЕИК на получателя",
+          en: "Recipient name or EIK",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Колко субсидии е получила Златия Агро?",
+        en: "How much in subsidies did Zlatia Agro receive?",
+      },
+      {
+        bg: "Земеделски субсидии за фирма по ЕИК",
+        en: "Farm subsidies for a company by EIK",
+      },
+    ],
+    run: subsidiesForEntity,
   },
   {
     name: "revenueBreakdown",

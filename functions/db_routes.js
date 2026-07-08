@@ -129,6 +129,7 @@ const DB_ROUTES = {
       awarderRiskGrade,
       supplierRiskGrade,
       corpusName,
+      subsidies,
     ] = await Promise.all([
       dbRows(
         "SELECT uic, name, legal_form, seat, status, funds_amount, funds_currency, entity_class, ngo_type FROM tr_companies WHERE uic = $1",
@@ -203,6 +204,13 @@ const DB_ROUTES = {
          ) AS name`,
         [eik],
       ).catch((e) => (e?.code === "42P01" ? [] : Promise.reject(e))),
+      // ДФ „Земеделие" farm-subsidy rollup for this EIK (cross-program money map:
+      // subsidies alongside procurement + EU funds). null when no subsidies (or
+      // migration 046 not yet applied).
+      dbRows(
+        "SELECT payload FROM agri_payloads WHERE kind = 'recipient' AND key = $1",
+        [eik],
+      ).catch((e) => (e?.code === "42P01" ? [] : Promise.reject(e))),
     ]);
     return {
       body: {
@@ -228,6 +236,7 @@ const DB_ROUTES = {
         awarderRiskGrade: awarderRiskGrade[0]?.r ?? null,
         supplierRiskGrade: supplierRiskGrade[0]?.r ?? null,
         corpusName: corpusName[0]?.name ?? null,
+        subsidies: subsidies[0]?.payload ?? null,
       },
     };
   },
@@ -965,6 +974,22 @@ const DB_ROUTES = {
     if (!key) return { status: 400, body: { error: "missing key" } };
     const rows = await dbRows("SELECT fund_contract_detail($1) AS r", [key]);
     return { body: rows[0]?.r ?? null };
+  },
+
+  // ── ДФ „Земеделие" subsidies serving (agri_payloads, migration 046) ──────────
+  // Every precomputed /subsidies page payload is stored verbatim keyed by
+  // (kind, key): 'overview' (key '') = the national dashboard; 'recipient'
+  // (key = eik) = a per-legal-entity rollup. One PK seek → the jsonb (or null
+  // when the entity has no subsidies), so the hooks render an empty state.
+  "agri-payload": async (dbRows, q) => {
+    const kind = s(q, "kind");
+    if (!kind) return { status: 400, body: { error: "missing kind" } };
+    const key = s(q, "key"); // '' for the overview singleton
+    const rows = await dbRows(
+      "SELECT payload FROM agri_payloads WHERE kind = $1 AND key = $2",
+      [kind, key],
+    ).catch(missingMigrationEmpty);
+    return { body: rows[0]?.payload ?? null };
   },
   // НЗОК per-hospital БМП payments — latest-period snapshot for the health-pack
   // tile (was data/budget/nzok/hospital_payments.json). No param. Degrades to

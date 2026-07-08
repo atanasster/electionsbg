@@ -235,6 +235,11 @@ functions/.secret.local
 /data/funds/derived/by-eik/
 /data/funds/derived/per-mp/
 /data/funds/derived/political-by-eik/
+
+# ДФ „Земеделие" subsidies ingest writes straight to Postgres (no JSON output —
+# agri_subsidies + agri_payloads are the source of truth). Only the raw egov CSV
+# download is cached on disk.
+/raw_data/agri/
 /data/funds/derived/integrity-by-program/
 /data/funds/derived/themes/
 

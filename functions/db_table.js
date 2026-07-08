@@ -320,6 +320,53 @@ const REGISTRY = {
     aggregates: [{ fn: "count" }],
     maxPageSize: 100,
   },
+
+  // ДФ „Земеделие" subsidy payments browse (/subsidies/browse). Per (year ×
+  // beneficiary × scheme) row; scoped by eik for the per-recipient page. year /
+  // oblast / scheme are facet filters; name is the free-text search target.
+  agri_subsidies: {
+    base: "agri_subsidies",
+    scopeCols: ["eik"],
+    columns: {
+      // id is the stable paging tiebreak (buildOrder appends select[0]). total_eur
+      // ties are common (many identical scheme amounts), so the unique id keeps
+      // paging deterministic AND makes ORDER BY total_eur DESC, id an index-only
+      // walk on idx_agri_total / idx_agri_eik_total.
+      id: { type: "int" },
+      year: { type: "int", sort: true, filter: "in" },
+      eik: { type: "text", filter: "eq" },
+      name: { type: "text", sort: true, filter: "text", search: true },
+      oblast: { type: "text", sort: true, filter: "in" },
+      scheme: { type: "text", filter: "in" },
+      // NOT search:true — scheme_desc has no trigram index, so OR-ing it into the
+      // global search would force a full 2M-row seq scan per keystroke. Global
+      // search targets `name` only (idx_agri_name_trgm). Still text-filterable.
+      scheme_desc: { type: "text", filter: "text" },
+      dp_eur: { type: "number", sort: true, filter: "range" },
+      market_eur: { type: "number", sort: true, filter: "range" },
+      rural_eur: { type: "number", sort: true, filter: "range" },
+      total_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+    },
+    select: [
+      "id",
+      "year",
+      "eik",
+      "name",
+      "oblast",
+      "scheme",
+      "scheme_desc",
+      "dp_eur",
+      "market_eur",
+      "rural_eur",
+      "total_eur",
+    ],
+    defaultSort: [["total_eur", "desc"]],
+    aggregates: [
+      { fn: "count" },
+      { fn: "sum", col: "total_eur" },
+    ],
+    maxPageSize: 100,
+  },
 };
 
 const MAX_OFFSET = 100000; // deep-paging guard (use search/filters instead)
@@ -520,10 +567,12 @@ const runDbFacets = async (q, reqRaw) => {
   const facets = {};
   for (const c of cols) {
     const expr = r.columns[c].facetExpr || c; // registry-sourced, safe
-    // `<> ''` is an empty-STRING guard; on a boolean column it errors ("invalid
-    // input syntax for type boolean: \"\""), so drop it for bool facets.
+    // `<> ''` is an empty-STRING guard; on non-text columns comparing to '' errors
+    // (bool: "invalid input syntax for type boolean", int/number: "...for type
+    // integer/numeric"), so drop it for any non-text facet.
+    const ftype = r.columns[c].type;
     const guard =
-      r.columns[c].type === "bool"
+      ftype === "bool" || ftype === "int" || ftype === "number"
         ? `${expr} IS NOT NULL`
         : `${expr} IS NOT NULL AND ${expr} <> ''`;
     const where = whereSql ? `${whereSql} AND (${guard})` : `WHERE ${guard}`;

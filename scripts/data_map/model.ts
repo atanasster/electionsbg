@@ -304,6 +304,23 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     tags: ["fiscal", "local"],
   },
   {
+    id: "dfz",
+    label: { bg: "ДФ „Земеделие“", en: "State Fund Agriculture" },
+    detail: {
+      bg: "изплатени земеделски субсидии",
+      en: "paid farm subsidies",
+    },
+    desc: {
+      bg: "Разплащателната агенция по ОСП — всички изплатени субсидии (директни плащания, пазарни мерки и развитие на селските райони) по бенефициент, схема и област, публикувани на data.egov.bg.",
+      en: "The CAP paying agency — every paid subsidy (direct payments, market measures and rural development) by beneficiary, scheme and region, published on data.egov.bg.",
+    },
+    url: "https://www.dfz.bg/",
+    origin: "state",
+    members: ["dfz_subsidies"],
+    skills: ["update-agri"],
+    tags: ["fiscal"],
+  },
+  {
     id: "ec_fts",
     label: {
       bg: "ЕК — Система за финансова прозрачност",
@@ -788,6 +805,19 @@ export const DATASETS: DatasetDef[] = [
     tags: ["fiscal", "local"],
   },
   {
+    id: "agri",
+    label: { bg: "Земеделски субсидии", en: "Farm subsidies" },
+    detail: {
+      bg: "кой получава земеделските пари",
+      en: "who receives farm money",
+    },
+    desc: {
+      bg: "Изплатените субсидии от ДФ „Земеделие“ по бенефициент, схема и област — с концентрация, топ получатели и връзка към поръчки и еврофондове по ЕИК. Съхранява се директно в Postgres (agri_subsidies, agri_payloads).",
+      en: "Subsidies paid by the State Fund Agriculture by beneficiary, scheme and region — with concentration, top recipients and an EIK link to procurement and EU funds. Stored directly in Postgres (agri_subsidies, agri_payloads).",
+    },
+    tags: ["fiscal"],
+  },
+  {
     id: "budget",
     label: { bg: "Държавен бюджет", en: "State budget" },
     detail: {
@@ -1063,6 +1093,20 @@ export const FEATURES: FeatureDef[] = [
     tags: ["fiscal"],
   },
   {
+    id: "agri",
+    label: { bg: "Земеделски субсидии", en: "Farm subsidies" },
+    detail: {
+      bg: "кой получава земеделските пари",
+      en: "who receives farm money",
+    },
+    desc: {
+      bg: "Националната картина на земеделските субсидии — колко се плаща, колко е концентрирано, по схема и област, плюс профил на всеки получател до връзка с поръчки и еврофондове.",
+      en: "The national picture of farm subsidies — how much is paid, how concentrated, by scheme and region, plus a per-recipient profile linking through to procurement and EU funds.",
+    },
+    route: "/subsidies",
+    tags: ["fiscal"],
+  },
+  {
     id: "budget",
     label: { bg: "Бюджет и данъчен симулатор", en: "Budget and tax simulator" },
     detail: {
@@ -1165,6 +1209,7 @@ export const EDGES: [string, string][] = [
   ["src:aop", "ds:procurement"],
   ["src:kzk", "ds:procurement"],
   ["src:isun", "ds:funds"],
+  ["src:dfz", "ds:agri"],
   ["src:egov", "ds:ngo"],
   ["src:ec_fts", "ds:ngo"],
   ["src:dv", "ds:budget"],
@@ -1215,6 +1260,8 @@ export const EDGES: [string, string][] = [
   ["ds:funds", "f:funds"],
   ["ds:funds", "f:mps"],
   ["ds:funds", "f:governance"],
+  ["ds:agri", "f:agri"],
+  ["ds:agri", "f:mps"],
   ["ds:budget", "f:budget"],
   ["ds:budget", "f:governance"],
   ["ds:macro", "f:budget"],

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-07T21:10:43.969Z",
+  "generatedAt": "2026-07-08T11:36:41.908Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -38,7 +38,7 @@
         }
       ],
       "x": 28,
-      "y": 1784,
+      "y": 146,
       "w": 240,
       "h": 62
     },
@@ -85,7 +85,7 @@
         }
       ],
       "x": 28,
-      "y": 380,
+      "y": 1784,
       "w": 240,
       "h": 62
     },
@@ -131,7 +131,7 @@
         }
       ],
       "x": 28,
-      "y": 1160,
+      "y": 926,
       "w": 240,
       "h": 62
     },
@@ -209,7 +209,7 @@
         }
       ],
       "x": 28,
-      "y": 458,
+      "y": 1628,
       "w": 240,
       "h": 62
     },
@@ -237,7 +237,7 @@
       "url": "https://data.egov.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-07T06:09:00.222Z",
+      "freshness": "2026-07-08T06:09:00.761Z",
       "skills": [
         "update-procurement",
         "update-connections",
@@ -258,7 +258,7 @@
           "label": "data.egov.bg Commerce Registry (Търговски регистър)",
           "url": "https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=1",
           "cadence": "daily",
-          "freshness": "2026-07-07T06:09:00.222Z"
+          "freshness": "2026-07-08T06:09:00.761Z"
         },
         {
           "id": "egov_budget_execution",
@@ -297,7 +297,7 @@
         }
       ],
       "x": 28,
-      "y": 614,
+      "y": 1394,
       "w": 240,
       "h": 62
     },
@@ -322,7 +322,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-07T06:09:00.222Z",
+      "freshness": "2026-07-08T06:09:00.761Z",
       "skills": [
         "update-procurement"
       ],
@@ -332,11 +332,11 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-07-07T06:09:00.222Z"
+          "freshness": "2026-07-08T06:09:00.761Z"
         }
       ],
       "x": 28,
-      "y": 68,
+      "y": 1862,
       "w": 240,
       "h": 62
     },
@@ -375,7 +375,7 @@
         }
       ],
       "x": 28,
-      "y": 224,
+      "y": 2018,
       "w": 240,
       "h": 62
     },
@@ -412,7 +412,7 @@
         }
       ],
       "x": 28,
-      "y": 146,
+      "y": 1940,
       "w": 240,
       "h": 62
     },
@@ -459,7 +459,46 @@
         }
       ],
       "x": 28,
-      "y": 536,
+      "y": 1472,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "src:dfz",
+      "kind": "source",
+      "label": {
+        "bg": "ДФ „Земеделие“",
+        "en": "State Fund Agriculture"
+      },
+      "detail": {
+        "bg": "изплатени земеделски субсидии",
+        "en": "paid farm subsidies"
+      },
+      "desc": {
+        "bg": "Разплащателната агенция по ОСП — всички изплатени субсидии (директни плащания, пазарни мерки и развитие на селските райони) по бенефициент, схема и област, публикувани на data.egov.bg.",
+        "en": "The CAP paying agency — every paid subsidy (direct payments, market measures and rural development) by beneficiary, scheme and region, published on data.egov.bg."
+      },
+      "tags": [
+        "fiscal"
+      ],
+      "url": "https://www.dfz.bg/",
+      "origin": "state",
+      "cadence": "weekly",
+      "freshness": "2026-07-08T06:09:00.761Z",
+      "skills": [
+        "update-agri"
+      ],
+      "sources": [
+        {
+          "id": "dfz_subsidies",
+          "label": "ДФ Земеделие — изплатени субсидии",
+          "url": "https://data.egov.bg/data?org%5B0%5D=56",
+          "cadence": "weekly",
+          "freshness": "2026-07-08T06:09:00.761Z"
+        }
+      ],
+      "x": 28,
+      "y": 1550,
       "w": 240,
       "h": 62
     },
@@ -495,7 +534,7 @@
         }
       ],
       "x": 28,
-      "y": 302,
+      "y": 1706,
       "w": 240,
       "h": 62
     },
@@ -521,7 +560,7 @@
       "url": "https://www.minfin.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-04T06:09:29.998Z",
+      "freshness": "2026-07-08T06:09:00.761Z",
       "skills": [
         "update-budget",
         "update-noi",
@@ -583,19 +622,22 @@
           "id": "nzok_hospital_bmp",
           "label": "НЗОК болнични плащания по лечебни заведения (nhif.bg)",
           "url": "https://www.nhif.bg/bg/hospitals/bmp",
-          "cadence": "monthly"
+          "cadence": "monthly",
+          "freshness": "2026-07-08T06:09:00.761Z"
         },
         {
           "id": "nzok_drug_quarterly",
           "label": "НЗОК брутни разходи за лекарства по INN (nhif.bg)",
           "url": "https://www.nhif.bg/bg/medicine_food/quarter-payments",
-          "cadence": "monthly"
+          "cadence": "monthly",
+          "freshness": "2026-07-08T06:09:00.761Z"
         },
         {
           "id": "nzok_execution_b1",
           "label": "НЗОК касово изпълнение B1 (nhif.bg)",
           "url": "https://www.nhif.bg/bg/nzok/financial_report/quarter",
-          "cadence": "monthly"
+          "cadence": "monthly",
+          "freshness": "2026-07-08T06:09:00.761Z"
         },
         {
           "id": "policy_baseline_local",
@@ -627,7 +669,7 @@
         }
       ],
       "x": 28,
-      "y": 1082,
+      "y": 848,
       "w": 240,
       "h": 62
     },
@@ -683,7 +725,7 @@
         }
       ],
       "x": 28,
-      "y": 848,
+      "y": 1160,
       "w": 240,
       "h": 62
     },
@@ -708,7 +750,7 @@
       "url": "https://www.nsi.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-06-23T07:40:11.378Z",
+      "freshness": "2026-07-08T06:09:00.761Z",
       "skills": [
         "update-indicators",
         "update-landuse",
@@ -742,7 +784,7 @@
           "label": "НСИ regional open-data (BG): 3 oblast datasets",
           "url": "https://data.egov.bg/organisation/13b6e23a-1888-4ad6-8f86-fceb71ca123c",
           "cadence": "monthly",
-          "freshness": "2026-06-09T06:08:44.556Z"
+          "freshness": "2026-07-08T06:09:00.761Z"
         },
         {
           "id": "static:https://census2021.bg/",
@@ -756,7 +798,7 @@
         }
       ],
       "x": 28,
-      "y": 1706,
+      "y": 536,
       "w": 240,
       "h": 62
     },
@@ -796,7 +838,7 @@
         }
       ],
       "x": 28,
-      "y": 1550,
+      "y": 692,
       "w": 240,
       "h": 62
     },
@@ -835,7 +877,7 @@
         }
       ],
       "x": 28,
-      "y": 1862,
+      "y": 302,
       "w": 240,
       "h": 62
     },
@@ -899,7 +941,7 @@
         }
       ],
       "x": 28,
-      "y": 1316,
+      "y": 614,
       "w": 240,
       "h": 62
     },
@@ -1043,7 +1085,7 @@
         }
       ],
       "x": 28,
-      "y": 926,
+      "y": 1082,
       "w": 240,
       "h": 62
     },
@@ -1089,7 +1131,7 @@
         }
       ],
       "x": 28,
-      "y": 1394,
+      "y": 458,
       "w": 240,
       "h": 62
     },
@@ -1136,7 +1178,7 @@
         }
       ],
       "x": 28,
-      "y": 1472,
+      "y": 380,
       "w": 240,
       "h": 62
     },
@@ -1161,7 +1203,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-07T06:09:00.222Z",
+      "freshness": "2026-07-08T06:09:00.761Z",
       "skills": [
         "update-prices"
       ],
@@ -1171,11 +1213,11 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-07-07T06:09:00.222Z"
+          "freshness": "2026-07-08T06:09:00.761Z"
         }
       ],
       "x": 28,
-      "y": 1238,
+      "y": 770,
       "w": 240,
       "h": 62
     },
@@ -1214,7 +1256,7 @@
         }
       ],
       "x": 28,
-      "y": 692,
+      "y": 1238,
       "w": 240,
       "h": 62
     },
@@ -1253,7 +1295,7 @@
         }
       ],
       "x": 28,
-      "y": 770,
+      "y": 1316,
       "w": 240,
       "h": 62
     },
@@ -1300,7 +1342,7 @@
         }
       ],
       "x": 28,
-      "y": 1628,
+      "y": 224,
       "w": 240,
       "h": 62
     },
@@ -1340,7 +1382,7 @@
         }
       ],
       "x": 28,
-      "y": 1940,
+      "y": 68,
       "w": 240,
       "h": 62
     },
@@ -1364,7 +1406,7 @@
       ],
       "path": "public/{election}/",
       "x": 378,
-      "y": 1550,
+      "y": 388,
       "w": 240,
       "h": 62
     },
@@ -1389,7 +1431,7 @@
       ],
       "path": "data/{cycle}_mi/",
       "x": 378,
-      "y": 1394,
+      "y": 466,
       "w": 240,
       "h": 62
     },
@@ -1413,7 +1455,7 @@
       ],
       "path": "data/parliament/votes/",
       "x": 378,
-      "y": 361,
+      "y": 1729,
       "w": 240,
       "h": 62
     },
@@ -1437,7 +1479,7 @@
       ],
       "path": "public/parliament/connections.json",
       "x": 378,
-      "y": 595,
+      "y": 1491,
       "w": 240,
       "h": 62
     },
@@ -1462,7 +1504,7 @@
       ],
       "path": "data/officials/",
       "x": 378,
-      "y": 751,
+      "y": 1257,
       "w": 240,
       "h": 62
     },
@@ -1486,7 +1528,7 @@
       ],
       "path": "data/financing/",
       "x": 378,
-      "y": 439,
+      "y": 1647,
       "w": 240,
       "h": 62
     },
@@ -1510,7 +1552,7 @@
       ],
       "path": "data/procurement/",
       "x": 378,
-      "y": 283,
+      "y": 1807,
       "w": 240,
       "h": 62
     },
@@ -1535,7 +1577,7 @@
       ],
       "path": "raw_data/tr/state.sqlite",
       "x": 378,
-      "y": 517,
+      "y": 1569,
       "w": 240,
       "h": 62
     },
@@ -1560,7 +1602,30 @@
       ],
       "path": "data/funds/",
       "x": 378,
-      "y": 673,
+      "y": 1335,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "ds:agri",
+      "kind": "dataset",
+      "label": {
+        "bg": "Земеделски субсидии",
+        "en": "Farm subsidies"
+      },
+      "detail": {
+        "bg": "кой получава земеделските пари",
+        "en": "who receives farm money"
+      },
+      "desc": {
+        "bg": "Изплатените субсидии от ДФ „Земеделие“ по бенефициент, схема и област — с концентрация, топ получатели и връзка към поръчки и еврофондове по ЕИК. Съхранява се директно в Postgres (agri_subsidies, agri_payloads).",
+        "en": "Subsidies paid by the State Fund Agriculture by beneficiary, scheme and region — with concentration, top recipients and an EIK link to procurement and EU funds. Stored directly in Postgres (agri_subsidies, agri_payloads)."
+      },
+      "tags": [
+        "fiscal"
+      ],
+      "x": 378,
+      "y": 1413,
       "w": 240,
       "h": 62
     },
@@ -1584,7 +1649,7 @@
       ],
       "path": "data/budget/",
       "x": 378,
-      "y": 1004,
+      "y": 934,
       "w": 240,
       "h": 62
     },
@@ -1609,7 +1674,7 @@
       ],
       "path": "data/macro.json",
       "x": 378,
-      "y": 1160,
+      "y": 700,
       "w": 240,
       "h": 62
     },
@@ -1634,7 +1699,7 @@
       ],
       "path": "data/macro_fdi.json",
       "x": 378,
-      "y": 1238,
+      "y": 622,
       "w": 240,
       "h": 62
     },
@@ -1658,7 +1723,7 @@
       ],
       "path": "data/indicators.json",
       "x": 378,
-      "y": 1316,
+      "y": 778,
       "w": 240,
       "h": 62
     },
@@ -1683,7 +1748,7 @@
       ],
       "path": "data/census/",
       "x": 378,
-      "y": 1472,
+      "y": 544,
       "w": 240,
       "h": 62
     },
@@ -1707,7 +1772,7 @@
       ],
       "path": "data/local_taxes/ · data/council/",
       "x": 378,
-      "y": 829,
+      "y": 1179,
       "w": 240,
       "h": 62
     },
@@ -1731,7 +1796,7 @@
       ],
       "path": "data/prices/",
       "x": 378,
-      "y": 1082,
+      "y": 856,
       "w": 240,
       "h": 62
     },
@@ -1755,7 +1820,7 @@
       ],
       "path": "data/polls/",
       "x": 378,
-      "y": 1706,
+      "y": 226,
       "w": 240,
       "h": 62
     },
@@ -1781,7 +1846,7 @@
       ],
       "path": "public/*.geojson",
       "x": 378,
-      "y": 1628,
+      "y": 310,
       "w": 240,
       "h": 62
     },
@@ -1805,7 +1870,7 @@
       ],
       "route": "/",
       "x": 728,
-      "y": 1648,
+      "y": 377,
       "w": 240,
       "h": 62
     },
@@ -1829,7 +1894,7 @@
       ],
       "route": "/risk-analysis",
       "x": 728,
-      "y": 1414,
+      "y": 626,
       "w": 240,
       "h": 62
     },
@@ -1853,7 +1918,7 @@
       ],
       "route": "/polls",
       "x": 728,
-      "y": 1570,
+      "y": 221,
       "w": 240,
       "h": 62
     },
@@ -1878,7 +1943,7 @@
       ],
       "route": "/local/2023_10_29_mi",
       "x": 728,
-      "y": 1492,
+      "y": 299,
       "w": 240,
       "h": 62
     },
@@ -1902,7 +1967,7 @@
       ],
       "route": "/parliament",
       "x": 728,
-      "y": 277,
+      "y": 1745,
       "w": 240,
       "h": 62
     },
@@ -1926,7 +1991,7 @@
       ],
       "route": "/connections",
       "x": 728,
-      "y": 589,
+      "y": 1433,
       "w": 240,
       "h": 62
     },
@@ -1950,7 +2015,7 @@
       ],
       "route": "/financing",
       "x": 728,
-      "y": 355,
+      "y": 1667,
       "w": 240,
       "h": 62
     },
@@ -1974,7 +2039,7 @@
       ],
       "route": "/procurement",
       "x": 728,
-      "y": 433,
+      "y": 1589,
       "w": 240,
       "h": 62
     },
@@ -1999,7 +2064,7 @@
       ],
       "route": "/procurement/ngos",
       "x": 728,
-      "y": 511,
+      "y": 1511,
       "w": 240,
       "h": 62
     },
@@ -2023,7 +2088,31 @@
       ],
       "route": "/funds",
       "x": 728,
-      "y": 667,
+      "y": 1341,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "f:agri",
+      "kind": "feature",
+      "label": {
+        "bg": "Земеделски субсидии",
+        "en": "Farm subsidies"
+      },
+      "detail": {
+        "bg": "кой получава земеделските пари",
+        "en": "who receives farm money"
+      },
+      "desc": {
+        "bg": "Националната картина на земеделските субсидии — колко се плаща, колко е концентрирано, по схема и област, плюс профил на всеки получател до връзка с поръчки и еврофондове.",
+        "en": "The national picture of farm subsidies — how much is paid, how concentrated, by scheme and region, plus a per-recipient profile linking through to procurement and EU funds."
+      },
+      "tags": [
+        "fiscal"
+      ],
+      "route": "/subsidies",
+      "x": 728,
+      "y": 1263,
       "w": 240,
       "h": 62
     },
@@ -2047,7 +2136,7 @@
       ],
       "route": "/budget",
       "x": 728,
-      "y": 1078,
+      "y": 860,
       "w": 240,
       "h": 62
     },
@@ -2074,7 +2163,7 @@
       ],
       "route": "/governance",
       "x": 728,
-      "y": 1234,
+      "y": 782,
       "w": 240,
       "h": 62
     },
@@ -2098,7 +2187,7 @@
       ],
       "route": "/indicators",
       "x": 728,
-      "y": 1326,
+      "y": 548,
       "w": 240,
       "h": 62
     },
@@ -2122,7 +2211,7 @@
       ],
       "route": "/prices",
       "x": 728,
-      "y": 1156,
+      "y": 704,
       "w": 240,
       "h": 62
     },
@@ -2151,7 +2240,7 @@
       ],
       "url": "https://ai.electionsbg.com",
       "x": 728,
-      "y": 1000,
+      "y": 938,
       "w": 240,
       "h": 62
     }
@@ -2244,426 +2333,441 @@
     },
     {
       "id": "e17",
+      "from": "src:dfz",
+      "to": "ds:agri"
+    },
+    {
+      "id": "e18",
       "from": "src:egov",
       "to": "ds:ngo"
     },
     {
-      "id": "e18",
+      "id": "e19",
       "from": "src:ec_fts",
       "to": "ds:ngo"
     },
     {
-      "id": "e19",
-      "from": "src:dv",
-      "to": "ds:budget"
-    },
-    {
       "id": "e20",
-      "from": "src:ministries",
+      "from": "src:dv",
       "to": "ds:budget"
     },
     {
       "id": "e21",
       "from": "src:ministries",
-      "to": "ds:macro"
+      "to": "ds:budget"
     },
     {
       "id": "e22",
       "from": "src:ministries",
-      "to": "ds:localgov"
+      "to": "ds:macro"
     },
     {
       "id": "e23",
-      "from": "src:municipalities",
-      "to": "ds:budget"
+      "from": "src:ministries",
+      "to": "ds:localgov"
     },
     {
       "id": "e24",
       "from": "src:municipalities",
-      "to": "ds:localgov"
+      "to": "ds:budget"
     },
     {
       "id": "e25",
-      "from": "src:nsi",
-      "to": "ds:indicators"
+      "from": "src:municipalities",
+      "to": "ds:localgov"
     },
     {
       "id": "e26",
       "from": "src:nsi",
-      "to": "ds:demographics"
+      "to": "ds:indicators"
     },
     {
       "id": "e27",
+      "from": "src:nsi",
+      "to": "ds:demographics"
+    },
+    {
+      "id": "e28",
       "from": "src:az",
       "to": "ds:indicators"
     },
     {
-      "id": "e28",
+      "id": "e29",
       "from": "src:grao",
       "to": "ds:demographics"
     },
     {
-      "id": "e29",
-      "from": "src:eurostat",
-      "to": "ds:macro"
-    },
-    {
       "id": "e30",
       "from": "src:eurostat",
-      "to": "ds:indicators"
+      "to": "ds:macro"
     },
     {
       "id": "e31",
       "from": "src:eurostat",
-      "to": "ds:budget"
+      "to": "ds:indicators"
     },
     {
       "id": "e32",
-      "from": "src:eu_policy_anchors",
+      "from": "src:eurostat",
       "to": "ds:budget"
     },
     {
       "id": "e33",
-      "from": "src:bg_fiscal_anchors",
+      "from": "src:eu_policy_anchors",
       "to": "ds:budget"
     },
     {
       "id": "e34",
-      "from": "src:intl",
-      "to": "ds:macro"
+      "from": "src:bg_fiscal_anchors",
+      "to": "ds:budget"
     },
     {
       "id": "e35",
-      "from": "src:bnb",
+      "from": "src:intl",
       "to": "ds:macro"
     },
     {
       "id": "e36",
       "from": "src:bnb",
-      "to": "ds:macro_fdi"
+      "to": "ds:macro"
     },
     {
       "id": "e37",
+      "from": "src:bnb",
+      "to": "ds:macro_fdi"
+    },
+    {
+      "id": "e38",
       "from": "src:kzp",
       "to": "ds:prices"
     },
     {
-      "id": "e38",
+      "id": "e39",
       "from": "src:tibg",
       "to": "ds:localgov"
     },
     {
-      "id": "e39",
+      "id": "e40",
       "from": "src:ipi",
       "to": "ds:localgov"
     },
     {
-      "id": "e40",
+      "id": "e41",
       "from": "src:wiki",
       "to": "ds:polls"
     },
     {
-      "id": "e41",
+      "id": "e42",
       "from": "src:wiki",
       "to": "ds:macro"
     },
     {
-      "id": "e42",
+      "id": "e43",
       "from": "src:geo",
       "to": "ds:geo"
     },
     {
-      "id": "e43",
+      "id": "e44",
       "from": "ds:elections",
       "to": "f:elections"
     },
     {
-      "id": "e44",
+      "id": "e45",
       "from": "ds:elections",
       "to": "f:risk"
     },
     {
-      "id": "e45",
+      "id": "e46",
       "from": "ds:elections",
       "to": "f:polls"
     },
     {
-      "id": "e46",
+      "id": "e47",
       "from": "ds:elections",
       "to": "f:governance"
     },
     {
-      "id": "e47",
+      "id": "e48",
       "from": "ds:local",
       "to": "f:local"
     },
     {
-      "id": "e48",
+      "id": "e49",
       "from": "ds:local",
       "to": "f:governance"
     },
     {
-      "id": "e49",
+      "id": "e50",
       "from": "ds:parliament",
       "to": "f:parliament"
     },
     {
-      "id": "e50",
-      "from": "ds:parliament",
-      "to": "f:mps"
-    },
-    {
       "id": "e51",
-      "from": "ds:connections",
+      "from": "ds:parliament",
       "to": "f:mps"
     },
     {
       "id": "e52",
       "from": "ds:connections",
-      "to": "f:procurement"
+      "to": "f:mps"
     },
     {
       "id": "e53",
-      "from": "ds:officials",
-      "to": "f:mps"
+      "from": "ds:connections",
+      "to": "f:procurement"
     },
     {
       "id": "e54",
       "from": "ds:officials",
-      "to": "f:governance"
+      "to": "f:mps"
     },
     {
       "id": "e55",
-      "from": "ds:financing",
-      "to": "f:financing"
+      "from": "ds:officials",
+      "to": "f:governance"
     },
     {
       "id": "e56",
       "from": "ds:financing",
-      "to": "f:mps"
+      "to": "f:financing"
     },
     {
       "id": "e57",
-      "from": "ds:procurement",
-      "to": "f:procurement"
+      "from": "ds:financing",
+      "to": "f:mps"
     },
     {
       "id": "e58",
       "from": "ds:procurement",
-      "to": "f:mps"
+      "to": "f:procurement"
     },
     {
       "id": "e59",
-      "from": "ds:ngo",
-      "to": "f:ngo"
+      "from": "ds:procurement",
+      "to": "f:mps"
     },
     {
       "id": "e60",
       "from": "ds:ngo",
-      "to": "f:procurement"
+      "to": "f:ngo"
     },
     {
       "id": "e61",
       "from": "ds:ngo",
-      "to": "f:mps"
+      "to": "f:procurement"
     },
     {
       "id": "e62",
-      "from": "ds:funds",
-      "to": "f:funds"
+      "from": "ds:ngo",
+      "to": "f:mps"
     },
     {
       "id": "e63",
       "from": "ds:funds",
-      "to": "f:mps"
+      "to": "f:funds"
     },
     {
       "id": "e64",
       "from": "ds:funds",
-      "to": "f:governance"
+      "to": "f:mps"
     },
     {
       "id": "e65",
+      "from": "ds:funds",
+      "to": "f:governance"
+    },
+    {
+      "id": "e66",
+      "from": "ds:agri",
+      "to": "f:agri"
+    },
+    {
+      "id": "e67",
+      "from": "ds:agri",
+      "to": "f:mps"
+    },
+    {
+      "id": "e68",
       "from": "ds:budget",
       "to": "f:budget"
     },
     {
-      "id": "e66",
+      "id": "e69",
       "from": "ds:budget",
       "to": "f:governance"
     },
     {
-      "id": "e67",
+      "id": "e70",
       "from": "ds:macro",
       "to": "f:budget"
     },
     {
-      "id": "e68",
-      "from": "ds:macro",
-      "to": "f:indicators"
-    },
-    {
-      "id": "e69",
-      "from": "ds:macro",
-      "to": "f:prices"
-    },
-    {
-      "id": "e70",
-      "from": "ds:macro_fdi",
-      "to": "f:indicators"
-    },
-    {
       "id": "e71",
-      "from": "ds:indicators",
+      "from": "ds:macro",
       "to": "f:indicators"
     },
     {
       "id": "e72",
-      "from": "ds:indicators",
-      "to": "f:governance"
+      "from": "ds:macro",
+      "to": "f:prices"
     },
     {
       "id": "e73",
-      "from": "ds:demographics",
-      "to": "f:elections"
+      "from": "ds:macro_fdi",
+      "to": "f:indicators"
     },
     {
       "id": "e74",
-      "from": "ds:demographics",
-      "to": "f:risk"
+      "from": "ds:indicators",
+      "to": "f:indicators"
     },
     {
       "id": "e75",
-      "from": "ds:demographics",
+      "from": "ds:indicators",
       "to": "f:governance"
     },
     {
       "id": "e76",
-      "from": "ds:localgov",
-      "to": "f:governance"
+      "from": "ds:demographics",
+      "to": "f:elections"
     },
     {
       "id": "e77",
-      "from": "ds:prices",
-      "to": "f:prices"
+      "from": "ds:demographics",
+      "to": "f:risk"
     },
     {
       "id": "e78",
-      "from": "ds:prices",
+      "from": "ds:demographics",
       "to": "f:governance"
     },
     {
       "id": "e79",
+      "from": "ds:localgov",
+      "to": "f:governance"
+    },
+    {
+      "id": "e80",
+      "from": "ds:prices",
+      "to": "f:prices"
+    },
+    {
+      "id": "e81",
+      "from": "ds:prices",
+      "to": "f:governance"
+    },
+    {
+      "id": "e82",
       "from": "ds:polls",
       "to": "f:polls"
     },
     {
-      "id": "e80",
+      "id": "e83",
       "from": "ds:polls",
       "to": "f:elections"
-    },
-    {
-      "id": "e81",
-      "from": "ds:geo",
-      "to": "f:elections"
-    },
-    {
-      "id": "e82",
-      "from": "ds:geo",
-      "to": "f:local"
-    },
-    {
-      "id": "e83",
-      "from": "ds:geo",
-      "to": "f:governance"
     },
     {
       "id": "e84",
       "from": "ds:geo",
-      "to": "f:indicators"
+      "to": "f:elections"
     },
     {
       "id": "e85",
+      "from": "ds:geo",
+      "to": "f:local"
+    },
+    {
+      "id": "e86",
+      "from": "ds:geo",
+      "to": "f:governance"
+    },
+    {
+      "id": "e87",
+      "from": "ds:geo",
+      "to": "f:indicators"
+    },
+    {
+      "id": "e88",
       "from": "ds:budget",
       "to": "f:ai"
     },
     {
-      "id": "e86",
+      "id": "e89",
       "from": "ds:connections",
       "to": "f:ai"
     },
     {
-      "id": "e87",
+      "id": "e90",
       "from": "ds:demographics",
       "to": "f:ai"
     },
     {
-      "id": "e88",
+      "id": "e91",
       "from": "ds:elections",
       "to": "f:ai"
     },
     {
-      "id": "e89",
+      "id": "e92",
       "from": "ds:financing",
       "to": "f:ai"
     },
     {
-      "id": "e90",
+      "id": "e93",
       "from": "ds:funds",
       "to": "f:ai"
     },
     {
-      "id": "e91",
+      "id": "e94",
       "from": "ds:geo",
       "to": "f:ai"
     },
     {
-      "id": "e92",
+      "id": "e95",
       "from": "ds:indicators",
       "to": "f:ai"
     },
     {
-      "id": "e93",
+      "id": "e96",
       "from": "ds:local",
       "to": "f:ai"
     },
     {
-      "id": "e94",
+      "id": "e97",
       "from": "ds:localgov",
       "to": "f:ai"
     },
     {
-      "id": "e95",
+      "id": "e98",
       "from": "ds:macro",
       "to": "f:ai"
     },
     {
-      "id": "e96",
+      "id": "e99",
       "from": "ds:macro_fdi",
       "to": "f:ai"
     },
     {
-      "id": "e97",
+      "id": "e100",
       "from": "ds:ngo",
       "to": "f:ai"
     },
     {
-      "id": "e98",
+      "id": "e101",
       "from": "ds:officials",
       "to": "f:ai"
     },
     {
-      "id": "e99",
+      "id": "e102",
       "from": "ds:parliament",
       "to": "f:ai"
     },
     {
-      "id": "e100",
+      "id": "e103",
       "from": "ds:polls",
       "to": "f:ai"
     },
     {
-      "id": "e101",
+      "id": "e104",
       "from": "ds:prices",
       "to": "f:ai"
     }
@@ -2736,7 +2840,7 @@
       "x": 0,
       "y": 0,
       "w": 296,
-      "h": 2030
+      "h": 2108
     },
     {
       "kind": "dataset",
@@ -2745,9 +2849,9 @@
         "en": "Datasets"
       },
       "x": 350,
-      "y": 215,
+      "y": 158,
       "w": 296,
-      "h": 1581
+      "h": 1739
     },
     {
       "kind": "feature",
@@ -2756,9 +2860,9 @@
         "en": "Features"
       },
       "x": 700,
-      "y": 209,
+      "y": 153,
       "w": 296,
-      "h": 1529
+      "h": 1682
     }
   ],
   "tours": [

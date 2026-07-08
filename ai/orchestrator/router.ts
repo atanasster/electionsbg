@@ -1667,6 +1667,51 @@ export const route = (question: string, ctx: ToolContext): Route => {
     has(q, "пенси", "pension", "нои", " nssi", "осигурителн", "social security")
   )
     return { tool: "noiFunds", args: {} };
+  // farm subsidies (ДФ „Земеделие", CAP paying agency). Must precede the land-use
+  // rule below (which also matches "земеделск") and the municipalTransfers rule
+  // (субсиди+общин). Fires on the agency name, or on a subsidy/грант cue paired
+  // with an agri context (земеделск/фермер/farm) so "земеделска земя" (land use)
+  // and "трансфери към общините" (municipal) are left to their own tools.
+  {
+    // NB substring match (see `has`): avoid "осп" — it lives inside
+    // господин/госпожа. "земеделск/фермер/селскостопан" already carry the context.
+    const agri = has(
+      q,
+      "земеделск",
+      "фермер",
+      "farm subsid",
+      "agricultural subsid",
+      "селскостопан",
+    );
+    const dfz =
+      has(q, "дфз", "дф земеделие") || (has(q, "фонд") && has(q, "земеделие"));
+    const subsidyCue = has(
+      q,
+      "субсид",
+      "subsid",
+      "грант",
+      "grant",
+      "евросубсид",
+    );
+    if (dfz || (agri && subsidyCue)) {
+      if (
+        has(q, "по схема", "by scheme", "мярка", "мерки", "интервенц", "scheme")
+      )
+        return {
+          tool: "subsidiesByScheme",
+          args: promptYear ? { year: promptYear } : {},
+        };
+      // a named company/recipient -> that entity's rollup. Requires an explicit
+      // firm/EIK cue: a bare "кой получава…" (who receives) is a ranking question
+      // and must stay on the overview above, not be read as an entity lookup.
+      if (has(q, "фирм", "company", "дружеств", "еик", "eik"))
+        return { tool: "subsidiesForEntity", args: { company: question } };
+      return {
+        tool: "subsidiesOverview",
+        args: promptYear ? { year: promptYear } : {},
+      };
+    }
+  }
   // itemised revenue breakdown (excise by product / domestic VAT by sector /
   // PIT by income type) — only on a breakdown cue; a bare "колко са акцизите"
   // stays the budget overview below.

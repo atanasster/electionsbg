@@ -27,6 +27,7 @@ import {
   PiggyBank,
   HeartPulse,
   HeartHandshake,
+  Sprout,
 } from "lucide-react";
 import { useProcurementHref } from "@/data/procurement/useProcurementScope";
 import { useCachedNewCount } from "@/data/procurement/useWatchlist";
@@ -67,9 +68,11 @@ const items = [
   { to: "/procurement/watchlist", icon: Star, key: "watchlist_nav" },
 ] as const;
 
-// Per-entity spending deep dives (АПИ roads today; ДОО, БулгарТрансГаз and
-// others to follow) — a second, lighter row below the main section pills so
-// the list can grow without crowding primary navigation. One entry per page.
+// Sector-specific "where the state money goes" deep dives — a second, lighter
+// row below the main section pills so the list can grow without crowding primary
+// navigation. Mostly per-entity procurement packs (АПИ roads, ДОО, НЗОК), plus
+// the farm-subsidy dataset (grants, not procurement, but the same follow-the-
+// money lens and cross-linked by EIK). One entry per page.
 const secondaryItems = [
   {
     to: ROADS_AWARDER_PATH,
@@ -85,6 +88,11 @@ const secondaryItems = [
     to: NZOK_AWARDER_PATH,
     icon: HeartPulse,
     key: "procurement_nzok_nav",
+  },
+  {
+    to: "/subsidies",
+    icon: Sprout,
+    key: "agri_subsidies_nav",
   },
 ] as const;
 

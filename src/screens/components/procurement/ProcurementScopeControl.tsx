@@ -38,6 +38,13 @@ interface Props {
   // behaviour on the procurement section pages.
   value?: ProcurementScope;
   onChange?: (next: ProcurementScope) => void;
+  // Override the year list in the picker. Defaults to every calendar year since
+  // PROCUREMENT_FIRST_YEAR; a caller with sparse coverage (e.g. the farm-subsidy
+  // pack's CAP financial years) passes only the years it actually has data for.
+  years?: number[];
+  // Override the "this parliament" pill label (e.g. "Latest year" for datasets
+  // with no per-parliament slice). Defaults to the procurement wording.
+  nsLabelOverride?: string;
 }
 
 const LAST_YEAR = new Date().getFullYear();
@@ -51,6 +58,8 @@ export const ProcurementScopeControl: FC<Props> = ({
   className,
   value,
   onChange,
+  years,
+  nsLabelOverride,
 }) => {
   const { t } = useTranslation();
   const { selected } = useElectionContext();
@@ -76,9 +85,11 @@ export const ProcurementScopeControl: FC<Props> = ({
   }
 
   const nsActive = scope === "ns";
+  const yearList = years ?? YEARS;
   const nsLabel =
+    nsLabelOverride ??
     (t("procurement_scope_this_ns") || "This parliament") +
-    (electionLabel ? ` · ${electionLabel}` : "");
+      (electionLabel ? ` · ${electionLabel}` : "");
 
   return (
     <div
@@ -122,7 +133,7 @@ export const ProcurementScopeControl: FC<Props> = ({
             <SelectItem value="all">
               {t("procurement_scope_all_years") || "All years"}
             </SelectItem>
-            {YEARS.map((y) => (
+            {yearList.map((y) => (
               <SelectItem key={y} value={`y:${y}`}>
                 {y}
               </SelectItem>

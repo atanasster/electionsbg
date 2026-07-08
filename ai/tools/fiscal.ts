@@ -832,7 +832,7 @@ const COMPANY_STOP_SET = new Set([
   "firm",
   "procurement",
 ]);
-const cleanCompany = (raw: string): string =>
+export const cleanCompany = (raw: string): string =>
   raw
     .replace(/[„“"']/g, " ")
     .split(/\s+/)
