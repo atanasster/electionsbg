@@ -149,6 +149,12 @@ const REGION_ALIASES: Record<string, string> = {
   migration: "netMigration",
   безработица: "ltUnemployment",
   unemployment: "ltUnemployment",
+  смъртност: "deathRatePer1000",
+  починал: "deathRatePer1000",
+  mortality: "deathRatePer1000",
+  "death rate": "deathRatePer1000",
+  легла: "hospitalBedsPer1000",
+  "hospital beds": "hospitalBedsPer1000",
 };
 export const resolveRegionKey = (raw: string): string | undefined => {
   const q = raw.toLowerCase();

@@ -68,7 +68,9 @@ export const provinceToCanon = (province: string): string | undefined => {
 
 type PopSeries = Record<string, Array<{ year: number; value: number }>>;
 
-const fetchPopulation = async (): Promise<Record<string, number>> => {
+// Exported so the НЗОК regional choropleth reuses the exact same per-oblast
+// population fetch (shared React Query key → one network fetch).
+export const fetchPopulation = async (): Promise<Record<string, number>> => {
   const r = await fetch(dataUrl("/regional.json"));
   if (!r.ok) return {};
   const d = (await r.json()) as { series?: { population?: PopSeries } };

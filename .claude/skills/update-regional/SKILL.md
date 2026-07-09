@@ -1,6 +1,6 @@
 ---
 name: update-regional
-description: Refresh the sub-national (oblast / NUTS 3) indicators data (data/regional.json) — re-fetch Eurostat NUTS 3 annual series (GDP per capita, population, net migration, recorded-theft rate, active-enterprise density) and merge АЗ long-term unemployment plus three NSI JSON-stat open-data datasets (FDI per capita, museum visits, hospital beds). Use when the daily watch report flags new Eurostat regional releases ("Eurostat regional (BG): new release") or NSI regional open-data releases ("НСИ regional open-data (BG): new release"), when the user asks to refresh regional indicators, or when adding a new NUTS 3 / NSI oblast indicator.
+description: Refresh the sub-national (oblast / NUTS 3) indicators data (data/regional.json) — re-fetch Eurostat NUTS 3 annual series (GDP per capita, population, net migration, recorded-theft rate, active-enterprise density) and merge АЗ long-term unemployment plus four NSI JSON-stat open-data datasets (FDI per capita, museum visits, hospital beds, crude death rate). Use when the daily watch report flags new Eurostat regional releases ("Eurostat regional (BG): new release") or NSI regional open-data releases ("НСИ regional open-data (BG): new release"), when the user asks to refresh regional indicators, or when adding a new NUTS 3 / NSI oblast indicator.
 allowed-tools:
   - Read
   - Bash
@@ -10,7 +10,7 @@ allowed-tools:
 
 # Update Regional skill
 
-Refreshes `data/regional.json` — the per-oblast indicator backdrop rendered on `/municipality/<oblast>` drilldowns and the `/demographics` regional choropleth. Pulls Eurostat NUTS 3 annual series: GDP per capita (`nama_10r_3gdp`), population (`nama_10r_3popgdp`), net migration rate (`demo_r_gind3`), recorded-theft rate (`crim_gen_reg`), plus a derived active-enterprise density (`bd_size_r3` ÷ population); merges one АЗ oblast series — long-term unemployment share (`ltUnemployment`); and merges three NSI JSON-stat open-data datasets — cumulative FDI per capita (id=629), museum visits per 1000 (id=844), hospital beds per 1000 (id=1206). Together these close the Regional-Profiles gap categories Security, Business environment, Investment, Culture and Health at oblast grain.
+Refreshes `data/regional.json` — the per-oblast indicator backdrop rendered on `/municipality/<oblast>` drilldowns and the `/demographics` regional choropleth. Pulls Eurostat NUTS 3 annual series: GDP per capita (`nama_10r_3gdp`), population (`nama_10r_3popgdp`), net migration rate (`demo_r_gind3`), recorded-theft rate (`crim_gen_reg`), plus a derived active-enterprise density (`bd_size_r3` ÷ population); merges one АЗ oblast series — long-term unemployment share (`ltUnemployment`); and merges four NSI JSON-stat open-data datasets — cumulative FDI per capita (id=629), museum visits per 1000 (id=844), hospital beds per 1000 (id=1206), crude death rate per 1000 (id=1139 = deaths by district ÷ population; a descriptive age-dominated demographic outcome, NOT a spend-adjustable measure). Together these close the Regional-Profiles gap categories Security, Business environment, Investment, Culture and Health at oblast grain.
 
 ## When to run
 
@@ -29,10 +29,10 @@ Eurostat publishes these series on an annual cadence (typically February-March f
 ```bash
 npx tsx scripts/regional/fetch_eurostat.ts    # Eurostat NUTS 3 series
 npx tsx scripts/regional/fetch_az_oblast.ts   # merge АЗ ltUnemployment
-npx tsx scripts/regional/fetch_nsi.ts         # merge NSI open-data (FDI, museums, hospital beds)
+npx tsx scripts/regional/fetch_nsi.ts         # merge NSI open-data (FDI, museums, hospital beds, death rate)
 ```
 
-Run **all three, in order** — `fetch_eurostat.ts` rewrites `data/regional.json` from scratch (the Eurostat NUTS3 series + the derived `theftRate` crime and `enterpriseDensity` business indicators), then the two mergers add their indicators into the file it wrote. `fetch_az_oblast.ts` reads the cached АЗ XLSX (downloaded by `update-indicators`) for `ltUnemployment`; `fetch_nsi.ts` pulls three NSI JSON-stat open-data datasets (`fdiPerCapita` id=629, `museumVisitsPer1000` id=844, `hospitalBedsPer1000` id=1206), normalising each against the population series the first script wrote. Running only the first drops `ltUnemployment` + the NSI indicators until the mergers re-run.
+Run **all three, in order** — `fetch_eurostat.ts` rewrites `data/regional.json` from scratch (the Eurostat NUTS3 series + the derived `theftRate` crime and `enterpriseDensity` business indicators), then the two mergers add their indicators into the file it wrote. `fetch_az_oblast.ts` reads the cached АЗ XLSX (downloaded by `update-indicators`) for `ltUnemployment`; `fetch_nsi.ts` pulls four NSI JSON-stat open-data datasets (`fdiPerCapita` id=629, `museumVisitsPer1000` id=844, `hospitalBedsPer1000` id=1206, `deathRatePer1000` id=1139), normalising each against the population series the first script wrote. Running only the first drops `ltUnemployment` + the NSI indicators until the mergers re-run.
 
 Expected output on a normal day:
 
@@ -68,7 +68,7 @@ Eyeball:
 
 - Each indicator should report 31 oblasts — except `ltUnemployment` (30; АЗ doesn't split one Sofia МИР) and any indicator whose source froze (`enterpriseDensity` latest 2020).
 - `latest` should be the prior calendar year (or two prior in Q1 if Eurostat hasn't released the latest annual figures yet). `enterpriseDensity` will show 2020 (upstream frozen).
-- File size ~115 KB raw / ~16 KB gzipped (9 indicators). `regional.json` is in the `bucket:gz` hot-files list, so prod serves it compressed — run `npm run bucket:sync:all` (sync **then** gzip) so it doesn't ship uncompressed. >180 KB raw would indicate a regression.
+- File size ~115 KB raw / ~16 KB gzipped (10 indicators). `regional.json` is in the `bucket:gz` hot-files list, so prod serves it compressed — run `npm run bucket:sync:all` (sync **then** gzip) so it doesn't ship uncompressed. >180 KB raw would indicate a regression.
 - Spot-check a known-extreme oblast: Sofia city (S23) should have GDP/capita ~30,000+ EUR; Vidin (VID) ~8,000 EUR. If those flip, something is wrong with the NUTS 3 ↔ oblast mapping.
 
 ## Step 3 — Upload to bucket

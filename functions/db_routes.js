@@ -1012,6 +1012,29 @@ const DB_ROUTES = {
     ]).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? null };
   },
+  // НЗОК hospital-payment momentum — national monthly series + latest-YTD vs
+  // same-month-prior-year, per facility. The time dimension for the "Динамика"
+  // tile. No param. null until migration 045+047 reach this DB.
+  "nzok-hospital-trends": async (dbRows) => {
+    const rows = await dbRows(
+      "SELECT nzok_hospital_payments_trends() AS r",
+      [],
+    ).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
+  // One company's spend-growth percentile among all hospitals → the percentile
+  // badge on /company/:eik. null when the EIK isn't a matched hospital, lacks a
+  // prior-year figure, or sits below the ranking base floor (or migration 047 not
+  // yet applied).
+  "nzok-hospital-momentum-by-eik": async (dbRows, q) => {
+    const eik = s(q, "eik");
+    if (!eik) return { status: 400, body: { error: "missing eik" } };
+    const rows = await dbRows(
+      "SELECT nzok_hospital_momentum_by_eik($1) AS r",
+      [eik],
+    ).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
 };
 
 module.exports = { DB_ROUTES };

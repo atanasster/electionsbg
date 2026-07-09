@@ -11,6 +11,7 @@
 import { chromium, Page } from "playwright";
 import path from "path";
 import fs from "fs";
+import { INSTITUTION_PACKS } from "../prerender/institutions";
 
 const OG_W = 1200;
 const OG_H = 630;
@@ -332,6 +333,35 @@ const captures: Capture[] = [
     settleMs: 2500,
   },
 ];
+
+// Packed institution awarder pages (/awarder/:eik) — АПИ (roads), НОИ, НЗОК and
+// ДФЗ. One OG card each, written to public/og/awarder/<slug>.png (the path the
+// prerender's ogImage points at). The card frames each pack's signature visual
+// (the roads network map, the ДОО fund-flow bar, the НЗОК budget bridge, the
+// money-flow Sankey) via the pack's `ogAnchor` — so the card leads with a chart
+// or map, not a plain KPI header. The awarder page reads from the DB, so the
+// dev server's /api/db backend must be up (same as the procurement captures).
+for (const inst of INSTITUTION_PACKS) {
+  captures.push({
+    slug: `awarder/${inst.slug}`,
+    // The awarder page's scope control already defaults to the full corpus
+    // ("all"), so no ?pscope override is needed for the card to show all years.
+    routePath: `awarder/${inst.eik}`,
+    // Wait on the pack's hero visual itself — it renders once the (lazy) pack
+    // component has loaded the buyer's contract corpus.
+    waitFor: inst.ogAnchor,
+    anchor: inst.ogAnchor,
+    centerOnAnchor: inst.ogCenter,
+    // Full-width hero cards read best pinned to their left edge (a centered
+    // clip on a wide card slices content off both sides). Skipped when the pack
+    // opts into centered framing (a map/chart that reads from the middle).
+    leftAlign: !inst.ogCenter,
+    // Hide the community/news banner above the page header — it isn't part of
+    // the pack visual and can steal vertical space when the card sits high.
+    extraCss: "[data-community-banner]{display:none!important;}",
+    settleMs: inst.ogSettleMs ?? 2500,
+  });
+}
 
 const HIDE_CHROME_CSS = `
   nav.fixed{display:none!important;}

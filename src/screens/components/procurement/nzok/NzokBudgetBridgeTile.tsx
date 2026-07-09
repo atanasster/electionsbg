@@ -12,7 +12,13 @@ import { HeartPulse } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { monthYearLabel } from "@/lib/monthNames";
-import type { NzokBudgetYear, NzokExecutionFile } from "@/data/budget/types";
+import type {
+  NzokBudgetYear,
+  NzokExecutionFile,
+  NzokExecutionHistoryFile,
+} from "@/data/budget/types";
+import { NzokExecutionPaceChart } from "./NzokExecutionPaceChart";
+import { useCofog } from "@/data/macro/useCofog";
 
 const pct = (v: number, lang: string) =>
   (v * 100).toLocaleString(lang, { maximumFractionDigits: 1 }) + "%";
@@ -44,6 +50,9 @@ export const NzokBudgetBridgeTile: FC<{
   /** Cash-execution snapshot for the SELECTED year (null otherwise) — the
    *  budget-law plan above + this YTD actual give the execution gauge. */
   execution: NzokExecutionFile | null;
+  /** Full monthly B1 history — when it carries ≥2 months for the selected year,
+   *  the plan-vs-actual pace curve replaces the single-number gauge. */
+  executionHistory: NzokExecutionHistoryFile | null;
 }> = ({
   year,
   years,
@@ -53,11 +62,16 @@ export const NzokBudgetBridgeTile: FC<{
   procurementYears,
   annualProc,
   execution,
+  executionHistory,
 }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
   const eur = (v: number) => formatEurCompact(v, lang);
+  // BG-vs-EU public health spend (COFOG GF07, % of GDP) — the context for "is
+  // €5.5bn a lot?". Bulgaria consistently underspends on health vs the EU average.
+  const { data: cofog } = useCofog();
+  const health = cofog?.peers?.GF07 ?? null;
 
   const total = year.totalExpenditure.amountEur;
   // Sort segments by € desc for the bar (the tiny reserve/admin end up last).
@@ -93,7 +107,8 @@ export const NzokBudgetBridgeTile: FC<{
         : "adopted law";
 
   return (
-    <Card>
+    // data-og: OG-card anchor (scripts/og/capture-screens.ts).
+    <Card data-og="nzok-bridge">
       <CardHeader className="pb-2">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <CardTitle className="text-base flex items-center gap-2">
@@ -138,6 +153,66 @@ export const NzokBudgetBridgeTile: FC<{
           </span>
         </div>
 
+        {/* BG-vs-EU public health spend context (COFOG GF07, % of GDP) */}
+        {health && health.euAvgPctGdp != null && (
+          <div className="rounded-md border bg-muted/30 p-3 text-xs">
+            <div className="mb-1.5 flex flex-wrap items-baseline justify-between gap-x-2">
+              <span className="text-muted-foreground">
+                {bg
+                  ? `Публичен разход за здраве (% от БВП, ${health.year})`
+                  : `Public health spending (% of GDP, ${health.year})`}
+              </span>
+              <span className="text-muted-foreground">
+                {bg
+                  ? `№${health.rank} от ${health.total} в ЕС`
+                  : `#${health.rank} of ${health.total} in the EU`}
+              </span>
+            </div>
+            {(() => {
+              const scale = Math.max(health.bgPctGdp, health.euAvgPctGdp ?? 0);
+              const w = (v: number) => `${Math.max(3, (v / scale) * 100)}%`;
+              return (
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="w-14 shrink-0 tabular-nums font-medium">
+                      {bg ? "България" : "Bulgaria"}
+                    </span>
+                    <div className="h-2.5 flex-1 rounded-full bg-muted">
+                      <div
+                        className="h-full rounded-full bg-primary"
+                        style={{ width: w(health.bgPctGdp) }}
+                      />
+                    </div>
+                    <span className="w-10 shrink-0 text-right tabular-nums font-semibold">
+                      {health.bgPctGdp.toLocaleString(lang, {
+                        maximumFractionDigits: 1,
+                      })}
+                      %
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-14 shrink-0 tabular-nums text-muted-foreground">
+                      {bg ? "ЕС средно" : "EU avg"}
+                    </span>
+                    <div className="h-2.5 flex-1 rounded-full bg-muted">
+                      <div
+                        className="h-full rounded-full bg-muted-foreground/50"
+                        style={{ width: w(health.euAvgPctGdp ?? 0) }}
+                      />
+                    </div>
+                    <span className="w-10 shrink-0 text-right tabular-nums text-muted-foreground">
+                      {(health.euAvgPctGdp ?? 0).toLocaleString(lang, {
+                        maximumFractionDigits: 1,
+                      })}
+                      %
+                    </span>
+                  </div>
+                </div>
+              );
+            })()}
+          </div>
+        )}
+
         {/* Composition bar */}
         <div>
           <div className="flex h-6 w-full overflow-hidden rounded-md">
@@ -168,8 +243,29 @@ export const NzokBudgetBridgeTile: FC<{
           </div>
         </div>
 
-        {/* Execution gauge — YTD cash execution against the annual plan */}
-        {execution &&
+        {/* Execution pace — the plan-vs-actual cumulative curve for the selected
+            year, when B1 history carries ≥2 months; otherwise the single-number
+            gauge below. */}
+        {(() => {
+          const yearPoints =
+            executionHistory?.points.filter((p) => p.year === selectedYear) ??
+            [];
+          if (yearPoints.length >= 2 && total > 0)
+            return (
+              <NzokExecutionPaceChart
+                fiscalYear={selectedYear}
+                points={yearPoints}
+                planTotalEur={total}
+              />
+            );
+          return null;
+        })()}
+
+        {/* Execution gauge — YTD cash execution against the annual plan (fallback
+            when the selected year has no multi-month B1 series yet) */}
+        {(executionHistory?.points.filter((p) => p.year === selectedYear)
+          .length ?? 0) < 2 &&
+          execution &&
           execution.expenditureEur != null &&
           total > 0 &&
           (() => {

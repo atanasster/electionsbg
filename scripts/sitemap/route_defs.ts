@@ -230,6 +230,9 @@ export const routeDefs = (year: string): RouteDefs => [
     path: "procurement/awarders",
     file: `src/screens/TopAwardersScreen.tsx`,
   },
+  // The packed institution awarder pages (/awarder/:eik — roads / НОИ / НЗОК /
+  // ДФЗ) are enumerated from the shared INSTITUTION_PACKS catalogue directly in
+  // scripts/sitemap/index.ts, not here.
   { path: "procurement/mps", file: `src/screens/TopMpsScreen.tsx` },
   {
     path: "procurement/by-settlement",

@@ -44,6 +44,7 @@ import {
   type GovernanceRegionMuni,
 } from "./bodyBuilders";
 import { buildArticleRoutes } from "./articleRoutes";
+import { INSTITUTION_PACKS } from "./institutions";
 import { DIASPORA_FAQ } from "@/data/diaspora/diasporaFaq";
 
 const BG_MONTHS = [
@@ -782,6 +783,11 @@ export const buildProcurementSettlementRoutes = async (): Promise<
   }
   return result;
 };
+
+// NOTE: the НЗОК (health-fund) awarder page, formerly built here by a bespoke
+// buildNzokAwarderRoute, is now emitted by the shared buildInstitutionAwarderRoutes
+// from the INSTITUTION_PACKS catalogue (scripts/prerender/institutions.ts) — one
+// consolidated path for all packed institution awarders (roads / НОИ / НЗОК / ДФЗ).
 
 type FundsThemeEntry = {
   slug: string;
@@ -2826,6 +2832,57 @@ export const buildBudgetMinistryRoutes = (
 const escapeHtmlMinimal = (s: string): string =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
+// One prerendered HTML page per packed institution awarder (/awarder/:eik).
+// These are the high-profile buyers whose awarder dashboard grows a domain
+// pack — АПИ (roads), НОИ (ДОО), НЗОК (health) — or an administering-agency card
+// — ДФЗ (farm subsidies). Enumerated from the shared INSTITUTION_PACKS catalogue
+// so the sitemap, OG capture and prerender can't drift. BG + EN, mirroring
+// buildBudgetMinistryRoutes.
+export const buildInstitutionAwarderRoutes = (): PrerenderRoute[] => {
+  return INSTITUTION_PACKS.map((inst) => {
+    const path_ = `awarder/${inst.eik}`;
+    const url = `${SITE_URL}/${path_}`;
+    const enUrl = `${SITE_URL}/en/${path_}`;
+    return {
+      path: path_,
+      title: inst.titleBg,
+      description: inst.descriptionBg,
+      ogImage: `/og/awarder/${inst.slug}.png`,
+      bodyHtml: inst.bodyBg,
+      jsonLd: [
+        buildWebPageLd({
+          title: inst.titleBg,
+          description: inst.descriptionBg,
+          url,
+        }),
+        buildBreadcrumbLd([
+          { name: "Начало", url: `${SITE_URL}/` },
+          { name: "Обществени поръчки", url: `${SITE_URL}/procurement` },
+          { name: inst.nameBg, url },
+        ]),
+      ],
+      english: {
+        title: inst.titleEn,
+        description: inst.descriptionEn,
+        bodyHtml: inst.bodyEn,
+        jsonLd: [
+          buildWebPageLd({
+            title: inst.titleEn,
+            description: inst.descriptionEn,
+            url: enUrl,
+            inLanguage: "en",
+          }),
+          buildBreadcrumbLd([
+            { name: "Home", url: `${SITE_URL}/en/` },
+            { name: "Public procurement", url: `${SITE_URL}/en/procurement` },
+            { name: inst.nameEn, url: enUrl },
+          ]),
+        ],
+      },
+    };
+  });
+};
+
 // One prerendered HTML page per non-MP official (cabinet, deputy minister,
 // state-agency head, regional governor). Body carries enough text for SEO +
 // AI crawlers to summarise: name, role, institution, latest net worth, and a
@@ -3225,6 +3282,7 @@ export const buildDynamicRoutes = async (
     // images), not data — they live under /public/ rather than /data/.
     ...(await buildArticleRoutes(path.join(projectRoot, "public"))),
     ...buildBudgetMinistryRoutes(projectRoot),
+    ...buildInstitutionAwarderRoutes(),
     ...buildOfficialRoutes(projectRoot),
     ...(await buildProcurementSettlementRoutes()),
     ...buildFundsThemeRoutes(projectRoot),

@@ -29,6 +29,14 @@ const SCHEMA_FILE = path.join(
   REPO,
   "scripts/db/schema/pg/045_nzok_hospital_payments.sql",
 );
+// The trends/momentum functions (047) read the SAME table 045 loads, so apply
+// both here — otherwise a fresh DB (or Cloud SQL after this loader runs) serves
+// the pack's momentum + /company percentile endpoints off missing functions.
+// CREATE OR REPLACE makes re-applying on every reload idempotent.
+const TRENDS_SCHEMA_FILE = path.join(
+  REPO,
+  "scripts/db/schema/pg/047_nzok_hospital_trends.sql",
+);
 const RAW_DIR = path.join(REPO, "raw_data/nzok/bmp");
 const EIK_FILE = path.join(REPO, "data/budget/nzok/hospital_eik.json");
 const BASE = "https://www.nhif.bg";
@@ -153,6 +161,7 @@ const COLS = [
 
 const main = async (): Promise<void> => {
   await exec(readFileSync(SCHEMA_FILE, "utf8"));
+  await exec(readFileSync(TRENDS_SCHEMA_FILE, "utf8"));
 
   const { rows, monthsOk, monthsSkipped } = await collectRows();
   if (rows.length === 0)

@@ -12,14 +12,19 @@ import { useTranslation } from "react-i18next";
 import { HeartPulse } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
-import { useNzokHospitalByEik } from "@/data/budget/useBudget";
+import {
+  useNzokHospitalByEik,
+  useNzokHospitalMomentumByEik,
+} from "@/data/budget/useBudget";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { monthYearLabel } from "@/lib/monthNames";
+import { NzokPeerGrowthStrip } from "./NzokPeerGrowthStrip";
 
 export const NzokHospitalReimbursementTile: FC<{ eik: string }> = ({ eik }) => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const { data: entry } = useNzokHospitalByEik(eik);
+  const { data: momentum } = useNzokHospitalMomentumByEik(eik);
   if (!entry || entry.totalCumulativeEur <= 0) return null;
 
   // asOf is the report month-end ("2026-05-31"); derive the period label from it.
@@ -50,6 +55,10 @@ export const NzokHospitalReimbursementTile: FC<{ eik: string }> = ({ eik }) => {
               : `paid by НЗОК for inpatient care (cumulative to ${period})`}
           </span>
         </div>
+
+        {/* Transparent peer-comparison — where this hospital's YoY spend growth
+            sits in the national distribution (published formula, not a black box). */}
+        {momentum && <NzokPeerGrowthStrip m={momentum} />}
 
         {facilities.length > 1 && (
           <ul className="divide-y text-xs">

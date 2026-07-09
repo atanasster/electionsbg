@@ -402,8 +402,8 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       en: "population, census, land use",
     },
     desc: {
-      bg: "Население по общини, естествен прираст и миграция, Преброяване 2021, балансът на територията и регионалните отворени данни (болнични легла, ЧПИ, музеи).",
-      en: "Municipal population, vital statistics and migration, Census 2021, the land-use balance and regional open data (hospital beds, FDI, museums).",
+      bg: "Население по общини, естествен прираст и миграция, Преброяване 2021, балансът на територията и регионалните отворени данни (болнични легла, обща смъртност, ЧПИ, музеи).",
+      en: "Municipal population, vital statistics and migration, Census 2021, the land-use balance and regional open data (hospital beds, crude death rate, FDI, museums).",
     },
     url: "https://www.nsi.bg/",
     origin: "state",

@@ -1277,6 +1277,85 @@ const CASES: Case[] = [
     kind: "table",
     minRows: 5,
   },
+  // ---- НЗОК health pack (budget line / drugs / hospitals) --------------------
+  {
+    q: "Къде отиват парите на НЗОК?",
+    tool: "nzokBudget",
+    kind: "table",
+    minRows: 5,
+    facts: { total: /€/, biggest_line: /\S/ },
+    // the health-fund answer -> the health-fund awarder page
+    links: ["/awarder/121858220"],
+  },
+  {
+    q: "Where does the NHIF money go?",
+    lang: "en",
+    tool: "nzokBudget",
+    kind: "table",
+    minRows: 5,
+    facts: { total: /€/ },
+    links: ["/awarder/121858220"],
+  },
+  {
+    q: "За кои лекарства плаща най-много НЗОК?",
+    tool: "nzokDrugs",
+    kind: "table",
+    minRows: 5,
+    facts: { top_inn: /\S/, oncology_share: /%/ },
+    links: ["/awarder/121858220"],
+  },
+  {
+    q: "top NHIF drug reimbursement",
+    lang: "en",
+    tool: "nzokDrugs",
+    kind: "table",
+    minRows: 5,
+    facts: { top_inn: /\S/ },
+  },
+  {
+    // growth cue -> the fastest-rising / newly-reimbursed movers, not the snapshot
+    q: "Кои лекарства растат най-бързо в разходите на НЗОК?",
+    tool: "nzokDrugGrowth",
+    kind: "table",
+    minRows: 3,
+    facts: { top_riser: /\S/ },
+  },
+  {
+    q: "Which newly-reimbursed medicines did the NHIF add?",
+    lang: "en",
+    tool: "nzokDrugGrowth",
+    kind: "table",
+    minRows: 1,
+    facts: { newly_reimbursed: /\d/ },
+  },
+  {
+    q: "Кои болници получават най-много от НЗОК?",
+    tool: "nzokHospitals",
+    kind: "table",
+    minRows: 5,
+    facts: { top_hospital: /\S/, national_total: /€/ },
+    // the biggest hospital -> its own company page + the health-fund category link
+    links: ["/company/115576405", "/awarder/121858220"],
+  },
+  {
+    q: "top hospitals paid by NHIF",
+    lang: "en",
+    tool: "nzokHospitals",
+    kind: "table",
+    minRows: 5,
+    facts: { top_hospital: /\S/ },
+  },
+  // A procurement-phrased НЗОК question is about the fund's CONTRACTS, not its
+  // budget/drugs/hospitals — it must reach awarderProcurement (scoped to the НЗОК
+  // EIK), not the nzokBudget breakdown.
+  {
+    q: "Обществени поръчки на НЗОК",
+    tool: "awarderProcurement",
+  },
+  {
+    q: "договорите на здравната каса",
+    tool: "awarderProcurement",
+  },
   {
     q: "Какви са последните емисии на държавен дълг?",
     tool: "govDebt",

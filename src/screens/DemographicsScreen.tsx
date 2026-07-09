@@ -22,11 +22,21 @@ import type { IndicatorId } from "@/data/indicators/useIndicators";
 const DEFAULT_MAP_METRIC: CensusMetric = "eduSecondary";
 const VALID_METRICS = new Set<CensusMetric>(CENSUS_METRICS.map((m) => m.key));
 const DEFAULT_REGIONAL_INDICATOR: RegionalIndicatorKey = "gdpPerCapita";
+// Every RegionalIndicatorKey the selector offers must be a valid URL param —
+// otherwise picking it sets ?regional=… but the validation below rejects it and
+// snaps the map back to GDP. (Previously only 4 keys were listed, silently
+// breaking the other selectable indicators.)
 const VALID_REGIONAL_INDICATORS = new Set<RegionalIndicatorKey>([
   "gdpPerCapita",
   "population",
   "netMigration",
   "ltUnemployment",
+  "theftRate",
+  "enterpriseDensity",
+  "fdiPerCapita",
+  "museumVisitsPer1000",
+  "hospitalBedsPer1000",
+  "deathRatePer1000",
 ]);
 const DEFAULT_INDICATOR: IndicatorId = "unemployment";
 const VALID_INDICATORS = new Set<IndicatorId>([

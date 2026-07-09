@@ -6,6 +6,7 @@ import {
   readProcurementSeoSettlements,
   type SeoProcurementSettlement,
 } from "../db/lib/seo_settlements";
+import { INSTITUTION_PACKS } from "../prerender/institutions";
 import { ElectionInfo, PartyInfo, SectionIndex } from "@/data/dataTypes";
 
 type SettlementBundleEntry = { ekatte?: string; oblast?: string };
@@ -696,6 +697,17 @@ const procurementSeoSettlements: SeoProcurementSettlement[] =
 
 routeDefs(election).forEach((r) => getRoute(r, ""));
 enumerateVotes("");
+
+// Packed institution awarder pages (/awarder/:eik) — АПИ (roads), НОИ, НЗОК and
+// ДФЗ. ALL packs (incl. НЗОК) are enumerated here from the shared
+// INSTITUTION_PACKS catalogue — the same source of truth as the prerender
+// (buildInstitutionAwarderRoutes) and OG capture (scripts/prerender/
+// institutions.ts). Each gets prerendered BG + EN HTML, so both language URLs
+// are emitted. route_defs.ts intentionally carries no awarder entries.
+for (const inst of INSTITUTION_PACKS) {
+  pushUrl(`/awarder/${inst.eik}`, today);
+  pushUrl(`/en/awarder/${inst.eik}`, today);
+}
 
 // English mirrors for dynamic party routes — every BG /party/X URL also has
 // an EN counterpart at /en/party/X (with the same sub-tabs). Mirrors are

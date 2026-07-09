@@ -33,14 +33,14 @@ The budget law (`--budget`, `budget.json`) is **hard-keyed** from the annual З�
    ```bash
    npm run data:nzok -- --hospitals --drugs --execution
    ```
-   Each generator fetches from nhif.bg, parses (reconciliation-asserted for hospital payments), and rewrites the matching `data/budget/nzok/*.json`.
+   Each generator fetches from nhif.bg, parses (reconciliation-asserted for hospital payments), and rewrites the matching `data/budget/nzok/*.json`. Note: `--execution` also writes `execution_history.json` (every B1 month on the page, for the plan-vs-actual pace chart), and `--drugs` also computes the full-year-vs-full-year `growth` block (fastest-rising / falling / newly-reimbursed molecules from the two latest annual files) inside `drug_reimbursement.json`.
 2. **Reload the hospital-payments Postgres table** — the pack's hospital tile and the `/company/:eik` reimbursement tile are DB-served from `nzok_hospital_payments`, NOT the static JSON, so on a new monthly БМП file this is what actually updates the live tiles:
    ```bash
    npm run db:load:nzok-hospital:pg          # local — verify row/month counts
    npm run db:load:nzok-hospital:pg:cloud    # Cloud SQL via the proxy on :5434
    npm run db:push:cloud                     # refresh the GCS snapshot
    ```
-   The loader is idempotent (TRUNCATE+reload in one txn, changelog-deduped). Skip when only `--drugs`/`--execution` changed (those stay static-JSON-served).
+   The loader is idempotent (TRUNCATE+reload in one txn, changelog-deduped) and applies **both** migration 045 (the table) and 047 (the `nzok_hospital_payments_trends` / `nzok_hospital_momentum_by_eik` functions that serve the momentum tile + the `/company/:eik` spend-growth percentile), so the trend endpoints refresh with the table. Skip when only `--drugs`/`--execution` changed (those stay static-JSON-served).
 3. Sanity-check the console output: hospital payments print the facility count + national total that must reconcile to the file's own "Общо РЗОК" grand total; drugs print the €total + top INN + oncology group L; execution prints revenue + expenditure YTD.
 4. Commit the changed `data/budget/nzok/*.json` (+ `data/db/procurement.lock.json` if you pushed).
 5. **`bucket:sync data/budget/nzok/`** — the budget/drug/execution JSONs are served from the GCS bucket; without the sync those tiles aren't live.

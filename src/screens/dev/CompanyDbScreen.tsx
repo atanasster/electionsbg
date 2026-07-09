@@ -573,7 +573,12 @@ export const CompanyDbScreen: FC = () => {
 
   return (
     <div className="w-full px-4 py-6 md:px-6">
-      <div className="mb-6">
+      {/* data-og: stable anchor for the OG-card capture of the packed
+          institution pages (roads / НОИ / НЗОК / ДФЗ). See
+          scripts/og/capture-screens.ts — the clip is top-aligned here so the
+          card leads with the institution name, identity chips and headline
+          KPI cards. */}
+      <div className="mb-6" data-og="awarder-hero">
         <div className="text-xs uppercase tracking-wide text-muted-foreground">
           {company
             ? company.entity_class && ENTITY_CLASS_KICKER[company.entity_class]
@@ -874,7 +879,10 @@ export const CompanyDbScreen: FC = () => {
                 <Landmark className="h-5 w-5 text-muted-foreground" />
                 <h2 className="text-lg font-semibold">Като възложител</h2>
               </div>
-              <div className="grid gap-3 grid-cols-2 lg:grid-cols-3">
+              <div
+                className="grid gap-3 grid-cols-2 lg:grid-cols-3"
+                data-og="awarder-kpis"
+              >
                 <StatCard label="Общо възложени">
                   <div className="flex items-baseline gap-2">
                     <Coins className="h-5 w-5 text-muted-foreground shrink-0" />

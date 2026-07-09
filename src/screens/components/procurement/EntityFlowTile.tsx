@@ -87,7 +87,9 @@ export const EntityFlowTile: FC<{
   }
 
   return (
-    <Card className="my-4">
+    // data-og: OG-card anchor for awarders without a domain pack, e.g. ДФЗ
+    // (scripts/og/capture-screens.ts).
+    <Card className="my-4" data-og="awarder-flow">
       <CardHeader className="pb-2">
         <CardTitle className="text-base flex items-center gap-2 flex-wrap">
           <GitFork className="h-4 w-4" />

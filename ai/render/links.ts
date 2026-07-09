@@ -146,6 +146,10 @@ const SECTION: Record<string, SiteLink> = {
     label: { bg: "Европейски средства", en: "EU funds" },
     href: url("/funds"),
   },
+  nzok: {
+    label: { bg: "Здравна каса (НЗОК)", en: "Health fund (NHIF)" },
+    href: url("/awarder/121858220"),
+  },
   fiscal: {
     label: { bg: "Фискални показатели", en: "Fiscal indicators" },
     href: url("/indicators/fiscal"),
@@ -240,6 +244,10 @@ const TOOL_SECTION: Record<string, SiteLink | undefined> = {
   mpProcurement: SECTION.procurementMps,
   procurementByOblast: SECTION.procurementMap,
   fundsOverview: SECTION.funds,
+  nzokBudget: SECTION.nzok,
+  nzokDrugs: SECTION.nzok,
+  nzokDrugGrowth: SECTION.nzok,
+  nzokHospitals: SECTION.nzok,
   govDebt: SECTION.fiscal,
   noiFunds: SECTION.fiscal,
   macroIndicator: SECTION.indicators,
@@ -353,6 +361,18 @@ export const siteLinks = (env: Envelope): SiteLink[] => {
         out.push({
           label: { bg: "Най-голям договор", en: "Largest contract" },
           href: url(`/procurement/contract/${encodeURIComponent(key)}`),
+        });
+      break;
+    }
+    // Top hospitals paid by НЗОК → the biggest hospital's own company page, when
+    // it is confidently matched to a Commerce-Register EIK (hidden facts.eik_id).
+    // The TOOL_SECTION mapping still adds the health-fund page as the category link.
+    case "nzokHospitals": {
+      const eik = fact(env, "eik_id");
+      if (eik)
+        out.push({
+          label: { bg: "Болница — профил", en: "Hospital — profile" },
+          href: url(`/company/${encodeURIComponent(eik)}`),
         });
       break;
     }

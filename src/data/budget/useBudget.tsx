@@ -25,7 +25,10 @@ import type {
   NoiFundsFile,
   NzokBudgetFile,
   NzokExecutionFile,
+  NzokExecutionHistoryFile,
   NzokHospitalPaymentsFile,
+  NzokHospitalTrendsFile,
+  NzokHospitalMomentum,
   NzokHospitalReimbursement,
   NzokDrugReimbursementFile,
   PersonnelFile,
@@ -270,6 +273,19 @@ export const useNzokExecution = () =>
     staleTime: Infinity,
   });
 
+// НЗОК monthly cash-execution history (form B1, 2022→) — the cumulative YTD
+// series behind the budget-bridge's plan-vs-actual pace curve. Small committed
+// file (~5 KB). Written by scripts/nzok/write_execution.ts.
+export const useNzokExecutionHistory = () =>
+  useQuery({
+    queryKey: ["budget", "nzok", "execution-history"] as const,
+    queryFn: () =>
+      fetchJson<NzokExecutionHistoryFile>(
+        "/budget/nzok/execution_history.json",
+      ),
+    staleTime: Infinity,
+  });
+
 // НЗОК per-hospital БМП payments — the latest-period snapshot of what the fund
 // pays hospitals (the biggest non-ЗОП line), now DB-served from the
 // nzok_hospital_payments corpus (/api/db, migration 045) instead of the static
@@ -280,6 +296,32 @@ export const useNzokHospitalPayments = () =>
     queryKey: ["nzok", "hospital-payments"] as const,
     queryFn: () =>
       fetchDb<NzokHospitalPaymentsFile>("/api/db/nzok-hospital-payments"),
+    staleTime: Infinity,
+  });
+
+// НЗОК hospital-payment momentum — national monthly series + latest-YTD-vs-
+// same-month-prior-year per facility. DB-served (/api/db/nzok-hospital-trends,
+// migration 047). Drives the health pack's "Динамика" tile.
+export const useNzokHospitalTrends = () =>
+  useQuery({
+    queryKey: ["nzok", "hospital-trends"] as const,
+    queryFn: () =>
+      fetchDb<NzokHospitalTrendsFile>("/api/db/nzok-hospital-trends"),
+    staleTime: Infinity,
+  });
+
+// One hospital's spend-growth percentile among all matched hospitals — the
+// transparent peer-comparison badge on /company/:eik. DB-served per-EIK
+// (/api/db/nzok-hospital-momentum-by-eik, migration 047). null when the EIK isn't
+// a ranked hospital (unmatched, no prior year, or below the base floor).
+export const useNzokHospitalMomentumByEik = (eik?: string | null) =>
+  useQuery({
+    queryKey: ["nzok", "hospital-momentum-by-eik", eik ?? ""] as const,
+    queryFn: () =>
+      fetchDb<NzokHospitalMomentum>(
+        `/api/db/nzok-hospital-momentum-by-eik?eik=${encodeURIComponent(eik!)}`,
+      ),
+    enabled: !!eik,
     staleTime: Infinity,
   });
 

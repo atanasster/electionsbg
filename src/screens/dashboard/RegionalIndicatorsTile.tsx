@@ -17,16 +17,20 @@ type Props = {
 const DeltaBadge: FC<{
   delta: number | undefined;
   kind: "percent" | "absolute" | undefined;
-}> = ({ delta, kind }) => {
+  higherIsWorse?: boolean;
+}> = ({ delta, kind, higherIsWorse }) => {
   if (delta === undefined || !Number.isFinite(delta))
     return <span className="text-muted-foreground">—</span>;
   const rounded = Math.round(delta * 10) / 10;
   const positive = rounded > 0;
   const neutral = rounded === 0;
   const Icon = neutral ? Minus : positive ? TrendingUp : TrendingDown;
+  // Colour by whether the change is GOOD, not by its sign: for "higher is worse"
+  // indicators (theft, unemployment, death rate) a rise is bad → red.
+  const good = higherIsWorse ? !positive : positive;
   const cls = neutral
     ? "text-muted-foreground"
-    : positive
+    : good
       ? "text-emerald-600 dark:text-emerald-400"
       : "text-rose-600 dark:text-rose-400";
   const suffix = kind === "absolute" ? "" : "%";
@@ -57,7 +61,11 @@ const IndicatorRow: FC<{ item: RegionalLatest; lang: string }> = ({
         </div>
         <div className="text-[10px] text-muted-foreground">
           {item.latest.year} ·{" "}
-          <DeltaBadge delta={item.yoyDelta} kind={item.deltaKind} />
+          <DeltaBadge
+            delta={item.yoyDelta}
+            kind={item.deltaKind}
+            higherIsWorse={item.higherIsWorse}
+          />
         </div>
       </div>
     </div>

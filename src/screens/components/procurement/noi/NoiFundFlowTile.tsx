@@ -131,7 +131,8 @@ export const NoiFundFlowTile: FC<{
   const pt = fundYear.pensionTypes;
 
   return (
-    <Card>
+    // data-og: OG-card anchor (scripts/og/capture-screens.ts).
+    <Card data-og="noi-flow">
       <CardHeader className="pb-2">
         <CardTitle className="text-base flex items-center gap-2">
           <Landmark className="h-4 w-4" />

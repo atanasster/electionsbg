@@ -38,6 +38,7 @@ import {
   subsidiesByScheme,
   subsidiesForEntity,
 } from "./subsidies";
+import { nzokBudget, nzokDrugs, nzokDrugGrowth, nzokHospitals } from "./nzok";
 import { ngoOverview, ngoTopFunded, ngoConflictAwarders } from "./ngo";
 import { governments } from "./govpeople";
 import {
@@ -1864,6 +1865,104 @@ export const TOOLS: ToolDef[] = [
       { bg: "Разходи за отбрана", en: "Defence spending" },
     ],
     run: budgetFunction,
+  },
+  {
+    name: "nzokBudget",
+    domain: "fiscal",
+    description: {
+      bg: "Бюджет на НЗОК (Здравната каса) по разходни пера — къде отиват ~5,5 млрд €: болнична помощ, лекарства, извънболнична, дентална и т.н.",
+      en: "NHIF (health-fund) budget by expenditure line — where the ~€5.5bn goes: hospital care, drugs, outpatient, dental, etc.",
+    },
+    params: [
+      {
+        name: "year",
+        type: "year",
+        description: { bg: "Бюджетна година", en: "Fiscal year" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Къде отиват парите на НЗОК?",
+        en: "Where does the NHIF money go?",
+      },
+      {
+        bg: "Как е разпределен бюджетът на здравната каса?",
+        en: "How is the health-fund budget split?",
+      },
+    ],
+    run: nzokBudget,
+  },
+  {
+    name: "nzokDrugs",
+    domain: "fiscal",
+    description: {
+      bg: "За кои лекарства плаща най-много НЗОК — брутни разходи по активно вещество (INN); онкологията доминира.",
+      en: "Which medicines the NHIF reimburses most — gross spend by active substance (INN); oncology dominates.",
+    },
+    params: [
+      {
+        name: "count",
+        type: "count",
+        description: { bg: "Брой лекарства", en: "Number of medicines" },
+      },
+    ],
+    examples: [
+      {
+        bg: "За кои лекарства плаща най-много НЗОК?",
+        en: "Which drugs does the NHIF reimburse most?",
+      },
+      {
+        bg: "Топ реимбурсирани лекарства от здравната каса",
+        en: "Top NHIF drug reimbursement",
+      },
+    ],
+    run: nzokDrugs,
+  },
+  {
+    name: "nzokDrugGrowth",
+    domain: "fiscal",
+    description: {
+      bg: "Най-бързо растящи и новореимбурсирани лекарства на НЗОК — годишна промяна по активно вещество (двете завършени години).",
+      en: "Fastest-rising and newly-reimbursed NHIF medicines — year-over-year change by active substance (two closed years).",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Кои лекарства растат най-бързо в разходите на НЗОК?",
+        en: "Which NHIF drugs are growing fastest in spend?",
+      },
+      {
+        bg: "Кои нови лекарства започна да плаща здравната каса?",
+        en: "Which newly-reimbursed medicines did the NHIF add?",
+      },
+    ],
+    run: nzokDrugGrowth,
+  },
+  {
+    name: "nzokHospitals",
+    domain: "fiscal",
+    description: {
+      bg: "Кои болници получават най-много от НЗОК — плащания за болнична медицинска помощ (БМП), кумулативно от началото на годината.",
+      en: "Which hospitals the NHIF pays most — inpatient-care (БМП) payments, cumulative year-to-date.",
+    },
+    params: [
+      {
+        name: "count",
+        type: "count",
+        description: { bg: "Брой болници", en: "Number of hospitals" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кои болници получават най-много от НЗОК?",
+        en: "Which hospitals are paid most by the NHIF?",
+      },
+      {
+        bg: "Топ болници по плащания от здравната каса",
+        en: "Top hospitals paid by the NHIF",
+      },
+    ],
+    run: nzokHospitals,
   },
   {
     name: "procurementTotals",

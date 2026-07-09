@@ -1,8 +1,8 @@
 // NSI open-data (JSON-stat) regional indicator watcher. Fingerprints the
 // oblast-grain datasets merged into data/regional.json by
-// scripts/regional/fetch_nsi.ts — FDI (629), museum visits (844) and
-// hospital beds (1206). Each JSON-stat document carries a top-level
-// `updated` timestamp, so we fingerprint those rather than the values.
+// scripts/regional/fetch_nsi.ts — FDI (629), museum visits (844), hospital
+// beds (1206) and crude death rate (1139). Each JSON-stat document carries a
+// top-level `updated` timestamp, so we fingerprint those rather than the values.
 //
 // These ids are cataloged on data.egov.bg (org_id 143) but the catalog is a
 // 2021 snapshot — some sibling series (e.g. doctors id=1105) are frozen, so
@@ -23,6 +23,7 @@ const DATASETS: { id: number; label: string }[] = [
   { id: 629, label: "ЧПИ по области" },
   { id: 844, label: "Музеи – посещения по области" },
   { id: 1206, label: "Лечебни заведения и легла по области" },
+  { id: 1139, label: "Починали по области" },
 ];
 
 const buildUrl = (id: number): string =>
@@ -38,7 +39,7 @@ const fetchUpdated = async (id: number): Promise<string> => {
 
 export const nsiRegional: WatchSource = {
   id: "nsi_regional",
-  label: "НСИ regional open-data (BG): 3 oblast datasets",
+  label: "НСИ regional open-data (BG): 4 oblast datasets",
   url: "https://data.egov.bg/organisation/13b6e23a-1888-4ad6-8f86-fceb71ca123c",
   // Annual releases, but the shared infra runs all sources together; the
   // fingerprint is stable between releases so consecutive runs are no-ops.

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-09T07:44:26.049Z",
+  "generatedAt": "2026-07-09T14:39:18.781Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -741,8 +741,8 @@
         "en": "population, census, land use"
       },
       "desc": {
-        "bg": "Население по общини, естествен прираст и миграция, Преброяване 2021, балансът на територията и регионалните отворени данни (болнични легла, ЧПИ, музеи).",
-        "en": "Municipal population, vital statistics and migration, Census 2021, the land-use balance and regional open data (hospital beds, FDI, museums)."
+        "bg": "Население по общини, естествен прираст и миграция, Преброяване 2021, балансът на територията и регионалните отворени данни (болнични легла, обща смъртност, ЧПИ, музеи).",
+        "en": "Municipal population, vital statistics and migration, Census 2021, the land-use balance and regional open data (hospital beds, crude death rate, FDI, museums)."
       },
       "tags": [
         "indicators"
@@ -781,7 +781,7 @@
         },
         {
           "id": "nsi_regional",
-          "label": "НСИ regional open-data (BG): 3 oblast datasets",
+          "label": "НСИ regional open-data (BG): 4 oblast datasets",
           "url": "https://data.egov.bg/organisation/13b6e23a-1888-4ad6-8f86-fceb71ca123c",
           "cadence": "monthly",
           "freshness": "2026-07-08T06:09:00.761Z"

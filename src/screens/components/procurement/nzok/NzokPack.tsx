@@ -27,6 +27,9 @@ import { categoryLabel } from "@/lib/nzokBenchmarks";
 import { NzokBudgetBridgeTile } from "./NzokBudgetBridgeTile";
 import { NzokCategoryTile } from "./NzokCategoryTile";
 import { NzokHospitalPaymentsTile } from "./NzokHospitalPaymentsTile";
+import { NzokHospitalMomentumTile } from "./NzokHospitalMomentumTile";
+import { NzokHospitalCompareTile } from "./NzokHospitalCompareTile";
+import { NzokRegionalChoroplethTile } from "./NzokRegionalChoroplethTile";
 import { NzokDrugReimbursementTile } from "./NzokDrugReimbursementTile";
 import { NzokProcurementLensTile } from "./NzokProcurementLensTile";
 
@@ -41,7 +44,9 @@ export const NzokPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
     model,
     budget,
     execution,
+    executionHistory,
     hospitalPayments,
+    hospitalTrends,
     drugReimbursement,
     isLoading,
   } = useNzok(eik, scopeWindow);
@@ -176,11 +181,20 @@ export const NzokPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
           execution={
             execution && execution.year === selectedYear ? execution : null
           }
+          executionHistory={executionHistory}
         />
       )}
 
       {/* The real money — the two biggest non-ЗОП lines, paid outside procurement */}
       {hospitalPayments && <NzokHospitalPaymentsTile data={hospitalPayments} />}
+      {/* The time dimension — momentum + YoY movers (the single-year competitor lacks it) */}
+      {hospitalTrends && <NzokHospitalMomentumTile data={hospitalTrends} />}
+      {/* Head-to-head — the compare the competitor leads with, on our corpus */}
+      {hospitalPayments && <NzokHospitalCompareTile data={hospitalPayments} />}
+      {/* The regional dimension — the map (per-capita) the competitor lacks */}
+      {hospitalPayments && (
+        <NzokRegionalChoroplethTile data={hospitalPayments} />
+      )}
       {drugReimbursement && (
         <NzokDrugReimbursementTile data={drugReimbursement} />
       )}

@@ -21,14 +21,18 @@ import { useProcurementWindow } from "./useProcurementWindow";
 import {
   useNzokBudget,
   useNzokExecution,
+  useNzokExecutionHistory,
   useNzokHospitalPayments,
+  useNzokHospitalTrends,
   useNzokDrugReimbursement,
 } from "@/data/budget/useBudget";
 import { buildNzokModel, NZOK_EIK, type NzokModel } from "@/lib/nzokAttributes";
 import type {
   NzokBudgetFile,
   NzokExecutionFile,
+  NzokExecutionHistoryFile,
   NzokHospitalPaymentsFile,
+  NzokHospitalTrendsFile,
   NzokDrugReimbursementFile,
 } from "@/data/budget/types";
 
@@ -40,7 +44,9 @@ export interface NzokData {
   model: NzokModel | null;
   budget: NzokBudgetFile | null;
   execution: NzokExecutionFile | null;
+  executionHistory: NzokExecutionHistoryFile | null;
   hospitalPayments: NzokHospitalPaymentsFile | null;
+  hospitalTrends: NzokHospitalTrendsFile | null;
   drugReimbursement: NzokDrugReimbursementFile | null;
   isLoading: boolean;
 }
@@ -52,7 +58,9 @@ export const useNzok = (
   const contracts = useAwarderContracts(eik);
   const budget = useNzokBudget();
   const execution = useNzokExecution();
+  const executionHistory = useNzokExecutionHistory();
   const hospitalPayments = useNzokHospitalPayments();
+  const hospitalTrends = useNzokHospitalTrends();
   const drugReimbursement = useNzokDrugReimbursement();
   const urlWindow = useProcurementWindow();
   const from = windowOverride ? windowOverride.from : urlWindow.from;
@@ -68,7 +76,9 @@ export const useNzok = (
     model,
     budget: budget.data ?? null,
     execution: execution.data ?? null,
+    executionHistory: executionHistory.data ?? null,
     hospitalPayments: hospitalPayments.data ?? null,
+    hospitalTrends: hospitalTrends.data ?? null,
     drugReimbursement: drugReimbursement.data ?? null,
     // OR in every dataset so the pack paints once, not tile-by-tile (avoids the
     // execution gauge / hospital / drug tiles popping into an already-rendered
@@ -77,7 +87,9 @@ export const useNzok = (
       contracts.isLoading ||
       budget.isLoading ||
       execution.isLoading ||
+      executionHistory.isLoading ||
       hospitalPayments.isLoading ||
+      hospitalTrends.isLoading ||
       drugReimbursement.isLoading,
   };
 };

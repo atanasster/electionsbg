@@ -140,6 +140,30 @@ const NSI_INDICATORS: NsiIndicator[] = [
     datasetCode: "nsi-1206",
     minOblasts: 25,
   },
+  {
+    // Crude death rate — the one HEALTH-OUTCOME-adjacent indicator NSI serves at
+    // oblast grain in the machine-readable open-data catalogue (life expectancy
+    // by oblast exists only in the Cloudflare-walled Infostat/XLSX, not here).
+    // id 1139 "Deaths by districts, municipalities and sex" is an absolute count,
+    // so the standard count÷population(ths) normalisation yields deaths per 1000.
+    // Pin sex to Total. NB: this is CRUDE (not age-standardised), so it is
+    // dominated by an oblast's age structure (Vidin ~24 vs Sofia ~11 per 1000) —
+    // a descriptive demographic indicator, NOT a spend-adjustable health outcome.
+    key: "deathRatePer1000",
+    id: 1139,
+    geoDim: "EKATTE",
+    geoMode: "ekatteOblast",
+    pins: { GenderID: "0" }, // 0=Total, 1=Male, 2=Female
+    decimals: 1,
+    titleEn: "Crude death rate",
+    titleBg: "Обща смъртност",
+    unitLabelEn: "deaths per 1000 inhabitants",
+    unitLabelBg: "починали на 1000 души",
+    sourceUrl:
+      "https://www.nsi.bg/en/content/2976/deaths-districts-municipalities-and-sex",
+    datasetCode: "nsi-1139",
+    minOblasts: 25,
+  },
 ];
 
 const round = (n: number, dp: number) => Math.round(n * 10 ** dp) / 10 ** dp;

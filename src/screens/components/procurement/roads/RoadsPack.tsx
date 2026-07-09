@@ -160,8 +160,9 @@ export const RoadsPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
         </div>
       ) : null}
 
-      {/* Hero — motorway network coloured by the selected metric */}
-      <Card>
+      {/* Hero — motorway network coloured by the selected metric.
+          data-og: OG-card anchor (scripts/og/capture-screens.ts). */}
+      <Card data-og="roads-map">
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between gap-2">
             <CardTitle className="text-base flex items-center gap-2">

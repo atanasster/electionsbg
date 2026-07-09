@@ -76,6 +76,12 @@ const CYR2LAT: Record<string, string> = {
 const normInn = (s: string): string =>
   s
     .trim()
+    // Upper-case FIRST so case variants collapse (the source mixes "Upadacitinib"
+    // in one annual file with "UPADACITINIB" in the next — without this they split
+    // into two INNs and the newer one falsely reads as "newly reimbursed"). Doing
+    // it before the homoglyph map also lifts any lowercase Cyrillic lookalike to
+    // its upper form so the map catches it.
+    .toUpperCase()
     .replace(/[АВЕКМНОРСТУХ]/g, (c) => CYR2LAT[c] ?? c)
     .replace(/\s+/g, " ");
 
@@ -91,22 +97,167 @@ const fetchToFile = async (url: string, dest: string): Promise<void> => {
   fs.writeFileSync(dest, Buffer.from(await r.arrayBuffer()));
 };
 
+// One INN's year-over-year move (or a newly-reimbursed molecule: priorEur 0,
+// deltaPct null). Shared by the growth block below + the drug tile's "Ръст" view.
+interface DrugMover {
+  inn: string;
+  atc: string;
+  atcGroup: string;
+  eur: number;
+  priorEur: number;
+  deltaPct: number | null;
+}
+
 const argYear = (): number => {
   const i = process.argv.indexOf("--year");
   return i >= 0 && process.argv[i + 1] ? Number(process.argv[i + 1]) : 0;
 };
 
-/** Pick the gross-reimbursement file link for a year: prefer the annual roll-up
- *  ("Брутни разходи за {year} г"), else the newest quarterly file (they list
- *  newest-first). */
-const findFileHref = (html: string, year: number): string | null => {
+/** The annual roll-up link for a closed year ("Брутни разходи за {year} г"),
+ *  preferring a "след преизчисляване" (recalculated final) sibling when both a
+ *  provisional and a recalculated annual are listed. null when no annual exists
+ *  yet (year still open — only quarterly files). */
+const findAnnualHref = (html: string, year: number): string | null => {
   const links = drugReimbursementLinks(html);
-  const annual = links.find((l) =>
-    new RegExp(`Брутни разходи за\\s*${year}\\s*г`, "i").test(l.name),
+  const annuals = links.filter(
+    (l) =>
+      new RegExp(`Брутни разходи за\\s*${year}\\s*г`, "i").test(l.name) &&
+      !/тримесеч/i.test(l.name),
   );
-  if (annual) return annual.href;
+  if (annuals.length === 0) return null;
+  const recalc = annuals.find((l) => /преизчисл/i.test(l.name));
+  return (recalc ?? annuals[0]).href;
+};
+
+/** Pick the gross-reimbursement file link for a year: prefer the annual roll-up,
+ *  else the newest quarterly file (they list newest-first). */
+const findFileHref = (html: string, year: number): string | null => {
+  const annual = findAnnualHref(html, year);
+  if (annual) return annual;
   // else the newest quarterly file (page is newest-first).
-  return links[0]?.href ?? null;
+  return drugReimbursementLinks(html)[0]?.href ?? null;
+};
+
+// Per-INN aggregate of one year's file — the reusable unit for the headline AND
+// the year-over-year growth comparison. Cols: 1=ATC, 2=INN, 9=Реимбурсна сума.
+interface YearInn {
+  eur: number;
+  atc: string;
+}
+const parseYearInn = (
+  cachePath: string,
+): { byInn: Map<string, YearInn>; totalEur: number; dataRows: number } => {
+  const wb = xlsx.read(fs.readFileSync(cachePath), {
+    type: "buffer",
+    codepage: 1251,
+  });
+  const rows = xlsx.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], {
+    header: 1,
+    defval: null,
+  }) as unknown[][];
+  const byInn = new Map<string, YearInn>();
+  let totalEur = 0;
+  let dataRows = 0;
+  for (let i = 2; i < rows.length; i++) {
+    const r = rows[i];
+    if (!r) continue;
+    const inn = normInn(String(r[2] ?? ""));
+    const atc = String(r[1] ?? "").trim();
+    const bgn = Number(r[9]);
+    if (!inn || !Number.isFinite(bgn) || bgn <= 0) continue;
+    const eur = Math.round((toEur(bgn, "BGN") ?? 0) * 100) / 100;
+    totalEur += eur;
+    dataRows++;
+    const e = byInn.get(inn);
+    if (!e) byInn.set(inn, { eur, atc });
+    else e.eur += eur;
+  }
+  return { byInn, totalEur, dataRows };
+};
+
+// Fetch + parse the annual file for a year (null when it has no annual yet).
+const loadAnnualYear = async (
+  year: number,
+): Promise<Map<string, YearInn> | null> => {
+  const html = await fetchText(
+    `${BASE}/bg/medicine_food/quarter-payments/${year}`,
+  );
+  const href = findAnnualHref(html, year);
+  if (!href) return null;
+  const cachePath = path.join(RAW_DIR, `${year}.xls`);
+  await fetchToFile(BASE + href, cachePath);
+  const { byInn, totalEur, dataRows } = parseYearInn(cachePath);
+  if (dataRows < 500 || totalEur < 100_000_000) return null;
+  return byInn;
+};
+
+// The fastest-rising / falling / newly-reimbursed molecules between the two most
+// recent FULL calendar years — the CMS "fastest-rising active ingredient" view,
+// done full-year-vs-full-year so a partial current year can't distort it. Rank
+// only INNs material in BOTH years (≥ floor) so a €5k→€300k new drug can't
+// masquerade as a 60× "riser" — those surface separately as newlyReimbursed.
+const GROWTH_FLOOR_EUR = 1_000_000;
+const buildGrowth = async (
+  annualYear: number,
+): Promise<null | {
+  year: number;
+  priorYear: number;
+  floorEur: number;
+  risers: DrugMover[];
+  fallers: DrugMover[];
+  newlyReimbursed: DrugMover[];
+}> => {
+  const priorYear = annualYear - 1;
+  const [cur, prev] = await Promise.all([
+    loadAnnualYear(annualYear),
+    loadAnnualYear(priorYear),
+  ]);
+  if (!cur || !prev) return null;
+
+  const movers: DrugMover[] = [];
+  const newly: DrugMover[] = [];
+  for (const [inn, e] of cur) {
+    const p = prev.get(inn);
+    const atcGroup = e.atc.charAt(0).toUpperCase();
+    if (!p || p.eur <= 0) {
+      if (e.eur >= GROWTH_FLOOR_EUR)
+        newly.push({
+          inn,
+          atc: e.atc,
+          atcGroup,
+          eur: Math.round(e.eur),
+          priorEur: 0,
+          deltaPct: null,
+        });
+      continue;
+    }
+    if (p.eur < GROWTH_FLOOR_EUR || e.eur < GROWTH_FLOOR_EUR) continue;
+    movers.push({
+      inn,
+      atc: e.atc,
+      atcGroup,
+      eur: Math.round(e.eur),
+      priorEur: Math.round(p.eur),
+      deltaPct: e.eur / p.eur - 1,
+    });
+  }
+  const byDelta = [...movers].sort(
+    (a, b) =>
+      (b.deltaPct ?? 0) - (a.deltaPct ?? 0) || a.inn.localeCompare(b.inn),
+  );
+  return {
+    year: annualYear,
+    priorYear,
+    floorEur: GROWTH_FLOOR_EUR,
+    risers: byDelta.filter((m) => (m.deltaPct ?? 0) > 0).slice(0, 12),
+    fallers: byDelta
+      .filter((m) => (m.deltaPct ?? 0) < 0)
+      .slice(-12)
+      .reverse(),
+    newlyReimbursed: newly
+      .sort((a, b) => b.eur - a.eur || a.inn.localeCompare(b.inn))
+      .slice(0, 8),
+  };
 };
 
 const main = async (): Promise<void> => {
@@ -211,6 +362,13 @@ const main = async (): Promise<void> => {
     }))
     .sort((a, b) => b.eur - a.eur || a.code.localeCompare(b.code));
 
+  // Year-over-year growth from the two most recent FULL annual years — the
+  // newest closed year is this file's year when it's already an annual roll-up,
+  // otherwise the prior year (the current year is still open / YTD). Best-effort:
+  // if either annual is missing, the block is simply omitted.
+  const annualYear = isAnnual ? year : year - 1;
+  const growth = await buildGrowth(annualYear).catch(() => null);
+
   const out = {
     generatedAt: new Date().toISOString(),
     source: {
@@ -226,6 +384,10 @@ const main = async (): Promise<void> => {
     productRows: dataRows,
     byAtcGroup,
     top,
+    // Full-year-vs-full-year fastest movers (null when two annuals aren't both
+    // available). The headline above stays on the latest (possibly partial) year;
+    // this block is deliberately rigorous full-year for a fair comparison.
+    growth,
   };
   // Completeness gate BEFORE writing — a shifted sheet layout (hardcoded column
   // indices) would silently collect ~0 rows and ship a zeroed artifact. The
@@ -249,6 +411,14 @@ const main = async (): Promise<void> => {
         : "") +
       `\n  top: ${top[0].inn} €${top[0].eur.toLocaleString("en")} · onco group L €${(byAtcGroup.find((g) => g.code === "L")?.eur ?? 0).toLocaleString("en")}`,
   );
+  if (growth)
+    console.log(
+      `  growth ${growth.priorYear}→${growth.year}: ${growth.risers.length} risers, ${growth.fallers.length} fallers, ${growth.newlyReimbursed.length} new` +
+        (growth.risers[0]
+          ? ` · top riser ${growth.risers[0].inn} ${growth.risers[0].deltaPct != null ? `+${Math.round(growth.risers[0].deltaPct * 100)}%` : ""}`
+          : ""),
+    );
+  else console.log("  growth: skipped (two annual years not both available)");
 };
 
 main().catch((e) => {

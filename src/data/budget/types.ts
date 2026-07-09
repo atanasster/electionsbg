@@ -53,6 +53,26 @@ export interface NzokExecutionFile {
   expenditureEur: number | null;
 }
 
+// Monthly B1 cash-execution history (2022→) — every month НЗОК publishes, so the
+// budget-bridge can draw the cumulative plan-vs-actual pace curve. Each point is
+// cumulative YTD (resets every January). Written by
+// scripts/nzok/write_execution.ts alongside execution.json.
+export interface NzokExecutionPoint {
+  year: number;
+  month: number;
+  asOf: string; // "YYYY-MM"
+  currencyOfRecord: "BGN" | "EUR";
+  revenueEur: number | null;
+  expenditureEur: number | null;
+}
+
+export interface NzokExecutionHistoryFile {
+  generatedAt: string;
+  source: { publisher: string; url: string; description: string };
+  latest: { year: number; month: number; asOf: string };
+  points: NzokExecutionPoint[]; // ascending by asOf
+}
+
 // Latest monthly per-hospital БМП (hospital care) payment snapshot — the real
 // money НЗОК pays out, OUTSIDE ЗОП. Written by
 // scripts/nzok/write_hospital_payments.ts from the nhif.bg БМП report.
@@ -90,6 +110,60 @@ export interface NzokHospitalReimbursement {
   }[];
 }
 
+// НЗОК hospital-payment momentum — the national monthly series plus the
+// latest-YTD-vs-same-month-prior-year comparison per facility. DB-served from
+// nzok_hospital_payments_trends() (/api/db/nzok-hospital-trends, migration 047).
+// null-body until the corpus is loaded. Powers the "Динамика" tile — the time
+// dimension the single-year competitor lacks.
+export interface NzokTrendPoint {
+  period: string; // "YYYY-MM"
+  monthEur: number;
+  cumulativeEur: number;
+  facilityCount: number;
+}
+
+export interface NzokFacilityMomentum {
+  regNo: string;
+  name: string;
+  eik: string | null;
+  currentYtdEur: number;
+  /** YTD at the same month a year earlier; null when not reported then. */
+  priorYtdEur: number | null;
+}
+
+export interface NzokHospitalTrendsFile {
+  asOf: string; // "YYYY-MM-DD"
+  currentPeriod: string; // "YYYY-MM"
+  priorPeriod: string; // "YYYY-MM"
+  hasPriorYear: boolean;
+  /** €-floor the mover list filters on — single-sourced from the SQL payload so
+   *  it stays in lockstep with the per-EIK percentile function's floor. */
+  moverBaseFloorEur: number;
+  national: NzokTrendPoint[]; // ascending by period
+  currentYtdEur: number;
+  priorYtdEur: number | null;
+  facilities: NzokFacilityMomentum[]; // top by current YTD
+}
+
+// One company's hospital-spend-growth percentile among all matched hospitals —
+// DB-served from nzok_hospital_momentum_by_eik() (/api/db/nzok-hospital-momentum-
+// by-eik, migration 047). null when the EIK isn't a ranked hospital. Powers the
+// transparent "grew faster than N% of hospitals" badge on /company/:eik.
+export interface NzokHospitalMomentum {
+  currentPeriod: string; // "YYYY-MM"
+  priorPeriod: string; // "YYYY-MM"
+  currentYtdEur: number;
+  priorYtdEur: number;
+  /** YTD-vs-same-month-prior-year growth, as a fraction (0.1 = +10%). */
+  yoyDelta: number;
+  /** Hospitals ranked (prior-year base ≥ floor). */
+  peerCount: number;
+  /** Share of peers this hospital grew strictly faster than (0..1). */
+  percentile: number;
+  /** Median peer growth, for context. */
+  medianDelta: number;
+}
+
 export interface NzokHospitalPaymentsFile {
   generatedAt: string;
   source: { publisher: string; url: string; description: string };
@@ -121,6 +195,30 @@ export interface NzokDrugInn {
   topProduct: string | null;
 }
 
+// One INN's year-over-year move (CMS "fastest-rising ingredient" pattern), or a
+// newly-reimbursed molecule (priorEur 0, deltaPct null). Written by
+// scripts/nzok/write_drug_reimbursement.ts from two full annual years.
+export interface NzokDrugMover {
+  inn: string;
+  atc: string;
+  atcGroup: string;
+  eur: number;
+  priorEur: number;
+  /** eur/priorEur − 1; null for a newly-reimbursed molecule (no prior year). */
+  deltaPct: number | null;
+}
+
+// Full-year-vs-full-year drug-spend movers — deliberately rigorous (two closed
+// years) so a partial current year can't distort the comparison.
+export interface NzokDrugGrowth {
+  year: number;
+  priorYear: number;
+  floorEur: number;
+  risers: NzokDrugMover[]; // biggest % increase, both years ≥ floor
+  fallers: NzokDrugMover[]; // biggest % decrease
+  newlyReimbursed: NzokDrugMover[]; // absent prior year, ≥ floor now
+}
+
 export interface NzokDrugReimbursementFile {
   generatedAt: string;
   source: { publisher: string; url: string; description: string };
@@ -132,6 +230,8 @@ export interface NzokDrugReimbursementFile {
   // sorted by eur desc — the ATC-group view slices/relies on the leading entries
   byAtcGroup: { code: string; bg: string; en: string; eur: number }[];
   top: NzokDrugInn[]; // sorted by eur desc
+  /** Full-year YoY movers; null when two annual years aren't both available. */
+  growth?: NzokDrugGrowth | null;
 }
 
 export type KfpSeries =

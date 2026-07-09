@@ -285,6 +285,26 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Разходи за ${f(env, "function")}: ${f(env, "amount")} (${f(env, "share_of_budget")} от бюджета) през ${f(env, "year")}; ${f(env, "rank")}-о място по размер.`
         : `Spending on ${f(env, "function")}: ${f(env, "amount")} (${f(env, "share_of_budget")} of the budget) in ${f(env, "year")}; ranked #${f(env, "rank")} by size.`;
+    case "nzokBudget":
+      if (!env.facts.total) return env.title;
+      return lang === "bg"
+        ? `Бюджет на НЗОК ${f(env, "year")}: ${f(env, "total")} общо. Най-голямо перо — ${f(env, "biggest_line")}: ${f(env, "biggest_amount")} (${f(env, "biggest_share")}).`
+        : `NHIF budget ${f(env, "year")}: ${f(env, "total")} total. Biggest line — ${f(env, "biggest_line")}: ${f(env, "biggest_amount")} (${f(env, "biggest_share")}).`;
+    case "nzokDrugs":
+      if (!env.facts.top_inn) return env.title;
+      return lang === "bg"
+        ? `Най-много НЗОК плаща за ${f(env, "top_inn")} (${f(env, "top_product")}): ${f(env, "top_amount")}. Онкологията е ${f(env, "oncology_share")} от ${f(env, "total")} за ${f(env, "distinct_inn")} активни вещества (${f(env, "year")}).`
+        : `The NHIF reimburses ${f(env, "top_inn")} (${f(env, "top_product")}) most: ${f(env, "top_amount")}. Oncology is ${f(env, "oncology_share")} of ${f(env, "total")} across ${f(env, "distinct_inn")} active substances (${f(env, "year")}).`;
+    case "nzokDrugGrowth":
+      if (!env.facts.top_riser) return env.title;
+      return lang === "bg"
+        ? `Най-бързо растящо лекарство (${f(env, "prior_year")}→${f(env, "year")}): ${f(env, "top_riser")}, ${f(env, "top_riser_change")} до ${f(env, "top_riser_amount")}; ${f(env, "newly_reimbursed")} новореимбурсирани.`
+        : `Fastest-rising medicine (${f(env, "prior_year")}→${f(env, "year")}): ${f(env, "top_riser")}, ${f(env, "top_riser_change")} to ${f(env, "top_riser_amount")}; ${f(env, "newly_reimbursed")} newly reimbursed.`;
+    case "nzokHospitals":
+      if (!env.facts.top_hospital) return env.title;
+      return lang === "bg"
+        ? `Най-много от НЗОК получава ${f(env, "top_hospital")}: ${f(env, "top_amount")}. Общо ${f(env, "national_total")} към ${f(env, "facilities")} лечебни заведения (${f(env, "as_of")}).`
+        : `The NHIF pays ${f(env, "top_hospital")} most: ${f(env, "top_amount")}. ${f(env, "national_total")} total across ${f(env, "facilities")} facilities (${f(env, "as_of")}).`;
     case "procurementTotals": {
       const offVal = f(env, "official_connected_value");
       const offBg = offVal ? ` и с длъжностни лица: ${offVal}` : "";

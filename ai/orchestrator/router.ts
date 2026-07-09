@@ -1661,6 +1661,65 @@ export const route = (question: string, ctx: ToolContext): Route => {
   // an indicator's as-of year, a governance profile's as-of year.
   const promptYearMatch = q.match(/\b(20[0-2]\d)\b/);
   const promptYear = promptYearMatch ? Number(promptYearMatch[1]) : undefined;
+  // НЗОК (National Health Insurance Fund) health pack — budget-line breakdown,
+  // drug reimbursement (by INN + growth), per-hospital БМП payments. Placed at
+  // the top of the public-finance block so a health-fund question is not
+  // swallowed by budgetFunction (which matches "здравн"/"болниц" for the COFOG
+  // health slice), awarderProcurement (болниц/мбал), or the generic budget view.
+  // Gated on an explicit НЗОК / здравна каса reference — bare "здравеопазване" /
+  // "болница X" stays with the budget-function / procurement tools.
+  {
+    const nzokCtx = has(
+      q,
+      "нзок",
+      "nhif",
+      "здравната каса",
+      "здравна каса",
+      "здравноосигурителн",
+      "health insurance fund",
+      "health fund",
+    );
+    if (nzokCtx) {
+      // A procurement-phrased НЗОК question ("обществени поръчки на НЗОК",
+      // "договорите на здравната каса") is about the fund's own CONTRACTS, not
+      // its budget/drugs/hospitals — route straight to the buyer's procurement
+      // view (awarderProcurement resolves the bare НЗОК EIK 121858220).
+      if (has(q, "поръчк", "договор", "procurement", "contract"))
+        return { tool: "awarderProcurement", args: { org: "121858220" } };
+      // drugs / medicines reimbursement — growth cue splits the fastest-rising /
+      // newly-reimbursed view from the top-INN snapshot
+      if (has(q, "лекарств", "медикамент", "drug", "medicin", "реимбурс")) {
+        if (
+          has(
+            q,
+            "растат",
+            "ръст",
+            "най-бързо",
+            "растящи",
+            "нови",
+            "новите",
+            "новореимбурс",
+            "fastest",
+            "grow",
+            "rising",
+            "newly",
+            "new ",
+          ) ||
+          overTimeCue(q)
+        )
+          return { tool: "nzokDrugGrowth", args: {} };
+        return { tool: "nzokDrugs", args: {} };
+      }
+      // per-hospital БМП payments ("кои болници получават най-много от НЗОК")
+      if (has(q, "болниц", "лечебни заведения", "мбал", "hospital", "бмп"))
+        return { tool: "nzokHospitals", args: {} };
+      // otherwise the budget-line breakdown ("къде отиват парите на НЗОК")
+      return {
+        tool: "nzokBudget",
+        args: promptYear ? { year: promptYear } : {},
+      };
+    }
+  }
   // pensions / social-security funds -> the NOI pension funds, even when phrased
   // "...в бюджета" (otherwise the generic budget view below would swallow it)
   if (

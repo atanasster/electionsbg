@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-09T11:15:53.208Z",
+  "generatedAt": "2026-07-09T14:30:52.223Z",
   "source": {
     "publisher": "Национална здравноосигурителна каса (НЗОК)",
     "url": "https://www.nhif.bg/bg/medicine_food/quarter-payments/2026",
@@ -8,7 +8,7 @@
   "year": 2026,
   "basis": "ytd",
   "totalEur": 220903927,
-  "distinctInn": 586,
+  "distinctInn": 584,
   "productRows": 2310,
   "byAtcGroup": [
     {
@@ -297,5 +297,224 @@
       "productCount": 4,
       "topProduct": "Kaftrio"
     }
-  ]
+  ],
+  "growth": {
+    "year": 2025,
+    "priorYear": 2024,
+    "floorEur": 1000000,
+    "risers": [
+      {
+        "inn": "INCLISIRAN",
+        "atc": "C10AX16",
+        "atcGroup": "C",
+        "eur": 3367628,
+        "priorEur": 1356943,
+        "deltaPct": 1.4817762121339473
+      },
+      {
+        "inn": "LUSPATERCEPT",
+        "atc": "B03XA06",
+        "atcGroup": "B",
+        "eur": 3192293,
+        "priorEur": 1363675,
+        "deltaPct": 1.3409492609508624
+      },
+      {
+        "inn": "DAROLUTAMIDE",
+        "atc": "L02BB06",
+        "atcGroup": "L",
+        "eur": 13616860,
+        "priorEur": 6378009,
+        "deltaPct": 1.1349702188587543
+      },
+      {
+        "inn": "AZACITIDINE",
+        "atc": "L01BC07",
+        "atcGroup": "L",
+        "eur": 2861329,
+        "priorEur": 1437352,
+        "deltaPct": 0.990694879970538
+      },
+      {
+        "inn": "CHLORTALIDONE",
+        "atc": "C03BA04",
+        "atcGroup": "C",
+        "eur": 2886198,
+        "priorEur": 1517603,
+        "deltaPct": 0.9018141322255933
+      },
+      {
+        "inn": "TUCATINIB",
+        "atc": "L01EH03",
+        "atcGroup": "L",
+        "eur": 1998908,
+        "priorEur": 1056124,
+        "deltaPct": 0.8926818888880179
+      },
+      {
+        "inn": "EPLERENONE",
+        "atc": "C03DA04",
+        "atcGroup": "C",
+        "eur": 2132449,
+        "priorEur": 1159817,
+        "deltaPct": 0.8386087832792131
+      },
+      {
+        "inn": "INSULIN DEGLUDEC AND INSULIN ASPART",
+        "atc": "A10AD06",
+        "atcGroup": "A",
+        "eur": 5922895,
+        "priorEur": 3244748,
+        "deltaPct": 0.825378942676726
+      },
+      {
+        "inn": "ANIFROLUMAB",
+        "atc": "L04AG11",
+        "atcGroup": "L",
+        "eur": 2893457,
+        "priorEur": 1589350,
+        "deltaPct": 0.8205289693543434
+      },
+      {
+        "inn": "GILTERITINIB",
+        "atc": "L01XE54",
+        "atcGroup": "L",
+        "eur": 2874523,
+        "priorEur": 1584794,
+        "deltaPct": 0.8138146004184896
+      },
+      {
+        "inn": "MOLSIDOMINE",
+        "atc": "C01DX12",
+        "atcGroup": "C",
+        "eur": 3147905,
+        "priorEur": 1857957,
+        "deltaPct": 0.6942832492889435
+      },
+      {
+        "inn": "EMPAGLIFLOZIN",
+        "atc": "A10BK03",
+        "atcGroup": "A",
+        "eur": 18350665,
+        "priorEur": 11360387,
+        "deltaPct": 0.6153204857950916
+      }
+    ],
+    "fallers": [
+      {
+        "inn": "NILOTINIB",
+        "atc": "L01XE08",
+        "atcGroup": "L",
+        "eur": 3368127,
+        "priorEur": 7904956,
+        "deltaPct": -0.5739221395001504
+      },
+      {
+        "inn": "DIMETHYL FUMARATE",
+        "atc": "L04AX07",
+        "atcGroup": "L",
+        "eur": 3215661,
+        "priorEur": 5976218,
+        "deltaPct": -0.46192374110891876
+      },
+      {
+        "inn": "AXITINIB",
+        "atc": "L01XE17",
+        "atcGroup": "L",
+        "eur": 2524701,
+        "priorEur": 4225338,
+        "deltaPct": -0.40248541987501973
+      },
+      {
+        "inn": "DABIGATRAN ETEXILATE",
+        "atc": "B01AE07",
+        "atcGroup": "B",
+        "eur": 1088856,
+        "priorEur": 1798330,
+        "deltaPct": -0.3945180743409268
+      },
+      {
+        "inn": "TICAGRELOR",
+        "atc": "B01AC24",
+        "atcGroup": "B",
+        "eur": 2266309,
+        "priorEur": 3663637,
+        "deltaPct": -0.38140452126971247
+      },
+      {
+        "inn": "IDURSULFASE",
+        "atc": "A16AB09",
+        "atcGroup": "A",
+        "eur": 1031556,
+        "priorEur": 1606425,
+        "deltaPct": -0.35785607747907167
+      },
+      {
+        "inn": "VILDAGLIPTIN / METFORMIN HYDROCHLORIDE",
+        "atc": "A10BD08",
+        "atcGroup": "A",
+        "eur": 1254548,
+        "priorEur": 1909736,
+        "deltaPct": -0.34307788283085006
+      },
+      {
+        "inn": "BEVACIZUMAB",
+        "atc": "L01XC07",
+        "atcGroup": "L",
+        "eur": 8168685,
+        "priorEur": 11551881,
+        "deltaPct": -0.2928697153737023
+      },
+      {
+        "inn": "ELTROMBOPAG",
+        "atc": "B02BX05",
+        "atcGroup": "B",
+        "eur": 3058484,
+        "priorEur": 4220472,
+        "deltaPct": -0.2753218375857749
+      },
+      {
+        "inn": "VISMODEGIB",
+        "atc": "L01XX43",
+        "atcGroup": "L",
+        "eur": 3753376,
+        "priorEur": 5167376,
+        "deltaPct": -0.27363988490149915
+      },
+      {
+        "inn": "RIVAROXABAN",
+        "atc": "B01AF01",
+        "atcGroup": "B",
+        "eur": 5635892,
+        "priorEur": 7099810,
+        "deltaPct": -0.20619106859536684
+      },
+      {
+        "inn": "INTERFERON BETA 1A",
+        "atc": "L03AB07",
+        "atcGroup": "L",
+        "eur": 2749296,
+        "priorEur": 3460635,
+        "deltaPct": -0.2055515635775932
+      }
+    ],
+    "newlyReimbursed": [
+      {
+        "inn": "TEZEPELUMAB",
+        "atc": "R03DX11",
+        "atcGroup": "R",
+        "eur": 1617222,
+        "priorEur": 0,
+        "deltaPct": null
+      },
+      {
+        "inn": "ELRANATAMAB",
+        "atc": "L01FX32",
+        "atcGroup": "L",
+        "eur": 1518623,
+        "priorEur": 0,
+        "deltaPct": null
+      }
+    ]
+  }
 }

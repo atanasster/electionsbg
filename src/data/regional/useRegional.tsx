@@ -10,7 +10,8 @@ export type RegionalIndicatorKey =
   | "enterpriseDensity"
   | "fdiPerCapita"
   | "museumVisitsPer1000"
-  | "hospitalBedsPer1000";
+  | "hospitalBedsPer1000"
+  | "deathRatePer1000";
 
 export type RegionalPoint = { year: number; value: number };
 
@@ -61,7 +62,8 @@ export const formatRegionalValue = (
   if (
     key === "ltUnemployment" ||
     key === "enterpriseDensity" ||
-    key === "hospitalBedsPer1000"
+    key === "hospitalBedsPer1000" ||
+    key === "deathRatePer1000"
   )
     return value.toFixed(1);
   // theftRate / fdiPerCapita / museumVisitsPer1000 are large per-100k / per-
@@ -82,6 +84,9 @@ export type RegionalLatest = {
   // per 1000). Rate-style indicators that can cross zero (net migration)
   // use absolute change so we don't show misleading hundreds-percent swings.
   deltaKind?: RegionalDeltaKind;
+  /** True when a rising value is bad (theft, unemployment, death rate) — the
+   *  delta badge colours a positive change red instead of green. */
+  higherIsWorse: boolean;
 };
 
 const DELTA_KIND: Record<RegionalIndicatorKey, RegionalDeltaKind> = {
@@ -94,7 +99,18 @@ const DELTA_KIND: Record<RegionalIndicatorKey, RegionalDeltaKind> = {
   fdiPerCapita: "percent",
   museumVisitsPer1000: "percent",
   hospitalBedsPer1000: "absolute",
+  deathRatePer1000: "absolute",
 };
+
+// Indicators where a RISING value is bad, so a positive YoY delta should read red
+// (not the default green). Everything else is treated as up-is-good/neutral. (Net
+// migration is signed and shown with its sign — positive net migration IS good —
+// so it stays default.)
+const HIGHER_IS_WORSE = new Set<RegionalIndicatorKey>([
+  "theftRate",
+  "ltUnemployment",
+  "deathRatePer1000",
+]);
 
 // Compute the latest value + YoY delta for each indicator at the given oblast.
 // Returns an empty array when the payload isn't ready or the oblast has no
@@ -126,6 +142,7 @@ export const selectLatestForOblast = (
       prior,
       yoyDelta,
       deltaKind,
+      higherIsWorse: HIGHER_IS_WORSE.has(key),
     });
   }
   return out;

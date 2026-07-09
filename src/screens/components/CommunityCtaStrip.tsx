@@ -52,7 +52,10 @@ export const CommunityCtaStrip: FC = () => {
   };
 
   return (
-    <div className="relative mb-3 hidden lg:flex gap-3 rounded-xl border border-border/60 bg-card p-3">
+    <div
+      data-community-banner
+      className="relative mb-3 hidden lg:flex gap-3 rounded-xl border border-border/60 bg-card p-3"
+    >
       <button
         type="button"
         onClick={dismiss}
