@@ -165,7 +165,7 @@ const DB_ROUTES = {
         orNull(q, "to"),
       ]),
       dbRows(
-        `SELECT contract_number, title, program_name, total_eur, paid_eur, status
+        `SELECT contract_number, title, program_name, total_eur, paid_eur, status, duration_months
          FROM fund_projects WHERE beneficiary_eik = $1
          ORDER BY total_eur DESC NULLS LAST LIMIT 6`,
         [eik],

@@ -88,7 +88,7 @@ export const FundsContractScreen: FC = () => {
   }
 
   const disbursementPct =
-    data.totalEur > 0 ? (data.paidEur / data.totalEur) * 100 : 0;
+    data.totalEur > 0 ? Math.min(100, (data.paidEur / data.totalEur) * 100) : 0;
 
   // Resolve the place link target. For settlement-kind locations we link to
   // the EKATTE settlement page; for muni-kind we link to the first listed
@@ -296,13 +296,21 @@ export const FundsContractScreen: FC = () => {
                 <div className="text-xs text-muted-foreground">
                   {t("funds_contract_isun_link")}
                 </div>
+                <div className="text-sm font-medium tabular-nums">
+                  {data.contractNumber}
+                </div>
+                {/* ИСУН keys its per-project detail pages by an internal GUID, not
+                    the public contract number, so there is no stable deep link we
+                    can build from our data (a ?contractId=<number> URL 404s). Link
+                    to the public project search instead — the number above is
+                    copy-pasteable into it. */}
                 <a
-                  href={`https://2020.eufunds.bg/bg/0/0/Project/Details?contractId=${encodeURIComponent(data.contractNumber)}`}
+                  href="https://2020.eufunds.bg/bg/0/0/Project/Search"
                   target="_blank"
                   rel="noreferrer"
-                  className="text-sm font-medium text-primary hover:underline tabular-nums"
+                  className="text-xs text-primary hover:underline"
                 >
-                  {data.contractNumber} →
+                  {t("funds_contract_isun_search")} →
                 </a>
               </div>
             </div>
