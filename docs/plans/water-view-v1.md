@@ -186,7 +186,23 @@ Mount one `<SectorBrowseSlot ctx={{from,to,all,cpv,method,q}}/>` in `ContractsBr
    contractors, funding split, function breakdown — the same tiles, scope-aware).
 3. Composes `columns = [...base, ...(pack.columns ?? [])]`. Function / operator / oblast are
    **derived client-side from `awarderEik`** via `vikReferenceData.ts` — no backend change.
-   Only the funding chip (ИСУН) needs the `resource` override or a client operator→program set.
+
+**Funding-source chip — build it in v1 (not deferred).** Add an enriched `water-contracts`
+`/api/db/table` registry entry backed by a view that LEFT JOINs the contract's awarder EIK to
+the ИСУН operator+program grain, yielding a `funding_source` column (ОПОС / national / tariff).
+The water browse pack sets `resource: "water-contracts"` so the table gains a **funding chip
+column + facet** ("show only ОПОС-cofinanced ПСОВ contracts in Шумен"). Per-contract ocid
+linkage is weak (11–23%), so the flag is at operator+program grain (accurate) and the caption
+says so. EXPLAIN-ANALYZE the joined view on the worst-case operator; index the ИСУН beneficiary
+key both sides.
+
+**All sectors get a browse `Section` in v1 (not water-only).** Populate `SECTOR_BROWSE_PACKS`
+with entries for `water`, `roads` (API_EIK), `noi`, `nzok`, and `agri` — each reuses its
+existing pack's tiles as a compact browse `Section` and its own EIK-set as the `fixedFilters`.
+So `/procurement/contracts?sector=roads` shows the roads mini-pack over АПИ contracts, etc. The
+water tiles are built fresh; the other four wrap tiles that already exist (small refactor to a
+shared `Section` variant). Each sector's nav pill/menu entry can deep-link to its enriched
+browse in addition to its awarder page.
 
 The "Води (ВиК)" nav pill (§4.2) links to `/procurement/contracts?sector=water`.
 
@@ -200,6 +216,60 @@ Notes / prerequisites:
 - Two faces of one idea: `getSectorPack(eik)` (single-entity awarder page) and
   `SECTOR_BROWSE_PACKS[sector]` (multi-entity browse page) share the water tiles and reference
   data; build the tiles once, mount them in both.
+
+## 4.4 SEO: sitemap, static prerender, OG screenshots
+
+Every crawlable Води page needs a real prerendered `dist/<path>/index.html` (a Vite SPA hides
+React `<meta>` from crawlers; a sitemap `<loc>` without matching prerender HTML is a homepage
+soft-duplicate). One catalogue — `INSTITUTION_PACKS` in `scripts/prerender/institutions.ts` —
+drives prerender + sitemap + OG capture for the awarder packs at once.
+
+### Awarder packs (Води + Напоителни)
+Add one `InstitutionPack` entry each to `INSTITUTION_PACKS` (`scripts/prerender/institutions.ts`):
+```
+{ eik: "206086428", slug: "water",
+  nameBg/nameEn, titleBg/titleEn, descriptionBg/descriptionEn,
+  bodyBg/bodyEn,                 // crawlable prerendered body (real numbers: loss %, subs, invest)
+  ogAnchor: '[data-og="water-loss-map"]',   // the загуби choropleth — a MAP, not a KPI header
+  ogCenter: true, ogSettleMs: 2500 }         // center-frame + wait for the map to render
+```
+This auto-emits: the `/awarder/206086428` (+ `/en/…`) sitemap `<loc>` (loop in
+`scripts/sitemap/index.ts`), the prerendered HTML, and `public/og/awarder/water.png` via the
+`INSTITUTION_PACKS` loop in `scripts/og/capture-screens.ts`. Add a second entry for Напоителни
+(`slug: "napoitelni"`, `ogAnchor` = its reservoir/irrigation map or debt chart). No other file
+edits needed for the awarder packs.
+
+### Standalone /water/* pages
+- `scripts/sitemap/route_defs.ts` — add static route defs: `water`, `water/operators`,
+  `water/reservoirs`, `water/funds`.
+- `scripts/prerender/dynamicRoutes.ts` — add `buildWaterRoutes(): PrerenderRoute[]` (title,
+  description, `ogImage`, crawlable `bodyHtml`, `jsonLd` via `buildWebPageLd` + `buildBreadcrumbLd`)
+  and spread it into `buildDynamicRoutes()`.
+- `scripts/og/capture-screens.ts` — add three `captures` entries; **each anchor is a chart or a
+  map, center-framed, with a settle delay** so the visual is fully painted before the shot:
+  - `water/operators` → `data-og="water-operators-chart"` (loss/tariff bar chart), `settleMs 1500`
+  - `water/reservoirs` → `data-og="water-reservoirs-map"` (reservoir map/level chart),
+    `centerOnAnchor`, `settleMs 2500`
+  - `water/funds` → `data-og="water-funds-chart"` (ОПОС investment chart), `settleMs 1500`
+  Output: `public/og/water/{operators,reservoirs,funds}.png` (1200×630), referenced via each
+  route's `ogImage`.
+
+### Component requirement for beautiful OG
+Every OG-anchored visual must wrap its **chart or map** (never a bare KPI row) in a
+`<div data-og="…">`: the awarder hero's `VikWaterLossTile` choropleth, the reservoir map, the
+operators chart, the funds chart. The capture waits on `waitFor` = the anchor, so Recharts/Leaflet
+must have finished animating (hence `ogSettleMs`); disable chart entry animations under the OG
+capture flag if needed for a crisp frame.
+
+### ?sector= browse variant — deliberately no sitemap/prerender entry
+Query-string variants (`/procurement/contracts?sector=water`) are soft-duplicate filters of the
+base page; the already-prerendered `/procurement/contracts` covers them, and adding a `<loc>`
+without its own `dist/.../index.html` would violate the sitemap-validity rule. The sector view is
+a client-side filter surface reached via the nav pill, not an indexed URL.
+
+### File-count budget
++~8 prerendered HTML (`dist/{,en/}water/*` + 2 awarder pages already counted) and ~6 OG PNGs —
+negligible against the ~84k Firebase deploy file ceiling.
 
 ## 4.2 Nav links to the Води pack (two surfaces)
 
@@ -381,18 +451,22 @@ natural key that survives TRUNCATE+reload). Examples:
 
 ## 10. Phasing
 
-- **MVP (Tier A only — renders today, no new ingest):** `vikReferenceData.ts` with the 26-EIK
-  list, register `206086428`, `VikSubsidiaryTreeTile` (consolidated procurement + P/L, Top-N),
-  `VikEuFundsTile` (ИСУН join, Top-N), `VikCategoryTile`, auto chips + KPI, all scope-based.
-  Both nav links (§4.2) + `procurement_water_nav` i18n. `WaterOperatorsDbScreen` + `/water/
-  operators` "See all". Napoitelni pack shell.
+- **MVP (Tier A — renders off existing corpus/ИСУН/ТР, no new ingest):** `vikReferenceData.ts`
+  with the 26-EIK list, register `206086428`, `VikSubsidiaryTreeTile` (consolidated procurement +
+  P/L, Top-N), `VikEuFundsTile` (ИСУН join, Top-N), `VikCategoryTile`, auto chips + KPI, all
+  scope-based. Both nav links (§4.2) + `procurement_water_nav` i18n. `WaterOperatorsDbScreen` +
+  `/water/operators` "See all". **Sector browse packs (§4.3) for all five sectors** +
+  `water-contracts` enriched registry with the **funding-source chip**. **SEO/OG (§4.4):**
+  `INSTITUTION_PACKS` entries for the Води + Напоителни awarders (drives prerender + sitemap +
+  OG), `route_defs`/`buildWaterRoutes`/OG capture for `/water/operators`. Napoitelni pack shell.
 - **Fast-follow 1 (Tier B):** `update-water` skill + КЕВР benchmarking + tariffs + NSI water
   stats → the choropleth triptych (`OblastChoropleth`: загуби % · тариф лв/м³ · воден режим %),
   invest-vs-result hero, scope-clipped trend series. Wire watchers, changelog, data map, README,
-  AI tools.
+  AI tools. Re-capture the awarder OG on the загуби map.
 - **Fast-follow 2 (Tier C):** МОСВ daily reservoirs (watcher `daily`) + "Язовири и воден режим"
-  section + a summer FB card. КЕВР business plans → targets-vs-actuals.
-- **Stretch (Tier D):** drinking-water quality (РЗИ/ИАОС nitrate zones).
+  section + `/water/reservoirs` page + its map-based OG + a summer FB card. КЕВР business plans
+  → targets-vs-actuals.
+- **Stretch (Tier D):** drinking-water quality (РЗИ/ИАОС nitrate zones) + `/water/quality`.
 
 ## 11. Open questions / risks
 - Canonical 26-subsidiary EIK list + Напоителни EIK (resolve from TR/vikholding.bg).

@@ -150,11 +150,22 @@ procurement stat (small conditional in `CompanyDbScreen`, keyed on the two EIKs)
 5. **(Phase 2) seizures/контрабанда** trend (Митническа хроника + EU IPR data).
 6. Footnote: Митническа хроника + АОП/ЦАИС attribution.
 
-### НАП pack (`/awarder/131063188`) — the thin one (2024 + КФП)
-1. **KPI row:** "Събрано през {year}" (КФП `revenue`, all-tax) · "Изпълнение на плана" (vs
-   planned, if НАП report parsed). Chips: YoY, VAT share of central revenue.
-2. **Hero — "Откъде идват парите"**: composition bar. VAT + PIT from `revenue_breakdown`
-   (2024); ЗКПО / осигуровки from КФП or НАП report. **Label the single-year basis.**
+### НАП pack (`/awarder/131063188`) — tax composition (КФП, monthly) + labelled осигуровки band
+**Headline basis — DECIDED (Option C, see §15):** the composition and its reconciling total are
+**tax revenue only** (the clean КФП `constituentBudget:"state"` revenue slice — ДДС/ДДФЛ/ЗКПО/
+акцизи/мита, monthly & current). Осигуровки (social/health contributions НАП collects on behalf
+of НОИ/НЗОК) are shown as a **separate, clearly-labelled additive band/stat** — "+ €X събрани за
+сметка на НОИ/НЗОК" linking to those packs — so the grand total matches НАП's own ~€21.5bn (2024)
+headline **without double-counting** the contributions the НОИ/НЗОК packs already show. The bar
+sums to the tax headline; the осигуровки band is explicitly additive, never folded into the base.
+1. **KPI row:** "Данъчни приходи, събрани през {year}" (КФП tax revenue) · secondary
+   "+ осигуровки за НОИ/НЗОК €X" (the labelled band, from the social-funds КФП constituent or the
+   НОИ/НЗОК B1 we already ingest — ONE number, not a second composition) · "Изпълнение на плана"
+   (if НАП report parsed). Chips: YoY, VAT share of central revenue.
+2. **Hero — "Откъде идват данъчните приходи"**: composition bar (ДДС/ДДФЛ/ЗКПО/акцизи/мита/др.)
+   straight from the КФП snapshot — monthly, current, all bars reconcile to the tax headline.
+   Осигуровки render as a distinct trailing band with its own label + link, outside the summed
+   base. VAT/PIT КИД-2008 detail (2024) is the drill below, not the headline.
 3. **VAT by sector** (КИД-2008, 2024) — net-refund sectors highlighted (drilldown body exists).
 4. **Tax-gap tile**: BG VAT gap **8.6% / €781M (2023)**, PIT gap **13.8%** vs EU 9.5%, as % of
    theoretical liability; "collected X% of VAT owed" framing; link to `/indicators/compare`.
@@ -162,7 +173,8 @@ procurement stat (small conditional in `CompanyDbScreen`, keyed on the two EIKs)
    HMRC 0.51p/£1 idea.
 6. **"Промени данъка" CTA** → `/budget/simulator` (the reckoner is already built).
 7. **(Phase 2) top tax debtors** (BIRD) Top-N → `seeMoreTo` full page; overlay chip (§7).
-8. Footnote: НАП годишен отчет + КФП + EU VAT-Gap + BIRD attribution.
+8. Footnote: НАП годишен отчет + КФП + EU VAT-Gap + BIRD attribution; note that осигуровки are
+   collected by НАП but flow to НОИ/НЗОК (shown as an additive band, not part of the tax base).
 
 ## 6. Data source inventory (tiered by ingest cost)
 
@@ -299,16 +311,61 @@ that covers it.
 - These auto-generate from `model.ts`; the feature-node + edge additions above make the two
   packs appear on the generated sources→datasets→features diagram. No hand-editing.
 
-## 13. Phasing
+## 13. Sitemap, static page generation & OG cards
+
+`/awarder/:eik` is a **client-only SPA route** — with no prerender a crawler hits the Firebase
+rewrite and sees the homepage meta (soft-duplicate, the SEO-discovery gap). The existing packs
+solve this through **one source of truth**: `INSTITUTION_PACKS` in
+`scripts/prerender/institutions.ts`, which drives all three SEO surfaces. Adding НАП + Митници
+is **two array entries** (plus a `data-og` attribute on each hero) — nothing bespoke.
+
+### The single-source-of-truth entry (per agency)
+Append to `INSTITUTION_PACKS` an `InstitutionPack`:
+- `eik` (`131063188` / `000627597`), `slug` (`nap` / `customs`), `nameBg/En`.
+- `titleBg/En`, `descriptionBg/En` — the `<title>`/`<meta description>` (revenue-first copy,
+  e.g. "НАП — откъде идват данъчните приходи: ДДС, ДДФЛ, акцизи, данъчна пропаст").
+- `bodyBg/En` — crawlable no-JS `<h1>`+`<p>` body (the "collector, not spender" thesis,
+  headline figures, internal links to `/budget`, `/procurement`, `/indicators/compare`).
+- `ogAnchor` — the `data-og` selector of the pack's signature visual so the OG card leads with
+  the chart, not a KPI header: `[data-og="nap-revenue"]` (the composition bar) /
+  `[data-og="customs-excise"]` (the excise donut). Set `ogCenter`/`ogSettleMs` if the visual
+  reads from the middle or needs render-settle time (charts: ~2500ms, maps: ~3500ms).
+
+This single entry automatically wires:
+- **`scripts/prerender/dynamicRoutes.ts`** → per-route static HTML + OG/meta at
+  `dist/awarder/<eik>/index.html` (+ `/en`). Cost = 4 files total — negligible against the
+  ~84k file-ceiling.
+- **`scripts/sitemap/index.ts`** (L701–708) → emits `/awarder/:eik` + `/en/awarder/:eik`
+  sitemap URLs (loops `INSTITUTION_PACKS`). Each `<loc>` now has a real prerendered
+  `index.html`, so it is NOT a homepage soft-duplicate (satisfies the sitemap-validity rule).
+- **`scripts/og/capture-screens.ts`** → captures the OG card framed on `ogAnchor` to
+  `public/og/awarder/<slug>.png`.
+
+### Pack-side requirement
+Each pack's hero tile must carry the matching `data-og="nap-revenue"` /
+`data-og="customs-excise"` attribute (as `NzokBudgetBridgeTile` carries `data-og="nzok-bridge"`
+and the roads map `data-og="roads-map"`). This is the only frontend change beyond the pack
+itself.
+
+### Verify
+`npm run sitemap` (regenerates URLs), `npm run build && postbuild` (prerender + OG), and
+`npm run test:seo` (Playwright `--project=seo` asserts crawlable HTML/meta per route). Keep the
+EIKs in `institutions.ts` in sync with the `PACKS` registry and the `*_AWARDER_PATH` constants
+(the file header calls this out).
+
+## 14. Phasing
 
 - **Phase 1 — zero-new-ingest packs (ship first).** `NapPack` + `MitniciPack` off the existing
   hooks (`useCustomsBreakdown`/`useVatBreakdown`/`usePitBreakdown` + КФП): composition hero,
   KPI row, tax-gap tile (hard-keyed EU numbers), cost-to-collect, simulator CTA. Full §3
   skeleton; nav wired (sectorPacks + ProcurementNav + reportMenus + i18n). Relabel the
   buy-side header for the two EIKs. Митници gets the excise explorer + trade origins; НАП
-  degrades to 2024 with a labelled basis. Reuse the drilldown bodies from
+  headlines the monthly КФП tax composition + a labelled осигуровки band (Option C, §15), with
+  VAT/PIT КИД-2008 (2024) as the drill. Reuse the drilldown bodies from
   `BudgetFlowRevenueDrilldown.tsx`. AI tools `napRevenueBreakdown`/`customsRevenueBreakdown`/
-  `taxGap`. Data-map feature nodes + README line.
+  `taxGap`. Data-map feature nodes + README line. **Both `INSTITUTION_PACKS` entries +
+  `data-og` hero attributes (§13)** so the two routes prerender, enter the sitemap and get OG
+  cards; verify `npm run sitemap` + `npm run test:seo`.
 - **Phase 2 — Tier B + the moat.** egov excise registers (+ watcher, §9), annual-report
   enforcement stats (extend `nap_annual`/`customs_revenue`), ≥1 cross-dataset overlay (§7,
   + `taxDebtors` tool + SQL perf §8 + changelog §10).
@@ -318,11 +375,20 @@ that covers it.
   per-lever €, so this is UI + income input, not new modelling). Consider a 5th top-level view
   next to the planned Потребление.
 
-## 14. Open questions / risks
+## 15. Open questions / risks
 - ~~НАП composition is 2024-only~~ RESOLVED (§2): tax-type composition is monthly/current from
-  КФП snapshots. Remaining decisions: (a) include осигуровки in the "collected" headline (pull
-  from the transfers section) or headline tax-revenue only, labelled; (b) derive the per-agency
-  НАП/Митници split from tax types, or ingest the МФ monthly bulletin for the exact number.
+  КФП snapshots.
+- **Осигуровки in the headline — DECIDED: Option C.** Headline the **tax-revenue composition**
+  (clean КФП slice, reconciling total); show осигуровки as a **separate labelled additive band**
+  ("+ €X събрани за сметка на НОИ/НЗОК", linked). This matches НАП's own ~€21.5bn total, avoids
+  double-counting the contributions the НОИ/НЗОК packs already show, and keeps the composition
+  reconciling to one base. The осигуровки figure is a single number from the social-funds КФП
+  constituent or the НОИ/НЗОК B1 (already ingested) — not a second composition.
+  *Ship-now fallback:* if the осигуровки number isn't wired for Phase 1, headline tax revenue
+  with an explicit "без осигуровки" label (Option A), then add the band (→ full C) as a
+  fast-follow. Either way the tax bar is unchanged.
+- Per-agency НАП/Митници split: derive from tax types, or ingest the МФ monthly bulletin
+  (`minfin.bg/bg/statistics/12`) for the exact administered-by number — deferred, not blocking.
 - Generalize `scripts/budget/nap_annual.ts` beyond 2024 (currently hardcoded) before the 2025
   НАП report's КИД-2008 sector detail can be shown.
 - Buy-side header ergonomics for collector EIKs — confirm the relabel reads well.
@@ -330,6 +396,6 @@ that covers it.
 - Debtors overlay (Phase 2) precision — reuse the procurement namesake-fix high-confidence rule
   (declared stake OR unique TR name) to avoid EIK/name-collision false positives.
 
-## 15. First social card (already in the data)
+## 16. First social card (already in the data)
 "Митниците събраха 7,06 млрд. € през 2024 — 50% от тях са акцизи, а €1,36 млрд. само върху
 горивата." (customs/2024.json, confirmed against Митническа хроника.)

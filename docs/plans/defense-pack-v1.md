@@ -1,6 +1,6 @@
 # Отбрана (МО / Българска армия) view — v1
 
-## Status (2026-07-09, rev 1.1)
+## Status (2026-07-09, rev 1.2)
 
 - **Design doc only** — nothing built yet. Written against the four shipped
   "Държавни структури" dashboards (АПИ / НОИ / НЗОК + ДФ „Земеделие“ awarder) so the
@@ -10,6 +10,9 @@
   gates, watcher + process-watch-report wiring, changelog, AI chat tools, data-map/README
   docs. Key reuse confirmed from source: "see all МО contracts" = `CompanyContractsDbScreen`
   scoped by `awarder_eik` (no new screen); `SECTOR_BROWSE_PACKS` is unbuilt and unneeded here.
+- **Rev 1.2** adds Part 9 (sitemap, static prerender, OG screenshots). Confirmed from source: all
+  three pipelines are driven by one `INSTITUTION_PACKS` entry in `scripts/prerender/institutions.ts`;
+  a `data-og`-tagged hero chart/map produces the 1200×630 OG card via Playwright.
 - Competitive research + a static layout mockup are done (SIPRI, NATO, EDA, МО,
   Prozorro/DOZORRO, TI GDI, USAspending, IISS, Kiel tracker). See memory
   `project_defense_pack.md`.
@@ -334,6 +337,68 @@ The generated diagram (`/data`, `/data/sources`, `/data/updates`) picks up the n
 SOURCE_GROUP/DATASET automatically from `model.ts`; no separate hand-edit. Confirm the Отбрана
 feature node renders after `npm run data:map`.
 
+## Part 9 — Sitemap, static prerender & OG screenshots
+
+All three pipelines are driven by **one source of truth**: the `INSTITUTION_PACKS` array in
+`scripts/prerender/institutions.ts` (currently roads/noi/nzok/dfz; note НЗОК is also enumerated
+via `scripts/sitemap/route_defs.ts`). Adding a `data-og`-tagged signature visual to the pack +
+one `InstitutionPack` entry wires the awarder page into sitemap, prerendered HTML, and the OG
+card automatically.
+
+### a. The pack page `/awarder/000695324`
+Add one entry to `INSTITUTION_PACKS`. Shape (`InstitutionPack`):
+```ts
+{
+  eik: "000695324",
+  slug: "defence",                 // → public/og/awarder/defence.png
+  nameBg: "Министерство на отбраната", nameEn: "Ministry of Defence (МО)",
+  titleBg: "…поръчки | …", titleEn: "…procurement | …",
+  descriptionBg: "…ЕИК 000695324…", descriptionEn: "…EIK 000695324…",
+  bodyBg: "<h1>…</h1><p>… crawlable, links to /procurement …</p>", bodyEn: "…",
+  ogAnchor: '[data-og="defense-hero"]', // CSS selector of the signature chart/map
+  ogCenter: true,                        // center the 1200×630 clip on the chart
+  ogSettleMs: 3000,                      // let Recharts/Leaflet finish rendering
+}
+```
+This one entry gives (per the review):
+- **Sitemap** — `scripts/sitemap/index.ts` (~L701) loops `INSTITUTION_PACKS` and pushes
+  `/awarder/000695324` + `/en/awarder/000695324` (bucket `static`, lastmod `today`). Every
+  `<loc>` must have a real `dist/awarder/000695324/index.html` — the prerender below creates it
+  (heed the sitemap-validity rule: no loc without prerendered HTML).
+- **Prerender** — `buildInstitutionAwarderRoutes()` (`dynamicRoutes.ts` ~L2841) emits the BG+EN
+  route with `ogImage:/og/awarder/defence.png`, WebPage + Breadcrumb JSON-LD; `prerender/index.ts`
+  `renderSeoBlock()` injects `<title>`/description/OG tags/hreflang → `dist/awarder/000695324/
+  index.html` (+ `/en/`). ~8KB, negligible vs the Firebase file ceiling.
+- **OG card** — `scripts/og/capture-screens.ts` (~L337) loops `INSTITUTION_PACKS`, Playwright-
+  screenshots `localhost:5173/awarder/000695324` at **1200×630**, waits for `ogAnchor`, scrolls it
+  in, settles `ogSettleMs`, hides chrome, clips centered → `public/og/awarder/defence.png`.
+
+**Beautiful screenshot (chart or map) — the deliberate choice:** the pack must render a signature
+visual carrying `data-og="defense-hero"`. Best candidates, in order:
+1. the **%GDP-to-5% chart** (the most striking, target-line story) rendered as the pack hero, or
+2. the **DefenseBudgetBridgeTile** chart, or
+3. later, an **arms-flow map/Sankey** (Phase 3) — `ogCenter` shines for maps.
+Match the existing anchors' quality bar (roads = Leaflet map 3500ms, nzok = budget-bridge chart
+2500ms). Keep app-side constants in sync: `MOD_EIK` in `src/lib/defenseBenchmarks.ts` mirrors the
+`INSTITUTION_PACKS` eik, and the tile with `data-og="defense-hero"` lives in `DefensePack`.
+
+### b. The `/defense` screen (Phase 2) — its own SEO surface
+The institutions pipeline covers only `/awarder/:eik`. The dedicated `/defense` screen is a
+separate route, so it needs its own three-pipeline wiring:
+- **Sitemap** — add `/defense` (+ `/en/defense`) to the static route list in
+  `scripts/sitemap/route_defs.ts`.
+- **Prerender** — add a static `PrerenderRoute` (title/description/`ogImage`/`bodyHtml`/JSON-LD),
+  same pattern as other screen routes in `dynamicRoutes.ts`, → `dist/defense/index.html` (+ `/en/`).
+- **OG card** — add a capture entry to the **non-awarder** list in `capture-screens.ts` framing the
+  screen's hero (`data-og="defense-gdp"` → the %GDP-to-5% chart, or `data-og="defense-armsflow"` →
+  the arms-flow map). → `public/og/defense.png`.
+
+### c. Build/commit
+`npm run build` runs the `postbuild` chain (`og/generate.ts` → `prerender/index.ts`); `npm run
+sitemap` is separate. Commit the new `public/og/awarder/defence.png` (+ `public/og/defense.png`)
+and `bucket:sync` any data. Verify `dist/awarder/000695324/index.html` exists (else the sitemap
+loc is a soft-duplicate of the homepage).
+
 ---
 
 ## Data sources (obtainable vs classified)
@@ -419,6 +484,7 @@ transparency-gap framing no PDF publisher offers.
 - [ ] `ProcurementNav.tsx` — `secondaryItems` entry (icon `Shield`)
 - [ ] `locales/{bg,en}/translation.json` — `procurement_defense_nav` (only nav goes through i18n)
 - [ ] "See all visible МО contracts" — reuse `CompanyContractsDbScreen` scoped by `awarder_eik` (no new screen); `EXPLAIN ANALYZE` the МО `awarder_eik` filter (Part 4)
+- [ ] **Signature visual + OG (Part 9):** render the pack hero chart with `data-og="defense-hero"`; add the `INSTITUTION_PACKS` entry (slug `defence`, ogCenter, ogSettleMs 3000) → auto-wires sitemap + prerender + `public/og/awarder/defence.png`. Verify `dist/awarder/000695324/index.html` exists.
 
 ### Phase 2 — `/defense` screen + full plumbing
 - [ ] Route in `src/routes.tsx` (`<LayoutScreen>`), screen in `src/screens/`, homepage shell (no `max-w`, no tabs)
@@ -431,6 +497,7 @@ transparency-gap framing no PDF publisher offers.
 - [ ] **Data map (Part 8):** `defense` SOURCE_GROUP + DATASET + EDGES + `AI_PATH_RULES /^\/defense\//` in `data_map/model.ts`; verify `npm run data:map`
 - [ ] **Docs (Part 8):** README data-sources (~L472) + data-layout (~L205) + `update-defense` CLI flags
 - [ ] **SQL perf (Part 4):** `EXPLAIN ANALYZE` any new query on worst-case; defense JSON is small so no new tables/indexes expected
+- [ ] **`/defense` screen SEO (Part 9b):** `/defense` in `sitemap/route_defs.ts`; static `PrerenderRoute` → `dist/defense/index.html` (+ `/en/`); OG capture entry framing the %GDP chart / arms map → `public/og/defense.png`
 
 ### Phase 3 — differentiators
 - [ ] Arms-flow Sankey, GDI risk pillar (reuse `computeProcurementRisk` + evidence-on-click + scorecard image), program lifecycle Gantt + cost-drift, cabinet anchoring

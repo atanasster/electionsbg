@@ -166,6 +166,8 @@ Pack (mirrors NZOK):
 - `sectorPacks.tsx` — register `[KULTURA_EIK]: KulturaPack`, export `KULTURA_AWARDER_PATH`
 - `reportMenus.ts` (Държавни структури group) + `ProcurementNav.tsx` (pill) + i18n keys
   `procurement_kultura_nav`
+- `scripts/prerender/institutions.ts` — one `INSTITUTION_PACKS` entry (§12, feeds
+  sitemap + prerender + OG); add `data-og="kultura-hero"` to the hero tile in the pack
 
 Subsidy corpus (mirrors agri):
 - `scripts/kultura/` ingest (НФЦ `.xls` first) → PG `kultura_subsidies`
@@ -343,20 +345,81 @@ path an ai/ tool reads MUST have an `AI_PATH_RULES` entry (§11) or the prebuild
 
 ---
 
-## 12. Phasing
+## 12. SEO surfaces — sitemap, static prerender, OG card
+
+All three static/SEO surfaces read **one source of truth**: the `INSTITUTION_PACKS`
+array in `scripts/prerender/institutions.ts`. Appending a single `InstitutionPack`
+entry feeds the sitemap, the prerendered HTML, and the OG screenshot — the roads/НОИ/
+НЗОК/ДФЗ packs are all wired this way. So the Култура work here is **one entry + one
+`data-og` attribute on the hero tile**.
+
+### The entry (append after the ДФЗ entry)
+```ts
+{
+  eik: "000695160",
+  slug: "kultura",                        // → public/og/awarder/kultura.png
+  nameBg: "Министерство на културата",
+  nameEn: "Ministry of Culture (МК)",
+  titleBg: "Министерство на културата — къде отиват парите за култура | Наясно",
+  titleEn: "Ministry of Culture — where culture money goes | Naiasno",
+  descriptionBg: "Държавни субсидии за театри, кино (НФЦ), НФК грантове и читалища …",
+  descriptionEn: "State subsidies to theatres, film (NFC), NCF grants and читалища …",
+  bodyBg: `<h1>Министерство на културата — публични разходи</h1><p>…</p>`,  // crawlable, no scripts
+  bodyEn: `<h1>Ministry of Culture — public spending</h1><p>…</p>`,
+  ogAnchor: '[data-og="kultura-hero"]',   // the signature chart/map (below)
+  ogCenter: true,                          // center-clip — reads best for a map
+  ogSettleMs: 3000,                        // chart/map render-settle
+}
+```
+
+### Sitemap (`scripts/sitemap/index.ts`)
+No edit needed — it loops `INSTITUTION_PACKS` and pushes `/awarder/000695160` +
+`/en/awarder/000695160`. **Validity rule** (`project_sitemap_validity_audit`): every
+`<loc>` must resolve to a real prerendered `dist/<path>/index.html`, which the prerender
+step below produces — so sitemap and prerender ship together, never sitemap alone.
+`npm run sitemap`.
+
+### Static prerender (`scripts/prerender/dynamicRoutes.ts` → `buildInstitutionAwarderRoute`)
+No edit needed — it iterates `INSTITUTION_PACKS` and emits BG + EN static HTML at
+`dist/awarder/000695160/index.html` (and `/en/…`) with the entry's title/description/
+body + the `og:image` pointing at `public/og/awarder/kultura.png`. This is what fixes
+the SEO-discovery gap (`feedback_static_seo`, `project_seo_discovery_gap`): crawlers get
+real `<meta>` + crawlable body, not the empty SPA shell. `npm run prerender`.
+
+### OG card — lead with a chart or map (`scripts/og/capture-screens.ts`)
+No edit needed — it loops `INSTITUTION_PACKS`, and for each runs Playwright against the
+live pack page, waits for `ogAnchor`, and clips a 1200×630 card centred on that visual
+(roads → network map, НОИ → fund-flow bar, НЗОК → budget bridge). **The card leads with
+the chart/map, not a KPI header** — so the Култура hero visual must carry a
+`data-og="kultura-hero"` attribute.
+
+- **Hero-visual choice:** the **per-capita-by-oblast choropleth** makes the most
+  striking card (a coloured map of Bulgaria) — set `ogCenter: true`. Fallback: the
+  **budget-bridge chart** (€269M → subsidy split). Whichever is chosen for the OG anchor,
+  add `data-og="kultura-hero"` to its outer tile element (the same way roads/НОИ/НЗОК tag
+  their hero). This is a Phase-1 build task on the pack component, not just a script edit.
+- Capture (dev server + `/api/db` backend must be up):
+  `npx tsx scripts/og/capture-screens.ts awarder/kultura` → `public/og/awarder/kultura.png`.
+- The screenshot is a committed PNG (like `public/og/awarder/{roads,noi,nzok,dfz}.png`),
+  regenerated only when the hero visual changes materially — not on every data refresh.
+
+## 13. Phasing
 
 Each phase carries its own wiring — a phase isn't "done" until its data is watched
-(§8), changelogged (§9), placed on the data map (§11), and its queries EXPLAIN-checked
-(§7). Don't defer the wiring to a later phase; the data-map validator will fail the
-build if a source ships unplaced.
+(§8), changelogged (§9), placed on the data map (§11), prerendered + in the sitemap with
+an OG card (§12), and its queries EXPLAIN-checked (§7). Don't defer the wiring to a later
+phase; the data-map validator will fail the build if a source ships unplaced.
 
 **Phase 1 (ship the pack):** НФЦ film register `.xls` ingest → `kultura_subsidies` +
 `kultura_payloads`; МК budget bridge (static json) + НФЦ film-awards tile (repeat-winners
 + connections) + spend-by-discipline + per-capita map + procurement lens + nav.
 Wiring: `nfc_film_register` + `mc_budget_execution` watchers, `update-culture` skill,
 changelog, data-map `culture` group, `cultureOverview`/`topCultureGrantees`/
-`filmSubsidyForProducer` AI tools, README. All buildable from the clean `.xls` + budget
-law. Ships the "Държавни структури" entry.
+`filmSubsidyForProducer` AI tools, README, **and the SEO surfaces (§12): the
+`INSTITUTION_PACKS` entry, the `data-og="kultura-hero"` attribute on the hero visual,
+`npm run prerender` + `npm run sitemap`, and the captured `public/og/awarder/kultura.png`
+card.** All buildable from the clean `.xls` + budget law. Ships the "Държавни структури"
+entry.
 
 **Phase 2 (recipient depth):** НФК grants with success rates + `/culture/grant/:id` deep
 links (§6b) + Sofia program + читалища; add the `ncf_grant_results` watcher +

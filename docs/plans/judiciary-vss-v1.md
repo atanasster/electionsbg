@@ -21,29 +21,73 @@ dedicated `/judiciary` screen for the caseload/map story, and a "Съдебна 
 entry under **Държавни структури** in the управление menu (next to Пътища/АПИ,
 Осигуряване/НОИ, Здравна каса/НЗОК, Води).
 
-## 2. Entities — the judicial sector set
+## 2. Entities — the judicial sector set (RESOLVED)
 
 Unlike a single fund, the judiciary is a **multi-body sector** (like water's holding
-+ 26 subsidiaries). Procurement is fairly centralised on the ВСС (it procures
++ 26 subsidiaries). Procurement is heavily centralised on the ВСС (it procures
 buildings + IT for ВСС/ВАС/Прокуратура jointly — confirmed in a КЗК decision in our
 corpus), but the sibling bodies are separate awarder EIKs.
 
-| Body | EIK | Note |
-|---|---|---|
-| **Висш съдебен съвет (ВСС)** | **121513231** ✓ | The hub / pack anchor; administers the съдебна власт budget |
-| Прокуратура на РБ | **121817309** ✓ | Separate awarder |
-| Върховен административен съд (ВАС) | **121267370** ✓ | Separate awarder |
-| Върховен касационен съд (ВКС) | TBD — resolve from awarder corpus | |
-| Инспекторат към ВСС (ИВСС) | TBD | Also the **declarations register** source (§3, §7) |
-| Национална следствена служба (НСлС) | TBD | |
-| Individual courts (районни/окръжни/апелативни/административни) | each its own EIK | Resolve the set from the awarder corpus |
+**Resolved from local PG** (`contracts` ∪ `tenders`, 2026-07-09):
+**58 judicial EIKs · 1,337 contracts · €174,713,773 · 2011-01-28 → 2026-06-02.**
+ВСС alone is €78.2M = **45% of the sector**. 56 EIKs carry contracts; 2 appear only
+in `tenders` (РС Лом `000321038`, РС Луковит `000291787`).
 
-✓ = EIK verified in `data/procurement/tenders/index.json`. Action before build:
-resolve the full judicial-EIK set (grep the awarder corpus for court/prosecution
-names) and store in `src/lib/vssReferenceData.ts` (`VSS_EIK="121513231"` + the sibling
-set + a court-code→EIK crosswalk). The consolidated-group rule from the SIGMA audit
-applies: sector-wide procurement tiles aggregate across the whole EIK-set, not just
-the ВСС parent.
+### Core bodies
+
+| Body | EIK | Contracts | € | Note |
+|---|---|---|---|---|
+| **Висш съдебен съвет (ВСС)** | **121513231** | 313 | €71.1M | Pack anchor; administers the съдебна власт budget |
+| ВСС — съдийска колегия (interim mandate) | **181092349** | 12 | €7.2M | "Съдийската колегия…изпълняваща функциите на ВСС" (2024, пар. 23 ПЗР ЗИД КРБ). **Alias to ВСС** |
+| Прокуратура на РБ (ПРБ) | **121817309** | 998 | €50.5M | **One EIK for the WHOLE prosecution** — see caveat below |
+| Главна прокуратура (legacy) | **000695064** | 10 | €0.5M | 2011 only. **Alias to ПРБ** |
+| Върховен административен съд (ВАС) | **121267370** | 109 | €19.0M | |
+| Върховен касационен съд (ВКС) | **121268006** | 45 | €4.3M | |
+| Инспекторат към ВСС (ИВСС) | **175451413** | 21 | €0.7M | Also the **declarations register** source (§3, §7) |
+| Национален институт на правосъдието (НИП) | **131177220** | 96 | €3.5M | Judiciary-system body, funded via the ВСС budget → **include** |
+
+### Courts (50 EIKs)
+- **Апелативни (2)**: `121654463` Апелативен съд **София** (name in corpus is bare
+  "Апелативен съд"; disambiguated via `awarder_locality='гр.София'`/BG411), `102180174` Бургас.
+- **Административни (11)**: Пловдив `160078385`, Силистра `118581706`, Перник `113586518`,
+  София-град `175200279`, Благоевград `101749078`, Варна `148076820`, В. Търново `104681629`,
+  Русе `117675942`, Ст. Загора `123739574`, Кюстендил `109600905`, Сливен `119667813`.
+- **Окръжни + Софийски градски (14)**: СГС `000696532`, Русе `000530739`, Бургас `000057389`,
+  Ямбол `000970521`, Добрич `000852989`, Ст. Загора `000818150`, Варна `000093741`,
+  Благоевград `000025078`, Пазарджик `000351953`, Шумен `000931760`, Хасково `126004302`,
+  В. Търново `000134056`, Перник `000386833`, Сливен `000590768`.
+- **Районни (23)**: СРС `831462482`, Пловдив `000471778`, Варна `000093759`,
+  Г. Оряховица `000134070`, Гоце Делчев `000025092`, Козлодуй `816076609`, Дряново `000216037`,
+  Нова Загора `000590794`, Разград `000506065`, Карлово `000471792`, В. Търново `000134063`,
+  Трявна `000216215`, Севлиево `000216044`, Ст. Загора `000818168`, Хасково `126133788`,
+  Казанлък `000818175`, Добрич `000852996`, Свиленград `000904037`, Нови пазар `000931785`,
+  Ардино `108001913`, Благоевград `000025085`, Лом `000321038`*, Луковит `000291787`*
+  (*tenders only).
+
+### Structural findings that shape the design
+1. **ПРБ is a single legal entity.** EIK `121817309` covers *every* prosecution unit —
+   районни / окръжни / апелативни / военно-окръжни прокуратури **and the НСлС**
+   (Национална следствена служба). A per-unit prosecution breakdown is therefore
+   possible **only via `awarder_name`, never via EIK**. Same "union entity vs
+   split-share" trap as the SIGMA parity audit — label the tile accordingly.
+2. **Two alias pairs** must be merged before any roll-up: `181092349`→ВСС and
+   `000695064`→ПРБ. Otherwise the ВСС headline understates by €7.2M.
+3. **Конституционен съд (`000698605`) is EXCLUDED.** Per чл. 147 КРБ it sits outside
+   съдебна власт as a separate constitutional body. It appears in `tenders` only.
+   Mention it nowhere in sector totals; if surfaced, label "извън съдебната власт".
+4. **Executive bodies EXCLUDED** (commonly confused with the judiciary): Министерство
+   на правосъдието `000695349`, ГД "Охрана" `129010011`, ГД "Изпълнение на наказанията"
+   `129010029` — these are МП / executive branch, not съдебна власт.
+5. **No специализиран наказателен съд or military-court awarders** (СНС closed 2022;
+   military courts don't procure separately).
+6. **Coverage is thin at the bottom.** Most районни съдилища have 1–3 contracts ever —
+   the judiciary procures centrally through the ВСС. Per-court *procurement* tiles will
+   be sparse; per-court **caseload** (§3 Tier B) is the dense, interesting grain.
+
+Store in `src/lib/vssReferenceData.ts`: `VSS_EIK="121513231"`, `VSS_ALIAS_EIKS`,
+`PRB_EIK` + `PRB_ALIAS_EIKS`, `JUDICIAL_EIKS` (the 58), `COURT_LEVEL[eik]`, and a
+court-code→EIK crosswalk. The consolidated-group rule applies: sector-wide procurement
+tiles aggregate across the whole EIK-set, not just the ВСС parent.
 
 ## 3. Data source inventory (tiered by ingest cost)
 
@@ -94,7 +138,7 @@ grammar table in the water plan §4. In brief:
 | 2 | Icon + title | `flex items-center gap-2 pt-2` + lucide icon + `<h2 text-lg font-semibold>`, bilingual | `Scale`, "Съдебна власт (ВСС)" |
 | 3 | Domain-only KPI row | `grid gap-3 grid-cols-2` of `StatCard`, `text-2xl font-bold tabular-nums` | "Поръчки на година" + "Бюджет на съдебната власт" |
 | 4 | Auto insight chips | `{text,warn?}[]`, `rounded-full`; `warn`→`WARN_CHIP_COLORS`; ≤5 | peak year, top category, direct-award % (warn >10%) |
-| 5 | Hero "bridge" tile | fuse contract ledger with the bigger money | **budget bridge**: procurement as % of the judicial budget (clone `NzokBudgetBridgeTile`) |
+| 5 | Hero "bridge" tile | fuse contract ledger with the bigger money | **budget bridge**: procurement as % of the judicial budget (clone `NzokBudgetBridgeTile`); tag its hero `data-og="vss-bridge"` for the OG card (§10.1) |
 | 6 | "What X buys, by function" | CPV→function `categoryLabel(id,lang)` | IT/сгради/охрана/услуги |
 | 7 | Domain visuals | `Card/CardHeader/CardTitle/CardContent` (`@/ux/Card`), `text-[11px]` caption | budget/procurement/funds tiles |
 | 8 | Optional local control | shared Radix `Select` only | budget-year picker (clone NZOK) |
@@ -136,7 +180,10 @@ NOT a bespoke fork. This seam is **designed in the water plan §4.3 but not yet 
 
 - New registry `SECTOR_BROWSE_PACKS` in `sectorPacks.tsx`, keyed on a **sector id →
   EIK-set** (vs `getSectorPack(eik)`'s single entity). Add a `{ id: "judiciary", eiks:
-  [<judicial EIK-set>], fixedFilters → awarder_eik IN eiks, Section?, columns? }` entry.
+  JUDICIAL_EIKS /* the 58, §2 */, fixedFilters → awarder_eik IN eiks, Section?, columns? }`
+  entry. A derived `court level` column comes free from `COURT_LEVEL[awarderEik]`
+  (client-side, no backend change) — except for ПРБ, whose units only separate by
+  `awarder_name` (§2 finding 1).
 - `SectorBrowseSlot` mounted in `ContractsBrowserDbScreen` / `TendersBrowserDbScreen`
   reads `?sector=judiciary`, merges the EIK filter into the existing scope/CPV/method
   filters, and renders a judiciary enrichment strip above the table.
@@ -161,6 +208,12 @@ NOT a bespoke fork. This seam is **designed in the water plan §4.3 but not yet 
   `VssPack.tsx`, `VssBudgetBridgeTile`, `VssCategoryTile`), register `121513231`→`VssPack`
   + export `VSS_AWARDER_PATH` in `sectorPacks.tsx`. Phase 2 adds the `/judiciary` screen
   + `src/screens/dev/JudicialCourtsDbScreen.tsx` / `JudicialMagistratesDbScreen.tsx`.
+- SEO files (§10): `scripts/prerender/institutions.ts` (EDIT: add the `vss` catalogue
+  entry — drives prerender + sitemap + OG at once), `scripts/sitemap/route_defs.ts`
+  (EDIT Phase 2: `judiciary` + `judiciary/courts` + `judiciary/magistrates` routes),
+  `scripts/og/capture-screens.ts` (EDIT Phase 2: the `/judiciary` map/chart capture),
+  `scripts/prerender/dynamicRoutes.ts` (EDIT Phase 2: the `/judiciary` static-route OG
+  branch → `/og/judiciary.png`). Phase-1 needs only the catalogue entry.
 
 ## 5. Data model & SQL performance
 
@@ -188,7 +241,8 @@ shipping; add the index if it seq-scans (part of "done"):
 - Index `(court_code, year)` on `court_caseload`, `court_staffing`; `(magistrate_id,
   year)` on `magistrate_declarations`; `court_dim(oblast)`, `court_dim(eik)`.
 - **Worst case = the consolidated group roll-up** — `contracts WHERE awarder_eik IN
-  (<judicial EIK-set>)` and the funds join on `fund_beneficiary_eik IN (…)`. Verify
+  (<58 judicial EIKs>)` (1,337 rows out of the full corpus) and the funds join on
+  `fund_beneficiary_eik IN (…)`. Verify
   `contracts(awarder_eik)` and the funds beneficiary FK are indexed on **both sides** of
   the join (PG perf playbook); the `IN` list must be an index scan, not a seq scan over
   the whole corpus. This is the exact query the §4.3 sector browse pack fires.
@@ -293,7 +347,74 @@ stable natural key that survives TRUNCATE+reload:
 - Note the `update-judiciary` CLI flags (`--backfill` etc.) alongside the other `update-*`
   skills.
 
-## 10. Phasing
+## 10. Sitemap, static prerender & OG screenshots (SEO)
+
+The Vite SPA + Firebase rewrite hides React `<meta>` from crawlers, so every new
+public route needs a prerendered static HTML shell + a sitemap entry + an OG card, or
+it's a homepage soft-duplicate (per the SEO / sitemap-validity notes). The packed
+awarder pages already have a **single source of truth** — `INSTITUTION_PACKS` in
+`scripts/prerender/institutions.ts` — that drives all three at once. Reuse it.
+
+### 10.1 Phase-1 pack (`/awarder/121513231`) — one catalogue entry does everything
+Add an `INSTITUTION_PACKS` entry; it auto-drives:
+- `scripts/prerender/dynamicRoutes.ts` → the static `/awarder/121513231/index.html`
+  with crawlable `bodyBg/En`, `<title>`/`<meta description>`, and
+  `ogImage: /og/awarder/vss.png` (no dynamicRoutes edit — it consumes the catalogue).
+- `scripts/sitemap/index.ts` → the `/awarder/121513231` (+ `/en`) sitemap URLs (the
+  packed-awarder block, ~L701; also consumes the catalogue).
+- `scripts/og/capture-screens.ts` → the per-institution OG capture (the loop over
+  `INSTITUTION_PACKS`, ~L344).
+
+```ts
+{
+  eik: "121513231", slug: "vss",
+  nameBg: "Висш съдебен съвет", nameEn: "Supreme Judicial Council (ВСС)",
+  titleBg: "Съдебна власт (ВСС) — бюджет и обществени поръчки | electionsbg.com",
+  titleEn: "Judiciary (ВСС) — budget and public procurement | electionsbg.com",
+  descriptionBg: "Бюджетът на съдебната власт и обществените поръчки на ВСС (ЕИК 121513231) …",
+  descriptionEn: "The judiciary's budget and the ВСС's public procurement …",
+  bodyBg: `<h1>…</h1><p>…</p>`, bodyEn: `<h1>…</h1><p>…</p>`,
+  ogAnchor: '[data-og="vss-bridge"]',   // the budget-bridge chart — a CHART, not a KPI header
+  ogSettleMs: 2500,
+}
+```
+**Beautiful screenshot requirement:** the OG card must frame a chart, not a plain KPI
+row. So `VssBudgetBridgeTile`'s hero element carries `data-og="vss-bridge"` and the
+capture anchors on it (wide card → default `leftAlign`; the loop already pins the
+clip's left edge). Same convention as `noi-flow` / `nzok-bridge` / `roads-map`.
+
+Capture (dev server + `/api/db` backend up, since the awarder page reads from PG):
+`npx tsx scripts/og/capture-screens.ts awarder/vss` → `public/og/awarder/vss.png`.
+
+### 10.2 Phase-2 screen (`/judiciary` + "See all" pages) — route defs + a map OG card
+The dedicated screen and its DbDataTable pages are ordinary SPA routes, so:
+- **Sitemap + prerender** — `scripts/sitemap/route_defs.ts`: add `"judiciary"` to
+  `STATIC_ROUTES` and `RouteDef` entries `{ path: "judiciary", file:
+  "src/screens/JudiciaryScreen.tsx" }`, `{ path: "judiciary/courts", file:
+  "src/screens/dev/JudicialCourtsDbScreen.tsx" }`, `{ path: "judiciary/magistrates",
+  file: "…" }`. The prebuild emits `dist/judiciary/index.html` etc. (each must be a
+  real file — a sitemap `<loc>` without one is a soft-duplicate).
+- **OG card with a MAP** — add a `captures[]` entry in `capture-screens.ts` anchored on
+  the натовареност choropleth, centered like the map pages (`persistence` /
+  `wasted-vote`):
+  ```ts
+  { slug: "judiciary", routePath: "judiciary",
+    waitFor: ".leaflet-container", anchor: ".leaflet-container",
+    centerOnAnchor: true, settleMs: 2500 }
+  ```
+  → `public/og/judiciary.png`, framing the съдебна-карта choropleth. (Alternative
+  anchor: the caseload-flow Recharts via `data-og="judiciary-caseload"` +
+  `.recharts-wrapper`, if the map isn't in Phase 2's first cut — either way it leads
+  with a chart/map.) Point the screen's `ogImage` at `/og/judiciary.png` in
+  `dynamicRoutes.ts` (the static-route OG branch, like `governance` / `budget`).
+
+### 10.3 Firebase deploy file-ceiling guard
+Prerendering per-court pages (`/judiciary/court/:code`, ~150 courts) is fine, but do
+**NOT** prerender a page per magistrate (thousands) — that blows the ~84k-file dist
+budget (the deploy file-ceiling note). Magistrate rows stay inside the DbDataTable
+route only; gate them the way candidate sub-tabs are gated.
+
+## 11. Phasing
 
 - **Phase 1 — money pack (Tier A, renders today, no new ingest):**
   `vssReferenceData.ts` (EIK 121513231 + sibling set), register the pack,
@@ -301,17 +422,28 @@ stable natural key that survives TRUNCATE+reload:
   chips + KPI, budget-year picker, both nav links + `procurement_vss_nav` i18n. Shared
   prerequisite: build the §4.3 `SECTOR_BROWSE_PACKS` seam (or wait for the water plan to)
   and add the `judiciary` sector entry + `/procurement/contracts?sector=judiciary` pill.
+  SEO (§10.1): add the `vss` `INSTITUTION_PACKS` entry (auto sitemap + prerender + OG),
+  tag `VssBudgetBridgeTile` `data-og="vss-bridge"`, capture `public/og/awarder/vss.png`.
 - **Phase 2 — the `/judiciary` screen (Tier B):** `update-judiciary` skill + ВСС statistics
   parser (caseload/duration/staffing + court crosswalk) → caseload-flow hero, натовареност
   `OblastChoropleth` triptych, `/judiciary/courts` DbDataTable, duration tile. Wire watcher,
-  changelog, data map, README, AI tools.
+  changelog, data map, README, AI tools. SEO (§10.2): add `judiciary` + `judiciary/courts`
+  to `route_defs.ts` (sitemap + prerender) + the `/judiciary` OG capture anchored on the
+  натовареност choropleth → `public/og/judiciary.png`.
 - **Phase 3 — integrity + benchmarks (Tier C/D):** ИВСС magistrate-declaration scrape →
-  integrity tile + `/judiciary/magistrates` + Връзки cross-links; EU Justice Scoreboard /
-  CEPEJ compare on `/indicators/compare`; Eurobarometer trust.
+  integrity tile + `/judiciary/magistrates` (DbDataTable route only — NOT per-magistrate
+  prerender, §10.3) + Връзки cross-links; EU Justice Scoreboard / CEPEJ compare on
+  `/indicators/compare`; Eurobarometer trust.
 
-## 11. Open questions / risks
-- Resolve the full judicial EIK-set (ВКС, ИВСС, НСлС, individual courts) from the awarder
-  corpus for `vssReferenceData.ts`.
+## 12. Open questions / risks
+- ~~Resolve the full judicial EIK-set~~ **DONE (§2)** — 58 EIKs, €174.7M. Remaining
+  judgement calls baked in: Конституционен съд excluded (чл. 147 КРБ), МП/ГД Охрана/ГД ИН
+  excluded (executive), НИП included (ВСС-funded).
+- **ПРБ is one EIK for the whole prosecution + НСлС** (§2 finding 1) — per-unit
+  prosecution analysis needs `awarder_name` parsing, and any "prosecution vs courts"
+  split must not imply per-unit EIK grain.
+- Merge the two alias pairs (`181092349`→ВСС, `000695064`→ПРБ) before any roll-up, or the
+  ВСС headline understates by €7.2M.
 - Court reorganisations (съдебна карта) shift unit boundaries 2005–2025 — the court-ID
   crosswalk (`court_dim.active_from/to`) is the hard part.
 - SINS натовареност methodology is politically contested (IME/Capital) — show raw +
@@ -321,7 +453,7 @@ stable natural key that survives TRUNCATE+reload:
   the Gemini Vision pattern from council/capital-programmes).
 - `SECTOR_BROWSE_PACKS` is unbuilt — coordinate with the water plan so it's built once.
 
-## 12. Competitive context (why this wins)
+## 13. Competitive context (why this wins)
 Public data exists but lives as government-CMS PDFs (vss.justice.bg, 2005–2025) or one-off
 NGO analyses on separate microsites — nobody has an interactive, longitudinal, geographic,
 integrity-linked judiciary dashboard. Closest players: **ИПИ/IME** (натовареност essays, no

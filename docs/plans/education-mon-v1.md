@@ -350,18 +350,90 @@ is an `indicators` source member ~L224). For a top-level Образование 
 - Document the `update-schools` CLI flags (`--backfill`, geocode/enrollment steps) alongside the
   other `update-*` skills.
 
-## 11. Build sequence
+## 11. Sitemap, static pages & OG cards
+
+The pack's whole SEO surface flows from ONE source of truth: `INSTITUTION_PACKS` in
+`scripts/prerender/institutions.ts`. Adding a single МОН entry there wires three consumers
+automatically (prerender static HTML+meta, sitemap `/awarder` URLs, OG-card capture). The new
+`/education*` and `/school/:id` routes then need their own prerender + sitemap + OG entries. This
+is the fix for the `feedback_static_seo` gap — without it a no-JS crawler hits the SPA rewrite and
+sees the homepage meta (a soft-duplicate).
+
+### a. МОН awarder pack — one `InstitutionPack` entry does everything
+```
+{
+  eik: "000695114", slug: "mon",           // → public/og/awarder/mon.png
+  nameBg: "Министерство на образованието и науката",
+  nameEn: "Ministry of Education and Science (МОН)",
+  titleBg/titleEn, descriptionBg/descriptionEn,   // <title>/<meta>
+  bodyBg/bodyEn,   // crawlable <h1>+<p>: matura crisis + per-school + money-trail framing,
+                   // with internal links to /education, /budget, /procurement
+  ogAnchor: '[data-og="education-scatter"]',   // the signature visual — see (c)
+  ogCenter: true,        // scatter/map read from the middle
+  ogSettleMs: 3500,      // give the scatter + regression line time to render
+}
+```
+For free, this yields:
+- **Prerender** (`scripts/prerender/dynamicRoutes.ts`) — static `/awarder/000695114` (+`/en`)
+  with the crawlable body, `<title>`, `<meta description>`, `og:image → /og/awarder/mon.png`.
+- **Sitemap** (`scripts/sitemap/index.ts`) — `/awarder/000695114` (+`/en`) enumerated straight
+  from `INSTITUTION_PACKS` (per the `route_defs.ts:233` note); no `route_defs` edit needed.
+- **OG capture** — the capture loop already iterates `INSTITUTION_PACKS` (`capture-screens.ts:344`),
+  so the card is produced automatically once the pack hero exposes the `data-og` anchor.
+
+Keep `INSTITUTION_PACKS` ↔ the `PACKS` registry (`sectorPacks.tsx`) ↔ app-side `MON_EIK` in sync
+(the `institutions.ts` header calls this out).
+
+### b. /education explorer, /education/schools browse, /school/:id cards
+These are NOT institution packs — add explicit entries like the other static screens:
+- **Sitemap** (`scripts/sitemap/route_defs.ts`):
+  - `{ path: "education", file: "src/screens/EducationScreen.tsx" }`
+  - `{ path: "education/schools", file: "src/screens/dev/SchoolsBrowserDbScreen.tsx" }`
+  - `{ path: "school/:id", file: "schools-list" }` — dynamic, one URL per school; a new
+    `schools-list` enumerator in `dynamicRoutes.ts` reads the schools index / PG. 978 URLs is
+    well within the Firebase file ceiling (`project_firebase_deploy_ceiling`).
+  - add `"education"` + `"education/schools"` to `ENGLISH_STATIC_PAGES` (needs matching
+    `english:` blocks in `scripts/prerender/routes.ts`, else the `/en` entry resolves only via
+    runtime i18n).
+- **Static page generation** (`scripts/prerender/dynamicRoutes.ts`): `buildSchoolRoutes()` emits,
+  per school, a thin crawlable page — `<h1>{name}</h1>`, обшина/oblast, latest matura/НВО, the
+  над/под-средата verdict in plain HTML, and internal links to the обшина dashboard + `/education`.
+  Per the SEO-discovery memo the win is **crawlable HTML + internal links, not screenshots**.
+  Per-school `og:image` reuses the shared `mon.png` (don't screenshot 978 pages; a per-oblast card
+  is a later nicety). `/school/:id` is canonical; any обшина-tab surfacing of a school sets
+  `<link rel=canonical>` back to it (mirrors the candidate sub-tab pattern).
+
+### c. Beautiful OG cards — lead with a chart or map, never a KPI header
+`institutions.ts` is explicit: each card should "lead with the roads map / fund-flow bar / budget
+bridge chart rather than a plain KPI header." For МОН, frame the strongest data-journalism image:
+- **Pack card (`/og/awarder/mon.png`):** the **SEDA двойна scatter** — tag the pack's hero tile
+  `data-og="education-scatter"`; a point cloud + regression line reads beautifully centered
+  (`ogCenter:true`). Fallback hero: the **inequality choropleth** (`data-og="education-gap-map"`)
+  if the map is the stronger top tile.
+- **`/education` explorer card:** add a `captures[]` entry (slug `education`, routePath
+  `education`, `waitFor`/`anchor` = `.leaflet-container` for the school-finder map *or* the
+  scatter's `.recharts-wrapper`, `centerOnAnchor:true`, `settleMs:3000`) — same recipe as the
+  `persistence` (map) and `indicators-compare` (chart) captures.
+- **`/education/schools` browse card:** a `captures[]` entry anchored on the table `section`
+  (like `procurement-contracts`), leading with the summary strip + verdict-chip column.
+- **Render requirements:** the hero exposes a stable `data-og` selector and finishes rendering
+  inside the settle window (Recharts `.recharts-surface` / Leaflet `.leaflet-container` present);
+  capture runs against the dev server with `/api/db` up (schools served from PG), locale bg,
+  1200×630 @2x. Commit the PNGs (`public/og/awarder/mon.png` + `public/og/education*.png`) —
+  the other `public/og/awarder/*.png` are committed artifacts.
+
+## 12. Build sequence
 
 | Phase | Deliverable | Wiring done in-phase | Depends on |
 |---|---|---|---|
-| **P0 Skeleton** | МОН sector pack (`sectorPacks.tsx`, `MonPack`) + nav + budget bridge + decline strip. Ships alone; beats regionalprofiles.bg on grain. | i18n `procurement_mon_nav`; data map feature node | none |
-| **P1 Data** | НВО ingest · geocode registry (`loc`/`lat,lng`) · enrollment · Eurostat E&T · **Индекс на средата** · **schools→PG migration** (`schools`/`school_scores`/`school_context`) | new watcher sources; `update-schools` skill; `stamp-ingest`; `recordIngestBatch`; data map source group; README | P0 |
-| **P2 Explorer + report card** | `/education` map + finder + `/school/:id` card (level + trend); `SchoolsBrowserDbScreen` + `/education/schools` | `schools` `/api/db/table` REGISTRY entry (EXPLAIN ANALYZE); AI `schoolProfile`/`schoolsNearMe` | P1 geocode+PG |
-| **P3 Equity engine** | similar-cohorts · SEDA двойна scatter · band/CI verdicts · `school_payloads` precompute | payload-determinism parity audit; AI `maturaByPlace`/`educationGaps` | P1 SES index |
-| **P4 Journalism + spine** | inequality choropleth (`OblastChoropleth`) · money-trail spine · `?peers=` PISA panel | AI `monFiscal`; education sector-browse pack (if Water's seam landed) | P2,P3 |
-| **P5 Ship** | ethics/methodology page · SEO prerender `/school/*` · `bucket:sync` · `db:push` · README/data-map final · `naiasno-post` FEATURE launch | changelog verified; data-map builds; docs updated | all |
+| **P0 Skeleton** | МОН sector pack (`sectorPacks.tsx`, `MonPack`) + nav + budget bridge + decline strip. Ships alone; beats regionalprofiles.bg on grain. | i18n `procurement_mon_nav`; data-map feature node; **`INSTITUTION_PACKS` МОН entry → prerender + sitemap `/awarder/000695114`** | none |
+| **P1 Data** | НВО ingest · geocode registry (`loc`/`lat,lng`) · enrollment · Eurostat E&T · **Индекс на средата** · **schools→PG migration** (`schools`/`school_scores`/`school_context`) | new watcher sources; `update-schools` skill; `stamp-ingest`; `recordIngestBatch`; data-map source group; README | P0 |
+| **P2 Explorer + report card** | `/education` map + finder + `/school/:id` card (level + trend); `SchoolsBrowserDbScreen` + `/education/schools` | `schools` `/api/db/table` REGISTRY (EXPLAIN ANALYZE); AI `schoolProfile`/`schoolsNearMe`; **`/education*` + `school/:id` routeDefs + `buildSchoolRoutes` prerender** | P1 geocode+PG |
+| **P3 Equity engine** | similar-cohorts · SEDA двойна scatter · band/CI verdicts · `school_payloads` precompute | payload-determinism parity audit; AI `maturaByPlace`/`educationGaps`; **`data-og="education-scatter"` on the hero tile** | P1 SES index |
+| **P4 Journalism + spine** | inequality choropleth (`OblastChoropleth`) · money-trail spine · `?peers=` PISA panel | AI `monFiscal`; education sector-browse pack (if Water's seam landed); **`data-og="education-gap-map"`** | P2,P3 |
+| **P5 Ship** | ethics/methodology page · **OG capture (`mon.png` + `education*.png`) + `ENGLISH_STATIC_PAGES` + `/en` prerender mirrors** · `bucket:sync` · `db:push` · README/data-map final · `naiasno-post` FEATURE launch | changelog verified; sitemap + data-map build clean; docs updated | all |
 
-## 12. Open questions / risks
+## 13. Open questions / risks
 - **Geocoding coverage** — if the МОН register isn't cleanly scrapable, fall back to EKATTE
   centroid by `address` (coarser pins but shippable). Gates the whole map.
 - **SES index is area-level, not per-family** — label it honestly ("средата на общината/района");
@@ -375,7 +447,7 @@ is an `indicators` source member ~L224). For a top-level Образование 
   migrations); `school_*` excluded from `bucket:sync` if PG-served.
 - **Deferred data** (делегирани бюджети per school, rsvu, НАЦИД) — real gaps; wire as later tiles.
 
-## 13. Sources (verify before publishing any DATA card)
+## 14. Sources (verify before publishing any DATA card)
 data.egov.bg МОН org `a57a2273-…`; ДЗИ dataset `066b4b04-…`; МОН institution register
 (ri.mon.bg / neispuo.mon.bg); EU E&T Monitor 2024 (BG)
 `op.europa.eu/webpub/eac/education-and-training-monitor/en/country-reports/bulgaria.html`;
