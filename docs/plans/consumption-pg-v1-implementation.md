@@ -41,7 +41,13 @@ set no precedent here because it is neither prerendered nor in the sitemap.
 
 Before touching the ingest, freeze the current output so every later phase can be checked against it.
 
-**New:** `scripts/prices/tests/parity.data.test.ts`
+**New:** `scripts/db/tests/prices_parity.data.test.ts`
+
+**Not `scripts/prices/tests/`.** `package.json` globs `scripts/db/tests/*.data.test.ts` for both
+`test:data` and `db:verify`; nothing globs `scripts/prices/`. Every `*.data.test.ts` in this plan goes
+in `scripts/db/tests/`, or it exists and never executes — and every "gate" in this document that
+depends on it is decorative. (Pure unit/property tests with no DB may live in `scripts/prices/tests/`
+**only** if a `prices:test` script is added and wired into CI. Prefer one location.)
 
 Snapshot the three shipped artifacts and assert the PG-derived payloads reproduce them:
 
@@ -82,7 +88,12 @@ CREATE UNLOGGED TABLE IF NOT EXISTS price_stage (
 );
 ```
 
-`UNLOGGED` means no WAL, no replication, no presence in `pg_dump`. Truncated at the end of every run.
+`UNLOGGED` means no WAL and no replication. It does **not** mean absent from `pg_dump`:
+`scripts/db/lib/snapshot.ts:162` runs a bare `pg_dump -Fc` with no `--exclude-table` and no
+`--no-unlogged-table-data`, so the DDL — and any data present at dump time — is included. In practice
+the table is `TRUNCATE`d at end-of-run, so a snapshot sees it empty. State it as "empty at rest", not
+"absent". If a dump ever races an ingest it will capture 1.4M staging rows; add
+`--exclude-table-data=price_stage` to `pgDump()` if that matters.
 
 ### 2.2 Modified: `scripts/db/lib/pg.ts`
 
@@ -135,21 +146,25 @@ export const loadDay = async (zipPath: string, day: string): Promise<DayStats>
 ```
 
 ```
+COPY → price_stage                                      ~1.4M rows, OUTSIDE the txn
 BEGIN
-  TRUNCATE price_stage
-  COPY   → price_stage                                  ~1.4M rows
   INSERT price_chains  … ON CONFLICT (eik) DO UPDATE SET last_seen = :day       ~210
-  INSERT price_stores  … ON CONFLICT (eik,ekatte,label_norm) DO UPDATE …        ~2,650
-  INSERT price_skus    … ON CONFLICT (eik,chain_code,name_norm) DO UPDATE …     ~150k
+  INSERT price_stores  … ON CONFLICT (eik,ekatte,label_norm) DO UPDATE …        2,654
+  INSERT price_skus    … ON CONFLICT (eik,chain_code,name_norm)
+                            DO UPDATE SET last_seen = :day, cat_id = EXCLUDED.cat_id  116,510
   INSERT price_chain_days (day, eik, rows) … ON CONFLICT DO UPDATE              ~210
 
+  -- One row per (store, sku). DISTINCT ON, not min() — see invariant 5.
   CREATE TEMP TABLE obs ON COMMIT DROP AS
-    SELECT s.store_id, k.sku_id,
-           min(g.price_eur) AS price_eur,
-           min(g.promo_eur) AS promo_eur      -- a store may list one sku twice
+    SELECT DISTINCT ON (s.store_id, k.sku_id)
+           s.store_id, k.sku_id, s.ekatte, k.cat_id, k.eik,
+           g.price_eur, g.promo_eur
       FROM price_stage g
-      JOIN price_stores s USING (…) JOIN price_skus k USING (…)
-     GROUP BY 1, 2;
+      JOIN price_stores s ON s.eik = g.eik AND s.ekatte = g.ekatte
+                         AND s.label_norm = g.store_label_norm
+      JOIN price_skus   k ON k.eik = g.eik AND k.chain_code = g.chain_code
+                         AND k.name_norm = g.name_norm
+     ORDER BY s.store_id, k.sku_id, g.price_eur ASC;   -- cheapest listing wins, whole row
 
   -- (1) close runs whose price actually moved. MUST run before (2).
   UPDATE price_facts f SET valid_to = :day::date - 1
@@ -166,12 +181,20 @@ BEGIN
    WHERE f.store_id IS NULL
   ON CONFLICT (store_id, sku_id, valid_from) DO NOTHING;
 
-  recordIngestBatch(c, { source: "kzp_prices", table: "price_facts", … })
+  -- (3) TODAY'S TRUTH. Absence is only knowable now. Design §3.2.
+  TRUNCATE price_current;
+  INSERT INTO price_current SELECT store_id, sku_id, price_eur, promo_eur FROM obs;
+
+  -- (4) daily aggregates, from the day's real observations — never reconstructed
+  INSERT INTO price_grid_days       SELECT … FROM obs GROUP BY ekatte, cat_id;   17.3k
+  INSERT INTO price_chain_grid_days SELECT … FROM obs GROUP BY ekatte, eik, cat_id; 41.2k
+
+  recordIngestBatch(c, { source: "kzp_prices", table: "price_facts_today", … })
   TRUNCATE price_stage
 COMMIT
 ```
 
-Four invariants, each of which a naive implementation gets wrong:
+Six invariants, each of which a naive implementation gets wrong:
 
 - **Close before insert.** After step 1 a changed row has `valid_to` set, so step 2's `LEFT JOIN` on
   `valid_to IS NULL` finds nothing and opens the new run. Reverse the order and every changed price
@@ -180,18 +203,52 @@ Four invariants, each of which a naive implementation gets wrong:
   closes; the open run already exists, so no inserts. Safe.
 - **Never load days out of order.** Assert `:day > (SELECT max(valid_from) FROM price_facts)` unless
   `--force-rebuild`. Backfill replays oldest-first. Out-of-order loading corrupts the step function
-  irrecoverably.
-- **No `last_seen` on `price_facts`.** The whole point. See design doc §3.2.
+  irrecoverably. It also corrupts `price_current`, which always reflects the last day loaded.
+- **`price_facts` is history, never "now".** An open run means *last known price*, not *still on
+  sale*. Reading `WHERE valid_to IS NULL` to get current prices returns months-stale rows for every
+  delisted SKU. Current price comes from `price_current`; a day's aggregate comes from
+  `price_grid_days`. Design §3.2 has the measurement (36% phantom over-count after 8 days).
+- **`DISTINCT ON`, not `min()`.** A store may list the same SKU twice. Independent `min(price)` and
+  `min(promo)` can pair a regular price from one listing with a promo from another — and `min()`
+  skips NULLs, so a NULL promo silently loses to a non-NULL one on a different row. Pick one whole
+  row.
 
 A gap in reporting means a run's `valid_to` lands on the day before the chain *next* reported, which
 overstates the interval. That is correct-by-construction, not a bug: `price_chain_days` records that
-the chain was silent, and every read masks accordingly. Document it at the top of the file.
+the chain was silent, and chart rendering masks accordingly. Document it at the top of the file.
 
-`recordIngestBatch` runs **inside** the transaction (per `feedback_pg_changelog_required`), with a
-stable natural key:
+**`recordIngestBatch` must NOT point at `price_facts`.** Read `scripts/db/lib/ingest_changelog.ts:96`:
+
+```sql
+INSERT INTO ingest_first_seen (source, key, batch_id)
+SELECT $1, (${opts.keyExpr})::text, $2 FROM ${opts.table} t
+ON CONFLICT (source, key) DO NOTHING
+```
+
+It **full-scans `opts.table` every run** and attempts one keyed insert per row. That is fine for agri,
+which TRUNCATE-reloads 2M rows anyway. Pointed at an incrementally-grown 10–70M-row fact table it
+turns each "cheap 30k-row delta" into a whole-corpus scan plus an `ingest_first_seen` table that
+grows to the *full cardinality of `price_facts`* — a second 70M-row table to vacuum. The plan's own
+cost thesis dies here if it is wired naively.
+
+Pass a **day-scoped view** instead, so the scan is over today's ~30k new runs:
+
+```sql
+CREATE OR REPLACE VIEW price_facts_today AS
+  SELECT * FROM price_facts WHERE valid_from = (SELECT max(valid_from) FROM price_facts);
+```
+
+And note the alias: `ingest_changelog.ts` hardcodes `FROM ${opts.table} t`, so `keyExpr` **must** be
+`t`-qualified (`scripts/agri/ingest.ts:440` does). A `f.`-qualified expression raises
+`ERROR: missing FROM-clause entry for table "f"` and aborts the whole ingest transaction.
 
 ```ts
-keyExpr: "md5(f.store_id || '|' || f.sku_id || '|' || f.valid_from)",
+recordIngestBatch(c, {
+  source: "kzp_prices",
+  table: "price_facts_today",
+  keyExpr: "md5(t.store_id || '|' || t.sku_id || '|' || t.valid_from)",
+  rowsTotal,
+});
 ```
 
 ### 2.5 Modified: `scripts/prices/ingest.ts`
@@ -221,13 +278,21 @@ npm run prices -- --backfill --from 2026-01-02 --to 2026-07-08
 
 - `SELECT count(*) FROM price_facts` ≈ **1.9M–2.5M** (seed + 188 days of change runs).
   Materially above ~5M means the delta logic is opening runs it should not.
-- `SELECT count(*) FROM price_stores` = **2,649** ± reporting drift.
+- `SELECT count(*) FROM price_stores` = **2,654** ± reporting drift. `price_skus` ≈ 150–250k.
 - Per-day inserts on the last 5 days land in the **25k–40k** band.
-- Reconcile one golden day: rebuild `cells` for 2026-07-08 straight from `price_facts` and diff
-  against `data/prices/_cache/daily/2026-07-08.json`. **Zero cell differences on `min` / `median` /
-  `max` / `stores`.** This is the load-bearing check — it proves the fact table can reproduce the
-  aggregate the site has been shipping.
-- `recent_updates(1)` shows a `kzp_prices` row.
+- `SELECT count(*) FROM price_current` = **1,400,705** for 2026-07-08 — exactly the day's row count.
+- **Reconcile one golden day against `price_grid_days`, not `price_facts`.** Diff
+  `price_grid_days WHERE day = '2026-07-08'` against `data/prices/_cache/daily/2026-07-08.json`:
+  zero differences on `min` / `median` / `max` / `avg` / `stores` / `chains` / `cheapest_eik`, across
+  all 17,344 cells. This is the load-bearing check.
+
+  The original plan asserted this reconciliation against `price_facts` itself. **It cannot pass.**
+  Open runs outnumbered observed rows 1,899,083 to 1,400,705 after only eight days — a 36% phantom
+  over-count (design §3.2). Do not attempt to reconstruct a day's grid from the step function; that
+  is precisely the bug `price_grid_days` exists to prevent, and a test that tries to will fail for
+  the right reason.
+- `recent_updates(1)` shows a `kzp_prices` row, and `ingest_first_seen` grew by ~30k, **not by 1.9M**
+  (proves the day-scoped view is wired, not the raw fact table).
 
 **Rollback:** `DROP TABLE price_facts, price_skus, price_stores, price_chains, price_chain_days,
 price_stage CASCADE;`. Nothing else has changed; the JSON pipeline is untouched and still serving.
@@ -472,7 +537,7 @@ The only way to measure precision and recall. ~400 hand-labelled name pairs, com
 Regenerate the negative-side sample whenever the algorithm changes, or the gold set silently becomes
 a test of yesterday's bugs.
 
-#### Layer 4 — corpus assertions: `scripts/prices/tests/catalog.data.test.ts`
+#### Layer 4 — corpus assertions: `scripts/db/tests/prices_catalog.data.test.ts`
 
 Runs against the loaded database (`DB_VERIFY=1`, alongside `npm run db:verify`). These catch a
 regression on real data, not fixtures.
@@ -535,10 +600,20 @@ to 15,000 product pages.
 
 `scripts/prices/build_index.ts` is 776 lines and holds the Jevons index of per-settlement
 median-of-minimum prices, the 12-item common basket, the outlier guard, and the peer/rank logic. That
-**maths is correct and battle-tested — port it verbatim**, changing only its input (SQL over
-`price_facts` instead of 188 cached JSON grids) and its output (`price_payloads` rows instead of
-files). Resist improving it in the same commit as the migration; the parity harness cannot tell an
-improvement from a regression.
+**maths is correct and battle-tested — port it verbatim**, changing only its input and its output
+(`price_payloads` rows instead of files). Resist improving it in the same commit as the migration; the
+parity harness cannot tell an improvement from a regression.
+
+**The input is `price_grid_days`, not `price_facts`.** `build_index.ts:88-111` consumes 188
+*pre-aggregated* daily grids — per (settlement × product) `min/median/max`. `price_grid_days` has
+exactly that shape, one row per `(day, ekatte, cat_id)`, written by the loader from each day's own
+observations. So the port really is a one-line input swap: `loadDays()` reads 188 rows-groups from a
+6.3M-row table instead of 188 JSON files.
+
+Had we tried to derive those grids from `price_facts` — expanding every step-function run across the
+day series with `valid_from <= D AND coalesce(valid_to,'infinity') >= D` — it would have been a
+~263M row-day temporal expansion **and it would have been wrong** (design §3.2). This is the single
+most important correction the audit produced.
 
 `price_payloads (kind, key) → jsonb`, PK `(kind, key)`, mirroring `agri_payloads`
 (`scripts/db/schema/pg/046_agri_subsidies.sql:65-70`). Kinds: `overview`, `oblast:<code>`,
@@ -697,15 +772,32 @@ nothing about storage.
 ### 6.4 The one JSON that survives
 
 `/product/:slug` needs a slug list at prerender and sitemap time, and neither `scripts/prerender/` nor
-`scripts/sitemap/` has ever opened a database connection. Rather than give both a DB dependency,
-`scripts/prices/export_slugs.ts` writes a **gitignored build artifact**:
+`scripts/sitemap/` has ever opened a database connection.
+
+An earlier draft had `scripts/prices/export_slugs.ts` write a **gitignored** `build/prices/product_slugs.json`
+during the build. That does not work, and the audit caught it:
+
+- It does not remove the DB dependency, it relocates it one hop. `export_slugs.ts` must query Postgres.
+- `prices:slugs` was never wired into `prebuild`/`postbuild` (`package.json:18-20`), so nothing would
+  regenerate it before `scripts/prerender/index.ts` read it. It would silently go stale or missing and
+  `/product/*` would prerender nothing.
+- The production build runs from `firebase.json` predeploy (`npm run build`) on the maintainer's
+  machine, against **local** PG on `:5433`. But the daily prices ingest targets **Cloud SQL** on
+  `:5434` (`prices:ingest:cloud`). Local `price_products` would be stale or empty, so build-time slugs
+  would not match served data.
+
+**Instead: `export_slugs.ts` runs as the last step of the ingest** (which already holds a DB
+connection, and the right one), and writes a **committed** file:
 
 ```
-build/prices/product_slugs.json   →  [{ slug, title, catId, chainCount }]
+data/prices/product_slugs.json   →  [{ slug, title, catId, chainCount }]   (~5k rows, ~500KB)
 ```
 
-consumed by `scripts/prerender/routes.ts` (dynamic routes) and `scripts/sitemap/route_defs.ts`. A
-build input, not a serving artifact — it never ships to the bucket.
+Prerender and sitemap read a plain file, exactly as they do today. No build-time DB, no prebuild
+wiring, and the file is diffable in review — you can see a slug churn before it ships. It is a build
+input, not a serving artifact: it never goes to the bucket and no hook fetches it.
+
+This is the one JSON that survives, and §4.5's slug-freeze rule is what keeps it stable.
 
 **Prerender only the top ~2,000–5,000 products** by `chain_count`
 (`project_firebase_deploy_ceiling`: a 453k-file `dist` fails to deploy; we sit at ~84k). Per
@@ -971,6 +1063,16 @@ after this migration prices never touch the bucket again.
 | Clustering under-merges (missing comparisons) | **Certain** | Measured: 3,954 high-Jaccard cross-chain pairs unmerged. Recall gate ≥ 0.75; drained over time via the `--audit` review queue into `product_overrides.json`. A false split is the *safe* failure. |
 | `unitPriced` annotation is wrong for a category | Medium | It gates cross-chain merging for loose produce. Hand-annotate all 101 groups once; Layer-4 assertion `БАНАНИ chain_count > 10` catches a regression |
 | Ported Jevons index silently drifts | Medium | Phase 0 golden files + parity test; port verbatim, improve later |
+| **Reading `price_facts` for "current price" or a day's grid** | **Certain if unfixed** | Measured: 1,899,083 open runs vs 1,400,705 observed rows after 8 days = **36% phantom**. Delisted SKUs never close. Current price ⇒ `price_current`; daily aggregate ⇒ `price_grid_days`. Design §3.2. |
+| `recordIngestBatch` pointed at `price_facts` | **Certain if unfixed** | `ingest_changelog.ts:96` full-scans `opts.table` daily and grows `ingest_first_seen` to the fact table's full cardinality. Pass the `price_facts_today` view. §2.4 |
+| `keyExpr` alias — runtime crash | **Certain if unfixed** | `ingest_changelog.ts:96` hardcodes `FROM ${table} t`. An `f.`-qualified keyExpr aborts the ingest txn. Use `t.` (as `scripts/agri/ingest.ts:440` does). §2.4 |
+| Tests written but never executed | High | `test:data`/`db:verify` glob only `scripts/db/tests/*.data.test.ts`. Put `*.data.test.ts` there. §1 |
+| Slug churn breaks indexed `/product/:slug` URLs | High | `title` is the recomputed modal raw name. Freeze `slug` at first insert; exclude it from `DO UPDATE SET`. Design §4.5 |
+| Missing euro-day baseline mis-states the headline verdict | High | Chains skip days, so many products have no 2026-01-02 observation. Needs an explicit fifth bucket and a per-entity `baseline_day`. Design §9.1.2 |
+| Store renames fork `store_id` | Medium | Free-text `Търговски обект` drives `label_norm`. A reformat mints a new store and orphans the old one's open runs. `price_current` hides it from "now" views; history still double-counts. Add a store-alias override table. |
+| `min(price)`/`min(promo)` Frankenstein row | Medium | A store may list one SKU twice; independent aggregates pair a price from one listing with a promo from another. Use `DISTINCT ON`. §2.4 |
+| `attrs` jsonb key order forks `canon_key` | Medium | Insertion-order keys make identical attribute sets produce different keys, silently failing merges. Sort attr keys before building `attrsKey`; add a property test. §3.1 |
+| AI chat now hits Cloud Functions per tool call | Medium | `functions/index.js` applies per-IP rate limiting and a 10s `statement_timeout`. Six new price tools move the chat off the bucket onto `/api/db`. Measure before shipping. §7.5 |
 | Out-of-order backfill corrupts the step function | Medium | Assert `day > max(valid_from)`; replay oldest-first; `ON CONFLICT DO NOTHING` |
 | `price_facts` bloats `db:dump` dumps | Medium | Exclude from routine snapshot; DR = replay the 4.1GB of ZIPs, which are authoritative |
 | 74k product pages blow the Firebase file ceiling | Medium | Prerender top 2–5k only |

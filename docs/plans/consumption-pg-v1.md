@@ -110,8 +110,9 @@ CREATE TABLE IF NOT EXISTS price_products (
   product_id   bigserial PRIMARY KEY,
   canon_key    text NOT NULL UNIQUE,
   slug         text NOT NULL UNIQUE,   -- SEO: /product/kafe-lavaca-kualita-rosa-zurna-1kg
+                                       -- FROZEN at first insert. Never updated. See §4.5.
   cat_id       smallint NOT NULL,      -- 1..101 КЗП group
-  title        text NOT NULL,          -- modal raw name, cleaned
+  title        text NOT NULL,          -- modal raw name, cleaned (may drift; slug may not)
   brand        text,
   net_qty      numeric,                -- normalized to g / ml / pc
   net_unit     text,
@@ -119,7 +120,13 @@ CREATE TABLE IF NOT EXISTS price_products (
   attrs        jsonb NOT NULL DEFAULT '{}'::jsonb,   -- {"fat":"3","class":"II"} — part of identity
   chain_count  int NOT NULL,
   sku_count    int NOT NULL,
-  confidence   smallint NOT NULL       -- 0..100
+  confidence   smallint NOT NULL,      -- 0..100
+  -- Materialized by prices:catalog. The DbDataTable registry (impl §4.3) sorts on
+  -- these; the registry engine can only order by real base-table columns.
+  current_min_eur numeric(10,4),
+  pct_since_euro  numeric(6,2),
+  first_seen   date NOT NULL,
+  last_seen    date NOT NULL           -- retire vanished products by this, never DELETE
 );
 
 -- A chain's own listing. chain_code is NOT global (see §4.1) — never join on it alone.
@@ -136,7 +143,10 @@ CREATE TABLE IF NOT EXISTS price_skus (
   UNIQUE (eik, chain_code, name_norm)
 );
 
--- FACT. valid_to IS NULL = currently in force. No last_seen column — see §3.2.
+-- HISTORY. valid_to IS NULL = last known price, NOT necessarily "still on sale".
+-- A run closes only when the price CHANGES. A discontinued SKU's run stays open
+-- forever. Never read this table for "current price" or for a day's aggregate —
+-- see §3.2 and use price_current / price_grid_days.
 CREATE TABLE IF NOT EXISTS price_facts (
   store_id    bigint NOT NULL REFERENCES price_stores(store_id),
   sku_id      bigint NOT NULL REFERENCES price_skus(sku_id),
@@ -147,8 +157,48 @@ CREATE TABLE IF NOT EXISTS price_facts (
   PRIMARY KEY (store_id, sku_id, valid_from)
 );
 
--- Which chain reported on which day. ~210 rows/day. Reconstructs coverage without
--- touching price_facts. This is what makes "absence ≠ change" cheap.
+-- TODAY'S TRUTH. TRUNCATE + reload from the day's observations, every run.
+-- ~1.4M rows. TRUNCATE resets the heap, so there is no bloat and no dead tuples.
+-- This is what "current price", the cross-chain ladder and cheapest-store read.
+CREATE TABLE IF NOT EXISTS price_current (
+  store_id    bigint NOT NULL,
+  sku_id      bigint NOT NULL,
+  price_eur   numeric(10,4) NOT NULL,
+  promo_eur   numeric(10,4),
+  PRIMARY KEY (store_id, sku_id)
+);
+
+-- DAILY AGGREGATE, computed from the day's actual observations — never
+-- reconstructed from price_facts (§3.2). ~17.3k rows/day. This is the input to
+-- the Jevons index and to every tile that exists today.
+CREATE TABLE IF NOT EXISTS price_grid_days (
+  day        date NOT NULL,
+  ekatte     text NOT NULL,
+  cat_id     smallint NOT NULL,      -- the 1..101 КЗП group
+  min_eur    numeric(10,4) NOT NULL,
+  avg_eur    numeric(10,4) NOT NULL,
+  max_eur    numeric(10,4) NOT NULL,
+  median_eur numeric(10,4) NOT NULL,
+  promo_min_eur numeric(10,4),
+  stores     int NOT NULL,
+  chains     int NOT NULL,
+  cheapest_eik   text,
+  cheapest_store text,
+  PRIMARY KEY (day, ekatte, cat_id)
+);
+
+-- Per-chain daily minimum, for chain comparison + the local-anomaly tile (§9.2.4).
+-- ~41.2k rows/day.
+CREATE TABLE IF NOT EXISTS price_chain_grid_days (
+  day     date NOT NULL,
+  ekatte  text NOT NULL,
+  eik     text NOT NULL,
+  cat_id  smallint NOT NULL,
+  min_eur numeric(10,4) NOT NULL,
+  PRIMARY KEY (day, ekatte, eik, cat_id)
+);
+
+-- Which chain reported on which day. ~210 rows/day. Masks reporting gaps in charts.
 CREATE TABLE IF NOT EXISTS price_chain_days (
   day   date NOT NULL,
   eik   text NOT NULL REFERENCES price_chains(eik),
@@ -180,11 +230,27 @@ Seed ≈ 1.9M fact rows. Steady state, measured two ways over the 8-day window: 
 ~20k/day; observed total inserts on the two most-converged days were 34,286 and 38,767. The key space
 had not finished filling after 8 days, so take **25k–40k inserts/day** as the honest band.
 
-- ~10–15M fact rows after one year
-- ~45–70M after five years
+| Table | Steady-state growth | 1 year | 5 years |
+| --- | --- | --- | --- |
+| `price_facts` | 25–40k/day | 10–15M | 45–70M |
+| `price_grid_days` | 17.3k/day | 6.3M | 32M |
+| `price_chain_grid_days` | 41.2k/day | 15M | 75M |
+| `price_chain_days` | ~210/day | 77k | 385k |
+| `price_current` | rewritten, not grown | 1.4M | 1.4M |
+| `price_skus` | upserted (**116,510** distinct/day) | ~150–250k total | — |
+| `price_stores` | upserted (**2,654** distinct/day) | ~3k total | — |
 
-At ~60 bytes/row plus indexes that is single-digit GB — comfortable for Cloud SQL, and two orders of
-magnitude below the 493M rows/year a naive append-every-observation design would produce.
+At ~60 bytes/row plus indexes that is low-double-digit GB at five years — comfortable for Cloud SQL,
+and still two orders of magnitude below the 493M rows/year a naive append-every-observation design
+would produce.
+
+`price_chain_grid_days` is the largest by growth. It exists only for chain comparison and the
+local-anomaly tile (§9.2.4). If those slip, drop it and reclaim 75M rows — it is the one table here
+that is a feature dependency rather than a correctness dependency.
+
+The feed is **already denominated in euro** — `scripts/prices/lib/normalize.ts` performs no currency
+conversion, and none is needed. Unlike the datasets covered by `feedback_bg_uses_eur`, there is no
+1.95583 division at ingest. Columns are named `*_eur` to make that explicit.
 
 ---
 
@@ -224,17 +290,51 @@ Daily write volume: **~25–40k inserts + ~15–25k updates** on `price_facts`, 
 ~2.9k on the small dims. The 1.4M-row COPY lands in an UNLOGGED staging table that is truncated at
 the end of the run — it never enters a WAL-logged, replicated, or dumped table.
 
-### 3.2 Why there is no `last_seen` on `price_facts`
+### 3.2 Why `price_facts` cannot answer "what was true on day D"
+
+*(Corrected after an audit. The first version of this plan got it wrong; the error is instructive, so
+it is recorded rather than quietly deleted.)*
 
 The obvious design puts `last_seen` on the fact row so you know a price was still observed today.
-That would `UPDATE` ~1.36M unchanged rows every single day — the exact bloat the migration exists to
-avoid, plus a daily 1.36M-tuple WAL burst and autovacuum load.
+That would `UPDATE` ~1.36M unchanged rows every single day — real bloat, a 1.36M-tuple WAL burst, and
+autovacuum load. So v1 dropped `last_seen` and claimed coverage could be reconstructed as *"the fact
+interval covers D **and** that chain reported on D"*, using the tiny `price_chain_days` table.
 
-Instead the fact table stores only the step function, and `price_chain_days` (~210 rows/day, ~77k
-rows/year) answers "did this chain report on day D". Coverage for any (store, sku, day) is then
-`fact interval covers D AND that chain reported on D` — a join against a tiny table. **A gap in
-reporting reads as a gap, never as a price change.** This is the single most important structural
-decision in the plan.
+**That is wrong, and measurably so.** A run closes only when the price *changes*. When a SKU is
+delisted, or a store closes, its run stays open **forever** — the chain keeps reporting, so the
+chain-grain mask never excludes it. `price_chain_days` knows a chain reported; it cannot know that
+*this store* stopped listing *this SKU*.
+
+Measured over just the eight days 2026-07-01 … 07-08: **1,899,083 distinct (store, sku) runs opened,
+against 1,400,705 rows actually observed on 07-08.** Reconstructing that day's grid from open runs
+would carry **498,378 phantom observations — a 36% over-count, after eight days.** Over 188 days it
+is far worse. Every phantom inflates `stores` and drags `min` / `median` / `max` toward stale
+extremes. The Phase-1 parity gate would have failed on the first delisted SKU, and the shipped price
+index would have been quietly wrong.
+
+The fix is to stop asking the step function a question it cannot answer. **Absence is only knowable
+at the moment of observation**, so it must be recorded then, from the day's own data:
+
+| Table | Written from | Rows/day | Answers |
+| --- | --- | --- | --- |
+| `price_facts` | the delta | 25–40k inserts | "what did this SKU cost over time" |
+| `price_current` | today's obs, TRUNCATE+reload | ~1.4M | "what does it cost **now**, and is it still sold" |
+| `price_grid_days` | today's obs | 17.3k | "what was the settlement×product aggregate on day D" |
+| `price_chain_grid_days` | today's obs | 41.2k | "what was each chain's minimum on day D" |
+| `price_chain_days` | today's obs | ~210 | "did this chain report at all on day D" |
+
+`price_current` is rewritten wholesale each run, but `TRUNCATE` resets the heap — no dead tuples, no
+bloat, no index churn on the large historical table. This is exactly the pattern `scripts/agri/ingest.ts`
+already uses (`TRUNCATE agri_subsidies` + bulk reload of ~2M rows, in one transaction), and it is far
+cheaper than `UPDATE`-ing 1.36M rows inside a 10–70M-row history table.
+
+The honest headline is therefore: **the price *history* grows by 25–40k rows/day; the current
+snapshot is a bounded 1.4M-row rewrite; the daily aggregates add ~58k rows/day.** That is still two
+orders of magnitude better than appending every observation to a growing table (493M rows/year), and
+unlike v1 it is correct.
+
+**A gap in reporting reads as a gap, never as a price change** — that principle survives. It is
+`price_current` and `price_grid_days`, not `price_facts`, that enforce it.
 
 ### 3.3 Where the loader runs
 
@@ -311,7 +411,18 @@ correct groups**, separated by fat content and volume.
   precedent of the TR namesake overrides (`project_procurement_namesake_fix`).
 - Cross-chain price comparison renders **only** for `confidence >= threshold AND chain_count > 1`.
 
-### 4.4 Honest expectations
+### 4.5 Slugs are frozen; titles are not
+
+`price_products.title` is the *modal raw name* across member SKUs, recomputed on every
+`prices:catalog` run. A single chain adding or renaming a listing can flip the mode, which would flip
+the title, which would flip a `slugify(title)`-derived slug — silently breaking every indexed
+`/product/:slug` URL and every sitemap entry pointing at it.
+
+**Rule: `slug` is assigned once, at first insert, and never updated.** The `rebuild_catalog.ts`
+upsert must exclude `slug` from its `DO UPDATE SET` list. Titles may drift; URLs may not. Vanished
+products are retired via `last_seen`, never `DELETE`d, so old links keep resolving.
+
+### 4.6 Honest expectations
 
 ~79% of canonical products exist at exactly one chain (private label, niche SKUs). Cross-chain
 comparison is meaningful for ~15.9k products. That is not a shortfall — Greece's flagship PosoKanei
@@ -539,6 +650,16 @@ Ordered by what a first-time visitor needs, not by what we happen to have.
    this. Croatia's four-bucket classification against the 2026-01-02 price: **N% поевтиняха ·
    N% поскъпнаха · N% без промяна · N% в промоция.** A big, honest, shareable answer, with the ECB's
    0.3–0.4pp estimate cited alongside our own measurement. Ship this even if nothing else lands.
+
+   **There must be a fifth bucket: „нови след еврото" (no baseline).** Chains skip days (§1.3), so a
+   large number of (store, sku) pairs — and some whole chains — have no observation on 2026-01-02 and
+   therefore no euro-day price at all. `build_index.ts` already handles this at *settlement* grain
+   (`panel`, `firstSeen`, `sinceEuro` gating), but the product- and store-grain verdicts do not
+   inherit that logic. Silently dropping unbaselined products understates the denominator; silently
+   treating them as "unchanged" fabricates a result. Define the baseline explicitly as *the first run
+   active on or after euro day*, carry a `baseline_day` per entity, and put anything whose baseline is
+   materially later than 2026-01-02 in the fifth bucket. The bucket counts must sum to 100% of the
+   priced universe, and the page must say what the fifth bucket is.
 
 3. **Усещане срещу измерено.** The perceived–actual gap is the universal finding of every changeover
    since 2002. Put our КЗП monitoring basket next to the official НСИ/HICP series and *explain the
