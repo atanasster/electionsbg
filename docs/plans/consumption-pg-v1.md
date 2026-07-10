@@ -96,6 +96,15 @@ CREATE TABLE IF NOT EXISTS price_stores (
   store_id    bigserial PRIMARY KEY,
   eik         text NOT NULL REFERENCES price_chains(eik),
   ekatte      text NOT NULL,
+  -- Denormalized place names. There is NO settlements dimension in Postgres
+  -- (verified: no CREATE TABLE settlements/places/ekatte anywhere in
+  -- scripts/db/schema/pg/). The precedent is `awarder_seats`, which carries
+  -- settlement/municipality/oblast inline keyed by ekatte. Without these, the
+  -- price-product / price-search routes cannot render a place name and the
+  -- DbDataTable cannot filter by oblast. Populated by resolvePlace() at ingest.
+  settlement  text NOT NULL,
+  obshtina    text NOT NULL,
+  oblast      text NOT NULL,
   label       text NOT NULL,          -- raw "Търговски обект"
   label_norm  text NOT NULL,
   lat         double precision,       -- NULL until geocoded (phase 6)
@@ -103,6 +112,17 @@ CREATE TABLE IF NOT EXISTS price_stores (
   first_seen  date NOT NULL,
   last_seen   date NOT NULL,
   UNIQUE (eik, ekatte, label_norm)
+);
+
+-- Mirror of the hand-authored scripts/prices/products.json (§7). Git is the
+-- source of truth; this copy exists so SQL can join cat_id → label without
+-- round-tripping a payload blob. Reloaded (TRUNCATE + insert) on every catalog run.
+CREATE TABLE IF NOT EXISTS price_cats (
+  cat_id      smallint PRIMARY KEY,   -- 1..101
+  group_id    smallint NOT NULL,      -- one of the 14 categories
+  bg          text NOT NULL,
+  en          text NOT NULL,
+  unit_priced boolean NOT NULL DEFAULT false   -- gates cross-chain merging (§4.3)
 );
 
 -- Canonical product: the cross-chain identity. See §4.
@@ -468,27 +488,90 @@ The dashboard rebuild — the actual product work — is §9.
 
 ---
 
-## 7. Retiring the JSON
+## 7. Retiring the JSON — a full inventory
 
-Full PG-only, matching `agri_subsidies` (which already ships with no JSON shard tree). Consumers to
-rewire before deleting `data/prices/*.json`:
+**The principle.** *Git stores what a human authors. Postgres stores what the pipeline derives.* The
+only admissible exception is a derived artifact consumed by a process that structurally cannot reach
+the database — and it must then be bounded, stable, and diffable.
+
+Applied to every JSON artifact that touches prices:
+
+| Artifact | Size | Verdict | Why |
+| --- | --- | --- | --- |
+| `data/prices/index.json` | 260KB | **→ PG, delete** | derived serving artifact |
+| `data/prices/ranking.json` | 128KB | **→ PG, delete** | derived serving artifact |
+| `data/prices/chains.json` | 12KB | **→ PG, delete** | derived serving artifact |
+| `data/prices/dict.json` | 16KB | **→ PG, delete** | derived; becomes a `price_cats` join |
+| `data/prices/settlement/*.json` | 242 files, 4.7MB | **→ PG, delete** | derived shards |
+| `data/prices/chains/*.json` | 159 files, 636KB | **→ PG, delete** | derived shards |
+| `data/prices/_cache/` | 490MB | **delete** | regenerable cache; already gitignored. Superseded by `price_grid_days`. **Verify the GCS cold archive first** (§11) |
+| `raw_data/prices/*.zip` | 4.1GB | **keep, never migrate** | the authoritative source. Gitignored; lives on disk + a best-effort GCS cold archive |
+| `scripts/prices/products.json` | 15KB | **KEEP as source** | hand-authored. Mirrored into `price_cats` |
+| `data/prices/product_overrides.json` | small | **KEEP as source** | hand-authored. Mirrored into PG |
+| `data/prices/product_slugs.json` | ~500KB | **KEEP, reluctantly** | derived, but prerender/sitemap have no DB. See below |
+
+Net: **405 files and ~5.7MB of derived JSON deleted**, plus 490MB of cache. Three files survive.
+
+### 7.1 The two that are genuinely not data
+
+`scripts/prices/products.json` (the 101 КЗП groups, their 14 categories, bg/en labels) and
+`data/prices/product_overrides.json` (the hand-curated merge/split corrections) are **configuration,
+not output**. Both gate correctness: `unit_priced` in the former decides whether a product may merge
+across chains at all (§4.3), and the latter is the human-review artifact of the clustering audit.
+
+A change to either must arrive as a reviewable diff in a pull request. Putting them in Postgres would
+make a rule change invisible — an `UPDATE` with no history, no reviewer, no blame. Precedent: the TR
+namesake overrides (`project_procurement_namesake_fix`).
+
+So: **git is the source of truth; the ingest loads a copy into `price_cats` / `price_product_overrides`
+so SQL can join.** That is not "JSON generated from PG" — the arrow points the other way, which is
+exactly what `feedback_no_json_from_pg` is guarding.
+
+### 7.2 The one that is data, and survives anyway
+
+`data/prices/product_slugs.json` is a projection of `price_products` — by the principle above it
+should not exist. It survives because `scripts/prerender/` and `scripts/sitemap/` have never opened a
+database connection, and the alternatives are worse: giving the build a DB makes it non-hermetic, and
+the maintainer's *local* PG (`:5433`) is stale anyway, since the ingest targets Cloud SQL (`:5434`).
+
+It is admissible only because it is bounded and stable:
+
+- **Bounded** — only the prerendered top ~2–5k products by `chain_count`, not all 74k. Fields limited
+  to `{ slug, title, catId, chainCount }`.
+- **Stable** — slugs are frozen at first insert (§4.5), so the file is append-mostly. It does not
+  churn daily; a diff in it means a genuinely new product page.
+- **Diffable** — a slug change is visible in review before it breaks an indexed URL.
+
+Written by `export_slugs.ts` as the last step of the *ingest* (which holds the authoritative
+connection), never by the build.
+
+### 7.3 Consumers to rewire before deleting
+
+Full PG-only, matching `agri_subsidies` (which already ships with no JSON shard tree).
 
 1. **`ai/tools/prices.ts`** — 6 tools (`priceIndex`, `settlementPrices`, `cheapestChains`,
    `priceRanking`, `basketAffordability`, `basketVsInflation`) move from `fetchData` to the payload
    route. `resolveProduct` / `PRODUCT_ALIASES` (~34 regexes mapping phrases to the 101 group ids) is
    superseded by the trgm search over 74k real products — a large unlock for the chat, and worth two
    new tools: `productPrice` and `productHistory`.
-2. **`scripts/prerender/routes.ts`** + `bodyBuilders.ts` — *no change needed.* Verified: the
-   `/prices` and `/consumption` bodies (`routes.ts:980-1057`) are static HTML strings, and neither
-   `scripts/prerender/` nor `scripts/sitemap/` ever opens a DB connection. OG capture drives the live
-   SPA, so it picks up `/api/db` for free. Only the new dynamic `/product/:slug` routes need product
-   data at build time — served by a gitignored slug export, not a DB dependency.
+2. **`scripts/prerender/routes.ts`** + `bodyBuilders.ts` — *no change needed for the existing pages.*
+   Verified: the `/prices` and `/consumption` bodies (`routes.ts:980-1057`) are static HTML strings,
+   and neither `scripts/prerender/` nor `scripts/sitemap/` ever opens a DB connection. OG capture
+   drives the live SPA, so it picks up `/api/db` for free. The new `/product/:slug` routes read the
+   committed `product_slugs.json` (§7.2).
 3. **`scripts/data_map/model.ts`** — `ds:prices` repoints from `data/prices/` to Postgres; add the
    new `f:products` feature node and edge. The prebuild fails on an unplaced source, so this is not
    optional.
 4. **`scripts/watch/sources/kzp_prices.ts`** — unchanged (it fingerprints the advertised ZIP date).
-5. `data/prices/_cache/` stays local; once PG is the source of truth it is redundant with
-   `raw_data/prices/*.zip` and can be dropped, reclaiming 486MB.
+5. **`scripts/prices/lib/locations.ts`** — `resolvePlace()` must now run **at ingest**, inside
+   `load_day.ts`, before the COPY. It normalizes the raw feed code to a 5-digit EKATTE (strips the
+   Sofia district suffix, zero-pads), synthesizes the Sofia city node (68134 → obshtina `SOF46`,
+   oblast `S23`), and drops codes it cannot resolve. Its outputs populate `price_stores.settlement /
+   obshtina / oblast`. The plan previously never said where this ran; it cannot live in the payload
+   builder, because the serving routes need place names too. It keeps reading the shared
+   `data/settlements.json` (23 consumers) and `data/census_2021_settlements.json` — cross-cutting
+   reference data, out of scope for this migration.
+6. `data/prices/_cache/` is deleted last, and only after the GCS cold archive is verified (§11).
 
 `scripts/prices/build_index.ts` (776 lines) is deleted. Its index math — the Jevons index of
 per-settlement median-of-minimum prices — moves into the payload builder unchanged, and must be
@@ -926,9 +1009,15 @@ migration and the SKU-faithful browser, and iterate on identity.
   which applies its own DDL) *before* `deploy:functions`, or `missingMigrationEmpty` masks a 500
   as an empty tile. Same trap as agri and NZOK. Note `db:dump` does **not** land a migration —
   it only `pg_dump`s outward to GCS (see §"`db:dump` is a full `pg_dump` → GCS" above).
-- **Snapshot size.** Does `price_facts` belong in the `db:dump` dump at all, or should DR for prices
-  be "replay the ZIPs"? The ZIPs are 4.1GB and authoritative; the dump would grow by several GB.
-  Leaning toward excluding it and documenting the replay path.
+- **Snapshot size, and whether the ZIPs actually exist anywhere.** The plan leans on "DR = replay the
+  4.1GB of authoritative ZIPs" instead of carrying `price_facts` in the `db:dump` snapshot. **But
+  `/raw_data/prices/` is gitignored** (`.gitignore:69`), and the GCS cold archive at
+  `gs://data-electionsbg-com/prices/_archive` is written only when `--archive` is passed and is
+  explicitly *best-effort* (`fetch.ts:69` — "gsutil may be absent in CI"). So the corpus may exist on
+  exactly one laptop. **Before deleting `data/prices/_cache/` (490MB), verify the archive holds all
+  188 objects.** If it does not, either back-fill the archive or keep `price_facts` in the dump. This
+  is the cheapest possible way to lose six months of irreplaceable daily price history — the КЗП
+  portal only advertises the last ~14 days.
 - **Mandate expiry.** If the daily-upload obligation lapses on **8 Aug 2026** the feed may thin out or
   stop. The step-function model degrades gracefully (open runs simply stop being superseded), but the
   since-euro tracker needs an explicit "data ends" affordance rather than a flatlining chart. Build

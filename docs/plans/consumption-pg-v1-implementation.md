@@ -769,7 +769,15 @@ data/prices/_cache/                  (486MB — redundant with raw_data/prices/*
 `scripts/watch/sources/kzp_prices.ts` is unchanged: it fingerprints the advertised ZIP date and knows
 nothing about storage.
 
-### 6.4 The one JSON that survives
+### 6.4 The three JSONs that survive
+
+Design §7 has the full inventory and the governing principle (*git stores what a human authors;
+Postgres stores what the pipeline derives*). Two survivors are hand-authored configuration —
+`scripts/prices/products.json` and `data/prices/product_overrides.json` — and are mirrored *into* PG
+(`price_cats`, `price_product_overrides`) rather than migrated out of git, because both gate
+correctness and a change to either must arrive as a reviewable diff.
+
+The third is derived, and is the interesting case.
 
 `/product/:slug` needs a slug list at prerender and sitemap time, and neither `scripts/prerender/` nor
 `scripts/sitemap/` has ever opened a database connection.
