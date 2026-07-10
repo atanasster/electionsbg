@@ -323,6 +323,20 @@ const captures: Capture[] = [
     settleMs: 2000,
   },
   {
+    slug: "subsidies",
+    routePath: "subsidies",
+    // The dashboard shell is full-bleed, so at the 1280px capture viewport the
+    // KPI grid is 1249px wide and the outer stat cards get sliced by the 1200px
+    // clip. Capping <main> at 1216px (grid + its 2x8px padding) makes the grid
+    // exactly 1200 so the clip frames it edge to edge. The viewport itself stays
+    // 1280, so the xl: two-column distribution grid below survives.
+    waitFor: '[data-og="subsidies-hero"]',
+    anchor: '[data-og="subsidies-hero"]',
+    settleMs: 2500,
+    extraCss:
+      "[data-community-banner]{display:none!important;} main{max-width:1216px!important;}",
+  },
+  {
     slug: "governance",
     routePath: "governance",
     // The budget-summary tile is the largest data-driven visual on the

@@ -122,7 +122,11 @@ export const subsidiesOverview = async (
       ),
       companies: fmtInt(o.headline.entityCount, ctx.lang),
       individuals: fmtInt(o.headline.individualCount, ctx.lang),
+      // The cohort sizes ride along as facts so the narrator can name them
+      // without introducing a number of its own (narrate.ts's contract).
+      top100Count: fmtInt(100, ctx.lang),
       top100Share: fmtPct(o.concentration.top100Share, ctx.lang),
+      top1000Count: fmtInt(1000, ctx.lang),
       top1000Share: fmtPct(o.concentration.top1000Share, ctx.lang),
       biggestScheme: o.headline.topScheme?.scheme ?? "—",
       biggestRecipient: top[0]?.name ?? "—",

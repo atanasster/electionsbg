@@ -58,6 +58,7 @@ import {
   buildHomeBodyEn,
 } from "./bodyBuilders";
 import { getLatestElection } from "./dynamicRoutes";
+import { AGRI_FINANCIAL_YEARS } from "@/data/agri/constants";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -68,6 +69,23 @@ const DATA_FOLDER = path.join(PROJECT_ROOT, "data");
 const PUBLIC_ASSETS_FOLDER = path.join(PROJECT_ROOT, "public");
 const ELECTIONS_FILE = path.join(PROJECT_ROOT, "src/data/json/elections.json");
 const REGIONS_FILE = path.join(PROJECT_ROOT, "src/data/json/regions.json");
+
+// The ДФЗ subsidy corpus lives only in Postgres, so the /subsidies body carries
+// no payment figures — only the covered financial years, which come from the
+// same constant the app's year picker reads. The years have gaps (2018–2020 are
+// absent from the source), so we collapse them into ranges rather than claim a
+// continuous span.
+const AGRI_YEARS_ASC = [...AGRI_FINANCIAL_YEARS].sort((a, b) => a - b);
+const AGRI_EARLIEST_YEAR = AGRI_YEARS_ASC[0];
+const AGRI_LATEST_YEAR = AGRI_YEARS_ASC[AGRI_YEARS_ASC.length - 1];
+const AGRI_YEAR_RANGES = AGRI_YEARS_ASC.reduce<number[][]>((acc, y) => {
+  const last = acc[acc.length - 1];
+  if (last && y === last[last.length - 1] + 1) last.push(y);
+  else acc.push([y]);
+  return acc;
+}, [])
+  .map((r) => (r.length > 1 ? `${r[0]}–${r[r.length - 1]}` : `${r[0]}`))
+  .join(", ");
 
 // Crawlable "browse by region" block for the country /governance body. Gives
 // the prerendered region-tier pages a real internal link from the well-linked
@@ -2492,6 +2510,48 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <h1>Повторно преброяване — отклонения по партии</h1>
 <p>След първоначалното броене на гласовете в СИК, всички протоколи минават през второ броене в РИК. Когато двете броения дават различен резултат, се отчита отклонение.</p>
 <p>Тук са секциите с най-голямо отклонение между двете броения — по обща сума, по партия и по тип разлика (партия → партия, партия → недействителна).</p>`.trim(),
+  }),
+  staticPage({
+    path: "subsidies",
+    title:
+      "Земеделски субсидии в България — кой получава парите на ОСП | electionsbg.com",
+    description: `Кой получава земеделските субсидии на ДФ „Земеделие" — по схема, по област, по година и по получател. Изплатени суми за финансови години ${AGRI_EARLIEST_YEAR}–${AGRI_LATEST_YEAR}, концентрация на плащанията и класация на най-големите получатели.`,
+    breadcrumbName: "Земеделски субсидии",
+    ogImage: "/og/subsidies.png",
+    bodyHtml: `
+<h1>Земеделски субсидии — кой получава парите</h1>
+<p>Държавен фонд „Земеделие" е разплащателната агенция на Общата селскостопанска политика (ОСП) на ЕС. Тази страница показва какво прави фондът с парите: колко изплаща всяка финансова година, по кои схеми, в кои области и на кои получатели — юридически лица и физически лица поотделно.</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li><strong>Накратко</strong> — изплатена сума, брой получатели (фирми и физически лица), делът на 100-те най-големи фирми и най-голямата схема за избраната финансова година.</li>
+<li><strong>Концентрация</strong> — как се разпределя сумата между топ 10, топ 11–100, топ 101–1000 и всички останали фирми. Малка група получатели взима непропорционален дял от парите за юридически лица.</li>
+<li><strong>По схема</strong> — от основното подпомагане на доходите до инвестиционните мерки, еко схемите и извънредната помощ, с директна връзка към получателите по всяка схема.</li>
+<li><strong>По област</strong> — карта на изплатеното по области.</li>
+<li><strong>По година</strong> — изплатено по финансова година (${AGRI_YEAR_RANGES}).</li>
+<li><strong>Най-големи получатели</strong> — класация на юридическите лица, всяко със своя <a href="${SITE_URL}/procurement">профил</a>, така че субсидиите се четат заедно с обществените поръчки и европейските средства на същата фирма.</li>
+</ul>
+<p>Собствените обществени поръчки на фонда са на <a href="${SITE_URL}/awarder/121100421">страницата на ДФ „Земеделие"</a>. Виж и <a href="${SITE_URL}/funds">европейските средства</a> и <a href="${SITE_URL}/procurement">обществените поръчки</a>.</p>
+<p>Източници: <a href="https://data.egov.bg/" rel="nofollow noopener">data.egov.bg</a> (ДФ „Земеделие" — отворени данни за плащанията) и публичният регистър на <a href="https://seu.dfz.bg/" rel="nofollow noopener">Системата за електронни услуги на ДФЗ</a> за текущите години.</p>`.trim(),
+    english: {
+      title:
+        "Farm Subsidies in Bulgaria — Who Receives the CAP Money | electionsbg.com",
+      description: `Who receives State Fund Agriculture's farm subsidies — by scheme, by province, by year and by recipient. Payments for financial years ${AGRI_EARLIEST_YEAR}–${AGRI_LATEST_YEAR}, payment concentration and a ranking of the largest recipients.`,
+      breadcrumbName: "Farm subsidies",
+      bodyHtml: `
+<h1>Farm subsidies — who receives the money</h1>
+<p>State Fund Agriculture is Bulgaria's paying agency for the EU Common Agricultural Policy (CAP). This page shows what the fund does with the money: how much it pays out in each financial year, under which schemes, in which provinces, and to which recipients — legal entities and individuals counted separately.</p>
+<h2>What you'll find</h2>
+<ul>
+<li><strong>At a glance</strong> — total paid, number of recipients (companies and individuals), the share captured by the 100 largest firms, and the largest scheme for the selected financial year.</li>
+<li><strong>Concentration</strong> — how the money splits between the top 10, the top 11–100, the top 101–1000 and every other firm. A small group of recipients takes a disproportionate share of the legal-entity money.</li>
+<li><strong>By scheme</strong> — from basic income support to investment measures, eco-schemes and emergency aid, each linking through to the recipients under it.</li>
+<li><strong>By province</strong> — a map of payments by oblast.</li>
+<li><strong>By year</strong> — amounts paid per financial year (${AGRI_YEAR_RANGES}).</li>
+<li><strong>Largest recipients</strong> — a ranking of legal entities, each with its own <a href="${SITE_URL}/en/procurement">company profile</a>, so subsidies can be read alongside the same firm's public contracts and EU funds.</li>
+</ul>
+<p>The fund's own public procurement is on the <a href="${SITE_URL}/en/awarder/121100421">State Fund Agriculture page</a>. See also <a href="${SITE_URL}/en/funds">EU funds</a> and <a href="${SITE_URL}/en/procurement">public procurement</a>.</p>
+<p>Sources: <a href="https://data.egov.bg/" rel="nofollow noopener">data.egov.bg</a> (State Fund Agriculture payment open data) and the public register of the fund's <a href="https://seu.dfz.bg/" rel="nofollow noopener">electronic-services system</a> for the current years.</p>`.trim(),
+    },
   }),
   staticPage({
     path: "funds",

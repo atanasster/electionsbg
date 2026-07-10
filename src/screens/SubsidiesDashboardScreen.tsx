@@ -267,7 +267,10 @@ const Dashboard: FC<{ data: AgriIndexFile }> = ({ data }) => {
         icon={Sprout}
         subtitle={scopeLabel}
       >
-        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        <div
+          data-og="subsidies-hero"
+          className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+        >
           <StatCard label={bg ? "Изплатено" : "Paid"}>
             <div className="flex items-baseline gap-2">
               <Coins className="h-5 w-5 text-muted-foreground shrink-0" />

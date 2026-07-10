@@ -74,6 +74,7 @@ export const ENGLISH_STATIC_PAGES = [
   "procurement/awarders",
   "procurement/mps",
   "procurement/by-settlement",
+  "subsidies",
   "funds",
   "funds/political",
   "funds/integrity",
@@ -242,6 +243,12 @@ export const routeDefs = (year: string): RouteDefs => [
     path: "procurement/settlement/:id",
     file: `procurement-settlements-list`,
   },
+
+  // Farm subsidies — ДФЗ corpus. The data lives only in Postgres (no JSON
+  // artifact to stamp lastmod from), so the screen file stands in. The
+  // /subsidies/browse table and the per-recipient /farm/:eik pages are left out
+  // of the sitemap — same bounded-URL discipline as the procurement browsers.
+  { path: "subsidies", file: `src/screens/SubsidiesDashboardScreen.tsx` },
 
   // EU funds — ИСУН 2020 corpus.
   { path: "funds", file: `data/funds/index.json` },

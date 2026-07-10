@@ -372,6 +372,33 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Европейски средства: договорени ${f(env, "contracted")}, изплатени ${f(env, "paid")}. Топ бенефициент: ${f(env, "top")}.`
         : `EU funds: ${f(env, "contracted")} contracted, ${f(env, "paid")} paid. Top beneficiary: ${f(env, "top")}.`;
+    case "subsidiesOverview":
+      if (!env.facts.paid) return env.title;
+      return lang === "bg"
+        ? `Земеделски субсидии (${f(env, "scope")}): изплатени ${f(env, "paid")} на ${f(env, "recipients")} получатели — ${f(env, "companies")} фирми и ${f(env, "individuals")} физически лица. ${f(env, "top100Count")} най-големи фирми взимат ${f(env, "top100Share")} от парите за юридически лица. Най-голяма схема: ${f(env, "biggestScheme")}. Най-голям получател: ${f(env, "biggestRecipient")}.`
+        : `Farm subsidies (${f(env, "scope")}): ${f(env, "paid")} paid to ${f(env, "recipients")} recipients — ${f(env, "companies")} companies and ${f(env, "individuals")} individuals. The ${f(env, "top100Count")} largest firms take ${f(env, "top100Share")} of the legal-entity money. Largest scheme: ${f(env, "biggestScheme")}. Largest recipient: ${f(env, "biggestRecipient")}.`;
+    case "subsidiesByScheme":
+      if (!env.facts.biggestScheme) return env.title;
+      return lang === "bg"
+        ? `Най-много пари по земеделските схеми (${f(env, "scope")}) отиват за ${f(env, "biggestScheme")}: ${f(env, "biggestAmount")}.`
+        : `The largest farm-subsidy scheme (${f(env, "scope")}) is ${f(env, "biggestScheme")}: ${f(env, "biggestAmount")}.`;
+    case "subsidiesForEntity": {
+      if (!env.facts.total) return env.title;
+      // Recipients recovered from the СЕУ years by name-match carry no EIK, and
+      // individuals carry no oblast — drop whichever is missing rather than
+      // render an empty "(ЕИК , —)".
+      const idBg = [
+        env.facts.eik ? `ЕИК ${f(env, "eik")}` : "",
+        env.facts.oblast && env.facts.oblast !== "—" ? f(env, "oblast") : "",
+      ].filter(Boolean);
+      const idEn = [
+        env.facts.eik ? `EIK ${f(env, "eik")}` : "",
+        env.facts.oblast && env.facts.oblast !== "—" ? f(env, "oblast") : "",
+      ].filter(Boolean);
+      return lang === "bg"
+        ? `${f(env, "recipient")}${idBg.length ? ` (${idBg.join(", ")})` : ""} е получил ${f(env, "total")} земеделски субсидии по ${f(env, "payments")} плащания през ${f(env, "period")} г. Най-голяма схема: ${f(env, "topScheme")}.`
+        : `${f(env, "recipient")}${idEn.length ? ` (${idEn.join(", ")})` : ""} received ${f(env, "total")} in farm subsidies across ${f(env, "payments")} payments in ${f(env, "period")}. Largest scheme: ${f(env, "topScheme")}.`;
+    }
     case "governments":
       return lang === "bg"
         ? `${f(env, "count")} правителства от 2005. Настоящо: ${f(env, "current_pm")} (${f(env, "current_parties")}).`
