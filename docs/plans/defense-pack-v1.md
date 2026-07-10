@@ -1,10 +1,26 @@
 # Отбрана (МО / Българска армия) view — v1
 
-## Status (2026-07-09, rev 1.2)
+## Status (2026-07-09, rev 1.3 — pre-implementation audit applied)
 
-- **Design doc only** — nothing built yet. Written against the four shipped
-  "Държавни структури" dashboards (АПИ / НОИ / НЗОК + ДФ „Земеделие“ awarder) so the
-  defense view reuses their proven anatomy instead of inventing a new shell.
+- **Design doc only** — nothing built yet. Written against the five shipped
+  "Държавни структури" dashboards (АПИ / НОИ / НЗОК / ВСС + ДФ „Земеделие“ awarder) so the
+  defense view reuses their proven anatomy instead of inventing a new shell. **ВСС + `/judiciary`
+  are now SHIPPED** and are the closest analogue — copy them, not the older packs.
+- **Rev 1.3 audit corrections (blocking, read before coding):**
+  1. **Thesis was factually wrong.** МО's visible corpus is NOT thin: 1 212 contracts / €852M of
+     real aviation & vehicle sustainment. Part 2 rewritten.
+  2. **Defense family of 7 EIKs** (€940,6M) — the "single entity" dismissal was wrong; use the
+     ВСС alias fan-out (`useQueries` + `combine`).
+  3. No `defenseBenchmarks.ts` — split `defenseReferenceData.ts` + `defenseAttributes.ts`;
+     build on the generic **`buildAwarderModel` / `SectorClassifier`** seam.
+  4. **МО budget belongs to `update-budget`** (`budget_law` watcher), not `update-defense`.
+  5. **No `DEFENSE_AWARDER_PATH`**; nav key `defense_nav` → `/defense`, `unscoped: true`.
+  6. `/defense` prerender lives in **`scripts/prerender/routes.ts`**, not `dynamicRoutes.ts`.
+  7. Budget types + budget hook go in `src/data/budget/{types.ts,useBudget.tsx}`.
+  8. Router = guarded `has()` cue logic with **inlined `MOD_EIK`** + substring-collision defenses.
+  9. Data map needs **cross-dataset feature edges** (`ds:budget`, `ds:macro` → `f:defense`).
+ 10. `SectorPackProps.scopeWindow` is `ScopeWindow` (not `RoadsWindow`); `/defense` is a plain
+     lazy child route (not `<LayoutScreen>`); screen reuses `ProcurementScopeControl`.
 - **Rev 1.1** adds the full engineering plumbing (Parts 4–8) modeled on
   `docs/plans/water-view-v1.md` and the real contracts browse/detail screens: SQL-perf
   gates, watcher + process-watch-report wiring, changelog, AI chat tools, data-map/README
@@ -43,12 +59,23 @@ the generic buy-side tiles already sit above them.
 // sectorPacks.tsx
 export interface SectorPackProps {
   eik: string;
-  scopeWindow: RoadsWindow; // = ScopeWindow { from: string|null; to: string|null } — [from,to)
+  scopeWindow: ScopeWindow; // { from: string|null; to: string|null } — [from,to), from useAwarderContracts
 }
 ```
 `scopeWindow` is inherited from the host's `ProcurementScopeControl` pill
 (`?pscope=ns|all|y:YYYY`). Data flow in every pack:
 `useAwarderContracts(eik)` → `scopeByWindow(contracts, from, to)` → `build<Domain>Model(...)`.
+
+**The actual reuse seam (missed in earlier drafts): `buildAwarderModel` + `SectorClassifier`**
+in `src/lib/awarderModel.ts`. ВСС does *not* write a bespoke engine — `buildVssModel` is a thin
+wrapper: `buildAwarderModel(rows.filter(isSpendRow), vssClassifier)`. Returning the standard model
+surface (`totalEur`, `years[]`, `categories[]`, `directShare`, `suppliers[]`) makes the KPI row,
+insight chips and category tile light up for free. Do the same for defense.
+
+**Domain constants live in TWO files, not one** (there is no `<domain>Benchmarks.ts` for ВСС):
+`src/lib/vssReferenceData.ts` (EIK + alias set, CPV→category map, labels, colors) and
+`src/lib/vssAttributes.ts` (the classifier + `buildVssModel`). Mirror as
+`defenseReferenceData.ts` + `defenseAttributes.ts`.
 
 ### Shared UI skeleton (identical across all packs)
 1. **Data hook** `use<Domain>(eik, scopeWindow)` in `src/data/procurement/` — fuses
@@ -91,27 +118,78 @@ overlay), **portfolio treemap** (`CompanyPortfolioTreemap`), **by-year chart**
 
 ---
 
-## Part 2 — Why defense is different: NOT contract-centric
+## Part 2 — The real thesis: sustainment is visible, acquisition is not
 
-The existing packs all hang off `useAwarderContracts`, and the hero "bridge"
-reframes procurement as a share of a fund. **Defense breaks this assumption at the
-top:** the highest-value spend is *invisible to the contract corpus*.
+**Corrected 2026-07-09 after querying the live corpus. The earlier draft claimed МО's visible
+procurement was thin routine support (fuel/food/uniforms). That is FALSE.**
 
-- **F-16 (~$2.6bn), Stryker (~$1.38bn)** are US **Foreign Military Sales** —
-  government-to-government, no competitive ЦАИС ЕОП tender record, only the
-  parliamentary ratification law.
-- Weapons/ammunition/intelligence procurement is exempt under **ЗОП чл. 148–149**
-  (defense/security chapter, EU Dir. 2009/81/ЕО), чл. 149(1)(3) for intelligence.
-- What IS visible on `app.eop.bg/buyer/1199` + `pp.mod.bg` is routine support: fuel,
-  food, uniforms, IT, maintenance, construction.
+Measured against local PG (`contracts`, EIK `000695324`):
 
-**Design consequence:** the generic contract tiles above the pack will render the
-*thin visible slice* — and that is a feature, not a bug. The pack's transparency
-tile **names the gap** and turns "we can't show you the F-16 contract" into a
-principled, legible position (the Prozorro field-redaction model). The big stories
-(% GDP path, equipment/personnel mix, mega-programs, arms exports, readiness) come
-from **budget + NATO/EDA/SIPRI + parliamentary reports**, loaded via extra hooks —
-the **НЗОК pattern** (external data), not the Roads pattern (derive-from-contracts).
+| Fact | Value |
+|---|---|
+| МО contracts | **1 212** (2011-01-03 → 2026-06-02) |
+| МО awarded value | **€852M** (across 3 `awarder_name` variants) |
+| Defense family (7 EIKs incl. subordinates) | **2 614 contracts, €940,6M** |
+| Open procedure, share of value | **17,8%** |
+| Negotiated **without** prior notice, share of value | **13,2%** |
+| Single-bid contracts | **243 = 44,3%** of the 548 with bid data (**45% coverage**) |
+| МО tenders | **230** |
+
+The visible contracts are **real defense sustainment**, not stationery: C-27J Spartan integrated
+logistic support (€38,8M + €23,2M), RD-33 engines for MiG-29 (€21,8M), L-39ZA airframe overhaul
+(€20,0M), Mi-24 helicopter airworthiness restoration (€14,2M), Jet A-1 aviation kerosene (€15,0M),
+high-mobility vehicles (€21,3M).
+
+**So the thesis is sharper than "the corpus is thin" — and it is true:**
+
+> **You can see, line by line, what it costs to keep the Soviet-era fleet flying.
+> You cannot see what it costs to replace it.**
+
+Sustainment (engines, overhauls, logistic support, fuel) flows through ЗОП into our corpus.
+**Acquisition of new major platforms does not:** F-16 (~$2,6bn) and Stryker (~$1,38bn) are US
+**Foreign Military Sales** — government-to-government, no competitive ЦАИС ЕОП record, only a
+parliamentary ratification law. Weapons/ammunition/intelligence procurement is exempt under
+**ЗОП чл. 148–149** (EU Dir. 2009/81/ЕО), чл. 149(1)(3) for intelligence.
+
+**Design consequences (all changed from the earlier draft):**
+1. The pack is **contract-led AND budget-led**. The generic tiles above it (top contracts,
+   contractors, CPV, benchmarks, Sankey, by-year, tenders, appeals) render *richly*, not emptily.
+   Phase 1 is worth far more than previously scoped.
+2. **The competition story is a real, defensible finding**, not a footnote: 17,8% of value via
+   open procedure; 44,3% single-bid among covered contracts (EU red line >20%); 13,2% of value
+   negotiated without prior notice. `ProcurementBenchmarksTile` lights up.
+3. The transparency tile still names the FMS/чл.149 gap — now framed as
+   **sustainment-visible / acquisition-invisible**, which is more precise and more damning.
+4. Non-contract data (%GDP path, equipment/personnel mix, mega-programs, exports, readiness)
+   still loads via the **НЗОК/ВСС pattern** (budget + curated JSON hooks).
+
+### The defense family (7 EIKs) — the plan was WRONG to dismiss this
+The earlier draft said "single entity, no multi-EIK roll-up needed." The corpus disagrees:
+
+| EIK | Entity | Contracts | Value |
+|---|---|---|---|
+| `000695324` | Министерство на отбраната (3 name variants) | 1 212 | €852M |
+| `129008829` | ИА „Военни клубове и военно-почивно дело“ | 232 | €16,3M |
+| `129010221` | Командване за комуникационно-информационна поддръжка и киберотбрана | 100 | €3,7M |
+| `129010214` | Военно-географска служба | 65 | €0,9M |
+| `129010545` | Информационен център на МО | 14 | €1,0M |
+| `129010036` | Институт по отбрана „Проф. Цветан Лазаров“ | 16 | €1,5M |
+| `129010142` | Комендантство — МО | 3 | €0,2M |
+
+Follow the **ВСС alias pattern**: `useVss` fans out over `[VSS_EIK, ...VSS_ALIAS_EIKS]` with
+react-query `useQueries` + `combine` (stable array identity — without it the model rebuilds on
+every hover) and footnotes the `aliasEur` delta so the pack reconciles against the per-EIK awarder
+header above it. Do the same in `useDefense`.
+
+### Data-quality caveats that MUST be disclosed in-tile
+- `procurement_method` is **NULL for 614 / 1 212 (51%)** — a clean direct-award % cannot be
+  computed over the full span. Scope the chip to the ЦАИС era and say so.
+- `number_of_tenderers` covers only **45%** of rows — the 44,3% single-bid figure is *of covered
+  contracts*. `ProcurementBenchmarksTile` already prints a coverage line; keep it.
+- `contracts.date` is **`text`** (not `date`); `amount_eur` is `double precision`. `scopeByWindow`
+  string-compares ISO dates (fine); any date arithmetic needs an explicit cast.
+- Three `awarder_name` variants share EIK `000695324` (incl. „Централно военно окръжие“, whose
+  contract title confirms it is a МО sub-unit). Group by **EIK**, pick a canonical display name.
 
 Because the national-defense story vastly exceeds procurement, defense — like the
 judiciary — justifies **BOTH a pack and a dedicated screen**:
@@ -141,31 +219,54 @@ reusing the same primitives. The screen is essentially the published mockup.
 ### Phase 1 — `DefensePack` on `/awarder/000695324` (clone the НЗОК pack)
 Cheapest ship; reuses the entire anatomy above. МО has its own first-level budget.
 
-1. `@/lib/defenseBenchmarks.ts` — `MOD_EIK = "000695324"`, procurement category labels
-   (fuel/food/uniforms/IT/maintenance/construction/medical), the two МО policy areas
-   (1200.01 отбранителни способности, 1200.02 съюзна сигурност) + 11 programme codes.
-2. `src/data/procurement/useDefense.tsx` — `useAwarderContracts(MOD_EIK)` +
-   `scopeByWindow` + `buildDefenseModel` + a МО budget JSON hook (`useDefenseBudget()`).
-   Returns `{ model, budget, isLoading }`.
-3. `src/screens/components/procurement/defense/DefensePack.tsx` — header (`Shield` icon),
-   StatCards (visible procurement/year, МО budget/year, procurement's % of budget),
-   insight chips, hero **`DefenseBudgetBridgeTile`** (visible procurement inside the
-   ~€2.2bn МО budget, with the FMS/classified remainder called out),
-   **`DefenseTransparencyTile`** (the чл.149/FMS split + Prozorro redaction principle),
-   `DefenseCategoryTile` (what's actually visible), provenance footer.
-4. Register in `sectorPacks.tsx`: `PACKS[MOD_EIK] = DefensePack`; export
-   `DEFENSE_AWARDER_PATH = /awarder/${MOD_EIK}`.
-5. Nav: add `procurement_defense_nav` → "Отбрана (МО)" to `menu_group_state_entities` in
-   `reportMenus.ts` and to `secondaryItems` in `ProcurementNav.tsx` (icon `Shield`).
+1. `src/lib/defenseReferenceData.ts` — `MOD_EIK = "000695324"`, `DEFENSE_ALIAS_EIKS` (the 6
+   subordinates), CPV→category map + labels (авиационна поддръжка / двигатели и ремонт / горива /
+   транспорт / ИТ и свръзки / строителство / медицинско / храна и облекло), category colors, the
+   two МО policy areas (1200.01 отбранителни способности, 1200.02 съюзна сигурност) + 11
+   programme codes.
+2. `src/lib/defenseAttributes.ts` — `defenseClassifier` (a `SectorClassifier`) +
+   `buildDefenseModel = (rows) => buildAwarderModel(rows.filter(isSpendRow), defenseClassifier)`.
+   **Do not write a bespoke engine.**
+3. `src/data/budget/types.ts` (EDIT) — `DefenseBudgetLine`, `DefenseBudgetYear`,
+   `DefenseBudgetFile` (mirroring `JudiciaryBudgetFile`).
+4. `src/data/budget/useBudget.tsx` (EDIT) — `useDefenseBudget()` react-query hook keyed
+   `["budget","mo","budget"]` → `/budget/mo/budget.json`. **The budget hook lives here, not in
+   `useDefense.tsx`.**
+5. `src/data/procurement/useDefense.tsx` — `useQueries` fan-out over `[MOD_EIK,
+   ...DEFENSE_ALIAS_EIKS]` with `combine` (stable array identity), `scopeByWindow`,
+   `buildDefenseModel`, + `useDefenseBudget()`. Returns `{ model, budget, aliasEur, isLoading }`.
+6. `src/screens/components/procurement/defense/DefensePack.tsx` — header (`Shield` icon),
+   StatCards (visible procurement/year, МО budget/year, procurement's % of budget), insight chips,
+   hero **`DefenseBudgetBridgeTile`** (`data-og="defense-hero"`; visible procurement inside the
+   ~€2.2bn МО budget, FMS/classified remainder called out), **`DefenseTransparencyTile`**
+   (sustainment-visible / acquisition-invisible + чл.149/FMS + Prozorro redaction principle),
+   `DefenseCategoryTile`, provenance footer. Bilingual inline (`const bg = lang === "bg"`).
+7. Register in `sectorPacks.tsx`: `PACKS[MOD_EIK] = DefensePack` via `lazy()`.
+   **Do NOT export `DEFENSE_AWARDER_PATH`** — ВСС deliberately exports no `VSS_AWARDER_PATH`
+   because its nav points at the `/judiciary` screen. Defense gets a `/defense` screen too.
+8. Nav: single i18n key **`defense_nav`** ("Отбрана" / "Defence") → **`/defense`** (not the awarder
+   path), in `reportMenus.ts` under `menu_group_state_entities` **and** in `ProcurementNav.tsx`
+   `secondaryItems` with **`unscoped: true`** (the screen has no `?pscope`). Icon `Shield`.
 
-**Cost: mostly assembly.** No new screen, no new scrape — an МО budget slice (the
-`update-budget` skill already handles per-ministry "Отчет за изпълнението на програмния
-бюджет"; МО = policy areas 1200.01/1200.02, `mod.bg/doc8`) + the existing corpus.
+**Cost: mostly assembly**, and the payoff is bigger than first scoped — €852M / 1 212 contracts
+of real content behind the generic tiles. МО budget slice comes from `update-budget` (Part 5).
+If the `/defense` screen slips, temporarily point `defense_nav` at `/awarder/000695324`.
 
 ### Phase 2 — dedicated `/defense` (Отбрана) screen (the national-defense story)
-New route in `src/routes.tsx`, screen in `src/screens/`, homepage shell (no `max-w` cap,
-no tabs — stacked sections per house UX). The Phase-1 pack becomes the "Поръчки" section
-(or links to `/awarder/000695324`). This is the published mockup, tile-by-tile:
+Mirror `src/screens/judiciary/JudiciaryScreen.tsx` exactly:
+- Route: a **plain lazy child route** in `src/routes.tsx` (`path="defense"`) — **not** a
+  `<LayoutScreen>` wrapper (earlier draft was wrong).
+- `<Title description=…>` for SEO; stacked `space-y-4` sections; homepage width (no `max-w`), no tabs.
+- **Reuse `ProcurementScopeControl`** with `allowAll={false}` + `nsLabelOverride="Последна година"`,
+  mapping a year override onto the `ProcurementScope` vocabulary. Do **not** roll a new control.
+- **Budget the full loading/error/empty triad** (judiciary spends real code here): `isLoading`
+  skeleton (`h-[320px] animate-pulse`), an `isError || !data` fallback card, and each artifact gated
+  independently so a failed `exports.json` doesn't blank the %GDP tiles.
+- KPI grid responsive: `grid-cols-2 lg:grid-cols-3 xl:grid-cols-6`.
+- Add a **`DefenseAwardersTile`** mirroring `JudicialAwardersTile` — links МО + the 6 subordinate
+  EIKs back to their `/awarder/:eik` pages (the "back to the money" tile).
+
+Tiles (the published mockup, tile-by-tile):
 
 - **Headline KPIs** — `StatCard` row: %GDP 2025 (2,06%), budget (€2,2bn), equipment share
   (32%), arms exports 2024 (€2,83bn).
@@ -243,34 +344,48 @@ the `update-budget` per-ministry pattern), NOT a new PG blob table:
 
 ## Part 5 — Watchers & process-watch-report wiring
 
-Watcher sources (`scripts/watch/sources/*.ts`, `WatchSource` shape: `id`, `label`, `url`,
-`cadence`, `fingerprint()`, `describe()`), imported into `SOURCES` in
-`scripts/watch/sources/index.ts`:
+**Budget ownership — corrected.** The МО budget slice is **NOT** an `update-defense`
+responsibility. House precedent (judiciary): `data/budget/vss/budget.json` is written by
+`scripts/budget/__write_judiciary.ts`, triggered by the **`budget_law`** watcher, owned by
+**`update-budget`**. So: `data/budget/mo/budget.json` ← `scripts/budget/__write_defense.ts`,
+riding `budget_law` / `update-budget`'s per-ministry path. `update-defense` owns only the three
+defense-specific artifacts below.
+
+Watcher sources (`scripts/watch/sources/*.ts`; `WatchSource` = `{ id, label, url, cadence,
+fingerprint(): Promise<Fingerprint /* {value, detail, meta} */>, describe(prev, curr) }`),
+imported into `SOURCES` in `scripts/watch/sources/index.ts`. **Single-source the URL from the
+ingest module** (as `vss_court_statistics` imports `VSS_STATS_PAGE` from
+`scripts/judiciary/sources.ts`) so watcher and parser can't drift:
 - `nato_defexp.ts` — cadence `monthly` (annual PDF, check often); fingerprint = hash of the
   latest `def-exp-*-en.pdf` link/date on nato.int.
 - `mod_defense_report.ts` — cadence `monthly`; fingerprint = latest "Доклад за състоянието на
-  отбраната" + programme-budget-execution link on `mod.bg/doc8` / `mod.bg/doc46`.
+  отбраната" link on `mod.bg/doc8` / `mod.bg/doc46`.
 - `moe_arms_exports.ts` — cadence `monthly`; fingerprint = latest МИ annual export-control
   report link (via the SIPRI national-reports mirror if МИ is WAF-blocked).
-- (Eurostat COFOG GF02 + EDA ride the existing `update-macro` watcher — no new source.)
+- (Eurostat COFOG GF02 + EDA ride `update-macro`; the МО budget rides `budget_law` — no new source.)
 
-Process-watch-report mapping — add rows to the table in
-`.claude/skills/process-watch-report/SKILL.md` (all fan out to one skill; orchestrator dedupes):
+Process-watch-report has **TWO mapping surfaces** — add rows to BOTH in
+`.claude/skills/process-watch-report/SKILL.md`:
+1. ~L80, keyed by **label**: `| НАТО — разходи за отбрана | update-defense (…) |` etc.
+2. ~L425, keyed by **source id**, each with a full inline imperative runbook (incl. `bucket:sync`):
 
 | Watcher source id | Skill |
 |---|---|
-| `nato_defexp` | `update-defense` |
-| `mod_defense_report` | `update-defense` |
-| `moe_arms_exports` | `update-defense` |
+| `nato_defexp` | `update-defense` (runbook: parse PDF → `data/defense/gdp_share.json` + `category_split.json` → assert latest year → `bucket:sync`) |
+| `mod_defense_report` | `update-defense` (→ `readiness.json`) |
+| `moe_arms_exports` | `update-defense` (→ `exports.json`) |
 
-Skill: create `.claude/skills/update-defense/SKILL.md` (shape on `update-nzok`/`update-budget`).
-It parses the NATO PDF (`pdftotext -layout`), the МО report/budget PDFs (FlateDecode →
-pdftotext), the МИ export report → the `data/defense/*.json` files. After a successful run it
-stamps `state/ingest/update-defense.json` via
-`npx tsx scripts/stamp-ingest.ts update-defense --summary "…"` (`IngestState = {skill,
-lastSuccessfulIngest, summary}`). Curated program updates (F-16 milestones etc.) stay MANUAL per
-the one-off-backfill rule; only the recurring PDFs are watched. `--backfill` for historical NATO
-years, documented in README, never in CI.
+Skill: create `.claude/skills/update-defense/SKILL.md` (shape on `update-judiciary`). Required
+structure: **frontmatter with `name`, `description`, `allowed-tools: [Read, Bash, Edit, Write]`**;
+an "independent artifacts" table (artifact → source → watcher → script); a "when to run" trigger
+table; numbered steps (ingest → verify asserts → stamp → commit → `bucket:sync`); a trust-boundary
+note; parser gotchas (NATO PDF is vector-chart + tables — read Tables 3/8a, not the charts; МО PDFs
+are FlateDecode → `pdftotext -layout`); one-off backfill. One skill may own multiple artifacts with
+**independent triggers and per-artifact completeness asserts** (judiciary does exactly this).
+Stamps `state/ingest/update-defense.json` via
+`npx tsx scripts/stamp-ingest.ts update-defense --summary "…"`.
+Curated program milestones (F-16 etc.) stay MANUAL per the one-off-backfill rule; `--backfill` for
+historical NATO years, documented in README, never in CI.
 
 ## Part 6 — recent_updates / changelog
 
@@ -306,10 +421,26 @@ Tools:
 - `defensePeerCompare` (domain `indicators`) — BG vs RO/GR/HR/HU on %GDP / per-capita / %gov-exp /
   equipment share. Reuses the existing macro/peers artifacts (no new data).
 
-Router keywords (`router.ts`): `отбран|военн|армия|изтребител|F-16|страйкър|бронетранспорт|
-оръжие|въоръж|износ на оръжие|нато|nato|defen[cs]e|military|weapons|arms`. Provenance strings:
-`defense/*.json`. **Every `/defense/*.json` path an AI tool reads MUST have an `AI_PATH_RULES`
-entry (Part 8) or the prebuild fails.**
+**The router is NOT a flat alternation regex** (earlier draft was wrong). `router.ts` is ~150 lines
+of guarded `has()` cue logic. Budget real effort for it, and copy three judiciary conventions:
+1. **Inline `MOD_EIK`** in `router.ts` — the router runs outside the app bundle and *cannot import
+   from `src/`* (judiciary inlines `VSS_EIK`/`IVSS_EIK` with a comment saying so).
+2. **Substring-collision defenses.** Judiciary guards `"ивсс" ⊃ "всс"`, `"spending" ⊃ "pending"`,
+   `"отдела" ⊃ "дела"`, `"showcase" ⊃ "case"`. Our cues have the same trap:
+   `"charms"/"harms" ⊃ "arms"`, `"armory" ⊃ "army"`, `"отбраната" vs "избраната"`. Use anchored
+   `has()` guards, not a raw alternation.
+3. **Priority ordering + a shared `routeDefense()`** so every entry branch resolves identically
+   (judiciary: workload > budget > caseload).
+4. **Procurement-phrased questions route to the generic tool**, not a domain tool:
+   "поръчките на МО" → `awarderProcurement { org: MOD_EIK }` (judiciary does this for ВСС).
+
+`narrate.ts` — most cases are pure interpolation, but `judiciaryDeclarations` carries **real
+conditional clauses** to avoid mis-stating a remainder. `armsExports` needs the same: a guarded
+clause for the Ukraine sub-flow and the "SIPRI TIV excludes ammunition" caveat, not a flat template.
+
+Provenance strings: `defense/*.json`. **Every `/defense/*.json` path an AI tool reads MUST have an
+`AI_PATH_RULES` entry (Part 8) or the prebuild fails.** The budget tool's `/budget/mo/…` path is
+already covered by the pre-existing `/^\/budget\//` rule.
 
 ## Part 8 — Data Map & README docs
 
@@ -317,11 +448,15 @@ entry (Part 8) or the prebuild fails.**
 - `SOURCE_GROUPS`: add one `defense` group (`origin: "state"`, `members: ["nato_defexp",
   "mod_defense_report", "moe_arms_exports"]`, `skills: ["update-defense"]`, `tags:
   ["fiscal","indicators"]`, `label/detail/desc/url` → НАТО / МО / МИ).
-- `DATASETS`: add `defense` (`path: "data/defense/"`).
-- `EDGES`: `["src:defense","ds:defense"]` and `["ds:defense","f:<feature>"]` (feature node for
-  the Отбрана pack + `/defense` screen).
-- `AI_PATH_RULES`: add `{ pattern: /^\/defense\//, dataset: "defense" }` (required for the Part-7
-  tools).
+- `DATASETS`: add `defense` (`path: "data/defense/"`). **No separate dataset for
+  `data/budget/mo/`** — that file belongs to the existing `budget` dataset (judiciary precedent).
+- `FEATURES`: add a `defense` feature node with `route: "/defense"`.
+- `EDGES` — **cross-dataset feature edges were missing from the earlier draft.** The feature
+  consumes three datasets: `["src:defense","ds:defense"]`, `["ds:defense","f:defense"]`,
+  **`["ds:budget","f:defense"]`** (the budget bridge + `defenseSpending` tool) and
+  **`["ds:macro","f:defense"]`** (the `defensePeerCompare` tool reads macro/peers).
+- `AI_PATH_RULES`: add `{ pattern: /^\/defense\//, dataset: "defense" }`. `/budget/mo/…` is already
+  covered by the existing `/^\/budget\//` rule.
 - Verify with `npm run data:map`; the build errors "watcher source(s) not placed on the data map"
   if a source is missing from a group.
 
@@ -382,16 +517,26 @@ Match the existing anchors' quality bar (roads = Leaflet map 3500ms, nzok = budg
 2500ms). Keep app-side constants in sync: `MOD_EIK` in `src/lib/defenseBenchmarks.ts` mirrors the
 `INSTITUTION_PACKS` eik, and the tile with `data-og="defense-hero"` lives in `DefensePack`.
 
+Note: ВСС anchors on `[data-og="vss-bridge"]` (the budget-bridge chart), `ogSettleMs: 2500`, and
+does **not** set `ogCenter`. Committed PNG; dist serves `.webp`.
+
 ### b. The `/defense` screen (Phase 2) — its own SEO surface
 The institutions pipeline covers only `/awarder/:eik`. The dedicated `/defense` screen is a
 separate route, so it needs its own three-pipeline wiring:
-- **Sitemap** — add `/defense` (+ `/en/defense`) to the static route list in
-  `scripts/sitemap/route_defs.ts`.
-- **Prerender** — add a static `PrerenderRoute` (title/description/`ogImage`/`bodyHtml`/JSON-LD),
-  same pattern as other screen routes in `dynamicRoutes.ts`, → `dist/defense/index.html` (+ `/en/`).
-- **OG card** — add a capture entry to the **non-awarder** list in `capture-screens.ts` framing the
-  screen's hero (`data-og="defense-gdp"` → the %GDP-to-5% chart, or `data-og="defense-armsflow"` →
-  the arms-flow map). → `public/og/defense.png`.
+- **Sitemap** — add `/defense` (+ `/en/defense`) to the static-pages list **and** a `RouteDef` in
+  `scripts/sitemap/route_defs.ts` (judiciary does both).
+- **Prerender** — **`scripts/prerender/routes.ts`, NOT `dynamicRoutes.ts`** (earlier draft was
+  wrong; `dynamicRoutes.ts` is only for awarder/institution routes). Add a static `PrerenderRoute`
+  (`path:"defense"`, `ogImage:"/og/defense.png"`, bilingual `bodyHtml`, JSON-LD) →
+  `dist/defense/index.html` (+ `/en/`).
+- **Build-time facts injection** (judiciary does this; earlier draft missed it): `routes.ts` has a
+  `judiciaryFacts()` that synchronously reads the data JSON at build time so the crawlable body
+  quotes live figures. Add `defenseFacts()` reading `data/defense/gdp_share.json` +
+  `exports.json` so the prerendered body says "2,06% от БВП" / "€2,83 млрд износ" — real SEO text.
+- **OG card** — add a capture entry to the **non-awarder** list in `capture-screens.ts`:
+  `slug:"defense"`, `waitFor:'[data-og="defense-gdp"] .recharts-surface'` (**wait for the Recharts
+  surface, not just the container** — judiciary's convention), `anchor:'[data-og="defense-gdp"]'`
+  → `public/og/defense.png`.
 
 ### c. Build/commit
 `npm run build` runs the `postbuild` chain (`og/generate.ts` → `prerender/index.ts`); `npm run
@@ -475,16 +620,19 @@ transparency-gap framing no PDF publisher offers.
 ## Build checklist (zero-guesswork)
 
 ### Phase 1 — DefensePack on `/awarder/000695324`
-- [ ] `src/lib/defenseBenchmarks.ts` — `MOD_EIK = "000695324"`, category labels, programme codes
-- [ ] `src/data/procurement/useDefense.tsx` — `useAwarderContracts` + `scopeByWindow` + `buildDefenseModel` + `useDefenseBudget`
-- [ ] `data/defense/budget.json` (МО budget slice via `update-budget` per-ministry path), served via `dataUrl`
-- [ ] `src/screens/components/procurement/defense/DefensePack.tsx` + `DefenseBudgetBridgeTile` + `DefenseTransparencyTile` + `DefenseCategoryTile` (bilingual inline, no i18n)
-- [ ] `sectorPacks.tsx` — `PACKS[MOD_EIK] = DefensePack`; export `DEFENSE_AWARDER_PATH`
-- [ ] `reportMenus.ts` — `procurement_defense_nav` → "Отбрана (МО)" under `menu_group_state_entities`
-- [ ] `ProcurementNav.tsx` — `secondaryItems` entry (icon `Shield`)
-- [ ] `locales/{bg,en}/translation.json` — `procurement_defense_nav` (only nav goes through i18n)
-- [ ] "See all visible МО contracts" — reuse `CompanyContractsDbScreen` scoped by `awarder_eik` (no new screen); `EXPLAIN ANALYZE` the МО `awarder_eik` filter (Part 4)
-- [ ] **Signature visual + OG (Part 9):** render the pack hero chart with `data-og="defense-hero"`; add the `INSTITUTION_PACKS` entry (slug `defence`, ogCenter, ogSettleMs 3000) → auto-wires sitemap + prerender + `public/og/awarder/defence.png`. Verify `dist/awarder/000695324/index.html` exists.
+- [ ] `src/lib/defenseReferenceData.ts` — `MOD_EIK`, `DEFENSE_ALIAS_EIKS` (6 subordinates), CPV→category map, labels, colors, programme codes
+- [ ] `src/lib/defenseAttributes.ts` — `defenseClassifier` + `buildDefenseModel` on `buildAwarderModel`/`SectorClassifier` (no bespoke engine)
+- [ ] `src/data/budget/types.ts` (EDIT) — `DefenseBudgetFile` + line/year types
+- [ ] `src/data/budget/useBudget.tsx` (EDIT) — `useDefenseBudget()` → `/budget/mo/budget.json`
+- [ ] `scripts/budget/__write_defense.ts` + `data/budget/mo/budget.json` — owned by **`update-budget`** / `budget_law` watcher (NOT `update-defense`)
+- [ ] `src/data/procurement/useDefense.tsx` — `useQueries` + `combine` alias fan-out, `scopeByWindow`, `buildDefenseModel`, `aliasEur` delta
+- [ ] `src/screens/components/procurement/defense/DefensePack.tsx` + `DefenseBudgetBridgeTile` (`data-og="defense-hero"`) + `DefenseTransparencyTile` + `DefenseCategoryTile` (bilingual inline, no i18n)
+- [ ] `sectorPacks.tsx` — `PACKS[MOD_EIK] = DefensePack` via `lazy()`; **no `DEFENSE_AWARDER_PATH` export**
+- [ ] `reportMenus.ts` + `ProcurementNav.tsx` — key **`defense_nav`** → **`/defense`**, `unscoped: true`, icon `Shield`
+- [ ] `locales/{bg,en}/translation.json` — `defense_nav` (only nav goes through i18n)
+- [ ] Disclose the data-quality caveats in-tile (51% NULL `procurement_method`, 45% bid coverage)
+- [ ] "See all visible МО contracts" — reuse `CompanyContractsDbScreen` scoped by `awarder_eik` (no new screen). `EXPLAIN ANALYZE` **done**: `idx_contracts_awarder` bitmap scan, МО 1,3ms / 7-EIK family 13,2ms — no new index
+- [ ] **OG (Part 9a):** `INSTITUTION_PACKS` entry (slug `defence`, anchor `[data-og="defense-hero"]`, `ogSettleMs` 2500–3000) → auto-wires sitemap + prerender + `public/og/awarder/defence.png`. Verify `dist/awarder/000695324/index.html` exists.
 
 ### Phase 2 — `/defense` screen + full plumbing
 - [ ] Route in `src/routes.tsx` (`<LayoutScreen>`), screen in `src/screens/`, homepage shell (no `max-w`, no tabs)
@@ -497,7 +645,11 @@ transparency-gap framing no PDF publisher offers.
 - [ ] **Data map (Part 8):** `defense` SOURCE_GROUP + DATASET + EDGES + `AI_PATH_RULES /^\/defense\//` in `data_map/model.ts`; verify `npm run data:map`
 - [ ] **Docs (Part 8):** README data-sources (~L472) + data-layout (~L205) + `update-defense` CLI flags
 - [ ] **SQL perf (Part 4):** `EXPLAIN ANALYZE` any new query on worst-case; defense JSON is small so no new tables/indexes expected
-- [ ] **`/defense` screen SEO (Part 9b):** `/defense` in `sitemap/route_defs.ts`; static `PrerenderRoute` → `dist/defense/index.html` (+ `/en/`); OG capture entry framing the %GDP chart / arms map → `public/og/defense.png`
+- [ ] **`/defense` screen SEO (Part 9b):** `/defense` in `sitemap/route_defs.ts` (static list **+** `RouteDef`); static `PrerenderRoute` in **`scripts/prerender/routes.ts`** → `dist/defense/index.html` (+ `/en/`); `defenseFacts()` build-time JSON read for the crawlable body; OG entry `waitFor:'[data-og="defense-gdp"] .recharts-surface'` → `public/og/defense.png`
+- [ ] **AI router (Part 7):** inline `MOD_EIK` in `router.ts` (cannot import from `src/`); guard substring collisions (`arms`⊂`charms`, `army`⊂`armory`); shared `routeDefense()` + priority order; procurement-phrased → `awarderProcurement{org: MOD_EIK}`
+- [ ] **AI narrate (Part 7):** `armsExports` needs conditional clauses (Ukraine sub-flow, SIPRI-TIV-excludes-ammo caveat), not a flat template
+- [ ] **Skill frontmatter (Part 5):** `allowed-tools: [Read, Bash, Edit, Write]`; artifacts table; per-artifact completeness asserts
+- [ ] **process-watch-report (Part 5):** add rows to **both** mapping surfaces (label table ~L80 + source-id runbook table ~L425)
 
 ### Phase 3 — differentiators
 - [ ] Arms-flow Sankey, GDI risk pillar (reuse `computeProcurementRisk` + evidence-on-click + scorecard image), program lifecycle Gantt + cost-drift, cabinet anchoring
