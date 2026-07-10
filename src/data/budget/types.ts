@@ -858,6 +858,14 @@ export interface NoiFundSnapshot {
   revenue: Money | null;
   expenditure: Money | null;
   balance: Money | null;
+  // Sections III / IV / I.1 of the B1 sheet, whose identity is
+  // V = I - II + III - IV. Optional: the artifact is bucket-served, so a
+  // deploy may briefly serve a funds.json written before these were parsed.
+  // Consumers must fall back rather than assume (see NoiFundYear).
+  transfers?: Money | null;
+  transfersCentralBudget?: Money | null;
+  euContribution?: Money | null;
+  taxRevenue?: Money | null;
   expenseLines: NoiExpenseLine[];
   pensionsBgn: number | null;
   shortTermBenefitsBgn: number | null;
@@ -894,6 +902,13 @@ export interface NoiFundsFile {
       revenue: Money;
       expenditure: Money;
       balance: Money;
+      // III. Трансфери — the state top-up. Optional for the same bucket-serving
+      // reason as the per-fund fields above; when absent, consumers fall back
+      // to `expenditure - revenue`, which overstates it by the financed deficit.
+      transfers?: Money;
+      // I.1 Данъчни приходи — contributions proper, a subset of `revenue`
+      // (which also carries fines, property income and fees).
+      taxRevenue?: Money;
       pensions: Money;
       shortTermBenefits: Money;
     };

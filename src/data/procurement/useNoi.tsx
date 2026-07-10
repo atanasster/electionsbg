@@ -30,7 +30,16 @@ export interface NoiFundYear {
   expenditureEur: number; // total fund outflow (pensions + benefits + admin …)
   pensionsEur: number;
   benefitsEur: number;
-  revenueEur: number; // own contributions (the rest is the state transfer)
+  revenueEur: number; // section I — ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ (NOT contributions)
+  /** I.1 Данъчни приходи — social-security contributions proper. Section I also
+   *  carries fines, property income and fees (≈€0.11bn for ДОО in 2024), so this
+   *  is the figure to label "вноски". Null on a pre-flag artifact. */
+  contributionsEur: number | null;
+  /** III. Трансфери — the state top-up, and the honest numerator for "how much
+   *  of the fund is the budget?". Null on a pre-flag artifact, in which case
+   *  callers fall back to `expenditure - revenue` — which overstates it by the
+   *  residual deficit that section VI finances. */
+  transfersEur: number | null;
   personnelEur: number;
   operationsEur: number;
   adminEur: number; // personnel + operations
@@ -69,6 +78,8 @@ const flattenFundYear = (file: NoiFundsFile | null): NoiFundYear | null => {
     pensionsEur: y.totals.pensions.amountEur,
     benefitsEur: y.totals.shortTermBenefits.amountEur,
     revenueEur: y.totals.revenue.amountEur,
+    contributionsEur: y.totals.taxRevenue?.amountEur ?? null,
+    transfersEur: y.totals.transfers?.amountEur ?? null,
     personnelEur,
     operationsEur,
     adminEur: personnelEur + operationsEur,

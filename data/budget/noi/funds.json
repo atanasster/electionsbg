@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-10T12:17:06.297Z",
+  "generatedAt": "2026-07-10T12:45:29.707Z",
   "source": {
     "publisher": "Национален осигурителен институт (NOI)",
     "urlTemplate": "https://www.nssi.bg/wp-content/uploads/B1_{YYYY}_{MM}_{FUND}.xls",
@@ -22,6 +22,16 @@
           "amountEur": 9770437572
         },
         "balance": {
+          "amount": 0,
+          "currency": "BGN",
+          "amountEur": 0
+        },
+        "transfers": {
+          "amount": 0,
+          "currency": "BGN",
+          "amountEur": 0
+        },
+        "taxRevenue": {
           "amount": 0,
           "currency": "BGN",
           "amountEur": 0
@@ -91,6 +101,16 @@
           "currency": "BGN",
           "amountEur": -85659043
         },
+        "transfers": {
+          "amount": 11525201900,
+          "currency": "BGN",
+          "amountEur": 5892742161
+        },
+        "taxRevenue": {
+          "amount": 12796849939,
+          "currency": "BGN",
+          "amountEur": 6542925479
+        },
         "pensions": {
           "amount": 21769385532,
           "currency": "BGN",
@@ -123,6 +143,26 @@
             "amount": -199903454,
             "currency": "BGN",
             "amountEur": -102209013
+          },
+          "transfers": {
+            "amount": 11525190085,
+            "currency": "BGN",
+            "amountEur": 5892736120
+          },
+          "transfersCentralBudget": {
+            "amount": 11522308949,
+            "currency": "BGN",
+            "amountEur": 5891263018
+          },
+          "euContribution": {
+            "amount": 0,
+            "currency": "BGN",
+            "amountEur": 0
+          },
+          "taxRevenue": {
+            "amount": 12673973046,
+            "currency": "BGN",
+            "amountEur": 6480099521
           },
           "expenseLines": [
             {
@@ -285,6 +325,26 @@
             "currency": "BGN",
             "amountEur": 16195726
           },
+          "transfers": {
+            "amount": 0,
+            "currency": "BGN",
+            "amountEur": 0
+          },
+          "transfersCentralBudget": {
+            "amount": 0,
+            "currency": "BGN",
+            "amountEur": 0
+          },
+          "euContribution": {
+            "amount": 0,
+            "currency": "BGN",
+            "amountEur": 0
+          },
+          "taxRevenue": {
+            "amount": 122874730,
+            "currency": "BGN",
+            "amountEur": 62824852
+          },
           "expenseLines": [
             {
               "id": "personnel",
@@ -445,6 +505,26 @@
             "amount": 692840,
             "currency": "BGN",
             "amountEur": 354243
+          },
+          "transfers": {
+            "amount": 11815,
+            "currency": "BGN",
+            "amountEur": 6041
+          },
+          "transfersCentralBudget": {
+            "amount": 0,
+            "currency": "BGN",
+            "amountEur": 0
+          },
+          "euContribution": {
+            "amount": 0,
+            "currency": "BGN",
+            "amountEur": 0
+          },
+          "taxRevenue": {
+            "amount": 2163,
+            "currency": "BGN",
+            "amountEur": 1106
           },
           "expenseLines": [
             {

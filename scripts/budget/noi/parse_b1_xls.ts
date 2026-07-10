@@ -80,9 +80,28 @@ export interface NoiFundSnapshot {
   // full-year file). Extracted from cells [1][11] and [2][17].
   asOf: string;
   // Top-level revenue + expenditure + balance, mirroring the law/КФП shape.
+  //
+  // The sheet's own identity is  V = I - II + III - IV,  so `balance` is NOT
+  // `revenue - expenditure`: the funds are topped up by section III. Reading
+  // only I/II/V (as this parser once did) forces consumers to derive the
+  // transfer as `expenditure - revenue`, which overstates it by the residual
+  // deficit that section VI finances — ~100 M BGN for ДОО in 2024.
   revenue: Money | null;
   expenditure: Money | null;
   balance: Money | null;
+  // III. Трансфери — the top-up that closes most of the gap, and the single
+  // most load-bearing figure in the fund. `transfersCentralBudget` is its
+  // dominant sub-line (III.1, "Трансфери от/за ЦБ за/от други бюджети");
+  // the remainder is inter-fund and assumed-contribution transfers.
+  transfers: Money | null;
+  transfersCentralBudget: Money | null;
+  // IV. Вноска в общия бюджет на ЕС — zero for every NOI fund, but it is a
+  // term of the identity, so parse it rather than assume.
+  euContribution: Money | null;
+  // I.1 Данъчни приходи — the social-security contributions proper. Section I
+  // as a whole is "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ" and also carries fines, property
+  // income and fees, so `revenue` must never be labelled "contributions".
+  taxRevenue: Money | null;
   expenseLines: NoiExpenseLine[];
   // Pension-specific sub-detail extracted from the OTCHET sheet (when
   // present): the breakdown of §4100 "Пенсии" vs §4200 "Текущи трансфери,
@@ -230,6 +249,15 @@ export const parseB1Xls = (input: ParseB1Input): NoiFundSnapshot => {
   let revenue: Money | null = null;
   let expenditure: Money | null = null;
   let balance: Money | null = null;
+  let transfers: Money | null = null;
+  let transfersCentralBudget: Money | null = null;
+  let euContribution: Money | null = null;
+  let taxRevenue: Money | null = null;
+
+  // Which roman-numeral section the walk is currently inside. Needed because
+  // the sub-line ordinals restart per section ("1." is Данъчни приходи under I
+  // and Трансфери от/за ЦБ under III), so a bare `^1\.` match is ambiguous.
+  let section = "";
 
   for (const r of rows) {
     if (!r) continue;
@@ -238,7 +266,10 @@ export const parseB1Xls = (input: ParseB1Input): NoiFundSnapshot => {
     const executedRaw = r[5];
     if (!name) continue;
 
-    // Section headlines.
+    const sectionHead = name.match(/^(I{1,3}|IV|VI?)\.\s/);
+    if (sectionHead) section = sectionHead[1];
+
+    // Section headlines. All four terms of the identity, plus the balance.
     if (/^I\.\s*ПРИХОДИ/i.test(name)) {
       revenue = moneyFromLeva(executedRaw) ?? revenue;
       continue;
@@ -247,11 +278,33 @@ export const parseB1Xls = (input: ParseB1Input): NoiFundSnapshot => {
       expenditure = moneyFromLeva(executedRaw) ?? expenditure;
       continue;
     }
+    if (/^III\.\s*Трансфери/i.test(name)) {
+      transfers = moneyFromLeva(executedRaw) ?? transfers;
+      continue;
+    }
+    if (/^IV\.\s*Вноска/i.test(name)) {
+      euContribution = moneyFromLeva(executedRaw) ?? euContribution;
+      continue;
+    }
     if (/^V\.\s*Дефицит/i.test(name)) {
       balance = moneyFromLeva(executedRaw) ?? balance;
       continue;
     }
 
+    // Section sub-lines we keep. Guarded by `section` — see above.
+    if (section === "I" && /^1\.\s*Данъчни приходи/i.test(name)) {
+      taxRevenue = moneyFromLeva(executedRaw) ?? taxRevenue;
+      continue;
+    }
+    if (section === "III" && /^1\.\s*Трансфери от\/за ЦБ/i.test(name)) {
+      transfersCentralBudget =
+        moneyFromLeva(executedRaw) ?? transfersCentralBudget;
+      continue;
+    }
+
+    // Expense lines are matched section-agnostically, as they always were —
+    // their labels ("1. Персонал", "7. Капиталови трансфери") do not collide
+    // with the revenue/transfer sub-lines above.
     const matched = matchExpenseLine(name);
     if (!matched) continue;
     expenseLines.push({
@@ -261,6 +314,23 @@ export const parseB1Xls = (input: ParseB1Input): NoiFundSnapshot => {
       planned: moneyFromLeva(plannedRaw),
       executed: moneyFromLeva(executedRaw),
     });
+  }
+
+  // The sheet's own accounting identity. If this breaks, the section anchors
+  // have drifted and every downstream figure is suspect — fail rather than
+  // publish a fund whose transfer silently disagrees with its own balance.
+  if (revenue && expenditure && balance) {
+    const lhs =
+      revenue.amount -
+      expenditure.amount +
+      (transfers?.amount ?? 0) -
+      (euContribution?.amount ?? 0);
+    if (Math.abs(lhs - balance.amount) > 1) {
+      throw new Error(
+        `NOI B1 (${input.fundCode}/${input.fiscalYear}): identity I-II+III-IV != V ` +
+          `(${lhs} vs ${balance.amount}) — section anchors drifted`,
+      );
+    }
   }
 
   // Pull §4100 (Pensions) and §4200 (Short-term benefits) out of the OTCHET
@@ -283,6 +353,10 @@ export const parseB1Xls = (input: ParseB1Input): NoiFundSnapshot => {
     revenue,
     expenditure,
     balance,
+    transfers,
+    transfersCentralBudget,
+    euContribution,
+    taxRevenue,
     expenseLines,
     pensionsBgn: pensionDetail.pensions,
     shortTermBenefitsBgn: pensionDetail.shortTermBenefits,
@@ -340,6 +414,12 @@ export interface NoiFundsFile {
       revenue: import("../types").Money;
       expenditure: import("../types").Money;
       balance: import("../types").Money;
+      // III. Трансфери, summed across the ingested funds. The honest "how much
+      // of this fund is the state budget?" numerator — never `expenditure -
+      // revenue`, which folds in the financed deficit.
+      transfers: import("../types").Money;
+      // I.1 Данъчни приходи — contributions proper, a subset of `revenue`.
+      taxRevenue: import("../types").Money;
       pensions: import("../types").Money;
       shortTermBenefits: import("../types").Money;
     };
@@ -428,6 +508,12 @@ export const buildNoiFundsFile = (
           : (pensionTypes?.total ?? ZERO_MONEY()),
         balance: funds.length
           ? sumMoney(funds.map((f) => f.balance))
+          : ZERO_MONEY(),
+        transfers: funds.length
+          ? sumMoney(funds.map((f) => f.transfers))
+          : ZERO_MONEY(),
+        taxRevenue: funds.length
+          ? sumMoney(funds.map((f) => f.taxRevenue))
           : ZERO_MONEY(),
         pensions,
         shortTermBenefits,

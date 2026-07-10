@@ -100,11 +100,19 @@ export const NoiFundFlowTile: FC<{
       : []),
   ];
 
-  // Revenue coverage — own contributions vs the state transfer that fills the
-  // gap. balance is small; the honest framing is "contributions cover X%".
-  const coverage =
-    expenditureEur > 0 ? fundYear.revenueEur / expenditureEur : 0;
-  const transferEur = Math.max(0, expenditureEur - fundYear.revenueEur);
+  // Revenue coverage — contributions vs the state transfer that tops the fund
+  // up. The B1 identity is V = I - II + III - IV, so the transfer is section
+  // III, NOT `expenditure - revenue`: the latter also swallows the residual
+  // deficit that section VI finances (~€0.10bn for ДОО in 2024) and so
+  // overstates the budget's share. Likewise "contributions" is I.1 Данъчни
+  // приходи, not the whole of section I (which carries fines, property income
+  // and fees). Both fall back to the old derivation for a pre-flag artifact
+  // served from the bucket mid-deploy.
+  const contributionsEur = fundYear.contributionsEur ?? fundYear.revenueEur;
+  const coverage = expenditureEur > 0 ? contributionsEur / expenditureEur : 0;
+  const transferEur =
+    fundYear.transfersEur ?? Math.max(0, expenditureEur - fundYear.revenueEur);
+  const transferShare = expenditureEur > 0 ? transferEur / expenditureEur : 0;
 
   // Procurement bridge — the "% of the fund" uses the SAME fund year on both
   // sides (fundYearProcEur / that year's expenditure) so periods match; falls
@@ -211,8 +219,8 @@ export const NoiFundFlowTile: FC<{
             </span>
             <span className="text-muted-foreground">
               {bg
-                ? `от разхода се покрива от осигурителни вноски; остатъкът ${eur(transferEur)} е трансфер от държавния бюджет.`
-                : `of expenditure is covered by contributions; the remaining ${eur(transferEur)} is a state-budget transfer.`}
+                ? `от разходите се покриват от осигурителни вноски; още ${pct(transferShare, lang)} (${eur(transferEur)}) идват като трансфер от държавния бюджет.`
+                : `of expenditure is covered by contributions; a further ${pct(transferShare, lang)} (${eur(transferEur)}) comes as a transfer from the state budget.`}
             </span>
           </div>
         </div>
