@@ -1,10 +1,218 @@
 # Съдебна власт (ВСС / judiciary) view — implementation plan v1
 
-Status: DRAFT (2026-07-09). Owner: TBD. Ships behind the existing sector-pack seam;
-Phase 1 needs no routing changes. Mirrors the **Води (water) plan**
-(`docs/plans/water-view-v1.md`) — shared infrastructure (`OblastChoropleth`,
-`SectorBrowseSlot`) is designed once there and reused here; this doc only calls out
-the judiciary specifics.
+Status: **Phases 1 + 2 + 3a BUILT, code-reviewed, repaired and verified in dev; not committed** (2026-07-10). Mirrors the
+**Води (water) plan** (`docs/plans/water-view-v1.md`) — shared infrastructure
+(`OblastChoropleth`, `SectorBrowseSlot`) is designed once there and reused here; this
+doc only calls out the judiciary specifics.
+
+## 0. What shipped in Phase 1 (and what implementation changed)
+
+The `VssPack` renders on `/awarder/121513231`: budget-bridge hero (per-body split +
+self-financing bar), "Какво купува ВСС по функция" category tile, statutory-supplier
+chip, both nav surfaces, OG card + sitemap + prerender, the AI `judiciaryBudget`
+tool, README + `update-budget` skill docs. Verified in the browser (light + dark);
+typecheck + lint clean.
+
+Four things implementation taught us that the plan had wrong:
+
+1. **Better budget source than planned.** The plan assumed slicing
+   `izdrazhka_by_institution.json`. That field is **Текущи разходи** for the
+   judiciary — the ЗДБРБ prints no Персонал line, so the residual formula subtracts
+   nothing — which would have understated the budget *and* mislabelled it. Instead
+   `scripts/budget/__write_judiciary.ts` parses the ЗДБРБ „Бюджет на съдебната власт"
+   article directly. It carries **two** tables nobody publishes together: the
+   judiciary's own revenue (съдебни такси) and the per-body expenditure split.
+   2018–2025, Σ-reconciled at ingest (Σ bodies == total; Σ revenue == total).
+   Cross-validated: the parsed `currentExpenditure` matches izdrazhka to the euro for
+   all eight years, which confirms both parsers and the diagnosis.
+   → This also gave the pack its differentiator: **self-financing** (2025: €707.8M
+   expenditure, €77.7M own revenue = 11%, of which €70M court fees).
+2. **2025 parse gotcha:** the per-body table is paragraph `(2)` up to 2024 and `(3)`
+   from 2025, when a functional-area („програмен бюджет") table was inserted before
+   it. Match the paragraph by wording, never by number.
+3. **SQL perf — no precompute needed.** `EXPLAIN ANALYZE`: the pack's
+   awarder-contracts query is **5.0 ms** (index scan, `idx_contracts_awarder_date`);
+   the 58-EIK sector roll-up is **15.8 ms** (`idx_contracts_awarder`, 1,337 rows).
+   Both far under the 200 ms precompute threshold — so the `judiciary_payloads` blob
+   table and the new indexes proposed in §5 are **not warranted** at this scale.
+   Revisit only if Phase 2 lands per-court caseload joins.
+4. **No new watcher source.** The judiciary budget parses the *same cached law HTML*
+   the budget ingest already fetches, so it rides the existing `budget_law` watcher →
+   `update-budget` skill (a step was added there). That is why `npm run data:map`
+   stayed clean: there is nothing new to place on the map, and §7's two new watcher
+   sources belong to Phase 2/3, not Phase 1.
+
+## 0b. What shipped in Phase 2 (the `/judiciary` screen)
+
+The ВСС statistics ingest turned out to be **far cheaper than the plan feared** — the
+annual PDFs carry a real text layer, so there is no OCR step at all.
+
+- `scripts/judiciary/sources.ts` — curated `VSS_ANNUAL_TABLES` URL map (filenames are
+  NOT uniform across years, same trap as the CIK bundle URLs) + the six court tiers.
+- `scripts/judiciary/__write_caseload.ts` — fetches each year's PDF into (gitignored)
+  `raw_data/judiciary/`, finds Приложение № 1, and reconstructs its two tables with
+  pdfjs text positioning (rows bucketed by y, cells merged by x-gap — the same
+  technique as the investment-annex parser). → `data/judiciary/caseload.json`,
+  **2018–2025**.
+- `/judiciary` screen: KPI row (filed · resolved · clearance · within-3-months ·
+  pending · judge posts), the **caseload-flow hero** (filed vs resolved lines against
+  the pending-backlog area), the **workload tile** (both official measures per tier),
+  the per-tier league table, and a "Съдебната власт като възложител" tile linking
+  each of the 6 central judicial bodies to its `/awarder/:eik` dashboard (the ВСС
+  badged as carrying the budget breakdown; the other 50 courts counted, not listed —
+  most have 1-3 contracts ever). Year selection uses the shared "Обхват" scope control
+  (see §0d), not bespoke pills.
+- SEO: `route_defs` (sitemap + prerender, BG + EN), a `staticPage` entry in
+  `scripts/prerender/routes.ts` with `ogImage: /og/judiciary.png`, and an OG capture
+  centred on the caseload chart. Nav: BOTH the governance menu and the procurement
+  sector pill point at `/judiciary` under one label (`judiciary_nav`, unscoped —
+  `/judiciary` has no `?pscope` dimension); the screen's "Съдебната власт като
+  възложител" tile links out to each judicial body's `/awarder/:eik` page, so the
+  ВСС buyer page is one click away rather than a competing nav destination.
+- Watcher `vss_court_statistics` (fingerprints the listing page's PDF-link set; verified
+  live: 33 PDFs, latest year 2025) → `update-judiciary` skill → stamps `state/ingest/`.
+  Placed on the data map as source group `vss` + dataset `judiciary` + feature
+  `f:judiciary`; `AI_PATH_RULES` maps `/judiciary/`.
+- AI tools `judiciaryCaseload` + `judiciaryWorkload` (router + narrate, both languages);
+  9 routing cases pass including the "съдът реши…" and НЗОК/НОИ regression guards.
+
+### The finding the view exists to show
+Clearance hovers at ~100% every single year (2018: 98.2% … 2025: 99.9%), so the courts
+finish almost exactly what arrives — and the ~130k-case backlog is therefore
+**structural**: it never drains, whichever way the inflow moves. 2025: 544,541 filed,
+544,035 resolved, 129,536 pending, 81% inside the 3-month deadline, 2,260 judge posts.
+
+### Parser gotchas (now documented in the skill + README)
+1. **The decimal separator drifts** — a dot up to 2021 (`8.74`), a comma from 2022
+   (`7,14`). Thousands are always a space, so accepting either as the decimal mark is
+   unambiguous. This silently produced 0 workload rows for 2018–2021 until caught.
+2. **Rows are keyed by order + numeric-cell count, never by label.** The wrapped
+   "Районни съдилища извън / областните центрове" label leaves its data row
+   *label-less* in section I, and "Окръжни съдилища + СГС" carried "+ СНС" until the
+   specialised criminal court closed in 2022.
+3. **Section II is sliced from both ends** (first three + last three numeric cells) —
+   the civil/criminal middle block is absent for tiers whose bench doesn't split.
+4. **Coverage caveat, surfaced in the UI:** Приложение № 1 excludes ВКС, ВАС and the
+   prosecution, which report separately. The totals are *the courts*, not "the whole
+   judiciary".
+
+Reconciliation is asserted at ingest, so a bad parse throws rather than shipping: Σ
+tiers == total per column, the stock-flow identity `pendingEnd == pendingStart + filed
+− resolved`, and the printed "% в срок" == `round(withinDeadline / resolved)`.
+Independently cross-checked: the PDF's own separate "СРАВНИТЕЛЕН ОТЧЕТ" page prints
+2023 identically, and the ВСС's published 2021 headline (546,530 / 550,209 / 80%)
+matches the parsed row.
+
+## 0c. What shipped in Phase 3a (the declarations register — INDEX, not contents)
+
+The ИВСС register is plain HTML on a Joomla site at a bare IP over HTTP
+(`http://62.176.124.194`, linked from inspectoratvss.bg as "Публикувани декларации").
+No WAF, no JS. Indexed by year × first letter of the given name: 9 years × 29 letters
+= 261 pages.
+
+- `scripts/judiciary/__write_declarations.ts` crawls those 261 pages plus the ИВСС's
+  four non-compliance lists → `data/judiciary/declarations.json` (~12 KB).
+  **46,528 declarations from 5,556 magistrates, 2017–2025.**
+- `/judiciary` gains two tiles: the **filing calendar** and the **ИВСС
+  non-compliance lists**, reproduced verbatim with their ЗСВ reference and a source
+  link. AI tool `judiciaryDeclarations` (domain `people`) + router + narrate.
+- Watcher `ivss_declarations` (verified live: 261 letter pages, 4 lists) fingerprints
+  BOTH the register's year set and the visible text of each list, so a name added or
+  cleared flips it. Wired into the `vss` source group + `update-judiciary`.
+
+### The finding
+**65.8% of all annual declarations are filed in May**, peaking on the **14th and 15th**
+— the statutory 15 May deadline itself (4,212 declarations in those two days). Nobody
+had measured this: the ИВСС publishes 46k PDFs and no index.
+
+### Deliberate scope line: index, not contents
+Each declaration is a 12-page multi-table form (v3.0 since 2022) with a real text
+layer, so extracting assets **is** feasible — but it is 46k PDFs / **~37 GB** and a
+separate project. The full per-declaration index with PDF paths is written to
+`raw_data/judiciary/declarations_index.json` (gitignored) as its input.
+
+### Framing rules baked into the code and the skill
+Magistrates are **not elected officials**. Only what the ИВСС itself publishes is
+reported: that a declaration was filed, when, and whom the Inspectorate names.
+- Filing gaps across years mostly reflect entering or leaving the corps, **not**
+  misconduct, so no per-magistrate compliance score is derived or displayed.
+- An **empty** non-compliance list is shown as empty (green "няма" badge) rather than
+  hidden — hiding it would let a reader assume the worst. Two of the four lists are
+  currently empty; `change_late` names 32 people and `left_office_late` names 3.
+- The filing-calendar caption states plainly that filing on the last day is lawful.
+
+### Register quirks (documented in the skill)
+Each year has **two** PDF directories — `/declaracii/<year>/` (annual, due 15 May) and
+`/declaracii/<year>-1/` (change declarations under чл. 175в, ал. 5, filed through the
+autumn); the year heading is wrapped in `<strong>`, so the heading regex must tolerate
+tags; dedupe on the PDF path (a hyphenated surname can be listed under two letters);
+and two входящи номера carry a typo'd date (`15.50.2024`, `13.15.2019`) — reported and
+excluded from the calendar, never silently dropped.
+
+Asserts: ≥8 years; ≥3,000 magistrates and BOTH batches per year; Σ years ==
+declarations; and >40% May clustering (its loss means the входящ-номер date parsing
+broke).
+
+**Phase 3b (asset extraction) is NOT built** — see the scope line above.
+`SECTOR_BROWSE_PACKS` (§4.3) also remains unbuilt; it is a shared prerequisite with the
+water plan.
+
+## 0d. Review + repair pass (2026-07-10)
+
+A full code review (`CODE_REVIEW_REPORT.md`, annotated with outcomes) produced 14
+findings + 3 duplication items + 2 doc gaps. All were implemented. The ones that
+changed *behaviour or numbers*, not just style:
+
+- **The ИВСС „(1)" footnote was being stripped.** Its legend is „лицето е подало
+  декларация извън срока" — the person DID file, late. A name *without* it never
+  filed. Both were rendering identically under a header that says "failed to file".
+  Now carried through as `filedLate` → chip + reproduced legend. (Today all 35 named
+  people carry the marker, which is exactly what made the bug invisible.)
+- **The discrepancy list has five columns**, not four; „Вид декларация" was being
+  truncated. Column counts are now declared per page and **asserted** — a shape change
+  throws instead of silently dropping a field.
+- **Two writers could ship a partial artifact.** A failed year set `process.exitCode`
+  and wrote anyway, silently regressing `latestYear`. Now they refuse to write, with an
+  explicit `--allow-partial` escape hatch.
+- **The PDF cache was keyed on the year**, so a corrected re-publication was never
+  re-fetched (the ВСС does re-publish — the 2021 file is named `…-2021_new.pdf`). Now
+  keyed on the URL hash, plus `--refetch` for same-URL re-uploads.
+- **The declarations ingest would have failed every spring.** Change declarations
+  arrive through the autumn, so `change === 0` on the open year is the truth. The
+  completeness asserts now skip the newest year and warn.
+- **The budget-bridge share was computed across mismatched periods.** `procYears`
+  counted years *with contracts* (a gap year inflated the average by 50%) and the
+  ratio silently compared a scope window to an unrelated fiscal year. Now it divides by
+  the window span and the sentence names both periods. **The headline moved 0,6% →
+  0,5%** — the old number was wrong.
+- **The prerendered SEO figures were hardcoded.** The prerendered HTML is the only
+  thing crawlers see, so a stale number there is a stale number in search results. They
+  are now interpolated from the committed artifacts at build time (verified by
+  perturbing `caseload.json` and watching the emitted HTML follow).
+- **AI tools silently answered the wrong year.** "бюджетът през 2015" returned 2025.
+  They now return a scalar envelope naming the available range.
+- **`ivss_declarations` hashed whole page text** (nav, banners, timestamps), so any
+  unrelated site edit triggered a 261-page re-scrape. It now hashes only the table rows.
+
+### Two corrections to the review itself
+1. It listed 12 dead exports in `vssReferenceData.ts`; only **5** were dead — six had
+   become live via `JUDICIAL_BODIES` / `COURT_COUNT`. Deleted the dead ones and wired the
+   alias arrays into `COURT_LEVEL` so the merge is enforced rather than duplicated.
+2. It called `"приключваем"` a redundant `has()` substring. It is not: the two
+   occurrences sit in separate calls under different guards, and the second is the only
+   path for a bare "приключваемост". Only `"съдиите"` and `"делата"` were shadowed.
+
+### A gate that wasn't a gate
+`npx tsc --noEmit -p tsconfig.json` type-checks **nothing** — the root config is a
+solution file (`"files": []` + project references). The real gate is `tsc -b`, which
+`npm run build` runs. Use that.
+
+### UI alignment
+`/judiciary`'s bespoke year pills were replaced by the shared `ProcurementScopeControl`
+in the standard "Обхват" slot, matching `/subsidies` and the awarder pages. The control
+gained an `allowAll?: boolean` prop (default `true`, so all six existing call sites are
+unaffected) because the judiciary caseload is a per-year snapshot with no cross-year
+aggregate — offering "Всички години" would select a scope the page cannot render.
 
 ## 1. Goal & thesis
 
@@ -30,12 +238,14 @@ corpus), but the sibling bodies are separate awarder EIKs.
 
 **Resolved from local PG** (`contracts` ∪ `tenders`, 2026-07-09):
 **58 judicial EIKs · 1,337 contracts · €174,713,773 · 2011-01-28 → 2026-06-02.**
+Note the two bases: the headline **1,337** and every € figure are **contracts only**;
+the per-body row counts below are **contracts ∪ tenders** (e.g. ВСС = 171 + 142 = 313).
 ВСС alone is €78.2M = **45% of the sector**. 56 EIKs carry contracts; 2 appear only
 in `tenders` (РС Лом `000321038`, РС Луковит `000291787`).
 
 ### Core bodies
 
-| Body | EIK | Contracts | € | Note |
+| Body | EIK | Rows (contracts + tenders) | € (contracts only) | Note |
 |---|---|---|---|---|
 | **Висш съдебен съвет (ВСС)** | **121513231** | 313 | €71.1M | Pack anchor; administers the съдебна власт budget |
 | ВСС — съдийска колегия (interim mandate) | **181092349** | 12 | €7.2M | "Съдийската колегия…изпълняваща функциите на ВСС" (2024, пар. 23 ПЗР ЗИД КРБ). **Alias to ВСС** |
@@ -443,7 +653,10 @@ route only; gate them the way candidate sub-tabs are gated.
   prosecution analysis needs `awarder_name` parsing, and any "prosecution vs courts"
   split must not imply per-unit EIK grain.
 - Merge the two alias pairs (`181092349`→ВСС, `000695064`→ПРБ) before any roll-up, or the
-  ВСС headline understates by €7.2M.
+  ВСС headline understates by €7.2M. **Shipped for ВСС**: `useVss` fans out over
+  `[VSS_EIK, ...VSS_ALIAS_EIKS]` and the pack carries a footnote reconciling its €66.4M
+  against the €59.2M per-EIK header above it. The ПРБ pair is resolved but unconsumed —
+  it becomes live with the first prosecution roll-up.
 - Court reorganisations (съдебна карта) shift unit boundaries 2005–2025 — the court-ID
   crosswalk (`court_dim.active_from/to`) is the hard part.
 - SINS натовареност methodology is politically contested (IME/Capital) — show raw +

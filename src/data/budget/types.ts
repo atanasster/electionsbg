@@ -2428,3 +2428,55 @@ export interface PolicyBaselineFile {
     alphaHigh: number;
   };
 }
+
+// Съдебна власт (judiciary) annual budget, as adopted in each year's ЗДБРБ.
+// Powers the judiciary sector pack's budget-bridge tile: the judiciary's own
+// revenue (съдебни такси!) and the per-body expenditure split (ВСС, ВКС, ВАС,
+// ПРБ, съдилища, НИП, ИВСС, резерв). Written by scripts/budget/__write_judiciary.ts.
+/** The eight rows of the ЗДБРБ „Органи на съдебната власт" table, plus the four
+ *  revenue lines. Narrow so a colour/label map keyed on it stays exhaustive. */
+export type JudiciaryBodyId =
+  | "vss"
+  | "vks"
+  | "vas"
+  | "prb"
+  | "courts"
+  | "nip"
+  | "ivss"
+  | "reserve";
+
+export type JudiciaryRevenueId = "courtFees" | "property" | "fines" | "other";
+
+export interface JudiciaryBudgetLine<
+  Id extends string = JudiciaryBodyId | JudiciaryRevenueId,
+> {
+  id: Id;
+  bg: string;
+  en: string;
+  amount: Money;
+}
+
+export interface JudiciaryBudgetYear {
+  fiscalYear: number;
+  basis: "law";
+  currencyOfRecord: "BGN";
+  totalRevenue: Money;
+  totalExpenditure: Money;
+  /** NB: currentExpenditure + capitalExpenditure < totalExpenditure. The balance
+   *  is the contingency reserve (Резерв за непредвидени и/или неотложни разходи),
+   *  a third bucket carried only as bodies[id="reserve"] — so these two fields do
+   *  NOT decompose the total, and a bar built from them will not add up. */
+  currentExpenditure: Money;
+  capitalExpenditure: Money;
+  /** Σ bodies == totalExpenditure (asserted at ingest). */
+  bodies: JudiciaryBudgetLine<JudiciaryBodyId>[];
+  /** Σ revenue == totalRevenue (asserted at ingest). */
+  revenue: JudiciaryBudgetLine<JudiciaryRevenueId>[];
+}
+
+export interface JudiciaryBudgetFile {
+  generatedAt: string;
+  source: { publisher: string; law: string; url: string; description: string };
+  latestYear: number;
+  years: JudiciaryBudgetYear[]; // descending by fiscalYear
+}

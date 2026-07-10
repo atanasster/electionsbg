@@ -323,8 +323,22 @@ const captures: Capture[] = [
     settleMs: 2000,
   },
   {
+    slug: "judiciary",
+    routePath: "judiciary",
+    // The caseload-flow chart IS the page's argument (filed ≈ resolved, so the
+    // backlog never drains) — centre the clip on it rather than the KPI row.
+    waitFor: '[data-og="judiciary-caseload"] .recharts-surface',
+    anchor: '[data-og="judiciary-caseload"]',
+    centerOnAnchor: true,
+    settleMs: 2500,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
     slug: "subsidies",
     routePath: "subsidies",
+    // KPI row (paid / recipients / top-100 share / largest scheme) sitting above
+    // the concentration bar + scheme ranking. Top-aligned on the KPI grid so the
+    // clip leads with the headline numbers and carries the distribution tiles.
     // The dashboard shell is full-bleed, so at the 1280px capture viewport the
     // KPI grid is 1249px wide and the outer stat cards get sliced by the 1200px
     // clip. Capping <main> at 1216px (grid + its 2x8px padding) makes the grid

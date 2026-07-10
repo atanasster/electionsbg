@@ -280,6 +280,11 @@ export const governanceMenu: MenuItem[] = [
           { title: "procurement_roads_nav", link: ROADS_AWARDER_PATH },
           { title: "procurement_noi_nav", link: NOI_AWARDER_PATH },
           { title: "procurement_nzok_nav", link: NZOK_AWARDER_PATH },
+          // The judiciary's home is the /judiciary dashboard (caseload, duration,
+          // workload, declarations); it lists every judicial body's awarder page
+          // for the money half. The procurement sub-nav pill points here too, so
+          // this label has exactly one destination everywhere.
+          { title: "judiciary_nav", link: "/judiciary" },
           { title: "procurement_dfz_nav", link: DFZ_AWARDER_PATH },
         ],
       },

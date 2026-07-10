@@ -130,6 +130,11 @@ const PricesScreen = lazy(() =>
     default: m.PricesScreen,
   })),
 );
+const JudiciaryScreen = lazy(() =>
+  import("./screens/judiciary/JudiciaryScreen").then((m) => ({
+    default: m.JudiciaryScreen,
+  })),
+);
 // Local-elections stub — step 1 placeholder. Hosts both the cycle
 // overview (/local/:cycle) and the per-município full results
 // (/local/:cycle/:obshtinaCode) until step 3 ships dedicated screens.
@@ -1312,6 +1317,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <PricesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="judiciary"
+            element={
+              <LayoutScreen>
+                <JudiciaryScreen />
               </LayoutScreen>
             }
           />

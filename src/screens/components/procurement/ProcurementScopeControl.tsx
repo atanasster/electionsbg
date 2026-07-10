@@ -45,6 +45,11 @@ interface Props {
   // Override the "this parliament" pill label (e.g. "Latest year" for datasets
   // with no per-parliament slice). Defaults to the procurement wording.
   nsLabelOverride?: string;
+  // Hide the "All years" option. For datasets read one year at a time (the
+  // judiciary caseload is a per-year snapshot with no cross-year aggregate),
+  // offering it would select a scope the page cannot render. Defaults to true, so
+  // every existing caller keeps its behaviour.
+  allowAll?: boolean;
 }
 
 const LAST_YEAR = new Date().getFullYear();
@@ -60,6 +65,7 @@ export const ProcurementScopeControl: FC<Props> = ({
   onChange,
   years,
   nsLabelOverride,
+  allowAll = true,
 }) => {
   const { t } = useTranslation();
   const { selected } = useElectionContext();
@@ -130,9 +136,11 @@ export const ProcurementScopeControl: FC<Props> = ({
             />
           </SelectTrigger>
           <SelectContent align="end">
-            <SelectItem value="all">
-              {t("procurement_scope_all_years") || "All years"}
-            </SelectItem>
+            {allowAll && (
+              <SelectItem value="all">
+                {t("procurement_scope_all_years") || "All years"}
+              </SelectItem>
+            )}
             {yearList.map((y) => (
               <SelectItem key={y} value={`y:${y}`}>
                 {y}

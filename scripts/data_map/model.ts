@@ -94,6 +94,7 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   },
   { pattern: /^\/parliament\//, dataset: "parliament" },
   { pattern: /^\/officials\//, dataset: "officials" },
+  { pattern: /^\/judiciary\//, dataset: "judiciary" },
   { pattern: /^\/budget\//, dataset: "budget" },
   // macro_fdi must precede the generic `macro` rule below (first match wins),
   // otherwise /macro_fdi.json would be attributed to ds:macro.
@@ -606,6 +607,23 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     tags: ["local"],
   },
   {
+    id: "vss",
+    label: { bg: "ВСС · съдебна статистика", en: "ВСС · court statistics" },
+    detail: {
+      bg: "движение на делата и натовареност",
+      en: "case movement and workload",
+    },
+    desc: {
+      bg: "Годишните „Обобщени статистически таблици за дейността на съдилищата“ на Висшия съдебен съвет — постъпили, свършени и висящи дела, срокове и натовареност на съдиите, по съдебен ред. Публикуват се само като PDF. Плюс регистъра на имуществените декларации на магистратите и списъците на ИВСС за неизрядни декларации.",
+      en: "The Supreme Judicial Council's annual summary statistical tables on the activity of the courts — cases filed, resolved and pending, delays and judges' workload, by court tier. Published as PDFs only. Plus the magistrates' asset-declaration register and the Inspectorate's non-compliance lists.",
+    },
+    url: "https://vss.justice.bg/page/view/1082",
+    origin: "state",
+    members: ["vss_court_statistics", "ivss_declarations"],
+    skills: ["update-judiciary"],
+    tags: ["fiscal"],
+  },
+  {
     id: "ipi",
     label: { bg: "ИПИ · 265 общини", en: "IME · 265 municipalities" },
     detail: {
@@ -815,6 +833,20 @@ export const DATASETS: DatasetDef[] = [
       bg: "Изплатените субсидии от ДФ „Земеделие“ по бенефициент, схема и област — с концентрация, топ получатели и връзка към поръчки и еврофондове по ЕИК. Съхранява се директно в Postgres (agri_subsidies, agri_payloads).",
       en: "Subsidies paid by the State Fund Agriculture by beneficiary, scheme and region — with concentration, top recipients and an EIK link to procurement and EU funds. Stored directly in Postgres (agri_subsidies, agri_payloads).",
     },
+    tags: ["fiscal"],
+  },
+  {
+    id: "judiciary",
+    label: { bg: "Съдебна власт", en: "The judiciary" },
+    detail: {
+      bg: "дела, срокове, натовареност",
+      en: "caseload, delays, workload",
+    },
+    desc: {
+      bg: "Движението на делата в българските съдилища от 2018 г. насам — постъпили, свършени и висящи дела, дял решени в 3-месечния срок, брой съдии и двата официални показателя за натовареност (по щат и действителна), по съдебен ред.",
+      en: "The movement of cases through Bulgaria's courts since 2018 — filed, resolved and pending, the share closed inside the three-month deadline, judge posts and both official workload measures (per post and actual), by court tier.",
+    },
+    path: "data/judiciary/",
     tags: ["fiscal"],
   },
   {
@@ -1135,6 +1167,20 @@ export const FEATURES: FeatureDef[] = [
     tags: ["local", "indicators", "fiscal", "elections"],
   },
   {
+    id: "judiciary",
+    label: { bg: "Съдебна власт", en: "The judiciary" },
+    detail: {
+      bg: "дела, срокове и натовареност",
+      en: "caseload, delays and workload",
+    },
+    desc: {
+      bg: "Колко дела влизат в съдилищата, колко излизат и колко остават висящи — плюс натовареността на съдиите и бюджета на съдебната власт по органи.",
+      en: "How many cases enter the courts, how many leave, and how many stay pending — plus judges' workload and the judiciary's budget by spending body.",
+    },
+    route: "/judiciary",
+    tags: ["fiscal"],
+  },
+  {
     id: "indicators",
     label: { bg: "Индикатори и ЕС сравнение", en: "Indicators and EU compare" },
     detail: {
@@ -1202,6 +1248,10 @@ export const EDGES: [string, string][] = [
   ["src:sp", "ds:funds"],
   ["src:egov", "ds:connections"],
   ["src:egov", "ds:procurement"],
+  ["src:vss", "ds:judiciary"],
+  ["src:dv", "ds:judiciary"],
+  ["ds:judiciary", "f:judiciary"],
+  ["ds:budget", "f:judiciary"],
   ["src:egov", "ds:budget"],
   ["src:egov", "ds:indicators"],
   ["src:egov", "ds:localgov"],

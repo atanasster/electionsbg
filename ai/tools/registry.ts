@@ -39,6 +39,12 @@ import {
   subsidiesForEntity,
 } from "./subsidies";
 import { nzokBudget, nzokDrugs, nzokDrugGrowth, nzokHospitals } from "./nzok";
+import {
+  judiciaryBudget,
+  judiciaryCaseload,
+  judiciaryWorkload,
+  judiciaryDeclarations,
+} from "./judiciary";
 import { ngoOverview, ngoTopFunded, ngoConflictAwarders } from "./ngo";
 import { governments } from "./govpeople";
 import {
@@ -1891,6 +1897,108 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: nzokBudget,
+  },
+  {
+    name: "judiciaryBudget",
+    domain: "fiscal",
+    description: {
+      bg: "Бюджет на съдебната власт по органи — колко получават съдилищата, прокуратурата, ВКС, ВАС, ВСС и Инспекторатът, и каква част от разходите си съдебната власт покрива сама със съдебни такси.",
+      en: "The judiciary's budget by spending body — what the courts, the prosecution, the supreme courts, the ВСС and the inspectorate get, and how much of its costs the judiciary self-funds from court fees.",
+    },
+    params: [
+      {
+        name: "year",
+        type: "year",
+        description: { bg: "Бюджетна година", en: "Fiscal year" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Какъв е бюджетът на съдебната власт?",
+        en: "What is the judiciary's budget?",
+      },
+      {
+        bg: "Колко получава прокуратурата от бюджета?",
+        en: "How much does the prosecution get from the budget?",
+      },
+      {
+        bg: "Колко от разходите си покриват съдилищата със съдебни такси?",
+        en: "How much of its costs does the judiciary cover from court fees?",
+      },
+    ],
+    run: judiciaryBudget,
+  },
+  {
+    name: "judiciaryCaseload",
+    domain: "indicators",
+    description: {
+      bg: "Движение на делата в българските съдилища — постъпили, свършени и висящи дела, приключваемост и дял решени в 3-месечния срок, по съдебен ред.",
+      en: "The movement of cases through Bulgaria's courts — filed, resolved and pending, clearance rate and the share closed within the 3-month deadline, by court tier.",
+    },
+    params: [
+      {
+        name: "year",
+        type: "year",
+        description: { bg: "Година", en: "Year" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Колко дела постъпват в съдилищата?",
+        en: "How many cases enter the courts?",
+      },
+      {
+        bg: "Колко са висящите дела?",
+        en: "How big is the court backlog?",
+      },
+    ],
+    run: judiciaryCaseload,
+  },
+  {
+    name: "judiciaryWorkload",
+    domain: "indicators",
+    description: {
+      bg: "Натовареност на съдиите по съдебен ред — и двата официални показателя: по щат (спрямо съдийските места) и действителна (спрямо отработените човекомесеци).",
+      en: "Judges' workload by court tier — both official measures: per allocated post, and actual (per person-month worked).",
+    },
+    params: [
+      {
+        name: "year",
+        type: "year",
+        description: { bg: "Година", en: "Year" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Колко натоварени са съдиите?",
+        en: "How heavily loaded are the judges?",
+      },
+      {
+        bg: "Кои съдилища са най-натоварени?",
+        en: "Which courts are the busiest?",
+      },
+    ],
+    run: judiciaryWorkload,
+  },
+  {
+    name: "judiciaryDeclarations",
+    domain: "people",
+    description: {
+      bg: "Имуществените декларации на съдии, прокурори и следователи — индекс на регистъра на ИВСС (кой и кога е подал) и списъците на Инспектората за неподадени в срок декларации и установени несъответствия. Не съдържа съдържанието на декларациите.",
+      en: "Magistrates' asset declarations — an index of the Inspectorate's register (who filed and when) plus its lists of late filers and unresolved discrepancies. Does not include the contents of the declarations.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Подават ли магистратите декларациите си навреме?",
+        en: "Do magistrates file their asset declarations on time?",
+      },
+      {
+        bg: "Кои магистрати не са подали декларация в срок?",
+        en: "Which magistrates failed to file on time?",
+      },
+    ],
+    run: judiciaryDeclarations,
   },
   {
     name: "nzokDrugs",

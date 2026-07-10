@@ -31,6 +31,7 @@ import type {
   NzokHospitalMomentum,
   NzokHospitalReimbursement,
   NzokDrugReimbursementFile,
+  JudiciaryBudgetFile,
   PersonnelFile,
   PitBreakdownFile,
   PlevenCapitalProgramFile,
@@ -261,6 +262,18 @@ export const useNzokBudget = () =>
   useQuery({
     queryKey: ["budget", "nzok", "budget"] as const,
     queryFn: () => fetchJson<NzokBudgetFile>("/budget/nzok/budget.json"),
+    staleTime: Infinity,
+  });
+
+// Съдебна власт budget-law breakdown (2018→) — drives the judiciary sector
+// pack's budget-bridge tile: the judiciary's own revenue (съдебни такси) and the
+// per-body expenditure split. Single committed file (~14 KB). Written by
+// scripts/budget/__write_judiciary.ts off the same cached ЗДБРБ HTML the rest of
+// the budget ingest already uses.
+export const useJudiciaryBudget = () =>
+  useQuery({
+    queryKey: ["budget", "vss", "budget"] as const,
+    queryFn: () => fetchJson<JudiciaryBudgetFile>("/budget/vss/budget.json"),
     staleTime: Infinity,
   });
 

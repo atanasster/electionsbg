@@ -25,16 +25,21 @@ const fetchAwarderContracts = async (
   return (await r.json()) as { contracts: ProcurementContract[] };
 };
 
+/** The shared query definition, so a pack that has to fan out over several EIKs
+ *  (an institution registered under more than one) reuses the exact fetch, key
+ *  and caching policy rather than re-deriving them. */
+export const awarderContractsQuery = (eik?: string | null) => ({
+  queryKey: ["db", "awarder-contracts", eik] as const,
+  queryFn: () => fetchAwarderContracts(eik as string),
+  enabled: !!eik && /^\d{9,13}$/.test(eik),
+  staleTime: Infinity,
+  retry: false,
+});
+
 /** Full per-contract corpus for one awarder (≈2k rows for the packed buyers),
  *  cached once; packs window it client-side via scopeByWindow. */
 export const useAwarderContracts = (eik?: string | null) =>
-  useQuery({
-    queryKey: ["db", "awarder-contracts", eik] as const,
-    queryFn: () => fetchAwarderContracts(eik as string),
-    enabled: !!eik && /^\d{9,13}$/.test(eik),
-    staleTime: Infinity,
-    retry: false,
-  });
+  useQuery(awarderContractsQuery(eik));
 
 /** Apply a half-open `[from, to)` window to already-loaded rows — same semantics
  *  as procurement_overview. Single-sourced so pack scope filtering can't drift.

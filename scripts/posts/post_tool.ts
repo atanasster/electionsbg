@@ -26,8 +26,10 @@ import { fileURLToPath } from "node:url";
 import {
   renderStatCard,
   renderAnnounceCard,
+  renderBarCard,
   type StatCardSpec,
   type AnnounceCardSpec,
+  type BarCardSpec,
 } from "./cardKit";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -67,7 +69,7 @@ type PostSpec = Omit<
   image?: string | null; // reference an existing image (e.g. ai/assets/og.png) or null for link auto-preview
   bg: string; // BG post body
   en?: string; // optional EN body
-  card?: StatCardSpec | AnnounceCardSpec; // omit to rely on the link's og:image preview
+  card?: StatCardSpec | AnnounceCardSpec | BarCardSpec; // omit to rely on the link's og:image preview
 };
 
 const loadRegistry = (): PostEntry[] => {
@@ -175,10 +177,14 @@ const cmdSave = (specPath: string, force: boolean): void => {
     image = spec.image; // existing path or explicit null
   } else if (spec.card) {
     image = `brand/posts/${spec.slug}.png`;
+    // A card carrying `bars` is a chart infographic regardless of kind; the
+    // remaining split is stat-card for data vs announce-card for launches.
     const buf =
-      kind === "data"
-        ? renderStatCard(spec.card as StatCardSpec)
-        : renderAnnounceCard(spec.card as AnnounceCardSpec);
+      "bars" in spec.card
+        ? renderBarCard(spec.card as BarCardSpec)
+        : kind === "data"
+          ? renderStatCard(spec.card as StatCardSpec)
+          : renderAnnounceCard(spec.card as AnnounceCardSpec);
     writeFileSync(resolve(ROOT, image), buf);
   } else {
     image = null;

@@ -14,9 +14,9 @@
 //
 // The EIKs mirror the app-side constants (API_EIK in src/lib/roadAttributes,
 // NOI_EIK in src/lib/noiBenchmarks, NZOK_EIK in src/lib/nzokBenchmarks,
-// AGRI_PAYER_EIK in src/data/agri/constants) and the PACKS registry in
-// src/screens/components/procurement/sectorPacks.tsx — keep both in sync if a
-// pack is ever re-keyed.
+// VSS_EIK in src/lib/vssReferenceData, AGRI_PAYER_EIK in src/data/agri/constants)
+// and the PACKS registry in src/screens/components/procurement/sectorPacks.tsx —
+// keep both in sync if a pack is ever re-keyed.
 
 export type InstitutionPack = {
   /** Awarder EIK — the /awarder/:eik route param and OG-card discriminator. */
@@ -146,5 +146,31 @@ export const INSTITUTION_PACKS: InstitutionPack[] = [
     // procurement money goes) as the card's chart.
     ogAnchor: '[data-og="awarder-flow"]',
     ogSettleMs: 3000,
+  },
+  {
+    eik: "121513231",
+    slug: "vss",
+    nameBg: "Висш съдебен съвет",
+    nameEn: "Supreme Judicial Council (ВСС)",
+    titleBg:
+      "Съдебна власт (ВСС) — бюджет и обществени поръчки | electionsbg.com",
+    titleEn:
+      "The judiciary (ВСС) — budget and public procurement | electionsbg.com",
+    descriptionBg:
+      "Бюджетът на съдебната власт по органи (съдилища, прокуратура, ВКС, ВАС, ВСС, ИВСС) и обществените поръчки на Висшия съдебен съвет (ЕИК 121513231) — съдебни сгради, електронно правосъдие, енергия и застраховане. Плюс колко от разходите си съдебната власт покрива сама със съдебни такси. По данни от ЗДБРБ и АОП.",
+    descriptionEn:
+      "The judiciary's budget by spending body (courts, prosecution, ВКС, ВАС, ВСС, inspectorate) and the Supreme Judicial Council's public procurement (EIK 121513231) — courthouses, e-justice systems, energy and insurance. Plus how much of its own costs the judiciary covers from court fees. Sourced from the State Budget Law and the АОП register.",
+    bodyBg: `
+<h1>Съдебна власт — бюджет и обществени поръчки на ВСС</h1>
+<p>Висшият съдебен съвет (ВСС, ЕИК 121513231) управлява бюджета на съдебната власт и възлага централно за цялата система — съдебните сгради, системите за електронно правосъдие, енергията и застраховането. Тази страница обединява обществените му поръчки от регистъра на АОП с бюджета на съдебната власт, приет със Закона за държавния бюджет.</p>
+<p>Разрезът показва разходите по органи — съдилищата и прокуратурата взимат около 87% от бюджета, докато собственото перо на ВСС е малка част — както и какъв дял от разходите си съдебната власт покрива сама чрез съдебни такси и глоби. Заплатите на магистратите и съдебните служители се плащат извън обществените поръчки. Виж и <a href="${SITE}/judiciary">таблото на съдебната власт</a> — натовареност на съдиите, движение на делата и имуществените декларации на магистратите — както и <a href="${SITE}/budget">държавния бюджет</a> и <a href="${SITE}/procurement">обществените поръчки</a>.</p>`.trim(),
+    bodyEn: `
+<h1>The judiciary — budget and the Supreme Judicial Council's procurement</h1>
+<p>The Supreme Judicial Council (ВСС, EIK 121513231) administers the judiciary's budget and procures centrally for the whole system — courthouses, e-justice platforms, energy and insurance. This page fuses its public procurement from the АОП register with the judiciary's budget as adopted in the State Budget Law.</p>
+<p>The breakdown shows expenditure by spending body — the courts and the prosecution take roughly 87% of the budget, while the ВСС's own line is a small share — and how much of its costs the judiciary covers itself through court fees and fines. Magistrate and court-staff salaries are paid outside public procurement. See also the <a href="${SITE}/en/judiciary">judiciary dashboard</a> — judge workload, case flow and magistrates' asset declarations — as well as the <a href="${SITE}/en/budget">state budget</a> and <a href="${SITE}/en/procurement">public procurement</a>.</p>`.trim(),
+    // The budget-bridge chart (per-body composition + self-financing bar) is the
+    // pack's signature visual — frame it, not the KPI header.
+    ogAnchor: '[data-og="vss-bridge"]',
+    ogSettleMs: 2500,
   },
 ];

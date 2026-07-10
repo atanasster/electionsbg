@@ -64,6 +64,7 @@ const GOVERNANCE_PREFIXES = [
   "/mp-",
   "/company",
   "/awarder",
+  "/judiciary",
   "/governments",
   "/indicators",
   "/demographics",

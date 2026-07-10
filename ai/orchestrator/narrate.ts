@@ -290,6 +290,54 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Бюджет на НЗОК ${f(env, "year")}: ${f(env, "total")} общо. Най-голямо перо — ${f(env, "biggest_line")}: ${f(env, "biggest_amount")} (${f(env, "biggest_share")}).`
         : `NHIF budget ${f(env, "year")}: ${f(env, "total")} total. Biggest line — ${f(env, "biggest_line")}: ${f(env, "biggest_amount")} (${f(env, "biggest_share")}).`;
+    case "judiciaryBudget":
+      if (!env.facts.total) return env.title;
+      return lang === "bg"
+        ? `Бюджет на съдебната власт ${f(env, "year")}: ${f(env, "total")} общо. Най-голям орган — ${f(env, "biggest_body")}: ${f(env, "biggest_amount")} (${f(env, "biggest_share")}). Собствените приходи са ${f(env, "own_revenue")} (${f(env, "self_financing")} от разходите), от които съдебни такси ${f(env, "court_fees")}.`
+        : `The judiciary's budget ${f(env, "year")}: ${f(env, "total")} total. Biggest body — ${f(env, "biggest_body")}: ${f(env, "biggest_amount")} (${f(env, "biggest_share")}). Own revenue is ${f(env, "own_revenue")} (${f(env, "self_financing")} of costs), of which ${f(env, "court_fees")} from court fees.`;
+    // "законовия срок" / "the statutory deadline" rather than "3-месечния срок":
+    // the 3 would be a number the narrator introduced, and `facts` carries only
+    // the share (`within_deadline`), never the deadline's length.
+    case "judiciaryCaseload":
+      if (!env.facts.filed) return env.title;
+      return lang === "bg"
+        ? `През ${f(env, "year")} г. в съдилищата постъпват ${f(env, "filed")} дела и се свършват ${f(env, "resolved")} (приключваемост ${f(env, "clearance")}); ${f(env, "within_deadline")} от свършените са в законовия срок, а ${f(env, "pending")} дела остават висящи. Най-натоварени са ${f(env, "busiest_tier")}.`
+        : `In ${f(env, "year")} the courts took in ${f(env, "filed")} cases and closed ${f(env, "resolved")} (clearance ${f(env, "clearance")}); ${f(env, "within_deadline")} of those closed inside the statutory deadline, and ${f(env, "pending")} remain pending. The busiest tier is ${f(env, "busiest_tier")}.`;
+    case "judiciaryDeclarations": {
+      if (!env.facts.declarations) return env.title;
+      // The two counts describe DIFFERENT lists: `flagged_people` (the three
+      // missed-deadline lists) and `discrepancy_people` (чл. 175ж — filed on
+      // time, but with an unresolved discrepancy). Never subtract one from the
+      // other, and never present the non-`filed_late` remainder as "never
+      // filed" — these are named people.
+      const flagged = Number(env.facts.flagged_people);
+      const late = Number(env.facts.filed_late);
+      const disc = Number(env.facts.discrepancy_people);
+      // When every flagged person carries the ИВСС's "(1)" footnote, repeating
+      // the same figure twice reads as an error; say "all of them" instead.
+      const lateClause =
+        flagged === late
+          ? lang === "bg"
+            ? "и всички те са подали декларация със закъснение"
+            : "all of whom did file, late"
+          : lang === "bg"
+            ? `като ${f(env, "filed_late")} от тях са подали декларация със закъснение`
+            : `${f(env, "filed_late")} of whom did file, late`;
+      const discClause =
+        disc > 0
+          ? lang === "bg"
+            ? ` Отделно, ${f(env, "discrepancy_people")} души са с установено несъответствие, неотстранено в срок.`
+            : ` Separately, ${f(env, "discrepancy_people")} have a discrepancy that was found and left unresolved.`
+          : "";
+      return lang === "bg"
+        ? `Регистърът на ИВСС съдържа ${f(env, "declarations")} декларации от ${f(env, "magistrates")} магистрати (${f(env, "first_year")}–${f(env, "last_year")}). ${f(env, "may_share")} от годишните декларации се подават през май — срокът е ${f(env, "deadline")}. В списъците на ИВСС за пропуснат срок са посочени ${f(env, "flagged_people")} души, ${lateClause}.${discClause}`
+        : `The Inspectorate's register holds ${f(env, "declarations")} declarations from ${f(env, "magistrates")} magistrates (${f(env, "first_year")}–${f(env, "last_year")}). ${f(env, "may_share")} of annual declarations are filed in May — the deadline is ${f(env, "deadline")}. Its missed-deadline lists name ${f(env, "flagged_people")} people, ${lateClause}.${discClause}`;
+    }
+    case "judiciaryWorkload":
+      if (!env.facts.national_actual) return env.title;
+      return lang === "bg"
+        ? `През ${f(env, "year")} г. ${f(env, "judges")} съдии по щат носят средно ${f(env, "national_per_post")} дела на месец по щат и ${f(env, "national_actual")} действително. Най-натоварени са ${f(env, "busiest_tier")} (${f(env, "busiest_load")}), най-малко — ${f(env, "quietest_tier")} (${f(env, "quietest_load")}).`
+        : `In ${f(env, "year")}, ${f(env, "judges")} judge posts carried ${f(env, "national_per_post")} cases a month per post and ${f(env, "national_actual")} in actual terms. The busiest tier is ${f(env, "busiest_tier")} (${f(env, "busiest_load")}), the quietest ${f(env, "quietest_tier")} (${f(env, "quietest_load")}).`;
     case "nzokDrugs":
       if (!env.facts.top_inn) return env.title;
       return lang === "bg"

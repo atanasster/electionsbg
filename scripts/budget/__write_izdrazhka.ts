@@ -24,6 +24,7 @@ import zlib from "zlib";
 import path from "path";
 import { fileURLToPath } from "url";
 import { LAW_DV_MATERIALS } from "./fetch_sources";
+import { flatLines } from "../lib/html";
 
 // 1 EUR = 1.95583 BGN — the budget laws 2018–2025 are in thousand leva; 2026
 // (the draft seed) is already in thousand euro.
@@ -115,28 +116,16 @@ const cachedHtml = (year: number): string =>
     .gunzipSync(fs.readFileSync(path.join(RAW_DIR, `law-${year}.html.gz`)))
     .toString("utf8");
 
-// Flatten the law HTML to non-empty text lines. The Държавен вестник tables
-// render one cell per source line, so a budget row arrives as a label line
-// followed (within a line or two) by its value line. We decode only the
-// entities that matter for parsing (&nbsp; inside the space-grouped numbers).
-const decodeEntities = (s: string): string =>
-  s
-    .replace(/&nbsp;|&#160;|&#xA0;/gi, " ")
-    .replace(/&bdquo;|&ldquo;|&rdquo;|&laquo;|&raquo;|&quot;/gi, '"')
-    .replace(/&#x([0-9a-f]+);/gi, (_m, h) =>
-      String.fromCharCode(parseInt(h, 16)),
-    )
-    .replace(/&#(\d+);/g, (_m, d) => String.fromCharCode(parseInt(d, 10)))
-    .replace(/&amp;/g, "&");
-
-const flatLines = (html: string): string[] =>
-  decodeEntities(html.replace(/<[^>]+>/g, "\n"))
-    .split("\n")
-    .map((l) => l.replace(/\s+/g, " ").trim())
-    .filter(Boolean);
-
-// "843 564,0" / "1 221 324" → number (thousand leva, as printed). Pure-number
+// "843 564,0" / "1 221 324" → number (thousand леva, as printed). Pure-number
 // lines only, so a row code ("1.2.1.") is never mistaken for a value.
+//
+// DIVERGENCE — do not "de-duplicate" this with __write_judiciary.ts's asNum.
+// This one's integer branch requires >= 3 digits (`[\d ]{2,}`) because the
+// издръжка tables it scans are dense with single- and double-digit row codes
+// that must NOT parse as values. The judiciary parser's accepts any length,
+// because a ЗДБРБ `Резерв` line can legitimately read `900` and an ИВСС line can
+// be under 100 хил. лв. Collapsing them into one helper silently breaks
+// whichever caller loses its rule.
 const asNum = (s: string): number | null => {
   if (/^-?\d[\d ]*,\d+$/.test(s) || /^-?\d[\d ]{2,}$/.test(s))
     return parseFloat(s.replace(/ /g, "").replace(",", "."));

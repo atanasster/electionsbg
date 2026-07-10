@@ -19,6 +19,7 @@ import { lazy, type ComponentType } from "react";
 import { API_EIK } from "@/lib/roadAttributes";
 import { NOI_EIK } from "@/lib/noiBenchmarks";
 import { NZOK_EIK } from "@/lib/nzokBenchmarks";
+import { VSS_EIK } from "@/lib/vssReferenceData";
 import { AGRI_PAYER_EIK } from "@/data/agri/constants";
 import type { RoadsWindow } from "@/data/procurement/useRoads";
 
@@ -35,6 +36,10 @@ export interface SectorPackProps {
 export const ROADS_AWARDER_PATH = `/awarder/${API_EIK}`;
 export const NOI_AWARDER_PATH = `/awarder/${NOI_EIK}`;
 export const NZOK_AWARDER_PATH = `/awarder/${NZOK_EIK}`;
+// NOTE: there is deliberately no VSS_AWARDER_PATH export. Its siblings
+// (ROADS_/NOI_/NZOK_AWARDER_PATH) are consumed by reportMenus.ts and
+// ProcurementNav.tsx, but both nav surfaces point at the /judiciary dashboard
+// instead — the ВСС buyer page is reached from there. Don't "fix" the omission.
 // ДФ „Земеделие" has no bespoke SectorPack — its awarder page is the generic
 // awarder dashboard plus the administering-agency subsidies card (gated on
 // AGRI_PAYER_EIK in CompanyDbScreen), the entry point into the /subsidies pack.
@@ -49,11 +54,15 @@ const NoiPack = lazy(() =>
 const NzokPack = lazy(() =>
   import("./nzok/NzokPack").then((m) => ({ default: m.NzokPack })),
 );
+const VssPack = lazy(() =>
+  import("./vss/VssPack").then((m) => ({ default: m.VssPack })),
+);
 
 const PACKS: Record<string, ComponentType<SectorPackProps>> = {
   [API_EIK]: RoadsPack,
   [NOI_EIK]: NoiPack,
   [NZOK_EIK]: NzokPack,
+  [VSS_EIK]: VssPack,
 };
 
 export const getSectorPack = (

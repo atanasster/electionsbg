@@ -70,6 +70,65 @@ const PUBLIC_ASSETS_FOLDER = path.join(PROJECT_ROOT, "public");
 const ELECTIONS_FILE = path.join(PROJECT_ROOT, "src/data/json/elections.json");
 const REGIONS_FILE = path.join(PROJECT_ROOT, "src/data/json/regions.json");
 
+// The /judiciary prerender body quotes real figures — the prerendered HTML is the
+// only thing crawlers see, so a number hardcoded here would go stale the next time
+// `update-judiciary` rewrites the artifacts, and stay stale in search results.
+// Read them from the same committed JSON the app reads. staticPage() runs at build
+// time, so this costs nothing at runtime.
+const judiciaryFacts = (() => {
+  const caseload = JSON.parse(
+    fs.readFileSync(
+      path.join(PROJECT_ROOT, "data/judiciary/caseload.json"),
+      "utf-8",
+    ),
+  ) as {
+    latestYear: number;
+    years: { year: number; total: { filed: number; pendingEnd: number } }[];
+  };
+  const decl = JSON.parse(
+    fs.readFileSync(
+      path.join(PROJECT_ROOT, "data/judiciary/declarations.json"),
+      "utf-8",
+    ),
+  ) as {
+    totals: {
+      declarations: number;
+      magistrates: number;
+      firstYear: number;
+      lastYear: number;
+    };
+    filingCalendar: {
+      total: number;
+      byMonth: { month: number; count: number }[];
+    };
+  };
+  const latest =
+    caseload.years.find((y) => y.year === caseload.latestYear) ??
+    caseload.years[0];
+  const may =
+    decl.filingCalendar.byMonth.find((m) => m.month === 5)?.count ?? 0;
+  const mayShare =
+    decl.filingCalendar.total > 0 ? (100 * may) / decl.filingCalendar.total : 0;
+  const nfmt = (n: number, locale: string) => n.toLocaleString(locale);
+  // Round the backlog to the nearest 10k for the durable "около N хиляди" claim.
+  const backlogK = Math.round(latest.total.pendingEnd / 10000) * 10;
+  return {
+    firstYear: caseload.years[caseload.years.length - 1].year,
+    latestYear: caseload.latestYear,
+    filedBg: nfmt(latest.total.filed, "bg-BG"),
+    filedEn: nfmt(latest.total.filed, "en-US"),
+    backlogK,
+    declarationsBg: nfmt(decl.totals.declarations, "bg-BG"),
+    declarationsEn: nfmt(decl.totals.declarations, "en-US"),
+    magistratesBg: nfmt(decl.totals.magistrates, "bg-BG"),
+    magistratesEn: nfmt(decl.totals.magistrates, "en-US"),
+    declFirst: decl.totals.firstYear,
+    declLast: decl.totals.lastYear,
+    mayShareBg: mayShare.toLocaleString("bg-BG", { maximumFractionDigits: 1 }),
+    mayShareEn: mayShare.toLocaleString("en-US", { maximumFractionDigits: 1 }),
+  };
+})();
+
 // The ДФЗ subsidy corpus lives only in Postgres, so the /subsidies body carries
 // no payment figures — only the covered financial years, which come from the
 // same constant the app's year picker reads. The years have gaps (2018–2020 are
@@ -1334,6 +1393,50 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>
 <p>See also the <a href="${SITE_URL}/en/budget/methodology">methodology</a> for a full description of sources, processing and scope.</p>
 <p>Sources: <a href="https://data.egov.bg/" rel="nofollow noopener">data.egov.bg</a> (Ministry of Finance — KFP), <a href="https://dv.parliament.bg/" rel="nofollow noopener">Държавен вестник</a> (State Budget Law), individual annual "Отчет за изпълнението на програмния бюджет" reports from each first-level spending unit.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "judiciary",
+    title:
+      "Съдебна власт — дела, срокове и натовареност на съдиите | electionsbg.com",
+    description:
+      "Колко дела постъпват в българските съдилища, колко се решават, колко остават висящи, какъв дял приключват в 3-месечния срок и с каква натовареност работят съдиите — по данните на Висшия съдебен съвет от 2018 г. насам.",
+    breadcrumbName: "Съдебна власт",
+    ogImage: "/og/judiciary.png",
+    bodyHtml: `
+<h1>Съдебна власт — движение на делата и натовареност</h1>
+<p>През ${judiciaryFacts.latestYear} г. в българските съдилища постъпват ${judiciaryFacts.filedBg} дела. Тази страница проследява какво се случва с тях: колко се решават, колко приключват в законовия тримесечен срок, колко остават висящи в края на годината и с каква натовареност работят съдиите — по данни от „Обобщени статистически таблици за дейността на съдилищата" на Висшия съдебен съвет.</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li><strong>Движение на делата</strong> — постъпили, свършени и висящи дела за всяка година от ${judiciaryFacts.firstYear} г. насам. Съдилищата свършват почти толкова дела, колкото постъпват, затова висящите дела остават около ${judiciaryFacts.backlogK} хиляди и не намаляват.</li>
+<li><strong>Приключваемост</strong> — свършени ÷ постъпили дела. Под 100% висящите дела растат.</li>
+<li><strong>Срокове</strong> — какъв дял от свършените дела приключват в законовия срок до 3 месеца.</li>
+<li><strong>Натовареност на съдиите</strong> — и двата официални показателя: „по щат" (спрямо съдийските места) и „действителна" (спрямо реално отработените човекомесеци). Разликата измерва незаетите места и отсъствията.</li>
+<li><strong>По съдебен ред</strong> — апелативни, военни, окръжни, районни и административни съдилища, всеки със своите показатели.</li>
+<li><strong>Имуществени декларации</strong> — индекс на регистъра на ИВСС: ${judiciaryFacts.declarationsBg} декларации от ${judiciaryFacts.magistratesBg} магистрати (${judiciaryFacts.declFirst}–${judiciaryFacts.declLast}), кога се подават (${judiciaryFacts.mayShareBg}% през май, при срок 15 май), плюс списъците на Инспектората за неподадени в срок декларации и установени несъответствия.</li>
+</ul>
+<p>Парите на съдебната власт — бюджетът по органи, собствените приходи от съдебни такси и обществените поръчки на ВСС — са на <a href="${SITE_URL}/awarder/121513231">страницата на Висшия съдебен съвет</a>. Виж и <a href="${SITE_URL}/budget">държавния бюджет</a>.</p>
+<p>Източник: <a href="https://vss.justice.bg/page/view/1082" rel="nofollow noopener">Висш съдебен съвет — съдебна статистика</a>.</p>`.trim(),
+    english: {
+      title:
+        "Bulgaria's Judiciary — Caseload, Delays and Judges' Workload | electionsbg.com",
+      description:
+        "How many cases enter Bulgaria's courts, how many are resolved, how many stay pending, what share close inside the statutory three-month deadline, and how heavily judges are loaded — from the Supreme Judicial Council's own statistics since 2018.",
+      breadcrumbName: "Judiciary",
+      bodyHtml: `
+<h1>Bulgaria's judiciary — case movement and judges' workload</h1>
+<p>In ${judiciaryFacts.latestYear}, ${judiciaryFacts.filedEn} cases entered Bulgaria's courts. This page tracks what happens to them: how many are resolved, how many close within the statutory three-month deadline, how many are still pending at year end, and how heavily judges are loaded — from the Supreme Judicial Council's annual "Summary statistical tables on the activity of the courts".</p>
+<h2>What you'll find</h2>
+<ul>
+<li><strong>Movement of cases</strong> — filed, resolved and pending for each year since ${judiciaryFacts.firstYear}. The courts finish almost exactly as many cases as arrive, so the backlog stays near ${judiciaryFacts.backlogK},000 and never drains.</li>
+<li><strong>Clearance rate</strong> — resolved ÷ filed. Below 100% the backlog grows.</li>
+<li><strong>Delays</strong> — the share of resolved cases closed inside the statutory three-month deadline.</li>
+<li><strong>Judges' workload</strong> — both official measures: "per allocated post" and "actual" (per person-month really worked). The gap measures vacancies and absences.</li>
+<li><strong>By court tier</strong> — appellate, military, regional, district and administrative courts, each with its own figures.</li>
+<li><strong>Asset declarations</strong> — an index of the Inspectorate's register: ${judiciaryFacts.declarationsEn} declarations from ${judiciaryFacts.magistratesEn} magistrates (${judiciaryFacts.declFirst}–${judiciaryFacts.declLast}), when they are filed (${judiciaryFacts.mayShareEn}% in May, against a 15 May deadline), plus the Inspectorate's lists of late filers and unresolved discrepancies.</li>
+</ul>
+<p>The judiciary's money — its budget by spending body, own revenue from court fees, and the Supreme Judicial Council's public procurement — is on the <a href="${SITE_URL}/en/awarder/121513231">Supreme Judicial Council page</a>. See also the <a href="${SITE_URL}/en/budget">state budget</a>.</p>
+<p>Source: <a href="https://vss.justice.bg/page/view/1082" rel="nofollow noopener">Supreme Judicial Council — court statistics</a>.</p>`.trim(),
     },
   }),
   staticPage({

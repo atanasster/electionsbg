@@ -53,6 +53,8 @@ import { cikResults } from "./cik_results";
 import { iisdaMayors } from "./iisda_mayors";
 import { iaosAirQuality } from "./iaos_air_quality";
 import { tiBgLisi } from "./ti_bg_lisi";
+import { vssCourtStatistics } from "./vss_court_statistics";
+import { ivssDeclarations } from "./ivss_declarations";
 import { councilMinutes } from "./council_minutes";
 import { ipiLocalTaxes } from "./ipi_local_taxes";
 import { municipalNaredba } from "./municipal_naredba";
@@ -148,6 +150,8 @@ export const SOURCES: WatchSource[] = [
   iisdaMayors,
   iaosAirQuality,
   tiBgLisi,
+  vssCourtStatistics,
+  ivssDeclarations,
   councilMinutes,
   ipiLocalTaxes,
   municipalNaredba,

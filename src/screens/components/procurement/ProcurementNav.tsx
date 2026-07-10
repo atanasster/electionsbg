@@ -27,6 +27,7 @@ import {
   PiggyBank,
   HeartPulse,
   HeartHandshake,
+  Scale,
   Sprout,
 } from "lucide-react";
 import { useProcurementHref } from "@/data/procurement/useProcurementScope";
@@ -88,6 +89,15 @@ const secondaryItems = [
     to: NZOK_AWARDER_PATH,
     icon: HeartPulse,
     key: "procurement_nzok_nav",
+  },
+  {
+    // The judiciary's home is the /judiciary dashboard — it lists every judicial
+    // body's awarder page, so the pill points there rather than at the ВСС buyer
+    // page alone. `unscoped` because /judiciary has no ?pscope dimension.
+    to: "/judiciary",
+    icon: Scale,
+    key: "judiciary_nav",
+    unscoped: true,
   },
   {
     to: "/subsidies",
@@ -152,19 +162,25 @@ export const ProcurementNav: FC = () => {
           <span className="text-[11px] text-muted-foreground">
             {t("procurement_thematic_nav") || "Sector-specific analyses"}:
           </span>
-          {visibleSecondary.map(({ to, icon: Icon, key }) => (
-            <NavLink key={to} to={href(to)} className={pillClass}>
-              {({ isActive }) => (
-                <>
-                  <Icon className="h-3.5 w-3.5" aria-hidden />
-                  {t(key)}
-                  {isActive ? (
-                    <span className="sr-only"> (current)</span>
-                  ) : null}
-                </>
-              )}
-            </NavLink>
-          ))}
+          {visibleSecondary.map((item) => {
+            const { to, icon: Icon, key } = item;
+            // Carry the procurement scope forward, except to pages that have no
+            // scope dimension (a stray ?pscope there is dead query string).
+            const target = "unscoped" in item && item.unscoped ? to : href(to);
+            return (
+              <NavLink key={to} to={target} className={pillClass}>
+                {({ isActive }) => (
+                  <>
+                    <Icon className="h-3.5 w-3.5" aria-hidden />
+                    {t(key)}
+                    {isActive ? (
+                      <span className="sr-only"> (current)</span>
+                    ) : null}
+                  </>
+                )}
+              </NavLink>
+            );
+          })}
         </nav>
       ) : null}
     </>

@@ -1720,6 +1720,136 @@ export const route = (question: string, ctx: ToolContext): Route => {
       };
     }
   }
+  // Съдебна власт — the judiciary's own budget (per-body split + self-financing),
+  // or the ВСС's contract ledger when the question is procurement-phrased. Gated
+  // on an explicit judiciary reference so a bare "съд" ("съдът реши…") can't
+  // hijack an unrelated question.
+  {
+    // "supreme judicial council" is deliberately absent: the local-elections gate
+    // matches on "council" far earlier in route(), so that phrase can never reach
+    // here. "всс" / "висш съдебен съвет" / "judiciary" all route correctly.
+    const judiciaryCtx = has(
+      q,
+      "съдебната власт",
+      "съдебна власт",
+      "всс",
+      "висш съдебен съвет",
+      "judiciary",
+      "judicial power",
+    );
+    const yearArgs = promptYear ? { year: promptYear } : {};
+    // Declaration questions are their own dataset (the ИВСС register), and they
+    // outrank the budget/caseload cues — "декларации на магистратите" is never
+    // about the caseload. Guarded on a magistrate/judiciary subject so the MP
+    // declaration tools keep "декларации на депутатите".
+    if (
+      has(q, "деклараци", "declaration", "имуществен") &&
+      has(
+        q,
+        "магистрат",
+        "съдии",
+        "прокурор",
+        "следовател",
+        "съдебната власт",
+        "ивсс",
+        "инспектората",
+        "magistrate",
+        "judges",
+      )
+    )
+      return { tool: "judiciaryDeclarations", args: {} };
+    // Workload / caseload cues win over the budget, because they name a distinct
+    // dataset (the ВСС statistical tables) rather than the budget law.
+    const workloadCue = has(
+      q,
+      "натоварен",
+      "натовареност",
+      "workload",
+      "loaded",
+      "busiest",
+    );
+    // NOTE: `has()` is a bare substring match (no word boundaries), so English
+    // cues must not be substrings of common words. "pending" ⊂ "spending" and
+    // "case" ⊂ "showcase" both hijacked budget-phrased queries — use "backlog"
+    // and the plural "cases" instead. The BG cues are gated behind a judiciary
+    // subject below, so "дела" ⊂ "отдела" can only fire in a court context.
+    const caseloadCue = has(
+      q,
+      "дела",
+      "висящи",
+      "приключваем",
+      "срок",
+      "забав",
+      "backlog",
+      "caseload",
+      "clearance",
+      "cases",
+    );
+    // Budget must outrank caseload: "дела" and "срок" both sit in `caseloadCue`,
+    // so a question that explicitly asks about MONEY ("колко пари от бюджета…
+    // отиват за гледане на дела") would otherwise be captured by caseload. The
+    // two entry branches below share this one order, so the same question can't
+    // resolve differently depending on whether the reader wrote "съдебната
+    // власт" or "съдилищата".
+    const budgetCue = has(
+      q,
+      "бюджет",
+      "разход",
+      "получава",
+      "budget",
+      "spend",
+      "funding",
+    );
+    const routeJudiciary = (): Route | null => {
+      if (workloadCue) return { tool: "judiciaryWorkload", args: yearArgs };
+      if (budgetCue) return { tool: "judiciaryBudget", args: yearArgs };
+      if (caseloadCue) return { tool: "judiciaryCaseload", args: yearArgs };
+      return null;
+    };
+    if (judiciaryCtx) {
+      // A procurement-phrased question ("обществените поръчки на ВСС") is about
+      // the buyer's CONTRACTS, not the judiciary's budget — route to the awarder
+      // view (awarderProcurement resolves the bare ВСС EIK 121513231).
+      if (has(q, "поръчк", "договор", "procurement", "contract"))
+        return { tool: "awarderProcurement", args: { org: "121513231" } };
+      // A bare "разкажи ми за съдебната власт" has no cue at all — the budget is
+      // the sensible default answer for the institution as a whole.
+      return routeJudiciary() ?? { tool: "judiciaryBudget", args: yearArgs };
+    }
+    // Court questions that never say "съдебна власт": "колко натоварени са
+    // съдиите", "колко са висящите дела в съдилищата", "колко получава
+    // прокуратурата от бюджета". Each needs an explicit court/judge subject so a
+    // bare "съдът реши…" can't hijack the route.
+    const courtSubject = has(
+      q,
+      "съдилищ",
+      "съдии",
+      "магистрат",
+      "прокуратура",
+      "courts",
+      "judges",
+      "prosecution",
+    );
+    if (courtSubject) {
+      const r = routeJudiciary();
+      if (r) return r;
+    }
+    // Phrases that can only mean court cases, with no subject to lean on:
+    // "висящите дела", "приключваемост", "case backlog". `приключваем` also sits
+    // in `caseloadCue` above — not redundant: these are separate has() calls under
+    // different guards, and this one is the only path for a bare "приключваемост".
+    if (
+      has(
+        q,
+        "висящи дела",
+        "висящите дела",
+        "приключваем",
+        "court backlog",
+        "case backlog",
+      )
+    )
+      return { tool: "judiciaryCaseload", args: yearArgs };
+  }
   // pensions / social-security funds -> the NOI pension funds, even when phrased
   // "...в бюджета" (otherwise the generic budget view below would swallow it)
   if (

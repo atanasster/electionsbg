@@ -114,6 +114,9 @@ functions/.secret.local
 # Re-fetched on demand by `/update-procurement`. The normalized JSON outputs
 # under data/procurement/ are committed; this raw cache is not.
 /raw_data/procurement/
+# ВСС annual court-statistics PDFs (5-30 MB each) — regenerable: the
+# update-judiciary skill re-fetches them from vss.justice.bg on demand.
+/raw_data/judiciary/
 
 # Cached EC Financial Transparency System (FTS) yearly datasets (~16-20 MB each).
 # Downloaded on demand for `db:load:ngo-funding:pg`. The matched rows live in the

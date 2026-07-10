@@ -1,0 +1,1204 @@
+{
+  "generatedAt": "2026-07-10T02:00:29.950Z",
+  "source": {
+    "publisher": "Държавен вестник",
+    "law": "Закон за държавния бюджет на Република България",
+    "url": "https://dv.parliament.bg/",
+    "description": "Бюджетът на съдебната власт и разходите по органи, приети с ЗДБРБ за съответната година (чл. „Бюджет на съдебната власт“)."
+  },
+  "latestYear": 2025,
+  "years": [
+    {
+      "fiscalYear": 2025,
+      "basis": "law",
+      "currencyOfRecord": "BGN",
+      "totalRevenue": {
+        "amount": 152000000,
+        "amountEur": 77716366,
+        "currency": "BGN"
+      },
+      "totalExpenditure": {
+        "amount": 1384306600,
+        "amountEur": 707784726,
+        "currency": "BGN"
+      },
+      "currentExpenditure": {
+        "amount": 1338836600,
+        "amountEur": 684536284,
+        "currency": "BGN"
+      },
+      "capitalExpenditure": {
+        "amount": 44570000,
+        "amountEur": 22788279,
+        "currency": "BGN"
+      },
+      "bodies": [
+        {
+          "id": "vss",
+          "bg": "Висш съдебен съвет",
+          "en": "Supreme Judicial Council",
+          "amount": {
+            "amount": 84532500,
+            "amountEur": 43220781,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "vks",
+          "bg": "Върховен касационен съд",
+          "en": "Supreme Court of Cassation",
+          "amount": {
+            "amount": 34560000,
+            "amountEur": 17670247,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "vas",
+          "bg": "Върховен административен съд",
+          "en": "Supreme Administrative Court",
+          "amount": {
+            "amount": 42937100,
+            "amountEur": 21953391,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "prb",
+          "bg": "Прокуратура на Република България",
+          "en": "Prosecutor's Office",
+          "amount": {
+            "amount": 492157500,
+            "amountEur": 251636134,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "courts",
+          "bg": "Съдилища на Република България",
+          "en": "The courts",
+          "amount": {
+            "amount": 705848400,
+            "amountEur": 360894556,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "nip",
+          "bg": "Национален институт на правосъдието",
+          "en": "National Institute of Justice",
+          "amount": {
+            "amount": 6626900,
+            "amountEur": 3388280,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "ivss",
+          "bg": "Инспекторат към Висшия съдебен съвет",
+          "en": "Inspectorate to the SJC",
+          "amount": {
+            "amount": 16744200,
+            "amountEur": 8561174,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "reserve",
+          "bg": "Резерв за непредвидени и/или неотложни разходи",
+          "en": "Contingency reserve",
+          "amount": {
+            "amount": 900000,
+            "amountEur": 460163,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "revenue": [
+        {
+          "id": "courtFees",
+          "bg": "Съдебни такси",
+          "en": "Court fees",
+          "amount": {
+            "amount": 137000000,
+            "amountEur": 70046988,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "property",
+          "bg": "Приходи и доходи от собственост",
+          "en": "Income from property",
+          "amount": {
+            "amount": 1300000,
+            "amountEur": 664679,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "fines",
+          "bg": "Глоби, санкции и наказателни лихви",
+          "en": "Fines & penalties",
+          "amount": {
+            "amount": 10400000,
+            "amountEur": 5317436,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "other",
+          "bg": "Други приходи",
+          "en": "Other revenue",
+          "amount": {
+            "amount": 3300000,
+            "amountEur": 1687263,
+            "currency": "BGN"
+          }
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2024,
+      "basis": "law",
+      "currencyOfRecord": "BGN",
+      "totalRevenue": {
+        "amount": 100000000,
+        "amountEur": 51129188,
+        "currency": "BGN"
+      },
+      "totalExpenditure": {
+        "amount": 1221324900,
+        "amountEur": 624453506,
+        "currency": "BGN"
+      },
+      "currentExpenditure": {
+        "amount": 1192854900,
+        "amountEur": 609897026,
+        "currency": "BGN"
+      },
+      "capitalExpenditure": {
+        "amount": 27570000,
+        "amountEur": 14096317,
+        "currency": "BGN"
+      },
+      "bodies": [
+        {
+          "id": "vss",
+          "bg": "Висш съдебен съвет",
+          "en": "Supreme Judicial Council",
+          "amount": {
+            "amount": 56584000,
+            "amountEur": 28930940,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "vks",
+          "bg": "Върховен касационен съд",
+          "en": "Supreme Court of Cassation",
+          "amount": {
+            "amount": 30103400,
+            "amountEur": 15391624,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "vas",
+          "bg": "Върховен административен съд",
+          "en": "Supreme Administrative Court",
+          "amount": {
+            "amount": 38562900,
+            "amountEur": 19716898,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "prb",
+          "bg": "Прокуратура на Република България",
+          "en": "Prosecutor's Office",
+          "amount": {
+            "amount": 445807800,
+            "amountEur": 227937909,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "courts",
+          "bg": "Съдилища на Република България",
+          "en": "The courts",
+          "amount": {
+            "amount": 628361700,
+            "amountEur": 321276236,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "nip",
+          "bg": "Национален институт на правосъдието",
+          "en": "National Institute of Justice",
+          "amount": {
+            "amount": 5885500,
+            "amountEur": 3009208,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "ivss",
+          "bg": "Инспекторат към Висшия съдебен съвет",
+          "en": "Inspectorate to the SJC",
+          "amount": {
+            "amount": 15119600,
+            "amountEur": 7730529,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "reserve",
+          "bg": "Резерв за непредвидени и/или неотложни разходи",
+          "en": "Contingency reserve",
+          "amount": {
+            "amount": 900000,
+            "amountEur": 460163,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "revenue": [
+        {
+          "id": "courtFees",
+          "bg": "Съдебни такси",
+          "en": "Court fees",
+          "amount": {
+            "amount": 85000000,
+            "amountEur": 43459810,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "property",
+          "bg": "Приходи и доходи от собственост",
+          "en": "Income from property",
+          "amount": {
+            "amount": 1300000,
+            "amountEur": 664679,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "fines",
+          "bg": "Глоби, санкции и наказателни лихви",
+          "en": "Fines & penalties",
+          "amount": {
+            "amount": 10400000,
+            "amountEur": 5317436,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "other",
+          "bg": "Други приходи",
+          "en": "Other revenue",
+          "amount": {
+            "amount": 3300000,
+            "amountEur": 1687263,
+            "currency": "BGN"
+          }
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2023,
+      "basis": "law",
+      "currencyOfRecord": "BGN",
+      "totalRevenue": {
+        "amount": 100000000,
+        "amountEur": 51129188,
+        "currency": "BGN"
+      },
+      "totalExpenditure": {
+        "amount": 1087529400,
+        "amountEur": 556044953,
+        "currency": "BGN"
+      },
+      "currentExpenditure": {
+        "amount": 1060059400,
+        "amountEur": 541999765,
+        "currency": "BGN"
+      },
+      "capitalExpenditure": {
+        "amount": 26570000,
+        "amountEur": 13585025,
+        "currency": "BGN"
+      },
+      "bodies": [
+        {
+          "id": "vss",
+          "bg": "Висш съдебен съвет",
+          "en": "Supreme Judicial Council",
+          "amount": {
+            "amount": 56223300,
+            "amountEur": 28746517,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "vks",
+          "bg": "Върховен касационен съд",
+          "en": "Supreme Court of Cassation",
+          "amount": {
+            "amount": 28406500,
+            "amountEur": 14524013,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "vas",
+          "bg": "Върховен административен съд",
+          "en": "Supreme Administrative Court",
+          "amount": {
+            "amount": 34181700,
+            "amountEur": 17476826,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "prb",
+          "bg": "Прокуратура на Република България",
+          "en": "Prosecutor's Office",
+          "amount": {
+            "amount": 399172300,
+            "amountEur": 204093556,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "courts",
+          "bg": "Съдилища на Република България",
+          "en": "The courts",
+          "amount": {
+            "amount": 550340800,
+            "amountEur": 281384783,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "nip",
+          "bg": "Национален институт на правосъдието",
+          "en": "National Institute of Justice",
+          "amount": {
+            "amount": 4895700,
+            "amountEur": 2503132,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "ivss",
+          "bg": "Инспекторат към Висшия съдебен съвет",
+          "en": "Inspectorate to the SJC",
+          "amount": {
+            "amount": 13409100,
+            "amountEur": 6855964,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "reserve",
+          "bg": "Резерв за непредвидени и/или неотложни разходи",
+          "en": "Contingency reserve",
+          "amount": {
+            "amount": 900000,
+            "amountEur": 460163,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "revenue": [
+        {
+          "id": "courtFees",
+          "bg": "Съдебни такси",
+          "en": "Court fees",
+          "amount": {
+            "amount": 85000000,
+            "amountEur": 43459810,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "property",
+          "bg": "Приходи и доходи от собственост",
+          "en": "Income from property",
+          "amount": {
+            "amount": 1300000,
+            "amountEur": 664679,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "fines",
+          "bg": "Глоби, санкции и наказателни лихви",
+          "en": "Fines & penalties",
+          "amount": {
+            "amount": 10400000,
+            "amountEur": 5317436,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "other",
+          "bg": "Други приходи",
+          "en": "Other revenue",
+          "amount": {
+            "amount": 3300000,
+            "amountEur": 1687263,
+            "currency": "BGN"
+          }
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2022,
+      "basis": "law",
+      "currencyOfRecord": "BGN",
+      "totalRevenue": {
+        "amount": 95000000,
+        "amountEur": 48572729,
+        "currency": "BGN"
+      },
+      "totalExpenditure": {
+        "amount": 938729000,
+        "amountEur": 479964516,
+        "currency": "BGN"
+      },
+      "currentExpenditure": {
+        "amount": 911459000,
+        "amountEur": 466021587,
+        "currency": "BGN"
+      },
+      "capitalExpenditure": {
+        "amount": 26370000,
+        "amountEur": 13482767,
+        "currency": "BGN"
+      },
+      "bodies": [
+        {
+          "id": "vss",
+          "bg": "Висш съдебен съвет",
+          "en": "Supreme Judicial Council",
+          "amount": {
+            "amount": 47341600,
+            "amountEur": 24205376,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "vks",
+          "bg": "Върховен касационен съд",
+          "en": "Supreme Court of Cassation",
+          "amount": {
+            "amount": 24223200,
+            "amountEur": 12385125,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "vas",
+          "bg": "Върховен административен съд",
+          "en": "Supreme Administrative Court",
+          "amount": {
+            "amount": 29139500,
+            "amountEur": 14898790,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "prb",
+          "bg": "Прокуратура на Република България",
+          "en": "Prosecutor's Office",
+          "amount": {
+            "amount": 332794000,
+            "amountEur": 170154870,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "courts",
+          "bg": "Съдилища на Република България",
+          "en": "The courts",
+          "amount": {
+            "amount": 488074900,
+            "amountEur": 249548734,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "nip",
+          "bg": "Национален институт на правосъдието",
+          "en": "National Institute of Justice",
+          "amount": {
+            "amount": 4866800,
+            "amountEur": 2488355,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "ivss",
+          "bg": "Инспекторат към Висшия съдебен съвет",
+          "en": "Inspectorate to the SJC",
+          "amount": {
+            "amount": 11389000,
+            "amountEur": 5823103,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "reserve",
+          "bg": "Резерв за непредвидени и/или неотложни разходи",
+          "en": "Contingency reserve",
+          "amount": {
+            "amount": 900000,
+            "amountEur": 460163,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "revenue": [
+        {
+          "id": "courtFees",
+          "bg": "Съдебни такси",
+          "en": "Court fees",
+          "amount": {
+            "amount": 80000000,
+            "amountEur": 40903350,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "property",
+          "bg": "Приходи и доходи от собственост",
+          "en": "Income from property",
+          "amount": {
+            "amount": 1300000,
+            "amountEur": 664679,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "fines",
+          "bg": "Глоби, санкции и наказателни лихви",
+          "en": "Fines & penalties",
+          "amount": {
+            "amount": 10400000,
+            "amountEur": 5317436,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "other",
+          "bg": "Други приходи",
+          "en": "Other revenue",
+          "amount": {
+            "amount": 3300000,
+            "amountEur": 1687263,
+            "currency": "BGN"
+          }
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2021,
+      "basis": "law",
+      "currencyOfRecord": "BGN",
+      "totalRevenue": {
+        "amount": 109000000,
+        "amountEur": 55730815,
+        "currency": "BGN"
+      },
+      "totalExpenditure": {
+        "amount": 880317000,
+        "amountEur": 450098935,
+        "currency": "BGN"
+      },
+      "currentExpenditure": {
+        "amount": 851347000,
+        "amountEur": 435286809,
+        "currency": "BGN"
+      },
+      "capitalExpenditure": {
+        "amount": 28370000,
+        "amountEur": 14505351,
+        "currency": "BGN"
+      },
+      "bodies": [
+        {
+          "id": "vss",
+          "bg": "Висш съдебен съвет",
+          "en": "Supreme Judicial Council",
+          "amount": {
+            "amount": 52551200,
+            "amountEur": 26869002,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "vks",
+          "bg": "Върховен касационен съд",
+          "en": "Supreme Court of Cassation",
+          "amount": {
+            "amount": 22722400,
+            "amountEur": 11617779,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "vas",
+          "bg": "Върховен административен съд",
+          "en": "Supreme Administrative Court",
+          "amount": {
+            "amount": 25754200,
+            "amountEur": 13167913,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "prb",
+          "bg": "Прокуратура на Република България",
+          "en": "Prosecutor's Office",
+          "amount": {
+            "amount": 330268400,
+            "amountEur": 168863552,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "courts",
+          "bg": "Съдилища на Република България",
+          "en": "The courts",
+          "amount": {
+            "amount": 434162200,
+            "amountEur": 221983608,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "nip",
+          "bg": "Национален институт на правосъдието",
+          "en": "National Institute of Justice",
+          "amount": {
+            "amount": 4387100,
+            "amountEur": 2243089,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "ivss",
+          "bg": "Инспекторат към Висшия съдебен съвет",
+          "en": "Inspectorate to the SJC",
+          "amount": {
+            "amount": 9871500,
+            "amountEur": 5047218,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "reserve",
+          "bg": "Резерв за непредвидени и/или неотложни разходи",
+          "en": "Contingency reserve",
+          "amount": {
+            "amount": 600000,
+            "amountEur": 306775,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "revenue": [
+        {
+          "id": "courtFees",
+          "bg": "Съдебни такси",
+          "en": "Court fees",
+          "amount": {
+            "amount": 93000000,
+            "amountEur": 47550145,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "property",
+          "bg": "Приходи и доходи от собственост",
+          "en": "Income from property",
+          "amount": {
+            "amount": 2148000,
+            "amountEur": 1098255,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "fines",
+          "bg": "Глоби, санкции и наказателни лихви",
+          "en": "Fines & penalties",
+          "amount": {
+            "amount": 8842000,
+            "amountEur": 4520843,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "other",
+          "bg": "Други приходи",
+          "en": "Other revenue",
+          "amount": {
+            "amount": 5010000,
+            "amountEur": 2561572,
+            "currency": "BGN"
+          }
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2020,
+      "basis": "law",
+      "currencyOfRecord": "BGN",
+      "totalRevenue": {
+        "amount": 116000000,
+        "amountEur": 59309858,
+        "currency": "BGN"
+      },
+      "totalExpenditure": {
+        "amount": 771317000,
+        "amountEur": 394368120,
+        "currency": "BGN"
+      },
+      "currentExpenditure": {
+        "amount": 746347000,
+        "amountEur": 381601162,
+        "currency": "BGN"
+      },
+      "capitalExpenditure": {
+        "amount": 24370000,
+        "amountEur": 12460183,
+        "currency": "BGN"
+      },
+      "bodies": [
+        {
+          "id": "vss",
+          "bg": "Висш съдебен съвет",
+          "en": "Supreme Judicial Council",
+          "amount": {
+            "amount": 49575300,
+            "amountEur": 25347448,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "vks",
+          "bg": "Върховен касационен съд",
+          "en": "Supreme Court of Cassation",
+          "amount": {
+            "amount": 21815200,
+            "amountEur": 11153935,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "vas",
+          "bg": "Върховен административен съд",
+          "en": "Supreme Administrative Court",
+          "amount": {
+            "amount": 19471400,
+            "amountEur": 9955569,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "prb",
+          "bg": "Прокуратура на Република България",
+          "en": "Prosecutor's Office",
+          "amount": {
+            "amount": 289095700,
+            "amountEur": 147812284,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "courts",
+          "bg": "Съдилища на Република България",
+          "en": "The courts",
+          "amount": {
+            "amount": 378277800,
+            "amountEur": 193410368,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "nip",
+          "bg": "Национален институт на правосъдието",
+          "en": "National Institute of Justice",
+          "amount": {
+            "amount": 3971200,
+            "amountEur": 2030442,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "ivss",
+          "bg": "Инспекторат към Висшия съдебен съвет",
+          "en": "Inspectorate to the SJC",
+          "amount": {
+            "amount": 8510400,
+            "amountEur": 4351298,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "reserve",
+          "bg": "Резерв за непредвидени и/или неотложни разходи",
+          "en": "Contingency reserve",
+          "amount": {
+            "amount": 600000,
+            "amountEur": 306775,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "revenue": [
+        {
+          "id": "courtFees",
+          "bg": "Съдебни такси",
+          "en": "Court fees",
+          "amount": {
+            "amount": 100000000,
+            "amountEur": 51129188,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "property",
+          "bg": "Приходи и доходи от собственост",
+          "en": "Income from property",
+          "amount": {
+            "amount": 2148000,
+            "amountEur": 1098255,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "fines",
+          "bg": "Глоби, санкции и наказателни лихви",
+          "en": "Fines & penalties",
+          "amount": {
+            "amount": 8842000,
+            "amountEur": 4520843,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "other",
+          "bg": "Други приходи",
+          "en": "Other revenue",
+          "amount": {
+            "amount": 5010000,
+            "amountEur": 2561572,
+            "currency": "BGN"
+          }
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2019,
+      "basis": "law",
+      "currencyOfRecord": "BGN",
+      "totalRevenue": {
+        "amount": 116000000,
+        "amountEur": 59309858,
+        "currency": "BGN"
+      },
+      "totalExpenditure": {
+        "amount": 704317000,
+        "amountEur": 360111564,
+        "currency": "BGN"
+      },
+      "currentExpenditure": {
+        "amount": 677347000,
+        "amountEur": 346322022,
+        "currency": "BGN"
+      },
+      "capitalExpenditure": {
+        "amount": 26370000,
+        "amountEur": 13482767,
+        "currency": "BGN"
+      },
+      "bodies": [
+        {
+          "id": "vss",
+          "bg": "Висш съдебен съвет",
+          "en": "Supreme Judicial Council",
+          "amount": {
+            "amount": 51032900,
+            "amountEur": 26092707,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "vks",
+          "bg": "Върховен касационен съд",
+          "en": "Supreme Court of Cassation",
+          "amount": {
+            "amount": 19811600,
+            "amountEur": 10129510,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "vas",
+          "bg": "Върховен административен съд",
+          "en": "Supreme Administrative Court",
+          "amount": {
+            "amount": 17521800,
+            "amountEur": 8958754,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "prb",
+          "bg": "Прокуратура на Република България",
+          "en": "Prosecutor's Office",
+          "amount": {
+            "amount": 260000000,
+            "amountEur": 132935889,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "courts",
+          "bg": "Съдилища на Република България",
+          "en": "The courts",
+          "amount": {
+            "amount": 343842400,
+            "amountEur": 175803828,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "nip",
+          "bg": "Национален институт на правосъдието",
+          "en": "National Institute of Justice",
+          "amount": {
+            "amount": 3538100,
+            "amountEur": 1809002,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "ivss",
+          "bg": "Инспекторат към Висшия съдебен съвет",
+          "en": "Inspectorate to the SJC",
+          "amount": {
+            "amount": 7970200,
+            "amountEur": 4075099,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "reserve",
+          "bg": "Резерв за непредвидени и/или неотложни разходи",
+          "en": "Contingency reserve",
+          "amount": {
+            "amount": 600000,
+            "amountEur": 306775,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "revenue": [
+        {
+          "id": "courtFees",
+          "bg": "Съдебни такси",
+          "en": "Court fees",
+          "amount": {
+            "amount": 100000000,
+            "amountEur": 51129188,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "property",
+          "bg": "Приходи и доходи от собственост",
+          "en": "Income from property",
+          "amount": {
+            "amount": 2148000,
+            "amountEur": 1098255,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "fines",
+          "bg": "Глоби, санкции и наказателни лихви",
+          "en": "Fines & penalties",
+          "amount": {
+            "amount": 8842000,
+            "amountEur": 4520843,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "other",
+          "bg": "Други приходи",
+          "en": "Other revenue",
+          "amount": {
+            "amount": 5010000,
+            "amountEur": 2561572,
+            "currency": "BGN"
+          }
+        }
+      ]
+    },
+    {
+      "fiscalYear": 2018,
+      "basis": "law",
+      "currencyOfRecord": "BGN",
+      "totalRevenue": {
+        "amount": 116000000,
+        "amountEur": 59309858,
+        "currency": "BGN"
+      },
+      "totalExpenditure": {
+        "amount": 591120000,
+        "amountEur": 302234857,
+        "currency": "BGN"
+      },
+      "currentExpenditure": {
+        "amount": 575650000,
+        "amountEur": 294325171,
+        "currency": "BGN"
+      },
+      "capitalExpenditure": {
+        "amount": 14870000,
+        "amountEur": 7602910,
+        "currency": "BGN"
+      },
+      "bodies": [
+        {
+          "id": "vss",
+          "bg": "Висш съдебен съвет",
+          "en": "Supreme Judicial Council",
+          "amount": {
+            "amount": 32487500,
+            "amountEur": 16610595,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "vks",
+          "bg": "Върховен касационен съд",
+          "en": "Supreme Court of Cassation",
+          "amount": {
+            "amount": 17562700,
+            "amountEur": 8979666,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "vas",
+          "bg": "Върховен административен съд",
+          "en": "Supreme Administrative Court",
+          "amount": {
+            "amount": 14760500,
+            "amountEur": 7546924,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "prb",
+          "bg": "Прокуратура на Република България",
+          "en": "Prosecutor's Office",
+          "amount": {
+            "amount": 221715500,
+            "amountEur": 113361335,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "courts",
+          "bg": "Съдилища на Република България",
+          "en": "The courts",
+          "amount": {
+            "amount": 294188500,
+            "amountEur": 150416192,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "nip",
+          "bg": "Национален институт на правосъдието",
+          "en": "National Institute of Justice",
+          "amount": {
+            "amount": 2961900,
+            "amountEur": 1514395,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "ivss",
+          "bg": "Инспекторат към Висшия съдебен съвет",
+          "en": "Inspectorate to the SJC",
+          "amount": {
+            "amount": 6843400,
+            "amountEur": 3498975,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "reserve",
+          "bg": "Резерв за непредвидени и/или неотложни разходи",
+          "en": "Contingency reserve",
+          "amount": {
+            "amount": 600000,
+            "amountEur": 306775,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "revenue": [
+        {
+          "id": "courtFees",
+          "bg": "Съдебни такси",
+          "en": "Court fees",
+          "amount": {
+            "amount": 102000000,
+            "amountEur": 52151772,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "property",
+          "bg": "Приходи и доходи от собственост",
+          "en": "Income from property",
+          "amount": {
+            "amount": 2058000,
+            "amountEur": 1052239,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "fines",
+          "bg": "Глоби, санкции и наказателни лихви",
+          "en": "Fines & penalties",
+          "amount": {
+            "amount": 8042000,
+            "amountEur": 4111809,
+            "currency": "BGN"
+          }
+        },
+        {
+          "id": "other",
+          "bg": "Други приходи",
+          "en": "Other revenue",
+          "amount": {
+            "amount": 3900000,
+            "amountEur": 1994038,
+            "currency": "BGN"
+          }
+        }
+      ]
+    }
+  ]
+}

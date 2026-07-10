@@ -48,6 +48,7 @@ export const ENGLISH_STATIC_PAGES = [
   "observations",
   "demographics",
   "prices",
+  "judiciary",
   "consumption",
   "risk-analysis",
   "risk-analysis/methodology",
@@ -92,6 +93,10 @@ export const routeDefs = (year: string): RouteDefs => [
   { path: "data/sources", file: `src/screens/DataSourcesScreen.tsx` },
   { path: "data/updates", file: `src/screens/DataUpdatesScreen.tsx` },
   { path: "prices", file: `src/screens/PricesScreen.tsx` },
+  {
+    path: "judiciary",
+    file: `src/screens/judiciary/JudiciaryScreen.tsx`,
+  },
   // Consumption (Потребление) view — country node. Region / município /
   // settlement consumption nodes are intentionally omitted from the sitemap for
   // now (most settlements have no price data; the place pages still resolve in

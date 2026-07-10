@@ -167,3 +167,12 @@ export const formatEurWithOther = (
   }
   return parts.join(" · ");
 };
+
+/** A fraction (0..1) as a localised percentage. Shares `formatEurCompact`'s
+ *  `lang` signature so the number-formatting helpers read alike at call sites. */
+export const formatPct = (v: number, lang: string, digits = 1): string =>
+  (v * 100).toLocaleString(lang, { maximumFractionDigits: digits }) + "%";
+
+/** A count as a localised integer (BG groups with a space above 4 digits). */
+export const formatInt = (v: number, lang: string): string =>
+  v.toLocaleString(lang);

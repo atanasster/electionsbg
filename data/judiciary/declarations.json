@@ -1,0 +1,502 @@
+{
+  "generatedAt": "2026-07-10T02:05:42.235Z",
+  "source": {
+    "publisher": "Инспекторат към Висшия съдебен съвет (ИВСС)",
+    "url": "https://www.inspectoratvss.bg/bg/page/129",
+    "register": "http://62.176.124.194",
+    "description": "Регистър на декларациите по чл. 175а, ал. 1 ЗСВ на съдии, прокурори и следователи, плюс списъците на ИВСС за неподадени в срок декларации и установени несъответствия."
+  },
+  "latestYear": 2025,
+  "totals": {
+    "declarations": 46528,
+    "magistrates": 5556,
+    "firstYear": 2017,
+    "lastYear": 2025
+  },
+  "years": [
+    {
+      "year": 2025,
+      "declarations": 5094,
+      "magistrates": 4425,
+      "annual": 3260,
+      "change": 1834
+    },
+    {
+      "year": 2024,
+      "declarations": 5140,
+      "magistrates": 4403,
+      "annual": 3221,
+      "change": 1919
+    },
+    {
+      "year": 2023,
+      "declarations": 5038,
+      "magistrates": 4376,
+      "annual": 2770,
+      "change": 2268
+    },
+    {
+      "year": 2022,
+      "declarations": 5020,
+      "magistrates": 4326,
+      "annual": 3115,
+      "change": 1905
+    },
+    {
+      "year": 2021,
+      "declarations": 5119,
+      "magistrates": 4337,
+      "annual": 3277,
+      "change": 1842
+    },
+    {
+      "year": 2020,
+      "declarations": 5122,
+      "magistrates": 4319,
+      "annual": 2499,
+      "change": 2623
+    },
+    {
+      "year": 2019,
+      "declarations": 5385,
+      "magistrates": 4354,
+      "annual": 4461,
+      "change": 924
+    },
+    {
+      "year": 2018,
+      "declarations": 5559,
+      "magistrates": 4336,
+      "annual": 2732,
+      "change": 2827
+    },
+    {
+      "year": 2017,
+      "declarations": 5051,
+      "magistrates": 4260,
+      "annual": 3001,
+      "change": 2050
+    }
+  ],
+  "filingCalendar": {
+    "basis": "annual",
+    "total": 27985,
+    "deadline": "15.05",
+    "byMonth": [
+      {
+        "month": 1,
+        "count": 396
+      },
+      {
+        "month": 2,
+        "count": 609
+      },
+      {
+        "month": 3,
+        "count": 1003
+      },
+      {
+        "month": 4,
+        "count": 4681
+      },
+      {
+        "month": 5,
+        "count": 18413
+      },
+      {
+        "month": 6,
+        "count": 1886
+      },
+      {
+        "month": 7,
+        "count": 145
+      },
+      {
+        "month": 8,
+        "count": 44
+      },
+      {
+        "month": 9,
+        "count": 52
+      },
+      {
+        "month": 10,
+        "count": 361
+      },
+      {
+        "month": 11,
+        "count": 266
+      },
+      {
+        "month": 12,
+        "count": 129
+      }
+    ],
+    "byDayOfMay": [
+      {
+        "day": 2,
+        "count": 464
+      },
+      {
+        "day": 3,
+        "count": 400
+      },
+      {
+        "day": 4,
+        "count": 370
+      },
+      {
+        "day": 5,
+        "count": 632
+      },
+      {
+        "day": 7,
+        "count": 563
+      },
+      {
+        "day": 8,
+        "count": 524
+      },
+      {
+        "day": 9,
+        "count": 910
+      },
+      {
+        "day": 10,
+        "count": 1324
+      },
+      {
+        "day": 11,
+        "count": 1054
+      },
+      {
+        "day": 12,
+        "count": 1674
+      },
+      {
+        "day": 13,
+        "count": 1826
+      },
+      {
+        "day": 14,
+        "count": 2158
+      },
+      {
+        "day": 15,
+        "count": 2054
+      },
+      {
+        "day": 16,
+        "count": 1365
+      },
+      {
+        "day": 17,
+        "count": 1266
+      },
+      {
+        "day": 18,
+        "count": 325
+      },
+      {
+        "day": 19,
+        "count": 432
+      },
+      {
+        "day": 20,
+        "count": 173
+      },
+      {
+        "day": 21,
+        "count": 117
+      },
+      {
+        "day": 22,
+        "count": 101
+      },
+      {
+        "day": 23,
+        "count": 68
+      },
+      {
+        "day": 25,
+        "count": 53
+      },
+      {
+        "day": 26,
+        "count": 103
+      },
+      {
+        "day": 27,
+        "count": 97
+      },
+      {
+        "day": 28,
+        "count": 105
+      },
+      {
+        "day": 29,
+        "count": 121
+      },
+      {
+        "day": 30,
+        "count": 71
+      },
+      {
+        "day": 31,
+        "count": 63
+      }
+    ]
+  },
+  "integrity": [
+    {
+      "id": "annual_late",
+      "bg": "Неподали в срок годишна декларация",
+      "en": "Failed to file the annual declaration on time",
+      "legalRef": "чл. 175а, ал. 1, т. 1 вр. чл. 175в, ал. 1, т. 1 ЗСВ",
+      "url": "https://www.inspectoratvss.bg/bg/page/131",
+      "year": 2026,
+      "people": []
+    },
+    {
+      "id": "change_late",
+      "bg": "Неподали в срок декларация за промяна",
+      "en": "Failed to file a change declaration on time",
+      "legalRef": "чл. 175а, ал. 1, т. 1 вр. чл. 175в, ал. 1, т. 2 ЗСВ",
+      "url": "https://www.inspectoratvss.bg/bg/page/130",
+      "year": 2026,
+      "people": [
+        {
+          "name": "Георги Никодимов Светославов",
+          "filedLate": true,
+          "position": "Прокурор",
+          "court": "РП-Видин"
+        },
+        {
+          "name": "Даниела Димитрова Милева- Димитрова",
+          "filedLate": true,
+          "position": "Следовател",
+          "court": "ОСлО при ОП-Стара Загора"
+        },
+        {
+          "name": "Петя Георгиева Георгиева - Стоянова",
+          "filedLate": true,
+          "position": "Съдия",
+          "court": "ОС Бургас"
+        },
+        {
+          "name": "Петя Сергеева Ташкова",
+          "filedLate": true,
+          "position": "Прокурор",
+          "court": "РП Пазарджик"
+        },
+        {
+          "name": "Радина Калинова Калева",
+          "filedLate": true,
+          "position": "Младши съдия",
+          "court": "Софийски Градски Съд"
+        },
+        {
+          "name": "Радослав Георгиев Бакърджиев",
+          "filedLate": true,
+          "position": "Прокурор",
+          "court": "РП Пазарджик"
+        },
+        {
+          "name": "Хайгухи Хачик Бодикян",
+          "filedLate": true,
+          "position": "Съдия",
+          "court": "Върховен административен съд"
+        },
+        {
+          "name": "Светлана Георгиева Петрова",
+          "filedLate": true,
+          "position": "Следовател",
+          "court": "СлО към ОП-Кюстендил"
+        },
+        {
+          "name": "София Стефанова Тютюнджиева",
+          "filedLate": true,
+          "position": "Съдия",
+          "court": "РС Първомай"
+        },
+        {
+          "name": "Стойка Илиева Янева",
+          "filedLate": true,
+          "position": "Съдия",
+          "court": "РС Сандански"
+        },
+        {
+          "name": "Иван Димитров Петров",
+          "filedLate": true,
+          "position": "Прокурор",
+          "court": "СРП"
+        },
+        {
+          "name": "Жаклин Димитрова Петрова - Комитова",
+          "filedLate": true,
+          "position": "Съдия",
+          "court": "АС София"
+        },
+        {
+          "name": "Александра Ивова Стефанова",
+          "filedLate": true,
+          "position": "Младши прокурор",
+          "court": "РП Ямбол"
+        },
+        {
+          "name": "Асен Димитров Палавеев",
+          "filedLate": true,
+          "position": "Прокурор",
+          "court": "РП Пазарджик"
+        },
+        {
+          "name": "Благой Йорданов Лазаров",
+          "filedLate": true,
+          "position": "Прокурор",
+          "court": "РП Благоевград"
+        },
+        {
+          "name": "Валентин Стоянов Вълков",
+          "filedLate": true,
+          "position": "Прокурор",
+          "court": "ОП Ловеч"
+        },
+        {
+          "name": "Ваня Георгиева Тотолакова",
+          "filedLate": true,
+          "position": "Съдия",
+          "court": "Софийски районен съд"
+        },
+        {
+          "name": "Вилияна Стефанова Върбанова - Манолова",
+          "filedLate": true,
+          "position": "Съдия",
+          "court": "АдмС Русе"
+        },
+        {
+          "name": "Виолета Траянова Главинова",
+          "filedLate": true,
+          "position": "Съдия",
+          "court": "Върховен административен съд"
+        },
+        {
+          "name": "Искра Владимирова Гърбелова",
+          "filedLate": true,
+          "position": "Съдия",
+          "court": "АССГ"
+        },
+        {
+          "name": "Искра Николова Георгиева",
+          "filedLate": true,
+          "position": "Следовател",
+          "court": "СлО в СГП"
+        },
+        {
+          "name": "Любен Димитров Хаджииванов",
+          "filedLate": true,
+          "position": "Съдия",
+          "court": "ОС Смолян"
+        },
+        {
+          "name": "Натали Ясенова Жекова - Милева",
+          "filedLate": true,
+          "position": "Съдия",
+          "court": "РС Тутракан"
+        },
+        {
+          "name": "Нина Стойчева Янакиева",
+          "filedLate": true,
+          "position": "Съдия",
+          "court": "Софийски градски съд"
+        },
+        {
+          "name": "Оля Петрова Антонова",
+          "filedLate": true,
+          "position": "Следовател",
+          "court": "СлО в СГП"
+        },
+        {
+          "name": "Орлин Димитров Куздов",
+          "filedLate": true,
+          "position": "Прокурор",
+          "court": "ОП Шумен"
+        },
+        {
+          "name": "Мариета Димитрова Бушандрова",
+          "filedLate": true,
+          "position": "Съдия",
+          "court": "РС Бургас"
+        },
+        {
+          "name": "Мария Анастасова Георгиева",
+          "filedLate": true,
+          "position": "Съдия",
+          "court": "АС София"
+        },
+        {
+          "name": "Мария Янева Блецова - Калцова",
+          "filedLate": true,
+          "position": "Съдия",
+          "court": "ОС Сливен"
+        },
+        {
+          "name": "Елица Неделчева Желязкова",
+          "filedLate": true,
+          "position": "Младши съдия",
+          "court": "ОС Варна"
+        },
+        {
+          "name": "Димитър Василев Кайряков",
+          "filedLate": true,
+          "position": "Прокурор",
+          "court": "ОП Варна"
+        },
+        {
+          "name": "Диляна Орлинова Гладнишка",
+          "filedLate": true,
+          "position": "Съдия",
+          "court": "РС Монтана"
+        }
+      ]
+    },
+    {
+      "id": "left_office_late",
+      "bg": "Напуснали длъжността, без да подадат декларация в срок",
+      "en": "Left office without filing on time",
+      "legalRef": "чл. 175а, ал. 1, т. 1 вр. чл. 175в, ал. 1, т. 3 ЗСВ",
+      "url": "https://www.inspectoratvss.bg/bg/page/143",
+      "year": 2026,
+      "people": [
+        {
+          "name": "Петя Димитрова Божкилова",
+          "filedLate": true,
+          "position": "следовател",
+          "court": "СлО в СГП"
+        },
+        {
+          "name": "Станой Аспарухов Станоев",
+          "filedLate": true,
+          "position": "следовател",
+          "court": "СлО в ОП Благоевград"
+        },
+        {
+          "name": "Нели Иванова Владимирова",
+          "filedLate": true,
+          "position": "прокурор",
+          "court": "СРП"
+        }
+      ]
+    },
+    {
+      "id": "discrepancy",
+      "bg": "Установено несъответствие, неотстранено в срок",
+      "en": "Discrepancy found and not corrected in time",
+      "legalRef": "чл. 175ж, ал. 2 ЗСВ",
+      "url": "https://www.inspectoratvss.bg/bg/page/160",
+      "year": 2026,
+      "people": [],
+      "extraBg": "Вид декларация",
+      "extraEn": "Declaration type"
+    }
+  ]
+}
