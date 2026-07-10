@@ -51,15 +51,20 @@ export const BudgetFlowSocialFundsDrilldown: FC<{
   const lang = i18n.language.startsWith("bg") ? "bg" : "en";
   const { data } = useNoiFunds();
 
-  // Pick the year — exact match preferred, else latest available. Mirrors
-  // the personnel drilldown's fall-back behavior.
+  // Pick the year — exact match preferred, else the latest COMPLETE year.
+  // The B1 ingest publishes a new fiscal year mid-cycle as a partial/shell
+  // record (funds: [], revenue: 0), so the raw max would fall back to a year
+  // with no per-fund detail at all. Same guard as flattenFundYear in
+  // src/data/procurement/useNoi.tsx. An *exact* shell year is still honoured
+  // above — the per-fund section below already degrades on funds.length === 0.
   const yearEntry = useMemo(() => {
     if (!data) return null;
     const exact = data.years.find((y) => y.fiscalYear === fiscalYear);
     if (exact) return exact;
-    return (
-      [...data.years].sort((a, b) => b.fiscalYear - a.fiscalYear)[0] ?? null
+    const usable = data.years.filter(
+      (y) => y.funds.length > 0 && y.totals.revenue.amountEur > 0,
     );
+    return [...usable].sort((a, b) => b.fiscalYear - a.fiscalYear)[0] ?? null;
   }, [data, fiscalYear]);
 
   // Sankey "Социалноосигурителни фондове" leaf value — what we're drilling

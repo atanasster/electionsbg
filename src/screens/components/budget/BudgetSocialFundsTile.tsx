@@ -40,9 +40,16 @@ export const BudgetSocialFundsTile: FC<{ fiscalYear: number }> = ({
     if (!data) return null;
     const exact = data.years.find((y) => y.fiscalYear === fiscalYear);
     if (exact) return exact;
-    return (
-      [...data.years].sort((a, b) => b.fiscalYear - a.fiscalYear)[0] ?? null
+    // Fall back to the latest year carrying real fund detail. The B1 ingest
+    // publishes a new fiscal year mid-cycle as a partial/shell record (funds:
+    // [], revenue: 0), so the raw max would fall back to a year whose expense
+    // breakdown is entirely zero. Same guard as flattenFundYear in
+    // src/data/procurement/useNoi.tsx. An *exact* shell year is still honoured
+    // above — that is a deliberate yearbook-only view.
+    const usable = data.years.filter(
+      (y) => y.funds.length > 0 && y.totals.revenue.amountEur > 0,
     );
+    return [...usable].sort((a, b) => b.fiscalYear - a.fiscalYear)[0] ?? null;
   }, [data, fiscalYear]);
 
   if (!yearEntry) return null;
