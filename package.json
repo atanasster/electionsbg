@@ -52,6 +52,8 @@
     "db:load:nzok-financials:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:nzok-financials:pg",
     "db:load:nzok-drug-prices:pg": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/load_nzok_drug_prices_pg.ts",
     "db:load:nzok-drug-prices:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:nzok-drug-prices:pg",
+    "db:load:nzok-activities:pg": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/load_nzok_activities_pg.ts",
+    "db:load:nzok-activities:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:nzok-activities:pg",
     "db:load:awarder-seats:pg": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/load_awarder_seats_pg.ts",
     "db:load:awarder-seats:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:awarder-seats:pg",
     "db:gen-rollups": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/gen_procurement/rollups.ts",
@@ -73,7 +75,7 @@
     "db:verify": "DB_VERIFY=1 NODE_OPTIONS=--max-old-space-size=4096 tsx --test scripts/db/tests/*.data.test.ts",
     "data": "tsx ./scripts/main.ts",
     "data:nzok": "tsx ./scripts/nzok/ingest.ts",
-    "prices": "tsx ./scripts/prices/ingest.ts",
+    "prices": "NODE_OPTIONS=--max-old-space-size=6144 tsx ./scripts/prices/ingest.ts",
     "prod": "tsx ./scripts/main.ts --all --prod",
     "sitemap": "tsx ./scripts/sitemap/index.ts",
     "llms": "tsx ./scripts/llms/buildFull.ts",
@@ -123,7 +125,12 @@
     "emulator": "firebase emulators:start --only functions,firestore -P default",
     "emulator:ai": "firebase emulators:start --only functions -P ai",
     "staging": "firebase deploy --only hosting:main -P staging",
-    "staging:fast": "SKIP_PREDEPLOY=1 firebase deploy --only hosting:main -P staging"
+    "staging:fast": "SKIP_PREDEPLOY=1 firebase deploy --only hosting:main -P staging",
+    "prices:ingest:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run prices",
+    "prices:catalog": "NODE_OPTIONS=--max-old-space-size=4096 tsx ./scripts/prices/rebuild_catalog.ts",
+    "prices:payloads": "NODE_OPTIONS=--max-old-space-size=8192 tsx ./scripts/prices/build_payloads.ts",
+    "prices:slugs": "tsx ./scripts/prices/export_slugs.ts",
+    "prices:product-days": "NODE_OPTIONS=--max-old-space-size=4096 tsx ./scripts/prices/build_product_days.ts"
   },
   "dependencies": {
     "@huggingface/transformers": "^4.2.0",

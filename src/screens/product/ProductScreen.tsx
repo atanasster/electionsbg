@@ -1,0 +1,252 @@
+// /product/:slug — one product across chains.
+//
+// Composition (design §9.4): cross-chain ladder (cheapest first, "спести X €",
+// unit price) · price-history chart · since-euro verdict · match-quality note.
+//
+// Cross-chain comparison renders only for a confident, multi-chain group. A
+// single-chain or low-confidence product is shown honestly as one chain's price,
+// never dressed up as a like-for-like comparison. See design §4.3.
+
+import { FC } from "react";
+import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { ShoppingBasket, TrendingUp, TrendingDown, Minus } from "lucide-react";
+import { SEO } from "@/ux/SEO";
+import { H1 } from "@/ux/H1";
+import { Card } from "@/components/ui/card";
+import { DashboardSection } from "@/screens/dashboard/DashboardSection";
+import { useProduct, useProductHistory } from "@/data/prices/useProducts";
+import { usePriceDict } from "@/data/prices/usePrices";
+import { fmtEur, fmtPriceDate } from "@/data/prices/usePrices";
+import { PriceHistoryChart } from "@/screens/components/prices/PriceHistoryChart";
+import type { ChainLadderRow } from "@/data/prices/fetchPricePayload";
+
+const CONFIDENCE_MIN = 55; // gate the cross-chain ladder
+
+/** €/kg or €/L, when the pack size is known. */
+const unitPrice = (
+  price: number,
+  qty: number | null,
+  unit: string | null,
+  lang: "bg" | "en",
+): string | null => {
+  if (!qty || !unit) return null;
+  if (unit === "g")
+    return `${fmtEur((price / qty) * 1000, lang)}/${lang === "bg" ? "кг" : "kg"}`;
+  if (unit === "ml")
+    return `${fmtEur((price / qty) * 1000, lang)}/${lang === "bg" ? "л" : "L"}`;
+  return null;
+};
+
+export const ProductScreen: FC = () => {
+  const { slug } = useParams<{ slug: string }>();
+  const { i18n } = useTranslation();
+  const lang = i18n.language === "bg" ? "bg" : "en";
+  const T = (bg: string, en: string) => (lang === "bg" ? bg : en);
+
+  const { data, isLoading } = useProduct(slug);
+  const { data: history } = useProductHistory(slug);
+  const { data: dict } = usePriceDict();
+
+  if (isLoading) {
+    return (
+      <section className="my-4 space-y-3">
+        <div className="h-24 rounded-xl border bg-card animate-pulse" />
+        <div className="h-40 rounded-xl border bg-card animate-pulse" />
+      </section>
+    );
+  }
+
+  if (!data?.product) {
+    return (
+      <div className="p-6 text-center">
+        <H1>{T("Продуктът не е намерен", "Product not found")}</H1>
+        <p className="text-muted-foreground mt-2">
+          {T(
+            "Този продукт вече не се предлага или адресът е грешен.",
+            "This product is no longer listed, or the address is wrong.",
+          )}
+        </p>
+      </div>
+    );
+  }
+
+  const p = data.product;
+  const chains = [...data.chains].sort((a, b) => a.price_eur - b.price_eur);
+  const cheapest = chains[0];
+  const dearest = chains[chains.length - 1];
+  const catName =
+    dict?.products.find((x) => x.id === p.pid)?.[lang] ?? `№${p.pid}`;
+  const comparable = p.chain_count > 1 && p.confidence >= CONFIDENCE_MIN;
+
+  const pct = p.pct_since_euro;
+  const verdict =
+    pct == null
+      ? {
+          icon: Minus,
+          cls: "text-muted-foreground",
+          label: T("нов след еврото", "new since the euro"),
+        }
+      : pct > 0.1
+        ? {
+            icon: TrendingUp,
+            cls: "text-red-600 dark:text-red-400",
+            label: `${T("поскъпна", "up")} ${pct.toFixed(1)}%`,
+          }
+        : pct < -0.1
+          ? {
+              icon: TrendingDown,
+              cls: "text-green-600 dark:text-green-400",
+              label: `${T("поевтиня", "down")} ${Math.abs(pct).toFixed(1)}%`,
+            }
+          : {
+              icon: Minus,
+              cls: "text-muted-foreground",
+              label: T("без промяна", "unchanged"),
+            };
+  const Vi = verdict.icon;
+
+  return (
+    <>
+      <SEO
+        title={`${p.title} — ${T("цени", "prices")}`}
+        description={T(
+          `Цена на ${p.title} по вериги в България от въвеждането на еврото. Мониторингов индекс на КЗП.`,
+          `Price of ${p.title} across retail chains in Bulgaria since the euro. CPC monitoring data.`,
+        )}
+        canonical={`https://naiasno.bg/product/${slug}`}
+      />
+
+      <section className="my-4 space-y-4">
+        <div>
+          <div className="text-xs uppercase tracking-wide text-muted-foreground">
+            {catName}
+          </div>
+          <H1>{p.title}</H1>
+          <div
+            className={`mt-1 flex items-center gap-1.5 text-sm ${verdict.cls}`}
+          >
+            <Vi className="h-4 w-4" />
+            <span>{verdict.label}</span>
+            <span className="text-muted-foreground">
+              · {T("от", "from")} {fmtPriceDate(dict?.baseline, lang)}
+            </span>
+          </div>
+        </div>
+
+        <DashboardSection
+          id="chains"
+          title={T("Цени по вериги", "Prices by chain")}
+          icon={ShoppingBasket}
+        >
+          {comparable ? (
+            <Card className="divide-y">
+              {chains.map((c) => (
+                <LadderRow
+                  key={c.eik}
+                  row={c}
+                  best={cheapest.price_eur}
+                  worst={dearest.price_eur}
+                  qty={p.net_qty}
+                  unit={p.net_unit}
+                  lang={lang}
+                  T={T}
+                />
+              ))}
+            </Card>
+          ) : (
+            <Card className="p-4">
+              {chains.map((c) => (
+                <div key={c.eik} className="flex justify-between text-sm py-1">
+                  <span>{c.chain}</span>
+                  <span className="tabular-nums">
+                    {fmtEur(c.price_eur, lang)}
+                  </span>
+                </div>
+              ))}
+              <p className="mt-3 text-xs text-muted-foreground">
+                {T(
+                  "Този продукт се предлага само в една верига или съвпадението между вериги не е достатъчно сигурно за сравнение.",
+                  "This product is sold at a single chain, or the cross-chain match is not confident enough to compare.",
+                )}
+              </p>
+            </Card>
+          )}
+        </DashboardSection>
+
+        {history && history.length >= 2 && (
+          <DashboardSection
+            id="history"
+            title={T("Цена във времето", "Price over time")}
+            icon={TrendingUp}
+          >
+            <Card className="p-4">
+              <PriceHistoryChart points={history} />
+            </Card>
+          </DashboardSection>
+        )}
+
+        <p className="text-xs text-muted-foreground">
+          {comparable
+            ? T(
+                `Сравнено в ${p.chain_count} вериги. Съвпадението е по име, не по баркод — сигни за грешно съвпадение са добре дошли.`,
+                `Matched across ${p.chain_count} chains. Matched by name, not barcode — report a bad match if you spot one.`,
+              )
+            : T(
+                "Мониторингов индекс на КЗП, не официален ИПЦ.",
+                "CPC monitoring data, not official CPI.",
+              )}
+        </p>
+      </section>
+    </>
+  );
+};
+
+const LadderRow: FC<{
+  row: ChainLadderRow;
+  best: number;
+  worst: number;
+  qty: number | null;
+  unit: string | null;
+  lang: "bg" | "en";
+  T: (bg: string, en: string) => string;
+}> = ({ row, best, worst, qty, unit, lang, T }) => {
+  const save = row.price_eur - best;
+  const up = unitPrice(row.price_eur, qty, unit, lang);
+  return (
+    <div className="flex items-center justify-between px-4 py-2.5">
+      <div className="min-w-0">
+        <div className="text-sm font-medium truncate">{row.chain}</div>
+        <div className="text-xs text-muted-foreground">
+          {up && <span>{up}</span>}
+          {up && row.stores > 1 && " · "}
+          {row.stores > 1 && (
+            <span>
+              {row.stores} {T("обекта", "stores")}
+            </span>
+          )}
+        </div>
+      </div>
+      <div className="text-right shrink-0 pl-3">
+        <div className="tabular-nums font-medium">
+          {fmtEur(row.promo_eur ?? row.price_eur, lang)}
+          {row.promo_eur != null && (
+            <span className="ml-1 text-xs text-amber-600 dark:text-amber-400">
+              {T("промо", "promo")}
+            </span>
+          )}
+        </div>
+        {save > 0.005 && worst > best && (
+          <div className="text-xs text-red-600 dark:text-red-400">
+            +{fmtEur(save, lang)}
+          </div>
+        )}
+        {save <= 0.005 && (
+          <div className="text-xs text-green-600 dark:text-green-400">
+            {T("най-евтино", "cheapest")}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};

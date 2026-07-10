@@ -267,8 +267,11 @@ functions/.secret.local
 # read by the frontend. A fresh clone regenerates them before loading:
 #   npm run data:nzok -- --eeof         → hospital_financials.json
 #   npm run data:nzok -- --drug-prices  → drug_unit_prices.json
+#   npm run data:nzok -- --activities   → activities.json (the compact
+#     activities_overview.json companion STAYS committed for the AI tool)
 /data/budget/nzok/hospital_financials.json
 /data/budget/nzok/drug_unit_prices.json
+/data/budget/nzok/activities.json
 
 # Generated election data — regenerate with `npm run prod`
 # Pattern note: ignore directory *contents* (not the directory itself) so we can

@@ -9,6 +9,7 @@ import {
   SectionInfo,
   Votes,
 } from "@/data/dataTypes";
+import { EURO_ADOPTION } from "@/data/prices/euroBaseline";
 import { DATA_URL, PrerenderRoute, SITE_URL } from "./routes";
 import { readProcurementSeoSettlements } from "../db/lib/seo_settlements";
 import {
@@ -863,6 +864,71 @@ export const buildFundsThemeRoutes = (
     });
   }
   return result;
+};
+
+// /product/{slug} — one КЗП product across chains. Long-tail SEO ("цена на
+// олио", "цена мляко Верея"). Bounded to the head that export_slugs.ts wrote to
+// data/prices/product_slugs.json (top ~3k by chain_count) — the full 118k-page
+// catalogue would blow the Firebase deploy file ceiling. The rest stay SPA-only
+// with a canonical tag. See docs/plans/consumption-pg-v1.md §7.2.
+export const buildProductRoutes = (projectRoot: string): PrerenderRoute[] => {
+  const file = path.join(projectRoot, "data", "prices", "product_slugs.json");
+  if (!fs.existsSync(file)) return [];
+  let products: { slug: string; title: string; chainCount: number }[];
+  try {
+    products = JSON.parse(fs.readFileSync(file, "utf-8"));
+  } catch {
+    return [];
+  }
+  return products.map((p) => {
+    const url = `${SITE_URL}/product/${p.slug}`;
+    const enUrl = `${SITE_URL}/en/product/${p.slug}`;
+    const title = `${p.title} — цени по вериги | electionsbg.com`;
+    const description = `Цена на ${p.title} по вериги в България от въвеждането на еврото (${EURO_ADOPTION.bg}) — къде е най-евтино и как се е променила. Мониторингов индекс на КЗП, не официален ИПЦ.`;
+    const titleEn = `${p.title} — price by chain | electionsbg.com`;
+    const descriptionEn = `Price of ${p.title} across retail chains in Bulgaria since euro adoption (${EURO_ADOPTION.en}) — where it is cheapest and how it has changed. CPC monitoring index, not official CPI.`;
+    // Feed-derived titles contain `&` (SENSODYNE REPAIR&PROTECT) and can carry
+    // `<`/`>`; escape them, like every other free-text body in this file.
+    const et = escapeHtmlSimple(p.title);
+    const body = (lang: "bg" | "en") =>
+      lang === "bg"
+        ? `<h1>${et}</h1>\n<p>Цена на <strong>${et}</strong> по търговски вериги в България, проследена ежедневно от въвеждането на еврото на ${EURO_ADOPTION.bg} по данни от отворения портал на КЗП „Колко струва“. Виж пълния <a href="${SITE_URL}/consumption/products">каталог на продуктите</a> и <a href="${SITE_URL}/consumption">кошницата на цените</a>.</p>`
+        : `<h1>${et}</h1>\n<p>Price of <strong>${et}</strong> across retail chains in Bulgaria, tracked daily since the euro changeover on ${EURO_ADOPTION.en} from the Consumer Protection Commission's "How Much Does It Cost" open-data portal. See the full <a href="${SITE_URL}/en/consumption/products">product catalogue</a> and the <a href="${SITE_URL}/en/consumption">price basket</a>.</p>`;
+    return {
+      path: `product/${p.slug}`,
+      title,
+      description,
+      bodyHtml: body("bg"),
+      jsonLd: [
+        buildWebPageLd({ title, description, url }),
+        buildBreadcrumbLd([
+          { name: "Начало", url: `${SITE_URL}/` },
+          { name: "Потребление", url: `${SITE_URL}/consumption` },
+          { name: "Продукти", url: `${SITE_URL}/consumption/products` },
+          { name: p.title, url },
+        ]),
+      ],
+      english: {
+        title: titleEn,
+        description: descriptionEn,
+        bodyHtml: body("en"),
+        jsonLd: [
+          buildWebPageLd({
+            title: titleEn,
+            description: descriptionEn,
+            url: enUrl,
+            inLanguage: "en",
+          }),
+          buildBreadcrumbLd([
+            { name: "Home", url: `${SITE_URL}/en/` },
+            { name: "Consumption", url: `${SITE_URL}/en/consumption` },
+            { name: "Products", url: `${SITE_URL}/en/consumption/products` },
+            { name: p.title, url: enUrl },
+          ]),
+        ],
+      },
+    };
+  });
 };
 
 // /sections/{ekatte} — high-traffic landing page that lists every section in
@@ -3286,5 +3352,6 @@ export const buildDynamicRoutes = async (
     ...buildOfficialRoutes(projectRoot),
     ...(await buildProcurementSettlementRoutes()),
     ...buildFundsThemeRoutes(projectRoot),
+    ...buildProductRoutes(projectRoot),
   ];
 };

@@ -348,8 +348,8 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       en: "MoF, NRA, Customs, NSSI, NHIF, MRDPW, IISDA",
     },
     desc: {
-      bg: "Отчети за изпълнението на програмните бюджети, месечните бюлетини на МФ, годишните отчети на НАП и Агенция „Митници“, фондовете на НОИ, бюджета и плащанията на НЗОК (болнична помощ, лекарства), общинските проекти в ИПОП (МРРБ) и регистрите на администрацията (ИИСДА).",
-      en: "Programme-budget execution reports, MoF monthly bulletins, NRA and Customs annual reports, NSSI social-security funds, NHIF (НЗОК) budget + payments (hospital care, drugs), MRDPW's municipal project register (IPOP) and the state-administration registers (IISDA).",
+      bg: "Отчети за изпълнението на програмните бюджети, месечните бюлетини на МФ, годишните отчети на НАП и Агенция „Митници“, фондовете на НОИ, бюджета и плащанията на НЗОК (болнична помощ, лекарства, единични цени на лекарства, отчетени дейности по клинични пътеки), финансовите показатели на болниците (ЕЕОФ, МЗ), общинските проекти в ИПОП (МРРБ) и регистрите на администрацията (ИИСДА).",
+      en: "Programme-budget execution reports, MoF monthly bulletins, NRA and Customs annual reports, NSSI social-security funds, NHIF (НЗОК) budget + payments (hospital care, drugs, per-hospital drug unit prices, reported clinical-pathway activity), the МЗ hospital financial indicators (ЕЕОФ), MRDPW's municipal project register (IPOP) and the state-administration registers (IISDA).",
     },
     url: "https://www.minfin.bg/",
     origin: "state",
@@ -365,6 +365,7 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       "nzok_drug_quarterly",
       "nzok_drug_unit_prices",
       "nzok_execution_b1",
+      "nzok_activities",
       "mh_eeof_quarterly",
       "policy_baseline_local",
       "ipop_mrrb",
@@ -942,14 +943,14 @@ export const DATASETS: DatasetDef[] = [
     id: "prices",
     label: { bg: "Цени на дребно", en: "Retail prices" },
     detail: {
-      bg: "кошница по населени места и вериги",
-      en: "basket by settlement and chain",
+      bg: "кошница + каталог по населени места и вериги",
+      en: "basket + catalogue by settlement and chain",
     },
     desc: {
-      bg: "Потребителската кошница от въвеждането на еврото — мин/средна/макс цена по населено място и продукт, индекси по категории и сравнение между веригите.",
-      en: "The consumer basket since euro adoption — min/average/max prices by settlement and product, category indices and chain comparison.",
+      bg: "Потребителската кошница от въвеждането на еврото — мин/средна/макс цена по населено място и продукт, индекси по категории, сравнение между веригите и каталог от ~118 000 продукта с история на цените. Съхранява се директно в Postgres (price_facts, price_products, price_payloads), без статичен JSON.",
+      en: "The consumer basket since euro adoption — min/average/max prices by settlement and product, category indices, chain comparison and a ~118,000-product catalogue with price history. Stored directly in Postgres (price_facts, price_products, price_payloads); no static JSON.",
     },
-    path: "data/prices/",
+    // No `path`: Postgres-only, like ds:agri. Served live via /api/db/price-*.
     tags: ["prices"],
   },
   {
@@ -1211,6 +1212,20 @@ export const FEATURES: FeatureDef[] = [
     tags: ["prices"],
   },
   {
+    id: "products",
+    label: { bg: "Каталог на продуктите", en: "Product catalogue" },
+    detail: {
+      bg: "търси и сравни всеки продукт",
+      en: "search and compare any product",
+    },
+    desc: {
+      bg: "Каталог от ~118 000 продукта, извлечени от имената във фийда на КЗП — търсене, цена по вериги и история на цената от еврото за всеки продукт.",
+      en: "A ~118,000-product catalogue derived from the CPC feed's product names — search, per-chain price, and since-euro price history for every product.",
+    },
+    route: "/consumption/products",
+    tags: ["prices"],
+  },
+  {
     id: "ai",
     label: { bg: "AI асистент", en: "AI assistant" },
     detail: {
@@ -1327,6 +1342,7 @@ export const EDGES: [string, string][] = [
   ["ds:demographics", "f:governance"],
   ["ds:localgov", "f:governance"],
   ["ds:prices", "f:prices"],
+  ["ds:prices", "f:products"],
   ["ds:prices", "f:governance"],
   ["ds:polls", "f:polls"],
   ["ds:polls", "f:elections"],

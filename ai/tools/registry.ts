@@ -38,7 +38,13 @@ import {
   subsidiesByScheme,
   subsidiesForEntity,
 } from "./subsidies";
-import { nzokBudget, nzokDrugs, nzokDrugGrowth, nzokHospitals } from "./nzok";
+import {
+  nzokBudget,
+  nzokDrugs,
+  nzokDrugGrowth,
+  nzokHospitals,
+  nzokActivities,
+} from "./nzok";
 import {
   judiciaryBudget,
   judiciaryCaseload,
@@ -130,6 +136,7 @@ import {
   cheapestChains,
   priceIndex,
   priceRanking,
+  productPrice,
   settlementPrices,
 } from "./prices";
 import { compareElections, machineVoteShare, turnout } from "./metrics";
@@ -2073,6 +2080,32 @@ export const TOOLS: ToolDef[] = [
     run: nzokHospitals,
   },
   {
+    name: "nzokActivities",
+    domain: "fiscal",
+    description: {
+      bg: "Най-чести дейности, платени от НЗОК — клинични пътеки, амбулаторни и клинични процедури по брой случаи (обем, не стойност).",
+      en: "Most frequent NHIF-funded procedures — clinical pathways and ambulatory/clinical procedures by number of cases (volume, not value).",
+    },
+    params: [
+      {
+        name: "count",
+        type: "count",
+        description: { bg: "Брой процедури", en: "Number of procedures" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кои клинични пътеки НЗОК плаща най-често?",
+        en: "Which clinical pathways does the NHIF pay for most often?",
+      },
+      {
+        bg: "Най-чести дейности по здравната каса",
+        en: "Most frequent NHIF activities",
+      },
+    ],
+    run: nzokActivities,
+  },
+  {
     name: "procurementTotals",
     domain: "fiscal",
     description: {
@@ -3181,6 +3214,36 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: settlementPrices,
+  },
+  {
+    name: "productPrice",
+    domain: "indicators",
+    description: {
+      bg: "Цена на конкретен продукт по вериги в цялата страна — намира точния продукт по име (напр. кафе Лаваца, олио Бисер, мляко Верея) и показва в кои вериги е най-евтин и как се е променил от еврото.",
+      en: "Price of a specific product across chains nationwide — resolves the exact product by name (e.g. Lavazza coffee, Bisser sunflower oil, Vereya milk) and shows which chains are cheapest and how it moved since the euro.",
+    },
+    params: [
+      {
+        name: "product",
+        type: "metric",
+        required: true,
+        description: {
+          bg: "Продукт по име, напр. кафе Лаваца, олио, мляко Верея",
+          en: "A product by name, e.g. Lavazza coffee, sunflower oil, Vereya milk",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Колко струва кафе Лаваца?",
+        en: "How much is Lavazza coffee?",
+      },
+      {
+        bg: "Къде е най-евтино олио Бисер?",
+        en: "Where is Bisser sunflower oil cheapest?",
+      },
+    ],
+    run: productPrice,
   },
   {
     name: "cheapestChains",

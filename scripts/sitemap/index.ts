@@ -477,6 +477,27 @@ const enumerateFundsThemes = (rootUrl: string, routes: string[]) => {
   }
 };
 
+// /product/{slug} — one URL per prerendered product (the head that
+// export_slugs.ts wrote to data/prices/product_slugs.json — top ~3k by
+// chain_count). The remaining ~115k products are SPA-only with a canonical tag,
+// so listing them here would create soft-duplicates. Mirrors buildProductRoutes.
+const enumerateProducts = (rootUrl: string, routes: string[]) => {
+  const file = `${projectPath}/data/prices/product_slugs.json`;
+  if (!fs.existsSync(file)) return;
+  let products: Array<{ slug: string }>;
+  try {
+    products = JSON.parse(fs.readFileSync(file, "utf-8"));
+  } catch {
+    return;
+  }
+  const lastmod = safeFileMod(file);
+  for (const p of products) {
+    if (!p.slug) continue;
+    pushUrl(`${rootUrl}/${routes[0]}${p.slug}`, lastmod);
+    pushUrl(`/en${rootUrl}/${routes[0]}${p.slug}`, lastmod);
+  }
+};
+
 // /funds/programme/{code} — one URL per operational programme that has its
 // own summary shard under data/funds/projects/by-program. Each shard's
 // mtime is the lastmod for that programme's URL.
@@ -642,6 +663,8 @@ const getRoute = (route: RouteDef, rootUrl: string) => {
       return enumerateCabinets(route, rootUrl, routes);
     if (route.file === "funds-themes-list")
       return enumerateFundsThemes(rootUrl, routes);
+    if (route.file === "prices-products-list")
+      return enumerateProducts(rootUrl, routes);
     if (route.file === "funds-programmes-list")
       return enumerateFundsProgrammes(rootUrl, routes);
     if (route.file === "procurement-settlements-list")

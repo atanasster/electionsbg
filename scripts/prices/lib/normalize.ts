@@ -5,6 +5,18 @@ import { parse } from "csv-parse/sync";
 import type { PriceRow } from "../types";
 import { normalizeEkatte } from "./locations";
 
+/** Thrown when one chain's CSV fails to parse, so the caller can count it and
+ *  the load can be aborted rather than silently dropping that chain. */
+export class ChainParseError extends Error {
+  constructor(
+    public readonly filename: string,
+    message: string,
+  ) {
+    super(`parse failed for ${filename}: ${message}`);
+    this.name = "ChainParseError";
+  }
+}
+
 // Columns (uniform order across all 207 chains):
 // 0 Населено място · 1 Търговски обект · 2 Наименование на продукта ·
 // 3 Код на продукта · 4 Категория · 5 Цена на дребно · 6 Цена в промоция
@@ -30,6 +42,29 @@ const toPrice = (raw: string): number | null => {
   return Number.isFinite(n) && n > 0 ? n : null;
 };
 
+/**
+ * The ONLY definition of key normalization in the codebase.
+ *
+ * `normLabel` backs `price_stores UNIQUE (eik, ekatte, label_norm)` and
+ * `normName` backs `price_skus UNIQUE (eik, chain_code, name_norm)`. Both are
+ * baked into database constraints: changing either is a data migration, not a
+ * refactor. Keep them boring — NFKC, uppercase, collapse anything that is not a
+ * letter or digit to a single space, trim.
+ *
+ * Deliberately NOT here: homoglyph folding, stopwords, token sorting. Those
+ * belong to canonicalize() in ./canon.ts, which builds a *semantic* identity.
+ * These two build a *storage* key and must never re-cluster anything.
+ */
+const normKey = (s: string): string =>
+  s
+    .normalize("NFKC")
+    .toUpperCase()
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
+    .trim();
+
+export const normLabel = (s: string): string => normKey(s);
+export const normName = (s: string): string => normKey(s);
+
 export const parseChainCsv = (text: string, filename: string): PriceRow[] => {
   const { eik, chain } = parseChainFromFilename(filename);
   const clean = stripBom(text);
@@ -46,8 +81,16 @@ export const parseChainCsv = (text: string, filename: string): PriceRow[] => {
       skip_empty_lines: true,
       bom: true,
     }) as string[][];
-  } catch {
-    return [];
+  } catch (e) {
+    // A parse failure on one chain's CSV must be SURFACED, not swallowed. The
+    // caller TRUNCATE+reloads price_current from what parses, so a header/quoting
+    // regression on the largest chains could quietly replace "today's truth"
+    // with a fraction of the day. Throwing here lets readZip() count it, and
+    // load_day's sanity floor aborts the whole load if too much dropped.
+    throw new ChainParseError(
+      filename,
+      e instanceof Error ? e.message : String(e),
+    );
   }
 
   const rows: PriceRow[] = [];
@@ -61,14 +104,22 @@ export const parseChainCsv = (text: string, filename: string): PriceRow[] => {
     if (price == null) continue;
     const ekatte = normalizeEkatte(c0);
     if (ekatte.length !== 5 || !/^\d{5}$/.test(ekatte)) continue;
-    let productId = parseInt((r[4] ?? "").trim(), 10);
+    // Some chains quote the numeral (`"86"`). parseInt('"86"') is NaN, so those
+    // rows were silently bucketed to 0 and dropped. Strip quotes first.
+    const rawPid = (r[4] ?? "").trim().replace(/^"|"$/g, "");
+    let productId = parseInt(rawPid, 10);
     if (!Number.isFinite(productId) || productId < 1 || productId > 101)
       productId = 0; // legacy / non-standard code bucket
+    const store = (r[1] ?? "").trim();
+    const product = (r[2] ?? "").trim();
     rows.push({
       ekatte,
-      store: (r[1] ?? "").trim(),
-      product: (r[2] ?? "").trim(),
+      store,
+      storeNorm: normLabel(store),
+      product,
+      productNorm: normName(product),
       productId,
+      chainCode: (r[3] ?? "").trim(),
       price,
       promo: toPrice(r[6]),
       eik,

@@ -369,6 +369,61 @@ const REGISTRY = {
     ],
     maxPageSize: 100,
   },
+
+  // КЗП product browser (migration 048). One row per CANONICAL product — the
+  // cross-chain identity derived from names, because the feed carries no EAN.
+  //
+  // current_min_eur and pct_since_euro are materialized columns, refreshed by
+  // `npm run prices:catalog`. They cannot be derived at query time: the registry
+  // engine can only ORDER BY real base-table columns, and computing them per
+  // request would join price_current across ~1.4M rows on every keystroke.
+  //
+  // Retired products (chain_count = 0) keep their frozen slug so indexed
+  // /product/:slug URLs resolve, but must never appear in the browser. The UI
+  // filters chain_count >= 1; there is no server-side default filter here.
+  price_products: {
+    base: "price_products",
+    scopeCols: ["pid"],
+    columns: {
+      // product_id is the stable paging tiebreak (buildOrder appends select[0]).
+      // pct_since_euro ties are extremely common (0.00 for every unchanged
+      // product), so a unique id is what keeps paging deterministic.
+      product_id: { type: "int" },
+      slug: { type: "text" },
+      // search:true is backed by price_products_trgm (gin, title gin_trgm_ops).
+      title: { type: "text", sort: true, filter: "text", search: true },
+      pid: { type: "int", sort: true, filter: "in" },
+      brand: { type: "text", filter: "text" },
+      net_qty: { type: "number", sort: true, filter: "range" },
+      net_unit: { type: "text", filter: "in" },
+      unit_priced: { type: "bool", filter: "eq" },
+      chain_count: { type: "int", sort: true, filter: "range" },
+      sku_count: { type: "int", sort: true, filter: "range" },
+      // Gate the cross-chain ladder on this; a low-confidence group must not
+      // present itself as a like-for-like comparison.
+      confidence: { type: "int", sort: true, filter: "range" },
+      current_min_eur: { type: "number", sort: true, filter: "range" },
+      pct_since_euro: { type: "number", sort: true, filter: "range" },
+    },
+    select: [
+      "product_id",
+      "slug",
+      "title",
+      "pid",
+      "brand",
+      "net_qty",
+      "net_unit",
+      "unit_priced",
+      "chain_count",
+      "sku_count",
+      "confidence",
+      "current_min_eur",
+      "pct_since_euro",
+    ],
+    defaultSort: [["chain_count", "desc"]],
+    aggregates: [{ fn: "count" }],
+    maxPageSize: 100,
+  },
 };
 
 const MAX_OFFSET = 100000; // deep-paging guard (use search/filters instead)

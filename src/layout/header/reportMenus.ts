@@ -36,6 +36,7 @@ import {
   ROADS_AWARDER_PATH,
   NOI_AWARDER_PATH,
   NZOK_AWARDER_PATH,
+  MON_AWARDER_PATH,
   DFZ_AWARDER_PATH,
 } from "@/screens/components/procurement/sectorPacks";
 
@@ -280,6 +281,8 @@ export const governanceMenu: MenuItem[] = [
           { title: "procurement_roads_nav", link: ROADS_AWARDER_PATH },
           { title: "procurement_noi_nav", link: NOI_AWARDER_PATH },
           { title: "procurement_nzok_nav", link: NZOK_AWARDER_PATH },
+          { title: "procurement_mon_nav", link: MON_AWARDER_PATH },
+          { title: "education_schools_nav", link: "/education" },
           // The judiciary's home is the /judiciary dashboard (caseload, duration,
           // workload, declarations); it lists every judicial body's awarder page
           // for the money half. The procurement sub-nav pill points here too, so

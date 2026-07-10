@@ -141,6 +141,12 @@ export type AppendArgs = {
   source?: string;
   at?: string;
   links?: DataChangeLink[];
+  // Replace any existing same-(skill, UTC date) entry instead of adding a
+  // second row. Used by self-reporting PG-only ingests (e.g. update-prices),
+  // which write to data-changes.json themselves — that write flips
+  // `git diff --stat data/`, so the orchestrator's generic gate would otherwise
+  // append a duplicate for the same run. Idempotent under a re-run, too.
+  dedupeSameDay?: boolean;
 };
 
 export const appendDataChange = (args: AppendArgs): DataChangeEntry => {
@@ -157,6 +163,10 @@ export const appendDataChange = (args: AppendArgs): DataChangeEntry => {
   if (links.length > 0) entry.links = links;
 
   const log = readDataChanges();
+  if (args.dedupeSameDay)
+    log.entries = log.entries.filter(
+      (e) => !(e.skill === args.skill && e.date === date),
+    );
   log.entries = [entry, ...log.entries];
   log.updatedAt = timestamp;
   writeLog(log);

@@ -37,6 +37,17 @@ const muniName = new Map(municipalities.map((m) => [m.obshtina, m.name]));
 const oblastName = new Map(regions.map((r) => [r.oblast, r.name]));
 
 const ALL_PIDS = products.products.map((p) => p.id);
+
+// products.json carries `unit_priced`, an ingest-side flag that gates whether a
+// product may be compared across chains. It is not a client concern and must not
+// leak into the shipped dictionary — it is the only thing that would otherwise
+// change index.json/dict.json byte-for-byte.
+const PUBLIC_PRODUCTS = products.products.map(({ id, cat, bg, en }) => ({
+  id,
+  cat,
+  bg,
+  en,
+}));
 const PIDS_BY_CAT = new Map<number, number[]>();
 for (const p of products.products) {
   const arr = PIDS_BY_CAT.get(p.cat) ?? [];
@@ -85,29 +96,50 @@ interface LoadedDay {
   grid: DailyGrid;
 }
 
-const loadDays = (): LoadedDay[] => {
+/**
+ * Where an artifact goes. The maths below is unchanged from the file-writing
+ * era; only the sink is pluggable, so build_payloads.ts can send the very same
+ * objects to `price_payloads` instead of to disk. Keeping one code path is what
+ * makes the parity harness meaningful.
+ */
+export type Emit = (kind: string, key: string, obj: unknown) => void;
+
+const fileEmit: Emit = (kind, key, obj) => {
+  const rel =
+    kind === "place"
+      ? path.join("settlement", `${key}.json`)
+      : kind === "chains-muni"
+        ? path.join("chains", `${key}.json`)
+        : `${kind}.json`;
+  const file = path.join(OUT_DIR, rel);
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  fs.writeFileSync(file, JSON.stringify(obj));
+};
+
+const toLoadedDay = (grid: DailyGrid): LoadedDay => {
+  const settMin = new Map<string, Map<number, number>>();
+  const settMed = new Map<string, Map<number, number>>();
+  for (const [ek, byProd] of Object.entries(grid.cells)) {
+    const mn = new Map<number, number>();
+    const md = new Map<number, number>();
+    for (const [pid, agg] of Object.entries(byProd)) {
+      mn.set(+pid, agg.min);
+      md.set(+pid, agg.median);
+    }
+    settMin.set(ek, mn);
+    settMed.set(ek, md);
+  }
+  return { date: grid.date, settMin, settMed, grid };
+};
+
+const loadDaysFromCache = (): LoadedDay[] => {
   const files = fs
     .readdirSync(CACHE_DIR)
     .filter((f) => /^\d{4}-\d{2}-\d{2}\.json$/.test(f))
     .sort();
-  return files.map((f) => {
-    const grid: DailyGrid = JSON.parse(
-      fs.readFileSync(path.join(CACHE_DIR, f), "utf8"),
-    );
-    const settMin = new Map<string, Map<number, number>>();
-    const settMed = new Map<string, Map<number, number>>();
-    for (const [ek, byProd] of Object.entries(grid.cells)) {
-      const mn = new Map<number, number>();
-      const md = new Map<number, number>();
-      for (const [pid, agg] of Object.entries(byProd)) {
-        mn.set(+pid, agg.min);
-        md.set(+pid, agg.median);
-      }
-      settMin.set(ek, mn);
-      settMed.set(ek, md);
-    }
-    return { date: grid.date, settMin, settMed, grid };
-  });
+  return files.map((f) =>
+    toLoadedDay(JSON.parse(fs.readFileSync(path.join(CACHE_DIR, f), "utf8"))),
+  );
 };
 
 // Representative price (median of per-settlement minimums) over a set of
@@ -131,12 +163,19 @@ const repPrices = (
   return out;
 };
 
-export const buildPriceIndex = (): void => {
-  const days = loadDays();
+/**
+ * `grids` defaults to the legacy _cache tree so the old JSON path still works
+ * during the migration; build_payloads.ts passes grids read from
+ * `price_grid_days`, which reproduces DailyGrid exactly (verified cell-for-cell
+ * by scripts/db/tests/prices_grid_parity.data.test.ts).
+ */
+export const buildPriceIndex = (
+  opts: { grids?: DailyGrid[]; emit?: Emit } = {},
+): void => {
+  const emit = opts.emit ?? fileEmit;
+  const days = opts.grids ? opts.grids.map(toLoadedDay) : loadDaysFromCache();
   if (days.length === 0) {
-    throw new Error(
-      "no daily grids in data/prices/_cache/daily — run ingest first",
-    );
+    throw new Error("no daily grids — run the ingest first");
   }
   const dates = days.map((d) => d.date);
   const baselineDate = dates[0];
@@ -243,12 +282,11 @@ export const buildPriceIndex = (): void => {
       rows: latest.grid.stats.rows,
     },
     categories: products.categories,
-    products: products.products,
+    products: PUBLIC_PRODUCTS,
     national: { index: natSeries, byCategory, promoShare },
     regions: regionsOut,
   };
-  fs.mkdirSync(OUT_DIR, { recursive: true });
-  fs.writeFileSync(path.join(OUT_DIR, "index.json"), JSON.stringify(indexJson));
+  emit("index", "", indexJson);
 
   // ── core grocery basket for cross-place comparison ──
   // The products present in ~all settlements are non-food packaged goods (tea,
@@ -305,9 +343,6 @@ export const buildPriceIndex = (): void => {
   // Built into memory first; the per-place `rank` block is attached after
   // ranks are computed, then written — so the place dashboard can read its
   // rank from its own shard and never load the 128 KB ranking.json.
-  const settDir = path.join(OUT_DIR, "settlement");
-  fs.rmSync(settDir, { recursive: true, force: true });
-  fs.mkdirSync(settDir, { recursive: true });
   const settJsonByEk = new Map<string, Record<string, unknown>>();
 
   // per-place rank inputs accumulate here for ranking.json
@@ -332,7 +367,11 @@ export const buildPriceIndex = (): void => {
       if (!firstSeen.has(ek)) firstSeen.set(ek, i);
 
   for (const ek of latest.settMin.keys()) {
-    const p = place.get(ek)!;
+    // Skip any ekatte resolvePlace() couldn't map — the geography loop above
+    // (line ~203) already skips these, so `place` won't have them, and the `!`
+    // would otherwise throw mid-build on a messy feed. Same handling as there.
+    const p = place.get(ek);
+    if (!p) continue;
     const cell = latest.grid.cells[ek];
     const baseIdx = firstSeen.get(ek) ?? 0;
     const nowMin = latest.settMin.get(ek)!; // cheapest-store prices (for basket level)
@@ -520,16 +559,25 @@ export const buildPriceIndex = (): void => {
     const rank = new Map<string, number>();
     const rankChange = new Map<string, number>();
     const peers = new Map<string, number>();
+    // Ties are broken on `code`, never left to array order. Two places can share
+    // a basketLevel or an indexSinceEuro exactly, and without a tiebreak their
+    // rank depends on the order the settlements happened to appear — which used
+    // to be ZIP row order and is now `ORDER BY ekatte`. That made two places'
+    // rankChange flip when the same data was read from Postgres instead of the
+    // JSON cache. Same requirement as reference_pg_payload_determinism.
+    const byCode = (a: RankRow, b: RankRow) => (a.code < b.code ? -1 : 1);
     for (const g of groups.values()) {
       // Only rank real-market places (those pricing the full core basket) — keeps
       // sparse-data villages out of both the cheapest and the rose-most boards.
       const lvl = g.filter((r) => r.basketLevel != null);
-      const cheapest = [...lvl].sort((a, b) => a.basketLevel! - b.basketLevel!);
+      const cheapest = [...lvl].sort(
+        (a, b) => a.basketLevel! - b.basketLevel! || byCode(a, b),
+      );
       cheapest.forEach((r, i) => rank.set(r.code, i + 1));
       // since-euro board: only places present on euro day (genuine comparison)
       const chg = lvl
         .filter((r) => r.sinceEuro)
-        .sort((a, b) => b.indexSinceEuro - a.indexSinceEuro);
+        .sort((a, b) => b.indexSinceEuro - a.indexSinceEuro || byCode(a, b));
       chg.forEach((r, i) => rankChange.set(r.code, i + 1));
       for (const r of lvl) peers.set(r.code, lvl.length);
     }
@@ -547,59 +595,66 @@ export const buildPriceIndex = (): void => {
   const oblMuni = assignRanks(muniRows, (r) => r.oblast);
   const natObl = assignRanks(oblRows, () => "ALL");
 
-  const places = rankRows.map((r) => {
-    const pick = (
-      g: ReturnType<typeof assignRanks>,
-      m: "rank" | "rankChange" | "peers",
-    ) => g[m].get(r.code) ?? null;
-    const out: Record<string, unknown> = {
-      code: r.code,
-      tier: r.tier,
-      name: r.name,
-      oblast: r.oblast,
-      basketLevel: r.basketLevel,
-      nPriced: r.nPriced,
-      indexSinceEuro: r.indexSinceEuro,
-      change30d: r.change30d,
-    };
-    if (r.muni) out.muni = r.muni;
-    if (r.popBand) out.popBand = r.popBand;
-    if (r.tier === "settlement") {
-      out.rank = {
-        national: pick(natSett, "rank"),
-        sizeClass: pick(sizeSett, "rank"),
-        oblast: pick(oblSett, "rank"),
+  // Sorted by code, not by whatever order the settlements were discovered in.
+  // rankRows inherits its order from the daily grid's iteration order — ZIP row
+  // order under the old JSON cache, `ORDER BY ekatte` under Postgres — so the
+  // emitted array was input-order dependent even though every value in it was
+  // identical. Consumers key by `code` (findRankPlace), so this is free.
+  const places = [...rankRows]
+    .sort((a, b) => (a.code < b.code ? -1 : a.code > b.code ? 1 : 0))
+    .map((r) => {
+      const pick = (
+        g: ReturnType<typeof assignRanks>,
+        m: "rank" | "rankChange" | "peers",
+      ) => g[m].get(r.code) ?? null;
+      const out: Record<string, unknown> = {
+        code: r.code,
+        tier: r.tier,
+        name: r.name,
+        oblast: r.oblast,
+        basketLevel: r.basketLevel,
+        nPriced: r.nPriced,
+        indexSinceEuro: r.indexSinceEuro,
+        change30d: r.change30d,
       };
-      out.rankChange = {
-        national: pick(natSett, "rankChange"),
-        sizeClass: pick(sizeSett, "rankChange"),
-        oblast: pick(oblSett, "rankChange"),
-      };
-      out.peers = {
-        national: pick(natSett, "peers"),
-        sizeClass: pick(sizeSett, "peers"),
-        oblast: pick(oblSett, "peers"),
-      };
-    } else if (r.tier === "muni") {
-      out.rank = {
-        national: pick(natMuni, "rank"),
-        oblast: pick(oblMuni, "rank"),
-      };
-      out.rankChange = {
-        national: pick(natMuni, "rankChange"),
-        oblast: pick(oblMuni, "rankChange"),
-      };
-      out.peers = {
-        national: pick(natMuni, "peers"),
-        oblast: pick(oblMuni, "peers"),
-      };
-    } else {
-      out.rank = { national: pick(natObl, "rank") };
-      out.rankChange = { national: pick(natObl, "rankChange") };
-      out.peers = { national: pick(natObl, "peers") };
-    }
-    return out;
-  });
+      if (r.muni) out.muni = r.muni;
+      if (r.popBand) out.popBand = r.popBand;
+      if (r.tier === "settlement") {
+        out.rank = {
+          national: pick(natSett, "rank"),
+          sizeClass: pick(sizeSett, "rank"),
+          oblast: pick(oblSett, "rank"),
+        };
+        out.rankChange = {
+          national: pick(natSett, "rankChange"),
+          sizeClass: pick(sizeSett, "rankChange"),
+          oblast: pick(oblSett, "rankChange"),
+        };
+        out.peers = {
+          national: pick(natSett, "peers"),
+          sizeClass: pick(sizeSett, "peers"),
+          oblast: pick(oblSett, "peers"),
+        };
+      } else if (r.tier === "muni") {
+        out.rank = {
+          national: pick(natMuni, "rank"),
+          oblast: pick(oblMuni, "rank"),
+        };
+        out.rankChange = {
+          national: pick(natMuni, "rankChange"),
+          oblast: pick(oblMuni, "rankChange"),
+        };
+        out.peers = {
+          national: pick(natMuni, "peers"),
+          oblast: pick(oblMuni, "peers"),
+        };
+      } else {
+        out.rank = { national: pick(natObl, "rank") };
+        out.rankChange = { national: pick(natObl, "rankChange") };
+        out.peers = { national: pick(natObl, "peers") };
+      }
+      return out;
+    });
 
   // per-place rank summary, keyed by code — embedded into each shard so place
   // dashboards read their rank from their own (already-loaded) shard instead of
@@ -621,40 +676,34 @@ export const buildPriceIndex = (): void => {
   // Write settlement shards now (with their own rank embedded).
   for (const [ek, json] of settJsonByEk) {
     json.rank = rankByCode.get(ek) ?? null;
-    fs.writeFileSync(path.join(settDir, `${ek}.json`), JSON.stringify(json));
+    emit("place", ek, json);
   }
 
   // dict.json — the small product/category dictionary + meta (no series), so a
   // place page resolves product names without the heavy index.json.
-  fs.writeFileSync(
-    path.join(OUT_DIR, "dict.json"),
-    JSON.stringify({
-      source: indexJson.source,
-      fetchedAt: indexJson.fetchedAt,
-      firstDate: baselineDate,
-      latestDate,
-      baseline: baselineDate,
-      coverage: indexJson.coverage,
-      categories: products.categories,
-      products: products.products,
-      commonBasket,
-      commonBasketSize: commonBasket.length,
-    }),
-  );
+  emit("dict", "", {
+    source: indexJson.source,
+    fetchedAt: indexJson.fetchedAt,
+    firstDate: baselineDate,
+    latestDate,
+    baseline: baselineDate,
+    coverage: indexJson.coverage,
+    categories: products.categories,
+    products: PUBLIC_PRODUCTS,
+    commonBasket,
+    commonBasketSize: commonBasket.length,
+  });
 
-  fs.writeFileSync(
-    path.join(OUT_DIR, "ranking.json"),
-    JSON.stringify({
-      latestDate,
-      baseline: baselineDate,
-      commonBasket,
-      commonBasketSize: commonBasket.length,
-      places,
-    }),
-  );
+  emit("ranking", "", {
+    latestDate,
+    baseline: baselineDate,
+    commonBasket,
+    commonBasketSize: commonBasket.length,
+    places,
+  });
 
   // ── chains.json (national) + chains/<muni>.json ──
-  buildChains(latest, commonBasket, muniSetts, rankByCode, basketCap);
+  buildChains(latest, commonBasket, muniSetts, rankByCode, basketCap, emit);
 
   console.log(
     `[prices] built index.json (${dates.length} days ${baselineDate}…${latestDate}), ` +
@@ -671,6 +720,7 @@ function buildChains(
   muniSetts: Map<string, string[]>,
   rankByCode: Map<string, Record<string, unknown>>,
   basketCap: Map<number, number>,
+  emit: Emit,
 ): void {
   const chainNames = latest.grid.chainNames;
   // national: eik -> pid -> median over settlements of that chain's min
@@ -713,22 +763,16 @@ function buildChains(
       };
     })
     .filter((c) => c.nPriced >= 0.5 * commonBasket.length)
-    .sort((a, b) => a.basket - b.basket);
+    .sort((a, b) => a.basket - b.basket || (a.eik < b.eik ? -1 : 1));
 
-  fs.writeFileSync(
-    path.join(OUT_DIR, "chains.json"),
-    JSON.stringify({
-      latestDate: latest.date,
-      commonBasketSize: commonBasket.length,
-      note: "Chains scored on the common basket they price (nPriced of commonBasketSize). Compare like-with-like.",
-      national,
-    }),
-  );
+  emit("chains", "", {
+    latestDate: latest.date,
+    commonBasketSize: commonBasket.length,
+    note: "Chains scored on the common basket they price (nPriced of commonBasketSize). Compare like-with-like.",
+    national,
+  });
 
   // per-muni
-  const chainsDir = path.join(OUT_DIR, "chains");
-  fs.rmSync(chainsDir, { recursive: true, force: true });
-  fs.mkdirSync(chainsDir, { recursive: true });
   for (const [obsht, eks] of muniSetts) {
     const muniChainPid = new Map<string, Map<number, number[]>>();
     for (const ek of eks) {
@@ -753,21 +797,18 @@ function buildChains(
       // pricing 3 staples can't masquerade as "cheapest". nPriced is shipped
       // so the UI shows coverage.
       .filter((c) => c.nPriced >= 0.5 * commonBasket.length)
-      .sort((a, b) => a.basket - b.basket);
+      .sort((a, b) => a.basket - b.basket || (a.eik < b.eik ? -1 : 1));
     // Write a município shard whenever the muni has chains OR a rank row, so the
     // place dashboard can read its muni rank + chains from one small file.
     const rank = rankByCode.get(obsht) ?? null;
     if (chains.length || rank)
-      fs.writeFileSync(
-        path.join(chainsDir, `${obsht}.json`),
-        JSON.stringify({
-          obshtina: obsht,
-          latestDate: latest.date,
-          coreBasketSize: commonBasket.length,
-          rank,
-          chains,
-        }),
-      );
+      emit("chains-muni", obsht, {
+        obshtina: obsht,
+        latestDate: latest.date,
+        coreBasketSize: commonBasket.length,
+        rank,
+        chains,
+      });
   }
 }
 

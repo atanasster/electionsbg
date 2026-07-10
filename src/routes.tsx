@@ -135,6 +135,16 @@ const JudiciaryScreen = lazy(() =>
     default: m.JudiciaryScreen,
   })),
 );
+const EducationScreen = lazy(() =>
+  import("./screens/education/EducationScreen").then((m) => ({
+    default: m.EducationScreen,
+  })),
+);
+const SchoolScreen = lazy(() =>
+  import("./screens/education/SchoolScreen").then((m) => ({
+    default: m.SchoolScreen,
+  })),
+);
 // Local-elections stub — step 1 placeholder. Hosts both the cycle
 // overview (/local/:cycle) and the per-município full results
 // (/local/:cycle/:obshtinaCode) until step 3 ships dedicated screens.
@@ -1100,6 +1110,16 @@ const ConsumptionPlaceScreen = lazy(() =>
     default: m.ConsumptionPlaceScreen,
   })),
 );
+const ProductsBrowserScreen = lazy(() =>
+  import("./screens/consumption/ProductsBrowserScreen").then((m) => ({
+    default: m.ProductsBrowserScreen,
+  })),
+);
+const ProductScreen = lazy(() =>
+  import("./screens/product/ProductScreen").then((m) => ({
+    default: m.ProductScreen,
+  })),
+);
 
 // Back-compat: the data map moved from /data/map to /data when it became the
 // data hub's landing view. Keep ?node=/?view= deep links working.
@@ -1325,6 +1345,22 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <JudiciaryScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="education"
+            element={
+              <LayoutScreen>
+                <EducationScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="school/:id"
+            element={
+              <LayoutScreen>
+                <SchoolScreen />
               </LayoutScreen>
             }
           />
@@ -3100,11 +3136,33 @@ export const AuthRoutes = () => {
               </LayoutScreen>
             }
           />
+          {/* Static segment must precede consumption/:id so "products" is not
+              swallowed by the settlement resolver. */}
+          <Route
+            path="consumption/products"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <ProductsBrowserScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
           <Route
             path="consumption/:id"
             element={
               <LayoutScreen>
                 <ConsumptionPlaceScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="product/:slug"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <ProductScreen />
+                </Suspense>
               </LayoutScreen>
             }
           />

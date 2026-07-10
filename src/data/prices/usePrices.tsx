@@ -1,10 +1,12 @@
-// React Query hooks for the КЗП "Колко струва" price layer (data/prices/).
-// All artifacts are served from the GCS data bucket via dataUrl(). The feed is
-// a monitoring basket index — NOT official CPI (pairs with the macro tile).
-// See docs/plans/prices_kolkostruva_design.md.
+// React Query hooks for the КЗП "Колко струва" price layer.
+//
+// Served from Postgres (migration 048) via /api/db/price-payload, not from the
+// GCS bucket: data/prices/*.json no longer exists. The feed is a monitoring
+// basket index — NOT official CPI (pairs with the macro tile).
+// See docs/plans/consumption-pg-v1.md.
 
 import { useQuery } from "@tanstack/react-query";
-import { dataUrl } from "@/data/dataUrl";
+import { fetchPricePayload } from "./fetchPricePayload";
 
 export interface PricePoint {
   d: string;
@@ -149,17 +151,17 @@ export interface MuniChainsFile {
   chains: ChainRow[];
 }
 
-const getJson = async <T,>(path: string): Promise<T | null> => {
-  const res = await fetch(dataUrl(path));
-  if (!res.ok) return null; // not-covered settlements/munis 404 → self-hide
-  return (await res.json()) as T;
-};
+// The payload SHAPES are unchanged — these are the same objects build_index.ts
+// always produced, now stored verbatim in price_payloads and fetched by one
+// primary-key seek. That is why not a single consuming tile had to change.
+// A place outside the ~245 covered settlements returns `null` (HTTP 200),
+// exactly as its missing shard used to 404, so the tiles still self-hide.
 
 // Full index (national/oblast/category series) — governance tiles only.
 export const usePriceIndex = () =>
   useQuery({
     queryKey: ["prices", "index"],
-    queryFn: () => getJson<PriceIndexFile>("/prices/index.json"),
+    queryFn: () => fetchPricePayload<PriceIndexFile>("index"),
     staleTime: Infinity,
   });
 
@@ -167,22 +169,21 @@ export const usePriceIndex = () =>
 export const usePriceDict = () =>
   useQuery({
     queryKey: ["prices", "dict"],
-    queryFn: () => getJson<PriceDictFile>("/prices/dict.json"),
+    queryFn: () => fetchPricePayload<PriceDictFile>("dict"),
     staleTime: Infinity,
   });
 
 export const usePriceRanking = () =>
   useQuery({
     queryKey: ["prices", "ranking"],
-    queryFn: () => getJson<PriceRankingFile>("/prices/ranking.json"),
+    queryFn: () => fetchPricePayload<PriceRankingFile>("ranking"),
     staleTime: Infinity,
   });
 
 export const useSettlementPrices = (ekatte?: string | null) =>
   useQuery({
     queryKey: ["prices", "settlement", ekatte],
-    queryFn: () =>
-      getJson<SettlementPriceFile>(`/prices/settlement/${ekatte}.json`),
+    queryFn: () => fetchPricePayload<SettlementPriceFile>("place", ekatte),
     enabled: !!ekatte,
     staleTime: Infinity,
   });
@@ -190,14 +191,14 @@ export const useSettlementPrices = (ekatte?: string | null) =>
 export const useNationalChains = () =>
   useQuery({
     queryKey: ["prices", "chains"],
-    queryFn: () => getJson<NationalChainsFile>("/prices/chains.json"),
+    queryFn: () => fetchPricePayload<NationalChainsFile>("chains"),
     staleTime: Infinity,
   });
 
 export const useMuniChains = (obshtina?: string | null) =>
   useQuery({
     queryKey: ["prices", "chains", obshtina],
-    queryFn: () => getJson<MuniChainsFile>(`/prices/chains/${obshtina}.json`),
+    queryFn: () => fetchPricePayload<MuniChainsFile>("chains-muni", obshtina),
     enabled: !!obshtina,
     staleTime: Infinity,
   });

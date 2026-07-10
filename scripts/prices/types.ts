@@ -5,9 +5,15 @@
 export interface PriceRow {
   ekatte: string; // normalized 5-digit EKATTE
   store: string; // store name + address (free text)
-  product: string; // chain's product label
-  productId: number; // KZP product-group id (CSV col "Категория"); 0 if outside 1..101
-  price: number; // retail price, EUR
+  storeNorm: string; // normLabel(store) — backs price_stores UNIQUE
+  product: string; // the chain's own SKU name, e.g. "КАФЕ ЛАВАЦА 1КГ КУАЛИТА РОСА ЗЪРНА"
+  productNorm: string; // normName(product) — backs price_skus UNIQUE
+  productId: number; // KZP product id 1..101 (CSV col "Категория"); 0 if outside
+  // CSV col "Код на продукта" — chain-INTERNAL, NOT an EAN. Code '000006' is
+  // three unrelated products at three chains; 15.2% of codes map to >1 name.
+  // Never join SKUs on it across chains.
+  chainCode: string;
+  price: number; // retail price, EUR (the feed is already in euro — no conversion)
   promo: number | null; // promo price, EUR, or null
   eik: string; // chain EIK (from filename)
   chain: string; // chain display name (from filename)

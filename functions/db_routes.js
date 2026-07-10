@@ -58,6 +58,14 @@ const missingMigrationEmpty = (e) =>
     ? [{ r: [] }]
     : Promise.reject(e);
 
+// Same missing-migration degradation, but yields a bare `[]` — for routes that
+// `return { body: rows }` directly (arrays of rows) rather than unwrapping
+// `rows[0].r`. The `[{r:[]}]` sentinel would otherwise be served AS the array
+// (e.g. price-history's fast path sees length 1 and returns it as the series;
+// price-verdict returns `{r:[]}` and the tile computes NaN%).
+const missingMigrationRows = (e) =>
+  e?.code === "42883" || e?.code === "42P01" ? [] : Promise.reject(e);
+
 const DB_ROUTES = {
   async person(dbRows, q) {
     const name = s(q, "name");
@@ -1012,15 +1020,26 @@ const DB_ROUTES = {
   "price-search": async (dbRows, q) => {
     const term = s(q, "q");
     if (term.length < 2) return { body: [] };
+    // Escape LIKE metacharacters (%, _, \) so a stray `%` in the term doesn't
+    // match everything — the ILIKE is a prefilter, not a wildcard search.
+    // $1 stays the RAW term for similarity() (trigram treats them as literals).
+    const like = "%" + term.replace(/[\\%_]/g, "\\$&") + "%";
     const rows = await dbRows(
+      // Blend match quality with popularity: a term like "лаваца" matches a
+      // one-chain "КАФЕ ЛАВАЦА КГ" and the 7-chain "КАФЕ ЛАВАЦА 1КГ КУАЛИТА
+      // РОСА ЗЪРНА" equally on trigram similarity, but the shopper means the
+      // latter. Weighting similarity by ln(chain_count) surfaces the product
+      // people actually buy without letting a loose match on a popular product
+      // jump a tight one. The trgm index still drives the ILIKE prefilter.
       `SELECT slug, title, pid, brand, net_qty, net_unit, chain_count,
               current_min_eur, pct_since_euro
          FROM price_products
-        WHERE chain_count > 0 AND title ILIKE '%' || $1 || '%'
-        ORDER BY similarity(title, $1) DESC, chain_count DESC, slug COLLATE "C"
+        WHERE chain_count > 0 AND title ILIKE $2 ESCAPE '\\'
+        ORDER BY similarity(title, $1) * ln(chain_count + 2) DESC,
+                 chain_count DESC, slug COLLATE "C"
         LIMIT 20`,
-      [term],
-    ).catch(missingMigrationEmpty);
+      [term, like],
+    ).catch(missingMigrationRows);
     return { body: rows };
   },
 
@@ -1066,6 +1085,24 @@ const DB_ROUTES = {
   "price-history": async (dbRows, q) => {
     const slug = s(q, "slug");
     if (!slug) return { status: 400, body: { error: "missing slug" } };
+
+    // Fast path: the prerendered head is materialized by `prices:product-days`.
+    const hot = await dbRows(
+      `SELECT d.day::text AS day, d.min_eur, d.chains
+         FROM price_product_days d
+         JOIN price_products p ON p.product_id = d.product_id
+        WHERE p.slug = $1
+        ORDER BY d.day`,
+      [slug],
+    ).catch(missingMigrationRows);
+    if (hot.length) return { body: hot };
+
+    // Long tail: expand the step function live. Cheap here — these products have
+    // one or two SKUs. (The head would cost ~190k row-days and ~370ms, which is
+    // exactly why it is precomputed.)
+    //
+    // st.eik is always k.eik — a SKU belongs to exactly one chain, verified zero
+    // cross-chain facts — so no price_stores join is needed for the mask.
     const rows = await dbRows(
       `WITH p AS (SELECT product_id FROM price_products WHERE slug = $1),
             span AS (SELECT min(day) AS d0, max(day) AS d1 FROM price_grid_days)
@@ -1079,12 +1116,11 @@ const DB_ROUTES = {
          JOIN price_facts f ON f.sku_id = k.sku_id
                            AND f.valid_from <= d.day::date
                            AND (f.valid_to IS NULL OR f.valid_to >= d.day::date)
-         JOIN price_stores     st ON st.store_id = f.store_id
-         JOIN price_chain_days cd ON cd.day = d.day::date AND cd.eik = st.eik
+         JOIN price_chain_days cd ON cd.day = d.day::date AND cd.eik = k.eik
         GROUP BY d.day
         ORDER BY d.day`,
       [slug],
-    ).catch(missingMigrationEmpty);
+    ).catch(missingMigrationRows);
     return { body: rows };
   },
 
@@ -1100,7 +1136,7 @@ const DB_ROUTES = {
               count(*) FILTER (WHERE pct_since_euro IS NULL)     AS no_baseline,
               count(*)                                           AS total
          FROM price_products WHERE chain_count > 0`,
-    ).catch(missingMigrationEmpty);
+    ).catch(missingMigrationRows);
     return { body: rows[0] ?? null };
   },
 
@@ -1114,7 +1150,7 @@ const DB_ROUTES = {
         WHERE chain_count > 1 AND pct_since_euro IS NOT NULL
         ORDER BY pct_since_euro ${dir}, chain_count DESC, slug COLLATE "C"
         LIMIT 20`,
-    ).catch(missingMigrationEmpty);
+    ).catch(missingMigrationRows);
     return { body: rows };
   },
 
@@ -1218,6 +1254,29 @@ const DB_ROUTES = {
     const eik = s(q, "eik");
     if (!eik) return { status: 400, body: { error: "missing eik" } };
     const rows = await dbRows("SELECT nzok_drug_overpay_by_eik($1) AS r", [
+      eik,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
+  // НЗОК CLINICAL-ACTIVITY overview → the activity tile: national headline
+  // (total cases, procedures, facilities), the monthly cases trend, the top
+  // procedures by volume, and the pathway-internal cases-per-bed outlier
+  // leaderboard. The outlier is a signpost, not a verdict (see 053_*.sql). No
+  // param. Degrades to null when migration 053 is absent.
+  "nzok-activities": async (dbRows) => {
+    const rows = await dbRows(
+      "SELECT nzok_activities_overview() AS r",
+      [],
+    ).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
+  // One hospital's case-mix → the case-mix strip on /company/:eik: its top
+  // procedures by cases and its share of the national volume for each. This is
+  // the DENOMINATOR that makes any per-patient figure interpretable.
+  "nzok-activities-by-eik": async (dbRows, q) => {
+    const eik = s(q, "eik");
+    if (!eik) return { status: 400, body: { error: "missing eik" } };
+    const rows = await dbRows("SELECT nzok_activities_by_eik($1) AS r", [
       eik,
     ]).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? null };

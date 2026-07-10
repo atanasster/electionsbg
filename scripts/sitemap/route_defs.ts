@@ -262,6 +262,7 @@ export const routeDefs = (year: string): RouteDefs => [
   { path: "funds/rrf", file: `data/funds/rrf_context.json` },
   { path: "funds/focus/:id", file: `funds-themes-list` },
   { path: "funds/programme/:id", file: `funds-programmes-list` },
+  { path: "product/:id", file: `prices-products-list` },
 
   {
     path: "parliament",

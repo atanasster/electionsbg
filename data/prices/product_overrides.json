@@ -1,0 +1,6 @@
+{
+  "_note": "Hand-authored corrections to the canonical product clustering. Git is the source of truth; scripts/prices/rebuild_catalog.ts mirrors this into price_product_overrides. NEVER auto-merge on a similarity threshold: under-merging costs a missing comparison, over-merging publishes a false price claim. Resolve candidates from `npm run prices:catalog -- --audit` here, a handful at a time. See docs/plans/consumption-pg-v1.md §4.3.",
+  "merge": [],
+  "split": [],
+  "brand": {}
+}

@@ -1,9 +1,11 @@
 // КЗП "Колко струва" retail-price tools (euro-adoption monitoring feed).
-// All read data/prices/* (served via the data bucket). The basket index is a
-// MONITORING index, not official CPI — every envelope says so, and the LLM only
-// narrates facts. See docs/plans/prices_kolkostruva_design.md.
+// Served from Postgres (migration 048) via /api/db/price-payload — the
+// data/prices/*.json tree is gone. The payload SHAPES are unchanged (byte
+// parity verified), so only the fetch differs. The basket index is a MONITORING
+// index, not official CPI — every envelope says so, and the LLM only narrates
+// facts. See docs/plans/consumption-pg-v1.md.
 
-import { fetchData } from "./dataClient";
+import { fetchData, fetchDb } from "./dataClient";
 import { resolveSettlement, resolveMunicipality, OBLASTS } from "./place";
 import {
   settlementLocator,
@@ -119,7 +121,14 @@ interface ChainsFile {
   national: ChainRow[];
 }
 
-const loadDict = () => fetchData<DictFile>("/prices/dict.json");
+/** One price_payloads blob by (kind, key). Mirrors src/data/prices — same route,
+ *  same shapes as the retired data/prices/*.json. Returns null for a missing
+ *  place (an uncovered settlement/muni), so callers .catch(() => undefined) or
+ *  guard on falsy exactly as they did against the old 404. */
+const pricePayload = <T>(kind: string, key?: string) =>
+  fetchDb<T>("price-payload", key ? { kind, key } : { kind });
+
+const loadDict = () => pricePayload<DictFile>("dict");
 const PROV = "kolkostruva.bg (КЗП)";
 
 // euro + percent formatting matching the project convention (`${n} €` / `€${n}`)
@@ -212,7 +221,7 @@ const noData = (
   tool: string,
   title: string,
   facts: Record<string, string | number>,
-  prov = "prices/dict.json",
+  prov = "price_payloads (PG)",
 ): Envelope => ({
   tool,
   domain: "indicators",
@@ -233,7 +242,9 @@ export const priceIndex = async (
 ): Promise<Envelope> => {
   const lang = ctx.lang;
   // index.json is a superset of dict.json, so fetch it directly (no dict round-trip)
-  const idx = await fetchData<IndexFile>("/prices/index.json");
+  const idx = await pricePayload<IndexFile>("index");
+  // price-payload returns null on an empty/pre-migration DB (200, not 404).
+  if (!idx) return noData("priceIndex", "", { note: notCpi(ctx.lang) });
   const oblastArg =
     typeof args.oblast === "string" ? args.oblast.toUpperCase() : "";
   const region = oblastArg && idx.regions[oblastArg] ? oblastArg : "";
@@ -243,7 +254,7 @@ export const priceIndex = async (
       "priceIndex",
       lang === "bg" ? "Няма ценови данни" : "No price data",
       {},
-      "prices/index.json",
+      "price_payloads (PG)",
     );
   const latest = series[series.length - 1].v;
   const change = latest / 100 - 1;
@@ -310,7 +321,7 @@ export const priceIndex = async (
     viz: "line",
     geo: region ? oblastLocator(region, placeName) : undefined,
     facts,
-    provenance: ["prices/index.json", PROV],
+    provenance: ["price_payloads (PG)", PROV],
   };
 };
 
@@ -326,6 +337,7 @@ export const settlementPrices = async (
   const query = String(args.place ?? "").trim();
   const productQ = String(args.product ?? "").trim();
   const dict = await loadDict();
+  if (!dict) return noData("settlementPrices", "", { note: notCpi(ctx.lang) });
 
   // resolve the place to an EKATTE-keyed settlement shard (Sofia → 68134).
   let ekatte = "";
@@ -343,9 +355,7 @@ export const settlementPrices = async (
 
   let sett: SettFile | undefined;
   if (ekatte)
-    sett = await fetchData<SettFile>(`/prices/settlement/${ekatte}.json`).catch(
-      () => undefined,
-    );
+    sett = await pricePayload<SettFile>("place", ekatte).catch(() => undefined);
 
   // município fallback (no per-settlement shard) — show its cheapest chains.
   if (!sett) {
@@ -401,7 +411,7 @@ export const settlementPrices = async (
         as_of: sett.latestDate,
         note: notCpi(lang),
       },
-      provenance: [`prices/settlement/${ekatte}.json`, PROV],
+      provenance: ["price_payloads (PG)", PROV],
     };
   }
 
@@ -461,7 +471,7 @@ export const settlementPrices = async (
     viz: "none",
     geo: settlementLocator(ekatte, obshtina, placeName),
     facts,
-    provenance: [`prices/settlement/${ekatte}.json`, PROV],
+    provenance: ["price_payloads (PG)", PROV],
   };
 };
 
@@ -479,38 +489,42 @@ export const cheapestChains = async (
   let chains: ChainRow[] = [];
   let coreSize = 12;
   let scope = lang === "bg" ? "национално" : "national";
-  let prov = "prices/chains.json";
+  let prov = "price_payloads (PG)";
   let geoObshtina = "";
   let geoOblast = "";
 
   if (query && !Sofia.test(query.toLowerCase())) {
     const muni = await resolveMunicipality(query).catch(() => undefined);
     if (muni) {
-      const f = await fetchData<{
+      const f = await fetchDb<{
         chains: ChainRow[];
         coreBasketSize?: number;
-      }>(`/prices/chains/${muni.obshtina}.json`).catch(() => undefined);
+      }>("price-payload", { kind: "chains-muni", key: muni.obshtina }).catch(
+        () => undefined,
+      );
       if (f && f.chains.length) {
         chains = f.chains;
         coreSize = f.coreBasketSize ?? 12;
         scope = lang === "bg" ? muni.name : muni.nameEn;
-        prov = `prices/chains/${muni.obshtina}.json`;
+        prov = "price_payloads (PG)";
         geoObshtina = muni.obshtina;
         geoOblast = muni.oblast;
       }
     }
   }
   if (!chains.length) {
-    const f = await fetchData<ChainsFile>("/prices/chains.json");
-    chains = f.national;
-    coreSize = f.commonBasketSize;
+    const f = await pricePayload<ChainsFile>("chains");
+    if (f) {
+      chains = f.national;
+      coreSize = f.commonBasketSize;
+    }
   }
   if (!chains.length)
     return noData(
       "cheapestChains",
       lang === "bg" ? "Няма данни за вериги" : "No chain data",
       {},
-      "prices/chains.json",
+      "price_payloads (PG)",
     );
 
   const top = chains.slice(0, 12);
@@ -581,7 +595,8 @@ export const priceRanking = async (
   const tier: "settlement" | "oblast" = wantOblast ? "oblast" : "settlement";
   const n = Math.max(3, Math.min(Number(args.n) || 8, 20));
 
-  const f = await fetchData<RankingFile>("/prices/ranking.json");
+  const f = await pricePayload<RankingFile>("ranking");
+  if (!f) return noData("priceRanking", "", { note: notCpi(ctx.lang) });
   const places = f.places.filter(
     (p) =>
       p.tier === tier && (byChange ? p.rankChange?.national : p.rank?.national),
@@ -591,7 +606,7 @@ export const priceRanking = async (
       "priceRanking",
       lang === "bg" ? "Няма класация" : "No ranking",
       {},
-      "prices/ranking.json",
+      "price_payloads (PG)",
     );
 
   // by-change: highest index first (rose most). by-level: cheapest basket first.
@@ -697,7 +712,7 @@ export const priceRanking = async (
       ranked: ranked.length,
       note: notCpi(lang),
     },
-    provenance: ["prices/ranking.json", PROV],
+    provenance: ["price_payloads (PG)", PROV],
   };
 };
 
@@ -722,9 +737,10 @@ export const basketAffordability = async (
 ): Promise<Envelope> => {
   const lang = ctx.lang;
   const [rank, reg] = await Promise.all([
-    fetchData<RankingFile>("/prices/ranking.json"),
+    pricePayload<RankingFile>("ranking"),
     fetchData<RegionalData>("/regional.json"),
   ]);
+  if (!rank) return noData("basketAffordability", "", { note: notCpi(lang) });
   const gdp = reg.series?.gdpPerCapita ?? {};
   const latestGpc = (code: string): number | undefined => {
     const g = gdp[code];
@@ -823,7 +839,7 @@ export const basketAffordability = async (
           gdp_per_capita: gpcLabel(me.gpc),
           note,
         },
-        provenance: ["prices/ranking.json", "regional.json", PROV],
+        provenance: ["price_payloads (PG)", "regional.json", PROV],
       };
     }
   }
@@ -880,7 +896,7 @@ export const basketAffordability = async (
       oblasts_ranked: N,
       note,
     },
-    provenance: ["prices/ranking.json", "regional.json", PROV],
+    provenance: ["price_payloads (PG)", "regional.json", PROV],
   };
 };
 
@@ -909,9 +925,10 @@ export const basketVsInflation = async (
 ): Promise<Envelope> => {
   const lang = ctx.lang;
   const [idx, macro] = await Promise.all([
-    fetchData<IndexFile>("/prices/index.json"),
+    pricePayload<IndexFile>("index"),
     fetchData<MacroLite>("/macro.json"),
   ]);
+  if (!idx) return noData("basketVsInflation", "", { note: notCpi(lang) });
   const series = idx.national.index;
   const basketChange =
     series.length >= 2 ? series[series.length - 1].v / 100 - 1 : 0;
@@ -972,6 +989,104 @@ export const basketVsInflation = async (
       hicp_period: period,
       note,
     },
-    provenance: ["prices/index.json", "macro.json", PROV],
+    provenance: ["price_payloads (PG)", "macro.json", PROV],
+  };
+};
+
+// =============================================================================
+// 7. productPrice — one specific product across chains (the browser, for chat)
+// =============================================================================
+// Resolves a free-text product to a canonical product via trigram search
+// (price-search), then returns its cross-chain ladder (price-product). This is
+// the product-grain unlock the old 101-group tools never had: "колко струва
+// кафе Лаваца" resolves to the actual Lavazza SKU, not the whole coffee group.
+
+interface ProductHit {
+  slug: string;
+  title: string;
+  pid: number;
+  chain_count: number;
+  current_min_eur: number | null;
+  pct_since_euro: number | null;
+}
+interface LadderRow {
+  eik: string;
+  chain: string;
+  price_eur: number;
+  promo_eur: number | null;
+  stores: number;
+}
+
+const searchProduct = (q: string) =>
+  fetchDb<ProductHit[]>("price-search", { q });
+
+export const productPrice = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const lang = ctx.lang;
+  const q = typeof args.product === "string" ? args.product.trim() : "";
+  if (q.length < 2)
+    return noData(
+      "productPrice",
+      q,
+      { note: notCpi(lang) },
+      "price_payloads (PG)",
+    );
+
+  const hits = await searchProduct(q);
+  if (!hits || !hits.length)
+    return noData(
+      "productPrice",
+      lang === "bg" ? `Няма продукт „${q}"` : `No product "${q}"`,
+      { query: q, note: notCpi(lang) },
+      "price_payloads (PG)",
+    );
+  const top = hits[0];
+  const detail = await fetchDb<{
+    product: ProductHit & { confidence: number };
+    chains: LadderRow[];
+  } | null>("price-product", { slug: top.slug });
+
+  const ladder = (detail?.chains ?? []).slice(0, 8);
+  const columns: Column[] = [
+    { key: "chain", label: lang === "bg" ? "Верига" : "Chain" },
+    { key: "price", label: lang === "bg" ? "Цена" : "Price", numeric: true },
+  ];
+  const rows: Row[] = ladder.map((c) => ({
+    chain: c.chain,
+    price: eur(c.promo_eur ?? c.price_eur, lang),
+  }));
+
+  const since =
+    top.pct_since_euro == null
+      ? lang === "bg"
+        ? "нов след еврото"
+        : "new since the euro"
+      : `${pct(top.pct_since_euro / 100)} ${lang === "bg" ? "от еврото" : "since the euro"}`;
+
+  return {
+    tool: "productPrice",
+    domain: "indicators",
+    kind: "table",
+    title: top.title,
+    subtitle:
+      top.current_min_eur != null
+        ? `${lang === "bg" ? "от" : "from"} ${eur(top.current_min_eur, lang)} · ${top.chain_count} ${lang === "bg" ? "вериги" : "chains"} · ${since}`
+        : since,
+    columns,
+    rows,
+    viz: "none",
+    facts: {
+      product: top.title,
+      slug: top.slug,
+      lowest_price:
+        top.current_min_eur != null ? eur(top.current_min_eur, lang) : "",
+      chains: top.chain_count,
+      since_euro: since,
+      cheapest_chain: ladder[0]?.chain ?? "",
+      note: notCpi(lang),
+    },
+    provenance: ["price_payloads (PG)", PROV],
   };
 };
