@@ -72,6 +72,31 @@ Incumbents we beat: **regionalprofiles.bg** (oblast-grain only, annual PDF), **r
 (higher-ed, locked UI), **НСИ** (dry tables), **danybon/nvoresults/klasirane** (naked league
 tables — the anti-pattern).
 
+### 1b. UI/UX craft to steal (best-in-world, beyond the metric framing)
+The features above are *what* to show; these are *how*, to make it feel best-in-class:
+
+- **OWID chart/map/table triad** (`ourworldindata.org`) — one dataset, three views toggled top-left,
+  each keeping only its own controls top-right; a separate "edit entities" picker; **deep-linked,
+  shareable state where the social-card preview reflects the current selection/timespan/tab.** This
+  is the core interaction shell for *every* education metric page; it's view-switching (compatible
+  with `feedback_no_tabs_ux` — not section-navigation). Reuse and extend the site's `?`-URL contract.
+- **SEDA / Hyperobjekt linked hover** — hover a dot in the SES scatter → its oblast lights on the
+  map, and vice versa. The linked-highlight is the interaction that makes "level vs context" click.
+- **GOV.UK "Compare school performance"** — the a11y + search floor: multi-modal finder (name OR
+  settlement OR oblast OR EKATTE), keyboard/screen-reader-first, no-JS fallback, plain language.
+- **Chile MIME** — parent-first warmth: **proximity-first default ("училища близо до мен")** + a
+  **saved shortlist** to compare candidates. A counterweight to the analyst-grade scatter.
+- **NYT Upshot "Money, Race and Success"** — the within-entity gap as a *connector line* (e.g.
+  град vs село, or 7-клас НВО vs 12-клас ДЗИ) — but heed the critique: always pair the pretty
+  scatter with a **list/compare mode** so it isn't one-entity-at-a-time.
+- **EdReports traffic-light report card** (`edreports.org`) — a per-item scorecard with a memorable
+  headline badge ("all-green"); **make the rating a noun people cite, and publish the rubric openly**
+  (its credibility gap is the cautionary tale — show sub-scores, not just the aggregate light).
+- **Cross-cutting:** traffic-light + a plain-language label on every index (never a raw number);
+  "learn about this data" provenance overlay one click from every chart (matches the source-first
+  brand); animated tweens between metrics so users track entities; **mobile as the primary viewport**
+  (empty/loading/mobile are designed states, not afterthoughts).
+
 ---
 
 ## 2. Data foundation (the hard part; everything downstream is a query)
@@ -254,6 +279,98 @@ Band thresholds anchored to a *named* standard (QEdu/Chile style), shown to the 
 arbitrary quantiles. Methodology link on every verdict.
 
 ---
+
+## 3b. The textbook-publisher concentration pack ("Учебникарската концентрация")
+
+The strongest differentiator, and it needs **almost no new ingest** — the market lives in the
+`contracts` table we already have. This is the "concentration of providers by school / by grade /
+by government / by locality" ask, grounded in verified numbers.
+
+### 3b.0 What the corpus already proves (queried live 2026-07-09, CPV `22112%` „Учебници")
+| Fact | Value |
+|---|---|
+| Market (all years) | **€50.9M**, live series **2022–2026**, peaked **€27M in 2024** (the 1–7 → **1–12** free-textbook expansion) |
+| Structure | **duopoly** — Клет България (Анубис+Булвест) **37.5%** + Просвета-group **36.2%** = **73.7%** |
+| Concentration | **HHI ≈ 2,562** → "highly concentrated" on the DOJ scale (>2,500); ~24 tail publishers share 4.9% |
+| Who buys | **606 distinct schools = 95% of spend.** МОН does **not** buy centrally |
+| Per-school | a two-horse race (e.g. СУ „Васил Левски": Просвета €839k vs Клет €731k) |
+
+All four requested cuts are computable **from the corpus today**: **by publisher** (national HHI),
+**by government/buyer** (school vs община vs министерство), **by locality** (awarder oblast herding).
+Only **by grade/subject** needs the МОН approval-list scrape (§3b.3).
+
+### 3b.1 The framing trap that must be handled first
+Textbooks are awarded under **чл. 79, ал. 1, т. 3 ЗОП — "договаряне без предварително обявление"**:
+a school legally *must* direct-award to the single copyright-holder of the title its teachers chose.
+So **every textbook contract is single-bidder by law.** The site's existing single-bid red flag
+would fire on ~100% of these and be actively misleading. **Suppress/override the single-bid flag
+for CPV 22112%.** The real concentration signal is **upstream of the award**:
+1. **Market share / HHI** by publisher — national, oblast, subject.
+2. **How few publishers МОН actually approves per subject×grade** — is "choice" real or two names?
+   (КЗК ruled in **2011** that the old max-3-per-subject cap created "an oligopolistic market
+   structure.") This is the sharpest, most novel metric.
+3. **Herding** — do all schools in an oblast cluster on one publisher (РУО steering)?
+The consolidation story is concrete: **Klett rolled up Анубис + Булвест 2000 (2013→2017)**,
+turning a fragmented field into Просвета-vs-Клет.
+
+### 3b.2 Publisher-group consolidation is mandatory (the SIGMA "union entity" problem)
+Raw contractor rows fragment the same group across legal entities and spellings — "Клет българия
+ООД", "ПРОСВЕТА-СОФИЯ АД", "Просвета Плюс АД", "Просвета плюс ЕАД". Honest concentration requires a
+**publisher-group dimension** (same issue as `project_procurement_sigma_parity_audit`):
+- **Клет group** = Клет България ООД (**ЕИК 130878827**) ⊃ Анубис + Булвест 2000 + Изкуства + PONS.
+- **Просвета group** = Просвета-София АД (**ЕИК 131106522**) + Просвета Плюс АД/ЕАД.
+Store the EIK→group map in `monBenchmarks.ts` (or a `textbookPublishers.ts`); the remaining
+publisher EIKs derive from the CPV-22112 contractor set. Show **both** the group HHI (the honest
+headline) and the legal-entity breakdown (auditable), per the union-vs-split-share note.
+
+### 3b.3 The approval-register scrape (the second, expensive layer — unlocks "by grade")
+МОН's "Списък на одобрените учебници и учебни комплекти" (per Наредба № 10/2017, published by
+31 Jan each year) carries **subject × grade × publisher × title × order № РД09- × year** — but as
+per-заповед HTML + attached DOC/PDF/XLS, no register, no API, and **mon.bg 403s bots** → a **headed
+Playwright scrape + multi-format parse** (reuse the existing headed-scrape patterns, e.g.
+`update-kzk-appeals`). This is the only path to the **"how much choice does МОН grant per subject"**
+metric and the Texas-IMRA-style **Approved register**. Annual cadence. Defer to a fast-follow; the
+procurement-only cuts ship first.
+
+### 3b.4 The "who dominates" component (reusable across procurement/subsidies too)
+Per the world-best concentration-viz grammar — build one component, reuse it site-wide:
+1. **HHI gauge** with **DOJ threshold bands** (<1500 competitive · 1500–2500 moderate · >2500 highly
+   concentrated) **+ a plain-language label** ("силно концентриран пазар") — never a bare number
+   (Internet Society *Pulse* is the reference look).
+2. **CR-N bar** — "топ 2 издателя = 73.7%" is more legible than HHI; show top-N vs "всички други".
+3. **Market-share treemap** for a single market snapshot (one subject's textbooks).
+4. **Publisher→school Sankey** — reuse the existing procurement `flow.json` grammar; a few thick
+   ribbons = concentration.
+5. **Concentration choropleth** — HHI or #1-publisher share by oblast (the map that makes it local).
+6. A **"monopoly cell" flag** — subjects/oblasti where one group ≈ 100% (the honest replacement for
+   the suppressed single-bid flag).
+
+### 3b.5 Where it surfaces + wiring
+- A **"Учебникарският пазар" tile group** on the МОН pack (`/awarder/000695114`) and a standalone
+  **`/education/textbooks`** page (the treemap + HHI gauge + publisher→school Sankey + oblast
+  choropleth + a `DbDataTable` of contracts filtered to CPV 22112, following the §6 browse pattern).
+- **Data model:** no new source table for the procurement cuts — a `textbook_market_payloads`
+  (kind = `national|oblast|publisher|subject`) precomputed from `contracts WHERE cpv LIKE '22112%'`,
+  joined to the publisher-group map; index already covers `contracts(cpv)` / `(awarder_eik)` — but
+  `EXPLAIN ANALYZE` the CPV-prefix scan and add a `cpv` index if it seq-scans. The approval-list
+  layer (§3b.3) adds a `textbook_approvals` table (subject, grade, publisher, order №, year).
+- **AI tool:** `textbookConcentration` (domain `procurement`/`indicators`) — national + by-oblast +
+  by-publisher-group HHI and top-N; add to `ai/tools/education.ts`, router keywords
+  `учебник|издател|просвета|клет|анубис|булвест|концентрац|textbook|publisher`.
+- **Watcher:** `mon_textbook_approvals` source → `update-schools` (annual; §3b.3 scrape).
+- **SEO:** `/education/textbooks` gets its own `routeDefs` + `ENGLISH_STATIC_PAGES` entry + an OG
+  `captures[]` card anchored on the treemap or the HHI gauge (`data-og="textbook-treemap"`).
+- **First social card (already in the data):** "Два издателя държат 74% от пазара на учебници за
+  €51 млн. — а всеки договор е пряко възлагане по закон."
+
+### 3b.6 Publish-safety caveats
+- **Reframe, don't accuse:** чл.79 direct award is lawful; the story is *upstream concentration +
+  guaranteed demand*, not "rigged tenders." State the legal basis on the tile.
+- The circulating **"Просвета 152 млн лв profit 2023"** figure is implausible — **do not publish
+  without a TR check** (likely conflates revenue).
+- Reconcile the free-textbook budget three ways (press ~€93–122M lv ≈ €47–62M · the МОН budget line
+  we already ingest · summed CPV-22112 contracts) before any DATA card.
+- The КЗК "oligopoly" wording is a **2011 advisory opinion**, not a cartel ruling — cite it as such.
 
 ## 4. Ethics guardrails (product, not decoration)
 
@@ -560,6 +677,7 @@ The plan had no answer for "how do we know the numbers are right." Fill it:
 | Phase | Deliverable | Wiring done in-phase | Depends on |
 |---|---|---|---|
 | **P0 Skeleton** | МОН sector pack (`sectorPacks.tsx`, `MonPack`) + nav + budget bridge + decline strip. Ships alone; beats regionalprofiles.bg on grain. | i18n `procurement_mon_nav`; data-map feature node; **`INSTITUTION_PACKS` МОН entry → prerender + sitemap `/awarder/000695114`** | none |
+| **P0.5 Textbook concentration** (early win — no new ingest; §3b) | publisher-group map + "who dominates" component (HHI gauge · CR-N · treemap · publisher→school Sankey · oblast choropleth) · `/education/textbooks` + CPV-22112 `DbDataTable` · **suppress the single-bid flag for CPV 22112** | `textbook_market_payloads` (EXPLAIN ANALYZE the CPV scan, add `contracts(cpv)` index if needed); AI `textbookConcentration`; `/education/textbooks` routeDefs + OG card; TR check on the 152M figure; first FB card | P0 |
 | **P1 Data** | **(a) persist cohort `n` (§2.2 — ~1 line)** · **(b) widen `YEARS` + normalize header variants → unlock 2022–2026 (§2.0b)** · **(c) harden the egov fetch (content-type sniff + real cache validation)** · **(d) НВО ingest + `--backfill`** · geocode via EKATTE (§2.3) · Eurostat E&T · **Индекс на средата** · **schools→PG** | new watcher sources; `update-schools` skill; `stamp-ingest`; `recordIngestBatch`; data-map source group; README; per-year row-count assertion | P0 |
 | **P2 Explorer + report card** | `/education` map + finder + `/school/:id` card (**level + suppression/CI only — no growth verdict yet**); `SchoolsBrowserDbScreen` + `/education/schools` | `schools` `/api/db/table` REGISTRY (EXPLAIN ANALYZE); AI `schoolProfile`/`schoolsNearMe`; `/education*` + `school/:id` routeDefs + `buildSchoolRoutes` prerender; golden fixtures | P1a geocode+PG |
 | **P3 Equity engine** | similar-cohorts · SEDA двойна scatter (growth from the 5-yr ДЗИ series) · **true НВО→ДЗИ value-added once P1d lands** · band/CI verdicts · `school_payloads` precompute | payload-determinism parity audit; AI `maturaByPlace`/`educationGaps`; `data-og="education-scatter"`; **dev-gated until golden-tested** | **P1b** (5-yr series) + SES index; P1d for value-added |
@@ -581,10 +699,20 @@ The plan had no answer for "how do we know the numbers are right." Fill it:
   is only an outward GCS snapshot and creates nothing) + functions redeploy (like the procurement/funds
   migrations); `school_*` excluded from `bucket:sync` if PG-served.
 - **Deferred data** (делегирани бюджети per school, rsvu, НАЦИД) — real gaps; wire as later tiles.
+- **Textbook single-bid flag (§3b.1)** — CPV 22112 is 100% чл.79 direct award; suppressing the flag
+  there must not break the site-wide single-bid metric. Scope the override to the CPV, not globally.
+- **Textbook publisher-group map drift** — new imprints/renames (like the Klett roll-up) will appear;
+  the EIK→group map needs a maintenance path, and unmapped EIKs must fail-loud, not silently fragment.
+- **Approval-register scrape brittleness** — mon.bg 403s bots + per-заповед DOC/PDF/XLS; the "by
+  grade/subject" layer is the expensive, breakable part. Ship the procurement cuts without it.
 
 ## 14. Sources (verify before publishing any DATA card)
-data.egov.bg МОН org `a57a2273-…`; ДЗИ dataset `066b4b04-…`; МОН institution register
-(ri.mon.bg / neispuo.mon.bg); EU E&T Monitor 2024 (BG)
-`op.europa.eu/webpub/eac/education-and-training-monitor/en/country-reports/bulgaria.html`;
-MySchool ICSEA guide (myschool.edu.au); Stanford EOP `edopportunity.org`; UK Progress 8 DfE
-guidance; Chile Categoría de Desempeño (agenciaeducacion.cl). Full URL set in the research thread.
+**Schools/outcomes:** data.egov.bg МОН org `a57a2273-…`; ДЗИ dataset `066b4b04-…`; МОН institution
+register (ri.mon.bg / neispuo.mon.bg); EU E&T Monitor 2024 (BG)
+`op.europa.eu/webpub/eac/education-and-training-monitor/en/country-reports/bulgaria.html`.
+**Textbooks:** МОН approved-lists `mon.bg/dyasno-menyu/uchebnitsi/` (403s bots); Наредба № 10/2017;
+КЗК 2011 oligopoly opinion (dnevnik.bg); Просвета-София АД EIK 131106522, Клет България ООД EIK
+130878827; АОП CPV 22112000 (already in-corpus). **UI/UX:** MySchool ICSEA (myschool.edu.au);
+Stanford EOP `edopportunity.org`; UK Progress 8 DfE; Chile MIME (mime.mineduc.cl); OWID Grapher;
+EdReports (edreports.org); Internet Society Pulse (pulse.internetsociety.org) + OpenTender
+(opentender.eu) for concentration viz. Full URL set in the research thread.
