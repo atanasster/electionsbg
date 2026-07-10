@@ -25,7 +25,8 @@ const REGISTRY = {
     // contracts_list = contracts + a per-row КЗК-appeal flag via the appealed-
     // ocids matview (migration 042); a view over the base, filters/sorts intact.
     // ⚠ Hard dep on migration 042 (no base-table fallback here — the projection
-    // selects has_appeal/appeal_upheld): db:push BEFORE functions:db, else 42P01.
+    // selects has_appeal/appeal_upheld): apply 042 to Cloud SQL BEFORE functions:db,
+    // else 42P01. `db:load:tenders:pg:cloud` applies it; so does apply_functions.ts.
     base: "contracts_list",
     scopeCols: ["contractor_eik", "awarder_eik"],
     columns: {
@@ -258,7 +259,8 @@ const REGISTRY = {
   // kzk_appeals_list (schema 042) = the whole appeals corpus + tender-derived
   // buyer name + resolved flag. No EIK scope column — the section scope (?pscope)
   // is applied as a complaint_date range filter, same as the tenders browser's
-  // publication_date. ⚠ Hard dep on migration 042: db:push BEFORE functions:db.
+  // publication_date. ⚠ Hard dep on migration 042 reaching Cloud SQL (via
+  // db:load:tenders:pg:cloud or apply_functions.ts) BEFORE functions:db.
   kzk_appeals: {
     base: "kzk_appeals_list",
     scopeCols: [],

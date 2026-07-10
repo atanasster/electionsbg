@@ -39,11 +39,12 @@ precision from the by-tender shards) + the `ocid` lineage to contracts are in
 function) → the **"Announced procedures" tile on `/awarder/:eik`** (forecast Σ vs
 actual awarded, contracted share, recent procedures). One follow-up:
 - **Prod-enablement (operator)** — the tenders table + API functions live only
-  in local PG; the tile stays hidden in prod until the Cloud SQL snapshot
-  includes them: `npm run db:push` (pg_dump/restore covers the new table +
-  functions), then redeploy `functions:db`. The read-only role auto-grants
-  (ALTER DEFAULT PRIVILEGES) SELECT on the new table + EXECUTE on the new
-  functions.
+  in local PG; the tile stays hidden in prod until `npm run db:load:tenders:pg:cloud`
+  applies the DDL and TRUNCATE-reloads the table against the Cloud SQL proxy, then
+  redeploy `functions:db`. The read-only role auto-grants (ALTER DEFAULT PRIVILEGES)
+  SELECT on the new table + EXECUTE on the new functions.
+  **Not `db:dump`** — that only `pg_dump`s a database *outward* to GCS for
+  `db:restore`; it cannot create a table on Cloud SQL.
 
 ## Recommended sequence
 

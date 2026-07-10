@@ -38,8 +38,11 @@ implement all four phases.
 Each item below touches Postgres (new/changed SQL function or column), so follow
 the DB workflow: edit `scripts/db/schema/pg/*.sql`, apply to local PG, `EXPLAIN
 ANALYZE` on the worst-case entity (add the index if it seq-scans), verify parity,
-then `db:push` + functions redeploy for prod. See reference_pg_query_performance,
-reference_db_push_cloud.
+then for prod apply the DDL against the Cloud SQL proxy —
+`DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts <file.sql>`
+— plus the matching `db:load:*:cloud` if a table's rows changed, and redeploy
+`functions:db`. (**Not `db:dump`**: that only `pg_dump`s outward to GCS.)
+See reference_pg_query_performance, reference_db_push_cloud.
 
 ### P1b — generic competition KPIs + per-buyer KZK (highest value)
 

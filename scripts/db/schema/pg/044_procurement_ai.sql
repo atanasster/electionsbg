@@ -16,8 +16,10 @@
 --
 -- Applied by scripts/db/load_tenders_pg.ts (after 042_kzk_appeals.sql — both
 -- read `tenders`, and the summary reads `kzk_appeals`). EXECUTE auto-grants to
--- app_readonly. db:push BEFORE functions:db (functions/db_routes.js adds the
--- tender-corpus-search / kzk-appeals-summary routes that call these).
+-- app_readonly. Apply to Cloud SQL (db:load:tenders:pg:cloud, or apply_functions.ts)
+-- BEFORE functions:db — NOT db:dump, which only dumps outward to GCS
+-- (functions/db_routes.js adds the tender-corpus-search / kzk-appeals-summary
+-- routes that call these).
 
 SET check_function_bodies = off;
 

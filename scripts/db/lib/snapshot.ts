@@ -39,7 +39,7 @@ export interface Lockfile {
   coverage: string | null;
   generatedAt: string | null;
   codeGitSha: string | null;
-  /** null until `db:push` uploads a snapshot. */
+  /** null until `db:dump` uploads a snapshot. */
   snapshot: SnapshotRef | null;
 }
 

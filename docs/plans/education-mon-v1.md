@@ -431,7 +431,7 @@ bridge chart rather than a plain KPI header." For МОН, frame the strongest da
 | **P2 Explorer + report card** | `/education` map + finder + `/school/:id` card (level + trend); `SchoolsBrowserDbScreen` + `/education/schools` | `schools` `/api/db/table` REGISTRY (EXPLAIN ANALYZE); AI `schoolProfile`/`schoolsNearMe`; **`/education*` + `school/:id` routeDefs + `buildSchoolRoutes` prerender** | P1 geocode+PG |
 | **P3 Equity engine** | similar-cohorts · SEDA двойна scatter · band/CI verdicts · `school_payloads` precompute | payload-determinism parity audit; AI `maturaByPlace`/`educationGaps`; **`data-og="education-scatter"` on the hero tile** | P1 SES index |
 | **P4 Journalism + spine** | inequality choropleth (`OblastChoropleth`) · money-trail spine · `?peers=` PISA panel | AI `monFiscal`; education sector-browse pack (if Water's seam landed); **`data-og="education-gap-map"`** | P2,P3 |
-| **P5 Ship** | ethics/methodology page · **OG capture (`mon.png` + `education*.png`) + `ENGLISH_STATIC_PAGES` + `/en` prerender mirrors** · `bucket:sync` · `db:push` · README/data-map final · `naiasno-post` FEATURE launch | changelog verified; sitemap + data-map build clean; docs updated | all |
+| **P5 Ship** | ethics/methodology page · **OG capture (`mon.png` + `education*.png`) + `ENGLISH_STATIC_PAGES` + `/en` prerender mirrors** · `bucket:sync` · Cloud SQL publish (`apply_functions.ts` + `db:load:*:cloud`) · README/data-map final · `naiasno-post` FEATURE launch | changelog verified; sitemap + data-map build clean; docs updated | all |
 
 ## 13. Open questions / risks
 - **Geocoding coverage** — if the МОН register isn't cleanly scrapable, fall back to EKATTE
@@ -443,7 +443,9 @@ bridge chart rather than a plain KPI header." For МОН, frame the strongest da
   verification net while the browse/scatter serve from PG; don't let them drift (parity check).
 - **Firebase file-ceiling** (`project_firebase_deploy_ceiling`) — 978 prerendered `/school/*`
   pages is fine; watch total dist file count.
-- **Prod deploy** — new PG tables need `db:push` + functions redeploy (like the procurement/funds
+- **Prod deploy** — new PG tables need their DDL applied to Cloud SQL (`apply_functions.ts`
+  against the proxy) + a `db:load:school:pg:cloud`-style loader wrapper (write one; `db:dump`
+  is only an outward GCS snapshot and creates nothing) + functions redeploy (like the procurement/funds
   migrations); `school_*` excluded from `bucket:sync` if PG-served.
 - **Deferred data** (делегирани бюджети per school, rsvu, НАЦИД) — real gaps; wire as later tiles.
 

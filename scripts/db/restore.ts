@@ -32,13 +32,13 @@ const main = async (): Promise<void> => {
   const lock = readLockfile();
   if (!lock) {
     console.error(
-      "No data/db/procurement.lock.json — run npm run db:push first.",
+      "No data/db/procurement.lock.json — run npm run db:dump first.",
     );
     process.exit(1);
   }
   if (!lock.snapshot) {
     console.error(
-      "lockfile has no snapshot (dry-run only) — run a real npm run db:push first.",
+      "lockfile has no snapshot (dry-run only) — run a real npm run db:dump first.",
     );
     process.exit(1);
   }

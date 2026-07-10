@@ -1,7 +1,9 @@
 -- ⚠ DEPLOY ORDER: functions/db_routes.js (CONTRACT_SQL) and functions/db_table.js
 -- (REGISTRY contracts→contracts_list, tenders→tenders_list) READ the views this
--- migration creates. Apply this migration (db:push) BEFORE deploying functions
--- (functions:db) — otherwise the browsers 500 with 42P01 (undefined_table). The
+-- migration creates. Apply this migration to Cloud SQL BEFORE deploying functions
+-- (functions:db) — via `db:load:tenders:pg:cloud` (load_tenders_pg.ts applies it) or
+-- `apply_functions.ts 042_kzk_appeals.sql`; NOT `db:dump`, which only dumps a DB
+-- outward to GCS — otherwise the browsers 500 with 42P01 (undefined_table). The
 -- /contract/:key route has a base-table fallback; the browsers do NOT, so the
 -- ordering is a hard requirement for them.
 --

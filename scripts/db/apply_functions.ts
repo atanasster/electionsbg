@@ -1,6 +1,6 @@
 // Surgical DDL apply — run one or more schema/pg/*.sql files against the target
 // DATABASE_URL (local by default, Cloud SQL proxy when the caller sets a
-// password-less DATABASE_URL, same convention as db:push:cloud). For
+// password-less DATABASE_URL, same convention as db:dump:cloud). For
 // CREATE OR REPLACE FUNCTION changes that don't need a full db:load / destructive
 // db:sync:cloud — idempotent, touches only the named objects.
 //

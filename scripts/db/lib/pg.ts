@@ -12,7 +12,7 @@ import { fileURLToPath } from "node:url";
 // hasn't set PGPASSFILE. node-pg only consults it when a connection has NO inline
 // password, so this is a no-op for the local default below (which carries its
 // password inline) and only kicks in for a password-less DATABASE_URL — i.e. the
-// Cloud SQL proxy target (db:push:cloud), whose password lives in .pgpass. Keeps
+// Cloud SQL proxy target (db:dump:cloud), whose password lives in .pgpass. Keeps
 // the cloud password out of source and out of argv.
 const REPO_PGPASS = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -29,13 +29,13 @@ export const LOCAL_DATABASE_URL =
 // Local dev = the docker-compose Postgres.
 // Override DATABASE_URL to target the Cloud SQL proxy WITHOUT a password so the
 // password is read from .pgpass, e.g.
-//   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg   (see db:push:cloud)
+//   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg   (see db:dump:cloud)
 export const DATABASE_URL = process.env.DATABASE_URL ?? LOCAL_DATABASE_URL;
 
 // Explicit local override, wins over any ambient DATABASE_URL. Set by the AI
 // harness (see ai/tools/dbFetcherNode.ts): the regression/tool harnesses are
 // DEFINED to verify against the local docker Postgres, but a cloud DATABASE_URL
-// left in the shell (from db:push:cloud) is password-less and resolves its
+// left in the shell (from db:dump:cloud) is password-less and resolves its
 // password from .pgpass — the CLOUD password — which fails auth against local
 // PG and breaks the predeploy `ai:test`. Call pinLocalDatabase() before the
 // first query to pin local regardless of the shell env.

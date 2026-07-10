@@ -81,8 +81,9 @@ local PG on 2026-07-07.
    pattern + `/api/db` + parity net + `recordIngestBatch` changelog). The current
    381-row snapshot stays static JSON until that lands. **DEPLOYED**: the four static
    files are live at `gs://data-electionsbg-com/budget/nzok/` (2026-07-07). No Cloud
-   SQL schema changes exist yet — the hospital PG table + `db:push:cloud` come with
-   the backfill/crosswalk work.
+   SQL schema changes exist yet — the hospital PG table + its `db:load:nzok-hospital:pg:cloud`
+   loader (which applies the DDL and reloads the rows against the proxy; `db:dump:cloud` only
+   snapshots cloud outward to GCS) come with the backfill/crosswalk work.
 2. **Hospital рег.№→EIK crosswalk is a tracked prerequisite, not inline scope.** The
    per-hospital ranking ships **name-keyed in v1** (no EIK link); the ИАМН crosswalk is
    its own work item that, when done, lights up the reimbursement tile on the 381

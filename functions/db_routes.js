@@ -52,7 +52,7 @@ const appealsOrEmpty = (e) =>
 
 // Degrade a dedicated route to an empty result when its migration hasn't reached
 // this DB yet — 42883 (undefined_function) OR 42P01 (undefined_table) — instead
-// of hard-500-ing on a functions-before-db:push deploy. Real errors propagate.
+// of hard-500-ing on a functions-before-migration deploy. Real errors propagate.
 const missingMigrationEmpty = (e) =>
   e?.code === "42883" || e?.code === "42P01"
     ? [{ r: [] }]

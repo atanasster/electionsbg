@@ -3,7 +3,8 @@
 Date: 2026-07-03. Status: **phases 1–4 SHIPPED 2026-07-03** (period selector v2
 with year mode, combined search, dashboard re-sectioning + sectors/risk/latest
 tiles, EU benchmark tile). Deployment notes: apply schema files 035–037 on
-Cloud SQL (`db:push` path), rebuild `awarder_search` + the `contracts.title_fold`
+Cloud SQL (`apply_functions.ts` against the proxy — *not* `db:dump`, which only
+dumps outward to GCS), rebuild `awarder_search` + the `contracts.title_fold`
 column/indexes, redeploy the DB Cloud Function (`functions:db`). Remaining
 backlog: integrity label (A–F) + league tables, treemap explorer, multi-view
 browser, alerts, sector profile pages, by-place dashboard section.

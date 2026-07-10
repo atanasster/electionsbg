@@ -430,7 +430,7 @@ The user asked whether an intermediary local SQL could sit between ingest and th
 DB. Three framings, with a recommendation:
 
 **(a) You already have it — local Docker Postgres.** The established pattern
-(`db:refresh` → `db:load:*` → `db:push`) is: ingest → **local PG** → `pg_dump`
+(`db:refresh` → `db:load:*` → `db:dump`) is: ingest → **local PG** → `pg_dump`
 snapshot → Cloud SQL. "Local == cloud, single engine" is the explicit design
 (postgres-migration-v1). There is no need to introduce SQLite as a new
 intermediary — the project already **pivoted off SQLite to Postgres** for exactly

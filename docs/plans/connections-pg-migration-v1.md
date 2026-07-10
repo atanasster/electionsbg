@@ -129,5 +129,8 @@ untrack teardown). The one genuinely new modelling decision is the **stake vs TR
 edge unification** (§2/§3) — a single `decl_edges` table with a `source` discriminator
 handles both. Officials reuse the same table via `kind='official'`.
 
-**Prod:** `db:push` (new tables + functions) + `functions:db` redeploy, same as every
-prior step.
+**Prod:** apply the new tables + functions against the Cloud SQL proxy with
+`DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts <file.sql>`,
+load the rows with the matching `db:load:*:cloud` wrapper, then redeploy `functions:db` —
+same as every prior step. (**Not `db:dump`**: it `pg_dump`s a DB *outward* to GCS for
+`db:restore` and creates nothing on cloud.)
