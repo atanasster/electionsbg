@@ -2640,3 +2640,66 @@ export interface NzokDrugUnitPricesFile {
   topPacks: NzokDrugPackStat[];
   overpay: NzokDrugOverpayRow[];
 }
+
+// ── Clinical-activity corpus (migration 053) ────────────────────────────────
+// Source: НЗОК monthly "Брой случаи и брой ЗОЛ по КП/АПр/КПр", aggregated to the
+// annual (facility × procedure) grain. Cases are VOLUME, not value — the source
+// carries the procedure code only (no name, no НРД price); `procType` is derived
+// from the code's first letter (P→КП, A→АПр, K→КПр). This is the case-mix
+// DENOMINATOR the pack previously lacked.
+export interface NzokActivityProcedure {
+  procedure: string;
+  procType: string; // 'КП' | 'АПр' | 'КПр' | ''
+  cases: number;
+  // Брой ЗОЛ (insured persons). Retained for a planned "cases vs patients" view but
+  // not rendered today: the annual value sums monthly counts, so a person treated
+  // across several months is counted more than once — NOT a distinct-patient count.
+  zol: number;
+  facilityCount: number;
+}
+
+// One pathway-internal cases-per-bed outlier: a facility whose cases/bed on ONE
+// procedure exceeds the median of SAME-TYPE hospitals on the SAME procedure. A
+// signpost for a closer look, never a verdict — day-case pathways, referral
+// concentration and bed accounting all move the ratio legitimately.
+export interface NzokActivityOutlier {
+  facility: string;
+  eik: string | null;
+  procedure: string;
+  procType: string;
+  hospitalType: string; // УМБАЛ | МБАЛ | СБАЛ | …
+  cases: number;
+  beds: number;
+  casesPerBed: number;
+  peerMedian: number;
+  peerCount: number;
+  ratio: number;
+}
+
+export interface NzokActivitiesFile {
+  year: number;
+  totalCases: number;
+  distinctProcedures: number;
+  distinctFacilities: number;
+  caseBedFloors: { minCases: number; minBeds: number; minPeers: number };
+  monthly: { period: string; cases: number; zol: number }[];
+  topProcedures: NzokActivityProcedure[];
+  caseBedOutliers: NzokActivityOutlier[];
+}
+
+/** One hospital's case-mix — /api/db/nzok-activities-by-eik. Its top procedures
+ *  by cases and each procedure's share of the national volume. */
+export interface NzokActivityByEik {
+  eik: string;
+  year: number;
+  totalCases: number;
+  procedureCount: number;
+  topProcedures: {
+    procedure: string;
+    procType: string;
+    cases: number;
+    zol: number;
+    nationalCases: number;
+    nationalSharePct: number;
+  }[];
+}

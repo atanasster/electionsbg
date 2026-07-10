@@ -1,6 +1,6 @@
 ---
 name: update-nzok
-description: Refresh the НЗОК (National Health Insurance Fund) health-pack data (data/budget/nzok/) — the per-hospital БМП payments, gross drug-reimbursement by INN, and monthly B1 cash-execution that feed the health sector pack on /awarder/121858220. Each generator fetches the latest file from nhif.bg directly (no manual download). Also covers the per-hospital drug UNIT prices (НЗОК Справка 5 / ПЛС2) and the МЗ quarterly hospital financial indicators (ЕЕОФ). Use when the daily watch report flags `nzok_hospital_bmp`, `nzok_drug_quarterly`, `nzok_drug_unit_prices`, `nzok_execution_b1`, or `mh_eeof_quarterly` as changed, when the user asks to refresh НЗОК / NHIF / health-fund / hospital-financials data, or after a fresh git clone if data/budget/nzok/*.json is missing.
+description: Refresh the НЗОК (National Health Insurance Fund) health-pack data (data/budget/nzok/) — the per-hospital БМП payments, gross drug-reimbursement by INN, and monthly B1 cash-execution that feed the health sector pack on /awarder/121858220. Each generator fetches the latest file from nhif.bg directly (no manual download). Also covers the per-hospital drug UNIT prices (НЗОК Справка 5 / ПЛС2), the МЗ quarterly hospital financial indicators (ЕЕОФ), and the clinical-activity corpus (cases + ЗОЛ per clinical pathway per hospital — the case-mix denominator). Use when the daily watch report flags `nzok_hospital_bmp`, `nzok_drug_quarterly`, `nzok_drug_unit_prices`, `nzok_execution_b1`, `mh_eeof_quarterly`, or `nzok_activities` as changed, when the user asks to refresh НЗОК / NHIF / health-fund / hospital-financials data, or after a fresh git clone if data/budget/nzok/*.json is missing.
 allowed-tools:
   - Read
   - Bash
@@ -109,9 +109,40 @@ payment streams, loaded into `nzok_eeof_nzok_parity`.
 Per-patient indicators are emitted raw and are **never ranked**: a specialised
 centre spends multiples of a general hospital's per-patient figure because of its
 case mix. Ranking without a case-mix denominator (the clinical-pathway corpus,
-not yet ingested) would rank specialties, not stewardship.
+below) would rank specialties, not stewardship.
 
 Known gap: 8 municipal blocks (2019-Q4 → 2021-Q3) are skipped on load — a parser
 artefact collapses hospital identity to bare oblast labels in those quarters, so
 their rows can neither be keyed nor matched to an EIK. They are listed on every
 load. The remaining 43 blocks (3,635 rows) load cleanly.
+
+### Clinical-activity corpus — `npm run data:nzok -- --activities`
+Source: НЗОК, "Брой отчетени дейности по КП/АПр/КПр и брой ЗОЛ по код на лечебно
+заведение и код на диагноза", 12 monthly XLSX per year at
+`nhif.bg/bg/hospitalcare-report/activities/{year}`. ~104k rows/month at the
+(facility × procedure × primary-ICD × secondary-ICD) grain; `parse_activities.ts`
+folds each file to (facility, procedure) and `write_activities.ts` sums the year
+to the annual matrix in `data/budget/nzok/activities.json` (~4.5 MB, **gitignored
+and regenerable** — like `hospital_financials.json` / `drug_unit_prices.json`, so
+a fresh clone must run this writer before `db:load:nzok-activities:pg`) plus a
+national monthly cases/ЗОЛ trend. The small **`activities_overview.json`** companion
+(~8 KB, national headline + trend + top procedures) IS committed — it feeds the AI
+tool and any static reader.
+
+This is the **case-mix denominator** the rest of the pack lacked. The source
+carries the procedure CODE only — no name, no НРД price — so `procType` is derived
+from the code's first letter (P→КП, A→АПр, K→КПр) and there is **no lev/euro value**
+(a НРД pathway-price join is a documented follow-up). Cases are volume, not money.
+
+`npm run db:load:nzok-activities:pg` (+ `:cloud` to publish) loads migration 053 —
+the `nzok_activities` table + `nzok_activity_monthly` trend, and three jsonb fns:
+`nzok_activities_overview()` (national top procedures + trend + the cases-per-bed
+outlier), `nzok_activities_by_eik()` (a hospital's case-mix + national share). The
+loader attaches EIK and bed counts by a strong name fold against the payments +
+ЕЕОФ crosswalks (private hospitals included via payments); unmatched → NULL.
+
+The **cases-per-bed outlier** is pathway-internal and same-type-grouped (УМБАЛ vs
+УМБАЛ, one procedure), with floors (≥50 cases, ≥20 beds, ≥4 peers). It is a
+signpost, not a verdict — day-case pathways, referral concentration and bed
+accounting all move the ratio legitimately. It only covers facilities with an
+ЕЕОФ bed count (~82); the national volume + case-mix layers cover all ~463.

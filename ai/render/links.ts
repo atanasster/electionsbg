@@ -248,6 +248,7 @@ const TOOL_SECTION: Record<string, SiteLink | undefined> = {
   nzokDrugs: SECTION.nzok,
   nzokDrugGrowth: SECTION.nzok,
   nzokHospitals: SECTION.nzok,
+  nzokActivities: SECTION.nzok,
   govDebt: SECTION.fiscal,
   noiFunds: SECTION.fiscal,
   macroIndicator: SECTION.indicators,

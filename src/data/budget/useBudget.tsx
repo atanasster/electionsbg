@@ -34,6 +34,8 @@ import type {
   NzokFinancialsByEik,
   NzokDrugUnitPricesFile,
   NzokDrugOverpayByEik,
+  NzokActivitiesFile,
+  NzokActivityByEik,
   NzokDrugReimbursementFile,
   JudiciaryBudgetFile,
   PersonnelFile,
@@ -403,6 +405,30 @@ export const useNzokDrugOverpayByEik = (eik?: string | null) =>
     queryFn: () =>
       fetchDb<NzokDrugOverpayByEik>(
         `/api/db/nzok-drug-overpay-by-eik?eik=${encodeURIComponent(eik!)}`,
+      ),
+    enabled: !!eik,
+    staleTime: Infinity,
+  });
+
+// НЗОК clinical-activity overview (migration 053): national procedure volumes,
+// the monthly cases trend, and the pathway-internal cases-per-bed outlier
+// leaderboard — the case-mix layer the pack previously lacked. DB-served.
+export const useNzokActivities = () =>
+  useQuery({
+    queryKey: ["nzok", "activities"] as const,
+    queryFn: () => fetchDb<NzokActivitiesFile>("/api/db/nzok-activities"),
+    staleTime: Infinity,
+  });
+
+// One hospital's case-mix (top procedures by cases + national share) — the
+// denominator that makes any per-patient figure interpretable. null when the EIK
+// has no activity rows (unmatched facility / private not in the crosswalk).
+export const useNzokActivitiesByEik = (eik?: string | null) =>
+  useQuery({
+    queryKey: ["nzok", "activities-by-eik", eik ?? ""] as const,
+    queryFn: () =>
+      fetchDb<NzokActivityByEik>(
+        `/api/db/nzok-activities-by-eik?eik=${encodeURIComponent(eik!)}`,
       ),
     enabled: !!eik,
     staleTime: Infinity,

@@ -64,6 +64,7 @@ import { nzokDrugUnitPrices } from "./nzok_drug_unit_prices";
 import { mhEeofQuarterly } from "./mh_eeof_quarterly";
 import { nzokDrugQuarterly } from "./nzok_drug_quarterly";
 import { nzokExecutionB1 } from "./nzok_execution_b1";
+import { nzokActivities } from "./nzok_activities";
 import {
   euTaxRates,
   euExciseRates,
@@ -163,4 +164,5 @@ export const SOURCES: WatchSource[] = [
   mhEeofQuarterly,
   nzokDrugQuarterly,
   nzokExecutionB1,
+  nzokActivities,
 ];

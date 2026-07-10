@@ -407,3 +407,91 @@ export const nzokHospitals = async (
     provenance: ["budget/nzok/hospital_payments.json"],
   };
 };
+
+// ---- clinical-activity corpus ("Какви дейности плаща НЗОК?") ----------------
+
+type NzokActivitiesOverview = {
+  year: number;
+  totals: {
+    totalCases: number;
+    distinctProcedures: number;
+    distinctFacilities: number;
+  };
+  topProcedures: {
+    procedure: string;
+    procType: string;
+    cases: number;
+    zol: number;
+    facilityCount: number;
+  }[];
+};
+
+// National clinical-activity volumes: the most frequent НЗОК-funded procedures by
+// number of cases. This is the case-mix layer — VOLUME, not money (the source
+// carries no price). Cues: клинична пътека / дейности / случаи / activity.
+export const nzokActivities = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const f = await fetchData<NzokActivitiesOverview>(
+    "/budget/nzok/activities_overview.json",
+  );
+  if (!f.topProcedures?.length) {
+    return {
+      tool: "nzokActivities",
+      domain: "fiscal",
+      kind: "scalar",
+      title: bg ? "Няма данни за дейности по НЗОК" : "No NHIF activity data",
+      viz: "none",
+      facts: {},
+      provenance: ["budget/nzok/activities_overview.json"],
+    };
+  }
+  const n = Math.min(Math.max(Number(args.count) || 12, 1), 25);
+  const top = f.topProcedures.slice(0, n);
+  const rows: Row[] = top.map((p) => ({
+    procedure: p.procedure,
+    type: p.procType,
+    cases: fmtInt(p.cases, ctx.lang),
+    facilities: fmtInt(p.facilityCount, ctx.lang),
+  }));
+  const columns: Column[] = [
+    { key: "procedure", label: bg ? "Код" : "Code" },
+    { key: "type", label: bg ? "Вид" : "Type" },
+    { key: "cases", label: bg ? "Случаи" : "Cases", numeric: true },
+    { key: "facilities", label: bg ? "Болници" : "Facilities", numeric: true },
+  ];
+  const biggest = top[0];
+  return {
+    tool: "nzokActivities",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? `Най-чести дейности, платени от НЗОК (${f.year})`
+      : `Most frequent NHIF-funded procedures (${f.year})`,
+    subtitle: bg
+      ? "По брой случаи. КП — клинична пътека, АПр — амбулаторна процедура, КПр — клинична процедура. Броят е обем, не стойност."
+      : "By number of cases. КП — clinical pathway, АПр — ambulatory procedure, КПр — clinical procedure. Cases are volume, not value.",
+    columns,
+    rows,
+    categories: top.map((p) => p.procedure),
+    series: [
+      {
+        key: "cases",
+        label: bg ? "Случаи" : "Cases",
+        points: top.map((p) => ({ x: p.procedure, y: round2(p.cases) })),
+      },
+    ],
+    viz: "bar",
+    facts: {
+      year: String(f.year),
+      total_cases: fmtInt(f.totals.totalCases, ctx.lang),
+      procedures: fmtInt(f.totals.distinctProcedures, ctx.lang),
+      facilities: fmtInt(f.totals.distinctFacilities, ctx.lang),
+      top_procedure: biggest?.procedure ?? "—",
+      top_cases: biggest ? fmtInt(biggest.cases, ctx.lang) : "—",
+    },
+    provenance: ["budget/nzok/activities_overview.json"],
+  };
+};

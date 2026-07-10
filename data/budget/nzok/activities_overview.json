@@ -1,0 +1,362 @@
+{
+  "generatedAt": "2026-07-10T19:48:18.654Z",
+  "source": {
+    "publisher": "Национална здравноосигурителна каса (НЗОК)",
+    "url": "https://nhif.bg/bg/hospitalcare-report/activities/2025",
+    "title": "Брой отчетени дейности по клинични пътеки/амбулаторни процедури/клинични процедури и брой ЗОЛ, по код на лечебно заведение и код на диагноза",
+    "description": "Месечни отчети на НЗОК за броя случаи и броя здравноосигурени лица (ЗОЛ) по клинична пътека (КП), амбулаторна процедура (АПр) и клинична процедура (КПр) по лечебно заведение. Агрегирано годишно на ниво (лечебно заведение, процедура). Източникът съдържа само кода на процедурата — типът е изведен по първата буква (P→КП, A→АПр, K→КПр); наименования и стойност по НРД не са налични в този източник."
+  },
+  "year": 2025,
+  "totals": {
+    "periodCount": 12,
+    "sourceRows": 152376,
+    "facilityProcedureRows": 20433,
+    "distinctProcedures": 571,
+    "distinctFacilities": 463,
+    "totalCases": 4427038
+  },
+  "monthlyNational": [
+    {
+      "period": "01.2025",
+      "cases": 357969,
+      "zol": 280043
+    },
+    {
+      "period": "02.2025",
+      "cases": 345228,
+      "zol": 276537
+    },
+    {
+      "period": "03.2025",
+      "cases": 378408,
+      "zol": 300070
+    },
+    {
+      "period": "04.2025",
+      "cases": 365174,
+      "zol": 288065
+    },
+    {
+      "period": "05.2025",
+      "cases": 368937,
+      "zol": 288715
+    },
+    {
+      "period": "06.2025",
+      "cases": 385051,
+      "zol": 305170
+    },
+    {
+      "period": "07.2025",
+      "cases": 384575,
+      "zol": 300884
+    },
+    {
+      "period": "08.2025",
+      "cases": 347282,
+      "zol": 269289
+    },
+    {
+      "period": "09.2025",
+      "cases": 351236,
+      "zol": 275390
+    },
+    {
+      "period": "10.2025",
+      "cases": 410763,
+      "zol": 324900
+    },
+    {
+      "period": "11.2025",
+      "cases": 375089,
+      "zol": 299543
+    },
+    {
+      "period": "12.2025",
+      "cases": 357326,
+      "zol": 278203
+    }
+  ],
+  "topProcedures": [
+    {
+      "procedure": "A01.1",
+      "procType": "АПр",
+      "cases": 551176,
+      "zol": 49999,
+      "facilityCount": 103
+    },
+    {
+      "procedure": "K03",
+      "procType": "КПр",
+      "cases": 255157,
+      "zol": 44902,
+      "facilityCount": 93
+    },
+    {
+      "procedure": "A05",
+      "procType": "АПр",
+      "cases": 162892,
+      "zol": 162328,
+      "facilityCount": 54
+    },
+    {
+      "procedure": "A06",
+      "procType": "АПр",
+      "cases": 159919,
+      "zol": 202506,
+      "facilityCount": 58
+    },
+    {
+      "procedure": "A38",
+      "procType": "АПр",
+      "cases": 153779,
+      "zol": 153352,
+      "facilityCount": 131
+    },
+    {
+      "procedure": "P265.1",
+      "procType": "КП",
+      "cases": 150324,
+      "zol": 150322,
+      "facilityCount": 168
+    },
+    {
+      "procedure": "A07",
+      "procType": "АПр",
+      "cases": 115182,
+      "zol": 129765,
+      "facilityCount": 54
+    },
+    {
+      "procedure": "P240",
+      "procType": "КП",
+      "cases": 113068,
+      "zol": 85918,
+      "facilityCount": 53
+    },
+    {
+      "procedure": "A26",
+      "procType": "АПр",
+      "cases": 112485,
+      "zol": 60557,
+      "facilityCount": 100
+    },
+    {
+      "procedure": "K04",
+      "procType": "КПр",
+      "cases": 89554,
+      "zol": 57161,
+      "facilityCount": 95
+    },
+    {
+      "procedure": "P056.1",
+      "procType": "КП",
+      "cases": 85845,
+      "zol": 85844,
+      "facilityCount": 157
+    },
+    {
+      "procedure": "P029",
+      "procType": "КП",
+      "cases": 74503,
+      "zol": 74499,
+      "facilityCount": 168
+    },
+    {
+      "procedure": "P263.1",
+      "procType": "КП",
+      "cases": 58637,
+      "zol": 58637,
+      "facilityCount": 166
+    },
+    {
+      "procedure": "A36",
+      "procType": "АПр",
+      "cases": 57878,
+      "zol": 57872,
+      "facilityCount": 18
+    },
+    {
+      "procedure": "A19",
+      "procType": "АПр",
+      "cases": 55870,
+      "zol": 55709,
+      "facilityCount": 100
+    },
+    {
+      "procedure": "P074.1",
+      "procType": "КП",
+      "cases": 55851,
+      "zol": 55849,
+      "facilityCount": 150
+    },
+    {
+      "procedure": "P241.3",
+      "procType": "КП",
+      "cases": 52057,
+      "zol": 52056,
+      "facilityCount": 57
+    },
+    {
+      "procedure": "P256",
+      "procType": "КП",
+      "cases": 44539,
+      "zol": 4887,
+      "facilityCount": 50
+    },
+    {
+      "procedure": "P078.1",
+      "procType": "КП",
+      "cases": 43905,
+      "zol": 43896,
+      "facilityCount": 115
+    },
+    {
+      "procedure": "P039",
+      "procType": "КП",
+      "cases": 43272,
+      "zol": 43271,
+      "facilityCount": 160
+    },
+    {
+      "procedure": "P050.1",
+      "procType": "КП",
+      "cases": 42499,
+      "zol": 42457,
+      "facilityCount": 150
+    },
+    {
+      "procedure": "P073.1",
+      "procType": "КП",
+      "cases": 37837,
+      "zol": 37831,
+      "facilityCount": 73
+    },
+    {
+      "procedure": "P090.1",
+      "procType": "КП",
+      "cases": 37575,
+      "zol": 37574,
+      "facilityCount": 44
+    },
+    {
+      "procedure": "A21",
+      "procType": "АПр",
+      "cases": 35643,
+      "zol": 35419,
+      "facilityCount": 92
+    },
+    {
+      "procedure": "P048",
+      "procType": "КП",
+      "cases": 33742,
+      "zol": 33741,
+      "facilityCount": 138
+    },
+    {
+      "procedure": "A42",
+      "procType": "АПр",
+      "cases": 31946,
+      "zol": 31945,
+      "facilityCount": 40
+    },
+    {
+      "procedure": "P158",
+      "procType": "КП",
+      "cases": 30866,
+      "zol": 30853,
+      "facilityCount": 174
+    },
+    {
+      "procedure": "P197",
+      "procType": "КП",
+      "cases": 28003,
+      "zol": 27998,
+      "facilityCount": 149
+    },
+    {
+      "procedure": "P084",
+      "procType": "КП",
+      "cases": 27822,
+      "zol": 27822,
+      "facilityCount": 152
+    },
+    {
+      "procedure": "P001",
+      "procType": "КП",
+      "cases": 26958,
+      "zol": 26919,
+      "facilityCount": 129
+    },
+    {
+      "procedure": "P006",
+      "procType": "КП",
+      "cases": 26873,
+      "zol": 26873,
+      "facilityCount": 114
+    },
+    {
+      "procedure": "P260.1",
+      "procType": "КП",
+      "cases": 25795,
+      "zol": 2581,
+      "facilityCount": 54
+    },
+    {
+      "procedure": "A06E",
+      "procType": "АПр",
+      "cases": 25690,
+      "zol": 23161,
+      "facilityCount": 54
+    },
+    {
+      "procedure": "P163",
+      "procType": "КП",
+      "cases": 25004,
+      "zol": 25002,
+      "facilityCount": 141
+    },
+    {
+      "procedure": "P005.2",
+      "procType": "КП",
+      "cases": 24754,
+      "zol": 24754,
+      "facilityCount": 112
+    },
+    {
+      "procedure": "A29",
+      "procType": "АПр",
+      "cases": 23704,
+      "zol": 23929,
+      "facilityCount": 24
+    },
+    {
+      "procedure": "P005.1",
+      "procType": "КП",
+      "cases": 22893,
+      "zol": 22893,
+      "facilityCount": 112
+    },
+    {
+      "procedure": "A03",
+      "procType": "АПр",
+      "cases": 22711,
+      "zol": 775,
+      "facilityCount": 18
+    },
+    {
+      "procedure": "P145",
+      "procType": "КП",
+      "cases": 22075,
+      "zol": 22053,
+      "facilityCount": 83
+    },
+    {
+      "procedure": "P137",
+      "procType": "КП",
+      "cases": 21624,
+      "zol": 21624,
+      "facilityCount": 53
+    }
+  ]
+}

@@ -64,6 +64,7 @@ import {
 } from "../components/procurement/CompanyFundsTile";
 import { CompanyConnectionCheck } from "../components/procurement/CompanyConnectionCheck";
 import { NzokHospitalReimbursementTile } from "../components/procurement/nzok/NzokHospitalReimbursementTile";
+import { NzokActivityByEikTile } from "../components/procurement/nzok/NzokActivityByEikTile";
 import { NzokFinancialHealthStrip } from "@/screens/components/procurement/nzok/NzokFinancialHealthStrip";
 import {
   CabinetTimelineTile,
@@ -675,6 +676,10 @@ export const CompanyDbScreen: FC = () => {
           {/* Money IN — НЗОК hospital-care reimbursement. Self-hides unless this
               EIK is a matched hospital; sits above the ЗОП (money-out) tiles. */}
           <NzokHospitalReimbursementTile eik={eik} />
+          {/* The WORK behind that money — this hospital's case-mix (top pathways
+              by cases + national share). The per-patient denominator. Self-hides
+              unless this EIK matched a facility in the activity crosswalk. */}
+          <NzokActivityByEikTile eik={eik} />
           {/* Everything BELOW the НЗОК money line — revenue vs expense, total and
               overdue liabilities, occupancy, length of stay. Self-hides unless
               this EIK matched a hospital in the МЗ quarterly financials. */}

@@ -32,6 +32,7 @@ import { NzokHospitalCompareTile } from "./NzokHospitalCompareTile";
 import { NzokRegionalChoroplethTile } from "./NzokRegionalChoroplethTile";
 import { NzokDrugReimbursementTile } from "./NzokDrugReimbursementTile";
 import { NzokDrugUnitPriceTile } from "./NzokDrugUnitPriceTile";
+import { NzokActivityTile } from "./NzokActivityTile";
 import { NzokHospitalFinancialsTile } from "./NzokHospitalFinancialsTile";
 import { NzokProcurementLensTile } from "./NzokProcurementLensTile";
 
@@ -204,6 +205,12 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
       {/* Per-hospital UNIT prices for the same pack of the same medicine. Fetches
           its own data and self-hides until migration 052 reaches this DB. */}
       <NzokDrugUnitPriceTile />
+
+      {/* The case-mix denominator + pathway-internal cases-per-bed outlier — the
+          activity data the competitor leads its anomaly list with, on our corpus
+          (private hospitals included). Self-hides until migration 053 reaches
+          this DB. */}
+      <NzokActivityTile />
 
       {/* What happens to the money after it lands — are the hospitals НЗОК pays
           solvent? Self-hides until migration 051 reaches this DB. */}

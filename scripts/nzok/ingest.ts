@@ -11,6 +11,8 @@
 //               (nzok/medicine/5) — pack-identity peer medians + overpay ranking
 //   --eeof      quarterly hospital FINANCIALS (revenue, expense, debt, beds,
 //               occupancy, cost/patient) from МЗ's ~2-dozen ЕЕОФ XLSX workbooks
+//   --activities clinical-activity corpus (cases + ЗОЛ per КП/АПр/КПр per hospital)
+//               from the nhif.bg monthly activity files — the case-mix denominator
 //   (no flag)   all of the above (the default set — no Postgres needed)
 //
 //   --crosswalk OPT-IN ONLY: rebuild the Рег.№ ЛЗ → EIK crosswalk (hospital_eik
@@ -56,6 +58,11 @@ const STEPS: { flag: string; scripts: string[]; label: string }[] = [
     flag: "--eeof",
     scripts: ["write_eeof.ts"],
     label: "ЕЕОФ financials",
+  },
+  {
+    flag: "--activities",
+    scripts: ["write_activities.ts"],
+    label: "clinical activity corpus",
   },
 ];
 
