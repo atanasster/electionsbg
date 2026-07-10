@@ -1,6 +1,6 @@
 # Култура (Culture) view — v1 plan
 
-**Status:** draft, post-audit + UI/UX pass (rev 2.1). Ready to scope implementation.
+**Status:** draft, post-audit + UI/UX + allowlist freeze (rev 2.2). Ready to scope implementation.
 Reading order: §1 (what exists) → §3 (architecture) → §3.1 (UI/UX) → §5/§5.1 (data + tile
 inventory) → §14 (phasing). §5.1 is the build list.
 **Owner:** —
@@ -36,32 +36,75 @@ Against a **€269.4M** annual budget that is **~0.2–2%**. Consequences, both 
 - The "Поръчки на година" KPI is statistically noisy at this volume. Show it with the
   year-count hint, or omit it in favour of a subsidy KPI.
 
-## 2. Култура is a GROUP of EIKs
+## 2. Култура is a GROUP of EIKs — FROZEN ALLOWLIST (rev 2.2)
 
-The institutes that *receive* the subsidy are themselves awarders with their own pages.
-Confirmed from `contracts_list`:
+The institutes that *receive* the subsidy are themselves awarders. МК administers **103
+second-level spending units (74 are ДКИ**, per Дирекция СИХО). The allowlist below is the
+**frozen, principal-classified** set; it is an explicit EIK list, never a name regex.
 
-| Entity | EIK | Note |
+**Hard rule + why:** the substring `опера` matches `опер`**`атор`**/`опер`**`ации`** (pulls
+in ЕСО, ДАТО, жандармерия); `куклен` matched **Община Куклен** (a municipality); a
+word-boundary regex still returned 182 "culture" awarders including МО military museums and
+БАН institutes. So each EIK is hand-classified by **principal** (МК / МО / БАН·МОН / община /
+читалище). Store as `src/lib/kulturaReferenceData.ts` with a `principal` field per entity.
+
+### Tier A — funders / agencies (principal = Minister of Culture) — VERIFIED
+| Entity | EIK | Notes |
 |---|---|---|
-| Министерство на културата | `000695160` | principal; 2 name variants, one EIK |
-| Национален дворец на културата (НДК) | `201570119` | €43M — biggest culture awarder |
-| Национален фонд „Култура" (НФК) | `130418031` | tiny procurement (€0.49M); matters as a **grant payer** |
-| Народен театър „Иван Вазов" | `000670748` | |
-| Софийска опера и балет | `000670805` | |
-| Национална галерия | `176812208` | |
-| Държавна опера — Русе | `117103220` | |
-| Драматичен театър — Ловеч | `000282756` | |
-| **ИА „Национален филмов център" (НФЦ)** | **unresolved** | **has no procurement presence** — resolve EIK from Bulstat/TR |
+| Министерство на културата (МК) | `000695160` | principal; 268 contracts €57.2M; **`hasPack`** |
+| **ИА „Национален филмов център" (НФЦ)** | **`000695833`** | **RESOLVED** (finansi.bg; admin under Minister of Culture, founded 1991). **Zero procurement** (0 awarder/tender/contractor) — it is a *subsidy payer*, a labelled roster entity, not a roll-up contributor |
+| Национален фонд „Култура" (НФК) | `130418031` | grant payer; tiny procurement (€0.49M) |
 
-**Hard rule: the culture entity set is an explicit EIK allowlist, never a name regex.**
-The substring `опера` matches `опер**атор**` / `опер**ации**` — a naive regex pulls in
-Електроенергиен системен оператор, ДАТО and жандармерия. (A word-boundary regex still
-returned 182 "culture" awarders, including МО's Национален военноисторически музей.)
-Store the curated list in `src/lib/kulturaReferenceData.ts` with each entity's principal
-(МК vs МО vs община), mirroring `vssReferenceData.ts` / the water plan's 26-subsidiary list.
+These are **Bulstat** entities (регистър БУЛСТАТ), not Commerce-Registry — correctly absent
+from `tr_companies`; do not "verify" them there.
 
-Roster surface: replicate VSS's `JudicialAwardersTile` — a roster of culture awarders,
-each deep-linking to its own `/awarder/<eik>`, with a `hasPack` badge on МК.
+### Tier B — state cultural institutes (principal = МК) — VERIFIED SUBSET
+Stage & national institutes confirmed in `contracts_list` as state DKI:
+`201570119` НДК · `000670748` Народен театър „Иван Вазов" · `000670805` Софийска опера и
+балет · `000670794` Държавен сатиричен театър · `000670787` Младежки театър · `000670883`
+Софийска филхармония · `000670890` Ансамбъл „Филип Кутев" · `117103220` Държавна опера Русе ·
+`115314988` Държавна опера Пловдив · `102241054` Държавна опера Бургас · `000405995`
+Плевенска филхармония · `000083665` Държавен куклен театър Варна · `176812208` Национална
+галерия · `000673210` Национален исторически музей · `000670984` Национален музей на
+изобразителното изкуство · `000675880` НМ „Земята и хората" · `000672293` Национална
+библиотека · `124609886` ДКИ Културен център „Двореца" (Балчик) · `175932425` ТМПЦ Варна ·
+`108505799` ТМЦ Кърджали.
+
+### Verify-principal before including (state vs municipal is ambiguous)
+Regional drama theatres + regional museums are sometimes municipal: `000282756` Драм. театър
+Ловеч · `000867998` Драм. театър Търговище · `000124037` МДТ „К. Кисимов" В.Търново ·
+`000403802` ДКТ „Иван Радоев" Плевен · `000014352` Драм. театър Благоевград · `176362469`
+РИМ София · `000083697` РИМ Варна · `126128563` РИМ Хасково · `000210397` Етър Габрово.
+Resolve each against МК's ДКИ register before adding.
+
+### EXCLUDE — the anti-allowlist (principal ≠ МК, or not an institute)
+| Excluded | EIK | Reason |
+|---|---|---|
+| Национален военноисторически музей | `129009048` | principal **МО** |
+| Рег. военноисторически музей Плевен | `114102692` | **МО** |
+| Театър „Българска армия" | `129009016` | **МО** |
+| Национален парк-музей „Шипка-Бузлуджа" | `000804161` | **МО** |
+| Археологически институт с музей | `000670919` | **БАН** |
+| Природонаучен музей | `000665612` | **БАН** |
+| Институт за етнология и фолклористика | `175905773` | **БАН** |
+| НАТФИЗ „Кр. Сарафов" | `000670723` | higher-ed, **МОН** |
+| Дворец на културата и спорта ЕАД (Варна) | `103156991` | **municipal company** (confirmed in ТР) |
+| ОКИ „Музейко" | `180849511` | **municipal** (ОКИ) |
+| Малък градски театър „Зад канала" | `000677194` | **Столична община** |
+| Градска художествена галерия Пловдив | `000455560` | **municipal** (градска) |
+| Община Куклен | `115631816` | **false regex match** (`куклен`) — a municipality |
+| Народни читалища (all `Народно читалище …`) | — | independent legal entities, municipal-delegated; the **читалища** category (Phase 3, reconstructed from ДВ standards), NOT per-EIK state institutes |
+
+### Completeness & usage notes
+- **This is a verified subset, not the full 103.** The corpus only surfaces МК units that ran
+  ЗОП procurements. For full coverage, reconcile against МК's Дирекция-СИХО ДКИ register (74)
+  / the State-Budget-Law second-level annex. Tracked in §15.
+- **The allowlist does NOT gate Phase 1.** The НФЦ film register is keyed by *producer name*,
+  not institute EIK (§6), so Phase-1 film tiles need only Tier A. The allowlist gates
+  **Phase 2** (pack group roll-up) and the **awarder roster** (tile 6, §5.1).
+- Roster surface: replicate VSS's `JudicialAwardersTile` — each entity deep-links to its own
+  `/awarder/<eik>`, `hasPack` badge on МК; bodies with only a handful of contracts are
+  **counted, not listed** (VSS convention).
 
 ## 3. Architecture — follow the ВСС/judiciary split
 
@@ -480,7 +523,9 @@ A phase isn't "done" until its data is watched (§8), self-verified (§9), on th
 (§7). The data-map validator fails the build if a source ships unplaced.
 
 **Phase 0 (decide, ~1 day):**
-- Resolve the НФЦ EIK (Bulstat/TR) and freeze the culture EIK allowlist (§2).
+- ~~Resolve the НФЦ EIK and freeze the culture EIK allowlist~~ **DONE** (§2, rev 2.2): НФЦ
+  = `000695833`; tiered allowlist frozen with principal classification + exclusions. Only
+  the full-103 reconciliation remains (§15), and it doesn't block Phase 1 or 2.
 - Choose `OblastChoropleth` extract-vs-clone (§12), coordinating with the water plan.
 - Validate whether НФЦ jury membership is published at all (§6). If not, drop the conflict
   tile from scope.
@@ -504,7 +549,9 @@ records (clone the `/procurement/contract/:id` stack) if grant volume justifies 
 
 ## 15. Open questions
 
-1. **НФЦ EIK** — unresolved; it has no procurement footprint. Blocks the roster entry.
+1. ~~**НФЦ EIK**~~ **RESOLVED** = `000695833` (§2). Remaining: reconcile Tier B against МК's
+   full 103-unit / 74-ДКИ register (Дирекция СИХО) for complete roster coverage, and resolve
+   the "verify-principal" regional theatres/museums. Not a blocker for Phase 1–2.
 2. **Jury/commission data** — sourceability unvalidated. The conflict-of-interest lens is
    the headline differentiator; if the data doesn't exist, the story changes.
 3. **Theatre subsidy-per-ticket** — per-institute delegated budgets aren't published;
