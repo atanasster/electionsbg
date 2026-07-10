@@ -1,6 +1,6 @@
 # Култура (Culture) view — v1 plan
 
-**Status:** draft, post-audit + UI/UX + allowlist freeze (rev 2.2). Ready to scope implementation.
+**Status:** draft, post-audit + UI/UX + allowlist freeze + choropleth decision (rev 2.3). Ready to scope implementation.
 Reading order: §1 (what exists) → §3 (architecture) → §3.1 (UI/UX) → §5/§5.1 (data + tile
 inventory) → §14 (phasing). §5.1 is the build list.
 **Owner:** —
@@ -201,8 +201,30 @@ first question is "what about my area / who got funded near me." So:
   `onSelectOblast` seam).
 - Percentile color buckets computed per-oblast so Sofia's shards don't skew the scale;
   derive oblast from the **obshtina prefix, not `area.oblast`** (`project_oblast_code_shard_mismatch`).
-- **Dependency:** `OblastChoropleth` does not exist yet — extract-or-clone decision is a
-  Phase-0 blocker (§12, §15). Coordinate with the water/education plans; don't fork.
+- **DECISION (Phase 0, resolved): EXTRACT a shared `OblastChoropleth`; do NOT clone. And
+  Култура *consumes* it — it does not own the extraction.**
+  - *Why extract:* there are already **~11** oblast choropleths (prices, census, indicators,
+    local, procurement, nzok, agri, regional, persistence, wasted-vote, funds), all on the
+    shared `maps/` plumbing (`useSofiaMergedRegionsMap`, `getDataProjection`, `FeatureMap`,
+    `useTooltip`). The *hard* parts are already shared; only a ~100-line wrapper (sizing,
+    projection memo, percentile `colorFor`, Sofia-merge feature loop, tooltip, click-to-
+    filter) is duplicated. A 12th clone deepens a debt **three plans already commit to
+    paying down** (water §0b.8 / Phase 1b, judiciary, education). Cloning
+    `NzokRegionalChoroplethTile` isn't cheaper — it's РЗОК-shaped (`data.byRzok`, teal ramp,
+    its own toggle) and needs heavy edits regardless.
+  - *Ownership (per "whoever ships first builds it", water §0b.8):* if Води/judiciary/
+    education land `OblastChoropleth` first, Култура just imports it (zero cost). If Култура
+    ships first, it builds the primitive to the water-plan API, migrates `ProcurementOblastMap`
+    to consume it **with no behaviour change** (verify `ProcurementChoroplethTile`
+    small-multiples render identically), and the other plans inherit it.
+  - *API (align to water §4.1a so the plans don't diverge):* `OblastChoropleth({ values:
+    Map<canon, number|undefined>, buckets?, ramp?, formatValue, tooltipExtra?, activeCanon?,
+    onSelectOblast?, height?, ariaLabel })`. It owns ResizeObserver sizing, projection,
+    per-oblast percentile `colorFor`, the Sofia-merged feature loop, the tooltip shell and
+    `role="img"`. Култура's per-capita metric + comparator-by-default (§3.1e·6) ride
+    `formatValue`/`tooltipExtra` ("€X/жит. · спрямо нац. средно").
+  - *Risk:* extraction refactors the **live** procurement map — land it as its own
+    behaviour-preserving commit **ahead of** the culture tiles, never buried in them.
 
 ### e. World-best accountability layer (what no BG site does)
 These four, mapped onto our surfaces, are the differentiators — adopt them explicitly:
@@ -496,12 +518,12 @@ Because Култура has both a dedicated view and an awarder pack, each surfa
 
 **Give the two heroes distinct `data-og` anchors** (`kultura-bridge` vs `culture-hero`).
 
-**OG hero choice — has a dependency.** The per-capita-by-oblast choropleth makes the
-strongest card, but **`OblastChoropleth` does not exist**. Two near-copies do
-(`ProcurementChoroplethTile`, `NzokRegionalChoroplethTile`). Either (a) extract a generic
-`OblastChoropleth` (low-moderate: parameterize data source, ramp, formatter; consolidates
-2–3 copies) — coordinate with the water plan, which proposes the same extraction — or
-(b) clone `NzokRegionalChoroplethTile`. **Decide before Phase 1**; the OG card blocks on it.
+**OG hero choice — dependency RESOLVED (§3.1d).** The per-capita-by-oblast choropleth makes
+the strongest card. It rides the shared **`OblastChoropleth`** primitive, which Култура
+**consumes** (extract, don't clone — decision in §3.1d). If that primitive hasn't shipped
+from Води/judiciary/education by the time Култура's map is built, Култура builds it first
+(behaviour-preserving migration of `ProcurementOblastMap`) as its own commit, then the OG
+card is captured off the rendered hero.
 
 **Sitemap validity** (`project_sitemap_validity_audit`): every `<loc>` needs a real
 prerendered `dist/<path>/index.html` — so sitemap and prerender ship together, never alone.
@@ -526,7 +548,9 @@ A phase isn't "done" until its data is watched (§8), self-verified (§9), on th
 - ~~Resolve the НФЦ EIK and freeze the culture EIK allowlist~~ **DONE** (§2, rev 2.2): НФЦ
   = `000695833`; tiered allowlist frozen with principal classification + exclusions. Only
   the full-103 reconciliation remains (§15), and it doesn't block Phase 1 or 2.
-- Choose `OblastChoropleth` extract-vs-clone (§12), coordinating with the water plan.
+- ~~Choose `OblastChoropleth` extract-vs-clone~~ **DONE** (§3.1d): **extract, consume** —
+  Култура imports the shared primitive; builds it (behaviour-preserving) only if it ships
+  before Води/judiciary/education, else inherits theirs. Not a code task until the map tile.
 - Validate whether НФЦ jury membership is published at all (§6). If not, drop the conflict
   tile from scope.
 
