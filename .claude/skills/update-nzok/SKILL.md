@@ -38,7 +38,7 @@ The budget law (`--budget`, `budget.json`) is **hard-keyed** from the annual З�
    ```bash
    npm run db:load:nzok-hospital:pg          # local — verify row/month counts
    npm run db:load:nzok-hospital:pg:cloud    # Cloud SQL via the proxy on :5434
-   npm run db:push:cloud                     # refresh the GCS snapshot
+   npm run db:dump:cloud                     # refresh the GCS snapshot
    ```
    The loader is idempotent (TRUNCATE+reload in one txn, changelog-deduped) and applies **both** migration 045 (the table) and 047 (the `nzok_hospital_payments_trends` / `nzok_hospital_momentum_by_eik` functions that serve the momentum tile + the `/company/:eik` spend-growth percentile), so the trend endpoints refresh with the table. Skip when only `--drugs`/`--execution` changed (those stay static-JSON-served).
 3. Sanity-check the console output: hospital payments print the facility count + national total that must reconcile to the file's own "Общо РЗОК" grand total; drugs print the €total + top INN + oncology group L; execution prints revenue + expenditure YTD.
