@@ -82,7 +82,8 @@ Measured, not assumed:
 | Fact | Value | Consequence |
 |---|---|---|
 | Schools · общини | 978 · 242 | fine |
-| Years | **2024, 2025 only** | **"growth" and "trend" are a single delta, not a rate** |
+| Years **in the built index** | 2024, 2025 only | a parser artifact, **not** a source limit — see §2.0b |
+| Years **available upstream** | **2022, 2023, 2024, 2025, 2026** (verified 2026-07-09) | a 5-year ДЗИ series is within reach, incl. an un-ingested **2026** |
 | `dzi_bel` rows | 1,928 | the only broadly-covered metric |
 | `dzi_math` rows | **195** | ДЗИ математика is an elective 2nd matura — too sparse for a math lens |
 | `nvo_bel` / `nvo_math` rows | **0 — never ingested** | the subject slots exist; the data does not |
@@ -91,13 +92,30 @@ Measured, not assumed:
 | enrollment | absent from the index | no dot-size, no €/ученик |
 | Sofia | one `SOF00` bucket, 156 schools | no per-район drill |
 
+### 2.0b Why the index has 2 years when 5 exist (root-caused 2026-07-09)
+Not the cache corruption. Two parser limits in `scripts/schools/build_index.ts`:
+1. **`YEARS = [2023, 2024, 2025]` is hardcoded (L34)** → 2022 and 2026 are never read.
+2. **Header drift defeats `parseYearCsv`.** It requires `/код по неиспуо/`, but
+   **2022 and 2023 label that column `"Код по Админ"`** → `schoolIdIdx = -1`. 2023 additionally
+   uses a **three-row header** (row 1 = subject, row 2 = `З`, row 3 = `Бр.`/`Ср.усп.`), and 2022
+   has a **double space** in `"Ср.усп.  БЕЛ(ООП) З"`. All three variants return `[]` → the year is
+   skipped with only a `console.warn`.
+
+**Fix (P1):** widen `YEARS` and normalize the header variants (`Код по Админ|НЕИСПУО`,
+whitespace-collapse, three-row header flattening). That alone **unlocks 2022–2026 = five years of
+ДЗИ БЕЛ**, which makes a legitimate multi-year trend and school-level growth rate computable from
+ДЗИ alone. Guard: `build_index` aborts on a *total* parse failure (`years.length === 0` →
+`exit(1)`), but a *partial* failure only warns — so a silently degraded index is possible. Add a
+per-year expected-row-count assertion.
+
 **Three consequences that reshape the plan:**
 
-1. **The SEDA двойна scatter — the plan's centerpiece — is NOT computable today.** Level-vs-growth
-   needs either a multi-year series or a prior-attainment baseline. Two years of one subject give
-   neither. It is gated on §2.1, not on the SES index.
-2. **НВО ingest is load-bearing, not a "free win."** It is the only route to a second
-   broadly-covered subject *and* to a prior-attainment baseline.
+1. **The SEDA двойна scatter is gated on §2.0b, not on the SES index.** With the header fix it
+   becomes computable from a 5-year ДЗИ series (growth = trajectory vs context). НВО remains the
+   gold standard for *true* prior-attainment value-added, but is no longer the only path to a
+   growth axis.
+2. **НВО ingest is still load-bearing** — the only route to a second broadly-covered subject *and*
+   to the Progress-8-style prior-attainment baseline (§2.1). Just not the sole blocker.
 3. **Ethics guardrails (confidence intervals, small-N suppression) had no data source named** —
    until §2.2 below. Without cohort size they are unimplementable, and they are the whole moral
    spine of the product.
@@ -496,7 +514,7 @@ bridge chart rather than a plain KPI header." For МОН, frame the strongest da
 | `OblastChoropleth` | **does not exist.** Only `ProcurementOblastMap.tsx` (procurement-specific, reads `useProcurementByOblast`) | The Води plan proposes extracting a generic `OblastChoropleth`. Education must **either extract it itself** (making procurement the first caller, water the third) **or** sequence P4 behind Води. Decide before P4; don't silently depend. |
 | `SECTOR_BROWSE_PACKS` | **does not exist** (0 matches in `sectorPacks.tsx`) | Already treated conditionally in §6. v1 = МОН's own contracts on the awarder page; the education sector-browse pack is a fast-follow *after* the seam lands. |
 | `schools.awarder_eik` | **no EIK anywhere in the schools index** — the МОН institution code (`105201`) is not an EIK | The report card's "школски поръчки" tile and the education sector-browse both need a school→EIK join. Requires fuzzy name+address matching against the awarder corpus (the ЦАИС feed does carry ~900 school/kindergarten buyers). **Treat as an unresolved join; drop the tile from v1** rather than ship a bad match. |
-| `raw_data/indicators/mon/*.csv` | the cached files begin `<!DOCTYPE html>` — they are HTML, not CSV | Cache is stale/poisoned (error or Cloudflare page). **Verify a clean re-fetch before relying on any re-run of `build_index.ts`.** Possible silent-failure source. |
+| `raw_data/indicators/mon/*.csv` | **RESOLVED 2026-07-09.** 2022–2025 were the egov *homepage* (174,604 b each, differing only by CSRF token). Live re-fetch verified healthy: all 5 resources return `text/csv` with the expected `Бр./Ср.усп. БЕЛ` pairs. Cache repaired (gitignored; no repo change). | **Two latent bugs remain in `scripts/indicators/sources/mon_dzi.ts` — fix in P1:** (1) `fetchBuffer` (L49) validates only `res.ok`, so a 200-with-HTML redirect is written verbatim as `.csv`; add a content-type + `<!doctype` sniff and throw. (2) `ensureCsv` (L136) treats any file `size > 1024` as a valid cache, so a 174 KB HTML page is **never re-downloaded without `--force`**. Validate cached content, not just size. Same pattern likely affects other egov ingests — audit them. |
 
 ## 11b. Verification, quality & operations
 
@@ -540,9 +558,9 @@ The plan had no answer for "how do we know the numbers are right." Fill it:
 | Phase | Deliverable | Wiring done in-phase | Depends on |
 |---|---|---|---|
 | **P0 Skeleton** | МОН sector pack (`sectorPacks.tsx`, `MonPack`) + nav + budget bridge + decline strip. Ships alone; beats regionalprofiles.bg on grain. | i18n `procurement_mon_nav`; data-map feature node; **`INSTITUTION_PACKS` МОН entry → prerender + sitemap `/awarder/000695114`** | none |
-| **P1 Data** | **(a) persist cohort `n` (§2.2 — do first, ~1 line)** · **(b) НВО ingest + ≥5yr `--backfill` (critical path)** · geocode via EKATTE (§2.3) · Eurostat E&T · **Индекс на средата** · **schools→PG** (`schools`/`school_scores`/`school_context`) | new watcher sources; `update-schools` skill; `stamp-ingest`; `recordIngestBatch`; data-map source group; README; **verify the `raw_data/indicators/mon` cache re-fetches as CSV** | P0 |
+| **P1 Data** | **(a) persist cohort `n` (§2.2 — ~1 line)** · **(b) widen `YEARS` + normalize header variants → unlock 2022–2026 (§2.0b)** · **(c) harden the egov fetch (content-type sniff + real cache validation)** · **(d) НВО ingest + `--backfill`** · geocode via EKATTE (§2.3) · Eurostat E&T · **Индекс на средата** · **schools→PG** | new watcher sources; `update-schools` skill; `stamp-ingest`; `recordIngestBatch`; data-map source group; README; per-year row-count assertion | P0 |
 | **P2 Explorer + report card** | `/education` map + finder + `/school/:id` card (**level + suppression/CI only — no growth verdict yet**); `SchoolsBrowserDbScreen` + `/education/schools` | `schools` `/api/db/table` REGISTRY (EXPLAIN ANALYZE); AI `schoolProfile`/`schoolsNearMe`; `/education*` + `school/:id` routeDefs + `buildSchoolRoutes` prerender; golden fixtures | P1a geocode+PG |
-| **P3 Equity engine** | similar-cohorts · **true НВО→ДЗИ value-added** · SEDA двойна scatter · band/CI verdicts · `school_payloads` precompute | payload-determinism parity audit; AI `maturaByPlace`/`educationGaps`; `data-og="education-scatter"`; **dev-gated until golden-tested** | **P1b НВО backfill** + SES index |
+| **P3 Equity engine** | similar-cohorts · SEDA двойна scatter (growth from the 5-yr ДЗИ series) · **true НВО→ДЗИ value-added once P1d lands** · band/CI verdicts · `school_payloads` precompute | payload-determinism parity audit; AI `maturaByPlace`/`educationGaps`; `data-og="education-scatter"`; **dev-gated until golden-tested** | **P1b** (5-yr series) + SES index; P1d for value-added |
 | **P4 Journalism + spine** | inequality choropleth · money-trail spine · `?peers=` PISA panel | **extract `OblastChoropleth` from `ProcurementOblastMap` (or sequence behind Води — §11a)**; AI `monFiscal`; `data-og="education-gap-map"`. School-procurement tile **only if** the school→EIK join is resolved | P2,P3 |
 | **P5 Ship** | ethics/methodology page · **OG capture (`mon.png` + `education*.png`) + `ENGLISH_STATIC_PAGES` + `/en` prerender mirrors** · `bucket:sync` · Cloud SQL publish (`apply_functions.ts` + `db:load:*:cloud`) · README/data-map final · `naiasno-post` FEATURE launch | changelog verified; sitemap + data-map build clean; docs updated | all |
 
