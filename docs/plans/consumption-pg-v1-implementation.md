@@ -14,18 +14,18 @@ npm run db:pg:up                       # local Postgres on :5433
 ls raw_data/prices/*.zip | wc -l       # expect 188 — the backfill corpus
 ```
 
-**One new dependency.** `scripts/db/lib/pg.ts` exposes `getPool` / `withClient` / `exec` / `allRows`,
-but no `COPY` path, and `pg` alone cannot stream `COPY … FROM STDIN`. The agri loader uses 1000-row
-multi-row `INSERT`s; at 1.4M rows/day that is ~1,400 round-trips per day and ~263k across the
-backfill. Add:
+**The COPY helper already exists — do not add it.** An earlier draft of this plan called for
+`npm i pg-copy-streams` plus a new `copyInto` helper. Since then, commit `2b890646d` ("db: apply
+code-review findings on the COPY loaders") landed **`pg-copy-streams@^7.0.0`** as a dependency and
+**`scripts/db/lib/copy.ts`**, which exports `copyRows()`. Use it.
 
-```bash
-npm i pg-copy-streams
-```
+Why it matters: `pg` alone cannot stream `COPY … FROM STDIN`, and the agri loader's 1000-row
+multi-row `INSERT`s would mean ~1,400 round-trips per day and ~263k across the 188-day backfill.
+`COPY` turns the daily stage load from minutes into seconds.
 
-and a `copyInto` helper in `scripts/db/lib/pg.ts` (§2.2). This is the one place the plan deviates
-from the agri pattern, and it is load-bearing: `COPY` turns the daily stage load from minutes into
-seconds, and the 188-day backfill from hours into ~20 minutes.
+**Before writing `load_day.ts`, read `scripts/db/lib/copy.ts`** and confirm its escaping of `\`, tab,
+newline and `\r`. Store labels and product names are free text from 208 chains; assume they contain
+all four.
 
 **Resolved (was an open question).** The `/prices` and `/consumption` prerender bodies in
 `scripts/prerender/routes.ts:980-1057` are **static HTML strings**, and
@@ -95,24 +95,11 @@ the table is `TRUNCATE`d at end-of-run, so a snapshot sees it empty. State it as
 "absent". If a dump ever races an ingest it will capture 1.4M staging rows; add
 `--exclude-table-data=price_stage` to `pgDump()` if that matters.
 
-### 2.2 Modified: `scripts/db/lib/pg.ts`
+### 2.2 Reuse: `scripts/db/lib/copy.ts`
 
-```ts
-import { from as copyFrom } from "pg-copy-streams";
-import { pipeline } from "node:stream/promises";
-
-/** Stream rows into a table via COPY … FROM STDIN (text format, \N = NULL). */
-export const copyInto = async (
-  c: PoolClient,
-  table: string,
-  columns: string[],
-  rows: Iterable<(string | number | null)[]>,
-): Promise<number> => { /* … */ };
-```
-
-Text-format `COPY` requires escaping `\`, tab, newline and `\r` in every text field. Store labels and
-product names are free text from 208 different chains — assume they contain all four. Escape, do not
-hope.
+Already exists (see §0). It exports `copyRows()`. No new dependency, no new helper — just import it.
+Text-format `COPY` requires escaping `\`, tab, newline and `\r` in every text field; verify
+`copy.ts` does so before trusting it with 208 chains' free text.
 
 ### 2.3 Modified: `scripts/prices/lib/normalize.ts`
 
