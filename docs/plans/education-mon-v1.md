@@ -11,23 +11,36 @@ existing sector-pack pattern (like НЗОК/НОИ/АПИ) plus a new school-lev
 
 ---
 
-## 0. Why we're closer than it looks
+## 0. Starting position (audited 2026-07-09 against the working tree)
 
 Already in the repo (no new work):
 
 | Asset | Path | Note |
 |---|---|---|
 | МОН budget law-vs-execution | `data/budget/ministries/admin-ministerstvo-na-obrazovanieto-i-naukata.json` | EIK `000695114`, 2018–2026, admin+program grain, €350M / 866 procurement contracts |
-| Per-school ДЗИ (+НВО slots) | `data/schools/index.json` (344 KB) | 978 schools · 242 общини · `scoresByYear` · keyed by obshtina · **`loc` empty, no SES** |
-| Schools hook | `src/data/schools/useSchools.tsx` | `SchoolRecord {id,name,type?,address?,loc?,scoresByYear}`; Sofia районы → `SOF00` fallback |
-| Per-obshtina ДЗИ indicator | `data/indicators/MON*.json` + `useIndicators` | `dzi` series, absolute delta kind |
+| МОН is a real awarder | `data/procurement/derived/flow.json` | `awarder:000695114`. **Single EIK, no ВСС-style alias split** — but its corpus label is the stale legacy name ("Министерство на образованието, младежта и науката /МОМН/…"); the pack must supply its own display name. |
+| Per-school ДЗИ | `data/schools/index.json` (344 KB) | 978 schools · 242 общини. **See §2.0 — thinner than it looks.** |
+| Schools hook | `src/data/schools/useSchools.tsx` | `SchoolRecord` *declares* `type?`/`loc?` but **0/978 rows populate them**. Sofia = one `SOF00` bucket of 156 schools, no per-район. |
+| Per-obshtina ДЗИ indicator | `data/indicators/<obshtinaCode>.json` + `useIndicators` | a `dzi` series inside **every** obshtina file (alongside `unemployment`, `populationChange`, …). *(Earlier drafts wrongly cited `MON*.json` — `MON02` is **Montana**, an obshtina code, not МОН.)* |
 | SES raw material | `data/census/`, `data/indicators.json`, `data/regional.json`, `data/grao_population.json`, `--local-problem-sections` risk-sections | enough to build a BG-ICSEA context index |
 | Peer-compare UI | `/indicators/compare` `?peers=` | reuse verbatim for PISA/spend vs RO/GR/HR/EU |
 | Money layers | budget · ИСУН EU-funds · procurement · `data/budget/municipal_transfers/` | the money-trail spine no education portal on earth has |
 
-The gap between "data dump" and "world-class" is exactly four missing things: **geocoded
-schools, a socioeconomic context index, similar-school comparison, and growth/gap lenses.**
-We own the raw material for all four.
+### The template to copy: ВСС / `/judiciary`, not НЗОК
+There are now **five** sector packs (`sectorPacks.tsx`): roads, НОИ, НЗОК, ДФЗ, **ВСС**. The
+judiciary is the newest and is the *exact* shape this plan proposes — a top-level screen **plus**
+an awarder pack **plus** AI tools **plus** an ingest skill, fully SEO-wired:
+
+| Layer | Judiciary (copy this) | Education (build this) |
+|---|---|---|
+| Pack | `src/screens/components/procurement/vss/VssPack.tsx`, `src/lib/vssReferenceData.ts`, `src/data/procurement/useVss.tsx` | `mon/MonPack.tsx`, `monBenchmarks.ts`, `useMonData.tsx` |
+| Registry | `[VSS_EIK]: VssPack` | `[MON_EIK]: MonPack` |
+| Top-level screen | `src/screens/judiciary/JudiciaryScreen.tsx`, route `judiciary` (`routes.tsx:1324`, inside `<LayoutScreen>`) | `src/screens/education/EducationScreen.tsx` |
+| SEO | `INSTITUTION_PACKS` entry (`eik 121513231`, slug `vss`, `ogAnchor '[data-og="vss-bridge"]'`) + `routeDefs` + `ENGLISH_STATIC_PAGES` + an OG `captures[]` entry (`waitFor '[data-og="judiciary-caseload"] .recharts-surface'`) | same five touchpoints (§11) |
+| AI | `ai/tools/judiciary.ts` | `ai/tools/education.ts` |
+| Ingest | `.claude/skills/update-judiciary/`, `data/judiciary/*.json` | `.claude/skills/update-schools/` |
+
+Read the judiciary implementation before writing a line of МОН code.
 
 ---
 
@@ -63,22 +76,76 @@ tables — the anti-pattern).
 
 ## 2. Data foundation (the hard part; everything downstream is a query)
 
-### 2.1 НВО ingest — free win, do first
-Reuse the proven ДЗИ pipeline (`scripts/schools/build_index.ts`, `scripts/indicators/sources/mon_dzi.ts`).
-НВО (7th-grade external assessment) is the same data.egov.bg org, same CSV/JSON formats, and
-the `nvo_bel`/`nvo_math` subject slots already exist in `SchoolsFile.subjects`. Populates
-per-school and per-obshtina. **Effort: low.**
+### 2.0 Reality check — what the schools index actually contains
+Measured, not assumed:
 
-### 2.2 Geocode the school registry — the highest-leverage single fix
-`loc` is empty for all 978 schools → no map is possible. Fill it from the МОН institution
-register (`ri.mon.bg` / `reg.mon.bg` / NEISPUO `neispuo.mon.bg`) or by matching `address` →
-EKATTE settlement centroid (we already have EKATTE joins in ГРАО/census pipelines). Store
-`loc: "lat,lng"`. Also capture `type` (primary/secondary/mixed/vocational), director contact,
-and the МОН institution code so per-school URLs are stable. **Effort: medium (scrape/geocode).**
+| Fact | Value | Consequence |
+|---|---|---|
+| Schools · общини | 978 · 242 | fine |
+| Years | **2024, 2025 only** | **"growth" and "trend" are a single delta, not a rate** |
+| `dzi_bel` rows | 1,928 | the only broadly-covered metric |
+| `dzi_math` rows | **195** | ДЗИ математика is an elective 2nd matura — too sparse for a math lens |
+| `nvo_bel` / `nvo_math` rows | **0 — never ingested** | the subject slots exist; the data does not |
+| `loc` populated | **0 / 978** | no map is possible today |
+| `type` populated | **0 / 978** | the level/type facet cannot work today |
+| enrollment | absent from the index | no dot-size, no €/ученик |
+| Sofia | one `SOF00` bucket, 156 schools | no per-район drill |
 
-### 2.3 Enrollment per school — needed for dot-size + per-student spend
-Pull student headcount per school from НСИ / the register. Enables SEDA-style enrollment-sized
-dots and the "€/ученик" money read. **Effort: medium.**
+**Three consequences that reshape the plan:**
+
+1. **The SEDA двойна scatter — the plan's centerpiece — is NOT computable today.** Level-vs-growth
+   needs either a multi-year series or a prior-attainment baseline. Two years of one subject give
+   neither. It is gated on §2.1, not on the SES index.
+2. **НВО ingest is load-bearing, not a "free win."** It is the only route to a second
+   broadly-covered subject *and* to a prior-attainment baseline.
+3. **Ethics guardrails (confidence intervals, small-N suppression) had no data source named** —
+   until §2.2 below. Without cohort size they are unimplementable, and they are the whole moral
+   spine of the product.
+
+### 2.1 НВО ingest — now the critical path, and the door to real value-added
+Reuse the proven ДЗИ pipeline (`scripts/schools/build_index.ts`, `scripts/indicators/sources/mon_dzi.ts`);
+same data.egov.bg org, same formats, and the `nvo_bel`/`nvo_math` slots already exist.
+
+**The prize the earlier draft missed:** НВО is sat in **7th grade**, ДЗИ in **12th** — a 5-year
+lag. That is structurally identical to the UK's KS2→KS4 baseline behind **Progress 8**. Ingest
+НВО back ≥5 years and we can compute a genuine **school-level value-added** score — *"this school's
+ДЗИ result versus what its cohort's НВО five years earlier predicted"* — instead of the poor-man's
+"movement vs oblast" proxy. That single measure is what separates a world-class explorer from a
+league table, and it is *available to us*.
+
+- Historical НВО backfill goes behind `--backfill` (per `feedback_one_off_backfills`), never in
+  the watcher/CI.
+- **Caveat to state in the UI:** pupils move schools between 7th and 12th grade, so this is a
+  *school-level cohort* comparison, not pupil-level tracking. Label it honestly; the UK measure
+  has the same limitation and says so.
+
+### 2.2 Persist the cohort count — a ~1-line change that unlocks the ethics layer
+`scripts/schools/build_index.ts` **already parses examinee counts**: the МОН CSV stores each
+subject as an adjacent `(count, score)` column pair (see the `findPairedColumns` helper, ~L92–100),
+and the builder reads `count` only to filter `count > 0` (L160–171) — **then throws it away.**
+
+Persist it as `school_scores.n` and we get, for free:
+- **small-N suppression** ("недостатъчно данни" instead of a false-precise rank),
+- **confidence intervals** (the honesty device the whole ethics section depends on),
+- an **enrollment proxy** for SEDA-style dot-sizing and €/ученик, deferring §2.4.
+
+This is the single highest-leverage fix in the plan. Do it in P1, before anything visual.
+
+### 2.3 Geocode the school registry — gates the map entirely
+`loc` is empty for all 978 schools; the only locational field is a free-text `address`
+("ГР.БАНСКО"). Two paths, in order of preference:
+- **EKATTE settlement-centroid match** on `address` — realistic, reuses existing ГРАО/census
+  EKATTE joins, gives settlement-accurate pins. Ship this.
+- **МОН institution register** (`ri.mon.bg` / `neispuo.mon.bg`) for true per-school coordinates +
+  `type` + director contact. Better, but a scrape; WAF friction expected on mon.bg.
+
+Sofia needs explicit handling: `SOF00` is one bucket of 156 schools with no район split, so the
+finder map must place them by address, not by obshtina centroid, or they all stack on one pin.
+
+### 2.4 Enrollment per школа — deferrable if §2.2 lands
+With `n` (examinee count) persisted, dot-size and a rough €/ученик are computable without a
+separate ingest. A true headcount from НСИ / the register remains the accurate version.
+**Effort: medium; not on the critical path.**
 
 ### 2.4 BG-ICSEA — "Индекс на средата" (the socioeconomic context index)
 The engine behind every fair comparison. Build a per-school (fallback per-obshtina/район)
@@ -422,15 +489,61 @@ bridge chart rather than a plain KPI header." For МОН, frame the strongest da
   1200×630 @2x. Commit the PNGs (`public/og/awarder/mon.png` + `public/og/education*.png`) —
   the other `public/og/awarder/*.png` are committed artifacts.
 
+## 11a. Unshipped dependencies (verified absent — do not assume)
+
+| Thing the plan references | Actual state | Resolution |
+|---|---|---|
+| `OblastChoropleth` | **does not exist.** Only `ProcurementOblastMap.tsx` (procurement-specific, reads `useProcurementByOblast`) | The Води plan proposes extracting a generic `OblastChoropleth`. Education must **either extract it itself** (making procurement the first caller, water the third) **or** sequence P4 behind Води. Decide before P4; don't silently depend. |
+| `SECTOR_BROWSE_PACKS` | **does not exist** (0 matches in `sectorPacks.tsx`) | Already treated conditionally in §6. v1 = МОН's own contracts on the awarder page; the education sector-browse pack is a fast-follow *after* the seam lands. |
+| `schools.awarder_eik` | **no EIK anywhere in the schools index** — the МОН institution code (`105201`) is not an EIK | The report card's "школски поръчки" tile and the education sector-browse both need a school→EIK join. Requires fuzzy name+address matching against the awarder corpus (the ЦАИС feed does carry ~900 school/kindergarten buyers). **Treat as an unresolved join; drop the tile from v1** rather than ship a bad match. |
+| `raw_data/indicators/mon/*.csv` | the cached files begin `<!DOCTYPE html>` — they are HTML, not CSV | Cache is stale/poisoned (error or Cloudflare page). **Verify a clean re-fetch before relying on any re-run of `build_index.ts`.** Possible silent-failure source. |
+
+## 11b. Verification, quality & operations
+
+The plan had no answer for "how do we know the numbers are right." Fill it:
+
+- **Golden files / parity.** Follow the existing `scripts/db/__golden__/` + `tests/fixtures/`
+  convention. The SES index, the similar-cohort assignment, and every verdict band get a golden
+  fixture; the `school_payloads` jsonb builders get the payload-determinism parity audit (dump the
+  same query to JSON and diff) per `reference_pg_payload_determinism`.
+- **Static-JSON ↔ PG parity.** `data/schools/index.json` stays the ingest artifact (per
+  `feedback_no_json_from_pg`) while browse/scatter serve from PG. Add a check that both agree on
+  school count and latest-year scores, or they will drift.
+- **Charts.** Read the `dataviz` skill **before** writing any chart code (palette, mark specs,
+  legend/axis/tooltip rules, light+dark). SEDA explicitly required a **colour-blind-safe diverging
+  ramp** shared between map and scatter — inherit that requirement.
+- **Mobile / a11y.** A 978-point scatter must degrade on a ~380px viewport (bin or sample, keep the
+  regression line and the user's own school highlighted). Verdict colours need a non-colour channel
+  (label/shape) — never colour alone for над/близо/под.
+- **Performance budget.** `useSchools` currently fetches the whole 344 KB index on any page that
+  mounts it; adding fields will grow it. Keep the tiny-tile hook on a slim payload, serve the
+  browse table + scatter from PG (`school_payloads`), and lazy-load the pack (the `PACKS` registry
+  already lazies).
+- **i18n.** Every new key in `src/locales/{bg,en}/translation.json`: `procurement_mon_nav`,
+  `education_nav`, the three verdict labels (над/близо/под очакваното), `education_insufficient_data`,
+  band names, methodology copy. BG copy follows `feedback_bg_language` (natural, not calqued) and
+  `feedback_bg_uses_eur`.
+- **Prod deploy checklist.** New PG tables ⇒ `db:push` + functions redeploy + `/api/db` registry
+  live, *before* the OG capture (which reads the DB via the dev server) and before launch. Both the
+  agri and tenders migrations sit at "DEPLOY PENDING" in memory — do not repeat that.
+- **Rollout.** Ship the pack (P0) publicly; keep `/education` behind the dev gate until the verdict
+  layer (P3) is golden-tested, because a wrong "под очакваното" on a real school is the one error
+  with human cost.
+- **Attribution & identifiability.** Credit МОН + data.egov.bg on every tile. Tiny cohorts make
+  pupils identifiable — small-N suppression (§2.2) is a privacy control, not just a statistical one.
+- **Success metric.** Not pageviews: *does a parent/journalist find their school and correctly read
+  "above expectations for its context"?* Track `/school/:id` entries from search + the share rate of
+  the scatter card.
+
 ## 12. Build sequence
 
 | Phase | Deliverable | Wiring done in-phase | Depends on |
 |---|---|---|---|
 | **P0 Skeleton** | МОН sector pack (`sectorPacks.tsx`, `MonPack`) + nav + budget bridge + decline strip. Ships alone; beats regionalprofiles.bg on grain. | i18n `procurement_mon_nav`; data-map feature node; **`INSTITUTION_PACKS` МОН entry → prerender + sitemap `/awarder/000695114`** | none |
-| **P1 Data** | НВО ingest · geocode registry (`loc`/`lat,lng`) · enrollment · Eurostat E&T · **Индекс на средата** · **schools→PG migration** (`schools`/`school_scores`/`school_context`) | new watcher sources; `update-schools` skill; `stamp-ingest`; `recordIngestBatch`; data-map source group; README | P0 |
-| **P2 Explorer + report card** | `/education` map + finder + `/school/:id` card (level + trend); `SchoolsBrowserDbScreen` + `/education/schools` | `schools` `/api/db/table` REGISTRY (EXPLAIN ANALYZE); AI `schoolProfile`/`schoolsNearMe`; **`/education*` + `school/:id` routeDefs + `buildSchoolRoutes` prerender** | P1 geocode+PG |
-| **P3 Equity engine** | similar-cohorts · SEDA двойна scatter · band/CI verdicts · `school_payloads` precompute | payload-determinism parity audit; AI `maturaByPlace`/`educationGaps`; **`data-og="education-scatter"` on the hero tile** | P1 SES index |
-| **P4 Journalism + spine** | inequality choropleth (`OblastChoropleth`) · money-trail spine · `?peers=` PISA panel | AI `monFiscal`; education sector-browse pack (if Water's seam landed); **`data-og="education-gap-map"`** | P2,P3 |
+| **P1 Data** | **(a) persist cohort `n` (§2.2 — do first, ~1 line)** · **(b) НВО ingest + ≥5yr `--backfill` (critical path)** · geocode via EKATTE (§2.3) · Eurostat E&T · **Индекс на средата** · **schools→PG** (`schools`/`school_scores`/`school_context`) | new watcher sources; `update-schools` skill; `stamp-ingest`; `recordIngestBatch`; data-map source group; README; **verify the `raw_data/indicators/mon` cache re-fetches as CSV** | P0 |
+| **P2 Explorer + report card** | `/education` map + finder + `/school/:id` card (**level + suppression/CI only — no growth verdict yet**); `SchoolsBrowserDbScreen` + `/education/schools` | `schools` `/api/db/table` REGISTRY (EXPLAIN ANALYZE); AI `schoolProfile`/`schoolsNearMe`; `/education*` + `school/:id` routeDefs + `buildSchoolRoutes` prerender; golden fixtures | P1a geocode+PG |
+| **P3 Equity engine** | similar-cohorts · **true НВО→ДЗИ value-added** · SEDA двойна scatter · band/CI verdicts · `school_payloads` precompute | payload-determinism parity audit; AI `maturaByPlace`/`educationGaps`; `data-og="education-scatter"`; **dev-gated until golden-tested** | **P1b НВО backfill** + SES index |
+| **P4 Journalism + spine** | inequality choropleth · money-trail spine · `?peers=` PISA panel | **extract `OblastChoropleth` from `ProcurementOblastMap` (or sequence behind Води — §11a)**; AI `monFiscal`; `data-og="education-gap-map"`. School-procurement tile **only if** the school→EIK join is resolved | P2,P3 |
 | **P5 Ship** | ethics/methodology page · **OG capture (`mon.png` + `education*.png`) + `ENGLISH_STATIC_PAGES` + `/en` prerender mirrors** · `bucket:sync` · Cloud SQL publish (`apply_functions.ts` + `db:load:*:cloud`) · README/data-map final · `naiasno-post` FEATURE launch | changelog verified; sitemap + data-map build clean; docs updated | all |
 
 ## 13. Open questions / risks
