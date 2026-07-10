@@ -16,6 +16,7 @@ import { useProcurementWindow } from "./useProcurementWindow";
 import { useNoiFunds } from "@/data/budget/useBudget";
 import { buildNoiModel, NOI_EIK, type NoiModel } from "@/lib/noiAttributes";
 import type { NoiFundsFile } from "@/data/budget/types";
+import { latestCompleteNoiYear } from "@/data/budget/noiYear";
 
 export { NOI_EIK };
 // The pack takes its scope-window type from here.
@@ -45,16 +46,11 @@ export interface NoiData {
 
 const flattenFundYear = (file: NoiFundsFile | null): NoiFundYear | null => {
   if (!file || !file.years.length) return null;
-  // Pick the latest year that carries real fund detail. The B1 ingest publishes
-  // a new fiscal year mid-cycle as a partial/shell record (funds: [], revenue:
-  // 0 — the current 2023 record is exactly this shape); taking the raw max would
-  // select that shell and render adminEur/revenue = 0, i.e. a false "0% covered
+  // Latest year carrying real fund detail. Taking the raw max would select the
+  // mid-cycle shell and render adminEur/revenue = 0, i.e. a false "0% covered
   // by contributions / 100% state transfer" claim and a vanished admin tile.
-  const usable = file.years.filter(
-    (yr) => yr.funds.length > 0 && yr.totals.revenue.amountEur > 0,
-  );
-  if (!usable.length) return null;
-  const y = [...usable].sort((a, b) => b.fiscalYear - a.fiscalYear)[0];
+  const y = latestCompleteNoiYear(file.years);
+  if (!y) return null;
   let personnelEur = 0;
   let operationsEur = 0;
   let capitalEur = 0;

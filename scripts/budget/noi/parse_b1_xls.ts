@@ -326,6 +326,13 @@ export interface NoiFundsFile {
   years: Array<{
     fiscalYear: number;
     asOf: string;
+    // True when this year carries real B1 per-fund detail. False for the
+    // partial/shell record the ingest publishes mid-cycle from the pension
+    // yearbook alone (funds: [], revenue: 0, and an `expenditure` that is
+    // really just the pension mass). Consumers MUST NOT treat a shell year as
+    // comparable to a complete one — see isCompleteNoiYear in
+    // src/data/budget/noiYear.ts, the single guard every reader shares.
+    complete: boolean;
     // Whole-NOI rollup across the three funds — the headline figure the
     // drilldown shows. Sums {revenue,expenditure,balance} across all funds
     // for which a B1 file was ingested in this year.
@@ -408,6 +415,10 @@ export const buildNoiFundsFile = (
     years.push({
       fiscalYear: year,
       asOf: funds[0]?.asOf ?? `${year}-12-31`,
+      // The producer is the only place that actually knows whether B1 files
+      // were ingested; stamp it rather than making every reader re-derive it
+      // from the shape of `funds`/`revenue`.
+      complete: funds.length > 0,
       totals: {
         revenue: funds.length
           ? sumMoney(funds.map((f) => f.revenue))

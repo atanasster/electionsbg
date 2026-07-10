@@ -21,6 +21,7 @@ import {
   useInvestmentProgramIndex,
   useInvestmentProgram,
 } from "@/data/budget/useBudget";
+import { isCompleteNoiYear } from "@/data/budget/noiYear";
 
 const compactEur = (v: number): string => {
   if (v >= 1_000_000_000) return `€${(v / 1_000_000_000).toFixed(2)}B`;
@@ -76,21 +77,16 @@ export const CabinetFiscalFootprintTile: FC<{ government: Government }> = ({
 
   // Cumulative NOI gross expenditure + pensions across overlap years.
   //
-  // Only years carrying real fund detail count. The B1 ingest publishes a new
-  // fiscal year mid-cycle as a partial/shell record (funds: [], revenue: 0)
-  // whose `expenditure` is just the yearbook pension mass rather than gross
-  // expenditure — summing it understates the total while `yearsCovered` still
-  // claims the year as covered, and a cabinet whose whole tenure falls in a
-  // shell year renders "€X gross, of which €X pensions". Same guard as
-  // flattenFundYear in src/data/procurement/useNoi.tsx. If no overlap year is
-  // complete the block is dropped entirely rather than shown understated.
+  // Only years carrying real fund detail count. A shell year's `expenditure` is
+  // just the yearbook pension mass rather than gross expenditure — summing it
+  // understates the total while `yearsCovered` still claims the year as
+  // covered, and a cabinet whose whole tenure falls in a shell year renders
+  // "€X gross, of which €X pensions". If no overlap year is complete the block
+  // is dropped entirely rather than shown understated.
   const noiCumulative = useMemo(() => {
     if (!noi) return null;
     const overlapped = noi.years.filter(
-      (y) =>
-        tenureYears.includes(y.fiscalYear) &&
-        y.funds.length > 0 &&
-        y.totals.revenue.amountEur > 0,
+      (y) => tenureYears.includes(y.fiscalYear) && isCompleteNoiYear(y),
     );
     if (overlapped.length === 0) return null;
     return {

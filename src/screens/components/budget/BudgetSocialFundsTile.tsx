@@ -13,6 +13,7 @@ import { HeartHandshake } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur } from "@/lib/currency";
 import { useNoiFunds } from "@/data/budget/useBudget";
+import { latestCompleteNoiYear } from "@/data/budget/noiYear";
 import type { NoiExpenseLineId } from "@/data/budget/types";
 
 const compactEur = (v: number): string => {
@@ -40,16 +41,11 @@ export const BudgetSocialFundsTile: FC<{ fiscalYear: number }> = ({
     if (!data) return null;
     const exact = data.years.find((y) => y.fiscalYear === fiscalYear);
     if (exact) return exact;
-    // Fall back to the latest year carrying real fund detail. The B1 ingest
-    // publishes a new fiscal year mid-cycle as a partial/shell record (funds:
-    // [], revenue: 0), so the raw max would fall back to a year whose expense
-    // breakdown is entirely zero. Same guard as flattenFundYear in
-    // src/data/procurement/useNoi.tsx. An *exact* shell year is still honoured
-    // above — that is a deliberate yearbook-only view.
-    const usable = data.years.filter(
-      (y) => y.funds.length > 0 && y.totals.revenue.amountEur > 0,
-    );
-    return [...usable].sort((a, b) => b.fiscalYear - a.fiscalYear)[0] ?? null;
+    // Fall back to the latest COMPLETE year — the raw max could be the ingest's
+    // mid-cycle shell, whose expense breakdown is entirely zero. An *exact*
+    // shell year is still honoured above: that is a deliberate yearbook-only
+    // view, not a fallback.
+    return latestCompleteNoiYear(data.years);
   }, [data, fiscalYear]);
 
   if (!yearEntry) return null;

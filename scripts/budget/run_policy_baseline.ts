@@ -28,6 +28,10 @@ import { fileURLToPath } from "url";
 import * as XLSX from "xlsx";
 
 import { BGN_PER_EUR } from "../../src/lib/currency";
+import {
+  latestCompleteNoiYear,
+  type NoiYearLike,
+} from "../../src/data/budget/noiYear";
 import { MOD_BY_YEAR, PIT_RATE, SSC_EMPLOYEE_RATE } from "../../src/lib/bgTax";
 import {
   VAT_SLICES,
@@ -900,30 +904,20 @@ const main = async (): Promise<void> => {
   // --- expenditure side: pensions, administration, МРЗ ----------------------
   // Pension mass from the НОИ B1 fund execution (latest closed year there).
   const noi = readJson<{
-    years: {
-      fiscalYear: number;
-      funds: unknown[];
+    years: (NoiYearLike & {
       totals: {
         pensions: { amountEur: number };
         revenue: { amountEur: number };
       };
-    }[];
+    })[];
   }>("data/budget/noi/funds.json");
-  // The B1 ingest publishes a new fiscal year mid-cycle as a partial/shell
-  // record (funds: [], revenue: 0) whose pension figure is partial or
-  // yearbook-only, so the last array element is not necessarily the latest
-  // complete year. Mirror flattenFundYear in src/data/procurement/useNoi.tsx:
-  // keep only years carrying real fund detail, then take the max fiscalYear.
-  const noiUsable = noi.years.filter(
-    (yr) => yr.funds.length > 0 && yr.totals.revenue.amountEur > 0,
-  );
-  if (!noiUsable.length)
+  // Not the last array element: the ingest publishes a new fiscal year
+  // mid-cycle as a partial/shell record whose pension figure is yearbook-only.
+  const noiLatest = latestCompleteNoiYear(noi.years);
+  if (!noiLatest)
     throw new Error(
-      "data/budget/noi/funds.json has no complete fiscal year (funds + revenue) — cannot derive the pension mass",
+      "data/budget/noi/funds.json has no complete fiscal year — cannot derive the pension mass",
     );
-  const noiLatest = [...noiUsable].sort(
-    (a, b) => b.fiscalYear - a.fiscalYear,
-  )[0];
   const pensionMassEur = noiLatest.totals.pensions.amountEur;
   // Non-pension social-protection base for the social-benefits spending lever:
   // COFOG GF10 (all social protection) minus the pension mass that the pension

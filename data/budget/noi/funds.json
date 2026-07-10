@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-26T12:32:25.400Z",
+  "generatedAt": "2026-07-10T12:17:06.297Z",
   "source": {
     "publisher": "Национален осигурителен институт (NOI)",
     "urlTemplate": "https://www.nssi.bg/wp-content/uploads/B1_{YYYY}_{MM}_{FUND}.xls",
@@ -9,6 +9,7 @@
     {
       "fiscalYear": 2023,
       "asOf": "2023-12-31",
+      "complete": false,
       "totals": {
         "revenue": {
           "amount": 0,
@@ -73,6 +74,7 @@
     {
       "fiscalYear": 2024,
       "asOf": "2024-12-31",
+      "complete": true,
       "totals": {
         "revenue": {
           "amount": 13027035393,

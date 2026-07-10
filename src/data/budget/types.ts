@@ -884,6 +884,12 @@ export interface NoiFundsFile {
   years: Array<{
     fiscalYear: number;
     asOf: string;
+    // True when the year carries real B1 per-fund detail; false for the
+    // yearbook-only shell the ingest publishes mid-cycle. Optional because the
+    // artifact is bucket-served and a deploy may briefly serve a pre-flag
+    // funds.json. Never read this directly — go through isCompleteNoiYear /
+    // latestCompleteNoiYear in src/data/budget/noiYear.ts.
+    complete?: boolean;
     totals: {
       revenue: Money;
       expenditure: Money;
