@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-10T02:40:23.130Z",
+  "generatedAt": "2026-07-10T10:20:54.249Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -237,7 +237,7 @@
       "url": "https://data.egov.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-09T06:09:03.525Z",
+      "freshness": "2026-07-10T06:08:57.396Z",
       "skills": [
         "update-procurement",
         "update-connections",
@@ -258,7 +258,7 @@
           "label": "data.egov.bg Commerce Registry (Търговски регистър)",
           "url": "https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=1",
           "cadence": "daily",
-          "freshness": "2026-07-09T06:09:03.525Z"
+          "freshness": "2026-07-10T06:08:57.396Z"
         },
         {
           "id": "egov_budget_execution",
@@ -322,7 +322,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-09T06:09:03.525Z",
+      "freshness": "2026-07-10T06:08:57.396Z",
       "skills": [
         "update-procurement"
       ],
@@ -332,7 +332,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-07-09T06:09:03.525Z"
+          "freshness": "2026-07-10T06:08:57.396Z"
         }
       ],
       "x": 28,
@@ -904,7 +904,7 @@
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
       "cadence": "weekly",
-      "freshness": "2026-06-16T07:08:32.388Z",
+      "freshness": "2026-07-10T06:08:57.396Z",
       "skills": [
         "update-macro",
         "update-regional",
@@ -923,7 +923,7 @@
           "label": "Eurostat policy-baseline (BG): consumption + tax aggregates",
           "url": "https://ec.europa.eu/eurostat/databrowser/view/nama_10_co3_p3/default/table",
           "cadence": "monthly",
-          "freshness": "2026-06-10T06:09:43.216Z"
+          "freshness": "2026-07-10T06:08:57.396Z"
         },
         {
           "id": "eurostat_regional",
@@ -1203,7 +1203,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-09T06:09:03.525Z",
+      "freshness": "2026-07-10T06:08:57.396Z",
       "skills": [
         "update-prices"
       ],
@@ -1213,7 +1213,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-07-09T06:09:03.525Z"
+          "freshness": "2026-07-10T06:08:57.396Z"
         }
       ],
       "x": 28,
@@ -1281,6 +1281,7 @@
       "url": "https://vss.justice.bg/page/view/1082",
       "origin": "state",
       "cadence": "monthly",
+      "freshness": "2026-07-10T06:08:57.396Z",
       "skills": [
         "update-judiciary"
       ],
@@ -1289,13 +1290,15 @@
           "id": "vss_court_statistics",
           "label": "ВСС — съдебна статистика",
           "url": "https://vss.justice.bg/page/view/1082",
-          "cadence": "monthly"
+          "cadence": "monthly",
+          "freshness": "2026-07-10T06:08:57.396Z"
         },
         {
           "id": "ivss_declarations",
           "label": "ИВСС — декларации на магистрати",
           "url": "https://www.inspectoratvss.bg/bg/page/129",
-          "cadence": "monthly"
+          "cadence": "monthly",
+          "freshness": "2026-07-10T06:08:57.396Z"
         }
       ],
       "x": 28,
