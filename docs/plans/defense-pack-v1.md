@@ -1,5 +1,17 @@
 # Отбрана (МО / Българска армия) view — v1
 
+## Status (2026-07-09, rev 1.5 — UI/UX best practices folded in)
+
+- **Rev 1.5:** Part 10 added — external best-in-class buyer-page research (USAspending, OpenTender/
+  DIGIWHIST, Tussell, BI Prozorro/DOZORRO, OpenGov, OCP) cross-referenced against the 5 shipped
+  packs, plus the `dataviz` house chart rules. Finding: **most world-best patterns are already
+  shipped** (bridge = budget-vs-contracted, `ProcurementBenchmarksTile` = single-bid gauge, many
+  small dashboards, tender lineage, faceted see-all) — reuse them. Copy NZOK's bridge (best), VSS's
+  conditional KPI grid, the shared benchmark tile (МО's 44,3% single-bid renders RED). Genuine
+  deltas: transparency-on-the-KPI, top-5 concentration metric, riskiest-contracts feed, framework
+  ceiling-vs-drawdown. Chart rules: single-axis only (killed the dual-axis idea), validate the
+  6-universe palette, color-follows-entity so the universe `Select` never repaints.
+
 ## Status (2026-07-09, rev 1.4 — audit applied; МО group scoped)
 
 - **Rev 1.4:** subordinate EIKs are **IN**. The group is **25 curated EIKs / 6 889 contracts /
@@ -165,8 +177,9 @@ parliamentary ratification law. Weapons/ammunition/intelligence procurement is e
    contractors, CPV, benchmarks, Sankey, by-year, tenders, appeals) render *richly*, not emptily.
    Phase 1 is worth far more than previously scoped.
 2. **The competition story is a real, defensible finding**, not a footnote: 17,8% of value via
-   open procedure; 44,3% single-bid among covered contracts (EU red line >20%); 13,2% of value
-   negotiated without prior notice. `ProcurementBenchmarksTile` lights up.
+   open procedure; 44,3% single-bid among covered contracts; 13,2% of value negotiated without
+   prior notice. Fed into the shipped `ProcurementBenchmarksTile` (single-bid green ≤10% / **red
+   >20%**), МО's 44,3% renders **solidly RED** — reuse the tile unchanged (Part 10a).
 3. The transparency tile still names the FMS/чл.149 gap — now framed as
    **sustainment-visible / acquisition-invisible**, which is more precise and more damning.
 4. Non-contract data (%GDP path, equipment/personnel mix, mega-programs, exports, readiness)
@@ -600,6 +613,107 @@ sitemap` is separate. Commit the new `public/og/awarder/defence.png` (+ `public/
 and `bucket:sync` any data. Verify `dist/awarder/000695324/index.html` exists (else the sitemap
 loc is a soft-duplicate of the homepage).
 
+## Part 10 — UI/UX best practices & the world-class bar
+
+Two research passes (external best-in-class buyer/contract dashboards; internal harvest of the 5
+shipped packs). **Headline: most "world-best" patterns are ALREADY shipped in the packs.** The job
+is to reuse them unchanged, copy the best-executed version of each, and add a short list of genuine
+deltas. Nothing here is a new framework.
+
+### a. External top-12 → already shipped? (reuse, don't reinvent)
+
+| World-best pattern (source) | Status in the packs | Defense action |
+|---|---|---|
+| Single-bid % + no-call % as gauges vs a threshold, 0/50/100 red-flag color (OpenTender/DIGIWHIST) | **Shipped** — `ProcurementBenchmarksTile` (zone divs: single-bid green ≤10 / red >20; no-call green ≤5 / red ≥10; coverage line; self-hides <100 known) | **Reuse UNCHANGED**, fed `{total, singleBidder, noCall}`. МО's **44,3% single-bid renders solidly RED** — a real headline, not a footnote |
+| Budget-vs-contracted split at the top (USAspending account-vs-award) | **Shipped, and it's the packs' best idea** — the "bridge" hero | Copy the **NZOK bridge** (below) |
+| Many small independently-linkable dashboards (BI Prozorro) | **Shipped** — dashboard tiles, no tabs (house convention) | Keep |
+| Tender→contract lineage + forecast-vs-actual (OCP) | **Shipped** — `ContractTenderLineage` (УНП join) + `AwarderTendersTile` | Reuse (МО has 230 tenders) |
+| Faceted cross-filtered "checkbook" + CSV export (OpenGov) | **Shipped** — DbDataTable "see all" + contracts browser | Reuse via `CompanyContractsDbScreen` |
+| Redaction as a measured category; coverage caveat on the KPI (OpenTender/USAspending) | **Partial** — coverage lines on benchmark tiles + provenance footers | **Sharpen**: put "excl. classified acquisition (FMS/чл.149)" *on the KPI*, treat "value not disclosed" as a shown bar |
+| Supplier concentration = top-N share of spend (+ HHI), on a top-N spine (Tussell) | **Partial** — `AwarderTopContractorsTile` exists; no explicit share/HHI | **Add** a "топ-5 доставчици = X% от разхода" concentration chip/KPI |
+| Supplier entity-resolution into "supplier groups" (Tussell) | **Partial** — buyer side merged by EIK; supplier-side name-variant merge is a known gap ([[project_procurement_namesake_fix]], SIGMA parity) | Adopt where cheap; don't block v1 |
+| Risk as a reverse-chron flagged feed + sortable "most-flagged contracts" (DOZORRO/OCP Cardinal) | **Partial** — `computeProcurementRisk`/`RiskSignalsTile`/`RiskBadges` exist | **Phase 3**: a sortable "най-рискови поръчки на МО" feed |
+| Award detail = ceiling bar + obligation + mod timeline + funding trace (USAspending) | **Partial** — `ContractDetailScreen` has KvRows + lineage + connected people; no ceiling-vs-drawdown | **Add** ceiling-vs-drawdown for МО **рамкови споразумения** (several МО contracts are 48-month frameworks) — shared-screen enhancement |
+| Treemap w/ multiple entry axes + breadcrumb drill (USAspending Explorer) | **Not shipped** — `CompanyPortfolioTreemap` is static; category tiles are horizontal bars | **Stretch.** The universe `Select` (Part 2) is a lightweight "multiple entry axes"; defer the breadcrumb-treemap |
+| "single-bid pending" honest state for open tenders (OCP) | **Not shipped** | Cheap micro-UX to add on the tenders tile |
+
+### b. Best-of-each-pack — copy these exact implementations
+
+- **Hero bridge — copy NZOK `nzok/NzokBudgetBridgeTile.tsx` (best-executed).** It layers: year-picker
+  pill group, headline €, a **BG-vs-EU context sub-bar** (COFOG GF07 health), the composition bar,
+  an **execution-pace curve that falls back to a single gauge** when <2 months of data, then the
+  procurement bridge. **Defense bridge:** МО's ЗОП contracts inside the total defense budget
+  (function 02), with the **NATO 2%-of-GDP line as the EU-context sub-bar** (direct analogue of
+  NZOK's COFOG sub-bar). `data-og="defense-hero"`. Heroes are **pure CSS/Tailwind flex bars — no
+  charting lib** (the only Recharts in the whole set is the roads donut).
+- **The single most important pattern — the honest bridge.** Budget context + **rounding-floor
+  honesty** (`procShare < 0.005 ? "под 0,5%" : "~"+pct`) + **period-matched ratios** (same-year on
+  both sides). This is what makes the packs read as trustworthy, not gotcha-hunting. МО's line:
+  "ЗОП поръчките на МО са ~X% от бюджета за отбрана; останалото е личен състав, ангажименти към НАТО
+  и класифицирано придобиване извън ЗОП." Copy `NzokBudgetBridgeTile:90-98` verbatim.
+- **Insight chips.** Import `chipStyles.ts` `WARN_CHIP_COLORS` (the comment **forbids forking a 4th
+  amber** — do not). `directShare > 0.05` emits, `warn: > 0.1` (verbatim across all packs).
+  `slice(0,5)`. Skip the `other` category in "largest category" recipes. Add an МО domain warn chip
+  (e.g. negotiated-w/o-notice share, which is 13,2% by value; warn over a threshold), following the
+  roads capture-chip pattern (`contractCount≥3 && singleBidShare≥0.8`).
+- **KPI row.** Copy **VSS's conditional grid** — `grid gap-3 ${hasModel && year ? "grid-cols-2" :
+  "grid-cols-1"}` so a lone card never leaves an empty half-column. Only **domain-unique** KPIs
+  (generic total/contracts/suppliers are in the awarder header above). `formatEurCompact`,
+  `tabular-nums`. Use `StatCard`'s `seeMoreTo` for drill-down (corner chevron).
+- **Category "what it buys" tile.** Clone `NzokCategoryTile`/`VssCategoryTile` (near-identical):
+  **horizontal bars, not donut/treemap**; `max = Math.max(...all rows)` **NOT `rows[0]`** (the
+  `other` sink is sorted last but can be largest → bar overflow); single-bid overlay only when
+  `bidKnownN ≥ 3`, amber at `≥0.5`; **"Other" disclosure** when `otherShare ≥ 0.1` ("«Друго» е
+  предимно договори без CPV"). A donut is legit ONLY for a true 4-way part-of-whole (roads
+  build-vs-repair), never for a ranked list.
+- **Benchmark tile.** Reuse `ProcurementBenchmarksTile` unchanged. Add one axis-band tile modeled on
+  `NoiAdminBenchmarkTile` (a dot on an axis inside a reference band) for the NATO/EU defense-%-of-GDP
+  comparison — BG's dot inside the EU range, with the 2% line.
+- **Maps (optional, lower priority — defense has no network).** If a "where МО buys" tile is wanted,
+  use the **small-multiples choropleth** (`ProcurementChoroplethTile`: 3 maps side-by-side, one per
+  metric, **percentile color** so Sofia doesn't wash out the ramp, click-to-filter
+  `onSelectOblast`), keyed by supplier/awarder seat. The custom-SVG `RoadNetworkMap` doesn't apply
+  (no road network).
+- **Micro-UX — copy verbatim:** loading skeleton `my-4 h-[280px] animate-pulse rounded-xl border
+  bg-card`; **per-tile gating so the bridge survives a zero-contract scope** (NZOK/VSS `hasModel`
+  pattern); `text-[11px] text-muted-foreground/80` provenance footers; `useTooltip()` rendered as a
+  **sibling** of the map; a `dark:` variant on every conditional color; `lib/currency.ts`
+  (`formatEurCompact`/`formatEur`/`formatPct`/`formatInt`, `BGN_PER_EUR=1.95583`, **never footnote
+  leva post-2026**); mobile `grid-cols-2 lg:grid-cols-3`, `flex-wrap` legends; `data-og`;
+  `role="group"`+`aria-pressed` on toggles, `role="img"`+`aria-label` on maps.
+
+### c. Genuine deltas to adopt for defense (ranked)
+
+1. **Sharpen the transparency framing** (external #11): "excl. classified acquisition (FMS/чл.149)"
+   goes **on the KPI**, and "стойност не е обявена" is a **shown bar**, not an omission. This is the
+   defining defense caveat — surface it, don't footnote it.
+2. **Concentration metric** (external #6): "топ-5 доставчици = X% от разхода на МО" as a chip or KPI
+   (+ optional HHI). Buyers cite this; the packs don't yet compute it.
+3. **Riskiest-contracts feed** (external #7, Phase 3): sortable "най-рискови поръчки" via
+   `computeProcurementRisk`, each row = flag + contract + why + click-through to `/contract/:key`.
+   Flags labeled by scope (process/buyer/supplier), per OCP.
+4. **Framework ceiling-vs-drawdown** (external #5): several МО contracts are 48-month рамкови
+   споразумения — show contracted-ceiling vs drawn, like USAspending's IDIQ bar. Shared
+   `ContractDetailScreen` enhancement.
+5. **"single-bid pending" honest state** (external #12) on open МО tenders — don't false-green a
+   tender that hasn't closed.
+
+### d. House chart conventions (the `dataviz` skill — non-negotiable)
+
+- **One axis only.** **Kill the earlier "dual-axis per-soldier + per-citizen" idea** from the EDA
+  research (it violates the rule) — use two small charts or index to a common base.
+- **Categorical hues fixed order, never cycled; a 9th series folds into "Other."** The 6 defense
+  **universes** = 6 categorical series → **run `scripts/validate_palette.js` on the universe
+  palette** (light + dark) before shipping; CVD ≥ 12.
+- **Color follows the entity, never its rank.** When the **universe `Select`** filters "без ВМА" or
+  the single-bid toggle changes the series count, **surviving series keep their colors** — do not
+  repaint. (The packs' fixed `Record<id,color>` maps already do this; keep it.)
+- **Sequential = one hue light→dark** (the choropleth percentile ramp; single-source via
+  `procurementPalette.ts`). **Status colors reserved** (good/warn/serious/crit), always with a
+  **label, never color alone** — the single-bid amber must carry text.
+- Legend present for ≥2 series (none for 1); direct-label ≤4; hover layer by default; a table view
+  exists (the "see all" DbDataTable satisfies this).
+
 ---
 
 ## Data sources (obtainable vs classified)
@@ -685,7 +799,13 @@ transparency-gap framing no PDF publisher offers.
 - [ ] `src/data/budget/useBudget.tsx` (EDIT) — `useDefenseBudget()` → `/budget/mo/budget.json`
 - [ ] `scripts/budget/__write_defense.ts` + `data/budget/mo/budget.json` — owned by **`update-budget`** / `budget_law` watcher (NOT `update-defense`)
 - [ ] `src/data/procurement/useDefense.tsx` — `useQueries` + `combine` alias fan-out, `scopeByWindow`, `buildDefenseModel`, `aliasEur` delta
-- [ ] `src/screens/components/procurement/defense/DefensePack.tsx` + `DefenseBudgetBridgeTile` (`data-og="defense-hero"`) + `DefenseTransparencyTile` + `DefenseCategoryTile` (bilingual inline, no i18n)
+- [ ] `src/screens/components/procurement/defense/DefensePack.tsx` — copy the shared skeleton; import `chipStyles` (no forked amber); `directShare>0.1` warn verbatim + a domain warn chip; VSS conditional grid-cols; loading skeleton string verbatim; per-tile gating so the bridge survives a zero-contract scope; provenance footer (Part 10b)
+- [ ] `DefenseBudgetBridgeTile` (`data-og="defense-hero"`) — clone `NzokBudgetBridgeTile`; NATO 2%-of-GDP as the EU-context sub-bar; **rounding-floor honesty** (`<0.5% → "под 0,5%"`); period-matched ratio
+- [ ] `DefenseCategoryTile` — clone `NzokCategoryTile`; `max = Math.max(...all)` not `rows[0]`; single-bid overlay (amber ≥0.5, `bidKnownN≥3`); "Other" disclosure ≥10%
+- [ ] `DefenseTransparencyTile` — sustainment-visible / acquisition-invisible; "excl. classified acquisition" **on the KPI**; "стойност не е обявена" as a **shown bar**; Prozorro field-redaction principle
+- [ ] **Reuse `ProcurementBenchmarksTile` unchanged** — МО's 44,3% single-bid renders RED
+- [ ] Concentration chip/KPI: "топ-5 доставчици = X% от разхода" (Part 10c#2)
+- [ ] Universe palette (≤6 series) — **run `scripts/validate_palette.js` light+dark** before shipping; fixed `Record<id,color>` so the universe `Select` never repaints survivors (Part 10d)
 - [ ] `sectorPacks.tsx` — `PACKS[MOD_EIK] = DefensePack` via `lazy()`; **no `DEFENSE_AWARDER_PATH` export**
 - [ ] `reportMenus.ts` + `ProcurementNav.tsx` — key **`defense_nav`** → **`/defense`**, `unscoped: true`, icon `Shield`
 - [ ] `locales/{bg,en}/translation.json` — `defense_nav` (only nav goes through i18n)
@@ -711,7 +831,10 @@ transparency-gap framing no PDF publisher offers.
 - [ ] **process-watch-report (Part 5):** add rows to **both** mapping surfaces (label table ~L80 + source-id runbook table ~L425)
 
 ### Phase 3 — differentiators
-- [ ] Arms-flow Sankey, GDI risk pillar (reuse `computeProcurementRisk` + evidence-on-click + scorecard image), program lifecycle Gantt + cost-drift, cabinet anchoring
+- [ ] **Riskiest-contracts feed** (Part 10c#3) — sortable "най-рискови поръчки на МО" via `computeProcurementRisk`, each row = flag (scoped process/buyer/supplier) + contract + why + click-through to `/contract/:key`
+- [ ] Framework **ceiling-vs-drawdown** on 48-month рамкови споразумения (Part 10c#4) — shared `ContractDetailScreen` enhancement
+- [ ] Arms-flow Sankey, GDI risk pillar (evidence-on-click + scorecard image), program lifecycle Gantt + cost-drift, cabinet anchoring
+- [ ] "single-bid pending" honest state on open МО tenders (Part 10c#5)
 
 ### Conventions to honor
 - [ ] Bilingual inline in packs; only nav labels through i18next
