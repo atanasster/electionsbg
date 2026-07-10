@@ -1009,15 +1009,23 @@ migration and the SKU-faithful browser, and iterate on identity.
   which applies its own DDL) *before* `deploy:functions`, or `missingMigrationEmpty` masks a 500
   as an empty tile. Same trap as agri and NZOK. Note `db:dump` does **not** land a migration —
   it only `pg_dump`s outward to GCS (see §"`db:dump` is a full `pg_dump` → GCS" above).
-- **Snapshot size, and whether the ZIPs actually exist anywhere.** The plan leans on "DR = replay the
-  4.1GB of authoritative ZIPs" instead of carrying `price_facts` in the `db:dump` snapshot. **But
-  `/raw_data/prices/` is gitignored** (`.gitignore:69`), and the GCS cold archive at
-  `gs://data-electionsbg-com/prices/_archive` is written only when `--archive` is passed and is
-  explicitly *best-effort* (`fetch.ts:69` — "gsutil may be absent in CI"). So the corpus may exist on
-  exactly one laptop. **Before deleting `data/prices/_cache/` (490MB), verify the archive holds all
-  188 objects.** If it does not, either back-fill the archive or keep `price_facts` in the dump. This
-  is the cheapest possible way to lose six months of irreplaceable daily price history — the КЗП
-  portal only advertises the last ~14 days.
+- ~~**Snapshot size, and whether the ZIPs actually exist anywhere.**~~ **RESOLVED 2026-07-10.** The
+  archive was checked and found **completely empty** — `gs://data-electionsbg-com/prices/_archive`
+  had never been created. Two bugs: `downloadDay` returned early when the ZIP already existed locally,
+  *before* reaching the upload, so a backfilled corpus was never archived; and the `gsutil` failure
+  was swallowed by a bare `catch {}`. Meanwhile `bucket:sync`'s `-x '^_cache/.*'` was anchored and did
+  not match `prices/_cache/…`, so 490MB of local cache had been rsyncing to the **publicly readable**
+  data bucket by accident — the only off-machine copy of anything, and grids only (no store rows, no
+  product names, so `price_facts` / `price_products` were unrecoverable).
+
+  Fixed: all 189 ZIPs (4,397,605,281 bytes, MD5-verified) uploaded to
+  **`gs://naiasno-archive-prices/prices/_archive`** — a private, COLDLINE, europe-west3 bucket with
+  public-access-prevention *enforced*. `fetch.ts` now archives on every run (`cp -n`, idempotent) and
+  warns loudly on failure. `bucket:sync`'s exclusion is now `(.*/)?_cache/.*` — note `(^|/)_cache/.*`
+  would **not** work, because `gsutil rsync -x` anchors at the start. The accidental public `_cache`
+  copy has been purged.
+
+  **DR is therefore: replay the archive.** `price_facts` stays out of the `db:dump` snapshot.
 - **Mandate expiry.** If the daily-upload obligation lapses on **8 Aug 2026** the feed may thin out or
   stop. The step-function model degrades gracefully (open runs simply stop being superseded), but the
   since-euro tracker needs an explicit "data ends" affordance rather than a flatlining chart. Build
