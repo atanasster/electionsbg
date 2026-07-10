@@ -14,7 +14,8 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { PROC_DIR } from "./lib/paths";
 import { getPool, exec, withClient, end } from "./lib/pg";
-import { COLUMN_NAMES, columnCast, tenderToRow } from "./lib/tenders_schema";
+import { copyRows } from "./lib/copy";
+import { COLUMN_NAMES, tenderToRow } from "./lib/tenders_schema";
 import { recordIngestBatch } from "./lib/ingest_changelog";
 import type { Tender } from "../../src/lib/tenderTypes";
 
@@ -40,8 +41,6 @@ const KZK_FILE = path.join(SCHEMA_DIR, "042_kzk_appeals.sql");
 // applied after KZK_FILE since both read those tables.
 const AI_FILE = path.join(SCHEMA_DIR, "044_procurement_ai.sql");
 const tendersDir = path.join(PROC_DIR, "tenders");
-const N = COLUMN_NAMES.length;
-const BATCH = 1000; // 1000 × 33 cols = 33k params (< PG's 65535 cap)
 
 const gitSha = (): string => {
   try {
@@ -84,12 +83,6 @@ const waitForPg = async (): Promise<void> => {
   throw new Error("Postgres not reachable — run `npm run db:pg:up`.");
 };
 
-// Placeholder row template with per-column casts (jsonb needs ::jsonb).
-const rowPlaceholders = (r: number): string =>
-  `(${COLUMN_NAMES.map((col, c) => `$${r * N + c + 1}${columnCast(col)}`).join(
-    ",",
-  )})`;
-
 export const loadTendersPg = async (): Promise<{
   rows: number;
   years: string[];
@@ -103,20 +96,19 @@ export const loadTendersPg = async (): Promise<{
   await exec(readFileSync(TRACKING_FILE, "utf8"));
 
   const { rows, years } = readShards();
-  const insertCols = COLUMN_NAMES.join(", ");
 
   await withClient(async (c) => {
     await c.query("BEGIN");
     await c.query("TRUNCATE tenders");
-    for (let i = 0; i < rows.length; i += BATCH) {
-      const batch = rows.slice(i, i + BATCH);
-      const values = batch.map((_, r) => rowPlaceholders(r)).join(",");
-      const params = batch.flatMap((row) => tenderToRow(row));
-      await c.query(
-        `INSERT INTO tenders (${insertCols}) VALUES ${values}`,
-        params,
-      );
-    }
+    // Streamed COPY rather than batched multi-row INSERT. `tenders` is the
+    // trickiest of the three: it carries a jsonb column (lots) and four booleans
+    // alongside float8/int — all covered by lib/__test_copy.ts.
+    await copyRows(
+      c,
+      "tenders",
+      COLUMN_NAMES,
+      rows.map((row) => tenderToRow(row)),
+    );
 
     const sorted = [...years].sort();
     for (const [k, v] of [

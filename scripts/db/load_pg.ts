@@ -13,6 +13,7 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { PROC_DIR } from "./lib/paths";
 import { getPool, exec, withClient, end } from "./lib/pg";
+import { copyRows } from "./lib/copy";
 import { rebuildRiskGradeScoped } from "./lib/riskGradeScoped";
 import { COLUMN_NAMES, contractToRow } from "./lib/procurement_schema";
 import {
@@ -94,8 +95,6 @@ const SECTOR_PEERS_WINDOW_FILE = path.join(
 const GOVERNMENTS_FILE = path.join(PROC_DIR, "..", "governments.json");
 const DEBARRED_FILE = path.join(PROC_DIR, "debarred.json");
 const monthShardDir = path.join(PROC_DIR, "contracts");
-const N = COLUMN_NAMES.length;
-const BATCH = 1000; // 1000 × 31 cols = 31k params (< PG's 65535 cap)
 
 const gitSha = (): string => {
   try {
@@ -181,21 +180,15 @@ export const loadPg = async (): Promise<{
   await withClient(async (c) => {
     await c.query("BEGIN");
     await c.query("TRUNCATE contracts");
-    const insertCols = COLUMN_NAMES.join(", ");
-    for (let i = 0; i < rows.length; i += BATCH) {
-      const batch = rows.slice(i, i + BATCH);
-      const values = batch
-        .map(
-          (_, r) =>
-            `(${COLUMN_NAMES.map((_, col) => `$${r * N + col + 1}`).join(",")})`,
-        )
-        .join(",");
-      const params = batch.flatMap((row) => contractToRow(row));
-      await c.query(
-        `INSERT INTO contracts (${insertCols}) VALUES ${values}`,
-        params,
-      );
-    }
+    // Streamed COPY rather than batched multi-row INSERT — 301k rows / 754 MB is
+    // what made db:load:pg:cloud slow over the proxy. Encoder round-trip-verified
+    // in lib/__test_copy.ts (contracts carries double precision + integer cols).
+    await copyRows(
+      c,
+      "contracts",
+      COLUMN_NAMES,
+      rows.map((row) => contractToRow(row)),
+    );
 
     // Contract-name search index — distinct contractor as they appear in the
     // corpus (covers contractors absent from TR). Rebuilt each load.

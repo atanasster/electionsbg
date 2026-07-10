@@ -12,6 +12,7 @@ import { execSync } from "node:child_process";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { DatabaseSync } from "node:sqlite";
 import { getPool, exec, withClient, end } from "./lib/pg";
+import { copyRows } from "./lib/copy";
 import { rebuildRiskGradeScoped } from "./lib/riskGradeScoped";
 
 const TR_DB = fileURLToPath(
@@ -68,29 +69,19 @@ const waitForPg = async (): Promise<void> => {
   throw new Error("Postgres not reachable — run `npm run db:pg:up`.");
 };
 
-// Batched multi-row INSERT — cap each statement well under PG's 65535 params.
+// Streamed COPY … FROM STDIN. Was a batched multi-row INSERT (chunked to stay
+// under PG's 65535-param cap), which meant ~290 round trips of bound parameters
+// for tr_companies' 1,017,624 rows. Over the Cloud SQL proxy that dominated
+// `db:load:tr:pg:cloud`. copyRows streams one framed text payload instead; the
+// encoder is round-trip-verified in lib/__test_copy.ts.
 const bulkInsert = async (
   table: string,
   cols: string[],
   rows: unknown[][],
 ): Promise<void> => {
-  const n = cols.length;
-  const batch = Math.floor(60000 / n);
   await withClient(async (c) => {
     await c.query("BEGIN");
-    for (let i = 0; i < rows.length; i += batch) {
-      const slice = rows.slice(i, i + batch);
-      const values = slice
-        .map(
-          (_, r) =>
-            `(${cols.map((_, col) => `$${r * n + col + 1}`).join(",")})`,
-        )
-        .join(",");
-      await c.query(
-        `INSERT INTO ${table} (${cols.join(",")}) VALUES ${values}`,
-        slice.flat(),
-      );
-    }
+    await copyRows(c, table, cols, rows);
     await c.query("COMMIT");
   });
 };
