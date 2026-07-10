@@ -149,6 +149,107 @@ All five packs (`RoadsPack`/`NoiPack`/`NzokPack`/`VssPack`) share one skeleton. 
 - **Alias EIKs:** if an agency has multiple registrations, fan the corpus query over them and
   reconcile in the footnote (`VSS_ALIAS_EIKS` in `useVss`). **Check whether Митници has aliases.**
 
+## 3A. UI/UX best-practice standard — the bar for a world-class pack
+
+The goal is not "a pack like the others" but the best revenue dashboard of its kind. This
+section is the craft contract: **(a)** the proven in-repo patterns to adopt verbatim, **(b)** the
+color-system decision, **(c)** the design-skill craft upgrades the current packs do NOT yet do
+(where the new packs can lead), **(d)** the world-best competitive patterns mapped to our tiles,
+and **(e)** the per-tile chart-form table. Verified against the shipped tiles + the `dataviz`
+skill (2026-07-10).
+
+### (a) Proven in-repo patterns — adopt verbatim (with file:line evidence)
+- **Hero composition bar + reconciling legend + "for scale" sentence.** `NzokBudgetBridgeTile`
+  L216–244 / `NoiFundFlowTile`: `flex h-6 rounded-md` colour segments, legend below
+  (swatch·label·€·%), a residual "Друго/Other" segment so the legend sums to the headline, then
+  one honest bridge sentence ("под 0,5% … / ~X%" — floor-aware, `NzokBudgetBridgeTile` L91–98).
+- **In-context peer benchmark inside the hero.** The NZOK hero embeds a BG-vs-EU health-spend
+  mini-bar-pair (`NzokBudgetBridgeTile` L156–214, from COFOG). **Reuse for BG-vs-EU tax-to-GDP**
+  inside the revenue hero — answers "is €21.5bn a lot?" without leaving the tile.
+- **Two-views-of-one-tile toggle** = segmented pill group, `role="group"` + `aria-pressed`, never
+  a native select (`NzokDrugReimbursementTile` L69–103, Молекула/Група/Ръст). Use for
+  Митници "приходи / акцизи по продукт" and НАП "състав / по сектор".
+- **YoY movers view**: risers rose (watchdog), fallers emerald, newly-added sky — icon + label +
+  dark-mode variant, never colour-alone (`NzokDrugReimbursementTile` L228–277). Ideal for revenue
+  YoY (rising tax take, falling excise line, newly-material tax).
+- **Ranked list w/ mini progress bars**: `Math.max(2, …)` width floor, `truncate`, share %,
+  `tabular-nums` (`NzokDrugReimbursementTile` L131–168). Use for VAT-by-sector and duty-origins.
+- **Guard the ACTIVE view's array** — the `Math.max(...[]) === -Infinity` bug (comment,
+  `NzokDrugReimbursementTile` L56–59). Copy the guard when a toggle swaps arrays.
+- **Progressive enhancement by data availability**: the NZOK hero shows a plan-vs-actual pace
+  *curve* when ≥2 months of B1 exist, else falls back to a single-number gauge (`NzokBudgetBridgeTile`
+  L246–302). Same idea for revenue: full-year composition when a year is complete, "до май"
+  partial otherwise (§2.2) — never crash between grains.
+- **`data-og` on the hero** — established across 6 tiles (grep: roads/noi/nzok/vss + two flows).
+  Our heroes carry `data-og="customs-revenue"` / `data-og="nap-revenue"`.
+- **Year picker = segmented pill group in the card header** (`NzokBudgetBridgeTile` L120–142).
+- **Provenance footnote** `text-[11px] text-muted-foreground/80`, and honest labelling (floor-aware
+  "%" strings; label a partial year, never annualize it).
+
+### (b) Color system — DECISION
+The repo already has **validated shared palettes** for maps/flows/risk:
+`src/screens/components/procurement/chartColors.ts` (entity palette, light + dark -400 step),
+`PROCUREMENT_RAMP` (choropleth, `ProcurementOblastMap`/`ProcurementChoroplethTile`),
+`src/lib/riskGrade.ts` (A–F), `treemapPalette.ts`. **But the composition/category BARS hardcode
+ad-hoc Tailwind literals per tile** — `bg-amber-500` ×12, `bg-emerald-500` ×7, `bg-sky-500` ×5,
+`bg-violet-500` ×4 … across the pack tiles, none CVD-validated. **Decision for the revenue packs:
+do NOT add more ad-hoc `bg-*-500` literals.** Define the revenue-composition segment colours once
+in the pack's `*ReferenceData.ts` (a small ordered categorical ramp), draw from it in the hero +
+legend, and **run `node dataviz/scripts/validate_palette.js "<hex,…>" --mode light` (and
+`--mode dark`)** before shipping — CVD ≥ 12. This makes the revenue packs the first with a
+validated composition palette; a later cleanup can retrofit the others.
+
+### (c) Craft upgrades the current packs do NOT do — lead here (from the `dataviz` skill)
+- **2px surface gap between composition-bar segments.** Today segments touch
+  (`NzokBudgetBridgeTile` L218–231, no gap). The skill mandates a 2px surface-colour gap between
+  stacked fills. Add it — distinct segments without a drawn border.
+- **Hero figure = proportional figures, NOT `tabular-nums`.** The packs use
+  `text-2xl font-bold tabular-nums` on the headline (`NzokBudgetBridgeTile` L148); the skill flags
+  `tabular-nums` on a large standalone number as an anti-pattern (`121` looks loose). Use
+  proportional for the hero; keep `tabular-nums` only in aligned columns (rows, ticks). Minor, but
+  the new packs should get it right.
+- **A table-view / "download this data" twin.** The skill requires every chart to have a
+  table-view twin; CBP puts "download the data behind this chart" on every dashboard — and it
+  matches our exact-number transparency ethos. Add a small "данни ⤓" affordance (CSV/JSON of the
+  tile's rows) — nothing in the repo does this yet; it's a differentiator.
+- **Hover/focus tooltip beyond native `title=`.** Current bars rely on the `title` attribute
+  (`NzokBudgetBridgeTile` L227). The legend carries the values so it isn't gated, but a real
+  hover+keyboard tooltip on the segments is the upgrade.
+- **One filter row above, not per-card.** The scope pill already sits above the pack ✓; keep
+  per-tile year pickers only because the revenue series are independent annual series (allowed).
+
+### (d) World-best competitive patterns → our tiles
+- **HMRC "one number sliced three orthogonal ways"** (by tax / by who / by why) → the revenue
+  composition (by tax) + the tax-gap tile (by behaviour). Highest-value idea in the field.
+- **"Collection success rate" framing** (HMRC "93.6% collected") not just "€X lost" → the tax-gap
+  tile leads with "събрани X% от дължимото ДДС".
+- **"Per second" reframing** (EU customs: €30.7bn duties/yr → €X/sec) → the Митници hero sub-line.
+- **EU VAT-Gap microsite**: choropleth + per-country trend + one-click downloadable brief → the
+  tax-gap tile links to `/indicators/compare` (the peer choropleth we already have) + a data ⤓.
+- **OEC / USASpending treemap & switchable-lens** → reserved; our composition is a stacked bar
+  (correct for ≤7 part-to-whole) — a treemap is overkill at this cardinality.
+- **ATO click-a-place choropleth + top-N leaderboards** → deferred (income not at oblast grain,
+  §2.3); municipal-revenue choropleth is the safe fallback if wanted later.
+- **Progressive disclosure**: top-N tile → "виж всички" standalone page (the repo `seeMoreTo`
+  pattern) for the Phase-2 debtors list.
+
+### (e) Per-tile chart-form table (job → form → colour job — the `dataviz` procedure)
+| Tile | Data's job | Form | Colour job |
+|---|---|---|---|
+| Headline "събрано" | one number | **hero figure** (≥text-2xl, **proportional** figures) | — |
+| Revenue composition (Митници/НАП) | part-to-whole, ≤7 | **horizontal stacked composition bar** | categorical (validated ramp) |
+| Excise products (2025) | part-to-whole, ≤7 | stacked bar (donut only if it stays ≤6 & at-a-glance) | categorical |
+| Duty origins (top-5) | magnitude ranking | **horizontal bar** | sequential (one hue) |
+| VAT by sector (2024) | magnitude, some net-refund | **diverging bar** (pay vs refund around 0) | diverging (warm/cool + gray 0) |
+| Tax gap | ratio vs the ideal | **meter** ("collected X%") + link to compare choropleth | status |
+| Revenue trend 2021–25 | one series over time | **line/area, single series, NO legend box** | 1 hue |
+| YoY movers | change per item | risers/fallers list, semantic tone + icon | status |
+| Cost-to-collect (Phase 2) | single ratio | **stat tile** | — |
+
+Non-negotiables carried from the skill: never a dual-axis chart; colour follows the entity not its
+rank; a value-ramp only on ordered categories; ≤7 meaning-bearing colours (else a table);
+colour-plus-label always (legend swatch, never colour-alone); run the palette validator.
+
 ## 4. Routing — settled by the ВСС precedent
 
 The ВСС is the in-repo answer to the A/B question: it has **both** a pack on
@@ -385,7 +486,9 @@ manually, or (better, and it fixes ВСС + all existing packs too) **make the R
 ### Phase 1 — zero-new-ingest packs. **Митници first (reference impl), then НАП.**
 Per agency:
 - `src/lib/customsReferenceData.ts` / `napReferenceData.ts` (NEW) — EIK const, alias EIKs, labels,
-  colors, category map. (Naming follows `vssReferenceData.ts`, **not** `*Benchmarks.ts`.)
+  category map, and the **validated composition colour ramp** (§3A-b — defined once here, drawn
+  from in the hero + legend, run through the palette validator; no ad-hoc `bg-*-500`).
+  (Naming follows `vssReferenceData.ts`, **not** `*Benchmarks.ts`.)
 - `src/data/procurement/useCustoms.tsx` / `useNap.tsx` (NEW) — `useAwarderContracts` +
   classifier + the revenue hooks (`useCustomsBreakdown`; a new `useKfpTaxComposition` reading
   `kfp.json` `snapshots`).
@@ -419,6 +522,12 @@ add Recipe A prerender. Consider a 5th top-level view next to the planned Пот
 
 ## 15. Verification checklist (before declaring Phase 1 done)
 - `npx tsc` clean; `npx eslint . --fix` then `npm run lint` clean.
+- **Validate the composition palette** (§3A-b): `node dataviz/scripts/validate_palette.js
+  "<hex,…>" --mode light` and `--mode dark` — CVD ≥ 12, fix FAILs before shipping. No new
+  ad-hoc `bg-*-500` literals.
+- **Craft pass against §3A** (2px inter-segment surface gap; proportional figures on the hero, not
+  `tabular-nums`; a table-view / data-⤓ twin on each chart; colour-plus-label everywhere; the
+  per-tile form matches the §3A-e table).
 - `npm run data:map` (prebuild fails on an unplaced source/path).
 - `npm run sitemap` — confirm `/awarder/131063188` + `/awarder/000627597` (+ `/en`) emitted.
 - `npm run build` + postbuild — confirm `dist/awarder/<eik>/index.html` and
