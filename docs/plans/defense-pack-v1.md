@@ -1,6 +1,14 @@
 # Отбрана (МО / Българска армия) view — v1
 
-## Status (2026-07-09, rev 1.3 — pre-implementation audit applied)
+## Status (2026-07-09, rev 1.4 — audit applied; МО group scoped)
+
+- **Rev 1.4:** subordinate EIKs are **IN**. The group is **25 curated EIKs / 6 889 contracts /
+  €2 188,5M** (not the 7 the first sweep found). **ВМА is 46,6% of the group's value** and must be
+  segmentable or the category tile becomes a drug chart. Curate by **EIK allowlist, never a name
+  regex** — the name sweep false-positived on `7-МО Основно училище` and the town of Раковски, and
+  two **МВР** directorates (ДУССД €301M, ДКИС €70M) sit adjacent to the МО units. Perf re-measured:
+  25-EIK roll-up = 5,8 ms, still a bitmap index scan.
+
 
 - **Design doc only** — nothing built yet. Written against the five shipped
   "Държавни структури" dashboards (АПИ / НОИ / НЗОК / ВСС + ДФ „Земеделие“ awarder) so the
@@ -129,8 +137,9 @@ Measured against local PG (`contracts`, EIK `000695324`):
 |---|---|
 | МО contracts | **1 212** (2011-01-03 → 2026-06-02) |
 | МО awarded value | **€852M** (across 3 `awarder_name` variants) |
-| Defense family (7 EIKs incl. subordinates) | **2 614 contracts, €940,6M** |
-| Open procedure, share of value | **17,8%** |
+| **МО group** (25 curated EIKs, incl. ВМА + the services) | **6 889 contracts, €2 188,5M** |
+| — of which ВМА `129000273` | **€1 020M = 46,6% of value**, 38,6% of contracts |
+| Open procedure, share of value (МО proper) | **17,8%** |
 | Negotiated **without** prior notice, share of value | **13,2%** |
 | Single-bid contracts | **243 = 44,3%** of the 548 with bid data (**45% coverage**) |
 | МО tenders | **230** |
@@ -163,23 +172,50 @@ parliamentary ratification law. Weapons/ammunition/intelligence procurement is e
 4. Non-contract data (%GDP path, equipment/personnel mix, mega-programs, exports, readiness)
    still loads via the **НЗОК/ВСС pattern** (budget + curated JSON hooks).
 
-### The defense family (7 EIKs) — the plan was WRONG to dismiss this
-The earlier draft said "single entity, no multi-EIK roll-up needed." The corpus disagrees:
+### The МО group: 25 EIKs, 6 889 contracts, €2 188,5M — DECIDED: include them
 
-| EIK | Entity | Contracts | Value |
-|---|---|---|---|
-| `000695324` | Министерство на отбраната (3 name variants) | 1 212 | €852M |
-| `129008829` | ИА „Военни клубове и военно-почивно дело“ | 232 | €16,3M |
-| `129010221` | Командване за комуникационно-информационна поддръжка и киберотбрана | 100 | €3,7M |
-| `129010214` | Военно-географска служба | 65 | €0,9M |
-| `129010545` | Информационен център на МО | 14 | €1,0M |
-| `129010036` | Институт по отбрана „Проф. Цветан Лазаров“ | 16 | €1,5M |
-| `129010142` | Комендантство — МО | 3 | €0,2M |
+The earlier draft said "single entity, no multi-EIK roll-up needed." Wrong twice over — first
+because subordinates exist, then because the first sweep (name-match on "отбран") found only 7 of
+them. A curated sweep of the corpus gives **25 МО budget units, 6 889 contracts, €2 188,5M**.
 
-Follow the **ВСС alias pattern**: `useVss` fans out over `[VSS_EIK, ...VSS_ALIAS_EIKS]` with
-react-query `useQueries` + `combine` (stable array identity — without it the model rebuilds on
-every hover) and footnotes the `aliasEur` delta so the pack reconciles against the per-EIK awarder
-header above it. Do the same in `useDefense`.
+**The single biggest fact: ВМА (Военномедицинска академия) is 46,6% of the group's value and
+38,6% of its contracts — larger than МО proper.** It buys oncology drugs, medicines and nursing
+care. If you fold it in unsegmented, "what the МО group buys" reads as *medicines*, and the
+sustainment story disappears. This is a design constraint, not a footnote.
+
+**Six universes — label every tile with which one it covers** (the water plan's discipline):
+
+| Universe | Members | Note |
+|---|---|---|
+| **МО proper** | `000695324` (3 name variants) | 1 212 contracts, €852M — the ministry |
+| **Българска армия** (commands & services) | ВВС `129010189`, ВМС `129010196`, Сухопътни войски `129010171`, Съвместно командване на силите `129010207`, СКСО `129010680`, Командване логистична поддръжка `129011031`, Командване киберотбрана `129010221`, Военна полиция `129009023`, Военна информация `129009728`, Национална гвардейска част `129009030`, ЦВО `129011024`, ЦАТИП ВФ 26940 `129010984` | the actual army |
+| **Военно здравеопазване** | **ВМА `129000273`** | **€1 020M / 2 656 contracts — 46,6% of value. MUST be segmentable.** |
+| **Образование и наука** | Военна академия „Г. С. Раковски“ `129003305`, НВУ „Васил Левски“ `129009094`, ВВМУ „Н. Й. Вапцаров“ `129004492`, ВВВУ „Георги Бенковски“ `129011005`, Институт по отбрана `129010036`, ВГС `129010214` | |
+| **Култура и имоти** | ИА „Военни клубове“ `129008829`, НВИМ `129009048`, Театър „Българска армия“ `129009016`, Информационен център МО `129010545`, Комендантство `129010142` | |
+| **Изрично ИЗВЪН МО** | ДА „Държавен резерв и военновременни запаси“ `831913661` (€1 139M) · всички структури на **МВР** (ДУССД `129010157` €301M, ДКИС `129010698`, МИ-МВР `129007218`, Гранична полиция, Пожарна безопасност, ОДМВР, ГДБОП…) · ДАНС `129009710` · ДАТО `129010090` | never render as МО |
+
+**Curate by EIK allowlist — NEVER by name regex.** The name sweep produced false positives that
+prove the point: `7-МО Основно училище` matched "МО"; the town of **Раковски** (община, ОУ, МБАЛ)
+matched the Раковски military academy. And the EIK prefix `1290*` is *not* an МО block — it is the
+whole security-services range, mostly МВР. Two МВР directorates (ДУССД €301M, ДКИС €70M) sit right
+next to the МО units and would have been a €370M error. Store the allowlist in
+`defenseReferenceData.ts` as `DEFENSE_UNITS: { eik, universe, label }[]`, derive
+`DEFENSE_ALIAS_EIKS` from it.
+
+**Implementation (ВСС alias pattern):** `useVss` fans out over `[VSS_EIK, ...VSS_ALIAS_EIKS]` with
+react-query `useQueries` + `combine` (stable array identity — without it the model rebuilds on every
+hover) and footnotes the `aliasEur` delta so the pack reconciles against the per-EIK awarder header
+above it. Do the same in `useDefense`. **The delta here is large** (€1 336M of non-МО-proper spend,
+> МО itself), so the reconciliation footnote is mandatory, not cosmetic: the awarder header above
+the pack shows **МО proper only**; the pack shows **the group**.
+
+**Required UI affordances:**
+- A **universe segmentation control** on the category/KPI tiles (Radix `Select`, never native) —
+  default "МО група", with "без ВМА" and per-universe options. Without it the category tile is a
+  drug-procurement chart.
+- `DefenseAwardersTile` (Phase 2) lists all 25 units grouped by universe, each deep-linking to its
+  own `/awarder/:eik` page.
+- Every tile caption states its universe.
 
 ### Data-quality caveats that MUST be disclosed in-tile
 - `procurement_method` is **NULL for 614 / 1 212 (51%)** — a clean direct-award % cannot be
@@ -263,8 +299,8 @@ Mirror `src/screens/judiciary/JudiciaryScreen.tsx` exactly:
   skeleton (`h-[320px] animate-pulse`), an `isError || !data` fallback card, and each artifact gated
   independently so a failed `exports.json` doesn't blank the %GDP tiles.
 - KPI grid responsive: `grid-cols-2 lg:grid-cols-3 xl:grid-cols-6`.
-- Add a **`DefenseAwardersTile`** mirroring `JudicialAwardersTile` — links МО + the 6 subordinate
-  EIKs back to their `/awarder/:eik` pages (the "back to the money" tile).
+- Add a **`DefenseAwardersTile`** mirroring `JudicialAwardersTile` — lists all **25 group units
+  grouped by universe**, each deep-linking to its `/awarder/:eik` page (the "back to the money" tile).
 
 Tiles (the published mockup, tile-by-tile):
 
@@ -325,11 +361,28 @@ the `update-budget` per-ministry pattern), NOT a new PG blob table:
 - COFOG GF02 + EDA per-capita/%gov-exp fold into the existing `macro`/`macro_peers` artifacts
   (via `update-macro`), reused by the `/indicators/compare` peer radar — no new table.
 
-**The only SQL touchpoints are the (thin) МО contract corpus** — already served + indexed:
-- **Per the "always check DB query perf" rule**, `EXPLAIN ANALYZE` the МО filter on the
-  worst-case: `contracts WHERE awarder_eik = '000695324' [AND date >= …]`. The
-  `contracts(awarder_eik, date)` index already backs `/company/:eik`; confirm it index-scans for
-  МО, don't seq-scan the corpus. No new index expected.
+**The only SQL touchpoints are the МО contract corpus** — already served + indexed. `EXPLAIN
+ANALYZE` run on the worst case (2026-07-09), all bitmap **index** scans on `idx_contracts_awarder`,
+no seq scan, **no new index needed**:
+
+| Query | Rows | Time |
+|---|---|---|
+| `awarder_eik = '000695324'` (МО proper) | 1 212 | **1,3 ms** |
+| `awarder_eik IN (…7 EIKs)` | 2 614 | **13,2 ms** |
+| `awarder_eik IN (…25 EIKs)` (the МО group — worst case) | 6 889 | **5,8 ms** |
+
+Re-run these if the allowlist grows. The pack fetches per-EIK via `useAwarderContracts` (25 parallel
+react-query fetches, cached `staleTime: Infinity`), so the group roll-up is client-side — the
+25-EIK `IN` above is the *server-side* worst case for the "see all" DbDataTable page.
+
+**RISK — the 25-EIK client fan-out.** ВСС's alias set is small; ours is not. 25 parallel
+`/api/db/awarder-contracts` calls pulling 6 889 rows (ВМА alone is 2 656) is a materially heavier
+payload than any existing pack. Mitigations, in order of preference:
+1. Fetch **МО proper eagerly**, lazy-load the alias set only when the user opens the group view /
+   universe selector. Ship МО-proper-first, group-on-demand.
+2. If that's still slow, add a single server-side `defense-group-contracts` resource (one query with
+   the `IN` list, 5,8 ms) instead of 25 round-trips.
+Measure before choosing. Do not ship 25 eager fetches without checking the transfer size.
 - "See all visible МО contracts" reuses the **`contracts` DbDataTable registry** via
   `CompanyContractsDbScreen` (`scope:{col:"awarder_eik", val:MOD_EIK}`) — no new registry entry,
   no new endpoint. The column whitelist is the security boundary; nothing new to whitelist.
@@ -338,9 +391,12 @@ the `update-budget` per-ministry pattern), NOT a new PG blob table:
   promote to a `defense_payloads (kind, key) → jsonb` blob (mirroring `agri_payloads`/
   `fund_payloads`) and apply the payload-determinism rules (ROUND sums, rounded sort keys + eik
   tiebreaks, `COLLATE "C"` MINs, parity audit). Not needed for v1.
-- Not needed for defense (single entity): the water plan's proposed `SECTOR_BROWSE_PACKS` seam.
-  Revisit only if a "defense sector" (МО + subordinate EIKs — ВГС 129010214, Терем, ВМЗ) view is
-  wanted later.
+- **`SECTOR_BROWSE_PACKS` is now genuinely relevant** (the earlier "single entity, not needed" line
+  was wrong). With 25 group EIKs, a "see all МО-group contracts" view wants
+  `/procurement/contracts?sector=defense` with `fixedFilters: [{ id: "awarder_eik", value:
+  DEFENSE_ALIAS_EIKS }]` — exactly the seam the water plan proposes. It is still **unbuilt**. For v1,
+  use `CompanyContractsDbScreen` scoped to МО proper and defer the group browse; build the seam only
+  if water lands it first (build it once, mount it in both).
 
 ## Part 5 — Watchers & process-watch-report wiring
 
@@ -620,8 +676,11 @@ transparency-gap framing no PDF publisher offers.
 ## Build checklist (zero-guesswork)
 
 ### Phase 1 — DefensePack on `/awarder/000695324`
-- [ ] `src/lib/defenseReferenceData.ts` — `MOD_EIK`, `DEFENSE_ALIAS_EIKS` (6 subordinates), CPV→category map, labels, colors, programme codes
+- [ ] `src/lib/defenseReferenceData.ts` — `MOD_EIK`, **`DEFENSE_UNITS: {eik, universe, label}[]` (the 25-EIK curated allowlist, NEVER a name regex)**, `DEFENSE_ALIAS_EIKS` derived from it, the 6 universes, CPV→category map, labels, colors, programme codes
 - [ ] `src/lib/defenseAttributes.ts` — `defenseClassifier` + `buildDefenseModel` on `buildAwarderModel`/`SectorClassifier` (no bespoke engine)
+- [ ] **Universe segmentation** — Radix `Select` on the KPI/category tiles: default "МО група", plus "без ВМА" and per-universe. Without it the category tile is a drug-procurement chart (ВМА = 46,6% of value)
+- [ ] **Reconciliation footnote** — awarder header above shows МО proper (€852M); pack shows the group (€2 188,5M). Surface `aliasEur` (€1 336M) explicitly
+- [ ] **Measure the 25-EIK fan-out** before shipping eager fetches (Part 4 risk); МО-proper-eager / group-on-demand is the default
 - [ ] `src/data/budget/types.ts` (EDIT) — `DefenseBudgetFile` + line/year types
 - [ ] `src/data/budget/useBudget.tsx` (EDIT) — `useDefenseBudget()` → `/budget/mo/budget.json`
 - [ ] `scripts/budget/__write_defense.ts` + `data/budget/mo/budget.json` — owned by **`update-budget`** / `budget_law` watcher (NOT `update-defense`)
