@@ -28,7 +28,10 @@ const indicatorLinks = (
     /<a[^>]+href="([^"]+\.xlsx?)"[^>]*>([\s\S]*?)<\/a>/gi,
   )) {
     const href = m[1];
-    const text = decodeURIComponent(m[2].replace(/<[^>]+>/g, "")).trim();
+    // The anchor's inner text is plain UTF-8 Cyrillic, not percent-encoded — do
+    // NOT decodeURIComponent it: a bare "%" (e.g. "90% заетост") in any .xls(x)
+    // anchor on the page would throw URIError and mask every real quarter change.
+    const text = m[2].replace(/<[^>]+>/g, "").trim();
     if (!/Финансови\s+показатели/i.test(text)) continue;
     const q = text.match(/\b(IV|III|II|I)\s*-?\s*(?:то|ро|во)?\s*тримесечие/i);
     const y = text.match(/(20\d{2})\s*г/);

@@ -166,11 +166,13 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                 'units',         units,
                 'overpayEur',    ROUND(overpay_eur)::bigint)
               ORDER BY ROUND(overpay_eur) DESC,
-                       reg_no COLLATE "C", national_no COLLATE "C", nzok_code COLLATE "C")
+                       reg_no COLLATE "C", national_no COLLATE "C",
+                       nzok_code COLLATE "C", id)
       FROM (
         SELECT * FROM nzok_drug_overpay
         ORDER BY ROUND(overpay_eur) DESC,
-                 reg_no COLLATE "C", national_no COLLATE "C", nzok_code COLLATE "C"
+                 reg_no COLLATE "C", national_no COLLATE "C",
+                 nzok_code COLLATE "C", id
         LIMIT 40
       ) o
     )
@@ -239,11 +241,13 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                 'units',         units,
                 'overpayEur',    ROUND(overpay_eur)::bigint)
               ORDER BY period DESC NULLS LAST, ROUND(overpay_eur) DESC,
-                       national_no COLLATE "C", nzok_code COLLATE "C")
+                       reg_no COLLATE "C", national_no COLLATE "C",
+                       nzok_code COLLATE "C", id)
       FROM (
         SELECT * FROM o
         ORDER BY period DESC NULLS LAST, ROUND(overpay_eur) DESC,
-                 national_no COLLATE "C", nzok_code COLLATE "C"
+                 reg_no COLLATE "C", national_no COLLATE "C",
+                 nzok_code COLLATE "C", id
         LIMIT 40
       ) t
     )

@@ -38,7 +38,7 @@ import { parse } from "csv-parse/sync";
 import { fileURLToPath } from "url";
 import { command, run, flag } from "cmd-ts";
 import { canonicalJson } from "./validate";
-import { UNP_RE } from "./unp";
+import { UNP_RE, UNP_HEADER_PATTERNS } from "./unp";
 import type { Contract } from "./types";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -48,12 +48,9 @@ const CONTRACTS_DIR = path.join(PROCUREMENT_DIR, "contracts");
 const TENDERS_DIR = path.join(PROCUREMENT_DIR, "tenders");
 const LEGACY_DIR = path.resolve(__dirname, "../../raw_data/procurement/legacy");
 
-/** Header aliases for the УНП column. Mirrors legacy_csv.ts COLUMN_PATTERNS.unp. */
-const UNP_HEADERS = [
-  /^унп$/i,
-  /уникален.*номер.*на.*поръчк/i,
-  /уникален.*номер.*поръчка/i,
-];
+// УНП column header patterns — shared with the ingest parser via unp.ts so a
+// header rename can never make the backfill and the parser disagree.
+const UNP_HEADERS = UNP_HEADER_PATTERNS;
 const DOC_HEADERS = [/номер.*на.*документ/i, /id.*на.*документ/i];
 
 /**
@@ -130,9 +127,15 @@ const buildOcdsMap = (): Map<string, string> => {
     if (!fs.statSync(dir).isDirectory()) continue;
     for (const f of fs.readdirSync(dir).sort()) {
       if (!f.endsWith(".json")) continue;
-      const rows = JSON.parse(
-        fs.readFileSync(path.join(dir, f), "utf8"),
-      ) as Array<{ ocid?: string; unp?: string }>;
+      let rows: Array<{ ocid?: string; unp?: string }>;
+      try {
+        rows = JSON.parse(fs.readFileSync(path.join(dir, f), "utf8"));
+      } catch {
+        // One truncated/corrupt shard must not abort the whole backfill — skip
+        // it and continue, matching the legacy CSV path's guard.
+        console.warn(`  ${year}/${f}: unparseable tender shard, skipped`);
+        continue;
+      }
       for (const t of rows)
         if (t.ocid && t.unp && UNP_RE.test(t.unp)) map.set(t.ocid, t.unp);
     }
@@ -174,7 +177,13 @@ const main = command({
       for (const f of fs.readdirSync(dir).sort()) {
         if (!f.endsWith(".json")) continue;
         const p = path.join(dir, f);
-        const rows = JSON.parse(fs.readFileSync(p, "utf8")) as Contract[];
+        let rows: Contract[];
+        try {
+          rows = JSON.parse(fs.readFileSync(p, "utf8")) as Contract[];
+        } catch {
+          console.warn(`  ${year}/${f}: unparseable contract shard, skipped`);
+          continue;
+        }
         let touched = false;
 
         for (const c of rows) {

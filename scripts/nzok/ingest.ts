@@ -9,6 +9,8 @@
 //   --execution fetch the latest monthly B1 cash-execution snapshot
 //   --drug-prices per-hospital drug UNIT PRICES from the Справка 5 monthlies
 //               (nzok/medicine/5) — pack-identity peer medians + overpay ranking
+//   --eeof      quarterly hospital FINANCIALS (revenue, expense, debt, beds,
+//               occupancy, cost/patient) from МЗ's ~2-dozen ЕЕОФ XLSX workbooks
 //   (no flag)   all of the above (the default set — no Postgres needed)
 //
 //   --crosswalk OPT-IN ONLY: rebuild the Рег.№ ЛЗ → EIK crosswalk (hospital_eik

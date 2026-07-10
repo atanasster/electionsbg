@@ -28,18 +28,29 @@ export const NzokHospitalFinancialsTile: FC = () => {
 
   const result = data.totalRevenueEur - data.totalExpenseEur;
   const loss = result < 0;
-  const rows = (["state", "municipal"] as const).map((k) => ({
-    key: k,
-    label:
-      k === "state"
-        ? bg
-          ? "Държавни"
-          : "State-owned"
-        : bg
-          ? "Общински"
-          : "Municipal",
-    o: data.byOwnership[k],
-  }));
+  // Build rows only for ownership classes actually present. The TS
+  // Record<"state"|"municipal", …> is a compile-time promise, not a runtime one:
+  // an early quarter (2019-Q2 had only a combined state sheet) omits `municipal`,
+  // and an unguarded `o.hospitalCount` would crash the whole page instead of just
+  // showing one row.
+  const rows = (["state", "municipal"] as const).flatMap((k) => {
+    const o = data.byOwnership[k];
+    if (!o) return [];
+    return [
+      {
+        key: k,
+        label:
+          k === "state"
+            ? bg
+              ? "Държавни"
+              : "State-owned"
+            : bg
+              ? "Общински"
+              : "Municipal",
+        o,
+      },
+    ];
+  });
 
   return (
     <Card>

@@ -185,14 +185,17 @@ export const extractAmounts = (
 
     // Reporting month — the amount right after the cumulative (in A's region, or
     // the row's last amount for B). Zeroed when it reads larger than cumulative
-    // (a merged/wrapped month), so a wrong figure is never recorded. A negative
-    // month is legitimate in the lenient streams and must survive the check.
+    // (a merged/wrapped month), so a wrong figure is never recorded.
     month = useA
       ? rm.length >= 2
         ? num(rm[1][0])
         : NaN
       : num(all[all.length - 1][0]);
-    if (!Number.isFinite(month) || month > cumulative) month = 0;
+    // The `month > cumulative` guard is a bmp-only heuristic for a merged column.
+    // On the lenient streams both figures can be negative (a clawback), where
+    // `month > cumulative` is true for a perfectly valid month closer to zero
+    // (−50 > −100) — so it must not fire there and discard a real negative.
+    if (!Number.isFinite(month) || (!lenient && month > cumulative)) month = 0;
   }
 
   // Keep zero-payment facilities (cumulative 0) — they're counted in the facility

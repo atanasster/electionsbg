@@ -91,7 +91,14 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     'month', extract(month FROM (SELECT d FROM p))::int,
     'currencyOfRecord', (SELECT min(currency COLLATE "C") FROM raw),
     'totalCumulativeEur', ROUND(SUM(cumulative_eur))::bigint,
-    'monthTotalEur',      ROUND(SUM(month_eur))::bigint,
+    -- bmp-only, so it corresponds to a SINGLE month (asOf). Summing month_eur
+    -- across streams (via f) would add May's bmp flow to a lagging stream's
+    -- earlier month — a "monthly total" with no single as-of. Per-stream month
+    -- flow is in byStream for callers that want it. Cumulative sums ARE safe to
+    -- combine (period-independent YTD figures, footnoted via periodByStream).
+    'monthTotalEur', (
+      SELECT ROUND(SUM(month_eur))::bigint FROM raw WHERE stream = 'bmp'
+    ),
     'facilityCount',      COUNT(*),
     'periodByStream', (
       SELECT jsonb_object_agg(stream, pd) FROM (
@@ -113,7 +120,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       SELECT jsonb_agg(jsonb_build_object(
                 'code', rzok_code, 'name', rzok_name,
                 'cumulativeEur', ROUND(c)::bigint, 'facilityCount', n)
-              ORDER BY ROUND(c) DESC, rzok_code)
+              ORDER BY ROUND(c) DESC, rzok_code COLLATE "C")
       FROM (
         SELECT rzok_code, min(rzok_name COLLATE "C") AS rzok_name,
                SUM(cumulative_eur) AS c, COUNT(*) AS n
@@ -130,7 +137,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                 'drugsEur',   ROUND(COALESCE(drugs_eur, 0))::bigint,
                 'devicesEur', ROUND(COALESCE(devices_eur, 0))::bigint,
                 'eik', eik)
-              ORDER BY ROUND(cumulative_eur) DESC, reg_no)
+              ORDER BY ROUND(cumulative_eur) DESC, reg_no COLLATE "C")
       FROM f
     )
   ) END
@@ -156,7 +163,10 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   SELECT CASE WHEN COUNT(*) = 0 THEN NULL ELSE jsonb_build_object(
     'asOf', to_char((SELECT d FROM p) + interval '1 month' - interval '1 day', 'YYYY-MM-DD'),
     'totalCumulativeEur', ROUND(SUM(cumulative_eur))::bigint,
-    'totalMonthEur',      ROUND(SUM(month_eur))::bigint,
+    -- bmp-only, matching asOf — see nzok_hospital_payments_latest().
+    'totalMonthEur', (
+      SELECT ROUND(SUM(month_eur))::bigint FROM raw WHERE stream = 'bmp'
+    ),
     'bmpEur',     ROUND(SUM(COALESCE(bmp_eur, 0)))::bigint,
     'drugsEur',   ROUND(SUM(COALESCE(drugs_eur, 0)))::bigint,
     'devicesEur', ROUND(SUM(COALESCE(devices_eur, 0)))::bigint,
@@ -167,7 +177,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                     'bmpEur',     ROUND(COALESCE(bmp_eur, 0))::bigint,
                     'drugsEur',   ROUND(COALESCE(drugs_eur, 0))::bigint,
                     'devicesEur', ROUND(COALESCE(devices_eur, 0))::bigint)
-                  ORDER BY ROUND(cumulative_eur) DESC, reg_no)
+                  ORDER BY ROUND(cumulative_eur) DESC, reg_no COLLATE "C")
   ) END
   FROM f;
 $$;
@@ -244,7 +254,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                  AS x
           FROM cur c
           LEFT JOIN pri p USING (reg_no)
-          ORDER BY ROUND(c.ytd) DESC, c.reg_no
+          ORDER BY ROUND(c.ytd) DESC, c.reg_no COLLATE "C"
           LIMIT 40
         ) q
       )

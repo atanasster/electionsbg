@@ -26,11 +26,32 @@
 //
 // Units: state/municipal money groups are in ХИЛ. ЛЕВА (thousands of BGN); the
 // two "среден разход … в лева" groups are plain BGN; the НЗОК payment columns
-// are plain BGN. Everything is converted to EUR at the locked 1.95583 peg via
-// toEur(); the native figure is kept alongside for parity assertions.
+// are plain BGN. The native figure is stored as-is (for parity assertions) and
+// an EUR figure alongside it.
+//
+// CURRENCY GATE. The money native is BGN only through 2025. Bulgaria adopts the
+// euro on 2026-01-01, so from the 2026-Q1 file the source figures are already in
+// EUR — converting them again would understate every hospital by ~1.96×. We sniff
+// the source currency from the sheet caption ("хил. лева" vs "хил. евро" / "в
+// евро"), the same way parse_hospital_payments.ts detects "(в евро)", and feed it
+// to toEur so a euro-native cell is a passthrough. This is self-contained: the
+// sheet parsers run before the workbook's quarter/year is derived, so a caption
+// sniff is more robust here than threading the year down.
 
 import * as xlsx from "xlsx";
 import { toEur } from "../../src/lib/currency";
+
+// True when a sheet's money columns are already in euro (2026+ files). Matches a
+// "евро" money-unit caption anywhere in the sheet; absent → BGN (every file to
+// date). Kept deliberately permissive on the euro side and conservative on the
+// BGN side so a pre-euro file can never be mistaken for a euro one.
+const sheetCurrency = (grid: Grid): "BGN" | "EUR" => {
+  for (const row of grid)
+    for (const cell of row)
+      if (typeof cell === "string" && /(?:хил\.?\s*)?евро|в\s*евро/i.test(cell))
+        return "EUR";
+  return "BGN";
+};
 
 // ---- Public types ---------------------------------------------------------
 
@@ -303,11 +324,13 @@ interface ParsedSheet {
 }
 
 const parseFinancialSheet = (grid: Grid): ParsedSheet => {
+  const currency = sheetCurrency(grid);
   // Locate the group-label row: the first (of the top rows) that carries a
-  // "хил. лева" money-group caption. Period sub-columns are the next row.
+  // "хил. лева" (or, from 2026, "хил. евро") money-group caption. Period
+  // sub-columns are the next row.
   let grpRow = -1;
   for (let i = 0; i < Math.min(6, grid.length); i++) {
-    if ((grid[i] ?? []).some((c) => /хил\.?\s*лева/i.test(norm(c)))) {
+    if ((grid[i] ?? []).some((c) => /хил\.?\s*(?:лева|евро)/i.test(norm(c)))) {
       grpRow = i;
       break;
     }
@@ -361,7 +384,7 @@ const parseFinancialSheet = (grid: Grid): ParsedSheet => {
     for (const { ind, col } of colFor.values()) {
       const v = toNum(row[col]);
       if (v == null) continue;
-      filled += assignIndicator(h, ind, v);
+      filled += assignIndicator(h, ind, v, currency);
     }
     if (filled > 0) hospitals.push(h);
   }
@@ -375,21 +398,25 @@ const assignIndicator = (
   h: EeofHospital,
   ind: Indicator,
   v: number,
+  currency: "BGN" | "EUR",
 ): number => {
   // `EeofHospital` is a closed record of named indicator fields, so it carries no
   // index signature; the keys written below are built at runtime from the
   // workbook's group row. Route through `unknown` — every key produced here is
   // one the interface already declares (they are enumerated in INDICATORS).
   const rec = h as unknown as Record<string, number>;
+  // toEur is a passthrough for a euro-native source, so a 2026+ file is not
+  // double-converted. The native field name keeps its historical suffix; the
+  // value it holds is the source figure in whatever `currency` was in force.
   switch (ind.unit) {
     case "thousandsBgn": {
       rec[`${ind.key}ThousandsBgn`] = round(v, 3);
-      rec[`${ind.key}Eur`] = round(toEur(v * 1000, "BGN") ?? 0, 2);
+      rec[`${ind.key}Eur`] = round(toEur(v * 1000, currency) ?? 0, 2);
       return 1;
     }
     case "bgn": {
       rec[`${ind.key}Bgn`] = round(v, 2);
-      rec[`${ind.key}Eur`] = round(toEur(v, "BGN") ?? 0, 2);
+      rec[`${ind.key}Eur`] = round(toEur(v, currency) ?? 0, 2);
       return 1;
     }
     case "count":
@@ -468,8 +495,11 @@ const parseNzokSheet = (grid: Grid, quarter: string): EeofNzokRow[] => {
     else if (l) bmpC = c; // "плащания …" / "общо изплатени средства …"
   }
 
+  // Same euro gate as the financial sheets: a 2026+ НЗОК sheet is euro-native, so
+  // toEur must be a passthrough there rather than dividing a second time.
+  const currency = sheetCurrency(grid);
   const eur = (b: number | null): number | null =>
-    b == null ? null : round(toEur(b, "BGN") ?? 0, 2);
+    b == null ? null : round(toEur(b, currency) ?? 0, 2);
 
   const rows: EeofNzokRow[] = [];
   for (let r = subRow + 1; r < grid.length; r++) {

@@ -22,16 +22,9 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Pill } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { formatEurCompact } from "@/lib/currency";
+import { formatEur, formatEurCompact } from "@/lib/currency";
 import { useNzokDrugUnitPrices } from "@/data/budget/useBudget";
 import { decodeEntities } from "@/lib/decodeEntities";
-
-const eur2 = (v: number, lang: string) =>
-  new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en-GB", {
-    style: "currency",
-    currency: "EUR",
-    maximumFractionDigits: 2,
-  }).format(v);
 
 export const NzokDrugUnitPriceTile: FC = () => {
   const { i18n } = useTranslation();
@@ -81,7 +74,7 @@ export const NzokDrugUnitPriceTile: FC = () => {
             </thead>
             <tbody className="divide-y">
               {rows.map((r) => (
-                <tr key={`${r.nationalNo}${r.nzokCode}${r.regNo}`}>
+                <tr key={`${r.nationalNo}|${r.nzokCode}|${r.regNo}`}>
                   <td className="py-1.5 pr-2">
                     <span className="font-medium">
                       {decodeEntities(r.tradeName)}
@@ -94,10 +87,10 @@ export const NzokDrugUnitPriceTile: FC = () => {
                     {decodeEntities(r.facility)}
                   </td>
                   <td className="py-1.5 pr-2 text-right tabular-nums">
-                    {eur2(r.unitEur, i18n.language)}
+                    {formatEur(r.unitEur, i18n.language, { decimals: 2 })}
                   </td>
                   <td className="py-1.5 pr-2 text-right tabular-nums text-muted-foreground">
-                    {eur2(r.medianUnitEur, i18n.language)}
+                    {formatEur(r.medianUnitEur, i18n.language, { decimals: 2 })}
                   </td>
                   <td className="py-1.5 text-right tabular-nums font-medium">
                     {r.ratio.toFixed(1)}×

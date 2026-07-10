@@ -17,26 +17,8 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Landmark } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { formatEurCompact } from "@/lib/currency";
+import { formatEurCompact, formatPct, formatCount } from "@/lib/currency";
 import { useNzokFinancialsByEik } from "@/data/budget/useBudget";
-
-// The source's `…Pct` columns are FRACTIONS in 0..1 (0.508 = 50.8%), despite the
-// name. Format with a percent formatter — appending "%" to the raw value would
-// print "0.5%" for a half-full hospital.
-const pct = (v: number | null, lang: string) =>
-  v == null
-    ? "—"
-    : new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en-GB", {
-        style: "percent",
-        maximumFractionDigits: 1,
-      }).format(v);
-
-const num = (v: number | null, lang: string, digits = 1) =>
-  v == null
-    ? "—"
-    : new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en-GB", {
-        maximumFractionDigits: digits,
-      }).format(v);
 
 export const NzokFinancialHealthStrip: FC<{ eik: string }> = ({ eik }) => {
   const { i18n } = useTranslation();
@@ -67,19 +49,19 @@ export const NzokFinancialHealthStrip: FC<{ eik: string }> = ({ eik }) => {
     },
     {
       label: bg ? "Използваемост на леглата" : "Bed occupancy",
-      value: pct(f.bedOccupancyPct, i18n.language),
+      value: formatPct(f.bedOccupancyPct, i18n.language),
     },
     {
       label: bg ? "Просрочени / приходи" : "Overdue / revenue",
-      value: pct(f.overdueLiabilitiesRevenueSharePct, i18n.language),
+      value: formatPct(f.overdueLiabilitiesRevenueSharePct, i18n.language),
     },
     {
       label: bg ? "Среден престой (дни)" : "Avg length of stay (days)",
-      value: num(f.avgLengthOfStay, i18n.language),
+      value: formatCount(f.avgLengthOfStay, i18n.language),
     },
     {
       label: bg ? "Преминали болни" : "Patients treated",
-      value: num(f.patientsTreated, i18n.language, 0),
+      value: formatCount(f.patientsTreated, i18n.language, 0),
     },
     {
       label: bg ? "Разход на преминал болен" : "Cost per patient",

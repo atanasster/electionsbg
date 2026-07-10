@@ -1200,8 +1200,8 @@ const DB_ROUTES = {
   // The monthly median/p25/p75 series for ONE pack — "is the gap widening or
   // closing?", the question a single-year corpus structurally cannot answer.
   "nzok-drug-pack-trend": async (dbRows, q) => {
-    const nationalNo = s(q, "nationalNo") ?? "";
-    const nzokCode = s(q, "nzokCode") ?? "";
+    const nationalNo = s(q, "nationalNo");
+    const nzokCode = s(q, "nzokCode");
     if (!nationalNo && !nzokCode)
       return { status: 400, body: { error: "missing nationalNo or nzokCode" } };
     const rows = await dbRows("SELECT nzok_drug_pack_trend($1, $2) AS r", [

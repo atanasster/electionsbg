@@ -47,7 +47,7 @@
 import { parse } from "csv-parse/sync";
 import { Open as Unzip } from "unzipper";
 import { canonicalEik, isValidEik } from "./eik";
-import { isUnp } from "./unp";
+import { isUnp, UNP_HEADER_PATTERNS } from "./unp";
 import { overrideAmount } from "./amount_overrides";
 import type { Contract } from "./types";
 import { toEur } from "@/lib/currency";
@@ -179,7 +179,7 @@ const COLUMN_PATTERNS: Record<keyof LegacyRow, RegExp[]> = {
   // the numeric column was claimed first and the УНП column never bound — which
   // is why the corpus shipped for years with no usable tender lineage. These
   // patterns are strict, so they can never steal `tenderId`'s column.
-  unp: [/^унп$/i, /уникален.*номер.*на.*поръчк/i, /уникален.*номер.*поръчка/i],
+  unp: [...UNP_HEADER_PATTERNS],
   // The bare numeric procedure id. Bound for column disambiguation only; never
   // emitted. It belongs to no corpus-wide id space — the ЦАИС `tender_id`
   // sequence does not cover the РОП years.

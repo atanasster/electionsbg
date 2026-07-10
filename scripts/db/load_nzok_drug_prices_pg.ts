@@ -182,6 +182,8 @@ const main = async (): Promise<void> => {
   const data = JSON.parse(readFileSync(JSON_FILE, "utf8")) as DrugPricesFile;
   if (!Array.isArray(data.packStats) || data.packStats.length === 0)
     throw new Error(`${JSON_FILE} has no packStats[] — shape changed?`);
+  if (!Array.isArray(data.overpay))
+    throw new Error(`${JSON_FILE} has no overpay[] — shape changed?`);
 
   const packRows: PackRow[] = data.packStats.map((p) => [
     periodToDate(p.period),

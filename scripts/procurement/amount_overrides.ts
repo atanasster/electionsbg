@@ -199,8 +199,14 @@ export const AMOUNT_OVERRIDES: AmountOverride[] = [
     buyer: "Община Русе",
     note: "×1000, not ×100. Single-lot procedure estimate 165 333,00 BGN — exact after ÷1000.",
   },
+  // These four reach us via the OCDS feed, which carries no УНП at normalize time
+  // — so `normalize.ts` keys `overrideAmount` on the ocid. The `ocid` here is
+  // therefore load-bearing, not decorative: without it the override never fires at
+  // ingest and a re-normalize silently restores the ×100/BGN→EUR-inflated figure.
+  // Keep both keys, as for 00116-2026-0001 / 02332-2026-0001 above.
   {
     unp: "00105-2025-0026",
+    ocid: "ocds-e82gsb-527175",
     contractId: "236360",
     currency: "EUR",
     sourceAmount: 102258376.0,
@@ -210,6 +216,7 @@ export const AMOUNT_OVERRIDES: AmountOverride[] = [
   },
   {
     unp: "00172-2025-0007",
+    ocid: "ocds-e82gsb-546101",
     contractId: "242653",
     currency: "EUR",
     sourceAmount: 8179034.0,
@@ -219,6 +226,7 @@ export const AMOUNT_OVERRIDES: AmountOverride[] = [
   },
   {
     unp: "02711-2025-0106",
+    ocid: "ocds-e82gsb-540811",
     contractId: "242345",
     currency: "EUR",
     sourceAmount: 4090335.0,
@@ -228,6 +236,7 @@ export const AMOUNT_OVERRIDES: AmountOverride[] = [
   },
   {
     unp: "02709-2025-0018",
+    ocid: "ocds-e82gsb-539837",
     contractId: "239736",
     currency: "EUR",
     sourceAmount: 511292.0,

@@ -24,6 +24,12 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { exec, withClient, end } from "./lib/pg";
 import { recordIngestBatch } from "./lib/ingest_changelog";
+import {
+  fold,
+  isJunk,
+  partitionFoldCollisions,
+  COLLISION_BUDGET,
+} from "./lib/nzok_fold";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(__dirname, "../..");
@@ -34,57 +40,8 @@ const SCHEMA_FILE = path.join(
 const DATA_FILE = path.join(REPO, "data/budget/nzok/hospital_financials.json");
 const EIK_FILE = path.join(REPO, "data/budget/nzok/hospital_eik.json");
 
-// ---------------------------------------------------------------------------
-// Conservative name fold for the eik join: uppercase, strip everything that is
-// not a letter/digit, drop legal forms + geo prefixes + the "Д-р"/title tokens,
-// normalise the saint prefix (Св./Света/Свети → СВ), and collapse an immediately
-// repeated token (the source appends ", гр. Трявна" → "…ТРЯВНА ТРЯВНА"). This is
-// EXACT-match after normalisation — no fuzzy/substring matching, so a miss stays
-// NULL rather than risking a wrong EIK.
-// ---------------------------------------------------------------------------
-const LEGAL = new Set([
-  "ЕООД",
-  "ООД",
-  "АД",
-  "ЕАД",
-  "ЕТ",
-  "АДСИЦ",
-  "ДЗЗД",
-  "СД",
-  "КД",
-]);
-const GEO = new Set(["ГР", "С", "ГРАД", "ОБЛ", "ОБЩ"]);
-const TITLE = new Set(["ПРОФ", "АКАД", "ДОЦ", "ИНЖ", "МР"]);
-const SAINT = new Set(["СВ", "СВЕТА", "СВЕТИ", "СВЕТО", "СВЕТАТА"]);
-
-const fold = (s: string): string => {
-  if (!s) return "";
-  const raw = s
-    .toUpperCase()
-    .replace(/[^\p{L}\p{N}]+/gu, " ")
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean);
-  const toks: string[] = [];
-  for (let i = 0; i < raw.length; i++) {
-    let w = raw[i];
-    if (w === "Д" && raw[i + 1] === "Р") {
-      i++; // "Д-р" doctor title, dropped
-      continue;
-    }
-    if (SAINT.has(w)) w = "СВ";
-    if (LEGAL.has(w) || GEO.has(w) || TITLE.has(w)) continue;
-    toks.push(w);
-  }
-  const out: string[] = [];
-  for (const w of toks) if (out[out.length - 1] !== w) out.push(w);
-  return out.join(" ");
-};
-
-// A header/date line that slipped into the parsed hospital list (not a facility).
-const isJunk = (name: string): boolean =>
-  !fold(name) ||
-  /данни към|наименование|^\s*общо|^\s*всичко|^\s*итого/i.test(name);
+// `fold`, `isJunk`, `partitionFoldCollisions` and `COLLISION_BUDGET` live in
+// ./lib/nzok_fold so the collision logic is unit-testable without a database.
 
 interface FinRow {
   quarter: string;
@@ -235,10 +192,16 @@ const main = async (): Promise<void> => {
     );
   });
 
+  if (!Array.isArray(j.quarters) || !Array.isArray(j.nzok))
+    throw new Error(
+      `${DATA_FILE} is missing quarters[]/nzok[] — shape changed? Regenerate with \`npm run data:nzok -- --eeof\`.`,
+    );
+
   // Financials rows, degenerate blocks skipped, junk filtered.
   const finRows: FinRow[] = [];
   const skippedBlocks: string[] = [];
   let junkFiltered = 0;
+  let collisionDropped = 0;
   for (const q of j.quarters as {
     quarter: string;
     ownership: string;
@@ -246,14 +209,17 @@ const main = async (): Promise<void> => {
   }[]) {
     const clean = q.hospitals.filter((h) => !isJunk(String(h.name)));
     junkFiltered += q.hospitals.length - clean.length;
-    const folds = clean.map((h) => fold(String(h.name)));
-    // A block whose folded names are NOT unique lost hospital identity in parsing
-    // (bare oblast labels) — it cannot satisfy the PK and cannot be eik-matched.
-    if (new Set(folds).size !== clean.length) {
-      skippedBlocks.push(`${q.quarter}/${q.ownership} (${clean.length} rows)`);
-      continue;
+    // Drop only the colliding fold-groups, not the whole block (see nzok_fold).
+    const { kept, dropped } = partitionFoldCollisions(clean, (h) =>
+      String(h.name),
+    );
+    if (dropped > 0) {
+      collisionDropped += dropped;
+      skippedBlocks.push(
+        `${q.quarter}/${q.ownership} (${dropped}/${clean.length} rows dropped on fold collision)`,
+      );
     }
-    for (const h of clean) {
+    for (const h of kept) {
       const nameFold = fold(String(h.name));
       finRows.push({
         quarter: q.quarter,
@@ -340,11 +306,15 @@ const main = async (): Promise<void> => {
 
   await exec(readFileSync(SCHEMA_FILE, "utf8"));
 
+  // Rows are the typed FinRow/ParityRow structs — accepted as `object[]` so the
+  // call sites need no cast (the old code laundered them through
+  // `as unknown as Record<string, unknown>[]`, defeating key↔column checking).
+  // The single internal cast is scoped to the column read.
   const insertBatched = async (
     c: import("pg").PoolClient,
     table: string,
     cols: readonly string[],
-    rows: Record<string, unknown>[],
+    rows: readonly object[],
   ): Promise<void> => {
     const N = cols.length;
     const BATCH = Math.max(1, Math.floor(60000 / N));
@@ -358,7 +328,9 @@ const main = async (): Promise<void> => {
         .join(",");
       await c.query(
         `INSERT INTO ${table} (${cols.join(",")}) VALUES ${values}`,
-        batch.flatMap((row) => cols.map((col) => row[col])),
+        batch.flatMap((row) =>
+          cols.map((col) => (row as Record<string, unknown>)[col]),
+        ),
       );
     }
   };
@@ -370,22 +342,21 @@ const main = async (): Promise<void> => {
     parityRows.reduce((a, r) => a + r.bmp_eur, 0),
   );
 
+  // Guard BEFORE writing anything (see COLLISION_BUDGET in ./lib/nzok_fold): a
+  // jump past the known bare-oblast envelope means a NEW clean-quarter collision,
+  // so abort rather than silently erase real rows. Pre-transaction, so a tripped
+  // budget never leaves a half-updated table.
+  if (collisionDropped > COLLISION_BUDGET)
+    throw new Error(
+      `fold collisions (${collisionDropped}) exceed the known ${COLLISION_BUDGET}-row bare-oblast envelope — a clean-quarter collision likely; inspect before loading:\n  ${skippedBlocks.join("\n  ")}`,
+    );
+
   await withClient(async (c) => {
     await c.query("BEGIN");
     await c.query("TRUNCATE nzok_hospital_financials");
     await c.query("TRUNCATE nzok_eeof_nzok_parity");
-    await insertBatched(
-      c,
-      "nzok_hospital_financials",
-      FIN_COLS,
-      finRows as unknown as Record<string, unknown>[],
-    );
-    await insertBatched(
-      c,
-      "nzok_eeof_nzok_parity",
-      PARITY_COLS,
-      parityRows as unknown as Record<string, unknown>[],
-    );
+    await insertBatched(c, "nzok_hospital_financials", FIN_COLS, finRows);
+    await insertBatched(c, "nzok_eeof_nzok_parity", PARITY_COLS, parityRows);
 
     // Post-load reconciliation: row counts + summed revenue/bmp must agree with
     // what we collected. A mismatch (a silently-dropped row, a duplicate that
@@ -444,7 +415,7 @@ const main = async (): Promise<void> => {
   if (junkFiltered) console.log(`Filtered ${junkFiltered} junk/header row(s).`);
   if (skippedBlocks.length) {
     console.log(
-      `Skipped ${skippedBlocks.length} degenerate blocks (parser lost hospital identity — bare oblast labels):`,
+      `Dropped ${collisionDropped} fold-collision row(s) across ${skippedBlocks.length} block(s) (parser lost hospital identity — bare oblast labels):`,
     );
     skippedBlocks.forEach((b) => console.log(`  - ${b}`));
   }

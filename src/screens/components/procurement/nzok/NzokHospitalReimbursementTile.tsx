@@ -76,7 +76,9 @@ export const NzokHospitalReimbursementTile: FC<{ eik: string }> = ({ eik }) => {
                 {label}
               </span>
               <span className="shrink-0 font-medium tabular-nums">
-                {formatEurCompact(entry[key] ?? 0, i18n.language)}
+                {entry[key] == null
+                  ? "—"
+                  : formatEurCompact(entry[key], i18n.language)}
               </span>
             </li>
           ))}

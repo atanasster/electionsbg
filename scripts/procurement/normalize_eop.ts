@@ -77,7 +77,9 @@ const CATEGORY_MAP: Record<string, string> = {
 // "10000000,00" → number. Strip spaces, then if a comma is present treat dots as
 // thousands separators and the comma as the decimal point. Returns undefined for
 // blank / non-numeric.
-const parseBgNumber = (v: string | number | undefined): number | undefined => {
+export const parseBgNumber = (
+  v: string | number | undefined,
+): number | undefined => {
   if (v == null) return undefined;
   if (typeof v === "number") return Number.isFinite(v) ? v : undefined;
   let s = String(v).trim().replace(/\s/g, "");

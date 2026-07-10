@@ -90,6 +90,18 @@ export const formatEur = (
   return `€${numberFormatter(locale, opts.decimals ?? 0).format(value)}`;
 };
 
+/** A plain count/ratio: "4,3" / "5 835". Returns "—" for null/non-finite. */
+export const formatCount = (
+  value: number | null | undefined,
+  locale: string = "bg-BG",
+  digits = 1,
+): string =>
+  value == null || !Number.isFinite(value)
+    ? "—"
+    : new Intl.NumberFormat(resolveLocale(locale), {
+        maximumFractionDigits: digits,
+      }).format(value);
+
 /** Compact euro figure for tight layouts: "€3,5 млн" / "€3.5M". Uses the
  * locale's compact notation so a billion-euro total fits a narrow KPI cell. */
 export const formatEurCompact = (
@@ -169,9 +181,18 @@ export const formatEurWithOther = (
 };
 
 /** A fraction (0..1) as a localised percentage. Shares `formatEurCompact`'s
- *  `lang` signature so the number-formatting helpers read alike at call sites. */
-export const formatPct = (v: number, lang: string, digits = 1): string =>
-  (v * 100).toLocaleString(lang, { maximumFractionDigits: digits }) + "%";
+ *  `lang` signature so the number-formatting helpers read alike at call sites.
+ *  Null/non-finite → "—" (the НЗОК financial tiles feed nullable share columns). */
+export const formatPct = (
+  v: number | null | undefined,
+  lang: string,
+  digits = 1,
+): string =>
+  v == null || !Number.isFinite(v)
+    ? "—"
+    : (v * 100).toLocaleString(resolveLocale(lang), {
+        maximumFractionDigits: digits,
+      }) + "%";
 
 /** A count as a localised integer (BG groups with a space above 4 digits). */
 export const formatInt = (v: number, lang: string): string =>

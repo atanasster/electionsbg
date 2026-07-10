@@ -26,6 +26,7 @@ import path from "path";
 import zlib from "zlib";
 import { fileURLToPath } from "url";
 import { AMOUNT_OVERRIDES } from "./amount_overrides";
+import { parseBgNumber } from "./normalize_eop";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -39,17 +40,11 @@ const RATIO_HI = 100.5;
 // upstream rounding. Everything looser is ambiguous by construction.
 const CORRECTABLE_TOL = 0.02;
 
-/** Parse a Bulgarian-formatted decimal. Mirrors normalize_eop.ts::parseBgNumber. */
-const parseBgNumber = (v: unknown): number | undefined => {
-  if (v == null) return undefined;
-  const cleaned = String(v)
-    .trim()
-    .replace(/[\s\u00A0]/g, "")
-    .replace(/,(\d{3})(?!\d)/g, "$1")
-    .replace(/,(\d{1,2})$/, ".$1");
-  const n = Number(cleaned);
-  return Number.isFinite(n) ? n : undefined;
-};
+// parseBgNumber is imported from normalize_eop.ts, NOT re-derived. This tool is
+// the only sanctioned way to grow AMOUNT_OVERRIDES, so it must see exactly the
+// values the ingest parser sees \u2014 a divergent regex here (the old copy stripped
+// comma-thousands but never dot-thousands) would render dot-grouped anomalies
+// like "1.234.567,89" invisible.
 
 const known = new Set(
   AMOUNT_OVERRIDES.flatMap((o) =>
@@ -85,8 +80,13 @@ for (const f of fs.readdirSync(EOP_CACHE_DIR).sort()) {
   for (const r of recs) {
     const contractId = String(r.contractNumber ?? "").trim();
     if (!contractId) continue;
-    const contract = parseBgNumber(r.contractValue);
-    const estimate = parseBgNumber(r.estimatedValue);
+    // The flat договори feed publishes these as Bulgarian-formatted strings.
+    const contract = parseBgNumber(
+      r.contractValue as string | number | undefined,
+    );
+    const estimate = parseBgNumber(
+      r.estimatedValue as string | number | undefined,
+    );
     if (!contract || !estimate || estimate <= 0 || contract <= 0) continue;
 
     const ratio = contract / estimate;
