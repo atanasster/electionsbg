@@ -53,10 +53,14 @@ export const JudiciaryScreen = () => {
   // reads exactly like the other government-entity dashboards: an "Обхват" strip
   // with a "Последна година" pill and a years dropdown. There is no cross-year
   // aggregate here, so the control's "All years" option is switched off.
+  // The pill is active iff there is no override; otherwise the Select shows the
+  // RESOLVED year. Collapsing `selectedYear === latestYear` to "ns" left the years
+  // dropdown — which lists every year, latest included — with no item matching its
+  // own value, so picking 2025 from it rendered the placeholder while "Последна
+  // година" lit up. Showing the resolved (not the requested) year also keeps the
+  // control honest when a refreshed caseload.json drops the year the user picked.
   const scopeValue: ProcurementScope =
-    selectedYear != null && data && selectedYear !== data.latestYear
-      ? `y:${selectedYear}`
-      : "ns";
+    yearOverride != null && selectedYear != null ? `y:${selectedYear}` : "ns";
   const onScopeChange = (next: ProcurementScope) => {
     if (next === "ns" || next === "all") setYearOverride(null);
     else setYearOverride(Number(next.slice(2)));

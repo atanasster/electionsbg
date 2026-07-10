@@ -37,8 +37,8 @@ import type {
 } from "@/data/budget/types";
 
 export { NZOK_EIK };
-// Back-compat alias so the pack takes its scope-window type from here.
-export type RoadsWindow = ScopeWindow;
+// The pack takes its scope-window type from here.
+export type { ScopeWindow };
 
 export interface NzokData {
   model: NzokModel | null;
@@ -53,7 +53,7 @@ export interface NzokData {
 
 export const useNzok = (
   eik: string = NZOK_EIK,
-  windowOverride?: RoadsWindow,
+  windowOverride?: ScopeWindow,
 ): NzokData => {
   const contracts = useAwarderContracts(eik);
   const budget = useNzokBudget();

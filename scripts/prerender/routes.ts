@@ -75,6 +75,12 @@ const REGIONS_FILE = path.join(PROJECT_ROOT, "src/data/json/regions.json");
 // `update-judiciary` rewrites the artifacts, and stay stale in search results.
 // Read them from the same committed JSON the app reads. staticPage() runs at build
 // time, so this costs nothing at runtime.
+//
+// These two artifacts are COMMITTED AND REQUIRED AT BUILD TIME: this IIFE runs at
+// module scope, so anything importing routes.ts throws on a checkout where they are
+// missing. If data/judiciary/ is ever moved behind bucket:sync (the way
+// raw_data/judiciary/ is gitignored), this must become a lazy read with a fallback
+// first — otherwise the build breaks with a bare ENOENT.
 const judiciaryFacts = (() => {
   const caseload = JSON.parse(
     fs.readFileSync(

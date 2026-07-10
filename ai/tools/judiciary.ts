@@ -40,7 +40,11 @@ const pickYear = <T>(
   const sorted = years.map(yearOf);
   const first = Math.min(...sorted);
   const last = Math.max(...sorted);
-  const w = Number(want);
+  // `Number(null)` and `Number("")` are both 0 — finite — so an explicit null from
+  // the LLM tool-call path (where an optional param is commonly filled with null)
+  // would ask for "year 0" and get "Няма данни за 0 г.". Treat absent as absent,
+  // as ai/tools/fiscal.ts already does.
+  const w = want == null || want === "" ? NaN : Number(want);
   if (!Number.isFinite(w))
     return { year: years[0] ?? null, missing: null, first, last };
   const hit = years.find((y) => yearOf(y) === w);

@@ -25,7 +25,7 @@ import { Scale } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEurCompact } from "@/lib/currency";
 import { WARN_CHIP_COLORS } from "../chipStyles";
-import { useVss, type RoadsWindow } from "@/data/procurement/useVss";
+import { useVss, type ScopeWindow } from "@/data/procurement/useVss";
 import {
   categoryLabel,
   cleanSupplierName,
@@ -34,7 +34,7 @@ import {
 import { VssBudgetBridgeTile } from "./VssBudgetBridgeTile";
 import { VssCategoryTile } from "./VssCategoryTile";
 
-export const VssPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
+export const VssPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   eik,
   scopeWindow,
 }) => {
@@ -59,13 +59,37 @@ export const VssPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
   }, [budget, yearOverride]);
   const selectedYear = budgetYear?.fiscalYear ?? null;
 
-  // Length of the procurement window, NOT the count of years that happen to carry
-  // a contract: a 2021-2023 scope with no 2022 contracts would otherwise divide by
-  // 2 and inflate the annual average by 50%.
-  const procYears = useMemo(() => {
+  // The divisor for "per year" — and the label that names it, so the two can never
+  // disagree.
+  //
+  // It must be the length of the SCOPE WINDOW, not the span of years that happen
+  // to carry a contract. `model.minYear`/`maxYear` are the first and last year
+  // with a row, so a 2021-2023 scope whose only ВСС contracts land in 2023 would
+  // divide by 1 and report the three-year total as one year's average. Interior
+  // gap years were already handled; edge gap years were not.
+  //
+  // The window is half-open [from, to), so the last covered calendar year is the
+  // one containing `to − 1 day`. With no window (the "all" scope) there is nothing
+  // to measure but the corpus itself, so fall back to the contract span.
+  const procSpan = useMemo(() => {
+    const from = scopeWindow?.from;
+    const to = scopeWindow?.to;
+    if (from && to) {
+      const last = new Date(to);
+      last.setUTCDate(last.getUTCDate() - 1);
+      const y0 = new Date(from).getUTCFullYear();
+      const y1 = last.getUTCFullYear();
+      if (Number.isFinite(y0) && Number.isFinite(y1) && y1 >= y0)
+        return { from: y0, to: y1, years: y1 - y0 + 1 };
+    }
     if (!model || model.minYear == null || model.maxYear == null) return null;
-    return model.maxYear - model.minYear + 1;
-  }, [model]);
+    return {
+      from: model.minYear,
+      to: model.maxYear,
+      years: model.maxYear - model.minYear + 1,
+    };
+  }, [scopeWindow, model]);
+  const procYears = procSpan?.years ?? null;
   const annualProc = useMemo(() => {
     if (!model || !procYears || procYears <= 0) return null;
     return model.totalEur / procYears;
@@ -143,8 +167,8 @@ export const VssPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
             label={bg ? "Поръчки на година" : "Procurement per year"}
             hint={
               bg
-                ? "Договорена стойност, усреднена за целия обхват (включително години без договори)."
-                : "Contracted value averaged across the whole scope window (including years with no contracts)."
+                ? `Договорена стойност, усреднена за целия обхват${procSpan ? ` (${procSpan.from}–${procSpan.to})` : ""} — включително години без договори.`
+                : `Contracted value averaged across the whole scope window${procSpan ? ` (${procSpan.from}–${procSpan.to})` : ""} — including years with no contracts.`
             }
           >
             <span className="text-2xl font-bold tabular-nums">
@@ -194,8 +218,8 @@ export const VssPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
           onSelectYear={setYearOverride}
           procurementTotalEur={model?.totalEur ?? 0}
           procurementYears={procYears}
-          procurementFrom={model?.minYear ?? null}
-          procurementTo={model?.maxYear ?? null}
+          procurementFrom={procSpan?.from ?? null}
+          procurementTo={procSpan?.to ?? null}
           annualProc={annualProc}
         />
       )}

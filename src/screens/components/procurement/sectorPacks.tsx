@@ -21,13 +21,13 @@ import { NOI_EIK } from "@/lib/noiBenchmarks";
 import { NZOK_EIK } from "@/lib/nzokBenchmarks";
 import { VSS_EIK } from "@/lib/vssReferenceData";
 import { AGRI_PAYER_EIK } from "@/data/agri/constants";
-import type { RoadsWindow } from "@/data/procurement/useRoads";
+import type { ScopeWindow } from "@/data/procurement/useAwarderContracts";
 
 export interface SectorPackProps {
   eik: string;
   /** [from, to) window inherited from the host's scope control. Named
    *  `scopeWindow` (not `window`) so it can't shadow the global `window`. */
-  scopeWindow: RoadsWindow;
+  scopeWindow: ScopeWindow;
 }
 
 // Canonical paths to the packed awarder dashboards. Single source for the nav

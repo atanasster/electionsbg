@@ -275,8 +275,17 @@ export const renderBarCard = (spec: BarCardSpec): Buffer => {
   const MAX_W = S - 80 - X0 - VALUE_W;
   const peak = Math.max(...rows.map((r) => Math.abs(r.value)), 1);
 
+  // `y` has grown with the kicker, a title that wrapped to two lines and the
+  // legend, and `ruleY` has risen with the footnote — nothing floors what's left.
+  // Past a certain point `step` goes below the readable minimum, and once `avail`
+  // turns negative the bar loop walks UPWARD from `by` and draws the rows over the
+  // headline. These cards get published, so refuse rather than emit garbage.
   const avail = ruleY - 28 - (y + 40);
   const step = Math.min(64, avail / rows.length);
+  if (step < 34)
+    throw new Error(
+      `renderBarCard: ${rows.length} bars do not fit (step ${step.toFixed(1)}px, need >= 34) — shorten the title/footnote or drop a bar`,
+    );
   const barH = Math.max(18, step * 0.52);
 
   let by = y + 40 + step / 2;

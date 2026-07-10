@@ -116,7 +116,7 @@ const cachedHtml = (year: number): string =>
     .gunzipSync(fs.readFileSync(path.join(RAW_DIR, `law-${year}.html.gz`)))
     .toString("utf8");
 
-// "843 564,0" / "1 221 324" → number (thousand леva, as printed). Pure-number
+// "843 564,0" / "1 221 324" → number (thousand leva, as printed). Pure-number
 // lines only, so a row code ("1.2.1.") is never mistaken for a value.
 //
 // DIVERGENCE — do not "de-duplicate" this with __write_judiciary.ts's asNum.

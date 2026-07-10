@@ -8,8 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { ProcurementContract } from "@/data/dataTypes";
 
 /** Half-open `[from, to)` window on a contract's `date` — the scope a pack
- *  inherits from its host page. Buyer-agnostic; `RoadsWindow` is a back-compat
- *  alias re-exported from useRoads. */
+ *  inherits from its host page. Buyer-agnostic; each pack hook re-exports it. */
 export interface ScopeWindow {
   from: string | null;
   to: string | null;

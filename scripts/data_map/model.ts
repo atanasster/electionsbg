@@ -614,8 +614,8 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       en: "case movement and workload",
     },
     desc: {
-      bg: "Годишните „Обобщени статистически таблици за дейността на съдилищата“ на Висшия съдебен съвет — постъпили, свършени и висящи дела, срокове и натовареност на съдиите, по съдебен ред. Публикуват се само като PDF. Плюс регистъра на имуществените декларации на магистратите и списъците на ИВСС за неизрядни декларации.",
-      en: "The Supreme Judicial Council's annual summary statistical tables on the activity of the courts — cases filed, resolved and pending, delays and judges' workload, by court tier. Published as PDFs only. Plus the magistrates' asset-declaration register and the Inspectorate's non-compliance lists.",
+      bg: "Годишните „Обобщени статистически таблици за дейността на съдилищата“ на Висшия съдебен съвет — постъпили, свършени и висящи дела, срокове и натовареност на съдиите, по съдебен ред. Публикуват се само като PDF. Плюс регистъра на имуществените декларации на магистратите и списъците на ИВСС за неизрядни декларации. Забележка: регистърът на ИВСС се публикува на гол IP адрес по нешифрован HTTP (без TLS), затова обхождането му се прави от доверена мрежа и всяка промяна в имената се преглежда ръчно преди публикуване.",
+      en: "The Supreme Judicial Council's annual summary statistical tables on the activity of the courts — cases filed, resolved and pending, delays and judges' workload, by court tier. Published as PDFs only. Plus the magistrates' asset-declaration register and the Inspectorate's non-compliance lists. Note: the Inspectorate's register is served from a bare IP over unencrypted HTTP (no TLS), so the crawl is run from a trusted network and every change to the named individuals is reviewed by hand before publication.",
     },
     url: "https://vss.justice.bg/page/view/1082",
     origin: "state",

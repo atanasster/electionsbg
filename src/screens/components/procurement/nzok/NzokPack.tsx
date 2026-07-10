@@ -22,7 +22,7 @@ import { HeartPulse } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEurCompact } from "@/lib/currency";
 import { WARN_CHIP_COLORS } from "../chipStyles";
-import { useNzok, type RoadsWindow } from "@/data/procurement/useNzok";
+import { useNzok, type ScopeWindow } from "@/data/procurement/useNzok";
 import { categoryLabel } from "@/lib/nzokBenchmarks";
 import { NzokBudgetBridgeTile } from "./NzokBudgetBridgeTile";
 import { NzokCategoryTile } from "./NzokCategoryTile";
@@ -33,7 +33,7 @@ import { NzokRegionalChoroplethTile } from "./NzokRegionalChoroplethTile";
 import { NzokDrugReimbursementTile } from "./NzokDrugReimbursementTile";
 import { NzokProcurementLensTile } from "./NzokProcurementLensTile";
 
-export const NzokPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
+export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   eik,
   scopeWindow,
 }) => {

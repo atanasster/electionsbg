@@ -39,8 +39,8 @@ import type { JudiciaryBudgetFile } from "@/data/budget/types";
 import type { ProcurementContract } from "@/data/dataTypes";
 
 export { VSS_EIK };
-// Back-compat alias so the pack takes its scope-window type from here.
-export type RoadsWindow = ScopeWindow;
+// The pack takes its scope-window type from here.
+export type { ScopeWindow };
 
 export interface VssData {
   model: VssModel | null;
@@ -54,7 +54,7 @@ export interface VssData {
 
 export const useVss = (
   eik: string = VSS_EIK,
-  windowOverride?: RoadsWindow,
+  windowOverride?: ScopeWindow,
 ): VssData => {
   // Only the ВСС's own page merges its aliases; if this pack is ever mounted on
   // another EIK, that EIK stands alone.

@@ -1728,15 +1728,34 @@ export const route = (question: string, ctx: ToolContext): Route => {
     // "supreme judicial council" is deliberately absent: the local-elections gate
     // matches on "council" far earlier in route(), so that phrase can never reach
     // here. "всс" / "висш съдебен съвет" / "judiciary" all route correctly.
-    const judiciaryCtx = has(
-      q,
-      "съдебната власт",
-      "съдебна власт",
-      "всс",
-      "висш съдебен съвет",
-      "judiciary",
-      "judicial power",
-    );
+    //
+    // `has()` is a bare substring test, and "ивсс".includes("всс") — so the ВСС
+    // cue must be anchored, or every question about the Inspectorate (ИВСС, its
+    // own awarder EIK) is answered with the Council's ledger. Same class as
+    // "pending" ⊂ "spending" below, one cue over.
+    // Mirrors VSS_EIK / IVSS_EIK in src/lib/vssReferenceData.ts — the router runs
+    // outside the app bundle and cannot import from src/, so these are inlined
+    // the way every other awarder EIK in this file is.
+    const VSS_EIK = "121513231";
+    const IVSS_EIK = "175451413";
+    const ivssCue = has(q, "ивсс", "инспекторат");
+    const bareVssCue = /(^|[^а-яa-z])всс/.test(q);
+    const judiciaryCtx =
+      bareVssCue ||
+      ivssCue ||
+      has(
+        q,
+        "съдебната власт",
+        "съдебна власт",
+        // "съдебен съвет", not "висш съдебен съвет": Bulgarian inflects the
+        // adjective ("Висшия съдебен съвет"), so the fuller phrase never matches
+        // a naturally written question. `ivssCue` is checked first, so the
+        // Inspectorate's own full name ("Инспекторат към Висшия съдебен съвет")
+        // still resolves to the Inspectorate.
+        "съдебен съвет",
+        "judiciary",
+        "judicial power",
+      );
     const yearArgs = promptYear ? { year: promptYear } : {};
     // Declaration questions are their own dataset (the ИВСС register), and they
     // outrank the budget/caseload cues — "декларации на магистратите" is never
@@ -1809,9 +1828,14 @@ export const route = (question: string, ctx: ToolContext): Route => {
     if (judiciaryCtx) {
       // A procurement-phrased question ("обществените поръчки на ВСС") is about
       // the buyer's CONTRACTS, not the judiciary's budget — route to the awarder
-      // view (awarderProcurement resolves the bare ВСС EIK 121513231).
+      // view. The Inspectorate is a separate awarder with its own contract
+      // ledger, so it must be checked FIRST: the judiciary context is (correctly)
+      // true for both, and "ивсс" is the more specific subject.
       if (has(q, "поръчк", "договор", "procurement", "contract"))
-        return { tool: "awarderProcurement", args: { org: "121513231" } };
+        return {
+          tool: "awarderProcurement",
+          args: { org: ivssCue ? IVSS_EIK : VSS_EIK },
+        };
       // A bare "разкажи ми за съдебната власт" has no cue at all — the budget is
       // the sensible default answer for the institution as a whole.
       return routeJudiciary() ?? { tool: "judiciaryBudget", args: yearArgs };

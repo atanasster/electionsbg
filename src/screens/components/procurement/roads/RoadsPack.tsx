@@ -24,7 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useRoads, type RoadsWindow } from "@/data/procurement/useRoads";
+import { useRoads, type ScopeWindow } from "@/data/procurement/useRoads";
 import { formatEurCompact } from "@/lib/currency";
 import { ROAD_EUR_PER_KM, eurPerKmMln } from "@/lib/roadBenchmarks";
 import { RoadCostPerKmTile } from "./RoadCostPerKmTile";
@@ -45,7 +45,7 @@ const pctFmt = (v: number | undefined, lang: string) =>
     ? "—"
     : (v * 100).toLocaleString(lang, { maximumFractionDigits: 1 }) + "%";
 
-export const RoadsPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
+export const RoadsPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   eik,
   scopeWindow,
 }) => {

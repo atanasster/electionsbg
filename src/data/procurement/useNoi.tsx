@@ -18,9 +18,8 @@ import { buildNoiModel, NOI_EIK, type NoiModel } from "@/lib/noiAttributes";
 import type { NoiFundsFile } from "@/data/budget/types";
 
 export { NOI_EIK };
-// `RoadsWindow` is the back-compat alias of the neutral ScopeWindow; the pack
-// takes its scope-window type from here.
-export type RoadsWindow = ScopeWindow;
+// The pack takes its scope-window type from here.
+export type { ScopeWindow };
 
 /** The single ДОО fiscal-year snapshot the pack renders (the most recent
  *  ingested year), flattened to the figures the tiles need. Admin = Персонал +
@@ -84,7 +83,7 @@ const flattenFundYear = (file: NoiFundsFile | null): NoiFundYear | null => {
 
 export const useNoi = (
   eik: string = NOI_EIK,
-  windowOverride?: RoadsWindow,
+  windowOverride?: ScopeWindow,
 ): NoiData => {
   const contracts = useAwarderContracts(eik);
   const funds = useNoiFunds();

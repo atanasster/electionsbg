@@ -19,14 +19,14 @@ import { PiggyBank } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEurCompact } from "@/lib/currency";
 import { WARN_CHIP_COLORS } from "../chipStyles";
-import { useNoi, type RoadsWindow } from "@/data/procurement/useNoi";
+import { useNoi, type ScopeWindow } from "@/data/procurement/useNoi";
 import { categoryLabel } from "@/lib/noiBenchmarks";
 import { NoiFundFlowTile } from "./NoiFundFlowTile";
 import { NoiAdminBenchmarkTile } from "./NoiAdminBenchmarkTile";
 import { NoiCategoryTile } from "./NoiCategoryTile";
 import { NoiStrategicSuppliersTile } from "./NoiStrategicSuppliersTile";
 
-export const NoiPack: FC<{ eik: string; scopeWindow: RoadsWindow }> = ({
+export const NoiPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   eik,
   scopeWindow,
 }) => {

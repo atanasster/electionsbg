@@ -29,10 +29,10 @@ import {
 import type { ProcurementContract } from "@/data/dataTypes";
 
 // Re-exported so existing importers keep their path. The corpus hook + window
-// type now live in the buyer-agnostic useAwarderContracts module; `RoadsWindow`
-// is kept as a back-compat alias of the neutral `ScopeWindow`.
+// type live in the buyer-agnostic useAwarderContracts module; each pack takes the
+// neutral `ScopeWindow` from its own hook.
 export { API_EIK, useAwarderContracts };
-export type RoadsWindow = ScopeWindow;
+export type { ScopeWindow };
 
 /** The slice of the old awarder rollup the roads dashboard actually renders. */
 export interface RoadsRollup {
@@ -58,7 +58,7 @@ export interface RoadsData {
 
 export const useRoads = (
   eik: string = API_EIK,
-  windowOverride?: RoadsWindow,
+  windowOverride?: ScopeWindow,
 ): RoadsData => {
   const counterparties = useCounterparties(eik, "awarder");
   const contracts = useAwarderContracts(eik);

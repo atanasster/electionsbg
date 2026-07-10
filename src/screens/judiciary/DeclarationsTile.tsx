@@ -57,10 +57,14 @@ export const DeclarationsTile: FC<{ data: DeclarationsFile }> = ({ data }) => {
   const int = (v: number) => formatInt(v, lang);
   const pct = (v: number) => formatPct(v, lang);
 
-  // The two heaviest days in May — the deadline itself.
+  // The two heaviest days in May — the deadline itself. Pick by count, then print
+  // in calendar order: "15 и 14 май" reads like a mistake. Today day 14 happens to
+  // outweigh day 15, so the caption is already ascending; the re-sort keeps it that
+  // way the year that flips.
   const peak = [...cal.byDayOfMay]
     .sort((a, b) => b.count - a.count)
-    .slice(0, 2);
+    .slice(0, 2)
+    .sort((a, b) => a.day - b.day);
 
   return (
     <Card>
