@@ -541,9 +541,11 @@ The plan had no answer for "how do we know the numbers are right." Fill it:
   `education_nav`, the three verdict labels (над/близо/под очакваното), `education_insufficient_data`,
   band names, methodology copy. BG copy follows `feedback_bg_language` (natural, not calqued) and
   `feedback_bg_uses_eur`.
-- **Prod deploy checklist.** New PG tables ⇒ `db:push` + functions redeploy + `/api/db` registry
-  live, *before* the OG capture (which reads the DB via the dev server) and before launch. Both the
-  agri and tenders migrations sit at "DEPLOY PENDING" in memory — do not repeat that.
+- **Prod deploy checklist.** New PG tables ⇒ Cloud SQL publish (`apply_functions.ts` + a
+  `db:load:school:pg:cloud`-style loader wrapper that applies the DDL and reloads rows against the
+  proxy — **`db:dump` is only an outward GCS snapshot and creates nothing**) + functions redeploy +
+  `/api/db` registry live, *before* the OG capture (which reads the DB via the dev server) and
+  before launch. Both the agri and tenders migrations sit at "DEPLOY PENDING" — do not repeat that.
 - **Rollout.** Ship the pack (P0) publicly; keep `/education` behind the dev gate until the verdict
   layer (P3) is golden-tested, because a wrong "под очакваното" on a real school is the one error
   with human cost.
