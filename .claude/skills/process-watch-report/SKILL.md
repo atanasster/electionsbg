@@ -595,14 +595,31 @@ Default to asking unless the user said "bootstrap markers" or "run all" or simil
 
    ### Bucket deploy
 
-   After committing, `data/` lives in two places: the git repo (history, audit) and `gs://data-electionsbg-com` (what the live SPA fetches). The bucket is the one users see. The Next steps section MUST always include the deploy commands when anything under `data/` was modified:
+   After committing, `data/` lives in two places: the git repo (history, audit) and `gs://data-electionsbg-com` (what the live SPA fetches). The bucket is the one users see. The Next steps section MUST always include the deploy commands when anything under `data/` was modified.
+
+   **Prefer the scoped sync.** The orchestrator always knows exactly which subtrees it touched, so emit those:
 
    ```bash
-   npm run bucket:sync:dry    # preview which files would upload
-   npm run bucket:sync        # push to gs://data-electionsbg-com
+   npm run bucket:sync:paths:dry -- prices myarea budget data_map.json data-changes.json   # preview
+   npm run bucket:sync:paths     -- prices myarea budget data_map.json data-changes.json   # push
    ```
 
-   `bucket:sync` rsyncs the entire `data/` directory (everything: JSON + .webp photos + anything else); `-j json,svg,xml,txt,html,css,md` controls which extensions get gzip transport encoding, not which files upload. The Cache-Control is `public, max-age=3600, stale-while-revalidate=604800` — fresh content propagates within an hour, with SWR letting the SPA serve a slightly-stale copy in the meantime.
+   `bucket:sync` (the whole-tree rsync) must enumerate **both** full listings before diffing — ~1.03M local files and ~761k bucket objects — and its `-x` exclusions filter only AFTER enumeration, so the PG-served `procurement/` and `funds/` are walked anyway. That fixed overhead is ~30 min *regardless of churn*. Scoped to a typical day's subtrees it is ~1 min (measured 2026-07-10). Same flags, same result.
+
+   Reach for the full `npm run bucket:sync` only after a run that rewrote unknown parts of the tree (e.g. `npm run prod`).
+
+   `bucket:sync:paths` REFUSES `procurement/` (except `roads.json` + `derived/mp_party.json`), `funds/`, `parliament/company-connections/` and `_cache/` — the PG-served trees the whole-tree sync merely excludes by regex.
+
+   **Deletions.** Neither sync passes `-d`, so a file removed from `data/` lingers on the bucket and is served forever (e.g. three `prices/settlement/*.json` dropped 2026-07-10 and stayed live). When a skill *removes* files, dry-run the delete and read the "Would remove" lines before executing:
+
+   ```bash
+   npm run bucket:sync:paths:dry -- --delete prices
+   npm run bucket:sync:paths     -- --delete prices
+   ```
+
+   Never pass `--delete` for a subtree this run didn't fully regenerate, and never wire `-d` into the whole-tree `bucket:sync` — it would delete bucket-served artifacts that are simply absent from this machine.
+
+   `-j json,svg,xml,txt,html,css,md` controls which extensions get gzip **transport** encoding, not which files upload. Cache-Control is `public,max-age=300,must-revalidate`.
 
    When `Files changed` is "none" for every skill, omit the bucket-sync lines from Next steps — there's nothing new to push. If even one skill wrote files, include them.
 
