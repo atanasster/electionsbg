@@ -33,6 +33,7 @@ import { mfaProgramOtchet } from "./mfa_program_otchet";
 import { budgetLaw } from "./budget_law";
 import { indicatorsAz } from "./indicators_az";
 import { indicatorsMonDzi } from "./indicators_mon_dzi";
+import { indicatorsMonNvo } from "./indicators_mon_nvo";
 import { indicatorsNsiPop } from "./indicators_nsi_pop";
 import { indicatorsNsiVital } from "./indicators_nsi_vital";
 import { nsiLanduse } from "./nsi_landuse";
@@ -143,6 +144,7 @@ export const SOURCES: WatchSource[] = [
   budgetLaw,
   indicatorsAz,
   indicatorsMonDzi,
+  indicatorsMonNvo,
   indicatorsNsiPop,
   indicatorsNsiVital,
   nsiLanduse,

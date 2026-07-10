@@ -1030,6 +1030,30 @@ const DB_ROUTES = {
     ).catch(missingMigrationRows);
     return { body: rows[0] ?? null };
   },
+  // Schools in one município ranked by their latest score in a subject — the
+  // `schoolScores` AI tool. Reads the RELATIONAL school_scores fact table (which
+  // carries every subject: dzi_bel/dzi_math/nvo_bel/nvo_math per year), so it
+  // supports subject selection the БЕЛ-centric directory blob can't, and drops
+  // the tool's old 1.25 MB /schools/index.json fetch. LATERAL picks each school's
+  // latest year for the chosen subject.
+  "education-muni-scores": async (dbRows, q) => {
+    const obshtina = s(q, "obshtina");
+    const subject = s(q, "subject") || "dzi_bel";
+    if (!obshtina) return { body: [] };
+    const rows = await dbRows(
+      `SELECT sc.name, sc.address, f.year, f.value, f.n
+         FROM schools sc
+         JOIN LATERAL (
+           SELECT year, value, n FROM school_scores
+            WHERE school_id = sc.id AND subject = $2
+            ORDER BY year DESC LIMIT 1
+         ) f ON true
+        WHERE sc.obshtina = $1
+        ORDER BY f.value DESC, sc.name`,
+      [obshtina, subject],
+    ).catch(missingMigrationRows);
+    return { body: rows };
+  },
   // ── КЗП „Колко струва" prices (migration 048) ───────────────────────────────
   // Every dashboard payload the old data/prices/*.json tree served, keyed by
   // (kind, key): 'index'|'ranking'|'chains'|'dict' (key ''), 'place' (key =

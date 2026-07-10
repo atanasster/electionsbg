@@ -211,8 +211,8 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       en: "the national open-data portal",
     },
     desc: {
-      bg: "Националният портал за отворени данни: обществени поръчки (АОП), Търговски регистър, касово изпълнение на бюджета, общински бюджети, ДЗИ резултати, качество на въздуха (ИАОС) и пощенски кодове.",
-      en: "The national open-data portal: public procurement (OCDS), the Commerce Registry, budget cash execution, municipal budgets, matura exam scores, air quality and postcodes.",
+      bg: "Националният портал за отворени данни: обществени поръчки (АОП), Търговски регистър, касово изпълнение на бюджета, общински бюджети, резултати от матурите (ДЗИ) и от НВО в 7. клас (по училища — захранват /education и картоните /school), качество на въздуха (ИАОС) и пощенски кодове.",
+      en: "The national open-data portal: public procurement (OCDS), the Commerce Registry, budget cash execution, municipal budgets, matura (ДЗИ) and 7th-grade НВО exam results by school (feeding /education and the /school report cards), air quality and postcodes.",
     },
     url: "https://data.egov.bg/",
     origin: "state",
@@ -223,6 +223,7 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       "egov_municipal_execution",
       "bgpost_postcodes",
       "indicators_mon_dzi",
+      "indicators_mon_nvo",
       "iaos_air_quality",
     ],
     skills: [
@@ -230,6 +231,7 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       "update-connections",
       "update-budget",
       "update-indicators",
+      "update-schools",
       "update-air-quality",
     ],
     tags: ["fiscal", "parliament", "indicators", "local"],
@@ -901,14 +903,14 @@ export const DATASETS: DatasetDef[] = [
     id: "indicators",
     label: { bg: "Регионални индикатори", en: "Regional indicators" },
     detail: {
-      bg: "безработица, ДЗИ, регионално развитие",
-      en: "unemployment, education, regional growth",
+      bg: "безработица, ДЗИ/НВО по училища, регионално развитие",
+      en: "unemployment, per-school ДЗИ/НВО, regional growth",
     },
     desc: {
-      bg: "Годишните под-национални индикатори — безработица и матури по общини, БВП на човек, миграция и инвестиции по области.",
-      en: "Annual sub-national indicators — unemployment and matura scores by municipality, GDP per capita, migration and investment by region.",
+      bg: "Годишните под-национални индикатори — безработица и матури по общини, БВП на човек, миграция и инвестиции по области. Включва и per-училище разрез (/education + картоните /school): успех на ДЗИ, постижение спрямо социалната среда (индекс от Преброяване 2021) и добавена стойност 7→12 клас спрямо входното ниво по НВО, плюс концентрацията на пазара на учебници (по обществени поръчки, CPV 22112).",
+      en: "Annual sub-national indicators — unemployment and matura scores by municipality, GDP per capita, migration and investment by region. Also a per-school layer (/education + the /school report cards): ДЗИ results, performance versus the community's socioeconomic context (a Census-2021 index) and 7→12 value-added against the 7th-grade НВО intake, plus textbook-market concentration (from procurement, CPV 22112).",
     },
-    path: "data/indicators.json",
+    path: "data/schools/index.json",
     tags: ["indicators"],
   },
   {

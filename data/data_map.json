@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-10T19:00:52.348Z",
+  "generatedAt": "2026-07-10T22:40:19.482Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -225,8 +225,8 @@
         "en": "the national open-data portal"
       },
       "desc": {
-        "bg": "Националният портал за отворени данни: обществени поръчки (АОП), Търговски регистър, касово изпълнение на бюджета, общински бюджети, ДЗИ резултати, качество на въздуха (ИАОС) и пощенски кодове.",
-        "en": "The national open-data portal: public procurement (OCDS), the Commerce Registry, budget cash execution, municipal budgets, matura exam scores, air quality and postcodes."
+        "bg": "Националният портал за отворени данни: обществени поръчки (АОП), Търговски регистър, касово изпълнение на бюджета, общински бюджети, резултати от матурите (ДЗИ) и от НВО в 7. клас (по училища — захранват /education и картоните /school), качество на въздуха (ИАОС) и пощенски кодове.",
+        "en": "The national open-data portal: public procurement (OCDS), the Commerce Registry, budget cash execution, municipal budgets, matura (ДЗИ) and 7th-grade НВО exam results by school (feeding /education and the /school report cards), air quality and postcodes."
       },
       "tags": [
         "fiscal",
@@ -243,6 +243,7 @@
         "update-connections",
         "update-budget",
         "update-indicators",
+        "update-schools",
         "update-air-quality"
       ],
       "sources": [
@@ -287,6 +288,12 @@
           "url": "https://data.egov.bg/data/view/066b4b04-d81d-444e-a61c-8ca0516079e4",
           "cadence": "daily",
           "freshness": "2026-06-28T16:34:00.777Z"
+        },
+        {
+          "id": "indicators_mon_nvo",
+          "label": "МОН: НВО 7. клас резултати (data.egov.bg)",
+          "url": "https://data.egov.bg/data/view/b56288b6-25aa-4049-9aa6-de2cd4cdabf8",
+          "cadence": "daily"
         },
         {
           "id": "iaos_air_quality",
@@ -1799,17 +1806,17 @@
         "en": "Regional indicators"
       },
       "detail": {
-        "bg": "безработица, ДЗИ, регионално развитие",
-        "en": "unemployment, education, regional growth"
+        "bg": "безработица, ДЗИ/НВО по училища, регионално развитие",
+        "en": "unemployment, per-school ДЗИ/НВО, regional growth"
       },
       "desc": {
-        "bg": "Годишните под-национални индикатори — безработица и матури по общини, БВП на човек, миграция и инвестиции по области.",
-        "en": "Annual sub-national indicators — unemployment and matura scores by municipality, GDP per capita, migration and investment by region."
+        "bg": "Годишните под-национални индикатори — безработица и матури по общини, БВП на човек, миграция и инвестиции по области. Включва и per-училище разрез (/education + картоните /school): успех на ДЗИ, постижение спрямо социалната среда (индекс от Преброяване 2021) и добавена стойност 7→12 клас спрямо входното ниво по НВО, плюс концентрацията на пазара на учебници (по обществени поръчки, CPV 22112).",
+        "en": "Annual sub-national indicators — unemployment and matura scores by municipality, GDP per capita, migration and investment by region. Also a per-school layer (/education + the /school report cards): ДЗИ results, performance versus the community's socioeconomic context (a Census-2021 index) and 7→12 value-added against the 7th-grade НВО intake, plus textbook-market concentration (from procurement, CPV 22112)."
       },
       "tags": [
         "indicators"
       ],
-      "path": "data/indicators.json",
+      "path": "data/schools/index.json",
       "x": 378,
       "y": 866,
       "w": 240,
