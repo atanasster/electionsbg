@@ -33,6 +33,19 @@ Docker Compose, pinned **Postgres 16** + `pg_trgm`/`unaccent`, host port **5433*
 - **Live serving (step 5)** — the only thing between the DB-side features and users. Needs a deployed Postgres (Cloud SQL / Neon) + `/api/search` + `/api/recent` (Firebase Fn / Cloud Run) + a frontend search UI.
 - **Deferred outward triggers** (operator-run): `db:build --write` flip + `bucket:sync`; real `db:dump` GCS upload.
 
+## Bulk loading: use `copyRows`, not multi-row INSERT
+
+`scripts/db/lib/copy.ts` exports `copyRows(client, table, cols, rows)` — a streamed `COPY … FROM STDIN`. **Any loader whose table exceeds ~100k rows should use it**; the smaller ones (`load_funds_pg.ts`, `load_nzok_hospital_pg.ts`, `load_awarder_seats_pg.ts`) still build multi-row INSERTs and that is fine at their size.
+
+Why: a multi-row INSERT binds every value as a parameter, caps at PG's 65535 params per statement (forcing ~6k-row chunks), and pays per-row executor overhead. The three big loaders `TRUNCATE` + re-ship their whole table every run, so cost tracks table size, not churn — and over the Cloud SQL proxy each `db:load:*:cloud` took ~30 min. Measured after the switch: TR 105.1s → 74.1s, tenders 23.1s, contracts 69.1s locally; the proxy win is larger because both round trips and bytes shrink.
+
+Two things to know before touching it:
+
+- **Text format, not CSV.** In CSV an unquoted empty field is indistinguishable from NULL. These tables have nullable text columns where `""` and NULL are genuinely different values, and the INSERT path preserved that; text format spells NULL as `\N`.
+- **`rows` is an `Iterable`.** Pass a generator (`function* () { for (const r of src) yield toRow(r) }`) so the encoded rows never form a second copy of the corpus beside the source array. `copyRows` returns the row count the *server* confirms and throws on a mismatch.
+
+Correctness is pinned by `scripts/db/tests/copy.data.test.ts` (under `npm run test:data`), which covers the cases that corrupt silently rather than throw: a literal `\N`, `""` vs NULL, embedded tab/newline/CR, backslash doubling, `-0`/NaN/Infinity, jsonb, and integer `0/1` into a boolean column. **When changing a loader, capture `md5(string_agg(t::text,'|' order by <pk>))` per table before and after** — that digest parity is how the COPY switch was verified across 3.5M rows.
+
 ## Done since
 
 - **Dev SQL browser repointed to Postgres** (`42e96d9be`): `vite/sql-browser.ts` uses the pg pool (schema from `pg_catalog`, read-only tx + cursor cap); `/dev/sql` inspects the real source (contracts + tr_* + contractor_search + tracking, native cross-domain joins). Deleted the unused `procurement.sqlite` (kept `tr/state.sqlite` — it feeds `db:load:tr:pg`).

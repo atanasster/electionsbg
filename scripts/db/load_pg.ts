@@ -12,7 +12,7 @@ import { execSync } from "node:child_process";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { PROC_DIR } from "./lib/paths";
-import { getPool, exec, withClient, end } from "./lib/pg";
+import { getPool, exec, withClient, withTx, end } from "./lib/pg";
 import { copyRows } from "./lib/copy";
 import { rebuildRiskGradeScoped } from "./lib/riskGradeScoped";
 import { COLUMN_NAMES, contractToRow } from "./lib/procurement_schema";
@@ -177,17 +177,21 @@ export const loadPg = async (): Promise<{
   let batchId = 0;
   let rowsNew = 0;
 
-  await withClient(async (c) => {
-    await c.query("BEGIN");
+  await withTx(async (c) => {
     await c.query("TRUNCATE contracts");
     // Streamed COPY rather than batched multi-row INSERT — 301k rows / 754 MB is
     // what made db:load:pg:cloud slow over the proxy. Encoder round-trip-verified
-    // in lib/__test_copy.ts (contracts carries double precision + integer cols).
+    // in tests/copy.data.test.ts (contracts carries double precision + integer cols).
+    // The generator keeps this lazy: `rows` is already the whole corpus in memory,
+    // so materializing `rows.map(contractToRow)` would hold a second copy of it for
+    // the duration of the COPY.
     await copyRows(
       c,
       "contracts",
       COLUMN_NAMES,
-      rows.map((row) => contractToRow(row)),
+      (function* () {
+        for (const row of rows) yield contractToRow(row);
+      })(),
     );
 
     // Contract-name search index — distinct contractor as they appear in the
@@ -257,7 +261,6 @@ export const loadPg = async (): Promise<{
         "INSERT INTO meta (key, value) VALUES ($1,$2) ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value",
         [k, v],
       );
-    await c.query("COMMIT");
   });
 
   // Refresh planner statistics immediately — a freshly TRUNCATE+INSERT'd table
@@ -284,8 +287,7 @@ export const loadPg = async (): Promise<{
         }>;
       }
     ).governments;
-    await withClient(async (c) => {
-      await c.query("BEGIN");
+    await withTx(async (c) => {
       await c.query("TRUNCATE cabinets");
       for (const g of govs)
         await c.query(
@@ -302,7 +304,6 @@ export const loadPg = async (): Promise<{
             g.partiesEn ?? null,
           ],
         );
-      await c.query("COMMIT");
     });
   }
 
@@ -320,8 +321,7 @@ export const loadPg = async (): Promise<{
           }>;
         }
       ).entries ?? [];
-    await withClient(async (c) => {
-      await c.query("BEGIN");
+    await withTx(async (c) => {
       await c.query("TRUNCATE debarred");
       for (const d of deb)
         await c.query(
@@ -334,7 +334,6 @@ export const loadPg = async (): Promise<{
             d.detailsUrl ?? null,
           ],
         );
-      await c.query("COMMIT");
     });
   }
 

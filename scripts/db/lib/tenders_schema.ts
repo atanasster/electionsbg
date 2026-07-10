@@ -67,14 +67,9 @@ export const COLUMNS: ColumnDef[] = [
 
 export const COLUMN_NAMES = COLUMNS.map((c) => c.col);
 
-/** Per-column placeholder cast — jsonb needs an explicit ::jsonb on the param
- *  (node-pg would otherwise render a JS array as a PG array literal). */
-export const columnCast = (col: string): string =>
-  col === "lots" ? "::jsonb" : "";
-
 type Param = string | number | boolean | null;
 
-/** Tender → positional INSERT params (absent fields → NULL; lots → JSON text). */
+/** Tender → positional COPY row (absent fields → NULL; lots → JSON text). */
 export const tenderToRow = (t: Tender): Param[] =>
   COLUMNS.map(({ field, kind }) => {
     const v = t[field];

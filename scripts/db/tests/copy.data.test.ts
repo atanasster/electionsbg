@@ -1,18 +1,21 @@
 // Round-trip proof for copyRows(): every column type the loaders use, plus the
-// text-format metacharacters that a naive encoder corrupts. Run:
-//   npx tsx scripts/db/lib/__test_copy.ts
+// text-format metacharacters that a naive encoder corrupts. Runs under
+// `npm run test:data` alongside the other data invariants.
 //
-// The interesting cases are the ones that silently corrupt rather than throw:
+// The interesting cases are the ones that corrupt silently rather than throw:
 //   · "\\N"        — a literal backslash-N must NOT read back as NULL
 //   · ""  vs NULL  — must stay distinct (this is why we use text, not CSV)
 //   · tab/newline  — must not split a field or a row
 //   · 0.1+0.2      — a double must survive as the same IEEE-754 bits
 //   · -0, NaN, Inf — float8 edge values
 //   · jsonb        — nested object, and a string containing a quote
+//   · int 0/1 → boolean — the ngo_details.public_benefit path in load_tr_pg
+//   · typed arrays — must THROW rather than serialize to {"0":1,…}
 
+import { test } from "node:test";
 import assert from "node:assert/strict";
-import { withClient, end } from "./pg";
-import { copyRows } from "./copy";
+import { withClient } from "../lib/pg";
+import { copyRows } from "../lib/copy";
 
 const COLS = ["t", "n_int", "n_dbl", "n_num", "b", "ts", "j"];
 
@@ -52,7 +55,7 @@ const ROWS: unknown[][] = [
   ],
 ];
 
-const main = async (): Promise<void> => {
+test("copyRows round-trips every column type the loaders use", async () => {
   await withClient(async (c) => {
     await c.query("BEGIN");
     await c.query(`CREATE TEMP TABLE copy_probe (
@@ -81,6 +84,10 @@ const main = async (): Promise<void> => {
     assert.equal(empty.t, "", "empty string became NULL (CSV bug)");
     assert.notEqual(empty.t, null, "empty string must stay distinct from NULL");
     assert.equal(empty.b, false, "false must not become NULL");
+
+    // -0 keeps its sign bit. String(-0) is "0", so render() special-cases it.
+    // assert.equal is Object.is-based, so a plain equal(0, -0) would fail.
+    assert.ok(Object.is(empty.n_dbl, -0), "-0 lost its sign");
 
     // A literal backslash-N is text, not a NULL sentinel.
     const litN = byInt.get(7);
@@ -151,14 +158,76 @@ const main = async (): Promise<void> => {
 
     await c.query("ROLLBACK");
   });
-  console.log(
-    `✓ copyRows round-trip: ${ROWS.length} rows, 7 column types, all assertions passed`,
-  );
-  await end();
-};
+});
 
-main().catch(async (e) => {
-  console.error(e);
-  await end();
-  process.exit(1);
+test("copyRows handles an empty row set", async () => {
+  await withClient(async (c) => {
+    await c.query("BEGIN");
+    await c.query("CREATE TEMP TABLE empty_probe (t text) ON COMMIT DROP");
+    assert.equal(await copyRows(c, "empty_probe", ["t"], []), 0);
+    const { rows } = await c.query(
+      "SELECT count(*)::int AS n FROM empty_probe",
+    );
+    assert.equal(rows[0].n, 0);
+    await c.query("ROLLBACK");
+  });
+});
+
+// Guards the ngo_details.public_benefit / private_benefit path in load_tr_pg:
+// those columns are boolean, but SQLite hands the loader integer 0/1, which take
+// render()'s NUMBER branch and emit "0"/"1". Postgres' boolin accepts them — that
+// works by an accident of PG's input grammar, so pin it.
+test("integer 0/1 lands in a boolean column", async () => {
+  await withClient(async (c) => {
+    await c.query("BEGIN");
+    await c.query(
+      "CREATE TEMP TABLE bool_probe (id int, b boolean) ON COMMIT DROP",
+    );
+    await copyRows(c, "bool_probe", ["id", "b"], [
+      [1, 1],
+      [2, 0],
+    ] as unknown[][]);
+    const { rows } = await c.query("SELECT id, b FROM bool_probe ORDER BY id");
+    assert.equal(rows[0].b, true, "integer 1 should be true");
+    assert.equal(rows[1].b, false, "integer 0 should be false");
+    await c.query("ROLLBACK");
+  });
+});
+
+// A JS array renders as a JSON array, which is NOT valid Postgres array input,
+// and a TypedArray/Buffer is not valid bytea input. Both would corrupt silently,
+// so the encoder rejects typed arrays outright.
+test("copyRows rejects typed-array (bytea) values instead of mangling them", async () => {
+  await withClient(async (c) => {
+    await c.query("BEGIN");
+    await c.query("CREATE TEMP TABLE bytea_probe (v bytea) ON COMMIT DROP");
+    await assert.rejects(
+      () => copyRows(c, "bytea_probe", ["v"], [[new Uint8Array([1, 2])]]),
+      /typed-array/,
+      'typed array should throw, not serialize to {"0":1,…}',
+    );
+    await c.query("ROLLBACK");
+  });
+});
+
+// The server-confirmed rowCount is what copyRows returns; a mismatch throws.
+test("copyRows returns the row count the server confirms", async () => {
+  await withClient(async (c) => {
+    await c.query("BEGIN");
+    await c.query("CREATE TEMP TABLE count_probe (t text) ON COMMIT DROP");
+    const n = await copyRows(
+      c,
+      "count_probe",
+      ["t"],
+      (function* () {
+        for (let i = 0; i < 5000; i++) yield [`row-${i}`];
+      })(),
+    );
+    assert.equal(n, 5000, "returned count should be the server's rowCount");
+    const { rows } = await c.query(
+      "SELECT count(*)::int AS n FROM count_probe",
+    );
+    assert.equal(rows[0].n, 5000, "server should hold exactly what we framed");
+    await c.query("ROLLBACK");
+  });
 });

@@ -13,7 +13,7 @@ import { execSync } from "node:child_process";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { PROC_DIR } from "./lib/paths";
-import { getPool, exec, withClient, end } from "./lib/pg";
+import { getPool, exec, withTx, end } from "./lib/pg";
 import { copyRows } from "./lib/copy";
 import { COLUMN_NAMES, tenderToRow } from "./lib/tenders_schema";
 import { recordIngestBatch } from "./lib/ingest_changelog";
@@ -97,17 +97,19 @@ export const loadTendersPg = async (): Promise<{
 
   const { rows, years } = readShards();
 
-  await withClient(async (c) => {
-    await c.query("BEGIN");
+  await withTx(async (c) => {
     await c.query("TRUNCATE tenders");
     // Streamed COPY rather than batched multi-row INSERT. `tenders` is the
     // trickiest of the three: it carries a jsonb column (lots) and four booleans
-    // alongside float8/int — all covered by lib/__test_copy.ts.
+    // alongside float8/int — all covered by tests/copy.data.test.ts. Lazy generator
+    // so the encoded rows never form a second full array beside `rows`.
     await copyRows(
       c,
       "tenders",
       COLUMN_NAMES,
-      rows.map((row) => tenderToRow(row)),
+      (function* () {
+        for (const row of rows) yield tenderToRow(row);
+      })(),
     );
 
     const sorted = [...years].sort();
@@ -132,7 +134,6 @@ export const loadTendersPg = async (): Promise<{
       detailExpr: "t.subject",
       rowsTotal: rows.length,
     });
-    await c.query("COMMIT");
   });
 
   // API functions last (post-commit) — they reference contracts, so validation

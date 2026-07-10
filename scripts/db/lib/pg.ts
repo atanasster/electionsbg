@@ -84,16 +84,54 @@ export const allRows = async <T = Record<string, unknown>>(
   params?: unknown[],
 ): Promise<T[]> => (await getPool().query(sql, params)).rows as T[];
 
+/**
+ * Run `fn` with one pooled connection. On success the connection is recycled; on
+ * ANY throw it is passed to `release(err)`, which **destroys** it instead of
+ * returning it to the pool.
+ *
+ * That distinction is load-bearing. `pg` does not reset a connection on release:
+ * a bare `c.release()` after a failed `BEGIN … COMMIT` hands the next caller a
+ * connection with an aborted transaction still open, and a failed COPY leaves it
+ * in copy-in mode, where even a subsequent ROLLBACK can fail. Destroying costs one
+ * reconnect on an error path that is already exceptional.
+ */
 export const withClient = async <T>(
   fn: (c: PoolClient) => Promise<T>,
 ): Promise<T> => {
   const c = await getPool().connect();
   try {
-    return await fn(c);
-  } finally {
+    const out = await fn(c);
     c.release();
+    return out;
+  } catch (e) {
+    c.release(e instanceof Error ? e : new Error(String(e)));
+    throw e;
   }
 };
+
+/**
+ * Run `fn` inside a read-write transaction: BEGIN, then COMMIT on success or
+ * ROLLBACK on throw. The write-side sibling of `withReadOnlyTx` below.
+ *
+ * The bulk loaders (load_pg / load_tenders_pg / load_tr_pg) each hand-rolled
+ * BEGIN … COMMIT with no rollback path, so a mid-load failure left the connection
+ * mid-transaction. `withClient` now destroys an errored connection regardless, but
+ * an explicit ROLLBACK is cheaper than a reconnect and keeps the intent visible.
+ */
+export const withTx = async <T>(
+  fn: (c: PoolClient) => Promise<T>,
+): Promise<T> =>
+  withClient(async (c) => {
+    await c.query("BEGIN");
+    try {
+      const out = await fn(c);
+      await c.query("COMMIT");
+      return out;
+    } catch (e) {
+      await c.query("ROLLBACK").catch(() => {});
+      throw e;
+    }
+  });
 
 /**
  * Run `fn` with a query fn pinned to ONE pooled connection inside a READ ONLY

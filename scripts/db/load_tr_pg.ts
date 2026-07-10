@@ -11,7 +11,7 @@ import { readFileSync, existsSync } from "node:fs";
 import { execSync } from "node:child_process";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { DatabaseSync } from "node:sqlite";
-import { getPool, exec, withClient, end } from "./lib/pg";
+import { getPool, exec, withClient, withTx, end } from "./lib/pg";
 import { copyRows } from "./lib/copy";
 import { rebuildRiskGradeScoped } from "./lib/riskGradeScoped";
 
@@ -73,16 +73,17 @@ const waitForPg = async (): Promise<void> => {
 // under PG's 65535-param cap), which meant ~290 round trips of bound parameters
 // for tr_companies' 1,017,624 rows. Over the Cloud SQL proxy that dominated
 // `db:load:tr:pg:cloud`. copyRows streams one framed text payload instead; the
-// encoder is round-trip-verified in lib/__test_copy.ts.
-const bulkInsert = async (
+// encoder is round-trip-verified in tests/copy.data.test.ts.
+//
+// `rows` is an Iterable so the caller can pass a lazy generator and avoid holding
+// a second copy of the corpus beside the SQLite result set.
+const copyTable = async (
   table: string,
   cols: string[],
-  rows: unknown[][],
+  rows: Iterable<unknown[]>,
 ): Promise<void> => {
-  await withClient(async (c) => {
-    await c.query("BEGIN");
+  await withTx(async (c) => {
     await copyRows(c, table, cols, rows);
-    await c.query("COMMIT");
   });
 };
 
@@ -101,7 +102,7 @@ export const loadTrPg = async (): Promise<{
       "SELECT uic, name, legal_form, seat, status, funds_amount, funds_currency, last_updated, objectives, means, public_benefit, private_benefit FROM companies WHERE name IS NOT NULL AND name <> ''",
     )
     .all() as Array<Record<string, string | number | null>>;
-  await bulkInsert(
+  await copyTable(
     "tr_companies",
     [
       "uic",
@@ -113,16 +114,19 @@ export const loadTrPg = async (): Promise<{
       "funds_currency",
       "last_updated",
     ],
-    companies.map((r) => [
-      r.uic,
-      r.name,
-      r.legal_form,
-      r.seat,
-      r.status,
-      r.funds_amount,
-      r.funds_currency,
-      r.last_updated || null, // '' → NULL for the timestamptz column
-    ]),
+    (function* () {
+      for (const r of companies)
+        yield [
+          r.uic,
+          r.name,
+          r.legal_form,
+          r.seat,
+          r.status,
+          r.funds_amount,
+          r.funds_currency,
+          r.last_updated || null, // '' → NULL for the timestamptz column
+        ];
+    })(),
   );
 
   // ЮЛНЦ metadata sidecar — only rows that actually carry NGO fields.
@@ -134,16 +138,19 @@ export const loadTrPg = async (): Promise<{
       r.private_benefit != null,
   );
   if (ngoDetails.length)
-    await bulkInsert(
+    await copyTable(
       "ngo_details",
       ["uic", "public_benefit", "private_benefit", "objectives", "means"],
-      ngoDetails.map((r) => [
-        r.uic,
-        r.public_benefit == null ? null : r.public_benefit === 1,
-        r.private_benefit == null ? null : r.private_benefit === 1,
-        r.objectives,
-        r.means,
-      ]),
+      (function* () {
+        for (const r of ngoDetails)
+          yield [
+            r.uic,
+            r.public_benefit == null ? null : r.public_benefit === 1,
+            r.private_benefit == null ? null : r.private_benefit === 1,
+            r.objectives,
+            r.means,
+          ];
+      })(),
     );
 
   const officers = tr
@@ -157,16 +164,13 @@ export const loadTrPg = async (): Promise<{
        GROUP BY uic, name`,
     )
     .all() as Array<Record<string, string | number | null>>;
-  await bulkInsert(
+  await copyTable(
     "tr_officers",
     ["uic", "name", "roles", "active", "changed_at"],
-    officers.map((r) => [
-      r.uic,
-      r.name,
-      r.roles,
-      r.active,
-      r.changed_at || null,
-    ]),
+    (function* () {
+      for (const r of officers)
+        yield [r.uic, r.name, r.roles, r.active, r.changed_at || null];
+    })(),
   );
 
   // Raw per-role records for the person page's history (from/to dates + share).
@@ -177,7 +181,7 @@ export const loadTrPg = async (): Promise<{
        WHERE name IS NOT NULL AND name <> ''`,
     )
     .all() as Array<Record<string, string | number | null>>;
-  await bulkInsert(
+  await copyTable(
     "tr_person_roles",
     [
       "uic",
@@ -190,17 +194,20 @@ export const loadTrPg = async (): Promise<{
       "added_at",
       "erased_at",
     ],
-    roles.map((r) => [
-      r.uic,
-      r.name,
-      r.role,
-      r.country,
-      r.share_percent,
-      r.share_amount,
-      r.share_currency,
-      r.added_at || null,
-      r.erased_at || null,
-    ]),
+    (function* () {
+      for (const r of roles)
+        yield [
+          r.uic,
+          r.name,
+          r.role,
+          r.country,
+          r.share_percent,
+          r.share_amount,
+          r.share_currency,
+          r.added_at || null,
+          r.erased_at || null,
+        ];
+    })(),
   );
   tr.close();
 
@@ -309,7 +316,7 @@ export const loadTrPg = async (): Promise<{
   }
   await exec("TRUNCATE company_politicians");
   if (links.length)
-    await bulkInsert(
+    await copyTable(
       "company_politicians",
       ["eik", "politician", "ref", "kind", "role", "total_eur", "relations"],
       links,

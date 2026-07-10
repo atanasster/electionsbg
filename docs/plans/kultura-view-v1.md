@@ -1,442 +1,326 @@
-# Култура (Culture) government-entity view — v1 plan
+# Култура (Culture) view — v1 plan
 
-**Status:** draft / research complete
+**Status:** draft, post-audit (rev 2). Ready to scope implementation.
 **Owner:** —
-**Related:** [nzok-health-pack-v1.md](./nzok-health-pack-v1.md), [water-view-v1.md](./water-view-v1.md), `project_agri_subsidies_pack`, `project_contracts_browser_deeplink_risk`
+**Closest shipped precedent:** [judiciary-vss-v1.md](./judiciary-vss-v1.md) — copy its shape.
+**Also read:** [defense-pack-v1.md](./defense-pack-v1.md), [water-view-v1.md](./water-view-v1.md) (draft),
+[nzok-health-pack-v1.md](./nzok-health-pack-v1.md).
 
-> The [Води plan](./water-view-v1.md) is the closest structural precedent and already
-> solves the four cross-cutting concerns this plan reuses verbatim: SQL-perf (§5 there),
-> AI tools (§6), watcher wiring (§7), changelog (§8), data-map/README (§9). Where a
-> pattern is identical, this plan points at Води rather than repeating it.
-
-Министерство на културата as a government-entity dashboard, alongside the existing
-packs for НЗОК (health fund), НОИ (social security) and АПИ (roads). This plan
-first grades the **common UI grammar** the three existing packs already share, then
-maps a Култура build onto it — and flags the one way Култура genuinely differs.
+> **Rev-2 note.** A pre-implementation audit invalidated three assumptions in rev 1:
+> (a) МК already has a full ministry budget page — the "budget bridge" hero was
+> duplicative; (b) Култура is a *group* of awarder EIKs, not one; (c) the ВСС/judiciary
+> pack — not the water draft — is the shipped precedent, and it ships with **zero new
+> Postgres tables**. Everything below reflects the audit.
 
 ---
 
-## 1. The pack grammar (graded from the three live implementations)
+## 1. What already exists (do NOT rebuild)
 
-Read from `NzokPack.tsx`, `NoiPack.tsx`, `RoadsPack.tsx`. Every sector pack is a
-`<Pack eik scopeWindow />` component, lazy-registered by EIK in
-`src/screens/components/procurement/sectorPacks.tsx`, and rendered by
-`CompanyDbScreen` as a hero section **below** the generic awarder KPIs. They render
-ONLY the domain-unique tiles — the generic buy-side tiles (total/contracts/suppliers
-KPIs, top contracts/contractors, "Какво купува" by CPV, money-flow treemap, EU
-benchmarks, tenders, appeals) already sit on the awarder page above.
+Verified against the working tree and the local PG (`contracts_list`).
 
-The shared skeleton, in render order — this is the checklist a new pack fills in:
+| Surface | State | Implication |
+|---|---|---|
+| **МК ministry page** `/budget/ministry/admin-ministerstvo-na-kulturata` | **Ships today.** 8 yrs (2018–2025) budget, program breakdown, personnel, trend, procurement tile (`contractCount 268`, `totalEur €57,223,207`) that already deep-links to `/awarder/000695160` | **Do not rebuild budget/programs/execution.** Deep-link to it. |
+| **`/awarder/000695160`** | Generic awarder page, live | The pack decorates it; generic KPIs/top-contracts/CPV/money-flow/tenders/appeals already render above |
+| `ministry_procurement` derived join | Ships (`data/budget/derived/ministry_procurement.json`) | ministry↔procurement already joined |
+| `NzokRegionalChoroplethTile`, `ProcurementChoroplethTile` | Ship (two near-copies) | A generic `OblastChoropleth` does **not** exist — extract or clone |
 
-| # | Element | Shared implementation | Present in |
-|---|---------|-----------------------|------------|
-| 1 | **Section wrapper** | `<section className="space-y-4">` | all 3 |
-| 2 | **Titled header** | Lucide icon + `<h2 className="text-lg font-semibold">`, bilingual (`HeartPulse` / `PiggyBank` / `Waypoints`) | all 3 |
-| 3 | **Domain KPI row** | `grid grid-cols-2` (roads `lg:grid-cols-3`) of `StatCard{label,hint}` — keeps ONLY the entity-unique KPI ("Поръчки на година", "На разпознат път"); generic KPIs live in the header above | all 3 |
-| 4 | **Auto-insight chips** | `flex flex-wrap gap-2`; `useMemo` derives ≤5 headlines from the model (peak year, top category, direct-award %); `WARN_CHIP_COLORS` for red flags, muted otherwise | all 3 |
-| 5 | **Hero "bridge" tile** | the signature move — fuse procurement with the *bigger money it sits inside*: `NzokBudgetBridgeTile` (€5.5bn ЗБНЗОК), `NoiFundFlowTile` (€12.6bn ДОО), roads `RoadNetworkMap` (spatial hero, no external budget) | all 3 |
-| 6 | **Category breakdown** | classifier CPV→function → `NzokCategoryTile` / `NoiCategoryTile` / `RoadWorkGroupDonut` | all 3 |
-| 7 | **Benchmark tile** | vs external reference: `NoiAdminBenchmarkTile` (SSA/DRV admin cost), `RoadCostBenchmarkTile` (ROCKS/RO/GR €/km) | noi, roads |
-| 8 | **Concentration / repeat-winner tile** | `NoiStrategicSuppliersTile`, `RoadRepeatWinnersTile`, `RoadRegionCompetitionTile` (where competition collapses) | noi, roads |
-| 9 | **Time spine** | spend by year, stacked (`RoadTimeSpineTile`; NZOK/NOI carry it in the bridge) | roads |
-| 10 | **Planned-tenders pipeline** | `RoadPlannedTendersTile` (what's announced to be built) | roads |
-| 11 | **Provenance footnote** | `text-[11px] text-muted-foreground/80`, bilingual, names every source + the "outside-ЗОП" caveat | all 3 |
+**МК procurement is thin and lumpy** (contracts by year, `tag='contract'`):
+`2022 €1.2M · 2023 €6.0M · 2024 €0.55M · 2025 €3.1M · 2026 €0.13M` (2020: €49k).
+Against a **€269.4M** annual budget that is **~0.2–2%**. Consequences, both mandatory:
+- The pack **must survive a near-empty procurement window** under the default
+  `?pscope=ns`. Copy NZOK's `hasModel` nuance: gate each procurement-derived tile
+  individually; never `return null` on the whole pack because a scope has no contracts.
+- The "Поръчки на година" KPI is statistically noisy at this volume. Show it with the
+  year-count hint, or omit it in favour of a subsidy KPI.
 
-Cross-cutting conventions (non-negotiable, copy verbatim):
-- **Loading**: `<div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />`
-- **Empty-gate**: `return null` when nothing to show; each tile also gated on its own
-  data so a scope-pill pivot with no contracts doesn't delete the whole pack (see the
-  NZOK `hasModel` comment — budget/hospital/drug tiles survive an empty contract window).
-- **Own-picker independence**: annual data (budget/fund years) gets its OWN Radix
-  `Select` fiscal-year picker, independent of the procurement `?pscope` window — the
-  parliament window straddles calendar years and is meaningless for a budget.
-- **Bilingual**: `const bg = lang === "bg"` gate on every string.
-- **Money**: `formatEurCompact(v, lang)`; figures `tabular-nums`; EUR at ingest (÷1.95583).
-- **Cards**: `Card/CardHeader/CardTitle/CardContent` from `@/ux/Card`; tile titles
-  sentence-case (not ALL-CAPS); `StatCard` from `@/screens/dashboard/StatCard`
-  (supports `to`/`seeMoreTo` for drill-down).
+## 2. Култура is a GROUP of EIKs
 
-**Design lesson from grading them:** the hero bridge (row 5) is what makes each pack
-worth building — it reframes a small procurement ledger against the real money the
-entity moves. НЗОК: "ЗОП is 1.5% of the fund." НОИ: "procurement vs €12.6bn paid out."
-A Култура pack without a strong bridge tile would be the weakest of the four.
+The institutes that *receive* the subsidy are themselves awarders with their own pages.
+Confirmed from `contracts_list`:
 
----
+| Entity | EIK | Note |
+|---|---|---|
+| Министерство на културата | `000695160` | principal; 2 name variants, one EIK |
+| Национален дворец на културата (НДК) | `201570119` | €43M — biggest culture awarder |
+| Национален фонд „Култура" (НФК) | `130418031` | tiny procurement (€0.49M); matters as a **grant payer** |
+| Народен театър „Иван Вазов" | `000670748` | |
+| Софийска опера и балет | `000670805` | |
+| Национална галерия | `176812208` | |
+| Държавна опера — Русе | `117103220` | |
+| Драматичен театър — Ловеч | `000282756` | |
+| **ИА „Национален филмов център" (НФЦ)** | **unresolved** | **has no procurement presence** — resolve EIK from Bulstat/TR |
 
-## 2. The one way Култура differs — subsidies, not procurement
+**Hard rule: the culture entity set is an explicit EIK allowlist, never a name regex.**
+The substring `опера` matches `опер**атор**` / `опер**ации**` — a naive regex pulls in
+Електроенергиен системен оператор, ДАТО and жандармерия. (A word-boundary regex still
+returned 182 "culture" awarders, including МО's Национален военноисторически музей.)
+Store the curated list in `src/lib/kulturaReferenceData.ts` with each entity's principal
+(МК vs МО vs община), mirroring `vssReferenceData.ts` / the water plan's 26-subsidiary list.
 
-The three existing packs all decorate a *procurement* page: the entity is a big
-**buyer**, and the pack's job is to contextualize its ЗОП contracts. Култура inverts
-this. Министерство на културата procures little of interest; its money is **subsidies
-and grants** — театри, филми, читалища, НФК — almost none of which touch ЗОП. So the
-"other 98.5%" that НЗОК's bridge merely *gestures at* (hospital payments) is, for
-Култура, the **whole product**, and it needs per-recipient data the procurement
-corpus doesn't contain.
+Roster surface: replicate VSS's `JudicialAwardersTile` — a roster of culture awarders,
+each deep-linking to its own `/awarder/<eik>`, with a `hasPack` badge on МК.
 
-The precedent for that is not a sector pack — it's the **agri `/subsidies` pack**
-(`project_agri_subsidies_pack`, `AgriRecipientFile`, `/farm/:eik`, the cross-program
-card gated on `AGRI_PAYER_EIK` in `CompanyDbScreen`). That's a dedicated,
-recipient-grained subsidy dataset with its own page, plus a card on the paying
-agency's awarder page linking into it.
+## 3. Architecture — follow the ВСС/judiciary split
 
-**Architecture decision → hybrid, mirroring how ДФ „Земеделие" is handled:**
+The judiciary is the shipped answer to "entity pack + dedicated view". Copy it exactly.
 
-1. **`KulturaPack` on `/awarder/000695160`** (procurement decorator) — follows the
-   grammar in §1 for МК's small ЗОП slice, with the hero **budget bridge** showing
-   the €269M МК budget and how little of it is procurement (the rest is subsidy).
-   This is the nav entry point in "Държавни структури".
-2. **A recipient-grained subsidy dataset** (the agri model) — per-film / per-grant /
-   per-institute awards, surfaced as tiles inside the pack now, and as a dedicated
-   view later. Cross-program tiles on `/company/:eik` and `/awarder/:eik` (a
-   production company that also wins procurement, a театър that also received a grant).
+- **`/culture` (dedicated view) = the half money can't tell.** Per-recipient subsidies:
+  НФЦ film awards, НФК grants, repeat-winner concentration, jury↔recipient conflict lens,
+  per-capita-by-oblast map, theatre productivity. Plus the awarder roster (§2).
+  **This is the product.** Data: `data/culture/*.json`.
+- **`/awarder/000695160` (`KulturaPack`) = the money-as-buyer half.** Only the
+  procurement-unique tiles (CPV→function category tile, statutory-supplier context).
+  **No budget bridge** — link to the ministry page (§1) instead.
+- Cross-link, never duplicate. The pack footnote links to `/culture`; the roster tile on
+  `/culture` links into each `/awarder/<eik>`.
 
-Start with the pack; grow the dedicated view as the recipient corpus lands.
+**Nav (corrected).** Per `sectorPacks.tsx` L39–43, VSS deliberately exports **no**
+`VSS_AWARDER_PATH` because both nav surfaces point at the dedicated view. Do the same:
+- `reportMenus.ts` `menu_group_state_entities`: `{ title: "culture_nav", link: "/culture" }`
+  (hardcoded string, like `judiciary_nav` at L287).
+- `ProcurementNav.tsx` `secondaryItems`: `{ to: "/culture", icon: Palette, key:
+  "culture_nav", unscoped: true }` — `unscoped` because `/culture` has no `?pscope`.
+- **Do NOT export `KULTURA_AWARDER_PATH`.** Still register `[KULTURA_EIK]: KulturaPack`
+  in the `PACKS` map.
 
----
+## 4. Storage decision — JSON first, PG only if forced
 
-## 3. Confirmed facts (locked from research)
+**The judiciary pack ships with zero new PG tables**: no `scripts/db/schema/pg/*.sql`,
+no loader, no `recordIngestBatch`. Its artifacts are committed JSON under `data/`,
+synced via `bucket:sync`, reusing the generic `/api/db/awarder-contracts` for procurement.
+NZOK/agri *do* use PG — so PG is a **choice**, driven by whether row-level data must be
+queried server-side.
 
-- **МК EIK: `000695160`** (strategy.bg institution profile) — pack key + `KULTURA_EIK`.
-- **МК 2026 budget: €269.4M** (~527M лв) — hero bridge number. Programs: музеи/галерии,
-  библиотеки/читалища, сценични изкуства, кино, културно наследство.
-- **Читалища 2026:** standard €11,240/subsidized unit × 7,856 units ≈ **€88.3M**.
-- **НФК 2026:** 18.3M лв ≈ **€9.36M** across grant programs.
-- **Sofia Програма „Култура" 2026:** €2.3M, 119 of 455 funded (ready-made success rate).
-- **mc.government.bg / nfc.bg / ncf.bg all serve plainly** — no Cloudflare/WAF/login
-  (unlike the minfin.bg mirror). Culture money is easy to reach.
-- **Competitive field is open** — no Bulgarian portal shows per-recipient culture
-  spending; ИПИ/regionalprofiles has *activity counts* only; НФК/НФЦ publish raw
-  who-got-what with zero visualization/search/time-series.
+**Decision for v1: JSON.** The НФЦ film register is on the order of thousands of rows
+(2014–2025), well within a committed JSON artifact. Ship `data/culture/films.json`,
+`data/culture/grants.json`, `data/culture/entities.json`.
 
----
+**Escalate to PG only when** the grants browser needs server-side paging/search
+(a `DbDataTable` over tens of thousands of award rows). At that point:
+- Schema convention (corrected — there is **no migration framework**):
+  add `scripts/db/schema/pg/048_kultura_subsidies.sql`, idempotent
+  (`CREATE TABLE IF NOT EXISTS` / `CREATE INDEX IF NOT EXISTS`), and have the ingest
+  script `readFileSync` + execute it directly (exactly as `scripts/agri/ingest.ts` does
+  with `046_agri_subsidies.sql`). Next free number is **048**.
+- Then, and only then, `recordIngestBatch` → `recent_updates` becomes mandatory
+  (`feedback_pg_changelog_required`), and a `functions/db_table.js` REGISTRY entry.
 
-## 4. Tile inventory — Култура mapped onto the grammar
+If v1 stays JSON, **§9 (changelog) and the PG parts of §7 do not apply** — but the
+dataset still needs a `data/updates` presence via the data map.
 
-Header: `Palette` icon, "Культура (МК)" / "Culture (MC)".
+## 5. Data & ingest (ranked by value × ease)
 
-| Grammar slot | Култура tile | Data |
-|--------------|--------------|------|
-| 3 KPI | "Субсидии на година" + "Бюджет на МК" | budget.json + subsidy corpus |
-| 4 chips | top program, celebrity-vs-independent split, biggest repeat recipient | model |
-| 5 **hero bridge** | **Culture budget bridge** — €269M МК → делегирани бюджети / НФК / НФЦ / читалища / ЗОП; the "most of it is subsidy, here's who gets it" reframe | budget law + отчет |
-| 6 breakdown | **Спенд по дисциплина** — театър / опера / кино / наследство / читалища | recipient corpus |
-| 7 benchmark | **Културни разходи на глава по област** (per-capita choropleth over census/GRAO layers already in-app) — the ACE "Culture & Place" differentiator; "is my area under-funded?" | subsidy corpus × population |
-| 8 concentration | **НФЦ repeat film-money winners** — production-company concentration + **connections-graph jury↔beneficiary conflict lens** (the rigged-competition hook) | NFC register |
-| 8b | **Театрална дисциплина** — МК's own published "120%-overspend" lists; subsidy-per-ticket where reconstructable (Phase 2) | МК lists / ДВ standards |
-| 9 time spine | subsidies by year + by cabinet (reuse `?cabinet=` anchor) | corpus |
-| — new | **НФК success rate** — applied vs funded per program/session (nobody publishes this) | NCF session PDFs |
-| — new | **`/culture/grant/:id` deep-link records** — every award a permanent shareable page (clone the `/procurement/contract/:id` stack, §6b) | corpus |
-| 11 footnote | sources: МК budget law, НФЦ регистър, НФК класиране, АОП | — |
-
----
-
-## 5. Ingest plan (ranked by value × ease)
-
-1. **НФЦ Единен публичен регистър** — direct `.xls`, per-film/per-producer, exact
-   subsidy, verified schema (`Вид · Наименование · Рег.№ · Продуцент · Субсидия(лв) ·
-   Бюджет · Протокол`), annual 2014–2025, no WAF. **Cleanest source in the domain —
-   start here.** Feeds tiles: film awards + repeat-winners + connections + `/grant/:id`.
-2. **МК program-budget execution** (`Pril201-Otchet*.xlsx`) — reuse the `update-budget`
-   program-execution parser; scrape `mc.government.bg/документи/бюджет-*`. Anchors the
-   bridge (€269M).
-3. **НФК grant-result PDFs** — Google-Sheets exports (extractable tables, not scans);
-   crawl `ncf.bg/bg/novini` + `web/files/richeditor/YYYY-rezultati/`. Powers
-   success-rate + celebrity-concentration hooks.
-4. **Sofia Програма „Култура"** — per-project HTML/PDF; template for other oblast
-   centres later.
+1. **НФЦ Единен публичен регистър** — direct `.xls`, 2014–2025, no WAF. Schema:
+   `Вид · Наименование · Рег.№ · Продуцент · Субсидия(лв) · Бюджет · Протокол`.
+   **⚠ `Продуцент` is a NAME, not an EIK.** See §6.
+2. **МК program-budget execution** `.xlsx` — *already ingested* into the ministry page.
+   Reuse; do not re-parse. Only pull what the ministry page doesn't model.
+3. **НФК grant results** — PDFs (Google-Sheets exports, extractable). Powers success rates.
+4. **Sofia Програма „Култура"** — per-project HTML/PDF. **Municipal, not МК** — label it
+   "извън държавния бюджет" wherever shown (the water plan's Софийска вода lesson).
 5. **Читалища** — reconstruct €88.3M from ДВ per-unit standard × subsidized-unit counts.
 
-**Storage:** follow the agri precedent — recipient corpus is a good candidate for
-PG-direct (`kultura_subsidies` + a `kultura_payloads` blob table for precomputed
-overviews), served via `/api/db`. The MК budget bridge stays a hand-keyed static
-`data/budget/kultura/budget.json` (NZOK pattern, `__write_budget.ts`). Respect
-`feedback_no_json_from_pg` and `feedback_pg_changelog_required`.
+Confirmed figures: МК 2026 budget **€269.4M**; читалища 2026 **€11,240/unit × 7,856 ≈
+€88.3M**; НФК 2026 **18.3M лв ≈ €9.36M**; Sofia 2026 **€2.3M, 119/455 funded**.
+All of mc.government.bg / nfc.bg / ncf.bg serve plainly (no WAF).
 
----
+## 6. Entity resolution — the biggest data risk
 
-## 6. Build recipe (files to touch)
+The НФЦ register keys recipients by **producer name**, and НФК grants go to **individual
+artists** as well as companies. Therefore:
 
-Pack (mirrors NZOK):
-- `src/lib/kulturaBenchmarks.ts` — `KULTURA_EIK = "000695160"`, category map, labels
-- `src/lib/kulturaAttributes.ts` — `buildKulturaModel()` classifier
-- `src/data/procurement/useKultura.tsx` — fuse procurement + budget + subsidy corpus
-- `src/data/budget/types.ts` + `useBudget.tsx` — `KulturaBudgetFile` + `useKulturaBudget()`
-- `data/budget/kultura/budget.json` + `scripts/budget/kultura/__write_budget.ts`
-- `src/screens/components/procurement/kultura/KulturaPack.tsx` + tiles
-- `sectorPacks.tsx` — register `[KULTURA_EIK]: KulturaPack`, export `KULTURA_AWARDER_PATH`
-- `reportMenus.ts` (Държавни структури group) + `ProcurementNav.tsx` (pill) + i18n keys
-  `procurement_kultura_nav`
-- `scripts/prerender/institutions.ts` — one `INSTITUTION_PACKS` entry (§12, feeds
-  sitemap + prerender + OG); add `data-og="kultura-hero"` to the hero tile in the pack
+- **Name→EIK matching is required** to join awards to the TR/connections graph. This walks
+  directly into the namesake false-positive class already fixed once
+  (`project_procurement_namesake_fix`). Reuse that matcher; do **not** hand-roll one.
+- Follow the agri precedent: ДФЗ's СЕУ years also lack an EIK column and are "recovered by
+  name-match" — copy that code path and its confidence gating.
+- **Store the raw name verbatim** alongside any resolved EIK, and render the raw name when
+  confidence is low. Never assert a person↔company link on a name alone.
+- **Individuals are recipients.** Physical-person names appear in public grant registers,
+  but decide explicitly whether to (a) publish them as published, (b) suppress a
+  connections lookup for physical persons. Recommend (a) + no auto-linking to the
+  connections graph without an EIK.
+- **The jury↔recipient conflict lens is NOT yet sourceable.** Research did not confirm
+  that НФЦ художествени комисии membership is published in machine-readable form. Treat
+  it as a **hypothesis to validate before designing the tile**, not a v1 deliverable.
 
-Subsidy corpus (mirrors agri):
-- `scripts/kultura/` ingest (НФЦ `.xls` first) → PG `kultura_subsidies`
-- `src/data/kultura/` hooks + types (`KulturaRecipientFile`)
-- cross-program card in `CompanyDbScreen` gated on `KULTURA_EIK` (mirror the
-  `eik === AGRI_PAYER_EIK` subsidies card already there)
-- Phase 3: dedicated `/culture` view + per-grant records (§6b)
+**Currency:** НФЦ amounts are historical BGN → convert at ingest (÷1.95583). Post
+2026-01-01 sources are natively EUR — handle the mixed regime explicitly
+(`feedback_bg_uses_eur`). Sum in EUR per row, never per-currency convert
+(`reference_procurement_eur_sum_basis`).
 
-### 6b. Per-grant record + grants browser (clone the contracts stack)
+## 7. Query performance
 
-The contracts implementation (`project_contracts_browser_deeplink_risk`) is the exact
-template for per-award pages and a searchable browser. Onboard grants by replicating
-the *shape*, not the logic:
+`EXPLAIN ANALYZE` every new/changed query on the worst-case entity (`feedback_db_query_perf`).
 
-| Contracts file | Clone → grants | Note |
-|---|---|---|
-| `src/screens/ContractDetailScreen.tsx` | `CultureGrantDetailScreen.tsx` | 2/3 + 1/3 layout, `KvRow` pairs, `RiskBadges` → culture flags (jury↔recipient conflict, celebrity flag, over-budget); connected-people panel reuses the connections graph |
-| `src/data/procurement/useContract.tsx` (`/api/db/contract?key=`) | `useGrant.tsx` (`/api/db/grant?id=`) | DB-backed lookup |
-| `src/screens/dev/ContractsBrowserDbScreen.tsx` | `CultureGrantsBrowserScreen.tsx` | DbDataTable, facets (program, discipline, year, status), `?q=` on recipient/title |
-| `scripts/procurement/by_id_shards.ts` (`buildByIdBuckets`, 4096 buckets, 3-hex prefix) | `scripts/kultura/by_id_shards.ts` | reuse `buildByIdBuckets()` verbatim for static/GCS serving of `/culture/grant/:id` |
-| `functions/db_table.js` REGISTRY `contracts` entry | add `culture_grants` registry entry | column whitelist = security boundary (§7) |
-| `functions/db_routes.js` contract handler | add `/api/db/grant` handler | mirror the single-entity lookup |
-| `src/routes.tsx` (`procurement/contract/:id`) | add `culture/grant/:id` + `/culture/grants` | wrap in `LayoutScreen` |
+Corrections from the audit:
+- **`contracts_list` is a VIEW; `date` is `text`** (ISO strings — `left(date,4)` and
+  lexicographic range filters work). Not a `date` column.
+- The pack's core query (`awarder_eik = '000695160'` + window) is **already covered** by
+  `idx_contracts_awarder_date`. No new index needed for the pack.
+- **Group roll-up** (`awarder_eik IN (<culture allowlist>)`) is the new worst case —
+  verify it index-scans rather than seq-scanning the corpus.
+- If PG lands (§4): index `(recipient_eik)`, `(program, year)`, `(discipline, year)`;
+  precompute the corpus-wide repeat-winner group-by and the oblast map into a
+  `kultura_payloads` blob (global-hot, >200ms live). jsonb builders follow
+  `reference_pg_payload_determinism` (ROUND sums, rounded sort keys + eik tiebreaks,
+  `COLLATE "C"` MINs). Derive oblast from the obshtina prefix, never `area.oblast`
+  (`project_oblast_code_shard_mismatch`).
 
-Route note: the live contract route is `/procurement/contract/:id` served from
-`/api/db/contract?key=` — the by-id shards are the static/GCS fallback, not the dev
-path. Grants follow the same dual: PG-served live, sharded for static.
+## 8. Watchers & process-watch-report
 
-Also adopt the Води plan's **sector-browse-pack** idea (`SECTOR_BROWSE_PACKS` in
-`sectorPacks.tsx`): a `culture` sector keyed on the МК+НФЦ EIK-set so
-`/procurement/contracts?sector=culture` enriches the shared browse page instead of
-forking a bespoke screen — reusable and consistent with roads/water.
-
----
-
-## 7. SQL & data-model performance
-
-Follow the **PG-only** convention of the agri/funds packs (no `build*FromRows`/`db:gen-*`,
-per `feedback_no_json_from_pg`). Ingests write PG directly; the dashboard reads a
-precomputed blob table. Mirrors Води §5.
-
-### Tables (new)
-- `kultura_subsidies` — fact: award grain. `id PK`, `program` (nfc_feature | nfc_doc |
-  ncf_<prog> | sofia | …), `discipline` (film | theatre | music | heritage | …),
-  `recipient_eik`, `recipient_name`, `year`, `amount_eur numeric`, `status`
-  (funded | reserve | rejected), `source_url`, `jury_meta jsonb` (for the conflict lens).
-- `kultura_payloads` — `(kind, key) PK`, `payload jsonb` — precomputed dashboard blobs
-  (kind = `overview` | `discipline_map` | `recipient` | `program`), mirroring
-  `agri_payloads`/`fund_payloads`. Serve via `/api/db/culture-*`.
-
-The МК **budget bridge** stays a hand-keyed static `data/budget/kultura/budget.json`
-(NZOK pattern) — not a table. Procurement is a **join** onto the existing `contracts`
-by `awarder_eik = KULTURA_EIK`, not a new table.
-
-### Performance verification (per `feedback_db_query_perf` — part of "done")
-`EXPLAIN ANALYZE` every new/changed query on the **worst-case entity** before shipping;
-add the index if it seq-scans. Per `reference_pg_query_performance`, index every entity
-FK and **both sides** of every join key.
-
-- Index `kultura_subsidies(recipient_eik)`, `(program, year)`, `(discipline, year)`,
-  `(year)`. The recipient page (`/farm/:eik` analog) filters `recipient_eik` — verify
-  index scan on the highest-award recipient (the celebrity-recipient case is worst-case
-  for row count).
-- **Repeat-winner / concentration tile** groups by `recipient_eik` over the whole
-  corpus — precompute into `kultura_payloads(kind='overview')` at ingest (global-hot,
-  >200ms if live), don't compute per page load.
-- **Per-capita-by-oblast map** joins award→recipient-seat→oblast→population. Precompute
-  into `kultura_payloads(kind='discipline_map')`; derive oblast from the obshtina prefix,
-  never trust a raw `area.oblast` (`project_oblast_code_shard_mismatch`).
-- The `culture_grants` **DbDataTable** registry query (browser + "See all") gets the same
-  worst-case `EXPLAIN ANALYZE` — sort on `amount_eur DESC`, filter by program/year, `?q=`
-  on recipient/title (ensure a `pg_trgm` or prefix index backs the text search).
-- jsonb payload builders follow `reference_pg_payload_determinism`: `ROUND` sums, rounded
-  sort keys with `eik` tiebreaks, `COLLATE "C"` MINs; run the parity-audit recipe against
-  a JSON dump of the same query.
-- EUR sums use `totalEur = Σ per-row amountEur` (PG basis), never per-currency convert
-  (`reference_procurement_eur_sum_basis`). НФЦ amounts are historical BGN → convert at
-  ingest (÷1.95583).
-
-## 8. Watchers & process-watch-report wiring
-
-New watcher sources (`WatchSource` shape from `scripts/watch/types.ts`: `id`, `label`,
-`url`, `cadence`, `fingerprint(): Promise<Fingerprint>`, optional `describe(prev,curr)`),
-each a file under `scripts/watch/sources/`, imported into `SOURCES` in
-`scripts/watch/sources/index.ts`:
+`WatchSource` (`scripts/watch/types.ts`): `id`, `label`, `url`, `cadence`,
+`fingerprint()`, optional `describe(prev,curr)`. One file each under
+`scripts/watch/sources/`, added to `SOURCES` in `scripts/watch/sources/index.ts`.
+Follow the VSS precedent: put shared URLs/table maps in a single `scripts/culture/sources.ts`
+consumed by BOTH the watcher and the parser.
 
 | Source file | `id` | cadence | fingerprint |
 |---|---|---|---|
-| `nfc_film_register.ts` | `nfc_film_register` | monthly | hash of the latest `Registar-finansirani-filmi-*.xls` link/date on nfc.bg |
-| `mc_budget_execution.ts` | `mc_budget_execution` | monthly | hash of the newest `Pril201-Otchet*.xlsx` link under mc.government.bg/документи/бюджет-* |
-| `ncf_grant_results.ts` | `ncf_grant_results` | weekly | hash of the latest класиране post list on ncf.bg/bg/novini |
+| `nfc_film_register.ts` | `nfc_film_register` | monthly | hash of latest `Registar-finansirani-filmi-*.xls` link/date |
+| `ncf_grant_results.ts` | `ncf_grant_results` | weekly | hash of класиране post list on ncf.bg/bg/novini |
 
-The watcher writes `state/watch/<id>.json` (`fingerprint`, `detail`, `meta`,
-`lastChecked`, `lastChanged`); "changed" = current `fingerprint.value` ≠ stored value.
+**No `mc_budget_execution` watcher** — МК budget already rides `update-budget`'s existing
+`budget_law` / `ministry_execution_reports` watchers (VSS's `__write_judiciary.ts` does
+exactly this: piggyback on the cached law HTML, no new fetch).
 
-Process-watch-report mapping — add rows to the canonical source→skill table in
-`.claude/skills/process-watch-report/SKILL.md` (all fan out to one skill; the
-orchestrator dedupes):
+Mapping rows in `.claude/skills/process-watch-report/SKILL.md` (canonical table):
+`nfc_film_register → update-culture`, `ncf_grant_results → update-culture`.
 
-| Watcher source id | Skill |
-|---|---|
-| `nfc_film_register` | `update-culture` |
-| `mc_budget_execution` | `update-culture` |
-| `ncf_grant_results` | `update-culture` |
+Skill `.claude/skills/update-culture/SKILL.md` (shape on `update-judiciary`). Stamps
+`state/ingest/update-culture.json` via
+`npx tsx scripts/stamp-ingest.ts update-culture --summary "…"`. Backfills behind
+`--backfill` (`feedback_one_off_backfills`).
 
-Skill: create `.claude/skills/update-culture/SKILL.md` (shape on `update-nzok`/
-`update-agri`). After a successful run it stamps `state/ingest/update-culture.json`
-(`IngestState = {skill, lastSuccessfulIngest, summary}`) via
-`npx tsx scripts/stamp-ingest.ts update-culture --summary "…"`. The orchestrator re-runs
-the skill whenever any mapped source's `lastChanged` > the skill's `lastSuccessfulIngest`.
+## 9. Verification (VSS has no tests — copy its discipline instead)
 
-Per `feedback_one_off_backfills`: the 2014→2025 НФЦ backfill and any historical NCF
-crawl go behind a `--backfill` flag, never in the watcher/CI; document in README.
+No dedicated tests exist for the judiciary/VSS work. Its ingest scripts **self-verify**:
+Σ-reconciliation asserts that **throw and write nothing on failure**. Adopt the same:
+- Assert Σ(per-film subsidy) == the register's own reported total per year.
+- Assert Σ(grant awards) == НФК's published session total.
+- Assert every emitted `eik` resolves in the entity allowlist.
+- Refuse to write a partial artifact.
 
-## 9. recent_updates / changelog
-
-Per `feedback_pg_changelog_required`, every new PG table wires into `recent_updates` via
-`recordIngestBatch` (`scripts/db/lib/ingest_changelog.ts`), called INSIDE the loader's
-BEGIN/COMMIT txn with a stable natural key that survives TRUNCATE+reload:
-
-```
-{ source: "kultura_subsidies", table: "kultura_subsidies",
-  keyExpr: "t.id",
-  nameExpr: "t.recipient_name",
-  detailExpr: "t.program || ' · ' || t.year",
-  amountExpr: "t.amount_eur", rowsTotal }
-```
-
-Day-coalesced + append-only history via `changelog_days`; auto-summary kicks in >500
-rows/day (the НФЦ backfill will trip this — expected).
+If PG lands, add a `scripts/db/tests/` data test alongside `copy.data.test.ts`.
 
 ## 10. AI chat tools
 
-Add a culture tool family per the ai/ recipe (`project_ai_chat_tools`): create
-`ai/tools/culture.ts`; edit `ai/tools/registry.ts` (import + `ToolDef` entries in
-`TOOLS`), `ai/orchestrator/router.ts` (keyword block), `ai/orchestrator/narrate.ts`
-(cases). Tools return an `Envelope` and NEVER compute numbers in prose — they only
-narrate pre-computed `env.facts`; data via `fetchDb("culture-*", …)` for PG blobs.
+Create `ai/tools/culture.ts`; edit `ai/tools/registry.ts` (imports + `ToolDef` in `TOOLS`),
+`ai/orchestrator/router.ts` (keyword block), `ai/orchestrator/narrate.ts` (cases).
+Tools return an `Envelope` and **never compute numbers in prose** — narrate pre-computed
+`env.facts` only.
 
-Tools (domain `fiscal`):
-- `cultureOverview` — total МК culture spend, split by discipline/program; headline +
-  bar. facts: `totalEur`, `beneficiaries`, `biggestProgram`.
-- `topCultureGrantees` — most-funded recipients (the concentration/celebrity story).
-- `cultureForEntity` — awards for one organisation/person (EIK or name); the
-  `/culture/grant` + recipient join. Pairs with the connections graph.
-- `filmSubsidyForProducer` — НФЦ subsidy for a production company (per-producer `.xls`).
-- `culturePerCapitaByOblast` — the map metric; "is my oblast under-funded for its size?"
+Tools (domain `fiscal`): `cultureOverview`, `topCultureGrantees`, `cultureForEntity`,
+`filmSubsidyForProducer`, `culturePerCapitaByOblast`.
 
-Router keywords: `култур|театр|филм|кино|опера|читалищ|музей|грант|субсид|culture|
-theatre|film|cinema|grant`. Provenance strings: `db:culture-*`. Any `/culture/*.json`
-path an ai/ tool reads MUST have an `AI_PATH_RULES` entry (§11) or the prebuild fails.
+Router keywords: `култур|театр|филм|кино|опера|читалищ|музей|грант|субсид|culture|theatre|
+film|grant`. **Disambiguation (VSS lesson):** gate on an explicit culture reference so bare
+`опера` / `музей` doesn't misfire, and route "кой спечели поръчка на МК" to the awarder
+**contract** tool, not `cultureOverview`.
 
-## 11. Data Map & README docs
+Provenance: `culture/*.json` (or `db:culture-*` if PG). Any `/culture/*.json` path an ai/
+tool reads MUST have an `AI_PATH_RULES` entry (§12) or the prebuild fails.
 
-### Data Map (`scripts/data_map/model.ts`) — `npm run data:map`; **prebuild fails on an unplaced source or an unmapped ai/ path**
-- `SOURCE_GROUPS`: add a `culture` group — `origin: "state"`, `members:
-  ["nfc_film_register", "mc_budget_execution", "ncf_grant_results"]`, `skills:
-  ["update-culture"]`, `tags: ["fiscal","culture"]`, bilingual label/detail/desc, url.
-- `DATASETS`: add `culture` (note PG-served via `kultura_payloads` — check how agri/funds
-  are represented since they have no static JSON tree).
-- `EDGES`: `["src:culture", "ds:culture"]` and `["ds:culture", "f:<culture-feature>"]`.
-- `AI_PATH_RULES`: add `{ pattern: /^\/culture\//, dataset: "culture" }` if any ai/ tool
-  reads a `/culture/*.json` path (the budget bridge JSON, at minimum).
-- The validator also fails if a `SOURCE_GROUPS` member isn't in the watcher `SOURCES`, so
-  §8 and this section must land together.
+## 11. Data Map & README
 
-### README.md
-- Feature list (top) — add "Culture spending — per-recipient subsidies to theatres, film,
-  НФК grants".
-- Data-sources / pipeline section — add НФЦ film register (`.xls`), МК program-budget
-  execution, НФК grant results; parser path `scripts/culture/`, output `kultura_*` PG
-  tables + `data/budget/kultura/budget.json`.
-- Build commands — add the `update-culture` CLI + the `--backfill` flag.
-- Update `CLAUDE.md`'s URL-contract / routes notes if `/culture` routes are added.
+`scripts/data_map/model.ts` — `npm run data:map`; **prebuild fails on an unplaced watcher
+source or an unmapped ai/ path.** §8 and this section must land together.
+- `SOURCE_GROUPS`: `src:culture` — `origin:"state"`, `members:["nfc_film_register",
+  "ncf_grant_results"]`, `skills:["update-culture"]`, `tags:["fiscal","culture"]`.
+- `DATASETS`: `ds:culture`, `path: "data/culture/"`.
+- `FEATURES`: `f:culture`, `route: "/culture"`.
+- `EDGES`: `["src:culture","ds:culture"]`, `["ds:culture","f:culture"]`, and the
+  **cross-feed** `["ds:budget","f:culture"]` (mirrors `["ds:budget","f:judiciary"]` — the
+  data-map expression of the budget fusion).
+- `AI_PATH_RULES`: `{ pattern: /^\/culture\//, dataset: "culture" }`.
 
----
+README: `data/culture/` row in the data-layout table; source-provenance entries for the
+НФЦ register + НФК results (with gotchas + verified figures, as the judiciary entries do);
+the `update-culture` CLI + `--backfill`.
 
-## 12. SEO surfaces — sitemap, static prerender, OG card
+**i18n reality:** only the nav key `culture_nav` goes in `src/locales/{bg,en}/translation.json`
+(next to `judiciary_nav`). All rich tile copy is **inline BG/EN ternaries on `lang`** in the
+components — that's the house style, not translation.json.
 
-All three static/SEO surfaces read **one source of truth**: the `INSTITUTION_PACKS`
-array in `scripts/prerender/institutions.ts`. Appending a single `InstitutionPack`
-entry feeds the sitemap, the prerendered HTML, and the OG screenshot — the roads/НОИ/
-НЗОК/ДФЗ packs are all wired this way. So the Култура work here is **one entry + one
-`data-og` attribute on the hero tile**.
+## 12. SEO surfaces — TWO of everything (dedicated view + pack)
 
-### The entry (append after the ДФЗ entry)
-```ts
-{
-  eik: "000695160",
-  slug: "kultura",                        // → public/og/awarder/kultura.png
-  nameBg: "Министерство на културата",
-  nameEn: "Ministry of Culture (МК)",
-  titleBg: "Министерство на културата — къде отиват парите за култура | Наясно",
-  titleEn: "Ministry of Culture — where culture money goes | Naiasno",
-  descriptionBg: "Държавни субсидии за театри, кино (НФЦ), НФК грантове и читалища …",
-  descriptionEn: "State subsidies to theatres, film (NFC), NCF grants and читалища …",
-  bodyBg: `<h1>Министерство на културата — публични разходи</h1><p>…</p>`,  // crawlable, no scripts
-  bodyEn: `<h1>Ministry of Culture — public spending</h1><p>…</p>`,
-  ogAnchor: '[data-og="kultura-hero"]',   // the signature chart/map (below)
-  ogCenter: true,                          // center-clip — reads best for a map
-  ogSettleMs: 3000,                        // chart/map render-settle
-}
-```
+Because Култура has both a dedicated view and an awarder pack, each surface needs two entries.
 
-### Sitemap (`scripts/sitemap/index.ts`)
-No edit needed — it loops `INSTITUTION_PACKS` and pushes `/awarder/000695160` +
-`/en/awarder/000695160`. **Validity rule** (`project_sitemap_validity_audit`): every
-`<loc>` must resolve to a real prerendered `dist/<path>/index.html`, which the prerender
-step below produces — so sitemap and prerender ship together, never sitemap alone.
-`npm run sitemap`.
+**Awarder pack** (`/awarder/000695160`):
+- One `InstitutionPack` entry appended to `INSTITUTION_PACKS` in
+  `scripts/prerender/institutions.ts` (`eik`, `slug: "kultura"`, bilingual title/desc/body,
+  `ogAnchor`, `ogSettleMs`). This **one append** feeds sitemap + prerender + OG capture —
+  `scripts/sitemap/index.ts` and `scripts/og/capture-screens.ts` both loop the array.
+- OG: `[data-og="kultura-bridge"]` on the pack's hero tile → `public/og/awarder/kultura.png`.
 
-### Static prerender (`scripts/prerender/dynamicRoutes.ts` → `buildInstitutionAwarderRoute`)
-No edit needed — it iterates `INSTITUTION_PACKS` and emits BG + EN static HTML at
-`dist/awarder/000695160/index.html` (and `/en/…`) with the entry's title/description/
-body + the `og:image` pointing at `public/og/awarder/kultura.png`. This is what fixes
-the SEO-discovery gap (`feedback_static_seo`, `project_seo_discovery_gap`): crawlers get
-real `<meta>` + crawlable body, not the empty SPA shell. `npm run prerender`.
+**Dedicated view** (`/culture`):
+- `scripts/prerender/routes.ts` — a route entry with a build-time `cultureFacts()` reader
+  (mirror `judiciaryFacts` at L84–96, which reads real numbers out of the JSON at build time)
+  and `ogImage: "/og/culture.png"`.
+- `scripts/sitemap/route_defs.ts` — add `"culture"` + its path/screen file (mirror
+  `"judiciary"` at L51 / L97–98).
+- `scripts/og/capture-screens.ts` — a capture entry, anchor `[data-og="culture-hero"]`
+  → `/og/culture.png`.
+- `src/routes.tsx` — lazy import + `<Route path="culture">`.
 
-### OG card — lead with a chart or map (`scripts/og/capture-screens.ts`)
-No edit needed — it loops `INSTITUTION_PACKS`, and for each runs Playwright against the
-live pack page, waits for `ogAnchor`, and clips a 1200×630 card centred on that visual
-(roads → network map, НОИ → fund-flow bar, НЗОК → budget bridge). **The card leads with
-the chart/map, not a KPI header** — so the Култура hero visual must carry a
-`data-og="kultura-hero"` attribute.
+**Give the two heroes distinct `data-og` anchors** (`kultura-bridge` vs `culture-hero`).
 
-- **Hero-visual choice:** the **per-capita-by-oblast choropleth** makes the most
-  striking card (a coloured map of Bulgaria) — set `ogCenter: true`. Fallback: the
-  **budget-bridge chart** (€269M → subsidy split). Whichever is chosen for the OG anchor,
-  add `data-og="kultura-hero"` to its outer tile element (the same way roads/НОИ/НЗОК tag
-  their hero). This is a Phase-1 build task on the pack component, not just a script edit.
-- Capture (dev server + `/api/db` backend must be up):
-  `npx tsx scripts/og/capture-screens.ts awarder/kultura` → `public/og/awarder/kultura.png`.
-- The screenshot is a committed PNG (like `public/og/awarder/{roads,noi,nzok,dfz}.png`),
-  regenerated only when the hero visual changes materially — not on every data refresh.
+**OG hero choice — has a dependency.** The per-capita-by-oblast choropleth makes the
+strongest card, but **`OblastChoropleth` does not exist**. Two near-copies do
+(`ProcurementChoroplethTile`, `NzokRegionalChoroplethTile`). Either (a) extract a generic
+`OblastChoropleth` (low-moderate: parameterize data source, ramp, formatter; consolidates
+2–3 copies) — coordinate with the water plan, which proposes the same extraction — or
+(b) clone `NzokRegionalChoroplethTile`. **Decide before Phase 1**; the OG card blocks on it.
 
-## 13. Phasing
+**Sitemap validity** (`project_sitemap_validity_audit`): every `<loc>` needs a real
+prerendered `dist/<path>/index.html` — so sitemap and prerender ship together, never alone.
 
-Each phase carries its own wiring — a phase isn't "done" until its data is watched
-(§8), changelogged (§9), placed on the data map (§11), prerendered + in the sitemap with
-an OG card (§12), and its queries EXPLAIN-checked (§7). Don't defer the wiring to a later
-phase; the data-map validator will fail the build if a source ships unplaced.
+## 13. Deploy & launch
 
-**Phase 1 (ship the pack):** НФЦ film register `.xls` ingest → `kultura_subsidies` +
-`kultura_payloads`; МК budget bridge (static json) + НФЦ film-awards tile (repeat-winners
-+ connections) + spend-by-discipline + per-capita map + procurement lens + nav.
-Wiring: `nfc_film_register` + `mc_budget_execution` watchers, `update-culture` skill,
-changelog, data-map `culture` group, `cultureOverview`/`topCultureGrantees`/
-`filmSubsidyForProducer` AI tools, README, **and the SEO surfaces (§12): the
-`INSTITUTION_PACKS` entry, the `data-og="kultura-hero"` attribute on the hero visual,
-`npm run prerender` + `npm run sitemap`, and the captured `public/og/awarder/kultura.png`
-card.** All buildable from the clean `.xls` + budget law. Ships the "Държавни структури"
-entry.
+- Artifacts are committed JSON → `bucket:sync data/culture/`. GCS serves identity: use
+  `cp -Z` (`reference_gcs_bucket_compression`); avoid `gsutil -m` on macOS
+  (`reference_gsutil_macos_multiprocessing`).
+- If a by-id shard tree is ever added for per-grant pages, check the **Firebase deploy file
+  ceiling** (`project_firebase_deploy_ceiling`) — a 453k-file dist fails to deploy.
+- Launch: a `naiasno-post` **DATASET** post when the corpus lands and a **FEATURE** post for
+  `/culture`, pinned ~2 weeks.
 
-**Phase 2 (recipient depth):** НФК grants with success rates + `/culture/grant/:id` deep
-links (§6b) + Sofia program + читалища; add the `ncf_grant_results` watcher +
-`cultureForEntity` tool + `culture_grants` DbDataTable registry. Theatre
-subsidy-per-ticket where МК's published overspend lists + ДВ standards allow (may need
-ЗДОИ for full per-institute reconstruction).
+## 14. Phasing
 
-**Phase 3 (dedicated view):** standalone `/culture` explorer (agri `/subsidies` analog)
-— searchable per-recipient table, discipline × oblast × year × МИР facets, CSV export;
-the `culture` sector-browse-pack on `/procurement/contracts?sector=culture` (§6b).
+A phase isn't "done" until its data is watched (§8), self-verified (§9), on the data map
+(§11), prerendered + in the sitemap with an OG card (§12), and its queries EXPLAIN-checked
+(§7). The data-map validator fails the build if a source ships unplaced.
 
----
+**Phase 0 (decide, ~1 day):**
+- Resolve the НФЦ EIK (Bulstat/TR) and freeze the culture EIK allowlist (§2).
+- Choose `OblastChoropleth` extract-vs-clone (§12), coordinating with the water plan.
+- Validate whether НФЦ jury membership is published at all (§6). If not, drop the conflict
+  tile from scope.
 
-## Open question for greenlight
+**Phase 1 (the product):** `data/culture/films.json` from the НФЦ `.xls` (JSON, no PG) +
+the `/culture` dedicated view: film-awards tile, repeat-winner concentration, awarder
+roster (§2), per-capita map. Nav → `/culture`. Both prerender entries, both OG cards,
+sitemap, data map, `update-culture` skill + `nfc_film_register` watcher, AI tools
+`cultureOverview`/`topCultureGrantees`/`filmSubsidyForProducer`, README, launch post.
 
-Ship Phase 1 without the theatre subsidy-per-ticket data (defer to Phase 2 / ЗДОИ), or
-source the per-institute delegated-budget reconstruction first? The signature
-"does this theatre earn its subsidy?" tile is the highest-differentiation piece but the
-hardest to source; МК's own published 120%-overspend lists give a partial path without
-a ЗДОИ.
+**Phase 2 (the pack + grants):** `KulturaPack` on `/awarder/000695160` — CPV→function
+category tile + statutory-supplier context, **no budget bridge** (link the ministry page);
+`hasModel` gating for the thin corpus (§1). Plus НФК grants + success rates
+(`ncf_grant_results` watcher, `cultureForEntity` tool). Escalate to PG (§4) only if the
+grants browser needs server-side paging.
+
+**Phase 3 (depth):** theatre subsidy-per-ticket productivity (МК's published 120%-overspend
+lists + ДВ standards; may need ЗДОИ); Sofia program; читалища; per-grant `/culture/grant/:id`
+records (clone the `/procurement/contract/:id` stack) if grant volume justifies it.
+
+## 15. Open questions
+
+1. **НФЦ EIK** — unresolved; it has no procurement footprint. Blocks the roster entry.
+2. **Jury/commission data** — sourceability unvalidated. The conflict-of-interest lens is
+   the headline differentiator; if the data doesn't exist, the story changes.
+3. **Theatre subsidy-per-ticket** — per-institute delegated budgets aren't published;
+   МК's own overspend lists give a partial path without a ЗДОИ. Ship Phase 1 without it?
+4. **Physical-person recipients** — publish names as published (recommended), and suppress
+   auto-linking to the connections graph absent an EIK?
+5. **`OblastChoropleth`** — who owns the extraction, this plan or the water plan?
