@@ -2703,3 +2703,60 @@ export interface NzokActivityByEik {
     nationalSharePct: number;
   }[];
 }
+
+// ── Risk views (migration 054). Each is a TRANSPARENT composite — component
+// values are always shown; the index is only a reading aid (see the migration
+// header for the "signpost, not verdict" framing carried over from 052/053).
+
+/** One hospital in the multi-signal risk ranking. Null component fields mean the
+ *  hospital has no data for that signal (not zero) — `signalsPresent` states how
+ *  many of the three axes it is scored on. */
+export interface NzokHospitalRiskRow {
+  eik: string;
+  facility: string;
+  riskIndex: number; // 0-100, (drug + activity + overdue percentiles) / 3 × 100
+  signalsPresent: number; // 1-3
+  drugOverpayEur: number | null;
+  drugPackCount: number | null;
+  drugInnCount: number | null;
+  drugMaxRatio: number | null;
+  activityOutliers: number | null;
+  activityMaxRatio: number | null;
+  overdueEur: number | null;
+  overduePct: number | null; // overdue liabilities as % of revenue
+}
+
+/** /api/db/nzok-hospital-risk — the top hospitals by risk index + coverage. */
+export interface NzokHospitalRiskFile {
+  drugYear: number;
+  finQuarter: string;
+  coverage: { drug: number; activity: number; financial: number };
+  hospitals: NzokHospitalRiskRow[];
+}
+
+/** One pack beneath an INN in the by-drug risk board. */
+export interface NzokDrugRiskPack {
+  nationalNo: string;
+  nzokCode: string;
+  tradeName: string;
+  medianUnitEur: number;
+  overpayEur: number;
+  facilityCount: number;
+  maxRatio: number | null; // DB column is nullable; the writer always populates it
+}
+
+/** One molecule (INN) in the by-drug risk board, packs nested. */
+export interface NzokDrugRiskInn {
+  inn: string;
+  overpayEur: number;
+  facilityCount: number;
+  packCount: number;
+  maxRatio: number | null; // DB column is nullable; the writer always populates it
+  packs: NzokDrugRiskPack[];
+}
+
+/** /api/db/nzok-drug-risk — molecules ranked by total overpay, packs nested. */
+export interface NzokDrugRiskFile {
+  year: number;
+  drugs: NzokDrugRiskInn[];
+}

@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-07-07T11:43:09.883Z",
+  "generatedAt": "2026-07-10T20:00:41.199Z",
   "source": {
     "partners": "НЗОК договорни партньори (reports.nhif.bg/nhif_reports/nhif_partners) — Рег.№ ЛЗ + управител + седалище",
     "register": "Търговски регистър (tr_companies/tr_officers) — EIK. Match verified by manager + type + legal form; famous cases hand-verified."
   },
   "note": "No public register carries BOTH the НЗОК Рег.№ ЛЗ and the EIK, so this is a high-precision verified match, not an authoritative lookup. Unmatched facilities carry eik:null.",
   "facilityCount": 381,
-  "matchedCount": 265,
-  "distinctEikCount": 256,
-  "matchedEur": 876592300,
-  "matchedEurShare": 93,
+  "matchedCount": 266,
+  "distinctEikCount": 257,
+  "matchedEur": 880584607,
+  "matchedEurShare": 93.5,
   "entries": [
     {
       "regNo": "0103131003",
@@ -2141,11 +2141,11 @@
     },
     {
       "regNo": "2201211094",
-      "eik": null,
+      "eik": "202195960",
       "name": "МБАЛ ЗА ЖЕНСКО ЗДРАВЕ НАДЕЖДА ООД СОФИЯ",
       "settlement": "София 11 Рн Красна Поляна",
-      "method": "no_match",
-      "confidence": null
+      "method": "unique",
+      "confidence": "high"
     },
     {
       "regNo": "2201211096",

@@ -31,6 +31,10 @@ const SCHEMA_FILE = path.join(
   REPO,
   "scripts/db/schema/pg/052_nzok_drug_unit_prices.sql",
 );
+const RISK_SCHEMA_FILE = path.join(
+  REPO,
+  "scripts/db/schema/pg/054_nzok_risk.sql",
+);
 const JSON_FILE = path.join(REPO, "data/budget/nzok/drug_unit_prices.json");
 
 // "MM.YYYY" → "YYYY-MM-01". Throws on anything else so a shape change fails loud
@@ -73,12 +77,32 @@ interface OverpayRow {
   overpayEur: number;
 }
 
+interface OverpayByEik {
+  eik: string;
+  facility: string;
+  overpayEur: number;
+  packCount: number;
+  innCount: number;
+  maxRatio: number;
+}
+
+interface OverpayByInn {
+  inn: string;
+  overpayEur: number;
+  facilityCount: number;
+  packCount: number;
+  maxRatio: number;
+  packs: unknown[];
+}
+
 interface DrugPricesFile {
   volumeFloorPacks: number;
   periods: string[];
   latestFullYear: number;
   packStats: PackStat[];
   overpay: OverpayRow[];
+  overpayByEik: OverpayByEik[];
+  overpayByInn: OverpayByInn[];
 }
 
 // (period, national_no, nzok_code, inn, trade_name, form, atc,
@@ -151,6 +175,27 @@ const OVERPAY_COLS = [
   "overpay_eur",
 ] as const;
 
+// Full per-hospital / per-INN drug-overpay aggregates for the risk views (054).
+const BY_HOSPITAL_COLS = [
+  "year",
+  "eik",
+  "facility",
+  "overpay_eur",
+  "pack_count",
+  "inn_count",
+  "max_ratio",
+] as const;
+
+const BY_INN_COLS = [
+  "year",
+  "inn",
+  "overpay_eur",
+  "facility_count",
+  "pack_count",
+  "max_ratio",
+  "packs",
+] as const;
+
 const batchInsert = async (
   c: import("pg").PoolClient,
   table: string,
@@ -184,6 +229,10 @@ const main = async (): Promise<void> => {
     throw new Error(`${JSON_FILE} has no packStats[] — shape changed?`);
   if (!Array.isArray(data.overpay))
     throw new Error(`${JSON_FILE} has no overpay[] — shape changed?`);
+  if (!Array.isArray(data.overpayByEik) || !Array.isArray(data.overpayByInn))
+    throw new Error(
+      `${JSON_FILE} has no overpayByEik[]/overpayByInn[] — regenerate the writer?`,
+    );
 
   const packRows: PackRow[] = data.packStats.map((p) => [
     periodToDate(p.period),
@@ -219,7 +268,28 @@ const main = async (): Promise<void> => {
     o.overpayEur,
   ]);
 
+  const year = data.latestFullYear;
+  const byHospitalRows = data.overpayByEik.map((h) => [
+    year,
+    h.eik,
+    h.facility,
+    h.overpayEur,
+    h.packCount,
+    h.innCount,
+    h.maxRatio,
+  ]);
+  const byInnRows = data.overpayByInn.map((d) => [
+    year,
+    d.inn,
+    d.overpayEur,
+    d.facilityCount,
+    d.packCount,
+    d.maxRatio,
+    JSON.stringify(d.packs),
+  ]);
+
   await exec(readFileSync(SCHEMA_FILE, "utf8"));
+  await exec(readFileSync(RISK_SCHEMA_FILE, "utf8"));
 
   const packEurSum = Math.round(packRows.reduce((a, r) => a + r[12], 0));
   const overpayEurSum = Math.round(overpayRows.reduce((a, r) => a + r[13], 0));
@@ -231,6 +301,20 @@ const main = async (): Promise<void> => {
 
     await batchInsert(c, "nzok_drug_pack_stats", PACK_COLS, packRows);
     await batchInsert(c, "nzok_drug_overpay", OVERPAY_COLS, overpayRows);
+
+    // No separate recent_updates entry: these two are DERIVED risk aggregates of
+    // the same Справка 5 corpus, whose ingest is already itemised in the changelog
+    // via nzok_drug_pack_stats below. The PG-changelog rule targets new SOURCE
+    // datasets, not derived reshapes of one already tracked.
+    await c.query("TRUNCATE nzok_drug_overpay_by_hospital");
+    await c.query("TRUNCATE nzok_drug_overpay_by_inn");
+    await batchInsert(
+      c,
+      "nzok_drug_overpay_by_hospital",
+      BY_HOSPITAL_COLS,
+      byHospitalRows,
+    );
+    await batchInsert(c, "nzok_drug_overpay_by_inn", BY_INN_COLS, byInnRows);
 
     // Post-load reconciliation — the DB must agree with what we loaded on BOTH
     // row counts and summed euros. A duplicate (period, national_no, nzok_code)
@@ -283,6 +367,7 @@ const main = async (): Promise<void> => {
   console.log(
     `Loaded nzok_drug_pack_stats: ${packRows.length} rows · ${periods.size} periods · Σ €${packEurSum.toLocaleString("en")}\n` +
       `Loaded nzok_drug_overpay:    ${overpayRows.length} rows (latest full year ${data.latestFullYear}) · ${overpayWithEik} w/ eik · Σ overpay €${overpayEurSum.toLocaleString("en")}\n` +
+      `Loaded risk aggregates:      ${byHospitalRows.length} hospitals · ${byInnRows.length} INNs\n` +
       `Volume floor: ${data.volumeFloorPacks} packs`,
   );
   await end();

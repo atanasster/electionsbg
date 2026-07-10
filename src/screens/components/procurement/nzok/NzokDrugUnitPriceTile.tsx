@@ -25,6 +25,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur, formatEurCompact } from "@/lib/currency";
 import { useNzokDrugUnitPrices } from "@/data/budget/useBudget";
 import { decodeEntities } from "@/lib/decodeEntities";
+import { FacilityLink } from "./FacilityLink";
 
 export const NzokDrugUnitPriceTile: FC = () => {
   const { i18n } = useTranslation();
@@ -84,7 +85,7 @@ export const NzokDrugUnitPriceTile: FC = () => {
                     </span>
                   </td>
                   <td className="max-w-[14rem] truncate py-1.5 pr-2 text-muted-foreground">
-                    {decodeEntities(r.facility)}
+                    <FacilityLink eik={r.eik} name={r.facility} />
                   </td>
                   <td className="py-1.5 pr-2 text-right tabular-nums">
                     {formatEur(r.unitEur, i18n.language, { decimals: 2 })}

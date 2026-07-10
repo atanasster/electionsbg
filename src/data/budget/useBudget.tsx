@@ -36,6 +36,8 @@ import type {
   NzokDrugOverpayByEik,
   NzokActivitiesFile,
   NzokActivityByEik,
+  NzokHospitalRiskFile,
+  NzokDrugRiskFile,
   NzokDrugReimbursementFile,
   JudiciaryBudgetFile,
   PersonnelFile,
@@ -431,6 +433,26 @@ export const useNzokActivitiesByEik = (eik?: string | null) =>
         `/api/db/nzok-activities-by-eik?eik=${encodeURIComponent(eik!)}`,
       ),
     enabled: !!eik,
+    staleTime: Infinity,
+  });
+
+// Top hospitals by the multi-signal risk index (migration 054): drug-price
+// overpay + cases-per-bed outliers + overdue debt, each shown transparently. A
+// corroboration aid — high index = elevated on SEVERAL signposts, not a verdict.
+export const useNzokHospitalRisk = () =>
+  useQuery({
+    queryKey: ["nzok", "hospital-risk"] as const,
+    queryFn: () => fetchDb<NzokHospitalRiskFile>("/api/db/nzok-hospital-risk"),
+    staleTime: Infinity,
+  });
+
+// Risk by drug (migration 054): molecules (INN) ranked by total euros paid above
+// the peer median, each expandable to its packs so the comparison stays at pack
+// identity (the cardinal rule of the drug-price tile).
+export const useNzokDrugRisk = () =>
+  useQuery({
+    queryKey: ["nzok", "drug-risk"] as const,
+    queryFn: () => fetchDb<NzokDrugRiskFile>("/api/db/nzok-drug-risk"),
     staleTime: Infinity,
   });
 

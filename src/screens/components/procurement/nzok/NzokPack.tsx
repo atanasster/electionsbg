@@ -34,6 +34,8 @@ import { NzokDrugReimbursementTile } from "./NzokDrugReimbursementTile";
 import { NzokDrugUnitPriceTile } from "./NzokDrugUnitPriceTile";
 import { NzokActivityTile } from "./NzokActivityTile";
 import { NzokHospitalFinancialsTile } from "./NzokHospitalFinancialsTile";
+import { NzokDrugRiskTile } from "./NzokDrugRiskTile";
+import { NzokHospitalRiskTile } from "./NzokHospitalRiskTile";
 import { NzokProcurementLensTile } from "./NzokProcurementLensTile";
 
 export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
@@ -206,6 +208,10 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
           its own data and self-hides until migration 052 reaches this DB. */}
       <NzokDrugUnitPriceTile />
 
+      {/* By-molecule companion: which drug leaks the most vs the pack median,
+          each INN expandable to its packs. Self-hides until migration 054. */}
+      <NzokDrugRiskTile />
+
       {/* The case-mix denominator + pathway-internal cases-per-bed outlier — the
           activity data the competitor leads its anomaly list with, on our corpus
           (private hospitals included). Self-hides until migration 053 reaches
@@ -215,6 +221,11 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
       {/* What happens to the money after it lands — are the hospitals НЗОК pays
           solvent? Self-hides until migration 051 reaches this DB. */}
       <NzokHospitalFinancialsTile />
+
+      {/* Capstone: hospitals ranked by a transparent multi-signal risk index
+          (drug overpay + activity outliers + overdue debt). Self-hides until
+          migration 054 reaches this DB. */}
+      <NzokHospitalRiskTile />
 
       {/* The ЗОП lens — IT + security, one in-house integrator (contract-derived) */}
       {model && <NzokProcurementLensTile model={model} />}

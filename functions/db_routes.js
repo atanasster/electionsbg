@@ -54,9 +54,7 @@ const appealsOrEmpty = (e) =>
 // this DB yet — 42883 (undefined_function) OR 42P01 (undefined_table) — instead
 // of hard-500-ing on a functions-before-migration deploy. Real errors propagate.
 const missingMigrationEmpty = (e) =>
-  e?.code === "42883" || e?.code === "42P01"
-    ? [{ r: [] }]
-    : Promise.reject(e);
+  e?.code === "42883" || e?.code === "42P01" ? [{ r: [] }] : Promise.reject(e);
 
 // Same missing-migration degradation, but yields a bare `[]` — for routes that
 // `return { body: rows }` directly (arrays of rows) rather than unwrapping
@@ -406,7 +404,9 @@ const DB_ROUTES = {
     // 42P01 (contracts_list view absent = migration 042 not yet applied) →
     // degrade to the base contracts table so /contract/:key still renders.
     const rows = await dbRows(CONTRACT_SQL, [key]).catch((e) =>
-      e?.code === "42P01" ? dbRows(CONTRACT_SQL_BASE, [key]) : Promise.reject(e),
+      e?.code === "42P01"
+        ? dbRows(CONTRACT_SQL_BASE, [key])
+        : Promise.reject(e),
     );
     return { body: { contract: rows[0] ?? null } };
   },
@@ -561,9 +561,7 @@ const DB_ROUTES = {
       "SELECT awarder_risk_grade_top($1, $2, $3) AS r",
       [scope, limit, minScore],
     ).catch((e) =>
-      e?.code === "42883" || e?.code === "42P01"
-        ? []
-        : Promise.reject(e),
+      e?.code === "42883" || e?.code === "42P01" ? [] : Promise.reject(e),
     );
     return { body: rows[0]?.r ?? { requested: scope, scope, rows: [] } };
   },
@@ -999,6 +997,19 @@ const DB_ROUTES = {
     ).catch(missingMigrationEmpty);
     return { body: rows[0]?.payload ?? null };
   },
+  // ── Schools / education serving (school_payloads, migration 054) ─────────────
+  // The 'directory' blob (key '') is the whole /education dataset with the SES +
+  // value-added verdicts precomputed in the loader — one PK seek, ~150 KB, vs the
+  // 1.25 MB raw index the client used to fetch and regress itself.
+  "education-payload": async (dbRows, q) => {
+    const kind = s(q, "kind") || "directory";
+    const key = s(q, "key"); // '' for the directory singleton
+    const rows = await dbRows(
+      "SELECT payload FROM school_payloads WHERE kind = $1 AND key = $2",
+      [kind, key],
+    ).catch(missingMigrationEmpty);
+    return { body: rows[0]?.payload ?? null };
+  },
   // ── КЗП „Колко струва" prices (migration 048) ───────────────────────────────
   // Every dashboard payload the old data/prices/*.json tree served, keyed by
   // (kind, key): 'index'|'ranking'|'chains'|'dict' (key ''), 'place' (key =
@@ -1170,9 +1181,10 @@ const DB_ROUTES = {
   "nzok-hospital-by-eik": async (dbRows, q) => {
     const eik = s(q, "eik");
     if (!eik) return { status: 400, body: { error: "missing eik" } };
-    const rows = await dbRows("SELECT nzok_hospital_reimbursement_by_eik($1) AS r", [
-      eik,
-    ]).catch(missingMigrationEmpty);
+    const rows = await dbRows(
+      "SELECT nzok_hospital_reimbursement_by_eik($1) AS r",
+      [eik],
+    ).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? null };
   },
   // НЗОК hospital-payment momentum — national monthly series + latest-YTD vs
@@ -1192,10 +1204,9 @@ const DB_ROUTES = {
   "nzok-hospital-momentum-by-eik": async (dbRows, q) => {
     const eik = s(q, "eik");
     if (!eik) return { status: 400, body: { error: "missing eik" } };
-    const rows = await dbRows(
-      "SELECT nzok_hospital_momentum_by_eik($1) AS r",
-      [eik],
-    ).catch(missingMigrationEmpty);
+    const rows = await dbRows("SELECT nzok_hospital_momentum_by_eik($1) AS r", [
+      eik,
+    ]).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? null };
   },
 
@@ -1279,6 +1290,23 @@ const DB_ROUTES = {
     const rows = await dbRows("SELECT nzok_activities_by_eik($1) AS r", [
       eik,
     ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
+  // Top hospitals by a transparent multi-signal risk index (drug overpay +
+  // cases-per-bed outliers + overdue debt) → the "Риск по болници" tile on the
+  // НЗОК health pack. Each row's components stay visible; rows link to /company.
+  "nzok-hospital-risk": async (dbRows) => {
+    const rows = await dbRows(
+      "SELECT nzok_hospital_risk_ranking() AS r",
+      [],
+    ).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
+  // Risk by drug (INN headline, packs nested) → the "Риск по лекарства" tile.
+  "nzok-drug-risk": async (dbRows) => {
+    const rows = await dbRows("SELECT nzok_drug_risk_by_inn() AS r", []).catch(
+      missingMigrationEmpty,
+    );
     return { body: rows[0]?.r ?? null };
   },
 };

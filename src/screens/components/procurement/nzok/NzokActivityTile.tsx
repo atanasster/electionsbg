@@ -19,10 +19,23 @@ import { useTranslation } from "react-i18next";
 import { Activity } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useNzokActivities } from "@/data/budget/useBudget";
-import { decodeEntities } from "@/lib/decodeEntities";
+import { FacilityLink } from "./FacilityLink";
 
 const nf = (n: number, lang: string) =>
   n.toLocaleString(lang === "bg" ? "bg" : "en");
+
+// The three НЗОК activity kinds, derived upstream from the procedure code's first
+// letter (P→КП, A→АПр, K→КПр). The source ships only the abbreviation, which a
+// non-specialist can't decode, so we spell it out in the table.
+const PROC_TYPE_LABEL: Record<string, { bg: string; en: string }> = {
+  КП: { bg: "Клинична пътека", en: "Clinical pathway" },
+  АПр: { bg: "Амбулаторна процедура", en: "Ambulatory procedure" },
+  КПр: { bg: "Клинична процедура", en: "Clinical procedure" },
+};
+const procTypeLabel = (t: string, bg: boolean): string => {
+  const l = PROC_TYPE_LABEL[t];
+  return l ? (bg ? l.bg : l.en) : t;
+};
 
 export const NzokActivityTile: FC = () => {
   const { i18n } = useTranslation();
@@ -61,7 +74,14 @@ export const NzokActivityTile: FC = () => {
             <table className="w-full text-xs">
               <thead className="text-muted-foreground">
                 <tr className="border-b">
-                  <th className="py-1.5 pr-2 text-left font-normal">
+                  <th
+                    className="py-1.5 pr-2 text-left font-normal"
+                    title={
+                      bg
+                        ? "Официален код на процедурата по НЗОК (Наредба 9). Източникът не публикува име, само кода."
+                        : "Official НЗОК procedure code (Ordinance 9). The source publishes no name, only the code."
+                    }
+                  >
                     {bg ? "Код" : "Code"}
                   </th>
                   <th className="py-1.5 pr-2 text-left font-normal">
@@ -82,7 +102,7 @@ export const NzokActivityTile: FC = () => {
                       {p.procedure}
                     </td>
                     <td className="py-1.5 pr-2 text-muted-foreground">
-                      {p.procType}
+                      {procTypeLabel(p.procType, bg)}
                     </td>
                     <td className="py-1.5 pr-2 text-right tabular-nums">
                       {nf(p.cases, lang)}
@@ -128,14 +148,16 @@ export const NzokActivityTile: FC = () => {
                   {outliers.map((o, i) => (
                     <tr key={`${o.facility}|${o.procedure}|${i}`}>
                       <td className="max-w-[13rem] truncate py-1.5 pr-2">
-                        {decodeEntities(o.facility)}
+                        <FacilityLink eik={o.eik} name={o.facility} />
                         <span className="block text-[10px] text-muted-foreground">
                           {o.hospitalType}
                         </span>
                       </td>
                       <td className="py-1.5 pr-2 tabular-nums text-muted-foreground">
                         {o.procedure}
-                        <span className="block text-[10px]">{o.procType}</span>
+                        <span className="block text-[10px]">
+                          {procTypeLabel(o.procType, bg)}
+                        </span>
                       </td>
                       <td className="py-1.5 pr-2 text-right tabular-nums">
                         {o.casesPerBed.toFixed(1)}

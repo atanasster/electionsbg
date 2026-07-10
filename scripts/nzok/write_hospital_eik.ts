@@ -231,6 +231,22 @@ const typeMarker = (name: string): string | null => {
   return null;
 };
 
+// Does a TR cleaned-name satisfy the partner's facility-type marker? TR registers
+// hospitals by acronym (МБАЛ/УМБАЛ/СБАЛ/…) and polyclinics by ДКЦ/МЦ, NOT always the
+// spelled-out БОЛНИЦА/ЦЕНТЪР the marker names — so accept the acronym form too. Without
+// this, e.g. "МБАЛ ЗА ЖЕНСКО ЗДРАВЕ - НАДЕЖДА" (EIK 202195960) is dropped because its
+// registered name never spells out "БОЛНИЦА", even though its brand tokens match 1:1.
+const markerSatisfied = (cn: string, tm: string): boolean => {
+  if (cn.includes(tm)) return true;
+  const toks = cn.split(" ");
+  if (tm === "БОЛНИЦА")
+    return toks.some((t) => t.includes("БАЛ") || t === "СБР");
+  if (tm === "ЦЕНТЪР")
+    return toks.some((t) => ["ДКЦ", "КДЦ", "МЦ", "КОЦ"].includes(t));
+  if (tm === "ОНКОЛОГ") return toks.some((t) => t === "КОЦ");
+  return false;
+};
+
 const legalForm = (name: string): string => {
   const c = ` ${clean(name)} `;
   if (/ ЕАД /.test(c)) return "EAD";
@@ -369,7 +385,17 @@ const main = async (): Promise<void> => {
     let cands = bt.length
       ? trs.filter((t) => bt.every((tok) => t.cn.includes(tok)))
       : [];
-    if (tm) cands = cands.filter((c) => c.cn.includes(tm));
+    if (tm) {
+      // Graded marker filter: the spelled-out word (БОЛНИЦА/ЦЕНТЪР) is authoritative,
+      // so prefer candidates carrying it; only fall back to the acronym form (МБАЛ/…)
+      // when NO spelled-out candidate survives. This keeps "МБАЛ БОЛНИЦА ЕВРОПА" a
+      // unique match (both Европа hospitals would otherwise turn it ambiguous) while
+      // still recovering acronym-only names like "МБАЛ ЗА ЖЕНСКО ЗДРАВЕ - НАДЕЖДА".
+      const strong = cands.filter((c) => c.cn.includes(tm));
+      cands = strong.length
+        ? strong
+        : cands.filter((c) => markerSatisfied(c.cn, tm));
+    }
     const lfCands = lf ? cands.filter((c) => c.lf === lf) : [];
     const candPool = lfCands.length ? lfCands : cands;
 
