@@ -384,18 +384,22 @@ entire point of shading it.
 
 ### 4.4 Two latent bugs found while checking this
 
-**(a) Shell-year selection.** `run_policy_baseline.ts:908` takes
-`noi.years[noi.years.length - 1]` — the *last array element* — as the pension-mass source.
-`useNoi.tsx:46` (`flattenFundYear`) explicitly guards against exactly this, with a comment:
-the B1 ingest publishes a new fiscal year mid-cycle as a **partial/shell record**
-(`funds: []`, `revenue: 0`), and the frontend filters those out before taking the max.
+**(a) Shell-year selection — FIXED** (`28cb69f49`, `e052f665a`).
+`run_policy_baseline.ts` used to take `noi.years[noi.years.length - 1]` — the *last array
+element* — as the pension-mass source. The B1 ingest publishes a new fiscal year mid-cycle
+as a **partial/shell record** (`funds: []`, `revenue: 0`), so appending a 2025 shell would
+have silently fed a partial pension mass into the `/budget/simulator` levers.
 
-The build script has no such guard. It works today only because 2024 happens to be both
-last and complete. When a 2025 shell year is appended, `pensionMassEur` silently takes
-the shell's value and the tax simulator's pension baseline goes wrong with no error.
+The producer now stamps `complete` (`parse_b1_xls.ts:421`) and `src/data/budget/noiYear.ts`
+is the single place that interprets it, via `latestCompleteNoiYear()` — which sorts by
+`fiscalYear` rather than trusting array order, falls back to the structural test when the
+flag is absent (a stale artifact served from the GCS bucket), and throws when no year
+qualifies. It replaced four separately hand-rolled copies of the predicate
+(`run_policy_baseline.ts`, `useNoi.tsx`, `BudgetSocialFundsTile`,
+`BudgetFlowSocialFundsDrilldown`).
 
-Fix: mirror `flattenFundYear`'s filter (`funds.length > 0 && totals.revenue.amountEur > 0`)
-and take the max `fiscalYear`, not the last element. *(Spun out as a separate task.)*
+Verified: picks 2024 today (no-op); still picks 2024 with a 2025 shell appended; still picks
+2024 with the `complete` flag stripped.
 
 **(b) The transfer line is never parsed, and the shipped tile overstates it.**
 `parse_b1_xls.ts:242-252` reads only sections `I. ПРИХОДИ`, `II. РАЗХОДИ` and `V. Дефицит`.
