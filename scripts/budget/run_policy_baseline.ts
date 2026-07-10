@@ -902,10 +902,28 @@ const main = async (): Promise<void> => {
   const noi = readJson<{
     years: {
       fiscalYear: number;
-      totals: { pensions: { amountEur: number } };
+      funds: unknown[];
+      totals: {
+        pensions: { amountEur: number };
+        revenue: { amountEur: number };
+      };
     }[];
   }>("data/budget/noi/funds.json");
-  const noiLatest = noi.years[noi.years.length - 1];
+  // The B1 ingest publishes a new fiscal year mid-cycle as a partial/shell
+  // record (funds: [], revenue: 0) whose pension figure is partial or
+  // yearbook-only, so the last array element is not necessarily the latest
+  // complete year. Mirror flattenFundYear in src/data/procurement/useNoi.tsx:
+  // keep only years carrying real fund detail, then take the max fiscalYear.
+  const noiUsable = noi.years.filter(
+    (yr) => yr.funds.length > 0 && yr.totals.revenue.amountEur > 0,
+  );
+  if (!noiUsable.length)
+    throw new Error(
+      "data/budget/noi/funds.json has no complete fiscal year (funds + revenue) — cannot derive the pension mass",
+    );
+  const noiLatest = [...noiUsable].sort(
+    (a, b) => b.fiscalYear - a.fiscalYear,
+  )[0];
   const pensionMassEur = noiLatest.totals.pensions.amountEur;
   // Non-pension social-protection base for the social-benefits spending lever:
   // COFOG GF10 (all social protection) minus the pension mass that the pension
