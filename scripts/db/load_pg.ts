@@ -33,6 +33,7 @@ const SCHEMA_DIR = path.join(
 );
 const FN_FILE = path.join(SCHEMA_DIR, "000_search_fns.sql");
 const SCHEMA_FILE = path.join(SCHEMA_DIR, "001_procurement.sql");
+const CONTRACTS_UNP_FILE = path.join(SCHEMA_DIR, "049_contracts_unp.sql");
 const TRACKING_FILE = path.join(SCHEMA_DIR, "005_ingest_tracking.sql");
 const CONTRACTOR_SEARCH_FILE = path.join(
   SCHEMA_DIR,
@@ -143,6 +144,9 @@ export const loadPg = async (): Promise<{
   await waitForPg();
   await exec(readFileSync(FN_FILE, "utf8"));
   await exec(readFileSync(SCHEMA_FILE, "utf8"));
+  // 001's CREATE TABLE IF NOT EXISTS is a no-op on an existing database, so the
+  // unp column + resolver arrive as their own ALTER-based migration.
+  await exec(readFileSync(CONTRACTS_UNP_FILE, "utf8"));
   await exec(readFileSync(TRACKING_FILE, "utf8"));
   await exec(readFileSync(CONTRACTOR_SEARCH_FILE, "utf8"));
   await exec(readFileSync(COMPANY_API_FILE, "utf8"));
@@ -268,6 +272,18 @@ export const loadPg = async (): Promise<{
   // run, so the FIRST queries after a load plan blind. (Harmless for correctness
   // — every plan still sorts globally — but it removes the "was it stale stats?"
   // variable and keeps first-hit /api/db/table + search plans honest.)
+  // The OCDS releases publish no УНП, so those rows arrive with unp NULL and are
+  // resolved from the tender that shares their ocid. A no-op when `tenders` has
+  // not been loaded yet (fresh DB, contracts-first order) — load_tenders_pg.ts
+  // calls the same function after its own COPY, so whichever runs second fills
+  // them and neither ordering leaves the column stale.
+  const { rows: unpRes } = await getPool().query<{
+    resolve_contract_unp: string;
+  }>("SELECT resolve_contract_unp()");
+  console.log(
+    `resolved unp for ${unpRes[0].resolve_contract_unp} ocds contracts`,
+  );
+
   await exec("ANALYZE contracts, contractor_search, awarder_search");
 
   // Cabinet timeline (governments.json → cabinets) for the government-correlation

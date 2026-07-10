@@ -60,6 +60,8 @@ import { ipiLocalTaxes } from "./ipi_local_taxes";
 import { municipalNaredba } from "./municipal_naredba";
 import { kzpPrices } from "./kzp_prices";
 import { nzokHospitalBmp } from "./nzok_hospital_bmp";
+import { nzokDrugUnitPrices } from "./nzok_drug_unit_prices";
+import { mhEeofQuarterly } from "./mh_eeof_quarterly";
 import { nzokDrugQuarterly } from "./nzok_drug_quarterly";
 import { nzokExecutionB1 } from "./nzok_execution_b1";
 import {
@@ -157,6 +159,8 @@ export const SOURCES: WatchSource[] = [
   municipalNaredba,
   kzpPrices,
   nzokHospitalBmp,
+  nzokDrugUnitPrices,
+  mhEeofQuarterly,
   nzokDrugQuarterly,
   nzokExecutionB1,
 ];

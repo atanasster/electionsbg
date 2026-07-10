@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS contracts (
   ocid                         text NOT NULL,
   release_id                   text NOT NULL,
   contract_id                  text,
+  unp                          text,
   tag                          text NOT NULL,
   date                         text NOT NULL,
   date_signed                  text,

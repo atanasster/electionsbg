@@ -31,6 +31,8 @@ import { NzokHospitalMomentumTile } from "./NzokHospitalMomentumTile";
 import { NzokHospitalCompareTile } from "./NzokHospitalCompareTile";
 import { NzokRegionalChoroplethTile } from "./NzokRegionalChoroplethTile";
 import { NzokDrugReimbursementTile } from "./NzokDrugReimbursementTile";
+import { NzokDrugUnitPriceTile } from "./NzokDrugUnitPriceTile";
+import { NzokHospitalFinancialsTile } from "./NzokHospitalFinancialsTile";
 import { NzokProcurementLensTile } from "./NzokProcurementLensTile";
 
 export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
@@ -198,6 +200,14 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
       {drugReimbursement && (
         <NzokDrugReimbursementTile data={drugReimbursement} />
       )}
+
+      {/* Per-hospital UNIT prices for the same pack of the same medicine. Fetches
+          its own data and self-hides until migration 052 reaches this DB. */}
+      <NzokDrugUnitPriceTile />
+
+      {/* What happens to the money after it lands — are the hospitals НЗОК pays
+          solvent? Self-hides until migration 051 reaches this DB. */}
+      <NzokHospitalFinancialsTile />
 
       {/* The ЗОП lens — IT + security, one in-house integrator (contract-derived) */}
       {model && <NzokProcurementLensTile model={model} />}

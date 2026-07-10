@@ -26,6 +26,15 @@ export interface Contract {
   releaseId: string;
   contractId?: string;
   tag: ContractTag;
+  // УНП — the АОП unique procurement number ("00353-2019-0127"). This, not
+  // `ocid`, is the join key to `tenders.unp`: the three feeds we ingest use
+  // three disjoint ocid namespaces (aop-legacy-* / eop-* / ocds-e82gsb-*),
+  // while the УНП is stable across all of them. Sourced per feed — the legacy
+  // CSV publishes it as a column, the ЦАИС ЕОП flat feed embeds it in the ocid,
+  // and the OCDS releases omit it (those rows are resolved from `tenders` on
+  // the shared ocid at load time). Absent for pre-2016 legacy rows and for ЕОП
+  // rows the source published with no УНП.
+  unp?: string;
 
   // When. `date` is the release timestamp; `dateSigned` is the actual contract
   // signing date when published (often earlier than `date` for retro-published

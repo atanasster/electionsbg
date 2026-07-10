@@ -64,6 +64,7 @@ import {
 } from "../components/procurement/CompanyFundsTile";
 import { CompanyConnectionCheck } from "../components/procurement/CompanyConnectionCheck";
 import { NzokHospitalReimbursementTile } from "../components/procurement/nzok/NzokHospitalReimbursementTile";
+import { NzokFinancialHealthStrip } from "@/screens/components/procurement/nzok/NzokFinancialHealthStrip";
 import {
   CabinetTimelineTile,
   type CabinetRow,
@@ -674,6 +675,10 @@ export const CompanyDbScreen: FC = () => {
           {/* Money IN — НЗОК hospital-care reimbursement. Self-hides unless this
               EIK is a matched hospital; sits above the ЗОП (money-out) tiles. */}
           <NzokHospitalReimbursementTile eik={eik} />
+          {/* Everything BELOW the НЗОК money line — revenue vs expense, total and
+              overdue liabilities, occupancy, length of stay. Self-hides unless
+              this EIK matched a hospital in the МЗ quarterly financials. */}
+          <NzokFinancialHealthStrip eik={eik} />
           {company &&
             company.entity_class &&
             NGO_CLASSES.has(company.entity_class) &&

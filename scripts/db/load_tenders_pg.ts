@@ -162,6 +162,23 @@ export const loadTendersPg = async (): Promise<{
   // is not ruled out. Either way this ANALYZE is correct and cheap (~8s).
   await exec("ANALYZE tenders");
 
+  // Fill contracts.unp for the OCDS-sourced rows, whose releases carry no УНП.
+  // Mirrors the call at the end of load_pg.ts: contracts and tenders load in
+  // either order, so both loaders run this idempotent resolver and whichever
+  // finishes second is the one that actually fills them. Skipped when 049 has
+  // not been applied yet (tenders-only load against a contracts-less DB).
+  const { rows: fnRows } = await getPool().query<{ present: boolean }>(
+    "SELECT to_regprocedure('resolve_contract_unp()') IS NOT NULL AS present",
+  );
+  if (fnRows[0].present) {
+    const { rows: res } = await getPool().query<{
+      resolve_contract_unp: string;
+    }>("SELECT resolve_contract_unp()");
+    console.log(
+      `resolved unp for ${res[0].resolve_contract_unp} ocds contracts`,
+    );
+  }
+
   return { rows: rows.length, years: [...years].sort() };
 };
 

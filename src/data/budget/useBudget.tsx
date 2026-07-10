@@ -30,6 +30,10 @@ import type {
   NzokHospitalTrendsFile,
   NzokHospitalMomentum,
   NzokHospitalReimbursement,
+  NzokHospitalFinancialsFile,
+  NzokFinancialsByEik,
+  NzokDrugUnitPricesFile,
+  NzokDrugOverpayByEik,
   NzokDrugReimbursementFile,
   JudiciaryBudgetFile,
   PersonnelFile,
@@ -348,6 +352,57 @@ export const useNzokHospitalByEik = (eik?: string | null) =>
     queryFn: () =>
       fetchDb<NzokHospitalReimbursement>(
         `/api/db/nzok-hospital-by-eik?eik=${encodeURIComponent(eik!)}`,
+      ),
+    enabled: !!eik,
+    staleTime: Infinity,
+  });
+
+// ЕЕОФ quarterly hospital financial + capacity indicators (migration 051) —
+// revenue, expense, total and OVERDUE liabilities, beds, occupancy, length of
+// stay, cost per patient. The asset class the pack had none of: everything below
+// the НЗОК money line, published by МЗ under Наредба № 5 от 2019 since 2019-Q2.
+export const useNzokHospitalFinancials = () =>
+  useQuery({
+    queryKey: ["nzok", "hospital-financials"] as const,
+    queryFn: () =>
+      fetchDb<NzokHospitalFinancialsFile>("/api/db/nzok-hospital-financials"),
+    staleTime: Infinity,
+  });
+
+// One hospital's quarterly financial SERIES → the financial-health strip on
+// /company/:eik. null when the EIK isn't a matched hospital.
+export const useNzokFinancialsByEik = (eik?: string | null) =>
+  useQuery({
+    queryKey: ["nzok", "financials-by-eik", eik ?? ""] as const,
+    queryFn: () =>
+      fetchDb<NzokFinancialsByEik>(
+        `/api/db/nzok-financials-by-eik?eik=${encodeURIComponent(eik!)}`,
+      ),
+    enabled: !!eik,
+    staleTime: Infinity,
+  });
+
+// Per-hospital drug UNIT PRICES (migration 052). Compared at PACK identity, with
+// a volume floor. Previously recorded as blocked — the "Брутни разходи по INN"
+// file has no quantity column, but НЗОК's „Справка 5" (ПЛС2) carries packs, pack
+// size, amount AND the МКБ code.
+export const useNzokDrugUnitPrices = () =>
+  useQuery({
+    queryKey: ["nzok", "drug-unit-prices"] as const,
+    queryFn: () =>
+      fetchDb<NzokDrugUnitPricesFile>("/api/db/nzok-drug-unit-prices"),
+    staleTime: Infinity,
+  });
+
+// One hospital's overpay-vs-median drug rows. Dispersion for the same pack has
+// legitimate causes (volume discount, delivery period, contract terms) — these
+// are pointers for a closer look, never an accusation.
+export const useNzokDrugOverpayByEik = (eik?: string | null) =>
+  useQuery({
+    queryKey: ["nzok", "drug-overpay-by-eik", eik ?? ""] as const,
+    queryFn: () =>
+      fetchDb<NzokDrugOverpayByEik>(
+        `/api/db/nzok-drug-overpay-by-eik?eik=${encodeURIComponent(eik!)}`,
       ),
     enabled: !!eik,
     staleTime: Infinity,

@@ -51,13 +51,41 @@ export const NzokHospitalReimbursementTile: FC<{ eik: string }> = ({ eik }) => {
           </span>
           <span className="text-sm text-muted-foreground">
             {bg
-              ? `изплатени от НЗОК за болнична медицинска помощ (натрупано до ${period})`
-              : `paid by НЗОК for inpatient care (cumulative to ${period})`}
+              ? `изплатени от НЗОК (натрупано до ${period})`
+              : `paid by НЗОК (cumulative to ${period})`}
           </span>
         </div>
 
+        {/* The three streams НЗОК pays a hospital through. Shown as a split rather
+            than one figure because the headline used to BE the БМП stream alone,
+            which understated every facility by its drugs + devices money — see
+            migration 050. */}
+        <ul className="grid grid-cols-1 gap-1 text-xs sm:grid-cols-3">
+          {(
+            [
+              ["bmpEur", bg ? "Болнична помощ" : "Inpatient care"],
+              ["drugsEur", bg ? "Лекарства" : "Drugs"],
+              ["devicesEur", bg ? "Медицински изделия" : "Medical devices"],
+            ] as const
+          ).map(([key, label]) => (
+            <li
+              key={key}
+              className="flex items-baseline justify-between gap-2 rounded border px-2 py-1.5"
+            >
+              <span className="min-w-0 truncate text-muted-foreground">
+                {label}
+              </span>
+              <span className="shrink-0 font-medium tabular-nums">
+                {formatEurCompact(entry[key] ?? 0, i18n.language)}
+              </span>
+            </li>
+          ))}
+        </ul>
+
         {/* Transparent peer-comparison — where this hospital's YoY spend growth
-            sits in the national distribution (published formula, not a black box). */}
+            sits in the national distribution (published formula, not a black box).
+            Pinned to the БМП stream (migration 050): the drugs/devices series is
+            shorter, so a three-stream YoY would compare unlike years. */}
         {momentum && <NzokPeerGrowthStrip m={momentum} />}
 
         {facilities.length > 1 && (
@@ -80,8 +108,8 @@ export const NzokHospitalReimbursementTile: FC<{ eik: string }> = ({ eik }) => {
 
         <p className="text-[11px] text-muted-foreground/80">
           {bg
-            ? `Източник: месечният отчет на НЗОК „Заплатени здравноосигурителни плащания за БМП по лечебни заведения". Плаща се извън обществените поръчки — за разлика от сумите по-долу, които тази болница ХАРЧИ по ЗОП.`
-            : `Source: НЗОК's monthly hospital-care payments report. Paid outside public procurement — unlike the amounts below, which this hospital SPENDS through ЗОП.`}
+            ? `Източник: трите месечни отчета на НЗОК по лечебни заведения — за БМП, за лекарствени продукти и за медицински изделия. Плаща се извън обществените поръчки — за разлика от сумите по-долу, които тази болница ХАРЧИ по ЗОП. Отчетите излизат по различен график, затова последният месец на трите потока може да се различава.`
+            : `Source: НЗОК's three monthly per-hospital reports — inpatient care, drugs applied in hospital, and medical devices. Paid outside public procurement, unlike the amounts below, which this hospital SPENDS through ЗОП. The three reports are published on their own cadences, so their latest month can differ.`}
         </p>
       </CardContent>
     </Card>

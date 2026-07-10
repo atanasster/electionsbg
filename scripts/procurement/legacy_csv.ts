@@ -47,6 +47,8 @@
 import { parse } from "csv-parse/sync";
 import { Open as Unzip } from "unzipper";
 import { canonicalEik, isValidEik } from "./eik";
+import { isUnp } from "./unp";
+import { overrideAmount } from "./amount_overrides";
 import type { Contract } from "./types";
 import { toEur } from "@/lib/currency";
 import {
@@ -170,12 +172,18 @@ const COLUMN_PATTERNS: Record<keyof LegacyRow, RegExp[]> = {
     /^дата$/i,
   ],
   publishedDate: [/публикуван/i, /дата.*на.*публикуване/i],
-  tenderId: [
-    /уникален.*номер.*на.*поръчк/i,
-    /id.*на.*поръчк/i,
-    /^унп$/i,
-    /уникален.*номер.*поръчка/i,
-  ],
+  // УНП — the procedure's unique number ("00353-2019-0127"), our join key to
+  // `tenders.unp`. MUST stay declared BEFORE `tenderId`: buildHeaderMap claims
+  // columns in key order, and the РОП files carry BOTH "ID на поръчката" (a
+  // bare numeric id) and "УНП". Left to `tenderId`'s looser /id.*на.*поръчк/i,
+  // the numeric column was claimed first and the УНП column never bound — which
+  // is why the corpus shipped for years with no usable tender lineage. These
+  // patterns are strict, so they can never steal `tenderId`'s column.
+  unp: [/^унп$/i, /уникален.*номер.*на.*поръчк/i, /уникален.*номер.*поръчка/i],
+  // The bare numeric procedure id. Bound for column disambiguation only; never
+  // emitted. It belongs to no corpus-wide id space — the ЦАИС `tender_id`
+  // sequence does not cover the РОП years.
+  tenderId: [/id.*на.*поръчк/i],
   awarderEik: [/еик.*на.*възложител/i, /възложител.*еик/i, /^еик.*възложител/i],
   awarderName: [
     /^възложител$/i,
@@ -216,6 +224,7 @@ interface LegacyRow {
   contractId?: string;
   contractDate?: string;
   publishedDate?: string;
+  unp?: string;
   tenderId?: string;
   awarderEik?: string;
   awarderName?: string;
@@ -397,6 +406,11 @@ export const parseLegacyCsv = (
     const contractIdRaw = (pick("contractId") ?? "")
       .replace(/^"+|"+$/g, "")
       .trim();
+    // Only a well-formed УНП is kept — some years leave the column blank or
+    // carry a stray numeric id. A malformed value would join to nothing and
+    // read as "we have lineage" downstream, which is worse than a null.
+    const unpRaw = (pick("unp") ?? "").replace(/^"+|"+$/g, "").trim();
+    const unp = isUnp(unpRaw) ? unpRaw : undefined;
     const awarderEikRaw = (pick("awarderEik") ?? "")
       .replace(/^"+|"+$/g, "")
       .trim();
@@ -432,7 +446,16 @@ export const parseLegacyCsv = (
       stats.droppedNoContractor++;
       continue;
     }
-    const amount = parseAmount(amountRaw);
+    const parsedAmount = parseAmount(amountRaw);
+    // The same publisher-side amount errors reach us through this feed too — the
+    // legacy CSV, the ЕОП flat feed and the OCDS bundles each republish the same
+    // corrupted contract value. Correct it here as well (amount_overrides.ts).
+    const amount =
+      overrideAmount({
+        unp,
+        contractId: contractIdRaw,
+        amount: parsedAmount,
+      }) ?? parsedAmount;
     if (amount === undefined || amount <= 0) {
       stats.droppedNoAmount++;
       continue;
@@ -448,6 +471,7 @@ export const parseLegacyCsv = (
       ocid: `aop-legacy-${ds.year}-${documentId || "x"}`,
       releaseId: `aop-legacy-${ds.year}-${documentId || "x"}-${contractorEik}`,
       contractId: contractIdRaw || undefined,
+      unp,
       tag: "contract",
       date: rowDate,
       dateSigned: contractDate || undefined,

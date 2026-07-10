@@ -991,6 +991,133 @@ const DB_ROUTES = {
     ).catch(missingMigrationEmpty);
     return { body: rows[0]?.payload ?? null };
   },
+  // ── КЗП „Колко струва" prices (migration 048) ───────────────────────────────
+  // Every dashboard payload the old data/prices/*.json tree served, keyed by
+  // (kind, key): 'index'|'ranking'|'chains'|'dict' (key ''), 'place' (key =
+  // ekatte), 'chains-muni' (key = obshtina). One PK seek → the jsonb.
+  "price-payload": async (dbRows, q) => {
+    const kind = s(q, "kind");
+    if (!kind) return { status: 400, body: { error: "missing kind" } };
+    const key = s(q, "key");
+    const rows = await dbRows(
+      "SELECT payload FROM price_payloads WHERE kind = $1 AND key = $2",
+      [kind, key],
+    ).catch(missingMigrationEmpty);
+    return { body: rows[0]?.payload ?? null };
+  },
+
+  // Free-text search over the ~80k-product catalogue (trigram index).
+  // Retired products (chain_count = 0) keep their slug so old URLs resolve, but
+  // must never surface in search.
+  "price-search": async (dbRows, q) => {
+    const term = s(q, "q");
+    if (term.length < 2) return { body: [] };
+    const rows = await dbRows(
+      `SELECT slug, title, pid, brand, net_qty, net_unit, chain_count,
+              current_min_eur, pct_since_euro
+         FROM price_products
+        WHERE chain_count > 0 AND title ILIKE '%' || $1 || '%'
+        ORDER BY similarity(title, $1) DESC, chain_count DESC, slug COLLATE "C"
+        LIMIT 20`,
+      [term],
+    ).catch(missingMigrationEmpty);
+    return { body: rows };
+  },
+
+  // One product: the cross-chain ladder, cheapest first.
+  // Current prices come from price_current — NEVER from price_facts, whose open
+  // runs include every delisted SKU (36% phantom over-count). Design §3.2.
+  "price-product": async (dbRows, q) => {
+    const slug = s(q, "slug");
+    if (!slug) return { status: 400, body: { error: "missing slug" } };
+    const ekatte = s(q, "ekatte"); // optional: narrow the ladder to one place
+    const rows = await dbRows(
+      `WITH p AS (SELECT * FROM price_products WHERE slug = $1)
+       SELECT jsonb_build_object(
+         'product', (SELECT to_jsonb(p) FROM p),
+         'chains', COALESCE((
+            SELECT jsonb_agg(to_jsonb(x) ORDER BY x.price_eur, x.eik COLLATE "C")
+              FROM (SELECT k.eik,
+                           MIN(ch.name COLLATE "C") AS chain,
+                           MIN(pc.price_eur)        AS price_eur,
+                           MIN(pc.promo_eur)        AS promo_eur,
+                           COUNT(DISTINCT pc.store_id) AS stores
+                      FROM p
+                      JOIN price_skus    k  ON k.product_id = p.product_id
+                      JOIN price_current pc ON pc.sku_id = k.sku_id
+                      JOIN price_stores  st ON st.store_id = pc.store_id
+                      JOIN price_chains  ch ON ch.eik = k.eik
+                     WHERE ($2 = '' OR st.ekatte = $2)
+                     GROUP BY k.eik) x), '[]'::jsonb)
+       ) AS r`,
+      [slug, ekatte],
+    ).catch(missingMigrationEmpty);
+    const r = rows[0]?.r;
+    return { body: r?.product ? r : null };
+  },
+
+  // Per-product daily minimum since euro day.
+  //
+  // Two masks, both load-bearing. (1) A run only counts on days the SKU was
+  // actually listed: `day BETWEEN k.first_seen AND k.last_seen`. Without it a
+  // delisted SKU's open run drags its last price forward forever. (2) A day only
+  // counts when the chain actually reported (price_chain_days) — a reporting gap
+  // is a gap, never a flat line.
+  "price-history": async (dbRows, q) => {
+    const slug = s(q, "slug");
+    if (!slug) return { status: 400, body: { error: "missing slug" } };
+    const rows = await dbRows(
+      `WITH p AS (SELECT product_id FROM price_products WHERE slug = $1),
+            span AS (SELECT min(day) AS d0, max(day) AS d1 FROM price_grid_days)
+       SELECT d.day::text AS day,
+              MIN(f.price_eur)      AS min_eur,
+              COUNT(DISTINCT k.eik) AS chains
+         FROM span
+         CROSS JOIN generate_series(span.d0, span.d1, interval '1 day') AS d(day)
+         JOIN price_skus  k ON k.product_id = (SELECT product_id FROM p)
+                           AND d.day::date BETWEEN k.first_seen AND k.last_seen
+         JOIN price_facts f ON f.sku_id = k.sku_id
+                           AND f.valid_from <= d.day::date
+                           AND (f.valid_to IS NULL OR f.valid_to >= d.day::date)
+         JOIN price_stores     st ON st.store_id = f.store_id
+         JOIN price_chain_days cd ON cd.day = d.day::date AND cd.eik = st.eik
+        GROUP BY d.day
+        ORDER BY d.day`,
+      [slug],
+    ).catch(missingMigrationEmpty);
+    return { body: rows };
+  },
+
+  // "Did the euro raise prices?" — Croatia's Kretanje-cijena classification
+  // against euro day, plus the FIFTH bucket the audit demanded: `no_baseline`
+  // are products with no observation on the baseline day. Dropping them
+  // understates the denominator; calling them unchanged fabricates a result.
+  "price-verdict": async (dbRows) => {
+    const rows = await dbRows(
+      `SELECT count(*) FILTER (WHERE pct_since_euro < -0.1)      AS cheaper,
+              count(*) FILTER (WHERE pct_since_euro >  0.1)      AS dearer,
+              count(*) FILTER (WHERE abs(pct_since_euro) <= 0.1) AS unchanged,
+              count(*) FILTER (WHERE pct_since_euro IS NULL)     AS no_baseline,
+              count(*)                                           AS total
+         FROM price_products WHERE chain_count > 0`,
+    ).catch(missingMigrationEmpty);
+    return { body: rows[0] ?? null };
+  },
+
+  // Biggest movers since euro day, at product grain. Only cross-chain products,
+  // so a single chain's private-label reprice cannot top the leaderboard.
+  "price-movers": async (dbRows, q) => {
+    const dir = s(q, "dir") === "down" ? "ASC" : "DESC";
+    const rows = await dbRows(
+      `SELECT slug, title, pid, chain_count, current_min_eur, pct_since_euro
+         FROM price_products
+        WHERE chain_count > 1 AND pct_since_euro IS NOT NULL
+        ORDER BY pct_since_euro ${dir}, chain_count DESC, slug COLLATE "C"
+        LIMIT 20`,
+    ).catch(missingMigrationEmpty);
+    return { body: rows };
+  },
+
   // НЗОК per-hospital БМП payments — latest-period snapshot for the health-pack
   // tile (was data/budget/nzok/hospital_payments.json). No param. Degrades to
   // null (not 500) until migration 045 reaches this DB.
@@ -1033,6 +1160,66 @@ const DB_ROUTES = {
       "SELECT nzok_hospital_momentum_by_eik($1) AS r",
       [eik],
     ).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
+
+  // ЕЕОФ quarterly hospital financial + capacity indicators (МЗ, Наредба № 5 от
+  // 2019), 2019-Q2 →. Latest quarter's national aggregates + the largest
+  // hospitals. null until migration 051 reaches this DB.
+  "nzok-hospital-financials": async (dbRows) => {
+    const rows = await dbRows(
+      "SELECT nzok_hospital_financials_latest() AS r",
+      [],
+    ).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
+  // One hospital's quarterly financial SERIES (debt, overdue debt, cost per
+  // patient, occupancy, length of stay) → the financial-health strip on
+  // /company/:eik. null when the EIK isn't a matched hospital.
+  "nzok-financials-by-eik": async (dbRows, q) => {
+    const eik = s(q, "eik");
+    if (!eik) return { status: 400, body: { error: "missing eik" } };
+    const rows = await dbRows(
+      "SELECT nzok_hospital_financials_by_eik($1) AS r",
+      [eik],
+    ).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
+
+  // Per-hospital drug UNIT PRICES (НЗОК Наредба 10 „Справка 5" / ПЛС2). Overview:
+  // latest period, the volume floor, and the biggest overpay-vs-median rows.
+  // Comparison is at PACK identity (Национален №), never at INN — pack size and
+  // dosage form would otherwise drive the ratio. null until migration 052 lands.
+  "nzok-drug-unit-prices": async (dbRows) => {
+    const rows = await dbRows(
+      "SELECT nzok_drug_unit_prices_overview() AS r",
+      [],
+    ).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
+  // The monthly median/p25/p75 series for ONE pack — "is the gap widening or
+  // closing?", the question a single-year corpus structurally cannot answer.
+  "nzok-drug-pack-trend": async (dbRows, q) => {
+    const nationalNo = s(q, "nationalNo") ?? "";
+    const nzokCode = s(q, "nzokCode") ?? "";
+    if (!nationalNo && !nzokCode)
+      return { status: 400, body: { error: "missing nationalNo or nzokCode" } };
+    const rows = await dbRows("SELECT nzok_drug_pack_trend($1, $2) AS r", [
+      nationalNo,
+      nzokCode,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
+  // One hospital's overpay-vs-median rows → the drug-price strip on /company/:eik.
+  // Dispersion is NOT wrongdoing: volume discounts, delivery period and contract
+  // terms all move a unit price. These are pointers for a closer look, and the
+  // defensible claim is persistent dispersion over months, not one month's ratio.
+  "nzok-drug-overpay-by-eik": async (dbRows, q) => {
+    const eik = s(q, "eik");
+    if (!eik) return { status: 400, body: { error: "missing eik" } };
+    const rows = await dbRows("SELECT nzok_drug_overpay_by_eik($1) AS r", [
+      eik,
+    ]).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? null };
   },
 };

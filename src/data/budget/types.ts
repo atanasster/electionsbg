@@ -98,16 +98,30 @@ export interface NzokHospitalRow {
 // One company's hospital-care reimbursement for the latest period — the shape the
 // /api/db/nzok-hospital-by-eik endpoint returns (nzok_hospital_reimbursement_by_eik).
 // null-body when the EIK has no matched НЗОК payment.
-export interface NzokHospitalReimbursement {
+// НЗОК pays a hospital through THREE separate monthly reports (migration 050):
+// БМП (болнична медицинска помощ), лекарствени продукти applied inside БМП, and
+// медицински изделия. A hospital's НЗОК income is their sum. Before 050 only
+// `bmp` was ingested, so every per-hospital figure the site showed understated
+// the facility — УМБАЛ „Света Екатерина" read 31.6M лв for FY2025 against a real
+// 43.6M лв.
+export type NzokPaymentStream = "bmp" | "drugs" | "devices";
+
+export interface NzokStreamSplit {
+  bmpEur: number;
+  drugsEur: number;
+  devicesEur: number;
+}
+
+export interface NzokHospitalReimbursement extends NzokStreamSplit {
   asOf: string; // "YYYY-MM-DD" (end of the report month)
   totalCumulativeEur: number;
   totalMonthEur: number;
-  facilities: {
+  facilities: (NzokStreamSplit & {
     regNo: string;
     name: string;
     cumulativeEur: number;
     monthEur: number;
-  }[];
+  })[];
 }
 
 // НЗОК hospital-payment momentum — the national monthly series plus the
@@ -174,6 +188,15 @@ export interface NzokHospitalPaymentsFile {
   totalCumulativeEur: number;
   monthTotalEur: number;
   facilityCount: number;
+  /** National totals per stream at each stream's own latest month. */
+  byStream?: Record<
+    NzokPaymentStream,
+    { cumulativeEur: number; monthEur: number; facilityCount: number }
+  >;
+  /** Each stream's own newest ingested month ("YYYY-MM"). The three reports are
+   *  published on their own cadences, so these can differ — the tile footnotes
+   *  the lag rather than silently dropping the lagging stream's money. */
+  periodByStream?: Record<NzokPaymentStream, string>;
   byRzok: {
     code: string;
     name: string;
@@ -2500,4 +2523,120 @@ export interface JudiciaryBudgetFile {
   source: { publisher: string; law: string; url: string; description: string };
   latestYear: number;
   years: JudiciaryBudgetYear[]; // descending by fiscalYear
+}
+
+// ── ЕЕОФ quarterly hospital financials (migration 051) ──────────────────────
+// Source: МЗ "Финансови показатели на лечебни заведения за болнична помощ",
+// one XLSX per quarter under Наредба № 5 от 2019, 2019-Q2 →. Money columns are
+// published in хил. лева and converted at ingest.
+//
+// NOTE ON RANKING: `costPerPatientEur` and the other per-patient indicators are
+// emitted as raw values and are never ranked or percentile'd. A specialised
+// centre spends multiples of a general hospital's per-patient figure because of
+// its case mix, not its efficiency; ranking without a case-mix denominator (the
+// clinical-pathway corpus, not yet ingested) reproduces the specialty, not a
+// finding. See docs/plans/nzok-hospital-intelligence-v1.md.
+export interface NzokFinancialIndicators {
+  quarter: string; // "2025-Q3"
+  ownership: "state" | "municipal";
+  name: string;
+  revenueEur: number;
+  expenseEur: number;
+  personnelCostEur: number;
+  drugsDevicesCostEur: number;
+  totalLiabilitiesEur: number;
+  overdueLiabilitiesEur: number;
+  /** FRACTIONS in 0..1, despite the `Pct` suffix the source column carries —
+   *  0.427 means 42.7%. Format with a percent formatter, never by appending "%". */
+  totalLiabilitiesRevenueSharePct: number | null;
+  overdueLiabilitiesRevenueSharePct: number | null;
+  bedOccupancyPct: number | null;
+  /** Expense ÷ revenue, roughly. Below 1 means the quarter ran a surplus. */
+  costEfficiencyCoef: number | null;
+  patientsTreated: number | null;
+  avgMonthlyBeds: number | null;
+  avgLengthOfStay: number | null;
+  costPerPatientEur: number | null;
+}
+
+export interface NzokHospitalFinancialsFile {
+  quarter: string;
+  hospitalCount: number;
+  matchedEikCount: number;
+  totalRevenueEur: number;
+  totalExpenseEur: number;
+  totalLiabilitiesEur: number;
+  totalOverdueLiabilitiesEur: number;
+  byOwnership: Record<
+    "state" | "municipal",
+    {
+      hospitalCount: number;
+      revenueEur: number;
+      expenseEur: number;
+      totalLiabilitiesEur: number;
+      overdueLiabilitiesEur: number;
+    }
+  >;
+  hospitals: (NzokFinancialIndicators & { eik: string | null })[];
+}
+
+export interface NzokFinancialsByEik {
+  eik: string;
+  name: string;
+  ownership: "state" | "municipal";
+  quarterCount: number;
+  latest: NzokFinancialIndicators;
+  series: NzokFinancialIndicators[]; // ascending by quarter
+}
+
+// ── Per-hospital drug unit prices (migration 052) ───────────────────────────
+// Source: НЗОК "Справка 5_ПЛС2" (Наредба 10/2009), monthly, per лечебно
+// заведение × pack × МКБ. Unit price = реимбурсна сума / (опаковки × брой в
+// опаковка).
+//
+// Comparison is at PACK identity (`nationalNo`, falling back to `nzokCode`),
+// NEVER at INN: one INN spans many packs (PEMETREXED has five), whose per-unit
+// medians range from €17 to €66, so an INN-level ratio measures pack size.
+// A `volumeFloorPacks` floor applies — a single-pack purchase has no negotiating
+// context. Dispersion is not wrongdoing; persistent dispersion is the claim.
+export interface NzokDrugPackStat {
+  period: string; // "YYYY-MM"
+  nationalNo: string;
+  nzokCode: string;
+  inn: string;
+  tradeName: string;
+  medianUnitEur: number;
+  p25UnitEur: number;
+  p75UnitEur: number;
+  facilityCount: number;
+  totalEur: number;
+}
+
+export interface NzokDrugOverpayRow {
+  nationalNo: string;
+  nzokCode: string;
+  inn: string;
+  tradeName: string;
+  facility: string;
+  regNo: string;
+  eik: string | null;
+  unitEur: number;
+  medianUnitEur: number;
+  ratio: number;
+  overpayEur: number;
+}
+
+/** The /api/db/nzok-drug-overpay-by-eik body — an object, not a bare array. */
+export interface NzokDrugOverpayByEik {
+  eik: string;
+  rows: NzokDrugOverpayRow[];
+}
+
+export interface NzokDrugUnitPricesFile {
+  latestPeriod: string;
+  volumeFloorPacks: number;
+  distinctPacks: number;
+  totalEur: number;
+  topPacks: NzokDrugPackStat[];
+  overpay: NzokDrugOverpayRow[];
 }

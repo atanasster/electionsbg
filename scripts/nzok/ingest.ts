@@ -7,7 +7,9 @@
 //               committed Рег.№→EIK crosswalk onto each row)
 //   --drugs     fetch the latest annual gross drug-reimbursement by INN
 //   --execution fetch the latest monthly B1 cash-execution snapshot
-//   (no flag)   all four of the above (the default set — no Postgres needed)
+//   --drug-prices per-hospital drug UNIT PRICES from the Справка 5 monthlies
+//               (nzok/medicine/5) — pack-identity peer medians + overpay ranking
+//   (no flag)   all of the above (the default set — no Postgres needed)
 //
 //   --crosswalk OPT-IN ONLY: rebuild the Рег.№ ЛЗ → EIK crosswalk (hospital_eik
 //               .json) + re-join it into the payments file. Needs the LOCAL
@@ -42,6 +44,16 @@ const STEPS: { flag: string; scripts: string[]; label: string }[] = [
     flag: "--execution",
     scripts: ["write_execution.ts"],
     label: "B1 execution",
+  },
+  {
+    flag: "--drug-prices",
+    scripts: ["write_drug_unit_prices.ts"],
+    label: "drug unit prices (Справка 5)",
+  },
+  {
+    flag: "--eeof",
+    scripts: ["write_eeof.ts"],
+    label: "ЕЕОФ financials",
   },
 ];
 

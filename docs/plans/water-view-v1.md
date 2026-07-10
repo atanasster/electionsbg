@@ -176,6 +176,24 @@ new ingest.
   nitrate non-compliance zones (~300 zones, ~150 persistent, agricultural). 28 oblast PDFs;
   ИАОС is the same agency we already pull air-quality from.
 
+### Flood-risk sub-domain (new — the signature accountability feature, see §4.5)
+- **Riverbed-cleaning procurement (Tier A, already in corpus):** contracts for „почистване /
+  укрепване / корекция на речно корито / дере", проводимост — awarded by municipalities +
+  Напоителни системи. Trackable via CPV 45246/45247000 (river-regulation works) + 90721800
+  (flood protection) and title keywords (корито, дере, проводимост, укрепване). Real examples:
+  Неделино, Kardzhali (13 участъка, €66k), Средец (укрепване, €2.5M). This is the *maintenance-
+  spend* half — free, no new ingest.
+- **РЗПРН flood-risk geodata (Tier C/D):** „Райони със значителен потенциален риск от
+  наводнения" + „Карти на заплахата и риска от наводнения" under the Floods Directive
+  (2007/60/EC), ПУРН 2022–27 (adopted Dec 2023). Four basin directorates (earbd.bg, bsbd.org,
+  wabd.bg, БДДР) publish hazard maps (water depth · extent · hazard level · flow speed) + risk
+  maps at 1:10,000, **with GIS layers as appendices** to the preliminary assessment. Join РЗПРН
+  polygons to settlements. Also reported to EEA WISE. This is the *who's-at-risk* half.
+- **Flood events / responsibility context:** riverbed-cleaning responsibility is split
+  chaotically between mayors, regional governors and Напоителни системи — the direct cause cited
+  for the deadly Царево (2023) and Свети Влас (2024) floods. Curate event case-studies as cited
+  constants; no clean events feed.
+
 ## 4. Architecture — the sector-pack grammar
 
 All three existing packs (`RoadsPack`, `NoiPack`, `NzokPack`) share one 10-part skeleton. The
@@ -426,6 +444,63 @@ same way (single source: export `VIK_AWARDER_PATH` from `sectorPacks.tsx`):
 - Nav (§4.2): `reportMenus.ts` (Държавни структури group) + `ProcurementNav.tsx` `secondaryItems`
   pill + `procurement_water_nav` i18n key.
 
+## 4.5 World-best UI/UX — external benchmarks + patterns to import from other packs
+
+Competitive research (2026-07-10) against the best public water dashboards, plus a sweep of our
+own packs for reusable UI. Goal: not "a Bulgarian pack" but the honest, per-oblast, per-euro
+front-end that beats what any regulator ships — the way the roads pack beats АПИ's own site.
+
+### External benchmarks & what to adopt
+- **Ofwat "Discover Water" (UK)** — the gold standard for *public-facing* water performance:
+  four plain KPI areas (water supply · sewage · customer service · environmental impact),
+  per-company comparison, consumer framing ("how is MY company doing"). **Adopt:** the
+  personal, comparative frame — "your operator's loss/tariff vs the national spread" as the
+  landing hook (we already personalize prices/местни-данъци this way).
+- **ERSAR (Portugal)** — 20 indicators in 6 groups, each operator scored with a **traffic-light
+  (good / medium / poor) quality band** and published annually. **Adopt:** a traffic-light rating
+  band on the operators table + choropleth (loss %, collection, accidents → green/amber/red
+  against КЕВР/EU thresholds), not just raw numbers. Turns a data table into a scorecard.
+- **IBNET (World Bank), WAREG (EU regulators)** — global/EU cross-utility benchmarking with
+  reference ranges for NRW, coverage, unit cost. **Adopt:** an *international reference band* for
+  water loss / NRW (BG ~60% vs EU good-practice <25%), exactly like the roads pack benchmarks
+  €/km against ROCKS/RO/GR. Gives the loss number an honest yardstick.
+
+### Patterns to import from our own packs
+- **Roads network map → flood-risk river map (the geographic hero).** `RoadNetworkMap` renders
+  the motorway network coloured by a selected metric, line thickness = € spent, click-a-corridor
+  to focus, metric toggle via shared `Select`. The water analogue is the flood-risk map in §4.5b:
+  rivers / РЗПРН polygons as the spine, coloured by flood-risk level, cleaning-spend markers
+  sized by €, click-a-basin to focus. Build a generic `NetworkRiskMap` off the RoadNetworkMap
+  shape (or reuse its Leaflet scaffolding), not a bespoke map.
+- **`RoadCostBenchmarkTile` (vs ROCKS/RO/GR)** → `VikLossBenchmarkTile` (vs IBNET/EU band).
+- **`RoadRegionCompetitionTile`** (ОПУ single-bid heatmap — "where competition collapses") →
+  the flood risk heatmap in §4.5b ("where flood risk meets zero maintenance").
+- **`RoadChainageStripTile`** (spend density along the km axis) → optional river-length cleaning-
+  spend density per basin.
+- **`OblastChoropleth` small-multiples** (§4.1a) and the **auto insight chips / bridge hero**
+  grammar (§4) — already imported.
+
+### 4.5b Signature feature — „Риск от наводнения: непочистени корита" (flood risk × maintenance)
+The world-first tile no regulator or competitor has: cross-join the three data halves into a
+**per-settlement / per-РЗПРН flood-risk-vs-maintenance score**.
+
+`floodRisk = f(` РЗПРН hazard class (Tier C/D geodata) `,` flood history (Царево/Свети Влас-style
+events) `) −` maintenance signal `(` recency + € of riverbed-cleaning contracts in/upstream of
+the area, Tier A `)`. High hazard + zero recent cleaning spend = **red "at-risk-but-unmaintained"**.
+Surfaced as:
+- a **flood-risk river map** (the roads-map analogue) — РЗПРН coloured by risk level, cleaning-
+  spend markers sized by €, click-to-focus a basin;
+- a ranked **"most at-risk, least maintained" league table** → `/water/flood-risk` DbDataTable
+  "See all";
+- **responsibility attribution** — each segment tagged mayor / regional governor / Напоителни
+  системи (the "chaos" the floods exposed), linking to that entity's awarder page.
+
+This reinforces §0b.4 (the `/water` screen, not the awarder page, is the home — flood risk is not
+procurement-centric) and ties the holding + Напоителни + municipalities into one story. Napoitelni
+gets a flood-responsibility section (it's a named responsible party). Caveats: РЗПРН↔settlement
+and cleaning-contract↔river-segment joins are approximate (title/geo matching) — label the score
+as indicative, show the underlying contracts, never assert causation for a specific flood.
+
 ## 5. Data model & SQL performance
 
 Follow the **PG-only** convention of the recent agri/funds packs (no build*FromRows / db:gen).
@@ -486,6 +561,9 @@ Tools (Envelope → narrate → UI pipeline; tools NEVER compute numbers in pros
   financials, top contracts.
 - `waterRationing` (domain `indicators`) — % population on режим by oblast/year (NSI series).
 - `reservoirLevels` (domain `place`) — reservoir fill % + by purpose (once МОСВ lands).
+- `floodRisk` (domain `place`) — per-settlement/oblast flood-risk-vs-maintenance score (§4.5b):
+  РЗПРН hazard class + riverbed-cleaning spend/recency + responsible party. The differentiator
+  tool — narrate "high risk, no cleaning contract since <year>, responsible: <mayor/НС>".
 
 Router keywords: `вода|ви̇к|водно|водоснабд|канализац|напоител|язовир|воден режим|water|vik|
 reservoir`. Provenance strings: `db:water-*` / `water/*.json`. Note: any `/water/*.json` path
@@ -582,7 +660,12 @@ natural key that survives TRUNCATE+reload). Examples:
   загуби map.
 - **Phase 4 (Tier C):** МОСВ daily reservoirs (watcher `daily`) + "Язовири и воден режим" section
   + `/water/reservoirs` page + its map-based OG + a summer FB card. КЕВР business plans →
-  targets-vs-actuals.
+  targets-vs-actuals. Adopt the ERSAR traffic-light bands + IBNET/EU loss reference band.
+- **Phase 5 (signature — flood risk, §4.5b):** riverbed-cleaning procurement lens (Tier A, free)
+  first, then РЗПРН geodata (Tier C/D) → the flood-risk river map (`NetworkRiskMap`, roads-map
+  pattern), the "at-risk-but-unmaintained" league table + `/water/flood-risk`, `floodRisk` AI
+  tool, and the Напоителни flood-responsibility section. Highest-impact, most novel; can start
+  the maintenance-spend half immediately since it's corpus-only.
 - **Stretch (Tier D):** drinking-water quality (РЗИ/ИАОС nitrate zones) + `/water/quality`.
 
 ## 11. Open questions / risks
@@ -593,6 +676,29 @@ natural key that survives TRUNCATE+reload). Examples:
 - Sofia/Veolia scope labelling — must never read as a holding subsidiary.
 - "Investment" denominator for the hero spans procurement + ИСУН + КЕВР-reported figures;
   document which is shown to avoid double-count.
+- **Flood feature (§4.5b):** РЗПРН GIS lives across four basin-directorate sites in mixed formats
+  (shapefile appendices, WMS) — access + normalization is the hard part; start with the Tier-A
+  maintenance-spend half, add geodata incrementally. The risk score is *indicative*: РЗПРН↔
+  settlement and cleaning-contract↔river-segment joins are approximate — never assert a specific
+  flood was caused by a specific unlet contract; show the contracts and let the reader judge.
 
 ## 12. First social card (already in the data)
 "България инвестира 532 млн. лв. във ВиК през 2024 — а загубите на вода се качиха на 60,25%."
+(Flood-feature card, once §4.5b lands: "N населени места в риск от наводнения без нито един
+договор за почистване на речното корито от <година>.")
+
+## 13. Competitive context (why this wins)
+
+- **vs the regulators' own sites (КЕВР, МОСВ, basin directorates):** they hold the data but ship
+  it as annual PDFs and static GIS with no time series, no per-euro link, no cross-source join.
+  We are their reader-friendly front-end — the same relationship the roads pack has to АПИ's site.
+- **vs Ofwat/ERSAR/IBNET (world-best):** we borrow their strengths (comparative per-operator
+  framing, traffic-light quality bands, international reference ranges) and add what they lack —
+  the **procurement/EU-funds/financials join** (invest-vs-result) and the **flood-risk ×
+  maintenance-spend accountability** feature that no water dashboard anywhere ships.
+- **vs Bulgarian media & ИПИ/regionalprofiles.bg (competitor):** they run one-off flood/loss
+  investigations; we make it a living, per-place, click-through dashboard backed by the contracts.
+- **The moat:** three joins nobody else has assembled — (1) КЕВР performance × procurement spend,
+  (2) holding financials × EU funds × ownership tree, (3) flood-risk geodata × riverbed-cleaning
+  procurement × responsible party. Each is only possible because the corpus, funds, TR and geo
+  layers already live in one place.

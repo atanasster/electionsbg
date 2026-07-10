@@ -18,6 +18,8 @@
 
 import type { Contract, ContractTag } from "./types";
 import { canonicalEik, isValidEik } from "./eik";
+import { isUnp } from "./unp";
+import { overrideAmount } from "./amount_overrides";
 import { toEur } from "@/lib/currency";
 import { normaliseOrgName } from "../lib/normalize_name";
 import { disambiguateContractKeys, hashKey } from "./contract_key";
@@ -165,16 +167,32 @@ export const normalizeEopDay = (
     }
     const buyerName = normaliseOrgName(rec.buyerName ?? "");
 
-    const unp = (rec.uniqueProcurementNumber ?? "").trim();
+    // `uniqueProcurementNumber` is NOT always a УНП: for some ЦАИС-internal
+    // procedures the source publishes a `T…` id (e.g. "T56644") in the same
+    // field. Those still shape the ocid — which is where the `eop-T…` namespace
+    // comes from — but they must never reach `Contract.unp`, whose whole purpose
+    // is to join `tenders.unp`. Validate before emitting.
+    const procedureRef = (rec.uniqueProcurementNumber ?? "").trim();
+    const unp = isUnp(procedureRef) ? procedureRef : undefined;
     // Synthetic OCDS-style identifiers, namespaced with `eop-` so they can
     // never collide with the data.egov.bg OCDS corpus. The УНП is the natural
     // procedure key; contractNumber distinguishes contracts within a procedure.
-    const ocid = `eop-${unp || contractNumber}`;
-    const releaseId = `eop-${unp || "x"}-${contractNumber}`;
+    const ocid = `eop-${procedureRef || contractNumber}`;
+    const releaseId = `eop-${procedureRef || "x"}-${contractNumber}`;
 
     const date = parseBgDate(rec.publicationDate) ?? day;
     const dateSigned = parseBgDate(rec.contractDate);
-    const amount = parseBgNumber(rec.contractValue);
+    // The FULL contract value, before the multi-supplier split below. Publisher
+    // amount errors are corrected here (see amount_overrides.ts) so the split
+    // and every downstream aggregate work off the true figure.
+    const rawAmount = parseBgNumber(rec.contractValue);
+    const amount =
+      overrideAmount({
+        unp,
+        ocid,
+        contractId: contractNumber,
+        amount: rawAmount,
+      }) ?? rawAmount;
     const currency = (rec.contractCurrency ?? "").trim() || undefined;
     const amountEur = toEur(amount, currency) ?? undefined;
     const title = (rec.contractSubject || rec.tenderName || "").trim();
@@ -227,6 +245,10 @@ export const normalizeEopDay = (
         ocid,
         releaseId,
         contractId: contractNumber,
+        // Undefined when the source published no УНП, or a `T…` internal id in
+        // its place — those rows have no procedure to join to. Never synthesise
+        // one from the contract number or the T-id.
+        unp,
         tag,
         date,
         dateSigned,

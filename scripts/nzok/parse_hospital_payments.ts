@@ -74,6 +74,61 @@ const parseAsOf = (
 // separate tokens instead of merging "48" + "230 716" into a bogus "48 230 716".
 const AMOUNT_RE = /\d{1,3}(?:[ \t\u00a0]\d{3})+|\d+/g;
 
+// Same, but keeping a leading minus. The \u041b\u041f / \u041c\u0418 reports carry NEGATIVE figures
+// (a reversal or a clawback nets a facility's month, and occasionally its YTD,
+// below zero) which the \u0411\u041c\u041f report never does. Only used in lenient mode: a bare
+// `-?` in the \u0411\u041c\u041f path would let a hyphen inside a facility name ("\u041a\u041e\u0426 - \u0411\u0443\u0440\u0433\u0430\u0441")
+// swallow the following digit. Here the minus must sit immediately before a digit,
+// so "- \u0411\u0443\u0440\u0433\u0430\u0441" cannot match while "-4 680" does.
+const SIGNED_AMOUNT_RE = /-?\d{1,3}(?:[ \t\u00a0]\d{3})+|-?\d+/g;
+
+/**
+ * Which of the three monthly per-hospital reports a file is. \u041d\u0417\u041e\u041a publishes them
+ * side by side on the same `bmp/{year}` listing page, one per money stream, and a
+ * hospital's total \u041d\u0417\u041e\u041a income is the sum of all three. Parsing only `bmp` \u2014 as
+ * this module did originally \u2014 understates every facility.
+ *
+ *   bmp      "\u0417\u0430\u043f\u043b\u0430\u0442\u0435\u043d\u0438 \u0437\u0434\u0440\u0430\u0432\u043d\u043e\u043e\u0441\u0438\u0433\u0443\u0440\u0438\u0442\u0435\u043b\u043d\u0438 \u043f\u043b\u0430\u0449\u0430\u043d\u0438\u044f \u0437\u0430 \u0411\u041c\u041f \u043f\u043e \u041b\u0417"
+ *   drugs    "\u0417\u0430\u043f\u043b\u0430\u0442\u0435\u043d\u0438 \u0441\u0440\u0435\u0434\u0441\u0442\u0432\u0430 \u0437\u0430 \u041b\u041f \u0432 \u0443\u0441\u043b\u043e\u0432\u0438\u044f\u0442\u0430 \u043d\u0430 \u0411\u041c\u041f \u043f\u043e \u041b\u0417"   (\u043b\u0435\u043a\u0430\u0440\u0441\u0442\u0432\u0435\u043d\u0438 \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0438)
+ *   devices  "\u0417\u0430\u043f\u043b\u0430\u0442\u0435\u043d\u0438 \u0441\u0440\u0435\u0434\u0441\u0442\u0432\u0430 \u0437\u0430 \u041c\u0418 \u043f\u0440\u0438\u043b\u0430\u0433\u0430\u043d\u0438 \u0432 \u0411\u041c\u041f \u043f\u043e \u041b\u0417"      (\u043c\u0435\u0434\u0438\u0446\u0438\u043d\u0441\u043a\u0438 \u0438\u0437\u0434\u0435\u043b\u0438\u044f)
+ */
+export type PaymentStream = "bmp" | "drugs" | "devices";
+
+/**
+ * The `drugs` / `devices` reports differ from `bmp` in three ways that would
+ * otherwise silently drop rows:
+ *
+ *  1. Their grand total is labelled "\u041e\u0411\u0429\u041e", not "\u041e\u0431\u0449\u043e \u0420\u0417\u041e\u041a".
+ *  2. A facility may report a single amount \u2014 the month column is left blank when
+ *     nothing moved that month \u2014 so the two-amount minimum drops the row.
+ *  3. Amounts can be negative.
+ *
+ * `bmp` keeps the strict reading, unchanged, so the shipped corpus and
+ * parse_hospital_payments.test.ts stay byte-identical.
+ */
+const isLenient = (s: PaymentStream): boolean => s !== "bmp";
+
+// In the `devices` report a facility's glyph boxes can overlap the amount column,
+// and `pdftotext -layout` then drops the amount's LEADING thousands group inside
+// the name:
+//
+//   layout: "… УМБАЛ ТОКУДА6EАД        735 587    0"
+//   raw:    "… УМБАЛ ТОКУДА EАД  6 735 587  0"      ← the truth
+//
+// `-raw` has the right reading but collapses the two amount columns into one
+// ambiguous run ("1 562 275 488 147 886 902"), so it cannot replace `-layout`.
+// Instead we move a digit run that sits GLUED BETWEEN TWO LETTERS back onto the
+// front of the row's next amount. The pattern requires letters on both sides with
+// no space, so a legitimate name numeral ("МБАЛ 2", "149 СУ") can never match —
+// verified zero hits across the `bmp` and `drugs` reports. Any mistake here is
+// caught by the whole-file reconciliation assert below, which is why the repair
+// is safe to apply unconditionally on the lenient streams.
+const repairGluedThousands = (tail: string): string =>
+  tail.replace(
+    /(\p{L})(\d{1,3})(\p{L}+)(\s+)(\d{1,3}(?:[ \t ]\d{3})+|\d+)/u,
+    "$1$3$4$2 $5",
+  );
+
 /** Pull the amounts off a row's accumulated tail (text after the reg number,
  *  possibly spanning wrapped lines).
  *
@@ -91,40 +146,61 @@ const AMOUNT_RE = /\d{1,3}(?:[ \t\u00a0]\d{3})+|\d+/g;
  *  rather than a wrong figure. */
 export const extractAmounts = (
   tail: string,
+  stream: PaymentStream = "bmp",
 ): { name: string; cumulative: number; month: number } | null => {
-  const all = [...tail.matchAll(AMOUNT_RE)];
-  if (all.length < 2) return null;
+  const lenient = isLenient(stream);
+  const re = () => new RegExp(lenient ? SIGNED_AMOUNT_RE : AMOUNT_RE);
+  const all = [...tail.matchAll(re())];
+  // `bmp` always prints both columns. `drugs`/`devices` leave the month blank
+  // when nothing moved, so one amount is a complete row there, not a dropped one.
+  if (all.length < (lenient ? 1 : 2)) return null;
 
-  // Candidate A — first amount after the last letter.
-  let lastLetter = -1;
-  for (const m of tail.matchAll(/\p{L}/gu)) lastLetter = m.index ?? lastLetter;
-  const region = lastLetter >= 0 ? tail.slice(lastLetter + 1) : "";
-  const rm = [...region.matchAll(AMOUNT_RE)];
-  const aVal = rm.length ? num(rm[0][0]) : NaN;
-  const aIdx = rm.length ? lastLetter + 1 + (rm[0].index ?? 0) : -1;
+  let cumulative: number;
+  let cumIdx: number;
+  let month: number;
 
-  // Candidate B — second-to-last amount of the whole row.
-  const bVal = num(all[all.length - 2][0]);
-  const bIdx = all[all.length - 2].index ?? -1;
+  if (all.length === 1) {
+    // Lenient-only: cumulative with no month column.
+    cumulative = num(all[0][0]);
+    cumIdx = all[0].index ?? -1;
+    month = 0;
+  } else {
+    // Candidate A — first amount after the last letter.
+    let lastLetter = -1;
+    for (const m of tail.matchAll(/\p{L}/gu))
+      lastLetter = m.index ?? lastLetter;
+    const region = lastLetter >= 0 ? tail.slice(lastLetter + 1) : "";
+    const rm = [...region.matchAll(re())];
+    const aVal = rm.length ? num(rm[0][0]) : NaN;
+    const aIdx = rm.length ? lastLetter + 1 + (rm[0].index ?? 0) : -1;
 
-  const useA =
-    Number.isFinite(aVal) && (!Number.isFinite(bVal) || aVal >= bVal);
-  const cumulative = useA ? aVal : bVal;
-  const cumIdx = useA ? aIdx : bIdx;
-  // Keep zero-payment facilities (cumulative €0) — they're counted in the
-  // facility total and contribute €0 to the sum; only a non-finite/negative
-  // reading is a genuine drop.
-  if (!Number.isFinite(cumulative) || cumulative < 0) return null;
+    // Candidate B — second-to-last amount of the whole row.
+    const bVal = num(all[all.length - 2][0]);
+    const bIdx = all[all.length - 2].index ?? -1;
 
-  // Reporting month — the amount right after the cumulative (in A's region, or
-  // the row's last amount for B). Zeroed when it reads larger than cumulative
-  // (a merged/wrapped month), so a wrong figure is never recorded.
-  let month = useA
-    ? rm.length >= 2
-      ? num(rm[1][0])
-      : NaN
-    : num(all[all.length - 1][0]);
-  if (!Number.isFinite(month) || month > cumulative) month = 0;
+    const useA =
+      Number.isFinite(aVal) && (!Number.isFinite(bVal) || aVal >= bVal);
+    cumulative = useA ? aVal : bVal;
+    cumIdx = useA ? aIdx : bIdx;
+
+    // Reporting month — the amount right after the cumulative (in A's region, or
+    // the row's last amount for B). Zeroed when it reads larger than cumulative
+    // (a merged/wrapped month), so a wrong figure is never recorded. A negative
+    // month is legitimate in the lenient streams and must survive the check.
+    month = useA
+      ? rm.length >= 2
+        ? num(rm[1][0])
+        : NaN
+      : num(all[all.length - 1][0]);
+    if (!Number.isFinite(month) || month > cumulative) month = 0;
+  }
+
+  // Keep zero-payment facilities (cumulative 0) — they're counted in the facility
+  // total and contribute 0 to the sum; only a non-finite reading is a genuine
+  // drop. A negative cumulative is real in `drugs`/`devices` (a net clawback) and
+  // impossible in `bmp`, where it still means a misparse.
+  if (!Number.isFinite(cumulative)) return null;
+  if (!lenient && cumulative < 0) return null;
 
   const name = tail
     .slice(0, cumIdx >= 0 ? cumIdx : (all[0].index ?? 0))
@@ -140,10 +216,20 @@ export const extractAmounts = (
 // line). Region subtotals ("13  РЗОК Благоевград  …") and the grand total
 // ("381  Общо РЗОК  …") have no 10-digit reg number, so they never match.
 const ROW_START_RE = /^\s*(\d{2})\s+(\S[^\d]*?)\s+\d+\s+(\d{10})\b(.*)$/;
-const BREAK_RE = /Общо\s+РЗОК|^\s*\d+\s+РЗОК\s+\S/;
+// `bmp` labels its grand total "Общо РЗОК"; `drugs`/`devices` label theirs
+// "ОБЩО" (all-caps, no "РЗОК"). Both are followed by the per-РЗОК subtotals,
+// which carry no 10-digit reg number and so can never match ROW_START_RE.
+//
+// The right boundary is `(?!\p{L})` with the `u` flag, NEVER `\b`: JavaScript's
+// `\b` is ASCII-only, so it does not fire after a Cyrillic letter — `/ОБЩО\b/`
+// silently matches nothing, the grand total reads 0, and the reconciliation
+// assert below turns itself off. Same footgun as lib/bmp_links.ts.
+const BREAK_RE = /Общо\s+РЗОК|^\s*\d+\s+ОБЩО(?!\p{L})|^\s*\d+\s+РЗОК\s+\S/u;
+const TOTAL_RE = /(\d+)\s+(?:Общо\s+РЗОК|ОБЩО)(?!\p{L})/u;
 
 export const parseHospitalPaymentsPdf = (
   pdfPath: string,
+  stream: PaymentStream = "bmp",
 ): HospitalPaymentsFile => {
   const res = spawnSync("pdftotext", ["-layout", pdfPath, "-"], {
     encoding: "utf8",
@@ -166,12 +252,14 @@ export const parseHospitalPaymentsPdf = (
   // "380  Общо РЗОК  368 752 383  182 964 878  185 787 505" (3). Facility count
   // leads; cumulative is the FIRST amount after the label (the wide-gutter one),
   // even when the trailing month columns merge under a single space.
-  const totalLine = lines.find((l) => /Общо\s+РЗОК/.test(l));
+  const totalLine = lines.find((l) => TOTAL_RE.test(l));
   if (totalLine) {
-    const cnt = totalLine.match(/(\d+)\s+Общо\s+РЗОК/);
+    const cnt = totalLine.match(TOTAL_RE);
     if (cnt) headerFacilityCount = Number(cnt[1]);
-    const after = totalLine.replace(/^.*Общо\s+РЗОК/, "");
-    const amts = [...after.matchAll(AMOUNT_RE)].map((mm) => num(mm[0]));
+    const after = totalLine.replace(/^.*?(?:Общо\s+РЗОК|ОБЩО)/, "");
+    const amts = [
+      ...after.matchAll(isLenient(stream) ? SIGNED_AMOUNT_RE : AMOUNT_RE),
+    ].map((mm) => num(mm[0]));
     if (amts.length >= 1) totalCumulativeEur = asEur(amts[0]);
   }
 
@@ -187,7 +275,10 @@ export const parseHospitalPaymentsPdf = (
   } | null = null;
   const flush = () => {
     if (!pending) return;
-    const parsed = extractAmounts(pending.tail);
+    const tail = isLenient(stream)
+      ? repairGluedThousands(pending.tail)
+      : pending.tail;
+    const parsed = extractAmounts(tail, stream);
     if (parsed)
       rows.push({
         rzokCode: pending.rzokCode,
@@ -222,9 +313,10 @@ export const parseHospitalPaymentsPdf = (
   // Completeness assert — Σ facility YTD must reconcile to the header grand
   // total within a small rounding tolerance (the euro conversion + the
   // per-facility rounding). A large drift means the parser dropped rows.
-  if (totalCumulativeEur > 0) {
+  if (Math.abs(totalCumulativeEur) > 0) {
     const sum = rows.reduce((s, r) => s + r.cumulativeEur, 0);
-    const drift = Math.abs(sum - totalCumulativeEur) / totalCumulativeEur;
+    const drift =
+      Math.abs(sum - totalCumulativeEur) / Math.abs(totalCumulativeEur);
     if (drift > 0.005)
       throw new Error(
         `reconciliation failed for ${pdfPath}: Σ facilities €${sum} vs header €${totalCumulativeEur} (drift ${(drift * 100).toFixed(2)}%, ${rows.length} rows parsed vs ${headerFacilityCount} expected)`,

@@ -21,6 +21,7 @@
 
 import type { Contract, ContractTag } from "./types";
 import { canonicalEik, isValidEik } from "./eik";
+import { overrideAmount } from "./amount_overrides";
 import { toEur } from "@/lib/currency";
 import { normaliseOrgName } from "../lib/normalize_name";
 import { disambiguateContractKeys, hashKey } from "./contract_key";
@@ -321,10 +322,20 @@ export const normalizeBundle = (
               return false;
             return true;
           }).length || 1;
+        // Correct publisher-side amount errors on the FULL contract value, before
+        // the split — the OCDS bundles republish the same corrupted figures as the
+        // legacy CSV and the ЕОП flat feed. See amount_overrides.ts. OCDS releases
+        // carry no УНП, so the override is keyed on the ocid.
+        const contractAmount =
+          overrideAmount({
+            ocid: release.ocid,
+            contractId: contract.id,
+            amount: contract.value?.amount,
+          }) ?? contract.value?.amount;
         const perAmount =
-          contract.value?.amount != null
-            ? contract.value.amount / emittedSupplierCount
-            : contract.value?.amount;
+          contractAmount != null
+            ? contractAmount / emittedSupplierCount
+            : contractAmount;
         for (const supplierRef of suppliers) {
           const supplier = contractorFields(release, supplierRef);
           if (!supplier) {

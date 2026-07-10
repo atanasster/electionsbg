@@ -25,6 +25,7 @@ export const COLUMNS: ColumnDef[] = [
   { field: "ocid", col: "ocid", kind: "text" },
   { field: "releaseId", col: "release_id", kind: "text" },
   { field: "contractId", col: "contract_id", kind: "text" },
+  { field: "unp", col: "unp", kind: "text" },
   { field: "tag", col: "tag", kind: "text" },
   { field: "date", col: "date", kind: "text" },
   { field: "dateSigned", col: "date_signed", kind: "text" },

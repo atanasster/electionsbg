@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-10T10:20:54.249Z",
+  "generatedAt": "2026-07-10T15:07:03.473Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -620,7 +620,7 @@
         },
         {
           "id": "nzok_hospital_bmp",
-          "label": "НЗОК болнични плащания по лечебни заведения (nhif.bg)",
+          "label": "НЗОК болнични плащания по лечебни заведения — БМП/ЛП/МИ (nhif.bg)",
           "url": "https://www.nhif.bg/bg/hospitals/bmp",
           "cadence": "monthly",
           "freshness": "2026-07-08T06:09:00.761Z"
@@ -633,11 +633,23 @@
           "freshness": "2026-07-08T06:09:00.761Z"
         },
         {
+          "id": "nzok_drug_unit_prices",
+          "label": "НЗОК Справка 5 (ПЛС2) — реимбурсирани лекарства по лечебни заведения",
+          "url": "https://nhif.bg/bg/nzok/medicine/5",
+          "cadence": "monthly"
+        },
+        {
           "id": "nzok_execution_b1",
           "label": "НЗОК касово изпълнение B1 (nhif.bg)",
           "url": "https://www.nhif.bg/bg/nzok/financial_report/quarter",
           "cadence": "monthly",
           "freshness": "2026-07-08T06:09:00.761Z"
+        },
+        {
+          "id": "mh_eeof_quarterly",
+          "label": "МЗ финансови показатели на болниците (ЕЕОФ, тримесечно)",
+          "url": "https://www.mh.government.bg/bg/politiki/standart-za-finansovo-upravlenie-na-drzhavnite-lechebni-zavedeni/",
+          "cadence": "monthly"
         },
         {
           "id": "policy_baseline_local",
