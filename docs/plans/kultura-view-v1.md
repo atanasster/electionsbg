@@ -1,6 +1,6 @@
 # Култура (Culture) view — v1 plan
 
-**Status:** draft, post-audit + UI/UX + allowlist freeze + choropleth decision (rev 2.3). Ready to scope implementation.
+**Status:** draft, post-audit + UI/UX + allowlist + choropleth + jury-data validation (rev 2.4). **Phase 0 complete — ready to build Phase 1.**
 Reading order: §1 (what exists) → §3 (architecture) → §3.1 (UI/UX) → §5/§5.1 (data + tile
 inventory) → §14 (phasing). §5.1 is the build list.
 **Owner:** —
@@ -231,8 +231,12 @@ These four, mapped onto our surfaces, are the differentiators — adopt them exp
 1. **Success rate — applied vs funded** per program/session (ACE, Creative Australia). A
    rare, powerful accountability metric. Source: НФК/НФЦ session results carry both.
 2. **Decision-body transparency** — show the jury/художествена комисия per award (Creative
-   Australia, ACE), and flag jury↔recipient overlap via the connections graph. **Gated on
-   §6 data availability — validate before designing the tile.**
+   Australia, ACE). **VALIDATED (§6): the data is published** (nfc.bg commission pages +
+   appointment заповеди, the latter scanned→OCR). Split in two: **(9a)** a "кой решава"
+   tile that just publishes each session's commission composition — cheap, safe, a real
+   differentiator — ship it; **(9b)** the jury↔recipient overlap/conflict flag — Phase 3,
+   name-match-gated, same-session-scoped, phrased "flagged for review," never asserted
+   (defamation risk — jurors are working filmmakers who get subsidies by design).
 3. **"Is my area under-funded?"** — the per-capita choropleth (ACE Culture & Place). This is
    the citizen hook and the hero (c/d).
 4. **Recipient concentration / celebrity-vs-independent split** — the ranked-bar tile + a
@@ -359,7 +363,8 @@ on `/awarder/000695160`, **B** = `/culture/grants` browser. Viz keys map to §3.
 | 6 | **Awarder roster** — each cultural body as a buyer | S | linked list, `hasPack` pill (clone `JudicialAwardersTile`) | allowlist × contracts | 1 |
 | 7 | Subsidies over time (by year / by cabinet `?cabinet=`) | S | stacked BarChart time-spine + YoY annotation | corpus | 1→2 |
 | 8 | **НФК grants + success rate** (applied vs funded) | S | paired/stacked bar or ratio meter | НФК PDFs | 2 |
-| 9 | **Jury / decision-body + conflict lens** — *gated on §6 data* | S | roster + connections-graph flag | jury data (unvalidated) | 2* |
+| 9a | **„Кой решава" — commission composition per session** (validated §6) | S | member list per заповед/session | nfc.bg HTML + заповед OCR | 2 |
+| 9b | **Jury↔recipient conflict flag** — same-session only, "flagged for review" | S | roster + connections flag, name-match-gated | 9a × films × connections | 3 |
 | 10 | Pack: CPV→function category tile | P | donut (clone `RoadWorkGroupDonut`) | contracts | 2 |
 | 11 | Pack: KPI (subsidies/yr vs МК budget yr) + statutory-supplier callout | P | stat tiles + amber callout | contracts + budget | 2 |
 | 12 | Grants browser — facets discipline×year×oblast×program×status, `?q=`, CSV export | B | DbDataTable | corpus (→PG if large) | 3 |
@@ -368,10 +373,11 @@ on `/awarder/000695160`, **B** = `/culture/grants` browser. Viz keys map to §3.
 | 15 | Sofia Програма „Култура" (municipal, labelled "извън държавния бюджет") + читалища | S | tiles / map | Sofia HTML · ДВ | 3 |
 
 Notes: **no budget-bridge hero** — the МК ministry page already owns budget/programs/
-execution (§1); the pack (11) is a thin sliver and must survive an empty scope. Tile 9 is
-the headline differentiator but its data is unconfirmed (§6, §15) — design only after Phase 0
-validates it. Tiles 1 and 14 depend on the `OblastChoropleth` decision (§12) and per-institute
-data (§15) respectively.
+execution (§1); the pack (11) is a thin sliver and must survive an empty scope. Tile 9
+was the headline differentiator; §6 **validated** the data exists but is scanned→OCR + carries
+defamation risk, so it splits: **9a** (commission composition — cheap, safe, ships in Phase 2)
+and **9b** (conflict flag — Phase 3, name-match-gated, "flagged for review" only). Tile 1
+depends on the `OblastChoropleth` decision (§3.1d, resolved) and tile 14 on per-institute data (§15).
 
 Confirmed figures: МК 2026 budget **€269.4M**; читалища 2026 **€11,240/unit × 7,856 ≈
 €88.3M**; НФК 2026 **18.3M лв ≈ €9.36M**; Sofia 2026 **€2.3M, 119/455 funded**.
@@ -393,9 +399,32 @@ artists** as well as companies. Therefore:
   but decide explicitly whether to (a) publish them as published, (b) suppress a
   connections lookup for physical persons. Recommend (a) + no auto-linking to the
   connections graph without an EIK.
-- **The jury↔recipient conflict lens is NOT yet sourceable.** Research did not confirm
-  that НФЦ художествени комисии membership is published in machine-readable form. Treat
-  it as a **hypothesis to validate before designing the tile**, not a v1 deliverable.
+- **The jury↔recipient conflict lens — VALIDATED (2026-07-10): the data IS published, but
+  not machine-readable, and the tile carries defamation risk.** Findings:
+  - НФЦ has three национални художествени комисии (игрално / документално / анимационно кино),
+    each ~7–9 members appointed by the Executive Director for a fixed mandate, drawn by
+    **lottery (жребий)** from an expert register; a member cannot serve two consecutive
+    mandates. Compositions are public via (i) per-commission **HTML "Членове" pages** on
+    nfc.bg (current members) and (ii) **appointment orders (заповеди)** naming each composition
+    (e.g. Заповед № 1/05.01.2026; № 59/12.03.2026) + lottery protocols (жребий).
+  - **BUT the заповед PDFs are SCANNED images (CCITT Fax, no text layer)** → OCR required
+    (the budget capital-programmes Gemini-Vision path). Only the *current* HTML page is
+    directly parseable; the *historical* compositions needed to join past sessions are OCR-only.
+  - **Temporal join:** commissions are per-mandate (annual/6-month); attributing an award to
+    the right jurors means joining the award's `Протокол на ФК` (date/number, in the register)
+    to the mandate active then. Per-session.
+  - **Defamation trap:** jurors ARE working filmmakers who receive subsidies in *other*
+    sessions by design — so "juror also got money" is near-universal and NOT wrongdoing. The
+    only defensible signal is a juror on the **same session** that funded a project they are
+    connected to (company / co-production / family), and even that is name-matched (PII, no
+    EIK for persons). A loose definition defames.
+  - **Verdict → split the tile.** (9a) A **"кой решава" commission-transparency tile** — just
+    publish the compositions per session (who decided the money) — is cheap (HTML now, OCR for
+    history), zero defamation risk, and already a differentiator nobody ships. Do this.
+    (9b) The **overlap/conflict lens** is Phase 3, behind name-match confidence gating, scoped
+    to same-session connections only, and phrased as **"flagged for review," never asserted**,
+    always citing the заповед + protocol. It is the highest-risk, highest-cost tile — not a
+    blocker, but not a v1 deliverable.
 
 **Currency:** НФЦ amounts are historical BGN → convert at ingest (÷1.95583). Post
 2026-01-01 sources are natively EUR — handle the mixed regime explicitly
@@ -551,8 +580,10 @@ A phase isn't "done" until its data is watched (§8), self-verified (§9), on th
 - ~~Choose `OblastChoropleth` extract-vs-clone~~ **DONE** (§3.1d): **extract, consume** —
   Култура imports the shared primitive; builds it (behaviour-preserving) only if it ships
   before Води/judiciary/education, else inherits theirs. Not a code task until the map tile.
-- Validate whether НФЦ jury membership is published at all (§6). If not, drop the conflict
-  tile from scope.
+- ~~Validate whether НФЦ jury membership is published~~ **DONE** (§6): it IS published
+  (nfc.bg commission pages + appointment заповеди, the заповеди scanned→OCR). Tile splits
+  into 9a (commission transparency — ship) + 9b (conflict flag — Phase 3, name-match-gated,
+  "flagged for review" only). Not dropped; not a blocker.
 
 **Phase 1 (the product):** `data/culture/films.json` from the НФЦ `.xls` (JSON, no PG) +
 the `/culture` dedicated view — **tiles 1–7 in §5.1** (per-capita hero map + search,
@@ -576,10 +607,18 @@ records (clone the `/procurement/contract/:id` stack) if grant volume justifies 
 1. ~~**НФЦ EIK**~~ **RESOLVED** = `000695833` (§2). Remaining: reconcile Tier B against МК's
    full 103-unit / 74-ДКИ register (Дирекция СИХО) for complete roster coverage, and resolve
    the "verify-principal" regional theatres/museums. Not a blocker for Phase 1–2.
-2. **Jury/commission data** — sourceability unvalidated. The conflict-of-interest lens is
-   the headline differentiator; if the data doesn't exist, the story changes.
+2. ~~**Jury/commission data — sourceability**~~ **RESOLVED** (§6): published (nfc.bg pages +
+   заповеди, scanned→OCR). Remaining product call: **9a** (commission transparency) is a
+   clear ship; **9b** (conflict flag) needs a policy sign-off on the "flagged for review,
+   same-session, name-match-gated" framing before build — a defamation-risk decision, not a
+   data one.
 3. **Theatre subsidy-per-ticket** — per-institute delegated budgets aren't published;
    МК's own overspend lists give a partial path without a ЗДОИ. Ship Phase 1 without it?
 4. **Physical-person recipients** — publish names as published (recommended), and suppress
    auto-linking to the connections graph absent an EIK?
-5. **`OblastChoropleth`** — who owns the extraction, this plan or the water plan?
+5. ~~**`OblastChoropleth`** ownership~~ **RESOLVED** (§3.1d): extract & consume; whoever ships
+   first builds it. No open question — a coordination note, not a decision.
+
+**Phase 0 is complete.** All three blockers resolved (НФЦ EIK + allowlist, `OblastChoropleth`,
+jury data). Remaining items above are Phase-2/3 refinements + one policy sign-off (9b), none
+blocking a Phase-1 start.
