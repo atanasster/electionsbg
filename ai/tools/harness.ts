@@ -17,7 +17,10 @@ import {
   scoreScenario,
 } from "./taxPolicy";
 import {
+  PENSION_POLICY_CURRENT,
   resolveSpendingBases,
+  scoreMpPayFreeze,
+  scorePensionIndexation,
   scoreSpendingChange,
 } from "../../src/lib/bgTaxPolicy";
 import type { PolicyBaselineFile } from "../../src/data/budget/types";
@@ -1273,15 +1276,37 @@ const run = async () => {
   // policy_baseline figures, else the curated constants) so the goldens track a
   // baseline regeneration instead of drifting against hard-coded literals.
   const spendBases = resolveSpendingBases(baseline.expenditure);
+  const exp = baseline.expenditure;
+  assert(!!exp, "policy_baseline carries an expenditure block");
   const parity: [string, number][] = [
     ["какво става ако ддс стане 21%", 447e6],
     ["ддс върху храните да стане 9%", -1425e6],
     ["what if income tax goes to 12%", 755e6],
     ["колко струва необлагаем минимум от 620 евро", -1937e6],
     ["какво става ако премахнем тавана на осигурителния доход", 1145e6],
-    // expenditure levers (balance convention: positive = balance improves)
-    ["пенсиите да се индексират само по инфлация", 479e6],
-    ["ковид добавката да не се индексира", 57e6],
+    // expenditure levers (balance convention: positive = balance improves).
+    // The two pension levers are priced off the Swiss-rule blend, whose wage
+    // leg (`pensions.wageGrowthPct`) is live Eurostat data — a frozen literal
+    // drifts on every baseline regeneration (a 11.76→12.05 wage-growth print
+    // moved the indexation lever 479→495M). Derive them from the baseline the
+    // same way __test_ai_parity.ts does; a spend cut improves the balance, so
+    // the contribution is the negation.
+    [
+      "пенсиите да се индексират само по инфлация",
+      -scorePensionIndexation(exp!.pensions, {
+        cpiWeight: 1,
+        indexSupplement: true,
+        horizonYears: PENSION_POLICY_CURRENT.horizonYears,
+      }),
+    ],
+    [
+      "ковид добавката да не се индексира",
+      -scorePensionIndexation(exp!.pensions, {
+        cpiWeight: PENSION_POLICY_CURRENT.cpiWeight,
+        indexSupplement: false,
+        horizonYears: PENSION_POLICY_CURRENT.horizonYears,
+      }),
+    ],
     ["съкращаване на администрацията с 10%", 30e6],
     // NET of the two channels: the SSC/PIT forgone on private below-floor
     // wages (−€229M) MINUS the public-sector payroll the budget avoids paying
@@ -1306,7 +1331,11 @@ const run = async () => {
     ["съкращаване на майчинството до 1 година", 154e6],
     ["учителските заплати на 125% от средната", -143e6],
     ["минималната пенсия на 400 €", -963e6],
-    ["замразяване на депутатските заплати", 2e6],
+    // MP pay rides the same live wageGrowthPct — derived, not frozen.
+    [
+      "замразяване на депутатските заплати",
+      -scoreMpPayFreeze(exp!.pensions.wageGrowthPct),
+    ],
     ["премахване на партийните субсидии", 9e6],
     // Excise levers (revenue side; static central — the screen's headline is
     // the dynamic estimate). Fuel/tobacco/alcohol = % change to the existing
