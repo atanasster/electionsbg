@@ -26,6 +26,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { parseCsvRows, normRow } from "../../lib/csv";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -46,11 +47,25 @@ const fetchText = async (url: string): Promise<string> => {
   return await res.text();
 };
 
+// The data.egov.bg /resource/download endpoint has an outage mode where it
+// 302-redirects to the portal HTML shell but still answers HTTP 200 (verified
+// 2026-06-28; see reference_egov_api_endpoints). A naïve res.ok check writes
+// that HTML verbatim as `${year}.csv`, silently poisoning the cache. Validate
+// the content-type and sniff for an HTML doctype before trusting the bytes.
+const looksLikeHtml = (buf: Buffer): boolean =>
+  /^\s*(<!doctype html|<html)/i.test(buf.subarray(0, 200).toString("utf8"));
+
 const fetchBuffer = async (url: string): Promise<Buffer> => {
   const res = await fetch(url, { headers: { "User-Agent": UA } });
   if (!res.ok)
     throw new Error(`HTTP ${res.status} ${res.statusText} for ${url}`);
-  return Buffer.from(await res.arrayBuffer());
+  const ctype = res.headers.get("content-type") ?? "";
+  const buf = Buffer.from(await res.arrayBuffer());
+  if (/text\/html/i.test(ctype) || looksLikeHtml(buf))
+    throw new Error(
+      `egov returned HTML, not a file, for ${url} (content-type: ${ctype || "?"}) — likely the /resource/download outage; retry later or use the dataset bulk-zip`,
+    );
+  return buf;
 };
 
 const round = (n: number, dp = 2) => Math.round(n * 10 ** dp) / 10 ** dp;
@@ -130,11 +145,21 @@ export const discoverDziResources = async (): Promise<ResourceRef[]> => {
     .sort((a, b) => a.year - b.year);
 };
 
+// A cached file is only trusted if it is genuinely CSV — a size check alone is
+// not enough, because the egov outage writes a ~170 KB HTML page that sails past
+// any byte-count guard (that is exactly how the 2022-2025 caches got poisoned).
+const cachedCsvIsValid = (dest: string): boolean => {
+  if (!fs.existsSync(dest) || fs.statSync(dest).size <= 1024) return false;
+  const head = fs
+    .readFileSync(dest, { encoding: "utf8", flag: "r" })
+    .slice(0, 200);
+  return !/^\s*(<!doctype html|<html)/i.test(head);
+};
+
 const ensureCsv = async (ref: ResourceRef, force: boolean): Promise<string> => {
   if (!fs.existsSync(RAW_DIR)) fs.mkdirSync(RAW_DIR, { recursive: true });
   const dest = path.join(RAW_DIR, `${ref.year}.csv`);
-  if (!force && fs.existsSync(dest) && fs.statSync(dest).size > 1024)
-    return dest;
+  if (!force && cachedCsvIsValid(dest)) return dest;
   const buf = await fetchBuffer(`${DOWNLOAD_BASE}/${ref.uuid}/csv`);
   fs.writeFileSync(dest, buf);
   return dest;
@@ -156,57 +181,15 @@ type SchoolRow = {
   scoreSum: number;
 };
 
-const parseCsvLine = (line: string): string[] => {
-  const cells: string[] = [];
-  let buf = "";
-  let inQuotes = false;
-  for (let i = 0; i < line.length; i++) {
-    const c = line[i];
-    if (c === '"') {
-      inQuotes = !inQuotes;
-    } else if (c === "," && !inQuotes) {
-      cells.push(buf);
-      buf = "";
-    } else {
-      buf += c;
-    }
-  }
-  cells.push(buf);
-  return cells;
-};
-
 const parseCsv = (file: string, year: number): SchoolRow[] => {
   // The CSV uses CR/LF; values may contain newlines inside quoted headers.
   // Strip BOM (U+FEFF), normalise CRLF→LF.
   const text = fs.readFileSync(file, "utf8").replace(/^\uFEFF/, "");
-  // The header row in older files spans multiple lines (newlines inside the
-  // quoted column names). Walk character by character to assemble logical
-  // rows that respect quote boundaries.
-  const rows: string[][] = [];
-  let cur = "";
-  let inQuotes = false;
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i];
-    if (c === '"') inQuotes = !inQuotes;
-    if (c === "\n" && !inQuotes) {
-      rows.push(parseCsvLine(cur));
-      cur = "";
-    } else if (c === "\r" && !inQuotes) {
-      // skip
-    } else {
-      cur += c;
-    }
-  }
-  if (cur.length > 0) rows.push(parseCsvLine(cur));
+  // The header row in older files spans multiple lines (newlines inside quoted
+  // column names); parseCsvRows walks char-by-char respecting quote boundaries.
+  const rows = parseCsvRows(text);
   if (rows.length < 2)
     throw new Error(`mon_dzi parseCsv(${file}): only ${rows.length} rows`);
-
-  // Normalise header cells in row 0 — strip leading BOM (U+FEFF) and
-  // collapse internal whitespace.
-  const stripBom = (s: string): string =>
-    s.charCodeAt(0) === 0xfeff ? s.slice(1) : s;
-  const normRow = (row: string[]) =>
-    row.map((h) => stripBom(h).replace(/\s+/g, " ").trim());
   const header = normRow(rows[0]);
 
   const oblastIdx = header.findIndex((c) => /област/i.test(c));

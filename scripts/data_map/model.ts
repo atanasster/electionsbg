@@ -104,7 +104,7 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
     dataset: "macro",
   },
   {
-    pattern: /^\/(indicators|regional|landuse|schools)/,
+    pattern: /^\/(indicators|regional|landuse|schools|education)/,
     dataset: "indicators",
   },
   {

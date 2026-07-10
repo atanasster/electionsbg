@@ -997,7 +997,7 @@ const DB_ROUTES = {
     ).catch(missingMigrationEmpty);
     return { body: rows[0]?.payload ?? null };
   },
-  // ── Schools / education serving (school_payloads, migration 054) ─────────────
+  // ── Schools / education serving (school_payloads, migration 055) ─────────────
   // The 'directory' blob (key '') is the whole /education dataset with the SES +
   // value-added verdicts precomputed in the loader — one PK seek, ~150 KB, vs the
   // 1.25 MB raw index the client used to fetch and regress itself.
@@ -1009,6 +1009,26 @@ const DB_ROUTES = {
       [kind, key],
     ).catch(missingMigrationEmpty);
     return { body: rows[0]?.payload ?? null };
+  },
+  // A school's own /company/:eik (or /awarder/:eik) page → its report card. Reads
+  // the RELATIONAL schools table via idx_schools_eik — the entity-graph join
+  // (schools.eik = awarder EIK), not the directory blob — so the company page can
+  // surface "this EIK is a school" and link to /school/:id. One EIK can carry
+  // several НЕИСПУО units (stages sharing a legal entity); pick the most-populous
+  // latest cohort. null when the EIK isn't a matched school.
+  "school-by-eik": async (dbRows, q) => {
+    const eik = s(q, "eik");
+    if (!eik) return { body: null };
+    const rows = await dbRows(
+      `SELECT id, name, obshtina, oblast, latest_year AS "latestYear",
+              latest_bel AS "latestBel", latest_n AS "latestN"
+         FROM schools
+        WHERE eik = $1
+        ORDER BY latest_n DESC NULLS LAST, id
+        LIMIT 1`,
+      [eik],
+    ).catch(missingMigrationRows);
+    return { body: rows[0] ?? null };
   },
   // ── КЗП „Колко струва" prices (migration 048) ───────────────────────────────
   // Every dashboard payload the old data/prices/*.json tree served, keyed by

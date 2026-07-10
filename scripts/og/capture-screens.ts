@@ -334,6 +334,17 @@ const captures: Capture[] = [
     extraCss: "[data-community-banner]{display:none!important;}",
   },
   {
+    slug: "education",
+    routePath: "education",
+    // The "score vs context" scatter (each dot a school, positioned by community
+    // context vs matura, with the expectation line) is the signature visual.
+    waitFor: '[data-og="context-scatter"] svg circle',
+    anchor: '[data-og="context-scatter"]',
+    centerOnAnchor: true,
+    settleMs: 2500,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
     slug: "subsidies",
     routePath: "subsidies",
     // KPI row (paid / recipients / top-100 share / largest scheme) sitting above

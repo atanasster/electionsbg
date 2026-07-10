@@ -38,6 +38,7 @@ import {
   subsidiesByScheme,
   subsidiesForEntity,
 } from "./subsidies";
+import { schoolMatura } from "./education";
 import {
   nzokBudget,
   nzokDrugs,
@@ -3022,6 +3023,33 @@ export const TOOLS: ToolDef[] = [
       { bg: "Каква е безработицата в Сливен?", en: "Unemployment in Sliven?" },
     ],
     run: subnationalIndicator,
+  },
+  {
+    name: "schoolMatura",
+    domain: "indicators",
+    description: {
+      bg: "Успех на конкретно училище на държавната матура (ДЗИ) по БЕЛ — среден успех, брой зрелостници, класация и социално-икономическа среда.",
+      en: "A specific school's state-matura (ДЗИ) Bulgarian-language average — score, graduates, national rank and socioeconomic context.",
+    },
+    params: [
+      {
+        name: "school",
+        type: "person",
+        required: true,
+        description: {
+          bg: "Име на училище (напр. СМГ, Първа езикова Варна)",
+          en: "School name (e.g. SMG, First Language School Varna)",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Как се справя Софийската математическа гимназия на матурата?",
+        en: "How does Sofia Math Gymnasium do on the matura?",
+      },
+      { bg: "Успех на матурата на 91 НЕГ", en: "Matura score of 91 NEG" },
+    ],
+    run: schoolMatura,
   },
   {
     name: "rankPlaces",

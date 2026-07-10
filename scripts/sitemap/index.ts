@@ -7,6 +7,7 @@ import {
   type SeoProcurementSettlement,
 } from "../db/lib/seo_settlements";
 import { INSTITUTION_PACKS } from "../prerender/institutions";
+import { isCrawlableSchool } from "@/data/schools/schoolBel";
 import { ElectionInfo, PartyInfo, SectionIndex } from "@/data/dataTypes";
 
 type SettlementBundleEntry = { ekatte?: string; oblast?: string };
@@ -730,6 +731,32 @@ enumerateVotes("");
 for (const inst of INSTITUTION_PACKS) {
   pushUrl(`/awarder/${inst.eik}`, today);
   pushUrl(`/en/awarder/${inst.eik}`, today);
+}
+
+// Per-school pages (/school/:id) — one URL per school with a numeric НЕИСПУО id
+// and a latest БЕЛ matura score, matching buildSchoolRoutes in the prerender
+// (which only emits those). Enumerated from data/schools/index.json, same
+// source of truth. BG + EN, since both languages are prerendered.
+{
+  const schoolsIdx = `${projectPath}/data/schools/index.json`;
+  if (fs.existsSync(schoolsIdx)) {
+    const lastmod = safeFileMod(schoolsIdx);
+    const idx = JSON.parse(fs.readFileSync(schoolsIdx, "utf-8"));
+    for (const recs of Object.values(
+      idx.schoolsByObshtina as Record<
+        string,
+        { id: string; scoresByYear: Record<string, Record<string, number>> }[]
+      >,
+    )) {
+      for (const rec of recs) {
+        // Same gate as buildSchoolRoutes (numeric id + a latest ДЗИ БЕЛ score) so
+        // the sitemap and the prerendered pages stay in lockstep.
+        if (!isCrawlableSchool(rec)) continue;
+        pushUrl(`/school/${rec.id}`, lastmod);
+        pushUrl(`/en/school/${rec.id}`, lastmod);
+      }
+    }
+  }
 }
 
 // English mirrors for dynamic party routes — every BG /party/X URL also has

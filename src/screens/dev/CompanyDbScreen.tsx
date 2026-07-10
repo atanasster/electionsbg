@@ -66,6 +66,7 @@ import { CompanyConnectionCheck } from "../components/procurement/CompanyConnect
 import { NzokHospitalReimbursementTile } from "../components/procurement/nzok/NzokHospitalReimbursementTile";
 import { NzokActivityByEikTile } from "../components/procurement/nzok/NzokActivityByEikTile";
 import { NzokFinancialHealthStrip } from "@/screens/components/procurement/nzok/NzokFinancialHealthStrip";
+import { SchoolIdentityTile } from "../components/procurement/mon/SchoolIdentityTile";
 import {
   CabinetTimelineTile,
   type CabinetRow,
@@ -673,6 +674,10 @@ export const CompanyDbScreen: FC = () => {
               <ProcurementScopeControl value={scope} onChange={setScope} />
             </div>
           )}
+          {/* Entity-graph identity — this EIK is a school (schools.eik join).
+              Self-hides unless the EIK matched a school; links to its report
+              card on /school/:id. */}
+          <SchoolIdentityTile eik={eik} />
           {/* Money IN — НЗОК hospital-care reimbursement. Self-hides unless this
               EIK is a matched hospital; sits above the ЗОП (money-out) tiles. */}
           <NzokHospitalReimbursementTile eik={eik} />

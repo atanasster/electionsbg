@@ -798,6 +798,22 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `АПИ е възложила ${f(env, "total_value")} по ${f(env, "contracts")} договора (${f(env, "single_bid_share")} с една оферта, ${f(env, "direct_award_share")} без търг). Най-голям коридор: ${f(env, "top_corridor")}; пик: ${f(env, "peak_year")}. Най-„заключен“ пазар: ${f(env, "most_captured_work")}.`
         : `АПИ awarded ${f(env, "total_value")} across ${f(env, "contracts")} contracts (${f(env, "single_bid_share")} single-bid, ${f(env, "direct_award_share")} direct). Largest corridor: ${f(env, "top_corridor")}; peak year: ${f(env, "peak_year")}. Most captured market: ${f(env, "most_captured_work")}.`;
+    case "schoolMatura": {
+      if (!env.facts.matura_bel) return env.title;
+      const pctPart = env.facts.percentile
+        ? lang === "bg"
+          ? ` — по-добре от ${f(env, "percentile")}% от училищата`
+          : ` — above ${f(env, "percentile")}% of schools`
+        : "";
+      const ctxPart = env.facts.context
+        ? lang === "bg"
+          ? ` Средата на общината е ${f(env, "context")} (индекс ${f(env, "context_index")}).`
+          : ` The municipality's context is ${f(env, "context")} (index ${f(env, "context_index")}).`
+        : "";
+      return lang === "bg"
+        ? `${f(env, "school")} има среден успех ${f(env, "matura_bel")} на матурата по БЕЛ през ${f(env, "year")} г. (${f(env, "graduates")} зрелостници)${pctPart}.${ctxPart}`
+        : `${f(env, "school")} averaged ${f(env, "matura_bel")} on the ${f(env, "year")} Bulgarian matura (${f(env, "graduates")} graduates)${pctPart}.${ctxPart}`;
+    }
     default:
       return env.title;
   }

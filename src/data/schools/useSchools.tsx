@@ -14,6 +14,16 @@ export type SchoolRecord = {
   address?: string;
   loc?: string;
   scoresByYear: Record<string, Partial<Record<SchoolSubjectKey, number>>>;
+  // Per-year, per-subject examinee count (cohort size) — for small-N
+  // suppression + confidence intervals. Absent on years/subjects with no count.
+  countsByYear?: Record<string, Partial<Record<SchoolSubjectKey, number>>>;
+  // 7th-grade НВО score in POINTS (0–100) by year — the prior-attainment
+  // baseline for value-added ("напредък 7→12 клас"). NVO in year Y is the intake
+  // of the ДЗИ cohort in year Y+5.
+  nvoByYear?: Record<string, { bel?: number; math?: number }>;
+  // ЕИК (Bulstat), resolved from the procurement awarder corpus (match_eik.ts).
+  // Present only for confident matches; enables the school's own procurement.
+  eik?: string;
 };
 
 export type SchoolsFile = {

@@ -10,6 +10,7 @@ import {
   Votes,
 } from "@/data/dataTypes";
 import { EURO_ADOPTION } from "@/data/prices/euroBaseline";
+import { hasCrawlableId, latestBel } from "@/data/schools/schoolBel";
 import { DATA_URL, PrerenderRoute, SITE_URL } from "./routes";
 import { readProcurementSeoSettlements } from "../db/lib/seo_settlements";
 import {
@@ -2898,6 +2899,129 @@ export const buildBudgetMinistryRoutes = (
 const escapeHtmlMinimal = (s: string): string =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
+// One thin, crawlable prerendered page per school (/school/:id), from the same
+// data/schools/index.json + data/education/school_context.json the SPA serves.
+// The win is crawlable HTML + internal links per the SEO-discovery memo — the
+// SPA otherwise shows a no-JS crawler the homepage meta (a soft-duplicate). We
+// keep it to schools with a numeric НЕИСПУО id (URL/filesystem-safe) and a
+// latest БЕЛ matura score; the rare fallback-id schools still resolve via the
+// SPA. BG + EN, mirroring buildBudgetMinistryRoutes.
+export const buildSchoolRoutes = (projectRoot: string): PrerenderRoute[] => {
+  const idxFile = path.join(projectRoot, "data/schools/index.json");
+  if (!fs.existsSync(idxFile)) return [];
+  const idx = JSON.parse(fs.readFileSync(idxFile, "utf-8"));
+  const ctxFile = path.join(projectRoot, "data/education/school_context.json");
+  const ctx: Record<string, { ses: number; shareTertiary: number }> =
+    fs.existsSync(ctxFile)
+      ? (JSON.parse(fs.readFileSync(ctxFile, "utf-8")).byObshtina ?? {})
+      : {};
+  const muniFile = path.join(projectRoot, "data/municipalities.json");
+  const muni: { obshtina: string; name: string; name_en: string }[] =
+    fs.existsSync(muniFile)
+      ? JSON.parse(fs.readFileSync(muniFile, "utf-8"))
+      : [];
+  const nameByCode = new Map(
+    muni.map((m) => [m.obshtina, { bg: m.name, en: m.name_en }]),
+  );
+
+  const routes: PrerenderRoute[] = [];
+  for (const [obshtina, recs] of Object.entries(
+    idx.schoolsByObshtina as Record<
+      string,
+      {
+        id: string;
+        name: string;
+        address?: string;
+        scoresByYear: Record<string, Record<string, number>>;
+        countsByYear?: Record<string, Record<string, number>>;
+      }[]
+    >,
+  )) {
+    const mn =
+      obshtina === "SOF00"
+        ? { bg: "Столична община", en: "Sofia" }
+        : (nameByCode.get(obshtina) ?? { bg: obshtina, en: obshtina });
+    const ses = ctx[obshtina];
+    for (const rec of recs) {
+      if (!hasCrawlableId(rec)) continue; // URL/filesystem-safe ids only
+      const bel = latestBel(rec);
+      if (!bel) continue;
+      // Latest maths (independent of the БЕЛ gate — a school can have БЕЛ but no
+      // published maths average).
+      let math: { year: number; score: number } | null = null;
+      for (const y of Object.keys(rec.scoresByYear)
+        .map(Number)
+        .sort((a, b) => b - a)) {
+        const m = rec.scoresByYear[String(y)]?.dzi_math;
+        if (typeof m === "number") {
+          math = { year: y, score: m };
+          break;
+        }
+      }
+
+      const nm = escapeHtmlMinimal(rec.name);
+      const place = rec.address ? escapeHtmlMinimal(rec.address) : "";
+      const path_ = `school/${rec.id}`;
+      const url = `${SITE_URL}/${path_}`;
+      const enUrl = `${SITE_URL}/en/${path_}`;
+      const s2 = (v: number) => v.toFixed(2);
+
+      const ctxBg = ses
+        ? ` Средата на община ${escapeHtmlMinimal(mn.bg)} е ${ses.ses >= 0 ? "над" : "под"} средната за страната (индекс ${ses.ses.toFixed(1)}); ${ses.shareTertiary}% от възрастните са с висше образование.`
+        : "";
+      const ctxEn = ses
+        ? ` The context of ${escapeHtmlMinimal(mn.en)} municipality is ${ses.ses >= 0 ? "above" : "below"} the national average (index ${ses.ses.toFixed(1)}); ${ses.shareTertiary}% of adults hold a tertiary degree.`
+        : "";
+      const mathBg = math
+        ? ` Матура по математика (${math.year} г.): ${s2(math.score)}.`
+        : "";
+      const mathEn = math
+        ? ` Maths matura (${math.year}): ${s2(math.score)}.`
+        : "";
+
+      const titleBg = `${rec.name} — резултати от матурата (ДЗИ) | electionsbg.com`;
+      const titleEn = `${rec.name} — state matura (ДЗИ) results | electionsbg.com`;
+      const descBg = `Среден успех от държавната зрелостна матура по БЕЛ за ${nm}${place ? ` (${place})` : ""}: ${s2(bel.score)} през ${bel.year} г. — спрямо социално-икономическата среда на общината. По данни на МОН.`;
+      const descEn = `State matura (Bulgarian) average for ${nm}${place ? ` (${place})` : ""}: ${s2(bel.score)} in ${bel.year} — set against the municipality's socioeconomic context. Sourced from the Ministry of Education.`;
+
+      routes.push({
+        path: path_,
+        title: titleBg,
+        description: descBg,
+        ogImage: "/og/education.png",
+        bodyHtml: `<h1>${nm} — матура</h1><p>${nm}${place ? ` (${place})` : ""}, община ${escapeHtmlMinimal(mn.bg)}. На държавната зрелостна матура по български език и литература през ${bel.year} г. средният успех е ${s2(bel.score)}${bel.n ? ` (${bel.n} зрелостници)` : ""}.${mathBg}${ctxBg}</p><p>Виж <a href="${SITE_URL}/education">всички училища и матури</a> и <a href="${SITE_URL}/governance/${obshtina}">данните за община ${escapeHtmlMinimal(mn.bg)}</a>.</p>`,
+        jsonLd: [
+          buildWebPageLd({ title: titleBg, description: descBg, url }),
+          buildBreadcrumbLd([
+            { name: "Начало", url: `${SITE_URL}/` },
+            { name: "Училища и матури", url: `${SITE_URL}/education` },
+            { name: rec.name, url },
+          ]),
+        ],
+        english: {
+          title: titleEn,
+          description: descEn,
+          bodyHtml: `<h1>${nm} — state matura</h1><p>${nm}${place ? ` (${place})` : ""}, ${escapeHtmlMinimal(mn.en)} municipality. On the ${bel.year} state matura in Bulgarian language its average was ${s2(bel.score)}${bel.n ? ` (${bel.n} graduates)` : ""}.${mathEn}${ctxEn}</p><p>See <a href="${SITE_URL}/en/education">all schools &amp; matura</a> and <a href="${SITE_URL}/en/governance/${obshtina}">data for ${escapeHtmlMinimal(mn.en)} municipality</a>.</p>`,
+          jsonLd: [
+            buildWebPageLd({
+              title: titleEn,
+              description: descEn,
+              url: enUrl,
+              inLanguage: "en",
+            }),
+            buildBreadcrumbLd([
+              { name: "Home", url: `${SITE_URL}/en/` },
+              { name: "Schools & matura", url: `${SITE_URL}/en/education` },
+              { name: rec.name, url: enUrl },
+            ]),
+          ],
+        },
+      });
+    }
+  }
+  return routes;
+};
+
 // One prerendered HTML page per packed institution awarder (/awarder/:eik).
 // These are the high-profile buyers whose awarder dashboard grows a domain
 // pack — АПИ (roads), НОИ (ДОО), НЗОК (health) — or an administering-agency card
@@ -3349,6 +3473,7 @@ export const buildDynamicRoutes = async (
     ...(await buildArticleRoutes(path.join(projectRoot, "public"))),
     ...buildBudgetMinistryRoutes(projectRoot),
     ...buildInstitutionAwarderRoutes(),
+    ...buildSchoolRoutes(projectRoot),
     ...buildOfficialRoutes(projectRoot),
     ...(await buildProcurementSettlementRoutes()),
     ...buildFundsThemeRoutes(projectRoot),

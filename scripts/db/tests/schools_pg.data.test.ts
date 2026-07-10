@@ -1,0 +1,164 @@
+// Tier 3 (Postgres-native) — integrity invariants over the loaded schools
+// serving layer (migration 055): the relational dim/fact tables AND the
+// precomputed 'directory' payload the /education + /school/:id pages read.
+// Guards against a loader regression silently shipping an empty or inconsistent
+// education dataset — test:data would otherwise assert nothing about it.
+//
+//   npm run test:data   (or DB_VERIFY=1 npm run db:verify)
+//
+// Requires the Postgres store (`npm run db:pg:up` + `db:load:schools:pg`);
+// auto-skips when Postgres is unreachable or the schools table is absent — so CI
+// (no container, no corpus) skips it, like the other *_pg.data.test.ts files.
+
+import { test, after } from "node:test";
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { allRows, end } from "../lib/pg";
+
+const ROOT = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "..",
+  "..",
+  "..",
+);
+
+// Recompute the expected school_scores tuple count straight from the ingest
+// index — the same rule the loader uses (numeric ДЗИ subject-years + numeric
+// НВО bel/math). Independent of the DB so it catches silent ON CONFLICT drops.
+const expectedScoreRows = (): number => {
+  const idx = JSON.parse(
+    readFileSync(path.join(ROOT, "data/schools/index.json"), "utf8"),
+  ) as {
+    schoolsByObshtina: Record<
+      string,
+      {
+        scoresByYear: Record<string, Record<string, number>>;
+        nvoByYear?: Record<string, { bel?: number; math?: number }>;
+      }[]
+    >;
+  };
+  let n = 0;
+  for (const recs of Object.values(idx.schoolsByObshtina)) {
+    for (const rec of recs) {
+      for (const subs of Object.values(rec.scoresByYear))
+        for (const v of Object.values(subs))
+          if (typeof v === "number" && Number.isFinite(v)) n++;
+      for (const nv of Object.values(rec.nvoByYear ?? {})) {
+        if (typeof nv.bel === "number") n++;
+        if (typeof nv.math === "number") n++;
+      }
+    }
+  }
+  return n;
+};
+
+const reachable = async (): Promise<boolean> => {
+  try {
+    await allRows("SELECT 1");
+    const [t] = await allRows<{ ok: boolean }>(
+      "SELECT to_regclass('public.schools') IS NOT NULL AS ok",
+    );
+    return !!t?.ok;
+  } catch {
+    return false;
+  }
+};
+
+const haveDb = await reachable();
+const skip = haveDb ? false : "Postgres unreachable / schools table absent";
+
+after(async () => {
+  await end();
+});
+
+test("directory payload exists and is non-empty", { skip }, async () => {
+  const [r] = await allRows<{ n: number }>(
+    `SELECT jsonb_array_length(payload -> 'schools')::int AS n
+       FROM school_payloads WHERE kind = 'directory' AND key = ''`,
+  );
+  assert.ok(r, "no 'directory' payload row (loader did not write it)");
+  assert.ok(
+    r.n > 0,
+    `directory payload has ${r?.n} schools — expected the full corpus`,
+  );
+});
+
+test(
+  "schools table row count matches the directory payload",
+  { skip },
+  async () => {
+    const [tbl] = await allRows<{ n: number }>(
+      "SELECT count(*)::int AS n FROM schools",
+    );
+    const [pay] = await allRows<{ n: number }>(
+      `SELECT jsonb_array_length(payload -> 'schools')::int AS n
+       FROM school_payloads WHERE kind = 'directory' AND key = ''`,
+    );
+    assert.equal(
+      tbl.n,
+      pay.n,
+      `schools table (${tbl.n}) ≠ directory payload (${pay.n}) — a dup id or ` +
+        `an ON CONFLICT DO NOTHING drop would undercount the relational table`,
+    );
+  },
+);
+
+test(
+  "school_scores row count matches the index (no silent ON CONFLICT drops)",
+  { skip },
+  async () => {
+    const [db] = await allRows<{ n: number }>(
+      "SELECT count(*)::int AS n FROM school_scores",
+    );
+    const expected = expectedScoreRows();
+    assert.equal(
+      db.n,
+      expected,
+      `school_scores has ${db.n} rows but the index yields ${expected} tuples — ` +
+        `a duplicate (school_id,year,subject) would be silently dropped by ` +
+        `ON CONFLICT DO NOTHING in load_schools_pg.ts`,
+    );
+  },
+);
+
+test("no orphan score rows (every fact has a school)", { skip }, async () => {
+  const [r] = await allRows<{ n: number }>(
+    `SELECT count(*)::int AS n FROM school_scores f
+       WHERE NOT EXISTS (SELECT 1 FROM schools s WHERE s.id = f.school_id)`,
+  );
+  assert.equal(
+    r.n,
+    0,
+    `${r.n} school_scores rows reference a missing school id`,
+  );
+});
+
+test("the SES + value-added regressions ran", { skip }, async () => {
+  // A verdict distribution proves the loader's OLS fits produced bands rather
+  // than silently null-ing out (e.g. too few rows, or a shape change upstream).
+  const [r] = await allRows<{ ses: number; va: number }>(
+    `SELECT
+       count(*) FILTER (WHERE (s ->> 'verdict') IS NOT NULL)::int   AS ses,
+       count(*) FILTER (WHERE (s ->> 'vaVerdict') IS NOT NULL)::int AS va
+     FROM school_payloads,
+          jsonb_array_elements(payload -> 'schools') AS s
+     WHERE kind = 'directory' AND key = ''`,
+  );
+  assert.ok(
+    r.ses > 0,
+    "no SES-context verdicts in the payload (regression null)",
+  );
+  assert.ok(
+    r.va > 0,
+    "no value-added verdicts in the payload (regression null)",
+  );
+});
+
+test("matched ЕИК is resolvable and non-blank", { skip }, async () => {
+  const [r] = await allRows<{ blank: number }>(
+    "SELECT count(*)::int AS blank FROM schools WHERE eik IS NOT NULL AND btrim(eik) = ''",
+  );
+  assert.equal(r.blank, 0, `${r.blank} schools carry a blank (non-null) eik`);
+});

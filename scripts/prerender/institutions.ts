@@ -173,4 +173,30 @@ export const INSTITUTION_PACKS: InstitutionPack[] = [
     ogAnchor: '[data-og="vss-bridge"]',
     ogSettleMs: 2500,
   },
+  {
+    eik: "000695114",
+    slug: "mon",
+    nameBg: "Министерство на образованието и науката",
+    nameEn: "Ministry of Education and Science (МОН)",
+    titleBg:
+      "Министерство на образованието и науката (МОН) — учебници и обществени поръчки | electionsbg.com",
+    titleEn:
+      "Ministry of Education and Science (МОН) — textbooks and procurement | electionsbg.com",
+    descriptionBg:
+      "Министерство на образованието и науката (ЕИК 000695114) — обществените поръчки на министерството плюс пазарът на учебници за €51 млн., в който два издателя (Клет и Просвета) държат около 74%. Свободните учебници за 1–12 клас се купуват от самите училища. По данни от АОП/ЦАИС ЕОП.",
+    descriptionEn:
+      "Ministry of Education and Science (МОН, EIK 000695114) — the ministry's procurement plus the €51M textbook market, where two publishers (Klett and Prosveta) hold about 74%. Free textbooks for grades 1–12 are bought by the schools themselves. Sourced from the АОП register.",
+    bodyBg: `
+<h1>Министерство на образованието и науката (МОН)</h1>
+<p>Министерство на образованието и науката (МОН, ЕИК 000695114) провежда държавната политика в образованието. Тази страница показва обществените поръчки на министерството от регистъра на АОП, но и нещо, което МОН не купува само — пазарът на учебници.</p>
+<p>Учебниците за €51 млн. се възлагат от 606 училища, не централно от министерството, и то по пряко договаряне с притежателя на авторските права (чл. 79 ЗОП). Пазарът е дуопол — Клет България (обединяваща Анубис и Булвест 2000) и групата на Просвета държат около 74%; индексът на концентрация (HHI) е над 2500 — силно концентриран пазар. Виж и <a href="${SITE}/procurement">обществените поръчки</a> и <a href="${SITE}/budget">държавния бюджет</a>.</p>`.trim(),
+    bodyEn: `
+<h1>Ministry of Education and Science of Bulgaria (МОН)</h1>
+<p>The Ministry of Education and Science (МОН, EIK 000695114) runs Bulgaria's education policy. This page shows the ministry's public procurement from the АОП register — and something the ministry does not buy itself: the textbook market.</p>
+<p>The €51M of textbooks is procured by 606 schools, not centrally, via direct award to the copyright holder (art. 79 ЗОП). The market is a duopoly — Klett Bulgaria (which absorbed Anubis and Bulvest 2000) and the Prosveta group hold about 74%; the concentration index (HHI) is above 2,500 — a highly concentrated market. See also <a href="${SITE}/en/procurement">public procurement</a> and the <a href="${SITE}/en/budget">state budget</a>.</p>`.trim(),
+    // Frame the textbook concentration tile (HHI gauge + publisher share bars).
+    ogAnchor: '[data-og="textbook-treemap"]',
+    ogCenter: true,
+    ogSettleMs: 3000,
+  },
 ];

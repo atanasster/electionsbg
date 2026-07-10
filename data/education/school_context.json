@@ -1,0 +1,1611 @@
+{
+  "source": {
+    "publisher": "НСИ — Преброяване 2021",
+    "path": "data/census/municipalities",
+    "note": "Индекс на средата на общината: равно претеглена стандартизирана комбинация от дял висше образование (+), дял основно и по-ниско (−) и безработица (−). Средна община = 0. Мярка за средата, не оценка на училището; умишлено социално-икономическа, не етническа."
+  },
+  "weights": {
+    "tertiary": 0.3333333333333333,
+    "lowEducation": -0.3333333333333333,
+    "unemployment": -0.3333333333333333
+  },
+  "count": 265,
+  "byObshtina": {
+    "BGS01": {
+      "ses": -0.09,
+      "shareTertiary": 13.9,
+      "shareLowEd": 15.6,
+      "unemployment": 14
+    },
+    "BGS04": {
+      "ses": 1.77,
+      "shareTertiary": 31.7,
+      "shareLowEd": 9.3,
+      "unemployment": 7
+    },
+    "BGS06": {
+      "ses": -0.87,
+      "shareTertiary": 12.1,
+      "shareLowEd": 19.8,
+      "unemployment": 22.9
+    },
+    "BGS08": {
+      "ses": -0.49,
+      "shareTertiary": 9.3,
+      "shareLowEd": 16.2,
+      "unemployment": 15.8
+    },
+    "BGS09": {
+      "ses": 0.13,
+      "shareTertiary": 15.5,
+      "shareLowEd": 14.3,
+      "unemployment": 13.3
+    },
+    "BGS12": {
+      "ses": -0.06,
+      "shareTertiary": 13.2,
+      "shareLowEd": 14.3,
+      "unemployment": 14.6
+    },
+    "BGS13": {
+      "ses": 0.38,
+      "shareTertiary": 18.2,
+      "shareLowEd": 12.2,
+      "unemployment": 15.4
+    },
+    "BGS15": {
+      "ses": 1.1,
+      "shareTertiary": 23.7,
+      "shareLowEd": 11.3,
+      "unemployment": 7.7
+    },
+    "BGS17": {
+      "ses": 0.37,
+      "shareTertiary": 17.9,
+      "shareLowEd": 13.6,
+      "unemployment": 12.7
+    },
+    "BGS18": {
+      "ses": -1.13,
+      "shareTertiary": 4.8,
+      "shareLowEd": 19.9,
+      "unemployment": 17.9
+    },
+    "BGS21": {
+      "ses": 0.72,
+      "shareTertiary": 17.5,
+      "shareLowEd": 10.8,
+      "unemployment": 8.4
+    },
+    "BGS23": {
+      "ses": -1.16,
+      "shareTertiary": 8.1,
+      "shareLowEd": 20.9,
+      "unemployment": 21.6
+    },
+    "BGS27": {
+      "ses": 0.76,
+      "shareTertiary": 17.4,
+      "shareLowEd": 10.5,
+      "unemployment": 8
+    },
+    "BLG01": {
+      "ses": 1.1,
+      "shareTertiary": 23.9,
+      "shareLowEd": 9.4,
+      "unemployment": 11.6
+    },
+    "BLG02": {
+      "ses": -1.21,
+      "shareTertiary": 11.1,
+      "shareLowEd": 17.2,
+      "unemployment": 35.3
+    },
+    "BLG03": {
+      "ses": 1.66,
+      "shareTertiary": 30.7,
+      "shareLowEd": 8.4,
+      "unemployment": 9.9
+    },
+    "BLG11": {
+      "ses": 0.66,
+      "shareTertiary": 17.7,
+      "shareLowEd": 10.9,
+      "unemployment": 10.2
+    },
+    "BLG13": {
+      "ses": -0.92,
+      "shareTertiary": 9.3,
+      "shareLowEd": 18,
+      "unemployment": 23.4
+    },
+    "BLG28": {
+      "ses": 0.22,
+      "shareTertiary": 12.9,
+      "shareLowEd": 10.6,
+      "unemployment": 14.4
+    },
+    "BLG33": {
+      "ses": 0.37,
+      "shareTertiary": 15.9,
+      "shareLowEd": 12.6,
+      "unemployment": 11.4
+    },
+    "BLG37": {
+      "ses": 0.65,
+      "shareTertiary": 18.7,
+      "shareLowEd": 10.6,
+      "unemployment": 12.7
+    },
+    "BLG40": {
+      "ses": 0.68,
+      "shareTertiary": 18.1,
+      "shareLowEd": 11.4,
+      "unemployment": 9.2
+    },
+    "BLG42": {
+      "ses": -0.32,
+      "shareTertiary": 10.8,
+      "shareLowEd": 12.4,
+      "unemployment": 21.3
+    },
+    "BLG44": {
+      "ses": 0.19,
+      "shareTertiary": 12,
+      "shareLowEd": 11.6,
+      "unemployment": 11.7
+    },
+    "BLG49": {
+      "ses": -0.51,
+      "shareTertiary": 8,
+      "shareLowEd": 18.3,
+      "unemployment": 10
+    },
+    "BLG52": {
+      "ses": -0.31,
+      "shareTertiary": 11.1,
+      "shareLowEd": 12,
+      "unemployment": 22.5
+    },
+    "BLG53": {
+      "ses": -0.34,
+      "shareTertiary": 12.1,
+      "shareLowEd": 13.4,
+      "unemployment": 22.1
+    },
+    "DOB03": {
+      "ses": 0.4,
+      "shareTertiary": 18.3,
+      "shareLowEd": 13.2,
+      "unemployment": 13.3
+    },
+    "DOB12": {
+      "ses": -0.43,
+      "shareTertiary": 12.4,
+      "shareLowEd": 16.6,
+      "unemployment": 18.6
+    },
+    "DOB15": {
+      "ses": -1.09,
+      "shareTertiary": 7.2,
+      "shareLowEd": 19.9,
+      "unemployment": 20.7
+    },
+    "DOB17": {
+      "ses": -0.23,
+      "shareTertiary": 15.7,
+      "shareLowEd": 19.2,
+      "unemployment": 13.3
+    },
+    "DOB20": {
+      "ses": -2.73,
+      "shareTertiary": 4,
+      "shareLowEd": 27.4,
+      "unemployment": 43.1
+    },
+    "DOB27": {
+      "ses": -1.08,
+      "shareTertiary": 9.6,
+      "shareLowEd": 19.7,
+      "unemployment": 24.7
+    },
+    "DOB28": {
+      "ses": 1.29,
+      "shareTertiary": 25,
+      "shareLowEd": 9.1,
+      "unemployment": 8.9
+    },
+    "DOB29": {
+      "ses": 0.63,
+      "shareTertiary": 16.3,
+      "shareLowEd": 9.3,
+      "unemployment": 11.8
+    },
+    "GAB05": {
+      "ses": 1.81,
+      "shareTertiary": 28.8,
+      "shareLowEd": 6.5,
+      "unemployment": 6.7
+    },
+    "GAB12": {
+      "ses": 1.23,
+      "shareTertiary": 22.7,
+      "shareLowEd": 8.1,
+      "unemployment": 9
+    },
+    "GAB29": {
+      "ses": 0.92,
+      "shareTertiary": 18.8,
+      "shareLowEd": 9.4,
+      "unemployment": 7.9
+    },
+    "GAB35": {
+      "ses": 1.4,
+      "shareTertiary": 20.6,
+      "shareLowEd": 5.6,
+      "unemployment": 6.3
+    },
+    "HKV09": {
+      "ses": 0.62,
+      "shareTertiary": 16.8,
+      "shareLowEd": 10.5,
+      "unemployment": 10.5
+    },
+    "HKV11": {
+      "ses": -0.03,
+      "shareTertiary": 13,
+      "shareLowEd": 11.5,
+      "unemployment": 19.2
+    },
+    "HKV17": {
+      "ses": -0.93,
+      "shareTertiary": 15.3,
+      "shareLowEd": 18.9,
+      "unemployment": 31.4
+    },
+    "HKV18": {
+      "ses": -0.57,
+      "shareTertiary": 10.9,
+      "shareLowEd": 16,
+      "unemployment": 20.9
+    },
+    "HKV19": {
+      "ses": -0.75,
+      "shareTertiary": 10.3,
+      "shareLowEd": 14.8,
+      "unemployment": 26.9
+    },
+    "HKV28": {
+      "ses": 0.44,
+      "shareTertiary": 20.6,
+      "shareLowEd": 13.3,
+      "unemployment": 15.7
+    },
+    "HKV29": {
+      "ses": -1.71,
+      "shareTertiary": 7.5,
+      "shareLowEd": 24.4,
+      "unemployment": 28
+    },
+    "HKV30": {
+      "ses": -0.98,
+      "shareTertiary": 7.1,
+      "shareLowEd": 17.6,
+      "unemployment": 22.1
+    },
+    "HKV32": {
+      "ses": -0.03,
+      "shareTertiary": 11.6,
+      "shareLowEd": 11.6,
+      "unemployment": 16.7
+    },
+    "HKV33": {
+      "ses": -0.14,
+      "shareTertiary": 14,
+      "shareLowEd": 16.6,
+      "unemployment": 13.4
+    },
+    "HKV34": {
+      "ses": 0.92,
+      "shareTertiary": 22.6,
+      "shareLowEd": 12.1,
+      "unemployment": 8.8
+    },
+    "JAM03": {
+      "ses": -0.98,
+      "shareTertiary": 9.2,
+      "shareLowEd": 18.2,
+      "unemployment": 24.3
+    },
+    "JAM07": {
+      "ses": 0.02,
+      "shareTertiary": 13.8,
+      "shareLowEd": 12.2,
+      "unemployment": 17.9
+    },
+    "JAM22": {
+      "ses": -1.26,
+      "shareTertiary": 8.1,
+      "shareLowEd": 23.7,
+      "unemployment": 18.8
+    },
+    "JAM25": {
+      "ses": -0.33,
+      "shareTertiary": 9.5,
+      "shareLowEd": 14.9,
+      "unemployment": 14.7
+    },
+    "JAM26": {
+      "ses": 1.15,
+      "shareTertiary": 24.7,
+      "shareLowEd": 11.3,
+      "unemployment": 8
+    },
+    "KNL04": {
+      "ses": 0.41,
+      "shareTertiary": 9.5,
+      "shareLowEd": 7.8,
+      "unemployment": 9.8
+    },
+    "KNL05": {
+      "ses": 0.47,
+      "shareTertiary": 11.7,
+      "shareLowEd": 7,
+      "unemployment": 13
+    },
+    "KNL27": {
+      "ses": 0.4,
+      "shareTertiary": 14.4,
+      "shareLowEd": 7.8,
+      "unemployment": 17.7
+    },
+    "KNL29": {
+      "ses": 1.18,
+      "shareTertiary": 21.7,
+      "shareLowEd": 8.3,
+      "unemployment": 8.3
+    },
+    "KNL31": {
+      "ses": 0.63,
+      "shareTertiary": 9.7,
+      "shareLowEd": 6.2,
+      "unemployment": 7.3
+    },
+    "KNL38": {
+      "ses": 0.76,
+      "shareTertiary": 18.3,
+      "shareLowEd": 8.4,
+      "unemployment": 13.7
+    },
+    "KNL41": {
+      "ses": 0.8,
+      "shareTertiary": 16,
+      "shareLowEd": 8,
+      "unemployment": 9.8
+    },
+    "KNL48": {
+      "ses": 1.1,
+      "shareTertiary": 22,
+      "shareLowEd": 9,
+      "unemployment": 9.5
+    },
+    "KNL50": {
+      "ses": 0.47,
+      "shareTertiary": 11.6,
+      "shareLowEd": 8.3,
+      "unemployment": 10.4
+    },
+    "KRZ02": {
+      "ses": -0.38,
+      "shareTertiary": 9.8,
+      "shareLowEd": 13,
+      "unemployment": 20
+    },
+    "KRZ08": {
+      "ses": -0.22,
+      "shareTertiary": 8.8,
+      "shareLowEd": 14.3,
+      "unemployment": 11.8
+    },
+    "KRZ14": {
+      "ses": -0.74,
+      "shareTertiary": 8,
+      "shareLowEd": 16.2,
+      "unemployment": 20
+    },
+    "KRZ15": {
+      "ses": -0.72,
+      "shareTertiary": 9.8,
+      "shareLowEd": 17.7,
+      "unemployment": 19.7
+    },
+    "KRZ16": {
+      "ses": 0.66,
+      "shareTertiary": 20,
+      "shareLowEd": 13.2,
+      "unemployment": 9.4
+    },
+    "KRZ21": {
+      "ses": 0.04,
+      "shareTertiary": 11.4,
+      "shareLowEd": 14.2,
+      "unemployment": 9.5
+    },
+    "KRZ35": {
+      "ses": -1.03,
+      "shareTertiary": 8.1,
+      "shareLowEd": 17.9,
+      "unemployment": 24.5
+    },
+    "LOV02": {
+      "ses": 1.2,
+      "shareTertiary": 20.2,
+      "shareLowEd": 5.5,
+      "unemployment": 10.9
+    },
+    "LOV17": {
+      "ses": -0.95,
+      "shareTertiary": 10.7,
+      "shareLowEd": 14.7,
+      "unemployment": 32.8
+    },
+    "LOV18": {
+      "ses": 1.62,
+      "shareTertiary": 26.8,
+      "shareLowEd": 7.3,
+      "unemployment": 7
+    },
+    "LOV19": {
+      "ses": -0.66,
+      "shareTertiary": 12.3,
+      "shareLowEd": 19.2,
+      "unemployment": 19.2
+    },
+    "LOV33": {
+      "ses": 0.19,
+      "shareTertiary": 13.6,
+      "shareLowEd": 11.4,
+      "unemployment": 14.7
+    },
+    "LOV34": {
+      "ses": 1.39,
+      "shareTertiary": 22.1,
+      "shareLowEd": 6.5,
+      "unemployment": 7
+    },
+    "LOV36": {
+      "ses": -0.91,
+      "shareTertiary": 11,
+      "shareLowEd": 15.6,
+      "unemployment": 30.6
+    },
+    "LOV38": {
+      "ses": -1.31,
+      "shareTertiary": 12.2,
+      "shareLowEd": 21.1,
+      "unemployment": 31.8
+    },
+    "MON02": {
+      "ses": 0.78,
+      "shareTertiary": 16.5,
+      "shareLowEd": 10.8,
+      "unemployment": 5.3
+    },
+    "MON04": {
+      "ses": -0.8,
+      "shareTertiary": 6.8,
+      "shareLowEd": 12.7,
+      "unemployment": 26.9
+    },
+    "MON07": {
+      "ses": -1.01,
+      "shareTertiary": 7.8,
+      "shareLowEd": 10.8,
+      "unemployment": 37.6
+    },
+    "MON11": {
+      "ses": -1.52,
+      "shareTertiary": 7.7,
+      "shareLowEd": 13.9,
+      "unemployment": 44.5
+    },
+    "MON12": {
+      "ses": 0.03,
+      "shareTertiary": 14.9,
+      "shareLowEd": 17.3,
+      "unemployment": 9.2
+    },
+    "MON14": {
+      "ses": 0.55,
+      "shareTertiary": 13.2,
+      "shareLowEd": 5.8,
+      "unemployment": 15.9
+    },
+    "MON24": {
+      "ses": 0.57,
+      "shareTertiary": 16.8,
+      "shareLowEd": 9.4,
+      "unemployment": 14.2
+    },
+    "MON26": {
+      "ses": -1.28,
+      "shareTertiary": 9.4,
+      "shareLowEd": 17.1,
+      "unemployment": 34.6
+    },
+    "MON29": {
+      "ses": 1.02,
+      "shareTertiary": 21.5,
+      "shareLowEd": 9.5,
+      "unemployment": 9.8
+    },
+    "MON36": {
+      "ses": -0.1,
+      "shareTertiary": 11.4,
+      "shareLowEd": 7.6,
+      "unemployment": 26.1
+    },
+    "MON38": {
+      "ses": -1.35,
+      "shareTertiary": 6.6,
+      "shareLowEd": 14.1,
+      "unemployment": 37.9
+    },
+    "PAZ03": {
+      "ses": -0.07,
+      "shareTertiary": 14.2,
+      "shareLowEd": 10.6,
+      "unemployment": 23.8
+    },
+    "PAZ04": {
+      "ses": 0.97,
+      "shareTertiary": 13.1,
+      "shareLowEd": 7,
+      "unemployment": 2.5
+    },
+    "PAZ06": {
+      "ses": 0.41,
+      "shareTertiary": 13.5,
+      "shareLowEd": 11.6,
+      "unemployment": 8.6
+    },
+    "PAZ08": {
+      "ses": -0.13,
+      "shareTertiary": 15.9,
+      "shareLowEd": 14,
+      "unemployment": 21.3
+    },
+    "PAZ14": {
+      "ses": -1.81,
+      "shareTertiary": 7.9,
+      "shareLowEd": 15.3,
+      "unemployment": 49.5
+    },
+    "PAZ19": {
+      "ses": 0.75,
+      "shareTertiary": 21,
+      "shareLowEd": 12.3,
+      "unemployment": 10.2
+    },
+    "PAZ20": {
+      "ses": 0.8,
+      "shareTertiary": 17,
+      "shareLowEd": 9,
+      "unemployment": 9.1
+    },
+    "PAZ21": {
+      "ses": 0.47,
+      "shareTertiary": 17.5,
+      "shareLowEd": 13.3,
+      "unemployment": 10.1
+    },
+    "PAZ24": {
+      "ses": -0.98,
+      "shareTertiary": 8.6,
+      "shareLowEd": 15.8,
+      "unemployment": 28
+    },
+    "PAZ29": {
+      "ses": -0.48,
+      "shareTertiary": 12.2,
+      "shareLowEd": 14.7,
+      "unemployment": 23
+    },
+    "PAZ32": {
+      "ses": 0.36,
+      "shareTertiary": 15.1,
+      "shareLowEd": 9.9,
+      "unemployment": 15.7
+    },
+    "PAZ39": {
+      "ses": -0.89,
+      "shareTertiary": 10.8,
+      "shareLowEd": 12.7,
+      "unemployment": 35.5
+    },
+    "PDV01": {
+      "ses": 0.75,
+      "shareTertiary": 18.5,
+      "shareLowEd": 10.5,
+      "unemployment": 9.9
+    },
+    "PDV07": {
+      "ses": -0.26,
+      "shareTertiary": 11,
+      "shareLowEd": 14.4,
+      "unemployment": 16.3
+    },
+    "PDV12": {
+      "ses": 0.15,
+      "shareTertiary": 10.9,
+      "shareLowEd": 11.7,
+      "unemployment": 10.8
+    },
+    "PDV13": {
+      "ses": 0.09,
+      "shareTertiary": 14.5,
+      "shareLowEd": 14.8,
+      "unemployment": 11.9
+    },
+    "PDV15": {
+      "ses": 0.4,
+      "shareTertiary": 11.5,
+      "shareLowEd": 12.4,
+      "unemployment": 4
+    },
+    "PDV17": {
+      "ses": 0.25,
+      "shareTertiary": 13.8,
+      "shareLowEd": 13.6,
+      "unemployment": 8.9
+    },
+    "PDV22": {
+      "ses": 1.94,
+      "shareTertiary": 35.2,
+      "shareLowEd": 10.4,
+      "unemployment": 6.2
+    },
+    "PDV23": {
+      "ses": 0.05,
+      "shareTertiary": 14,
+      "shareLowEd": 14.4,
+      "unemployment": 12.9
+    },
+    "PDV25": {
+      "ses": -0.21,
+      "shareTertiary": 10,
+      "shareLowEd": 17.2,
+      "unemployment": 7.7
+    },
+    "PDV26": {
+      "ses": 1.11,
+      "shareTertiary": 21.9,
+      "shareLowEd": 9.7,
+      "unemployment": 7.7
+    },
+    "PDV28": {
+      "ses": -0.38,
+      "shareTertiary": 10.1,
+      "shareLowEd": 15.8,
+      "unemployment": 15
+    },
+    "PDV33": {
+      "ses": 0.25,
+      "shareTertiary": 10.9,
+      "shareLowEd": 10.2,
+      "unemployment": 11.1
+    },
+    "PDV37": {
+      "ses": 0.86,
+      "shareTertiary": 16.7,
+      "shareLowEd": 8.9,
+      "unemployment": 7.5
+    },
+    "PDV39": {
+      "ses": -0.25,
+      "shareTertiary": 11.2,
+      "shareLowEd": 16.7,
+      "unemployment": 11.8
+    },
+    "PDV40": {
+      "ses": 0.16,
+      "shareTertiary": 13.9,
+      "shareLowEd": 14.6,
+      "unemployment": 9.5
+    },
+    "PDV41": {
+      "ses": 0.12,
+      "shareTertiary": 13.8,
+      "shareLowEd": 13.9,
+      "unemployment": 11.9
+    },
+    "PDV42": {
+      "ses": 0.61,
+      "shareTertiary": 16.3,
+      "shareLowEd": 10.8,
+      "unemployment": 9.3
+    },
+    "PDV43": {
+      "ses": 1.13,
+      "shareTertiary": 19.1,
+      "shareLowEd": 7.3,
+      "unemployment": 7.5
+    },
+    "PER08": {
+      "ses": 0.53,
+      "shareTertiary": 12.4,
+      "shareLowEd": 7.9,
+      "unemployment": 10.9
+    },
+    "PER19": {
+      "ses": 0.48,
+      "shareTertiary": 10.7,
+      "shareLowEd": 6.2,
+      "unemployment": 12.8
+    },
+    "PER22": {
+      "ses": 0.4,
+      "shareTertiary": 9.5,
+      "shareLowEd": 4.6,
+      "unemployment": 16.4
+    },
+    "PER32": {
+      "ses": 1.27,
+      "shareTertiary": 23.1,
+      "shareLowEd": 7.9,
+      "unemployment": 8.8
+    },
+    "PER36": {
+      "ses": 0.73,
+      "shareTertiary": 15.2,
+      "shareLowEd": 7.2,
+      "unemployment": 11.7
+    },
+    "PER51": {
+      "ses": -1.28,
+      "shareTertiary": 11.9,
+      "shareLowEd": 18,
+      "unemployment": 36.7
+    },
+    "PVN03": {
+      "ses": 0.74,
+      "shareTertiary": 15.8,
+      "shareLowEd": 8,
+      "unemployment": 10.9
+    },
+    "PVN08": {
+      "ses": -0.06,
+      "shareTertiary": 8.9,
+      "shareLowEd": 9,
+      "unemployment": 18.3
+    },
+    "PVN10": {
+      "ses": -0.32,
+      "shareTertiary": 9.6,
+      "shareLowEd": 12.2,
+      "unemployment": 20
+    },
+    "PVN11": {
+      "ses": -0.36,
+      "shareTertiary": 12,
+      "shareLowEd": 15,
+      "unemployment": 19.1
+    },
+    "PVN16": {
+      "ses": 0.2,
+      "shareTertiary": 13.7,
+      "shareLowEd": 11.8,
+      "unemployment": 13.7
+    },
+    "PVN21": {
+      "ses": -0.34,
+      "shareTertiary": 9.5,
+      "shareLowEd": 12.7,
+      "unemployment": 19.1
+    },
+    "PVN23": {
+      "ses": -0.46,
+      "shareTertiary": 9.8,
+      "shareLowEd": 12.3,
+      "unemployment": 23.7
+    },
+    "PVN24": {
+      "ses": 1.62,
+      "shareTertiary": 29.3,
+      "shareLowEd": 9,
+      "unemployment": 7.7
+    },
+    "PVN27": {
+      "ses": 0.08,
+      "shareTertiary": 10,
+      "shareLowEd": 10.7,
+      "unemployment": 13.1
+    },
+    "PVN37": {
+      "ses": 0.1,
+      "shareTertiary": 13.9,
+      "shareLowEd": 11.4,
+      "unemployment": 17.5
+    },
+    "PVN39": {
+      "ses": -0.52,
+      "shareTertiary": 13.6,
+      "shareLowEd": 11.5,
+      "unemployment": 32.8
+    },
+    "RAZ11": {
+      "ses": -0.79,
+      "shareTertiary": 8.5,
+      "shareLowEd": 18.6,
+      "unemployment": 17.5
+    },
+    "RAZ14": {
+      "ses": -0.53,
+      "shareTertiary": 11.9,
+      "shareLowEd": 16.3,
+      "unemployment": 20.7
+    },
+    "RAZ16": {
+      "ses": -0.75,
+      "shareTertiary": 10.9,
+      "shareLowEd": 15.7,
+      "unemployment": 26.1
+    },
+    "RAZ17": {
+      "ses": -0.46,
+      "shareTertiary": 8.4,
+      "shareLowEd": 13.8,
+      "unemployment": 18.5
+    },
+    "RAZ26": {
+      "ses": 1.11,
+      "shareTertiary": 23.5,
+      "shareLowEd": 9.9,
+      "unemployment": 9.9
+    },
+    "RAZ29": {
+      "ses": -1.42,
+      "shareTertiary": 6,
+      "shareLowEd": 20.5,
+      "unemployment": 26
+    },
+    "RAZ36": {
+      "ses": -0.14,
+      "shareTertiary": 9.8,
+      "shareLowEd": 11.1,
+      "unemployment": 17.6
+    },
+    "RSE03": {
+      "ses": -0.57,
+      "shareTertiary": 7.2,
+      "shareLowEd": 12.7,
+      "unemployment": 21.4
+    },
+    "RSE04": {
+      "ses": 0.04,
+      "shareTertiary": 16.4,
+      "shareLowEd": 13,
+      "unemployment": 19.9
+    },
+    "RSE05": {
+      "ses": -0.92,
+      "shareTertiary": 7.7,
+      "shareLowEd": 17.1,
+      "unemployment": 22.5
+    },
+    "RSE08": {
+      "ses": -0.4,
+      "shareTertiary": 11.2,
+      "shareLowEd": 14.8,
+      "unemployment": 19.3
+    },
+    "RSE13": {
+      "ses": 0.62,
+      "shareTertiary": 13.3,
+      "shareLowEd": 8.7,
+      "unemployment": 8.5
+    },
+    "RSE27": {
+      "ses": 1.68,
+      "shareTertiary": 28.2,
+      "shareLowEd": 7.7,
+      "unemployment": 7.1
+    },
+    "RSE33": {
+      "ses": -0.38,
+      "shareTertiary": 7.7,
+      "shareLowEd": 15,
+      "unemployment": 12.8
+    },
+    "RSE37": {
+      "ses": -0.39,
+      "shareTertiary": 10.2,
+      "shareLowEd": 10.3,
+      "unemployment": 26.6
+    },
+    "SFO06": {
+      "ses": 1.74,
+      "shareTertiary": 28.5,
+      "shareLowEd": 7.8,
+      "unemployment": 5.6
+    },
+    "SFO07": {
+      "ses": 0.91,
+      "shareTertiary": 21.4,
+      "shareLowEd": 10.4,
+      "unemployment": 10.5
+    },
+    "SFO09": {
+      "ses": 1.04,
+      "shareTertiary": 16.2,
+      "shareLowEd": 6.5,
+      "unemployment": 6.6
+    },
+    "SFO10": {
+      "ses": 0.81,
+      "shareTertiary": 14.3,
+      "shareLowEd": 8.7,
+      "unemployment": 5.2
+    },
+    "SFO16": {
+      "ses": 1.04,
+      "shareTertiary": 15.5,
+      "shareLowEd": 7.2,
+      "unemployment": 4.1
+    },
+    "SFO17": {
+      "ses": 1.21,
+      "shareTertiary": 21,
+      "shareLowEd": 9,
+      "unemployment": 5
+    },
+    "SFO18": {
+      "ses": 0.89,
+      "shareTertiary": 19.5,
+      "shareLowEd": 8.6,
+      "unemployment": 11.7
+    },
+    "SFO20": {
+      "ses": -0.12,
+      "shareTertiary": 12.6,
+      "shareLowEd": 19.1,
+      "unemployment": 5.7
+    },
+    "SFO24": {
+      "ses": 1.25,
+      "shareTertiary": 18.2,
+      "shareLowEd": 5.9,
+      "unemployment": 5.6
+    },
+    "SFO25": {
+      "ses": 0.73,
+      "shareTertiary": 17.1,
+      "shareLowEd": 7.6,
+      "unemployment": 13.9
+    },
+    "SFO26": {
+      "ses": 1.27,
+      "shareTertiary": 20.5,
+      "shareLowEd": 7.4,
+      "unemployment": 5.8
+    },
+    "SFO34": {
+      "ses": 0.22,
+      "shareTertiary": 18.6,
+      "shareLowEd": 15.8,
+      "unemployment": 13.2
+    },
+    "SFO39": {
+      "ses": 0.54,
+      "shareTertiary": 16.9,
+      "shareLowEd": 10.6,
+      "unemployment": 12.4
+    },
+    "SFO43": {
+      "ses": 1.02,
+      "shareTertiary": 15.8,
+      "shareLowEd": 7.4,
+      "unemployment": 4.8
+    },
+    "SFO45": {
+      "ses": 1.09,
+      "shareTertiary": 19.4,
+      "shareLowEd": 8.1,
+      "unemployment": 7.2
+    },
+    "SFO47": {
+      "ses": 1.02,
+      "shareTertiary": 17.1,
+      "shareLowEd": 8,
+      "unemployment": 5.6
+    },
+    "SFO54": {
+      "ses": 0.74,
+      "shareTertiary": 13.7,
+      "shareLowEd": 7.2,
+      "unemployment": 9
+    },
+    "SFO55": {
+      "ses": 1.19,
+      "shareTertiary": 21.1,
+      "shareLowEd": 8.3,
+      "unemployment": 7.2
+    },
+    "SFO56": {
+      "ses": 0.78,
+      "shareTertiary": 13.9,
+      "shareLowEd": 9.8,
+      "unemployment": 3.1
+    },
+    "SFO57": {
+      "ses": 0.27,
+      "shareTertiary": 15.6,
+      "shareLowEd": 10.5,
+      "unemployment": 17.9
+    },
+    "SFO58": {
+      "ses": 1,
+      "shareTertiary": 19.6,
+      "shareLowEd": 8.7,
+      "unemployment": 8.6
+    },
+    "SFO59": {
+      "ses": -1.02,
+      "shareTertiary": 12.7,
+      "shareLowEd": 18.6,
+      "unemployment": 30.2
+    },
+    "SHU07": {
+      "ses": -1.04,
+      "shareTertiary": 5.1,
+      "shareLowEd": 18,
+      "unemployment": 19.6
+    },
+    "SHU10": {
+      "ses": -1.95,
+      "shareTertiary": 6.3,
+      "shareLowEd": 22.4,
+      "unemployment": 36.5
+    },
+    "SHU11": {
+      "ses": -0.84,
+      "shareTertiary": 4.5,
+      "shareLowEd": 14.5,
+      "unemployment": 20.5
+    },
+    "SHU18": {
+      "ses": -2.08,
+      "shareTertiary": 5.2,
+      "shareLowEd": 20.2,
+      "unemployment": 42.3
+    },
+    "SHU19": {
+      "ses": -0.79,
+      "shareTertiary": 10.5,
+      "shareLowEd": 16.8,
+      "unemployment": 24.3
+    },
+    "SHU21": {
+      "ses": -2.44,
+      "shareTertiary": 4.5,
+      "shareLowEd": 25.2,
+      "unemployment": 40.6
+    },
+    "SHU22": {
+      "ses": -0.07,
+      "shareTertiary": 12.8,
+      "shareLowEd": 14.4,
+      "unemployment": 14.1
+    },
+    "SHU23": {
+      "ses": 0.09,
+      "shareTertiary": 14.4,
+      "shareLowEd": 11.9,
+      "unemployment": 17.5
+    },
+    "SHU25": {
+      "ses": -0.65,
+      "shareTertiary": 9.2,
+      "shareLowEd": 16.5,
+      "unemployment": 19.3
+    },
+    "SHU30": {
+      "ses": 1.51,
+      "shareTertiary": 27.9,
+      "shareLowEd": 9.1,
+      "unemployment": 8
+    },
+    "SLS01": {
+      "ses": -0.98,
+      "shareTertiary": 9.8,
+      "shareLowEd": 15.3,
+      "unemployment": 31
+    },
+    "SLS07": {
+      "ses": -1.31,
+      "shareTertiary": 8.5,
+      "shareLowEd": 20.1,
+      "unemployment": 28
+    },
+    "SLS10": {
+      "ses": -1.09,
+      "shareTertiary": 10.2,
+      "shareLowEd": 19.6,
+      "unemployment": 25.9
+    },
+    "SLS15": {
+      "ses": -3.88,
+      "shareTertiary": 3.4,
+      "shareLowEd": 35.2,
+      "unemployment": 56.2
+    },
+    "SLS31": {
+      "ses": 1.27,
+      "shareTertiary": 24.3,
+      "shareLowEd": 8.2,
+      "unemployment": 10.2
+    },
+    "SLS32": {
+      "ses": -1.1,
+      "shareTertiary": 7.6,
+      "shareLowEd": 16.6,
+      "unemployment": 28
+    },
+    "SLS34": {
+      "ses": 0.19,
+      "shareTertiary": 14.1,
+      "shareLowEd": 13.5,
+      "unemployment": 11.5
+    },
+    "SLV11": {
+      "ses": -2.24,
+      "shareTertiary": 8,
+      "shareLowEd": 24.3,
+      "unemployment": 42.9
+    },
+    "SLV16": {
+      "ses": -0.29,
+      "shareTertiary": 14.3,
+      "shareLowEd": 18.7,
+      "unemployment": 13.5
+    },
+    "SLV20": {
+      "ses": 0.07,
+      "shareTertiary": 19.1,
+      "shareLowEd": 18.6,
+      "unemployment": 12.2
+    },
+    "SLV24": {
+      "ses": -2.23,
+      "shareTertiary": 8.5,
+      "shareLowEd": 34.8,
+      "unemployment": 22.4
+    },
+    "SML02": {
+      "ses": -0.12,
+      "shareTertiary": 11.7,
+      "shareLowEd": 13.7,
+      "unemployment": 15.2
+    },
+    "SML05": {
+      "ses": -0.23,
+      "shareTertiary": 12.6,
+      "shareLowEd": 12.3,
+      "unemployment": 22
+    },
+    "SML09": {
+      "ses": 0.53,
+      "shareTertiary": 16,
+      "shareLowEd": 10.1,
+      "unemployment": 12.4
+    },
+    "SML10": {
+      "ses": 0.49,
+      "shareTertiary": 13.3,
+      "shareLowEd": 10.5,
+      "unemployment": 8.3
+    },
+    "SML11": {
+      "ses": 0.4,
+      "shareTertiary": 14.2,
+      "shareLowEd": 12.4,
+      "unemployment": 8.1
+    },
+    "SML16": {
+      "ses": 0.12,
+      "shareTertiary": 11.1,
+      "shareLowEd": 12.9,
+      "unemployment": 9.6
+    },
+    "SML18": {
+      "ses": -0.27,
+      "shareTertiary": 13.2,
+      "shareLowEd": 11.9,
+      "unemployment": 25
+    },
+    "SML27": {
+      "ses": 0.58,
+      "shareTertiary": 15.3,
+      "shareLowEd": 11.7,
+      "unemployment": 6.7
+    },
+    "SML31": {
+      "ses": 1.44,
+      "shareTertiary": 27.5,
+      "shareLowEd": 9.4,
+      "unemployment": 8.5
+    },
+    "SML38": {
+      "ses": 1.14,
+      "shareTertiary": 21,
+      "shareLowEd": 7.8,
+      "unemployment": 9
+    },
+    "SOF46": {
+      "ses": 2.7,
+      "shareTertiary": 43.6,
+      "shareLowEd": 8.1,
+      "unemployment": 4.5
+    },
+    "SZR04": {
+      "ses": -1.34,
+      "shareTertiary": 7.8,
+      "shareLowEd": 20.4,
+      "unemployment": 27
+    },
+    "SZR07": {
+      "ses": -0.29,
+      "shareTertiary": 9,
+      "shareLowEd": 11.2,
+      "unemployment": 20
+    },
+    "SZR12": {
+      "ses": 0.97,
+      "shareTertiary": 21.3,
+      "shareLowEd": 10.4,
+      "unemployment": 8.9
+    },
+    "SZR22": {
+      "ses": -2.03,
+      "shareTertiary": 8.9,
+      "shareLowEd": 26.9,
+      "unemployment": 33.7
+    },
+    "SZR23": {
+      "ses": -0.67,
+      "shareTertiary": 5.6,
+      "shareLowEd": 11.6,
+      "unemployment": 23.6
+    },
+    "SZR24": {
+      "ses": -0.79,
+      "shareTertiary": 9.5,
+      "shareLowEd": 19.8,
+      "unemployment": 16.6
+    },
+    "SZR27": {
+      "ses": 0.28,
+      "shareTertiary": 13.4,
+      "shareLowEd": 10.6,
+      "unemployment": 13.4
+    },
+    "SZR31": {
+      "ses": 1.54,
+      "shareTertiary": 28.8,
+      "shareLowEd": 10.1,
+      "unemployment": 6.9
+    },
+    "SZR36": {
+      "ses": -0.19,
+      "shareTertiary": 13.8,
+      "shareLowEd": 16.3,
+      "unemployment": 15
+    },
+    "SZR37": {
+      "ses": -2.06,
+      "shareTertiary": 8,
+      "shareLowEd": 27,
+      "unemployment": 32.8
+    },
+    "SZR38": {
+      "ses": -3.36,
+      "shareTertiary": 5.7,
+      "shareLowEd": 36.9,
+      "unemployment": 43
+    },
+    "TGV02": {
+      "ses": -2.1,
+      "shareTertiary": 7.2,
+      "shareLowEd": 21,
+      "unemployment": 44.5
+    },
+    "TGV22": {
+      "ses": -0.77,
+      "shareTertiary": 9.2,
+      "shareLowEd": 17.1,
+      "unemployment": 21.2
+    },
+    "TGV23": {
+      "ses": -0.61,
+      "shareTertiary": 6.5,
+      "shareLowEd": 10.7,
+      "unemployment": 25.5
+    },
+    "TGV24": {
+      "ses": 0.18,
+      "shareTertiary": 15.4,
+      "shareLowEd": 11.2,
+      "unemployment": 18.2
+    },
+    "TGV35": {
+      "ses": 0.59,
+      "shareTertiary": 19.4,
+      "shareLowEd": 11.7,
+      "unemployment": 13.2
+    },
+    "VAR01": {
+      "ses": -0.18,
+      "shareTertiary": 15.8,
+      "shareLowEd": 15.9,
+      "unemployment": 18.8
+    },
+    "VAR02": {
+      "ses": 0.61,
+      "shareTertiary": 16.6,
+      "shareLowEd": 11.2,
+      "unemployment": 9.2
+    },
+    "VAR04": {
+      "ses": 0.4,
+      "shareTertiary": 11.4,
+      "shareLowEd": 9.9,
+      "unemployment": 8.6
+    },
+    "VAR05": {
+      "ses": -0.04,
+      "shareTertiary": 15.7,
+      "shareLowEd": 15.4,
+      "unemployment": 16
+    },
+    "VAR06": {
+      "ses": 2.2,
+      "shareTertiary": 37.4,
+      "shareLowEd": 8.6,
+      "unemployment": 6.5
+    },
+    "VAR08": {
+      "ses": -0.42,
+      "shareTertiary": 8.9,
+      "shareLowEd": 10.6,
+      "unemployment": 24.4
+    },
+    "VAR09": {
+      "ses": -1.12,
+      "shareTertiary": 8.7,
+      "shareLowEd": 16.8,
+      "unemployment": 29.9
+    },
+    "VAR13": {
+      "ses": -1.26,
+      "shareTertiary": 8,
+      "shareLowEd": 21.8,
+      "unemployment": 22.6
+    },
+    "VAR14": {
+      "ses": -0.24,
+      "shareTertiary": 7.5,
+      "shareLowEd": 12.9,
+      "unemployment": 13.2
+    },
+    "VAR16": {
+      "ses": -1.45,
+      "shareTertiary": 7.6,
+      "shareLowEd": 19.8,
+      "unemployment": 30.8
+    },
+    "VAR24": {
+      "ses": -0.06,
+      "shareTertiary": 12.9,
+      "shareLowEd": 15.5,
+      "unemployment": 11.8
+    },
+    "VAR26": {
+      "ses": -0.2,
+      "shareTertiary": 11.8,
+      "shareLowEd": 14.7,
+      "unemployment": 15.2
+    },
+    "VID01": {
+      "ses": -0.46,
+      "shareTertiary": 15.3,
+      "shareLowEd": 13.4,
+      "unemployment": 30.3
+    },
+    "VID03": {
+      "ses": 0.66,
+      "shareTertiary": 7.6,
+      "shareLowEd": 4.7,
+      "unemployment": 6.4
+    },
+    "VID06": {
+      "ses": -0.26,
+      "shareTertiary": 15.9,
+      "shareLowEd": 10.6,
+      "unemployment": 31.4
+    },
+    "VID09": {
+      "ses": 0.96,
+      "shareTertiary": 21.3,
+      "shareLowEd": 7.8,
+      "unemployment": 14.2
+    },
+    "VID15": {
+      "ses": -0.69,
+      "shareTertiary": 10.2,
+      "shareLowEd": 8.8,
+      "unemployment": 37.3
+    },
+    "VID16": {
+      "ses": -1.08,
+      "shareTertiary": 8.2,
+      "shareLowEd": 13.6,
+      "unemployment": 34.5
+    },
+    "VID22": {
+      "ses": 0.21,
+      "shareTertiary": 13.7,
+      "shareLowEd": 6.6,
+      "unemployment": 23.9
+    },
+    "VID25": {
+      "ses": 0.31,
+      "shareTertiary": 7.9,
+      "shareLowEd": 6.6,
+      "unemployment": 12.1
+    },
+    "VID30": {
+      "ses": -0.06,
+      "shareTertiary": 12.2,
+      "shareLowEd": 7.9,
+      "unemployment": 25.9
+    },
+    "VID33": {
+      "ses": -1.79,
+      "shareTertiary": 7.4,
+      "shareLowEd": 17.3,
+      "unemployment": 44.2
+    },
+    "VID37": {
+      "ses": -1.45,
+      "shareTertiary": 9.5,
+      "shareLowEd": 15.9,
+      "unemployment": 41.6
+    },
+    "VRC05": {
+      "ses": -1.79,
+      "shareTertiary": 6.9,
+      "shareLowEd": 16.3,
+      "unemployment": 45.6
+    },
+    "VRC08": {
+      "ses": -0.51,
+      "shareTertiary": 13.2,
+      "shareLowEd": 12.9,
+      "unemployment": 29.2
+    },
+    "VRC10": {
+      "ses": 1.44,
+      "shareTertiary": 26.2,
+      "shareLowEd": 8,
+      "unemployment": 9.3
+    },
+    "VRC20": {
+      "ses": 0.86,
+      "shareTertiary": 25.5,
+      "shareLowEd": 11.4,
+      "unemployment": 16.6
+    },
+    "VRC21": {
+      "ses": -0.93,
+      "shareTertiary": 8.5,
+      "shareLowEd": 15,
+      "unemployment": 28.5
+    },
+    "VRC27": {
+      "ses": 0.93,
+      "shareTertiary": 18.2,
+      "shareLowEd": 7.6,
+      "unemployment": 10.5
+    },
+    "VRC28": {
+      "ses": 0.12,
+      "shareTertiary": 12,
+      "shareLowEd": 8.9,
+      "unemployment": 19.1
+    },
+    "VRC31": {
+      "ses": -0.58,
+      "shareTertiary": 12.2,
+      "shareLowEd": 12.1,
+      "unemployment": 31.1
+    },
+    "VRC32": {
+      "ses": -0.14,
+      "shareTertiary": 13.6,
+      "shareLowEd": 11.3,
+      "unemployment": 23.4
+    },
+    "VRC35": {
+      "ses": -0.44,
+      "shareTertiary": 10.7,
+      "shareLowEd": 7.9,
+      "unemployment": 33.1
+    },
+    "VTR04": {
+      "ses": 2.11,
+      "shareTertiary": 34.4,
+      "shareLowEd": 7.5,
+      "unemployment": 6.4
+    },
+    "VTR06": {
+      "ses": 1.18,
+      "shareTertiary": 22.7,
+      "shareLowEd": 8.3,
+      "unemployment": 9.9
+    },
+    "VTR13": {
+      "ses": 0.55,
+      "shareTertiary": 16.6,
+      "shareLowEd": 11.1,
+      "unemployment": 10.9
+    },
+    "VTR14": {
+      "ses": -0.75,
+      "shareTertiary": 9.7,
+      "shareLowEd": 16,
+      "unemployment": 23.6
+    },
+    "VTR20": {
+      "ses": 1.06,
+      "shareTertiary": 17.7,
+      "shareLowEd": 7.1,
+      "unemployment": 7.3
+    },
+    "VTR22": {
+      "ses": 0.46,
+      "shareTertiary": 16,
+      "shareLowEd": 9.9,
+      "unemployment": 14.6
+    },
+    "VTR26": {
+      "ses": -0.35,
+      "shareTertiary": 11.9,
+      "shareLowEd": 12.4,
+      "unemployment": 23.9
+    },
+    "VTR28": {
+      "ses": 1.27,
+      "shareTertiary": 23.3,
+      "shareLowEd": 7.6,
+      "unemployment": 10
+    },
+    "VTR31": {
+      "ses": -0.84,
+      "shareTertiary": 9.8,
+      "shareLowEd": 17.3,
+      "unemployment": 23.5
+    },
+    "VTR32": {
+      "ses": -0.01,
+      "shareTertiary": 12.8,
+      "shareLowEd": 11.7,
+      "unemployment": 17.9
+    },
+    "SOF00": {
+      "ses": 2.7,
+      "shareTertiary": 43.6,
+      "shareLowEd": 8.1,
+      "unemployment": 4.5
+    }
+  }
+}

@@ -892,6 +892,32 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "education",
+    title:
+      "Училища и матури в България — успех спрямо средата | electionsbg.com",
+    description:
+      "Резултатите от държавните зрелостни изпити (матура) по училища, общини и области — с карта, национален тренд и справедливо сравнение спрямо социално-икономическата среда на общината. По данни на МОН и НСИ.",
+    breadcrumbName: "Училища и матури",
+    ogImage: "/og/education.png",
+    bodyHtml: `
+<h1>Училища и матури в България</h1>
+<p>Средният успех от държавните зрелостни изпити (матура) по български език и литература за всяко училище, обобщен по общини и области. Намерете своето училище на картата или чрез търсене, вижте петгодишния тренд и къде се нареди то в страната.</p>
+<p>Не показваме гола класация. За всяко училище сравняваме успеха му с <strong>очаквания за неговата среда</strong> — социално-икономически индекс на общината (образование и безработица от Преброяване 2021). Така училище в по-бедна община, което постига повече от очакваното, се вижда като силно, а не като „слабо“. Данните са начало на разговор, не присъда.</p>
+<p>Виж и <a href="${SITE_URL}/awarder/000695114">Министерството на образованието и пазара на учебници</a>.</p>`.trim(),
+    english: {
+      title:
+        "Schools & matura in Bulgaria — score versus context | electionsbg.com",
+      description:
+        "State matura (ДЗИ) results by school, municipality and province — with a map, the national trend, and a fair comparison against each municipality's socioeconomic context. Sourced from the Ministry of Education and the census.",
+      breadcrumbName: "Schools & matura",
+      bodyHtml: `
+<h1>Schools &amp; matura in Bulgaria</h1>
+<p>The average state-matura (Bulgarian language) score for every school, rolled up by municipality and province. Find your school on the map or by search, see its five-year trend, and where it ranks nationally.</p>
+<p>We do not publish a naked league table. Each school's score is set against <strong>what its context predicts</strong> — a socioeconomic index of the municipality (education and unemployment from Census 2021) — so a school in a poorer community that beats expectations reads as strong, not "bad". The data is a starting point, not a verdict.</p>
+<p>See also the <a href="${SITE_URL}/en/awarder/000695114">Ministry of Education and the textbook market</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "regions",
     title:
       "Резултати по области в България — парламентарни избори | electionsbg.com",

@@ -20,6 +20,7 @@ import { API_EIK } from "@/lib/roadAttributes";
 import { NOI_EIK } from "@/lib/noiBenchmarks";
 import { NZOK_EIK } from "@/lib/nzokBenchmarks";
 import { VSS_EIK } from "@/lib/vssReferenceData";
+import { MON_EIK } from "@/lib/monBenchmarks";
 import { AGRI_PAYER_EIK } from "@/data/agri/constants";
 import type { ScopeWindow } from "@/data/procurement/useAwarderContracts";
 
@@ -36,6 +37,7 @@ export interface SectorPackProps {
 export const ROADS_AWARDER_PATH = `/awarder/${API_EIK}`;
 export const NOI_AWARDER_PATH = `/awarder/${NOI_EIK}`;
 export const NZOK_AWARDER_PATH = `/awarder/${NZOK_EIK}`;
+export const MON_AWARDER_PATH = `/awarder/${MON_EIK}`;
 // NOTE: there is deliberately no VSS_AWARDER_PATH export. Its siblings
 // (ROADS_/NOI_/NZOK_AWARDER_PATH) are consumed by reportMenus.ts and
 // ProcurementNav.tsx, but both nav surfaces point at the /judiciary dashboard
@@ -57,12 +59,16 @@ const NzokPack = lazy(() =>
 const VssPack = lazy(() =>
   import("./vss/VssPack").then((m) => ({ default: m.VssPack })),
 );
+const MonPack = lazy(() =>
+  import("./mon/MonPack").then((m) => ({ default: m.MonPack })),
+);
 
 const PACKS: Record<string, ComponentType<SectorPackProps>> = {
   [API_EIK]: RoadsPack,
   [NOI_EIK]: NoiPack,
   [NZOK_EIK]: NzokPack,
   [VSS_EIK]: VssPack,
+  [MON_EIK]: MonPack,
 };
 
 export const getSectorPack = (

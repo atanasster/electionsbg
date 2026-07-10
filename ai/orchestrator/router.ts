@@ -1169,6 +1169,17 @@ export const route = (question: string, ctx: ToolContext): Route => {
   // --- schools / exam scores (per-município) ---
   if (has(q, "училищ", "гимназ", "school", "schools")) {
     const place = extractPlace(q);
+    // A matura/score question that names no oblast is far more likely about ONE
+    // named school ("матурата на СМГ") than a município rollup — route it to the
+    // per-school lookup. extractPlace() returns any stopword residual without
+    // verifying it's a real município, so a plain `if (place)` would otherwise
+    // swallow every specific-school question into schoolScores with a garbage
+    // place. Oblast-scoped questions ("матурите в Пловдив") keep the rollup.
+    if (
+      has(q, "матур", "дзи", "успех", "matura", "score") &&
+      !findOblastInText(q)
+    )
+      return { tool: "schoolMatura", args: { school: place ?? question } };
     if (place) return { tool: "schoolScores", args: { place } };
   }
 

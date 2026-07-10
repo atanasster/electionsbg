@@ -49,6 +49,7 @@ export const ENGLISH_STATIC_PAGES = [
   "demographics",
   "prices",
   "judiciary",
+  "education",
   "consumption",
   "risk-analysis",
   "risk-analysis/methodology",
@@ -97,6 +98,10 @@ export const routeDefs = (year: string): RouteDefs => [
     path: "judiciary",
     file: `src/screens/judiciary/JudiciaryScreen.tsx`,
   },
+  { path: "education", file: `src/screens/education/EducationScreen.tsx` },
+  // Per-school pages (/school/:id) are enumerated from data/schools/index.json
+  // directly in scripts/sitemap/index.ts (like the INSTITUTION_PACKS awarders),
+  // not here — route_defs carries no school entries.
   // Consumption (Потребление) view — country node. Region / município /
   // settlement consumption nodes are intentionally omitted from the sitemap for
   // now (most settlements have no price data; the place pages still resolve in

@@ -177,7 +177,11 @@ export const computeProcurementRisk = (
     const structural =
       structuralShare !== undefined &&
       structuralShare >= (args.structuralSingleBidShare ?? 0.8);
-    singleBidder = bidCount === 1 && !structural;
+    // Textbooks (CPV 22112xxx) are awarded by law to the sole copyright holder
+    // (чл. 79, ал. 1, т. 3 ЗОП), so every one is single-bid by statute, not
+    // choice — suppress the flag regardless of the division's aggregate share.
+    const legallySingleSource = contract.cpv?.startsWith("22112") ?? false;
+    singleBidder = bidCount === 1 && !structural && !legallySingleSource;
     add("singleBidder", true, singleBidder);
   } else {
     add("singleBidder", false, false);
