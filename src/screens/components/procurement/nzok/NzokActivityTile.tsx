@@ -16,9 +16,13 @@
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Activity } from "lucide-react";
+import { Activity, BedDouble } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { useNzokActivities } from "@/data/budget/useBudget";
+import {
+  useNzokActivities,
+  useNzokProcedureNames,
+} from "@/data/budget/useBudget";
+import { resolveProcedureName } from "@/lib/nzokProcedures";
 import { FacilityLink } from "./FacilityLink";
 
 const nf = (n: number, lang: string) =>
@@ -42,34 +46,32 @@ export const NzokActivityTile: FC = () => {
   const lang = i18n.language;
   const bg = lang === "bg";
   const { data } = useNzokActivities();
+  const { data: procNames } = useNzokProcedureNames();
   if (!data || !data.topProcedures?.length) return null;
 
   const procs = data.topProcedures.slice(0, 12);
   const outliers = (data.caseBedOutliers ?? []).slice(0, 10);
   const f = data.caseBedFloors;
 
+  // Two standalone tiles side by side on desktop: the national top-procedures
+  // volume table, and the pathway-internal cases-per-bed outliers.
   return (
-    <Card>
-      <CardHeader className="pb-2">
-        <CardTitle className="flex items-center gap-2 text-base">
-          <Activity className="h-4 w-4 text-teal-600 dark:text-teal-400" />
-          {bg ? "Дейности по НЗОК (клинични пътеки)" : "НЗОК clinical activity"}
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4 p-3 md:p-4">
-        <p className="text-xs text-muted-foreground">
-          {bg
-            ? `За ${data.year} г. НЗОК заплати ${nf(data.totalCases, lang)} случая по ${nf(data.distinctProcedures, lang)} процедури в ${nf(data.distinctFacilities, lang)} лечебни заведения — включително частните болници. Това е знаменателят „на пациент", който липсва в отчетите за разходи.`
-            : `In ${data.year} НЗОК paid for ${nf(data.totalCases, lang)} cases across ${nf(data.distinctProcedures, lang)} procedures in ${nf(data.distinctFacilities, lang)} facilities — private hospitals included. This is the per-patient denominator the spending reports lack.`}
-        </p>
-
-        {/* Top procedures by national case volume */}
-        <div>
-          <h4 className="mb-1.5 text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+    <div className="grid items-start gap-4 md:grid-cols-2">
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="flex items-center gap-2 text-base">
+            <Activity className="h-4 w-4 text-teal-600 dark:text-teal-400" />
             {bg
               ? "Най-чести процедури (по случаи)"
               : "Most frequent procedures (by cases)"}
-          </h4>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3 p-3 md:p-4">
+          <p className="text-xs text-muted-foreground">
+            {bg
+              ? `За ${data.year} г. НЗОК заплати ${nf(data.totalCases, lang)} случая по ${nf(data.distinctProcedures, lang)} процедури в ${nf(data.distinctFacilities, lang)} лечебни заведения — включително частните болници. Това е знаменателят „на пациент", който липсва в отчетите за разходи.`
+              : `In ${data.year} НЗОК paid for ${nf(data.totalCases, lang)} cases across ${nf(data.distinctProcedures, lang)} procedures in ${nf(data.distinctFacilities, lang)} facilities — private hospitals included. This is the per-patient denominator the spending reports lack.`}
+          </p>
           <div className="overflow-x-auto">
             <table className="w-full text-xs">
               <thead className="text-muted-foreground">
@@ -78,11 +80,11 @@ export const NzokActivityTile: FC = () => {
                     className="py-1.5 pr-2 text-left font-normal"
                     title={
                       bg
-                        ? "Официален код на процедурата по НЗОК (Наредба 9). Източникът не публикува име, само кода."
-                        : "Official НЗОК procedure code (Ordinance 9). The source publishes no name, only the code."
+                        ? "Наименование по НРД (Приложение 17–19). Отчетът за дейността носи само кода — името се добавя от номенклатурата на НЗОК."
+                        : "НРД name (Appendix 17–19). The activity report carries only the code; the name is joined from НЗОК's nomenclature."
                     }
                   >
-                    {bg ? "Код" : "Code"}
+                    {bg ? "Процедура" : "Procedure"}
                   </th>
                   <th className="py-1.5 pr-2 text-left font-normal">
                     {bg ? "Вид" : "Type"}
@@ -96,35 +98,59 @@ export const NzokActivityTile: FC = () => {
                 </tr>
               </thead>
               <tbody className="divide-y">
-                {procs.map((p) => (
-                  <tr key={p.procedure}>
-                    <td className="py-1.5 pr-2 font-medium tabular-nums">
-                      {p.procedure}
-                    </td>
-                    <td className="py-1.5 pr-2 text-muted-foreground">
-                      {procTypeLabel(p.procType, bg)}
-                    </td>
-                    <td className="py-1.5 pr-2 text-right tabular-nums">
-                      {nf(p.cases, lang)}
-                    </td>
-                    <td className="py-1.5 text-right tabular-nums text-muted-foreground">
-                      {p.facilityCount}
-                    </td>
-                  </tr>
-                ))}
+                {procs.map((p) => {
+                  const name = resolveProcedureName(procNames, p.procedure);
+                  return (
+                    <tr key={p.procedure}>
+                      <td className="py-1.5 pr-2">
+                        {name ? (
+                          <>
+                            <span
+                              className="block max-w-[22rem] truncate"
+                              title={name}
+                            >
+                              {name}
+                            </span>
+                            <span className="text-[10px] tabular-nums text-muted-foreground">
+                              {p.procedure}
+                            </span>
+                          </>
+                        ) : (
+                          <span className="font-medium tabular-nums">
+                            {p.procedure}
+                          </span>
+                        )}
+                      </td>
+                      <td className="py-1.5 pr-2 text-muted-foreground">
+                        {procTypeLabel(p.procType, bg)}
+                      </td>
+                      <td className="py-1.5 pr-2 text-right tabular-nums">
+                        {nf(p.cases, lang)}
+                      </td>
+                      <td className="py-1.5 text-right tabular-nums text-muted-foreground">
+                        {p.facilityCount}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
-        </div>
+        </CardContent>
+      </Card>
 
-        {/* Cases-per-bed outliers — pathway-internal, same-type peers */}
-        {outliers.length > 0 && (
-          <div>
-            <h4 className="mb-1.5 text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+      {/* Cases-per-bed outliers — its own tile. */}
+      {outliers.length > 0 && (
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="flex items-center gap-2 text-base">
+              <BedDouble className="h-4 w-4 text-muted-foreground" />
               {bg
                 ? "Случаи на легло — над сходните болници"
                 : "Cases per bed — above same-type peers"}
-            </h4>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3 p-3 md:p-4">
             <div className="overflow-x-auto">
               <table className="w-full text-xs">
                 <thead className="text-muted-foreground">
@@ -145,43 +171,53 @@ export const NzokActivityTile: FC = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y">
-                  {outliers.map((o, i) => (
-                    <tr key={`${o.facility}|${o.procedure}|${i}`}>
-                      <td className="max-w-[13rem] truncate py-1.5 pr-2">
-                        <FacilityLink eik={o.eik} name={o.facility} />
-                        <span className="block text-[10px] text-muted-foreground">
-                          {o.hospitalType}
-                        </span>
-                      </td>
-                      <td className="py-1.5 pr-2 tabular-nums text-muted-foreground">
-                        {o.procedure}
-                        <span className="block text-[10px]">
-                          {procTypeLabel(o.procType, bg)}
-                        </span>
-                      </td>
-                      <td className="py-1.5 pr-2 text-right tabular-nums">
-                        {o.casesPerBed.toFixed(1)}
-                      </td>
-                      <td className="py-1.5 pr-2 text-right tabular-nums text-muted-foreground">
-                        {o.peerMedian.toFixed(1)}
-                      </td>
-                      <td className="py-1.5 text-right font-medium tabular-nums">
-                        {o.ratio.toFixed(1)}×
-                      </td>
-                    </tr>
-                  ))}
+                  {outliers.map((o, i) => {
+                    const name = resolveProcedureName(procNames, o.procedure);
+                    return (
+                      <tr key={`${o.facility}|${o.procedure}|${i}`}>
+                        <td className="max-w-[13rem] truncate py-1.5 pr-2">
+                          <FacilityLink eik={o.eik} name={o.facility} />
+                          <span className="block text-[10px] text-muted-foreground">
+                            {o.hospitalType}
+                          </span>
+                        </td>
+                        <td className="max-w-[13rem] py-1.5 pr-2">
+                          {name && (
+                            <span className="block truncate" title={name}>
+                              {name}
+                            </span>
+                          )}
+                          <span className="tabular-nums text-muted-foreground">
+                            {o.procedure}
+                          </span>
+                          <span className="text-[10px] text-muted-foreground">
+                            {" · "}
+                            {procTypeLabel(o.procType, bg)}
+                          </span>
+                        </td>
+                        <td className="py-1.5 pr-2 text-right tabular-nums">
+                          {o.casesPerBed.toFixed(1)}
+                        </td>
+                        <td className="py-1.5 pr-2 text-right tabular-nums text-muted-foreground">
+                          {o.peerMedian.toFixed(1)}
+                        </td>
+                        <td className="py-1.5 text-right font-medium tabular-nums">
+                          {o.ratio.toFixed(1)}×
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
-          </div>
-        )}
-
-        <p className="text-[11px] text-muted-foreground/80">
-          {bg
-            ? `„Случаи на легло" сравнява само болници от един и същи тип (УМБАЛ с УМБАЛ) по една и съща процедура; включени са редове с поне ${f.minCases} случая, ${f.minBeds} легла и ${f.minPeers} сходни болници. По-високата стойност НЕ е нередност — може да отразява дневен стационар, преференциално насочване или отчитане на леглата. Броят случаи е обем, не стойност: източникът съдържа само кода на процедурата, без цена по НРД. Източник: НЗОК, месечни отчети за дейността.`
-            : `"Cases per bed" compares only same-type hospitals (УМБАЛ vs УМБАЛ) on the same procedure; rows need at least ${f.minCases} cases, ${f.minBeds} beds and ${f.minPeers} peers. A higher value is NOT an irregularity — it can reflect day-case pathways, referral concentration or bed accounting. Cases are volume, not value: the source carries the procedure code only, no НРД price. Source: НЗОК monthly activity reports.`}
-        </p>
-      </CardContent>
-    </Card>
+            <p className="text-[11px] text-muted-foreground/80">
+              {bg
+                ? `„Случаи на легло" сравнява само болници от един и същи тип (УМБАЛ с УМБАЛ) по една и съща процедура; включени са редове с поне ${f.minCases} случая, ${f.minBeds} легла и ${f.minPeers} сходни болници. По-високата стойност НЕ е нередност — може да отразява дневен стационар, преференциално насочване или отчитане на леглата. Броят случаи е обем, не стойност: източникът съдържа само кода на процедурата, без цена по НРД. Източник: НЗОК, месечни отчети за дейността.`
+                : `"Cases per bed" compares only same-type hospitals (УМБАЛ vs УМБАЛ) on the same procedure; rows need at least ${f.minCases} cases, ${f.minBeds} beds and ${f.minPeers} peers. A higher value is NOT an irregularity — it can reflect day-case pathways, referral concentration or bed accounting. Cases are volume, not value: the source carries the procedure code only, no НРД price. Source: НЗОК monthly activity reports.`}
+            </p>
+          </CardContent>
+        </Card>
+      )}
+    </div>
   );
 };

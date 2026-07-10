@@ -18,7 +18,10 @@ const TOP_N = 12;
 
 export const NzokDrugReimbursementTile: FC<{
   data: NzokDrugReimbursementFile;
-}> = ({ data }) => {
+  /** Drop the card's own title when the band header already names it. The
+   *  substance/area/growth view toggle stays. */
+  hideTitle?: boolean;
+}> = ({ data, hideTitle }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
@@ -61,11 +64,17 @@ export const NzokDrugReimbursementTile: FC<{
   return (
     <Card>
       <CardHeader className="pb-2">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <CardTitle className="text-base flex items-center gap-2">
-            <Pill className="h-4 w-4" />
-            {bg ? "Плащания за лекарства" : "Drug reimbursement"}
-          </CardTitle>
+        <div
+          className={`flex flex-wrap items-center gap-2 ${
+            hideTitle ? "justify-end" : "justify-between"
+          }`}
+        >
+          {!hideTitle && (
+            <CardTitle className="text-base flex items-center gap-2">
+              <Pill className="h-4 w-4" />
+              {bg ? "Плащания за лекарства" : "Drug reimbursement"}
+            </CardTitle>
+          )}
           <div
             className="flex gap-1"
             role="group"

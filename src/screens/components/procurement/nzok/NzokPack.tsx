@@ -16,12 +16,20 @@
 // (the scope pill's parliament window straddles calendar years — meaningless for
 // a budget), defaulting to the latest ingested year.
 
-import { FC, useMemo, useState } from "react";
+import { FC, ReactNode, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { HeartPulse } from "lucide-react";
+import {
+  HeartPulse,
+  Building2,
+  Pill,
+  Stethoscope,
+  ScrollText,
+  Clock,
+  type LucideIcon,
+} from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEurCompact } from "@/lib/currency";
-import { WARN_CHIP_COLORS } from "../chipStyles";
+import { InsightChips } from "@/components/ui/InsightChips";
 import { useNzok, type ScopeWindow } from "@/data/procurement/useNzok";
 import { categoryLabel } from "@/lib/nzokBenchmarks";
 import { NzokBudgetBridgeTile } from "./NzokBudgetBridgeTile";
@@ -37,6 +45,36 @@ import { NzokHospitalFinancialsTile } from "./NzokHospitalFinancialsTile";
 import { NzokDrugRiskTile } from "./NzokDrugRiskTile";
 import { NzokHospitalRiskTile } from "./NzokHospitalRiskTile";
 import { NzokProcurementLensTile } from "./NzokProcurementLensTile";
+
+// A labeled band inside the pack. House style is stacked bands (never tabs);
+// each band gets a thin top rule, an icon + title, and an optional framing line
+// so the ~20-tile scroll reads as a top-line → drill-down narrative instead of a
+// flat wall. Sections stay in money-first order: the €5.5bn fund and the flows
+// that actually spend it come first; ЗОП (~1.5%) closes the page.
+const SubSection: FC<{
+  icon: LucideIcon;
+  title: string;
+  sub?: string;
+  /** Optional header chip — used to flag bands whose data does NOT follow the
+   *  procurement scope pill (the health-money snapshots have their own reporting
+   *  cadence). Only passed when the user has actually narrowed the scope. */
+  note?: ReactNode;
+  children: ReactNode;
+}> = ({ icon: Icon, title, sub, note, children }) => (
+  <section className="space-y-4 border-t border-border/60 pt-5">
+    <div>
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+        <Icon className="h-4 w-4 text-muted-foreground" />
+        <h3 className="text-base font-semibold">{title}</h3>
+        {note}
+      </div>
+      {sub && (
+        <p className="mt-1 text-xs leading-snug text-muted-foreground">{sub}</p>
+      )}
+    </div>
+    {children}
+  </section>
+);
 
 export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   eik,
@@ -55,6 +93,24 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
     drugReimbursement,
     isLoading,
   } = useNzok(eik, scopeWindow);
+
+  // The health-money bands below (hospital payments, drugs, activity, financials,
+  // risk) are precomputed single-period snapshots with their own reporting cadence
+  // — they do NOT re-window with the procurement scope pill (only the ЗОП/contract
+  // tiles do). That's fine on the default "all years" view, but once the user
+  // narrows the scope the frozen figures read as if they belonged to that window.
+  // So flag those bands with a chip, but ONLY when the scope is actually narrowed
+  // ([from,to) is unbounded — both null — under "all years"). The exact period is
+  // already in each tile's own footnote.
+  const scopeNarrowed = !!(scopeWindow.from || scopeWindow.to);
+  const scopeNote = scopeNarrowed ? (
+    <span className="inline-flex items-center gap-1 rounded-full border border-border bg-muted/40 px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
+      <Clock className="h-3 w-3" />
+      {bg
+        ? "най-нови данни · не зависят от обхвата"
+        : "latest data · independent of scope"}
+    </span>
+  ) : null;
 
   // Budget-year picker — defaults to the latest ingested year; user-selectable.
   const [yearOverride, setYearOverride] = useState<number | null>(null);
@@ -117,12 +173,20 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
 
   return (
     <section className="space-y-4">
+      {/* ── Band 1 · Фондът накратко / The fund at a glance ─────────────
+          The €5.5bn anchor number and the story that ~98.5% of it flows
+          OUTSIDE procurement. Everything below is a share of this whole. */}
       <div className="flex items-center gap-2 pt-2">
         <HeartPulse className="h-5 w-5 text-muted-foreground" />
         <h2 className="text-lg font-semibold">
           {bg ? "Здравно осигуряване (НЗОК)" : "Health insurance (НЗОК fund)"}
         </h2>
       </div>
+      <p className="-mt-2 max-w-2xl text-sm leading-snug text-muted-foreground">
+        {bg
+          ? "Фондът администрира ~€5,5 млрд. годишно. Обществените поръчки са ~1,5% от него — останалото (болници, лекарства, лекари) се плаща извън ЗОП."
+          : "The fund administers ~€5.5bn a year. Public procurement is ~1.5% of it — the rest (hospitals, medicines, doctors) is paid outside procurement."}
+      </p>
 
       {/* НЗОК-specific KPI: procurement per year against the fund it runs. */}
       <div className="grid gap-3 grid-cols-2">
@@ -156,22 +220,7 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         )}
       </div>
 
-      {insights.length > 0 && (
-        <div className="flex flex-wrap gap-2">
-          {insights.map((it, i) => (
-            <span
-              key={i}
-              className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium ${
-                it.warn
-                  ? WARN_CHIP_COLORS
-                  : "border-border bg-muted/40 text-foreground"
-              }`}
-            >
-              {it.text}
-            </span>
-          ))}
-        </div>
-      )}
+      <InsightChips items={insights} />
 
       {/* Hero — the ~€5.5bn budget the procurement sits inside */}
       {budgetYear && selectedYear != null && (
@@ -190,52 +239,117 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         />
       )}
 
-      {/* The real money — the two biggest non-ЗОП lines, paid outside procurement */}
-      {hospitalPayments && <NzokHospitalPaymentsTile data={hospitalPayments} />}
-      {/* The time dimension — momentum + YoY movers (the single-year competitor lacks it) */}
-      {hospitalTrends && <NzokHospitalMomentumTile data={hospitalTrends} />}
-      {/* Head-to-head — the compare the competitor leads with, on our corpus */}
-      {hospitalPayments && <NzokHospitalCompareTile data={hospitalPayments} />}
-      {/* The regional dimension — the map (per-capita) the competitor lacks */}
+      {/* ── Band 2 · Пари към болниците / Money to hospitals ────────────
+          The biggest real flow. Lead with who gets paid, add the time axis
+          and head-to-head the single-year competitor lacks, close with the
+          per-capita map. Gated on the hospital-payments corpus. */}
       {hospitalPayments && (
-        <NzokRegionalChoroplethTile data={hospitalPayments} />
+        <SubSection
+          icon={Building2}
+          title={bg ? "Пари към болниците" : "Money to hospitals"}
+          note={scopeNote}
+          sub={
+            bg
+              ? "Плащания за болнична помощ по чл. 45 ЗЗО — извън ЗОП. Кой колко получава, как се движи през годините и къде на глава от населението."
+              : "Payments for hospital care (art. 45 ЗЗО) — outside procurement. Who is paid, how it moves year over year, and where per resident."
+          }
+        >
+          <NzokHospitalPaymentsTile data={hospitalPayments} hideTitle />
+          {hospitalTrends && <NzokHospitalMomentumTile data={hospitalTrends} />}
+          {/* Compare + per-capita map sit side by side on desktop — both are
+              compact reference views, so pairing them halves the scroll. */}
+          <div className="grid gap-4 lg:grid-cols-2">
+            <NzokHospitalCompareTile data={hospitalPayments} />
+            <NzokRegionalChoroplethTile data={hospitalPayments} />
+          </div>
+        </SubSection>
       )}
+
+      {/* ── Band 3 · Лекарства / Medicines ─────────────────────────────
+          All molecule + unit-price intelligence in one band: what is
+          reimbursed by INN, which packs cost more per unit than peers, and
+          which molecule leaks the most vs the pack median. */}
       {drugReimbursement && (
-        <NzokDrugReimbursementTile data={drugReimbursement} />
+        <SubSection
+          icon={Pill}
+          title={bg ? "Лекарства" : "Medicines"}
+          note={scopeNote}
+          sub={
+            bg
+              ? "Реимбурсиране по молекула (INN), цена за опаковка спрямо болниците и молекулите с най-голямо отклонение от медианата."
+              : "Reimbursement by molecule (INN), unit price per pack vs peers, and the molecules that deviate most from the pack median."
+          }
+        >
+          <NzokDrugReimbursementTile data={drugReimbursement} hideTitle />
+          {/* Unit-price + by-molecule leakage side by side on desktop. Both
+              self-fetch and self-hide until migrations 052 / 054 reach this DB. */}
+          <div className="grid gap-4 lg:grid-cols-2">
+            <NzokDrugUnitPriceTile />
+            <NzokDrugRiskTile />
+          </div>
+        </SubSection>
       )}
 
-      {/* Per-hospital UNIT prices for the same pack of the same medicine. Fetches
-          its own data and self-hides until migration 052 reaches this DB. */}
-      <NzokDrugUnitPriceTile />
+      {/* ── Band 4 · Дейност и здраве на болниците / Activity & health ──
+          The denominators — case-mix activity and hospital solvency — placed
+          BEFORE the risk capstone so the reader has the context first. Both
+          tiles self-fetch and self-hide (migrations 053 / 051). */}
+      <SubSection
+        icon={Stethoscope}
+        title={
+          bg ? "Дейност и здраве на болниците" : "Activity & hospital health"
+        }
+        note={scopeNote}
+        sub={
+          bg
+            ? "Случаи по клинична пътека (знаменателят за case-mix) и финансово състояние — приходи, разходи и просрочени задължения на болниците, които НЗОК плаща."
+            : "Cases per clinical pathway (the case-mix denominator) and financial standing — revenue, expense and overdue liabilities of the hospitals НЗОК pays."
+        }
+      >
+        <NzokActivityTile />
+        <NzokHospitalFinancialsTile />
+      </SubSection>
 
-      {/* By-molecule companion: which drug leaks the most vs the pack median,
-          each INN expandable to its packs. Self-hides until migration 054. */}
-      <NzokDrugRiskTile />
-
-      {/* The case-mix denominator + pathway-internal cases-per-bed outlier — the
-          activity data the competitor leads its anomaly list with, on our corpus
-          (private hospitals included). Self-hides until migration 053 reaches
-          this DB. */}
-      <NzokActivityTile />
-
-      {/* What happens to the money after it lands — are the hospitals НЗОК pays
-          solvent? Self-hides until migration 051 reaches this DB. */}
-      <NzokHospitalFinancialsTile />
-
-      {/* Capstone: hospitals ranked by a transparent multi-signal risk index
+      {/* ── Band 5 · Риск / Risk index ─────────────────────────────────
+          Capstone: hospitals ranked by a transparent multi-signal index
           (drug overpay + activity outliers + overdue debt). Self-hides until
-          migration 054 reaches this DB. */}
-      <NzokHospitalRiskTile />
+          migration 054. A signpost, not a verdict — the tile says so. */}
+      <SubSection
+        icon={HeartPulse}
+        title={bg ? "Индекс на риска" : "Risk index"}
+        note={scopeNote}
+        sub={
+          bg
+            ? "Болниците, подредени по прозрачен съставен индекс от три сигнала. Знак за проверка, не присъда."
+            : "Hospitals ranked by a transparent three-signal composite. A signpost for scrutiny, not a verdict."
+        }
+      >
+        <NzokHospitalRiskTile hideTitle />
+      </SubSection>
 
-      {/* The ЗОП lens — IT + security, one in-house integrator (contract-derived) */}
-      {model && <NzokProcurementLensTile model={model} />}
-
-      {/* What НЗОК buys via ЗОП, by operating function (contract-derived) */}
+      {/* ── Band 6 · Обществени поръчки / Procurement (1.5%) ────────────
+          The honest coda: the scrutinised-but-small ЗОП slice, sized last so
+          it never dominates the layout. Gated on the contract corpus. */}
       {model && (
-        <NzokCategoryTile
-          categories={model.categories}
-          totalEur={model.totalEur}
-        />
+        <SubSection
+          icon={ScrollText}
+          title={bg ? "Обществени поръчки (ЗОП)" : "Public procurement (ЗОП)"}
+          sub={
+            bg
+              ? "~1,5% от бюджета минава през ЗОП — предимно ИТ и системи, с един водещ вътрешен интегратор. Ето какво купува фондът."
+              : "~1.5% of the budget runs through procurement — mostly IT and systems, with one dominant in-house integrator. Here is what the fund buys."
+          }
+        >
+          {/* Both compact — the "up close" summary and the CPV breakdown sit
+              side by side on desktop. */}
+          <div className="grid gap-4 lg:grid-cols-2">
+            <NzokProcurementLensTile model={model} />
+            <NzokCategoryTile
+              categories={model.categories}
+              totalEur={model.totalEur}
+            />
+          </div>
+        </SubSection>
       )}
 
       <p className="text-[11px] text-muted-foreground/80">

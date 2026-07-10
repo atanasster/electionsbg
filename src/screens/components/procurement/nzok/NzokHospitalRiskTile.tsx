@@ -20,7 +20,9 @@ import { formatEurCompact } from "@/lib/currency";
 import { useNzokHospitalRisk } from "@/data/budget/useBudget";
 import { FacilityLink } from "./FacilityLink";
 
-export const NzokHospitalRiskTile: FC = () => {
+export const NzokHospitalRiskTile: FC<{ hideTitle?: boolean }> = ({
+  hideTitle,
+}) => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const { data } = useNzokHospitalRisk();
@@ -31,12 +33,14 @@ export const NzokHospitalRiskTile: FC = () => {
 
   return (
     <Card>
-      <CardHeader className="pb-2">
-        <CardTitle className="flex items-center gap-2 text-base">
-          <ShieldAlert className="h-4 w-4 text-amber-600 dark:text-amber-400" />
-          {bg ? "Риск по болници" : "Hospitals by risk index"}
-        </CardTitle>
-      </CardHeader>
+      {!hideTitle && (
+        <CardHeader className="pb-2">
+          <CardTitle className="flex items-center gap-2 text-base">
+            <ShieldAlert className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+            {bg ? "Риск по болници" : "Hospitals by risk index"}
+          </CardTitle>
+        </CardHeader>
+      )}
       <CardContent className="space-y-3 p-3 md:p-4">
         <p className="text-xs text-muted-foreground">
           {bg

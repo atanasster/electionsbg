@@ -134,6 +134,20 @@ carries the procedure CODE only — no name, no НРД price — so `procType` i
 from the code's first letter (P→КП, A→АПр, K→КПр) and there is **no lev/euro value**
 (a НРД pathway-price join is a documented follow-up). Cases are volume, not money.
 
+### Procedure code→name nomenclature — `npm run data:nzok -- --procedure-names`
+The activity feed's codes (P###/A##/K##) are unreadable on their own, so
+`write_procedure_names.ts` builds `data/budget/nzok/procedures.json`
+(`{ code: bgName }`) from НЗОК's НРД **Приложение 17** (клинични пътеки) + **18**
+(амбулаторни процедури) + the клинични-процедури list on nhif.bg. The activity
+tiles (awarder + `/company/:eik`) join it client-side via `resolveProcedureName`
+(`src/lib/nzokProcedures.ts`), which strips the A99 / B1 / B2 / E billing modifiers
+to the base name and falls back to the bare code when a code isn't mapped. **Run
+from a BG egress** (nhif.bg is IP-gated) and needs `pdftotext` if the appendices are
+PDFs. VERIFY the resolved appendix links on first run — the exact nhif.bg markup
+couldn't be checked from the dev box (see the script header). The committed
+`procedures.json` is the full generated nomenclature (~427 names); the writer
+replaces it wholesale on each run.
+
 `npm run db:load:nzok-activities:pg` (+ `:cloud` to publish) loads migration 053 —
 the `nzok_activities` table + `nzok_activity_monthly` trend, and three jsonb fns:
 `nzok_activities_overview()` (national top procedures + trend + the cases-per-bed

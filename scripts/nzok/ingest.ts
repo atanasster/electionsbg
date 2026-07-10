@@ -64,6 +64,11 @@ const STEPS: { flag: string; scripts: string[]; label: string }[] = [
     scripts: ["write_activities.ts"],
     label: "clinical activity corpus",
   },
+  {
+    flag: "--procedure-names",
+    scripts: ["write_procedure_names.ts"],
+    label: "procedure code→name nomenclature (НРД)",
+  },
 ];
 
 // Opt-in ONLY (never in the no-flag default): the Рег.№→EIK crosswalk. It needs
@@ -80,11 +85,17 @@ const OPT_IN: { flag: string; scripts: string[]; label: string }[] = [
 ];
 
 const args = process.argv.slice(2);
+// Non-selector flags forwarded verbatim to every child script (e.g. --dump makes
+// write_procedure_names.ts also save the raw appendix text for debugging).
+const PASSTHROUGH = new Set(["--dump"]);
+const passArgs = args.filter((a) => PASSTHROUGH.has(a));
 // A typo (`--hospital`, `--drug`) matches no step, which would otherwise fall
 // back to the full default set — four fetches the operator didn't ask for. Fail
 // loudly on any unrecognized `--flag` instead.
 const KNOWN = new Set([...STEPS, ...OPT_IN].map((s) => s.flag));
-const unknown = args.filter((a) => a.startsWith("--") && !KNOWN.has(a));
+const unknown = args.filter(
+  (a) => a.startsWith("--") && !KNOWN.has(a) && !PASSTHROUGH.has(a),
+);
 if (unknown.length) {
   console.error(
     `unknown flag(s): ${unknown.join(" ")} — expected one of ${[...KNOWN].join(" ")}`,
@@ -105,7 +116,9 @@ for (const step of toRun) {
       script === "__write_budget.ts"
         ? path.resolve(__dirname, "../budget/nzok/__write_budget.ts")
         : path.resolve(__dirname, script);
-    const res = spawnSync("npx", ["tsx", scriptPath], { stdio: "inherit" });
+    const res = spawnSync("npx", ["tsx", scriptPath, ...passArgs], {
+      stdio: "inherit",
+    });
     if (res.status !== 0) {
       failed++;
       console.error(`  ! ${step.label} (${script}) failed`);

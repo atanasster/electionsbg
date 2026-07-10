@@ -13,7 +13,11 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Activity } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { useNzokActivitiesByEik } from "@/data/budget/useBudget";
+import {
+  useNzokActivitiesByEik,
+  useNzokProcedureNames,
+} from "@/data/budget/useBudget";
+import { resolveProcedureName } from "@/lib/nzokProcedures";
 
 const nf = (n: number, lang: string) =>
   n.toLocaleString(lang === "bg" ? "bg" : "en");
@@ -23,6 +27,7 @@ export const NzokActivityByEikTile: FC<{ eik: string }> = ({ eik }) => {
   const lang = i18n.language;
   const bg = lang === "bg";
   const { data } = useNzokActivitiesByEik(eik);
+  const { data: procNames } = useNzokProcedureNames();
   if (!data || !data.topProcedures?.length) return null;
 
   const rows = data.topProcedures.slice(0, 10);
@@ -66,22 +71,41 @@ export const NzokActivityByEikTile: FC<{ eik: string }> = ({ eik }) => {
               </tr>
             </thead>
             <tbody className="divide-y">
-              {rows.map((p) => (
-                <tr key={p.procedure}>
-                  <td className="py-1.5 pr-2 font-medium tabular-nums">
-                    {p.procedure}
-                  </td>
-                  <td className="py-1.5 pr-2 text-muted-foreground">
-                    {p.procType}
-                  </td>
-                  <td className="py-1.5 pr-2 text-right tabular-nums">
-                    {nf(p.cases, lang)}
-                  </td>
-                  <td className="py-1.5 text-right tabular-nums text-muted-foreground">
-                    {p.nationalSharePct.toFixed(1)}%
-                  </td>
-                </tr>
-              ))}
+              {rows.map((p) => {
+                const name = resolveProcedureName(procNames, p.procedure);
+                return (
+                  <tr key={p.procedure}>
+                    <td className="py-1.5 pr-2">
+                      {name ? (
+                        <>
+                          <span
+                            className="block max-w-[18rem] truncate"
+                            title={name}
+                          >
+                            {name}
+                          </span>
+                          <span className="text-[10px] tabular-nums text-muted-foreground">
+                            {p.procedure}
+                          </span>
+                        </>
+                      ) : (
+                        <span className="font-medium tabular-nums">
+                          {p.procedure}
+                        </span>
+                      )}
+                    </td>
+                    <td className="py-1.5 pr-2 text-muted-foreground">
+                      {p.procType}
+                    </td>
+                    <td className="py-1.5 pr-2 text-right tabular-nums">
+                      {nf(p.cases, lang)}
+                    </td>
+                    <td className="py-1.5 text-right tabular-nums text-muted-foreground">
+                      {p.nationalSharePct.toFixed(1)}%
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
