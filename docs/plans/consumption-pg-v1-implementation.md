@@ -211,7 +211,7 @@ replays `raw_data/prices/*.zip` in date order (the flag already exists, and per
 "prices:slugs":        "tsx ./scripts/prices/export_slugs.ts",
 ```
 
-`db:push` stays out of the daily path. It is a weekly DR snapshot.
+`db:dump` stays out of the daily path. It is a weekly DR snapshot.
 
 ### Gate — Phase 1
 
@@ -720,7 +720,220 @@ AI chat answers "колко струва олиото в Пловдив" and "к
 
 ---
 
-## 7. Deploy runbook
+## 7. Phase 5b — wiring: watchers, changelog, data map, docs, AI chat
+
+Every new dataset must be wired into five systems. Three of them **fail the build** if you skip them;
+one **fails silently**, which is worse.
+
+New data introduced: the `price_*` Postgres tables (from the existing `kzp_prices` source), the
+Croatian `cijene.dev` feed (design §9.6 Tier 2 — a brand-new source), and the Eurostat food Price
+Level Index (design §9.6 Tier 1 — a new *dataset code* on an existing source).
+
+### 7.1 Watchers
+
+The `WatchSource` contract (`scripts/watch/types.ts:24-34`) is `{ id, label, url, cadence,
+fingerprint(), describe?() }`. The runner diffs `prev.fingerprint !== curr.value`; there is no
+`check()`. Registration is two lines in `scripts/watch/sources/index.ts` — an import and an entry in
+the `SOURCES` array.
+
+**`kzp_prices` — unchanged.** `scripts/watch/sources/kzp_prices.ts` fingerprints the latest advertised
+ZIP date scraped off `kolkostruva.bg/opendata`. It knows nothing about storage, so the PG migration
+does not touch it. Do not "improve" it in this plan.
+
+**`cijene_hr` — NEW.** `scripts/watch/sources/cijene_hr.ts`, modelled directly on `kzp_prices.ts`:
+
+```ts
+export const cijeneHr: WatchSource = {
+  id: "cijene_hr",
+  label: "cijene.dev (HR retail prices, EAN-keyed)",
+  url: "https://api.cijene.dev/v0/list",
+  cadence: "daily",
+  async fingerprint() {
+    const days = await fetchJson<{ date: string }[]>(V0_LIST);   // no auth
+    const latest = days.at(-1)!.date;
+    return { value: sha256(latest), detail: `latest ${latest} · ${days.length} archives`,
+             meta: { latest, count: days.length } };
+  },
+  describe(prev, curr) { /* "new HR daily archive: <date> (was <prev>)" */ },
+};
+```
+
+Register with `import { cijeneHr } from "./cijene_hr";` plus an entry in `SOURCES`. **The prebuild
+fails if a registered watcher source is not also placed in a `scripts/data_map/model.ts` source
+group** (§7.3) — so these two changes ship together, or `npm run build` breaks.
+
+**Eurostat PLI — no new source.** `scripts/watch/sources/eurostat.ts` holds a `DATASETS` array of
+`{ code, query }` and fingerprints the sha256 of each dataset's `updated` metadata timestamp. Adding
+food PLI is one array entry:
+
+```ts
+{ code: "prc_ppp_ind", query: "na_item=PLI_EU27_2020&ppp_cat=<food>&geo=BG&geo=EU27_2020" },
+```
+
+A new Eurostat release flips the existing `eurostat` fingerprint, which already maps to `update-macro`.
+Bump that source's `label` from "23 datasets" to "24".
+
+**Never put `--backfill` in a watcher.** Per `feedback_one_off_backfills`, the 188-day ZIP replay and
+the Croatian archive backfill stay manual, flag-gated, and documented in the README.
+
+### 7.2 process-watch-report — and the silent-changelog trap
+
+`.claude/skills/process-watch-report/SKILL.md` carries **two** mapping tables and both must be
+updated: the report-label table (~line 28) and the **canonical id table** (~line 356), which is the
+authoritative one, keyed on `state/watch/<id>.json`.
+
+| Watcher id | Skill | Change |
+| --- | --- | --- |
+| `kzp_prices` | `update-prices` | **Rewrite the description.** It currently promises "rebuilds `data/prices/{index,ranking,chains}.json` + `settlement/<ekatte>.json`". After Phase 5 those files do not exist. New text: runs `npm run prices` (SCD-2 delta into `price_facts`) → `prices:catalog` → `prices:payloads`; idempotent; PG-publish note like `dfz_subsidies`. |
+| `cijene_hr` | `update-eu-prices` | **New row, new skill.** |
+| `eurostat` | `update-macro` | Existing. Extend the note to mention the food PLI. |
+
+Also add `prices:ingest:cloud`, `prices:catalog`, `prices:payloads` to the Cloud-SQL sync table
+(SKILL.md ~525-531), and rewrite `.claude/skills/update-prices/SKILL.md` for the PG flow. A new
+`.claude/skills/update-eu-prices/SKILL.md` needs its own **Data-integrity contract** section — the
+orchestrator's halt-on-error rule depends on it.
+
+**The silent failure. Read this twice.**
+
+The orchestrator appends a public changelog row only when disk changed (`SKILL.md:486-492`):
+
+```bash
+if [ -n "$(git diff --stat data/)" ]; then
+  npx tsx scripts/append-data-change.ts <skill> --summary "…" --source "…"
+fi
+```
+
+`data/data-changes.json` feeds `/data/updates` via `useDataChanges`. **Today `update-prices` is the
+single most frequent entry on that page — 23 rows, more than any other skill.** After Phase 5 the
+prices ingest writes only to Postgres, `git diff --stat data/` is empty, and the gate never fires.
+
+This is not hypothetical. `update-agri` is already PG-only and has **zero** entries in
+`data/data-changes.json` (verified). The public refresh log has been quietly missing farm subsidies
+since that pack shipped.
+
+Two things follow:
+
+1. **Fix the gate for PG-only datasets.** Either invoke `append-data-change.ts` unconditionally for
+   skills declared PG-backed, or gate on `recordIngestBatch`'s returned `rowsNew > 0` instead of the
+   filesystem. The changelog contract (`feedback_pg_changelog_required`) already requires
+   `recordIngestBatch` in-transaction, so `rowsNew` is available — and it is a *better* truth source
+   than `git diff`, because it counts rows rather than files.
+2. **Backfill `update-agri`'s missing history**, or at minimum file it. It is a one-line discovery
+   with a visible public consequence.
+
+Note `recent_updates(days, lim)` (`007_query_builders.sql:93`) already sees the prices ingest through
+`recordIngestBatch` (§2.4) — but that is the *database* changelog, not the `/data/updates` page. They
+are different surfaces, and only one of them is currently wired.
+
+### 7.3 Data map + the `/data` pages
+
+`scripts/data_map/model.ts`. The prebuild (`scripts/data_map/build_manifest.ts::validate()`, wired via
+`package.json:18`) calls `process.exit(1)` on: an unplaced watcher source, a member in two groups, an
+edge that is not `src:→ds:` or `ds:→f:`, an orphan node, a tag with no matching view, and **an AI
+data-path literal with no `AI_PATH_RULES` match**. All six are reachable from this plan.
+
+| Node | Action |
+| --- | --- |
+| `src:kzp` (model.ts:573-588) | Update `detail`: "1.45M daily prices from 207 chains" → 1.4M rows, **208** chains, 2,649 stores, 95k products. `members`/`skills` unchanged. |
+| `src:cijene` | **New group.** `origin: "eu"`, `members: ["cijene_hr"]`, `skills: ["update-eu-prices"]`, `tags: ["prices"]`. |
+| `ds:prices` (model.ts:940-952) | **Delete `path: "data/prices/"`.** Mirror `ds:agri` (model.ts:826-837), which has no `path` and whose `desc` says it lives directly in Postgres. New desc names `price_facts`, `price_products`, `price_payloads`. |
+| `ds:eu_prices` | **New dataset**, no `path`, PG-backed. |
+| `f:products` | **New feature**, `route: "/consumption/products"`, `tags: ["prices"]`. |
+| Edges | Add `["src:cijene","ds:eu_prices"]`, `["ds:eu_prices","f:prices"]`, `["ds:prices","f:products"]`. Existing `["src:kzp","ds:prices"]` stays. |
+| `TOURS` `prices` tour (model.ts:1464-1500) | 4 steps today (`src:kzp → ds:prices → f:prices → f:governance`). Add a product-browser step; the story becomes "from the shelf to the product page". |
+
+**`AI_PATH_RULES` (model.ts:77-128) is the one that will bite.** `deriveAiEdges` scans `ai/tools/*.ts`
+for data-path string literals and **fails the build on an unmatched path**. Today `ai/tools/prices.ts`
+contains `fetchData<IndexFile>("/prices/index.json")` and friends. After §7.5 those literals become
+`/api/db/price-*` routes. Whatever `subsidiesForEntity` (the PG-backed agri tool) does for its paths,
+do the same — either a rule mapping the new pattern to `ds:prices`, or no path literal at all.
+
+Then `npm run data:map` regenerates `data/data_map.json`.
+
+`/data`, `/data/sources` and `/data/updates` need no code change — they render from the manifest and
+from `data/data-changes.json`. Their *content* changes only if §7.2 and §7.3 land.
+
+### 7.4 README
+
+A dataset is documented in **four** places (prose, not one canonical table):
+
+1. **"What's in here"** (~line 26) — rewrite the **Consumption** bullet: Postgres-only (no static
+   JSON), 74k searchable products, `/consumption/products`, `/product/:slug`, the since-euro verdict,
+   and the BG↔HR comparison. Model the phrasing on the **Farm subsidies** bullet (line 23), which
+   already says "Two sources feed one **Postgres-only** pack (no static JSON…)".
+2. **"Maintenance skills"** table (~line 331) — rewrite the `update-prices` row (line 344), which
+   currently documents `data/prices/{index,ranking,chains}.json`. Add an `update-eu-prices` row. The
+   table is already **not exhaustive** (it omits `update-agri`, `update-judiciary`, `update-nzok`,
+   `update-kzk-appeals`); adding those is a cheap, separate cleanup.
+3. **"Continuous data refresh"** (~line 363) — bump "fingerprint-diffs **63** upstream sources" to
+   **64**. (Eurostat PLI adds a dataset code, not a source, so it does not move this count.)
+4. **"Data sources" → "Other government and public sources"** (~line 510) — add `cijene.dev` (with the
+   NN 75/2025 mandate as its legal basis) and Eurostat PPP/PLI.
+
+Per `feedback_one_off_backfills`, document both backfills (`npm run prices -- --backfill --from
+2026-01-02`, and the Croatian archive replay) in the README, explicitly marked manual.
+
+### 7.5 AI chat tools
+
+`ToolDef` (`ai/tools/types.ts:184-192`) is `{ name, domain, description: {bg,en}, params, examples,
+run }`. Register in `ai/tools/registry.ts`; the run fns live in `ai/tools/prices.ts`.
+
+**Rewire the six existing tools** (`priceIndex`, `settlementPrices`, `cheapestChains`, `priceRanking`,
+`basketAffordability`, `basketVsInflation`) from `fetchData("/prices/*.json")` to the payload route.
+Keep `notCpi()` on every envelope — it is the disclaimer that keeps this honest.
+
+**Six new tools**, `domain: "indicators"` to match the existing ones:
+
+| Tool | Args | Returns |
+| --- | --- | --- |
+| `productSearch` | `query` | top-N matching products (drives disambiguation) |
+| `productPrice` | `product`, `place?` | cheapest chain, min/median/max, unit price |
+| `productHistory` | `product`, `window?` | since-euro series, high/low **with dates** |
+| `euroVerdict` | `category?` | the four-bucket since-euro classification |
+| `biggestMovers` | `window`, `direction` | the risers/fallers leaderboard |
+| `euPriceCompare` | `product` | BG vs HR, same retailer, same EAN (gated on design §9.6 Tier 2) |
+
+**The router cannot resolve products, and must not try.** `detectPriceProduct`
+(`ai/tools/prices.ts:193-194`) is a **synchronous** predicate over 34 `PRODUCT_ALIASES` regexes, called
+from the router's prices block (`ai/orchestrator/router.ts:2718-2867`). Replacing it with trigram
+search over 74k products makes the lookup **async and DB-backed**, which the heuristic router is not.
+Do not make the router async.
+
+Instead: keep a cheap synchronous *price-context* cue (the existing `priceWord` / `costPhrase` /
+`chainWord` tests at `router.ts:2729-2758`, plus the exclusion guard at 2781-2800 that already keeps
+инфлация / ИПЦ / HICP / данък / бюджет out of the prices block), route to `settlementPrices` or
+`productPrice`, and let the **tool** resolve the product name server-side, returning a disambiguation
+envelope when the trgm match is ambiguous. `PRODUCT_ALIASES` then deletes cleanly.
+
+Watch the `euroVerdict` cue ("заради еврото", "след еврото", "поскъпна ли") — it sits right on the
+boundary of that macro/inflation exclusion guard. Order the test explicitly and add an irrelevance
+case, or "поскъпнаха ли цените заради еврото" will land on an inflation tool.
+
+**Tests come free, which means `examples[0]` *is* the test.**
+`ai/llm/fcEval.registry.ts::registryCases()` derives one eval case per tool from that tool's **first
+bilingual example**, scoring tool *selection*. So write `examples[0]` as a real user question, not a
+label. Extra goldens go in `ai/m5/dataset/toolcalls.eval.jsonl`.
+
+**Narration is optional but worth it.** `ai/orchestrator/narrate.ts` is a `switch (env.tool)` and the
+prices tools currently have **no case** — they fall through to `default: return env.title`. Add cases
+for `euroVerdict` and `productPrice`, honouring the hard contract at `narrate.ts:1-5`: **narration
+never introduces a number that is not already in `env.facts`.**
+
+### Gate — Phase 5b
+
+- `npm run build` passes, which proves `cijene_hr` is placed on the data map, there are no orphan
+  nodes, edge directions are valid, and every AI data path matches an `AI_PATH_RULES` rule.
+- `npm run watch` (synchronously, `timeout: 300000`, never backgrounded —
+  `feedback_watch_no_background`) reports `cijene_hr` first-run and leaves `state/watch/cijene_hr.json`.
+- A dry run of `process-watch-report` queues `update-prices` on a `kzp_prices` flip.
+- **`data/data-changes.json` gains an `update-prices` row after a PG-only ingest.** This is the
+  regression test for §7.2's trap; without it, the fix has not landed.
+- `npm run data:map` regenerates cleanly; `/data/sources` lists cijene.dev.
+- fc-eval: each of the six new tools selects correctly on its `examples[0]`.
+
+---
+
+## 8. Deploy runbook
 
 Order matters. `missingMigrationEmpty` masks a missing table as an empty tile, so a functions-first
 deploy looks *fine* while serving nothing — the same trap agri and NZOK hit.
@@ -738,11 +951,11 @@ DATABASE_URL=…:5434/electionsbg npm run prices:payloads
 npm run deploy:functions
 
 # 4. weekly DR snapshot — NOT part of the daily path
-npm run db:push:cloud
+npm run db:dump:cloud
 ```
 
 Daily thereafter (watcher → `update-prices` skill): `prices:ingest:cloud` → `prices:catalog` →
-`prices:payloads`. Roughly 30k fact rows and ~2MB of payload jsonb per day. No `db:push`, no
+`prices:payloads`. Roughly 30k fact rows and ~2MB of payload jsonb per day. No `db:dump`, no
 `bucket:sync`, no multi-GB upload.
 
 `gsutil -m` is broken on macOS (`reference_gsutil_macos_multiprocessing`) — irrelevant here, because
@@ -750,7 +963,7 @@ after this migration prices never touch the bucket again.
 
 ---
 
-## 8. Risk register
+## 9. Risk register
 
 | Risk | Likelihood | Mitigation |
 | --- | --- | --- |
@@ -759,13 +972,18 @@ after this migration prices never touch the bucket again.
 | `unitPriced` annotation is wrong for a category | Medium | It gates cross-chain merging for loose produce. Hand-annotate all 101 groups once; Layer-4 assertion `БАНАНИ chain_count > 10` catches a regression |
 | Ported Jevons index silently drifts | Medium | Phase 0 golden files + parity test; port verbatim, improve later |
 | Out-of-order backfill corrupts the step function | Medium | Assert `day > max(valid_from)`; replay oldest-first; `ON CONFLICT DO NOTHING` |
-| `price_facts` bloats `db:push` dumps | Medium | Exclude from routine snapshot; DR = replay the 4.1GB of ZIPs, which are authoritative |
+| `price_facts` bloats `db:dump` dumps | Medium | Exclude from routine snapshot; DR = replay the 4.1GB of ZIPs, which are authoritative |
 | 74k product pages blow the Firebase file ceiling | Medium | Prerender top 2–5k only |
 | КЗП mandate lapses **8 Aug 2026** | **High** | Step function degrades gracefully (open runs stop being superseded). The since-euro tracker needs an explicit "data ends here" affordance, not a flatlining chart. Build it in Phase 4, not after. |
 | Free-text store labels have no coordinates | Certain | Geocoding is Phase 6. Do not promise "cheapest near me" until it exists. |
 | Publishing a chain-lockstep claim | Medium | Competition-law-adjacent. Article with caveats and methodology, never an unqualified dashboard tile. |
+| **PG-only ingest silently drops off `/data/updates`** | **Certain if unfixed** | Verified: `append-data-change.ts` is gated on `git diff --stat data/`; PG-only `update-agri` has **0** changelog rows while `update-prices` today has **23** (the most of any skill). Gate on `recordIngestBatch`'s `rowsNew` instead. Phase-5b gate tests exactly this. §7.2 |
+| Prebuild fails on `AI_PATH_RULES` after rewiring AI tools | High | `deriveAiEdges` fails the build on an unmatched data-path literal. Moving `ai/tools/prices.ts` off `/prices/*.json` requires a matching rule (or no literal). Follow `subsidiesForEntity`. §7.3 |
+| Router made async to resolve 74k products | Medium | It is a synchronous heuristic. Keep the sync price-context cue; resolve product names inside the tool and return a disambiguation envelope. §7.5 |
+| `euroVerdict` collides with the inflation exclusion guard | Medium | "поскъпнаха ли цените заради еврото" sits on the boundary of the router's инфлация/ИПЦ/HICP exclusion. Explicit test ordering + an irrelevance eval case. §7.5 |
+| `cijene_hr` registered but unplaced on the data map | High | `build_manifest.ts::validate()` exits 1. Ship the watcher source and the `src:cijene` group in the same commit. §7.1 |
 
-## 9. Deferred (Phase 6)
+## 10. Deferred (Phase 6)
 
 The §9.5 differentiators — rounding analysis (the euro signature), shrinkflation detection, price
 dispersion, promo share, chain lockstep. Geocoding the 2,649 store labels → store map and "cheapest

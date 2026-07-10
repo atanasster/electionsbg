@@ -71,7 +71,7 @@ settlement counts 227 – 243. A row missing today does *not* mean the price cha
 infers change from absence will mint millions of phantom close/open events on the days a large chain
 fails to upload.
 
-**`db:push` is a full `pg_dump` → GCS.** This is the actual "upload millions of unchanged rows every
+**`db:dump` is a full `pg_dump` → GCS.** This is the actual "upload millions of unchanged rows every
 day" cost today, and it is orthogonal to row churn: a 25k-row delta still triggers a whole-database
 dump and upload. It must not sit in the daily path.
 
@@ -246,7 +246,7 @@ via a dump round-trip:
 "prices:ingest:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run prices:ingest",
 ```
 
-`db:push` is demoted to a periodic DR snapshot (weekly, or on schema change), never part of the daily
+`db:dump` is demoted to a periodic DR snapshot (weekly, or on schema change), never part of the daily
 watcher path. This alone removes the recurring multi-GB daily upload.
 
 ### 3.4 Backfill
@@ -654,7 +654,95 @@ Plus the structural one: **an open API and daily ZIP export**, Croatia's `cijene
 RO, ES or GR tool offers one. The registry engine already *is* an API; exposing it is nearly free and
 buys an ecosystem.
 
-### 9.6 Conventions (from memory — non-negotiable)
+### 9.6 Cross-EU price comparison — what is actually possible
+
+**Yes, for a curated set of ~50–150 products — but only via one specific route, and not automatically.**
+
+Researched and probed on 2026-07-10. The headline: **there is no pan-EU open per-product price
+feed.** Eurostat's *Detailed Average Prices* (`prc_dap12/14/15/16`) — the only Eurostat product that
+ever gave an actual euro price for a specific good — was **discontinued; last collection 2015**, and
+the live API now returns 404. Greece's PosoKanei *does* show Bulgarian prices, but it has no secret
+source: it scrapes each country's largest chain's online store itself. Hungary's Árfigyelő, Romania's
+Monitorul Prețurilor, Slovakia's cenyslovensko.sk and Spain's FACUA are all consumer front-ends with
+no API or bulk export. Numbeo's terms **forbid redistribution through a public data feed**.
+
+Three tiers, in ascending order of effort and descending order of certainty.
+
+**Tier 1 — Eurostat Price Level Indices. Official, zero matching, ship immediately.**
+`prc_ppp_ind` with `na_item=PLI_EU27_2020` is live (verified 200 OK): Bulgarian food price level
+**86.8** vs Germany **103.4** (EU27 = 100, 2023). Aggregate COICOP food group, never a euro price for
+a loaf of bread — but it is the credible macro backbone, it needs no product matching at all, and it
+reuses the `?peers=` URL contract and `macro_peers.json` infrastructure that `/indicators/compare`
+already has. This is nearly free.
+
+**Tier 2 — Bulgaria ↔ Croatia, same retailer, same barcode. The one that actually works.**
+
+Croatia's `cijene.dev` publishes **open daily ZIP archives with no authentication** (verified 200 OK,
+2025-05-15 → present, ~50–86 MB/day), carrying EAN, regular price, promo price, unit price, chain,
+store with lat/lon, and date. It exists because Croatian regulation **NN 75/2025** compels every
+retailer to publish daily machine-readable price lists.
+
+And **four of the retailers it covers also trade in Bulgaria and are already in our КЗП feed** —
+Kaufland, Metro, dm and Lidl. Measured on 2026-07-08:
+
+| BG chain | distinct SKUs | multinational-brand SKUs | brand + parsed size |
+| --- | --- | --- | --- |
+| Кауфланд България | 2,493 | 151 | **136** |
+| Метро България | 1,669 | 82 | **81** |
+| ДМ България | 725 | 72 | **72** |
+| Лидл България | 671 | 35 | 4 |
+| | | | **293 total** |
+
+That is the upper bound on a **same-retailer, same-brand, same-pack** BG↔HR comparison. Kaufland,
+Metro and dm write brands in **Latin script** in the feed (`Milka шоколад Oreo 100 г`,
+`Barilla Спагети 500 гр.`, `Nivea шампоан Volume Sensation 400мл`), which makes the hand-match to an
+EAN far easier than the Cyrillic transliterations elsewhere in the corpus (`ЛАВАЦА`, `ЯКОБС`,
+`КОЛГЕЙТ`). Lidl is nearly useless here — it is private-label heavy, only 4 branded-and-sized SKUs.
+
+This comparison is unusually defensible because it **holds the retailer constant**. Comparing our
+208-chain minimum against a single German supermarket would be meaningless; comparing *Kaufland
+Bulgaria* against *Kaufland Croatia* for the same barcode is not. And the editorial resonance is
+hard to overstate: **Croatia adopted the euro in 2023, Bulgaria in 2026.** Croatia is our changeover
+precedent, its post-euro price anger produced the 2025 supermarket boycotts, and we would be putting
+the two countries' shelves side by side at the same retailer. No one has done this.
+
+**Tier 3 — the PosoKanei method: scrape one large chain per country.** Tractable for a 20–50 item
+basket (Lidl/Kaufland DE, Mega Image RO, Sklavenitis GR). Real ToS and effort cost, no mandate to
+lean on outside Croatia. Defer; Tier 2 already proves the concept.
+
+**What we can and cannot compare.** Our matchable universe is narrower than it first appears. The КЗП
+mandated basket is staples, hygiene and medicines — **Coca-Cola, Pepsi, Nutella, Heineken and
+Schweppes are entirely absent from the corpus** (checked: zero rows). What *is* present, densely, is
+coffee (Lavazza: 80 chains, 592 SKUs, 96% sized; Jacobs: 65 chains), chocolate (Milka: 97 chains, 680
+SKUs; Kinder, Ferrero, Oreo), pasta (Barilla: 64 chains, 98% sized), baby food (Hipp, Plasmon,
+Nestlé) and hygiene (Colgate: 105 chains, 1,689 SKUs; Nivea, Pampers, Ariel). Twenty of thirty tested
+multinational brands appear, covering 6.7% of rows. That is a good curated basket, and — not
+coincidentally — it is exactly the set of categories the European Commission studied for dual
+quality.
+
+**Four caveats that must ship with any number we publish:**
+
+1. **VAT.** Shelf prices are VAT-inclusive and food VAT differs sharply across the EU (Germany 7%
+   reduced on food; Romania moved to a single 11% reduced rate in Aug 2025; Croatia's standard rate is
+   25%). A raw euro gap silently reports a **tax-policy** difference as a **price** difference. Show
+   net-of-VAT, or footnote the rate per country. Non-negotiable.
+2. **Dual quality.** The EC's Joint Research Centre found ~**31% of branded samples differed in
+   composition across member states (2018/19), falling to ~24% by 2021** — and concluded it is *not*
+   a clean East/West split. **Same brand and same pack does not guarantee the same product.** This is
+   simultaneously our biggest methodological risk and, handled honestly, a story of its own.
+3. **Income.** "Bread costs X in Sofia and Y in Munich" is meaningless unadjusted. The correct
+   instrument is Eurostat's **Purchasing Power Standard (PPS)**, derived from the same `prc_ppp_ind`
+   PPP factors as Tier 1. Publish the euro figure and the PPS-adjusted figure together, or neither.
+4. **No EAN on our side.** Even where the foreign data is barcode-keyed, we cannot auto-join. Every
+   cross-country row is a **hand-made match** carrying a confidence flag. That rules out an automated
+   pan-EU join at scale — and is precisely why this is scoped as "a select number of products".
+
+`prc_dap`'s frozen 2015 euro prices remain usable as a clearly-labelled historical benchmark. Open
+Food Facts' **Open Prices** (ODbL, EAN-keyed, live) is too sparse to lead with — ~275k prices
+globally, France-dominated — but is a fine opportunistic cross-walk for resolving a BG product name
+to an EAN.
+
+### 9.7 Conventions (from memory — non-negotiable)
 
 - No tabs. Dashboard tiles or stacked sections (`feedback_no_tabs_ux`).
 - No native `<select>`; the shared Radix Select (`feedback_no_native_select`).
@@ -663,10 +751,11 @@ buys an ecosystem.
 - BG copy natural, not word-for-word (`feedback_bg_language`). No emojis (`feedback_no_emojis`).
 - Read the `dataviz` skill before the first line of chart code.
 
-### 9.7 Build order
+### 9.8 Build order
 
 | # | Feature | Tier | Impact | Effort | Needs |
 | --- | --- | --- | --- | --- | --- |
+| 0 | Eurostat food PLI vs peers (§9.6 Tier 1) | country | High | **S** | nothing — reuses `?peers=` |
 | 1 | Since-euro four-bucket verdict | country | **Highest** | S | Phase 1 |
 | 2 | Product search + browser | all | Highest | M | Phase 1 |
 | 3 | Product page: ladder + history chart | product | Highest | M | Phases 1–2 |
@@ -683,9 +772,13 @@ buys an ecosystem.
 | 14 | Store map / cheapest near me | locality | High | XL | geocoding |
 | 15 | Price alerts | my-area | Medium | L | notification path |
 | 16 | Open API + daily ZIP | ecosystem | Medium | S | Phase 3 |
+| 17 | **BG↔HR same-retailer basket** (§9.6 Tier 2) | country | **High (press)** | M | Phase 2 + hand-matched EANs |
+| 18 | Multi-country curated basket (§9.6 Tier 3) | country | Medium | XL | scrapers, ToS review |
 
 Items 1, 4, 5 and 11 are the editorial payload of 2026 and depend only on Phase 1. **Ship them
-before the browser if the catalogue slips.**
+before the browser if the catalogue slips.** Item 0 depends on nothing at all and can ship this week.
+Item 17 is the strongest single differentiator in the plan: Croatia is Bulgaria's euro-changeover
+precedent, and no one has put the two countries' shelves side by side at the same retailer.
 
 ---
 
@@ -699,6 +792,7 @@ before the browser if the catalogue slips.**
 | 3 | `price_payloads` builder + `price-payload` route; swap the 6 `usePrices` hooks | Byte-parity of payloads vs today's JSON |
 | 4 | Dashboards §9.1–9.4: since-euro verdict, search, product page, leaderboard | EXPLAIN ANALYZE on fresh milk (57 chains) under 200ms |
 | 5 | Retire JSON: rewire AI tools, `data_map`; delete `build_index.ts` + `data/prices/*.json` | Prerender + OG green; `npm run build` clean |
+| 5b | Wiring: `cijene_hr` watcher, `process-watch-report` mappings, README, data map + `/data` pages, 6 new AI tools | `npm run build` (proves data-map + `AI_PATH_RULES`); a PG-only ingest still writes a `/data/updates` row |
 | 6 | §9.5 differentiators: rounding, shrinkflation, dispersion; geocoding; basket optimizer; open API | — |
 
 Phases 1–3 are a pure migration and can ship without any UI change. Phase 2 is the one with genuine
@@ -707,9 +801,11 @@ migration and the SKU-faithful browser, and iterate on identity.
 
 ## 11. Open questions
 
-- **Deploy ordering.** Migrations land via `db:push` / `apply_functions.ts` *before* `deploy:functions`,
-  or `missingMigrationEmpty` masks a 500 as an empty tile. Same trap as agri and NZOK.
-- **Snapshot size.** Does `price_facts` belong in the `db:push` dump at all, or should DR for prices
+- **Deploy ordering.** Migrations land via `apply_functions.ts` (or a `db:load:*:cloud` wrapper,
+  which applies its own DDL) *before* `deploy:functions`, or `missingMigrationEmpty` masks a 500
+  as an empty tile. Same trap as agri and NZOK. Note `db:dump` does **not** land a migration —
+  it only `pg_dump`s outward to GCS (see §"`db:dump` is a full `pg_dump` → GCS" above).
+- **Snapshot size.** Does `price_facts` belong in the `db:dump` dump at all, or should DR for prices
   be "replay the ZIPs"? The ZIPs are 4.1GB and authoritative; the dump would grow by several GB.
   Leaning toward excluding it and documenting the replay path.
 - **Mandate expiry.** If the daily-upload obligation lapses on **8 Aug 2026** the feed may thin out or
@@ -721,3 +817,10 @@ migration and the SKU-faithful browser, and iterate on identity.
 - **Basket weighting.** The current index is an *unweighted* Jevons index of median-of-minimum
   prices. For §9.1's perceived-vs-measured tile we need an HICP-weighted variant. Ship both, label
   both, and never let one silently stand in for the other.
+- **cijene.dev licence.** The code is AGPL-3.0; the *data* is public because Croatian regulation
+  NN 75/2025 compels its publication. Confirm the attribution/redistribution terms on the archive
+  itself before we restate Croatian prices on naiasno.bg, and mirror rather than hot-link the ZIPs.
+- **How many BG↔HR pairs actually survive?** 293 is the BG-side upper bound (§9.6). The realistic
+  yield after requiring the same EAN to exist at the same retailer in Croatia is unknown until we
+  pull one HR archive and try. Do that spike *before* committing to item 17 — it is a day's work and
+  it decides whether the feature is 150 products or 15.
