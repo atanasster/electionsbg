@@ -1,6 +1,8 @@
 # Култура (Culture) view — v1 plan
 
-**Status:** draft, post-audit (rev 2). Ready to scope implementation.
+**Status:** draft, post-audit + UI/UX pass (rev 2.1). Ready to scope implementation.
+Reading order: §1 (what exists) → §3 (architecture) → §3.1 (UI/UX) → §5/§5.1 (data + tile
+inventory) → §14 (phasing). §5.1 is the build list.
 **Owner:** —
 **Closest shipped precedent:** [judiciary-vss-v1.md](./judiciary-vss-v1.md) — copy its shape.
 **Also read:** [defense-pack-v1.md](./defense-pack-v1.md), [water-view-v1.md](./water-view-v1.md) (draft),
@@ -84,6 +86,162 @@ The judiciary is the shipped answer to "entity pack + dedicated view". Copy it e
 - **Do NOT export `KULTURA_AWARDER_PATH`.** Still register `[KULTURA_EIK]: KulturaPack`
   in the `PACKS` map.
 
+## 3.1 UI/UX — world-best implementation on the house grammar
+
+The bar: be the best culture-money dashboard in the world, not just in Bulgaria (the
+field is open — §5). That means adopting the house pack grammar **verbatim** and then
+layering the handful of things the best arts-funders abroad do that no Bulgarian site does.
+
+**Canonical grammar spec — do not reinvent.** The condensed, authoritative statement of
+the shipped-pack UI vocabulary lives in [revenue-view-v1.md](./revenue-view-v1.md) §3
+and [defense-pack-v1.md](./defense-pack-v1.md) "Shared UI skeleton". Read those first.
+Copy `src/screens/components/procurement/vss/VssPack.tsx` wholesale as the pack skeleton
+(it is the newest/cleanest: flex-column KPI grid, scope-window `procSpan` divisor,
+per-tile `hasModel` gating, statutory callout, alias-EIK footnote). This section records
+only the Култура-specific decisions and the world-best additions.
+
+### a. Layout & the two surfaces (recap of §3)
+- `/culture` **dedicated screen** — homepage width, **no `max-w` cap, NO tabs**, stacked
+  `space-y-4` sections (`feedback_no_tabs_ux`). Owns the recipient/subsidy story.
+- `KulturaPack` on `/awarder/000695160` — the money-as-buyer sliver, only domain-unique
+  tiles (generic KPIs already render above). Cross-link, never co-render.
+- Both open on a **visual, not a KPI row** — see (c).
+
+### b. Chart-type → job (dataviz method: pick the form before the color)
+Read the `dataviz` skill before the first line of chart code. House lib is **Recharts**
+(d3 only for maps). One axis ever — never dual-y. Assignments:
+
+| Job / tile | Form | Notes |
+|---|---|---|
+| Culture € per capita by oblast | **choropleth**, single-hue **sequential** ramp | the hero map; §d |
+| "Where the culture money goes" (film/theatre/grants/читалища split) | **horizontal composition bar** (hand-rolled Tailwind, the bridge idiom) | segments colored by category id, not rank |
+| Function/discipline split of ЗОП spend | donut / `PieChart` | clone `RoadWorkGroupDonut` |
+| Subsidies over time (by year / by cabinet) | stacked `BarChart` time-spine | reuse `RoadTimeSpineTile` shape; cabinet via `?cabinet=` |
+| **Recipient concentration** ("who wins repeatedly") | ranked horizontal bars + a top-N-share callout | NOT a pie; clone `RoadRepeatWinnersTile` |
+| **Success rate** (applied vs funded per program) | paired/stacked bar or a labelled ratio meter | world-best addition, §e |
+| Awarder roster (each cultural body as buyer) | linked list with `hasPack` pill | clone `JudicialAwardersTile` |
+| Single headline (e.g. €269.4M) | **stat tile, not a chart** | dataviz: sometimes the answer isn't a chart |
+
+**Color discipline (non-negotiable, from dataviz):** categorical hues in a **fixed order,
+never cycled** — a 9th discipline folds into "Other," never a generated hue; **color
+follows the entity, not its rank** (a filter that drops series must not repaint
+survivors); sequential = one hue light→dark; **run `scripts/validate_palette.js` on any
+categorical palette before shipping** (CVD ≥ 12; don't eyeball). Fills use the CSS-HSL
+token system (`hsl(var(--muted))`, `bg-primary`, per-id `LINE_COLOR` maps); text wears
+ink tokens, never the series color. Every number `tabular-nums`; EUR via
+`formatEurCompact(v, lang)` reading `amountEur` (never re-convert). Dark mode is a
+**designed** variant (every color has a `dark:`), verified in both themes.
+
+### c. Landing / information scent (world-best)
+The best arts dashboards (ACE) **open on a map + search**, not a stat grid — the citizen's
+first question is "what about my area / who got funded near me." So:
+- `/culture` opens with the **per-capita choropleth hero** (the striking share-card visual,
+  §12 OG) with a **search box overlaid/above** it (recipient or place), THEN the KPI row,
+  THEN the discipline composition. Information scent points at "find your area / your
+  theatre," not at a national aggregate the reader can't act on.
+- **Two-search split** (ACE Explorer): keep the *place* search and the *recipient* search
+  visually distinct — they answer different questions ("my area" vs "this theatre/producer")
+  and merging them into one box muddies both.
+- The **pack** opens on the subsidy/budget bridge (its `data-og` hero).
+
+### d. Maps & geo (choropleth-first)
+- Any oblast-grained metric → **choropleth, never a ranked list** (water §4.1a).
+- **Per-capita normalization is a first-class toggle** — raw € misleads (big oblasti spend
+  more because they hold more people). Copy `NzokRegionalChoroplethTile`'s toggle.
+- **Small-multiples over metric-toggle buttons** where >1 metric (e.g. film € · grants € ·
+  per-capita) — `grid lg:grid-cols-3`, shared legend, "spatial story at a glance."
+- **Pair the choropleth with a ranked bar list.** Absolute-€ shading conflates size with
+  intensity (Creative Europe's map makes small high-intensity regions invisible); the
+  per-capita toggle + an adjacent Top-N bar list fixes it. Never ship an absolute-€
+  choropleth alone.
+- **Click an oblast → filters the Top-N recipient table below** (`activeOblast`/
+  `onSelectOblast` seam).
+- Percentile color buckets computed per-oblast so Sofia's shards don't skew the scale;
+  derive oblast from the **obshtina prefix, not `area.oblast`** (`project_oblast_code_shard_mismatch`).
+- **Dependency:** `OblastChoropleth` does not exist yet — extract-or-clone decision is a
+  Phase-0 blocker (§12, §15). Coordinate with the water/education plans; don't fork.
+
+### e. World-best accountability layer (what no BG site does)
+These four, mapped onto our surfaces, are the differentiators — adopt them explicitly:
+1. **Success rate — applied vs funded** per program/session (ACE, Creative Australia). A
+   rare, powerful accountability metric. Source: НФК/НФЦ session results carry both.
+2. **Decision-body transparency** — show the jury/художествена комисия per award (Creative
+   Australia, ACE), and flag jury↔recipient overlap via the connections graph. **Gated on
+   §6 data availability — validate before designing the tile.**
+3. **"Is my area under-funded?"** — the per-capita choropleth (ACE Culture & Place). This is
+   the citizen hook and the hero (c/d).
+4. **Recipient concentration / celebrity-vs-independent split** — the ranked-bar tile + a
+   top-N-share number (the "банкомат за избрани" story, made standing and queryable).
+5. **Narrative annotations on the charts** — the single biggest gap the best foreign tools
+   leave (Creative Europe ships "ready-made charts" with **zero** annotation: the reader
+   must assemble "up X% vs the previous programme" themselves). Beat it: a plain-language
+   lede sentence per tile and explicit YoY / vs-cabinet delta call-outs **on** the visual —
+   the house insight-chip + caption idiom already does this; use it deliberately.
+6. **Comparator-by-default** — ACE's Culture & Place Explorer bakes **two comparators into
+   every place figure (its oblast + national)**, so no number is shown context-free. This is
+   the strongest structural "is my area under-funded?" answer — stronger than a per-capita
+   toggle alone. On the oblast map/tooltips and any place drill-down, always show the value
+   **vs the national per-capita mean** (and vs its region where meaningful), not the bare €.
+
+### f. Search, filter, drill-down, deep-linking
+- **Per-grant permanent records + a searchable browser** (NEA, Canada Council): every award
+  a stable `/culture/grant/:id` (Phase 3), the browser a DbDataTable with facets
+  **discipline × year × oblast × program × status** and free-text `?q=` on recipient/title.
+- **Large lists never dump in a tile** — Top-N (8–10) in the tile → **"Виж всички / See all"**
+  to the DbDataTable page; the link **preserves scope AND seeds `?q=`** (`useProcurementHref`
+  + `p.set("q", …)`).
+- Row → `/company/:eik` or `/awarder/:eik` (`truncate hover:underline`, `title` full name);
+  scope (`?pscope`, `?cabinet`) survives every nav hop.
+- **CSV export + methodology note** alongside the UI (Canada Council) — near-free off the
+  committed JSON; a competitor/ИПИ differentiator and a trust signal.
+
+### g. Empty / loading / thin-corpus (mandatory here — §1)
+МК's procurement is tiny and lumpy, so the pack **must not blank out** on an empty scope:
+- Loading: `<div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />`
+  (screens use `h-[320px]`).
+- **Per-tile `hasModel` gating**, not whole-pack `return null`: budget/subsidy tiles that
+  don't need the contract corpus stay alive; only procurement-derived pieces hide.
+- Dedicated screen adds an explicit `isError || !data` branch (React Query settles a failed
+  fetch as `isLoading:false, data:undefined`).
+- Self-hiding tiles + divide-by-zero guards (`Math.max(1,…)`, `|| 1`) are house style.
+- **Never default a picker/scope to an empty result** (NEA defaults its year filter to the
+  current FY and returns near-nothing — a silent dead-end). Default the year picker to the
+  latest *populated* year resolved against the data, and default the map to the metric that
+  actually has coverage; if the default `?pscope=ns` window is empty, the pack shows the
+  subsidy story, not a blank procurement KPI.
+
+### h. Trust, provenance, honesty (non-negotiable)
+- **Provenance footnote closes every pack/screen** (`text-[11px] text-muted-foreground/80`),
+  naming each source by acronym (НФЦ регистър, НФК класиране, Закон за бюджета, АОП/ЦАИС ЕОП);
+  link the source where possible.
+- **Every visual carries its own caption** stating formula/period/caveat.
+- **Two-period honesty in the bridge:** the "per year" divisor is the scope-window length
+  (name both periods in the hint so they can't disagree); ratios compare like years; residual
+  line spelled out; "под 0,5%" rounding-floor honesty.
+- **"Outside procurement" caveat** wherever subsidies dwarf the ЗОП ledger — culture subsidies/
+  grants are paid outside ЗОП and are NOT the contracts shown (the НЗОК/ВСС чл.-45 analog).
+- **`awarded ≠ received`** caveat on grant lists (Canada Council/NEA surface this): a recipient
+  can decline or a tranche can be withheld — say so.
+- **Municipal vs state** labelling: Sofia Програма „Култура" is municipal — label "извън
+  държавния бюджет" (the Софийска-вода lesson).
+- **"Last updated" stamp** on the dedicated view (ACE refreshes every 2–3 days and shows it);
+  drive it off the ingest state.
+
+### i. Bilingual & a11y
+- Inline BG/EN ternary (`const bg = lang === "bg"`) inside tiles — **only the nav key**
+  (`culture_nav`) goes through i18next. BG reads naturally, not word-for-word. No emojis.
+- Charts are **labelled images** (`role="img"` + an `aria-label` enumerating values); metric
+  toggles `role="group"` + `aria-pressed`. Identity never by hue alone (legend + labels +
+  per-capita toggle); validate colorblind-safety with the dataviz script.
+- Responsive: grids scale (`grid-cols-2 lg:grid-cols-3 …`), maps `h-[300px] md:h-[340px]`,
+  headers `flex-wrap`. Not desktop-only (the Creative Australia cautionary case).
+
+### j. Definition of done (UI checklist per tile)
+Form chosen by job · palette validated (`validate_palette.js`, both modes) · one axis ·
+color-by-entity · hover/tooltip present · `tabular-nums` + `formatEurCompact` · dark mode
+designed & checked · `role="img"`/`aria-label` · own caption + period/formula · empty &
+loading states · bilingual · scope-aware · deep-links preserve scope.
+
 ## 4. Storage decision — JSON first, PG only if forced
 
 **The judiciary pack ships with zero new PG tables**: no `scripts/db/schema/pg/*.sql`,
@@ -120,6 +278,35 @@ dataset still needs a `data/updates` presence via the data map.
 4. **Sofia Програма „Култура"** — per-project HTML/PDF. **Municipal, not МК** — label it
    "извън държавния бюджет" wherever shown (the water plan's Софийска вода lesson).
 5. **Читалища** — reconstruct €88.3M from ДВ per-unit standard × subsidized-unit counts.
+
+## 5.1 Tile inventory (reconciles §3.1 viz · §5 data · §14 phase)
+
+The single build list. Surface: **S** = `/culture` dedicated screen, **P** = `KulturaPack`
+on `/awarder/000695160`, **B** = `/culture/grants` browser. Viz keys map to §3.1b.
+
+| # | Tile | Surface | Viz (§3.1b) | Data (§5) | Phase |
+|---|---|---|---|---|---|
+| 1 | **Per-capita culture € by oblast** (hero) + search box overlay | S | choropleth, single-hue seq, per-capita toggle, **paired with Top-N bar**, click→filter | corpus × census/GRAO pop | 1 |
+| 2 | KPI row — total culture €, N recipients, latest year | S | stat tiles (not charts) | corpus + МК budget | 1 |
+| 3 | **Discipline composition** — where culture money goes (film/theatre/grants/читалища) | S | horizontal composition bar, color-by-category | corpus | 1 |
+| 4 | **НФЦ film awards** (Top-N → "See all") | S→B | ranked list → DbDataTable | `films.json` | 1 |
+| 5 | **Recipient concentration** — who wins repeatedly + top-N-share | S | ranked horizontal bars + call-out | corpus | 1 |
+| 6 | **Awarder roster** — each cultural body as a buyer | S | linked list, `hasPack` pill (clone `JudicialAwardersTile`) | allowlist × contracts | 1 |
+| 7 | Subsidies over time (by year / by cabinet `?cabinet=`) | S | stacked BarChart time-spine + YoY annotation | corpus | 1→2 |
+| 8 | **НФК grants + success rate** (applied vs funded) | S | paired/stacked bar or ratio meter | НФК PDFs | 2 |
+| 9 | **Jury / decision-body + conflict lens** — *gated on §6 data* | S | roster + connections-graph flag | jury data (unvalidated) | 2* |
+| 10 | Pack: CPV→function category tile | P | donut (clone `RoadWorkGroupDonut`) | contracts | 2 |
+| 11 | Pack: KPI (subsidies/yr vs МК budget yr) + statutory-supplier callout | P | stat tiles + amber callout | contracts + budget | 2 |
+| 12 | Grants browser — facets discipline×year×oblast×program×status, `?q=`, CSV export | B | DbDataTable | corpus (→PG if large) | 3 |
+| 13 | Per-grant record `/culture/grant/:id` | — | detail page (clone `/procurement/contract/:id`) | corpus | 3 |
+| 14 | **Theatre subsidy-per-ticket productivity** | S | ranked bars/table | ДВ standards + МК overspend lists | 3 |
+| 15 | Sofia Програма „Култура" (municipal, labelled "извън държавния бюджет") + читалища | S | tiles / map | Sofia HTML · ДВ | 3 |
+
+Notes: **no budget-bridge hero** — the МК ministry page already owns budget/programs/
+execution (§1); the pack (11) is a thin sliver and must survive an empty scope. Tile 9 is
+the headline differentiator but its data is unconfirmed (§6, §15) — design only after Phase 0
+validates it. Tiles 1 and 14 depend on the `OblastChoropleth` decision (§12) and per-institute
+data (§15) respectively.
 
 Confirmed figures: МК 2026 budget **€269.4M**; читалища 2026 **€11,240/unit × 7,856 ≈
 €88.3M**; НФК 2026 **18.3M лв ≈ €9.36M**; Sofia 2026 **€2.3M, 119/455 funded**.
@@ -299,10 +486,11 @@ A phase isn't "done" until its data is watched (§8), self-verified (§9), on th
   tile from scope.
 
 **Phase 1 (the product):** `data/culture/films.json` from the НФЦ `.xls` (JSON, no PG) +
-the `/culture` dedicated view: film-awards tile, repeat-winner concentration, awarder
-roster (§2), per-capita map. Nav → `/culture`. Both prerender entries, both OG cards,
-sitemap, data map, `update-culture` skill + `nfc_film_register` watcher, AI tools
-`cultureOverview`/`topCultureGrantees`/`filmSubsidyForProducer`, README, launch post.
+the `/culture` dedicated view — **tiles 1–7 in §5.1** (per-capita hero map + search,
+KPI row, discipline composition, film awards, concentration, awarder roster, time-spine).
+Nav → `/culture`. Both prerender entries, both OG cards, sitemap, data map,
+`update-culture` skill + `nfc_film_register` watcher, AI tools `cultureOverview`/
+`topCultureGrantees`/`filmSubsidyForProducer`, README, launch post.
 
 **Phase 2 (the pack + grants):** `KulturaPack` on `/awarder/000695160` — CPV→function
 category tile + statutory-supplier context, **no budget bridge** (link the ministry page);
