@@ -32,7 +32,7 @@ const SCHEMA_FILE = path.join(SCHEMA_DIR, "009_tenders.sql");
 const TRACKING_FILE = path.join(SCHEMA_DIR, "005_ingest_tracking.sql");
 const API_FILE = path.join(SCHEMA_DIR, "010_tenders_api.sql");
 // КЗК appeals schema (table + tender_appeals / kzk_recent_appeals) — joins
-// tenders by УНП; created here so db:push ships it. Data comes from the separate
+// tenders by УНП; created here so db:load:tenders:pg[:cloud] ships it. Data comes from the separate
 // headed-Playwright ingest (scripts/procurement/kzk_appeals.ts --apply).
 const KZK_FILE = path.join(SCHEMA_DIR, "042_kzk_appeals.sql");
 // AI-chat serving fns over the tenders + kzk_appeals tables (tender_corpus_search
@@ -152,6 +152,22 @@ export const loadTendersPg = async (): Promise<{
   await exec(readFileSync(KZK_FILE, "utf8"));
   // AI-chat serving fns (functions only; replaced each run).
   await exec(readFileSync(AI_FILE, "utf8"));
+
+  // Refresh planner statistics immediately — same reason as load_pg.ts: a
+  // freshly TRUNCATE+INSERT'd table carries reltuples=0 and no column histograms
+  // until autovacuum happens to run, so the first queries after a load plan
+  // blind. `tenders` was the one loaded table missing this.
+  //
+  // 2026-07-10: Cloud SQL's kzk_appeals_summary() (which LEFT JOINs
+  // kzk_appeals→tenders on unp) took 113s, past the /api/db route timeout — the
+  // appeals tile and procurementAppeals both 500'd. `tenders` showed
+  // n_mod_since_analyze=126042. `ANALYZE tenders; ANALYZE kzk_appeals;` brought
+  // it to 168ms and it stayed fast. The stale-stats → bad-plan chain is the
+  // leading explanation but was NOT reproduced locally (same row counts give
+  // 93ms with reltuples=0 vs 36ms after ANALYZE — a 2.5× gap, not 3000×), so a
+  // cold/evicted Cloud SQL buffer cache that the ANALYZE scan happened to warm
+  // is not ruled out. Either way this ANALYZE is correct and cheap (~8s).
+  await exec("ANALYZE tenders");
 
   return { rows: rows.length, years: [...years].sort() };
 };

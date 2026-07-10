@@ -635,6 +635,20 @@ const applyPg = async (records: KzkAppeal[]): Promise<void> => {
         if (code === "42P01" || code === "42883") return undefined;
         throw e;
       });
+    // Refresh planner stats for the rows we just upserted, BEFORE the matviews
+    // read them, rather than leaving it to autovacuum.
+    //
+    // 2026-07-10: minutes after this ingest ran against Cloud SQL, the route
+    // /api/db/kzk-appeals-summary began 500ing; kzk_appeals_summary() (LEFT JOIN
+    // kzk_appeals→tenders on unp) measured 113s against a 20s route timeout.
+    // `ANALYZE tenders; ANALYZE kzk_appeals;` restored it to 168ms. Stale stats
+    // on the tenders side is the leading explanation — it had never been
+    // analyzed (now fixed in load_tenders_pg.ts) — but the pathology did NOT
+    // reproduce locally, so treat that as a hypothesis, not a proven cause.
+    // Analyzing both sides here is cheap and keeps the pair consistent whichever
+    // loader ran last.
+    await tryExec("ANALYZE kzk_appeals");
+    await tryExec("ANALYZE tenders");
     await tryExec("REFRESH MATERIALIZED VIEW appealed_ocids");
     await tryExec("REFRESH MATERIALIZED VIEW upheld_ocids");
     await tryExec(
