@@ -104,12 +104,21 @@ export const NOI_SUPPLIER_CONTEXT: Record<
     bg: "Системен интегратор на държавата по закон (ЗЕУ, 2019) — възлагането е пряко, извън ЗОП",
     en: "Statutory national systems integrator (2019) — awarded directly, outside open tender",
   },
-  // Български пощи ЕАД — pension delivery under НПОС чл. 92; the 10-year
-  // mandate from 1.07.2016 expires 1.07.2026 (a state-aid SGEI arrangement).
+  // Български пощи ЕАД — the designated universal-postal-service provider, so
+  // НОИ's mail for the ЦУ + 28 ТП is awarded to it directly (Договаряне без
+  // предварително обявление). That is what these contracts are: CPV 64110000,
+  // postal and courier services — NOT pension delivery.
+  //
+  // Pension payout itself is a separate SGEI entrusted to Български пощи by
+  // regulation (НПОС чл. 92б), not by tender, so it never enters the
+  // procurement register and carries none of the € below. ПМС № 199/6.06.2024
+  // (ДВ бр. 49, 11.06.2024) extended that entrustment from 10 to 15 years — it
+  // now runs to 1.07.2031 — and replaced the €15M/yr compensation cap with full
+  // compensation under the applicable state-aid rules.
   "121396123": {
     kind: "delivery",
-    bg: "Изплащане на пенсии по НПОС чл. 92; 10-годишният мандат (от 1.07.2016) изтича на 1.07.2026",
-    en: "Pension delivery under NPOS art. 92; the 10-year mandate (from 1 Jul 2016) expires 1 Jul 2026",
+    bg: "Задължен доставчик на универсалната пощенска услуга — пощите на НОИ се възлагат пряко. Изплащането на пенсии е отделна услуга по НПОС чл. 92б (възложена до 1.07.2031 г.) и не минава през ЗОП.",
+    en: "Designated universal-postal-service provider, so НОИ's mail is awarded directly. Paying out pensions is a separate service entrusted under NPOS art. 92б (running to 1 Jul 2031) and never passes through public procurement.",
   },
 };
 
