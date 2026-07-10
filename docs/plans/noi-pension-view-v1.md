@@ -659,7 +659,140 @@ interactive actuarial projection (§3.3) as named scenarios.
 
 ---
 
-## 8. Open questions
+## 8. Hardening the procurement pack (`/awarder/121082521`)
+
+Separate track from the `/pensions` view. The view is a new destination; this is about
+making the existing four-tile sector pack world-class in its own right. Both can proceed
+independently. Grounded in a cross-pack code audit + a benchmark of Tussell, USASpending,
+OpenTender/DIGIWHIST, the EU Single Market Scoreboard, SIGMA (МИДТ) and GovSpend.
+
+### 8.1 Where the pack stands
+
+NOI is the **thinnest of our four packs** — 4 tiles, and the only pack with **zero charts
+and zero interactive controls**. NZOK (~11 tiles) is the in-house reference; VSS (2, by
+design — the rich views live on `/judiciary`) and Roads (11, bespoke geometry) bracket it.
+
+| Capability | NOI | NZOK | VSS | Roads |
+|---|:--:|:--:|:--:|:--:|
+| Year picker | ○ | ● | ● | ○ |
+| Trend chart | ○ | ● | ○ | ● |
+| Momentum / YoY movers | ○ | ● | ○ | ○ |
+| Execution-pace (plan vs actual) | ○ | ● | ○ | ○ |
+| Per-entity drill-down | ◐ | ● | ◐ | ◐ |
+| Regional choropleth | ○ | ● | ○ | ◐ |
+| €↔count / metric toggle | ○ | ● | ○ | ● |
+| Budget↔execution bridge | ◐ | ● | ● | ○ |
+| Single-bid / competition | ● | ● | ● | ● |
+| Statutory-context chips | **● (origin)** | ● | ● | ○ |
+| AI tools | **1** | 4 | 4 | 1 |
+
+NOI is also the **origin** of the statutory-context chip pattern (NZOK and VSS copied it),
+and it owns the one thing no competitor has (§8.4). Its gap is maturity, not identity.
+
+### 8.2 What competitors validate — two things nobody else does
+
+The web benchmark's decisive findings:
+
+- **Fusing procurement with the fund the body administers is genuinely novel.** USASpending
+  shows "account spending" and "award spending" as adjacent lenses but never as one ratio;
+  OpenTender and SIGMA have **no budget layer at all**; Bloomberg Gov keeps budget as
+  narrative. Our `NoiFundFlowTile` — €110m of contracts as a sliver of the €12.6bn ДОО
+  fund — has no equivalent anywhere. **This is the strongest asset in the pack; lead with
+  it, don't bury it.**
+- **Statutory-context flags are a market gap.** OpenTender, SIGMA and DG GROW all score a
+  legally-mandated sole supplier identically to a rigged one. Our Български пощи /
+  Информационно обслужване chips (§ the chip fix already shipped) already do the thing every
+  serious tool gets wrong. Own it explicitly — "we don't cry scandal at the law."
+
+SIGMA (our named competitor) is, by its own README, a *ledger* — clean traceability, daily
+freshness, CSV export, but **no risk layer, no time trend, no concentration metric, no
+competition analysis, no budget context**. That gap is our whole opening.
+
+### 8.3 What to build — ranked by value × portability
+
+**The generic-vs-pack boundary is a hard constraint.** The awarder page already renders,
+for every buyer: the KPI grid, top contracts / contractors, "какво купува" by CPV, the
+EU-threshold single-bid/no-call benchmarks, money-flow, the supplier treemap, **and a
+per-year bar chart** (`CompanyByYearChart` on `awarderRollup.byYear`), tenders and КЗК
+appeals. The pack must add domain-unique framing only — anything that duplicates a generic
+tile is cut. This kills the naive "add a trend chart" idea (§ below).
+
+**Ship now — UI only, no ingest, no engine change:**
+
+1. **`€ ↔ брой` (value↔count) toggle** on `NoiCategoryTile` and `NoiStrategicSuppliersTile`.
+   The model already carries both. OpenTender's count-vs-value toggle is the reference; NZOK
+   already does it (`NzokHospitalPaymentsTile`). A ranking that flips basis is the single
+   cheapest credibility win.
+2. **Pareto concentration curve** on the suppliers tile — sorted supplier bars + a cumulative
+   `%` line, annotating where the top-N crosses 50% / 80%. Today the tile shows only a
+   "top-8 share" number. Pareto is the honest concentration viz (bars rank; a pie does not).
+   Optionally an **HHI badge** with DOJ bands as a *secondary* flag, never the headline.
+3. **Extract two shared primitives first** (they don't exist yet — each is hand-rolled in all
+   four packs): `<InsightChips>` (the `{text, warn}` chip row) and `<PillToggle>` (the
+   `role="group"` + `aria-pressed` button set behind every NZOK picker/toggle). Building #1
+   and #2 on these keeps the fifth pack from forking a sixth variant, exactly as
+   `chipStyles.ts` already single-sources the amber.
+
+**Small engine extension — medium effort, no ingest:**
+
+4. **Procurement momentum / YoY movers** among NOI's suppliers, mirroring
+   `NzokHospitalMomentumTile` (mover ranking with a base-value floor so a €0→€1k jump isn't
+   "+∞%"). The corpus is genuinely multi-year (`buildAwarderModel` emits `model.years[]`,
+   2005→2024), but it only breaks down by *category*, not per-supplier×year — so this needs a
+   small `awarderModel` addition. Temper the value estimate: NOI's supplier set is small and
+   structural (Български пощи, Информационно обслужване), so movers say less here than across
+   NZOK's 256 hospitals. Worth it mainly as the vehicle for #5.
+5. **Integrity-indicator row** (OpenTender/DIGIWHIST model) — score each contract 0/50/100 on
+   a few flags (single-bid, direct-award procedure, short/long decision period, new-company
+   winner), average to a per-buyer read, and show which flag drags NOI down — **with the
+   statutory exemption applied**, so a чл.92б/ЗЕУ supplier scores green with a citation. This
+   is where §8.2's two differentiators combine into something genuinely best-in-world. Reuses
+   the canonical `isSingleBid` / `competitionStats` in `awarderModel.ts`. Present single-bid
+   **always against the national-average band** (frameworks excluded), never bare — the DG
+   GROW rule.
+
+**Blocked on ingest — the real prize, needs Phase 1 first:**
+
+6. **Execution-pace curve** (plan vs actual), NOI's equivalent of NZOK's flagship
+   `NzokExecutionPaceChart`. Blocked twice: `__write_funds.ts` collapses the monthly B1 to an
+   annual snapshot (the parser reads monthly — retain it), and there is no ЗБДОО plan line
+   ingested. Ship the graceful-degradation pattern NZOK uses: a plan-vs-actual line when ≥2
+   months exist, a single YTD gauge otherwise.
+7. **Fund-year picker** on the fund-flow tile — blocked until ≥2 *complete* B1 years exist
+   (today only 2024 is usable; the picker would auto-hide). Falls out of the §3 ingest for
+   free.
+8. **Regional dimension** — pensioners / average pension by ТП on the same `FeatureMap` +
+   per-capita-toggle recipe NZOK uses, once §3's oblast ingest lands. This is the bridge
+   between the pack and the `/pensions` view — the pack can cross-link into the view's map.
+
+Explicitly **skipped**: head-to-head compare (NZOK compares 256 hospitals; NOI has a handful
+of statutory suppliers — no value), and a plain annual trend chart (**collides** with the
+generic `CompanyByYearChart`; only a monthly or per-category-stacked or movers grain earns a
+pack chart).
+
+### 8.4 What "best in the world" means for this pack
+
+Not more tiles — SIGMA has more rows than us and is still a ledger. It means the three
+things no competitor combines on one entity page:
+
+1. **The fund-fusion ratio** as the hero (unique).
+2. **Risk framing with a statutory exemption** — the honest version of the integrity score
+   every benchmarked tool gets wrong (unique).
+3. **Cross-linked to the connections graph** — the FollowTheMoney-style relationship view
+   (Aleph/OpenCorporates have the graph but no spend/budget analytics; we have both).
+
+### 8.5 Anti-patterns to avoid (observed in the benchmark)
+
+- No sunburst / nested-donut (USASpending abandoned it for a treemap).
+- No pie for top-N suppliers — angles don't rank; use bars / Pareto.
+- No bare gauges or vanity KPIs — every number gets a band, a peer, or a "% of fund".
+- No auto-expanded network hairball — expand-on-click, typed edges only.
+- No 200-node Sankey — keep money-flow pairwise / top-N (as the generic `EntityFlowTile`
+  already does).
+
+---
+
+## 9. Open questions
 
 - **Yearbook backfill depth.** XLSX only reaches 2022. Is the existing PDF parser worth
   extending to 2014–2021 for the oblast + bracket series, or is 2022+ enough for v1?
@@ -690,7 +823,7 @@ interactive actuarial projection (§3.3) as named scenarios.
     (Exclude the ЕРМД / Турция rows.) This is a strong tile: the geography of
     financial exclusion among pensioners, and the actual stake of the postal mandate.
 
-## 9. Sources
+## 10. Sources
 
 - НОИ statistics index — https://nssi.bg/publikacii/statistika/
 - Yearbook ZIP — https://www.nssi.bg/wp-content/uploads/Yearbook_Pensions_2024.zip
