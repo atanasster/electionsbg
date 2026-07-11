@@ -447,6 +447,26 @@ export const narrate = (env: Envelope, lang: Lang): string => {
         ? `${f(env, "recipient")}${idBg.length ? ` (${idBg.join(", ")})` : ""} е получил ${f(env, "total")} земеделски субсидии по ${f(env, "payments")} плащания през ${f(env, "period")} г. Най-голяма схема: ${f(env, "topScheme")}.`
         : `${f(env, "recipient")}${idEn.length ? ` (${idEn.join(", ")})` : ""} received ${f(env, "total")} in farm subsidies across ${f(env, "payments")} payments in ${f(env, "period")}. Largest scheme: ${f(env, "topScheme")}.`;
     }
+    case "cultureOverview":
+      if (!env.facts.total) return env.title;
+      return lang === "bg"
+        ? `Държавна субсидия за кино (НФЦ, ${f(env, "span")}): ${f(env, "total")} за ${f(env, "films")} проекта на ${f(env, "producers")} продуценти. Топ 10 продуценти държат ${f(env, "top10Share")} от парите. Най-финансиран: ${f(env, "biggestProducer")}.`
+        : `State film subsidy (НФЦ, ${f(env, "span")}): ${f(env, "total")} across ${f(env, "films")} projects and ${f(env, "producers")} producers. The top 10 producers hold ${f(env, "top10Share")} of the money. Most-funded: ${f(env, "biggestProducer")}.`;
+    case "topCultureGrantees":
+      if (!env.facts.biggestProducer) return env.title;
+      return lang === "bg"
+        ? `Най-финансиран продуцент от НФЦ: ${f(env, "biggestProducer")} (${f(env, "biggestAmount")}). Топ 10 държат ${f(env, "top10Share")} от субсидията.`
+        : `Top НФЦ-funded producer: ${f(env, "biggestProducer")} (${f(env, "biggestAmount")}). The top 10 hold ${f(env, "top10Share")} of the subsidy.`;
+    case "filmSubsidyForProducer":
+      if (!env.facts.total) return env.title;
+      return lang === "bg"
+        ? `${f(env, "producer")} е получил ${f(env, "total")} държавна субсидия за кино по ${f(env, "films")} проекта.`
+        : `${f(env, "producer")} received ${f(env, "total")} in state film subsidy across ${f(env, "films")} projects.`;
+    case "cultureGrantSuccess":
+      if (!env.facts.rate) return env.title;
+      return lang === "bg"
+        ? `Успеваемост на грантовете на НФК: ${f(env, "rate")} — ${f(env, "funded")} от ${f(env, "applied")} проекта финансирани (${f(env, "totalFunded")}). Най-висока: ${f(env, "bestField")} (${f(env, "bestRate")}); най-ниска: ${f(env, "worstField")} (${f(env, "worstRate")}).`
+        : `НФК grant success rate: ${f(env, "rate")} — ${f(env, "funded")} of ${f(env, "applied")} projects funded (${f(env, "totalFunded")}). Highest: ${f(env, "bestField")} (${f(env, "bestRate")}); lowest: ${f(env, "worstField")} (${f(env, "worstRate")}).`;
     case "governments":
       return lang === "bg"
         ? `${f(env, "count")} правителства от 2005. Настоящо: ${f(env, "current_pm")} (${f(env, "current_parties")}).`

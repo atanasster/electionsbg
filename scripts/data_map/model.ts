@@ -95,6 +95,7 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   { pattern: /^\/parliament\//, dataset: "parliament" },
   { pattern: /^\/officials\//, dataset: "officials" },
   { pattern: /^\/judiciary\//, dataset: "judiciary" },
+  { pattern: /^\/culture\//, dataset: "culture" },
   { pattern: /^\/budget\//, dataset: "budget" },
   // macro_fdi must precede the generic `macro` rule below (first match wins),
   // otherwise /macro_fdi.json would be attributed to ds:macro.
@@ -631,6 +632,23 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     tags: ["fiscal"],
   },
   {
+    id: "culture",
+    label: { bg: "НФЦ · филмови субсидии", en: "НФЦ · film subsidies" },
+    detail: {
+      bg: "държавно финансиране на кино",
+      en: "state film financing",
+    },
+    desc: {
+      bg: "Единният публичен регистър на финансираните филми и сериали на Изпълнителна агенция „Национален филмов център“ — държавната субсидия за игрално, документално и анимационно кино по проект и продуцент, 2014–2025. Публикува се като .xls файлове по година; сумите са в лева, конвертирани в евро по фиксирания курс.",
+      en: "The National Film Center's public register of financed films and series — the state subsidy for feature, documentary and animation film by project and producer, 2014–2025. Published as per-year .xls files; amounts are in leva, converted to euro at the fixed rate.",
+    },
+    url: "https://www.nfc.bg/статистика-публичен-регистър/единен-публичен-регистър/",
+    origin: "state",
+    members: ["nfc_film_register", "ncf_grant_results"],
+    skills: ["update-culture"],
+    tags: ["fiscal"],
+  },
+  {
     id: "ipi",
     label: { bg: "ИПИ · 265 общини", en: "IME · 265 municipalities" },
     detail: {
@@ -854,6 +872,20 @@ export const DATASETS: DatasetDef[] = [
       en: "The movement of cases through Bulgaria's courts since 2018 — filed, resolved and pending, the share closed inside the three-month deadline, judge posts and both official workload measures (per post and actual), by court tier.",
     },
     path: "data/judiciary/",
+    tags: ["fiscal"],
+  },
+  {
+    id: "culture",
+    label: { bg: "Култура", en: "Culture" },
+    detail: {
+      bg: "филмови субсидии, продуценти",
+      en: "film subsidies, producers",
+    },
+    desc: {
+      bg: "Държавната субсидия на Националния филмов център за кино (2014–2025) — по вид (игрално, документално, анимационно), по продуцент и по година, с концентрацията на средствата у най-финансираните продуценти.",
+      en: "The National Film Center's state subsidy for film (2014–2025) — by discipline (feature, documentary, animation), by producer and by year, with the concentration of money among the most-funded producers.",
+    },
+    path: "data/culture/",
     tags: ["fiscal"],
   },
   {
@@ -1202,6 +1234,20 @@ export const FEATURES: FeatureDef[] = [
     tags: ["fiscal"],
   },
   {
+    id: "culture",
+    label: { bg: "Култура", en: "Culture" },
+    detail: {
+      bg: "кой получава парите за кино",
+      en: "who gets the film money",
+    },
+    desc: {
+      bg: "Къде отиват държавните пари за кино — субсидиите на Националния филмов център по вид, по продуцент и по година, и колко се концентрират у най-финансираните.",
+      en: "Where the state's film money goes — the National Film Center's subsidies by discipline, producer and year, and how concentrated they are among the most-funded.",
+    },
+    route: "/culture",
+    tags: ["fiscal"],
+  },
+  {
     id: "pensions",
     label: { bg: "Пенсии", en: "Pensions" },
     detail: {
@@ -1300,6 +1346,8 @@ export const EDGES: [string, string][] = [
   ["src:vss", "ds:judiciary"],
   ["src:dv", "ds:judiciary"],
   ["ds:judiciary", "f:judiciary"],
+  ["src:culture", "ds:culture"],
+  ["ds:culture", "f:culture"],
   ["src:ministries", "ds:pensions"],
   ["ds:pensions", "f:pensions"],
   ["ds:budget", "f:judiciary"],

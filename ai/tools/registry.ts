@@ -38,6 +38,12 @@ import {
   subsidiesByScheme,
   subsidiesForEntity,
 } from "./subsidies";
+import {
+  cultureOverview,
+  topCultureGrantees,
+  filmSubsidyForProducer,
+  cultureGrantSuccess,
+} from "./culture";
 import { schoolMatura } from "./education";
 import {
   nzokBudget,
@@ -2544,6 +2550,88 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: subsidiesForEntity,
+  },
+  {
+    name: "cultureOverview",
+    domain: "fiscal",
+    description: {
+      bg: "Държавна субсидия за кино (Национален филмов център) — общо, брой проекти, концентрация и разбивка по вид (игрално/документално/анимационно), 2014–2025.",
+      en: "State film subsidy (National Film Center) — total, project count, concentration and split by discipline (feature/documentary/animation), 2014–2025.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Колко пари дава държавата за кино?",
+        en: "How much does the state give for film?",
+      },
+      {
+        bg: "Как се разпределя субсидията за кино по вид?",
+        en: "How is the film subsidy split by type?",
+      },
+    ],
+    run: cultureOverview,
+  },
+  {
+    name: "topCultureGrantees",
+    domain: "fiscal",
+    description: {
+      bg: "Най-финансираните продуценти от Националния филмов център — кой печели най-много държавна субсидия за кино.",
+      en: "Top-funded producers from the National Film Center — who wins the most state film subsidy.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Кои продуценти получават най-много субсидии за филми?",
+        en: "Which producers get the most film subsidies?",
+      },
+    ],
+    run: topCultureGrantees,
+  },
+  {
+    name: "filmSubsidyForProducer",
+    domain: "fiscal",
+    description: {
+      bg: "Държавна филмова субсидия за конкретен продуцент — обща сума и филми по НФЦ.",
+      en: "State film subsidy for a specific producer — total and films from the НФЦ register.",
+    },
+    params: [
+      {
+        name: "company",
+        type: "metric",
+        required: true,
+        description: {
+          bg: "Продуцент (име на дружество)",
+          en: "Producer (company name)",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Колко субсидии е получил Гала филм за кино?",
+        en: "How much film subsidy did Gala Film receive?",
+      },
+    ],
+    run: filmSubsidyForProducer,
+  },
+  {
+    name: "cultureGrantSuccess",
+    domain: "fiscal",
+    description: {
+      bg: "Успеваемост на грантовете на Национален фонд „Култура“ — колко от кандидатствалите проекти са финансирани, по област на изкуство.",
+      en: "National Culture Fund grant success rate — how many applications get funded, by art field.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Каква е успеваемостта на грантовете за култура?",
+        en: "What's the success rate for culture grants?",
+      },
+      {
+        bg: "Колко проекта одобрява НФК?",
+        en: "How many projects does the culture fund approve?",
+      },
+    ],
+    run: cultureGrantSuccess,
   },
   {
     name: "revenueBreakdown",

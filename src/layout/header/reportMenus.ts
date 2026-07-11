@@ -288,6 +288,11 @@ export const governanceMenu: MenuItem[] = [
           // for the money half. The procurement sub-nav pill points here too, so
           // this label has exactly one destination everywhere.
           { title: "judiciary_nav", link: "/judiciary" },
+          // Култура — the culture-spending view (НФЦ film subsidies + who gets
+          // them). The МК awarder page (/awarder/000695160) is the procurement
+          // half; this dedicated dashboard is the subsidy half. Like the
+          // judiciary, nav points at the dashboard, not the buyer page.
+          { title: "culture_nav", link: "/culture" },
           // Пенсии — the pension-system view (pillar 1 НОИ/ДОО); the NOI awarder
           // page above (procurement_noi_nav) is the procurement half, this is the
           // whole-fund half, and the two cross-link.

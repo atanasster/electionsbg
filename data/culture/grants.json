@@ -1,0 +1,167 @@
+{
+  "generatedAt": "2026-07-11T08:37:20.453Z",
+  "source": {
+    "publisher": "Национален фонд „Култура“ (НФК)",
+    "url": "https://ncf.bg/bg/novini",
+    "description": "Класиране на проектите по програмите на Национален фонд „Култура“ — брой кандидатствали и финансирани проекти (успеваемост) и разпределените суми по област, от публикуваните резултати (PDF). Сумите са в лева, конвертирани в евро."
+  },
+  "totalApplied": 406,
+  "totalFunded": 329,
+  "overallSuccessRate": 0.8103448275862069,
+  "totalFundedEur": 6483700,
+  "totalRequestedEur": 8215927,
+  "programs": [
+    {
+      "code": "SGP",
+      "year": 2025,
+      "label": {
+        "bg": "Създаване и разпространение — големи проекти",
+        "en": "Creation & dissemination — large projects"
+      },
+      "url": "https://ncf.bg/web/files/richeditor/2025-rezultati/123SGP_Results_2025.pdf",
+      "applied": 243,
+      "funded": 212,
+      "successRate": 0.8724279835390947,
+      "requestedEur": 6668235,
+      "fundedEur": 5477409,
+      "byDiscipline": [
+        {
+          "discipline": "screen",
+          "label": {
+            "bg": "Екранни изкуства",
+            "en": "Screen arts"
+          },
+          "applied": 52,
+          "funded": 51,
+          "fundedEur": 1441245
+        },
+        {
+          "discipline": "music",
+          "label": {
+            "bg": "Музика",
+            "en": "Music"
+          },
+          "applied": 54,
+          "funded": 51,
+          "fundedEur": 1255027
+        },
+        {
+          "discipline": "visual",
+          "label": {
+            "bg": "Визуални изкуства",
+            "en": "Visual arts"
+          },
+          "applied": 71,
+          "funded": 53,
+          "fundedEur": 1235491
+        },
+        {
+          "discipline": "theatre",
+          "label": {
+            "bg": "Театър",
+            "en": "Theatre"
+          },
+          "applied": 26,
+          "funded": 24,
+          "fundedEur": 663376
+        },
+        {
+          "discipline": "dance",
+          "label": {
+            "bg": "Танц",
+            "en": "Dance"
+          },
+          "applied": 20,
+          "funded": 16,
+          "fundedEur": 450425
+        },
+        {
+          "discipline": "literature",
+          "label": {
+            "bg": "Литература",
+            "en": "Literature"
+          },
+          "applied": 20,
+          "funded": 17,
+          "fundedEur": 431844
+        }
+      ]
+    },
+    {
+      "code": "DEB",
+      "year": 2025,
+      "label": {
+        "bg": "Дебюти",
+        "en": "Debuts"
+      },
+      "url": "https://ncf.bg/web/files/richeditor/2025-rezultati/Debuts_Results_2025.pdf",
+      "applied": 163,
+      "funded": 117,
+      "successRate": 0.7177914110429447,
+      "requestedEur": 1547692,
+      "fundedEur": 1006291,
+      "byDiscipline": [
+        {
+          "discipline": "music",
+          "label": {
+            "bg": "Музика",
+            "en": "Music"
+          },
+          "applied": 46,
+          "funded": 32,
+          "fundedEur": 270369
+        },
+        {
+          "discipline": "visual",
+          "label": {
+            "bg": "Визуални изкуства",
+            "en": "Visual arts"
+          },
+          "applied": 37,
+          "funded": 28,
+          "fundedEur": 252989
+        },
+        {
+          "discipline": "screen",
+          "label": {
+            "bg": "Екранни изкуства",
+            "en": "Screen arts"
+          },
+          "applied": 37,
+          "funded": 22,
+          "fundedEur": 230213
+        },
+        {
+          "discipline": "literature",
+          "label": {
+            "bg": "Литература",
+            "en": "Literature"
+          },
+          "applied": 30,
+          "funded": 25,
+          "fundedEur": 167107
+        },
+        {
+          "discipline": "theatre",
+          "label": {
+            "bg": "Театър",
+            "en": "Theatre"
+          },
+          "applied": 9,
+          "funded": 8,
+          "fundedEur": 67796
+        },
+        {
+          "discipline": "dance",
+          "label": {
+            "bg": "Танц",
+            "en": "Dance"
+          },
+          "applied": 4,
+          "funded": 2,
+          "fundedEur": 17819
+        }
+      ]
+    }
+  ]
+}

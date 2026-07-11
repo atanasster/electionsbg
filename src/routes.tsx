@@ -135,6 +135,11 @@ const JudiciaryScreen = lazy(() =>
     default: m.JudiciaryScreen,
   })),
 );
+const CultureScreen = lazy(() =>
+  import("./screens/culture/CultureScreen").then((m) => ({
+    default: m.CultureScreen,
+  })),
+);
 const PensionsScreen = lazy(() =>
   import("./screens/pensions/PensionsScreen").then((m) => ({
     default: m.PensionsScreen,
@@ -1350,6 +1355,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <JudiciaryScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="culture"
+            element={
+              <LayoutScreen>
+                <CultureScreen />
               </LayoutScreen>
             }
           />

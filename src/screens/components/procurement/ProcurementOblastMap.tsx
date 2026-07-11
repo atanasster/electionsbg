@@ -2,32 +2,21 @@
 // ProcurementChoroplethTile, which renders three of these as dashboard tiles
 // (small multiples) instead of one map with metric toggle buttons.
 //
-// It reuses the Sofia-merged region GeoJSON (regions_map.json with the three
-// parliamentary МИР collapsed into one Столична-община polygon keyed "SOF"),
-// the d3 projection helper, and the FeatureMap path primitive, colouring each
-// oblast by the given procurement metric. Procurement has a single value per
-// oblast, so — like the census and Eurostat regional maps — Sofia must draw as
-// one polygon, not three identical МИР. The colour scale is percentile-based
-// per map, so Sofia's dominant total doesn't wash out the rest. Clicking an
-// oblast bubbles the canonical bucket code up so the table can filter to it.
+// Thin wrapper over the generic OblastChoropleth (§3.1d extraction): it maps the
+// procurement buckets to the generic {canon → value} shape for the selected
+// metric and supplies the procurement ramp + euro formatter. All the geometry
+// (Sofia-merge, projection, percentile colour, tooltip, click-to-filter) lives
+// in OblastChoropleth, shared with the culture / water maps.
 
-import { FC, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useSofiaMergedRegionsMap } from "@/data/regions/useSofiaMergedRegionsMap";
-import { getDataProjection } from "@/screens/components/maps/d3_utils";
-import { FeatureMap } from "@/screens/components/maps/FeatureMap";
-import { useTooltip } from "@/ux/useTooltip";
-import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { formatEur } from "@/lib/currency";
 import {
   useProcurementByOblast,
-  featureToCanon,
   type OblastMetric,
 } from "@/data/procurement/useProcurementByOblast";
 import { PROCUREMENT_RAMP } from "@/screens/components/procurement/procurementPalette";
-
-const RAMP = PROCUREMENT_RAMP;
-const NO_DATA = "hsl(var(--muted))";
+import { OblastChoropleth } from "@/screens/components/procurement/OblastChoropleth";
 
 export const ProcurementOblastMap: FC<{
   metric: OblastMetric;
@@ -37,39 +26,16 @@ export const ProcurementOblastMap: FC<{
   onSelectOblast?: (canon: string, name: string) => void;
 }> = ({ metric, activeCanon, onSelectOblast }) => {
   const { t } = useTranslation();
-  const mapGeo = useSofiaMergedRegionsMap();
-  const { buckets, valueFor } = useProcurementByOblast();
-  const ref = useRef<HTMLDivElement>(null);
-  const [size, setSize] = useState<MapCoordinates | undefined>();
-  const { tooltip, onMouseEnter, onMouseMove, onMouseLeave } = useTooltip();
+  const { buckets } = useProcurementByOblast();
 
-  useLayoutEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const measure = () =>
-      setSize([el.offsetWidth, el.offsetHeight, el.offsetLeft, el.offsetTop]);
-    measure();
-    const ro = new ResizeObserver(measure);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-
-  const projection = useMemo(
-    () =>
-      mapGeo && size
-        ? getDataProjection(
-            mapGeo as Parameters<typeof getDataProjection>[0],
-            size,
-          )
-        : null,
-    [mapGeo, size],
-  );
-
-  // Percentile thresholds from the per-oblast values for THIS metric (one per
-  // oblast, not per feature — so Sofia's three features don't skew it).
-  const sorted = useMemo(() => {
-    const vals = [...buckets.values()]
-      .map((b) =>
+  // One value per oblast for the selected metric (kept identical to the previous
+  // per-metric logic: total €, avg per contract, or € per resident).
+  const { values, names } = useMemo(() => {
+    const values = new Map<string, number | undefined>();
+    const names = new Map<string, string>();
+    for (const [canon, b] of buckets) {
+      names.set(canon, b.name);
+      const v =
         metric === "total"
           ? b.totalEur
           : metric === "avg"
@@ -78,19 +44,11 @@ export const ProcurementOblastMap: FC<{
               : undefined
             : b.population > 0
               ? b.totalEur / b.population
-              : undefined,
-      )
-      .filter((v): v is number => v != null)
-      .sort((a, b) => a - b);
-    return vals;
+              : undefined;
+      values.set(canon, v);
+    }
+    return { values, names };
   }, [buckets, metric]);
-
-  const colorFor = (v: number | undefined): string => {
-    if (v == null || sorted.length === 0) return NO_DATA;
-    const rank = sorted.filter((x) => x <= v).length / sorted.length;
-    const idx = Math.min(RAMP.length - 1, Math.floor(rank * RAMP.length));
-    return RAMP[idx];
-  };
 
   const fmt = (v: number | undefined): string => {
     if (v == null) return "—";
@@ -99,67 +57,21 @@ export const ProcurementOblastMap: FC<{
     return formatEur(v);
   };
 
-  // {tooltip} must be a sibling of the (relative) map div, not a child —
-  // useTooltip positions with page coordinates, so its offset parent has to be
-  // the document, matching the PriceChoropleth / RegionsMap convention.
   return (
-    <>
-      <div ref={ref} className="relative w-full h-[240px] md:h-[260px]">
-        {projection && mapGeo ? (
-          <svg
-            width={size?.[0]}
-            height={size?.[1]}
-            viewBox={`0 0 ${size?.[0]} ${size?.[1]}`}
-            className="overflow-visible"
-            role="img"
-            aria-label={t(`procurement_map_metric_${metric}`) || metric}
-          >
-            {mapGeo.features.map((feature, idx) => {
-              const code = feature.properties.nuts3;
-              const canon = featureToCanon(code);
-              const v = valueFor(code, metric);
-              const b = buckets.get(canon);
-              const dimmed = !!activeCanon && canon !== activeCanon;
-              return (
-                <FeatureMap
-                  key={`${code}-${idx}`}
-                  feature={feature}
-                  geoPath={projection.path}
-                  fillColor={colorFor(v)}
-                  opacity={dimmed ? 0.3 : 1}
-                  onCursor={() => (b ? "pointer" : "default")}
-                  ariaLabel={
-                    b && onSelectOblast ? `${b.name}: ${fmt(v)}` : undefined
-                  }
-                  onClick={() => {
-                    if (b && onSelectOblast) onSelectOblast(canon, b.name);
-                  }}
-                  onMouseEnter={(e) =>
-                    onMouseEnter(
-                      { pageX: e.pageX, pageY: e.pageY },
-                      <div className="flex flex-col gap-0.5">
-                        <span className="font-medium">{b?.name ?? code}</span>
-                        <span className="tabular-nums">{fmt(v)}</span>
-                        {b ? (
-                          <span className="text-xs text-muted-foreground tabular-nums">
-                            {b.contractCount.toLocaleString("bg-BG")}{" "}
-                            {t("procurement_map_contracts") || "contracts"}
-                          </span>
-                        ) : null}
-                      </div>,
-                    )
-                  }
-                  onMouseMove={(e) =>
-                    onMouseMove({ pageX: e.pageX, pageY: e.pageY })
-                  }
-                  onMouseLeave={onMouseLeave}
-                />
-              );
-            })}
-          </svg>
-        ) : null}
-      </div>
-      {tooltip}
-    </>
+    <OblastChoropleth
+      values={values}
+      names={names}
+      ramp={PROCUREMENT_RAMP}
+      formatValue={fmt}
+      tooltipExtra={(canon) => {
+        const b = buckets.get(canon);
+        return b
+          ? `${b.contractCount.toLocaleString("bg-BG")} ${t("procurement_map_contracts") || "contracts"}`
+          : null;
+      }}
+      activeCanon={activeCanon}
+      onSelectOblast={onSelectOblast}
+      ariaLabel={t(`procurement_map_metric_${metric}`) || metric}
+    />
   );
 };

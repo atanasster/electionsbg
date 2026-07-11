@@ -135,6 +135,39 @@ const judiciaryFacts = (() => {
   };
 })();
 
+// The /culture prerender body quotes real figures from the НФЦ overview blob —
+// committed and required at build time (data/culture/overview.json).
+const cultureFacts = (() => {
+  const o = JSON.parse(
+    fs.readFileSync(
+      path.join(PROJECT_ROOT, "data/culture/overview.json"),
+      "utf-8",
+    ),
+  ) as {
+    totalEur: number;
+    filmCount: number;
+    producerCount: number;
+    firstYear: number;
+    lastYear: number;
+    top10Share: number;
+    topProducers: { producer: string }[];
+  };
+  const eur = (n: number, locale: string) =>
+    `€${(n / 1e6).toLocaleString(locale, { maximumFractionDigits: 1 })}М`;
+  return {
+    firstYear: o.firstYear,
+    lastYear: o.lastYear,
+    totalBg: eur(o.totalEur, "bg-BG"),
+    totalEn: `€${(o.totalEur / 1e6).toLocaleString("en-US", { maximumFractionDigits: 1 })}M`,
+    filmsBg: o.filmCount.toLocaleString("bg-BG"),
+    filmsEn: o.filmCount.toLocaleString("en-US"),
+    producersBg: o.producerCount.toLocaleString("bg-BG"),
+    producersEn: o.producerCount.toLocaleString("en-US"),
+    top10Pct: Math.round(o.top10Share * 100),
+    biggestProducer: o.topProducers[0]?.producer ?? "—",
+  };
+})();
+
 // The /pensions body quotes real figures from the committed pensions.json so the
 // prerendered HTML (what crawlers read) matches the page. Read at build time; if
 // the artifact is ever moved behind bucket:sync, this must become a lazy read.
@@ -1526,6 +1559,46 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>
 <p>The judiciary's money — its budget by spending body, own revenue from court fees, and the Supreme Judicial Council's public procurement — is on the <a href="${SITE_URL}/en/awarder/121513231">Supreme Judicial Council page</a>. See also the <a href="${SITE_URL}/en/budget">state budget</a>.</p>
 <p>Source: <a href="https://vss.justice.bg/page/view/1082" rel="nofollow noopener">Supreme Judicial Council — court statistics</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "culture",
+    title:
+      "Култура — държавните пари за кино и кой ги получава | electionsbg.com",
+    description: `Държавната субсидия на Националния филмов център за кино (${cultureFacts.firstYear}–${cultureFacts.lastYear}): ${cultureFacts.totalBg} за ${cultureFacts.filmsBg} проекта на ${cultureFacts.producersBg} продуценти, по вид и по година, с концентрацията у най-финансираните.`,
+    breadcrumbName: "Култура",
+    ogImage: "/og/culture.png",
+    bodyHtml: `
+<h1>Култура — къде отиват държавните пари за кино</h1>
+<p>Между ${cultureFacts.firstYear} и ${cultureFacts.lastYear} г. Изпълнителна агенция „Национален филмов център" разпределя ${cultureFacts.totalBg} държавна субсидия за ${cultureFacts.filmsBg} филмови проекта на ${cultureFacts.producersBg} продуценти. Тази страница показва кой получава парите, за какъв вид кино и как се менят през годините — по Единния публичен регистър на НФЦ.</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li><strong>Субсидия по вид</strong> — как се разпределят парите между игрално, документално и анимационно кино.</li>
+<li><strong>Субсидия по години</strong> — колко държавно финансиране е раздадено всяка година, включително спада през блокираните сесии.</li>
+<li><strong>Концентрация</strong> — кои продуценти печелят най-често; топ 10 държат ${cultureFacts.top10Pct}% от цялата субсидия. Най-финансиран: ${cultureFacts.biggestProducer}.</li>
+<li><strong>Най-големите субсидии</strong> — отделните проекти с най-голямо държавно финансиране.</li>
+<li><strong>Културата като възложител</strong> — обществените поръчки на Министерството на културата и държавните културни институти, извън субсидиите.</li>
+</ul>
+<p>Средствата се предоставят чрез художествените комисии на НФЦ, извън Закона за обществените поръчки. Виж и <a href="${SITE_URL}/awarder/000695160">поръчките на Министерството на културата</a> и <a href="${SITE_URL}/budget">държавния бюджет</a>.</p>
+<p>Източник: <a href="https://www.nfc.bg/статистика-публичен-регистър/единен-публичен-регистър/" rel="nofollow noopener">Национален филмов център — Единен публичен регистър</a>.</p>`.trim(),
+    english: {
+      title:
+        "Culture — Bulgaria's State Film Money and Who Gets It | electionsbg.com",
+      description: `The National Film Center's state subsidy for film (${cultureFacts.firstYear}–${cultureFacts.lastYear}): ${cultureFacts.totalEn} across ${cultureFacts.filmsEn} projects and ${cultureFacts.producersEn} producers, by discipline and year, with the concentration among the most-funded.`,
+      breadcrumbName: "Culture",
+      bodyHtml: `
+<h1>Culture — where Bulgaria's state film money goes</h1>
+<p>Between ${cultureFacts.firstYear} and ${cultureFacts.lastYear}, the National Film Center awarded ${cultureFacts.totalEn} in state subsidy across ${cultureFacts.filmsEn} film projects to ${cultureFacts.producersEn} producers. This page shows who gets the money, for what kind of film, and how it moved over time — from the НФЦ public register.</p>
+<h2>What you'll find</h2>
+<ul>
+<li><strong>Subsidy by discipline</strong> — how the money splits between feature, documentary and animation film.</li>
+<li><strong>Subsidy by year</strong> — how much state financing was awarded each year, including the dip during the blocked sessions.</li>
+<li><strong>Concentration</strong> — which producers win most; the top 10 hold ${cultureFacts.top10Pct}% of all subsidy. Most-funded: ${cultureFacts.biggestProducer}.</li>
+<li><strong>Largest subsidies</strong> — the individual projects with the most state financing.</li>
+<li><strong>Culture as a public buyer</strong> — the public procurement of the Ministry of Culture and the state cultural institutes, separate from the subsidies.</li>
+</ul>
+<p>Funds are awarded via the НФЦ artistic commissions, outside the Public Procurement Act. See also the <a href="${SITE_URL}/en/awarder/000695160">Ministry of Culture's procurement</a> and the <a href="${SITE_URL}/en/budget">state budget</a>.</p>
+<p>Source: <a href="https://www.nfc.bg/статистика-публичен-регистър/единен-публичен-регистър/" rel="nofollow noopener">National Film Center — public register</a>.</p>`.trim(),
     },
   }),
   staticPage({

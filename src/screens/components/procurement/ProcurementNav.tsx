@@ -29,6 +29,7 @@ import {
   HeartPulse,
   HeartHandshake,
   Scale,
+  Palette,
   Sprout,
   GraduationCap,
 } from "lucide-react";
@@ -104,6 +105,14 @@ const secondaryItems = [
     to: "/judiciary",
     icon: Scale,
     key: "judiciary_nav",
+    unscoped: true,
+  },
+  {
+    // Култура's home is the /culture dashboard (film subsidies, concentration);
+    // the МК awarder page is the procurement half. `unscoped` — no ?pscope.
+    to: "/culture",
+    icon: Palette,
+    key: "culture_nav",
     unscoped: true,
   },
   {

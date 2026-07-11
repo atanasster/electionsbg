@@ -1,0 +1,50 @@
+{
+  "generatedAt": "2026-07-11T08:26:51.752Z",
+  "mkTotalEur": 269400000,
+  "note": {
+    "bg": "Приблизителни годишни суми по източник, за мащаб. Някои линии се припокриват или минават през общините; сумите са в евро. Точните числа са на съответните страници (МК бюджет, НФЦ, НФК).",
+    "en": "Approximate annual amounts by stream, for scale. Some lines overlap or flow through municipalities; amounts in euro. Exact figures are on the respective pages (МК budget, НФЦ, НФК)."
+  },
+  "streams": [
+    {
+      "id": "chitalishta",
+      "bg": "Читалища",
+      "en": "Community centres (читалища)",
+      "annualEur": 88300000,
+      "sourceBg": "Единен разходен стандарт 2026 × брой субсидирани бройки (НСОРБ)",
+      "sourceEn": "2026 unit standard × subsidised units (NSORB)"
+    },
+    {
+      "id": "scenic",
+      "bg": "Сценични изкуства (делегирани бюджети)",
+      "en": "Performing arts (delegated budgets)",
+      "annualEur": 84000000,
+      "sourceBg": "Бюджет за сценични изкуства ~165 млн лв, 2025 (МК)",
+      "sourceEn": "Performing-arts budget ~165M лв, 2025 (МК)"
+    },
+    {
+      "id": "film",
+      "bg": "Филмови субсидии (НФЦ)",
+      "en": "Film subsidies (НФЦ)",
+      "annualEur": 8000000,
+      "sourceBg": "Среден годишен разход по регистъра на НФЦ 2014–2025",
+      "sourceEn": "Average annual spend from the НФЦ register 2014–2025"
+    },
+    {
+      "id": "ncf",
+      "bg": "Грантове (НФК)",
+      "en": "Grants (НФК)",
+      "annualEur": 9360000,
+      "sourceBg": "Индикативен бюджет на програмите 18,3 млн лв, 2026 (НФК)",
+      "sourceEn": "Indicative programme budget 18.3M лв, 2026 (НФК)"
+    },
+    {
+      "id": "sofia",
+      "bg": "Столична програма „Култура“ (община)",
+      "en": "Sofia municipal culture programme",
+      "annualEur": 2300000,
+      "sourceBg": "Програма „Култура“ на Столична община, 2026",
+      "sourceEn": "Sofia municipality culture programme, 2026"
+    }
+  ]
+}

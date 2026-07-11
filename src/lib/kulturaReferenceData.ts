@@ -56,28 +56,36 @@ export const CULTURE_FUNDER_EIKS = [KULTURA_EIK, NFC_EIK, NCF_EIK] as const;
 /** State cultural institutes with principal = Minister of Culture, VERIFIED in
  *  the corpus as state ДКИ. A verified subset of МК's ~74 ДКИ (see COMPLETENESS
  *  above). Each links to its own `/awarder/<eik>` on the roster tile. */
-export const STATE_CULTURE_INSTITUTE_EIKS: readonly string[] = [
-  "201570119", // Национален дворец на културата (НДК) — ЕАД
-  "000670748", // Народен театър „Иван Вазов"
-  "000670805", // Софийска опера и балет
-  "000670794", // Държавен сатиричен театър „Алеко Константинов"
-  "000670787", // Младежки театър „Николай Бинев"
-  "000670883", // Софийска филхармония
-  "000670890", // Държавен фолклорен ансамбъл „Филип Кутев"
-  "117103220", // Държавна опера — Русе
-  "115314988", // Държавна опера — Пловдив
-  "102241054", // Държавна опера — Бургас
-  "000405995", // Плевенска филхармония
-  "000083665", // Държавен куклен театър — Варна
-  "176812208", // Национална галерия
-  "000673210", // Национален исторически музей
-  "000670984", // Национален музей на българското изобразително изкуство
-  "000675880", // Национален музей „Земята и хората"
-  "000672293", // Национална библиотека „Св. св. Кирил и Методий"
-  "124609886", // ДКИ Културен център „Двореца" (Балчик)
-  "175932425", // Театрално-музикален продуцентски център — Варна
-  "108505799", // Театрално-музикален център — Кърджали
-];
+export const STATE_CULTURE_INSTITUTES: readonly { eik: string; bg: string }[] =
+  [
+    { eik: "201570119", bg: "Национален дворец на културата (НДК)" },
+    { eik: "000670748", bg: "Народен театър „Иван Вазов“" },
+    { eik: "000670805", bg: "Софийска опера и балет" },
+    { eik: "000670794", bg: "Държавен сатиричен театър „Алеко Константинов“" },
+    { eik: "000670787", bg: "Младежки театър „Николай Бинев“" },
+    { eik: "000670883", bg: "Софийска филхармония" },
+    { eik: "000670890", bg: "Държавен фолклорен ансамбъл „Филип Кутев“" },
+    { eik: "117103220", bg: "Държавна опера — Русе" },
+    { eik: "115314988", bg: "Държавна опера — Пловдив" },
+    { eik: "102241054", bg: "Държавна опера — Бургас" },
+    { eik: "000405995", bg: "Плевенска филхармония" },
+    { eik: "000083665", bg: "Държавен куклен театър — Варна" },
+    { eik: "176812208", bg: "Национална галерия" },
+    { eik: "000673210", bg: "Национален исторически музей" },
+    {
+      eik: "000670984",
+      bg: "Национален музей на българското изобразително изкуство",
+    },
+    { eik: "000675880", bg: "Национален музей „Земята и хората“" },
+    { eik: "000672293", bg: "Национална библиотека „Св. св. Кирил и Методий“" },
+    { eik: "124609886", bg: "ДКИ Културен център „Двореца“ (Балчик)" },
+    { eik: "175932425", bg: "Театрално-музикален продуцентски център — Варна" },
+    { eik: "108505799", bg: "Театрално-музикален център — Кърджали" },
+  ];
+
+/** Just the EIKs — derived, so the group roll-up / oblast build keep working. */
+export const STATE_CULTURE_INSTITUTE_EIKS: readonly string[] =
+  STATE_CULTURE_INSTITUTES.map((i) => i.eik);
 
 /** The culture group roll-up set — Tier A funders + verified Tier B institutes.
  *  This is the `awarder_eik IN (...)` list for the group roll-up and the sector
@@ -225,3 +233,71 @@ export const CULTURE_BODIES: {
     en: "National Palace of Culture (НДК)",
   },
 ];
+
+// ----------------------------------------- CPV → operating function ---------
+
+/** What Министерство на културата buys through ЗОП, by operating function.
+ *  Derived from МК's actual contract mix (local PG): construction/restoration of
+ *  cultural sites leads (div 45, ~€7.4M), then the e-culture IT backbone (72/30/48),
+ *  printing & media/events (79/92/22), services (transport/maintenance/…), energy. */
+export type KulturaCategory =
+  | "heritage"
+  | "it"
+  | "media"
+  | "services"
+  | "energy"
+  | "other";
+
+const CPV_TO_CATEGORY: Record<string, KulturaCategory> = {
+  // Сгради, реставрация, паметници на културата
+  "45": "heritage",
+  "71": "heritage",
+  "44": "heritage",
+  // ИТ и системи — е-култура, лицензи, компютри и мрежи
+  "72": "it",
+  "48": "it",
+  "30": "it",
+  "32": "it",
+  "31": "it",
+  // Печат, издания, медии и събития
+  "79": "media",
+  "22": "media",
+  "92": "media",
+  // Услуги — транспорт, поддръжка, охрана, застраховане
+  "60": "services",
+  "50": "services",
+  "90": "services",
+  "55": "services",
+  "64": "services",
+  "66": "services",
+  "63": "services",
+  "80": "services",
+  "98": "services",
+  "34": "services",
+  "35": "services",
+  // Енергия и горива
+  "09": "energy",
+};
+
+export const categoryOfCpv = (cpv: string | undefined): KulturaCategory => {
+  const d = String(cpv ?? "").slice(0, 2);
+  return CPV_TO_CATEGORY[d] ?? "other";
+};
+
+export const KULTURA_CATEGORY_LABEL: Record<
+  KulturaCategory,
+  { bg: string; en: string }
+> = {
+  heritage: {
+    bg: "Наследство и строителство",
+    en: "Heritage & construction",
+  },
+  it: { bg: "ИТ и системи", en: "IT & systems" },
+  media: { bg: "Печат, медии и събития", en: "Printing, media & events" },
+  services: { bg: "Услуги", en: "Services" },
+  energy: { bg: "Енергия и горива", en: "Energy & fuel" },
+  other: { bg: "Друго", en: "Other" },
+};
+
+export const categoryLabel = (c: KulturaCategory, lang: string): string =>
+  lang === "bg" ? KULTURA_CATEGORY_LABEL[c].bg : KULTURA_CATEGORY_LABEL[c].en;

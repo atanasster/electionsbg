@@ -345,6 +345,19 @@ const captures: Capture[] = [
     extraCss: "[data-community-banner]{display:none!important;}",
   },
   {
+    slug: "culture",
+    routePath: "culture",
+    // KPI row + discipline-split bar + subsidy-by-year, top-aligned so the clip
+    // leads with the headline numbers. Like the subsidies card, the full-bleed
+    // dashboard is capped at 1216px so the grid is exactly 1200 and the outer
+    // stat cards aren't sliced by the clip. (Per-capita map deferred to Phase 2.)
+    waitFor: '[data-og="culture-hero"]',
+    anchor: '[data-og="culture-hero"]',
+    settleMs: 2500,
+    extraCss:
+      "[data-community-banner]{display:none!important;} main{max-width:1216px!important;}",
+  },
+  {
     slug: "education",
     routePath: "education",
     // The "score vs context" scatter (each dot a school, positioned by community

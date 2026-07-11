@@ -21,6 +21,7 @@ import { NOI_EIK } from "@/lib/noiBenchmarks";
 import { NZOK_EIK } from "@/lib/nzokBenchmarks";
 import { VSS_EIK } from "@/lib/vssReferenceData";
 import { MON_EIK } from "@/lib/monBenchmarks";
+import { KULTURA_EIK } from "@/lib/kulturaReferenceData";
 import { AGRI_PAYER_EIK } from "@/data/agri/constants";
 import type { ScopeWindow } from "@/data/procurement/useAwarderContracts";
 
@@ -62,6 +63,12 @@ const VssPack = lazy(() =>
 const MonPack = lazy(() =>
   import("./mon/MonPack").then((m) => ({ default: m.MonPack })),
 );
+// No KULTURA_AWARDER_PATH export (deliberately, like ВСС): the culture view's
+// home is the /culture dashboard, which the nav points at; the МК awarder page
+// is reached from there. The pack still registers by EIK below.
+const KulturaPack = lazy(() =>
+  import("./kultura/KulturaPack").then((m) => ({ default: m.KulturaPack })),
+);
 
 const PACKS: Record<string, ComponentType<SectorPackProps>> = {
   [API_EIK]: RoadsPack,
@@ -69,6 +76,7 @@ const PACKS: Record<string, ComponentType<SectorPackProps>> = {
   [NZOK_EIK]: NzokPack,
   [VSS_EIK]: VssPack,
   [MON_EIK]: MonPack,
+  [KULTURA_EIK]: KulturaPack,
 };
 
 export const getSectorPack = (

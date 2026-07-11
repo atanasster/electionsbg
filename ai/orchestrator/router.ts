@@ -1978,6 +1978,63 @@ export const route = (question: string, ctx: ToolContext): Route => {
     has(q, "пенси", "pension", "нои", " nssi", "осигурителн", "social security")
   )
     return { tool: "noiFunds", args: {} };
+  // Култура — НФЦ film subsidies. Fires on the film-center name, or a film/culture
+  // cue paired with a subsidy/funding context. Precedes farm subsidies so a
+  // "филм субсидия" question routes here (agri needs земеделск anyway).
+  {
+    const nfc = has(
+      q,
+      "нфц",
+      "филмов център",
+      "national film",
+      "film center",
+      "film centre",
+    );
+    const filmCue = has(q, "кино", "филм", "кинематограф", "film", "cinema");
+    const cultureCue = has(q, "култур", "culture");
+    const subsidyCue = has(
+      q,
+      "субсид",
+      "subsid",
+      "грант",
+      "grant",
+      "финансир",
+      "funding",
+    );
+    // Grant success rate (НФК) — applied vs funded. Gated on a real grant/culture
+    // context (not a bare "проект"), so unrelated "approved/ranked projects"
+    // questions — EU funds, agri subsidies — fall through to their own tools.
+    const grantCtx =
+      has(q, "нфк", "фонд култ", "culture fund", "грант", "grant") ||
+      cultureCue;
+    if (
+      grantCtx &&
+      has(q, "успеваем", "одобрен", "success rate", "approval", "класиран")
+    )
+      return { tool: "cultureGrantSuccess", args: {} };
+    if (nfc || ((filmCue || cultureCue) && subsidyCue)) {
+      // Ranking intent wins over the per-producer lookup, so "which producers
+      // get the most" (the topCultureGrantees example) isn't captured by the
+      // single-producer tool just because it contains "продуцент".
+      const ranking = has(
+        q,
+        "кой",
+        "кои",
+        "най-много",
+        "топ",
+        "who",
+        "top",
+        "most",
+        "печел",
+        "концентрац",
+        "concentrat",
+      );
+      if (ranking) return { tool: "topCultureGrantees", args: {} };
+      if (has(q, "продуцент", "producer", "фирм", "company", "дружеств"))
+        return { tool: "filmSubsidyForProducer", args: { company: question } };
+      return { tool: "cultureOverview", args: {} };
+    }
+  }
   // farm subsidies (ДФ „Земеделие", CAP paying agency). Must precede the land-use
   // rule below (which also matches "земеделск") and the municipalTransfers rule
   // (субсиди+общин). Fires on the agency name, or on a subsidy/грант cue paired

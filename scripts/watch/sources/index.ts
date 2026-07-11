@@ -68,6 +68,8 @@ import { mhEeofQuarterly } from "./mh_eeof_quarterly";
 import { nzokDrugQuarterly } from "./nzok_drug_quarterly";
 import { nzokExecutionB1 } from "./nzok_execution_b1";
 import { nzokActivities } from "./nzok_activities";
+import { nfcFilmRegister } from "./nfc_film_register";
+import { ncfGrantResults } from "./ncf_grant_results";
 import {
   euTaxRates,
   euExciseRates,
@@ -92,6 +94,8 @@ import {
 export const SOURCES: WatchSource[] = [
   parliamentVotes, // listed first — primary deliverable per PRD
   parliamentMps,
+  nfcFilmRegister,
+  ncfGrantResults,
   wikiPolls,
   wikiGovernments,
   cacbgDeclarations,
