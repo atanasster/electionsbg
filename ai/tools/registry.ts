@@ -43,6 +43,7 @@ import {
   topCultureGrantees,
   filmSubsidyForProducer,
   cultureGrantSuccess,
+  cultureCommissions,
 } from "./culture";
 import { schoolMatura } from "./education";
 import {
@@ -2632,6 +2633,26 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: cultureGrantSuccess,
+  },
+  {
+    name: "cultureCommissions",
+    domain: "fiscal",
+    description: {
+      bg: "Съставите на националните художествени комисии на НФЦ — кой решава кои филмови проекти получават държавна субсидия (игрално, документално, анимационно кино).",
+      en: "The НФЦ national artistic-commission compositions — who decides which film projects get a state subsidy (feature, documentary, animation).",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Кой решава за филмовите субсидии?",
+        en: "Who decides the film subsidies?",
+      },
+      {
+        bg: "Кои са членовете на художествената комисия за игрално кино?",
+        en: "Who sits on the feature-film artistic commission?",
+      },
+    ],
+    run: cultureCommissions,
   },
   {
     name: "revenueBreakdown",

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-11T10:07:22.082Z",
+  "generatedAt": "2026-07-11T10:44:22.265Z",
   "nodes": [
     {
       "id": "src:cik",
@@ -1385,6 +1385,12 @@
           "label": "НФК news feed (grant results, ncf.bg)",
           "url": "https://ncf.bg/bg/novini",
           "cadence": "weekly"
+        },
+        {
+          "id": "nfc_commissions",
+          "label": "НФЦ artistic-commission appointments (nfc.bg заповеди)",
+          "url": "https://www.nfc.bg/%D0%BD%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D0%B8-%D0%B0%D0%BA%D1%82%D0%BE%D0%B2%D0%B5-%D0%B7%D0%B0%D0%BF%D0%BE%D0%B2%D0%B5%D0%B4%D0%B8-%D0%B8-%D1%81%D1%82%D0%B0%D1%82%D1%83%D1%82%D0%B8/%D0%B7%D0%B0%D0%BF%D0%BE%D0%B2%D0%B5%D0%B4%D0%B8/",
+          "cadence": "monthly"
         }
       ],
       "x": 28,
@@ -1797,8 +1803,8 @@
         "en": "film subsidies, producers"
       },
       "desc": {
-        "bg": "Държавната субсидия на Националния филмов център за кино (2014–2025) — по вид (игрално, документално, анимационно), по продуцент и по година, с концентрацията на средствата у най-финансираните продуценти. Плюс успеваемостта на грантовете на НФК, културните институти по области, и общинската и читалищна култура (Столична програма „Култура“ по направления и националната субсидия за читалища).",
-        "en": "The National Film Center's state subsidy for film (2014–2025) — by discipline (feature, documentary, animation), by producer and by year, with the concentration of money among the most-funded producers. Plus НФК grant success rates, the state cultural institutes by oblast, and municipal & community-centre culture (Sofia's „Култура“ programme by direction and the national читалища subsidy)."
+        "bg": "Държавната субсидия на Националния филмов център за кино (2014–2025) — по вид (игрално, документално, анимационно), по продуцент и по година, с концентрацията на средствата у най-финансираните продуценти. Плюс успеваемостта на грантовете на НФК, културните институти по области, съставите на националните художествени комисии (кой решава за филмовите пари), и общинската и читалищна култура (Столична програма „Култура“ по направления и националната субсидия за читалища).",
+        "en": "The National Film Center's state subsidy for film (2014–2025) — by discipline (feature, documentary, animation), by producer and by year, with the concentration of money among the most-funded producers. Plus НФК grant success rates, the state cultural institutes by oblast, the national artistic-commission compositions (who decides the film money), and municipal & community-centre culture (Sofia's „Култура“ programme by direction and the national читалища subsidy)."
       },
       "tags": [
         "fiscal"

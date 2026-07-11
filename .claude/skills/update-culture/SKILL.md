@@ -1,6 +1,6 @@
 ---
 name: update-culture
-description: Refresh the Култура (culture) data behind /culture — the НФЦ (Национален филмов център) film-subsidy corpus in data/culture/films.json + overview.json, parsed from the per-year .xls registers of financed films/series at nfc.bg. Use when the daily watch report flags `nfc_film_register` as changed (the НФЦ re-uploaded a register or added a new year), when the user asks to refresh culture / кино / филмови субсидии / НФЦ data, or after a fresh git clone if data/culture/films.json is missing.
+description: Refresh the Култура (culture) data behind /culture — the НФЦ (Национален филмов център) film-subsidy corpus in data/culture/films.json + overview.json, parsed from the per-year .xls registers of financed films/series at nfc.bg, plus НФК grant success rates, the artistic-commission compositions ("кой решава"), and the Sofia + читалища municipal streams. Use when the daily watch report flags `nfc_film_register`, `ncf_grant_results`, or `nfc_commissions` as changed, when the user asks to refresh culture / кино / филмови субсидии / НФЦ / комисии data, or after a fresh git clone if data/culture/*.json is missing.
 ---
 
 # update-culture
@@ -35,6 +35,8 @@ npx tsx scripts/culture/ingest.ts --force  # re-download every year's .xls
 npx tsx scripts/culture/ncf_grants.ts      # НФК grant results → grants.json (needs pdftotext)
 npx tsx scripts/culture/build_oblast.ts    # state institutes by oblast (needs Postgres)
 npx tsx scripts/culture/enrich_producers.ts # link top producers → EIK (needs Postgres; run AFTER ingest.ts)
+npx tsx scripts/culture/write_commissions.ts # НФЦ artistic-commission compositions → commissions.json
+npx tsx scripts/culture/sofia_program.ts   # Sofia Програма „Култура" + читалища → municipal.json (needs pdftotext)
 ```
 
 `enrich_producers.ts` resolves the top producers' names to a company EIK — but ONLY
@@ -51,6 +53,14 @@ Requires `pdftotext` (poppler). The **oblast** build (`build_oblast.ts`) needs P
 (`awarder_seats` + `contracts_list`) and is stable (the institute allowlist rarely
 changes).
 
+The **commission** compositions (`write_commissions.ts`) are HAND-KEYED from the НФЦ
+executive-director appointment order ("Назначаване съставите на НХК…"), which changes
+each ~6-month mandate. When the `nfc_commissions` watch flags a new order, download the
+newest one from the nfc.bg „Заповеди" page, read it (`pdftotext -layout`), and update the
+mandate window + 21 members in the generator. The **municipal** streams (`sofia_program.ts`)
+parse the Столична програma „Култура" класиране PDF (dropped at `raw_data/culture/sofia_spk_<year>.pdf`)
+and carry the hand-keyed читалища national figures.
+
 Writes `data/culture/films.json` (per-film corpus) and `data/culture/overview.json`
 (precomputed dashboard blob: totals, by-year, by-discipline, top producers,
 top-10 concentration). The script **self-verifies** (plan §9): it asserts every
@@ -59,8 +69,9 @@ refuses to write a partial artifact on failure.
 
 ## After a successful run
 
-1. Eyeball the printed per-year counts + the Σ line (`~949 films · €95.7M · 324
-   producers · top-10 22%` for the 2014–2025 baseline).
+1. Eyeball the printed per-year counts + the Σ line (`~944 films · €94.9M · 324
+   producers · top-10 22%` for the 2014–2025 baseline, after de-duping the 5
+   identical rows the register ships).
 2. Commit `data/culture/*.json` and `bucket:sync data/culture/`
    (`cp -Z` — GCS serves identity; avoid `gsutil -m` on macOS).
 3. Stamp the ingest state:

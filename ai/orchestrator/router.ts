@@ -2012,6 +2012,16 @@ export const route = (question: string, ctx: ToolContext): Route => {
       has(q, "успеваем", "одобрен", "success rate", "approval", "класиран")
     )
       return { tool: "cultureGrantSuccess", args: {} };
+    // "Кой решава" — the НФЦ artistic-commission compositions. Gated on a film/
+    // culture context (so it never grabs parliamentary/election committees), and
+    // checked before the ranking route since "кой решава"/"кои са членовете" would
+    // otherwise read as a ranking query.
+    if (
+      (has(q, "комиси", "commission", "жребий", "lottery") ||
+        has(q, "кой решава", "who decides", "who decide")) &&
+      (nfc || filmCue || cultureCue)
+    )
+      return { tool: "cultureCommissions", args: {} };
     if (nfc || ((filmCue || cultureCue) && subsidyCue)) {
       // Ranking intent wins over the per-producer lookup, so "which producers
       // get the most" (the topCultureGrantees example) isn't captured by the

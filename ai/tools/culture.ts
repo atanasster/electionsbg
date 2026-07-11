@@ -59,6 +59,24 @@ interface GrantsFile {
   }[];
 }
 
+interface CommissionsFile {
+  order: string;
+  mandateStart: string;
+  mandateEnd: string;
+  lotteryDate: string;
+  commissions: {
+    id: string;
+    bg: string;
+    en: string;
+    members: {
+      name: string;
+      role: "chair" | "member";
+      status: "titular" | "reserve";
+      section: string;
+    }[];
+  }[];
+}
+
 const DISC_BG: Record<string, string> = {
   feature: "игрално",
   documentary: "документално",
@@ -216,6 +234,73 @@ export const cultureGrantSuccess = async (
       worstRate: worst ? fmtPct(worst.funded / worst.applied, ctx.lang) : "—",
     },
     provenance: ["culture/grants.json"],
+  };
+};
+
+// ---- who decides (artistic commissions) --------------------------------------
+export const cultureCommissions = async (
+  _args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const c = await fetchData<CommissionsFile | null>(
+    "/culture/commissions.json",
+  );
+  if (!c || !c.commissions?.length) {
+    return {
+      tool: "cultureCommissions",
+      domain: "fiscal",
+      kind: "scalar",
+      title: bg ? "Няма данни за комисиите" : "No commission data",
+      facts: {},
+      viz: "none",
+      provenance: ["culture/commissions.json"],
+    };
+  }
+  const rows = c.commissions.flatMap((com) =>
+    com.members.map((m) => ({
+      commission: bg ? com.bg : com.en,
+      member: m.name,
+      role:
+        m.role === "chair"
+          ? bg
+            ? "председател"
+            : "chair"
+          : bg
+            ? "член"
+            : "member",
+      section: m.section,
+    })),
+  );
+  const chairOf = (id: string) => {
+    const com = c.commissions.find((x) => x.id === id);
+    return com?.members.find((m) => m.role === "chair")?.name ?? "—";
+  };
+  return {
+    tool: "cultureCommissions",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? "Кой решава за филмовите пари (НФЦ комисии)"
+      : "Who decides the film money (НФЦ commissions)",
+    columns: [
+      { key: "commission", label: bg ? "Комисия" : "Commission" },
+      { key: "member", label: bg ? "Член" : "Member" },
+      { key: "role", label: bg ? "Роля" : "Role" },
+      { key: "section", label: bg ? "Раздел" : "Register section" },
+    ],
+    rows,
+    viz: "none",
+    facts: {
+      order: c.order,
+      mandate: `${c.mandateStart} – ${c.mandateEnd}`,
+      commissions: String(c.commissions.length),
+      members: String(rows.length),
+      featureChair: chairOf("feature"),
+      documentaryChair: chairOf("documentary"),
+      animationChair: chairOf("animation"),
+    },
+    provenance: ["culture/commissions.json"],
   };
 };
 

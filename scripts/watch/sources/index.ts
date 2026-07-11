@@ -70,6 +70,7 @@ import { nzokExecutionB1 } from "./nzok_execution_b1";
 import { nzokActivities } from "./nzok_activities";
 import { nfcFilmRegister } from "./nfc_film_register";
 import { ncfGrantResults } from "./ncf_grant_results";
+import { nfcCommissions } from "./nfc_commissions";
 import {
   euTaxRates,
   euExciseRates,
@@ -96,6 +97,7 @@ export const SOURCES: WatchSource[] = [
   parliamentMps,
   nfcFilmRegister,
   ncfGrantResults,
+  nfcCommissions,
   wikiPolls,
   wikiGovernments,
   cacbgDeclarations,

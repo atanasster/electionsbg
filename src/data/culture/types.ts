@@ -179,6 +179,37 @@ export interface CultureMunicipalFile {
   };
 }
 
+export interface CommissionMember {
+  name: string;
+  role: "chair" | "member";
+  /** титуляр (full) or резервен (reserve) expert. */
+  status: "titular" | "reserve";
+  /** Register section under чл. 15 ЗФИ (Режисьори, Продуценти, …). */
+  section: string;
+}
+
+export interface Commission {
+  id: "feature" | "documentary" | "animation";
+  bg: string;
+  en: string;
+  members: CommissionMember[];
+}
+
+/** The current НФЦ национални художествени комисии — "кой решава" which films get
+ *  state money. Drawn by lottery per 6-month mandate. See write_commissions.ts. */
+export interface CultureCommissionsFile {
+  generatedAt: string;
+  order: string;
+  orderUrl: string;
+  mandateStart: string;
+  mandateEnd: string;
+  lotteryDate: string;
+  secretary: string;
+  director: string;
+  note: { bg: string; en: string };
+  commissions: Commission[];
+}
+
 /** Precomputed dashboard blob so the tiles don't re-aggregate the full corpus
  *  client-side (the discipline-composition, concentration and time-spine tiles
  *  all read from here). */

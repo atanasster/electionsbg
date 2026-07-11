@@ -467,6 +467,11 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Успеваемост на грантовете на НФК: ${f(env, "rate")} — ${f(env, "funded")} от ${f(env, "applied")} проекта финансирани (${f(env, "totalFunded")}). Най-висока: ${f(env, "bestField")} (${f(env, "bestRate")}); най-ниска: ${f(env, "worstField")} (${f(env, "worstRate")}).`
         : `НФК grant success rate: ${f(env, "rate")} — ${f(env, "funded")} of ${f(env, "applied")} projects funded (${f(env, "totalFunded")}). Highest: ${f(env, "bestField")} (${f(env, "bestRate")}); lowest: ${f(env, "worstField")} (${f(env, "worstRate")}).`;
+    case "cultureCommissions":
+      if (!env.facts.members) return env.title;
+      return lang === "bg"
+        ? `${f(env, "commissions")} национални художествени комисии на НФЦ решават кои филми получават субсидия (мандат ${f(env, "mandate")}, ${f(env, "order")}). Председатели: игрално — ${f(env, "featureChair")}; документално — ${f(env, "documentaryChair")}; анимационно — ${f(env, "animationChair")}.`
+        : `${f(env, "commissions")} НФЦ national artistic commissions decide which films get a subsidy (mandate ${f(env, "mandate")}, ${f(env, "order")}). Chairs: feature — ${f(env, "featureChair")}; documentary — ${f(env, "documentaryChair")}; animation — ${f(env, "animationChair")}.`;
     case "governments":
       return lang === "bg"
         ? `${f(env, "count")} правителства от 2005. Настоящо: ${f(env, "current_pm")} (${f(env, "current_parties")}).`

@@ -18,6 +18,7 @@ import { CultureConcentrationTile } from "./CultureConcentrationTile";
 import { CultureFilmAwardsTile } from "./CultureFilmAwardsTile";
 import { CultureScaleTile } from "./CultureScaleTile";
 import { CultureMunicipalTile } from "./CultureMunicipalTile";
+import { CultureCommissionsTile } from "./CultureCommissionsTile";
 import { CultureGrantsTile } from "./CultureGrantsTile";
 import { CultureOblastMapTile } from "./CultureOblastMapTile";
 import { CultureAwardersTile } from "./CultureAwardersTile";
@@ -156,6 +157,9 @@ export const CultureScreen = () => {
             />
             {filmsFile && <CultureFilmAwardsTile films={filmsFile.films} />}
           </div>
+
+          {/* Who decides — the artistic-commission compositions (кой решава) */}
+          <CultureCommissionsTile />
 
           {/* НФК grants — the success rate (applied vs funded) per discipline */}
           <CultureGrantsTile />

@@ -6,6 +6,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
 import type {
+  CultureCommissionsFile,
   CultureFilmsFile,
   CultureFundingStreamsFile,
   CultureGrantsFile,
@@ -61,6 +62,15 @@ export const useCultureMunicipal = () =>
   useQuery({
     queryKey: ["culture", "municipal"] as const,
     queryFn: () => fetchJson<CultureMunicipalFile>("/culture/municipal.json"),
+    staleTime: Infinity,
+  });
+
+/** The current НФЦ artistic-commission compositions — "кой решава". */
+export const useCultureCommissions = () =>
+  useQuery({
+    queryKey: ["culture", "commissions"] as const,
+    queryFn: () =>
+      fetchJson<CultureCommissionsFile>("/culture/commissions.json"),
     staleTime: Infinity,
   });
 
