@@ -32,6 +32,7 @@ import { fileURLToPath } from "url";
 import { command, run, flag, optional, boolean } from "cmd-ts";
 import { canonicalEik } from "./eik";
 import { canonicalJson } from "./validate";
+import { deriveTextbookCpv } from "./textbook_cpv";
 import { toEur } from "@/lib/currency";
 import type { Contract } from "./types";
 
@@ -229,6 +230,7 @@ const main = (apply: boolean): void => {
   let total = 0;
   let matched = 0;
   let setCpv = 0;
+  let setTextbookCpv = 0;
   let setProc = 0;
   let setBids = 0;
   let setEu = 0;
@@ -243,34 +245,48 @@ const main = (apply: boolean): void => {
       for (const c of rows) {
         total++;
         const f = lookup(idx, c);
-        if (!f) continue;
-        matched++;
-        if (!c.cpv && f.cpv) {
-          c.cpv = f.cpv;
-          setCpv++;
-          changed = true;
+        if (f) {
+          matched++;
+          if (!c.cpv && f.cpv) {
+            c.cpv = f.cpv;
+            setCpv++;
+            changed = true;
+          }
+          if (!c.procurementMethod && f.procurementMethod) {
+            c.procurementMethod = f.procurementMethod;
+            setProc++;
+            changed = true;
+          }
+          if (c.numberOfTenderers == null && f.numberOfTenderers != null) {
+            c.numberOfTenderers = f.numberOfTenderers;
+            setBids++;
+            changed = true;
+          }
+          // EU flag is EOP-only and tri-state: a matched contract has a KNOWN
+          // status (true/false); an unmatched one is left undefined ("unknown",
+          // not "no") so the entity EU-share denominator is the known set.
+          if (c.euFunded !== f.euFunded) {
+            c.euFunded = !!f.euFunded;
+            changed = true;
+          }
+          if (f.euFunded) setEu++;
+          if (f.euProgram && c.euProgram !== f.euProgram) {
+            c.euProgram = f.euProgram;
+            changed = true;
+          }
         }
-        if (!c.procurementMethod && f.procurementMethod) {
-          c.procurementMethod = f.procurementMethod;
-          setProc++;
-          changed = true;
-        }
-        if (c.numberOfTenderers == null && f.numberOfTenderers != null) {
-          c.numberOfTenderers = f.numberOfTenderers;
-          setBids++;
-          changed = true;
-        }
-        // EU flag is EOP-only and tri-state: a matched contract has a KNOWN
-        // status (true/false); an unmatched one is left undefined ("unknown",
-        // not "no") so the entity EU-share denominator is the known set.
-        if (c.euFunded !== f.euFunded) {
-          c.euFunded = !!f.euFunded;
-          changed = true;
-        }
-        if (f.euFunded) setEu++;
-        if (f.euProgram && c.euProgram !== f.euProgram) {
-          c.euProgram = f.euProgram;
-          changed = true;
+        // Last-resort CPV gap-fill (runs for matched AND unmatched rows): the
+        // flat-feed join finds nothing for pre-2020 rows, so legacy/РОП textbook
+        // contracts stay CPV-less and vanish from the textbook market. Derive
+        // 22112 from the subject ONLY when no real CPV survived above. See
+        // textbook_cpv.ts.
+        if (!c.cpv) {
+          const tb = deriveTextbookCpv(c.title);
+          if (tb) {
+            c.cpv = tb;
+            setTextbookCpv++;
+            changed = true;
+          }
         }
       }
       if (apply && changed) {
@@ -285,7 +301,8 @@ const main = (apply: boolean): void => {
       `(${((matched / total) * 100).toFixed(0)}%)`,
   );
   console.log(
-    `  filled cpv ${setCpv.toLocaleString()}, procedure ${setProc.toLocaleString()}, ` +
+    `  filled cpv ${setCpv.toLocaleString()} (+${setTextbookCpv.toLocaleString()} textbook-derived), ` +
+      `procedure ${setProc.toLocaleString()}, ` +
       `bids ${setBids.toLocaleString()}; EU-funded ${setEu.toLocaleString()}`,
   );
   if (!apply) {

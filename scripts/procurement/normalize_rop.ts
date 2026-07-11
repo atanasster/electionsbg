@@ -28,6 +28,7 @@ import { overrideAmount } from "./amount_overrides";
 import { parseBgNumber } from "./normalize_eop";
 import { normaliseOrgName } from "../lib/normalize_name";
 import { hashKey } from "./contract_key";
+import { deriveTextbookCpv } from "./textbook_cpv";
 import { toEur } from "@/lib/currency";
 import type { Contract, ContractTag } from "./types";
 
@@ -240,18 +241,9 @@ const contractKey = (
 ): string => hashKey(`${releaseId}::${contractId}::${contractorEik}::${tag}`);
 
 // The РОП awards table carries NO CPV code (only a free-text subject), so every
-// row lands CPV-less — invisible to CPV-keyed views (the textbook market, sector
-// packs, the risk model's legally-single-source exemption). We can't recover the
-// full CPV without a per-procedure dossier scrape, but ONE category is both
-// unambiguous from the subject and important: textbooks (CPV 22112). A subject
-// naming учебник(и) / учебни помагала / познавателни книжки is a textbook supply
-// — АОП classifies these as 22112, and they're legally awarded to the sole
-// copyright holder (so tagging them also stops the risk model flagging them as
-// single-bidder). This is the ONLY CPV we derive; everything else stays null.
-const TEXTBOOK_SUBJECT =
-  /учебник|учебни\s+помагала|учебни\s+комплекти|познавателни\s+книжки/i;
-const deriveCpv = (subject: string): string | undefined =>
-  TEXTBOOK_SUBJECT.test(subject) ? "22112000" : undefined;
+// row lands CPV-less. We derive one CPV — textbooks (22112) — from the subject;
+// see textbook_cpv.ts. The same gap-fill runs in eop_field_map for the legacy
+// years, so it's a shared helper.
 
 // Map parsed РОП rows onto Contract[], resolving EIKs from the corpus maps.
 // `sourceUrl` is the per-day search URL, carried onto every row for citation.
@@ -345,7 +337,7 @@ export const normalizeRopRows = (
       currency,
       amountEur: toEur(amount, currency) ?? undefined,
       title: row.subject || "",
-      cpv: deriveCpv(row.subject),
+      cpv: deriveTextbookCpv(row.subject),
       bundleUuid: "rop-register",
       sourceUrl,
     });
