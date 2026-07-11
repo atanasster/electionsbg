@@ -882,8 +882,8 @@ export const DATASETS: DatasetDef[] = [
       en: "film subsidies, producers",
     },
     desc: {
-      bg: "Държавната субсидия на Националния филмов център за кино (2014–2025) — по вид (игрално, документално, анимационно), по продуцент и по година, с концентрацията на средствата у най-финансираните продуценти.",
-      en: "The National Film Center's state subsidy for film (2014–2025) — by discipline (feature, documentary, animation), by producer and by year, with the concentration of money among the most-funded producers.",
+      bg: "Държавната субсидия на Националния филмов център за кино (2014–2025) — по вид (игрално, документално, анимационно), по продуцент и по година, с концентрацията на средствата у най-финансираните продуценти. Плюс успеваемостта на грантовете на НФК, културните институти по области, и общинската и читалищна култура (Столична програма „Култура“ по направления и националната субсидия за читалища).",
+      en: "The National Film Center's state subsidy for film (2014–2025) — by discipline (feature, documentary, animation), by producer and by year, with the concentration of money among the most-funded producers. Plus НФК grant success rates, the state cultural institutes by oblast, and municipal & community-centre culture (Sofia's „Култура“ programme by direction and the national читалища subsidy).",
     },
     path: "data/culture/",
     tags: ["fiscal"],

@@ -17,6 +17,7 @@ import { CultureTimeSpineTile } from "./CultureTimeSpineTile";
 import { CultureConcentrationTile } from "./CultureConcentrationTile";
 import { CultureFilmAwardsTile } from "./CultureFilmAwardsTile";
 import { CultureScaleTile } from "./CultureScaleTile";
+import { CultureMunicipalTile } from "./CultureMunicipalTile";
 import { CultureGrantsTile } from "./CultureGrantsTile";
 import { CultureOblastMapTile } from "./CultureOblastMapTile";
 import { CultureAwardersTile } from "./CultureAwardersTile";
@@ -141,6 +142,10 @@ export const CultureScreen = () => {
 
           {/* Scale — film subsidies in proportion to the bigger culture streams */}
           <CultureScaleTile />
+
+          {/* Municipal + читалища — the two streams the scale tile only shows as
+              single lines, broken out (Sofia per-направление + читалища national) */}
+          <CultureMunicipalTile />
 
           {/* Who wins (concentration) + the biggest single awards — paired
               side by side on desktop, stacked on mobile. */}

@@ -9,6 +9,7 @@ import type {
   CultureFilmsFile,
   CultureFundingStreamsFile,
   CultureGrantsFile,
+  CultureMunicipalFile,
   CultureOblastFile,
   CultureOverviewFile,
 } from "./types";
@@ -52,6 +53,14 @@ export const useCultureGrants = () =>
   useQuery({
     queryKey: ["culture", "grants"] as const,
     queryFn: () => fetchJson<CultureGrantsFile>("/culture/grants.json"),
+    staleTime: Infinity,
+  });
+
+/** Столична програма „Култура" + читалища national context — the municipal tile. */
+export const useCultureMunicipal = () =>
+  useQuery({
+    queryKey: ["culture", "municipal"] as const,
+    queryFn: () => fetchJson<CultureMunicipalFile>("/culture/municipal.json"),
     staleTime: Infinity,
   });
 

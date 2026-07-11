@@ -141,6 +141,44 @@ export interface CultureOblastFile {
   oblasts: CultureOblastBucket[];
 }
 
+export interface SofiaDirection {
+  /** Направление number as printed in the класиране (1–9, non-contiguous). */
+  n: number;
+  bg: string;
+  count: number;
+  eur: number;
+}
+
+/** Столична програма „Култура" (municipal, outside the state budget) + читалища
+ *  national context — the two culture-money streams the /culture view otherwise
+ *  only shows as single scale-tile lines. See scripts/culture/sofia_program.ts. */
+export interface CultureMunicipalFile {
+  generatedAt: string;
+  sofia: {
+    year: number;
+    program: string;
+    council: string;
+    decision: string;
+    appliedCount: number;
+    fundedCount: number;
+    totalEur: number;
+    directions: SofiaDirection[];
+    sourceUrl: string;
+    note: { bg: string; en: string };
+  };
+  chitalishta: {
+    year: number;
+    subsidizedPositions: number;
+    positionsYoY: number;
+    totalEur: number;
+    announcedEur: number;
+    cutEur: number;
+    sourceBg: string;
+    sourceEn: string;
+    note: { bg: string; en: string };
+  };
+}
+
 /** Precomputed dashboard blob so the tiles don't re-aggregate the full corpus
  *  client-side (the discipline-composition, concentration and time-spine tiles
  *  all read from here). */
