@@ -3,29 +3,59 @@
   "ns": "52",
   "partyShort": "ГЕРБ - СДС",
   "loyalty": {
-    "votesCast": 313,
-    "withParty": 282,
-    "loyaltyPct": 0.9009584664536742,
+    "votesCast": 331,
+    "withParty": 297,
+    "loyaltyPct": 0.8972809667673716,
     "windowFrom": "2026-04-30",
-    "windowTo": "2026-07-03",
-    "totalVoteItems": 645
+    "windowTo": "2026-07-10",
+    "totalVoteItems": 682
   },
   "attendance": {
-    "totalItems": 645,
-    "presentCount": 313,
-    "absentCount": 332,
-    "presentPct": 0.48527131782945737
+    "totalItems": 682,
+    "presentCount": 331,
+    "absentCount": 351,
+    "presentPct": 0.48533724340175954
   },
   "cohort": {
     "size": 268,
-    "votesCastMedian": 462.5,
-    "loyaltyPctMedian": 0.9784730440734034,
-    "presentPctMedian": 0.7189147286821705
+    "votesCastMedian": 486,
+    "loyaltyPctMedian": 0.9796600820491606,
+    "presentPctMedian": 0.7126099706744868
   },
   "dissents": {
-    "totalCast": 313,
-    "dissentCount": 31,
+    "totalCast": 331,
+    "dissentCount": 34,
     "recent": [
+      {
+        "date": "2026-07-10",
+        "item": 2,
+        "slug": "2-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване за 2026 г. – първо гласуване - процедура за допускане в зала",
+        "topic": "budget",
+        "mpVote": "abstain",
+        "majorityVote": "yes",
+        "groupSize": 21
+      },
+      {
+        "date": "2026-07-09",
+        "item": 12,
+        "slug": "12-reshenie-po-otchet-na-generalniya-direktor-na-balgarskata-te",
+        "title": "Решение по Отчет на генералния директор на Българската телеграфна агенция, включващ и финансов отчет за 2025 г. - процедура за допускане в залата",
+        "topic": "other",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 6
+      },
+      {
+        "date": "2026-07-09",
+        "item": 8,
+        "slug": "8-ratifikatsiya-na-spogodbata-mezhdu-pravitelstvoto-na-republi",
+        "title": "Ратификация на Спогодбата между правителството на Република България и правителството на Монголия за международни автомобил и превози на пътници и товари, подписана на 21 ноември 2025 г. в София - процедура за допускане в зала",
+        "topic": "ratification",
+        "mpVote": "no",
+        "majorityVote": "yes",
+        "groupSize": 15
+      },
       {
         "date": "2026-07-01",
         "item": 23,
@@ -337,206 +367,206 @@
   "similarity": {
     "topK": [
       {
-        "mpId": 5062,
-        "score": 0.6883934020833401,
-        "overlap": 283
+        "mpId": 5274,
+        "score": 0.6705698293841601,
+        "overlap": 284
       },
       {
-        "mpId": 5274,
-        "score": 0.6797063491868787,
-        "overlap": 266
+        "mpId": 5062,
+        "score": 0.6611362531316827,
+        "overlap": 287
       },
       {
         "mpId": 5061,
-        "score": 0.6791123584076988,
-        "overlap": 259
+        "score": 0.6542895382137198,
+        "overlap": 264
       },
       {
         "mpId": 5095,
-        "score": 0.66006899141179,
-        "overlap": 180
+        "score": 0.6533865292761755,
+        "overlap": 194
       },
       {
         "mpId": 5207,
-        "score": 0.6478526360629008,
-        "overlap": 248
+        "score": 0.6400009678660897,
+        "overlap": 259
       },
       {
         "mpId": 5259,
-        "score": 0.6319571602670563,
-        "overlap": 231
+        "score": 0.6235382128822599,
+        "overlap": 244
       },
       {
         "mpId": 5157,
-        "score": 0.6260577577871087,
-        "overlap": 265
+        "score": 0.6207817244550441,
+        "overlap": 283
       },
       {
         "mpId": 5220,
-        "score": 0.6104380749732125,
-        "overlap": 240
+        "score": 0.5946264478506158,
+        "overlap": 246
       },
       {
         "mpId": 5081,
-        "score": 0.5983405559491325,
-        "overlap": 206
+        "score": 0.5848234094016772,
+        "overlap": 211
       },
       {
         "mpId": 5075,
-        "score": 0.5875072611006646,
-        "overlap": 187
-      },
-      {
-        "mpId": 5195,
-        "score": 0.5708011643943385,
-        "overlap": 164
+        "score": 0.5818288674786108,
+        "overlap": 196
       },
       {
         "mpId": 5216,
-        "score": 0.5651228886653671,
-        "overlap": 219
+        "score": 0.5595817449580229,
+        "overlap": 235
+      },
+      {
+        "mpId": 5195,
+        "score": 0.5570496554522915,
+        "overlap": 176
       },
       {
         "mpId": 5126,
-        "score": 0.5563713196940544,
-        "overlap": 218
-      },
-      {
-        "mpId": 5187,
-        "score": 0.5459453639697897,
-        "overlap": 181
+        "score": 0.5471737209948329,
+        "overlap": 226
       },
       {
         "mpId": 5236,
-        "score": 0.5338286508915714,
-        "overlap": 195
+        "score": 0.5277465423701786,
+        "overlap": 201
       },
       {
-        "mpId": 5266,
-        "score": 0.5236027724332551,
-        "overlap": 267
-      },
-      {
-        "mpId": 5123,
-        "score": 0.5219693096159244,
-        "overlap": 293
-      },
-      {
-        "mpId": 5267,
-        "score": 0.521478127900205,
-        "overlap": 199
-      },
-      {
-        "mpId": 5091,
-        "score": 0.5191287869520392,
-        "overlap": 162
+        "mpId": 5187,
+        "score": 0.5217884511448644,
+        "overlap": 186
       },
       {
         "mpId": 5170,
-        "score": 0.5153012471632777,
-        "overlap": 278
+        "score": 0.5203508840218888,
+        "overlap": 291
+      },
+      {
+        "mpId": 5123,
+        "score": 0.5188898104452442,
+        "overlap": 306
+      },
+      {
+        "mpId": 5091,
+        "score": 0.5184813454892669,
+        "overlap": 172
+      },
+      {
+        "mpId": 5266,
+        "score": 0.5152397912385327,
+        "overlap": 280
+      },
+      {
+        "mpId": 5267,
+        "score": 0.5085828245650774,
+        "overlap": 208
       }
     ],
     "bottomK": [
       {
         "mpId": 4099,
-        "score": 0.08865811868483126,
+        "score": 0.08553989227683013,
         "overlap": 5
       },
       {
         "mpId": 4105,
-        "score": 0.08865811868483126,
+        "score": 0.08553989227683013,
         "overlap": 5
       },
       {
         "mpId": 4110,
-        "score": 0.08865811868483126,
+        "score": 0.08553989227683013,
         "overlap": 5
       },
       {
         "mpId": 5194,
-        "score": 0.10921928819115823,
-        "overlap": 143
+        "score": 0.10058545872877653,
+        "overlap": 159
       },
       {
         "mpId": 4100,
-        "score": 0.1477635311413854,
+        "score": 0.14256648712805023,
         "overlap": 5
       },
       {
         "mpId": 4109,
-        "score": 0.1477635311413854,
+        "score": 0.14256648712805023,
         "overlap": 5
       },
       {
         "mpId": 4111,
-        "score": 0.1477635311413854,
+        "score": 0.14256648712805023,
         "overlap": 5
       },
       {
-        "mpId": 5281,
-        "score": 0.15512238676694495,
-        "overlap": 53
-      },
-      {
         "mpId": 5100,
-        "score": 0.15862268490201198,
+        "score": 0.1530437097071084,
         "overlap": 19
       },
       {
+        "mpId": 5060,
+        "score": 0.15659828099990647,
+        "overlap": 227
+      },
+      {
         "mpId": 4057,
-        "score": 0.1635442597305992,
+        "score": 0.15779218606680065,
         "overlap": 8
       },
       {
-        "mpId": 5060,
-        "score": 0.17816161158933622,
-        "overlap": 215
+        "mpId": 5335,
+        "score": 0.16311817434811102,
+        "overlap": 12
+      },
+      {
+        "mpId": 5281,
+        "score": 0.1679970134129754,
+        "overlap": 62
       },
       {
         "mpId": 3945,
-        "score": 0.1817251151251497,
+        "score": 0.17533359609241803,
         "overlap": 18
       },
       {
         "mpId": 3995,
-        "score": 0.1817251151251497,
+        "score": 0.17533359609241803,
         "overlap": 18
       },
       {
         "mpId": 5186,
-        "score": 0.1817251151251497,
+        "score": 0.17533359609241803,
         "overlap": 16
       },
       {
         "mpId": 3989,
-        "score": 0.19232646275641196,
+        "score": 0.185562079933713,
         "overlap": 19
       },
       {
         "mpId": 3996,
-        "score": 0.1942723198201032,
+        "score": 0.18743949856252418,
         "overlap": 16
       },
       {
         "mpId": 4006,
-        "score": 0.1942723198201032,
+        "score": 0.18743949856252418,
         "overlap": 16
       },
       {
         "mpId": 4055,
-        "score": 0.1942723198201032,
+        "score": 0.18743949856252418,
         "overlap": 16
       },
       {
         "mpId": 3972,
-        "score": 0.20160591403794575,
+        "score": 0.1945151603146787,
         "overlap": 16
-      },
-      {
-        "mpId": 3984,
-        "score": 0.20474715475413244,
-        "overlap": 17
       }
     ]
   }
