@@ -255,6 +255,16 @@ fiscal-year picker, per the requirement that all data be scope-based):
 - The scope itself is the shared procurement scope (`useProcurementScope` — `?pscope=ns|all|
   y:<year>`); the Води pack reads it exactly like roads/NOI/NZOK, and all nav links preserve it
   (see §4.2).
+- **Standalone `/water/*` DbDataTable pages are date-scoped too** (not just the pack). Each
+  screen mounts `ProcurementSectionHeader scopeMode="toggle"` + `useProcurementWindow()` and
+  passes a `windowFilter` into `DbDataTable`, exactly like `ContractsBrowserDbScreen`. This
+  requires the registry-level filterable date/year column in §5:
+  - `water-reservoirs` — a `date` column `filter:"range"` (window → `min/max`).
+  - `water-operators` / benchmark — a `year` column `filter:"range"` (or `"in"`), with
+    `?pscope=y:2024`→`year=2024` and the `ns`/`all` window mapped to the year span it covers
+    (annual data has no day granularity, so map the parliament window to the overlapping years).
+  - `water-flood-risk` — inherits the contract `date` window for the maintenance-spend half.
+  Without the registered range column the scope toggle renders but silently filters nothing.
 
 ### c. Large datasets: Top-N tile in the pack → "See all" standalone page
 No pack tile dumps a long list. Each large dataset shows a **Top-N tile** (e.g. top 10) ending
@@ -609,10 +619,13 @@ and an index if it seq-scans. Concretely:
   run the parity audit recipe against a JSON dump of the same query.
 - **DbDataTable** (backs the "See all" pages, §4.1c): register REGISTRY entries in `/api/db/
   table` (a registry row each, not new endpoints; the column whitelist is the security boundary)
-  for `water-operators` (operator × loss/tariff/financials, oblast + year filters) and
-  `water-reservoirs` (reservoir × date series); `water-quality` for Tier D. Contracts/funds
-  "See all" reuse the existing `contracts` / `fund_projects` registries with a water EIK filter.
-  Every registry query gets the same `EXPLAIN ANALYZE` worst-case check as above.
+  for `water-operators` (operator × loss/tariff/financials, oblast filter + **`year` column
+  `filter:"range"`**) and `water-reservoirs` (reservoir × date series, **`date` column
+  `filter:"range"`**); `water-quality` for Tier D. The range date/year columns are what make the
+  standalone pages' scope toggle actually filter (§4.1b) — register them or the `?pscope` window
+  is inert. Contracts/funds "See all" reuse the existing `contracts` / `fund_projects` registries
+  (already have `date filter:"range"`) with the water EIK filter. Every registry query gets the
+  same `EXPLAIN ANALYZE` worst-case check as above, on the window-filtered path.
 - EUR sums use `totalEur = Σ per-row amountEur` (PG basis), never per-currency convert.
 
 ## 6. AI chat tools
