@@ -20,6 +20,7 @@ import { CultureScaleTile } from "./CultureScaleTile";
 import { CultureGrantsTile } from "./CultureGrantsTile";
 import { CultureOblastMapTile } from "./CultureOblastMapTile";
 import { CultureAwardersTile } from "./CultureAwardersTile";
+import { ProcurementThematicNav } from "@/screens/components/procurement/ProcurementThematicNav";
 
 export const CultureScreen = () => {
   const { i18n } = useTranslation();
@@ -40,6 +41,7 @@ export const CultureScreen = () => {
   return (
     <>
       <Title description={description}>{title}</Title>
+      <ProcurementThematicNav />
 
       {isLoading && (
         <div className="my-4 h-[320px] animate-pulse rounded-xl border bg-card" />

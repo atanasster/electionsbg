@@ -11,12 +11,6 @@ import { FC } from "react";
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
-  ROADS_AWARDER_PATH,
-  NOI_AWARDER_PATH,
-  NZOK_AWARDER_PATH,
-  MON_AWARDER_PATH,
-} from "./sectorPacks";
-import {
   LayoutGrid,
   MapPin,
   Flag,
@@ -24,17 +18,11 @@ import {
   Table2,
   ClipboardList,
   Gavel,
-  Route,
-  PiggyBank,
-  HeartPulse,
   HeartHandshake,
-  Scale,
-  Palette,
-  Sprout,
-  GraduationCap,
 } from "lucide-react";
 import { useProcurementHref } from "@/data/procurement/useProcurementScope";
 import { useCachedNewCount } from "@/data/procurement/useWatchlist";
+import { ProcurementThematicNav } from "./ProcurementThematicNav";
 
 const items = [
   {
@@ -72,56 +60,6 @@ const items = [
   { to: "/procurement/watchlist", icon: Star, key: "watchlist_nav" },
 ] as const;
 
-// Sector-specific "where the state money goes" deep dives — a second, lighter
-// row below the main section pills so the list can grow without crowding primary
-// navigation. Mostly per-entity procurement packs (АПИ roads, ДОО, НЗОК), plus
-// the farm-subsidy dataset (grants, not procurement, but the same follow-the-
-// money lens and cross-linked by EIK). One entry per page.
-const secondaryItems = [
-  {
-    to: ROADS_AWARDER_PATH,
-    icon: Route,
-    key: "procurement_roads_nav",
-  },
-  {
-    to: NOI_AWARDER_PATH,
-    icon: PiggyBank,
-    key: "procurement_noi_nav",
-  },
-  {
-    to: NZOK_AWARDER_PATH,
-    icon: HeartPulse,
-    key: "procurement_nzok_nav",
-  },
-  {
-    to: MON_AWARDER_PATH,
-    icon: GraduationCap,
-    key: "procurement_mon_nav",
-  },
-  {
-    // The judiciary's home is the /judiciary dashboard — it lists every judicial
-    // body's awarder page, so the pill points there rather than at the ВСС buyer
-    // page alone. `unscoped` because /judiciary has no ?pscope dimension.
-    to: "/judiciary",
-    icon: Scale,
-    key: "judiciary_nav",
-    unscoped: true,
-  },
-  {
-    // Култура's home is the /culture dashboard (film subsidies, concentration);
-    // the МК awarder page is the procurement half. `unscoped` — no ?pscope.
-    to: "/culture",
-    icon: Palette,
-    key: "culture_nav",
-    unscoped: true,
-  },
-  {
-    to: "/subsidies",
-    icon: Sprout,
-    key: "agri_subsidies_nav",
-  },
-] as const;
-
 const pillClass = ({ isActive }: { isActive: boolean }) =>
   `inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
     isActive
@@ -136,7 +74,6 @@ export const ProcurementNav: FC = () => {
   // activity since the user last looked. Reads a cached value (no fetches); the
   // watchlist page keeps it fresh.
   const newCount = useCachedNewCount();
-  const visibleSecondary = secondaryItems;
   return (
     <>
       <nav
@@ -168,37 +105,9 @@ export const ProcurementNav: FC = () => {
           </NavLink>
         ))}
       </nav>
-      {visibleSecondary.length > 0 ? (
-        <nav
-          aria-label={
-            t("procurement_thematic_nav") || "Sector-specific analyses"
-          }
-          className="flex flex-wrap items-center gap-2 -mt-1 mb-3"
-        >
-          <span className="text-[11px] text-muted-foreground">
-            {t("procurement_thematic_nav") || "Sector-specific analyses"}:
-          </span>
-          {visibleSecondary.map((item) => {
-            const { to, icon: Icon, key } = item;
-            // Carry the procurement scope forward, except to pages that have no
-            // scope dimension (a stray ?pscope there is dead query string).
-            const target = "unscoped" in item && item.unscoped ? to : href(to);
-            return (
-              <NavLink key={to} to={target} className={pillClass}>
-                {({ isActive }) => (
-                  <>
-                    <Icon className="h-3.5 w-3.5" aria-hidden />
-                    {t(key)}
-                    {isActive ? (
-                      <span className="sr-only"> (current)</span>
-                    ) : null}
-                  </>
-                )}
-              </NavLink>
-            );
-          })}
-        </nav>
-      ) : null}
+      <div className="-mt-1">
+        <ProcurementThematicNav />
+      </div>
     </>
   );
 };

@@ -51,6 +51,7 @@ import { CompanyPortfolioTreemap } from "../components/procurement/CompanyPortfo
 import { EntityFlowTile } from "../components/procurement/EntityFlowTile";
 import { type EntityFlowMpEdge } from "@/data/procurement/entityFlow";
 import { getSectorPack } from "../components/procurement/sectorPacks";
+import { ProcurementThematicNav } from "../components/procurement/ProcurementThematicNav";
 import { ProcurementBenchmarksTile } from "../components/procurement/ProcurementBenchmarksTile";
 import { type ProcurementBenchmarksFile } from "@/data/procurement/useProcurementBenchmarks";
 import { CompanyRiskChips } from "../components/procurement/CompanyRiskChips";
@@ -696,6 +697,11 @@ export const CompanyDbScreen: FC = () => {
               <ProcurementScopeControl value={scope} onChange={setScope} />
             </div>
           )}
+          {/* Thematic-analyses strip — only on the packed sector dashboards
+              (АПИ / НОИ / НЗОК / МОН / ВСС / Култура), so you can hop between
+              the sibling "where the state money goes" analyses without going
+              back to /procurement. Generic company/awarder pages skip it. */}
+          {SectorPack && <ProcurementThematicNav />}
           {/* Entity-graph identity — this EIK is a school (schools.eik join).
               Self-hides unless the EIK matched a school; links to its report
               card on /school/:id. */}
