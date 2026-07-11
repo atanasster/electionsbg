@@ -115,6 +115,65 @@ const loadExistingAwarderEiks = (): Set<string> => {
   return out;
 };
 
+// ---- cross-source content dedup (--cross-source-dedup) ----
+//
+// For transition years (2020, 2021) the buyer-absent gap-fill drops almost
+// everything, because the buyers already appear via the thin legacy annual
+// CSVs (2020 = caiseop CE, 2021 = РОП RL). Those CSVs are an order of magnitude
+// smaller than the ЦАИС ЕОП flat feed that already sits in cache for the same
+// days. To backfill without double-counting, we keep ALL flat-feed buyers but
+// drop any flat row that matches an already-ingested contract on a *content*
+// key — the two feeds namespace their releaseIds disjointly (`eop-` vs
+// `aop-legacy-`), so the month-shard `rowKey` merge can NOT collapse a
+// cross-source duplicate; only a content match can.
+
+// Normalise a free-text contract number for matching: lowercase, strip the
+// punctuation/whitespace/№ that the two feeds format inconsistently ("Д-1/2021"
+// vs "д 1 2021").
+const normContractNo = (s: string | undefined): string =>
+  (s ?? "").toLocaleLowerCase("bg").replace(/[\s".,\-_/№#]/g, "");
+
+// Every content key a row can be matched on. A flat row is a duplicate of an
+// existing contract when ANY key collides. Three independent nets, strongest
+// first: (1) procedure УНП + supplier + rounded €, (2) buyer + supplier +
+// contract-number + signing date (amount-free, survives the multi-supplier
+// split), (3) buyer + supplier + signing date + rounded € (catches rows with
+// neither a УНП nor a usable contract number).
+const contentKeys = (r: Contract): string[] => {
+  const keys: string[] = [];
+  const amt = r.amountEur != null ? String(Math.round(r.amountEur)) : "";
+  if (r.unp && r.contractorEik) {
+    keys.push(`u:${r.unp}:${r.contractorEik}:${amt}`);
+  }
+  const cn = normContractNo(r.contractId);
+  if (cn && r.awarderEik && r.contractorEik) {
+    keys.push(`c:${r.awarderEik}:${r.contractorEik}:${cn}:${r.dateSigned ?? ""}`);
+  }
+  if (r.awarderEik && r.contractorEik && (r.dateSigned || amt !== "")) {
+    keys.push(`f:${r.awarderEik}:${r.contractorEik}:${r.dateSigned ?? ""}:${amt}`);
+  }
+  return keys;
+};
+
+// Load every already-ingested contract row for the given calendar years off the
+// month-shards on disk, and return the union of their content keys — the set a
+// fresh flat row is deduped against.
+const loadExistingContentKeys = (years: Set<string>): Set<string> => {
+  const out = new Set<string>();
+  for (const year of years) {
+    const dir = path.join(CONTRACTS_DIR, year);
+    if (!fs.existsSync(dir)) continue;
+    for (const f of fs.readdirSync(dir)) {
+      if (!/\.json$/.test(f)) continue;
+      const rows = JSON.parse(
+        fs.readFileSync(path.join(dir, f), "utf8"),
+      ) as Contract[];
+      for (const r of rows) for (const k of contentKeys(r)) out.add(k);
+    }
+  }
+  return out;
+};
+
 // ---- month-shard writer (mirrors ingest.ts; replicated to keep this module
 // fully additive and avoid importing ingest.ts, whose module body runs a CLI). ----
 
@@ -169,6 +228,7 @@ const main = async (args: {
   apply: boolean;
   refreshCache: boolean;
   includeExistingBuyers: boolean;
+  crossSourceDedup: boolean;
   delayMs: number;
 }): Promise<void> => {
   const days = enumerateDays(args.from, args.to);
@@ -181,12 +241,30 @@ const main = async (args: {
     );
   }
 
+  // --cross-source-dedup keeps every buyer and instead filters on a content key
+  // against what is already on disk. It implies include-existing-buyers (the
+  // buyer-absent guard would defeat the purpose) and is the correct mode for the
+  // 2020/2021 transition-year backfill.
+  const crossSourceDedup = args.crossSourceDedup;
+  const includeExistingBuyers =
+    args.includeExistingBuyers || crossSourceDedup;
+
   const existing = loadExistingAwarderEiks();
+  const years = new Set(days.map((d) => d.slice(0, 4)));
+  const existingKeys = crossSourceDedup
+    ? loadExistingContentKeys(years)
+    : new Set<string>();
   console.log(
     `→ ${days.length} day(s) ${args.from}…${args.to}; ` +
       `${existing.size} existing awarder(s) form the gap-fill exclusion set`,
   );
-  if (args.includeExistingBuyers) {
+  if (crossSourceDedup) {
+    console.log(
+      `→ --cross-source-dedup: keeping all buyers; deduping against ` +
+        `${existingKeys.size.toLocaleString()} content key(s) from ` +
+        `${[...years].sort().join(", ")} already on disk`,
+    );
+  } else if (includeExistingBuyers) {
     console.log(
       `⚠ --include-existing-buyers: keeping rows for buyers already in corpus. ` +
         `Use ONLY for windows with no OCDS (2024–2025); otherwise this double-counts.`,
@@ -200,6 +278,7 @@ const main = async (args: {
   let recordsSeen = 0;
   let rowsBeforeGapfill = 0;
   let droppedExisting = 0;
+  let droppedDuplicate = 0;
 
   for (const day of days) {
     let records: EopContractRecord[] | null;
@@ -218,9 +297,19 @@ const main = async (args: {
     const { rows } = normalizeEopDay(records, day, dayUrl(day));
     rowsBeforeGapfill += rows.length;
     for (const r of rows) {
-      if (!args.includeExistingBuyers && existing.has(r.awarderEik)) {
+      if (!includeExistingBuyers && existing.has(r.awarderEik)) {
         droppedExisting++;
         continue;
+      }
+      if (crossSourceDedup) {
+        const keys = contentKeys(r);
+        if (keys.some((k) => existingKeys.has(k))) {
+          droppedDuplicate++;
+          continue;
+        }
+        // Register this row's keys so a later flat-feed row that restates the
+        // same contract (republished on another day) is deduped against it too.
+        for (const k of keys) existingKeys.add(k);
       }
       kept.push(r);
       newBuyers.add(r.awarderEik);
@@ -233,11 +322,19 @@ const main = async (args: {
     `→ ${daysPublished} published / ${daysMissing} unpublished day(s); ` +
       `${recordsSeen.toLocaleString()} record(s) → ${rowsBeforeGapfill.toLocaleString()} row(s)`,
   );
-  console.log(
-    `→ gap-fill: kept ${kept.length.toLocaleString()} row(s) across ` +
-      `${newBuyers.size.toLocaleString()} NEW buyer(s); ` +
-      `dropped ${droppedExisting.toLocaleString()} row(s) for buyers already in corpus`,
-  );
+  if (crossSourceDedup) {
+    console.log(
+      `→ cross-source dedup: kept ${kept.length.toLocaleString()} NEW row(s) across ` +
+        `${newBuyers.size.toLocaleString()} buyer(s); ` +
+        `dropped ${droppedDuplicate.toLocaleString()} row(s) already in corpus`,
+    );
+  } else {
+    console.log(
+      `→ gap-fill: kept ${kept.length.toLocaleString()} row(s) across ` +
+        `${newBuyers.size.toLocaleString()} NEW buyer(s); ` +
+        `dropped ${droppedExisting.toLocaleString()} row(s) for buyers already in corpus`,
+    );
+  }
 
   if (!args.apply) {
     console.log(`✓ dry run — pass --apply to write month-shards`);
@@ -300,6 +397,17 @@ const cli = command({
         "2026, where it would double-count the OCDS feed.",
       defaultValue: () => false,
     }),
+    crossSourceDedup: flag({
+      type: optional(boolean),
+      long: "cross-source-dedup",
+      description:
+        "Keep ALL buyers but drop flat rows that match an already-ingested " +
+        "contract on a content key (УНП/contract-no/buyer+supplier+date+€). " +
+        "The correct mode for the 2020/2021 transition-year backfill, where the " +
+        "thin legacy CSVs cover the same buyers but far fewer contracts. Implies " +
+        "--include-existing-buyers.",
+      defaultValue: () => false,
+    }),
     delayMs: option({
       type: optional(string),
       long: "delay-ms",
@@ -319,6 +427,7 @@ const cli = command({
       apply: !!args.apply,
       refreshCache: !!args.refreshCache,
       includeExistingBuyers: !!args.includeExistingBuyers,
+      crossSourceDedup: !!args.crossSourceDedup,
       delayMs: args.delayMs ? parseInt(args.delayMs, 10) : 150,
     }),
 });
