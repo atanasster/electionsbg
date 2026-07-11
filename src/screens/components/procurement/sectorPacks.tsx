@@ -19,9 +19,10 @@ import { lazy, type ComponentType } from "react";
 import { API_EIK } from "@/lib/roadAttributes";
 import { NOI_EIK } from "@/lib/noiBenchmarks";
 import { NZOK_EIK } from "@/lib/nzokBenchmarks";
-import { VSS_EIK } from "@/lib/vssReferenceData";
+import { VSS_EIK, VSS_ALIAS_EIKS, JUDICIAL_EIKS } from "@/lib/vssReferenceData";
 import { MON_EIK } from "@/lib/monBenchmarks";
 import { KULTURA_EIK } from "@/lib/kulturaReferenceData";
+import { VIK_HOLDING_EIK, WATER_SECTOR_EIKS } from "@/lib/vikReferenceData";
 import { AGRI_PAYER_EIK } from "@/data/agri/constants";
 import type { ScopeWindow } from "@/data/procurement/useAwarderContracts";
 
@@ -69,6 +70,13 @@ const MonPack = lazy(() =>
 const KulturaPack = lazy(() =>
   import("./kultura/KulturaPack").then((m) => ({ default: m.KulturaPack })),
 );
+// No VIK_AWARDER_PATH export (deliberately, like ВСС/culture): the water view's
+// home will be the /water dashboard (plan §0b.4); the ВиК-холдинг awarder page is
+// reached from there. The Phase-1 pack still registers by EIK below and renders
+// off the existing corpus (consolidated group + by-function) with no new ingest.
+const VikPack = lazy(() =>
+  import("./vik/VikPack").then((m) => ({ default: m.VikPack })),
+);
 
 const PACKS: Record<string, ComponentType<SectorPackProps>> = {
   [API_EIK]: RoadsPack,
@@ -77,8 +85,80 @@ const PACKS: Record<string, ComponentType<SectorPackProps>> = {
   [VSS_EIK]: VssPack,
   [MON_EIK]: MonPack,
   [KULTURA_EIK]: KulturaPack,
+  [VIK_HOLDING_EIK]: VikPack,
 };
 
 export const getSectorPack = (
   eik: string,
 ): ComponentType<SectorPackProps> | null => PACKS[eik] ?? null;
+
+// --- Sector browse packs ----------------------------------------------------
+// The awarder sector-pack generalized to the corpus-wide browse pages
+// (/procurement/contracts, /procurement/tenders): keyed on a sector id → an
+// EIK-set, so a multi-entity sector (the ~26 ВиК operators, the 58 judicial
+// bodies) can restrict + enrich the shared table via ?sector=. This is the
+// shared seam docs/plans/water-view-v1.md §4.3 designs; the judiciary plan is
+// blocked on it too. Requires contracts.awarder_eik to be filter:"in" (done in
+// functions/db_table.js) so the EIK-set can be an IN fixedFilter.
+
+export interface SectorBrowseSectionProps {
+  /** [from, to) window inherited from the browse page's scope control. */
+  scope: ScopeWindow;
+  /** The sector's awarder EIK-set (== the table's filter) — so the enrichment
+   *  strip rolls up exactly the operators the browse page is showing. */
+  eiks: readonly string[];
+}
+
+export interface SectorBrowsePack {
+  id: string;
+  label: { bg: string; en: string };
+  /** The awarder EIKs whose contracts the browse table is restricted to. */
+  eiks: readonly string[];
+  /** Optional enrichment strip rendered above the table. Only water ships one
+   *  in v1; the other sectors are filter-only until their Section is built. */
+  Section?: ComponentType<SectorBrowseSectionProps>;
+}
+
+const VikBrowseSection = lazy(() =>
+  import("./vik/VikBrowseSection").then((m) => ({
+    default: m.VikBrowseSection,
+  })),
+);
+
+export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
+  water: {
+    id: "water",
+    label: { bg: "Води (ВиК)", en: "Water (ВиК)" },
+    eiks: WATER_SECTOR_EIKS,
+    Section: VikBrowseSection,
+  },
+  roads: {
+    id: "roads",
+    label: { bg: "Пътища (АПИ)", en: "Roads (АПИ)" },
+    eiks: [API_EIK],
+  },
+  noi: {
+    id: "noi",
+    label: { bg: "Осигуряване (НОИ)", en: "Social security (НОИ)" },
+    eiks: [NOI_EIK],
+  },
+  nzok: {
+    id: "nzok",
+    label: { bg: "Здравна каса (НЗОК)", en: "Health fund (НЗОК)" },
+    eiks: [NZOK_EIK],
+  },
+  agri: {
+    id: "agri",
+    label: { bg: "Земеделие (ДФЗ)", en: "Agriculture (ДФЗ)" },
+    eiks: [AGRI_PAYER_EIK],
+  },
+  judiciary: {
+    id: "judiciary",
+    label: { bg: "Съдебна власт (ВСС)", en: "Judiciary (ВСС)" },
+    eiks: [VSS_EIK, ...VSS_ALIAS_EIKS, ...JUDICIAL_EIKS],
+  },
+};
+
+export const getSectorBrowsePack = (
+  id: string | null | undefined,
+): SectorBrowsePack | null => (id ? (SECTOR_BROWSE_PACKS[id] ?? null) : null);

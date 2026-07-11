@@ -18,6 +18,7 @@ import {
   Palette,
   Sprout,
   GraduationCap,
+  Droplets,
 } from "lucide-react";
 import {
   ROADS_AWARDER_PATH,
@@ -53,6 +54,13 @@ const thematicItems = [
     icon: Palette,
     key: "culture_nav",
     unscoped: true,
+  },
+  {
+    // Води's home is the /water dashboard (ВиК-холдинг group + riverbed-cleaning);
+    // scoped — /water reads ?pscope via useVik/useProcurementWindow.
+    to: "/water",
+    icon: Droplets,
+    key: "procurement_water_nav",
   },
   { to: "/subsidies", icon: Sprout, key: "agri_subsidies_nav" },
 ] as const;

@@ -95,6 +95,7 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   { pattern: /^\/parliament\//, dataset: "parliament" },
   { pattern: /^\/officials\//, dataset: "officials" },
   { pattern: /^\/judiciary\//, dataset: "judiciary" },
+  { pattern: /^\/water\//, dataset: "water" },
   { pattern: /^\/culture\//, dataset: "culture" },
   { pattern: /^\/budget\//, dataset: "budget" },
   // macro_fdi must precede the generic `macro` rule below (first match wins),
@@ -129,6 +130,39 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
 ];
 
 export const SOURCE_GROUPS: SourceGroupDef[] = [
+  {
+    id: "water",
+    label: { bg: "Води · ВиК сектор", en: "Water · ВиК sector" },
+    detail: {
+      bg: "поръчки и почистване на реки",
+      en: "procurement & river cleaning",
+    },
+    desc: {
+      bg: "Обществените поръчки на Български ВиК холдинг и регионалните ВиК дружества, и договорите за почистване и корекция на речни корита и дерета — изведени от регистъра на обществените поръчки (АОП/ЦАИС ЕОП). Предстоят показателите на КЕВР (загуби на вода, цени), водният режим (НСИ) и нивата на язовирите (МОСВ).",
+      en: "Public procurement of the Bulgarian Water Holding and the regional water operators, plus contracts for cleaning and regulating riverbeds — derived from the public-procurement register (АОП/ЦАИС ЕОП). КЕВР indicators (water loss, tariffs), water rationing (NSI) and reservoir levels (МОСВ) are planned.",
+    },
+    url: "https://www.vikholding.bg/",
+    origin: "state",
+    members: [],
+    extras: [
+      {
+        label: {
+          bg: "АОП/ЦАИС ЕОП — обществени поръчки",
+          en: "АОП/ЦАИС ЕОП — public procurement",
+        },
+        url: "https://www.eop.bg/",
+      },
+      {
+        label: {
+          bg: "КЕВР — регулиране на ВиК",
+          en: "КЕВР — water regulation",
+        },
+        url: "https://www.dker.bg/bg/vik.html",
+      },
+    ],
+    skills: [],
+    tags: ["fiscal"],
+  },
   {
     id: "cik",
     label: { bg: "ЦИК", en: "Central Election Commission" },
@@ -716,6 +750,17 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
 
 export const DATASETS: DatasetDef[] = [
   {
+    id: "water",
+    label: { bg: "Води (ВиК)", en: "Water (ВиК)" },
+    detail: { bg: "поръчки на ВиК сектора", en: "water-sector procurement" },
+    desc: {
+      bg: "Консолидираните обществени поръчки на групата на Български ВиК холдинг (по дружества и по функция) и договорите за почистване на речни корита (по възложител, по години, най-големи), от АОП/ЦАИС ЕОП.",
+      en: "The Bulgarian Water Holding group's consolidated public procurement (by operator and by function) and the riverbed-cleaning contracts (by awarder, by year, largest), from the АОП/ЦАИС ЕОП register.",
+    },
+    path: "data/water/",
+    tags: ["fiscal"],
+  },
+  {
     id: "elections",
     label: { bg: "Парламентарни избори", en: "Parliamentary elections" },
     detail: {
@@ -1035,6 +1080,17 @@ export const DATASETS: DatasetDef[] = [
 
 export const FEATURES: FeatureDef[] = [
   {
+    id: "water",
+    label: { bg: "Води (ВиК)", en: "Water (ВиК)" },
+    detail: { bg: "поръчки на водния сектор", en: "water-sector procurement" },
+    desc: {
+      bg: "Кой купува във водния сектор — консолидираните поръчки на Български ВиК холдинг и дружествата му, какво купуват по функция, и парите за почистване на речни корита.",
+      en: "Who buys in the water sector — the Bulgarian Water Holding group's consolidated procurement, what they buy by function, and the money spent cleaning riverbeds.",
+    },
+    route: "/water",
+    tags: ["fiscal"],
+  },
+  {
     id: "elections",
     label: { bg: "Изборни карти и резултати", en: "Election maps and results" },
     detail: {
@@ -1346,6 +1402,9 @@ export const EDGES: [string, string][] = [
   ["src:vss", "ds:judiciary"],
   ["src:dv", "ds:judiciary"],
   ["ds:judiciary", "f:judiciary"],
+  ["src:water", "ds:water"],
+  ["src:egov", "ds:water"],
+  ["ds:water", "f:water"],
   ["src:culture", "ds:culture"],
   ["ds:culture", "f:culture"],
   ["src:ministries", "ds:pensions"],

@@ -41,7 +41,11 @@ const REGISTRY = {
       tag: { type: "text", filter: "in" },
       date: { type: "date", sort: true, filter: "range" },
       date_signed: { type: "date" },
-      awarder_eik: { type: "text", filter: "eq" },
+      // filter:"in" (not "eq") so a sector browse pack can pass an EIK-set
+      // (awarder_eik IN (...)) as a fixedFilter — the builder wraps a scalar in
+      // an array, so single-value callers are unaffected. See the water/judiciary
+      // SECTOR_BROWSE_PACKS seam (docs/plans/water-view-v1.md §4.3).
+      awarder_eik: { type: "text", filter: "in" },
       awarder_name: { type: "text", sort: true, filter: "text", search: true },
       contractor_eik: { type: "text", filter: "eq" },
       contractor_name: {
@@ -122,7 +126,10 @@ const REGISTRY = {
       has_appeal: { type: "bool" },
       appeal_suspended: { type: "bool" },
       publication_date: { type: "date", sort: true, filter: "range" },
-      buyer_eik: { type: "text", filter: "eq" },
+      // filter:"in" so a sector browse pack can pass an EIK-set (buyer_eik IN
+      // (...)) as a fixedFilter — same as contracts.awarder_eik. Scalar callers
+      // are unaffected (the builder wraps a scalar in an array).
+      buyer_eik: { type: "text", filter: "in" },
       buyer_name: { type: "text", sort: true, filter: "text", search: true },
       subject: { type: "text", filter: "text", search: true },
       procedure_type: { type: "text", sort: true, filter: "in" },

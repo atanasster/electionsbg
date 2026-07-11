@@ -675,6 +675,23 @@ const buildDataCatalog = (lang: "bg" | "en") =>
     ),
   });
 
+// The /water body quotes the real riverbed-cleaning total from the committed
+// flood_maintenance.json so the prerendered HTML matches the page. Build-time
+// read; if the artifact is ever moved behind bucket:sync, make this a lazy read.
+const waterFacts = (() => {
+  const j = JSON.parse(
+    fs.readFileSync(
+      path.join(PROJECT_ROOT, "data/water/flood_maintenance.json"),
+      "utf-8",
+    ),
+  ) as { totalEur: number; contractCount: number; awarderCount: number };
+  return {
+    floodEurMln: Math.round(j.totalEur / 1e6),
+    floodContracts: j.contractCount,
+    floodAwarders: j.awarderCount,
+  };
+})();
+
 export const prerenderRoutes: PrerenderRoute[] = [
   {
     path: "",
@@ -1621,6 +1638,42 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>The full public register of НФЦ-financed films and series (${cultureFacts.firstYear}–${cultureFacts.lastYear}) — ${cultureFacts.filmsEn} projects, ${cultureFacts.totalEn} in state subsidy. Search by project or producer, sort by amount and filter by discipline (feature, documentary, animation) and year; every project has its own page.</p>
 <p>See the summary and analysis on the <a href="${SITE_URL}/en/culture">Culture page</a>.</p>
 <p>Source: <a href="https://www.nfc.bg/статистика-публичен-регистър/единен-публичен-регистър/" rel="nofollow noopener">National Film Center — public register</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "water",
+    title:
+      "Води (ВиК) — обществените поръчки на водния сектор | electionsbg.com",
+    description: `Консолидиран изглед на обществените поръчки на Български ВиК холдинг и неговите ~26 регионални дружества, плюс ${waterFacts.floodEurMln} млн. € за почистване и корекция на речни корита и дерета — по данни от регистъра на обществените поръчки (АОП/ЦАИС ЕОП).`,
+    breadcrumbName: "Води (ВиК)",
+    ogImage: "/og/water.png",
+    bodyHtml: `
+<h1>Води (ВиК) — обществените поръчки на водния сектор</h1>
+<p>Български ВиК холдинг е принципал на около 26 регионални ВиК дружества. Централата почти не купува — поръчките са в дружествата. Тази страница ги събира на едно място: консолидираните обществени поръчки на групата и какво купуват по функция.</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li><strong>Дружествата в групата</strong> — поръчките на всяко ВиК дружество, с връзка към неговата страница.</li>
+<li><strong>Какво купуват — по функция</strong> — строителство на мрежи, водоснабдяване, канализация и пречистване, тръби и помпи, електроенергия.</li>
+<li><strong>Почистване на речни корита</strong> — ${waterFacts.floodEurMln} млн. € по ${waterFacts.floodContracts} договора от ${waterFacts.floodAwarders} възложителя за почистване и корекция на речни корита и дерета — отговорност, поделена между общини, областни управители и „Напоителни системи".</li>
+</ul>
+<p>Предстои: показателите на КЕВР (загуби на вода, цени по области), водният режим (НСИ), нивата на язовирите (МОСВ) и картата на риска от наводнения (РЗПРН).</p>
+<p>Виж и <a href="${SITE_URL}/awarder/206086428">Български ВиК холдинг като възложител</a> и <a href="${SITE_URL}/procurement">обществените поръчки</a>.</p>`.trim(),
+    english: {
+      title:
+        "Water (ВиК) — public procurement of the water sector | electionsbg.com",
+      description: `A consolidated view of the Bulgarian Water Holding and its ~26 regional operators' public procurement, plus €${waterFacts.floodEurMln}M on cleaning and regulating riverbeds and gullies — from the public-procurement register (АОП/ЦАИС ЕОП).`,
+      breadcrumbName: "Water (ВиК)",
+      bodyHtml: `
+<h1>Water (ВиК) — public procurement of the water sector</h1>
+<p>The Bulgarian Water Holding is the principal of ~26 regional water operators. The parent buys almost nothing — the procurement is in the operators. This page brings them together: the group's consolidated public procurement and what they buy by function.</p>
+<h2>What you'll find</h2>
+<ul>
+<li><strong>Operators in the group</strong> — each water operator's procurement, linking to its own page.</li>
+<li><strong>What they buy — by function</strong> — network construction, water supply, sewerage and treatment, pipes and pumps, electricity.</li>
+<li><strong>Riverbed cleaning</strong> — €${waterFacts.floodEurMln}M across ${waterFacts.floodContracts} contracts from ${waterFacts.floodAwarders} awarders for cleaning and regulating riverbeds and gullies — responsibility split between municipalities, regional governors and Irrigation Systems.</li>
+</ul>
+<p>Coming next: КЕВР indicators (water loss, tariffs by region), water rationing (NSI), reservoir levels (МОСВ) and the flood-risk map (РЗПРН).</p>
+<p>See also the <a href="${SITE_URL}/awarder/206086428">Bulgarian Water Holding as a buyer</a> and <a href="${SITE_URL}/procurement">public procurement</a>.</p>`.trim(),
     },
   }),
   staticPage({

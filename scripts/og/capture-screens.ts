@@ -50,6 +50,17 @@ type Capture = {
 
 const captures: Capture[] = [
   {
+    slug: "water",
+    routePath: "water",
+    // The riverbed-cleaning tile (#flood) is static-data — always renders with
+    // no /api/db dependency — and carries the headline € plus the year bars, so
+    // it's a robust, self-contained OG hero for the water view.
+    waitFor: "#flood",
+    anchor: "#flood",
+    centerOnAnchor: true,
+    settleMs: 1500,
+  },
+  {
     slug: "risk-analysis",
     routePath: "risk-analysis",
     // CompositeIndexHero is the first card on the page; it always renders

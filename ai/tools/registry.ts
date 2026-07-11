@@ -64,6 +64,7 @@ import {
   judiciaryWorkload,
   judiciaryDeclarations,
 } from "./judiciary";
+import { riverbedCleaning } from "./vik";
 import { ngoOverview, ngoTopFunded, ngoConflictAwarders } from "./ngo";
 import { governments } from "./govpeople";
 import {
@@ -1979,6 +1980,26 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: judiciaryCaseload,
+  },
+  {
+    name: "riverbedCleaning",
+    domain: "fiscal",
+    description: {
+      bg: "Обществените поръчки за почистване, корекция и укрепване на речни корита и дерета — по възложител (общини, областни управители, „Напоителни системи“), по години и най-големи договори.",
+      en: "Public procurement for cleaning, regulating and reinforcing riverbeds and gullies — by awarder (municipalities, regional governors, Irrigation Systems), by year and largest contracts.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Колко се харчи за почистване на речните корита?",
+        en: "How much is spent cleaning riverbeds?",
+      },
+      {
+        bg: "Кой чисти реките и дерета?",
+        en: "Who cleans the rivers and gullies?",
+      },
+    ],
+    run: riverbedCleaning,
   },
   {
     name: "judiciaryWorkload",

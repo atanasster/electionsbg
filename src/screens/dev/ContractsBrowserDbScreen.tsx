@@ -14,6 +14,8 @@ import { Title } from "@/ux/Title";
 import { DbDataTable, type DbColumnFilter } from "@/ux/data_table/DbDataTable";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
 import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
+import { getSectorBrowsePack } from "@/screens/components/procurement/sectorPacks";
+import { SectorBrowseSlot } from "@/screens/components/procurement/SectorBrowseSlot";
 import { ContractAmount } from "@/screens/components/procurement/ContractAmount";
 import { RiskBadges } from "@/screens/components/procurement/RiskBadges";
 import { AppealChip } from "@/screens/components/procurement/AppealChip";
@@ -47,6 +49,14 @@ export const ContractsBrowserDbScreen: FC = () => {
   const [method, setMethod] = useState<string>(ALL);
   const [cpvDiv, setCpvDiv] = useState<string>(() => params.get("cpv") ?? ALL);
   const [singleBidder, setSingleBidder] = useState(false);
+
+  // ?sector=water|roads|noi|nzok|agri|judiciary — the sector browse pack (§4.3):
+  // restrict the table to that sector's awarder EIK-set and mount its enrichment
+  // strip above the table. Null when the param is absent or unknown.
+  const browsePack = useMemo(
+    () => getSectorBrowsePack(params.get("sector")),
+    [params],
+  );
 
   // The parliament window is the base temporal bound (exclusive end ≈ inclusive
   // max, off by ≤1 day — fine for a browser). "All years" drops it.
@@ -85,8 +95,10 @@ export const ContractsBrowserDbScreen: FC = () => {
     if (singleBidder) f.push({ id: "number_of_tenderers", min: 1, max: 1 });
     if (method !== ALL) f.push({ id: "procurement_method", value: [method] });
     if (cpvDiv !== ALL) f.push({ id: "cpv", value: cpvDiv });
+    // Restrict to the sector's awarder EIK-set (awarder_eik IN …).
+    if (browsePack) f.push({ id: "awarder_eik", value: [...browsePack.eiks] });
     return f;
-  }, [windowFilter, singleBidder, method, cpvDiv]);
+  }, [windowFilter, singleBidder, method, cpvDiv, browsePack]);
 
   const columns = useMemo<DataTableColumnDef<ProcurementContract, unknown>[]>(
     () => [
@@ -207,6 +219,10 @@ export const ContractsBrowserDbScreen: FC = () => {
                 `Showing contracts signed in ${year}.`
               : `${from ?? ""}${to ? ` → ${to}` : " → …"}`}
         </div>
+
+        {browsePack && (
+          <SectorBrowseSlot pack={browsePack} scope={{ from, to }} />
+        )}
 
         <DbDataTable<ProcurementContract>
           resource="contracts"

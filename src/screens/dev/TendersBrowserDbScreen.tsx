@@ -14,6 +14,8 @@ import { Title } from "@/ux/Title";
 import { DbDataTable, type DbColumnFilter } from "@/ux/data_table/DbDataTable";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
 import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
+import { getSectorBrowsePack } from "@/screens/components/procurement/sectorPacks";
+import { SectorBrowseSlot } from "@/screens/components/procurement/SectorBrowseSlot";
 import { AppealChip } from "@/screens/components/procurement/AppealChip";
 import { useProcurementWindow } from "@/data/procurement/useProcurementWindow";
 import { topicBySlug } from "@/lib/tenderTopics";
@@ -54,6 +56,13 @@ export const TendersBrowserDbScreen: FC = () => {
   const topic = topicBySlug(params.get("topic"));
   const { from, to, all } = useProcurementWindow();
 
+  // ?sector= → the sector browse pack (§4.3): restrict to its buyer EIK-set and
+  // mount its enrichment strip. Tenders scope on buyer_eik (= awarder_eik).
+  const browsePack = useMemo(
+    () => getSectorBrowsePack(params.get("sector")),
+    [params],
+  );
+
   const [procedure, setProcedure] = useState<string>(ALL);
   const [cancelled, setCancelled] = useState(false);
 
@@ -88,8 +97,9 @@ export const TendersBrowserDbScreen: FC = () => {
       f.push({ id: "publication_date", min: from, max: to ?? undefined });
     if (procedure !== ALL) f.push({ id: "procedure_type", value: [procedure] });
     if (cancelled) f.push({ id: "is_cancelled", value: true });
+    if (browsePack) f.push({ id: "buyer_eik", value: [...browsePack.eiks] });
     return f;
-  }, [topic, all, from, to, procedure, cancelled]);
+  }, [topic, all, from, to, procedure, cancelled, browsePack]);
 
   const columns = useMemo<DataTableColumnDef<TenderRow, unknown>[]>(
     () => [
@@ -222,6 +232,10 @@ export const TendersBrowserDbScreen: FC = () => {
             </span>
           ) : null}
         </div>
+
+        {browsePack && (
+          <SectorBrowseSlot pack={browsePack} scope={{ from, to }} />
+        )}
 
         <DbDataTable<TenderRow>
           resource="tenders"

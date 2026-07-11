@@ -303,6 +303,11 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `През ${f(env, "year")} г. в съдилищата постъпват ${f(env, "filed")} дела и се свършват ${f(env, "resolved")} (приключваемост ${f(env, "clearance")}); ${f(env, "within_deadline")} от свършените са в законовия срок, а ${f(env, "pending")} дела остават висящи. Най-натоварени са ${f(env, "busiest_tier")}.`
         : `In ${f(env, "year")} the courts took in ${f(env, "filed")} cases and closed ${f(env, "resolved")} (clearance ${f(env, "clearance")}); ${f(env, "within_deadline")} of those closed inside the statutory deadline, and ${f(env, "pending")} remain pending. The busiest tier is ${f(env, "busiest_tier")}.`;
+    case "riverbedCleaning":
+      if (!env.facts.total) return env.title;
+      return lang === "bg"
+        ? `За почистване и корекция на речни корита и дерета са договорени ${f(env, "total")} по ${f(env, "contracts")} договора от ${f(env, "awarders")} възложителя (всички години). „Напоителни системи" държат ${f(env, "napoitelni_share")}; водещ възложител е ${f(env, "top_awarder")} с ${f(env, "top_awarder_amount")}.`
+        : `Contracts for cleaning and regulating riverbeds and gullies total ${f(env, "total")} across ${f(env, "contracts")} contracts from ${f(env, "awarders")} awarders (all years). Irrigation Systems account for ${f(env, "napoitelni_share")}; the top awarder is ${f(env, "top_awarder")} at ${f(env, "top_awarder_amount")}.`;
     case "judiciaryDeclarations": {
       if (!env.facts.declarations) return env.title;
       // The two counts describe DIFFERENT lists: `flagged_people` (the three

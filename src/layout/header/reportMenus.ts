@@ -283,6 +283,10 @@ export const governanceMenu: MenuItem[] = [
           { title: "procurement_nzok_nav", link: NZOK_AWARDER_PATH },
           { title: "procurement_mon_nav", link: MON_AWARDER_PATH },
           { title: "education_schools_nav", link: "/education" },
+          // Води — the water-sector view (ВиК холдинг group procurement; КЕВР
+          // loss/tariffs, reservoirs and flood risk to come). Like the judiciary
+          // and culture, nav points at the /water dashboard, not the buyer page.
+          { title: "procurement_water_nav", link: "/water" },
           // The judiciary's home is the /judiciary dashboard (caseload, duration,
           // workload, declarations); it lists every judicial body's awarder page
           // for the money half. The procurement sub-nav pill points here too, so

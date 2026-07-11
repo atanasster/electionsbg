@@ -726,6 +726,17 @@ export const route = (question: string, ctx: ToolContext): Route => {
   const q = question.toLowerCase().trim();
   if (!q) return null;
 
+  // Riverbed-cleaning / flood-maintenance procurement (Води). Specific enough
+  // not to hijack generic water or procurement questions.
+  if (
+    has(q, "корито", "корита", "проводимост", "riverbed") ||
+    (has(q, "почистван", "чист", "cleaning", "clean") &&
+      has(q, "река", "реки", "речн", "дере", "river")) ||
+    (has(q, "наводнен", "flood") &&
+      has(q, "почистван", "корита", "дере", "cleaning"))
+  )
+    return { tool: "riverbedCleaning", args: {} };
+
   // A bare polling-section id (exactly 9 digits) names ONE station, not a place —
   // route it to the section tools straight away, before the year/count detectors
   // (a section id can embed a "20xx" run) or the place extractor (which can't read

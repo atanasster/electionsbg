@@ -135,6 +135,11 @@ const JudiciaryScreen = lazy(() =>
     default: m.JudiciaryScreen,
   })),
 );
+const WaterScreen = lazy(() =>
+  import("./screens/water/WaterScreen").then((m) => ({
+    default: m.WaterScreen,
+  })),
+);
 const CultureScreen = lazy(() =>
   import("./screens/culture/CultureScreen").then((m) => ({
     default: m.CultureScreen,
@@ -1375,6 +1380,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <JudiciaryScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="water"
+            element={
+              <LayoutScreen>
+                <WaterScreen />
               </LayoutScreen>
             }
           />

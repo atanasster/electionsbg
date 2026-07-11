@@ -605,6 +605,34 @@ const DB_ROUTES = {
     );
     return { body: { eik, contracts } };
   },
+  // Consolidated per-awarder rollup over a SET of EIKs — one grouped aggregate
+  // (eik, contractCount, totalEur) for a sector browse pack's context strip,
+  // instead of fanning out over awarder-contracts and downloading every row for
+  // 26+ operators. Windowed [from, to) with sargable COALESCE bounds so the
+  // date guard doesn't defeat the awarder-eik index.
+  "awarder-group-rollup": async (dbRows, q) => {
+    const eiks = s(q, "eiks")
+      .split(",")
+      .map((e) => e.trim())
+      .filter((e) => /^\d{9,13}$/.test(e))
+      .slice(0, 300);
+    if (!eiks.length) return { status: 400, body: { error: "missing eiks" } };
+    const from = orNull(q, "from");
+    const to = orNull(q, "to");
+    const operators = await dbRows(
+      `SELECT awarder_eik AS eik,
+              count(*)::int AS "contractCount",
+              round(sum(amount_eur))::double precision AS "totalEur"
+       FROM contracts
+       WHERE awarder_eik = ANY($1) AND tag = 'contract'
+         AND date >= COALESCE($2, '')
+         AND date <  COALESCE($3, '99999999')
+       GROUP BY awarder_eik
+       ORDER BY sum(amount_eur) DESC NULLS LAST, awarder_eik`,
+      [eiks, from, to],
+    );
+    return { body: { operators } };
+  },
   // Lightweight awarder rollup (as a BUYER): top suppliers (byContractor),
   // by-year series + headline totals — the same awarder_procurement() the
   // /awarder page's company payload embeds, plus the awarder's own name (the
