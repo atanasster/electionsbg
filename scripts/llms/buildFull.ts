@@ -110,6 +110,8 @@ type ArticleMeta = {
   category?: string;
   title: { bg: string; en: string };
   summary: { bg: string; en: string };
+  draft?: boolean;
+  unlisted?: boolean;
 };
 
 const elections: ElectionInfo[] = JSON.parse(
@@ -378,12 +380,16 @@ const buildCorpus = (lang: Lang): string => {
     const articles: ArticleMeta[] = JSON.parse(
       fs.readFileSync(articlesIndexFile, "utf-8"),
     );
-    if (articles.length) {
+    // Exclude unpublished drafts and unlisted articles so their bodies never
+    // reach the committed llms-full.txt (which deploys to production) — same
+    // guard buildIndex.ts uses.
+    const published = articles.filter((a) => !a.draft && !a.unlisted);
+    if (published.length) {
       lines.push(`## ${t.articlesHeading}`);
       lines.push("");
       lines.push(`> ${t.articlesIntro}`);
       lines.push("");
-      const sorted = [...articles].sort((a, b) =>
+      const sorted = [...published].sort((a, b) =>
         (b.publishedAt || "").localeCompare(a.publishedAt || ""),
       );
       for (const a of sorted) {
