@@ -206,7 +206,7 @@ All three existing packs (`RoadsPack`, `NoiPack`, `NzokPack`) share one 10-part 
 | 2 | Icon + title | `flex items-center gap-2 pt-2` + lucide icon `h-5 w-5 text-muted-foreground` + `<h2 className="text-lg font-semibold">`, bilingual | `Droplets`, "Води (ВиК)" |
 | 3 | Domain-only KPI row | `grid gap-3 grid-cols-2` of `StatCard` (`@/screens/dashboard/StatCard`), `text-2xl font-bold tabular-nums`. Generic total/contracts/suppliers KPIs stay in the awarder header above | "Поръчки на година" + "Загуби на вода" (60.25%) |
 | 4 | Auto insight chips | `insights: {text, warn?}[]`; `rounded-full border px-2.5 py-1 text-xs`; `warn`→`WARN_CHIP_COLORS` (`../chipStyles`), else `border-border bg-muted/40`. Slice ≤5. Standard: peak year, top category, **direct-award % (warn >10%)** | + water-specific: "Шумен: 83% загуби" (warn), top tariff oblast |
-| 5 | Hero "bridge" tile | Fuse the contract ledger with the bigger money it's a sliver of | **invest-vs-result**: € invested (ИСУН + КЕВР) vs. change in loss % |
+| 5 | Hero "bridge" tile | Fuse the contract ledger with the bigger money it's a sliver of | **self-financing bridge** (adapted from `VssBudgetBridgeTile`, §4.6): tariff revenue ÷ operating cost + capex-procurement-vs-sector-budget, year-picker. Invest-vs-result becomes a second tile |
 | 6 | "What X buys, by function" | CPV-division→function classifier, `categoryLabel(id, lang)` | CPV 41 / 45.23 / 90 → водоснабдяване / канализация / ПСОВ / строителство |
 | 7 | Domain visuals | `Card / CardHeader / CardTitle (icon) / CardContent` (`@/ux/Card`), each closes with `text-[11px] text-muted-foreground/80` caption | **oblast-grained metrics render as choropleths, not lists** (see §4.1); subsidiary tree, EU-funds, financials, reservoir series |
 | 8 | Optional local control | shared Radix `Select` (`@/components/ui/select`), never native | map-metric toggle only where a single map swaps metrics; prefer small-multiples |
@@ -411,6 +411,10 @@ same way (single source: export `VIK_AWARDER_PATH` from `sectorPacks.tsx`):
 - `src/lib/vikReferenceData.ts` (NEW) — `VIK_HOLDING_EIK="206086428"`, 26-subsidiary EIK list,
   Напоителни EIK, oblast→operator map, `categoryLabel`, loss/tariff benchmark bands.
 - `src/lib/vikAttributes.ts` (NEW) — `buildVikModel()` CPV→function classifier.
+- `src/lib/waterBenchmarks.ts` (NEW) — loss %, €/m-of-pipe, tariff & operating-cost reference
+  bands (shape of `roadBenchmarks.ts`/`noiBenchmarks.ts`; feeds the §4.6b benchmark tiles).
+  Reuse `src/lib/riskGrade.ts`, `textbookPublishers.ts` HHI helpers, and `nzokMeasures.ts`
+  standing helpers rather than re-implementing (§4.6a).
 - `src/data/procurement/useVik.tsx` (NEW) — `useVik(eik, scopeWindow)` joining contracts +
   КЕВР + NSI + funds + financials → `VikModel | null`. Returns the **standard** model surface
   (`totalEur`, `years[]`, `categories[]`, `directShare`, `suppliers[]`) so chips/category/KPI
@@ -500,6 +504,72 @@ procurement-centric) and ties the holding + Напоителни + municipalitie
 gets a flood-responsibility section (it's a named responsible party). Caveats: РЗПРН↔settlement
 and cleaning-contract↔river-segment joins are approximate (title/geo matching) — label the score
 as indicative, show the underlying contracts, never assert causation for a specific flood.
+
+## 4.6 Borrowed enhancements from the other packs (survey 2026-07-10)
+
+The packs have moved well past the base grammar. This section pins the newest, genuinely
+reusable ideas to water — all are entity-parametrized or constants-driven, so the water pack
+feeds its own data/thresholds in without touching the shared engine.
+
+### a. Shared tiles + helpers to REUSE directly (no rebuild)
+| Reuse | File | Water application |
+|---|---|---|
+| A–F risk-grade card + palette | `EntityRiskGradeCard.tsx`, `src/lib/riskGrade.ts` (`GRADE_TONE`, `formatShare`) | drop a composite risk grade onto each ВиК-operator `/awarder/:eik` page |
+| Riskiest-buyers leaderboard | `RiskGradeLeaderboardTile.tsx` (`useAwarderRiskTop`) | rank водни възложители by risk exposure |
+| EU green/amber/red reference bars | `ProcurementBenchmarksTile.tsx` | single-bid / no-call share of water tenders vs EU Single-Market thresholds (dual national + per-operator mode already built) |
+| Buyer→supplier Sankey + MP overlay | `EntityFlowTile.tsx` / `ProcurementFlowSankey.tsx` | money flow out of a water operator |
+| Market-capture lens | `CompanyBuyerCaptureTile.tsx` | which contractor captures an operator's tenders |
+| Awards-by-government bar | `CabinetTimelineTile.tsx` | which cabinet awarded the big reservoir/ВиК contracts |
+| Single-supplier concentration table | `ConcentrationSection.tsx` (anchor `id="concentration"`) | water contractor concentration, CSV export, oblast filter |
+| HHI banding helpers | `src/lib/textbookPublishers.ts` (`hhiBand`, `hhiBandLabel`, `HHI_BAND_COLOR`, DOJ 1500/2500) | reuse presentation for a ВиК contractor-market HHI (compute the HHI itself in the builder) |
+| Median-standing engine | `src/lib/nzokMeasures.ts` (`measureStanding(v,p40,p60)`, `standingTone`) | "above/around/below median" band on any per-operator KPI (loss %, collection %) |
+| Scope control + deep-linking | `ProcurementScopeControl.tsx`, `useProcurementScope/Window/Href` | the SAME control `/culture` uses to re-aggregate by `?pscope` year — this is the concrete implementation of §4.1b (culture is the precedent, not a deviation) |
+
+### b. New water tiles adapted from pack innovations
+- **Self-financing bridge hero** ← `vss/VssBudgetBridgeTile.tsx`. Tariff revenue ÷ operating cost
+  (КЕВР is *supposed* to set cost-recovering tariffs; the holding/НС subsidy fills the gap) +
+  the capex-procurement-vs-sector-budget scale bridge, inline year-picker. The signature hero.
+- **Value-added loss scatter** ← `education/ContextScatter.tsx`. Each operator a dot at
+  (context index = network age / terrain / density, loss %) with an **OLS expectation line** —
+  judge operators by their *residual*, not raw loss. Directly answers the fairness problem
+  (§11): don't red-flag an operator for inherited pre-1961 pipes. Pairs with, not replaces, the
+  §4.1a loss choropleth.
+- **Water-flow / loss tile** ← `judiciary/CaseloadFlowTile.tsx`. Abstracted vs billed over time
+  with **non-revenue water as the backlog-style area** + a data-derived caption. The clearest
+  way to show "60% never reaches a meter."
+- **Loss/€ benchmark tile** ← `roads/RoadCostBenchmarkTile.tsx` + a new `src/lib/waterBenchmarks.ts`
+  (shape of `roadBenchmarks.ts`/`noiBenchmarks.ts`): IQR band + median tick vs IBNET/EU
+  reference marks (this is §4.5's loss reference band, now with the concrete tile). €/m of
+  rehabilitated pipe where titles parse, with the honest "not like-for-like" caption.
+- **Operator competition heatmap** ← `roads/RoadRegionCompetitionTile.tsx`. Per-operator rows,
+  bar length = € spent, green→amber→red by single-bid share. (The flood-risk map in §4.5b is the
+  other RoadRegionCompetition descendant.)
+- **Contractor-market HHI tile** ← `mon/TextbookConcentrationTile.tsx`. Gauge + DOJ bands +
+  per-group share² contribution, expandable to legal entities, year-scoped.
+- **Operator report card** ← `nzok/NzokReportCardTile.tsx`. Per-operator decile-fan (p10–p90 /
+  p25–p75 with the operator threaded through, OpenPrescribing-style) for loss %, collection %,
+  accidents — each framed "signpost, not verdict."
+- **"Кой решава" governance tile** ← `culture/CultureCommissionsTile.tsx`. Purely factual: who
+  sits on the КЕВР tariff panel / who approves the business plans / the holding board — with
+  tenure, defamation-safe. Ties to the officials/declarations data where members appear.
+
+### c. Cross-cutting conventions to adopt
+- **Hash-scroll deep-link anchors on every band/tile** (NZOK `c61091826`): give each tile an
+  `id="…"` so `/awarder/206086428#loss` and the AI "see the tile" links land on the exact band.
+- **Money-first band ordering** (NZOK `228c35feb`): lead each band with the € figure, context
+  second.
+- **`data-og="…"` anchors** on the hero visual for OG capture (§4.4) — same convention as
+  `vss-bridge` / `judiciary-caseload`.
+- **Per-record drill-down pages** (culture per-film, nzok `/molecule/:inn`): per-operator
+  (`/water/operator/:eik` or reuse `/awarder/:eik`), per-reservoir, per-РЗПРН record pages as the
+  "See all" row targets.
+
+### d. Borrow priority
+MVP/Phase-1 (free, entity-mode, corpus-only): `EntityRiskGradeCard`, `ProcurementBenchmarksTile`,
+`EntityFlowTile`, `CabinetTimelineTile`, `ConcentrationSection`, competition heatmap, contractor
+HHI. Phase-3 (needs КЕВР/NSI): self-financing bridge, value-added scatter, water-flow/loss tile,
+loss benchmark band, report card, "кой решава". Everything reuses `riskGrade.ts` / HHI helpers /
+`nzokMeasures.ts` / `ProcurementScopeControl` for consistency with the rest of the module.
 
 ## 5. Data model & SQL performance
 
