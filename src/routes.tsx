@@ -140,6 +140,16 @@ const CultureScreen = lazy(() =>
     default: m.CultureScreen,
   })),
 );
+const CultureFilmsBrowserScreen = lazy(() =>
+  import("./screens/culture/CultureFilmsBrowserScreen").then((m) => ({
+    default: m.CultureFilmsBrowserScreen,
+  })),
+);
+const CultureFilmRecordScreen = lazy(() =>
+  import("./screens/culture/CultureFilmRecordScreen").then((m) => ({
+    default: m.CultureFilmRecordScreen,
+  })),
+);
 const PensionsScreen = lazy(() =>
   import("./screens/pensions/PensionsScreen").then((m) => ({
     default: m.PensionsScreen,
@@ -1363,6 +1373,22 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <CultureScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="culture/films"
+            element={
+              <LayoutScreen>
+                <CultureFilmsBrowserScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="culture/film/:id"
+            element={
+              <LayoutScreen>
+                <CultureFilmRecordScreen />
               </LayoutScreen>
             }
           />

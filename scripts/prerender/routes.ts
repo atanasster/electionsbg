@@ -1602,6 +1602,28 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "culture/films",
+    title: "Всички филмови субсидии — регистър на НФЦ | electionsbg.com",
+    description: `Пълният регистър на държавните субсидии за кино на Националния филмов център (${cultureFacts.firstYear}–${cultureFacts.lastYear}): ${cultureFacts.filmsBg} проекта с търсене, сортиране и филтри по вид и година, с износ на данните.`,
+    breadcrumbName: "Всички филмови субсидии",
+    ogImage: "/og/culture.png",
+    bodyHtml: `
+<h1>Всички филмови субсидии на Националния филмов център</h1>
+<p>Пълният Единен публичен регистър на финансираните от НФЦ филми и сериали (${cultureFacts.firstYear}–${cultureFacts.lastYear}) — ${cultureFacts.filmsBg} проекта, ${cultureFacts.totalBg} държавна субсидия. Търсете по проект или продуцент, сортирайте по сума и филтрирайте по вид (игрално, документално, анимационно) и година; всеки проект има своя страница.</p>
+<p>Виж обобщението и анализа на <a href="${SITE_URL}/culture">страницата Култура</a>.</p>
+<p>Източник: <a href="https://www.nfc.bg/статистика-публичен-регистър/единен-публичен-регистър/" rel="nofollow noopener">Национален филмов център — Единен публичен регистър</a>.</p>`.trim(),
+    english: {
+      title: "All Film Subsidies — НФЦ register | electionsbg.com",
+      description: `The full register of the National Film Center's state film subsidies (${cultureFacts.firstYear}–${cultureFacts.lastYear}): ${cultureFacts.filmsEn} projects with search, sort and filters by discipline and year, with data export.`,
+      breadcrumbName: "All film subsidies",
+      bodyHtml: `
+<h1>All film subsidies of the National Film Center</h1>
+<p>The full public register of НФЦ-financed films and series (${cultureFacts.firstYear}–${cultureFacts.lastYear}) — ${cultureFacts.filmsEn} projects, ${cultureFacts.totalEn} in state subsidy. Search by project or producer, sort by amount and filter by discipline (feature, documentary, animation) and year; every project has its own page.</p>
+<p>See the summary and analysis on the <a href="${SITE_URL}/en/culture">Culture page</a>.</p>
+<p>Source: <a href="https://www.nfc.bg/статистика-публичен-регистър/единен-публичен-регистър/" rel="nofollow noopener">National Film Center — public register</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "pensions",
     title:
       "Пенсии — кой плаща, разпределение и средна пенсия по области | electionsbg.com",

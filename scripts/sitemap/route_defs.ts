@@ -51,6 +51,7 @@ export const ENGLISH_STATIC_PAGES = [
   "judiciary",
   "pensions",
   "culture",
+  "culture/films",
   "education",
   "consumption",
   "risk-analysis",
@@ -102,6 +103,10 @@ export const routeDefs = (year: string): RouteDefs => [
   },
   { path: "pensions", file: `src/screens/pensions/PensionsScreen.tsx` },
   { path: "culture", file: `src/screens/culture/CultureScreen.tsx` },
+  {
+    path: "culture/films",
+    file: `src/screens/culture/CultureFilmsBrowserScreen.tsx`,
+  },
   { path: "education", file: `src/screens/education/EducationScreen.tsx` },
   // Per-school pages (/school/:id) are enumerated from data/schools/index.json
   // directly in scripts/sitemap/index.ts (like the INSTITUTION_PACKS awarders),
