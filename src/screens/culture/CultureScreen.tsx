@@ -7,11 +7,21 @@
 // The per-capita-by-oblast hero map (plan §5.1 tile 1) is deferred — it needs a
 // producer→oblast geocode (producer EIK resolution, §6) that Phase 1 doesn't build.
 
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEurCompact, formatInt, formatPct } from "@/lib/currency";
 import { useCultureOverview, useCultureFilms } from "@/data/culture/useCulture";
+import {
+  useProcurementScope,
+  scopeYear,
+} from "@/data/procurement/useProcurementScope";
+import { ProcurementScopeControl } from "@/screens/components/procurement/ProcurementScopeControl";
+import {
+  CULTURE_FIRST_YEAR,
+  scopeCultureOverview,
+} from "@/data/culture/scopeOverview";
 import { CultureCompositionTile } from "./CultureCompositionTile";
 import { CultureTimeSpineTile } from "./CultureTimeSpineTile";
 import { CultureConcentrationTile } from "./CultureConcentrationTile";
@@ -33,7 +43,31 @@ export const CultureScreen = () => {
   // overview-driven tiles, so the awards tile renders once it lands.
   const { data: filmsFile } = useCultureFilms();
 
+  // Year scope (shared `?pscope` param). Default (ns) = all years; a "y:<year>"
+  // pins one year and the film KPIs / discipline split / concentration / awards
+  // re-aggregate to it (client-side). The time-spine stays full-history.
+  const { scope } = useProcurementScope();
+  const year = scopeYear(scope);
+  const scoped = useMemo(
+    () =>
+      data ? scopeCultureOverview(data, filmsFile?.films, year) : undefined,
+    [data, filmsFile, year],
+  );
+  const lastYear = data?.lastYear ?? new Date().getFullYear();
+  const cultureYears = useMemo(
+    () =>
+      Array.from(
+        { length: lastYear - CULTURE_FIRST_YEAR + 1 },
+        (_, i) => lastYear - i,
+      ),
+    [lastYear],
+  );
+
   const eur = (v: number) => formatEurCompact(v, lang);
+  const spanLabel = (o: { firstYear: number; lastYear: number }) =>
+    o.firstYear === o.lastYear
+      ? `${o.firstYear}`
+      : `${o.firstYear}–${o.lastYear}`;
 
   const title = bg ? "Култура" : "Culture";
   const description = bg
@@ -44,6 +78,13 @@ export const CultureScreen = () => {
     <>
       <Title description={description}>{title}</Title>
       <ProcurementThematicNav />
+
+      <ProcurementScopeControl
+        className="mt-3"
+        years={cultureYears}
+        nsLabelOverride={bg ? "Всички години" : "All years"}
+        allowAll={false}
+      />
 
       {isLoading && (
         <div className="my-4 h-[320px] animate-pulse rounded-xl border bg-card" />
@@ -57,12 +98,12 @@ export const CultureScreen = () => {
         </div>
       )}
 
-      {data && (
+      {data && scoped && (
         <div className="space-y-4">
           <p className="text-sm text-muted-foreground">
             {bg
-              ? `Национален филмов център · ${data.firstYear}–${data.lastYear}`
-              : `National Film Center · ${data.firstYear}–${data.lastYear}`}
+              ? `Национален филмов център · ${spanLabel(scoped)}`
+              : `National Film Center · ${spanLabel(scoped)}`}
           </p>
 
           {/* The OG hero — KPI row + discipline split, a well-proportioned card. */}
@@ -73,12 +114,12 @@ export const CultureScreen = () => {
                 label={bg ? "Обща субсидия" : "Total subsidy"}
                 hint={
                   bg
-                    ? `Държавна субсидия за кино, ${data.firstYear}–${data.lastYear}.`
-                    : `State film subsidy, ${data.firstYear}–${data.lastYear}.`
+                    ? `Държавна субсидия за кино, ${spanLabel(scoped)}.`
+                    : `State film subsidy, ${spanLabel(scoped)}.`
                 }
               >
                 <span className="text-2xl font-bold tabular-nums">
-                  {eur(data.totalEur)}
+                  {eur(scoped.totalEur)}
                 </span>
               </StatCard>
               <StatCard
@@ -90,7 +131,7 @@ export const CultureScreen = () => {
                 }
               >
                 <span className="text-2xl font-bold tabular-nums">
-                  {formatInt(data.filmCount, lang)}
+                  {formatInt(scoped.filmCount, lang)}
                 </span>
               </StatCard>
               <StatCard
@@ -102,7 +143,7 @@ export const CultureScreen = () => {
                 }
               >
                 <span className="text-2xl font-bold tabular-nums">
-                  {formatInt(data.producerCount, lang)}
+                  {formatInt(scoped.producerCount, lang)}
                 </span>
               </StatCard>
               <StatCard
@@ -114,7 +155,7 @@ export const CultureScreen = () => {
                 }
               >
                 <span className="text-2xl font-bold tabular-nums">
-                  {formatPct(data.top10Share, lang)}
+                  {formatPct(scoped.top10Share, lang)}
                 </span>
               </StatCard>
               <StatCard
@@ -126,18 +167,21 @@ export const CultureScreen = () => {
                 }
               >
                 <span className="text-2xl font-bold tabular-nums">
-                  {eur(data.filmCount ? data.totalEur / data.filmCount : 0)}
+                  {eur(
+                    scoped.filmCount ? scoped.totalEur / scoped.filmCount : 0,
+                  )}
                 </span>
               </StatCard>
             </div>
 
             {/* Where the money goes, by discipline */}
             <CultureCompositionTile
-              byDiscipline={data.byDiscipline}
-              totalEur={data.totalEur}
+              byDiscipline={scoped.byDiscipline}
+              totalEur={scoped.totalEur}
             />
 
-            {/* How it moved over time */}
+            {/* How it moved over time — a historical trend, always full-history
+                (never scoped to the selected year). */}
             <CultureTimeSpineTile byYear={data.byYear} />
           </div>
 
@@ -152,10 +196,18 @@ export const CultureScreen = () => {
               side by side on desktop, stacked on mobile. */}
           <div className="grid gap-4 lg:grid-cols-2 lg:items-start">
             <CultureConcentrationTile
-              topProducers={data.topProducers}
-              top10Share={data.top10Share}
+              topProducers={scoped.topProducers}
+              top10Share={scoped.top10Share}
             />
-            {filmsFile && <CultureFilmAwardsTile films={filmsFile.films} />}
+            {filmsFile && (
+              <CultureFilmAwardsTile
+                films={
+                  year
+                    ? filmsFile.films.filter((f) => f.year === year)
+                    : filmsFile.films
+                }
+              />
+            )}
           </div>
 
           {/* Who decides — the artistic-commission compositions (кой решава) */}
