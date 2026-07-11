@@ -1,6 +1,47 @@
 {
-  "updatedAt": "2026-07-10T10:28:49.720Z",
+  "updatedAt": "2026-07-11T10:11:49.371Z",
   "entries": [
+    {
+      "timestamp": "2026-07-11T10:11:49.371Z",
+      "date": "2026-07-11",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-07-10 (+1 daily archive; 1,392,545 store rows, 239 settlements, 207 chains)",
+      "source": "КЗП Колко струва (retail prices)"
+    },
+    {
+      "timestamp": "2026-07-11T10:06:51.194Z",
+      "date": "2026-07-11",
+      "skill": "tr-daily-refresh",
+      "summary": "Commerce Registry daily refresh: new TR filings loaded to Postgres, per-EIK connections rebuilt (9,168 EIK)",
+      "source": "data.egov.bg Commerce Registry (ТРРЮЛНЦ)"
+    },
+    {
+      "timestamp": "2026-07-11T10:01:37.919Z",
+      "date": "2026-07-11",
+      "skill": "update-nzok",
+      "summary": "ЕЕОФ hospital financials 2025-Q3 + clinical-activity 2025 corpus + drug unit prices refreshed",
+      "source": "НЗОК / МЗ (nhif.bg, ЕЕОФ)"
+    },
+    {
+      "timestamp": "2026-07-11T09:59:44.447Z",
+      "date": "2026-07-11",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП refresh through 2026-07-10 — договори gap-fill + tender procedures rebuilt",
+      "source": "ЦАИС ЕОП open data"
+    },
+    {
+      "timestamp": "2026-07-11T09:44:37.325Z",
+      "date": "2026-07-11",
+      "skill": "update-rollcall",
+      "summary": "3 new sessions through 2026-07-10 (ids 11148-11150)",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-07-10T10:28:49.720Z",
       "date": "2026-07-10",
