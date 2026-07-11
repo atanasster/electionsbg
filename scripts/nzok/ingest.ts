@@ -82,12 +82,22 @@ const OPT_IN: { flag: string; scripts: string[]; label: string }[] = [
     scripts: ["write_hospital_eik.ts", "write_hospital_payments.ts"],
     label: "Рег.№→EIK crosswalk",
   },
+  // Clinical-pathway tariffs (НРД) — the price factor behind the pathway spend
+  // tree + case-mix expected-vs-actual (migration 059). Opt-in because it fetches
+  // nhif.bg (BG-egress only) and the annex layout needs parser iteration; run
+  // with --page/--annex/--nrd-year (see the script header), or --from-dump to
+  // iterate offline against a prior --dump.
+  {
+    flag: "--pathway-tariffs",
+    scripts: ["write_pathway_tariffs.ts"],
+    label: "clinical-pathway tariffs (НРД)",
+  },
 ];
 
 const args = process.argv.slice(2);
 // Non-selector flags forwarded verbatim to every child script (e.g. --dump makes
 // write_procedure_names.ts also save the raw appendix text for debugging).
-const PASSTHROUGH = new Set(["--dump"]);
+const PASSTHROUGH = new Set(["--dump", "--from-dump", "--bgn"]);
 const passArgs = args.filter((a) => PASSTHROUGH.has(a));
 // A typo (`--hospital`, `--drug`) matches no step, which would otherwise fall
 // back to the full default set — four fetches the operator didn't ask for. Fail

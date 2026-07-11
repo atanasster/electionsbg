@@ -42,8 +42,10 @@ import { NzokRegionalChoroplethTile } from "./NzokRegionalChoroplethTile";
 import { NzokDrugReimbursementTile } from "./NzokDrugReimbursementTile";
 import { NzokDrugUnitPriceTile } from "./NzokDrugUnitPriceTile";
 import { NzokActivityTile } from "./NzokActivityTile";
+import { NzokPathwayTreeTile } from "./NzokPathwayTreeTile";
 import { NzokHospitalFinancialsTile } from "./NzokHospitalFinancialsTile";
 import { NzokDrugRiskTile } from "./NzokDrugRiskTile";
+import { NzokSavingsLeaderboardTile } from "./NzokSavingsLeaderboardTile";
 import { NzokHospitalRiskTile } from "./NzokHospitalRiskTile";
 import { NzokProcurementLensTile } from "./NzokProcurementLensTile";
 
@@ -245,7 +247,7 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
           {hospitalTrends && <NzokHospitalMomentumTile data={hospitalTrends} />}
           {/* Compare + per-capita map sit side by side on desktop — both are
               compact reference views, so pairing them halves the scroll. */}
-          <div className="grid gap-4 lg:grid-cols-2">
+          <div className="grid gap-4 lg:grid-cols-2 [&>*]:min-w-0">
             <NzokHospitalCompareTile data={hospitalPayments} />
             <div id="nzok-map" className="scroll-mt-24">
               <NzokRegionalChoroplethTile data={hospitalPayments} />
@@ -271,9 +273,12 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
           }
         >
           <NzokDrugReimbursementTile data={drugReimbursement} hideTitle />
+          {/* Recoverable-euros headline + per-hospital leaderboard (migration
+              055). Self-fetches; hides until the drug-price corpus reaches the DB. */}
+          <NzokSavingsLeaderboardTile />
           {/* Unit-price + by-molecule leakage side by side on desktop. Both
               self-fetch and self-hide until migrations 052 / 054 reach this DB. */}
-          <div className="grid gap-4 lg:grid-cols-2">
+          <div className="grid gap-4 lg:grid-cols-2 [&>*]:min-w-0">
             <NzokDrugUnitPriceTile />
             <NzokDrugRiskTile />
           </div>
@@ -298,6 +303,10 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         }
       >
         <NzokActivityTile />
+        {/* Pathway navigation — pick a clinical pathway, see which hospitals
+            bill it and how many cases. VOLUME not spend. Self-hides until the
+            activity corpus (migration 059) reaches the DB. */}
+        <NzokPathwayTreeTile />
         <NzokHospitalFinancialsTile />
       </PackSection>
 
@@ -335,7 +344,7 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         >
           {/* Both compact — the "up close" summary and the CPV breakdown sit
               side by side on desktop. */}
-          <div className="grid gap-4 lg:grid-cols-2">
+          <div className="grid gap-4 lg:grid-cols-2 [&>*]:min-w-0">
             <NzokProcurementLensTile model={model} />
             <NzokCategoryTile
               categories={model.categories}

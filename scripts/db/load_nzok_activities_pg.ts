@@ -29,6 +29,16 @@ const SCHEMA_FILE = path.join(
   REPO,
   "scripts/db/schema/pg/053_nzok_activities.sql",
 );
+// Pathway-navigation + spend + case-mix fns (migration 059). It reads
+// nzok_activities; the pathway tree uses nzok_activity_by_procedure_spend (which
+// hospitals bill one КП, by cases, with implied spend when tariffs are loaded).
+// The tariff TABLE it creates stays empty until the opt-in tariff loader runs, but
+// the FUNCTIONS must exist here so the pathway tree works on a fresh DB — it
+// degrades to volume-only when the tariff table is empty.
+const PATHWAY_SPEND_SCHEMA_FILE = path.join(
+  REPO,
+  "scripts/db/schema/pg/059_nzok_pathway_tariffs.sql",
+);
 const JSON_FILE = path.join(REPO, "data/budget/nzok/activities.json");
 const PAYMENTS_FILE = path.join(
   REPO,
@@ -217,6 +227,7 @@ const main = async (): Promise<void> => {
   ]);
 
   await exec(readFileSync(SCHEMA_FILE, "utf8"));
+  await exec(readFileSync(PATHWAY_SPEND_SCHEMA_FILE, "utf8"));
 
   const casesSum = actRows.reduce((a, r) => a + (r[7] as number), 0);
   const matched = actRows.filter((r) => r[4]).length;

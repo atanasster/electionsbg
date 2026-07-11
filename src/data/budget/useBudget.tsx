@@ -41,6 +41,11 @@ import type {
   NzokHospitalRiskFile,
   NzokDrugRiskFile,
   NzokDrugSavingsFile,
+  NzokFinancialsMeasuresByEik,
+  NzokFinancialsMeasureFanFile,
+  NzokActivityByProcedureFile,
+  NzokCasemixFile,
+  NzokFinancialsCoverageFile,
   NzokDrugMoleculeFile,
   NzokDrugPackFile,
   NzokDrugReimbursementFile,
@@ -489,6 +494,92 @@ export const useNzokDrugSavings = () =>
   useQuery({
     queryKey: ["nzok", "drug-savings"] as const,
     queryFn: () => fetchDb<NzokDrugSavingsFile>("/api/db/nzok-drug-savings"),
+    staleTime: Infinity,
+  });
+
+// One hospital's financial report card (migration 056): each ratio measure vs the
+// national median + the p40/p60 "around the median" band + percentile. The
+// CMS-Care-Compare "how does this hospital compare?" reading. null when the
+// hospital has no latest-quarter row past the bed floor.
+export const useNzokFinancialsMeasuresByEik = (eik?: string | null) =>
+  useQuery({
+    queryKey: ["nzok", "financials-measures-by-eik", eik ?? ""] as const,
+    queryFn: () =>
+      fetchDb<NzokFinancialsMeasuresByEik>(
+        `/api/db/nzok-financials-measures-by-eik?eik=${encodeURIComponent(eik!)}`,
+      ),
+    enabled: !!eik,
+    staleTime: Infinity,
+  });
+
+// One measure's decile fan over time (migration 056): p10..p90 bands + median per
+// quarter, with the selected hospital threaded through — the OpenPrescribing
+// "you are here in the whole distribution" chart. null for an unknown measure.
+export const useNzokFinancialsMeasureFan = (
+  measure?: string | null,
+  eik?: string | null,
+) =>
+  useQuery({
+    queryKey: [
+      "nzok",
+      "financials-measure-fan",
+      measure ?? "",
+      eik ?? "",
+    ] as const,
+    queryFn: () =>
+      fetchDb<NzokFinancialsMeasureFanFile>(
+        `/api/db/nzok-financials-measure-fan?measure=${encodeURIComponent(
+          measure!,
+        )}&eik=${encodeURIComponent(eik ?? "")}`,
+      ),
+    enabled: !!measure,
+    staleTime: Infinity,
+  });
+
+// One hospital's ЕЕОФ reporting coverage (migration 058): which quarters are
+// present vs missing — the "gap vs drop" context for the report card. null when
+// the hospital never reports.
+export const useNzokFinancialsCoverageByEik = (eik?: string | null) =>
+  useQuery({
+    queryKey: ["nzok", "financials-coverage-by-eik", eik ?? ""] as const,
+    queryFn: () =>
+      fetchDb<NzokFinancialsCoverageFile>(
+        `/api/db/nzok-financials-coverage-by-eik?eik=${encodeURIComponent(eik!)}`,
+      ),
+    enabled: !!eik,
+    staleTime: Infinity,
+  });
+
+// Pathway navigation (migration 059): which hospitals bill one clinical pathway,
+// ranked by cases — the NHSU "who delivers this service package" view. VOLUME,
+// not spend (the activity corpus has no per-pathway euros). null for an unknown
+// procedure / until the activities corpus reaches the DB.
+export const useNzokActivityByProcedure = (procedure?: string | null) =>
+  useQuery({
+    queryKey: ["nzok", "activity-by-procedure", procedure ?? ""] as const,
+    queryFn: () =>
+      // The migration-059 "spend" variant, which also carries the НРД list tariff
+      // + implied spend once tariffs are loaded (null before).
+      fetchDb<NzokActivityByProcedureFile>(
+        `/api/db/nzok-activity-by-procedure-spend?procedure=${encodeURIComponent(
+          procedure!,
+        )}`,
+      ),
+    enabled: !!procedure,
+    staleTime: Infinity,
+  });
+
+// Case-mix expected-vs-actual for one hospital (migration 059): expected Σ(НРД
+// list tariff × cases) vs actual БМП paid — the STAR-PU / MSPB signal. null until
+// pathway tariffs are loaded (a BG-egress ingest).
+export const useNzokCasemixByEik = (eik?: string | null) =>
+  useQuery({
+    queryKey: ["nzok", "casemix-by-eik", eik ?? ""] as const,
+    queryFn: () =>
+      fetchDb<NzokCasemixFile>(
+        `/api/db/nzok-casemix-by-eik?eik=${encodeURIComponent(eik!)}`,
+      ),
+    enabled: !!eik,
     staleTime: Infinity,
   });
 

@@ -53,6 +53,9 @@ import {
   nzokDrugGrowth,
   nzokHospitals,
   nzokActivities,
+  nzokDrugSavings,
+  nzokHospitalScorecard,
+  nzokPathwayHospitals,
   nzokDrugMolecule,
 } from "./nzok";
 import {
@@ -2120,6 +2123,95 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: nzokActivities,
+  },
+  {
+    name: "nzokDrugSavings",
+    domain: "fiscal",
+    description: {
+      bg: "Колко пари може да спести НЗОК от лекарства, ако всяка болница плащаше медианната цена за същата опаковка — национална сума + класация на болниците с най-голямо надплащане над медианата.",
+      en: "How much the NHIF could save on medicines if every hospital paid the median price for the same pack — the national figure plus a ranking of the hospitals overpaying most above the median.",
+    },
+    params: [
+      {
+        name: "count",
+        type: "count",
+        description: { bg: "Брой болници", en: "Number of hospitals" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Колко може да спести НЗОК от лекарства?",
+        en: "How much could the NHIF save on medicines?",
+      },
+      {
+        bg: "Кои болници надплащат най-много за лекарства спрямо медианата?",
+        en: "Which hospitals overpay the most for medicines vs the median?",
+      },
+    ],
+    run: nzokDrugSavings,
+  },
+  {
+    name: "nzokHospitalScorecard",
+    domain: "fiscal",
+    description: {
+      bg: "Как се представя една болница спрямо останалите — финансовите ѝ показатели (използваемост, среден престой, разход на пациент, просрочени задължения…) над / около / под националната медиана, плюс дали е платена повече или по-малко от очакваното за нейния case-mix. Посочи болница (напр. Пирогов, Свети Георги Пловдив).",
+      en: "How one hospital compares to its peers — its financial indicators (occupancy, length of stay, cost per patient, overdue liabilities…) above / around / below the national median, plus whether it is paid more or less than its case-mix predicts. Name a hospital (e.g. Pirogov, Sveti Georgi Plovdiv).",
+    },
+    params: [
+      {
+        name: "hospital",
+        type: "text",
+        description: {
+          bg: "Име на болница, напр. Свети Георги Пловдив",
+          en: "Hospital name, e.g. Sveti Georgi Plovdiv",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Как се представя Пирогов спрямо другите болници?",
+        en: "How does Pirogov compare to other hospitals?",
+      },
+      {
+        bg: "Финансови показатели на Свети Георги Пловдив",
+        en: "Financial indicators for Sveti Georgi Plovdiv",
+      },
+    ],
+    run: nzokHospitalScorecard,
+  },
+  {
+    name: "nzokPathwayHospitals",
+    domain: "fiscal",
+    description: {
+      bg: "Кои болници отчитат дадена клинична пътека и колко случая всяка — например хемодиализа, раждане, инсулт. Посочи пътека по име или код; показва и стойността (случаи × цена по НРД), когато цените са заредени.",
+      en: "Which hospitals bill a given clinical pathway and how many cases each — e.g. haemodialysis, childbirth, stroke. Name a pathway by name or code; also shows value (cases × НРД list price) when tariffs are loaded.",
+    },
+    params: [
+      {
+        name: "procedure",
+        type: "text",
+        description: {
+          bg: "Клинична пътека по име или код, напр. хемодиализа / A01.1",
+          en: "Clinical pathway by name or code, e.g. haemodialysis / A01.1",
+        },
+      },
+      {
+        name: "count",
+        type: "count",
+        description: { bg: "Брой болници", en: "Number of hospitals" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кои болници правят най-много хемодиализи?",
+        en: "Which hospitals do the most haemodialyses?",
+      },
+      {
+        bg: "Кои лечебни заведения отчитат клинична пътека за раждане?",
+        en: "Which facilities bill the childbirth clinical pathway?",
+      },
+    ],
+    run: nzokPathwayHospitals,
   },
   {
     name: "nzokDrugMolecule",

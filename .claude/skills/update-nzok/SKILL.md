@@ -27,6 +27,8 @@ Refreshes `data/budget/nzok/` — the data behind the **health sector pack** on 
 
 The budget law (`--budget`, `budget.json`) is **hard-keyed** from the annual ЗБНЗОК — it has no watcher source and is only re-run when a new fiscal year's law is added to `scripts/budget/nzok/__write_budget.ts`.
 
+**Derived analytics need no separate trigger.** The drug-savings leaderboard (060), the report-card + decile-fan and reporting-coverage fns (056/058) and the pathway tree (059's serving fn over the activities corpus) are read-only functions over the drug-prices / ЕЕОФ / activities corpora, applied by those same three loaders — so they refresh automatically whenever `nzok_drug_unit_prices`, `mh_eeof_quarterly` or `nzok_activities` flips and its loader re-runs. The only genuinely new source is the **pathway tariffs** (opt-in, BG egress — see the dedicated section below).
+
 ## Procedure
 
 1. Run the ingest for the flagged subset (or all):
@@ -87,9 +89,11 @@ column, which is why this was long recorded as blocked.
 
 Writes `data/budget/nzok/drug_unit_prices.json` (gitignored, regenerable), then
 `npm run db:load:nzok-drug-prices:pg` (+ `:cloud` to publish) loads migrations
-052 **and** 054 — the loader applies both schema files, so the serving functions
-behind the `/molecule/:inn` + pack pages (`nzok_drug_molecule_detail`,
-`nzok_drug_pack_detail`) and the risk aggregates reach the DB with the corpus.
+052, 054 **and** 060 — the loader applies all three schema files, so the serving
+functions behind the `/molecule/:inn` + pack pages (`nzok_drug_molecule_detail`,
+`nzok_drug_pack_detail`), the risk aggregates, and the **drug-savings leaderboard**
+(`nzok_drug_savings_overview`, migration 060 — the national "€X avoidable overpay
+if every hospital paid the peer median" tile) reach the DB with the corpus.
 Run the `:cloud` variant against the Cloud SQL proxy (or a surgical
 `apply_functions.ts 052_nzok_drug_unit_prices.sql 054_nzok_risk.sql` with the
 cloud `DATABASE_URL`) whenever those functions change, else the `/api/db` routes
@@ -107,7 +111,13 @@ Revenue, expense, total and overdue liabilities, beds, occupancy, length of stay
 cost per patient. Money columns are published in **хил. лева**.
 
 Writes `data/budget/nzok/hospital_financials.json` (gitignored, regenerable), then
-`npm run db:load:nzok-financials:pg` loads migration 051.
+`npm run db:load:nzok-financials:pg` loads migrations 051, **056 and 058** — the
+loader applies all three, so the **report-card + decile-fan** distribution fns
+(`nzok_financials_measures_by_eik` / `nzok_financials_measure_fan`, migration 056 —
+each ratio measure vs the national median + the OpenPrescribing decile fan) and the
+**reporting-coverage** fn (`nzok_financials_coverage_by_eik`, migration 058 — which
+quarters a hospital reported, so a gap isn't misread as a drop) reach the DB with
+the corpus.
 
 The workbook's third sheet (`НЗОК`) is keyed by `Рег.№ ЛЗ` and carries БМП +
 devices + drugs per quarter — an **independent parity reference** for the three
@@ -138,8 +148,9 @@ tool and any static reader.
 
 This is the **case-mix denominator** the rest of the pack lacked. The source
 carries the procedure CODE only — no name, no НРД price — so `procType` is derived
-from the code's first letter (P→КП, A→АПр, K→КПр) and there is **no lev/euro value**
-(a НРД pathway-price join is a documented follow-up). Cases are volume, not money.
+from the code's first letter (P→КП, A→АПр, K→КПр). Cases are volume, not money; the
+НРД pathway-price join that turns them into spend is the separate `--pathway-tariffs`
+ingest (migration 059, below).
 
 ### Procedure code→name nomenclature — `npm run data:nzok -- --procedure-names`
 The activity feed's codes (P###/A##/K##) are unreadable on their own, so
@@ -155,12 +166,43 @@ couldn't be checked from the dev box (see the script header). The committed
 `procedures.json` is the full generated nomenclature (~427 names); the writer
 replaces it wholesale on each run.
 
-`npm run db:load:nzok-activities:pg` (+ `:cloud` to publish) loads migration 053 —
-the `nzok_activities` table + `nzok_activity_monthly` trend, and three jsonb fns:
-`nzok_activities_overview()` (national top procedures + trend + the cases-per-bed
-outlier), `nzok_activities_by_eik()` (a hospital's case-mix + national share). The
-loader attaches EIK and bed counts by a strong name fold against the payments +
-ЕЕОФ crosswalks (private hospitals included via payments); unmatched → NULL.
+`npm run db:load:nzok-activities:pg` (+ `:cloud` to publish) loads migrations 053
+**and 059's serving functions** — the `nzok_activities` table +
+`nzok_activity_monthly` trend, and the jsonb fns: `nzok_activities_overview()`
+(national top procedures + trend + the cases-per-bed outlier), `nzok_activities_by_eik()`
+(a hospital's case-mix + national share), and the migration-059 fns
+`nzok_activity_by_procedure_spend()` (the **pathway tree**: which hospitals bill one
+КП, ranked by cases, with implied spend once tariffs are loaded) +
+`nzok_casemix_expected_vs_actual()` (both volume-only / NULL until the tariff table is
+populated). The loader attaches EIK and bed counts by a strong name fold against the
+payments + ЕЕОФ crosswalks (private hospitals included via payments); unmatched → NULL.
+
+### Clinical-pathway tariffs — `npm run data:nzok -- --pathway-tariffs` (opt-in, BG egress)
+The price factor that turns the volume-only activity corpus into a **spend** reading
+and unlocks the **case-mix expected-vs-actual** signal (the STAR-PU / MSPB idea:
+Σ list-tariff × cases vs actual БМП paid). Source = the НРД (Национален рамков
+договор) appendix listing the price per КП/АПр/КПр — distinct from the Приложение
+17/18/19 *name* specs `--procedure-names` parses. Like `--procedure-names` and
+`--crosswalk`, this is **opt-in** (not in the default set) and **must run from BG
+egress** (nhif.bg is IP-gated); the price parser in `write_pathway_tariffs.ts` is
+best-effort and **will need iterating** against the real annex text, so use `--dump`
+then `--from-dump` to iterate offline (mirrors the names script exactly):
+
+```
+# value flags (--page/--annex/--nrd-year) need DIRECT invocation — the npm wrapper
+# only forwards --dump/--from-dump/--bgn and rejects unknown flags:
+tsx scripts/nzok/write_pathway_tariffs.ts --page https://nhif.bg/bg/nrd/2025/medical --dump --nrd-year 2025
+tsx scripts/nzok/write_pathway_tariffs.ts --from-dump --nrd-year 2025   # iterate the parser
+npm run db:load:nzok-tariffs:pg          # (+ :cloud) applies migration 059, loads tariffs
+```
+
+Writes `data/budget/nzok/pathway_tariffs.json` (`{ code: priceEur }`). The loader is
+empty-safe — migration 059 is **also applied by the activities loader** so its serving
+fns exist on a fresh DB even before tariffs land; the pathway tree + report-card
+case-mix line stay volume-only / hidden until this ingest runs. The НРД changes
+annually, so this is a rare manual refresh — there is **no daily watcher** for it (a
+flip would only notify, and the parse needs a human pass), same as `--crosswalk`.
+Money: 2026+ НРД is EUR-native; pass `--bgn` for pre-2026 annexes (÷ 1.95583).
 
 The **cases-per-bed outlier** is pathway-internal and same-type-grouped (УМБАЛ vs
 УМБАЛ, one procedure), with floors (≥50 cases, ≥20 beds, ≥4 peers). It is a

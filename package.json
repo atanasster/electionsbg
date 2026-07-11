@@ -56,6 +56,8 @@
     "db:load:nzok-drug-prices:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:nzok-drug-prices:pg",
     "db:load:nzok-activities:pg": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/load_nzok_activities_pg.ts",
     "db:load:nzok-activities:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:nzok-activities:pg",
+    "db:load:nzok-tariffs:pg": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/load_nzok_tariffs_pg.ts",
+    "db:load:nzok-tariffs:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:nzok-tariffs:pg",
     "db:load:awarder-seats:pg": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/load_awarder_seats_pg.ts",
     "db:load:awarder-seats:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:awarder-seats:pg",
     "db:gen-rollups": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/gen_procurement/rollups.ts",

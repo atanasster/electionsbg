@@ -250,6 +250,9 @@ const TOOL_SECTION: Record<string, SiteLink | undefined> = {
   nzokHospitals: SECTION.nzok,
   nzokActivities: SECTION.nzok,
   nzokDrugMolecule: SECTION.nzok,
+  nzokDrugSavings: SECTION.nzok,
+  nzokHospitalScorecard: SECTION.nzok,
+  nzokPathwayHospitals: SECTION.nzok,
   govDebt: SECTION.fiscal,
   noiFunds: SECTION.fiscal,
   macroIndicator: SECTION.indicators,
@@ -370,6 +373,17 @@ export const siteLinks = (env: Envelope): SiteLink[] => {
     // it is confidently matched to a Commerce-Register EIK (hidden facts.eik_id).
     // The TOOL_SECTION mapping still adds the health-fund page as the category link.
     case "nzokHospitals": {
+      const eik = fact(env, "eik_id");
+      if (eik)
+        out.push({
+          label: { bg: "Болница — профил", en: "Hospital — profile" },
+          href: url(`/company/${encodeURIComponent(eik)}`),
+        });
+      break;
+    }
+    // A hospital scorecard → that hospital's own /company/:eik page, where the
+    // full report card + decile fan + reporting-coverage live.
+    case "nzokHospitalScorecard": {
       const eik = fact(env, "eik_id");
       if (eik)
         out.push({

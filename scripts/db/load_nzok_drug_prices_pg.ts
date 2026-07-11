@@ -35,6 +35,11 @@ const RISK_SCHEMA_FILE = path.join(
   REPO,
   "scripts/db/schema/pg/054_nzok_risk.sql",
 );
+// Drug-savings leaderboard fn (reads the overpay aggregates 054 fills).
+const SAVINGS_SCHEMA_FILE = path.join(
+  REPO,
+  "scripts/db/schema/pg/060_nzok_drug_savings.sql",
+);
 const JSON_FILE = path.join(REPO, "data/budget/nzok/drug_unit_prices.json");
 
 // "MM.YYYY" → "YYYY-MM-01". Throws on anything else so a shape change fails loud
@@ -290,6 +295,7 @@ const main = async (): Promise<void> => {
 
   await exec(readFileSync(SCHEMA_FILE, "utf8"));
   await exec(readFileSync(RISK_SCHEMA_FILE, "utf8"));
+  await exec(readFileSync(SAVINGS_SCHEMA_FILE, "utf8"));
 
   const packEurSum = Math.round(packRows.reduce((a, r) => a + r[12], 0));
   const overpayEurSum = Math.round(overpayRows.reduce((a, r) => a + r[13], 0));

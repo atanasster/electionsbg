@@ -6,6 +6,12 @@
 import { fetchData, fetchDb } from "./dataClient";
 import { fmtEurCompact, fmtInt } from "./format";
 import { round2 } from "./dataset";
+import {
+  NZOK_MEASURES,
+  formatMeasureValue,
+  measureStanding,
+  standingLabel,
+} from "@/lib/nzokMeasures";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
 
 type Money = { amountEur: number; amount: number; currency: string };
@@ -496,6 +502,105 @@ export const nzokActivities = async (
   };
 };
 
+// ---- drug-savings leaderboard ("Колко може да спести НЗОК от лекарства?") -----
+// DB-backed (migration 055): the national "€X of avoidable overpay if every
+// hospital paid the peer-median unit price for the same pack" figure + the
+// per-hospital ranking. A signpost, not a verdict — a price gap can reflect
+// volume, delivery period or contract terms.
+
+type NzokDrugSavingsHospitalLite = {
+  eik: string | null;
+  facility: string;
+  overpayEur: number;
+  innCount: number;
+  packCount: number;
+  maxRatio: number | null;
+};
+type NzokDrugSavingsLite = {
+  year: number;
+  totalOverpayEur: number;
+  hospitalCount: number;
+  innCount: number;
+  hospitals: NzokDrugSavingsHospitalLite[];
+} | null;
+
+export const nzokDrugSavings = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const f = await fetchDb<NzokDrugSavingsLite>("nzok-drug-savings");
+  if (!f || !f.hospitals?.length) {
+    return {
+      tool: "nzokDrugSavings",
+      domain: "fiscal",
+      kind: "scalar",
+      title: bg
+        ? "Няма данни за спестявания от лекарства"
+        : "No drug-savings data",
+      viz: "none",
+      facts: {},
+      provenance: ["nzok_drug_overpay_by_hospital (PG)"],
+    };
+  }
+  const n = Math.min(Math.max(Number(args.count) || 12, 1), 25);
+  const top = f.hospitals.slice(0, n);
+  const rows: Row[] = top.map((h) => ({
+    hospital: h.facility,
+    molecules: fmtInt(h.innCount, ctx.lang),
+    packs: fmtInt(h.packCount, ctx.lang),
+    overpay: fmtEurCompact(h.overpayEur, ctx.lang),
+  }));
+  const columns: Column[] = [
+    { key: "hospital", label: bg ? "Болница" : "Hospital" },
+    { key: "molecules", label: bg ? "Молекули" : "Molecules", numeric: true },
+    { key: "packs", label: bg ? "Опаковки" : "Packs", numeric: true },
+    {
+      key: "overpay",
+      label: bg ? "Над медианата" : "Above median",
+      numeric: true,
+    },
+  ];
+  const worst = top[0];
+  return {
+    tool: "nzokDrugSavings",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? `Потенциално спестяване от лекарства при цена = медианата (${f.year})`
+      : `Potential drug savings at the median price (${f.year})`,
+    subtitle: bg
+      ? `Ако всяка болница беше платила медианната цена за същата опаковка: ~${fmtEurCompact(f.totalOverpayEur, ctx.lang)} за ${f.year} г. Сравнението е по опаковка (Национален №); разликата не е нередност.`
+      : `If every hospital had paid the median price for the same pack: ~${fmtEurCompact(f.totalOverpayEur, ctx.lang)} in ${f.year}. Compared per pack (Национален №); a gap is not an irregularity.`,
+    columns,
+    rows,
+    categories: top.map((h) => h.facility),
+    series: [
+      {
+        key: "overpay",
+        label: bg ? "Над медианата (€)" : "Above median (€)",
+        points: top.map((h) => ({
+          x: h.facility,
+          y: Math.round(h.overpayEur),
+        })),
+      },
+    ],
+    viz: "bar",
+    facts: {
+      year: String(f.year),
+      total_savings: fmtEurCompact(f.totalOverpayEur, ctx.lang),
+      hospitals: fmtInt(f.hospitalCount, ctx.lang),
+      molecules: fmtInt(f.innCount, ctx.lang),
+      top_hospital: worst?.facility ?? "—",
+      top_overpay: worst ? fmtEurCompact(worst.overpayEur, ctx.lang) : "—",
+    },
+    provenance: [
+      "nzok_drug_overpay_by_hospital (PG)",
+      "nzok_drug_overpay_by_inn (PG)",
+    ],
+  };
+};
+
 // ---- per-molecule drug-price overpay ("Кои болници надплащат за X?") ---------
 // DB-backed (migrations 052/054): serves the same figures the /molecule/:inn page
 // shows. Two behaviours in one tool: name a molecule (INN) → which hospitals paid
@@ -688,5 +793,383 @@ export const nzokDrugMolecule = async (
       top_hospitals: biggest ? fmtInt(biggest.facilityCount, ctx.lang) : "—",
     },
     provenance: ["nzok_drug_overpay_by_inn (PG)"],
+  };
+};
+
+// ---- hospital report card ("Как се представя болница X?") --------------------
+// DB-backed (migrations 056/058/059): each financial ratio measure vs the national
+// median (над / около / под, via the p40–p60 tolerance band), plus the case-mix
+// expected-vs-actual ratio when the НРД tariffs are loaded. Colour/verdict only for
+// the two polar measures; the rest are positional (case-mix drives the variation).
+
+type NzokMeasureCardLite = {
+  measure: string;
+  value: number;
+  median: number;
+  p40: number;
+  p60: number;
+  percentile: number;
+  n: number;
+};
+type NzokScorecardLite = {
+  eik: string;
+  quarter: string;
+  measures: NzokMeasureCardLite[];
+} | null;
+type NzokCasemixLite = {
+  year: number;
+  expectedEur: number;
+  actualEur: number | null;
+  ratio: number | null;
+  coverage: number;
+} | null;
+
+// Resolve a hospital from free text against the payments roster (the only nzok
+// source with name + EIK for ~every facility). Token-overlap: uppercase, drop
+// legal-form + filler tokens, score shared tokens, require ≥1 and an EIK.
+const HOSP_DROP = new Set([
+  "ЕАД",
+  "АД",
+  "ЕООД",
+  "ООД",
+  "МБАЛ",
+  "УМБАЛ",
+  "СБАЛ",
+  "БОЛНИЦА",
+  "ГР",
+  "ЗА",
+  "ПО",
+  "НА",
+  "И",
+]);
+const hospTokens = (s: string): string[] =>
+  s
+    .toUpperCase()
+    .replace(/[«»"'`„“”‘’.,-]/g, " ")
+    .replace(/СВЕТИ|СВЕТА|СВ\b/g, "СВ")
+    .split(/\s+/)
+    .filter((t) => t.length >= 2 && !HOSP_DROP.has(t));
+
+const resolveHospital = (
+  raw: string,
+  hospitals: NzokHospitalRow[],
+): { name: string; eik: string } | null => {
+  const q = hospTokens(raw);
+  if (!q.length) return null;
+  const qs = new Set(q);
+  let best: { name: string; eik: string; score: number } | null = null;
+  for (const h of hospitals) {
+    if (!h.eik) continue;
+    const ht = hospTokens(h.name);
+    const score = ht.filter((t) => qs.has(t)).length;
+    if (score > 0 && (!best || score > best.score))
+      best = { name: h.name, eik: h.eik, score };
+  }
+  return best ? { name: best.name, eik: best.eik } : null;
+};
+
+export const nzokHospitalScorecard = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const payments = await fetchData<NzokHospitalPaymentsFile>(
+    "/budget/nzok/hospital_payments.json",
+  );
+  const named = String(args.hospital ?? args.name ?? "");
+  const match = resolveHospital(named, payments.hospitals ?? []);
+  if (!match) {
+    return {
+      tool: "nzokHospitalScorecard",
+      domain: "fiscal",
+      kind: "scalar",
+      title: bg
+        ? "Посочете болница (напр. Пирогов, Свети Георги Пловдив)"
+        : "Name a hospital (e.g. Pirogov, Sveti Georgi Plovdiv)",
+      viz: "none",
+      facts: {},
+      provenance: ["budget/nzok/hospital_payments.json"],
+    };
+  }
+  const card = await fetchDb<NzokScorecardLite>(
+    "nzok-financials-measures-by-eik",
+    { eik: match.eik },
+  );
+  if (!card || !card.measures?.length) {
+    return {
+      tool: "nzokHospitalScorecard",
+      domain: "fiscal",
+      kind: "scalar",
+      title: bg
+        ? `Няма финансови показатели за ${match.name}`
+        : `No financial indicators for ${match.name}`,
+      viz: "none",
+      facts: { hospital: match.name, eik_id: match.eik },
+      provenance: ["nzok_hospital_financials (PG)"],
+    };
+  }
+  const casemix = await fetchDb<NzokCasemixLite>("nzok-casemix-by-eik", {
+    eik: match.eik,
+  });
+
+  const byKey = new Map(card.measures.map((m) => [m.measure, m]));
+  const ordered = NZOK_MEASURES.map((def) => ({
+    def,
+    m: byKey.get(def.key),
+  })).filter(
+    (r): r is { def: (typeof NZOK_MEASURES)[number]; m: NzokMeasureCardLite } =>
+      !!r.m,
+  );
+
+  const rows: Row[] = ordered.map(({ def, m }) => ({
+    measure: bg ? def.titleBg : def.titleEn,
+    value: formatMeasureValue(def.key, m.value, ctx.lang),
+    median: formatMeasureValue(def.key, m.median, ctx.lang),
+    standing: standingLabel(measureStanding(m.value, m.p40, m.p60), ctx.lang),
+  }));
+  const columns: Column[] = [
+    { key: "measure", label: bg ? "Показател" : "Measure" },
+    { key: "value", label: bg ? "Стойност" : "Value", numeric: true },
+    { key: "median", label: bg ? "Медиана" : "Median", numeric: true },
+    { key: "standing", label: bg ? "Спрямо медианата" : "vs median" },
+  ];
+
+  return {
+    tool: "nzokHospitalScorecard",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? `Как се сравнява ${match.name} (${card.quarter})`
+      : `How ${match.name} compares (${card.quarter})`,
+    subtitle: bg
+      ? "Финансови показатели спрямо националната медиана на всички болници с поне 20 легла (ЕЕОФ, МЗ). Повечето са позиционни — профилът на болницата обяснява голяма част от разликите."
+      : "Financial indicators vs the national median of all hospitals with at least 20 beds (ЕЕОФ, МЗ). Most are positional — case-mix explains much of the variation.",
+    columns,
+    rows,
+    viz: "none",
+    facts: {
+      hospital: match.name,
+      quarter: card.quarter,
+      measures: fmtInt(ordered.length, ctx.lang),
+      ...(casemix && casemix.ratio != null
+        ? {
+            casemix_ratio: `${round2(casemix.ratio)}×`,
+            casemix_note: bg
+              ? `платени ${fmtEurCompact(casemix.actualEur ?? 0, ctx.lang)} спрямо очаквани ${fmtEurCompact(casemix.expectedEur, ctx.lang)} по НРД цена`
+              : `paid ${fmtEurCompact(casemix.actualEur ?? 0, ctx.lang)} vs an expected ${fmtEurCompact(casemix.expectedEur, ctx.lang)} at НРД list price`,
+          }
+        : {}),
+      // hidden → /company/:eik deep link (see links.ts).
+      eik_id: match.eik,
+    },
+    provenance: [
+      "nzok_hospital_financials (PG)",
+      ...(casemix && casemix.ratio != null
+        ? ["nzok_activities (PG)", "nzok_pathway_tariffs (PG)"]
+        : []),
+    ],
+  };
+};
+
+// ---- pathway navigation ("Кои болници лекуват по пътека X?") -----------------
+// DB-backed (migration 059): which hospitals bill one clinical pathway, ranked
+// by cases (VOLUME), plus implied spend (cases × НРД list price) when the tariffs
+// are loaded. Resolve a pathway by name (via procedures.json) or by code.
+
+type NzokPathwayHospLite = {
+  eik: string | null;
+  facility: string;
+  rzok: string;
+  cases: number;
+  spendEur: number | null;
+  sharePct?: number;
+};
+type NzokPathwaySpendLite = {
+  procedure: string;
+  procType: string;
+  year: number;
+  totalCases: number;
+  facilityCount: number;
+  priceEur: number | null;
+  totalSpendEur: number | null;
+  hospitals: NzokPathwayHospLite[];
+} | null;
+
+type NzokProcedureNames = { names: Record<string, string> };
+
+// Resolve free text → a procedure code. A code-like token wins; else the pathway
+// whose НРД name best contains the query (prefer a high-volume one).
+const resolveProcedure = (
+  raw: string,
+  names: Record<string, string>,
+  topCodes: string[],
+): string | null => {
+  const up = raw.toUpperCase().trim();
+  if (!up) return null;
+  const codeM = up.match(/\b([PAK]?\d{1,3}(?:\.\d+)?)\b/);
+  if (codeM) {
+    const c = codeM[1];
+    if (/^[PAK]/.test(c)) {
+      // Already a lettered code — take it only if it maps; never re-prefix it.
+      if (names[c]) return c;
+    } else {
+      // Bare number → try the padded КП/АПр/КПр forms present in the names map.
+      for (const pref of ["P", "A", "K"]) {
+        const padded = `${pref}${c.split(".")[0].padStart(pref === "P" ? 3 : 2, "0")}${c.includes(".") ? "." + c.split(".")[1] : ""}`;
+        if (names[padded]) return padded;
+      }
+    }
+  }
+  // Name search: tokens of length ≥4 that appear in a pathway name.
+  const toks = up.split(/[^A-ZА-Я0-9]+/).filter((t) => t.length >= 4);
+  if (!toks.length) return null;
+  const topSet = new Set(topCodes);
+  let best: { code: string; score: number; top: boolean } | null = null;
+  for (const [code, name] of Object.entries(names)) {
+    const nm = name.toUpperCase();
+    const score = toks.filter((t) => nm.includes(t)).length;
+    if (score > 0) {
+      const top = topSet.has(code);
+      if (
+        !best ||
+        score > best.score ||
+        (score === best.score && top && !best.top)
+      )
+        best = { code, score, top };
+    }
+  }
+  return best ? best.code : null;
+};
+
+export const nzokPathwayHospitals = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const [overview, procNames] = await Promise.all([
+    fetchData<NzokActivitiesOverview>("/budget/nzok/activities_overview.json"),
+    fetchData<NzokProcedureNames>("/budget/nzok/procedures.json").catch(
+      () => ({ names: {} }) as NzokProcedureNames,
+    ),
+  ]);
+  const names = procNames?.names ?? {};
+  const topCodes = (overview.topProcedures ?? []).map((p) => p.procedure);
+  const code = resolveProcedure(
+    String(args.procedure ?? args.pathway ?? args.name ?? ""),
+    names,
+    topCodes,
+  );
+  if (!code) {
+    // No pathway named → the most frequent pathways, so the user can pick one.
+    const top = (overview.topProcedures ?? []).slice(0, 12);
+    return {
+      tool: "nzokPathwayHospitals",
+      domain: "fiscal",
+      kind: "table",
+      title: bg
+        ? "Посочете клинична пътека (напр. хемодиализа)"
+        : "Name a clinical pathway (e.g. haemodialysis)",
+      subtitle: bg
+        ? "Най-чести пътеки — посочете една, за да видите кои болници я отчитат."
+        : "Most frequent pathways — name one to see which hospitals bill it.",
+      columns: [
+        { key: "code", label: bg ? "Код" : "Code" },
+        { key: "name", label: bg ? "Пътека" : "Pathway" },
+        { key: "cases", label: bg ? "Случаи" : "Cases", numeric: true },
+      ],
+      rows: top.map((p) => ({
+        code: p.procedure,
+        name: names[p.procedure] ?? "—",
+        cases: fmtInt(p.cases, ctx.lang),
+      })),
+      viz: "none",
+      facts: {},
+      provenance: ["budget/nzok/activities_overview.json"],
+    };
+  }
+  const f = await fetchDb<NzokPathwaySpendLite>(
+    "nzok-activity-by-procedure-spend",
+    { procedure: code },
+  );
+  if (!f || !f.hospitals?.length) {
+    return {
+      tool: "nzokPathwayHospitals",
+      domain: "fiscal",
+      kind: "scalar",
+      title: bg
+        ? `Няма данни за пътека ${code}`
+        : `No data for pathway ${code}`,
+      viz: "none",
+      facts: {},
+      provenance: ["nzok_activities (PG)"],
+    };
+  }
+  const hasSpend = f.totalSpendEur != null;
+  const n = Math.min(Math.max(Number(args.count) || 12, 1), 25);
+  const top = f.hospitals.slice(0, n);
+  const rows: Row[] = top.map((h) => ({
+    hospital: h.facility,
+    rzok: h.rzok,
+    cases: fmtInt(h.cases, ctx.lang),
+    ...(hasSpend
+      ? {
+          spend: h.spendEur != null ? fmtEurCompact(h.spendEur, ctx.lang) : "—",
+        }
+      : {}),
+    share: h.sharePct != null ? `${round2(h.sharePct)}%` : "—",
+  }));
+  const columns: Column[] = [
+    { key: "hospital", label: bg ? "Болница" : "Hospital" },
+    { key: "rzok", label: bg ? "РЗОК" : "RZOK" },
+    { key: "cases", label: bg ? "Случаи" : "Cases", numeric: true },
+    ...(hasSpend
+      ? [
+          {
+            key: "spend",
+            label: bg ? "Стойност" : "Value",
+            numeric: true,
+          } as Column,
+        ]
+      : []),
+    { key: "share", label: bg ? "Дял" : "Share", numeric: true },
+  ];
+  const label = names[code] ? `${names[code]} (${code})` : code;
+  const biggest = top[0];
+  return {
+    tool: "nzokPathwayHospitals",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? `Кои болници лекуват по „${label}" (${f.year})`
+      : `Which hospitals treat "${label}" (${f.year})`,
+    subtitle: bg
+      ? `${fmtInt(f.totalCases, ctx.lang)} случая в ${fmtInt(f.facilityCount, ctx.lang)} заведения. Броят е обем${hasSpend ? "; стойността е случаи × цена по НРД" : " — източникът не съдържа цена на пътека"}.`
+      : `${fmtInt(f.totalCases, ctx.lang)} cases across ${fmtInt(f.facilityCount, ctx.lang)} facilities. Cases are volume${hasSpend ? "; value is cases × the НРД list price" : " — the source carries no per-pathway price"}.`,
+    columns,
+    rows,
+    categories: top.map((h) => h.facility),
+    series: [
+      {
+        key: "cases",
+        label: bg ? "Случаи" : "Cases",
+        points: top.map((h) => ({ x: h.facility, y: Math.round(h.cases) })),
+      },
+    ],
+    viz: "bar",
+    facts: {
+      pathway: label,
+      year: String(f.year),
+      total_cases: fmtInt(f.totalCases, ctx.lang),
+      facilities: fmtInt(f.facilityCount, ctx.lang),
+      top_hospital: biggest?.facility ?? "—",
+      top_cases: biggest ? fmtInt(biggest.cases, ctx.lang) : "—",
+      ...(hasSpend && f.totalSpendEur != null
+        ? { total_value: fmtEurCompact(f.totalSpendEur, ctx.lang) }
+        : {}),
+    },
+    provenance: [
+      "nzok_activities (PG)",
+      ...(hasSpend ? ["nzok_pathway_tariffs (PG)"] : []),
+    ],
   };
 };

@@ -1416,6 +1416,41 @@ const DB_ROUTES = {
     ).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? null };
   },
+  // One hospital's ЕЕОФ reporting coverage (migration 058): which quarters are
+  // present vs missing, so a reporting gap isn't misread as a spend drop.
+  "nzok-financials-coverage-by-eik": async (dbRows, q) => {
+    const eik = s(q, "eik");
+    if (!eik) return { status: 400, body: { error: "missing eik" } };
+    const rows = await dbRows(
+      "SELECT nzok_financials_coverage_by_eik($1) AS r",
+      [eik],
+    ).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
+  // Pathway navigation WITH spend (migration 059): the by-procedure hospital list
+  // plus the НРД list-price tariff and implied spend (cases × tariff) when tariffs
+  // are loaded; priceEur/spendEur are null (volume-only) until then.
+  "nzok-activity-by-procedure-spend": async (dbRows, q) => {
+    const procedure = s(q, "procedure");
+    if (!procedure)
+      return { status: 400, body: { error: "missing procedure" } };
+    const rows = await dbRows(
+      "SELECT nzok_activity_by_procedure_spend($1) AS r",
+      [procedure],
+    ).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
+  // Case-mix expected-vs-actual for one hospital (migration 059): expected Σ(list
+  // tariff × cases) vs actual БМП paid, with tariff coverage. NULL until tariffs
+  // are loaded (BG-egress ingest) — the STAR-PU / MSPB signal.
+  "nzok-casemix-by-eik": async (dbRows, q) => {
+    const eik = s(q, "eik");
+    if (!eik) return { status: 400, body: { error: "missing eik" } };
+    const rows = await dbRows("SELECT nzok_casemix_expected_vs_actual($1) AS r", [
+      eik,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
   // One molecule's (INN) full detail → the /molecule/:inn page: headline, its
   // packs, and every hospital that paid above the year median for those packs.
   // Comparison stays at pack identity; a gap is a signpost, not a verdict.

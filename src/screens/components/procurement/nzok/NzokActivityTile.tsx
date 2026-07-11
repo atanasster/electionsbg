@@ -56,7 +56,7 @@ export const NzokActivityTile: FC = () => {
   // Two standalone tiles side by side on desktop: the national top-procedures
   // volume table, and the pathway-internal cases-per-bed outliers.
   return (
-    <div className="grid items-start gap-4 md:grid-cols-2">
+    <div className="grid items-start gap-4 md:grid-cols-2 [&>*]:min-w-0">
       <Card>
         <CardHeader className="pb-2">
           <CardTitle className="flex items-center gap-2 text-base">

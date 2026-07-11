@@ -2893,6 +2893,102 @@ export interface NzokDrugSavingsFile {
   topInns: NzokDrugSavingsInn[];
 }
 
+/** One financial measure in a hospital's report card (migration 056): the
+ *  hospital's latest value against the national median + the p40/p60 "around the
+ *  median" tolerance band + its percentile among peers. Positional, not a verdict —
+ *  case-mix legitimately drives most of these. */
+export interface NzokFinancialMeasureCard {
+  measure: string; // one of the eight measure keys (see nzokMeasures)
+  value: number;
+  median: number;
+  p40: number;
+  p60: number;
+  n: number;
+  percentile: number; // 0..1, share of peers strictly below this hospital
+}
+
+/** /api/db/nzok-financials-measures-by-eik — one hospital's report card. NULL
+ *  when the hospital has no latest-quarter row past the bed floor. */
+export interface NzokFinancialsMeasuresByEik {
+  eik: string;
+  quarter: string; // "YYYY-Qn"
+  measures: NzokFinancialMeasureCard[];
+}
+
+/** One quarter of a measure's decile fan: the p10..p90 bands + median across
+ *  hospitals, and the selected hospital's own value (null in quarters it lacks). */
+export interface NzokFinancialsFanPoint {
+  quarter: string; // "YYYY-Qn"
+  n: number;
+  p10: number;
+  p25: number;
+  median: number;
+  p75: number;
+  p90: number;
+  value: number | null;
+}
+
+/** /api/db/nzok-financials-measure-fan — one measure's decile fan over time with
+ *  the selected hospital threaded through. NULL for an unknown measure. */
+export interface NzokFinancialsMeasureFanFile {
+  measure: string;
+  eik: string;
+  series: NzokFinancialsFanPoint[];
+}
+
+/** One hospital billing a given clinical pathway (migration 059). Cases are
+ *  volume; `spendEur` (cases × НРД list tariff) is null until tariffs load. */
+export interface NzokActivityProcedureHospital {
+  eik: string | null;
+  facility: string;
+  rzok: string;
+  cases: number;
+  zol?: number;
+  sharePct?: number;
+  spendEur?: number | null; // migration 059: null until tariffs are loaded
+}
+
+/** /api/db/nzok-activity-by-procedure-spend — which hospitals bill one pathway,
+ *  ranked by cases, with the НРД list tariff + implied spend when loaded. NHSU-
+ *  style navigation; VOLUME by default, spend when tariffs exist. NULL for an
+ *  unknown procedure. */
+export interface NzokActivityByProcedureFile {
+  procedure: string;
+  procType: string;
+  year: number;
+  totalCases: number;
+  totalZol?: number;
+  facilityCount: number;
+  priceEur?: number | null; // migration 059: null until tariffs load
+  totalSpendEur?: number | null;
+  hospitals: NzokActivityProcedureHospital[];
+}
+
+/** /api/db/nzok-casemix-by-eik (migration 059) — the case-mix expected-vs-actual
+ *  signal: expected Σ(НРД list tariff × cases) vs actual БМП paid, with tariff
+ *  coverage. NULL until tariffs are loaded (BG-egress ingest). A signpost for
+ *  надлимитна/coding differences, not a verdict. */
+export interface NzokCasemixFile {
+  eik: string;
+  year: number;
+  expectedEur: number;
+  actualEur: number | null;
+  ratio: number | null;
+  coverage: number; // share of the hospital's cases that had a tariff
+}
+
+/** /api/db/nzok-financials-coverage-by-eik (migration 058) — which ЕЕОФ quarters
+ *  a hospital reports, so a reporting gap isn't misread as a spend drop. NULL when
+ *  the hospital never reports. */
+export interface NzokFinancialsCoverageFile {
+  eik: string;
+  totalQuarters: number;
+  presentCount: number;
+  firstPresent: string;
+  lastPresent: string;
+  quarters: { quarter: string; present: boolean }[];
+}
+
 /** One above-median (facility × pack) row on the molecule / pack detail pages.
  *  A price gap is a signpost, not a verdict (volume, delivery, contract terms). */
 export interface NzokDrugDetailRow {

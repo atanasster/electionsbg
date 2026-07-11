@@ -66,6 +66,7 @@ import {
 import { CompanyConnectionCheck } from "../components/procurement/CompanyConnectionCheck";
 import { NzokHospitalReimbursementTile } from "../components/procurement/nzok/NzokHospitalReimbursementTile";
 import { NzokActivityByEikTile } from "../components/procurement/nzok/NzokActivityByEikTile";
+import { NzokReportCardTile } from "../components/procurement/nzok/NzokReportCardTile";
 import { NzokDrugOverpayByEikTile } from "../components/procurement/nzok/NzokDrugOverpayByEikTile";
 import { NzokFinancialHealthStrip } from "@/screens/components/procurement/nzok/NzokFinancialHealthStrip";
 import { SchoolIdentityTile } from "../components/procurement/mon/SchoolIdentityTile";
@@ -730,6 +731,10 @@ export const CompanyDbScreen: FC = () => {
               overdue liabilities, occupancy, length of stay. Self-hides unless
               this EIK matched a hospital in the МЗ quarterly financials. */}
           <NzokFinancialHealthStrip eik={eik} />
+          {/* The peer-comparison reading of those same financials — each ratio
+              measure badged vs the national median (CMS Care Compare) + a decile
+              fan over time (OpenPrescribing). Self-hides unless matched. */}
+          <NzokReportCardTile eik={eik} />
           {company &&
             company.entity_class &&
             NGO_CLASSES.has(company.entity_class) &&

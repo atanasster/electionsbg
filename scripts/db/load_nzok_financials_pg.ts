@@ -37,6 +37,16 @@ const SCHEMA_FILE = path.join(
   REPO,
   "scripts/db/schema/pg/051_nzok_hospital_financials.sql",
 );
+// Report-card / decile-fan distribution fns + reporting-coverage fn — both read
+// nzok_hospital_financials, so they ship with this loader.
+const DISTRIBUTION_SCHEMA_FILE = path.join(
+  REPO,
+  "scripts/db/schema/pg/056_nzok_financials_distribution.sql",
+);
+const COVERAGE_SCHEMA_FILE = path.join(
+  REPO,
+  "scripts/db/schema/pg/058_nzok_financials_coverage.sql",
+);
 const DATA_FILE = path.join(REPO, "data/budget/nzok/hospital_financials.json");
 const EIK_FILE = path.join(REPO, "data/budget/nzok/hospital_eik.json");
 
@@ -305,6 +315,8 @@ const main = async (): Promise<void> => {
   const parityRows = [...parityAgg.values()];
 
   await exec(readFileSync(SCHEMA_FILE, "utf8"));
+  await exec(readFileSync(DISTRIBUTION_SCHEMA_FILE, "utf8"));
+  await exec(readFileSync(COVERAGE_SCHEMA_FILE, "utf8"));
 
   // Rows are the typed FinRow/ParityRow structs — accepted as `object[]` so the
   // call sites need no cast (the old code laundered them through
