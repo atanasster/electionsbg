@@ -86,7 +86,14 @@ unit price is derivable — the annual "Брутни разходи по INN" fi
 column, which is why this was long recorded as blocked.
 
 Writes `data/budget/nzok/drug_unit_prices.json` (gitignored, regenerable), then
-`npm run db:load:nzok-drug-prices:pg` loads migration 052.
+`npm run db:load:nzok-drug-prices:pg` (+ `:cloud` to publish) loads migrations
+052 **and** 054 — the loader applies both schema files, so the serving functions
+behind the `/molecule/:inn` + pack pages (`nzok_drug_molecule_detail`,
+`nzok_drug_pack_detail`) and the risk aggregates reach the DB with the corpus.
+Run the `:cloud` variant against the Cloud SQL proxy (or a surgical
+`apply_functions.ts 052_nzok_drug_unit_prices.sql 054_nzok_risk.sql` with the
+cloud `DATABASE_URL`) whenever those functions change, else the `/api/db` routes
+degrade to null in production.
 
 Compare at **pack identity** (`Национален №`), never at INN: PEMETREXED alone
 spans five packs whose per-unit medians run €17–€66. A **5-pack volume floor**

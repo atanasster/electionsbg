@@ -3,7 +3,7 @@
 // /awarder/121858220 serves. Amounts are in EUR. Mirrors the fiscal tools'
 // Envelope shape; every fact goes through ctx.lang.
 
-import { fetchData } from "./dataClient";
+import { fetchData, fetchDb } from "./dataClient";
 import { fmtEurCompact, fmtInt } from "./format";
 import { round2 } from "./dataset";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
@@ -493,5 +493,200 @@ export const nzokActivities = async (
       top_cases: biggest ? fmtInt(biggest.cases, ctx.lang) : "—",
     },
     provenance: ["budget/nzok/activities_overview.json"],
+  };
+};
+
+// ---- per-molecule drug-price overpay ("Кои болници надплащат за X?") ---------
+// DB-backed (migrations 052/054): serves the same figures the /molecule/:inn page
+// shows. Two behaviours in one tool: name a molecule (INN) → which hospitals paid
+// ABOVE the national median for its packs, deep-linked to /molecule/:inn; omit it
+// → the molecules where hospitals overpay the most. Comparison is at PACK identity
+// (Национален №), never at INN — a gap is a signpost, not an irregularity.
+
+type NzokDrugRiskInnLite = {
+  inn: string;
+  overpayEur: number;
+  facilityCount: number;
+  packCount: number;
+  maxRatio: number | null;
+};
+type NzokDrugRiskLite = { year: number; drugs: NzokDrugRiskInnLite[] } | null;
+
+type NzokDrugMoleculeRowLite = {
+  tradeName: string;
+  facility: string;
+  eik: string | null;
+  unitEur: number;
+  medianUnitEur: number;
+  ratio: number;
+  overpayEur: number;
+};
+type NzokDrugMoleculeLite = {
+  inn: string;
+  year: number;
+  overpayEur: number;
+  facilityCount: number;
+  packCount: number;
+  maxRatio: number | null;
+  rows: NzokDrugMoleculeRowLite[];
+} | null;
+
+// Resolve a molecule from free text against the known INN universe: an exact
+// (case-insensitive) INN, then any INN that appears as a whole Latin token in the
+// text, then a prefix. Returns null when nothing recognisable is named.
+const resolveInn = (
+  raw: string,
+  drugs: NzokDrugRiskInnLite[],
+): string | null => {
+  const up = raw.toUpperCase().trim();
+  if (!up) return null;
+  const exact = drugs.find((d) => d.inn === up);
+  if (exact) return exact.inn;
+  const tokens = new Set(up.split(/[^A-Z0-9]+/).filter((t) => t.length >= 4));
+  const tokenHit = drugs.find((d) => tokens.has(d.inn));
+  if (tokenHit) return tokenHit.inn;
+  if (up.length >= 4) {
+    const prefix = drugs.find((d) => d.inn.startsWith(up));
+    if (prefix) return prefix.inn;
+  }
+  return null;
+};
+
+export const nzokDrugMolecule = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const risk = await fetchDb<NzokDrugRiskLite>("nzok-drug-risk");
+  const drugs = risk?.drugs ?? [];
+  if (!drugs.length) {
+    return {
+      tool: "nzokDrugMolecule",
+      domain: "fiscal",
+      kind: "scalar",
+      title: bg
+        ? "Няма данни за цените на лекарствата по болници"
+        : "No hospital drug-price data",
+      viz: "none",
+      facts: {},
+      provenance: ["nzok_drug_overpay_by_inn (PG)"],
+    };
+  }
+
+  const inn = resolveInn(String(args.inn ?? ""), drugs);
+
+  // A specific molecule → which hospitals paid above the pack median for it.
+  if (inn) {
+    const detail = await fetchDb<NzokDrugMoleculeLite>("nzok-drug-molecule", {
+      inn,
+    });
+    if (detail && detail.rows.length) {
+      const top = detail.rows.slice(0, 12);
+      const rows: Row[] = top.map((r) => ({
+        hospital: r.facility,
+        pack: r.tradeName || "—",
+        unit: fmtEurCompact(r.unitEur, ctx.lang),
+        median: fmtEurCompact(r.medianUnitEur, ctx.lang),
+        gap: `${round2(r.ratio)}×`,
+      }));
+      const columns: Column[] = [
+        { key: "hospital", label: bg ? "Болница" : "Hospital" },
+        { key: "pack", label: bg ? "Опаковка" : "Pack" },
+        { key: "unit", label: bg ? "Цена/ед." : "Unit", numeric: true },
+        { key: "median", label: bg ? "Медиана" : "Median", numeric: true },
+        { key: "gap", label: bg ? "Разлика" : "Gap", numeric: true },
+      ];
+      const worst = top[0];
+      return {
+        tool: "nzokDrugMolecule",
+        domain: "fiscal",
+        kind: "table",
+        title: bg
+          ? `Кои болници плащат над медианата за ${inn} (${detail.year})`
+          : `Which hospitals pay above median for ${inn} (${detail.year})`,
+        subtitle: bg
+          ? "Единична цена спрямо медианата за същата опаковка (Национален №). Разликата не е нередност — може да отразява обем, срок на доставка или условия по договора."
+          : "Unit price vs the median for the same pack (Национален №). A gap is not an irregularity — it can reflect volume, delivery period or contract terms.",
+        columns,
+        rows,
+        categories: top.map((r) => r.facility),
+        series: [
+          {
+            key: "gap",
+            label: bg ? "Над медианата (€)" : "Above median (€)",
+            points: top.map((r) => ({
+              x: r.facility,
+              y: Math.round(r.overpayEur),
+            })),
+          },
+        ],
+        viz: "bar",
+        facts: {
+          inn,
+          year: String(detail.year),
+          hospitals: fmtInt(detail.facilityCount, ctx.lang),
+          packs: fmtInt(detail.packCount, ctx.lang),
+          total_overpay: fmtEurCompact(detail.overpayEur, ctx.lang),
+          max_ratio:
+            detail.maxRatio != null ? `${round2(detail.maxRatio)}×` : "—",
+          top_hospital: worst?.facility ?? "—",
+          top_overpay: worst ? fmtEurCompact(worst.overpayEur, ctx.lang) : "—",
+          // hidden → /molecule/:inn deep link (see links.ts).
+          inn_id: inn,
+        },
+        provenance: ["nzok_drug_overpay (PG)", "nzok_drug_overpay_by_inn (PG)"],
+      };
+    }
+  }
+
+  // No molecule named (or unmatched) → the molecules hospitals overpay most for.
+  const n = Math.min(Math.max(Number(args.count) || 12, 1), 25);
+  const top = drugs.slice(0, n);
+  const rows: Row[] = top.map((d) => ({
+    inn: d.inn,
+    hospitals: fmtInt(d.facilityCount, ctx.lang),
+    packs: fmtInt(d.packCount, ctx.lang),
+    overpay: fmtEurCompact(d.overpayEur, ctx.lang),
+  }));
+  const columns: Column[] = [
+    { key: "inn", label: bg ? "Лекарство (INN)" : "Medicine (INN)" },
+    { key: "hospitals", label: bg ? "Болници" : "Hospitals", numeric: true },
+    { key: "packs", label: bg ? "Опаковки" : "Packs", numeric: true },
+    {
+      key: "overpay",
+      label: bg ? "Над медианата" : "Above median",
+      numeric: true,
+    },
+  ];
+  const biggest = top[0];
+  return {
+    tool: "nzokDrugMolecule",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? `За кои лекарства болниците плащат над медианата (${risk!.year})`
+      : `Medicines hospitals overpay the most for (${risk!.year})`,
+    subtitle: bg
+      ? "Обща сума, платена над медианната цена за същата опаковка от всички болници. Посочи молекула за разбивка по болници."
+      : "Total paid above the median price for the same pack across all hospitals. Name a molecule for the per-hospital breakdown.",
+    columns,
+    rows,
+    categories: top.map((d) => d.inn),
+    series: [
+      {
+        key: "overpay",
+        label: bg ? "Над медианата (€)" : "Above median (€)",
+        points: top.map((d) => ({ x: d.inn, y: Math.round(d.overpayEur) })),
+      },
+    ],
+    viz: "bar",
+    facts: {
+      year: String(risk!.year),
+      molecules: fmtInt(drugs.length, ctx.lang),
+      top_inn: biggest?.inn ?? "—",
+      top_overpay: biggest ? fmtEurCompact(biggest.overpayEur, ctx.lang) : "—",
+      top_hospitals: biggest ? fmtInt(biggest.facilityCount, ctx.lang) : "—",
+    },
+    provenance: ["nzok_drug_overpay_by_inn (PG)"],
   };
 };

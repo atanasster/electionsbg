@@ -249,6 +249,7 @@ const TOOL_SECTION: Record<string, SiteLink | undefined> = {
   nzokDrugGrowth: SECTION.nzok,
   nzokHospitals: SECTION.nzok,
   nzokActivities: SECTION.nzok,
+  nzokDrugMolecule: SECTION.nzok,
   govDebt: SECTION.fiscal,
   noiFunds: SECTION.fiscal,
   macroIndicator: SECTION.indicators,
@@ -374,6 +375,18 @@ export const siteLinks = (env: Envelope): SiteLink[] => {
         out.push({
           label: { bg: "Болница — профил", en: "Hospital — profile" },
           href: url(`/company/${encodeURIComponent(eik)}`),
+        });
+      break;
+    }
+    // A per-molecule drug-price answer → that molecule's own /molecule/:inn page
+    // (which hospitals overpay + the month-by-month price trend). The category
+    // link (health-fund page) is still added via TOOL_SECTION.
+    case "nzokDrugMolecule": {
+      const inn = fact(env, "inn_id");
+      if (inn)
+        out.push({
+          label: { bg: "Лекарство — профил", en: "Molecule — profile" },
+          href: url(`/molecule/${encodeURIComponent(inn)}`),
         });
       break;
     }

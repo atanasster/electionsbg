@@ -52,6 +52,7 @@ import {
   nzokDrugGrowth,
   nzokHospitals,
   nzokActivities,
+  nzokDrugMolecule,
 } from "./nzok";
 import {
   judiciaryBudget,
@@ -2118,6 +2119,40 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: nzokActivities,
+  },
+  {
+    name: "nzokDrugMolecule",
+    domain: "fiscal",
+    description: {
+      bg: "Кои болници плащат над медианната цена за едно и също лекарство (опаковка) — надплащане по молекула (INN) спрямо другите болници. Посочи молекула (напр. BEVACIZUMAB) за разбивка по болници, или без — за най-надплащаните лекарства.",
+      en: "Which hospitals pay above the median price for the same medicine (pack) — per-molecule (INN) overpay versus peers. Name a molecule (e.g. BEVACIZUMAB) for the per-hospital breakdown, or omit for the most-overpaid medicines.",
+    },
+    params: [
+      {
+        name: "inn",
+        type: "text",
+        description: {
+          bg: "Молекула / активно вещество (INN), напр. BEVACIZUMAB",
+          en: "Molecule / active substance (INN), e.g. BEVACIZUMAB",
+        },
+      },
+      {
+        name: "count",
+        type: "count",
+        description: { bg: "Брой лекарства", en: "Number of medicines" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кои болници надплащат за BEVACIZUMAB?",
+        en: "Which hospitals overpay for BEVACIZUMAB?",
+      },
+      {
+        bg: "За кои лекарства болниците плащат над медианната цена?",
+        en: "Which medicines do hospitals pay above the median price for?",
+      },
+    ],
+    run: nzokDrugMolecule,
   },
   {
     name: "procurementTotals",

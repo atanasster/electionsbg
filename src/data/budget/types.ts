@@ -2860,3 +2860,111 @@ export interface NzokDrugRiskFile {
   year: number;
   drugs: NzokDrugRiskInn[];
 }
+
+/** One hospital on the drug-savings leaderboard (recoverable-euros framing). */
+export interface NzokDrugSavingsHospital {
+  eik: string | null;
+  facility: string;
+  overpayEur: number;
+  packCount: number;
+  innCount: number;
+  maxRatio: number | null;
+}
+
+/** One molecule (INN) beside the hospital ranking, for context. */
+export interface NzokDrugSavingsInn {
+  inn: string;
+  overpayEur: number;
+  facilityCount: number;
+  packCount: number;
+  maxRatio: number | null;
+}
+
+/** /api/db/nzok-drug-savings (migration 055) — the national avoidable-overpay
+ *  headline + per-hospital ranking. A signpost, not a verdict: a price gap can
+ *  reflect volume, delivery period or contract terms. NULL when the corpus is
+ *  empty. */
+export interface NzokDrugSavingsFile {
+  year: number;
+  totalOverpayEur: number;
+  hospitalCount: number;
+  innCount: number;
+  hospitals: NzokDrugSavingsHospital[];
+  topInns: NzokDrugSavingsInn[];
+}
+
+/** One above-median (facility × pack) row on the molecule / pack detail pages.
+ *  A price gap is a signpost, not a verdict (volume, delivery, contract terms). */
+export interface NzokDrugDetailRow {
+  nationalNo: string;
+  nzokCode: string;
+  tradeName: string;
+  form: string | null;
+  facility: string;
+  regNo: string;
+  eik: string | null;
+  unitEur: number;
+  medianUnitEur: number;
+  ratio: number;
+  units: number;
+  overpayEur: number;
+}
+
+/** /api/db/nzok-drug-molecule — one molecule's (INN) detail: the /molecule/:inn
+ *  page. Headline + its packs (pack-identity breakdown) + the per-facility
+ *  above-median rows for the molecule. NULL when the INN has no such rows. */
+export interface NzokDrugMoleculeFile {
+  inn: string;
+  year: number;
+  overpayEur: number;
+  facilityCount: number;
+  packCount: number;
+  maxRatio: number | null;
+  packs: NzokDrugRiskPack[];
+  rows: NzokDrugDetailRow[];
+}
+
+/** One month of a pack's dispersion band — the "is the gap widening?" series. */
+export interface NzokDrugPackTrendPoint {
+  period: string; // "YYYY-MM"
+  medianUnitEur: number;
+  p25UnitEur: number;
+  p75UnitEur: number;
+  facilityCount: number;
+  totalPacks: number;
+  totalEur: number;
+}
+
+/** One facility that paid above the year median for a pack, on the pack page. */
+export interface NzokDrugPackFacilityRow {
+  facility: string;
+  regNo: string;
+  eik: string | null;
+  unitEur: number;
+  medianUnitEur: number;
+  ratio: number;
+  units: number;
+  overpayEur: number;
+}
+
+/** /api/db/nzok-drug-pack — one pack's detail: the /molecule/:inn/pack page.
+ *  Latest-period dispersion band, the whole monthly series, and the above-median
+ *  facilities. NULL when the pack has no priced rows. */
+export interface NzokDrugPackFile {
+  nationalNo: string;
+  nzokCode: string;
+  inn: string;
+  tradeName: string;
+  form: string | null;
+  atc: string | null;
+  volumeFloorPacks: number;
+  latestPeriod: string;
+  medianUnitEur: number;
+  p25UnitEur: number;
+  p75UnitEur: number;
+  facilityCount: number;
+  totalPacks: number;
+  totalEur: number;
+  series: NzokDrugPackTrendPoint[];
+  rows: NzokDrugPackFacilityRow[];
+}

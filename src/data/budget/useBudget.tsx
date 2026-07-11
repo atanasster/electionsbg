@@ -40,6 +40,9 @@ import type {
   NzokActivityByEik,
   NzokHospitalRiskFile,
   NzokDrugRiskFile,
+  NzokDrugSavingsFile,
+  NzokDrugMoleculeFile,
+  NzokDrugPackFile,
   NzokDrugReimbursementFile,
   NzokProcedureNamesFile,
   JudiciaryBudgetFile,
@@ -476,6 +479,50 @@ export const useNzokDrugRisk = () =>
   useQuery({
     queryKey: ["nzok", "drug-risk"] as const,
     queryFn: () => fetchDb<NzokDrugRiskFile>("/api/db/nzok-drug-risk"),
+    staleTime: Infinity,
+  });
+
+// Drug-savings leaderboard (migration 055): the national avoidable-overpay
+// headline + per-hospital ranking, framed as recoverable euros. A second reading
+// of the overpay aggregates — a price gap is a signpost, not a verdict.
+export const useNzokDrugSavings = () =>
+  useQuery({
+    queryKey: ["nzok", "drug-savings"] as const,
+    queryFn: () => fetchDb<NzokDrugSavingsFile>("/api/db/nzok-drug-savings"),
+    staleTime: Infinity,
+  });
+
+// One molecule's (INN) detail → the /molecule/:inn page: headline, its packs,
+// and every hospital that paid above the year median for those packs. null when
+// the INN has no above-median rows in the latest full year.
+export const useNzokDrugMolecule = (inn?: string | null) =>
+  useQuery({
+    queryKey: ["nzok", "drug-molecule", inn ?? ""] as const,
+    queryFn: () =>
+      fetchDb<NzokDrugMoleculeFile>(
+        `/api/db/nzok-drug-molecule?inn=${encodeURIComponent(inn!)}`,
+      ),
+    enabled: !!inn,
+    staleTime: Infinity,
+  });
+
+// One pack's detail → the /molecule/:inn/pack page: the latest dispersion band,
+// the whole monthly median/p25/p75 trend (the "is the gap widening?" evidence),
+// and the above-median facilities. Pack identity is (nationalNo, nzokCode); one
+// side may be blank. null when the pack has no priced rows.
+export const useNzokDrugPack = (
+  nationalNo?: string | null,
+  nzokCode?: string | null,
+) =>
+  useQuery({
+    queryKey: ["nzok", "drug-pack", nationalNo ?? "", nzokCode ?? ""] as const,
+    queryFn: () =>
+      fetchDb<NzokDrugPackFile>(
+        `/api/db/nzok-drug-pack?nationalNo=${encodeURIComponent(
+          nationalNo ?? "",
+        )}&nzokCode=${encodeURIComponent(nzokCode ?? "")}`,
+      ),
+    enabled: !!(nationalNo || nzokCode),
     staleTime: Infinity,
   });
 

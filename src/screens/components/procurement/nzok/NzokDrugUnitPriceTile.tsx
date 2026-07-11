@@ -19,6 +19,7 @@
 // data structurally cannot.
 
 import { FC } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Pill } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -26,6 +27,7 @@ import { formatEur, formatEurCompact } from "@/lib/currency";
 import { useNzokDrugUnitPrices } from "@/data/budget/useBudget";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { FacilityLink } from "./FacilityLink";
+import { moleculeHref, packHref } from "./drugLinks";
 
 export const NzokDrugUnitPriceTile: FC = () => {
   const { i18n } = useTranslation();
@@ -77,12 +79,18 @@ export const NzokDrugUnitPriceTile: FC = () => {
               {rows.map((r) => (
                 <tr key={`${r.nationalNo}|${r.nzokCode}|${r.regNo}`}>
                   <td className="py-1.5 pr-2">
-                    <span className="font-medium">
+                    <Link
+                      to={packHref(r.inn, r.nationalNo, r.nzokCode)}
+                      className="font-medium text-accent hover:underline"
+                    >
                       {decodeEntities(r.tradeName)}
-                    </span>
-                    <span className="block text-[10px] uppercase text-muted-foreground">
+                    </Link>
+                    <Link
+                      to={moleculeHref(r.inn)}
+                      className="block text-[10px] uppercase text-muted-foreground hover:underline"
+                    >
                       {r.inn}
-                    </span>
+                    </Link>
                   </td>
                   <td className="max-w-[14rem] truncate py-1.5 pr-2 text-muted-foreground">
                     <FacilityLink eik={r.eik} name={r.facility} />

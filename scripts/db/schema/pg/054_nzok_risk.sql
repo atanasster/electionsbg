@@ -207,4 +207,53 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   ) END;
 $$;
 
+-- ==========================================================================
+-- One molecule's (INN) full detail → the /molecule/:inn page. The pre-aggregated
+-- per-INN headline + nested packs (from nzok_drug_overpay_by_inn), joined to the
+-- FULL per-facility overpay rows for that molecule (nzok_drug_overpay is capped
+-- only in the overview payload, never per-INN). Comparison stays at pack identity:
+-- both `packs` and `rows` carry (nationalNo, nzokCode). NULL when the INN has no
+-- above-median rows in the latest full year.
+-- ==========================================================================
+CREATE OR REPLACE FUNCTION nzok_drug_molecule_detail(p_inn text)
+RETURNS jsonb LANGUAGE sql STABLE AS $$
+  WITH y AS (SELECT max(year) AS yr FROM nzok_drug_overpay_by_inn),
+  agg AS (
+    SELECT * FROM nzok_drug_overpay_by_inn
+    WHERE year = (SELECT yr FROM y) AND inn = p_inn
+    LIMIT 1
+  )
+  SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM agg) THEN NULL ELSE jsonb_build_object(
+    'inn',           p_inn,
+    'year',          (SELECT yr FROM y),
+    'overpayEur',    (SELECT ROUND(overpay_eur)::bigint FROM agg),
+    'facilityCount', (SELECT facility_count FROM agg),
+    'packCount',     (SELECT pack_count FROM agg),
+    'maxRatio',      (SELECT max_ratio FROM agg),
+    'packs',         (SELECT packs FROM agg),
+    'rows', (
+      SELECT jsonb_agg(jsonb_build_object(
+               'nationalNo',    national_no,
+               'nzokCode',      nzok_code,
+               'tradeName',     trade_name,
+               'form',          form,
+               'facility',      facility,
+               'regNo',         reg_no,
+               'eik',           eik,
+               'unitEur',       unit_eur,
+               'medianUnitEur', median_unit_eur,
+               'ratio',         ratio,
+               'units',         units,
+               'overpayEur',    ROUND(overpay_eur)::bigint)
+             ORDER BY ROUND(overpay_eur) DESC,
+                      reg_no COLLATE "C", national_no COLLATE "C",
+                      nzok_code COLLATE "C", id)
+      FROM nzok_drug_overpay
+      -- period IS NULL = the annual (latest-full-year) ranking, the only rows this
+      -- table holds today; the guard keeps `rows` on one year if a future monthly
+      -- ranking ever shares the table (the headline `agg` is already max(year)).
+      WHERE inn = p_inn AND period IS NULL)
+  ) END;
+$$;
+
 RESET check_function_bodies;

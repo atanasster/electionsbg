@@ -1675,6 +1675,53 @@ export const route = (question: string, ctx: ToolContext): Route => {
   // an indicator's as-of year, a governance profile's as-of year.
   const promptYearMatch = q.match(/\b(20[0-2]\d)\b/);
   const promptYear = promptYearMatch ? Number(promptYearMatch[1]) : undefined;
+  // НЗОК drug-price DISPERSION / overpay ("кои болници надплащат за X", "цени на
+  // едно и също лекарство по болници", "over the median unit price") → the
+  // per-molecule tool. Reachable WITHOUT an explicit НЗОК reference (unlike the
+  // gated block below): it fires only on an overpay cue paired with either a
+  // medicine cue, a price-vs-hospital dispersion framing, or a named Latin INN —
+  // that pairing is the Справка-5 unit-price tile, never a COFOG or procurement
+  // question, so it can safely pre-empt budgetFunction. The tool resolves any
+  // named INN itself, so the raw question is passed as the entity.
+  {
+    const drugCue = has(q, "лекарств", "медикамент", "drug", "medicin");
+    const overpayCue = has(
+      q,
+      "надплаща",
+      "над медиан", // catches медиана / медианна / медианната
+      "най-скъпо",
+      "по-скъпо",
+      "overpa",
+      "above median",
+      "above the median",
+      "over the median",
+    );
+    // "цена(та) на едно и също лекарство по болници" — the tile's own framing:
+    // a PRICE, PER hospital, of the SAME item. All three parts must be present.
+    const dispersionCue =
+      has(q, "цена", "цени", "price", "единична цена", "unit price") &&
+      has(q, "болниц", "hospital", "лечебни заведения") &&
+      has(
+        q,
+        "едно и също",
+        "същ",
+        "same",
+        "различн",
+        "different",
+        "сравн",
+        "compar",
+      );
+    // A named Latin molecule (INN) in an overpay question, e.g.
+    // "надплащат за BEVACIZUMAB" — the deterministic router can't know it is a
+    // drug, but an all-caps-ish Latin token + an overpay cue is a safe signal
+    // (the tool falls back to the top-overpaid list if it resolves to nothing).
+    const namedMolecule = /\b[A-Z][A-Za-z]{5,}\b/.test(question);
+    if (
+      (drugCue && (overpayCue || dispersionCue)) ||
+      (overpayCue && namedMolecule)
+    )
+      return { tool: "nzokDrugMolecule", args: { inn: question } };
+  }
   // НЗОК (National Health Insurance Fund) health pack — budget-line breakdown,
   // drug reimbursement (by INN + growth), per-hospital БМП payments. Placed at
   // the top of the public-finance block so a health-fund question is not

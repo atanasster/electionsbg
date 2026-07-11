@@ -10,12 +10,14 @@
 // can reflect volume, delivery period or contract terms.
 
 import { FC, useState } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ChevronRight, Pill } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur, formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { useNzokDrugRisk } from "@/data/budget/useBudget";
+import { moleculeHref, packHref } from "./drugLinks";
 
 export const NzokDrugRiskTile: FC = () => {
   const { i18n } = useTranslation();
@@ -77,7 +79,13 @@ export const NzokDrugRiskTile: FC = () => {
                             isOpen ? "rotate-90" : ""
                           }`}
                         />
-                        {d.inn}
+                        <Link
+                          to={moleculeHref(d.inn)}
+                          className="text-accent hover:underline"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {d.inn}
+                        </Link>
                       </span>
                       <span className="ml-4 block text-[10px] text-muted-foreground">
                         {bg
@@ -122,12 +130,22 @@ export const NzokDrugRiskTile: FC = () => {
                             {d.packs.map((p) => (
                               <tr key={`${p.nzokCode}|${p.nationalNo}`}>
                                 <td className="py-0.5 pr-2">
-                                  <span className="font-medium">
-                                    {decodeEntities(p.tradeName) || p.nzokCode}
-                                  </span>
-                                  <span className="ml-1 text-muted-foreground">
-                                    {p.nationalNo || p.nzokCode}
-                                  </span>
+                                  <Link
+                                    to={packHref(
+                                      d.inn,
+                                      p.nationalNo,
+                                      p.nzokCode,
+                                    )}
+                                    className="text-accent hover:underline"
+                                  >
+                                    <span className="font-medium">
+                                      {decodeEntities(p.tradeName) ||
+                                        p.nzokCode}
+                                    </span>
+                                    <span className="ml-1 text-muted-foreground">
+                                      {p.nationalNo || p.nzokCode}
+                                    </span>
+                                  </Link>
                                 </td>
                                 <td className="py-0.5 pr-2 text-right tabular-nums text-muted-foreground">
                                   {formatEur(p.medianUnitEur, i18n.language, {

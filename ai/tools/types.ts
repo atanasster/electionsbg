@@ -148,7 +148,8 @@ export type ParamType =
   | "place"
   | "oblast"
   | "year"
-  | "indicator";
+  | "indicator"
+  | "text";
 
 // Groups tools for the router + the Explorer dropdown.
 export type Domain =

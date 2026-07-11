@@ -1353,6 +1353,38 @@ const DB_ROUTES = {
     );
     return { body: rows[0]?.r ?? null };
   },
+  // Drug-savings leaderboard (migration 055): national avoidable-overpay headline
+  // + per-hospital ranking, framed as recoverable euros. A signpost, not a verdict.
+  "nzok-drug-savings": async (dbRows) => {
+    const rows = await dbRows("SELECT nzok_drug_savings_overview() AS r", [
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
+  // One molecule's (INN) full detail → the /molecule/:inn page: headline, its
+  // packs, and every hospital that paid above the year median for those packs.
+  // Comparison stays at pack identity; a gap is a signpost, not a verdict.
+  "nzok-drug-molecule": async (dbRows, q) => {
+    const inn = s(q, "inn");
+    if (!inn) return { status: 400, body: { error: "missing inn" } };
+    const rows = await dbRows("SELECT nzok_drug_molecule_detail($1) AS r", [
+      inn,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
+  // One pack's full detail → the /molecule/:inn/pack page: latest dispersion
+  // band, the whole monthly median/p25/p75 trend, and the above-median
+  // facilities. Pack identity is (nationalNo, nzokCode); one may be blank.
+  "nzok-drug-pack": async (dbRows, q) => {
+    const nationalNo = s(q, "nationalNo");
+    const nzokCode = s(q, "nzokCode");
+    if (!nationalNo && !nzokCode)
+      return { status: 400, body: { error: "missing nationalNo or nzokCode" } };
+    const rows = await dbRows("SELECT nzok_drug_pack_detail($1, $2) AS r", [
+      nationalNo,
+      nzokCode,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
 };
 
 module.exports = { DB_ROUTES };

@@ -401,6 +401,16 @@ const FarmDetailScreen = lazy(() =>
     default: m.FarmDetailScreen,
   })),
 );
+const MoleculeDetailScreen = lazy(() =>
+  import("./screens/nzok/MoleculeDetailScreen").then((m) => ({
+    default: m.MoleculeDetailScreen,
+  })),
+);
+const DrugPackDetailScreen = lazy(() =>
+  import("./screens/nzok/DrugPackDetailScreen").then((m) => ({
+    default: m.DrugPackDetailScreen,
+  })),
+);
 const AppealsBrowserDbScreen = lazy(() =>
   import("./screens/dev/AppealsBrowserDbScreen").then((m) => ({
     default: m.AppealsBrowserDbScreen,
@@ -2014,6 +2024,26 @@ export const AuthRoutes = () => {
               <LayoutScreen>
                 <Suspense fallback={<RouteFallback />}>
                   <FarmDetailScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="molecule/:inn"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <MoleculeDetailScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="molecule/:inn/pack/:nationalNo/:nzokCode"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <DrugPackDetailScreen />
                 </Suspense>
               </LayoutScreen>
             }

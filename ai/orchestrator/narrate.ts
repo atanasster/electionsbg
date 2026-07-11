@@ -348,6 +348,15 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Най-бързо растящо лекарство (${f(env, "prior_year")}→${f(env, "year")}): ${f(env, "top_riser")}, ${f(env, "top_riser_change")} до ${f(env, "top_riser_amount")}; ${f(env, "newly_reimbursed")} новореимбурсирани.`
         : `Fastest-rising medicine (${f(env, "prior_year")}→${f(env, "year")}): ${f(env, "top_riser")}, ${f(env, "top_riser_change")} to ${f(env, "top_riser_amount")}; ${f(env, "newly_reimbursed")} newly reimbursed.`;
+    case "nzokDrugMolecule":
+      if (env.facts.inn_id)
+        return lang === "bg"
+          ? `За ${f(env, "inn")} ${f(env, "hospitals")} болници са платили общо ${f(env, "total_overpay")} над медианната цена за същата опаковка (${f(env, "year")}). Най-много — ${f(env, "top_hospital")} (+${f(env, "top_overpay")}). Ценовата разлика е сигнал за проверка, не нередност.`
+          : `For ${f(env, "inn")}, ${f(env, "hospitals")} hospitals paid ${f(env, "total_overpay")} above the median price for the same pack (${f(env, "year")}). The most — ${f(env, "top_hospital")} (+${f(env, "top_overpay")}). A price gap is a signpost, not an irregularity.`;
+      if (!env.facts.top_inn) return env.title;
+      return lang === "bg"
+        ? `Най-много над медианната цена болниците надплащат за ${f(env, "top_inn")} (+${f(env, "top_overpay")}, ${f(env, "top_hospitals")} болници); общо ${f(env, "molecules")} лекарства с отклонения (${f(env, "year")}).`
+        : `Hospitals overpay most for ${f(env, "top_inn")} (+${f(env, "top_overpay")}, ${f(env, "top_hospitals")} hospitals); ${f(env, "molecules")} medicines show above-median pricing (${f(env, "year")}).`;
     case "nzokHospitals":
       if (!env.facts.top_hospital) return env.title;
       return lang === "bg"

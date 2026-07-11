@@ -70,6 +70,7 @@ const PARAM_TYPE_LABELS: Record<ParamType, { bg: string; en: string }> = {
   oblast: { bg: "област", en: "oblast" },
   year: { bg: "година", en: "year" },
   indicator: { bg: "показател", en: "indicator" },
+  text: { bg: "текст", en: "text" },
 };
 
 // Human labels for the Envelope's three return shapes.

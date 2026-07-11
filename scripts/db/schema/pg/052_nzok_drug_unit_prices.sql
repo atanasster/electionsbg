@@ -94,6 +94,12 @@ CREATE INDEX IF NOT EXISTS idx_nzok_drug_overpay_eik
 -- The overpay leaderboard (overview): biggest gaps first.
 CREATE INDEX IF NOT EXISTS idx_nzok_drug_overpay_period_eur
   ON nzok_drug_overpay (period DESC, overpay_eur DESC);
+-- One molecule's rows (nzok_drug_molecule_detail → /molecule/:inn) and one
+-- pack's rows (nzok_drug_pack_detail → the pack page). Both filter this table.
+CREATE INDEX IF NOT EXISTS idx_nzok_drug_overpay_inn
+  ON nzok_drug_overpay (inn);
+CREATE INDEX IF NOT EXISTS idx_nzok_drug_overpay_pack
+  ON nzok_drug_overpay (national_no, nzok_code);
 
 -- The volume floor, in one place, for the overview payload (mirrors
 -- VOLUME_FLOOR_PACKS in scripts/nzok/write_drug_unit_prices.ts — a pack held in
@@ -213,6 +219,70 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     )
   ) END
   FROM s;
+$$;
+
+-- --------------------------------------------------------------------------
+-- One pack's FULL detail → the /molecule/:inn/pack page. The latest period's
+-- dispersion band, the whole monthly median/p25/p75 series (the "is the gap
+-- widening?" evidence a lone month cannot give), and every facility that paid
+-- ABOVE the year median for this exact pack. Pack identity is
+-- (national_no, nzok_code); pass '' for a side the pack lacks. NULL when the
+-- pack has no priced rows. A price gap is a SIGNPOST, not a verdict (see header).
+-- --------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION nzok_drug_pack_detail(p_national_no text, p_nzok_code text)
+RETURNS jsonb LANGUAGE sql STABLE AS $$
+  WITH s AS (
+    SELECT * FROM nzok_drug_pack_stats
+    WHERE national_no = p_national_no AND nzok_code = p_nzok_code
+  ),
+  latest AS (SELECT * FROM s ORDER BY period DESC LIMIT 1)
+  SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM s) THEN NULL ELSE jsonb_build_object(
+    'nationalNo',       p_national_no,
+    'nzokCode',         p_nzok_code,
+    'inn',              (SELECT min(inn COLLATE "C") FROM s),
+    'tradeName',        (SELECT min(trade_name COLLATE "C") FROM s),
+    'form',             (SELECT min(form COLLATE "C") FROM s),
+    'atc',              (SELECT min(atc COLLATE "C") FROM s),
+    'volumeFloorPacks', nzok_drug_volume_floor_packs(),
+    'latestPeriod',     (SELECT to_char(period, 'YYYY-MM') FROM latest),
+    'medianUnitEur',    (SELECT median_unit_eur FROM latest),
+    'p25UnitEur',       (SELECT p25_unit_eur FROM latest),
+    'p75UnitEur',       (SELECT p75_unit_eur FROM latest),
+    'facilityCount',    (SELECT facility_count FROM latest),
+    'totalPacks',       (SELECT total_packs FROM latest),
+    'totalEur',         (SELECT ROUND(total_eur)::bigint FROM latest),
+    'series', (
+      SELECT jsonb_agg(jsonb_build_object(
+               'period',        to_char(period, 'YYYY-MM'),
+               'medianUnitEur', median_unit_eur,
+               'p25UnitEur',    p25_unit_eur,
+               'p75UnitEur',    p75_unit_eur,
+               'facilityCount', facility_count,
+               'totalPacks',    total_packs,
+               'totalEur',      ROUND(total_eur)::bigint)
+             ORDER BY period)
+      FROM s),
+    -- Every facility above the year median for THIS pack. nzok_drug_overpay holds
+    -- only above-median rows, so this is the honest "who paid more" list, not the
+    -- full roster (below-median facilities exist only in the aggregate band above).
+    'rows', (
+      SELECT jsonb_agg(jsonb_build_object(
+               'facility',      facility,
+               'regNo',         reg_no,
+               'eik',           eik,
+               'unitEur',       unit_eur,
+               'medianUnitEur', median_unit_eur,
+               'ratio',         ratio,
+               'units',         units,
+               'overpayEur',    ROUND(overpay_eur)::bigint)
+             ORDER BY ROUND(overpay_eur) DESC, reg_no COLLATE "C", id)
+      FROM nzok_drug_overpay
+      -- period IS NULL = the annual (latest-full-year) ranking, the only rows this
+      -- table holds today; the guard keeps `rows` on one year if a future monthly
+      -- ranking ever shares the table.
+      WHERE national_no = p_national_no AND nzok_code = p_nzok_code
+        AND period IS NULL)
+  ) END;
 $$;
 
 -- --------------------------------------------------------------------------

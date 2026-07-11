@@ -66,6 +66,7 @@ import {
 import { CompanyConnectionCheck } from "../components/procurement/CompanyConnectionCheck";
 import { NzokHospitalReimbursementTile } from "../components/procurement/nzok/NzokHospitalReimbursementTile";
 import { NzokActivityByEikTile } from "../components/procurement/nzok/NzokActivityByEikTile";
+import { NzokDrugOverpayByEikTile } from "../components/procurement/nzok/NzokDrugOverpayByEikTile";
 import { NzokFinancialHealthStrip } from "@/screens/components/procurement/nzok/NzokFinancialHealthStrip";
 import { SchoolIdentityTile } from "../components/procurement/mon/SchoolIdentityTile";
 import {
@@ -720,6 +721,11 @@ export const CompanyDbScreen: FC = () => {
               by cases + national share). The per-patient denominator. Self-hides
               unless this EIK matched a facility in the activity crosswalk. */}
           <NzokActivityByEikTile eik={eik} />
+          {/* This hospital's own drug packs priced above the national year-median
+              — the per-entity view of the health pack's price-dispersion tile.
+              Rows link to /molecule/:inn and the pack trend. Self-hides unless
+              this EIK has above-median drug rows. */}
+          <NzokDrugOverpayByEikTile eik={eik} />
           {/* Everything BELOW the НЗОК money line — revenue vs expense, total and
               overdue liabilities, occupancy, length of stay. Self-hides unless
               this EIK matched a hospital in the МЗ quarterly financials. */}
