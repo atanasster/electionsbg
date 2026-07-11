@@ -622,7 +622,11 @@ const DB_ROUTES = {
     const operators = await dbRows(
       `SELECT awarder_eik AS eik,
               count(*)::int AS "contractCount",
-              round(sum(amount_eur))::double precision AS "totalEur"
+              round(sum(amount_eur))::double precision AS "totalEur",
+              count(*) FILTER (WHERE number_of_tenderers IS NOT NULL)::int
+                AS "bidKnownN",
+              count(*) FILTER (WHERE number_of_tenderers = 1)::int
+                AS "singleBidN"
        FROM contracts
        WHERE awarder_eik = ANY($1) AND tag = 'contract'
          AND date >= COALESCE($2, '')

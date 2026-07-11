@@ -1641,6 +1641,29 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "water/operators",
+    title:
+      "ВиК оператори — поръчки, конкуренция и еврофондове | electionsbg.com",
+    description:
+      "Всички ВиК оператори в България — обществени поръчки, дял с една оферта и европейски средства (ИСУН, договорени срещу усвоени), по дружество и област.",
+    breadcrumbName: "ВиК оператори",
+    bodyHtml: `
+<h1>ВиК оператори — поръчки, конкуренция и европейски средства</h1>
+<p>Таблица на всички водоснабдителни дружества в България: обществените им поръчки (АОП/ЦАИС ЕОП), делът на договорите с една оферта и усвояването на европейските средства по програмите (ИСУН) — по дружество и област, сортируема.</p>
+<p>Виж и <a href="${SITE_URL}/water">обзора на водния сектор</a> и <a href="${SITE_URL}/awarder/206086428">Български ВиК холдинг</a>.</p>`.trim(),
+    english: {
+      title:
+        "Water operators — procurement, competition and EU funds | electionsbg.com",
+      description:
+        "Every water operator in Bulgaria — public procurement, single-bidder share and EU funds (ИСУН, contracted vs absorbed), by company and region.",
+      breadcrumbName: "Water operators",
+      bodyHtml: `
+<h1>Water operators — procurement, competition and EU funds</h1>
+<p>A table of every water utility in Bulgaria: their public procurement (АОП/ЦАИС ЕОП), the share of single-bidder contracts, and their absorption of EU funds (ИСУН) — by company and region, sortable.</p>
+<p>See also the <a href="${SITE_URL}/water">water-sector overview</a> and the <a href="${SITE_URL}/awarder/206086428">Bulgarian Water Holding</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "water",
     title:
       "Води (ВиК) — обществените поръчки на водния сектор | electionsbg.com",

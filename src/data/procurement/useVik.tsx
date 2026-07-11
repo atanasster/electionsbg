@@ -37,6 +37,10 @@ export interface VikOperatorAgg {
   oblast: string;
   totalEur: number;
   contractCount: number;
+  /** Single-bid share among contracts with a known tenderer count; null if
+   *  none carry a count. Drives the competition heatmap. */
+  singleBidShare: number | null;
+  bidKnownN: number;
 }
 
 export interface VikData {
@@ -95,13 +99,23 @@ export const useVik = (
         );
         const op = operatorByEik(e);
         let totalEur = 0;
-        for (const c of scoped) totalEur += c.amountEur ?? 0;
+        let bidKnownN = 0;
+        let singleBidN = 0;
+        for (const c of scoped) {
+          totalEur += c.amountEur ?? 0;
+          if (c.numberOfTenderers != null) {
+            bidKnownN += 1;
+            if (c.numberOfTenderers === 1) singleBidN += 1;
+          }
+        }
         return {
           eik: e,
           name: op?.name ?? `ЕИК ${e}`,
           oblast: op?.oblast ?? "",
           totalEur,
           contractCount: scoped.length,
+          singleBidShare: bidKnownN > 0 ? singleBidN / bidKnownN : null,
+          bidKnownN,
         };
       })
       .filter((o) => o.contractCount > 0)
@@ -137,7 +151,13 @@ export const useVikGroupRollup = (
   const { data, isLoading } = useQuery({
     queryKey: ["db", "awarder-group-rollup", eikParam, from, to] as const,
     queryFn: async (): Promise<{
-      operators: { eik: string; contractCount: number; totalEur: number }[];
+      operators: {
+        eik: string;
+        contractCount: number;
+        totalEur: number;
+        bidKnownN: number;
+        singleBidN: number;
+      }[];
     }> => {
       const p = new URLSearchParams({ eiks: eikParam });
       if (from) p.set("from", from);
@@ -160,6 +180,8 @@ export const useVikGroupRollup = (
           oblast: op?.oblast ?? "",
           totalEur: o.totalEur,
           contractCount: o.contractCount,
+          singleBidShare: o.bidKnownN > 0 ? o.singleBidN / o.bidKnownN : null,
+          bidKnownN: o.bidKnownN,
         };
       }),
     [data],

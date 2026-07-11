@@ -31,6 +31,7 @@ import { VikSubsidiaryTile } from "./VikSubsidiaryTile";
 import { VikCategoryTile } from "./VikCategoryTile";
 import { VikEuFundsTile } from "./VikEuFundsTile";
 import { VikContractorHhiTile } from "./VikContractorHhiTile";
+import { VikCompetitionTile } from "./VikCompetitionTile";
 
 export const VikPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   eik,
@@ -153,6 +154,9 @@ export const VikPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         suppliers={model.suppliers}
         totalEur={model.totalEur}
       />
+
+      {/* Per-operator single-bid heatmap — where competition collapses */}
+      <VikCompetitionTile operators={operators} />
 
       <p className="text-[11px] text-muted-foreground/80">
         {bg

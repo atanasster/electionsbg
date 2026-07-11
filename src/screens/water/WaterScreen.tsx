@@ -17,6 +17,7 @@ import { VikSubsidiaryTile } from "@/screens/components/procurement/vik/VikSubsi
 import { VikCategoryTile } from "@/screens/components/procurement/vik/VikCategoryTile";
 import { VikEuFundsTile } from "@/screens/components/procurement/vik/VikEuFundsTile";
 import { VikContractorHhiTile } from "@/screens/components/procurement/vik/VikContractorHhiTile";
+import { VikCompetitionTile } from "@/screens/components/procurement/vik/VikCompetitionTile";
 import { WaterFloodTile } from "./WaterFloodTile";
 
 export const WaterScreen: FC = () => {
@@ -63,6 +64,7 @@ export const WaterScreen: FC = () => {
             suppliers={model.suppliers}
             totalEur={model.totalEur}
           />
+          <VikCompetitionTile operators={operators} />
         </div>
       ) : (
         <p className="text-sm text-muted-foreground">
@@ -77,6 +79,13 @@ export const WaterScreen: FC = () => {
       <WaterFloodTile />
 
       <div className="flex flex-wrap gap-3 pt-1 text-sm">
+        <Link
+          to="/water/operators"
+          className="inline-flex items-center gap-1 text-primary hover:underline"
+        >
+          {bg ? "Всички ВиК оператори" : "All water operators"}
+          <ArrowRight className="h-3.5 w-3.5" />
+        </Link>
         <Link
           to={`/awarder/${VIK_HOLDING_EIK}`}
           className="inline-flex items-center gap-1 text-primary hover:underline"
