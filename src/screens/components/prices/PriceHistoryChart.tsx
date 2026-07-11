@@ -91,8 +91,17 @@ export const PriceHistoryChart: FC<Props> = ({ points, height = 220 }) => {
   const T = (bg: string, en: string) => (lang === "bg" ? bg : en);
   const hovPt = hover != null ? pts[hover] : null;
 
-  const nearestIndex = (clientX: number, rect: DOMRect) => {
-    const px = ((clientX - rect.left) / rect.width) * W;
+  // Map the pointer's screen X onto the CURRENT nearest data point. The SVG uses
+  // the default `xMidYMid meet`, so on a wide container the viewBox is scaled to
+  // fit and CENTERED with horizontal letterbox padding — the drawing does NOT
+  // fill rect.width. Mapping screen→viewBox with rect.width alone therefore
+  // over/undershoots by the letterbox offset, and the crosshair drifts away from
+  // the cursor. Go through the element's own CTM instead, which folds in the
+  // scale + letterbox translate exactly (FINDING-013).
+  const nearestIndex = (svg: SVGSVGElement, clientX: number) => {
+    const ctm = svg.getScreenCTM();
+    // ctm.a = x-scale, ctm.e = x-translate (no rotation): userX = (screenX-e)/a.
+    const px = ctm ? (clientX - ctm.e) / ctm.a : 0;
     let best = 0;
     let bestD = Infinity;
     pts.forEach((p, i) => {
@@ -147,11 +156,7 @@ export const PriceHistoryChart: FC<Props> = ({ points, height = 220 }) => {
         style={{ height }}
         role="img"
         aria-label={`${T("Цена във времето", "Price over time")}: ${T("макс", "high")} ${fmtEur(view.hi.min_eur, lang)}, ${T("мин", "low")} ${fmtEur(view.lo.min_eur, lang)}, ${T("средно", "average")} ${fmtEur(view.avg, lang)}`}
-        onMouseMove={(e) =>
-          setHover(
-            nearestIndex(e.clientX, e.currentTarget.getBoundingClientRect()),
-          )
-        }
+        onMouseMove={(e) => setHover(nearestIndex(e.currentTarget, e.clientX))}
         onMouseLeave={() => setHover(null)}
       >
         {/* min/max annotation dots, labelled with their date */}

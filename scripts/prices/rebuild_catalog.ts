@@ -303,12 +303,29 @@ export const rebuildCatalog = async (): Promise<void> => {
       // price_current subquery, so a conditional-only UPDATE would leave its
       // PRIOR-run price advertised for something no longer on any shelf
       // (FINDING-004).
+      // Unit-outlier guard (mirrors build_product_days.ts): a per-kg product's
+      // cheapest price ignores store-facts below half its cross-store median, so
+      // a per-piece listing (a single banana at €0.76) cannot masquerade as the
+      // "cheapest БАНАНИ". Packaged goods keep the raw min (legit pack spreads).
       await c.query(`UPDATE price_products p SET current_min_eur = NULL`);
       await c.query(`
+        WITH cur AS (
+          SELECT k.product_id, pc.price_eur, p.unit_priced
+            FROM price_current pc
+            JOIN price_skus k ON k.sku_id = pc.sku_id
+            JOIN price_products p ON p.product_id = k.product_id
+           WHERE k.product_id IS NOT NULL
+        ),
+        med AS (
+          SELECT product_id,
+                 percentile_cont(0.5) WITHIN GROUP (ORDER BY price_eur) AS m
+            FROM cur GROUP BY product_id
+        )
         UPDATE price_products p SET current_min_eur = x.m
-          FROM (SELECT k.product_id, min(pc.price_eur) AS m
-                  FROM price_current pc JOIN price_skus k ON k.sku_id = pc.sku_id
-                 WHERE k.product_id IS NOT NULL GROUP BY k.product_id) x
+          FROM (SELECT cur.product_id, min(cur.price_eur) AS m
+                  FROM cur JOIN med USING (product_id)
+                 WHERE NOT cur.unit_priced OR cur.price_eur >= 0.5 * med.m
+                 GROUP BY cur.product_id) x
          WHERE x.product_id = p.product_id`);
 
       // pct_since_euro = MEDIAN today vs MEDIAN on euro day, NOT min vs min.

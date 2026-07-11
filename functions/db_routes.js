@@ -1105,24 +1105,41 @@ const DB_ROUTES = {
     const slug = s(q, "slug");
     if (!slug) return { status: 400, body: { error: "missing slug" } };
     const ekatte = s(q, "ekatte"); // optional: narrow the ladder to one place
+    // Unit-outlier guard (mirrors build_product_days.ts): for a per-kg product,
+    // drop store-facts below half its cross-store median before ranking chains,
+    // so a per-piece listing (a single banana at €0.76) is not shown as the
+    // cheapest chain. Packaged goods keep every row. The median is over the whole
+    // (place-scoped) store panel, not the per-chain mins, so one small chain
+    // cannot move the floor. Ranking-only: it never hides a chain's real per-kg
+    // price, only spurious per-piece values.
     const rows = await dbRows(
-      `WITH p AS (SELECT * FROM price_products WHERE slug = $1)
+      `WITH p AS (SELECT * FROM price_products WHERE slug = $1),
+            panel AS (
+              SELECT k.eik, ch.name AS chain, pc.price_eur, pc.promo_eur,
+                     pc.store_id, p.unit_priced
+                FROM p
+                JOIN price_skus    k  ON k.product_id = p.product_id
+                JOIN price_current pc ON pc.sku_id = k.sku_id
+                JOIN price_stores  st ON st.store_id = pc.store_id
+                JOIN price_chains  ch ON ch.eik = k.eik
+               WHERE ($2 = '' OR st.ekatte = $2)
+            ),
+            med AS (
+              SELECT percentile_cont(0.5) WITHIN GROUP (ORDER BY price_eur) AS m
+                FROM panel
+            )
        SELECT jsonb_build_object(
          'product', (SELECT to_jsonb(p) FROM p),
          'chains', COALESCE((
             SELECT jsonb_agg(to_jsonb(x) ORDER BY x.price_eur, x.eik COLLATE "C")
-              FROM (SELECT k.eik,
-                           MIN(ch.name COLLATE "C") AS chain,
-                           MIN(pc.price_eur)        AS price_eur,
-                           MIN(pc.promo_eur)        AS promo_eur,
-                           COUNT(DISTINCT pc.store_id) AS stores
-                      FROM p
-                      JOIN price_skus    k  ON k.product_id = p.product_id
-                      JOIN price_current pc ON pc.sku_id = k.sku_id
-                      JOIN price_stores  st ON st.store_id = pc.store_id
-                      JOIN price_chains  ch ON ch.eik = k.eik
-                     WHERE ($2 = '' OR st.ekatte = $2)
-                     GROUP BY k.eik) x), '[]'::jsonb)
+              FROM (SELECT panel.eik,
+                           MIN(panel.chain COLLATE "C") AS chain,
+                           MIN(panel.price_eur)         AS price_eur,
+                           MIN(panel.promo_eur)         AS promo_eur,
+                           COUNT(DISTINCT panel.store_id) AS stores
+                      FROM panel CROSS JOIN med
+                     WHERE NOT panel.unit_priced OR panel.price_eur >= 0.5 * med.m
+                     GROUP BY panel.eik) x), '[]'::jsonb)
        ) AS r`,
       [slug, ekatte],
     ).catch(missingMigrationEmpty);
@@ -1158,22 +1175,36 @@ const DB_ROUTES = {
     //
     // st.eik is always k.eik — a SKU belongs to exactly one chain, verified zero
     // cross-chain facts — so no price_stores join is needed for the mask.
+    // Unit-outlier guard mirrors build_product_days.ts: per-kg products drop
+    // store-facts below half the day's cross-store median so a single per-piece
+    // price cannot pin the min; packaged goods keep the raw min. (For a 1–2 SKU
+    // tail product the half-median floor never bites — there is no panel.)
     const rows = await dbRows(
-      `WITH p AS (SELECT product_id FROM price_products WHERE slug = $1),
-            span AS (SELECT min(day) AS d0, max(day) AS d1 FROM price_grid_days)
-       SELECT d.day::text AS day,
-              MIN(f.price_eur)      AS min_eur,
-              COUNT(DISTINCT k.eik) AS chains
-         FROM span
-         CROSS JOIN generate_series(span.d0, span.d1, interval '1 day') AS d(day)
-         JOIN price_skus  k ON k.product_id = (SELECT product_id FROM p)
-                           AND d.day::date BETWEEN k.first_seen AND k.last_seen
-         JOIN price_facts f ON f.sku_id = k.sku_id
-                           AND f.valid_from <= d.day::date
-                           AND (f.valid_to IS NULL OR f.valid_to >= d.day::date)
-         JOIN price_chain_days cd ON cd.day = d.day::date AND cd.eik = k.eik
-        GROUP BY d.day
-        ORDER BY d.day`,
+      `WITH p AS (SELECT product_id, unit_priced FROM price_products WHERE slug = $1),
+            span AS (SELECT min(day) AS d0, max(day) AS d1 FROM price_grid_days),
+            pd AS (
+              SELECT d.day::date AS day, k.eik, f.price_eur,
+                     (SELECT unit_priced FROM p) AS unit_priced
+                FROM span
+                CROSS JOIN generate_series(span.d0, span.d1, interval '1 day') AS d(day)
+                JOIN price_skus  k ON k.product_id = (SELECT product_id FROM p)
+                                  AND d.day::date BETWEEN k.first_seen AND k.last_seen
+                JOIN price_facts f ON f.sku_id = k.sku_id
+                                  AND f.valid_from <= d.day::date
+                                  AND (f.valid_to IS NULL OR f.valid_to >= d.day::date)
+                JOIN price_chain_days cd ON cd.day = d.day::date AND cd.eik = k.eik
+            ),
+            med AS (
+              SELECT day, percentile_cont(0.5) WITHIN GROUP (ORDER BY price_eur) AS m
+                FROM pd GROUP BY day
+            )
+       SELECT pd.day::text AS day,
+              MIN(pd.price_eur)      AS min_eur,
+              COUNT(DISTINCT pd.eik) AS chains
+         FROM pd JOIN med USING (day)
+        WHERE NOT pd.unit_priced OR pd.price_eur >= 0.5 * med.m
+        GROUP BY pd.day
+        ORDER BY pd.day`,
       [slug],
     ).catch(missingMigrationRows);
     return { body: rows };
@@ -1356,8 +1387,33 @@ const DB_ROUTES = {
   // Drug-savings leaderboard (migration 055): national avoidable-overpay headline
   // + per-hospital ranking, framed as recoverable euros. A signpost, not a verdict.
   "nzok-drug-savings": async (dbRows) => {
-    const rows = await dbRows("SELECT nzok_drug_savings_overview() AS r", [
-    ]).catch(missingMigrationEmpty);
+    const rows = await dbRows(
+      "SELECT nzok_drug_savings_overview() AS r",
+      [],
+    ).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
+  // One hospital's financial "report card" (migration 056): each ratio measure
+  // vs the national median + the p40/p60 "around the median" band + percentile.
+  "nzok-financials-measures-by-eik": async (dbRows, q) => {
+    const eik = s(q, "eik");
+    if (!eik) return { status: 400, body: { error: "missing eik" } };
+    const rows = await dbRows(
+      "SELECT nzok_financials_measures_by_eik($1) AS r",
+      [eik],
+    ).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
+  // One measure's decile fan over time (migration 056): p10..p90 bands + median
+  // per quarter, with the selected hospital's own value threaded through.
+  "nzok-financials-measure-fan": async (dbRows, q) => {
+    const measure = s(q, "measure");
+    const eik = s(q, "eik");
+    if (!measure) return { status: 400, body: { error: "missing measure" } };
+    const rows = await dbRows(
+      "SELECT nzok_financials_measure_fan($1, $2) AS r",
+      [measure, eik ?? ""],
+    ).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? null };
   },
   // One molecule's (INN) full detail → the /molecule/:inn page: headline, its

@@ -17,6 +17,17 @@
 //      SKU's open run drags its last price forward forever.
 //   2. A day only counts when that chain actually reported (price_chain_days).
 //      A reporting gap is a gap, never a flat line.
+//
+// UNIT-OUTLIER GUARD (unit_priced products only). Loose produce is a per-kg
+// basket item, but a few small chains enter a PER-PIECE price (a single banana
+// at €0.76, priced where the feed expects €/kg). One such store-fact then pins
+// the whole product's daily MIN far below the real market — БАНАНИ read €0.76
+// while the median chain sold at €1.89/kg, and a transient one-day €0.50 glitch
+// dropped it further. So for unit_priced products we take the MIN only among
+// facts at or above half that day's cross-store median; packaged goods (legit
+// small-vs-large-pack spreads) keep the raw MIN. Half-median is a conservative
+// floor: it removes gross per-piece/typo outliers while preserving real promos
+// (a genuine €0.99 banana promo above the €0.95 floor survives).
 
 import type { PoolClient } from "pg";
 import { withClient, allRows } from "../db/lib/pg";
@@ -44,21 +55,37 @@ export const buildProductDays = async (
             ORDER BY chain_count DESC, sku_count DESC, slug COLLATE "C" ASC
             LIMIT $2
          ),
-         span AS (SELECT min(day) AS d0, max(day) AS d1 FROM price_grid_days)
+         span AS (SELECT min(day) AS d0, max(day) AS d1 FROM price_grid_days),
+         -- Every masked store-fact for the head, per day. store_id lives on the
+         -- fact, so this is the full cross-store panel the median is taken over.
+         pd AS (
+           SELECT k.product_id, d.day::date AS day, k.eik,
+                  f.price_eur, pr.unit_priced
+             FROM span
+             CROSS JOIN generate_series(span.d0, span.d1, interval '1 day') AS d(day)
+             JOIN price_products pr ON pr.product_id IN (SELECT product_id FROM head)
+             JOIN price_skus  k ON k.product_id = pr.product_id
+                               AND d.day::date BETWEEN k.first_seen AND k.last_seen
+             JOIN price_facts f ON f.sku_id = k.sku_id
+                               AND f.valid_from <= d.day::date
+                               AND (f.valid_to IS NULL OR f.valid_to >= d.day::date)
+             -- st.eik is always k.eik (a SKU belongs to exactly one chain; verified
+             -- zero cross-chain facts), so the price_stores join is pure overhead.
+             JOIN price_chain_days cd ON cd.day = d.day::date AND cd.eik = k.eik
+         ),
+         med AS (
+           SELECT product_id, day,
+                  percentile_cont(0.5) WITHIN GROUP (ORDER BY price_eur) AS m
+             FROM pd GROUP BY product_id, day
+         )
          INSERT INTO price_product_days (product_id, day, min_eur, chains)
-         SELECT k.product_id, d.day::date,
-                MIN(f.price_eur), COUNT(DISTINCT k.eik)
-           FROM span
-           CROSS JOIN generate_series(span.d0, span.d1, interval '1 day') AS d(day)
-           JOIN price_skus  k ON k.product_id IN (SELECT product_id FROM head)
-                             AND d.day::date BETWEEN k.first_seen AND k.last_seen
-           JOIN price_facts f ON f.sku_id = k.sku_id
-                             AND f.valid_from <= d.day::date
-                             AND (f.valid_to IS NULL OR f.valid_to >= d.day::date)
-           -- st.eik is always k.eik (a SKU belongs to exactly one chain; verified
-           -- zero cross-chain facts), so the price_stores join is pure overhead.
-           JOIN price_chain_days cd ON cd.day = d.day::date AND cd.eik = k.eik
-          GROUP BY k.product_id, d.day`,
+         SELECT pd.product_id, pd.day,
+                MIN(pd.price_eur), COUNT(DISTINCT pd.eik)
+           FROM pd JOIN med USING (product_id, day)
+          -- unit-outlier guard: per-kg products drop facts below half the daily
+          -- cross-store median; packaged goods keep the raw min (see header).
+          WHERE NOT pd.unit_priced OR pd.price_eur >= 0.5 * med.m
+          GROUP BY pd.product_id, pd.day`,
         [today, limit],
       );
       await c.query("COMMIT");
