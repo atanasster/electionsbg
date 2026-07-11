@@ -941,6 +941,92 @@ export interface NoiFundsFile {
 }
 
 // ---------------------------------------------------------------------------
+// НОИ pension statistics (the /pensions view) — mirror of the shapes written by
+// scripts/budget/noi/parse_yearbook_xlsx.ts. Served at /budget/noi/pensions.json.
+// ---------------------------------------------------------------------------
+
+export interface NoiNationalYear {
+  year: number;
+  avgWageBgn: number | null;
+  avgWageEur: number | null;
+  avgInsurableIncomeBgn: number | null;
+  avgInsurableIncomeEur: number | null;
+  avgPensionBgn: number | null;
+  avgPensionEur: number | null;
+  pensionerCount: number | null;
+}
+
+export interface NoiPensionBracket {
+  index: number;
+  lo: number | null; // лв, null = open ("до X")
+  hi: number | null; // лв, null = open ("над X")
+  labelBg: string;
+  count: number;
+  share: number;
+}
+
+export interface NoiPensionDistributionYear {
+  year: number;
+  total: number;
+  minPensionBgn: number | null;
+  atCapCount: number | null;
+  capBgn: number | null;
+  aboveCapCount: number | null;
+  povertyLineBgn: number | null;
+  brackets: NoiPensionBracket[];
+}
+
+export interface NoiPensionOblastRow {
+  code: string;
+  nameBg: string;
+  avgPensionBgn: number;
+  avgPensionEur: number;
+  yoyPct: number | null;
+  pensions: number | null;
+  bankPaid: number | null;
+  cashPaid: number | null;
+  cashShare: number | null;
+}
+
+export interface NoiPensionsFile {
+  generatedAt: string;
+  source: { publisher: string; urlTemplate: string; description: string };
+  latestYear: number;
+  years: number[];
+  national: NoiNationalYear[];
+  distribution: NoiPensionDistributionYear[];
+  oblasts: Record<number, NoiPensionOblastRow[]>;
+}
+
+// ---------------------------------------------------------------------------
+// КФН private pension funds (pillars 2 & 3) — mirror of the shapes written by
+// scripts/budget/kfn/parse_kfn.ts. Served at /budget/kfn/funds.json.
+// ---------------------------------------------------------------------------
+
+export type KfnPillar = "UPF" | "PPF" | "VPF" | "VPFOS";
+
+export interface KfnFundRow {
+  pillar: KfnPillar;
+  pillarLabelBg: string;
+  pillarLabelEn: string;
+  pillarNumber: 2 | 3;
+  fundName: string;
+  companyBg: string;
+  companyEn: string;
+  insured: number | null;
+  netAssetsBgn: number | null;
+  netAssetsEur: number | null;
+}
+
+export interface KfnFundsFile {
+  generatedAt: string;
+  period: string;
+  periodLabel: string;
+  source: { publisher: string; url: string; description: string };
+  funds: KfnFundRow[];
+}
+
+// ---------------------------------------------------------------------------
 // Investment Program — Приложение № 3 към чл. 113 of the State Budget Law.
 // Per-project capital allocations to municipalities (3000+ projects in 2025).
 // Drives the drilldown on the Sankey's "Капиталови разходи" leaf.

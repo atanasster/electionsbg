@@ -288,6 +288,10 @@ export const governanceMenu: MenuItem[] = [
           // for the money half. The procurement sub-nav pill points here too, so
           // this label has exactly one destination everywhere.
           { title: "judiciary_nav", link: "/judiciary" },
+          // Пенсии — the pension-system view (pillar 1 НОИ/ДОО); the NOI awarder
+          // page above (procurement_noi_nav) is the procurement half, this is the
+          // whole-fund half, and the two cross-link.
+          { title: "pensions_nav", link: "/pensions" },
           { title: "procurement_dfz_nav", link: DFZ_AWARDER_PATH },
         ],
       },

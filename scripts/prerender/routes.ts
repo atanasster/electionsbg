@@ -135,6 +135,63 @@ const judiciaryFacts = (() => {
   };
 })();
 
+// The /pensions body quotes real figures from the committed pensions.json so the
+// prerendered HTML (what crawlers read) matches the page. Read at build time; if
+// the artifact is ever moved behind bucket:sync, this must become a lazy read.
+const pensionFacts = (() => {
+  const j = JSON.parse(
+    fs.readFileSync(
+      path.join(PROJECT_ROOT, "data/budget/noi/pensions.json"),
+      "utf-8",
+    ),
+  ) as {
+    latestYear: number;
+    national: { year: number; avgPensionBgn: number | null }[];
+    distribution: {
+      year: number;
+      total: number;
+      minPensionBgn: number | null;
+      brackets: { hi: number | null; count: number }[];
+    }[];
+    oblasts: Record<
+      string,
+      { pensions: number | null; bankPaid: number | null }[]
+    >;
+  };
+  const dist =
+    j.distribution.find((d) => d.year === j.latestYear) ??
+    j.distribution[j.distribution.length - 1];
+  const nat =
+    j.national.find((n) => n.year === j.latestYear) ??
+    j.national[j.national.length - 1];
+  const atOrBelowMin = dist.brackets
+    .filter(
+      (b) =>
+        dist.minPensionBgn != null &&
+        b.hi != null &&
+        b.hi <= dist.minPensionBgn + 0.01,
+    )
+    .reduce((s, b) => s + b.count, 0);
+  const minSharePct = ((100 * atOrBelowMin) / dist.total).toFixed(1);
+  const oblastRows = j.oblasts[String(j.latestYear)] ?? [];
+  const totPens = oblastRows.reduce((s, r) => s + (r.pensions ?? 0), 0);
+  const totBank = oblastRows.reduce((s, r) => s + (r.bankPaid ?? 0), 0);
+  const cashSharePct = totPens
+    ? (100 * (1 - totBank / totPens)).toFixed(0)
+    : "0";
+  return {
+    latestYear: j.latestYear,
+    avgPensionBg: (nat.avgPensionBgn ?? 0).toLocaleString("bg-BG", {
+      maximumFractionDigits: 0,
+    }),
+    minPension: dist.minPensionBgn ?? 0,
+    minSharePct,
+    cashSharePct,
+    pensionersBg: dist.total.toLocaleString("bg-BG"),
+    pensionersEn: dist.total.toLocaleString("en-US"),
+  };
+})();
+
 // The ДФЗ subsidy corpus lives only in Postgres, so the /subsidies body carries
 // no payment figures — only the covered financial years, which come from the
 // same constant the app's year picker reads. The years have gaps (2018–2020 are
@@ -1469,6 +1526,46 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>
 <p>The judiciary's money — its budget by spending body, own revenue from court fees, and the Supreme Judicial Council's public procurement — is on the <a href="${SITE_URL}/en/awarder/121513231">Supreme Judicial Council page</a>. See also the <a href="${SITE_URL}/en/budget">state budget</a>.</p>
 <p>Source: <a href="https://vss.justice.bg/page/view/1082" rel="nofollow noopener">Supreme Judicial Council — court statistics</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "pensions",
+    title:
+      "Пенсии — кой плаща, разпределение и средна пенсия по области | electionsbg.com",
+    description: `Кой плаща пенсиите в България (вноски срещу трансфер от бюджета), как са разпределени — ${pensionFacts.minSharePct}% получават минимална пенсия или по-малко — средна пенсия и плащания в брой по области, по данни от статистическия годишник на НОИ.`,
+    breadcrumbName: "Пенсии",
+    ogImage: "/og/pensions.png",
+    bodyHtml: `
+<h1>Пенсии — кой плаща и как са разпределени</h1>
+<p>През ${pensionFacts.latestYear} г. България изплаща пенсии на ${pensionFacts.pensionersBg} пенсионери, при средна пенсия ${pensionFacts.avgPensionBg} лв на месец. Но средната стойност описва малцина: ${pensionFacts.minSharePct}% от пенсионерите получават минималната пенсия (${pensionFacts.minPension} лв) или по-малко. Тази страница показва разпределението, което средното крие, и кой всъщност плаща.</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li><strong>Кой плаща пенсиите</strong> — собствените осигурителни вноски на ДОО покриват само около половината от разходите; останалото е трансфер от държавния бюджет.</li>
+<li><strong>Разпределение по размер</strong> — колко пенсионери получават близо до минимума, колко са на тавана, и къде е линията на бедност.</li>
+<li><strong>Средна пенсия по области</strong> — от София-град до Кърджали, спред от около 1,5 пъти.</li>
+<li><strong>Плащания в брой по области</strong> — около ${pensionFacts.cashSharePct}% от пенсиите се получават в брой, а не по банков път — географията на финансовото изключване сред пенсионерите.</li>
+<li><strong>Заплата, осигурителен доход и пенсия</strong> — националните редове през годините.</li>
+</ul>
+<p>Обществените поръчки на НОИ — какво купува институтът и от кого — са на <a href="${SITE_URL}/awarder/121082521">страницата на НОИ като възложител</a>. Виж и <a href="${SITE_URL}/budget">държавния бюджет</a>.</p>
+<p>Източник: <a href="https://www.nssi.bg/" rel="nofollow noopener">НОИ — статистически годишник „Пенсии"</a>.</p>`.trim(),
+    english: {
+      title:
+        "Bulgaria's Pensions — Who Pays, the Distribution, and Average by Oblast | electionsbg.com",
+      description: `Who pays for Bulgaria's pensions (contributions vs the state-budget transfer), how they are distributed — ${pensionFacts.minSharePct}% get the minimum pension or less — average pension and cash payment by oblast, from the NSSI statistical yearbook.`,
+      breadcrumbName: "Pensions",
+      bodyHtml: `
+<h1>Bulgaria's pensions — who pays and how they are distributed</h1>
+<p>In ${pensionFacts.latestYear}, Bulgaria paid pensions to ${pensionFacts.pensionersEn} pensioners, at an average of ${pensionFacts.avgPensionBg} лв a month. But the average describes almost no one: ${pensionFacts.minSharePct}% of pensioners get the minimum pension (${pensionFacts.minPension} лв) or less. This page shows the distribution the average hides — and who actually pays.</p>
+<h2>What you'll find</h2>
+<ul>
+<li><strong>Who pays for pensions</strong> — ДОО's own contributions cover only about half of the outlay; the rest is a transfer from the state budget.</li>
+<li><strong>Distribution by size</strong> — how many pensioners sit near the minimum, how many at the cap, and where the poverty line falls.</li>
+<li><strong>Average pension by oblast</strong> — from Sofia-grad to Kardzhali, a spread of about 1.5×.</li>
+<li><strong>Cash payment by oblast</strong> — about ${pensionFacts.cashSharePct}% of pensions are collected in cash rather than paid to a bank account — the geography of financial exclusion among pensioners.</li>
+<li><strong>Wage, insurable income and pension</strong> — the national series over time.</li>
+</ul>
+<p>НОИ's public procurement — what the institute buys and from whom — is on the <a href="${SITE_URL}/en/awarder/121082521">NSSI awarder page</a>. See also the <a href="${SITE_URL}/en/budget">state budget</a>.</p>
+<p>Source: <a href="https://www.nssi.bg/" rel="nofollow noopener">NSSI — the "Pensions" statistical yearbook</a>.</p>`.trim(),
     },
   }),
   staticPage({

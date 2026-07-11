@@ -23,13 +23,17 @@ export const NOI_ADMIN_BENCHMARK = {
   drvHi: 0.013, // DRV regional carriers ~1.3%
 } as const;
 
-/** НОИ's own published pensioner headcount (all pension types), keyed by year —
+/** НОИ's exact 31.12 pensioner headcount (all pension types), keyed by year —
  *  the denominator for the "administration per pensioner" KPI. Keyed (not a
  *  single constant) so the KPI hides rather than divides a new B1 year's admin
- *  spend by a stale headcount; add the year when it is published. Source: НОИ
- *  statistical bulletin. */
+ *  spend by a stale headcount. Values are the "Общо" total of the pension
+ *  size-distribution table (chapter 5.1 of the annual yearbook), i.e. the same
+ *  figure `data/budget/noi/pensions.json` carries as `distribution[].total` —
+ *  update from that artifact, not by hand. */
 export const NOI_PENSIONERS_BY_YEAR: Record<number, number> = {
-  2024: 2_060_000,
+  2022: 2_030_318,
+  2023: 2_037_336,
+  2024: 2_052_553,
 };
 
 export type NoiCategory =

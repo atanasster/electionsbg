@@ -85,6 +85,12 @@ import {
 } from "./electionDepth";
 import { govDebt, noiFunds } from "./fiscalDebt";
 import {
+  kfnFunds,
+  noiPensionByOblast,
+  noiPensionDistribution,
+  noiPensionSeries,
+} from "./pensions";
+import {
   chmiEvents,
   localCouncil,
   localMayorHistory,
@@ -2631,6 +2637,95 @@ export const TOOLS: ToolDef[] = [
     params: [],
     examples: [{ bg: "Колко харчи НОИ?", en: "How much does NSSI spend?" }],
     run: noiFunds,
+  },
+  {
+    name: "noiPensionDistribution",
+    domain: "fiscal",
+    description: {
+      bg: "Разпределение на пенсиите по размер — колко пенсионери взимат минималната пенсия или по-малко, колко са на тавана и над него, и къде е линията на бедност. Показва защо средната пенсия описва почти никого.",
+      en: "The pension-size distribution — how many pensioners get the minimum pension or less, how many sit at or above the cap, and where the poverty line falls. Shows why the average pension describes almost no one.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Колко пенсионери взимат минимална пенсия?",
+        en: "How many pensioners get the minimum pension?",
+      },
+      {
+        bg: "Как се разпределят пенсиите по размер?",
+        en: "How are pensions distributed by size?",
+      },
+    ],
+    run: noiPensionDistribution,
+  },
+  {
+    name: "noiPensionByOblast",
+    domain: "fiscal",
+    description: {
+      bg: "Средна пенсия по област — най-високите и най-ниските области, разликата между тях и делът на пенсиите, изплащани в брой (а не по банков път).",
+      en: "Average pension by oblast — the highest- and lowest-paying regions, the spread between them, and the share of pensions still drawn in cash rather than paid to a bank.",
+    },
+    // No params: the tool returns the national top/bottom overview and does not
+    // filter by a single oblast (removing the advertised param so the contract
+    // matches behaviour — the router calls it with args: {}).
+    params: [],
+    examples: [
+      {
+        bg: "Средна пенсия по област",
+        en: "Average pension by region",
+      },
+      {
+        bg: "Къде пенсиите се взимат най-много в брой?",
+        en: "Where are pensions drawn most in cash?",
+      },
+    ],
+    run: noiPensionByOblast,
+  },
+  {
+    name: "noiPensionSeries",
+    domain: "fiscal",
+    description: {
+      bg: "Средна заплата, осигурителен доход и пенсия през годините, с коефициента на заместване (пенсия спрямо заплата). Как расте пенсията спрямо доходите.",
+      en: "Average wage, insurable income and pension over the years, with the replacement ratio (pension relative to wage). How the pension tracks incomes over time.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Каква е средната пенсия спрямо заплатата?",
+        en: "How does the average pension compare to the wage?",
+      },
+      {
+        bg: "Как се променя средната пенсия през годините?",
+        en: "How has the average pension changed over the years?",
+      },
+    ],
+    run: noiPensionSeries,
+  },
+  {
+    name: "kfnFunds",
+    domain: "fiscal",
+    description: {
+      bg: "Частни пенсионни фондове (втори и трети стълб, КФН) — общо нетни активи и осигурени лица, разбивка по стълб (УПФ/ППФ/ДПФ/ДПФПС) и най-големите дружества по активи (Доверие, Алианц, ДСК и др.).",
+      en: "Private pension funds (pillars 2 & 3, KFN) — total net assets and insured persons, a per-pillar split (universal/professional/voluntary/voluntary-occupational) and the biggest companies by assets (Doverie, Allianz, DSK, etc.).",
+    },
+    params: [
+      {
+        name: "count",
+        type: "count",
+        description: { bg: "Брой фондове", en: "Number of funds" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кои са най-големите частни пенсионни фондове?",
+        en: "Which are the biggest private pension funds?",
+      },
+      {
+        bg: "Колко активи има УПФ Доверие?",
+        en: "How much in assets does the UPF Doverie fund hold?",
+      },
+    ],
+    run: kfnFunds,
   },
   {
     name: "budgetExecution",

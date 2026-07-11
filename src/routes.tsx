@@ -135,6 +135,11 @@ const JudiciaryScreen = lazy(() =>
     default: m.JudiciaryScreen,
   })),
 );
+const PensionsScreen = lazy(() =>
+  import("./screens/pensions/PensionsScreen").then((m) => ({
+    default: m.PensionsScreen,
+  })),
+);
 const EducationScreen = lazy(() =>
   import("./screens/education/EducationScreen").then((m) => ({
     default: m.EducationScreen,
@@ -1345,6 +1350,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <JudiciaryScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="pensions"
+            element={
+              <LayoutScreen>
+                <PensionsScreen />
               </LayoutScreen>
             }
           />

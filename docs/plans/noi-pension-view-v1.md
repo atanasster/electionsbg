@@ -1,7 +1,56 @@
 # Пенсии (NOI pension view) — v1 plan
 
-Status: **researched, not built**. No code written. Supersedes nothing; the existing
-NOI procurement pack stays exactly where it is.
+Status: **v1 fully built (uncommitted) — all five phases + pack §8 shipped and verified.**
+Only remaining item: the deferred pack momentum tile (§8.3 #4). See "Build status" below.
+
+## Build status (2026-07-11)
+
+Shipped and verified in-browser (typecheck + lint clean, not committed):
+
+- **Ingest** — `scripts/budget/noi/parse_yearbook_xlsx.ts` + `__write_pensions.ts` →
+  `data/budget/noi/pensions.json` (national series, size distribution, per-oblast avg
+  pension + cash-vs-bank, Eurostat poverty line). All the §4.3 parser rules; the
+  sum-to-Общо gate passes for 2022/2023/2024. Pensioner constant + STATB watcher fixed.
+  The B1 transfer-line fix and the ДОО-scoping fix landed earlier (committed).
+- **/pensions view** — route, nav leaf (governance) + prefix, i18n (both locales),
+  `data_map` dataset+feature+edges, prerender staticPage (reads pensions.json), sitemap.
+  Tiles: funding hero (46.8% / €239 reframe), distribution histogram (floor spike + cap
+  wall + poverty line), oblast avg-pension choropleth + sorted bars, cash-collection
+  choropleth (29% national), long wage/income/pension series.
+- **Pack §8 ship-now** — shared `<InsightChips>` + `<PillToggle>` primitives, €↔count
+  toggle on the category & suppliers tiles, Pareto concentration curve, and the
+  `NoiIntegrityTile` (single-bid with the statutory mandate split out — the §8.4
+  differentiator).
+- **Phase 3 — КФН pillars 2/3** — `scripts/budget/kfn/parse_kfn.ts` + `__write_funds.ts`
+  parse the four accumulation workbooks (UPF/PPF/VPF/VPFOS) → `data/budget/kfn/funds.json`
+  (31 funds, €14.6bn net assets, 5.1M insured). `KfnFundsTile` on `/pensions`: sortable
+  fund comparison (net assets ↔ insured toggle), grouped by pillar, company labels.
+  **Stored as static JSON, not Postgres** — a deviation from §4.2: ~30 funds/quarter
+  (~120 rows/year) is firmly static-JSON territory by the §4.1 query test, and the Cloud
+  SQL deploy can't complete from this environment. If the corpus is later widened to
+  per-participant grain or many metrics × many quarters, revisit PG. Deferred: the
+  `/company/:eik` cross-link (needs the ПОД EIKs) and a КФН quarterly watcher.
+
+- **Phase 4 — reform sandbox** — `src/lib/pensionReform.ts` (pure engine reusing the
+  `bgTaxPolicy` scorers + `policy_baseline.json`) and `PensionReformTile` on `/pensions`.
+  Levers: contribution rate, Swiss-rule indexation weight, minimum pension, cap. Live
+  scoreboard (% of the €5.9bn ДОО transfer closed, deficit as % of GDP), per-lever
+  breakdown, constraint flags, exposed-assumptions footnote. Verified live: +3pp + CPI-only
+  closes 24% (€5.9bn → €4.5bn); raising the minimum to €500 *widens* it to €8.5bn (−45%),
+  the adequacy-vs-sustainability tradeoff shown honestly. Retirement age deliberately
+  omitted (needs an actuarial cohort model, not a static elasticity).
+
+- **Phase 5 — replacement signature + projection** — `src/lib/pensionFormula.ts` (the КСО
+  formula on synthetic biographies, OECD PaG method). `PensionReplacementTile`: the
+  three-earner signature (low 54% / median 54% / high 48% for a 40-yr career, floored for
+  low earners and capped for high — the redistributive shape), career-length toggle
+  (30y → median 41%). `PensionProjectionTile`: НОИ vs EC pension-expenditure-to-2070 as two
+  named lines from the verified §3.3 anchors (~1pp gap = the point), not a fabricated fan.
+
+Not built: pack momentum tile (§8.3 #4, deferred — needs a shared-engine change and adds
+little for NOI's few structural suppliers). Everything else in this plan is built.
+
+The existing NOI procurement pack stays where it is; the view is additive and cross-links.
 
 Goal: make naiasno.bg the best public pension analysis in the world for one country,
 using only published aggregates and the law. Ship a top-level `/pensions` view covering

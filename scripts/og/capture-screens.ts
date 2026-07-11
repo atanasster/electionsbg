@@ -239,6 +239,17 @@ const captures: Capture[] = [
     settleMs: 3000,
   },
   {
+    slug: "pensions",
+    routePath: "pensions",
+    // The "who pays for pensions" hero — the 46.8% state-transfer reframe and
+    // the contributions/transfer proportion bar, the sharpest single image on
+    // the page. Sits right below the KPI row.
+    waitFor: '[data-og="pension-funding"]',
+    anchor: '[data-og="pension-funding"]',
+    centerOnAnchor: true,
+    settleMs: 2500,
+  },
+  {
     slug: "budget-tax-calculator",
     routePath: "budget/tax-calculator",
     // The calculator's two-pane layout — inputs (profile, salary slider) on

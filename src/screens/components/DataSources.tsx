@@ -619,6 +619,14 @@ export const DataSources = () => {
                 label={t("budget_noi_statb_source")}
               />
               <SourceItem
+                href="https://nssi.bg/publikacii/statistika/pensii-statistika/"
+                label={t("budget_noi_yearbook_source")}
+              />
+              <SourceItem
+                href="https://www.fsc.bg/en/social-insurance-activity/statistics/"
+                label={t("budget_kfn_source")}
+              />
+              <SourceItem
                 href="https://www.nsi.bg/en/content/3953/employed-persons-and-average-annual-wages-and-salaries-economic-activities"
                 label={t("budget_nsi_wages_source")}
               />

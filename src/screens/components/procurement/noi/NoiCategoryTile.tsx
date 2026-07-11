@@ -5,14 +5,17 @@
 // its € share, its dominant supplier and its single-bid share, so the reader
 // sees not just WHAT is bought but how competitively. Pure from NoiCategoryAgg.
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Boxes } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
+import { PillToggle } from "@/components/ui/PillToggle";
 import { formatEurCompact } from "@/lib/currency";
 import { categoryLabel } from "@/lib/noiBenchmarks";
 import type { NoiCategoryAgg } from "@/lib/noiAttributes";
+
+type Metric = "value" | "count";
 
 const CATEGORY_COLOR: Record<string, string> = {
   it: "bg-primary",
@@ -30,12 +33,23 @@ export const NoiCategoryTile: FC<{
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
+  const [metric, setMetric] = useState<Metric>("value");
   const rows = categories.filter((c) => c.totalEur > 0);
   if (rows.length < 2 || totalEur <= 0) return null;
+  const byCount = metric === "count";
+  const metricOf = (c: NoiCategoryAgg) =>
+    byCount ? c.contractCount : c.totalEur;
+  const totalCount = rows.reduce((s, c) => s + c.contractCount, 0);
+  // Denominator for the value share — summed over the SAME displayed rows as
+  // totalCount, so the per-row percentages are on a consistent basis whichever
+  // metric is toggled (rather than mixing Σrows for count with the grand-total
+  // prop for value).
+  const totalValue = rows.reduce((s, c) => s + c.totalEur, 0);
   // True maximum, not rows[0]: the sink ("Друго") is forced last in the sort but
   // can be the largest bucket (it is for НОИ), so rows[0] would under-scale it
-  // and overflow its bar. Scale bar widths against the actual biggest value.
-  const max = Math.max(...rows.map((c) => c.totalEur));
+  // and overflow its bar. Scale bar widths against the actual biggest value in
+  // the active metric.
+  const max = Math.max(...rows.map(metricOf)) || 1;
   // "Друго" on НОИ is overwhelmingly contracts with no CPV code (small ТП-level
   // purchases), not an unmapped theme — say so rather than let a big grey bar
   // read as hidden spend.
@@ -45,21 +59,42 @@ export const NoiCategoryTile: FC<{
   return (
     <Card>
       <CardHeader className="pb-2">
-        <CardTitle className="text-base flex items-center gap-2">
-          <Boxes className="h-4 w-4" />
-          {bg ? "Какво купува НОИ — по функция" : "What НОИ buys — by function"}
-        </CardTitle>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <CardTitle className="text-base flex items-center gap-2">
+            <Boxes className="h-4 w-4" />
+            {bg
+              ? "Какво купува НОИ — по функция"
+              : "What НОИ buys — by function"}
+          </CardTitle>
+          <PillToggle<Metric>
+            ariaLabel={bg ? "Мярка" : "Metric"}
+            value={metric}
+            onChange={setMetric}
+            options={[
+              { value: "value", label: bg ? "Стойност" : "Value" },
+              { value: "count", label: bg ? "Брой" : "Count" },
+            ]}
+          />
+        </div>
       </CardHeader>
       <CardContent className="p-3 md:p-4 space-y-2.5">
         {rows.map((c) => {
-          const share = c.totalEur / totalEur;
+          const share = byCount
+            ? totalCount > 0
+              ? c.contractCount / totalCount
+              : 0
+            : totalValue > 0
+              ? c.totalEur / totalValue
+              : 0;
           const sb = c.singleBidShare;
           return (
             <div key={c.id} className="text-xs">
               <div className="flex items-baseline justify-between gap-2 mb-1">
                 <span className="font-medium">{categoryLabel(c.id, lang)}</span>
                 <span className="tabular-nums text-muted-foreground">
-                  {formatEurCompact(c.totalEur, lang)}
+                  {byCount
+                    ? c.contractCount.toLocaleString(lang)
+                    : formatEurCompact(c.totalEur, lang)}
                   <span className="ml-1 text-muted-foreground/70">
                     {(share * 100).toLocaleString(lang, {
                       maximumFractionDigits: 0,
@@ -71,7 +106,9 @@ export const NoiCategoryTile: FC<{
               <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
                 <div
                   className={`h-full rounded-full ${CATEGORY_COLOR[c.id] ?? "bg-primary"}`}
-                  style={{ width: `${Math.max(2, (c.totalEur / max) * 100)}%` }}
+                  style={{
+                    width: `${Math.max(2, (metricOf(c) / max) * 100)}%`,
+                  }}
                 />
               </div>
               <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[11px] text-muted-foreground">

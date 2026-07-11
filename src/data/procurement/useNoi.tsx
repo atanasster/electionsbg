@@ -137,3 +137,18 @@ export const useNoi = (
     isLoading: contracts.isLoading || funds.isLoading,
   };
 };
+
+/** Just the flattened ДОО fund year — for the /pensions view, which wants the
+ *  fund-execution figures without paying to load НОИ's whole contract corpus
+ *  (the awarder pack's job). Same source and shape as useNoi().fundYear. */
+export const useNoiFundYear = (): {
+  fundYear: NoiFundYear | null;
+  isLoading: boolean;
+} => {
+  const funds = useNoiFunds();
+  const fundYear = useMemo(
+    () => flattenFundYear(funds.data ?? null),
+    [funds.data],
+  );
+  return { fundYear, isLoading: funds.isLoading };
+};

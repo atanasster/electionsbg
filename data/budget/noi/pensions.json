@@ -1,0 +1,1441 @@
+{
+  "generatedAt": "2026-07-11T01:16:10.436Z",
+  "source": {
+    "publisher": "Национален осигурителен институт (NOI)",
+    "urlTemplate": "https://www.nssi.bg/wp-content/uploads/Yearbook_Pensions_{YYYY}.zip",
+    "description": "Annual pension statistical yearbook (ZIP of chapter workbooks). Chapter 1 = national wage/income/pension series; chapter 5 = pension size distribution; chapter 9 = per-oblast avg pension + cash-vs-bank."
+  },
+  "latestYear": 2024,
+  "years": [
+    2022,
+    2023,
+    2024
+  ],
+  "national": [
+    {
+      "year": 2020,
+      "avgWageBgn": 1390.5833333333333,
+      "avgWageEur": 711,
+      "avgInsurableIncomeBgn": 1069.5,
+      "avgInsurableIncomeEur": 547,
+      "avgPensionBgn": 437.17,
+      "avgPensionEur": 224,
+      "pensionerCount": null
+    },
+    {
+      "year": 2021,
+      "avgWageBgn": 1561.0833333333333,
+      "avgWageEur": 798,
+      "avgInsurableIncomeBgn": 1169.25,
+      "avgInsurableIncomeEur": 598,
+      "avgPensionBgn": 536.71,
+      "avgPensionEur": 274,
+      "pensionerCount": null
+    },
+    {
+      "year": 2022,
+      "avgWageBgn": 1770.1666666666667,
+      "avgWageEur": 905,
+      "avgInsurableIncomeBgn": 1298.45,
+      "avgInsurableIncomeEur": 664,
+      "avgPensionBgn": 674.54,
+      "avgPensionEur": 345,
+      "pensionerCount": 2030318
+    },
+    {
+      "year": 2023,
+      "avgWageBgn": 2040.4166666666667,
+      "avgWageEur": 1043,
+      "avgInsurableIncomeBgn": 1445.55,
+      "avgInsurableIncomeEur": 739,
+      "avgPensionBgn": 784.48,
+      "avgPensionEur": 401,
+      "pensionerCount": 2037336
+    },
+    {
+      "year": 2024,
+      "avgWageBgn": 2323.4166666666665,
+      "avgWageEur": 1188,
+      "avgInsurableIncomeBgn": 1655.5,
+      "avgInsurableIncomeEur": 846,
+      "avgPensionBgn": 883.02,
+      "avgPensionEur": 451,
+      "pensionerCount": 2052553
+    }
+  ],
+  "distribution": [
+    {
+      "year": 2022,
+      "total": 2030318,
+      "minPensionBgn": 467,
+      "atCapCount": 990,
+      "capBgn": 3400,
+      "aboveCapCount": 3,
+      "povertyLineBgn": 526,
+      "brackets": [
+        {
+          "index": 1,
+          "lo": null,
+          "hi": 222.3,
+          "labelBg": "до 222,30 лв.",
+          "count": 2572,
+          "share": 0.0012667966298875349
+        },
+        {
+          "index": 2,
+          "lo": 222.31,
+          "hi": 350.25,
+          "labelBg": "от 222,31 до 350,25 лв.",
+          "count": 121793,
+          "share": 0.05998715472157563
+        },
+        {
+          "index": 3,
+          "lo": 350.26,
+          "hi": 396.95,
+          "labelBg": "от 350,26 до 396,95 лв.",
+          "count": 232390,
+          "share": 0.11445990234042155
+        },
+        {
+          "index": 4,
+          "lo": 396.96,
+          "hi": 467,
+          "labelBg": "от 396,96 до 467,00 лв.",
+          "count": 462208,
+          "share": 0.22765300805095556
+        },
+        {
+          "index": 5,
+          "lo": 467.01,
+          "hi": 600,
+          "labelBg": "от 467,01 до 600,00 лв.",
+          "count": 471237,
+          "share": 0.23210009466497367
+        },
+        {
+          "index": 6,
+          "lo": 600.01,
+          "hi": 700,
+          "labelBg": "от 600,01 до 700,00 лв.",
+          "count": 171446,
+          "share": 0.08444292962974273
+        },
+        {
+          "index": 7,
+          "lo": 700.01,
+          "hi": 800,
+          "labelBg": "от 700,01 до 800,00 лв.",
+          "count": 124781,
+          "share": 0.061458845363140155
+        },
+        {
+          "index": 8,
+          "lo": 800.01,
+          "hi": 900,
+          "labelBg": "от 800,01 до 900,00 лв.",
+          "count": 93332,
+          "share": 0.045969153600568975
+        },
+        {
+          "index": 9,
+          "lo": 900.01,
+          "hi": 1000,
+          "labelBg": "от 900,01 до 1000,00 лв.",
+          "count": 71570,
+          "share": 0.03525063561471651
+        },
+        {
+          "index": 10,
+          "lo": 1000.01,
+          "hi": 1200,
+          "labelBg": "от 1000,01 до 1200,00 лв.",
+          "count": 99751,
+          "share": 0.04913072730478674
+        },
+        {
+          "index": 11,
+          "lo": 1200.01,
+          "hi": 1400,
+          "labelBg": "от 1200,01 до 1400,00 лв.",
+          "count": 60902,
+          "share": 0.029996286296038354
+        },
+        {
+          "index": 12,
+          "lo": 1400.01,
+          "hi": 1600,
+          "labelBg": "от 1400,01 до 1600,00 лв.",
+          "count": 39768,
+          "share": 0.01958707946242904
+        },
+        {
+          "index": 13,
+          "lo": 1600.01,
+          "hi": 2000,
+          "labelBg": "от 1600,01 до 2000,00 лв.",
+          "count": 46833,
+          "share": 0.02306682992516443
+        },
+        {
+          "index": 14,
+          "lo": 2000.01,
+          "hi": 2500,
+          "labelBg": "от 2000,01 до 2500,00 лв.",
+          "count": 23641,
+          "share": 0.011643988774172321
+        },
+        {
+          "index": 15,
+          "lo": 2500.01,
+          "hi": 3000,
+          "labelBg": "от 2500,01 до 3000,00 лв.",
+          "count": 5893,
+          "share": 0.0029025009875300323
+        },
+        {
+          "index": 16,
+          "lo": 3000.01,
+          "hi": 3400,
+          "labelBg": "от 3000,01 до 3400,00 лв.",
+          "count": 2198,
+          "share": 0.0010825890328510115
+        },
+        {
+          "index": 17,
+          "lo": 3400,
+          "hi": null,
+          "labelBg": "над 3400,00 лв.",
+          "count": 3,
+          "share": 0.0000014776010457475135
+        }
+      ]
+    },
+    {
+      "year": 2023,
+      "total": 2037336,
+      "minPensionBgn": 523.04,
+      "atCapCount": 2080,
+      "capBgn": 3400,
+      "aboveCapCount": 4,
+      "povertyLineBgn": 638,
+      "brackets": [
+        {
+          "index": 1,
+          "lo": null,
+          "hi": 248.98,
+          "labelBg": "до 248.98 лв.",
+          "count": 2341,
+          "share": 0.0011490495431288703
+        },
+        {
+          "index": 2,
+          "lo": 248.99,
+          "hi": 392.28,
+          "labelBg": "от 248.99 до 392.28 лв.",
+          "count": 122841,
+          "share": 0.06029491453545218
+        },
+        {
+          "index": 3,
+          "lo": 392.29,
+          "hi": 444.58,
+          "labelBg": "от 392.29 до 444.58 лв.",
+          "count": 243013,
+          "share": 0.11927978497410344
+        },
+        {
+          "index": 4,
+          "lo": 444.59,
+          "hi": 523.04,
+          "labelBg": "от 444.59 до 523.04 лв.",
+          "count": 445960,
+          "share": 0.21889369254752283
+        },
+        {
+          "index": 5,
+          "lo": 523.05,
+          "hi": 600,
+          "labelBg": "от 523.05 до 600.00 лв.",
+          "count": 272747,
+          "share": 0.13387433393411788
+        },
+        {
+          "index": 6,
+          "lo": 600.01,
+          "hi": 700,
+          "labelBg": "от 600.01 до 700.00 лв.",
+          "count": 248519,
+          "share": 0.12198233379275682
+        },
+        {
+          "index": 7,
+          "lo": 700.01,
+          "hi": 800,
+          "labelBg": "от 700.01 до 800.00 лв.",
+          "count": 142639,
+          "share": 0.07001250652813282
+        },
+        {
+          "index": 8,
+          "lo": 800.01,
+          "hi": 900,
+          "labelBg": "от 800.01 до 900.00 лв.",
+          "count": 108366,
+          "share": 0.053190048180565205
+        },
+        {
+          "index": 9,
+          "lo": 900.01,
+          "hi": 1000,
+          "labelBg": "от 900.01 до 1000.00 лв.",
+          "count": 84774,
+          "share": 0.041610220405470674
+        },
+        {
+          "index": 10,
+          "lo": 1000.01,
+          "hi": 1200,
+          "labelBg": "от 1000.01 до 1200.00 лв.",
+          "count": 120765,
+          "share": 0.05927593681160103
+        },
+        {
+          "index": 11,
+          "lo": 1200.01,
+          "hi": 1400,
+          "labelBg": "от 1200.01 до 1400.00 лв.",
+          "count": 78211,
+          "share": 0.03838885682086803
+        },
+        {
+          "index": 12,
+          "lo": 1400.01,
+          "hi": 1600,
+          "labelBg": "от 1400.01 до 1600.00 лв.",
+          "count": 51141,
+          "share": 0.025101897772385116
+        },
+        {
+          "index": 13,
+          "lo": 1600.01,
+          "hi": 2000,
+          "labelBg": "от 1600.01 до 2000.00 лв.",
+          "count": 60651,
+          "share": 0.029769758154766814
+        },
+        {
+          "index": 14,
+          "lo": 2000.01,
+          "hi": 2500,
+          "labelBg": "от 2000.01 до 2500.00 лв.",
+          "count": 37124,
+          "share": 0.018221834788174362
+        },
+        {
+          "index": 15,
+          "lo": 2500.01,
+          "hi": 3000,
+          "labelBg": "от 2500.01 до 3000.00 лв.",
+          "count": 13078,
+          "share": 0.006419166990619122
+        },
+        {
+          "index": 16,
+          "lo": 3000.01,
+          "hi": 3400,
+          "labelBg": "от 3000.01 до 3400.00 лв.",
+          "count": 5162,
+          "share": 0.0025337008721192772
+        },
+        {
+          "index": 17,
+          "lo": 3400,
+          "hi": null,
+          "labelBg": "над 3400.00 лв.",
+          "count": 4,
+          "share": 0.000001963348215512807
+        }
+      ]
+    },
+    {
+      "year": 2024,
+      "total": 2052553,
+      "minPensionBgn": 580.57,
+      "atCapCount": 4598,
+      "capBgn": 3400,
+      "aboveCapCount": 7,
+      "povertyLineBgn": 764,
+      "brackets": [
+        {
+          "index": 1,
+          "lo": null,
+          "hi": 276.37,
+          "labelBg": "до 276.37 лв.",
+          "count": 2168,
+          "share": 0.0010562455634519547
+        },
+        {
+          "index": 2,
+          "lo": 276.37,
+          "hi": 435.43,
+          "labelBg": "от 276.37 до 435.43 лв.",
+          "count": 124453,
+          "share": 0.060633269883895814
+        },
+        {
+          "index": 3,
+          "lo": 435.44,
+          "hi": 493.48,
+          "labelBg": "от 435.44 до 493.48 лв.",
+          "count": 256219,
+          "share": 0.12482941975188948
+        },
+        {
+          "index": 4,
+          "lo": 493.49,
+          "hi": 580.57,
+          "labelBg": "от 493.49 до 580.57 лв.",
+          "count": 429473,
+          "share": 0.20923844597435487
+        },
+        {
+          "index": 5,
+          "lo": 580.58,
+          "hi": 700,
+          "labelBg": "от 580.58 до 700.00 лв.",
+          "count": 401318,
+          "share": 0.19552138239548503
+        },
+        {
+          "index": 6,
+          "lo": 700.01,
+          "hi": 800,
+          "labelBg": "от 700.01 до 800.00 лв.",
+          "count": 159080,
+          "share": 0.07750347981270155
+        },
+        {
+          "index": 7,
+          "lo": 800.01,
+          "hi": 900,
+          "labelBg": "от 800.01 до 900.00 лв.",
+          "count": 122253,
+          "share": 0.0595614339800239
+        },
+        {
+          "index": 8,
+          "lo": 900.01,
+          "hi": 1000,
+          "labelBg": "от 900.01 до 1000.00 лв.",
+          "count": 96806,
+          "share": 0.04716370295919277
+        },
+        {
+          "index": 9,
+          "lo": 1000.01,
+          "hi": 1200,
+          "labelBg": "от 1000.01 до 1200.00 лв.",
+          "count": 140574,
+          "share": 0.0684873910685863
+        },
+        {
+          "index": 10,
+          "lo": 1200.01,
+          "hi": 1400,
+          "labelBg": "от 1200.01 до 1400.00 лв.",
+          "count": 94945,
+          "share": 0.04625702722414476
+        },
+        {
+          "index": 11,
+          "lo": 1400.01,
+          "hi": 1600,
+          "labelBg": "от 1400.01 до 1600.00 лв.",
+          "count": 64555,
+          "share": 0.031451075806568696
+        },
+        {
+          "index": 12,
+          "lo": 1600.01,
+          "hi": 1800,
+          "labelBg": "от 1600.01 до 1800.00 лв.",
+          "count": 44696,
+          "share": 0.021775807981572217
+        },
+        {
+          "index": 13,
+          "lo": 1800.01,
+          "hi": 2000,
+          "labelBg": "от 1800.01 до 2000.00 лв.",
+          "count": 31956,
+          "share": 0.015568903701877614
+        },
+        {
+          "index": 14,
+          "lo": 2000.01,
+          "hi": 2500,
+          "labelBg": "от 2000.01 до 2500.00 лв.",
+          "count": 49601,
+          "share": 0.024165514849068453
+        },
+        {
+          "index": 15,
+          "lo": 2500.01,
+          "hi": 3000,
+          "labelBg": "от 2500.01 до 3000.00 лв.",
+          "count": 22949,
+          "share": 0.01118071007179839
+        },
+        {
+          "index": 16,
+          "lo": 3000.01,
+          "hi": 3400,
+          "labelBg": "от 3000.01 до 3400.00 лв.",
+          "count": 11500,
+          "share": 0.0056027785884213465
+        },
+        {
+          "index": 17,
+          "lo": 3400,
+          "hi": null,
+          "labelBg": "над 3400.00 лв.",
+          "count": 7,
+          "share": 0.0000034103869668651674
+        }
+      ]
+    }
+  ],
+  "oblasts": {
+    "2022": [
+      {
+        "code": "BLG",
+        "nameBg": "Благоевград",
+        "avgPensionBgn": 620.3008426933325,
+        "avgPensionEur": 317,
+        "yoyPct": 1.266798566051216,
+        "pensions": 81736,
+        "bankPaid": 45580,
+        "cashPaid": 36156,
+        "cashShare": 0.44235098365469316
+      },
+      {
+        "code": "BGS",
+        "nameBg": "Бургас",
+        "avgPensionBgn": 741.5022941023508,
+        "avgPensionEur": 379,
+        "yoyPct": 1.2362379702077824,
+        "pensions": 105491,
+        "bankPaid": 71657,
+        "cashPaid": 33834,
+        "cashShare": 0.3207287825501702
+      },
+      {
+        "code": "VAR",
+        "nameBg": "Варна",
+        "avgPensionBgn": 711.5599282299598,
+        "avgPensionEur": 364,
+        "yoyPct": 1.251392427094084,
+        "pensions": 117599,
+        "bankPaid": 76245,
+        "cashPaid": 41354,
+        "cashShare": 0.35165265010756896
+      },
+      {
+        "code": "VTR",
+        "nameBg": "Велико Търново",
+        "avgPensionBgn": 641.2816935167958,
+        "avgPensionEur": 328,
+        "yoyPct": 1.2675695286868713,
+        "pensions": 70370,
+        "bankPaid": 47220,
+        "cashPaid": 23150,
+        "cashShare": 0.3289754156600824
+      },
+      {
+        "code": "VID",
+        "nameBg": "Видин",
+        "avgPensionBgn": 603.0839034120205,
+        "avgPensionEur": 308,
+        "yoyPct": 1.2693674355759479,
+        "pensions": 30252,
+        "bankPaid": 18386,
+        "cashPaid": 11866,
+        "cashShare": 0.3922385296839878
+      },
+      {
+        "code": "VRC",
+        "nameBg": "Враца",
+        "avgPensionBgn": 671.4921294869633,
+        "avgPensionEur": 343,
+        "yoyPct": 1.2682346686272374,
+        "pensions": 55662,
+        "bankPaid": 39853,
+        "cashPaid": 15809,
+        "cashShare": 0.284017821853329
+      },
+      {
+        "code": "GAB",
+        "nameBg": "Габрово",
+        "avgPensionBgn": 647.1626329495066,
+        "avgPensionEur": 331,
+        "yoyPct": 1.269489017732495,
+        "pensions": 39838,
+        "bankPaid": 28542,
+        "cashPaid": 11296,
+        "cashShare": 0.28354837090215373
+      },
+      {
+        "code": "KRZ",
+        "nameBg": "Кърджали",
+        "avgPensionBgn": 561.143311855131,
+        "avgPensionEur": 287,
+        "yoyPct": 1.2730626042596707,
+        "pensions": 59431,
+        "bankPaid": 38556,
+        "cashPaid": 20875,
+        "cashShare": 0.35124766535982904
+      },
+      {
+        "code": "KNL",
+        "nameBg": "Кюстендил",
+        "avgPensionBgn": 699.2372647249521,
+        "avgPensionEur": 358,
+        "yoyPct": 1.2422349131409351,
+        "pensions": 43526,
+        "bankPaid": 28519,
+        "cashPaid": 15007,
+        "cashShare": 0.3447824288930754
+      },
+      {
+        "code": "LOV",
+        "nameBg": "Ловеч",
+        "avgPensionBgn": 616.3341619613312,
+        "avgPensionEur": 315,
+        "yoyPct": 1.271493907873334,
+        "pensions": 41828,
+        "bankPaid": 29220,
+        "cashPaid": 12608,
+        "cashShare": 0.30142488285359087
+      },
+      {
+        "code": "MON",
+        "nameBg": "Монтана",
+        "avgPensionBgn": 611.6799480737378,
+        "avgPensionEur": 313,
+        "yoyPct": 1.2714581468393056,
+        "pensions": 40894,
+        "bankPaid": 26952,
+        "cashPaid": 13942,
+        "cashShare": 0.3409302098107302
+      },
+      {
+        "code": "PAZ",
+        "nameBg": "Пазарджик",
+        "avgPensionBgn": 620.5714925320478,
+        "avgPensionEur": 317,
+        "yoyPct": 1.272358805172042,
+        "pensions": 71022,
+        "bankPaid": 43863,
+        "cashPaid": 27159,
+        "cashShare": 0.3824026358029906
+      },
+      {
+        "code": "PER",
+        "nameBg": "Перник",
+        "avgPensionBgn": 734.7404546550546,
+        "avgPensionEur": 376,
+        "yoyPct": 1.2429047411377396,
+        "pensions": 40602,
+        "bankPaid": 27785,
+        "cashPaid": 12817,
+        "cashShare": 0.3156741047239052
+      },
+      {
+        "code": "PVN",
+        "nameBg": "Плевен",
+        "avgPensionBgn": 632.7533665889174,
+        "avgPensionEur": 324,
+        "yoyPct": 1.2674822490217246,
+        "pensions": 80701,
+        "bankPaid": 51716,
+        "cashPaid": 28985,
+        "cashShare": 0.35916531393663026
+      },
+      {
+        "code": "PDV",
+        "nameBg": "Пловдив",
+        "avgPensionBgn": 658.2889109453525,
+        "avgPensionEur": 337,
+        "yoyPct": 1.2541228286700363,
+        "pensions": 183033,
+        "bankPaid": 111899,
+        "cashPaid": 71134,
+        "cashShare": 0.3886402998366415
+      },
+      {
+        "code": "RAZ",
+        "nameBg": "Разград",
+        "avgPensionBgn": 566.1382530723596,
+        "avgPensionEur": 289,
+        "yoyPct": 1.2850484109141014,
+        "pensions": 37687,
+        "bankPaid": 24722,
+        "cashPaid": 12965,
+        "cashShare": 0.3440178310823361
+      },
+      {
+        "code": "RSE",
+        "nameBg": "Русе",
+        "avgPensionBgn": 636.1388044481954,
+        "avgPensionEur": 325,
+        "yoyPct": 1.2584916684562666,
+        "pensions": 65513,
+        "bankPaid": 46464,
+        "cashPaid": 19049,
+        "cashShare": 0.2907667180559584
+      },
+      {
+        "code": "SLS",
+        "nameBg": "Силистра",
+        "avgPensionBgn": 574.7714456541346,
+        "avgPensionEur": 294,
+        "yoyPct": 1.2849518234541555,
+        "pensions": 36774,
+        "bankPaid": 23517,
+        "cashPaid": 13257,
+        "cashShare": 0.3604992657856094
+      },
+      {
+        "code": "SLV",
+        "nameBg": "Сливен",
+        "avgPensionBgn": 634.4829156724019,
+        "avgPensionEur": 324,
+        "yoyPct": 1.261360985468599,
+        "pensions": 49917,
+        "bankPaid": 31686,
+        "cashPaid": 18231,
+        "cashShare": 0.3652262756175251
+      },
+      {
+        "code": "SML",
+        "nameBg": "Смолян",
+        "avgPensionBgn": 656.1562827908464,
+        "avgPensionEur": 335,
+        "yoyPct": 1.2521586312610282,
+        "pensions": 36660,
+        "bankPaid": 20680,
+        "cashPaid": 15980,
+        "cashShare": 0.4358974358974359
+      },
+      {
+        "code": "SOF",
+        "nameBg": "София-град",
+        "avgPensionBgn": 809.5417675674271,
+        "avgPensionEur": 414,
+        "yoyPct": 1.2450815938918531,
+        "pensions": 325578,
+        "bankPaid": 259715,
+        "cashPaid": 65863,
+        "cashShare": 0.20229560965421498
+      },
+      {
+        "code": "SFO",
+        "nameBg": "София",
+        "avgPensionBgn": 695.0630143775302,
+        "avgPensionEur": 355,
+        "yoyPct": 1.258319986335162,
+        "pensions": 67614,
+        "bankPaid": 44710,
+        "cashPaid": 22904,
+        "cashShare": 0.3387464134646671
+      },
+      {
+        "code": "SZR",
+        "nameBg": "Стара Загора",
+        "avgPensionBgn": 709.5472478765856,
+        "avgPensionEur": 363,
+        "yoyPct": 1.2520806494320584,
+        "pensions": 93346,
+        "bankPaid": 69935,
+        "cashPaid": 23411,
+        "cashShare": 0.25079810597133245
+      },
+      {
+        "code": "DOB",
+        "nameBg": "Добрич",
+        "avgPensionBgn": 609.1093034355081,
+        "avgPensionEur": 311,
+        "yoyPct": 1.2616639963802627,
+        "pensions": 49963,
+        "bankPaid": 31714,
+        "cashPaid": 18249,
+        "cashShare": 0.3652502852110562
+      },
+      {
+        "code": "TGV",
+        "nameBg": "Търговище",
+        "avgPensionBgn": 576.2165241176842,
+        "avgPensionEur": 295,
+        "yoyPct": 1.2768516662356135,
+        "pensions": 31936,
+        "bankPaid": 18913,
+        "cashPaid": 13023,
+        "cashShare": 0.40778431863727455
+      },
+      {
+        "code": "HKV",
+        "nameBg": "Хасково",
+        "avgPensionBgn": 652.3600229839612,
+        "avgPensionEur": 334,
+        "yoyPct": 1.2517546541968352,
+        "pensions": 70266,
+        "bankPaid": 44359,
+        "cashPaid": 25907,
+        "cashShare": 0.36869894401275155
+      },
+      {
+        "code": "SHU",
+        "nameBg": "Шумен",
+        "avgPensionBgn": 599.0806266080166,
+        "avgPensionEur": 306,
+        "yoyPct": 1.2664947056025309,
+        "pensions": 50864,
+        "bankPaid": 34771,
+        "cashPaid": 16093,
+        "cashShare": 0.3163927335640138
+      },
+      {
+        "code": "JAM",
+        "nameBg": "Ямбол",
+        "avgPensionBgn": 654.1828231027185,
+        "avgPensionEur": 334,
+        "yoyPct": 1.2565547566452773,
+        "pensions": 37026,
+        "bankPaid": 23769,
+        "cashPaid": 13257,
+        "cashShare": 0.3580456976178901
+      }
+    ],
+    "2023": [
+      {
+        "code": "BLG",
+        "nameBg": "Благоевград",
+        "avgPensionBgn": 710.5507082935575,
+        "avgPensionEur": 363,
+        "yoyPct": 1.1454937014238626,
+        "pensions": 82835,
+        "bankPaid": 47985,
+        "cashPaid": 34850,
+        "cashShare": 0.4207158809681898
+      },
+      {
+        "code": "BGS",
+        "nameBg": "Бургас",
+        "avgPensionBgn": 872.1664380395686,
+        "avgPensionEur": 446,
+        "yoyPct": 1.1762154277551742,
+        "pensions": 105808,
+        "bankPaid": 73824,
+        "cashPaid": 31984,
+        "cashShare": 0.30228338121881143
+      },
+      {
+        "code": "VAR",
+        "nameBg": "Варна",
+        "avgPensionBgn": 830.1575365531872,
+        "avgPensionEur": 424,
+        "yoyPct": 1.1666726913891023,
+        "pensions": 117753,
+        "bankPaid": 78662,
+        "cashPaid": 39091,
+        "cashShare": 0.3319745569115012
+      },
+      {
+        "code": "VTR",
+        "nameBg": "Велико Търново",
+        "avgPensionBgn": 737.8319615125364,
+        "avgPensionEur": 377,
+        "yoyPct": 1.1505582787897939,
+        "pensions": 70157,
+        "bankPaid": 48277,
+        "cashPaid": 21880,
+        "cashShare": 0.31187194435337884
+      },
+      {
+        "code": "VID",
+        "nameBg": "Видин",
+        "avgPensionBgn": 694.7456110095903,
+        "avgPensionEur": 355,
+        "yoyPct": 1.1519883171786895,
+        "pensions": 30201,
+        "bankPaid": 18882,
+        "cashPaid": 11319,
+        "cashShare": 0.3747889142743618
+      },
+      {
+        "code": "VRC",
+        "nameBg": "Враца",
+        "avgPensionBgn": 786.2518880102383,
+        "avgPensionEur": 402,
+        "yoyPct": 1.1709026114877583,
+        "pensions": 55940,
+        "bankPaid": 40973,
+        "cashPaid": 14967,
+        "cashShare": 0.267554522702896
+      },
+      {
+        "code": "GAB",
+        "nameBg": "Габрово",
+        "avgPensionBgn": 748.2268571852646,
+        "avgPensionEur": 383,
+        "yoyPct": 1.1561651107306585,
+        "pensions": 39692,
+        "bankPaid": 29061,
+        "cashPaid": 10631,
+        "cashShare": 0.2678373475763378
+      },
+      {
+        "code": "KRZ",
+        "nameBg": "Кърджали",
+        "avgPensionBgn": 633.3363878751205,
+        "avgPensionEur": 324,
+        "yoyPct": 1.128653544458966,
+        "pensions": 61221,
+        "bankPaid": 41034,
+        "cashPaid": 20187,
+        "cashShare": 0.3297397951683246
+      },
+      {
+        "code": "KNL",
+        "nameBg": "Кюстендил",
+        "avgPensionBgn": 821.4919217547564,
+        "avgPensionEur": 420,
+        "yoyPct": 1.1748400195424304,
+        "pensions": 43329,
+        "bankPaid": 29206,
+        "cashPaid": 14123,
+        "cashShare": 0.32594797941332593
+      },
+      {
+        "code": "LOV",
+        "nameBg": "Ловеч",
+        "avgPensionBgn": 709.3791675352945,
+        "avgPensionEur": 363,
+        "yoyPct": 1.1509651927737385,
+        "pensions": 41633,
+        "bankPaid": 29811,
+        "cashPaid": 11822,
+        "cashShare": 0.2839574376095885
+      },
+      {
+        "code": "MON",
+        "nameBg": "Монтана",
+        "avgPensionBgn": 704.2000821989544,
+        "avgPensionEur": 360,
+        "yoyPct": 1.1512557905750347,
+        "pensions": 40812,
+        "bankPaid": 27620,
+        "cashPaid": 13192,
+        "cashShare": 0.3232382632559051
+      },
+      {
+        "code": "PAZ",
+        "nameBg": "Пазарджик",
+        "avgPensionBgn": 712.4478452900029,
+        "avgPensionEur": 364,
+        "yoyPct": 1.1480511977478214,
+        "pensions": 71859,
+        "bankPaid": 45777,
+        "cashPaid": 26082,
+        "cashShare": 0.3629607982298668
+      },
+      {
+        "code": "PER",
+        "nameBg": "Перник",
+        "avgPensionBgn": 861.0071951943473,
+        "avgPensionEur": 440,
+        "yoyPct": 1.1718521686655325,
+        "pensions": 40610,
+        "bankPaid": 28303,
+        "cashPaid": 12307,
+        "cashShare": 0.30305343511450383
+      },
+      {
+        "code": "PVN",
+        "nameBg": "Плевен",
+        "avgPensionBgn": 733.6945108413626,
+        "avgPensionEur": 375,
+        "yoyPct": 1.1595268387051962,
+        "pensions": 80580,
+        "bankPaid": 53087,
+        "cashPaid": 27493,
+        "cashShare": 0.34118888061553737
+      },
+      {
+        "code": "PDV",
+        "nameBg": "Пловдив",
+        "avgPensionBgn": 762.5170456732567,
+        "avgPensionEur": 390,
+        "yoyPct": 1.1583319010763256,
+        "pensions": 183345,
+        "bankPaid": 115782,
+        "cashPaid": 67563,
+        "cashShare": 0.36850200441790065
+      },
+      {
+        "code": "RAZ",
+        "nameBg": "Разград",
+        "avgPensionBgn": 646.5507743287916,
+        "avgPensionEur": 331,
+        "yoyPct": 1.1420368979125708,
+        "pensions": 37977,
+        "bankPaid": 25562,
+        "cashPaid": 12415,
+        "cashShare": 0.3269083919214261
+      },
+      {
+        "code": "RSE",
+        "nameBg": "Русе",
+        "avgPensionBgn": 735.645456696649,
+        "avgPensionEur": 376,
+        "yoyPct": 1.1564228617279877,
+        "pensions": 65015,
+        "bankPaid": 47026,
+        "cashPaid": 17989,
+        "cashShare": 0.2766899946166269
+      },
+      {
+        "code": "SLS",
+        "nameBg": "Силистра",
+        "avgPensionBgn": 653.5244736054243,
+        "avgPensionEur": 334,
+        "yoyPct": 1.137016249756921,
+        "pensions": 36791,
+        "bankPaid": 24187,
+        "cashPaid": 12604,
+        "cashShare": 0.3425837840776277
+      },
+      {
+        "code": "SLV",
+        "nameBg": "Сливен",
+        "avgPensionBgn": 738.5153481362607,
+        "avgPensionEur": 378,
+        "yoyPct": 1.1639641192752388,
+        "pensions": 49949,
+        "bankPaid": 32424,
+        "cashPaid": 17525,
+        "cashShare": 0.3508578750325332
+      },
+      {
+        "code": "SML",
+        "nameBg": "Смолян",
+        "avgPensionBgn": 761.2465757629152,
+        "avgPensionEur": 389,
+        "yoyPct": 1.160160461353237,
+        "pensions": 36908,
+        "bankPaid": 21493,
+        "cashPaid": 15415,
+        "cashShare": 0.4176601278855533
+      },
+      {
+        "code": "SOF",
+        "nameBg": "София-град",
+        "avgPensionBgn": 957.2362840577963,
+        "avgPensionEur": 489,
+        "yoyPct": 1.1824421202300561,
+        "pensions": 327340,
+        "bankPaid": 265668,
+        "cashPaid": 61672,
+        "cashShare": 0.18840349483717236
+      },
+      {
+        "code": "SFO",
+        "nameBg": "София",
+        "avgPensionBgn": 814.475823729646,
+        "avgPensionEur": 416,
+        "yoyPct": 1.171801414953093,
+        "pensions": 67662,
+        "bankPaid": 46135,
+        "cashPaid": 21527,
+        "cashShare": 0.31815494664656674
+      },
+      {
+        "code": "SZR",
+        "nameBg": "Стара Загора",
+        "avgPensionBgn": 830.5105992638759,
+        "avgPensionEur": 425,
+        "yoyPct": 1.1704796287333723,
+        "pensions": 93610,
+        "bankPaid": 71335,
+        "cashPaid": 22275,
+        "cashShare": 0.23795534665099882
+      },
+      {
+        "code": "DOB",
+        "nameBg": "Добрич",
+        "avgPensionBgn": 699.1312015205752,
+        "avgPensionEur": 357,
+        "yoyPct": 1.1477926828188312,
+        "pensions": 49918,
+        "bankPaid": 32575,
+        "cashPaid": 17343,
+        "cashShare": 0.3474297848471493
+      },
+      {
+        "code": "TGV",
+        "nameBg": "Търговище",
+        "avgPensionBgn": 658.6352518319168,
+        "avgPensionEur": 337,
+        "yoyPct": 1.1430343009340707,
+        "pensions": 32375,
+        "bankPaid": 19864,
+        "cashPaid": 12511,
+        "cashShare": 0.38644015444015445
+      },
+      {
+        "code": "HKV",
+        "nameBg": "Хасково",
+        "avgPensionBgn": 757.1026099875579,
+        "avgPensionEur": 387,
+        "yoyPct": 1.1605594814409905,
+        "pensions": 70683,
+        "bankPaid": 46082,
+        "cashPaid": 24601,
+        "cashShare": 0.3480469136850445
+      },
+      {
+        "code": "SHU",
+        "nameBg": "Шумен",
+        "avgPensionBgn": 688.2735816468957,
+        "avgPensionEur": 352,
+        "yoyPct": 1.1488830569325374,
+        "pensions": 50564,
+        "bankPaid": 35423,
+        "cashPaid": 15141,
+        "cashShare": 0.29944229095799385
+      },
+      {
+        "code": "JAM",
+        "nameBg": "Ямбол",
+        "avgPensionBgn": 762.9133378258442,
+        "avgPensionEur": 390,
+        "yoyPct": 1.1662081468403067,
+        "pensions": 36863,
+        "bankPaid": 24293,
+        "cashPaid": 12570,
+        "cashShare": 0.3409923229254266
+      }
+    ],
+    "2024": [
+      {
+        "code": "BLG",
+        "nameBg": "Благоевград",
+        "avgPensionBgn": 801.5558983125328,
+        "avgPensionEur": 410,
+        "yoyPct": 1.1280769816379907,
+        "pensions": 84680,
+        "bankPaid": 50991,
+        "cashPaid": 33689,
+        "cashShare": 0.3978389230042513
+      },
+      {
+        "code": "BGS",
+        "nameBg": "Бургас",
+        "avgPensionBgn": 978.7668525452883,
+        "avgPensionEur": 500,
+        "yoyPct": 1.1222248527991208,
+        "pensions": 107422,
+        "bankPaid": 76850,
+        "cashPaid": 30572,
+        "cashShare": 0.2845971961050809
+      },
+      {
+        "code": "VAR",
+        "nameBg": "Варна",
+        "avgPensionBgn": 935.1811859864644,
+        "avgPensionEur": 478,
+        "yoyPct": 1.1265105053064206,
+        "pensions": 118105,
+        "bankPaid": 81403,
+        "cashPaid": 36702,
+        "cashShare": 0.31075737691037636
+      },
+      {
+        "code": "VTR",
+        "nameBg": "Велико Търново",
+        "avgPensionBgn": 834.1586515704572,
+        "avgPensionEur": 426,
+        "yoyPct": 1.130553696617389,
+        "pensions": 69846,
+        "bankPaid": 49271,
+        "cashPaid": 20575,
+        "cashShare": 0.29457664003665207
+      },
+      {
+        "code": "VID",
+        "nameBg": "Видин",
+        "avgPensionBgn": 777.506464414262,
+        "avgPensionEur": 398,
+        "yoyPct": 1.1191239672380302,
+        "pensions": 30187,
+        "bankPaid": 19441,
+        "cashPaid": 10746,
+        "cashShare": 0.3559810514459867
+      },
+      {
+        "code": "VRC",
+        "nameBg": "Враца",
+        "avgPensionBgn": 890.4266287331044,
+        "avgPensionEur": 455,
+        "yoyPct": 1.1324953775138147,
+        "pensions": 56843,
+        "bankPaid": 42556,
+        "cashPaid": 14287,
+        "cashShare": 0.25134141407033406
+      },
+      {
+        "code": "GAB",
+        "nameBg": "Габрово",
+        "avgPensionBgn": 844.8171993078789,
+        "avgPensionEur": 432,
+        "yoyPct": 1.1290923216602715,
+        "pensions": 39847,
+        "bankPaid": 29808,
+        "cashPaid": 10039,
+        "cashShare": 0.2519386653951364
+      },
+      {
+        "code": "KRZ",
+        "nameBg": "Кърджали",
+        "avgPensionBgn": 709.5832586116763,
+        "avgPensionEur": 363,
+        "yoyPct": 1.1203892152673691,
+        "pensions": 62705,
+        "bankPaid": 43262,
+        "cashPaid": 19443,
+        "cashShare": 0.31007096722749383
+      },
+      {
+        "code": "KNL",
+        "nameBg": "Кюстендил",
+        "avgPensionBgn": 922.1813620992662,
+        "avgPensionEur": 472,
+        "yoyPct": 1.1225689963322232,
+        "pensions": 43201,
+        "bankPaid": 29953,
+        "cashPaid": 13248,
+        "cashShare": 0.30665956806555406
+      },
+      {
+        "code": "LOV",
+        "nameBg": "Ловеч",
+        "avgPensionBgn": 800.2905234902202,
+        "avgPensionEur": 409,
+        "yoyPct": 1.1281562246475223,
+        "pensions": 41624,
+        "bankPaid": 30362,
+        "cashPaid": 11262,
+        "cashShare": 0.2705650586200269
+      },
+      {
+        "code": "MON",
+        "nameBg": "Монтана",
+        "avgPensionBgn": 792.7194864973043,
+        "avgPensionEur": 405,
+        "yoyPct": 1.125702064705725,
+        "pensions": 40651,
+        "bankPaid": 28173,
+        "cashPaid": 12478,
+        "cashShare": 0.30695431846695037
+      },
+      {
+        "code": "PAZ",
+        "nameBg": "Пазарджик",
+        "avgPensionBgn": 796.083836454327,
+        "avgPensionEur": 407,
+        "yoyPct": 1.1173924403270248,
+        "pensions": 72726,
+        "bankPaid": 47763,
+        "cashPaid": 24963,
+        "cashShare": 0.3432472568269945
+      },
+      {
+        "code": "PER",
+        "nameBg": "Перник",
+        "avgPensionBgn": 965.1159316995951,
+        "avgPensionEur": 493,
+        "yoyPct": 1.1209150598117223,
+        "pensions": 40599,
+        "bankPaid": 28882,
+        "cashPaid": 11717,
+        "cashShare": 0.2886031675657036
+      },
+      {
+        "code": "PVN",
+        "nameBg": "Плевен",
+        "avgPensionBgn": 824.9445153172287,
+        "avgPensionEur": 422,
+        "yoyPct": 1.1243705699409219,
+        "pensions": 80723,
+        "bankPaid": 54483,
+        "cashPaid": 26240,
+        "cashShare": 0.3250622499163807
+      },
+      {
+        "code": "PDV",
+        "nameBg": "Пловдив",
+        "avgPensionBgn": 861.0499926050167,
+        "avgPensionEur": 440,
+        "yoyPct": 1.1292206482345077,
+        "pensions": 185127,
+        "bankPaid": 120822,
+        "cashPaid": 64305,
+        "cashShare": 0.34735613929896775
+      },
+      {
+        "code": "RAZ",
+        "nameBg": "Разград",
+        "avgPensionBgn": 730.3571697948814,
+        "avgPensionEur": 373,
+        "yoyPct": 1.1296207487387087,
+        "pensions": 38538,
+        "bankPaid": 26567,
+        "cashPaid": 11971,
+        "cashShare": 0.3106284706004463
+      },
+      {
+        "code": "RSE",
+        "nameBg": "Русе",
+        "avgPensionBgn": 831.4341770445141,
+        "avgPensionEur": 425,
+        "yoyPct": 1.13021044237532,
+        "pensions": 64891,
+        "bankPaid": 47818,
+        "cashPaid": 17073,
+        "cashShare": 0.26310274152039576
+      },
+      {
+        "code": "SLS",
+        "nameBg": "Силистра",
+        "avgPensionBgn": 738.8852839891733,
+        "avgPensionEur": 378,
+        "yoyPct": 1.130616088350636,
+        "pensions": 37240,
+        "bankPaid": 25174,
+        "cashPaid": 12066,
+        "cashShare": 0.3240064446831364
+      },
+      {
+        "code": "SLV",
+        "nameBg": "Сливен",
+        "avgPensionBgn": 827.8157386234293,
+        "avgPensionEur": 423,
+        "yoyPct": 1.1209188010953728,
+        "pensions": 50053,
+        "bankPaid": 33065,
+        "cashPaid": 16988,
+        "cashShare": 0.33940023575010486
+      },
+      {
+        "code": "SML",
+        "nameBg": "Смолян",
+        "avgPensionBgn": 853.7834408742439,
+        "avgPensionEur": 437,
+        "yoyPct": 1.121559647107232,
+        "pensions": 37297,
+        "bankPaid": 22424,
+        "cashPaid": 14873,
+        "cashShare": 0.39877201919725447
+      },
+      {
+        "code": "SOF",
+        "nameBg": "София-град",
+        "avgPensionBgn": 1078.7312387388943,
+        "avgPensionEur": 552,
+        "yoyPct": 1.1269226383334237,
+        "pensions": 330015,
+        "bankPaid": 272072,
+        "cashPaid": 57943,
+        "cashShare": 0.17557686771813402
+      },
+      {
+        "code": "SFO",
+        "nameBg": "София",
+        "avgPensionBgn": 915.2260533490121,
+        "avgPensionEur": 468,
+        "yoyPct": 1.1236994723281175,
+        "pensions": 68310,
+        "bankPaid": 47839,
+        "cashPaid": 20471,
+        "cashShare": 0.29967793880837357
+      },
+      {
+        "code": "SZR",
+        "nameBg": "Стара Загора",
+        "avgPensionBgn": 936.0235078432146,
+        "avgPensionEur": 479,
+        "yoyPct": 1.1270458302071764,
+        "pensions": 93931,
+        "bankPaid": 72742,
+        "cashPaid": 21189,
+        "cashShare": 0.225580479287988
+      },
+      {
+        "code": "DOB",
+        "nameBg": "Добрич",
+        "avgPensionBgn": 788.8722246375423,
+        "avgPensionEur": 403,
+        "yoyPct": 1.1283607753763312,
+        "pensions": 49926,
+        "bankPaid": 33604,
+        "cashPaid": 16322,
+        "cashShare": 0.3269238472939951
+      },
+      {
+        "code": "TGV",
+        "nameBg": "Търговище",
+        "avgPensionBgn": 737.572140310666,
+        "avgPensionEur": 377,
+        "yoyPct": 1.119849170324843,
+        "pensions": 32731,
+        "bankPaid": 20708,
+        "cashPaid": 12023,
+        "cashShare": 0.3673276099110935
+      },
+      {
+        "code": "HKV",
+        "nameBg": "Хасково",
+        "avgPensionBgn": 845.9380600417799,
+        "avgPensionEur": 433,
+        "yoyPct": 1.1173360768835308,
+        "pensions": 70956,
+        "bankPaid": 47613,
+        "cashPaid": 23343,
+        "cashShare": 0.3289785219008963
+      },
+      {
+        "code": "SHU",
+        "nameBg": "Шумен",
+        "avgPensionBgn": 781.1514512576733,
+        "avgPensionEur": 399,
+        "yoyPct": 1.1349432436278322,
+        "pensions": 50767,
+        "bankPaid": 36429,
+        "cashPaid": 14338,
+        "cashShare": 0.2824275612110229
+      },
+      {
+        "code": "JAM",
+        "nameBg": "Ямбол",
+        "avgPensionBgn": 857.0671895165424,
+        "avgPensionEur": 438,
+        "yoyPct": 1.1234135609150817,
+        "pensions": 36840,
+        "bankPaid": 24960,
+        "cashPaid": 11880,
+        "cashShare": 0.32247557003257327
+      }
+    ]
+  }
+}

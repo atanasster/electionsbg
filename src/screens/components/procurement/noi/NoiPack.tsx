@@ -18,13 +18,14 @@ import { useTranslation } from "react-i18next";
 import { PiggyBank } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEurCompact } from "@/lib/currency";
-import { WARN_CHIP_COLORS } from "../chipStyles";
+import { InsightChips } from "@/components/ui/InsightChips";
 import { useNoi, type ScopeWindow } from "@/data/procurement/useNoi";
 import { categoryLabel } from "@/lib/noiBenchmarks";
 import { NoiFundFlowTile } from "./NoiFundFlowTile";
 import { NoiAdminBenchmarkTile } from "./NoiAdminBenchmarkTile";
 import { NoiCategoryTile } from "./NoiCategoryTile";
 import { NoiStrategicSuppliersTile } from "./NoiStrategicSuppliersTile";
+import { NoiIntegrityTile } from "./NoiIntegrityTile";
 
 export const NoiPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   eik,
@@ -140,22 +141,7 @@ export const NoiPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         )}
       </div>
 
-      {insights.length > 0 && (
-        <div className="flex flex-wrap gap-2">
-          {insights.map((it, i) => (
-            <span
-              key={i}
-              className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium ${
-                it.warn
-                  ? WARN_CHIP_COLORS
-                  : "border-border bg-muted/40 text-foreground"
-              }`}
-            >
-              {it.text}
-            </span>
-          ))}
-        </div>
-      )}
+      <InsightChips items={insights} />
 
       {/* Hero — the ДОО fund the procurement sits inside */}
       {fundYear && (
@@ -187,6 +173,10 @@ export const NoiPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         suppliers={model.suppliers}
         totalEur={model.totalEur}
       />
+
+      {/* Competition & integrity — single-bid with the statutory mandate split
+          out, the honest read no benchmarked tool makes */}
+      <NoiIntegrityTile model={model} />
 
       <p className="text-[11px] text-muted-foreground/80">
         {bg

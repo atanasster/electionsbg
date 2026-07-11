@@ -513,6 +513,41 @@ const run = async () => {
   printEnvelope(noi);
   assert(!!noi.facts.year, "noiFunds has a year");
 
+  // pension statistics (the /pensions view) + КФН private pension funds
+  const pDist = (await runTool(
+    "noiPensionDistribution",
+    {},
+    ctxBg,
+  )) as Envelope;
+  printEnvelope(pDist);
+  assert(
+    (pDist.rows?.length ?? 0) > 0 && !!pDist.facts.at_or_below_min,
+    "noiPensionDistribution returns brackets + the at-or-below-min share",
+  );
+
+  const pObl = (await runTool("noiPensionByOblast", {}, ctxEn)) as Envelope;
+  printEnvelope(pObl);
+  assert(
+    (pObl.rows?.length ?? 0) > 0 && !!pObl.facts.national_cash_share,
+    "noiPensionByOblast returns oblasts + the national cash share",
+  );
+
+  const pSer = (await runTool("noiPensionSeries", {}, ctxBg)) as Envelope;
+  printEnvelope(pSer);
+  assert(
+    pSer.kind === "series" &&
+      (pSer.series?.[0]?.points.length ?? 0) > 1 &&
+      !!pSer.facts.pension_to_wage_ratio,
+    "noiPensionSeries returns a multi-year series + the replacement ratio",
+  );
+
+  const kfn = (await runTool("kfnFunds", {}, ctxEn)) as Envelope;
+  printEnvelope(kfn);
+  assert(
+    (kfn.rows?.length ?? 0) > 0 && !!kfn.facts.total_net_assets,
+    "kfnFunds returns funds + total net assets",
+  );
+
   const macroCat = (await runTool(
     "macroByCategory",
     { category: "управление" },
@@ -542,6 +577,15 @@ const run = async () => {
     ["Покажи показателите за управление", "macroByCategory"],
     ["Колко харчи НОИ за пенсии?", "noiFunds"],
     ["Какви са последните емисии на дълг?", "govDebt"],
+    // pension statistics (the /pensions view) — must not be stolen by noiFunds
+    ["Колко пенсионери взимат минимална пенсия?", "noiPensionDistribution"],
+    ["Как се разпределят пенсиите по размер?", "noiPensionDistribution"],
+    ["Средна пенсия по област", "noiPensionByOblast"],
+    ["Каква е средната пенсия спрямо заплатата?", "noiPensionSeries"],
+    ["Частни пенсионни фондове", "kfnFunds"],
+    ["Колко активи има УПФ Доверие?", "kfnFunds"],
+    // a bare state-pension question still falls through to noiFunds
+    ["Колко са пенсиите?", "noiFunds"],
   ];
   for (const [q, expected] of cases5) {
     const r = route(q, ctx);

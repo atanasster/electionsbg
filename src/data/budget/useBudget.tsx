@@ -23,6 +23,8 @@ import type {
   BurgasCapitalProgramFile,
   DobrichCapitalProgramFile,
   NoiFundsFile,
+  NoiPensionsFile,
+  KfnFundsFile,
   NzokBudgetFile,
   NzokExecutionFile,
   NzokExecutionHistoryFile,
@@ -261,6 +263,26 @@ export const useNoiFunds = () =>
   useQuery({
     queryKey: ["budget", "noi", "funds"] as const,
     queryFn: () => fetchJson<NoiFundsFile>("/budget/noi/funds.json"),
+    staleTime: Infinity,
+  });
+
+// НОИ pension statistics (the /pensions view) — per-oblast average pension +
+// cash-vs-bank, the size distribution, and the national wage/income/pension
+// series. ~23 KB. Written by scripts/budget/noi/__write_pensions.ts.
+export const useNoiPensions = () =>
+  useQuery({
+    queryKey: ["budget", "noi", "pensions"] as const,
+    queryFn: () => fetchJson<NoiPensionsFile>("/budget/noi/pensions.json"),
+    staleTime: Infinity,
+  });
+
+// КФН private pension funds (pillars 2 & 3) — per-fund insured + net assets for
+// the /pensions "private funds" comparison. ~5 KB. Written by
+// scripts/budget/kfn/__write_funds.ts.
+export const useKfnFunds = () =>
+  useQuery({
+    queryKey: ["budget", "kfn", "funds"] as const,
+    queryFn: () => fetchJson<KfnFundsFile>("/budget/kfn/funds.json"),
     staleTime: Infinity,
   });
 

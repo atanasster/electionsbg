@@ -363,6 +363,8 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       "customs_revenue",
       "nap_annual",
       "nssi_b1",
+      "nssi_yearbook",
+      "kfn_pensions",
       "nzok_hospital_bmp",
       "nzok_drug_quarterly",
       "nzok_drug_unit_prices",
@@ -855,6 +857,20 @@ export const DATASETS: DatasetDef[] = [
     tags: ["fiscal"],
   },
   {
+    id: "pensions",
+    label: { bg: "Пенсии (НОИ)", en: "Pensions (NSSI)" },
+    detail: {
+      bg: "разпределение, области, вноски",
+      en: "distribution, oblasts, contributions",
+    },
+    desc: {
+      bg: "Пенсионната система на България от статистическия годишник на НОИ — средна пенсия и плащания в брой по области, разпределението на пенсионерите по размер на пенсията (минимум и таван), и националните редове заплата–осигурителен доход–пенсия, плюс кой плаща разходите на ДОО (вноски срещу трансфер от бюджета). Включва и частните пенсионни фондове (стълбове 2 и 3) от КФН — нетни активи и осигурени лица по фонд.",
+      en: "Bulgaria's pension system from the NSSI statistical yearbook — average pension and cash payments by oblast, the distribution of pensioners by pension size (minimum and cap), and the national wage–insurable-income–pension series, plus who pays for ДОО (contributions vs the state-budget transfer). Also the private pension funds (pillars 2 & 3) from КФН — net assets and insured persons per fund.",
+    },
+    path: "data/budget/noi/pensions.json",
+    tags: ["fiscal"],
+  },
+  {
     id: "budget",
     label: { bg: "Държавен бюджет", en: "State budget" },
     detail: {
@@ -1186,6 +1202,20 @@ export const FEATURES: FeatureDef[] = [
     tags: ["fiscal"],
   },
   {
+    id: "pensions",
+    label: { bg: "Пенсии", en: "Pensions" },
+    detail: {
+      bg: "кой плаща, разпределение, области",
+      en: "who pays, distribution, oblasts",
+    },
+    desc: {
+      bg: "Кой плаща пенсиите (вноски срещу трансфер от бюджета), как са разпределени по размер, средна пенсия и плащания в брой по области, и връзката заплата–пенсия през годините.",
+      en: "Who pays for pensions (contributions vs the state-budget transfer), how they are distributed by size, average pension and cash payment by oblast, and the wage-to-pension link over time.",
+    },
+    route: "/pensions",
+    tags: ["fiscal"],
+  },
+  {
     id: "indicators",
     label: { bg: "Индикатори и ЕС сравнение", en: "Indicators and EU compare" },
     detail: {
@@ -1270,6 +1300,8 @@ export const EDGES: [string, string][] = [
   ["src:vss", "ds:judiciary"],
   ["src:dv", "ds:judiciary"],
   ["ds:judiciary", "f:judiciary"],
+  ["src:ministries", "ds:pensions"],
+  ["ds:pensions", "f:pensions"],
   ["ds:budget", "f:judiciary"],
   ["src:egov", "ds:budget"],
   ["src:egov", "ds:indicators"],

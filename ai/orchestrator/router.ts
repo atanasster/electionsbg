@@ -943,7 +943,10 @@ export const route = (question: string, ctx: ToolContext): Route => {
   }
 
   // 1. comparison of two elections
-  if (isCompare) {
+  // A pensions "X спрямо Y" question (пенсия vs заплата/доход) is not an election
+  // comparison — "спрямо" is a compare trigger, but here it belongs to the
+  // pension-series tool below, so skip the compare block for pension context.
+  if (isCompare && !has(q, "пенси", "pension")) {
     // an indicator framed against the EU / peers -> the peer comparison (before
     // the election-vs-election default below swallows "сравни безработицата…").
     if (
@@ -1884,6 +1887,90 @@ export const route = (question: string, ctx: ToolContext): Route => {
       )
     )
       return { tool: "judiciaryCaseload", args: yearArgs };
+  }
+  // pension statistics (the /pensions view) — the size distribution, the regional
+  // spread, the wage-vs-pension series and the private (funded) pillars. These
+  // must precede the generic pensions→noiFunds fund-execution rule below, which
+  // would otherwise swallow every "пенси" question.
+  {
+    // Private pension funds (pillars 2 & 3, КФН). Anchored on the pillar/private
+    // cues, NOT on a bare "пенси", so it never steals a state-pension question.
+    if (
+      has(
+        q,
+        "упф",
+        "ппф",
+        "впф",
+        "дпф",
+        " upf",
+        " ppf",
+        " vpf",
+        "частен пенсион",
+        "частни пенсион",
+        "частна пенси",
+        "частни пенси",
+        "пенсионноосигурителн",
+        "втори стълб",
+        "трети стълб",
+        "second pillar",
+        "third pillar",
+        "private pension",
+      )
+    )
+      return { tool: "kfnFunds", args: {} };
+    // pension context for the NOI statistics tools
+    if (has(q, "пенси", "pension")) {
+      // regional spread — average pension by oblast (+ the cash-collection cut)
+      if (
+        has(
+          q,
+          "област",
+          "региони",
+          "региона",
+          "по региони",
+          "oblast",
+          "region",
+          "в брой",
+          "cash",
+        )
+      )
+        return { tool: "noiPensionByOblast", args: {} };
+      // size distribution — minimum / cap / poverty / how many pensioners
+      if (
+        has(
+          q,
+          "минимал",
+          "разпределени",
+          "размер",
+          "таван",
+          "бедност",
+          "poverty",
+          "minimum",
+          "distribut",
+          "size",
+          "колко пенсионер",
+          "брой пенсионер",
+        )
+      )
+        return { tool: "noiPensionDistribution", args: {} };
+      // wage-vs-pension series / replacement ratio over time
+      if (
+        has(
+          q,
+          "заплат",
+          "wage",
+          "доход",
+          "income",
+          "заместван",
+          "replacement",
+          "спрямо",
+          "съотношени",
+          "коефициент",
+        ) ||
+        overTimeCue(q)
+      )
+        return { tool: "noiPensionSeries", args: {} };
+    }
   }
   // pensions / social-security funds -> the NOI pension funds, even when phrased
   // "...в бюджета" (otherwise the generic budget view below would swallow it)

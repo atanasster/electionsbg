@@ -1,6 +1,6 @@
 ---
 name: update-noi
-description: Refresh the NOI (Национален осигурителен институт) social-security fund-execution data — re-parse the cached B1 per-fund monthly XLS files for ДОО (5500), УчПФ (5591), and ГВРС (5592) and rebuild data/budget/noi/funds.json. Use when the daily watch report flags `nssi_b1` as changed (a new month's B1 has been uploaded or an existing one was re-uploaded), when the user asks to refresh NOI / social-security funds data, when adding a new fiscal year, or after a fresh git clone if data/budget/noi/funds.json is missing.
+description: Refresh the NOI (Национален осигурителен институт) social-security data behind /awarder/121082521 and the /pensions view. Three artifacts share this skill — the B1 per-fund cash-execution (ДОО 5500 / УчПФ 5591 / ГВРС 5592) → data/budget/noi/funds.json; the pension statistical yearbook ZIP → data/budget/noi/pensions.json (per-oblast average pension, size distribution, cash-vs-bank, national wage/income/pension series); and the КФН private-pension quarterly ZIP (pillars 2 & 3) → data/budget/kfn/funds.json. Use when the daily watch report flags `nssi_b1`, `nssi_yearbook`, or `kfn_pensions` as changed, when the user asks to refresh NOI / pensions / social-security / private-pension-fund data, when adding a new fiscal year, or after a fresh git clone if any of data/budget/noi/funds.json, data/budget/noi/pensions.json, or data/budget/kfn/funds.json is missing.
 allowed-tools:
   - Read
   - Bash
@@ -25,10 +25,13 @@ Three funds at the EBK level — all aggregated to fund 5500 from sub-funds:
 
 | Trigger | Action |
 |---|---|
-| Watcher: `nssi_b1` describe-line says "N new B1 file(s)" or "N B1 file(s) re-uploaded" | Manual fetch + re-run (steps below) |
+| Watcher: `nssi_b1` describe-line says "N new B1 file(s)" or "N B1 file(s) re-uploaded" | Manual fetch + re-run (steps below) → `funds.json` |
 | User asks to refresh NOI / social-security data | Same |
 | Adding a new fiscal year (e.g. 2026 once Jan 2027 file lands) | Same — `TRY_YEARS` in `__write_funds.ts` already covers 2020-2025 |
 | Fresh clone, `data/budget/noi/funds.json` missing | Manual fetch + re-run; auto-fetch is unreliable |
+| Watcher: `nssi_yearbook` says "N new yearbook ZIP(s)" | Pensions ingest (§ Yearbook below) → `pensions.json` |
+| Watcher: `kfn_pensions` says "N new КФН statistics period(s)" | КФН ingest (§ КФН below) → `kfn/funds.json` |
+| Fresh clone, `data/budget/noi/pensions.json` or `data/budget/kfn/funds.json` missing | Run the yearbook / КФН ingests below (both auto-fetch cleanly) |
 
 ## Procedure
 
@@ -91,6 +94,49 @@ for y in d['years']:
 ```bash
 tsx scripts/stamp-ingest.ts update-noi --summary "noi: 2024 (all 3 funds)"
 ```
+
+## Yearbook → pensions.json (the /pensions view)
+
+Separate artifact from `funds.json`. The НОИ pension statistical yearbook drives
+the per-oblast average pension, the pension size distribution, the cash-vs-bank
+split, and the national wage/income/pension series. Unlike the B1 files, the
+yearbook **ZIP GETs cleanly** — no manual-download dance.
+
+```bash
+# Fetch the newest editions (clean XLSX exists 2022+; 2021/2025-style unpublished
+# years return an HTML 404 at HTTP 200 — the parser sniffs the PK magic bytes and
+# skips them). Anchor: the watcher's describe-line names the new year.
+for y in 2022 2023 2024; do
+  curl -sSL -o raw_data/budget/noi/yearbooks/Yearbook_Pensions_${y}.zip \
+    "https://www.nssi.bg/wp-content/uploads/Yearbook_Pensions_${y}.zip"
+done
+
+tsx scripts/budget/noi/__write_pensions.ts   # → data/budget/noi/pensions.json
+```
+
+Sanity: the run prints `N oblasts, N brackets (Σ=<total>)` per year — the bracket
+sum MUST equal the "Общо" pensioner headline or the parser throws (§ the sum gate
+in `parse_yearbook_xlsx.ts`). The Eurostat poverty line is fetched inline; it
+degrades to null offline. Then `git add data/budget/noi/pensions.json` and
+`bucket:sync data/budget/noi/`.
+
+## КФН → kfn/funds.json (private pillars 2 & 3)
+
+The `/pensions` private-funds tile. КФН publishes a quarterly ZIP of English
+workbooks. The URL is unpredictable (upload-dir + suffix) — the `kfn_pensions`
+watcher fingerprints the `fsc.bg/.../statistics/YYYY-N/` sub-page list; when a new
+period appears, open that sub-page and grab its `statistics_*.zip`.
+
+```bash
+# Download the newest quarter's ZIP (from the sub-page the watcher named), then:
+curl -sSL -o raw_data/budget/kfn/statistics_2025_q2.zip "<the ZIP URL>"
+tsx scripts/budget/kfn/__write_funds.ts       # → data/budget/kfn/funds.json
+```
+
+Only the four accumulation workbooks (UPF/PPF/VPF/VPFOS) are parsed; DPF/LPPF are
+payout-phase with a different layout and skipped. Sanity: the run prints
+`N funds [UPF:10 PPF:10 VPF:10 VPFOS:1]`. Then `git add` + `bucket:sync
+data/budget/kfn/`.
 
 ## Parser internals
 

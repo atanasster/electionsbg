@@ -24,9 +24,19 @@ import { fetchJson } from "../fingerprint";
 const UA =
   "Mozilla/5.0 (compatible; electionsbg-budget/1.0; +https://electionsbg.com)";
 
-// Keep in lockstep with NOI_STATB_URL in scripts/budget/run_policy_baseline.ts.
-const STATB_QUARTER = 1;
-const STATB_YEAR = 2026;
+// The STATB anchor auto-advances with the calendar rather than being frozen to
+// one release — the watcher's whole job is to notice the NEXT quarter appear.
+// It probes the most-recently-ended quarter plus the one after, so a newly
+// published bulletin always lands in the probe window. When it flips, the
+// operator bumps NOI_STATB_URL in scripts/budget/run_policy_baseline.ts to match.
+const latestLikelyQuarter = (): { q: number; y: number } => {
+  const now = new Date();
+  const currentQ = Math.floor(now.getUTCMonth() / 3) + 1; // 1..4
+  return currentQ === 1
+    ? { q: 4, y: now.getUTCFullYear() - 1 }
+    : { q: currentQ - 1, y: now.getUTCFullYear() };
+};
+const { q: STATB_QUARTER, y: STATB_YEAR } = latestLikelyQuarter();
 const statbUrl = (q: number, y: number): string =>
   `https://nssi.bg/wp-content/uploads/STATB${q}${y}.xls`;
 const nextQuarter = (q: number, y: number): { q: number; y: number } =>
