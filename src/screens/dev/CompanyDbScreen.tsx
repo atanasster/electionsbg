@@ -85,6 +85,7 @@ import { ProcurementScopeControl } from "../components/procurement/ProcurementSc
 import { type ProcurementScope } from "@/data/procurement/useProcurementScope";
 import { scopeRange } from "@/data/procurement/scopeRange";
 import { useElectionContext } from "@/data/ElectionContext";
+import { useHashScroll } from "@/ux/useHashScroll";
 
 interface Company {
   uic: string;
@@ -407,6 +408,12 @@ export const CompanyDbScreen: FC = () => {
   // A domain pack (e.g. roads for АПИ) rendered as a hero inside the awarder
   // section; null for the vast majority of awarders (generic page only).
   const SectorPack = useMemo(() => getSectorPack(eik), [eik]);
+
+  // Deep links into a pack band (e.g. /awarder/121858220#nzok-drugs) must scroll
+  // once the page settles. The generic awarder tiles above the pack load async
+  // and shift height, so re-run the scroll as the main payloads arrive; the pack
+  // itself runs the same hook for its own late-loading tiles.
+  useHashScroll([loading, procurement, awarderProc]);
 
   useEffect(() => {
     let live = true;

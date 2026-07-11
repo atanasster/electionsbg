@@ -31,6 +31,7 @@ import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEurCompact } from "@/lib/currency";
 import { InsightChips } from "@/components/ui/InsightChips";
 import { useNzok, type ScopeWindow } from "@/data/procurement/useNzok";
+import { useHashScroll } from "@/ux/useHashScroll";
 import { categoryLabel } from "@/lib/nzokBenchmarks";
 import { NzokBudgetBridgeTile } from "./NzokBudgetBridgeTile";
 import { NzokCategoryTile } from "./NzokCategoryTile";
@@ -67,6 +68,17 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
     drugReimbursement,
     isLoading,
   } = useNzok(eik, scopeWindow);
+
+  // Deep links from articles/nav (e.g. /awarder/121858220#nzok-drugs) land at
+  // the page top otherwise — the band elements below are gated on async data,
+  // so re-run the scroll each time a payload settles and its band mounts.
+  useHashScroll([
+    hospitalPayments,
+    drugReimbursement,
+    model,
+    budget,
+    isLoading,
+  ]);
 
   // The health-money bands below (hospital payments, drugs, activity, financials,
   // risk) are precomputed single-period snapshots with their own reporting cadence
@@ -150,7 +162,7 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
       {/* ── Band 1 · Фондът накратко / The fund at a glance ─────────────
           The €5.5bn anchor number and the story that ~98.5% of it flows
           OUTSIDE procurement. Everything below is a share of this whole. */}
-      <div className="flex items-center gap-2 pt-2">
+      <div id="nzok-fund" className="flex items-center gap-2 pt-2 scroll-mt-24">
         <HeartPulse className="h-5 w-5 text-muted-foreground" />
         <h2 className="text-lg font-semibold">
           {bg ? "Здравно осигуряване (НЗОК)" : "Health insurance (НЗОК fund)"}
@@ -219,6 +231,7 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
           per-capita map. Gated on the hospital-payments corpus. */}
       {hospitalPayments && (
         <PackSection
+          id="nzok-hospitals"
           icon={Building2}
           title={bg ? "Пари към болниците" : "Money to hospitals"}
           note={scopeNote}
@@ -234,7 +247,9 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
               compact reference views, so pairing them halves the scroll. */}
           <div className="grid gap-4 lg:grid-cols-2">
             <NzokHospitalCompareTile data={hospitalPayments} />
-            <NzokRegionalChoroplethTile data={hospitalPayments} />
+            <div id="nzok-map" className="scroll-mt-24">
+              <NzokRegionalChoroplethTile data={hospitalPayments} />
+            </div>
           </div>
         </PackSection>
       )}
@@ -245,6 +260,7 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
           which molecule leaks the most vs the pack median. */}
       {drugReimbursement && (
         <PackSection
+          id="nzok-drugs"
           icon={Pill}
           title={bg ? "Лекарства" : "Medicines"}
           note={scopeNote}
@@ -269,6 +285,7 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
           BEFORE the risk capstone so the reader has the context first. Both
           tiles self-fetch and self-hide (migrations 053 / 051). */}
       <PackSection
+        id="nzok-activity"
         icon={Stethoscope}
         title={
           bg ? "Дейност и здраве на болниците" : "Activity & hospital health"
@@ -289,6 +306,7 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
           (drug overpay + activity outliers + overdue debt). Self-hides until
           migration 054. A signpost, not a verdict — the tile says so. */}
       <PackSection
+        id="nzok-risk"
         icon={HeartPulse}
         title={bg ? "Индекс на риска" : "Risk index"}
         note={scopeNote}
@@ -306,6 +324,7 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
           it never dominates the layout. Gated on the contract corpus. */}
       {model && (
         <PackSection
+          id="nzok-procurement"
           icon={ScrollText}
           title={bg ? "Обществени поръчки (ЗОП)" : "Public procurement (ЗОП)"}
           sub={

@@ -15,9 +15,15 @@ export const PackSection: FC<{
    *  host scope pill (a snapshot corpus with its own reporting cadence). Only
    *  passed when the user has actually narrowed the scope. */
   note?: ReactNode;
+  /** Optional anchor id so deep links (e.g. /awarder/121858220#nzok-drugs) can
+   *  scroll straight to this band. `scroll-mt` clears the sticky header. */
+  id?: string;
   children: ReactNode;
-}> = ({ icon: Icon, title, sub, note, children }) => (
-  <section className="space-y-4 border-t border-border/60 pt-5">
+}> = ({ icon: Icon, title, sub, note, id, children }) => (
+  <section
+    id={id}
+    className="scroll-mt-24 space-y-4 border-t border-border/60 pt-5"
+  >
     <div>
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
         <Icon className="h-4 w-4 text-muted-foreground" />
