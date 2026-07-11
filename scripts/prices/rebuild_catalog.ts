@@ -20,6 +20,7 @@ import fs from "node:fs";
 import path from "node:path";
 import type { PoolClient } from "pg";
 import { withClient, allRows } from "../db/lib/pg";
+import { copyRows } from "../db/lib/copy";
 import { canonicalize, mayMergeAcrossChains, type Canon } from "./lib/canon";
 import { unitPricedByPid } from "./seed_dict";
 
@@ -218,6 +219,13 @@ export const rebuildCatalog = async (): Promise<void> => {
       const orderedGroups = [...groups.values()].sort((a, b) =>
         a.canonKey < b.canonKey ? -1 : a.canonKey > b.canonKey ? 1 : 0,
       );
+      // Stage the temp table with ONE COPY stream, not a per-group INSERT. The
+      // slug-uniqueness pass still runs per group in JS (order-stable via the
+      // sort above); only the shipping changes. Row-by-row INSERT here was
+      // latency-bound over the Cloud SQL proxy — ~118k round-trips took ~50 min
+      // on the :cloud path (see scripts/db/lib/copy.ts header). COPY streams it
+      // in seconds.
+      const gRows: unknown[][] = [];
       for (const g of orderedGroups) {
         const title = modal(g.titles);
         let slug = slugify(title);
@@ -230,24 +238,40 @@ export const rebuildCatalog = async (): Promise<void> => {
         }
         taken.add(slug);
         const brand = ov.brand[g.canonKey] ?? g.canon.brand;
-        await c.query(
-          `INSERT INTO g VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9::jsonb,$10,$11,$12)`,
-          [
-            g.canonKey,
-            slug,
-            g.pid,
-            title,
-            brand,
-            g.canon.netQty,
-            g.canon.netUnit,
-            g.canon.unitPriced,
-            JSON.stringify(g.canon.attrs),
-            g.chains.size,
-            g.skuIds.length,
-            g.canon.confidence,
-          ],
-        );
+        gRows.push([
+          g.canonKey,
+          slug,
+          g.pid,
+          title,
+          brand,
+          g.canon.netQty,
+          g.canon.netUnit,
+          g.canon.unitPriced,
+          g.canon.attrs, // jsonb — copyRows renders objects to JSON text
+          g.chains.size,
+          g.skuIds.length,
+          g.canon.confidence,
+        ]);
       }
+      await copyRows(
+        c,
+        "g",
+        [
+          "canon_key",
+          "slug",
+          "pid",
+          "title",
+          "brand",
+          "net_qty",
+          "net_unit",
+          "unit_priced",
+          "attrs",
+          "chain_count",
+          "sku_count",
+          "confidence",
+        ],
+        gRows,
+      );
 
       // 5. upsert. `slug` and `first_seen` are absent from DO UPDATE: frozen.
       await c.query(
@@ -285,7 +309,6 @@ export const rebuildCatalog = async (): Promise<void> => {
       const rows: unknown[][] = [];
       for (const g of groups.values())
         for (const id of g.skuIds) rows.push([id, g.canonKey]);
-      const { copyRows } = await import("../db/lib/copy");
       await copyRows(c, "sk", ["sku_id", "canon_key"], rows);
       await c.query(`
         UPDATE price_skus k SET product_id = p.product_id

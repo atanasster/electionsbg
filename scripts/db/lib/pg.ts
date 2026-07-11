@@ -50,6 +50,17 @@ let pool: Pool | null = null;
 export const getPool = (): Pool => {
   if (!pool) {
     pool = new Pool({ connectionString: urlOverride ?? DATABASE_URL, max: 8 });
+    // A Pool with no 'error' listener CRASHES the process ("Unhandled 'error'
+    // event") when an IDLE backend connection drops — e.g. the Cloud SQL proxy
+    // (:5434) or the server itself closing an idle connection mid-run. pg has
+    // already removed the dead client from the pool by the time this fires, so
+    // logging is all that's needed; the next checkout dials a fresh connection.
+    // Without this, a transient drop during a long rebuild (rebuild_catalog /
+    // build_payloads) takes the whole ingest down after the data already
+    // committed.
+    pool.on("error", (err) => {
+      console.error("[pg] idle client error (dropped, pool recovered):", err.message);
+    });
   }
   return pool;
 };
