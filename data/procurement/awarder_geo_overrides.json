@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-10T10:14:51.224Z",
-  "count": 735,
+  "generatedAt": "2026-07-11T09:55:10.064Z",
+  "count": 741,
   "sources": {
     "mon": 0,
-    "ocds": 508,
+    "ocds": 517,
     "name": 128,
-    "nameOblast": 99,
-    "unresolved": 2003
+    "nameOblast": 96,
+    "unresolved": 1998
   },
   "awarders": {
     "101005300": {
@@ -66,7 +66,7 @@
     },
     "102663909": {
       "ekatte": "17974",
-      "source": "name+oblast",
+      "source": "ocds",
       "confidence": "name+province"
     },
     "102664798": {
@@ -379,6 +379,11 @@
       "source": "name+oblast",
       "confidence": "name+province"
     },
+    "115343433": {
+      "ekatte": "56784",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
     "115352243": {
       "ekatte": "56784",
       "source": "ocds",
@@ -674,6 +679,11 @@
       "source": "ocds",
       "confidence": "name+province"
     },
+    "129009774": {
+      "ekatte": "10971",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
     "129009781": {
       "ekatte": "12259",
       "source": "ocds",
@@ -926,6 +936,11 @@
     },
     "176030673": {
       "ekatte": "56784",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
+    "176030723": {
+      "ekatte": "40909",
       "source": "ocds",
       "confidence": "name+province"
     },
@@ -2306,7 +2321,7 @@
     },
     "000453278": {
       "ekatte": "56784",
-      "source": "name+oblast",
+      "source": "ocds",
       "confidence": "name+province"
     },
     "000453292": {
@@ -2731,7 +2746,7 @@
     },
     "000460041": {
       "ekatte": "56784",
-      "source": "name+oblast",
+      "source": "ocds",
       "confidence": "name+province"
     },
     "000460109": {
@@ -3109,6 +3124,11 @@
       "source": "ocds",
       "confidence": "name+province"
     },
+    "000666917": {
+      "ekatte": "68134",
+      "source": "ocds",
+      "confidence": "name_only"
+    },
     "000667093": {
       "ekatte": "68134",
       "source": "ocds",
@@ -3294,6 +3314,11 @@
       "source": "ocds",
       "confidence": "name+province"
     },
+    "000673865": {
+      "ekatte": "68134",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
     "000673908": {
       "ekatte": "68134",
       "source": "ocds",
@@ -3335,6 +3360,11 @@
       "confidence": "name+province"
     },
     "000696532": {
+      "ekatte": "68134",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
+    "000698605": {
       "ekatte": "68134",
       "source": "ocds",
       "confidence": "name+province"
