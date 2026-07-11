@@ -239,6 +239,20 @@ const contractKey = (
   tag: ContractTag,
 ): string => hashKey(`${releaseId}::${contractId}::${contractorEik}::${tag}`);
 
+// The РОП awards table carries NO CPV code (only a free-text subject), so every
+// row lands CPV-less — invisible to CPV-keyed views (the textbook market, sector
+// packs, the risk model's legally-single-source exemption). We can't recover the
+// full CPV without a per-procedure dossier scrape, but ONE category is both
+// unambiguous from the subject and important: textbooks (CPV 22112). A subject
+// naming учебник(и) / учебни помагала / познавателни книжки is a textbook supply
+// — АОП classifies these as 22112, and they're legally awarded to the sole
+// copyright holder (so tagging them also stops the risk model flagging them as
+// single-bidder). This is the ONLY CPV we derive; everything else stays null.
+const TEXTBOOK_SUBJECT =
+  /учебник|учебни\s+помагала|учебни\s+комплекти|познавателни\s+книжки/i;
+const deriveCpv = (subject: string): string | undefined =>
+  TEXTBOOK_SUBJECT.test(subject) ? "22112000" : undefined;
+
 // Map parsed РОП rows onto Contract[], resolving EIKs from the corpus maps.
 // `sourceUrl` is the per-day search URL, carried onto every row for citation.
 export const normalizeRopRows = (
@@ -331,6 +345,7 @@ export const normalizeRopRows = (
       currency,
       amountEur: toEur(amount, currency) ?? undefined,
       title: row.subject || "",
+      cpv: deriveCpv(row.subject),
       bundleUuid: "rop-register",
       sourceUrl,
     });
