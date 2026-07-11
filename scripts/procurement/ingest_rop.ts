@@ -26,9 +26,11 @@ import {
   parseRopHtml,
   buildResolutionMaps,
   normalizeRopRows,
+  ropKeyDiscriminator,
   type RopRow,
   type ResolutionMaps,
 } from "./normalize_rop";
+import { disambiguateContractKeys } from "./contract_key";
 import { canonicalJson, findHugeContracts, validateContract } from "./validate";
 import type { Contract } from "./types";
 
@@ -107,22 +109,33 @@ const fetchPage = async (
   throw lastErr ?? new Error(`GET ${day} p${page} failed`);
 };
 
-// Fetch every page of one day and return all parsed rows. Cross-checks the row
-// count against the register's reported total so a truncated crawl is loud.
+// Safety cap: no single publication day has anywhere near 2000 contracts. A day
+// that hits this is a runaway (pager loop) and is logged.
+const MAX_PAGES = 40;
+
+// Fetch every page of one day and return all parsed rows. The register omits its
+// "Общ брой" pager total on some responses, so we can NOT rely on it — instead we
+// page until a page returns fewer than PAGE_SIZE rows (the last page, possibly
+// empty). A page that genuinely errors after retries sets `failed` so the caller
+// re-runs it (cache makes that cheap).
 const fetchDay = async (
   day: string,
   refresh: boolean,
   delayMs: number,
-): Promise<{ rows: RopRow[]; total: number; shortfall: boolean }> => {
-  const first = parseRopHtml(await fetchPage(day, 1, refresh));
-  const rows = [...first.rows];
-  const pages = Math.max(first.pages, Math.ceil(first.total / PAGE_SIZE));
-  for (let p = 2; p <= pages; p++) {
-    if (delayMs > 0 && !refresh) await sleep(delayMs);
-    const pg = parseRopHtml(await fetchPage(day, p, refresh));
+): Promise<{ rows: RopRow[]; failed: boolean; cappedOut: boolean }> => {
+  const rows: RopRow[] = [];
+  for (let p = 1; p <= MAX_PAGES; p++) {
+    let pg: ReturnType<typeof parseRopHtml>;
+    try {
+      pg = parseRopHtml(await fetchPage(day, p, refresh));
+    } catch {
+      return { rows, failed: true, cappedOut: false };
+    }
     rows.push(...pg.rows);
+    if (pg.rows.length < PAGE_SIZE) return { rows, failed: false, cappedOut: false };
+    if (delayMs > 0 && !refresh) await sleep(delayMs);
   }
-  return { rows, total: first.total, shortfall: rows.length < first.total };
+  return { rows, failed: false, cappedOut: true };
 };
 
 // ---- month-shard writer (mirrors ingest.ts / ingest_eop.ts) ----------------
@@ -288,11 +301,15 @@ const main = async (args: {
 
   days.forEach((day, i) => {
     const res = fetched[i];
-    if (!res) {
+    if (!res || res.failed) {
       shortfallDays.push(day);
+      if (res?.cappedOut) console.log(`  ! ${day}: hit page cap — investigate`);
       return;
     }
-    if (res.shortfall) shortfallDays.push(day);
+    if (res.cappedOut) {
+      shortfallDays.push(day);
+      console.log(`  ! ${day}: hit page cap — investigate`);
+    }
     if (res.rows.length === 0) return;
     agg.daysWithRows++;
     const { contracts, stats } = normalizeRopRows(res.rows, maps, pageUrl(day, 1));
@@ -312,6 +329,16 @@ const main = async (args: {
       kept.push(r);
     }
   });
+
+  // Global key disambiguation: the same (unp, contractNumber, supplier) can be
+  // republished on a later day with a revised amount (an "анекс"), sharing a base
+  // key across month-shards. A per-day pass can't see that; this one spans the
+  // whole run, re-keying only the colliding minority so their /contract/:key URLs
+  // stay unique. `kept` is in date order, so the earliest keeps the bare key.
+  const rekeyed = disambiguateContractKeys(kept, (i) =>
+    ropKeyDiscriminator(kept[i]),
+  );
+  if (rekeyed > 0) console.log(`→ disambiguated ${rekeyed} colliding key(s)`);
 
   kept.forEach(validateContract);
   const huge = findHugeContracts(kept);
@@ -344,8 +371,8 @@ const main = async (args: {
   );
   if (shortfallDays.length > 0)
     console.log(
-      `  ⚠ ${shortfallDays.length} day(s) failed or returned fewer rows than the ` +
-        `reported total — re-run (cache makes it cheap) to complete: ` +
+      `  ⚠ ${shortfallDays.length} day(s) had a page fetch fail — re-run ` +
+        `(cache makes it cheap) to complete: ` +
         `${shortfallDays.slice(0, 8).join(", ")}${shortfallDays.length > 8 ? " …" : ""}`,
     );
 

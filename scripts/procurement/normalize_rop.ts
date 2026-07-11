@@ -27,7 +27,7 @@ import { isUnp } from "./unp";
 import { overrideAmount } from "./amount_overrides";
 import { parseBgNumber } from "./normalize_eop";
 import { normaliseOrgName } from "../lib/normalize_name";
-import { disambiguateContractKeys, hashKey } from "./contract_key";
+import { hashKey } from "./contract_key";
 import { toEur } from "@/lib/currency";
 import type { Contract, ContractTag } from "./types";
 
@@ -248,7 +248,6 @@ export const normalizeRopRows = (
 ): { contracts: Contract[]; stats: RopNormalizeStats } => {
   const stats = emptyStats();
   const out: Contract[] = [];
-  const discs: string[] = [];
   const tag: ContractTag = "contract";
 
   for (const row of rows) {
@@ -335,12 +334,19 @@ export const normalizeRopRows = (
       bundleUuid: "rop-register",
       sourceUrl,
     });
-    discs.push(`${row.contractNumber || ""}:${amount ?? ""}`);
     stats.rowsEmitted++;
   }
 
-  // Re-key any within-batch base-key collision (multiple lots under one contract
-  // number to the same supplier).
-  disambiguateContractKeys(out, (i) => discs[i]);
+  // NOTE: key disambiguation is done ONCE globally by the caller across the whole
+  // run — a per-day pass can't see the same (unp, contractNumber, supplier)
+  // republished on a later day (e.g. an "анекс" re-filed with a revised amount),
+  // which shares a base key across two month-shards. See ingest_rop.ts.
   return { contracts: out, stats };
 };
+
+// Stable, re-run-reproducible discriminator for the global disambiguation pass:
+// what distinguishes two rows that share a base key — the contract number, the
+// amount, and the publication date (a republished amendment differs on the
+// latter two).
+export const ropKeyDiscriminator = (r: Contract): string =>
+  `${r.contractId ?? ""}:${r.amountEur ?? r.amount ?? ""}:${r.date}`;
