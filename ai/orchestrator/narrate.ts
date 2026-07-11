@@ -476,6 +476,11 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Успеваемост на грантовете на НФК: ${f(env, "rate")} — ${f(env, "funded")} от ${f(env, "applied")} проекта финансирани (${f(env, "totalFunded")}). Най-висока: ${f(env, "bestField")} (${f(env, "bestRate")}); най-ниска: ${f(env, "worstField")} (${f(env, "worstRate")}).`
         : `НФК grant success rate: ${f(env, "rate")} — ${f(env, "funded")} of ${f(env, "applied")} projects funded (${f(env, "totalFunded")}). Highest: ${f(env, "bestField")} (${f(env, "bestRate")}); lowest: ${f(env, "worstField")} (${f(env, "worstRate")}).`;
+    case "cultureMunicipal":
+      if (!env.facts.sofiaTotal) return env.title;
+      return lang === "bg"
+        ? `Столична програма „Култура“ (${f(env, "sofiaYear")}): ${f(env, "sofiaFunded")} от ${f(env, "sofiaApplied")} проекта финансирани (${f(env, "sofiaRate")}), ${f(env, "sofiaTotal")}. Читалища: ${f(env, "chitalishtaTotal")} за ${f(env, "chitalishtaPositions")} субсидирани бройки — с ${f(env, "chitalishtaCut")} под обявеното.`
+        : `Sofia's „Култура“ programme (${f(env, "sofiaYear")}): ${f(env, "sofiaFunded")} of ${f(env, "sofiaApplied")} projects funded (${f(env, "sofiaRate")}), ${f(env, "sofiaTotal")}. Читалища: ${f(env, "chitalishtaTotal")} for ${f(env, "chitalishtaPositions")} subsidised positions — ${f(env, "chitalishtaCut")} below the announced amount.`;
     case "cultureCommissions":
       if (!env.facts.members) return env.title;
       return lang === "bg"

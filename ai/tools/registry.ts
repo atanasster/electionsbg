@@ -44,6 +44,7 @@ import {
   filmSubsidyForProducer,
   cultureGrantSuccess,
   cultureCommissions,
+  cultureMunicipal,
 } from "./culture";
 import { schoolMatura } from "./education";
 import {
@@ -2688,6 +2689,26 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: cultureCommissions,
+  },
+  {
+    name: "cultureMunicipal",
+    domain: "fiscal",
+    description: {
+      bg: "Общинска и читалищна култура — Столична програма „Култура“ (финансирани проекти по направления) и националната субсидия за народните читалища.",
+      en: "Municipal & community-centre culture — Sofia's „Култура“ programme (funded projects by direction) and the national subsidy for community centres (читалища).",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Колко дава Столична програма „Култура“?",
+        en: "How much does Sofia's culture programme fund?",
+      },
+      {
+        bg: "Каква е държавната субсидия за читалищата?",
+        en: "What's the state subsidy for community centres?",
+      },
+    ],
+    run: cultureMunicipal,
   },
   {
     name: "revenueBreakdown",

@@ -59,6 +59,23 @@ interface GrantsFile {
   }[];
 }
 
+interface MunicipalFile {
+  sofia: {
+    year: number;
+    fundedCount: number;
+    appliedCount: number;
+    totalEur: number;
+    directions: { n: number; bg: string; count: number; eur: number }[];
+  };
+  chitalishta: {
+    year: number;
+    subsidizedPositions: number;
+    totalEur: number;
+    announcedEur: number;
+    cutEur: number;
+  };
+}
+
 interface CommissionsFile {
   order: string;
   mandateStart: string;
@@ -301,6 +318,62 @@ export const cultureCommissions = async (
       animationChair: chairOf("animation"),
     },
     provenance: ["culture/commissions.json"],
+  };
+};
+
+// ---- municipal + читалища ----------------------------------------------------
+export const cultureMunicipal = async (
+  _args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const m = await fetchData<MunicipalFile | null>("/culture/municipal.json");
+  if (!m || !m.sofia) {
+    return {
+      tool: "cultureMunicipal",
+      domain: "fiscal",
+      kind: "scalar",
+      title: bg
+        ? "Няма данни за общинската култура"
+        : "No municipal culture data",
+      facts: {},
+      viz: "none",
+      provenance: ["culture/municipal.json"],
+    };
+  }
+  const dirs = [...m.sofia.directions].sort((a, b) => b.eur - a.eur);
+  return {
+    tool: "cultureMunicipal",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? "Общинска и читалищна култура (Столична програма + читалища)"
+      : "Municipal & community-centre culture (Sofia programme + читалища)",
+    columns: [
+      { key: "field", label: bg ? "Направление" : "Direction" },
+      { key: "count", label: bg ? "Проекти" : "Projects", numeric: true },
+      { key: "eur", label: bg ? "Финансиране" : "Funding", numeric: true },
+    ],
+    rows: dirs.map((d) => ({
+      field: d.bg,
+      count: String(d.count),
+      eur: fmtEurCompact(d.eur, ctx.lang),
+    })),
+    viz: "bar",
+    facts: {
+      sofiaFunded: fmtInt(m.sofia.fundedCount, ctx.lang),
+      sofiaApplied: fmtInt(m.sofia.appliedCount, ctx.lang),
+      sofiaTotal: fmtEurCompact(m.sofia.totalEur, ctx.lang),
+      sofiaRate: fmtPct(
+        m.sofia.appliedCount ? m.sofia.fundedCount / m.sofia.appliedCount : 0,
+        ctx.lang,
+      ),
+      sofiaYear: String(m.sofia.year),
+      chitalishtaTotal: fmtEurCompact(m.chitalishta.totalEur, ctx.lang),
+      chitalishtaPositions: fmtInt(m.chitalishta.subsidizedPositions, ctx.lang),
+      chitalishtaCut: fmtEurCompact(m.chitalishta.cutEur, ctx.lang),
+    },
+    provenance: ["culture/municipal.json"],
   };
 };
 

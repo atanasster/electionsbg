@@ -2059,6 +2059,20 @@ export const route = (question: string, ctx: ToolContext): Route => {
       has(q, "успеваем", "одобрен", "success rate", "approval", "класиран")
     )
       return { tool: "cultureGrantSuccess", args: {} };
+    // Municipal + читалища streams (Sofia's programme, community-centre subsidy).
+    // Keyed on their own distinctive terms, so it fires without a generic culture
+    // cue ("читалищ" / "столична програма" are specific enough on their own).
+    if (
+      has(q, "читалищ", "chitalisht", "community centre", "community center") ||
+      has(
+        q,
+        "столична програма",
+        "sofia culture",
+        "общинска култ",
+        "municipal cult",
+      )
+    )
+      return { tool: "cultureMunicipal", args: {} };
     // "Кой решава" — the НФЦ artistic-commission compositions. Gated on a film/
     // culture context (so it never grabs parliamentary/election committees), and
     // checked before the ranking route since "кой решава"/"кои са членовете" would
