@@ -633,6 +633,29 @@ const DB_ROUTES = {
     );
     return { body: { operators } };
   },
+  // EU-funds (ИСУН) rollup over a SET of EIKs — per-beneficiary contracted/paid
+  // from the already-rolled fund_beneficiaries table (one row per EIK). Not
+  // date-windowed: EU-funds figures are programme-period lifetime totals, not a
+  // parliament slice. Feeds the water pack's EU-investment tile.
+  "awarder-funds-rollup": async (dbRows, q) => {
+    const eiks = s(q, "eiks")
+      .split(",")
+      .map((e) => e.trim())
+      .filter((e) => /^\d{9,13}$/.test(e))
+      .slice(0, 300);
+    if (!eiks.length) return { status: 400, body: { error: "missing eiks" } };
+    const operators = await dbRows(
+      `SELECT eik,
+              round(contracted_eur)::double precision AS "contractedEur",
+              round(paid_eur)::double precision AS "paidEur",
+              contract_count::int AS "projectCount"
+       FROM fund_beneficiaries
+       WHERE eik = ANY($1)
+       ORDER BY contracted_eur DESC NULLS LAST, eik`,
+      [eiks],
+    );
+    return { body: { operators } };
+  },
   // Lightweight awarder rollup (as a BUYER): top suppliers (byContractor),
   // by-year series + headline totals — the same awarder_procurement() the
   // /awarder page's company payload embeds, plus the awarder's own name (the

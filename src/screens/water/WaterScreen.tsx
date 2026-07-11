@@ -11,16 +11,19 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
-import { useVik } from "@/data/procurement/useVik";
+import { useVik, useVikFunds } from "@/data/procurement/useVik";
 import { VIK_HOLDING_EIK } from "@/lib/vikReferenceData";
 import { VikSubsidiaryTile } from "@/screens/components/procurement/vik/VikSubsidiaryTile";
 import { VikCategoryTile } from "@/screens/components/procurement/vik/VikCategoryTile";
+import { VikEuFundsTile } from "@/screens/components/procurement/vik/VikEuFundsTile";
+import { VikContractorHhiTile } from "@/screens/components/procurement/vik/VikContractorHhiTile";
 import { WaterFloodTile } from "./WaterFloodTile";
 
 export const WaterScreen: FC = () => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
-  const { model, operators, isLoading } = useVik(VIK_HOLDING_EIK);
+  const { model, operators, groupEiks, isLoading } = useVik(VIK_HOLDING_EIK);
+  const { funds } = useVikFunds(groupEiks);
 
   return (
     <div className="space-y-4">
@@ -51,8 +54,13 @@ export const WaterScreen: FC = () => {
       ) : model && model.totalEur > 0 ? (
         <div className="space-y-4">
           <VikSubsidiaryTile operators={operators} />
+          <VikEuFundsTile funds={funds} />
           <VikCategoryTile
             categories={model.categories}
+            totalEur={model.totalEur}
+          />
+          <VikContractorHhiTile
+            suppliers={model.suppliers}
             totalEur={model.totalEur}
           />
         </div>

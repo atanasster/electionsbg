@@ -167,3 +167,58 @@ export const useVikGroupRollup = (
 
   return { operators, isLoading };
 };
+
+/** One EU-fund (ИСУН) row per operator across a set of EIKs — contracted vs paid
+ *  (absorption), from the already-rolled fund_beneficiaries table via ONE call.
+ *  Not scope-windowed: EU-funds figures are programme-period lifetime totals. */
+export interface VikFundOp {
+  eik: string;
+  name: string;
+  oblast: string;
+  contractedEur: number;
+  paidEur: number;
+  projectCount: number;
+}
+
+export const useVikFunds = (
+  eiks: readonly string[],
+): { funds: VikFundOp[]; isLoading: boolean } => {
+  const eikParam = useMemo(() => [...eiks].join(","), [eiks]);
+  const { data, isLoading } = useQuery({
+    queryKey: ["db", "awarder-funds-rollup", eikParam] as const,
+    queryFn: async (): Promise<{
+      operators: {
+        eik: string;
+        contractedEur: number;
+        paidEur: number;
+        projectCount: number;
+      }[];
+    }> => {
+      const r = await fetch(
+        `/api/db/awarder-funds-rollup?eiks=${encodeURIComponent(eikParam)}`,
+      );
+      if (!r.ok) return { operators: [] };
+      return r.json();
+    },
+    enabled: eiks.length > 0,
+    staleTime: Infinity,
+  });
+
+  const funds = useMemo<VikFundOp[]>(
+    () =>
+      (data?.operators ?? []).map((o) => {
+        const op = operatorByEik(o.eik);
+        return {
+          eik: o.eik,
+          name: op?.name ?? `ЕИК ${o.eik}`,
+          oblast: op?.oblast ?? "",
+          contractedEur: o.contractedEur,
+          paidEur: o.paidEur,
+          projectCount: o.projectCount,
+        };
+      }),
+    [data],
+  );
+
+  return { funds, isLoading };
+};

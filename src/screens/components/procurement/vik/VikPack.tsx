@@ -20,11 +20,17 @@ import { Droplets } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEurCompact } from "@/lib/currency";
 import { WARN_CHIP_COLORS } from "../chipStyles";
-import { useVik, type ScopeWindow } from "@/data/procurement/useVik";
+import {
+  useVik,
+  useVikFunds,
+  type ScopeWindow,
+} from "@/data/procurement/useVik";
 import { categoryLabel } from "@/lib/vikAttributes";
 import { buildPackInsights } from "@/lib/packInsights";
 import { VikSubsidiaryTile } from "./VikSubsidiaryTile";
 import { VikCategoryTile } from "./VikCategoryTile";
+import { VikEuFundsTile } from "./VikEuFundsTile";
+import { VikContractorHhiTile } from "./VikContractorHhiTile";
 
 export const VikPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   eik,
@@ -33,7 +39,8 @@ export const VikPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
-  const { model, operators, isLoading } = useVik(eik, scopeWindow);
+  const { model, operators, groupEiks, isLoading } = useVik(eik, scopeWindow);
+  const { funds } = useVikFunds(groupEiks);
 
   // "Per year" divisor = the length of the SCOPE WINDOW (not the contract span),
   // so an edge gap year doesn't inflate the average — same rule as the ВСС pack.
@@ -132,9 +139,18 @@ export const VikPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
       {/* Consolidated group — the point of the pack (parent procures ~nothing) */}
       <VikSubsidiaryTile operators={operators} />
 
+      {/* EU-funds — most water capex is European money, not ЗОП procurement */}
+      <VikEuFundsTile funds={funds} />
+
       {/* What the operators buy via ЗОП, by operating function */}
       <VikCategoryTile
         categories={model.categories}
+        totalEur={model.totalEur}
+      />
+
+      {/* Contractor-market concentration (HHI) across the group's ЗОП spend */}
+      <VikContractorHhiTile
+        suppliers={model.suppliers}
         totalEur={model.totalEur}
       />
 
