@@ -26,9 +26,15 @@ WITH base AS (
   SELECT tag, contractor_eik, contractor_name, awarder_eik, awarder_name, amount_eur
   FROM contracts
   -- Half-open window [from, to): a contract on the next election day belongs to
-  -- the NEXT parliament, matching the offline by_ns builder.
-  WHERE (p_from IS NULL OR date >= p_from)
-    AND (p_to   IS NULL OR date <  p_to)
+  -- the NEXT parliament, matching the offline by_ns builder. Sargable COALESCE
+  -- bounds (NOT `p_from IS NULL OR date >= p_from`): the OR-with-NULL-parameter
+  -- disjunction is non-sargable, so a parameterized function body plans a full
+  -- seq scan of contracts (~400MB) even with idx_contracts_order present —
+  -- which blew the serving pool's 10s statement_timeout on Cloud SQL under load
+  -- (57014). COALESCE bounds are logically identical ('' sorts below every
+  -- date, '9999-99-99' above) but let the planner range-scan idx_contracts_order.
+  WHERE date >= COALESCE(p_from, '')
+    AND date <  COALESCE(p_to, '9999-99-99')
 ),
 c AS (
   SELECT * FROM base

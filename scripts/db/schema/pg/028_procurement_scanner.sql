@@ -19,8 +19,8 @@ WITH ctr AS (  -- per-contractor window spend
   SELECT contractor_eik AS eik, SUM(amount_eur) AS eur, COUNT(*)::int AS n
   FROM contracts
   WHERE tag = 'contract' AND contractor_eik IS NOT NULL AND contractor_eik <> ''
-    AND (p_from IS NULL OR date >= p_from)
-    AND (p_to   IS NULL OR date <  p_to)
+    AND date >= COALESCE(p_from, '')
+    AND date <  COALESCE(p_to, '9999-99-99')
   GROUP BY contractor_eik
 ),
 pol AS (  -- politician links intersected with the window's contractors

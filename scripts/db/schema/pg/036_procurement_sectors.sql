@@ -16,8 +16,8 @@ WITH c AS (
   SELECT left(cpv, 2) AS d, amount_eur
   FROM contracts
   WHERE tag = 'contract'
-    AND (p_from IS NULL OR date >= p_from)
-    AND (p_to   IS NULL OR date <  p_to)
+    AND date >= COALESCE(p_from, '')
+    AND date <  COALESCE(p_to, '9999-99-99')
 ),
 coded AS (
   SELECT d, COALESCE(SUM(amount_eur), 0) AS eur, COUNT(*)::int AS n

@@ -21,8 +21,8 @@ WITH c AS (
   WHERE tag = 'contract'
     AND awarder_eik IS NOT NULL AND awarder_eik <> ''
     AND contractor_eik IS NOT NULL AND contractor_eik <> ''
-    AND (p_from IS NULL OR date >= p_from)
-    AND (p_to   IS NULL OR date <  p_to)
+    AND date >= COALESCE(p_from, '')
+    AND date <  COALESCE(p_to, '9999-99-99')
 ),
 ctr AS (  -- per-contractor window spend (for MP-tied edges)
   SELECT contractor_eik AS eik, SUM(amount_eur) AS eur FROM c GROUP BY contractor_eik
@@ -66,8 +66,14 @@ SELECT jsonb_build_object(
       'contractorName', COALESCE(
         (SELECT tc.name FROM tr_companies tc WHERE tc.uic = contractor_eik), ct_name),
       'sharePct', ROUND(share::numeric, 4), 'pairTotalEur', ROUND(eur))
-      ORDER BY share DESC, eur DESC)
-    FROM (SELECT * FROM flagged ORDER BY share DESC, eur DESC LIMIT 50) x
+      -- Rounded sort keys + unique (awarder,contractor) tiebreak: keeps the
+      -- ordering (and the LIMIT cut) stable across scan plans / instances, since
+      -- the raw double share/eur carry per-order summation noise (determinism
+      -- rule, reference_pg_payload_determinism).
+      ORDER BY ROUND(share::numeric, 4) DESC, ROUND(eur) DESC, awarder_eik, contractor_eik)
+    FROM (SELECT * FROM flagged
+          ORDER BY ROUND(share::numeric, 4) DESC, ROUND(eur) DESC, awarder_eik, contractor_eik
+          LIMIT 50) x
   ), '[]'::jsonb),
   'topMpTied', COALESCE((
     SELECT jsonb_agg(jsonb_build_object(
@@ -78,11 +84,12 @@ SELECT jsonb_build_object(
         (SELECT MIN(cc.contractor_name) FROM contracts cc
          WHERE cc.contractor_eik = mptied.contractor_eik AND cc.tag = 'contract')),
       'totalEur', ROUND(eur))
-      ORDER BY eur DESC)
-    FROM (SELECT * FROM mptied ORDER BY eur DESC LIMIT 35) mptied
+      ORDER BY ROUND(eur) DESC, ref, contractor_eik)
+    FROM (SELECT * FROM mptied
+          ORDER BY ROUND(eur) DESC, ref, contractor_eik LIMIT 35) mptied
   ), '[]'::jsonb),
   'concentrationByOblast', COALESCE((
-    SELECT jsonb_agg(jsonb_build_object('oblast', oblast, 'count', cnt) ORDER BY cnt DESC)
+    SELECT jsonb_agg(jsonb_build_object('oblast', oblast, 'count', cnt) ORDER BY cnt DESC, oblast)
     FROM (SELECT oblast, count(*)::int AS cnt FROM flagged WHERE oblast IS NOT NULL
           GROUP BY oblast) o
   ), '[]'::jsonb)

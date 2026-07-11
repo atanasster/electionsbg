@@ -21,8 +21,8 @@ WITH c AS (
   WHERE tag = 'contract'
     AND awarder_eik IS NOT NULL AND awarder_eik <> ''
     AND contractor_eik IS NOT NULL AND contractor_eik <> ''
-    AND (p_from IS NULL OR date >= p_from)
-    AND (p_to   IS NULL OR date <  p_to)
+    AND date >= COALESCE(p_from, '')
+    AND date <  COALESCE(p_to, '9999-99-99')
 ),
 pair AS (
   -- COLLATE "C" pins the alias choice to byte order across instances (see

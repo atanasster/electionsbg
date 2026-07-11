@@ -25,8 +25,8 @@ WITH base AS (
   SELECT tag, contractor_eik, contractor_name, awarder_eik, awarder_name,
          amount, currency, amount_eur
   FROM contracts
-  WHERE (p_from IS NULL OR date >= p_from)
-    AND (p_to   IS NULL OR date <  p_to)
+  WHERE date >= COALESCE(p_from, '')
+    AND date <  COALESCE(p_to, '9999-99-99')
     AND tag IN ('contract', 'award')
     AND contractor_eik IS NOT NULL AND contractor_eik <> ''
 ),
@@ -78,7 +78,7 @@ polagg AS (
          MIN(politician) AS politician, MIN(kind) AS kind, MIN(role) AS role,
          SUM(eur) AS total_eur, SUM(n)::int AS contract_count,
          COUNT(DISTINCT eik)::int AS contractor_count,
-         (array_agg(name ORDER BY eur DESC NULLS LAST))[1:3] AS top_names
+         (array_agg(name ORDER BY ROUND(eur) DESC NULLS LAST, name))[1:3] AS top_names
   FROM pol GROUP BY ref
 )
 SELECT jsonb_build_object(
@@ -92,20 +92,22 @@ SELECT jsonb_build_object(
       'contractCount', x.n, 'awardCount', x.awards,
       'mpTied', x.mp_ids IS NOT NULL,
       'mpIds', COALESCE(to_jsonb(x.mp_ids), '[]'::jsonb)
-    ) ORDER BY x.eur DESC), '[]'::jsonb)
+    ) ORDER BY ROUND(x.eur) DESC, x.eik), '[]'::jsonb)
     FROM (
       SELECT ctr.*, others.other, mpties.mp_ids
       FROM ctr
       LEFT JOIN others ON others.eik = ctr.eik
       LEFT JOIN mpties ON mpties.eik = ctr.eik
-      ORDER BY ctr.eur DESC NULLS LAST LIMIT 1000
+      -- Rounded sort key + eik tiebreak so the LIMIT 1000 cut and the row order
+      -- are stable across scan plans / instances (determinism rule).
+      ORDER BY ROUND(ctr.eur) DESC NULLS LAST, ctr.eik LIMIT 1000
     ) x
   ),
   'topAwarders', (
     SELECT COALESCE(jsonb_agg(jsonb_build_object(
       'eik', eik, 'name', name, 'totalEur', ROUND(eur), 'contractCount', n
-    ) ORDER BY eur DESC), '[]'::jsonb)
-    FROM (SELECT * FROM awr ORDER BY eur DESC NULLS LAST LIMIT 1000) x
+    ) ORDER BY ROUND(eur) DESC, eik), '[]'::jsonb)
+    FROM (SELECT * FROM awr ORDER BY ROUND(eur) DESC NULLS LAST, eik LIMIT 1000) x
   ),
   'topMps', (
     SELECT COALESCE(jsonb_agg(jsonb_build_object(
@@ -113,7 +115,7 @@ SELECT jsonb_build_object(
       'mpName', politician, 'totalEur', ROUND(total_eur),
       'contractCount', contract_count, 'contractorCount', contractor_count,
       'topContractorNames', to_jsonb(top_names)
-    ) ORDER BY total_eur DESC), '[]'::jsonb)
+    ) ORDER BY ROUND(total_eur) DESC, ref), '[]'::jsonb)
     FROM polagg WHERE kind = 'mp'
   ),
   'topOfficials', (
@@ -122,7 +124,7 @@ SELECT jsonb_build_object(
       'name', politician, 'role', role, 'totalEur', ROUND(total_eur),
       'contractCount', contract_count, 'contractorCount', contractor_count,
       'topContractorNames', to_jsonb(top_names)
-    ) ORDER BY total_eur DESC), '[]'::jsonb)
+    ) ORDER BY ROUND(total_eur) DESC, ref), '[]'::jsonb)
     FROM polagg WHERE kind = 'official'
   )
 );

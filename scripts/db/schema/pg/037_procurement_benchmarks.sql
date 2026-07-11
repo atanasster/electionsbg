@@ -30,8 +30,8 @@ WITH c AS (
          NULLIF(TRIM(procurement_method), '') AS method
   FROM contracts
   WHERE tag = 'contract'
-    AND (p_from IS NULL OR date >= p_from)
-    AND (p_to   IS NULL OR date <  p_to)
+    AND date >= COALESCE(p_from, '')
+    AND date <  COALESCE(p_to, '9999-99-99')
 ),
 m AS (
   SELECT bids, method,
