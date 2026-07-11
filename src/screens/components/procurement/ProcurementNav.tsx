@@ -14,6 +14,7 @@ import {
   ROADS_AWARDER_PATH,
   NOI_AWARDER_PATH,
   NZOK_AWARDER_PATH,
+  MON_AWARDER_PATH,
 } from "./sectorPacks";
 import {
   LayoutGrid,
@@ -29,6 +30,7 @@ import {
   HeartHandshake,
   Scale,
   Sprout,
+  GraduationCap,
 } from "lucide-react";
 import { useProcurementHref } from "@/data/procurement/useProcurementScope";
 import { useCachedNewCount } from "@/data/procurement/useWatchlist";
@@ -89,6 +91,11 @@ const secondaryItems = [
     to: NZOK_AWARDER_PATH,
     icon: HeartPulse,
     key: "procurement_nzok_nav",
+  },
+  {
+    to: MON_AWARDER_PATH,
+    icon: GraduationCap,
+    key: "procurement_mon_nav",
   },
   {
     // The judiciary's home is the /judiciary dashboard — it lists every judicial

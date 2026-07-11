@@ -47,9 +47,11 @@ npx tsx scripts/education/gen_school_context.ts
 npx tsx scripts/education/gen_textbook_market.ts
 
 # 5. Load the schools serving layer into LOCAL Postgres (schools/school_scores/
-#    school_context + the precomputed 'directory' payload that /education and
-#    /school/:id fetch). The SES + value-added regressions are computed HERE now —
-#    keep scripts/db/load_schools_pg.ts behaviourally identical to
+#    school_context + two precomputed school_payloads blobs: 'directory' — the
+#    whole dataset /education and /school/:id fetch — and 'risk' — the slim
+#    top-under-performers list the МОН pack's SchoolRiskTile fetches instead of
+#    the ~600 KB directory). The SES + value-added regressions are computed HERE
+#    now — keep scripts/db/load_schools_pg.ts behaviourally identical to
 #    src/data/schools/useSchoolDirectory (same thresholds/banding).
 npm run db:load:schools:pg
 ```
@@ -73,7 +75,10 @@ procurement/funds — they reach prod via a **Cloud SQL load, not `bucket:sync`*
 Emit these in the Next-steps output (do NOT auto-run them; Cloud SQL is prod):
 
 ```bash
-# Cloud SQL (proxy on :5434) — publishes the schools tables + directory payload:
+# Cloud SQL (proxy on :5434) — publishes the schools tables + the 'directory'
+# AND 'risk' school_payloads blobs (same loader writes both). Until this runs,
+# the МОН pack's SchoolRiskTile self-hides in prod (education-payload?kind=risk
+# returns null).
 npm run db:load:schools:pg:cloud
 # functions redeploy only if the /api/db route set changed (education-payload):
 #   firebase deploy --only functions:db -P default

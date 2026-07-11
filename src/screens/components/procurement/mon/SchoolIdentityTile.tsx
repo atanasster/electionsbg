@@ -43,7 +43,7 @@ export const SchoolIdentityTile: FC<{ eik: string }> = ({ eik }) => {
       <CardContent className="space-y-3 p-3 text-sm md:p-4">
         <p className="text-muted-foreground">
           {bg
-            ? "Този ЕИК е разпознат като училище. Виж успеха на матурите, постижението спрямо социалната среда и напредъка 7→12 клас в картона на училището."
+            ? "Този ЕИК е разпознат като училище. Виж успеха на матурите, постижението спрямо подобни училища и напредъка 7→12 клас в картона на училището."
             : "This EIK is recognised as a school. See its matura results, performance versus its social context, and 7th→12th-grade progress in the school report card."}
         </p>
         {bel != null ? (

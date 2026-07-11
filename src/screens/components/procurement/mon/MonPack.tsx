@@ -8,21 +8,88 @@
 // groups — Klett (Анубис+Булвест) and Просвета — hold ~74%. See
 // TextbookConcentrationTile + src/lib/textbookPublishers.ts.
 //
-// The textbook market is its own annual corpus (not the ministry's procurement
-// scope), so it does NOT honour the host scope pill — it shows the full market.
+// Layout mirrors the НЗОК pack: stacked labelled bands (shared <PackSection>),
+// top-line first (the market) → drill-downs (provider + school risk). These are
+// their own cross-buyer corpora (not the ministry's ЗОП ledger): the textbook
+// market is annual, so it honours any scope window that sits inside one calendar
+// year — the "Години" pick AND a parliament window that hasn't crossed a year
+// boundary (mapped to that year); only a multi-year window keeps the full
+// corpus. The school risk is a latest-year snapshot that never re-windows.
 
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { GraduationCap, ArrowRight } from "lucide-react";
+import { GraduationCap, ArrowRight, Library, Clock } from "lucide-react";
 import type { ScopeWindow } from "@/data/procurement/useAwarderContracts";
 import { useTextbookMarket } from "@/data/education/useTextbookMarket";
+import { PackSection } from "../PackSection";
 import { TextbookConcentrationTile } from "./TextbookConcentrationTile";
+import { SchoolRiskTile } from "./SchoolRiskTile";
 
-export const MonPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = () => {
+export const MonPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
+  scopeWindow,
+}) => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const { data: market, isLoading } = useTextbookMarket();
+
+  // The textbook market is ANNUAL, so it can honour any scope window that sits
+  // inside a single calendar year — an explicit "Години" pick, AND a parliament
+  // window that hasn't yet crossed a year boundary (the current НС started
+  // 2026-04-19 and is open-ended → still wholly within 2026, so it maps to 2026).
+  // Only a window spanning several calendar years can't be reduced to one slice;
+  // that falls back to the full corpus.
+  const { from, to } = scopeWindow;
+  const nowYear = new Date().getFullYear();
+  // Latest calendar year that actually carries textbook spend — used to clamp an
+  // open-ended (current-parliament) window so that once the calendar rolls past
+  // the last data year the tile degrades to "latest year with data" instead of
+  // flipping to an empty-future-year notice for a scope the user didn't change.
+  const maxYearWithSpend = market
+    ? Math.max(0, ...market.byYear.filter((b) => b.eur > 0).map((b) => b.year))
+    : nowYear;
+  const openEndYear =
+    maxYearWithSpend > 0 ? Math.min(nowYear, maxYearWithSpend) : nowYear;
+  const fromYear = from ? Number(from.slice(0, 4)) : null;
+  const toYear = to ? Number(to.slice(0, 4)) : from ? openEndYear : null;
+  const activeYear = fromYear != null && fromYear === toYear ? fromYear : null;
+  const narrowed = !!(from || to);
+  // Exact only when the window is a whole calendar year; a parliament window
+  // reduced to its year is an approximation (it starts mid-year).
+  const isExplicitYear =
+    !!from && /-01-01$/.test(from) && !!to && /-12-31$/.test(to);
+  const yearApprox = activeYear != null && !isExplicitYear;
+  const isMultiYearWindow = narrowed && activeYear == null;
+
+  const chip = (label: string) => (
+    <span className="inline-flex items-center gap-1 rounded-full border border-border bg-muted/40 px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
+      <Clock className="h-3 w-3" />
+      {label}
+    </span>
+  );
+  // Market band: no chip on an exact "Години" pick (it scopes precisely); a note
+  // when a parliament window is approximated to its calendar year, or when the
+  // window spans several years and the market stays on the full corpus.
+  const marketNote = isMultiYearWindow
+    ? chip(
+        bg
+          ? "целият период · обхватът е за няколко години"
+          : "full period · scope spans multiple years",
+      )
+    : yearApprox
+      ? chip(
+          bg ? `≈ по календарна ${activeYear} г.` : `≈ calendar ${activeYear}`,
+        )
+      : null;
+  // School risk never re-windows (latest matura year); flag it whenever the
+  // scope is narrowed at all.
+  const schoolNote = narrowed
+    ? chip(
+        bg
+          ? "най-нови данни · не зависят от обхвата"
+          : "latest data · independent of scope",
+      )
+    : null;
 
   if (isLoading)
     return (
@@ -38,11 +105,53 @@ export const MonPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = () => {
           {bg ? "Образование (МОН)" : "Education (МОН)"}
         </h2>
       </div>
+      <p className="-mt-2 max-w-2xl text-sm leading-snug text-muted-foreground">
+        {bg
+          ? "Голяма част от парите в образованието не се харчат от министерството: €51 млн. за учебници се купуват от самите училища, а успехът се мери по училища. Тук са пазарът на учебници (с концентрацията по доставчици) и рискът по училища."
+          : "Much of the education money is not spent by the ministry itself: the €51M textbook market is bought by the schools, and outcomes are measured per school. Below: the textbook market (with provider concentration) and the school risk index."}
+      </p>
 
-      {/* The signature visual — framed by the OG card (data-og). */}
-      <div data-og="textbook-treemap">
-        <TextbookConcentrationTile market={market} />
-      </div>
+      {/* ── Band 1 · Пазарът на учебници / The textbook market ──────────
+          Concentration gauge + the per-provider drill-down (share, HHI
+          contribution, expandable to legal entities with standalone
+          /company/:eik links) in one tile. Framed by the OG card (data-og). */}
+      <PackSection
+        icon={Library}
+        title={bg ? "Пазарът на учебници" : "The textbook market"}
+        note={marketNote}
+        sub={
+          bg
+            ? "€51 млн. за учебници (CPV 22112), купувани от 606 училища. Две издателски групи държат ~74% — концентрацията, не самата процедура, е сигналът. Изберете „Години“ горе, за да видите оборота за конкретна година; разгънете доставчик за юридическите лица."
+            : "€51M of textbooks (CPV 22112), bought by 606 schools. Two publisher groups hold ~74% — the concentration, not the procedure, is the signal. Pick a year in the scope above for that year's spend; expand a provider for its legal entities."
+        }
+      >
+        <div data-og="textbook-treemap">
+          <TextbookConcentrationTile
+            market={market}
+            hideTitle
+            year={activeYear}
+          />
+        </div>
+      </PackSection>
+
+      {/* ── Band 3 · Риск по училища / Schools to watch ────────────────
+          The equity-risk cut: schools scoring furthest below their social
+          context. Self-fetches the directory payload and self-hides if the
+          education migration isn't applied. */}
+      <PackSection
+        icon={GraduationCap}
+        title={
+          bg ? "Риск: училища за проследяване" : "Schools to watch by risk"
+        }
+        note={schoolNote}
+        sub={
+          bg
+            ? "Училищата с най-голяма отрицателна разлика спрямо очаквания успех за подобни училища — знак къде да се погледне, не присъда."
+            : "Schools with the widest negative gap versus their context-predicted score — a signpost for scrutiny, not a verdict."
+        }
+      >
+        <SchoolRiskTile hideTitle />
+      </PackSection>
 
       <Link
         to="/education"

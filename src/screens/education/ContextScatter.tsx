@@ -81,7 +81,7 @@ export const ContextScatter: FC<{
       viewBox={`0 0 ${W} ${H}`}
       className="w-full"
       role="img"
-      aria-label={bg ? "Успех спрямо средата" : "Score versus context"}
+      aria-label={bg ? "Успех спрямо подобни училища" : "Score versus context"}
     >
       {/* y gridlines + labels (whole matura grades) */}
       {Array.from(
@@ -159,7 +159,7 @@ export const ContextScatter: FC<{
         className="fill-muted-foreground text-[10px]"
       >
         {bg
-          ? "← по-неблагоприятна среда · по-благоприятна →"
+          ? "← по-неблагоприятни условия · по-благоприятни →"
           : "← more disadvantaged context · more advantaged →"}
       </text>
     </svg>

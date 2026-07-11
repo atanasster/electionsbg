@@ -113,6 +113,38 @@ export type SchoolDirectory = NonNullable<
   ReturnType<typeof useSchoolDirectory>
 >;
 
+/** One under-performing school in the slim 'risk' payload — just the fields the
+ *  МОН pack's SchoolRiskTile renders (the negative tail of the SES regression). */
+export interface SchoolRiskRow {
+  id: string;
+  name: string;
+  obshtinaName: string;
+  latestScore: number | null;
+  predicted: number | null;
+  residual: number | null;
+  vaVerdict: ContextVerdict | null;
+}
+
+interface SchoolRiskPayload {
+  latestYear: number | null;
+  schools: SchoolRiskRow[];
+}
+
+/** The top under-performing schools for the МОН sector pack. Fetches the slim
+ *  `education-payload?kind=risk` blob (~3 KB) instead of the ~600 KB directory —
+ *  the tile only shows the negative tail, so it must not pull the whole corpus.
+ *  Returns null until the migration/loader has written the 'risk' row. */
+export const useSchoolRisk = () =>
+  useQuery({
+    queryKey: ["education-risk"],
+    queryFn: async (): Promise<SchoolRiskPayload | null> => {
+      const r = await fetch("/api/db/education-payload?kind=risk");
+      if (!r.ok) throw new Error("education risk fetch failed");
+      return r.json(); // null if the loader hasn't written the risk blob yet
+    },
+    staleTime: Infinity,
+  });
+
 /** One school identified by its ЕИК — served from the RELATIONAL schools table
  *  (idx_schools_eik), for the "this EIK is a school" back-link on /company/:eik.
  *  null when the EIK isn't a matched school. */

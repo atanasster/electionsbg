@@ -16,7 +16,7 @@
 // (the scope pill's parliament window straddles calendar years — meaningless for
 // a budget), defaulting to the latest ingested year.
 
-import { FC, ReactNode, useMemo, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   HeartPulse,
@@ -25,8 +25,8 @@ import {
   Stethoscope,
   ScrollText,
   Clock,
-  type LucideIcon,
 } from "lucide-react";
+import { PackSection } from "../PackSection";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEurCompact } from "@/lib/currency";
 import { InsightChips } from "@/components/ui/InsightChips";
@@ -46,35 +46,9 @@ import { NzokDrugRiskTile } from "./NzokDrugRiskTile";
 import { NzokHospitalRiskTile } from "./NzokHospitalRiskTile";
 import { NzokProcurementLensTile } from "./NzokProcurementLensTile";
 
-// A labeled band inside the pack. House style is stacked bands (never tabs);
-// each band gets a thin top rule, an icon + title, and an optional framing line
-// so the ~20-tile scroll reads as a top-line → drill-down narrative instead of a
-// flat wall. Sections stay in money-first order: the €5.5bn fund and the flows
-// that actually spend it come first; ЗОП (~1.5%) closes the page.
-const SubSection: FC<{
-  icon: LucideIcon;
-  title: string;
-  sub?: string;
-  /** Optional header chip — used to flag bands whose data does NOT follow the
-   *  procurement scope pill (the health-money snapshots have their own reporting
-   *  cadence). Only passed when the user has actually narrowed the scope. */
-  note?: ReactNode;
-  children: ReactNode;
-}> = ({ icon: Icon, title, sub, note, children }) => (
-  <section className="space-y-4 border-t border-border/60 pt-5">
-    <div>
-      <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-        <Icon className="h-4 w-4 text-muted-foreground" />
-        <h3 className="text-base font-semibold">{title}</h3>
-        {note}
-      </div>
-      {sub && (
-        <p className="mt-1 text-xs leading-snug text-muted-foreground">{sub}</p>
-      )}
-    </div>
-    {children}
-  </section>
-);
+// Sections stay in money-first order: the €5.5bn fund and the flows that
+// actually spend it come first; ЗОП (~1.5%) closes the page. The banded layout
+// itself lives in the shared <PackSection> (../PackSection).
 
 export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   eik,
@@ -244,7 +218,7 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
           and head-to-head the single-year competitor lacks, close with the
           per-capita map. Gated on the hospital-payments corpus. */}
       {hospitalPayments && (
-        <SubSection
+        <PackSection
           icon={Building2}
           title={bg ? "Пари към болниците" : "Money to hospitals"}
           note={scopeNote}
@@ -262,7 +236,7 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
             <NzokHospitalCompareTile data={hospitalPayments} />
             <NzokRegionalChoroplethTile data={hospitalPayments} />
           </div>
-        </SubSection>
+        </PackSection>
       )}
 
       {/* ── Band 3 · Лекарства / Medicines ─────────────────────────────
@@ -270,7 +244,7 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
           reimbursed by INN, which packs cost more per unit than peers, and
           which molecule leaks the most vs the pack median. */}
       {drugReimbursement && (
-        <SubSection
+        <PackSection
           icon={Pill}
           title={bg ? "Лекарства" : "Medicines"}
           note={scopeNote}
@@ -287,14 +261,14 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
             <NzokDrugUnitPriceTile />
             <NzokDrugRiskTile />
           </div>
-        </SubSection>
+        </PackSection>
       )}
 
       {/* ── Band 4 · Дейност и здраве на болниците / Activity & health ──
           The denominators — case-mix activity and hospital solvency — placed
           BEFORE the risk capstone so the reader has the context first. Both
           tiles self-fetch and self-hide (migrations 053 / 051). */}
-      <SubSection
+      <PackSection
         icon={Stethoscope}
         title={
           bg ? "Дейност и здраве на болниците" : "Activity & hospital health"
@@ -308,13 +282,13 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
       >
         <NzokActivityTile />
         <NzokHospitalFinancialsTile />
-      </SubSection>
+      </PackSection>
 
       {/* ── Band 5 · Риск / Risk index ─────────────────────────────────
           Capstone: hospitals ranked by a transparent multi-signal index
           (drug overpay + activity outliers + overdue debt). Self-hides until
           migration 054. A signpost, not a verdict — the tile says so. */}
-      <SubSection
+      <PackSection
         icon={HeartPulse}
         title={bg ? "Индекс на риска" : "Risk index"}
         note={scopeNote}
@@ -325,13 +299,13 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         }
       >
         <NzokHospitalRiskTile hideTitle />
-      </SubSection>
+      </PackSection>
 
       {/* ── Band 6 · Обществени поръчки / Procurement (1.5%) ────────────
           The honest coda: the scrutinised-but-small ЗОП slice, sized last so
           it never dominates the layout. Gated on the contract corpus. */}
       {model && (
-        <SubSection
+        <PackSection
           icon={ScrollText}
           title={bg ? "Обществени поръчки (ЗОП)" : "Public procurement (ЗОП)"}
           sub={
@@ -349,7 +323,7 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
               totalEur={model.totalEur}
             />
           </div>
-        </SubSection>
+        </PackSection>
       )}
 
       <p className="text-[11px] text-muted-foreground/80">

@@ -263,14 +263,37 @@ const buildDirectory = () => {
     nvoRegression,
     context: { weights: ctx.weights },
   };
-  return { directory, ctxByObshtina: ctx.byObshtina, idx };
+
+  // Slim 'risk' blob for the МОН sector pack's SchoolRiskTile — the top
+  // under-performers only (the negative tail of the SES regression), so that
+  // tile fetches a few KB instead of the whole ~600 KB directory. Kept as its
+  // own payload row rather than sliced client-side precisely to avoid shipping
+  // the full corpus to a page that shows 15 rows. Buffer a few past the 15 the
+  // tile renders so it can grow without a reload.
+  const risk = {
+    latestYear,
+    schools: schools
+      .filter((s) => s.verdict === "under" && s.residual != null)
+      .sort((a, b) => (a.residual ?? 0) - (b.residual ?? 0))
+      .slice(0, 20)
+      .map((s) => ({
+        id: s.id,
+        name: s.name,
+        obshtinaName: s.obshtinaName,
+        latestScore: s.latestScore,
+        predicted: s.predicted,
+        residual: s.residual,
+        vaVerdict: s.vaVerdict,
+      })),
+  };
+  return { directory, risk, ctxByObshtina: ctx.byObshtina, idx };
 };
 
 const main = async () => {
   await exec(readFileSync(SCHEMA, "utf8"));
   await exec(readFileSync(INGEST_TRACKING, "utf8"));
 
-  const { directory, ctxByObshtina, idx } = buildDirectory();
+  const { directory, risk, ctxByObshtina, idx } = buildDirectory();
 
   await withClient(async (c) => {
     await c.query("BEGIN");
@@ -384,10 +407,14 @@ const main = async () => {
       );
     }
 
-    // directory payload (verbatim)
+    // directory payload (verbatim) + the slim 'risk' blob for the МОН pack.
     await c.query(
       "INSERT INTO school_payloads (kind,key,payload) VALUES ('directory','',$1::jsonb) ON CONFLICT (kind,key) DO NOTHING",
       [JSON.stringify(directory)],
+    );
+    await c.query(
+      "INSERT INTO school_payloads (kind,key,payload) VALUES ('risk','',$1::jsonb) ON CONFLICT (kind,key) DO NOTHING",
+      [JSON.stringify(risk)],
     );
 
     // recent_updates changelog (per school-year-subject).
@@ -403,7 +430,7 @@ const main = async () => {
 
     await c.query("COMMIT");
     console.log(
-      `schools→PG: ${dim.length} schools, ${fact.length} score-rows, ${ctxRows.length} context rows, 1 directory payload`,
+      `schools→PG: ${dim.length} schools, ${fact.length} score-rows, ${ctxRows.length} context rows, directory + ${risk.schools.length}-row risk payload`,
     );
   });
   await end();

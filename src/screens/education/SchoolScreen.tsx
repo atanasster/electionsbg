@@ -39,21 +39,21 @@ const VERDICT: Record<
   { bg: string; en: string; text: string; ring: string; bgc: string }
 > = {
   above: {
-    bg: "над очакваното за средата си",
+    bg: "над очакваното за подобни училища",
     en: "above expected for its context",
     text: "text-emerald-700",
     ring: "border-emerald-500/40",
     bgc: "bg-emerald-500/5",
   },
   expected: {
-    bg: "близо до очакваното за средата си",
+    bg: "близо до очакваното за подобни училища",
     en: "about as expected for its context",
     text: "text-slate-600",
     ring: "border-slate-400/40",
     bgc: "bg-slate-400/5",
   },
   under: {
-    bg: "под очакваното за средата си",
+    bg: "под очакваното за подобни училища",
     en: "below expected for its context",
     text: "text-rose-700",
     ring: "border-rose-500/40",
@@ -80,7 +80,7 @@ export const SchoolScreen: FC = () => {
 
   if (!dir) {
     return (
-      <div className="mx-auto max-w-3xl">
+      <div className="mx-auto w-full">
         <div className="my-8 h-40 animate-pulse rounded-xl border bg-card" />
       </div>
     );
@@ -88,7 +88,7 @@ export const SchoolScreen: FC = () => {
 
   if (!school) {
     return (
-      <div className="mx-auto max-w-3xl">
+      <div className="mx-auto w-full">
         <Title>{bg ? "Училището не е намерено" : "School not found"}</Title>
         <p className="mt-4 text-muted-foreground">
           {bg
@@ -113,7 +113,7 @@ export const SchoolScreen: FC = () => {
   const mathLatest = school.mathLatest;
 
   return (
-    <div className="mx-auto max-w-3xl">
+    <div className="mx-auto w-full">
       <Link
         to="/education"
         className="mb-2 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-primary"
@@ -274,8 +274,8 @@ export const SchoolScreen: FC = () => {
         </Card>
       </div>
 
-      {/* Постижение спрямо средата — the honest, context-adjusted signal. Show
-          raw AND expected side by side (the CVA lesson: don't force one number). */}
+      {/* Постижение спрямо подобни училища — the honest, context-adjusted signal.
+          Show raw AND expected side by side (the CVA lesson: don't force one number). */}
       {school.verdict && school.predicted != null && school.ses != null && (
         <Card
           className={`mt-4 border ${VERDICT[school.verdict].ring} ${VERDICT[school.verdict].bgc}`}
@@ -283,7 +283,9 @@ export const SchoolScreen: FC = () => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Scale className="h-5 w-5 text-muted-foreground" />
-              {bg ? "Постижение спрямо средата" : "Achievement vs its context"}
+              {bg
+                ? "Постижение спрямо подобни училища"
+                : "Achievement vs its context"}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -298,7 +300,7 @@ export const SchoolScreen: FC = () => {
                 value={fmtScore(school.latestScore ?? 0, lang)}
               />
               <Metric
-                label={bg ? "Очакван за средата" : "Expected for context"}
+                label={bg ? "Средно за подобни" : "Expected for context"}
                 value={fmtScore(school.predicted, lang)}
               />
               <Metric
@@ -309,7 +311,7 @@ export const SchoolScreen: FC = () => {
             </div>
             <p className="mt-3 text-xs text-muted-foreground">
               {bg
-                ? `Средата на община ${school.obshtinaName} е ${school.ses >= 0 ? "над" : "под"} средната (индекс ${school.ses.toFixed(1)}). „Очакваното“ е успехът, който училище в такава среда постига средно; разликата показва колко училището надхвърля или изостава от него — независимо от богатството на средата.`
+                ? `Социално-икономическите условия в община ${school.obshtinaName} са ${school.ses >= 0 ? "над" : "под"} средните (индекс ${school.ses.toFixed(1)}). „Очакваното“ е успехът, който подобни училища (в сходни условия) постигат средно; разликата показва колко това училище ги надхвърля или изостава от тях — независимо от заможността на района.`
                 : `The context of ${school.obshtinaName} is ${school.ses >= 0 ? "above" : "below"} average (index ${school.ses.toFixed(1)}). "Expected" is the score a school in such a context averages; the gap shows how far this school exceeds or trails it — independent of how affluent the area is.`}
             </p>
           </CardContent>
@@ -328,7 +330,7 @@ export const SchoolScreen: FC = () => {
             </CardTitle>
             <p className="text-xs text-muted-foreground">
               {bg
-                ? "Всяка точка е училище: наляво-надясно = средата на общината, нагоре = успех на матурата. Пунктирът е очакваното; синият пръстен е това училище."
+                ? "Всяка точка е училище: наляво-надясно = условията в общината, нагоре = успех на матурата. Пунктирът е очакваното; синият пръстен е това училище."
                 : "Each dot is a school: left–right = community context, up = matura score. The dashed line is the expectation; the blue ring is this school."}
             </p>
           </CardHeader>

@@ -237,11 +237,11 @@ export const EducationScreen: FC = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Scale className="h-5 w-5 text-muted-foreground" />
-                {bg ? "Успех спрямо средата" : "Score versus context"}
+                {bg ? "Успех спрямо подобни училища" : "Score versus context"}
               </CardTitle>
               <p className="text-xs text-muted-foreground">
                 {bg
-                  ? "Всяка точка е училище: наляво-надясно = средата на общината, нагоре = успех на матурата. Пунктирът е очакваното. Над линията = училището постига повече от очакваното за средата си."
+                  ? "Всяка точка е училище: наляво-надясно = условията в общината, нагоре = успех на матурата. Пунктирът е очакваното. Над линията = училището постига повече от очакваното за подобни училища."
                   : "Each dot is a school: left–right = its community's context, up = matura score. The dashed line is the expectation. Above it = the school beats what its context predicts."}
               </p>
             </CardHeader>
@@ -276,7 +276,7 @@ export const EducationScreen: FC = () => {
           <Card>
             <CardHeader>
               <CardTitle>
-                {bg ? "Постигат над средата си" : "Punch above their context"}
+                {bg ? "Постигат над очакваното" : "Punch above their context"}
               </CardTitle>
               <p className="text-xs text-muted-foreground">
                 {bg
@@ -429,7 +429,7 @@ export const EducationScreen: FC = () => {
 
       <p className="mt-4 text-[11px] text-muted-foreground/80">
         {bg
-          ? "Средният успех е претеглен по броя зрелостници. Училища с под 10 зрелостници не се класират (малка, несигурна извадка). Растежът спрямо средата — справедливото сравнение с подобни по състав училища — предстои."
+          ? "Средният успех е претеглен по броя зрелостници. Училища с под 10 зрелостници не се класират (малка, несигурна извадка). Оценката на напредъка 7→12 клас — още по-справедливото сравнение с подобни по състав училища — предстои."
           : "Averages are weighted by the number of graduates. Schools with fewer than 10 graduates are not ranked (small, noisy sample). A context-adjusted comparison to similar schools is coming."}
       </p>
     </div>

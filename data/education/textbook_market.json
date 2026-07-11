@@ -23,6 +23,8 @@
       "eur": 19103368,
       "pct": 37.5,
       "contracts": 1542,
+      "entityCount": 1,
+      "restEur": 0,
       "entities": [
         {
           "eik": "130878827",
@@ -37,6 +39,8 @@
       "eur": 18910964,
       "pct": 37.1,
       "contracts": 1830,
+      "entityCount": 5,
+      "restEur": 0,
       "entities": [
         {
           "eik": "131106522",
@@ -75,6 +79,8 @@
       "eur": 7497300,
       "pct": 14.7,
       "contracts": 2004,
+      "entityCount": 4,
+      "restEur": 0,
       "entities": [
         {
           "eik": "813044200",
@@ -107,6 +113,8 @@
       "eur": 1789187,
       "pct": 3.5,
       "contracts": 693,
+      "entityCount": 2,
+      "restEur": 0,
       "entities": [
         {
           "eik": "202097555",
@@ -127,6 +135,8 @@
       "eur": 985846,
       "pct": 1.9,
       "contracts": 581,
+      "entityCount": 1,
+      "restEur": 0,
       "entities": [
         {
           "eik": "831408470",
@@ -141,6 +151,8 @@
       "eur": 803112,
       "pct": 1.6,
       "contracts": 656,
+      "entityCount": 1,
+      "restEur": 0,
       "entities": [
         {
           "eik": "103795327",
@@ -155,6 +167,8 @@
       "eur": 589608,
       "pct": 1.2,
       "contracts": 531,
+      "entityCount": 1,
+      "restEur": 0,
       "entities": [
         {
           "eik": "833105041",
@@ -169,6 +183,8 @@
       "eur": 513679,
       "pct": 1,
       "contracts": 143,
+      "entityCount": 2,
+      "restEur": 0,
       "entities": [
         {
           "eik": "040780729",
@@ -189,6 +205,8 @@
       "eur": 492274,
       "pct": 1,
       "contracts": 299,
+      "entityCount": 17,
+      "restEur": 96423,
       "entities": [
         {
           "eik": "130043325",
@@ -233,6 +251,8 @@
       "eur": 256084,
       "pct": 0.5,
       "contracts": 207,
+      "entityCount": 2,
+      "restEur": 0,
       "entities": [
         {
           "eik": "204152370",
@@ -247,6 +267,26 @@
           "contracts": 3
         }
       ]
+    }
+  ],
+  "byBuyerType": [
+    {
+      "type": "school",
+      "eur": 48424843,
+      "contracts": 8112,
+      "buyers": 606
+    },
+    {
+      "type": "other",
+      "eur": 2509716,
+      "contracts": 373,
+      "buyers": 22
+    },
+    {
+      "type": "municipality",
+      "eur": 6864,
+      "contracts": 1,
+      "buyers": 1
     }
   ],
   "byYear": [
@@ -321,24 +361,2238 @@
       "contracts": 1292
     }
   ],
-  "byBuyerType": [
-    {
-      "type": "school",
-      "eur": 48424843,
-      "contracts": 8112,
-      "buyers": 606
+  "yearly": {
+    "2011": {
+      "total": {
+        "eur": 47372,
+        "contracts": 13,
+        "suppliers": 6,
+        "schoolBuyers": 8
+      },
+      "concentration": {
+        "hhiGroup": 6524,
+        "top1Pct": 79.9,
+        "top2Pct": 89.8,
+        "cr4Pct": 98.3
+      },
+      "groups": [
+        {
+          "id": "prosveta",
+          "eur": 37857,
+          "pct": 79.9,
+          "contracts": 2,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "131106522",
+              "name": "Просвета-София АД",
+              "eur": 37857,
+              "contracts": 2
+            }
+          ]
+        },
+        {
+          "id": "distributor",
+          "eur": 4663,
+          "pct": 9.8,
+          "contracts": 4,
+          "entityCount": 2,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "813044200",
+              "name": "С.А.Н.-ПРО ООД",
+              "eur": 3037,
+              "contracts": 2
+            },
+            {
+              "eik": "115749729",
+              "name": "Юнивърс ЕООД",
+              "eur": 1627,
+              "contracts": 2
+            }
+          ]
+        },
+        {
+          "id": "bit",
+          "eur": 2490,
+          "pct": 5.3,
+          "contracts": 2,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "103795327",
+              "name": "БИТ И техника ООД",
+              "eur": 2490,
+              "contracts": 2
+            }
+          ]
+        },
+        {
+          "id": "pedagog6",
+          "eur": 1540,
+          "pct": 3.3,
+          "contracts": 4,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "831408470",
+              "name": "СД Педагог 6",
+              "eur": 1540,
+              "contracts": 4
+            }
+          ]
+        },
+        {
+          "id": "other",
+          "eur": 822,
+          "pct": 1.7,
+          "contracts": 1,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "128526690",
+              "name": "Изкуства Eоод",
+              "eur": 822,
+              "contracts": 1
+            }
+          ]
+        }
+      ],
+      "byBuyerType": [
+        {
+          "type": "school",
+          "eur": 47372,
+          "contracts": 13,
+          "buyers": 8
+        }
+      ]
     },
-    {
-      "type": "other",
-      "eur": 2509716,
-      "contracts": 373,
-      "buyers": 22
+    "2012": {
+      "total": {
+        "eur": 8043,
+        "contracts": 6,
+        "suppliers": 6,
+        "schoolBuyers": 4
+      },
+      "concentration": {
+        "hhiGroup": 3785,
+        "top1Pct": 53.4,
+        "top2Pct": 79.5,
+        "cr4Pct": 98.8
+      },
+      "groups": [
+        {
+          "id": "prosveta",
+          "eur": 4295,
+          "pct": 53.4,
+          "contracts": 1,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "131106522",
+              "name": "Просвета-София АД",
+              "eur": 4295,
+              "contracts": 1
+            }
+          ]
+        },
+        {
+          "id": "other",
+          "eur": 2101,
+          "pct": 26.1,
+          "contracts": 2,
+          "entityCount": 2,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "030210887",
+              "name": "ЕТ Даниела Убенова",
+              "eur": 1119,
+              "contracts": 1
+            },
+            {
+              "eik": "128526690",
+              "name": "Изкуства Eоод",
+              "eur": 982,
+              "contracts": 1
+            }
+          ]
+        },
+        {
+          "id": "distributor",
+          "eur": 1228,
+          "pct": 15.3,
+          "contracts": 1,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "813044200",
+              "name": "С.А.Н.-ПРО ООД",
+              "eur": 1228,
+              "contracts": 1
+            }
+          ]
+        },
+        {
+          "id": "bit",
+          "eur": 326,
+          "pct": 4.1,
+          "contracts": 1,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "103795327",
+              "name": "БИТ И техника ООД",
+              "eur": 326,
+              "contracts": 1
+            }
+          ]
+        },
+        {
+          "id": "pedagog6",
+          "eur": 92,
+          "pct": 1.1,
+          "contracts": 1,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "831408470",
+              "name": "СД Педагог 6",
+              "eur": 92,
+              "contracts": 1
+            }
+          ]
+        }
+      ],
+      "byBuyerType": [
+        {
+          "type": "school",
+          "eur": 8043,
+          "contracts": 6,
+          "buyers": 4
+        }
+      ]
     },
-    {
-      "type": "municipality",
-      "eur": 6864,
-      "contracts": 1,
-      "buyers": 1
+    "2013": {
+      "total": {
+        "eur": 18634,
+        "contracts": 5,
+        "suppliers": 4,
+        "schoolBuyers": 4
+      },
+      "concentration": {
+        "hhiGroup": 8030,
+        "top1Pct": 89.3,
+        "top2Pct": 95.6,
+        "cr4Pct": 100
+      },
+      "groups": [
+        {
+          "id": "prosveta",
+          "eur": 16645,
+          "pct": 89.3,
+          "contracts": 1,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "131106522",
+              "name": "Просвета-София АД",
+              "eur": 16645,
+              "contracts": 1
+            }
+          ]
+        },
+        {
+          "id": "other",
+          "eur": 1176,
+          "pct": 6.3,
+          "contracts": 1,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "128526690",
+              "name": "Изкуства Eоод",
+              "eur": 1176,
+              "contracts": 1
+            }
+          ]
+        },
+        {
+          "id": "arhimed",
+          "eur": 592,
+          "pct": 3.2,
+          "contracts": 2,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "202097555",
+              "name": "Архимед 2 ЕООД",
+              "eur": 592,
+              "contracts": 2
+            }
+          ]
+        },
+        {
+          "id": "distributor",
+          "eur": 221,
+          "pct": 1.2,
+          "contracts": 1,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "115749729",
+              "name": "Юнивърс ЕООД",
+              "eur": 221,
+              "contracts": 1
+            }
+          ]
+        }
+      ],
+      "byBuyerType": [
+        {
+          "type": "school",
+          "eur": 18634,
+          "contracts": 5,
+          "buyers": 4
+        }
+      ]
+    },
+    "2014": {
+      "total": {
+        "eur": 216074,
+        "contracts": 78,
+        "suppliers": 7,
+        "schoolBuyers": 43
+      },
+      "concentration": {
+        "hhiGroup": 4648,
+        "top1Pct": 65.7,
+        "top2Pct": 77.1,
+        "cr4Pct": 96.8
+      },
+      "groups": [
+        {
+          "id": "prosveta",
+          "eur": 141888,
+          "pct": 65.7,
+          "contracts": 14,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "131106522",
+              "name": "Просвета-София АД",
+              "eur": 141888,
+              "contracts": 14
+            }
+          ]
+        },
+        {
+          "id": "bit",
+          "eur": 24777,
+          "pct": 11.5,
+          "contracts": 22,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "103795327",
+              "name": "БИТ И техника ООД",
+              "eur": 24777,
+              "contracts": 22
+            }
+          ]
+        },
+        {
+          "id": "arhimed",
+          "eur": 24161,
+          "pct": 11.2,
+          "contracts": 14,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "202097555",
+              "name": "Архимед 2 ЕООД",
+              "eur": 24161,
+              "contracts": 14
+            }
+          ]
+        },
+        {
+          "id": "distributor",
+          "eur": 18246,
+          "pct": 8.4,
+          "contracts": 15,
+          "entityCount": 2,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "813044200",
+              "name": "С.А.Н.-ПРО ООД",
+              "eur": 16671,
+              "contracts": 13
+            },
+            {
+              "eik": "115749729",
+              "name": "Юнивърс ЕООД",
+              "eur": 1575,
+              "contracts": 2
+            }
+          ]
+        },
+        {
+          "id": "pedagog6",
+          "eur": 6197,
+          "pct": 2.9,
+          "contracts": 12,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "831408470",
+              "name": "СД Педагог 6",
+              "eur": 6197,
+              "contracts": 12
+            }
+          ]
+        },
+        {
+          "id": "other",
+          "eur": 807,
+          "pct": 0.4,
+          "contracts": 1,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "128526690",
+              "name": "Изкуства Eоод",
+              "eur": 807,
+              "contracts": 1
+            }
+          ]
+        }
+      ],
+      "byBuyerType": [
+        {
+          "type": "school",
+          "eur": 216074,
+          "contracts": 78,
+          "buyers": 43
+        }
+      ]
+    },
+    "2015": {
+      "total": {
+        "eur": 26601,
+        "contracts": 18,
+        "suppliers": 7,
+        "schoolBuyers": 12
+      },
+      "concentration": {
+        "hhiGroup": 5003,
+        "top1Pct": 68.5,
+        "top2Pct": 83.9,
+        "cr4Pct": 94.3
+      },
+      "groups": [
+        {
+          "id": "prosveta",
+          "eur": 18234,
+          "pct": 68.5,
+          "contracts": 2,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "131106522",
+              "name": "Просвета-София АД",
+              "eur": 18234,
+              "contracts": 2
+            }
+          ]
+        },
+        {
+          "id": "bit",
+          "eur": 4081,
+          "pct": 15.3,
+          "contracts": 7,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "103795327",
+              "name": "БИТ И техника ООД",
+              "eur": 4081,
+              "contracts": 7
+            }
+          ]
+        },
+        {
+          "id": "other",
+          "eur": 1428,
+          "pct": 5.4,
+          "contracts": 1,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "128526690",
+              "name": "Изкуства Eоод",
+              "eur": 1428,
+              "contracts": 1
+            }
+          ]
+        },
+        {
+          "id": "distributor",
+          "eur": 1353,
+          "pct": 5.1,
+          "contracts": 2,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "813044200",
+              "name": "С.А.Н.-ПРО ООД",
+              "eur": 1353,
+              "contracts": 2
+            }
+          ]
+        },
+        {
+          "id": "arhimed",
+          "eur": 809,
+          "pct": 3,
+          "contracts": 4,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "202097555",
+              "name": "Архимед 2 ЕООД",
+              "eur": 809,
+              "contracts": 4
+            }
+          ]
+        },
+        {
+          "id": "kolibri",
+          "eur": 610,
+          "pct": 2.3,
+          "contracts": 1,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "040780729",
+              "name": "Колибри ООД",
+              "eur": 610,
+              "contracts": 1
+            }
+          ]
+        },
+        {
+          "id": "pedagog6",
+          "eur": 87,
+          "pct": 0.3,
+          "contracts": 1,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "831408470",
+              "name": "СД Педагог 6",
+              "eur": 87,
+              "contracts": 1
+            }
+          ]
+        }
+      ],
+      "byBuyerType": [
+        {
+          "type": "school",
+          "eur": 26601,
+          "contracts": 18,
+          "buyers": 12
+        }
+      ]
+    },
+    "2016": {
+      "total": {
+        "eur": 153,
+        "contracts": 1,
+        "suppliers": 1,
+        "schoolBuyers": 1
+      },
+      "concentration": {
+        "hhiGroup": 9965,
+        "top1Pct": 99.8,
+        "top2Pct": 99.8,
+        "cr4Pct": 99.8
+      },
+      "groups": [
+        {
+          "id": "arhimed",
+          "eur": 153,
+          "pct": 100,
+          "contracts": 1,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "202097555",
+              "name": "Архимед 2 ЕООД",
+              "eur": 153,
+              "contracts": 1
+            }
+          ]
+        }
+      ],
+      "byBuyerType": [
+        {
+          "type": "school",
+          "eur": 153,
+          "contracts": 1,
+          "buyers": 1
+        }
+      ]
+    },
+    "2017": {
+      "total": {
+        "eur": 14027,
+        "contracts": 19,
+        "suppliers": 8,
+        "schoolBuyers": 9
+      },
+      "concentration": {
+        "hhiGroup": 2276,
+        "top1Pct": 38.7,
+        "top2Pct": 56.7,
+        "cr4Pct": 80.3
+      },
+      "groups": [
+        {
+          "id": "prosveta",
+          "eur": 5432,
+          "pct": 38.7,
+          "contracts": 2,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "131106522",
+              "name": "Просвета-София АД",
+              "eur": 5432,
+              "contracts": 2
+            }
+          ]
+        },
+        {
+          "id": "riva",
+          "eur": 2516,
+          "pct": 17.9,
+          "contracts": 2,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "204152370",
+              "name": "Издателска къща Рива АД",
+              "eur": 2516,
+              "contracts": 2
+            }
+          ]
+        },
+        {
+          "id": "distributor",
+          "eur": 1716,
+          "pct": 12.2,
+          "contracts": 2,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "813044200",
+              "name": "С.А.Н.-ПРО ООД",
+              "eur": 1716,
+              "contracts": 2
+            }
+          ]
+        },
+        {
+          "id": "arhimed",
+          "eur": 1601,
+          "pct": 11.4,
+          "contracts": 4,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "202097555",
+              "name": "Архимед 2 ЕООД",
+              "eur": 1601,
+              "contracts": 4
+            }
+          ]
+        },
+        {
+          "id": "bit",
+          "eur": 1498,
+          "pct": 10.7,
+          "contracts": 4,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "103795327",
+              "name": "БИТ И техника ООД",
+              "eur": 1498,
+              "contracts": 4
+            }
+          ]
+        },
+        {
+          "id": "other",
+          "eur": 1079,
+          "pct": 7.7,
+          "contracts": 3,
+          "entityCount": 2,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "030210887",
+              "name": "ЕТ Даниела Убенова",
+              "eur": 687,
+              "contracts": 2
+            },
+            {
+              "eik": "121768602",
+              "name": "Нова звезда 2000 ЕООД",
+              "eur": 392,
+              "contracts": 1
+            }
+          ]
+        },
+        {
+          "id": "pedagog6",
+          "eur": 184,
+          "pct": 1.3,
+          "contracts": 2,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "831408470",
+              "name": "СД Педагог 6",
+              "eur": 184,
+              "contracts": 2
+            }
+          ]
+        }
+      ],
+      "byBuyerType": [
+        {
+          "type": "school",
+          "eur": 14027,
+          "contracts": 19,
+          "buyers": 9
+        }
+      ]
+    },
+    "2019": {
+      "total": {
+        "eur": 1759,
+        "contracts": 6,
+        "suppliers": 4,
+        "schoolBuyers": 4
+      },
+      "concentration": {
+        "hhiGroup": 5823,
+        "top1Pct": 70.3,
+        "top2Pct": 100,
+        "cr4Pct": 100
+      },
+      "groups": [
+        {
+          "id": "other",
+          "eur": 1237,
+          "pct": 70.3,
+          "contracts": 5,
+          "entityCount": 3,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "128526690",
+              "name": "Изкуства Eоод",
+              "eur": 702,
+              "contracts": 3
+            },
+            {
+              "eik": "121768602",
+              "name": "Нова звезда 2000 ЕООД",
+              "eur": 422,
+              "contracts": 1
+            },
+            {
+              "eik": "030210887",
+              "name": "ЕТ Даниела Убенова",
+              "eur": 113,
+              "contracts": 1
+            }
+          ]
+        },
+        {
+          "id": "prosveta",
+          "eur": 522,
+          "pct": 29.7,
+          "contracts": 1,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "130148012",
+              "name": "Просвета плюс Eоод",
+              "eur": 522,
+              "contracts": 1
+            }
+          ]
+        }
+      ],
+      "byBuyerType": [
+        {
+          "type": "school",
+          "eur": 1759,
+          "contracts": 6,
+          "buyers": 4
+        }
+      ]
+    },
+    "2021": {
+      "total": {
+        "eur": 45477,
+        "contracts": 11,
+        "suppliers": 9,
+        "schoolBuyers": 2
+      },
+      "concentration": {
+        "hhiGroup": 3493,
+        "top1Pct": 44.6,
+        "top2Pct": 80.9,
+        "cr4Pct": 98.2
+      },
+      "groups": [
+        {
+          "id": "prosveta",
+          "eur": 20288,
+          "pct": 44.6,
+          "contracts": 2,
+          "entityCount": 2,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "131106522",
+              "name": "Просвета-София АД",
+              "eur": 13063,
+              "contracts": 1
+            },
+            {
+              "eik": "131106552",
+              "name": "Просвета",
+              "eur": 7225,
+              "contracts": 1
+            }
+          ]
+        },
+        {
+          "id": "klett",
+          "eur": 16508,
+          "pct": 36.3,
+          "contracts": 3,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "130878827",
+              "name": "Клет България ООД",
+              "eur": 16508,
+              "contracts": 3
+            }
+          ]
+        },
+        {
+          "id": "distributor",
+          "eur": 5769,
+          "pct": 12.7,
+          "contracts": 3,
+          "entityCount": 3,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "813044200",
+              "name": "С.А.Н.-ПРО ООД",
+              "eur": 2483,
+              "contracts": 1
+            },
+            {
+              "eik": "201264752",
+              "name": "Издателство Бг учебник ЕООД",
+              "eur": 1659,
+              "contracts": 1
+            },
+            {
+              "eik": "115749729",
+              "name": "Юнивърс ЕООД",
+              "eur": 1627,
+              "contracts": 1
+            }
+          ]
+        },
+        {
+          "id": "bit",
+          "eur": 2115,
+          "pct": 4.7,
+          "contracts": 1,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "103795327",
+              "name": "БИТ И техника ООД",
+              "eur": 2115,
+              "contracts": 1
+            }
+          ]
+        },
+        {
+          "id": "pedagog6",
+          "eur": 771,
+          "pct": 1.7,
+          "contracts": 1,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "831408470",
+              "name": "СД Педагог 6",
+              "eur": 771,
+              "contracts": 1
+            }
+          ]
+        },
+        {
+          "id": "other",
+          "eur": 26,
+          "pct": 0.1,
+          "contracts": 1,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "121768602",
+              "name": "Нова Звезда 2000",
+              "eur": 26,
+              "contracts": 1
+            }
+          ]
+        }
+      ],
+      "byBuyerType": [
+        {
+          "type": "school",
+          "eur": 45477,
+          "contracts": 11,
+          "buyers": 2
+        }
+      ]
+    },
+    "2022": {
+      "total": {
+        "eur": 1316505,
+        "contracts": 367,
+        "suppliers": 19,
+        "schoolBuyers": 69
+      },
+      "concentration": {
+        "hhiGroup": 4387,
+        "top1Pct": 60.3,
+        "top2Pct": 86.9,
+        "cr4Pct": 95.2
+      },
+      "groups": [
+        {
+          "id": "prosveta",
+          "eur": 794121,
+          "pct": 60.3,
+          "contracts": 99,
+          "entityCount": 3,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "131106522",
+              "name": "ПРОСВЕТА-СОФИЯ АД",
+              "eur": 618737,
+              "contracts": 76
+            },
+            {
+              "eik": "206339963",
+              "name": "Просвета плюс ЕАД",
+              "eur": 171269,
+              "contracts": 19
+            },
+            {
+              "eik": "175041923",
+              "name": "Просвета азбуки ЕООД",
+              "eur": 4116,
+              "contracts": 4
+            }
+          ]
+        },
+        {
+          "id": "klett",
+          "eur": 350513,
+          "pct": 26.6,
+          "contracts": 81,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "130878827",
+              "name": "Клет българия ООД",
+              "eur": 350513,
+              "contracts": 81
+            }
+          ]
+        },
+        {
+          "id": "distributor",
+          "eur": 62601,
+          "pct": 4.8,
+          "contracts": 70,
+          "entityCount": 4,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "813044200",
+              "name": "С.А.Н.-ПРО ЕООД",
+              "eur": 53433,
+              "contracts": 43
+            },
+            {
+              "eik": "201264752",
+              "name": "БГ Учебник ЕООД",
+              "eur": 4480,
+              "contracts": 17
+            },
+            {
+              "eik": "115749729",
+              "name": "Юнивърс ЕООД",
+              "eur": 4331,
+              "contracts": 9
+            },
+            {
+              "eik": "121377750",
+              "name": "Едюкейшънъл център ЕООД",
+              "eur": 357,
+              "contracts": 1
+            }
+          ]
+        },
+        {
+          "id": "bit",
+          "eur": 46456,
+          "pct": 3.5,
+          "contracts": 41,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "103795327",
+              "name": "БИТ И техника ООД",
+              "eur": 46456,
+              "contracts": 41
+            }
+          ]
+        },
+        {
+          "id": "domino",
+          "eur": 18050,
+          "pct": 1.4,
+          "contracts": 14,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "833105041",
+              "name": "Домино ЕООД",
+              "eur": 18050,
+              "contracts": 14
+            }
+          ]
+        },
+        {
+          "id": "other",
+          "eur": 14145,
+          "pct": 1.1,
+          "contracts": 12,
+          "entityCount": 4,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "121768602",
+              "name": "Нова звезда 2000 ЕООД",
+              "eur": 7668,
+              "contracts": 7
+            },
+            {
+              "eik": "131084887",
+              "name": "Издателство атласи ООД",
+              "eur": 5760,
+              "contracts": 2
+            },
+            {
+              "eik": "128526690",
+              "name": "Изкуства ЕООД",
+              "eur": 633,
+              "contracts": 2
+            },
+            {
+              "eik": "000086191",
+              "name": "Средно училище \"Гео Милев",
+              "eur": 84,
+              "contracts": 1
+            }
+          ]
+        },
+        {
+          "id": "riva",
+          "eur": 12111,
+          "pct": 0.9,
+          "contracts": 13,
+          "entityCount": 2,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "204152370",
+              "name": "Издателска къща рива АД",
+              "eur": 11540,
+              "contracts": 12
+            },
+            {
+              "eik": "175451737",
+              "name": "Издателство рива ООД",
+              "eur": 570,
+              "contracts": 1
+            }
+          ]
+        },
+        {
+          "id": "pedagog6",
+          "eur": 9566,
+          "pct": 0.7,
+          "contracts": 18,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "831408470",
+              "name": "Педагог 6",
+              "eur": 9566,
+              "contracts": 18
+            }
+          ]
+        },
+        {
+          "id": "arhimed",
+          "eur": 7220,
+          "pct": 0.5,
+          "contracts": 16,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "202097555",
+              "name": "Архимед 2 ЕООД",
+              "eur": 7220,
+              "contracts": 16
+            }
+          ]
+        },
+        {
+          "id": "kolibri",
+          "eur": 1725,
+          "pct": 0.1,
+          "contracts": 3,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "040780729",
+              "name": "Колибри ООД",
+              "eur": 1725,
+              "contracts": 3
+            }
+          ]
+        }
+      ],
+      "byBuyerType": [
+        {
+          "type": "school",
+          "eur": 1273297,
+          "contracts": 361,
+          "buyers": 69
+        },
+        {
+          "type": "other",
+          "eur": 43209,
+          "contracts": 6,
+          "buyers": 2
+        }
+      ]
+    },
+    "2023": {
+      "total": {
+        "eur": 6836921,
+        "contracts": 1167,
+        "suppliers": 20,
+        "schoolBuyers": 198
+      },
+      "concentration": {
+        "hhiGroup": 4115,
+        "top1Pct": 56.6,
+        "top2Pct": 85.9,
+        "cr4Pct": 94.6
+      },
+      "groups": [
+        {
+          "id": "prosveta",
+          "eur": 3870387,
+          "pct": 56.6,
+          "contracts": 287,
+          "entityCount": 3,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "131106522",
+              "name": "ПРОСВЕТА-СОФИЯ АД",
+              "eur": 3476945,
+              "contracts": 217
+            },
+            {
+              "eik": "206339963",
+              "name": "Просвета плюс ЕАД",
+              "eur": 376293,
+              "contracts": 61
+            },
+            {
+              "eik": "175041923",
+              "name": "Просвета азбуки ЕООД",
+              "eur": 17149,
+              "contracts": 9
+            }
+          ]
+        },
+        {
+          "id": "klett",
+          "eur": 2003316,
+          "pct": 29.3,
+          "contracts": 240,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "130878827",
+              "name": "Клет българия ООД",
+              "eur": 2003316,
+              "contracts": 240
+            }
+          ]
+        },
+        {
+          "id": "distributor",
+          "eur": 395480,
+          "pct": 5.8,
+          "contracts": 229,
+          "entityCount": 4,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "813044200",
+              "name": "С.А.Н.-ПРО ЕООД",
+              "eur": 226453,
+              "contracts": 114
+            },
+            {
+              "eik": "201264752",
+              "name": "БГ Учебник ЕООД",
+              "eur": 126776,
+              "contracts": 78
+            },
+            {
+              "eik": "115749729",
+              "name": "Юнивърс ЕООД",
+              "eur": 38264,
+              "contracts": 34
+            },
+            {
+              "eik": "121377750",
+              "name": "Едюкейшънъл център ЕООД",
+              "eur": 3987,
+              "contracts": 3
+            }
+          ]
+        },
+        {
+          "id": "bit",
+          "eur": 198994,
+          "pct": 2.9,
+          "contracts": 141,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "103795327",
+              "name": "БИТ И техника ООД",
+              "eur": 198994,
+              "contracts": 141
+            }
+          ]
+        },
+        {
+          "id": "arhimed",
+          "eur": 184205,
+          "pct": 2.7,
+          "contracts": 89,
+          "entityCount": 2,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "202097555",
+              "name": "Архимед 2 ЕООД",
+              "eur": 183469,
+              "contracts": 88
+            },
+            {
+              "eik": "203460319",
+              "name": "Институт за образователни политики архимед и диоген ЕООД",
+              "eur": 736,
+              "contracts": 1
+            }
+          ]
+        },
+        {
+          "id": "riva",
+          "eur": 87991,
+          "pct": 1.3,
+          "contracts": 50,
+          "entityCount": 2,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "204152370",
+              "name": "Издателска къща рива АД",
+              "eur": 85946,
+              "contracts": 49
+            },
+            {
+              "eik": "175451737",
+              "name": "Издателство рива ООД",
+              "eur": 2045,
+              "contracts": 1
+            }
+          ]
+        },
+        {
+          "id": "domino",
+          "eur": 34345,
+          "pct": 0.5,
+          "contracts": 50,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "833105041",
+              "name": "Домино ЕООД",
+              "eur": 34345,
+              "contracts": 50
+            }
+          ]
+        },
+        {
+          "id": "pedagog6",
+          "eur": 29482,
+          "pct": 0.4,
+          "contracts": 37,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "831408470",
+              "name": "Педагог 6",
+              "eur": 29482,
+              "contracts": 37
+            }
+          ]
+        },
+        {
+          "id": "other",
+          "eur": 23729,
+          "pct": 0.3,
+          "contracts": 38,
+          "entityCount": 4,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "131084887",
+              "name": "Издателство атласи ООД",
+              "eur": 15073,
+              "contracts": 23
+            },
+            {
+              "eik": "121768602",
+              "name": "Нова звезда 2000 ЕООД",
+              "eur": 5756,
+              "contracts": 12
+            },
+            {
+              "eik": "030210887",
+              "name": "ЕТ Даниела Убенова",
+              "eur": 2564,
+              "contracts": 2
+            },
+            {
+              "eik": "825168476",
+              "name": "Средно училище \"Свети седмочисленици\"",
+              "eur": 336,
+              "contracts": 1
+            }
+          ]
+        },
+        {
+          "id": "kolibri",
+          "eur": 8991,
+          "pct": 0.1,
+          "contracts": 6,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "040780729",
+              "name": "Колибри ООД",
+              "eur": 8991,
+              "contracts": 6
+            }
+          ]
+        }
+      ],
+      "byBuyerType": [
+        {
+          "type": "school",
+          "eur": 6603928,
+          "contracts": 1127,
+          "buyers": 198
+        },
+        {
+          "type": "other",
+          "eur": 232992,
+          "contracts": 40,
+          "buyers": 8
+        }
+      ]
+    },
+    "2024": {
+      "total": {
+        "eur": 27028212,
+        "contracts": 3870,
+        "suppliers": 31,
+        "schoolBuyers": 490
+      },
+      "concentration": {
+        "hhiGroup": 2868,
+        "top1Pct": 41,
+        "top2Pct": 69.3,
+        "cr4Pct": 92.5
+      },
+      "groups": [
+        {
+          "id": "klett",
+          "eur": 11075195,
+          "pct": 41,
+          "contracts": 690,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "130878827",
+              "name": "Клет българия ООД",
+              "eur": 11075195,
+              "contracts": 690
+            }
+          ]
+        },
+        {
+          "id": "prosveta",
+          "eur": 7660029,
+          "pct": 28.3,
+          "contracts": 810,
+          "entityCount": 4,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "131106522",
+              "name": "ПРОСВЕТА-СОФИЯ АД",
+              "eur": 7117675,
+              "contracts": 685
+            },
+            {
+              "eik": "206339963",
+              "name": "Просвета Плюс АД",
+              "eur": 505759,
+              "contracts": 98
+            },
+            {
+              "eik": "175041923",
+              "name": "Просвета АзБуки ООД",
+              "eur": 33037,
+              "contracts": 26
+            },
+            {
+              "eik": "130148012",
+              "name": "Просвета плюс ЕООД",
+              "eur": 3557,
+              "contracts": 1
+            }
+          ]
+        },
+        {
+          "id": "distributor",
+          "eur": 5067237,
+          "pct": 18.7,
+          "contracts": 946,
+          "entityCount": 4,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "115749729",
+              "name": "Юнивърс ЕООД",
+              "eur": 1527808,
+              "contracts": 224
+            },
+            {
+              "eik": "813044200",
+              "name": "С.А.Н.-ПРО ЕООД",
+              "eur": 1518063,
+              "contracts": 326
+            },
+            {
+              "eik": "201264752",
+              "name": "БГ Учебник ЕООД",
+              "eur": 1369870,
+              "contracts": 268
+            },
+            {
+              "eik": "121377750",
+              "name": "Едюкейшънъл център ЕООД",
+              "eur": 651496,
+              "contracts": 128
+            }
+          ]
+        },
+        {
+          "id": "arhimed",
+          "eur": 1209557,
+          "pct": 4.5,
+          "contracts": 321,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "202097555",
+              "name": "Архимед 2 ЕООД",
+              "eur": 1209557,
+              "contracts": 321
+            }
+          ]
+        },
+        {
+          "id": "pedagog6",
+          "eur": 825918,
+          "pct": 3.1,
+          "contracts": 321,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "831408470",
+              "name": "Педагог 6",
+              "eur": 825918,
+              "contracts": 321
+            }
+          ]
+        },
+        {
+          "id": "kolibri",
+          "eur": 360542,
+          "pct": 1.3,
+          "contracts": 73,
+          "entityCount": 2,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "040780729",
+              "name": "Колибри ООД",
+              "eur": 348374,
+              "contracts": 70
+            },
+            {
+              "eik": "123130580",
+              "name": "Колибри ООД",
+              "eur": 12169,
+              "contracts": 3
+            }
+          ]
+        },
+        {
+          "id": "domino",
+          "eur": 300043,
+          "pct": 1.1,
+          "contracts": 281,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "833105041",
+              "name": "Домино ЕООД",
+              "eur": 300043,
+              "contracts": 281
+            }
+          ]
+        },
+        {
+          "id": "other",
+          "eur": 294946,
+          "pct": 1.1,
+          "contracts": 127,
+          "entityCount": 14,
+          "restEur": 49104,
+          "entities": [
+            {
+              "eik": "130043325",
+              "name": "Юнион прес ЕООД",
+              "eur": 79901,
+              "contracts": 12
+            },
+            {
+              "eik": "130857758",
+              "name": "Издателство велес ООД",
+              "eur": 67640,
+              "contracts": 25
+            },
+            {
+              "eik": "175209004",
+              "name": "Регалия 6 ЕООД",
+              "eur": 38809,
+              "contracts": 15
+            },
+            {
+              "eik": "205787643",
+              "name": "Лократ ЕООД",
+              "eur": 23703,
+              "contracts": 10
+            },
+            {
+              "eik": "831228593",
+              "name": "Инглиш БУК сентър ООД",
+              "eur": 19041,
+              "contracts": 5
+            },
+            {
+              "eik": "121225866",
+              "name": "Мартилен ЕООД",
+              "eur": 16748,
+              "contracts": 10
+            }
+          ]
+        },
+        {
+          "id": "bit",
+          "eur": 167479,
+          "pct": 0.6,
+          "contracts": 232,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "103795327",
+              "name": "БИТ и Техника ООД",
+              "eur": 167479,
+              "contracts": 232
+            }
+          ]
+        },
+        {
+          "id": "riva",
+          "eur": 67266,
+          "pct": 0.2,
+          "contracts": 69,
+          "entityCount": 2,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "204152370",
+              "name": "Издателска къща рива АД",
+              "eur": 62153,
+              "contracts": 68
+            },
+            {
+              "eik": "175451737",
+              "name": "Издателство рива ООД",
+              "eur": 5113,
+              "contracts": 1
+            }
+          ]
+        }
+      ],
+      "byBuyerType": [
+        {
+          "type": "school",
+          "eur": 25663627,
+          "contracts": 3689,
+          "buyers": 490
+        },
+        {
+          "type": "other",
+          "eur": 1364586,
+          "contracts": 181,
+          "buyers": 21
+        }
+      ]
+    },
+    "2025": {
+      "total": {
+        "eur": 6654616,
+        "contracts": 1633,
+        "suppliers": 26,
+        "schoolBuyers": 265
+      },
+      "concentration": {
+        "hhiGroup": 3058,
+        "top1Pct": 37.6,
+        "top2Pct": 74.6,
+        "cr4Pct": 93
+      },
+      "groups": [
+        {
+          "id": "prosveta",
+          "eur": 2502122,
+          "pct": 37.6,
+          "contracts": 342,
+          "entityCount": 3,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "131106522",
+              "name": "ПРОСВЕТА-СОФИЯ АД",
+              "eur": 2147061,
+              "contracts": 283
+            },
+            {
+              "eik": "206339963",
+              "name": "Просвета Плюс АД",
+              "eur": 350544,
+              "contracts": 50
+            },
+            {
+              "eik": "175041923",
+              "name": "Просвета АзБуки ООД",
+              "eur": 4517,
+              "contracts": 9
+            }
+          ]
+        },
+        {
+          "id": "klett",
+          "eur": 2462116,
+          "pct": 37,
+          "contracts": 295,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "130878827",
+              "name": "Клет българия ООД",
+              "eur": 2462116,
+              "contracts": 295
+            }
+          ]
+        },
+        {
+          "id": "distributor",
+          "eur": 1074564,
+          "pct": 16.1,
+          "contracts": 408,
+          "entityCount": 4,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "813044200",
+              "name": "С.А.Н.-ПРО ЕООД",
+              "eur": 450352,
+              "contracts": 138
+            },
+            {
+              "eik": "115749729",
+              "name": "Юнивърс ЕООД",
+              "eur": 343063,
+              "contracts": 112
+            },
+            {
+              "eik": "121377750",
+              "name": "Едюкейшънъл център ЕООД",
+              "eur": 208372,
+              "contracts": 66
+            },
+            {
+              "eik": "201264752",
+              "name": "БГ Учебник ЕООД",
+              "eur": 72778,
+              "contracts": 92
+            }
+          ]
+        },
+        {
+          "id": "domino",
+          "eur": 150637,
+          "pct": 2.3,
+          "contracts": 111,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "833105041",
+              "name": "Домино ЕООД",
+              "eur": 150637,
+              "contracts": 111
+            }
+          ]
+        },
+        {
+          "id": "bit",
+          "eur": 117716,
+          "pct": 1.8,
+          "contracts": 87,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "103795327",
+              "name": "БИТ и Техника ООД",
+              "eur": 117716,
+              "contracts": 87
+            }
+          ]
+        },
+        {
+          "id": "other",
+          "eur": 102467,
+          "pct": 1.5,
+          "contracts": 65,
+          "entityCount": 12,
+          "restEur": 3129,
+          "entities": [
+            {
+              "eik": "131084887",
+              "name": "Издателство атласи ООД",
+              "eur": 41410,
+              "contracts": 23
+            },
+            {
+              "eik": "130043325",
+              "name": "Юнион прес ЕООД",
+              "eur": 26971,
+              "contracts": 11
+            },
+            {
+              "eik": "130857758",
+              "name": "Издателство велес ООД",
+              "eur": 14176,
+              "contracts": 14
+            },
+            {
+              "eik": "121768602",
+              "name": "Нова звезда 2000 ЕООД",
+              "eur": 10800,
+              "contracts": 6
+            },
+            {
+              "eik": "831228593",
+              "name": "Инглиш БУК сентър ООД",
+              "eur": 4613,
+              "contracts": 3
+            },
+            {
+              "eik": "121225866",
+              "name": "Мартилен ЕООД",
+              "eur": 1368,
+              "contracts": 2
+            }
+          ]
+        },
+        {
+          "id": "kolibri",
+          "eur": 80187,
+          "pct": 1.2,
+          "contracts": 36,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "040780729",
+              "name": "Колибри ООД",
+              "eur": 80187,
+              "contracts": 36
+            }
+          ]
+        },
+        {
+          "id": "pedagog6",
+          "eur": 78061,
+          "pct": 1.2,
+          "contracts": 128,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "831408470",
+              "name": "Педагог 6",
+              "eur": 78061,
+              "contracts": 128
+            }
+          ]
+        },
+        {
+          "id": "arhimed",
+          "eur": 55857,
+          "pct": 0.8,
+          "contracts": 124,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "202097555",
+              "name": "Архимед 2 ООД",
+              "eur": 55857,
+              "contracts": 124
+            }
+          ]
+        },
+        {
+          "id": "riva",
+          "eur": 30890,
+          "pct": 0.5,
+          "contracts": 37,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "204152370",
+              "name": "Издателска къща рива АД",
+              "eur": 30890,
+              "contracts": 37
+            }
+          ]
+        }
+      ],
+      "byBuyerType": [
+        {
+          "type": "school",
+          "eur": 6271302,
+          "contracts": 1562,
+          "buyers": 265
+        },
+        {
+          "type": "other",
+          "eur": 383314,
+          "contracts": 71,
+          "buyers": 16
+        }
+      ]
+    },
+    "2026": {
+      "total": {
+        "eur": 8727026,
+        "contracts": 1292,
+        "suppliers": 23,
+        "schoolBuyers": 222
+      },
+      "concentration": {
+        "hhiGroup": 3396,
+        "top1Pct": 44,
+        "top2Pct": 80.6,
+        "cr4Pct": 94
+      },
+      "groups": [
+        {
+          "id": "prosveta",
+          "eur": 3839144,
+          "pct": 44,
+          "contracts": 267,
+          "entityCount": 3,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "131106522",
+              "name": "ПРОСВЕТА-СОФИЯ АД",
+              "eur": 3385890,
+              "contracts": 221
+            },
+            {
+              "eik": "206339963",
+              "name": "Просвета Плюс АД",
+              "eur": 441809,
+              "contracts": 37
+            },
+            {
+              "eik": "175041923",
+              "name": "Просвета АзБуки ООД",
+              "eur": 11445,
+              "contracts": 9
+            }
+          ]
+        },
+        {
+          "id": "klett",
+          "eur": 3195720,
+          "pct": 36.6,
+          "contracts": 233,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "130878827",
+              "name": "Клет българия ООД",
+              "eur": 3195720,
+              "contracts": 233
+            }
+          ]
+        },
+        {
+          "id": "distributor",
+          "eur": 864222,
+          "pct": 9.9,
+          "contracts": 323,
+          "entityCount": 4,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "813044200",
+              "name": "С.А.Н.-ПРО ЕООД",
+              "eur": 434881,
+              "contracts": 133
+            },
+            {
+              "eik": "201264752",
+              "name": "БГ Учебник ЕООД",
+              "eur": 187757,
+              "contracts": 98
+            },
+            {
+              "eik": "115749729",
+              "name": "Юнивърс ЕООД",
+              "eur": 184522,
+              "contracts": 63
+            },
+            {
+              "eik": "121377750",
+              "name": "Едюкейшънъл център ЕООД",
+              "eur": 57062,
+              "contracts": 29
+            }
+          ]
+        },
+        {
+          "id": "arhimed",
+          "eur": 305032,
+          "pct": 3.5,
+          "contracts": 118,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "202097555",
+              "name": "Архимед 2 ООД",
+              "eur": 305032,
+              "contracts": 118
+            }
+          ]
+        },
+        {
+          "id": "bit",
+          "eur": 237181,
+          "pct": 2.7,
+          "contracts": 118,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "103795327",
+              "name": "БИТ и Техника ООД",
+              "eur": 237181,
+              "contracts": 118
+            }
+          ]
+        },
+        {
+          "id": "domino",
+          "eur": 86533,
+          "pct": 1,
+          "contracts": 75,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "833105041",
+              "name": "Домино ЕООД",
+              "eur": 86533,
+              "contracts": 75
+            }
+          ]
+        },
+        {
+          "id": "kolibri",
+          "eur": 61625,
+          "pct": 0.7,
+          "contracts": 24,
+          "entityCount": 2,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "040780729",
+              "name": "Колибри ООД",
+              "eur": 59325,
+              "contracts": 23
+            },
+            {
+              "eik": "123130580",
+              "name": "Колибри ООД",
+              "eur": 2300,
+              "contracts": 1
+            }
+          ]
+        },
+        {
+          "id": "riva",
+          "eur": 55310,
+          "pct": 0.6,
+          "contracts": 36,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "204152370",
+              "name": "Издателска къща рива АД",
+              "eur": 55310,
+              "contracts": 36
+            }
+          ]
+        },
+        {
+          "id": "other",
+          "eur": 48312,
+          "pct": 0.6,
+          "contracts": 42,
+          "entityCount": 8,
+          "restEur": 318,
+          "entities": [
+            {
+              "eik": "131084887",
+              "name": "Издателство атласи ООД",
+              "eur": 20779,
+              "contracts": 15
+            },
+            {
+              "eik": "130043325",
+              "name": "Юнион прес ЕООД",
+              "eur": 10105,
+              "contracts": 4
+            },
+            {
+              "eik": "130857758",
+              "name": "Издателство велес ООД",
+              "eur": 7634,
+              "contracts": 8
+            },
+            {
+              "eik": "121768602",
+              "name": "Нова звезда 2000 ЕООД",
+              "eur": 7263,
+              "contracts": 8
+            },
+            {
+              "eik": "831228593",
+              "name": "Инглиш БУК сентър ООД",
+              "eur": 1843,
+              "contracts": 2
+            },
+            {
+              "eik": "175209004",
+              "name": "Регалия 6 ЕООД",
+              "eur": 370,
+              "contracts": 2
+            }
+          ]
+        },
+        {
+          "id": "pedagog6",
+          "eur": 33948,
+          "pct": 0.4,
+          "contracts": 56,
+          "entityCount": 1,
+          "restEur": 0,
+          "entities": [
+            {
+              "eik": "831408470",
+              "name": "Педагог 6",
+              "eur": 33948,
+              "contracts": 56
+            }
+          ]
+        }
+      ],
+      "byBuyerType": [
+        {
+          "type": "school",
+          "eur": 8234547,
+          "contracts": 1216,
+          "buyers": 222
+        },
+        {
+          "type": "other",
+          "eur": 485615,
+          "contracts": 75,
+          "buyers": 12
+        },
+        {
+          "type": "municipality",
+          "eur": 6864,
+          "contracts": 1,
+          "buyers": 1
+        }
+      ]
     }
-  ]
+  }
 }

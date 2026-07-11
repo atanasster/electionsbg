@@ -6,8 +6,8 @@
 // in dev, the `db` Cloud Function (hosting rewrite) in prod.
 // See docs/plans/postgres-migration-v1.md.
 
-import { FC, Suspense, useEffect, useMemo, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { FC, Suspense, useCallback, useEffect, useMemo, useState } from "react";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import {
   Building2,
   Landmark,
@@ -364,10 +364,32 @@ export const CompanyDbScreen: FC = () => {
   const [corpusName, setCorpusName] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  // Section scope, mirroring the procurement pages (?pscope semantics), but held
-  // locally since it drives a scoped DB fetch rather than intra-section nav.
-  // Default "all" keeps the page's headline totals all-time on first load.
-  const [scope, setScope] = useState<ProcurementScope>("all");
+  // Section scope, URL-backed via ?pscope so a chosen window is shareable and
+  // survives a reload (mirrors the procurement section pages). One divergence:
+  // the awarder page defaults to "all" — its headline totals read best all-time
+  // — whereas the section pages default to "ns". So HERE "all" is the omitted
+  // default and "ns"/"y:<year>" are the ones written to the URL (the inverse of
+  // useProcurementScope, which is why this doesn't reuse that hook).
+  const [searchParams, setSearchParams] = useSearchParams();
+  const scope: ProcurementScope = useMemo(() => {
+    const raw = searchParams.get("pscope");
+    if (raw === "ns") return "ns";
+    if (raw && /^y:20\d{2}$/.test(raw)) return raw as ProcurementScope;
+    return "all";
+  }, [searchParams]);
+  const setScope = useCallback(
+    (next: ProcurementScope) =>
+      setSearchParams(
+        (prev) => {
+          const p = new URLSearchParams(prev);
+          if (next === "all") p.delete("pscope");
+          else p.set("pscope", next);
+          return p;
+        },
+        { replace: false },
+      ),
+    [setSearchParams],
+  );
   // Latches true once the entity is known to be an awarder, so narrowing the
   // scope to an empty window can't hide the control (which would strand the user
   // with no way back to "all").
@@ -1036,12 +1058,22 @@ export const CompanyDbScreen: FC = () => {
                 <CardContent className="space-y-3 text-sm">
                   <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
                     <span className="text-2xl font-bold tabular-nums text-amber-700 dark:text-amber-400">
-                      {Math.round(awarderKindex.sharePct * 100)}%
+                      {/* A genuine but sub-1% share (e.g. €0.9M of a €350M
+                          all-time total) must not round to a flat "0%" — that
+                          reads as "nothing", contradicting the linked total and
+                          the supplier list right below it. */}
+                      {awarderKindex.sharePct > 0 &&
+                      awarderKindex.sharePct < 0.01
+                        ? "<1%"
+                        : `${Math.round(awarderKindex.sharePct * 100)}%`}
                     </span>
                     <span className="text-muted-foreground">
+                      {/* linkedEur (the money going TO the linked suppliers)
+                          reads as the total if placed next to "awarded funds";
+                          attach it to the suppliers at the end instead. */}
                       {i18n.language === "bg"
-                        ? `от възложените средства (${formatEurCompact(awarderKindex.linkedEur, i18n.language)}) отиват към ${awarderKindex.linkedSupplierCount} свързан(и) изпълнител(и)`
-                        : `of awarded value (${formatEurCompact(awarderKindex.linkedEur, i18n.language)}) goes to ${awarderKindex.linkedSupplierCount} linked supplier(s)`}
+                        ? `от възложените средства отиват към ${awarderKindex.linkedSupplierCount} свързан(и) изпълнител(и) — ${formatEurCompact(awarderKindex.linkedEur, i18n.language)}`
+                        : `of awarded value goes to ${awarderKindex.linkedSupplierCount} linked supplier(s) — ${formatEurCompact(awarderKindex.linkedEur, i18n.language)}`}
                     </span>
                   </div>
                   <ul className="divide-y">

@@ -11,6 +11,13 @@ export interface TextbookGroup {
   eur: number;
   pct: number;
   contracts: number;
+  /** Real number of legal entities in the group (may exceed `entities.length`,
+   *  which is capped at 6 for the drill-down). Use this for the "N фирми" label. */
+  entityCount: number;
+  /** Euros in the entities beyond the top 6, so the drill-down still reconciles
+   *  to the group total (0 when the group has ≤6 entities). */
+  restEur: number;
+  /** Top 6 legal entities by spend; the tail is folded into `restEur`. */
   entities: {
     eik: string | null;
     name: string;
@@ -19,29 +26,43 @@ export interface TextbookGroup {
   }[];
 }
 
-export interface TextbookMarketFile {
-  source: { publisher: string; cpv: string; note: string };
-  latestYear: number;
+export interface TextbookBuyerType {
+  type: string;
+  eur: number;
+  contracts: number;
+  buyers: number;
+}
+
+export interface TextbookConcentration {
+  hhiGroup: number;
+  top1Pct: number;
+  top2Pct: number;
+  cr4Pct: number;
+}
+
+/** The scope-able core of the market: full-corpus at the top level, and one of
+ *  these per calendar year under `yearly` (so the tile can honour the "Години"
+ *  scope pill by swapping the whole view). */
+export interface TextbookMarketSlice {
   total: {
     eur: number;
     contracts: number;
     suppliers: number;
     schoolBuyers: number;
   };
-  concentration: {
-    hhiGroup: number;
-    top1Pct: number;
-    top2Pct: number;
-    cr4Pct: number;
-  };
+  concentration: TextbookConcentration;
   groups: TextbookGroup[];
+  byBuyerType: TextbookBuyerType[];
+}
+
+export interface TextbookMarketFile extends TextbookMarketSlice {
+  source: { publisher: string; cpv: string; note: string };
+  /** Latest calendar year with spend — metadata only; the tile derives its
+   *  period label from `byYear`, so nothing in the UI reads this today. */
+  latestYear: number;
   byYear: { year: number; eur: number; contracts: number }[];
-  byBuyerType: {
-    type: string;
-    eur: number;
-    contracts: number;
-    buyers: number;
-  }[];
+  /** Per-calendar-year slices, keyed by year string. Only years with spend. */
+  yearly: Record<string, TextbookMarketSlice>;
 }
 
 const fetchTextbookMarket = async (): Promise<TextbookMarketFile> => {
