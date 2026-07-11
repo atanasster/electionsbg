@@ -238,6 +238,22 @@ const main = async () => {
     all.push(...films);
   }
 
+  // Drop exact full-row duplicates: the НФЦ .xls source occasionally repeats an
+  // award row verbatim, which would double-count it in the headline totals. Key
+  // on the full identifying tuple (year|regNo|title|producer|subsidyBgn).
+  const seen = new Set<string>();
+  const deduped: FilmAward[] = [];
+  for (const f of all) {
+    const key = `${f.year}|${f.regNo}|${f.title}|${f.producer}|${f.subsidyBgn}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    deduped.push(f);
+  }
+  const dropped = all.length - deduped.length;
+  if (dropped > 0) console.log(`  deduped ${dropped} exact-duplicate row(s)`);
+  all.length = 0;
+  all.push(...deduped);
+
   // Σ-reconciliation (plan §9): the flat total must equal the per-year sum.
   const flatEur = all.reduce((s, f) => s + f.subsidyEur, 0);
   const overview = buildOverview(all);
