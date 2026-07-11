@@ -906,6 +906,16 @@ const DB_ROUTES = {
   // procurementAppeals corpus rollup — totals + per-year + top-25 buyers (port of
   // build_kzk_summary.ts). Empty payload on a DB without the migration/kzk table.
   "kzk-appeals-summary": async (dbRows) => {
+    // Load-time cache matview (044): the live function LEFT JOINs kzk_appeals →
+    // tenders (126k) and has spiked to 113s on Cloud SQL under a bad plan / cold
+    // cache. Serve the precomputed row; fall through to the live function only
+    // when the matview is absent (older DB).
+    try {
+      const c = await dbRows("SELECT r FROM kzk_appeals_summary_cache", []);
+      if (c[0]?.r) return { body: c[0].r };
+    } catch {
+      // matview absent — fall through to the live computation
+    }
     const rows = await dbRows("SELECT kzk_appeals_summary() AS r", []).catch(
       missingMigrationEmpty,
     );

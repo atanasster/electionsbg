@@ -131,6 +131,13 @@ $$;
 -- rejected / suspended), per-year complaint counts, and the top-25 most-appealed
 -- buyers (resolved to a tender buyer only), each labelled by its MODAL buyer name
 -- (highest-frequency spelling, ties broken by the longer string).
+--
+-- Served from kzk_appeals_summary_cache (below), not live: this LEFT JOINs
+-- kzk_appeals → tenders (126k) on unp, whose plan is stats-sensitive and spiked
+-- to 113s on Cloud SQL under stale stats / cold cache (2026-07-10) — past the
+-- /api/db route timeout. Drop the dependent matview first so the function DROP
+-- doesn't fail on the dependency (re-apply path); recreated at the tail.
+DROP MATERIALIZED VIEW IF EXISTS kzk_appeals_summary_cache;
 DROP FUNCTION IF EXISTS kzk_appeals_summary();
 CREATE OR REPLACE FUNCTION kzk_appeals_summary()
 RETURNS jsonb LANGUAGE sql STABLE AS $$
@@ -197,3 +204,13 @@ $$;
 
 GRANT EXECUTE ON FUNCTION tender_corpus_search(int, text[], text, text, text[], int) TO app_readonly;
 GRANT EXECUTE ON FUNCTION kzk_appeals_summary() TO app_readonly;
+
+-- Full-corpus cache for the kzk-appeals-summary route (no-arg, called
+-- identically every request). Serving from a matview makes the response a
+-- single-row read — immune to the tenders-join plan regressions, cold cache and
+-- serving-pool contention that 500'd it. Refreshed by load_tenders_pg + the КЗК
+-- ingest (kzk_appeals.ts --apply); the route falls back to the live function if
+-- the matview is absent. SELECT is auto-granted to app_readonly via the loader
+-- role's ALTER DEFAULT PRIVILEGES (roles_readonly.sql). Same pattern as 025.
+CREATE MATERIALIZED VIEW IF NOT EXISTS kzk_appeals_summary_cache AS
+  SELECT kzk_appeals_summary() AS r;

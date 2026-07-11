@@ -162,6 +162,12 @@ export const loadTendersPg = async (): Promise<{
   // is not ruled out. Either way this ANALYZE is correct and cheap (~8s).
   await exec("ANALYZE tenders");
 
+  // Rebuild the kzk-appeals-summary serving cache (044) now that tenders (buyer
+  // names) + stats are fresh — the route reads this matview, not the live
+  // function, precisely to avoid the tenders-join plan blowups this ANALYZE
+  // guards against. Present since AI_FILE ran above.
+  await exec("REFRESH MATERIALIZED VIEW kzk_appeals_summary_cache");
+
   // Fill contracts.unp for the OCDS-sourced rows, whose releases carry no УНП.
   // Mirrors the call at the end of load_pg.ts: contracts and tenders load in
   // either order, so both loaders run this idempotent resolver and whichever

@@ -651,6 +651,11 @@ const applyPg = async (records: KzkAppeal[]): Promise<void> => {
     await tryExec("ANALYZE tenders");
     await tryExec("REFRESH MATERIALIZED VIEW appealed_ocids");
     await tryExec("REFRESH MATERIALIZED VIEW upheld_ocids");
+    // The kzk-appeals-summary route serves this cache (044), not the live
+    // function, to dodge the tenders-join plan blowup described above. Refresh
+    // it here so the fresh rulings show immediately; skipped (42P01) on a DB
+    // predating the matview.
+    await tryExec("REFRESH MATERIALIZED VIEW kzk_appeals_summary_cache");
     await tryExec(
       `DELETE FROM buyer_appeal_stats;
      INSERT INTO buyer_appeal_stats (buyer_eik, decided, upheld)
