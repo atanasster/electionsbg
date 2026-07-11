@@ -15,7 +15,12 @@ import { PROC_DIR } from "./lib/paths";
 import { getPool, exec, withClient, withTx, end } from "./lib/pg";
 import { copyRows } from "./lib/copy";
 import { rebuildRiskGradeScoped } from "./lib/riskGradeScoped";
-import { COLUMN_NAMES, contractToRow } from "./lib/procurement_schema";
+import {
+  COLUMN_NAMES,
+  contractToRow,
+  CONTRACTS_MERGE_UPSERT_SQL,
+  CONTRACTS_MERGE_DELETE_SQL,
+} from "./lib/procurement_schema";
 import {
   INGEST_SUMMARY_THRESHOLD,
   upsertChangelogDay,
@@ -181,22 +186,51 @@ export const loadPg = async (): Promise<{
   let batchId = 0;
   let rowsNew = 0;
 
-  await withTx(async (c) => {
-    await c.query("TRUNCATE contracts");
-    // Streamed COPY rather than batched multi-row INSERT — 301k rows / 754 MB is
-    // what made db:load:pg:cloud slow over the proxy. Encoder round-trip-verified
-    // in tests/copy.data.test.ts (contracts carries double precision + integer cols).
-    // The generator keeps this lazy: `rows` is already the whole corpus in memory,
-    // so materializing `rows.map(contractToRow)` would hold a second copy of it for
-    // the duration of the COPY.
+  // Stage the fresh corpus into an unlogged table FIRST, on its own connection
+  // and OUTSIDE the merge transaction — this streamed 754 MB COPY over the Cloud
+  // SQL proxy takes minutes but touches only contracts_stage, so it never locks
+  // the live `contracts` table. Streamed rather than batched INSERT; the
+  // generator stays lazy so we don't hold a second copy of the in-memory corpus.
+  // Encoder round-trip-verified in tests/copy.data.test.ts.
+  await withClient(async (c) => {
+    await c.query("DROP TABLE IF EXISTS contracts_stage");
+    // INCLUDING GENERATED keeps title_fold + column types byte-identical to
+    // contracts, so the INSERT … SELECT below needs no casts.
+    await c.query(
+      "CREATE UNLOGGED TABLE contracts_stage (LIKE contracts INCLUDING GENERATED INCLUDING DEFAULTS)",
+    );
     await copyRows(
       c,
-      "contracts",
+      "contracts_stage",
       COLUMN_NAMES,
       (function* () {
         for (const row of rows) yield contractToRow(row);
       })(),
     );
+    // PK both dedupes the corpus (the ADD fails loudly on a duplicate key, as the
+    // old COPY-into-contracts did) and speeds the merge join + anti-join delete.
+    await c.query("ALTER TABLE contracts_stage ADD PRIMARY KEY (key)");
+    await c.query("ANALYZE contracts_stage");
+  });
+
+  await withTx(async (c) => {
+    // MERGE the staged corpus into the live table. Upsert (changed/new only) and
+    // delete (removed keys) each take RowExclusiveLock, NOT AccessExclusive, so
+    // concurrent /procurement reads never block — the fix for the reload-window
+    // 500s (see reference_contracts_reload_lock; replaces TRUNCATE + COPY).
+    await c.query(CONTRACTS_MERGE_UPSERT_SQL);
+    await c.query(CONTRACTS_MERGE_DELETE_SQL);
+    // Parity guard: after upsert-all + delete-absent, the live table must equal
+    // the staged corpus exactly. A mismatch means a merge bug — fail the load
+    // rather than silently serve a corrupted corpus.
+    const chk = await c.query(
+      "SELECT (SELECT count(*) FROM contracts) AS live, (SELECT count(*) FROM contracts_stage) AS staged",
+    );
+    const { live, staged } = chk.rows[0] as { live: string; staged: string };
+    if (live !== staged)
+      throw new Error(
+        `contracts merge parity check failed: live=${live} staged=${staged}`,
+      );
 
     // Contract-name search index — distinct contractor as they appear in the
     // corpus (covers contractors absent from TR). Rebuilt each load.
@@ -267,11 +301,16 @@ export const loadPg = async (): Promise<{
       );
   });
 
-  // Refresh planner statistics immediately — a freshly TRUNCATE+INSERT'd table
-  // carries reltuples=0 and no column histograms until autovacuum happens to
-  // run, so the FIRST queries after a load plan blind. (Harmless for correctness
-  // — every plan still sorts globally — but it removes the "was it stale stats?"
-  // variable and keeps first-hit /api/db/table + search plans honest.)
+  // Staging table has served its purpose — drop it (unlogged, so it also
+  // vanishes on a crash restart; this is the clean-exit path).
+  await exec("DROP TABLE IF EXISTS contracts_stage");
+
+  // Refresh planner statistics immediately — the merge touched an unknown slice
+  // of rows and (for a cold load) grew the table from empty, so column
+  // histograms and reltuples can lag until autovacuum runs and the FIRST queries
+  // after a load would plan blind. (Harmless for correctness — every plan still
+  // sorts globally — but it removes the "was it stale stats?" variable and keeps
+  // first-hit /api/db/table + search plans honest.)
   // The OCDS releases publish no УНП, so those rows arrive with unp NULL and are
   // resolved from the tender that shares their ocid. A no-op when `tenders` has
   // not been loaded yet (fresh DB, contracts-first order) — load_tenders_pg.ts
