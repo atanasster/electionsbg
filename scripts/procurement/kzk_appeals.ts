@@ -25,12 +25,25 @@
 // AllResolutions crawler as scripts/procurement/kzk_decisions.ts.
 //
 // CLI:
-//   tsx scripts/procurement/kzk_appeals.ts [--year 2026] [--backfill] [--apply] [--dry-run]
+//   tsx scripts/procurement/kzk_appeals.ts [--year 2026] [--backfill] [--apply] [--dry-run] [--full]
 //     --year      one year (default: current year on the page)
 //     --backfill  all years 2020..present (manual, heavy; the register's data
 //                 starts 2020)
 //     --apply     upsert into Postgres (kzk_appeals) + resolve buyer_eik / match
 //     --dry-run   parse + print counts, no writes
+//     --full      force a complete year crawl (disable the incremental early-exit)
+//
+// INCREMENTAL EARLY-EXIT: the register lists complaints newest-first (date desc),
+// so on a daily --year run we don't need to walk all ~130 pages to reach the last
+// one. We load the complaint numbers we already store (from OUT_FILE) and stop at
+// the first page that is ENTIRELY already-stored — every later page is older and
+// therefore also stored. This preserves correctness (we collect every complaint
+// ahead of the first fully-known page, wherever it sits) while typically fetching
+// 1–2 pages instead of the whole year. It is skipped on --backfill, on --full, and
+// on a fresh store (no known numbers → every page is new → a natural full crawl,
+// which keeps the strict header-total completeness assertion). Downstream PG
+// rebuilds (buyer_appeal_stats, matviews, JSON write-back) operate on the whole
+// table, so a short scrape never partial-rebuilds anything.
 // Always writes data/procurement/kzk_appeals.json (merge-on-write, union by
 // complaint_no) so historical rows survive if the register drops them.
 
@@ -180,6 +193,10 @@ const crawlYear = async (
   page: Page,
   year: number | null,
   fetchedAt: string,
+  opts: { knownNos: Set<string>; earlyExit: boolean } = {
+    knownNos: new Set(),
+    earlyExit: false,
+  },
 ): Promise<KzkAppeal[]> => {
   // Bounded retry on the initial load: a transient blip shouldn't abort a whole
   // multi-year backfill (completed years persist via merge-on-write, but the
@@ -314,10 +331,30 @@ const crawlYear = async (
     );
   const expected = Number(expM[1]);
 
+  const { knownNos, earlyExit } = opts;
   const seen = new Map<string, KzkAppeal>();
+  let earlyStopped = false;
   for (let guard = 0; guard < 1000; guard++) {
-    for (const rec of await scrapePage(page, fetchedAt)) {
+    const pageRecs = await scrapePage(page, fetchedAt);
+    let newOnPage = 0;
+    for (const rec of pageRecs) {
+      if (!knownNos.has(rec.complaintNo)) newOnPage++;
       if (!seen.has(rec.complaintNo)) seen.set(rec.complaintNo, rec);
+    }
+    // Incremental early-exit: the register is date-desc, so the first page whose
+    // every record we already store marks the frontier — all later pages are older
+    // and therefore already stored. Stop rather than walking the remaining pages.
+    // Robust to upstream row-drops and to same-day reordering: we only stop once a
+    // WHOLE page is known, so any new complaint ahead of that boundary is collected.
+    // (Disabled under --full / --backfill / a fresh store — see the header note.)
+    if (earlyExit && newOnPage === 0) {
+      earlyStopped = true;
+      const newCount = [...seen.keys()].filter((n) => !knownNos.has(n)).length;
+      console.error(
+        `  … kzk crawl: reached already-stored complaints at page ${guard + 1} ` +
+          `(${seen.size}/${expected} scanned, ${newCount} new) — stopping early`,
+      );
+      break;
     }
     if (seen.size >= expected) break; // collected every complaint the header promised
     // Progress heartbeat (stderr) — lets a future stall be located to a page/count
@@ -371,11 +408,13 @@ const crawlYear = async (
     // beacons never let networkidle settle anyway.)
     await page.waitForTimeout(400);
   }
-  // Completeness invariant: the distinct complaints collected MUST equal the
-  // register's own header total. A shortfall = truncated crawl (stall, transient
-  // empty page); an overage = the header drifted or dedupe missed a key. Either
-  // way, fail loud rather than write a wrong-sized year.
-  if (seen.size !== expected)
+  // Completeness invariant: on a FULL crawl the distinct complaints collected MUST
+  // equal the register's own header total. A shortfall = truncated crawl (stall,
+  // transient empty page); an overage = the header drifted or dedupe missed a key.
+  // Either way, fail loud rather than write a wrong-sized year. Skipped when we
+  // deliberately stopped early (incremental mode) — there the header total is the
+  // whole year but we only meant to fetch the new head.
+  if (!earlyStopped && seen.size !== expected)
     throw new Error(
       `kzk: collected ${seen.size} distinct complaints but the register header expected ${expected} — refusing to return an incomplete/over-collected year`,
     );
@@ -730,6 +769,52 @@ const applyPg = async (records: KzkAppeal[]): Promise<void> => {
   }
 };
 
+// Complaint numbers we already store, for the incremental early-exit. Lenient by
+// design: any read problem returns an empty set → a full crawl (safe — the strict
+// completeness assert then applies). The heavier corrupt/wrong-shape guards live
+// in mergeWrite, which runs after the crawl and refuses to overwrite a bad file.
+const loadKnownComplaintNos = (): Set<string> => {
+  if (!fs.existsSync(OUT_FILE)) return new Set();
+  try {
+    const doc = JSON.parse(fs.readFileSync(OUT_FILE, "utf8")) as {
+      appeals?: unknown;
+    };
+    if (!Array.isArray(doc.appeals)) return new Set();
+    return new Set(
+      (doc.appeals as Array<{ complaintNo?: string }>)
+        .map((a) => a.complaintNo)
+        .filter((n): n is string => !!n),
+    );
+  } catch {
+    return new Set();
+  }
+};
+
+// Known complaint numbers already in the TARGET database (the DB `DATABASE_URL`
+// points at — local or Cloud SQL). This — not the local JSON — is the correct
+// early-exit frontier for --apply: it's the store we're topping up, so a cloud
+// publish crawls until it reaches what CLOUD already has (the JSON could be far
+// ahead of a fresh cloud table and would wrongly stop the crawl on page 1). Runs
+// before the headed browser launches, so a poisoned/unreachable DATABASE_URL
+// (e.g. the 28P01 .pgpass pin from a leaked :cloud env — see Step 0) fails fast
+// instead of after a 2-minute crawl. A missing table (42P01, fresh DB) → empty
+// set → full crawl.
+const loadKnownComplaintNosFromDb = async (): Promise<Set<string>> => {
+  const { withClient } = await import("../db/lib/pg");
+  return withClient(async (c) => {
+    try {
+      const { rows } = await c.query<{ complaint_no: string }>(
+        "SELECT complaint_no FROM kzk_appeals",
+      );
+      return new Set(rows.map((r) => r.complaint_no));
+    } catch (e) {
+      if ((e as { code?: string } | null)?.code === "42P01")
+        return new Set<string>();
+      throw e;
+    }
+  });
+};
+
 const cmd = command({
   name: "kzk_appeals",
   args: {
@@ -737,8 +822,9 @@ const cmd = command({
     backfill: flag({ type: boolean, long: "backfill" }),
     apply: flag({ type: boolean, long: "apply" }),
     dryRun: flag({ type: boolean, long: "dry-run" }),
+    full: flag({ type: boolean, long: "full" }),
   },
-  handler: async ({ year, backfill, apply, dryRun }) => {
+  handler: async ({ year, backfill, apply, dryRun, full }) => {
     if (backfill && year)
       throw new Error(
         "--backfill and --year are mutually exclusive (backfill crawls all years; drop one)",
@@ -750,11 +836,6 @@ const cmd = command({
     // Full ISO (not a UTC date slice) so a 00:00–03:00 Sofia run doesn't stamp
     // "yesterday" — matches the generatedAt timestamp.
     const fetchedAt = new Date().toISOString();
-    const { chromium } = await import("playwright");
-    const browser: Browser = await chromium.launch({
-      headless: false, // reg.cpc.bg needs a real headed browser + BG egress
-      args: ["--disable-blink-features=AutomationControlled"],
-    });
 
     const nowYear = new Date().getFullYear();
     // The register's data starts 2020 — backfilling earlier years just re-crawls
@@ -763,37 +844,78 @@ const cmd = command({
       ? Array.from({ length: nowYear - 2019 }, (_, i) => 2020 + i)
       : [year ? Number(year) : null];
 
-    const all: KzkAppeal[] = [];
+    // The whole DB-touching section is wrapped so the pg pool is closed exactly
+    // once on every path (end() is idempotent — no-ops when the pool was never
+    // opened or applyPg already closed it). Needed because the --apply early-exit
+    // frontier now opens the pool BEFORE the crawl.
     try {
-      const ctx = await browser.newContext({ userAgent: UA, locale: "bg-BG" });
-      // Drop the never-settling analytics beacons so `networkidle` is reachable
-      // again (see BLOCK_HOSTS). Without this the crawl stalls on page 1.
-      await ctx.route(BLOCK_HOSTS, (route) => route.abort());
-      const page = await ctx.newPage();
-      await page.addInitScript(() => {
-        Object.defineProperty(navigator, "webdriver", { get: () => false });
+      // Incremental early-exit frontier — computed BEFORE launching the browser so
+      // a bad/poisoned DATABASE_URL fails fast (no wasted 2-min headed crawl). The
+      // source is the WRITE TARGET: the DB for --apply (what we top up — a cloud
+      // publish must crawl until it reaches what CLOUD has, not what the local JSON
+      // has), else the local JSON store. Disabled for --backfill / --full / a fresh
+      // store (empty set → nothing to stop against → natural full crawl).
+      const knownNos =
+        backfill || full
+          ? new Set<string>()
+          : apply
+            ? await loadKnownComplaintNosFromDb()
+            : loadKnownComplaintNos();
+      const earlyExit = !backfill && !full && knownNos.size > 0;
+      if (earlyExit)
+        console.error(
+          `  … kzk: incremental mode — ${knownNos.size} complaint(s) already in ` +
+            `${apply ? "the target DB" : "the local store"}; will stop at the first ` +
+            `fully-known page (pass --full to force a complete crawl)`,
+        );
+
+      const { chromium } = await import("playwright");
+      const browser: Browser = await chromium.launch({
+        headless: false, // reg.cpc.bg needs a real headed browser + BG egress
+        args: ["--disable-blink-features=AutomationControlled"],
       });
-      for (const y of years) {
-        const recs = await crawlYear(page, y, fetchedAt);
-        console.log(`  ${y ?? "current"}: ${recs.length} complaints`);
-        all.push(...recs);
+
+      const all: KzkAppeal[] = [];
+      try {
+        const ctx = await browser.newContext({
+          userAgent: UA,
+          locale: "bg-BG",
+        });
+        // Drop the never-settling analytics beacons so `networkidle` is reachable
+        // again (see BLOCK_HOSTS). Without this the crawl stalls on page 1.
+        await ctx.route(BLOCK_HOSTS, (route) => route.abort());
+        const page = await ctx.newPage();
+        await page.addInitScript(() => {
+          Object.defineProperty(navigator, "webdriver", { get: () => false });
+        });
+        for (const y of years) {
+          const recs = await crawlYear(page, y, fetchedAt, {
+            knownNos,
+            earlyExit,
+          });
+          console.log(`  ${y ?? "current"}: ${recs.length} complaints`);
+          all.push(...recs);
+        }
+      } finally {
+        await browser.close();
+      }
+
+      const resolved = all.filter((r) => r.unp).length;
+      console.log(
+        `Parsed ${all.length} complaints (${resolved} with УНП, ${all.length - resolved} without).`,
+      );
+      if (dryRun) return;
+      const total = mergeWrite(all);
+      console.log(`Wrote ${OUT_FILE} (${total} total).`);
+      if (apply) {
+        await applyPg(all);
+        console.log(
+          `Upserted ${all.length} into kzk_appeals + resolved buyer_eik.`,
+        );
       }
     } finally {
-      await browser.close();
-    }
-
-    const resolved = all.filter((r) => r.unp).length;
-    console.log(
-      `Parsed ${all.length} complaints (${resolved} with УНП, ${all.length - resolved} without).`,
-    );
-    if (dryRun) return;
-    const total = mergeWrite(all);
-    console.log(`Wrote ${OUT_FILE} (${total} total).`);
-    if (apply) {
-      await applyPg(all);
-      console.log(
-        `Upserted ${all.length} into kzk_appeals + resolved buyer_eik.`,
-      );
+      const { end } = await import("../db/lib/pg");
+      await end();
     }
   },
 });
