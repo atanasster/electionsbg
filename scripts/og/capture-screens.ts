@@ -155,12 +155,14 @@ const captures: Capture[] = [
   },
   {
     slug: "procurement",
-    routePath: "procurement",
-    // Wait for the stat cards grid (data-og="procurement-stats"), then anchor
-    // on the flow tile (sankey) once it settles below the stats.
-    waitFor: '[data-og="procurement-stats"]',
-    anchor: '[data-og="procurement-flow"]',
-    centerOnAnchor: true,
+    routePath: "procurement?pscope=all",
+    // The redesigned hub is a tile grid (no more stat cards). Anchor on the
+    // explore-tiles wrapper and top-align, so the card leads with the colourful
+    // sub-page tiles + their headline numbers. ?pscope=all so the tiles carry
+    // the full-corpus figures (the default `ns` scope is only weeks old).
+    waitFor: '[data-og="procurement-hub"] a',
+    anchor: '[data-og="procurement-hub"]',
+    leftAlign: true,
     settleMs: 3000,
   },
   {
@@ -416,6 +418,18 @@ const captures: Capture[] = [
     anchor: '[data-og="budget-summary"]',
     centerOnAnchor: true,
     settleMs: 2500,
+  },
+  {
+    slug: "governance-sectors",
+    routePath: "governance/sectors?pscope=all",
+    // The 15-sector tile hub. Anchor on the tiles wrapper and top-align so the
+    // card leads with the first cluster of infographic tiles + their headline
+    // numbers (payouts / procurement € / matura score). ?pscope=all for the
+    // full-corpus figures on the tender-driven sectors.
+    waitFor: '[data-og="sectors-hub"] a',
+    anchor: '[data-og="sectors-hub"]',
+    leftAlign: true,
+    settleMs: 3000,
   },
 ];
 

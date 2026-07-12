@@ -177,7 +177,9 @@ export const ProcurementScreen: FC = () => {
       <ProcurementSearchTile />
       <WatchlistDigestTile />
 
-      <TileHubGrid sections={[exploreSection]} className="mt-6" />
+      <div data-og="procurement-hub">
+        <TileHubGrid sections={[exploreSection]} className="mt-6" />
+      </div>
 
       {/* Featured sectors — the highest-spend entities surfaced directly, with a
           link to the full 15-sector hub for the rest. */}

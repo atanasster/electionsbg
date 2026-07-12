@@ -56,7 +56,9 @@ export const GovernanceSectorsScreen: FC = () => {
         <ProcurementScopeControl mode="toggle" />
       </div>
 
-      <TileHubGrid sections={sections} className="mt-4 sm:mt-6" />
+      <div data-og="sectors-hub">
+        <TileHubGrid sections={sections} className="mt-4 sm:mt-6" />
+      </div>
     </>
   );
 };
