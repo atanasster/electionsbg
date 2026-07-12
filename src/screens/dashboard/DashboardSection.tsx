@@ -56,7 +56,8 @@ type Props = {
     | "molecule-packs"
     | "molecule-hospitals"
     | "pack-hospitals"
-    | "pack-trend";
+    | "pack-trend"
+    | "procedure-hospitals";
   title?: ReactNode;
   subtitle?: ReactNode;
   icon?: LucideIcon;
