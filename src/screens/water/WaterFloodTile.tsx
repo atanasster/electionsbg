@@ -165,8 +165,8 @@ export const WaterFloodTile: FC = () => {
 
         <p className="text-[11px] text-muted-foreground/80">
           {bg
-            ? "Договори за почистване, корекция и укрепване на речни корита и дерета (АОП/ЦАИС ЕОП, по CPV и предмет). Отговорността е поделена между общини, областни управители и „Напоителни системи“ — разпределение, което трагичните наводнения в Царево (2023) и Свети Влас (2024) извадиха наяве. Тук показваме само похарченото; картата на риска (РЗПРН) предстои."
-            : "Contracts for cleaning, regulation and reinforcement of riverbeds and gullies (АОП/ЦАИС ЕОП, by CPV and subject). Responsibility is split between municipalities, regional governors and Irrigation Systems — the split the deadly Tsarevo (2023) and Sveti Vlas (2024) floods exposed. This shows only spend; the flood-risk map (РЗПРН) is a later phase."}
+            ? "Договори за почистване, корекция и укрепване на речни корита и дерета (АОП/ЦАИС ЕОП, по CPV и предмет). Отговорността е поделена между общини, областни управители и „Напоителни системи“ — разпределение, което трагичните наводнения в Царево (2023) и Свети Влас (2024) извадиха наяве. Тук показваме похарченото за поддръжка."
+            : "Contracts for cleaning, regulation and reinforcement of riverbeds and gullies (АОП/ЦАИС ЕОП, by CPV and subject). Responsibility is split between municipalities, regional governors and Irrigation Systems — the split the deadly Tsarevo (2023) and Sveti Vlas (2024) floods exposed. This shows the maintenance spend."}
         </p>
       </CardContent>
     </Card>

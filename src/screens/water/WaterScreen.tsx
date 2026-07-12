@@ -103,12 +103,6 @@ export const WaterScreen: FC = () => {
           <ArrowRight className="h-3.5 w-3.5" />
         </Link>
       </div>
-
-      <p className="text-[11px] text-muted-foreground/80">
-        {bg
-          ? "Предстои: показателите на КЕВР (загуби на вода, цени по области), нивата на язовирите (МОСВ) и картата на риска от наводнения (РЗПРН)."
-          : "Coming next: КЕВР indicators (water loss, tariffs by region), reservoir levels (МОСВ) and the flood-risk map (РЗПРН)."}
-      </p>
     </div>
   );
 };
