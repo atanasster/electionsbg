@@ -343,18 +343,14 @@ export const normalizeBundle = (
             continue;
           }
           // Guard against the OCDS "self-deal" data-quality bug — when a
-          // contract has buyer.id === supplier.id BUT the buyer and
-          // supplier names disagree, the supplier party never had a real
-          // EIK and the feed substituted the buyer's. Recording such a
-          // row would attach the contractor name to the buyer's EIK on
-          // disk, breaking name resolution on /company/{eik}. Drop the
-          // row; the contract still survives on the awarder side via
-          // /awarder/{eik}/contracts (which uses buyer.eik directly).
-          if (
-            supplier.eik === buyer.eik &&
-            normaliseOrgName(supplier.name).toLocaleLowerCase("bg") !==
-              normaliseOrgName(buyer.name).toLocaleLowerCase("bg")
-          ) {
+          // contract has buyer.id === supplier.id the supplier party never
+          // had a real EIK and the feed substituted the buyer's (sometimes
+          // copying the buyer's NAME too, so the names match). No body
+          // procures from itself, so recording such a row attaches a bogus
+          // contractor identity to the buyer's EIK, spawning a phantom
+          // /company/{eik} "as a contractor" dashboard. Drop every
+          // self-referential row regardless of whether the names agree.
+          if (supplier.eik === buyer.eik) {
             stats.rowsDroppedSelfDeal += 1;
             continue;
           }
@@ -429,11 +425,7 @@ export const normalizeBundle = (
             continue;
           }
           // Same self-deal guard as the contract path above.
-          if (
-            supplier.eik === buyer.eik &&
-            normaliseOrgName(supplier.name).toLocaleLowerCase("bg") !==
-              normaliseOrgName(buyer.name).toLocaleLowerCase("bg")
-          ) {
+          if (supplier.eik === buyer.eik) {
             stats.rowsDroppedSelfDeal += 1;
             continue;
           }
