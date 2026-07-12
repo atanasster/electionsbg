@@ -215,6 +215,21 @@ const main = async (): Promise<void> => {
   )) as { key: string; eur: number }[];
   for (const r of agriRows) agriByYear[Number(r.key)] = r.eur;
 
+  // Fail loud if a bespoke source came back empty — an all-zero tile is a
+  // silent data bug (a moved JSON field, an unloaded agri_payloads table), not
+  // a legitimate "0". The procurement sectors can legitimately be 0 in a narrow
+  // scope, so they aren't checked here.
+  const bespoke: [string, Record<number, number>][] = [
+    ["pension (funds.json)", pensionByYear],
+    ["health (nzok execution_history.json)", nzokByYear],
+    ["agri (agri_payloads)", agriByYear],
+    ["schools (indicators dzi)", dziByYear],
+  ];
+  for (const [label, series] of bespoke) {
+    if (Object.keys(series).length === 0)
+      console.warn(`  ⚠ sector_stats: ${label} produced no data`);
+  }
+
   const elections = JSON.parse(fs.readFileSync(ELECTIONS, "utf8")) as Array<{
     name: string;
   }>;
