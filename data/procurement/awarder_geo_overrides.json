@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-11T09:55:10.064Z",
+  "generatedAt": "2026-07-12T17:48:54.516Z",
   "count": 741,
   "sources": {
     "mon": 0,
-    "ocds": 517,
-    "name": 128,
+    "ocds": 518,
+    "name": 127,
     "nameOblast": 96,
-    "unresolved": 1998
+    "unresolved": 1999
   },
   "awarders": {
     "101005300": {
@@ -1341,6 +1341,11 @@
     },
     "827179902": {
       "ekatte": "63427",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
+    "829091486": {
+      "ekatte": "15944",
       "source": "ocds",
       "confidence": "name+province"
     },
@@ -3093,11 +3098,6 @@
       "ekatte": "68134",
       "source": "ocds",
       "confidence": "name+province"
-    },
-    "000666461": {
-      "ekatte": "68134",
-      "source": "name",
-      "confidence": "name_only"
     },
     "000666504": {
       "ekatte": "68134",
