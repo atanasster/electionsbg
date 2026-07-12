@@ -286,6 +286,33 @@ const ROUTES: RouteCheck[] = [
     minBodyChars: 100,
     expectedCanonical: `/candidate/${enc(SAMPLE_CANDIDATE)}`,
   },
+  // Revenue-agency packs — prerendered from INSTITUTION_PACKS (nap / customs).
+  // Their /awarder/:eik routes were previously SPA-only (homepage soft-dup).
+  {
+    path: "/awarder/131063188",
+    titleIncludes: "НАП",
+    h1Includes: "Национална агенция за приходите",
+    minBodyChars: 200,
+    expectedCanonical: "/awarder/131063188",
+    hasEnglishMirror: true,
+  },
+  {
+    path: "/awarder/000627597",
+    titleIncludes: "Митници",
+    h1Includes: "Митници",
+    minBodyChars: 200,
+    expectedCanonical: "/awarder/000627597",
+    hasEnglishMirror: true,
+  },
+  // Licensed excise-warehouse register — a standalone staticPage (Recipe A).
+  {
+    path: "/customs/warehouses",
+    titleIncludes: "складодържатели",
+    h1Includes: "Лицензирани акцизни складодържатели",
+    minBodyChars: 200,
+    expectedCanonical: "/customs/warehouses",
+    hasEnglishMirror: true,
+  },
 ];
 
 // English mirrors that must serve the EN prerender (not the EN home fallback).

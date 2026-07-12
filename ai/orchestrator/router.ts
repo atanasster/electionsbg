@@ -2264,6 +2264,25 @@ export const route = (question: string, ctx: ToolContext): Route => {
       };
     }
   }
+  // Licensed excise-warehouse register — WHO holds an excise licence (a company
+  // list), distinct from the excise REVENUE breakdown below. Anchored on the
+  // warehouse/licence noun so a revenue question doesn't misroute here.
+  if (
+    has(
+      q,
+      "складодържат",
+      "акцизен склад",
+      "акцизни складове",
+      "данъчен склад",
+      "лицензиран склад",
+      "excise warehouse",
+      "warehouse keeper",
+      "licensed warehouse",
+    ) ||
+    ((has(q, "лиценз", "licen") || has(q, "регистър", "register")) &&
+      has(q, "акциз", "excise"))
+  )
+    return { tool: "exciseRegister", args: { category: q } };
   // itemised revenue breakdown (excise by product / domestic VAT by sector /
   // PIT by income type) — only on a breakdown cue; a bare "колко са акцизите"
   // stays the budget overview below.

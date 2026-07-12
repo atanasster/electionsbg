@@ -435,12 +435,47 @@ are **tax revenue only**, from the КФП snapshot, explicitly labelled **"да�
 - **EU IPR seizures** (DG TAXUD/EUIPO) — the Митници seizures narrative.
 
 ## 7. The moat — cross-dataset overlays (Phase 2, ≥1 shipped)
-- **Top tax debtors ∩ public-contract winners** — BIRD debtors ⋈ `contracts` by EIK.
-- **Excise-licence holders ∩ political connections** — egov registers through the connections graph.
-- **Debtors ∩ EU-fund beneficiaries** — companies owing the state that drew ИСУН money.
+- **Top tax debtors ∩ public-contract winners** — debtors ⋈ `contracts_list` by EIK.
+  **⛔ DEFERRED (2026-07-12) — blocked on a clean debtor dataset.** Investigated exhaustively:
+  the НАП register (чл.182 ДОПК) is only a **per-EIK search behind reCAPTCHA**
+  (`portal.nra.bg/embed/enf-app-list`) — no bulk export, and bulk-querying it would mean
+  defeating the CAPTCHA (won't do). BIRD `scan.bird.bg/debtors` republishes it but its WP REST is
+  `401` auth-locked (renders empty anonymously). nra.bg stopped publishing after Sept 2022; egov
+  has no dataset; only stale PDF snapshots exist. A **manual audit of the top-20 contract winners
+  by value** (checklist in `raw_data/nap_debtors/contractors_top100.csv`) found **0 debtors** —
+  the biggest suppliers are compliant, so the join is also low-yield at the top. Our side is
+  ready (PG up, `contracts_list` 345,959 rows, `contractor_eik`); the *only* blocker is an
+  obtainable bulk debtor-EIK list. **Revisit if:** an authorized НАП institutional/bulk feed, a
+  ЗДОИ extract, or a maintained third-party dump becomes available; then load `tax_debtors` via a
+  `--backfill` loader from the file and the join is minutes. No `tr_financials` in local PG, so a
+  distress-ranked subset (to raise hit-rate) isn't possible here either.
+- **Excise-licence holders ∩ political connections** — excise register ⋈ connected companies.
+  **⛔ EMPTY (2026-07-12) — the join is 0; don't build the tile.** The data pipeline all works:
+  egov org 2 → the licensed-warehouse register resolves to the customs **BACIS** REST endpoint
+  (`http://extlb.bacis.customs.bg/BACIS/seam/resource/rest/licensing`, an HTML table with
+  Наименование · Адрес · **ЕИК** · Акцизни стоки · Състояние). Parsed cleanly: **804 licensees,
+  292 „Валиден"**. But **excise ∩ connected-company universe = 0** — against both the procurement
+  PEP set (`pep-by-eik/`, 82 companies) and the officials' derived links. Same structural reason
+  as debtors: our connected/flagged set is small and **procurement-derived** (mostly local
+  councillors' small firms that won municipal contracts), whereas excise operators are big
+  industrial fuel/tobacco/alcohol companies (Благоевград-БТ, Лукойл…) that MPs don't own. So the
+  *connections* angle is dead with the data we have. **The register itself is real, standalone
+  data** (who's licensed to handle excise goods, by type) and could sit next to the excise-revenue
+  band — but that's a full BACIS-fetch ingest (+ watcher, data-map) for a modest count-of-operators
+  tile whose unique angle is empty; **not worth the pipeline** unless the register is wanted for its
+  own sake. Revisit the *connections* angle only with a broader TR-ownership PEP map (companies
+  MP/official-owned regardless of procurement), which isn't loaded in local PG today.
+- **Debtors ∩ EU-fund beneficiaries** — same debtor-source block as the first overlay.
 
-Precision: reuse the procurement namesake-fix high-confidence rule (declared stake OR unique TR
-name) to avoid EIK/name-collision false positives.
+**Meta-finding (2026-07-12):** all three cross-dataset overlays are empty or blocked in practice.
+The "connected/flagged company" universe available today (~82 companies, procurement-scoped) is
+too small and too narrow to intersect either big contract winners, big excise operators, or a
+(missing) debtor list. The real Phase-1/3 value was the **presentation** layer (the revenue packs
++ the tax-calculator link), not the overlays. Don't re-attempt an overlay without first confirming
+a non-empty intersection against a genuinely broad connected-EIK set.
+
+Precision (if an overlay ever becomes non-empty): reuse the procurement namesake-fix high-confidence
+rule (declared stake OR unique TR name) to avoid EIK/name-collision false positives.
 
 ## 8. SQL performance verification (per the "always EXPLAIN ANALYZE" rule)
 
@@ -612,8 +647,17 @@ registers (+ watcher §9); enforcement stats; generalize `nap_annual.ts` past 20
 cross-dataset overlay (§7) with `taxDebtors` tool, SQL perf (§8) and changelog (§10).
 
 ### Phase 3 — first-class `/revenue` (Приходи)
-Revenue→spend circuit Sankey (collected × КФП budget-by-function); personalized "къде отиват
-моите данъци" (HMRC Annual Tax Summary; the `bgTaxPolicy` engine already computes the per-lever €,
+**Personalized "къде отиват моите данъци" — ALREADY SHIPPED, and the НАП pack now links to it
+(2026-07-12).** The calculator exists at `/budget/tax-calculator` (`BudgetTaxCalculator`: enter
+income → what your taxes buy, allocated across COFOG functions, from `data/cofog.json` +
+`bgTaxPolicy`). The НАП pack carries a two-CTA row — "Къде отиват твоите данъци"
+(→ `/budget/tax-calculator`) + "Промени данъка" (→ `/budget/simulator`) — closing the
+revenue→personal-summary loop with zero new ingest. What remains genuinely unbuilt in Phase 3 is
+only the **revenue→spend circuit Sankey** (collected × КФП budget-by-function) and a first-class
+`/revenue` surface — both optional. Details below if pursued:
+
+Revenue→spend circuit Sankey (collected × КФП budget-by-function); the personalized summary above
+(HMRC Annual Tax Summary; the `bgTaxPolicy` engine already computes the per-lever €,
 so this is UI + income input, not new modelling). Follow the ВСС split (§4): fresh tiles under
 `src/screens/revenue/`, share only the constants modules, repoint the nav pills (`unscoped: true`),
 add Recipe A prerender. Consider a 5th top-level view next to the planned Потребление.

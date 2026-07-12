@@ -44,6 +44,7 @@ import { erikCampaignFinancing } from "./erik_campaign_financing";
 import { transparencyCpi } from "./transparency_cpi";
 import { worldbankWgi } from "./worldbank_wgi";
 import { customsRevenue } from "./customs_revenue";
+import { customsExciseRegister } from "./customs_excise_register";
 import { napAnnual } from "./nap_annual";
 import { nssiB1 } from "./nssi_b1";
 import { nssiYearbook } from "./nssi_yearbook";
@@ -123,6 +124,7 @@ export const SOURCES: WatchSource[] = [
   ministryExecutionReports,
   iisdaDoklad,
   customsRevenue,
+  customsExciseRegister,
   napAnnual,
   nssiB1,
   nssiYearbook,

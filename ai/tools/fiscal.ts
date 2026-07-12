@@ -8,6 +8,10 @@ import { fuzzyBestMatch } from "./resolve";
 import { translitKey } from "./translit";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
 import { topicBySlug, detectTopic } from "@/lib/tenderTopics";
+import type {
+  ExciseRegisterFile,
+  ExciseCategory,
+} from "@/lib/customsReferenceData";
 import {
   buildRoadsModel,
   API_EIK,
@@ -2606,5 +2610,82 @@ export const procurementAppeals = async (
       ...(sinceYearAll ? { since_year: sinceYearAll } : {}),
     },
     provenance: ["db:kzk-appeals-summary"],
+  };
+};
+
+// Licensed excise-warehouse register (лицензирани складодържатели) — who holds a
+// licence to store excise goods (fuels / tobacco / alcohol) under duty
+// suspension, ranked by their public-procurement footprint. Reads the register
+// snapshot ingested from the Агенция „Митници" BACIS endpoint. The file shape is
+// the shared ExciseRegisterFile (single source of truth in customsReferenceData).
+export const exciseRegister = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const d = await fetchData<ExciseRegisterFile>(
+    "/customs/excise_register.json",
+  );
+  const CAT_LABEL: Record<string, { bg: string; en: string }> = {
+    energy: { bg: "Горива и енергия", en: "Fuels & energy" },
+    tobacco: { bg: "Тютюн", en: "Tobacco" },
+    alcohol: { bg: "Алкохол", en: "Alcohol" },
+    other: { bg: "Друго", en: "Other" },
+  };
+  const q = `${args.category ?? ""} ${args.metric ?? ""}`.toLowerCase();
+  const wantCat: ExciseCategory | null =
+    /горив|fuel|дизел|бензин|petrol|diesel|енерг|energy/.test(q)
+      ? "energy"
+      : /тютюн|tobacco|цигар|cigarette/.test(q)
+        ? "tobacco"
+        : /алкохол|alcohol|спирт|вино|wine|бира|beer/.test(q)
+          ? "alcohol"
+          : null;
+
+  let ops = d.operators.filter((o) => o.active);
+  if (wantCat) ops = ops.filter((o) => o.categories.includes(wantCat));
+  const top = [...ops]
+    .sort((a, b) => b.procurementEur - a.procurementEur)
+    .slice(0, 10);
+
+  return {
+    tool: "exciseRegister",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? wantCat
+        ? `Лицензирани складодържатели — ${CAT_LABEL[wantCat].bg}`
+        : "Лицензирани акцизни складодържатели"
+      : wantCat
+        ? `Licensed warehouse keepers — ${CAT_LABEL[wantCat].en}`
+        : "Licensed excise warehouse keepers",
+    subtitle: bg
+      ? `${ops.length} действащи · източник: Агенция „Митници“ (BACIS)`
+      : `${ops.length} active · source: Customs Agency (BACIS)`,
+    columns: [
+      { key: "name", label: bg ? "Складодържател" : "Warehouse keeper" },
+      { key: "cats", label: bg ? "Акцизни стоки" : "Excise goods" },
+      {
+        key: "proc",
+        label: bg ? "Поръчки" : "Procurement",
+        numeric: true,
+      },
+    ],
+    rows: top.map((o) => ({
+      name: o.name,
+      cats: o.categories
+        .map((c) => (bg ? CAT_LABEL[c].bg : CAT_LABEL[c].en))
+        .join(", "),
+      proc:
+        o.procurementEur > 0 ? fmtEurCompact(o.procurementEur, ctx.lang) : "—",
+    })),
+    viz: "none",
+    facts: {
+      active_operators: d.activeOperators,
+      shown: top.length,
+      ...(wantCat ? { category: wantCat } : {}),
+      top_operator: top[0]?.name ?? "—",
+    },
+    provenance: ["customs/excise_register.json"],
   };
 };

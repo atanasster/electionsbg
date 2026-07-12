@@ -99,6 +99,7 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   { pattern: /^\/water\//, dataset: "water" },
   { pattern: /^\/culture\//, dataset: "culture" },
   { pattern: /^\/budget\//, dataset: "budget" },
+  { pattern: /^\/customs\//, dataset: "budget" },
   // macro_fdi must precede the generic `macro` rule below (first match wins),
   // otherwise /macro_fdi.json would be attributed to ds:macro.
   { pattern: /^\/macro_fdi/, dataset: "macro_fdi" },
@@ -404,6 +405,7 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       "mfa_program_otchet",
       "ministry_execution_reports",
       "customs_revenue",
+      "customs_excise_register",
       "nap_annual",
       "nssi_b1",
       "nssi_yearbook",

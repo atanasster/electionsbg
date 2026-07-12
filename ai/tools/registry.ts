@@ -30,6 +30,7 @@ import {
   procurementSingleBidSectors,
   procurementTotals,
   revenueBreakdown,
+  exciseRegister,
   tenderLookup,
   topContractors,
 } from "./fiscal";
@@ -2954,6 +2955,35 @@ export const TOOLS: ToolDef[] = [
       { bg: "Деклариран ДДС по сектор", en: "Declared VAT by sector" },
     ],
     run: revenueBreakdown,
+  },
+  {
+    name: "exciseRegister",
+    domain: "fiscal",
+    description: {
+      bg: "Лицензирани акцизни складодържатели (Агенция „Митници“) — кой има лиценз да държи горива, тютюн или алкохол под отложено плащане на акциз, подредени по обществени поръчки.",
+      en: "Licensed excise warehouse keepers (Customs Agency) — who is licensed to hold fuels, tobacco or alcohol under duty suspension, ranked by public procurement.",
+    },
+    params: [
+      {
+        name: "category",
+        type: "metric",
+        description: {
+          bg: "Категория (горива / тютюн / алкохол)",
+          en: "Category (fuels / tobacco / alcohol)",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кои фирми имат лиценз за акцизни складове за горива?",
+        en: "Which companies have licensed fuel excise warehouses?",
+      },
+      {
+        bg: "Лицензирани складодържатели на тютюн",
+        en: "Licensed tobacco warehouse keepers",
+      },
+    ],
+    run: exciseRegister,
   },
   {
     name: "fundsProjects",

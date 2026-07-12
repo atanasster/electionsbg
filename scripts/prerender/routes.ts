@@ -731,6 +731,24 @@ const waterFacts = (() => {
   };
 })();
 
+// The /customs/warehouses body quotes the real active-operator count from the
+// committed excise register. Defensive read (the file is written by the
+// customs:excise-register ingest) — fall back to a generic body if absent so the
+// build never breaks.
+const exciseFacts = (() => {
+  try {
+    const j = JSON.parse(
+      fs.readFileSync(
+        path.join(PROJECT_ROOT, "data/customs/excise_register.json"),
+        "utf-8",
+      ),
+    ) as { activeOperators: number };
+    return { active: j.activeOperators };
+  } catch {
+    return { active: 0 };
+  }
+})();
+
 export const prerenderRoutes: PrerenderRoute[] = [
   {
     path: "",
@@ -794,6 +812,21 @@ export const prerenderRoutes: PrerenderRoute[] = [
         "National reconciliation of local-election winners against the sitting officials — municipal mayors and councillors by municipality.",
       breadcrumbName: "Reconciliation",
       bodyHtml: `<h1>Local-elections reconciliation with sitting officials</h1><p>Mayors and councillors elected per the CIK results compared against the current roster of officials by municipality, flagging mismatches and post-election replacements.</p>`,
+    },
+  }),
+  staticPage({
+    path: "customs/warehouses",
+    title: "Лицензирани акцизни складодържатели — регистър | electionsbg.com",
+    description:
+      "Пълен регистър на лицензираните акцизни складодържатели в България — фирмите с лиценз да държат горива, тютюн и алкохол под отложено плащане на акциз, по категория, брой складове и обществени поръчки.",
+    breadcrumbName: "Акцизни складодържатели",
+    bodyHtml: `<h1>Лицензирани акцизни складодържатели</h1><p>${exciseFacts.active ? `${exciseFacts.active} действащи фирми` : "Фирмите"} с лиценз от Агенция „Митници“ да държат акцизни стоки — горива, тютюн и алкохол — под режим на отложено плащане на акциз. За всяка са показани категорията акцизни стоки, броят складове, статусът и стойността на спечелените обществени поръчки, с връзка към страницата на дружеството. По данни от регистъра на Агенция „Митници“ (BACIS).</p>`,
+    english: {
+      title: "Licensed Excise Warehouse Keepers — Register | electionsbg.com",
+      description:
+        "The full register of Bulgaria's licensed excise warehouse keepers — companies licensed to hold fuels, tobacco and alcohol under excise-duty suspension, by category, warehouse count and public procurement.",
+      breadcrumbName: "Excise warehouse keepers",
+      bodyHtml: `<h1>Licensed excise warehouse keepers</h1><p>${exciseFacts.active ? `${exciseFacts.active} active companies` : "Companies"} licensed by the Bulgarian Customs Agency to hold excise goods — fuels, tobacco and alcohol — under duty suspension. Each shows its excise-goods category, warehouse count, status and public-contract value won, linking to the company's page. Sourced from the Customs Agency (BACIS) register.</p>`,
     },
   }),
   staticPage({

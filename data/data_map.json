@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-12T01:05:19.602Z",
+  "generatedAt": "2026-07-12T13:28:38.324Z",
   "nodes": [
     {
       "id": "src:water",
@@ -201,7 +201,7 @@
       "url": "https://register.cacbg.bg/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-07-05T06:09:03.234Z",
+      "freshness": "2026-07-12T06:08:33.338Z",
       "skills": [
         "update-connections",
         "update-officials",
@@ -213,7 +213,7 @@
           "label": "Сметна палата party financing",
           "url": "https://www.bulnao.government.bg/bg/kontrol-partii/",
           "cadence": "weekly",
-          "freshness": "2026-07-05T06:09:03.234Z"
+          "freshness": "2026-07-12T06:08:33.338Z"
         },
         {
           "id": "financing_reports",
@@ -280,7 +280,7 @@
       "url": "https://data.egov.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-11T06:08:58.769Z",
+      "freshness": "2026-07-12T06:08:33.338Z",
       "skills": [
         "update-procurement",
         "update-connections",
@@ -302,7 +302,7 @@
           "label": "data.egov.bg Commerce Registry (Търговски регистър)",
           "url": "https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=1",
           "cadence": "daily",
-          "freshness": "2026-07-11T06:08:58.769Z"
+          "freshness": "2026-07-12T06:08:33.338Z"
         },
         {
           "id": "egov_budget_execution",
@@ -373,7 +373,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-11T06:08:58.769Z",
+      "freshness": "2026-07-12T06:08:33.338Z",
       "skills": [
         "update-procurement"
       ],
@@ -383,7 +383,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-07-11T06:08:58.769Z"
+          "freshness": "2026-07-12T06:08:33.338Z"
         }
       ],
       "x": 28,
@@ -451,7 +451,7 @@
       "url": "https://reg.cpc.bg/AllComplaints.aspx?dt=2",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-07-05T06:09:03.234Z",
+      "freshness": "2026-07-12T06:08:33.338Z",
       "skills": [],
       "sources": [
         {
@@ -459,7 +459,7 @@
           "label": "КЗК procurement-appeals register (жалби по ЗОП)",
           "url": "https://reg.cpc.bg/AllComplaints.aspx?dt=2",
           "cadence": "weekly",
-          "freshness": "2026-07-05T06:09:03.234Z"
+          "freshness": "2026-07-12T06:08:33.338Z"
         }
       ],
       "x": 28,
@@ -489,7 +489,7 @@
       "url": "https://2020.eufunds.bg/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-07-06T06:09:05.846Z",
+      "freshness": "2026-07-12T06:08:33.338Z",
       "skills": [
         "update-funds"
       ],
@@ -499,7 +499,7 @@
           "label": "ИСУН EU funds (beneficiaries)",
           "url": "https://2020.eufunds.bg/bg/0/0/Beneficiary/ExportToExcel",
           "cadence": "weekly",
-          "freshness": "2026-07-05T06:09:03.234Z"
+          "freshness": "2026-07-12T06:08:33.338Z"
         },
         {
           "id": "isun_eu_funds_projects",
@@ -656,6 +656,12 @@
           "freshness": "2026-05-26T06:08:44.085Z"
         },
         {
+          "id": "customs_excise_register",
+          "label": "Агенция \"Митници\" — регистър на лицензираните акцизни складодържатели",
+          "url": "http://extlb.bacis.customs.bg/BACIS/seam/resource/rest/licensing",
+          "cadence": "monthly"
+        },
+        {
           "id": "nap_annual",
           "label": "НАП — Годишен отчет за дейността",
           "url": "https://nra.bg/wps/portal/nra/za-nap/osnovni-dokumenti/Godishni-otcheti-za-deynostta-na-NAP",
@@ -781,7 +787,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-11T06:08:58.769Z",
+      "freshness": "2026-07-12T06:08:33.338Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -800,7 +806,7 @@
           "label": "Council resolutions + vote tallies",
           "url": "data/council/sources.json",
           "cadence": "daily",
-          "freshness": "2026-07-09T06:09:03.525Z"
+          "freshness": "2026-07-12T06:08:33.338Z"
         },
         {
           "id": "municipal_naredba",
@@ -1289,7 +1295,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-11T06:08:58.769Z",
+      "freshness": "2026-07-12T06:08:33.338Z",
       "skills": [
         "update-prices"
       ],
@@ -1299,7 +1305,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-07-11T06:08:58.769Z"
+          "freshness": "2026-07-12T06:08:33.338Z"
         }
       ],
       "x": 28,
@@ -1414,6 +1420,7 @@
       "url": "https://www.nato.int/cps/en/natohq/news_216897.htm",
       "origin": "state",
       "cadence": "monthly",
+      "freshness": "2026-07-12T06:08:33.338Z",
       "skills": [
         "update-defense"
       ],
@@ -1421,20 +1428,22 @@
         {
           "id": "nato_defexp",
           "label": "НАТО — разходи за отбрана",
-          "url": "https://www.nato.int/cps/en/natohq/news_216897.htm",
+          "url": "https://www.nato.int/en/what-we-do/introduction-to-nato/defence-expenditures-and-natos-5-commitment",
           "cadence": "monthly"
         },
         {
           "id": "mod_defense_report",
           "label": "МО — доклад за отбраната",
           "url": "https://www.mod.bg/doc8",
-          "cadence": "monthly"
+          "cadence": "monthly",
+          "freshness": "2026-07-12T06:08:33.338Z"
         },
         {
           "id": "moe_arms_exports",
           "label": "МИ — износ на оръжие",
           "url": "https://www.sipri.org/databases/national-reports/Bulgaria",
-          "cadence": "monthly"
+          "cadence": "monthly",
+          "freshness": "2026-07-12T06:08:33.338Z"
         }
       ],
       "x": 28,
@@ -1463,6 +1472,7 @@
       "url": "https://www.nfc.bg/статистика-публичен-регистър/единен-публичен-регистър/",
       "origin": "state",
       "cadence": "weekly",
+      "freshness": "2026-07-12T06:08:33.338Z",
       "skills": [
         "update-culture"
       ],
@@ -1471,19 +1481,22 @@
           "id": "nfc_film_register",
           "label": "НФЦ Единен публичен регистър (financed films, nfc.bg)",
           "url": "https://www.nfc.bg/статистика-публичен-регистър/единен-публичен-регистър/",
-          "cadence": "monthly"
+          "cadence": "monthly",
+          "freshness": "2026-07-12T06:08:33.338Z"
         },
         {
           "id": "ncf_grant_results",
           "label": "НФК news feed (grant results, ncf.bg)",
           "url": "https://ncf.bg/bg/novini",
-          "cadence": "weekly"
+          "cadence": "weekly",
+          "freshness": "2026-07-12T06:08:33.338Z"
         },
         {
           "id": "nfc_commissions",
           "label": "НФЦ artistic-commission appointments (nfc.bg заповеди)",
           "url": "https://www.nfc.bg/%D0%BD%D0%BE%D1%80%D0%BC%D0%B0%D1%82%D0%B8%D0%B2%D0%BD%D0%B8-%D0%B0%D0%BA%D1%82%D0%BE%D0%B2%D0%B5-%D0%B7%D0%B0%D0%BF%D0%BE%D0%B2%D0%B5%D0%B4%D0%B8-%D0%B8-%D1%81%D1%82%D0%B0%D1%82%D1%83%D1%82%D0%B8/%D0%B7%D0%B0%D0%BF%D0%BE%D0%B2%D0%B5%D0%B4%D0%B8/",
-          "cadence": "monthly"
+          "cadence": "monthly",
+          "freshness": "2026-07-12T06:08:33.338Z"
         }
       ],
       "x": 28,

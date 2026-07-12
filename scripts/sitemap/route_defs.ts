@@ -52,6 +52,7 @@ export const ENGLISH_STATIC_PAGES = [
   "defense",
   "water",
   "water/operators",
+  "customs/warehouses",
   "pensions",
   "culture",
   "culture/films",
@@ -109,6 +110,10 @@ export const routeDefs = (year: string): RouteDefs => [
   {
     path: "water/operators",
     file: `src/screens/water/WaterOperatorsScreen.tsx`,
+  },
+  {
+    path: "customs/warehouses",
+    file: `src/screens/customs/ExciseRegisterScreen.tsx`,
   },
   { path: "pensions", file: `src/screens/pensions/PensionsScreen.tsx` },
   { path: "culture", file: `src/screens/culture/CultureScreen.tsx` },

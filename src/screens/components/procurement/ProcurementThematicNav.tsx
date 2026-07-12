@@ -20,12 +20,16 @@ import {
   GraduationCap,
   Droplets,
   Shield,
+  Landmark,
+  Ship,
 } from "lucide-react";
 import {
   ROADS_AWARDER_PATH,
   NOI_AWARDER_PATH,
   NZOK_AWARDER_PATH,
   MON_AWARDER_PATH,
+  NAP_AWARDER_PATH,
+  CUSTOMS_AWARDER_PATH,
 } from "./sectorPacks";
 import { useProcurementHref } from "@/data/procurement/useProcurementScope";
 
@@ -39,6 +43,10 @@ const thematicItems = [
   { to: NOI_AWARDER_PATH, icon: PiggyBank, key: "procurement_noi_nav" },
   { to: NZOK_AWARDER_PATH, icon: HeartPulse, key: "procurement_nzok_nav" },
   { to: MON_AWARDER_PATH, icon: GraduationCap, key: "procurement_mon_nav" },
+  // НАП + Митници — collectors, revenue-first packs. Scoped (awarder pages read
+  // ?pscope) so no `unscoped`.
+  { to: NAP_AWARDER_PATH, icon: Landmark, key: "procurement_nap_nav" },
+  { to: CUSTOMS_AWARDER_PATH, icon: Ship, key: "procurement_customs_nav" },
   {
     // The judiciary's home is the /judiciary dashboard — it lists every judicial
     // body's awarder page, so the pill points there rather than at the ВСС buyer

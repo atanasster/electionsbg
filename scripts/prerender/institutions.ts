@@ -224,4 +224,52 @@ export const INSTITUTION_PACKS: InstitutionPack[] = [
     ogCenter: true,
     ogSettleMs: 3000,
   },
+  {
+    eik: "131063188",
+    slug: "nap",
+    nameBg: "Национална агенция за приходите",
+    nameEn: "National Revenue Agency (НАП)",
+    titleBg:
+      "НАП — откъде идват данъчните приходи: ДДС, ДДФЛ, акцизи и данъчна пропаст | electionsbg.com",
+    titleEn:
+      "National Revenue Agency (НАП) — where Bulgaria's tax revenue comes from | electionsbg.com",
+    descriptionBg:
+      "Национална агенция за приходите (ЕИК 131063188) е събирачът, не разходващият. Виж откъде идват данъчните приходи по вид — ДДС, ДДФЛ, корпоративен данък, акцизи, мита — по данни от Консолидираната фискална програма, плюс данъчната пропаст спрямо ЕС.",
+    descriptionEn:
+      "The National Revenue Agency (НАП, EIK 131063188) is a collector, not a spender. See where tax revenue comes from by type — VAT, personal and corporate income tax, excise, customs — from the Consolidated Fiscal Programme, plus the tax gap versus the EU.",
+    bodyBg: `
+<h1>Национална агенция за приходите — откъде идват данъчните приходи</h1>
+<p>Национална агенция за приходите (НАП, ЕИК 131063188) администрира събирането на данъците в България — ДДС, данък върху доходите на физическите лица (ДДФЛ), корпоративния данък и акцизите. За разлика от повечето държавни структури НАП не харчи, а събира: тази страница показва откъде идват данъчните приходи по вид, по данни от Консолидираната фискална програма на Министерството на финансите.</p>
+<p>Показва се и данъчната пропаст — каква част от дължимия ДДС и ДДФЛ реално се събира спрямо оценките на Европейската комисия. България събира ДДС по-добре от средното за ЕС. Виж и <a href="${SITE}/budget">държавния бюджет</a> и <a href="${SITE}/indicators/compare">сравнението с ЕС</a>.</p>`.trim(),
+    bodyEn: `
+<h1>National Revenue Agency — where Bulgaria's tax revenue comes from</h1>
+<p>The National Revenue Agency (НАП, EIK 131063188) administers tax collection in Bulgaria — VAT, personal income tax, corporate tax and excise. Unlike most state bodies НАП is a collector rather than a spender: this page shows where tax revenue comes from by type, sourced from the Ministry of Finance's Consolidated Fiscal Programme.</p>
+<p>It also shows the tax gap — how much of the VAT and personal income tax owed is actually collected against European Commission estimates. Bulgaria collects VAT better than the EU average. See also the <a href="${SITE}/en/budget">state budget</a> and the <a href="${SITE}/en/indicators/compare">EU comparison</a>.</p>`.trim(),
+    ogAnchor: '[data-og="nap-revenue"]',
+    ogSettleMs: 2500,
+  },
+  {
+    eik: "000627597",
+    slug: "customs",
+    nameBg: 'Агенция "Митници"',
+    nameEn: "Customs Agency (Агенция „Митници“)",
+    titleBg:
+      "Агенция „Митници“ — акцизи, ДДС при внос и мита: откъде идват приходите | electionsbg.com",
+    titleEn:
+      "Bulgarian Customs Agency — excise, import VAT and duties: where revenue comes from | electionsbg.com",
+    descriptionBg:
+      "Агенция „Митници“ (ЕИК 000627597) събира над €7 млрд. годишно — акцизи (горива, тютюн, алкохол), ДДС при внос, мита и глоби. Виж състава на приходите по година, разбивката на акциза за 2025 г. и водещите държави по събрано мито.",
+    descriptionEn:
+      "The Bulgarian Customs Agency (EIK 000627597) collects over €7bn a year — excise (fuels, tobacco, alcohol), import VAT, customs duties and fines. See the revenue composition by year, the 2025 excise product split, and the top countries by duty collected.",
+    bodyBg: `
+<h1>Агенция „Митници“ — откъде идват митническите приходи</h1>
+<p>Агенция „Митници“ (ЕИК 000627597) събира над 7 млрд. евро годишно за държавния бюджет. Приходите ѝ са предимно акцизи (върху горива, тютюн и алкохол), ДДС при внос, мита и глоби. Тази страница показва състава на тези приходи по година, продуктовата разбивка на акциза за 2025 г. и водещите държави на произход по събрано мито при внос.</p>
+<p>Данните са от годишните доклади „Митническа хроника“ на агенцията, конвертирани в евро. Виж и <a href="${SITE}/budget">държавния бюджет</a> и <a href="${SITE}/procurement">обществените поръчки</a>.</p>`.trim(),
+    bodyEn: `
+<h1>Customs Agency — where customs revenue comes from</h1>
+<p>The Bulgarian Customs Agency (EIK 000627597) collects over €7bn a year for the state budget. Its revenue is mostly excise (on fuels, tobacco and alcohol), import VAT, customs duties and fines. This page shows the composition of that revenue by year, the 2025 excise product split, and the top countries of origin by import duty collected.</p>
+<p>Figures are from the agency's annual "Митническа хроника" reports, converted to euro. See also the <a href="${SITE}/en/budget">state budget</a> and <a href="${SITE}/en/procurement">public procurement</a>.</p>`.trim(),
+    ogAnchor: '[data-og="customs-revenue"]',
+    ogSettleMs: 2500,
+  },
 ];

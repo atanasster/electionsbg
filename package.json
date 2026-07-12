@@ -100,6 +100,7 @@
     "procurement:ingest-legacy": "tsx ./scripts/procurement/ingest_legacy.ts",
     "budget:ingest": "tsx ./scripts/budget/ingest.ts",
     "budget:revenue-breakdown": "tsx ./scripts/budget/run_customs_revenue.ts && tsx ./scripts/budget/run_nap_annual.ts",
+    "customs:excise-register": "tsx ./scripts/customs/excise_register.ts",
     "budget:policy-baseline": "tsx ./scripts/budget/run_consumption_coicop.ts && tsx ./scripts/budget/run_policy_baseline.ts",
     "budget:test": "tsx ./scripts/budget/test.ts",
     "funds:ingest": "tsx ./scripts/funds/ingest.ts",

@@ -24,6 +24,8 @@ import { MON_EIK } from "@/lib/monBenchmarks";
 import { KULTURA_EIK } from "@/lib/kulturaReferenceData";
 import { VIK_HOLDING_EIK, WATER_SECTOR_EIKS } from "@/lib/vikReferenceData";
 import { MOD_EIK, DEFENSE_SECTOR_EIKS } from "@/lib/defenseReferenceData";
+import { NAP_EIK, NAP_AWARDER_PATH } from "@/lib/napReferenceData";
+import { CUSTOMS_EIK, CUSTOMS_AWARDER_PATH } from "@/lib/customsReferenceData";
 import { AGRI_PAYER_EIK } from "@/data/agri/constants";
 import type { ScopeWindow } from "@/data/procurement/useAwarderContracts";
 
@@ -49,6 +51,9 @@ export const MON_AWARDER_PATH = `/awarder/${MON_EIK}`;
 // awarder dashboard plus the administering-agency subsidies card (gated on
 // AGRI_PAYER_EIK in CompanyDbScreen), the entry point into the /subsidies pack.
 export const DFZ_AWARDER_PATH = `/awarder/${AGRI_PAYER_EIK}`;
+// Revenue-agency packs (НАП / Митници) — collectors, not spenders. Pack-only
+// (no standalone view yet), so the nav points straight at the awarder page.
+export { NAP_AWARDER_PATH, CUSTOMS_AWARDER_PATH };
 
 const RoadsPack = lazy(() =>
   import("./roads/RoadsPack").then((m) => ({ default: m.RoadsPack })),
@@ -85,6 +90,12 @@ const VikPack = lazy(() =>
 const DefensePack = lazy(() =>
   import("./defense/DefensePack").then((m) => ({ default: m.DefensePack })),
 );
+const NapPack = lazy(() =>
+  import("./nap/NapPack").then((m) => ({ default: m.NapPack })),
+);
+const CustomsPack = lazy(() =>
+  import("./customs/CustomsPack").then((m) => ({ default: m.CustomsPack })),
+);
 
 const PACKS: Record<string, ComponentType<SectorPackProps>> = {
   [API_EIK]: RoadsPack,
@@ -95,6 +106,8 @@ const PACKS: Record<string, ComponentType<SectorPackProps>> = {
   [KULTURA_EIK]: KulturaPack,
   [VIK_HOLDING_EIK]: VikPack,
   [MOD_EIK]: DefensePack,
+  [NAP_EIK]: NapPack,
+  [CUSTOMS_EIK]: CustomsPack,
 };
 
 export const getSectorPack = (
