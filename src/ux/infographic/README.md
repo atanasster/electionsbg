@@ -68,7 +68,11 @@ Rules:
 | structural ink | `stroke`/`fill="currentColor"` | flips light/dark for free |
 | the one accent | `var(--sector)` | set by the tile from its token |
 | under-ink fills | `PAPER` (`hsl(var(--card))`) | reads on cream **and** navy |
+| **stat overlay** | keep the **lower-left ~⅔ clear** | a tile with a `metric` overlays a big number at the banner's bottom-left; dense/dark marks there fight it. Put bars, dark fills and the trend on the **right half and top** — see the `Analysis` scene in `procurementScenes.tsx`. (The tile also glows the number with a card halo as a safety net, but don't lean on it.) |
 | accessibility | none per scene | `SceneFrame` is `aria-hidden`; the tile title is the label. Never add a per-scene `aria-label` (duplicates the title, isn't localized) |
+
+The stat number is wide for euro values (`€1 млрд.`), so on a scene that hosts one
+keep marks clear of roughly `x < 180` in the lower band.
 
 The scenes-registry file exports a `Record<string, FC>` alongside its component
 definitions, which trips `react-refresh/only-export-components`; disable that rule

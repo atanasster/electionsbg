@@ -33,10 +33,15 @@ export interface InfographicTileProps {
   metric?: string;
 }
 
-// The big number is legible on the tinted banner via a currentColor-tuned fill +
-// a card-coloured text halo (so it holds over the scene marks on both themes).
+// The big number is legible via a currentColor-tuned fill + a card-coloured halo
+// (1px outline for crispness + a soft glow so it lifts off any darker scene mark
+// that strays into the lower-left). Scenes should still keep their dense marks on
+// the right/top per the "stat overlay" rule in ./README.md — the glow is a safety
+// net, not a licence to draw behind the number.
 const metricColor =
   "color-mix(in srgb, var(--sector) 58%, hsl(var(--foreground)))";
+const metricShadow =
+  "0 1px 0 hsl(var(--card)), 0 -1px 0 hsl(var(--card)), 1px 0 0 hsl(var(--card)), -1px 0 0 hsl(var(--card)), 0 0 5px hsl(var(--card)), 0 0 5px hsl(var(--card))";
 
 export const InfographicTile: FC<InfographicTileProps> = ({
   to,
@@ -64,11 +69,7 @@ export const InfographicTile: FC<InfographicTileProps> = ({
       {metric ? (
         <span
           className="pointer-events-none absolute bottom-1.5 left-3 hidden text-2xl font-bold leading-none tabular-nums sm:block xl:text-3xl"
-          style={{
-            color: metricColor,
-            textShadow:
-              "0 1px 0 hsl(var(--card)), 0 -1px 0 hsl(var(--card)), 1px 0 0 hsl(var(--card)), -1px 0 0 hsl(var(--card))",
-          }}
+          style={{ color: metricColor, textShadow: metricShadow }}
         >
           {metric}
         </span>

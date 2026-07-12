@@ -9,51 +9,39 @@
 import { FC } from "react";
 import { SceneFrame, PAPER, Bars, TrendLine } from "@/ux/infographic";
 
+// Dense marks (bars + trend) live on the RIGHT half; the top-left carries only
+// a light card + one rule. The lower-left is kept clear because the tile overlays
+// its stat number there — see the "stat overlay" rule in src/ux/infographic/README.md.
 const Analysis: FC = () => (
   <SceneFrame>
     <rect
-      x="34"
-      y="22"
-      width="110"
-      height="22"
+      x="28"
+      y="20"
+      width="98"
+      height="16"
       rx="4"
       fill="var(--sector)"
       opacity=".85"
     />
     <rect
-      x="34"
-      y="52"
-      width="150"
-      height="7"
+      x="28"
+      y="44"
+      width="78"
+      height="6"
       rx="3"
       fill="currentColor"
-      opacity=".35"
-    />
-    <rect
-      x="34"
-      y="64"
-      width="120"
-      height="7"
-      rx="3"
-      fill="currentColor"
-      opacity=".28"
-    />
-    <Bars
-      x={40}
-      baseline={104}
-      heights={[18, 30, 44, 34]}
-      barWidth={13}
-      gap={8}
+      opacity=".3"
     />
     <TrendLine
       points={[
-        [188, 86],
-        [214, 70],
-        [238, 78],
-        [268, 42],
+        [150, 80],
+        [190, 60],
+        [224, 70],
+        [268, 36],
       ]}
       arrow
     />
+    <Bars x={196} baseline={104} heights={[20, 34, 52]} barWidth={13} gap={9} />
   </SceneFrame>
 );
 
