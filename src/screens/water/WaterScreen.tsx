@@ -10,7 +10,8 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Title } from "@/ux/Title";
-import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
+import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
+import { ProcurementScopeControl } from "@/screens/components/procurement/ProcurementScopeControl";
 import { useVik, useVikFunds } from "@/data/procurement/useVik";
 import { VIK_HOLDING_EIK } from "@/lib/vikReferenceData";
 import { VikSubsidiaryTile } from "@/screens/components/procurement/vik/VikSubsidiaryTile";
@@ -39,17 +40,21 @@ export const WaterScreen: FC = () => {
         {bg ? "Води (ВиК)" : "Water (ВиК)"}
       </Title>
 
-      {/* The thematic-nav pill strip is rendered by ProcurementSectionHeader →
-          ProcurementNav below (water is a scoped view), so it is NOT mounted
-          separately here — unlike /judiciary and /culture, which have no section
-          header and mount ProcurementThematicNav themselves. */}
+      {/* Water is a sector dashboard like /judiciary and /culture: the
+          hierarchy breadcrumb (up to the sectors hub) replaces the old sibling-
+          enumeration strip, and it keeps just the shared scope control — not the
+          corpus-wide procurement nav. */}
+      <SectorBreadcrumb currentKey="procurement_water_nav" />
+
       <p className="max-w-3xl text-sm text-muted-foreground">
         {bg
           ? "Български ВиК холдинг е принципал на ~26 регионални ВиК дружества. Централата почти не купува — поръчките са в дружествата. Тук ги виждаме заедно."
           : "The Bulgarian Water Holding is the principal of ~26 regional water operators. The parent buys almost nothing — the procurement is in the operators. Here we see them together."}
       </p>
 
-      <ProcurementSectionHeader scopeMode="toggle" />
+      <div className="mb-3">
+        <ProcurementScopeControl mode="toggle" />
+      </div>
 
       {isLoading ? (
         <div className="h-[280px] animate-pulse rounded-xl border bg-card" />

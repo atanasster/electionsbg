@@ -19,7 +19,7 @@ import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEurCompact } from "@/lib/currency";
 import type { ProcurementScope } from "@/data/procurement/useProcurementScope";
 import { ProcurementScopeControl } from "@/screens/components/procurement/ProcurementScopeControl";
-import { ProcurementThematicNav } from "@/screens/components/procurement/ProcurementThematicNav";
+import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
 import {
   useDefenseGdpShare,
   useDefenseCategorySplit,
@@ -102,7 +102,7 @@ export const DefenseScreen = () => {
   return (
     <>
       <Title description={description}>{title}</Title>
-      <ProcurementThematicNav />
+      <SectorBreadcrumb currentKey="procurement_defense_nav" />
 
       {isLoading && (
         <div className="my-4 h-[320px] animate-pulse rounded-xl border bg-card" />

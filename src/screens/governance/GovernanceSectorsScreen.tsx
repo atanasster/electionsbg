@@ -17,6 +17,7 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { TileHubGrid, TileHubSection, TILE_ACCENTS } from "@/ux/infographic";
+import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
 import {
   ROADS_AWARDER_PATH,
   NOI_AWARDER_PATH,
@@ -226,7 +227,9 @@ export const GovernanceSectorsScreen: FC = () => {
           "Един вход към всяка държавна структура — пари, договори, отговорни институции."}
       </p>
 
-      <TileHubGrid sections={sections} className="my-6 sm:my-8" />
+      <SectorBreadcrumb className="mt-5" />
+
+      <TileHubGrid sections={sections} className="my-4 sm:my-6" />
     </>
   );
 };

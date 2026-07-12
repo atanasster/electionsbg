@@ -34,7 +34,7 @@ import { AGRI_FINANCIAL_YEARS, agriScopeToKey } from "@/data/agri/constants";
 import { formatEur, formatEurCompact } from "@/lib/currency";
 import { useProcurementScope } from "@/data/procurement/useProcurementScope";
 import { ProcurementScopeControl } from "./components/procurement/ProcurementScopeControl";
-import { ProcurementThematicNav } from "./components/procurement/ProcurementThematicNav";
+import { SectorBreadcrumb } from "./components/procurement/SectorBreadcrumb";
 
 const Tile: FC<{
   title: React.ReactNode;
@@ -516,7 +516,7 @@ export const SubsidiesDashboardScreen: FC = () => {
   return (
     <>
       <Title description={description}>{title}</Title>
-      <ProcurementThematicNav />
+      <SectorBreadcrumb currentKey="agri_subsidies_nav" />
       <div className="flex flex-wrap items-center gap-2 mb-3">
         <span className="text-sm text-muted-foreground inline-flex items-center gap-1.5">
           <CalendarRange className="h-3.5 w-3.5" />

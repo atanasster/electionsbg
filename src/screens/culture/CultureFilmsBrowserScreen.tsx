@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, Clapperboard } from "lucide-react";
 import { Title } from "@/ux/Title";
-import { ProcurementThematicNav } from "@/screens/components/procurement/ProcurementThematicNav";
+import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
 import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 import { formatEur } from "@/lib/currency";
 import {
@@ -121,7 +121,7 @@ export const CultureFilmsBrowserScreen: FC = () => {
       >
         {title}
       </Title>
-      <ProcurementThematicNav />
+      <SectorBreadcrumb currentKey="culture_nav" />
 
       <div className="mt-2">
         <Link

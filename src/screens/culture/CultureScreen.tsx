@@ -32,7 +32,7 @@ import { CultureCommissionsTile } from "./CultureCommissionsTile";
 import { CultureGrantsTile } from "./CultureGrantsTile";
 import { CultureOblastMapTile } from "./CultureOblastMapTile";
 import { CultureAwardersTile } from "./CultureAwardersTile";
-import { ProcurementThematicNav } from "@/screens/components/procurement/ProcurementThematicNav";
+import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
 
 export const CultureScreen = () => {
   const { i18n } = useTranslation();
@@ -77,7 +77,7 @@ export const CultureScreen = () => {
   return (
     <>
       <Title description={description}>{title}</Title>
-      <ProcurementThematicNav />
+      <SectorBreadcrumb currentKey="culture_nav" />
 
       <ProcurementScopeControl
         className="mt-3"

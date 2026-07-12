@@ -16,7 +16,7 @@ import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatInt, formatPct } from "@/lib/currency";
 import type { ProcurementScope } from "@/data/procurement/useProcurementScope";
 import { ProcurementScopeControl } from "@/screens/components/procurement/ProcurementScopeControl";
-import { ProcurementThematicNav } from "@/screens/components/procurement/ProcurementThematicNav";
+import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
 import {
   clearanceRate,
   useJudiciaryCaseload,
@@ -80,7 +80,7 @@ export const JudiciaryScreen = () => {
     <>
       {/* Title emits the <SEO> tags itself when given a string child. */}
       <Title description={description}>{title}</Title>
-      <ProcurementThematicNav />
+      <SectorBreadcrumb currentKey="judiciary_nav" />
 
       {isLoading && (
         <div className="my-4 h-[320px] animate-pulse rounded-xl border bg-card" />
