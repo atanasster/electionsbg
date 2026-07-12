@@ -6,8 +6,8 @@
 // in dev, the `db` Cloud Function (hosting rewrite) in prod.
 // See docs/plans/postgres-migration-v1.md.
 
-import { FC, Suspense, useCallback, useEffect, useMemo, useState } from "react";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { FC, Suspense, useEffect, useMemo, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import {
   Building2,
   Landmark,
@@ -86,7 +86,7 @@ import { decodeEntities } from "@/lib/decodeEntities";
 import { ProcurementScopeControl } from "../components/procurement/ProcurementScopeControl";
 import {
   scopeYear,
-  type ProcurementScope,
+  useProcurementScope,
 } from "@/data/procurement/useProcurementScope";
 import { scopeRange } from "@/data/procurement/scopeRange";
 import { useElectionContext } from "@/data/ElectionContext";
@@ -371,32 +371,12 @@ export const CompanyDbScreen: FC = () => {
   const [corpusName, setCorpusName] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  // Section scope, URL-backed via ?pscope so a chosen window is shareable and
-  // survives a reload (mirrors the procurement section pages). One divergence:
-  // the awarder page defaults to "all" — its headline totals read best all-time
-  // — whereas the section pages default to "ns". So HERE "all" is the omitted
-  // default and "ns"/"y:<year>" are the ones written to the URL (the inverse of
-  // useProcurementScope, which is why this doesn't reuse that hook).
-  const [searchParams, setSearchParams] = useSearchParams();
-  const scope: ProcurementScope = useMemo(() => {
-    const raw = searchParams.get("pscope");
-    if (raw === "ns") return "ns";
-    if (raw && /^y:20\d{2}$/.test(raw)) return raw as ProcurementScope;
-    return "all";
-  }, [searchParams]);
-  const setScope = useCallback(
-    (next: ProcurementScope) =>
-      setSearchParams(
-        (prev) => {
-          const p = new URLSearchParams(prev);
-          if (next === "all") p.delete("pscope");
-          else p.set("pscope", next);
-          return p;
-        },
-        { replace: false },
-      ),
-    [setSearchParams],
-  );
+  // Section scope, URL-backed via ?pscope — the SAME semantics as the rest of
+  // the procurement section (absent = "this parliament"; "all"/"y:<year>" are
+  // written to the URL). Sharing useProcurementScope means the scope no longer
+  // silently flips when you navigate between the hub/section and an entity page,
+  // which used to happen because this page treated an absent param as "all".
+  const { scope, setScope } = useProcurementScope();
   // Latches true once the entity is known to be an awarder, so narrowing the
   // scope to an empty window can't hide the control (which would strand the user
   // with no way back to "all").

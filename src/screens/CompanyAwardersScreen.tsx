@@ -24,7 +24,9 @@ export const CompanyAwardersScreen: FC = () => {
   const { eik } = useParams<{ eik: string }>();
   const { t, i18n } = useTranslation();
   const { selected } = useElectionContext();
-  const [scope, setScope] = useState<ProcurementScope>("all");
+  // Defaults to "this parliament", matching the rest of the procurement section
+  // (was "all" — that made the scope silently differ from the hub/entity page).
+  const [scope, setScope] = useState<ProcurementScope>("ns");
   const [from, to] = scopeRange(scope, selected);
   const { data, isLoading } = useCounterparties(eik, "contractor", from, to);
 
