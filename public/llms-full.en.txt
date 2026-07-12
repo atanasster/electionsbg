@@ -1102,7 +1102,11 @@ schemaType: Article
 
 Bulgaria signs tens of thousands of public-procurement contracts a year. The records are public — and almost unusable. They live as thousands of files on [data.egov.bg](https://data.egov.bg/) and inside the [ЦАИС ЕОП](https://app.eop.bg/) system, with no way to ask the questions that matter: *Who keeps winning without competition? Which companies are tied to the people who run the state? Where does my município's money go?*
 
-The [Public Procurement](/procurement) module answers those questions. It holds **301,205 contracts and amendments**, from **4,393 contracting authorities** to **26,128 companies**, covering **2011 through 2026**, worth **€74.1 billion** — and it layers an explainable risk score, money-flow diagrams, a universal search by company, politician or official, a geographic view, sector (CPV) breakdowns, a contracts browser with sector/procedure/value/EU-funding filters, and a red-flag feed on top. This piece sets it against what exists in Bulgaria and abroad, walks through each tool, and ends with what you can actually find with it.
+The [Public Procurement](/procurement) module answers those questions. It holds **345,949 contracts and amendments**, from **4,397 contracting authorities** to **26,987 companies**, covering **2011 through 2026**, worth **€81.2 billion** — and it layers an explainable risk score, money-flow diagrams, a universal search by company, politician or official, a geographic view, sector (CPV) breakdowns, a contracts browser with sector/procedure/value/EU-funding filters, and a red-flag feed on top. This piece sets it against what exists in Bulgaria and abroad, walks through each tool, and ends with what you can actually find with it.
+
+![The module's home — a navigation hub with search, tiles into every tool and live scope-aware numbers](/articles/images/procurement-tools/00-hub.png)
+
+*[See it live: Public Procurement →](/procurement)*
 
 ## 1. The landscape: Bulgaria and abroad
 
@@ -1141,6 +1145,7 @@ Beyond the official registers, Bulgaria has accumulated civic and commercial eff
 | Tenders: forecast vs actual spend | partial | no | partial | partial | yes |
 | Appeals before the КЗК review body | no | no | no | partial | yes |
 | Connected NGOs (ЮЛНЦ) | no | no | no | no | yes |
+| Sector packs (health, defense, water, farm subsidies) | no | no | no | no | yes |
 | Thematic analyses (e.g. roads, €/km) | no | no | no | no | yes |
 | Access | free · state | free · state | free · academic | free · state + civic | free · Bulgarian · independent |
 
@@ -1159,7 +1164,7 @@ A second group sits outside this comparison: commercial market-intelligence plat
 
 ### An explainable risk index, not a black box
 
-Every contract carries a **Corruption Risk Index** from 0 to 100 — the share of the applicable red-flag checks that fired, in the Fazekas/Government-Transparency-Institute tradition. It is deliberately transparent: the page shows *which* checks fired and how many were even applicable ("3 of 8 risk checks"), so you can judge it yourself rather than trust a colour.
+Every contract carries a **Corruption Risk Index** from 0 to 100 — the share of the applicable red-flag checks that fired, in the Fazekas/Government-Transparency-Institute tradition. It is deliberately transparent: the page shows *which* checks fired and how many were even applicable ("4 of 8 risk checks"), so you can judge it yourself rather than trust a colour.
 
 ![A contract page with the explainable Corruption Risk Index meter and red-flag chips](/articles/images/procurement-tools/01-risk-index.png)
 
@@ -1169,7 +1174,7 @@ The checks: a **single bidder** (read from the bid count the OCDS feed actually 
 
 ### Every contract, sortable and searchable
 
-That same risk index sits next to every row of the full table too — 300,000+ contracts you can filter by sector, procedure, value and EU funding, sort on any column, and export. The flags show up without opening each contract one by one: sort by risk, or keep only the flagged rows. A summary line above the table tracks the current filter — count, total value, share EU-funded and share flagged.
+That same risk index sits next to every row of the full table too — 340,000+ contracts you can filter by sector, procedure, value and EU funding, sort on any column, and export. The flags show up without opening each contract one by one: sort by risk, or keep only the flagged rows. A summary line above the table tracks the current filter — count, total value, share EU-funded and share flagged.
 
 ![The Contracts table with its filters, summary line and the risk index next to each row](/articles/images/procurement-tools/09-contracts.png)
 
@@ -1179,7 +1184,7 @@ Scope switches as it does everywhere in the module — **this parliament** (only
 
 ### Where the money flows
 
-A buyer's spending fans out to its suppliers as a Sankey diagram — on every authority page and on the [module's dashboard](/procurement) itself, with companies tied to a parliamentarian highlighted. A company (supplier) page turns the question around: because all its income funnels to a single recipient, it shows instead **how dependent the firm is on one buyer** — the top buyer's share, the top-three share and how many buyers it has in all.
+A buyer's spending fans out to its suppliers as a Sankey diagram — on every authority page and on the [module's overview](/procurement/overview) page, with companies tied to a parliamentarian highlighted. A company (supplier) page turns the question around: because all its income funnels to a single recipient, it shows instead **how dependent the firm is on one buyer** — the top buyer's share, the top-three share and how many buyers it has in all.
 
 ![The buyer-dependency lens on a company page](/articles/images/procurement-tools/02-buyer-dependency.png)
 
@@ -1227,9 +1232,9 @@ The [red-flag feed](/procurement/flags) collects the signals worth a second look
 
 **Single-supplier concentration.** Across the corpus, **45% of contracts whose bid count is published had a single bidder** — Bulgaria's well-documented competition problem. The feed surfaces the extreme cases: buyers that have sent *100%* of their procurement to one company — often small schools and community centres. And sometimes the scale surprises: a secondary [school in the village of Ribnovo](/awarder/000013115) placed a single **€2.5 million** contract with one Blagoevgrad firm — roughly 95% of everything it has ever awarded. Even if each award was lawful, that degree of concentration warrants closer scrutiny.
 
-**The political class as contractors.** The module records **43 MPs tied to 41 companies** that have won contracts worth **nearly €1 billion** over the full period, and **82 non-MP officials** tied to **81** contractor companies. The largest ties run through state-owned enterprises: an MP registered as a director of the state road-builder [Avtomagistrali](/company/831646048) — **€602 million** in contracts; another MP at [Bulgarian Posts](/company/121396123) at **€182 million**; a state-agency head registered at the IT company [Informatsionno Obsluzhvane](/company/831641791) at **€315 million**. Alongside them are municipal councillors with a directly declared stake — e.g. in [Global Cleaner](/company/202758921) (cleaning, €25 million) and [Etropal Trade](/company/122055819) (medical supplies, €13 million). None of this is itself wrongdoing — it is exactly the map of declared interest that was, until now, scattered across thousands of filings.
+**The political class as contractors.** The module records **120 MPs** (current or former) and **82 non-MP officials** tied to contractor companies worth **nearly €2.3 billion** over the full period. The largest ties run through state-owned enterprises: an MP registered in the management of the state road-builder [Avtomagistrali](/company/831646048) — **€842 million** in contracts; a state-agency head registered at the IT company [Informatsionno Obsluzhvane](/company/831641791) at **€293 million**; MPs tied to [Bulgarian Posts](/company/121396123) at **€186.5 million**. Alongside them are municipal councillors with a directly declared stake — e.g. in [Global Cleaner](/company/202758921) (cleaning, €27.6 million) and [Etropal Trade](/company/122055819) (medical supplies, €15.6 million). None of this is itself wrongdoing — it is exactly the map of declared interest that was, until now, scattered across thousands of filings.
 
-**Per-município reality.** Because every local buyer is pinned to its settlement, you can read a município like [Plovdiv](/procurement/settlement/56784) directly: **€4.0 billion** awarded across 15,665 contracts, led by the university hospital, the regional electricity distributor and the municipality itself.
+**Per-município reality.** Because every local buyer is pinned to its settlement, you can read a município like [Plovdiv](/procurement/settlement/56784) directly: **€4.2 billion** awarded across 17,418 contracts, led by the university hospital, the electricity distributor and the municipality itself.
 
 ## 4. Method and limits
 
@@ -1242,10 +1247,18 @@ The module has other tools that extend the picture beyond the signed contract �
 - **[Tenders (procedures)](/procurement/tenders)** — the tenders themselves, before any contract is signed. We match a procedure's forecast value against the contracts actually awarded under it, so you can see where the estimate diverges from the spend.
 - **[Appeals (КЗК)](/procurement/appeals)** — the Competition Protection Commission's rulings on challenged tenders, plus an A-to-F risk grade per contracting authority.
 - **[NGOs (ЮЛНЦ)](/procurement/ngos)** — associations and foundations: boards, funding, and their contact with public money.
-- **[Roads (АПИ)](/procurement/roads)** and **[What the state buys](/procurement/sectors)** — thematic cuts: road construction with a €/km benchmark, and a deeper breakdown by CPV sector.
+- **[Roads (АПИ)](/sector/roads)** and **[What the state buys](/procurement/sectors)** — thematic cuts: road construction with a €/km benchmark, and a deeper breakdown by CPV sector.
 - **Universal search and connection paths** — the dashboard search finds a company, politician or official; on a company page you can check whether a given person is tied to it, even several hops away.
 
 Open the [Public Procurement](/procurement) module, or ask the [assistant](https://ai.electionsbg.com) a question like *"show the procurement red flags"* — and follow the money.
+
+## What's new
+
+Since this piece first went out, the module has grown. Here is just what's new — the detail lives in the tools above:
+
+- **A navigation hub.** [Public Procurement](/procurement) is now a landing page with one search, tiles into every tool, and live numbers that follow the selected scope.
+- **Sector packs.** Whole packs for individual sectors — [Health fund (НЗОК)](/sector/health), [Defense (МО)](/defense), [Water (ВиК)](/water), [Farm subsidies (ДФЗ)](/subsidies) and [Revenue (НАП)](/sector/revenue) — alongside the existing [Roads (АПИ)](/sector/roads), with an [all-sectors overview](/governance/sectors).
+- **More data.** The corpus grew to 345,949 contracts worth €81.2 billion (up from €74.1 billion), with fuller 2018 and 2020–2021.
 
 ## Sources
 
