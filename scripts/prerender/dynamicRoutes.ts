@@ -2500,6 +2500,8 @@ type ReportEntry = {
   bgTitle: string;
   bgDesc: string;
   bgBody: string;
+  // Optional custom OG card (path under /); falls back to DEFAULT_OG_IMAGE.
+  ogImage?: string;
 };
 
 const SETTLEMENT_REPORTS: ReportEntry[] = [
@@ -2634,6 +2636,7 @@ const SECTION_REPORTS: ReportEntry[] = [
       "Списък на секциите с натрупани отклонения по различни доклади — повторно преброяване, машинно гласуване, отклонения по партии.",
     bgBody:
       "Обобщеният списък на секциите, които се появяват в няколко независими доклада за отклонения. Това са секциите, които изискват ръчна проверка — машинна срещу хартиена разлика, нулирано броене, организирано гласуване, дописани избиратели.",
+    ogImage: "/og/problem-sections.png",
   },
 ];
 
@@ -2654,6 +2657,7 @@ const buildReportRoutes = (
       path: `reports/${scope}/${r.slug}`,
       title,
       description: r.bgDesc,
+      ogImage: r.ogImage,
       bodyHtml: `
 <h1>${r.bgTitle}</h1>
 <p>${r.bgBody}</p>
