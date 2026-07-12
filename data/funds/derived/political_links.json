@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-07-05T10:45:02.242Z",
+  "generatedAt": "2026-07-12T17:58:22.419Z",
   "totals": {
     "flaggedEiks": 321,
     "mpOnly": 206,
     "officialOnly": 108,
     "both": 7,
     "debarredFlagged": 0,
-    "contractedEur": 2621273522.11,
-    "paidEur": 1095661076.68,
-    "procurementEur": 951541355.85
+    "contractedEur": 2622114729.28,
+    "paidEur": 1095661572.4,
+    "procurementEur": 1464704360.81
   },
   "top": [
     {
@@ -32,10 +32,10 @@
         }
       ],
       "officials": [],
-      "procurementEur": 46911258.65,
-      "procurementContractCount": 2,
+      "procurementEur": 48869506.55,
+      "procurementContractCount": 3,
       "debarred": false,
-      "exposureScore": 27.13
+      "exposureScore": 27.15
     },
     {
       "eik": "121856059",
@@ -84,10 +84,10 @@
         }
       ],
       "officials": [],
-      "procurementEur": 1478782.14,
-      "procurementContractCount": 30,
+      "procurementEur": 2310852.59,
+      "procurementContractCount": 39,
       "debarred": false,
-      "exposureScore": 24.12
+      "exposureScore": 24.26
     },
     {
       "eik": "130316140",
@@ -163,10 +163,10 @@
         }
       ],
       "officials": [],
-      "procurementEur": 701854.1,
-      "procurementContractCount": 12,
+      "procurementEur": 715246.88,
+      "procurementContractCount": 14,
       "debarred": false,
-      "exposureScore": 23.01
+      "exposureScore": 23.02
     },
     {
       "eik": "824106518",
@@ -197,10 +197,10 @@
           ]
         }
       ],
-      "procurementEur": 5601444.18,
-      "procurementContractCount": 30,
+      "procurementEur": 5694834.9,
+      "procurementContractCount": 34,
       "debarred": false,
-      "exposureScore": 23.27
+      "exposureScore": 23.28
     },
     {
       "eik": "831160078",
@@ -284,10 +284,10 @@
           ]
         }
       ],
-      "procurementEur": 5985382.29,
-      "procurementContractCount": 44,
+      "procurementEur": 6321837.11,
+      "procurementContractCount": 49,
       "debarred": false,
-      "exposureScore": 24.3
+      "exposureScore": 24.31
     },
     {
       "eik": "203635576",
@@ -349,8 +349,8 @@
         }
       ],
       "officials": [],
-      "procurementEur": 48851516.12,
-      "procurementContractCount": 18,
+      "procurementEur": 48948214.15,
+      "procurementContractCount": 19,
       "debarred": false,
       "exposureScore": 23.65
     },
@@ -441,10 +441,10 @@
           ]
         }
       ],
-      "procurementEur": 1328760.95,
-      "procurementContractCount": 20,
+      "procurementEur": 1396379.16,
+      "procurementContractCount": 22,
       "debarred": false,
-      "exposureScore": 21.55
+      "exposureScore": 21.56
     },
     {
       "eik": "121399226",
@@ -728,6 +728,42 @@
       "exposureScore": 16.02
     },
     {
+      "eik": "200712697",
+      "name": "ПАК дизайн ООД",
+      "orgType": "Компания",
+      "contractCount": 11,
+      "contractedEur": 4471490.53,
+      "paidEur": 1853787.8,
+      "mps": [
+        {
+          "mpId": 3427,
+          "mpName": "Петко Ангелов Кущирев",
+          "relations": [
+            {
+              "kind": "sole_owner",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "manager",
+              "isCurrent": true,
+              "confidence": "medium"
+            },
+            {
+              "kind": "partner",
+              "isCurrent": false,
+              "confidence": "medium"
+            }
+          ]
+        }
+      ],
+      "officials": [],
+      "procurementEur": 0,
+      "procurementContractCount": 0,
+      "debarred": false,
+      "exposureScore": 16.01
+    },
+    {
       "eik": "202295544",
       "name": "\"Житосвят агро\" ЕООД",
       "orgType": "Компания",
@@ -842,47 +878,11 @@
       "exposureScore": 15.87
     },
     {
-      "eik": "200712697",
-      "name": "ПАК дизайн ООД",
-      "orgType": "Компания",
-      "contractCount": 10,
-      "contractedEur": 3604160.55,
-      "paidEur": 1853787.8,
-      "mps": [
-        {
-          "mpId": 3427,
-          "mpName": "Петко Ангелов Кущирев",
-          "relations": [
-            {
-              "kind": "sole_owner",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "manager",
-              "isCurrent": true,
-              "confidence": "medium"
-            },
-            {
-              "kind": "partner",
-              "isCurrent": false,
-              "confidence": "medium"
-            }
-          ]
-        }
-      ],
-      "officials": [],
-      "procurementEur": 0,
-      "procurementContractCount": 0,
-      "debarred": false,
-      "exposureScore": 15.79
-    },
-    {
       "eik": "116011316",
       "name": "\"МАТ\" ООД",
       "orgType": "Компания",
       "contractCount": 7,
-      "contractedEur": 2795044.12,
+      "contractedEur": 2768921.31,
       "paidEur": 1454683.65,
       "mps": [
         {
@@ -898,10 +898,10 @@
         }
       ],
       "officials": [],
-      "procurementEur": 7766810.76,
-      "procurementContractCount": 65,
+      "procurementEur": 8790177.23,
+      "procurementContractCount": 80,
       "debarred": false,
-      "exposureScore": 20.3
+      "exposureScore": 20.32
     },
     {
       "eik": "207297556",
@@ -950,10 +950,10 @@
         }
       ],
       "officials": [],
-      "procurementEur": 124086783.59,
-      "procurementContractCount": 294,
+      "procurementEur": 151861276.48,
+      "procurementContractCount": 349,
       "debarred": false,
-      "exposureScore": 21
+      "exposureScore": 21.06
     },
     {
       "eik": "206841186",
@@ -1016,10 +1016,10 @@
         }
       ],
       "officials": [],
-      "procurementEur": 113723.56,
-      "procurementContractCount": 11,
+      "procurementEur": 123836.91,
+      "procurementContractCount": 12,
       "debarred": false,
-      "exposureScore": 18.76
+      "exposureScore": 18.79
     },
     {
       "eik": "119603547",
@@ -1352,8 +1352,8 @@
         }
       ],
       "officials": [],
-      "procurementEur": 57788381.99,
-      "procurementContractCount": 38,
+      "procurementEur": 58606835.58,
+      "procurementContractCount": 44,
       "debarred": false,
       "exposureScore": 20.19
     },
@@ -1644,10 +1644,10 @@
         }
       ],
       "officials": [],
-      "procurementEur": 29881984.2,
-      "procurementContractCount": 108,
+      "procurementEur": 31266424.31,
+      "procurementContractCount": 130,
       "debarred": false,
-      "exposureScore": 19.64
+      "exposureScore": 19.65
     },
     {
       "eik": "206692269",
@@ -1730,10 +1730,10 @@
     "114532352",
     "121706255",
     "126529015",
+    "200712697",
     "202295544",
     "203133495",
     "201596039",
-    "200712697",
     "116011316",
     "207297556",
     "833103535",
@@ -1953,9 +1953,10 @@
     "000457209",
     "121748902",
     "102655436",
-    "836163459",
     "107558642",
     "202823511",
+    "836163459",
+    "203717219",
     "201832124",
     "201433615",
     "112008155",
@@ -1991,7 +1992,6 @@
     "203149713",
     "203311556",
     "203326551",
-    "203717219",
     "203791011",
     "204454618",
     "204633652",
