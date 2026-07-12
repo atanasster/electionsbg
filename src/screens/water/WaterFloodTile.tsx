@@ -13,6 +13,7 @@ import { Waves } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { useFloodMaintenance } from "@/data/water/useFloodMaintenance";
+import { WaterFloodMap } from "./WaterFloodMap";
 
 export const WaterFloodTile: FC = () => {
   const { i18n } = useTranslation();
@@ -84,6 +85,15 @@ export const WaterFloodTile: FC = () => {
             </div>
           </div>
         </div>
+
+        {data.byOblast && data.byOblast.length > 0 && (
+          <div>
+            <div className="mb-1 text-xs font-medium text-muted-foreground">
+              {bg ? "Разходи по области" : "Spend by oblast"}
+            </div>
+            <WaterFloodMap byOblast={data.byOblast} />
+          </div>
+        )}
 
         <div className="space-y-1.5">
           <div className="text-xs font-medium text-muted-foreground">

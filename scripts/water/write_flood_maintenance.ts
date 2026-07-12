@@ -11,6 +11,22 @@
 import { writeFileSync, mkdirSync } from "node:fs";
 import { allRows, end } from "../db/lib/pg";
 import { NAPOITELNI_EIK } from "../../src/lib/vikReferenceData";
+import { OBLAST_BG } from "../lib/oblast_names";
+
+// Reverse OBLAST_BG (canonical code → Bulgarian name) into name → canonical
+// nuts3 code, so the awarder_seats oblast name joins to the region GeoJSON key
+// used by useSofiaMergedRegionsMap. Sofia city (S23/S24/S25/SOF all share the
+// name "София (столица)") collapses to the merged-map key "SOF"; "PDV-00" is a
+// shard duplicate of "PDV". First writer wins, then the canonical overrides fix
+// the ambiguous cases.
+const NAME_TO_CODE: Record<string, string> = (() => {
+  const m: Record<string, string> = {};
+  for (const [code, name] of Object.entries(OBLAST_BG))
+    if (!(name in m)) m[name] = code;
+  m["София (столица)"] = "SOF"; // merged-map key, not S23/S24/S25
+  m["Пловдив"] = "PDV";
+  return m;
+})();
 
 // The riverbed-works discriminator: CPV (river regulation / flood-defence works)
 // OR title keywords. Kept in one place so every aggregate below counts the same
@@ -50,6 +66,11 @@ interface ContractRow {
   eur: string | null;
   date: string | null;
 }
+interface OblastRow {
+  oblast: string | null;
+  eur: string | null;
+  count: string;
+}
 
 const num = (v: string | null): number => Math.round(Number(v ?? 0));
 
@@ -78,6 +99,16 @@ const main = async () => {
     GROUP BY awarder_eik
     ORDER BY sum(amount_eur) DESC NULLS LAST, awarder_eik
     LIMIT 15`);
+
+  // Per-oblast spend — awarder seat → oblast (near-complete: only ~9 contracts
+  // lack a seat). The frontend choropleth keys on the canonical nuts3 code.
+  const byOblastRaw = await allRows<OblastRow>(`
+    SELECT s.oblast AS oblast,
+           round(sum(c.amount_eur))::bigint::text AS eur,
+           count(*)::text AS count
+    FROM contracts c LEFT JOIN awarder_seats s ON s.eik = c.awarder_eik
+    WHERE ${WHERE}
+    GROUP BY s.oblast`);
 
   const topContracts = await allRows<ContractRow>(`
     SELECT key, title, awarder_eik, awarder_name,
@@ -108,6 +139,23 @@ const main = async () => {
       eur: num(a.eur),
       count: Number(a.count),
     })),
+    // Aggregated to the canonical oblast code; contracts whose awarder has no
+    // seat fold into code "" (dropped by the map, still in the totals above).
+    // Deterministic: € desc with a code tiebreak.
+    byOblast: (() => {
+      const acc = new Map<string, { eur: number; count: number }>();
+      for (const r of byOblastRaw) {
+        const code = r.oblast ? (NAME_TO_CODE[r.oblast] ?? "") : "";
+        const cur = acc.get(code) ?? { eur: 0, count: 0 };
+        cur.eur += num(r.eur);
+        cur.count += Number(r.count);
+        acc.set(code, cur);
+      }
+      return [...acc.entries()]
+        .filter(([code]) => code)
+        .map(([code, v]) => ({ code, eur: v.eur, count: v.count }))
+        .sort((a, b) => b.eur - a.eur || a.code.localeCompare(b.code));
+    })(),
     topContracts: topContracts.map((c) => ({
       key: c.key,
       title: c.title ?? "",

@@ -18,6 +18,12 @@ export interface FloodAwarder {
   eur: number;
   count: number;
 }
+export interface FloodOblast {
+  /** Canonical oblast nuts3 code (region-GeoJSON key; Sofia city = "SOF"). */
+  code: string;
+  eur: number;
+  count: number;
+}
 export interface FloodContract {
   key: string;
   title: string;
@@ -36,6 +42,7 @@ export interface FloodMaintenanceFile {
   napoitelniEur: number;
   napoitelniCount: number;
   byYear: FloodYear[];
+  byOblast: FloodOblast[];
   topAwarders: FloodAwarder[];
   topContracts: FloodContract[];
 }
