@@ -3,22 +3,19 @@
 // line into a hospital cross, rising coin stacks, a container ship…) that hints
 // at what the sector's dashboard actually measures.
 //
-// Theme-aware with zero props: structural ink is drawn with `currentColor`, so
-// it inherits the tile's text colour (a muted foreground that flips with the
-// theme); the sector's accent pop is `var(--sector)`, which each tile sets from
-// its hex in SectorHub. Paper fills (receipt body, film frames) use
-// `hsl(var(--card))` so they read on both the cream and the navy ground.
+// Every scene renders inside <SceneFrame> (src/ux/infographic), which owns the
+// drawing contract: fixed 300×116 viewBox, ink via `currentColor`, the accent
+// via `var(--sector)` (set by the tile), and `PAPER` for under-ink fills so they
+// read on both the cream and navy ground. Scenes are decorative — the frame is
+// aria-hidden; the tile's visible title is the label.
 
+/* eslint-disable react-refresh/only-export-components -- SECTOR_SCENES is a
+   lookup table of scene components, not a fast-refresh boundary. */
 import { FC } from "react";
-
-const VB = "0 0 300 116";
-// The banner sits on a per-sector-tinted gradient; the ink needs to hold on
-// both grounds, so we lean on the theme foreground rather than a fixed grey.
-const cls = "block h-auto w-full text-foreground/70";
-const paper = "hsl(var(--card))";
+import { SceneFrame, PAPER } from "@/ux/infographic";
 
 const Roads: FC = () => (
-  <svg viewBox={VB} className={cls} role="img" aria-label="Пътища">
+  <SceneFrame>
     <path
       d="M120 20 L180 20 L270 108 L30 108 Z"
       fill="var(--sector)"
@@ -44,11 +41,11 @@ const Roads: FC = () => (
       <rect x="47" y="78" width="9" height="26" rx="2" opacity=".75" />
       <rect x="60" y="70" width="9" height="34" rx="2" />
     </g>
-  </svg>
+  </SceneFrame>
 );
 
 const Water: FC = () => (
-  <svg viewBox={VB} className={cls} role="img" aria-label="Води">
+  <SceneFrame>
     <path
       d="M0 74 q30 -12 60 0 t60 0 t60 0 t60 0 t60 0 V116 H0 Z"
       fill="var(--sector)"
@@ -68,7 +65,7 @@ const Water: FC = () => (
     <path
       d="M142 60 a12 12 0 0 0 8 8"
       fill="none"
-      stroke={paper}
+      stroke={PAPER}
       strokeWidth="2"
       strokeLinecap="round"
     />
@@ -107,11 +104,11 @@ const Water: FC = () => (
       fill="currentColor"
       opacity=".5"
     />
-  </svg>
+  </SceneFrame>
 );
 
 const Transport: FC = () => (
-  <svg viewBox={VB} className={cls} role="img" aria-label="Транспорт">
+  <SceneFrame>
     {/* receding rails */}
     <g fill="none" stroke="currentColor" strokeWidth="1.4" opacity=".5">
       <path d="M110 108 L150 34 M210 108 L172 34" />
@@ -124,8 +121,8 @@ const Transport: FC = () => (
         fill="var(--sector)"
         opacity=".9"
       />
-      <rect x="8" y="14" width="14" height="12" rx="2" fill={paper} />
-      <rect x="30" y="14" width="16" height="12" rx="2" fill={paper} />
+      <rect x="8" y="14" width="14" height="12" rx="2" fill={PAPER} />
+      <rect x="30" y="14" width="16" height="12" rx="2" fill={PAPER} />
       <circle
         cx="12"
         cy="46"
@@ -163,11 +160,11 @@ const Transport: FC = () => (
         strokeLinecap="round"
       />
     </g>
-  </svg>
+  </SceneFrame>
 );
 
 const Pension: FC = () => (
-  <svg viewBox={VB} className={cls} role="img" aria-label="Пенсии">
+  <SceneFrame>
     <g fill="var(--sector)">
       <g opacity=".55">
         <ellipse cx="60" cy="98" rx="20" ry="6" />
@@ -211,14 +208,14 @@ const Pension: FC = () => (
     >
       €
     </text>
-  </svg>
+  </SceneFrame>
 );
 
 const Social: FC = () => (
-  <svg viewBox={VB} className={cls} role="img" aria-label="Осигуряване">
+  <SceneFrame>
     {/* umbrella = safety net */}
     <path d="M78 40 a52 52 0 0 1 104 0 Z" fill="var(--sector)" opacity=".85" />
-    <path d="M78 40 h104" stroke={paper} strokeWidth="2" />
+    <path d="M78 40 h104" stroke={PAPER} strokeWidth="2" />
     <path
       d="M130 40 v44 a10 10 0 0 0 20 0"
       fill="none"
@@ -239,11 +236,11 @@ const Social: FC = () => (
       <rect x="228" y="74" width="10" height="30" rx="2" opacity=".72" />
       <rect x="242" y="64" width="10" height="40" rx="2" />
     </g>
-  </svg>
+  </SceneFrame>
 );
 
 const Health: FC = () => (
-  <svg viewBox={VB} className={cls} role="img" aria-label="Здравна каса">
+  <SceneFrame>
     <path
       d="M0 66 H70 L84 40 L100 92 L116 58 H150"
       fill="none"
@@ -261,7 +258,7 @@ const Health: FC = () => (
       fill="var(--sector)"
       opacity=".9"
     />
-    <g fill={paper}>
+    <g fill={PAPER}>
       <rect x="188" y="44" width="12" height="40" rx="3" />
       <rect x="174" y="58" width="40" height="12" rx="3" />
     </g>
@@ -270,11 +267,11 @@ const Health: FC = () => (
       <rect x="252" y="60" width="8" height="34" rx="2" />
       <rect x="264" y="66" width="8" height="28" rx="2" />
     </g>
-  </svg>
+  </SceneFrame>
 );
 
 const Edu: FC = () => (
-  <svg viewBox={VB} className={cls} role="img" aria-label="Образование">
+  <SceneFrame>
     <path
       d="M60 44 L118 24 L176 44 L118 64 Z"
       fill="var(--sector)"
@@ -294,11 +291,11 @@ const Edu: FC = () => (
       <rect x="238" y="58" width="12" height="44" rx="2" opacity=".88" />
       <rect x="254" y="46" width="12" height="56" rx="2" />
     </g>
-  </svg>
+  </SceneFrame>
 );
 
 const Schools: FC = () => (
-  <svg viewBox={VB} className={cls} role="img" aria-label="Училища и матури">
+  <SceneFrame>
     {/* school facade: pediment + columns */}
     <path d="M70 40 L118 20 L166 40 Z" fill="var(--sector)" opacity=".85" />
     <rect
@@ -331,7 +328,7 @@ const Schools: FC = () => (
         x="0"
         y="9"
         textAnchor="middle"
-        fill={paper}
+        fill={PAPER}
         fontSize="26"
         fontWeight="700"
         fontFamily="Georgia, serif"
@@ -339,14 +336,14 @@ const Schools: FC = () => (
         6
       </text>
     </g>
-  </svg>
+  </SceneFrame>
 );
 
 const Revenue: FC = () => (
-  <svg viewBox={VB} className={cls} role="img" aria-label="Приходи (НАП)">
+  <SceneFrame>
     <path
       d="M40 20 h74 v72 l-9 -6 -9 6 -9 -6 -9 6 -9 -6 -9 6 -9 -6 -12 6 Z"
-      fill={paper}
+      fill={PAPER}
       stroke="currentColor"
       strokeWidth="1.6"
     />
@@ -363,18 +360,18 @@ const Revenue: FC = () => (
       x="248"
       y="53"
       textAnchor="middle"
-      fill={paper}
+      fill={PAPER}
       fontSize="20"
       fontWeight="700"
       fontFamily="Georgia, serif"
     >
       %
     </text>
-  </svg>
+  </SceneFrame>
 );
 
 const Customs: FC = () => (
-  <svg viewBox={VB} className={cls} role="img" aria-label="Митници">
+  <SceneFrame>
     <path
       d="M0 92 q40 10 80 0 t80 0 t80 0 t60 0"
       fill="none"
@@ -437,11 +434,11 @@ const Customs: FC = () => (
       opacity=".6"
     />
     <path d="M228 44 l24 8 l-24 8 Z" fill="var(--sector)" opacity=".7" />
-  </svg>
+  </SceneFrame>
 );
 
 const Administration: FC = () => (
-  <svg viewBox={VB} className={cls} role="img" aria-label="Администрация">
+  <SceneFrame>
     {/* institution: pediment + columns */}
     <path d="M40 42 L86 22 L132 42 Z" fill="currentColor" opacity=".55" />
     <g fill="currentColor" opacity=".45">
@@ -481,16 +478,16 @@ const Administration: FC = () => (
     <path
       d="M198 46 l6 6 l12 -12"
       fill="none"
-      stroke={paper}
+      stroke={PAPER}
       strokeWidth="2.4"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
-  </svg>
+  </SceneFrame>
 );
 
 const Defense: FC = () => (
-  <svg viewBox={VB} className={cls} role="img" aria-label="Отбрана">
+  <SceneFrame>
     <path
       d="M96 20 l40 12 v26 c0 26 -22 38 -40 46 c-18 -8 -40 -20 -40 -46 V32 Z"
       fill="var(--sector)"
@@ -527,11 +524,11 @@ const Defense: FC = () => (
       <circle r="3" fill="currentColor" />
       <circle cx="14" cy="-11" r="2.6" fill="var(--sector)" />
     </g>
-  </svg>
+  </SceneFrame>
 );
 
 const Justice: FC = () => (
-  <svg viewBox={VB} className={cls} role="img" aria-label="Съдебна власт">
+  <SceneFrame>
     <path
       d="M150 22 v66 M120 92 h60"
       stroke="currentColor"
@@ -559,11 +556,11 @@ const Justice: FC = () => (
       <circle cx="162" cy="104" r="3" />
       <circle cx="138" cy="104" r="3" />
     </g>
-  </svg>
+  </SceneFrame>
 );
 
 const Agri: FC = () => (
-  <svg viewBox={VB} className={cls} role="img" aria-label="Земеделие">
+  <SceneFrame>
     <g stroke="var(--sector)" strokeWidth="2" opacity=".55" fill="none">
       <path d="M0 100 q80 -14 300 -30" />
       <path d="M0 108 q80 -14 300 -30" opacity=".6" />
@@ -621,11 +618,11 @@ const Agri: FC = () => (
       <circle cx="166" cy="26" r="3.4" opacity=".75" />
       <circle cx="182" cy="20" r="3.4" />
     </g>
-  </svg>
+  </SceneFrame>
 );
 
 const Culture: FC = () => (
-  <svg viewBox={VB} className={cls} role="img" aria-label="Култура">
+  <SceneFrame>
     <g transform="rotate(-8 150 58)">
       <rect
         x="70"
@@ -636,7 +633,7 @@ const Culture: FC = () => (
         fill="currentColor"
         opacity=".85"
       />
-      <g fill={paper}>
+      <g fill={PAPER}>
         <rect x="76" y="44" width="8" height="7" rx="1.5" />
         <rect x="76" y="69" width="8" height="7" rx="1.5" />
         <rect x="218" y="44" width="8" height="7" rx="1.5" />
@@ -666,7 +663,7 @@ const Culture: FC = () => (
         transform="rotate(-90)"
       />
     </g>
-  </svg>
+  </SceneFrame>
 );
 
 export const SECTOR_SCENES: Record<string, FC> = {
