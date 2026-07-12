@@ -70,11 +70,15 @@ const docIdFromOcid = (ocid: string): string | undefined =>
     : undefined;
 
 const UNP_RE = /\d{5}-\d{4}-\d{4,}/;
-// The notice labels the CPV variously: «Общ терминологичен речник (CPV)» on
-// newer forms, «Класификатора на ОП (CPV)» on older ones — the `(CPV)<code>`
-// anchor is common to both. The FIRST such code is the main object CPV (the
-// summary/Раздел II.1 field); additional/per-lot codes follow.
-const CPV_RE = /\(\s*CPV\s*\)\s*[:-]?\s*(\d{8})/i;
+// The notice labels the CPV in two form families:
+//   pre-2016-reform ОБЯВЛЕНИЕ ЗА ОБЩЕСТВЕНА ПОРЪЧКА: «… речник (CPV) NNNNNNNN»
+//     / «Класификатора на ОП (CPV) NNNNNNNN»            (the `(CPV)<code>` anchor)
+//   post-2016-reform ОБЯВЛЕНИЕ ЗА ВЪЗЛОЖЕНА ПОРЪЧКА:  «Основен CPV код : NNNNNNNN»
+//     (the CSV `ID на документа` points to this award notice from ~2017 on, which
+//     is why the first regex alone left 2017–2019 near-empty).
+// Both reduce to "CPV [код] <sep> <8 digits>"; the FIRST match is the main object
+// CPV (Основен / summary field) — «Допълнителен CPV код» follows and is skipped.
+const CPV_RE = /CPV(?:\s*код)?[)\s:.–-]{0,8}(\d{8})/i;
 
 // ---- read the docIds to scrape from the on-disk corpus -----------------------
 
@@ -207,14 +211,58 @@ const runPool = async <T>(
   await Promise.all(runners);
 };
 
+// Rebuild the whole map from the gzip cache with NO network — for when the
+// parser (e.g. CPV_RE) improves and the already-fetched docs must be re-read. The
+// УНП each doc self-reports is authoritative here (there is no expected-УНП to
+// cross-check), so a re-parse just overwrites every entry from its cached HTML.
+const reparseFromCache = (): void => {
+  if (!fs.existsSync(CACHE_DIR)) {
+    console.log("→ no cache dir — nothing to re-parse");
+    return;
+  }
+  const files = fs
+    .readdirSync(CACHE_DIR)
+    .filter((f) => /^\d+\.html\.gz$/.test(f));
+  console.log(`→ re-parsing ${files.length.toLocaleString()} cached doc(s)…`);
+  const map: Record<string, DossierFact> = {};
+  let withCpv = 0;
+  let done = 0;
+  for (const f of files) {
+    const docId = f.replace(/\.html\.gz$/, "");
+    let html: string;
+    try {
+      html = zlib.gunzipSync(fs.readFileSync(path.join(CACHE_DIR, f))).toString(
+        "utf8",
+      );
+    } catch {
+      continue;
+    }
+    const fact = parseDoc(html);
+    map[docId] = fact;
+    if (fact.cpv) withCpv++;
+    if (++done % 10_000 === 0)
+      console.log(`  …${done.toLocaleString()}/${files.length.toLocaleString()}`);
+  }
+  saveMap(map);
+  console.log(
+    `→ re-parsed ${done.toLocaleString()} doc(s), ` +
+      `${withCpv.toLocaleString()} with a CPV → ${MAP_FILE}`,
+  );
+};
+
 const main = async (args: {
   backfill: boolean;
+  reparse: boolean;
   fromId?: number;
   toId?: number;
   limit?: number;
   concurrency: number;
   refreshCache: boolean;
 }): Promise<void> => {
+  if (args.reparse) {
+    reparseFromCache();
+    return;
+  }
   // Build the work-list of docIds, with the expected УНП where the corpus knows
   // it (null in id-range mode, where we self-key from each fetched notice).
   let work: Array<{ docId: string; expectUnp: string | null }> = [];
@@ -357,10 +405,18 @@ const cli = command({
       description: "Re-download docs even when a cached copy exists.",
       defaultValue: () => false,
     }),
+    reparse: flag({
+      type: optional(boolean),
+      long: "reparse",
+      description:
+        "Rebuild the map from the gzip cache only (no network) — after a parser change.",
+      defaultValue: () => false,
+    }),
   },
   handler: (args) =>
     main({
       backfill: !!args.backfill,
+      reparse: !!args.reparse,
       fromId: args.fromId ? parseInt(args.fromId, 10) : undefined,
       toId: args.toId ? parseInt(args.toId, 10) : undefined,
       limit: args.limit ? parseInt(args.limit, 10) : undefined,

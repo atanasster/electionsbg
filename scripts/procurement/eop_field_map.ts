@@ -229,15 +229,19 @@ const docIdFromOcid = (ocid: string): string | undefined =>
     ? (ocid.match(/-(\d+)$/)?.[1] ?? undefined)
     : undefined;
 
+interface DossierEntry {
+  unp: string | null;
+  cpv: string;
+}
 interface DossierIndex {
-  byDocId: Map<string, string>; // legacy docId → CPV
+  byDocId: Map<string, DossierEntry>; // legacy docId → {notice УНП, CPV}
   byUnp: Map<string, string>; // procedure УНП → CPV (covers id-range gap-fills)
 }
 
 // Load the dossier scrape's CPV map into docId- and УНП-keyed indices (CPV-only
 // entries). Absent file → empty indices (the pass no-ops), so this stays optional.
 const buildDossierIndex = (): DossierIndex => {
-  const byDocId = new Map<string, string>();
+  const byDocId = new Map<string, DossierEntry>();
   const byUnp = new Map<string, string>();
   if (fs.existsSync(ROP_DOSSIER_MAP)) {
     let map: Record<string, { unp: string | null; cpv: string | null }>;
@@ -248,7 +252,7 @@ const buildDossierIndex = (): DossierIndex => {
     }
     for (const [docId, f] of Object.entries(map)) {
       if (!f?.cpv) continue;
-      byDocId.set(docId, f.cpv);
+      byDocId.set(docId, { unp: f.unp ?? null, cpv: f.cpv });
       if (f.unp && !byUnp.has(f.unp)) byUnp.set(f.unp, f.cpv);
     }
   }
@@ -256,11 +260,15 @@ const buildDossierIndex = (): DossierIndex => {
 };
 
 // The real notice CPV for one contract: exact by legacy docId, then by УНП.
+// Integrity guard: the notice's own УНП must equal the corpus's УНП for that
+// docId — a mismatch means the ocid↔docId association drifted, so we DON'T graft
+// that doc's sector (this replaces the crawl-time guard, which a cache re-parse
+// bypasses). A missing УНП on either side can't be cross-checked, so it passes.
 const dossierCpv = (idx: DossierIndex, c: Contract): string | undefined => {
   const docId = docIdFromOcid(c.ocid);
   if (docId) {
     const hit = idx.byDocId.get(docId);
-    if (hit) return hit;
+    if (hit && !(hit.unp && c.unp && hit.unp !== c.unp)) return hit.cpv;
   }
   return c.unp ? idx.byUnp.get(c.unp) : undefined;
 };
