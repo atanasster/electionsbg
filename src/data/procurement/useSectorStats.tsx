@@ -12,12 +12,13 @@ import { formatEurCompact } from "@/lib/currency";
 import { useProcurementWindow } from "./useProcurementWindow";
 
 export interface SectorStat {
-  kind: "eur" | "score";
+  kind: "eur" | "score" | "count";
   value: number;
 }
 
-/** Tile-ready string for a sector stat: a compact € for euro figures, or a
- *  two-decimal outcome score (matura). undefined for a missing/zero stat. */
+/** Tile-ready string for a sector stat: a compact € for euro figures, a
+ *  two-decimal outcome score (matura), or a thousands-grouped integer
+ *  (administration headcount). undefined for a missing/zero stat. */
 export const formatSectorMetric = (
   stat: SectorStat | undefined,
   lang: string,
@@ -28,6 +29,7 @@ export const formatSectorMetric = (
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
+  if (stat.kind === "count") return Math.round(stat.value).toLocaleString(lang);
   return formatEurCompact(stat.value, lang);
 };
 

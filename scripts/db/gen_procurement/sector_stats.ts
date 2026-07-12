@@ -23,6 +23,9 @@
 //   - score (annual): schools = national mean ДЗИ-по-БЕЛ success
 //     (indicators.json series.dzi) — schools have no single procurement seat, so
 //     the tile carries an outcome number instead of a €.
+//   - count (annual): administration = total filled positions across the whole
+//     state administration (budget/personnel.json) — headcount, not МЕУ's thin
+//     procurement line.
 // Annual figures track the scope's year for a y:<year> scope (falling back to
 // the source's latest year), and show the latest year for ns/all — a parliament
 // window spans several fiscal years, so "current scale" is the honest read.
@@ -56,8 +59,9 @@ const readJson = <T>(p: string): T =>
   JSON.parse(fs.readFileSync(path.join(ROOT, p), "utf8")) as T;
 
 // Procurement sectors: id (matches SECTOR_SCENES / sectorRegistry) → the awarder
-// EIK-set whose contract € rolls up to that sector. health + agri are NOT here —
-// they carry their payout figure below, which is the far larger real number.
+// EIK-set whose contract € rolls up to that sector. health, agri and
+// administration are NOT here — they carry a bespoke figure below (payout /
+// headcount), the far more meaningful number than their thin procurement line.
 const SECTOR_EIKS: Record<string, string[]> = {
   roads: [API_EIK],
   water: WATER_SECTOR_EIKS,
@@ -66,7 +70,6 @@ const SECTOR_EIKS: Record<string, string[]> = {
   edu: [MON_EIK],
   revenue: [NAP_EIK],
   customs: [CUSTOMS_EIK],
-  administration: ["180680495"], // МЕУ
   defense: DEFENSE_SECTOR_EIKS,
   justice: [VSS_EIK, ...VSS_ALIAS_EIKS, ...JUDICIAL_EIKS],
   culture: [KULTURA_EIK],
@@ -83,7 +86,7 @@ for (const [sector, eiks] of Object.entries(SECTOR_EIKS)) {
 }
 
 interface SectorVal {
-  kind: "eur" | "score";
+  kind: "eur" | "score" | "count";
   value: number;
 }
 type ScopeStats = Record<string, SectorVal>;
@@ -152,6 +155,20 @@ for (const y of Object.keys(dziSum).map(Number)) {
   dziByYear[y] = dziSum[y] / dziN[y];
 }
 
+// Administration: total filled positions across the whole state administration
+// (the "Доклад за състоянието на администрацията" щатна численост, filled), per
+// year — a far more meaningful "administration" figure than МЕУ's thin
+// procurement line. `filled` ≈ actual employees; years without it (2017) are
+// skipped so they fall back to the latest.
+const personnel = readJson<{
+  national?: Record<string, { positions?: { filled?: number | null } }>;
+}>("data/budget/personnel.json");
+const adminByYear: Record<number, number> = {};
+for (const [y, rec] of Object.entries(personnel.national ?? {})) {
+  const filled = rec.positions?.filled;
+  if (filled) adminByYear[Number(y)] = filled;
+}
+
 // ДФЗ CAP paid per financial year — filled from PG in main() before any scope
 // is computed (scopeStats closes over it).
 const agriByYear: Record<number, number> = {};
@@ -202,6 +219,10 @@ const scopeStats = async (
     kind: "score",
     value: pick(dziByYear, year, seriesLatest(dziByYear)),
   };
+  out.administration = {
+    kind: "count",
+    value: pick(adminByYear, year, seriesLatest(adminByYear)),
+  };
   return out;
 };
 
@@ -224,6 +245,7 @@ const main = async (): Promise<void> => {
     ["health (nzok execution_history.json)", nzokByYear],
     ["agri (agri_payloads)", agriByYear],
     ["schools (indicators dzi)", dziByYear],
+    ["administration (personnel.json)", adminByYear],
   ];
   for (const [label, series] of bespoke) {
     if (Object.keys(series).length === 0)
