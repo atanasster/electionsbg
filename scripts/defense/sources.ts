@@ -7,7 +7,7 @@
  *  PDF filename carries the year range (def-exp-YYYY-en.pdf) and changes yearly,
  *  so the watcher fingerprints the latest PDF link on this page. */
 export const NATO_DEFEXP_PAGE =
-  "https://www.nato.int/cps/en/natohq/news_216897.htm";
+  "https://www.nato.int/en/what-we-do/introduction-to-nato/defence-expenditures-and-natos-5-commitment";
 
 /** МО budget/report documents page (доклад за състоянието на отбраната +
  *  programme-budget execution). */
