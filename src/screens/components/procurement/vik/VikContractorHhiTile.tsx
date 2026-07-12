@@ -35,18 +35,23 @@ export const VikContractorHhiTile: FC<{
   const rows = suppliers.filter((s) => s.totalEur > 0);
   if (rows.length < 3 || totalEur <= 0) return null;
 
+  // Denominator is the ATTRIBUTED total (Σ over ranked suppliers), not the
+  // awarder headline total — contracts with no contractor EIK are in `totalEur`
+  // but in no supplier bucket, so using it would deflate HHI/CR-4 and could
+  // misclassify a concentrated market as competitive on a low-coverage sector.
+  const attributed = rows.reduce((a, s) => a + s.totalEur, 0);
+  const denom = attributed > 0 ? attributed : totalEur;
+
   // HHI = Σ (percentage market share)², 0–10 000.
   const hhi = Math.round(
     rows.reduce((acc, s) => {
-      const pct = (s.totalEur / totalEur) * 100;
+      const pct = (s.totalEur / denom) * 100;
       return acc + pct * pct;
     }, 0),
   );
   const band = hhiBand(hhi);
   const top = [...rows].sort((a, b) => b.totalEur - a.totalEur).slice(0, TOP_N);
-  const cr4 = top
-    .slice(0, 4)
-    .reduce((acc, s) => acc + s.totalEur / totalEur, 0);
+  const cr4 = top.slice(0, 4).reduce((acc, s) => acc + s.totalEur / denom, 0);
   const max = top[0]?.totalEur ?? 1;
 
   return (
@@ -82,7 +87,7 @@ export const VikContractorHhiTile: FC<{
 
         <div className="space-y-1.5">
           {top.map((s) => {
-            const share = s.totalEur / totalEur;
+            const share = s.totalEur / denom;
             return (
               <div key={s.eik} className="text-xs">
                 <div className="flex items-baseline justify-between gap-2">

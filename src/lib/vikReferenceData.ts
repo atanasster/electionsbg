@@ -261,12 +261,10 @@ export const WATER_OPERATORS: WaterOperator[] = [
     oblast: "Велико Търново",
     type: "municipal",
   },
-  {
-    eik: "000120252",
-    name: "ВиК Свищов ЕАД (стар ЕИК)",
-    oblast: "Велико Търново",
-    type: "municipal",
-  },
+  // ВиК Свищов's defunct old EIK (000120252) is intentionally omitted: it would
+  // render as a second row for the same company in /water/operators and double-
+  // count the org in the group totals. Its footprint is negligible (~1 contract,
+  // ~€54k) and it operates under 200736851 now.
   {
     eik: "111037645",
     name: "ВиК Берковица ЕООД",
