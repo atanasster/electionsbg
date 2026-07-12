@@ -139,7 +139,7 @@ Notes:
 - `contracts/by-id/shard/<3-hex>.json` is a `{ key → Contract }` map (4096 shards, ~70 rows each) covering the **whole** corpus. `writeByIdShards` runs automatically inside `ingest.ts`, `rebuild_derived.ts`, `dedup_legacy_twins.ts`, and `rebuild_from_cache.ts` (alongside `writeByIdContracts`); run it standalone after a manual `contract_index` rebuild. The shard tree is **gitignored** and is now a **local PG-load source only** — `/procurement/contract/:key` (`useContract`) reads Postgres via `/api/db`. It is NOT bucket-synced (see the Deployment note below).
 - `derived/contract_index/` is **gitignored** (bulky — 15 shards) and, like the by-id shards, is a **local source that `db:load:pg` reads**; the `/procurement/contracts` browser reads the resulting PG table via `/api/db`. It is NOT bucket-synced.
 
-> **Deployment (READ THIS before syncing):** the entire `data/procurement/` tree is served from **Cloud SQL** (Firebase fn `/api/db/*`), **not GCS**. `bucket:sync` **excludes** all of `procurement/` except `roads.json` + `derived/mp_party.json` + `derived/hub_stats.json` (the `-x` regex in package.json), and `bucket_gzip.ts` ships **no** procurement dir. The ingest's JSON shards are the **local source** `db:load:*:pg` reads to populate Postgres. So the prod-deploy path for procurement is **`db:load:pg:cloud && db:load:tenders:pg:cloud && db:load:awarder-seats:pg:cloud`** (Cloud SQL proxy on `127.0.0.1:5434`), NOT `bucket:sync:all`. Ignore any older "finish with `bucket:sync:all`" phrasing in this doc.
+> **Deployment (READ THIS before syncing):** the entire `data/procurement/` tree is served from **Cloud SQL** (Firebase fn `/api/db/*`), **not GCS**. `bucket:sync` **excludes** all of `procurement/` except `roads.json` + `derived/mp_party.json` + `derived/hub_stats.json` + `derived/sector_stats.json` (the `-x` regex in package.json), and `bucket_gzip.ts` ships **no** procurement dir. The ingest's JSON shards are the **local source** `db:load:*:pg` reads to populate Postgres. So the prod-deploy path for procurement is **`db:load:pg:cloud && db:load:tenders:pg:cloud && db:load:awarder-seats:pg:cloud`** (Cloud SQL proxy on `127.0.0.1:5434`), NOT `bucket:sync:all`. Ignore any older "finish with `bucket:sync:all`" phrasing in this doc.
 
 ## Step 1f — Tender-stage ingest (procedures, not signed contracts)
 
@@ -196,10 +196,13 @@ npm run db:refresh   # db:pg:up + db:load:pg (contracts) + db:load:tenders:pg + 
 The `/procurement` HUB reads its stat-tile numbers (money, contracts, contractors, connected, tenders, appeals, NGOs, flags, places — per `?pscope` scope) from **one pre-generated file**, `data/procurement/derived/hub_stats.json`, instead of live DB calls. It's built from Postgres (so it runs AFTER Step 2b's `db:refresh`) and — unlike the rest of the PG-served procurement tree — it is **committed AND bucket-synced** (it's in the `bucket:sync` procurement allowlist alongside `roads.json` / `mp_party.json`), because the hub fetches it as a static file:
 
 ```bash
-npm run db:gen-hub-stats   # ~22 s: reads PG, writes data/procurement/derived/hub_stats.json (one entry per parliament / year / all)
+npm run db:gen-hub-stats      # ~22 s: reads PG, writes data/procurement/derived/hub_stats.json (one entry per parliament / year / all)
+npm run db:gen-sector-stats   # ~1 s: writes data/procurement/derived/sector_stats.json — per-sector all-time procurement € for the /governance/sectors + featured-sectors tiles
 ```
 
-Commit + `bucket:sync` this file with the ingest. If it goes stale the hub tiles just show older numbers (no breakage) — but it should refresh on every procurement ingest, so run it here. The two heavy counts (flags = single-supplier concentration cases via `procurement_risk_feed`; places = settlements with procurement via `procurement_by_settlement`) are computed offline here precisely because they're too expensive to query live per hub load.
+`sector_stats.json` is the sibling of `hub_stats.json` for the government-sector
+tiles (same committed + bucket-synced serving). Commit + `bucket:sync` both files
+with the ingest. If it goes stale the hub tiles just show older numbers (no breakage) — but it should refresh on every procurement ingest, so run it here. The two heavy counts (flags = single-supplier concentration cases via `procurement_risk_feed`; places = settlements with procurement via `procurement_by_settlement`) are computed offline here precisely because they're too expensive to query live per hub load.
 
 ## Step 3 — Publish to prod (Cloud SQL, not the bucket)
 
@@ -211,7 +214,7 @@ npm run db:load:tenders:pg:cloud    # tenders
 npm run db:load:awarder-seats:pg:cloud
 ```
 
-The **only** procurement files that still belong on GCS are `roads.json` + `derived/mp_party.json` + `derived/hub_stats.json` (frontend) — a normal `bucket:sync` already ships exactly those (its `-x` regex excludes the rest of `procurement/`). The AI-tool files `debarred.json`, `derived/kzk_appeals_summary.json`, `tenders/index.json` are bundled/PG-served, not fetched from GCS. **Do NOT** `gsutil rsync data/procurement/ → gs://…/procurement/` — that re-pushes the whole PG-served tree the sync deliberately excludes.
+The **only** procurement files that still belong on GCS are `roads.json` + `derived/mp_party.json` + `derived/hub_stats.json` + `derived/sector_stats.json` (frontend) — a normal `bucket:sync` already ships exactly those (its `-x` regex excludes the rest of `procurement/`). The AI-tool files `debarred.json`, `derived/kzk_appeals_summary.json`, `tenders/index.json` are bundled/PG-served, not fetched from GCS. **Do NOT** `gsutil rsync data/procurement/ → gs://…/procurement/` — that re-pushes the whole PG-served tree the sync deliberately excludes.
 
 ## Step 4 — Commit
 

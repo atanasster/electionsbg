@@ -67,12 +67,26 @@ export const InfographicTile: FC<InfographicTileProps> = ({
     >
       <Scene />
       {metric ? (
-        <span
-          className="pointer-events-none absolute bottom-1.5 left-3 hidden text-2xl font-bold leading-none tabular-nums sm:block xl:text-3xl"
-          style={{ color: metricColor, textShadow: metricShadow }}
-        >
-          {metric}
-        </span>
+        <>
+          {/* Soft card-coloured scrim in the bottom-left corner so the number
+              lifts off whatever scene marks sit under it (bars, coins, a
+              receipt). Fades to nothing, so it's invisible where the corner is
+              already clear. Card layout only. */}
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-0 hidden sm:block"
+            style={{
+              background:
+                "radial-gradient(72% 72% at 6% 100%, color-mix(in srgb, hsl(var(--card)) 74%, transparent), transparent 62%)",
+            }}
+          />
+          <span
+            className="pointer-events-none absolute bottom-1.5 left-3 hidden text-2xl font-bold leading-none tabular-nums sm:block xl:text-3xl"
+            style={{ color: metricColor, textShadow: metricShadow }}
+          >
+            {metric}
+          </span>
+        </>
       ) : null}
     </div>
     <div className="flex min-w-0 flex-1 flex-col justify-center gap-0.5 px-3 py-2.5 sm:justify-start sm:gap-1.5 sm:p-3.5">
@@ -80,28 +94,35 @@ export const InfographicTile: FC<InfographicTileProps> = ({
         <span className="min-w-0 truncate text-base font-semibold tracking-tight sm:text-lg">
           {title}
         </span>
-        {badge ? (
-          <span
-            className="shrink-0 rounded-md border px-2 py-0.5 text-[11px] font-bold tracking-wide"
-            style={{
-              color:
-                "color-mix(in srgb, var(--sector) 72%, hsl(var(--foreground)))",
-              background: "color-mix(in srgb, var(--sector) 16%, transparent)",
-              borderColor: "color-mix(in srgb, var(--sector) 30%, transparent)",
-            }}
-          >
-            {badge}
-          </span>
-        ) : metric ? (
-          // On the mobile row the banner is a small thumbnail, so the number
-          // rides here (top-right) instead of overlaying the scene.
-          <span
-            className="shrink-0 text-base font-bold tabular-nums sm:hidden"
-            style={{ color: metricColor }}
-          >
-            {metric}
-          </span>
-        ) : null}
+        {/* Right cluster. On the card, the number rides the banner (above) — so
+            only the badge shows here. On the mobile row the banner is a small
+            thumbnail, so the number rides here next to the badge (both can
+            coexist — sector tiles carry an agency badge AND a €). */}
+        <div className="flex shrink-0 items-center gap-1.5">
+          {metric ? (
+            <span
+              className="text-base font-bold tabular-nums sm:hidden"
+              style={{ color: metricColor }}
+            >
+              {metric}
+            </span>
+          ) : null}
+          {badge ? (
+            <span
+              className="rounded-md border px-2 py-0.5 text-[11px] font-bold tracking-wide"
+              style={{
+                color:
+                  "color-mix(in srgb, var(--sector) 72%, hsl(var(--foreground)))",
+                background:
+                  "color-mix(in srgb, var(--sector) 16%, transparent)",
+                borderColor:
+                  "color-mix(in srgb, var(--sector) 30%, transparent)",
+              }}
+            >
+              {badge}
+            </span>
+          ) : null}
+        </div>
       </div>
       {desc ? (
         <span className="truncate text-xs text-muted-foreground sm:whitespace-normal sm:text-sm">

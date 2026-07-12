@@ -21,6 +21,7 @@ import { ProcurementScopeControl } from "./components/procurement/ProcurementSco
 import { ProcurementSearchTile } from "./components/procurement/ProcurementSearchTile";
 import { WatchlistDigestTile } from "./components/procurement/WatchlistDigestTile";
 import { useProcurementHubStats } from "@/data/procurement/useProcurementHubStats";
+import { useSectorStats } from "@/data/procurement/useSectorStats";
 import { useWatchlist } from "@/data/procurement/useWatchlist";
 import { formatEurCompact } from "@/lib/currency";
 import { PROCUREMENT_SCENES } from "./procurement/procurementScenes";
@@ -120,6 +121,7 @@ const SUBPAGES = [
 export const ProcurementScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const stat = useProcurementHubStats();
+  const sectorStats = useSectorStats();
   const watchCount = useWatchlist().length;
   const title = t("procurement_index_title") || "Public procurement";
 
@@ -193,18 +195,26 @@ export const ProcurementScreen: FC = () => {
           </Link>
         </div>
         <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
-          {FEATURED_SECTORS.map((s) => (
-            <InfographicTile
-              key={s.id}
-              to={s.to}
-              title={t(s.titleKey)}
-              badge={s.agency}
-              desc={t(s.descKey)}
-              accent={s.accent}
-              scene={SECTOR_SCENES[s.id]}
-              cta={t("sectors_hub_view") || "виж сектора"}
-            />
-          ))}
+          {FEATURED_SECTORS.map((s) => {
+            const sectorStat = sectorStats?.[s.id];
+            return (
+              <InfographicTile
+                key={s.id}
+                to={s.to}
+                title={t(s.titleKey)}
+                badge={s.agency}
+                desc={t(s.descKey)}
+                accent={s.accent}
+                scene={SECTOR_SCENES[s.id]}
+                cta={t("sectors_hub_view") || "виж сектора"}
+                metric={
+                  sectorStat
+                    ? formatEurCompact(sectorStat.totalEur, i18n.language)
+                    : undefined
+                }
+              />
+            );
+          })}
         </div>
       </div>
     </>
