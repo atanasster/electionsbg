@@ -232,7 +232,10 @@ export const ProcurementBySettlementScreen: FC = () => {
       <Title>
         {t("procurement_settlement_title") || "Procurement by settlement"}
       </Title>
-      <ProcurementSectionHeader scopeMode="toggle" />
+      <ProcurementSectionHeader
+        current="procurement_by_settlement_nav"
+        scopeMode="toggle"
+      />
 
       <p className="mb-6 text-sm text-muted-foreground leading-relaxed">
         {t("procurement_settlement_intro_p1") ||

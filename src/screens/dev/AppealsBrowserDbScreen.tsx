@@ -195,7 +195,10 @@ export const AppealsBrowserDbScreen: FC = () => {
       >
         {t("appeals_title") || "Procurement appeals (КЗК)"}
       </Title>
-      <ProcurementSectionHeader scopeMode="toggle" />
+      <ProcurementSectionHeader
+        current="procurement_appeals_nav"
+        scopeMode="toggle"
+      />
       {/* Literal slug (not localized) — the OG capture harness + sibling DB
           screens key on `aria-label="appeals"`; a t()'d label breaks capture. */}
       <section aria-label="appeals" className="my-4">

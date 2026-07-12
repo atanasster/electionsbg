@@ -8,11 +8,11 @@
 import { FC, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Droplets } from "lucide-react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Title } from "@/ux/Title";
 import { DataTable } from "@/ux/data_table/DataTable";
-import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
+import { Breadcrumbs } from "@/ux/Breadcrumbs";
+import { ProcurementScopeControl } from "@/screens/components/procurement/ProcurementScopeControl";
 import { useVikGroupRollup, useVikFunds } from "@/data/procurement/useVik";
 import { WATER_SECTOR_EIKS, operatorByEik } from "@/lib/vikReferenceData";
 import { formatEurCompact } from "@/lib/currency";
@@ -29,7 +29,7 @@ interface OpRow {
 }
 
 export const WaterOperatorsScreen: FC = () => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
   const { operators } = useVikGroupRollup(WATER_SECTOR_EIKS);
@@ -172,14 +172,19 @@ export const WaterOperatorsScreen: FC = () => {
         {bg ? "ВиК оператори" : "Water operators"}
       </Title>
 
-      <div className="flex items-center gap-2 pt-1">
-        <Droplets className="h-5 w-5 text-primary" />
-        <Link to="/water" className="text-sm text-primary hover:underline">
-          {bg ? "← Води (ВиК)" : "← Water (ВиК)"}
-        </Link>
+      <Breadcrumbs
+        className="mt-2"
+        items={[
+          { label: t("nav_governance"), to: "/governance" },
+          { label: t("procurement_index_title"), to: "/procurement" },
+          { label: t("sectors_hub_nav"), to: "/governance/sectors" },
+          { label: t("procurement_water_nav"), to: "/water" },
+          { label: bg ? "ВиК оператори" : "Water operators" },
+        ]}
+      />
+      <div className="my-3">
+        <ProcurementScopeControl mode="toggle" />
       </div>
-
-      <ProcurementSectionHeader scopeMode="toggle" />
 
       <DataTable<OpRow, unknown>
         columns={columns}

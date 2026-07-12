@@ -77,7 +77,7 @@ export const ProcurementFlagsScreen: FC = () => {
       >
         {t("flags_title") || "Procurement red flags"}
       </Title>
-      <ProcurementSectionHeader scopeMode="toggle" />
+      <ProcurementSectionHeader current="flags_nav" scopeMode="toggle" />
       <section aria-label="procurement flags" className="my-4 space-y-4">
         <p className="text-xs text-muted-foreground">
           {t("flags_intro") ||

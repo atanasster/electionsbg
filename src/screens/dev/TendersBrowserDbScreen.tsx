@@ -219,7 +219,10 @@ export const TendersBrowserDbScreen: FC = () => {
       <Title description="Tender-stage public-procurement procedures (estimated value, lots, status) from the ЦАИС ЕОП open-data feed">
         {t("tenders_title") || "Tenders"}
       </Title>
-      <ProcurementSectionHeader scopeMode="toggle" />
+      <ProcurementSectionHeader
+        current="procurement_tenders_nav"
+        scopeMode="toggle"
+      />
       <section aria-label="tenders" className="my-4">
         <div className="mb-3 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
           <ClipboardList className="h-4 w-4 shrink-0 text-indigo-600" />

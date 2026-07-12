@@ -171,7 +171,7 @@ export const NgoBrowseDbScreen: FC = () => {
       <Title description={t("ngo_browse_subtitle")}>
         {t("ngo_browse_title") || "Non-profit organisations"}
       </Title>
-      <ProcurementSectionHeader />
+      <ProcurementSectionHeader current="procurement_ngos_nav" />
       <section aria-label="ngos" className="my-4">
         <div className="mb-3 flex items-center gap-2 text-sm text-muted-foreground">
           <HeartHandshake className="h-4 w-4 shrink-0" />

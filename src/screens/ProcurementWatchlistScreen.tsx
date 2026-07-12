@@ -131,7 +131,7 @@ export const ProcurementWatchlistScreen: FC = () => {
       >
         {t("watchlist_title") || "My watchlist"}
       </Title>
-      <ProcurementSectionHeader scopeMode="none" />
+      <ProcurementSectionHeader current="watchlist_nav" scopeMode="none" />
 
       {items.length === 0 ? (
         <EmptyState />

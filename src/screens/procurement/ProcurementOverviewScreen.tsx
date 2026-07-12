@@ -5,7 +5,7 @@
 // This was the /procurement landing until that became a navigation hub
 // (ProcurementScreen); the analytics moved here behind the hub's "Обзор" tile.
 // The search lives on the hub now; this page keeps the shared KPI row + the
-// section chrome (ProcurementNav + scope).
+// section chrome (breadcrumb + scope via ProcurementSectionHeader).
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
@@ -83,7 +83,10 @@ export const ProcurementOverviewScreen: FC = () => {
         <Title description="Aggregated public-procurement contracts from data.egov.bg">
           {title}
         </Title>
-        <ProcurementSectionHeader scopeMode="toggle" />
+        <ProcurementSectionHeader
+          current="procurement_overview_nav"
+          scopeMode="toggle"
+        />
         <section aria-label={title} className="my-4">
           <p className="mt-4 text-sm text-muted-foreground">
             {t("procurement_index_no_ns_data") ||
@@ -99,7 +102,10 @@ export const ProcurementOverviewScreen: FC = () => {
       <Title description="Aggregated public-procurement contracts from data.egov.bg">
         {title}
       </Title>
-      <ProcurementSectionHeader scopeMode="toggle" />
+      <ProcurementSectionHeader
+        current="procurement_overview_nav"
+        scopeMode="toggle"
+      />
       <section aria-label={title} className="my-4">
         <p className="mb-3 text-xs text-muted-foreground">
           {all ? (

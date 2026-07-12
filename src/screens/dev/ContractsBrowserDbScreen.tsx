@@ -208,7 +208,10 @@ export const ContractsBrowserDbScreen: FC = () => {
       <Title description="Public-procurement contracts, searchable across the whole corpus.">
         {t("procurement_contracts_title") || "Contracts"}
       </Title>
-      <ProcurementSectionHeader scopeMode="toggle" />
+      <ProcurementSectionHeader
+        current="procurement_index_contracts"
+        scopeMode="toggle"
+      />
       <section aria-label="contracts" className="my-4">
         <div className="mb-3 flex items-center gap-2 text-sm text-muted-foreground">
           <Receipt className="h-4 w-4 shrink-0" />

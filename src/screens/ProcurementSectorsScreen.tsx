@@ -119,7 +119,10 @@ export const ProcurementSectorsScreen: FC = () => {
       >
         {t("procurement_sectors_title") || "What does the state buy"}
       </Title>
-      <ProcurementSectionHeader scopeMode="toggle" />
+      <ProcurementSectionHeader
+        current="procurement_sectors_title"
+        scopeMode="toggle"
+      />
       <section aria-label="procurement-sectors" className="my-4">
         <div className="flex items-center gap-2 mb-2 text-sm text-muted-foreground">
           <PieChart className="h-4 w-4" />
