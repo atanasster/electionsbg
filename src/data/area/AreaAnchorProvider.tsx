@@ -34,10 +34,12 @@ import {
 
 // Extract `<id>` from a `/governance/<id>` pathname. Matches both
 // `/governance/` and `/en/governance/` (the English-locale prefix) so the
-// anchor survives language switches. The `region/` segment is excluded via a
-// negative lookahead — the oblast node is not a personal anchor; the bare
-// `/governance` country node has no trailing segment and so never matches.
-const AREA_PATH_RE = /^(?:\/en)?\/governance\/(?!region(?:\/|$))([^/?#]+)/;
+// anchor survives language switches. The `region/` and `sectors` segments are
+// excluded via a negative lookahead — the oblast node and the state-sector hub
+// are not personal place anchors; the bare `/governance` country node has no
+// trailing segment and so never matches.
+const AREA_PATH_RE =
+  /^(?:\/en)?\/governance\/(?!(?:region|sectors)(?:\/|$))([^/?#]+)/;
 
 const extractPathId = (pathname: string): string | null => {
   const m = AREA_PATH_RE.exec(pathname);

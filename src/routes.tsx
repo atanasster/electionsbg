@@ -20,6 +20,11 @@ const GovernanceScreen = lazy(() =>
     default: m.GovernanceScreen,
   })),
 );
+const GovernanceSectorsScreen = lazy(() =>
+  import("@/screens/governance/GovernanceSectorsScreen").then((m) => ({
+    default: m.GovernanceSectorsScreen,
+  })),
+);
 
 const MunicipalitiesScreen = lazy(() =>
   import("@/screens/MunicipalitiesScreen").then((m) => ({
@@ -1293,6 +1298,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <GovernanceScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="governance/sectors"
+            element={
+              <LayoutScreen>
+                <GovernanceSectorsScreen />
               </LayoutScreen>
             }
           />

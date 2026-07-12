@@ -1530,6 +1530,88 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "governance/sectors",
+    title:
+      "Държавни сектори — пари, договори и институции по сектори | electionsbg.com",
+    description:
+      "Един вход към всяка държавна структура: пътища (АПИ), води (ВиК), транспорт, пенсии и осигуряване (НОИ), здравна каса (НЗОК), образование (МОН), приходи (НАП), митници, администрация (МЕУ), отбрана (МО), съдебна власт (ВСС), земеделие (ДФЗ) и култура — договори, разходи и отговорни институции.",
+    breadcrumbName: "Държавни сектори",
+    ogImage: "/og/governance.png",
+    bodyHtml: `
+<h1>Държавни сектори — къде отиват публичните пари</h1>
+<p>Обединен вход към всяка голяма държавна структура и сектор. Всяка страница проследява договорите, разходите и отговорните институции. Секторите са част от <a href="${SITE_URL}/governance">управленското табло</a>.</p>
+<h2>Инфраструктура</h2>
+<ul>
+<li><a href="${SITE_URL}/awarder/000695089">Пътища (АПИ)</a> — договори, поддръжка, километри път.</li>
+<li><a href="${SITE_URL}/water">Води (ВиК)</a> — ВиК холдинг, загуби, язовири.</li>
+<li><a href="${SITE_URL}/awarder/000695388">Транспорт (МТС)</a> — железници, пристанища, БДЖ.</li>
+</ul>
+<h2>Социална държава</h2>
+<ul>
+<li><a href="${SITE_URL}/pensions">Пенсии (НОИ)</a> — ДОО, среден размер, трите стълба.</li>
+<li><a href="${SITE_URL}/awarder/121082521">Осигуряване (НОИ)</a> — осигуровки и договори на НОИ.</li>
+<li><a href="${SITE_URL}/awarder/121858220">Здравна каса (НЗОК)</a> — болници, лекарства, клинични пътеки.</li>
+<li><a href="${SITE_URL}/awarder/000695114">Образование (МОН)</a> — договори и бюджет на МОН.</li>
+<li><a href="${SITE_URL}/education">Училища и матури</a> — училища, матури, среден успех.</li>
+</ul>
+<h2>Приходи и администрация</h2>
+<ul>
+<li><a href="${SITE_URL}/awarder/131063188">Приходи (НАП)</a> — събираемост, ДДС, договори.</li>
+<li><a href="${SITE_URL}/awarder/000627597">Митници</a> — акцизи, внос, договори.</li>
+<li><a href="${SITE_URL}/awarder/180680495">Администрация (МЕУ)</a> — е-управление, щат, услуги.</li>
+</ul>
+<h2>Сигурност и правосъдие</h2>
+<ul>
+<li><a href="${SITE_URL}/defense">Отбрана (МО)</a> — % от БВП, програми, износ на оръжие.</li>
+<li><a href="${SITE_URL}/judiciary">Съдебна власт (ВСС)</a> — натовареност, дела, декларации.</li>
+</ul>
+<h2>Земя и култура</h2>
+<ul>
+<li><a href="${SITE_URL}/awarder/121100421">Земеделие (ДФЗ)</a> — субсидии, бенефициенти, САР.</li>
+<li><a href="${SITE_URL}/culture">Култура</a> — филмови субсидии и комисии.</li>
+</ul>`.trim(),
+    english: {
+      title:
+        "State sectors — money, contracts and institutions by sector | electionsbg.com",
+      description:
+        "One entry to every state body: roads (АПИ), water (ВиК), transport, pensions and social security (НОИ), health fund (НЗОК), education (МОН), revenue (НАП), customs, administration (МЕУ), defense (МО), judiciary (ВСС), agriculture (ДФЗ) and culture — contracts, spending and the institutions responsible.",
+      breadcrumbName: "State sectors",
+      bodyHtml: `
+<h1>State sectors — where public money goes</h1>
+<p>A single entry to every major state body and sector. Each page tracks the contracts, the spending and the institutions responsible. The sectors are part of the <a href="${SITE_URL}/en/governance">governance dashboard</a>.</p>
+<h2>Infrastructure</h2>
+<ul>
+<li><a href="${SITE_URL}/en/awarder/000695089">Roads (АПИ)</a> — contracts, maintenance, kilometres of road.</li>
+<li><a href="${SITE_URL}/en/water">Water (ВиК)</a> — the ВиК holding, losses, reservoirs.</li>
+<li><a href="${SITE_URL}/en/awarder/000695388">Transport (МТС)</a> — rail, ports, БДЖ.</li>
+</ul>
+<h2>Social state</h2>
+<ul>
+<li><a href="${SITE_URL}/en/pensions">Pensions (НОИ)</a> — ДОО, average pension, the three pillars.</li>
+<li><a href="${SITE_URL}/en/awarder/121082521">Social security (НОИ)</a> — contributions and НОИ procurement.</li>
+<li><a href="${SITE_URL}/en/awarder/121858220">Health fund (НЗОК)</a> — hospitals, drugs, clinical pathways.</li>
+<li><a href="${SITE_URL}/en/awarder/000695114">Education (МОН)</a> — МОН contracts and budget.</li>
+<li><a href="${SITE_URL}/en/education">Schools & matura</a> — schools, matura, average score.</li>
+</ul>
+<h2>Revenue & administration</h2>
+<ul>
+<li><a href="${SITE_URL}/en/awarder/131063188">Revenue (НАП)</a> — collection, VAT, contracts.</li>
+<li><a href="${SITE_URL}/en/awarder/000627597">Customs</a> — excise, imports, contracts.</li>
+<li><a href="${SITE_URL}/en/awarder/180680495">Administration (МЕУ)</a> — e-government, headcount, services.</li>
+</ul>
+<h2>Security & justice</h2>
+<ul>
+<li><a href="${SITE_URL}/en/defense">Defense (МО)</a> — % of GDP, programs, arms exports.</li>
+<li><a href="${SITE_URL}/en/judiciary">Judiciary (ВСС)</a> — workload, cases, declarations.</li>
+</ul>
+<h2>Land & culture</h2>
+<ul>
+<li><a href="${SITE_URL}/en/awarder/121100421">Agriculture (ДФЗ)</a> — subsidies, beneficiaries, CAP.</li>
+<li><a href="${SITE_URL}/en/culture">Culture</a> — film subsidies and commissions.</li>
+</ul>`.trim(),
+    },
+  }),
+  staticPage({
     path: "budget",
     title:
       "Държавен бюджет на България — изпълнение, разпоредители, поръчки | electionsbg.com",

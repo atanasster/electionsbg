@@ -32,13 +32,6 @@
 // section dashboard, so they'd be redundant there.
 
 import { LATEST_LOCAL_CYCLE } from "@/data/local/useLatestLocalCycle";
-import {
-  ROADS_AWARDER_PATH,
-  NOI_AWARDER_PATH,
-  NZOK_AWARDER_PATH,
-  MON_AWARDER_PATH,
-  DFZ_AWARDER_PATH,
-} from "@/screens/components/procurement/sectorPacks";
 
 export type MenuItem = {
   title: string;
@@ -267,47 +260,13 @@ export const governanceMenu: MenuItem[] = [
           { title: "budget_policy_page_title", link: "/budget/simulator" },
           { title: "procurement_link_label", link: "/procurement" },
           { title: "funds_index_title", link: "/funds" },
-        ],
-      },
-      // Per-entity spending dashboards — deep-dives into a single public body
-      // (АПИ road spending today; ДОО, БулгарТрансГаз and others to follow).
-      // They'd crowd the procurement sub-nav as pills, so they group here under
-      // governance instead.
-      { title: "-" },
-      {
-        title: "menu_group_state_entities",
-        group: true,
-        subMenu: [
-          { title: "procurement_roads_nav", link: ROADS_AWARDER_PATH },
-          { title: "procurement_noi_nav", link: NOI_AWARDER_PATH },
-          { title: "procurement_nzok_nav", link: NZOK_AWARDER_PATH },
-          { title: "procurement_mon_nav", link: MON_AWARDER_PATH },
-          { title: "education_schools_nav", link: "/education" },
-          // Води — the water-sector view (ВиК холдинг group procurement; КЕВР
-          // loss/tariffs, reservoirs and flood risk to come). Like the judiciary
-          // and culture, nav points at the /water dashboard, not the buyer page.
-          { title: "procurement_water_nav", link: "/water" },
-          // The judiciary's home is the /judiciary dashboard (caseload, duration,
-          // workload, declarations); it lists every judicial body's awarder page
-          // for the money half. The procurement sub-nav pill points here too, so
-          // this label has exactly one destination everywhere.
-          { title: "judiciary_nav", link: "/judiciary" },
-          // Култура — the culture-spending view (НФЦ film subsidies + who gets
-          // them). The МК awarder page (/awarder/000695160) is the procurement
-          // half; this dedicated dashboard is the subsidy half. Like the
-          // judiciary, nav points at the dashboard, not the buyer page.
-          { title: "culture_nav", link: "/culture" },
-          // Пенсии — the pension-system view (pillar 1 НОИ/ДОО); the NOI awarder
-          // page above (procurement_noi_nav) is the procurement half, this is the
-          // whole-fund half, and the two cross-link.
-          { title: "pensions_nav", link: "/pensions" },
-          // Отбрана — the МО group procurement view (25 budget units; contractor
-          // HHI, single-bid competition, the sustainment-visible / acquisition-
-          // invisible transparency gap). Phase 1 is the buyer pack on the МО
-          // awarder page; the /defense dashboard (%GDP path, exports, programs)
-          // lands in Phase 2 and this link re-points there then.
-          { title: "procurement_defense_nav", link: "/defense" },
-          { title: "procurement_dfz_nav", link: DFZ_AWARDER_PATH },
+          // The 15 per-entity spending dashboards (АПИ, НОИ, НЗОК, МОН, ВиК,
+          // ВСС, МО, ДФЗ, НАП, Митници, МТС, МЕУ…) used to live here as a long
+          // "Държавни структури" column that ran the dropdown the full viewport
+          // height. They now live behind one link — the visual sector hub at
+          // /governance/sectors — which is also surfaced as a section on the
+          // governance + procurement dashboards. See GovernanceSectorsScreen.
+          { title: "sectors_hub_nav", link: "/governance/sectors" },
         ],
       },
       { title: "-" },
