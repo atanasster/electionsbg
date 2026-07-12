@@ -27,6 +27,7 @@ import { MOD_EIK, DEFENSE_SECTOR_EIKS } from "@/lib/defenseReferenceData";
 import { NAP_EIK, NAP_AWARDER_PATH } from "@/lib/napReferenceData";
 import { CUSTOMS_EIK, CUSTOMS_AWARDER_PATH } from "@/lib/customsReferenceData";
 import { AGRI_PAYER_EIK } from "@/data/agri/constants";
+import { TRANSPORT_EIK, ADMIN_EIK } from "@/screens/sector/sectorDashboards";
 import type { ScopeWindow } from "@/data/procurement/useAwarderContracts";
 
 export interface SectorPackProps {
@@ -189,6 +190,34 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
     label: { bg: "Отбрана (МО)", en: "Defense (МО)" },
     eiks: DEFENSE_SECTOR_EIKS,
     Section: DefenseBrowseSection,
+  },
+  // Single-EIK sectors graduated to the generic /sector/:id dashboard — their
+  // ?sector= filter narrows the browse table to the one awarder seat. Widen the
+  // EIK-set here (and the server allow-list) when a multi-entity roster lands.
+  revenue: {
+    id: "revenue",
+    label: { bg: "Приходи (НАП)", en: "Revenue (НАП)" },
+    eiks: [NAP_EIK],
+  },
+  customs: {
+    id: "customs",
+    label: { bg: "Митници (АМ)", en: "Customs (АМ)" },
+    eiks: [CUSTOMS_EIK],
+  },
+  edu: {
+    id: "edu",
+    label: { bg: "Образование (МОН)", en: "Education (МОН)" },
+    eiks: [MON_EIK],
+  },
+  transport: {
+    id: "transport",
+    label: { bg: "Транспорт (МТС)", en: "Transport (МТС)" },
+    eiks: [TRANSPORT_EIK],
+  },
+  administration: {
+    id: "administration",
+    label: { bg: "Администрация (МЕУ)", en: "Administration (МЕУ)" },
+    eiks: [ADMIN_EIK],
   },
 };
 

@@ -59,6 +59,7 @@ import {
 } from "./bodyBuilders";
 import { getLatestElection } from "./dynamicRoutes";
 import { AGRI_FINANCIAL_YEARS } from "@/data/agri/constants";
+import { SECTOR_DASHBOARD_IDS } from "@/screens/sector/sectorDashboards";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -460,6 +461,279 @@ const staticPage = (opts: StaticPageOpts): PrerenderRoute => {
   };
 };
 
+// --- Generic sector dashboards (/sector/:id) --------------------------------
+// The sectors that graduated from a single-awarder deep-link to a proper
+// /sector/<id> dashboard (SectorDashboardScreen). Kept as a data table + one
+// template so all nine share one prose shell; the sitemap enumerates the same
+// ids. When a sector grows bespoke thematic data, replace its entry with a
+// hand-authored staticPage() like /defense.
+type SectorPageContent = {
+  id: string;
+  eik: string;
+  bg: { title: string; description: string; breadcrumb: string; h1: string; intro: string }; // prettier-ignore
+  en: { title: string; description: string; breadcrumb: string; h1: string; intro: string }; // prettier-ignore
+};
+
+const SECTOR_PAGES: SectorPageContent[] = [
+  {
+    id: "health",
+    eik: "121858220",
+    bg: {
+      title: "Здравеопазване — обществените поръчки на НЗОК | electionsbg.com",
+      description:
+        "Обществените поръчки на Националната здравноосигурителна каса (НЗОК): общо възложени, изпълнители и разбивка по договори, категории и процедури.",
+      breadcrumb: "Здравеопазване",
+      h1: "Здравеопазване — обществените поръчки на НЗОК",
+      intro:
+        "Националната здравноосигурителна каса администрира ~5,5 млрд. € годишно; обществените поръчки са ~1,5% от тях — останалото (болници, лекарства, лекари) се плаща извън ЗОП. Тази страница обобщава поръчките на касата.",
+    },
+    en: {
+      title: "Health — the NHIF's public procurement | electionsbg.com",
+      description:
+        "The public procurement of Bulgaria's National Health Insurance Fund (NHIF): total awarded, contractors and the breakdown by contracts, categories and procedures.",
+      breadcrumb: "Health",
+      h1: "Health — the NHIF's public procurement",
+      intro:
+        "The National Health Insurance Fund administers ~€5.5bn a year; public procurement is ~1.5% of it — the rest (hospitals, drugs, doctors) is paid outside the procurement law. This page summarises the fund's tenders.",
+    },
+  },
+  {
+    id: "roads",
+    eik: "000695089",
+    bg: {
+      title: "Пътища — обществените поръчки на АПИ | electionsbg.com",
+      description:
+        "Обществените поръчки на Агенция „Пътна инфраструктура“ (АПИ): общо възложени, изпълнители и разбивка по договори за строителство и поддръжка на пътища.",
+      breadcrumb: "Пътища",
+      h1: "Пътища — обществените поръчки на АПИ",
+      intro:
+        "Агенция „Пътна инфраструктура“ е най-големият възложител в пътния сектор. Тази страница обобщава нейните поръчки — строителство, рехабилитация и поддръжка — по избрания парламент или за цялата история.",
+    },
+    en: {
+      title: "Roads — the Road Infrastructure Agency's procurement | electionsbg.com", // prettier-ignore
+      description:
+        "The public procurement of Bulgaria's Road Infrastructure Agency (АПИ): total awarded, contractors and the breakdown of road construction and maintenance contracts.",
+      breadcrumb: "Roads",
+      h1: "Roads — the Road Infrastructure Agency's procurement",
+      intro:
+        "The Road Infrastructure Agency is the largest awarder in the roads sector. This page summarises its tenders — construction, rehabilitation and maintenance — for the selected parliament or the full history.",
+    },
+  },
+  {
+    id: "transport",
+    eik: "000695388",
+    bg: {
+      title: "Транспорт — обществените поръчки на МТС | electionsbg.com",
+      description:
+        "Обществените поръчки на Министерството на транспорта и съобщенията (МТС): общо възложени, изпълнители и разбивка по договори.",
+      breadcrumb: "Транспорт",
+      h1: "Транспорт — обществените поръчки на МТС",
+      intro:
+        "Тази страница обобщава обществените поръчки на Министерството на транспорта и съобщенията — по избрания парламент или за цялата история.",
+    },
+    en: {
+      title: "Transport — the Ministry of Transport's procurement | electionsbg.com", // prettier-ignore
+      description:
+        "The public procurement of Bulgaria's Ministry of Transport and Communications (МТС): total awarded, contractors and the breakdown by contracts.",
+      breadcrumb: "Transport",
+      h1: "Transport — the Ministry of Transport's procurement",
+      intro:
+        "This page summarises the public procurement of the Ministry of Transport and Communications — for the selected parliament or the full history.",
+    },
+  },
+  {
+    id: "social",
+    eik: "121082521",
+    bg: {
+      title: "Осигуряване — обществените поръчки на НОИ | electionsbg.com",
+      description:
+        "Обществените поръчки на Националния осигурителен институт (НОИ): общо възложени, изпълнители и разбивка по договори.",
+      breadcrumb: "Осигуряване",
+      h1: "Осигуряване — обществените поръчки на НОИ",
+      intro:
+        "Националният осигурителен институт изплаща пенсиите и обезщетенията; обществените поръчки са малка част от бюджета му. Тази страница обобщава тези поръчки.",
+    },
+    en: {
+      title: "Social security — the NSSI's procurement | electionsbg.com",
+      description:
+        "The public procurement of Bulgaria's National Social Security Institute (НОИ): total awarded, contractors and the breakdown by contracts.",
+      breadcrumb: "Social security",
+      h1: "Social security — the NSSI's procurement",
+      intro:
+        "The National Social Security Institute pays pensions and benefits; public procurement is a small part of its budget. This page summarises those tenders.",
+    },
+  },
+  {
+    id: "revenue",
+    eik: "131063188",
+    bg: {
+      title: "Приходи — обществените поръчки на НАП | electionsbg.com",
+      description:
+        "Обществените поръчки на Националната агенция за приходите (НАП): общо възложени, изпълнители и разбивка по договори.",
+      breadcrumb: "Приходи",
+      h1: "Приходи — обществените поръчки на НАП",
+      intro:
+        "Националната агенция за приходите събира данъците и осигуровките. Тази страница обобщава нейните обществени поръчки — по избрания парламент или за цялата история.",
+    },
+    en: {
+      title: "Revenue — the National Revenue Agency's procurement | electionsbg.com", // prettier-ignore
+      description:
+        "The public procurement of Bulgaria's National Revenue Agency (НАП): total awarded, contractors and the breakdown by contracts.",
+      breadcrumb: "Revenue",
+      h1: "Revenue — the National Revenue Agency's procurement",
+      intro:
+        "The National Revenue Agency collects taxes and social contributions. This page summarises its public procurement — for the selected parliament or the full history.",
+    },
+  },
+  {
+    id: "customs",
+    eik: "000627597",
+    bg: {
+      title: "Митници — обществените поръчки на Агенция „Митници“ | electionsbg.com", // prettier-ignore
+      description:
+        "Обществените поръчки на Агенция „Митници“: общо възложени, изпълнители и разбивка по договори.",
+      breadcrumb: "Митници",
+      h1: "Митници — обществените поръчки на Агенция „Митници“",
+      intro:
+        "Агенция „Митници“ събира митата и акцизите. Тази страница обобщава нейните обществени поръчки — по избрания парламент или за цялата история.",
+    },
+    en: {
+      title: "Customs — the Customs Agency's procurement | electionsbg.com",
+      description:
+        "The public procurement of Bulgaria's Customs Agency (АМ): total awarded, contractors and the breakdown by contracts.",
+      breadcrumb: "Customs",
+      h1: "Customs — the Customs Agency's procurement",
+      intro:
+        "The Customs Agency collects duties and excise. This page summarises its public procurement — for the selected parliament or the full history.",
+    },
+  },
+  {
+    id: "administration",
+    eik: "180680495",
+    bg: {
+      title: "Администрация — обществените поръчки на МЕУ | electionsbg.com",
+      description:
+        "Обществените поръчки на Министерството на електронното управление (МЕУ): общо възложени, изпълнители и разбивка по договори.",
+      breadcrumb: "Администрация",
+      h1: "Администрация — обществените поръчки на МЕУ",
+      intro:
+        "Министерството на електронното управление изгражда държавните информационни системи. Тази страница обобщава неговите обществени поръчки.",
+    },
+    en: {
+      title: "Administration — the Ministry of e-Government's procurement | electionsbg.com", // prettier-ignore
+      description:
+        "The public procurement of Bulgaria's Ministry of e-Government (МЕУ): total awarded, contractors and the breakdown by contracts.",
+      breadcrumb: "Administration",
+      h1: "Administration — the Ministry of e-Government's procurement",
+      intro:
+        "The Ministry of e-Government builds the state's information systems. This page summarises its public procurement.",
+    },
+  },
+  {
+    id: "edu",
+    eik: "000695114",
+    bg: {
+      title: "Образование — обществените поръчки на МОН | electionsbg.com",
+      description:
+        "Обществените поръчки на Министерството на образованието и науката (МОН): общо възложени, изпълнители и разбивка по договори.",
+      breadcrumb: "Образование",
+      h1: "Образование — обществените поръчки на МОН",
+      intro:
+        "Тази страница обобщава обществените поръчки на Министерството на образованието и науката — по избрания парламент или за цялата история.",
+    },
+    en: {
+      title: "Education — the Ministry of Education's procurement | electionsbg.com", // prettier-ignore
+      description:
+        "The public procurement of Bulgaria's Ministry of Education and Science (МОН): total awarded, contractors and the breakdown by contracts.",
+      breadcrumb: "Education",
+      h1: "Education — the Ministry of Education's procurement",
+      intro:
+        "This page summarises the public procurement of the Ministry of Education and Science — for the selected parliament or the full history.",
+    },
+  },
+  {
+    id: "agri",
+    eik: "121100421",
+    bg: {
+      title: "Земеделие — обществените поръчки на ДФ „Земеделие“ | electionsbg.com", // prettier-ignore
+      description:
+        "Обществените поръчки на Държавен фонд „Земеделие“ (ДФЗ): общо възложени, изпълнители и разбивка по договори. Земеделските субсидии са отделно на /subsidies.",
+      breadcrumb: "Земеделие",
+      h1: "Земеделие — обществените поръчки на ДФ „Земеделие“",
+      intro:
+        "Държавен фонд „Земеделие“ администрира земеделските субсидии (виж /subsidies) и същевременно е възложител на обществени поръчки. Тази страница обобщава поръчките му.",
+    },
+    en: {
+      title: "Agriculture — State Fund Agriculture's procurement | electionsbg.com", // prettier-ignore
+      description:
+        "The public procurement of Bulgaria's State Fund Agriculture (ДФЗ): total awarded, contractors and the breakdown by contracts. Farm subsidies are separate, at /subsidies.",
+      breadcrumb: "Agriculture",
+      h1: "Agriculture — State Fund Agriculture's procurement",
+      intro:
+        "State Fund Agriculture administers farm subsidies (see /subsidies) and is also a public-procurement awarder. This page summarises its tenders.",
+    },
+  },
+];
+
+const sectorBody = (c: SectorPageContent, lang: "bg" | "en"): string => {
+  const s = c[lang];
+  const base = lang === "bg" ? SITE_URL : `${SITE_URL}/en`;
+  if (lang === "bg") {
+    return `
+<h1>${s.h1}</h1>
+<p>${s.intro}</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li><strong>Общо възложени</strong> — стойността на обществените поръчки на сектора по избрания парламент или за цялата история.</li>
+<li><strong>Изпълнители</strong> — кой печели договорите и с каква концентрация.</li>
+<li><strong>Договори</strong> — пълната разбивка по договори, категории и процедури.</li>
+</ul>
+<p>Виж <a href="${base}/awarder/${c.eik}">страницата на възложителя</a> за пълната разбивка и <a href="${base}/governance/sectors">всички държавни сектори</a>.</p>`.trim();
+  }
+  return `
+<h1>${s.h1}</h1>
+<p>${s.intro}</p>
+<h2>What you'll find</h2>
+<ul>
+<li><strong>Total awarded</strong> — the sector's public-procurement value for the selected parliament or the full history.</li>
+<li><strong>Contractors</strong> — who wins the contracts and how concentrated the spend is.</li>
+<li><strong>Contracts</strong> — the full breakdown by contracts, categories and procedures.</li>
+</ul>
+<p>See the <a href="${base}/awarder/${c.eik}">awarder page</a> for the full breakdown and <a href="${base}/governance/sectors">all state sectors</a>.</p>`.trim();
+};
+
+// Fail the build if a graduated sector dashboard has no prerender copy here —
+// otherwise it would ship without prerendered HTML (crawlers never see its
+// <meta>). SECTOR_PAGES can't be auto-generated (it carries per-sector SEO
+// prose), but its coverage of the source-of-truth id list is asserted.
+{
+  const missing = SECTOR_DASHBOARD_IDS.filter(
+    (id) => !SECTOR_PAGES.some((p) => p.id === id),
+  );
+  if (missing.length)
+    throw new Error(
+      `prerender SECTOR_PAGES missing sector(s): ${missing.join(", ")}`,
+    );
+}
+
+const sectorStaticPages = (): PrerenderRoute[] =>
+  SECTOR_PAGES.map((c) =>
+    staticPage({
+      path: `sector/${c.id}`,
+      title: c.bg.title,
+      description: c.bg.description,
+      breadcrumbName: c.bg.breadcrumb,
+      ogImage: `/og/sector-${c.id}.png`,
+      bodyHtml: sectorBody(c, "bg"),
+      english: {
+        title: c.en.title,
+        description: c.en.description,
+        breadcrumbName: c.en.breadcrumb,
+        bodyHtml: sectorBody(c, "en"),
+      },
+    }),
+  );
+
 // Headline datasets the site publishes for download, surfaced as a schema.org
 // DataCatalog on /data so Google Dataset Search can ingest them. Distribution
 // URLs point at the public GCS bucket (DATA_URL) the app itself fetches from.
@@ -750,6 +1024,7 @@ const exciseFacts = (() => {
 })();
 
 export const prerenderRoutes: PrerenderRoute[] = [
+  ...sectorStaticPages(),
   {
     path: "",
     title: HOME_TITLE,

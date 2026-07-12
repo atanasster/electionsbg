@@ -8,6 +8,12 @@ export type RouteDef = {
 };
 export type RouteDefs = RouteDef[];
 
+import { SECTOR_DASHBOARD_IDS } from "@/screens/sector/sectorDashboards";
+
+// The generic sector-dashboard slugs (sector/health, …), derived from the one
+// source of truth so a new sector can't ship without a sitemap entry.
+const SECTOR_SLUGS = SECTOR_DASHBOARD_IDS.map((id) => `sector/${id}`);
+
 // Static page slugs for which we emit prerendered English mirrors at /en/{slug}.
 // Keep in sync with the `english:` blocks in scripts/prerender/routes.ts —
 // adding a slug here without an English variant in the prerender step would
@@ -57,6 +63,7 @@ export const ENGLISH_STATIC_PAGES = [
   "culture",
   "culture/films",
   "education",
+  ...SECTOR_SLUGS,
   "consumption",
   "risk-analysis",
   "risk-analysis/methodology",
@@ -122,6 +129,14 @@ export const routeDefs = (year: string): RouteDefs => [
     file: `src/screens/culture/CultureFilmsBrowserScreen.tsx`,
   },
   { path: "education", file: `src/screens/education/EducationScreen.tsx` },
+  // Generic sector dashboards (/sector/:id) — one entry per graduated sector,
+  // derived from the same source of truth as ENGLISH_STATIC_PAGES above. The
+  // `file` is the shared screen; dist/sector/<id>/index.html is emitted by the
+  // prerender (SECTOR_PAGES in scripts/prerender/routes.ts).
+  ...SECTOR_SLUGS.map((path) => ({
+    path,
+    file: `src/screens/sector/SectorDashboardScreen.tsx`,
+  })),
   // Per-school pages (/school/:id) are enumerated from data/schools/index.json
   // directly in scripts/sitemap/index.ts (like the INSTITUTION_PACKS awarders),
   // not here — route_defs carries no school entries.

@@ -52,6 +52,7 @@ import { EntityFlowTile } from "../components/procurement/EntityFlowTile";
 import { type EntityFlowMpEdge } from "@/data/procurement/entityFlow";
 import { getSectorPack } from "../components/procurement/sectorPacks";
 import { SectorBreadcrumb } from "../components/procurement/SectorBreadcrumb";
+import { sectorDashboardForLeadEik } from "../sector/sectorDashboards";
 import { ProcurementBenchmarksTile } from "../components/procurement/ProcurementBenchmarksTile";
 import { type ProcurementBenchmarksFile } from "@/data/procurement/useProcurementBenchmarks";
 import { CompanyRiskChips } from "../components/procurement/CompanyRiskChips";
@@ -402,6 +403,11 @@ export const CompanyDbScreen: FC = () => {
   // A domain pack (e.g. roads for АПИ) rendered as a hero inside the awarder
   // section; null for the vast majority of awarders (generic page only).
   const SectorPack = useMemo(() => getSectorPack(eik), [eik]);
+  // When this awarder IS the lead of a sector dashboard, its disbursement/
+  // delivery pack has moved to /sector/:id — the awarder page stays the
+  // institution's own ЗОП financials. Suppress the pack here and cross-link.
+  const sectorDash = useMemo(() => sectorDashboardForLeadEik(eik), [eik]);
+  const showPack = SectorPack && !sectorDash;
 
   // Deep links into a pack band (e.g. /awarder/121858220#nzok-drugs) must scroll
   // once the page settles. The generic awarder tiles above the pack load async
@@ -970,8 +976,10 @@ export const CompanyDbScreen: FC = () => {
                 </StatCard>
               </div>
               {/* Domain pack hero (roads for АПИ …) — kept the focus of the page
-                  for the buyers that have one; renders nothing for the rest. */}
-              {SectorPack && (
+                  for the buyers that have one; renders nothing for the rest.
+                  Sector-lead awarders (НЗОК/НАП/…) instead cross-link to their
+                  /sector/:id dashboard, where the disbursement pack now lives. */}
+              {showPack && (
                 <Suspense
                   fallback={
                     <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
@@ -979,6 +987,22 @@ export const CompanyDbScreen: FC = () => {
                 >
                   <SectorPack eik={eik} scopeWindow={packWindow} />
                 </Suspense>
+              )}
+              {sectorDash && (
+                <Link
+                  to={`/sector/${sectorDash.id}`}
+                  className="flex items-center justify-between rounded-xl border bg-muted/20 px-4 py-3 text-sm hover:border-primary/50"
+                >
+                  <span>
+                    {i18n.language === "bg"
+                      ? "Разпределените средства и детайлите по сектора са в таблото на сектора"
+                      : "The disbursed funds and sector detail are on the sector dashboard"}
+                  </span>
+                  <span className="inline-flex items-center gap-1 font-medium text-primary">
+                    {i18n.language === "bg" ? "Към таблото" : "Open dashboard"}
+                    <ArrowRight className="h-4 w-4" />
+                  </span>
+                </Link>
               )}
               <div className="grid gap-4 lg:grid-cols-2">
                 <CompanyTopContractsTile

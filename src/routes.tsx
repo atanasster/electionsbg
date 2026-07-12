@@ -145,6 +145,11 @@ const DefenseScreen = lazy(() =>
     default: m.DefenseScreen,
   })),
 );
+const SectorDashboardScreen = lazy(() =>
+  import("./screens/sector/SectorDashboardScreen").then((m) => ({
+    default: m.SectorDashboardScreen,
+  })),
+);
 const WaterScreen = lazy(() =>
   import("./screens/water/WaterScreen").then((m) => ({
     default: m.WaterScreen,
@@ -1421,6 +1426,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <DefenseScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sector/:id"
+            element={
+              <LayoutScreen>
+                <SectorDashboardScreen />
               </LayoutScreen>
             }
           />

@@ -4,25 +4,14 @@
 // /procurement hub). Pure data: the scene is referenced by `id`
 // (SECTOR_SCENES[id]), so this module carries no JSX.
 //
-// Транспорт (МТС) and Администрация (МЕУ) point at their awarder seats until the
-// planned /transport and /administration dashboards ship — repoint the two `to`
-// fields then (as water/defense graduated). See docs/plans/*.
+// Each sector that lacks a bespoke dashboard (water/defense/culture/judiciary/
+// pensions/education have their own) is routed to the generic sector dashboard
+// at /sector/<id> (SectorDashboardScreen, config in
+// src/screens/sector/sectorDashboards.ts). Those pages give a sector a proper
+// KPI overview + a list of member awarders (each → /awarder/:eik), instead of
+// deep-linking straight to a single institution's awarder page.
 
 import { TILE_ACCENTS } from "@/ux/infographic";
-import {
-  ROADS_AWARDER_PATH,
-  NOI_AWARDER_PATH,
-  NZOK_AWARDER_PATH,
-  MON_AWARDER_PATH,
-  DFZ_AWARDER_PATH,
-} from "@/screens/components/procurement/sectorPacks";
-
-// Awarder seats given by EIK rather than a sectorPacks path export (the revenue
-// collectors + the two not-yet-built standalone views).
-const NAP_AWARDER_PATH = "/awarder/131063188"; // НАП
-const CUSTOMS_AWARDER_PATH = "/awarder/000627597"; // Агенция „Митници"
-const TRANSPORT_AWARDER_PATH = "/awarder/000695388"; // МТС
-const ADMIN_AWARDER_PATH = "/awarder/180680495"; // МЕУ
 
 export interface Sector {
   id: string; // scene key (SECTOR_SCENES)
@@ -42,7 +31,7 @@ export const SECTOR_CLUSTERS: { labelKey: string; sectors: Sector[] }[] = [
         titleKey: "sector_roads_title",
         descKey: "sector_roads_desc",
         agency: "АПИ",
-        to: ROADS_AWARDER_PATH,
+        to: "/sector/roads",
         accent: TILE_ACCENTS.clay,
       },
       {
@@ -58,7 +47,7 @@ export const SECTOR_CLUSTERS: { labelKey: string; sectors: Sector[] }[] = [
         titleKey: "sector_transport_title",
         descKey: "sector_transport_desc",
         agency: "МТС",
-        to: TRANSPORT_AWARDER_PATH,
+        to: "/sector/transport",
         accent: TILE_ACCENTS.steel,
       },
     ],
@@ -79,7 +68,7 @@ export const SECTOR_CLUSTERS: { labelKey: string; sectors: Sector[] }[] = [
         titleKey: "sector_social_title",
         descKey: "sector_social_desc",
         agency: "НОИ",
-        to: NOI_AWARDER_PATH,
+        to: "/sector/social",
         accent: TILE_ACCENTS.olive,
       },
       {
@@ -87,7 +76,7 @@ export const SECTOR_CLUSTERS: { labelKey: string; sectors: Sector[] }[] = [
         titleKey: "sector_health_title",
         descKey: "sector_health_desc",
         agency: "НЗОК",
-        to: NZOK_AWARDER_PATH,
+        to: "/sector/health",
         accent: TILE_ACCENTS.rose,
       },
       {
@@ -95,7 +84,7 @@ export const SECTOR_CLUSTERS: { labelKey: string; sectors: Sector[] }[] = [
         titleKey: "sector_edu_title",
         descKey: "sector_edu_desc",
         agency: "МОН",
-        to: MON_AWARDER_PATH,
+        to: "/sector/edu",
         accent: TILE_ACCENTS.green,
       },
       {
@@ -116,7 +105,7 @@ export const SECTOR_CLUSTERS: { labelKey: string; sectors: Sector[] }[] = [
         titleKey: "sector_revenue_title",
         descKey: "sector_revenue_desc",
         agency: "НАП",
-        to: NAP_AWARDER_PATH,
+        to: "/sector/revenue",
         accent: TILE_ACCENTS.brass,
       },
       {
@@ -124,7 +113,7 @@ export const SECTOR_CLUSTERS: { labelKey: string; sectors: Sector[] }[] = [
         titleKey: "sector_customs_title",
         descKey: "sector_customs_desc",
         agency: "АМ",
-        to: CUSTOMS_AWARDER_PATH,
+        to: "/sector/customs",
         accent: TILE_ACCENTS.azure,
       },
       {
@@ -132,7 +121,7 @@ export const SECTOR_CLUSTERS: { labelKey: string; sectors: Sector[] }[] = [
         titleKey: "sector_admin_title",
         descKey: "sector_admin_desc",
         agency: "МЕУ",
-        to: ADMIN_AWARDER_PATH,
+        to: "/sector/administration",
         accent: TILE_ACCENTS.indigo,
       },
     ],
@@ -166,7 +155,7 @@ export const SECTOR_CLUSTERS: { labelKey: string; sectors: Sector[] }[] = [
         titleKey: "sector_agri_title",
         descKey: "sector_agri_desc",
         agency: "ДФЗ",
-        to: DFZ_AWARDER_PATH,
+        to: "/sector/agri",
         accent: TILE_ACCENTS.gold,
       },
       {
