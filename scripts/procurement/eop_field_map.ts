@@ -32,7 +32,7 @@ import { fileURLToPath } from "url";
 import { command, run, flag, optional, boolean } from "cmd-ts";
 import { canonicalEik } from "./eik";
 import { canonicalJson } from "./validate";
-import { deriveTextbookCpv } from "./textbook_cpv";
+import { deriveTextbookCpv, TEXTBOOK_CPV } from "./textbook_cpv";
 import { toEur } from "@/lib/currency";
 import type { Contract } from "./types";
 
@@ -41,6 +41,11 @@ const __dirname = path.dirname(__filename);
 const PROCUREMENT_DIR = path.resolve(__dirname, "../../data/procurement");
 const CONTRACTS_DIR = path.join(PROCUREMENT_DIR, "contracts");
 const EOP_CACHE_DIR = path.resolve(__dirname, "../../raw_data/procurement/eop");
+// The pre-2020 РОП dossier scrape's docId→{unp,cpv} map (ingest_rop_dossier.ts).
+const ROP_DOSSIER_MAP = path.resolve(
+  __dirname,
+  "../../raw_data/procurement/rop_dossier/_cpv_map.json",
+);
 
 // One enrichment payload pulled from a matched EOP `договори` row.
 interface EopFields {
@@ -215,12 +220,62 @@ const lookup = (idx: EopIndex, c: Contract): EopFields | undefined => {
   return best && bestD <= 366 ? best.fields : undefined;
 };
 
+// ---- pre-2020 РОП dossier CPV map ------------------------------------------
+
+// The docId is the trailing numeric token of a legacy ocid; the year segment can
+// itself contain a dash (`aop-legacy-2011-2015-693699`), so match the tail.
+const docIdFromOcid = (ocid: string): string | undefined =>
+  ocid.startsWith("aop-legacy-")
+    ? (ocid.match(/-(\d+)$/)?.[1] ?? undefined)
+    : undefined;
+
+interface DossierIndex {
+  byDocId: Map<string, string>; // legacy docId → CPV
+  byUnp: Map<string, string>; // procedure УНП → CPV (covers id-range gap-fills)
+}
+
+// Load the dossier scrape's CPV map into docId- and УНП-keyed indices (CPV-only
+// entries). Absent file → empty indices (the pass no-ops), so this stays optional.
+const buildDossierIndex = (): DossierIndex => {
+  const byDocId = new Map<string, string>();
+  const byUnp = new Map<string, string>();
+  if (fs.existsSync(ROP_DOSSIER_MAP)) {
+    let map: Record<string, { unp: string | null; cpv: string | null }>;
+    try {
+      map = JSON.parse(fs.readFileSync(ROP_DOSSIER_MAP, "utf8"));
+    } catch {
+      return { byDocId, byUnp };
+    }
+    for (const [docId, f] of Object.entries(map)) {
+      if (!f?.cpv) continue;
+      byDocId.set(docId, f.cpv);
+      if (f.unp && !byUnp.has(f.unp)) byUnp.set(f.unp, f.cpv);
+    }
+  }
+  return { byDocId, byUnp };
+};
+
+// The real notice CPV for one contract: exact by legacy docId, then by УНП.
+const dossierCpv = (idx: DossierIndex, c: Contract): string | undefined => {
+  const docId = docIdFromOcid(c.ocid);
+  if (docId) {
+    const hit = idx.byDocId.get(docId);
+    if (hit) return hit;
+  }
+  return c.unp ? idx.byUnp.get(c.unp) : undefined;
+};
+
 const main = (apply: boolean): void => {
   console.log("→ indexing EOP flat cache…");
   const idx = buildEopIndex();
   console.log(
     `  ${idx.exact.size.toLocaleString()} exact keys, ` +
       `${idx.pair.size.toLocaleString()} (buyer,supplier) pairs`,
+  );
+  const dossier = buildDossierIndex();
+  console.log(
+    `→ РОП dossier CPV map: ${dossier.byDocId.size.toLocaleString()} docId(s), ` +
+      `${dossier.byUnp.size.toLocaleString()} УНП(s)`,
   );
 
   const years = fs
@@ -230,6 +285,7 @@ const main = (apply: boolean): void => {
   let total = 0;
   let matched = 0;
   let setCpv = 0;
+  let setDossierCpv = 0;
   let setTextbookCpv = 0;
   let setProc = 0;
   let setBids = 0;
@@ -275,6 +331,19 @@ const main = (apply: boolean): void => {
             changed = true;
           }
         }
+        // Real pre-2020 CPV from the РОП dossier scrape (ingest_rop_dossier.ts).
+        // The flat-feed join above finds nothing pre-2020, so this is the only
+        // real CPV those years get. Fill an empty CPV, and PREFER the real notice
+        // CPV over the textbook heuristic — replace a previously textbook-derived
+        // 22112000 (see below) with the dossier value. Never touches a real CPV
+        // set from the EOP feed above (that path leaves c.cpv non-empty and
+        // non-textbook, so the guard skips it).
+        const dcpv = dossierCpv(dossier, c);
+        if (dcpv && dcpv !== c.cpv && (!c.cpv || c.cpv === TEXTBOOK_CPV)) {
+          c.cpv = dcpv;
+          setDossierCpv++;
+          changed = true;
+        }
         // Last-resort CPV gap-fill (runs for matched AND unmatched rows): the
         // flat-feed join finds nothing for pre-2020 rows, so legacy/РОП textbook
         // contracts stay CPV-less and vanish from the textbook market. Derive
@@ -301,7 +370,8 @@ const main = (apply: boolean): void => {
       `(${((matched / total) * 100).toFixed(0)}%)`,
   );
   console.log(
-    `  filled cpv ${setCpv.toLocaleString()} (+${setTextbookCpv.toLocaleString()} textbook-derived), ` +
+    `  filled cpv ${setCpv.toLocaleString()} ` +
+      `(+${setDossierCpv.toLocaleString()} РОП-dossier, +${setTextbookCpv.toLocaleString()} textbook-derived), ` +
       `procedure ${setProc.toLocaleString()}, ` +
       `bids ${setBids.toLocaleString()}; EU-funded ${setEu.toLocaleString()}`,
   );
