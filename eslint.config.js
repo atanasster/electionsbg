@@ -17,6 +17,7 @@ export default tseslint.config(
       "ai/m0/dist",
       "ai/m0/models",
       "ai/m5/dataset",
+      "brand/posts",
     ],
   },
   {
