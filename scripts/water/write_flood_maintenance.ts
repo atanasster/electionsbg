@@ -71,6 +71,15 @@ interface OblastRow {
   eur: string | null;
   count: string;
 }
+interface AllContractRow {
+  key: string;
+  title: string | null;
+  awarder_eik: string;
+  awarder_name: string;
+  oblast: string | null;
+  eur: string | null;
+  date: string | null;
+}
 
 const num = (v: string | null): number => Math.round(Number(v ?? 0));
 
@@ -109,6 +118,17 @@ const main = async () => {
     FROM contracts c LEFT JOIN awarder_seats s ON s.eik = c.awarder_eik
     WHERE ${WHERE}
     GROUP BY s.oblast`);
+
+  // Every matched contract (compact) so the frontend can re-aggregate the tile
+  // to the active ?pscope window client-side (like /culture re-aggregates films).
+  // Deterministic order: € desc, key tiebreak.
+  const allContracts = await allRows<AllContractRow>(`
+    SELECT c.key, c.title, c.awarder_eik, c.awarder_name,
+           s.oblast AS oblast,
+           round(c.amount_eur)::bigint::text AS eur, c.date
+    FROM contracts c LEFT JOIN awarder_seats s ON s.eik = c.awarder_eik
+    WHERE ${WHERE}
+    ORDER BY c.amount_eur DESC NULLS LAST, c.key`);
 
   const topContracts = await allRows<ContractRow>(`
     SELECT key, title, awarder_eik, awarder_name,
@@ -156,6 +176,18 @@ const main = async () => {
         .map(([code, v]) => ({ code, eur: v.eur, count: v.count }))
         .sort((a, b) => b.eur - a.eur || a.code.localeCompare(b.code));
     })(),
+    contracts: allContracts.map((c) => ({
+      key: c.key,
+      // Truncated — the tile renders the title on one truncated line; the full
+      // text lives on the contract page. Keeps the per-contract payload small
+      // (the GCS bucket serves JSON uncompressed).
+      title: (c.title ?? "").slice(0, 160),
+      awarderEik: c.awarder_eik,
+      awarderName: c.awarder_name,
+      oblast: c.oblast ? (NAME_TO_CODE[c.oblast] ?? "") : "",
+      eur: num(c.eur),
+      date: c.date ?? "",
+    })),
     topContracts: topContracts.map((c) => ({
       key: c.key,
       title: c.title ?? "",
@@ -169,9 +201,11 @@ const main = async () => {
   };
 
   mkdirSync("data/water", { recursive: true });
+  // Minified — the per-contract `contracts` array makes this a data blob, not a
+  // human-diffed artifact, and the prod bucket serves it uncompressed.
   writeFileSync(
     "data/water/flood_maintenance.json",
-    JSON.stringify(out, null, 2) + "\n",
+    JSON.stringify(out) + "\n",
   );
   console.log(
     `flood_maintenance.json: €${(out.totalEur / 1e6).toFixed(1)}M · ${out.contractCount} contracts · ${out.awarderCount} awarders`,

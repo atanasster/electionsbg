@@ -75,8 +75,9 @@ export const WaterScreen: FC = () => {
         </p>
       )}
 
-      {/* National, whole-history (not scoped by ?pscope) — always rendered,
-          independent of the ВиК group's contracts (FINDING-004). */}
+      {/* Corpus-wide (not the ВиК group) — always rendered, independent of the
+          group's contracts (FINDING-004). WaterStatsTile is national whole-history
+          НСИ data; WaterFloodTile scopes its own figures to ?pscope client-side. */}
       <WaterStatsTile />
       <WaterFloodTile />
 

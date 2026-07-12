@@ -6,13 +6,15 @@
 // geodata half (who is AT RISK, and the at-risk-but-unmaintained join) is a later
 // phase — this shows only who spent, so it is framed as spend, not as a verdict.
 
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Waves } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { useFloodMaintenance } from "@/data/water/useFloodMaintenance";
+import { useProcurementWindow } from "@/data/procurement/useProcurementWindow";
+import { buildFloodModel } from "@/lib/floodModel";
 import { WaterFloodMap } from "./WaterFloodMap";
 
 export const WaterFloodTile: FC = () => {
@@ -20,18 +22,46 @@ export const WaterFloodTile: FC = () => {
   const lang = i18n.language;
   const bg = lang === "bg";
   const { data, isLoading } = useFloodMaintenance();
+  // Re-aggregate to the page's ?pscope window (like every other pack) rather
+  // than showing the whole-corpus precomputed figures.
+  const { from, to } = useProcurementWindow();
+  const model = useMemo(
+    () => (data ? buildFloodModel(data.contracts, from, to) : null),
+    [data, from, to],
+  );
 
   if (isLoading)
     return (
       <div className="h-[280px] animate-pulse rounded-xl border bg-card" />
     );
-  if (!data || data.totalEur <= 0) return null;
+  if (!data || !model) return null;
+  if (model.totalEur <= 0)
+    return (
+      <Card id="flood">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-base flex items-center gap-2">
+            <Waves className="h-4 w-4" />
+            {bg
+              ? "Почистване на речни корита — къде отиват парите"
+              : "Riverbed cleaning — where the money goes"}
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-3 md:p-4">
+          <p className="text-sm text-muted-foreground">
+            {bg
+              ? "Няма договори за почистване на речни корита в избрания обхват."
+              : "No riverbed-cleaning contracts in the selected scope."}
+          </p>
+        </CardContent>
+      </Card>
+    );
 
-  const napShare = data.totalEur > 0 ? data.napoitelniEur / data.totalEur : 0;
-  const top = data.topAwarders.slice(0, 10);
+  const napShare =
+    model.totalEur > 0 ? model.napoitelniEur / model.totalEur : 0;
+  const top = model.topAwarders.slice(0, 10);
   const max = Math.max(...top.map((a) => a.eur), 1);
-  const yearMax = Math.max(...data.byYear.map((y) => y.eur), 1);
-  const topContracts = data.topContracts.slice(0, 5);
+  const yearMax = Math.max(...model.byYear.map((y) => y.eur), 1);
+  const topContracts = model.topContracts.slice(0, 5);
 
   return (
     <Card id="flood">
@@ -41,18 +71,13 @@ export const WaterFloodTile: FC = () => {
           {bg
             ? "Почистване на речни корита — къде отиват парите"
             : "Riverbed cleaning — where the money goes"}
-          {/* National, whole-corpus data — not filtered by the page's ?pscope
-              scope toggle, so it is labelled explicitly (FINDING-004b). */}
-          <span className="font-normal text-muted-foreground/70">
-            {bg ? "(всички години)" : "(all years)"}
-          </span>
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 md:p-4 space-y-3">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           <div>
             <div className="text-xl font-bold tabular-nums">
-              {formatEurCompact(data.totalEur, lang)}
+              {formatEurCompact(model.totalEur, lang)}
             </div>
             <div className="text-[11px] text-muted-foreground">
               {bg
@@ -62,7 +87,7 @@ export const WaterFloodTile: FC = () => {
           </div>
           <div>
             <div className="text-xl font-bold tabular-nums">
-              {data.contractCount.toLocaleString(lang)}
+              {model.contractCount.toLocaleString(lang)}
             </div>
             <div className="text-[11px] text-muted-foreground">
               {bg ? "договора" : "contracts"}
@@ -70,7 +95,7 @@ export const WaterFloodTile: FC = () => {
           </div>
           <div>
             <div className="text-xl font-bold tabular-nums">
-              {data.awarderCount.toLocaleString(lang)}
+              {model.awarderCount.toLocaleString(lang)}
             </div>
             <div className="text-[11px] text-muted-foreground">
               {bg ? "възложителя" : "awarders"}
@@ -86,12 +111,12 @@ export const WaterFloodTile: FC = () => {
           </div>
         </div>
 
-        {data.byOblast && data.byOblast.length > 0 && (
+        {model.byOblast.length > 0 && (
           <div>
             <div className="mb-1 text-xs font-medium text-muted-foreground">
               {bg ? "Разходи по области" : "Spend by oblast"}
             </div>
-            <WaterFloodMap byOblast={data.byOblast} />
+            <WaterFloodMap byOblast={model.byOblast} />
           </div>
         )}
 
@@ -123,13 +148,13 @@ export const WaterFloodTile: FC = () => {
           ))}
         </div>
 
-        {data.byYear.length > 1 && (
+        {model.byYear.length > 1 && (
           <div>
             <div className="mb-1 text-xs font-medium text-muted-foreground">
               {bg ? "По години" : "By year"}
             </div>
             <div className="flex items-end gap-0.5" style={{ height: 40 }}>
-              {data.byYear.map((y) => (
+              {model.byYear.map((y) => (
                 <div
                   key={y.year}
                   className="group relative flex-1"
@@ -143,8 +168,8 @@ export const WaterFloodTile: FC = () => {
               ))}
             </div>
             <div className="mt-0.5 flex justify-between text-[10px] text-muted-foreground/70">
-              <span>{data.byYear[0].year}</span>
-              <span>{data.byYear[data.byYear.length - 1].year}</span>
+              <span>{model.byYear[0].year}</span>
+              <span>{model.byYear[model.byYear.length - 1].year}</span>
             </div>
           </div>
         )}

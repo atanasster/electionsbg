@@ -34,8 +34,23 @@ export interface FloodContract {
   eur: number;
   date: string;
 }
+/** Compact per-contract row — the full matched corpus, so the tile can
+ *  re-aggregate to the active ?pscope window client-side. `oblast` is the
+ *  canonical nuts3 code (region-GeoJSON key), "" when the awarder has no seat. */
+export interface FloodContractRow {
+  key: string;
+  title: string;
+  awarderEik: string;
+  awarderName: string;
+  oblast: string;
+  eur: number;
+  date: string;
+}
 export interface FloodMaintenanceFile {
   source: string;
+  // The precomputed aggregates below are whole-corpus (all years) — kept for the
+  // AI `riverbedCleaning` tool. The tile derives its own scoped figures from
+  // `contracts` via buildFloodModel (src/lib/floodModel.ts).
   totalEur: number;
   contractCount: number;
   awarderCount: number;
@@ -45,6 +60,7 @@ export interface FloodMaintenanceFile {
   byOblast: FloodOblast[];
   topAwarders: FloodAwarder[];
   topContracts: FloodContract[];
+  contracts: FloodContractRow[];
 }
 
 export const useFloodMaintenance = () =>
