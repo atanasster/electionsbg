@@ -19,6 +19,7 @@ import {
   ClipboardList,
   Gavel,
   HeartHandshake,
+  BarChart3,
 } from "lucide-react";
 import { useProcurementHref } from "@/data/procurement/useProcurementScope";
 import { useCachedNewCount } from "@/data/procurement/useWatchlist";
@@ -26,10 +27,19 @@ import { ProcurementThematicNav } from "./ProcurementThematicNav";
 
 const items = [
   {
+    // The section front door (the hub). end:true so it only lights on the hub,
+    // not on the sub-pages below it.
     to: "/procurement",
     icon: LayoutGrid,
-    key: "procurement_overview_nav",
+    key: "procurement_home_nav",
     end: true,
+  },
+  {
+    // The analytics deep-dive (money flows, top players, risk) — used to be the
+    // landing; now a sub-page reached from the hub's "Обзор" tile.
+    to: "/procurement/overview",
+    icon: BarChart3,
+    key: "procurement_overview_nav",
   },
   {
     to: "/procurement/contracts",
