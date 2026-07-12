@@ -22,7 +22,7 @@
 import fs from "fs";
 import path from "path";
 import { load } from "cheerio";
-import { canonicalEik, isValidEik } from "./eik";
+import { isValidEik } from "./eik";
 import { isUnp } from "./unp";
 import { overrideAmount } from "./amount_overrides";
 import { parseBgNumber } from "./normalize_eop";
@@ -53,13 +53,13 @@ const UNP_RE = /^\d{5}-\d{4}-\d{4,}$/;
 // the register appends. Returns undefined when unparseable.
 const parseBgDate = (raw: string | undefined): string | undefined => {
   if (!raw) return undefined;
-  const s = raw.replace(/ /g, " ").trim();
-  const m = s.match(/(\d{1,2})[.\/](\d{1,2})[.\/](\d{4})/);
+  const s = raw.replace(/\u00A0/g, " ").trim();
+  const m = s.match(/(\d{1,2})[./](\d{1,2})[./](\d{4})/);
   if (!m) return undefined;
   return `${m[3]}-${m[2].padStart(2, "0")}-${m[1].padStart(2, "0")}`;
 };
 
-const cellText = (s: string): string => s.replace(/ /g, " ").trim();
+const cellText = (s: string): string => s.replace(/\u00A0/g, " ").trim();
 
 // Parse one search page's HTML. Returns the data rows plus the pager totals so
 // the caller knows how many pages to fetch (page size is 50).
@@ -87,11 +87,17 @@ export const parseRopHtml = (
     });
   });
 
-  const bodyText = $("body").text().replace(/ /g, " ");
+  const bodyText = $("body")
+    .text()
+    .replace(/\u00A0/g, " ");
   const totalM = bodyText.match(/Общ брой:\s*(\d+)/);
   const total = totalM ? parseInt(totalM[1], 10) : rows.length;
   const pagesM = bodyText.match(/Страница\s*\d+\s*от\s*(\d+)/);
-  const pages = pagesM ? parseInt(pagesM[1], 10) : total > 50 ? Math.ceil(total / 50) : 1;
+  const pages = pagesM
+    ? parseInt(pagesM[1], 10)
+    : total > 50
+      ? Math.ceil(total / 50)
+      : 1;
   return { rows, total, pages };
 };
 
@@ -309,9 +315,7 @@ export const normalizeRopRows = (
     // The row's calendar date is the publication date (when the spend became
     // public), falling back to the signing date, then the УНП year.
     const rowDate =
-      row.publishedDate ||
-      row.contractDate ||
-      `${row.unp.slice(6, 10)}-12-31`;
+      row.publishedDate || row.contractDate || `${row.unp.slice(6, 10)}-12-31`;
 
     // Synthetic OCDS-style ids, namespaced with `rop-` so they never collide
     // with the OCDS / eop / legacy corpora. УНП is the procedure key;

@@ -59,7 +59,10 @@ export const getPool = (): Pool => {
     // build_payloads) takes the whole ingest down after the data already
     // committed.
     pool.on("error", (err) => {
-      console.error("[pg] idle client error (dropped, pool recovered):", err.message);
+      console.error(
+        "[pg] idle client error (dropped, pool recovered):",
+        err.message,
+      );
     });
   }
   return pool;

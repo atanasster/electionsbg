@@ -132,7 +132,8 @@ const fetchDay = async (
       return { rows, failed: true, cappedOut: false };
     }
     rows.push(...pg.rows);
-    if (pg.rows.length < PAGE_SIZE) return { rows, failed: false, cappedOut: false };
+    if (pg.rows.length < PAGE_SIZE)
+      return { rows, failed: false, cappedOut: false };
     if (delayMs > 0 && !refresh) await sleep(delayMs);
   }
   return { rows, failed: false, cappedOut: true };
@@ -191,12 +192,17 @@ const normContractNo = (s: string | undefined): string =>
 const contentKeys = (r: Contract): string[] => {
   const keys: string[] = [];
   const amt = r.amountEur != null ? String(Math.round(r.amountEur)) : "";
-  if (r.unp && r.contractorEik) keys.push(`u:${r.unp}:${r.contractorEik}:${amt}`);
+  if (r.unp && r.contractorEik)
+    keys.push(`u:${r.unp}:${r.contractorEik}:${amt}`);
   const cn = normContractNo(r.contractId);
   if (cn && r.awarderEik && r.contractorEik)
-    keys.push(`c:${r.awarderEik}:${r.contractorEik}:${cn}:${r.dateSigned ?? ""}`);
+    keys.push(
+      `c:${r.awarderEik}:${r.contractorEik}:${cn}:${r.dateSigned ?? ""}`,
+    );
   if (r.awarderEik && r.contractorEik && (r.dateSigned || amt !== ""))
-    keys.push(`f:${r.awarderEik}:${r.contractorEik}:${r.dateSigned ?? ""}:${amt}`);
+    keys.push(
+      `f:${r.awarderEik}:${r.contractorEik}:${r.dateSigned ?? ""}:${amt}`,
+    );
   return keys;
 };
 
@@ -227,17 +233,20 @@ const runPool = async <T, R>(
 ): Promise<Array<R | undefined>> => {
   const out: Array<R | undefined> = new Array(items.length);
   let next = 0;
-  const runners = Array.from({ length: Math.min(concurrency, items.length) }, async () => {
-    for (;;) {
-      const i = next++;
-      if (i >= items.length) return;
-      try {
-        out[i] = await worker(items[i], i);
-      } catch {
-        out[i] = undefined;
+  const runners = Array.from(
+    { length: Math.min(concurrency, items.length) },
+    async () => {
+      for (;;) {
+        const i = next++;
+        if (i >= items.length) return;
+        try {
+          out[i] = await worker(items[i], i);
+        } catch {
+          out[i] = undefined;
+        }
       }
-    }
-  });
+    },
+  );
   await Promise.all(runners);
   return out;
 };
@@ -289,7 +298,9 @@ const main = async (args: {
 
   // Fetch the slow network in parallel (bounded), then normalize + dedup
   // sequentially in date order so the dedup ("first row wins") is deterministic.
-  console.log(`→ fetching ${days.length} day(s) with concurrency ${args.concurrency}`);
+  console.log(
+    `→ fetching ${days.length} day(s) with concurrency ${args.concurrency}`,
+  );
   let done = 0;
   const fetched = await runPool(days, args.concurrency, async (day) => {
     const res = await fetchDay(day, args.refreshCache, args.delayMs);
@@ -312,7 +323,11 @@ const main = async (args: {
     }
     if (res.rows.length === 0) return;
     agg.daysWithRows++;
-    const { contracts, stats } = normalizeRopRows(res.rows, maps, pageUrl(day, 1));
+    const { contracts, stats } = normalizeRopRows(
+      res.rows,
+      maps,
+      pageUrl(day, 1),
+    );
     agg.rowsSeen += stats.rowsSeen;
     agg.rowsEmitted += stats.rowsEmitted;
     agg.droppedNoAwarderEik += stats.droppedNoAwarderEik;
@@ -359,7 +374,8 @@ const main = async (args: {
       `no-amount ${agg.droppedNoAmount.toLocaleString()}, ` +
       `self-deal ${agg.droppedSelfDeal.toLocaleString()}`,
   );
-  const resolvable = agg.rowsSeen - agg.droppedNoAwarderEik - agg.droppedNoContractorEik;
+  const resolvable =
+    agg.rowsSeen - agg.droppedNoAwarderEik - agg.droppedNoContractorEik;
   if (agg.rowsSeen > 0)
     console.log(
       `  EIK-resolved ${resolvable.toLocaleString()}/${agg.rowsSeen.toLocaleString()} ` +
@@ -385,7 +401,9 @@ const main = async (args: {
     return;
   }
   const { newFiles, modifiedFiles } = writeMonthShards(kept);
-  console.log(`→ wrote ${newFiles} new + ${modifiedFiles} modified month-shard(s)`);
+  console.log(
+    `→ wrote ${newFiles} new + ${modifiedFiles} modified month-shard(s)`,
+  );
   console.log(`✓ done. Now reload PG:\n    npm run db:load:pg`);
 };
 
@@ -423,12 +441,14 @@ const cli = command({
     delayMs: option({
       type: optional(string),
       long: "delay-ms",
-      description: "Politeness delay between a day's page fetches (default 250).",
+      description:
+        "Politeness delay between a day's page fetches (default 250).",
     }),
     concurrency: option({
       type: optional(string),
       long: "concurrency",
-      description: "Days fetched in parallel (default 6). The register is slow.",
+      description:
+        "Days fetched in parallel (default 6). The register is slow.",
     }),
   },
   handler: (args) =>
@@ -439,7 +459,9 @@ const cli = command({
       apply: !!args.apply,
       refreshCache: !!args.refreshCache,
       delayMs: args.delayMs ? parseInt(args.delayMs, 10) : 250,
-      concurrency: args.concurrency ? Math.max(1, parseInt(args.concurrency, 10)) : 6,
+      concurrency: args.concurrency
+        ? Math.max(1, parseInt(args.concurrency, 10))
+        : 6,
     }),
 });
 

@@ -74,7 +74,7 @@ const UNP_RE = /\d{5}-\d{4}-\d{4,}/;
 // newer forms, «Класификатора на ОП (CPV)» on older ones — the `(CPV)<code>`
 // anchor is common to both. The FIRST such code is the main object CPV (the
 // summary/Раздел II.1 field); additional/per-lot codes follow.
-const CPV_RE = /\(\s*CPV\s*\)\s*[:\-]?\s*(\d{8})/i;
+const CPV_RE = /\(\s*CPV\s*\)\s*[:-]?\s*(\d{8})/i;
 
 // ---- read the docIds to scrape from the on-disk corpus -----------------------
 
@@ -124,7 +124,8 @@ const fetchDoc = async (docId: string, refresh: boolean): Promise<string> => {
     try {
       const res = await fetch(url, {
         headers: {
-          "User-Agent": "electionsbg.com data pipeline (procurement/rop_dossier)",
+          "User-Agent":
+            "electionsbg.com data pipeline (procurement/rop_dossier)",
           Accept: "text/html",
         },
         signal: AbortSignal.timeout(90_000),
@@ -132,7 +133,9 @@ const fetchDoc = async (docId: string, refresh: boolean): Promise<string> => {
       if (!res.ok) throw new Error(`GET doc ${docId} → ${res.status}`);
       // Same-host guard: never follow a redirect off aop.bg.
       if (new URL(res.url || url).host !== new URL(url).host) {
-        throw new Error(`refusing cross-host redirect for ${docId}: ${res.url}`);
+        throw new Error(
+          `refusing cross-host redirect for ${docId}: ${res.url}`,
+        );
       }
       const buf = Buffer.from(await res.arrayBuffer());
       const html = new TextDecoder("windows-1251").decode(buf);
@@ -329,7 +332,8 @@ const cli = command({
     fromId: option({
       type: optional(string),
       long: "from-id",
-      description: "id-range mode: first doc_id (self-keys by each notice's УНП).",
+      description:
+        "id-range mode: first doc_id (self-keys by each notice's УНП).",
     }),
     toId: option({
       type: optional(string),
@@ -344,7 +348,8 @@ const cli = command({
     concurrency: option({
       type: optional(string),
       long: "concurrency",
-      description: "Docs fetched in parallel (default 6). The register is slow.",
+      description:
+        "Docs fetched in parallel (default 6). The register is slow.",
     }),
     refreshCache: flag({
       type: optional(boolean),

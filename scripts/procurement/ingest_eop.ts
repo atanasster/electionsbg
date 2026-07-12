@@ -147,10 +147,14 @@ const contentKeys = (r: Contract): string[] => {
   }
   const cn = normContractNo(r.contractId);
   if (cn && r.awarderEik && r.contractorEik) {
-    keys.push(`c:${r.awarderEik}:${r.contractorEik}:${cn}:${r.dateSigned ?? ""}`);
+    keys.push(
+      `c:${r.awarderEik}:${r.contractorEik}:${cn}:${r.dateSigned ?? ""}`,
+    );
   }
   if (r.awarderEik && r.contractorEik && (r.dateSigned || amt !== "")) {
-    keys.push(`f:${r.awarderEik}:${r.contractorEik}:${r.dateSigned ?? ""}:${amt}`);
+    keys.push(
+      `f:${r.awarderEik}:${r.contractorEik}:${r.dateSigned ?? ""}:${amt}`,
+    );
   }
   return keys;
 };
@@ -246,8 +250,7 @@ const main = async (args: {
   // buyer-absent guard would defeat the purpose) and is the correct mode for the
   // 2020/2021 transition-year backfill.
   const crossSourceDedup = args.crossSourceDedup;
-  const includeExistingBuyers =
-    args.includeExistingBuyers || crossSourceDedup;
+  const includeExistingBuyers = args.includeExistingBuyers || crossSourceDedup;
 
   const existing = loadExistingAwarderEiks();
   const years = new Set(days.map((d) => d.slice(0, 4)));
