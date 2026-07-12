@@ -60,7 +60,21 @@ Everything below was checked against current code + the live corpus before this 
    tabs ([[feedback_no_tabs_ux]]); dashboard shell copies the homepage width, no `max-w-5xl` cap
    ([[feedback_dashboard_layout]]).
 
-9. **Still genuinely open:** (a) budget node slug `admin-ministerstvo-na-energetikata` is a GUESS —
+9. **Gas-infra awarders verified (2026-07-12).** Чирен storage + Балкански поток transit capex run
+   **inside Булгартрансгаз** (`175203478`) — €367.3M / 189 contracts whose title carries
+   чирен|балкан|транзит|компресор — so no separate storage/pipeline EIK to add. **But the IGB
+   interconnector JV, Ай Си Джи Би АД (ICGB, `201383265`, €13.7M / 42 c), awards under its OWN EIK**
+   — a 50% БЕХ / 50% IGI Poseidon joint venture. It is in `ENERGY_JOINT_VENTURES` and **excluded from
+   the group total** (half-private; the water Sofia-concession precedent), surfaced as a cross-link.
+
+10. **Revenue-return to the state is NOT company-attributable in ingested data.** The budget KFP carries
+    only aggregate non-tax lines ("Приходи и доходи от собственост", "Други неданъчни приходи") — no
+    file attributes revenue to БЕХ or any EIK (the "данъци върху дивидентите" line is corporate *tax
+    on* dividends, a different thing). Per-company **dividend-to-the-State** + **Балкански поток transit
+    revenue** are recoverable only from БЕХ's consolidated annual report + the annual Council-of-
+    Ministers dividend РМС — a Tier-C/D curated ingest (§2), the defense mega-programs analogue.
+
+11. **Still genuinely open:** (a) budget node slug `admin-ministerstvo-na-energetikata` is a GUESS —
    confirm against the emitted `data/budget/ministries/` tree before the bridge tile
    ([[project_budget_execution_scope]]). (b) Does `/energy` warrant its own OG capture + route_def, or
    is the БЕХ awarder OG card enough for Phase 1? Decide at Phase 2 (defense gave the screen its own).
@@ -127,6 +141,13 @@ Curate **by EIK allowlist, never name regex**. Three universes; never conflate. 
 | Топлофикация Русе / Бургас / Плевен / Сливен / Враца / Перник / В.Търново / Габрово / Разград | (see ref file) | ~90 total | state (МЕ) — **verify** |
 | ЕВН България Топлофикация (Пловдив) `115016602`, Веолия Варна `103195446` | — | ~88 | **private — excluded** |
 
+### Universe D — Joint ventures (state-linked, NOT wholly owned → cross-link, not rollup)
+- **Ай Си Джи Би АД (ICGB / IGB interconnector) `201383265` — €13.7M / 42 c.** 50% БЕХ (via
+  Булгартрансгаз) / 50% IGI Poseidon; awards under its OWN EIK. Excluded from the group total
+  (half-private — the water Sofia-concession precedent); surface as a labelled cross-link.
+  *(Verified: Чирен storage + Балкански поток capex, by contrast, run INSIDE Булгартрансгаз —
+  €367.3M / 189 c — so no separate storage/pipeline awarder exists.)*
+
 ### Invisible / excluded (measured, call out — never silently fold)
 - **АЕЦ Козлодуй – Нови мощности `202671079`** — €0 corpus; the ~€14bn AP1000 story (§0).
 - **БНЕБ/IBEX** (БЕХ subsidiary, energy exchange) — no material ЗОП footprint.
@@ -149,9 +170,16 @@ Curate **by EIK allowlist, never name regex**. Three universes; never conflate. 
 - **Household energy prices — Eurostat `nrg_pc_204` (electricity) / `nrg_pc_205` (gas)**, EUR-native,
   EU-peer-comparable. **Reuse the existing `update-macro` Eurostat plumbing** ([[project_water_view]]
   Eurostat precedent) — near-zero new code; feeds `/indicators/compare` too.
-- **State budget** МЕ envelope + **БЕХ dividends to the fiscus** — folds into `update-budget`
-  (`__write_energy.ts`), the judiciary/defense precedent (budget belongs to update-budget, NOT the
-  domain skill). Verify the ministry admin node first (audit §9a).
+- **State budget** МЕ envelope — folds into `update-budget` (`__write_energy.ts`), the
+  judiciary/defense precedent (budget belongs to update-budget, NOT the domain skill). Verify the
+  ministry admin node first (audit §11a).
+- **Revenue returned to the State** (the "money that flows back", not procured) — **NOT free**:
+  the KFP only has aggregate non-tax revenue, not company-attributable (audit §10). Recover per-company
+  from (a) **БЕХ consolidated annual report** — the declared dividend to the sole owner (the State),
+  historically one of the largest single budget contributors; (b) the annual **Council-of-Ministers
+  dividend РМС** that sets the SOE profit-distribution rate; (c) **Балкански поток transit revenue**
+  from the Булгартрансгаз annual report. Tier-C/D: a small curated `data/energy/state_returns.json`
+  (defense mega-programs pattern) — one PDF/decision per year, no machine feed.
 
 **Tier C — recurring API / scrape (watcher candidates, Phase 3):**
 - **ENTSO-E Transparency API** (free registered key) — real-time generation by fuel, load,
@@ -238,14 +266,21 @@ who they buy from → who supplies the fuel → the exit from coal**.
 7. **What each entity buys — CPV/procedure breakdown** (generic `ProcurementBreakdownTile`) +
    **single-bid competition gauge** per buyer (green <35 / amber / red ≥60, gated on coverage).
 
-8. **БЕХ as an enterprise** (Phase 3): consolidated revenue/profit, **dividends paid to the state
-   budget** (bridge into `/budget`), debt, headcount. Board members → the connections graph
-   (constrained by the [[project_tr_officer_coverage_ceiling]] — 63% zero-coverage; disclose).
+8. **★ The money that flows back** (Phase 3): the one sector that *earns* as well as spends —
+   **БЕХ dividend to the State** (declared to the sole owner in the consolidated report + the annual
+   dividend РМС) + **Балкански поток transit revenue** (Булгартрансгаз) + the aggregate SOE
+   property-income budget line for context. A revenue-in tile contrasting the €9.76bn spend hero (the
+   transport toll-revenue-tile analogue). Disclose that the dividend figure is per-company from the
+   annual report, not the KFP (audit §10).
 
-9. **Top contracts / top contractors / MP-connected / tenders / КЗК appeals** — all free generic
-   tiles; concentration + MP overlay is where the supplier-chain story surfaces.
+9. **БЕХ as an enterprise** (Phase 3): consolidated revenue/profit, debt, headcount. Board members →
+   the connections graph (constrained by [[project_tr_officer_coverage_ceiling]] — 63% zero-coverage;
+   disclose).
 
-10. **See-all deep-links** — every Top-N tile → shared `DbDataTable` scoped to `?sector=energy`,
+10. **Top contracts / top contractors / MP-connected / tenders / КЗК appeals** — all free generic
+    tiles; concentration + MP overlay is where the supplier-chain story surfaces.
+
+11. **See-all deep-links** — every Top-N tile → shared `DbDataTable` scoped to `?sector=energy`,
     scope + `?q=` carried forward via `useProcurementHref`.
 
 **dataviz house rules (non-negotiable):** one axis per chart; categorical hues fixed order,

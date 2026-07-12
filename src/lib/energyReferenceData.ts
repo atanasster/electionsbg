@@ -134,6 +134,20 @@ export const ENERGY_REGULATORS: EnergyEntity[] = [
   { eik: "121459246", name: "Агенция за устойчиво енергийно развитие (АУЕР)", universe: "regulator", ownership: "state" }, // prettier-ignore
 ];
 
+// Joint ventures — state-LINKED but NOT wholly owned, so NOT folded into the БЕХ
+// group total (mixing half-private money into a state rollup is exactly the trap
+// the water pack avoids with the Sofia concession). Surface as a labelled
+// cross-link / its own row.
+export const ENERGY_JOINT_VENTURES: EnergyEntity[] = [
+  // ICGB AD — Gas Interconnector Greece–Bulgaria (IGB): 50% БЕХ (via Булгартрансгаз)
+  // / 50% IGI Poseidon. Awards under its OWN EIK (€13.7M / 42 c, 2026-07-12), NOT
+  // inside Булгартрансгаз. ⚠ Contrast: Чирен storage + Балкански поток transit
+  // capex DO run inside Булгартрансгаз (175203478) — €367.3M / 189 contracts whose
+  // title carries чирен|балкан|транзит|компресор (verified 2026-07-12), so there
+  // is no separate storage/pipeline awarder to add.
+  { eik: "201383265", name: "Ай Си Джи Би АД (ICGB — газов интерконектор Гърция–България)", universe: "gas", ownership: "state" }, // prettier-ignore
+];
+
 // ⚠ INVISIBLE IN THE CORPUS — do NOT expect these in the group model:
 //   • АЕЦ Козлодуй – Нови мощности ЕАД (EIK 202671079) — the AP1000 units 7/8
 //     new-build, a ~€14bn program, has NO ЗОП contracts in the corpus (early
