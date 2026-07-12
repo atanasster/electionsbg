@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-07-10T10:20:00.642Z",
+  "lastSuccessfulIngest": "2026-07-12T18:21:54.801Z",
   "skill": "update-budget",
-  "summary": "policy baseline re-based (eurostat_policy release): baseline 2025, VAT factor 1.170, spread 5.5% — no modeled values moved, timestamp-only diff"
+  "summary": "capital_programs: fingerprint/ordering churn only (byte-identical per-muni signatures, persistent vidin fetch-fail retry); no município re-uploaded a programme, no parser run"
 }
