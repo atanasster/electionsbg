@@ -21,6 +21,7 @@ import { ProcurementScopeControl } from "./components/procurement/ProcurementSco
 import { ProcurementSearchTile } from "./components/procurement/ProcurementSearchTile";
 import { WatchlistDigestTile } from "./components/procurement/WatchlistDigestTile";
 import { useProcurementOverview } from "@/data/procurement/useProcurementOverview";
+import { useProcurementHubCounts } from "@/data/procurement/useProcurementHubCounts";
 import { useWatchlist } from "@/data/procurement/useWatchlist";
 import { formatEurCompact } from "@/lib/currency";
 import { PROCUREMENT_SCENES } from "./procurement/procurementScenes";
@@ -73,6 +74,7 @@ const SUBPAGES = [
     descKey: "procurement_hub_tenders_desc",
     to: "/procurement/tenders",
     accent: TILE_ACCENTS.azure,
+    metric: "tenders",
   },
   {
     id: "appeals",
@@ -80,6 +82,7 @@ const SUBPAGES = [
     descKey: "procurement_hub_appeals_desc",
     to: "/procurement/appeals",
     accent: TILE_ACCENTS.plum,
+    metric: "appeals",
   },
   {
     id: "ngos",
@@ -87,6 +90,7 @@ const SUBPAGES = [
     descKey: "procurement_hub_ngos_desc",
     to: "/procurement/ngos",
     accent: TILE_ACCENTS.green,
+    metric: "ngos",
   },
   {
     id: "place",
@@ -115,6 +119,7 @@ const SUBPAGES = [
 export const ProcurementScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const { data } = useProcurementOverview();
+  const { data: counts } = useProcurementHubCounts();
   const totals = data?.totals;
   const watchCount = useWatchlist().length;
   const title = t("procurement_index_title") || "Public procurement";
@@ -122,6 +127,8 @@ export const ProcurementScreen: FC = () => {
   const metricFor = (m?: string): string | undefined => {
     if (m === "watch")
       return watchCount > 0 ? numFmt.format(watchCount) : undefined;
+    if (m === "tenders" || m === "appeals" || m === "ngos")
+      return counts ? numFmt.format(counts[m]) : undefined;
     if (!m || !totals) return undefined;
     switch (m) {
       case "total":
