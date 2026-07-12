@@ -1,5 +1,23 @@
 # Отбрана (МО / Българска армия) view — v1
 
+## Status (2026-07-09, rev 1.6 — shipped-enhancements review + date scoping)
+
+- **Rev 1.6:** Part 11 (adopt shipped pack enhancements) + Part 12 (date/time scoping) added.
+  - **`SECTOR_BROWSE_PACKS` is BUILT** — add a `defense:` entry (earlier "unbuilt/deferred" notes were
+    stale). The **group-rollup endpoint** (`useVikGroupRollup` → `/api/db/awarder-group-rollup`, 2,7 MB
+    → 2,3 KB) **solves the 25-EIK fan-out risk** — Part 4 updated.
+  - Reuse shipped tiles, don't invent: **`VikContractorHhiTile`** (+ `hhiBand` helpers, attributed-denom
+    guard) and **`VikCompetitionTile`** are the two marquee defense tiles; **`PackSection`** money-first
+    bands + **`useHashScroll`** deep-link ids + **`buildPackInsights`** chips.
+  - **Signature tile = aviation sustainment** ("keep the Soviet fleet flying", cross-buyer, all-years).
+  - **Date scoping:** house vocabulary is strictly `ns | all | y:YYYY` — **no calendar picker exists,
+    don't add one**. Two resolvers (half-open `useProcurementWindow` / inclusive `scopeRange`); the pack
+    inherits the awarder page's inverted-default (`all`) `?pscope`; contract tiles re-window, annual
+    tiles use the NZOK independent-fiscal-year picker + scope-note chip; the `/defense` screen uses the
+    culture/education single-year re-aggregation (%GDP trend stays full-history). **Flagged a latent
+    off-by-one:** `CompanyDbScreen` feeds inclusive `to=YYYY-12-31` into exclusive `scopeByWindow` →
+    Dec-31 contracts dropped from packs on the awarder page.
+
 ## Status (2026-07-09, rev 1.5 — UI/UX best practices folded in)
 
 - **Rev 1.5:** Part 10 added — external best-in-class buyer-page research (USAspending, OpenTender/
@@ -388,14 +406,18 @@ Re-run these if the allowlist grows. The pack fetches per-EIK via `useAwarderCon
 react-query fetches, cached `staleTime: Infinity`), so the group roll-up is client-side — the
 25-EIK `IN` above is the *server-side* worst case for the "see all" DbDataTable page.
 
-**RISK — the 25-EIK client fan-out.** ВСС's alias set is small; ours is not. 25 parallel
-`/api/db/awarder-contracts` calls pulling 6 889 rows (ВМА alone is 2 656) is a materially heavier
-payload than any existing pack. Mitigations, in order of preference:
-1. Fetch **МО proper eagerly**, lazy-load the alias set only when the user opens the group view /
-   universe selector. Ship МО-proper-first, group-on-demand.
-2. If that's still slow, add a single server-side `defense-group-contracts` resource (one query with
-   the `IN` list, 5,8 ms) instead of 25 round-trips.
-Measure before choosing. Do not ship 25 eager fetches without checking the transfer size.
+**RISK — the 25-EIK client fan-out — now SOLVED by a shipped pattern.** 25 parallel
+`/api/db/awarder-contracts` calls pulling 6 889 rows (ВМА alone 2 656) would be far heavier than any
+pack. The water pack already solved exactly this: **`useVikGroupRollup` → one `/api/db/awarder-group-rollup`
+aggregate call (2,7 MB → 2,3 KB)**. Adopt it:
+- The pack's **group KPIs, HHI, competition, category** consume a `useDefenseGroupRollup()` — a single
+  aggregate endpoint over `DEFENSE_SECTOR_EIKS` (server-side `GROUP BY awarder_eik` + category/supplier
+  rollup), not 25 corpus fetches. Add a `defense-group-rollup` serving fn mirroring `awarder-group-rollup`.
+- Fetch **МО proper's full corpus eagerly** (the awarder page already loads `useAwarderContracts(MOD_EIK)`
+  for the generic tiles); load the group aggregate for the group tiles. Per-EIK drill happens via
+  deep-link to each `/awarder/:eik`, not an eager fan-out.
+- The 25-EIK `IN` (5,8 ms, bitmap index scan) is the server-side worst case for the group-rollup fn and
+  the "see all" DbDataTable page. `EXPLAIN ANALYZE` the group-rollup fn before shipping.
 - "See all visible МО contracts" reuses the **`contracts` DbDataTable registry** via
   `CompanyContractsDbScreen` (`scope:{col:"awarder_eik", val:MOD_EIK}`) — no new registry entry,
   no new endpoint. The column whitelist is the security boundary; nothing new to whitelist.
@@ -404,12 +426,10 @@ Measure before choosing. Do not ship 25 eager fetches without checking the trans
   promote to a `defense_payloads (kind, key) → jsonb` blob (mirroring `agri_payloads`/
   `fund_payloads`) and apply the payload-determinism rules (ROUND sums, rounded sort keys + eik
   tiebreaks, `COLLATE "C"` MINs, parity audit). Not needed for v1.
-- **`SECTOR_BROWSE_PACKS` is now genuinely relevant** (the earlier "single entity, not needed" line
-  was wrong). With 25 group EIKs, a "see all МО-group contracts" view wants
-  `/procurement/contracts?sector=defense` with `fixedFilters: [{ id: "awarder_eik", value:
-  DEFENSE_ALIAS_EIKS }]` — exactly the seam the water plan proposes. It is still **unbuilt**. For v1,
-  use `CompanyContractsDbScreen` scoped to МО proper and defer the group browse; build the seam only
-  if water lands it first (build it once, mount it in both).
+- **`SECTOR_BROWSE_PACKS` is BUILT and live** (water/roads/noi/nzok/agri/judiciary). Add a `defense:`
+  entry (Part 11a) → `/procurement/contracts?sector=defense` restricted to `DEFENSE_SECTOR_EIKS`, with a
+  `DefenseBrowseSection` enrichment strip. This IS the group "see all". `CompanyContractsDbScreen`
+  scoped to МО proper still serves the МО-proper deep-link.
 
 ## Part 5 — Watchers & process-watch-report wiring
 
@@ -687,9 +707,11 @@ deltas. Nothing here is a new framework.
 1. **Sharpen the transparency framing** (external #11): "excl. classified acquisition (FMS/чл.149)"
    goes **on the KPI**, and "стойност не е обявена" is a **shown bar**, not an omission. This is the
    defining defense caveat — surface it, don't footnote it.
-2. **Concentration metric** (external #6): "топ-5 доставчици = X% от разхода на МО" as a chip or KPI
-   (+ optional HHI). Buyers cite this; the packs don't yet compute it.
-3. **Riskiest-contracts feed** (external #7, Phase 3): sortable "най-рискови поръчки" via
+2. **Concentration** (external #6) — **now shipped, reuse it**: `VikContractorHhiTile` + shared
+   `hhiBand` helpers (HHI + CR-4 + top suppliers). See Part 11b. Do NOT hand-roll a chip.
+3. **Competition heatmap** — **now shipped, reuse it**: `VikCompetitionTile` (per-buyer single-bid
+   share). The marquee defense tile. See Part 11b.
+4. **Riskiest-contracts feed** (external #7, Phase 3): sortable "най-рискови поръчки" via
    `computeProcurementRisk`, each row = flag + contract + why + click-through to `/contract/:key`.
    Flags labeled by scope (process/buyer/supplier), per OCP.
 4. **Framework ceiling-vs-drawdown** (external #5): several МО contracts are 48-month рамкови
@@ -713,6 +735,135 @@ deltas. Nothing here is a new framework.
   **label, never color alone** — the single-bid amber must carry text.
 - Legend present for ≥2 series (none for 1); direct-label ≤4; hover layer by default; a table view
   exists (the "see all" DbDataTable satisfies this).
+
+## Part 11 — Adopt from the shipped pack enhancements (post-plan work)
+
+Since rev 1.0 the packs shipped major upgrades. Review harvested the best applicable ones. **Most of
+Part 10's "deltas to add" are now shipped primitives to REUSE, not invent.**
+
+### a. `SECTOR_BROWSE_PACKS` is BUILT — earlier "unbuilt/deferred" notes are STALE
+`sectorPacks.tsx` now ships live `SECTOR_BROWSE_PACKS` entries for water/roads/noi/nzok/agri/judiciary,
+consumed by `SectorBrowseSlot.tsx` + the browse hosts (`ContractsBrowserDbScreen`,
+`TendersBrowserDbScreen` call `getSectorBrowsePack(?sector)`, restrict the table to the pack's EIK-set,
+mount the slot). The DB prereq is done (`contracts.awarder_eik` / `tenders.buyer_eik` flipped
+`eq`→`in` in `functions/db_table.js`). **Defense adds:**
+```ts
+defense: { id:"defense", label:{bg:"Отбрана (МО)",en:"Defense (МО)"},
+           eiks: DEFENSE_SECTOR_EIKS, Section: DefenseBrowseSection }
+```
+→ `/procurement/contracts?sector=defense` for free, restricted to all 25 МО EIKs, with an enrichment
+strip. `DefenseBrowseSection` mirrors `VikBrowseSection` — **one group-rollup aggregate call, not a
+25-EIK corpus fan-out** (Part 4).
+
+### b. Reuse these shipped tiles (the two marquee defense tiles)
+- **HHI / concentration — reuse `vik/VikContractorHhiTile.tsx` + the shared `hhiBand` /
+  `HHI_BAND_COLOR` / `hhiBandLabel` helpers in `src/lib/textbookPublishers.ts`.** DOJ/FTC bands
+  (<1500 competitive / ≤2500 moderate / >2500 concentrated), CR-4 + top-8 supplier bars. **Copy the
+  attributed-denominator guard exactly** — HHI denom = Σ over suppliers *with* a contractor EIK, NOT
+  the awarder headline total; defense has heavy sole-source/classified awards with patchy contractor
+  coverage, so using the headline total would mislabel a concentrated market as competitive. Guards:
+  `null` if <3 suppliers. This supersedes Part 10c#2 (don't hand-roll a concentration chip).
+- **Competition heatmap — reuse `vik/VikCompetitionTile.tsx` ("Къде се къса конкуренцията").** Per-buyer
+  single-bid share: bar **length** = € contracted, **color** = single-bid share (green <35% / amber
+  35–60% / red ≥60%), sorted desc, top 12. **Keep the `bidKnownN ≥ 3` floor** so a thin denominator
+  doesn't paint a noisy red. **This is the marquee defense tile** — МО's 44,3% single-bid across 25
+  buyers, "which formations award without competition." Needs `singleBidShare` + `bidKnownN` per buyer
+  in the defense rollup (mirror `VikOperatorAgg`). Frame as signpost (much defense single-bid is
+  legitimately sole-source/classified).
+
+### c. Pack skeleton upgrades
+- **Money-first banded layout via `PackSection.tsx`** — order bands biggest-flow-first, procurement
+  (the scrutinised slice) last: МО budget/capital → suppliers & concentration (HHI) → competition →
+  category → contracts detail → transparency. Use `hideTitle` on lead tiles to kill the
+  band-title↔tile-title echo; pair compact tiles 2-up (`grid gap-4 lg:grid-cols-2 [&>*]:min-w-0`).
+- **Hash-scroll deep-links — `src/ux/useHashScroll.ts`.** Give every band a stable `id` on `PackSection`
+  (`mo-budget`, `mo-suppliers`, `mo-competition`, `mo-hhi`, `mo-category`, `mo-transparency`) — it adds
+  `scroll-mt-24` so the sticky header doesn't overlap. Call `useHashScroll([...payloads])` in the pack
+  **keyed on the async payloads** (bands mount as data settles; the deps re-fire the scroll after
+  layout shifts). Confirm the host `CompanyDbScreen` hook covers it. Enables `/awarder/000695324#mo-competition`
+  deep-links from AI chat + articles. (This replaces the plain `data-og`-only anchor note — the OG
+  anchor `data-og="defense-hero"` still lives on the hero for the screenshot.)
+- **`buildPackInsights` shared helper — `src/lib/packInsights.ts`.** Every pack now uses it for the
+  headline chips (peak year, top category **by €** — it fixed the top-category-by-declared-order bug —
+  direct-award % with `>10%` warn). **Use it directly**, feed the `AwarderModel`; the direct-award warn
+  is apt for defense. Supersedes hand-rolling the chip `useMemo`.
+- **Reference data — clone `src/lib/vikReferenceData.ts` into `defenseReferenceData.ts`**: `MO_ENTITIES[]`
+  (eik, name, universe, type) + derived `DEFENSE_SECTOR_EIKS = MO_ENTITIES.map(e=>e.eik)` + `MOD_EIK` +
+  `entityByEik`. Same table drives the pack alias fan-out, the browse-pack `eiks`, and the screen's
+  awarders tile. (Aligns with Part-2 `DEFENSE_UNITS`; unify into one `MO_ENTITIES` table.)
+
+### d. The signature feature (flood-tile analogue)
+Every mature view has one cross-cutting signature tile (`WaterFloodTile` = flood-maintenance spend,
+all-buyers, all-years, spend-not-verdict, "(all years)" label). **Defense's signature = aviation
+sustainment** — the thesis made concrete. A CPV/subject-matched cross-buyer aggregate of the "keep the
+Soviet-era fleet flying" spend (C-27J logistic support, MiG-29 RD-33 engines, L-39ZA overhaul, Mi-24
+airworthiness, Jet A-1, helicopter maintenance) across all 25 МО buyers, all years, framed as spend not
+verdict, "(all years)" scope-independent. Build it like `WaterFloodTile` + a
+`data/defense/aviation_sustainment.json`-style aggregate (or derive client-side from the corpus).
+Secondary candidate: ammunition/modernisation. This is the defense marquee narrative tile.
+
+### e. Also adopt / defer
+- **Thematic-analyses strip is NOT free** — add a defense entry to the hardcoded `thematicItems` in
+  `ProcurementThematicNav.tsx` (icon `Shield`, route `/defense`, i18n key, `unscoped: true`), modeled on
+  `/water`. The strip auto-renders on the МО awarder page once the pack registers; the *pill* needs this.
+- **Report-card + decile-fan (`NzokReportCardTile` / `nzokMeasures.ts`)** — skip the machinery (МО buyers
+  lack a panel of comparable ratios over time), but **adopt the framing**: positional & polarity-aware
+  ("над/около/под медианата"), a p40/p60 "around" tolerance band, "signpost, not a verdict" language.
+- **`/molecule/:inn` drill pattern** (route + screen + serving-fn) → Phase 3 `/defense/programme/:id` or
+  per-supplier drill-down template.
+
+## Part 12 — Date / time scoping
+
+**There is NO calendar from–to picker anywhere in the procurement UI, and defense must not add one.**
+The house vocabulary is strictly `ProcurementScope = "ns" | "all" | "y:YYYY"` (`useProcurementScope.ts`);
+the `CalendarRange` icon in the control is decorative. Every `{from,to}` window is *derived* from one of
+those three enum values. Reuse the machinery; do not invent a date control.
+
+**Why scoping matters here (measured):** the МО group spans **2011–2026** with a clear post-2021 surge
+(€53M in 2011 → €344M in 2022 → €245M in 2025). `y:2022` isolates the Ukraine-era peak; `ns` isolates a
+parliament. Scoping is genuinely useful, not decorative.
+
+**Two window resolvers with DIFFERENT bounds — know which the host feeds:**
+- `useProcurementWindow()` → **half-open** `[from, to)`; `y:YYYY` → `to = (YYYY+1)-01-01`. Section pages.
+- `scopeRange(scope, selected)` → **inclusive** `[from, to]`; `y:YYYY` → `to = "YYYY-12-31"`. DB endpoints
+  **and `CompanyDbScreen`** (the awarder page the pack mounts on).
+- `scopeByWindow(rows, from, to)` filters `date >= from && date < to` (**half-open, exclusive `to`**,
+  string compare on the text `date`).
+
+**⚠️ Latent bug to verify/fix (affects the defense pack, and every pack on the awarder page):**
+`CompanyDbScreen` feeds the **inclusive** `scopeRange` `to = "YYYY-12-31"` straight into
+`scopeByWindow`'s **exclusive** `< to`, so with a `y:YYYY` scope on an awarder page **contracts dated
+exactly `YYYY-12-31` are silently dropped** from packs (they are NOT dropped on section pages, which use
+the half-open resolver). МО has December-dated contracts. Recommend the defense pack (or better,
+`CompanyDbScreen`) normalize `y:` to the half-open `(YYYY+1)-01-01` before `scopeByWindow`. Flag in the
+build; don't ship the off-by-one.
+
+**How each surface scopes:**
+1. **The pack (`/awarder/000695324`)** inherits the awarder page's inline `?pscope` control — note its
+   **inverted default is `all`** (headline totals read best all-time; `ns`/`y:` are written, `all`
+   omitted). The `scopeWindow` flows in via `scopeRange`. **Contract-derived tiles re-window**
+   (HHI, competition, category, top contracts). **Annual/reference tiles do NOT honour the pill** —
+   the МО budget, NATO %GDP, and exports are annual snapshots on their own cadence. Follow the **NZOK
+   precedent**: an **independent fiscal-year picker** for the budget (a local `Select` over
+   `budget.years`, default latest), and when the scope pill IS narrowed show the **"latest data ·
+   independent of scope" chip** (only when `scopeWindow.from || scopeWindow.to`). The aviation-sustainment
+   signature tile is "(all years)", scope-independent.
+2. **The `/defense` screen** maps local state onto the same vocabulary (judiciary/culture pattern):
+   render `ProcurementScopeControl` with `nsLabelOverride` + a real `years={…}` list. The **%GDP trend is
+   a historical time-spine — always full-history, never scoped** (exactly like culture's `byYear` spine).
+   The KPIs / equipment-personnel / exports / mega-programs **re-anchor to the selected year** by
+   client-side single-year re-aggregation — the **culture `scopeCultureOverview` / education
+   `market.yearly[activeYear]` pattern** (derive the year from the window; distinguish an exact "Години"
+   pick from a parliament window collapsed to its year → "≈ calendar YYYY" chip; a multi-year window →
+   stay on full corpus + a chip). No `{from,to}` row-filtering needed for annual series.
+3. **The "see all" browse** (`?sector=defense`) maps the scope to the DbDataTable date filter
+   `{ id:"date", min: from, max: to }` (from `useProcurementWindow`), merged with the sector EIK-set and
+   method/CPV/single-bid facets. "All years" drops the date filter.
+
+**Note the "latest year ≤ to" annual-clip helper is NOT built** (the water plan's promise is aspirational;
+only `euCompare/useElectionYear.ts` does `series.year <= targetYear`). If defense wants a scope-clipped
+annual series later, port that helper — but v1 uses the NZOK independent-picker + culture-reaggregation
+patterns above, which ARE shipped.
 
 ---
 
@@ -799,13 +950,19 @@ transparency-gap framing no PDF publisher offers.
 - [ ] `src/data/budget/useBudget.tsx` (EDIT) — `useDefenseBudget()` → `/budget/mo/budget.json`
 - [ ] `scripts/budget/__write_defense.ts` + `data/budget/mo/budget.json` — owned by **`update-budget`** / `budget_law` watcher (NOT `update-defense`)
 - [ ] `src/data/procurement/useDefense.tsx` — `useQueries` + `combine` alias fan-out, `scopeByWindow`, `buildDefenseModel`, `aliasEur` delta
-- [ ] `src/screens/components/procurement/defense/DefensePack.tsx` — copy the shared skeleton; import `chipStyles` (no forked amber); `directShare>0.1` warn verbatim + a domain warn chip; VSS conditional grid-cols; loading skeleton string verbatim; per-tile gating so the bridge survives a zero-contract scope; provenance footer (Part 10b)
-- [ ] `DefenseBudgetBridgeTile` (`data-og="defense-hero"`) — clone `NzokBudgetBridgeTile`; NATO 2%-of-GDP as the EU-context sub-bar; **rounding-floor honesty** (`<0.5% → "под 0,5%"`); period-matched ratio
+- [ ] `defenseReferenceData.ts` — unify `MO_ENTITIES[]` (Part 11c) = `DEFENSE_UNITS`; export `DEFENSE_SECTOR_EIKS`, `MOD_EIK`, `entityByEik`
+- [ ] `useDefenseGroupRollup()` + `defense-group-rollup` serving fn (one aggregate call, NOT a 25-EIK fan-out — Part 4); `EXPLAIN ANALYZE` it
+- [ ] `DefensePack.tsx` on **`PackSection` bands, money-first**, each with an `id`; call **`useHashScroll([...payloads])`**; **`buildPackInsights`** for chips (`chipStyles`, no forked amber); VSS conditional grid; loading skeleton verbatim; per-tile gating; provenance footer
+- [ ] `DefenseBudgetBridgeTile` (`data-og="defense-hero"`) — clone `NzokBudgetBridgeTile`; NATO 2%-of-GDP sub-bar; **rounding-floor honesty** (`<0.5% → "под 0,5%"`); period-matched ratio
+- [ ] **Reuse `VikContractorHhiTile`** (+ shared `hhiBand`/`HHI_BAND_COLOR`) — keep the **attributed-denominator guard**; and **`VikCompetitionTile`** (per-buyer single-bid, `bidKnownN≥3` floor) — the marquee tiles (Part 11b)
 - [ ] `DefenseCategoryTile` — clone `NzokCategoryTile`; `max = Math.max(...all)` not `rows[0]`; single-bid overlay (amber ≥0.5, `bidKnownN≥3`); "Other" disclosure ≥10%
-- [ ] `DefenseTransparencyTile` — sustainment-visible / acquisition-invisible; "excl. classified acquisition" **on the KPI**; "стойност не е обявена" as a **shown bar**; Prozorro field-redaction principle
+- [ ] `DefenseTransparencyTile` — sustainment-visible / acquisition-invisible; "excl. classified acquisition" **on the KPI**; "стойност не е обявена" as a **shown bar**
 - [ ] **Reuse `ProcurementBenchmarksTile` unchanged** — МО's 44,3% single-bid renders RED
-- [ ] Concentration chip/KPI: "топ-5 доставчици = X% от разхода" (Part 10c#2)
-- [ ] Universe palette (≤6 series) — **run `scripts/validate_palette.js` light+dark** before shipping; fixed `Record<id,color>` so the universe `Select` never repaints survivors (Part 10d)
+- [ ] **Signature tile: aviation sustainment** (Part 11d) — cross-buyer "keep the fleet flying" aggregate, all-years, spend-not-verdict
+- [ ] `SECTOR_BROWSE_PACKS['defense']` + `DefenseBrowseSection` (group-rollup backed) — Part 11a
+- [ ] Defense pill in `ProcurementThematicNav.tsx thematicItems` (Shield, `/defense`, `unscoped`)
+- [ ] **Date scoping (Part 12):** contract tiles re-window via `scopeWindow`; budget = independent fiscal-year picker + "latest data · independent of scope" chip when scope narrowed; **verify/fix the inclusive-vs-exclusive `y:YYYY` off-by-one** (Dec-31 drop)
+- [ ] Universe palette (≤6 series) — **run `scripts/validate_palette.js` light+dark**; fixed `Record<id,color>` so the universe `Select` never repaints survivors
 - [ ] `sectorPacks.tsx` — `PACKS[MOD_EIK] = DefensePack` via `lazy()`; **no `DEFENSE_AWARDER_PATH` export**
 - [ ] `reportMenus.ts` + `ProcurementNav.tsx` — key **`defense_nav`** → **`/defense`**, `unscoped: true`, icon `Shield`
 - [ ] `locales/{bg,en}/translation.json` — `defense_nav` (only nav goes through i18n)
