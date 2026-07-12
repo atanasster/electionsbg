@@ -159,6 +159,13 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
         },
         url: "https://www.dker.bg/bg/vik.html",
       },
+      {
+        label: {
+          bg: "НСИ — Статистика на водите (воден режим)",
+          en: "NSI — Water statistics (rationing)",
+        },
+        url: "https://www.nsi.bg/bg/content/2603",
+      },
     ],
     skills: [],
     tags: ["fiscal"],

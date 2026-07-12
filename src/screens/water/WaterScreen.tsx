@@ -19,6 +19,7 @@ import { VikEuFundsTile } from "@/screens/components/procurement/vik/VikEuFundsT
 import { VikContractorHhiTile } from "@/screens/components/procurement/vik/VikContractorHhiTile";
 import { VikCompetitionTile } from "@/screens/components/procurement/vik/VikCompetitionTile";
 import { WaterFloodTile } from "./WaterFloodTile";
+import { WaterStatsTile } from "./WaterStatsTile";
 
 export const WaterScreen: FC = () => {
   const { i18n } = useTranslation();
@@ -74,8 +75,9 @@ export const WaterScreen: FC = () => {
         </p>
       )}
 
-      {/* Whole-corpus, national (not scoped by ?pscope) — always rendered,
+      {/* National, whole-history (not scoped by ?pscope) — always rendered,
           independent of the ВиК group's contracts (FINDING-004). */}
+      <WaterStatsTile />
       <WaterFloodTile />
 
       <div className="flex flex-wrap gap-3 pt-1 text-sm">
@@ -104,8 +106,8 @@ export const WaterScreen: FC = () => {
 
       <p className="text-[11px] text-muted-foreground/80">
         {bg
-          ? "Предстои: показателите на КЕВР (загуби на вода, цени по области), водният режим (НСИ), нивата на язовирите (МОСВ) и рискът от наводнения при непочистени речни корита."
-          : "Coming next: КЕВР indicators (water loss, tariffs by region), water rationing (NSI), reservoir levels (МОСВ) and the flood risk from uncleaned riverbeds."}
+          ? "Предстои: показателите на КЕВР (загуби на вода, цени по области), нивата на язовирите (МОСВ) и картата на риска от наводнения (РЗПРН)."
+          : "Coming next: КЕВР indicators (water loss, tariffs by region), reservoir levels (МОСВ) and the flood-risk map (РЗПРН)."}
       </p>
     </div>
   );
