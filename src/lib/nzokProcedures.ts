@@ -17,6 +17,24 @@
 
 export type NzokProcedureNames = Record<string, string>;
 
+// Standalone per-procedure page (/procedure/:code). Codes can carry dots and
+// Cyrillic letters — encodeURIComponent handles both; react-router decodes the
+// param back to the exact stored string the DB function matches on.
+export const procedureHref = (code: string): string =>
+  `/procedure/${encodeURIComponent(code)}`;
+
+// The three НЗОК activity kinds, derived upstream from the code's first letter
+// (P→КП, A→АПр, K→КПр). The source ships only the abbreviation; we spell it out.
+export const PROC_TYPE_LABEL: Record<string, { bg: string; en: string }> = {
+  КП: { bg: "Клинична пътека", en: "Clinical pathway" },
+  АПр: { bg: "Амбулаторна процедура", en: "Ambulatory procedure" },
+  КПр: { bg: "Клинична процедура", en: "Clinical procedure" },
+};
+export const procTypeLabel = (t: string, bg: boolean): string => {
+  const l = PROC_TYPE_LABEL[t];
+  return l ? (bg ? l.bg : l.en) : t;
+};
+
 const MODIFIER = /(A99|B[12]|E)$/;
 
 /** The official НРД name for a procedure code, or null when it isn't in the

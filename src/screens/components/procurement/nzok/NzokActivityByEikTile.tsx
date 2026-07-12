@@ -10,6 +10,7 @@
 // facility in the activity crosswalk (private hospitals included, unmatched → null).
 
 import { FC } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Activity } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -17,7 +18,7 @@ import {
   useNzokActivitiesByEik,
   useNzokProcedureNames,
 } from "@/data/budget/useBudget";
-import { resolveProcedureName } from "@/lib/nzokProcedures";
+import { resolveProcedureName, procedureHref } from "@/lib/nzokProcedures";
 
 const nf = (n: number, lang: string) =>
   n.toLocaleString(lang === "bg" ? "bg" : "en");
@@ -76,23 +77,28 @@ export const NzokActivityByEikTile: FC<{ eik: string }> = ({ eik }) => {
                 return (
                   <tr key={p.procedure}>
                     <td className="py-1.5 pr-2">
-                      {name ? (
-                        <>
-                          <span
-                            className="block max-w-[18rem] truncate"
-                            title={name}
-                          >
-                            {name}
-                          </span>
-                          <span className="text-[10px] tabular-nums text-muted-foreground">
+                      <Link
+                        to={procedureHref(p.procedure)}
+                        className="text-accent hover:underline"
+                      >
+                        {name ? (
+                          <>
+                            <span
+                              className="block max-w-[18rem] truncate"
+                              title={name}
+                            >
+                              {name}
+                            </span>
+                            <span className="text-[10px] tabular-nums text-muted-foreground">
+                              {p.procedure}
+                            </span>
+                          </>
+                        ) : (
+                          <span className="font-medium tabular-nums">
                             {p.procedure}
                           </span>
-                        </>
-                      ) : (
-                        <span className="font-medium tabular-nums">
-                          {p.procedure}
-                        </span>
-                      )}
+                        )}
+                      </Link>
                     </td>
                     <td className="py-1.5 pr-2 text-muted-foreground">
                       {p.procType}

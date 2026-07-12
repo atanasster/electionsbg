@@ -446,6 +446,11 @@ const DrugPackDetailScreen = lazy(() =>
     default: m.DrugPackDetailScreen,
   })),
 );
+const ProcedureDetailScreen = lazy(() =>
+  import("./screens/nzok/ProcedureDetailScreen").then((m) => ({
+    default: m.ProcedureDetailScreen,
+  })),
+);
 const AppealsBrowserDbScreen = lazy(() =>
   import("./screens/dev/AppealsBrowserDbScreen").then((m) => ({
     default: m.AppealsBrowserDbScreen,
@@ -2135,6 +2140,16 @@ export const AuthRoutes = () => {
               <LayoutScreen>
                 <Suspense fallback={<RouteFallback />}>
                   <DrugPackDetailScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="procedure/:code"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <ProcedureDetailScreen />
                 </Suspense>
               </LayoutScreen>
             }

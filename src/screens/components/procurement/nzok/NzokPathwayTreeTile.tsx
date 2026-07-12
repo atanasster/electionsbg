@@ -10,6 +10,7 @@
 // a rough scale only, never as a distinct-patient count.
 
 import { FC, useState } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Network } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -25,7 +26,7 @@ import {
   useNzokActivityByProcedure,
   useNzokProcedureNames,
 } from "@/data/budget/useBudget";
-import { resolveProcedureName } from "@/lib/nzokProcedures";
+import { resolveProcedureName, procedureHref } from "@/lib/nzokProcedures";
 import { formatEurCompact } from "@/lib/currency";
 import { FacilityLink } from "./FacilityLink";
 
@@ -85,6 +86,14 @@ export const NzokPathwayTreeTile: FC<{ hideTitle?: boolean }> = ({
               ))}
             </SelectContent>
           </Select>
+          {selected && (
+            <Link
+              to={procedureHref(selected)}
+              className="text-xs text-accent hover:underline"
+            >
+              {bg ? "самостоятелна страница →" : "standalone page →"}
+            </Link>
+          )}
         </div>
 
         {data && (

@@ -15,6 +15,7 @@
 // below (min cases, min beds, min peers) keep thin, meaningless cells out.
 
 import { FC } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Activity, BedDouble } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -22,24 +23,15 @@ import {
   useNzokActivities,
   useNzokProcedureNames,
 } from "@/data/budget/useBudget";
-import { resolveProcedureName } from "@/lib/nzokProcedures";
+import {
+  resolveProcedureName,
+  procTypeLabel,
+  procedureHref,
+} from "@/lib/nzokProcedures";
 import { FacilityLink } from "./FacilityLink";
 
 const nf = (n: number, lang: string) =>
   n.toLocaleString(lang === "bg" ? "bg" : "en");
-
-// The three НЗОК activity kinds, derived upstream from the procedure code's first
-// letter (P→КП, A→АПр, K→КПр). The source ships only the abbreviation, which a
-// non-specialist can't decode, so we spell it out in the table.
-const PROC_TYPE_LABEL: Record<string, { bg: string; en: string }> = {
-  КП: { bg: "Клинична пътека", en: "Clinical pathway" },
-  АПр: { bg: "Амбулаторна процедура", en: "Ambulatory procedure" },
-  КПр: { bg: "Клинична процедура", en: "Clinical procedure" },
-};
-const procTypeLabel = (t: string, bg: boolean): string => {
-  const l = PROC_TYPE_LABEL[t];
-  return l ? (bg ? l.bg : l.en) : t;
-};
 
 export const NzokActivityTile: FC = () => {
   const { i18n } = useTranslation();
@@ -103,23 +95,28 @@ export const NzokActivityTile: FC = () => {
                   return (
                     <tr key={p.procedure}>
                       <td className="py-1.5 pr-2">
-                        {name ? (
-                          <>
-                            <span
-                              className="block max-w-[22rem] truncate"
-                              title={name}
-                            >
-                              {name}
-                            </span>
-                            <span className="text-[10px] tabular-nums text-muted-foreground">
+                        <Link
+                          to={procedureHref(p.procedure)}
+                          className="text-accent hover:underline"
+                        >
+                          {name ? (
+                            <>
+                              <span
+                                className="block max-w-[22rem] truncate"
+                                title={name}
+                              >
+                                {name}
+                              </span>
+                              <span className="text-[10px] tabular-nums text-muted-foreground">
+                                {p.procedure}
+                              </span>
+                            </>
+                          ) : (
+                            <span className="font-medium tabular-nums">
                               {p.procedure}
                             </span>
-                          </>
-                        ) : (
-                          <span className="font-medium tabular-nums">
-                            {p.procedure}
-                          </span>
-                        )}
+                          )}
+                        </Link>
                       </td>
                       <td className="py-1.5 pr-2 text-muted-foreground">
                         {procTypeLabel(p.procType, bg)}
@@ -182,14 +179,19 @@ export const NzokActivityTile: FC = () => {
                           </span>
                         </td>
                         <td className="max-w-[13rem] py-1.5 pr-2">
-                          {name && (
-                            <span className="block truncate" title={name}>
-                              {name}
+                          <Link
+                            to={procedureHref(o.procedure)}
+                            className="hover:underline"
+                          >
+                            {name && (
+                              <span className="block truncate" title={name}>
+                                {name}
+                              </span>
+                            )}
+                            <span className="tabular-nums text-accent">
+                              {o.procedure}
                             </span>
-                          )}
-                          <span className="tabular-nums text-muted-foreground">
-                            {o.procedure}
-                          </span>
+                          </Link>
                           <span className="text-[10px] text-muted-foreground">
                             {" · "}
                             {procTypeLabel(o.procType, bg)}
