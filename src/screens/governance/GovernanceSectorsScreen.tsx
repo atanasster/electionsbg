@@ -43,11 +43,6 @@ export const GovernanceSectorsScreen: FC = () => {
       >
         {title}
       </Title>
-      <p className="mx-auto -mt-2 max-w-[62ch] text-center text-sm text-muted-foreground sm:text-base">
-        {t("sectors_hub_lede") ||
-          "Един вход към всяка държавна структура — пари, договори, отговорни институции."}
-      </p>
-
       <SectorBreadcrumb className="mt-5" />
 
       <TileHubGrid sections={sections} className="my-4 sm:my-6" />
