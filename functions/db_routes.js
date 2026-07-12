@@ -497,16 +497,6 @@ const DB_ROUTES = {
     ]);
     return { body: rows[0]?.r ?? null };
   },
-  // Lightweight scoped counts for the /procurement hub stat tiles not carried by
-  // procurement-overview: tenders + КЗК appeals (windowed) + all-time NGOs. Cheap
-  // (~27ms full corpus, ~1ms windowed) — kept separate from the hot overview fn.
-  "procurement-hub-counts": async (dbRows, q) => {
-    const rows = await dbRows("SELECT procurement_hub_counts($1, $2) AS r", [
-      orNull(q, "from"),
-      orNull(q, "to"),
-    ]);
-    return { body: rows[0]?.r ?? null };
-  },
   // National CPV-division totals ("what does the state buy"), window-scoped
   // [from, to) or full corpus.
   "procurement-sectors": async (dbRows, q) => {

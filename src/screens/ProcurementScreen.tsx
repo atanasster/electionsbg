@@ -20,8 +20,7 @@ import {
 import { ProcurementScopeControl } from "./components/procurement/ProcurementScopeControl";
 import { ProcurementSearchTile } from "./components/procurement/ProcurementSearchTile";
 import { WatchlistDigestTile } from "./components/procurement/WatchlistDigestTile";
-import { useProcurementOverview } from "@/data/procurement/useProcurementOverview";
-import { useProcurementHubCounts } from "@/data/procurement/useProcurementHubCounts";
+import { useProcurementHubStats } from "@/data/procurement/useProcurementHubStats";
 import { useWatchlist } from "@/data/procurement/useWatchlist";
 import { formatEurCompact } from "@/lib/currency";
 import { PROCUREMENT_SCENES } from "./procurement/procurementScenes";
@@ -98,6 +97,7 @@ const SUBPAGES = [
     descKey: "procurement_hub_place_desc",
     to: "/procurement/by-settlement",
     accent: TILE_ACCENTS.teal,
+    metric: "places",
   },
   {
     id: "risk",
@@ -105,6 +105,7 @@ const SUBPAGES = [
     descKey: "procurement_hub_risk_desc",
     to: "/procurement/flags",
     accent: TILE_ACCENTS.rose,
+    metric: "flags",
   },
   {
     id: "watch",
@@ -118,32 +119,30 @@ const SUBPAGES = [
 
 export const ProcurementScreen: FC = () => {
   const { t, i18n } = useTranslation();
-  const { data } = useProcurementOverview();
-  const { data: counts } = useProcurementHubCounts();
-  const totals = data?.totals;
+  const stat = useProcurementHubStats();
   const watchCount = useWatchlist().length;
   const title = t("procurement_index_title") || "Public procurement";
 
+  // Numbers come from the pre-generated per-scope hub_stats.json (one fetch),
+  // except the watchlist count which is local. `total` is the euro headline;
+  // everything else is a plain count.
   const metricFor = (m?: string): string | undefined => {
     if (m === "watch")
       return watchCount > 0 ? numFmt.format(watchCount) : undefined;
-    if (m === "tenders" || m === "appeals" || m === "ngos")
-      return counts ? numFmt.format(counts[m]) : undefined;
-    if (!m || !totals) return undefined;
-    switch (m) {
-      case "total":
-        return formatEurCompact(totals.totalEur, i18n.language);
-      case "contracts":
-        return numFmt.format(totals.contracts + totals.amendments);
-      case "contractors":
-        return numFmt.format(totals.contractorCount);
-      case "connected":
-        return numFmt.format(
-          (totals.mpCount ?? 0) + (totals.officialCount ?? 0),
-        );
-      default:
-        return undefined;
-    }
+    if (!m || !stat) return undefined;
+    if (m === "total") return formatEurCompact(stat.totalEur, i18n.language);
+    const counts: Record<string, number | undefined> = {
+      contracts: stat.contracts,
+      contractors: stat.contractors,
+      connected: stat.connected,
+      tenders: stat.tenders,
+      appeals: stat.appeals,
+      ngos: stat.ngos,
+      places: stat.places,
+      flags: stat.flags,
+    };
+    const v = counts[m];
+    return v != null ? numFmt.format(v) : undefined;
   };
 
   const exploreTiles: InfographicTileProps[] = SUBPAGES.map((p) => ({
