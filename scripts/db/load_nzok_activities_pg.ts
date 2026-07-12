@@ -22,6 +22,11 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { exec, withClient, end } from "./lib/pg";
 import { recordIngestBatch } from "./lib/ingest_changelog";
+import {
+  buildActivityEikResolver,
+  strongFold,
+  type NamedEik,
+} from "./lib/nzok_activity_eik";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(__dirname, "../..");
@@ -49,35 +54,9 @@ const FINANCIALS_FILE = path.join(
   "data/budget/nzok/hospital_financials.json",
 );
 
-/** STRONG fold for cross-source hospital-name matching. The three sources spell
- *  the same hospital differently — the activities feed writes "Свети Георги ЕАД",
- *  the МЗ financials "Св. Георги … ЕАД", the payments partner list its own
- *  variant — so a plain fold does not bridge them. This one additionally: drops
- *  legal-form + geographic-filler tokens, collapses "СВЕТИ/СВЕТА/СВ." → "СВ", and
- *  drops the "Д-Р" honorific, which lifts the match rate from ~30% to the ~90%
- *  the payloads need. Used identically for activities, payments and financials
- *  names below. */
-const DROP_TOKENS = new Set([
-  "ЕАД",
-  "АД",
-  "ЕООД",
-  "ООД",
-  "ДЗЗД",
-  "ДР",
-  "ГР",
-  "ЕТ",
-]);
-const strongFold = (name: string): string =>
-  name
-    .toUpperCase()
-    .replace(/[«»"'`„“”‘’]/g, "")
-    .replace(/СВЕТИ|СВЕТА|СВ\./g, "СВ")
-    .replace(/Д-Р/g, "ДР")
-    .replace(/[^0-9A-ZА-Я]+/g, " ")
-    .trim()
-    .split(" ")
-    .filter((t) => t && !DROP_TOKENS.has(t))
-    .join(" ");
+// The facility-name → EIK bridge (strongFold + the region-scoped tiers + the
+// curated holdout tables) lives in ./lib/nzok_activity_eik, so it is unit-tested
+// and shared. strongFold is still used here for the beds-by-fold crosswalk below.
 
 interface FacilityProc {
   rzok: string;
@@ -152,26 +131,21 @@ const main = async (): Promise<void> => {
       `${JSON_FILE} has no facilityProcedures[] — shape changed?`,
     );
 
-  // strongFold → eik, from the payments file (name + eik; spans private hospitals).
-  const eikByFold = new Map<string, string>();
+  // Names + EIKs from the payments file (болнична-помощ; carries the RZOK region,
+  // which the region-scoped resolver tiers need) and the МЗ ЕЕОФ financials.
+  const payNamed: NamedEik[] = [];
   if (existsSync(PAYMENTS_FILE)) {
     const pay = JSON.parse(readFileSync(PAYMENTS_FILE, "utf8")) as {
-      hospitals?: { name: string; eik?: string | null }[];
+      hospitals?: { name: string; eik?: string | null; rzokCode?: string }[];
     };
-    for (const h of pay.hospitals ?? []) {
-      if (!h.eik) continue;
-      const f = strongFold(h.name);
-      if (!eikByFold.has(f)) eikByFold.set(f, h.eik);
-    }
+    for (const h of pay.hospitals ?? [])
+      if (h.eik) payNamed.push({ name: h.name, eik: h.eik, rzok: h.rzokCode });
   }
 
-  // strongFold → {eik, beds}, from the МЗ ЕЕОФ financials (latest quarter). This is
-  // BOTH a second eik source (МЗ-spelled names) AND the only bed-count source.
-  // Beds bridge BOTH ways: by EIK (reliable — financials carries eik) and by
-  // strongFold (for facilities the payments eik crosswalk missed). Name spelling
-  // diverges hard across the three НЗОК/МЗ sources, so eik is the primary key and
-  // the fold the fallback.
-  const eikByFoldFin = new Map<string, string>();
+  // МЗ ЕЕОФ financials (latest quarter): a second, МЗ-spelled EIK source AND the
+  // only bed-count source. Beds bridge BOTH ways — by EIK (reliable, financials
+  // carries eik) and by strongFold (for facilities the eik crosswalk missed).
+  const finNamed: NamedEik[] = [];
   const bedsByFold = new Map<string, number>();
   const bedsByEik = new Map<string, number>();
   if (existsSync(FINANCIALS_FILE)) {
@@ -193,7 +167,7 @@ const main = async (): Promise<void> => {
       if (q.quarter !== latestQ) continue;
       for (const h of q.hospitals) {
         const f = strongFold(h.name);
-        if (h.eik && !eikByFoldFin.has(f)) eikByFoldFin.set(f, h.eik);
+        if (h.eik) finNamed.push({ name: h.name, eik: h.eik });
         if (h.avgMonthlyBeds && h.avgMonthlyBeds > 0) {
           if (!bedsByFold.has(f)) bedsByFold.set(f, h.avgMonthlyBeds);
           if (h.eik && !bedsByEik.has(h.eik))
@@ -203,10 +177,15 @@ const main = async (): Promise<void> => {
     }
   }
 
+  // The name → EIK resolver: exact fold + region-scoped brand tiers + the curated
+  // holdout tables (see ./lib/nzok_activity_eik). Was an exact-fold-only join that
+  // matched ~31% of facilities; the tiers lift it to ~80% of cases.
+  const resolveEik = buildActivityEikResolver(payNamed, finNamed);
+
   const yearAnchor = `${data.year}-01-01`;
   const actRows: unknown[][] = data.facilityProcedures.map((g) => {
     const sf = strongFold(g.facility);
-    const eik = eikByFold.get(sf) ?? eikByFoldFin.get(sf) ?? null;
+    const eik = resolveEik(g.facility, g.rzok);
     return [
       yearAnchor,
       g.rzok,
