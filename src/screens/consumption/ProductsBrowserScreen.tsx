@@ -132,6 +132,7 @@ export const ProductsBrowserScreen: FC = () => {
         },
       },
     ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [bg, lang],
   );
 
