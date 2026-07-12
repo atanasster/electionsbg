@@ -12,8 +12,11 @@ import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { TileHubGrid, TileHubSection } from "@/ux/infographic";
 import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
-import { useSectorStats } from "@/data/procurement/useSectorStats";
-import { formatEurCompact } from "@/lib/currency";
+import { ProcurementScopeControl } from "@/screens/components/procurement/ProcurementScopeControl";
+import {
+  useSectorStats,
+  formatSectorMetric,
+} from "@/data/procurement/useSectorStats";
 import { SECTOR_CLUSTERS } from "./sectorRegistry";
 import { SECTOR_SCENES } from "./sectorScenes";
 
@@ -25,21 +28,16 @@ export const GovernanceSectorsScreen: FC = () => {
 
   const sections: TileHubSection[] = SECTOR_CLUSTERS.map((cluster) => ({
     heading: t(cluster.labelKey),
-    tiles: cluster.sectors.map((s) => {
-      const stat = stats?.[s.id];
-      return {
-        to: s.to,
-        title: t(s.titleKey),
-        badge: s.agency,
-        desc: t(s.descKey),
-        accent: s.accent,
-        scene: SECTOR_SCENES[s.id],
-        cta,
-        metric: stat
-          ? formatEurCompact(stat.totalEur, i18n.language)
-          : undefined,
-      };
-    }),
+    tiles: cluster.sectors.map((s) => ({
+      to: s.to,
+      title: t(s.titleKey),
+      badge: s.agency,
+      desc: t(s.descKey),
+      accent: s.accent,
+      scene: SECTOR_SCENES[s.id],
+      cta,
+      metric: formatSectorMetric(stats?.[s.id], i18n.language),
+    })),
   }));
 
   return (
@@ -54,7 +52,11 @@ export const GovernanceSectorsScreen: FC = () => {
       </Title>
       <SectorBreadcrumb className="mt-5" />
 
-      <TileHubGrid sections={sections} className="my-4 sm:my-6" />
+      <div className="my-3">
+        <ProcurementScopeControl mode="toggle" />
+      </div>
+
+      <TileHubGrid sections={sections} className="mt-4 sm:mt-6" />
     </>
   );
 };

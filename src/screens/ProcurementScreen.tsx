@@ -21,7 +21,10 @@ import { ProcurementScopeControl } from "./components/procurement/ProcurementSco
 import { ProcurementSearchTile } from "./components/procurement/ProcurementSearchTile";
 import { WatchlistDigestTile } from "./components/procurement/WatchlistDigestTile";
 import { useProcurementHubStats } from "@/data/procurement/useProcurementHubStats";
-import { useSectorStats } from "@/data/procurement/useSectorStats";
+import {
+  useSectorStats,
+  formatSectorMetric,
+} from "@/data/procurement/useSectorStats";
 import { useWatchlist } from "@/data/procurement/useWatchlist";
 import { formatEurCompact } from "@/lib/currency";
 import { PROCUREMENT_SCENES } from "./procurement/procurementScenes";
@@ -195,26 +198,19 @@ export const ProcurementScreen: FC = () => {
           </Link>
         </div>
         <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
-          {FEATURED_SECTORS.map((s) => {
-            const sectorStat = sectorStats?.[s.id];
-            return (
-              <InfographicTile
-                key={s.id}
-                to={s.to}
-                title={t(s.titleKey)}
-                badge={s.agency}
-                desc={t(s.descKey)}
-                accent={s.accent}
-                scene={SECTOR_SCENES[s.id]}
-                cta={t("sectors_hub_view") || "виж сектора"}
-                metric={
-                  sectorStat
-                    ? formatEurCompact(sectorStat.totalEur, i18n.language)
-                    : undefined
-                }
-              />
-            );
-          })}
+          {FEATURED_SECTORS.map((s) => (
+            <InfographicTile
+              key={s.id}
+              to={s.to}
+              title={t(s.titleKey)}
+              badge={s.agency}
+              desc={t(s.descKey)}
+              accent={s.accent}
+              scene={SECTOR_SCENES[s.id]}
+              cta={t("sectors_hub_view") || "виж сектора"}
+              metric={formatSectorMetric(sectorStats?.[s.id], i18n.language)}
+            />
+          ))}
         </div>
       </div>
     </>
