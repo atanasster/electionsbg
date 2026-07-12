@@ -1,0 +1,17 @@
+{
+  "source": "Aggregated from the public-procurement register (АОП/ЦАИС ЕОП) across the 25 МО-group awarder EIKs, all years — contracts whose subject matches an aircraft platform, aero-engine, helicopter or aviation fuel. Spend, not a verdict.",
+  "note": "The visible cost of keeping the Soviet-era and legacy fleet flying — the sustainment that DOES run through ЗОП, unlike the F-16 acquisition (US FMS). Refresh from the corpus when the МО contracts reload.",
+  "updated": "2026-07-09",
+  "totalEur": 376000000,
+  "contractCount": 219,
+  "platforms": [
+    { "name": "Авиационно гориво", "eur": 82200000, "contracts": 40 },
+    { "name": "Вертолети (Ми-24/Ми-17/Кугар)", "eur": 70100000, "contracts": 41 },
+    { "name": "C-27J Spartan", "eur": 62000000, "contracts": 2 },
+    { "name": "МиГ-29", "eur": 58000000, "contracts": 13 },
+    { "name": "L-39", "eur": 51000000, "contracts": 12 },
+    { "name": "Друга авиация", "eur": 43200000, "contracts": 82 },
+    { "name": "Pilatus", "eur": 8200000, "contracts": 5 },
+    { "name": "Двигатели и друго", "eur": 1300000, "contracts": 24 }
+  ]
+}

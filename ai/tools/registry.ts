@@ -64,6 +64,13 @@ import {
   judiciaryWorkload,
   judiciaryDeclarations,
 } from "./judiciary";
+import {
+  defenseSpending,
+  armsExports,
+  defenseProgram,
+  defenseReadiness,
+  defensePeerCompare,
+} from "./defense";
 import { riverbedCleaning } from "./vik";
 import { ngoOverview, ngoTopFunded, ngoConflictAwarders } from "./ngo";
 import { governments } from "./govpeople";
@@ -2046,6 +2053,104 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: judiciaryDeclarations,
+  },
+  {
+    name: "defenseSpending",
+    domain: "fiscal",
+    description: {
+      bg: "Разходите на България за отбрана като дял от БВП спрямо целите на НАТО (2% → 5% до 2035), плюс разпределението техника срещу личен състав.",
+      en: "Bulgaria's defence spending as a share of GDP against the NATO targets (2% → 5% by 2035), plus the equipment-vs-personnel split.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Колко харчи България за отбрана?",
+        en: "How much does Bulgaria spend on defence?",
+      },
+      {
+        bg: "Достигнахме ли 2% от БВП за отбрана?",
+        en: "Have we reached 2% of GDP on defence?",
+      },
+      {
+        bg: "Какъв е делът за военна техника?",
+        en: "What share goes to military equipment?",
+      },
+    ],
+    run: defenseSpending,
+  },
+  {
+    name: "armsExports",
+    domain: "fiscal",
+    description: {
+      bg: "Износът на България на отбранителна продукция по години — рекордният ръст след 2022 г. и прекият износ за Украйна (по данни на Министерството на икономиката).",
+      en: "Bulgaria's defence-product exports by year — the record post-2022 surge and direct exports to Ukraine (Ministry of Economy figures).",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Колко оръжие изнася България?",
+        en: "How much weaponry does Bulgaria export?",
+      },
+      {
+        bg: "Колко оръжие продадохме на Украйна?",
+        en: "How many arms did we sell to Ukraine?",
+      },
+    ],
+    run: armsExports,
+  },
+  {
+    name: "defenseProgram",
+    domain: "fiscal",
+    description: {
+      bg: "Големите оръжейни програми на България (F-16, Stryker, патрулни кораби, барутен завод) — стойност, обем и състояние. Тези сделки са по US FMS и не са в регистъра на поръчките.",
+      en: "Bulgaria's flagship defence programs (F-16, Stryker, patrol ships, ammunition plant) — value, scope and status. These deals are via US FMS and not in the procurement register.",
+    },
+    params: [],
+    examples: [
+      { bg: "Колко струват F-16?", en: "How much do the F-16s cost?" },
+      {
+        bg: "Кои са големите оръжейни поръчки?",
+        en: "What are the big weapons purchases?",
+      },
+    ],
+    run: defenseProgram,
+  },
+  {
+    name: "defenseReadiness",
+    domain: "indicators",
+    description: {
+      bg: "Готовността на Българската армия — незаетите щатни бройки, запълването на резерва и разпределението на бюджета между личен състав и техника.",
+      en: "Bulgarian Army readiness — unfilled established posts, reserve fill and the personnel-vs-capital budget split.",
+    },
+    params: [],
+    examples: [
+      { bg: "Пълна ли е армията?", en: "Is the army fully manned?" },
+      {
+        bg: "Колко са незаетите места в армията?",
+        en: "How many army posts are unfilled?",
+      },
+    ],
+    run: defenseReadiness,
+  },
+  {
+    name: "defensePeerCompare",
+    domain: "indicators",
+    description: {
+      bg: "Разходите за отбрана като дял от БВП — България спрямо съседите (Румъния, Гърция), Унгария, Хърватия и средното за НАТО Европа. Отговаря на „2% много ли е“.",
+      en: "Defence spending as a share of GDP — Bulgaria vs its neighbours (Romania, Greece), Hungary, Croatia and the NATO Europe average. Answers “is 2% a lot”.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Как се сравнява България със съседите по разходи за отбрана?",
+        en: "How does Bulgaria compare to its neighbours on defence spending?",
+      },
+      {
+        bg: "Кой харчи повече за отбрана — България или Румъния?",
+        en: "Who spends more on defence — Bulgaria or Romania?",
+      },
+    ],
+    run: defensePeerCompare,
   },
   {
     name: "nzokDrugs",

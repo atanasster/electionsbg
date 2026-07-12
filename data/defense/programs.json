@@ -1,0 +1,92 @@
+{
+  "source": "Ratification laws, ДКСИ/US DSCA notifications, Ministry of Defence statements, defence press (2019–2026). Curated — these major-platform acquisitions run through US FMS / inter-governmental deals and are NOT in the АОП/ЦАИС ЕОП procurement register.",
+  "note": "Values as contracted; FMS deals are in USD, domestic/EU deals in EUR (currency field per program).",
+  "updated": "2026-07-09",
+  "programs": [
+    {
+      "id": "f16",
+      "domain": "air",
+      "name": "F-16 Block 70",
+      "value": 2600000000,
+      "currency": "USD",
+      "units": "16 самолета (2 партиди)",
+      "status": "delay",
+      "timeline": [
+        { "year": 2019, "label": "Партида 1 (8 бр., ~$1,256 млрд)", "kind": "contract" },
+        { "year": 2022, "label": "Партида 2 (8 бр., ~$1,3 млрд)", "kind": "contract" },
+        { "year": 2025, "label": "Първи самолет доставен (~3 г. закъснение)", "kind": "delivery" },
+        { "year": 2027, "label": "Доставки на партида 2", "kind": "planned" }
+      ],
+      "flags": [
+        "Gripen беше по-евтин (~511 млн € срещу ~767 млн €), избран 2016, после отменен",
+        "Президентът Радев наложи вето 2019 → парламентът го прегласи 128–73",
+        "Първият самолет приземен при доставка (липсваща част) + теч на гориво"
+      ]
+    },
+    {
+      "id": "stryker",
+      "domain": "land",
+      "name": "Stryker",
+      "value": 1380000000,
+      "currency": "USD",
+      "units": "183 бронирани машини",
+      "status": "in_progress",
+      "timeline": [
+        { "year": 2023, "label": "Ратифициран от парламента", "kind": "contract" },
+        { "year": 2026, "label": "Първите 5 машини в Бургас", "kind": "delivery" },
+        { "year": 2028, "label": "Край на доставките", "kind": "planned" }
+      ],
+      "flags": [
+        "Заменя съветска бронетехника; планиран сервизен хъб „Терем“"
+      ]
+    },
+    {
+      "id": "mmpv",
+      "domain": "sea",
+      "name": "Патрулни кораби (MMPV)",
+      "value": 500000000,
+      "currency": "EUR",
+      "units": "2 кораба · 90 м (Храбри, Смели)",
+      "status": "in_progress",
+      "timeline": [
+        { "year": 2020, "label": "Договор с NVL/Lürssen", "kind": "contract" },
+        { "year": 2025, "label": "„Храбри“ на морски изпитания", "kind": "delivery" },
+        { "year": 2026, "label": "Доставка на „Смели“", "kind": "planned" }
+      ],
+      "flags": [
+        "Строени в „МТГ Долфин“, Варна — реален български индустриален дял"
+      ]
+    },
+    {
+      "id": "ammo",
+      "domain": "industry",
+      "name": "Барутен завод Rheinmetall–ВМЗ",
+      "value": 1000000000,
+      "currency": "EUR",
+      "units": "СП 51 / 49% · ~100 000 155-мм снаряда/г.",
+      "status": "build",
+      "timeline": [
+        { "year": 2025, "label": "Подписано СП", "kind": "contract" },
+        { "year": 2027, "label": "Производство на снаряди", "kind": "planned" },
+        { "year": 2028, "label": "Производство на барут", "kind": "planned" }
+      ],
+      "flags": [
+        "Сопот; ~1000 работни места; сред най-големите барутни инвестиции в Европа"
+      ]
+    },
+    {
+      "id": "t72",
+      "domain": "land",
+      "name": "Модернизация на Т-72",
+      "value": 40200000,
+      "currency": "EUR",
+      "units": "44 танка",
+      "status": "done",
+      "timeline": [
+        { "year": 2020, "label": "Договор с „Терем“", "kind": "contract" },
+        { "year": 2022, "label": "Приключен", "kind": "delivery" }
+      ],
+      "flags": ["Домашна модернизация (78,7 млн лв)"]
+    }
+  ]
+}

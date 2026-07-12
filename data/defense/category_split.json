@@ -1,0 +1,54 @@
+{
+  "source": "NATO, Defence Expenditure of NATO Countries (2014–), Table 8a (distribution by main category, % of total).",
+  "note": "Bulgaria. 'other' combines NATO's infrastructure + operations categories. Equipment is NATO's ≥20% guideline metric. The last two years are estimates.",
+  "updated": "2026-07-12",
+  "guideline": {
+    "equipment": 20
+  },
+  "series": [
+    {
+      "year": 2019,
+      "equipment": 59.74,
+      "personnel": 29.42,
+      "other": 10.84
+    },
+    {
+      "year": 2020,
+      "equipment": 8.44,
+      "personnel": 63.79,
+      "other": 27.77
+    },
+    {
+      "year": 2021,
+      "equipment": 11.05,
+      "personnel": 65.59,
+      "other": 23.36
+    },
+    {
+      "year": 2022,
+      "equipment": 15.7,
+      "personnel": 57.8,
+      "other": 26.5
+    },
+    {
+      "year": 2023,
+      "equipment": 28.27,
+      "personnel": 53.14,
+      "other": 18.59
+    },
+    {
+      "year": 2024,
+      "equipment": 32.47,
+      "personnel": 55.27,
+      "other": 12.26,
+      "estimate": true
+    },
+    {
+      "year": 2025,
+      "equipment": 29.11,
+      "personnel": 52.79,
+      "other": 18.1,
+      "estimate": true
+    }
+  ]
+}

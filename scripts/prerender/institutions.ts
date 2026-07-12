@@ -199,4 +199,29 @@ export const INSTITUTION_PACKS: InstitutionPack[] = [
     ogCenter: true,
     ogSettleMs: 3000,
   },
+  {
+    eik: "000695324",
+    slug: "defence",
+    nameBg: "Министерство на отбраната",
+    nameEn: "Ministry of Defence (МО)",
+    titleBg:
+      "Министерство на отбраната (МО) — обществени поръчки | electionsbg.com",
+    titleEn: "Ministry of Defence (МО) — public procurement | electionsbg.com",
+    descriptionBg:
+      "Обществените поръчки на 25-те структури на Министерството на отбраната (ЕИК 000695324) — над 2 млрд. € за поддръжка на авиацията, горива, техника и военна медицина, с концентрация на изпълнителите и дял на договорите с една оферта. Придобиването на F-16 и Stryker е по US FMS и не е в регистъра. По данни от АОП/ЦАИС ЕОП.",
+    descriptionEn:
+      "Public procurement of the 25 Ministry of Defence units (МО, EIK 000695324) — over €2bn on aviation sustainment, fuel, equipment and military health, with contractor concentration and the single-bid share. F-16 and Stryker acquisition runs through US FMS and is not in the register. Sourced from the АОП register.",
+    bodyBg: `
+<h1>Министерство на отбраната — обществени поръчки</h1>
+<p>Министерството на отбраната (МО, ЕИК 000695324) и подчинените му структури — Българската армия, Военномедицинската академия, военните академии и военните клубове — възлагат обществени поръчки за поддръжка на техниката, горива, оборудване и медицина. Тази страница консолидира договорите на 25-те структури от регистъра на АОП: над 2 млрд. € договорена стойност, концентрация на изпълнителите (HHI) и дял на договорите с една оферта по структура.</p>
+<p>Виждате какво струва поддръжката на остаряващата техника (двигатели за МиГ-29, ремонт на L-39 и Ми-24, авиационно гориво), но не и придобиването на новата — F-16 (~2,6 млрд. $) и Stryker (~1,38 млрд. $) са междудържавни сделки (US FMS) и не влизат в регистъра на поръчките. Виж и <a href="${SITE}/defense">данните за отбраната</a> (дял от БВП, износ на оръжие, готовност) и <a href="${SITE}/procurement">обществените поръчки</a>.</p>`.trim(),
+    bodyEn: `
+<h1>Ministry of Defence — public procurement</h1>
+<p>The Ministry of Defence (МО, EIK 000695324) and its subordinate units — the Bulgarian Army, the Military Medical Academy, the military academies and the military clubs — procure maintenance, fuel, equipment and medical supplies. This page consolidates the contracts of the 25 units from the АОП register: over €2bn of contracted value, contractor concentration (HHI) and the single-bid share by unit.</p>
+<p>You can see what it costs to sustain the ageing fleet (MiG-29 engines, L-39 and Mi-24 overhauls, aviation fuel) — but not the acquisition of the new: F-16 (~$2.6bn) and Stryker (~$1.38bn) are government-to-government deals (US FMS) and never enter the procurement register. See also the <a href="${SITE}/en/defense">defence data</a> (share of GDP, arms exports, readiness) and <a href="${SITE}/en/procurement">public procurement</a>.</p>`.trim(),
+    // Frame the "what МО buys" category tile (the sustainment-vs-medicine split).
+    ogAnchor: '[data-og="defense-hero"]',
+    ogCenter: true,
+    ogSettleMs: 3000,
+  },
 ];

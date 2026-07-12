@@ -84,7 +84,10 @@ import { trRoleLabel } from "@/lib/trRole";
 import { legalFormLabel } from "@/lib/legalForm";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { ProcurementScopeControl } from "../components/procurement/ProcurementScopeControl";
-import { type ProcurementScope } from "@/data/procurement/useProcurementScope";
+import {
+  scopeYear,
+  type ProcurementScope,
+} from "@/data/procurement/useProcurementScope";
 import { scopeRange } from "@/data/procurement/scopeRange";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useHashScroll } from "@/ux/useHashScroll";
@@ -401,12 +404,24 @@ export const CompanyDbScreen: FC = () => {
   const { selected } = useElectionContext();
   const { t, i18n } = useTranslation();
 
-  // The active [from, to) window from the local scope control — shared by the
-  // scoped DB fetch below and any sector pack (which re-scopes with the page).
+  // The active [from, to] window from the local scope control — INCLUSIVE, as the
+  // scoped DB endpoints (awarder_procurement …) filter `date <= to`.
   const [from, to] = useMemo(
     () => scopeRange(scope, selected),
     [scope, selected],
   );
+  // Sector packs re-scope CLIENT-SIDE with `scopeByWindow`, which is HALF-OPEN
+  // (`date < to`). Feeding it the inclusive `to = YYYY-12-31` from scopeRange
+  // silently drops contracts dated exactly 31 Dec under a `y:YYYY` scope, so
+  // convert a single-year scope to its half-open next-year bound for the pack.
+  // (`ns`'s `to` is already the next election date — correctly exclusive — and
+  // `all` is null, so only `y:YYYY` needs adjusting.)
+  const packWindow = useMemo(() => {
+    const year = scopeYear(scope);
+    return year != null
+      ? { from: `${year}-01-01`, to: `${year + 1}-01-01` }
+      : { from, to };
+  }, [scope, from, to]);
   // A domain pack (e.g. roads for АПИ) rendered as a hero inside the awarder
   // section; null for the vast majority of awarders (generic page only).
   const SectorPack = useMemo(() => getSectorPack(eik), [eik]);
@@ -985,7 +1000,7 @@ export const CompanyDbScreen: FC = () => {
                     <div className="my-4 h-[280px] animate-pulse rounded-xl border bg-card" />
                   }
                 >
-                  <SectorPack eik={eik} scopeWindow={{ from, to }} />
+                  <SectorPack eik={eik} scopeWindow={packWindow} />
                 </Suspense>
               )}
               <div className="grid gap-4 lg:grid-cols-2">

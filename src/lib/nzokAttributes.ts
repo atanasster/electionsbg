@@ -9,6 +9,8 @@ import type { ProcurementContract } from "@/data/dataTypes";
 import { categoryOfCpv, NZOK_EIK, type NzokCategory } from "./nzokBenchmarks";
 import {
   buildAwarderModel,
+  buildAwarderModelFromAggregates,
+  type GroupModelPayload,
   isSpendRow,
   type AwarderModel,
   type AwarderCategoryAgg,
@@ -35,3 +37,8 @@ export const buildNzokModel = (rows: ProcurementContract[]): NzokModel =>
     rows.filter((c) => isSpendRow(c, true)),
     nzokClassifier,
   );
+
+/** Same model, folded from the server's group aggregates (awarder-group-model)
+ *  instead of raw rows — the tag='contract' filter lives in SQL there. */
+export const buildNzokModelFromAggregates = (p: GroupModelPayload): NzokModel =>
+  buildAwarderModelFromAggregates(p, nzokClassifier);

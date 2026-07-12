@@ -1,0 +1,166 @@
+{
+  "source": "NATO, Defence Expenditure of NATO Countries (2014–), Table 3 (share of real GDP, 2021 prices).",
+  "note": "Defence spending as a share of GDP: Bulgaria against its neighbours (Romania, Greece), CEE peers (Hungary, Croatia) and the NATO Europe & Canada aggregate. The last two years are NATO estimates.",
+  "updated": "2026-07-12",
+  "target": 2,
+  "countries": [
+    {
+      "key": "BG",
+      "bg": "България",
+      "en": "Bulgaria",
+      "series": [
+        1.31,
+        1.25,
+        1.24,
+        1.22,
+        1.45,
+        3.14,
+        1.59,
+        1.51,
+        1.59,
+        1.94,
+        1.95,
+        2.06
+      ]
+    },
+    {
+      "key": "RO",
+      "bg": "Румъния",
+      "en": "Romania",
+      "series": [
+        1.35,
+        1.45,
+        1.43,
+        1.73,
+        1.79,
+        1.83,
+        2,
+        1.85,
+        1.75,
+        1.6,
+        2.17,
+        2.28
+      ]
+    },
+    {
+      "key": "GR",
+      "bg": "Гърция",
+      "en": "Greece",
+      "series": [
+        2.24,
+        2.32,
+        2.4,
+        2.37,
+        2.52,
+        2.42,
+        2.87,
+        3.66,
+        3.87,
+        2.76,
+        2.74,
+        2.85
+      ]
+    },
+    {
+      "key": "HU",
+      "bg": "Унгария",
+      "en": "Hungary",
+      "series": [
+        0.86,
+        0.9,
+        1,
+        1.19,
+        1,
+        1.33,
+        1.75,
+        1.32,
+        1.83,
+        2.05,
+        2.13,
+        2.06
+      ]
+    },
+    {
+      "key": "HR",
+      "bg": "Хърватия",
+      "en": "Croatia",
+      "series": [
+        1.81,
+        1.75,
+        1.59,
+        1.63,
+        1.54,
+        1.6,
+        1.7,
+        1.97,
+        1.8,
+        1.67,
+        1.87,
+        2.03
+      ]
+    },
+    {
+      "key": "NATO_EU",
+      "bg": "НАТО Европа",
+      "en": "NATO Europe",
+      "series": [
+        1.4,
+        1.4,
+        1.41,
+        1.45,
+        1.48,
+        1.51,
+        1.69,
+        1.63,
+        1.63,
+        1.74,
+        1.99,
+        2.27
+      ]
+    }
+  ],
+  "years": [
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "bulgaria": {
+    "perCapitaUsd": [
+      126,
+      125,
+      130,
+      132,
+      162,
+      366,
+      180,
+      187,
+      216,
+      270,
+      282,
+      306
+    ],
+    "personnelThousands": [
+      27.5,
+      24.9,
+      24.7,
+      24.3,
+      24.4,
+      24.6,
+      25,
+      25.7,
+      25.6,
+      25.6,
+      26.9,
+      28.4
+    ]
+  }
+}

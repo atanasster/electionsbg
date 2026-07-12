@@ -301,6 +301,12 @@ export const governanceMenu: MenuItem[] = [
           // page above (procurement_noi_nav) is the procurement half, this is the
           // whole-fund half, and the two cross-link.
           { title: "pensions_nav", link: "/pensions" },
+          // Отбрана — the МО group procurement view (25 budget units; contractor
+          // HHI, single-bid competition, the sustainment-visible / acquisition-
+          // invisible transparency gap). Phase 1 is the buyer pack on the МО
+          // awarder page; the /defense dashboard (%GDP path, exports, programs)
+          // lands in Phase 2 and this link re-points there then.
+          { title: "procurement_defense_nav", link: "/defense" },
           { title: "procurement_dfz_nav", link: DFZ_AWARDER_PATH },
         ],
       },

@@ -10,6 +10,8 @@ import {
 } from "./kulturaReferenceData";
 import {
   buildAwarderModel,
+  buildAwarderModelFromAggregates,
+  type GroupModelPayload,
   isSpendRow,
   type AwarderModel,
   type SectorClassifier,
@@ -30,5 +32,11 @@ export const buildKulturaModel = (rows: ProcurementContract[]): KulturaModel =>
     rows.filter((c) => isSpendRow(c, true)),
     kulturaClassifier,
   );
+
+/** Same model, folded from the server's group aggregates (awarder-group-model)
+ *  instead of raw rows — the tag='contract' filter lives in SQL there. */
+export const buildKulturaModelFromAggregates = (
+  p: GroupModelPayload,
+): KulturaModel => buildAwarderModelFromAggregates(p, kulturaClassifier);
 
 export { KULTURA_EIK };

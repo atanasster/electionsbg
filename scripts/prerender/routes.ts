@@ -135,6 +135,45 @@ const judiciaryFacts = (() => {
   };
 })();
 
+// The /defense prerender body quotes real figures from data/defense/ (committed,
+// required at build time) — the crawlable HTML is the only defence text a search
+// engine sees, so it carries the live %GDP and export numbers.
+const defenseFacts = (() => {
+  const gdp = JSON.parse(
+    fs.readFileSync(
+      path.join(PROJECT_ROOT, "data/defense/gdp_share.json"),
+      "utf-8",
+    ),
+  ) as {
+    targets: { hagueTotal: number; hagueYear: number };
+    series: { year: number; pct: number }[];
+  };
+  const exp = JSON.parse(
+    fs.readFileSync(
+      path.join(PROJECT_ROOT, "data/defense/exports.json"),
+      "utf-8",
+    ),
+  ) as {
+    cumulativeSinceInvasionEur: number;
+    series: { year: number; totalEur: number }[];
+  };
+  const latest = gdp.series[gdp.series.length - 1];
+  const latestExp = exp.series[exp.series.length - 1];
+  const eurBn = (v: number, locale: string) =>
+    (v / 1e9).toLocaleString(locale, { maximumFractionDigits: 2 });
+  return {
+    latestYear: latest.year,
+    latestPct: latest.pct,
+    targetPct: gdp.targets.hagueTotal,
+    targetYear: gdp.targets.hagueYear,
+    exportYear: latestExp.year,
+    exportBnBg: eurBn(latestExp.totalEur, "bg-BG"),
+    exportBnEn: eurBn(latestExp.totalEur, "en-US"),
+    cumulativeBnBg: eurBn(exp.cumulativeSinceInvasionEur, "bg-BG"),
+    cumulativeBnEn: eurBn(exp.cumulativeSinceInvasionEur, "en-US"),
+  };
+})();
+
 // The /culture prerender body quotes real figures from the НФЦ overview blob —
 // committed and required at build time (data/culture/overview.json).
 const cultureFacts = (() => {
@@ -1576,6 +1615,46 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>
 <p>The judiciary's money — its budget by spending body, own revenue from court fees, and the Supreme Judicial Council's public procurement — is on the <a href="${SITE_URL}/en/awarder/121513231">Supreme Judicial Council page</a>. See also the <a href="${SITE_URL}/en/budget">state budget</a>.</p>
 <p>Source: <a href="https://vss.justice.bg/page/view/1082" rel="nofollow noopener">Supreme Judicial Council — court statistics</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "defense",
+    title:
+      "Отбрана — разходите на България за отбрана, F-16, износ на оръжие | electionsbg.com",
+    description: `Разходите на България за отбрана: ${defenseFacts.latestPct}% от БВП през ${defenseFacts.latestYear} г. по пътя към целта от ${defenseFacts.targetPct}% до ${defenseFacts.targetYear} г., техника срещу заплати, големите програми (F-16, Stryker), рекордният износ на оръжие (${defenseFacts.exportBnBg} млрд. € за ${defenseFacts.exportYear} г.) и готовността на армията.`,
+    breadcrumbName: "Отбрана",
+    ogImage: "/og/defense.png",
+    bodyHtml: `
+<h1>Отбрана — разходите на България, програмите и износът на оръжие</h1>
+<p>През ${defenseFacts.latestYear} г. България отделя ${defenseFacts.latestPct}% от БВП за отбрана — по пътя към целта на НАТО от ${defenseFacts.targetPct}% до ${defenseFacts.targetYear} г. Тази страница проследява как се харчат тези пари: съотношението техника срещу заплати, големите оръжейни програми, износът на оръжие и готовността на армията — по данни на НАТО, Министерството на икономиката и Министерството на отбраната.</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li><strong>Пътят към 5%</strong> — разходите за отбрана като дял от БВП от 2014 г. насам, спрямо старата цел от 2% (Уелс) и новата от ${defenseFacts.targetPct}% до ${defenseFacts.targetYear} г. (Хага). Скокът през 2019 г. е еднократно авансово плащане по F-16.</li>
+<li><strong>Техника срещу заплати</strong> — разпределението на разхода; делът за военна техника скача от 8% (2020) на над 30% с доставките на F-16 и Stryker.</li>
+<li><strong>Големите програми</strong> — F-16 (~2,6 млрд. $), Stryker (~1,38 млрд. $), патрулните кораби и барутният завод. Тези сделки са по US FMS и не са в регистъра на обществените поръчки.</li>
+<li><strong>Износ на оръжие</strong> — рекордният ръст след 2022 г.: ${defenseFacts.exportBnBg} млрд. € за ${defenseFacts.exportYear} г., ${defenseFacts.cumulativeBnBg} млрд. € от началото на войната.</li>
+<li><strong>Хора и готовност</strong> — незаетите щатни бройки и запълването на резерва.</li>
+</ul>
+<p>Обществените поръчки на 25-те структури на Министерството на отбраната са на <a href="${SITE_URL}/awarder/000695324">страницата на МО</a>. Виж и <a href="${SITE_URL}/indicators">показателите</a> и <a href="${SITE_URL}/budget">държавния бюджет</a>.</p>
+<p>Източници: НАТО, Министерство на икономиката, Министерство на отбраната.</p>`.trim(),
+    english: {
+      title:
+        "Bulgaria's Defence — spending, F-16, arms exports | electionsbg.com",
+      description: `Bulgaria's defence spending: ${defenseFacts.latestPct}% of GDP in ${defenseFacts.latestYear} on the road to the ${defenseFacts.targetPct}% target by ${defenseFacts.targetYear}, equipment vs personnel, the flagship programs (F-16, Stryker), record arms exports (€${defenseFacts.exportBnEn}bn in ${defenseFacts.exportYear}) and force readiness.`,
+      breadcrumbName: "Defense",
+      bodyHtml: `
+<h1>Bulgaria's defence — spending, programs and arms exports</h1>
+<p>In ${defenseFacts.latestYear}, Bulgaria spent ${defenseFacts.latestPct}% of GDP on defence — on the road to NATO's ${defenseFacts.targetPct}% target by ${defenseFacts.targetYear}. This page tracks how that money is spent: the equipment-vs-personnel split, the flagship weapons programs, arms exports and force readiness — from NATO, the Ministry of Economy and the Ministry of Defence.</p>
+<h2>What you'll find</h2>
+<ul>
+<li><strong>The road to 5%</strong> — defence spending as a share of GDP since 2014, against the old 2% target (Wales) and the new ${defenseFacts.targetPct}% by ${defenseFacts.targetYear} (Hague). The 2019 spike is a one-off F-16 down-payment.</li>
+<li><strong>Equipment vs personnel</strong> — the spending split; the equipment share jumps from 8% (2020) to over 30% as F-16 and Stryker deliveries land.</li>
+<li><strong>The flagship programs</strong> — F-16 (~$2.6bn), Stryker (~$1.38bn), the patrol ships and the ammunition plant. These deals run through US FMS and are not in the procurement register.</li>
+<li><strong>Arms exports</strong> — the record post-2022 surge: €${defenseFacts.exportBnEn}bn in ${defenseFacts.exportYear}, €${defenseFacts.cumulativeBnEn}bn since the war began.</li>
+<li><strong>People and readiness</strong> — unfilled established posts and reserve fill.</li>
+</ul>
+<p>The public procurement of the 25 Ministry of Defence units is on the <a href="${SITE_URL}/en/awarder/000695324">МО page</a>. See also the <a href="${SITE_URL}/en/indicators">indicators</a> and the <a href="${SITE_URL}/en/budget">state budget</a>.</p>
+<p>Sources: NATO, Ministry of Economy, Ministry of Defence.</p>`.trim(),
     },
   }),
   staticPage({

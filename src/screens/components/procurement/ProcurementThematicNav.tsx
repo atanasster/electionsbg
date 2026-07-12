@@ -19,6 +19,7 @@ import {
   Sprout,
   GraduationCap,
   Droplets,
+  Shield,
 } from "lucide-react";
 import {
   ROADS_AWARDER_PATH,
@@ -61,6 +62,15 @@ const thematicItems = [
     to: "/water",
     icon: Droplets,
     key: "procurement_water_nav",
+  },
+  {
+    // Отбрана — the /defense dashboard (%GDP path, programs, exports, readiness);
+    // the МО group procurement pack is reached from its awarders tile. `unscoped`
+    // because /defense has no ?pscope dimension.
+    to: "/defense",
+    icon: Shield,
+    key: "procurement_defense_nav",
+    unscoped: true,
   },
   { to: "/subsidies", icon: Sprout, key: "agri_subsidies_nav" },
 ] as const;

@@ -343,6 +343,31 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `През ${f(env, "year")} г. ${f(env, "judges")} съдии по щат носят средно ${f(env, "national_per_post")} дела на месец по щат и ${f(env, "national_actual")} действително. Най-натоварени са ${f(env, "busiest_tier")} (${f(env, "busiest_load")}), най-малко — ${f(env, "quietest_tier")} (${f(env, "quietest_load")}).`
         : `In ${f(env, "year")}, ${f(env, "judges")} judge posts carried ${f(env, "national_per_post")} cases a month per post and ${f(env, "national_actual")} in actual terms. The busiest tier is ${f(env, "busiest_tier")} (${f(env, "busiest_load")}), the quietest ${f(env, "quietest_tier")} (${f(env, "quietest_load")}).`;
+    case "defenseSpending":
+      if (!env.facts.latest_pct) return env.title;
+      return lang === "bg"
+        ? `През ${f(env, "latest_year")} г. България отделя ${f(env, "latest_pct")} от БВП за отбрана (${f(env, "above_2pct") === "да" ? "над" : "под"} прага от 2%); целта е 5% до ${f(env, "target_5pct_year")} г. Делът за военна техника е ${f(env, "equipment_share")} (${f(env, "equipment_year")} г.).`
+        : `In ${f(env, "latest_year")} Bulgaria spent ${f(env, "latest_pct")} of GDP on defence (${f(env, "above_2pct") === "yes" ? "above" : "below"} the 2% floor); the target is 5% by ${f(env, "target_5pct_year")}. The equipment share is ${f(env, "equipment_share")} (${f(env, "equipment_year")}).`;
+    case "armsExports":
+      if (!env.facts.latest_total) return env.title;
+      return lang === "bg"
+        ? `Износът на отбранителна продукция скача от ${f(env, "first_total")} (${f(env, "first_year")}) до ${f(env, "latest_total")} (${f(env, "latest_year")}); от началото на войната — ${f(env, "cumulative_since_2022")}, от които пряко за Украйна ${f(env, "to_ukraine_latest")} през последната година. Забележка: ${f(env, "caveat")}.`
+        : `Defence-product exports jumped from ${f(env, "first_total")} (${f(env, "first_year")}) to ${f(env, "latest_total")} (${f(env, "latest_year")}); since the war began — ${f(env, "cumulative_since_2022")}, of which ${f(env, "to_ukraine_latest")} direct to Ukraine in the latest year. Note: ${f(env, "caveat")}.`;
+    case "defenseProgram":
+      if (!env.facts.count) return env.title;
+      return lang === "bg"
+        ? `${f(env, "count")} водещи оръжейни програми — най-голямата е ${f(env, "biggest")} (${f(env, "biggest_value")}). Тези сделки минават по US FMS / междуправителствено и не са в регистъра на обществените поръчки.`
+        : `${f(env, "count")} flagship defence programs — the largest is ${f(env, "biggest")} (${f(env, "biggest_value")}). These deals run through US FMS / inter-governmental channels and are not in the public-procurement register.`;
+    case "defensePeerCompare":
+      if (!env.facts.bulgaria) return env.title;
+      return lang === "bg"
+        ? `През ${f(env, "latest_year")} г. България отделя ${f(env, "bulgaria")} от БВП за отбрана — ${f(env, "rank_of")} сред съседите. Румъния е на ${f(env, "romania")}, Гърция на ${f(env, "greece")}, а средното за НАТО Европа е ${f(env, "nato_europe")}.`
+        : `In ${f(env, "latest_year")}, Bulgaria spent ${f(env, "bulgaria")} of GDP on defence — ${f(env, "rank_of")} among its peers. Romania is at ${f(env, "romania")}, Greece at ${f(env, "greece")}, and the NATO Europe average is ${f(env, "nato_europe")}.`;
+    case "defenseReadiness":
+      if (!env.facts.vacancy) return env.title;
+      return lang === "bg"
+        ? `Незаетите щатни бройки в армията са ${f(env, "vacancy")}, а доброволният резерв е запълнен едва ${f(env, "reserve_fill")}. През ${f(env, "budget_year")} г. ${f(env, "personnel_budget")} отиват за личен състав и ${f(env, "capital_budget")} за техника.`
+        : `Unfilled army posts stand at ${f(env, "vacancy")}, and the voluntary reserve is only ${f(env, "reserve_fill")} manned. In ${f(env, "budget_year")}, ${f(env, "personnel_budget")} went to personnel and ${f(env, "capital_budget")} to equipment.`;
     case "nzokDrugs":
       if (!env.facts.top_inn) return env.title;
       return lang === "bg"

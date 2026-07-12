@@ -58,6 +58,9 @@ import { iaosAirQuality } from "./iaos_air_quality";
 import { tiBgLisi } from "./ti_bg_lisi";
 import { vssCourtStatistics } from "./vss_court_statistics";
 import { ivssDeclarations } from "./ivss_declarations";
+import { natoDefexp } from "./nato_defexp";
+import { modDefenseReport } from "./mod_defense_report";
+import { moeArmsExports } from "./moe_arms_exports";
 import { councilMinutes } from "./council_minutes";
 import { ipiLocalTaxes } from "./ipi_local_taxes";
 import { municipalNaredba } from "./municipal_naredba";
@@ -177,4 +180,7 @@ export const SOURCES: WatchSource[] = [
   nzokDrugQuarterly,
   nzokExecutionB1,
   nzokActivities,
+  natoDefexp,
+  modDefenseReport,
+  moeArmsExports,
 ];

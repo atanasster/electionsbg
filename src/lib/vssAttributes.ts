@@ -10,6 +10,8 @@ import type { ProcurementContract } from "@/data/dataTypes";
 import { categoryOfCpv, VSS_EIK, type VssCategory } from "./vssReferenceData";
 import {
   buildAwarderModel,
+  buildAwarderModelFromAggregates,
+  type GroupModelPayload,
   isSpendRow,
   type AwarderModel,
   type AwarderCategoryAgg,
@@ -37,3 +39,8 @@ export const buildVssModel = (rows: ProcurementContract[]): VssModel =>
     rows.filter((c) => isSpendRow(c, true)),
     vssClassifier,
   );
+
+/** Same model, folded from the server's group aggregates (awarder-group-model)
+ *  instead of raw rows — the tag='contract' filter lives in SQL there. */
+export const buildVssModelFromAggregates = (p: GroupModelPayload): VssModel =>
+  buildAwarderModelFromAggregates(p, vssClassifier);

@@ -4,13 +4,11 @@
 // so this is deliberately thinner than useVss/useNzok: just the contract model.
 
 import { useMemo } from "react";
+import { useAwarderGroupModel, type ScopeWindow } from "./useAwarderGroupModel";
 import {
-  useAwarderContracts,
-  scopeByWindow,
-  type ScopeWindow,
-} from "./useAwarderContracts";
-import { useProcurementWindow } from "./useProcurementWindow";
-import { buildKulturaModel, KULTURA_EIK } from "@/lib/kulturaAttributes";
+  buildKulturaModelFromAggregates,
+  KULTURA_EIK,
+} from "@/lib/kulturaAttributes";
 import type { KulturaModel } from "@/lib/kulturaAttributes";
 
 export type { ScopeWindow };
@@ -24,16 +22,11 @@ export const useKultura = (
   eik: string = KULTURA_EIK,
   windowOverride?: ScopeWindow,
 ): KulturaData => {
-  const contracts = useAwarderContracts(eik);
-  const urlWindow = useProcurementWindow();
-  const from = windowOverride ? windowOverride.from : urlWindow.from;
-  const to = windowOverride ? windowOverride.to : urlWindow.to;
-
-  const model = useMemo<KulturaModel | null>(() => {
-    const all = contracts.data?.contracts;
-    if (!all) return null;
-    return buildKulturaModel(scopeByWindow(all, from, to));
-  }, [contracts.data, from, to]);
-
-  return { model, isLoading: contracts.isLoading };
+  const eiks = useMemo(() => [eik], [eik]);
+  const gm = useAwarderGroupModel(
+    eiks,
+    buildKulturaModelFromAggregates,
+    windowOverride,
+  );
+  return { model: gm.model, isLoading: gm.isLoading };
 };

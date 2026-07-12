@@ -95,6 +95,7 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   { pattern: /^\/parliament\//, dataset: "parliament" },
   { pattern: /^\/officials\//, dataset: "officials" },
   { pattern: /^\/judiciary\//, dataset: "judiciary" },
+  { pattern: /^\/defense\//, dataset: "defense" },
   { pattern: /^\/water\//, dataset: "water" },
   { pattern: /^\/culture\//, dataset: "culture" },
   { pattern: /^\/budget\//, dataset: "budget" },
@@ -673,6 +674,23 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     tags: ["fiscal"],
   },
   {
+    id: "defense",
+    label: { bg: "НАТО · МО · МИ · отбрана", en: "NATO · МО · МИ · defense" },
+    detail: {
+      bg: "разходи, износ, готовност",
+      en: "spending, exports, readiness",
+    },
+    desc: {
+      bg: "Данни за отбраната от три източника: годишният доклад на НАТО „Defence Expenditure of NATO Countries“ (дял от БВП и разпределението техника/личен състав), годишният доклад на Министерството на икономиката за износа на отбранителна продукция, и докладът за състоянието на отбраната на МО (готовност, личен състав). Публикуват се само като PDF; поддържат се като малки .json файлове в data/defense/. Придобиването на F-16/Stryker е по US FMS и не е в регистъра на поръчките.",
+      en: "Defence data from three sources: NATO's annual Defence Expenditure of NATO Countries (share of GDP and the equipment/personnel split), the Ministry of Economy's annual arms-export control report, and the МО state-of-defence report (readiness, personnel). Published as PDFs only; maintained as small .json files under data/defense/. F-16/Stryker acquisition is via US FMS and not in the procurement register.",
+    },
+    url: "https://www.nato.int/cps/en/natohq/news_216897.htm",
+    origin: "state",
+    members: ["nato_defexp", "mod_defense_report", "moe_arms_exports"],
+    skills: ["update-defense"],
+    tags: ["fiscal", "indicators"],
+  },
+  {
     id: "culture",
     label: { bg: "НФЦ · филмови субсидии", en: "НФЦ · film subsidies" },
     detail: {
@@ -925,6 +943,20 @@ export const DATASETS: DatasetDef[] = [
     },
     path: "data/judiciary/",
     tags: ["fiscal"],
+  },
+  {
+    id: "defense",
+    label: { bg: "Отбрана", en: "Defense" },
+    detail: {
+      bg: "разходи, износ, готовност",
+      en: "spending, exports, readiness",
+    },
+    desc: {
+      bg: "Разходите на България за отбрана като дял от БВП (пътят към целта от 5%), разпределението техника срещу личен състав, големите програми (F-16, Stryker, патрулни кораби), рекордният износ на оръжие след 2022 г. и готовността на армията.",
+      en: "Bulgaria's defence spending as a share of GDP (the road to the 5% target), the equipment-vs-personnel split, the flagship programs (F-16, Stryker, patrol ships), the record post-2022 arms exports and force readiness.",
+    },
+    path: "data/defense/",
+    tags: ["fiscal", "indicators"],
   },
   {
     id: "culture",
@@ -1297,6 +1329,20 @@ export const FEATURES: FeatureDef[] = [
     tags: ["fiscal"],
   },
   {
+    id: "defense",
+    label: { bg: "Отбрана", en: "Defense" },
+    detail: {
+      bg: "пътят към 5%, програми, износ",
+      en: "the road to 5%, programs, exports",
+    },
+    desc: {
+      bg: "Разходите за отбрана като дял от БВП спрямо целите на НАТО, техника срещу заплати, големите програми (F-16, Stryker), износът на оръжие и готовността — плюс поръчките на 25-те структури на МО.",
+      en: "Defence spending as a share of GDP against the NATO targets, equipment vs personnel, the flagship programs (F-16, Stryker), arms exports and readiness — plus the procurement of the 25 МО units.",
+    },
+    route: "/defense",
+    tags: ["fiscal", "indicators"],
+  },
+  {
     id: "culture",
     label: { bg: "Култура", en: "Culture" },
     detail: {
@@ -1409,6 +1455,12 @@ export const EDGES: [string, string][] = [
   ["src:vss", "ds:judiciary"],
   ["src:dv", "ds:judiciary"],
   ["ds:judiciary", "f:judiciary"],
+  ["src:defense", "ds:defense"],
+  ["ds:defense", "f:defense"],
+  // The /defense feature also consumes the budget (МО budget bridge) and macro
+  // (peer %GDP/per-capita) datasets — cross-dataset edges, like judiciary↔budget.
+  ["ds:budget", "f:defense"],
+  ["ds:macro", "f:defense"],
   ["src:water", "ds:water"],
   ["src:egov", "ds:water"],
   ["ds:water", "f:water"],

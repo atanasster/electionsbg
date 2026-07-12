@@ -1946,6 +1946,108 @@ export const route = (question: string, ctx: ToolContext): Route => {
     )
       return { tool: "judiciaryCaseload", args: yearArgs };
   }
+  // Отбрана — the defence view (%GDP path, equipment split, programs, exports,
+  // readiness), or the МО group's contract ledger when procurement-phrased.
+  {
+    // Mirrors MOD_EIK in src/lib/defenseReferenceData.ts — the router cannot
+    // import from src/, so it's inlined like every other awarder EIK here.
+    const MOD_EIK = "000695324";
+    // "нато" as a whole word: "натовареност" (judiciary workload, handled above)
+    // contains it, so anchor to a boundary so a bare defence query stays clean.
+    const natoCue = /(^|[^а-яa-z])нато([^а-яa-z]|$)/.test(q) || has(q, "nato");
+    // "отбран" is safe (not a substring of "избран"); "армия"/"военн" are distinct.
+    const defenseCtx =
+      natoCue ||
+      has(
+        q,
+        "отбран",
+        "военн",
+        "армия",
+        "изтребител",
+        "f-16",
+        "f16",
+        "страйкър",
+        "stryker",
+        "оръж",
+        "defence",
+        "defense",
+        "military",
+        "armed forces",
+      );
+    if (defenseCtx) {
+      // Arms exports need BOTH an export cue and a weapons cue, so a generic
+      // "износ" (exports) question can't land here.
+      if (
+        has(q, "износ", "изнася", "продава", "продад", "export", "sell") &&
+        has(q, "оръж", "arms", "weapon")
+      )
+        return { tool: "armsExports", args: {} };
+      // Procurement-phrased → the МО group's contract ledger (the awarder view).
+      if (has(q, "поръчк", "договор", "procurement", "contract"))
+        return { tool: "awarderProcurement", args: { org: MOD_EIK } };
+      // Flagship programs.
+      if (
+        has(
+          q,
+          "f-16",
+          "f16",
+          "изтребител",
+          "страйкър",
+          "stryker",
+          "патрулни",
+          "кораб",
+          "самолет",
+          "програм",
+          "оръжейн",
+          "program",
+        )
+      )
+        return { tool: "defenseProgram", args: {} };
+      // Readiness / people.
+      if (
+        has(
+          q,
+          "незает",
+          "недостиг",
+          "личен състав",
+          "резерв",
+          "попълн",
+          "пълн",
+          "vacancy",
+          "manned",
+          "reserve",
+          "readiness",
+          "personnel",
+        )
+      )
+        return { tool: "defenseReadiness", args: {} };
+      // Peer comparison — "спрямо съседите", "vs Romania", "кой харчи повече".
+      if (
+        has(
+          q,
+          "съсед",
+          "сравн",
+          "спрямо",
+          "румъния",
+          "гърция",
+          "унгария",
+          "хърватия",
+          "нато европа",
+          "peer",
+          "compare",
+          "vs ",
+          "versus",
+          "neighbour",
+          "neighbor",
+          "romania",
+          "greece",
+        )
+      )
+        return { tool: "defensePeerCompare", args: {} };
+      // Default — the %GDP path (the "колко харчим за отбрана" headline).
+      return { tool: "defenseSpending", args: {} };
+    }
+  }
   // pension statistics (the /pensions view) — the size distribution, the regional
   // spread, the wage-vs-pension series and the private (funded) pillars. These
   // must precede the generic pensions→noiFunds fund-execution rule below, which

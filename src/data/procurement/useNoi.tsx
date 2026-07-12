@@ -7,14 +7,13 @@
 // no procurement-only portal has.
 
 import { useMemo } from "react";
-import {
-  useAwarderContracts,
-  scopeByWindow,
-  type ScopeWindow,
-} from "./useAwarderContracts";
-import { useProcurementWindow } from "./useProcurementWindow";
+import { useAwarderGroupModel, type ScopeWindow } from "./useAwarderGroupModel";
 import { useNoiFunds } from "@/data/budget/useBudget";
-import { buildNoiModel, NOI_EIK, type NoiModel } from "@/lib/noiAttributes";
+import {
+  buildNoiModelFromAggregates,
+  NOI_EIK,
+  type NoiModel,
+} from "@/lib/noiAttributes";
 import type { NoiFundsFile } from "@/data/budget/types";
 import { latestCompleteNoiYear } from "@/data/budget/noiYear";
 import { toEur } from "@/lib/currency";
@@ -114,17 +113,13 @@ export const useNoi = (
   eik: string = NOI_EIK,
   windowOverride?: ScopeWindow,
 ): NoiData => {
-  const contracts = useAwarderContracts(eik);
+  const eiks = useMemo(() => [eik], [eik]);
+  const gm = useAwarderGroupModel(
+    eiks,
+    buildNoiModelFromAggregates,
+    windowOverride,
+  );
   const funds = useNoiFunds();
-  const urlWindow = useProcurementWindow();
-  const from = windowOverride ? windowOverride.from : urlWindow.from;
-  const to = windowOverride ? windowOverride.to : urlWindow.to;
-
-  const model = useMemo<NoiModel | null>(() => {
-    const all = contracts.data?.contracts;
-    if (!all) return null;
-    return buildNoiModel(scopeByWindow(all, from, to));
-  }, [contracts.data, from, to]);
 
   const fundYear = useMemo(
     () => flattenFundYear(funds.data ?? null),
@@ -132,9 +127,9 @@ export const useNoi = (
   );
 
   return {
-    model,
+    model: gm.model,
     fundYear,
-    isLoading: contracts.isLoading || funds.isLoading,
+    isLoading: gm.isLoading || funds.isLoading,
   };
 };
 

@@ -13,20 +13,18 @@
 // docs/plans/water-view-v1.md §2/§4.3 and src/lib/vikReferenceData.ts.
 
 import { useMemo } from "react";
-import { useQueries, useQuery } from "@tanstack/react-query";
-import {
-  awarderContractsQuery,
-  scopeByWindow,
-  type ScopeWindow,
-} from "./useAwarderContracts";
+import { useQuery } from "@tanstack/react-query";
 import { useProcurementWindow } from "./useProcurementWindow";
-import { buildVikModel, type VikModel } from "@/lib/vikAttributes";
+import { useAwarderGroupModel, type ScopeWindow } from "./useAwarderGroupModel";
+import {
+  buildVikModelFromAggregates,
+  type VikModel,
+} from "@/lib/vikAttributes";
 import {
   VIK_HOLDING_EIK,
   VIK_HOLDING_SUB_EIKS,
   operatorByEik,
 } from "@/lib/vikReferenceData";
-import type { ProcurementContract } from "@/data/dataTypes";
 
 export type { ScopeWindow };
 
@@ -65,73 +63,37 @@ export const useVik = (
     [eik],
   );
 
-  const urlWindow = useProcurementWindow();
-  const from = windowOverride ? windowOverride.from : urlWindow.from;
-  const to = windowOverride ? windowOverride.to : urlWindow.to;
+  const gm = useAwarderGroupModel(
+    eiks,
+    buildVikModelFromAggregates,
+    windowOverride,
+  );
 
-  // Keep `combine` MINIMAL — it re-runs whenever its identity changes (an inline
-  // closure ⇒ every render), and react-query's replaceEqualDeep only stabilizes
-  // the OUTPUT identities, it doesn't skip the body. So combine returns just the
-  // stable arrays (whole-corpus rows + the raw per-query contract lists); the
-  // expensive scope-windowed per-operator aggregation lives in a useMemo keyed on
-  // those + from/to, so it recomputes only when the data or the window changes,
-  // not on every hover-driven render.
-  const { rows, perQuery, isLoading } = useQueries({
-    queries: eiks.map((e) => awarderContractsQuery(e)),
-    combine: (res) => {
-      const anyLoaded = res.some((r) => r.data);
-      return {
-        rows: anyLoaded
-          ? res.flatMap((r) => r.data?.contracts ?? [])
-          : (null as ProcurementContract[] | null),
-        perQuery: res.map((r) => r.data?.contracts ?? []),
-        isLoading: res.some((r) => r.isLoading),
-      };
-    },
-  });
-
-  const operators = useMemo<VikOperatorAgg[]>(() => {
-    if (!rows) return [];
-    return eiks
-      .map((e, i) => {
-        const scoped = scopeByWindow(perQuery[i] ?? [], from, to).filter(
-          (c) => c.tag === "contract",
-        );
-        const op = operatorByEik(e);
-        let totalEur = 0;
-        let bidKnownN = 0;
-        let singleBidN = 0;
-        for (const c of scoped) {
-          totalEur += c.amountEur ?? 0;
-          if (c.numberOfTenderers != null) {
-            bidKnownN += 1;
-            if (c.numberOfTenderers === 1) singleBidN += 1;
-          }
-        }
-        return {
-          eik: e,
-          name: op?.name ?? `ЕИК ${e}`,
-          oblast: op?.oblast ?? "",
-          totalEur,
-          contractCount: scoped.length,
-          singleBidShare: bidKnownN > 0 ? singleBidN / bidKnownN : null,
-          bidKnownN,
-        };
-      })
-      .filter((o) => o.contractCount > 0)
-      .sort((a, b) => b.totalEur - a.totalEur || a.eik.localeCompare(b.eik));
-  }, [rows, perQuery, eiks, from, to]);
-
-  const model = useMemo<VikModel | null>(() => {
-    if (!rows) return null;
-    return buildVikModel(scopeByWindow(rows, from, to));
-  }, [rows, from, to]);
+  const operators = useMemo<VikOperatorAgg[]>(
+    () =>
+      gm.byUnit
+        .map((u) => {
+          const op = operatorByEik(u.eik);
+          return {
+            eik: u.eik,
+            name: op?.name ?? `ЕИК ${u.eik}`,
+            oblast: op?.oblast ?? "",
+            totalEur: u.totalEur,
+            contractCount: u.contractCount,
+            singleBidShare: u.bidKnownN > 0 ? u.singleBidN / u.bidKnownN : null,
+            bidKnownN: u.bidKnownN,
+          };
+        })
+        .filter((o) => o.contractCount > 0)
+        .sort((a, b) => b.totalEur - a.totalEur || a.eik.localeCompare(b.eik)),
+    [gm.byUnit],
+  );
 
   return {
-    model,
+    model: gm.model,
     operators,
     groupEiks: eiks,
-    isLoading,
+    isLoading: gm.isLoading,
   };
 };
 

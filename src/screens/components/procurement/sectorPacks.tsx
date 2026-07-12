@@ -23,6 +23,7 @@ import { VSS_EIK, VSS_ALIAS_EIKS, JUDICIAL_EIKS } from "@/lib/vssReferenceData";
 import { MON_EIK } from "@/lib/monBenchmarks";
 import { KULTURA_EIK } from "@/lib/kulturaReferenceData";
 import { VIK_HOLDING_EIK, WATER_SECTOR_EIKS } from "@/lib/vikReferenceData";
+import { MOD_EIK, DEFENSE_SECTOR_EIKS } from "@/lib/defenseReferenceData";
 import { AGRI_PAYER_EIK } from "@/data/agri/constants";
 import type { ScopeWindow } from "@/data/procurement/useAwarderContracts";
 
@@ -77,6 +78,13 @@ const KulturaPack = lazy(() =>
 const VikPack = lazy(() =>
   import("./vik/VikPack").then((m) => ({ default: m.VikPack })),
 );
+// No DEFENSE_AWARDER_PATH export (deliberately, like ВСС/culture/water): the
+// defense view's home will be the /defense dashboard (plan Phase 2); the МО
+// awarder page is reached from there. The pack registers by EIK below and renders
+// off the existing corpus (25-unit group roll-up) with no new ingest.
+const DefensePack = lazy(() =>
+  import("./defense/DefensePack").then((m) => ({ default: m.DefensePack })),
+);
 
 const PACKS: Record<string, ComponentType<SectorPackProps>> = {
   [API_EIK]: RoadsPack,
@@ -86,6 +94,7 @@ const PACKS: Record<string, ComponentType<SectorPackProps>> = {
   [MON_EIK]: MonPack,
   [KULTURA_EIK]: KulturaPack,
   [VIK_HOLDING_EIK]: VikPack,
+  [MOD_EIK]: DefensePack,
 };
 
 export const getSectorPack = (
@@ -124,6 +133,11 @@ const VikBrowseSection = lazy(() =>
     default: m.VikBrowseSection,
   })),
 );
+const DefenseBrowseSection = lazy(() =>
+  import("./defense/DefenseBrowseSection").then((m) => ({
+    default: m.DefenseBrowseSection,
+  })),
+);
 
 export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
   water: {
@@ -156,6 +170,12 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
     id: "judiciary",
     label: { bg: "Съдебна власт (ВСС)", en: "Judiciary (ВСС)" },
     eiks: [VSS_EIK, ...VSS_ALIAS_EIKS, ...JUDICIAL_EIKS],
+  },
+  defense: {
+    id: "defense",
+    label: { bg: "Отбрана (МО)", en: "Defense (МО)" },
+    eiks: DEFENSE_SECTOR_EIKS,
+    Section: DefenseBrowseSection,
   },
 };
 

@@ -9,6 +9,8 @@ import type { ProcurementContract } from "@/data/dataTypes";
 import { categoryOfCpv, NOI_EIK, type NoiCategory } from "./noiBenchmarks";
 import {
   buildAwarderModel,
+  buildAwarderModelFromAggregates,
+  type GroupModelPayload,
   isSpendRow,
   type AwarderModel,
   type AwarderSupplier,
@@ -40,3 +42,8 @@ export const buildNoiModel = (rows: ProcurementContract[]): NoiModel =>
     rows.filter((c) => isSpendRow(c, true)),
     noiClassifier,
   );
+
+/** Same model, folded from the server's group aggregates (awarder-group-model)
+ *  instead of raw rows — the tag='contract' filter lives in SQL there. */
+export const buildNoiModelFromAggregates = (p: GroupModelPayload): NoiModel =>
+  buildAwarderModelFromAggregates(p, noiClassifier);

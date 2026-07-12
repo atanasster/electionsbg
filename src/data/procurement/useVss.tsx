@@ -25,18 +25,15 @@
 // pack picks the budget year itself; procurement re-scopes with the page.
 
 import { useMemo } from "react";
-import { useQueries } from "@tanstack/react-query";
-import {
-  awarderContractsQuery,
-  scopeByWindow,
-  type ScopeWindow,
-} from "./useAwarderContracts";
-import { useProcurementWindow } from "./useProcurementWindow";
+import { useAwarderGroupModel, type ScopeWindow } from "./useAwarderGroupModel";
 import { useJudiciaryBudget } from "@/data/budget/useBudget";
-import { buildVssModel, VSS_EIK, type VssModel } from "@/lib/vssAttributes";
+import {
+  buildVssModelFromAggregates,
+  VSS_EIK,
+  type VssModel,
+} from "@/lib/vssAttributes";
 import { VSS_ALIAS_EIKS } from "@/lib/vssReferenceData";
 import type { JudiciaryBudgetFile } from "@/data/budget/types";
-import type { ProcurementContract } from "@/data/dataTypes";
 
 export { VSS_EIK };
 // The pack takes its scope-window type from here.
@@ -62,47 +59,27 @@ export const useVss = (
     () => (eik === VSS_EIK ? [eik, ...VSS_ALIAS_EIKS] : [eik]),
     [eik],
   );
-  // `combine` is what makes the memos below work. Without it useQueries returns a
-  // NEW array on every render, so `rows` and `aliasEur` — which depend on it —
-  // would recompute on every render of the subtree (a hover that changes a
-  // tooltip's state is enough), running the full buildVssModel aggregation twice.
-  // react-query memoizes the combined value, so the identities are stable.
-  //
-  // The principal EIK must have loaded; a missing alias corpus (404, or the EIK
-  // simply not present in this deployment's data) degrades to the un-merged
-  // total rather than blanking the pack.
-  const { rows, aliasRows, isLoading } = useQueries({
-    queries: eiks.map((e) => awarderContractsQuery(e)),
-    combine: (res) => ({
-      rows: res[0]?.data
-        ? res.flatMap((r) => r.data?.contracts ?? [])
-        : (null as ProcurementContract[] | null),
-      aliasRows: res[0]?.data
-        ? res.slice(1).flatMap((r) => r.data?.contracts ?? [])
-        : [],
-      isLoading: res.some((r) => r.isLoading),
-    }),
-  });
+  const gm = useAwarderGroupModel(
+    eiks,
+    buildVssModelFromAggregates,
+    windowOverride,
+  );
   const budget = useJudiciaryBudget();
-  const urlWindow = useProcurementWindow();
-  const from = windowOverride ? windowOverride.from : urlWindow.from;
-  const to = windowOverride ? windowOverride.to : urlWindow.to;
 
-  const model = useMemo<VssModel | null>(() => {
-    if (!rows) return null;
-    return buildVssModel(scopeByWindow(rows, from, to));
-  }, [rows, from, to]);
-
-  // What the merge added, in scope — for the pack's reconciliation footnote.
-  const aliasEur = useMemo(() => {
-    if (!aliasRows.length) return 0;
-    return buildVssModel(scopeByWindow(aliasRows, from, to)).totalEur;
-  }, [aliasRows, from, to]);
+  // What the alias registrations added, in scope — the per-unit rollup carries
+  // each EIK's contract €, so the alias € is the group minus the principal.
+  const aliasEur = useMemo(
+    () =>
+      gm.byUnit
+        .filter((u) => u.eik !== eik)
+        .reduce((a, u) => a + u.totalEur, 0),
+    [gm.byUnit, eik],
+  );
 
   return {
-    model,
+    model: gm.model,
     budget: budget.data ?? null,
     aliasEur,
-    isLoading: isLoading || budget.isLoading,
+    isLoading: gm.isLoading || budget.isLoading,
   };
 };

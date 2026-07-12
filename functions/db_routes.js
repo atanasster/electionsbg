@@ -637,6 +637,26 @@ const DB_ROUTES = {
     );
     return { body: { operators } };
   },
+  // FULL sector-pack model over a SET of EIKs in ONE aggregate — the server-side
+  // replacement for the 25+-request client fan-out (awarder-contracts × each
+  // budget unit) that the Води/ВСС/Отбрана/НОИ/НЗОК/Култура packs used to run.
+  // Returns the compact aggregates buildAwarderModelFromAggregates() folds back
+  // into the identical AwarderModel (CPV→category classification stays in TS).
+  // Windowed [from, to) with sargable COALESCE bounds. See 061_awarder_group_model.
+  "awarder-group-model": async (dbRows, q) => {
+    const eiks = s(q, "eiks")
+      .split(",")
+      .map((e) => e.trim())
+      .filter((e) => /^\d{9,13}$/.test(e))
+      .slice(0, 300);
+    if (!eiks.length) return { status: 400, body: { error: "missing eiks" } };
+    const rows = await dbRows("SELECT awarder_group_model($1, $2, $3) AS r", [
+      eiks,
+      orNull(q, "from"),
+      orNull(q, "to"),
+    ]);
+    return { body: rows[0]?.r ?? null };
+  },
   // EU-funds (ИСУН) rollup over a SET of EIKs — per-beneficiary contracted/paid
   // from the already-rolled fund_beneficiaries table (one row per EIK). Not
   // date-windowed: EU-funds figures are programme-period lifetime totals, not a

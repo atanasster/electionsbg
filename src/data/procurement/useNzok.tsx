@@ -12,12 +12,7 @@
 // pack picks the budget year itself; procurement re-scopes with the page.
 
 import { useMemo } from "react";
-import {
-  useAwarderContracts,
-  scopeByWindow,
-  type ScopeWindow,
-} from "./useAwarderContracts";
-import { useProcurementWindow } from "./useProcurementWindow";
+import { useAwarderGroupModel, type ScopeWindow } from "./useAwarderGroupModel";
 import {
   useNzokBudget,
   useNzokExecution,
@@ -26,7 +21,11 @@ import {
   useNzokHospitalTrends,
   useNzokDrugReimbursement,
 } from "@/data/budget/useBudget";
-import { buildNzokModel, NZOK_EIK, type NzokModel } from "@/lib/nzokAttributes";
+import {
+  buildNzokModelFromAggregates,
+  NZOK_EIK,
+  type NzokModel,
+} from "@/lib/nzokAttributes";
 import type {
   NzokBudgetFile,
   NzokExecutionFile,
@@ -55,25 +54,21 @@ export const useNzok = (
   eik: string = NZOK_EIK,
   windowOverride?: ScopeWindow,
 ): NzokData => {
-  const contracts = useAwarderContracts(eik);
+  const eiks = useMemo(() => [eik], [eik]);
+  const gm = useAwarderGroupModel(
+    eiks,
+    buildNzokModelFromAggregates,
+    windowOverride,
+  );
   const budget = useNzokBudget();
   const execution = useNzokExecution();
   const executionHistory = useNzokExecutionHistory();
   const hospitalPayments = useNzokHospitalPayments();
   const hospitalTrends = useNzokHospitalTrends();
   const drugReimbursement = useNzokDrugReimbursement();
-  const urlWindow = useProcurementWindow();
-  const from = windowOverride ? windowOverride.from : urlWindow.from;
-  const to = windowOverride ? windowOverride.to : urlWindow.to;
-
-  const model = useMemo<NzokModel | null>(() => {
-    const all = contracts.data?.contracts;
-    if (!all) return null;
-    return buildNzokModel(scopeByWindow(all, from, to));
-  }, [contracts.data, from, to]);
 
   return {
-    model,
+    model: gm.model,
     budget: budget.data ?? null,
     execution: execution.data ?? null,
     executionHistory: executionHistory.data ?? null,
@@ -84,7 +79,7 @@ export const useNzok = (
     // execution gauge / hospital / drug tiles popping into an already-rendered
     // pack). The contract-corpus fetch dominates the wall clock regardless.
     isLoading:
-      contracts.isLoading ||
+      gm.isLoading ||
       budget.isLoading ||
       execution.isLoading ||
       executionHistory.isLoading ||

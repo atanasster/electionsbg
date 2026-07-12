@@ -1,0 +1,13 @@
+{
+  "source": "Министерство на икономиката, годишен доклад за контрола на износа на продукти, свързани с отбраната (via SIPRI national reports). The cumulative-since-invasion figure is the sum of the 2022–2024 annual figures below (~13 bn BGN, matching government statements).",
+  "note": "Bulgaria's export of defence-related products, EUR. SIPRI TIV drastically undercounts this because it excludes ammunition and shells — the bulk of the trade — so these Ministry-of-Economy euro figures are used, not TIV. Ukraine is largely supplied indirectly (via Poland, Romania, Czechia); the 'toUkraine' column is DIRECT exports only.",
+  "updated": "2026-07-09",
+  "cumulativeSinceInvasionEur": 6653285190,
+  "topDestinations2024": ["Полша", "Румъния", "Чехия", "Украйна", "САЩ", "Обединеното кралство", "Словакия"],
+  "series": [
+    { "year": 2021, "totalEur": 500000000, "toUkraineEur": 0, "approx": true },
+    { "year": 2022, "totalEur": 1654000000, "toUkraineEur": 0 },
+    { "year": 2023, "totalEur": 2168000000, "toUkraineEur": 12586508 },
+    { "year": 2024, "totalEur": 2831285190, "toUkraineEur": 156365717, "record": true }
+  ]
+}

@@ -50,6 +50,17 @@ type Capture = {
 
 const captures: Capture[] = [
   {
+    slug: "defense",
+    routePath: "defense",
+    // The %GDP-to-5% chart is the signature visual — static NATO data, always
+    // renders. Wait for the Recharts surface (not just the container) so the
+    // line + target reference lines are drawn before the clip.
+    waitFor: '[data-og="defense-gdp-chart"] .recharts-surface',
+    anchor: "#defense-gdp",
+    centerOnAnchor: true,
+    settleMs: 2500,
+  },
+  {
     slug: "water",
     routePath: "water",
     // The riverbed-cleaning tile (#flood) is static-data — always renders with

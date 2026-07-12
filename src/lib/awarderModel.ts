@@ -243,8 +243,10 @@ export const buildAwarderModel = <Cat extends string>(
     .map((s) => {
       let dom: Cat | null = null;
       let domEur = -1;
+      // Category id tiebreak on exact-€ ties so the dominant pick is independent
+      // of Map iteration order (matches the aggregate fold-back path).
       for (const [k, v] of s.byCat) {
-        if (v > domEur) {
+        if (v > domEur || (v === domEur && (dom == null || k < dom))) {
           domEur = v;
           dom = k;
         }
@@ -312,6 +314,221 @@ export const buildAwarderModel = <Cat extends string>(
   return {
     ...stats,
     supplierCount: sup.size,
+    categories,
+    suppliers,
+    years,
+    minYear: years.length ? years[0].year : null,
+    maxYear: years.length ? years[years.length - 1].year : null,
+  };
+};
+
+// --- Server-side model: fold compact aggregates back into an AwarderModel ------
+
+/** The compact aggregates the `awarder-group-model` endpoint returns (SQL fn
+ *  061). Money is whole-€ (ROUNDed server-side for payload determinism). No-CPV
+ *  rows arrive under `cpv: ""` in byCpv/byCpvContractor so the sink category
+ *  reconciles with the headline total. */
+export interface GroupModelPayload {
+  totalEur: number;
+  contractCount: number;
+  bidKnownN: number;
+  singleBidN: number;
+  suppliers: {
+    eik: string;
+    name: string | null;
+    totalEur: number;
+    contractCount: number;
+    bidKnownN: number;
+    singleBidN: number;
+  }[];
+  byCpv: {
+    cpv: string;
+    totalEur: number;
+    contractCount: number;
+    bidKnownN: number;
+    singleBidN: number;
+  }[];
+  byCpvContractor: { cpv: string; eik: string; eur: number }[];
+  byMethod: { method: string; totalEur: number }[];
+  byYear: { year: number; totalEur: number; contractCount: number }[];
+  byUnit: {
+    eik: string;
+    totalEur: number;
+    contractCount: number;
+    bidKnownN: number;
+    singleBidN: number;
+  }[];
+}
+
+/** Reconstruct the EXACT `AwarderModel` a client-side `buildAwarderModel` would
+ *  have produced from the raw rows — but from the server's pre-aggregated buckets,
+ *  applying the SAME pack `classifier` (CPV→category) and `procedureBucket`
+ *  (method→direct) so those stay the single source of truth. Fields the packs
+ *  never read are intentionally left empty (suppliers[].category is still filled
+ *  since the type requires it, and it is cheap): years[].byCategory = {}.
+ *
+ *  The classifier is invoked as `categoryOf({ cpv })` — every sector classifier
+ *  reads only `.cpv`, and a "" cpv folds to the classifier's sink exactly as a
+ *  no-CPV row would in buildAwarderModel. */
+export const buildAwarderModelFromAggregates = <Cat extends string>(
+  p: GroupModelPayload,
+  classifier: SectorClassifier<Cat>,
+): AwarderModel<Cat> => {
+  const catOf = (cpv: string): Cat =>
+    classifier.categoryOf({ cpv } as ProcurementContract);
+
+  // directEur — fold per-method sums through procedureBucket (authoritative in
+  // TS); rows with no method never bucket to "direct", matching competitionStats.
+  let directEur = 0;
+  for (const m of p.byMethod)
+    if (procedureBucket(m.method) === "direct") directEur += m.totalEur;
+
+  const stats: CompetitionStats = {
+    totalEur: p.totalEur,
+    contractCount: p.contractCount,
+    bidKnownN: p.bidKnownN,
+    singleBidN: p.singleBidN,
+    singleBidShare: p.bidKnownN > 0 ? p.singleBidN / p.bidKnownN : null,
+    directEur,
+    directShare: p.totalEur > 0 ? directEur / p.totalEur : 0,
+  };
+
+  // Per-(category) rollups from byCpv (money/counts/bid) — reconciles with the
+  // headline because no-CPV value rides in the cpv="" bucket → sink.
+  interface CatAcc {
+    totalEur: number;
+    contractCount: number;
+    bidKnownN: number;
+    singleBidN: number;
+    suppliers: Set<string>;
+  }
+  const cat = new Map<Cat, CatAcc>();
+  const ensureCat = (id: Cat): CatAcc => {
+    let a = cat.get(id);
+    if (!a) {
+      a = {
+        totalEur: 0,
+        contractCount: 0,
+        bidKnownN: 0,
+        singleBidN: 0,
+        suppliers: new Set(),
+      };
+      cat.set(id, a);
+    }
+    return a;
+  };
+  for (const c of p.byCpv) {
+    const a = ensureCat(catOf(c.cpv));
+    a.totalEur += c.totalEur;
+    a.contractCount += c.contractCount;
+    a.bidKnownN += c.bidKnownN;
+    a.singleBidN += c.singleBidN;
+  }
+
+  // Per-(category, supplier) € from byCpvContractor → category supplierCount +
+  // topSupplier, and each supplier's dominant category. Names come from the
+  // suppliers list (looked up by eik), not duplicated in byCpvContractor.
+  const nameByEik = new Map<string, string>();
+  for (const s of p.suppliers) nameByEik.set(s.eik, s.name || `ЕИК ${s.eik}`);
+
+  const catSupEur = new Map<Cat, Map<string, number>>(); // cat → eik → €
+  const supByCat = new Map<string, Map<Cat, number>>(); // eik → cat → €
+  for (const x of p.byCpvContractor) {
+    const id = catOf(x.cpv);
+    ensureCat(id).suppliers.add(x.eik);
+    let ce = catSupEur.get(id);
+    if (!ce) {
+      ce = new Map();
+      catSupEur.set(id, ce);
+    }
+    ce.set(x.eik, (ce.get(x.eik) ?? 0) + x.eur);
+    let sc = supByCat.get(x.eik);
+    if (!sc) {
+      sc = new Map();
+      supByCat.set(x.eik, sc);
+    }
+    sc.set(id, (sc.get(id) ?? 0) + x.eur);
+  }
+
+  const topSupplierOf = (
+    id: Cat,
+  ): { eik: string; name: string; totalEur: number } | null => {
+    const ce = catSupEur.get(id);
+    if (!ce) return null;
+    let best: { eik: string; name: string; totalEur: number } | null = null;
+    for (const [eik, eur] of ce)
+      if (
+        !best ||
+        eur > best.totalEur ||
+        (eur === best.totalEur && eik < best.eik)
+      )
+        best = { eik, name: nameByEik.get(eik) ?? `ЕИК ${eik}`, totalEur: eur };
+    return best;
+  };
+
+  const orderIndex = (id: Cat): number => {
+    const i = classifier.order?.indexOf(id) ?? -1;
+    return i >= 0 ? i : Number.MAX_SAFE_INTEGER - 1;
+  };
+  const categories: AwarderCategoryAgg<Cat>[] = [...cat.entries()]
+    .map(([id, a]) => ({
+      id,
+      totalEur: a.totalEur,
+      contractCount: a.contractCount,
+      supplierCount: a.suppliers.size,
+      singleBidShare: a.bidKnownN > 0 ? a.singleBidN / a.bidKnownN : null,
+      bidKnownN: a.bidKnownN,
+      topSupplier: topSupplierOf(id),
+    }))
+    .sort((x, y) => {
+      const xs = classifier.sink != null && x.id === classifier.sink;
+      const ys = classifier.sink != null && y.id === classifier.sink;
+      if (xs !== ys) return xs ? 1 : -1;
+      const oi = orderIndex(x.id) - orderIndex(y.id);
+      if (oi !== 0) return oi;
+      return (
+        y.totalEur - x.totalEur || String(x.id).localeCompare(String(y.id))
+      );
+    });
+
+  const suppliers: AwarderSupplier<Cat>[] = p.suppliers
+    .map((s) => {
+      let dom: Cat | null = null;
+      let domEur = -1;
+      const byCat = supByCat.get(s.eik);
+      // Same category-id tiebreak as buildAwarderModel so exact-€ ties resolve
+      // identically on both paths (byCpvContractor is ORDER BY cpv,eik in SQL).
+      if (byCat)
+        for (const [k, v] of byCat)
+          if (v > domEur || (v === domEur && (dom == null || k < dom))) {
+            domEur = v;
+            dom = k;
+          }
+      return {
+        eik: s.eik,
+        name: s.name || `ЕИК ${s.eik}`,
+        totalEur: s.totalEur,
+        contractCount: s.contractCount,
+        category:
+          dom ?? classifier.sink ?? ([...(byCat?.keys() ?? [])][0] as Cat),
+        singleBidShare: s.bidKnownN > 0 ? s.singleBidN / s.bidKnownN : null,
+        bidKnownN: s.bidKnownN,
+      };
+    })
+    .sort((a, b) => b.totalEur - a.totalEur || a.eik.localeCompare(b.eik));
+
+  const years: AwarderYear<Cat>[] = [...p.byYear]
+    .map((y) => ({
+      year: y.year,
+      totalEur: y.totalEur,
+      contractCount: y.contractCount,
+      byCategory: {} as Partial<Record<Cat, number>>,
+    }))
+    .sort((a, b) => a.year - b.year);
+
+  return {
+    ...stats,
+    supplierCount: p.suppliers.length,
     categories,
     suppliers,
     years,
