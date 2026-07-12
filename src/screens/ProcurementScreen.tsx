@@ -1,9 +1,10 @@
 // /procurement — the public-procurement HUB. A navigation-first landing: the
-// combined search up top, the headline KPIs, then a tile grid that fronts every
-// sub-page (overview analytics, contracts, tenders, appeals, NGOs, by-place,
-// risk, watchlist) and a "featured sectors" strip into the sector dashboards.
-// The deep analytics that used to live here moved to /procurement/overview
-// (reached via the "Обзор" tile). Layout reuses the infographic tile-hub kit.
+// combined search up top, then a tile grid that fronts every sub-page (overview
+// analytics, contracts, contractors, connected people, tenders, appeals, NGOs,
+// by-place, risk, watchlist) and a "featured sectors" strip into the sector
+// dashboards. The headline numbers are overlaid on the tiles themselves (no
+// separate KPI cards). The deep analytics that used to live here moved to
+// /procurement/overview (reached via the "Обзор" tile). Reuses the tile-hub kit.
 
 import { FC } from "react";
 import { Link } from "react-router-dom";
@@ -18,17 +19,21 @@ import {
 } from "@/ux/infographic";
 import { ProcurementScopeControl } from "./components/procurement/ProcurementScopeControl";
 import { ProcurementSearchTile } from "./components/procurement/ProcurementSearchTile";
-import { ProcurementKpiRow } from "./components/procurement/ProcurementKpiRow";
 import { WatchlistDigestTile } from "./components/procurement/WatchlistDigestTile";
 import { useProcurementOverview } from "@/data/procurement/useProcurementOverview";
+import { useWatchlist } from "@/data/procurement/useWatchlist";
+import { formatEurCompact } from "@/lib/currency";
 import { PROCUREMENT_SCENES } from "./procurement/procurementScenes";
 import { FEATURED_SECTORS } from "./governance/sectorRegistry";
 import { SECTOR_SCENES } from "./governance/sectorScenes";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
 
-// One entry per procurement sub-page. `descKey` is the fallback line; the
-// contracts tile swaps in a live count when the overview payload is loaded.
+// One entry per procurement sub-page. `metric` names the headline number the
+// tile overlays (resolved from the overview payload / the watchlist), replacing
+// the separate KPI cards; tiles without one stay descriptor-only until their
+// count is pre-generated (tenders/appeals/NGOs/flags need the overview SQL fn
+// extended).
 const SUBPAGES = [
   {
     id: "analysis",
@@ -36,6 +41,7 @@ const SUBPAGES = [
     descKey: "procurement_hub_analysis_desc",
     to: "/procurement/overview",
     accent: TILE_ACCENTS.brass,
+    metric: "total",
   },
   {
     id: "contracts",
@@ -43,6 +49,23 @@ const SUBPAGES = [
     descKey: "procurement_hub_contracts_desc",
     to: "/procurement/contracts",
     accent: TILE_ACCENTS.clay,
+    metric: "contracts",
+  },
+  {
+    id: "contractors",
+    titleKey: "procurement_index_contractors",
+    descKey: "procurement_hub_contractors_desc",
+    to: "/procurement/contractors",
+    accent: TILE_ACCENTS.steel,
+    metric: "contractors",
+  },
+  {
+    id: "connected",
+    titleKey: "procurement_index_connected",
+    descKey: "procurement_hub_connected_desc",
+    to: "/procurement/mps",
+    accent: TILE_ACCENTS.amber,
+    metric: "connected",
   },
   {
     id: "tenders",
@@ -84,29 +107,45 @@ const SUBPAGES = [
     titleKey: "watchlist_nav",
     descKey: "procurement_hub_watch_desc",
     to: "/procurement/watchlist",
-    accent: TILE_ACCENTS.amber,
+    accent: TILE_ACCENTS.gold,
+    metric: "watch",
   },
 ] as const;
 
 export const ProcurementScreen: FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data } = useProcurementOverview();
-  const contractsTotal = data
-    ? data.totals.contracts + data.totals.amendments
-    : null;
+  const totals = data?.totals;
+  const watchCount = useWatchlist().length;
   const title = t("procurement_index_title") || "Public procurement";
+
+  const metricFor = (m?: string): string | undefined => {
+    if (m === "watch")
+      return watchCount > 0 ? numFmt.format(watchCount) : undefined;
+    if (!m || !totals) return undefined;
+    switch (m) {
+      case "total":
+        return formatEurCompact(totals.totalEur, i18n.language);
+      case "contracts":
+        return numFmt.format(totals.contracts + totals.amendments);
+      case "contractors":
+        return numFmt.format(totals.contractorCount);
+      case "connected":
+        return numFmt.format(
+          (totals.mpCount ?? 0) + (totals.officialCount ?? 0),
+        );
+      default:
+        return undefined;
+    }
+  };
 
   const exploreTiles: InfographicTileProps[] = SUBPAGES.map((p) => ({
     to: p.to,
     title: t(p.titleKey),
-    desc:
-      p.id === "contracts" && contractsTotal != null
-        ? t("procurement_hub_contracts_count", {
-            n: numFmt.format(contractsTotal),
-          })
-        : t(p.descKey),
+    desc: t(p.descKey),
     accent: p.accent,
     scene: PROCUREMENT_SCENES[p.id],
+    metric: metricFor("metric" in p ? p.metric : undefined),
   }));
 
   const exploreSection: TileHubSection = {
@@ -125,12 +164,9 @@ export const ProcurementScreen: FC = () => {
       </div>
 
       <ProcurementSearchTile />
-      <div className="my-4">
-        <ProcurementKpiRow />
-      </div>
       <WatchlistDigestTile />
 
-      <TileHubGrid sections={[exploreSection]} className="mt-8" />
+      <TileHubGrid sections={[exploreSection]} className="mt-6" />
 
       {/* Featured sectors — the highest-spend entities surfaced directly, with a
           link to the full 15-sector hub for the rest. */}

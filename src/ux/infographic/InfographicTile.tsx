@@ -27,7 +27,16 @@ export interface InfographicTileProps {
   scene: FC;
   /** Optional CTA shown only on the card layout (sm+), e.g. "виж сектора". */
   cta?: string;
+  /** Optional headline number (already formatted). Overlaid large on the banner
+   *  in the card layout; shown top-right of the row on mobile. Turns the tile
+   *  into a stat tile. */
+  metric?: string;
 }
+
+// The big number is legible on the tinted banner via a currentColor-tuned fill +
+// a card-coloured text halo (so it holds over the scene marks on both themes).
+const metricColor =
+  "color-mix(in srgb, var(--sector) 58%, hsl(var(--foreground)))";
 
 export const InfographicTile: FC<InfographicTileProps> = ({
   to,
@@ -37,6 +46,7 @@ export const InfographicTile: FC<InfographicTileProps> = ({
   accent,
   scene: Scene,
   cta,
+  metric,
 }) => (
   <Link
     to={to}
@@ -44,13 +54,25 @@ export const InfographicTile: FC<InfographicTileProps> = ({
     className="group relative flex flex-row overflow-hidden rounded-xl border border-border bg-card transition-all duration-150 hover:border-[color-mix(in_srgb,var(--sector)_55%,hsl(var(--border)))] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none sm:flex-col sm:rounded-2xl sm:hover:-translate-y-0.5 motion-reduce:sm:hover:translate-y-0"
   >
     <div
-      className="flex w-24 shrink-0 items-center border-r border-border sm:w-full sm:border-b sm:border-r-0"
+      className="relative flex w-24 shrink-0 items-center border-r border-border sm:w-full sm:border-b sm:border-r-0"
       style={{
         background:
           "linear-gradient(160deg, color-mix(in srgb, var(--sector) 14%, hsl(var(--card))), hsl(var(--card)))",
       }}
     >
       <Scene />
+      {metric ? (
+        <span
+          className="pointer-events-none absolute bottom-1.5 left-3 hidden text-2xl font-bold leading-none tabular-nums sm:block xl:text-3xl"
+          style={{
+            color: metricColor,
+            textShadow:
+              "0 1px 0 hsl(var(--card)), 0 -1px 0 hsl(var(--card)), 1px 0 0 hsl(var(--card)), -1px 0 0 hsl(var(--card))",
+          }}
+        >
+          {metric}
+        </span>
+      ) : null}
     </div>
     <div className="flex min-w-0 flex-1 flex-col justify-center gap-0.5 px-3 py-2.5 sm:justify-start sm:gap-1.5 sm:p-3.5">
       <div className="flex items-center justify-between gap-2">
@@ -68,6 +90,15 @@ export const InfographicTile: FC<InfographicTileProps> = ({
             }}
           >
             {badge}
+          </span>
+        ) : metric ? (
+          // On the mobile row the banner is a small thumbnail, so the number
+          // rides here (top-right) instead of overlaying the scene.
+          <span
+            className="shrink-0 text-base font-bold tabular-nums sm:hidden"
+            style={{ color: metricColor }}
+          >
+            {metric}
           </span>
         ) : null}
       </div>

@@ -205,9 +205,65 @@ const Watch: FC = () => (
   </SceneFrame>
 );
 
+// Изпълнители — the companies that win contracts: an office block + a rising
+// award-value bar group.
+const Contractors: FC = () => (
+  <SceneFrame>
+    <rect
+      x="96"
+      y="28"
+      width="70"
+      height="64"
+      rx="4"
+      fill="var(--sector)"
+      opacity=".85"
+    />
+    <g fill={PAPER}>
+      <rect x="104" y="38" width="12" height="12" rx="2" />
+      <rect x="122" y="38" width="12" height="12" rx="2" />
+      <rect x="140" y="38" width="12" height="12" rx="2" />
+      <rect x="104" y="56" width="12" height="12" rx="2" />
+      <rect x="140" y="56" width="12" height="12" rx="2" />
+      <rect x="122" y="74" width="16" height="18" rx="1" />
+    </g>
+    <Bars x={186} baseline={92} heights={[18, 32, 48]} barWidth={12} gap={7} />
+  </SceneFrame>
+);
+
+// Свързани лица — MPs/officials whose interests intersect contract winners: two
+// people linked through a company node to a money node (the sensitive one).
+const Connected: FC = () => (
+  <SceneFrame>
+    <g stroke="var(--sector)" strokeWidth="2" opacity=".7" fill="none">
+      <path d="M96 54 L150 40 M204 54 L150 40 M150 40 L150 74" />
+    </g>
+    <rect x="136" y="28" width="28" height="20" rx="3" fill="var(--sector)" />
+    <g fill="currentColor" opacity=".72">
+      <circle cx="96" cy="50" r="8" />
+      <path d="M82 74 a14 14 0 0 1 28 0 Z" />
+      <circle cx="204" cy="50" r="8" />
+      <path d="M190 74 a14 14 0 0 1 28 0 Z" />
+    </g>
+    <circle cx="150" cy="80" r="10" fill="var(--sector)" opacity=".9" />
+    <text
+      x="150"
+      y="85"
+      textAnchor="middle"
+      fill={PAPER}
+      fontSize="11"
+      fontWeight="700"
+      fontFamily="Georgia, serif"
+    >
+      €
+    </text>
+  </SceneFrame>
+);
+
 export const PROCUREMENT_SCENES: Record<string, FC> = {
   analysis: Analysis,
   contracts: Contracts,
+  contractors: Contractors,
+  connected: Connected,
   tenders: Tenders,
   appeals: Appeals,
   ngos: Ngos,
