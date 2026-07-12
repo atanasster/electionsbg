@@ -9,7 +9,6 @@
 import { FC, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSofiaMergedRegionsMap } from "@/data/regions/useSofiaMergedRegionsMap";
-import { useRegions } from "@/data/regions/useRegions";
 import { nuts3Name } from "@/data/procurement/bgNuts3";
 import { useRiverGeometry } from "@/data/water/useRiverGeometry";
 import type { FloodOblast } from "@/data/water/useFloodMaintenance";
@@ -35,7 +34,6 @@ export const WaterFloodMap: FC<{ byOblast: FloodOblast[] }> = ({
   const bg = i18n.language === "bg";
   const mapGeo = useSofiaMergedRegionsMap();
   const { data: rivers } = useRiverGeometry();
-  const { findRegion } = useRegions();
   const ref = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState<MapCoordinates | undefined>();
   const { tooltip, onMouseEnter, onMouseMove, onMouseLeave } = useTooltip();
@@ -86,8 +84,7 @@ export const WaterFloodMap: FC<{ byOblast: FloodOblast[] }> = ({
 
   const nameFor = (code: string): string => {
     if (code === "SOF") return bg ? "София (столица)" : "Sofia (capital)";
-    const reg = findRegion(code);
-    return reg ? nuts3Name(reg.nuts3, i18n.language) : code;
+    return nuts3Name(code, i18n.language);
   };
 
   return (

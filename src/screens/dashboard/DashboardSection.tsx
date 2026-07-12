@@ -52,7 +52,11 @@ type Props = {
     | "subsidies-headline"
     | "subsidies-distribution"
     | "subsidies-recipients"
-    | "subsidies-data";
+    | "subsidies-data"
+    | "molecule-packs"
+    | "molecule-hospitals"
+    | "pack-hospitals"
+    | "pack-trend";
   title?: ReactNode;
   subtitle?: ReactNode;
   icon?: LucideIcon;
