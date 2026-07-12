@@ -11,7 +11,7 @@ import { PieChart } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { Tooltip } from "@/ux/Tooltip";
 import { useProcurementSectors } from "@/data/procurement/useProcurementSectors";
-import { useProcurementHref } from "@/data/procurement/useProcurementScope";
+import { useScopedHref } from "@/data/scope/useScope";
 import { cpvDivisionName } from "@/lib/cpvSectors";
 import { formatEurCompact } from "@/lib/currency";
 
@@ -43,7 +43,7 @@ const Bar: FC<{ label: string; share: number; amount: string }> = ({
 
 export const ProcurementSectorsTile: FC = () => {
   const { t, i18n } = useTranslation();
-  const buildHref = useProcurementHref();
+  const buildHref = useScopedHref();
   const { data } = useProcurementSectors();
   if (!data || data.totalEur <= 0 || data.sectors.length === 0) return null;
 

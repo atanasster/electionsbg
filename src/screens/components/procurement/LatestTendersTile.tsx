@@ -8,13 +8,13 @@ import { useTranslation } from "react-i18next";
 import { ClipboardList } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useLatestTenders } from "@/data/procurement/useLatestTenders";
-import { useProcurementHref } from "@/data/procurement/useProcurementScope";
+import { useScopedHref } from "@/data/scope/useScope";
 import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
 
 export const LatestTendersTile: FC = () => {
   const { t, i18n } = useTranslation();
-  const buildHref = useProcurementHref();
+  const buildHref = useScopedHref();
   const { data: rows } = useLatestTenders(5);
   if (!rows || rows.length === 0) return null;
 

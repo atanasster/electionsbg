@@ -13,11 +13,8 @@ import { Title } from "@/ux/Title";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEurCompact, formatInt, formatPct } from "@/lib/currency";
 import { useCultureOverview, useCultureFilms } from "@/data/culture/useCulture";
-import {
-  useProcurementScope,
-  scopeYear,
-} from "@/data/procurement/useProcurementScope";
-import { ProcurementScopeControl } from "@/screens/components/procurement/ProcurementScopeControl";
+import { useScope, scopeYear } from "@/data/scope/useScope";
+import { ScopeControl } from "@/screens/components/ScopeControl";
 import {
   CULTURE_FIRST_YEAR,
   scopeCultureOverview,
@@ -46,7 +43,7 @@ export const CultureScreen = () => {
   // Year scope (shared `?pscope` param). Default (ns) = all years; a "y:<year>"
   // pins one year and the film KPIs / discipline split / concentration / awards
   // re-aggregate to it (client-side). The time-spine stays full-history.
-  const { scope } = useProcurementScope();
+  const { scope } = useScope();
   const year = scopeYear(scope);
   const scoped = useMemo(
     () =>
@@ -79,7 +76,7 @@ export const CultureScreen = () => {
       <Title description={description}>{title}</Title>
       <SectorBreadcrumb currentKey="culture_nav" />
 
-      <ProcurementScopeControl
+      <ScopeControl
         className="mt-3"
         years={cultureYears}
         nsLabelOverride={bg ? "Всички години" : "All years"}

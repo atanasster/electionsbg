@@ -17,8 +17,8 @@ import { CalendarRange } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEurCompact } from "@/lib/currency";
-import type { ProcurementScope } from "@/data/procurement/useProcurementScope";
-import { ProcurementScopeControl } from "@/screens/components/procurement/ProcurementScopeControl";
+import type { Scope } from "@/data/scope/useScope";
+import { ScopeControl } from "@/screens/components/ScopeControl";
 import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
 import {
   useDefenseGdpShare,
@@ -62,9 +62,8 @@ export const DefenseScreen = () => {
   const [yearOverride, setYearOverride] = useState<number | null>(null);
   const selectedYear = yearOverride ?? latestYear;
 
-  const scopeValue: ProcurementScope =
-    yearOverride != null ? `y:${yearOverride}` : "ns";
-  const onScopeChange = (next: ProcurementScope) => {
+  const scopeValue: Scope = yearOverride != null ? `y:${yearOverride}` : "ns";
+  const onScopeChange = (next: Scope) => {
     if (next === "ns" || next === "all") setYearOverride(null);
     else setYearOverride(Number(next.slice(2)));
   };
@@ -123,7 +122,7 @@ export const DefenseScreen = () => {
               <CalendarRange className="h-3.5 w-3.5" />
               {bg ? "Показатели за година" : "Metrics for year"}
             </span>
-            <ProcurementScopeControl
+            <ScopeControl
               value={scopeValue}
               onChange={onScopeChange}
               years={years}

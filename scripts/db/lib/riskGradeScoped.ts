@@ -13,12 +13,12 @@
 
 import { readFileSync } from "node:fs";
 import type { PoolClient } from "pg";
-import { PROCUREMENT_FIRST_YEAR } from "../../../src/data/procurement/constants";
+import { SCOPE_FIRST_YEAR } from "../../../src/data/scope/constants";
 
 // The scope windows the UI can request — MUST match src/data/procurement/
-// useProcurementWindow: 'all' + each calendar year (from PROCUREMENT_FIRST_YEAR)
+// useScopeWindow: 'all' + each calendar year (from SCOPE_FIRST_YEAR)
 // + each parliament (election date → next-newer election).
-const FIRST_YEAR = PROCUREMENT_FIRST_YEAR;
+const FIRST_YEAR = SCOPE_FIRST_YEAR;
 const COLS =
   "eik, name, total_eur, supplier_count, linked_eur, score, grade, " +
   "connection_share, single_share, direct_share, conc_share, upheld_share";

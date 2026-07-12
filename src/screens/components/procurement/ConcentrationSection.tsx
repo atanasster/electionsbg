@@ -29,7 +29,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { Button } from "@/components/ui/button";
 import { formatEur } from "@/lib/currency";
-import { useProcurementWindow } from "@/data/procurement/useProcurementWindow";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 
 const countFmt = new Intl.NumberFormat("bg-BG");
 const PAGE_SIZE = 50;
@@ -62,7 +62,7 @@ type SortKey = "sharePct" | "pairTotalEur" | "awarderTotalEur" | "name";
 // concentration cases the offline by_ns/concentration + concentration_full
 // builders produced): the selected parliament window, or the full corpus.
 const useConcentrationFull = () => {
-  const { from, to } = useProcurementWindow();
+  const { from, to } = useScopeWindow();
   return useQuery({
     queryKey: ["procurement", "concentration", from, to],
     queryFn: async (): Promise<ConcentrationFullFile | null> => {

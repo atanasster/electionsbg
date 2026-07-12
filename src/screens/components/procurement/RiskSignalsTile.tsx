@@ -9,14 +9,14 @@ import { useTranslation } from "react-i18next";
 import { AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useRiskFeed } from "@/data/procurement/useRiskFeed";
-import { useProcurementHref } from "@/data/procurement/useProcurementScope";
+import { useScopedHref } from "@/data/scope/useScope";
 import { formatEur } from "@/lib/currency";
 
 const PREVIEW = 5;
 
 export const RiskSignalsTile: FC = () => {
   const { t, i18n } = useTranslation();
-  const buildHref = useProcurementHref();
+  const buildHref = useScopedHref();
   const { data: feed } = useRiskFeed();
   if (!feed) return null;
 

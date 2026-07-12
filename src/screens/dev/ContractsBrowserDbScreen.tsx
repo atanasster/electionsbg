@@ -20,7 +20,7 @@ import { ContractAmount } from "@/screens/components/procurement/ContractAmount"
 import { RiskBadges } from "@/screens/components/procurement/RiskBadges";
 import { AppealChip } from "@/screens/components/procurement/AppealChip";
 import { useContractRiskScorer } from "@/data/procurement/useContractRiskFlags";
-import { useProcurementWindow } from "@/data/procurement/useProcurementWindow";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { resolveContractSource } from "@/screens/components/candidates/procurement/sourceUrl";
 import { cpvDivisionName } from "@/lib/cpvSectors";
 import { formatEur } from "@/lib/currency";
@@ -39,7 +39,7 @@ const ALL = "__all__";
 export const ContractsBrowserDbScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const { scoreRow } = useContractRiskScorer();
-  const { from, to, all, year } = useProcurementWindow();
+  const { from, to, all, year } = useScopeWindow();
   // ?q= deep link (combined-search "see all" footer) seeds the search box.
   // ?cpv= deep link (from /procurement/sectors) seeds the CPV division filter
   // below — the cpv column is registered with filter:"prefix", so this value

@@ -7,7 +7,7 @@
 // The section-wide procurement scope (?pscope — this parliament / all years /
 // one calendar year) is applied CLIENT-SIDE here: the awarder-contracts query
 // fetches the whole corpus once (cached), and the [from, to) window from
-// useProcurementWindow simply filters the rows before they reach
+// useScopeWindow simply filters the rows before they reach
 // buildRoadsModel. Windowing the already-loaded ~2.1k rows keeps scope switches
 // instant (no refetch) and matches the overview's half-open [from, to) on the
 // contract `date`. The headline rollup is derived from the SAME windowed rows
@@ -15,7 +15,7 @@
 
 import { useMemo } from "react";
 import { useCounterparties } from "./useCounterparties";
-import { useProcurementWindow } from "./useProcurementWindow";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import {
   useAwarderContracts,
   scopeByWindow,
@@ -62,7 +62,7 @@ export const useRoads = (
 ): RoadsData => {
   const counterparties = useCounterparties(eik, "awarder");
   const contracts = useAwarderContracts(eik);
-  const urlWindow = useProcurementWindow();
+  const urlWindow = useScopeWindow();
   const from = windowOverride ? windowOverride.from : urlWindow.from;
   const to = windowOverride ? windowOverride.to : urlWindow.to;
 

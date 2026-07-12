@@ -20,7 +20,7 @@ import { Title } from "@/ux/Title";
 import { Card, CardContent } from "@/ux/Card";
 import { Tooltip } from "@/ux/Tooltip";
 import { useProcurementSectors } from "@/data/procurement/useProcurementSectors";
-import { useProcurementWindow } from "@/data/procurement/useProcurementWindow";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
 import { cpvDivisionName } from "@/lib/cpvSectors";
 import { formatEurCompact } from "@/lib/currency";
@@ -44,7 +44,7 @@ export const ProcurementSectorsScreen: FC = () => {
   const lang = i18n.language;
   const nf = new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en-GB");
   const { data, isLoading } = useProcurementSectors();
-  const { from, to } = useProcurementWindow();
+  const { from, to } = useScopeWindow();
   const [params] = useSearchParams();
 
   const [expanded, setExpanded] = useState<string | null>(null);

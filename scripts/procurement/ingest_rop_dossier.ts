@@ -231,9 +231,9 @@ const reparseFromCache = (): void => {
     const docId = f.replace(/\.html\.gz$/, "");
     let html: string;
     try {
-      html = zlib.gunzipSync(fs.readFileSync(path.join(CACHE_DIR, f))).toString(
-        "utf8",
-      );
+      html = zlib
+        .gunzipSync(fs.readFileSync(path.join(CACHE_DIR, f)))
+        .toString("utf8");
     } catch {
       continue;
     }
@@ -241,7 +241,9 @@ const reparseFromCache = (): void => {
     map[docId] = fact;
     if (fact.cpv) withCpv++;
     if (++done % 10_000 === 0)
-      console.log(`  …${done.toLocaleString()}/${files.length.toLocaleString()}`);
+      console.log(
+        `  …${done.toLocaleString()}/${files.length.toLocaleString()}`,
+      );
   }
   saveMap(map);
   console.log(

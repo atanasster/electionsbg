@@ -17,7 +17,7 @@ import { ProcurementSectionHeader } from "@/screens/components/procurement/Procu
 import { getSectorBrowsePack } from "@/screens/components/procurement/sectorPacks";
 import { SectorBrowseSlot } from "@/screens/components/procurement/SectorBrowseSlot";
 import { AppealChip } from "@/screens/components/procurement/AppealChip";
-import { useProcurementWindow } from "@/data/procurement/useProcurementWindow";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { topicBySlug } from "@/lib/tenderTopics";
 import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
@@ -54,7 +54,7 @@ export const TendersBrowserDbScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const [params] = useSearchParams();
   const topic = topicBySlug(params.get("topic"));
-  const { from, to, all } = useProcurementWindow();
+  const { from, to, all } = useScopeWindow();
 
   // ?sector= → the sector browse pack (§4.3): restrict to its buyer EIK-set and
   // mount its enrichment strip. Tenders scope on buyer_eik (= awarder_eik).

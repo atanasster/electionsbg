@@ -14,8 +14,8 @@ import { CalendarRange } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatInt, formatPct } from "@/lib/currency";
-import type { ProcurementScope } from "@/data/procurement/useProcurementScope";
-import { ProcurementScopeControl } from "@/screens/components/procurement/ProcurementScopeControl";
+import type { Scope } from "@/data/scope/useScope";
+import { ScopeControl } from "@/screens/components/ScopeControl";
 import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
 import {
   clearanceRate,
@@ -60,9 +60,9 @@ export const JudiciaryScreen = () => {
   // own value, so picking 2025 from it rendered the placeholder while "Последна
   // година" lit up. Showing the resolved (not the requested) year also keeps the
   // control honest when a refreshed caseload.json drops the year the user picked.
-  const scopeValue: ProcurementScope =
+  const scopeValue: Scope =
     yearOverride != null && selectedYear != null ? `y:${selectedYear}` : "ns";
-  const onScopeChange = (next: ProcurementScope) => {
+  const onScopeChange = (next: Scope) => {
     if (next === "ns" || next === "all") setYearOverride(null);
     else setYearOverride(Number(next.slice(2)));
   };
@@ -105,7 +105,7 @@ export const JudiciaryScreen = () => {
               <CalendarRange className="h-3.5 w-3.5" />
               {bg ? "Обхват" : "Scope"}
             </span>
-            <ProcurementScopeControl
+            <ScopeControl
               value={scopeValue}
               onChange={onScopeChange}
               years={yearList}

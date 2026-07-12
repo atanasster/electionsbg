@@ -1,4 +1,5 @@
-// Section-wide scope control for the procurement pages. Rendered in the same
+// Shared scope control for every public-money view (procurement, water,
+// defense, culture, judiciary, subsidies, the sectors hub). Rendered in the same
 // slot on every page (directly under the nav pills) so the reader always finds
 // "what time range am I looking at?" in one place.
 //
@@ -15,11 +16,7 @@ import { useTranslation } from "react-i18next";
 import { CalendarRange } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useElectionContext } from "@/data/ElectionContext";
-import {
-  ProcurementScope,
-  PROCUREMENT_FIRST_YEAR,
-  useProcurementScope,
-} from "@/data/procurement/useProcurementScope";
+import { Scope, SCOPE_FIRST_YEAR, useScope } from "@/data/scope/useScope";
 import {
   Select,
   SelectContent,
@@ -36,10 +33,10 @@ interface Props {
   // (which drives a scoped DB fetch, not intra-section nav) to reuse the exact
   // pill UI without hijacking the URL. Omit both for the default URL-backed
   // behaviour on the procurement section pages.
-  value?: ProcurementScope;
-  onChange?: (next: ProcurementScope) => void;
+  value?: Scope;
+  onChange?: (next: Scope) => void;
   // Override the year list in the picker. Defaults to every calendar year since
-  // PROCUREMENT_FIRST_YEAR; a caller with sparse coverage (e.g. the farm-subsidy
+  // SCOPE_FIRST_YEAR; a caller with sparse coverage (e.g. the farm-subsidy
   // pack's CAP financial years) passes only the years it actually has data for.
   years?: number[];
   // Override the "this parliament" pill label (e.g. "Latest year" for datasets
@@ -54,11 +51,11 @@ interface Props {
 
 const LAST_YEAR = new Date().getFullYear();
 const YEARS: number[] = Array.from(
-  { length: LAST_YEAR - PROCUREMENT_FIRST_YEAR + 1 },
+  { length: LAST_YEAR - SCOPE_FIRST_YEAR + 1 },
   (_, i) => LAST_YEAR - i,
 );
 
-export const ProcurementScopeControl: FC<Props> = ({
+export const ScopeControl: FC<Props> = ({
   mode = "toggle",
   className,
   value,
@@ -69,7 +66,7 @@ export const ProcurementScopeControl: FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const { selected } = useElectionContext();
-  const url = useProcurementScope();
+  const url = useScope();
   // Controlled (caller-owned state) when both props are given; otherwise the
   // URL-backed `?pscope` hook drives the control.
   const scope = value ?? url.scope;
@@ -120,7 +117,7 @@ export const ProcurementScopeControl: FC<Props> = ({
         <Select
           // "ns" has no matching item → Radix shows the placeholder pill.
           value={nsActive ? "" : scope}
-          onValueChange={(v) => setScope(v as ProcurementScope)}
+          onValueChange={(v) => setScope(v as Scope)}
         >
           <SelectTrigger
             aria-label={t("procurement_scope_years") || "Years"}

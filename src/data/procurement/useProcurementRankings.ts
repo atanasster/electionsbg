@@ -6,7 +6,7 @@
 // current procurement scope (?pscope) like every other procurement page.
 
 import { useQuery } from "@tanstack/react-query";
-import { useProcurementWindow } from "./useProcurementWindow";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import type {
   ProcurementByNsTopAwarder,
   ProcurementByNsTopMp,
@@ -43,7 +43,7 @@ export const rankingsQueryKey = (from: string | null, to: string | null) =>
   ["db", "procurement-rankings", from, to] as const;
 
 export const useProcurementRankings = () => {
-  const { from, to, all } = useProcurementWindow();
+  const { from, to, all } = useScopeWindow();
 
   const query = useQuery({
     queryKey: rankingsQueryKey(from, to),

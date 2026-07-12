@@ -32,8 +32,8 @@ import { AgriOblastMap } from "./components/subsidies/AgriOblastMap";
 import type { AgriIndexFile, AgriConcentration } from "@/data/agri/types";
 import { AGRI_FINANCIAL_YEARS, agriScopeToKey } from "@/data/agri/constants";
 import { formatEur, formatEurCompact } from "@/lib/currency";
-import { useProcurementScope } from "@/data/procurement/useProcurementScope";
-import { ProcurementScopeControl } from "./components/procurement/ProcurementScopeControl";
+import { useScope } from "@/data/scope/useScope";
+import { ScopeControl } from "./components/ScopeControl";
 import { SectorBreadcrumb } from "./components/procurement/SectorBreadcrumb";
 
 const Tile: FC<{
@@ -233,7 +233,7 @@ const Dashboard: FC<{ data: AgriIndexFile }> = ({ data }) => {
   const [params] = useSearchParams();
   // Browse links carry the section scope (pscope) + election forward, so the
   // scope survives the click into the sub-page — same contract as the
-  // procurement nav's useProcurementHref.
+  // procurement nav's useScopedHref.
   const browseTo = (extra: Record<string, string>): string => {
     const p = new URLSearchParams();
     const ps = params.get("pscope");
@@ -505,9 +505,9 @@ export const SubsidiesDashboardScreen: FC = () => {
   const bg = i18n.language === "bg";
   // Same time-scope machinery as the procurement pages: the `?pscope` URL param
   // (ns | all | y:YYYY), carried between the section and its sub-pages by
-  // useProcurementHref. Subsidies has no per-parliament slice, so "ns" resolves
+  // useScopedHref. Subsidies has no per-parliament slice, so "ns" resolves
   // to the latest financial year (the pill is relabelled accordingly).
-  const { scope } = useProcurementScope();
+  const { scope } = useScope();
   const { data, isLoading } = useAgriOverview(agriScopeToKey(scope));
   const title = bg ? "Земеделски субсидии" : "Farm subsidies";
   const description =
@@ -522,7 +522,7 @@ export const SubsidiesDashboardScreen: FC = () => {
           <CalendarRange className="h-3.5 w-3.5" />
           {bg ? "Обхват" : "Scope"}
         </span>
-        <ProcurementScopeControl
+        <ScopeControl
           years={AGRI_FINANCIAL_YEARS}
           nsLabelOverride={bg ? "Последна година" : "Latest year"}
         />

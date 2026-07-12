@@ -9,11 +9,11 @@
 // only owns the fetch, the scope window, and the raw per-unit aggregates.
 //
 // Scope window: [from, to) resolved from an explicit override else the URL scope
-// (useProcurementWindow) — same rule as the old per-pack hooks.
+// (useScopeWindow) — same rule as the old per-pack hooks.
 
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useProcurementWindow } from "./useProcurementWindow";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import type { ScopeWindow } from "./useAwarderContracts";
 import type { AwarderModel, GroupModelPayload } from "@/lib/awarderModel";
 
@@ -49,7 +49,7 @@ export const useAwarderGroupModel = <Cat extends string>(
   // would duplicate the primary call — see useDefense's universe filter.
   enabled = true,
 ): GroupModelResult<Cat> => {
-  const urlWindow = useProcurementWindow();
+  const urlWindow = useScopeWindow();
   const from = windowOverride ? windowOverride.from : urlWindow.from;
   const to = windowOverride ? windowOverride.to : urlWindow.to;
   const eikParam = useMemo(() => [...eiks].join(","), [eiks]);

@@ -14,7 +14,7 @@
 
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useProcurementWindow } from "./useProcurementWindow";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { useAwarderGroupModel, type ScopeWindow } from "./useAwarderGroupModel";
 import {
   buildVikModelFromAggregates,
@@ -105,7 +105,7 @@ export const useVikGroupRollup = (
   eiks: readonly string[],
   windowOverride?: ScopeWindow,
 ): { operators: VikOperatorAgg[]; isLoading: boolean } => {
-  const urlWindow = useProcurementWindow();
+  const urlWindow = useScopeWindow();
   const from = windowOverride ? windowOverride.from : urlWindow.from;
   const to = windowOverride ? windowOverride.to : urlWindow.to;
   const eikParam = useMemo(() => [...eiks].join(","), [eiks]);

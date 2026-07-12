@@ -17,7 +17,7 @@ import {
   InfographicTileProps,
   TILE_ACCENTS,
 } from "@/ux/infographic";
-import { ProcurementScopeControl } from "./components/procurement/ProcurementScopeControl";
+import { ScopeControl } from "./components/ScopeControl";
 import { ProcurementSearchTile } from "./components/procurement/ProcurementSearchTile";
 import { WatchlistDigestTile } from "./components/procurement/WatchlistDigestTile";
 import { useProcurementHubStats } from "@/data/procurement/useProcurementHubStats";
@@ -171,7 +171,7 @@ export const ProcurementScreen: FC = () => {
       </Title>
 
       <div className="my-3">
-        <ProcurementScopeControl mode="toggle" />
+        <ScopeControl mode="toggle" />
       </div>
 
       <ProcurementSearchTile />

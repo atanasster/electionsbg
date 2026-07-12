@@ -3,7 +3,7 @@
 // browser, newest first. Values are ESTIMATED (forecast), never spend.
 
 import { useQuery } from "@tanstack/react-query";
-import { useProcurementWindow } from "./useProcurementWindow";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { fetchTablePage } from "./fetchTablePage";
 
 export type LatestTenderRow = {
@@ -16,7 +16,7 @@ export type LatestTenderRow = {
 };
 
 export const useLatestTenders = (count = 5) => {
-  const { from, to, all } = useProcurementWindow();
+  const { from, to, all } = useScopeWindow();
   return useQuery({
     queryKey: ["procurement", "latest_tenders", from, to, count],
     queryFn: () =>

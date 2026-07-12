@@ -13,9 +13,9 @@ import {
   useCounterparties,
   type CounterpartyEntry,
 } from "@/data/procurement/useCounterparties";
-import { ProcurementScopeControl } from "./components/procurement/ProcurementScopeControl";
-import { type ProcurementScope } from "@/data/procurement/useProcurementScope";
-import { scopeRange } from "@/data/procurement/scopeRange";
+import { ScopeControl } from "./components/ScopeControl";
+import { type Scope } from "@/data/scope/useScope";
+import { scopeRange } from "@/data/scope/scopeRange";
 import { useElectionContext } from "@/data/ElectionContext";
 import { formatEurWithOther } from "@/lib/currency";
 import { ErrorSection } from "./components/ErrorSection";
@@ -26,7 +26,7 @@ export const AwarderContractorsScreen: FC = () => {
   const { selected } = useElectionContext();
   // Defaults to "this parliament", matching the rest of the procurement section
   // (was "all" — that made the scope silently differ from the hub/entity page).
-  const [scope, setScope] = useState<ProcurementScope>("ns");
+  const [scope, setScope] = useState<Scope>("ns");
   const [from, to] = scopeRange(scope, selected);
   const { data, isLoading } = useCounterparties(eik, "awarder", from, to);
 
@@ -119,7 +119,7 @@ export const AwarderContractorsScreen: FC = () => {
               · {t("awarder_top_contractors") || "Top contractors paid"}
             </span>
           </div>
-          <ProcurementScopeControl value={scope} onChange={setScope} />
+          <ScopeControl value={scope} onChange={setScope} />
         </div>
         {data.entries.length === 0 ? (
           <p className="text-sm text-muted-foreground">

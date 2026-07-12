@@ -4,14 +4,14 @@
 // €100k so routine small purchases don't drown the signal.
 
 import { useQuery } from "@tanstack/react-query";
-import { useProcurementWindow } from "./useProcurementWindow";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { fetchTablePage } from "./fetchTablePage";
 import type { ProcurementContract } from "@/data/dataTypes";
 
 const MIN_EUR = 100_000;
 
 export const useLatestContracts = (count = 6) => {
-  const { from, to, all } = useProcurementWindow();
+  const { from, to, all } = useScopeWindow();
   return useQuery({
     queryKey: ["procurement", "latest_contracts", from, to, count],
     queryFn: () =>

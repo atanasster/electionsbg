@@ -13,7 +13,7 @@ import { Waves } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { useFloodMaintenance } from "@/data/water/useFloodMaintenance";
-import { useProcurementWindow } from "@/data/procurement/useProcurementWindow";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { buildFloodModel } from "@/lib/floodModel";
 import { WaterFloodMap } from "./WaterFloodMap";
 
@@ -24,7 +24,7 @@ export const WaterFloodTile: FC = () => {
   const { data, isLoading } = useFloodMaintenance();
   // Re-aggregate to the page's ?pscope window (like every other pack) rather
   // than showing the whole-corpus precomputed figures.
-  const { from, to } = useProcurementWindow();
+  const { from, to } = useScopeWindow();
   const model = useMemo(
     () => (data ? buildFloodModel(data.contracts, from, to) : null),
     [data, from, to],

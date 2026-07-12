@@ -1,6 +1,6 @@
 // Per-sector headline stat for the government sector tiles, from the
 // pre-generated static file (built by db:gen-sector-stats). Keyed by the SAME
-// scope key the window hook derives (useProcurementWindow), so the sectors hub's
+// scope key the window hook derives (useScopeWindow), so the sectors hub's
 // scope control is live — one fetch, then look up the active scope.
 //
 // Each sector's value is either a euro figure (`kind:"eur"` — procurement € for
@@ -9,7 +9,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { formatEurCompact } from "@/lib/currency";
-import { useProcurementWindow } from "./useProcurementWindow";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 
 export interface SectorStat {
   kind: "eur" | "score" | "count";
@@ -38,7 +38,7 @@ export type SectorStatsFile = Record<string, Record<string, SectorStat>>;
 
 /** The sector→stat map for the active ?pscope, or undefined while loading. */
 export const useSectorStats = (): Record<string, SectorStat> | undefined => {
-  const { all, year, selected } = useProcurementWindow();
+  const { all, year, selected } = useScopeWindow();
   const key = all ? "all" : year != null ? `y:${year}` : `ns:${selected}`;
   const { data } = useQuery({
     queryKey: ["procurement", "sector-stats"] as const,

@@ -83,12 +83,9 @@ import { procedureBucket, type ProcedureBucket } from "@/lib/cpvSectors";
 import { trRoleLabel } from "@/lib/trRole";
 import { legalFormLabel } from "@/lib/legalForm";
 import { decodeEntities } from "@/lib/decodeEntities";
-import { ProcurementScopeControl } from "../components/procurement/ProcurementScopeControl";
-import {
-  scopeYear,
-  useProcurementScope,
-} from "@/data/procurement/useProcurementScope";
-import { scopeRange } from "@/data/procurement/scopeRange";
+import { ScopeControl } from "../components/ScopeControl";
+import { scopeYear, useScope } from "@/data/scope/useScope";
+import { scopeRange } from "@/data/scope/scopeRange";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useHashScroll } from "@/ux/useHashScroll";
 
@@ -373,10 +370,10 @@ export const CompanyDbScreen: FC = () => {
   const [loading, setLoading] = useState(true);
   // Section scope, URL-backed via ?pscope — the SAME semantics as the rest of
   // the procurement section (absent = "this parliament"; "all"/"y:<year>" are
-  // written to the URL). Sharing useProcurementScope means the scope no longer
+  // written to the URL). Sharing useScope means the scope no longer
   // silently flips when you navigate between the hub/section and an entity page,
   // which used to happen because this page treated an absent param as "all".
-  const { scope, setScope } = useProcurementScope();
+  const { scope, setScope } = useScope();
   // Latches true once the entity is known to be an awarder, so narrowing the
   // scope to an empty window can't hide the control (which would strand the user
   // with no way back to "all").
@@ -698,7 +695,7 @@ export const CompanyDbScreen: FC = () => {
           {(hadAwarder || contracts > 0) && (
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-sm text-muted-foreground">Обхват</span>
-              <ProcurementScopeControl value={scope} onChange={setScope} />
+              <ScopeControl value={scope} onChange={setScope} />
             </div>
           )}
           {/* Sector hierarchy breadcrumb — only on the packed sector awarder

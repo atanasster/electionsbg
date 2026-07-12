@@ -12,7 +12,7 @@ import type {
   ProcurementBySettlementFile,
   ProcurementBySettlementIndex,
 } from "@/data/dataTypes";
-import { useProcurementWindow } from "./useProcurementWindow";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 
 /** Per-settlement procurement (one EKATTE), DB-backed (/api/db/procurement-
  *  settlement → procurement_settlement_detail). Corpus-scoped: the detail
@@ -39,7 +39,7 @@ export const useSettlementProcurement = (ekatte?: string | null) =>
  *  procurement_by_settlement). Scoped to the selected parliament window or the
  *  full corpus (?pscope). */
 export const useProcurementBySettlementIndex = () => {
-  const { from, to } = useProcurementWindow();
+  const { from, to } = useScopeWindow();
   return useQuery({
     queryKey: ["procurement", "by_settlement_index", from, to],
     queryFn: async (): Promise<ProcurementBySettlementIndex | null> => {

@@ -7,12 +7,12 @@
 
 import allElections from "@/data/json/elections.json";
 import { useElectionContext } from "@/data/ElectionContext";
-import { scopeYear, useProcurementScope } from "./useProcurementScope";
+import { scopeYear, useScope } from "./useScope";
 
 const dash = (d: string): string => d.replace(/_/g, "-");
 const elections = allElections as Array<{ name: string }>;
 
-export const useProcurementWindow = (): {
+export const useScopeWindow = (): {
   from: string | null;
   to: string | null;
   all: boolean;
@@ -20,7 +20,7 @@ export const useProcurementWindow = (): {
   selected: string;
 } => {
   const { selected } = useElectionContext();
-  const { scope } = useProcurementScope();
+  const { scope } = useScope();
   const all = scope === "all";
   const year = scopeYear(scope);
   if (year != null) {

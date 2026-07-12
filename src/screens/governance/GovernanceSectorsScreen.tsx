@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { TileHubGrid, TileHubSection } from "@/ux/infographic";
 import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
-import { ProcurementScopeControl } from "@/screens/components/procurement/ProcurementScopeControl";
+import { ScopeControl } from "@/screens/components/ScopeControl";
 import {
   useSectorStats,
   formatSectorMetric,
@@ -53,7 +53,7 @@ export const GovernanceSectorsScreen: FC = () => {
       <SectorBreadcrumb className="mt-5" />
 
       <div className="my-3">
-        <ProcurementScopeControl mode="toggle" />
+        <ScopeControl mode="toggle" />
       </div>
 
       <div data-og="sectors-hub">

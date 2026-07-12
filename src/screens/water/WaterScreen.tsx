@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
-import { ProcurementScopeControl } from "@/screens/components/procurement/ProcurementScopeControl";
+import { ScopeControl } from "@/screens/components/ScopeControl";
 import { useVik, useVikFunds } from "@/data/procurement/useVik";
 import { VIK_HOLDING_EIK } from "@/lib/vikReferenceData";
 import { VikSubsidiaryTile } from "@/screens/components/procurement/vik/VikSubsidiaryTile";
@@ -53,7 +53,7 @@ export const WaterScreen: FC = () => {
       </p>
 
       <div className="mb-3">
-        <ProcurementScopeControl mode="toggle" />
+        <ScopeControl mode="toggle" />
       </div>
 
       {isLoading ? (

@@ -4,7 +4,7 @@
 // concentration cases; places = settlements with procurement) can be included,
 // computed offline where their cost doesn't matter.
 //
-// Keyed by the SAME scope key the frontend computes (useProcurementWindow):
+// Keyed by the SAME scope key the frontend computes (useScopeWindow):
 //   ns:<election>  — the selected parliament's tenure window [from, next election)
 //   y:<year>       — one calendar year
 //   all            — the full corpus

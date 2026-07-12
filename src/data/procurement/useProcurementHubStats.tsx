@@ -5,7 +5,7 @@
 // scope key the window hook derives, so it stays scope-responsive.
 
 import { useQuery } from "@tanstack/react-query";
-import { useProcurementWindow } from "./useProcurementWindow";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 
 export interface HubStat {
   totalEur: number;
@@ -24,7 +24,7 @@ type HubStatsFile = Record<string, HubStat>;
 /** The stat block for the active ?pscope, or undefined while loading / on a
  *  scope not present in the file. */
 export const useProcurementHubStats = (): HubStat | undefined => {
-  const { all, year, selected } = useProcurementWindow();
+  const { all, year, selected } = useScopeWindow();
   const key = all ? "all" : year != null ? `y:${year}` : `ns:${selected}`;
   const { data } = useQuery({
     queryKey: ["procurement", "hub-stats"] as const,

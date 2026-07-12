@@ -6,11 +6,11 @@
 // the previous index. Scope "all" (?pscope=all) drops the window → full corpus.
 
 import { useQuery } from "@tanstack/react-query";
-import { useProcurementWindow } from "./useProcurementWindow";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import type { ProcurementByNsFile } from "@/data/dataTypes";
 
 export const useProcurementOverview = () => {
-  const { from, to, all, year, selected } = useProcurementWindow();
+  const { from, to, all, year, selected } = useScopeWindow();
 
   const query = useQuery({
     queryKey: ["procurement", "overview", from, to] as const,

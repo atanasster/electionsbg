@@ -3,7 +3,7 @@
 // selected parliament window / year or the full corpus (?pscope).
 
 import { useQuery } from "@tanstack/react-query";
-import { useProcurementWindow } from "./useProcurementWindow";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 
 export type ProcurementBenchmarksFile = {
   total: number;
@@ -12,7 +12,7 @@ export type ProcurementBenchmarksFile = {
 };
 
 export const useProcurementBenchmarks = (enabled = true) => {
-  const { from, to } = useProcurementWindow();
+  const { from, to } = useScopeWindow();
   return useQuery({
     enabled,
     queryKey: ["procurement", "benchmarks", from, to],

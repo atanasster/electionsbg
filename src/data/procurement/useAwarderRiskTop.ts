@@ -2,11 +2,11 @@
 // awarder_risk_grade_top from the precomputed awarder_risk_grade_scoped table,
 // schema 041). SCOPED to the live ?pscope window (all / y:<year> / ns:<election>)
 // like the rest of the /procurement module — the scope key is derived from
-// useProcurementWindow below. `minScore` is an optional grade floor (bands have
+// useScopeWindow below. `minScore` is an optional grade floor (bands have
 // no plus grades; 55 = the E floor, 70 = the F floor).
 
 import { useQuery } from "@tanstack/react-query";
-import { useProcurementWindow } from "./useProcurementWindow";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import type { RiskGradeLetter } from "@/lib/riskGrade";
 
 export type AwarderRiskTopRow = {
@@ -38,7 +38,7 @@ export type AwarderRiskTop = {
 export const useAwarderRiskTop = (limit = 20, minScore = 0) => {
   // Follow the /procurement pscope selector: 'all' | 'y:<year>' | 'ns:<election>'
   // — the exact keys precomputed into awarder_risk_grade_scoped by the loader.
-  const { all, year, selected } = useProcurementWindow();
+  const { all, year, selected } = useScopeWindow();
   const scope = all ? "all" : year != null ? `y:${year}` : `ns:${selected}`;
   return useQuery({
     queryKey: [

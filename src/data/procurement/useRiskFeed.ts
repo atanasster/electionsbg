@@ -7,7 +7,7 @@
 // dimension — and are fetched separately via useDebarred.)
 
 import { useQuery } from "@tanstack/react-query";
-import { useProcurementWindow } from "./useProcurementWindow";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 
 export type RiskFeedFile = {
   topConcentration: Array<{
@@ -34,7 +34,7 @@ export type RiskFeedFile = {
 };
 
 export const useRiskFeed = () => {
-  const { from, to } = useProcurementWindow();
+  const { from, to } = useScopeWindow();
   return useQuery({
     queryKey: ["procurement", "risk_feed", from, to],
     queryFn: async (): Promise<RiskFeedFile | null> => {

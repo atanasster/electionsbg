@@ -18,7 +18,7 @@
 
 import { FC } from "react";
 import { ProcurementBreadcrumb } from "./ProcurementBreadcrumb";
-import { ProcurementScopeControl } from "./ProcurementScopeControl";
+import { ScopeControl } from "../ScopeControl";
 
 export const ProcurementSectionHeader: FC<{
   current?: string;
@@ -28,9 +28,7 @@ export const ProcurementSectionHeader: FC<{
     <ProcurementBreadcrumb currentKey={current} className="my-3" />
     {scopeMode !== "none" ? (
       <div className="mb-3">
-        <ProcurementScopeControl
-          mode={scopeMode === "corpus" ? "corpus" : "toggle"}
-        />
+        <ScopeControl mode={scopeMode === "corpus" ? "corpus" : "toggle"} />
       </div>
     ) : null}
   </div>

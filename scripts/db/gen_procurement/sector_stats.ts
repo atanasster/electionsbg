@@ -4,7 +4,7 @@
 // as hub_stats.json (committed + bucket-synced; the rest of procurement is
 // PG-only).
 //
-// Keyed by the SAME scope key the frontend computes (useProcurementWindow), so
+// Keyed by the SAME scope key the frontend computes (useScopeWindow), so
 // the sectors hub's scope control is live:
 //   ns:<election>  — the selected parliament's tenure window
 //   y:<year>       — one calendar year

@@ -15,7 +15,7 @@ import { DbDataTable, type DbColumnFilter } from "@/ux/data_table/DbDataTable";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
 import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
 import { AppealChip } from "@/screens/components/procurement/AppealChip";
-import { useProcurementWindow } from "@/data/procurement/useProcurementWindow";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import {
   kzkStatusLabel,
   kzkOutcomeLabel,
@@ -52,7 +52,7 @@ const ALL = "__all__";
 export const AppealsBrowserDbScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const [params] = useSearchParams();
-  const { from, to, all } = useProcurementWindow();
+  const { from, to, all } = useScopeWindow();
   const lang = i18n.language;
 
   const [outcome, setOutcome] = useState<string>(ALL);

@@ -9,13 +9,13 @@ import { useTranslation } from "react-i18next";
 import { Receipt } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useLatestContracts } from "@/data/procurement/useLatestContracts";
-import { useProcurementHref } from "@/data/procurement/useProcurementScope";
+import { useScopedHref } from "@/data/scope/useScope";
 import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
 
 export const LatestContractsTile: FC = () => {
   const { t, i18n } = useTranslation();
-  const buildHref = useProcurementHref();
+  const buildHref = useScopedHref();
   const { data: rows } = useLatestContracts(6);
   if (!rows || rows.length === 0) return null;
 

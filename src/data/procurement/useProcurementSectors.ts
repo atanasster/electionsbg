@@ -4,7 +4,7 @@
 // CPV prefixes, labelled via cpvDivisionName.
 
 import { useQuery } from "@tanstack/react-query";
-import { useProcurementWindow } from "./useProcurementWindow";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 
 export type ProcurementSectorsFile = {
   totalEur: number;
@@ -13,7 +13,7 @@ export type ProcurementSectorsFile = {
 };
 
 export const useProcurementSectors = () => {
-  const { from, to } = useProcurementWindow();
+  const { from, to } = useScopeWindow();
   return useQuery({
     queryKey: ["procurement", "sectors", from, to],
     queryFn: async (): Promise<ProcurementSectorsFile | null> => {

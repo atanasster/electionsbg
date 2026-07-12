@@ -12,7 +12,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { Title } from "@/ux/Title";
 import { DataTable } from "@/ux/data_table/DataTable";
 import { Breadcrumbs } from "@/ux/Breadcrumbs";
-import { ProcurementScopeControl } from "@/screens/components/procurement/ProcurementScopeControl";
+import { ScopeControl } from "@/screens/components/ScopeControl";
 import { useVikGroupRollup, useVikFunds } from "@/data/procurement/useVik";
 import { WATER_SECTOR_EIKS, operatorByEik } from "@/lib/vikReferenceData";
 import { formatEurCompact } from "@/lib/currency";
@@ -183,7 +183,7 @@ export const WaterOperatorsScreen: FC = () => {
         ]}
       />
       <div className="my-3">
-        <ProcurementScopeControl mode="toggle" />
+        <ScopeControl mode="toggle" />
       </div>
 
       <DataTable<OpRow, unknown>

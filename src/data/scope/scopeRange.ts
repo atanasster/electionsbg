@@ -1,21 +1,21 @@
-// Maps a procurement ProcurementScope ("all" | "y:<year>" | "ns") to an
+// Maps a Scope ("all" | "y:<year>" | "ns") to an
 // INCLUSIVE [from, to] date pair (YYYY-MM-DD | null) for the date-scoped DB
 // endpoints — awarder_procurement / company_procurement / company-counterparties
 // all filter `date >= from AND date <= to`. This is the inclusive-bounds sibling
-// of useProcurementWindow (which yields half-open [from, to) for the client-side
+// of useScopeWindow (which yields half-open [from, to) for the client-side
 // row filtering on the procurement section pages).
 //
 // Shared by the awarder/company dashboard and its standalone counterparty lists
 // so their scope pills resolve to identical windows.
 
 import allElections from "@/data/json/elections.json";
-import { scopeYear, type ProcurementScope } from "./useProcurementScope";
+import { scopeYear, type Scope } from "./useScope";
 
 const elections = allElections as Array<{ name: string }>;
 const dash = (d: string): string => d.replace(/_/g, "-");
 
 export const scopeRange = (
-  scope: ProcurementScope,
+  scope: Scope,
   selected: string,
 ): [string | null, string | null] => {
   if (scope === "all") return [null, null];

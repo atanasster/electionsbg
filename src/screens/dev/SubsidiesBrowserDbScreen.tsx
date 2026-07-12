@@ -12,8 +12,8 @@ import { Title } from "@/ux/Title";
 import { DbDataTable, type DbColumnFilter } from "@/ux/data_table/DbDataTable";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
 import { formatEur } from "@/lib/currency";
-import { useProcurementScope } from "@/data/procurement/useProcurementScope";
-import { ProcurementScopeControl } from "@/screens/components/procurement/ProcurementScopeControl";
+import { useScope } from "@/data/scope/useScope";
+import { ScopeControl } from "@/screens/components/ScopeControl";
 import { AGRI_FINANCIAL_YEARS, agriScopeToYear } from "@/data/agri/constants";
 import {
   Select,
@@ -47,7 +47,7 @@ export const SubsidiesBrowserDbScreen: FC = () => {
   // Time scope: same `?pscope` param the procurement pages use (ns | all |
   // y:YYYY), carried in from the dashboard's By-scheme/oblast links. Subsidies
   // has no per-parliament slice, so ns → the latest financial year.
-  const { scope } = useProcurementScope();
+  const { scope } = useScope();
   const scopeYear = agriScopeToYear(scope); // number (a year) | null (all)
 
   // Deep-link seeds: ?scheme=<Мярка> filters to one programme's beneficiaries;
@@ -175,7 +175,7 @@ export const SubsidiesBrowserDbScreen: FC = () => {
             <CalendarRange className="h-3.5 w-3.5" />
             {bg ? "Обхват" : "Scope"}
           </span>
-          <ProcurementScopeControl
+          <ScopeControl
             years={AGRI_FINANCIAL_YEARS}
             nsLabelOverride={bg ? "Последна година" : "Latest year"}
           />

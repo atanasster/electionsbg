@@ -5,7 +5,7 @@
 // page — consumers filter client-side via the threshold slider.
 
 import { useQuery } from "@tanstack/react-query";
-import { useProcurementWindow } from "./useProcurementWindow";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 
 export type ProcurementFlowNodeType =
   | "awarder"
@@ -34,7 +34,7 @@ export type ProcurementFlowFile = {
 // The DB returns the whole window graph; the consumer thresholds it client-side
 // (so the preview tile and the explorer page share one fetch — no full flag).
 export const useProcurementFlow = () => {
-  const { from, to } = useProcurementWindow();
+  const { from, to } = useScopeWindow();
   return useQuery({
     queryKey: ["procurement", "flow", from, to] as const,
     queryFn: async (): Promise<ProcurementFlowFile | null> => {

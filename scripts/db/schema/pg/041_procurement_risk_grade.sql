@@ -360,7 +360,7 @@ GRANT SELECT ON awarder_risk_grade_ranking TO app_readonly;
 -- Per-scope precomputed leaderboards so the tile follows the /procurement pscope
 -- selector (all / y:<year> / ns:<election>) WITHOUT a ~330ms live windowed scan
 -- per view. Populated by the loader (load_pg), which enumerates the exact scope
--- windows the UI's useProcurementWindow produces and runs awarder_risk_grade_window
+-- windows the UI's useScopeWindow produces and runs awarder_risk_grade_window
 -- for each. scope_key: 'all' | 'y:2024' | 'ns:2026_04_19'.
 CREATE TABLE IF NOT EXISTS awarder_risk_grade_scoped (
   scope_key text NOT NULL,
