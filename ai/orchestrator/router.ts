@@ -1948,16 +1948,21 @@ export const route = (question: string, ctx: ToolContext): Route => {
   }
   // Отбрана — the defence view (%GDP path, equipment split, programs, exports,
   // readiness), or the МО group's contract ledger when procurement-phrased.
-  {
+  defenseBlock: {
     // Mirrors MOD_EIK in src/lib/defenseReferenceData.ts — the router cannot
     // import from src/, so it's inlined like every other awarder EIK here.
     const MOD_EIK = "000695324";
     // "нато" as a whole word: "натовареност" (judiciary workload, handled above)
     // contains it, so anchor to a boundary so a bare defence query stays clean.
     const natoCue = /(^|[^а-яa-z])нато([^а-яa-z]|$)/.test(q) || has(q, "nato");
+    // "оръж" is a substring of "съоръжение" (a facility/installation — e.g.
+    // "пътни предпазни съоръжения" = road guardrails, a procurement topic, NOT
+    // arms), so guard the weapons cue against that false positive.
+    const weaponCue = has(q, "оръж") && !has(q, "съоръж");
     // "отбран" is safe (not a substring of "избран"); "армия"/"военн" are distinct.
     const defenseCtx =
       natoCue ||
+      weaponCue ||
       has(
         q,
         "отбран",
@@ -1968,7 +1973,6 @@ export const route = (question: string, ctx: ToolContext): Route => {
         "f16",
         "страйкър",
         "stryker",
-        "оръж",
         "defence",
         "defense",
         "military",
@@ -2044,6 +2048,30 @@ export const route = (question: string, ctx: ToolContext): Route => {
         )
       )
         return { tool: "defensePeerCompare", args: {} };
+      // Generic COFOG budget-function phrasing ("разходи за отбрана" / "defence
+      // spending") and the per-institution издръжка metric are budget surfaces,
+      // not the NATO %GDP view — let them fall through to the budget blocks below.
+      // defenseSpending keeps the share-of-GDP / NATO-target / "колко харчим" /
+      // equipment-split framings, keyed off a defence-spending-specific cue.
+      const dsCue =
+        natoCue ||
+        has(
+          q,
+          "%",
+          "бвп",
+          "gdp",
+          "харчи",
+          "харчим",
+          "техник",
+          "equipment",
+          "личен състав",
+          "personnel",
+          "цел",
+          "target",
+          "дял",
+          "share",
+        );
+      if (!dsCue && resolveBudgetFunction(q)) break defenseBlock;
       // Default — the %GDP path (the "колко харчим за отбрана" headline).
       return { tool: "defenseSpending", args: {} };
     }
