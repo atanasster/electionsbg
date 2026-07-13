@@ -20,6 +20,7 @@ import {
   procurementAppeals,
   fundsOverview,
   awarderProcurement,
+  procurementNormalcy,
   roadsSpending,
   fundsProjects,
   mpProcurement,
@@ -2605,6 +2606,35 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: awarderProcurement,
+  },
+  {
+    name: "procurementNormalcy",
+    domain: "fiscal",
+    description: {
+      bg: "Колко типична е една обществена поръчка спрямо сходните? Позиционира един договор (по 12-знаков идентификатор) спрямо кохорта от подобни поръчки — стойност, брой оферти, вид процедура и дял при възложителя. Описателно, не заключение за нарушение.",
+      en: "How normal is one public contract vs similar ones? Positions a single contract (by its 12-char id) against a cohort of similar procurements — value, bidder count, procedure type and share of the buyer. Descriptive, not a finding of wrongdoing.",
+    },
+    params: [
+      {
+        name: "key",
+        type: "text",
+        description: {
+          bg: "12-знаков идентификатор на договора (напр. от адреса /procurement/contract/…)",
+          en: "12-character contract id (e.g. from /procurement/contract/…)",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Колко типична е поръчка d4a4d1e9b432?",
+        en: "How normal is contract d4a4d1e9b432?",
+      },
+      {
+        bg: "Сравни договор 362c8e7c6fb1 със сходни поръчки",
+        en: "Compare contract 362c8e7c6fb1 with similar procurements",
+      },
+    ],
+    run: procurementNormalcy,
   },
   {
     name: "roadsSpending",

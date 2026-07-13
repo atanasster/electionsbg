@@ -221,7 +221,9 @@ export const procedureBucket = (
     s.includes("договаряне без")
   )
     return "direct";
-  if (s.includes("състезат") || s.includes("конкурс")) return "competition";
+  // "състеза" matches both "състезателна процедура" and "публично състезание"
+  // (a bare "състезат" missed the latter — it read as "Друга").
+  if (s.includes("състеза") || s.includes("конкурс")) return "competition";
   if (s.includes("рамков")) return "framework";
   if (s.includes("неизвест")) return "unknown";
   return "other";

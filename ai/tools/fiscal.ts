@@ -2,7 +2,7 @@
 // headline index/rollup files; amounts are in EUR.
 
 import { fetchData, fetchDb } from "./dataClient";
-import { fmtEurCompact, fmtInt } from "./format";
+import { fmtEurCompact, fmtInt, fmtPct } from "./format";
 import { round2 } from "./dataset";
 import { fuzzyBestMatch } from "./resolve";
 import { translitKey } from "./translit";
@@ -18,6 +18,8 @@ import {
   COMPONENT_LABEL,
   type WorkComponent,
 } from "@/lib/roadAttributes";
+import { normalcyDeviationSummary, normalcyVerdict } from "@/lib/normalcy";
+import { procedureLabel, type ProcedureBucket } from "@/lib/cpvSectors";
 
 // ---- budget overview --------------------------------------------------------
 
@@ -1623,6 +1625,224 @@ export const awarderProcurement = async (
       top_supplier: suppliers[0]?.name ?? "—",
     },
     provenance: ["db:procurement-search", "db:awarder-procurement"],
+  };
+};
+
+// ---- "how normal is this procurement?" --------------------------------------
+// The chat analog of the ContractNormalcyPanel: positions one signed contract in
+// the distribution of similar procurements (value, bidders, procedure,
+// concentration). Descriptive, not a verdict — same verdict logic as the panel
+// (@/lib/normalcy), so the number the chat says matches the strip the page draws.
+//
+// Local payload type (the tools layer never imports @/data React-Query hooks —
+// they bundle i18next); structurally identical to ContractNormalcy in
+// src/data/procurement/useContractNormalcy.ts, which is what @/lib/normalcy reads.
+type NmMetric = {
+  dir: "low" | "high" | "neutral";
+  value: number;
+  n: number;
+  p10: number;
+  p25: number;
+  median: number;
+  p75: number;
+  p90: number;
+  percentile: number;
+};
+type NormalcyPayload = {
+  key: string;
+  cohort: {
+    division: string;
+    cpvPrefix: string;
+    cpvLen: number;
+    n: number;
+    windowMonths: number;
+    yearFrom: string;
+    yearTo: string;
+    sufficient: boolean;
+  } | null;
+  value: NmMetric | null;
+  bidders: (NmMetric & { singleShare: number; singleBidder: boolean }) | null;
+  procedure: {
+    bucket: string;
+    isOpen: boolean;
+    openShare: number;
+    n: number;
+  } | null;
+  concentration: {
+    dir: "high";
+    value: number;
+    peerN: number;
+    median: number;
+    p75: number;
+    p90: number;
+    percentile: number;
+  } | null;
+};
+
+export const procurementNormalcy = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const key = String(args.key ?? args.contract ?? args.id ?? "").match(
+    /[0-9a-f]{12}/,
+  )?.[0];
+  if (!key)
+    return {
+      tool: "procurementNormalcy",
+      domain: "fiscal",
+      kind: "scalar",
+      title: bg
+        ? "Нужен е валиден идентификатор на договор (12 знака)"
+        : "A valid 12-character contract id is required",
+      viz: "none",
+      facts: { key: String(args.key ?? args.contract ?? "") },
+      provenance: ["db:procurement-normalcy"],
+    };
+
+  const n = await fetchDb<NormalcyPayload | null>("procurement-normalcy", {
+    key,
+  });
+  if (!n || (!n.cohort && !n.concentration))
+    return {
+      tool: "procurementNormalcy",
+      domain: "fiscal",
+      kind: "scalar",
+      title: bg
+        ? "Няма достатъчно сходни поръчки за сравнение"
+        : "Not enough similar procurements to compare",
+      viz: "none",
+      facts: { key },
+      provenance: ["db:procurement-normalcy"],
+    };
+
+  const levelLabel = (level: string): string =>
+    level === "unusual"
+      ? bg
+        ? "необичайно"
+        : "unusual"
+      : level === "notable"
+        ? bg
+          ? "гранично"
+          : "borderline"
+        : level === "insufficient"
+          ? bg
+            ? "малка извадка"
+            : "small sample"
+          : bg
+            ? "типично"
+            : "typical";
+  const posText = (p: number) => fmtPct(Math.round(p * 100), ctx.lang);
+  // Shares (concentration) need a decimal — many are well under 1%.
+  const shareText = (p: number) =>
+    fmtPct(Number((p * 100).toFixed(1)), ctx.lang);
+
+  const rows: Row[] = [];
+  if (n.value) {
+    const v = normalcyVerdict(n.value.percentile, "neutral", n.value.n);
+    rows.push({
+      metric: bg ? "Стойност" : "Value",
+      value: fmtEurCompact(n.value.value, ctx.lang),
+      median: fmtEurCompact(n.value.median, ctx.lang),
+      position: posText(n.value.percentile),
+      verdict:
+        v.level === "typical"
+          ? bg
+            ? "в нормите"
+            : "in range"
+          : levelLabel(v.level),
+    });
+  }
+  if (n.bidders) {
+    const v = normalcyVerdict(n.bidders.percentile, "low", n.bidders.n);
+    rows.push({
+      metric: bg ? "Брой оферти" : "Bids",
+      value: fmtInt(n.bidders.value, ctx.lang),
+      median: fmtInt(Math.round(n.bidders.median), ctx.lang),
+      position: posText(n.bidders.percentile),
+      verdict: levelLabel(v.level),
+    });
+  }
+  if (n.procedure) {
+    const nonOpen = !n.procedure.isOpen && n.procedure.openShare > 0.6;
+    rows.push({
+      metric: bg ? "Вид процедура" : "Procedure",
+      value: procedureLabel(n.procedure.bucket as ProcedureBucket, ctx.lang),
+      median: `${Math.round(n.procedure.openShare * 100)}% ${bg ? "открити" : "open"}`,
+      position: "—",
+      verdict: nonOpen
+        ? bg
+          ? "необичайно"
+          : "unusual"
+        : bg
+          ? "типично"
+          : "typical",
+    });
+  }
+  if (n.concentration) {
+    const v = normalcyVerdict(
+      n.concentration.percentile,
+      "high",
+      n.concentration.peerN,
+    );
+    rows.push({
+      metric: bg ? "Дял при възложителя" : "Share of this buyer",
+      value: shareText(n.concentration.value),
+      median: shareText(n.concentration.median),
+      position: posText(n.concentration.percentile),
+      verdict: levelLabel(v.level),
+    });
+  }
+
+  const { deviations, evaluated } = normalcyDeviationSummary(n);
+  const cohort = n.cohort;
+  return {
+    tool: "procurementNormalcy",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? "Колко типична е тази поръчка?"
+      : "How typical is this procurement?",
+    subtitle: cohort
+      ? bg
+        ? `Сравнено с ${fmtInt(cohort.n, ctx.lang)} сходни · CPV ${cohort.cpvPrefix} · ${cohort.yearFrom}–${cohort.yearTo}`
+        : `Compared with ${fmtInt(cohort.n, ctx.lang)} similar · CPV ${cohort.cpvPrefix} · ${cohort.yearFrom}–${cohort.yearTo}`
+      : undefined,
+    columns: [
+      { key: "metric", label: bg ? "Показател" : "Metric" },
+      { key: "value", label: bg ? "Тази поръчка" : "This contract" },
+      { key: "median", label: bg ? "Медиана" : "Median" },
+      { key: "position", label: bg ? "Позиция" : "Position" },
+      { key: "verdict", label: bg ? "Оценка" : "Verdict" },
+    ],
+    rows,
+    viz: "none",
+    facts: {
+      key,
+      deviations: `${deviations}/${evaluated}`,
+      ...(cohort ? { cohort_cpv: cohort.cpvPrefix, cohort_n: cohort.n } : {}),
+      ...(n.bidders
+        ? {
+            bidders: n.bidders.value,
+            single_bidder: n.bidders.singleBidder
+              ? bg
+                ? "да"
+                : "yes"
+              : bg
+                ? "не"
+                : "no",
+          }
+        : {}),
+      summary:
+        deviations > 0
+          ? bg
+            ? `${deviations} от ${evaluated} показателя се отклоняват към по-слаба конкуренция`
+            : `${deviations} of ${evaluated} indicators lean toward weaker competition`
+          : bg
+            ? "без отклонения спрямо сходните поръчки"
+            : "no deviations from similar procurements",
+    },
+    provenance: ["db:procurement-normalcy"],
   };
 };
 

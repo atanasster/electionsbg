@@ -410,6 +410,19 @@ const DB_ROUTES = {
     );
     return { body: { contract: rows[0] ?? null } };
   },
+  // "How normal is this procurement?" — one contract positioned in its cohort of
+  // similar procurements (adaptive-CPV-prefix, era-matched) across value, bidder
+  // count, procedure mix, and supplier concentration. Descriptive context, not a
+  // verdict — the companion to the per-contract CRI. Degrades to null on a DB
+  // predating migration 063.
+  "procurement-normalcy": async (dbRows, q) => {
+    const key = s(q, "key");
+    if (!key) return { status: 400, body: { error: "missing key" } };
+    const rows = await dbRows("SELECT procurement_normalcy($1) AS r", [
+      key,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
   // Risk-signals feed — top concentration + top MP-tied + headline counts +
   // per-oblast tally, window-scoped or full corpus.
   "procurement-risk-feed": async (dbRows, q) => {
@@ -1531,9 +1544,10 @@ const DB_ROUTES = {
   "nzok-casemix-by-eik": async (dbRows, q) => {
     const eik = s(q, "eik");
     if (!eik) return { status: 400, body: { error: "missing eik" } };
-    const rows = await dbRows("SELECT nzok_casemix_expected_vs_actual($1) AS r", [
-      eik,
-    ]).catch(missingMigrationEmpty);
+    const rows = await dbRows(
+      "SELECT nzok_casemix_expected_vs_actual($1) AS r",
+      [eik],
+    ).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? null };
   },
   // One molecule's (INN) full detail → the /molecule/:inn page: headline, its
