@@ -99,6 +99,19 @@ against the proxy (NOT `db:dump`, which only dumps outward to GCS), then redeplo
 `functions:db`. No data reload needed — the function reads the existing
 `contracts` table.
 
+**Changing the `procurement_normalcy_cache` matview DEFINITION on Cloud SQL: use
+a staging swap, never a bare `DROP … ; CREATE …`.** The build is heavy (~2 min
+local, up to ~15 min on Cloud SQL — a plan/spill cost that `SET work_mem`
+mitigates only partly), and the `DROP` holds an AccessExclusive lock for the
+whole rebuild, so every live panel read blocks for the duration. Instead:
+`CREATE MATERIALIZED VIEW …_staging AS <body>` (non-blocking), build its unique
+index, then `BEGIN; DROP … ; ALTER MATERIALIZED VIEW …_staging RENAME TO … ;
+ALTER INDEX … RENAME; COMMIT;` (sub-second lock). Apply the two FUNCTIONS
+(`procurement_era`, `procurement_normalcy`) separately first — they're fast
+`CREATE OR REPLACE`. A normal data reload is fine as-is: `load_pg.ts` uses
+`REFRESH MATERIALIZED VIEW CONCURRENTLY` (non-blocking); only a definition change
+needs the swap.
+
 ## Backlog
 
 - Cohort-granularity toggle (CPV-8 / CPV-4 / division) as a transparency control.
