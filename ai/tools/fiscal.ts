@@ -18,7 +18,12 @@ import {
   COMPONENT_LABEL,
   type WorkComponent,
 } from "@/lib/roadAttributes";
-import { normalcyDeviationSummary, normalcyVerdict } from "@/lib/normalcy";
+import {
+  normalcyDeviationSummary,
+  normalcyVerdict,
+  procedureEvaluable,
+  procedureIsDeviation,
+} from "@/lib/normalcy";
 import { procedureLabel, type ProcedureBucket } from "@/lib/cpvSectors";
 
 // ---- budget overview --------------------------------------------------------
@@ -1763,14 +1768,15 @@ export const procurementNormalcy = async (
       verdict: levelLabel(v.level),
     });
   }
-  if (n.procedure) {
-    const nonOpen = !n.procedure.isOpen && n.procedure.openShare > 0.6;
+  // Same n>=NORMALCY_MIN_N gate + deviation rule as the panel and the summary,
+  // via the shared helpers — otherwise the row could contradict the summary line.
+  if (n.procedure && procedureEvaluable(n.procedure)) {
     rows.push({
       metric: bg ? "Вид процедура" : "Procedure",
       value: procedureLabel(n.procedure.bucket as ProcedureBucket, ctx.lang),
       median: `${Math.round(n.procedure.openShare * 100)}% ${bg ? "открити" : "open"}`,
       position: "—",
-      verdict: nonOpen
+      verdict: procedureIsDeviation(n.procedure)
         ? bg
           ? "необичайно"
           : "unusual"

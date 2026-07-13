@@ -76,7 +76,10 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     SELECT key, cpv, amount_eur, number_of_tenderers, procurement_method,
            awarder_eik, contractor_eik, date,
            left(cpv, 2)                 AS div,
-           to_date(date, 'YYYY-MM-DD')  AS d
+           -- NULLIF(btrim(...)) so a blank/whitespace date behaves like NULL
+           -- (→ empty cohort, null blocks) rather than raising in to_date and
+           -- 500-ing the page (the route only swallows 42883/42P01).
+           to_date(NULLIF(btrim(date), ''), 'YYYY-MM-DD') AS d
     FROM contracts
     WHERE key = p_key AND tag = 'contract'
   ),

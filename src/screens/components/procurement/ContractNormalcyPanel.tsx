@@ -15,6 +15,8 @@ import {
 import {
   normalcyVerdict,
   normalcyDeviationSummary,
+  procedureEvaluable,
+  procedureIsDeviation,
   type NormalcyLevel,
 } from "@/lib/normalcy";
 import { formatEurCompact, formatPct, formatInt } from "@/lib/currency";
@@ -295,11 +297,9 @@ export const ContractNormalcyPanel: FC<{ contractKey?: string }> = ({
             })()
           : null}
 
-        {data.procedure && data.procedure.n >= 20
+        {data.procedure && procedureEvaluable(data.procedure)
           ? (() => {
-              const nonOpenDeviation =
-                !data.procedure.isOpen && data.procedure.openShare > 0.6;
-              const level: NormalcyLevel = nonOpenDeviation
+              const level: NormalcyLevel = procedureIsDeviation(data.procedure)
                 ? "unusual"
                 : "typical";
               return (

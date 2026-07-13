@@ -413,8 +413,9 @@ const DB_ROUTES = {
   // "How normal is this procurement?" — one contract positioned in its cohort of
   // similar procurements (adaptive-CPV-prefix, era-matched) across value, bidder
   // count, procedure mix, and supplier concentration. Descriptive context, not a
-  // verdict — the companion to the per-contract CRI. Degrades to null on a DB
-  // predating migration 063.
+  // verdict — the companion to the per-contract CRI. Degrades to an empty payload
+  // (missingMigrationEmpty → [], no cohort/concentration) on a DB predating
+  // migration 063; both consumers treat that like the no-data case.
   "procurement-normalcy": async (dbRows, q) => {
     const key = s(q, "key");
     if (!key) return { status: 400, body: { error: "missing key" } };
