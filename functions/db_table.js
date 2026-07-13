@@ -136,6 +136,9 @@ const REGISTRY = {
       // Exact-code `in` (not division prefix) so a curated topic deep-link can
       // filter by its precise CPV set (e.g. guardrails → 45233292, 34928…).
       cpv: { type: "text", filter: "in" },
+      // Same physical `cpv` column, but a PREFIX match — backs the tender
+      // normalcy panel's "browse similar" link (cohort CPV prefix, 2–8 digits).
+      cpv_prefix: { type: "text", filter: "prefix", col: "cpv" },
       cpv_desc: { type: "text" },
       estimated_value_eur: {
         type: "number",
@@ -491,7 +494,11 @@ const buildWhere = (r, req) => {
   for (const f of req.filters?.columns ?? []) {
     const def = r.columns[f.id];
     if (!def || !def.filter) throw new Error(`column not filterable: ${f.id}`);
-    add(buildFilter(f.id, def, f, params.length));
+    // A def may map a logical filter id to a different PHYSICAL column via `col`
+    // (registry-sourced, whitelisted — never user input), so one physical column
+    // can back two filter modes (e.g. tenders.cpv as exact `in` for topics AND
+    // cpv_prefix as `prefix` for the normalcy "browse similar" deep link).
+    add(buildFilter(def.col || f.id, def, f, params.length));
   }
 
   const g = (req.filters?.global ?? "").trim();

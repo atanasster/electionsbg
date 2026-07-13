@@ -33,6 +33,7 @@ import type { Tender } from "@/lib/tenderTypes";
 import type { ProcurementContract } from "@/data/dataTypes";
 import { useContractRiskScorer } from "@/data/procurement/useContractRiskFlags";
 import { RiskBadges } from "@/screens/components/procurement/RiskBadges";
+import { TenderNormalcyPanel } from "@/screens/components/procurement/TenderNormalcyPanel";
 import { formatAmountEur } from "@/lib/currency";
 import {
   displayProcurementMethod,
@@ -729,6 +730,8 @@ export const TenderDetailScreen: FC = () => {
       </header>
 
       <TenderLifecycle tender={tender} awards={awards} />
+
+      <TenderNormalcyPanel unp={tender.unp} />
 
       <div className="grid gap-4 lg:grid-cols-3">
         <section className="lg:col-span-2 rounded-xl border bg-card p-4 shadow-sm space-y-2 text-sm">

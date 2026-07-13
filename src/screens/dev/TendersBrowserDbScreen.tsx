@@ -86,11 +86,17 @@ export const TendersBrowserDbScreen: FC = () => {
   });
   const procedureOptions = facetData?.facets?.procedure_type ?? [];
 
+  // ?cpv= deep link (from the tender normalcy panel's "browse similar") seeds a
+  // CPV-PREFIX filter — cpv_prefix is the same physical column with a LIKE match,
+  // so a cohort prefix (2–8 digits) resolves the similar tenders.
+  const cpvPrefix = params.get("cpv") ?? "";
+
   const extraFilters = useMemo<DbColumnFilter[]>(() => {
     const f: DbColumnFilter[] = [];
     // Curated topic → filter by its precise CPV set (the discriminator the
     // offline builder used); catches the procedures however they're worded.
     if (topic?.cpv?.length) f.push({ id: "cpv", value: topic.cpv });
+    if (cpvPrefix) f.push({ id: "cpv_prefix", value: cpvPrefix });
     // Section scope (?pscope) → bound the announcement date. Exclusive end ≈
     // inclusive max, off by ≤1 day — same convention as the contracts browser.
     if (!all && from)
@@ -99,7 +105,7 @@ export const TendersBrowserDbScreen: FC = () => {
     if (cancelled) f.push({ id: "is_cancelled", value: true });
     if (browsePack) f.push({ id: "buyer_eik", value: [...browsePack.eiks] });
     return f;
-  }, [topic, all, from, to, procedure, cancelled, browsePack]);
+  }, [topic, cpvPrefix, all, from, to, procedure, cancelled, browsePack]);
 
   const columns = useMemo<DataTableColumnDef<TenderRow, unknown>[]>(
     () => [

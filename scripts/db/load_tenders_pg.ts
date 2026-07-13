@@ -40,6 +40,8 @@ const KZK_FILE = path.join(SCHEMA_DIR, "042_kzk_appeals.sql");
 // for openTenders' corpus path, kzk_appeals_summary for procurementAppeals) —
 // applied after KZK_FILE since both read those tables.
 const AI_FILE = path.join(SCHEMA_DIR, "044_procurement_ai.sql");
+// "How typical is this tender?" cohort payloads (fn + set-based cache matview).
+const TENDER_NORMALCY_FILE = path.join(SCHEMA_DIR, "067_tender_normalcy.sql");
 const tendersDir = path.join(PROC_DIR, "tenders");
 
 const gitSha = (): string => {
@@ -167,6 +169,12 @@ export const loadTendersPg = async (): Promise<{
   // function, precisely to avoid the tenders-join plan blowups this ANALYZE
   // guards against. Present since AI_FILE ran above.
   await exec("REFRESH MATERIALIZED VIEW kzk_appeals_summary_cache");
+
+  // Per-tender "how typical is this tender?" payloads (067) — installs the fn +
+  // (re)builds the cache matview from the freshly loaded + ANALYZEd tenders. The
+  // file DROP+CREATEs the matview, so each reload rebuilds it whole (the tenders
+  // reload cadence is low; cloud definition changes use a staging swap).
+  await exec(readFileSync(TENDER_NORMALCY_FILE, "utf8"));
 
   // Fill contracts.unp for the OCDS-sourced rows, whose releases carry no УНП.
   // Mirrors the call at the end of load_pg.ts: contracts and tenders load in

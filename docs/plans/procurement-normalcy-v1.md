@@ -112,6 +112,39 @@ ALTER INDEX … RENAME; COMMIT;` (sub-second lock). Apply the two FUNCTIONS
 `REFRESH MATERIALIZED VIEW CONCURRENTLY` (non-blocking); only a definition change
 needs the swap.
 
+## Tender-stage normalcy (067)
+
+The ex-ante companion, on `/tenders/:unp` (`TenderNormalcyPanel`). Same cohort
+model — (adaptive CPV prefix with an n≥30 floor) × era, reusing `procurement_era`
+and `procurement_procedure_bucket` unchanged. Keyed by УНП. Dimensions differ
+from contracts because tenders carry different columns:
+
+- **value** — `estimated_value_eur`, neutral (never a deviation).
+- **window** — the SUBMISSION window (`publication_date` → `submission_deadline`,
+  via `tender_window_days`, clamped to [0,400] days). Risk direction LOW: a short
+  window is the rushed-deadline red flag (EU Dir. 2014/24 Art. 27 ≈ 14-day ref).
+  This is the tender-only signal contracts structurally cannot show. ~32% of the
+  corpus falls below 14 days; ~99.7% of tenders have a usable window.
+- **procedure** — `procedure_type` bucket vs the cohort's open share (same rule).
+- Dropped vs contracts: bidders (count-only) and concentration (no contractor
+  yet). Cohort context adds `cancelledShare` + `euFundedShare` (informative).
+
+Route `tender-normalcy` (cache-first PK seek on `tender_normalcy_cache`, live
+`tender_normalcy(unp)` fallback). The "browse similar" link deep-links
+`/procurement/tenders?cpv=<prefix>` — backed by a NEW `cpv_prefix` logical column
+in `db_table.js` (same physical `cpv`, `filter:"prefix"` via a `col` override) so
+the cohort prefix resolves while the curated-topic exact-`in` filter stays intact.
+
+The set-based cache is byte-parity-checked against the live fn
+(`scripts/db/tests/tender_normalcy.data.test.ts`). `load_tenders_pg.ts` installs
+066 after `ANALYZE tenders`. Cloud definition changes use the SAME staging swap as
+`procurement_normalcy_cache` (above) — but note the cache is trivial to rebuild
+(~seconds, no big-division scan), so the lock window is short either way.
+
+**Dev gotcha:** the vite dev middleware hot-reloads `db_routes.js` but NOT its
+transitive `require("./db_table.js")` — a registry/engine edit needs a dev-server
+restart to take effect (a stale `db_table.js` 400s an unknown filter id).
+
 ## Backlog
 
 - Cohort-granularity toggle (CPV-8 / CPV-4 / division) as a transparency control.

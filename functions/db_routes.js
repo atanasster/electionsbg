@@ -437,6 +437,26 @@ const DB_ROUTES = {
     ]).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? null };
   },
+  // "How typical is this tender?" — cohort-distribution payload for one tender
+  // (067). Cache-first PK seek on УНП; live fn fallback for a tender not yet in
+  // the matview (freshly ingested) or a DB predating the migration.
+  "tender-normalcy": async (dbRows, q) => {
+    const unp = s(q, "unp");
+    if (!unp) return { status: 400, body: { error: "missing unp" } };
+    try {
+      const c = await dbRows(
+        "SELECT payload FROM tender_normalcy_cache WHERE unp = $1",
+        [unp],
+      );
+      if (c[0]?.payload !== undefined) return { body: c[0].payload };
+    } catch {
+      // matview absent — fall through to the live computation
+    }
+    const rows = await dbRows("SELECT tender_normalcy($1) AS r", [unp]).catch(
+      missingMigrationEmpty,
+    );
+    return { body: rows[0]?.r ?? null };
+  },
   // CPV catalogue — distinct named CPV codes (from the tenders feed's cpv_desc,
   // the only place we carry code→name beyond the 2-digit division titles). Feeds
   // the searchable CPV filter on the contracts browser (~3.6k codes, cached).
