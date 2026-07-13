@@ -20,16 +20,21 @@ import { toEur } from "../../../src/lib/currency";
 
 export type KfnPillar = "UPF" | "PPF" | "VPF" | "VPFOS";
 
-/** The four accumulation workbooks, by filename fragment + the sheet-name token
- *  their tables carry ("Table №1-U", "Table №2-P", "Table № 1-OS"…). */
-// Anchor each filename regex to the start so "PPF" doesn't match "LPPF" and
-// "VPF" doesn't match "VPFOS" — the КФН zip has both. entryName is a bare
-// filename in this archive, so ^ anchors on the workbook name.
-const WORKBOOKS: { pillar: KfnPillar; file: RegExp; token: string }[] = [
-  { pillar: "UPF", file: /^UPF[_ ].*EN\.xlsx$/, token: "U" },
-  { pillar: "PPF", file: /^PPF[_ ].*EN\.xlsx$/, token: "P" },
-  { pillar: "VPF", file: /^VPF[_ ].*EN\.xlsx$/, token: "V" },
-  { pillar: "VPFOS", file: /^VPFOS[_ ].*EN\.xlsx$/, token: "OS" },
+/** The four accumulation workbooks, by filename fragment + the sheet-name
+ *  token(s) their tables carry. КФН shipped English workbooks
+ *  ("UPF_… EN.xlsx", sheets "Table №1-U") through 2025; from the 2026 Q1
+ *  release the zip is Bulgarian-only ("UPF_2026_Q1_BG.xlsx", nested under a
+ *  "Statistics_YYYY_QN/" folder, sheets "Таблица №1-У", the voluntary pillars
+ *  renamed ДПФ/ДПФПС). Match both languages: the filename regex accepts either
+ *  spelling (VPF≡ДПФ, VPFOS≡ДПФПС) and each pillar carries its Latin + Cyrillic
+ *  sheet token. Anchor the filename so "PPF" doesn't match "LPPF" and "DPF"
+ *  doesn't match "DPFPS"; it is tested against the entry BASENAME (the BG zip
+ *  nests the workbooks in a folder). */
+const WORKBOOKS: { pillar: KfnPillar; file: RegExp; tokens: string[] }[] = [
+  { pillar: "UPF", file: /^UPF[_ ]/i, tokens: ["U", "У"] },
+  { pillar: "PPF", file: /^PPF[_ ]/i, tokens: ["P", "П"] },
+  { pillar: "VPF", file: /^(?:VPF|DPF)[_ ]/i, tokens: ["V", "Д"] },
+  { pillar: "VPFOS", file: /^(?:VPFOS|DPFPS)[_ ]/i, tokens: ["OS", "ПС"] },
 ];
 
 const PILLAR_LABEL: Record<
@@ -48,17 +53,28 @@ const PILLAR_LABEL: Record<
 
 // Fund name → managing ПОД (pension company) brand. КФН fund names embed the
 // company (e.g. UPF "DOVERIE" → Doverie). The 10 licensed companies:
+// Fund names are Latin in the EN workbooks (DOVERIE), Cyrillic in the BG ones
+// (ДОВЕРИЕ) — each pattern matches both spellings.
 const COMPANY_PATTERNS: { re: RegExp; bg: string; en: string }[] = [
-  { re: /DOVERIE/i, bg: "Доверие", en: "Doverie" },
-  { re: /SAGLASIE/i, bg: "Съгласие", en: "Saglasie" },
-  { re: /DSK\s*-?\s*RODINA/i, bg: "ДСК-Родина", en: "DSK-Rodina" },
-  { re: /ALLIANZ/i, bg: "Алианц България", en: "Allianz Bulgaria" },
-  { re: /UBB/i, bg: "ОББ", en: "UBB" },
-  { re: /CCB\s*-?\s*SILA/i, bg: "ЦКБ-Сила", en: "CCB-Sila" },
-  { re: /FUTURE|BADESHTE/i, bg: "Бъдеще", en: "Future" },
-  { re: /TOPLINA/i, bg: "Топлина", en: "Toplina" },
-  { re: /PENSIONNOOSIGURITELEN\s+INSTITUT|\bPOI\b/i, bg: "ПОИ", en: "POI" },
-  { re: /DALLBOGG/i, bg: "ДаллБогг", en: "DallBogg" },
+  { re: /DOVERIE|ДОВЕРИЕ/i, bg: "Доверие", en: "Doverie" },
+  { re: /SAGLASIE|СЪГЛАСИЕ/i, bg: "Съгласие", en: "Saglasie" },
+  {
+    re: /DSK\s*-?\s*RODINA|ДСК\s*-?\s*РОДИНА/i,
+    bg: "ДСК-Родина",
+    en: "DSK-Rodina",
+  },
+  { re: /ALLIANZ|АЛИАНЦ/i, bg: "Алианц България", en: "Allianz Bulgaria" },
+  { re: /UBB|ОББ/i, bg: "ОББ", en: "UBB" },
+  { re: /CCB\s*-?\s*SILA|ЦКБ\s*-?\s*СИЛА/i, bg: "ЦКБ-Сила", en: "CCB-Sila" },
+  { re: /FUTURE|BADESHTE|БЪДЕЩЕ/i, bg: "Бъдеще", en: "Future" },
+  { re: /TOPLINA|ТОПЛИНА/i, bg: "Топлина", en: "Toplina" },
+  // Лев Инс — rebranded from ПОИ / Пенсионноосигурителен институт (2025).
+  {
+    re: /LEV\s*INS|ЛЕВ\s*ИНС|PENSIONNOOSIGURITELEN\s+INSTITUT|ПЕНСИОННООСИГУРИТЕЛЕН\s+ИНСТИТУТ|\bPOI\b|\bПОИ\b/i,
+    bg: "Лев Инс",
+    en: "Lev Ins",
+  },
+  { re: /DALLBOGG|ДАЛЛБОГГ|ДАЛБОГ/i, bg: "ДаллБогг", en: "DallBogg" },
 ];
 
 const companyOf = (fundName: string): { bg: string; en: string } => {
@@ -105,18 +121,22 @@ const rowsOf = (sheet: XLSX.WorkSheet): Row[] =>
 const text = (v: unknown): string =>
   v == null ? "" : String(v).replace(/\s+/g, " ").trim();
 
-/** Find a workbook sheet by table number + pillar token, tolerant of the
- *  spacing chaos ("Table №1-U", "Table № 1-OS", "Table №2-P"). */
+/** Find a workbook sheet by table number + one of the pillar's tokens, tolerant
+ *  of spacing chaos and language ("Table №1-U", "Table № 1-OS", "Таблица №2-П").
+ *  Matches on the part AFTER "№", so the "Table"/"Таблица" prefix is irrelevant. */
 const findTable = (
   wb: XLSX.WorkBook,
   tableNo: number,
-  token: string,
+  tokens: string[],
 ): XLSX.WorkSheet | null => {
   const norm = (s: string) =>
-    s.replace(/\s+/g, "").replace(/№/g, "").toLowerCase();
-  const want = norm(`Table${tableNo}-${token}`);
-  const name = wb.SheetNames.find((s) => norm(s) === want);
-  return name ? wb.Sheets[name] : null;
+    s.replace(/\s+/g, "").replace(/^.*?№/, "").toLowerCase();
+  for (const token of tokens) {
+    const want = `${tableNo}-${token}`.toLowerCase();
+    const name = wb.SheetNames.find((s) => norm(s) === want);
+    if (name) return wb.Sheets[name];
+  }
+  return null;
 };
 
 /** From a "funds as rows, months as columns" table, return { fundName → value }
@@ -148,7 +168,8 @@ const latestByFund = (sheet: XLSX.WorkSheet): Map<string, number> => {
   const out = new Map<string, number>();
   for (let i = headerIdx + 1; i < rows.length; i++) {
     const name = text(rows[i][0]);
-    if (!name || /^Total$/i.test(name)) continue;
+    const low = name.toLowerCase();
+    if (!name || low === "total" || low === "общо") continue;
     const v = rows[i][latestCol];
     if (typeof v === "number" && Number.isFinite(v)) out.set(name, v);
   }
@@ -188,21 +209,18 @@ export const parseKfnZip = (bytes: Uint8Array): KfnFundsFile => {
   let periodLabel = "";
   const funds: KfnFundRow[] = [];
 
-  // КФН reports лв through 2025; from 2026 (euro adoption) the source is
-  // euro-native, so dividing by 1.95583 would halve every figure. Fail loudly
-  // when a 2026+ period lands rather than silently mis-scale net assets.
-  const naEur = (bgn: number | null): number | null => {
-    if (bgn == null) return null;
-    if (period && Number(period.slice(0, 4)) >= 2026)
-      throw new Error(
-        `КФН ${period}: source is euro-native from 2026 — remove the ` +
-          `BGN→EUR conversion (toEur) before ingesting this period.`,
-      );
-    return Math.round(toEur(bgn, "BGN") ?? bgn);
-  };
+  // КФН reported лв through 2025; from 2026 (euro adoption) the workbooks are
+  // euro-native — net assets are already in EUR, so there is no BGN→EUR
+  // conversion and netAssetsBgn is left null. Before 2026 the figure is BGN,
+  // converted to EUR (dividing a euro-native figure by 1.95583 would halve it).
+  const euroNative = () => period !== "" && Number(period.slice(0, 4)) >= 2026;
+  const bgnToEur = (bgn: number | null): number | null =>
+    bgn == null ? null : Math.round(toEur(bgn, "BGN") ?? bgn);
 
-  for (const { pillar, file, token } of WORKBOOKS) {
-    const entry = entries.find((e) => file.test(e.entryName));
+  for (const { pillar, file, tokens } of WORKBOOKS) {
+    const entry = entries.find((e) =>
+      file.test(e.entryName.split("/").pop() ?? e.entryName),
+    );
     if (!entry) continue;
     if (!period) {
       const p = periodFromFilename(entry.entryName);
@@ -213,18 +231,21 @@ export const parseKfnZip = (bytes: Uint8Array): KfnFundsFile => {
     }
     const wb = XLSX.read(entry.getData());
     const insuredByFund = latestByFund(
-      findTable(wb, 1, token) ?? ({} as XLSX.WorkSheet),
+      findTable(wb, 1, tokens) ?? ({} as XLSX.WorkSheet),
     );
     const assetsByFund = latestByFund(
-      findTable(wb, 2, token) ?? ({} as XLSX.WorkSheet),
+      findTable(wb, 2, tokens) ?? ({} as XLSX.WorkSheet),
     );
     const names = new Set([...insuredByFund.keys(), ...assetsByFund.keys()]);
     const lbl = PILLAR_LABEL[pillar];
     for (const fundName of names) {
       const co = companyOf(fundName);
-      // Net assets are published in thousands of BGN.
+      // Net assets are published in thousands (BGN through 2025, EUR from 2026).
       const naThousands = assetsByFund.get(fundName) ?? null;
-      const netAssetsBgn = naThousands != null ? naThousands * 1000 : null;
+      const naUnits =
+        naThousands != null ? Math.round(naThousands * 1000) : null;
+      const netAssetsBgn = euroNative() ? null : naUnits;
+      const netAssetsEur = euroNative() ? naUnits : bgnToEur(naUnits);
       funds.push({
         pillar,
         pillarLabelBg: lbl.bg,
@@ -235,7 +256,7 @@ export const parseKfnZip = (bytes: Uint8Array): KfnFundsFile => {
         companyEn: co.en,
         insured: insuredByFund.get(fundName) ?? null,
         netAssetsBgn,
-        netAssetsEur: naEur(netAssetsBgn),
+        netAssetsEur,
       });
     }
   }
