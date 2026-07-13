@@ -24,6 +24,7 @@ import { useContractRiskFlags } from "@/data/procurement/useContractRiskFlags";
 import { useProcurementMpConnectedByEik } from "@/data/procurement/useMpConnectedByEik";
 import { usePepConnectedByEik } from "@/data/procurement/usePepConnectedByEik";
 import { formatAmountEur } from "@/lib/currency";
+import { Breadcrumbs } from "@/ux/Breadcrumbs";
 import {
   displayProcurementMethod,
   contractCategoryLabel,
@@ -77,6 +78,17 @@ export const ContractDetailScreen: FC = () => {
 
   return (
     <section className="my-4 space-y-6">
+      <Breadcrumbs
+        items={[
+          { label: t("nav_governance"), to: "/governance" },
+          { label: t("procurement_index_title"), to: "/procurement" },
+          {
+            label: t("procurement_contracts_title"),
+            to: "/procurement/contracts",
+          },
+          { label: c.title || t("contract_untitled") || "Untitled contract" },
+        ]}
+      />
       <header className="space-y-2">
         <p className="text-xs uppercase tracking-wide text-muted-foreground flex items-center gap-2">
           <Receipt className="h-4 w-4" />
