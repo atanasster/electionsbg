@@ -147,10 +147,13 @@ export const ContractNormalcyPanel: FC<{ contractKey?: string }> = ({
   const { deviations, evaluated } = normalcyDeviationSummary(data);
 
   // A neutral metric (value) is never a "deviation" — it's positioned, not
-  // judged: in the usual range, or higher / lower than usual.
+  // judged. Five tiers so a strong outlier (a value many times the median, which
+  // the percentile ruler alone can't convey) reads as "много по-висока".
   const neutralLabel = (p: number, n: number): string => {
     if (n < NORMALCY_MIN_N) return bg ? "малка извадка" : "small sample";
+    if (p >= 0.9) return bg ? "много по-висока" : "much higher";
     if (p > 0.75) return bg ? "по-висока" : "higher";
+    if (p <= 0.1) return bg ? "много по-ниска" : "much lower";
     if (p < 0.25) return bg ? "по-ниска" : "lower";
     return bg ? "в нормите" : "in range";
   };
@@ -203,11 +206,11 @@ export const ContractNormalcyPanel: FC<{ contractKey?: string }> = ({
           >
             {deviations > 0
               ? bg
-                ? `${deviations} от ${evaluated} показателя се отклоняват`
-                : `${deviations} of ${evaluated} indicators deviate`
+                ? `${deviations} от ${evaluated} показателя за конкуренция се отклоняват`
+                : `${deviations} of ${evaluated} competition indicators deviate`
               : bg
-                ? "Без отклонения спрямо сходните"
-                : "No deviations from similar"}
+                ? "Без сигнали за по-слаба конкуренция"
+                : "No weaker-competition signals"}
           </span>
         ) : null}
       </div>
@@ -229,7 +232,13 @@ export const ContractNormalcyPanel: FC<{ contractKey?: string }> = ({
                   icon={<Euro className="h-3.5 w-3.5" />}
                   label={bg ? "Стойност" : "Value"}
                   value={formatEurCompact(data.value.value, lang)}
-                  sub={median(formatEurCompact(data.value.median, lang))}
+                  sub={
+                    <>
+                      {median(formatEurCompact(data.value.median, lang))} ·{" "}
+                      {Math.round(p * 100)}
+                      {bg ? "-и персентил" : "th pct"}
+                    </>
+                  }
                   strip={<Strip percentile={p} dir="neutral" risk={false} />}
                   chip={<Chip label={neutralLabel(p, data.value.n)} />}
                   pctTitle={`${Math.round(p * 100)}${bg ? "-и персентил" : "th percentile"}`}

@@ -27,7 +27,7 @@
 CREATE OR REPLACE FUNCTION procurement_era(p_date text)
 RETURNS text LANGUAGE sql IMMUTABLE AS $$
   SELECT CASE
-    WHEN p_date IS NULL OR btrim(p_date) = '' THEN NULL
+    WHEN p_date IS NULL OR btrim(p_date) = '' THEN 'e0'  -- non-null so cohort joins are equi-joinable
     WHEN left(p_date, 4) < '2015' THEN 'e1'
     WHEN left(p_date, 4) < '2020' THEN 'e2'
     ELSE 'e3'
@@ -205,31 +205,43 @@ CREATE MATERIALIZED VIEW procurement_normalcy_cache AS
   -- Cohort computation runs only on cpv-bearing rows; a cpv-less contract still
   -- gets a cached row (concentration only), so it never falls to the live path.
   base AS (SELECT * FROM base_all WHERE cpv IS NOT NULL),
-  -- per (prefix-length, prefix, era) contract counts, for the adaptive prefix pick
-  pc AS (
-    SELECT v.len, left(b.cpv, v.len) AS prefix, b.era, count(*)::int AS n
+  -- Expand each contract into its 5 candidate CPV prefixes (× era), so the
+  -- adaptive-prefix pick and the cohort membership are plain equi-joins.
+  base_prefixes AS (
+    SELECT b.key, b.amount_eur, b.number_of_tenderers, b.procurement_method,
+           b.date, b.era, v.len, left(b.cpv, v.len) AS prefix
     FROM base b CROSS JOIN (VALUES (8), (5), (4), (3), (2)) v(len)
-    GROUP BY v.len, left(b.cpv, v.len), b.era
   ),
-  chosen_len AS (
-    SELECT b.key,
-           COALESCE(max(v.len) FILTER (WHERE pc.n >= 30), 2) AS plen
-    FROM base b
-    CROSS JOIN (VALUES (8), (5), (4), (3), (2)) v(len)
-    JOIN pc ON pc.len = v.len AND pc.prefix = left(b.cpv, v.len)
-           AND pc.era IS NOT DISTINCT FROM b.era
-    GROUP BY b.key
+  pc AS (
+    SELECT len, prefix, era, count(*)::int AS n
+    FROM base_prefixes GROUP BY len, prefix, era
   ),
-  assigned AS (
-    SELECT b.*, left(b.cpv, cl.plen) AS cpv_prefix, cl.plen,
-           left(b.cpv, cl.plen) || '#' || COALESCE(b.era, '?') AS cohort_ck
-    FROM base b JOIN chosen_len cl USING (key)
+  -- Each contract's chosen prefix length: the finest whose (prefix, era) has >=30.
+  chosen AS (
+    SELECT bp.key, COALESCE(max(bp.len) FILTER (WHERE pc.n >= 30), 2) AS plen
+    FROM base_prefixes bp JOIN pc USING (len, prefix, era)
+    GROUP BY bp.key
+  ),
+  -- Each contract paired with the cohort IT is compared against: its chosen
+  -- (prefix, era). Cohorts OVERLAP — a fine-cpv contract is also a member of the
+  -- coarser cohort a sibling uses — which is why membership below is a prefix
+  -- join, not a single partition. (The earlier group-by-own-prefix build wrongly
+  -- fragmented the cohort: CPV 71311 read 25 instead of 89.)
+  tgt AS (
+    SELECT b.key, b.amount_eur, b.number_of_tenderers, b.procurement_method,
+           b.era, c.plen AS len, left(b.cpv, c.plen) AS prefix
+    FROM base b JOIN chosen c USING (key)
+  ),
+  used AS (SELECT DISTINCT len, prefix, era FROM tgt),
+  -- Every contract that belongs to each USED cohort (shares its prefix + era) —
+  -- this is the live function's "all sharing the target's prefix".
+  members AS (
+    SELECT bp.key, bp.amount_eur, bp.number_of_tenderers, bp.procurement_method,
+           bp.date, bp.len, bp.prefix, bp.era
+    FROM base_prefixes bp JOIN used u USING (len, prefix, era)
   ),
   cohort_stats AS (
-    SELECT cohort_ck,
-           min(cpv_prefix) AS cpv_prefix,
-           min(left(cpv_prefix, 2)) AS division,
-           min(plen) AS plen,
+    SELECT len, prefix, era, left(prefix, 2) AS division,
            count(*) FILTER (WHERE amount_eur IS NOT NULL)::int AS v_n,
            percentile_cont(0.10) WITHIN GROUP (ORDER BY amount_eur) AS v_p10,
            percentile_cont(0.25) WITHIN GROUP (ORDER BY amount_eur) AS v_p25,
@@ -256,17 +268,15 @@ CREATE MATERIALIZED VIEW procurement_normalcy_cache AS
                AND btrim(procurement_method) <> '')::double precision AS proc_open,
            left(min(date), 4) AS year_from,
            left(max(date), 4) AS year_to
-    FROM assigned GROUP BY cohort_ck
+    FROM members GROUP BY len, prefix, era
   ),
-  v_rank AS (
-    SELECT key,
-           (rank() OVER (PARTITION BY cohort_ck ORDER BY amount_eur) - 1)::numeric AS below
-    FROM assigned WHERE amount_eur IS NOT NULL
-  ),
-  b_rank AS (
-    SELECT key,
-           (rank() OVER (PARTITION BY cohort_ck ORDER BY number_of_tenderers) - 1)::numeric AS below
-    FROM assigned WHERE number_of_tenderers IS NOT NULL
+  -- rank()-1 = count strictly below within the cohort (nulls sort last, so a
+  -- non-null target's rank counts only the non-null values below it).
+  member_ranks AS (
+    SELECT key, len, prefix, era,
+           (rank() OVER (PARTITION BY len, prefix, era ORDER BY amount_eur) - 1)::numeric AS v_below,
+           (rank() OVER (PARTITION BY len, prefix, era ORDER BY number_of_tenderers) - 1)::numeric AS b_below
+    FROM members
   ),
   -- concentration: per awarder (all-time), each supplier's share of buyer spend
   aw AS (
@@ -297,8 +307,8 @@ CREATE MATERIALIZED VIEW procurement_normalcy_cache AS
     'key', ba.key,
     'cohort', CASE WHEN ba.cpv IS NULL THEN NULL ELSE jsonb_build_object(
       'division',   cs.division,
-      'cpvPrefix',  cs.cpv_prefix,
-      'cpvLen',     cs.plen,
+      'cpvPrefix',  t.prefix,
+      'cpvLen',     t.len,
       'n',          cs.v_n,
       'yearFrom',   cs.year_from,
       'yearTo',     cs.year_to,
@@ -307,13 +317,13 @@ CREATE MATERIALIZED VIEW procurement_normalcy_cache AS
     'value', CASE WHEN cs.v_n IS NULL OR cs.v_n = 0 OR ba.amount_eur IS NULL THEN NULL ELSE jsonb_build_object(
       'dir', 'neutral', 'value', ba.amount_eur, 'n', cs.v_n,
       'p10', cs.v_p10, 'p25', cs.v_p25, 'median', cs.v_med, 'p75', cs.v_p75, 'p90', cs.v_p90,
-      'percentile', ROUND(vr.below / NULLIF(cs.v_n, 0), 4)
+      'percentile', ROUND(mr.v_below / NULLIF(cs.v_n, 0), 4)
     ) END,
     'bidders', CASE WHEN cs.b_n IS NULL OR cs.b_n = 0 OR ba.number_of_tenderers IS NULL THEN NULL ELSE jsonb_build_object(
       'dir', 'low', 'value', ba.number_of_tenderers, 'n', cs.b_n,
       'p10', cs.b_p10, 'p25', cs.b_p25, 'median', cs.b_med, 'p75', cs.b_p75, 'p90', cs.b_p90,
       'singleShare', cs.b_single, 'singleBidder', ba.number_of_tenderers = 1,
-      'percentile', ROUND(br.below / NULLIF(cs.b_n, 0), 4)
+      'percentile', ROUND(mr.b_below / NULLIF(cs.b_n, 0), 4)
     ) END,
     'procedure', CASE WHEN cs.proc_n IS NULL OR cs.proc_n = 0 OR ba.procurement_method IS NULL THEN NULL ELSE jsonb_build_object(
       'bucket', procurement_procedure_bucket(ba.procurement_method),
@@ -327,10 +337,9 @@ CREATE MATERIALIZED VIEW procurement_normalcy_cache AS
     ) END
   ) AS payload
   FROM base_all ba
-  LEFT JOIN assigned a ON a.key = ba.key
-  LEFT JOIN cohort_stats cs ON cs.cohort_ck = a.cohort_ck
-  LEFT JOIN v_rank vr ON vr.key = ba.key
-  LEFT JOIN b_rank br ON br.key = ba.key
+  LEFT JOIN tgt t ON t.key = ba.key
+  LEFT JOIN cohort_stats cs ON cs.len = t.len AND cs.prefix = t.prefix AND cs.era = t.era
+  LEFT JOIN member_ranks mr ON mr.key = ba.key AND mr.len = t.len AND mr.prefix = t.prefix AND mr.era = t.era
   LEFT JOIN aw_rank ar ON ar.awarder_eik = ba.awarder_eik AND ar.contractor_eik = ba.contractor_eik
   LEFT JOIN aw_stats ast ON ast.awarder_eik = ba.awarder_eik;
 

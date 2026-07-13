@@ -1735,23 +1735,32 @@ export const procurementNormalcy = async (
         : bg
           ? "типично"
           : "typical";
-  // The neutral value is positioned, not judged: usual / higher / lower.
+  // The neutral value is positioned, not judged: usual / higher / lower, with a
+  // "много" tier so a strong outlier doesn't read as a mild one.
   const neutralLabel = (p: number, cnt: number): string =>
     cnt < NORMALCY_MIN_N
       ? bg
         ? "малка извадка"
         : "small sample"
-      : p > 0.75
+      : p >= 0.9
         ? bg
-          ? "по-висока"
-          : "higher"
-        : p < 0.25
+          ? "много по-висока"
+          : "much higher"
+        : p > 0.75
           ? bg
-            ? "по-ниска"
-            : "lower"
-          : bg
-            ? "в нормите"
-            : "in range";
+            ? "по-висока"
+            : "higher"
+          : p <= 0.1
+            ? bg
+              ? "много по-ниска"
+              : "much lower"
+            : p < 0.25
+              ? bg
+                ? "по-ниска"
+                : "lower"
+              : bg
+                ? "в нормите"
+                : "in range";
   const posText = (p: number) => fmtPct(Math.round(p * 100), ctx.lang);
   // Shares are often well under 1% — widen precision so a big buyer's tiny
   // median share doesn't read as a broken "0%".
@@ -1858,11 +1867,11 @@ export const procurementNormalcy = async (
       summary:
         deviations > 0
           ? bg
-            ? `${deviations} от ${evaluated} показателя се отклоняват към по-слаба конкуренция`
-            : `${deviations} of ${evaluated} indicators lean toward weaker competition`
+            ? `${deviations} от ${evaluated} показателя за конкуренция се отклоняват`
+            : `${deviations} of ${evaluated} competition indicators deviate`
           : bg
-            ? "без отклонения спрямо сходните поръчки"
-            : "no deviations from similar procurements",
+            ? "без сигнали за по-слаба конкуренция"
+            : "no weaker-competition signals",
     },
     provenance: ["db:procurement-normalcy"],
   };
