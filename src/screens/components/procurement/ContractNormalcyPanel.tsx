@@ -1,13 +1,13 @@
 // "Колко типична е тази поръчка?" — the cohort-distribution panel on the
 // contract detail page. For each metric it positions this contract on a
-// percentile ruler against a cohort of similar procurements (same CPV, era),
+// percentile ruler against a cohort of similar procurements (same CPV prefix),
 // with a neutral positional verdict. DESCRIPTIVE, not a verdict of wrongdoing —
-// the companion to the per-contract CRI badges. See migration 063.
+// the companion to the per-contract CRI badges. See migrations 063 + 064.
 
 import { FC, ReactNode, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { BarChart3, Users, Euro, FileText, PieChart, Info } from "lucide-react";
+import { BarChart3, Users, Euro, FileText, PieChart } from "lucide-react";
 import {
   useContractNormalcy,
   type NormalcyDir,
@@ -17,16 +17,27 @@ import {
   normalcyDeviationSummary,
   procedureEvaluable,
   procedureIsDeviation,
-  type NormalcyLevel,
+  NORMALCY_MIN_N,
 } from "@/lib/normalcy";
 import { formatEurCompact, formatPct, formatInt } from "@/lib/currency";
-import { procedureLabel, type ProcedureBucket } from "@/lib/cpvSectors";
+import {
+  procedureLabel,
+  cpvDivisionName,
+  type ProcedureBucket,
+} from "@/lib/cpvSectors";
 
-// Percentile ruler: fixed bands (IQR 0.25–0.75, whiskers 0.10–0.90, median 0.5)
-// with the contract's dot at its true cohort percentile. A ruler, not a value
-// axis — so a heavy-tailed distribution never squishes the bands; the absolute
-// value + median are shown in text beside it. CSS-positioned (not SVG) so the
-// marker stays a true circle at any container width.
+// A flag colour shared by the deviation chips + summary badge — amber, not red:
+// this is a signal to look, not a finding of wrongdoing.
+const FLAG_CLS =
+  "bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300";
+const AMBER_ZONE = "rgba(245, 158, 11, 0.16)";
+const AMBER_DOT = "#d97706";
+
+// Percentile ruler: the cohort's middle 50% is the grey band, the median a tick,
+// the risk tail (weaker-competition side) an amber wash, and this contract a dot
+// at its true cohort percentile. A ruler, not a value axis — so a heavy-tailed
+// distribution never squishes the band; the value + median are shown in text.
+// CSS-positioned (not SVG) so the marker stays a true circle at any width.
 const pct = (p: number) => `${(Math.max(0, Math.min(1, p)) * 100).toFixed(2)}%`;
 
 const Strip: FC<{ percentile: number; dir: NormalcyDir; risk: boolean }> = ({
@@ -41,7 +52,7 @@ const Strip: FC<{ percentile: number; dir: NormalcyDir; risk: boolean }> = ({
         style={{
           left: dir === "low" ? 0 : pct(0.9),
           width: pct(0.1),
-          background: "hsl(var(--destructive) / 0.09)",
+          background: AMBER_ZONE,
         }}
       />
     ) : null}
@@ -74,7 +85,7 @@ const Strip: FC<{ percentile: number; dir: NormalcyDir; risk: boolean }> = ({
       style={
         {
           left: pct(Math.max(0.02, Math.min(0.98, percentile))),
-          background: risk ? "hsl(var(--destructive))" : "hsl(var(--primary))",
+          background: risk ? AMBER_DOT : "hsl(var(--primary))",
           // ring blends the dot into the card so it reads as a marker on the line
           "--tw-ring-color": "hsl(var(--card))",
         } as CSSProperties
@@ -83,73 +94,41 @@ const Strip: FC<{ percentile: number; dir: NormalcyDir; risk: boolean }> = ({
   </div>
 );
 
-const LEVEL_LABEL: Record<
-  NormalcyLevel,
-  { bg: string; en: string; cls: string }
-> = {
-  typical: {
-    bg: "Типично",
-    en: "Typical",
-    cls: "bg-muted text-muted-foreground",
-  },
-  notable: {
-    bg: "Гранично",
-    en: "Borderline",
-    cls: "bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300",
-  },
-  unusual: {
-    bg: "Необичайно",
-    en: "Unusual",
-    cls: "bg-red-50 text-red-700 dark:bg-red-950/50 dark:text-red-300",
-  },
-  insufficient: {
-    bg: "Малка извадка",
-    en: "Small sample",
-    cls: "bg-muted text-muted-foreground/70",
-  },
-};
+const Chip: FC<{ label: string; flag?: boolean }> = ({ label, flag }) => (
+  <span
+    className={`inline-block rounded px-2 py-0.5 text-[11px] font-medium ${
+      flag ? FLAG_CLS : "bg-muted text-muted-foreground"
+    }`}
+  >
+    {label}
+  </span>
+);
 
-const Chip: FC<{ level: NormalcyLevel; neutral?: boolean }> = ({
-  level,
-  neutral,
-}) => {
-  const { i18n } = useTranslation();
-  const bg = i18n.language === "bg";
-  const l = LEVEL_LABEL[level];
-  const label =
-    neutral && level === "typical"
-      ? bg
-        ? "В нормите"
-        : "In range"
-      : bg
-        ? l.bg
-        : l.en;
-  return (
-    <span
-      className={`inline-block rounded px-2 py-0.5 text-[11px] font-medium ${l.cls}`}
-    >
-      {label}
-    </span>
-  );
-};
-
-// One metric row: label + value/median on the left, the ruler in the middle,
-// the verdict chip on the right. `pctTitle` surfaces the exact percentile on hover.
+// One metric row: label + value + a muted median sub-line on the left (own line,
+// never mid-wrap), the ruler in the middle, the verdict chip on the right.
 const MetricRow: FC<{
   icon: ReactNode;
   label: string;
   value: ReactNode;
+  sub?: ReactNode;
   strip: ReactNode;
   chip: ReactNode;
   pctTitle?: string;
-}> = ({ icon, label, value, strip, chip, pctTitle }) => (
-  <div className="grid grid-cols-[9.5rem_1fr_auto] items-center gap-3 py-2.5">
+}> = ({ icon, label, value, sub, strip, chip, pctTitle }) => (
+  <div className="grid grid-cols-[10.5rem_1fr_auto] items-center gap-3 py-2.5">
     <div className="min-w-0">
       <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
         {icon}
         {label}
       </div>
-      <div className="mt-0.5 text-sm font-medium tabular-nums">{value}</div>
+      <div className="mt-0.5 text-sm font-medium leading-tight tabular-nums">
+        {value}
+      </div>
+      {sub ? (
+        <div className="text-[11px] text-muted-foreground tabular-nums">
+          {sub}
+        </div>
+      ) : null}
     </div>
     <div title={pctTitle}>{strip}</div>
     <div className="justify-self-end">{chip}</div>
@@ -160,36 +139,57 @@ export const ContractNormalcyPanel: FC<{ contractKey?: string }> = ({
   contractKey,
 }) => {
   const { i18n } = useTranslation();
-  const bg = i18n.language === "bg";
+  const lang = i18n.language;
+  const bg = lang === "bg";
   const { data } = useContractNormalcy(contractKey);
   if (!data || (!data.cohort && !data.concentration)) return null;
 
   const { deviations, evaluated } = normalcyDeviationSummary(data);
-  const median = (v: number | null | undefined) =>
-    v == null ? "—" : formatEurCompact(v, i18n.language);
 
+  // A neutral metric (value) is never a "deviation" — it's positioned, not
+  // judged: in the usual range, or higher / lower than usual.
+  const neutralLabel = (p: number, n: number): string => {
+    if (n < NORMALCY_MIN_N) return bg ? "малка извадка" : "small sample";
+    if (p > 0.75) return bg ? "по-висока" : "higher";
+    if (p < 0.25) return bg ? "по-ниска" : "lower";
+    return bg ? "в нормите" : "in range";
+  };
+
+  // Shares are often well under 1% (a big buyer has many suppliers), so a flat
+  // 1-dp "0%" reads as broken — widen the precision for small shares.
+  const sharePct = (v: number): string => {
+    if (v <= 0) return formatPct(0, lang, 0);
+    if (v < 0.0001) return bg ? "<0,01%" : "<0.01%";
+    return formatPct(v, lang, v < 0.01 ? 2 : 1);
+  };
+
+  const median = (label: ReactNode) => (
+    <>
+      {bg ? "медиана" : "median"} {label}
+    </>
+  );
   const bidsWord = (n: number) =>
     bg ? (n === 1 ? "оферта" : "оферти") : n === 1 ? "bid" : "bids";
+
+  const cohort = data.cohort;
 
   return (
     <section className="rounded-xl border bg-card p-4 shadow-sm">
       <div className="flex flex-wrap items-start justify-between gap-2">
-        <div>
+        <div className="min-w-0">
           <h2 className="flex items-center gap-2 text-sm font-semibold">
             <BarChart3 className="h-4 w-4 text-indigo-600" />
             {bg
               ? "Колко типична е тази поръчка?"
               : "How typical is this procurement?"}
           </h2>
-          {data.cohort ? (
+          {cohort ? (
             <p className="mt-1 text-xs text-muted-foreground">
-              {bg ? "Сравнено с" : "Compared with"}{" "}
-              {formatInt(data.cohort.n, i18n.language)}{" "}
-              {bg ? "сходни" : "similar"} · CPV {data.cohort.cpvPrefix} ·{" "}
-              {data.cohort.yearFrom}
-              {data.cohort.yearTo !== data.cohort.yearFrom
-                ? `–${data.cohort.yearTo}`
-                : ""}
+              {bg ? "Сравнено с" : "Compared with"} {formatInt(cohort.n, lang)}{" "}
+              {bg ? "сходни" : "similar"} ·{" "}
+              {cpvDivisionName(cohort.cpvPrefix, lang)} (CPV {cohort.cpvPrefix})
+              · {cohort.yearFrom}
+              {cohort.yearTo !== cohort.yearFrom ? `–${cohort.yearTo}` : ""}
             </p>
           ) : null}
         </div>
@@ -197,7 +197,7 @@ export const ContractNormalcyPanel: FC<{ contractKey?: string }> = ({
           <span
             className={`inline-flex items-center rounded px-2.5 py-1 text-xs font-medium ${
               deviations > 0
-                ? "bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300"
+                ? FLAG_CLS
                 : "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300"
             }`}
           >
@@ -212,7 +212,7 @@ export const ContractNormalcyPanel: FC<{ contractKey?: string }> = ({
         ) : null}
       </div>
 
-      {data.cohort && !data.cohort.sufficient ? (
+      {cohort && !cohort.sufficient ? (
         <p className="mt-2 text-[11px] text-amber-700 dark:text-amber-400">
           {bg
             ? "Малко сходни поръчки — сравнението е ориентировъчно."
@@ -223,33 +223,16 @@ export const ContractNormalcyPanel: FC<{ contractKey?: string }> = ({
       <div className="mt-2 divide-y">
         {data.value
           ? (() => {
-              const v = normalcyVerdict(
-                data.value.percentile,
-                "neutral",
-                data.value.n,
-              );
+              const p = data.value.percentile;
               return (
                 <MetricRow
                   icon={<Euro className="h-3.5 w-3.5" />}
                   label={bg ? "Стойност" : "Value"}
-                  value={
-                    <>
-                      {formatEurCompact(data.value.value, i18n.language)}{" "}
-                      <span className="text-xs font-normal text-muted-foreground">
-                        · {bg ? "медиана" : "median"}{" "}
-                        {median(data.value.median)}
-                      </span>
-                    </>
-                  }
-                  strip={
-                    <Strip
-                      percentile={data.value.percentile}
-                      dir="neutral"
-                      risk={false}
-                    />
-                  }
-                  chip={<Chip level={v.level} neutral />}
-                  pctTitle={`${Math.round(data.value.percentile * 100)}${bg ? "-и персентил" : "th percentile"}`}
+                  value={formatEurCompact(data.value.value, lang)}
+                  sub={median(formatEurCompact(data.value.median, lang))}
+                  strip={<Strip percentile={p} dir="neutral" risk={false} />}
+                  chip={<Chip label={neutralLabel(p, data.value.n)} />}
+                  pctTitle={`${Math.round(p * 100)}${bg ? "-и персентил" : "th percentile"}`}
                 />
               );
             })()
@@ -262,23 +245,24 @@ export const ContractNormalcyPanel: FC<{ contractKey?: string }> = ({
                 "low",
                 data.bidders.n,
               );
+              const label =
+                v.level === "insufficient"
+                  ? bg
+                    ? "малка извадка"
+                    : "small sample"
+                  : v.isRiskDeviation
+                    ? bg
+                      ? "Необичайно"
+                      : "Unusual"
+                    : bg
+                      ? "Типично"
+                      : "Typical";
               return (
                 <MetricRow
                   icon={<Users className="h-3.5 w-3.5" />}
                   label={bg ? "Брой оферти" : "Bids"}
-                  value={
-                    <>
-                      {formatInt(data.bidders.value, i18n.language)}{" "}
-                      {bidsWord(data.bidders.value)}{" "}
-                      <span className="text-xs font-normal text-muted-foreground">
-                        · {bg ? "медиана" : "median"}{" "}
-                        {formatInt(
-                          Math.round(data.bidders.median),
-                          i18n.language,
-                        )}
-                      </span>
-                    </>
-                  }
+                  value={`${formatInt(data.bidders.value, lang)} ${bidsWord(data.bidders.value)}`}
+                  sub={median(formatInt(Math.round(data.bidders.median), lang))}
                   strip={
                     <Strip
                       percentile={data.bidders.percentile}
@@ -286,11 +270,11 @@ export const ContractNormalcyPanel: FC<{ contractKey?: string }> = ({
                       risk={v.isRiskDeviation}
                     />
                   }
-                  chip={<Chip level={v.level} />}
+                  chip={<Chip label={label} flag={v.isRiskDeviation} />}
                   pctTitle={
                     bg
-                      ? `Единствена оферта в ${formatPct(data.bidders.singleShare, i18n.language, 0)} от сходните`
-                      : `Single-bidder in ${formatPct(data.bidders.singleShare, i18n.language, 0)} of similar`
+                      ? `Единствена оферта в ${formatPct(data.bidders.singleShare, lang, 0)} от сходните`
+                      : `Single-bidder in ${formatPct(data.bidders.singleShare, lang, 0)} of similar`
                   }
                 />
               );
@@ -299,16 +283,14 @@ export const ContractNormalcyPanel: FC<{ contractKey?: string }> = ({
 
         {data.procedure && procedureEvaluable(data.procedure)
           ? (() => {
-              const level: NormalcyLevel = procedureIsDeviation(data.procedure)
-                ? "unusual"
-                : "typical";
+              const flag = procedureIsDeviation(data.procedure);
               return (
                 <MetricRow
                   icon={<FileText className="h-3.5 w-3.5" />}
                   label={bg ? "Вид процедура" : "Procedure"}
                   value={procedureLabel(
                     data.procedure.bucket as ProcedureBucket,
-                    i18n.language,
+                    lang,
                   )}
                   strip={
                     <div className="flex items-center gap-2">
@@ -321,12 +303,25 @@ export const ContractNormalcyPanel: FC<{ contractKey?: string }> = ({
                         />
                       </div>
                       <span className="whitespace-nowrap text-[11px] text-muted-foreground">
-                        {formatPct(data.procedure.openShare, i18n.language, 0)}{" "}
+                        {formatPct(data.procedure.openShare, lang, 0)}{" "}
                         {bg ? "открити" : "open"}
                       </span>
                     </div>
                   }
-                  chip={<Chip level={level} />}
+                  chip={
+                    <Chip
+                      label={
+                        flag
+                          ? bg
+                            ? "Необичайно"
+                            : "Unusual"
+                          : bg
+                            ? "Типично"
+                            : "Typical"
+                      }
+                      flag={flag}
+                    />
+                  }
                 />
               );
             })()
@@ -339,19 +334,24 @@ export const ContractNormalcyPanel: FC<{ contractKey?: string }> = ({
                 "high",
                 data.concentration.peerN,
               );
+              const label =
+                v.level === "insufficient"
+                  ? bg
+                    ? "малка извадка"
+                    : "small sample"
+                  : v.isRiskDeviation
+                    ? bg
+                      ? "Необичайно"
+                      : "Unusual"
+                    : bg
+                      ? "Типично"
+                      : "Typical";
               return (
                 <MetricRow
                   icon={<PieChart className="h-3.5 w-3.5" />}
                   label={bg ? "Дял при възложителя" : "Share of this buyer"}
-                  value={
-                    <>
-                      {formatPct(data.concentration.value, i18n.language, 1)}{" "}
-                      <span className="text-xs font-normal text-muted-foreground">
-                        · {bg ? "медиана" : "median"}{" "}
-                        {formatPct(data.concentration.median, i18n.language, 1)}
-                      </span>
-                    </>
-                  }
+                  value={sharePct(data.concentration.value)}
+                  sub={median(sharePct(data.concentration.median))}
                   strip={
                     <Strip
                       percentile={data.concentration.percentile}
@@ -359,11 +359,11 @@ export const ContractNormalcyPanel: FC<{ contractKey?: string }> = ({
                       risk={v.isRiskDeviation}
                     />
                   }
-                  chip={<Chip level={v.level} />}
+                  chip={<Chip label={label} flag={v.isRiskDeviation} />}
                   pctTitle={
                     bg
-                      ? `Спрямо ${formatInt(data.concentration.peerN, i18n.language)} изпълнителя на този възложител`
-                      : `Among ${formatInt(data.concentration.peerN, i18n.language)} suppliers of this buyer`
+                      ? `Спрямо ${formatInt(data.concentration.peerN, lang)} изпълнителя на този възложител`
+                      : `Among ${formatInt(data.concentration.peerN, lang)} suppliers of this buyer`
                   }
                 />
               );
@@ -371,16 +371,33 @@ export const ContractNormalcyPanel: FC<{ contractKey?: string }> = ({
           : null}
       </div>
 
-      <div className="mt-2 flex flex-wrap items-center justify-between gap-2 border-t pt-2 text-[11px] text-muted-foreground/80">
-        <span className="inline-flex items-center gap-1.5">
-          <Info className="h-3 w-3" />
-          {bg
-            ? "Сравнение със сходни поръчки — контекст, не заключение за нарушение."
-            : "A comparison with similar procurements — context, not a finding of wrongdoing."}
-        </span>
-        {data.cohort ? (
+      <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-t pt-2 text-[11px] text-muted-foreground">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <span className="inline-flex items-center gap-1.5">
+            <span
+              className="inline-block h-2 w-5 rounded"
+              style={{ background: "hsl(var(--primary) / 0.18)" }}
+            />
+            {bg ? "обичайни стойности" : "usual range"}
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span
+              className="inline-block h-2 w-5 rounded"
+              style={{ background: AMBER_ZONE }}
+            />
+            {bg ? "по-слаба конкуренция" : "weaker competition"}
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span
+              className="inline-block h-2.5 w-2.5 rounded-full"
+              style={{ background: "hsl(var(--primary))" }}
+            />
+            {bg ? "тази поръчка" : "this contract"}
+          </span>
+        </div>
+        {cohort ? (
           <Link
-            to={`/procurement/contracts?q=${encodeURIComponent(data.cohort.cpvPrefix)}`}
+            to={`/procurement/contracts?q=${encodeURIComponent(cohort.cpvPrefix)}`}
             className="text-primary hover:underline"
           >
             {bg ? "Виж сходни поръчки" : "Browse similar"}

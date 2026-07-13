@@ -23,6 +23,7 @@ import {
   normalcyVerdict,
   procedureEvaluable,
   procedureIsDeviation,
+  NORMALCY_MIN_N,
 } from "@/lib/normalcy";
 import { procedureLabel, type ProcedureBucket } from "@/lib/cpvSectors";
 
@@ -1720,41 +1721,57 @@ export const procurementNormalcy = async (
       provenance: ["db:procurement-normalcy"],
     };
 
-  const levelLabel = (level: string): string =>
-    level === "unusual"
+  // A directional metric (bidders / concentration) is binary: a risk-tail
+  // deviation reads "необичайно", otherwise "типично" — same as the panel chip.
+  const dirLabel = (v: { level: string; isRiskDeviation: boolean }): string =>
+    v.level === "insufficient"
       ? bg
-        ? "необичайно"
-        : "unusual"
-      : level === "notable"
+        ? "малка извадка"
+        : "small sample"
+      : v.isRiskDeviation
         ? bg
-          ? "гранично"
-          : "borderline"
-        : level === "insufficient"
+          ? "необичайно"
+          : "unusual"
+        : bg
+          ? "типично"
+          : "typical";
+  // The neutral value is positioned, not judged: usual / higher / lower.
+  const neutralLabel = (p: number, cnt: number): string =>
+    cnt < NORMALCY_MIN_N
+      ? bg
+        ? "малка извадка"
+        : "small sample"
+      : p > 0.75
+        ? bg
+          ? "по-висока"
+          : "higher"
+        : p < 0.25
           ? bg
-            ? "малка извадка"
-            : "small sample"
+            ? "по-ниска"
+            : "lower"
           : bg
-            ? "типично"
-            : "typical";
+            ? "в нормите"
+            : "in range";
   const posText = (p: number) => fmtPct(Math.round(p * 100), ctx.lang);
-  // Shares (concentration) need a decimal — many are well under 1%.
-  const shareText = (p: number) =>
-    fmtPct(Number((p * 100).toFixed(1)), ctx.lang);
+  // Shares are often well under 1% — widen precision so a big buyer's tiny
+  // median share doesn't read as a broken "0%".
+  const shareText = (p: number): string =>
+    p <= 0
+      ? fmtPct(0, ctx.lang)
+      : p < 0.0001
+        ? bg
+          ? "<0,01%"
+          : "<0.01%"
+        : fmtPct(Number((p * 100).toFixed(p < 0.01 ? 2 : 1)), ctx.lang);
 
   const rows: Row[] = [];
   if (n.value) {
-    const v = normalcyVerdict(n.value.percentile, "neutral", n.value.n);
     rows.push({
       metric: bg ? "Стойност" : "Value",
       value: fmtEurCompact(n.value.value, ctx.lang),
       median: fmtEurCompact(n.value.median, ctx.lang),
       position: posText(n.value.percentile),
-      verdict:
-        v.level === "typical"
-          ? bg
-            ? "в нормите"
-            : "in range"
-          : levelLabel(v.level),
+      verdict: neutralLabel(n.value.percentile, n.value.n),
     });
   }
   if (n.bidders) {
@@ -1764,7 +1781,7 @@ export const procurementNormalcy = async (
       value: fmtInt(n.bidders.value, ctx.lang),
       median: fmtInt(Math.round(n.bidders.median), ctx.lang),
       position: posText(n.bidders.percentile),
-      verdict: levelLabel(v.level),
+      verdict: dirLabel(v),
     });
   }
   // Same n>=NORMALCY_MIN_N gate + deviation rule as the panel and the summary,
@@ -1795,7 +1812,7 @@ export const procurementNormalcy = async (
       value: shareText(n.concentration.value),
       median: shareText(n.concentration.median),
       position: posText(n.concentration.percentile),
-      verdict: levelLabel(v.level),
+      verdict: dirLabel(v),
     });
   }
 
