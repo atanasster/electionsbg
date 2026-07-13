@@ -79,6 +79,15 @@ CREATE INDEX IF NOT EXISTS idx_tenders_cancelled  ON tenders(is_cancelled);
 -- heapsorts all ~125k rows (~280ms measured); the index makes it a top-N index
 -- scan (~6ms). (The appeal-flag EXISTS in the view is a hashed subplan, ~1ms.)
 CREATE INDEX IF NOT EXISTS idx_tenders_lots_count ON tenders(lots_count DESC NULLS LAST);
+-- CPV prefix. Backs the tenders browser's CPV filter (cpv_prefix → cpv LIKE
+-- 'NN%', from the shared CpvFilterCombobox + the tender-normalcy "browse
+-- similar" deep link) AND the left(cpv,2) division facet that feeds the combobox.
+-- text_pattern_ops so LIKE 'prefix%' is index-usable under en_US.utf8 (a plain
+-- btree wouldn't be); the same index also serves the facet as an index-only scan
+-- (left(cpv,2) derived from the ordered cpv). MEASURED: filter count 261ms→3.9ms,
+-- facet 243ms→33ms, rare 8-digit prefix 0.13ms — all were full 126k seq scans.
+CREATE INDEX IF NOT EXISTS idx_tenders_cpv_pattern
+  ON tenders (cpv text_pattern_ops) WHERE cpv IS NOT NULL;
 -- tenders_by_buyer (010): a single buyer's pipeline sorted by date or by
 -- forecast value. Without these, the planner walks the GLOBAL idx_tenders_order
 -- / idx_tenders_value index filtering out every other buyer's rows as it goes —
