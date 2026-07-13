@@ -375,10 +375,7 @@ const REGISTRY = {
       "total_eur",
     ],
     defaultSort: [["total_eur", "desc"]],
-    aggregates: [
-      { fn: "count" },
-      { fn: "sum", col: "total_eur" },
-    ],
+    aggregates: [{ fn: "count" }, { fn: "sum", col: "total_eur" }],
     maxPageSize: 100,
   },
 
