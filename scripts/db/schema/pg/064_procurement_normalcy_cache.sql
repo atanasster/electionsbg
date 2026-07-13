@@ -4,44 +4,58 @@
 -- reads (6-12s) per uncached contract, and the /api/db route is not CDN-cached,
 -- so every first view paid it. This turns a view into a PK seek.
 --
--- TWO changes:
---   1. The cohort loses the per-target +/-30-month era window and becomes the
---      full-history CPV-prefix cohort (same adaptive prefix, same n>=30 floor).
---      That is what makes the build SET-BASED: every contract sharing a prefix
---      now shares one cohort, so percentiles come from window functions in a few
---      passes instead of a per-row scan. The panel only ever showed the cohort's
---      year span (now the prefix's full span), so no UI change. Value is nominal
---      EUR across years, but value is the neutral/descriptive metric; the
---      competition metrics (bidders/procedure/concentration) are era-robust.
---   2. procurement_normalcy_cache — one precomputed payload per contract, byte-
---      for-byte the shape procurement_normalcy() returns, served by PK. The route
---      seeks the cache and falls back to the live function for a key not yet
---      built (a freshly-ingested contract between refreshes).
+-- TWO changes vs 063:
+--   1. The cohort is (adaptive CPV prefix × ERA), not a per-target ±30-month
+--      window. Era buckets — pre-2015 / 2015-2019 / 2020+ — keep the comparison
+--      era-matched (procurement value drifts with inflation across a 15-year
+--      corpus) while being SET-BASED: every contract sharing a (prefix, era)
+--      shares one cohort, so percentiles come from window functions in a few
+--      passes instead of a per-row scan. The adaptive prefix floor (n>=30) is
+--      evaluated WITHIN the era. Concentration stays all-time — a supplier's
+--      share of a buyer's lifetime spend isn't an era question.
+--   2. procurement_normalcy_cache — one precomputed payload per contract,
+--      byte-for-byte the shape procurement_normalcy() returns, served by PK. The
+--      route seeks the cache and falls back to the live function for a key not
+--      yet built (freshly ingested between refreshes).
 --
--- The live function below is rewritten to the SAME full-history cohort so the
--- cache and the fallback agree; a parity check (cache.payload = live(key)) holds.
+-- The live function is rewritten to the SAME (prefix, era) cohort so the cache
+-- and the fallback are byte-identical (parity-checked).
+
+-- Era bucket for a contract by its notice year. String compare on the YYYY head
+-- (the date is 'YYYY-MM-DD' text) — no date parsing, so a blank/malformed date
+-- degrades to NULL (its own tiny bucket) rather than raising.
+CREATE OR REPLACE FUNCTION procurement_era(p_date text)
+RETURNS text LANGUAGE sql IMMUTABLE AS $$
+  SELECT CASE
+    WHEN p_date IS NULL OR btrim(p_date) = '' THEN NULL
+    WHEN left(p_date, 4) < '2015' THEN 'e1'
+    WHEN left(p_date, 4) < '2020' THEN 'e2'
+    ELSE 'e3'
+  END;
+$$;
 
 -- --------------------------------------------------------------------------
--- Live function — full-history cohort (fallback + reference implementation).
+-- Live function — (prefix, era) cohort (fallback + reference implementation).
 -- --------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION procurement_normalcy(p_key text)
 RETURNS jsonb LANGUAGE sql STABLE AS $$
   WITH tgt AS (
     SELECT key, cpv, amount_eur, number_of_tenderers, procurement_method,
-           awarder_eik, contractor_eik, left(cpv, 2) AS div
+           awarder_eik, contractor_eik, left(cpv, 2) AS div,
+           procurement_era(date) AS era
     FROM contracts
     WHERE key = p_key AND tag = 'contract'
   ),
-  -- Cohort INCLUDES the target itself (it is a member of its own cohort), which
-  -- also keeps this fallback byte-identical to the set-based matview build. Self
-  -- never counts in "strictly below", so percentiles are unaffected beyond the
-  -- +1 in the denominator — immaterial at the n>=30 floor.
+  -- Same division + same era as the target (self INCLUDED — a contract is a
+  -- member of its own cohort; self never counts in "strictly below", and this
+  -- keeps the fallback byte-identical to the matview build).
   pool AS (
     SELECT c.cpv, c.amount_eur, c.number_of_tenderers, c.procurement_method, c.date
     FROM contracts c CROSS JOIN tgt
     WHERE tgt.cpv IS NOT NULL
       AND c.tag = 'contract'
       AND left(c.cpv, 2) = tgt.div
+      AND procurement_era(c.date) IS NOT DISTINCT FROM tgt.era
   ),
   prefix_counts AS (
     SELECT v.plen, count(*) AS n
@@ -55,7 +69,8 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       2) AS plen
   ),
   cohort AS (
-    SELECT pool.amount_eur, pool.number_of_tenderers, pool.procurement_method
+    SELECT pool.amount_eur, pool.number_of_tenderers, pool.procurement_method,
+           pool.date
     FROM pool CROSS JOIN tgt CROSS JOIN chosen
     WHERE left(pool.cpv, chosen.plen) = left(tgt.cpv, chosen.plen)
   ),
@@ -86,6 +101,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                AND btrim(procurement_method) <> '')::double precision AS open_share
     FROM cohort
   ),
+  -- Concentration: ALL-TIME (a supplier's share of the buyer's lifetime spend).
   aw AS (
     SELECT c.contractor_eik, sum(c.amount_eur) AS s
     FROM contracts c CROSS JOIN tgt
@@ -94,10 +110,6 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     GROUP BY c.contractor_eik
   ),
   aw_tot AS (SELECT sum(s) AS total, count(*)::int AS peer_n FROM aw),
-  -- ROUND to 10 dp: the share is a division by a summed denominator whose float
-  -- value depends on aggregation order, so the raw double differs by 1 ULP
-  -- between this scalar-subquery plan and the matview's grouped plan. Rounding
-  -- makes the two byte-identical (and 1e-10 is far finer than the 1-dp % shown).
   aw_share AS (
     SELECT contractor_eik,
            ROUND((s / NULLIF((SELECT total FROM aw_tot), 0))::numeric, 10) AS share
@@ -112,7 +124,10 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
              WHERE s.contractor_eik = tgt.contractor_eik) AS mine
     FROM aw_share
   ),
-  span AS (SELECT min(date) AS d0, max(date) AS d1 FROM pool)
+  -- Span over the PREFIX cohort (not the division pool) so yearFrom/yearTo match
+  -- the cohort `n` the header shows — and the set-based cache, which spans the
+  -- prefix cohort too.
+  span AS (SELECT min(date) AS d0, max(date) AS d1 FROM cohort)
   SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM tgt) THEN NULL ELSE jsonb_build_object(
     'key', p_key,
     'cohort', CASE WHEN (SELECT cpv FROM tgt) IS NULL THEN NULL ELSE jsonb_build_object(
@@ -176,25 +191,25 @@ $$;
 -- --------------------------------------------------------------------------
 -- Precomputed per-contract payload — the SET-BASED build of the same output.
 -- rank()-1 over a cohort = the count strictly below (ties share the min rank),
--- which is exactly the live function's `count(value < x)` — so the percentiles
--- match to the same ROUND(…,4). One row per signed contract; served by PK.
+-- exactly the live function's `count(value < x)`, so the percentiles match to the
+-- same ROUND(…,4). Cohort partition key = (cpv-prefix, era). One row per signed
+-- contract; served by PK.
 -- --------------------------------------------------------------------------
 DROP MATERIALIZED VIEW IF EXISTS procurement_normalcy_cache CASCADE;
 CREATE MATERIALIZED VIEW procurement_normalcy_cache AS
   WITH base_all AS (
     SELECT key, cpv, amount_eur, number_of_tenderers, procurement_method,
-           awarder_eik, contractor_eik, date
+           awarder_eik, contractor_eik, date, procurement_era(date) AS era
     FROM contracts WHERE tag = 'contract'
   ),
   -- Cohort computation runs only on cpv-bearing rows; a cpv-less contract still
-  -- gets a cached row (concentration only), matching the live function, so it
-  -- never falls through to the slow live path.
+  -- gets a cached row (concentration only), so it never falls to the live path.
   base AS (SELECT * FROM base_all WHERE cpv IS NOT NULL),
-  -- per (prefix-length, prefix) contract counts, for the adaptive-prefix pick
+  -- per (prefix-length, prefix, era) contract counts, for the adaptive prefix pick
   pc AS (
-    SELECT v.len, left(b.cpv, v.len) AS prefix, count(*)::int AS n
+    SELECT v.len, left(b.cpv, v.len) AS prefix, b.era, count(*)::int AS n
     FROM base b CROSS JOIN (VALUES (8), (5), (4), (3), (2)) v(len)
-    GROUP BY v.len, left(b.cpv, v.len)
+    GROUP BY v.len, left(b.cpv, v.len), b.era
   ),
   chosen_len AS (
     SELECT b.key,
@@ -202,15 +217,18 @@ CREATE MATERIALIZED VIEW procurement_normalcy_cache AS
     FROM base b
     CROSS JOIN (VALUES (8), (5), (4), (3), (2)) v(len)
     JOIN pc ON pc.len = v.len AND pc.prefix = left(b.cpv, v.len)
+           AND pc.era IS NOT DISTINCT FROM b.era
     GROUP BY b.key
   ),
   assigned AS (
-    SELECT b.*, left(b.cpv, cl.plen) AS cohort_key, cl.plen
+    SELECT b.*, left(b.cpv, cl.plen) AS cpv_prefix, cl.plen,
+           left(b.cpv, cl.plen) || '#' || COALESCE(b.era, '?') AS cohort_ck
     FROM base b JOIN chosen_len cl USING (key)
   ),
   cohort_stats AS (
-    SELECT cohort_key,
-           left(cohort_key, 2) AS division,
+    SELECT cohort_ck,
+           min(cpv_prefix) AS cpv_prefix,
+           min(left(cpv_prefix, 2)) AS division,
            min(plen) AS plen,
            count(*) FILTER (WHERE amount_eur IS NOT NULL)::int AS v_n,
            percentile_cont(0.10) WITHIN GROUP (ORDER BY amount_eur) AS v_p10,
@@ -238,20 +256,19 @@ CREATE MATERIALIZED VIEW procurement_normalcy_cache AS
                AND btrim(procurement_method) <> '')::double precision AS proc_open,
            left(min(date), 4) AS year_from,
            left(max(date), 4) AS year_to
-    FROM assigned GROUP BY cohort_key
+    FROM assigned GROUP BY cohort_ck
   ),
-  -- per-contract "count strictly below" within its cohort (rank()-1)
   v_rank AS (
     SELECT key,
-           (rank() OVER (PARTITION BY cohort_key ORDER BY amount_eur) - 1)::numeric AS below
+           (rank() OVER (PARTITION BY cohort_ck ORDER BY amount_eur) - 1)::numeric AS below
     FROM assigned WHERE amount_eur IS NOT NULL
   ),
   b_rank AS (
     SELECT key,
-           (rank() OVER (PARTITION BY cohort_key ORDER BY number_of_tenderers) - 1)::numeric AS below
+           (rank() OVER (PARTITION BY cohort_ck ORDER BY number_of_tenderers) - 1)::numeric AS below
     FROM assigned WHERE number_of_tenderers IS NOT NULL
   ),
-  -- concentration: per awarder, each supplier's share of the buyer's spend
+  -- concentration: per awarder (all-time), each supplier's share of buyer spend
   aw AS (
     SELECT awarder_eik, contractor_eik, sum(amount_eur) AS s
     FROM contracts
@@ -280,8 +297,8 @@ CREATE MATERIALIZED VIEW procurement_normalcy_cache AS
     'key', ba.key,
     'cohort', CASE WHEN ba.cpv IS NULL THEN NULL ELSE jsonb_build_object(
       'division',   cs.division,
-      'cpvPrefix',  a.cohort_key,
-      'cpvLen',     a.plen,
+      'cpvPrefix',  cs.cpv_prefix,
+      'cpvLen',     cs.plen,
       'n',          cs.v_n,
       'yearFrom',   cs.year_from,
       'yearTo',     cs.year_to,
@@ -311,7 +328,7 @@ CREATE MATERIALIZED VIEW procurement_normalcy_cache AS
   ) AS payload
   FROM base_all ba
   LEFT JOIN assigned a ON a.key = ba.key
-  LEFT JOIN cohort_stats cs ON cs.cohort_key = a.cohort_key
+  LEFT JOIN cohort_stats cs ON cs.cohort_ck = a.cohort_ck
   LEFT JOIN v_rank vr ON vr.key = ba.key
   LEFT JOIN b_rank br ON br.key = ba.key
   LEFT JOIN aw_rank ar ON ar.awarder_eik = ba.awarder_eik AND ar.contractor_eik = ba.contractor_eik
