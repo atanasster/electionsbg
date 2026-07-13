@@ -73,7 +73,7 @@ add only if the bill-decomposition tile grows.
 
 1. Sanity-check both files load and the latest year/period is present:
    `for f in data/energy/*.json; do node -e "JSON.parse(require('fs').readFileSync('$f'))"; done`
-2. `npm run typecheck` (the hooks in `src/data/energy/*` read the exact field names).
+2. `npx tsc -b` (the hooks in `src/data/energy/*` read the exact field names).
 3. Stamp the ingest:
    ```
    npx tsx scripts/stamp-ingest.ts update-energy --summary "gen <first>-<last>, price <period>"

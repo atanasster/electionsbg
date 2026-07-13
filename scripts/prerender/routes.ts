@@ -520,6 +520,30 @@ const SECTOR_PAGES: SectorPageContent[] = [
     },
   },
   {
+    id: "energy",
+    eik: "831373560",
+    bg: {
+      title:
+        "Енергетика — обществените поръчки на държавната енергетика (БЕХ) | electionsbg.com",
+      description:
+        "Обществените поръчки на държавната енергийна група (Български енергиен холдинг — АЕЦ Козлодуй, ЕСО, Булгартрансгаз, НЕК, ТЕЦ и Мини „Марица изток“): общо възложени, изпълнители, единствен участник, производство на ток и цена за домакинствата.",
+      breadcrumb: "Енергетика",
+      h1: "Енергетика — обществените поръчки на държавната енергетика",
+      intro:
+        "Държавната енергийна група (БЕХ) е сред най-големите възложители в страната — АЕЦ Козлодуй, ЕСО, Булгартрансгаз, ТЕЦ и Мини „Марица изток“, НЕК. Тази страница обобщава поръчките ѝ по избрания парламент или за цялата история, заедно с производството на ток и цената за домакинствата.",
+    },
+    en: {
+      title:
+        "Energy — the state energy group's procurement (БЕХ) | electionsbg.com", // prettier-ignore
+      description:
+        "The public procurement of Bulgaria's state energy group (Bulgarian Energy Holding — Kozloduy NPP, ESO, Bulgartransgaz, NEK, the Maritsa East plants and mines): total awarded, contractors, single-bid share, the electricity generation mix and household prices.",
+      breadcrumb: "Energy",
+      h1: "Energy — the state energy group's procurement",
+      intro:
+        "The state energy group (БЕХ) is among the country's largest awarders — Kozloduy NPP, ESO, Bulgartransgaz, the Maritsa East plants and mines, NEK. This page summarises its tenders for the selected parliament or the full history, alongside the electricity generation mix and household prices.",
+    },
+  },
+  {
     id: "transport",
     eik: "000695388",
     bg: {

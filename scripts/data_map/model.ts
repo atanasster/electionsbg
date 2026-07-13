@@ -693,6 +693,23 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     tags: ["fiscal", "indicators"],
   },
   {
+    id: "energy",
+    label: { bg: "Ember · Eurostat · енергетика", en: "Ember · Eurostat · energy" }, // prettier-ignore
+    detail: {
+      bg: "производство на ток, цени",
+      en: "generation mix, prices",
+    },
+    desc: {
+      bg: "Физическата картина на енергетиката до парите: производственият микс на тока (ядрена, въглища, ВЕИ), нетният износ и въглеродният интензитет от Ember (Yearly Electricity Data, CC BY 4.0), и цената на тока за домакинствата спрямо ЕС от Eurostat (nrg_pc_204). Поддържат се като .json в data/energy/. Обществените поръчки на групата на БЕХ идват от корпуса на договорите, не оттук.",
+      en: "The physical picture of energy beside the money: the electricity generation mix (nuclear, coal, renewables), net exports and carbon intensity from Ember (Yearly Electricity Data, CC BY 4.0), and the household electricity price vs the EU from Eurostat (nrg_pc_204). Maintained as .json under data/energy/. The БЕХ group's procurement comes from the contracts corpus, not here.",
+    },
+    url: "https://ember-energy.org/data/",
+    origin: "intl",
+    members: ["ember_generation", "eurostat_energy_prices"],
+    skills: ["update-energy"],
+    tags: ["indicators", "prices"],
+  },
+  {
     id: "culture",
     label: { bg: "НФЦ · филмови субсидии", en: "НФЦ · film subsidies" },
     detail: {
@@ -959,6 +976,20 @@ export const DATASETS: DatasetDef[] = [
     },
     path: "data/defense/",
     tags: ["fiscal", "indicators"],
+  },
+  {
+    id: "energy",
+    label: { bg: "Енергетика", en: "Energy" },
+    detail: {
+      bg: "производство на ток, цени",
+      en: "generation mix, prices",
+    },
+    desc: {
+      bg: "Производственият микс на тока (ядрена, въглища, ВЕИ), нетният износ и въглеродният интензитет от Ember, плюс цената на тока за домакинствата спрямо ЕС от Eurostat. Поръчките на държавната енергийна група (БЕХ) идват от корпуса на договорите.",
+      en: "The electricity generation mix (nuclear, coal, renewables), net exports and carbon intensity from Ember, plus the household electricity price vs the EU from Eurostat. The state energy group's (БЕХ) procurement comes from the contracts corpus.",
+    },
+    path: "data/energy/",
+    tags: ["indicators", "prices"],
   },
   {
     id: "culture",
@@ -1345,6 +1376,20 @@ export const FEATURES: FeatureDef[] = [
     tags: ["fiscal", "indicators"],
   },
   {
+    id: "energy",
+    label: { bg: "Енергетика", en: "Energy" },
+    detail: {
+      bg: "парите и физическата система",
+      en: "the money and the physical system",
+    },
+    desc: {
+      bg: "Обществените поръчки на държавната енергийна група (БЕХ, ~9 млрд. €), невидимата инвестиция в Козлодуй 7/8 (~14 млрд.), единственият участник, производственият микс на тока и цената за домакинствата спрямо ЕС.",
+      en: "The procurement of the state energy group (БЕХ, ~€9bn), the invisible Kozloduy 7/8 investment (~€14bn), single-bid share, the electricity generation mix and the household electricity price vs the EU.",
+    },
+    route: "/sector/energy",
+    tags: ["fiscal", "indicators"],
+  },
+  {
     id: "culture",
     label: { bg: "Култура", en: "Culture" },
     detail: {
@@ -1463,6 +1508,11 @@ export const EDGES: [string, string][] = [
   // (peer %GDP/per-capita) datasets — cross-dataset edges, like judiciary↔budget.
   ["ds:budget", "f:defense"],
   ["ds:macro", "f:defense"],
+  ["src:energy", "ds:energy"],
+  ["ds:energy", "f:energy"],
+  // /sector/energy leads with the БЕХ procurement pack (the €8.96bn group), which
+  // renders off the contracts corpus — a cross-dataset edge like defense↔budget.
+  ["ds:procurement", "f:energy"],
   ["src:water", "ds:water"],
   ["src:egov", "ds:water"],
   ["ds:water", "f:water"],

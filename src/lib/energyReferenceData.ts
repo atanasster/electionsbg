@@ -21,8 +21,12 @@
 //   106588180 ВЕЦ Козлодуй             10 c   €0.8M     small hydro
 //   831373560 БЕХ (holding parent)      0 c   —         pure holding, no ЗОП
 //   176789460 Министерство на енергетиката 127 c €4.8M  policy owner / principal
-// BEH core group (generation+grid+gas, excl. ministry/heat): 19 892 c, €9.76bn,
-// 35% single-bid (3 362 of 9 584 bid-known). Bigger than the МО group.
+// BEH core group (generation+grid+gas, excl. ministry/heat), on the serving basis
+// tag='contract' (amendments excluded — the awarder_group_model / sector_stats
+// basis, see [[reference_procurement_eur_sum_basis]]): 19 727 c, €8.96bn, 35.5%
+// single-bid (3 339 of 9 400 bid-known). Still bigger than the МО group. (The
+// per-EIK € above are an all-tags probe and run ~9% higher because amendments
+// double-count; the group KPI shown in the UI uses the tag='contract' basis.)
 //
 // ⚠ CURATED BY EIK ALLOWLIST, NEVER BY NAME REGEX. A name sweep on "козлодуй" /
 // "ядрен" false-positives the town of Козлодуй and everything in it — Община
