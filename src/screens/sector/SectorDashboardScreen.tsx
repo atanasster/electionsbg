@@ -174,7 +174,15 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
         </p>
       )}
 
-      {ThematicTiles && <ThematicTiles />}
+      {ThematicTiles && (
+        <Suspense
+          fallback={
+            <div className="h-[200px] animate-pulse rounded-xl border bg-card" />
+          }
+        >
+          <ThematicTiles />
+        </Suspense>
+      )}
 
       <SectorAwardersTile config={config} />
 

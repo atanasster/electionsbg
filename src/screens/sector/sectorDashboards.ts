@@ -15,7 +15,7 @@
 // label its chips (mirrors DefenseAwardersTile / MO_ENTITIES). Single-member
 // sectors render one chip; the awarder page behind it holds the full pack.
 
-import type { ComponentType } from "react";
+import { lazy, type ComponentType } from "react";
 import { API_EIK } from "@/lib/roadAttributes";
 import { NOI_EIK } from "@/lib/noiBenchmarks";
 import { NZOK_EIK } from "@/lib/nzokBenchmarks";
@@ -59,6 +59,15 @@ export interface SectorDashboardConfig {
 // than re-hardcoding the same digits.
 export const TRANSPORT_EIK = "000695388"; // Министерство на транспорта и съобщенията (МТС)
 export const ADMIN_EIK = "180680495"; // Министерство на електронното управление (МЕУ)
+
+// Energy is the first sector to ship bespoke ThematicTiles (the invisible-€14bn
+// call-out, single-bid gauge, per-unit spend). Lazy so the config module — pulled
+// in wherever sectorPacks is imported — doesn't eager-load react-query/lucide.
+const EnergyThematicTiles = lazy(() =>
+  import("./energy/EnergyThematicTiles").then((m) => ({
+    default: m.EnergyThematicTiles,
+  })),
+);
 
 export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
   health: {
@@ -224,6 +233,7 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
     agency: "БЕХ",
     leadEik: BEH_EIK,
     browsePackId: "energy",
+    ThematicTiles: EnergyThematicTiles,
     members: [
       {
         eik: BEH_EIK,

@@ -183,6 +183,23 @@ export const ENERGY_SECTOR_EIKS: string[] = [
   ...ESO_BRANCH_EIKS,
 ];
 
+/** The БЕХ group members rolled up by the /sector/energy dashboard, in the SAME
+ *  order as SECTOR_DASHBOARDS.energy `members` — so the dashboard's group-model
+ *  fetch and the signature ThematicTiles' fetch share ONE react-query key
+ *  (keyed on eiks.join(",")). Excludes the ЕСО branch (~€64K, immaterial) and the
+ *  ministry/regulators (not part of the БЕХ commercial group). */
+export const ENERGY_MEMBER_EIKS: string[] = [
+  BEH_EIK,
+  "106513772", // АЕЦ Козлодуй
+  "123531939", // ТЕЦ Марица изток 2
+  "833017552", // Мини Марица-изток
+  "000649348", // НЕК
+  "106588180", // ВЕЦ Козлодуй
+  "175201304", // ЕСО
+  "175203478", // Булгартрансгаз
+  "175203485", // Булгаргаз
+];
+
 export const ENERGY_UNIVERSE_LABEL: Record<
   EnergyUniverse,
   { bg: string; en: string }
