@@ -7,7 +7,15 @@
 import { FC, ReactNode, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { BarChart3, Users, Euro, FileText, PieChart } from "lucide-react";
+import {
+  BarChart3,
+  Users,
+  Euro,
+  FileText,
+  PieChart,
+  AlertTriangle,
+  ShieldCheck,
+} from "lucide-react";
 import {
   useContractNormalcy,
   type NormalcyDir,
@@ -196,23 +204,40 @@ export const ContractNormalcyPanel: FC<{ contractKey?: string }> = ({
             </p>
           ) : null}
         </div>
-        {evaluated > 0 ? (
-          <span
-            className={`inline-flex items-center rounded px-2.5 py-1 text-xs font-medium ${
-              deviations > 0
-                ? FLAG_CLS
-                : "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300"
-            }`}
-          >
-            {deviations > 0
-              ? bg
-                ? `${deviations} от ${evaluated} показателя за конкуренция се отклоняват`
-                : `${deviations} of ${evaluated} competition indicators deviate`
-              : bg
-                ? "Без сигнали за по-слаба конкуренция"
-                : "No weaker-competition signals"}
-          </span>
-        ) : null}
+        {evaluated > 0
+          ? (() => {
+              // Compact status: an amber warning + count, or a green all-clear —
+              // the wordy detail lives in the tooltip.
+              const tip =
+                deviations > 0
+                  ? bg
+                    ? `${deviations} от ${evaluated} показателя за конкуренция се отклоняват`
+                    : `${deviations} of ${evaluated} competition indicators deviate`
+                  : bg
+                    ? "Без сигнали за по-слаба конкуренция"
+                    : "No weaker-competition signals";
+              return (
+                <span
+                  title={tip}
+                  aria-label={tip}
+                  className={`inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-1 text-xs font-medium ${
+                    deviations > 0
+                      ? FLAG_CLS
+                      : "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300"
+                  }`}
+                >
+                  {deviations > 0 ? (
+                    <>
+                      <AlertTriangle className="h-3.5 w-3.5" />
+                      {deviations}
+                    </>
+                  ) : (
+                    <ShieldCheck className="h-3.5 w-3.5" />
+                  )}
+                </span>
+              );
+            })()
+          : null}
       </div>
 
       {cohort && !cohort.sufficient ? (
