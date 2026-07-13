@@ -35,6 +35,7 @@ import {
   type EnergyUniverse,
 } from "@/lib/energyReferenceData";
 import { EnergyGenerationTile } from "./EnergyGenerationTile";
+import { EnergyPriceTile } from "./EnergyPriceTile";
 
 // The generic dashboard needs headline money/competition, not a CPV taxonomy —
 // same one-bucket classifier as SectorDashboardScreen (keeps the fetch shared).
@@ -207,6 +208,7 @@ export const EnergyThematicTiles: FC = () => {
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <EnergyGenerationTile />
+      <EnergyPriceTile />
       <InvisibleCapexTile />
       {model && <SingleBidTile model={model} />}
       <PerUnitSpendTile byUnit={byUnit} />
