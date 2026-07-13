@@ -23,6 +23,7 @@ import { MON_EIK } from "@/lib/monBenchmarks";
 import { NAP_EIK } from "@/lib/napReferenceData";
 import { CUSTOMS_EIK } from "@/lib/customsReferenceData";
 import { AGRI_PAYER_EIK } from "@/data/agri/constants";
+import { BEH_EIK } from "@/lib/energyReferenceData";
 
 export interface SectorMember {
   eik: string;
@@ -207,6 +208,76 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
           bg: "Държавен фонд „Земеделие“",
           en: "State Fund Agriculture",
         },
+      },
+    ],
+  },
+  // Енергетика — the БЕХ state-energy group. Unlike the single-institution
+  // sectors above, `members` IS the whole group (9 EIKs) so the KPI rollup folds
+  // every subsidiary; БЕХ leads (its /awarder page suppresses the pack and links
+  // here, and it awards €0 — the KPIs are the folded group, not the lead).
+  // EIKs measured from the corpus (energyReferenceData.ts, 2026-07-12); the ЕСО
+  // branch 1752013040 (~€64K) is folded server-side, not a member chip.
+  energy: {
+    id: "energy",
+    titleKey: "sector_energy_title",
+    descKey: "sector_energy_desc",
+    agency: "БЕХ",
+    leadEik: BEH_EIK,
+    browsePackId: "energy",
+    members: [
+      {
+        eik: BEH_EIK,
+        name: {
+          bg: "Български енергиен холдинг",
+          en: "Bulgarian Energy Holding",
+        },
+        group: { bg: "Холдинг", en: "Holding" },
+      },
+      {
+        eik: "106513772",
+        name: { bg: "АЕЦ Козлодуй", en: "Kozloduy NPP" },
+        group: { bg: "Ядрена енергия", en: "Nuclear" },
+      },
+      {
+        eik: "123531939",
+        name: { bg: "ТЕЦ Марица изток 2", en: "Maritsa East 2 TPP" },
+        group: { bg: "Въглища", en: "Coal" },
+      },
+      {
+        eik: "833017552",
+        name: { bg: "Мини Марица-изток", en: "Mini Maritsa Iztok" },
+        group: { bg: "Въглища", en: "Coal" },
+      },
+      {
+        eik: "000649348",
+        name: {
+          bg: "Национална електрическа компания (НЕК)",
+          en: "National Electric Company (NEK)",
+        },
+        group: { bg: "ВЕЦ и търговия", en: "Hydro & trading" },
+      },
+      {
+        eik: "106588180",
+        name: { bg: "ВЕЦ Козлодуй", en: "Kozloduy HPP" },
+        group: { bg: "ВЕЦ и търговия", en: "Hydro & trading" },
+      },
+      {
+        eik: "175201304",
+        name: {
+          bg: "Електроенергиен системен оператор (ЕСО)",
+          en: "Electricity System Operator (ESO)",
+        },
+        group: { bg: "Електропренос", en: "Power grid" },
+      },
+      {
+        eik: "175203478",
+        name: { bg: "Булгартрансгаз", en: "Bulgartransgaz" },
+        group: { bg: "Природен газ", en: "Natural gas" },
+      },
+      {
+        eik: "175203485",
+        name: { bg: "Булгаргаз", en: "Bulgargaz" },
+        group: { bg: "Природен газ", en: "Natural gas" },
       },
     ],
   },

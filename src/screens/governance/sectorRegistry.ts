@@ -50,6 +50,14 @@ export const SECTOR_CLUSTERS: { labelKey: string; sectors: Sector[] }[] = [
         to: "/sector/transport",
         accent: TILE_ACCENTS.steel,
       },
+      {
+        id: "energy",
+        titleKey: "sector_energy_title",
+        descKey: "sector_energy_desc",
+        agency: "БЕХ",
+        to: "/sector/energy",
+        accent: TILE_ACCENTS.copper,
+      },
     ],
   },
   {
@@ -177,6 +185,7 @@ export const SECTORS: Sector[] = SECTOR_CLUSTERS.flatMap((c) => c.sectors);
 // Curated by procurement value; revisit if the corpus ordering shifts.
 export const FEATURED_SECTOR_IDS = [
   "roads",
+  "energy",
   "health",
   "defense",
   "water",

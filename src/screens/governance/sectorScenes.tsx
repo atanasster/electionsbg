@@ -163,6 +163,39 @@ const Transport: FC = () => (
   </SceneFrame>
 );
 
+const Energy: FC = () => (
+  <SceneFrame>
+    {/* catenary transmission lines sagging across the frame */}
+    <g fill="none" stroke="currentColor" strokeWidth="1.4" opacity=".5">
+      <path d="M70 40 q70 26 140 6 t78 -4" />
+      <path d="M70 54 q70 28 140 10 t78 -2" opacity=".7" />
+    </g>
+    {/* lattice pylon */}
+    <g stroke="currentColor" strokeWidth="1.6" fill="none" opacity=".85">
+      <path d="M52 104 L66 28 M84 104 L70 28" />
+      <path d="M46 40 h44 M50 54 h36" />
+      <path d="M58 96 L78 82 M78 96 L58 82 M60 78 L76 66 M76 78 L60 66 M62 60 L74 50 M74 60 L62 50" />
+    </g>
+    {/* insulator hang points */}
+    <g fill="var(--sector)">
+      <circle cx="46" cy="40" r="2.4" />
+      <circle cx="90" cy="40" r="2.4" />
+    </g>
+    {/* lightning bolt — the focal */}
+    <path
+      d="M214 28 L200 60 L211 60 L198 94 L230 54 L217 54 Z"
+      fill="var(--sector)"
+      opacity=".9"
+    />
+    {/* generation bars */}
+    <g fill="var(--sector)">
+      <rect x="250" y="82" width="9" height="20" rx="2" opacity=".55" />
+      <rect x="263" y="72" width="9" height="30" rx="2" opacity=".78" />
+      <rect x="276" y="62" width="9" height="40" rx="2" />
+    </g>
+  </SceneFrame>
+);
+
 const Pension: FC = () => (
   <SceneFrame>
     <g fill="var(--sector)">
@@ -670,6 +703,7 @@ export const SECTOR_SCENES: Record<string, FC> = {
   roads: Roads,
   water: Water,
   transport: Transport,
+  energy: Energy,
   pension: Pension,
   social: Social,
   health: Health,

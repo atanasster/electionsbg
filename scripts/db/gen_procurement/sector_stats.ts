@@ -41,6 +41,7 @@ import { CUSTOMS_EIK } from "../../../src/lib/customsReferenceData";
 import { KULTURA_EIK } from "../../../src/lib/kulturaReferenceData";
 import { WATER_SECTOR_EIKS } from "../../../src/lib/vikReferenceData";
 import { DEFENSE_SECTOR_EIKS } from "../../../src/lib/defenseReferenceData";
+import { ENERGY_SECTOR_EIKS } from "../../../src/lib/energyReferenceData";
 import {
   VSS_EIK,
   VSS_ALIAS_EIKS,
@@ -73,6 +74,7 @@ const SECTOR_EIKS: Record<string, string[]> = {
   defense: DEFENSE_SECTOR_EIKS,
   justice: [VSS_EIK, ...VSS_ALIAS_EIKS, ...JUDICIAL_EIKS],
   culture: [KULTURA_EIK],
+  energy: [...ENERGY_SECTOR_EIKS],
 };
 
 // Flattened (eik, sector) pairs for a single grouped query per scope.

@@ -27,6 +27,7 @@ import { MOD_EIK, DEFENSE_SECTOR_EIKS } from "@/lib/defenseReferenceData";
 import { NAP_EIK, NAP_AWARDER_PATH } from "@/lib/napReferenceData";
 import { CUSTOMS_EIK, CUSTOMS_AWARDER_PATH } from "@/lib/customsReferenceData";
 import { AGRI_PAYER_EIK } from "@/data/agri/constants";
+import { ENERGY_SECTOR_EIKS } from "@/lib/energyReferenceData";
 import { TRANSPORT_EIK, ADMIN_EIK } from "@/screens/sector/sectorDashboards";
 import type { ScopeWindow } from "@/data/procurement/useAwarderContracts";
 
@@ -218,6 +219,11 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
     id: "administration",
     label: { bg: "Администрация (МЕУ)", en: "Administration (МЕУ)" },
     eiks: [ADMIN_EIK],
+  },
+  energy: {
+    id: "energy",
+    label: { bg: "Енергетика (БЕХ)", en: "Energy (БЕХ)" },
+    eiks: ENERGY_SECTOR_EIKS,
   },
 };
 
