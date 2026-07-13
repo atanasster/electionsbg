@@ -24,7 +24,7 @@
  *  encode (June-2025 PDF, 2025 estimates). Compared against the live PDF
  *  probe by scripts/budget/check_policy_anchors.ts — bump it together with
  *  the def values when a new edition lands. */
-export const NATO_COMPENDIUM_EDITION = 2025;
+export const NATO_COMPENDIUM_EDITION = 2026;
 
 export interface BiText {
   bg: string;
@@ -271,60 +271,60 @@ export const EU_LEVER_PRESETS: Record<EuLeverId, EuPresetOption[]> = {
       cc: "PL",
       label: { bg: "Полша — 4,5%", en: "Poland — 4.5%" },
       note: {
-        bg: "4,48% — най-високият дял в НАТО (оценка за 2025 г.).",
-        en: "4.48% — the highest share in NATO (2025 estimate).",
+        bg: "4,48% — най-високият дял в НАТО (оценка за 2026 г.).",
+        en: "4.48% — the highest share in NATO (2026 estimate).",
       },
       apply: { def: 45 },
     },
     {
       id: "def_lt",
       cc: "LT",
-      label: { bg: "Литва — 4,0%", en: "Lithuania — 4.0%" },
+      label: { bg: "Литва — 5,3%", en: "Lithuania — 5.3%" },
       note: {
-        bg: "4,00% по оценката на НАТО за 2025 г. (3,1% през 2024 г.).",
-        en: "4.00% per the NATO 2025 estimate (3.1% in 2024).",
+        bg: "5,33% по оценката на НАТО за 2026 г. (3,1% през 2024 г.).",
+        en: "5.33% per the NATO 2026 estimate (3.1% in 2024).",
       },
-      apply: { def: 40 },
+      apply: { def: 53 },
     },
     {
       id: "def_ee",
       cc: "EE",
-      label: { bg: "Естония — 3,4%", en: "Estonia — 3.4%" },
+      label: { bg: "Естония — 5,1%", en: "Estonia — 5.1%" },
       note: {
-        bg: "3,38% (оценка 2025 г.); обявена цел ≥5% от 2026 г.",
-        en: "3.38% (2025 estimate); a stated target of ≥5% from 2026.",
+        bg: "5,10% (оценка 2026 г.) — достигна обявената цел ≥5%.",
+        en: "5.10% (2026 estimate) — has reached its stated ≥5% target.",
       },
-      apply: { def: 34 },
+      apply: { def: 51 },
     },
     {
       id: "def_gr",
       cc: "GR",
-      label: { bg: "Гърция — 2,9%", en: "Greece — 2.9%" },
+      label: { bg: "Гърция — 3,7%", en: "Greece — 3.7%" },
       note: {
-        bg: "2,85% по оценката на НАТО за 2025 г. — трайно над 2%.",
-        en: "2.85% per the NATO 2025 estimate — persistently above 2%.",
+        bg: "3,65% по оценката на НАТО за 2026 г. — трайно над 2%.",
+        en: "3.65% per the NATO 2026 estimate — persistently above 2%.",
       },
-      apply: { def: 29 },
+      apply: { def: 37 },
     },
     {
       id: "def_de",
       cc: "DE",
-      label: { bg: "Германия — 2,4%", en: "Germany — 2.4%" },
+      label: { bg: "Германия — 2,7%", en: "Germany — 2.7%" },
       note: {
-        bg: "2,40% по оценката на НАТО за 2025 г.",
-        en: "2.40% per the NATO 2025 estimate.",
+        bg: "2,69% по оценката на НАТО за 2026 г.",
+        en: "2.69% per the NATO 2026 estimate.",
       },
-      apply: { def: 24 },
+      apply: { def: 27 },
     },
     {
       id: "def_it",
       cc: "IT",
-      label: { bg: "Италия — 2,0%", en: "Italy — 2.0%" },
+      label: { bg: "Италия — 2,1%", en: "Italy — 2.1%" },
       note: {
-        bg: "2,01% — достигна целта на НАТО едва през 2025 г. (1,5% през 2024 г.).",
-        en: "2.01% — reached the NATO target only in 2025 (1.5% in 2024).",
+        bg: "2,10% — достигна целта на НАТО през 2025 г. (1,5% през 2024 г.).",
+        en: "2.10% — reached the NATO target in 2025 (1.5% in 2024).",
       },
-      apply: { def: 20 },
+      apply: { def: 21 },
     },
   ],
   mat: [
@@ -689,7 +689,7 @@ export const COUNTRY_PROFILES: CountryProfile[] = [
       nm: 700,
       b2: null,
       corp: 22,
-      def: 34,
+      def: 51,
       mat: 6,
       pw: 20,
       exDiesel: 428,
@@ -773,7 +773,7 @@ export const COUNTRY_PROFILES: CountryProfile[] = [
       // the 2026 Grundfreibetrag €12 348; 5707 was the 2025 €68 481 threshold).
       b2: { t2: 5823, r2: 42 },
       corp: 30,
-      def: 24,
+      def: 27,
       mat: 0,
       pw: 0,
       exDiesel: 470,
@@ -804,7 +804,7 @@ export const COUNTRY_PROFILES: CountryProfile[] = [
       // to a flat 11%. 30% is the rate most French upper-middle earners pay.
       b2: { t2: 2443, r2: 30 },
       corp: 25,
-      def: 20,
+      def: 22,
       mat: 2,
       pw: 100,
       exDiesel: 594,
@@ -835,7 +835,7 @@ export const COUNTRY_PROFILES: CountryProfile[] = [
       // bolagsskatt 20,6% (the corp lever carries one decimal); the proposed
       // 2026 cut to 20% was dropped from the final budget.
       corp: 20.6,
-      def: 25,
+      def: 32,
       mat: 3,
       pw: 0,
       exDiesel: 359,
@@ -875,8 +875,8 @@ export const COUNTRY_PROFILES: CountryProfile[] = [
     cc: "GR",
     name: { bg: "Гърция", en: "Greece" },
     note: {
-      bg: "Високо ДДС 24% след дълговата криза, прогресивен данък 9–44% и трайно високи отбранителни разходи (~2,9% от БВП).",
-      en: "A high 24% VAT after the debt crisis, a progressive 9–44% income tax and persistently high defence spending (~2.9% of GDP).",
+      bg: "Високо ДДС 24% след дълговата криза, прогресивен данък 9–44% и трайно високи отбранителни разходи (~3,7% от БВП).",
+      en: "A high 24% VAT after the debt crisis, a progressive 9–44% income tax and persistently high defence spending (~3.7% of GDP).",
     },
     apply: {
       vatStd: 24,
@@ -889,7 +889,7 @@ export const COUNTRY_PROFILES: CountryProfile[] = [
       // top-rate bracket would never fire and Greece would collapse to a flat 9%.
       b2: { t2: 1000, r2: 20 },
       corp: 22,
-      def: 29,
+      def: 37,
       mat: 2,
       exDiesel: 410,
       exPetrol: 700,

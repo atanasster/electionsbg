@@ -1356,7 +1356,7 @@ export const BudgetPolicySimulator: FC = () => {
   // Phase-5 levers: defense target (tenths of % GDP), wage indexation %,
   // exempt-sectors toggle, capital ±%, SSC-self-paid (+gross-up), health pp.
   const [def, setDef] = useState(() =>
-    clampIntParam(searchParams.get("def"), 15, 50, DEF_DEF),
+    clampIntParam(searchParams.get("def"), 15, 60, DEF_DEF),
   );
   const [wi, setWi] = useState(() =>
     clampIntParam(searchParams.get("wi"), -5, 15, 0),
@@ -3376,7 +3376,7 @@ export const BudgetPolicySimulator: FC = () => {
                       label={t("budget_policy_def")}
                       info={euInfo("def", t("budget_policy_tip_def"))}
                       min={15}
-                      max={50}
+                      max={60}
                       value={def}
                       defaultValue={DEF_DEF}
                       onChange={setDef}

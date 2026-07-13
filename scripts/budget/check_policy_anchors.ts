@@ -592,7 +592,7 @@ const PROFILE_BOUNDS: Record<string, [number, number]> = {
   pit: [0, 35],
   nm: [0, 1700], // NM_MAX
   corp: [0, 30],
-  def: [15, 50],
+  def: [15, 60],
   mat: [0, 12], // MATERNITY_Y2_MONTHS
   pw: [0, 100],
   exDiesel: [330, 700],
