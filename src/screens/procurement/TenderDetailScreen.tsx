@@ -12,7 +12,6 @@ import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   ClipboardList,
-  ChevronLeft,
   ExternalLink,
   Layers,
   Info,
@@ -33,6 +32,7 @@ import type { Tender } from "@/lib/tenderTypes";
 import type { ProcurementContract } from "@/data/dataTypes";
 import { useContractRiskScorer } from "@/data/procurement/useContractRiskFlags";
 import { RiskBadges } from "@/screens/components/procurement/RiskBadges";
+import { Breadcrumbs } from "@/ux/Breadcrumbs";
 import { TenderNormalcyPanel } from "@/screens/components/procurement/TenderNormalcyPanel";
 import { formatAmountEur } from "@/lib/currency";
 import {
@@ -674,14 +674,18 @@ export const TenderDetailScreen: FC = () => {
 
   return (
     <section className="my-4 space-y-6">
+      <Breadcrumbs
+        items={[
+          { label: t("nav_governance"), to: "/governance" },
+          { label: t("procurement_index_title"), to: "/procurement" },
+          {
+            label: t("procurement_tenders_nav") || "Tenders",
+            to: "/procurement/tenders",
+          },
+          { label: tender.subject },
+        ]}
+      />
       <header className="space-y-2">
-        <Link
-          to="/procurement/tenders"
-          className="text-xs text-muted-foreground hover:underline inline-flex items-center gap-1"
-        >
-          <ChevronLeft className="h-3 w-3" />
-          {t("procurement_tenders_nav") || "Tenders"}
-        </Link>
         <p className="text-xs uppercase tracking-wide text-muted-foreground flex flex-wrap items-center gap-2">
           <ClipboardList className="h-4 w-4" />
           {t("tender_kicker") || "Announced procedure (tender)"}
@@ -707,7 +711,7 @@ export const TenderDetailScreen: FC = () => {
             />
           ) : null}
         </p>
-        <h1 className="text-xl md:text-2xl font-semibold leading-snug">
+        <h1 className="text-lg md:text-xl font-semibold leading-snug max-w-[70ch]">
           {tender.subject}
         </h1>
         {est ? (
