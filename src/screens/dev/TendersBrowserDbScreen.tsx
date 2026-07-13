@@ -28,6 +28,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  CpvFilterCombobox,
+  CPV_ALL,
+} from "@/screens/components/procurement/CpvFilterCombobox";
+import { useCpvCatalog } from "@/data/procurement/useCpvCatalog";
 
 interface TenderRow {
   unp: string;
@@ -73,7 +78,7 @@ export const TendersBrowserDbScreen: FC = () => {
     }> => {
       const req = {
         resource: "tenders",
-        columns: ["procedure_type"],
+        columns: ["procedure_type", "cpv"],
         limit: 40,
       };
       const r = await fetch(
@@ -85,18 +90,26 @@ export const TendersBrowserDbScreen: FC = () => {
     staleTime: Infinity,
   });
   const procedureOptions = facetData?.facets?.procedure_type ?? [];
+  const cpvOptions = facetData?.facets?.cpv ?? [];
+  // Named CPV-code catalogue (tenders' cpv_desc) powers the searchable CPV
+  // filter — search by sector name or by any CPV code, beyond the 2-digit
+  // divisions. Shared with the contracts browser.
+  const { data: cpvCatalog } = useCpvCatalog();
 
-  // ?cpv= deep link (from the tender normalcy panel's "browse similar") seeds a
-  // CPV-PREFIX filter — cpv_prefix is the same physical column with a LIKE match,
-  // so a cohort prefix (2–8 digits) resolves the similar tenders.
-  const cpvPrefix = params.get("cpv") ?? "";
+  // The CPV filter is interactive (the shared CpvFilterCombobox) and also seeded
+  // by the ?cpv= deep link from the tender normalcy panel's "browse similar" —
+  // both resolve through cpv_prefix (same physical column, LIKE match), so a
+  // cohort prefix (2–8 digits) or a picked division/code filters the same way.
+  const [cpvSel, setCpvSel] = useState<string>(
+    () => params.get("cpv") ?? CPV_ALL,
+  );
 
   const extraFilters = useMemo<DbColumnFilter[]>(() => {
     const f: DbColumnFilter[] = [];
     // Curated topic → filter by its precise CPV set (the discriminator the
     // offline builder used); catches the procedures however they're worded.
     if (topic?.cpv?.length) f.push({ id: "cpv", value: topic.cpv });
-    if (cpvPrefix) f.push({ id: "cpv_prefix", value: cpvPrefix });
+    if (cpvSel !== CPV_ALL) f.push({ id: "cpv_prefix", value: cpvSel });
     // Section scope (?pscope) → bound the announcement date. Exclusive end ≈
     // inclusive max, off by ≤1 day — same convention as the contracts browser.
     if (!all && from)
@@ -105,7 +118,7 @@ export const TendersBrowserDbScreen: FC = () => {
     if (cancelled) f.push({ id: "is_cancelled", value: true });
     if (browsePack) f.push({ id: "buyer_eik", value: [...browsePack.eiks] });
     return f;
-  }, [topic, cpvPrefix, all, from, to, procedure, cancelled, browsePack]);
+  }, [topic, cpvSel, all, from, to, procedure, cancelled, browsePack]);
 
   const columns = useMemo<DataTableColumnDef<TenderRow, unknown>[]>(
     () => [
@@ -258,6 +271,14 @@ export const TendersBrowserDbScreen: FC = () => {
           }
           toolbar={
             <>
+              {cpvOptions.length > 0 ? (
+                <CpvFilterCombobox
+                  value={cpvSel}
+                  onChange={setCpvSel}
+                  divisions={cpvOptions}
+                  catalog={cpvCatalog ?? []}
+                />
+              ) : null}
               {procedureOptions.length > 0 ? (
                 <Select value={procedure} onValueChange={setProcedure}>
                   <SelectTrigger className="w-auto h-9 max-w-[220px]">

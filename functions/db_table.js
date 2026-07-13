@@ -135,7 +135,9 @@ const REGISTRY = {
       procedure_type: { type: "text", sort: true, filter: "in" },
       // Exact-code `in` (not division prefix) so a curated topic deep-link can
       // filter by its precise CPV set (e.g. guardrails → 45233292, 34928…).
-      cpv: { type: "text", filter: "in" },
+      // facetExpr groups the facet dropdown by 2-digit CPV DIVISION (feeds the
+      // shared CpvFilterCombobox) — faceting only, the `in` filter is unaffected.
+      cpv: { type: "text", filter: "in", facetExpr: "left(cpv, 2)" },
       // Same physical `cpv` column, but a PREFIX match — backs the tender
       // normalcy panel's "browse similar" link (cohort CPV prefix, 2–8 digits).
       cpv_prefix: { type: "text", filter: "prefix", col: "cpv" },
