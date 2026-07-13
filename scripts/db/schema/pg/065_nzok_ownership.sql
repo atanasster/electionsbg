@@ -27,6 +27,19 @@ ALTER TABLE nzok_hospital_payments
   ADD CONSTRAINT nzok_hospital_payments_ownership_ck
   CHECK (ownership IS NULL OR ownership IN ('state', 'municipal', 'private'));
 
+-- 050's nzok_hospital_payments_latest_rows view is `SELECT h.*`, whose column list
+-- Postgres FROZE at view-creation time — before this migration added `ownership`.
+-- A `SELECT *` view does NOT pick up a later base-table column, so the payload
+-- functions below (which read the view, then reference `ownership`) would break on
+-- a clean apply where 065 runs after 050. Re-expand the view here so it includes
+-- the new column. (Definition copied verbatim from 050.)
+CREATE OR REPLACE VIEW nzok_hospital_payments_latest_rows AS
+  SELECT h.*
+  FROM nzok_hospital_payments h
+  JOIN (
+    SELECT stream, max(period) AS d FROM nzok_hospital_payments GROUP BY stream
+  ) lat ON lat.stream = h.stream AND lat.d = h.period;
+
 -- A company's ownership = the ownership of its facilities (mode; a legal entity
 -- does not mix state/municipal/private across its ЛЗ). Used by the eik-keyed
 -- functions (momentum, risk) which have no facility grain of their own.
