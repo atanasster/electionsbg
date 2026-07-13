@@ -22,7 +22,11 @@ import { AppealChip } from "@/screens/components/procurement/AppealChip";
 import { useContractRiskScorer } from "@/data/procurement/useContractRiskFlags";
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { resolveContractSource } from "@/screens/components/candidates/procurement/sourceUrl";
-import { cpvDivisionName } from "@/lib/cpvSectors";
+import { useCpvCatalog } from "@/data/procurement/useCpvCatalog";
+import {
+  CpvFilterCombobox,
+  CPV_ALL,
+} from "@/screens/components/procurement/CpvFilterCombobox";
 import { formatEur } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
 import type { ProcurementContract } from "@/data/dataTypes";
@@ -37,7 +41,7 @@ import {
 const ALL = "__all__";
 
 export const ContractsBrowserDbScreen: FC = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { scoreRow } = useContractRiskScorer();
   const { from, to, all, year } = useScopeWindow();
   // ?q= deep link (combined-search "see all" footer) seeds the search box.
@@ -47,7 +51,9 @@ export const ContractsBrowserDbScreen: FC = () => {
   const [params] = useSearchParams();
 
   const [method, setMethod] = useState<string>(ALL);
-  const [cpvDiv, setCpvDiv] = useState<string>(() => params.get("cpv") ?? ALL);
+  const [cpvDiv, setCpvDiv] = useState<string>(
+    () => params.get("cpv") ?? CPV_ALL,
+  );
   const [singleBidder, setSingleBidder] = useState(false);
 
   // ?sector=water|roads|noi|nzok|agri|judiciary — the sector browse pack (§4.3):
@@ -89,21 +95,15 @@ export const ContractsBrowserDbScreen: FC = () => {
   });
   const methodOptions = facetData?.facets?.procurement_method ?? [];
   const cpvOptions = facetData?.facets?.cpv ?? [];
-  // A deep link can seed a sub-division CPV prefix (e.g. ?cpv=71311 from the
-  // "how normal is this?" panel). The facet list is 2-digit divisions only, so
-  // surface that prefix as its own option — otherwise the Select trigger renders
-  // blank even though the prefix filter is active.
-  const cpvSelectOptions = useMemo(() => {
-    if (cpvDiv === ALL || cpvOptions.some((o) => o.value === cpvDiv))
-      return cpvOptions;
-    return [{ value: cpvDiv, count: -1 }, ...cpvOptions];
-  }, [cpvOptions, cpvDiv]);
+  // Named CPV-code catalogue (tenders' cpv_desc) powers the searchable CPV filter
+  // — search by sector name or by any CPV code, beyond the 2-digit divisions.
+  const { data: cpvCatalog } = useCpvCatalog();
 
   const extraFilters = useMemo<DbColumnFilter[]>(() => {
     const f: DbColumnFilter[] = [...windowFilter];
     if (singleBidder) f.push({ id: "number_of_tenderers", min: 1, max: 1 });
     if (method !== ALL) f.push({ id: "procurement_method", value: [method] });
-    if (cpvDiv !== ALL) f.push({ id: "cpv", value: cpvDiv });
+    if (cpvDiv !== CPV_ALL) f.push({ id: "cpv", value: cpvDiv });
     // Restrict to the sector's awarder EIK-set (awarder_eik IN …).
     if (browsePack) f.push({ id: "awarder_eik", value: [...browsePack.eiks] });
     return f;
@@ -251,23 +251,12 @@ export const ContractsBrowserDbScreen: FC = () => {
           toolbar={
             <>
               {cpvOptions.length > 0 ? (
-                <Select value={cpvDiv} onValueChange={setCpvDiv}>
-                  <SelectTrigger className="w-auto h-9 max-w-[220px]">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value={ALL}>
-                      {t("company_contracts_all_cpv") || "Всички сектори (CPV)"}
-                    </SelectItem>
-                    {cpvSelectOptions.map((o) => (
-                      <SelectItem key={o.value} value={o.value}>
-                        {o.count >= 0
-                          ? `${cpvDivisionName(o.value, i18n.language)} (${o.count})`
-                          : `CPV ${o.value} · ${cpvDivisionName(o.value, i18n.language)}`}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <CpvFilterCombobox
+                  value={cpvDiv}
+                  onChange={setCpvDiv}
+                  divisions={cpvOptions}
+                  catalog={cpvCatalog ?? []}
+                />
               ) : null}
               {methodOptions.length > 0 ? (
                 <Select value={method} onValueChange={setMethod}>

@@ -437,6 +437,19 @@ const DB_ROUTES = {
     ]).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? null };
   },
+  // CPV catalogue — distinct named CPV codes (from the tenders feed's cpv_desc,
+  // the only place we carry code→name beyond the 2-digit division titles). Feeds
+  // the searchable CPV filter on the contracts browser (~3.6k codes, cached).
+  "cpv-catalog": async (dbRows) => {
+    const rows = await dbRows(
+      `SELECT DISTINCT ON (cpv) cpv, cpv_desc AS desc
+         FROM tenders
+        WHERE cpv IS NOT NULL AND cpv_desc IS NOT NULL AND btrim(cpv_desc) <> ''
+        ORDER BY cpv, length(cpv_desc) DESC`,
+      [],
+    ).catch(missingMigrationRows);
+    return { body: rows };
+  },
   // Risk-signals feed — top concentration + top MP-tied + headline counts +
   // per-oblast tally, window-scoped or full corpus.
   "procurement-risk-feed": async (dbRows, q) => {
