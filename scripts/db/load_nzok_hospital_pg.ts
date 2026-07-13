@@ -51,8 +51,22 @@ const STREAMS_SCHEMA_FILE = path.join(
   REPO,
   "scripts/db/schema/pg/050_nzok_payment_streams.sql",
 );
+// 065 adds the `ownership` column (state|municipal|private) + redefines the 050
+// payload functions to carry it + the byOwnership private-vs-public split. Applied
+// last so it supersedes 050's functions; idempotent CREATE OR REPLACE.
+const OWNERSHIP_SCHEMA_FILE = path.join(
+  REPO,
+  "scripts/db/schema/pg/065_nzok_ownership.sql",
+);
 const RAW_DIR = path.join(REPO, "raw_data/nzok/bmp");
 const EIK_FILE = path.join(REPO, "data/budget/nzok/hospital_eik.json");
+// Committed Рег.№→ownership map (scripts/nzok/write_hospital_ownership.ts). Joined
+// onto each row like eik; a facility absent here (or the file missing) loads with
+// ownership NULL — reported as `unclassified`, never guessed.
+const OWNERSHIP_FILE = path.join(
+  REPO,
+  "data/budget/nzok/hospital_ownership.json",
+);
 const BASE = "https://www.nhif.bg";
 const UA = "electionsbg.com data pipeline";
 
@@ -86,6 +100,7 @@ interface Row {
   cumulative_eur: number;
   month_eur: number;
   currency: string;
+  ownership: string | null;
 }
 
 const fetchToCache = async (link: string): Promise<string> => {
@@ -116,6 +131,22 @@ const collectRows = async (): Promise<{
   if (!Array.isArray(eikArr) || eikArr.length === 0)
     throw new Error(`${EIK_FILE} has no entries[] — crosswalk shape changed?`);
   for (const e of eikArr) eikMap[e.regNo] = e.eik ?? null;
+
+  // Рег.№→ownership (state|municipal|private). Optional: a missing file (older
+  // checkout) just leaves every row's ownership NULL → served as `unclassified`.
+  const ownMap: Record<string, string | null> = {};
+  if (fs.existsSync(OWNERSHIP_FILE)) {
+    const ownFile = JSON.parse(readFileSync(OWNERSHIP_FILE, "utf8"));
+    const ownArr: { regNo: string; ownership: string | null }[] =
+      ownFile.entries;
+    if (!Array.isArray(ownArr))
+      throw new Error(`${OWNERSHIP_FILE} has no entries[] — shape changed?`);
+    for (const e of ownArr) ownMap[e.regNo] = e.ownership ?? null;
+  } else {
+    console.warn(
+      `  (no ${path.basename(OWNERSHIP_FILE)} — rows load with ownership NULL; run --ownership)`,
+    );
+  }
 
   const rows: Row[] = [];
   const monthsSkipped: string[] = [];
@@ -167,6 +198,7 @@ const collectRows = async (): Promise<{
               cumulative_eur: r.cumulativeEur,
               month_eur: r.monthEur,
               currency: f.currencyOfRecord,
+              ownership: ownMap[r.regNo] ?? null,
             });
           monthsOk++;
         } catch (e) {
@@ -190,6 +222,7 @@ const COLS = [
   "cumulative_eur",
   "month_eur",
   "currency",
+  "ownership",
 ] as const;
 
 const main = async (): Promise<void> => {
@@ -198,6 +231,8 @@ const main = async (): Promise<void> => {
   // Last: 050 widens the PK the INSERT conflict-targets and supersedes the 045 +
   // 047 payload functions with their stream-aware / stream-pinned versions.
   await exec(readFileSync(STREAMS_SCHEMA_FILE, "utf8"));
+  // 065 adds the ownership column + the byOwnership split (supersedes 050's fns).
+  await exec(readFileSync(OWNERSHIP_SCHEMA_FILE, "utf8"));
 
   const { rows, monthsOk, monthsSkipped } = await collectRows();
   if (rows.length === 0)

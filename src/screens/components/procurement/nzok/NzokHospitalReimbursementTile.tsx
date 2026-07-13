@@ -18,6 +18,8 @@ import {
 } from "@/data/budget/useBudget";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { monthYearLabel } from "@/lib/monthNames";
+import { ownershipChipClass, ownershipLabel } from "@/lib/nzokOwnership";
+import { appointingAuthority } from "@/lib/nzokGovernance";
 import { NzokPeerGrowthStrip } from "./NzokPeerGrowthStrip";
 
 export const NzokHospitalReimbursementTile: FC<{ eik: string }> = ({ eik }) => {
@@ -55,6 +57,45 @@ export const NzokHospitalReimbursementTile: FC<{ eik: string }> = ({ eik }) => {
               : `paid by НЗОК (cumulative to ${period})`}
           </span>
         </div>
+
+        {/* Governance: ownership + the office that appoints the director. The
+            authority is derived from ownership (no scrape); the caveat is explicit
+            that this is the appointing office, not the director's party. */}
+        {entry.ownership &&
+          (() => {
+            const gov = appointingAuthority(entry.ownership, eik);
+            const caveat = gov ? (bg ? gov.caveat.bg : gov.caveat.en) : "";
+            return (
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
+                <span
+                  className={`rounded-full border px-1.5 py-px text-[10px] font-medium leading-none ${ownershipChipClass(
+                    entry.ownership,
+                  )}`}
+                >
+                  {ownershipLabel(entry.ownership, bg)}
+                </span>
+                {gov && (
+                  <span className="text-muted-foreground">
+                    {bg ? "Назначаващ орган: " : "Appointing authority: "}
+                    <span className="font-medium text-foreground">
+                      {bg ? gov.authority.bg : gov.authority.en}
+                    </span>
+                    {/* Focusable + labelled so the caveat reaches keyboard and
+                        screen-reader users, not just a mouse hover; the glyph
+                        itself is decorative. */}
+                    <button
+                      type="button"
+                      aria-label={caveat}
+                      title={caveat}
+                      className="ml-0.5 cursor-help align-middle text-muted-foreground/60 hover:text-foreground"
+                    >
+                      <span aria-hidden="true">ⓘ</span>
+                    </button>
+                  </span>
+                )}
+              </div>
+            );
+          })()}
 
         {/* The three streams НЗОК pays a hospital through. Shown as a split rather
             than one figure because the headline used to BE the БМП stream alone,

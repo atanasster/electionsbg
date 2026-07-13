@@ -76,12 +76,21 @@ export interface NzokExecutionHistoryFile {
 // Latest monthly per-hospital БМП (hospital care) payment snapshot — the real
 // money НЗОК pays out, OUTSIDE ЗОП. Written by
 // scripts/nzok/write_hospital_payments.ts from the nhif.bg БМП report.
+// State- vs municipally- vs privately-owned. Derived from the МЗ ЕЕОФ roster
+// (state + municipal file it; anyone НЗОК pays who does not is private) with
+// hand-verified overrides — data/budget/nzok/hospital_ownership.json, migration
+// 065. null/undefined = the classifier could not place the facility (served as
+// "unclassified"), never silently folded into private.
+export type NzokOwnership = "state" | "municipal" | "private";
+
 export interface NzokHospitalRow {
   /** 10-digit facility registration number (Рег.№ ЛЗ) — НЗОК-internal code. */
   regNo: string;
   name: string;
   rzokCode: string;
   rzokName: string;
+  /** state | municipal | private; null when unclassified. */
+  ownership?: NzokOwnership | null;
   /** Cumulative year-to-date paid, euros. */
   cumulativeEur: number;
   /** Paid in the report month, euros. */
@@ -114,6 +123,8 @@ export interface NzokStreamSplit {
 
 export interface NzokHospitalReimbursement extends NzokStreamSplit {
   asOf: string; // "YYYY-MM-DD" (end of the report month)
+  /** The company's ownership (state|municipal|private); null when unclassified. */
+  ownership?: NzokOwnership | null;
   totalCumulativeEur: number;
   totalMonthEur: number;
   facilities: (NzokStreamSplit & {
@@ -140,6 +151,7 @@ export interface NzokFacilityMomentum {
   regNo: string;
   name: string;
   eik: string | null;
+  ownership?: NzokOwnership | null;
   currentYtdEur: number;
   /** YTD at the same month a year earlier; null when not reported then. */
   priorYtdEur: number | null;
@@ -166,6 +178,7 @@ export interface NzokHospitalTrendsFile {
 export interface NzokHospitalMomentum {
   currentPeriod: string; // "YYYY-MM"
   priorPeriod: string; // "YYYY-MM"
+  ownership?: NzokOwnership | null;
   currentYtdEur: number;
   priorYtdEur: number;
   /** YTD-vs-same-month-prior-year growth, as a fraction (0.1 = +10%). */
@@ -192,6 +205,15 @@ export interface NzokHospitalPaymentsFile {
   byStream?: Record<
     NzokPaymentStream,
     { cumulativeEur: number; monthEur: number; facilityCount: number }
+  >;
+  /** Private-vs-public split — the headline Диагноза cannot draw (they exclude
+   *  private). Key is state|municipal|private|unclassified; each carries its €
+   *  and facility count. Undefined on a pre-065 payload. */
+  byOwnership?: Partial<
+    Record<
+      NzokOwnership | "unclassified",
+      { cumulativeEur: number; facilityCount: number }
+    >
   >;
   /** Each stream's own newest ingested month ("YYYY-MM"). The three reports are
    *  published on their own cadences, so these can differ — the tile footnotes
@@ -255,6 +277,39 @@ export interface NzokDrugReimbursementFile {
   top: NzokDrugInn[]; // sorted by eur desc
   /** Full-year YoY movers; null when two annual years aren't both available. */
   growth?: NzokDrugGrowth | null;
+}
+
+// Per-INN QUARTERLY reimbursement trend (migration 066) — the multi-period drug
+// view a single-year corpus cannot draw. DB-served from nzok_drug_quarterly_
+// overview() (/api/db/nzok-drug-quarterly). null-body until the corpus is loaded.
+export interface NzokQuarterPoint {
+  quarter: string; // "YYYY-Qn"
+  eur: number;
+}
+export interface NzokDrugQuarterlyInn {
+  inn: string;
+  atc: string | null;
+  atcGroup: string; // first ATC letter
+  totalEur: number;
+  latestYearEur: number;
+  priorYearEur: number | null;
+  /** Latest four-quarter window vs the prior four, as a fraction; null if no prior. */
+  yoyDelta: number | null;
+  series: NzokQuarterPoint[]; // ascending by quarter
+}
+export interface NzokDrugQuarterlyFile {
+  quarters: string[]; // ascending
+  /** Every INN name (folded form), ascending — the picker's search list. */
+  allInns: string[];
+  national: NzokQuarterPoint[]; // national total per quarter
+  top: NzokDrugQuarterlyInn[]; // top molecules by total reimbursement
+}
+/** One molecule's full quarterly series — nzok_drug_quarterly_by_inn(). */
+export interface NzokDrugQuarterlySeries {
+  inn: string;
+  atc: string | null;
+  totalEur: number;
+  series: NzokQuarterPoint[];
 }
 
 export type KfpSeries =
@@ -2814,6 +2869,7 @@ export interface NzokActivityByEik {
 export interface NzokHospitalRiskRow {
   eik: string;
   facility: string;
+  ownership?: NzokOwnership | null;
   riskIndex: number; // 0-100, (drug + activity + overdue percentiles) / 3 × 100
   signalsPresent: number; // 1-3
   drugOverpayEur: number | null;

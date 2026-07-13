@@ -22,6 +22,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { spendDeltaClass } from "@/lib/spendDelta";
 import { decodeEntities } from "@/lib/decodeEntities";
+import { ownershipChipClass, ownershipLabel } from "@/lib/nzokOwnership";
 import { monthYearLabel } from "@/lib/monthNames";
 import { tooltipSurfaceCompactClass } from "@/components/ui/tooltipSurface";
 import type {
@@ -161,18 +162,29 @@ export const NzokHospitalMomentumTile: FC<{
   }) => {
     return (
       <div className="flex items-baseline justify-between gap-2 text-xs">
-        {f.eik ? (
-          <Link
-            to={`/company/${f.eik}`}
-            className="min-w-0 truncate font-medium text-accent hover:underline"
-          >
-            {decodeEntities(f.name)}
-          </Link>
-        ) : (
-          <span className="min-w-0 truncate font-medium">
-            {decodeEntities(f.name)}
-          </span>
-        )}
+        <span className="flex min-w-0 items-baseline gap-1.5">
+          {f.eik ? (
+            <Link
+              to={`/company/${f.eik}`}
+              className="min-w-0 truncate font-medium text-accent hover:underline"
+            >
+              {decodeEntities(f.name)}
+            </Link>
+          ) : (
+            <span className="min-w-0 truncate font-medium">
+              {decodeEntities(f.name)}
+            </span>
+          )}
+          {f.ownership && (
+            <span
+              className={`shrink-0 rounded-full border px-1.5 py-px text-[10px] font-medium leading-none ${ownershipChipClass(
+                f.ownership,
+              )}`}
+            >
+              {ownershipLabel(f.ownership, bg)}
+            </span>
+          )}
+        </span>
         <span className="shrink-0 tabular-nums">
           <span className="text-muted-foreground">{eur(f.currentYtdEur)}</span>
           <span className={`ml-1.5 font-semibold ${spendDeltaClass(f.delta)}`}>

@@ -1539,6 +1539,25 @@ const DB_ROUTES = {
     ).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? null };
   },
+  // Per-INN QUARTERLY reimbursement trend (migration 066): national curve + the
+  // top molecules' quarterly series — the multi-period drug view a one-year
+  // corpus can't draw. No param.
+  "nzok-drug-quarterly": async (dbRows) => {
+    const rows = await dbRows(
+      "SELECT nzok_drug_quarterly_overview() AS r",
+      [],
+    ).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
+  // One molecule's full quarterly series — the searchable picker drill-down.
+  "nzok-drug-quarterly-by-inn": async (dbRows, q) => {
+    const inn = s(q, "inn");
+    if (!inn) return { status: 400, body: { error: "missing inn" } };
+    const rows = await dbRows("SELECT nzok_drug_quarterly_by_inn($1) AS r", [
+      inn,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
   // One hospital's financial "report card" (migration 056): each ratio measure
   // vs the national median + the p40/p60 "around the median" band + percentile.
   "nzok-financials-measures-by-eik": async (dbRows, q) => {

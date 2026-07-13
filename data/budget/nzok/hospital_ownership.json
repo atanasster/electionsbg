@@ -1,0 +1,2769 @@
+{
+  "generatedAt": "2026-07-13T19:27:26.885Z",
+  "source": {
+    "publisher": "Наясно (изведено)",
+    "basis": "МЗ ЕЕОФ (Наредба № 5/2019) + НЗОК плащания по лечебно заведение",
+    "description": "Класификация на всяко лечебно заведение като държавно, общинско или частно. Държавните и общинските болници подават ЕЕОФ към МЗ; болница, която НЗОК заплаща, но която липсва в ЕЕОФ, е частна. Свързването на ЕЕОФ регистъра (по име) към платежния универсум (по Рег.№ ЛЗ) е точно съответствие (по ЕИК и по нормализирано име) с ръчно проверени изключения за националните държавни болници без ЕИК в ЕЕОФ.",
+    "eeofQuarter": "2025-Q3"
+  },
+  "entries": [
+    {
+      "regNo": "0103131003",
+      "name": "МЦ Надежда ООД",
+      "eik": "101615428",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0103131013",
+      "name": "МЦ Визио ЛМ ООД",
+      "eik": "201409742",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0103211001",
+      "name": "МБАЛ Благоевград АД",
+      "eik": "101505152",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "0103211015",
+      "name": "МБАЛ - ПУЛС АД",
+      "eik": "200110954",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0103212016",
+      "name": "СБАЛО Свети мина ЕООД",
+      "eik": "101533900",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0103212017",
+      "name": "СБАЛПФЗ Благоевград ЕООД",
+      "eik": "101533917",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0111133001",
+      "name": "МДЦ Неврокоп ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0111211004",
+      "name": "МБАЛ Иван Скендеров ЕООД",
+      "eik": "000022025",
+      "ownership": "municipal",
+      "method": "surname"
+    },
+    {
+      "regNo": "0133232006",
+      "name": "СБР Марикостиново ЕООД",
+      "eik": "101510103",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "0133232018",
+      "name": "СБР Петрич ЕООД",
+      "eik": "202516074",
+      "ownership": "municipal",
+      "method": "surname"
+    },
+    {
+      "regNo": "0137211002",
+      "name": "МБАЛ Разлог ЕООД",
+      "eik": "000022044",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0140211003",
+      "name": "МБАЛ Югозападна болница ООД",
+      "eik": "101522447",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0140233007",
+      "name": "СБР-НК ЕАД, филиал Сандански",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0201211002",
+      "name": "МБАЛ - Айтос ЕООД",
+      "eik": "102613775",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0204131007",
+      "name": "МЦ ОКСИКОМ ООД",
+      "eik": "102627700",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0204131018",
+      "name": "МЦСП Д-р Иванови-Младост ООД",
+      "eik": "102891276",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0204131030",
+      "name": "АМЦСМП“ОЧНА КЛИНИКА д-р ХУБАНОВ“ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0204134004",
+      "name": "ДКЦ СВ. Георги Победоносец ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0204211001",
+      "name": "УМБАЛ - Бургас АД",
+      "eik": "102274111",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "0204211024",
+      "name": "МБАЛ Лайф Хоспитал ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0204211027",
+      "name": "МБАЛ Дева Мария ЕООД",
+      "eik": "201328272",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0204211031",
+      "name": "МБАЛ-Д-р Маджуров ООД",
+      "eik": "201351100",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0204211032",
+      "name": "МБАЛ-БУРГАСМЕД EООД",
+      "eik": "201889501",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0204212010",
+      "name": "СБАЛПФЗ - Бургас ЕООД",
+      "eik": "000053088",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0204212025",
+      "name": "СОБАЛ-Бургас ООД",
+      "eik": "147098760",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0204232016",
+      "name": "СБР - БМБ ЕАД",
+      "eik": "102659833",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "0204331011",
+      "name": "ЦПЗ Проф.И.Темков ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0204334013",
+      "name": "КОЦ - Бургас ЕООД",
+      "eik": "000053191",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0204391033",
+      "name": "Диализен център Ел Масри",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0204391034",
+      "name": "\"НефроЛайф България - Специализирани центрове по хемодиализа\"ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0204391035",
+      "name": "Нефроцентър Бургас ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0206211005",
+      "name": "МБАЛ-Средец ЕООД",
+      "eik": "102663909",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0209211003",
+      "name": "МБАЛ - Карнобат ЕООД",
+      "eik": "102612100",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0215232022",
+      "name": "СБР Стайков и фамилия ЕООД",
+      "eik": "119625586",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0215232029",
+      "name": "СБР Мари ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0215232030",
+      "name": "СБР-Несебър АД",
+      "eik": "206249359",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0215391023",
+      "name": "Диализа Етропал Бета ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0217211004",
+      "name": "МБАЛ - Поморие ЕООД",
+      "eik": "102618523",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0217233017",
+      "name": "СБР - НК -ф.Поморие ЕАД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0290211001",
+      "name": "МБАЛ Сърце и мозък Бургас",
+      "eik": "203831564",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0290232001",
+      "name": "СБР Вита ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0306131010",
+      "name": "АМЦСМП Света Петка ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0306131071",
+      "name": "АМЦСМП - ОМЦ Св. Николай Чудотворец ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0306131074",
+      "name": "\"АМЦСМП-Очна клиника Св.Петка\" АД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0306131078",
+      "name": "\"Аджибадем Сити Клиник Медицински център Варна\"ЕООД",
+      "eik": "148018742",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0306131117",
+      "name": "АМЦСМП Света Петка Ай Кеър ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0306211001",
+      "name": "УМБАЛ Света Марина ЕАД",
+      "eik": "103562052",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "0306211002",
+      "name": "МБАЛ Света Анна - Варна АД",
+      "eik": "000090019",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "0306211013",
+      "name": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ВАРНА9 758 ЕООД",
+      "eik": "200429329",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0306211021",
+      "name": "МБАЛ Еврохоспитал ООД",
+      "eik": "103929677",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0306211030",
+      "name": "МБАЛ \"Майчин дом - Варна\" ЕООД",
+      "eik": "103801755",
+      "ownership": "state",
+      "method": "surname"
+    },
+    {
+      "regNo": "0306212007",
+      "name": "СБОБАЛ - Варна ЕООД",
+      "eik": null,
+      "ownership": "municipal",
+      "method": "fold"
+    },
+    {
+      "regNo": "0306212008",
+      "name": "СБАГАЛ - проф. д-р Д.Стаматов- Варна ЕООД",
+      "eik": null,
+      "ownership": "municipal",
+      "method": "surname"
+    },
+    {
+      "regNo": "0306212009",
+      "name": "СХБАЛ Професор Темелков ООД",
+      "eik": "103253312",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0306212011",
+      "name": "СОБАЛ - доц. Георгиев ЕООД",
+      "eik": "103263000",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0306212022",
+      "name": "СБАЛ ПО КАРДИОЛОГИЯ ВАРНА ЕАД",
+      "eik": "175463110",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0306212026",
+      "name": "СБАЛОЗ д-р Марко Антонов Марков-Варна ЕООД",
+      "eik": "000090154",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0306212027",
+      "name": "\"СБАЛК Кардиолайф\"ООД",
+      "eik": "201299963",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0306232016",
+      "name": "\"СБР - ВАРНА\" АД",
+      "eik": "103552026",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0306232033",
+      "name": "СБР \"Света Елена 1\" ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0306253028",
+      "name": "МИ-МВР-ФИЛИАЛ ВАРНА БОЛНИЦА ЗА ДОЛЕКУВАНЕ, 1 022 653 ПРОДЪЛЖИТЕЛНО",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0306391031",
+      "name": "„Диализен център - Виртус медикал“ ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0306391032",
+      "name": "ДЦ ХИПОКРАТ ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0306911012",
+      "name": "МБАЛ - Варна към ВМА",
+      "eik": "129000273",
+      "ownership": "state",
+      "method": "override"
+    },
+    {
+      "regNo": "0314211005",
+      "name": "МБАЛ- Девня ЕООД",
+      "eik": "000092550",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0324211004",
+      "name": "МБАЛ Царица Йоанна - Провадия ЕООД",
+      "eik": "000090033",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0404211001",
+      "name": "МОБАЛ Д-р Стефан Черкезов АД - Велико Търново",
+      "eik": "104510514",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "0404212016",
+      "name": "СБАЛ по кардиология - Велико Търново ЕАД",
+      "eik": "200111255",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0404212017",
+      "name": "СБАЛПФЗ Д-р Трейман ЕООД - Велико Търново",
+      "eik": "000130104",
+      "ownership": "municipal",
+      "method": "surname"
+    },
+    {
+      "regNo": "0404232018",
+      "name": "СБР по ФРМ - Димина ООД - с. Вонеща вода",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0404333010",
+      "name": "ЦКВЗ - Велико Търново ЕООД",
+      "eik": "104527481",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0404334009",
+      "name": "КОЦ - Велико Търново ЕООД",
+      "eik": "104524994",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0404391019",
+      "name": "Частен диализен център - В. Търново ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0406131002",
+      "name": "МЦСМП Визус ЕООД - Горна Оряховица",
+      "eik": "104655851",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0406211002",
+      "name": "МБАЛ Св. Иван Рилски ЕООД - Горна Оряховица",
+      "eik": "104512579",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0422211004",
+      "name": "МБАЛ - Павликени ЕООД - Павликени",
+      "eik": "104508837",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0426252021",
+      "name": "СБПЛР \"Минерални бани\" ЕООД - Полски Тръмбеш",
+      "eik": "203650343",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0428211006",
+      "name": "МБАЛ Д-р Димитър Павлович ЕООД - Свищов",
+      "eik": null,
+      "ownership": "municipal",
+      "method": "fold"
+    },
+    {
+      "regNo": "0428233013",
+      "name": "СБР-НК ЕАД филиал Овча могила",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0501211002",
+      "name": "МБАЛ Проф. д-р Г. Златарски ЕООД Белоградчик",
+      "eik": "105515375",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0509211001",
+      "name": "МБАЛ Св.Петка АД Видин",
+      "eik": "105515902",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "0509391009",
+      "name": "Диализен център \"Омега\" ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0608211003",
+      "name": "МБАЛ Бяла Слатина ЕООД",
+      "eik": "106513498",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0610131005",
+      "name": "МЦ Света Ана ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0610133002",
+      "name": "МДЦ Трио ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0610211001",
+      "name": "МБАЛ Христо Ботев АД Враца",
+      "eik": "106518890",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "0610211019",
+      "name": "Първа частна МБАЛ Враца ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0610212016",
+      "name": "СОБАЛ Ралчовски Враца ЕООД",
+      "eik": "106629912",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0610212018",
+      "name": "СБАЛПФЗ ВРАЦА ЕООД",
+      "eik": "000190083",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0610333009",
+      "name": "ЦКВЗ Враца ЕООД",
+      "eik": "000190090",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0610334010",
+      "name": "КОЦ Враца ЕООД",
+      "eik": "000190101",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0620211004",
+      "name": "МБАЛ Св. Иван Рилски ЕООД Козлодуй",
+      "eik": "106510388",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0627211002",
+      "name": "МБАЛ Мездра ЕООД",
+      "eik": "106512909",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0627252021",
+      "name": "СБПЛРВБ МЕЗДРА ЕООД",
+      "eik": "000192383",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0632222014",
+      "name": "СБПЛББ Роман ЕООД",
+      "eik": "106519070",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "0705211001",
+      "name": "МБАЛ Д-р Тота Венкова АД",
+      "eik": "107507217",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "0705211013",
+      "name": "МБАЛ Св. Ив. Рилски - Габрово ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0705212005",
+      "name": "СБАЛББ - Габрово ЕООД",
+      "eik": "000214050",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "0729211003",
+      "name": "МБАЛ Д-р Стойчо Христов ЕООД",
+      "eik": null,
+      "ownership": "municipal",
+      "method": "surname"
+    },
+    {
+      "regNo": "0735211004",
+      "name": "МБАЛ Д-р Теодоси Витанов ЕООД",
+      "eik": null,
+      "ownership": "municipal",
+      "method": "surname"
+    },
+    {
+      "regNo": "0803211002",
+      "name": "МБАЛ БАЛЧИК ЕООД",
+      "eik": null,
+      "ownership": "municipal",
+      "method": "fold"
+    },
+    {
+      "regNo": "0803232008",
+      "name": "СБР ТУЗЛАТА ЕООД",
+      "eik": "124517480",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "0803232016",
+      "name": "СБР Медика - Албена",
+      "eik": "124618376",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0817211003",
+      "name": "МБАЛ КАВАРНА ЕООД",
+      "eik": "124142404",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0828134001",
+      "name": "ДКЦ 1 Добрич",
+      "eik": "124140855",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0828134002",
+      "name": "ДКЦ 2 Добрич",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0828211001",
+      "name": "МБАЛ ДОБРИЧ АД",
+      "eik": "124141302",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "0828391015",
+      "name": "ДЦ Диалхелп ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0902211002",
+      "name": "МБАЛ Ардино ЕООД",
+      "eik": "108508788",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "0915211004",
+      "name": "МБАЛ Живот+ ЕООД Крумовград",
+      "eik": null,
+      "ownership": "municipal",
+      "method": "fold"
+    },
+    {
+      "regNo": "0916211001",
+      "name": "МБАЛ Д-р Атанас Дафовски АД Кърджали",
+      "eik": "108501669",
+      "ownership": "state",
+      "method": "surname"
+    },
+    {
+      "regNo": "0916211009",
+      "name": "МБАЛ - Кърджали ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "0921211003",
+      "name": "МБАЛ Д-р С. Ростовцев ЕООД Момчилград",
+      "eik": null,
+      "ownership": "municipal",
+      "method": "fold"
+    },
+    {
+      "regNo": "1029131002",
+      "name": "МЦ Д-р Никола Василиев ЕООД",
+      "eik": "109530392",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1029211001",
+      "name": "МБАЛ Д-р Никола Василиев АД",
+      "eik": "109080582",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1029233006",
+      "name": "СБР-НК ЕАД ф. Кюстендил",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1041232010",
+      "name": "СБР-Сапарева баня АД",
+      "eik": "109563191",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1048131001",
+      "name": "МЦ Асклепий ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1048131004",
+      "name": "МЦ Хипократ ООД гр. Дупница",
+      "eik": "201371373",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1048211002",
+      "name": "МБАЛ Св. Иван Рилски ЕООД",
+      "eik": "109501412",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1048211009",
+      "name": "МБАЛ Св. Иван Рилски-2003 ООД",
+      "eik": "109568877",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1118131004",
+      "name": "МЦ Ловеч ЕООД",
+      "eik": "110530756",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1118211001",
+      "name": "МБАЛ -Ловеч - Проф. Д-р Параскев Стоянов АД",
+      "eik": "110503990",
+      "ownership": "state",
+      "method": "surname"
+    },
+    {
+      "regNo": "1118211010",
+      "name": "МБАЛ\"Кардиолайф\"ООД",
+      "eik": "203720884",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1119211004",
+      "name": "МБАЛ - Луковит - ЕООД",
+      "eik": "110504291",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "1133211003",
+      "name": "МБАЛ - Тетевен - Д-р Ангел Пешев - ЕООД",
+      "eik": "110502867",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "1134211002",
+      "name": "МБАЛ - Троян - ЕООД",
+      "eik": null,
+      "ownership": "municipal",
+      "method": "fold"
+    },
+    {
+      "regNo": "1134212005",
+      "name": "СБАЛББ - Троян - ЕООД",
+      "eik": "000289081",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "1202211002",
+      "name": "МБАЛ ЕООД гр. Берковица",
+      "eik": "111511773",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1212233004",
+      "name": "СБР-НК ЕАД -филиал Св.Мина гр.Вършец",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1224211003",
+      "name": "МБАЛ Св. Николай Чудотворец - ЕООД гр. Лом",
+      "eik": "130128163",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "1229211001",
+      "name": "МБАЛ Д-р Стамен Илиев АД",
+      "eik": "111047073",
+      "ownership": "state",
+      "method": "surname"
+    },
+    {
+      "regNo": "1229211008",
+      "name": "МБАЛ Сити клиник - Св.Георги ЕООД гр.Монтана",
+      "eik": "111587016",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1229391010",
+      "name": "„ФЪРСТ ДИАЛИЗИС СЪРВИСИЗ БЪЛГАРИЯ“ ЕАД гр. Монтана",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1308211004",
+      "name": "МБАЛ-Велинград ЕООД гр.Велинград",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1308211017",
+      "name": "\"МБАЛ ВЕЛИМЕД\" ЕООД гр.Велинград",
+      "eik": "200143491",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1308212012",
+      "name": "СБПЛРПФЗ Св. Петка Българска ЕООД гр.Велинград",
+      "eik": null,
+      "ownership": "state",
+      "method": "fold"
+    },
+    {
+      "regNo": "1308232020",
+      "name": "СБР Вита ЕООД гр.Велинград",
+      "eik": "112531538",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1308233008",
+      "name": "СБР-НК ЕАД филиал Велинград",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1319211001",
+      "name": "МБАЛ-Пазарджик АД гр.Пазарджик",
+      "eik": "130072241",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "1319211013",
+      "name": "МБАЛ-Хигия АД гр.Пазарджик",
+      "eik": "112052721",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1319211014",
+      "name": "МБАЛ Хигия-Север ООД гр.Пазарджик",
+      "eik": "112511199",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1319211015",
+      "name": "УМБАЛ Пълмед ООД - клон МС Здраве гр.Пазарджик",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1319212018",
+      "name": "СБАЛПФЗ-Пазарджик ЕООД гр.Пазарджик",
+      "eik": "000349201",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "1319391019",
+      "name": "ДЪЧМЕД ДИАЛИЗА БЪЛГАРИЯ - ДИАЛИЗЕН ЦЕНТЪР ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1320211002",
+      "name": "МБАЛ-Уни Хоспитал ООД гр.Панагюрище",
+      "eik": "112520604",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1321211003",
+      "name": "МБАЛ Проф. Димитър Ранев ООД гр.Пещера",
+      "eik": "112519153",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1390391001",
+      "name": "\"Фърст диализис сървисис България\" ЕАД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1432211001",
+      "name": "МБАЛ Р.Ангелова -АД-гр.Перник",
+      "eik": "113513858",
+      "ownership": "state",
+      "method": "surname"
+    },
+    {
+      "regNo": "1432211013",
+      "name": "МБАЛ \"Св.Георги\"-Перник-ООД",
+      "eik": "202876236",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1432212005",
+      "name": "СБАЛББ-Перник-ЕООД",
+      "eik": "113513064",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1432212011",
+      "name": "СБАЛК Св.Георги -Перник-ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1432252010",
+      "name": "СБПЛР-Перник-ЕООД",
+      "eik": "203650343",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "1432391012",
+      "name": "Диализен център-Перник",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1503211006",
+      "name": "„МБАЛ – Белене” ЕООД",
+      "eik": "114542439",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "1508211005",
+      "name": "„МБАЛ – Гулянци” ЕООД",
+      "eik": "000412255",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "1516211003",
+      "name": "„МБАЛ – Левски” ЕООД",
+      "eik": "000410031",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "1521211004",
+      "name": "„МБАЛ – Никопол” ЕООД",
+      "eik": "000410049",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "1524131015",
+      "name": "АСМП – МЦ „Окулус-Кушинова” ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1524131022",
+      "name": "МЦ Света Марина - Диагностика и Терапия ООД",
+      "eik": "202284487",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1524134003",
+      "name": "„ДКЦ ІІ – Плевен” ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1524211001",
+      "name": "„УМБАЛ Д-р Г. Странски” ЕАД",
+      "eik": "114532352",
+      "ownership": "state",
+      "method": "surname"
+    },
+    {
+      "regNo": "1524211014",
+      "name": "„МБАЛ Авис Медика” ООД",
+      "eik": "114671238",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1524211017",
+      "name": "„МБАЛ Св. Панталеймон – Плевен” ООД",
+      "eik": "114686820",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1524211018",
+      "name": "МБАЛ Св. Параскева ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1524211019",
+      "name": "„УМБАЛ Св. Марина – Плевен” ООД",
+      "eik": "202284487",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1524211020",
+      "name": "МБАЛ Сърце и Мозък ЕАД",
+      "eik": "203831564",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1524212015",
+      "name": "„СБАЛ по кардиология” ЕАД",
+      "eik": "175075078",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1524911008",
+      "name": "ВМА – МБАЛ – Плевен",
+      "eik": "129000273",
+      "ownership": "state",
+      "method": "override"
+    },
+    {
+      "regNo": "1537211002",
+      "name": "„МБАЛ – Червен бряг” ЕООД",
+      "eik": "000410056",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "1539211012",
+      "name": "„МБАЛ – Кнежа” ЕООД",
+      "eik": "106510662",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "1601133001",
+      "name": "МДЦ ВИЗИОДЕНТ ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1601211005",
+      "name": "МБАЛ АСЕНОВГРАД ЕООД",
+      "eik": "115532654",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "1601232056",
+      "name": "СБР Света Богородица ЕООД -Нареченски бани",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1601233016",
+      "name": "СБР НК ЕАД филиал Нареченски бани",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1613131004",
+      "name": "МЦ ВИТАМЕД ЕООД Карлово",
+      "eik": "115811006",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1613211006",
+      "name": "МБАЛ Д-Р КИРО ПОПОВ КАРЛОВО ЕООД",
+      "eik": "115518099",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "1613232020",
+      "name": "СБР НК ЕАД София филиал Баня;Карловско",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1622131037",
+      "name": "МЦ Луксор ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1622131068",
+      "name": "АСИП-МЦ ЕВРОХОСПИТАЛ ПЛОВДИВ ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1622131088",
+      "name": "МЦ за очно здраве Виста ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1622131104",
+      "name": "МЦ АВАНГАРД I ООД",
+      "eik": "206330409",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1622211001",
+      "name": "УМБАЛ Свети Георги ЕАД Пловдив",
+      "eik": "115576405",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "1622211002",
+      "name": "УМБАЛ Пловдив АД",
+      "eik": "115532049",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "1622211003",
+      "name": "МБАЛ Свети Мина Пловдив ЕООД",
+      "eik": "115531627",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "1622211004",
+      "name": "МБАЛ Свети Пантелеймон Пловдив ЕООД",
+      "eik": "115517517",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "1622211029",
+      "name": "УМБАЛ Каспела ЕООД Пловдив",
+      "eik": "115757028",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1622211031",
+      "name": "МБАЛ Мед Лайн Клиник АД Пловдив",
+      "eik": "201964523",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1622211036",
+      "name": "МБАЛ Тримонциум ООД Пловдив",
+      "eik": "200213096",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1622211037",
+      "name": "УМБАЛ Пълмед ООД",
+      "eik": "112596309",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1622211039",
+      "name": "МБАЛ Света Каридад ЕАД Пловдив",
+      "eik": "201204876",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1622211042",
+      "name": "МБАЛ Централ онко хоспитал ООД Пловдив",
+      "eik": "201739317",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1622211044",
+      "name": "МБАЛ МК Свети Иван Рилски ЕООД Пловдив",
+      "eik": "201397400",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1622211045",
+      "name": "УМБАЛ Еврохоспитал Пловдив ООД",
+      "eik": "201537560",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1622211049",
+      "name": "МБАЛ Уро Медикс EООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1622211053",
+      "name": "МБАЛ Св.Св.Козма и Дамян ООД",
+      "eik": "160105708",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1622212028",
+      "name": "СОБАЛ Луксор ЕООД Пловдив",
+      "eik": "125535944",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1622212030",
+      "name": "УСБАЛАГ СЕЛЕНА ООД ПЛОВДИВ",
+      "eik": "160044550",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1622212033",
+      "name": "СГЕБАЛ Еврохоспитал ООД Пловдив",
+      "eik": "160058895",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1622212038",
+      "name": "Медикус Алфа СХБАЛ ЕООД Пловдив",
+      "eik": "160087562",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1622212041",
+      "name": "СБАЛАГ Торакс Д-р Сава Бояджиев ЕООД Пловдив",
+      "eik": "115519436",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1622212050",
+      "name": "СБАЛ СПЕЦИАЛ МЕДИК ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1622333018",
+      "name": "ЦКВЗ Пловдив ЕООД",
+      "eik": null,
+      "ownership": "municipal",
+      "method": "fold"
+    },
+    {
+      "regNo": "1622334019",
+      "name": "КОЦ Пловдив ЕООД",
+      "eik": "000463379",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "1622391046",
+      "name": "ДЦ Фърст Диализис Сървисиз България ЕАД Пловдив",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1622391051",
+      "name": "Дъчмед Диализа България-ДЦ ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1622911013",
+      "name": "МБАЛ ПЛОВДИВ към ВМА София",
+      "eik": "129000273",
+      "ownership": "state",
+      "method": "override"
+    },
+    {
+      "regNo": "1622911014",
+      "name": "МТБ Пловдив",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1623211007",
+      "name": "МБАЛ ПЪРВОМАЙ ЕООД",
+      "eik": "115516059",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "1625131001",
+      "name": "МЦ Света Елисавета Раковски ЕООД",
+      "eik": "115524159",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1625211008",
+      "name": "МБАЛ Раковски ЕООД",
+      "eik": "115532871",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "1626131002",
+      "name": "МЦ Литомед ООД Пловдив",
+      "eik": "201675287",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1626211048",
+      "name": "МБАЛ Паркхоспитал ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1637232012",
+      "name": "ВМА-БПЛР Хисар",
+      "eik": "129000273",
+      "ownership": "state",
+      "method": "override"
+    },
+    {
+      "regNo": "1637232057",
+      "name": "СБР- Витус ООД Хисаря",
+      "eik": "203788650",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1637233021",
+      "name": "СБР НК ЕАД филиал Хисар",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1637253040",
+      "name": "БПЛР МИ-МВР филиал Хисар",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1641131001",
+      "name": "МЦ 1- Стамболийски ЕООД",
+      "eik": "115343340",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1641221054",
+      "name": "МБПЛР - Стамболийски ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1643221052",
+      "name": "МБПЛ Иван Раев Сопот ЕООД",
+      "eik": null,
+      "ownership": "municipal",
+      "method": "fold"
+    },
+    {
+      "regNo": "1714211002",
+      "name": "МБАЛ - Исперих ЕООД",
+      "eik": "116504387",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1716211003",
+      "name": "МБАЛ - Кубрат ЕООД",
+      "eik": "000504032",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1726131002",
+      "name": "МЦ Здраве Разград ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1726131005",
+      "name": "МЦ Вита Медика ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1726131006",
+      "name": "МЦ Ре Спиро ООД",
+      "eik": "203218275",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1726211001",
+      "name": "МБАЛ Св. Иван Рилски - Разград АД",
+      "eik": "116503980",
+      "ownership": "state",
+      "method": "surname"
+    },
+    {
+      "regNo": "1804211002",
+      "name": "МБАЛ - ЮЛИЯ ВРЕВСКА - БЯЛА ЕООД",
+      "eik": "117500566",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "1827211001",
+      "name": "УМБАЛ КАНЕВ - РУСЕ АД",
+      "eik": "117505556",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "1827211019",
+      "name": "УМБАЛ МЕДИКА РУСЕ ООД",
+      "eik": "117044162",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1827212013",
+      "name": "СБАЛ ПО ФРМ - МЕДИКА - ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1827212015",
+      "name": "СБАЛК МЕДИКА-КОР ЕАД",
+      "eik": "117684874",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1827212016",
+      "name": "СБАЛПФЗ - РУСЕ- ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1827334009",
+      "name": "КОЦ - РУСЕ ЕООД",
+      "eik": null,
+      "ownership": "municipal",
+      "method": "fold"
+    },
+    {
+      "regNo": "1827391020",
+      "name": "ДИАЛИЗЕН ЦЕНТЪР РУРИКОМ ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "1910211003",
+      "name": "МБАЛ - Дулово ЕООД",
+      "eik": "118502097",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "1931211001",
+      "name": "МБАЛ - Силистра АД",
+      "eik": "118501906",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "1934211002",
+      "name": "МБАЛ - Тутракан ЕООД",
+      "eik": "118506069",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "2011252017",
+      "name": "СБР - Котел ЕООД",
+      "eik": null,
+      "ownership": "state",
+      "method": "fold"
+    },
+    {
+      "regNo": "2016211002",
+      "name": "МБАЛ Света Петка Българска ЕООД - Нова Загора",
+      "eik": "119502651",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "2020211001",
+      "name": "МБАЛ Д-р Иван Селимински АД - Сливен",
+      "eik": "119502733",
+      "ownership": "state",
+      "method": "surname"
+    },
+    {
+      "regNo": "2020211016",
+      "name": "МБАЛ Хаджи Димитър ООД - Сливен",
+      "eik": "119624388",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2020212012",
+      "name": "СХБАЛ \"Амброаз Паре\" ООД",
+      "eik": "119544675",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2020212015",
+      "name": "САГБАЛ \"Ева",
+      "eik": null,
+      "ownership": "municipal",
+      "method": "surname"
+    },
+    {
+      "regNo": "2020911006",
+      "name": "MБАЛ-Сливен към ВМА-София",
+      "eik": "129000273",
+      "ownership": "state",
+      "method": "override"
+    },
+    {
+      "regNo": "2102232008",
+      "name": "СБР-НК ЕАД - филиал с. Баните",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2109211004",
+      "name": "МБАЛ-Девин ЕАД гр.Девин",
+      "eik": "200591288",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "2109232012",
+      "name": "СБР-Орфей ЕООД гр. Девин",
+      "eik": "130963149",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2111211002",
+      "name": "МБАЛ Проф. д-р Асен Шопов ЕООД-гр.Златоград",
+      "eik": "120504642",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2116211003",
+      "name": "МБАЛ Проф. д-р Константин Чилов ЕООД-гр.Мадан",
+      "eik": "120505630",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2127232011",
+      "name": "СБР-Родопи ЕООД гр. Рудозем",
+      "eik": "202812027",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2131211001",
+      "name": "МБАЛ - Д-р Братан Шукеров АД гр.Смолян",
+      "eik": "120503871",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "2201211001",
+      "name": "МБАЛ Св. Анна - София АД",
+      "eik": "130367715",
+      "ownership": "state",
+      "method": "surname"
+    },
+    {
+      "regNo": "2201211002",
+      "name": "УМБАЛ Царица Йоанна - ЕАД",
+      "eik": "831605806",
+      "ownership": "state",
+      "method": "override"
+    },
+    {
+      "regNo": "2201211003",
+      "name": "УМБАЛСМ Н. И. Пирогов ЕАД",
+      "eik": "130345786",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "2201211004",
+      "name": "УМБАЛ Св. Иван Рилски ЕАД",
+      "eik": "000715054",
+      "ownership": "state",
+      "method": "override"
+    },
+    {
+      "regNo": "2201211005",
+      "name": "УМБАЛ „Проф. Д-р Александър Чирков“ ЕАД",
+      "eik": "831605845",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "2201211032",
+      "name": "Първа МБАЛ София-ЕАД",
+      "eik": "000689015",
+      "ownership": "municipal",
+      "method": "surname"
+    },
+    {
+      "regNo": "2201211033",
+      "name": "Втора МБАЛ - София - ЕАД",
+      "eik": null,
+      "ownership": "municipal",
+      "method": "fold"
+    },
+    {
+      "regNo": "2201211034",
+      "name": "Четвърта МБАЛ - София - ЕАД",
+      "eik": null,
+      "ownership": "municipal",
+      "method": "fold"
+    },
+    {
+      "regNo": "2201211035",
+      "name": "Пета МБАЛ - София - ЕАД",
+      "eik": "000689061",
+      "ownership": "municipal",
+      "method": "surname"
+    },
+    {
+      "regNo": "2201211055",
+      "name": "УМБАЛ Александровска - ЕАД",
+      "eik": "831605795",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "2201211060",
+      "name": "МБАЛ Вита ЕООД",
+      "eik": "131259767",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201211063",
+      "name": "МБАЛ Доверие АД",
+      "eik": "131372487",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201211064",
+      "name": "МБАЛ Света София ЕООД",
+      "eik": "130466880",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201211067",
+      "name": "АДЖИБАДЕМ СИТИ КЛИНИК УМБАЛ ТОКУДА EАД",
+      "eik": "175077093",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201211078",
+      "name": "МБАЛ Люлин ЕАД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201211080",
+      "name": "МБАЛ \"Полимед\" ООД",
+      "eik": "200261536",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201211082",
+      "name": "МБАЛ СЕРДИКА ЕООД",
+      "eik": "201242663",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201211083",
+      "name": "МБАЛ - НКБ - ЕАД",
+      "eik": "121663601",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "2201211084",
+      "name": "МБАЛ СВ. БОГОРОДИЦА ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201211085",
+      "name": "МБАЛ Св. Панталеймон АД",
+      "eik": "130539054",
+      "ownership": "state",
+      "method": "surname"
+    },
+    {
+      "regNo": "2201211091",
+      "name": "УМБАЛ Софиямед ООД",
+      "eik": "160138163",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201211093",
+      "name": "Аджибадем Сити клиник УМБАЛ ЕООД",
+      "eik": "202139132",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201211094",
+      "name": "МБАЛ за женско здраве - Надежда ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201211096",
+      "name": "МБАЛ Болница Европа ООД",
+      "eik": "202108197",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201211097",
+      "name": "МБАЛ Здравето 2012 ООД",
+      "eik": "202285258",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201211109",
+      "name": "УБ Болница Лозенец",
+      "eik": "205967328",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "2201212006",
+      "name": "СБАЛАГ Майчин дом - ЕАД",
+      "eik": "000662769",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "2201212007",
+      "name": "Първа САГБАЛ Св. София - АД",
+      "eik": "000689182",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "2201212008",
+      "name": "Втора САГБАЛ Шейново - АД",
+      "eik": "130485795",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "2201212009",
+      "name": "МБАЛНП Св. Наум - ЕАД",
+      "eik": "831605813",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "2201212010",
+      "name": "СБАЛО Проф. Бойчо Бойчев - ЕАД",
+      "eik": "831900201",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "2201212011",
+      "name": "УСБАЛЕ Акад. Ив. Пенчев - ЕАД",
+      "eik": "000664332",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "2201212012",
+      "name": "СБАЛДБ - проф. Иван Митев ЕАД",
+      "eik": "000662790",
+      "ownership": "state",
+      "method": "surname"
+    },
+    {
+      "regNo": "2201212014",
+      "name": "СБАЛИПБ Проф. Ив. Киров ЕАД",
+      "eik": "000689150",
+      "ownership": "state",
+      "method": "surname"
+    },
+    {
+      "regNo": "2201212017",
+      "name": "СБАЛТОСМ - ПРОФ. Д-Р ДИМИТЪР ШОЙЛЕВ ЕАД",
+      "eik": "831142169",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201212038",
+      "name": "СБАЛ - Св. Лазар ООД",
+      "eik": "831717011",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201212039",
+      "name": "СБАЛОТ ВИТОША ЕООД",
+      "eik": "130467417",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201212059",
+      "name": "СБАЛГАР- Д-Р МАЛИНОВ ООД",
+      "eik": "131187321",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201212061",
+      "name": "САГБАЛ Д-р Щерев ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201212065",
+      "name": "СБАЛ Йоан Павел ООД",
+      "eik": "131487151",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201212066",
+      "name": "СОБАЛ Акад. Пашев ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201212070",
+      "name": "СОБАЛ ВИЗУС ООД",
+      "eik": "175279629",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201212071",
+      "name": "СБАЛОБ ЗОРА ООД",
+      "eik": "208515399",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201212072",
+      "name": "СОБАЛ Вижън ООД",
+      "eik": "175317154",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201212075",
+      "name": "СБАЛХЗ-ЕАД",
+      "eik": "200105779",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "2201212076",
+      "name": "СБАЛОБ ЗРЕНИЕ ООД",
+      "eik": "175403781",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201212079",
+      "name": "СБАЛ -ГРЪБНАЧЕН ЦЕНТЪР АД",
+      "eik": "201215716",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201212086",
+      "name": "СБАЛОЗ ЕООД гр. София",
+      "eik": "000693654",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "2201212090",
+      "name": "СБАЛОБ ДЕН - ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201212095",
+      "name": "СОБАЛ ПЕНТАГРАМ ЕООД",
+      "eik": "202302622",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201212102",
+      "name": "СБАЛОЗ Кристал ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201212103",
+      "name": "СБАЛД ЛЧХ МЕДИКРОН ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201212116",
+      "name": "СБАЛОБ ПРОСПЕРИТАС ООД",
+      "eik": "175172463",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201214020",
+      "name": "УСБАЛ по онкология ЕАД",
+      "eik": "000662776",
+      "ownership": "state",
+      "method": "override"
+    },
+    {
+      "regNo": "2201222024",
+      "name": "СБПЛР - Кремиковци ООД",
+      "eik": null,
+      "ownership": "municipal",
+      "method": "fold"
+    },
+    {
+      "regNo": "2201222025",
+      "name": "СБПЛР - Бухово ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201222026",
+      "name": "СБПЛР ПАНЧАРЕВО ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201222027",
+      "name": "СБПЛРДЦП Св. София - ЕООД",
+      "eik": null,
+      "ownership": "municipal",
+      "method": "fold"
+    },
+    {
+      "regNo": "2201232029",
+      "name": "СБР-Банкя АД",
+      "eik": "130287411",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201232030",
+      "name": "БДПЛР - ВМА БАНКЯ",
+      "eik": "129000273",
+      "ownership": "state",
+      "method": "override"
+    },
+    {
+      "regNo": "2201233028",
+      "name": "СБР Здраве - ЕАД - Банкя",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201233087",
+      "name": "СБР - НК ЕАД филиал Банкя",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201234021",
+      "name": "НСБФТР - ЕАД",
+      "eik": null,
+      "ownership": "state",
+      "method": "fold"
+    },
+    {
+      "regNo": "2201251096",
+      "name": "МБДПЛР СЕРДИКА ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201252113",
+      "name": "СБРПЛ Блокс ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201253089",
+      "name": "БДПЛР-МИ-МВР_София филиал Банкя",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201331047",
+      "name": "ЦПЗ \"Проф. Н. Шипковенски\" ЕООД",
+      "eik": null,
+      "ownership": "municipal",
+      "method": "surname"
+    },
+    {
+      "regNo": "2201391092",
+      "name": "Диализен център Диалмед ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201391101",
+      "name": "Диализен център Хемомед ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201391111",
+      "name": "Диализен център Дружба ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2201911041",
+      "name": "Медицински институт - МВР",
+      "eik": "129007218",
+      "ownership": "state",
+      "method": "override"
+    },
+    {
+      "regNo": "2201911042",
+      "name": "Военномедицинска академия",
+      "eik": "129000273",
+      "ownership": "state",
+      "method": "override"
+    },
+    {
+      "regNo": "2201911043",
+      "name": "НМТБ ЦАР БОРИС ІІІ",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2202131522",
+      "name": "ОЧЕН ЛАЗЕРЕН ЦЕНТЪР ВИЖЪН ООД",
+      "eik": "130484427",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2203131515",
+      "name": "МЦО - Ресбиомед ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2203131519",
+      "name": "МЦ за очно здраве Фокус ЕООД",
+      "eik": "202999819",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2204131521",
+      "name": "МЦ РВД ЗДРАВЕ ООД",
+      "eik": "175339962",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2204131532",
+      "name": "МЦ \"Мария Магдалена\" ЕООД",
+      "eik": "202896872",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2204131537",
+      "name": "МЦ БАЛКАНМЕД ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2205131519",
+      "name": "МЦ СВЕТЛИНА ЕООД",
+      "eik": "205660674",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2209131537",
+      "name": "МЦ БЕТА КЛИНИК ООД",
+      "eik": "205436270",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2210131569",
+      "name": "АСМП МЦ \"Просперитас\" ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2210134002",
+      "name": "ДКЦ- 14- София- ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2210134507",
+      "name": "ДКЦ НЕОКЛИНИК ЕАД",
+      "eik": "203578986",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2212131505",
+      "name": "МЦ Пентаграм 2012 ООД",
+      "eik": "201827812",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2217134501",
+      "name": "ДКЦ Св. София ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2220134001",
+      "name": "ДКЦ ХХХ- София ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2290211001",
+      "name": "МБАЛ СВЕТИ ГЕОРГИ-ПЕРНИК ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2301212022",
+      "name": "СБАЛОЗ - София област ЕООД",
+      "eik": "000770246",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "2301212023",
+      "name": "СБАЛПФЗ - София област ЕООД",
+      "eik": "000770225",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "2307211002",
+      "name": "МБАЛ - Ботевград ЕООД",
+      "eik": "000770022",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "2317211004",
+      "name": "МБАЛ - Елин Пелин ЕООД",
+      "eik": "000770047",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "2317211024",
+      "name": "МБАЛ - Скин Системс EООД - с. Доганово",
+      "eik": "200603178",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2318211005",
+      "name": "МБАЛ Проф. д-р Ал. Герчев Етрополе - Етрополе ЕООД",
+      "eik": "000770054",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "2320211006",
+      "name": "МБАЛ - Ихтиман ЕООД",
+      "eik": null,
+      "ownership": "municipal",
+      "method": "fold"
+    },
+    {
+      "regNo": "2325222010",
+      "name": "СБПЛР - Костенец ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2325233017",
+      "name": "СБР - НК ЕАД филиал Момин проход",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2339211009",
+      "name": "МБАЛ - Самоков ЕООД",
+      "eik": "000770086",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "2343211008",
+      "name": "МБАЛ - Своге ЕООД",
+      "eik": "000770093",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "2343222013",
+      "name": "СБПФЗДПЛР - Цар Фердинанд І ЕООД с.Искрец",
+      "eik": null,
+      "ownership": "state",
+      "method": "surname"
+    },
+    {
+      "regNo": "2355211007",
+      "name": "МБАЛ - Пирдоп АД",
+      "eik": "202503899",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "2407211005",
+      "name": "МБАЛ ЕАД гр. Гълъбово",
+      "eik": "123531146",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "2412211003",
+      "name": "МБАЛ Д-р Христо Стамболски ЕООД",
+      "eik": "123540775",
+      "ownership": "municipal",
+      "method": "surname"
+    },
+    {
+      "regNo": "2412212028",
+      "name": "СБНАЛ - Свети Лазар ЕООД гр. Казанлък",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2424233014",
+      "name": "СБР-НК ЕАД филиал Павел Баня",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2431131035",
+      "name": "ОМЦ Трошев ООД гр. Стара Загора",
+      "eik": "200415548",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2431131041",
+      "name": "\"МЦ-Медицински комплекс Берое\" ЕООД",
+      "eik": "202192245",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2431131051",
+      "name": "МЦ Верея ЕООД",
+      "eik": "203738793",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2431211002",
+      "name": "УМБАЛ - Проф., Д-р Ст. Киркович АД гр. Стара Загора",
+      "eik": "123535874",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "2431211024",
+      "name": "МБАЛ НИАМЕД ООД гр. Стара Загора",
+      "eik": "123672022",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2431211026",
+      "name": "МБАЛ ТРАКИЯ ЕООД гр. Стара Загора",
+      "eik": "160135466",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2431211029",
+      "name": "МБАЛ - МК Св. Ив. Рилски ЕООД клон Стара Загора",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2431212027",
+      "name": "СБАЛПФЗ - Стара Загора ЕООД",
+      "eik": "000812172",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2431334012",
+      "name": "КОЦ - Стара Загора ЕООД",
+      "eik": "000812197",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "2431391030",
+      "name": "ДЦ ВИА ДИАЛ ООД гр. Стара Загора",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2436211004",
+      "name": "МБАЛ -Чирпан ЕООД",
+      "eik": "123535867",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "2522211003",
+      "name": "МБАЛ - Омуртаг ЕАД",
+      "eik": "125550070",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "2524211002",
+      "name": "МБАЛ - Попово ЕООД",
+      "eik": "000874028",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "2535211001",
+      "name": "МБАЛ - Търговище АД",
+      "eik": "125501290",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "2535212007",
+      "name": "СОБАЛ - Д-р Тасков ООД",
+      "eik": "200366302",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2609211002",
+      "name": "МБАЛ Света Екатерина ЕООД",
+      "eik": "126531685",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2617212008",
+      "name": "СБДПЛР Любимец ЕООД",
+      "eik": "126618510",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2619232019",
+      "name": "СБР Айлин ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2628211004",
+      "name": "МБАЛ Свиленград ЕООД",
+      "eik": null,
+      "ownership": "municipal",
+      "method": "fold"
+    },
+    {
+      "regNo": "2632212018",
+      "name": "СБАЛВБ Тополовград ЕООД",
+      "eik": "000967532",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "2633211003",
+      "name": "МБАЛ Харманли ЕООД",
+      "eik": null,
+      "ownership": "municipal",
+      "method": "fold"
+    },
+    {
+      "regNo": "2634131016",
+      "name": "Очен медицински център Хасково ООД",
+      "eik": "203346454",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2634131024",
+      "name": "МЦ Уролоджия ЕООД",
+      "eik": "207860969",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2634211001",
+      "name": "МБАЛ Хасково АД",
+      "eik": "126529015",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "2634211015",
+      "name": "МБАЛ Хигия ООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2634212016",
+      "name": "СБАЛПФЗ Хасково ЕООД",
+      "eik": "000900131",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "2634212017",
+      "name": "СБАЛО Хасково ЕООД",
+      "eik": "000900156",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "2723211002",
+      "name": "МБАЛ ВЕЛИКИ ПРЕСЛАВ ЕООД",
+      "eik": "127513804",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "2730131021",
+      "name": "МЦОБ д-р Маринови ООД",
+      "eik": "205475063",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2730211001",
+      "name": "МБАЛ Шумен АД",
+      "eik": "127521092",
+      "ownership": "state",
+      "method": "eik"
+    },
+    {
+      "regNo": "2730212011",
+      "name": "СБАЛК МАДАРА ЕАД Шумен",
+      "eik": "201612434",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2730334007",
+      "name": "КОЦ-Шумен ЕООД",
+      "eik": "127521758",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "2730391012",
+      "name": "Дъчмед диализа България - диализен център Шумен ЕООД",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2807211002",
+      "name": "МБАЛ Св.Иван Рилски ЕООД гр.Елхово",
+      "eik": "128501819",
+      "ownership": "municipal",
+      "method": "eik"
+    },
+    {
+      "regNo": "2826134001",
+      "name": "ДКЦ 1 - Ямбол ЕООД гр. Ямбол",
+      "eik": "128057410",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2826211001",
+      "name": "МБАЛ Св.Пантелеймон АД гр.Ямбол",
+      "eik": "128501598",
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2826211008",
+      "name": "МБАЛ Св.Йоан Рилски ООД гр. Ямбол",
+      "eik": null,
+      "ownership": "private",
+      "method": "residual"
+    },
+    {
+      "regNo": "2826212007",
+      "name": "СБАЛК - Ямбол ЕАД гр. Ямбол",
+      "eik": "200111173",
+      "ownership": "private",
+      "method": "residual"
+    }
+  ]
+}

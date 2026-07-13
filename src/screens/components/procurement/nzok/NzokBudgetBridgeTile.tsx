@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import { HeartPulse } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
+import { eurPerInsured } from "@/lib/nzokBenchmarks";
 import { monthYearLabel } from "@/lib/monthNames";
 import type {
   NzokBudgetYear,
@@ -150,6 +151,18 @@ export const NzokBudgetBridgeTile: FC<{
             {bg
               ? `общ разход по бюджета на НЗОК (${basisLabel})`
               : `total НЗОК budget expenditure (${basisLabel})`}
+          </span>
+        </div>
+
+        {/* €-per-insured — the "daily bread" civic translation (OpenSpending). */}
+        <div className="-mt-2 text-sm">
+          <span className="font-semibold tabular-nums text-foreground">
+            ≈ {eur(eurPerInsured(total))}
+          </span>{" "}
+          <span className="text-muted-foreground">
+            {bg
+              ? "на здравноосигурено лице годишно (~6,5 млн осигурени)"
+              : "per insured person a year (~6.5M insured)"}
           </span>
         </div>
 

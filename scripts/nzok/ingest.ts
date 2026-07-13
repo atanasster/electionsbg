@@ -45,6 +45,11 @@ const STEPS: { flag: string; scripts: string[]; label: string }[] = [
     label: "drug reimbursement",
   },
   {
+    flag: "--drug-quarterly",
+    scripts: ["write_drug_quarterly.ts"],
+    label: "per-INN quarterly drug trend",
+  },
+  {
     flag: "--execution",
     scripts: ["write_execution.ts"],
     label: "B1 execution",
@@ -79,8 +84,20 @@ const STEPS: { flag: string; scripts: string[]; label: string }[] = [
 const OPT_IN: { flag: string; scripts: string[]; label: string }[] = [
   {
     flag: "--crosswalk",
-    scripts: ["write_hospital_eik.ts", "write_hospital_payments.ts"],
-    label: "Рег.№→EIK crosswalk",
+    scripts: [
+      "write_hospital_eik.ts",
+      "write_hospital_payments.ts",
+      "write_hospital_ownership.ts",
+    ],
+    label: "Рег.№→EIK crosswalk + ownership",
+  },
+  // Ownership (state|municipal|private) map on its own. Needs the local Postgres
+  // (nzok_hospital_payments + nzok_hospital_financials loaded) + the ЕЕОФ
+  // financials file (--eeof). Near-static; rebuilds hospital_ownership.json.
+  {
+    flag: "--ownership",
+    scripts: ["write_hospital_ownership.ts"],
+    label: "state/municipal/private ownership map",
   },
   // Clinical-pathway tariffs (НРД) — the price factor behind the pathway spend
   // tree + case-mix expected-vs-actual (migration 059). Opt-in because it fetches

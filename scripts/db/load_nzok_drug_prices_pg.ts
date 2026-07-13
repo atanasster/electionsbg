@@ -40,6 +40,12 @@ const SAVINGS_SCHEMA_FILE = path.join(
   REPO,
   "scripts/db/schema/pg/060_nzok_drug_savings.sql",
 );
+// 065 redefines the risk ranking (054) to carry each hospital's ownership. Applied
+// AFTER 054 so its ownership-aware version wins; idempotent CREATE OR REPLACE.
+const OWNERSHIP_SCHEMA_FILE = path.join(
+  REPO,
+  "scripts/db/schema/pg/065_nzok_ownership.sql",
+);
 const JSON_FILE = path.join(REPO, "data/budget/nzok/drug_unit_prices.json");
 
 // "MM.YYYY" → "YYYY-MM-01". Throws on anything else so a shape change fails loud
@@ -296,6 +302,8 @@ const main = async (): Promise<void> => {
   await exec(readFileSync(SCHEMA_FILE, "utf8"));
   await exec(readFileSync(RISK_SCHEMA_FILE, "utf8"));
   await exec(readFileSync(SAVINGS_SCHEMA_FILE, "utf8"));
+  // Ownership-aware risk ranking (must win over 054's plain version above).
+  await exec(readFileSync(OWNERSHIP_SCHEMA_FILE, "utf8"));
 
   const packEurSum = Math.round(packRows.reduce((a, r) => a + r[12], 0));
   const overpayEurSum = Math.round(overpayRows.reduce((a, r) => a + r[13], 0));

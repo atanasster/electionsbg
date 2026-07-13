@@ -40,6 +40,7 @@ import { NzokHospitalMomentumTile } from "./NzokHospitalMomentumTile";
 import { NzokHospitalCompareTile } from "./NzokHospitalCompareTile";
 import { NzokRegionalChoroplethTile } from "./NzokRegionalChoroplethTile";
 import { NzokDrugReimbursementTile } from "./NzokDrugReimbursementTile";
+import { NzokDrugQuarterlyTrendTile } from "./NzokDrugQuarterlyTrendTile";
 import { NzokDrugUnitPriceTile } from "./NzokDrugUnitPriceTile";
 import { NzokActivityTile } from "./NzokActivityTile";
 import { NzokPathwayTreeTile } from "./NzokPathwayTreeTile";
@@ -273,6 +274,9 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
           }
         >
           <NzokDrugReimbursementTile data={drugReimbursement} hideTitle />
+          {/* Per-INN QUARTERLY trend (migration 066) — the multi-period drug view
+              the single-year competitor can't draw. Self-hides until loaded. */}
+          <NzokDrugQuarterlyTrendTile />
           {/* Recoverable-euros headline + per-hospital leaderboard (migration
               055). Self-fetches; hides until the drug-price corpus reaches the DB. */}
           <NzokSavingsLeaderboardTile />

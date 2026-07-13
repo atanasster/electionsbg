@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import { PiggyBank } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur, formatEurCompact } from "@/lib/currency";
+import { civicEquivalents } from "@/lib/nzokBenchmarks";
 import { useNzokDrugSavings } from "@/data/budget/useBudget";
 import { FacilityLink } from "./FacilityLink";
 
@@ -51,6 +52,31 @@ export const NzokSavingsLeaderboardTile: FC<{ hideTitle?: boolean }> = ({
               ? `потенциално спестяване за ${data.year} г., ако всяка болница беше платила медианната цена на съответната опаковка. Разпределено сред ${data.hospitalCount} болници и ${data.innCount} молекули.`
               : `potential ${data.year} saving had every hospital paid the pack's median unit price. Across ${data.hospitalCount} hospitals and ${data.innCount} molecules.`}
           </p>
+          {/* Civic translation — the sum as recognisable public-health units. */}
+          {(() => {
+            const c = civicEquivalents(data.totalOverpayEur);
+            if (c.nurseSalaries < 1 && c.ambulances < 1) return null;
+            return (
+              <p className="mt-1.5 text-[11px] text-muted-foreground/90">
+                {bg ? "≈ колкото " : "≈ about "}
+                <span className="font-medium text-foreground">
+                  {c.nurseSalaries.toLocaleString(i18n.language)}
+                </span>{" "}
+                {bg
+                  ? "годишни заплати на медицинска сестра"
+                  : "annual nurse salaries"}
+                {c.ambulances >= 1 && (
+                  <>
+                    {bg ? " или " : " or "}
+                    <span className="font-medium text-foreground">
+                      {c.ambulances.toLocaleString(i18n.language)}
+                    </span>{" "}
+                    {bg ? "линейки" : "ambulances"}
+                  </>
+                )}
+              </p>
+            );
+          })()}
         </div>
 
         <div className="overflow-x-auto">

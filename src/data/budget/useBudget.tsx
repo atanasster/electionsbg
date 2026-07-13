@@ -41,6 +41,8 @@ import type {
   NzokHospitalRiskFile,
   NzokDrugRiskFile,
   NzokDrugSavingsFile,
+  NzokDrugQuarterlyFile,
+  NzokDrugQuarterlySeries,
   NzokFinancialsMeasuresByEik,
   NzokFinancialsMeasureFanFile,
   NzokActivityByProcedureFile,
@@ -494,6 +496,29 @@ export const useNzokDrugSavings = () =>
   useQuery({
     queryKey: ["nzok", "drug-savings"] as const,
     queryFn: () => fetchDb<NzokDrugSavingsFile>("/api/db/nzok-drug-savings"),
+    staleTime: Infinity,
+  });
+
+// Per-INN QUARTERLY reimbursement trend (migration 066): national curve + the top
+// molecules' quarterly series — the multi-period drug view a one-year corpus can't
+// draw. null-body until the corpus is loaded.
+export const useNzokDrugQuarterly = () =>
+  useQuery({
+    queryKey: ["nzok", "drug-quarterly"] as const,
+    queryFn: () =>
+      fetchDb<NzokDrugQuarterlyFile>("/api/db/nzok-drug-quarterly"),
+    staleTime: Infinity,
+  });
+
+// One molecule's full quarterly series — the searchable picker drill-down.
+export const useNzokDrugQuarterlyByInn = (inn?: string | null) =>
+  useQuery({
+    queryKey: ["nzok", "drug-quarterly-by-inn", inn ?? ""] as const,
+    queryFn: () =>
+      fetchDb<NzokDrugQuarterlySeries>(
+        `/api/db/nzok-drug-quarterly-by-inn?inn=${encodeURIComponent(inn!)}`,
+      ),
+    enabled: !!inn,
     staleTime: Infinity,
   });
 

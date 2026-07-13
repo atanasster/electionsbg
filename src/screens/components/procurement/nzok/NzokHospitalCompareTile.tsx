@@ -25,6 +25,7 @@ import {
 import { formatEurCompact } from "@/lib/currency";
 import { spendDeltaClass } from "@/lib/spendDelta";
 import { decodeEntities } from "@/lib/decodeEntities";
+import { ownershipChipClass, ownershipLabel } from "@/lib/nzokOwnership";
 import { useNzokHospitalMomentumByEik } from "@/data/budget/useBudget";
 import type { NzokHospitalPaymentsFile } from "@/data/budget/types";
 
@@ -126,6 +127,15 @@ const CompareColumn: FC<{
       >
         {decodeEntities(name)}
       </Link>
+      {m?.ownership && (
+        <span
+          className={`inline-block rounded-full border px-1.5 py-px text-[10px] font-medium leading-none ${ownershipChipClass(
+            m.ownership,
+          )}`}
+        >
+          {ownershipLabel(m.ownership, bg)}
+        </span>
+      )}
       <div className="text-xl font-bold tabular-nums">{eur(ytd)}</div>
       <div className="text-[11px] text-muted-foreground">
         {bg ? "изплатено от НЗОК (натрупано)" : "paid by НЗОК (cumulative)"}

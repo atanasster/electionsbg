@@ -12,12 +12,18 @@
 // (a missing signal counts as 0), which is why a hospital elevated on one axis
 // alone tops out near 33 and only corroboration across all three approaches 100.
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ShieldAlert } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { useNzokHospitalRisk } from "@/data/budget/useBudget";
+import {
+  ownershipChipClass,
+  ownershipLabel,
+  type OwnershipFilterValue,
+} from "@/lib/nzokOwnership";
+import { OwnershipFilter } from "./OwnershipFilter";
 import { FacilityLink } from "./FacilityLink";
 
 export const NzokHospitalRiskTile: FC<{ hideTitle?: boolean }> = ({
@@ -26,9 +32,17 @@ export const NzokHospitalRiskTile: FC<{ hideTitle?: boolean }> = ({
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const { data } = useNzokHospitalRisk();
+  const [own, setOwn] = useState<OwnershipFilterValue>("all");
   if (!data || !data.hospitals?.length) return null;
 
-  const rows = data.hospitals.slice(0, 15);
+  // Ownership present only once migration 065 reaches the DB — gate the filter on
+  // it so an older payload still renders (chips/filter just don't appear).
+  const hasOwnership = data.hospitals.some((h) => h.ownership);
+  const rows = (
+    own === "all"
+      ? data.hospitals
+      : data.hospitals.filter((h) => h.ownership === own)
+  ).slice(0, 15);
   const dash = <span className="text-muted-foreground/40">—</span>;
 
   return (
@@ -47,6 +61,10 @@ export const NzokHospitalRiskTile: FC<{ hideTitle?: boolean }> = ({
             ? "Съставен индекс, който съчетава три вече показани сигнала: надплащане за лекарства над медианата, случаи на легло над сходните болници и просрочени задължения. Индексът е средното от процентните рангове на трите — колкото повече сигнала съвпадат, толкова по-висок е той. Всеки показател е видим отделно."
             : "A composite of three signals the pack already shows: paying above the median for drugs, cases-per-bed above same-type peers, and overdue debt. The index is the mean of the three percentile ranks — the more signals coincide, the higher it climbs. Every component stays visible on its own."}
         </p>
+
+        {hasOwnership && (
+          <OwnershipFilter value={own} onChange={setOwn} bg={bg} />
+        )}
 
         <div className="overflow-x-auto">
           <table className="w-full text-xs">
@@ -94,7 +112,18 @@ export const NzokHospitalRiskTile: FC<{ hideTitle?: boolean }> = ({
               {rows.map((h) => (
                 <tr key={h.eik}>
                   <td className="max-w-[15rem] truncate py-1.5 pr-2">
-                    <FacilityLink eik={h.eik} name={h.facility} />
+                    <span className="flex items-baseline gap-1.5">
+                      <FacilityLink eik={h.eik} name={h.facility} />
+                      {h.ownership && (
+                        <span
+                          className={`shrink-0 rounded-full border px-1.5 py-px text-[10px] font-medium leading-none ${ownershipChipClass(
+                            h.ownership,
+                          )}`}
+                        >
+                          {ownershipLabel(h.ownership, bg)}
+                        </span>
+                      )}
+                    </span>
                     <span className="block text-[10px] text-muted-foreground">
                       {bg
                         ? `${h.signalsPresent} от 3 сигнала`

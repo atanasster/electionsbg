@@ -6,6 +6,36 @@
 
 export const NZOK_EIK = "121858220";
 
+// Health-insured persons in Bulgaria, for the "€ per insured person" civic
+// translation on the budget-bridge hero — the OpenSpending "daily bread" move.
+// НЗОК reports ~6.5 млн здравноосигурени лица (against a ~6.4M resident
+// population, НСИ Census 2021 + interrupted-rights holders the fund still
+// budgets for). Deliberately an approximation with a wide-enough round that a
+// small yearly drift does not falsify the per-person figure; the tile footnotes
+// it as such. Source: НЗОК/НСИ.
+export const NZOK_INSURED_PERSONS = 6_500_000;
+
+/** Euros per insured person for a budget-year total (rounded to whole euros). */
+export const eurPerInsured = (totalEur: number): number =>
+  Math.round(totalEur / NZOK_INSURED_PERSONS);
+
+// Civic-translation anchors — turning a bare € sum into "= X of something real"
+// (Диагноза's rhetorical move, but grounded and conservative here). A nurse's
+// mean GROSS annual pay in Bulgarian hospitals is ≈ €14,400 (≈ €1,200/month,
+// НСИ/МЗ 2025); a fully-equipped emergency ambulance costs ≈ €100,000 (МЗ / ЕС
+// tenders). Both are round, defensible orders of magnitude — the tile labels the
+// result "≈" so it reads as scale, not a precise conversion.
+export const NURSE_ANNUAL_SALARY_EUR = 14_400;
+export const AMBULANCE_COST_EUR = 100_000;
+
+/** Translate a € amount into recognisable public-health units (floored counts). */
+export const civicEquivalents = (
+  eur: number,
+): { nurseSalaries: number; ambulances: number } => ({
+  nurseSalaries: Math.floor(eur / NURSE_ANNUAL_SALARY_EUR),
+  ambulances: Math.floor(eur / AMBULANCE_COST_EUR),
+});
+
 export type NzokCategory =
   | "it"
   | "medical"
