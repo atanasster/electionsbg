@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { cpvDivisionName } from "@/lib/cpvSectors";
+import { skeletonMatches } from "@/lib/translitSearch";
 import type { CpvCatalogEntry } from "@/data/procurement/useCpvCatalog";
 
 export const CPV_ALL = "__all__";
@@ -77,17 +78,18 @@ export const CpvFilterCombobox: FC<{
         label: bg ? `Филтрирай по CPV код ${q}` : `Filter by CPV code ${q}`,
         hint: cpvDivisionName(q, lang),
       });
-    // Divisions (default view + name/code match).
+    // Divisions (default view + name/code match). skeletonMatches folds Latin
+    // and Cyrillic so "arh"/"arch"/"арх" all match "Архитектурни".
     for (const d of divisions) {
       const name = cpvDivisionName(d.value, lang);
-      if (!q || norm(name).includes(q) || d.value.startsWith(q))
+      if (!q || skeletonMatches(name, q) || d.value.startsWith(q))
         out.push({ value: d.value, label: name, hint: `${d.count}` });
     }
     // Finer named codes — only when searching (the catalogue is ~3.6k long).
     if (q) {
       let n = 0;
       for (const c of catalog) {
-        if (norm(c.desc).includes(q) || c.cpv.startsWith(q)) {
+        if (skeletonMatches(c.desc, q) || c.cpv.startsWith(q)) {
           out.push({ value: c.cpv, label: c.desc, hint: `CPV ${c.cpv}` });
           if (++n >= 80) break;
         }
@@ -109,7 +111,7 @@ export const CpvFilterCombobox: FC<{
           <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[320px] p-0" align="start">
+      <PopoverContent className="w-[460px] max-w-[92vw] p-0" align="start">
         <CommandPrimitive shouldFilter={false}>
           <CommandInput
             placeholder={
@@ -129,17 +131,17 @@ export const CpvFilterCombobox: FC<{
                   setOpen(false);
                   setQuery("");
                 }}
-                className="flex cursor-pointer items-center gap-2 px-2 py-2 text-sm aria-selected:bg-accent aria-selected:text-accent-foreground"
+                className="flex cursor-pointer items-start gap-2 px-2 py-2 text-sm aria-selected:bg-accent aria-selected:text-accent-foreground"
               >
                 <Check
                   className={cn(
-                    "h-4 w-4 shrink-0",
+                    "mt-0.5 h-4 w-4 shrink-0",
                     value === it.value ? "opacity-100" : "opacity-0",
                   )}
                 />
-                <span className="min-w-0 flex-1 truncate">{it.label}</span>
+                <span className="min-w-0 flex-1 leading-snug">{it.label}</span>
                 {it.hint ? (
-                  <span className="shrink-0 text-xs text-muted-foreground">
+                  <span className="mt-0.5 shrink-0 whitespace-nowrap text-xs text-muted-foreground">
                     {it.hint}
                   </span>
                 ) : null}
