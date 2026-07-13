@@ -54,6 +54,22 @@ cpvdiv AS (
   FROM c
   WHERE cpv IS NOT NULL AND left(cpv, 2) ~ '^\d{2}$'
   GROUP BY left(cpv, 2)
+),
+-- Typical bidder count per 5-digit CPV prefix — the baseline the graded
+-- weak-competition flag reads ("materially fewer bidders than THIS market's
+-- norm"). Only competitive markets (median >= 3, >= 30 rows with a bid count)
+-- can trigger it, so we emit only those — keeps the payload small and the flag
+-- conservative. Validated against the single-bidding price premium: below-norm
+-- multi-bidder awards land ~13pp closer to the buyer's estimate.
+cpv5med AS (
+  SELECT left(cpv, 5) AS cpv5,
+         percentile_cont(0.5) WITHIN GROUP (ORDER BY number_of_tenderers) AS med,
+         COUNT(*) AS n
+  FROM c
+  WHERE cpv IS NOT NULL AND number_of_tenderers IS NOT NULL
+  GROUP BY left(cpv, 5)
+  HAVING COUNT(*) >= 30
+     AND percentile_cont(0.5) WITHIN GROUP (ORDER BY number_of_tenderers) >= 3
 )
 SELECT jsonb_build_object(
   'debarred', jsonb_build_object(
@@ -118,6 +134,12 @@ SELECT jsonb_build_object(
       ) ORDER BY division), '[]'::jsonb)
       FROM cpvdiv
     )
+  ),
+  -- 5-digit CPV prefix → median bidder count, for competitive markets only
+  -- (median >= 3). The graded arm of the weak-competition flag reads this:
+  -- a multi-bidder award below its market's norm. Keyed by 5-digit prefix.
+  'cpvBidderMedians', (
+    SELECT COALESCE(jsonb_object_agg(cpv5, med), '{}'::jsonb) FROM cpv5med
   )
 );
 $$;

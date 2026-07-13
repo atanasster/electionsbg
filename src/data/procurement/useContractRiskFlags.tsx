@@ -52,6 +52,7 @@ export const useContractRiskFlags = (
       pepConnectedEiks: pepLoaded ? pepSet : undefined,
       cpvSingleBidShare: cpv.byDivision,
       structuralSingleBidShare: cpv.structuralSingleBidShare,
+      cpvBidderMedian: cpv.bidderMedianByCpv5,
       normalizeName: normalizeContractorName,
     });
   }, [
@@ -62,6 +63,7 @@ export const useContractRiskFlags = (
     pepSet,
     pepLoaded,
     cpv.byDivision,
+    cpv.bidderMedianByCpv5,
     cpv.structuralSingleBidShare,
   ]);
 
@@ -94,6 +96,7 @@ export const useContractRiskScorer = (): {
         pepConnectedEiks: pepLoaded ? pepSet : undefined,
         cpvSingleBidShare: cpv.byDivision,
         structuralSingleBidShare: cpv.structuralSingleBidShare,
+        cpvBidderMedian: cpv.bidderMedianByCpv5,
         normalizeName: normalizeContractorName,
       });
   }, [
@@ -103,6 +106,7 @@ export const useContractRiskScorer = (): {
     pepSet,
     pepLoaded,
     cpv.byDivision,
+    cpv.bidderMedianByCpv5,
     cpv.structuralSingleBidShare,
   ]);
 

@@ -151,17 +151,16 @@ export const RiskBadges: FC<Props> = ({
         </Tooltip>
       ) : null}
 
-      {flags.singleBidder ? (
+      {flags.weakCompetition ? (
         <Tooltip
           content={
             <div className="space-y-1">
               <div className="font-medium">
-                {t("risk_flag_single_bidder_long") ||
-                  "Single bidder in a competitive market"}
+                {t("risk_flag_weak_competition_long") || "Weak competition"}
               </div>
               <div className="text-xs text-muted-foreground">
-                {t("risk_flag_single_bidder_hint") ||
-                  "Only one operator bid — the headline procurement-corruption red flag (Fazekas/GTI)."}
+                {t("risk_flag_weak_competition_hint") ||
+                  "A single bidder, or materially fewer bidders than the sector norm — awards land closer to the buyer's estimate (Fazekas/GTI)."}
               </div>
             </div>
           }
@@ -170,21 +169,31 @@ export const RiskBadges: FC<Props> = ({
             className={`${chipBase} border-rose-300 bg-rose-100 text-rose-900 dark:border-rose-900 dark:bg-rose-900/40 dark:text-rose-100`}
           >
             <Users className="h-3 w-3" />
-            {t("risk_flag_single_bidder") || "1 bid"}
+            {flags.bidCount != null
+              ? `${flags.bidCount} ${
+                  flags.bidCount === 1
+                    ? lang === "bg"
+                      ? "оферта"
+                      : "bid"
+                    : lang === "bg"
+                      ? "оферти"
+                      : "bids"
+                }`
+              : t("risk_flag_weak_competition") || "Weak competition"}
           </span>
         </Tooltip>
       ) : null}
 
-      {flags.nonOpenProcedure ? (
+      {flags.directAward ? (
         <Tooltip
           content={
             <div className="space-y-1">
               <div className="font-medium">
-                {t("risk_flag_non_open_long") || "Non-open procedure"}
+                {t("risk_flag_direct_award_long") || "Direct / no-notice award"}
               </div>
               <div className="text-xs text-muted-foreground">
-                {t("risk_flag_non_open_hint") ||
-                  "Awarded without an open competition (e.g. negotiated / single-source)."}
+                {t("risk_flag_direct_award_hint") ||
+                  "Awarded without any call for competition (negotiated / single-source) — the awards that land at the estimate."}
               </div>
             </div>
           }
@@ -193,7 +202,7 @@ export const RiskBadges: FC<Props> = ({
             className={`${chipBase} border-violet-300 bg-violet-100 text-violet-900 dark:border-violet-900 dark:bg-violet-900/40 dark:text-violet-100`}
           >
             <Gavel className="h-3 w-3" />
-            {t("risk_flag_non_open") || "Negotiated"}
+            {t("risk_flag_direct_award") || "Direct award"}
           </span>
         </Tooltip>
       ) : null}

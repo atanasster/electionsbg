@@ -30,8 +30,8 @@ export type RiskComponentKey =
   | "mpConnected"
   | "pepConnected"
   | "awarderConcentration"
-  | "singleBidder"
-  | "nonOpenProcedure"
+  | "weakCompetition"
+  | "directAward"
   | "shortTenderPeriod"
   | "amendment"
   | "appealUpheld";
@@ -56,10 +56,15 @@ export type ContractRiskFlags = {
   awarderConcentration: AwarderConcentrationEntry | null;
   /** Row is a post-award contract amendment. */
   isAmendment: boolean;
-  /** Exactly one bidder, in a CPV market that is normally competitive. */
-  singleBidder: boolean;
-  /** Negotiated / non-open procedure (or an explicit method rationale). */
-  nonOpenProcedure: boolean;
+  /** Weak competition: a single bidder in a normally-competitive market, OR
+   *  materially fewer bidders than the sector norm (below the division median in
+   *  a division whose median is ≥3). Validated against the single-bidding price
+   *  premium: both cases land closer to the buyer's own estimate. */
+  weakCompetition: boolean;
+  /** Direct / negotiated-without-notice award (procedure bucket "direct", or an
+   *  explicit no-notice rationale). Narrowed from the old "non-open" flag, which
+   *  wrongly swept in competitive публично състезание (which actually saves). */
+  directAward: boolean;
   /** КЗК upheld an appeal against this procedure (уважена) — an official finding
    *  that the award was improper. The one regulator-ruled (not heuristic) flag. */
   appealUpheld: boolean;
@@ -90,9 +95,9 @@ export type ContractRiskResult = {
 const WEIGHT_MP_CONNECTED = 50;
 const WEIGHT_PEP_CONNECTED = 40;
 const WEIGHT_DEBARRED = 80;
-const WEIGHT_SINGLE_BIDDER = 40;
+const WEIGHT_WEAK_COMPETITION = 40;
 const WEIGHT_HIGH_CONCENTRATION = 30;
-const WEIGHT_NON_OPEN = 20;
+const WEIGHT_DIRECT_AWARD = 20;
 const WEIGHT_SHORT_PERIOD = 15;
 const WEIGHT_AMENDMENT = 10;
 // КЗК-upheld appeal — authoritative (a regulator annulled the award), so heavy,
@@ -119,6 +124,11 @@ export type RiskScoreArgs = {
   cpvSingleBidShare?: Map<string, number>;
   /** Share at/above which a division is "structurally single-bid". */
   structuralSingleBidShare?: number;
+  /** Per 5-digit CPV prefix → median bidder count, competitive markets only
+   *  (median ≥ 3). Enables the graded arm of weakCompetition ("materially fewer
+   *  bidders than this market's norm"). Optional — without it, weakCompetition
+   *  degrades to the single-bidder case only. */
+  cpvBidderMedian?: Map<string, number>;
   /** Folded-name normaliser, shared with the debarred index (passed in to keep
    *  this module React-free). */
   normalizeName: (raw: string) => string;
@@ -162,12 +172,12 @@ export const computeProcurementRisk = (
   const appealUpheld = contract.appealUpheld === true;
   add("appealUpheld", contract.appealUpheld !== undefined, appealUpheld);
 
-  // Single bidder — checkable only when the realised bid count is known.
+  // Weak competition — checkable only when the realised bid count is known.
   const bidCount =
     typeof contract.numberOfTenderers === "number"
       ? contract.numberOfTenderers
       : null;
-  let singleBidder = false;
+  let weakCompetition = false;
   if (bidCount !== null) {
     const division = contract.cpv?.slice(0, 2);
     const structuralShare =
@@ -181,30 +191,42 @@ export const computeProcurementRisk = (
     // (чл. 79, ал. 1, т. 3 ЗОП), so every one is single-bid by statute, not
     // choice — suppress the flag regardless of the division's aggregate share.
     const legallySingleSource = contract.cpv?.startsWith("22112") ?? false;
-    singleBidder = bidCount === 1 && !structural && !legallySingleSource;
-    add("singleBidder", true, singleBidder);
+    const single = bidCount === 1 && !structural && !legallySingleSource;
+    // Graded arm: materially fewer bidders than this MARKET's norm (keyed by the
+    // 5-digit CPV prefix; the map holds only competitive markets, median ≥ 3).
+    // A 2-bidder award where the market norm is 6 is the case the binary
+    // single-bidder flag misses. Validated (single-bidding price premium): these
+    // land ~13pp closer to the buyer's estimate, like single-bid awards.
+    const cpv5 = contract.cpv?.slice(0, 5);
+    const marketMedian =
+      cpv5 !== undefined ? args.cpvBidderMedian?.get(cpv5) : undefined;
+    const belowNorm =
+      marketMedian != null &&
+      bidCount > 1 &&
+      bidCount < marketMedian &&
+      !structural;
+    weakCompetition = single || belowNorm;
+    add("weakCompetition", true, weakCompetition);
   } else {
-    add("singleBidder", false, false);
+    add("weakCompetition", false, false);
   }
 
-  // Non-open procedure — checkable when the method or a rationale is published.
+  // Direct award — checkable when the method or a rationale is published.
+  // NARROWED from the old "non-open" flag: only DIRECT / negotiated-without-
+  // notice (bucket "direct") or an explicit no-notice rationale. The old flag
+  // also caught публично състезание (bucket "competition"), which is genuinely
+  // competitive and actually saves against the estimate — so it misfired.
   const methodKnown =
     !!contract.procurementMethod || !!contract.procurementMethodRationale;
-  let nonOpenProcedure = false;
+  let directAward = false;
   if (methodKnown) {
-    // Classify via the shared bucketer so both the OCDS enum ("open") and the
-    // Bulgarian АОП phrase ("Открита процедура") count as open — a bare
-    // `!== "open"` string compare wrongly flagged every Bulgarian open
-    // procedure (the largest slice of the corpus) as non-open.
-    const openProcedure =
-      !!contract.procurementMethod &&
-      procedureBucket(contract.procurementMethod) === "open";
-    nonOpenProcedure =
-      (!!contract.procurementMethod && !openProcedure) ||
-      !!contract.procurementMethodRationale;
-    add("nonOpenProcedure", true, nonOpenProcedure);
+    const bucket = contract.procurementMethod
+      ? procedureBucket(contract.procurementMethod)
+      : undefined;
+    directAward = bucket === "direct" || !!contract.procurementMethodRationale;
+    add("directAward", true, directAward);
   } else {
-    add("nonOpenProcedure", false, false);
+    add("directAward", false, false);
   }
 
   // Short tender window — checkable when both endpoints are published.
@@ -228,9 +250,9 @@ export const computeProcurementRisk = (
   if (mpConnected) score += WEIGHT_MP_CONNECTED;
   if (pepConnected) score += WEIGHT_PEP_CONNECTED;
   if (debarred) score += WEIGHT_DEBARRED;
-  if (singleBidder) score += WEIGHT_SINGLE_BIDDER;
+  if (weakCompetition) score += WEIGHT_WEAK_COMPETITION;
   if (concentration) score += WEIGHT_HIGH_CONCENTRATION;
-  if (nonOpenProcedure) score += WEIGHT_NON_OPEN;
+  if (directAward) score += WEIGHT_DIRECT_AWARD;
   if (shortTenderPeriod) score += WEIGHT_SHORT_PERIOD;
   if (isAmendment) score += WEIGHT_AMENDMENT;
   if (appealUpheld) score += WEIGHT_APPEAL_UPHELD;
@@ -248,8 +270,8 @@ export const computeProcurementRisk = (
       debarred,
       awarderConcentration: concentration,
       isAmendment,
-      singleBidder,
-      nonOpenProcedure,
+      weakCompetition,
+      directAward,
       appealUpheld,
       shortTenderPeriod,
       bidCount,

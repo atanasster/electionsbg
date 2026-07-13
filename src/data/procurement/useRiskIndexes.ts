@@ -34,6 +34,9 @@ export type RiskIndexesPayload = {
     structuralSingleBidShare: number;
     divisions: CpvCompetitionDivision[];
   };
+  /** 5-digit CPV prefix → median bidder count, competitive markets only
+   *  (median ≥ 3). Baseline for the graded weak-competition flag. */
+  cpvBidderMedians?: Record<string, number>;
 };
 
 const fetchRiskIndexes = async (): Promise<RiskIndexesPayload | null> => {
