@@ -193,6 +193,22 @@ export const loadTendersPg = async (): Promise<{
     );
   }
 
+  // Recover contracts.lot_name from the now-fresh tenders (fuller per-lot text
+  // than the АОП-truncated contract.title). Mirrors the call in load_pg.ts —
+  // whichever loader runs second fills them. Guarded on 050 having been applied
+  // (a contracts-less tenders load leaves the function absent). (050_contract_lot_name)
+  const { rows: lotFn } = await getPool().query<{ present: boolean }>(
+    "SELECT to_regprocedure('enrich_contract_lot_names()') IS NOT NULL AS present",
+  );
+  if (lotFn[0].present) {
+    const { rows: res } = await getPool().query<{
+      enrich_contract_lot_names: number;
+    }>("SELECT enrich_contract_lot_names()");
+    console.log(
+      `lot names recovered for ${res[0].enrich_contract_lot_names} contracts`,
+    );
+  }
+
   return { rows: rows.length, years: [...years].sort() };
 };
 

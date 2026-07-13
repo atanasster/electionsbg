@@ -39,6 +39,7 @@ const SCHEMA_DIR = path.join(
 const FN_FILE = path.join(SCHEMA_DIR, "000_search_fns.sql");
 const SCHEMA_FILE = path.join(SCHEMA_DIR, "001_procurement.sql");
 const CONTRACTS_UNP_FILE = path.join(SCHEMA_DIR, "049_contracts_unp.sql");
+const CONTRACT_LOT_FILE = path.join(SCHEMA_DIR, "050_contract_lot_name.sql");
 const TRACKING_FILE = path.join(SCHEMA_DIR, "005_ingest_tracking.sql");
 const CONTRACTOR_SEARCH_FILE = path.join(
   SCHEMA_DIR,
@@ -160,6 +161,7 @@ export const loadPg = async (): Promise<{
   // 001's CREATE TABLE IF NOT EXISTS is a no-op on an existing database, so the
   // unp column + resolver arrive as their own ALTER-based migration.
   await exec(readFileSync(CONTRACTS_UNP_FILE, "utf8"));
+  await exec(readFileSync(CONTRACT_LOT_FILE, "utf8"));
   await exec(readFileSync(TRACKING_FILE, "utf8"));
   await exec(readFileSync(CONTRACTOR_SEARCH_FILE, "utf8"));
   await exec(readFileSync(COMPANY_API_FILE, "utf8"));
@@ -331,6 +333,17 @@ export const loadPg = async (): Promise<{
   }>("SELECT resolve_contract_unp()");
   console.log(
     `resolved unp for ${unpRes[0].resolve_contract_unp} ocds contracts`,
+  );
+
+  // Recover each contract's fuller per-lot description from its УНП-matched
+  // tender (contracts.lot_name) — АОП truncates the lot tail in contracts.title.
+  // Runs after unp resolution (its join key) and is a no-op if tenders are not
+  // loaded yet; load_tenders_pg re-runs it after its own COPY. (050_contract_lot_name)
+  const { rows: lotRes } = await getPool().query<{
+    enrich_contract_lot_names: number;
+  }>("SELECT enrich_contract_lot_names()");
+  console.log(
+    `lot names recovered for ${lotRes[0].enrich_contract_lot_names} contracts`,
   );
 
   await exec("ANALYZE contracts, contractor_search, awarder_search");

@@ -34,7 +34,8 @@ const CONTRACT_COLS = `
   eu_program AS "euProgram",
   tender_period_start_date AS "tenderPeriodStartDate",
   tender_period_end_date AS "tenderPeriodEndDate",
-  category, bundle_uuid AS "bundleUuid", source_url AS "sourceUrl"`;
+  category, bundle_uuid AS "bundleUuid", source_url AS "sourceUrl",
+  lot_name AS "lotName"`;
 const CONTRACT_SQL = `
   SELECT ${CONTRACT_COLS},
          has_appeal AS "hasAppeal", appeal_upheld AS "appealUpheld"

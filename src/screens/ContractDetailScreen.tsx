@@ -14,16 +14,19 @@ import {
   Landmark,
   Download,
   ClipboardList,
+  Layers,
+  GitPullRequest,
+  Gavel,
+  ArrowRight,
 } from "lucide-react";
 import { useContract } from "@/data/procurement/useContract";
-import {
-  useTenderLineage,
-  type TenderLineage,
-} from "@/data/procurement/useTenderLineage";
+import { useTenderLineage } from "@/data/procurement/useTenderLineage";
+import type { ProcurementContract } from "@/data/dataTypes";
 import { useContractRiskFlags } from "@/data/procurement/useContractRiskFlags";
 import { useProcurementMpConnectedByEik } from "@/data/procurement/useMpConnectedByEik";
 import { usePepConnectedByEik } from "@/data/procurement/usePepConnectedByEik";
 import { formatAmountEur } from "@/lib/currency";
+import { splitContractTitle } from "@/lib/contractTitle";
 import { Breadcrumbs } from "@/ux/Breadcrumbs";
 import {
   displayProcurementMethod,
@@ -101,20 +104,42 @@ export const ContractDetailScreen: FC = () => {
             <span>· {c.date}</span>
           )}
         </p>
-        <div className="flex items-start gap-2">
-          <h1 className="text-xl md:text-2xl font-semibold leading-snug">
-            {c.title || t("contract_untitled") || "Untitled contract"}
-          </h1>
-          {id ? (
-            <FollowStar
-              kind="contract"
-              id={id}
-              label={c.title || t("contract_untitled") || "Untitled contract"}
-              size="md"
-              className="mt-1 shrink-0"
-            />
-          ) : null}
-        </div>
+        {(() => {
+          const fullTitle =
+            c.title || t("contract_untitled") || "Untitled contract";
+          const { main, lotLabel, lotDetail } = splitContractTitle(fullTitle);
+          // Prefer the DB-recovered lot name (fuller than the АОП-truncated tail
+          // in the title); fall back to whatever the title split yielded.
+          const lotText = c.lotName || lotDetail;
+          // Full title always visible (no truncation) — readability comes from
+          // splitting off the lot qualifier and holding a sane line measure.
+          return (
+            <div className="flex items-start gap-2">
+              <div className="min-w-0">
+                <h1 className="text-lg md:text-xl font-semibold leading-snug max-w-[52ch]">
+                  {main}
+                </h1>
+                {lotLabel && lotText ? (
+                  <p className="mt-1.5 text-sm text-muted-foreground leading-snug max-w-[60ch]">
+                    <span className="font-medium text-foreground">
+                      {lotLabel}:
+                    </span>{" "}
+                    {lotText}
+                  </p>
+                ) : null}
+              </div>
+              {id ? (
+                <FollowStar
+                  kind="contract"
+                  id={id}
+                  label={fullTitle}
+                  size="md"
+                  className="mt-1 shrink-0"
+                />
+              ) : null}
+            </div>
+          );
+        })()}
         {c.amount != null
           ? (() => {
               const { primary, original } = formatAmountEur(
@@ -274,7 +299,7 @@ export const ContractDetailScreen: FC = () => {
         </section>
 
         <div className="space-y-4">
-          <ContractTenderLineage ocid={c.ocid} />
+          <ContractTenderLineage contract={c} />
           <ContractConnectedPeople eik={c.contractorEik} />
 
           <div className="rounded-xl border bg-card p-4 shadow-sm space-y-1.5 text-[11px] text-muted-foreground/80">
@@ -371,11 +396,12 @@ export const ContractDetailScreen: FC = () => {
 // (прогнозна) value, lot structure and status — the tender-stage facts the
 // contracts-only corpus could never show (the "мантинели за 1 млрд" case).
 // Renders nothing for legacy / non-OCDS contracts whose ocid has no tender.
-const ContractTenderLineage: FC<{ ocid: string }> = ({ ocid }) => {
+const ContractTenderLineage: FC<{ contract: ProcurementContract }> = ({
+  contract: c,
+}) => {
   const { t, i18n } = useTranslation();
-  const { data: tender } = useTenderLineage(ocid);
-  if (!tender) return null;
-  const lineage: TenderLineage = tender;
+  const { data: lineage } = useTenderLineage(c.ocid);
+  if (!lineage) return null;
   const est =
     lineage.estimatedValueEur != null
       ? formatAmountEur(
@@ -385,62 +411,149 @@ const ContractTenderLineage: FC<{ ocid: string }> = ({ ocid }) => {
           i18n.language,
         ).primary
       : null;
-  const statusLabel = lineage.isCancelled
-    ? t("tender_status_cancelled") || "Cancelled"
-    : t("tender_status_announced") || "Announced";
+
+  // Forecast-vs-actual: sum the signed contracts sharing this procedure (mirrors
+  // the tender page's TenderForecastActual) and express as a share of the forecast.
+  const signedEur = lineage.awards
+    .filter((a) => a.tag === "contract" && a.amountEur != null)
+    .reduce((s, a) => s + (a.amountEur ?? 0), 0);
+  const sharePct =
+    lineage.estimatedValueEur && signedEur > 0
+      ? Math.round((signedEur / lineage.estimatedValueEur) * 100)
+      : null;
+
+  const amendmentCount = lineage.awards.filter(
+    (a) => a.tag === "contractAmendment",
+  ).length;
+  const underAppeal = Boolean(c.hasAppeal) || lineage.appeals.length > 0;
+  const lotNum = splitContractTitle(c.title).lotLabel?.match(/\d+/)?.[0];
+  const bids = c.numberOfTenderers;
+  const href = `/tenders/${encodeURIComponent(lineage.unp)}`;
+
   return (
-    <section className="rounded-xl border bg-card p-4 shadow-sm space-y-2.5">
+    <section className="rounded-xl border bg-card p-4 shadow-sm space-y-3">
       <h2 className="text-sm font-semibold flex items-center gap-2">
         <ClipboardList className="h-4 w-4 text-indigo-600" />
         {t("tender_lineage_title") || "Originating procedure"}
       </h2>
+
       {est ? (
         <div>
           <p className="text-xs uppercase tracking-wide text-muted-foreground">
             {t("tender_estimated_value") || "Estimated value (forecast)"}
           </p>
           <p className="text-lg font-bold tabular-nums">{est}</p>
+          {sharePct != null ? (
+            <div className="mt-2">
+              <div className="h-1.5 rounded-full bg-muted overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-primary"
+                  style={{ width: `${Math.min(sharePct, 100)}%` }}
+                />
+              </div>
+              <p className="mt-1 text-[11px] text-muted-foreground">
+                {t("tender_fa_share", {
+                  p: sharePct,
+                  defaultValue: "Signed for {{p}}% of the forecast.",
+                })}
+              </p>
+            </div>
+          ) : null}
         </div>
       ) : null}
-      <dl className="space-y-1 text-sm">
+
+      <dl className="space-y-2 text-sm border-t pt-3">
         {lineage.lotsCount && lineage.lotsCount > 1 ? (
-          <KvRow
-            label={t("tender_lots") || "Lots"}
-            value={<span className="tabular-nums">{lineage.lotsCount}</span>}
-          />
-        ) : null}
-        <KvRow
-          label={t("tender_status") || "Status"}
-          value={
-            <span className={lineage.isCancelled ? "text-amber-600" : ""}>
-              {statusLabel}
+          <div className="flex items-center justify-between">
+            <span className="flex items-center gap-2 text-muted-foreground">
+              <Layers className="h-4 w-4" />
+              {t("tender_lots") || "Lots"}
             </span>
-          }
-        />
-        <KvRow
-          label={t("tender_announced") || "Announced"}
-          value={lineage.publicationDate}
-        />
-        <KvRow
-          label={t("tender_unp") || "Procedure no."}
-          value={<span className="font-mono text-xs">{lineage.unp}</span>}
-        />
+            <span className="tabular-nums">
+              {lineage.lotsCount}
+              {lotNum ? (
+                <span className="text-muted-foreground">
+                  {" "}
+                  ·{" "}
+                  {t("tender_lineage_this_lot", {
+                    n: lotNum,
+                    defaultValue: "this is №{{n}}",
+                  })}
+                </span>
+              ) : null}
+            </span>
+          </div>
+        ) : null}
+
+        {bids != null ? (
+          <div className="flex items-center justify-between">
+            <span className="flex items-center gap-2 text-muted-foreground">
+              <Users className="h-4 w-4" />
+              {t("contract_bids") || "Bids"}
+            </span>
+            <span className="tabular-nums">
+              {bids === 1 ? (
+                <span className="rounded-full bg-red-50 px-2 py-0.5 text-[11px] font-medium text-red-700 dark:bg-red-950 dark:text-red-300">
+                  {bids} · {t("contract_bids_single_short") || "single bidder"}
+                </span>
+              ) : (
+                bids
+              )}
+            </span>
+          </div>
+        ) : null}
+
+        <div className="flex items-center justify-between">
+          <span className="flex items-center gap-2 text-muted-foreground">
+            <GitPullRequest className="h-4 w-4" />
+            {t("tender_lineage_amendments") || "Amendments"}
+          </span>
+          <span className="tabular-nums text-muted-foreground">
+            {amendmentCount}
+          </span>
+        </div>
+
+        <div className="flex items-center justify-between">
+          <span className="flex items-center gap-2 text-muted-foreground">
+            <Gavel className="h-4 w-4" />
+            {t("tender_appeals_title") || "КЗК appeals"}
+          </span>
+          {underAppeal ? (
+            <span className="rounded-full bg-red-50 px-2 py-0.5 text-[11px] font-medium text-red-700 dark:bg-red-950 dark:text-red-300">
+              {t("tender_under_appeal") || "Under appeal (КЗК)"}
+            </span>
+          ) : (
+            <span className="tabular-nums text-muted-foreground">
+              {lineage.appeals.length}
+            </span>
+          )}
+        </div>
       </dl>
-      <p className="text-[11px] text-muted-foreground/80">
-        {t("tender_lineage_hint") ||
-          "Estimated (announced) value of the whole procedure — a forecast, not what this contract was signed for."}
-      </p>
-      {lineage.linkToOjEu ? (
-        <a
-          href={lineage.linkToOjEu}
-          target="_blank"
-          rel="noreferrer"
-          className="text-primary hover:underline inline-flex items-center gap-0.5 text-xs"
-        >
-          {t("tender_view_ted") || "View on TED"}{" "}
-          <ExternalLink className="h-3 w-3" />
-        </a>
-      ) : null}
+
+      <Link
+        to={href}
+        className="flex items-center justify-center gap-1.5 rounded-md border border-primary/40 py-2 text-sm font-medium text-primary hover:bg-primary/5"
+      >
+        {t("tender_lineage_view") || "View procedure"}
+        <ArrowRight className="h-4 w-4" />
+      </Link>
+
+      <div className="flex items-center justify-between text-[11px] text-muted-foreground/80">
+        <span>
+          {t("tender_announced") || "Announced"} {lineage.publicationDate}
+        </span>
+        {lineage.linkToOjEu ? (
+          <a
+            href={lineage.linkToOjEu}
+            target="_blank"
+            rel="noreferrer"
+            className="text-primary hover:underline inline-flex items-center gap-0.5"
+          >
+            {t("tender_view_ted") || "View on TED"}{" "}
+            <ExternalLink className="h-3 w-3" />
+          </a>
+        ) : null}
+      </div>
     </section>
   );
 };

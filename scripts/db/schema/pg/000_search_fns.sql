@@ -96,3 +96,40 @@ $$
     ELSE 'other'
   END;
 $$;
+
+-- Rebuild the contracts_list serving view (SELECT c.* + КЗК appeal flags) from a
+-- single definition. A `SELECT c.*` view freezes its column list at creation, so
+-- it must be recreated whenever a column is added to `contracts` (e.g. 049 unp,
+-- 050 lot_name). Migrations 042 (appeals) and 050 both need to rebuild it, and
+-- "whichever runs last wins" is only safe if they rebuild it identically — so the
+-- body lives here, called by both, instead of being duplicated. Applied first by
+-- both loaders (FN_FILE), so it exists before either caller. plpgsql bodies are
+-- validation-deferred, so referencing the appeals matviews here is fine even on a
+-- contracts-/appeals-less DB; the guards adapt at call time.
+CREATE OR REPLACE FUNCTION rebuild_contracts_list() RETURNS void AS $fn$
+BEGIN
+  IF to_regclass('public.contracts') IS NULL THEN
+    RETURN;
+  END IF;
+  DROP VIEW IF EXISTS contracts_list;
+  IF to_regclass('public.appealed_ocids') IS NOT NULL
+     AND to_regclass('public.upheld_ocids') IS NOT NULL THEN
+    EXECUTE $v$
+      CREATE VIEW contracts_list AS
+        SELECT c.*,
+          (ao.ocid IS NOT NULL) AS has_appeal,
+          (uo.ocid IS NOT NULL) AS appeal_upheld
+        FROM contracts c
+        LEFT JOIN appealed_ocids ao ON ao.ocid = c.ocid
+        LEFT JOIN upheld_ocids uo ON uo.ocid = c.ocid
+    $v$;
+  ELSE
+    EXECUTE $v$
+      CREATE VIEW contracts_list AS
+        SELECT c.*, false AS has_appeal, false AS appeal_upheld
+        FROM contracts c
+    $v$;
+  END IF;
+  EXECUTE 'GRANT SELECT ON contracts_list TO app_readonly';
+END;
+$fn$ LANGUAGE plpgsql;

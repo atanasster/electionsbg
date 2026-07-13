@@ -1540,6 +1540,11 @@ export type ProcurementContract = {
    * USD/GBP/CHF rows, which the UI shows natively. See src/lib/currency.ts. */
   amountEur?: number;
   title: string;
+  /** Fuller per-lot description recovered from the УНП-matched tender's
+   *  lots[].name (АОП truncates the lot tail welded into `title`). Present only
+   *  for contracts whose title carries an "Обособена позиция N" marker that
+   *  resolves to a tender lot. See scripts/db/schema/pg/050_contract_lot_name.sql. */
+  lotName?: string;
   cpv?: string;
   procurementMethod?: string;
   /** OCDS `tender.procurementMethodRationale` — buyer's stated reason for a

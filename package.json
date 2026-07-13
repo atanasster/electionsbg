@@ -32,6 +32,7 @@
     "test:mobile": "playwright test --project=mobile",
     "test:data": "NODE_OPTIONS=--max-old-space-size=4096 tsx --test scripts/db/tests/*.data.test.ts",
     "test:nzok": "tsx --test scripts/nzok/*.test.ts",
+    "test:lib": "tsx --test src/lib/*.test.ts",
     "db:manifest": "tsx scripts/db/manifest.ts --full",
     "db:refresh": "npm run db:pg:up && npm run db:load:pg && npm run db:load:tenders:pg && npm run db:load:funds:pg && npm run db:load:awarder-seats:pg && npm run db:load:schools:pg && npm run test:data",
     "db:pg:up": "docker compose up -d",

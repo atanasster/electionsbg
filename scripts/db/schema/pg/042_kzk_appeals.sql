@@ -156,30 +156,14 @@ CREATE MATERIALIZED VIEW upheld_ocids AS
 CREATE UNIQUE INDEX IF NOT EXISTS idx_upheld_ocids ON upheld_ocids(ocid);
 GRANT SELECT ON upheld_ocids TO app_readonly;
 
--- contracts_list depends on the `contracts` table, which may not exist yet (a
--- tenders-only load applies this file before any contract load). CREATE VIEW
--- validates its body EAGERLY — check_function_bodies=off defers only FUNCTION
--- bodies, not view bodies — so a bare statement would roll back the whole file on
--- a contracts-less DB and break loadTendersPg's "durable load without contracts"
--- invariant. Guard behind to_regclass and build via dynamic SQL; DROP-first for
--- the same `SELECT c.*` reapply-safety as tenders_list above.
-DO $do$
-BEGIN
-  IF to_regclass('public.contracts') IS NOT NULL THEN
-    DROP VIEW IF EXISTS contracts_list;
-    EXECUTE $v$
-      CREATE VIEW contracts_list AS
-        SELECT c.*,
-          (ao.ocid IS NOT NULL) AS has_appeal,
-          (uo.ocid IS NOT NULL) AS appeal_upheld
-        FROM contracts c
-        LEFT JOIN appealed_ocids ao ON ao.ocid = c.ocid
-        LEFT JOIN upheld_ocids uo ON uo.ocid = c.ocid
-    $v$;
-    EXECUTE 'GRANT SELECT ON contracts_list TO app_readonly';
-  END IF;
-END
-$do$;
+-- contracts_list (SELECT c.* + appeal flags) is rebuilt by the shared
+-- rebuild_contracts_list() (000_search_fns.sql) so this migration and 050
+-- (lot_name) never drift. It guards on `contracts` existing (a tenders-only load
+-- applies this file before any contract load — CREATE VIEW validates its body
+-- eagerly, so a bare statement would roll back the whole file on a contracts-less
+-- DB) and DROP-first rebuilds for `SELECT c.*` reapply-safety. Now that the
+-- appeals matviews above exist, it picks the branch with the real appeal flags.
+SELECT rebuild_contracts_list();
 
 -- Browse view for the /procurement/appeals DbDataTable (resource kzk_appeals in
 -- functions/db_table.js). The whole appeals corpus + the tender-derived
