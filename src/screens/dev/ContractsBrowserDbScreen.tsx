@@ -89,6 +89,15 @@ export const ContractsBrowserDbScreen: FC = () => {
   });
   const methodOptions = facetData?.facets?.procurement_method ?? [];
   const cpvOptions = facetData?.facets?.cpv ?? [];
+  // A deep link can seed a sub-division CPV prefix (e.g. ?cpv=71311 from the
+  // "how normal is this?" panel). The facet list is 2-digit divisions only, so
+  // surface that prefix as its own option — otherwise the Select trigger renders
+  // blank even though the prefix filter is active.
+  const cpvSelectOptions = useMemo(() => {
+    if (cpvDiv === ALL || cpvOptions.some((o) => o.value === cpvDiv))
+      return cpvOptions;
+    return [{ value: cpvDiv, count: -1 }, ...cpvOptions];
+  }, [cpvOptions, cpvDiv]);
 
   const extraFilters = useMemo<DbColumnFilter[]>(() => {
     const f: DbColumnFilter[] = [...windowFilter];
@@ -250,9 +259,11 @@ export const ContractsBrowserDbScreen: FC = () => {
                     <SelectItem value={ALL}>
                       {t("company_contracts_all_cpv") || "Всички сектори (CPV)"}
                     </SelectItem>
-                    {cpvOptions.map((o) => (
+                    {cpvSelectOptions.map((o) => (
                       <SelectItem key={o.value} value={o.value}>
-                        {cpvDivisionName(o.value, i18n.language)} ({o.count})
+                        {o.count >= 0
+                          ? `${cpvDivisionName(o.value, i18n.language)} (${o.count})`
+                          : `CPV ${o.value} · ${cpvDivisionName(o.value, i18n.language)}`}
                       </SelectItem>
                     ))}
                   </SelectContent>

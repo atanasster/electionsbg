@@ -174,7 +174,7 @@ export const ConnectedContractorCard: FC<{
           {e.contractorName}
         </Link>
         <span className="text-xs text-muted-foreground">
-          EIK {e.contractorEik}
+          {t("eik")} {e.contractorEik}
         </span>
         <span className="ml-auto text-sm tabular-nums font-medium">
           {formatEurWithOther(e.totalEur, e.totalOther, i18n.language)}

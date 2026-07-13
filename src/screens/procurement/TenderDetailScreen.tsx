@@ -741,7 +741,7 @@ export const TenderDetailScreen: FC = () => {
               >
                 {tender.buyerName}{" "}
                 <span className="text-xs text-muted-foreground">
-                  EIK {tender.buyerEik}
+                  {t("eik")} {tender.buyerEik}
                 </span>
               </Link>
             }

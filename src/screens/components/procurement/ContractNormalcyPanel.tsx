@@ -405,8 +405,11 @@ export const ContractNormalcyPanel: FC<{ contractKey?: string }> = ({
           </span>
         </div>
         {cohort ? (
+          // Deep-link the CPV-PREFIX filter (cpv LIKE '<prefix>%') + full corpus
+          // — ?q= is free-text (won't match a CPV code), and ?pscope only takes
+          // year/all/parliament, so "all years" is the closest to the era cohort.
           <Link
-            to={`/procurement/contracts?q=${encodeURIComponent(cohort.cpvPrefix)}`}
+            to={`/procurement/contracts?cpv=${encodeURIComponent(cohort.cpvPrefix)}&pscope=all`}
             className="text-primary hover:underline"
           >
             {bg ? "Виж сходни поръчки" : "Browse similar"}

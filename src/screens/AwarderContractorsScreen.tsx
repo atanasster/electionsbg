@@ -113,7 +113,7 @@ export const AwarderContractorsScreen: FC = () => {
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Receipt className="h-4 w-4" />
             <Link to={`/awarder/${data.eik}`} className="hover:underline">
-              EIK {data.eik}
+              {t("eik")} {data.eik}
             </Link>
             <span>
               · {t("awarder_top_contractors") || "Top contractors paid"}

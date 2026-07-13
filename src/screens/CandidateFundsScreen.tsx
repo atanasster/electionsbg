@@ -92,7 +92,7 @@ export const CandidateFundsScreen: FC = () => {
                   {e.beneficiaryName}
                 </Link>
                 <span className="text-xs text-muted-foreground">
-                  EIK {e.beneficiaryEik}
+                  {t("eik")} {e.beneficiaryEik}
                 </span>
                 <span className="ml-auto text-sm font-medium tabular-nums">
                   {formatEur(e.contractedEur)}

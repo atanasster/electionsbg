@@ -195,6 +195,11 @@ $$;
 -- same ROUND(…,4). Cohort partition key = (cpv-prefix, era). One row per signed
 -- contract; served by PK.
 -- --------------------------------------------------------------------------
+-- Build with generous memory so the member-rank sorts stay in RAM. Cloud SQL's
+-- small default work_mem spilled them to disk (~15 min); in RAM it is ~1-2 min.
+-- Session-scoped, so this only affects the apply/load connection.
+SET maintenance_work_mem = '1GB';
+SET work_mem = '256MB';
 DROP MATERIALIZED VIEW IF EXISTS procurement_normalcy_cache CASCADE;
 CREATE MATERIALIZED VIEW procurement_normalcy_cache AS
   WITH base_all AS (

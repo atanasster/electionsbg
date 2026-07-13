@@ -140,7 +140,7 @@ export const ContractDetailScreen: FC = () => {
               <Link to={`/company/${c.awarderEik}`} className="hover:underline">
                 {c.awarderName}{" "}
                 <span className="text-xs text-muted-foreground">
-                  EIK {c.awarderEik}
+                  {t("eik")} {c.awarderEik}
                 </span>
               </Link>
             }
@@ -154,7 +154,7 @@ export const ContractDetailScreen: FC = () => {
               >
                 {c.contractorName}{" "}
                 <span className="text-xs text-muted-foreground">
-                  EIK {c.contractorEik}
+                  {t("eik")} {c.contractorEik}
                 </span>
               </Link>
             }

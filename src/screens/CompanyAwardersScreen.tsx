@@ -106,7 +106,7 @@ export const CompanyAwardersScreen: FC = () => {
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Building2 className="h-4 w-4" />
             <Link to={`/company/${data.eik}`} className="hover:underline">
-              EIK {data.eik}
+              {t("eik")} {data.eik}
             </Link>
             <span>· {t("company_top_awarders") || "Top awarders"}</span>
           </div>
