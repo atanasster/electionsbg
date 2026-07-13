@@ -27,13 +27,14 @@ function is Module 1 (rules + statistics); the AI narration tool is Module 2.
 - **Adaptive CPV prefix.** Start at the finest CPV prefix (8→5→4→3→2) whose
   cohort still has ≥30 rows; a wider prefix never has fewer, so "finest with
   n≥30" is well-defined. The header names the prefix + n used.
-- **Full-history CPV-prefix cohort** (migration 064). v1 used a per-target ±30-
-  month era window, but that made every contract's cohort unique and forced a
-  live per-request scan. The cohort is now all contracts sharing the prefix — the
-  header shows the prefix's full year span. Value is nominal EUR across years, but
-  value is the neutral/descriptive metric; the competition metrics are era-robust.
-  A bonus: the bigger cohort gives sparse metrics (bidder count, ~54% coverage)
-  enough sample to actually be read instead of "малка извадка".
+- **(CPV-prefix × era) cohort** (migration 064). v1 used a per-target ±30-month
+  window, but that made every contract's cohort unique and forced a live per-
+  request scan. The cohort is now all contracts sharing the prefix AND the same
+  era bucket (pre-2015 / 2015–2019 / 2020+) — era-matched (procurement value
+  drifts with inflation) yet set-based/cacheable. Concentration stays all-time (a
+  supplier's lifetime share of a buyer isn't an era question). The finest-prefix
+  n≥30 floor is evaluated within the era, so era slices surface the sub-30 "малко
+  сходни" caveat more often — the accepted cost of era-fairness.
 - `tag='contract'` only; the target is a member of its own cohort (never counts in
   "strictly below", so percentiles are unaffected beyond the +1 in the denominator).
 - **Percentile** = share of the cohort strictly below the target value.
