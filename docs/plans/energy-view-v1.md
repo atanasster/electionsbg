@@ -74,11 +74,69 @@ Everything below was checked against current code + the live corpus before this 
     revenue** are recoverable only from БЕХ's consolidated annual report + the annual Council-of-
     Ministers dividend РМС — a Tier-C/D curated ingest (§2), the defense mega-programs analogue.
 
-11. **Still genuinely open:** (a) budget node slug `admin-ministerstvo-na-energetikata` is a GUESS —
-   confirm against the emitted `data/budget/ministries/` tree before the bridge tile
-   ([[project_budget_execution_scope]]). (b) Does `/energy` warrant its own OG capture + route_def, or
-   is the БЕХ awarder OG card enough for Phase 1? Decide at Phase 2 (defense gave the screen its own).
-   (c) ENTSO-E API needs a free registered key — scope who owns the credential before wiring live gen.
+11. **Budget nodes CONFIRMED (2026-07-14).** `data/budget/ministries/admin-ministerstvo-na-energetikata.json`
+    exists — the slug in `ENERGY_BUDGET_NODE` is real, not a guess. Bonus: КЕВР has its own node
+    `admin-komisiya-za-energiyno-i-vodno-regulirane.json`, so the regulator's budget is separately
+    trackable. Still open: (b) does Energy warrant a bespoke `/energy` screen or the config-only
+    `/sector/energy` (see Audit rev 2.0 — the new default)? (c) ENTSO-E API needs a free registered
+    key — scope who owns the credential before wiring live generation.
+
+---
+
+## Audit rev 2.0 (2026-07-14) — sectors-UI refactor migration (SUPERSEDES §3, §5, §6, §7 below)
+
+The sectors/procurement UI was refactored after this plan's first draft. Three load-bearing
+assumptions in §3/§5/§6 are now **stale** — corrections here win over the older prose:
+
+1. **A config-driven `/sector/:id` dashboard now exists — it is Energy's natural home, no bespoke
+   screen needed.** `src/routes.tsx` → `path="sector/:id"` → `SectorDashboardScreen`, which reads
+   `getSectorDashboard(id)` from `src/screens/sector/sectorDashboards.ts` (`SECTOR_DASHBOARDS:
+   Record<id, SectorDashboardConfig>`). A sector is **declared as config, not code**:
+   `{ id, titleKey, descKey, agency, leadEik, members: [{eik,name,group?}], browsePackId?, ThematicTiles? }`.
+   The dashboard fetches `useAwarderGroupModel(memberEiks, …)` and renders a KPI row + spend-by-year +
+   top-contractors generically — **no `EnergyPack`, no `energyAttributes.ts`, no `useEnergy.tsx`
+   required** for a first cut (the generic path uses a one-bucket classifier). A rich `EnergyPack`
+   becomes an *optional upgrade* registered under `[ENERGY_GROUP_EIK]` in `PACKS`.
+
+2. **`ProcurementThematicNav` (the "Zap pill") is DELETED — strike it from the plan.** The file no
+   longer exists. Navigation is now a **hierarchy breadcrumb** (`SectorBreadcrumb.tsx`,
+   `SECTORS_HUB_PATH="/governance/sectors"`) + a `/procurement` hub + the government-sector hub
+   `/governance/sectors` (`GovernanceSectorsScreen`). To surface Energy you register it in the sector
+   **registries**, not a pill: `sectorRegistry.ts` (a `Sector` tile + cluster + optional
+   `FEATURED_SECTOR_IDS`) and `sectorScenes.tsx` (a decorative scene, else the hub tile is blank).
+
+3. **Scope moved to `@/data/scope/` and was renamed** (refactor `dffe1be90`). `useProcurementScope`
+   → **`useScope()`** (`{scope,setScope}`, `scopeYear`) + **`useScopeWindow()`** (half-open
+   `{from,to,all,year,selected}`); URL param stays `?pscope`; `SCOPE_FIRST_YEAR=2011`. The component
+   `ProcurementScopeControl` → **`ScopeControl`** (`src/screens/components/ScopeControl.tsx`, same
+   `mode="toggle"|"corpus"` + controlled props). On `/sector/:id` scope is **URL-backed** (mount
+   `<ScopeControl mode="toggle" />`), not local state — so the §5 "local-state DefenseScreen pattern"
+   is superseded for the config path (still true only if a bespoke screen is chosen).
+
+4. **The awarder/disbursement split resolves the old БЕХ-lead awkwardness cleanly.**
+   `CompanyDbScreen` computes `showPack = SectorPack && !sectorDash`: when an awarder **is** a sector
+   lead, its domain pack is **suppressed** on `/awarder/:eik` (the page stays the institution's own ЗОП
+   financials) and it cross-links to `/sector/:id` where the group/disbursement view lives. So БЕХ's
+   `/awarder/831373560` stays a thin institution page (€0 anyway) and **all the energy narrative lives
+   at `/sector/energy`** — exactly right. ⚠ Caveat: the group model rolls up `members`, but the
+   generic "lead hero / top-contractor" copy assumes lead spend; since БЕХ leads with €0, footnote
+   that the KPIs are the folded member group, not the lead's own contracts.
+
+5. **New shared tiles to reuse** (all `src/screens/components/procurement/`, props verified):
+   `ProcurementSectionHeader` (breadcrumb+scope chrome), `SectorBrowseSlot` (`{pack,scope}` above the
+   browse table), `TopAwardersTile`/`TopContractorsTile`/`TopMpsTile`/`TopConnectedPeopleTile`
+   (`{data?|byNs?}` — self-fetch when undefined), `RiskBadges` (`{result, variant:"chips"|"full"}` —
+   the explainable CRI meter), `WatchlistDigestTile`, `normalcyStrip` kit + `ContractNormalcyPanel`,
+   `treemapCell`, `SettlementProcurementTile`. These render generically off the corpus — free tiles.
+
+6. **Updated add-Energy checklist (replaces §6/checklist "pill" line):**
+   (i) `sectorDashboards.ts` → `SECTOR_DASHBOARDS.energy` config (leadEik=`ENERGY_GROUP_EIK`,
+   members from `ENERGY_ENTITIES`, `browsePackId:"energy"`); (ii) `sectorPacks.tsx` →
+   `SECTOR_BROWSE_PACKS.energy = {id, label, eiks: ENERGY_SECTOR_EIKS}` (+ optional `PACKS[ENERGY_GROUP_EIK]`);
+   (iii) `sectorRegistry.ts` → a `Sector` tile in an infra/energy cluster (+ maybe `FEATURED_SECTOR_IDS`);
+   (iv) `sectorScenes.tsx` → an `energy` scene; (v) i18n `sector_energy_title`/`_desc`;
+   (vi) `useSectorStats` → an `energy` headline metric for the hub tile; (vii) server `?sector=`
+   allow-list add `energy`; (viii) parity-check + prerender **only if** a bespoke `EnergyPack` ships.
 
 ---
 
@@ -326,29 +384,73 @@ picker; do not add one** ([[feedback_no_native_select]] applies to the year Sele
   `src/lib/` ([[project_ai_chat_tools]]).
 - **Data map:** add an energy SOURCE_GROUP + DATASET + cross-dataset edges (budget→energy,
   funds→energy) + `/^\/energy\//` AI_PATH_RULE.
-- **SEO:** one `INSTITUTION_PACKS` entry for БЕХ auto-wires sitemap + prerender + OG
-  ([[feedback_static_seo]]); the `/energy` screen (if built) needs its own route_def + OG capture
-  (anchor `data-og="energy-hero"`). Prerender the hero's live figures into the crawlable body
-  (judiciary precedent). Note: the БЕХ awarder page is thin (0 contracts) — the pack IS its body.
+- **SEO:** the `/sector/energy` dashboard carries the OG card + prerender (anchor
+  `data-og="energy-hero"`); prerender the hero's live figures into the crawlable body (judiciary
+  precedent) ([[feedback_static_seo]]). Per Audit rev 2.0, `/awarder/831373560` (БЕХ) stays a thin
+  institution page — the pack is **suppressed** there and cross-links to `/sector/energy`, so the
+  sector dashboard (not the awarder page) is the indexable body.
 
 ---
 
-## 7. Phasing
+## 7. Phasing (updated to the config-first grammar — Audit rev 2.0)
 
-- **Phase 1 (~½–1d):** register БЕХ EIK + `EnergyPack` skeleton off `awarder_group_model` (KPI row,
-  per-unit spend hero, the invisible-€14bn call-out, generic tiles free). Nav Zap pill +
-  `SECTOR_BROWSE_PACKS` entry + parity-check row. Everything renders off Tier-A, **zero new ingest**.
-- **Phase 2 (~1-2d):** `/energy` screen + generation mix (Ember) + Eurostat household-price tile +
-  budget/dividends bridge via update-budget. The physics+prices differentiator lands here.
+- **Phase 1 (~½d, config-only):** `SECTOR_DASHBOARDS.energy` + `SECTOR_BROWSE_PACKS.energy` +
+  `sectorRegistry`/`sectorScenes`/i18n/`useSectorStats`/server `?sector=` entries. Renders the KPI
+  row + spend-by-year + per-unit spend + top-contractors/MPs/normalcy **generically** off
+  `awarder_group_model` — **zero new code beyond config, zero ingest**. `/sector/energy` is live.
+- **Phase 2 (~1-2d):** optional `EnergyPack` under `[ENERGY_GROUP_EIK]` for the signature tiles the
+  generic dashboard can't express — the **invisible-€14bn call-out**, per-fuel unit split, the
+  gas-source composition — + generation mix (Ember) + Eurostat household-price tile + budget/dividends
+  bridge. The physics+prices differentiator lands here.
 - **Phase 3 (~1-2d):** geopolitics band (gas sources, Balkan Stream, nuclear fuel) + coal-exit/JTF
-  band + ENTSO-E live tile + BEH-enterprise tile + AI tools + watchers. Cabinet anchoring last.
+  band + ENTSO-E live tile + revenue-return (EITI-style) tile + AI tools + watchers. Cabinet
+  anchoring last. Decide bespoke `/energy` screen vs config-dashboard here (default: stay config).
 
-## 8. Competitive positioning
+## 8. Civic-energy platform scan (competitive research, 2026-07-14)
 
-Nobody fuses the four layers for BG. **ENTSO-E / Ember** = physics only, pan-EU, not in BG, no money.
-**IBEX/КЕВР** = prices only, short window, no accountability. **IME/ИПИ** ([[project_competitor_ime]])
-= fiscal transparency, no physical-system or entity-money view. **sigma.midt.bg** is a re-skin of the
-same АОП data we already hold ([[reference_sigma_platform]]). Global refs are single-layer. We are the
-only place that puts **the power system + the bills + the €9.76bn of spending + the €14bn you cannot
-see + the geopolitics** in one Bulgarian frame. Position = **"Цялата енергетика на едно място — и
-парите, които не се виждат."**
+A full sweep of the best civic/public energy-transparency platforms, with what each does well and
+the one thing it lacks that we cover. **None fuse physics + bills + procurement + governance.**
+
+| Platform | Layer(s) | Best-in-class feature | Gap (our wedge) |
+|---|---|---|---|
+| **Electricity Maps** (app.electricitymaps.com) | Physics, live | Real-time carbon-intensity map, 15-min updates; click-zone → mix + import/export flows; time-range history; open-source parsers | No money, no accountability, no BG-specific entity view |
+| **Our World in Data — Energy Explorer** | Physics, annual | 207 country profiles, decarbonization progress, per-capita, imports/demand; CC-BY; superb embed/download UX | No procurement, no prices-to-consumer, no entity accountability |
+| **Ember** (Electricity Data Explorer + EU interconnection tool) | Physics, annual/monthly | The open dataset everyone else builds on (CC-BY 4.0); cross-border interconnection map | Macro only; no money/governance |
+| **Global Energy Monitor** | Physics, asset-level | **25 interactive maps, 182K facilities**; asset-level trackers (Coal/Gas/Nuclear) with capacity, ownership, financing, **phase-out timelines** | No procurement, no bills, not integrated with fiscal data |
+| **ENTSO-E Transparency Platform** | Physics, raw | EU-mandated raw feeds (gen/load/flows/balancing/day-ahead), free API | Unusable for citizens; no money/governance |
+| **EITI — Extractive Industries Transparency Initiative** | Governance | SOE **financial-transfers** standard: dividends, taxes, subsidies, royalties, off-budget/quasi-fiscal; beneficial-ownership; procurement-compliance; an SOE database | Reporting-cycle lag; no live physical system or live procurement |
+| **IBEX / КЕВР** | Market/prices | BG wholesale day-ahead; regulated retail tariff decisions | Prices only, short window, no context or accountability |
+| **IME/ИПИ** ([[project_competitor_ime]]) · **sigma.midt.bg** ([[reference_sigma_platform]]) | Money (BG) | Fiscal transparency / an АОП re-skin of data we already hold | No physical-system or energy-entity money view |
+
+**Positioning:** we are the only place that puts **the power system + the household bill + the
+€9.76bn of state spending + the €14bn you cannot see + the SOE dividends + the political connections**
+in one Bulgarian frame. Position = **"Цялата енергетика на едно място — и парите, които не се виждат."**
+
+## 9. Suggestions for improvement — adoptable features, ranked by impact/cost
+
+Each maps to a data tier from §2; cheap-and-high-impact first.
+
+1. **★ "Откъде идва токът в момента" live-mix tile** (steal Electricity Maps' click-zone panel):
+   current generation mix + net import/export, from ENTSO-E (Tier C) or a daily Ember snapshot
+   (Tier B). Even a last-known daily figure delivers the wow. High impact, moderate cost.
+2. **★ Carbon-intensity headline (gCO₂/kWh) + trend** — Electricity Maps' signature metric; Ember
+   has the series. Ties the coal phase-out to a number citizens feel. Cheap (Tier B).
+3. **★ Consumption-vs-production framing** — BG is a **net exporter**; "we export X TWh; our own
+   footprint is Y" (Electricity Maps' core insight) is a strong, underused BG story. Cheap.
+4. **★ SOE financial-transfers panel (EITI taxonomy)** — upgrade the §4 revenue-return tile to the
+   EITI transfer set: dividend-to-State, taxes, subsidies received, off-budget/quasi-fiscal — and
+   **disclose what is NOT reported** (EITI's own honesty rule). Differentiator; Tier C/D.
+5. **★ Board/beneficial-ownership → connections graph** — an EITI requirement we can already meet:
+   БЕХ + subsidiary boards wired into the existing connections graph → political links. Tier A-ish
+   (bounded by [[project_tr_officer_coverage_ceiling]]; disclose coverage).
+6. **Asset-level plant tracker** (GEM's model): a table/map of each generating unit — Козлодуй 5/6,
+   Марица-изток 2 blocks, hydro cascades — capacity, fuel, commissioning, planned retirement,
+   emissions. Accountability at asset grain. Data: GEM (CC) + our own curation. Tier C.
+7. **Phase-out / transition timeline** (GEM) paired with **JTF money** from our existing funds data —
+   the coal-exit clock with the transition € beside it. Tier B/C.
+8. **Retail-bill decomposition** — "what's in your ток сметка": energy + мрежа + задължения към
+   обществото (ЗЗД) + ДДС. Eurostat components + КЕВР. Citizen-facing, high shareability. Tier B.
+9. **Cross-border flow map** (Ember interconnection tool) — BG exports to GR/RS/RO/TR/MK. Tier C.
+10. **Open-data + embeddable charts** — mirror OWID/Ember's CC-BY openness: CSV download + `<iframe>`
+    embed on each tile. Builds reach and directly attacks the [[project_seo_discovery_gap]]. Cheap.
+11. **Day-ahead price ticker** — IBEX/ENTSO-E wholesale vs КЕВР-regulated spread. Tier C.
