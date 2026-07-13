@@ -140,6 +140,42 @@ assumptions in §3/§5/§6 are now **stale** — corrections here win over the o
 
 ---
 
+## Audit rev 3.0 (2026-07-14) — pre-build readiness (decisions LOCKED, surface re-verified)
+
+Read every file to be touched against live code. Scope decided: **config `/sector/energy` + signature
+corpus tiles (ThematicTiles) + physics ingest (Ember mix + Eurostat prices); FEATURED on the hub.**
+
+1. **`SECTOR_DASHBOARDS.energy` — 9 members, БЕХ lead.** The generic dashboard rolls up
+   `config.members` (NOT a separate set), so `members` MUST list the whole group: БЕХ (lead, €0) +
+   Козлодуй `106513772`, ТЕЦ Марица 2 `123531939`, Мини Марица `833017552`, НЕК `000649348`, ВЕЦ
+   Козлодуй `106588180`, ЕСО `175201304`, Булгартрансгаз `175203478`, Булгаргаз `175203485` — each
+   with a `group` label from `ENERGY_UNIVERSE_LABEL`. Ministry/JV/heat/regulators + the ЕСО branch
+   `1752013040` are excluded from members (branch € is ~€64K, immaterial); `browsePackId:"energy"`
+   uses the full `ENERGY_SECTOR_EIKS` (incl. branch) for the contracts-browse completeness.
+2. **NO server allow-list edit** — `?sector=` passes the browse pack's EIK-set as an `awarder_eik IN`
+   fixed filter (`functions/db_table.js`; `awarder_eik` is `filter:"in"`). Strike that step.
+3. **`sector_stats.ts` generator has a HARDCODED `SECTOR_EIKS` map** (`scripts/db/gen_procurement/`),
+   NOT auto-derived from the config. Add `energy: ENERGY_SECTOR_EIKS` + import, then **rebuild**
+   `npm run db:gen-sector-stats` (needs local PG up) → the committed+bucket-synced
+   `data/procurement/derived/sector_stats.json`. Without this the hub tile shows no headline €.
+4. **New accent token needed** — all 15 `TILE_ACCENTS` are used; add a warm `copper` for energy
+   (`tileAccents.ts`), distinct from clay/teal/steel in the infra cluster. Eyeball on both grounds.
+5. **New scene required** — add an `Energy` vignette to `sectorScenes.tsx` + `SECTOR_SCENES` (else the
+   hub tile is blank). Pylon + power lines + atom/bolt, 300×116, `currentColor`/`var(--sector)`/`PAPER`.
+6. **FEATURED** — add `"energy"` to `FEATURED_SECTOR_IDS` (at €9.76bn it outranks most of the current
+   six). Cluster: `sectors_cluster_infra`.
+7. **Signature tiles via `ThematicTiles`** (no bespoke `EnergyPack` needed): a corpus-only component
+   rendering the invisible-€14bn call-out, per-unit spend bar, and single-bid gauge, mounted between
+   the KPI row and the awarders tile. Physics tiles (Ember mix, Eurostat price) join it once ingested.
+8. **Physics sources confirmed viable:** Eurostat household prices (`nrg_pc_204/205`) drop into the
+   `fetch_eurostat.ts` indicator-list pattern (already fetches HICP-energy); Ember/OWID generation mix
+   is a stable CC-BY CSV → a new `scripts/energy/` fetch writing `data/energy/`.
+9. **Build order:** (A) skeleton — config + registry + scene + accent + i18n + stats generator →
+   `/sector/energy` live & FEATURED; (B) `ThematicTiles` signature corpus tiles; (C) `update-energy`
+   ingest → Ember mix + Eurostat price tiles. Commit each slice; verify render at A.
+
+---
+
 ## 0. The one-line thesis
 
 **БЕХ is the biggest state-commercial buyer in the country (€9.76bn, bigger than the МО group) and
