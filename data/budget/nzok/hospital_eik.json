@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-10T20:00:41.199Z",
+  "generatedAt": "2026-07-13T23:05:09.456Z",
   "source": {
     "partners": "НЗОК договорни партньори (reports.nhif.bg/nhif_reports/nhif_partners) — Рег.№ ЛЗ + управител + седалище",
     "register": "Търговски регистър (tr_companies/tr_officers) — EIK. Match verified by manager + type + legal form; famous cases hand-verified."
@@ -7,7 +7,7 @@
   "note": "No public register carries BOTH the НЗОК Рег.№ ЛЗ and the EIK, so this is a high-precision verified match, not an authoritative lookup. Unmatched facilities carry eik:null.",
   "facilityCount": 381,
   "matchedCount": 266,
-  "distinctEikCount": 257,
+  "distinctEikCount": 258,
   "matchedEur": 880584607,
   "matchedEurShare": 93.5,
   "entries": [
@@ -165,18 +165,18 @@
     },
     {
       "regNo": "0204211027",
-      "eik": "201328272",
+      "eik": "200800019",
       "name": "\"УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ ДЕВА МАРИЯ\" ЕООД",
       "settlement": "Гр.Бургас",
-      "method": "manager",
+      "method": "override",
       "confidence": "high"
     },
     {
       "regNo": "0204211031",
-      "eik": "201351100",
+      "eik": "201834348",
       "name": "\"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ Д-Р МАДЖУРОВ\" ООД",
       "settlement": "Гр.Бургас",
-      "method": "manager",
+      "method": "override",
       "confidence": "high"
     },
     {
@@ -277,10 +277,10 @@
     },
     {
       "regNo": "0215232030",
-      "eik": "206249359",
+      "eik": "102835135",
       "name": "\"СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА РЕХАБИЛИТАЦИЯ \"НЕСЕБЪР\"АД",
       "settlement": "Гр.Несебър",
-      "method": "unique",
+      "method": "override",
       "confidence": "high"
     },
     {
@@ -1285,10 +1285,10 @@
     },
     {
       "regNo": "1524211019",
-      "eik": "202284487",
+      "eik": "114521594",
       "name": "\"УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"СВЕТА МАРИНА\"-ПЛЕВЕН\" ООД",
       "settlement": "Гр.Плевен",
-      "method": "manager",
+      "method": "override",
       "confidence": "high"
     },
     {

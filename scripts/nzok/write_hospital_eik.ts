@@ -77,6 +77,16 @@ const MANUAL_OVERRIDES: Record<string, string | null> = {
   "1432211001": "113513858", // МБАЛ Рахила Ангелова, Перник
   "1224211003": "130128163", // МБАЛ Свети Николай Чудотворец, Лом
   "2201212011": "000664332", // УСБАЛ по ендокринология Акад. Иван Пенчев, София
+  // ── Corrections: the manager/name matcher collapsed a hospital onto a
+  // co-managed медицински център (or, for Несебър, a same-town veterinary
+  // clinic) with a far smaller EIK — verified against the ГФО revenue (the
+  // matched EIK's filed revenue was a fraction of its НЗОК payments) and the TR
+  // legal name. Each Рег.№ below is the УМБАЛ/МБАЛ/СБР facility; the EIK is the
+  // болница, not the center. (2026-07-14)
+  "0204211027": "200800019", // УМБАЛ Дева Мария, Бургас (was МЦ Дева Мария 201328272)
+  "1524211019": "114521594", // УМБАЛ Св. Марина – Плевен ООД (was МЦ Св. Марина 202284487)
+  "0204211031": "201834348", // МБАЛ Д-р Маджуров (was МЦ Д-р Маджуров 201351100)
+  "0215232030": "102835135", // СБР – Несебър АД (was Ветеринарна клиника Несебър 206249359)
 };
 
 // ── Text normalisation (mirrors the offline prototype exactly).
