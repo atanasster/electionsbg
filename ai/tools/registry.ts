@@ -73,6 +73,7 @@ import {
   defenseReadiness,
   defensePeerCompare,
 } from "./defense";
+import { generationMix, electricityPrices } from "./energy";
 import { riverbedCleaning } from "./vik";
 import { ngoOverview, ngoTopFunded, ngoConflictAwarders } from "./ngo";
 import { governments } from "./govpeople";
@@ -2153,6 +2154,36 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: defensePeerCompare,
+  },
+  {
+    name: "generationMix",
+    domain: "indicators",
+    description: {
+      bg: "Производството на електроенергия в България по източник (ядрена, въглища, ВЕИ), нетният износ на ток и въглеродният интензитет — по данни на Ember.",
+      en: "Bulgaria's electricity generation mix by source (nuclear, coal, renewables), net electricity exports and carbon intensity — from Ember data.",
+    },
+    params: [],
+    examples: [
+      { bg: "Откъде идва токът в България?", en: "Where does Bulgaria's electricity come from?" }, // prettier-ignore
+      { bg: "Колко ток произвеждаме от ядрена енергия?", en: "How much electricity is nuclear?" }, // prettier-ignore
+      { bg: "България внася ли или изнася ток?", en: "Does Bulgaria import or export electricity?" }, // prettier-ignore
+    ],
+    run: generationMix,
+  },
+  {
+    name: "electricityPrices",
+    domain: "indicators",
+    description: {
+      bg: "Цената на тока за домакинствата в България спрямо средното за ЕС (с всички данъци, EUR/kWh) — по данни на Евростат.",
+      en: "The household electricity price in Bulgaria vs the EU average (all taxes, EUR/kWh) — from Eurostat.",
+    },
+    params: [],
+    examples: [
+      { bg: "Колко струва токът в България спрямо ЕС?", en: "How expensive is electricity in Bulgaria vs the EU?" }, // prettier-ignore
+      { bg: "Скъп ли е токът за домакинствата?", en: "Is household electricity expensive?" }, // prettier-ignore
+      { bg: "Каква е цената на електроенергията?", en: "What is the electricity price?" }, // prettier-ignore
+    ],
+    run: electricityPrices,
   },
   {
     name: "nzokDrugs",

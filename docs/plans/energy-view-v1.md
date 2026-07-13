@@ -22,7 +22,7 @@ Everything below was checked against current code + the live corpus before this 
 1. **БЕХ parent (`831373560`) awards ZERO ЗОП** — confirmed active in `tr_companies`, but a pure
    holding with no procurement footprint. It is the pack's **group anchor** (like `MOD_EIK`): landing
    `/awarder/831373560` folds `ENERGY_SECTOR_EIKS`; the holding's own header € will read ~0 while the
-   pack shows the **€9.76bn group** — this delta MUST be footnoted (the defense МО-proper-vs-МО-group
+   pack shows the **€8.96bn group** — this delta MUST be footnoted (the defense МО-proper-vs-МО-group
    precedent). Single subsidiary EIKs (Козлодуй, ЕСО…) show the generic awarder page, no pack.
 
 2. **The signature caveat is MEASURED, not hypothetical.** `АЕЦ Козлодуй – Нови мощности ЕАД`
@@ -44,10 +44,11 @@ Everything below was checked against current code + the live corpus before this 
    Козлодуй €78M, ПГ по ядрена енергетика, МБАЛ Козлодуй, ИЯИЯЕ, ЕВН/Веолия heat, Овергаз €185M). Curate
    **by EIK allowlist, never regex** — the defense-pack lesson holds verbatim here.
 
-6. **`number_of_tenderers` gating required.** The group is **35% single-bid** (3,362 of 9,584
-   bid-known of 19,892 contracts) — a real red-flag headline, but coverage is partial. Gate single-bid
-   share on `cpv_competition.json` (Fazekas competitive-markets-only) and disclose the covered `n` on
-   the tile, exactly as defense/roads do. Do not render a bare % over an unknown denominator.
+6. **`number_of_tenderers` gating required.** The group is **36% single-bid** (3,339 of 9,400
+   bid-known of 19,727 contracts, tag='contract' basis) — a real red-flag headline, but coverage is
+   partial. Disclose the covered `n` on the tile (SHIPPED — the tile shows "3,339 of 9,400"), as
+   defense/vik do. (The plan originally called for `cpv_competition.json` Fazekas gating, but the
+   shipped sibling packs disclose bid coverage instead of CPV-gating — the tile follows that convention.)
 
 7. **Scope Dec-31 handling is ALREADY correct on the awarder page.** `CompanyDbScreen` derives a
    half-open `packWindow` (`y:YYYY` → `{from:YYYY-01-01, to:(YYYY+1)-01-01}`) before handing it to the
@@ -69,8 +70,8 @@ Everything below was checked against current code + the live corpus before this 
 
 10. **Revenue-return to the state is NOT company-attributable in ingested data.** The budget KFP carries
     only aggregate non-tax lines ("Приходи и доходи от собственост", "Други неданъчни приходи") — no
-    file attributes revenue to БЕХ or any EIK (the "данъци върху дивидентите" line is corporate *tax
-    on* dividends, a different thing). Per-company **dividend-to-the-State** + **Балкански поток transit
+    file attributes revenue to БЕХ or any EIK (the "данъци върху дивидентите" line is corporate _tax
+    on_ dividends, a different thing). Per-company **dividend-to-the-State** + **Балкански поток transit
     revenue** are recoverable only from БЕХ's consolidated annual report + the annual Council-of-
     Ministers dividend РМС — a Tier-C/D curated ingest (§2), the defense mega-programs analogue.
 
@@ -91,12 +92,12 @@ assumptions in §3/§5/§6 are now **stale** — corrections here win over the o
 1. **A config-driven `/sector/:id` dashboard now exists — it is Energy's natural home, no bespoke
    screen needed.** `src/routes.tsx` → `path="sector/:id"` → `SectorDashboardScreen`, which reads
    `getSectorDashboard(id)` from `src/screens/sector/sectorDashboards.ts` (`SECTOR_DASHBOARDS:
-   Record<id, SectorDashboardConfig>`). A sector is **declared as config, not code**:
+Record<id, SectorDashboardConfig>`). A sector is **declared as config, not code**:
    `{ id, titleKey, descKey, agency, leadEik, members: [{eik,name,group?}], browsePackId?, ThematicTiles? }`.
    The dashboard fetches `useAwarderGroupModel(memberEiks, …)` and renders a KPI row + spend-by-year +
    top-contractors generically — **no `EnergyPack`, no `energyAttributes.ts`, no `useEnergy.tsx`
    required** for a first cut (the generic path uses a one-bucket classifier). A rich `EnergyPack`
-   becomes an *optional upgrade* registered under `[ENERGY_GROUP_EIK]` in `PACKS`.
+   becomes an _optional upgrade_ registered under `[ENERGY_GROUP_EIK]` in `PACKS`.
 
 2. **`ProcurementThematicNav` (the "Zap pill") is DELETED — strike it from the plan.** The file no
    longer exists. Navigation is now a **hierarchy breadcrumb** (`SectorBreadcrumb.tsx`,
@@ -162,7 +163,7 @@ corpus tiles (ThematicTiles) + physics ingest (Ember mix + Eurostat prices); FEA
    (`tileAccents.ts`), distinct from clay/teal/steel in the infra cluster. Eyeball on both grounds.
 5. **New scene required** — add an `Energy` vignette to `sectorScenes.tsx` + `SECTOR_SCENES` (else the
    hub tile is blank). Pylon + power lines + atom/bolt, 300×116, `currentColor`/`var(--sector)`/`PAPER`.
-6. **FEATURED** — add `"energy"` to `FEATURED_SECTOR_IDS` (at €9.76bn it outranks most of the current
+6. **FEATURED** — add `"energy"` to `FEATURED_SECTOR_IDS` (at €8.96bn it outranks most of the current
    six). Cluster: `sectors_cluster_infra`.
 7. **Signature tiles via `ThematicTiles`** (no bespoke `EnergyPack` needed): a corpus-only component
    rendering the invisible-€14bn call-out, per-unit spend bar, and single-bid gauge, mounted between
@@ -178,25 +179,25 @@ corpus tiles (ThematicTiles) + physics ingest (Ember mix + Eurostat prices); FEA
 
 ## 0. The one-line thesis
 
-**БЕХ is the biggest state-commercial buyer in the country (€9.76bn, bigger than the МО group) and
+**БЕХ is the biggest state-commercial buyer in the country (€8.96bn, bigger than the МО group) and
 the crossroads of everything the site already tracks — physics, market prices, geopolitics, the green
 transition, household bills — yet the single largest energy investment in Bulgarian history is
 completely invisible in the tender corpus.**
 
-Energy is the natural *umbrella sector*: no BG player fuses the **physical system** (generation mix,
+Energy is the natural _umbrella sector_: no BG player fuses the **physical system** (generation mix,
 net exports), the **market** (IBEX wholesale + КЕВР-regulated bills), **geopolitics** (Russian gas →
-Azeri/LNG, Balkan Stream transit, nuclear-fuel diversification), and the **money** (€9.76bn
+Azeri/LNG, Balkan Stream transit, nuclear-fuel diversification), and the **money** (€8.96bn
 procurement + BEH dividends to the fiscus) into one accountability frame. ENTSO-E/Ember give the
 physics for free; nobody stitches it to the procurement corpus we already own.
 
 The signature finding, measured:
 
-| Entity | In АОП corpus | Reality |
-|---|---|---|
+| Entity                                              | In АОП corpus        | Reality                                                                                                                          |
+| --------------------------------------------------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | **АЕЦ Козлодуй – Нови мощности** (AP1000 units 7/8) | **€0 / 0 contracts** | A **~€14bn** new-build program — the biggest energy capex ever, procured through bespoke/intergovernmental channels outside ЦАИС |
 
 That gap **is** the thesis (the transport "invisible builder" / defense "sustainment-not-acquisition"
-analogue, cleaner data): "You can see €9.76bn of state energy spending — but the €14bn that will
+analogue, cleaner data): "You can see €8.96bn of state energy spending — but the €14bn that will
 define the next 60 years of Bulgarian power is procured where you cannot look."
 
 ---
@@ -207,42 +208,50 @@ Curate **by EIK allowlist, never name regex**. Three universes; never conflate. 
 `src/lib/energyReferenceData.ts`.
 
 ### Universe A — БЕХ state energy group (the folded procurement pack)
-| Entity | EIK | Corpus €m | n | Universe |
-|---|---|---|---:|---|
-| Булгартрансгаз ЕАД | **175203478** | 2,680.2 | 980 | gas — transmission |
-| ЕСО ЕАД (+ branch `1752013040`) | **175201304** | 2,587.1 | 4,564 | grid |
-| АЕЦ Козлодуй ЕАД | **106513772** | 1,713.7 | 3,740 | nuclear |
-| ТЕЦ Марица изток 2 ЕАД | **123531939** | 740.8 | 1,857 | coal — thermal |
-| Мини Марица-изток ЕАД | **833017552** | 495.3 | 802 | coal — mining |
-| НЕК ЕАД | **000649348** | 325.6 | 1,926 | hydro + public trader |
-| Булгаргаз ЕАД | **175203485** | 6.7 | 80 | gas — public supply |
-| ВЕЦ Козлодуй ЕАД | **106588180** | 0.8 | 10 | hydro |
-| Български енергиен холдинг ЕАД (БЕХ) | **831373560** | 0 | 0 | holding anchor |
-| **Group subtotal (folded, excl. ministry)** | — | **~9,760** | **19,892** | 35% single-bid |
+
+| Entity                                                      | EIK           | Corpus €m  |          n | Universe              |
+| ----------------------------------------------------------- | ------------- | ---------- | ---------: | --------------------- |
+| Булгартрансгаз ЕАД                                          | **175203478** | 2,680.2    |        980 | gas — transmission    |
+| ЕСО ЕАД (+ branch `1752013040`)                             | **175201304** | 2,587.1    |      4,564 | grid                  |
+| АЕЦ Козлодуй ЕАД                                            | **106513772** | 1,713.7    |      3,740 | nuclear               |
+| ТЕЦ Марица изток 2 ЕАД                                      | **123531939** | 740.8      |      1,857 | coal — thermal        |
+| Мини Марица-изток ЕАД                                       | **833017552** | 495.3      |        802 | coal — mining         |
+| НЕК ЕАД                                                     | **000649348** | 325.6      |      1,926 | hydro + public trader |
+| Булгаргаз ЕАД                                               | **175203485** | 6.7        |         80 | gas — public supply   |
+| ВЕЦ Козлодуй ЕАД                                            | **106588180** | 0.8        |         10 | hydro                 |
+| Български енергиен холдинг ЕАД (БЕХ)                        | **831373560** | 0          |          0 | holding anchor        |
+| **Group subtotal (folded, excl. ministry), tag='contract'** | —             | **~8,957** | **19,727** | 36% single-bid        |
+
+> The per-EIK € above are an all-tags probe; the subtotal + the UI use the `tag='contract'` serving
+> basis (amendments excluded, ~9% lower — see [[reference_procurement_eur_sum_basis]]).
 
 ### Universe B — Principal & regulators (context, NOT folded into the group total)
-| Entity | EIK | Corpus €m | n | Role |
-|---|---|---|---:|---|
-| Министерство на енергетиката | **176789460** | 4.8 | 127 | Ministry / principal owner of БЕХ |
-| Агенция за устойчиво енергийно развитие (АУЕР) | **121459246** | 4.7 | 25 | Energy-efficiency & RES agency |
-| Агенция за ядрено регулиране (АЯР) | **000697567** | 2.8 | 60 | Nuclear-safety regulator |
-| КЕВР (енергийно и водно регулиране) | **130098909** | 0.9 | 51 | Price/licence regulator |
+
+| Entity                                         | EIK           | Corpus €m |   n | Role                              |
+| ---------------------------------------------- | ------------- | --------- | --: | --------------------------------- |
+| Министерство на енергетиката                   | **176789460** | 4.8       | 127 | Ministry / principal owner of БЕХ |
+| Агенция за устойчиво енергийно развитие (АУЕР) | **121459246** | 4.7       |  25 | Energy-efficiency & RES agency    |
+| Агенция за ядрено регулиране (АЯР)             | **000697567** | 2.8       |  60 | Nuclear-safety regulator          |
+| КЕВР (енергийно и водно регулиране)            | **130098909** | 0.9       |  51 | Price/licence regulator           |
 
 ### Universe C — District heating (a SEPARATE sector; ownership MIXED; own optional band)
-| Entity | EIK | Corpus €m | Ownership |
-|---|---|---:|---|
-| Топлофикация София ЕАД | **831609046** | 578.9 | **municipal** (Столична община) |
-| Топлофикация Русе / Бургас / Плевен / Сливен / Враца / Перник / В.Търново / Габрово / Разград | (see ref file) | ~90 total | state (МЕ) — **verify** |
-| ЕВН България Топлофикация (Пловдив) `115016602`, Веолия Варна `103195446` | — | ~88 | **private — excluded** |
+
+| Entity                                                                                        | EIK            | Corpus €m | Ownership                       |
+| --------------------------------------------------------------------------------------------- | -------------- | --------: | ------------------------------- |
+| Топлофикация София ЕАД                                                                        | **831609046**  |     578.9 | **municipal** (Столична община) |
+| Топлофикация Русе / Бургас / Плевен / Сливен / Враца / Перник / В.Търново / Габрово / Разград | (see ref file) | ~90 total | state (МЕ) — **verify**         |
+| ЕВН България Топлофикация (Пловдив) `115016602`, Веолия Варна `103195446`                     | —              |       ~88 | **private — excluded**          |
 
 ### Universe D — Joint ventures (state-linked, NOT wholly owned → cross-link, not rollup)
+
 - **Ай Си Джи Би АД (ICGB / IGB interconnector) `201383265` — €13.7M / 42 c.** 50% БЕХ (via
   Булгартрансгаз) / 50% IGI Poseidon; awards under its OWN EIK. Excluded from the group total
   (half-private — the water Sofia-concession precedent); surface as a labelled cross-link.
-  *(Verified: Чирен storage + Балкански поток capex, by contrast, run INSIDE Булгартрансгаз —
-  €367.3M / 189 c — so no separate storage/pipeline awarder exists.)*
+  _(Verified: Чирен storage + Балкански поток capex, by contrast, run INSIDE Булгартрансгаз —
+  €367.3M / 189 c — so no separate storage/pipeline awarder exists.)_
 
 ### Invisible / excluded (measured, call out — never silently fold)
+
 - **АЕЦ Козлодуй – Нови мощности `202671079`** — €0 corpus; the ~€14bn AP1000 story (§0).
 - **БНЕБ/IBEX** (БЕХ subsidiary, energy exchange) — no material ЗОП footprint.
 - **Овергаз мрежи `130533432` (€185M)** + the three electricity ЕРП distributors — **private**.
@@ -252,12 +261,14 @@ Curate **by EIK allowlist, never name regex**. Three universes; never conflate. 
 ## 2. Data sources, tiered by ingest cost
 
 **Tier A — already ingested, zero pipeline (the MVP renders entirely off this):**
+
 - The АОП/ЦАИС procurement corpus — every Universe-A/B entity is already an awarder. Group model,
   CPV/procedure mix, single-bid, HHI, per-unit rollup, tenders, КЗК appeals, MP-connected all come
   free via `buildAwarderModel` + the generic awarder tiles + `awarder_group_model` (migration 061,
   generic over any EIK set — **no new SQL**).
 
 **Tier B — structured, one parser each (Phase 2):**
+
 - **Generation mix + net exports + emissions — Ember** (CC-BY 4.0, one CSV download; 215 countries,
   yearly + monthly). The "Bulgaria is a net electricity **exporter**" headline, coal share, CO₂
   intensity. Cheapest high-impact ingest.
@@ -276,6 +287,7 @@ Curate **by EIK allowlist, never name regex**. Three universes; never conflate. 
   (defense mega-programs pattern) — one PDF/decision per year, no machine feed.
 
 **Tier C — recurring API / scrape (watcher candidates, Phase 3):**
+
 - **ENTSO-E Transparency API** (free registered key) — real-time generation by fuel, load,
   cross-border flows, day-ahead price. Powers a "power system right now" tile and the IBEX overlay.
 - **IBEX/БНЕБ day-ahead** price & volume (rolling 3-month) — wholesale-vs-regulated spread.
@@ -283,8 +295,9 @@ Curate **by EIK allowlist, never name regex**. Three universes; never conflate. 
   path. No clean API — Eurostat is the reliable spine; КЕВР is the annotation.
 
 **Tier D — manual/annotated overlay (no feed):**
+
 - **Козлодуй 7/8 (AP1000)** + **Балкански поток transit** + **nuclear-fuel diversification**
-  (TVEL → Westinghouse/Framatome) — curated mega-program registry, *absent by design* from ЦАИС (the
+  (TVEL → Westinghouse/Framatome) — curated mega-program registry, _absent by design_ from ЦАИС (the
   defense mega-programs analogue). Publicly reported milestones, not procurement rows.
 - **JTF / Just Transition Fund** coal-region money — via the existing ИСУН funds pipeline
   ([[project_funds_pg_migration]]); Marica-East transition absorption.
@@ -316,7 +329,7 @@ Two halves, both patterns already shipped:
    `ProcurementScopeControl` → scoped procurement tiles → unscoped physics/price national tiles →
    cross-link strip. Add the **Zap** pill to `ProcurementThematicNav`, a `energy`
    `SECTOR_BROWSE_PACKS` entry (`?sector=energy` → `ENERGY_SECTOR_EIKS`) so `/procurement/contracts`
-   + `/tenders` filter to energy, and the управление/държавни-сектори hub entry.
+   - `/tenders` filter to energy, and the управление/държавни-сектори hub entry.
 
 Reuse verbatim: `PackSection` (stacked bands), `StatCard` KPI row, `RevenueCompositionBar` (the
 composition hero), `InsightChips`, the loading skeleton, per-tile `hasModel` gating, `useHashScroll`
@@ -339,17 +352,17 @@ who they buy from → who supplies the fuel → the exit from coal**.
    IBEX wholesale price overlaid and the Eurostat EU-peer band — answers "why is my bill this much".
    The revenue/price-composition analogue of the NZOK budget bridge (BEST-in-repo bridge pattern).
 
-3. **★ Follow the money — БЕХ group at a glance.** `StatCard` row (group € €9.76bn · single-bid share
+3. **★ Follow the money — БЕХ group at a glance.** `StatCard` row (group € €8.96bn · single-bid share
    [gated, `n` shown] · direct-award share · top-5 supplier HHI band · tenders count) + a per-unit
    spend bar (Булгартрансгаз / ЕСО / Козлодуй / Марица комплекс / НЕК). Universe Select
    ("група / без газ / ядрена / въглища / …") drives it. Delta-vs-БЕХ-header footnote (audit §1).
 
 4. **★ The invisible €14bn.** One honest KPI+chip: "Козлодуй 7/8 (AP1000): ~€14 млрд планирана
    инвестиция — €0 в търговете. Най-голямата енергийна инвестиция в историята се възлага извън ЦАИС."
-   Show it as a *labelled dashed bar* next to the visible group € so the gap is the subject.
+   Show it as a _labelled dashed bar_ next to the visible group € so the gap is the subject.
 
 5. **★ Geopolitics of gas.** Gas-source composition over time (Gazprom → Azeri via IGB → LNG) as a
-   stacked bar + **Балкански поток transit** revenue (Булгартрансгаз) — the one place БЕХ *earns*
+   stacked bar + **Балкански поток transit** revenue (Булгартрансгаз) — the one place БЕХ _earns_
    transit money. Nuclear-fuel diversification (TVEL → Westinghouse/Framatome) as a program timeline
    (the `DefenseProgramsTile` pattern).
 
@@ -360,10 +373,10 @@ who they buy from → who supplies the fuel → the exit from coal**.
 7. **What each entity buys — CPV/procedure breakdown** (generic `ProcurementBreakdownTile`) +
    **single-bid competition gauge** per buyer (green <35 / amber / red ≥60, gated on coverage).
 
-8. **★ The money that flows back** (Phase 3): the one sector that *earns* as well as spends —
+8. **★ The money that flows back** (Phase 3): the one sector that _earns_ as well as spends —
    **БЕХ dividend to the State** (declared to the sole owner in the consolidated report + the annual
    dividend РМС) + **Балкански поток transit revenue** (Булгартрансгаз) + the aggregate SOE
-   property-income budget line for context. A revenue-in tile contrasting the €9.76bn spend hero (the
+   property-income budget line for context. A revenue-in tile contrasting the €8.96bn spend hero (the
    transport toll-revenue-tile analogue). Disclose that the dividend figure is per-company from the
    annual report, not the KFP (audit §10).
 
@@ -408,7 +421,7 @@ picker; do not add one** ([[feedback_no_native_select]] applies to the year Sele
 - **Storage:** procurement is already PG (zero work). Tier-B/C artifacts (generation mix, prices,
   emissions) → static JSON under `data/energy/` (small; no `recordIngestBatch`), except the budget +
   dividends line which goes through `update-budget` → `data/budget/energy/`. [[feedback_pg_changelog_required]]
-  only bites if any *new PG-migrated* dataset is added.
+  only bites if any _new PG-migrated_ dataset is added.
 - **Reference-data file:** `src/lib/energyReferenceData.ts` (SHIPPED). Add `energyAttributes.ts`
   (classifier + model folders) at build.
 - **Parity:** add `EnergyPack` to `scripts/defense/__parity_check.ts` `PACKS` so the
@@ -447,19 +460,19 @@ picker; do not add one** ([[feedback_no_native_select]] applies to the year Sele
 A full sweep of the best civic/public energy-transparency platforms, with what each does well and
 the one thing it lacks that we cover. **None fuse physics + bills + procurement + governance.**
 
-| Platform | Layer(s) | Best-in-class feature | Gap (our wedge) |
-|---|---|---|---|
-| **Electricity Maps** (app.electricitymaps.com) | Physics, live | Real-time carbon-intensity map, 15-min updates; click-zone → mix + import/export flows; time-range history; open-source parsers | No money, no accountability, no BG-specific entity view |
-| **Our World in Data — Energy Explorer** | Physics, annual | 207 country profiles, decarbonization progress, per-capita, imports/demand; CC-BY; superb embed/download UX | No procurement, no prices-to-consumer, no entity accountability |
-| **Ember** (Electricity Data Explorer + EU interconnection tool) | Physics, annual/monthly | The open dataset everyone else builds on (CC-BY 4.0); cross-border interconnection map | Macro only; no money/governance |
-| **Global Energy Monitor** | Physics, asset-level | **25 interactive maps, 182K facilities**; asset-level trackers (Coal/Gas/Nuclear) with capacity, ownership, financing, **phase-out timelines** | No procurement, no bills, not integrated with fiscal data |
-| **ENTSO-E Transparency Platform** | Physics, raw | EU-mandated raw feeds (gen/load/flows/balancing/day-ahead), free API | Unusable for citizens; no money/governance |
-| **EITI — Extractive Industries Transparency Initiative** | Governance | SOE **financial-transfers** standard: dividends, taxes, subsidies, royalties, off-budget/quasi-fiscal; beneficial-ownership; procurement-compliance; an SOE database | Reporting-cycle lag; no live physical system or live procurement |
-| **IBEX / КЕВР** | Market/prices | BG wholesale day-ahead; regulated retail tariff decisions | Prices only, short window, no context or accountability |
-| **IME/ИПИ** ([[project_competitor_ime]]) · **sigma.midt.bg** ([[reference_sigma_platform]]) | Money (BG) | Fiscal transparency / an АОП re-skin of data we already hold | No physical-system or energy-entity money view |
+| Platform                                                                                    | Layer(s)                | Best-in-class feature                                                                                                                                                | Gap (our wedge)                                                  |
+| ------------------------------------------------------------------------------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| **Electricity Maps** (app.electricitymaps.com)                                              | Physics, live           | Real-time carbon-intensity map, 15-min updates; click-zone → mix + import/export flows; time-range history; open-source parsers                                      | No money, no accountability, no BG-specific entity view          |
+| **Our World in Data — Energy Explorer**                                                     | Physics, annual         | 207 country profiles, decarbonization progress, per-capita, imports/demand; CC-BY; superb embed/download UX                                                          | No procurement, no prices-to-consumer, no entity accountability  |
+| **Ember** (Electricity Data Explorer + EU interconnection tool)                             | Physics, annual/monthly | The open dataset everyone else builds on (CC-BY 4.0); cross-border interconnection map                                                                               | Macro only; no money/governance                                  |
+| **Global Energy Monitor**                                                                   | Physics, asset-level    | **25 interactive maps, 182K facilities**; asset-level trackers (Coal/Gas/Nuclear) with capacity, ownership, financing, **phase-out timelines**                       | No procurement, no bills, not integrated with fiscal data        |
+| **ENTSO-E Transparency Platform**                                                           | Physics, raw            | EU-mandated raw feeds (gen/load/flows/balancing/day-ahead), free API                                                                                                 | Unusable for citizens; no money/governance                       |
+| **EITI — Extractive Industries Transparency Initiative**                                    | Governance              | SOE **financial-transfers** standard: dividends, taxes, subsidies, royalties, off-budget/quasi-fiscal; beneficial-ownership; procurement-compliance; an SOE database | Reporting-cycle lag; no live physical system or live procurement |
+| **IBEX / КЕВР**                                                                             | Market/prices           | BG wholesale day-ahead; regulated retail tariff decisions                                                                                                            | Prices only, short window, no context or accountability          |
+| **IME/ИПИ** ([[project_competitor_ime]]) · **sigma.midt.bg** ([[reference_sigma_platform]]) | Money (BG)              | Fiscal transparency / an АОП re-skin of data we already hold                                                                                                         | No physical-system or energy-entity money view                   |
 
 **Positioning:** we are the only place that puts **the power system + the household bill + the
-€9.76bn of state spending + the €14bn you cannot see + the SOE dividends + the political connections**
+€8.96bn of state spending + the €14bn you cannot see + the SOE dividends + the political connections**
 in one Bulgarian frame. Position = **"Цялата енергетика на едно място — и парите, които не се виждат."**
 
 ## 9. Suggestions for improvement — adoptable features, ranked by impact/cost

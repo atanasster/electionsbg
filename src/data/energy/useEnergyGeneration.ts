@@ -5,25 +5,9 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
+import type { EnergyGeneration } from "./types";
 
-export interface EnergyYear {
-  year: number;
-  byFuel: Record<string, number>;
-  totalGen: number | null;
-  demand: number | null;
-  /** Negative = net exporter. */
-  netImports: number | null;
-  co2Intensity: number | null; // gCO2/kWh
-  totalEmissions: number | null; // mtCO2
-}
-
-export interface EnergyGeneration {
-  updated: string;
-  source: string;
-  sourceUrl: string;
-  latestYear: number;
-  years: EnergyYear[];
-}
+export type { EnergyYear, EnergyGeneration } from "./types";
 
 export const useEnergyGeneration = () =>
   useQuery({

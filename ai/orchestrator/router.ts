@@ -958,6 +958,14 @@ export const route = (question: string, ctx: ToolContext): Route => {
   // comparison — "спрямо" is a compare trigger, but here it belongs to the
   // pension-series tool below, so skip the compare block for pension context.
   if (isCompare && !has(q, "пенси", "pension")) {
+    // Electricity-price-vs-EU is served by the dedicated electricityPrices tool
+    // (it already carries the EU line), not the generic euComparison — let it
+    // fall through to the energy block below.
+    const elecPriceHere =
+      has(q, "ток", "електроенерг", "electricity") &&
+      !has(q, "поток", "проток") &&
+      has(q, "цена", "струва", "скъп", "тарифа", "price", "cost", "expensive");
+    if (elecPriceHere) return { tool: "electricityPrices", args: {} };
     // an indicator framed against the EU / peers -> the peer comparison (before
     // the election-vs-election default below swallows "сравни безработицата…").
     if (
@@ -2074,6 +2082,44 @@ export const route = (question: string, ctx: ToolContext): Route => {
       if (!dsCue && resolveBudgetFunction(q)) break defenseBlock;
       // Default — the %GDP path (the "колко харчим за отбрана" headline).
       return { tool: "defenseSpending", args: {} };
+    }
+  }
+  // energy physics (the /sector/energy tiles) — the generation mix / net trade
+  // and the household electricity price. Physics-focused cues only, so procurement
+  // ("колко харчи БЕХ за поръчки") falls through to the generic procurement tools.
+  {
+    // "ток" (electricity) guarded against "поток" (flow) / "проток".
+    const tokCue = has(q, "ток") && !has(q, "поток", "проток");
+    const energyCtx =
+      has(
+        q,
+        "електроенерг",
+        "енергетик",
+        "енергиен микс",
+        "производство на ток",
+        "генерация на ток",
+        "ядрена енерг",
+        "electricity",
+        "generation mix",
+        "energy mix",
+        "power generation",
+      ) || tokCue;
+    if (energyCtx) {
+      const priceCue = has(
+        q,
+        "цена",
+        "струва",
+        "скъп",
+        "тарифа",
+        "сметка",
+        "price",
+        "cost",
+        "tariff",
+        "bill",
+        "expensive",
+      );
+      if (priceCue) return { tool: "electricityPrices", args: {} };
+      return { tool: "generationMix", args: {} };
     }
   }
   // pension statistics (the /pensions view) — the size distribution, the regional

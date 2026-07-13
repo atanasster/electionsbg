@@ -4,20 +4,9 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
+import type { EnergyPrices } from "./types";
 
-export interface PricePoint {
-  period: string; // e.g. "2025-S2"
-  value: number; // EUR/kWh
-}
-
-export interface EnergyPrices {
-  updated: string;
-  source: string;
-  sourceUrl: string;
-  unit: string;
-  latest: string;
-  series: { BG: PricePoint[]; EU27: PricePoint[] };
-}
+export type { PricePoint, EnergyPrices } from "./types";
 
 export const useEnergyPrices = () =>
   useQuery({

@@ -368,6 +368,16 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Незаетите щатни бройки в армията са ${f(env, "vacancy")}, а доброволният резерв е запълнен едва ${f(env, "reserve_fill")}. През ${f(env, "budget_year")} г. ${f(env, "personnel_budget")} отиват за личен състав и ${f(env, "capital_budget")} за техника.`
         : `Unfilled army posts stand at ${f(env, "vacancy")}, and the voluntary reserve is only ${f(env, "reserve_fill")} manned. In ${f(env, "budget_year")}, ${f(env, "personnel_budget")} went to personnel and ${f(env, "capital_budget")} to equipment.`;
+    case "generationMix":
+      if (!env.facts.latest_year) return env.title;
+      return lang === "bg"
+        ? `През ${f(env, "latest_year")} г. токът в България е ${f(env, "nuclear_pct")} ядрен, ${f(env, "coal_pct")} от въглища и ${f(env, "renewables_pct")} от ВЕИ, при общо ${f(env, "total_twh")} TWh. Страната е с ${f(env, "net_trade_dir")} от ${f(env, "net_trade_twh")}, а въглеродният интензитет е ${f(env, "co2_intensity")}.`
+        : `In ${f(env, "latest_year")}, Bulgaria's electricity was ${f(env, "nuclear_pct")} nuclear, ${f(env, "coal_pct")} coal and ${f(env, "renewables_pct")} renewables, at ${f(env, "total_twh")} TWh total. The country runs a ${f(env, "net_trade_dir")} of ${f(env, "net_trade_twh")}, and carbon intensity is ${f(env, "co2_intensity")}.`;
+    case "electricityPrices":
+      if (!env.facts.bg_price) return env.title;
+      return lang === "bg"
+        ? `Цената на тока за домакинствата в България е ${f(env, "bg_price")} (${f(env, "period")}), спрямо ${f(env, "eu_price")} средно за ЕС — тоест ${f(env, "pct_of_eu")} от средното, сред най-ниските в съюза.`
+        : `Bulgaria's household electricity price is ${f(env, "bg_price")} (${f(env, "period")}), vs ${f(env, "eu_price")} for the EU average — ${f(env, "pct_of_eu")} of it, among the lowest in the union.`;
     case "nzokDrugs":
       if (!env.facts.top_inn) return env.title;
       return lang === "bg"
