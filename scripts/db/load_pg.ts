@@ -102,6 +102,10 @@ const PROC_NORMALCY_FILE = path.join(
   SCHEMA_DIR,
   "063_procurement_normalcy.sql",
 );
+const PROC_NORMALCY_CACHE_FILE = path.join(
+  SCHEMA_DIR,
+  "064_procurement_normalcy_cache.sql",
+);
 const GOVERNMENTS_FILE = path.join(PROC_DIR, "..", "governments.json");
 const DEBARRED_FILE = path.join(PROC_DIR, "debarred.json");
 const monthShardDir = path.join(PROC_DIR, "contracts");
@@ -186,6 +190,7 @@ export const loadPg = async (): Promise<{
   await exec(readFileSync(PROC_BENCHMARKS_FILE, "utf8"));
   await exec(readFileSync(SECTOR_PEERS_WINDOW_FILE, "utf8"));
   await exec(readFileSync(PROC_NORMALCY_FILE, "utf8"));
+  await exec(readFileSync(PROC_NORMALCY_CACHE_FILE, "utf8"));
 
   const { rows, years } = readShards();
   let batchId = 0;
@@ -410,6 +415,12 @@ export const loadPg = async (): Promise<{
   await exec("REFRESH MATERIALIZED VIEW procurement_overview_cache");
   await exec("REFRESH MATERIALIZED VIEW procurement_rankings_cache");
   await exec("REFRESH MATERIALIZED VIEW procurement_by_settlement_cache");
+  // Per-contract "how normal is this procurement?" payloads (064) — CONCURRENTLY
+  // so a reload never blocks the contract-detail panel on the ~25s rebuild (the
+  // unique index on key makes it eligible).
+  await exec(
+    "REFRESH MATERIALIZED VIEW CONCURRENTLY procurement_normalcy_cache",
+  );
   // The awarder K-Index ranking (built by migration 039 in load_tr_pg) is
   // computed FROM this contract corpus, so it must track a contract reload too —
   // otherwise a procurement-only re-ingest leaves the ranking (and the AI

@@ -27,14 +27,31 @@ function is Module 1 (rules + statistics); the AI narration tool is Module 2.
 - **Adaptive CPV prefix.** Start at the finest CPV prefix (8→5→4→3→2) whose
   cohort still has ≥30 rows; a wider prefix never has fewer, so "finest with
   n≥30" is well-defined. The header names the prefix + n used.
-- **Era-matched window.** Target date ±30 months. Sargable on the text `date`
-  via `idx_contracts_cpvdiv_date = (tag, left(cpv,2), date) INCLUDE amount_eur`,
-  which also bounds the heap fetch for the non-indexed metric columns.
-- `tag='contract'` only; the target is excluded from its own cohort.
+- **Full-history CPV-prefix cohort** (migration 064). v1 used a per-target ±30-
+  month era window, but that made every contract's cohort unique and forced a
+  live per-request scan. The cohort is now all contracts sharing the prefix — the
+  header shows the prefix's full year span. Value is nominal EUR across years, but
+  value is the neutral/descriptive metric; the competition metrics are era-robust.
+  A bonus: the bigger cohort gives sparse metrics (bidder count, ~54% coverage)
+  enough sample to actually be read instead of "малка извадка".
+- `tag='contract'` only; the target is a member of its own cohort (never counts in
+  "strictly below", so percentiles are unaffected beyond the +1 in the denominator).
 - **Percentile** = share of the cohort strictly below the target value.
 - **Sample floor.** `NORMALCY_MIN_N = 20` per metric to read a verdict / count a
   deviation; below that the strip renders but says "малка извадка". The cohort
   `sufficient` flag is false when even the 2-digit division can't clear 30.
+
+## Performance — precomputed (migration 064)
+
+The live function scans a whole CPV division with heap fetches for the non-indexed
+metric columns — ~290ms warm but ~90MB of cold Cloud SQL buffer reads (measured
+6–12s) per uncached contract, and the `/api/db` route is not CDN-cached, so every
+first view paid it. Migration 064 precomputes one payload per contract into the
+`procurement_normalcy_cache` materialized view (set-based, ~25s to build, 314MB,
+342k rows), served by a **PK seek (~0.1ms)**. The route seeks the cache and falls
+back to the live function (rewritten to the same full-history cohort, so they are
+byte-identical — parity-checked) for a key not yet built. Refreshed CONCURRENTLY
+after each contracts reload (`load_pg.ts`).
 
 ## Metrics shipped (only where the corpus carries the data)
 

@@ -419,6 +419,19 @@ const DB_ROUTES = {
   "procurement-normalcy": async (dbRows, q) => {
     const key = s(q, "key");
     if (!key) return { status: 400, body: { error: "missing key" } };
+    // Fast path: the precomputed matview (064) — one PK seek (~0.1ms) vs the live
+    // function's ~290ms warm / 6-12s cold big-division scan. Fall back to the
+    // live function for a key not yet in the cache (freshly ingested between
+    // refreshes) or a DB predating the matview.
+    try {
+      const c = await dbRows(
+        "SELECT payload FROM procurement_normalcy_cache WHERE key = $1",
+        [key],
+      );
+      if (c[0]?.payload !== undefined) return { body: c[0].payload };
+    } catch {
+      // matview absent — fall through to the live computation
+    }
     const rows = await dbRows("SELECT procurement_normalcy($1) AS r", [
       key,
     ]).catch(missingMigrationEmpty);

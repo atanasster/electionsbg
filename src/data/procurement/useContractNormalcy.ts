@@ -55,7 +55,6 @@ export type NormalcyCohort = {
   cpvPrefix: string;
   cpvLen: number;
   n: number;
-  windowMonths: number;
   yearFrom: string;
   yearTo: string;
   sufficient: boolean;
