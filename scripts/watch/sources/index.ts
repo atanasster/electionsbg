@@ -62,6 +62,8 @@ import { ivssDeclarations } from "./ivss_declarations";
 import { natoDefexp } from "./nato_defexp";
 import { modDefenseReport } from "./mod_defense_report";
 import { moeArmsExports } from "./moe_arms_exports";
+import { emberGeneration } from "./ember_generation";
+import { eurostatEnergyPrices } from "./eurostat_energy_prices";
 import { councilMinutes } from "./council_minutes";
 import { ipiLocalTaxes } from "./ipi_local_taxes";
 import { municipalNaredba } from "./municipal_naredba";
@@ -134,6 +136,8 @@ export const SOURCES: WatchSource[] = [
   ipop,
   eurostat,
   eurostatPolicy,
+  eurostatEnergyPrices,
+  emberGeneration,
   policyBaselineLocal,
   euTaxRates,
   euExciseRates,
