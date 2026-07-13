@@ -1,40 +1,39 @@
 {
   "obshtina": "SLS01",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.010-0003",
-      "title": "Основен ремонт и преустройство на част от сграден фонд, доставка на оборудване и обзавеждане с оглед реформиране на съществуващ Дом за стари хора в гр. Алфатар",
+      "contractNumber": "BG05SFPR003-1.001-0154",
+      "title": "Топъл обяд в Община Алфатар",
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur",
-        "status"
+        "grantEur"
       ],
-      "prevTotalEur": 912775.24,
-      "totalEur": 897879.96,
-      "paidEur": 897879.95,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
+      "prevTotalEur": 593978.52,
+      "totalEur": 597231.63,
+      "paidEur": 517728.93,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Алфатар",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-6.004-4084",
-      "title": "Закупуване на зърнокомбайн за екологична модернизация и изграждане на соларна система автономна с мощност 33kWp",
+      "contractNumber": "BG-RRP-1.015-2228",
+      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи (ВОСКС).",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 511117.02,
-      "totalEur": 511117.02,
-      "paidEur": 255558.51,
-      "status": "Сключен",
+      "prevTotalEur": 80011.91,
+      "totalEur": 80011.91,
+      "paidEur": 76047,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Евроземеделие 1 ЕООД",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Основно училище \"Христо Ботев\"",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

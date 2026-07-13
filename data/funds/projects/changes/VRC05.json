@@ -1,22 +1,24 @@
 {
   "obshtina": "VRC05",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.015-0667",
-      "title": "КОНЦЕПЦИЯ ЗА ИЗГРАЖДАНЕ НА УЧИЛИЩНА STEM СРЕДА В ОСНОВНО УЧИЛИЩЕ \"СВ.СВ.КИРИЛ И МЕТОДИЙ\" С.ДОБРОЛЕВО",
+      "contractNumber": "BG05SFPR003-1.001-0088",
+      "title": "Топъл обяд за хора в нужда от Община Борован",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "durationMonths"
       ],
-      "prevTotalEur": 92943.49,
-      "totalEur": 92943.49,
-      "paidEur": 92764.04,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"СВ.СВ.КИРИЛ и Методий\"",
-      "detectedAt": "2026-07-06"
+      "prevTotalEur": 1231825.11,
+      "totalEur": 1520880.63,
+      "paidEur": 1076291.65,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Борован",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

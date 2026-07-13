@@ -1,54 +1,70 @@
 {
   "obshtina": "SHU18",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-6.004-2143",
-      "title": "Инвестиции за автоматизация и механизация в кравеферма",
+      "contractNumber": "BG05SFPR003-1.001-0157",
+      "title": "Топъл обяд в община Каолиново",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 93916.22,
-      "totalEur": 93916.22,
-      "paidEur": 46958.11,
+      "prevTotalEur": 958645.98,
+      "totalEur": 958645.98,
+      "paidEur": 832439.8,
       "status": "Сключен",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Агрозах ЕООД",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-13.009-0101",
-      "title": "Закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги в община Каолиново",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 58082.76,
-      "totalEur": 58082.76,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Каолиново",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0507",
-      "title": "Изграждане на дигитален клуб в ПРОБУДА - 1932Г. в гр./с. Сини вир",
+      "contractNumber": "BG05SFPR002-1.012-0116",
+      "title": "Осигуряване на устойчива заетост за лица в неравностойно положение, насърчаване и повишаване на уменията им в билкопреработвателно предприятие на \"ИРА-999\" ООД в с. Тодор Икономово",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 10731.06,
+      "prevTotalEur": 186536.81,
+      "totalEur": 186536.81,
+      "paidEur": 166502.14,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ИРА-999 ООД",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0972",
+      "title": "Изграждане на дигитален клуб в Народно Читалище \" Просвета - 1934 \" в гр./с. Каолиново",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 17383.92,
+      "totalEur": 17383.92,
+      "paidEur": 14035.42,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище пробуда - 1932",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Народно Читалище \" Просвета - 1934 \"",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0828",
+      "title": "Изграждане на дигитален клуб в ХРИСТО БОТЕВ-1938 в гр. Каолиново",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 17383.92,
+      "totalEur": 17383.92,
+      "paidEur": 10561.55,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Христо Ботев - 1938",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

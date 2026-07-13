@@ -1,86 +1,40 @@
 {
   "obshtina": "JAM07",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG65BVPR001-1.011-0002",
-      "title": "Разширяване обхвата на ИСН по българо- турската граница от ГКПП Лесово до р. Резовска",
+      "contractNumber": "BG-RRP-13.009-0087",
+      "title": "„Инсталиране на фотоволтаични системи в съществуващи социални услуги, делегирана от държавата дейност в Община Елхово и закупуване на електрическо превозно средство и зарядна станция“.",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 8799468,
-      "totalEur": 8799468,
-      "paidEur": 1745241.74,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG65BVPR001",
-      "programName": "Програма на Република България по Инструмента за финансова подкрепа за управлението на границите и визовата политика",
-      "beneficiaryName": "Главна дирекция \"Гранична полиция\" - МВР",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0122",
-      "title": "Енергийно обновяване на жилищна сграда в град Елхово, ул. Трети март № 52",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 861386.96,
-      "totalEur": 861386.96,
-      "paidEur": 598587.46,
+      "prevTotalEur": 259175.29,
+      "totalEur": 259175.29,
+      "paidEur": 202946.3,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Елхово",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-4.023-0098",
-      "title": "Енергийно обновяване на жилищна сграда в град Елхово, ул. Витоша № 20",
+      "contractNumber": "BG05SFPR003-1.001-0096",
+      "title": "Топъл обяд в Община Елхово",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "durationMonths"
       ],
-      "prevTotalEur": 414529.69,
-      "totalEur": 414529.69,
-      "paidEur": 390606.21,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
+      "prevTotalEur": 55633.6,
+      "totalEur": 73229.5,
+      "paidEur": 51286.8,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Елхово",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1238",
-      "title": "Енергийно обновяване на жилищна сграда в град Елхово, ул. Янчо Бакалов № 4",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 257222.89,
-      "totalEur": 257222.89,
-      "paidEur": 257109.67,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Елхово",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1089",
-      "title": "Дигитални пространства",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 79360.68,
-      "totalEur": 79360.68,
-      "paidEur": 34650,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Специализирани бизнес системи АД",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     }
   ]
 }

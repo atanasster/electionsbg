@@ -1,23 +1,22 @@
 {
   "obshtina": "SZR37",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
       "contractNumber": "BG05SFPR003-1.001-0163",
       "title": "Топъл обяд в община Гурково",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur"
+        "paidEur"
       ],
-      "prevTotalEur": 479244.65,
+      "prevTotalEur": 481936.87,
       "totalEur": 481936.87,
-      "paidEur": 385098.89,
+      "paidEur": 416141.55,
       "status": "Сключен",
       "programCode": "2021BG05SFPR003",
       "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Гурково",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     }
   ]
 }

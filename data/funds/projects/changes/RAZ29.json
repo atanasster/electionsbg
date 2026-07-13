@@ -1,40 +1,40 @@
 {
   "obshtina": "RAZ29",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-13.009-0213",
-      "title": "Устойчива енергия и зелена мобилност в подкрепа на социалните услуги в Община Самуил",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 604343.99,
-      "totalEur": 604343.99,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Самуил",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-13.011-0027",
-      "title": "Зелена мобилност в подкрепа на социалните услуги в Община Самуил",
+      "contractNumber": "BG05SFPR003-1.001-0084",
+      "title": "Топъл обяд в Община Самуил",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "durationMonths"
       ],
-      "prevTotalEur": 58082.76,
-      "totalEur": 91213.76,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
+      "prevTotalEur": 695746.31,
+      "totalEur": 868090.37,
+      "paidEur": 603720.92,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Самуил",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-1848",
+      "title": "Адаптирана работна среда в Тракция АД, с. Самуил",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 172963.04,
+      "totalEur": 172963.04,
+      "paidEur": 172963.04,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Тракция АД",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

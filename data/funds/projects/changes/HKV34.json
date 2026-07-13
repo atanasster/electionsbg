@@ -1,136 +1,84 @@
 {
   "obshtina": "HKV34",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.033-0021",
-      "title": "Комбиниран проект за изграждане на нови мощности за производство на електроенергия от слънчева енергия и за съхранение на електроенергия в рамките на фотоволтаична електрическа централа (ФЕЦ), находяща се на територията на община Хасково, с. Книжовник и с. Долно Войводино",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 15457001.32,
-      "totalEur": 15457001.32,
+      "contractNumber": "BG16RFPR001-1.008-0024",
+      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в \"ПАК Дизайн\" ООД",
+      "type": "new",
+      "totalEur": 867329.98,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Енери БГ 1 ЕООД",
-      "detectedAt": "2026-07-06"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ПАК Дизайн ООД",
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-4.023-2271",
-      "title": "Въвеждане на мерки за повишаване на енергийната ефективност на жилищна сграда с адрес: гр. Хасково, ул. \"Цар Страшимир\" 5-9",
+      "contractNumber": "BG05SFPR002-1.030-0002",
+      "title": "Насърчаване на социалното предприемачество по подхода ИТИ",
+      "type": "new",
+      "totalEur": 116984,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Фондация Хало",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG05SFPR003-1.001-0254",
+      "title": "Топъл обяд в Община Хасково",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "durationMonths"
       ],
-      "prevTotalEur": 831479.71,
-      "totalEur": 831479.71,
-      "paidEur": 829956.71,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
+      "prevTotalEur": 1234967.88,
+      "totalEur": 1579656.01,
+      "paidEur": 1050917.19,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Хасково",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG05SFPR001-1.002-0015",
-      "title": "Образование без изключения",
+      "contractNumber": "BG16RFPR001-1.012-1103",
+      "title": "Дигитализация на предприятията",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 198908.85,
-      "totalEur": 198908.85,
-      "paidEur": 79563.54,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Регионално управление на образованието - Хасково",
-      "detectedAt": "2026-07-06"
+      "prevTotalEur": 9264.1,
+      "totalEur": 9264.1,
+      "paidEur": 6484.87,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Вега систем 2010 ЕООД",
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-1.015-1389",
-      "title": "Изграждане на нова училищна STEM среда в ЕГ \"Проф. д-р Асен Златаров\" - Хасково",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 185578.64,
-      "totalEur": 185578.64,
-      "paidEur": 171324.97,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Езикова гимназия \"Професор доктор Асен Златаров\" - Хасково",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG05SFPR001-1.010-0119",
-      "title": "Заедно срещу агресията в ОУ „Христо Смирненски“, гр. Хасково",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 178831.73,
-      "totalEur": 178831.73,
-      "paidEur": 35766.35,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "ОУ „Христо Смирненски“, гр. Хасково",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-1305",
-      "title": "BG-RRP-1.015 \"УЧИЛИЩНА STEM СРЕДА В ПРОФЕСИОНАЛНА ГИМНАЗИЯПО ТРАНСПОРТ И АГРАРНИ ТЕХНОЛОГИИ \"Н.Й.ВАПЦАРОВ\", ГР.ХАСКОВО",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 128410.93,
-      "totalEur": 128410.93,
-      "paidEur": 121215.66,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Професионална гимназия по транспорт и аграрни технологии \"Никола Йонков Вапцаров\" - гр.Хасково",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0660",
-      "title": "Изграждане на дигитален клуб с. Узунджово",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 17382.9,
-      "totalEur": 17382.9,
-      "paidEur": 16808.26,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"ЦВЯТ-1898\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-13.011-0032",
-      "title": "Модернизиране и декарбонизиране на автопарка за предоставяне на социални услуги в община Хасково",
+      "contractNumber": "BG16RFPR001-1.004-0053",
+      "title": "Подкрепа за семейно предприятие \"ФормаПро\"ООД, гр.Хасково",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 58082.76,
+      "prevTotalEur": 101465.87,
       "totalEur": 0,
       "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Хасково",
-      "detectedAt": "2026-07-06"
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ФормаПро ООД",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

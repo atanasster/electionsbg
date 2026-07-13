@@ -1,70 +1,68 @@
 {
   "obshtina": "HKV28",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.018-0009",
-      "title": "Изграждане на РГПЛПР и ЦСПЛУТС за предоставяне на нови социални услуги в Община Свиленград",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 3844482.26,
-      "totalEur": 3844482.26,
-      "paidEur": 3742433.92,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Свиленград",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-6.004-2347",
-      "title": "Инвестиции в технологична и екологична модернизация за подобряване на цялостната дейност в земеделското стопанство",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 180472.98,
-      "totalEur": 180472.98,
-      "paidEur": 90236.49,
-      "status": "Сключен",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Христо",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG05SFPR001-1.006-0002",
-      "title": "Превенция и недопускане на дискриминация в образователните институции",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 153358.41,
-      "totalEur": 153358.41,
-      "paidEur": 62493.49,
+      "contractNumber": "BG05SFPR001-1.010-0226",
+      "title": "От импулс към диалог - сигурна и подкрепяща училищна среда в ОУ „Любен Каравелов“, гр. Свиленград",
+      "type": "new",
+      "totalEur": 49662.45,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG05SFPR001",
       "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Основно училище „Любен Каравелов“",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Основно училище \"Любен Каравелов\"",
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-1.024-1024",
-      "title": "Изграждане на дигитален клуб в село Левка",
+      "contractNumber": "BG-RRP-4.020-0210",
+      "title": "Енергийно обновяване на публичен сграден фонд за спорт в Община Свиленград",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 1071803.89,
+      "totalEur": 1016237.84,
+      "paidEur": 1016237.84,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Свиленград",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-1981",
+      "title": "Изследователи в действие",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 90124.28,
+      "totalEur": 90124.28,
+      "paidEur": 83395.01,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Център за специална образователна подкрепа Стефан Василев. Седалище и адрес на управление: обл. Хасково, общ. Свиленград, гр. Свиленград, ул. Максим Горки 2 А",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0999",
+      "title": "Изграждане на дигитален клуб в село Капитан Андреево",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
       "prevTotalEur": 14302.88,
       "totalEur": 14302.88,
-      "paidEur": 13942.3,
+      "paidEur": 14230.26,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Отец Паисий 1925 г.\"",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Народно читалище \"Нов живот - 1930 г.\"",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

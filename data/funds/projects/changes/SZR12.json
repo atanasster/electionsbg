@@ -1,141 +1,138 @@
 {
   "obshtina": "SZR12",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.023-1463",
-      "title": "Енергийно обновяване на многофамилна жилищна сграда на ул. \"Ген. Радецки\" 7, гр. Казанлък",
+      "contractNumber": "BG16FFPR003-4.006-0018",
+      "title": "„Производствени инвестиции за устойчиво развитие и адаптиране дейността на „Смърфит Уестрок България“ ЕООД“ към икономическия преход“",
+      "type": "new",
+      "totalEur": 8968204.03,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Смърфит Уестрок България ЕООД",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0168",
+      "title": "Енергийно обновяване на сградата Общинска администрация Казанлък",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 469845.71,
-      "totalEur": 469845.71,
-      "paidEur": 469280.22,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 494367.1,
+      "totalEur": 489753.39,
+      "paidEur": 489753.4,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Казанлък",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG16RFPR001-1.003-0364",
-      "title": "Внедряване на иновативен процес в \"МЕДИЦИНСКИ ЦЕНТЪР КАЗАНЛЪК\" ООД",
+      "contractNumber": "BG-RRP-4.021-0001",
+      "title": "ЕНЕРГИЙНО ОБНОВЯВАНЕ НА ПРОИЗВОДСТВЕНА СГРАДА НА ПРЕДПРИЯТИЕ \"ХЛЯБ-97\" АД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
         "status"
       ],
-      "prevTotalEur": 175086.79,
-      "totalEur": 162800.63,
-      "paidEur": 81400.29,
+      "prevTotalEur": 427873.25,
+      "totalEur": 376899.87,
+      "paidEur": 153383.42,
       "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Хляб - 97 АД",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0170",
+      "title": "Енергийно обновяване на сградата на Военен отдел, гр. Казанлък",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 302309.19,
+      "totalEur": 299156.01,
+      "paidEur": 277452.36,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Казанлък",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-6.004-2679",
+      "title": "Закупуване на техника за нуждите на животновъдното стопанство за повишаване конкурентоспособността чрез устойчиво земеделие с технологични решения за екологичен преход",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 182600,
+      "totalEur": 182600,
+      "paidEur": 91100,
+      "status": "Сключен",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Диана",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0541",
+      "title": "Изграждане на дигитален клуб в село Черганово",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 12015.36,
+      "totalEur": 12015.36,
+      "paidEur": 10983.08,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище „Антон СТРАШИМИРОВ-1909 “",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-0822",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 9488.55,
+      "totalEur": 9488.55,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Медицински център казанлък ЕООД",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Счетоводна къща никея ЕООД",
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-1.015-2131",
-      "title": "Създаване на училищна STEM среда в ОУ \"Свети Паисий Хилендарски\" - с. Хаджидимитрово",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 92550.79,
-      "totalEur": 92550.79,
-      "paidEur": 92397.34,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"Свети Паисий Хилендарски\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.012-0242",
-      "title": "Устойчива заетост и социално включване на хора в неравностойно положение",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 54999.72,
-      "totalEur": 54999.72,
-      "paidEur": 46095.48,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Работилничка \"Бисквитките\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-1413",
-      "title": "Създаване на училищна STEM среда в ОУ \"Д-р Петър Берон\" - с.Шейново",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 30857.01,
-      "totalEur": 30857.01,
-      "paidEur": 30805.7,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"Петър берон\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0317",
-      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ОСВОБОЖДЕНИЕ - 1884\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 17383.93,
-      "totalEur": 17383.93,
-      "paidEur": 11050.31,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Освобождение - 1884\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-11.025-0092",
-      "title": "Изработване на изделия от кожа,за да се възроди културното наследство на българските шевиците ,изобразявайки ги върху изделия от естествена кожа, модерни бижута и аксесоари, насочени към младите хора в неравностойно положение",
+      "contractNumber": "BG-RRP-3.008-0643",
+      "title": "Подкрепа за прехода към кръгова икономика",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 4923.74,
+      "prevTotalEur": 770499.99,
       "totalEur": 0,
       "paidEur": 0,
       "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Стефан Стефанов Петрунов",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-11.025-0113",
-      "title": "Литературна траектория: Казанлък – Ботевград",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 8921.54,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Фондация \"Свободно поетическо общество\"",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Стара загора проект ЕООД",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

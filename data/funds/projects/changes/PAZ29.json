@@ -1,138 +1,38 @@
 {
   "obshtina": "PAZ29",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0014",
-      "title": "Топъл обяд в Община Септември",
+      "contractNumber": "BG-RRP-11.018-0065",
+      "title": "Преустройство на същ. сграда и изграждане на нова сграда в ПИ с ИД 67009.20.275 по КК и КР на с. Славовица, общ. Септември, обл. Пазарджик, осигуряващи необходимия сграден фонд за РГПЛИЗ( Резидентна грижа за пълнолетни лица с интелектуални затруднения) и ЦСПЛУТС( Център за специализирана подкрепа за лица с увреждания и техните семейства )",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 258977.96,
-      "totalEur": 322991.47,
-      "paidEur": 207982.35,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "prevTotalEur": 2660773.18,
+      "totalEur": 2660773.18,
+      "paidEur": 382807.19,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Септември",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-6.004-3576",
-      "title": "Технологична и екологична модернизация в производствения разсадник на \"Флоримекс България\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 203487.96,
-      "totalEur": 203487.96,
-      "paidEur": 101743.95,
-      "status": "Сключен",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Флоримекс българия ЕООД",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0906",
-      "title": "Изграждане на дигитален клуб в град Септември",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 20451.27,
-      "totalEur": 20451.27,
-      "paidEur": 18367.54,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Будители - 2004\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0922",
-      "title": "Изграждане на дигитален клуб в село Ковачево",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 17379.83,
-      "totalEur": 17379.83,
-      "paidEur": 14576.27,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Христо Ботев 1928\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0351",
-      "title": "Изграждане на дигитален клуб в библиотека към НЧ\"Христо Смирненски-1904\" гр.Ветрен",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 17378.07,
-      "totalEur": 17378.07,
-      "paidEur": 16076.5,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Христо СМИРНЕНСКИ-1904\" ГР.ВЕТРЕН",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0342",
-      "title": "„Заедно в дигиталния свят – клуб към НЧ „Селска пробуда 1927“, Варвара“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 17361.02,
-      "totalEur": 17361.02,
-      "paidEur": 16149.81,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Селска пробуда 1927\" с. Варвара",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0962",
-      "title": "Изграждане на дигитален клуб в село Виноградец",
+      "contractNumber": "BG-RRP-1.024-1285",
+      "title": "Дигитален клуб Карабунар",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
       "prevTotalEur": 14316.17,
       "totalEur": 14316.17,
-      "paidEur": 12263.87,
+      "paidEur": 14136.16,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Д-р Петър Берон - 1928.\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-6.004-2942",
-      "title": "Технологична и екологична модернизация на стопанството на земеделски производител Eнисе Найденова",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 138539.65,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Енисе Ейвас Найденова",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Народно читалище възраждане 1926",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

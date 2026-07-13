@@ -1,56 +1,55 @@
 {
   "obshtina": "HKV17",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.032-0302",
-      "title": "Подкрепа на нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия с инсталирана АС мощност от 800 kW в ПИ 14787.107.447, с. Георги Добрево, Oбласт Хасково, Oбщина Любимец",
+      "contractNumber": "BG06RDNP001-4.015-0191",
+      "title": "Създавене на предприятие за био мед чрез инвестиции в иновации и околна среда",
       "type": "modified",
       "changedFields": [
+        "totalEur",
         "grantEur"
       ],
-      "prevTotalEur": 703999.67,
-      "totalEur": 703999.67,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "ГД Грийн девелопмънт ЕООД",
-      "detectedAt": "2026-07-06"
+      "prevTotalEur": 1541277.28,
+      "totalEur": 1541277.3,
+      "paidEur": 763075.59,
+      "status": "Сключен",
+      "programCode": "2014BG06RDNP001",
+      "programName": "Програма за развитие на селските райони",
+      "beneficiaryName": "Метафуудс ЕООД",
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-1.015-0925",
-      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи (ВОСКС).",
+      "contractNumber": "BG-RRP-1.024-0658",
+      "title": "Изграждане на дигитален клуб в село Малко Градище",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 92488.79,
-      "totalEur": 92488.79,
-      "paidEur": 91850.25,
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 9380.79,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Начално училище \"Захари Стоянов\"",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Народно читалище \"Свети свети кирил и Методий - 1912 г.\"",
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-6.004-3896",
-      "title": "Технологична и екологична модернизация на земеделското стопанство",
+      "contractNumber": "BG-RRP-1.024-1165",
+      "title": "„Изграждане на модерен дигитален клуб в Народно читалище Просвета-1925“, село Лозен",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 191768.81,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 13722.9,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "ЗС Панайот Панайотов",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Народно читалище „Просвета-1925“, село Лозен",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

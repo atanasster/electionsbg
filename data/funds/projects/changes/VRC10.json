@@ -1,172 +1,98 @@
 {
   "obshtina": "VRC10",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.018-0011",
-      "title": "Изграждане и оборудване на три нови социални услуги за РГПЛИЗ и една услуга за ЦСПЛУТС в гр. Враца",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "durationMonths"
-      ],
-      "prevTotalEur": 3103704.49,
-      "totalEur": 3103704.49,
-      "paidEur": 1061814.16,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Враца",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG05SFPR001-1.004-0048",
-      "title": "\"Силата на единството\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 202507.98,
-      "totalEur": 202507.98,
-      "paidEur": 103527.12,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Община Хайредин",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0839",
-      "title": "Осигуряване на устойчиви условия на труд и подобряване на качеството на работните места в „КРАНАМАКС“ ООД.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 170344.24,
-      "totalEur": 170226.71,
-      "paidEur": 170226.72,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "„Кранамакс“ ООД",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0114",
-      "title": "Осигуряване на адаптирана работна среда в \"Семков-2001\" ООД",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 152134.91,
-      "totalEur": 152134.91,
-      "paidEur": 152123.65,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "СЕМКОВ-2001 ООД",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2675",
-      "title": "Постигане на устойчив растеж и повишаване на конкурентоспособността на Булпласт-М ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "status"
-      ],
-      "prevTotalEur": 102258.38,
-      "totalEur": 102258.38,
+      "contractNumber": "BG16RFPR001-1.008-0447",
+      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в \"ДИТЕКС-СМ\" ООД",
+      "type": "new",
+      "totalEur": 865356.48,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "БУЛПЛАСТ-М ЕООД",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "\"ДИТЕКС-СМ\" ООД",
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-1317",
-      "title": "Подобряване на производствения капацитет на ГАЛАКСИ ПЛАЗА ЕООД",
+      "contractNumber": "BG-RRP-4.020-0182",
+      "title": "Внедряване на мерки за енергийна ефективност в Регионална библиотека \"Христо Ботев\" - Враца",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 102257.86,
-      "totalEur": 102251.21,
-      "paidEur": 76688.4,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 1275638.07,
+      "totalEur": 1275638.07,
+      "paidEur": 566610.65,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Враца",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0661",
+      "title": "Подобряване производствения капацитет на Ей Джей Консулт ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 66800.28,
+      "totalEur": 66800.28,
+      "paidEur": 37733.34,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Галакси плаза ЕООД",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Ей Джей Консулт ЕООД",
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG05SFPR002-1.012-0383",
-      "title": "Устойчива заетост в ХВ ИТ ЕООД",
+      "contractNumber": "BG16RFPR001-1.004-2259",
+      "title": "Повишаване на конкурентноспособността и подобряване на пазарното присъствие на АИППМПДМ- НАЙДЕНОВ ДЕНТАЛ ЕООД",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "durationMonths"
       ],
-      "prevTotalEur": 102243.65,
-      "totalEur": 102243.65,
-      "paidEur": 83072.95,
+      "prevTotalEur": 37052.81,
+      "totalEur": 37052.81,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "ХВ ИТ ЕООД",
-      "detectedAt": "2026-07-06"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Амбулатория за индивидуална практика за първична Медицинска помощ по дентална Медицина - Найденов дентал ЕООД",
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0042",
-      "title": "Изграждане на дигитален клуб в НЧ ПРОБУДА - 1926 000184618 с.Згориград",
+      "contractNumber": "BG16FFPR003-2.005-0001",
+      "title": "Техническа подкрепа за Община Враца за изпълнение на ИТИ инструмента",
+      "type": "modified",
+      "changedFields": [
+        "status"
+      ],
+      "prevTotalEur": 31949.61,
+      "totalEur": 31949.61,
+      "paidEur": 31949.61,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Враца",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1243",
+      "title": "Изграждане на дигитален клуб в с.Горно Пещене",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 17383.93,
-      "totalEur": 17383.93,
-      "paidEur": 16330.87,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "НЧ Пробуда - 1926 000184618 с.Згориград",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0171",
-      "title": "Изграждане на дигитален клуб в селo Баница",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 9465.93,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Светлина - 1910\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0823",
-      "title": "Изграждане на дигитален клуб в с. Паволче",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 13411.55,
+      "prevTotalEur": 14305.59,
+      "totalEur": 14305.59,
+      "paidEur": 10211.58,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Фар 1930\"",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "НЧ \"Селска Пробуда-1925- с.Горно Пещене\"",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

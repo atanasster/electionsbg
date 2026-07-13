@@ -1,34 +1,71 @@
 {
   "obshtina": "MON24",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-1.010-0185",
-      "title": "Позитивна сила",
-      "type": "new",
-      "totalEur": 97398.65,
+      "contractNumber": "BG-RRP-4.032-0159",
+      "title": "Изграждане на ЛОКАЛНА СИСТЕМА ЗА СЪХРАНЕНИЕ на енергия с инсталирана мощност 1,6 MW и инсталиран капацитет 4 MWh към фотоволтаична централа в имот с идентификатор 44238.508.138 по КК на град Лом, община Лом",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 1533824.5,
+      "totalEur": 1533824.51,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Професионална гимназия по производствени технологии",
-      "detectedAt": "2026-07-06"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Азахар ЕООД",
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-11.018-0042",
-      "title": "Изграждане и оборудване на нови социални и интегрирани здравно-социални услуги за резидентна грижа и специализирани социални услуги за лица с увреждания в община Лом",
+      "contractNumber": "BG14MFPR001-3.002-0029",
+      "title": "\"Изпълнение на Стратегия за ВОМР на МИРГ Лом - Брусарци\"",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 4669417.79,
-      "totalEur": 4669417.79,
-      "paidEur": 1598487.69,
+      "prevTotalEur": 446949.54,
+      "totalEur": 446949.54,
+      "paidEur": 70982.95,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG14MFPR001",
+      "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
+      "beneficiaryName": "Местна инициативна Рибарска група - ЛОМ - брусарци",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-2273",
+      "title": "Адаптирана работна среда в ХЪС ООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 249375.27,
+      "totalEur": 249375.27,
+      "paidEur": 46105.39,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ХЪС ООД",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1253",
+      "title": "СЪЗДАВАНЕ НА ДИГИТАЛЕН КЛУБ В С.СТАЛИЙСКА МАХАЛА , ОБЩИНА ЛОМ",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 10310.2,
+      "totalEur": 10310.2,
+      "paidEur": 8168.94,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община ЛОМ",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "НЧ \"Кирил Петров\"1922 с. Сталийска махала",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

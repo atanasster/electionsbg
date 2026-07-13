@@ -1,88 +1,56 @@
 {
   "obshtina": "PAZ04",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0095",
-      "title": "Топъл обяд в община Белово",
+      "contractNumber": "BG-RRP-1.024-0843",
+      "title": "изграждане на дигитален клуб в Народно Читалище \"ХРИСТО БОТЕВ-1931 Г. - с.Габровица",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 12545.31,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Христо БОТЕВ-1931 г. - с.Габровица",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0861",
+      "title": "Изграждане на дигитален клуб в село Дъбравите",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 12643.75,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Александър Пипонков-Чапай-1938\"",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0760",
+      "title": "изграждане на дигитален клуб в Народно читалище \"Просвета 1958\" - с.Аканджиево",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "durationMonths"
-      ],
-      "prevTotalEur": 435995.83,
-      "totalEur": 544326.38,
-      "paidEur": 378151.33,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Белово",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG05SFPR001-2.003-0052",
-      "title": "„Сцена, спорт и вдъхновение – Белово“",
-      "type": "modified",
-      "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 371414.31,
-      "totalEur": 371414.31,
-      "paidEur": 74282.86,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Община Белово",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1012",
-      "title": "изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ СВ.СВ. КИРИЛ И МЕТОДИЙ-1927 - гр.Белово",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 17383.93,
-      "totalEur": 17383.93,
-      "paidEur": 15567.02,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище СВ.СВ. кирил и МЕТОДИЙ-1927 - гр.Белово",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0796",
-      "title": "изграждане на дигиален клуб в Народно читалище \"ИСКРА-1881Г.\" - с.Сестримо",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.17,
+      "prevTotalEur": 14316.19,
       "totalEur": 14316.17,
-      "paidEur": 12777.84,
+      "paidEur": 12426.08,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"ИСКРА-1881Г.\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0860",
-      "title": "изграждане на дигитални клубове в НАРОДНО ЧИТАЛИЩЕ \"ТОДОР КАБЛЕШКОВ-1874 г.\" - с.Голямо Белово",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 9496.79,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Тодор КАБЛЕШКОВ-1874 г.\" - с.Голямо Белово",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Народно читалище \"Просвета 1958\" - с.Аканджиево",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

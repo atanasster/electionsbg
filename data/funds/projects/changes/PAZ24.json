@@ -1,56 +1,22 @@
 {
   "obshtina": "PAZ24",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
       "contractNumber": "BG05SFPR003-1.001-0234",
       "title": "Топъл обяд в община Ракитово",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 647318.55,
+      "prevTotalEur": 695169.08,
       "totalEur": 695169.08,
-      "paidEur": 529430.55,
+      "paidEur": 567920.05,
       "status": "Сключен",
       "programCode": "2021BG05SFPR003",
       "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Ракитово",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-4.020-0235",
-      "title": "“Устойчиво енергийно обновяване на общинска сграда – сграда за културни дейности в гр. Ракитово с идентификатор 62004.6.23.1”",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 662663.92,
-      "totalEur": 662663.92,
-      "paidEur": 583816.27,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Ракитово",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-4.020-0232",
-      "title": "„Устойчиво енергийно обновяване на административна сграда кметство, с. Дорково, община Ракитово с идентификатор 23008.8.488.1“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 469241.46,
-      "totalEur": 469241.46,
-      "paidEur": 431451.18,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Ракитово",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     }
   ]
 }

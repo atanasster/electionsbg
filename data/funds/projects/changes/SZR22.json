@@ -1,24 +1,34 @@
 {
   "obshtina": "SZR22",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0077",
-      "title": "Топъл обяд в Община Мъглиж",
+      "contractNumber": "BG05SFPR001-2.003-0003",
+      "title": "Нови хоризонти за талантливите деца в община Мъглиж",
+      "type": "new",
+      "totalEur": 376053.03,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Община Мъглиж",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG14MFPR001-2.001-0020",
+      "title": "Модернизация и маркетинг на предприятие за преработка на аквакултура",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 697385.5,
-      "totalEur": 754099.36,
-      "paidEur": 574932.39,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Мъглиж",
-      "detectedAt": "2026-07-06"
+      "prevTotalEur": 1194605.87,
+      "totalEur": 1194605.87,
+      "paidEur": 231558.98,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG14MFPR001",
+      "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
+      "beneficiaryName": "Алгае България ООД",
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG-RRP-1.015-1534",
@@ -29,44 +39,12 @@
       ],
       "prevTotalEur": 92887.5,
       "totalEur": 92887.5,
-      "paidEur": 61874.7,
+      "paidEur": 69607.87,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Начално училище \"СВ. Паисий Хилендарски\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-0570",
-      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи в Основно училище „Христо Смирненски“ – с. Тулово",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 92825.8,
-      "totalEur": 92825.8,
-      "paidEur": 92463.76,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"Христо Смирненски\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0410",
-      "title": "Изграждане на дигитален клуб в НЧ НАУКА - 1905",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 14316.18,
-      "paidEur": 8998.66,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "\"Наука - 1905\" НЧ",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG-RRP-1.024-0835",
@@ -77,12 +55,12 @@
       ],
       "prevTotalEur": 13534.06,
       "totalEur": 13534.06,
-      "paidEur": 12461.95,
+      "paidEur": 13214.81,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно читалище народна просвета - 1889",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     }
   ]
 }

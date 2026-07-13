@@ -1,98 +1,56 @@
 {
   "obshtina": "S2521",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-2.003-0049",
-      "title": "Талантите на Нови Искър",
-      "type": "new",
-      "totalEur": 376080.74,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "СО-Район \"Нови Искър\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG06RDNP001-4.015-0096",
-      "title": "Модернизация, автоматизация и осигуряване на енергийна автономност",
+      "contractNumber": "BG-RRP-1.015-1941",
+      "title": "Изграждане на STEM център \"Креативни дигитални създатели\" в 170 СУ \"Васил Левски\"",
       "type": "modified",
       "changedFields": [
-        "grantEur"
+        "paidEur"
       ],
-      "prevTotalEur": 1366390.73,
-      "totalEur": 1366390.73,
-      "paidEur": 682891.4,
-      "status": "Сключен",
-      "programCode": "2014BG06RDNP001",
-      "programName": "Програма за развитие на селските райони",
-      "beneficiaryName": "Биопрограма ЕАД",
-      "detectedAt": "2026-07-06"
+      "prevTotalEur": 185587.93,
+      "totalEur": 185587.93,
+      "paidEur": 181025.63,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "170 Средно общообразователно училище \"Васил Левски\"",
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG05SFPR002-1.004-1478",
       "title": "Адаптиране на към новите социално-икономически реалности",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
       "prevTotalEur": 141357.57,
-      "totalEur": 141357.57,
+      "totalEur": 130506.57,
       "paidEur": 130506.57,
-      "status": "В изпълнение (от дата на стартиране)",
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
       "beneficiaryName": "Мебел груп корпорейшън ЕООД",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-1.015-0779",
-      "title": "Изграждане на STEM среда и ВОСКС",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 92610.69,
-      "totalEur": 92610.69,
-      "paidEur": 90024.22,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "160-ТО Основно училище \"Кирил и Методий\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0247",
-      "title": "Изграждане на дигитален клуб в Народно читалище \"ПРОСВЕТА - 1929\"",
+      "contractNumber": "BG-RRP-1.024-0495",
+      "title": "Изграждане на дигитален клуб в СДРУЖЕНИЕ \"НАРОДНО ЧИТАЛИЩЕ НАПРЕДЪК - С.ЧЕПИНЦИ - 1927\"",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
       "prevTotalEur": 17383.92,
       "totalEur": 17383.92,
-      "paidEur": 16153.77,
+      "paidEur": 13882.16,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Просвета - 1929\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0445",
-      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"СВЕТЛИНА С.КУБРАТОВО - 1915\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 9383.51,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Светлина С.КУБРАТОВО - 1915\"",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Сдружение \"Народно читалище напредък - С.ЧЕПИНЦИ - 1927\"",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

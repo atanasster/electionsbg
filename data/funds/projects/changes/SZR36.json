@@ -1,38 +1,39 @@
 {
   "obshtina": "SZR36",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.033-0040",
-      "title": "„Проект Чирпан – комбиниран проект за изграждане на ЛСС с инсталирана мощност от 2,4 MW към нова фотоволтаична производствена мощност от 4.95 MW“",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 1823778.14,
-      "totalEur": 1823778.14,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "„Грийн СИС кънстракшън“ АД",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-6.004-3978",
-      "title": "Инвестиране в еко технологии с биорелакс отражение към околния свят",
+      "contractNumber": "BG-RRP-11.018-0026",
+      "title": "„Изграждане и оборудване на нови социални услуги за резидентна грижа и специализирана социална услуга за лица с увреждания в Община Чирпан”",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 357597.54,
-      "totalEur": 357597.54,
-      "paidEur": 178798.76,
-      "status": "Сключен",
+      "prevTotalEur": 2430351.88,
+      "totalEur": 2430351.88,
+      "paidEur": 1329288.31,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Концепт - биолоджик ЕООД",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Община Чирпан",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0281",
+      "title": "Подобряване на производствения капацитет на Димитров Инженеринг ЛТД ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 99224.88,
+      "totalEur": 99224.88,
+      "paidEur": 74418.66,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Димитров инженеринг ЛТД ЕООД",
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG-RRP-1.024-1065",
@@ -43,30 +44,12 @@
       ],
       "prevTotalEur": 14316.17,
       "totalEur": 14316.17,
-      "paidEur": 14098.59,
+      "paidEur": 14288.86,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно читалище \"Селски будилник 1906\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-11.025-0130",
-      "title": "„Цветна феерия – Магичен карнавален спектакъл и уъркшоп”",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 8504.83,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Фондация \"Повелители на мечти\"",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     }
   ]
 }

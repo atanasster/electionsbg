@@ -1,105 +1,39 @@
 {
   "obshtina": "SHU25",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
-    {
-      "contractNumber": "BG-RRP-4.033-0048",
-      "title": "Изграждане на нови мощности за производство на електроенергия от възобновяеми източници и съхранение на електроенергия от \"СМЯДОВО ЕНЕРДЖИ\" АД",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 11718656.53,
-      "totalEur": 11718656.53,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Смядово енерджи АД",
-      "detectedAt": "2026-07-06"
-    },
     {
       "contractNumber": "BG-RRP-11.018-0005",
       "title": "„Изграждане и оборудване на нови социални и интегрирани здравно-социални услуги за резидентна грижа и специализирани социални услуги за лица с увреждания в община Смядово“",
       "type": "modified",
       "changedFields": [
-        "paidEur",
-        "durationMonths"
+        "totalEur",
+        "grantEur"
       ],
       "prevTotalEur": 4263767.5,
-      "totalEur": 4263767.5,
+      "totalEur": 4394029.89,
       "paidEur": 1795573.12,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Смядово",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-4.020-0266",
-      "title": "„Внедряване на мерки за енергийна ефективност и производство на енергия от ВЕИ в две административни сгради в гр. Смядово, община Смядово“",
+      "contractNumber": "BG05SFPR003-1.001-0017",
+      "title": "Топъл обяд в Община Смядово",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 537941.85,
-      "totalEur": 537941.85,
-      "paidEur": 448077.49,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
+      "prevTotalEur": 499347.25,
+      "totalEur": 499347.25,
+      "paidEur": 433547,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Смядово",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-13.009-0162",
-      "title": "Инсталиране на фотоволтаични системи (ФЕЦ) за собствено енергопотребление в 5 (пет) социални услуги, делегирани от държавата дейности в община Смядово, закупуване на електрически автомобил и монтаж на зарядна станция за електрически автомобили",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 250042.39,
-      "totalEur": 250042.39,
-      "paidEur": 6135.5,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Смядово",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-13.011-0028",
-      "title": "„Закупуване на електрически превозни средства, включително свързани зарядни станции за предоставяне на социални услуги в община Смядово“",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 58082.76,
-      "totalEur": 58082.76,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Смядово",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-6.004-4056",
-      "title": "Закупуване на земеделска техника и оборудване",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 226233.92,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Експресстрой ЕООД",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     }
   ]
 }

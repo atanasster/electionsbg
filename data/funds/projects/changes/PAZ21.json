@@ -1,67 +1,87 @@
 {
   "obshtina": "PAZ21",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-2.003-0020",
-      "title": "Път към таланта: подкрепа за деца и ученици в Община Пещера",
-      "type": "new",
-      "totalEur": 380392.72,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Община Пещера",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-8.013-0004",
-      "title": "Изпълнение на мерки за подобряване на устойчивата градска мобилност на Община Пазарджик и Община Пещера“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 4253927.81,
-      "totalEur": 4253927.81,
-      "paidEur": 3195720.13,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Пазарджик",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.009-0014",
-      "title": "Изграждане на съвременен младежки център – ключов фактор за личностното развитие и повишаване пригодността за заетост на младите хора в Община Пещера",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 907801.46,
-      "totalEur": 907801.46,
-      "paidEur": 638783.17,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Пещера",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-3.004-1594",
-      "title": "Технологична модернизация в предприятието",
+      "contractNumber": "BG05SFPR003-1.001-0150",
+      "title": "Топъл обяд в Община Пещера",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur"
       ],
-      "prevTotalEur": 1180000,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
+      "prevTotalEur": 774978.52,
+      "totalEur": 779465.57,
+      "paidEur": 669806.69,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Пещера",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1359",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда \"Здравец 2\" в гр. Пещера, ул. „Хан Пресиян“ № 10, вх. А и вх. Б",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 618239.83,
+      "totalEur": 618239.83,
+      "paidEur": 504716.53,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Гидо ООД",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Община Пещера",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1339",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда в гр. Пещера, ул. „Хан Пресиян“ № 14, вх. А и вх. Б",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 531737.92,
+      "totalEur": 531737.92,
+      "paidEur": 528953.59,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Пещера",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1386",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда в гр. Пещера, ул. „Симон Налбант“ № 60, вх. А и вх. Б",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 464176.79,
+      "totalEur": 464176.79,
+      "paidEur": 459518.19,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Пещера",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-0103",
+      "title": "Създаване на СТЕМ център",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 92952.25,
+      "totalEur": 92952.25,
+      "paidEur": 92798.84,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Професионална гимназия по хранително - вкусови технологии \"Атанас Ченгелев\"",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

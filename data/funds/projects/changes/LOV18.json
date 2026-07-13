@@ -1,54 +1,104 @@
 {
   "obshtina": "LOV18",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.020-0099",
-      "title": "„Устойчиво енергийно обновяване на Административна сграда на Областна администрация Ловеч“",
+      "contractNumber": "BG-RRP-4.020-0064",
+      "title": "Внедряване на мерки за енергийна ефективност в Сградата на ОДМВР, гр. Ловеч и Сградата \"Пътна полиция-КАТ\", гр. Ловеч",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 1803042.85,
-      "totalEur": 1803042.85,
-      "paidEur": 1021203.12,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 1438723.16,
+      "totalEur": 1415870.96,
+      "paidEur": 1354523.57,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Областна администрация ловеч",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Областна дирекция на Министерство на вътрешните работи гр. Ловеч",
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-11.010-0048",
-      "title": "Извършване на основен ремонт, преустройство и прилагане на мерки за енергийна ефективност и доставка на оборудване и обзавеждане с цел реформиране на съществуващ дом за стари хора в гр. Ловеч",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 1077361.28,
-      "totalEur": 1077361.28,
-      "paidEur": 384595.7,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Ловеч",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-6.004-3517",
-      "title": "Инвестиции в технологична и екологична модернизация на Вълчеви 2000 ООД",
+      "contractNumber": "BG-RRP-4.020-0035",
+      "title": "Прилагане на мерки за енергийна ефективност на сградата на Районна служба \"Пожарна безопасност и защита на населението\" - Ловеч в ПИ № 43952.507.4602, гр. Ловеч, общ. Ловеч",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 357815.15,
-      "totalEur": 357815.15,
-      "paidEur": 178907.57,
+      "prevTotalEur": 819143.69,
+      "totalEur": 819143.69,
+      "paidEur": 559626.55,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Регионална дирекция \"Пожарна безопасност и защита на населението\" - Ловеч",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-0803",
+      "title": "Прилагане на мерки за енергийна ефективност на жилищна сграда с адрес гр. Ловеч, ж.к. \"Младост\", блок 307, вх. Г, Д, Е",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 804302.87,
+      "totalEur": 804302.87,
+      "paidEur": 511861.25,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Ловеч",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.002-0011",
+      "title": "Образование за всички – днес и утре",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 199040.2,
+      "totalEur": 199040.2,
+      "paidEur": 79177.51,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Регионално управление на образованието - Ловеч",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-13.009-0061",
+      "title": "Енергийно независими социални услуги в община Ловеч",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 197180.07,
+      "totalEur": 197180.07,
+      "paidEur": 60120,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Ловеч",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-6.004-4073",
+      "title": "Закупуване на земеделска техника, метеорологична станция с възмоност за прогнози система за интелигентно пръскане с агродорн и автономна фотоволтаична централа за собствени нужди.",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 164454.48,
+      "totalEur": 164454.48,
+      "paidEur": 82227.24,
       "status": "Сключен",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Вълчеви 2000 ООД",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Плодовито ООД",
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG16FFPR002-3.007-0012",
@@ -58,14 +108,62 @@
         "totalEur",
         "grantEur"
       ],
-      "prevTotalEur": 79258.81,
-      "totalEur": 90302.71,
+      "prevTotalEur": 90302.71,
+      "totalEur": 90499.93,
       "paidEur": 79258.8,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16FFPR002",
       "programName": "Програма \"Околна среда\" 2021-2027",
       "beneficiaryName": "Община Ловеч",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0035",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ПОЛКОВНИК СТОЯН ЕДРЕВ 1895 Г.\" с. Радювене",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 14181.47,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Полковник стоян Едрев 1895 г.\" с. Радювене 000283858",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0111",
+      "title": "Изграждане на догитален клуб в Народно читалище „Васил Левски – 1929 г.“ - с. Умаревци",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 13974.04,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище „Васил Левски – 1929 г.“ - с. Умаревци",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0531",
+      "title": "Изграждане на дигитален клуб НЧ \"Просвета-1901г.\", с.Слатина",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 9740.38,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "НЧ \"Просвета-1901г.\", с.Слатина",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

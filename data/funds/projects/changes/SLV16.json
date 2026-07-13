@@ -1,130 +1,39 @@
 {
   "obshtina": "SLV16",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-4.006-0049",
-      "title": "Подкрепа за производствени инвестиции в ЗММ- Нова Загора АД",
-      "type": "new",
-      "totalEur": 1432704.27,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "ЗММ - Нова загора АД",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2689",
-      "title": "\"Въвеждане на мерки за енергийна ефективност на многофамилна жилищна сграда с адрес: гр. Нова Загора, ул. \"Петко Енев\" № 56\".",
+      "contractNumber": "BG-RRP-4.023-2225",
+      "title": "\"Въвеждане на мерки за енергийна ефективност на многофамилна жилищна сграда с адрес: гр. Нова Загора, ул. \"Васил Левски\" бл. 34\"",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur"
       ],
-      "prevTotalEur": 554718.76,
-      "totalEur": 554718.76,
-      "paidEur": 139667.18,
+      "prevTotalEur": 629725.68,
+      "totalEur": 321973.63,
+      "paidEur": 81619.95,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Нова загора",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Община Нова Загора",
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG05SFPR002-2.003-0135",
-      "title": "Бъдеще за децата на Нова Загора",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 174113.29,
-      "totalEur": 174113.29,
-      "paidEur": 158935.47,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Нова загора",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-1484",
-      "title": "Изграждане на STEM център и ВОСКС в ПГТТ \"Атанас Димитров\", гр. Нова Загора",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 124737.06,
-      "totalEur": 124737.06,
-      "paidEur": 116160.11,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Професионална гимназия по техника и технологии \"Атанас Димитров\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-0077",
-      "title": "Създаване на СТЕМ център",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 118768.35,
-      "totalEur": 118768.35,
-      "paidEur": 118238.27,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Професионална гимназия по селско стопанство",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-0086",
-      "title": "Създаване на СТЕМ център",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 92939.79,
-      "totalEur": 92939.79,
-      "paidEur": 92786.42,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"Свети свети кирил и Методий\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0747",
-      "title": "Изграждане на дигитален клуб в с. Пет могили, общ. Нова Загора",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 14316.18,
-      "paidEur": 14289.85,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Никола Йонков Вапцаров - 1926\", с. Пет Могили, община Нова Загора",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0837",
-      "title": "Изграждане на дигитален клуб в с. Еленово, община Нова Загора",
+      "contractNumber": "BG-RRP-1.024-1090",
+      "title": "Изграждане на дигитален клуб в Народно Читалище СВ СВ КИРИЛ И МЕТОДИЙ 1922 г в с. Коньово",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
       "prevTotalEur": 14316.17,
       "totalEur": 14316.17,
-      "paidEur": 13828.31,
+      "paidEur": 9731.04,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Светлина - 1908\"",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Народно Читалище СВ СВ Кирил и Методий 1922 г.",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

@@ -1,72 +1,38 @@
 {
   "obshtina": "TGV22",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0204",
-      "title": "Топъл обяд в община Омуртаг",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "durationMonths"
-      ],
-      "prevTotalEur": 1640787.36,
-      "totalEur": 2083957.8,
-      "paidEur": 1404150.73,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Омуртаг",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-4.032-0196",
-      "title": "Нови мощности за производство и съхранение на електроенергия от ВЕИ \"ЕМУ\" АД - обект 1 с идентификатор: 53535.3.290",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 794843.11,
-      "totalEur": 794843.11,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "ЕМУ АД",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-4.032-0186",
-      "title": "Нови мощности за производство и съхранение на електроенергия от ВЕИ \"ЕМУ\" АД - обект 2 с идентификатор: 53535.3.291",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 794842.09,
-      "totalEur": 794842.09,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "ЕМУ",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-1937",
-      "title": "„Енергийно обновяване на многофамилна жилищна сграда с административен адрес: обл. Търговище, общ. Омуртаг, ул. Църковна № 3“",
+      "contractNumber": "BG-RRP-1.024-0544",
+      "title": "Изграждане на дигитален клуб в село Обител",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 594576.71,
-      "totalEur": 594576.71,
-      "paidEur": 593579.84,
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 12004.5,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Омуртаг",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Народно читалище \"Култура 1940\"",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0555",
+      "title": "Изграждане на дигитален клуб в село Врани кон",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 11980.27,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Народно читалище \"ТРУД-1950\"-С.ВРАНИ КОН\"",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

@@ -1,40 +1,57 @@
 {
   "obshtina": "PVN39",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-1215",
-      "title": "Създаване на дигитален клуб в Народно читалище \"Народно съзнание 1897\", с.Бреница, Община Кнежа",
+      "contractNumber": "BG05SFPR001-3.009-0014",
+      "title": "Развитие на професионалното образование и обучение и умения на бъдещето в Центъра за високи постижения към ПГ по земеделие „Стефан Цанов“, гр. Кнежа.",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 17149.75,
-      "totalEur": 17149.75,
-      "paidEur": 16183.79,
+      "prevTotalEur": 1319316.1,
+      "totalEur": 1319316.1,
+      "paidEur": 263863.22,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Народно съзнание 1897\"",
-      "detectedAt": "2026-07-06"
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Професионална гимназия по земеделие \"Стефан Цанов\" - град кнежа",
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-11.025-0017",
-      "title": "ИСТОРИИ ОТ НЯКОГА",
+      "contractNumber": "BG05SFPR003-1.001-0002",
+      "title": "Топъл обяд в Община Кнежа",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "status"
+        "paidEur",
+        "durationMonths"
       ],
-      "prevTotalEur": 9049.87,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
+      "prevTotalEur": 599194.3,
+      "totalEur": 746917.79,
+      "paidEur": 520315.44,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Кнежа",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.028-0031",
+      "title": "ЕНЕРГИЙНО ЕФЕКТИВНИ СИСТЕМИ ЗА УЛИЧНО ОСВЕТЛЕНИЕ В ОБЩИНА КНЕЖА",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 731921.94,
+      "totalEur": 731921.94,
+      "paidEur": 721283.68,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Младежко бюро за социални услуги и граждански инициативи",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Община Кнежа",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

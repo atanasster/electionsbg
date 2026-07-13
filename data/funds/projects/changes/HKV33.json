@@ -1,22 +1,24 @@
 {
   "obshtina": "HKV33",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-6.004-3229",
-      "title": "Инвестиции в технологична и екологична модернизация в стопанството на „Аркус 99“ ООД",
+      "contractNumber": "BG05SFPR003-1.001-0143",
+      "title": "Топъл обяд в Община Харманли",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "durationMonths"
       ],
-      "prevTotalEur": 103060.5,
-      "totalEur": 103060.5,
-      "paidEur": 48177.95,
+      "prevTotalEur": 399477.8,
+      "totalEur": 497960.12,
+      "paidEur": 346891.87,
       "status": "Сключен",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Аркус 99 ООД",
-      "detectedAt": "2026-07-06"
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Харманли",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

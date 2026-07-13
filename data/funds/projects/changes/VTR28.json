@@ -1,54 +1,88 @@
 {
   "obshtina": "VTR28",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.010-0032",
-      "title": "Извършване на строителни дейности и доставка на оборудване и обзавеждане с оглед реформиране на Дом за стари хора \"Мария Луиза\" град Свищов",
+      "contractNumber": "BG-RRP-4.023-0018",
+      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на Сдружение на собствениците „Рила 12“ – гр. Свищов.",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 6464187.34,
-      "totalEur": 6464187.34,
-      "paidEur": 5477346.55,
+      "prevTotalEur": 1250697.42,
+      "totalEur": 1250697.42,
+      "paidEur": 1250665.3,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Свищов",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-4.023-0009",
-      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на сдружение на собствениците „Надежда - 4“ – гр. Свищов.",
+      "contractNumber": "BG05SFPR003-1.001-0008",
+      "title": "Топъл обяд в Община Свищов",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 199652.4,
+      "totalEur": 248893.56,
+      "paidEur": 173359.43,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Свищов",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-0798",
+      "title": "Изграждане на Училищна STEM среда в ПДТГ \"Димитър Хадживасилев\" - град Свищов",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 1183027.13,
-      "totalEur": 1183027.13,
-      "paidEur": 1183027.09,
+      "prevTotalEur": 69390.87,
+      "totalEur": 69390.87,
+      "paidEur": 61343.36,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Свищов",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Професионална държавна Търговска гимназия \"Димитър Хадживасилев\"",
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-1.024-1185",
-      "title": "Дигитален клуб в НЧ \"Слънце - 1925\", с. Алеково, общ. Свищов",
+      "contractNumber": "BG-RRP-1.024-0022",
+      "title": "Изграждане на дигитален клуб в Народно читалище \"Заря - 1898\" с. Хаджидимитрово",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
       "prevTotalEur": 14316.18,
       "totalEur": 14316.18,
-      "paidEur": 11526.31,
+      "paidEur": 10580.27,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Слънце - 1925\" с. Алеково",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Народно читалище \"Заря - 1898\" с. Хаджидимитрово",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0037",
+      "title": "Изграждане на дигитален клуб в НЧ ПРОСВЕТА - ДРАГОМИРОВО 1912 с. Драгомирово",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 10609.03,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "НЧ Просвета - драгомирово 1912",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

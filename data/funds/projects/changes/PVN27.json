@@ -1,22 +1,24 @@
 {
   "obshtina": "PVN27",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-0858",
-      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ИВАН ВАЗОВ - 1904\"",
+      "contractNumber": "BG-RRP-4.020-0007",
+      "title": "Въвеждане на мерки за енергийна ефективност в административния комплекс на Общинска администрация - Пордим, гр. Пордим, община Пордим, област Плевен",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 12062.26,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 260515.03,
+      "totalEur": 259984.92,
+      "paidEur": 255872.09,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Иван Вазов - 1904\"",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Община Пордим",
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG-RRP-1.024-0579",
@@ -27,12 +29,12 @@
       ],
       "prevTotalEur": 14316.17,
       "totalEur": 14316.17,
-      "paidEur": 12122.84,
+      "paidEur": 13294.34,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно читалище \"Пробуда 1903\"",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG-RRP-1.024-0554",
@@ -43,12 +45,12 @@
       ],
       "prevTotalEur": 14316.17,
       "totalEur": 14316.17,
-      "paidEur": 10775.98,
+      "paidEur": 11965.68,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно читалище \"Просвета - 1918\"",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     }
   ]
 }

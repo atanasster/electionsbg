@@ -1,24 +1,40 @@
 {
   "obshtina": "DOB17",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.025-0089",
-      "title": "Да спасим заедно Черно море",
+      "contractNumber": "BG-RRP-11.018-0051",
+      "title": "Изграждане и оборудване на нови социални и интегрирани здравно-социални услуги за резидентна грижа и специализирани социални услуги за лица с увреждания на територията на община Каварна",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 4516434.77,
+      "totalEur": 4516434.77,
+      "paidEur": 1652586.03,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Каварна",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG05SFPR003-1.001-0236",
+      "title": "Топъл обяд в Община Каварна",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "status"
+        "durationMonths"
       ],
-      "prevTotalEur": 7934.23,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Димитър Павлов Павлов",
-      "detectedAt": "2026-07-06"
+      "prevTotalEur": 142620.55,
+      "totalEur": 181954.11,
+      "paidEur": 121526.83,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Каварна",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

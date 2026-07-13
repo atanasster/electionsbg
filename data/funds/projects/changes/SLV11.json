@@ -1,39 +1,38 @@
 {
   "obshtina": "SLV11",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
       "contractNumber": "BG05SFPR003-1.001-0162",
       "title": "Топъл обяд в Община Котел",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur"
+        "paidEur"
       ],
-      "prevTotalEur": 3546935.25,
+      "prevTotalEur": 3562924.29,
       "totalEur": 3562924.29,
-      "paidEur": 2840842.06,
+      "paidEur": 3071036.92,
       "status": "Сключен",
       "programCode": "2021BG05SFPR003",
       "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Котел",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-4.032-0261",
-      "title": "ЛСС Инкотекс АД, гр. Котел",
+      "contractNumber": "BG16FFPR002-3.011-0014",
+      "title": "Подобряване състоянието на защитени видове птици Черен лешояд (А079 Aegypius monachus), Кръстат орел (А404 Aquila heliaca), Белоглав лешояд (А078 Gyps fulvus), Египетски лешояд (А077 Neophron percnopterus) чрез извършване на подхранвания в площадка в м. \"Коилото\", с. Нейково, общ. Котел",
       "type": "modified",
       "changedFields": [
-        "totalEur"
+        "paidEur"
       ],
-      "prevTotalEur": 437665.84,
-      "totalEur": 437665.85,
-      "paidEur": 0,
+      "prevTotalEur": 142012.96,
+      "totalEur": 142012.96,
+      "paidEur": 41894.92,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Инкотекс АД",
-      "detectedAt": "2026-07-06"
+      "programCode": "2021BG16FFPR002",
+      "programName": "Програма \"Околна среда\" 2021-2027",
+      "beneficiaryName": "Българско екологично дружество Сдружение",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

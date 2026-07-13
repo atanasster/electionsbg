@@ -1,40 +1,24 @@
 {
   "obshtina": "PVN10",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.015-1735",
-      "title": "Изграждане на училищна STEM среда в СУ \"Васил Априлов\" гр. Долна Митрополия",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 129071.85,
-      "totalEur": 129071.85,
-      "paidEur": 128563.82,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Средно училище \"Васил Априлов\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-11.025-0017",
-      "title": "ИСТОРИИ ОТ НЯКОГА",
+      "contractNumber": "BG05SFPR003-1.001-0030",
+      "title": "Топъл обяд в община Долна Митрополия",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "status"
+        "durationMonths"
       ],
-      "prevTotalEur": 9049.87,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Младежко бюро за социални услуги и граждански инициативи",
-      "detectedAt": "2026-07-06"
+      "prevTotalEur": 357793.51,
+      "totalEur": 446427.6,
+      "paidEur": 310466.22,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Долна митрополия",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

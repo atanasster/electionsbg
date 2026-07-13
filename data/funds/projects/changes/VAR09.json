@@ -1,54 +1,40 @@
 {
   "obshtina": "VAR09",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.018-0056",
-      "title": "„Изграждане и оборудване на нови социални и интегрирани здравно-социални услуги за резидентна грижа и специализирани социални услуги за лица с увреждания в Община Вълчи дол“",
+      "contractNumber": "BG05SFPR003-1.001-0038",
+      "title": "Топъл обяд в Община Вълчи дол",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 681737.99,
+      "totalEur": 854082.05,
+      "paidEur": 574127.67,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Вълчи ДОЛ",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0120",
+      "title": "Основен ремонт за енергийно обновяване сградата на НЧ \"Просвета - 1926 г.\", с. Михалич",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 5453592.51,
-      "totalEur": 5453592.51,
-      "paidEur": 1159732.02,
+      "prevTotalEur": 374761.16,
+      "totalEur": 374761.16,
+      "paidEur": 315749.52,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Вълчи ДОЛ",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-4.020-0123",
-      "title": "Основен ремонт за енергийно обновяване сградата на Община Вълчи дол",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 931304,
-      "totalEur": 931304,
-      "paidEur": 821059.41,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Вълчи ДОЛ",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG05SFPR001-2.003-0068",
-      "title": "Подкрепа, развитие и изява на талантите в община Вълчи дол",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 250333.49,
-      "totalEur": 250333.49,
-      "paidEur": 50066.7,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Община Вълчи дол",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG-RRP-1.015-1202",
@@ -59,44 +45,28 @@
       ],
       "prevTotalEur": 185892.02,
       "totalEur": 185892.02,
-      "paidEur": 151072.41,
+      "paidEur": 169155.86,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Средно училище \"Васил Левски\"",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-6.004-4337",
-      "title": "Технологична е екологична модернизация на земеделското стопанство",
+      "contractNumber": "BG-RRP-1.024-0214",
+      "title": "изграждане на дигитален клуб в НЧ Димитър Благоев-1907 - гр.Вълчи дол",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 174000,
-      "totalEur": 174000,
-      "paidEur": 86127.29,
-      "status": "Сключен",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "ЗП Хасан Сали Хасан",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0782",
-      "title": "изграждане на дигитален клуб в Народно читалище Отец Паисий-1927г. - с.Брестак",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 13757.43,
+      "prevTotalEur": 17383.93,
+      "totalEur": 17383.93,
+      "paidEur": 14141.51,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Отец Паисий-1927г. - с.Брестак",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Народно читалище Димитър Благоев-1907 - гр.Вълчи дол",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

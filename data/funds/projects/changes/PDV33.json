@@ -1,71 +1,24 @@
 {
   "obshtina": "PDV33",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.020-0248",
-      "title": "УСТОЙЧИВО ЕНЕРГИЙНО ОБНОВЯВАНЕ НА НАРОДНО ЧИТАЛИЩЕ \"СЪЕДИНЕНИЕ-1875\", ПЛ. \"СЪЕДИНЕНИЕ\" №6, ГР. СЪЕДИНЕНИЕ",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 382571.35,
-      "totalEur": 382571.35,
-      "paidEur": 338849.1,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Съединение",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG05SFPR001-1.010-0063",
-      "title": "„СУ „Недялка Шилева“ - училище без агресия“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 131152.32,
-      "totalEur": 131152.32,
-      "paidEur": 26230,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Средно училище \"Недялка Шилева\" - гр. Съединение",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-13.009-0082",
-      "title": "Устойчива енергия и зелена мобилност в подкрепа на социалните услуги в Община Съединение",
+      "contractNumber": "BG05SFPR003-1.001-0230",
+      "title": "Топъл обяд в община Съдинение",
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur"
+        "grantEur",
+        "durationMonths"
       ],
-      "prevTotalEur": 83257.84,
-      "totalEur": 83257.83,
-      "paidEur": 58080,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
+      "prevTotalEur": 294412.2,
+      "totalEur": 373198.06,
+      "paidEur": 231648.37,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Съединение",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0811",
-      "title": "изграждане на дигитален клуб в Народно Читалище Обзорник 1927 - с.Голям Чардак",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 8176.2,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище Обзорник 1927 - с.Голям Чардак",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     }
   ]
 }

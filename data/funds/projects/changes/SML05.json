@@ -1,24 +1,25 @@
 {
   "obshtina": "SML05",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0071",
-      "title": "Топъл обяд в Община Борино.",
+      "contractNumber": "BG16RFPR001-1.004-0691",
+      "title": "Закупуване оборудване за техническо обслужване и ремонт на автомобили с цел оптимизиране и автоматизиране на дейностите, внедряване на кръгови модели и опазване на околната среда",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "durationMonths"
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 550747.49,
-      "totalEur": 739182.65,
-      "paidEur": 512580.3,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Борино",
-      "detectedAt": "2026-07-06"
+      "prevTotalEur": 102258.38,
+      "totalEur": 102256.28,
+      "paidEur": 76692.21,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Трейд Кар-93 ЕООД",
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG-RRP-1.024-0750",
@@ -29,12 +30,12 @@
       ],
       "prevTotalEur": 17383.92,
       "totalEur": 17383.92,
-      "paidEur": 12878.93,
+      "paidEur": 14710.3,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно Читалище \"Обнова-1939\"",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     }
   ]
 }

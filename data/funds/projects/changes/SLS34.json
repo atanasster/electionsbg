@@ -1,54 +1,54 @@
 {
   "obshtina": "SLS34",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.010-0073",
-      "title": "Основен ремонт и преустройство на съществуващ сграден фонд, ново строителство - пристройка и фотоволтаична инсталация, доставка на оборудване и обзавеждане с оглед реформиране на Дом за стари хора в гр. Тутракан",
+      "contractNumber": "BG05SFPR003-1.001-0244",
+      "title": "„Топъл обяд в Община Тутракан\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 1466721.38,
+      "totalEur": 1466721.38,
+      "paidEur": 1248945.68,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Тутракан",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.032-0290",
+      "title": "Изграждане на локална система за съхранение на енергия с капацитет 1.976 MWh на планирана ФЕЦ в гр. Тутракан",
       "type": "modified",
       "changedFields": [
         "durationMonths"
       ],
-      "prevTotalEur": 1970843.68,
-      "totalEur": 1970843.68,
-      "paidEur": 996832.79,
+      "prevTotalEur": 646600.15,
+      "totalEur": 646600.15,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Тутракан",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Либра българия ООД",
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-1.015-0782",
-      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи (ВОСКС) в Средно училище \"Христо Ботев\"",
+      "contractNumber": "BG-RRP-1.024-0262",
+      "title": "Изграждане на мрежа от дигитален клуб в НЧ\"Васил Йорданов -1942г.\" с Нова Черна.",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 139429.3,
-      "totalEur": 139429.3,
-      "paidEur": 139070.9,
+      "prevTotalEur": 16822.04,
+      "totalEur": 16822.04,
+      "paidEur": 13955.11,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Средно училище \"Христо Ботев\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1080",
-      "title": "Изграждане на дигитален клуб в ХРИСТО БОТЕВ - 1942 г. в с. Белица",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 8327.99,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народни читалище Христо Ботев - 1942 г.",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Народно читалище \"Васил Йорданов -1942г.\" село Нова Черна.",
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG-RRP-1.024-1296",
@@ -59,44 +59,12 @@
       ],
       "prevTotalEur": 14316.17,
       "totalEur": 14316.17,
-      "paidEur": 5458.94,
+      "paidEur": 10259.88,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно Читалище \"Светлина - 1904 г.\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0988",
-      "title": "Изграждане на дигитален клуб в Народно Читалище \"СТЕФАН КАРАДЖА - 1940 Г.\" в с. Шуменци",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 8159.25,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Стефан караджа - 1940 г.\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0901",
-      "title": "Изграждане на дигиталeн клуб в НАРОДНО ЧИТАЛИЩЕ НОВ ЖИВОТ -1942 - Силистра Търновци 000559720 7629 УЛ. ПЪРВА 19",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14175.65,
-      "totalEur": 14175.65,
-      "paidEur": 10398.72,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище НОВ живот -1942 - Силистра Търновци 000559720 7629 УЛ. Първа 19",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     }
   ]
 }

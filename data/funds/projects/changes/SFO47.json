@@ -1,54 +1,40 @@
 {
   "obshtina": "SFO47",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.025-0008",
-      "title": "Рехабилитация и модернизация на общинската инфраструктура - системи за външно изкуствено осветление на общините",
+      "contractNumber": "BG05SFPR003-1.001-0247",
+      "title": "\"Топъл обяд в община Златица\"",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "durationMonths"
       ],
-      "prevTotalEur": 655593.67,
-      "totalEur": 655593.67,
-      "paidEur": 530279.35,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
+      "prevTotalEur": 36511.19,
+      "totalEur": 48181.42,
+      "paidEur": 29208.95,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Златица",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-4.020-0134",
-      "title": "Ремонт и реконструкция на сградата на Народно Читалище „Христо Смирненски-1889“ гр. Златица",
+      "contractNumber": "BG-RRP-1.024-0048",
+      "title": "Изграждане на дигитален клуб /НАРОДНО ЧИТАЛИЩЕ\"ХРИСТО СМИРНЕНСКИ 1889\" ГР.ЗЛАТИЦА",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 574746.15,
-      "totalEur": 574746.15,
-      "paidEur": 569494.52,
+      "prevTotalEur": 17383.92,
+      "totalEur": 17383.92,
+      "paidEur": 16697.75,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Златица",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-4.020-0265",
-      "title": "Въвеждане на мерки за енергийна ефективност на Спортна зала ул. \"Вежен\", гр. Златица",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 488845.31,
-      "totalEur": 488845.31,
-      "paidEur": 483193.76,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Златица",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Народно ЧИТАЛИЩЕ\"ХРИСТО Смирненски 1889\"гр.Златица",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

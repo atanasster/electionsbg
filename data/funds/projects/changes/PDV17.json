@@ -1,120 +1,71 @@
 {
   "obshtina": "PDV17",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0153",
-      "title": "Топъл обяд в Община \"Марица\"",
+      "contractNumber": "BG16RFPR001-1.004-0059",
+      "title": "Устойчив растеж и конкурентоспособност на Солео България ООД",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 582429.96,
-      "totalEur": 585795.24,
-      "paidEur": 464747.77,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община \"Марица\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.012-0333",
-      "title": "Дигитализация на предприятията",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
         "durationMonths"
       ],
-      "prevTotalEur": 33318.85,
-      "totalEur": 33318.84,
+      "prevTotalEur": 102258.38,
+      "totalEur": 102258.38,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Стилиана ООД",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Солео българия ООД",
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-1.024-1008",
-      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ ИЗГРЕВ - 1927 Г. - С. РОГОШ",
+      "contractNumber": "BG-RRP-1.024-1186",
+      "title": "В крак с времето - да се дигитализираме заедно. В помощ на всеки, за когото технологиите са непозната територия.",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 17383.93,
-      "totalEur": 17383.93,
-      "paidEur": 14621.21,
+      "prevTotalEur": 17332.79,
+      "totalEur": 17332.79,
+      "paidEur": 15971.12,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Изгрев - 1927 г. - с. Рогош",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Народно читалище \"Виделина-1928г.\" с. Войводиново",
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0136",
-      "title": "\"Подавам Ви ръка\"",
+      "contractNumber": "BG-RRP-1.024-1038",
+      "title": "„Дигитални хоризонти в читалището“",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 17302.12,
-      "totalEur": 17302.12,
-      "paidEur": 14088.79,
+      "prevTotalEur": 17230.54,
+      "totalEur": 17230.54,
+      "paidEur": 12311.52,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Васил Левски-1930 г.-с. Бенковски\"",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Народно читалище \"Никола Вапцаров-1928 г. с. Костиево\"",
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG16RFPR002-1.005-0030",
       "title": "Услуги за иновации в полза на АМЕК ТОЙС ООД",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur",
+        "status"
       ],
       "prevTotalEur": 15042.21,
       "totalEur": 15042.21,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
+      "paidEur": 15042.21,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR002",
       "programName": "Програма \"Научни изследвания, иновации и дигитализация за интелигентна трансформация\"",
       "beneficiaryName": "Амек тойс ООД",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0678",
-      "title": "Изграждане на мрежа от дигитален клуб в Народно читалище \"Просвета -1938г.- с.Динк\" , община Марица, област Пловдив",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14065.51,
-      "totalEur": 14065.51,
-      "paidEur": 11353.68,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Просвета -1938г.- с.Динк\" , община Марица, област Пловдив",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0729",
-      "title": "Изграждане на мрежа от дигитален клуб в Народно читалище Васил Левски -1943 Област ПЛОВДИВ Община МАРИЦА Град/село СЕЛО ЖЕЛЯЗНО Адрес \"Сребрю Бабаков\" 5, пк.4136",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 12826.51,
-      "totalEur": 12826.51,
-      "paidEur": 10019.43,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Васил Левски -1943 Област Пловдив Община марица Град/село село желязно Адрес \"Сребрю Бабаков\" 5, пк.4136",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     }
   ]
 }

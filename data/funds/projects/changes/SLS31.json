@@ -1,39 +1,22 @@
 {
   "obshtina": "SLS31",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.010-0016",
-      "title": "Основен ремонт, реформиране и обновяване на Дом за стари хора, град Силистра",
+      "contractNumber": "BG16FFPR003-2.006-0076",
+      "title": "Грижа за хората в общините Силистра и Тутракан в СЦР",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 10808200.82,
-      "totalEur": 10808200.82,
-      "paidEur": 7129673.85,
+      "prevTotalEur": 8151689.9,
+      "totalEur": 8151689.9,
+      "paidEur": 4262979.86,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
       "beneficiaryName": "Община Силистра",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-11.018-0043",
-      "title": "Изграждане и оборудване на нови социални услуги на територията на Община Силистра, с. Айдемир",
-      "type": "modified",
-      "changedFields": [
-        "paidEur",
-        "durationMonths"
-      ],
-      "prevTotalEur": 3887061.4,
-      "totalEur": 3887061.4,
-      "paidEur": 1328228.99,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Силистра",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG16RFPR001-1.003-0236",
@@ -45,125 +28,100 @@
       "prevTotalEur": 460162.69,
       "totalEur": 460162.69,
       "paidEur": 215905.78,
-      "status": "В изпълнение (от дата на стартиране)",
+      "status": "В изпълнение (временно спрян)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
       "beneficiaryName": "Ромб ООД",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-13.009-0089",
-      "title": "Устойчив енергиен преход в социалния сектор на община Силистра",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 368715.29,
-      "totalEur": 368715.29,
-      "paidEur": 65795.06,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Силистра",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG05SFPR003-1.001-0148",
-      "title": "Топъл обяд в Община Силистра",
+      "contractNumber": "BG-RRP-4.020-0088",
+      "title": "„Подобряване на енергийната ефективност и създаване на достъпна среда в административната сграда в ПР „Сребърна“",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "durationMonths"
+        "status"
       ],
-      "prevTotalEur": 281667.67,
-      "totalEur": 355529.41,
-      "paidEur": 242228.23,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "prevTotalEur": 148527.64,
+      "totalEur": 118098.35,
+      "paidEur": 118098.35,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Регионална инспекция по околната среда и водите",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-1450",
+      "title": "Адаптиране на работната среда в ЗММ Стомана АД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 121312.59,
+      "totalEur": 117256.76,
+      "paidEur": 117256.76,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ЗММ Стомана АД",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG16FFPR003-2.005-0002",
+      "title": "Техническа подкрепа за изпълнение на ИТИ в Община Силистра",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 31949.61,
+      "totalEur": 31774.54,
+      "paidEur": 31774.54,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
       "beneficiaryName": "Община Силистра",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-1.015-0950",
-      "title": "STEM център \"MICS\" - Учене чрез мотивационни иновации и творчество",
+      "contractNumber": "BG16RFPR001-1.004-1100",
+      "title": "\"Инвестиции в модернизация и разширяване на производствения асортимент на ДИД БГ 2009 ЕООД за подобряване на производствения капацитет и конкурентоспособността\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 27556.08,
+      "totalEur": 27481.32,
+      "paidEur": 20610.99,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ДИД БГ 2009 ЕООД",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0185",
+      "title": "Изграждане на дигитален клуб в НЧ Св.Св. Кирил и Методийй 1966 - гр.Силистра",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 139428.52,
-      "totalEur": 139428.52,
-      "paidEur": 137792.33,
+      "prevTotalEur": 23519.43,
+      "totalEur": 23519.43,
+      "paidEur": 16795.48,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Природоматематическа гимназия \"Свети климент Охридски\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-13.011-0030",
-      "title": "Закупуване на електрическо превозно средство и зарядна станция за предоставяне на социални услуги в Община Силистра",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 58082.76,
-      "totalEur": 58082.76,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Силистра",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0203",
-      "title": "изграждане на дигитален клуб в НЧ Пробуда 1940 - с.Калипетрово",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 17383.93,
-      "totalEur": 17383.93,
-      "paidEur": 10278.31,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Пробуда 1940 - с.Калипетрово",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1149",
-      "title": "Изграждане на дигитален клуб в Народно Читалище \"ДОЧО МИХАЙЛОВ - 1906\" в с. Бабук",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 9600.21,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Дочо Михайлов - 1906\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0957",
-      "title": "Изграждане на мрежа от дигитален клуб в Народно читалище - \"Светлина-1906-Смилец\" , село Смилец , община Силистра, област Силистра.",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 13554.86,
-      "totalEur": 13554.86,
-      "paidEur": 10023.87,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище - \"Светлина-1906-Смилец\" , село Смилец , община Силистра, област Силистра.",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Народно читалище \"Св.Св. Кирил и Методий 1966\" - Силистра",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

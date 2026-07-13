@@ -1,22 +1,22 @@
 {
   "obshtina": "VRC21",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-6.004-3568",
-      "title": "Инвестиции в технологична и екологична модернизация в стопанството на \"АГРО СТИЛ - 06\" ЕООД",
+      "contractNumber": "BG-RRP-1.015-2022",
+      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи (ВОСКС).",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 146839.04,
-      "totalEur": 146839.04,
-      "paidEur": 73419.52,
-      "status": "Сключен",
+      "prevTotalEur": 129099.52,
+      "totalEur": 129099.52,
+      "paidEur": 107471.47,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Агро СТИЛ-06 ЕООД",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Средно училище \"Свети свети кирил и Методий\"",
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG-RRP-1.015-1921",
@@ -27,12 +27,28 @@
       ],
       "prevTotalEur": 92952.87,
       "totalEur": 92952.87,
-      "paidEur": 68887.32,
+      "paidEur": 73241.34,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Основно училище \"В.ЛЕВСКИ\"",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-6.004-0569",
+      "title": "Инвестиции в технологична и екологична модернизация при отглеждане на плодове",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 79002.26,
+      "totalEur": 79002.26,
+      "paidEur": 39443.87,
+      "status": "Сключен",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Елеонора Иванова Димитрова",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

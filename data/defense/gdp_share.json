@@ -1,7 +1,7 @@
 {
   "source": "NATO, Defence Expenditure of NATO Countries (2014–), Table 3 (share of real GDP, 2021 prices).",
   "note": "Bulgaria. The last two years are NATO estimates (e). The 2019 spike is a one-off F-16 down-payment booked that year, not a sustained increase.",
-  "updated": "2026-07-12",
+  "updated": "2026-07-13",
   "targets": {
     "wales2": 2,
     "hagueCore": 3.5,
@@ -31,7 +31,7 @@
     },
     {
       "year": 2019,
-      "pct": 3.14,
+      "pct": 3.15,
       "note": "F-16 down-payment (one-off)"
     },
     {
@@ -48,16 +48,20 @@
     },
     {
       "year": 2023,
-      "pct": 1.94
+      "pct": 1.95
     },
     {
       "year": 2024,
-      "pct": 1.95,
-      "estimate": true
+      "pct": 1.93
     },
     {
       "year": 2025,
-      "pct": 2.06,
+      "pct": 2.13,
+      "estimate": true
+    },
+    {
+      "year": 2026,
+      "pct": 2.22,
       "estimate": true
     }
   ]

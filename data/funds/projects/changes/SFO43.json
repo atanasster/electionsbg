@@ -1,70 +1,40 @@
 {
   "obshtina": "SFO43",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.020-0152",
-      "title": "Подкрепа за устойчиво енергийно обновяване на публичен сграден фонд за култура на територията на община Своге",
+      "contractNumber": "BG05SFPR003-1.001-0205",
+      "title": "Топъл обяд в Община Своге",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 184247.19,
+      "totalEur": 233488.35,
+      "paidEur": 162195.04,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Своге",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-13.009-0119",
+      "title": "\"Зелена мобилност за социални грижи в община Своге\"",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 585098.62,
-      "totalEur": 585098.62,
-      "paidEur": 577080.6,
+      "prevTotalEur": 58082.76,
+      "totalEur": 58082.76,
+      "paidEur": 30168,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Своге",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG05SFPR002-2.012-0060",
-      "title": "Иновативни здравно-социални услуги в община Своге",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 293085,
-      "totalEur": 293085,
-      "paidEur": 234468,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Своге",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-2254",
-      "title": "Изграждане на STEM среда",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 87408.47,
-      "totalEur": 87408.47,
-      "paidEur": 87140.26,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"Васил Левски\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0689",
-      "title": "Дигитален клуб - Народно Читалище \"Пробуда - 1927\", с. Миланово",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14277.31,
-      "totalEur": 14277.31,
-      "paidEur": 13243.97,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Пробуда - 1927\", с. Миланово",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     }
   ]
 }

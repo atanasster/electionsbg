@@ -1,7 +1,23 @@
 {
   "obshtina": "PER36",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
+    {
+      "contractNumber": "BG-RRP-11.010-0079",
+      "title": "РЕКОНСТРУКЦИЯ НА ДОМ ЗА СТАРИ ХОРА „СВ. ИВАН РИЛСКИ“ ГР. РАДОМИР",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 3030762.56,
+      "totalEur": 3030762.56,
+      "paidEur": 2056319.65,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Радомир",
+      "detectedAt": "2026-07-13"
+    },
     {
       "contractNumber": "BG-RRP-1.024-0640",
       "title": "Изграждане на дигитален клуб в град Радомир",
@@ -11,62 +27,12 @@
       ],
       "prevTotalEur": 20451.67,
       "totalEur": 20451.67,
-      "paidEur": 19445.44,
+      "paidEur": 19965.01,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно читалище христо Ботев - 1928",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0235",
-      "title": "Дигитален клуб - Народно Читалище \"Благой Попов - 1927\" с. Дрен",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14285.5,
-      "totalEur": 14285.5,
-      "paidEur": 8409.91,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Благой Попов - 1927\" с. Дрен",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0249",
-      "title": "Изграждане на дигитален клуб в Народно Читалище \"Климент Охридски - 1915\", с. Долни Раковец",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14285.5,
-      "totalEur": 14285.5,
-      "paidEur": 6279.12,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Климент Охридски - 1915 г.",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.019-0015",
-      "title": "Нови умения в \"АК ЕЛЕКТРИК\" АД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 123152.73,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "\"АК Електрик\" АД",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     }
   ]
 }

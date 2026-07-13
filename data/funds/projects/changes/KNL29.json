@@ -1,104 +1,54 @@
 {
   "obshtina": "KNL29",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.020-0187",
-      "title": "Енергийно обновяване на сграда за административно обслужване, гр. Кюстендил, ул. „Демокрация“ № 15",
+      "contractNumber": "BG-RRP-1.008-0006",
+      "title": "Младежки център Кюстендил – ключов фактор за по-добро бъдеще",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 2179215.62,
+      "totalEur": 2179215.62,
+      "paidEur": 1857083.18,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Кюстендил",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-0463",
+      "title": "Изграждане на STEM център в ПРОФЕСИОНАЛНА ГИМНАЗИЯ ПО ТУРИЗЪМ \"НИКОЛА Й.ВАПЦАРОВ\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 129050.98,
+      "totalEur": 129050.98,
+      "paidEur": 128414.15,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Професионална гимназия по туризъм \"Никола Й.ВАПЦАРОВ\"",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0230",
+      "title": "Повишаване на производствения капацитет на „ Уан Шеър Комюнити“ ЕООД",
       "type": "modified",
       "changedFields": [
         "durationMonths"
       ],
-      "prevTotalEur": 1325928.89,
-      "totalEur": 1325928.89,
-      "paidEur": 471025.13,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Кюстендил",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-6.006-0041",
-      "title": "Изграждане на \"Склад за съхранение, сортиране и търговия на едро\", инсталации и оборудване към него.",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 1135042.88,
-      "totalEur": 1135042.88,
-      "paidEur": 562769.72,
-      "status": "Сключен",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Агритим ЕООД",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-13.009-0204",
-      "title": "Повишаване на енергийната ефективност и осигуряване на устойчива мобилност в социалните услуги на Община Кюстендил",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 453600.34,
-      "totalEur": 453600.32,
+      "prevTotalEur": 58654.38,
+      "totalEur": 58654.38,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Кюстендил",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-6.004-3369",
-      "title": "Технологична и екологична модернизация в стопанството на ЗП ИВАЙЛО ВАЛЕРЯНОВ БОРИСОВ",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 207840.15,
-      "totalEur": 207840.15,
-      "paidEur": 103920.07,
-      "status": "Сключен",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "ЗП Ивайло Валерянов Борисов",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-6.004-4237",
-      "title": "Технологична и екологична модернизация на Земеделски Стопанин МАРИЯ ГЕОРГИЕВА СТЕФАНОВА (ЗС Мария Стефанова)",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 77987.35,
-      "totalEur": 77987.35,
-      "paidEur": 38993.67,
-      "status": "Сключен",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Земеделски Стопанин Мария Георгиева Стефанова",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-12.014-0029",
-      "title": "„Изграждане на модулна амбулатория за извънболнична помощ в с. Вратца, община Кюстендил\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 42055.04,
-      "totalEur": 42046.23,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Кюстендил",
-      "detectedAt": "2026-07-06"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Уан шеър комюнити ЕООД",
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG-RRP-12.014-0039",
@@ -108,14 +58,31 @@
         "totalEur",
         "grantEur"
       ],
-      "prevTotalEur": 42055.04,
-      "totalEur": 42046.23,
+      "prevTotalEur": 42046.23,
+      "totalEur": 42055.04,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Кюстендил",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-12.014-0029",
+      "title": "„Изграждане на модулна амбулатория за извънболнична помощ в с. Вратца, община Кюстендил\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 42046.23,
+      "totalEur": 42055.04,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Кюстендил",
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG-RRP-12.014-0030",
@@ -125,14 +92,14 @@
         "totalEur",
         "grantEur"
       ],
-      "prevTotalEur": 42055.04,
-      "totalEur": 42046.23,
+      "prevTotalEur": 42046.23,
+      "totalEur": 42055.04,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Кюстендил",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG-RRP-12.014-0031",
@@ -142,14 +109,14 @@
         "totalEur",
         "grantEur"
       ],
-      "prevTotalEur": 42055.04,
-      "totalEur": 42046.23,
+      "prevTotalEur": 42046.23,
+      "totalEur": 42055.04,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Кюстендил",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG-RRP-12.014-0032",
@@ -159,14 +126,14 @@
         "totalEur",
         "grantEur"
       ],
-      "prevTotalEur": 42055.04,
-      "totalEur": 42046.23,
+      "prevTotalEur": 42046.23,
+      "totalEur": 42055.04,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Кюстендил",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG-RRP-12.014-0033",
@@ -176,14 +143,14 @@
         "totalEur",
         "grantEur"
       ],
-      "prevTotalEur": 42055.04,
-      "totalEur": 42046.23,
+      "prevTotalEur": 42046.23,
+      "totalEur": 42055.04,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Кюстендил",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG-RRP-12.014-0034",
@@ -193,14 +160,14 @@
         "totalEur",
         "grantEur"
       ],
-      "prevTotalEur": 42055.04,
-      "totalEur": 42046.23,
+      "prevTotalEur": 42046.23,
+      "totalEur": 42055.04,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Кюстендил",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG-RRP-12.014-0035",
@@ -210,14 +177,14 @@
         "totalEur",
         "grantEur"
       ],
-      "prevTotalEur": 42055.04,
-      "totalEur": 42046.23,
+      "prevTotalEur": 42046.23,
+      "totalEur": 42055.04,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Кюстендил",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG-RRP-12.014-0036",
@@ -227,14 +194,14 @@
         "totalEur",
         "grantEur"
       ],
-      "prevTotalEur": 42055.04,
-      "totalEur": 42046.23,
+      "prevTotalEur": 42046.23,
+      "totalEur": 42055.04,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Кюстендил",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG-RRP-12.014-0037",
@@ -244,14 +211,14 @@
         "totalEur",
         "grantEur"
       ],
-      "prevTotalEur": 42055.04,
-      "totalEur": 42046.23,
+      "prevTotalEur": 42046.23,
+      "totalEur": 42055.04,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Кюстендил",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG-RRP-12.014-0038",
@@ -261,46 +228,142 @@
         "totalEur",
         "grantEur"
       ],
-      "prevTotalEur": 42055.04,
-      "totalEur": 42046.23,
+      "prevTotalEur": 42046.23,
+      "totalEur": 42055.04,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Кюстендил",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-1.024-1161",
-      "title": "Изграждане на дигитален клуб в Народно Читалище \"СЪГЛАСИЕ-2007\" в с. Жабокрът",
+      "contractNumber": "BG-RRP-1.024-0800",
+      "title": "Дигитален клуб - НЧ \"Пробуда 1961\" гр. Кюстендил",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 23519.43,
+      "totalEur": 23519.43,
+      "paidEur": 22205.94,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "НЧ \"Пробуда 1961\" гр. Кюстендил",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0077",
+      "title": "Дигитален клуб към Кюстендилска търговско-промишлена палата - достъп, умения и възможности",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 23504.09,
+      "totalEur": 23504.09,
+      "paidEur": 22890.21,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Кюстендилска ТЪРГОВСКО-ПРОМИШЛЕНА палата",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-0246",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 22635.91,
+      "totalEur": 22635.91,
+      "paidEur": 6338.06,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Скорпион 96 ООД",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1181",
+      "title": "Изграждане на дигитален клуб в гр. Кюстендил към Народно читалище \"Генерал Владимир Заимов - 2013\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 20962.96,
+      "totalEur": 20962.96,
+      "paidEur": 16076.92,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"Генерал Владимир Заимов - 2013\" НЧ",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0039",
+      "title": "„Цифрово бъдеще – днес : създаване на дигитален клуб в Регионална библиотека „Ем. Попдимитров“ – гр. Кюстендил“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 17652.66,
+      "totalEur": 17652.66,
+      "paidEur": 16264.05,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Регионална библиотека \"Емануил Попдимитров\" Кюстендил",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0607",
+      "title": "Изграждане на дигитален клуб в село Николичевци",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 1843.8,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище спасовица 2008",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1213",
+      "title": "Изграждане на дигитален клуб в Народно Читалище \"СВЕТИЛО-1919\" в с. Горна Гращица",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
       "prevTotalEur": 14316.17,
       "totalEur": 14316.17,
-      "paidEur": 9704.38,
+      "paidEur": 8718.07,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"СЪГЛАСИЕ-2007\"",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Народно Читалище \"СВЕТИЛО-1919\" с. Горна Гращица",
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-1.024-1204",
-      "title": "„Изграждане на модерен дигитален клуб в Народно Читалище „Димитър Каляшки-1920“, село Жиленци",
+      "contractNumber": "BG-RRP-1.024-0722",
+      "title": "Изграждане на дигитален клуб в НЧ Светлина 1871 с. Соволяно, общ Кюстендил",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
       "prevTotalEur": 14316.17,
       "totalEur": 14316.17,
-      "paidEur": 10956.3,
+      "paidEur": 11258.01,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище „Димитър Каляшки-1920“, село Жиленци",
-      "detectedAt": "2026-07-06"
+      "beneficiaryName": "Народно Читалище \"Светлина 1871\" с.Соволяно, общ. Кюстендил",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

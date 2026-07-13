@@ -1,114 +1,38 @@
 {
   "obshtina": "LOV19",
-  "generatedAt": "2026-07-06T08:55:09.363Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-1.010-0203",
-      "title": "„Училище за доброта – изграждаме свят без тормоз и с повече човечност“",
-      "type": "new",
-      "totalEur": 165559.59,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Обединено училище \"Неофит Рилски\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG05SFPR001-1.004-0008",
-      "title": "Аз обичам България",
+      "contractNumber": "BG05SFPR003-1.001-0098",
+      "title": "Топъл обяд в община Луковит",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 255045.49,
-      "totalEur": 255045.49,
-      "paidEur": 156759.91,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
+      "prevTotalEur": 695356.37,
+      "totalEur": 695356.37,
+      "paidEur": 603331,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Луковит",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     },
     {
-      "contractNumber": "BG-RRP-4.032-0164",
-      "title": "Система за съхранение на елeктроенергия с инсталирана мощност 0.4 MW към съществуваща фотоволтаична електроцентрала в п.и. 44327.502.9892, УПИ I, кв. 241, гр. Луковит, общ. Луковит",
-      "type": "modified",
-      "changedFields": [
-        "totalEur"
-      ],
-      "prevTotalEur": 225088.57,
-      "totalEur": 225088.58,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Българска енергийна компания ЕООД",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0326",
-      "title": "Адаптиране на работната среда в \"БАЛКАНСКИ ЦЕНТЪР ДИПЛОМАТ\" ООД",
+      "contractNumber": "BG05SFPR001-1.004-0001",
+      "title": "Човешка библиотека – преживяно, научено, разбрано и оценено",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 60213.24,
-      "totalEur": 60213.24,
-      "paidEur": 36623.74,
+      "prevTotalEur": 112288.9,
+      "totalEur": 112288.9,
+      "paidEur": 89831.12,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Балкански център дипломат ООД",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0894",
-      "title": "Изграждане на дигитален клуб в НЧ\"Христо Ботев-1895 г.\"- село Дерманци",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 17383.92,
-      "totalEur": 17383.92,
-      "paidEur": 15064.49,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище\"Христо Ботев-1895 г.\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0917",
-      "title": "Изграждане на дигитален клуб в с.Торос , общ.Луковит",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14111.66,
-      "totalEur": 14111.66,
-      "paidEur": 11973.5,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Борба - 1895 г.\"",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0889",
-      "title": "Изграждане на дигитален клуб в с.Румянцево , общ.Ловеч",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14111.66,
-      "totalEur": 14111.66,
-      "paidEur": 11744.63,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Димитър Благоев - 1895 г.\"",
-      "detectedAt": "2026-07-06"
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Основно училище \"Свети Свети Кирил и Методий\"",
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG-RRP-1.024-1266",
@@ -119,12 +43,28 @@
       ],
       "prevTotalEur": 14111.66,
       "totalEur": 14111.66,
-      "paidEur": 11872.24,
+      "paidEur": 12155.64,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно читалище \"Учител -1921г.",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0500",
+      "title": "Изграждане на дигитален клуб в с.Беленци , общ.Луковит",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14111.66,
+      "totalEur": 14111.66,
+      "paidEur": 9426.89,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно ЧИТАЛИЩЕ\"ТОДОР КАБЛЕШКОВ-1918Г.\"",
+      "detectedAt": "2026-07-13"
     },
     {
       "contractNumber": "BG-RRP-1.024-1044",
@@ -135,66 +75,12 @@
       ],
       "prevTotalEur": 14111.66,
       "totalEur": 14111.66,
-      "paidEur": 11903.21,
+      "paidEur": 12093.71,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Отец Паисий - 1926г.",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-11.025-0016",
-      "title": "Представяне пред българската публика на съвременна българска продукция - \"Прожекция на филм и изложба за Райна Кабаиванска\".",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 8768.66,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Читалище \"Дико Илиев-1904 г.\"с. Карлуково",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-11.025-0013",
-      "title": "1. Представяне пред българската публика на съвременна българска продукция - Прожекция на филм за Райна Кабаиванска. 2. Изложба за Райна Кабаиванска. 3. Представяне на класически български филм. 4. Представяне на съвременна изложба на български автор.",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 8743.09,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Читалище \"Съзнание 1895\", гр. Луковит",
-      "detectedAt": "2026-07-06"
-    },
-    {
-      "contractNumber": "BG-RRP-11.025-0116",
-      "title": "Представяне пред българската публика на съвременна българска продукция - \"Прожекция на филм и изложба за Райна Кабаиванска\".",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 8768.66,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Читалище \"Христо Ботев-1911\"с. Тодоричене",
-      "detectedAt": "2026-07-06"
+      "detectedAt": "2026-07-13"
     }
   ]
 }

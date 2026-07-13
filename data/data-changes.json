@@ -1,6 +1,61 @@
 {
-  "updatedAt": "2026-07-12T20:06:03.066Z",
+  "updatedAt": "2026-07-13T10:06:49.590Z",
   "entries": [
+    {
+      "timestamp": "2026-07-13T10:06:49.590Z",
+      "date": "2026-07-13",
+      "skill": "customs_excise_register",
+      "summary": "Митници: регистър на лицензите за акцизни складове (563 оператора, 292 активни)",
+      "source": "Агенция „Митници\" (BACIS)"
+    },
+    {
+      "timestamp": "2026-07-13T10:00:48.786Z",
+      "date": "2026-07-13",
+      "skill": "update-defense",
+      "summary": "Отбрана: разходи по НАТО (издание 2026) — дял от БВП 2.13%/2.22% (прогноза), структура и сравнение със съседи",
+      "source": "NATO — Defence Expenditure of NATO Countries (2026)"
+    },
+    {
+      "timestamp": "2026-07-13T09:23:47.301Z",
+      "date": "2026-07-13",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-07-12 (+1 daily archive; 1,391,881 store rows, 241 settlements, 208 chains)",
+      "source": "КЗП Колко струва (retail prices)"
+    },
+    {
+      "timestamp": "2026-07-13T09:19:06.318Z",
+      "date": "2026-07-13",
+      "skill": "update-noi",
+      "summary": "Пенсии: статистически годишник (до 2024) и частни пенсионни фондове (2026, I тримесечие)",
+      "source": "НОИ / КФН"
+    },
+    {
+      "timestamp": "2026-07-13T07:22:10.440Z",
+      "date": "2026-07-13",
+      "skill": "update-funds",
+      "summary": "Еврофондове (ИСУН проекти): 54 нови и 870 променени договора; €43.9 млрд. общо",
+      "source": "ИСУН 2020 (eufunds.bg)"
+    },
+    {
+      "timestamp": "2026-07-13T07:19:07.980Z",
+      "date": "2026-07-13",
+      "skill": "update-regional",
+      "summary": "Регионални показатели: обновени данни по области (нетна миграция, БВП, НСИ)",
+      "source": "Eurostat NUTS3 / НСИ / АЗ",
+      "links": [
+        {
+          "to": "/demographics/regions",
+          "labelKey": "data_changes_link_regions_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-13T07:18:22.855Z",
+      "date": "2026-07-13",
+      "skill": "update-procurement",
+      "summary": "Обществени поръчки: нови процедури (търгове) до 2026-07-12",
+      "source": "ЦАИС ЕОП (АОП)"
+    },
     {
       "timestamp": "2026-07-12T20:06:03.066Z",
       "date": "2026-07-12",
