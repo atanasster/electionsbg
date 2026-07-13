@@ -89,7 +89,13 @@ export const ContractDetailScreen: FC = () => {
             label: t("procurement_contracts_title"),
             to: "/procurement/contracts",
           },
-          { label: c.title || t("contract_untitled") || "Untitled contract" },
+          {
+            label:
+              splitContractTitle(c.title).main ||
+              c.title ||
+              t("contract_untitled") ||
+              "Untitled contract",
+          },
         ]}
       />
       <header className="space-y-2">
@@ -116,11 +122,11 @@ export const ContractDetailScreen: FC = () => {
           return (
             <div className="flex items-start gap-2">
               <div className="min-w-0">
-                <h1 className="text-lg md:text-xl font-semibold leading-snug max-w-[52ch]">
+                <h1 className="text-lg md:text-xl font-semibold leading-snug max-w-[70ch]">
                   {main}
                 </h1>
                 {lotLabel && lotText ? (
-                  <p className="mt-1.5 text-sm text-muted-foreground leading-snug max-w-[60ch]">
+                  <p className="mt-1.5 text-sm text-muted-foreground leading-snug max-w-[80ch]">
                     <span className="font-medium text-foreground">
                       {lotLabel}:
                     </span>{" "}

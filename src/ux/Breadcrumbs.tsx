@@ -43,7 +43,11 @@ export const Breadcrumbs: FC<{ items: Crumb[]; className?: string }> = ({
                   aria-current={last ? "page" : undefined}
                   className={cn(
                     "truncate",
-                    last && "font-medium text-foreground",
+                    // Cap the current crumb so a long entity name (e.g. a full
+                    // procurement title) ellipsises instead of stretching the
+                    // whole trail. Ancestors stay short, so the cap never bites.
+                    last &&
+                      "max-w-[18rem] font-medium text-foreground sm:max-w-[28rem]",
                   )}
                 >
                   {crumb.label}
