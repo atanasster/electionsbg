@@ -73,7 +73,7 @@ import {
   defenseReadiness,
   defensePeerCompare,
 } from "./defense";
-import { generationMix, electricityPrices } from "./energy";
+import { generationMix, electricityPrices, powerPlants } from "./energy";
 import { riverbedCleaning } from "./vik";
 import { ngoOverview, ngoTopFunded, ngoConflictAwarders } from "./ngo";
 import { governments } from "./govpeople";
@@ -2184,6 +2184,21 @@ export const TOOLS: ToolDef[] = [
       { bg: "Каква е цената на електроенергията?", en: "What is the electricity price?" }, // prettier-ignore
     ],
     run: electricityPrices,
+  },
+  {
+    name: "powerPlants",
+    domain: "indicators",
+    description: {
+      bg: "Електроцентралите в България — въглищни, ядрени, водни, газови и ВЕИ — с мощност и собственост (държавни срещу частни). Отговаря „колко въглищни централи има“ и „кой ги притежава“.",
+      en: "Bulgaria's power plants — coal, nuclear, hydro, gas and renewables — with capacity and ownership (state vs private). Answers 'how many coal plants' and 'who owns them'.",
+    },
+    params: [],
+    examples: [
+      { bg: "Колко въглищни централи има в България?", en: "How many coal power plants does Bulgaria have?" }, // prettier-ignore
+      { bg: "Кои електроцентрали са държавни и кои частни?", en: "Which power plants are state-owned vs private?" }, // prettier-ignore
+      { bg: "Кои са ТЕЦ-овете в комплекса Марица изток?", en: "What are the Maritsa East coal plants?" }, // prettier-ignore
+    ],
+    run: powerPlants,
   },
   {
     name: "nzokDrugs",

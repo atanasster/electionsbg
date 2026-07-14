@@ -16,6 +16,7 @@ import type { Envelope, ToolArgs, ToolContext } from "./types";
 import type {
   EnergyGeneration,
   EnergyPrices,
+  PowerPlantsFile,
 } from "../../src/data/energy/types";
 import {
   ENERGY_FUELS,
@@ -133,5 +134,57 @@ export const electricityPrices = async (
       pct_of_eu: cmp ? `${cmp.pctOfEu}%` : "—",
     },
     provenance: ["energy/prices.json"],
+  };
+};
+
+// "Кои електроцентрали има в България?" — the plant fleet, foregrounding the coal
+// plants and their ownership (state vs the private/opaque fleet). The physical
+// companion to the state procurement pack, which lists only state awarders.
+export const powerPlants = async (
+  _args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const data = await fetchData<PowerPlantsFile>("/energy/plants.json");
+  const coal = data.plants
+    .filter((p) => p.fuel === "coal")
+    .sort((a, b) => (b.capacityMw ?? 0) - (a.capacityMw ?? 0));
+  const totalMw = data.plants.reduce((a, p) => a + (p.capacityMw ?? 0), 0);
+  const stateMw = data.plants
+    .filter((p) => p.ownership === "state" || p.ownership === "jv")
+    .reduce((a, p) => a + (p.capacityMw ?? 0), 0);
+  const coalState = coal.filter(
+    (p) => p.ownership === "state" || p.ownership === "jv",
+  ).length;
+
+  return {
+    tool: "powerPlants",
+    domain: "indicators",
+    kind: "series",
+    title: bg ? "Въглищни централи в България" : "Bulgaria's coal power plants",
+    subtitle: bg
+      ? `Инсталирана мощност по централа · изход от въглищата до ${data.coalExitYear} г.`
+      : `Installed capacity by plant · coal exit by ${data.coalExitYear}`,
+    categories: coal.map((p) => (bg ? p.name.bg : p.name.en)),
+    series: [
+      {
+        key: "mw",
+        label: bg ? "Мощност (MW)" : "Capacity (MW)",
+        points: coal.map((p) => ({
+          x: bg ? p.name.bg : p.name.en,
+          y: p.capacityMw,
+        })),
+      },
+    ],
+    viz: "bar",
+    facts: {
+      total_gw: `${(totalMw / 1000).toFixed(1)} GW`,
+      state_share: `${Math.round((stateMw / totalMw) * 100)}%`,
+      coal_plants: coal.length,
+      coal_state: coalState,
+      coal_private: coal.length - coalState,
+      coal_exit: data.coalExitYear,
+    },
+    provenance: ["energy/plants.json"],
   };
 };

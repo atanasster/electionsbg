@@ -69,6 +69,23 @@ shows BG vs the EU average and BG's % of it (~47% — among the lowest in the EU
 `nrg_pc_205` is INDUSTRIAL electricity (not gas); household gas is `nrg_pc_202` —
 add only if the bill-decomposition tile grows.
 
+## Step 2b — Power-plant fleet (`data/energy/plants.json`) — CURATED
+
+```
+npx tsx scripts/energy/build_plants.ts
+```
+
+The asset-level plant tracker behind the "Електроцентрали" tile is **curated**, not
+auto-fetched (the `defense/programs.json` pattern) — GEM's per-plant data is
+CC-BY but gated behind registration. The ~14 significant plants are hand-curated
+in `scripts/energy/build_plants.ts` from Global Energy Monitor + Wikipedia + the
+contracts corpus (EIKs). Update it on a plant open/close, an **ownership change**
+(e.g. the ContourGlobal Марица изток 3 sale), or a GEM/strategy release — NOT on a
+watcher. Ownership is the point: state (БЕХ) vs the private lignite fleet (AES,
+ContourGlobal 27%-НЕК) vs the opaque Kovachki plants (Брикел/Бобов дол).
+
+## Reproducible `updated` stamp
+
 Both fetchers stamp the JSON `updated` field with today's date via `new Date()`
 unless `INGEST_DATE` is set. For a reproducible re-run (so an unchanged refresh
 doesn't churn the date), export `INGEST_DATE=$(date +%F)` once and reuse it across

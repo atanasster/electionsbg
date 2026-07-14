@@ -36,6 +36,7 @@ import {
   type EnergyUniverse,
 } from "@/lib/energyReferenceData";
 import { EnergyGenerationTile } from "./EnergyGenerationTile";
+import { EnergyPlantsTile } from "./EnergyPlantsTile";
 import { EnergyPriceTile } from "./EnergyPriceTile";
 
 // The generic dashboard needs headline money/competition, not a CPV taxonomy —
@@ -213,6 +214,7 @@ export const EnergyThematicTiles: FC = () => {
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <EnergyGenerationTile />
+      <EnergyPlantsTile />
       <PerUnitSpendTile byUnit={byUnit} />
       <InvisibleCapexTile />
       {/* the two thin tiles pair on one row */}

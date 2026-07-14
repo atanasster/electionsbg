@@ -61,6 +61,41 @@ export const RENEWABLE_KEYS = [
   "otherRenewables",
 ];
 
+// ── Power-plant fleet (asset-level tracker) ─────────────────────────────────
+export type PlantFuel = "nuclear" | "coal" | "hydro" | "gas" | "wind" | "solar";
+
+export type PlantOwnership = "state" | "jv" | "private" | "municipal";
+
+export type PlantStatus = "operating" | "planned" | "retiring";
+
+export interface PowerPlant {
+  id: string;
+  name: { bg: string; en: string };
+  fuel: PlantFuel;
+  /** Installed capacity, MW. null for aggregate rows (wind/solar fleets). */
+  capacityMw: number | null;
+  owner: { bg: string; en: string };
+  ownership: PlantOwnership;
+  /** Operator EIK — links to its page when it exists in our data. */
+  eik?: string;
+  /** true → /awarder/:eik (state procurer), false/undefined → /company/:eik. */
+  isAwarder?: boolean;
+  commissioned?: number;
+  /** Planned retirement / phase-out year. */
+  retire?: number;
+  status: PlantStatus;
+  note?: { bg: string; en: string };
+}
+
+export interface PowerPlantsFile {
+  updated: string;
+  source: string;
+  sourceUrl: string;
+  /** Coal phase-out target year (national strategy). */
+  coalExitYear: number;
+  plants: PowerPlant[];
+}
+
 export interface PriceComparison {
   period: string;
   bg: number; // EUR/kWh

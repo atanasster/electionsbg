@@ -150,6 +150,12 @@ export const ENERGY_JOINT_VENTURES: EnergyEntity[] = [
   // title carries чирен|балкан|транзит|компресор (verified 2026-07-12), so there
   // is no separate storage/pipeline awarder to add.
   { eik: "201383265", name: "Ай Си Джи Би АД (ICGB — газов интерконектор Гърция–България)", universe: "gas", ownership: "state" }, // prettier-ignore
+  // ContourGlobal Марица изток 3 (ТЕЦ, 908 MW): 73% ContourGlobal (KKR) / 27% НЕК
+  // (state, via БЕХ). Enel sold its 73% to ContourGlobal (2011, €230M); НЕК kept
+  // 27%. Awards ~€224M ЗОП in the corpus. Excluded from the state group total
+  // (majority private) — surfaced as a state-linked associate, like ICGB.
+  // ⚠ Ownership in flux: announced sale to "Nomad Energy Company" (2026-07).
+  { eik: "130020522", name: "КонтурГлобал Марица изток 3 АД (ТЕЦ, 27% НЕК)", universe: "coal", ownership: "state" }, // prettier-ignore
 ];
 
 // ⚠ INVISIBLE IN THE CORPUS — do NOT expect these in the group model:

@@ -378,6 +378,11 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Цената на тока за домакинствата в България е ${f(env, "bg_price")} (${f(env, "period")}), спрямо ${f(env, "eu_price")} средно за ЕС — тоест ${f(env, "pct_of_eu")} от средното, сред най-ниските в съюза.`
         : `Bulgaria's household electricity price is ${f(env, "bg_price")} (${f(env, "period")}), vs ${f(env, "eu_price")} for the EU average — ${f(env, "pct_of_eu")} of it, among the lowest in the union.`;
+    case "powerPlants":
+      if (!env.facts.coal_plants) return env.title;
+      return lang === "bg"
+        ? `България има ${f(env, "coal_plants")} въглищни централи (${f(env, "coal_state")} държавни/смесени, ${f(env, "coal_private")} частни) при обща инсталирана мощност ~${f(env, "total_gw")}, от която ${f(env, "state_share")} държавна/смесена. Изходът от въглищата е планиран до ${f(env, "coal_exit")} г.`
+        : `Bulgaria has ${f(env, "coal_plants")} coal power plants (${f(env, "coal_state")} state/JV, ${f(env, "coal_private")} private) out of ~${f(env, "total_gw")} of installed capacity, ${f(env, "state_share")} of it state/JV. The coal exit is targeted for ${f(env, "coal_exit")}.`;
     case "nzokDrugs":
       if (!env.facts.top_inn) return env.title;
       return lang === "bg"

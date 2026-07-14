@@ -2118,6 +2118,15 @@ export const route = (question: string, ctx: ToolContext): Route => {
       return { tool: "defenseSpending", args: {} };
     }
   }
+  // power-plant fleet (asset-level) — "which plants exist / who owns them". Bare
+  // "централ" also matches Централна избирателна комисия, so require a plant/fuel
+  // qualifier alongside it.
+  if (
+    has(q, "електроцентрал", "power plant", "power station", "coal plant") ||
+    (has(q, "централ") &&
+      has(q, "въглищ", "ядрен", "газов", "мощност", "електро"))
+  )
+    return { tool: "powerPlants", args: {} };
   // energy physics (the /sector/energy tiles) — the generation mix / net trade
   // and the household electricity price. Physics-focused cues only, so procurement
   // ("колко харчи БЕХ за поръчки") falls through to the generic procurement tools.

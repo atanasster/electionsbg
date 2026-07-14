@@ -2996,6 +2996,26 @@ const CASES: Case[] = [
     q: "кои са областите в източна България?",
     tool: null,
   },
+  {
+    q: "Колко въглищни централи има в България?",
+    tool: "powerPlants",
+    facts: { coal_plants: /\d/, coal_exit: /20\d\d/ },
+  },
+  {
+    q: "Кои електроцентрали са държавни и кои частни?",
+    tool: "powerPlants",
+  },
+  {
+    q: "How many coal power plants does Bulgaria have?",
+    lang: "en",
+    tool: "powerPlants",
+  },
+  {
+    // collision guard: "Централна" (ЦИК) contains "централ" but has no fuel word
+    // → must NOT route to powerPlants.
+    q: "Каква е Централната избирателна комисия?",
+    tool: "nationalResults",
+  },
 ];
 
 // Raw-arg cases: the LLM router emits {tool, args} directly and can't know the
