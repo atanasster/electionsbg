@@ -131,18 +131,51 @@ const PLANTS: PowerPlant[] = [
     eik: "126526421",
     status: "operating",
   },
-  // ── Hydro (НЕК cascade) ──────────────────────────────────────────────────
+  // ── Hydro — the НЕК cascades (all state; ~2.7 GW over 31 plants) ──────────
   {
-    id: "nek-hydro",
-    name: { bg: "НЕК — водни каскади (31 ВЕЦ/ПАВЕЦ)", en: "NEK — hydro cascade (31 plants)" }, // prettier-ignore
+    id: "hydro-belmeken",
+    name: { bg: "Каскада „Белмекен–Сестримо–Чаира“", en: "Belmeken–Sestrimo–Chaira cascade" }, // prettier-ignore
     fuel: "hydro",
-    capacityMw: 2740,
-    owner: { bg: "Национална електрическа компания (БЕХ)", en: "National Electric Company (BEH)" }, // prettier-ignore
+    capacityMw: 1599,
+    owner: { bg: "НЕК (БЕХ)", en: "NEK (BEH)" },
     ownership: "state",
     eik: "000649348",
     isAwarder: true,
     status: "operating",
-    note: { bg: "Най-голяма е ПАВЕЦ „Чаира“ (864 MW) — извън строя след авария от 2022 г.", en: "The largest is the Chaira PSPP (864 MW) — offline since a 2022 accident." }, // prettier-ignore
+    note: { bg: "Включва ПАВЕЦ „Чаира“ (864 MW) — извън строя след авария от 2022 г.", en: "Includes the Chaira PSPP (864 MW) — offline since a 2022 accident." }, // prettier-ignore
+  },
+  {
+    id: "hydro-dospat-vacha",
+    name: { bg: "Каскада „Доспат–Въча“", en: "Dospat–Vacha cascade" },
+    fuel: "hydro",
+    capacityMw: 500,
+    owner: { bg: "НЕК (БЕХ)", en: "NEK (BEH)" },
+    ownership: "state",
+    eik: "000649348",
+    isAwarder: true,
+    status: "operating",
+  },
+  {
+    id: "hydro-arda",
+    name: { bg: "Каскада „Арда“ (Кърджали, Ивайловград, Студен кладенец)", en: "Arda cascade" }, // prettier-ignore
+    fuel: "hydro",
+    capacityMw: 325,
+    owner: { bg: "НЕК (БЕХ)", en: "NEK (BEH)" },
+    ownership: "state",
+    eik: "000649348",
+    isAwarder: true,
+    status: "operating",
+  },
+  {
+    id: "hydro-batak",
+    name: { bg: "Каскада „Баташки водносилов път“", en: "Batak cascade" },
+    fuel: "hydro",
+    capacityMw: 254,
+    owner: { bg: "НЕК (БЕХ)", en: "NEK (BEH)" },
+    ownership: "state",
+    eik: "000649348",
+    isAwarder: true,
+    status: "operating",
   },
   // ── Gas ──────────────────────────────────────────────────────────────────
   {
@@ -156,29 +189,92 @@ const PLANTS: PowerPlant[] = [
     status: "operating",
     note: { bg: "Бивша държавна въглищна централа, преминала на газ; резерв за сигурност.", en: "A former state coal plant, converted to gas; a security reserve." }, // prettier-ignore
   },
-  // ── Renewables (aggregate — many small, mostly private/distributed) ───────
+  // ── Wind (private; ~0.7 GW) ──────────────────────────────────────────────
   {
-    id: "wind-fleet",
-    name: { bg: "Вятърни паркове (общо)", en: "Wind farms (total)" },
+    id: "wind-sveti-nikola",
+    name: { bg: "Вятърен парк „Свети Никола“ (Каварна)", en: "St. Nikola wind farm (Kavarna)" }, // prettier-ignore
     fuel: "wind",
-    capacityMw: 700,
+    capacityMw: 156,
+    owner: { bg: "AES Гео Енерджи (частна)", en: "AES Geo Energy (private)" },
+    ownership: "private",
+    commissioned: 2010,
+    status: "operating",
+    note: { bg: "Най-големият вятърен парк в страната (52 турбини Vestas).", en: "The country's largest wind farm (52 Vestas turbines)." }, // prettier-ignore
+  },
+  {
+    id: "wind-suvorovo",
+    name: { bg: "Вятърен парк „Суворово“", en: "Suvorovo wind farm" },
+    fuel: "wind",
+    capacityMw: 60,
+    owner: { bg: "MET Group (частна)", en: "MET Group (private)" },
+    ownership: "private",
+    status: "operating",
+  },
+  {
+    id: "wind-other",
+    name: { bg: "Други вятърни паркове", en: "Other wind farms" },
+    fuel: "wind",
+    capacityMw: 480,
     owner: { bg: "предимно частни", en: "mostly private" },
     ownership: "private",
     status: "operating",
-    note: { bg: "Най-голям е АЕС „Свети Никола“ (Калиакра, 156 MW).", en: "The largest is AES St. Nikola (Kaliakra, 156 MW)." }, // prettier-ignore
+  },
+  // ── Solar (private/distributed; post-2022 boom, ~3 GW) ────────────────────
+  {
+    id: "solar-st-george",
+    name: { bg: "ФЕЦ „Св. Георги“ (Силистра)", en: "St. George PV park (Silistra)" }, // prettier-ignore
+    fuel: "solar",
+    capacityMw: 229,
+    owner: { bg: "Rezolv Energy (частна)", en: "Rezolv Energy (private)" },
+    ownership: "private",
+    commissioned: 2024,
+    status: "operating",
   },
   {
-    id: "solar-fleet",
-    name: { bg: "Соларни паркове (общо)", en: "Solar farms (total)" },
+    id: "solar-dalgo-pole",
+    name: { bg: "ФЕЦ „Дълго поле“", en: "Dalgo Pole PV park" },
     fuel: "solar",
-    capacityMw: 3000,
-    owner: {
-      bg: "предимно частни/разпределени",
-      en: "mostly private/distributed",
-    },
+    capacityMw: 208,
+    owner: { bg: "Sunterra/Galaxy Re (частна)", en: "Sunterra/Galaxy Re (private)" }, // prettier-ignore
     ownership: "private",
     status: "operating",
-    note: { bg: "Бум след 2022 г. — вече ~18% от производството на ток (2025).", en: "A post-2022 boom — already ~18% of generation (2025)." }, // prettier-ignore
+  },
+  {
+    id: "solar-apriltsi",
+    name: { bg: "ФЕЦ „Априлци“", en: "Apriltsi PV park" },
+    fuel: "solar",
+    capacityMw: 184,
+    owner: { bg: "частна", en: "private" },
+    ownership: "private",
+    status: "operating",
+  },
+  {
+    id: "solar-verila",
+    name: { bg: "ФЕЦ „Верила“ (Дупница)", en: "Verila PV park (Dupnitsa)" },
+    fuel: "solar",
+    capacityMw: 123,
+    owner: { bg: "Eurohold (частна)", en: "Eurohold (private)" },
+    ownership: "private",
+    status: "operating",
+  },
+  {
+    id: "solar-lovech",
+    name: { bg: "ФЕЦ „Ловеч“", en: "Lovech PV park" },
+    fuel: "solar",
+    capacityMw: 106,
+    owner: { bg: "частна", en: "private" },
+    ownership: "private",
+    status: "operating",
+  },
+  {
+    id: "solar-other",
+    name: { bg: "Други соларни паркове (разпределени)", en: "Other solar (distributed)" }, // prettier-ignore
+    fuel: "solar",
+    capacityMw: 1950,
+    owner: { bg: "предимно частни", en: "mostly private" },
+    ownership: "private",
+    status: "operating",
+    note: { bg: "Бум след 2022 г. — соларът вече е ~18% от производството (2025).", en: "A post-2022 boom — solar is already ~18% of generation (2025)." }, // prettier-ignore
   },
 ];
 
